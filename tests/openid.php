@@ -25,6 +25,11 @@ $config = ['openid' => ['enabled' => true, 'issuer' => 'https://hostscope.exampl
         'client_id' => 'peer-client', 'client_secret' => str_repeat('a', 64),
         'redirect_uris' => ['https://peer.example/callback'],
     ]]]];
+openIdExpect(openIdIssuerUrl('https://hostscope.example/openid') === 'https://hostscope.example/openid'
+    && openIdIssuerUrl('https://user:pass@hostscope.example') === null
+    && openIdIssuerUrl('https://hostscope.example/?unexpected=1') === null
+    && openIdIssuerUrl('https://hostscope.example/#fragment') === null,
+    'ambiguous OpenID issuer URL was accepted');
 $createdClient = openIdCreateClient('trusted-app', 'https://trusted.example/callback?source=zogograph');
 openIdExpect($createdClient['client_id'] === 'trusted-app' && preg_match('/^[a-f0-9]{64}$/', $createdClient['client_secret']) === 1,
     'trusted OpenID client did not receive a one-time 256-bit secret');

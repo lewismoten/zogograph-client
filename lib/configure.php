@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 require_once __DIR__ . '/package-runtime.php';
+require_once __DIR__ . '/openid.php';
 
 /*
  * What a config is made of, described once.
@@ -60,8 +61,8 @@ function configFields(array $sample): array
             'label' => 'Public issuer URL',
             'help' => 'The HTTPS URL trusted clients use to discover this provider, for example https://monitor.example.com. Do not include a trailing slash.',
             'default' => (string)($sample['openid']['issuer'] ?? ''),
-            'validate' => static fn(string $value): ?string => $value === '' || (str_starts_with($value, 'https://') && filter_var($value, FILTER_VALIDATE_URL))
-                ? null : 'Enter a complete HTTPS URL.',
+            'validate' => static fn(string $value): ?string => $value === '' || openIdIssuerUrl($value) !== null
+                ? null : 'Enter a complete HTTPS URL without credentials, a query, or a fragment.',
         ],
         [
             'key' => 'openid_signing_private_key',

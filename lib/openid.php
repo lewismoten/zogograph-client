@@ -6,13 +6,20 @@ declare(strict_types=1);
  * valid, and the endpoint enforces authorization code, PKCE, and signed ID
  * tokens rather than presenting a discovery document for an imaginary login. */
 
+/** Returns an unambiguous HTTPS issuer URL, or null when it is unsafe. */
+function openIdIssuerUrl(string $value): ?string
+{
+    $issuer = rtrim(trim($value), '/');
+    $parts = parse_url($issuer);
+    if ($issuer === '' || !is_array($parts) || ($parts['scheme'] ?? '') !== 'https' || !isset($parts['host'])
+        || isset($parts['user']) || isset($parts['pass']) || isset($parts['query']) || isset($parts['fragment'])) return null;
+    return filter_var($issuer, FILTER_VALIDATE_URL) ? $issuer : null;
+}
+
 function openIdIssuer(array $config): ?string
 {
-    $issuer = rtrim(trim((string)($config['openid']['issuer'] ?? '')), '/');
-    if (empty($config['openid']['enabled']) || $issuer === '' || !str_starts_with($issuer, 'https://')) {
-        return null;
-    }
-    return $issuer;
+    if (empty($config['openid']['enabled'])) return null;
+    return openIdIssuerUrl((string)($config['openid']['issuer'] ?? ''));
 }
 
 function openIdDiscovery(array $config): ?array

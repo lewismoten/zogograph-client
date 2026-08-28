@@ -12466,26 +12466,26 @@ function showPeerDialog(row = null) {
     fields.push(fieldRow(label, field, hint));
     return field;
   };
-  const name = input("Short name", row?.name, "Lowercase letters, numbers, hyphens, and underscores.");
+  const name = input(peerText("field_name", {}, "Short name"), row?.name, peerText("field_name_help", {}, "Lowercase letters, numbers, hyphens, and underscores."));
   name.disabled = Boolean(row);
-  const label = input("Label", row?.label, "What people see in this dashboard.");
-  const description = input("Description", row?.description, "Optional operational context, such as the service it runs.");
-  const tags = input("Tags", row?.tags?.join(", "), "Optional comma-separated fleet tags.");
-  const group = input("Group", row?.group, "Optional fleet group; organization only for now.");
-  const environment = input("Environment", row?.environment, "Optional environment, such as production or staging.");
-  const timezone = input("Timezone", row?.timezone, "Optional IANA timezone, such as America/New_York.");
-  const maintenance = input("Maintenance note", row?.maintenance, "Optional expected-offline or maintenance context.");
-  const endpoint = input("Controller delivery endpoint", row?.transport_endpoint || new URL("peer-push.php", window.location.href).href,
-    "HTTPS peer-push.php address the remote will deliver signed readings to.", "url");
-  const base = input("Dashboard URL", row?.base_url, "Optional: HTTPS base address for the OIDC read connection.", "url");
-  const redirect = input("Registered callback URL", row?.redirect_uri,
-    "Optional OIDC callback URL. Configure all OIDC fields together.", "url");
-  const issuer = input("OpenID issuer", row?.issuer, "Optional HTTPS issuer whose discovery document will be checked.", "url");
-  const client = input("Client ID", row?.client_id, "Optional OIDC client ID; needs every OIDC field.");
+  const label = input(peerText("field_label", {}, "Label"), row?.label, peerText("field_label_help", {}, "What people see in this dashboard."));
+  const description = input(peerText("field_description", {}, "Description"), row?.description, peerText("field_description_help", {}, "Optional operational context, such as the service it runs."));
+  const tags = input(peerText("field_tags", {}, "Tags"), row?.tags?.join(", "), peerText("field_tags_help", {}, "Optional comma-separated fleet tags."));
+  const group = input(peerText("field_group", {}, "Group"), row?.group, peerText("field_group_help", {}, "Optional fleet group; organization only for now."));
+  const environment = input(peerText("field_environment", {}, "Environment"), row?.environment, peerText("field_environment_help", {}, "Optional environment, such as production or staging."));
+  const timezone = input(peerText("field_timezone", {}, "Timezone"), row?.timezone, peerText("field_timezone_help", {}, "Optional IANA timezone, such as America/New_York."));
+  const maintenance = input(peerText("field_maintenance", {}, "Maintenance note"), row?.maintenance, peerText("field_maintenance_help", {}, "Optional expected-offline or maintenance context."));
+  const endpoint = input(peerText("field_endpoint", {}, "Controller delivery endpoint"), row?.transport_endpoint || new URL("peer-push.php", window.location.href).href,
+    peerText("field_endpoint_help", {}, "HTTPS peer-push.php address the remote will deliver signed readings to."), "url");
+  const base = input(peerText("field_dashboard_url", {}, "Dashboard URL"), row?.base_url, peerText("field_dashboard_url_help", {}, "Optional: HTTPS base address for the OIDC read connection."), "url");
+  const redirect = input(peerText("field_redirect", {}, "Registered callback URL"), row?.redirect_uri,
+    peerText("field_redirect_help", {}, "Optional OIDC callback URL. Configure all OIDC fields together."), "url");
+  const issuer = input(peerText("field_issuer", {}, "OpenID issuer"), row?.issuer, peerText("field_issuer_help", {}, "Optional HTTPS issuer whose discovery document will be checked."), "url");
+  const client = input(peerText("field_client", {}, "Client ID"), row?.client_id, peerText("field_client_help", {}, "Optional OIDC client ID; needs every OIDC field."));
   const secret = input("Client secret", "", row?.has_secret
-    ? "Leave blank to keep the existing secret."
-    : "Optional; kept only in local config.php. Supply it only with every OIDC field.", "password");
-  showFormDialog(row ? "Edit trusted server" : "Add trusted server", fields, async () => {
+    ? peerText("field_secret_existing", {}, "Leave blank to keep the existing secret.")
+    : peerText("field_secret_help", {}, "Optional; kept only in local config.php. Supply it only with every OIDC field."), "password");
+  showFormDialog(row ? peerText("edit_trusted_server", {}, "Edit trusted server") : peerText("add", {}, "Add trusted server"), fields, async () => {
     const result = await post("peer-save", {
       name: name.value, label: label.value, transport_endpoint: endpoint.value, base_url: base.value, redirect_uri: redirect.value,
       issuer: issuer.value, client_id: client.value, client_secret: secret.value,

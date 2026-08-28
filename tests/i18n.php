@@ -35,6 +35,7 @@ i18nExpect($script !== false && str_contains($script, 'marketplaceText("discover
     'marketplace controls do not use translatable catalog messages');
 i18nExpect($script !== false && str_contains($script, 'function peerText(')
     && str_contains($script, 'peerText("table_transport"') && str_contains($script, 'peerText("overview_title"')
+    && str_contains($script, 'peerText("field_endpoint"') && str_contains($script, 'peerText("field_redirect_help"')
     && str_contains($script, 'function peerPercent(') && is_array($english)
     && isset($english['peer.capacity'], $english['peer.table_transport'], $english['peer.overview_title']),
     'trusted-server controls do not use locale-aware catalog messages');

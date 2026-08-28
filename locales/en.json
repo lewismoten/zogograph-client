@@ -589,5 +589,20 @@
   "peer.collected": "Collected",
   "peer.nothing_collected": "nothing collected",
   "peer.load": "Load",
-  "peer.edit": "Edit"
+  "peer.edit": "Edit",
+  "peer.field_name": "Short name", "peer.field_name_help": "Lowercase letters, numbers, hyphens, and underscores.",
+  "peer.field_label": "Label", "peer.field_label_help": "What people see in this dashboard.",
+  "peer.field_description": "Description", "peer.field_description_help": "Optional operational context, such as the service it runs.",
+  "peer.field_tags": "Tags", "peer.field_tags_help": "Optional comma-separated fleet tags.",
+  "peer.field_group": "Group", "peer.field_group_help": "Optional fleet group; organization only for now.",
+  "peer.field_environment": "Environment", "peer.field_environment_help": "Optional environment, such as production or staging.",
+  "peer.field_timezone": "Timezone", "peer.field_timezone_help": "Optional IANA timezone, such as America/New_York.",
+  "peer.field_maintenance": "Maintenance note", "peer.field_maintenance_help": "Optional expected-offline or maintenance context.",
+  "peer.field_endpoint": "Controller delivery endpoint", "peer.field_endpoint_help": "HTTPS peer-push.php address the remote will deliver signed readings to.",
+  "peer.field_dashboard_url": "Dashboard URL", "peer.field_dashboard_url_help": "Optional: HTTPS base address for the OIDC read connection.",
+  "peer.field_redirect": "Registered callback URL", "peer.field_redirect_help": "Optional OIDC callback URL. Configure all OIDC fields together.",
+  "peer.field_issuer": "OpenID issuer", "peer.field_issuer_help": "Optional HTTPS issuer whose discovery document will be checked.",
+  "peer.field_client": "Client ID", "peer.field_client_help": "Optional OIDC client ID; needs every OIDC field.",
+  "peer.field_secret_existing": "Leave blank to keep the existing secret.", "peer.field_secret_help": "Optional; kept only in local config.php. Supply it only with every OIDC field.",
+  "peer.edit_trusted_server": "Edit trusted server"
 }

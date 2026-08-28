@@ -48,10 +48,14 @@ if ($action === 'authorize') {
     $challenge = (string)($_GET['code_challenge'] ?? '');
     $method = (string)($_GET['code_challenge_method'] ?? '');
     $state = (string)($_GET['state'] ?? '');
-    $scope = preg_split('/\s+/', trim((string)($_GET['scope'] ?? ''))) ?: [];
+    $scopeRaw = (string)($_GET['scope'] ?? '');
+    $scope = preg_split('/\s+/', trim($scopeRaw)) ?: [];
+    $nonce = isset($_GET['nonce']) ? (string)$_GET['nonce'] : null;
     $client = openIdClient($config, $clientId);
     if (($_GET['response_type'] ?? '') !== 'code' || $client === null || !openIdRedirectAllowed($client, $redirect)
-        || $state === '' || !in_array('openid', $scope, true) || $method !== 'S256'
+        || !openIdOpaqueAuthorizeValueValid($state, 2048) || !openIdScopesValid($scopeRaw, $scope)
+        || !in_array('openid', $scope, true) || $method !== 'S256'
+        || ($nonce !== null && !openIdOpaqueAuthorizeValueValid($nonce, 255))
         || !preg_match('/^[A-Za-z0-9_-]{43,128}$/', $challenge)) {
         $json(['error' => 'invalid authorization request'], 400);
     }
@@ -59,7 +63,7 @@ if ($action === 'authorize') {
         'groups' => array_values(array_filter((array)($_SESSION['groups'] ?? ['Administrators']), 'is_string'))];
     $pdo = db($config);
     $code = openIdCreateCode($pdo, $clientId, $redirect, $challenge, $identity['username'],
-        $identity['groups'], isset($_GET['nonce']) ? (string)$_GET['nonce'] : null);
+        $identity['groups'], $nonce);
     logAction($pdo, 'openid_authorize', $clientId, 'ok', 0, 0, 'authorization code issued');
     header('Cache-Control: no-store');
     header('Location: ' . $redirect . (str_contains($redirect, '?') ? '&' : '?')

@@ -30,6 +30,12 @@ openIdExpect(openIdIssuerUrl('https://hostscope.example/openid') === 'https://ho
     && openIdIssuerUrl('https://hostscope.example/?unexpected=1') === null
     && openIdIssuerUrl('https://hostscope.example/#fragment') === null,
     'ambiguous OpenID issuer URL was accepted');
+openIdExpect(openIdOpaqueAuthorizeValueValid('opaque-state_123', 2048)
+    && !openIdOpaqueAuthorizeValueValid("state\r\nLocation: https://attacker.example", 2048)
+    && !openIdOpaqueAuthorizeValueValid(str_repeat('x', 2049), 2048)
+    && openIdScopesValid('openid profile groups', ['openid', 'profile', 'groups'])
+    && !openIdScopesValid(str_repeat('openid ', 100), array_fill(0, 100, 'openid')),
+    'unbounded or unsafe OpenID authorization values were accepted');
 $createdClient = openIdCreateClient('trusted-app', 'https://trusted.example/callback?source=zogograph');
 openIdExpect($createdClient['client_id'] === 'trusted-app' && preg_match('/^[a-f0-9]{64}$/', $createdClient['client_secret']) === 1,
     'trusted OpenID client did not receive a one-time 256-bit secret');

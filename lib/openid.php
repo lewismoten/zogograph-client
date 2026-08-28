@@ -52,6 +52,23 @@ function openIdBase64Url(string $value): string
     return rtrim(strtr(base64_encode($value), '+/', '-_'), '=');
 }
 
+/** Keeps echoed authorization values bounded and free of header-breaking controls. */
+function openIdOpaqueAuthorizeValueValid(string $value, int $maximumLength): bool
+{
+    return $value !== '' && strlen($value) <= $maximumLength
+        && preg_match('/^[\x20-\x7E]+$/D', $value) === 1;
+}
+
+/** @param list<string> $scopes */
+function openIdScopesValid(string $raw, array $scopes): bool
+{
+    if (strlen($raw) > 512 || $scopes === [] || count($scopes) > 10) return false;
+    foreach ($scopes as $scope) {
+        if (!is_string($scope) || !preg_match('/^[A-Za-z][A-Za-z0-9._-]{0,63}$/D', $scope)) return false;
+    }
+    return true;
+}
+
 /** Creates a dedicated provider key; callers decide where its private PEM lives. */
 function openIdGenerateSigningKey(): string
 {

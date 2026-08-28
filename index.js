@@ -8520,7 +8520,7 @@ async function saveScans() {
 const chartNames = { known: null };
 
 async function loadChartNames() {
-  if (chartNames.known || !state.signedIn) return chartNames.known;
+  if (chartNames.known || !state.signedIn || disabledCoreRoutes.has("charts")) return chartNames.known;
 
   try {
     chartNames.known = (await api("charts")).charts;
@@ -23194,6 +23194,7 @@ function applyCoreFeatureVisibility(features) {
       removeUnavailablePackageDashboardPages(new Set());
       ZogographI18n.clearPackageCatalogs();
     }
+    if (feature.id === "charts") chartNames.known = {};
   }
 }
 

@@ -69,6 +69,10 @@ const CORE_FEATURES = [
         'dashboard_routes' => ['sys-packages'],
         'setup_section' => 'features',
     ],
+    'charts' => [
+        'dashboard_routes' => ['charts'],
+        'setup_section' => 'features',
+    ],
 ];
 
 /** Missing settings deliberately preserve existing installations. */
@@ -109,6 +113,7 @@ function coreFeatureForAction(string $action): ?string
         'package-runtime-custody-envelope-store', 'package-runtime-custody-recovery-drill'], true)) return 'encryption';
     if ($action === 'alerts' || str_starts_with($action, 'alert-')) return 'alerts';
     if ($action === 'uptime') return 'uptime';
+    if ($action === 'charts' || $action === 'chart-series') return 'charts';
     if ($action === 'package-i18n' || $action === 'package-pages' || str_starts_with($action, 'package-runtime-')
         || $action === 'package-runtime') return 'packages';
     return null;

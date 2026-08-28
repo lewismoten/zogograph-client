@@ -180,6 +180,15 @@ function configFields(array $sample): array
             'default' => (bool)($sample['core_features']['packages'] ?? true),
         ],
         [
+            'key' => 'core_features_charts',
+            'section' => 'features',
+            'path' => ['core_features', 'charts'],
+            'type' => 'bool',
+            'label' => 'Chart history core feature',
+            'help' => 'Disabling this removes Over time, blocks chart catalog and series APIs, and prevents assistant chart tools from reading or rendering chart history. Collectors and the current overview remain available.',
+            'default' => (bool)($sample['core_features']['charts'] ?? true),
+        ],
+        [
             'key' => 'openid_enabled',
             'section' => 'openid',
             'path' => ['openid', 'enabled'],

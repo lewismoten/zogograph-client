@@ -8,7 +8,7 @@ function coreFeatureExpect(bool $condition, string $message): void { if (!$condi
 
 $legacy = ['ai' => ['enabled' => true]];
 coreFeatureExpect(coreFeatureEnabled($legacy, 'assistant'), 'a legacy installation did not preserve the assistant feature');
-$disabled = ['core_features' => ['assistant' => false, 'peers' => false, 'marketplace' => false, 'terminal' => false, 'notes' => false, 'problems' => false, 'storage' => false, 'audit' => false, 'metadata' => false, 'notifications' => false, 'backups' => false, 'encryption' => false, 'alerts' => false, 'uptime' => false, 'packages' => false], 'ai' => ['enabled' => true]];
+$disabled = ['core_features' => ['assistant' => false, 'peers' => false, 'marketplace' => false, 'terminal' => false, 'notes' => false, 'problems' => false, 'storage' => false, 'audit' => false, 'metadata' => false, 'notifications' => false, 'backups' => false, 'encryption' => false, 'alerts' => false, 'uptime' => false, 'packages' => false, 'charts' => false], 'ai' => ['enabled' => true]];
 coreFeatureExpect(!coreFeatureEnabled($disabled, 'assistant') && !aiSettings($disabled)['enabled'],
     'disabled assistant core feature still enabled assistant operations');
 $status = coreFeatureStatus($disabled);
@@ -26,7 +26,8 @@ coreFeatureExpect($status[0]['id'] === 'assistant' && !$status[0]['enabled'] && 
     && $status[11]['id'] === 'encryption' && !$status[11]['enabled'] && in_array('sys-encryption', $status[11]['dashboard_routes'], true)
     && $status[12]['id'] === 'alerts' && !$status[12]['enabled'] && in_array('alerts', $status[12]['dashboard_routes'], true)
     && $status[13]['id'] === 'uptime' && !$status[13]['enabled'] && in_array('uptime', $status[13]['dashboard_routes'], true)
-    && $status[14]['id'] === 'packages' && !$status[14]['enabled'] && in_array('sys-packages', $status[14]['dashboard_routes'], true),
+    && $status[14]['id'] === 'packages' && !$status[14]['enabled'] && in_array('sys-packages', $status[14]['dashboard_routes'], true)
+    && $status[15]['id'] === 'charts' && !$status[15]['enabled'] && in_array('charts', $status[15]['dashboard_routes'], true),
     'core feature status does not expose its disabled dashboard boundary');
 coreFeatureExpect(coreFeatureForAction('ai-start') === 'assistant' && coreFeatureForAction('peer-test') === 'peers'
     && coreFeatureForAction('marketplace-install') === 'marketplace'
@@ -36,7 +37,7 @@ coreFeatureExpect(coreFeatureForAction('ai-start') === 'assistant' && coreFeatur
     && coreFeatureForAction('clear-audit') === 'audit' && coreFeatureForAction('description-save') === 'metadata'
     && coreFeatureForAction('email-save') === 'notifications' && coreFeatureForAction('backups') === 'backups'
     && coreFeatureForAction('encryption-seal') === 'encryption' && coreFeatureForAction('alert-mute') === 'alerts'
-    && coreFeatureForAction('uptime') === 'uptime' && coreFeatureForAction('package-runtime-enable') === 'packages'
+    && coreFeatureForAction('uptime') === 'uptime' && coreFeatureForAction('charts') === 'charts' && coreFeatureForAction('package-runtime-enable') === 'packages'
     && coreFeatureDependenciesForAction('package-runtime-custody-envelope-store') === ['encryption', 'packages']
     && coreFeatureForAction('overview') === null, 'core feature API action mapping is incomplete or overbroad');
 try { requireCoreFeatureAccess($disabled, 'ai-start'); throw new RuntimeException('disabled assistant route was accepted'); }
@@ -69,6 +70,8 @@ try { requireCoreFeatureAccess($disabled, 'uptime'); throw new RuntimeException(
 catch (ActionRefused $error) { coreFeatureExpect($error->getMessage() === 'this core feature is disabled', 'disabled uptime route used an unsafe refusal'); }
 try { requireCoreFeatureAccess($disabled, 'package-runtime-enable'); throw new RuntimeException('disabled package-management route was accepted'); }
 catch (ActionRefused $error) { coreFeatureExpect($error->getMessage() === 'this core feature is disabled', 'disabled package-management route used an unsafe refusal'); }
+try { requireCoreFeatureAccess($disabled, 'chart-series'); throw new RuntimeException('disabled chart-history route was accepted'); }
+catch (ActionRefused $error) { coreFeatureExpect($error->getMessage() === 'this core feature is disabled', 'disabled chart-history route used an unsafe refusal'); }
 $packagesDisabled = ['core_features' => ['packages' => false, 'encryption' => true]];
 try { requireCoreFeatureAccess($packagesDisabled, 'package-runtime-custody-envelope-store'); throw new RuntimeException('disabled package management still accepted custody storage'); }
 catch (ActionRefused $error) { coreFeatureExpect($error->getMessage() === 'this core feature is disabled', 'disabled package custody boundary used an unsafe refusal'); }
@@ -84,7 +87,8 @@ coreFeatureExpect(is_string($api) && str_contains($api, "requireCoreFeatureAcces
 coreFeatureExpect(is_string($dashboard) && str_contains($dashboard, 'applyCoreFeatureVisibility(overview.core_features)')
     && str_contains($dashboard, 'disabledCoreRoutes.has(view)') && str_contains($dashboard, 'disabledCoreRoutes.has("sys-notes")')
     && str_contains($dashboard, 'disabledCoreRoutes.has("sys-problems")') && str_contains($dashboard, 'disabledCoreRoutes.has("alerts")')
-    && str_contains($dashboard, 'disabledCoreRoutes.has("sys-packages")') && str_contains($dashboard, 'ZogographI18n.clearPackageCatalogs()'),
+    && str_contains($dashboard, 'disabledCoreRoutes.has("sys-packages")') && str_contains($dashboard, 'ZogographI18n.clearPackageCatalogs()')
+    && str_contains($dashboard, 'disabledCoreRoutes.has("charts")'),
     'core feature boundary does not suppress disabled dashboard routes');
 foreach (['peer-push.php', 'peer-data.php', 'peer-connect.php'] as $endpoint) {
     $source = file_get_contents(__DIR__ . '/../' . $endpoint);
@@ -96,6 +100,8 @@ coreFeatureExpect(is_string($airun) && substr_count($airun, "coreFeatureEnabled(
     'disabled terminal feature leaves assistant terminal tools active');
 coreFeatureExpect(is_string($airun) && str_contains($airun, "coreFeatureEnabled(\$config, 'audit')"),
     'disabled audit feature leaves assistant action history active');
+coreFeatureExpect(is_string($airun) && str_contains($airun, "coreFeatureEnabled(\$config, 'charts')"),
+    'disabled chart history leaves assistant chart tools active');
 coreFeatureExpect(is_string($api) && str_contains($api, "coreFeatureEnabled(\$config, 'notes')")
     && str_contains($api, "'broadcasts' => \$signedIn"), 'disabled notes feature leaves shared broadcasts active');
 echo "core feature checks passed\n";

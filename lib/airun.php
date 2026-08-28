@@ -71,6 +71,10 @@ function aiRunTool(
         && !aiChartAllowedForCurrentIdentity($config, (string)($values['chart'] ?? ''))) {
         return ['error' => 'Your group is not allowed to view that chart.'];
     }
+    if ($respectAccess && in_array($name, ['get_chart_data', 'show_chart', 'get_chart_image', 'list_charts'], true)
+        && !coreFeatureEnabled($config, 'charts')) {
+        return ['error' => 'Chart history is disabled by this installation.'];
+    }
 
     try {
         $result = match ($name) {
@@ -1025,6 +1029,9 @@ function aiEncodeResult(array $result): string
  */
 function aiListCharts(array $config): array
 {
+    if (!coreFeatureEnabled($config, 'charts')) {
+        return ['pages' => [], 'note' => 'Chart history is disabled by this installation.'];
+    }
     $views = aiViews();
     $byPage = [];
 

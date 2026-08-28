@@ -11868,6 +11868,7 @@ function renderPackageRuntime(data) {
     { label: "Publisher", render: row => row.publisher },
     { label: "Integrity", render: row => row.integrity ? "Verified" : "Failed" },
     { label: "Platform", render: row => row.compatibility?.status === "ready" ? "Ready" : row.compatibility?.detail || "Not checked" },
+    { label: "Dependencies", render: row => row.dependencies?.length ? (row.dependency_status?.ok ? row.dependencies.join(", ") : row.dependency_status?.detail || row.dependencies.join(", ")) : "None" },
     { label: "Requested capabilities", render: row => row.capabilities.join(", ") },
     { label: "Granted", render: row => row.grants.length ? row.grants.join(", ") : "None" },
     { label: "Provider setup", render: row => row.provider_readiness?.state === "not-applicable" ? "—" : row.provider_readiness?.reason || "Not applicable" },
@@ -11955,10 +11956,10 @@ function packageRuntimeActions(row, canChange) {
     wrap.appendChild(enrollment);
   }
   const toggle = document.createElement("button"); toggle.className = row.enabled ? "link danger" : "link";
-  const platformReady = row.compatibility?.status === "ready";
+  const platformReady = row.compatibility?.status === "ready" && row.dependency_status?.ok !== false;
   toggle.textContent = row.enabled ? "Disable" : (platformReady ? "Grant & enable" : "Platform unavailable");
   toggle.disabled = !row.enabled && !platformReady;
-  toggle.title = toggle.disabled ? `Cannot enable: ${row.compatibility?.detail || "platform requirements are unavailable"}` : "";
+  toggle.title = toggle.disabled ? `Cannot enable: ${row.dependency_status?.detail || row.compatibility?.detail || "platform requirements are unavailable"}` : "";
   toggle.addEventListener("click", async () => {
     const verb = row.enabled ? "Disable" : "Grant every listed capability and enable";
     if (!(await confirmDialog(`${verb} ${row.id}?\n\nCapabilities: ${row.capabilities.join(", ")}\n\nThis records permission only; it does not run package code.`, `${verb} package`))) return;

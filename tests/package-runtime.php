@@ -154,6 +154,13 @@ try {
     packageRuntimeSetEnabled($pdo, 'test-runtime', ['package_private_database'], true, 'administrator');
     $after = packageRuntimePackages($pdo)[0];
     runtimeExpect($after['enabled'] && str_starts_with($after['state'], 'registered; platform requirements are met'), 'package was not registered after explicit grant');
+    $dependentManifest = $signed; $dependentManifest['dependencies'] = ['missing-runtime'];
+    $pdo->prepare('UPDATE runtime_packages SET manifest_json = ? WHERE package_id = ?')->execute([json_encode($dependentManifest, JSON_THROW_ON_ERROR), 'test-runtime']);
+    $dependent = packageRuntimePackages($pdo)[0];
+    runtimeExpect(!$dependent['enabled'] && str_starts_with($dependent['state'], 'dependency unavailable:'), 'missing package dependency did not disable the dependent package');
+    try { packageRuntimeSetEnabled($pdo, 'test-runtime', ['package_private_database'], true, 'administrator'); throw new RuntimeException('missing package dependency was enabled'); }
+    catch (InvalidArgumentException $error) { runtimeExpect($error->getMessage() !== 'missing package dependency was enabled', $error->getMessage()); }
+    $pdo->prepare('UPDATE runtime_packages SET manifest_json = ? WHERE package_id = ?')->execute([json_encode($signed, JSON_THROW_ON_ERROR), 'test-runtime']);
     $incompatibleManifest = $signed; $incompatibleManifest['compatibility'] = ['requires_runtime_capability' => 'isolated_package_runtime'];
     $pdo->prepare('UPDATE runtime_packages SET manifest_json = ? WHERE package_id = ?')->execute([json_encode($incompatibleManifest, JSON_THROW_ON_ERROR), 'test-runtime']);
     $incompatible = packageRuntimePackages($pdo)[0];

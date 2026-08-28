@@ -41,7 +41,7 @@ function packageRuntimeTrustedKeys(array $keys): array
     return $out;
 }
 
-/** @return array{id:string,version:string,publisher:string,capabilities:list<string>,runtime:array,settings_schema:?string,setup_panels:list<array>,data:array,compatibility:array,integrity:array,signature:array} */
+/** @return array{id:string,version:string,publisher:string,capabilities:list<string>,dependencies:list<string>,runtime:array,settings_schema:?string,setup_panels:list<array>,data:array,compatibility:array,integrity:array,signature:array} */
 function packageRuntimeManifest(string $directory, array $trustedKeys): array
 {
     $root = realpath($directory);
@@ -85,6 +85,10 @@ function packageRuntimeManifest(string $directory, array $trustedKeys): array
         }
     }
     $setupPanels = packageRuntimeSetupPanelDeclarations((array)($raw['setup_panels'] ?? []));
+    $dependencies = array_values(array_unique((array)($raw['dependencies'] ?? [])));
+    if (count($dependencies) > 20 || in_array($id, $dependencies, true)) throw new InvalidArgumentException('package dependencies are invalid');
+    foreach ($dependencies as $dependency) if (!is_string($dependency) || !preg_match('/^[a-z][a-z0-9-]{1,62}$/', $dependency)) throw new InvalidArgumentException('package dependencies are invalid');
+    sort($dependencies, SORT_STRING);
     $data = (array)($raw['data'] ?? []);
     $migrations = array_values((array)($data['migrations'] ?? []));
     if (count($migrations) > 100 || count($migrations) !== count(array_unique($migrations))) {
@@ -107,7 +111,7 @@ function packageRuntimeManifest(string $directory, array $trustedKeys): array
     }
     return ['id' => $id, 'version' => $version, 'publisher' => $publisher, 'capabilities' => $capabilities,
         'runtime' => $runtime, 'settings_schema' => isset($raw['settings_schema']) ? (string)$raw['settings_schema'] : null,
-        'setup_panels' => $setupPanels,
+        'dependencies' => $dependencies, 'setup_panels' => $setupPanels,
         'data' => $data, 'compatibility' => $compatibility, 'integrity' => (array)$raw['integrity'], 'signature' => (array)$raw['signature']];
 }
 
@@ -179,6 +183,22 @@ function packageRuntimeCompatibility(array $manifest): array
         return ['status' => 'unavailable', 'detail' => 'requires unsupported runtime capability ' . $capability];
     }
     return ['status' => 'ready', 'detail' => 'platform requirements are met; package execution remains separately governed'];
+}
+
+/** Checks only core-maintained package records; package code is never loaded. */
+function packageRuntimeDependencyStatus(PDO $pdo, array $manifest): array
+{
+    $dependencies = array_values((array)($manifest['dependencies'] ?? []));
+    foreach ($dependencies as $dependency) {
+        $stmt = $pdo->prepare('SELECT manifest_json, manifest_sha256, install_path, enabled_at FROM runtime_packages WHERE package_id = ?'); $stmt->execute([$dependency]); $row = $stmt->fetch();
+        if (!is_array($row)) return ['ok' => false, 'detail' => 'requires package ' . $dependency . ' to be installed and enabled'];
+        $required = json_decode((string)$row['manifest_json'], true);
+        $integrity = is_array($required) ? packageRuntimeVerifyInstalledPackage($required, (string)$row['install_path'], (string)$row['manifest_sha256']) : ['ok' => false];
+        if ($row['enabled_at'] === null || !$integrity['ok'] || packageRuntimeCompatibility((array)$required)['status'] !== 'ready') return ['ok' => false, 'detail' => 'requires package ' . $dependency . ' to remain enabled and healthy'];
+        $revoked = $pdo->prepare('SELECT COUNT(*) FROM runtime_package_revocations WHERE package_id = ?'); $revoked->execute([$dependency]);
+        if ((int)$revoked->fetchColumn() !== 0) return ['ok' => false, 'detail' => 'requires package ' . $dependency . ' to remain enabled and healthy'];
+    }
+    return ['ok' => true, 'detail' => $dependencies === [] ? 'no package dependencies' : 'package dependencies are enabled and healthy'];
 }
 
 /** PDO probing is core-owned and read-only; it is not package code execution. */
@@ -309,7 +329,7 @@ function packageRuntimeRemoveDirectory(string $directory): void
     @rmdir($directory);
 }
 
-/** @return list<array{id:string,version:string,publisher:string,enabled:bool,revoked:bool,integrity:bool,integrity_detail:string,compatibility:array,capabilities:list<string>,grants:list<string>,setup_panels:list<array>,state:string}> */
+/** @return list<array{id:string,version:string,publisher:string,enabled:bool,revoked:bool,integrity:bool,integrity_detail:string,compatibility:array,dependencies:list<string>,dependency_status:array,capabilities:list<string>,grants:list<string>,setup_panels:list<array>,state:string}> */
 function packageRuntimePackages(PDO $pdo): array
 {
     $grants = [];
@@ -326,13 +346,14 @@ function packageRuntimePackages(PDO $pdo): array
         $revoked = $row['revocation_reason'] !== null;
         $integrity = packageRuntimeVerifyInstalledPackage($manifest, (string)$row['install_path'], (string)($row['manifest_sha256'] ?? ''));
         $compatibility = packageRuntimeCompatibility($manifest);
-        $enabled = $integrity['ok'] && !$revoked && $compatibility['status'] === 'ready'
+        $dependencyStatus = packageRuntimeDependencyStatus($pdo, $manifest);
+        $enabled = $integrity['ok'] && !$revoked && $compatibility['status'] === 'ready' && $dependencyStatus['ok']
             && $row['enabled_at'] !== null && $required === $given;
         $out[] = ['id' => $row['package_id'], 'version' => $row['version'], 'publisher' => $row['publisher'],
             'enabled' => $enabled, 'revoked' => $revoked, 'integrity' => $integrity['ok'], 'integrity_detail' => $integrity['detail'], 'capabilities' => $required, 'grants' => $given,
             'setup_panels' => packageRuntimeSetupPanelDeclarations((array)($manifest['setup_panels'] ?? [])),
-            'compatibility' => $compatibility,
-            'state' => !$integrity['ok'] ? 'integrity failed: ' . $integrity['detail'] : ($revoked ? 'revoked: ' . $row['revocation_reason'] : ($compatibility['status'] !== 'ready' ? 'platform unavailable: ' . $compatibility['detail'] : ($enabled ? 'registered; ' . $compatibility['detail'] : 'needs explicit capability grants')))];
+            'compatibility' => $compatibility, 'dependencies' => (array)($manifest['dependencies'] ?? []), 'dependency_status' => $dependencyStatus,
+            'state' => !$integrity['ok'] ? 'integrity failed: ' . $integrity['detail'] : ($revoked ? 'revoked: ' . $row['revocation_reason'] : ($compatibility['status'] !== 'ready' ? 'platform unavailable: ' . $compatibility['detail'] : (!$dependencyStatus['ok'] ? 'dependency unavailable: ' . $dependencyStatus['detail'] : ($enabled ? 'registered; ' . $compatibility['detail'] : 'needs explicit capability grants'))))];
     }
     return $out;
 }
@@ -349,6 +370,8 @@ function packageRuntimeSetEnabled(PDO $pdo, string $id, array $grants, bool $ena
         if ((int)$revoked->fetchColumn() !== 0) throw new InvalidArgumentException('package is revoked; lift the revocation only after review');
         $compatibility = packageRuntimeCompatibility($manifest);
         if ($compatibility['status'] !== 'ready') throw new InvalidArgumentException('package platform is unavailable: ' . $compatibility['detail']);
+        $dependencies = packageRuntimeDependencyStatus($pdo, $manifest);
+        if (!$dependencies['ok']) throw new InvalidArgumentException('package dependency is unavailable: ' . $dependencies['detail']);
     }
     $required = (array)($manifest['capabilities'] ?? []);
     $grants = array_values(array_unique(array_intersect(PACKAGE_RUNTIME_CAPABILITIES, array_map('strval', $grants))));

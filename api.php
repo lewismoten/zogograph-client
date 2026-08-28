@@ -312,6 +312,7 @@ function route(array $config, PDO $pdo, string $action, bool $post): array
         'marketplace-history' => marketplaceHistoryView($config, $post),
         'marketplace-rollback' => doMarketplaceRollback($config, $pdo, $post),
         'package-runtime' => packageRuntimeView($config, $pdo, $signedIn),
+        'package-runtime-install-archive' => doPackageRuntimeInstallArchive($config, $pdo, $post),
         'package-runtime-probe' => doPackageRuntimeProbe($config, $pdo, $post),
         'package-runtime-custody-diagnostic-approve' => doPackageRuntimeCustodyDiagnosticApprove($pdo, $post),
         'package-runtime-custody-enrollment-check' => doPackageRuntimeCustodyEnrollmentCheck($config, $pdo, $post),
@@ -366,6 +367,7 @@ function requireActionAccess(array $config, string $action): void
         'peers' => 'sys-peers', 'marketplace' => 'sys-marketplace',
         'marketplace-install-path-hygiene' => 'sys-marketplace',
         'package-runtime' => 'sys-packages',
+        'package-runtime-install-archive' => 'sys-packages',
         'package-runtime-probe' => 'sys-packages',
         'package-runtime-custody-diagnostic-approve' => 'sys-packages',
         'package-runtime-custody-enrollment-check' => 'sys-packages',
@@ -5714,6 +5716,21 @@ function packageRuntimeView(array $config, PDO $pdo, bool $signedIn): array
     unset($package);
     return ['packages' => $packages, 'trusted_publishers' => $publishers,
         'can_change' => accessAllows($config, 'write')];
+}
+
+/** Archive bytes are accepted only through PHP's upload temporary file. */
+function doPackageRuntimeInstallArchive(array $config, PDO $pdo, bool $post): array
+{
+    requireWrite($post);
+    $file = $_FILES['archive'] ?? null;
+    if (!is_array($file) || (int)($file['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK
+        || !is_string($file['tmp_name'] ?? null) || !is_uploaded_file($file['tmp_name'])) {
+        throw new ActionRefused('choose a package ZIP archive to upload');
+    }
+    try { $installed = packageRuntimeInstallArchive($config, $pdo, $file['tmp_name'], currentAccountName()); }
+    catch (InvalidArgumentException|RuntimeException $error) { throw new ActionRefused($error->getMessage()); }
+    logAction($pdo, 'package_runtime_install_archive', $installed['id'], 'ok', 0, 0, $installed['version'] . '; signed ZIP archive');
+    return ['ok' => true, 'package' => $installed];
 }
 
 /** Runs a bounded, no-secret diagnostic only; it does not enable the package. */

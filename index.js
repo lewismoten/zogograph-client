@@ -569,6 +569,14 @@ async function post(action, fields = {}) {
   return parsed;
 }
 
+async function postForm(action, form) {
+  form.set("action", action); form.set("csrf", state.csrf ?? "");
+  const response = await fetch(API, { method: "POST", body: form, credentials: "same-origin" });
+  const parsed = await response.json().catch(() => ({ error: `The server returned ${response.status} with something that is not JSON.` }));
+  if (!response.ok) throw new Error(withReference(parsed, response.status));
+  return parsed;
+}
+
 /**
  * The message to show for a failed request.
  *
@@ -11847,6 +11855,10 @@ async function refreshPackageRuntime() {
 function renderPackageRuntime(data) {
   const body = $("packageRuntimeBody");
   const parts = [note("A package must have a trusted publisher, a valid signed file manifest, and every requested capability granted explicitly. The dashboard never loads package PHP. A separate worker can only perform a no-secret capability probe inside an operator-attested OS/container sandbox; it does not enable provider operations.")];
+  if (data.can_change) {
+    const upload = document.createElement("button"); upload.className = "primary"; upload.textContent = "Upload signed package";
+    upload.addEventListener("click", showPackageRuntimeUpload); parts.push(upload);
+  }
   if (data.trusted_publishers?.length) parts.push(factGrid(data.trusted_publishers.map(row => ["Trusted publisher", `${row.publisher} (${row.key_id})`])));
   else parts.push(note("No executable-package publisher keys are trusted yet. Add a publisher key in setup before installing a signed package."));
   if (!data.packages?.length) { parts.push(note("No signed executable packages are installed.")); body.replaceChildren(...parts); return; }
@@ -11863,6 +11875,18 @@ function renderPackageRuntime(data) {
     { label: "Status", render: row => row.state },
     { label: "", className: "row-actions", render: row => packageRuntimeActions(row, data.can_change) },
   ], null, row => row.enabled ? "row-ok" : "", row => row.id);
+}
+
+function showPackageRuntimeUpload() {
+  const archive = document.createElement("input"); archive.type = "file"; archive.accept = ".zip,application/zip";
+  showFormDialog("Upload signed package", [
+    fieldRow("Package ZIP archive", archive, "The archive is extracted privately, then every file hash and the publisher signature are verified before installation. It stays disabled until you explicitly grant capabilities and enable it."),
+  ], async () => {
+    if (!archive.files?.[0]) throw new Error("Choose a ZIP archive first.");
+    const form = new FormData(); form.set("archive", archive.files[0]);
+    const result = await postForm("package-runtime-install-archive", form);
+    await refreshPackageRuntime(); notice(`${result.package.id} ${result.package.version} installed for review.`, true);
+  }, "Verify and install");
 }
 
 function packageRuntimeActions(row, canChange) {

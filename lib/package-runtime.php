@@ -17,6 +17,7 @@ const PACKAGE_RUNTIME_CAPABILITIES = [
  * isolation exists.  A future runner must reject packages newer than this
  * contract before it loads their signed entry point. */
 const PACKAGE_RUNTIME_API_VERSION = '1.0';
+const PACKAGE_ARCHIVE_MAX_BYTES = 67108864;
 
 /** @return array<string, array{publisher:string,public_key:string}> */
 function packageRuntimeTrustedKeys(array $keys): array
@@ -238,6 +239,54 @@ function packageRuntimeInstall(array $config, PDO $pdo, string $source, string $
         ->execute([$manifest['id'], $manifest['version'], $manifest['publisher'],
             json_encode($manifest, JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR), $manifestHash, $target, $now, $now, mb_substr($actor, 0, 120)]);
     return ['id' => $manifest['id'], 'version' => $manifest['version'], 'publisher' => $manifest['publisher'], 'install_path' => $target];
+}
+
+/** Installs a signed ZIP through a private, bounded extraction directory. */
+function packageRuntimeInstallArchive(array $config, PDO $pdo, string $archive, string $actor): array
+{
+    if (!class_exists(ZipArchive::class)) throw new RuntimeException('PHP ZipArchive support is required to install package archives');
+    if (!is_file($archive) || is_link($archive) || !is_readable($archive)) throw new InvalidArgumentException('uploaded package archive is unavailable');
+    $bytes = filesize($archive);
+    if (!is_int($bytes) || $bytes < 1 || $bytes > PACKAGE_ARCHIVE_MAX_BYTES) throw new InvalidArgumentException('package archive is empty or exceeds 64 MiB');
+    $zip = new ZipArchive();
+    if ($zip->open($archive, ZipArchive::RDONLY) !== true) throw new InvalidArgumentException('package archive is not a readable ZIP file');
+    $zipOpen = true;
+    $base = packageRuntimeDirectory($config); $temporary = $base . '/.upload-' . bin2hex(random_bytes(16));
+    if (!mkdir($temporary, 0700)) { $zip->close(); throw new RuntimeException('could not prepare private package extraction'); }
+    try {
+        if ($zip->numFiles < 1 || $zip->numFiles > PACKAGE_MAX_FILES + 1) throw new InvalidArgumentException('package archive contains too many entries');
+        $names = []; $total = 0;
+        for ($index = 0; $index < $zip->numFiles; $index++) {
+            $stat = $zip->statIndex($index);
+            if (!is_array($stat)) throw new InvalidArgumentException('package archive entry is invalid');
+            $name = str_replace('\\', '/', (string)($stat['name'] ?? ''));
+            if ($name === '' || str_ends_with($name, '/') || !packageRuntimeRelativePath($name) || isset($names[$name])) throw new InvalidArgumentException('package archive contains an unsafe path');
+            $names[$name] = true; $size = (int)($stat['size'] ?? -1); $compressed = (int)($stat['comp_size'] ?? -1);
+            if ($size < 0 || $size > PACKAGE_MAX_FILE_BYTES || $compressed < 0 || ($size > 1048576 && $compressed === 0) || ($compressed > 0 && $size > $compressed * 200) || ($total += $size) > PACKAGE_ARCHIVE_MAX_BYTES) throw new InvalidArgumentException('package archive has an unsafe expanded size');
+            $attributes = 0; $opsys = 0;
+            if (!$zip->getExternalAttributesIndex($index, $opsys, $attributes)) throw new InvalidArgumentException('package archive entry attributes are unavailable');
+            $type = ($attributes >> 16) & 0170000;
+            if ($type !== 0 && $type !== 0100000) throw new InvalidArgumentException('package archive contains a non-regular file');
+            $destination = $temporary . '/' . $name; $parent = dirname($destination);
+            if (!is_dir($parent) && !mkdir($parent, 0700, true)) throw new RuntimeException('could not prepare package archive path');
+            $input = $zip->getStream((string)$stat['name']); $output = @fopen($destination, 'xb');
+            if (!is_resource($input) || !is_resource($output)) { if (is_resource($input)) fclose($input); if (is_resource($output)) fclose($output); throw new RuntimeException('could not read package archive entry'); }
+            $written = 0;
+            while (!feof($input)) {
+                $chunk = fread($input, 1048576);
+                if ($chunk === false || fwrite($output, $chunk) !== strlen($chunk) || ($written += strlen($chunk)) > $size) { fclose($input); fclose($output); throw new RuntimeException('could not safely extract package archive entry'); }
+            }
+            fclose($input); fclose($output);
+            if ($written !== $size) throw new InvalidArgumentException('package archive entry size does not match its index');
+            @chmod($destination, 0640);
+        }
+        if (!isset($names['manifest.json'])) throw new InvalidArgumentException('package archive is missing manifest.json');
+        $zip->close(); $zipOpen = false;
+        return packageRuntimeInstall($config, $pdo, $temporary, $actor);
+    } finally {
+        if ($zipOpen) $zip->close();
+        packageRuntimeRemoveDirectory($temporary);
+    }
 }
 
 function packageRuntimeCopyFile(string $source, string $destination): void

@@ -100,6 +100,18 @@ try {
     migrate($pdo, true);
     $installed = packageRuntimeInstall($config, $pdo, $source, 'administrator');
     runtimeExpect(is_file($installed['install_path'] . '/src/Provider.php'), 'signed package file was not installed');
+    if (class_exists(ZipArchive::class)) {
+        $archive = $root . '/test-runtime.zip'; $zip = new ZipArchive();
+        runtimeExpect($zip->open($archive, ZipArchive::CREATE) === true, 'could not create package archive');
+        foreach (['manifest.json', 'src/Provider.php', 'settings.schema.json', 'migrations/001-private-evidence.sql'] as $file) {
+            runtimeExpect($zip->addFile($source . '/' . $file, $file), 'could not add package archive entry');
+        }
+        $zip->close();
+        $archiveConfig = $config; $archiveConfig['package_runtime']['directory'] = $root . '/archive-installed';
+        $archivePdo = new PDO('sqlite::memory:', null, null, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]); migrate($archivePdo, true);
+        $archiveInstalled = packageRuntimeInstallArchive($archiveConfig, $archivePdo, $archive, 'administrator');
+        runtimeExpect(is_file($archiveInstalled['install_path'] . '/src/Provider.php'), 'signed package ZIP archive was not installed');
+    }
     runtimeExpect((packageRuntimePackages($pdo)[0]['setup_panels'][0]['id'] ?? '') === 'test-runtime-settings',
         'signed package Setup panel metadata was not retained');
     $genericReadiness = packageRuntimeProviderReadiness($pdo, $config, 'test-runtime');

@@ -75,6 +75,13 @@ foreach (['peer-data.php', 'peer-connect.php', 'openid.php'] as $file) {
         throw new RuntimeException('standalone peer/OIDC endpoint bypasses the shared configuration store: ' . $file);
     }
 }
+
+$dashboard = file_get_contents(__DIR__ . '/../index.js');
+if ($dashboard === false || !str_contains($dashboard, 'hint.textContent = meta.hint;')
+    || str_contains($dashboard, 'hint.innerHTML = meta.hint;')) {
+    throw new RuntimeException('URL-check hints must not use a dynamic HTML sink');
+}
+
 foreach ([
     "PHP_SAPI !== 'cli'",
     "saveConfiguredSettings(\$config, \$configFile",

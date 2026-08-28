@@ -27,7 +27,18 @@ try {
     $source->exec('INSERT INTO scans (started_at) VALUES (150)');
     $source->exec("INSERT INTO paths (path, kind, first_seen, last_seen) VALUES ('/source/file', 'file', 150, 150)");
     $source->exec('INSERT INTO scan_totals (scan_id, category, bytes, files) VALUES (1, "other", 12, 1)');
-    $source->exec('INSERT INTO path_sizes (scan_id, path_id, bytes, files) VALUES (1, 1, 12, 1)'); $source = null;
+    $source->exec('INSERT INTO path_sizes (scan_id, path_id, bytes, files) VALUES (1, 1, 12, 1)');
+    $legacyVersion = max(array_keys(migrations())) - 1;
+    $source->prepare('DELETE FROM schema_version WHERE version > ?')->execute([$legacyVersion]); $source = null;
+    $older = accountMergeInspect($sourcePath);
+    accountMergeExpect($older['eligible'] && $older['source_version'] === $legacyVersion && $older['source_version'] < $older['current_version'],
+        'an older collector source was not eligible for a private upgrade before merge');
+    $prepared = accountMergePreparedSource($sourcePath, $dir . '/prepared-source');
+    $preparedPdo = new PDO('sqlite:' . $prepared, null, null, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+    accountMergeExpect((int)$preparedPdo->query('SELECT MAX(version) FROM schema_version')->fetchColumn() === $older['current_version']
+        && accountMergeInspect($sourcePath)['source_version'] === $legacyVersion,
+        'merge preparation did not upgrade only the private source clone');
+    $preparedPdo = null; @unlink($prepared); @rmdir($dir . '/prepared-source');
     $target = new PDO('sqlite::memory:', null, null, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]); migrate($target, true);
     $target->exec('INSERT INTO vitals (taken_at, source) VALUES (200, "test"), (300, "test")');
     $target->exec('INSERT INTO scans (started_at) VALUES (400)');

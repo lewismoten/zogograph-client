@@ -31,7 +31,8 @@ i18nExpect($script !== false && str_contains($script, 'page.title_key ? Zogograp
 i18nExpect($setup !== false && str_contains($setup, 'src="i18n.js"') && str_contains($setup, 'id="languagePicker"')
     && str_contains($setup, 'id="languageKeys"') && str_contains($setup, 'data-i18n="setup.installation"')
     && str_contains($setup, "'setup.section.' . \$name") && str_contains($setup, "'setup.section.' . \$activeSection")
-    && str_contains($setup, 'aria-current="page"') && str_contains($setup, 'data-setup-nav-results'),
+    && str_contains($setup, 'aria-current="page"') && str_contains($setup, 'data-setup-nav-results')
+    && str_contains($setup, 'ZogographI18n?.t("update.compatibility"') && str_contains($setup, 'ZogographI18n?.t("action.reload"'),
     'Setup language controls or localized shell are unavailable');
 i18nExpect($setup !== false && str_contains($setup, 'data-i18n="setup.authorize"')
     && str_contains($setup, 'data-i18n="setup.unlock_to_view"') && str_contains($setup, 'data-i18n="privacy.masked_paths"')

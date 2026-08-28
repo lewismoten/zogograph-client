@@ -313,6 +313,7 @@ function route(array $config, PDO $pdo, string $action, bool $post): array
         'marketplace-rollback' => doMarketplaceRollback($config, $pdo, $post),
         'package-runtime' => packageRuntimeView($config, $pdo, $signedIn),
         'package-runtime-install-archive' => doPackageRuntimeInstallArchive($config, $pdo, $post),
+        'package-runtime-remove' => doPackageRuntimeRemove($config, $pdo, $post),
         'package-runtime-probe' => doPackageRuntimeProbe($config, $pdo, $post),
         'package-runtime-custody-diagnostic-approve' => doPackageRuntimeCustodyDiagnosticApprove($pdo, $post),
         'package-runtime-custody-enrollment-check' => doPackageRuntimeCustodyEnrollmentCheck($config, $pdo, $post),
@@ -368,6 +369,7 @@ function requireActionAccess(array $config, string $action): void
         'marketplace-install-path-hygiene' => 'sys-marketplace',
         'package-runtime' => 'sys-packages',
         'package-runtime-install-archive' => 'sys-packages',
+        'package-runtime-remove' => 'sys-packages',
         'package-runtime-probe' => 'sys-packages',
         'package-runtime-custody-diagnostic-approve' => 'sys-packages',
         'package-runtime-custody-enrollment-check' => 'sys-packages',
@@ -5731,6 +5733,15 @@ function doPackageRuntimeInstallArchive(array $config, PDO $pdo, bool $post): ar
     catch (InvalidArgumentException|RuntimeException $error) { throw new ActionRefused($error->getMessage()); }
     logAction($pdo, 'package_runtime_install_archive', $installed['id'], 'ok', 0, 0, $installed['version'] . '; signed ZIP archive');
     return ['ok' => true, 'package' => $installed];
+}
+
+function doPackageRuntimeRemove(array $config, PDO $pdo, bool $post): array
+{
+    requireWrite($post); $id = trim((string)($_POST['id'] ?? ''));
+    try { packageRuntimeRemove($config, $pdo, $id); }
+    catch (InvalidArgumentException|RuntimeException $error) { throw new ActionRefused($error->getMessage()); }
+    logAction($pdo, 'package_runtime_remove', $id, 'ok', 0, 0, 'immutable files and registry removed; private package data retained');
+    return ['ok' => true, 'id' => $id];
 }
 
 /** Runs a bounded, no-secret diagnostic only; it does not enable the package. */

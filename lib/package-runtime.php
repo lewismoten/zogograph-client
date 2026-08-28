@@ -365,6 +365,28 @@ function packageRuntimeSetEnabled(PDO $pdo, string $id, array $grants, bool $ena
     } catch (Throwable $error) { $pdo->rollBack(); throw $error; }
 }
 
+/** Removes a disabled package's immutable files and registry record only. */
+function packageRuntimeRemove(array $config, PDO $pdo, string $id): void
+{
+    $id = trim($id); $stmt = $pdo->prepare('SELECT enabled_at, install_path FROM runtime_packages WHERE package_id = ?'); $stmt->execute([$id]); $row = $stmt->fetch();
+    if (!is_array($row)) throw new InvalidArgumentException('package is not installed');
+    if ($row['enabled_at'] !== null) throw new InvalidArgumentException('disable the package before removing it');
+    $base = packageRuntimeDirectory($config); $path = (string)$row['install_path']; $real = realpath($path);
+    if ($real === false || is_link($path) || dirname($real) !== $base || !is_dir($real)) throw new RuntimeException('installed package directory is unavailable or unsafe');
+    $detached = $base . '/.removing-' . bin2hex(random_bytes(16));
+    if (!rename($real, $detached)) throw new RuntimeException('could not detach the package files');
+    try {
+        $pdo->beginTransaction();
+        $deleted = $pdo->prepare('DELETE FROM runtime_packages WHERE package_id = ?'); $deleted->execute([$id]);
+        if ($deleted->rowCount() !== 1) throw new RuntimeException('package registry changed while removing it');
+        $pdo->commit();
+    } catch (Throwable $error) {
+        if ($pdo->inTransaction()) $pdo->rollBack(); @rename($detached, $real); throw $error;
+    }
+    packageRuntimeRemoveDirectory($detached);
+    if (is_dir($detached)) throw new RuntimeException('package was removed from the registry but its detached files need administrator cleanup');
+}
+
 /** Records the minimum explicit approval for the credential-only custody
  * diagnostic. It never enables package execution or grants private storage. */
 function packageRuntimeApproveCustodyDiagnostic(PDO $pdo, string $id, string $actor): void

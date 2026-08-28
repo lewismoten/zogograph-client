@@ -111,6 +111,8 @@ try {
         $archivePdo = new PDO('sqlite::memory:', null, null, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]); migrate($archivePdo, true);
         $archiveInstalled = packageRuntimeInstallArchive($archiveConfig, $archivePdo, $archive, 'administrator');
         runtimeExpect(is_file($archiveInstalled['install_path'] . '/src/Provider.php'), 'signed package ZIP archive was not installed');
+        packageRuntimeRemove($archiveConfig, $archivePdo, 'test-runtime');
+        runtimeExpect(packageRuntimePackages($archivePdo) === [] && !is_dir($archiveInstalled['install_path']), 'disabled package archive was not fully removed from its runtime registry');
     }
     runtimeExpect((packageRuntimePackages($pdo)[0]['setup_panels'][0]['id'] ?? '') === 'test-runtime-settings',
         'signed package Setup panel metadata was not retained');

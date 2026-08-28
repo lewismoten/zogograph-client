@@ -11909,6 +11909,15 @@ function packageRuntimeActions(row, canChange) {
   }
   const revoke = document.createElement("button"); revoke.className = "link danger"; revoke.textContent = "Revoke";
   revoke.addEventListener("click", () => showPackageRuntimeRevoke(row)); wrap.appendChild(revoke);
+  if (!row.enabled) {
+    const remove = document.createElement("button"); remove.className = "link danger"; remove.textContent = "Remove";
+    remove.addEventListener("click", async () => {
+      if (!(await confirmDialog(`Remove ${row.id} ${row.version}?\n\nThis removes its immutable package files and registry record. Package-private data and encrypted secrets are retained so they can be recovered or reused after a future reinstall.`, "Remove package"))) return;
+      try { await post("package-runtime-remove", { id: row.id }); await refreshPackageRuntime(); notice(`${row.id} removed.`, true); }
+      catch (error) { notice(String(error.message || error)); }
+    });
+    wrap.appendChild(remove);
+  }
   if (!row.integrity) {
     const failed = document.createElement("span"); failed.className = "muted small"; failed.textContent = "Review or remove altered files before enabling.";
     wrap.appendChild(failed); return wrap;

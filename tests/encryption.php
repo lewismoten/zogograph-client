@@ -106,8 +106,8 @@ try {
     $fields = array_column(configFields($sample), null, 'key');
     $bootstrapFields = array_values(array_filter(configFields($sample),
         static fn(array $field): bool => ($field['section'] ?? 'basics') === 'basics'));
-    encryptionExpect(array_column($bootstrapFields, 'key') === ['password'],
-        'initial setup exposes settings beyond the sign-in password');
+    encryptionExpect($bootstrapFields === [] && ($fields['password']['section'] ?? '') === 'security',
+        'password management is not isolated to the Security section');
     encryptionExpect(($sample['encryption']['stores'] ?? []) === ['config', 'setup', 'account'],
         'quick-install encryption defaults included optional host or assistant stores');
     encryptionExpect(isset($fields['encryption_retention_recovery_tiers'])

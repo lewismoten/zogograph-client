@@ -247,7 +247,7 @@ function configFields(array $sample): array
         ],
         [
             'key' => 'password',
-            'section' => 'basics',
+            'section' => 'security',
             'path' => ['password_hash'],
             'type' => 'password',
             'label' => 'Sign-in password',

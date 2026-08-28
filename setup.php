@@ -593,7 +593,9 @@ function webPage(
 
     $out[] = '<header class="setup-header"><a class="setup-brand" href="?section=basics">'
         . '<span class="poll" aria-hidden="true"><svg viewBox="0 0 36 36"><circle class="poll-track" cx="18" cy="18" r="15"></circle><circle class="poll-fill" cx="18" cy="18" r="15"></circle><circle class="poll-host-track" cx="18" cy="18" r="9"></circle><circle class="poll-host-fill" cx="18" cy="18" r="9"></circle></svg><span class="poll-dot"></span></span>'
-        . '<strong>Zogograph</strong><small>Setup</small></a><a href="./">Open dashboard</a></header>';
+        . '<strong>Zogograph</strong><small>Setup</small></a><span>'
+        . ($unlocked ? '<a href="?lock=1">Lock setup</a> · ' : '')
+        . '<a href="./">Open dashboard</a></span></header>';
     $out[] = '<h1>Setup</h1>';
 
     if (($_GET['saved'] ?? '') === '1') {
@@ -665,7 +667,7 @@ function webPage(
     }
     $sections['privacy'] = true;
     $out[] = '<div class="setup-layout"><aside class="setup-nav" aria-label="Setup sections">'
-        . '<a' . ($activeSection === 'basics' ? ' class="current"' : '') . ' href="?section=basics">Basics</a>';
+        . '<a' . ($activeSection === 'basics' ? ' class="current"' : '') . ' href="?section=basics">Installation</a>';
     foreach (array_keys($sections) as $name) {
         $out[] = '<a' . ($activeSection === $name ? ' class="current"' : '')
             . ' href="?section=' . rawurlencode($name) . '">' . h(sectionTitle($name)) . '</a>';
@@ -688,7 +690,7 @@ function webPage(
             . '</fieldset></form><form method="post">';
     }
 
-    $title = $activeSection === 'basics' ? 'Start here' : sectionTitle($activeSection);
+    $title = $activeSection === 'basics' ? 'Installation' : sectionTitle($activeSection);
     $suggestedKeyPath = setupSuggestedPrivateKeyPath();
     $suggestedKeyExists = setupPrivateKeyExists($suggestedKeyPath);
     $suggestedPackageSecretKeyPath = setupSuggestedPackageSecretKeyPath();
@@ -697,8 +699,8 @@ function webPage(
     if ($editingLocked) {
         $out[] = '<p class="help">Unlock setup to view or change this section.</p>';
     } elseif ($activeSection === 'basics') {
-        $out[] = '<p class="help">Create a sign-in password to finish the initial setup. All other settings '
-            . 'are available from the navigation when you need them.</p>';
+        $out[] = '<p class="help">Review these checks, then open Security to create the sign-in password. '
+            . 'All other settings are available from the navigation when you need them.</p>';
     } elseif ($activeSection === 'privacy') {
         $out[] = '<fieldset><legend>Masked-path privacy</legend>'
             . '<p class="help">Signed-out visitors see stable anonymous labels instead of real filesystem '
@@ -729,12 +731,15 @@ function webPage(
             } elseif ($field['key'] === 'encryption_key_file') {
                 $out[] = renderField($field, $values, $errors, $configured)
                     . primaryKeyQuickStart($suggestedKeyPath, $suggestedKeyExists, !$configured || $unlocked);
+            } elseif ($field['key'] === 'password') {
+                $out[] = renderField($field, $values, $errors, $configured)
+                    . '<button type="submit">' . ($configured ? 'Change password' : 'Create password') . '</button>';
             } else {
                 $out[] = renderField($field, $values, $errors, $configured);
             }
         }
     }
-    if ($activeSection === 'basics') {
+    if ($activeSection === 'security') {
         $out[] = '<details open><summary>Installation checks</summary><table class="preflight"><thead><tr><th>Check</th><th>State</th><th>Detail</th></tr></thead><tbody>';
         foreach ($preflight as $check) {
             $out[] = '<tr><th>' . h($check['label']) . '</th><td class="' . h($check['state']) . '">' . h(strtoupper($check['state']))
@@ -742,12 +747,9 @@ function webPage(
         }
         $out[] = '</tbody></table></details>';
     }
-    if ($unlocked && $activeSection === 'basics') {
-        $out[] = '<p class="help"><a href="?lock=1">Lock setup again</a></p>';
-    }
     $out[] = '</section>';
 
-    if (!$editingLocked) {
+    if (!$editingLocked && !in_array($activeSection, ['basics', 'security'], true)) {
         $out[] = '<button type="submit">Save ' . h($title) . '</button>';
     }
     $out[] = '</form></main></div>';
@@ -807,7 +809,7 @@ function firstParagraph(string $text): string
 function renderField(array $field, array $values, array $errors, bool $configured): string
 {
     $key = $field['key'];
-    $label = h($field['label']);
+    $label = h($key === 'password' ? ($configured ? 'Change password' : 'Create sign-in password') : $field['label']);
     $help = isset($field['help']) ? '<span class="help">' . h($field['help']) . '</span>' : '';
     $bad = isset($errors[$key]) ? '<span class="bad">' . h($errors[$key]) . '</span>' : '';
 

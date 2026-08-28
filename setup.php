@@ -997,7 +997,7 @@ function webPage(
         try {
             $packageId = (string)$activePanel['feature'];
             $settings = setupPackageSettings($current, $packageId);
-            $encoded = json_encode($settings, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR);
+            $encoded = json_encode(setupDisplayValue($settings), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR);
             $out[] = '<p class="help">These settings are validated against the signed package schema. Setup does not load package code to render this panel.</p>'
                 . '<fieldset><legend>Package settings</legend><label>Settings (JSON)'
                 . '<textarea name="package_settings" rows="16" spellcheck="false">' . h($encoded) . '</textarea></label>'

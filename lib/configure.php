@@ -1192,7 +1192,7 @@ function displayValue(array $field, mixed $value): string
         'bool' => $value ? 'y' : 'n',
         'categories' => implode(', ', (array)$value),
         'lines' => implode("\n", (array)$value),
-        'json' => json_encode($value, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) ?: '{}',
+        'json' => json_encode(setupDisplayValue($value), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) ?: '{}',
         // Blank, so that leaving it blank means what it already meant. Showing
         // the word "null" in a text box invites somebody to type it.
         'nullable' => $value === null ? '' : (string)$value,
@@ -1219,6 +1219,19 @@ function setupDisplayPath(string $value): string
         $parts[] = $part;
     }
     return '/' . implode('/', $parts);
+}
+
+/**
+ * Canonicalizes filesystem paths nested inside a value displayed by Setup.
+ * Configuration is not modified here: this is only for an unambiguous review
+ * in a form or JSON editor.
+ */
+function setupDisplayValue(mixed $value): mixed
+{
+    if (is_string($value)) return setupDisplayPath($value);
+    if (!is_array($value)) return $value;
+    foreach ($value as $key => $item) $value[$key] = setupDisplayValue($item);
+    return $value;
 }
 
 /* --------------------------------------------------------------- printing -- */

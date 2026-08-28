@@ -7,6 +7,7 @@
   "setup.dashboard": "فتح لوحة التحكم",
   "setup.sections": "أقسام الإعداد",
   "setup.search": "البحث في الإعدادات",
+  "setup.search_results": "يتم عرض {{count, number}} من أقسام الإعداد",
   "setup.installation": "التثبيت",
   "setup.section.privacy": "الخصوصية",
   "setup.section.schedule": "الجدول الزمني",

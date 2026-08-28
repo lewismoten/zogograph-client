@@ -7,6 +7,7 @@
   "setup.dashboard": "Abrir panel",
   "setup.sections": "Secciones de configuración",
   "setup.search": "Buscar ajustes",
+  "setup.search_results": "Se muestran {{count, number}} secciones de ajustes",
   "setup.installation": "Instalación",
   "setup.section.privacy": "Privacidad",
   "setup.section.schedule": "Programación",

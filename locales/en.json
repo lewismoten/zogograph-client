@@ -7,6 +7,7 @@
   "setup.dashboard": "Open dashboard",
   "setup.sections": "Setup sections",
   "setup.search": "Search settings",
+  "setup.search_results": "Showing {{count, number}} settings sections",
   "setup.installation": "Installation",
   "setup.section.privacy": "Privacy",
   "setup.section.schedule": "Schedule",

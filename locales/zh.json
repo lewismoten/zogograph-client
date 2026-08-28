@@ -7,6 +7,7 @@
   "setup.dashboard": "打开仪表板",
   "setup.sections": "设置栏目",
   "setup.search": "搜索设置",
+  "setup.search_results": "显示 {{count, number}} 个设置栏目",
   "setup.installation": "安装",
   "setup.section.privacy": "隐私",
   "setup.section.schedule": "计划任务",

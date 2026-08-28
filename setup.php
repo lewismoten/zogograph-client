@@ -285,12 +285,15 @@ function setupScheduleChoices(array $source): array
     foreach (array_keys(cronJobs()) as $job) {
         $raw = (array)($source[$job] ?? []);
         $profile = (string)($raw['profile'] ?? 'none');
-        if (!isset($profiles[$profile])) $profile = 'none';
+        if (!isset(cronEditorProfiles($job)[$profile])) $profile = 'none';
         $custom = [];
+        $rawCustom = (array)($raw['custom'] ?? []);
         foreach (['minute', 'hour', 'day', 'month', 'weekday'] as $field) {
-            $custom[$field] = (string)((array)($raw['custom'] ?? [])[$field] ?? '*');
+            $custom[$field] = (string)($rawCustom[$field] ?? '*');
         }
-        $choices[$job] = ['profile' => $profile, 'custom' => $custom];
+        $rawOffset = (array)($raw['offset'] ?? []);
+        $choices[$job] = ['profile' => $profile, 'custom' => $custom,
+            'offset' => ['minute' => max(0, min(59, (int)($rawOffset['minute'] ?? 0))), 'hour' => max(0, min(23, (int)($rawOffset['hour'] ?? 0)))]];
     }
     return $choices;
 }
@@ -304,7 +307,8 @@ function setupScheduleRequest(array $source): array
         foreach (['minute', 'hour', 'day', 'month', 'weekday'] as $field) {
             $custom[$field] = (string)($source['schedule_' . $job . '_' . $field] ?? '*');
         }
-        $choices[$job] = ['profile' => (string)($source['schedule_' . $job . '_profile'] ?? 'none'), 'custom' => $custom];
+        $choices[$job] = ['profile' => (string)($source['schedule_' . $job . '_profile'] ?? 'none'), 'custom' => $custom,
+            'offset' => ['minute' => (int)($source['schedule_' . $job . '_offset_minute'] ?? 0), 'hour' => (int)($source['schedule_' . $job . '_offset_hour'] ?? 0)]];
     }
     return setupScheduleChoices($choices);
 }
@@ -488,7 +492,14 @@ function runWeb(
             try {
                 $config = readExistingConfig($targetPath);
                 if ($config === null) throw new RuntimeException('could not read the current setup settings');
-                $choices = setupScheduleRequest($_POST);
+                $existingChoices = setupScheduleChoices((array)($config['schedule'] ?? []));
+                $requestedChoices = setupScheduleRequest($_POST);
+                [$job, $operation] = array_pad(explode(':', (string)($_POST['schedule_action'] ?? ''), 2), 2, '');
+                if (!isset(cronJobs()[$job])) throw new RuntimeException('choose the collector job to change');
+                $choices = $existingChoices;
+                $choices[$job] = $requestedChoices[$job];
+                if ($operation === 'remove') $choices[$job]['profile'] = 'none';
+                if (!in_array($operation, ['add', 'update', 'remove'], true)) throw new RuntimeException('unknown schedule action');
                 $php = (string)($_POST['schedule_php'] ?? '');
                 $api = new SetupCronApi($root);
                 // Persist the intended schedule before applying it. If the host refuses
@@ -497,10 +508,8 @@ function runWeb(
                 $config['schedule'] = ['php' => $php, ...$choices];
                 [$saved, $problem] = writeConfig($targetPath, $config, $root . '/lib');
                 if (!$saved) throw new RuntimeException((string)$problem);
-                $status = $api->apply($choices, $php);
-                $_SESSION['setup_notice'] = $status['sync'] === 'in_sync'
-                    ? 'Schedule saved and applied. The marked Zogograph cron block is in sync.'
-                    : 'Schedule settings were saved, but cron did not report an in-sync result.';
+                $api->applyJob($job, $choices[$job], $php);
+                $_SESSION['setup_notice'] = ucfirst($job) . ' schedule ' . ($operation === 'remove' ? 'removed.' : 'saved and applied.');
             } catch (Throwable $error) {
                 $_SESSION['setup_error'] = 'Could not apply the schedule: ' . $error->getMessage();
             }
@@ -916,14 +925,20 @@ function webPage(
             $out[] = '<option value="' . h($binary) . '"' . ($binary === $php ? ' selected' : '') . '>' . h($binary) . '</option>';
         }
         $out[] = '</select></label>';
+        $desiredByJob = [];
+        try { if ($php !== '') $desiredByJob = cronEditorBuildJobLines($choices, $php, __DIR__); } catch (Throwable) {}
+        $installedByJob = cronEditorInstalledJobLines((array)($schedule['lines'] ?? []));
         foreach (['vitals' => 'Vitals collection', 'scan' => 'Directory scan'] as $job => $label) {
-            $out[] = renderSetupCronEditor('schedule_' . $job, $label, $choices[$job]);
+            $out[] = renderSetupCronEditor('schedule_' . $job, $label, $choices[$job], $job)
+                . '<p><strong>Saved preview</strong></p><pre><code>' . h($desiredByJob[$job] ?? '(none)') . '</code></pre>'
+                . '<p><strong>Currently installed</strong></p><pre><code>' . h($installedByJob[$job] ?? '(none)') . '</code></pre>'
+                . '<input type="hidden" name="setup_schedule_token" value="' . h(setupScheduleToken()) . '">'
+                . '<input type="hidden" name="intent" value="apply-schedule">'
+                . '<button type="submit" name="schedule_action" value="' . h($job . ':add') . '"' . ($editingLocked || !$schedule['available'] || $php === '' ? ' disabled aria-disabled="true"' : '') . '>Add</button> '
+                . '<button type="submit" name="schedule_action" value="' . h($job . ':update') . '"' . ($editingLocked || !$schedule['available'] || $php === '' ? ' disabled aria-disabled="true"' : '') . '>Update</button> '
+                . '<button type="submit" name="schedule_action" value="' . h($job . ':remove') . '"' . ($editingLocked || !$schedule['available'] || $php === '' ? ' disabled aria-disabled="true"' : '') . '>Remove</button>';
         }
-        $preview = [];
-        try { if ($php !== '') $preview = (new SetupCronApi(__DIR__))->preview($choices, $php); } catch (Throwable) {}
-        $out[] = '<p><strong>Saved schedule preview</strong></p><pre><code>' . h($preview === [] ? '(no Zogograph jobs selected)' : implode("\n", $preview)) . '</code></pre>'
-            . '<input type="hidden" name="setup_schedule_token" value="' . h(setupScheduleToken()) . '">'
-            . '<button type="submit" name="intent" value="apply-schedule"' . ($editingLocked || !$schedule['available'] || $php === '' ? ' disabled aria-disabled="true"' : '') . '>Apply schedule changes</button></fieldset>';
+        $out[] = '</fieldset>';
     } elseif (is_array($activePanel) && $activePanel['kind'] === 'package') {
         try {
             $packageId = (string)$activePanel['feature'];

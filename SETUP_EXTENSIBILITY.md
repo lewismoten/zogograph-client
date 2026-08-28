@@ -56,14 +56,17 @@ into this editor.
 The cron editor is a reusable panel component: `renderSetupCronEditor()` in
 `lib/setup-cron-editor.php` renders one named job's controls, while
 `SetupCronApi` backed by `lib/schedule.php` previews, compares, and applies.
-It offers profiles (`none`, every 1, 5, 10, or 30 minutes) and a custom
-five-field standard-cron builder: minute, hour, day of month, month, and day
-of week. Standard shared-host cron has no seconds field.
+Vitals profiles offer none or every 1–10 minutes; directory scans offer none
+or every 1, 2, 3, 4, 6, 8, 12, or 24 hours. Both retain minute and hour
+offsets, and offer a custom five-field standard-cron builder: minute, hour,
+day of month, month, and day of week. Standard shared-host cron has no seconds
+field.
 
-The saved choice previews the exact managed block before applying it. Applying
-replaces only the Zogograph marker block and leaves unrelated account cron jobs
-unchanged. The editor records desired structured settings, compares them with
-the installed block, and reports in-sync, missing, drifted, or unavailable.
+Each job shows its saved preview next to the currently installed managed line.
+Its Add, Update, and Remove actions replace only that job’s approved line,
+leaving unrelated account cron jobs and the other Zogograph job untouched.
+The editor records desired structured settings and reports missing, drifted,
+in-sync, or unavailable state.
 
 The core editor currently owns two approved jobs: `vitals` and `scan`. Its
 persisted value is `schedule.php`, `schedule.vitals`, and `schedule.scan` in

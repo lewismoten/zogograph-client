@@ -113,6 +113,8 @@ try {
         && str_contains($sampleText, "realpath(__DIR__ . '/..')"),
         'scan-root default does not derive from the service account or installation directory');
     $fields = array_column(configFields($sample), null, 'key');
+    encryptionExpect(!isset($fields['cfg_schedule__scan__profile']) && !isset($fields['cfg_schedule__vitals__profile']),
+        'schedule editor internals leaked into the generated setup fields');
     $bootstrapFields = array_values(array_filter(configFields($sample),
         static fn(array $field): bool => ($field['section'] ?? 'basics') === 'basics'));
     encryptionExpect($bootstrapFields === [] && ($fields['password']['section'] ?? '') === 'security',
@@ -126,6 +128,15 @@ try {
     encryptionExpect(cronEditorExpression('every-5m') === '0,5,10,15,20,25,30,35,40,45,50,55 * * * *'
         && cronEditorExpression('custom', ['minute' => '7', 'hour' => '2']) === '7 2 * * *',
         'reusable cron editor profiles are unavailable');
+    encryptionExpect(cronEditorExpression('every-2h', [], 'scan', ['minute' => 7, 'hour' => 2]) === '7 0,2,4,6,8,10,12,14,16,18,20,22 * * *'
+        && isset(cronEditorProfiles('vitals')['every-3m']) && isset(cronEditorProfiles('scan')['every-24h']),
+        'job-specific cron cadence or offsets are unavailable');
+    $installedJobs = cronEditorInstalledJobLines([
+        '7 * * * * \'/usr/bin/php\' \'/app/cron.php\' --vitals --alerts --quiet',
+        '7 2 * * * \'/usr/bin/php\' \'/app/cron.php\' --scan --alerts --prune --quiet',
+    ]);
+    encryptionExpect($installedJobs['vitals'] !== null && $installedJobs['scan'] !== null,
+        'cron editor cannot distinguish installed managed jobs');
     $customCronRefused = false;
     try { cronEditorExpression('custom', ['minute' => '60']); } catch (ActionRefused) { $customCronRefused = true; }
     encryptionExpect($customCronRefused,

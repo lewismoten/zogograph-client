@@ -776,6 +776,16 @@ function hiddenConfigPaths(): array
         'schedule.vitals.custom.day',
         'schedule.vitals.custom.month',
         'schedule.vitals.custom.weekday',
+        'schedule.vitals.offset.minute',
+        'schedule.vitals.offset.hour',
+        'schedule.scan.profile',
+        'schedule.scan.custom.minute',
+        'schedule.scan.custom.hour',
+        'schedule.scan.custom.day',
+        'schedule.scan.custom.month',
+        'schedule.scan.custom.weekday',
+        'schedule.scan.offset.minute',
+        'schedule.scan.offset.hour',
     ];
 }
 

@@ -91,6 +91,7 @@ final class SetupCronApi
         return cronEditorStatus($this->preview($jobs, $php), $this->scriptDir);
     }
     public function apply(array $jobs, string $php): array { return cronEditorApply($jobs, $php, $this->scriptDir); }
+    public function applyJob(string $job, array $choice, string $php): array { return cronEditorApplyJob($job, $choice, $php, $this->scriptDir); }
 }
 
 /**

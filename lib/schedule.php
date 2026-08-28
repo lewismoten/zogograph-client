@@ -71,26 +71,41 @@ function cronPresets(): array
 }
 
 /** Reusable Setup/plugin editor profiles, intentionally standard-cron only. */
-function cronEditorProfiles(): array
+function cronEditorProfiles(?string $job = null): array
 {
-    return [
+    $vitals = [
         'none' => ['label' => 'None', 'minute_step' => null],
         'every-1m' => ['label' => 'Every 1 minute', 'minute_step' => 1],
+        'every-2m' => ['label' => 'Every 2 minutes', 'minute_step' => 2],
+        'every-3m' => ['label' => 'Every 3 minutes', 'minute_step' => 3],
+        'every-4m' => ['label' => 'Every 4 minutes', 'minute_step' => 4],
         'every-5m' => ['label' => 'Every 5 minutes', 'minute_step' => 5],
+        'every-6m' => ['label' => 'Every 6 minutes', 'minute_step' => 6],
+        'every-7m' => ['label' => 'Every 7 minutes', 'minute_step' => 7],
+        'every-8m' => ['label' => 'Every 8 minutes', 'minute_step' => 8],
+        'every-9m' => ['label' => 'Every 9 minutes', 'minute_step' => 9],
         'every-10m' => ['label' => 'Every 10 minutes', 'minute_step' => 10],
-        'every-30m' => ['label' => 'Every 30 minutes', 'minute_step' => 30],
         'custom' => ['label' => 'Custom five-field cron', 'minute_step' => 'custom'],
     ];
+    $scan = ['none' => ['label' => 'None', 'minute_step' => null]];
+    foreach ([1, 2, 3, 4, 6, 8, 12, 24] as $hours) {
+        $scan['every-' . $hours . 'h'] = ['label' => 'Every ' . $hours . ' hour' . ($hours === 1 ? '' : 's'),
+            'minute_step' => 60, 'hour_step' => $hours];
+    }
+    $scan['custom'] = ['label' => 'Custom five-field cron', 'minute_step' => 'custom'];
+    if ($job === 'vitals') return $vitals;
+    if ($job === 'scan') return $scan;
+    return $vitals + $scan;
 }
 
 /** Produces a five-field cron expression for a safe profile or custom fields. */
-function cronEditorExpression(string $profile, array $custom = []): ?string
+function cronEditorExpression(string $profile, array $custom = [], ?string $job = null, array $offset = []): ?string
 {
-    $profiles = cronEditorProfiles();
+    $profiles = cronEditorProfiles($job);
     if (!isset($profiles[$profile])) throw new ActionRefused('unknown cron editor profile');
     if ($profile === 'none') return null;
     if ($profile !== 'custom') {
-        return cronExpressionFor($profiles[$profile], 0, 0);
+        return cronExpressionFor($profiles[$profile], max(0, min(59, (int)($offset['minute'] ?? 0))), max(0, min(23, (int)($offset['hour'] ?? 0))));
     }
     $fields = [];
     foreach (['minute' => 59, 'hour' => 23, 'day' => 31, 'month' => 12, 'weekday' => 7] as $name => $maximum) {
@@ -490,6 +505,12 @@ function buildCronLines(array $choices, string $php, string $scriptDir): array
  */
 function cronEditorBuildLines(array $jobs, string $php, string $scriptDir): array
 {
+    return array_values(array_filter(cronEditorBuildJobLines($jobs, $php, $scriptDir)));
+}
+
+/** @return array<string, ?string> One approved command line per named job. */
+function cronEditorBuildJobLines(array $jobs, string $php, string $scriptDir): array
+{
     if (!in_array($php, phpBinaries(), true)) {
         throw new ActionRefused('that is not one of the PHP binaries found on this host');
     }
@@ -499,11 +520,34 @@ function cronEditorBuildLines(array $jobs, string $php, string $scriptDir): arra
     $lines = [];
     foreach (cronJobs() as $name => $flags) {
         $choice = (array)($jobs[$name] ?? []);
-        $expr = cronEditorExpression((string)($choice['profile'] ?? 'none'), (array)($choice['custom'] ?? []));
-        if ($expr === null) continue;
-        $lines[] = sprintf('%s %s %s %s', $expr, escapeshellarg($php), escapeshellarg($script), implode(' ', $flags));
+        $expr = cronEditorExpression((string)($choice['profile'] ?? 'none'), (array)($choice['custom'] ?? []), $name, (array)($choice['offset'] ?? []));
+        $lines[$name] = $expr === null ? null : sprintf('%s %s %s %s', $expr, escapeshellarg($php), escapeshellarg($script), implode(' ', $flags));
     }
     return $lines;
+}
+
+/** @return array<string, ?string> Extracts current managed lines by fixed job flags. */
+function cronEditorInstalledJobLines(array $lines): array
+{
+    $out = array_fill_keys(array_keys(cronJobs()), null);
+    foreach (cronJobs() as $job => $flags) foreach ($lines as $line) {
+        if (str_ends_with(trim((string)$line), implode(' ', $flags))) $out[$job] = (string)$line;
+    }
+    return $out;
+}
+
+/** Replaces one approved job while preserving other managed Zogograph jobs. */
+function cronEditorApplyJob(string $job, array $choice, string $php, string $scriptDir): array
+{
+    if (!isset(cronJobs()[$job])) throw new ActionRefused('unknown cron job');
+    $current = readCrontab();
+    if (!$current['available']) throw new ActionRefused((string)$current['reason']);
+    $line = cronEditorBuildJobLines([$job => $choice], $php, $scriptDir)[$job];
+    $suffix = implode(' ', cronJobs()[$job]);
+    $kept = array_values(array_filter(managedBlock($current['raw']), static fn(string $old): bool => !str_ends_with(trim($old), $suffix)));
+    if ($line !== null) $kept[] = $line;
+    writeCrontab(replaceManagedBlock($current['raw'], $kept));
+    return ['installed' => $line, 'removed' => $line === null];
 }
 
 /** Describes whether a desired managed block is installed exactly as saved. */

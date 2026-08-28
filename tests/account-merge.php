@@ -4,6 +4,10 @@ require_once __DIR__ . '/../lib/db.php';
 require_once __DIR__ . '/../lib/account-merge.php';
 
 function accountMergeExpect(bool $condition, string $message): void { if (!$condition) throw new RuntimeException($message); }
+$mergeScript = file_get_contents(__DIR__ . '/../scripts/merge-account.php');
+accountMergeExpect($mergeScript !== false && str_contains($mergeScript, '--review') && str_contains($mergeScript, '--allow-overlap')
+    && str_contains($mergeScript, '--writers-stopped') && str_contains($mergeScript, 'accountMergeApply'),
+    'collector merge command lacks review or explicit apply safeguards');
 $dir = sys_get_temp_dir() . '/zogograph-account-merge-' . bin2hex(random_bytes(6));
 accountMergeExpect(mkdir($dir, 0700), 'could not make account-merge test directory');
 $sourcePath = $dir . '/source.db';

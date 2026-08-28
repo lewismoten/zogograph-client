@@ -194,6 +194,30 @@ function setupKeyCreateToken(): string
     return $_SESSION['setup_key_create_token'];
 }
 
+/**
+ * A practical private-key location for the account running this setup backend.
+ *
+ * The key must stay outside the document root.  Prefer the account record over
+ * HOME because web-service environments do not always retain that variable.
+ */
+function setupSuggestedPrivateKeyPath(): string
+{
+    $home = '';
+    if (function_exists('posix_geteuid') && function_exists('posix_getpwuid')) {
+        $account = @posix_getpwuid(posix_geteuid());
+        $home = is_array($account) ? (string)($account['dir'] ?? '') : '';
+    }
+    if ($home === '') {
+        $environmentHome = getenv('HOME');
+        $home = is_string($environmentHome) ? $environmentHome : '';
+    }
+
+    $home = rtrim($home, '/');
+    return $home !== '' && str_starts_with($home, '/')
+        ? $home . '/secure/primary.key'
+        : '/home/your-account/secure/primary.key';
+}
+
 /* ------------------------------------------------------------------- web -- */
 
 function runWeb(
@@ -631,7 +655,7 @@ function webPage(
             . '<form method="post"><input type="hidden" name="intent" value="create-local-key">'
             . '<input type="hidden" name="setup_key_create_token" value="' . h(setupKeyCreateToken()) . '">'
             . '<label>New private key-file path<input type="text" name="key_path" '
-            . 'placeholder="/secure/zogograph/primary.key" autocomplete="off"></label>'
+            . 'placeholder="' . h(setupSuggestedPrivateKeyPath()) . '" autocomplete="off"></label>'
             . ($configured && !$unlocked
                 ? '<label>Current setup password<input type="password" name="current_password" autocomplete="current-password"></label>'
                 : '')

@@ -255,7 +255,12 @@ function setupAccountMergeUploadDirectory(array $config): string
     $directory = dirname($database) . '/merge-review-inputs';
     if (!is_dir($directory) && !mkdir($directory, 0700, true)) throw new RuntimeException('could not prepare private merge review storage');
     if (is_link($directory) || !is_writable($directory)) throw new RuntimeException('private merge review storage is unavailable');
-    @chmod($directory, 0700); return $directory;
+    @chmod($directory, 0700);
+    $deadline = time() - 3600;
+    foreach (glob($directory . '/review-*.db') ?: [] as $file) {
+        if (!is_link($file) && is_file($file) && (int)@filemtime($file) < $deadline) @unlink($file);
+    }
+    return $directory;
 }
 
 /** Opens the already-configured local registry without creating or migrating it. */
@@ -658,7 +663,11 @@ function runWeb(
             } else {
                 $review = $_SESSION['setup_account_merge'] ?? null;
                 $source = is_array($review) ? (string)($review['source'] ?? '') : '';
-                if ($source === '' || (int)($review['expires_at'] ?? 0) < time() || !is_file($source) || is_link($source)) throw new RuntimeException('the reviewed account export is no longer available; upload it again for a fresh review');
+                if ($source === '' || (int)($review['expires_at'] ?? 0) < time() || !is_file($source) || is_link($source)) {
+                    if ($source !== '' && is_file($source)) @unlink($source);
+                    unset($_SESSION['setup_account_merge'], $_SESSION['setup_account_merge_plan']);
+                    throw new RuntimeException('the reviewed account export is no longer available; upload it again for a fresh review');
+                }
                 if (($_POST['writers_stopped'] ?? '') !== '1') throw new RuntimeException('confirm that all dashboard and collector writers are stopped before applying a merge');
                 if (($_POST['allow_overlap'] ?? '') !== '1') throw new RuntimeException('confirm that overlapping collector times may be deduplicated before applying a merge');
                 $result = accountMergeApply(db($current), $source, true);

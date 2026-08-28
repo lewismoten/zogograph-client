@@ -11847,47 +11847,51 @@ async function refreshEncryptionStatus() {
 async function refreshPackageRuntime() {
   const body = $("packageRuntimeBody");
   if (!body) return;
-  if (!state.signedIn) { body.replaceChildren(note("Sign in to review executable packages.")); return; }
+  if (!state.signedIn) { body.replaceChildren(note(packageText("package.sign_in_review", {}, "Sign in to review executable packages."))); return; }
   try { renderPackageRuntime(await api("package-runtime")); }
   catch (error) { body.replaceChildren(note(String(error.message || error))); }
 }
 
+function packageText(key, values, fallback) {
+  return ZogographI18n.t(key, values, fallback);
+}
+
 function renderPackageRuntime(data) {
   const body = $("packageRuntimeBody");
-  const parts = [note("A package must have a trusted publisher, a valid signed file manifest, and every requested capability granted explicitly. The dashboard never loads package PHP. A separate worker can only perform a no-secret capability probe inside an operator-attested OS/container sandbox; it does not enable provider operations.")];
+  const parts = [note(packageText("package.runtime_intro", {}, "A package must have a trusted publisher, a valid signed file manifest, and every requested capability granted explicitly. The dashboard never loads package PHP. A separate worker can only perform a no-secret capability probe inside an operator-attested OS/container sandbox; it does not enable provider operations."))];
   if (data.can_change) {
-    const upload = document.createElement("button"); upload.className = "primary"; upload.textContent = "Upload signed package";
+    const upload = document.createElement("button"); upload.className = "primary"; upload.textContent = packageText("package.upload", {}, "Upload signed package");
     upload.addEventListener("click", showPackageRuntimeUpload); parts.push(upload);
   }
-  if (data.trusted_publishers?.length) parts.push(factGrid(data.trusted_publishers.map(row => ["Trusted publisher", `${row.publisher} (${row.key_id})`])));
-  else parts.push(note("No executable-package publisher keys are trusted yet. Add a publisher key in setup before installing a signed package."));
-  if (!data.packages?.length) { parts.push(note("No signed executable packages are installed.")); body.replaceChildren(...parts); return; }
+  if (data.trusted_publishers?.length) parts.push(factGrid(data.trusted_publishers.map(row => [packageText("package.trusted_publisher", {}, "Trusted publisher"), `${row.publisher} (${row.key_id})`])));
+  else parts.push(note(packageText("package.no_trusted_publishers", {}, "No executable-package publisher keys are trusted yet. Add a publisher key in setup before installing a signed package.")));
+  if (!data.packages?.length) { parts.push(note(packageText("package.none_installed", {}, "No signed executable packages are installed."))); body.replaceChildren(...parts); return; }
   const holder = document.createElement("div"); holder.id = "packageRuntimeTable"; parts.push(holder); body.replaceChildren(...parts);
   renderTable("packageRuntimeTable", data.packages, [
-    { label: "Package", render: row => `${row.id} · ${row.version}` },
-    { label: "Publisher", render: row => row.publisher },
-    { label: "Integrity", render: row => row.integrity ? "Verified" : "Failed" },
-    { label: "Platform", render: row => row.compatibility?.status === "ready" ? "Ready" : row.compatibility?.detail || "Not checked" },
-    { label: "Dependencies", render: row => row.dependencies?.length ? (row.dependency_status?.ok ? row.dependencies.join(", ") : row.dependency_status?.detail || row.dependencies.join(", ")) : "None" },
-    { label: "Requested capabilities", render: row => row.capabilities.join(", ") },
-    { label: "Granted", render: row => row.grants.length ? row.grants.join(", ") : "None" },
-    { label: "Provider setup", render: row => row.provider_readiness?.state === "not-applicable" ? "—" : row.provider_readiness?.reason || "Not applicable" },
-    { label: "Last isolated probe", render: row => row.probe_evidence ? `${humanTime(row.probe_evidence.probed_at)} · ${row.probe_evidence.operation}: ${row.probe_evidence.state} — ${row.probe_evidence.reason}` : "Not run" },
-    { label: "Status", render: row => row.state },
+    { label: packageText("package.table_package", {}, "Package"), render: row => `${row.id} · ${row.version}` },
+    { label: packageText("package.table_publisher", {}, "Publisher"), render: row => row.publisher },
+    { label: packageText("package.table_integrity", {}, "Integrity"), render: row => row.integrity ? packageText("package.verified", {}, "Verified") : packageText("package.failed", {}, "Failed") },
+    { label: packageText("package.table_platform", {}, "Platform"), render: row => row.compatibility?.status === "ready" ? packageText("package.ready", {}, "Ready") : row.compatibility?.detail || packageText("package.not_checked", {}, "Not checked") },
+    { label: packageText("package.table_dependencies", {}, "Dependencies"), render: row => row.dependencies?.length ? (row.dependency_status?.ok ? row.dependencies.join(", ") : row.dependency_status?.detail || row.dependencies.join(", ")) : packageText("package.none", {}, "None") },
+    { label: packageText("package.table_requested_capabilities", {}, "Requested capabilities"), render: row => row.capabilities.join(", ") },
+    { label: packageText("package.table_granted", {}, "Granted"), render: row => row.grants.length ? row.grants.join(", ") : packageText("package.none", {}, "None") },
+    { label: packageText("package.table_provider_setup", {}, "Provider setup"), render: row => row.provider_readiness?.state === "not-applicable" ? "—" : row.provider_readiness?.reason || packageText("package.not_applicable", {}, "Not applicable") },
+    { label: packageText("package.table_last_probe", {}, "Last isolated probe"), render: row => row.probe_evidence ? `${humanTime(row.probe_evidence.probed_at)} · ${row.probe_evidence.operation}: ${row.probe_evidence.state} — ${row.probe_evidence.reason}` : packageText("package.not_run", {}, "Not run") },
+    { label: packageText("package.table_status", {}, "Status"), render: row => row.state },
     { label: "", className: "row-actions", render: row => packageRuntimeActions(row, data.can_change) },
   ], null, row => row.enabled ? "row-ok" : "", row => row.id);
 }
 
 function showPackageRuntimeUpload() {
   const archive = document.createElement("input"); archive.type = "file"; archive.accept = ".zip,application/zip";
-  showFormDialog("Upload signed package", [
-    fieldRow("Package ZIP archive", archive, "The archive is extracted privately, then every file hash and the publisher signature are verified before installation. It stays disabled until you explicitly grant capabilities and enable it."),
+  showFormDialog(packageText("package.upload", {}, "Upload signed package"), [
+    fieldRow(packageText("package.archive", {}, "Package ZIP archive"), archive, packageText("package.archive_help", {}, "The archive is extracted privately, then every file hash and the publisher signature are verified before installation. It stays disabled until you explicitly grant capabilities and enable it.")),
   ], async () => {
-    if (!archive.files?.[0]) throw new Error("Choose a ZIP archive first.");
+    if (!archive.files?.[0]) throw new Error(packageText("package.choose_archive", {}, "Choose a ZIP archive first."));
     const form = new FormData(); form.set("archive", archive.files[0]);
     const result = await postForm("package-runtime-install-archive", form);
-    await refreshPackageRuntime(); notice(`${result.package.id} ${result.package.version} installed for review.`, true);
-  }, "Verify and install");
+    await refreshPackageRuntime(); notice(packageText("package.installed_for_review", {id: result.package.id, version: result.package.version}, "{{id}} {{version}} installed for review."), true);
+  }, packageText("package.verify_install", {}, "Verify and install"));
 }
 
 let packageDashboardPagesLoaded = false;

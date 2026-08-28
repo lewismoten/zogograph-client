@@ -24,6 +24,9 @@ i18nExpect($script !== false && str_contains($script, 'new Intl.NumberFormat(doc
 i18nExpect($script !== false && str_contains($script, 'ZogographI18n.t("image.note_screenshot"')
     && str_contains($script, 'ZogographI18n.t("image.send_screenshot"'),
     'dashboard fixed image descriptions do not use the locale catalog');
+i18nExpect($script !== false && str_contains($script, 'function packageText(')
+    && str_contains($script, 'package.runtime_intro') && str_contains($script, 'package.installed_for_review'),
+    'package administration does not use localized named messages');
 i18nExpect($script !== false && str_contains($script, 'typeof page.parent === "string" && VIEWS[page.parent]')
     && str_contains($script, 'link.dataset.parent = parent'),
     'package dashboard pages cannot select a safe core navigation parent');
@@ -147,7 +150,7 @@ i18nExpect($setup !== false && str_contains($setup, "data-i18n=\"setup.option.' 
 i18nExpect($setup !== false && str_contains($setup, "data-i18n=\"setup.help.' . h(\$key)")
     && is_array($english) && isset($english['setup.help.openid_enabled'], $english['setup.help.encryption_key_file'], $english['setup.help.host_keep_days']),
     'schema-driven Setup help text does not have stable i18n keys and English fallbacks');
-i18nExpect(is_array($english) && isset($english['example.readings'], $english['example.compact'], $english['example.cost'], $english['example.percent'], $english['example.storage'], $english['example.changed'], $english['update.available'], $english['range.10m'], $english['action.reload'], $english['navigation.storage'], $english['navigation.cpu'], $english['navigation.deleted_held'], $english['navigation.cpu_limits'], $english['deployment.test'], $english['deployment.copy_release'], $english['deployment.method'], $english['deployment.update_manual'], $english['merge.apply'], $english['merge.review_expiry'], $english['merge.last_result'], $english['installation.checks'], $english['auth.qr_alt'], $english['auth.open_account'], $english['image.generated'], $english['package.save_settings'], $english['schedule.custom_builder'], $english['schedule.job.vitals'], $english['schedule.remove'], $english['setup.search_results'], $english['openid.provider_intro'], $english['openid.secret_copy']),
+i18nExpect(is_array($english) && isset($english['example.readings'], $english['example.compact'], $english['example.cost'], $english['example.percent'], $english['example.storage'], $english['example.changed'], $english['update.available'], $english['range.10m'], $english['action.reload'], $english['navigation.storage'], $english['navigation.cpu'], $english['navigation.deleted_held'], $english['navigation.cpu_limits'], $english['deployment.test'], $english['deployment.copy_release'], $english['deployment.method'], $english['deployment.update_manual'], $english['merge.apply'], $english['merge.review_expiry'], $english['merge.last_result'], $english['installation.checks'], $english['auth.qr_alt'], $english['auth.open_account'], $english['image.generated'], $english['package.save_settings'], $english['package.runtime_intro'], $english['package.installed_for_review'], $english['schedule.custom_builder'], $english['schedule.job.vitals'], $english['schedule.remove'], $english['setup.search_results'], $english['openid.provider_intro'], $english['openid.secret_copy']),
     'English fallback catalog is incomplete');
 preg_match_all('/data-i18n(?:-placeholder|-title|-aria-label)?="([^"]+)"/', (string)$page, $pageKeys);
 foreach (array_unique($pageKeys[1] ?? []) as $key) {

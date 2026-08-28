@@ -30,6 +30,7 @@ final class SetupPanelRegistry
             ['id' => 'basics', 'title' => 'Installation', 'kind' => 'core', 'keywords' => ['checks', 'prerequisites']],
             ['id' => 'privacy', 'title' => 'Privacy', 'kind' => 'core', 'keywords' => ['mask', 'paths']],
             ['id' => 'schedule', 'title' => 'Schedule', 'kind' => 'core', 'keywords' => ['cron', 'vitals', 'scan']],
+            ['id' => 'deployment', 'title' => 'Deployment', 'kind' => 'core', 'keywords' => ['remote', 'rsync', 'sftp', 'ftps']],
         ] as $panel) $this->add($panel);
         foreach ($fields as $field) {
             $id = (string)($field['section'] ?? 'basics');

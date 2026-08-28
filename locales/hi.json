@@ -18,6 +18,7 @@
   "setup.section.openid": "OpenID",
   "setup.section.package_runtime": "पैकेज",
   "setup.section.security": "सुरक्षा",
+  "setup.section.deployment": "परिनियोजन",
   "dashboard.range": "अवधि",
   "dashboard.live": "लाइव",
   "auth.sign_in": "साइन इन करें",

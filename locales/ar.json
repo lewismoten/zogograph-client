@@ -18,6 +18,7 @@
   "setup.section.openid": "OpenID",
   "setup.section.package_runtime": "الحزم",
   "setup.section.security": "الأمان",
+  "setup.section.deployment": "النشر",
   "dashboard.range": "النطاق الزمني",
   "dashboard.live": "مباشر",
   "auth.sign_in": "تسجيل الدخول",

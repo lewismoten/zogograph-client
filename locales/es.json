@@ -18,6 +18,7 @@
   "setup.section.openid": "OpenID",
   "setup.section.package_runtime": "Paquetes",
   "setup.section.security": "Seguridad",
+  "setup.section.deployment": "Implementación",
   "dashboard.range": "Periodo",
   "dashboard.show": "Mostrar",
   "dashboard.live": "En vivo",

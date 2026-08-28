@@ -18,6 +18,7 @@
   "setup.section.openid": "OpenID",
   "setup.section.package_runtime": "软件包",
   "setup.section.security": "安全",
+  "setup.section.deployment": "部署",
   "dashboard.range": "时间范围",
   "dashboard.live": "实时",
   "auth.sign_in": "登录",

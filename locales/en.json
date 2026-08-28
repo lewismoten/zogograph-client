@@ -18,6 +18,7 @@
   "setup.section.openid": "OpenID",
   "setup.section.package_runtime": "Packages",
   "setup.section.security": "Security",
+  "setup.section.deployment": "Deployment",
   "brand.tagline": "clear server monitoring",
   "dashboard.refresh": "Refresh now",
   "dashboard.refresh_status": "Collector status; refresh now",

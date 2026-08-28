@@ -61,6 +61,7 @@ require_once $root . '/lib/setup-panels.php';
 require_once $root . '/lib/package-runtime.php';
 require_once $root . '/lib/auth.php';
 require_once $root . '/lib/openid.php';
+require_once $root . '/lib/remote-deployment.php';
 require_once $root . '/lib/db.php';
 // For hostCronLine/hostCronCommand, shown after a successful write.
 require_once $root . '/lib/hostdb.php';
@@ -230,6 +231,13 @@ function setupPackageSettingsToken(): string
         $_SESSION['setup_package_settings_token'] = bin2hex(random_bytes(32));
     }
     return $_SESSION['setup_package_settings_token'];
+}
+
+/** CSRF token for remote deployment profile and credential-reference changes. */
+function setupDeploymentToken(): string
+{
+    if (!is_string($_SESSION['setup_deployment_token'] ?? null)) $_SESSION['setup_deployment_token'] = bin2hex(random_bytes(32));
+    return $_SESSION['setup_deployment_token'];
 }
 
 /** Opens the already-configured local registry without creating or migrating it. */
@@ -571,6 +579,30 @@ function runWeb(
     }
     if (is_string($_SESSION['setup_pending_openid_signing_key'] ?? null)) {
         $values['openid_signing_private_key'] = $_SESSION['setup_pending_openid_signing_key'];
+    }
+
+    if ($posted && in_array($_POST['intent'] ?? '', ['store-deployment-secret', 'save-deployment-profile'], true)) {
+        try {
+            if (!$configured || !$unlocked || $current === null) throw new RuntimeException('unlock setup before changing remote deployment');
+            if (!hash_equals(setupDeploymentToken(), (string)($_POST['setup_deployment_token'] ?? ''))) throw new RuntimeException('the deployment form expired; reload Setup and try again');
+            if (($_POST['intent'] ?? '') === 'store-deployment-secret') {
+                $reference = remoteDeploymentSecretStore($current, (string)($_POST['deployment_secret'] ?? ''), 'setup administrator');
+                $_SESSION['setup_deployment_last_reference'] = $reference;
+                $_SESSION['setup_notice'] = 'Deployment credential stored with encryption. Its value was not retained in this page.';
+            } else {
+                $profile = remoteDeploymentProfile($_POST);
+                if (!remoteDeploymentSecretExists($current, $profile['credential_reference'])) throw new RuntimeException('the selected deployment credential reference is unavailable');
+                if ($profile['known_host_reference'] !== null && !remoteDeploymentSecretExists($current, $profile['known_host_reference'])) throw new RuntimeException('the selected SSH host-key reference is unavailable');
+                $current['remote_deployment'] = $profile;
+                [$saved, $problem] = writeConfig($targetPath, $current, $root . '/lib');
+                if (!$saved) throw new RuntimeException((string)$problem);
+                $_SESSION['setup_notice'] = 'Remote deployment profile saved. Test the target before copying any files.';
+            }
+        } catch (Throwable $error) {
+            $_SESSION['setup_error'] = 'Could not save remote deployment settings: ' . $error->getMessage();
+        }
+        header('Location: ' . strtok((string)$_SERVER['REQUEST_URI'], '?') . '?section=deployment', true, 303);
+        return;
     }
 
     if ($posted && ($_POST['intent'] ?? '') === 'save-package-settings') {
@@ -987,6 +1019,16 @@ function webPage(
             $out[] = '<input type="hidden" name="setup_totp_token" value="' . h(setupTotpToken()) . '"><button type="submit" name="intent" value="start-totp">Create authenticator secret</button>';
         }
         $out[] = '</fieldset>';
+    } elseif ($activeSection === 'deployment') {
+        $deployment = (array)(($current ?? [])['remote_deployment'] ?? []);
+        $lastReference = is_string($_SESSION['setup_deployment_last_reference'] ?? null) ? $_SESSION['setup_deployment_last_reference'] : '';
+        $out[] = '<fieldset><legend>Remote deployment profile</legend><p class="help">Save the target and update policy here. Credentials and SSH host keys are encrypted separately and the profile retains only opaque references. Plain FTP is not available; choose explicit TLS FTP where SSH is unavailable.</p>'
+            . '<input type="hidden" name="setup_deployment_token" value="' . h(setupDeploymentToken()) . '">'
+            . '<label>Transfer method<select name="method"><option value="rsync_ssh"' . (($deployment['method'] ?? 'rsync_ssh') === 'rsync_ssh' ? ' selected' : '') . '>rsync over SSH</option><option value="sftp"' . (($deployment['method'] ?? '') === 'sftp' ? ' selected' : '') . '>SFTP</option><option value="ftps"' . (($deployment['method'] ?? '') === 'ftps' ? ' selected' : '') . '>FTP with explicit TLS</option></select></label>'
+            . '<label>Target hostname or IP<input required name="host" value="' . h((string)($deployment['host'] ?? '')) . '" autocomplete="off"></label><label>Port (leave blank for method default)<input name="port" inputmode="numeric" value="' . h((string)($deployment['port'] ?? '')) . '"></label><label>Deployment username<input required name="username" value="' . h((string)($deployment['username'] ?? '')) . '" autocomplete="username"></label><label>Remote target path<input required name="target_path" value="' . h((string)($deployment['target_path'] ?? '')) . '" placeholder="/srv/zogograph-remote"></label>'
+            . '<label>Encrypted credential reference<input required name="credential_reference" value="' . h((string)($deployment['credential_reference'] ?? $lastReference)) . '" autocomplete="off"></label><label>SSH host-key reference (not used for FTPS)<input name="known_host_reference" value="' . h((string)($deployment['known_host_reference'] ?? '')) . '" autocomplete="off"></label><label>Core controller URL<input required type="url" name="controller_url" value="' . h((string)($deployment['controller_url'] ?? '')) . '" placeholder="https://core.example"></label><label>Remote update behavior<select name="update_mode"><option value="manual"' . (($deployment['update_mode'] ?? 'manual') === 'manual' ? ' selected' : '') . '>Manual install</option><option value="download"' . (($deployment['update_mode'] ?? '') === 'download' ? ' selected' : '') . '>Download, then wait for approval</option><option value="automatic"' . (($deployment['update_mode'] ?? '') === 'automatic' ? ' selected' : '') . '>Install automatically</option></select></label><label>Package groups (comma-separated)<input required name="packages[]" value="remote-core" readonly></label><button type="submit" name="intent" value="save-deployment-profile">Save deployment profile</button></fieldset>';
+        $out[] = '<fieldset><legend>Store deployment credential or host key</legend><p class="help">Paste one password, private key, or known_hosts entry. It is encrypted with the configured local key and shown only as an opaque reference after storage.</p><label>Credential or host-key material<textarea name="deployment_secret" rows="5" autocomplete="off"></textarea></label><button type="submit" name="intent" value="store-deployment-secret">Store encrypted credential</button>'
+            . ($lastReference !== '' ? '<p class="banner ok">New encrypted reference: <code>' . h($lastReference) . '</code></p>' : '') . '</fieldset>';
     } elseif ($activeSection === 'schedule') {
         $schedule = scheduleState(__DIR__);
         $savedSchedule = (array)(($current ?? [])['schedule'] ?? []);

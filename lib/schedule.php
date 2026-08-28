@@ -70,6 +70,42 @@ function cronPresets(): array
     ];
 }
 
+/** Reusable Setup/plugin editor profiles, intentionally standard-cron only. */
+function cronEditorProfiles(): array
+{
+    return [
+        'none' => ['label' => 'None', 'minute_step' => null],
+        'every-1m' => ['label' => 'Every 1 minute', 'minute_step' => 1],
+        'every-5m' => ['label' => 'Every 5 minutes', 'minute_step' => 5],
+        'every-10m' => ['label' => 'Every 10 minutes', 'minute_step' => 10],
+        'every-30m' => ['label' => 'Every 30 minutes', 'minute_step' => 30],
+        'custom' => ['label' => 'Custom five-field cron', 'minute_step' => 'custom'],
+    ];
+}
+
+/** Produces a five-field cron expression for a safe profile or custom fields. */
+function cronEditorExpression(string $profile, array $custom = []): ?string
+{
+    $profiles = cronEditorProfiles();
+    if (!isset($profiles[$profile])) throw new ActionRefused('unknown cron editor profile');
+    if ($profile === 'none') return null;
+    if ($profile !== 'custom') {
+        return cronExpressionFor($profiles[$profile], 0, 0);
+    }
+    $fields = [];
+    foreach (['minute' => 59, 'hour' => 23, 'day' => 31, 'month' => 12, 'weekday' => 7] as $name => $maximum) {
+        $value = trim((string)($custom[$name] ?? '*'));
+        if (!preg_match('/^[0-9*,\/-]+$/', $value) || strlen($value) > 80) {
+            throw new ActionRefused("invalid custom cron $name field");
+        }
+        foreach (preg_split('/[,*\/-]+/', $value) ?: [] as $number) {
+            if ($number !== '' && (int)$number > $maximum) throw new ActionRefused("custom cron $name field is out of range");
+        }
+        $fields[] = $value;
+    }
+    return implode(' ', $fields);
+}
+
 /**
  * One cron field: every value, a single value, or the list a step produces.
  *

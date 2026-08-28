@@ -100,6 +100,7 @@ try {
 
     $sample = require __DIR__ . '/../lib/config.sample.php';
     require_once __DIR__ . '/../lib/setup-panels.php';
+    require_once __DIR__ . '/../lib/schedule.php';
     $sampleText = file_get_contents(__DIR__ . '/../lib/config.sample.php');
     encryptionExpect(is_string($sample['scan_root'] ?? null) && str_starts_with($sample['scan_root'], '/')
         && $sampleText !== false && str_contains($sampleText, 'posix_getpwuid')
@@ -112,6 +113,9 @@ try {
         'password management is not isolated to the Security section');
     encryptionExpect(isset(setupPanels(configFields($sample))['schedule'])
         && setupPanelId('plugin-panel') === 'plugin-panel', 'Setup panel registry is unavailable');
+    encryptionExpect(cronEditorExpression('every-5m') === '0,5,10,15,20,25,30,35,40,45,50,55 * * * *'
+        && cronEditorExpression('custom', ['minute' => '7', 'hour' => '2']) === '7 2 * * *',
+        'reusable cron editor profiles are unavailable');
     encryptionExpect(($sample['encryption']['stores'] ?? []) === ['config', 'setup', 'account'],
         'quick-install encryption defaults included optional host or assistant stores');
     encryptionExpect(isset($fields['encryption_retention_recovery_tiers'])

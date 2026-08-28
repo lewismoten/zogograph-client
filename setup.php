@@ -56,6 +56,7 @@ require_once $root . '/lib/encryption.php';
 require_once $root . '/lib/setupstore.php';
 require_once $root . '/lib/setup-preflight.php';
 require_once $root . '/lib/schedule.php';
+require_once $root . '/lib/setup-panels.php';
 // For hostCronLine/hostCronCommand, shown after a successful write.
 require_once $root . '/lib/hostdb.php';
 
@@ -659,20 +660,13 @@ function webPage(
         $out[] = '<div class="banner crit">Some answers need another look.</div>';
     }
 
-    $sections = [];
-    foreach ($fields as $field) {
-        $section = (string)($field['section'] ?? 'basics');
-        if ($section !== 'basics') {
-            $sections[$section] = true;
-        }
-    }
-    $sections['privacy'] = true;
-    $sections['schedule'] = true;
+    $panels = setupPanels($fields);
     $out[] = '<div class="setup-layout"><aside class="setup-nav" aria-label="Setup sections">'
         . '<a' . ($activeSection === 'basics' ? ' class="current"' : '') . ' href="?section=basics">Installation</a>';
-    foreach (array_keys($sections) as $name) {
+    foreach ($panels as $name => $panel) {
+        if ($name === 'basics') continue;
         $out[] = '<a' . ($activeSection === $name ? ' class="current"' : '')
-            . ' href="?section=' . rawurlencode($name) . '">' . h(sectionTitle($name)) . '</a>';
+            . ' href="?section=' . rawurlencode($name) . '">' . h($panel['title']) . '</a>';
     }
     $out[] = '</aside><main class="setup-main"><form method="post">'
         . '<input type="hidden" name="section" value="' . h($activeSection) . '">';

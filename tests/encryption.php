@@ -99,6 +99,7 @@ try {
         'setup does not provide a guarded local encryption-key quick start');
 
     $sample = require __DIR__ . '/../lib/config.sample.php';
+    require_once __DIR__ . '/../lib/setup-panels.php';
     $sampleText = file_get_contents(__DIR__ . '/../lib/config.sample.php');
     encryptionExpect(is_string($sample['scan_root'] ?? null) && str_starts_with($sample['scan_root'], '/')
         && $sampleText !== false && str_contains($sampleText, 'posix_getpwuid')
@@ -109,6 +110,8 @@ try {
         static fn(array $field): bool => ($field['section'] ?? 'basics') === 'basics'));
     encryptionExpect($bootstrapFields === [] && ($fields['password']['section'] ?? '') === 'security',
         'password management is not isolated to the Security section');
+    encryptionExpect(isset(setupPanels(configFields($sample))['schedule'])
+        && setupPanelId('plugin-panel') === 'plugin-panel', 'Setup panel registry is unavailable');
     encryptionExpect(($sample['encryption']['stores'] ?? []) === ['config', 'setup', 'account'],
         'quick-install encryption defaults included optional host or assistant stores');
     encryptionExpect(isset($fields['encryption_retention_recovery_tiers'])

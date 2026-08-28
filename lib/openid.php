@@ -39,6 +39,10 @@ function openIdDiscovery(array $config): ?array
         'jwks_uri' => $issuer . '/openid.php?action=jwks',
         'response_types_supported' => ['code'],
         'grant_types_supported' => ['authorization_code'],
+        'subject_types_supported' => ['public'],
+        // The token endpoint accepts the confidential client values in the
+        // form body and intentionally does not implement HTTP Basic auth.
+        'token_endpoint_auth_methods_supported' => ['client_secret_post'],
         'code_challenge_methods_supported' => ['S256'],
         // The application only manages locally named groups, so this is the
         // claim a peer will eventually map after signature validation.

@@ -67,8 +67,11 @@ $bad = openIdCreateCode($pdo, 'peer-client', 'https://peer.example/callback', $c
     'operator', ['Operator'], null);
 openIdExpect(openIdConsumeCode($pdo, $bad, str_repeat('x', 43)) === null,
     'an authorization code accepted an incorrect PKCE verifier');
-openIdExpect(openIdDiscovery($config)['code_challenge_methods_supported'] === ['S256'],
-    'OpenID discovery did not advertise its enforced PKCE method');
+$discovery = openIdDiscovery($config);
+openIdExpect($discovery['code_challenge_methods_supported'] === ['S256']
+    && $discovery['subject_types_supported'] === ['public']
+    && $discovery['token_endpoint_auth_methods_supported'] === ['client_secret_post'],
+    'OpenID discovery did not advertise its enforced token and client capabilities');
 $setup = file_get_contents(__DIR__ . '/../setup.php');
 openIdExpect($setup !== false && str_contains($setup, 'setupOpenIdClientToken')
     && str_contains($setup, 'create-openid-client') && str_contains($setup, 'remove-openid-client')

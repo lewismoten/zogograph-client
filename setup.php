@@ -704,6 +704,10 @@ function webPage(
             . '<p class="help">Signed-out visitors see stable anonymous labels instead of real filesystem '
             . 'paths. Rotating this secret changes every one of those labels, breaking any old label-to-path '
             . 'correlation. Leave it unchanged unless you suspect it was exposed.</p>'
+            . '<table class="preflight"><thead><tr><th>What a signed-out visitor sees</th><th>Before rotation</th><th>After rotation</th></tr></thead><tbody>'
+            . '<tr><th>Same private log file</th><td><code>.log file A1B2C3</code></td><td><code>.log file D4E5F6</code></td></tr>'
+            . '<tr><th>Real filesystem path</th><td colspan="2">Never shown</td></tr>'
+            . '</tbody></table>'
             . '<label class="row"><input type="checkbox" name="rotate_mask" value="1"> Generate a new mask secret</label>'
             . '</fieldset>';
     } else {

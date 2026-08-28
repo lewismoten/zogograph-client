@@ -15,7 +15,8 @@ i18nExpect($runtime !== false && str_contains($runtime, 'Intl.NumberFormat') && 
 i18nExpect($page !== false && str_contains($page, 'id="languagePicker"') && str_contains($page, 'id="languageKeys"')
     && str_contains($page, 'src="i18n.js"'), 'dashboard language controls are unavailable');
 i18nExpect($script !== false && str_contains($script, 'new Intl.NumberFormat(document.documentElement.lang || undefined)')
-    && str_contains($script, 'toLocaleString(document.documentElement.lang || undefined)'), 'dashboard value formatting ignores the selected locale');
+    && str_contains($script, 'toLocaleString(document.documentElement.lang || undefined)') && str_contains($script, 'document.addEventListener("zogograph-i18n-load"')
+    && str_contains($script, 'view.manual'), 'dashboard value formatting ignores the selected locale or refreshes manual views');
 i18nExpect($setup !== false && str_contains($setup, 'src="i18n.js"') && str_contains($setup, 'id="languagePicker"')
     && str_contains($setup, 'id="languageKeys"') && str_contains($setup, 'data-i18n="setup.installation"')
     && str_contains($setup, "'setup.section.' . \$name"),

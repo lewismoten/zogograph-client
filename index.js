@@ -33786,6 +33786,18 @@ document.addEventListener("visibilitychange", () => {
   }
 });
 
+let localeRefreshPending = false;
+document.addEventListener("zogograph-i18n-load", () => {
+  const view = VIEWS[state.view] || VIEWS[DEFAULT_VIEW];
+  if (document.hidden || view.manual || localeRefreshPending) return;
+  localeRefreshPending = true;
+  requestAnimationFrame(() => {
+    localeRefreshPending = false;
+    state.rendered.delete(state.view);
+    refreshCurrent().catch(error => notice(String(error.message || error)));
+  });
+});
+
 /* ------------------------------------------------------------------ start -- */
 
 function bindNavLink(link) {

@@ -8,7 +8,7 @@ function coreFeatureExpect(bool $condition, string $message): void { if (!$condi
 
 $legacy = ['ai' => ['enabled' => true]];
 coreFeatureExpect(coreFeatureEnabled($legacy, 'assistant'), 'a legacy installation did not preserve the assistant feature');
-$disabled = ['core_features' => ['assistant' => false, 'peers' => false, 'marketplace' => false, 'terminal' => false, 'notes' => false, 'problems' => false], 'ai' => ['enabled' => true]];
+$disabled = ['core_features' => ['assistant' => false, 'peers' => false, 'marketplace' => false, 'terminal' => false, 'notes' => false, 'problems' => false, 'storage' => false], 'ai' => ['enabled' => true]];
 coreFeatureExpect(!coreFeatureEnabled($disabled, 'assistant') && !aiSettings($disabled)['enabled'],
     'disabled assistant core feature still enabled assistant operations');
 $status = coreFeatureStatus($disabled);
@@ -17,13 +17,14 @@ coreFeatureExpect($status[0]['id'] === 'assistant' && !$status[0]['enabled'] && 
     && $status[2]['id'] === 'marketplace' && !$status[2]['enabled'] && in_array('sys-marketplace', $status[2]['dashboard_routes'], true)
     && $status[3]['id'] === 'terminal' && !$status[3]['enabled'] && in_array('sys-terminal', $status[3]['dashboard_routes'], true)
     && $status[4]['id'] === 'notes' && !$status[4]['enabled'] && in_array('sys-notes', $status[4]['dashboard_routes'], true)
-    && $status[5]['id'] === 'problems' && !$status[5]['enabled'] && in_array('sys-problems', $status[5]['dashboard_routes'], true),
+    && $status[5]['id'] === 'problems' && !$status[5]['enabled'] && in_array('sys-problems', $status[5]['dashboard_routes'], true)
+    && $status[6]['id'] === 'storage' && !$status[6]['enabled'] && in_array('sys-retention', $status[6]['dashboard_routes'], true),
     'core feature status does not expose its disabled dashboard boundary');
 coreFeatureExpect(coreFeatureForAction('ai-start') === 'assistant' && coreFeatureForAction('peer-test') === 'peers'
     && coreFeatureForAction('marketplace-install') === 'marketplace'
     && coreFeatureForAction('terminal-run') === 'terminal'
     && coreFeatureForAction('note-save') === 'notes' && coreFeatureForAction('snapshot-delete') === 'notes'
-    && coreFeatureForAction('clear-problems') === 'problems'
+    && coreFeatureForAction('clear-problems') === 'problems' && coreFeatureForAction('store-rollup') === 'storage'
     && coreFeatureForAction('overview') === null, 'core feature API action mapping is incomplete or overbroad');
 try { requireCoreFeatureAccess($disabled, 'ai-start'); throw new RuntimeException('disabled assistant route was accepted'); }
 catch (ActionRefused $error) { coreFeatureExpect($error->getMessage() === 'this core feature is disabled', 'disabled assistant route used an unsafe refusal'); }
@@ -37,6 +38,8 @@ try { requireCoreFeatureAccess($disabled, 'note-save'); throw new RuntimeExcepti
 catch (ActionRefused $error) { coreFeatureExpect($error->getMessage() === 'this core feature is disabled', 'disabled notes route used an unsafe refusal'); }
 try { requireCoreFeatureAccess($disabled, 'clear-problems'); throw new RuntimeException('disabled problem route was accepted'); }
 catch (ActionRefused $error) { coreFeatureExpect($error->getMessage() === 'this core feature is disabled', 'disabled problem route used an unsafe refusal'); }
+try { requireCoreFeatureAccess($disabled, 'store-rollup'); throw new RuntimeException('disabled storage route was accepted'); }
+catch (ActionRefused $error) { coreFeatureExpect($error->getMessage() === 'this core feature is disabled', 'disabled storage route used an unsafe refusal'); }
 requireCoreFeatureAccess($legacy, 'ai-start');
 $api = file_get_contents(__DIR__ . '/../api.php');
 $dashboard = file_get_contents(__DIR__ . '/../index.js');

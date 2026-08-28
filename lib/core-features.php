@@ -33,6 +33,10 @@ const CORE_FEATURES = [
         'dashboard_routes' => ['sys-problems'],
         'setup_section' => 'features',
     ],
+    'storage' => [
+        'dashboard_routes' => ['sys-account', 'sys-host-data', 'sys-retention'],
+        'setup_section' => 'features',
+    ],
 ];
 
 /** Missing settings deliberately preserve existing installations. */
@@ -63,6 +67,7 @@ function coreFeatureForAction(string $action): ?string
     if ($action === 'terminal' || str_starts_with($action, 'terminal-')) return 'terminal';
     if ($action === 'notes' || str_starts_with($action, 'note-') || $action === 'snapshot-delete') return 'notes';
     if ($action === 'problems' || $action === 'clear-problems') return 'problems';
+    if ($action === 'store' || str_starts_with($action, 'store-')) return 'storage';
     return null;
 }
 

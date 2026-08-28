@@ -99,6 +99,15 @@ function configFields(array $sample): array
             'default' => (bool)($sample['core_features']['problems'] ?? true),
         ],
         [
+            'key' => 'core_features_storage',
+            'section' => 'features',
+            'path' => ['core_features', 'storage'],
+            'type' => 'bool',
+            'label' => 'Data storage core feature',
+            'help' => 'Disabling this removes account data, host data, and retention controls from the dashboard and blocks their API routes. Collection, configured retention, and safe automatic rollups continue running server-side.',
+            'default' => (bool)($sample['core_features']['storage'] ?? true),
+        ],
+        [
             'key' => 'openid_enabled',
             'section' => 'openid',
             'path' => ['openid', 'enabled'],

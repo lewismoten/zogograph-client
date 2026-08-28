@@ -1148,12 +1148,12 @@ function webPage(
         // than submitting a whole config full of defaults.
         $out[] = '</form><form method="post"><input type="hidden" name="intent" value="unlock">'
             . '<input type="hidden" name="section" value="' . h($activeSection) . '">'
-            . '<fieldset><legend>Authorise</legend>'
-            . '<span class="help">The password this install already uses. Enter it to edit the '
+            . '<fieldset><legend data-i18n="setup.authorize">Authorize</legend>'
+            . '<span class="help" data-i18n="setup.authorize_help">The password this install already uses. Enter it to edit the '
             . 'current settings and replace the file.</span>'
-            . '<label style="margin-top:10px">Current password'
+            . '<label style="margin-top:10px"><span data-i18n="setup.current_password">Current password</span>'
             . '<input type="password" name="current_password" autocomplete="current-password"></label>'
-            . '<button type="submit">Unlock</button>'
+            . '<button type="submit" data-i18n="setup.unlock">Unlock</button>'
             . '</fieldset></form><form method="post">';
     }
 
@@ -1168,20 +1168,20 @@ function webPage(
     $suggestedPackageSecretKeyExists = setupPrivateKeyExists($suggestedPackageSecretKeyPath);
     $out[] = '<section class="setup-section"><h2' . ($titleKey !== '' ? ' data-i18n="' . h($titleKey) . '"' : '') . '>' . h($title) . '</h2>';
     if ($editingLocked) {
-        $out[] = '<p class="help">Unlock setup to view or change this section.</p>';
+        $out[] = '<p class="help" data-i18n="setup.unlock_to_view">Unlock setup to view or change this section.</p>';
     } elseif ($activeSection === 'basics') {
-        $out[] = '<p class="help">Review these checks, then open Security to create the sign-in password. '
+        $out[] = '<p class="help" data-i18n="setup.basics_help">Review these checks, then open Security to create the sign-in password. '
             . 'All other settings are available from the navigation when you need them.</p>';
     } elseif ($activeSection === 'privacy') {
-        $out[] = '<fieldset><legend>Masked-path privacy</legend>'
-            . '<p class="help">Signed-out visitors see stable anonymous labels instead of real filesystem '
+        $out[] = '<fieldset><legend data-i18n="privacy.masked_paths">Masked-path privacy</legend>'
+            . '<p class="help" data-i18n="privacy.masked_paths_help">Signed-out visitors see stable anonymous labels instead of real filesystem '
             . 'paths. Rotating this secret changes every one of those labels, breaking any old label-to-path '
             . 'correlation. Leave it unchanged unless you suspect it was exposed.</p>'
-            . '<table class="preflight"><thead><tr><th>What a signed-out visitor sees</th><th>Before rotation</th><th>After rotation</th></tr></thead><tbody>'
-            . '<tr><th>Same private log file</th><td><code>.log file A1B2C3</code></td><td><code>.log file D4E5F6</code></td></tr>'
-            . '<tr><th>Real filesystem path</th><td colspan="2">Never shown</td></tr>'
+            . '<table class="preflight"><thead><tr><th data-i18n="privacy.visitor_view">What a signed-out visitor sees</th><th data-i18n="privacy.before_rotation">Before rotation</th><th data-i18n="privacy.after_rotation">After rotation</th></tr></thead><tbody>'
+            . '<tr><th data-i18n="privacy.private_log">Same private log file</th><td><code>.log file A1B2C3</code></td><td><code>.log file D4E5F6</code></td></tr>'
+            . '<tr><th data-i18n="privacy.real_path">Real filesystem path</th><td colspan="2" data-i18n="privacy.never_shown">Never shown</td></tr>'
             . '</tbody></table>'
-            . '<label class="row"><input type="checkbox" name="rotate_mask" value="1"> Generate a new mask secret</label>'
+            . '<label class="row"><input type="checkbox" name="rotate_mask" value="1"> <span data-i18n="privacy.rotate_mask">Generate a new mask secret</span></label>'
             . '</fieldset>';
     } elseif ($activeSection === 'openid') {
         $pendingOpenIdKey = is_string($_SESSION['setup_pending_openid_signing_key'] ?? null);

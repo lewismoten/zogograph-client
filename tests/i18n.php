@@ -12,9 +12,17 @@ i18nExpect($runtime !== false && str_contains($runtime, 'Intl.NumberFormat') && 
     'locale runtime lacks formatting, RTL, preference, or key-mode support');
 i18nExpect($page !== false && str_contains($page, 'id="languagePicker"') && str_contains($page, 'id="languageKeys"')
     && str_contains($page, 'src="i18n.js"'), 'dashboard language controls are unavailable');
-i18nExpect(is_array($english) && isset($english['example.readings'], $english['example.compact'], $english['example.cost'], $english['update.available'], $english['range.10m'], $english['action.reload']),
+i18nExpect(is_array($english) && isset($english['example.readings'], $english['example.compact'], $english['example.cost'], $english['update.available'], $english['range.10m'], $english['action.reload'], $english['navigation.storage'], $english['navigation.cpu']),
     'English fallback catalog is incomplete');
 foreach (['en-US', 'en-GB', 'es', 'hi', 'zh', 'ar'] as $locale) {
-    i18nExpect(is_array(json_decode((string)file_get_contents($root . '/locales/' . $locale . '.json'), true)), "locale catalog $locale is invalid");
+    $catalog = json_decode((string)file_get_contents($root . '/locales/' . $locale . '.json'), true);
+    i18nExpect(is_array($catalog), "locale catalog $locale is invalid");
+    if (in_array($locale, ['es', 'hi', 'zh', 'ar'], true)) {
+        i18nExpect(isset($catalog['navigation.charts'], $catalog['navigation.storage'], $catalog['navigation.backups'], $catalog['navigation.cpu']),
+            "locale catalog $locale lacks translated primary navigation");
+    }
+}
+foreach (['navigation.charts', 'navigation.storage', 'navigation.backups', 'navigation.cpu'] as $key) {
+    i18nExpect($page !== false && str_contains($page, 'data-i18n="' . $key . '"'), "dashboard navigation does not use $key");
 }
 echo "i18n checks passed\n";

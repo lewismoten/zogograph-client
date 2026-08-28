@@ -21,7 +21,7 @@
 
   <!-- The collector clock is the product mark. Keeping it here avoids a
        decorative look-alike and leaves its state visible on every route. -->
-  <button id="pollState" class="poll poll-brand" aria-label="Collector status; refresh now" title="Refresh now">
+  <button id="pollState" class="poll poll-brand" aria-label="Collector status; refresh now" title="Refresh now" data-i18n-aria-label="dashboard.refresh_status" data-i18n-title="dashboard.refresh">
     <svg viewBox="0 0 36 36" aria-hidden="true">
       <circle class="poll-track" cx="18" cy="18" r="15"></circle>
       <circle class="poll-fill" cx="18" cy="18" r="15"></circle>
@@ -34,7 +34,7 @@
   <a class="brand" href="#/overview">
     <span class="brand-text">
       <strong>Zogograph</strong>
-      <small>clear server monitoring</small>
+      <small data-i18n="brand.tagline">clear server monitoring</small>
     </span>
   </a>
 
@@ -42,22 +42,22 @@
     <label class="inline">
       <span class="control-label" data-i18n="dashboard.range">Range</span>
       <select id="range">
-        <option value="600">Last 10 minutes</option>
-        <option value="3600">Last hour</option>
-        <option value="21600">Last 6 hours</option>
-        <option value="86400" selected>Last day</option>
-        <option value="604800">Last week</option>
-        <option value="2592000">Last 30 days</option>
-        <option value="31536000">Last year</option>
+        <option value="600" data-i18n="range.10m">Last 10 minutes</option>
+        <option value="3600" data-i18n="range.1h">Last hour</option>
+        <option value="21600" data-i18n="range.6h">Last 6 hours</option>
+        <option value="86400" selected data-i18n="range.1d">Last day</option>
+        <option value="604800" data-i18n="range.1w">Last week</option>
+        <option value="2592000" data-i18n="range.30d">Last 30 days</option>
+        <option value="31536000" data-i18n="range.1y">Last year</option>
       </select>
     </label>
 
     <label class="inline" id="unitsWrap">
       <span class="control-label" data-i18n="dashboard.show">Show</span>
       <select id="units">
-        <option value="bytes" selected>Absolute</option>
-        <option value="percent">Percent free</option>
-        <option value="delta">Change per reading</option>
+        <option value="bytes" selected data-i18n="units.absolute">Absolute</option>
+        <option value="percent" data-i18n="units.percent_free">Percent free</option>
+        <option value="delta" data-i18n="units.change">Change per reading</option>
       </select>
     </label>
 
@@ -77,8 +77,8 @@
     <label class="inline"><input id="languageKeys" type="checkbox"><span data-i18n="language.keys">Show translation keys</span></label>
     <button id="ipPrivacy" class="link" hidden title="Hide IP addresses in this browser session">Hide IPs</button>
     <button id="accountPrivacy" class="link" hidden title="Hide this account name in this browser session">Hide account</button>
-    <button id="pageHelp" class="header-help" type="button" aria-label="Help for this page" title="Help for this page">?</button>
-    <button id="displayPreferences" class="link" type="button" title="Change text size and motion">Display</button>
+    <button id="pageHelp" class="header-help" type="button" aria-label="Help for this page" title="Help for this page" data-i18n-aria-label="help.page" data-i18n-title="help.page">?</button>
+    <button id="displayPreferences" class="link" type="button" title="Change text size and motion" data-i18n="display.label" data-i18n-title="display.change">Display</button>
     <button id="totpRecoveryCodes" class="link" hidden title="Create new one-time recovery codes after confirming your authenticator">Recovery codes</button>
     <button id="revokeSessions" class="link danger" hidden title="End all signed-in browser sessions">End all sessions</button>
     <button id="signInOut" class="primary" data-i18n="auth.sign_in">Sign in</button>
@@ -89,7 +89,7 @@
   <nav class="sidebar" id="sidebar" aria-label="Sections">
     <label class="nav-search" for="navSearch">
       <span class="sr-only" data-i18n="navigation.search">Search sections</span>
-      <input id="navSearch" type="search" placeholder="Search sections" autocomplete="off">
+      <input id="navSearch" type="search" placeholder="Search sections" autocomplete="off" data-i18n-placeholder="navigation.search">
     </label>
     <a class="nav-item" href="#/overview" data-nav="overview">
       <span class="nav-icon" aria-hidden="true">◴</span>

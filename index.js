@@ -119,7 +119,7 @@ const state = {
   busy: false,
 };
 
-const buildState = { current: null, announced: null, checking: false };
+const buildState = { current: null, announced: null, update: null, checking: false };
 
 const $ = id => document.getElementById(id);
 const escapeRegex = text => String(text).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -622,11 +622,11 @@ function showBuildUpdate(build) {
   if (!banner) return;
   const required = build.browserRefreshRequired === true;
   const message = required
-    ? "A compatibility update is ready. Reload before continuing so this browser uses the matching dashboard."
-    : "A newer Zogograph update is available. Reload when you want to see it.";
+    ? ZogographI18n.t("update.compatibility", {}, "A compatibility update is ready. Reload before continuing so this browser uses the matching dashboard.")
+    : ZogographI18n.t("update.available", {}, "A newer Zogograph update is available. Reload when you want to see it.");
   banner.replaceChildren();
   const text = document.createElement("span"); text.textContent = message;
-  const reload = document.createElement("button"); reload.type = "button"; reload.textContent = "Reload now";
+  const reload = document.createElement("button"); reload.type = "button"; reload.textContent = ZogographI18n.t("action.reload", {}, "Reload now");
   reload.addEventListener("click", () => location.reload());
   banner.append(text, reload);
   banner.hidden = false;
@@ -649,6 +649,7 @@ async function checkForBuildUpdate() {
     }
     if (buildState.current !== identity && buildState.announced !== identity) {
       buildState.announced = identity;
+      buildState.update = build;
       showBuildUpdate(build);
     }
   } catch {
@@ -22992,13 +22993,18 @@ function escapeHtml(text) {
 /* ------------------------------------------------------------- sign in/out -- */
 
 function applySignedInChrome() {
-  $("signInOut").textContent = state.signedIn ? "Sign out" : "Sign in";
+  $("signInOut").textContent = ZogographI18n.t(state.signedIn ? "auth.sign_out" : "auth.sign_in", {}, state.signedIn ? "Sign out" : "Sign in");
   $("totpRecoveryCodes").hidden = !state.signedIn || !state.access?.write;
   $("revokeSessions").hidden = !state.signedIn || !state.access?.write;
   applyAccessChrome();
   renderViewGuide(state.view);
   renderEmptyButtons();
 }
+
+document.addEventListener("zogograph-i18n-load", () => {
+  if (typeof state !== "undefined") applySignedInChrome();
+  if (buildState.update) showBuildUpdate(buildState.update);
+});
 
 function mayUsePage(view) {
   const pages = state.access?.pages;

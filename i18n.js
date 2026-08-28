@@ -26,8 +26,8 @@ function i18nFormat(value, kind, name, values) {
   return String(value ?? "");
 }
 
-function t(key, values = {}) {
-  const fallback = i18n.fallback[key] || key;
+function t(key, values = {}, fallbackText = "") {
+  const fallback = i18n.fallback[key] || fallbackText || key;
   const text = i18n.catalog[key] || fallback;
   if (i18n.keyMode) return key;
   return text.replace(/\{\{([\w.-]+)(?:,\s*(number|latin-number|compact|currency|date|time))?\}\}/g, (_, name, kind) => i18nFormat(values[name], kind, name, values));
@@ -42,7 +42,13 @@ async function i18nLoad(locale = i18nRequestedLocale()) {
   document.querySelectorAll("[data-i18n]").forEach(node => {
     const key = node.dataset.i18n; node.textContent = t(key); node.title = i18n.keyMode ? i18n.fallback[key] || key : "";
   });
+  for (const [attribute, data] of [["placeholder", "i18nPlaceholder"], ["title", "i18nTitle"], ["aria-label", "i18nAriaLabel"]]) {
+    document.querySelectorAll(`[data-${data.replace(/[A-Z]/g, letter => `-${letter.toLowerCase()}`)}]`).forEach(node => {
+      const key = node.dataset[data]; node.setAttribute(attribute, t(key));
+    });
+  }
   const picker = document.querySelector("#languagePicker"); if (picker) picker.value = locale;
+  document.dispatchEvent(new Event("zogograph-i18n-load"));
 }
 
 function i18nRegisterCatalog(locale, catalog) {

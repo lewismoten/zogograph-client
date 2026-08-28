@@ -113,6 +113,7 @@
   "package.secret_references_help": "Select a reference already stored for this package. The secret value is never shown or copied into this page. Create a new secret from the dashboard’s Packages area first if this list is empty.",
   "package.no_reference": "No reference selected",
   "package.unavailable": "Package settings are unavailable: {{detail}}",
+  "package.fix_settings_json": "Fix the package settings JSON before choosing a secret reference.",
   "schedule.intro": "Choose the account collector cadence and apply it here. Only Zogograph’s marked cron block is changed; every other account cron job stays untouched.",
   "schedule.collector": "Account collector schedule",
   "schedule.collector_help": "Vitals are lightweight readings. A scan walks the monitored directory and is normally left off or scheduled much less often.",

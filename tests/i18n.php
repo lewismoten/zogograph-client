@@ -71,6 +71,8 @@ i18nExpect($setup !== false && str_contains($setup, 'setupRenderPackageSettingsP
 i18nExpect($setup !== false && str_contains($setup, 'data-i18n="package.unavailable"')
     && str_contains($setup, "json_encode(['detail' => \$error->getMessage()]"),
     'Setup package-settings failure does not use localized named values');
+i18nExpect($setup !== false && str_contains($setup, 'ZogographI18n?.t("package.fix_settings_json"'),
+    'Setup package-settings JSON alert is not localized');
 i18nExpect($setup !== false && !str_contains($setup, 'textarea[name=package_settings]')
     && substr_count($setup, 'document.querySelectorAll("[data-package-settings-target]")') === 1,
     'Setup package-secret selectors do not use one panel-specific handler');

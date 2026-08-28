@@ -8,7 +8,7 @@ function coreFeatureExpect(bool $condition, string $message): void { if (!$condi
 
 $legacy = ['ai' => ['enabled' => true]];
 coreFeatureExpect(coreFeatureEnabled($legacy, 'assistant'), 'a legacy installation did not preserve the assistant feature');
-$disabled = ['core_features' => ['assistant' => false, 'peers' => false, 'marketplace' => false, 'terminal' => false, 'notes' => false, 'problems' => false, 'storage' => false], 'ai' => ['enabled' => true]];
+$disabled = ['core_features' => ['assistant' => false, 'peers' => false, 'marketplace' => false, 'terminal' => false, 'notes' => false, 'problems' => false, 'storage' => false, 'audit' => false], 'ai' => ['enabled' => true]];
 coreFeatureExpect(!coreFeatureEnabled($disabled, 'assistant') && !aiSettings($disabled)['enabled'],
     'disabled assistant core feature still enabled assistant operations');
 $status = coreFeatureStatus($disabled);
@@ -18,13 +18,15 @@ coreFeatureExpect($status[0]['id'] === 'assistant' && !$status[0]['enabled'] && 
     && $status[3]['id'] === 'terminal' && !$status[3]['enabled'] && in_array('sys-terminal', $status[3]['dashboard_routes'], true)
     && $status[4]['id'] === 'notes' && !$status[4]['enabled'] && in_array('sys-notes', $status[4]['dashboard_routes'], true)
     && $status[5]['id'] === 'problems' && !$status[5]['enabled'] && in_array('sys-problems', $status[5]['dashboard_routes'], true)
-    && $status[6]['id'] === 'storage' && !$status[6]['enabled'] && in_array('sys-retention', $status[6]['dashboard_routes'], true),
+    && $status[6]['id'] === 'storage' && !$status[6]['enabled'] && in_array('sys-retention', $status[6]['dashboard_routes'], true)
+    && $status[7]['id'] === 'audit' && !$status[7]['enabled'] && in_array('deletions', $status[7]['dashboard_routes'], true),
     'core feature status does not expose its disabled dashboard boundary');
 coreFeatureExpect(coreFeatureForAction('ai-start') === 'assistant' && coreFeatureForAction('peer-test') === 'peers'
     && coreFeatureForAction('marketplace-install') === 'marketplace'
     && coreFeatureForAction('terminal-run') === 'terminal'
     && coreFeatureForAction('note-save') === 'notes' && coreFeatureForAction('snapshot-delete') === 'notes'
     && coreFeatureForAction('clear-problems') === 'problems' && coreFeatureForAction('store-rollup') === 'storage'
+    && coreFeatureForAction('clear-audit') === 'audit'
     && coreFeatureForAction('overview') === null, 'core feature API action mapping is incomplete or overbroad');
 try { requireCoreFeatureAccess($disabled, 'ai-start'); throw new RuntimeException('disabled assistant route was accepted'); }
 catch (ActionRefused $error) { coreFeatureExpect($error->getMessage() === 'this core feature is disabled', 'disabled assistant route used an unsafe refusal'); }
@@ -40,6 +42,8 @@ try { requireCoreFeatureAccess($disabled, 'clear-problems'); throw new RuntimeEx
 catch (ActionRefused $error) { coreFeatureExpect($error->getMessage() === 'this core feature is disabled', 'disabled problem route used an unsafe refusal'); }
 try { requireCoreFeatureAccess($disabled, 'store-rollup'); throw new RuntimeException('disabled storage route was accepted'); }
 catch (ActionRefused $error) { coreFeatureExpect($error->getMessage() === 'this core feature is disabled', 'disabled storage route used an unsafe refusal'); }
+try { requireCoreFeatureAccess($disabled, 'clear-audit'); throw new RuntimeException('disabled audit route was accepted'); }
+catch (ActionRefused $error) { coreFeatureExpect($error->getMessage() === 'this core feature is disabled', 'disabled audit route used an unsafe refusal'); }
 requireCoreFeatureAccess($legacy, 'ai-start');
 $api = file_get_contents(__DIR__ . '/../api.php');
 $dashboard = file_get_contents(__DIR__ . '/../index.js');
@@ -58,6 +62,8 @@ foreach (['peer-push.php', 'peer-data.php', 'peer-connect.php'] as $endpoint) {
 $airun = file_get_contents(__DIR__ . '/../lib/airun.php');
 coreFeatureExpect(is_string($airun) && substr_count($airun, "coreFeatureEnabled(\$config, 'terminal')") >= 3,
     'disabled terminal feature leaves assistant terminal tools active');
+coreFeatureExpect(is_string($airun) && str_contains($airun, "coreFeatureEnabled(\$config, 'audit')"),
+    'disabled audit feature leaves assistant action history active');
 coreFeatureExpect(is_string($api) && str_contains($api, "coreFeatureEnabled(\$config, 'notes')")
     && str_contains($api, "'broadcasts' => \$signedIn"), 'disabled notes feature leaves shared broadcasts active');
 echo "core feature checks passed\n";

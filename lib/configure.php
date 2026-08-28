@@ -108,6 +108,15 @@ function configFields(array $sample): array
             'default' => (bool)($sample['core_features']['storage'] ?? true),
         ],
         [
+            'key' => 'core_features_audit',
+            'section' => 'features',
+            'path' => ['core_features', 'audit'],
+            'type' => 'bool',
+            'label' => 'Audit log core feature',
+            'help' => 'Disabling this removes the Audit page and blocks its API routes and assistant history tool. Zogograph continues recording accountability entries server-side.',
+            'default' => (bool)($sample['core_features']['audit'] ?? true),
+        ],
+        [
             'key' => 'openid_enabled',
             'section' => 'openid',
             'path' => ['openid', 'enabled'],

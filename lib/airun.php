@@ -86,7 +86,7 @@ function aiRunTool(
             'get_network_summary' => aiNetworkSummary($config, $pdo),
             'get_collector_health' => aiCollectorHealth($config, $pdo),
             'get_recent_changes' => aiRecentChanges($pdo, $values),
-            'get_action_history' => aiActionHistory($pdo, $values),
+            'get_action_history' => aiActionHistory($config, $pdo, $values),
             'get_chart_data' => aiChartData($pdo, (string)$values['chart'],
                 (int)$values['hours']),
             /*
@@ -956,8 +956,11 @@ function aiRecentChanges(PDO $pdo, array $values): array
     ];
 }
 
-function aiActionHistory(PDO $pdo, array $values): array
+function aiActionHistory(array $config, PDO $pdo, array $values): array
 {
+    if (!coreFeatureEnabled($config, 'audit')) {
+        return ['error' => 'The Audit log core feature is disabled.'];
+    }
     $since = time() - ((int)($values['hours'] ?? 168) * SPAN_HOUR);
     $limit = (int)($values['limit'] ?? 20);
 

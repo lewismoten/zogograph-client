@@ -49,6 +49,7 @@ return [
         'notes' => true,
         'problems' => true,
         'storage' => true,
+        'audit' => true,
     ],
 
     // The account crontab desired by Setup. The editor writes only Zogograph's

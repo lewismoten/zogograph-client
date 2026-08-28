@@ -8,7 +8,7 @@ function coreFeatureExpect(bool $condition, string $message): void { if (!$condi
 
 $legacy = ['ai' => ['enabled' => true]];
 coreFeatureExpect(coreFeatureEnabled($legacy, 'assistant'), 'a legacy installation did not preserve the assistant feature');
-$disabled = ['core_features' => ['assistant' => false, 'peers' => false, 'marketplace' => false, 'terminal' => false, 'notes' => false, 'problems' => false, 'storage' => false, 'audit' => false, 'metadata' => false, 'notifications' => false], 'ai' => ['enabled' => true]];
+$disabled = ['core_features' => ['assistant' => false, 'peers' => false, 'marketplace' => false, 'terminal' => false, 'notes' => false, 'problems' => false, 'storage' => false, 'audit' => false, 'metadata' => false, 'notifications' => false, 'backups' => false], 'ai' => ['enabled' => true]];
 coreFeatureExpect(!coreFeatureEnabled($disabled, 'assistant') && !aiSettings($disabled)['enabled'],
     'disabled assistant core feature still enabled assistant operations');
 $status = coreFeatureStatus($disabled);
@@ -21,7 +21,8 @@ coreFeatureExpect($status[0]['id'] === 'assistant' && !$status[0]['enabled'] && 
     && $status[6]['id'] === 'storage' && !$status[6]['enabled'] && in_array('sys-retention', $status[6]['dashboard_routes'], true)
     && $status[7]['id'] === 'audit' && !$status[7]['enabled'] && in_array('deletions', $status[7]['dashboard_routes'], true)
     && $status[8]['id'] === 'metadata' && !$status[8]['enabled'] && in_array('net-labels', $status[8]['dashboard_routes'], true)
-    && $status[9]['id'] === 'notifications' && !$status[9]['enabled'] && in_array('email', $status[9]['dashboard_routes'], true),
+    && $status[9]['id'] === 'notifications' && !$status[9]['enabled'] && in_array('email', $status[9]['dashboard_routes'], true)
+    && $status[10]['id'] === 'backups' && !$status[10]['enabled'] && in_array('backups-jetbackup', $status[10]['dashboard_routes'], true),
     'core feature status does not expose its disabled dashboard boundary');
 coreFeatureExpect(coreFeatureForAction('ai-start') === 'assistant' && coreFeatureForAction('peer-test') === 'peers'
     && coreFeatureForAction('marketplace-install') === 'marketplace'
@@ -29,7 +30,7 @@ coreFeatureExpect(coreFeatureForAction('ai-start') === 'assistant' && coreFeatur
     && coreFeatureForAction('note-save') === 'notes' && coreFeatureForAction('snapshot-delete') === 'notes'
     && coreFeatureForAction('clear-problems') === 'problems' && coreFeatureForAction('store-rollup') === 'storage'
     && coreFeatureForAction('clear-audit') === 'audit' && coreFeatureForAction('description-save') === 'metadata'
-    && coreFeatureForAction('email-save') === 'notifications'
+    && coreFeatureForAction('email-save') === 'notifications' && coreFeatureForAction('backups') === 'backups'
     && coreFeatureForAction('overview') === null, 'core feature API action mapping is incomplete or overbroad');
 try { requireCoreFeatureAccess($disabled, 'ai-start'); throw new RuntimeException('disabled assistant route was accepted'); }
 catch (ActionRefused $error) { coreFeatureExpect($error->getMessage() === 'this core feature is disabled', 'disabled assistant route used an unsafe refusal'); }
@@ -51,6 +52,8 @@ try { requireCoreFeatureAccess($disabled, 'description-save'); throw new Runtime
 catch (ActionRefused $error) { coreFeatureExpect($error->getMessage() === 'this core feature is disabled', 'disabled metadata route used an unsafe refusal'); }
 try { requireCoreFeatureAccess($disabled, 'email-save'); throw new RuntimeException('disabled notification route was accepted'); }
 catch (ActionRefused $error) { coreFeatureExpect($error->getMessage() === 'this core feature is disabled', 'disabled notification route used an unsafe refusal'); }
+try { requireCoreFeatureAccess($disabled, 'backups'); throw new RuntimeException('disabled backup route was accepted'); }
+catch (ActionRefused $error) { coreFeatureExpect($error->getMessage() === 'this core feature is disabled', 'disabled backup route used an unsafe refusal'); }
 requireCoreFeatureAccess($legacy, 'ai-start');
 $api = file_get_contents(__DIR__ . '/../api.php');
 $dashboard = file_get_contents(__DIR__ . '/../index.js');

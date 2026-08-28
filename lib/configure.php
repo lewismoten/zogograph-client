@@ -135,6 +135,15 @@ function configFields(array $sample): array
             'default' => (bool)($sample['core_features']['notifications'] ?? true),
         ],
         [
+            'key' => 'core_features_backups',
+            'section' => 'features',
+            'path' => ['core_features', 'backups'],
+            'type' => 'bool',
+            'label' => 'Backup inspection core feature',
+            'help' => 'Disabling this removes the Backup inspection pages and blocks their API route. It does not alter backups or their provider-managed schedules.',
+            'default' => (bool)($sample['core_features']['backups'] ?? true),
+        ],
+        [
             'key' => 'openid_enabled',
             'section' => 'openid',
             'path' => ['openid', 'enabled'],

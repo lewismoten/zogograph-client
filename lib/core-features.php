@@ -49,6 +49,10 @@ const CORE_FEATURES = [
         'dashboard_routes' => ['email'],
         'setup_section' => 'features',
     ],
+    'backups' => [
+        'dashboard_routes' => ['backups', 'backups-actions', 'backups-other', 'backups-jetbackup'],
+        'setup_section' => 'features',
+    ],
 ];
 
 /** Missing settings deliberately preserve existing installations. */
@@ -84,6 +88,7 @@ function coreFeatureForAction(string $action): ?string
     if ($action === 'labels' || str_starts_with($action, 'label-') || $action === 'descriptions'
         || str_starts_with($action, 'description-')) return 'metadata';
     if ($action === 'email' || $action === 'email-save' || $action === 'test-email' || $action === 'test-telegram') return 'notifications';
+    if ($action === 'backups') return 'backups';
     return null;
 }
 

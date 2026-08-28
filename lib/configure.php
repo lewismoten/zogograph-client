@@ -45,6 +45,7 @@ function configFields(array $sample): array
     return [
         [
             'key' => 'scan_root',
+            'section' => 'monitoring',
             'path' => ['scan_root'],
             'type' => 'text',
             'label' => 'Directory to watch',
@@ -65,6 +66,7 @@ function configFields(array $sample): array
         ],
         [
             'key' => 'timezone',
+            'section' => 'monitoring',
             'path' => ['timezone'],
             'type' => 'text',
             'label' => 'Timezone',
@@ -76,6 +78,7 @@ function configFields(array $sample): array
         ],
         [
             'key' => 'encryption_mode',
+            'section' => 'encryption',
             'path' => ['encryption', 'mode'],
             'type' => 'choice',
             'label' => 'Encryption mode',
@@ -91,6 +94,7 @@ function configFields(array $sample): array
         ],
         [
             'key' => 'package_runtime_trusted_keys',
+            'section' => 'package_runtime',
             'path' => ['package_runtime', 'trusted_keys'],
             'type' => 'json',
             'label' => 'Trusted executable-package publishers',
@@ -103,6 +107,7 @@ function configFields(array $sample): array
         ],
         [
             'key' => 'package_runtime_secret_key_file',
+            'section' => 'package_runtime',
             'path' => ['package_runtime', 'secret_key_file'],
             'type' => 'text',
             'label' => 'Package secrets key file (optional)',
@@ -116,6 +121,7 @@ function configFields(array $sample): array
         ],
         [
             'key' => 'encryption_key_custody',
+            'section' => 'encryption',
             'path' => ['encryption', 'key_custody'],
             'type' => 'choice',
             'label' => 'Key custody',
@@ -128,6 +134,7 @@ function configFields(array $sample): array
         ],
         [
             'key' => 'encryption_key_file',
+            'section' => 'encryption',
             'path' => ['encryption', 'local_key_file'],
             'type' => 'text',
             'label' => 'Private key-file path',
@@ -140,6 +147,7 @@ function configFields(array $sample): array
         ],
         [
             'key' => 'encryption_artifact_directory',
+            'section' => 'encryption',
             'path' => ['encryption', 'artifact_directory'],
             'type' => 'nullable',
             'label' => 'Encrypted-copy directory',
@@ -154,6 +162,7 @@ function configFields(array $sample): array
         ],
         [
             'key' => 'encryption_stores',
+            'section' => 'encryption',
             'path' => ['encryption', 'stores'],
             'type' => 'choices',
             'label' => 'Databases to copy into encrypted artifacts',
@@ -168,6 +177,7 @@ function configFields(array $sample): array
         ],
         [
             'key' => 'encryption_backup_schedule',
+            'section' => 'encryption',
             'path' => ['encryption', 'backup_schedule'],
             'type' => 'choice',
             'label' => 'Encrypted-copy schedule',
@@ -179,6 +189,7 @@ function configFields(array $sample): array
         ],
         [
             'key' => 'encryption_retention_days',
+            'section' => 'encryption',
             'path' => ['encryption', 'retention_days'],
             'type' => 'int',
             'label' => 'Local encrypted-copy retention target (days)',
@@ -190,6 +201,7 @@ function configFields(array $sample): array
         ],
         [
             'key' => 'encryption_retention_days_by_store',
+            'section' => 'encryption',
             'path' => ['encryption', 'retention_days_by_store'],
             'type' => 'json',
             'label' => 'Per-store retention overrides (advanced)',
@@ -207,6 +219,7 @@ function configFields(array $sample): array
         ],
         [
             'key' => 'encryption_recovery_drill_max_age_days',
+            'section' => 'encryption',
             'path' => ['encryption', 'recovery_drill_max_age_days'],
             'type' => 'int',
             'label' => 'Recovery-drill review period (days)',
@@ -218,6 +231,7 @@ function configFields(array $sample): array
         ],
         [
             'key' => 'encryption_retention_recovery_tiers',
+            'section' => 'encryption',
             'path' => ['encryption', 'retention_recovery_tiers'],
             'type' => 'json',
             'label' => 'Long-term recovery copies (advanced)',
@@ -233,6 +247,7 @@ function configFields(array $sample): array
         ],
         [
             'key' => 'password',
+            'section' => 'basics',
             'path' => ['password_hash'],
             'type' => 'password',
             'label' => 'Sign-in password',
@@ -242,6 +257,7 @@ function configFields(array $sample): array
         ],
         [
             'key' => 'alerts_enabled',
+            'section' => 'alerts',
             'path' => ['alerts', 'enabled'],
             'type' => 'bool',
             'label' => 'Send alert emails',
@@ -250,6 +266,7 @@ function configFields(array $sample): array
         ],
         [
             'key' => 'alerts_to',
+            'section' => 'alerts',
             'path' => ['alerts', 'to'],
             'type' => 'email',
             'label' => 'Send alerts to',
@@ -261,6 +278,7 @@ function configFields(array $sample): array
         ],
         [
             'key' => 'alerts_from',
+            'section' => 'alerts',
             'path' => ['alerts', 'from'],
             'type' => 'email',
             'label' => 'Send alerts from',
@@ -274,6 +292,7 @@ function configFields(array $sample): array
         ],
         [
             'key' => 'disk_free_bytes',
+            'section' => 'alerts',
             'path' => ['alerts', 'disk_free_bytes'],
             'type' => 'bytes',
             'label' => 'Warn when free space drops below',
@@ -283,6 +302,7 @@ function configFields(array $sample): array
         ],
         [
             'key' => 'projected_full_hours',
+            'section' => 'alerts',
             'path' => ['alerts', 'projected_full_hours'],
             'type' => 'number',
             'label' => 'Warn when the trend says it will be full within (hours)',
@@ -296,6 +316,7 @@ function configFields(array $sample): array
         ],
         [
             'key' => 'path_jump_bytes',
+            'section' => 'alerts',
             'path' => ['alerts', 'path_jump_bytes'],
             'type' => 'bytes',
             'label' => 'Warn when one file or directory grows in a single scan by',
@@ -305,6 +326,7 @@ function configFields(array $sample): array
         ],
         [
             'key' => 'cpu_percent',
+            'section' => 'alerts',
             'path' => ['alerts', 'cpu_percent'],
             'type' => 'number',
             'label' => 'Warn when CPU stays at or above (%)',
@@ -319,6 +341,7 @@ function configFields(array $sample): array
         ],
         [
             'key' => 'cpu_minutes',
+            'section' => 'alerts',
             'path' => ['alerts', 'cpu_minutes'],
             'type' => 'int',
             'label' => 'How long it must stay there (minutes)',
@@ -332,6 +355,7 @@ function configFields(array $sample): array
         ],
         [
             'key' => 'cooldown_seconds',
+            'section' => 'alerts',
             'path' => ['alerts', 'cooldown_seconds'],
             'type' => 'seconds',
             'label' => 'Wait at least this long before repeating an alert',
@@ -351,6 +375,7 @@ function configFields(array $sample): array
          */
         [
             'key' => 'anomalies_enabled',
+            'section' => 'alerts',
             'path' => ['alerts', 'anomalies', 'enabled'],
             'type' => 'bool',
             'label' => 'Also alert on what is unusual, not just what is large',
@@ -363,6 +388,7 @@ function configFields(array $sample): array
         ],
         [
             'key' => 'anomalies_min_readings',
+            'section' => 'alerts',
             'path' => ['alerts', 'anomalies', 'min_readings'],
             'type' => 'int',
             'label' => 'Readings of history needed before it will judge anything',
@@ -376,6 +402,7 @@ function configFields(array $sample): array
         ],
         [
             'key' => 'anomalies_service_percent',
+            'section' => 'alerts',
             'path' => ['alerts', 'anomalies', 'service_pss_percent'],
             'type' => 'number',
             'label' => 'Warn when a service holds more memory than usual by (%)',
@@ -391,6 +418,7 @@ function configFields(array $sample): array
 
         [
             'key' => 'deletable_categories',
+            'section' => 'maintenance',
             'path' => ['deletable_categories'],
             'type' => 'categories',
             'label' => 'Categories that may be deleted from the dashboard',
@@ -409,6 +437,7 @@ function configFields(array $sample): array
          */
         [
             'key' => 'host_enabled',
+            'section' => 'host',
             'path' => ['host', 'enabled'],
             'type' => 'bool',
             'label' => 'Also collect host-wide readings (needs root)',
@@ -420,6 +449,7 @@ function configFields(array $sample): array
         ],
         [
             'key' => 'host_owner',
+            'section' => 'host',
             'path' => ['host', 'owner'],
             'type' => 'text',
             'label' => 'Account the dashboard runs as',
@@ -436,6 +466,7 @@ function configFields(array $sample): array
         ],
         [
             'key' => 'host_watch',
+            'section' => 'host',
             'path' => ['host', 'watch'],
             'type' => 'lines',
             'label' => 'Root-owned files to watch, one pattern per line',
@@ -446,6 +477,7 @@ function configFields(array $sample): array
         ],
         [
             'key' => 'host_keep_days',
+            'section' => 'host',
             'path' => ['host', 'keep_days'],
             'type' => 'int',
             'label' => 'Days of host readings to keep',

@@ -256,6 +256,26 @@ function packageSecretKeyQuickStart(string $field, string $path, bool $exists, b
     return $out . '<button type="submit" name="intent" value="create-package-secret-key">Create package-secrets key file</button></fieldset>';
 }
 
+/** Inline provisioning for the encryption setting, never on the bootstrap page. */
+function primaryKeyQuickStart(string $path, bool $exists, bool $canCreate): string
+{
+    $out = '<fieldset><legend>Create private encryption key</legend>'
+        . '<p class="help">Creates a Base64 256-bit key outside the web directory, with owner-only '
+        . 'permissions and an Apache deny policy for its private directory.</p>'
+        . '<label>New private key-file path (leave blank to use this location)<input type="text" name="key_path" '
+        . 'placeholder="' . h($path) . '" autocomplete="off"' . ($exists ? ' disabled' : '') . '></label>'
+        . '<input type="hidden" name="setup_key_create_token" value="' . h(setupKeyCreateToken()) . '">';
+    if ($exists) {
+        return $out . '<p class="banner ok" role="status">Private key already exists at this location; '
+            . 'this step is complete.</p><button type="submit" disabled aria-disabled="true">Create private key file</button></fieldset>';
+    }
+    if (!$canCreate) {
+        return $out . '<p class="help">Unlock setup with the current password before creating this key.</p>'
+            . '<button type="submit" disabled aria-disabled="true">Create private key file</button></fieldset>';
+    }
+    return $out . '<button type="submit" name="intent" value="create-local-key">Create private key file</button></fieldset>';
+}
+
 /* ------------------------------------------------------------------- web -- */
 
 function runWeb(
@@ -474,16 +494,14 @@ function setupSection(array $fields, string $asked): string
 {
     if ($asked === 'basics') return 'basics';
     foreach ($fields as $field) {
-        if (!empty($field['generated']) && ($field['section'] ?? '') === $asked) return $asked;
+        if (($field['section'] ?? 'basics') === $asked) return $asked;
     }
     return 'basics';
 }
 
 function fieldIsInSection(array $field, string $section): bool
 {
-    return $section === 'basics'
-        ? empty($field['generated'])
-        : !empty($field['generated']) && ($field['section'] ?? '') === $section;
+    return ($field['section'] ?? 'basics') === $section;
 }
 
 /**
@@ -578,13 +596,6 @@ function webPage(
         . '<strong>Zogograph</strong><small>Setup</small></a><a href="./">Open dashboard</a></header>';
     $out[] = '<h1>Setup</h1>';
 
-    $out[] = '<details open><summary>Installation checks</summary><table class="preflight"><thead><tr><th>Check</th><th>State</th><th>Detail</th></tr></thead><tbody>';
-    foreach ($preflight as $check) {
-        $out[] = '<tr><th>' . h($check['label']) . '</th><td class="' . h($check['state']) . '">' . h(strtoupper($check['state']))
-            . '</td><td>' . h($check['detail']) . '</td></tr>';
-    }
-    $out[] = '</tbody></table></details>';
-
     if (($_GET['saved'] ?? '') === '1') {
         $out[] = '<div class="banner ok"><strong>Saved.</strong> This section is now stored in '
             . '<code>data/setup.db</code>.</div>';
@@ -647,8 +658,9 @@ function webPage(
 
     $sections = [];
     foreach ($fields as $field) {
-        if (!empty($field['generated'])) {
-            $sections[$field['section']] = true;
+        $section = (string)($field['section'] ?? 'basics');
+        if ($section !== 'basics') {
+            $sections[$section] = true;
         }
     }
     $out[] = '<div class="setup-layout"><aside class="setup-nav" aria-label="Setup sections">'
@@ -687,34 +699,14 @@ function webPage(
     }
 
     $title = $activeSection === 'basics' ? 'Start here' : sectionTitle($activeSection);
+    $suggestedKeyPath = setupSuggestedPrivateKeyPath();
+    $suggestedKeyExists = setupPrivateKeyExists($suggestedKeyPath);
     $suggestedPackageSecretKeyPath = setupSuggestedPackageSecretKeyPath();
     $suggestedPackageSecretKeyExists = setupPrivateKeyExists($suggestedPackageSecretKeyPath);
     $out[] = '<section class="setup-section"><h2>' . h($title) . '</h2>';
     if ($activeSection === 'basics') {
-        $suggestedKeyPath = setupSuggestedPrivateKeyPath();
-        $suggestedKeyExists = setupPrivateKeyExists($suggestedKeyPath);
-        $out[] = '<p class="help">The minimum needed to make this installation safe and useful. '
-            . 'Save this first; the rest of the sections can then be adjusted independently.</p>';
-        $out[] = '</form><details><summary>Create a local encryption key for verified encrypted copies</summary>'
-            . '<p class="help">This quick-start action creates a new Base64 256-bit key at an absolute, '
-            . 'private path outside this web directory. It creates the private directory and an Apache '
-            . 'deny policy when needed, refuses to replace an existing file, does not '
-            . 'show the key in the browser, and creates it readable only by the Zogograph service account. '
-            . 'Keep a separately protected offline recovery copy before enabling encrypted copies.</p>'
-            . '<form method="post"><input type="hidden" name="intent" value="create-local-key">'
-            . '<input type="hidden" name="setup_key_create_token" value="' . h(setupKeyCreateToken()) . '">'
-            . '<label>New private key-file path (leave blank to use this location)<input type="text" name="key_path" '
-            . 'placeholder="' . h($suggestedKeyPath) . '" autocomplete="off"'
-            . ($suggestedKeyExists ? ' disabled' : '') . '></label>'
-            . ($suggestedKeyExists
-                ? '<p class="banner ok" role="status">Private key already exists at this location; this step is complete.</p>'
-                : '')
-            . ($configured && !$unlocked
-                ? '<label>Current setup password<input type="password" name="current_password" autocomplete="current-password"></label>'
-                : '')
-            . '<button type="submit"' . ($suggestedKeyExists ? ' disabled aria-disabled="true"' : '')
-            . '>Create private key file</button></form></details><form method="post">'
-            . '<input type="hidden" name="section" value="' . h($activeSection) . '">';
+        $out[] = '<p class="help">Create a sign-in password to finish the initial setup. All other settings '
+            . 'are available from the navigation when you need them.</p>';
     } else {
         $help = sampleHelp($samplePath)['sections'][$activeSection] ?? '';
         if ($help !== '') $out[] = '<p class="help">' . h(firstParagraph($help)) . '</p>';
@@ -728,10 +720,21 @@ function webPage(
                     $suggestedPackageSecretKeyExists,
                     !$configured || $unlocked
                 );
+            } elseif ($field['key'] === 'encryption_key_file') {
+                $out[] = renderField($field, $values, $errors, $configured)
+                    . primaryKeyQuickStart($suggestedKeyPath, $suggestedKeyExists, !$configured || $unlocked);
             } else {
                 $out[] = renderField($field, $values, $errors, $configured);
             }
         }
+    }
+    if ($activeSection === 'basics') {
+        $out[] = '<details open><summary>Installation checks</summary><table class="preflight"><thead><tr><th>Check</th><th>State</th><th>Detail</th></tr></thead><tbody>';
+        foreach ($preflight as $check) {
+            $out[] = '<tr><th>' . h($check['label']) . '</th><td class="' . h($check['state']) . '">' . h(strtoupper($check['state']))
+                . '</td><td>' . h($check['detail']) . '</td></tr>';
+        }
+        $out[] = '</tbody></table></details>';
     }
     $out[] = '</section>';
 

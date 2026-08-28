@@ -99,6 +99,10 @@ try {
         && str_contains($sampleText, "realpath(__DIR__ . '/..')"),
         'scan-root default does not derive from the service account or installation directory');
     $fields = array_column(configFields($sample), null, 'key');
+    $bootstrapFields = array_values(array_filter(configFields($sample),
+        static fn(array $field): bool => ($field['section'] ?? 'basics') === 'basics'));
+    encryptionExpect(array_column($bootstrapFields, 'key') === ['password'],
+        'initial setup exposes settings beyond the sign-in password');
     encryptionExpect(($sample['encryption']['stores'] ?? []) === ['config', 'setup', 'account'],
         'quick-install encryption defaults included optional host or assistant stores');
     encryptionExpect(isset($fields['encryption_retention_recovery_tiers'])

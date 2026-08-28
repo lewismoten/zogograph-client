@@ -113,6 +113,10 @@ try {
         && str_contains($setupPage, 'this step is complete')
         && str_contains($setupPage, 'Its contents were not shown or saved in the browser'),
         'setup does not provide a guarded local encryption-key quick start');
+    encryptionExpect($setupPage !== false && str_contains($setupPage, 'function setupRedirect')
+        && str_contains($setupPage, "\$location = './setup.php'")
+        && !str_contains($setupPage, "strtok((string)\$_SERVER['REQUEST_URI']"),
+        'Setup administrative redirects still reflect the request URI');
 
     $sample = require __DIR__ . '/../lib/config.sample.php';
     require_once __DIR__ . '/../lib/setup-panels.php';

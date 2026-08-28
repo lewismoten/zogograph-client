@@ -212,6 +212,18 @@ function setupScheduleToken(): string
     return $_SESSION['setup_schedule_token'];
 }
 
+/** Redirects Setup POST flows to a fixed local path, never a request-supplied URL. */
+function setupRedirect(?string $section = null, bool $saved = false): void
+{
+    $location = './setup.php';
+    if ($section !== null) {
+        if (!preg_match('/^[a-z][a-z0-9_-]{1,62}$/', $section)) $section = 'basics';
+        $location .= '?section=' . rawurlencode($section);
+        if ($saved) $location .= '&saved=1';
+    }
+    header('Location: ' . $location, true, 303);
+}
+
 function setupTotpToken(): string
 {
     if (!is_string($_SESSION['setup_totp_token'] ?? null)) $_SESSION['setup_totp_token'] = bin2hex(random_bytes(32));
@@ -553,7 +565,7 @@ function runWeb(
 
     if (($_GET['lock'] ?? '') !== '') {
         unset($_SESSION['setup_unlocked']);
-        header('Location: ' . strtok((string)$_SERVER['REQUEST_URI'], '?'), true, 303);
+        setupRedirect();
         return;
     }
 
@@ -562,14 +574,13 @@ function runWeb(
             $_SESSION['setup_unlocked'] = time();
             // Redirected rather than rendered, so a refresh does not re-post a
             // password and the URL people end up bookmarking is a plain GET.
-            header('Location: ' . strtok((string)$_SERVER['REQUEST_URI'], '?')
-                . '?section=' . rawurlencode($activeSection), true, 303);
+            setupRedirect($activeSection);
             return;
         }
         $_SESSION['setup_error'] = $existing['password_hash'] === ''
             ? 'This install has no password set, so nothing can authorise replacing its config.'
             : 'That is not the current password.';
-        header('Location: ' . strtok((string)$_SERVER['REQUEST_URI'], '?'), true, 303);
+        setupRedirect();
         return;
     }
 
@@ -586,7 +597,7 @@ function runWeb(
                 $_SESSION['setup_error'] = 'Could not generate the OpenID signing key: ' . $error->getMessage();
             }
         }
-        header('Location: ' . strtok((string)$_SERVER['REQUEST_URI'], '?') . '?section=openid', true, 303);
+        setupRedirect('openid');
         return;
     }
 
@@ -614,7 +625,7 @@ function runWeb(
                 unset($_SESSION['setup_openid_client_secret']); $_SESSION['setup_notice'] = 'OpenID client secret acknowledgement saved.';
             }
         } catch (Throwable $error) { $_SESSION['setup_error'] = 'Could not manage trusted OpenID clients: ' . $error->getMessage(); }
-        header('Location: ' . strtok((string)$_SERVER['REQUEST_URI'], '?') . '?section=openid', true, 303);
+        setupRedirect('openid');
         return;
     }
 
@@ -639,7 +650,7 @@ function runWeb(
                 $_SESSION['setup_error'] = 'Could not create the local key file: ' . $error->getMessage();
             }
         }
-        header('Location: ' . strtok((string)$_SERVER['REQUEST_URI'], '?') . '?section=basics', true, 303);
+        setupRedirect('basics');
         return;
     }
 
@@ -674,7 +685,7 @@ function runWeb(
                 $_SESSION['setup_error'] = 'Could not apply the schedule: ' . $error->getMessage();
             }
         }
-        header('Location: ' . strtok((string)$_SERVER['REQUEST_URI'], '?') . '?section=schedule', true, 303);
+        setupRedirect('schedule');
         return;
     }
 
@@ -736,7 +747,7 @@ function runWeb(
         } catch (Throwable $error) {
             $_SESSION['setup_error'] = 'Could not save remote deployment settings: ' . $error->getMessage();
         }
-        header('Location: ' . strtok((string)$_SERVER['REQUEST_URI'], '?') . '?section=deployment', true, 303);
+        setupRedirect('deployment');
         return;
     }
 
@@ -774,7 +785,7 @@ function runWeb(
         } catch (Throwable $error) {
             $_SESSION['setup_error'] = 'Could not complete the account merge: ' . $error->getMessage();
         }
-        header('Location: ' . strtok((string)$_SERVER['REQUEST_URI'], '?') . '?section=maintenance', true, 303);
+        setupRedirect('maintenance');
         return;
     }
 
@@ -797,7 +808,7 @@ function runWeb(
         } catch (Throwable $error) {
             $_SESSION['setup_error'] = 'Could not save package settings: ' . $error->getMessage();
         }
-        header('Location: ' . strtok((string)$_SERVER['REQUEST_URI'], '?') . '?section=' . rawurlencode((string)($_POST['package_panel_id'] ?? '')), true, 303);
+        setupRedirect((string)($_POST['package_panel_id'] ?? ''));
         return;
     }
 
@@ -825,7 +836,7 @@ function runWeb(
                 $_SESSION['setup_notice'] = 'Authenticator and recovery codes are set up.';
             }
         } catch (Throwable $error) { $_SESSION['setup_error'] = 'Could not update authentication: ' . $error->getMessage(); }
-        header('Location: ' . strtok((string)$_SERVER['REQUEST_URI'], '?') . '?section=auth', true, 303);
+        setupRedirect('auth');
         return;
     }
 
@@ -924,8 +935,7 @@ function runWeb(
                     unset($_SESSION['setup_pending_openid_signing_key']);
                 }
                 if ($written && $configured) {
-                    header('Location: ' . strtok((string)$_SERVER['REQUEST_URI'], '?')
-                        . '?section=' . rawurlencode($activeSection) . '&saved=1', true, 303);
+                    setupRedirect($activeSection, true);
                     return;
                 }
             }

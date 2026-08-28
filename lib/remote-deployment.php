@@ -29,8 +29,13 @@ function remoteDeploymentProfile(array $input): array
     if (!in_array($method, REMOTE_DEPLOYMENT_METHODS, true)) throw new InvalidArgumentException('choose rsync over SSH, SFTP, or FTP with explicit TLS');
     $host = remoteDeploymentHost((string)($input['host'] ?? ''));
     if ($host === null) throw new InvalidArgumentException('enter a DNS hostname or IP address without a URL scheme');
-    $port = filter_var($input['port'] ?? null, FILTER_VALIDATE_INT, ['options' => ['min_range' => 1, 'max_range' => 65535]]);
-    if ($port === false) $port = $method === 'ftps' ? 21 : 22;
+    $portText = trim((string)($input['port'] ?? ''));
+    if ($portText === '') {
+        $port = $method === 'ftps' ? 21 : 22;
+    } else {
+        $port = filter_var($portText, FILTER_VALIDATE_INT, ['options' => ['min_range' => 1, 'max_range' => 65535]]);
+        if ($port === false) throw new InvalidArgumentException('port must be between 1 and 65535');
+    }
     $username = trim((string)($input['username'] ?? ''));
     if (!preg_match('/^[A-Za-z0-9._-]{1,64}$/', $username)) throw new InvalidArgumentException('deployment username contains unsupported characters');
     $target = remoteDeploymentTargetPath((string)($input['target_path'] ?? ''));
@@ -44,7 +49,7 @@ function remoteDeploymentProfile(array $input): array
     if ($packages === []) throw new InvalidArgumentException('choose at least one package group to deploy');
     $controller = trim((string)($input['controller_url'] ?? ''));
     $parts = parse_url($controller);
-    if ($parts === false || ($parts['scheme'] ?? '') !== 'https' || empty($parts['host']) || isset($parts['user'], $parts['pass'], $parts['query'], $parts['fragment'])) throw new InvalidArgumentException('controller URL must be a plain HTTPS URL');
+    if ($parts === false || strtolower((string)($parts['scheme'] ?? '')) !== 'https' || empty($parts['host']) || remoteDeploymentHost((string)$parts['host']) === null || isset($parts['user'], $parts['pass'], $parts['query'], $parts['fragment'])) throw new InvalidArgumentException('controller URL must be a plain HTTPS URL');
     $update = (string)($input['update_mode'] ?? 'manual');
     if (!in_array($update, REMOTE_DEPLOYMENT_UPDATE_MODES, true)) throw new InvalidArgumentException('choose a supported remote update policy');
     return ['method' => $method, 'host' => $host, 'port' => (int)$port, 'username' => $username, 'target_path' => $target,

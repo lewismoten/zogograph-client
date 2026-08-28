@@ -194,6 +194,25 @@ $translatedNavigation = ['navigation.deleted_held', 'navigation.cpu_limits', 'na
 $translatedSecurityMessages = ['encryption.custody_notice', 'diagnosis.ignore_action', 'diagnosis.ignore_title', 'diagnosis.ignore_confirm', 'diagnosis.ignore_success'];
 $translatedMarketplace = array_keys(array_filter($english, static fn(mixed $value, string $key): bool => str_starts_with($key, 'marketplace.'), ARRAY_FILTER_USE_BOTH));
 $translatedPeers = array_keys(array_filter($english, static fn(mixed $value, string $key): bool => str_starts_with($key, 'peer.'), ARRAY_FILTER_USE_BOTH));
+$translatedPackageCustody = [
+    'package.probe_sqlcipher',
+    'package.probe_custody',
+    'package.probe_isolated',
+    'package.probe_input_custody',
+    'package.probe_input_generic',
+    'package.probe_confirmation',
+    'package.probe_result',
+    'package.table_operation',
+    'package.table_state',
+    'package.table_result',
+    'package.table_safety',
+    'package.custody_approve',
+    'package.custody_approve_confirmation',
+    'package.custody_approved',
+    'package.custody_check',
+    'package.custody_check_confirmation',
+    'package.custody_check_result',
+];
 foreach (['en-US', 'en-GB', 'es', 'hi', 'zh', 'ar'] as $locale) {
     $catalog = json_decode((string)file_get_contents($root . '/locales/' . $locale . '.json'), true);
     i18nExpect(is_array($catalog), "locale catalog $locale is invalid");
@@ -208,6 +227,8 @@ foreach (['en-US', 'en-GB', 'es', 'hi', 'zh', 'ar'] as $locale) {
             "locale catalog $locale falls back to English for marketplace controls");
         i18nExpect(array_diff($translatedPeers, array_keys($catalog)) === [],
             "locale catalog $locale falls back to English for trusted-server controls");
+        i18nExpect(array_diff($translatedPackageCustody, array_keys($catalog)) === [],
+            "locale catalog $locale falls back to English for package custody controls");
     }
 }
 foreach (array_keys(array_filter($english, static fn(mixed $value, string $key): bool => str_starts_with($key, 'setup.field.'), ARRAY_FILTER_USE_BOTH)) as $key) {

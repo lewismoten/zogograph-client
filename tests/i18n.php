@@ -26,7 +26,7 @@ i18nExpect($script !== false && str_contains($script, 'page.title_key ? Zogograp
     'package dashboard pages do not use signed locale keys or refresh after a locale change');
 i18nExpect($setup !== false && str_contains($setup, 'src="i18n.js"') && str_contains($setup, 'id="languagePicker"')
     && str_contains($setup, 'id="languageKeys"') && str_contains($setup, 'data-i18n="setup.installation"')
-    && str_contains($setup, "'setup.section.' . \$name"),
+    && str_contains($setup, "'setup.section.' . \$name") && str_contains($setup, "'setup.section.' . \$activeSection"),
     'Setup language controls or localized shell are unavailable');
 i18nExpect($setup !== false && str_contains($setup, 'setupRenderPackageSettingsPanel')
     && str_contains($setup, 'data-package-settings-target') && str_contains($setup, 'save-package-settings:'),

@@ -1154,11 +1154,13 @@ function webPage(
     $activePanel = $panels[$activeSection] ?? null;
     $title = $activeSection === 'basics' ? 'Installation'
         : (is_array($activePanel) && $activePanel['kind'] === 'package' ? (string)$activePanel['title'] : sectionTitle($activeSection));
+    $titleKey = $activeSection === 'basics' ? 'setup.installation'
+        : (is_array($activePanel) && $activePanel['kind'] === 'package' ? (string)($activePanel['title_key'] ?? '') : 'setup.section.' . $activeSection);
     $suggestedKeyPath = setupSuggestedPrivateKeyPath();
     $suggestedKeyExists = setupPrivateKeyExists($suggestedKeyPath);
     $suggestedPackageSecretKeyPath = setupSuggestedPackageSecretKeyPath();
     $suggestedPackageSecretKeyExists = setupPrivateKeyExists($suggestedPackageSecretKeyPath);
-    $out[] = '<section class="setup-section"><h2>' . h($title) . '</h2>';
+    $out[] = '<section class="setup-section"><h2' . ($titleKey !== '' ? ' data-i18n="' . h($titleKey) . '"' : '') . '>' . h($title) . '</h2>';
     if ($editingLocked) {
         $out[] = '<p class="help">Unlock setup to view or change this section.</p>';
     } elseif ($activeSection === 'basics') {

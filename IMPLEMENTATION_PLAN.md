@@ -91,8 +91,9 @@ the product is complete.
   Restricted private setup, controller protocol preflight, pairing storage, and
   update policy configuration exist. Core now validates rsync/SSH, SFTP, and
   explicit-TLS FTP deployment profiles and encrypts deployment credentials as
-  opaque credential and host-key references; transfer testing, copying,
-  approved telemetry sender, update execution, and guided deployment remain.
+  opaque credential and host-key references, with a secret-free transport
+  preview in Setup. Live transfer testing, copying, approved telemetry sender,
+  update execution, and guided deployment remain.
   Compatible account collector stores
   can now be merged through a snapshot-backed, overlap-reviewed transaction;
   a guided administrator review/apply interface remains.

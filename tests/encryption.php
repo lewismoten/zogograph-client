@@ -134,7 +134,7 @@ try {
         'reusable Setup cron editor component is unavailable');
     $panelRegistry = new SetupPanelRegistry([]);
     $panelApi = new SetupPanelApi('sample-plugin', $panelRegistry, $cronApi);
-    $panelApi->addPanel(['id' => 'sample-plugin-settings', 'title' => 'Sample plugin settings']);
+    $panelApi->addPanel(['id' => 'sample-plugin-settings', 'title' => 'Sample plugin settings', 'feature' => 'someone-else']);
     encryptionExpect(($panelRegistry->all()['sample-plugin-settings']['kind'] ?? '') === 'package'
         && ($panelRegistry->all()['sample-plugin-settings']['feature'] ?? '') === 'sample-plugin',
         'restricted Setup package panel API is unavailable');

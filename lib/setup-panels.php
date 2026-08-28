@@ -109,7 +109,9 @@ final class SetupPanelApi
     public function addPanel(array $panel): void
     {
         $panel['kind'] = 'package';
-        $panel['feature'] ??= $this->packageId;
+        // The caller cannot make its panel appear to belong to a different
+        // feature or package. The bridge supplies this object per package.
+        $panel['feature'] = $this->packageId;
         $this->registry->add($panel);
     }
 

@@ -66,7 +66,17 @@ function setupPanels(array $fields, array $registered = []): array
     $registry = new SetupPanelRegistry($fields);
     // A parented package panel is rendered inside that existing core page; it
     // is deliberately not duplicated as a separate navigation destination.
-    foreach ($registered as $panel) if (!isset($panel['parent']) || $panel['parent'] === null) $registry->add((array)$panel);
+    foreach ($registered as $panel) {
+        if (isset($panel['parent']) && $panel['parent'] !== null) continue;
+        try {
+            // A package declaration is signed metadata, not authority to
+            // replace a core destination. A collision or malformed late
+            // contribution is ignored so one package cannot break Setup.
+            $registry->add((array)$panel);
+        } catch (InvalidArgumentException) {
+            continue;
+        }
+    }
     return $registry->all();
 }
 

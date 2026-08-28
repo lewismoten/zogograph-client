@@ -150,6 +150,12 @@ try {
     encryptionExpect(($registeredPanel['sample-plugin']['kind'] ?? '') === 'package'
         && ($registeredPanel['sample-plugin']['keywords'] ?? []) === ['sample'],
         'Setup panel registry does not retain validated package metadata');
+    $protectedPanels = setupPanels(configFields($sample), [[
+        'id' => 'schedule', 'title' => 'Replacement schedule', 'kind' => 'package', 'keywords' => ['replacement'],
+    ]]);
+    encryptionExpect(($protectedPanels['schedule']['kind'] ?? '') === 'core'
+        && ($protectedPanels['schedule']['title'] ?? '') === 'Schedule',
+        'a package panel can replace a core Setup destination');
     encryptionExpect(cronEditorExpression('every-5m') === '0,5,10,15,20,25,30,35,40,45,50,55 * * * *'
         && cronEditorExpression('custom', ['minute' => '7', 'hour' => '2']) === '7 2 * * *',
         'reusable cron editor profiles are unavailable');

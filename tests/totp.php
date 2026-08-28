@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/../lib/auth.php';
 $setup = file_get_contents(__DIR__ . '/../setup.php');
-if ($setup === false || !str_contains($setup, 'data-i18n="auth.open_account"') || !str_contains($setup, 'setupTotpQrImage') || !str_contains($setup, 'data:image/svg+xml;base64,') || !str_contains($setup, 'microtime(true) + 2') || !str_contains($setup, 'proc_terminate($process)')) throw new RuntimeException('setup does not expose bounded local authenticator provisioning options');
+if ($setup === false || !str_contains($setup, 'data-i18n="auth.open_account"') || !str_contains($setup, 'setupTotpQrImage') || !str_contains($setup, 'data:image/svg+xml;base64,') || !str_contains($setup, 'microtime(true) + 2') || !str_contains($setup, 'proc_terminate($process)') || !str_contains($setup, 'recovery_confirmed') || !str_contains($setup, "unset(\$_SESSION['setup_recovery_codes'])")) throw new RuntimeException('setup does not expose bounded local authenticator provisioning options');
 if (!preg_match('/^[A-Z2-7]{32}$/', totpGenerateSecret())) throw new RuntimeException('generated TOTP seed is not Base32 160-bit material');
 
 function totpExpect(bool $condition, string $message): void

@@ -1240,7 +1240,7 @@ function webPage(
         $binaries = (array)($schedule['binaries'] ?? []);
         $php = (string)($savedSchedule['php'] ?? '');
         if (!in_array($php, $binaries, true)) $php = (string)($binaries[0] ?? '');
-        $out[] = '<p class="help">Choose the account collector cadence and apply it here. Only Zogograph’s marked cron block is changed; every other account cron job stays untouched.</p>';
+        $out[] = '<p class="help" data-i18n="schedule.intro">Choose the account collector cadence and apply it here. Only Zogograph’s marked cron block is changed; every other account cron job stays untouched.</p>';
         if (!$schedule['available']) {
             $out[] = '<div class="banner warn">' . h((string)($schedule['reason'] ?? 'The crontab cannot be read here.')) . '</div>';
         } elseif ($php === '') {
@@ -1256,9 +1256,9 @@ function webPage(
                 $out[] = '<div class="banner warn">Could not build the saved schedule: ' . h($error->getMessage()) . '</div>';
             }
         }
-        $out[] = '<fieldset><legend>Account collector schedule</legend>'
-            . '<p class="help">Vitals are lightweight readings. A scan walks the monitored directory and is normally left off or scheduled much less often.</p>'
-            . '<label>PHP command-line binary<select name="schedule_php">';
+        $out[] = '<fieldset><legend data-i18n="schedule.collector">Account collector schedule</legend>'
+            . '<p class="help" data-i18n="schedule.collector_help">Vitals are lightweight readings. A scan walks the monitored directory and is normally left off or scheduled much less often.</p>'
+            . '<label><span data-i18n="schedule.php_binary">PHP command-line binary</span><select name="schedule_php">';
         foreach ($binaries as $binary) {
             $out[] = '<option value="' . h($binary) . '"' . ($binary === $php ? ' selected' : '') . '>' . h($binary) . '</option>';
         }
@@ -1268,13 +1268,13 @@ function webPage(
         $installedByJob = cronEditorInstalledJobLines((array)($schedule['lines'] ?? []));
         foreach (['vitals' => 'Vitals collection', 'scan' => 'Directory scan'] as $job => $label) {
             $out[] = renderSetupCronEditor('schedule_' . $job, $label, $choices[$job], $job)
-                . '<p><strong>Saved preview</strong></p><pre><code>' . h($desiredByJob[$job] ?? '(none)') . '</code></pre>'
-                . '<p><strong>Currently installed</strong></p><pre><code>' . h($installedByJob[$job] ?? '(none)') . '</code></pre>'
+                . '<p><strong data-i18n="schedule.saved_preview">Saved preview</strong></p><pre><code>' . h($desiredByJob[$job] ?? '(none)') . '</code></pre>'
+                . '<p><strong data-i18n="schedule.installed">Currently installed</strong></p><pre><code>' . h($installedByJob[$job] ?? '(none)') . '</code></pre>'
                 . '<input type="hidden" name="setup_schedule_token" value="' . h(setupScheduleToken()) . '">'
                 . '<input type="hidden" name="intent" value="apply-schedule">'
-                . '<button type="submit" name="schedule_action" value="' . h($job . ':add') . '"' . ($editingLocked || !$schedule['available'] || $php === '' ? ' disabled aria-disabled="true"' : '') . '>Add</button> '
-                . '<button type="submit" name="schedule_action" value="' . h($job . ':update') . '"' . ($editingLocked || !$schedule['available'] || $php === '' ? ' disabled aria-disabled="true"' : '') . '>Update</button> '
-                . '<button type="submit" name="schedule_action" value="' . h($job . ':remove') . '"' . ($editingLocked || !$schedule['available'] || $php === '' ? ' disabled aria-disabled="true"' : '') . '>Remove</button>';
+                . '<button type="submit" name="schedule_action" value="' . h($job . ':add') . '" data-i18n="schedule.add"' . ($editingLocked || !$schedule['available'] || $php === '' ? ' disabled aria-disabled="true"' : '') . '>Add</button> '
+                . '<button type="submit" name="schedule_action" value="' . h($job . ':update') . '" data-i18n="schedule.update"' . ($editingLocked || !$schedule['available'] || $php === '' ? ' disabled aria-disabled="true"' : '') . '>Update</button> '
+                . '<button type="submit" name="schedule_action" value="' . h($job . ':remove') . '" data-i18n="schedule.remove"' . ($editingLocked || !$schedule['available'] || $php === '' ? ' disabled aria-disabled="true"' : '') . '>Remove</button>';
         }
         $out[] = '</fieldset>';
     } elseif ($activeSection === 'maintenance') {

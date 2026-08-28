@@ -34,11 +34,16 @@ i18nExpect($setup !== false && str_contains($setup, 'setupRenderPackageSettingsP
 i18nExpect($setup !== false && str_contains($setup, "(string)(\$panel['title_key'] ?? '')")
     && str_contains($setup, "(string)(\$panel['title_key'] ?? '')"),
     'Setup package panels cannot use signed locale catalog titles');
+i18nExpect($setup !== false && str_contains($setup, 'data-i18n="schedule.intro"')
+    && str_contains($setup, 'data-i18n="schedule.saved_preview"')
+    && str_contains($setup, 'data-i18n="schedule.remove"')
+    && str_contains((string)file_get_contents($root . '/lib/setup-cron-editor.php'), 'schedule.custom_builder'),
+    'Setup schedule controls are not localized');
 i18nExpect($configure !== false && str_contains($configure, 'function generatedFieldLabel')
     && str_contains($configure, "'label' => generatedFieldLabel(\$path)")
     && !str_contains($configure, "'label' => \$dotted"),
     'generated Setup fields can still expose dotted internal configuration paths');
-i18nExpect(is_array($english) && isset($english['example.readings'], $english['example.compact'], $english['example.cost'], $english['example.percent'], $english['example.storage'], $english['example.changed'], $english['update.available'], $english['range.10m'], $english['action.reload'], $english['navigation.storage'], $english['navigation.cpu'], $english['navigation.deleted_held'], $english['navigation.cpu_limits'], $english['deployment.test'], $english['merge.apply']),
+i18nExpect(is_array($english) && isset($english['example.readings'], $english['example.compact'], $english['example.cost'], $english['example.percent'], $english['example.storage'], $english['example.changed'], $english['update.available'], $english['range.10m'], $english['action.reload'], $english['navigation.storage'], $english['navigation.cpu'], $english['navigation.deleted_held'], $english['navigation.cpu_limits'], $english['deployment.test'], $english['merge.apply'], $english['schedule.custom_builder'], $english['schedule.remove']),
     'English fallback catalog is incomplete');
 preg_match_all('/data-i18n(?:-placeholder|-title|-aria-label)?="([^"]+)"/', (string)$page, $pageKeys);
 foreach (array_unique($pageKeys[1] ?? []) as $key) {
@@ -49,7 +54,7 @@ foreach (['en-US', 'en-GB', 'es', 'hi', 'zh', 'ar'] as $locale) {
     $catalog = json_decode((string)file_get_contents($root . '/locales/' . $locale . '.json'), true);
     i18nExpect(is_array($catalog), "locale catalog $locale is invalid");
     if (in_array($locale, ['es', 'hi', 'zh', 'ar'], true)) {
-        i18nExpect(isset($catalog['navigation.charts'], $catalog['navigation.storage'], $catalog['navigation.backups'], $catalog['navigation.cpu'], $catalog['navigation.memory'], $catalog['navigation.processes'], $catalog['navigation.network'], $catalog['setup.section.deployment'], $catalog['auth.app'], $catalog['auth.recovery_title'], $catalog['auth.verify'], $catalog['openid.provider'], $catalog['openid.create_client']) && array_diff($translatedNavigation, array_keys($catalog)) === [],
+        i18nExpect(isset($catalog['navigation.charts'], $catalog['navigation.storage'], $catalog['navigation.backups'], $catalog['navigation.cpu'], $catalog['navigation.memory'], $catalog['navigation.processes'], $catalog['navigation.network'], $catalog['setup.section.deployment'], $catalog['auth.app'], $catalog['auth.recovery_title'], $catalog['auth.verify'], $catalog['openid.provider'], $catalog['openid.create_client'], $catalog['schedule.custom_builder'], $catalog['schedule.remove']) && array_diff($translatedNavigation, array_keys($catalog)) === [],
             "locale catalog $locale lacks translated primary navigation");
     }
 }

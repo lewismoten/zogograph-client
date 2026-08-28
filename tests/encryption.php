@@ -116,6 +116,14 @@ try {
     encryptionExpect(cronEditorExpression('every-5m') === '0,5,10,15,20,25,30,35,40,45,50,55 * * * *'
         && cronEditorExpression('custom', ['minute' => '7', 'hour' => '2']) === '7 2 * * *',
         'reusable cron editor profiles are unavailable');
+    $customCronRefused = false;
+    try { cronEditorExpression('custom', ['minute' => '60']); } catch (ActionRefused) { $customCronRefused = true; }
+    encryptionExpect($customCronRefused,
+        'reusable cron editor accepts an out-of-range custom field');
+    $cronApi = new SetupCronApi(__DIR__ . '/..');
+    encryptionExpect(array_key_exists('custom', $cronApi->profiles())
+        && method_exists($cronApi, 'preview') && method_exists($cronApi, 'status') && method_exists($cronApi, 'apply'),
+        'restricted Setup cron API is unavailable');
     encryptionExpect(($sample['encryption']['stores'] ?? []) === ['config', 'setup', 'account'],
         'quick-install encryption defaults included optional host or assistant stores');
     encryptionExpect(isset($fields['encryption_retention_recovery_tiers'])

@@ -8,16 +8,18 @@ directly from its renderer.
 
 ## Panel API
 
-Core registers panels in `lib/setup-panels.php`. A future isolated package
-receives a restricted `SetupPanelApi` object rather than the full application:
+Core registers panel metadata in `lib/setup-panels.php`. `SetupCronApi` is the
+first concrete restricted capability; it is used by the core Schedule panel
+today. A future isolated package receives a `SetupPanelApi` object rather than
+the full application:
 
 - `addPanel()` registers metadata and a renderer for one declared panel id.
 - `config()` reads only the panel's declared configuration namespace.
 - `save()` validates and writes only that namespace after Setup has authorised
   the request.
-- `cron()` exposes `lib/schedule.php`'s preset, preview, read, compare, and
-  apply operations. It accepts structured cron fields, never arbitrary shell
-  commands.
+- `cron()` returns the restricted `SetupCronApi`: `profiles()`, `preview()`,
+  `status()`, and `apply()`. It accepts structured choices for named approved
+  jobs, never arbitrary shell commands or an arbitrary crontab line.
 
 Panels are hidden when their core/plugin feature is disabled. Plugins cannot
 replace core panels, add executable shell text, access another plugin's
@@ -30,16 +32,21 @@ It offers profiles (`none`, every 1, 5, 10, or 30 minutes) and a custom
 five-field standard-cron builder: minute, hour, day of month, month, and day
 of week. Standard shared-host cron has no seconds field.
 
-Every edit previews the exact managed block before applying it. Applying
+The saved choice previews the exact managed block before applying it. Applying
 replaces only the Zogograph marker block and leaves unrelated account cron jobs
 unchanged. The editor records desired structured settings, compares them with
 the installed block, and reports in-sync, missing, drifted, or unavailable.
 
+The core editor currently owns two approved jobs: `vitals` and `scan`. Its
+persisted value is `schedule.php`, `schedule.vitals`, and `schedule.scan` in
+the encrypted setup settings. A plugin cannot invent a cron command by passing
+text through this API. Supporting package-defined jobs requires a separate
+reviewed capability and command registry, not a broader cron API.
+
 ## Delivery order
 
-1. Add the core cron editor as the first registered Setup panel.
-2. Persist desired schedule choices and compare them to the installed block.
-3. Add searchable, scrollable Setup navigation driven by panel metadata.
-4. Add core-panel enablement and plugin capability gating.
-5. Expose the restricted registry API to the isolated package runtime only
+1. Complete the core cron editor and its saved/install-state comparison. (In progress.)
+2. Add searchable, scrollable Setup navigation driven by panel metadata. (In progress.)
+3. Add core-panel enablement and plugin capability gating.
+4. Expose the restricted registry API to the isolated package runtime only
    after package code execution is independently attested.

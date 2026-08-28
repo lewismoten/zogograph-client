@@ -37,6 +37,14 @@ return [
 
     'database' => __DIR__ . '/../data/stats.db',
 
+    // The account crontab desired by Setup. The editor writes only Zogograph's
+    // marked block, then compares this intent with what cron actually has.
+    'schedule' => [
+        'php' => '',
+        'vitals' => ['profile' => 'every-5m', 'custom' => ['minute' => '*', 'hour' => '*', 'day' => '*', 'month' => '*', 'weekday' => '*']],
+        'scan' => ['profile' => 'none', 'custom' => ['minute' => '*', 'hour' => '*', 'day' => '*', 'month' => '*', 'weekday' => '*']],
+    ],
+
     /*
      * Optional encrypted copies. `none` is the default: normal SQLite files
      * remain unchanged until an administrator explicitly chooses a mode.

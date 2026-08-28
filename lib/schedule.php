@@ -482,6 +482,50 @@ function buildCronLines(array $choices, string $php, string $scriptDir): array
 }
 
 /**
+ * Builds managed lines from the reusable editor's profile/custom-field shape.
+ *
+ * The editor never accepts a command from a browser or a package.  Callers can
+ * choose only one of cronEditorProfiles() and the five standard cron fields;
+ * cronJobs() remains the sole owner of the commands that will be installed.
+ */
+function cronEditorBuildLines(array $jobs, string $php, string $scriptDir): array
+{
+    if (!in_array($php, phpBinaries(), true)) {
+        throw new ActionRefused('that is not one of the PHP binaries found on this host');
+    }
+    $script = realpath($scriptDir . '/cron.php');
+    if ($script === false) throw new ActionRefused('cannot find cron.php');
+
+    $lines = [];
+    foreach (cronJobs() as $name => $flags) {
+        $choice = (array)($jobs[$name] ?? []);
+        $expr = cronEditorExpression((string)($choice['profile'] ?? 'none'), (array)($choice['custom'] ?? []));
+        if ($expr === null) continue;
+        $lines[] = sprintf('%s %s %s %s', $expr, escapeshellarg($php), escapeshellarg($script), implode(' ', $flags));
+    }
+    return $lines;
+}
+
+/** Describes whether a desired managed block is installed exactly as saved. */
+function cronEditorStatus(array $desired, string $scriptDir): array
+{
+    $state = scheduleState($scriptDir);
+    if (!$state['available']) return $state + ['sync' => 'unavailable'];
+    $installed = (array)$state['lines'];
+    return $state + ['sync' => $installed === $desired ? 'in_sync' : ($installed === [] ? 'missing' : 'different')];
+}
+
+/** Applies only the Zogograph marked block, retaining all unrelated cron jobs. */
+function cronEditorApply(array $jobs, string $php, string $scriptDir): array
+{
+    $current = readCrontab();
+    if (!$current['available']) throw new ActionRefused((string)$current['reason']);
+    $lines = cronEditorBuildLines($jobs, $php, $scriptDir);
+    writeCrontab(replaceManagedBlock($current['raw'], $lines));
+    return cronEditorStatus($lines, $scriptDir);
+}
+
+/**
  * Starts a scan in the background and returns at once.
  *
  * Not run inside the request: a scan is minutes of disk work on a real account,

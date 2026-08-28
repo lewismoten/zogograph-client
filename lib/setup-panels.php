@@ -27,3 +27,20 @@ function setupPanelId(string $id): string
     }
     return $id;
 }
+
+/**
+ * Narrow, reusable cron capability for core Setup panels and future isolated
+ * packages. Packages supply schedule choices, never executable cron commands.
+ */
+final class SetupCronApi
+{
+    public function __construct(private readonly string $scriptDir) {}
+
+    public function profiles(): array { return cronEditorProfiles(); }
+    public function preview(array $jobs, string $php): array { return cronEditorBuildLines($jobs, $php, $this->scriptDir); }
+    public function status(array $jobs, string $php): array
+    {
+        return cronEditorStatus($this->preview($jobs, $php), $this->scriptDir);
+    }
+    public function apply(array $jobs, string $php): array { return cronEditorApply($jobs, $php, $this->scriptDir); }
+}

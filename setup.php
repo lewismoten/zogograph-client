@@ -196,6 +196,47 @@ function setupKeyCreateToken(): string
     return $_SESSION['setup_key_create_token'];
 }
 
+/** CSRF token scoped to the action that changes the account crontab. */
+function setupScheduleToken(): string
+{
+    if (!is_string($_SESSION['setup_schedule_token'] ?? null)) {
+        $_SESSION['setup_schedule_token'] = bin2hex(random_bytes(32));
+    }
+    return $_SESSION['setup_schedule_token'];
+}
+
+/** The stable persisted shape consumed by SetupCronApi and future panels. */
+function setupScheduleChoices(array $source): array
+{
+    $profiles = cronEditorProfiles();
+    $choices = [];
+    foreach (array_keys(cronJobs()) as $job) {
+        $raw = (array)($source[$job] ?? []);
+        $profile = (string)($raw['profile'] ?? 'none');
+        if (!isset($profiles[$profile])) $profile = 'none';
+        $custom = [];
+        foreach (['minute', 'hour', 'day', 'month', 'weekday'] as $field) {
+            $custom[$field] = (string)((array)($raw['custom'] ?? [])[$field] ?? '*');
+        }
+        $choices[$job] = ['profile' => $profile, 'custom' => $custom];
+    }
+    return $choices;
+}
+
+/** Pulls schedule choices from the explicit form names, not arbitrary config input. */
+function setupScheduleRequest(array $source): array
+{
+    $choices = [];
+    foreach (array_keys(cronJobs()) as $job) {
+        $custom = [];
+        foreach (['minute', 'hour', 'day', 'month', 'weekday'] as $field) {
+            $custom[$field] = (string)($source['schedule_' . $job . '_' . $field] ?? '*');
+        }
+        $choices[$job] = ['profile' => (string)($source['schedule_' . $job . '_profile'] ?? 'none'), 'custom' => $custom];
+    }
+    return setupScheduleChoices($choices);
+}
+
 /**
  * A practical private-key location for the account running this setup backend.
  *
@@ -363,6 +404,36 @@ function runWeb(
             }
         }
         header('Location: ' . strtok((string)$_SERVER['REQUEST_URI'], '?') . '?section=basics', true, 303);
+        return;
+    }
+
+    if ($posted && ($_POST['intent'] ?? '') === 'apply-schedule') {
+        if (!$configured || !$unlocked) {
+            $_SESSION['setup_error'] = 'Unlock setup before changing the account schedule.';
+        } elseif (!hash_equals(setupScheduleToken(), (string)($_POST['setup_schedule_token'] ?? ''))) {
+            $_SESSION['setup_error'] = 'The schedule form expired. Reload setup and try again.';
+        } else {
+            try {
+                $config = readExistingConfig($targetPath);
+                if ($config === null) throw new RuntimeException('could not read the current setup settings');
+                $choices = setupScheduleRequest($_POST);
+                $php = (string)($_POST['schedule_php'] ?? '');
+                $api = new SetupCronApi($root);
+                // Persist the intended schedule before applying it. If the host refuses
+                // the crontab, the page can accurately report the saved intent as out
+                // of sync instead of pretending no change was requested.
+                $config['schedule'] = ['php' => $php, ...$choices];
+                [$saved, $problem] = writeConfig($targetPath, $config, $root . '/lib');
+                if (!$saved) throw new RuntimeException((string)$problem);
+                $status = $api->apply($choices, $php);
+                $_SESSION['setup_notice'] = $status['sync'] === 'in_sync'
+                    ? 'Schedule saved and applied. The marked Zogograph cron block is in sync.'
+                    : 'Schedule settings were saved, but cron did not report an in-sync result.';
+            } catch (Throwable $error) {
+                $_SESSION['setup_error'] = 'Could not apply the schedule: ' . $error->getMessage();
+            }
+        }
+        header('Location: ' . strtok((string)$_SERVER['REQUEST_URI'], '?') . '?section=schedule', true, 303);
         return;
     }
 
@@ -557,7 +628,8 @@ function webPage(
         . '.setup-brand{display:flex;align-items:center;gap:9px;color:var(--text);text-decoration:none}.setup-brand strong{font-size:1.08rem}.setup-brand small{color:var(--muted)}.setup-brand .poll{display:inline-block}.setup-brand .poll-fill,.setup-brand .poll-host-fill{stroke:var(--accent);stroke-dasharray:none;stroke-dashoffset:0}'
         . '.setup-header a:not(.setup-brand){color:var(--muted);font-size:.86rem}'
         . '.setup-layout{display:grid;grid-template-columns:210px minmax(0,1fr);gap:24px;align-items:start}'
-        . '.setup-nav{position:sticky;top:16px;border:1px solid var(--line);border-radius:10px;padding:10px}'
+        . '.setup-nav{position:sticky;top:16px;max-height:calc(100vh - 32px);overflow:auto;border:1px solid var(--line);border-radius:10px;padding:10px}'
+        . '.setup-nav-search{display:block;margin:0 0 8px}.setup-nav-search input{width:100%;box-sizing:border-box}'
         . '.setup-nav a{display:block;padding:7px 8px;border-radius:6px;color:var(--muted);text-decoration:none;font-size:.86rem}'
         . '.setup-nav a:hover,.setup-nav a.current{background:var(--panel);color:var(--text)}'
         . '.setup-main{min-width:0}'
@@ -590,7 +662,7 @@ function webPage(
         . 'textarea[name]{min-height:0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;'
         . 'font-size:.85rem;background:#111;color:#eee;border:1px solid var(--line);'
         . 'border-radius:8px;padding:8px}'
-        . '@media(max-width:700px){.setup-header{padding:11px 0}.setup-layout{display:block}.setup-nav{position:static;display:flex;overflow-x:auto;gap:3px;margin-bottom:16px;white-space:nowrap}.setup-nav a{flex:0 0 auto}}'
+        . '@media(max-width:700px){.setup-header{padding:11px 0}.setup-layout{display:block}.setup-nav{position:static;display:flex;max-height:none;overflow-x:auto;gap:3px;margin-bottom:16px;white-space:nowrap}.setup-nav-search{display:none}.setup-nav a{flex:0 0 auto}}'
         . '</style></head><body class="wiz">';
 
     $out[] = '<header class="setup-header"><a class="setup-brand" href="?section=basics">'
@@ -662,10 +734,12 @@ function webPage(
 
     $panels = setupPanels($fields);
     $out[] = '<div class="setup-layout"><aside class="setup-nav" aria-label="Setup sections">'
-        . '<a' . ($activeSection === 'basics' ? ' class="current"' : '') . ' href="?section=basics">Installation</a>';
+        . '<label class="setup-nav-search">Search settings<input type="search" data-setup-nav-search placeholder="Search settings" autocomplete="off"></label>'
+        . '<a data-setup-nav-item data-setup-nav-terms="installation checks prerequisites"' . ($activeSection === 'basics' ? ' class="current"' : '') . ' href="?section=basics">Installation</a>';
     foreach ($panels as $name => $panel) {
         if ($name === 'basics') continue;
-        $out[] = '<a' . ($activeSection === $name ? ' class="current"' : '')
+        $out[] = '<a data-setup-nav-item data-setup-nav-terms="' . h($name . ' ' . $panel['title']) . '"'
+            . ($activeSection === $name ? ' class="current"' : '')
             . ' href="?section=' . rawurlencode($name) . '">' . h($panel['title']) . '</a>';
     }
     $out[] = '</aside><main class="setup-main"><form method="post">'
@@ -710,22 +784,52 @@ function webPage(
             . '</fieldset>';
     } elseif ($activeSection === 'schedule') {
         $schedule = scheduleState(__DIR__);
-        $out[] = '<p class="help">Collector scheduling is deployment configuration. Set it here, then use the '
-            . 'dashboard to review whether readings are arriving.</p>';
+        $savedSchedule = (array)(($current ?? [])['schedule'] ?? []);
+        $choices = setupScheduleChoices($savedSchedule);
+        $binaries = (array)($schedule['binaries'] ?? []);
+        $php = (string)($savedSchedule['php'] ?? '');
+        if (!in_array($php, $binaries, true)) $php = (string)($binaries[0] ?? '');
+        $out[] = '<p class="help">Choose the account collector cadence and apply it here. Only Zogograph’s marked cron block is changed; every other account cron job stays untouched.</p>';
         if (!$schedule['available']) {
             $out[] = '<div class="banner warn">' . h((string)($schedule['reason'] ?? 'The crontab cannot be read here.')) . '</div>';
+        } elseif ($php === '') {
+            $out[] = '<div class="banner warn">No usable command-line PHP binary was found, so this host cannot apply a schedule from Setup.</div>';
         } else {
-            $installed = (array)($schedule['lines'] ?? []);
-            $out[] = '<fieldset><legend>Account collector schedule</legend>'
-                . '<p class="help">Only Zogograph’s marked cron block is managed; other account cron jobs are left alone.</p>'
-                . '<p><strong>' . ($installed === [] ? 'No Zogograph account schedule is installed.' : 'Installed Zogograph schedule:') . '</strong></p>'
-                . '<pre><code>' . h($installed === [] ? '(none)' : implode("\n", $installed)) . '</code></pre>';
-            $binaries = (array)($schedule['binaries'] ?? []);
-            $php = is_string($binaries[0] ?? null) ? $binaries[0] : PHP_BINARY;
-            $recommended = buildCronLines(['vitals' => 'every-5m', 'scan' => 'daily', 'minute' => 7, 'hour' => 2], $php, __DIR__);
-            $out[] = '<p class="help">To install or adjust it, run <code>crontab -e</code> as this account and use this managed block:</p>'
-                . '<pre><code>' . h(implode("\n", $recommended)) . '</code></pre></fieldset>';
+            try {
+                $status = (new SetupCronApi(__DIR__))->status($choices, $php);
+                $sync = (string)$status['sync'];
+                $copy = $sync === 'in_sync' ? 'Saved schedule is installed and in sync.'
+                    : ($sync === 'missing' ? 'Saved schedule is not installed yet.' : 'Installed schedule differs from the saved settings.');
+                $out[] = '<div class="banner ' . ($sync === 'in_sync' ? 'ok' : 'warn') . '"><strong>' . h($copy) . '</strong></div>';
+            } catch (Throwable $error) {
+                $out[] = '<div class="banner warn">Could not build the saved schedule: ' . h($error->getMessage()) . '</div>';
+            }
         }
+        $out[] = '<fieldset><legend>Account collector schedule</legend>'
+            . '<p class="help">Vitals are lightweight readings. A scan walks the monitored directory and is normally left off or scheduled much less often.</p>'
+            . '<label>PHP command-line binary<select name="schedule_php">';
+        foreach ($binaries as $binary) {
+            $out[] = '<option value="' . h($binary) . '"' . ($binary === $php ? ' selected' : '') . '>' . h($binary) . '</option>';
+        }
+        $out[] = '</select></label>';
+        foreach (['vitals' => 'Vitals collection', 'scan' => 'Directory scan'] as $job => $label) {
+            $choice = $choices[$job];
+            $out[] = '<fieldset><legend>' . h($label) . '</legend><label>Profile<select name="schedule_' . $job . '_profile">';
+            foreach (cronEditorProfiles() as $id => $profile) {
+                $out[] = '<option value="' . h($id) . '"' . ($choice['profile'] === $id ? ' selected' : '') . '>' . h($profile['label']) . '</option>';
+            }
+            $out[] = '</select></label><details><summary>Custom cron builder</summary>'
+                . '<p class="help">Used only when Custom five-field cron is selected. Standard cron has minutes, hours, day of month, month, and day of week; seconds are intentionally not supported.</p><div class="row">';
+            foreach (['minute' => 'Minutes (0–59)', 'hour' => 'Hours (0–23)', 'day' => 'Day of month (1–31)', 'month' => 'Month (1–12)', 'weekday' => 'Day of week (0–7)'] as $field => $fieldLabel) {
+                $out[] = '<label>' . h($fieldLabel) . '<input type="text" name="schedule_' . $job . '_' . $field . '" value="' . h($choice['custom'][$field]) . '" pattern="[0-9*,/\\-]+" maxlength="80" spellcheck="false"></label>';
+            }
+            $out[] = '</div></details></fieldset>';
+        }
+        $preview = [];
+        try { if ($php !== '') $preview = (new SetupCronApi(__DIR__))->preview($choices, $php); } catch (Throwable) {}
+        $out[] = '<p><strong>Saved schedule preview</strong></p><pre><code>' . h($preview === [] ? '(no Zogograph jobs selected)' : implode("\n", $preview)) . '</code></pre>'
+            . '<input type="hidden" name="setup_schedule_token" value="' . h(setupScheduleToken()) . '">'
+            . '<button type="submit" name="intent" value="apply-schedule"' . ($editingLocked || !$schedule['available'] || $php === '' ? ' disabled aria-disabled="true"' : '') . '>Apply schedule changes</button></fieldset>';
     } else {
         $help = sampleHelp($samplePath)['sections'][$activeSection] ?? '';
         if ($help !== '') $out[] = '<p class="help">' . h(firstParagraph($help)) . '</p>';
@@ -780,6 +884,7 @@ function webPage(
         $out[] = '<textarea readonly onclick="this.select()">' . h($rendered) . '</textarea>';
     }
 
+    $out[] = '<script>document.querySelector("[data-setup-nav-search]")?.addEventListener("input",function(){const q=this.value.trim().toLowerCase();document.querySelectorAll("[data-setup-nav-item]").forEach(function(item){item.hidden=q!==""&&!item.dataset.setupNavTerms.toLowerCase().includes(q);});});</script>';
     $out[] = '</body></html>';
     return implode("\n", $out);
 }

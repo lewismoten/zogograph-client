@@ -672,15 +672,15 @@ function webPage(
     $out[] = '</aside><main class="setup-main"><form method="post">'
         . '<input type="hidden" name="section" value="' . h($activeSection) . '">';
 
-    if ($configured && $existing['password_hash'] !== '' && !$unlocked) {
+    $editingLocked = $configured && $existing['password_hash'] !== '' && !$unlocked;
+    if ($editingLocked) {
         // Its own form, so pressing enter in the password box unlocks rather
         // than submitting a whole config full of defaults.
         $out[] = '</form><form method="post"><input type="hidden" name="intent" value="unlock">'
             . '<input type="hidden" name="section" value="' . h($activeSection) . '">'
             . '<fieldset><legend>Authorise</legend>'
             . '<span class="help">The password this install already uses. Enter it to edit the '
-            . 'current settings and replace the file. Skip it and the form below starts from the '
-            . 'defaults and only produces text to paste.</span>'
+            . 'current settings and replace the file.</span>'
             . '<label style="margin-top:10px">Current password'
             . '<input type="password" name="current_password" autocomplete="current-password"></label>'
             . '<button type="submit">Unlock</button>'
@@ -711,8 +711,13 @@ function webPage(
         $help = sampleHelp($samplePath)['sections'][$activeSection] ?? '';
         if ($help !== '') $out[] = '<p class="help">' . h(firstParagraph($help)) . '</p>';
     }
-    foreach ($fields as $field) {
-        if (fieldIsInSection($field, $activeSection)) {
+    if ($editingLocked) {
+        $out[] = '<p class="help">Unlock setup to view or change this section.</p>';
+    } else {
+        foreach ($fields as $field) {
+            if (!fieldIsInSection($field, $activeSection)) {
+                continue;
+            }
             if ($field['key'] === 'package_runtime_secret_key_file') {
                 $out[] = packageSecretKeyQuickStart(
                     renderField($field, $values, $errors, $configured),
@@ -738,9 +743,9 @@ function webPage(
     }
     $out[] = '</section>';
 
-    $out[] = '<button type="submit">'
-        . (!$configured || $unlocked ? 'Save ' . h($title) : 'Show me the config')
-        . '</button>';
+    if (!$editingLocked) {
+        $out[] = '<button type="submit">Save ' . h($title) . '</button>';
+    }
     $out[] = '</form></main></div>';
 
     if ($rendered !== null) {

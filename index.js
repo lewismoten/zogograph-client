@@ -11896,12 +11896,22 @@ function showPackageRuntimeUpload() {
 
 let packageDashboardPagesLoaded = false;
 async function loadPackageDashboardPages() {
-  if (packageDashboardPagesLoaded) return;
   try {
     const data = await api("package-pages");
-    for (const page of data.pages || []) addPackageDashboardPage(page);
+    const pages = (data.pages || []).filter(page => page && /^[a-z][a-z0-9-]{3,190}$/.test(page.route));
+    const available = new Set(pages.map(page => page.route));
+    for (const [route, view] of Object.entries(VIEWS)) {
+      if (!view.packagePage || available.has(route)) continue;
+      delete VIEWS[route];
+      state.rendered?.delete(route);
+      document.querySelectorAll("[data-nav]").forEach(link => { if (link.dataset.nav === route) link.remove(); });
+      document.querySelectorAll("[data-view]").forEach(viewNode => { if (viewNode.dataset.view === route) viewNode.remove(); });
+    }
+    for (const page of pages) addPackageDashboardPage(page);
     packageDashboardPagesLoaded = true;
-    if (location.hash && VIEWS[readRoute().view]?.packagePage) applyRoute();
+    const route = readRoute().view;
+    if (location.hash && VIEWS[route]?.packagePage) applyRoute();
+    else if (location.hash && route.startsWith("package-")) showView("sys-packages");
   } catch {
     // Package pages are optional, and page access may deliberately exclude
     // the package runtime from this account.
@@ -11913,11 +11923,11 @@ function addPackageDashboardPage(page) {
   const parent = typeof page.parent === "string" && VIEWS[page.parent] ? page.parent : "sys-packages";
   const title = page.title_key ? ZogographI18n.t(page.title_key, {}, page.title) : page.title;
   VIEWS[page.route] = { manual: true, label: title, parent, packagePage: true, refresh: () => renderPackageDashboardPage(page.route) };
-  const link = document.createElement("a"); link.className = "nav-item nav-sub"; link.href = `#/${page.route}`; link.dataset.nav = page.route; link.dataset.parent = parent; link.dataset.pluginKeywords = (page.keywords || []).join(" ");
+  const link = document.createElement("a"); link.className = "nav-item nav-sub"; link.href = `#/${page.route}`; link.dataset.nav = page.route; link.dataset.parent = parent; link.dataset.packageDashboardPage = "1"; link.dataset.pluginKeywords = (page.keywords || []).join(" ");
   const icon = document.createElement("span"); icon.className = "nav-icon"; icon.setAttribute("aria-hidden", "true"); icon.textContent = "›";
   const label = document.createElement("span"); label.className = "nav-label"; if (page.title_key) label.dataset.i18n = page.title_key; label.textContent = title; link.append(icon, label); bindNavLink(link);
   document.querySelector(".sidebar .nav-foot")?.before(link);
-  const view = document.createElement("section"); view.className = "view"; view.hidden = true; view.dataset.view = page.route; view.dataset.packageId = page.package_id; view.dataset.packagePageTitle = page.title; view.dataset.packagePageSummary = page.summary; if (page.title_key) view.dataset.packagePageTitleKey = page.title_key; if (page.summary_key) view.dataset.packagePageSummaryKey = page.summary_key;
+  const view = document.createElement("section"); view.className = "view"; view.hidden = true; view.dataset.view = page.route; view.dataset.packageDashboardPage = "1"; view.dataset.packageId = page.package_id; view.dataset.packagePageTitle = page.title; view.dataset.packagePageSummary = page.summary; if (page.title_key) view.dataset.packagePageTitleKey = page.title_key; if (page.summary_key) view.dataset.packagePageSummaryKey = page.summary_key;
   $("main")?.appendChild(view);
 }
 
@@ -11959,7 +11969,7 @@ function packageRuntimeActions(row, canChange) {
     const remove = document.createElement("button"); remove.className = "link danger"; remove.textContent = packageText("package.remove", {}, "Remove");
     remove.addEventListener("click", async () => {
       if (!(await confirmDialog(packageText("package.remove_confirmation", {id: row.id, version: row.version}, "Remove {{id}} {{version}}?\n\nThis removes its immutable package files and registry record. Package-private data and encrypted secrets are retained so they can be recovered or reused after a future reinstall."), packageText("package.remove", {}, "Remove")))) return;
-      try { await post("package-runtime-remove", { id: row.id }); await refreshPackageRuntime(); notice(packageText("package.removed", {id: row.id}, "{{id}} removed."), true); }
+      try { await post("package-runtime-remove", { id: row.id }); await loadPackageDashboardPages(); await refreshPackageRuntime(); notice(packageText("package.removed", {id: row.id}, "{{id}} removed."), true); }
       catch (error) { notice(String(error.message || error)); }
     });
     wrap.appendChild(remove);
@@ -12008,7 +12018,7 @@ function packageRuntimeActions(row, canChange) {
   toggle.addEventListener("click", async () => {
     const verb = row.enabled ? packageText("package.disable", {}, "Disable") : packageText("package.grant_all_enable", {}, "Grant every listed capability and enable");
     if (!(await confirmDialog(packageText("package.toggle_confirmation", {verb, id: row.id, capabilities: row.capabilities.join(", ")}, "{{verb}} {{id}}?\n\nCapabilities: {{capabilities}}\n\nThis records permission only; it does not run package code."), packageText("package.toggle_title", {verb}, "{{verb}} package")))) return;
-    try { await post("package-runtime-enable", { id: row.id, enabled: row.enabled ? "0" : "1", grants: row.enabled ? "" : row.capabilities.join(",") }); await refreshPackageRuntime(); notice(row.enabled ? packageText("package.disabled", {id: row.id}, "{{id}} disabled.") : packageText("package.enabled", {id: row.id}, "{{id}} enabled for future runtime use."), true); }
+    try { await post("package-runtime-enable", { id: row.id, enabled: row.enabled ? "0" : "1", grants: row.enabled ? "" : row.capabilities.join(",") }); await loadPackageDashboardPages(); await refreshPackageRuntime(); notice(row.enabled ? packageText("package.disabled", {id: row.id}, "{{id}} disabled.") : packageText("package.enabled", {id: row.id}, "{{id}} enabled for future runtime use."), true); }
     catch (error) { notice(String(error.message || error)); }
   });
   wrap.appendChild(toggle); return wrap;
@@ -12088,7 +12098,7 @@ function showPackageRuntimeRevoke(row) {
   const reason = document.createElement("textarea"); reason.className = "wide-field"; reason.rows = 4; reason.maxLength = 500;
   showFormDialog(`Revoke ${row.id}`, [fieldRow("Reason", reason, "Revocation disables this package immediately and records why. Lifting it later still leaves the package disabled until capabilities are explicitly granted again.")], async () => {
     await post("package-runtime-revoke", { id: row.id, reason: reason.value });
-    await refreshPackageRuntime(); notice(`${row.id} revoked.`, true);
+    await loadPackageDashboardPages(); await refreshPackageRuntime(); notice(`${row.id} revoked.`, true);
   }, "Revoke package");
 }
 

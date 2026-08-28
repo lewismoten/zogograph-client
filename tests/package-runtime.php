@@ -31,6 +31,10 @@ try {
         && str_contains($dashboard, 'Platform unavailable') && str_contains($dashboard, 'no-secret capability probe')
         && str_contains($dashboard, 'Run isolated probe') && str_contains($dashboard, 'row.probe_evidence.probed_at')
         && str_contains($dashboard, 'showCustodyPackageSettings') && str_contains($dashboard, 'Never paste a raw bearer token here.'), 'dashboard does not explain the package execution boundary');
+    runtimeExpect($dashboard !== false && str_contains($dashboard, 'const available = new Set(pages.map(page => page.route))')
+        && str_contains($dashboard, 'delete VIEWS[route]') && str_contains($dashboard, 'route.startsWith("package-")')
+        && substr_count($dashboard, 'await loadPackageDashboardPages(); await refreshPackageRuntime();') >= 3,
+        'package dashboard pages are not removed immediately after disable, revoke, or removal');
     runtimeExpect($page !== false && str_contains($page, 'data-view="sys-packages"')
         && str_contains($page, 'id="packageRuntimeBody"'), 'package runtime dashboard view is unavailable');
     runtimeExpect($sandboxTemplate !== false && str_contains($sandboxTemplate, 'network_mode: none')

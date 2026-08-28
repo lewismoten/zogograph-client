@@ -1418,13 +1418,29 @@ document.querySelectorAll("[data-package-settings-target]").forEach(function (pi
     });
 });
 (function () {
-    const storageKey = "zogograph.setup.build.identity";
+    const storageKey = "zogograph.build.identity";
+    const updateStorageKey = "zogograph.build.update";
     const identity = build => [build?.commit, build?.runId, build?.createdAt].filter(Boolean).join(":");
     const savedIdentity = function () {
         try { return sessionStorage.getItem(storageKey); } catch (error) { return null; }
     };
     const rememberIdentity = function (value) {
         try { sessionStorage.setItem(storageKey, value); } catch (error) { /* Storage is optional. */ }
+    };
+    const readUpdate = function () {
+        try {
+            const saved = JSON.parse(sessionStorage.getItem(updateStorageKey) || "null");
+            return saved && typeof saved === "object" && identity(saved.build) === saved.identity ? saved.build : null;
+        } catch (error) { return null; }
+    };
+    const rememberUpdate = function (build) {
+        try {
+            const value = identity(build);
+            if (value) sessionStorage.setItem(updateStorageKey, JSON.stringify({identity: value, build: build}));
+        } catch (error) { /* Storage is optional. */ }
+    };
+    const clearUpdate = function () {
+        try { sessionStorage.removeItem(updateStorageKey); } catch (error) { /* Storage is optional. */ }
     };
     let current = savedIdentity();
     let latest = null;
@@ -1441,7 +1457,11 @@ document.querySelectorAll("[data-package-settings-target]").forEach(function (pi
         const reload = document.createElement("button");
         reload.type = "button";
         reload.textContent = window.ZogographI18n?.markSource?.(reload, "action.reload", "Reload now") || "Reload now";
-        reload.addEventListener("click", () => location.reload());
+        reload.addEventListener("click", () => {
+            rememberIdentity(identity(build));
+            clearUpdate();
+            location.reload();
+        });
         banner.append(text, reload);
         banner.hidden = false;
     }
@@ -1462,8 +1482,8 @@ document.querySelectorAll("[data-package-settings-target]").forEach(function (pi
             }
             if (current !== next) {
                 current = next;
-                rememberIdentity(next);
                 latest = build;
+                rememberUpdate(build);
                 show(build);
             }
         } catch (error) {
@@ -1473,6 +1493,11 @@ document.querySelectorAll("[data-package-settings-target]").forEach(function (pi
         }
     }
 
+    const remembered = readUpdate();
+    if (remembered && identity(remembered) !== current) {
+        latest = remembered;
+        show(remembered);
+    }
     check();
     setInterval(check, 60000);
     // A deployment can happen while Setup is in another tab. Recheck on the

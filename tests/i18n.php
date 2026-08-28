@@ -72,7 +72,7 @@ i18nExpect($setup !== false && str_contains($setup, 'src="i18n.js"') && str_cont
     && str_contains($setup, "'setup.section.' . \$name") && str_contains($setup, "'setup.section.' . \$activeSection")
     && str_contains($setup, 'aria-current="page"') && str_contains($setup, 'data-setup-nav-results')
     && str_contains($setup, 'markSource?.(text, messageKey, messageFallback)') && str_contains($setup, 'markSource?.(reload, "action.reload", "Reload now")')
-    && str_contains($setup, 'zogograph.setup.build.identity') && str_contains($setup, 'sessionStorage.getItem(storageKey)')
+    && str_contains($setup, 'zogograph.build.identity') && str_contains($setup, 'zogograph.build.update') && str_contains($setup, 'sessionStorage.getItem(storageKey)')
     && str_contains($setup, 'document.addEventListener("zogograph-i18n-load"')
     && str_contains($setup, 'document.addEventListener("visibilitychange"') && str_contains($setup, 'window.addEventListener("focus", check)'),
     'Setup language controls or localized shell are unavailable');

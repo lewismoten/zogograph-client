@@ -119,6 +119,8 @@ const state = {
   busy: false,
 };
 
+const BUILD_IDENTITY_STORAGE_KEY = "zogograph.build.identity";
+const BUILD_UPDATE_STORAGE_KEY = "zogograph.build.update";
 const buildState = { current: null, announced: null, update: null, checking: false };
 
 const $ = id => document.getElementById(id);
@@ -625,6 +627,30 @@ function buildIdentity(build) {
   return [build?.commit, build?.runId, build?.createdAt].filter(Boolean).join(":");
 }
 
+function buildStorageGet(key) {
+  try { return sessionStorage.getItem(key); } catch { return null; }
+}
+
+function buildStorageSet(key, value) {
+  try { sessionStorage.setItem(key, value); } catch { /* Storage is optional. */ }
+}
+
+function buildStorageRemove(key) {
+  try { sessionStorage.removeItem(key); } catch { /* Storage is optional. */ }
+}
+
+function rememberedBuildUpdate() {
+  try {
+    const saved = JSON.parse(buildStorageGet(BUILD_UPDATE_STORAGE_KEY) || "null");
+    return saved && typeof saved === "object" && buildIdentity(saved.build) === saved.identity ? saved.build : null;
+  } catch { return null; }
+}
+
+function rememberBuildUpdate(build) {
+  const identity = buildIdentity(build);
+  if (identity) buildStorageSet(BUILD_UPDATE_STORAGE_KEY, JSON.stringify({ identity, build }));
+}
+
 function showBuildUpdate(build) {
   const banner = $("updateBanner");
   if (!banner) return;
@@ -635,7 +661,11 @@ function showBuildUpdate(build) {
   banner.replaceChildren();
   const text = document.createElement("span"); text.textContent = message;
   const reload = document.createElement("button"); reload.type = "button"; reload.textContent = ZogographI18n.t("action.reload", {}, "Reload now");
-  reload.addEventListener("click", () => location.reload());
+  reload.addEventListener("click", () => {
+    buildStorageSet(BUILD_IDENTITY_STORAGE_KEY, buildIdentity(build));
+    buildStorageRemove(BUILD_UPDATE_STORAGE_KEY);
+    location.reload();
+  });
   banner.append(text, reload);
   banner.hidden = false;
 }
@@ -653,11 +683,13 @@ async function checkForBuildUpdate() {
     if (!identity) return;
     if (buildState.current === null) {
       buildState.current = identity;
+      buildStorageSet(BUILD_IDENTITY_STORAGE_KEY, identity);
       return;
     }
     if (buildState.current !== identity && buildState.announced !== identity) {
       buildState.announced = identity;
       buildState.update = build;
+      rememberBuildUpdate(build);
       showBuildUpdate(build);
     }
   } catch {
@@ -34257,6 +34289,13 @@ installChatDrag();
 
 applyRoute();
 writeRoute(true);
+buildState.current = buildStorageGet(BUILD_IDENTITY_STORAGE_KEY);
+const rememberedUpdate = rememberedBuildUpdate();
+if (rememberedUpdate && buildIdentity(rememberedUpdate) !== buildState.current) {
+  buildState.announced = buildIdentity(rememberedUpdate);
+  buildState.update = rememberedUpdate;
+  showBuildUpdate(rememberedUpdate);
+}
 schedule();
 checkForBuildUpdate();
 setInterval(checkForBuildUpdate, BUILD_POLL_MS);

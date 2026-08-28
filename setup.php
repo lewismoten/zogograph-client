@@ -1079,7 +1079,7 @@ function webPage(
             . '<p><a href="./" data-i18n="setup.dashboard">Open the dashboard</a></p></div>';
 
         if (!empty($values['host_enabled'])) {
-            $out[] = '<div class="banner warn"><strong>One more step, as root.</strong>'
+            $out[] = '<div class="banner warn"><strong data-i18n="setup.root_step">One more step, as root.</strong>'
                 . '<p>The host collector cannot be installed from here — it runs as root, and '
                 . 'this page runs as your account. Log in to WHM or ssh as root and add this '
                 . 'to <em>root\'s</em> crontab (<code>crontab -e</code>):</p>'

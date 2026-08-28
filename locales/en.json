@@ -27,6 +27,7 @@
   "setup.settings_saved": "Settings saved in data/setup.db.",
   "setup.first_readings": "Take the first readings, then open the dashboard:",
   "setup.keep_setup": "Keep setup.php available for later administrator changes. It requires the current password before it can replace your configuration.",
+  "setup.root_step": "One more step, as root.",
   "setup.installation": "Installation",
   "installation.checks": "Installation checks",
   "installation.check": "Check",

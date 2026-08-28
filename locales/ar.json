@@ -27,6 +27,7 @@
   "setup.settings_saved": "حُفظت الإعدادات في data/setup.db.",
   "setup.first_readings": "اجمع القراءات الأولى، ثم افتح لوحة التحكم:",
   "setup.keep_setup": "احتفظ بملف setup.php لتغييرات المسؤول اللاحقة. يتطلب كلمة المرور الحالية قبل أن يتمكن من استبدال إعدادك.",
+  "setup.root_step": "هناك خطوة أخرى بصلاحية root.",
   "setup.installation": "التثبيت",
   "installation.checks": "فحوصات التثبيت", "installation.check": "الفحص", "installation.state": "الحالة", "installation.detail": "التفاصيل",
   "setup.section.privacy": "الخصوصية",

@@ -27,6 +27,7 @@
   "setup.settings_saved": "Ajustes guardados en data/setup.db.",
   "setup.first_readings": "Obtenga las primeras lecturas y después abra el panel:",
   "setup.keep_setup": "Mantenga setup.php disponible para cambios posteriores del administrador. Requiere la contraseña actual antes de poder reemplazar su configuración.",
+  "setup.root_step": "Un paso más, como root.",
   "setup.installation": "Instalación",
   "installation.checks": "Comprobaciones de instalación",
   "installation.check": "Comprobación",

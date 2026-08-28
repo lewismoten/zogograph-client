@@ -27,6 +27,7 @@
   "setup.settings_saved": "设置已保存到 data/setup.db。",
   "setup.first_readings": "先获取初始读数，然后打开仪表板：",
   "setup.keep_setup": "请保留 setup.php 以供日后管理员更改。替换配置前必须提供当前密码。",
+  "setup.root_step": "还需要以 root 身份完成一步。",
   "setup.installation": "安装",
   "installation.checks": "安装检查", "installation.check": "检查项", "installation.state": "状态", "installation.detail": "详情",
   "setup.section.privacy": "隐私",

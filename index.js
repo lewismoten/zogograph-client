@@ -26309,7 +26309,7 @@ function openUrlForm(row = null) {
     const meta = data.checks[kind.value];
     const wrap = value.closest(".settings-row");
     if (wrap) wrap.hidden = !meta.needs_value;
-    hint.innerHTML = meta.hint;
+    hint.textContent = meta.hint;
 
     // Only a regex has groups to choose between; the tester is for regexes.
     const isRegex = kind.value === "regex";

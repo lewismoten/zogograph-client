@@ -106,8 +106,8 @@ function urlWatchChecks(): array
         ],
         'json' => [
             'label' => 'A value from JSON',
-            'hint' => 'A dotted path such as <code>data.queue.depth</code>. Array positions '
-                . 'are numbers: <code>items.0.count</code>.',
+            'hint' => 'A dotted path such as data.queue.depth. Array positions '
+                . 'are numbers: items.0.count.',
             'needs_value' => true,
             'extracts' => true,
         ],

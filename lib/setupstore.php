@@ -13,7 +13,7 @@ require_once __DIR__ . '/encryption.php';
 
 function setupStorePath(array $bootstrap): string
 {
-    return dirname((string)($bootstrap['database'] ?? __DIR__ . '/../data/stats.db')) . '/setup.db';
+    return dirname((string)($bootstrap['database'] ?? dirname(__DIR__) . '/data/stats.db')) . '/setup.db';
 }
 
 function setupStoreOpen(array $bootstrap, bool $create = false): ?PDO

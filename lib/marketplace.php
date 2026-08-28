@@ -17,7 +17,7 @@ const MARKETPLACE_SIGNATURE_ALGORITHM = 'ed25519';
 function marketplaceDirectory(array $config): string
 {
     $configured = trim((string)($config['marketplace']['directory'] ?? ''));
-    return $configured !== '' ? $configured : __DIR__ . '/../data/marketplace';
+    return $configured !== '' ? $configured : dirname(__DIR__) . '/data/marketplace';
 }
 
 /** @return array{id:string,version:string,name:string,publisher:string,summary:string,license:string,capabilities:list<string>,recommendations:list<array{rule:string,severity:string,reason:string}>,view_contributions:list<array{capability:string,view:string,keywords:list<string>,priority:string,before:list<string>,after:list<string>}>,compatibility:array{min_php?:string,max_php?:string,min_schema?:int,max_schema?:int},signature:?array{key_id:string,algorithm:string,value:string}} */

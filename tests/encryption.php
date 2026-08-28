@@ -112,6 +112,10 @@ try {
         && $sampleText !== false && str_contains($sampleText, 'posix_getpwuid')
         && str_contains($sampleText, "realpath(__DIR__ . '/..')"),
         'scan-root default does not derive from the service account or installation directory');
+    encryptionExpect(!str_contains((string)$sample['marketplace']['directory'], '/lib/../')
+        && !str_contains((string)$sample['package_runtime']['directory'], '/lib/../')
+        && setupDisplayPath('/home/zogograph/client.zogograph.com/lib/../data/marketplace') === '/home/zogograph/client.zogograph.com/data/marketplace',
+        'Setup displays non-canonical private data paths');
     $fields = array_column(configFields($sample), null, 'key');
     encryptionExpect(!isset($fields['cfg_schedule__scan__profile']) && !isset($fields['cfg_schedule__vitals__profile']),
         'schedule editor internals leaked into the generated setup fields');

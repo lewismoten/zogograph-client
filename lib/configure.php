@@ -1155,7 +1155,7 @@ function formatBytes(int $bytes): string
 /** How a field's current value should appear in a prompt or an input box. */
 function displayValue(array $field, mixed $value): string
 {
-    return match ($field['type']) {
+    $shown = match ($field['type']) {
         'bytes' => formatBytes((int)$value),
         'seconds' => formatDuration((int)$value),
         'bool' => $value ? 'y' : 'n',
@@ -1167,6 +1167,27 @@ function displayValue(array $field, mixed $value): string
         'nullable' => $value === null ? '' : (string)$value,
         default => (string)$value,
     };
+    return setupDisplayPath($shown);
+}
+
+/**
+ * Removes lexical /./ and /../ segments for a path shown in Setup or CLI.
+ * This does not call realpath(): resolving links here could change the path
+ * an administrator intended to review or save.
+ */
+function setupDisplayPath(string $value): string
+{
+    if (str_contains($value, "\n")) {
+        return implode("\n", array_map('setupDisplayPath', explode("\n", $value)));
+    }
+    if (!str_starts_with($value, '/')) return $value;
+    $parts = [];
+    foreach (explode('/', $value) as $part) {
+        if ($part === '' || $part === '.') continue;
+        if ($part === '..') { array_pop($parts); continue; }
+        $parts[] = $part;
+    }
+    return '/' . implode('/', $parts);
 }
 
 /* --------------------------------------------------------------- printing -- */

@@ -28,6 +28,7 @@ $defaultScanRoot = static function (): string {
     // Watching the installed application is safer than assuming another account.
     return realpath(__DIR__ . '/..') ?: dirname(__DIR__);
 };
+$dataDirectory = dirname(__DIR__) . '/data';
 
 return [
     // What to walk. Everything the monitor reports lives under here, and every
@@ -35,7 +36,7 @@ return [
     'scan_root' => $defaultScanRoot(),
     'timezone' => 'America/New_York',
 
-    'database' => __DIR__ . '/../data/stats.db',
+    'database' => $dataDirectory . '/stats.db',
 
     // The account crontab desired by Setup. The editor writes only Zogograph's
     // marked block, then compares this intent with what cron actually has.
@@ -82,7 +83,7 @@ return [
      * package here never executes PHP, shell, or browser code. A signed
      * manifest is enabled only when its configured publisher key verifies. */
     'marketplace' => [
-        'directory' => __DIR__ . '/../data/marketplace',
+        'directory' => $dataDirectory . '/marketplace',
         // 'trusted_keys' => [
         //     'example-publisher' => ['publisher' => 'Example publisher',
         //         'public_key' => 'base64 Ed25519 public key'],
@@ -94,7 +95,7 @@ return [
      * files here, and records explicit capability grants before a future
      * package entry point can run. Keep publisher keys in setup settings. */
     'package_runtime' => [
-        'directory' => __DIR__ . '/../data/packages',
+        'directory' => $dataDirectory . '/packages',
         'trusted_keys' => [], // key-id => ['publisher' => '', 'public_key' => 'Base64 Ed25519 key']
         // Optional 0600 key outside the web root for encrypted package secrets.
         // Blank reuses encryption.local_key_file when one is configured.
@@ -415,7 +416,7 @@ return [
             'temp' => ['tmp', 'temp'],
         ],
         'exclude_paths' => [
-            __DIR__ . '/../data',
+            $dataDirectory,
         ],
     ],
 

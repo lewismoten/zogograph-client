@@ -112,6 +112,17 @@ function totpBase32Decode(string $secret): string|false
     return $out === '' ? false : $out;
 }
 
+/** Fresh 160-bit Base32 seed for a TOTP authenticator; never log or reuse it. */
+function totpGenerateSecret(): string
+{
+    $alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567'; $bits = 0; $buffer = 0; $out = '';
+    foreach (unpack('C*', random_bytes(20)) as $byte) {
+        $buffer = ($buffer << 8) | $byte; $bits += 8;
+        while ($bits >= 5) { $bits -= 5; $out .= $alphabet[($buffer >> $bits) & 31]; }
+    }
+    return $out;
+}
+
 /** Validates a six-digit TOTP code with one clock step of skew in either direction. */
 function totpValid(string $secret, string $code, ?int $now = null): bool
 {

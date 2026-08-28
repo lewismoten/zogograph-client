@@ -59,6 +59,8 @@ require_once $root . '/lib/schedule.php';
 require_once $root . '/lib/setup-cron-editor.php';
 require_once $root . '/lib/setup-panels.php';
 require_once $root . '/lib/package-runtime.php';
+require_once $root . '/lib/auth.php';
+require_once $root . '/lib/db.php';
 // For hostCronLine/hostCronCommand, shown after a successful write.
 require_once $root . '/lib/hostdb.php';
 
@@ -205,6 +207,12 @@ function setupScheduleToken(): string
         $_SESSION['setup_schedule_token'] = bin2hex(random_bytes(32));
     }
     return $_SESSION['setup_schedule_token'];
+}
+
+function setupTotpToken(): string
+{
+    if (!is_string($_SESSION['setup_totp_token'] ?? null)) $_SESSION['setup_totp_token'] = bin2hex(random_bytes(32));
+    return $_SESSION['setup_totp_token'];
 }
 
 /** CSRF token limited to schema-validated package-setting writes. */
@@ -560,6 +568,34 @@ function runWeb(
         return;
     }
 
+    if ($posted && in_array($_POST['intent'] ?? '', ['start-totp', 'confirm-totp', 'ack-totp-recovery'], true)) {
+        try {
+            if (!$configured || !$unlocked) throw new RuntimeException('unlock setup before changing authentication');
+            if (!hash_equals(setupTotpToken(), (string)($_POST['setup_totp_token'] ?? ''))) throw new RuntimeException('the authenticator form expired; reload Setup and try again');
+            $intent = (string)$_POST['intent'];
+            if ($intent === 'start-totp') {
+                $_SESSION['setup_pending_totp'] = totpGenerateSecret();
+                unset($_SESSION['setup_recovery_codes']);
+            } elseif ($intent === 'confirm-totp') {
+                $secret = (string)($_SESSION['setup_pending_totp'] ?? '');
+                if ($secret === '' || !totpValid($secret, (string)($_POST['totp_code'] ?? ''))) throw new RuntimeException('the authenticator code was not accepted');
+                $config = readExistingConfig($targetPath);
+                if ($config === null) throw new RuntimeException('could not read the current setup settings');
+                $config['auth']['totp_secret'] = $secret;
+                [$saved, $problem] = writeConfig($targetPath, $config, $root . '/lib');
+                if (!$saved) throw new RuntimeException((string)$problem);
+                $_SESSION['setup_recovery_codes'] = totpRecoveryCodes(db($config), 'administrator');
+                unset($_SESSION['setup_pending_totp']);
+            } else {
+                if (empty($_POST['recovery_confirmed'])) throw new RuntimeException('confirm that you stored the recovery codes before continuing');
+                unset($_SESSION['setup_recovery_codes']);
+                $_SESSION['setup_notice'] = 'Authenticator and recovery codes are set up.';
+            }
+        } catch (Throwable $error) { $_SESSION['setup_error'] = 'Could not update authentication: ' . $error->getMessage(); }
+        header('Location: ' . strtok((string)$_SERVER['REQUEST_URI'], '?') . '?section=auth', true, 303);
+        return;
+    }
+
     $errors = [];
     $refusal = null;
     $rendered = null;
@@ -899,6 +935,20 @@ function webPage(
             . '</fieldset>';
     } elseif ($activeSection === 'openid') {
         $out[] = '<fieldset><legend>OpenID Connect provider</legend><p class="help">This installation can already act as an OpenID Connect provider for trusted applications. Enable it only after setting its public HTTPS issuer, a dedicated signing key, and registered client redirect URLs. The provider supports authorization code with PKCE, discovery, JWKS, and signed ID tokens.</p><p class="help">Client registrations are managed below as structured settings; each client needs an exact redirect URL and a private client secret.</p></fieldset>';
+    } elseif ($activeSection === 'auth') {
+        $pendingTotp = (string)($_SESSION['setup_pending_totp'] ?? '');
+        $recoveryCodes = (array)($_SESSION['setup_recovery_codes'] ?? []);
+        $out[] = '<fieldset><legend>Authenticator app</legend><p class="help">Use an authenticator app such as Google Authenticator, 1Password, or Authy for a six-digit second factor. The secret is not saved until the app proves it can create a correct code.</p>';
+        if ($recoveryCodes !== []) {
+            $out[] = '<div class="banner warn"><strong>Save these recovery codes now.</strong><p>They will not be shown again. Each code works once if your authenticator is unavailable.</p><pre><code>' . h(implode("\n", $recoveryCodes)) . '</code></pre><label class="row"><input type="checkbox" name="recovery_confirmed" value="1"> I saved these recovery codes somewhere safe.</label><input type="hidden" name="setup_totp_token" value="' . h(setupTotpToken()) . '"><button type="submit" name="intent" value="ack-totp-recovery">Finish recovery-code setup</button></div>';
+        } elseif ($pendingTotp !== '') {
+            $issuer = rawurlencode('Zogograph'); $account = rawurlencode('administrator');
+            $uri = 'otpauth://totp/' . $issuer . ':' . $account . '?secret=' . rawurlencode($pendingTotp) . '&issuer=' . $issuer . '&algorithm=SHA1&digits=6&period=30';
+            $out[] = '<p>Enter this secret into your authenticator app:</p><pre><code>' . h($pendingTotp) . '</code></pre><p class="help">Provisioning URI: <code>' . h($uri) . '</code></p><label>Current six-digit code<input type="text" name="totp_code" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="one-time-code"></label><input type="hidden" name="setup_totp_token" value="' . h(setupTotpToken()) . '"><button type="submit" name="intent" value="confirm-totp">Verify and enable authenticator</button>';
+        } else {
+            $out[] = '<input type="hidden" name="setup_totp_token" value="' . h(setupTotpToken()) . '"><button type="submit" name="intent" value="start-totp">Create authenticator secret</button>';
+        }
+        $out[] = '</fieldset>';
     } elseif ($activeSection === 'schedule') {
         $schedule = scheduleState(__DIR__);
         $savedSchedule = (array)(($current ?? [])['schedule'] ?? []);

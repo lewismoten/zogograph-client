@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/../lib/auth.php';
+if (!preg_match('/^[A-Z2-7]{32}$/', totpGenerateSecret())) throw new RuntimeException('generated TOTP seed is not Base32 160-bit material');
 
 function totpExpect(bool $condition, string $message): void
 {

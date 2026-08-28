@@ -797,6 +797,7 @@ function hiddenConfigPaths(): array
         // Generated. Editing it renames every masked path on the dashboard,
         // and there is a checkbox that does that deliberately.
         'mask_secret',
+        'auth.totp_secret',
         // The schedule editor validates and saves this structured value as one
         // operation, then applies its matching marked crontab block.
         'schedule.php',

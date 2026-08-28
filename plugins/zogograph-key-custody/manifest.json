@@ -13,7 +13,7 @@
   "integrity": {"algorithm": "sha256", "files": {
     "README.md": "d423ab75d3a925840b77a36d36490044d4cd44700e23a8f1d85ebf40b5ab45cd",
     "settings.schema.json": "93184f8057c1bde0d8ddcad65923615365fa6d60d9231117214aed0f87f7c37b",
-    "src/KeyCustodyProvider.php": "9845a126400f9230ab6fe4679754198d180b8f8107f4756c2da7bad07b397ebe",
+    "src/KeyCustodyProvider.php": "4b0d54e927f40e011295ca7bbb46dce7017ee0febb25cec5a4e453cfd417340a",
     "src/KeyCustodyHttpClient.php": "89aa16ac8292571ef7c18ae95997f33c4921074f4a67def23b118df16caf9db6"
   }},
   "state": "design-preview"

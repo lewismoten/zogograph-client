@@ -13,7 +13,7 @@
   "integrity": {"algorithm": "sha256", "files": {
     "README.md": "74eb17c4c34de74b8ef61d7507caf365e57eca406c969d75a75de1ef34d771dd",
     "settings.schema.json": "211eecb6765afacc40a7665d053a86a2e63d232ad1dad7eb7ec290f64b13f00b",
-    "src/ReplicaRelayProvider.php": "b5b4d0be4fcfc72c3c2b9fca43333881f13dc5b3c50faabbf498659f872587df",
+    "src/ReplicaRelayProvider.php": "b806d80f19fcdb5ab9c587e597858cf98ea4b840d54480686a7850997b17cb0d",
     "src/ReplicaRelayHttpClient.php": "27ab101ca9725b765e5b0dcfa532384d771df62284d6fb11e975c99303abb50d"
   }},
   "state": "design-preview"

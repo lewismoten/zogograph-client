@@ -39,6 +39,9 @@ i18nExpect($setup !== false && str_contains($setup, 'data-i18n="setup.authorize"
     && str_contains($setup, 'data-i18n="setup.unlock_to_view"') && str_contains($setup, 'data-i18n="privacy.masked_paths"')
     && str_contains($setup, 'data-i18n="privacy.rotate_mask"'),
     'Setup access and privacy panels are not localized');
+i18nExpect($setup !== false && str_contains($setup, 'data-i18n="setup.not_configured"')
+    && str_contains($setup, 'data-i18n="setup.no_password_help"') && str_contains($setup, 'data-i18n="setup.configured_help"'),
+    'Setup password-protection notices are not localized');
 i18nExpect($setup !== false && str_contains($setup, 'setupRenderPackageSettingsPanel')
     && str_contains($setup, 'data-package-settings-target') && str_contains($setup, 'save-package-settings:')
     && str_contains($setup, 'data-i18n="package.save_settings"') && str_contains($setup, 'data-i18n="package.no_reference"'),

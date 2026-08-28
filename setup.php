@@ -1099,19 +1099,15 @@ function webPage(
     }
 
     if (!$configured) {
-        $out[] = '<div class="banner crit"><strong>Nothing is configured yet.</strong>'
-            . '<p>Until you finish, anybody who can reach this page can set the password. '
+        $out[] = '<div class="banner crit"><strong data-i18n="setup.not_configured">Nothing is configured yet.</strong>'
+            . '<p data-i18n="setup.not_configured_help">Until you finish, anybody who can reach this page can set the password. '
             . 'Do it now; afterwards this remains the password-protected configuration backend.</p></div>';
     } elseif (!$unlocked && $existing['password_hash'] === '') {
-        $out[] = '<div class="banner warn"><strong>Already configured, with no password.</strong>'
-            . '<p>There is no secret to prove, so nothing can authorise replacing the config '
-            . 'from here. Fill this in and paste the result into <code>lib/config.php</code> '
-            . 'yourself — having a file to edit is the authorisation.</p></div>';
+        $out[] = '<div class="banner warn"><strong data-i18n="setup.no_password">Already configured, with no password.</strong>'
+            . '<p data-i18n="setup.no_password_help">There is no secret to prove, so nothing can authorize replacing the configuration from here. Fill this in and paste the result into lib/config.php yourself — having a file to edit is the authorization.</p></div>';
     } elseif (!$unlocked) {
-        $out[] = '<div class="banner warn"><strong>Already configured.</strong>'
-            . '<p>Enter the current password below and this will replace '
-            . '<code>lib/config.php</code>. Without it you still get the finished text to '
-            . 'copy and paste.</p></div>';
+        $out[] = '<div class="banner warn"><strong data-i18n="setup.configured">Already configured.</strong>'
+            . '<p data-i18n="setup.configured_help">Enter the current password below and this will replace lib/config.php. Without it you still get the finished text to copy and paste.</p></div>';
     }
 
     if ($refusal !== null) {

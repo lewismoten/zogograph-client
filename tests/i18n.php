@@ -150,6 +150,7 @@ i18nExpect($setup !== false && !str_contains($setup, 'data-i18n="setup.configure
     && str_contains($setup, '$editingLocked && $activeSection !== \'basics\''),
     'Setup shows obsolete configured banners or hides read-only installation checks');
 i18nExpect($setup !== false && $setupPanels !== false && str_contains($setup, '$hostConfig = $current ?? readExistingConfig($targetPath)')
+    && str_contains($setup, 'data-i18n="host.status.title"')
     && str_contains($setupPanels, "['basics', 'schedule', 'host', 'privacy']"),
     'Setup Host status checks or the requested navigation order are unavailable');
 i18nExpect($script !== false && str_contains($script, 'link.href = "./setup.php?section=host"'),

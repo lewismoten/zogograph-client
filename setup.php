@@ -1187,18 +1187,18 @@ function webPage(
         $hostConfig = $current ?? readExistingConfig($targetPath) ?? ['database' => $root . '/data/stats.db', 'host' => ['enabled' => (bool)($values['host_enabled'] ?? false), 'owner' => (string)($values['host_owner'] ?? '')]];
         $hostStatus = setupHostStatus($hostConfig);
         $rows = [
-            ['Enabled', $hostStatus['enabled'] ? 'Yes' : 'No', $hostStatus['enabled'] ? 'ok' : 'warn'],
-            ['Database exists', $hostStatus['exists'] ? 'Yes' : 'No', $hostStatus['exists'] ? 'ok' : 'warn'],
-            ['Database access', $hostStatus['access'], $hostStatus['readable'] ? 'ok' : 'warn'],
-            ['Database owner', $hostStatus['owner'], $hostStatus['owner_matches'] ? 'ok' : 'warn'],
-            ['Current account crontab', $hostStatus['account_cron'], $hostStatus['account_cron_ok'] ? 'ok' : 'warn'],
-            ['Samples', $hostStatus['samples'], $hostStatus['sample_count'] > 0 ? 'ok' : 'warn'],
-            ['Cadence', $hostStatus['cadence'], $hostStatus['cadence_ok'] ? 'ok' : 'warn'],
-            ['Next expected', $hostStatus['next'], $hostStatus['next_ok'] ? 'ok' : 'warn'],
+            ['host.status.enabled', 'Enabled', $hostStatus['enabled'] ? 'Yes' : 'No', $hostStatus['enabled'] ? 'ok' : 'warn'],
+            ['host.status.database_exists', 'Database exists', $hostStatus['exists'] ? 'Yes' : 'No', $hostStatus['exists'] ? 'ok' : 'warn'],
+            ['host.status.database_access', 'Database access', $hostStatus['access'], $hostStatus['readable'] ? 'ok' : 'warn'],
+            ['host.status.database_owner', 'Database owner', $hostStatus['owner'], $hostStatus['owner_matches'] ? 'ok' : 'warn'],
+            ['host.status.account_crontab', 'Current account crontab', $hostStatus['account_cron'], $hostStatus['account_cron_ok'] ? 'ok' : 'warn'],
+            ['host.status.samples', 'Samples', $hostStatus['samples'], $hostStatus['sample_count'] > 0 ? 'ok' : 'warn'],
+            ['host.status.cadence', 'Cadence', $hostStatus['cadence'], $hostStatus['cadence_ok'] ? 'ok' : 'warn'],
+            ['host.status.next_expected', 'Next expected', $hostStatus['next'], $hostStatus['next_ok'] ? 'ok' : 'warn'],
         ];
-        $out[] = '<fieldset><legend>Host collector status</legend><p class="help">These checks use the host database as the dashboard account can read it. Root collection is required for host-wide results; an account-run collector records only its own visible subset. This page can inspect this account’s crontab, but cannot read root’s crontab.</p><table class="preflight"><thead><tr><th>Check</th><th>State</th><th>Detail</th></tr></thead><tbody>';
-        foreach ($rows as [$label, $detail, $state]) $out[] = '<tr><th>' . h($label) . '</th><td class="' . h($state) . '">' . h($state === 'ok' ? 'Ready' : 'Needs attention') . '</td><td>' . h($detail) . '</td></tr>';
-        $out[] = '</tbody></table><p class="help">Run this once as root after saving Host settings:</p><pre><code>' . h(hostCronCommand()) . '</code></pre><p class="help">Then add to root’s crontab:</p><pre><code>' . h(hostCronLine()) . '</code></pre></fieldset>';
+        $out[] = '<fieldset><legend data-i18n="host.status.title">Host collector status</legend><p class="help" data-i18n="host.status.intro">These checks use the host database as the dashboard account can read it. Root collection is required for host-wide results; an account-run collector records only its own visible subset. This page can inspect this account’s crontab, but cannot read root’s crontab.</p><table class="preflight"><thead><tr><th data-i18n="host.status.check">Check</th><th data-i18n="host.status.state">State</th><th data-i18n="host.status.detail">Detail</th></tr></thead><tbody>';
+        foreach ($rows as [$labelKey, $label, $detail, $state]) $out[] = '<tr><th data-i18n="' . h($labelKey) . '">' . h($label) . '</th><td class="' . h($state) . '" data-i18n="' . ($state === 'ok' ? 'host.status.ready' : 'host.status.needs_attention') . '">' . h($state === 'ok' ? 'Ready' : 'Needs attention') . '</td><td>' . h($detail) . '</td></tr>';
+        $out[] = '</tbody></table><p class="help" data-i18n="host.status.run_root">Run this once as root after saving Host settings:</p><pre><code>' . h(hostCronCommand()) . '</code></pre><p class="help" data-i18n="host.status.add_root_cron">Then add to root’s crontab:</p><pre><code>' . h(hostCronLine()) . '</code></pre></fieldset>';
     } elseif ($activeSection === 'openid') {
         $pendingOpenIdKey = is_string($_SESSION['setup_pending_openid_signing_key'] ?? null);
         $out[] = '<fieldset><legend data-i18n="openid.provider">OpenID Connect provider</legend><p class="help" data-i18n="openid.provider_intro">This installation can already act as an OpenID Connect provider for trusted applications. Enable it only after setting its public HTTPS issuer, a dedicated signing key, and registered client redirect URLs. The provider supports authorization code with PKCE, discovery, JWKS, and signed ID tokens.</p><p class="help" data-i18n="openid.provider_clients">Client registrations are managed below as structured settings; each client needs an exact redirect URL and a private client secret.</p><input type="hidden" name="setup_openid_key_token" value="' . h(setupOpenIdKeyToken()) . '"><button type="submit" name="intent" value="generate-openid-signing-key" data-i18n="openid.generate_key"' . ($editingLocked ? ' disabled aria-disabled="true"' : '') . '>Generate dedicated RSA signing key</button><p class="help" data-i18n="' . ($pendingOpenIdKey ? 'openid.key_ready' : 'openid.key_generation') . '">' . ($pendingOpenIdKey ? 'A new key is ready in this protected setup session. Save this section to commit it; it is not included in notices or logs.' : 'Generation creates a new 3072-bit RSA key in this protected setup session. It is not committed until you save this section.') . '</p></fieldset>';

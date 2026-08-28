@@ -13,6 +13,10 @@ const CORE_FEATURES = [
             'sys-memory', 'sys-ai-data'],
         'setup_section' => 'features',
     ],
+    'peers' => [
+        'dashboard_routes' => ['sys-peers'],
+        'setup_section' => 'features',
+    ],
 ];
 
 /** Missing settings deliberately preserve existing installations. */
@@ -34,10 +38,12 @@ function coreFeatureStatus(array $config): array
     return $out;
 }
 
-/** All assistant endpoints share one feature boundary, including read APIs. */
+/** Feature action boundaries include reads, writes, and connection diagnostics. */
 function coreFeatureForAction(string $action): ?string
 {
-    return $action === 'ai' || str_starts_with($action, 'ai-') ? 'assistant' : null;
+    if ($action === 'ai' || str_starts_with($action, 'ai-')) return 'assistant';
+    if ($action === 'peers' || str_starts_with($action, 'peer-')) return 'peers';
+    return null;
 }
 
 function requireCoreFeatureAccess(array $config, string $action): void

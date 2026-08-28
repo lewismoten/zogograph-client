@@ -224,9 +224,18 @@ foreach ([
     'PEER_TRANSPORT_MAX_BYTES',
     "http_response_code(413)",
     'peerTransportAccept($pdo, $config',
+    "coreFeatureEnabled(\$config, 'peers')",
+    'http_response_code(404)',
 ] as $required) {
     if (!str_contains($peerPush, $required)) {
         throw new RuntimeException('missing peer delivery safeguard: ' . $required);
+    }
+}
+foreach (['peer-data.php', 'peer-connect.php'] as $file) {
+    $source = file_get_contents(__DIR__ . '/../' . $file);
+    if ($source === false || !str_contains($source, "coreFeatureEnabled(\$config, 'peers')")
+        || !str_contains($source, 'http_response_code(404)')) {
+        throw new RuntimeException('disabled trusted-server feature leaves an external endpoint active: ' . $file);
     }
 }
 

@@ -54,6 +54,15 @@ function configFields(array $sample): array
             'default' => (bool)($sample['core_features']['assistant'] ?? true),
         ],
         [
+            'key' => 'core_features_peers',
+            'section' => 'features',
+            'path' => ['core_features', 'peers'],
+            'type' => 'bool',
+            'label' => 'Trusted servers core feature',
+            'help' => 'Disabling this removes trusted servers from the dashboard and refuses its API, telemetry, and connection routes. Existing peer settings and private data are retained for a later re-enable.',
+            'default' => (bool)($sample['core_features']['peers'] ?? true),
+        ],
+        [
             'key' => 'openid_enabled',
             'section' => 'openid',
             'path' => ['openid', 'enabled'],

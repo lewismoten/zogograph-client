@@ -8,6 +8,8 @@ $configFile = __DIR__ . '/lib/config.php';
 if (!is_file($configFile)) { http_response_code(503); exit; }
 require_once __DIR__ . '/lib/setupstore.php';
 $config = loadConfiguredSettings($configFile);
+require_once __DIR__ . '/lib/core-features.php';
+if (!coreFeatureEnabled($config, 'peers')) { http_response_code(404); exit; }
 define('DISKMON_LOG', dirname((string)$config['database']) . '/error.log');
 require_once __DIR__ . '/lib/db.php';
 require_once __DIR__ . '/lib/peertransport.php';

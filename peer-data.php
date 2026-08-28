@@ -10,6 +10,8 @@ require_once __DIR__ . '/lib/setupstore.php';
 $file = __DIR__ . '/lib/config.php';
 if (!is_file($file)) { http_response_code(503); exit; }
 $config = loadConfiguredSettings($file);
+require_once __DIR__ . '/lib/core-features.php';
+if (!coreFeatureEnabled($config, 'peers')) { http_response_code(404); exit; }
 require_once __DIR__ . '/lib/db.php';
 require_once __DIR__ . '/lib/access.php';
 require_once __DIR__ . '/lib/openid.php';

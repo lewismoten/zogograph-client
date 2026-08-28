@@ -15,6 +15,10 @@ then run `npm start` for `http://127.0.0.1:4173`. The normal production base URL
 is `https://demo.zogograph.com/`. Copy `.env.example` only for deployment
 settings—runtime configuration remains in the protected setup process.
 
+For a disposable deployed environment, use
+[`INTEGRATION_VALIDATION.md`](INTEGRATION_VALIDATION.md) to verify replacement
+build notices, OIDC, TOTP recovery codes, and each supported transfer method.
+
 ## Files
 
 - `cron.php` — the account collector. Command line only; `.htaccess` denies it

@@ -39,6 +39,7 @@
   "dashboard.range": "时间范围",
   "dashboard.live": "实时",
   "auth.sign_in": "登录",
+  "auth.qr_alt": "请使用身份验证器应用扫描此二维码",
   "navigation.overview": "概览",
   "navigation.charts": "随时间变化",
   "navigation.alerts": "警报",

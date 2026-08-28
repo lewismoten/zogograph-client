@@ -119,6 +119,7 @@
   "auth.current_code": "Current six-digit code",
   "auth.verify": "Verify and enable authenticator",
   "auth.start": "Create authenticator secret",
+  "auth.qr_alt": "Scan this QR code with your authenticator app",
   "openid.provider": "OpenID Connect provider",
   "openid.generate_key": "Generate dedicated RSA signing key",
   "openid.trusted_apps": "Trusted applications",

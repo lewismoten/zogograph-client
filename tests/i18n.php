@@ -11,7 +11,7 @@ $english = json_decode((string)file_get_contents($root . '/locales/en.json'), tr
 i18nExpect($runtime !== false && str_contains($runtime, 'Intl.NumberFormat') && str_contains($runtime, 'I18N_RTL')
     && str_contains($runtime, 'zogograph.locale') && str_contains($runtime, 'data-i18n') && str_contains($runtime, 'registerCatalog')
     && str_contains($runtime, 'latin-number') && str_contains($runtime, 'compact') && str_contains($runtime, 'percent') && str_contains($runtime, 'unit') && str_contains($runtime, 'date-time') && str_contains($runtime, 'currency')
-    && str_contains($runtime, 'i18nPlaceholder') && str_contains($runtime, 'zogograph-i18n-load') && str_contains($runtime, 'package-i18n'),
+    && str_contains($runtime, 'i18nPlaceholder') && str_contains($runtime, 'i18nAlt') && str_contains($runtime, 'zogograph-i18n-load') && str_contains($runtime, 'package-i18n'),
     'locale runtime lacks formatting, RTL, preference, or key-mode support');
 i18nExpect($page !== false && str_contains($page, 'id="languagePicker"') && str_contains($page, 'id="languageKeys"')
     && str_contains($page, 'src="i18n.js"'), 'dashboard language controls are unavailable');
@@ -48,6 +48,8 @@ i18nExpect($setup !== false && str_contains($setup, 'data-i18n="schedule.intro"'
 i18nExpect($setup !== false && str_contains($setup, 'data-i18n="installation.checks"')
     && str_contains($setup, 'data-i18n="installation.detail"'),
     'Setup installation checks are not localized');
+i18nExpect($setup !== false && str_contains($setup, 'data-i18n-alt="auth.qr_alt"'),
+    'Setup authenticator QR alternative text is not localized');
 i18nExpect($setup !== false && str_contains($setup, 'data-i18n="deployment.copy_release"')
     && str_contains($setup, 'data-i18n="deployment.review_transport"'),
     'Setup deployment release controls are not localized');
@@ -55,7 +57,7 @@ i18nExpect($configure !== false && str_contains($configure, 'function generatedF
     && str_contains($configure, "'label' => generatedFieldLabel(\$path)")
     && !str_contains($configure, "'label' => \$dotted"),
     'generated Setup fields can still expose dotted internal configuration paths');
-i18nExpect(is_array($english) && isset($english['example.readings'], $english['example.compact'], $english['example.cost'], $english['example.percent'], $english['example.storage'], $english['example.changed'], $english['update.available'], $english['range.10m'], $english['action.reload'], $english['navigation.storage'], $english['navigation.cpu'], $english['navigation.deleted_held'], $english['navigation.cpu_limits'], $english['deployment.test'], $english['deployment.copy_release'], $english['merge.apply'], $english['installation.checks'], $english['package.save_settings'], $english['schedule.custom_builder'], $english['schedule.job.vitals'], $english['schedule.remove'], $english['setup.search_results']),
+i18nExpect(is_array($english) && isset($english['example.readings'], $english['example.compact'], $english['example.cost'], $english['example.percent'], $english['example.storage'], $english['example.changed'], $english['update.available'], $english['range.10m'], $english['action.reload'], $english['navigation.storage'], $english['navigation.cpu'], $english['navigation.deleted_held'], $english['navigation.cpu_limits'], $english['deployment.test'], $english['deployment.copy_release'], $english['merge.apply'], $english['installation.checks'], $english['auth.qr_alt'], $english['package.save_settings'], $english['schedule.custom_builder'], $english['schedule.job.vitals'], $english['schedule.remove'], $english['setup.search_results']),
     'English fallback catalog is incomplete');
 preg_match_all('/data-i18n(?:-placeholder|-title|-aria-label)?="([^"]+)"/', (string)$page, $pageKeys);
 foreach (array_unique($pageKeys[1] ?? []) as $key) {

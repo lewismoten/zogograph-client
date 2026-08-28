@@ -69,6 +69,7 @@
   "auth.current_code": "Código actual de seis dígitos",
   "auth.verify": "Verificar y activar el autenticador",
   "auth.start": "Crear secreto del autenticador",
+  "auth.qr_alt": "Escanee este código QR con su aplicación de autenticación",
   "openid.provider": "Proveedor de OpenID Connect",
   "openid.generate_key": "Generar clave de firma RSA dedicada",
   "openid.trusted_apps": "Aplicaciones de confianza",

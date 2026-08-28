@@ -39,6 +39,7 @@
   "dashboard.range": "النطاق الزمني",
   "dashboard.live": "مباشر",
   "auth.sign_in": "تسجيل الدخول",
+  "auth.qr_alt": "امسح رمز QR هذا باستخدام تطبيق المصادقة",
   "navigation.overview": "نظرة عامة",
   "navigation.charts": "عبر الزمن",
   "navigation.alerts": "التنبيهات",

@@ -4,6 +4,7 @@
   "form.yes": "Sí",
   "setup.label": "Configuración",
   "setup.title": "Configuración",
+  "setup.document_title": "Zogograph — Configuración",
   "setup.lock": "Bloquear configuración",
   "setup.dashboard": "Abrir panel",
   "setup.sections": "Secciones de configuración",

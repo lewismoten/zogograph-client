@@ -4,6 +4,7 @@
   "form.yes": "نعم",
   "setup.label": "الإعداد",
   "setup.title": "الإعداد",
+  "setup.document_title": "Zogograph — الإعداد",
   "setup.lock": "قفل الإعداد",
   "setup.dashboard": "فتح لوحة التحكم",
   "setup.sections": "أقسام الإعداد",

@@ -4,6 +4,7 @@
   "form.yes": "Yes",
   "setup.label": "Setup",
   "setup.title": "Setup",
+  "setup.document_title": "Zogograph — Setup",
   "setup.lock": "Lock setup",
   "setup.dashboard": "Open dashboard",
   "setup.sections": "Setup sections",

@@ -35,6 +35,8 @@ i18nExpect($setup !== false && str_contains($setup, 'src="i18n.js"') && str_cont
     && str_contains($setup, 'ZogographI18n?.t("update.compatibility"') && str_contains($setup, 'ZogographI18n?.t("action.reload"')
     && str_contains($setup, 'document.addEventListener("zogograph-i18n-load"'),
     'Setup language controls or localized shell are unavailable');
+i18nExpect($setup !== false && str_contains($setup, 'data-i18n="setup.document_title"'),
+    'Setup document title is not localized');
 i18nExpect($setup !== false && str_contains($setup, 'data-i18n="setup.authorize"')
     && str_contains($setup, 'data-i18n="setup.unlock_to_view"') && str_contains($setup, 'data-i18n="privacy.masked_paths"')
     && str_contains($setup, 'data-i18n="privacy.rotate_mask"'),

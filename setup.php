@@ -1009,7 +1009,7 @@ function webPage(
     $out = [];
     $out[] = '<!doctype html><html lang="en"><head><meta charset="utf-8">';
     $out[] = '<meta name="viewport" content="width=device-width, initial-scale=1">';
-    $out[] = '<title>Zogograph — setup</title>';
+    $out[] = '<title data-i18n="setup.document_title">Zogograph — Setup</title>';
     $out[] = '<link rel="stylesheet" href="index.css">';
     $out[] = '<script src="i18n.js"></script>';
     $out[] = '<style>'

@@ -85,6 +85,7 @@ function packageRuntimeManifest(string $directory, array $trustedKeys): array
         }
     }
     $setupPanels = packageRuntimeSetupPanelDeclarations((array)($raw['setup_panels'] ?? []));
+    $locales = packageRuntimeLocaleDeclarations((array)($raw['locales'] ?? []), $root, (array)($raw['integrity']['files'] ?? []));
     $dependencies = array_values(array_unique((array)($raw['dependencies'] ?? [])));
     if (count($dependencies) > 20 || in_array($id, $dependencies, true)) throw new InvalidArgumentException('package dependencies are invalid');
     foreach ($dependencies as $dependency) if (!is_string($dependency) || !preg_match('/^[a-z][a-z0-9-]{1,62}$/', $dependency)) throw new InvalidArgumentException('package dependencies are invalid');
@@ -111,8 +112,24 @@ function packageRuntimeManifest(string $directory, array $trustedKeys): array
     }
     return ['id' => $id, 'version' => $version, 'publisher' => $publisher, 'capabilities' => $capabilities,
         'runtime' => $runtime, 'settings_schema' => isset($raw['settings_schema']) ? (string)$raw['settings_schema'] : null,
-        'dependencies' => $dependencies, 'setup_panels' => $setupPanels,
+        'dependencies' => $dependencies, 'locales' => $locales, 'setup_panels' => $setupPanels,
         'data' => $data, 'compatibility' => $compatibility, 'integrity' => (array)$raw['integrity'], 'signature' => (array)$raw['signature']];
+}
+
+/** Validates signed, inert translation-file declarations. */
+function packageRuntimeLocaleDeclarations(array $locales, string $root, array $integrityFiles): array
+{
+    if (count($locales) > 20 || array_is_list($locales)) throw new InvalidArgumentException('package locale declarations are invalid');
+    $out = [];
+    foreach ($locales as $locale => $path) {
+        $locale = trim((string)$locale); $path = trim((string)$path);
+        if (!preg_match('/^[a-z]{2,3}(?:-[A-Z]{2})?$/', $locale) || !packageRuntimeRelativePath($path)
+            || !str_ends_with($path, '.json') || !is_file($root . '/' . $path) || !isset($integrityFiles[$path])) {
+            throw new InvalidArgumentException('package locale declaration is invalid');
+        }
+        $out[$locale] = $path;
+    }
+    ksort($out, SORT_STRING); return $out;
 }
 
 /** Validates signed, inert Setup navigation metadata. No renderer is accepted. */
@@ -329,7 +346,7 @@ function packageRuntimeRemoveDirectory(string $directory): void
     @rmdir($directory);
 }
 
-/** @return list<array{id:string,version:string,publisher:string,enabled:bool,revoked:bool,integrity:bool,integrity_detail:string,compatibility:array,dependencies:list<string>,dependency_status:array,capabilities:list<string>,grants:list<string>,setup_panels:list<array>,state:string}> */
+/** @return list<array{id:string,version:string,publisher:string,enabled:bool,revoked:bool,integrity:bool,integrity_detail:string,compatibility:array,dependencies:list<string>,dependency_status:array,locales:array,capabilities:list<string>,grants:list<string>,setup_panels:list<array>,state:string}> */
 function packageRuntimePackages(PDO $pdo): array
 {
     $grants = [];
@@ -352,8 +369,29 @@ function packageRuntimePackages(PDO $pdo): array
         $out[] = ['id' => $row['package_id'], 'version' => $row['version'], 'publisher' => $row['publisher'],
             'enabled' => $enabled, 'revoked' => $revoked, 'integrity' => $integrity['ok'], 'integrity_detail' => $integrity['detail'], 'capabilities' => $required, 'grants' => $given,
             'setup_panels' => packageRuntimeSetupPanelDeclarations((array)($manifest['setup_panels'] ?? [])),
-            'compatibility' => $compatibility, 'dependencies' => (array)($manifest['dependencies'] ?? []), 'dependency_status' => $dependencyStatus,
+            'compatibility' => $compatibility, 'dependencies' => (array)($manifest['dependencies'] ?? []), 'dependency_status' => $dependencyStatus, 'locales' => (array)($manifest['locales'] ?? []),
             'state' => !$integrity['ok'] ? 'integrity failed: ' . $integrity['detail'] : ($revoked ? 'revoked: ' . $row['revocation_reason'] : ($compatibility['status'] !== 'ready' ? 'platform unavailable: ' . $compatibility['detail'] : (!$dependencyStatus['ok'] ? 'dependency unavailable: ' . $dependencyStatus['detail'] : ($enabled ? 'registered; ' . $compatibility['detail'] : 'needs explicit capability grants'))))];
+    }
+    return $out;
+}
+
+/** @return array<string, array<string, array<string, string>>> enabled package id => locale => catalog */
+function packageRuntimeLocaleCatalogs(PDO $pdo): array
+{
+    $out = []; $paths = $pdo->prepare('SELECT install_path FROM runtime_packages WHERE package_id = ?');
+    foreach (packageRuntimePackages($pdo) as $package) {
+        if (!$package['enabled'] || $package['locales'] === []) continue;
+        $paths->execute([$package['id']]); $path = (string)$paths->fetchColumn(); $root = realpath($path);
+        if ($root === false || is_link($path)) continue;
+        foreach ($package['locales'] as $locale => $relative) {
+            $file = realpath($root . '/' . $relative);
+            if ($file === false || is_link($root . '/' . $relative) || !is_file($file) || !str_starts_with($file, rtrim($root, '/') . '/') || filesize($file) > 262144) continue;
+            try { $raw = json_decode((string)file_get_contents($file), true, 64, JSON_THROW_ON_ERROR); } catch (Throwable) { continue; }
+            if (!is_array($raw) || array_is_list($raw) || count($raw) > 1000) continue;
+            $catalog = [];
+            foreach ($raw as $key => $value) if (is_string($key) && preg_match('/^[a-z][\w.-]{0,119}$/i', $key) && is_string($value) && mb_strlen($value) <= 4000) $catalog[$key] = $value;
+            if ($catalog !== []) $out[$package['id']][(string)$locale] = $catalog;
+        }
     }
     return $out;
 }

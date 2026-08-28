@@ -23033,6 +23033,7 @@ function applySignedInChrome() {
   applyAccessChrome();
   renderViewGuide(state.view);
   renderEmptyButtons();
+  if (state.signedIn) ZogographI18n.loadPackageCatalogs();
 }
 
 document.addEventListener("zogograph-i18n-load", () => {

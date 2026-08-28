@@ -59,9 +59,11 @@ try {
         'capabilities' => ['package_private_database'],
         'runtime' => ['kind' => 'hostscope-isolated-php-package', 'entrypoint' => 'src/Provider.php', 'provider_class' => 'TestRuntime\\Provider', 'operations' => ['capability'], 'minimum_api' => '1.0'],
         'settings_schema' => 'settings.schema.json',
+        'locales' => ['es' => 'locales/es.json'],
         'setup_panels' => [['id' => 'test-runtime-settings', 'title' => 'Test runtime settings', 'keywords' => ['retention']]],
         'data' => ['migrations' => ['migrations/001-private-evidence.sql']],
     ];
+    mkdir($source . '/locales', 0700, true); file_put_contents($source . '/locales/es.json', json_encode(['test-runtime.greeting' => 'Hola'], JSON_THROW_ON_ERROR));
     $signed = packageSignManifest($manifest, $source, 'test-publisher', sodium_crypto_sign_secretkey($pair));
     file_put_contents($source . '/manifest.json', json_encode($signed, JSON_THROW_ON_ERROR));
     if (function_exists('proc_open')) {
@@ -103,7 +105,7 @@ try {
     if (class_exists(ZipArchive::class)) {
         $archive = $root . '/test-runtime.zip'; $zip = new ZipArchive();
         runtimeExpect($zip->open($archive, ZipArchive::CREATE) === true, 'could not create package archive');
-        foreach (['manifest.json', 'src/Provider.php', 'settings.schema.json', 'migrations/001-private-evidence.sql'] as $file) {
+        foreach (['manifest.json', 'src/Provider.php', 'settings.schema.json', 'migrations/001-private-evidence.sql', 'locales/es.json'] as $file) {
             runtimeExpect($zip->addFile($source . '/' . $file, $file), 'could not add package archive entry');
         }
         $zip->close();
@@ -154,6 +156,7 @@ try {
     packageRuntimeSetEnabled($pdo, 'test-runtime', ['package_private_database'], true, 'administrator');
     $after = packageRuntimePackages($pdo)[0];
     runtimeExpect($after['enabled'] && str_starts_with($after['state'], 'registered; platform requirements are met'), 'package was not registered after explicit grant');
+    runtimeExpect((packageRuntimeLocaleCatalogs($pdo)['test-runtime']['es']['test-runtime.greeting'] ?? '') === 'Hola', 'enabled package locale catalog was not available through the data-only bridge');
     $dependentManifest = $signed; $dependentManifest['dependencies'] = ['missing-runtime'];
     $pdo->prepare('UPDATE runtime_packages SET manifest_json = ? WHERE package_id = ?')->execute([json_encode($dependentManifest, JSON_THROW_ON_ERROR), 'test-runtime']);
     $dependent = packageRuntimePackages($pdo)[0];

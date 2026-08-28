@@ -8,7 +8,7 @@ $english = json_decode((string)file_get_contents($root . '/locales/en.json'), tr
 i18nExpect($runtime !== false && str_contains($runtime, 'Intl.NumberFormat') && str_contains($runtime, 'I18N_RTL')
     && str_contains($runtime, 'zogograph.locale') && str_contains($runtime, 'data-i18n') && str_contains($runtime, 'registerCatalog')
     && str_contains($runtime, 'latin-number') && str_contains($runtime, 'compact') && str_contains($runtime, 'currency')
-    && str_contains($runtime, 'i18nPlaceholder') && str_contains($runtime, 'zogograph-i18n-load'),
+    && str_contains($runtime, 'i18nPlaceholder') && str_contains($runtime, 'zogograph-i18n-load') && str_contains($runtime, 'package-i18n'),
     'locale runtime lacks formatting, RTL, preference, or key-mode support');
 i18nExpect($page !== false && str_contains($page, 'id="languagePicker"') && str_contains($page, 'id="languageKeys"')
     && str_contains($page, 'src="i18n.js"'), 'dashboard language controls are unavailable');

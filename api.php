@@ -312,6 +312,7 @@ function route(array $config, PDO $pdo, string $action, bool $post): array
         'marketplace-history' => marketplaceHistoryView($config, $post),
         'marketplace-rollback' => doMarketplaceRollback($config, $pdo, $post),
         'package-runtime' => packageRuntimeView($config, $pdo, $signedIn),
+        'package-i18n' => packageRuntimeLocaleCatalogsView($pdo, $signedIn),
         'package-runtime-install-archive' => doPackageRuntimeInstallArchive($config, $pdo, $post),
         'package-runtime-remove' => doPackageRuntimeRemove($config, $pdo, $post),
         'package-runtime-probe' => doPackageRuntimeProbe($config, $pdo, $post),
@@ -368,6 +369,7 @@ function requireActionAccess(array $config, string $action): void
         'peers' => 'sys-peers', 'marketplace' => 'sys-marketplace',
         'marketplace-install-path-hygiene' => 'sys-marketplace',
         'package-runtime' => 'sys-packages',
+        'package-i18n' => 'sys-packages',
         'package-runtime-install-archive' => 'sys-packages',
         'package-runtime-remove' => 'sys-packages',
         'package-runtime-probe' => 'sys-packages',
@@ -5718,6 +5720,13 @@ function packageRuntimeView(array $config, PDO $pdo, bool $signedIn): array
     unset($package);
     return ['packages' => $packages, 'trusted_publishers' => $publishers,
         'can_change' => accessAllows($config, 'write')];
+}
+
+/** Signed package catalog data is available only to signed-in package users. */
+function packageRuntimeLocaleCatalogsView(PDO $pdo, bool $signedIn): array
+{
+    if (!$signedIn) throw new ActionRefused('sign in to load package translations');
+    return ['catalogs' => packageRuntimeLocaleCatalogs($pdo)];
 }
 
 /** Archive bytes are accepted only through PHP's upload temporary file. */

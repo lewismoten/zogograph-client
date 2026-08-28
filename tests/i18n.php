@@ -6,6 +6,7 @@ $runtime = file_get_contents($root . '/i18n.js');
 $page = file_get_contents($root . '/index.html');
 $script = file_get_contents($root . '/index.js');
 $setup = file_get_contents($root . '/setup.php');
+$setupPanels = file_get_contents($root . '/lib/setup-panels.php');
 $configure = file_get_contents($root . '/lib/configure.php');
 $english = json_decode((string)file_get_contents($root . '/locales/en.json'), true);
 require_once $root . '/lib/configure.php';
@@ -148,6 +149,11 @@ i18nExpect($setup !== false && str_contains($setup, 'data-i18n="installation.che
 i18nExpect($setup !== false && !str_contains($setup, 'data-i18n="setup.configured"')
     && str_contains($setup, '$editingLocked && $activeSection !== \'basics\''),
     'Setup shows obsolete configured banners or hides read-only installation checks');
+i18nExpect($setup !== false && $setupPanels !== false && str_contains($setup, 'setupHostStatus($values)')
+    && str_contains($setupPanels, "['basics', 'schedule', 'host', 'privacy']"),
+    'Setup Host status checks or the requested navigation order are unavailable');
+i18nExpect($script !== false && str_contains($script, 'link.href = "./setup.php?section=host"'),
+    'dashboard host setup warning has no actionable Setup link');
 i18nExpect($setup !== false && str_contains($setup, 'data-i18n-alt="auth.qr_alt"'),
     'Setup authenticator QR alternative text is not localized');
 i18nExpect($setup !== false && str_contains($setup, "'auth.change_password' : 'auth.create_password'")

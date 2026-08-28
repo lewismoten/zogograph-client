@@ -1180,6 +1180,20 @@ function webPage(
             . '</tbody></table>'
             . '<label class="row"><input type="checkbox" name="rotate_mask" value="1"> <span data-i18n="privacy.rotate_mask">Generate a new mask secret</span></label>'
             . '</fieldset>';
+    } elseif ($activeSection === 'host') {
+        $hostStatus = setupHostStatus($values);
+        $rows = [
+            ['Enabled', $hostStatus['enabled'] ? 'Yes' : 'No', $hostStatus['enabled'] ? 'ok' : 'warn'],
+            ['Database exists', $hostStatus['exists'] ? 'Yes' : 'No', $hostStatus['exists'] ? 'ok' : 'warn'],
+            ['Database access', $hostStatus['access'], $hostStatus['readable'] ? 'ok' : 'warn'],
+            ['Database owner', $hostStatus['owner'], $hostStatus['owner_matches'] ? 'ok' : 'warn'],
+            ['Samples', $hostStatus['samples'], $hostStatus['sample_count'] > 0 ? 'ok' : 'warn'],
+            ['Cadence', $hostStatus['cadence'], $hostStatus['cadence_ok'] ? 'ok' : 'warn'],
+            ['Next expected', $hostStatus['next'], $hostStatus['next_ok'] ? 'ok' : 'warn'],
+        ];
+        $out[] = '<fieldset><legend>Host collector status</legend><p class="help">These checks use the host database as the dashboard account can read it. Root collection is required for host-wide results; an account-run collector records only its own visible subset.</p><table class="preflight"><thead><tr><th>Check</th><th>State</th><th>Detail</th></tr></thead><tbody>';
+        foreach ($rows as [$label, $detail, $state]) $out[] = '<tr><th>' . h($label) . '</th><td class="' . h($state) . '">' . h($state === 'ok' ? 'Ready' : 'Needs attention') . '</td><td>' . h($detail) . '</td></tr>';
+        $out[] = '</tbody></table><p class="help">Run this once as root after saving Host settings:</p><pre><code>' . h(hostCronCommand()) . '</code></pre><p class="help">Then add to root’s crontab:</p><pre><code>' . h(hostCronLine()) . '</code></pre></fieldset>';
     } elseif ($activeSection === 'openid') {
         $pendingOpenIdKey = is_string($_SESSION['setup_pending_openid_signing_key'] ?? null);
         $out[] = '<fieldset><legend data-i18n="openid.provider">OpenID Connect provider</legend><p class="help" data-i18n="openid.provider_intro">This installation can already act as an OpenID Connect provider for trusted applications. Enable it only after setting its public HTTPS issuer, a dedicated signing key, and registered client redirect URLs. The provider supports authorization code with PKCE, discovery, JWKS, and signed ID tokens.</p><p class="help" data-i18n="openid.provider_clients">Client registrations are managed below as structured settings; each client needs an exact redirect URL and a private client secret.</p><input type="hidden" name="setup_openid_key_token" value="' . h(setupOpenIdKeyToken()) . '"><button type="submit" name="intent" value="generate-openid-signing-key" data-i18n="openid.generate_key"' . ($editingLocked ? ' disabled aria-disabled="true"' : '') . '>Generate dedicated RSA signing key</button><p class="help" data-i18n="' . ($pendingOpenIdKey ? 'openid.key_ready' : 'openid.key_generation') . '">' . ($pendingOpenIdKey ? 'A new key is ready in this protected setup session. Save this section to commit it; it is not included in notices or logs.' : 'Generation creates a new 3072-bit RSA key in this protected setup session. It is not committed until you save this section.') . '</p></fieldset>';
@@ -1502,6 +1516,34 @@ function firstParagraph(string $text): string
     }
 
     return $said === '' ? $text : $said;
+}
+
+/** @return array{enabled:bool,exists:bool,readable:bool,owner:string,owner_matches:bool,sample_count:int,samples:string,cadence:string,cadence_ok:bool,next:string,next_ok:bool,access:string} */
+function setupHostStatus(array $config): array
+{
+    $path = hostDatabasePath($config);
+    $exists = is_file($path);
+    $readable = $exists && is_readable($path);
+    $ownerId = $exists ? @fileowner($path) : false;
+    $owner = $ownerId === false ? 'Not available' : (string)$ownerId;
+    if ($ownerId !== false && function_exists('posix_getpwuid')) {
+        $resolved = @posix_getpwuid((int)$ownerId);
+        if (is_array($resolved) && isset($resolved['name'])) $owner = (string)$resolved['name'];
+    }
+    $expectedOwner = trim((string)($config['host']['owner'] ?? currentAccountName()));
+    $count = 0; $times = [];
+    if ($readable) try {
+        $pdo = new PDO('sqlite:' . $path, null, null, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+        $count = (int)$pdo->query('SELECT COUNT(*) FROM host_samples')->fetchColumn();
+        $times = array_map('intval', $pdo->query('SELECT taken_at FROM host_samples ORDER BY id DESC LIMIT 20')->fetchAll(PDO::FETCH_COLUMN));
+    } catch (Throwable) { $readable = false; }
+    $gaps = [];
+    for ($i = 0; $i + 1 < count($times); $i++) $gaps[] = $times[$i] - $times[$i + 1];
+    sort($gaps); $cadence = $gaps === [] ? null : $gaps[intdiv(count($gaps), 2)];
+    $last = $times[0] ?? 0; $due = $cadence === null ? 0 : $last + $cadence; $now = time();
+    $samples = $count === 0 ? 'No samples yet' : ($count >= 10000 ? '10k+ samples' : ($count >= 1000 ? '1k+ samples' : ($count >= 100 ? '100+ samples' : ($count >= 78 ? '78+ samples' : $count . ' sample' . ($count === 1 ? '' : 's')))));
+    $next = $cadence === null ? 'Need ' . max(1, 2 - $count) . ' more sample' . ($count === 1 ? '' : 's') : ($due >= $now ? 'Expected in ' . max(1, (int)ceil(($due - $now) / 60)) . 'm' : (($now - $due) > $cadence * 4 ? 'Stopped; last sample ' . (int)floor(($now - $last) / 3600) . 'h ago' : 'Overdue ' . max(1, (int)ceil(($now - $due) / 60)) . 'm'));
+    return ['enabled' => (bool)($config['host']['enabled'] ?? false), 'exists' => $exists, 'readable' => $readable, 'owner' => $owner, 'owner_matches' => $owner === $expectedOwner, 'sample_count' => $count, 'samples' => $samples, 'cadence' => $cadence === null ? 'No; need more samples' : 'Yes; every ' . max(1, (int)round($cadence / 60)) . 'm', 'cadence_ok' => $cadence !== null, 'next' => $next, 'next_ok' => $cadence !== null && $due >= $now, 'access' => $readable ? 'Readable by this dashboard account' : ($exists ? 'Exists but is not readable by this dashboard account' : 'No database yet')];
 }
 
 function renderField(array $field, array $values, array $errors, bool $configured): string

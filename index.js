@@ -8170,10 +8170,12 @@ function renderScans(data) {
     const parts = [];
 
     if (side === "host" && !data.host_enabled) {
-      parts.push(note(
-        "The host collector is not set up on this install, so none of these run. "
-        + "Setting it up is under Capabilities."
-      ));
+      const warning = note("The host collector is not enabled, so none of these run. ");
+      const link = document.createElement("a");
+      link.href = "./setup.php?section=host";
+      link.textContent = "Open Host setup";
+      warning.appendChild(link);
+      parts.push(warning);
     }
 
     if (side === "account" && data.browsing) {

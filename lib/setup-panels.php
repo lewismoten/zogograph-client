@@ -77,7 +77,16 @@ function setupPanels(array $fields, array $registered = []): array
             continue;
         }
     }
-    return $registry->all();
+    $all = $registry->all();
+    // Host collection is operationally adjacent to the account schedule. Put
+    // it there even though its fields occur later in the schema; privacy is a
+    // lower-frequency configuration concern.
+    $ordered = [];
+    foreach (['basics', 'schedule', 'host', 'privacy'] as $id) {
+        if (isset($all[$id])) $ordered[$id] = $all[$id];
+    }
+    foreach ($all as $id => $panel) if (!isset($ordered[$id])) $ordered[$id] = $panel;
+    return $ordered;
 }
 
 /** Future isolated package registration must use this validator. */

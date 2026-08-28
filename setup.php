@@ -1425,7 +1425,7 @@ function renderField(array $field, array $values, array $errors, bool $configure
     $labelText = $key === 'password' ? ($configured ? 'Change password' : 'Create sign-in password') : (string)$field['label'];
     $label = '<span data-i18n="setup.field.' . h($key) . '">' . h($labelText) . '</span>';
     $help = isset($field['help']) ? '<span class="help" data-i18n="setup.help.' . h($key) . '">' . h($field['help']) . '</span>' : '';
-    $bad = isset($errors[$key]) ? '<span class="bad">' . h($errors[$key]) . '</span>' : '';
+    $bad = isset($errors[$key]) ? '<span class="bad" data-i18n="setup.validation_detail" data-i18n-values="' . h(json_encode(['detail' => (string)$errors[$key]], JSON_THROW_ON_ERROR)) . '">Please correct this value: ' . h((string)$errors[$key]) . '</span>' : '';
 
     if ($field['type'] === 'password') {
         $note = $configured ? 'Leave blank to keep the current password.' : h((string)$field['help']);

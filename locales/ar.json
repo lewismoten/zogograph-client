@@ -556,6 +556,7 @@
   "metadata.description_name_placeholder": "backup-shim أو php-fpm*",
   "metadata.description_link_placeholder": "https://… رابط لمزيد من المعلومات (اختياري)",
   "metadata.description_placeholder": "ما هو، والأكثر فائدة، ما الذي يجعله ينمو.",
+  "storage.link_sweep_placeholder": "/home/your-user/public_html/previews",
   "marketplace.search_label": "ابحث في حزم السوق",
   "marketplace.no_matches": "لا توجد حزم في السوق تطابق هذا البحث.",
   "marketplace.table_package": "الحزمة",

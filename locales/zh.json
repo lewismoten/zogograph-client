@@ -556,6 +556,7 @@
   "metadata.description_name_placeholder": "backup-shim 或 php-fpm*",
   "metadata.description_link_placeholder": "https://… 更多信息链接（可选）",
   "metadata.description_placeholder": "它是什么，以及更有用的是，是什么让它增长。",
+  "storage.link_sweep_placeholder": "/home/your-user/public_html/previews",
   "marketplace.search_label": "搜索市场软件包",
   "marketplace.no_matches": "没有市场软件包符合该搜索条件。",
   "marketplace.table_package": "软件包",

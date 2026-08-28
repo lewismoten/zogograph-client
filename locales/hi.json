@@ -556,6 +556,7 @@
   "metadata.description_name_placeholder": "backup-shim या php-fpm*",
   "metadata.description_link_placeholder": "https://… अधिक जानकारी का लिंक (वैकल्पिक)",
   "metadata.description_placeholder": "यह क्या है और, अधिक उपयोगी रूप से, इसे बढ़ाने वाली चीज़ क्या है।",
+  "storage.link_sweep_placeholder": "/home/user/public_html/previews",
   "marketplace.search_label": "मार्केटप्लेस पैकेज खोजें",
   "marketplace.no_matches": "इस खोज से कोई मार्केटप्लेस पैकेज मेल नहीं खाता।",
   "marketplace.table_package": "पैकेज",

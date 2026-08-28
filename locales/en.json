@@ -580,6 +580,7 @@
   "metadata.description_name_placeholder": "backup-shim, or php-fpm*",
   "metadata.description_link_placeholder": "https://… a link to more (optional)",
   "metadata.description_placeholder": "What it is, and — more usefully — what makes it grow.",
+  "storage.link_sweep_placeholder": "/home/you/public_html/previews",
   "marketplace.search_label": "Search marketplace packages",
   "marketplace.no_matches": "No marketplace packages match that search.",
   "marketplace.table_package": "Package",

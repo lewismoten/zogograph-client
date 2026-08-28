@@ -1291,8 +1291,8 @@ function webPage(
         $installedByJob = cronEditorInstalledJobLines((array)($schedule['lines'] ?? []));
         foreach (['vitals' => 'Vitals collection', 'scan' => 'Directory scan'] as $job => $label) {
             $out[] = renderSetupCronEditor('schedule_' . $job, $label, $choices[$job], $job)
-                . '<p><strong data-i18n="schedule.saved_preview">Saved preview</strong></p><pre><code>' . h($desiredByJob[$job] ?? '(none)') . '</code></pre>'
-                . '<p><strong data-i18n="schedule.installed">Currently installed</strong></p><pre><code>' . h($installedByJob[$job] ?? '(none)') . '</code></pre>'
+                . '<p><strong data-i18n="schedule.saved_preview">Saved preview</strong></p><pre><code>' . (isset($desiredByJob[$job]) ? h($desiredByJob[$job]) : '<span data-i18n="schedule.none">(none)</span>') . '</code></pre>'
+                . '<p><strong data-i18n="schedule.installed">Currently installed</strong></p><pre><code>' . (isset($installedByJob[$job]) ? h($installedByJob[$job]) : '<span data-i18n="schedule.none">(none)</span>') . '</code></pre>'
                 . '<input type="hidden" name="setup_schedule_token" value="' . h(setupScheduleToken()) . '">'
                 . '<input type="hidden" name="intent" value="apply-schedule">'
                 . '<button type="submit" name="schedule_action" value="' . h($job . ':add') . '" data-i18n="schedule.add"' . ($editingLocked || !$schedule['available'] || $php === '' ? ' disabled aria-disabled="true"' : '') . '>Add</button> '
@@ -1430,12 +1430,12 @@ document.querySelectorAll("[data-package-settings-target]").forEach(function (pi
         if (!banner) return;
         banner.replaceChildren();
         const text = document.createElement("span");
-        text.textContent = build.browserRefreshRequired === true
-            ? (window.ZogographI18n?.t("update.compatibility", {}, "A compatibility update is ready. Reload before changing settings.") || "A compatibility update is ready. Reload before changing settings.")
-            : (window.ZogographI18n?.t("update.available", {}, "A newer Zogograph update is available. Reload when you are ready.") || "A newer Zogograph update is available. Reload when you are ready.");
+        const messageKey = build.browserRefreshRequired === true ? "update.compatibility" : "update.available";
+        const messageFallback = build.browserRefreshRequired === true ? "A compatibility update is ready. Reload before changing settings." : "A newer Zogograph update is available. Reload when you are ready.";
+        text.textContent = window.ZogographI18n?.markSource?.(text, messageKey, messageFallback) || messageFallback;
         const reload = document.createElement("button");
         reload.type = "button";
-        reload.textContent = window.ZogographI18n?.t("action.reload", {}, "Reload now") || "Reload now";
+        reload.textContent = window.ZogographI18n?.markSource?.(reload, "action.reload", "Reload now") || "Reload now";
         reload.addEventListener("click", () => location.reload());
         banner.append(text, reload);
         banner.hidden = false;

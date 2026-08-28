@@ -149,6 +149,7 @@
   "encryption.package_key_created": "A separate private package-secrets key file was created. Its contents were not shown or saved in the browser. Enter its path in Package secrets key file and save that setting before storing package secrets.",
   "encryption.private_key_created": "A new private local key file was created. Its contents were not shown or saved in the browser. Record an offline recovery copy before enabling encrypted copies.",
   "schedule.removed": "{{job}} schedule removed.",
+  "schedule.none": "(none)",
   "schedule.saved_applied": "{{job}} schedule saved and applied.",
   "deployment.credential_stored": "Deployment credential stored with encryption. Its value was not retained in this page.",
   "deployment.target_verified": "Remote deployment target verified. You may now review and copy a build.",

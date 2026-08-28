@@ -43,6 +43,14 @@ function t(key, values = {}, fallbackText = "") {
   return text.replace(/\{\{([\w.-]+)(?:,\s*(number|latin-number|arabic-number|eastern-arabic-number|compact|percent|unit|currency|date|time|date-time))?\}\}/g, (_, name, kind) => i18nFormat(values[name], kind, name, values));
 }
 
+function i18nMarkSource(node, key, fallback = "") {
+  node.dataset.i18n = key;
+  node.dataset.i18nFallback = fallback;
+  node.classList.toggle("i18n-catalog", key in i18n.catalog);
+  node.classList.toggle("i18n-hardcoded", !(key in i18n.catalog));
+  return t(key, {}, fallback);
+}
+
 function i18nNodeValues(node) {
   const raw = node.dataset.i18nValues;
   if (!raw) return {};
@@ -123,7 +131,7 @@ function i18nClearPackageCatalogs() {
   i18n.extensions = {};
   i18nLoad(i18n.locale);
 }
-window.ZogographI18n = { t, load: i18nLoad, loadPackageCatalogs: i18nLoadPackageCatalogs, clearPackageCatalogs: i18nClearPackageCatalogs, registerCatalog: i18nRegisterCatalog, setKeyMode: async enabled => { i18n.keyMode = enabled; await i18nLoad(i18n.locale); }, setHighlight: async enabled => { i18n.highlight = enabled; localStorage.setItem("zogograph.i18n-highlight", enabled ? "1" : "0"); await i18nLoad(i18n.locale); } };
+window.ZogographI18n = { t, markSource: i18nMarkSource, load: i18nLoad, loadPackageCatalogs: i18nLoadPackageCatalogs, clearPackageCatalogs: i18nClearPackageCatalogs, registerCatalog: i18nRegisterCatalog, setKeyMode: async enabled => { i18n.keyMode = enabled; await i18nLoad(i18n.locale); }, setHighlight: async enabled => { i18n.highlight = enabled; localStorage.setItem("zogograph.i18n-highlight", enabled ? "1" : "0"); await i18nLoad(i18n.locale); } };
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelector("#languagePicker")?.addEventListener("change", event => { localStorage.setItem("zogograph.locale", event.target.value); i18nLoad(event.target.value); });
   document.querySelector("#languageKeys")?.addEventListener("change", event => ZogographI18n.setKeyMode(event.target.checked));

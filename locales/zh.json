@@ -149,6 +149,7 @@
   "encryption.package_key_created": "已创建单独的私有软件包密钥文件。其内容未在浏览器中显示或保存。存储软件包密钥前，请在“软件包密钥文件”中输入其路径并保存该设置。",
   "encryption.private_key_created": "已创建新的私有本地密钥文件。其内容未在浏览器中显示或保存。启用加密副本前，请记录一份离线恢复副本。",
   "schedule.removed": "已删除 {{job}} 计划。",
+  "schedule.none": "（无）",
   "schedule.saved_applied": "已保存并应用 {{job}} 计划。",
   "deployment.credential_stored": "部署凭据已加密存储。其值未保留在此页面中。",
   "deployment.target_verified": "远程部署目标已验证。现在可以查看并复制构建。",

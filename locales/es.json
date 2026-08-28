@@ -149,6 +149,7 @@
   "encryption.package_key_created": "Se creó un archivo de clave privado independiente para secretos de paquetes. Su contenido no se mostró ni se guardó en el navegador. Escriba su ruta en Archivo de clave de secretos de paquetes y guarde ese ajuste antes de almacenar secretos de paquetes.",
   "encryption.private_key_created": "Se creó un nuevo archivo de clave local privada. Su contenido no se mostró ni se guardó en el navegador. Guarde una copia de recuperación sin conexión antes de habilitar copias cifradas.",
   "schedule.removed": "Se eliminó la programación de {{job}}.",
+  "schedule.none": "(ninguno)",
   "schedule.saved_applied": "Se guardó y aplicó la programación de {{job}}.",
   "deployment.credential_stored": "La credencial de implementación se guardó cifrada. Su valor no se conservó en esta página.",
   "deployment.target_verified": "Se verificó el destino de implementación remota. Ahora puede revisar y copiar una compilación.",

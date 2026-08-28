@@ -1,6 +1,13 @@
 {
   "language.label": "语言",
   "language.keys": "显示翻译键",
+  "setup.label": "设置",
+  "setup.title": "设置",
+  "setup.lock": "锁定设置",
+  "setup.dashboard": "打开仪表板",
+  "setup.sections": "设置栏目",
+  "setup.search": "搜索设置",
+  "setup.installation": "安装",
   "dashboard.range": "时间范围",
   "dashboard.live": "实时",
   "auth.sign_in": "登录",

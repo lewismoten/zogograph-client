@@ -1,6 +1,13 @@
 {
   "language.label": "Idioma",
   "language.keys": "Mostrar claves de traducción",
+  "setup.label": "Configuración",
+  "setup.title": "Configuración",
+  "setup.lock": "Bloquear configuración",
+  "setup.dashboard": "Abrir panel",
+  "setup.sections": "Secciones de configuración",
+  "setup.search": "Buscar ajustes",
+  "setup.installation": "Instalación",
   "dashboard.range": "Periodo",
   "dashboard.show": "Mostrar",
   "dashboard.live": "En vivo",

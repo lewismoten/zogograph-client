@@ -1,6 +1,13 @@
 {
   "language.label": "भाषा",
   "language.keys": "अनुवाद कुंजियाँ दिखाएँ",
+  "setup.label": "सेटअप",
+  "setup.title": "सेटअप",
+  "setup.lock": "सेटअप लॉक करें",
+  "setup.dashboard": "डैशबोर्ड खोलें",
+  "setup.sections": "सेटअप अनुभाग",
+  "setup.search": "सेटिंग खोजें",
+  "setup.installation": "स्थापना",
   "dashboard.range": "अवधि",
   "dashboard.live": "लाइव",
   "auth.sign_in": "साइन इन करें",

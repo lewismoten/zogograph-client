@@ -800,11 +800,13 @@ function webPage(
     $out[] = '<meta name="viewport" content="width=device-width, initial-scale=1">';
     $out[] = '<title>Zogograph — setup</title>';
     $out[] = '<link rel="stylesheet" href="index.css">';
+    $out[] = '<script src="i18n.js"></script>';
     $out[] = '<style>'
         . 'body{max-width:1180px;padding-top:0}'
         . '.setup-header{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0;background:var(--bg)}'
         . '.setup-brand{display:flex;align-items:center;gap:9px;color:var(--text);text-decoration:none}.setup-brand strong{font-size:1.08rem}.setup-brand small{color:var(--muted)}.setup-brand .poll{display:inline-block}.setup-brand .poll-fill,.setup-brand .poll-host-fill{stroke:var(--accent);stroke-dasharray:none;stroke-dashoffset:0}'
         . '.setup-header a:not(.setup-brand){color:var(--muted);font-size:.86rem}'
+        . '.setup-controls{display:flex;align-items:center;gap:9px;font-size:.78rem;color:var(--muted)}.setup-controls label{display:flex;align-items:center;gap:4px;margin:0}.setup-controls select{max-width:105px}'
         . '.setup-layout{display:grid;grid-template-columns:210px minmax(0,1fr);gap:24px;align-items:start}'
         . '.setup-nav{position:sticky;top:16px;max-height:calc(100vh - 32px);overflow:auto;border:1px solid var(--line);border-radius:10px;padding:10px}'
         . '.setup-nav-search{display:block;margin:0 0 8px}.setup-nav-search input{width:100%;box-sizing:border-box}'
@@ -841,15 +843,17 @@ function webPage(
         . 'textarea[name]{min-height:0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;'
         . 'font-size:.85rem;background:#111;color:#eee;border:1px solid var(--line);'
         . 'border-radius:8px;padding:8px}'
-        . '@media(max-width:700px){.setup-header{padding:11px 0}.setup-layout{display:block}.setup-nav{position:static;display:flex;max-height:none;overflow-x:auto;gap:3px;margin-bottom:16px;white-space:nowrap}.setup-nav-search{display:none}.setup-nav a{flex:0 0 auto}}'
+        . '@media(max-width:700px){.setup-header{padding:11px 0}.setup-controls{flex-wrap:wrap}.setup-layout{display:block}.setup-nav{position:static;display:flex;max-height:none;overflow-x:auto;gap:3px;margin-bottom:16px;white-space:nowrap}.setup-nav-search{display:none}.setup-nav a{flex:0 0 auto}}'
         . '</style></head><body class="wiz">';
 
     $out[] = '<header class="setup-header"><a class="setup-brand" href="?section=basics">'
         . '<span class="poll" aria-hidden="true"><svg viewBox="0 0 36 36"><circle class="poll-track" cx="18" cy="18" r="15"></circle><circle class="poll-fill" cx="18" cy="18" r="15"></circle><circle class="poll-host-track" cx="18" cy="18" r="9"></circle><circle class="poll-host-fill" cx="18" cy="18" r="9"></circle></svg><span class="poll-dot"></span></span>'
-        . '<strong>Zogograph</strong><small>Setup</small></a><span>'
-        . ($unlocked ? '<a href="?lock=1">Lock setup</a> · ' : '')
-        . '<a href="./">Open dashboard</a></span></header>';
-    $out[] = '<h1>Setup</h1>';
+        . '<strong>Zogograph</strong><small data-i18n="setup.label">Setup</small></a><span class="setup-controls">'
+        . '<label><span data-i18n="language.label">Language</span><select id="languagePicker" aria-label="Language"><option value="en">English</option><option value="en-US">English (US)</option><option value="en-GB">English (UK)</option><option value="es">Español</option><option value="hi">हिन्दी</option><option value="zh">中文</option><option value="ar">العربية</option></select></label>'
+        . '<label><input id="languageKeys" type="checkbox"><span data-i18n="language.keys">Show translation keys</span></label>'
+        . ($unlocked ? '<a href="?lock=1" data-i18n="setup.lock">Lock setup</a> · ' : '')
+        . '<a href="./" data-i18n="setup.dashboard">Open dashboard</a></span></header>';
+    $out[] = '<h1 data-i18n="setup.title">Setup</h1>';
     $out[] = '<section id="setupUpdateBanner" class="setup-update" hidden aria-live="polite"></section>';
 
     if (($_GET['saved'] ?? '') === '1') {
@@ -913,9 +917,9 @@ function webPage(
     }
 
     $panels = setupPanels($fields, $packagePanels);
-    $out[] = '<div class="setup-layout"><aside class="setup-nav" aria-label="Setup sections">'
-        . '<label class="setup-nav-search">Search settings<input type="search" data-setup-nav-search placeholder="Search settings" autocomplete="off"></label>'
-        . '<a data-setup-nav-item data-setup-nav-terms="installation checks prerequisites"' . ($activeSection === 'basics' ? ' class="current"' : '') . ' href="?section=basics">Installation</a>';
+    $out[] = '<div class="setup-layout"><aside class="setup-nav" aria-label="Setup sections" data-i18n-aria-label="setup.sections">'
+        . '<label class="setup-nav-search"><span data-i18n="setup.search">Search settings</span><input type="search" data-setup-nav-search placeholder="Search settings" data-i18n-placeholder="setup.search" autocomplete="off"></label>'
+        . '<a data-i18n="setup.installation" data-setup-nav-item data-setup-nav-terms="installation checks prerequisites"' . ($activeSection === 'basics' ? ' class="current"' : '') . ' href="?section=basics">Installation</a>';
     foreach ($panels as $name => $panel) {
         if ($name === 'basics') continue;
         $out[] = '<a data-setup-nav-item data-setup-nav-terms="' . h($name . ' ' . $panel['title'] . ' ' . implode(' ', $panel['keywords'])) . '"'

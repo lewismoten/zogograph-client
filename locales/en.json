@@ -1,6 +1,13 @@
 {
   "language.label": "Language",
   "language.keys": "Show translation keys",
+  "setup.label": "Setup",
+  "setup.title": "Setup",
+  "setup.lock": "Lock setup",
+  "setup.dashboard": "Open dashboard",
+  "setup.sections": "Setup sections",
+  "setup.search": "Search settings",
+  "setup.installation": "Installation",
   "brand.tagline": "clear server monitoring",
   "dashboard.refresh": "Refresh now",
   "dashboard.refresh_status": "Collector status; refresh now",

@@ -1,6 +1,13 @@
 {
   "language.label": "اللغة",
   "language.keys": "إظهار مفاتيح الترجمة",
+  "setup.label": "الإعداد",
+  "setup.title": "الإعداد",
+  "setup.lock": "قفل الإعداد",
+  "setup.dashboard": "فتح لوحة التحكم",
+  "setup.sections": "أقسام الإعداد",
+  "setup.search": "البحث في الإعدادات",
+  "setup.installation": "التثبيت",
   "dashboard.range": "النطاق الزمني",
   "dashboard.live": "مباشر",
   "auth.sign_in": "تسجيل الدخول",

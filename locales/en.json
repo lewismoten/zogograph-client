@@ -11,5 +11,7 @@
   "navigation.search": "Search sections",
   "update.available": "A newer Zogograph update is available. Reload when you are ready.",
   "example.readings": "{{count, number}} readings",
-  "example.updated": "Updated {{at, date}}"
+  "example.updated": "Updated {{at, date}}",
+  "example.compact": "{{count, compact}} items",
+  "example.cost": "{{amount, currency}}"
 }

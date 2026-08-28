@@ -3,7 +3,7 @@
 const I18N_BASE = "en";
 const I18N_LOCALES = ["en", "en-US", "en-GB", "es", "hi", "zh", "ar"];
 const I18N_RTL = new Set(["ar"]);
-const i18n = { locale: I18N_BASE, catalog: {}, fallback: {}, keyMode: false };
+const i18n = { locale: I18N_BASE, catalog: {}, fallback: {}, keyMode: false, extensions: {} };
 
 function i18nRequestedLocale() {
   const saved = localStorage.getItem("zogograph.locale");
@@ -16,8 +16,11 @@ function i18nRequestedLocale() {
   return I18N_BASE;
 }
 
-function i18nFormat(value, kind) {
+function i18nFormat(value, kind, name, values) {
   if (kind === "number") return new Intl.NumberFormat(i18n.locale).format(Number(value));
+  if (kind === "latin-number") return new Intl.NumberFormat(i18n.locale, { numberingSystem: "latn" }).format(Number(value));
+  if (kind === "compact") return new Intl.NumberFormat(i18n.locale, { notation: "compact" }).format(Number(value));
+  if (kind === "currency") return new Intl.NumberFormat(i18n.locale, { style: "currency", currency: values[`${name}Currency`] || "USD" }).format(Number(value));
   if (kind === "date") return new Intl.DateTimeFormat(i18n.locale, { dateStyle: "medium" }).format(new Date(value));
   if (kind === "time") return new Intl.DateTimeFormat(i18n.locale, { timeStyle: "short" }).format(new Date(value));
   return String(value ?? "");
@@ -27,13 +30,13 @@ function t(key, values = {}) {
   const fallback = i18n.fallback[key] || key;
   const text = i18n.catalog[key] || fallback;
   if (i18n.keyMode) return key;
-  return text.replace(/\{\{([\w.-]+)(?:,\s*(number|date|time))?\}\}/g, (_, name, kind) => i18nFormat(values[name], kind));
+  return text.replace(/\{\{([\w.-]+)(?:,\s*(number|latin-number|compact|currency|date|time))?\}\}/g, (_, name, kind) => i18nFormat(values[name], kind, name, values));
 }
 
 async function i18nLoad(locale = i18nRequestedLocale()) {
   const get = async name => { const r = await fetch(`./locales/${name}.json`, { cache: "no-store" }); return r.ok ? r.json() : {}; };
   i18n.fallback = await get(I18N_BASE);
-  i18n.catalog = locale === I18N_BASE ? i18n.fallback : { ...i18n.fallback, ...await get(locale) };
+  i18n.catalog = { ...i18n.fallback, ...(locale === I18N_BASE ? {} : await get(locale)), ...(i18n.extensions[I18N_BASE] || {}), ...(i18n.extensions[locale] || {}) };
   i18n.locale = locale; document.documentElement.lang = locale;
   document.documentElement.dir = I18N_RTL.has(locale.split("-")[0]) ? "rtl" : "ltr";
   document.querySelectorAll("[data-i18n]").forEach(node => {
@@ -42,7 +45,15 @@ async function i18nLoad(locale = i18nRequestedLocale()) {
   const picker = document.querySelector("#languagePicker"); if (picker) picker.value = locale;
 }
 
-window.ZogographI18n = { t, load: i18nLoad, setKeyMode: async enabled => { i18n.keyMode = enabled; await i18nLoad(i18n.locale); } };
+function i18nRegisterCatalog(locale, catalog) {
+  if (!I18N_LOCALES.includes(locale) || !catalog || Array.isArray(catalog) || typeof catalog !== "object") return false;
+  const clean = {};
+  for (const [key, value] of Object.entries(catalog)) if (/^[a-z][\w.-]{0,119}$/i.test(key) && typeof value === "string" && value.length <= 4000) clean[key] = value;
+  i18n.extensions[locale] = { ...(i18n.extensions[locale] || {}), ...clean };
+  if (locale === i18n.locale || locale === I18N_BASE) i18nLoad(i18n.locale);
+  return true;
+}
+window.ZogographI18n = { t, load: i18nLoad, registerCatalog: i18nRegisterCatalog, setKeyMode: async enabled => { i18n.keyMode = enabled; await i18nLoad(i18n.locale); } };
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelector("#languagePicker")?.addEventListener("change", event => { localStorage.setItem("zogograph.locale", event.target.value); i18nLoad(event.target.value); });
   document.querySelector("#languageKeys")?.addEventListener("change", event => ZogographI18n.setKeyMode(event.target.checked));

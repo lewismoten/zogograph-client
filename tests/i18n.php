@@ -4,6 +4,7 @@ function i18nExpect(bool $condition, string $message): void { if (!$condition) t
 $root = dirname(__DIR__);
 $runtime = file_get_contents($root . '/i18n.js');
 $page = file_get_contents($root . '/index.html');
+$script = file_get_contents($root . '/index.js');
 $setup = file_get_contents($root . '/setup.php');
 $english = json_decode((string)file_get_contents($root . '/locales/en.json'), true);
 i18nExpect($runtime !== false && str_contains($runtime, 'Intl.NumberFormat') && str_contains($runtime, 'I18N_RTL')
@@ -13,6 +14,8 @@ i18nExpect($runtime !== false && str_contains($runtime, 'Intl.NumberFormat') && 
     'locale runtime lacks formatting, RTL, preference, or key-mode support');
 i18nExpect($page !== false && str_contains($page, 'id="languagePicker"') && str_contains($page, 'id="languageKeys"')
     && str_contains($page, 'src="i18n.js"'), 'dashboard language controls are unavailable');
+i18nExpect($script !== false && str_contains($script, 'new Intl.NumberFormat(document.documentElement.lang || undefined)')
+    && str_contains($script, 'toLocaleString(document.documentElement.lang || undefined)'), 'dashboard value formatting ignores the selected locale');
 i18nExpect($setup !== false && str_contains($setup, 'src="i18n.js"') && str_contains($setup, 'id="languagePicker"')
     && str_contains($setup, 'id="languageKeys"') && str_contains($setup, 'data-i18n="setup.installation"')
     && str_contains($setup, "'setup.section.' . \$name"),

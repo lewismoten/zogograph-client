@@ -246,7 +246,7 @@ function humanBytes(value, digits) {
 
 function humanCount(value) {
   if (value == null || !Number.isFinite(Number(value))) return "—";
-  return new Intl.NumberFormat().format(Number(value));
+  return new Intl.NumberFormat(document.documentElement.lang || undefined).format(Number(value));
 }
 
 /**
@@ -317,7 +317,7 @@ function humanDuration(seconds) {
 
 function humanTime(epoch) {
   if (!epoch) return "—";
-  return new Date(epoch * 1000).toLocaleString();
+  return new Date(epoch * 1000).toLocaleString(document.documentElement.lang || undefined);
 }
 
 /**

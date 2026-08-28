@@ -147,6 +147,13 @@
   "auth.current_code": "वर्तमान छह अंकों का कोड",
   "auth.verify": "सत्यापित करें और ऑथेंटिकेटर सक्षम करें",
   "auth.start": "ऑथेंटिकेटर रहस्य बनाएँ",
+  "openid.provider": "OpenID Connect प्रदाता",
+  "openid.generate_key": "समर्पित RSA साइनिंग कुंजी बनाएँ",
+  "openid.trusted_apps": "विश्वसनीय ऐप्लिकेशन",
+  "openid.remove": "हटाएँ",
+  "openid.client_id": "क्लाइंट ID",
+  "openid.redirect_url": "सटीक HTTPS रीडायरेक्ट URL",
+  "openid.create_client": "विश्वसनीय क्लाइंट बनाएँ",
   "update.available": "Zogograph का नया अपडेट उपलब्ध है। तैयार होने पर पुनः लोड करें।",
   "update.compatibility": "अनुकूलता अपडेट तैयार है। आगे बढ़ने से पहले पुनः लोड करें ताकि यह ब्राउज़र मिलान वाला डैशबोर्ड उपयोग करे।",
   "action.reload": "अभी पुनः लोड करें"

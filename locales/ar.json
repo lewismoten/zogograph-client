@@ -147,6 +147,13 @@
   "auth.current_code": "الرمز الحالي المكوّن من ستة أرقام",
   "auth.verify": "تحقق وفعّل تطبيق المصادقة",
   "auth.start": "إنشاء سر تطبيق المصادقة",
+  "openid.provider": "موفر OpenID Connect",
+  "openid.generate_key": "إنشاء مفتاح توقيع RSA مخصص",
+  "openid.trusted_apps": "التطبيقات الموثوقة",
+  "openid.remove": "إزالة",
+  "openid.client_id": "معرّف العميل",
+  "openid.redirect_url": "عنوان إعادة توجيه HTTPS الدقيق",
+  "openid.create_client": "إنشاء عميل موثوق",
   "update.available": "يتوفر تحديث أحدث لـ Zogograph. أعد التحميل عندما تكون جاهزًا.",
   "update.compatibility": "تحديث توافق جاهز. أعد التحميل قبل المتابعة ليستخدم هذا المتصفح لوحة التحكم المطابقة.",
   "action.reload": "إعادة التحميل الآن"

@@ -147,6 +147,13 @@
   "auth.current_code": "当前六位数代码",
   "auth.verify": "验证并启用身份验证器",
   "auth.start": "创建身份验证器密钥",
+  "openid.provider": "OpenID Connect 提供方",
+  "openid.generate_key": "生成专用 RSA 签名密钥",
+  "openid.trusted_apps": "受信任的应用程序",
+  "openid.remove": "移除",
+  "openid.client_id": "客户端 ID",
+  "openid.redirect_url": "精确的 HTTPS 重定向 URL",
+  "openid.create_client": "创建受信任的客户端",
   "update.available": "有更新版本的 Zogograph 可用。准备好后请重新加载。",
   "update.compatibility": "兼容性更新已准备好。请在继续前重新加载，以便此浏览器使用匹配的仪表板。",
   "action.reload": "立即重新加载"

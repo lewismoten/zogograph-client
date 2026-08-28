@@ -93,11 +93,11 @@ the product is complete.
   explicit-TLS FTP deployment profiles, encrypts deployment credentials as
   opaque credential and host-key references, verifies the remote target before
   every copy, and privately stages a bounded release ZIP for transfer. Signed
-  remote update execution, approved telemetry sender, and a guided
-  administrator database-merge interface remain.
-  Compatible account collector stores
-  can now be merged through a snapshot-backed, overlap-reviewed transaction;
-  a guided administrator review/apply interface remains.
+  remote update execution and approved telemetry sender remain.
+  Compatible account collector stores can now be merged through a
+  snapshot-backed, overlap-reviewed transaction with a guided Setup
+  upload/review/apply interface that requires stopped-writer and overlap
+  acknowledgements.
 
 Audit route-level state changes and secret exposure next. The first finding was
 an unprotected sign-out route; it now requires POST plus the current CSRF token.

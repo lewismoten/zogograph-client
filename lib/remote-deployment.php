@@ -141,3 +141,68 @@ function remoteDeploymentCommandPlan(array $input): array
     $url = 'ftps://' . $profile['host'] . ':' . $profile['port'] . $profile['target_path'];
     return ['method' => 'ftps', 'preflight' => ['curl', '--fail', '--silent', '--show-error', '--ftp-ssl-reqd', '--list-only', '--user', $profile['username'] . ':{{encrypted credential reference}}', $url], 'copy' => ['curl', '--fail', '--ftp-ssl-reqd', '--user', $profile['username'] . ':{{encrypted credential reference}}', '--upload-file', '{{selected package build}}', $url . '/{{remote filename}}'], 'packages' => $profile['packages']];
 }
+
+/** Runs a non-interactive command without returning its output to a browser. */
+function remoteDeploymentRun(array $command): array
+{
+    $pipes = [];
+    $process = @proc_open($command, [['pipe', 'r'], ['pipe', 'w'], ['pipe', 'w']], $pipes, null, null, ['bypass_shell' => true]);
+    if (!is_resource($process)) return ['ok' => false, 'detail' => 'the required transfer program could not start'];
+    fclose($pipes[0]);
+    stream_set_blocking($pipes[1], false); stream_set_blocking($pipes[2], false);
+    $deadline = microtime(true) + 25;
+    do {
+        stream_get_contents($pipes[1]); stream_get_contents($pipes[2]);
+        $status = proc_get_status($process);
+        if (!$status['running']) break;
+        usleep(100000);
+    } while (microtime(true) < $deadline);
+    if (($status['running'] ?? false) === true) {
+        proc_terminate($process);
+        foreach ([1, 2] as $pipe) { stream_get_contents($pipes[$pipe]); fclose($pipes[$pipe]); }
+        proc_close($process);
+        return ['ok' => false, 'detail' => 'the target check timed out'];
+    }
+    foreach ([1, 2] as $pipe) { stream_get_contents($pipes[$pipe]); fclose($pipes[$pipe]); }
+    $code = proc_close($process);
+    return $code === 0 ? ['ok' => true, 'detail' => 'target directory verified'] : ['ok' => false, 'detail' => 'the target check failed (exit status ' . $code . ')'];
+}
+
+/** Verifies only the remote target directory, using owner-only temporary files. */
+function remoteDeploymentTest(array $config, array $input, ?callable $runner = null): array
+{
+    $profile = remoteDeploymentProfile($input);
+    $credential = remoteDeploymentSecretValue($config, $profile['credential_reference']);
+    $directory = rtrim(sys_get_temp_dir(), '/') . '/zogograph-deploy-test-' . bin2hex(random_bytes(12));
+    if (!mkdir($directory, 0700)) throw new RuntimeException('could not prepare a private deployment test workspace');
+    $run = $runner ?? 'remoteDeploymentRun';
+    try {
+        $identity = $profile['username'] . '@' . $profile['host'];
+        if ($profile['method'] === 'ftps') {
+            $netrc = $directory . '/netrc';
+            $contents = 'machine ' . $profile['host'] . "\nlogin " . $profile['username'] . "\npassword " . str_replace(["\r", "\n"], '', $credential) . "\n";
+            if (file_put_contents($netrc, $contents) === false) throw new RuntimeException('could not prepare the FTPS credential');
+            chmod($netrc, 0600);
+            $result = $run(['curl', '--fail', '--silent', '--show-error', '--connect-timeout', '10', '--max-time', '25', '--ftp-ssl-reqd', '--list-only', '--netrc-file', $netrc, '--url', 'ftps://' . $profile['host'] . ':' . $profile['port'] . $profile['target_path']]);
+        } else {
+            $key = $directory . '/identity'; $knownHosts = $directory . '/known_hosts';
+            $known = remoteDeploymentSecretValue($config, (string)$profile['known_host_reference']);
+            if (file_put_contents($key, $credential) === false || file_put_contents($knownHosts, $known) === false) throw new RuntimeException('could not prepare the SSH credential');
+            chmod($key, 0600); chmod($knownHosts, 0600);
+            $options = ['-o', 'BatchMode=yes', '-o', 'ConnectTimeout=10', '-o', 'ConnectionAttempts=1', '-o', 'StrictHostKeyChecking=yes', '-o', 'UserKnownHostsFile=' . $knownHosts, '-i', $key];
+            if ($profile['method'] === 'rsync_ssh') {
+                $result = $run(['ssh', '-p', (string)$profile['port'], ...$options, $identity, 'test', '-d', '--', $profile['target_path']]);
+            } else {
+                $batch = $directory . '/sftp.batch';
+                if (file_put_contents($batch, 'ls ' . $profile['target_path'] . "\n") === false) throw new RuntimeException('could not prepare the SFTP check');
+                chmod($batch, 0600);
+                $result = $run(['sftp', '-P', (string)$profile['port'], ...$options, '-b', $batch, $identity]);
+            }
+        }
+        if (!is_array($result) || !isset($result['ok'], $result['detail'])) throw new RuntimeException('the deployment test returned an invalid result');
+        return ['ok' => (bool)$result['ok'], 'detail' => mb_substr((string)$result['detail'], 0, 180), 'method' => $profile['method'], 'tested_at' => time()];
+    } finally {
+        foreach (glob($directory . '/*') ?: [] as $file) @unlink($file);
+        @rmdir($directory);
+    }
+}

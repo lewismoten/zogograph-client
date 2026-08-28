@@ -23,6 +23,12 @@ try {
     $reference = remoteDeploymentSecretStore($config, 'private-deployment-material', 'test');
     remoteDeploymentExpect(remoteDeploymentSecretExists($config, $reference) && remoteDeploymentSecretValue($config, $reference) === 'private-deployment-material',
         'deployment credential vault did not retain encrypted material behind its opaque reference');
+    $knownReference = remoteDeploymentSecretStore($config, 'remote.example.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAITest', 'test');
+    $testProfile = array_replace($profile, ['credential_reference' => $reference, 'known_host_reference' => $knownReference]);
+    $seen = [];
+    $result = remoteDeploymentTest($config, $testProfile, static function (array $command) use (&$seen): array { $seen = $command; return ['ok' => true, 'detail' => 'target directory verified']; });
+    remoteDeploymentExpect($result['ok'] === true && in_array('StrictHostKeyChecking=yes', $seen, true)
+        && !str_contains(implode(' ', $seen), 'private-deployment-material'), 'deployment test lacks SSH verification or exposes credential material');
     @unlink($keyPath); @unlink($directory . '/.htaccess'); foreach (glob($directory . '/data/setup.db*') ?: [] as $file) @unlink($file); @rmdir($directory . '/data'); @rmdir($directory);
 } catch (Throwable $error) {
     @unlink($keyPath ?? ''); @rmdir($directory); throw $error;

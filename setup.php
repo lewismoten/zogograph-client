@@ -581,7 +581,7 @@ function runWeb(
         $values['openid_signing_private_key'] = $_SESSION['setup_pending_openid_signing_key'];
     }
 
-    if ($posted && in_array($_POST['intent'] ?? '', ['store-deployment-secret', 'save-deployment-profile'], true)) {
+    if ($posted && in_array($_POST['intent'] ?? '', ['store-deployment-secret', 'save-deployment-profile', 'test-deployment-target'], true)) {
         try {
             if (!$configured || !$unlocked || $current === null) throw new RuntimeException('unlock setup before changing remote deployment');
             if (!hash_equals(setupDeploymentToken(), (string)($_POST['setup_deployment_token'] ?? ''))) throw new RuntimeException('the deployment form expired; reload Setup and try again');
@@ -589,6 +589,13 @@ function runWeb(
                 $reference = remoteDeploymentSecretStore($current, (string)($_POST['deployment_secret'] ?? ''), 'setup administrator');
                 $_SESSION['setup_deployment_last_reference'] = $reference;
                 $_SESSION['setup_notice'] = 'Deployment credential stored with encryption. Its value was not retained in this page.';
+            } elseif (($_POST['intent'] ?? '') === 'test-deployment-target') {
+                $profile = remoteDeploymentProfile($_POST);
+                if (!remoteDeploymentSecretExists($current, $profile['credential_reference'])) throw new RuntimeException('the selected deployment credential reference is unavailable');
+                if ($profile['known_host_reference'] !== null && !remoteDeploymentSecretExists($current, $profile['known_host_reference'])) throw new RuntimeException('the selected SSH host-key reference is unavailable');
+                $result = remoteDeploymentTest($current, $profile);
+                $_SESSION['setup_deployment_test'] = $result;
+                $_SESSION['setup_notice'] = $result['ok'] ? 'Remote deployment target verified. You may now review and copy a build.' : 'Remote deployment target was not verified: ' . $result['detail'];
             } else {
                 $profile = remoteDeploymentProfile($_POST);
                 if (!remoteDeploymentSecretExists($current, $profile['credential_reference'])) throw new RuntimeException('the selected deployment credential reference is unavailable');
@@ -1026,7 +1033,7 @@ function webPage(
             . '<input type="hidden" name="setup_deployment_token" value="' . h(setupDeploymentToken()) . '">'
             . '<label>Transfer method<select name="method"><option value="rsync_ssh"' . (($deployment['method'] ?? 'rsync_ssh') === 'rsync_ssh' ? ' selected' : '') . '>rsync over SSH</option><option value="sftp"' . (($deployment['method'] ?? '') === 'sftp' ? ' selected' : '') . '>SFTP</option><option value="ftps"' . (($deployment['method'] ?? '') === 'ftps' ? ' selected' : '') . '>FTP with explicit TLS</option></select></label>'
             . '<label>Target hostname or IP<input required name="host" value="' . h((string)($deployment['host'] ?? '')) . '" autocomplete="off"></label><label>Port (leave blank for method default)<input name="port" inputmode="numeric" value="' . h((string)($deployment['port'] ?? '')) . '"></label><label>Deployment username<input required name="username" value="' . h((string)($deployment['username'] ?? '')) . '" autocomplete="username"></label><label>Remote target path<input required name="target_path" value="' . h((string)($deployment['target_path'] ?? '')) . '" placeholder="/srv/zogograph-remote"></label>'
-            . '<label>Encrypted credential reference<input required name="credential_reference" value="' . h((string)($deployment['credential_reference'] ?? $lastReference)) . '" autocomplete="off"></label><label>SSH host-key reference (not used for FTPS)<input name="known_host_reference" value="' . h((string)($deployment['known_host_reference'] ?? '')) . '" autocomplete="off"></label><label>Core controller URL<input required type="url" name="controller_url" value="' . h((string)($deployment['controller_url'] ?? '')) . '" placeholder="https://core.example"></label><label>Remote update behavior<select name="update_mode"><option value="manual"' . (($deployment['update_mode'] ?? 'manual') === 'manual' ? ' selected' : '') . '>Manual install</option><option value="download"' . (($deployment['update_mode'] ?? '') === 'download' ? ' selected' : '') . '>Download, then wait for approval</option><option value="automatic"' . (($deployment['update_mode'] ?? '') === 'automatic' ? ' selected' : '') . '>Install automatically</option></select></label><label>Package groups (comma-separated)<input required name="packages[]" value="remote-core" readonly></label><button type="submit" name="intent" value="save-deployment-profile">Save deployment profile</button></fieldset>';
+            . '<label>Encrypted credential reference<input required name="credential_reference" value="' . h((string)($deployment['credential_reference'] ?? $lastReference)) . '" autocomplete="off"></label><label>SSH host-key reference (not used for FTPS)<input name="known_host_reference" value="' . h((string)($deployment['known_host_reference'] ?? '')) . '" autocomplete="off"></label><label>Core controller URL<input required type="url" name="controller_url" value="' . h((string)($deployment['controller_url'] ?? '')) . '" placeholder="https://core.example"></label><label>Remote update behavior<select name="update_mode"><option value="manual"' . (($deployment['update_mode'] ?? 'manual') === 'manual' ? ' selected' : '') . '>Manual install</option><option value="download"' . (($deployment['update_mode'] ?? '') === 'download' ? ' selected' : '') . '>Download, then wait for approval</option><option value="automatic"' . (($deployment['update_mode'] ?? '') === 'automatic' ? ' selected' : '') . '>Install automatically</option></select></label><label>Package groups (comma-separated)<input required name="packages[]" value="remote-core" readonly></label><button type="submit" name="intent" value="save-deployment-profile">Save deployment profile</button><button type="submit" name="intent" value="test-deployment-target">Test target and credentials</button></fieldset>';
         $out[] = '<fieldset><legend>Store deployment credential or host key</legend><p class="help">Paste one password, private key, or known_hosts entry. It is encrypted with the configured local key and shown only as an opaque reference after storage.</p><label>Credential or host-key material<textarea name="deployment_secret" rows="5" autocomplete="off"></textarea></label><button type="submit" name="intent" value="store-deployment-secret">Store encrypted credential</button>'
             . ($lastReference !== '' ? '<p class="banner ok">New encrypted reference: <code>' . h($lastReference) . '</code></p>' : '') . '</fieldset>';
         if ($deployment !== []) {
@@ -1036,6 +1043,10 @@ function webPage(
             } catch (Throwable) {
                 $out[] = '<p class="help">Save a complete deployment profile to review its planned transport.</p>';
             }
+        }
+        $lastTest = $_SESSION['setup_deployment_test'] ?? null;
+        if (is_array($lastTest) && isset($lastTest['ok'], $lastTest['detail'], $lastTest['tested_at'])) {
+            $out[] = '<p class="banner ' . ($lastTest['ok'] ? 'ok' : 'warn') . '"><strong>Last target test:</strong> ' . h((string)$lastTest['detail']) . ' (' . h(gmdate('Y-m-d H:i:s', (int)$lastTest['tested_at'])) . ' UTC)</p>';
         }
     } elseif ($activeSection === 'schedule') {
         $schedule = scheduleState(__DIR__);

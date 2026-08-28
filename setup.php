@@ -1421,7 +1421,8 @@ function firstParagraph(string $text): string
 function renderField(array $field, array $values, array $errors, bool $configured): string
 {
     $key = $field['key'];
-    $label = h($key === 'password' ? ($configured ? 'Change password' : 'Create sign-in password') : $field['label']);
+    $labelText = $key === 'password' ? ($configured ? 'Change password' : 'Create sign-in password') : (string)$field['label'];
+    $label = '<span data-i18n="setup.field.' . h($key) . '">' . h($labelText) . '</span>';
     $help = isset($field['help']) ? '<span class="help">' . h($field['help']) . '</span>' : '';
     $bad = isset($errors[$key]) ? '<span class="bad">' . h($errors[$key]) . '</span>' : '';
 

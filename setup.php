@@ -1452,7 +1452,7 @@ function renderField(array $field, array $values, array $errors, bool $configure
         foreach ($field['options'] as $option) {
             $checked = in_array($option, $chosen, true) ? ' checked' : '';
             $boxes .= '<label><input type="checkbox" name="' . h($key) . '[]" value="'
-                . h($option) . '"' . $checked . '> ' . h($option) . '</label>';
+                . h($option) . '"' . $checked . '> <span data-i18n="setup.option.' . h($key) . '.' . h($option) . '">' . h($option) . '</span></label>';
         }
         return '<fieldset><legend>' . $label . '</legend>'
             . '<div class="row">' . $boxes . '</div>' . $help . $bad . '</fieldset>';
@@ -1462,7 +1462,7 @@ function renderField(array $field, array $values, array $errors, bool $configure
         $options = '';
         foreach ($field['options'] as $value => $text) {
             $selected = (string)$values[$key] === (string)$value ? ' selected' : '';
-            $options .= '<option value="' . h((string)$value) . '"' . $selected . '>'
+            $options .= '<option value="' . h((string)$value) . '"' . $selected . ' data-i18n="setup.option.' . h($key) . '.' . h((string)$value) . '">'
                 . h((string)$text) . '</option>';
         }
         return '<label>' . $label . '<select name="' . h($key) . '">' . $options . '</select>'
@@ -1475,7 +1475,7 @@ function renderField(array $field, array $values, array $errors, bool $configure
         foreach ($field['options'] as $value => $text) {
             $checked = in_array($value, $chosen, true) ? ' checked' : '';
             $boxes .= '<label><input type="checkbox" name="' . h($key) . '[]" value="'
-                . h((string)$value) . '"' . $checked . '> ' . h((string)$text) . '</label>';
+                . h((string)$value) . '"' . $checked . '> <span data-i18n="setup.option.' . h($key) . '.' . h((string)$value) . '">' . h((string)$text) . '</span></label>';
         }
         return '<fieldset><legend>' . $label . '</legend><div class="row">' . $boxes . '</div>'
             . $help . $bad . '</fieldset>';

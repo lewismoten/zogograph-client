@@ -22,6 +22,8 @@
   "setup.configured": "पहले से कॉन्फ़िगर है।",
   "setup.configured_help": "नीचे वर्तमान पासवर्ड दर्ज करें और यह lib/config.php को बदल देगा। इसके बिना भी आपको कॉपी और पेस्ट करने के लिए तैयार पाठ मिलता है।",
   "setup.validation_error": "कुछ उत्तरों को फिर से जाँचने की आवश्यकता है।",
+  "setup.saved": "सहेजा गया।",
+  "setup.saved_section": "यह अनुभाग अब data/setup.db में संग्रहीत है।",
   "setup.installation": "स्थापना",
   "installation.checks": "स्थापना जांच", "installation.check": "जांच", "installation.state": "स्थिति", "installation.detail": "विवरण",
   "setup.section.privacy": "गोपनीयता",

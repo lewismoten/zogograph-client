@@ -22,6 +22,8 @@
   "setup.configured": "Ya está configurado.",
   "setup.configured_help": "Introduzca la contraseña actual a continuación y se reemplazará lib/config.php. Sin ella, aún obtiene el texto terminado para copiar y pegar.",
   "setup.validation_error": "Algunas respuestas necesitan otra revisión.",
+  "setup.saved": "Guardado.",
+  "setup.saved_section": "Esta sección se almacena ahora en data/setup.db.",
   "setup.installation": "Instalación",
   "installation.checks": "Comprobaciones de instalación",
   "installation.check": "Comprobación",

@@ -1068,8 +1068,7 @@ function webPage(
     $out[] = '<section id="setupUpdateBanner" class="setup-update" hidden aria-live="polite"></section>';
 
     if (($_GET['saved'] ?? '') === '1') {
-        $out[] = '<div class="banner ok"><strong>Saved.</strong> This section is now stored in '
-            . '<code>data/setup.db</code>.</div>';
+        $out[] = '<div class="banner ok" role="status"><strong data-i18n="setup.saved">Saved.</strong> <span data-i18n="setup.saved_section">This section is now stored in data/setup.db.</span></div>';
     }
 
     if ($written) {

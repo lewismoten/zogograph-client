@@ -22,6 +22,8 @@
   "setup.configured": "تم الإعداد بالفعل.",
   "setup.configured_help": "أدخل كلمة المرور الحالية أدناه وسيستبدل ذلك lib/config.php. بدونها لا يزال بإمكانك الحصول على النص النهائي لنسخه ولصقه.",
   "setup.validation_error": "تحتاج بعض الإجابات إلى مراجعة أخرى.",
+  "setup.saved": "تم الحفظ.",
+  "setup.saved_section": "يُحفظ هذا القسم الآن في data/setup.db.",
   "setup.installation": "التثبيت",
   "installation.checks": "فحوصات التثبيت", "installation.check": "الفحص", "installation.state": "الحالة", "installation.detail": "التفاصيل",
   "setup.section.privacy": "الخصوصية",

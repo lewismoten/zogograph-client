@@ -22,6 +22,8 @@
   "setup.configured": "Already configured.",
   "setup.configured_help": "Enter the current password below and this will replace lib/config.php. Without it you still get the finished text to copy and paste.",
   "setup.validation_error": "Some answers need another look.",
+  "setup.saved": "Saved.",
+  "setup.saved_section": "This section is now stored in data/setup.db.",
   "setup.installation": "Installation",
   "installation.checks": "Installation checks",
   "installation.check": "Check",

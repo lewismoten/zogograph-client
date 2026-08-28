@@ -760,6 +760,7 @@ function webPage(
         . '.banner.warn{border-color:#7a5a30;background:#2b2114}'
         . '.banner.ok{border-color:#2f6f3a;background:#152b1c}'
         . '.banner.crit{border-color:#7a3030;background:#2b1414}'
+        . '.setup-update{display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid var(--accent);border-radius:10px;padding:10px 12px;margin:0 0 16px;background:var(--panel)}'
         . '.preflight{width:100%;border-collapse:collapse;margin:0 0 16px}.preflight th,.preflight td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:left;font-size:.85rem}.preflight th{color:var(--muted);font-weight:500}.preflight .ok{color:#8be0a8}.preflight .warning{color:#f0c27b}.preflight .error{color:#ff9ca3}'
         . 'code{background:#111;padding:1px 5px;border-radius:4px}'
         . 'details{border:1px solid var(--line);border-radius:10px;margin:0 0 12px;padding:0 14px}'
@@ -782,6 +783,7 @@ function webPage(
         . ($unlocked ? '<a href="?lock=1">Lock setup</a> · ' : '')
         . '<a href="./">Open dashboard</a></span></header>';
     $out[] = '<h1>Setup</h1>';
+    $out[] = '<section id="setupUpdateBanner" class="setup-update" hidden aria-live="polite"></section>';
 
     if (($_GET['saved'] ?? '') === '1') {
         $out[] = '<div class="banner ok"><strong>Saved.</strong> This section is now stored in '
@@ -1023,7 +1025,7 @@ function webPage(
         $out[] = '<textarea readonly onclick="this.select()">' . h($rendered) . '</textarea>';
     }
 
-    $out[] = '<script>document.querySelector("[data-setup-nav-search]")?.addEventListener("input",function(){const q=this.value.trim().toLowerCase();document.querySelectorAll("[data-setup-nav-item]").forEach(function(item){item.hidden=q!==""&&!item.dataset.setupNavTerms.toLowerCase().includes(q);});});document.querySelectorAll("[data-package-secret-picker]").forEach(function(picker){picker.addEventListener("change",function(){const box=document.querySelector("textarea[name=package_settings]");if(!box)return;try{const settings=JSON.parse(box.value);settings[picker.dataset.packageSecretPicker]=picker.value;box.value=JSON.stringify(settings,null,2);}catch(error){picker.value="";window.alert("Fix the package settings JSON before choosing a secret reference.");}});});</script>';
+    $out[] = '<script>document.querySelector("[data-setup-nav-search]")?.addEventListener("input",function(){const q=this.value.trim().toLowerCase();document.querySelectorAll("[data-setup-nav-item]").forEach(function(item){item.hidden=q!==""&&!item.dataset.setupNavTerms.toLowerCase().includes(q);});});document.querySelectorAll("[data-package-secret-picker]").forEach(function(picker){picker.addEventListener("change",function(){const box=document.querySelector("textarea[name=package_settings]");if(!box)return;try{const settings=JSON.parse(box.value);settings[picker.dataset.packageSecretPicker]=picker.value;box.value=JSON.stringify(settings,null,2);}catch(error){picker.value="";window.alert("Fix the package settings JSON before choosing a secret reference.");}});});(function(){let current=null,announced=null,checking=false;const identity=build=>[build?.commit,build?.runId,build?.createdAt].filter(Boolean).join(":");async function check(){if(document.hidden||checking)return;checking=true;try{const response=await fetch("./build.json?at="+Date.now(),{cache:"no-store",credentials:"same-origin"});if(!response.ok)return;const build=await response.json(),next=identity(build);if(!next)return;if(current===null){current=next;return;}if(current!==next&&announced!==next){announced=next;const banner=document.querySelector("#setupUpdateBanner");banner.replaceChildren();const text=document.createElement("span");text.textContent=build.browserRefreshRequired===true?"A compatibility update is ready. Reload before changing settings.":"A newer Zogograph update is available. Reload when you are ready.";const reload=document.createElement("button");reload.type="button";reload.textContent="Reload now";reload.addEventListener("click",()=>location.reload());banner.append(text,reload);banner.hidden=false;}}catch(error){}finally{checking=false;}}check();setInterval(check,60000);})();</script>';
     $out[] = '</body></html>';
     return implode("\n", $out);
 }

@@ -13,12 +13,10 @@ validated id, title, kind, keywords, and optional feature id, so the Setup
 sidebar can remain data-driven and searchable as panels grow. `SetupCronApi` is the
 first concrete restricted capability; it is used by the core Schedule panel
 today. A future isolated package receives a `SetupPanelApi` object rather than
-the full application:
+the full application. The currently concrete `SetupPanelApi` offers:
 
-- `addPanel()` registers metadata and a renderer for one declared panel id.
-- `config()` reads only the panel's declared configuration namespace.
-- `save()` validates and writes only that namespace after Setup has authorised
-  the request.
+- `addPanel()` registers validated inert navigation metadata for one declared
+  panel id. It cannot pass a renderer, HTML, JavaScript, or a callback.
 - `cron()` returns the restricted `SetupCronApi`: `profiles()`, `preview()`,
   `status()`, and `apply()`. It accepts structured choices for named approved
   jobs, never arbitrary shell commands or an arbitrary crontab line.
@@ -26,6 +24,12 @@ the full application:
 Panels are hidden when their core/plugin feature is disabled. Plugins cannot
 replace core panels, add executable shell text, access another plugin's
 configuration, or bypass Setup's password/session/CSRF checks.
+
+Package settings read/save are deliberately not exposed yet. They need a
+separate namespaced settings API that validates a signed schema, maintains
+CSRF and audit records, and proves the package is both intact and attested at
+the moment of use. Until then, a package may contribute navigation metadata
+only through the isolated bridge; its code is never loaded by `setup.php`.
 
 ## Cron editor
 
@@ -47,8 +51,10 @@ reviewed capability and command registry, not a broader cron API.
 
 ## Delivery order
 
-1. Complete the core cron editor and its saved/install-state comparison. (In progress.)
-2. Add searchable, scrollable Setup navigation driven by panel metadata. (In progress.)
-3. Add core-panel enablement and plugin capability gating.
-4. Expose the restricted registry API to the isolated package runtime only
-   after package code execution is independently attested.
+1. Core cron editor, desired-state persistence, apply, and comparison. (Done.)
+2. Searchable, scrollable Setup navigation driven by panel metadata. (Done.)
+3. Add core-panel enablement and feature gating to the registry.
+4. Bridge signed package panel metadata only after package execution is
+   independently attested.
+5. Add a namespaced package-settings API with schema validation, Setup CSRF,
+   audit records, and no package renderer execution.

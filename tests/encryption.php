@@ -128,6 +128,12 @@ try {
     encryptionExpect(array_key_exists('custom', $cronApi->profiles())
         && method_exists($cronApi, 'preview') && method_exists($cronApi, 'status') && method_exists($cronApi, 'apply'),
         'restricted Setup cron API is unavailable');
+    $panelRegistry = new SetupPanelRegistry([]);
+    $panelApi = new SetupPanelApi('sample-plugin', $panelRegistry, $cronApi);
+    $panelApi->addPanel(['id' => 'sample-plugin-settings', 'title' => 'Sample plugin settings']);
+    encryptionExpect(($panelRegistry->all()['sample-plugin-settings']['kind'] ?? '') === 'package'
+        && ($panelRegistry->all()['sample-plugin-settings']['feature'] ?? '') === 'sample-plugin',
+        'restricted Setup package panel API is unavailable');
     encryptionExpect(($sample['encryption']['stores'] ?? []) === ['config', 'setup', 'account'],
         'quick-install encryption defaults included optional host or assistant stores');
     encryptionExpect(isset($fields['encryption_retention_recovery_tiers'])

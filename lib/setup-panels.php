@@ -18,6 +18,38 @@ function setupPanelDefinition(array $panel): array
         'feature' => isset($panel['feature']) ? setupPanelId((string)$panel['feature']) : null];
 }
 
+/** Registry shared by core Setup and the future isolated package bridge. */
+final class SetupPanelRegistry
+{
+    /** @var array<string, array{id:string,title:string,kind:string,keywords:list<string>,feature:?string}> */
+    private array $panels = [];
+
+    public function __construct(array $fields)
+    {
+        foreach ([
+            ['id' => 'basics', 'title' => 'Installation', 'kind' => 'core', 'keywords' => ['checks', 'prerequisites']],
+            ['id' => 'privacy', 'title' => 'Privacy', 'kind' => 'core', 'keywords' => ['mask', 'paths']],
+            ['id' => 'schedule', 'title' => 'Schedule', 'kind' => 'core', 'keywords' => ['cron', 'vitals', 'scan']],
+        ] as $panel) $this->add($panel);
+        foreach ($fields as $field) {
+            $id = (string)($field['section'] ?? 'basics');
+            if (!isset($this->panels[$id])) {
+                $this->add(['id' => $id, 'title' => ucfirst(str_replace('_', ' ', $id)), 'kind' => 'core']);
+            }
+        }
+    }
+
+    public function add(array $panel): void
+    {
+        $definition = setupPanelDefinition((array)$panel);
+        if (isset($this->panels[$definition['id']])) throw new InvalidArgumentException('setup panel id is already registered');
+        $this->panels[$definition['id']] = $definition;
+    }
+
+    /** @return array<string, array{id:string,title:string,kind:string,keywords:list<string>,feature:?string}> */
+    public function all(): array { return $this->panels; }
+}
+
 /**
  * Core supplies sections derived from fields; an isolated runtime may later
  * supply additional metadata. This function does not execute a package
@@ -27,27 +59,18 @@ function setupPanelDefinition(array $panel): array
  */
 function setupPanels(array $fields, array $registered = []): array
 {
-    $panels = [
-        'basics' => ['id' => 'basics', 'title' => 'Installation', 'kind' => 'core', 'keywords' => ['checks', 'prerequisites'], 'feature' => null],
-        'privacy' => ['id' => 'privacy', 'title' => 'Privacy', 'kind' => 'core', 'keywords' => ['mask', 'paths'], 'feature' => null],
-        'schedule' => ['id' => 'schedule', 'title' => 'Schedule', 'kind' => 'core', 'keywords' => ['cron', 'vitals', 'scan'], 'feature' => null],
-    ];
-    foreach ($fields as $field) {
-        $id = (string)($field['section'] ?? 'basics');
-        $panels[$id] ??= ['id' => $id, 'title' => ucfirst(str_replace('_', ' ', $id)), 'kind' => 'core', 'keywords' => [], 'feature' => null];
-    }
-    foreach ($registered as $panel) {
-        $definition = setupPanelDefinition((array)$panel);
-        if (isset($panels[$definition['id']])) throw new InvalidArgumentException('setup panel id is already registered');
-        $panels[$definition['id']] = $definition;
-    }
-    return $panels;
+    $registry = new SetupPanelRegistry($fields);
+    foreach ($registered as $panel) $registry->add((array)$panel);
+    return $registry->all();
 }
 
 /** Future isolated package registration must use this validator. */
 function setupPanelId(string $id): string
 {
-    if (!preg_match('/^[a-z][a-z0-9-]{1,62}$/', $id)) {
+    // Existing core sections include names such as package_runtime. Preserve
+    // those stable navigation URLs while applying the same bounded grammar to
+    // future package metadata.
+    if (!preg_match('/^[a-z][a-z0-9_-]{1,62}$/', $id)) {
         throw new InvalidArgumentException('setup panel id is invalid');
     }
     return $id;
@@ -68,4 +91,27 @@ final class SetupCronApi
         return cronEditorStatus($this->preview($jobs, $php), $this->scriptDir);
     }
     public function apply(array $jobs, string $php): array { return cronEditorApply($jobs, $php, $this->scriptDir); }
+}
+
+/**
+ * Capability object intended for an independently attested package bridge.
+ * It deliberately omits raw config, files, shell access, and HTML renderers.
+ */
+final class SetupPanelApi
+{
+    public function __construct(
+        private readonly string $packageId,
+        private readonly SetupPanelRegistry $registry,
+        private readonly SetupCronApi $cron
+    ) { setupPanelId($packageId); }
+
+    /** Registers inert package-owned navigation metadata, never a callback. */
+    public function addPanel(array $panel): void
+    {
+        $panel['kind'] = 'package';
+        $panel['feature'] ??= $this->packageId;
+        $this->registry->add($panel);
+    }
+
+    public function cron(): SetupCronApi { return $this->cron; }
 }

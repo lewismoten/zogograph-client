@@ -1224,11 +1224,11 @@ function webPage(
         }
         $lastTest = $_SESSION['setup_deployment_test'] ?? null;
         if (is_array($lastTest) && isset($lastTest['ok'], $lastTest['detail'], $lastTest['tested_at'])) {
-            $out[] = '<p class="banner ' . ($lastTest['ok'] ? 'ok' : 'warn') . '"><strong data-i18n="deployment.last_test">Last target test:</strong> ' . h((string)$lastTest['detail']) . ' (' . h(gmdate('Y-m-d H:i:s', (int)$lastTest['tested_at'])) . ' UTC)</p>';
+            $out[] = '<p class="banner ' . ($lastTest['ok'] ? 'ok' : 'warn') . '" data-i18n="deployment.last_test_result" data-i18n-values="' . h(json_encode(['detail' => (string)$lastTest['detail'], 'tested' => gmdate('c', (int)$lastTest['tested_at'])], JSON_THROW_ON_ERROR)) . '">Last target test: ' . h((string)$lastTest['detail']) . ' (' . h(gmdate('Y-m-d H:i:s', (int)$lastTest['tested_at'])) . ' UTC)</p>';
         }
         $lastCopy = $_SESSION['setup_deployment_copy'] ?? null;
         if (is_array($lastCopy) && isset($lastCopy['ok'], $lastCopy['detail'], $lastCopy['files'])) {
-            $out[] = '<p class="banner ' . ($lastCopy['ok'] ? 'ok' : 'warn') . '"><strong data-i18n="deployment.last_copy">Last release copy:</strong> ' . h((string)$lastCopy['detail']) . ' (' . h((string)$lastCopy['files']) . ' <span data-i18n="deployment.files">files</span>)</p>';
+            $out[] = '<p class="banner ' . ($lastCopy['ok'] ? 'ok' : 'warn') . '" data-i18n="deployment.last_copy_result" data-i18n-values="' . h(json_encode(['detail' => (string)$lastCopy['detail'], 'files' => (int)$lastCopy['files']], JSON_THROW_ON_ERROR)) . '">Last release copy: ' . h((string)$lastCopy['detail']) . ' (' . h((string)$lastCopy['files']) . ' files)</p>';
         }
     } elseif ($activeSection === 'schedule') {
         $schedule = scheduleState(__DIR__);

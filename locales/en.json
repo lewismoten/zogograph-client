@@ -107,6 +107,8 @@
   "deployment.last_test": "Last target test:",
   "deployment.last_copy": "Last release copy:",
   "deployment.files": "files",
+  "deployment.last_test_result": "Last target test: {{detail}} ({{tested, date-time}})",
+  "deployment.last_copy_result": "Last release copy: {{detail}} ({{files, number}} files)",
   "package.settings_help": "These settings are validated against the signed package schema. Setup does not load package code to render this panel.",
   "package.settings_json": "Settings (JSON)",
   "package.save_settings": "Save package settings",

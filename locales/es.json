@@ -1,4 +1,6 @@
 {
+  "deployment.last_test_result": "Última prueba del destino: {{detail}} ({{tested, date-time}})",
+  "deployment.last_copy_result": "Última copia de la versión: {{detail}} ({{files, number}} archivos)",
   "language.label": "Idioma",
   "language.keys": "Mostrar claves de traducción",
   "form.yes": "Sí",

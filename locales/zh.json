@@ -1,4 +1,6 @@
 {
+  "deployment.last_test_result": "上次目标测试：{{detail}}（{{tested, date-time}}）",
+  "deployment.last_copy_result": "上次版本复制：{{detail}}（{{files, number}} 个文件）",
   "language.label": "语言",
   "language.keys": "显示翻译键",
   "form.yes": "是",

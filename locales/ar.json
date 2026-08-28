@@ -1,4 +1,6 @@
 {
+  "deployment.last_test_result": "آخر اختبار للهدف: {{detail}} ({{tested, date-time}})",
+  "deployment.last_copy_result": "آخر نسخ للإصدار: {{detail}} ({{files, number}} ملفًا)",
   "language.label": "اللغة",
   "language.keys": "إظهار مفاتيح الترجمة",
   "form.yes": "نعم",

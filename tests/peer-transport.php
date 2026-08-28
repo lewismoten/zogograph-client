@@ -4,6 +4,12 @@ declare(strict_types=1);
 require_once __DIR__ . '/../lib/peertransport.php';
 require_once __DIR__ . '/../lib/peers.php';
 
+$ingress = file_get_contents(__DIR__ . '/../peer-push.php');
+if ($ingress === false || !str_contains($ingress, "'service' => 'zogograph-peer-transport'")
+    || !str_contains($ingress, "(string)(\$_GET['health'] ?? '') === '1'")) {
+    throw new RuntimeException('peer ingress does not expose the bounded protocol-health response');
+}
+
 function transportExpect(bool $condition, string $message): void
 {
     if (!$condition) throw new RuntimeException($message);

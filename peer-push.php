@@ -15,10 +15,14 @@ header('Content-Type: application/json');
 header('Cache-Control: no-store');
 header('X-Content-Type-Options: nosniff');
 
+if (($_SERVER['REQUEST_METHOD'] ?? '') === 'GET' && (string)($_GET['health'] ?? '') === '1') {
+    echo json_encode(['ok' => true, 'service' => 'zogograph-peer-transport', 'protocol_version' => PEER_TRANSPORT_PROTOCOL]);
+    exit;
+}
 if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
     http_response_code(405);
-    header('Allow: POST');
-    echo json_encode(['error' => 'POST required']);
+    header('Allow: GET, POST');
+    echo json_encode(['error' => 'POST required; use GET ?health=1 for protocol readiness']);
     exit;
 }
 $declaredLength = filter_var($_SERVER['CONTENT_LENGTH'] ?? null, FILTER_VALIDATE_INT,

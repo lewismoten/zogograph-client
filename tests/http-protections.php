@@ -219,7 +219,8 @@ if ($peerPush === false) {
 }
 foreach ([
     "(\$_SERVER['REQUEST_METHOD'] ?? '') !== 'POST'",
-    "header('Allow: POST')",
+    "header('Allow: GET, POST')",
+    "(string)(\$_GET['health'] ?? '') === '1'",
     'PEER_TRANSPORT_MAX_BYTES',
     "http_response_code(413)",
     'peerTransportAccept($pdo, $config',

@@ -40,14 +40,18 @@ try {
     $result = remoteDeploymentTest($config, $testProfile, static function (array $command) use (&$seen): array { $seen = $command; return ['ok' => true, 'detail' => 'target directory verified']; });
     remoteDeploymentExpect($result['ok'] === true && in_array('StrictHostKeyChecking=yes', $seen, true)
         && !str_contains(implode(' ', $seen), 'private-deployment-material'), 'deployment test lacks SSH verification or exposes credential material');
-    $archive = $directory . '/remote-release.zip'; $zip = new ZipArchive();
-    remoteDeploymentExpect($zip->open($archive, ZipArchive::CREATE) === true && $zip->addFromString('dist/index.html', '<!doctype html><title>Remote</title>') && $zip->close(), 'could not make a test remote release archive');
-    $staged = remoteDeploymentStageRelease($archive);
-    remoteDeploymentExpect($staged['files'] === 1 && is_file($staged['directory'] . '/index.html'), 'release archive was not safely staged with its common root removed');
-    remoteDeploymentRemoveDirectory($staged['directory']);
-    $calls = [];
-    $copied = remoteDeploymentCopyRelease($config, $testProfile, $archive, static function (array $command) use (&$calls): array { $calls[] = $command; return ['ok' => true, 'detail' => 'ok']; });
-    remoteDeploymentExpect($copied['ok'] === true && count($calls) === 2 && $calls[1][0] === 'rsync' && !str_contains(implode(' ', $calls[1]), 'private-deployment-material'), 'release copy did not retest then use secret-free rsync arguments');
+    if (class_exists(ZipArchive::class)) {
+        $archive = $directory . '/remote-release.zip'; $zip = new ZipArchive();
+        remoteDeploymentExpect($zip->open($archive, ZipArchive::CREATE) === true && $zip->addFromString('dist/index.html', '<!doctype html><title>Remote</title>') && $zip->close(), 'could not make a test remote release archive');
+        $staged = remoteDeploymentStageRelease($archive);
+        remoteDeploymentExpect($staged['files'] === 1 && is_file($staged['directory'] . '/index.html'), 'release archive was not safely staged with its common root removed');
+        remoteDeploymentRemoveDirectory($staged['directory']);
+        $calls = [];
+        $copied = remoteDeploymentCopyRelease($config, $testProfile, $archive, static function (array $command) use (&$calls): array { $calls[] = $command; return ['ok' => true, 'detail' => 'ok']; });
+        remoteDeploymentExpect($copied['ok'] === true && count($calls) === 2 && $calls[1][0] === 'rsync' && !str_contains(implode(' ', $calls[1]), 'private-deployment-material'), 'release copy did not retest then use secret-free rsync arguments');
+    } else {
+        echo "remote deployment ZIP checks skipped: ZipArchive is unavailable\n";
+    }
     @unlink($keyPath); @unlink($directory . '/.htaccess'); foreach (glob($directory . '/data/setup.db*') ?: [] as $file) @unlink($file); @rmdir($directory . '/data'); @rmdir($directory);
 } catch (Throwable $error) {
     @unlink($keyPath ?? ''); @rmdir($directory); throw $error;

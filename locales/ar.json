@@ -177,6 +177,7 @@
   "openid.trusted_apps": "التطبيقات الموثوقة",
   "openid.remove": "إزالة",
   "openid.client_id": "معرّف العميل",
+  "openid.actions": "الإجراءات",
   "openid.redirect_url": "عنوان إعادة توجيه HTTPS الدقيق",
   "openid.create_client": "إنشاء عميل موثوق",
   "update.available": "يتوفر تحديث أحدث لـ Zogograph. أعد التحميل عندما تكون جاهزًا.",

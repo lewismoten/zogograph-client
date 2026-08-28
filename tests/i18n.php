@@ -66,7 +66,7 @@ i18nExpect($setup !== false && str_contains($setup, 'data-i18n="auth.open_accoun
     && str_contains($setup, 'data-i18n="auth.provisioning_uri"'),
     'Setup authenticator enrollment guidance is not localized');
 i18nExpect($setup !== false && str_contains($setup, 'data-i18n="openid.provider_intro"')
-    && str_contains($setup, 'data-i18n="openid.secret_copy"'),
+    && str_contains($setup, 'data-i18n="openid.secret_copy"') && str_contains($setup, 'data-i18n="openid.actions"'),
     'Setup OpenID security guidance is not localized');
 i18nExpect($setup !== false && str_contains($setup, 'data-i18n="deployment.copy_release"')
     && str_contains($setup, 'data-i18n="deployment.review_transport"')

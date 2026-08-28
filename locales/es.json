@@ -91,6 +91,7 @@
   "openid.trusted_apps": "Aplicaciones de confianza",
   "openid.remove": "Eliminar",
   "openid.client_id": "ID de cliente",
+  "openid.actions": "Acciones",
   "openid.redirect_url": "URL exacta de redirección HTTPS",
   "openid.create_client": "Crear cliente de confianza",
   "navigation.overview": "Resumen",

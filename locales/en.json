@@ -208,6 +208,7 @@
   "openid.secret_saved": "I saved the client secret",
   "openid.remove": "Remove",
   "openid.client_id": "Client ID",
+  "openid.actions": "Actions",
   "openid.redirect_url": "Exact HTTPS redirect URL",
   "openid.create_client": "Create trusted client",
   "navigation.overview": "Overview",

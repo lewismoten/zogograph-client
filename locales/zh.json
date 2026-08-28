@@ -177,6 +177,7 @@
   "openid.trusted_apps": "受信任的应用程序",
   "openid.remove": "移除",
   "openid.client_id": "客户端 ID",
+  "openid.actions": "操作",
   "openid.redirect_url": "精确的 HTTPS 重定向 URL",
   "openid.create_client": "创建受信任的客户端",
   "update.available": "有更新版本的 Zogograph 可用。准备好后请重新加载。",

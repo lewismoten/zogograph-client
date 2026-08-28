@@ -177,6 +177,7 @@
   "openid.trusted_apps": "विश्वसनीय ऐप्लिकेशन",
   "openid.remove": "हटाएँ",
   "openid.client_id": "क्लाइंट ID",
+  "openid.actions": "कार्रवाइयाँ",
   "openid.redirect_url": "सटीक HTTPS रीडायरेक्ट URL",
   "openid.create_client": "विश्वसनीय क्लाइंट बनाएँ",
   "update.available": "Zogograph का नया अपडेट उपलब्ध है। तैयार होने पर पुनः लोड करें।",

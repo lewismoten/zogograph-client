@@ -38,6 +38,15 @@ function t(key, values = {}, fallbackText = "") {
   return text.replace(/\{\{([\w.-]+)(?:,\s*(number|latin-number|compact|percent|unit|currency|date|time|date-time))?\}\}/g, (_, name, kind) => i18nFormat(values[name], kind, name, values));
 }
 
+function i18nNodeValues(node) {
+  const raw = node.dataset.i18nValues;
+  if (!raw) return {};
+  try {
+    const values = JSON.parse(raw);
+    return values && !Array.isArray(values) && typeof values === "object" ? values : {};
+  } catch { return {}; }
+}
+
 async function i18nLoad(locale = i18nRequestedLocale()) {
   const get = async name => { const r = await fetch(`./locales/${name}.json`, { cache: "no-store" }); return r.ok ? r.json() : {}; };
   i18n.fallback = await get(I18N_BASE);
@@ -45,7 +54,7 @@ async function i18nLoad(locale = i18nRequestedLocale()) {
   i18n.locale = locale; document.documentElement.lang = locale;
   document.documentElement.dir = I18N_RTL.has(locale.split("-")[0]) ? "rtl" : "ltr";
   document.querySelectorAll("[data-i18n]").forEach(node => {
-    const key = node.dataset.i18n; node.textContent = t(key); node.title = i18n.keyMode ? i18n.fallback[key] || key : "";
+    const key = node.dataset.i18n; node.textContent = t(key, i18nNodeValues(node)); node.title = i18n.keyMode ? i18n.fallback[key] || key : "";
   });
   for (const [attribute, data] of [["placeholder", "i18nPlaceholder"], ["title", "i18nTitle"], ["aria-label", "i18nAriaLabel"], ["alt", "i18nAlt"]]) {
     document.querySelectorAll(`[data-${data.replace(/[A-Z]/g, letter => `-${letter.toLowerCase()}`)}]`).forEach(node => {

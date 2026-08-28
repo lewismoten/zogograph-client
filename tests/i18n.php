@@ -10,6 +10,7 @@ $configure = file_get_contents($root . '/lib/configure.php');
 $english = json_decode((string)file_get_contents($root . '/locales/en.json'), true);
 i18nExpect($runtime !== false && str_contains($runtime, 'Intl.NumberFormat') && str_contains($runtime, 'I18N_RTL')
     && str_contains($runtime, 'zogograph.locale') && str_contains($runtime, 'data-i18n') && str_contains($runtime, 'registerCatalog')
+    && str_contains($runtime, 'i18nNodeValues')
     && str_contains($runtime, 'latin-number') && str_contains($runtime, 'compact') && str_contains($runtime, 'percent') && str_contains($runtime, 'unit') && str_contains($runtime, 'date-time') && str_contains($runtime, 'currency')
     && str_contains($runtime, 'i18nPlaceholder') && str_contains($runtime, 'i18nAlt') && str_contains($runtime, 'zogograph-i18n-load') && str_contains($runtime, 'package-i18n'),
     'locale runtime lacks formatting, RTL, preference, or key-mode support');
@@ -63,11 +64,15 @@ i18nExpect($setup !== false && str_contains($setup, 'data-i18n="deployment.copy_
     && str_contains($setup, 'data-i18n="deployment.review_transport"')
     && str_contains($setup, 'data-i18n="deployment.method"') && str_contains($setup, 'data-i18n="deployment.update_manual"'),
     'Setup deployment release controls are not localized');
+i18nExpect($setup !== false && str_contains($setup, 'data-i18n="merge.review_expiry"')
+    && str_contains($setup, 'data-i18n-values=') && str_contains($setup, 'data-i18n="merge.apply_help"')
+    && str_contains($setup, 'data-i18n="merge.last_result"'),
+    'Setup account-merge review cannot localize its values and guidance');
 i18nExpect($configure !== false && str_contains($configure, 'function generatedFieldLabel')
     && str_contains($configure, "'label' => generatedFieldLabel(\$path)")
     && !str_contains($configure, "'label' => \$dotted"),
     'generated Setup fields can still expose dotted internal configuration paths');
-i18nExpect(is_array($english) && isset($english['example.readings'], $english['example.compact'], $english['example.cost'], $english['example.percent'], $english['example.storage'], $english['example.changed'], $english['update.available'], $english['range.10m'], $english['action.reload'], $english['navigation.storage'], $english['navigation.cpu'], $english['navigation.deleted_held'], $english['navigation.cpu_limits'], $english['deployment.test'], $english['deployment.copy_release'], $english['deployment.method'], $english['deployment.update_manual'], $english['merge.apply'], $english['installation.checks'], $english['auth.qr_alt'], $english['auth.open_account'], $english['image.generated'], $english['package.save_settings'], $english['schedule.custom_builder'], $english['schedule.job.vitals'], $english['schedule.remove'], $english['setup.search_results'], $english['openid.provider_intro'], $english['openid.secret_copy']),
+i18nExpect(is_array($english) && isset($english['example.readings'], $english['example.compact'], $english['example.cost'], $english['example.percent'], $english['example.storage'], $english['example.changed'], $english['update.available'], $english['range.10m'], $english['action.reload'], $english['navigation.storage'], $english['navigation.cpu'], $english['navigation.deleted_held'], $english['navigation.cpu_limits'], $english['deployment.test'], $english['deployment.copy_release'], $english['deployment.method'], $english['deployment.update_manual'], $english['merge.apply'], $english['merge.review_expiry'], $english['merge.last_result'], $english['installation.checks'], $english['auth.qr_alt'], $english['auth.open_account'], $english['image.generated'], $english['package.save_settings'], $english['schedule.custom_builder'], $english['schedule.job.vitals'], $english['schedule.remove'], $english['setup.search_results'], $english['openid.provider_intro'], $english['openid.secret_copy']),
     'English fallback catalog is incomplete');
 preg_match_all('/data-i18n(?:-placeholder|-title|-aria-label)?="([^"]+)"/', (string)$page, $pageKeys);
 foreach (array_unique($pageKeys[1] ?? []) as $key) {

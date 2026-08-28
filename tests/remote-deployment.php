@@ -11,6 +11,8 @@ remoteDeploymentExpect($plan['method'] === 'rsync_ssh' && in_array('StrictHostKe
     && !str_contains(implode(' ', $plan['copy']), 'deploy_ref:'), 'SSH deployment preview exposes a reference or lacks host-key verification');
 $ftpsPlan = remoteDeploymentCommandPlan($ftps);
 remoteDeploymentExpect($ftpsPlan['method'] === 'ftps' && in_array('--ftp-ssl-reqd', $ftpsPlan['preflight'], true), 'FTPS deployment preview does not require TLS');
+$localRun = remoteDeploymentRun([PHP_BINARY, '-r', 'exit(0);']);
+remoteDeploymentExpect($localRun['ok'] === true, 'deployment process runner did not retain a successful child exit status');
 foreach ([['target_path' => '/srv/../bad'], ['host' => 'ssh://bad.example'], ['port' => '0'], ['port' => '70000'], ['credential_reference' => 'actual secret value!'], ['controller_url' => 'http://core.example'], ['controller_url' => 'https://bad_host.example']] as $change) {
     try { remoteDeploymentProfile($change + $profile); throw new RuntimeException('unsafe deployment profile was accepted'); } catch (InvalidArgumentException) { }
 }

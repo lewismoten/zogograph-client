@@ -163,8 +163,10 @@ function remoteDeploymentRun(array $command): array
         proc_close($process);
         return ['ok' => false, 'detail' => 'the target check timed out'];
     }
+    $exitCode = (int)($status['exitcode'] ?? -1);
     foreach ([1, 2] as $pipe) { stream_get_contents($pipes[$pipe]); fclose($pipes[$pipe]); }
-    $code = proc_close($process);
+    $closedCode = proc_close($process);
+    $code = $exitCode >= 0 ? $exitCode : $closedCode;
     return $code === 0 ? ['ok' => true, 'detail' => 'target directory verified'] : ['ok' => false, 'detail' => 'the target check failed (exit status ' . $code . ')'];
 }
 

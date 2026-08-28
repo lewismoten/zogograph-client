@@ -93,6 +93,11 @@ preg_match_all('/data-i18n(?:-placeholder|-title|-aria-label)?="([^"]+)"/', (str
 foreach (array_unique($pageKeys[1] ?? []) as $key) {
     i18nExpect(isset($english[$key]), "dashboard i18n attribute key $key has no English fallback");
 }
+$setupLocaleSources = (string)$setup . "\n" . (string)file_get_contents($root . '/lib/setup-cron-editor.php');
+preg_match_all('/data-i18n(?:-placeholder|-title|-aria-label|-alt)?="([a-z][\\w.-]+)"/', $setupLocaleSources, $setupKeys);
+foreach (array_unique($setupKeys[1] ?? []) as $key) {
+    i18nExpect(isset($english[$key]), "setup i18n attribute key $key has no English fallback");
+}
 $translatedNavigation = ['navigation.deleted_held', 'navigation.cpu_limits', 'navigation.memory_by_user', 'navigation.memory_breakdown', 'navigation.memory_services', 'navigation.memory_processes', 'navigation.kernel_slab', 'navigation.services', 'navigation.units', 'navigation.last_busy', 'navigation.url_checks', 'navigation.open_ports', 'navigation.connected_peers', 'navigation.network_capture', 'navigation.network_captures', 'navigation.dns_lookups', 'navigation.domains', 'navigation.whois', 'navigation.fetch_page', 'navigation.dns_records', 'navigation.whoami', 'navigation.reverse_dns', 'navigation.assistant', 'navigation.assistant_identity', 'navigation.past_conversations', 'navigation.summaries', 'navigation.assistant_memory', 'navigation.ai_model', 'navigation.prices', 'navigation.thresholds', 'navigation.images', 'navigation.tools', 'navigation.try_tool', 'navigation.billing', 'navigation.assistant_data', 'navigation.terminal', 'navigation.sessions', 'navigation.host_capabilities', 'navigation.installed_software', 'navigation.changes', 'navigation.system', 'navigation.account_data', 'navigation.protection', 'navigation.host_data', 'navigation.data_retention', 'navigation.trusted_servers', 'navigation.marketplace', 'navigation.package_runtime', 'navigation.forensics', 'navigation.database_copies', 'navigation.recent_problems', 'navigation.email_alerts', 'navigation.account_scans', 'navigation.host_scans', 'navigation.custom_names', 'navigation.audit', 'navigation.descriptions'];
 foreach (['en-US', 'en-GB', 'es', 'hi', 'zh', 'ar'] as $locale) {
     $catalog = json_decode((string)file_get_contents($root . '/locales/' . $locale . '.json'), true);

@@ -52,6 +52,25 @@ try {
         && accountMergeInspect($historicalPath)['source_version'] === 1,
         'merge preparation did not upgrade only the private source clone');
     $preparedPdo = null; @unlink($prepared); @rmdir($dir . '/prepared-source');
+
+    /* A sanitized operator fixture can prove the read-only merge-review path
+     * against a real account store. It is optional in CI and never attached to
+     * or changed by this test. */
+    $provided = realpath(__DIR__ . '/../scratch/old-stats.db');
+    if ($provided !== false && is_file($provided) && !is_link($provided)) {
+        $before = hash_file('sha256', $provided);
+        $providedInspection = accountMergeInspect($provided);
+        accountMergeExpect($providedInspection['eligible']
+            && $providedInspection['source_version'] !== null
+            && $providedInspection['source_version'] <= $providedInspection['current_version'],
+            'supplied historical account fixture is not eligible for a read-only merge review');
+        $providedPrepared = accountMergePreparedSource($provided, $dir . '/provided-source');
+        $providedCopy = new PDO('sqlite:' . $providedPrepared, null, null, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+        accountMergeExpect((int)$providedCopy->query('SELECT MAX(version) FROM schema_version')->fetchColumn() === $providedInspection['current_version']
+            && hash_file('sha256', $provided) === $before,
+            'historical account merge preparation changed its source or did not produce a current private clone');
+        $providedCopy = null; @unlink($providedPrepared); @rmdir($dir . '/provided-source');
+    }
     $target = new PDO('sqlite::memory:', null, null, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]); migrate($target, true);
     $target->exec('INSERT INTO vitals (taken_at, source) VALUES (200, "test"), (300, "test")');
     $target->exec('INSERT INTO scans (started_at) VALUES (400)');

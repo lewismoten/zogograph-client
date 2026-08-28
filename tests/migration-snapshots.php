@@ -5,6 +5,8 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/../lib/db.php';
 require_once __DIR__ . '/../lib/storekeep.php';
+require_once __DIR__ . '/../lib/hostdb.php';
+require_once __DIR__ . '/../lib/aidb.php';
 
 function migrationTestExpect(bool $condition, string $message): void
 {
@@ -96,6 +98,37 @@ try {
     migrationTestExpect((int)$partial->query("SELECT COUNT(*) FROM sqlite_master WHERE type = 'table' AND name = 'path_hygiene_scans'")->fetchColumn() === 1,
         'path hygiene scan ledger migration did not complete');
     $partial = null;
+
+    /* Production-like fixtures are intentionally ignored by Git. When the
+     * operator supplies them in scratch/, prove each can be copied, opened,
+     * and migrated without changing the original. This gives real schema
+     * evidence locally while keeping CI and release archives data-free. */
+    $fixtureRoot = realpath(__DIR__ . '/../scratch');
+    $fixtureMigrations = [
+        'old-stats.db' => static fn(PDO $copy): null => migrate($copy),
+        'old-host.db' => static fn(PDO $copy): null => hostMigrate($copy),
+        'old-ai.db' => static fn(PDO $copy): null => aiMigrate($copy),
+        // setup.db has no versioned migration ledger; its integrity and safe
+        // clone are still meaningful compatibility evidence.
+        'old-setup.db' => static fn(PDO $copy): null => null,
+    ];
+    if ($fixtureRoot !== false) foreach ($fixtureMigrations as $name => $upgradeFixture) {
+        $fixture = $fixtureRoot . '/' . $name;
+        if (!is_file($fixture) || is_link($fixture)) continue;
+        $before = hash_file('sha256', $fixture);
+        migrationTestExpect(is_string($before), "could not fingerprint supplied historical fixture $name");
+        $source = new PDO('sqlite:' . $fixture, null, null, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+        migrationTestExpect((string)$source->query('PRAGMA quick_check(1)')->fetchColumn() === 'ok', "supplied historical fixture $name failed SQLite integrity");
+        $clone = $directory . '/provided-' . $name;
+        $source->exec('VACUUM INTO ' . $source->quote($clone));
+        $source = null;
+        $copy = new PDO('sqlite:' . $clone, null, null, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+        $upgradeFixture($copy);
+        migrationTestExpect((string)$copy->query('PRAGMA quick_check(1)')->fetchColumn() === 'ok', "migration damaged cloned historical fixture $name");
+        $copy = null;
+        migrationTestExpect(hash_file('sha256', $fixture) === $before, "migration changed supplied historical fixture $name");
+        unlink($clone);
+    }
 
     unlink($snapshot);
     unlink($database);

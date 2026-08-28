@@ -77,7 +77,8 @@ The same wizard runs at a prompt if you prefer:
 php setup.php --write
 ```
 
-Either way, **delete `setup.php` once you are done**.
+Keep `setup.php`: it is the password-protected backend for later
+administrator configuration changes.
 
 Take the first readings:
 
@@ -174,8 +175,8 @@ of bytes.
 
 The install window is a real window: between uploading these files and
 finishing setup, whoever reaches the page first chooses the password. Do it
-straight away, then delete `setup.php`. If you would rather keep the file,
-`.htaccess` has a commented-out block that denies it.
+straight away. Keep `setup.php` available afterwards so an authenticated
+administrator can safely update configuration later.
 
 ## Cron
 

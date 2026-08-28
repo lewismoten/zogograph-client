@@ -94,9 +94,10 @@ The wizard tells you which PHP binary it sees. Use the absolute path reported
 by `which php` in cron if your host has more than one PHP version.
 
 The initial setup page is intentionally open while no configuration exists, so
-finish it as soon as the files are live. Once setup succeeds, remove
-`setup.php` from the deployed site. If you retain it temporarily, deny web
-access to it at the web-server level.
+finish it as soon as the files are live. Keep `setup.php` deployed afterwards:
+it is the password-protected backend for later administrator configuration
+changes. Require HTTPS and protect the administrator password rather than
+removing or denying this backend.
 
 ## 3. Take the first readings
 
@@ -154,8 +155,8 @@ instead of presenting an invented "load excluding monitoring" number.
 - Confirm the dashboard is reachable only over HTTPS.
 - Confirm a direct request to `data/`, `lib/`, `cron.php`, and `host-cron.php`
   is denied by the web server.
-- Remove `setup.php` after setup. You may also remove `health.php` if you do
-  not want a public diagnostic page.
+- Keep `setup.php` available for authenticated administrator configuration.
+  You may remove `health.php` if you do not want a public diagnostic page.
 - Back up `data/` privately. It contains the measurements, settings, and
   sensitive configuration state.
 

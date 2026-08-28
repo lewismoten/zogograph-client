@@ -16,7 +16,7 @@ declare(strict_types=1);
  * reports *states* and never paths, never the config, never the contents of
  * anything - "the data directory is not writable", not where it is.
  *
- * Delete it along with setup.php if you would rather not have it there.
+ * You may remove this health page if you would rather not have it there.
  */
 
 header('Content-Type: text/html; charset=utf-8');

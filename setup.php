@@ -29,7 +29,7 @@ declare(strict_types=1);
  *
  * The install window is still a window: between uploading these files and
  * finishing setup, whoever reaches this page first chooses the password. Do it
- * straight away, and delete setup.php afterwards - the page says so itself.
+ * straight away; afterwards the same protected backend supports later changes.
  */
 
 require_once __DIR__ . '/lib/boot.php';
@@ -526,9 +526,8 @@ function webPage(
         $out[] = '<div class="banner ok"><strong>Settings saved in <code>data/setup.db</code>.</strong>'
             . '<p>Take the first readings, then open the dashboard:</p>'
             . '<pre><code>php cron.php --vitals' . "\n" . 'php cron.php --scan</code></pre>'
-            . '<p><strong>Now delete <code>setup.php</code>.</strong> It will not let anybody '
-            . 'replace your config without the password, but there is no reason to leave a '
-            . 'setup page on a live site.</p>'
+            . '<p>Keep <code>setup.php</code> available for later administrator changes. '
+            . 'It requires the current password before it can replace your configuration.</p>'
             . '<p><a href="./">Open the dashboard</a></p></div>';
 
         if (!empty($values['host_enabled'])) {
@@ -552,7 +551,7 @@ function webPage(
     if (!$configured) {
         $out[] = '<div class="banner crit"><strong>Nothing is configured yet.</strong>'
             . '<p>Until you finish, anybody who can reach this page can set the password. '
-            . 'Do it now, and delete <code>setup.php</code> afterwards.</p></div>';
+            . 'Do it now; afterwards this remains the password-protected configuration backend.</p></div>';
     } elseif (!$unlocked && $existing['password_hash'] === '') {
         $out[] = '<div class="banner warn"><strong>Already configured, with no password.</strong>'
             . '<p>There is no secret to prove, so nothing can authorise replacing the config '

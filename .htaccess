@@ -50,12 +50,9 @@ DirectoryIndex index.html
 # needs the password already in it. Anyone else gets text to paste, which needs
 # filesystem access and is therefore its own authorisation.
 #
-# Delete setup.php once you are set up. Or, if you would rather keep it and shut
-# the door completely, uncomment this:
-#
-# <Files "setup.php">
-#   Require all denied
-# </Files>
+# Keep setup.php available for later administrator configuration. Require HTTPS
+# and keep the configured administrator password private; setup.php requires
+# that password before it can replace an existing configuration.
 
 <IfModule mod_headers.c>
   # The dashboard loads nothing from anywhere else, so it can say so.

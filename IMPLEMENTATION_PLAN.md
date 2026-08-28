@@ -79,7 +79,9 @@ the product is complete.
   QR presentation when the host provides `qrencode`, requires a successful
   verification code before saving, and displays one-time backup codes once
   after acknowledgement.
-- [ ] Replace raw dotted generated labels with authored Setup questions.
+- [x] Replace raw dotted generated labels with authored Setup questions. The
+  current configuration inventory has no generated fallback fields, and the
+  retained fallback never exposes a dotted internal path.
 - [~] Build locale catalogs, locale preference/detection, named formatting,
   RTL support, key-inspection mode, and package language catalog merge rules.
   The dashboard shell and signed package catalogs are covered; feature-panel

@@ -129,6 +129,8 @@ try {
         && setupDisplayValue(['directory' => '/home/zogograph/client.zogograph.com/lib/../data/marketplace'])['directory'] === '/home/zogograph/client.zogograph.com/data/marketplace',
         'Setup displays non-canonical private data paths');
     $fields = array_column(configFields($sample), null, 'key');
+    encryptionExpect(array_filter(configFields($sample), static fn(array $field): bool => !empty($field['generated'])) === [],
+        'a configuration field still relies on a generated Setup label rather than an authored question');
     encryptionExpect(!isset($fields['cfg_schedule__scan__profile']) && !isset($fields['cfg_schedule__vitals__profile']),
         'schedule editor internals leaked into the generated setup fields');
     $bootstrapFields = array_values(array_filter(configFields($sample),

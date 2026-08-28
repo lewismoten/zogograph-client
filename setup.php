@@ -1353,9 +1353,8 @@ function webPage(
     $out[] = '</form></main></div>';
 
     if ($rendered !== null) {
-        $out[] = '<h2 style="margin-top:28px">Copy this into <code>lib/config.php</code></h2>';
-        $out[] = '<p class="muted small">Replacing the whole file. Keep it out of reach — '
-            . '<code>lib/.htaccess</code> already denies the directory.'
+        $out[] = '<h2 style="margin-top:28px" data-i18n="setup.copy_config">Copy this into lib/config.php</h2>';
+        $out[] = '<p class="muted small"><span data-i18n="setup.copy_config_help">Replacing the whole file. Keep it out of reach — lib/.htaccess already denies the directory.</span>'
             . ($configured && !$authorised
                 ? ' This text carries a <strong>new</strong> mask secret, so using it renames '
                   . 'every masked path on the dashboard.'

@@ -32,6 +32,8 @@
   "setup.root_verify_help": "Después ejecútelo una vez manualmente para comprobar que funciona, sin la programación y sin --quiet para que le indique lo que encontró:",
   "setup.root_schedule_help": "Hasta que se ejecute, el panel de toda la máquina del panel lo indicará en lugar de mostrar datos. El editor de programación del panel no puede gestionar este trabajo: edita el crontab de su cuenta y este pertenece a root.",
   "setup.save": "Guardar",
+  "setup.copy_config": "Copie esto en lib/config.php",
+  "setup.copy_config_help": "Reemplaza el archivo completo. Manténgalo fuera de alcance: lib/.htaccess ya deniega el directorio.",
   "setup.installation": "Instalación",
   "installation.checks": "Comprobaciones de instalación",
   "installation.check": "Comprobación",

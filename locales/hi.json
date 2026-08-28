@@ -32,6 +32,8 @@
   "setup.root_verify_help": "फिर इसे एक बार हाथ से चलाकर देखें कि यह काम करता है — शेड्यूल के बिना और --quiet के बिना, ताकि यह बताए कि इसे क्या मिला:",
   "setup.root_schedule_help": "जब तक यह चलता नहीं है, डैशबोर्ड का पूरी मशीन वाला पैनल डेटा दिखाने के बजाय यही बताएगा। डैशबोर्ड का शेड्यूल संपादक इस कार्य को प्रबंधित नहीं कर सकता: वह आपके खाते का crontab संपादित करता है और यह root का है।",
   "setup.save": "सहेजें",
+  "setup.copy_config": "इसे lib/config.php में कॉपी करें",
+  "setup.copy_config_help": "यह पूरी फ़ाइल को बदलता है। इसे पहुँच से दूर रखें — lib/.htaccess पहले से इस निर्देशिका को अस्वीकार करता है।",
   "setup.installation": "स्थापना",
   "installation.checks": "स्थापना जांच", "installation.check": "जांच", "installation.state": "स्थिति", "installation.detail": "विवरण",
   "setup.section.privacy": "गोपनीयता",

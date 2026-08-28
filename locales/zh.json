@@ -32,6 +32,8 @@
   "setup.root_verify_help": "然后手动运行一次以确认它能正常工作：不要使用计划任务，也不要使用 --quiet，以便它报告发现的内容：",
   "setup.root_schedule_help": "在它运行之前，仪表板的整机面板会显示这一状态而不会显示数据。仪表板的计划编辑器无法管理此任务：它编辑的是您账户的 crontab，而这个任务属于 root。",
   "setup.save": "保存",
+  "setup.copy_config": "将此内容复制到 lib/config.php",
+  "setup.copy_config_help": "这会替换整个文件。请将其置于不可访问处：lib/.htaccess 已拒绝访问该目录。",
   "setup.installation": "安装",
   "installation.checks": "安装检查", "installation.check": "检查项", "installation.state": "状态", "installation.detail": "详情",
   "setup.section.privacy": "隐私",

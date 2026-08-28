@@ -32,6 +32,8 @@
   "setup.root_verify_help": "ثم شغّله يدويًا مرة واحدة للتأكد من عمله، من دون الجدولة ومن دون --quiet حتى يخبرك بما وجده:",
   "setup.root_schedule_help": "إلى أن يعمل، ستعرض لوحة الجهاز بالكامل في لوحة التحكم هذه الحالة بدلًا من عرض البيانات. لا يستطيع محرر الجدولة في لوحة التحكم إدارة هذه المهمة: فهو يحرر crontab لحسابك، أما هذه المهمة فتابعة لـ root.",
   "setup.save": "حفظ",
+  "setup.copy_config": "انسخ هذا إلى lib/config.php",
+  "setup.copy_config_help": "يستبدل هذا الملف كاملًا. أبقه بعيدًا عن المتناول — ملف lib/.htaccess يمنع الوصول إلى الدليل بالفعل.",
   "setup.installation": "التثبيت",
   "installation.checks": "فحوصات التثبيت", "installation.check": "الفحص", "installation.state": "الحالة", "installation.detail": "التفاصيل",
   "setup.section.privacy": "الخصوصية",

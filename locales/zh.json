@@ -30,6 +30,7 @@
   "setup.root_step": "还需要以 root 身份完成一步。",
   "setup.root_install_help": "无法从此处安装主机采集器：它以 root 身份运行，而此页面以您的账户身份运行。请以 root 身份登录 WHM 或通过 SSH 登录，并将以下内容添加到 root 的 crontab（crontab -e）：",
   "setup.root_verify_help": "然后手动运行一次以确认它能正常工作：不要使用计划任务，也不要使用 --quiet，以便它报告发现的内容：",
+  "setup.root_schedule_help": "在它运行之前，仪表板的整机面板会显示这一状态而不会显示数据。仪表板的计划编辑器无法管理此任务：它编辑的是您账户的 crontab，而这个任务属于 root。",
   "setup.installation": "安装",
   "installation.checks": "安装检查", "installation.check": "检查项", "installation.state": "状态", "installation.detail": "详情",
   "setup.section.privacy": "隐私",

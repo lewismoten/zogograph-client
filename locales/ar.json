@@ -30,6 +30,7 @@
   "setup.root_step": "هناك خطوة أخرى بصلاحية root.",
   "setup.root_install_help": "لا يمكن تثبيت جامع المضيف من هنا، فهو يعمل بصلاحية root بينما تعمل هذه الصفحة بحسابك. سجّل الدخول إلى WHM أو عبر SSH بصلاحية root وأضف ما يلي إلى crontab الخاص بـ root ‏(crontab -e):",
   "setup.root_verify_help": "ثم شغّله يدويًا مرة واحدة للتأكد من عمله، من دون الجدولة ومن دون --quiet حتى يخبرك بما وجده:",
+  "setup.root_schedule_help": "إلى أن يعمل، ستعرض لوحة الجهاز بالكامل في لوحة التحكم هذه الحالة بدلًا من عرض البيانات. لا يستطيع محرر الجدولة في لوحة التحكم إدارة هذه المهمة: فهو يحرر crontab لحسابك، أما هذه المهمة فتابعة لـ root.",
   "setup.installation": "التثبيت",
   "installation.checks": "فحوصات التثبيت", "installation.check": "الفحص", "installation.state": "الحالة", "installation.detail": "التفاصيل",
   "setup.section.privacy": "الخصوصية",

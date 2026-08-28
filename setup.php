@@ -1084,9 +1084,7 @@ function webPage(
                 . '<pre><code>' . h(hostCronLine()) . '</code></pre>'
                 . '<p data-i18n="setup.root_verify_help">Then run it once by hand to see that it works — without the schedule, and without --quiet so it tells you what it found:</p>'
                 . '<pre><code>' . h(hostCronCommand()) . '</code></pre>'
-                . '<p>Until it runs, the <em>whole machine</em> panel on the dashboard will say '
-                . 'so rather than showing anything. The dashboard\'s own schedule editor cannot '
-                . 'manage this job: it edits your account\'s crontab, and this one is root\'s.</p>'
+                . '<p data-i18n="setup.root_schedule_help">Until it runs, the whole-machine panel on the dashboard will say so rather than showing anything. The dashboard’s schedule editor cannot manage this job: it edits your account’s crontab, and this one belongs to root.</p>'
                 . '</div>';
         }
         $out[] = '</body></html>';

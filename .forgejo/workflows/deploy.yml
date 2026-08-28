@@ -59,6 +59,7 @@ jobs:
         run: |
           set -euo pipefail
           command -v php >/dev/null || { apt-get update; apt-get install -y php-cli php-sqlite3 php-mbstring; }
+          php -r 'exit(extension_loaded("zip") ? 0 : 1);' || { apt-get update; apt-get install -y php-zip; }
 
       - name: Validate, test, and build
         shell: bash

@@ -140,6 +140,20 @@ function remoteDeploymentProfile(array $input): array
 }
 
 /**
+ * The only values safe to carry from core Setup into protected remote Setup.
+ * Transfer credentials, host keys, and pairing credentials are deliberately
+ * excluded: the remote owner must enter or enroll those locally.
+ *
+ * @return array{schema:string,controller_url:string,update_mode:string,packages:list<string>}
+ */
+function remoteDeploymentSetupHandoff(array $input): array
+{
+    $profile = remoteDeploymentProfile($input);
+    return ['schema' => 'zogograph.remote-setup-handoff.v1', 'controller_url' => $profile['controller_url'],
+        'update_mode' => $profile['update_mode'], 'packages' => $profile['packages']];
+}
+
+/**
  * Returns non-executable, secret-free transport arguments for review. Values
  * in double braces are supplied only by a reviewed worker at run time.
  *

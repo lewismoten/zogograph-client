@@ -11,6 +11,10 @@ remoteDeploymentExpect($ftps['port'] === 21 && $ftps['known_host_reference'] ===
 $auto = remoteDeploymentProfile(['update_mode' => 'automatic'] + $profile);
 remoteDeploymentExpect($auto['update_mode'] === 'auto' && in_array('auto', REMOTE_DEPLOYMENT_UPDATE_MODES, true),
     'legacy automatic deployment policy was not normalized to the remote updater wire value');
+$handoff = remoteDeploymentSetupHandoff($profile);
+remoteDeploymentExpect($handoff['schema'] === 'zogograph.remote-setup-handoff.v1' && $handoff['controller_url'] === 'https://core.example'
+    && $handoff['update_mode'] === 'download' && !str_contains(json_encode($handoff, JSON_THROW_ON_ERROR), 'deploy_ref:'),
+    'remote setup handoff included a deployment secret reference or lost its nonsecret policy');
 $plan = remoteDeploymentCommandPlan($profile);
 remoteDeploymentExpect($plan['method'] === 'rsync_ssh' && in_array('StrictHostKeyChecking=yes', $plan['preflight'], true)
     && !str_contains(implode(' ', $plan['copy']), 'deploy_ref:'), 'SSH deployment preview exposes a reference or lacks host-key verification');

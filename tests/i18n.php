@@ -17,7 +17,8 @@ i18nExpect($runtime !== false && str_contains($runtime, 'Intl.NumberFormat') && 
     && str_contains($runtime, 'i18nPlaceholder') && str_contains($runtime, 'i18nAlt') && str_contains($runtime, 'zogograph-i18n-load') && str_contains($runtime, 'package-i18n'),
     'locale runtime lacks formatting, RTL, preference, or key-mode support');
 i18nExpect($runtime !== false && str_contains($runtime, 'Package catalogs are translation extensions')
-    && str_contains($runtime, 'if (!(key in catalog)) catalog[key] = value'),
+    && str_contains($runtime, 'if (!(key in catalog)) catalog[key] = value')
+    && str_contains($runtime, 'key.startsWith(prefix)') && str_contains($runtime, 'for (const [packageId, catalogs] of Object.entries(data.catalogs || {}))'),
     'package locale catalogs can overwrite core translation text');
 i18nExpect($page !== false && str_contains($page, 'id="languagePicker"') && str_contains($page, 'id="languageKeys"')
     && str_contains($page, 'src="i18n.js"'), 'dashboard language controls are unavailable');

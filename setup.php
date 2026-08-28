@@ -1120,7 +1120,7 @@ function webPage(
         $out[] = '<div class="banner crit">' . h($writeError) . '</div>';
     }
     if ($posted && $errors) {
-        $out[] = '<div class="banner crit">Some answers need another look.</div>';
+        $out[] = '<div class="banner crit" data-i18n="setup.validation_error">Some answers need another look.</div>';
     }
 
     $panels = setupPanels($fields, $packagePanels);

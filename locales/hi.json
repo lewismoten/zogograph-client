@@ -21,6 +21,7 @@
   "setup.no_password_help": "सिद्ध करने के लिए कोई गुप्त नहीं है, इसलिए यहाँ से कॉन्फ़िगरेशन बदलने को कुछ भी अधिकृत नहीं कर सकता। इसे भरें और परिणाम को स्वयं lib/config.php में चिपकाएँ — संपादित करने के लिए फ़ाइल होना ही प्राधिकरण है।",
   "setup.configured": "पहले से कॉन्फ़िगर है।",
   "setup.configured_help": "नीचे वर्तमान पासवर्ड दर्ज करें और यह lib/config.php को बदल देगा। इसके बिना भी आपको कॉपी और पेस्ट करने के लिए तैयार पाठ मिलता है।",
+  "setup.validation_error": "कुछ उत्तरों को फिर से जाँचने की आवश्यकता है।",
   "setup.installation": "स्थापना",
   "installation.checks": "स्थापना जांच", "installation.check": "जांच", "installation.state": "स्थिति", "installation.detail": "विवरण",
   "setup.section.privacy": "गोपनीयता",

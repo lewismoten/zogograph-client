@@ -21,6 +21,7 @@
   "setup.no_password_help": "There is no secret to prove, so nothing can authorize replacing the configuration from here. Fill this in and paste the result into lib/config.php yourself — having a file to edit is the authorization.",
   "setup.configured": "Already configured.",
   "setup.configured_help": "Enter the current password below and this will replace lib/config.php. Without it you still get the finished text to copy and paste.",
+  "setup.validation_error": "Some answers need another look.",
   "setup.installation": "Installation",
   "installation.checks": "Installation checks",
   "installation.check": "Check",

@@ -21,6 +21,7 @@
   "setup.no_password_help": "没有可验证的密钥，因此无法授权从此处替换配置。请填写此项，并自行将结果粘贴到 lib/config.php；拥有可编辑的文件即构成授权。",
   "setup.configured": "已经配置。",
   "setup.configured_help": "请在下方输入当前密码，这将替换 lib/config.php。没有它，您仍可获得可复制粘贴的完整文本。",
+  "setup.validation_error": "有些答案需要再次检查。",
   "setup.installation": "安装",
   "installation.checks": "安装检查", "installation.check": "检查项", "installation.state": "状态", "installation.detail": "详情",
   "setup.section.privacy": "隐私",

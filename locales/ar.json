@@ -21,6 +21,7 @@
   "setup.no_password_help": "لا يوجد سر لإثباته، لذا لا شيء يصرح باستبدال الإعداد من هنا. املأ هذا والصق النتيجة في lib/config.php بنفسك؛ وجود ملف قابل للتحرير هو التفويض.",
   "setup.configured": "تم الإعداد بالفعل.",
   "setup.configured_help": "أدخل كلمة المرور الحالية أدناه وسيستبدل ذلك lib/config.php. بدونها لا يزال بإمكانك الحصول على النص النهائي لنسخه ولصقه.",
+  "setup.validation_error": "تحتاج بعض الإجابات إلى مراجعة أخرى.",
   "setup.installation": "التثبيت",
   "installation.checks": "فحوصات التثبيت", "installation.check": "الفحص", "installation.state": "الحالة", "installation.detail": "التفاصيل",
   "setup.section.privacy": "الخصوصية",

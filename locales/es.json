@@ -21,6 +21,7 @@
   "setup.no_password_help": "No hay ningún secreto que demostrar, por lo que nada puede autorizar el reemplazo de la configuración desde aquí. Rellene esto y pegue el resultado en lib/config.php usted mismo; disponer de un archivo para editar es la autorización.",
   "setup.configured": "Ya está configurado.",
   "setup.configured_help": "Introduzca la contraseña actual a continuación y se reemplazará lib/config.php. Sin ella, aún obtiene el texto terminado para copiar y pegar.",
+  "setup.validation_error": "Algunas respuestas necesitan otra revisión.",
   "setup.installation": "Instalación",
   "installation.checks": "Comprobaciones de instalación",
   "installation.check": "Comprobación",

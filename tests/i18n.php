@@ -42,6 +42,8 @@ i18nExpect($setup !== false && str_contains($setup, 'data-i18n="setup.authorize"
 i18nExpect($setup !== false && str_contains($setup, 'data-i18n="setup.not_configured"')
     && str_contains($setup, 'data-i18n="setup.no_password_help"') && str_contains($setup, 'data-i18n="setup.configured_help"'),
     'Setup password-protection notices are not localized');
+i18nExpect($setup !== false && str_contains($setup, 'data-i18n="setup.validation_error"'),
+    'Setup validation feedback is not localized');
 i18nExpect($setup !== false && str_contains($setup, 'setupRenderPackageSettingsPanel')
     && str_contains($setup, 'data-package-settings-target') && str_contains($setup, 'save-package-settings:')
     && str_contains($setup, 'data-i18n="package.save_settings"') && str_contains($setup, 'data-i18n="package.no_reference"'),

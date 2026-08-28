@@ -88,14 +88,51 @@ function openIdJwk(array $config): ?array
     ];
 }
 
+/** Validates the narrow confidential-client record accepted by this provider. */
+function openIdClientDefinition(string $name, mixed $value): ?array
+{
+    if (!preg_match('/^[A-Za-z][A-Za-z0-9._-]{2,127}$/', $name) || !is_array($value)) return null;
+    $clientId = (string)($value['client_id'] ?? $name);
+    $secret = (string)($value['client_secret'] ?? '');
+    $redirects = $value['redirect_uris'] ?? null;
+    if (!preg_match('/^[A-Za-z][A-Za-z0-9._-]{2,127}$/', $clientId)
+        || !preg_match('/^[a-f0-9]{64}$/', $secret) || !is_array($redirects) || $redirects === [] || count($redirects) > 20) return null;
+    $out = [];
+    foreach ($redirects as $redirect) {
+        if (!is_string($redirect) || strlen($redirect) > 2048) return null;
+        $parts = parse_url($redirect);
+        if (!is_array($parts) || ($parts['scheme'] ?? '') !== 'https' || !isset($parts['host'])
+            || isset($parts['user']) || isset($parts['pass']) || isset($parts['fragment'])) return null;
+        $out[] = $redirect;
+    }
+    if (count(array_unique($out, SORT_STRING)) !== count($out)) return null;
+    return ['name' => $name, 'client_id' => $clientId, 'client_secret' => $secret, 'redirect_uris' => $out];
+}
+
+/** @return array<string, array{name:string,client_id:string,client_secret:string,redirect_uris:list<string>}> */
+function openIdClientDefinitions(array $config): array
+{
+    $out = [];
+    foreach ((array)($config['openid']['clients'] ?? []) as $name => $client) {
+        $definition = openIdClientDefinition((string)$name, $client);
+        if ($definition !== null && !isset($out[$definition['client_id']])) $out[$definition['client_id']] = $definition;
+    }
+    return $out;
+}
+
+/** Creates a client secret that Setup displays only in the response that made it. */
+function openIdCreateClient(string $clientId, string $redirect): array
+{
+    $definition = openIdClientDefinition($clientId, ['client_id' => $clientId,
+        'client_secret' => bin2hex(random_bytes(32)), 'redirect_uris' => [$redirect]]);
+    if ($definition === null) throw new InvalidArgumentException('client ID or redirect URL is invalid');
+    return $definition;
+}
+
 function openIdClient(array $config, string $clientId): ?array
 {
-    foreach ((array)($config['openid']['clients'] ?? []) as $name => $client) {
-        if (is_array($client) && hash_equals((string)($client['client_id'] ?? $name), $clientId)) {
-            return $client + ['name' => $name];
-        }
-    }
-    return null;
+    $clients = openIdClientDefinitions($config);
+    return $clients[$clientId] ?? null;
 }
 
 function openIdRedirectAllowed(array $client, string $redirect): bool

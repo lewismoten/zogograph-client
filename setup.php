@@ -257,6 +257,13 @@ function setupOpenIdKeyToken(): string
     return $_SESSION['setup_openid_key_token'];
 }
 
+/** CSRF token for one-time OpenID client-secret management. */
+function setupOpenIdClientToken(): string
+{
+    if (!is_string($_SESSION['setup_openid_client_token'] ?? null)) $_SESSION['setup_openid_client_token'] = bin2hex(random_bytes(32));
+    return $_SESSION['setup_openid_client_token'];
+}
+
 /** CSRF token limited to schema-validated package-setting writes. */
 function setupPackageSettingsToken(): string
 {
@@ -550,6 +557,34 @@ function runWeb(
                 $_SESSION['setup_error'] = 'Could not generate the OpenID signing key: ' . $error->getMessage();
             }
         }
+        header('Location: ' . strtok((string)$_SERVER['REQUEST_URI'], '?') . '?section=openid', true, 303);
+        return;
+    }
+
+    if ($posted && in_array($_POST['intent'] ?? '', ['create-openid-client', 'remove-openid-client', 'ack-openid-client-secret'], true)) {
+        try {
+            if (!$configured || !$unlocked) throw new RuntimeException('unlock setup before managing trusted OpenID clients');
+            if (!hash_equals(setupOpenIdClientToken(), (string)($_POST['setup_openid_client_token'] ?? ''))) throw new RuntimeException('the OpenID client form expired; reload Setup and try again');
+            $config = readExistingConfig($targetPath);
+            if ($config === null) throw new RuntimeException('could not read the current setup settings');
+            $intent = (string)$_POST['intent'];
+            if ($intent === 'create-openid-client') {
+                $client = openIdCreateClient(trim((string)($_POST['openid_client_id'] ?? '')), trim((string)($_POST['openid_redirect_uri'] ?? '')));
+                if (isset(openIdClientDefinitions($config)[$client['client_id']])) throw new RuntimeException('a trusted OpenID client already uses that client ID');
+                $config['openid']['clients'][$client['name']] = ['client_id' => $client['client_id'], 'client_secret' => $client['client_secret'], 'redirect_uris' => $client['redirect_uris']];
+                [$saved, $problem] = writeConfig($targetPath, $config, $root . '/lib'); if (!$saved) throw new RuntimeException((string)$problem);
+                $_SESSION['setup_openid_client_secret'] = ['client_id' => $client['client_id'], 'secret' => $client['client_secret']];
+                $_SESSION['setup_notice'] = 'Trusted OpenID client saved. Copy its secret now; it will not be shown again.';
+            } elseif ($intent === 'remove-openid-client') {
+                $id = (string)($_POST['remove_openid_client_id'] ?? ''); $client = openIdClientDefinitions($config)[$id] ?? null;
+                if ($client === null) throw new RuntimeException('that trusted OpenID client is unavailable');
+                unset($config['openid']['clients'][$client['name']]);
+                [$saved, $problem] = writeConfig($targetPath, $config, $root . '/lib'); if (!$saved) throw new RuntimeException((string)$problem);
+                $_SESSION['setup_notice'] = 'Trusted OpenID client removed. Its secret and existing sessions are no longer accepted for new token exchanges.';
+            } else {
+                unset($_SESSION['setup_openid_client_secret']); $_SESSION['setup_notice'] = 'OpenID client secret acknowledgement saved.';
+            }
+        } catch (Throwable $error) { $_SESSION['setup_error'] = 'Could not manage trusted OpenID clients: ' . $error->getMessage(); }
         header('Location: ' . strtok((string)$_SERVER['REQUEST_URI'], '?') . '?section=openid', true, 303);
         return;
     }
@@ -1114,6 +1149,17 @@ function webPage(
     } elseif ($activeSection === 'openid') {
         $pendingOpenIdKey = is_string($_SESSION['setup_pending_openid_signing_key'] ?? null);
         $out[] = '<fieldset><legend>OpenID Connect provider</legend><p class="help">This installation can already act as an OpenID Connect provider for trusted applications. Enable it only after setting its public HTTPS issuer, a dedicated signing key, and registered client redirect URLs. The provider supports authorization code with PKCE, discovery, JWKS, and signed ID tokens.</p><p class="help">Client registrations are managed below as structured settings; each client needs an exact redirect URL and a private client secret.</p><input type="hidden" name="setup_openid_key_token" value="' . h(setupOpenIdKeyToken()) . '"><button type="submit" name="intent" value="generate-openid-signing-key"' . ($editingLocked ? ' disabled aria-disabled="true"' : '') . '>Generate dedicated RSA signing key</button><p class="help">' . ($pendingOpenIdKey ? 'A new key is ready in this protected setup session. Save this section to commit it; it is not included in notices or logs.' : 'Generation creates a new 3072-bit RSA key in this protected setup session. It is not committed until you save this section.') . '</p></fieldset>';
+        $clients = openIdClientDefinitions($current ?? []); $shownSecret = $_SESSION['setup_openid_client_secret'] ?? null;
+        $out[] = '<fieldset><legend>Trusted applications</legend><p class="help">Each application gets one exact HTTPS callback URL and a generated confidential-client secret. Existing secrets are never shown again; remove and recreate a client to rotate one.</p><input type="hidden" name="setup_openid_client_token" value="' . h(setupOpenIdClientToken()) . '">';
+        if (is_array($shownSecret) && is_string($shownSecret['client_id'] ?? null) && is_string($shownSecret['secret'] ?? null)) {
+            $out[] = '<div class="banner warn"><strong>Copy this client secret now.</strong><p>Client ID: <code>' . h($shownSecret['client_id']) . '</code></p><pre><code>' . h($shownSecret['secret']) . '</code></pre><p>It will not be shown again after acknowledgement.</p><button type="submit" name="intent" value="ack-openid-client-secret">I saved the client secret</button></div>';
+        }
+        if ($clients !== []) {
+            $out[] = '<table class="preflight"><thead><tr><th>Client ID</th><th>Exact redirect URL</th><th></th></tr></thead><tbody>';
+            foreach ($clients as $client) $out[] = '<tr><td><code>' . h($client['client_id']) . '</code></td><td><code>' . h(implode("\n", $client['redirect_uris'])) . '</code></td><td><button formnovalidate type="submit" name="intent" value="remove-openid-client">Remove<input type="hidden" name="remove_openid_client_id" value="' . h($client['client_id']) . '"></button></td></tr>';
+            $out[] = '</tbody></table>';
+        }
+        $out[] = '<label>Client ID<input required name="openid_client_id" pattern="[A-Za-z][A-Za-z0-9._-]{2,127}" autocomplete="off" placeholder="trusted-app"></label><label>Exact HTTPS redirect URL<input required type="url" name="openid_redirect_uri" placeholder="https://app.example/callback"></label><button type="submit" name="intent" value="create-openid-client"' . ($editingLocked ? ' disabled aria-disabled="true"' : '') . '>Create trusted client</button></fieldset>';
     } elseif ($activeSection === 'auth') {
         $pendingTotp = (string)($_SESSION['setup_pending_totp'] ?? '');
         $recoveryCodes = (array)($_SESSION['setup_recovery_codes'] ?? []);
@@ -1255,6 +1301,9 @@ function webPage(
     if (!$editingLocked) {
         foreach ($fields as $field) {
             if (!fieldIsInSection($field, $activeSection)) {
+                continue;
+            }
+            if ($activeSection === 'openid' && $field['path'] === ['openid', 'clients']) {
                 continue;
             }
             if ($field['key'] === 'package_runtime_secret_key_file') {

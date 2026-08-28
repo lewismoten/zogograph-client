@@ -22,9 +22,17 @@ openIdExpect(is_array($generatedDetails) && ($generatedDetails['type'] ?? null) 
     && (int)($generatedDetails['bits'] ?? 0) >= 3072, 'generated OpenID signing key is not a 3072-bit RSA key');
 $config = ['openid' => ['enabled' => true, 'issuer' => 'https://hostscope.example',
     'signing_private_key' => $private, 'clients' => ['peer' => [
-        'client_id' => 'peer-client', 'client_secret' => 'test-secret',
+        'client_id' => 'peer-client', 'client_secret' => str_repeat('a', 64),
         'redirect_uris' => ['https://peer.example/callback'],
     ]]]];
+$createdClient = openIdCreateClient('trusted-app', 'https://trusted.example/callback?source=zogograph');
+openIdExpect($createdClient['client_id'] === 'trusted-app' && preg_match('/^[a-f0-9]{64}$/', $createdClient['client_secret']) === 1,
+    'trusted OpenID client did not receive a one-time 256-bit secret');
+openIdExpect((openIdClientDefinition('bad client', $createdClient) === null)
+    && (openIdClientDefinition('trusted-app', array_replace($createdClient, ['redirect_uris' => ['https://user:pass@trusted.example/callback']])) === null),
+    'invalid trusted OpenID client identity or credentialed redirect was accepted');
+openIdExpect((openIdClientDefinitions($config)['peer-client']['name'] ?? null) === 'peer',
+    'registered trusted OpenID client was not normalized');
 $pdo = new PDO('sqlite::memory:', null, null, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
 $pdo->exec('CREATE TABLE openid_codes (code_hash TEXT PRIMARY KEY, client_id TEXT NOT NULL, redirect_uri TEXT NOT NULL, code_challenge TEXT NOT NULL, username TEXT NOT NULL, groups_json TEXT NOT NULL, nonce TEXT, auth_time INTEGER NOT NULL, expires_at INTEGER NOT NULL, used_at INTEGER)');
 $verifier = str_repeat('v', 43);
@@ -50,5 +58,10 @@ openIdExpect(openIdConsumeCode($pdo, $bad, str_repeat('x', 43)) === null,
     'an authorization code accepted an incorrect PKCE verifier');
 openIdExpect(openIdDiscovery($config)['code_challenge_methods_supported'] === ['S256'],
     'OpenID discovery did not advertise its enforced PKCE method');
+$setup = file_get_contents(__DIR__ . '/../setup.php');
+openIdExpect($setup !== false && str_contains($setup, 'setupOpenIdClientToken')
+    && str_contains($setup, 'create-openid-client') && str_contains($setup, 'remove-openid-client')
+    && str_contains($setup, 'I saved the client secret'),
+    'protected OpenID client management is not available in Setup');
 
 echo "OpenID checks passed\n";

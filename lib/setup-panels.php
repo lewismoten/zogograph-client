@@ -15,8 +15,10 @@ function setupPanelDefinition(array $panel): array
     }
     $keywords = array_values(array_unique(array_filter((array)($panel['keywords'] ?? []), static fn(mixed $word): bool => is_string($word) && preg_match('/^[a-z0-9 _-]{1,40}$/i', $word))));
     $parent = isset($panel['parent']) ? setupPanelId((string)$panel['parent']) : null;
+    $titleKey = isset($panel['title_key']) ? trim((string)$panel['title_key']) : null;
+    if ($titleKey !== null && !preg_match('/^[a-z][\w.-]{0,119}$/i', $titleKey)) throw new InvalidArgumentException('setup panel translation key is invalid');
     return ['id' => $id, 'title' => $title, 'kind' => $kind, 'keywords' => $keywords,
-        'feature' => isset($panel['feature']) ? setupPanelId((string)$panel['feature']) : null, 'parent' => $parent];
+        'feature' => isset($panel['feature']) ? setupPanelId((string)$panel['feature']) : null, 'parent' => $parent, 'title_key' => $titleKey];
 }
 
 /** Registry shared by core Setup and the future isolated package bridge. */

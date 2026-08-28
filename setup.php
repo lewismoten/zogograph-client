@@ -358,7 +358,8 @@ function setupRenderPackageSettingsPanel(array $panel, ?array $config): string
     $settings = setupPackageSettings($config, $packageId);
     $encoded = json_encode(setupDisplayValue($settings), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR);
     $fieldName = 'package_settings_' . $panelId;
-    $out = '<fieldset><legend>' . h((string)($panel['title'] ?? 'Package settings')) . '</legend><p class="help">These settings are validated against the signed package schema. Setup does not load package code to render this panel.</p><label>Settings (JSON)'
+    $titleKey = trim((string)($panel['title_key'] ?? ''));
+    $out = '<fieldset><legend' . ($titleKey !== '' ? ' data-i18n="' . h($titleKey) . '"' : '') . '>' . h((string)($panel['title'] ?? 'Package settings')) . '</legend><p class="help">These settings are validated against the signed package schema. Setup does not load package code to render this panel.</p><label>Settings (JSON)'
         . '<textarea name="' . h($fieldName) . '" rows="16" spellcheck="false">' . h($encoded) . '</textarea></label>'
         . '<input type="hidden" name="setup_package_settings_token" value="' . h(setupPackageSettingsToken()) . '">'
         . '<button type="submit" name="intent" value="save-package-settings:' . h($panelId) . '">Save package settings</button></fieldset>';
@@ -1126,7 +1127,7 @@ function webPage(
         . '<a data-i18n="setup.installation" data-setup-nav-item data-setup-nav-terms="installation checks prerequisites"' . ($activeSection === 'basics' ? ' class="current"' : '') . ' href="?section=basics">Installation</a>';
     foreach ($panels as $name => $panel) {
         if ($name === 'basics') continue;
-        $navigationKey = $panel['kind'] === 'core' ? 'setup.section.' . $name : '';
+        $navigationKey = $panel['kind'] === 'core' ? 'setup.section.' . $name : (string)($panel['title_key'] ?? '');
         $out[] = '<a data-setup-nav-item data-setup-nav-terms="' . h($name . ' ' . $panel['title'] . ' ' . implode(' ', $panel['keywords'])) . '"'
             . ($navigationKey !== '' ? ' data-i18n="' . h($navigationKey) . '"' : '')
             . ($activeSection === $name ? ' class="current"' : '')

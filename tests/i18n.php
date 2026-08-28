@@ -31,6 +31,9 @@ i18nExpect($setup !== false && str_contains($setup, 'src="i18n.js"') && str_cont
 i18nExpect($setup !== false && str_contains($setup, 'setupRenderPackageSettingsPanel')
     && str_contains($setup, 'data-package-settings-target') && str_contains($setup, 'save-package-settings:'),
     'Setup cannot render a signed package settings panel inside a core page');
+i18nExpect($setup !== false && str_contains($setup, "(string)(\$panel['title_key'] ?? '')")
+    && str_contains($setup, "(string)(\$panel['title_key'] ?? '')"),
+    'Setup package panels cannot use signed locale catalog titles');
 i18nExpect($configure !== false && str_contains($configure, 'function generatedFieldLabel')
     && str_contains($configure, "'label' => generatedFieldLabel(\$path)")
     && !str_contains($configure, "'label' => \$dotted"),

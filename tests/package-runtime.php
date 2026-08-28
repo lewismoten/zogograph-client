@@ -63,12 +63,12 @@ try {
         'locales' => ['es' => 'locales/es.json'],
         'dashboard_pages' => [['id' => 'status', 'title' => 'Package status', 'summary' => 'A core-rendered package status page.', 'title_key' => 'test-runtime.page.title', 'summary_key' => 'test-runtime.page.summary', 'parent' => 'storage', 'keywords' => ['package', 'status']]],
         'setup_panels' => [
-            ['id' => 'test-runtime-settings', 'title' => 'Test runtime settings', 'keywords' => ['retention']],
-            ['id' => 'test-runtime-security', 'title' => 'Test runtime security', 'parent' => 'security', 'keywords' => ['security']],
+            ['id' => 'test-runtime-settings', 'title' => 'Test runtime settings', 'title_key' => 'test-runtime.setup.title', 'keywords' => ['retention']],
+            ['id' => 'test-runtime-security', 'title' => 'Test runtime security', 'title_key' => 'test-runtime.security.title', 'parent' => 'security', 'keywords' => ['security']],
         ],
         'data' => ['migrations' => ['migrations/001-private-evidence.sql']],
     ];
-    mkdir($source . '/locales', 0700, true); file_put_contents($source . '/locales/es.json', json_encode(['test-runtime.greeting' => 'Hola', 'test-runtime.page.title' => 'Estado del paquete', 'test-runtime.page.summary' => 'Una página del paquete renderizada por el núcleo.'], JSON_THROW_ON_ERROR));
+    mkdir($source . '/locales', 0700, true); file_put_contents($source . '/locales/es.json', json_encode(['test-runtime.greeting' => 'Hola', 'test-runtime.page.title' => 'Estado del paquete', 'test-runtime.page.summary' => 'Una página del paquete renderizada por el núcleo.', 'test-runtime.setup.title' => 'Configuración de prueba', 'test-runtime.security.title' => 'Seguridad de prueba'], JSON_THROW_ON_ERROR));
     $signed = packageSignManifest($manifest, $source, 'test-publisher', sodium_crypto_sign_secretkey($pair));
     file_put_contents($source . '/manifest.json', json_encode($signed, JSON_THROW_ON_ERROR));
     if (function_exists('proc_open')) {
@@ -123,7 +123,8 @@ try {
     }
     runtimeExpect((packageRuntimePackages($pdo)[0]['setup_panels'][0]['id'] ?? '') === 'test-runtime-settings',
         'signed package Setup panel metadata was not retained');
-    runtimeExpect((packageRuntimePackages($pdo)[0]['setup_panels'][1]['parent'] ?? null) === 'security',
+    runtimeExpect((packageRuntimePackages($pdo)[0]['setup_panels'][1]['parent'] ?? null) === 'security'
+        && (packageRuntimePackages($pdo)[0]['setup_panels'][0]['title_key'] ?? null) === 'test-runtime.setup.title',
         'signed package parent Setup panel metadata was not retained');
     runtimeExpect(!isset(setupPanels([], [['id' => 'test-runtime-security', 'title' => 'Test runtime security', 'kind' => 'package', 'feature' => 'test-runtime', 'parent' => 'security']])['test-runtime-security']),
         'a parented package panel was incorrectly added as a standalone Setup navigation item');

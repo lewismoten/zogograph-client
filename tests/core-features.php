@@ -78,7 +78,8 @@ requireCoreFeatureAccess($legacy, 'ai-start');
 $api = file_get_contents(__DIR__ . '/../api.php');
 $dashboard = file_get_contents(__DIR__ . '/../index.js');
 coreFeatureExpect(is_string($api) && str_contains($api, "requireCoreFeatureAccess(\$config, \$action)")
-    && str_contains($api, "'core_features' => coreFeatureStatus(\$config)"),
+    && str_contains($api, "'core_features' => coreFeatureStatus(\$config)")
+    && str_contains($api, "!coreFeatureEnabled(\$config, 'overview')"),
     'core feature boundary is not wired into the API shell');
 coreFeatureExpect(is_string($dashboard) && str_contains($dashboard, 'applyCoreFeatureVisibility(overview.core_features)')
     && str_contains($dashboard, 'disabledCoreRoutes.has(view)') && str_contains($dashboard, 'disabledCoreRoutes.has("sys-notes")')

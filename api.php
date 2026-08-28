@@ -456,6 +456,38 @@ function latestHostSample(array $config): ?array
 
 function overview(array $config, PDO $pdo, bool $signedIn): array
 {
+    /* This endpoint boots every page, so it cannot be refused like an ordinary
+     * feature API. When Overview is disabled it returns only shell state and
+     * empty presentation values; the browser then routes to another enabled
+     * page without receiving dashboard measurements. */
+    if (!coreFeatureEnabled($config, 'overview')) {
+        return [
+            'signed_in' => $signedIn,
+            'core_features' => coreFeatureStatus($config),
+            'csrf' => $signedIn ? csrfToken() : null,
+            'access' => accessView($config),
+            'account' => currentAccountName(),
+            'report' => null,
+            'broadcasts' => [],
+            'who' => $signedIn && coreFeatureEnabled($config, 'assistant') ? (function () use ($config): array {
+                $persona = aiPersona($config);
+                return ['name' => $persona['name'], 'emoji' => $persona['emoji']];
+            })() : null,
+            'vitals' => null,
+            'scan' => null,
+            'scan_running' => false,
+            'totals' => [],
+            'emptied' => [],
+            'open_alerts' => 0,
+            'limits' => null,
+            'host_clock' => [],
+            'deletable' => [],
+            'deletable_scope' => 'account',
+            'categories' => [],
+            'viewable' => [],
+            'server_time' => time(),
+        ];
+    }
     $vitals = $pdo->query('SELECT * FROM vitals ORDER BY taken_at DESC, id DESC LIMIT 1')->fetch() ?: null;
 
     $scan = $pdo->query(

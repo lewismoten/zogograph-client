@@ -108,7 +108,13 @@ async function i18nLoadPackageCatalogs(force = false) {
     i18nPackageCatalogsLoaded = true; if (changed || force) await i18nLoad(i18n.locale);
   } catch { /* Package translations are optional and cannot block the shell. */ }
 }
-window.ZogographI18n = { t, load: i18nLoad, loadPackageCatalogs: i18nLoadPackageCatalogs, registerCatalog: i18nRegisterCatalog, setKeyMode: async enabled => { i18n.keyMode = enabled; await i18nLoad(i18n.locale); } };
+function i18nClearPackageCatalogs() {
+  if (!i18nPackageCatalogsLoaded && Object.keys(i18n.extensions).length === 0) return;
+  i18nPackageCatalogsLoaded = false;
+  i18n.extensions = {};
+  i18nLoad(i18n.locale);
+}
+window.ZogographI18n = { t, load: i18nLoad, loadPackageCatalogs: i18nLoadPackageCatalogs, clearPackageCatalogs: i18nClearPackageCatalogs, registerCatalog: i18nRegisterCatalog, setKeyMode: async enabled => { i18n.keyMode = enabled; await i18nLoad(i18n.locale); } };
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelector("#languagePicker")?.addEventListener("change", event => { localStorage.setItem("zogograph.locale", event.target.value); i18nLoad(event.target.value); });
   document.querySelector("#languageKeys")?.addEventListener("change", event => ZogographI18n.setKeyMode(event.target.checked));

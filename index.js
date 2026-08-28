@@ -11895,18 +11895,24 @@ function showPackageRuntimeUpload() {
 }
 
 let packageDashboardPagesLoaded = false;
+function removeUnavailablePackageDashboardPages(available) {
+  for (const [route, view] of Object.entries(VIEWS)) {
+    if (!view.packagePage || available.has(route)) continue;
+    delete VIEWS[route];
+    state.rendered?.delete(route);
+    document.querySelectorAll("[data-nav]").forEach(link => { if (link.dataset.nav === route) link.remove(); });
+    document.querySelectorAll("[data-view]").forEach(viewNode => { if (viewNode.dataset.view === route) viewNode.remove(); });
+  }
+  const currentRoute = readRoute().view;
+  if (currentRoute.startsWith("package-") && !VIEWS[currentRoute]) showView("sys-packages");
+}
+
 async function loadPackageDashboardPages() {
   try {
     const data = await api("package-pages");
     const pages = (data.pages || []).filter(page => page && /^[a-z][a-z0-9-]{3,190}$/.test(page.route));
     const available = new Set(pages.map(page => page.route));
-    for (const [route, view] of Object.entries(VIEWS)) {
-      if (!view.packagePage || available.has(route)) continue;
-      delete VIEWS[route];
-      state.rendered?.delete(route);
-      document.querySelectorAll("[data-nav]").forEach(link => { if (link.dataset.nav === route) link.remove(); });
-      document.querySelectorAll("[data-view]").forEach(viewNode => { if (viewNode.dataset.view === route) viewNode.remove(); });
-    }
+    removeUnavailablePackageDashboardPages(available);
     for (const page of pages) addPackageDashboardPage(page);
     packageDashboardPagesLoaded = true;
     const route = readRoute().view;
@@ -23102,6 +23108,10 @@ function applySignedInChrome() {
   renderEmptyButtons();
   if (state.signedIn) ZogographI18n.loadPackageCatalogs();
   if (state.signedIn) loadPackageDashboardPages();
+  if (!state.signedIn) {
+    removeUnavailablePackageDashboardPages(new Set());
+    ZogographI18n.clearPackageCatalogs();
+  }
 }
 
 document.addEventListener("zogograph-i18n-load", () => {

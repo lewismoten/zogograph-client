@@ -25,11 +25,27 @@ Panels are hidden when their core/plugin feature is disabled. Plugins cannot
 replace core panels, add executable shell text, access another plugin's
 configuration, or bypass Setup's password/session/CSRF checks.
 
-Package settings read/save are deliberately not exposed yet. They need a
-separate namespaced settings API that validates a signed schema, maintains
-CSRF and audit records, and proves the package is both intact and attested at
-the moment of use. Until then, a package may contribute navigation metadata
-only through the isolated bridge; its code is never loaded by `setup.php`.
+No package receives a direct settings object or a renderer callback. Setup's
+own generic editor is the only current settings path; it validates a signed
+schema, maintains Setup CSRF/unlock checks, and never loads package code.
+Audit records and a package-local secret-reference picker remain follow-up
+work.
+
+## Signed package panels
+
+An installed package can declare up to eight inert `setup_panels` in its
+signed `manifest.json`. Each declaration has only an id, title, and search
+keywords—there is no renderer, HTML, JavaScript, command, or callback field.
+Setup shows those panels only when package integrity, compatibility, explicit
+capability grants, and enabled state all pass. Disabled, revoked, altered, or
+unavailable packages contribute nothing to Setup navigation.
+
+The panel uses a generic JSON editor backed by the package's signed
+`settings_schema`. Saving is protected by Setup unlock and CSRF checks and
+calls the existing schema validator. This creates an immediately useful
+configuration surface without loading package code in the web request. Secret
+values remain a separate package-secret workflow and are never rendered back
+into this editor.
 
 ## Cron editor
 
@@ -56,7 +72,7 @@ reviewed capability and command registry, not a broader cron API.
 1. Core cron editor, desired-state persistence, apply, and comparison. (Done.)
 2. Searchable, scrollable Setup navigation driven by panel metadata. (Done.)
 3. Add core-panel enablement and feature gating to the registry.
-4. Bridge signed package panel metadata only after package execution is
-   independently attested.
-5. Add a namespaced package-settings API with schema validation, Setup CSRF,
-   audit records, and no package renderer execution.
+4. Surface signed inert package panels through generic schema settings. (Done.)
+5. Add settings-save audit records and a package-local secret reference picker.
+6. Bridge renderer callbacks only after package execution is independently
+   attested, with a separately reviewed isolation contract.

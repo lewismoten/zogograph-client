@@ -40,7 +40,7 @@ function packageRuntimeTrustedKeys(array $keys): array
     return $out;
 }
 
-/** @return array{id:string,version:string,publisher:string,capabilities:list<string>,runtime:array,settings_schema:?string,data:array,compatibility:array,integrity:array,signature:array} */
+/** @return array{id:string,version:string,publisher:string,capabilities:list<string>,runtime:array,settings_schema:?string,setup_panels:list<array>,data:array,compatibility:array,integrity:array,signature:array} */
 function packageRuntimeManifest(string $directory, array $trustedKeys): array
 {
     $root = realpath($directory);
@@ -83,6 +83,7 @@ function packageRuntimeManifest(string $directory, array $trustedKeys): array
             throw new InvalidArgumentException('package settings declaration is invalid');
         }
     }
+    $setupPanels = packageRuntimeSetupPanelDeclarations((array)($raw['setup_panels'] ?? []));
     $data = (array)($raw['data'] ?? []);
     $migrations = array_values((array)($data['migrations'] ?? []));
     if (count($migrations) > 100 || count($migrations) !== count(array_unique($migrations))) {
@@ -105,7 +106,29 @@ function packageRuntimeManifest(string $directory, array $trustedKeys): array
     }
     return ['id' => $id, 'version' => $version, 'publisher' => $publisher, 'capabilities' => $capabilities,
         'runtime' => $runtime, 'settings_schema' => isset($raw['settings_schema']) ? (string)$raw['settings_schema'] : null,
+        'setup_panels' => $setupPanels,
         'data' => $data, 'compatibility' => $compatibility, 'integrity' => (array)$raw['integrity'], 'signature' => (array)$raw['signature']];
+}
+
+/** Validates signed, inert Setup navigation metadata. No renderer is accepted. */
+function packageRuntimeSetupPanelDeclarations(array $panels): array
+{
+    if (count($panels) > 8) throw new InvalidArgumentException('package declares too many setup panels');
+    $out = [];
+    foreach ($panels as $panel) {
+        if (!is_array($panel)) throw new InvalidArgumentException('package setup panel is invalid');
+        $id = trim((string)($panel['id'] ?? ''));
+        $title = trim((string)($panel['title'] ?? ''));
+        $keywords = array_values(array_unique(array_filter((array)($panel['keywords'] ?? []),
+            static fn(mixed $word): bool => is_string($word) && preg_match('/^[a-z0-9 _-]{1,40}$/i', $word))));
+        if (!preg_match('/^[a-z][a-z0-9_-]{1,62}$/', $id) || $title === '' || mb_strlen($title) > 80
+            || count($keywords) !== count((array)($panel['keywords'] ?? []))) {
+            throw new InvalidArgumentException('package setup panel is invalid');
+        }
+        if (isset($out[$id])) throw new InvalidArgumentException('package setup panel ids must be unique');
+        $out[$id] = ['id' => $id, 'title' => $title, 'keywords' => $keywords];
+    }
+    return array_values($out);
 }
 
 /** Normalizes requirements before a package is installed; this never loads its code. */
@@ -237,7 +260,7 @@ function packageRuntimeRemoveDirectory(string $directory): void
     @rmdir($directory);
 }
 
-/** @return list<array{id:string,version:string,publisher:string,enabled:bool,revoked:bool,integrity:bool,integrity_detail:string,compatibility:array,capabilities:list<string>,grants:list<string>,state:string}> */
+/** @return list<array{id:string,version:string,publisher:string,enabled:bool,revoked:bool,integrity:bool,integrity_detail:string,compatibility:array,capabilities:list<string>,grants:list<string>,setup_panels:list<array>,state:string}> */
 function packageRuntimePackages(PDO $pdo): array
 {
     $grants = [];
@@ -258,6 +281,7 @@ function packageRuntimePackages(PDO $pdo): array
             && $row['enabled_at'] !== null && $required === $given;
         $out[] = ['id' => $row['package_id'], 'version' => $row['version'], 'publisher' => $row['publisher'],
             'enabled' => $enabled, 'revoked' => $revoked, 'integrity' => $integrity['ok'], 'integrity_detail' => $integrity['detail'], 'capabilities' => $required, 'grants' => $given,
+            'setup_panels' => packageRuntimeSetupPanelDeclarations((array)($manifest['setup_panels'] ?? [])),
             'compatibility' => $compatibility,
             'state' => !$integrity['ok'] ? 'integrity failed: ' . $integrity['detail'] : ($revoked ? 'revoked: ' . $row['revocation_reason'] : ($compatibility['status'] !== 'ready' ? 'platform unavailable: ' . $compatibility['detail'] : ($enabled ? 'registered; ' . $compatibility['detail'] : 'needs explicit capability grants')))];
     }

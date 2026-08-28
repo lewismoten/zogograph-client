@@ -58,6 +58,7 @@ require_once $root . '/lib/setup-preflight.php';
 require_once $root . '/lib/schedule.php';
 require_once $root . '/lib/setup-cron-editor.php';
 require_once $root . '/lib/setup-panels.php';
+require_once $root . '/lib/package-runtime.php';
 // For hostCronLine/hostCronCommand, shown after a successful write.
 require_once $root . '/lib/hostdb.php';
 
@@ -204,6 +205,61 @@ function setupScheduleToken(): string
         $_SESSION['setup_schedule_token'] = bin2hex(random_bytes(32));
     }
     return $_SESSION['setup_schedule_token'];
+}
+
+/** CSRF token limited to schema-validated package-setting writes. */
+function setupPackageSettingsToken(): string
+{
+    if (!is_string($_SESSION['setup_package_settings_token'] ?? null)) {
+        $_SESSION['setup_package_settings_token'] = bin2hex(random_bytes(32));
+    }
+    return $_SESSION['setup_package_settings_token'];
+}
+
+/** Opens the already-configured local registry without creating or migrating it. */
+function setupPackageRegistry(array $config): ?PDO
+{
+    $database = (string)($config['database'] ?? '');
+    if ($database === '' || !str_starts_with($database, '/') || !is_file($database)) return null;
+    try {
+        return new PDO('sqlite:' . $database, null, null, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+    } catch (Throwable) {
+        return null;
+    }
+}
+
+/** Inert, signed package metadata that is allowed into Setup navigation. */
+function setupPackagePanels(?array $config): array
+{
+    if ($config === null || ($registry = setupPackageRegistry($config)) === null) return [];
+    try {
+        $out = [];
+        foreach (packageRuntimePackages($registry) as $package) {
+            if (!$package['enabled']) continue;
+            foreach ((array)$package['setup_panels'] as $panel) {
+                $out[] = (array)$panel + ['kind' => 'package', 'feature' => (string)$package['id']];
+            }
+        }
+        return $out;
+    } catch (Throwable) {
+        return [];
+    }
+}
+
+function setupPackageSettings(?array $config, string $packageId): array
+{
+    if ($config === null || ($registry = setupPackageRegistry($config)) === null) {
+        throw new RuntimeException('the package registry is unavailable');
+    }
+    return packageRuntimeSettings($registry, $config, $packageId);
+}
+
+function setupSavePackageSettings(?array $config, string $packageId, array $settings): void
+{
+    if ($config === null || ($registry = setupPackageRegistry($config)) === null) {
+        throw new RuntimeException('the package registry is unavailable');
+    }
+    packageRuntimeSaveSettings($registry, $config, $packageId, $settings, 'setup administrator');
 }
 
 /** The stable persisted shape consumed by SetupCronApi and future panels. */
@@ -447,10 +503,37 @@ function runWeb(
      */
     $values = [];
     $current = ($unlocked || !$configured) ? readExistingConfig($targetPath) : null;
+    $packagePanels = $unlocked ? setupPackagePanels($current) : [];
+    $activeSection = $configured
+        ? setupSection($fields, (string)($_GET['section'] ?? $_POST['section'] ?? 'basics'), $packagePanels)
+        : 'basics';
     foreach ($fields as $field) {
         $values[$field['key']] = $current !== null
             ? valueAtPath($current, $field['path'], $field['default'])
             : $field['default'];
+    }
+
+    if ($posted && ($_POST['intent'] ?? '') === 'save-package-settings') {
+        try {
+            if (!$unlocked) throw new RuntimeException('unlock setup before changing package settings');
+            if (!hash_equals(setupPackageSettingsToken(), (string)($_POST['setup_package_settings_token'] ?? ''))) {
+                throw new RuntimeException('the package settings form expired; reload Setup and try again');
+            }
+            $panelId = (string)($_POST['package_panel_id'] ?? '');
+            $panels = setupPanels($fields, $packagePanels);
+            $panel = $panels[$panelId] ?? null;
+            if (!is_array($panel) || $panel['kind'] !== 'package') throw new RuntimeException('that package settings panel is unavailable');
+            $settings = json_decode((string)($_POST['package_settings'] ?? ''), true, 64, JSON_THROW_ON_ERROR);
+            if (!is_array($settings) || array_is_list($settings)) throw new RuntimeException('package settings must be a JSON object');
+            setupSavePackageSettings($current, (string)$panel['feature'], $settings);
+            $_SESSION['setup_notice'] = 'Package settings were saved using the package’s signed schema.';
+        } catch (JsonException) {
+            $_SESSION['setup_error'] = 'Package settings must be valid JSON.';
+        } catch (Throwable $error) {
+            $_SESSION['setup_error'] = 'Could not save package settings: ' . $error->getMessage();
+        }
+        header('Location: ' . strtok((string)$_SERVER['REQUEST_URI'], '?') . '?section=' . rawurlencode((string)($_POST['package_panel_id'] ?? '')), true, 303);
+        return;
     }
 
     $errors = [];
@@ -559,14 +642,15 @@ function runWeb(
     echo webPage(
         $fields, $values, $errors, $rendered, $written, $writeError,
         $configured, $authorised, $posted, $existing, $refusal, $notice, $unlocked,
-        $root . '/lib/config.sample.php', $activeSection, setupPreflight($root, $targetPath)
+        $root . '/lib/config.sample.php', $activeSection, setupPreflight($root, $targetPath), $packagePanels, $current
     );
 }
 
 /** The settings pages, derived from the same field definitions as the CLI. */
-function setupSection(array $fields, string $asked): string
+function setupSection(array $fields, string $asked, array $registered = []): string
 {
     if (in_array($asked, ['basics', 'privacy', 'schedule'], true)) return $asked;
+    if (isset(setupPanels($fields, $registered)[$asked])) return $asked;
     foreach ($fields as $field) {
         if (($field['section'] ?? 'basics') === $asked) return $asked;
     }
@@ -616,7 +700,9 @@ function webPage(
     bool $unlocked,
     string $samplePath,
     string $activeSection,
-    array $preflight
+    array $preflight,
+    array $packagePanels,
+    ?array $current
 ): string {
     $out = [];
     $out[] = '<!doctype html><html lang="en"><head><meta charset="utf-8">';
@@ -733,7 +819,7 @@ function webPage(
         $out[] = '<div class="banner crit">Some answers need another look.</div>';
     }
 
-    $panels = setupPanels($fields);
+    $panels = setupPanels($fields, $packagePanels);
     $out[] = '<div class="setup-layout"><aside class="setup-nav" aria-label="Setup sections">'
         . '<label class="setup-nav-search">Search settings<input type="search" data-setup-nav-search placeholder="Search settings" autocomplete="off"></label>'
         . '<a data-setup-nav-item data-setup-nav-terms="installation checks prerequisites"' . ($activeSection === 'basics' ? ' class="current"' : '') . ' href="?section=basics">Installation</a>';
@@ -761,7 +847,9 @@ function webPage(
             . '</fieldset></form><form method="post">';
     }
 
-    $title = $activeSection === 'basics' ? 'Installation' : sectionTitle($activeSection);
+    $activePanel = $panels[$activeSection] ?? null;
+    $title = $activeSection === 'basics' ? 'Installation'
+        : (is_array($activePanel) && $activePanel['kind'] === 'package' ? (string)$activePanel['title'] : sectionTitle($activeSection));
     $suggestedKeyPath = setupSuggestedPrivateKeyPath();
     $suggestedKeyExists = setupPrivateKeyExists($suggestedKeyPath);
     $suggestedPackageSecretKeyPath = setupSuggestedPackageSecretKeyPath();
@@ -821,6 +909,20 @@ function webPage(
         $out[] = '<p><strong>Saved schedule preview</strong></p><pre><code>' . h($preview === [] ? '(no Zogograph jobs selected)' : implode("\n", $preview)) . '</code></pre>'
             . '<input type="hidden" name="setup_schedule_token" value="' . h(setupScheduleToken()) . '">'
             . '<button type="submit" name="intent" value="apply-schedule"' . ($editingLocked || !$schedule['available'] || $php === '' ? ' disabled aria-disabled="true"' : '') . '>Apply schedule changes</button></fieldset>';
+    } elseif (is_array($activePanel) && $activePanel['kind'] === 'package') {
+        try {
+            $packageId = (string)$activePanel['feature'];
+            $settings = setupPackageSettings($current, $packageId);
+            $encoded = json_encode($settings, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR);
+            $out[] = '<p class="help">These settings are validated against the signed package schema. Setup does not load package code to render this panel.</p>'
+                . '<fieldset><legend>Package settings</legend><label>Settings (JSON)'
+                . '<textarea name="package_settings" rows="16" spellcheck="false">' . h($encoded) . '</textarea></label>'
+                . '<input type="hidden" name="package_panel_id" value="' . h($activeSection) . '">'
+                . '<input type="hidden" name="setup_package_settings_token" value="' . h(setupPackageSettingsToken()) . '">'
+                . '<button type="submit" name="intent" value="save-package-settings">Save package settings</button></fieldset>';
+        } catch (Throwable $error) {
+            $out[] = '<div class="banner warn">Package settings are unavailable: ' . h($error->getMessage()) . '</div>';
+        }
     } else {
         $help = sampleHelp($samplePath)['sections'][$activeSection] ?? '';
         if ($help !== '') $out[] = '<p class="help">' . h(firstParagraph($help)) . '</p>';
@@ -858,7 +960,8 @@ function webPage(
     }
     $out[] = '</section>';
 
-    if (!$editingLocked && !in_array($activeSection, ['basics', 'security', 'schedule'], true)) {
+    if (!$editingLocked && !in_array($activeSection, ['basics', 'security', 'schedule'], true)
+        && (!is_array($activePanel) || $activePanel['kind'] !== 'package')) {
         $out[] = '<button type="submit">Save ' . h($title) . '</button>';
     }
     $out[] = '</form></main></div>';

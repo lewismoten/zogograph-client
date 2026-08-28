@@ -59,6 +59,7 @@ try {
         'capabilities' => ['package_private_database'],
         'runtime' => ['kind' => 'hostscope-isolated-php-package', 'entrypoint' => 'src/Provider.php', 'provider_class' => 'TestRuntime\\Provider', 'operations' => ['capability'], 'minimum_api' => '1.0'],
         'settings_schema' => 'settings.schema.json',
+        'setup_panels' => [['id' => 'test-runtime-settings', 'title' => 'Test runtime settings', 'keywords' => ['retention']]],
         'data' => ['migrations' => ['migrations/001-private-evidence.sql']],
     ];
     $signed = packageSignManifest($manifest, $source, 'test-publisher', sodium_crypto_sign_secretkey($pair));
@@ -99,6 +100,8 @@ try {
     migrate($pdo, true);
     $installed = packageRuntimeInstall($config, $pdo, $source, 'administrator');
     runtimeExpect(is_file($installed['install_path'] . '/src/Provider.php'), 'signed package file was not installed');
+    runtimeExpect((packageRuntimePackages($pdo)[0]['setup_panels'][0]['id'] ?? '') === 'test-runtime-settings',
+        'signed package Setup panel metadata was not retained');
     $genericReadiness = packageRuntimeProviderReadiness($pdo, $config, 'test-runtime');
     runtimeExpect($genericReadiness['state'] === 'not-applicable' && !$genericReadiness['endpoint_tested'],
         'non-provider package received an incorrect custody readiness state');

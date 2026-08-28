@@ -2,9 +2,9 @@
 
 `setup.php` is the administrator configuration surface, not a dashboard view.
 Core and marketplace features may contribute panels only through the Setup
-panel registry. A panel declares an id, title, navigation parent, capability
-requirements, and a renderer. It never writes files or executes commands
-directly from its renderer.
+panel registry. Today a panel declares a validated id, title, kind, search
+keywords, and optional feature owner. It never supplies a renderer, writes
+files, or executes commands from Setup.
 
 ## Panel API
 
@@ -21,9 +21,11 @@ the full application. The currently concrete `SetupPanelApi` offers:
   `status()`, and `apply()`. It accepts structured choices for named approved
   jobs, never arbitrary shell commands or an arbitrary crontab line.
 
-Panels are hidden when their core/plugin feature is disabled. Plugins cannot
-replace core panels, add executable shell text, access another plugin's
-configuration, or bypass Setup's password/session/CSRF checks.
+Package panels are hidden unless their package is intact, compatible, granted,
+and enabled. Core-panel enablement is not implemented yet; it requires core
+features to have real lifecycle boundaries rather than merely hiding settings.
+Plugins cannot replace core panels, add executable shell text, access another
+plugin's configuration, or bypass Setup's password/session/CSRF checks.
 
 No package receives a direct settings object or a renderer callback. Setup's
 own generic editor is the only current settings path; it validates a signed
@@ -79,3 +81,5 @@ reviewed capability and command registry, not a broader cron API.
 6. Add a package-local secret reference picker. (Done for top-level fields.)
 7. Bridge renderer callbacks only after package execution is independently
    attested, with a separately reviewed isolation contract.
+8. Add parent navigation and declared capability metadata only when their
+   semantics and enforcement points exist in both core and package runtimes.

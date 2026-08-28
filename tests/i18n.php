@@ -60,6 +60,9 @@ i18nExpect($setup !== false && str_contains($setup, 'data-i18n="installation.che
     'Setup installation checks are not localized');
 i18nExpect($setup !== false && str_contains($setup, 'data-i18n-alt="auth.qr_alt"'),
     'Setup authenticator QR alternative text is not localized');
+i18nExpect($setup !== false && str_contains($setup, "'auth.change_password' : 'auth.create_password'")
+    && str_contains($setup, 'data-i18n="auth.new_password"') && str_contains($setup, 'data-i18n="auth.password_again"'),
+    'Setup sign-in password form is not localized');
 i18nExpect($setup !== false && str_contains($setup, 'data-i18n="encryption.private_key_exists"')
     && str_contains($setup, 'data-i18n="encryption.create_private_key"'),
     'Setup private-key provisioning is not localized');

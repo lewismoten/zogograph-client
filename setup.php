@@ -1060,7 +1060,7 @@ function webPage(
     $out[] = '<header class="setup-header"><a class="setup-brand" href="?section=basics">'
         . '<span class="poll" aria-hidden="true"><svg viewBox="0 0 36 36"><circle class="poll-track" cx="18" cy="18" r="15"></circle><circle class="poll-fill" cx="18" cy="18" r="15"></circle><circle class="poll-host-track" cx="18" cy="18" r="9"></circle><circle class="poll-host-fill" cx="18" cy="18" r="9"></circle></svg><span class="poll-dot"></span></span>'
         . '<strong>Zogograph</strong><small data-i18n="setup.label">Setup</small></a><span class="setup-controls">'
-        . '<label><span data-i18n="language.label">Language</span><select id="languagePicker" aria-label="Language"><option value="en">English</option><option value="en-US">English (US)</option><option value="en-GB">English (UK)</option><option value="es">Español</option><option value="hi">हिन्दी</option><option value="zh">中文</option><option value="ar">العربية</option></select></label>'
+        . '<label><span data-i18n="language.label">Language</span><select id="languagePicker" aria-label="Language" data-i18n-aria-label="language.label"><option value="en">English</option><option value="en-US">English (US)</option><option value="en-GB">English (UK)</option><option value="es">Español</option><option value="hi">हिन्दी</option><option value="zh">中文</option><option value="ar">العربية</option></select></label>'
         . '<label><input id="languageKeys" type="checkbox"><span data-i18n="language.keys">Show translation keys</span></label>'
         . ($unlocked ? '<a href="?lock=1" data-i18n="setup.lock">Lock setup</a> · ' : '')
         . '<a href="./" data-i18n="setup.dashboard">Open dashboard</a></span></header>';
@@ -1341,7 +1341,7 @@ function webPage(
                     . primaryKeyQuickStart($suggestedKeyPath, $suggestedKeyExists, !$configured || $unlocked);
             } elseif ($field['key'] === 'password') {
                 $out[] = renderField($field, $values, $errors, $configured)
-                    . '<button type="submit">' . ($configured ? 'Change password' : 'Create password') . '</button>';
+                    . '<button type="submit" data-i18n="' . ($configured ? 'auth.change_password' : 'auth.create_password') . '">' . ($configured ? 'Change password' : 'Create password') . '</button>';
             } else {
                 $out[] = renderField($field, $values, $errors, $configured);
             }
@@ -1427,11 +1427,11 @@ function renderField(array $field, array $values, array $errors, bool $configure
         $note = $configured
             ? 'Leave blank to keep the current password.'
             : h($field['help']);
-        return '<fieldset><legend>' . $label . '</legend>'
-            . '<span class="help">' . $note . '</span>'
-            . '<label style="margin-top:10px">New password'
+        return '<fieldset><legend data-i18n="' . ($configured ? 'auth.change_password' : 'auth.create_sign_in_password') . '">' . $label . '</legend>'
+            . '<span class="help"' . ($configured ? ' data-i18n="auth.password_keep"' : '') . '>' . $note . '</span>'
+            . '<label style="margin-top:10px"><span data-i18n="auth.new_password">New password</span>'
             . '<input type="password" name="password" autocomplete="new-password"></label>'
-            . '<label>Again<input type="password" name="password_again" autocomplete="new-password"></label>'
+            . '<label><span data-i18n="auth.password_again">Again</span><input type="password" name="password_again" autocomplete="new-password"></label>'
             . $bad . '</fieldset>';
     }
 

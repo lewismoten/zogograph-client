@@ -95,13 +95,17 @@ function i18nRegisterCatalog(locale, catalog, reload = true, packageId = "") {
   return true;
 }
 let i18nPackageCatalogsLoaded = false;
-async function i18nLoadPackageCatalogs() {
-  if (i18nPackageCatalogsLoaded) return;
+async function i18nLoadPackageCatalogs(force = false) {
+  if (i18nPackageCatalogsLoaded && !force) return;
   try {
     const response = await fetch("./api.php?action=package-i18n", { cache: "no-store", credentials: "same-origin" }); if (!response.ok) return;
     const data = await response.json(); let changed = false;
+    // The endpoint exposes only enabled packages. A forced lifecycle refresh
+    // therefore replaces, rather than accumulates, package-owned text so a
+    // disabled or removed package cannot keep contributing to the shell.
+    if (force) i18n.extensions = {};
     for (const [packageId, catalogs] of Object.entries(data.catalogs || {})) for (const [locale, catalog] of Object.entries(catalogs || {})) changed = i18nRegisterCatalog(locale, catalog, false, packageId) || changed;
-    i18nPackageCatalogsLoaded = true; if (changed) await i18nLoad(i18n.locale);
+    i18nPackageCatalogsLoaded = true; if (changed || force) await i18nLoad(i18n.locale);
   } catch { /* Package translations are optional and cannot block the shell. */ }
 }
 window.ZogographI18n = { t, load: i18nLoad, loadPackageCatalogs: i18nLoadPackageCatalogs, registerCatalog: i18nRegisterCatalog, setKeyMode: async enabled => { i18n.keyMode = enabled; await i18nLoad(i18n.locale); } };

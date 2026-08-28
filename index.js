@@ -11969,7 +11969,7 @@ function packageRuntimeActions(row, canChange) {
     const remove = document.createElement("button"); remove.className = "link danger"; remove.textContent = packageText("package.remove", {}, "Remove");
     remove.addEventListener("click", async () => {
       if (!(await confirmDialog(packageText("package.remove_confirmation", {id: row.id, version: row.version}, "Remove {{id}} {{version}}?\n\nThis removes its immutable package files and registry record. Package-private data and encrypted secrets are retained so they can be recovered or reused after a future reinstall."), packageText("package.remove", {}, "Remove")))) return;
-      try { await post("package-runtime-remove", { id: row.id }); await loadPackageDashboardPages(); await refreshPackageRuntime(); notice(packageText("package.removed", {id: row.id}, "{{id}} removed."), true); }
+      try { await post("package-runtime-remove", { id: row.id }); await Promise.all([loadPackageDashboardPages(), ZogographI18n.loadPackageCatalogs(true)]); await refreshPackageRuntime(); notice(packageText("package.removed", {id: row.id}, "{{id}} removed."), true); }
       catch (error) { notice(String(error.message || error)); }
     });
     wrap.appendChild(remove);
@@ -12018,7 +12018,7 @@ function packageRuntimeActions(row, canChange) {
   toggle.addEventListener("click", async () => {
     const verb = row.enabled ? packageText("package.disable", {}, "Disable") : packageText("package.grant_all_enable", {}, "Grant every listed capability and enable");
     if (!(await confirmDialog(packageText("package.toggle_confirmation", {verb, id: row.id, capabilities: row.capabilities.join(", ")}, "{{verb}} {{id}}?\n\nCapabilities: {{capabilities}}\n\nThis records permission only; it does not run package code."), packageText("package.toggle_title", {verb}, "{{verb}} package")))) return;
-    try { await post("package-runtime-enable", { id: row.id, enabled: row.enabled ? "0" : "1", grants: row.enabled ? "" : row.capabilities.join(",") }); await loadPackageDashboardPages(); await refreshPackageRuntime(); notice(row.enabled ? packageText("package.disabled", {id: row.id}, "{{id}} disabled.") : packageText("package.enabled", {id: row.id}, "{{id}} enabled for future runtime use."), true); }
+    try { await post("package-runtime-enable", { id: row.id, enabled: row.enabled ? "0" : "1", grants: row.enabled ? "" : row.capabilities.join(",") }); await Promise.all([loadPackageDashboardPages(), ZogographI18n.loadPackageCatalogs(true)]); await refreshPackageRuntime(); notice(row.enabled ? packageText("package.disabled", {id: row.id}, "{{id}} disabled.") : packageText("package.enabled", {id: row.id}, "{{id}} enabled for future runtime use."), true); }
     catch (error) { notice(String(error.message || error)); }
   });
   wrap.appendChild(toggle); return wrap;
@@ -12098,7 +12098,7 @@ function showPackageRuntimeRevoke(row) {
   const reason = document.createElement("textarea"); reason.className = "wide-field"; reason.rows = 4; reason.maxLength = 500;
   showFormDialog(`Revoke ${row.id}`, [fieldRow("Reason", reason, "Revocation disables this package immediately and records why. Lifting it later still leaves the package disabled until capabilities are explicitly granted again.")], async () => {
     await post("package-runtime-revoke", { id: row.id, reason: reason.value });
-    await loadPackageDashboardPages(); await refreshPackageRuntime(); notice(`${row.id} revoked.`, true);
+    await Promise.all([loadPackageDashboardPages(), ZogographI18n.loadPackageCatalogs(true)]); await refreshPackageRuntime(); notice(`${row.id} revoked.`, true);
   }, "Revoke package");
 }
 

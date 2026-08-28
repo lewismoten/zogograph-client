@@ -18,7 +18,8 @@ i18nExpect($runtime !== false && str_contains($runtime, 'Intl.NumberFormat') && 
     'locale runtime lacks formatting, RTL, preference, or key-mode support');
 i18nExpect($runtime !== false && str_contains($runtime, 'Package catalogs are translation extensions')
     && str_contains($runtime, 'if (!(key in catalog)) catalog[key] = value')
-    && str_contains($runtime, 'key.startsWith(prefix)') && str_contains($runtime, 'for (const [packageId, catalogs] of Object.entries(data.catalogs || {}))'),
+    && str_contains($runtime, 'key.startsWith(prefix)') && str_contains($runtime, 'for (const [packageId, catalogs] of Object.entries(data.catalogs || {}))')
+    && str_contains($runtime, 'async function i18nLoadPackageCatalogs(force = false)') && str_contains($runtime, 'if (force) i18n.extensions = {}'),
     'package locale catalogs can overwrite core translation text');
 i18nExpect($page !== false && str_contains($page, 'id="languagePicker"') && str_contains($page, 'id="languageKeys"')
     && str_contains($page, 'src="i18n.js"'), 'dashboard language controls are unavailable');

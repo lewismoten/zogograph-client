@@ -419,8 +419,8 @@ function packageRuntimeLocaleCatalogs(PDO $pdo): array
             if ($file === false || is_link($root . '/' . $relative) || !is_file($file) || !str_starts_with($file, rtrim($root, '/') . '/') || filesize($file) > 262144) continue;
             try { $raw = json_decode((string)file_get_contents($file), true, 64, JSON_THROW_ON_ERROR); } catch (Throwable) { continue; }
             if (!is_array($raw) || array_is_list($raw) || count($raw) > 1000) continue;
-            $catalog = [];
-            foreach ($raw as $key => $value) if (is_string($key) && preg_match('/^[a-z][\w.-]{0,119}$/i', $key) && is_string($value) && mb_strlen($value) <= 4000) $catalog[$key] = $value;
+            $catalog = []; $prefix = (string)$package['id'] . '.';
+            foreach ($raw as $key => $value) if (is_string($key) && str_starts_with($key, $prefix) && preg_match('/^[a-z][\w.-]{0,119}$/i', $key) && is_string($value) && mb_strlen($value) <= 4000) $catalog[$key] = $value;
             if ($catalog !== []) $out[$package['id']][(string)$locale] = $catalog;
         }
     }

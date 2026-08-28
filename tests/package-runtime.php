@@ -68,7 +68,7 @@ try {
         ],
         'data' => ['migrations' => ['migrations/001-private-evidence.sql']],
     ];
-    mkdir($source . '/locales', 0700, true); file_put_contents($source . '/locales/es.json', json_encode(['test-runtime.greeting' => 'Hola', 'test-runtime.page.title' => 'Estado del paquete', 'test-runtime.page.summary' => 'Una página del paquete renderizada por el núcleo.', 'test-runtime.setup.title' => 'Configuración de prueba', 'test-runtime.security.title' => 'Seguridad de prueba'], JSON_THROW_ON_ERROR));
+    mkdir($source . '/locales', 0700, true); file_put_contents($source . '/locales/es.json', json_encode(['test-runtime.greeting' => 'Hola', 'test-runtime.page.title' => 'Estado del paquete', 'test-runtime.page.summary' => 'Una página del paquete renderizada por el núcleo.', 'test-runtime.setup.title' => 'Configuración de prueba', 'test-runtime.security.title' => 'Seguridad de prueba', 'navigation.storage' => 'No debe reemplazar la navegación central'], JSON_THROW_ON_ERROR));
     $signed = packageSignManifest($manifest, $source, 'test-publisher', sodium_crypto_sign_secretkey($pair));
     file_put_contents($source . '/manifest.json', json_encode($signed, JSON_THROW_ON_ERROR));
     if (function_exists('proc_open')) {
@@ -167,6 +167,7 @@ try {
     $after = packageRuntimePackages($pdo)[0];
     runtimeExpect($after['enabled'] && str_starts_with($after['state'], 'registered; platform requirements are met'), 'package was not registered after explicit grant');
     runtimeExpect((packageRuntimeLocaleCatalogs($pdo)['test-runtime']['es']['test-runtime.greeting'] ?? '') === 'Hola', 'enabled package locale catalog was not available through the data-only bridge');
+    runtimeExpect(!isset(packageRuntimeLocaleCatalogs($pdo)['test-runtime']['es']['navigation.storage']), 'package locale catalog could override a core translation');
     runtimeExpect((packageRuntimeDashboardPages($pdo)[0]['route'] ?? '') === 'package-test-runtime-status'
         && (packageRuntimeDashboardPages($pdo)[0]['parent'] ?? null) === 'storage'
         && (packageRuntimeDashboardPages($pdo)[0]['title_key'] ?? null) === 'test-runtime.page.title', 'enabled package dashboard page was not available through the core shell bridge');

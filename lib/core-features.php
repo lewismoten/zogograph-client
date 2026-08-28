@@ -53,6 +53,10 @@ const CORE_FEATURES = [
         'dashboard_routes' => ['backups', 'backups-actions', 'backups-other', 'backups-jetbackup'],
         'setup_section' => 'features',
     ],
+    'encryption' => [
+        'dashboard_routes' => ['sys-encryption'],
+        'setup_section' => 'features',
+    ],
 ];
 
 /** Missing settings deliberately preserve existing installations. */
@@ -89,6 +93,8 @@ function coreFeatureForAction(string $action): ?string
         || str_starts_with($action, 'description-')) return 'metadata';
     if ($action === 'email' || $action === 'email-save' || $action === 'test-email' || $action === 'test-telegram') return 'notifications';
     if ($action === 'backups') return 'backups';
+    if (in_array($action, ['encryption-status', 'encryption-seal', 'encryption-recovery-drill',
+        'package-runtime-custody-envelope-store', 'package-runtime-custody-recovery-drill'], true)) return 'encryption';
     return null;
 }
 

@@ -144,6 +144,15 @@ function configFields(array $sample): array
             'default' => (bool)($sample['core_features']['backups'] ?? true),
         ],
         [
+            'key' => 'core_features_encryption',
+            'section' => 'features',
+            'path' => ['core_features', 'encryption'],
+            'type' => 'bool',
+            'label' => 'Protection core feature',
+            'help' => 'Disabling this removes Protection and blocks its on-demand status and recovery APIs. Configured encrypted-copy schedules and server-side verification continue unchanged.',
+            'default' => (bool)($sample['core_features']['encryption'] ?? true),
+        ],
+        [
             'key' => 'openid_enabled',
             'section' => 'openid',
             'path' => ['openid', 'enabled'],

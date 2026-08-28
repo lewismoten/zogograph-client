@@ -12132,7 +12132,7 @@ function renderEncryptionStatus(data) {
   } else if (data.mode === "sealed_copies_local") {
     parts.push(note("Verified encrypted copies protect backup artifacts, not the running SQLite database. Run `php cron.php --seal` and then `php cron.php --recovery-drill` from the server after setup. The drill decrypts and validates current copies without touching live data; schedule seals separately. Recovery requires the private key outside the web root and an explicit CLI restore."));
     parts.push(note("Bootstrap configuration recovery is deliberately CLI-only: `scripts/restore-config.php` authenticates and parses the sealed PHP without executing it, atomically replaces `lib/config.php`, and leaves the prior configuration as a sealed rollback artifact. Test the recovered settings before deleting that artifact."));
-    parts.push(note("Optional remote key custody adds a separately authorized recovery envelope; it is not live-database encryption and does not upload a database or ciphertext. Before using it, configure the signed custody package, verify its endpoint and enrolled credential, review its dedicated sandbox launcher, and keep local recovery enabled. Ciphertext replica storage remains a separate future capability. Never enter a custody or relay management token, billing credential, plaintext database, or recovery key into this client."));
+    parts.push(note(ZogographI18n.t("encryption.custody_notice", {}, "Optional remote key custody adds a separately authorized recovery envelope; it is not live-database encryption and does not upload a database or ciphertext. Before using it, configure the signed custody package, verify its endpoint and enrolled credential, review its dedicated sandbox launcher, and keep local recovery enabled. Ciphertext replica storage remains a separate future capability. Never enter a custody or relay management token, billing credential, plaintext database, or recovery key into this client.")));
     if (superseded) parts.push(note("Superseded copies remain encrypted with an earlier local key after rotation. Keep that key until you have completed a replacement-key recovery drill; they are not deleted automatically."));
     if (data.can_change) {
       const actions = document.createElement("div"); actions.className = "row-actions";
@@ -24189,14 +24189,14 @@ function findingRow(f) {
   if (state.access?.write && f.key) {
     const ignore = document.createElement("button");
     ignore.className = "link muted";
-    ignore.textContent = "Ignore this finding";
-    ignore.title = "Hide this exact diagnostic on future checks until the configuration is changed.";
+    ignore.textContent = ZogographI18n.t("diagnosis.ignore_action", {}, "Ignore this finding");
+    ignore.title = ZogographI18n.t("diagnosis.ignore_title", {}, "Hide this exact diagnostic on future checks until the configuration is changed.");
     ignore.addEventListener("click", async () => {
-      if (!(await confirmDialog(`Ignore “${f.title}” now and on future checks?\n\nUse this only for an intentional configuration.`, "Ignore finding"))) return;
+      if (!(await confirmDialog(ZogographI18n.t("diagnosis.ignore_confirm", {title: f.title}, "Ignore “{{title}}” now and on future checks?\n\nUse this only for an intentional configuration."), ZogographI18n.t("diagnosis.ignore_action", {}, "Ignore this finding")))) return;
       try {
         await post("diagnosis-ignore", { key: f.key });
         await refreshDiagnosis();
-        notice("Ignored for future checks. The decision is in the audit log.", true);
+        notice(ZogographI18n.t("diagnosis.ignore_success", {}, "Ignored for future checks. The decision is in the audit log."), true);
       } catch (error) {
         notice(String(error.message || error));
       }

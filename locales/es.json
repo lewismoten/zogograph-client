@@ -448,5 +448,10 @@
   "navigation.search": "Buscar secciones",
   "auth.sign_out": "Cerrar sesión",
   "update.compatibility": "Hay una actualización de compatibilidad lista. Recargue antes de continuar para que este navegador use el panel correspondiente.",
-  "action.reload": "Recargar ahora"
+  "action.reload": "Recargar ahora",
+  "encryption.custody_notice": "La custodia remota opcional de claves añade un sobre de recuperación autorizado por separado; no cifra la base de datos activa ni carga una base de datos o texto cifrado. Antes de usarla, configure el paquete de custodia firmado, verifique su punto de conexión y credencial inscrita, revise su iniciador de zona aislada y mantenga activada la recuperación local. El almacenamiento de réplicas de texto cifrado sigue siendo una capacidad independiente. Nunca introduzca en este cliente un token de administración de custodia o retransmisión, una credencial de facturación, una base de datos en texto sin cifrar ni una clave de recuperación.",
+  "diagnosis.ignore_action": "Ignorar este hallazgo",
+  "diagnosis.ignore_title": "Oculta este diagnóstico exacto en comprobaciones futuras hasta que cambie la configuración.",
+  "diagnosis.ignore_confirm": "¿Ignorar “{{title}}” ahora y en comprobaciones futuras?\n\nÚselo solo para una configuración intencional.",
+  "diagnosis.ignore_success": "Se ignorará en comprobaciones futuras. La decisión queda en el registro de auditoría."
 }

@@ -427,5 +427,10 @@
   "openid.create_client": "创建受信任的客户端",
   "update.available": "有更新版本的 Zogograph 可用。准备好后请重新加载。",
   "update.compatibility": "兼容性更新已准备好。请在继续前重新加载，以便此浏览器使用匹配的仪表板。",
-  "action.reload": "立即重新加载"
+  "action.reload": "立即重新加载",
+  "encryption.custody_notice": "可选的远程密钥托管会增加一个单独授权的恢复信封；它不是活动数据库加密，也不会上传数据库或密文。使用前，请配置已签名的托管软件包，验证其端点和注册凭据，审查专用沙盒启动器，并保留本地恢复功能。密文副本存储仍是一项独立能力。切勿在此客户端输入托管或中继管理令牌、计费凭据、数据库明文或恢复密钥。",
+  "diagnosis.ignore_action": "忽略此发现",
+  "diagnosis.ignore_title": "在配置更改前的后续检查中隐藏这一确切诊断。",
+  "diagnosis.ignore_confirm": "现在以及在后续检查中忽略“{{title}}”？\n\n仅对有意作出的配置使用此操作。",
+  "diagnosis.ignore_success": "后续检查将忽略此项。该决定已记录在审计日志中。"
 }

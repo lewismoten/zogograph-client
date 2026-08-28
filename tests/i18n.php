@@ -27,6 +27,10 @@ i18nExpect($script !== false && str_contains($script, 'new Intl.NumberFormat(doc
 i18nExpect($script !== false && str_contains($script, 'ZogographI18n.t("image.note_screenshot"')
     && str_contains($script, 'ZogographI18n.t("image.send_screenshot"'),
     'dashboard fixed image descriptions do not use the locale catalog');
+i18nExpect($script !== false && str_contains($script, 'ZogographI18n.t("encryption.custody_notice"')
+    && str_contains($script, 'ZogographI18n.t("diagnosis.ignore_confirm"')
+    && str_contains($script, 'ZogographI18n.t("diagnosis.ignore_success"'),
+    'security-sensitive dashboard notices do not use the locale catalog');
 i18nExpect($script !== false && str_contains($script, 'function packageText(')
     && str_contains($script, 'package.runtime_intro') && str_contains($script, 'package.installed_for_review')
     && str_contains($script, 'package.toggle_confirmation') && str_contains($script, 'package.remove_confirmation'),
@@ -166,6 +170,7 @@ foreach (array_unique($setupKeys[1] ?? []) as $key) {
     i18nExpect(isset($english[$key]), "setup i18n attribute key $key has no English fallback");
 }
 $translatedNavigation = ['navigation.deleted_held', 'navigation.cpu_limits', 'navigation.memory_by_user', 'navigation.memory_breakdown', 'navigation.memory_services', 'navigation.memory_processes', 'navigation.kernel_slab', 'navigation.services', 'navigation.units', 'navigation.last_busy', 'navigation.url_checks', 'navigation.open_ports', 'navigation.connected_peers', 'navigation.network_capture', 'navigation.network_captures', 'navigation.dns_lookups', 'navigation.domains', 'navigation.whois', 'navigation.fetch_page', 'navigation.dns_records', 'navigation.whoami', 'navigation.reverse_dns', 'navigation.assistant', 'navigation.assistant_identity', 'navigation.past_conversations', 'navigation.summaries', 'navigation.assistant_memory', 'navigation.ai_model', 'navigation.prices', 'navigation.thresholds', 'navigation.images', 'navigation.tools', 'navigation.try_tool', 'navigation.billing', 'navigation.assistant_data', 'navigation.terminal', 'navigation.sessions', 'navigation.host_capabilities', 'navigation.installed_software', 'navigation.changes', 'navigation.system', 'navigation.account_data', 'navigation.protection', 'navigation.host_data', 'navigation.data_retention', 'navigation.trusted_servers', 'navigation.marketplace', 'navigation.package_runtime', 'navigation.forensics', 'navigation.database_copies', 'navigation.recent_problems', 'navigation.email_alerts', 'navigation.account_scans', 'navigation.host_scans', 'navigation.custom_names', 'navigation.audit', 'navigation.descriptions'];
+$translatedSecurityMessages = ['encryption.custody_notice', 'diagnosis.ignore_action', 'diagnosis.ignore_title', 'diagnosis.ignore_confirm', 'diagnosis.ignore_success'];
 foreach (['en-US', 'en-GB', 'es', 'hi', 'zh', 'ar'] as $locale) {
     $catalog = json_decode((string)file_get_contents($root . '/locales/' . $locale . '.json'), true);
     i18nExpect(is_array($catalog), "locale catalog $locale is invalid");
@@ -174,12 +179,14 @@ foreach (['en-US', 'en-GB', 'es', 'hi', 'zh', 'ar'] as $locale) {
             "locale catalog $locale lacks translated primary navigation");
         i18nExpect(array_diff(array_unique($setupKeys[1] ?? []), array_keys($catalog)) === [],
             "locale catalog $locale falls back to English for a visible Setup label");
+        i18nExpect(array_diff($translatedSecurityMessages, array_keys($catalog)) === [],
+            "locale catalog $locale lacks translated security-sensitive dashboard text");
     }
 }
 foreach (array_keys(array_filter($english, static fn(mixed $value, string $key): bool => str_starts_with($key, 'setup.field.'), ARRAY_FILTER_USE_BOTH)) as $key) {
     foreach (['es' => 'Spanish', 'hi' => 'Hindi', 'zh' => 'Chinese', 'ar' => 'Arabic'] as $locale => $language) {
         $catalog = json_decode((string)file_get_contents($root . '/locales/' . $locale . '.json'), true);
-        i18nExpect(is_array($catalog) && isset($catalog[$key]), "$language catalog lacks schema-driven Setup field $key");
+    i18nExpect(is_array($catalog) && isset($catalog[$key]), "$language catalog lacks schema-driven Setup field $key");
     }
 }
 foreach (array_keys(array_filter($english, static fn(mixed $value, string $key): bool => str_starts_with($key, 'setup.help.'), ARRAY_FILTER_USE_BOTH)) as $key) {

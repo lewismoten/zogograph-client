@@ -21,7 +21,7 @@ i18nExpect($setup !== false && str_contains($setup, 'src="i18n.js"') && str_cont
     && str_contains($setup, 'id="languageKeys"') && str_contains($setup, 'data-i18n="setup.installation"')
     && str_contains($setup, "'setup.section.' . \$name"),
     'Setup language controls or localized shell are unavailable');
-i18nExpect(is_array($english) && isset($english['example.readings'], $english['example.compact'], $english['example.cost'], $english['example.percent'], $english['example.storage'], $english['example.changed'], $english['update.available'], $english['range.10m'], $english['action.reload'], $english['navigation.storage'], $english['navigation.cpu'], $english['deployment.test'], $english['merge.apply']),
+i18nExpect(is_array($english) && isset($english['example.readings'], $english['example.compact'], $english['example.cost'], $english['example.percent'], $english['example.storage'], $english['example.changed'], $english['update.available'], $english['range.10m'], $english['action.reload'], $english['navigation.storage'], $english['navigation.cpu'], $english['navigation.deleted_held'], $english['navigation.cpu_limits'], $english['deployment.test'], $english['merge.apply']),
     'English fallback catalog is incomplete');
 preg_match_all('/data-i18n(?:-placeholder|-title|-aria-label)?="([^"]+)"/', (string)$page, $pageKeys);
 foreach (array_unique($pageKeys[1] ?? []) as $key) {
@@ -31,11 +31,11 @@ foreach (['en-US', 'en-GB', 'es', 'hi', 'zh', 'ar'] as $locale) {
     $catalog = json_decode((string)file_get_contents($root . '/locales/' . $locale . '.json'), true);
     i18nExpect(is_array($catalog), "locale catalog $locale is invalid");
     if (in_array($locale, ['es', 'hi', 'zh', 'ar'], true)) {
-        i18nExpect(isset($catalog['navigation.charts'], $catalog['navigation.storage'], $catalog['navigation.backups'], $catalog['navigation.cpu'], $catalog['navigation.memory'], $catalog['navigation.processes'], $catalog['navigation.network'], $catalog['setup.section.deployment']),
+        i18nExpect(isset($catalog['navigation.charts'], $catalog['navigation.storage'], $catalog['navigation.backups'], $catalog['navigation.cpu'], $catalog['navigation.memory'], $catalog['navigation.processes'], $catalog['navigation.network'], $catalog['navigation.deleted_held'], $catalog['navigation.cpu_limits'], $catalog['setup.section.deployment']),
             "locale catalog $locale lacks translated primary navigation");
     }
 }
-foreach (['navigation.charts', 'navigation.storage', 'navigation.backups', 'navigation.cpu', 'navigation.memory', 'navigation.processes', 'navigation.network'] as $key) {
+foreach (['navigation.charts', 'navigation.storage', 'navigation.backups', 'navigation.cpu', 'navigation.memory', 'navigation.processes', 'navigation.network', 'navigation.deleted_held', 'navigation.cpu_limits'] as $key) {
     i18nExpect($page !== false && str_contains($page, 'data-i18n="' . $key . '"'), "dashboard navigation does not use $key");
 }
 echo "i18n checks passed\n";

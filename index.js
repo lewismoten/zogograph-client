@@ -12152,7 +12152,7 @@ function renderEncryptionStatus(data) {
     if (superseded) parts.push(note("Superseded copies remain encrypted with an earlier local key after rotation. Keep that key until you have completed a replacement-key recovery drill; they are not deleted automatically."));
     if (data.can_change) {
       const actions = document.createElement("div"); actions.className = "row-actions";
-      const seal = document.createElement("button"); seal.type = "button"; seal.textContent = "Create verified encrypted copies";
+      const seal = document.createElement("button"); seal.type = "button"; seal.textContent = ZogographI18n.t("encryption.create_verified_copies", {}, "Create verified encrypted copies");
       seal.addEventListener("click", async () => {
         if (!(await confirmDialog("Create a fresh encrypted copy of every selected available store now? This does not encrypt the running database. Retention pruning may remove only expired, hash-verified copies and never the newest verified copy for a store.", "Create encrypted copies"))) return;
         seal.disabled = true;
@@ -12162,7 +12162,7 @@ function renderEncryptionStatus(data) {
         } catch (error) { notice(String(error.message || error)); }
         finally { seal.disabled = false; }
       });
-      const drill = document.createElement("button"); drill.type = "button"; drill.textContent = "Run non-destructive recovery drill";
+      const drill = document.createElement("button"); drill.type = "button"; drill.textContent = ZogographI18n.t("encryption.run_recovery_drill", {}, "Run non-destructive recovery drill");
       drill.disabled = !data.artifacts?.length;
       drill.title = drill.disabled ? "Create verified encrypted copies before running a recovery drill." : "";
       drill.addEventListener("click", async () => {
@@ -12174,11 +12174,11 @@ function renderEncryptionStatus(data) {
         } catch (error) { notice(String(error.message || error)); }
         finally { drill.disabled = false; }
       });
-      const remote = document.createElement("button"); remote.type = "button"; remote.textContent = "Add optional remote custody envelope";
+      const remote = document.createElement("button"); remote.type = "button"; remote.textContent = ZogographI18n.t("encryption.add_remote_envelope", {}, "Add optional remote custody envelope");
       remote.disabled = !data.remote_envelope_candidates?.length;
       remote.title = remote.disabled ? "Create a verified encrypted copy before adding an optional remote envelope." : "Requires separately configured custody enrollment and envelope-store sandboxes.";
       remote.addEventListener("click", () => showCustodyEnvelopeDialog(data.remote_envelope_candidates || []));
-      const remoteDrill = document.createElement("button"); remoteDrill.type = "button"; remoteDrill.textContent = "Run remote custody recovery drill";
+      const remoteDrill = document.createElement("button"); remoteDrill.type = "button"; remoteDrill.textContent = ZogographI18n.t("encryption.run_remote_recovery_drill", {}, "Run remote custody recovery drill");
       remoteDrill.disabled = !data.remote_recovery_candidates?.length;
       remoteDrill.title = remoteDrill.disabled ? "A verified local artifact is required before a remote recovery drill." : "Requires a stored remote envelope and separately configured custody unwrap sandbox.";
       remoteDrill.addEventListener("click", () => showCustodyRecoveryDrillDialog(data.remote_recovery_candidates || []));

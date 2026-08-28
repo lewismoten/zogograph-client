@@ -61,6 +61,10 @@ const CORE_FEATURES = [
         'dashboard_routes' => ['alerts'],
         'setup_section' => 'features',
     ],
+    'uptime' => [
+        'dashboard_routes' => ['uptime'],
+        'setup_section' => 'features',
+    ],
 ];
 
 /** Missing settings deliberately preserve existing installations. */
@@ -100,6 +104,7 @@ function coreFeatureForAction(string $action): ?string
     if (in_array($action, ['encryption-status', 'encryption-seal', 'encryption-recovery-drill',
         'package-runtime-custody-envelope-store', 'package-runtime-custody-recovery-drill'], true)) return 'encryption';
     if ($action === 'alerts' || str_starts_with($action, 'alert-')) return 'alerts';
+    if ($action === 'uptime') return 'uptime';
     return null;
 }
 

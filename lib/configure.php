@@ -162,6 +162,15 @@ function configFields(array $sample): array
             'default' => (bool)($sample['core_features']['alerts'] ?? true),
         ],
         [
+            'key' => 'core_features_uptime',
+            'section' => 'features',
+            'path' => ['core_features', 'uptime'],
+            'type' => 'bool',
+            'label' => 'Uptime core feature',
+            'help' => 'Disabling this removes Uptime and blocks its API route. It does not alter host or account collector schedules.',
+            'default' => (bool)($sample['core_features']['uptime'] ?? true),
+        ],
+        [
             'key' => 'openid_enabled',
             'section' => 'openid',
             'path' => ['openid', 'enabled'],

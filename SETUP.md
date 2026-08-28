@@ -203,11 +203,13 @@ quick-start path: it creates a new file only, never replaces one, requires the
 current setup password for an existing installation, and never displays key
 material in the browser. Do not store the key in `data/`, `lib/`, the web root,
 or alongside a database export. Its suggested path uses the web-service
-account's home directory, followed by `/secure/primary.key`. Use the CLI form
-when the web-service account cannot write the intended private directory.
+account's home directory, followed by `/.private/zogograph.key`. The quick-start
+also creates that directory when needed and adds an Apache deny policy to it as
+an extra precaution. Use the CLI form when the web-service account cannot write
+the intended private directory.
 
 ```bash
-php scripts/encryption-key.php create "$HOME/secure/primary.key"
+php scripts/encryption-key.php create "$HOME/.private/zogograph.key"
 ```
 
 In the setup wizard's **Encryption** section, select **Encrypted copies with a
@@ -333,7 +335,7 @@ To inspect a copy during recovery, decrypt it to a new private file and remove
 that plaintext file when you finish:
 
 ```bash
-php scripts/encryption-key.php decrypt "$HOME/secure/primary.key" account.sealed restored-account.db
+php scripts/encryption-key.php decrypt "$HOME/.private/zogograph.key" account.sealed restored-account.db
 ```
 
 To restore an account database from a sealed copy, stop the web server and all
@@ -346,7 +348,7 @@ that owns the files:
 
 ```bash
 php scripts/restore-account.php --sealed /secure/account.sealed \
-  --key "$HOME/secure/primary.key" --writers-stopped
+  --key "$HOME/.private/zogograph.key" --writers-stopped
 ```
 
 Do not restart Zogograph until that command exits successfully. This restores
@@ -361,11 +363,11 @@ atomically replaces it, and removes stale WAL/SHM companions:
 
 ```bash
 php scripts/restore-store.php --store setup --sealed /secure/setup.sealed \
-  --key "$HOME/secure/primary.key" --writers-stopped
+  --key "$HOME/.private/zogograph.key" --writers-stopped
 php scripts/restore-store.php --store host --sealed /secure/host.sealed \
-  --key "$HOME/secure/primary.key" --writers-stopped
+  --key "$HOME/.private/zogograph.key" --writers-stopped
 php scripts/restore-store.php --store ai --sealed /secure/ai.sealed \
-  --key "$HOME/secure/primary.key" --writers-stopped
+  --key "$HOME/.private/zogograph.key" --writers-stopped
 ```
 
 When `--sealed` and `--key` are used, the printed pre-restore rollback path
@@ -384,7 +386,7 @@ prior copy with the recovery key until the recovered configuration is tested.
 
 ```bash
 php scripts/restore-config.php --sealed /secure/config.sealed \
-  --key "$HOME/secure/primary.key" --confirm
+  --key "$HOME/.private/zogograph.key" --confirm
 ```
 
 The `--store setup` recovery path uses only the minimal bootstrap first, so it
@@ -421,7 +423,7 @@ affected store has a current verified replacement, then authenticates each old
 artifact before removal:
 
 ```bash
-php scripts/retire-superseded-sealed.php --old-key "$HOME/secure/primary.key" --confirm
+php scripts/retire-superseded-sealed.php --old-key "$HOME/.private/zogograph.key" --confirm
 ```
 
 ## Optional: signed executable packages

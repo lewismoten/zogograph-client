@@ -214,8 +214,8 @@ function setupSuggestedPrivateKeyPath(): string
 
     $home = rtrim($home, '/');
     return $home !== '' && str_starts_with($home, '/')
-        ? $home . '/secure/primary.key'
-        : '/home/your-account/secure/primary.key';
+        ? $home . '/.private/zogograph.key'
+        : '/home/your-account/.private/zogograph.key';
 }
 
 /* ------------------------------------------------------------------- web -- */
@@ -649,7 +649,8 @@ function webPage(
             . 'Save this first; the rest of the sections can then be adjusted independently.</p>';
         $out[] = '</form><details><summary>Create a local encryption key for verified encrypted copies</summary>'
             . '<p class="help">This quick-start action creates a new Base64 256-bit key at an absolute, '
-            . 'private path outside this web directory. It refuses to replace an existing file, does not '
+            . 'private path outside this web directory. It creates the private directory and an Apache '
+            . 'deny policy when needed, refuses to replace an existing file, does not '
             . 'show the key in the browser, and creates it readable only by the Zogograph service account. '
             . 'Keep a separately protected offline recovery copy before enabling encrypted copies.</p>'
             . '<form method="post"><input type="hidden" name="intent" value="create-local-key">'

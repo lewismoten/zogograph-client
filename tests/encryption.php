@@ -106,6 +106,11 @@ try {
     $key = encryptionReadLocalKey($keyPath, $web);
     encryptionExpect(strlen($key) === 32, 'local key did not contain 256 bits');
     encryptionExpect((fileperms($keyPath) & 0077) === 0, 'local key permissions are too broad');
+    $privateKeyPath = $root . '/.private/zogograph.key';
+    encryptionCreateLocalKey($privateKeyPath, $web);
+    $privatePolicy = file_get_contents($root . '/.private/.htaccess');
+    encryptionExpect(is_string($privatePolicy) && str_contains($privatePolicy, 'Require all denied')
+        && str_contains($privatePolicy, 'Deny from all'), 'private key directory lacks an Apache deny policy');
     if (function_exists('symlink') && @symlink($web, $root . '/linked-web')) {
         $linkedKey = $root . '/linked-web/exposed.key';
         try { encryptionCreateLocalKey($linkedKey, $web); throw new RuntimeException('local key creation followed a symlinked parent into the web root'); }

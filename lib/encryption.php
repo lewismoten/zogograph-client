@@ -24,9 +24,18 @@ function encryptionCreateLocalKey(string $path, string $webRoot): void
 {
     encryptionKeyPath($path, $webRoot, false);
     $directory = dirname($path);
-    if (!is_dir($directory) || !is_writable($directory)) {
+    if (!is_dir($directory) && !@mkdir($directory, 0700, true) && !is_dir($directory)) {
+        throw new RuntimeException('could not create the local key directory');
+    }
+    if (is_link($directory)) {
+        throw new RuntimeException('the local key directory must not be a symbolic link');
+    }
+    $directory = realpath($directory);
+    if ($directory === false || !is_dir($directory) || !is_writable($directory)) {
         throw new RuntimeException('the local key directory is not writable');
     }
+    @chmod($directory, 0700);
+    encryptionProtectPrivateKeyDirectory($directory);
     $handle = encryptionWithPrivateUmask(fn() => @fopen($path, 'x'));
     if ($handle === false) {
         throw new RuntimeException('refusing to replace an existing local key');
@@ -38,6 +47,45 @@ function encryptionCreateLocalKey(string $path, string $webRoot): void
     }
     @chmod($path, 0600);
     encryptionKeyPath($path, $webRoot, true);
+}
+
+/** Adds a denial rule where Apache could otherwise map the key directory. */
+function encryptionProtectPrivateKeyDirectory(string $directory): void
+{
+    $policyPath = $directory . '/.htaccess';
+    if (is_link($policyPath)) {
+        throw new RuntimeException('the local key directory has an unsafe access policy link');
+    }
+
+    $marker = '# Zogograph private-key protection';
+    $policy = $marker . "\n<IfModule mod_authz_core.c>\n    Require all denied\n</IfModule>\n"
+        . "<IfModule !mod_authz_core.c>\n    Deny from all\n</IfModule>\n";
+    if (file_exists($policyPath)) {
+        if (!is_file($policyPath) || !is_readable($policyPath) || !is_writable($policyPath)) {
+            throw new RuntimeException('the local key directory access policy is unavailable');
+        }
+        $existing = file_get_contents($policyPath);
+        if (!is_string($existing)) {
+            throw new RuntimeException('could not read the local key directory access policy');
+        }
+        if (str_contains($existing, $marker)) {
+            return;
+        }
+        if (file_put_contents($policyPath, "\n" . $policy, FILE_APPEND | LOCK_EX) === false) {
+            throw new RuntimeException('could not update the local key directory access policy');
+        }
+    } else {
+        $handle = encryptionWithPrivateUmask(fn() => @fopen($policyPath, 'x'));
+        if ($handle === false) {
+            throw new RuntimeException('could not create the local key directory access policy');
+        }
+        try {
+            encryptionWriteAll($handle, $policy);
+        } finally {
+            fclose($handle);
+        }
+    }
+    @chmod($policyPath, 0644);
 }
 
 /** Reads a strictly permissioned, non-web-readable 256-bit local KEK. */

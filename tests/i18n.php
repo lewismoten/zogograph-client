@@ -92,7 +92,7 @@ foreach (['en-US', 'en-GB', 'es', 'hi', 'zh', 'ar'] as $locale) {
     $catalog = json_decode((string)file_get_contents($root . '/locales/' . $locale . '.json'), true);
     i18nExpect(is_array($catalog), "locale catalog $locale is invalid");
     if (in_array($locale, ['es', 'hi', 'zh', 'ar'], true)) {
-        i18nExpect(isset($catalog['navigation.charts'], $catalog['navigation.storage'], $catalog['navigation.backups'], $catalog['navigation.cpu'], $catalog['navigation.memory'], $catalog['navigation.processes'], $catalog['navigation.network'], $catalog['setup.section.deployment'], $catalog['auth.app'], $catalog['auth.recovery_title'], $catalog['auth.verify'], $catalog['openid.provider'], $catalog['openid.create_client'], $catalog['schedule.custom_builder'], $catalog['schedule.remove']) && array_diff($translatedNavigation, array_keys($catalog)) === [],
+        i18nExpect(isset($catalog['navigation.charts'], $catalog['navigation.storage'], $catalog['navigation.backups'], $catalog['navigation.cpu'], $catalog['navigation.memory'], $catalog['navigation.processes'], $catalog['navigation.network'], $catalog['setup.section.deployment'], $catalog['setup.authorize'], $catalog['privacy.masked_paths'], $catalog['auth.app'], $catalog['auth.recovery_title'], $catalog['auth.verify'], $catalog['openid.provider'], $catalog['openid.create_client'], $catalog['schedule.custom_builder'], $catalog['schedule.remove']) && array_diff($translatedNavigation, array_keys($catalog)) === [],
             "locale catalog $locale lacks translated primary navigation");
     }
 }

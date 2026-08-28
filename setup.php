@@ -1104,12 +1104,6 @@ function webPage(
         $out[] = '<div class="banner crit"><strong data-i18n="setup.not_configured">Nothing is configured yet.</strong>'
             . '<p data-i18n="setup.not_configured_help">Until you finish, anybody who can reach this page can set the password. '
             . 'Do it now; afterwards this remains the password-protected configuration backend.</p></div>';
-    } elseif (!$unlocked && $existing['password_hash'] === '') {
-        $out[] = '<div class="banner warn"><strong data-i18n="setup.no_password">Already configured, with no password.</strong>'
-            . '<p data-i18n="setup.no_password_help">There is no secret to prove, so nothing can authorize replacing the configuration from here. Fill this in and paste the result into lib/config.php yourself — having a file to edit is the authorization.</p></div>';
-    } elseif (!$unlocked) {
-        $out[] = '<div class="banner warn"><strong data-i18n="setup.configured">Already configured.</strong>'
-            . '<p data-i18n="setup.configured_help">Enter the current password below and this will replace lib/config.php. Without it you still get the finished text to copy and paste.</p></div>';
     }
 
     if ($refusal !== null) {
@@ -1147,14 +1141,13 @@ function webPage(
         . '<input type="hidden" name="section" value="' . h($activeSection) . '">';
 
     $editingLocked = $configured && $existing['password_hash'] !== '' && !$unlocked;
-    if ($editingLocked) {
+    if ($editingLocked && $activeSection !== 'basics') {
         // Its own form, so pressing enter in the password box unlocks rather
         // than submitting a whole config full of defaults.
         $out[] = '</form><form method="post"><input type="hidden" name="intent" value="unlock">'
             . '<input type="hidden" name="section" value="' . h($activeSection) . '">'
             . '<fieldset><legend data-i18n="setup.authorize">Authorize</legend>'
-            . '<span class="help" data-i18n="setup.authorize_help">The password this install already uses. Enter it to edit the '
-            . 'current settings and replace the file.</span>'
+            . '<span class="help" data-i18n="setup.authorize_help">Enter the password that protects this setup area to make changes.</span>'
             . '<label style="margin-top:10px"><span data-i18n="setup.current_password">Current password</span>'
             . '<input type="password" name="current_password" autocomplete="current-password"></label>'
             . '<button type="submit" data-i18n="setup.unlock">Unlock</button>'
@@ -1171,7 +1164,7 @@ function webPage(
     $suggestedPackageSecretKeyPath = setupSuggestedPackageSecretKeyPath();
     $suggestedPackageSecretKeyExists = setupPrivateKeyExists($suggestedPackageSecretKeyPath);
     $out[] = '<section class="setup-section"><h2' . ($titleKey !== '' ? ' data-i18n="' . h($titleKey) . '"' : '') . '>' . h($title) . '</h2>';
-    if ($editingLocked) {
+    if ($editingLocked && $activeSection !== 'basics') {
         $out[] = '<p class="help" data-i18n="setup.unlock_to_view">Unlock setup to view or change this section.</p>';
     } elseif ($activeSection === 'basics') {
         $out[] = '<p class="help" data-i18n="setup.basics_help">Review these checks, then open Security to create the sign-in password. '

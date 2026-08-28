@@ -172,7 +172,7 @@
   "setup.search": "Search settings",
   "setup.search_results": "Showing {{count, number}} settings sections",
   "setup.authorize": "Authorize",
-  "setup.authorize_help": "The password this install already uses. Enter it to edit the current settings and replace the file.",
+  "setup.authorize_help": "Enter the password that protects this setup area to make changes.",
   "setup.current_password": "Current password",
   "setup.unlock": "Unlock",
   "setup.unlock_to_view": "Unlock setup to view or change this section.",

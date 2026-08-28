@@ -67,7 +67,11 @@ async function i18nLoad(locale = i18nRequestedLocale()) {
   i18n.locale = locale; document.documentElement.lang = locale;
   document.documentElement.dir = I18N_RTL.has(locale.split("-")[0]) ? "rtl" : "ltr";
   document.querySelectorAll("[data-i18n]").forEach(node => {
-    const key = node.dataset.i18n; node.textContent = t(key, i18nNodeValues(node)); node.title = i18n.keyMode ? i18n.fallback[key] || key : "";
+    const key = node.dataset.i18n;
+    const fallback = node.dataset.i18nFallback ?? node.textContent;
+    node.dataset.i18nFallback = fallback;
+    node.textContent = t(key, i18nNodeValues(node), fallback);
+    node.title = i18n.keyMode ? i18n.fallback[key] || fallback || key : "";
   });
   for (const [attribute, data] of [["placeholder", "i18nPlaceholder"], ["title", "i18nTitle"], ["aria-label", "i18nAriaLabel"], ["alt", "i18nAlt"]]) {
     document.querySelectorAll(`[data-${data.replace(/[A-Z]/g, letter => `-${letter.toLowerCase()}`)}]`).forEach(node => {

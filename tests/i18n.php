@@ -16,6 +16,9 @@ i18nExpect($runtime !== false && str_contains($runtime, 'Intl.NumberFormat') && 
     && str_contains($runtime, 'latin-number') && str_contains($runtime, 'arabic-number') && str_contains($runtime, 'eastern-arabic-number') && str_contains($runtime, 'numberingSystem: "arab"') && str_contains($runtime, 'numberingSystem: "arabext"') && str_contains($runtime, 'compact') && str_contains($runtime, 'percent') && str_contains($runtime, 'unit') && str_contains($runtime, 'date-time') && str_contains($runtime, 'currency')
     && str_contains($runtime, 'i18nPlaceholder') && str_contains($runtime, 'i18nAlt') && str_contains($runtime, 'zogograph-i18n-load') && str_contains($runtime, 'package-i18n'),
     'locale runtime lacks formatting, RTL, preference, or key-mode support');
+i18nExpect($runtime !== false && str_contains($runtime, 'node.dataset.i18nFallback')
+    && str_contains($runtime, 't(key, i18nNodeValues(node), fallback)'),
+    'locale runtime can expose untranslated navigation keys instead of server-rendered English');
 i18nExpect($runtime !== false && str_contains($runtime, 'Package catalogs are translation extensions')
     && str_contains($runtime, 'if (!(key in catalog)) catalog[key] = value')
     && str_contains($runtime, 'key.startsWith(prefix)') && str_contains($runtime, 'for (const [packageId, catalogs] of Object.entries(data.catalogs || {}))')
@@ -80,7 +83,7 @@ i18nExpect($setup !== false && str_contains($setup, 'data-i18n="setup.authorize"
     && str_contains($setup, 'data-i18n="privacy.rotate_mask"'),
     'Setup access and privacy panels are not localized');
 i18nExpect($setup !== false && str_contains($setup, 'data-i18n="setup.not_configured"')
-    && str_contains($setup, 'data-i18n="setup.no_password_help"') && str_contains($setup, 'data-i18n="setup.configured_help"'),
+    && str_contains($setup, 'data-i18n="setup.authorize_help"') && !str_contains($setup, 'data-i18n="setup.no_password_help"'),
     'Setup password-protection notices are not localized');
 i18nExpect($setup !== false && str_contains($setup, 'data-i18n="setup.validation_error"'),
     'Setup validation feedback is not localized');
@@ -141,6 +144,9 @@ i18nExpect($setup !== false && str_contains($setup, 'data-i18n="schedule.intro"'
 i18nExpect($setup !== false && str_contains($setup, 'data-i18n="installation.checks"')
     && str_contains($setup, 'data-i18n="installation.detail"'),
     'Setup installation checks are not localized');
+i18nExpect($setup !== false && !str_contains($setup, 'data-i18n="setup.configured"')
+    && str_contains($setup, '$editingLocked && $activeSection !== \'basics\''),
+    'Setup shows obsolete configured banners or hides read-only installation checks');
 i18nExpect($setup !== false && str_contains($setup, 'data-i18n-alt="auth.qr_alt"'),
     'Setup authenticator QR alternative text is not localized');
 i18nExpect($setup !== false && str_contains($setup, "'auth.change_password' : 'auth.create_password'")

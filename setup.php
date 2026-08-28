@@ -492,7 +492,7 @@ function runWeb(
 /** The settings pages, derived from the same field definitions as the CLI. */
 function setupSection(array $fields, string $asked): string
 {
-    if ($asked === 'basics') return 'basics';
+    if (in_array($asked, ['basics', 'privacy'], true)) return $asked;
     foreach ($fields as $field) {
         if (($field['section'] ?? 'basics') === $asked) return $asked;
     }
@@ -663,6 +663,7 @@ function webPage(
             $sections[$section] = true;
         }
     }
+    $sections['privacy'] = true;
     $out[] = '<div class="setup-layout"><aside class="setup-nav" aria-label="Setup sections">'
         . '<a' . ($activeSection === 'basics' ? ' class="current"' : '') . ' href="?section=basics">Basics</a>';
     foreach (array_keys($sections) as $name) {
@@ -687,33 +688,29 @@ function webPage(
             . '</fieldset></form><form method="post">';
     }
 
-    if ($unlocked && $activeSection === 'basics') {
-        $out[] = '<fieldset><legend>Unlocked</legend>'
-            . '<span class="help">These are the settings this install is running with. '
-            . 'Saving updates <code>data/setup.db</code>.</span>'
-            . '<label class="row" style="margin:10px 0 0"><input type="checkbox" name="rotate_mask" '
-            . 'value="1"> Also generate a new mask secret</label>'
-            . '<span class="help">Only on purpose: it renames every masked path at once.</span>'
-            . '<p style="margin:10px 0 0"><a href="?lock=1">Lock again</a></p>'
-            . '</fieldset>';
-    }
-
     $title = $activeSection === 'basics' ? 'Start here' : sectionTitle($activeSection);
     $suggestedKeyPath = setupSuggestedPrivateKeyPath();
     $suggestedKeyExists = setupPrivateKeyExists($suggestedKeyPath);
     $suggestedPackageSecretKeyPath = setupSuggestedPackageSecretKeyPath();
     $suggestedPackageSecretKeyExists = setupPrivateKeyExists($suggestedPackageSecretKeyPath);
     $out[] = '<section class="setup-section"><h2>' . h($title) . '</h2>';
-    if ($activeSection === 'basics') {
+    if ($editingLocked) {
+        $out[] = '<p class="help">Unlock setup to view or change this section.</p>';
+    } elseif ($activeSection === 'basics') {
         $out[] = '<p class="help">Create a sign-in password to finish the initial setup. All other settings '
             . 'are available from the navigation when you need them.</p>';
+    } elseif ($activeSection === 'privacy') {
+        $out[] = '<fieldset><legend>Masked-path privacy</legend>'
+            . '<p class="help">Signed-out visitors see stable anonymous labels instead of real filesystem '
+            . 'paths. Rotating this secret changes every one of those labels, breaking any old label-to-path '
+            . 'correlation. Leave it unchanged unless you suspect it was exposed.</p>'
+            . '<label class="row"><input type="checkbox" name="rotate_mask" value="1"> Generate a new mask secret</label>'
+            . '</fieldset>';
     } else {
         $help = sampleHelp($samplePath)['sections'][$activeSection] ?? '';
         if ($help !== '') $out[] = '<p class="help">' . h(firstParagraph($help)) . '</p>';
     }
-    if ($editingLocked) {
-        $out[] = '<p class="help">Unlock setup to view or change this section.</p>';
-    } else {
+    if (!$editingLocked) {
         foreach ($fields as $field) {
             if (!fieldIsInSection($field, $activeSection)) {
                 continue;
@@ -740,6 +737,9 @@ function webPage(
                 . '</td><td>' . h($check['detail']) . '</td></tr>';
         }
         $out[] = '</tbody></table></details>';
+    }
+    if ($unlocked && $activeSection === 'basics') {
+        $out[] = '<p class="help"><a href="?lock=1">Lock setup again</a></p>';
     }
     $out[] = '</section>';
 

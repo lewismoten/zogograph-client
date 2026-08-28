@@ -89,6 +89,8 @@ try {
         && str_contains($setupPage, '$field[\'key\'] === \'package_runtime_secret_key_file\'')
         && str_contains($setupPage, '$editingLocked')
         && str_contains($setupPage, 'Unlock setup to view or change this section.')
+        && str_contains($setupPage, "['basics', 'privacy']")
+        && str_contains($setupPage, 'Masked-path privacy')
         && str_contains($setupPage, 'leave blank to use this location')
         && str_contains($setupPage, 'this step is complete')
         && str_contains($setupPage, 'Its contents were not shown or saved in the browser'),

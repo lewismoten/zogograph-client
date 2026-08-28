@@ -1072,12 +1072,11 @@ function webPage(
     }
 
     if ($written) {
-        $out[] = '<div class="banner ok"><strong>Settings saved in <code>data/setup.db</code>.</strong>'
-            . '<p>Take the first readings, then open the dashboard:</p>'
+        $out[] = '<div class="banner ok"><strong data-i18n="setup.settings_saved">Settings saved in data/setup.db.</strong>'
+            . '<p data-i18n="setup.first_readings">Take the first readings, then open the dashboard:</p>'
             . '<pre><code>php cron.php --vitals' . "\n" . 'php cron.php --scan</code></pre>'
-            . '<p>Keep <code>setup.php</code> available for later administrator changes. '
-            . 'It requires the current password before it can replace your configuration.</p>'
-            . '<p><a href="./">Open the dashboard</a></p></div>';
+            . '<p data-i18n="setup.keep_setup">Keep setup.php available for later administrator changes. It requires the current password before it can replace your configuration.</p>'
+            . '<p><a href="./" data-i18n="setup.dashboard">Open the dashboard</a></p></div>';
 
         if (!empty($values['host_enabled'])) {
             $out[] = '<div class="banner warn"><strong>One more step, as root.</strong>'

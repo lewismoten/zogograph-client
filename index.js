@@ -12214,15 +12214,15 @@ function showCustodyEnvelopeDialog(candidates) {
     option.textContent = `${artifact.store} · ${humanTime(artifact.created_at)} · ${artifact.artifact_id}`;
     select.appendChild(option);
   }
-  showFormDialog("Add remote custody recovery envelope", [
-    fieldRow("Verified local artifact", select, "Zogograph will recheck this local artifact’s ciphertext hash before doing anything remotely."),
+  showFormDialog(ZogographI18n.t("encryption.remote_envelope_dialog", {}, "Add remote custody recovery envelope"), [
+    fieldRow(ZogographI18n.t("encryption.verified_local_artifact", {}, "Verified local artifact"), select, "Zogograph will recheck this local artifact’s ciphertext hash before doing anything remotely."),
     note("This sends only the selected artifact’s fresh in-memory data key, the configured custody key identifier, and the enrolled-client credentials to the separately configured one-shot sandbox. The sandbox seals the key for custody and returns only a receipt digest. It never receives a database path, database bytes, plaintext, local recovery key, billing credential, or management token. Local recovery remains required."),
   ], async () => {
     if (!(await confirmDialog("Add an optional remote key-recovery envelope for this verified local artifact?\n\nThis is an extra recovery path, not a replacement for your local recovery key or a database upload. The configured custody service will receive a sealed data-key envelope only.", "Store remote recovery envelope"))) return;
     const result = await post("package-runtime-custody-envelope-store", { artifact_id: select.value, confirm: "store-remote-envelope" });
     showListDialog("Remote custody envelope stored", [factGrid([["Artifact", result.artifact_id], ["State", result.result.state], ["Result", result.result.reason], ["Safety boundary", result.warning]])]);
     await refreshEncryptionStatus();
-  }, "Store optional envelope");
+  }, ZogographI18n.t("encryption.store_optional_envelope", {}, "Store optional envelope"));
 }
 
 function showCustodyRecoveryDrillDialog(candidates) {
@@ -12232,15 +12232,15 @@ function showCustodyRecoveryDrillDialog(candidates) {
     option.textContent = `${artifact.store} · ${humanTime(artifact.created_at)} · ${artifact.artifact_id}`;
     select.appendChild(option);
   }
-  showFormDialog("Remote custody recovery drill", [
-    fieldRow("Artifact with stored remote envelope", select, "The selected artifact must already have a stored custody envelope. Zogograph will recheck its ciphertext before requesting a temporary key release."),
+  showFormDialog(ZogographI18n.t("encryption.remote_recovery_dialog", {}, "Remote custody recovery drill"), [
+    fieldRow(ZogographI18n.t("encryption.artifact_with_envelope", {}, "Artifact with stored remote envelope"), select, "The selected artifact must already have a stored custody envelope. Zogograph will recheck its ciphertext before requesting a temporary key release."),
     note("The custody key is returned only through the isolated worker’s private process pipe, used in memory to authenticate a temporary recovered file, then discarded. The temporary file is removed. Neither key nor plaintext appears in this browser."),
   ], async () => {
     if (!(await confirmDialog("Run a non-destructive remote custody recovery drill for this artifact?\n\nThis asks custody to release one temporary data key solely to authenticate the existing sealed copy. The key and temporary plaintext are discarded.", "Run remote recovery drill"))) return;
     const result = await post("package-runtime-custody-recovery-drill", { artifact_id: select.value, confirm: "run-remote-recovery-drill" });
     showListDialog("Remote custody recovery verified", [factGrid([["Artifact", result.artifact_id], ["State", result.result.state], ["Result", result.result.reason], ["Safety boundary", result.warning]])]);
     await refreshEncryptionStatus();
-  }, "Run recovery drill");
+  }, ZogographI18n.t("encryption.run_recovery_drill", {}, "Run recovery drill"));
 }
 
 function marketplaceText(key, values = {}, fallback = "") {

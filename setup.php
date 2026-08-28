@@ -225,6 +225,13 @@ function setupRequestedPrivateKeyPath(mixed $submittedPath): string
     return $path === '' ? setupSuggestedPrivateKeyPath() : $path;
 }
 
+/** A link counts as occupied too: key creation must never follow or replace it. */
+function setupSuggestedPrivateKeyExists(): bool
+{
+    $path = setupSuggestedPrivateKeyPath();
+    return is_file($path) || is_link($path);
+}
+
 /* ------------------------------------------------------------------- web -- */
 
 function runWeb(
@@ -652,6 +659,8 @@ function webPage(
     $title = $activeSection === 'basics' ? 'Start here' : sectionTitle($activeSection);
     $out[] = '<section class="setup-section"><h2>' . h($title) . '</h2>';
     if ($activeSection === 'basics') {
+        $suggestedKeyPath = setupSuggestedPrivateKeyPath();
+        $suggestedKeyExists = setupSuggestedPrivateKeyExists();
         $out[] = '<p class="help">The minimum needed to make this installation safe and useful. '
             . 'Save this first; the rest of the sections can then be adjusted independently.</p>';
         $out[] = '</form><details><summary>Create a local encryption key for verified encrypted copies</summary>'
@@ -663,11 +672,16 @@ function webPage(
             . '<form method="post"><input type="hidden" name="intent" value="create-local-key">'
             . '<input type="hidden" name="setup_key_create_token" value="' . h(setupKeyCreateToken()) . '">'
             . '<label>New private key-file path (leave blank to use this location)<input type="text" name="key_path" '
-            . 'placeholder="' . h(setupSuggestedPrivateKeyPath()) . '" autocomplete="off"></label>'
+            . 'placeholder="' . h($suggestedKeyPath) . '" autocomplete="off"'
+            . ($suggestedKeyExists ? ' disabled' : '') . '></label>'
+            . ($suggestedKeyExists
+                ? '<p class="banner ok" role="status">Private key already exists at this location; this step is complete.</p>'
+                : '')
             . ($configured && !$unlocked
                 ? '<label>Current setup password<input type="password" name="current_password" autocomplete="current-password"></label>'
                 : '')
-            . '<button type="submit">Create private key file</button></form></details><form method="post">'
+            . '<button type="submit"' . ($suggestedKeyExists ? ' disabled aria-disabled="true"' : '')
+            . '>Create private key file</button></form></details><form method="post">'
             . '<input type="hidden" name="section" value="' . h($activeSection) . '">';
     } else {
         $help = sampleHelp($samplePath)['sections'][$activeSection] ?? '';

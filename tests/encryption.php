@@ -82,7 +82,9 @@ try {
         && str_contains($setupPage, 'setup_key_create_token')
         && str_contains($setupPage, 'encryptionCreateLocalKey')
         && str_contains($setupPage, 'setupRequestedPrivateKeyPath')
+        && str_contains($setupPage, 'setupSuggestedPrivateKeyExists')
         && str_contains($setupPage, 'leave blank to use this location')
+        && str_contains($setupPage, 'this step is complete')
         && str_contains($setupPage, 'Its contents were not shown or saved in the browser'),
         'setup does not provide a guarded local encryption-key quick start');
 

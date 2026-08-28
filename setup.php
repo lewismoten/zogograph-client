@@ -218,6 +218,13 @@ function setupSuggestedPrivateKeyPath(): string
         : '/home/your-account/.private/zogograph.key';
 }
 
+/** An empty quick-start field deliberately means “use the displayed default”. */
+function setupRequestedPrivateKeyPath(mixed $submittedPath): string
+{
+    $path = trim((string)$submittedPath);
+    return $path === '' ? setupSuggestedPrivateKeyPath() : $path;
+}
+
 /* ------------------------------------------------------------------- web -- */
 
 function runWeb(
@@ -290,7 +297,7 @@ function runWeb(
             $_SESSION['setup_error'] = 'Enter the current setup password before creating a new local key file.';
         } else {
             try {
-                encryptionCreateLocalKey(trim((string)($_POST['key_path'] ?? '')), $root);
+                encryptionCreateLocalKey(setupRequestedPrivateKeyPath($_POST['key_path'] ?? ''), $root);
                 $_SESSION['setup_notice'] = 'A new private local key file was created. Its contents were not shown or saved in the browser. Record an offline recovery copy before enabling encrypted copies.';
             } catch (Throwable $error) {
                 $_SESSION['setup_error'] = 'Could not create the local key file: ' . $error->getMessage();
@@ -655,7 +662,7 @@ function webPage(
             . 'Keep a separately protected offline recovery copy before enabling encrypted copies.</p>'
             . '<form method="post"><input type="hidden" name="intent" value="create-local-key">'
             . '<input type="hidden" name="setup_key_create_token" value="' . h(setupKeyCreateToken()) . '">'
-            . '<label>New private key-file path<input type="text" name="key_path" '
+            . '<label>New private key-file path (leave blank to use this location)<input type="text" name="key_path" '
             . 'placeholder="' . h(setupSuggestedPrivateKeyPath()) . '" autocomplete="off"></label>'
             . ($configured && !$unlocked
                 ? '<label>Current setup password<input type="password" name="current_password" autocomplete="current-password"></label>'

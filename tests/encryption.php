@@ -81,6 +81,8 @@ try {
     encryptionExpect($setupPage !== false && str_contains($setupPage, 'create-local-key')
         && str_contains($setupPage, 'setup_key_create_token')
         && str_contains($setupPage, 'encryptionCreateLocalKey')
+        && str_contains($setupPage, 'setupRequestedPrivateKeyPath')
+        && str_contains($setupPage, 'leave blank to use this location')
         && str_contains($setupPage, 'Its contents were not shown or saved in the browser'),
         'setup does not provide a guarded local encryption-key quick start');
 

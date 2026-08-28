@@ -21250,7 +21250,10 @@ function drawSchedule(data) {
 
   const save = document.createElement("button");
   save.id = "schedSave";
-  save.textContent = data.lines.length ? "Update the schedule" : "Add to the crontab";
+  // The form can add one job while removing the other. Its action is therefore
+  // an intentional replacement of Zogograph's managed block, never merely
+  // “add” or “remove” based on what happened to be installed before editing.
+  save.textContent = "Apply schedule changes";
   save.addEventListener("click", () => saveSchedule(false));
   buttons.appendChild(save);
 

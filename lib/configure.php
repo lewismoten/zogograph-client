@@ -171,6 +171,15 @@ function configFields(array $sample): array
             'default' => (bool)($sample['core_features']['uptime'] ?? true),
         ],
         [
+            'key' => 'core_features_packages',
+            'section' => 'features',
+            'path' => ['core_features', 'packages'],
+            'type' => 'bool',
+            'label' => 'Package management core feature',
+            'help' => 'Disabling this removes Package runtime and package-contributed pages from the dashboard, blocks package-management APIs, and stops loading package language catalogs. Installed package records and their private settings remain intact for a later re-enable.',
+            'default' => (bool)($sample['core_features']['packages'] ?? true),
+        ],
+        [
             'key' => 'openid_enabled',
             'section' => 'openid',
             'path' => ['openid', 'enabled'],

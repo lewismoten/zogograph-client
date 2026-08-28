@@ -65,6 +65,10 @@ const CORE_FEATURES = [
         'dashboard_routes' => ['uptime'],
         'setup_section' => 'features',
     ],
+    'packages' => [
+        'dashboard_routes' => ['sys-packages'],
+        'setup_section' => 'features',
+    ],
 ];
 
 /** Missing settings deliberately preserve existing installations. */
@@ -105,13 +109,30 @@ function coreFeatureForAction(string $action): ?string
         'package-runtime-custody-envelope-store', 'package-runtime-custody-recovery-drill'], true)) return 'encryption';
     if ($action === 'alerts' || str_starts_with($action, 'alert-')) return 'alerts';
     if ($action === 'uptime') return 'uptime';
+    if ($action === 'package-i18n' || $action === 'package-pages' || str_starts_with($action, 'package-runtime-')
+        || $action === 'package-runtime') return 'packages';
     return null;
+}
+
+/** Some package custody operations are deliberately protected by both the
+ * package-management and protection features. */
+function coreFeatureDependenciesForAction(string $action): array
+{
+    $features = [];
+    $primary = coreFeatureForAction($action);
+    if ($primary !== null) $features[] = $primary;
+    if (in_array($action, ['package-runtime-custody-envelope-store', 'package-runtime-custody-recovery-drill'], true)) {
+        $features[] = 'packages';
+        $features[] = 'encryption';
+    }
+    return array_values(array_unique($features));
 }
 
 function requireCoreFeatureAccess(array $config, string $action): void
 {
-    $feature = coreFeatureForAction($action);
-    if ($feature !== null && !coreFeatureEnabled($config, $feature)) {
-        throw new ActionRefused('this core feature is disabled');
+    foreach (coreFeatureDependenciesForAction($action) as $feature) {
+        if (!coreFeatureEnabled($config, $feature)) {
+            throw new ActionRefused('this core feature is disabled');
+        }
     }
 }

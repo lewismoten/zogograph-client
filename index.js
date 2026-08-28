@@ -11954,6 +11954,10 @@ function removeUnavailablePackageDashboardPages(available) {
 }
 
 async function loadPackageDashboardPages() {
+  if (disabledCoreRoutes.has("sys-packages")) {
+    removeUnavailablePackageDashboardPages(new Set());
+    return;
+  }
   try {
     const data = await api("package-pages");
     const pages = (data.pages || []).filter(page => page && /^[a-z][a-z0-9-]{3,190}$/.test(page.route));
@@ -23152,8 +23156,8 @@ function applySignedInChrome() {
   applyAccessChrome();
   renderViewGuide(state.view);
   renderEmptyButtons();
-  if (state.signedIn) ZogographI18n.loadPackageCatalogs();
-  if (state.signedIn) loadPackageDashboardPages();
+  if (state.signedIn && !disabledCoreRoutes.has("sys-packages")) ZogographI18n.loadPackageCatalogs();
+  if (state.signedIn && !disabledCoreRoutes.has("sys-packages")) loadPackageDashboardPages();
   if (!state.signedIn) {
     removeUnavailablePackageDashboardPages(new Set());
     ZogographI18n.clearPackageCatalogs();
@@ -23185,6 +23189,10 @@ function applyCoreFeatureVisibility(features) {
       disabledCoreRoutes.add(route);
       const section = document.querySelector(`[data-view="${route}"]`);
       if (section) section.hidden = true;
+    }
+    if (feature.id === "packages") {
+      removeUnavailablePackageDashboardPages(new Set());
+      ZogographI18n.clearPackageCatalogs();
     }
   }
 }

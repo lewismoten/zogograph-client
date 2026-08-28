@@ -6,6 +6,11 @@ $profile = remoteDeploymentProfile(['method' => 'rsync_ssh', 'host' => 'Remote.E
 remoteDeploymentExpect($profile['host'] === 'remote.example.com' && $profile['known_host_reference'] === 'deploy_ref:host-key-reference' && $profile['packages'] === ['remote-core', 'collector'], 'valid SSH deployment profile was not normalized');
 $ftps = remoteDeploymentProfile(['method' => 'ftps', 'host' => '203.0.113.8', 'username' => 'deploy', 'target_path' => '/httpdocs/remote', 'credential_reference' => 'deploy_ref:ftps-credential-x', 'packages' => ['remote-core'], 'controller_url' => 'https://core.example', 'update_mode' => 'manual']);
 remoteDeploymentExpect($ftps['port'] === 21 && $ftps['known_host_reference'] === null, 'FTPS profile defaults are incorrect');
+$plan = remoteDeploymentCommandPlan($profile);
+remoteDeploymentExpect($plan['method'] === 'rsync_ssh' && in_array('StrictHostKeyChecking=yes', $plan['preflight'], true)
+    && !str_contains(implode(' ', $plan['copy']), 'deploy_ref:'), 'SSH deployment preview exposes a reference or lacks host-key verification');
+$ftpsPlan = remoteDeploymentCommandPlan($ftps);
+remoteDeploymentExpect($ftpsPlan['method'] === 'ftps' && in_array('--ftp-ssl-reqd', $ftpsPlan['preflight'], true), 'FTPS deployment preview does not require TLS');
 foreach ([['target_path' => '/srv/../bad'], ['host' => 'ssh://bad.example'], ['port' => '0'], ['port' => '70000'], ['credential_reference' => 'actual secret value!'], ['controller_url' => 'http://core.example'], ['controller_url' => 'https://bad_host.example']] as $change) {
     try { remoteDeploymentProfile($change + $profile); throw new RuntimeException('unsafe deployment profile was accepted'); } catch (InvalidArgumentException) { }
 }

@@ -1029,6 +1029,14 @@ function webPage(
             . '<label>Encrypted credential reference<input required name="credential_reference" value="' . h((string)($deployment['credential_reference'] ?? $lastReference)) . '" autocomplete="off"></label><label>SSH host-key reference (not used for FTPS)<input name="known_host_reference" value="' . h((string)($deployment['known_host_reference'] ?? '')) . '" autocomplete="off"></label><label>Core controller URL<input required type="url" name="controller_url" value="' . h((string)($deployment['controller_url'] ?? '')) . '" placeholder="https://core.example"></label><label>Remote update behavior<select name="update_mode"><option value="manual"' . (($deployment['update_mode'] ?? 'manual') === 'manual' ? ' selected' : '') . '>Manual install</option><option value="download"' . (($deployment['update_mode'] ?? '') === 'download' ? ' selected' : '') . '>Download, then wait for approval</option><option value="automatic"' . (($deployment['update_mode'] ?? '') === 'automatic' ? ' selected' : '') . '>Install automatically</option></select></label><label>Package groups (comma-separated)<input required name="packages[]" value="remote-core" readonly></label><button type="submit" name="intent" value="save-deployment-profile">Save deployment profile</button></fieldset>';
         $out[] = '<fieldset><legend>Store deployment credential or host key</legend><p class="help">Paste one password, private key, or known_hosts entry. It is encrypted with the configured local key and shown only as an opaque reference after storage.</p><label>Credential or host-key material<textarea name="deployment_secret" rows="5" autocomplete="off"></textarea></label><button type="submit" name="intent" value="store-deployment-secret">Store encrypted credential</button>'
             . ($lastReference !== '' ? '<p class="banner ok">New encrypted reference: <code>' . h($lastReference) . '</code></p>' : '') . '</fieldset>';
+        if ($deployment !== []) {
+            try {
+                $plan = remoteDeploymentCommandPlan($deployment);
+                $out[] = '<details><summary>Review planned transport</summary><p class="help">This is a secret-free argument preview only. Braced values are supplied by the reviewed worker at test/copy time; saving or opening this preview makes no network connection.</p><pre><code>' . h(json_encode($plan, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR)) . '</code></pre></details>';
+            } catch (Throwable) {
+                $out[] = '<p class="help">Save a complete deployment profile to review its planned transport.</p>';
+            }
+        }
     } elseif ($activeSection === 'schedule') {
         $schedule = scheduleState(__DIR__);
         $savedSchedule = (array)(($current ?? [])['schedule'] ?? []);

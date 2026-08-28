@@ -120,3 +120,24 @@ function remoteDeploymentProfile(array $input): array
         'credential_reference' => $credential, 'known_host_reference' => $known === '' ? null : $known, 'packages' => $packages,
         'controller_url' => $controller, 'update_mode' => $update];
 }
+
+/**
+ * Returns non-executable, secret-free transport arguments for review. Values
+ * in double braces are supplied only by a reviewed worker at run time.
+ *
+ * @return array{method:string,preflight:list<string>,copy:list<string>,packages:list<string>}
+ */
+function remoteDeploymentCommandPlan(array $input): array
+{
+    $profile = remoteDeploymentProfile($input);
+    $identity = $profile['username'] . '@' . $profile['host'];
+    if ($profile['method'] === 'rsync_ssh') {
+        $ssh = ['ssh', '-p', (string)$profile['port'], '-o', 'BatchMode=yes', '-o', 'StrictHostKeyChecking=yes', '-o', 'UserKnownHostsFile={{encrypted host-key reference}}', '-i', '{{encrypted credential reference}}'];
+        return ['method' => 'rsync_ssh', 'preflight' => [...$ssh, $identity, 'test', '-d', '--', $profile['target_path']], 'copy' => ['rsync', '--archive', '--delete-delay', '--protect-args', '-e', '{{reviewed SSH argument list}}', '{{selected package build}}/', $identity . ':' . $profile['target_path'] . '/'], 'packages' => $profile['packages']];
+    }
+    if ($profile['method'] === 'sftp') {
+        return ['method' => 'sftp', 'preflight' => ['sftp', '-P', (string)$profile['port'], '-oBatchMode=yes', '-oStrictHostKeyChecking=yes', '-oUserKnownHostsFile={{encrypted host-key reference}}', '-i', '{{encrypted credential reference}}', $identity, '{{batch: ls target path}}'], 'copy' => ['sftp', '{{batch: put selected package build to target path}}'], 'packages' => $profile['packages']];
+    }
+    $url = 'ftps://' . $profile['host'] . ':' . $profile['port'] . $profile['target_path'];
+    return ['method' => 'ftps', 'preflight' => ['curl', '--fail', '--silent', '--show-error', '--ftp-ssl-reqd', '--list-only', '--user', $profile['username'] . ':{{encrypted credential reference}}', $url], 'copy' => ['curl', '--fail', '--ftp-ssl-reqd', '--user', $profile['username'] . ':{{encrypted credential reference}}', '--upload-file', '{{selected package build}}', $url . '/{{remote filename}}'], 'packages' => $profile['packages']];
+}

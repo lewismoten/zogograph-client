@@ -33,7 +33,9 @@ only through the isolated bridge; its code is never loaded by `setup.php`.
 
 ## Cron editor
 
-The cron editor is a reusable panel component backed by `lib/schedule.php`.
+The cron editor is a reusable panel component: `renderSetupCronEditor()` in
+`lib/setup-cron-editor.php` renders one named job's controls, while
+`SetupCronApi` backed by `lib/schedule.php` previews, compares, and applies.
 It offers profiles (`none`, every 1, 5, 10, or 30 minutes) and a custom
 five-field standard-cron builder: minute, hour, day of month, month, and day
 of week. Standard shared-host cron has no seconds field.

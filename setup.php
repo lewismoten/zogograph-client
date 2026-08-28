@@ -56,6 +56,7 @@ require_once $root . '/lib/encryption.php';
 require_once $root . '/lib/setupstore.php';
 require_once $root . '/lib/setup-preflight.php';
 require_once $root . '/lib/schedule.php';
+require_once $root . '/lib/setup-cron-editor.php';
 require_once $root . '/lib/setup-panels.php';
 // For hostCronLine/hostCronCommand, shown after a successful write.
 require_once $root . '/lib/hostdb.php';
@@ -813,17 +814,7 @@ function webPage(
         }
         $out[] = '</select></label>';
         foreach (['vitals' => 'Vitals collection', 'scan' => 'Directory scan'] as $job => $label) {
-            $choice = $choices[$job];
-            $out[] = '<fieldset><legend>' . h($label) . '</legend><label>Profile<select name="schedule_' . $job . '_profile">';
-            foreach (cronEditorProfiles() as $id => $profile) {
-                $out[] = '<option value="' . h($id) . '"' . ($choice['profile'] === $id ? ' selected' : '') . '>' . h($profile['label']) . '</option>';
-            }
-            $out[] = '</select></label><details><summary>Custom cron builder</summary>'
-                . '<p class="help">Used only when Custom five-field cron is selected. Standard cron has minutes, hours, day of month, month, and day of week; seconds are intentionally not supported.</p><div class="row">';
-            foreach (['minute' => 'Minutes (0–59)', 'hour' => 'Hours (0–23)', 'day' => 'Day of month (1–31)', 'month' => 'Month (1–12)', 'weekday' => 'Day of week (0–7)'] as $field => $fieldLabel) {
-                $out[] = '<label>' . h($fieldLabel) . '<input type="text" name="schedule_' . $job . '_' . $field . '" value="' . h($choice['custom'][$field]) . '" pattern="[0-9*,/\\-]+" maxlength="80" spellcheck="false"></label>';
-            }
-            $out[] = '</div></details></fieldset>';
+            $out[] = renderSetupCronEditor('schedule_' . $job, $label, $choices[$job]);
         }
         $preview = [];
         try { if ($php !== '') $preview = (new SetupCronApi(__DIR__))->preview($choices, $php); } catch (Throwable) {}

@@ -101,6 +101,7 @@ try {
     $sample = require __DIR__ . '/../lib/config.sample.php';
     require_once __DIR__ . '/../lib/setup-panels.php';
     require_once __DIR__ . '/../lib/schedule.php';
+    require_once __DIR__ . '/../lib/setup-cron-editor.php';
     $sampleText = file_get_contents(__DIR__ . '/../lib/config.sample.php');
     encryptionExpect(is_string($sample['scan_root'] ?? null) && str_starts_with($sample['scan_root'], '/')
         && $sampleText !== false && str_contains($sampleText, 'posix_getpwuid')
@@ -128,6 +129,9 @@ try {
     encryptionExpect(array_key_exists('custom', $cronApi->profiles())
         && method_exists($cronApi, 'preview') && method_exists($cronApi, 'status') && method_exists($cronApi, 'apply'),
         'restricted Setup cron API is unavailable');
+    encryptionExpect(str_contains(renderSetupCronEditor('plugin_job', 'Plugin job', ['profile' => 'custom', 'custom' => ['minute' => '7']]), 'plugin_job_minute')
+        && str_contains(renderSetupCronEditor('plugin_job', 'Plugin job', ['profile' => 'custom', 'custom' => ['minute' => '7']]), 'Custom cron builder'),
+        'reusable Setup cron editor component is unavailable');
     $panelRegistry = new SetupPanelRegistry([]);
     $panelApi = new SetupPanelApi('sample-plugin', $panelRegistry, $cronApi);
     $panelApi->addPanel(['id' => 'sample-plugin-settings', 'title' => 'Sample plugin settings']);

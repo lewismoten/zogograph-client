@@ -44,6 +44,36 @@ function configFields(array $sample): array
 {
     return [
         [
+            'key' => 'openid_enabled',
+            'section' => 'openid',
+            'path' => ['openid', 'enabled'],
+            'type' => 'bool',
+            'label' => 'Act as an OpenID Connect provider',
+            'help' => 'Lets explicitly registered trusted applications sign users in through this Zogograph installation. It does not make this server a public identity service.',
+            'default' => (bool)($sample['openid']['enabled'] ?? false),
+        ],
+        [
+            'key' => 'openid_issuer',
+            'section' => 'openid',
+            'path' => ['openid', 'issuer'],
+            'type' => 'text',
+            'label' => 'Public issuer URL',
+            'help' => 'The HTTPS URL trusted clients use to discover this provider, for example https://monitor.example.com. Do not include a trailing slash.',
+            'default' => (string)($sample['openid']['issuer'] ?? ''),
+            'validate' => static fn(string $value): ?string => $value === '' || (str_starts_with($value, 'https://') && filter_var($value, FILTER_VALIDATE_URL))
+                ? null : 'Enter a complete HTTPS URL.',
+        ],
+        [
+            'key' => 'openid_signing_private_key',
+            'section' => 'openid',
+            'path' => ['openid', 'signing_private_key'],
+            'type' => 'textarea',
+            'label' => 'OpenID signing private key',
+            'help' => 'Required before enabling the provider. Use a dedicated RSA private key; never reuse the TLS certificate key. Key generation in Setup is the next authentication-workflow step.',
+            'default' => (string)($sample['openid']['signing_private_key'] ?? ''),
+            'when' => ['openid_enabled' => true],
+        ],
+        [
             'key' => 'scan_root',
             'section' => 'monitoring',
             'path' => ['scan_root'],

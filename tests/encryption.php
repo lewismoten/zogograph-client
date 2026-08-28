@@ -125,6 +125,9 @@ try {
         static fn(array $field): bool => ($field['section'] ?? 'basics') === 'basics'));
     encryptionExpect($bootstrapFields === [] && ($fields['password']['section'] ?? '') === 'security',
         'password management is not isolated to the Security section');
+    encryptionExpect(($fields['openid_enabled']['label'] ?? '') === 'Act as an OpenID Connect provider'
+        && ($fields['openid_issuer']['label'] ?? '') === 'Public issuer URL',
+        'Setup does not explain the existing OpenID provider');
     encryptionExpect(isset(setupPanels(configFields($sample))['schedule'])
         && setupPanelId('plugin-panel') === 'plugin-panel', 'Setup panel registry is unavailable');
     $registeredPanel = setupPanels([], [['id' => 'sample-plugin', 'title' => 'Sample plugin', 'kind' => 'package', 'keywords' => ['sample']]]);

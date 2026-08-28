@@ -897,6 +897,8 @@ function webPage(
             . '</tbody></table>'
             . '<label class="row"><input type="checkbox" name="rotate_mask" value="1"> Generate a new mask secret</label>'
             . '</fieldset>';
+    } elseif ($activeSection === 'openid') {
+        $out[] = '<fieldset><legend>OpenID Connect provider</legend><p class="help">This installation can already act as an OpenID Connect provider for trusted applications. Enable it only after setting its public HTTPS issuer, a dedicated signing key, and registered client redirect URLs. The provider supports authorization code with PKCE, discovery, JWKS, and signed ID tokens.</p><p class="help">Client registrations are managed below as structured settings; each client needs an exact redirect URL and a private client secret.</p></fieldset>';
     } elseif ($activeSection === 'schedule') {
         $schedule = scheduleState(__DIR__);
         $savedSchedule = (array)(($current ?? [])['schedule'] ?? []);

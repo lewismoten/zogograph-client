@@ -1423,15 +1423,14 @@ function renderField(array $field, array $values, array $errors, bool $configure
     $key = $field['key'];
     $labelText = $key === 'password' ? ($configured ? 'Change password' : 'Create sign-in password') : (string)$field['label'];
     $label = '<span data-i18n="setup.field.' . h($key) . '">' . h($labelText) . '</span>';
-    $help = isset($field['help']) ? '<span class="help">' . h($field['help']) . '</span>' : '';
+    $help = isset($field['help']) ? '<span class="help" data-i18n="setup.help.' . h($key) . '">' . h($field['help']) . '</span>' : '';
     $bad = isset($errors[$key]) ? '<span class="bad">' . h($errors[$key]) . '</span>' : '';
 
     if ($field['type'] === 'password') {
-        $note = $configured
-            ? 'Leave blank to keep the current password.'
-            : h($field['help']);
+        $note = $configured ? 'Leave blank to keep the current password.' : h((string)$field['help']);
+        $noteKey = $configured ? 'auth.password_keep' : 'setup.help.password';
         return '<fieldset><legend data-i18n="' . ($configured ? 'auth.change_password' : 'auth.create_sign_in_password') . '">' . $label . '</legend>'
-            . '<span class="help"' . ($configured ? ' data-i18n="auth.password_keep"' : '') . '>' . $note . '</span>'
+            . '<span class="help" data-i18n="' . $noteKey . '">' . $note . '</span>'
             . '<label style="margin-top:10px"><span data-i18n="auth.new_password">New password</span>'
             . '<input type="password" name="password" autocomplete="new-password"></label>'
             . '<label><span data-i18n="auth.password_again">Again</span><input type="password" name="password_again" autocomplete="new-password"></label>'

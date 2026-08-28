@@ -132,6 +132,9 @@ i18nExpect($setup !== false && str_contains($setup, "data-i18n=\"setup.field.' .
 i18nExpect($setup !== false && str_contains($setup, "data-i18n=\"setup.option.' . h(\$key)")
     && is_array($english) && isset($english['setup.option.encryption_mode.none'], $english['setup.option.deletable_categories.trash']),
     'schema-driven Setup option labels do not have stable i18n keys and English fallbacks');
+i18nExpect($setup !== false && str_contains($setup, "data-i18n=\"setup.help.' . h(\$key)")
+    && is_array($english) && isset($english['setup.help.openid_enabled'], $english['setup.help.encryption_key_file'], $english['setup.help.host_keep_days']),
+    'schema-driven Setup help text does not have stable i18n keys and English fallbacks');
 i18nExpect(is_array($english) && isset($english['example.readings'], $english['example.compact'], $english['example.cost'], $english['example.percent'], $english['example.storage'], $english['example.changed'], $english['update.available'], $english['range.10m'], $english['action.reload'], $english['navigation.storage'], $english['navigation.cpu'], $english['navigation.deleted_held'], $english['navigation.cpu_limits'], $english['deployment.test'], $english['deployment.copy_release'], $english['deployment.method'], $english['deployment.update_manual'], $english['merge.apply'], $english['merge.review_expiry'], $english['merge.last_result'], $english['installation.checks'], $english['auth.qr_alt'], $english['auth.open_account'], $english['image.generated'], $english['package.save_settings'], $english['schedule.custom_builder'], $english['schedule.job.vitals'], $english['schedule.remove'], $english['setup.search_results'], $english['openid.provider_intro'], $english['openid.secret_copy']),
     'English fallback catalog is incomplete');
 preg_match_all('/data-i18n(?:-placeholder|-title|-aria-label)?="([^"]+)"/', (string)$page, $pageKeys);

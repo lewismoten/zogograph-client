@@ -45,6 +45,7 @@ async function i18nLoad(locale = i18nRequestedLocale()) {
   for (const [attribute, data] of [["placeholder", "i18nPlaceholder"], ["title", "i18nTitle"], ["aria-label", "i18nAriaLabel"]]) {
     document.querySelectorAll(`[data-${data.replace(/[A-Z]/g, letter => `-${letter.toLowerCase()}`)}]`).forEach(node => {
       const key = node.dataset[data]; node.setAttribute(attribute, t(key));
+      node.title = i18n.keyMode ? i18n.fallback[key] || key : "";
     });
   }
   const picker = document.querySelector("#languagePicker"); if (picker) picker.value = locale;

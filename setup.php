@@ -55,6 +55,7 @@ require_once $root . '/lib/configure.php';
 require_once $root . '/lib/encryption.php';
 require_once $root . '/lib/setupstore.php';
 require_once $root . '/lib/setup-preflight.php';
+require_once $root . '/lib/schedule.php';
 // For hostCronLine/hostCronCommand, shown after a successful write.
 require_once $root . '/lib/hostdb.php';
 
@@ -492,7 +493,7 @@ function runWeb(
 /** The settings pages, derived from the same field definitions as the CLI. */
 function setupSection(array $fields, string $asked): string
 {
-    if (in_array($asked, ['basics', 'privacy'], true)) return $asked;
+    if (in_array($asked, ['basics', 'privacy', 'schedule'], true)) return $asked;
     foreach ($fields as $field) {
         if (($field['section'] ?? 'basics') === $asked) return $asked;
     }
@@ -666,6 +667,7 @@ function webPage(
         }
     }
     $sections['privacy'] = true;
+    $sections['schedule'] = true;
     $out[] = '<div class="setup-layout"><aside class="setup-nav" aria-label="Setup sections">'
         . '<a' . ($activeSection === 'basics' ? ' class="current"' : '') . ' href="?section=basics">Installation</a>';
     foreach (array_keys($sections) as $name) {
@@ -712,6 +714,24 @@ function webPage(
             . '</tbody></table>'
             . '<label class="row"><input type="checkbox" name="rotate_mask" value="1"> Generate a new mask secret</label>'
             . '</fieldset>';
+    } elseif ($activeSection === 'schedule') {
+        $schedule = scheduleState(__DIR__);
+        $out[] = '<p class="help">Collector scheduling is deployment configuration. Set it here, then use the '
+            . 'dashboard to review whether readings are arriving.</p>';
+        if (!$schedule['available']) {
+            $out[] = '<div class="banner warn">' . h((string)($schedule['reason'] ?? 'The crontab cannot be read here.')) . '</div>';
+        } else {
+            $installed = (array)($schedule['lines'] ?? []);
+            $out[] = '<fieldset><legend>Account collector schedule</legend>'
+                . '<p class="help">Only Zogograph’s marked cron block is managed; other account cron jobs are left alone.</p>'
+                . '<p><strong>' . ($installed === [] ? 'No Zogograph account schedule is installed.' : 'Installed Zogograph schedule:') . '</strong></p>'
+                . '<pre><code>' . h($installed === [] ? '(none)' : implode("\n", $installed)) . '</code></pre>';
+            $binaries = (array)($schedule['binaries'] ?? []);
+            $php = is_string($binaries[0] ?? null) ? $binaries[0] : PHP_BINARY;
+            $recommended = buildCronLines(['vitals' => 'every-5m', 'scan' => 'daily', 'minute' => 7, 'hour' => 2], $php, __DIR__);
+            $out[] = '<p class="help">To install or adjust it, run <code>crontab -e</code> as this account and use this managed block:</p>'
+                . '<pre><code>' . h(implode("\n", $recommended)) . '</code></pre></fieldset>';
+        }
     } else {
         $help = sampleHelp($samplePath)['sections'][$activeSection] ?? '';
         if ($help !== '') $out[] = '<p class="help">' . h(firstParagraph($help)) . '</p>';
@@ -749,7 +769,7 @@ function webPage(
     }
     $out[] = '</section>';
 
-    if (!$editingLocked && !in_array($activeSection, ['basics', 'security'], true)) {
+    if (!$editingLocked && !in_array($activeSection, ['basics', 'security', 'schedule'], true)) {
         $out[] = '<button type="submit">Save ' . h($title) . '</button>';
     }
     $out[] = '</form></main></div>';

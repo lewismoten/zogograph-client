@@ -31795,14 +31795,6 @@ const VIEWS = {
     parent: "system",
     refresh: () => refreshEmail(),
   },
-  schedule: {
-    label: "Schedule",
-    parent: "system",
-    refresh: async () => {
-      await refreshSchedule();
-      await refreshHostSchedule();
-    },
-  },
   system: {
     label: "System",
     refresh: async () => {

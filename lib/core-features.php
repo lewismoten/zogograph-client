@@ -57,6 +57,10 @@ const CORE_FEATURES = [
         'dashboard_routes' => ['sys-encryption'],
         'setup_section' => 'features',
     ],
+    'alerts' => [
+        'dashboard_routes' => ['alerts'],
+        'setup_section' => 'features',
+    ],
 ];
 
 /** Missing settings deliberately preserve existing installations. */
@@ -95,6 +99,7 @@ function coreFeatureForAction(string $action): ?string
     if ($action === 'backups') return 'backups';
     if (in_array($action, ['encryption-status', 'encryption-seal', 'encryption-recovery-drill',
         'package-runtime-custody-envelope-store', 'package-runtime-custody-recovery-drill'], true)) return 'encryption';
+    if ($action === 'alerts' || str_starts_with($action, 'alert-')) return 'alerts';
     return null;
 }
 

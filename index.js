@@ -3847,7 +3847,11 @@ async function refreshShared() {
  * put all of it back.
  */
 async function refreshBadges() {
-  try {
+  if (disabledCoreRoutes.has("alerts")) {
+    alertState.rows = [];
+    setBadge("alerts", 0);
+    renderAlertBanner([]);
+  } else try {
     const alerts = await api("alerts", { limit: 200 });
     alertState.rows = alerts.rows;
 

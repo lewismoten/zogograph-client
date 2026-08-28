@@ -54,6 +54,7 @@ return [
         'notifications' => true,
         'backups' => true,
         'encryption' => true,
+        'alerts' => true,
     ],
 
     // The account crontab desired by Setup. The editor writes only Zogograph's

@@ -153,6 +153,15 @@ function configFields(array $sample): array
             'default' => (bool)($sample['core_features']['encryption'] ?? true),
         ],
         [
+            'key' => 'core_features_alerts',
+            'section' => 'features',
+            'path' => ['core_features', 'alerts'],
+            'type' => 'bool',
+            'label' => 'Alerts core feature',
+            'help' => 'Disabling this removes Alerts, its shared dashboard badge and banner, and its API routes. Server-side alert evaluation and configured delivery continue unchanged.',
+            'default' => (bool)($sample['core_features']['alerts'] ?? true),
+        ],
+        [
             'key' => 'openid_enabled',
             'section' => 'openid',
             'path' => ['openid', 'enabled'],

@@ -508,14 +508,14 @@ function primaryKeyQuickStart(string $path, bool $exists, bool $canCreate): stri
         . 'placeholder="' . h($path) . '" autocomplete="off"' . ($exists ? ' disabled' : '') . '></label>'
         . '<input type="hidden" name="setup_key_create_token" value="' . h(setupKeyCreateToken()) . '">';
     if ($exists) {
-        return $out . '<p class="banner ok" role="status">Private key already exists at this location; '
-            . 'this step is complete.</p><button type="submit" disabled aria-disabled="true">Create private key file</button></fieldset>';
+        return $out . '<p class="banner ok" role="status" data-i18n="encryption.private_key_exists">Private key already exists at this location; '
+            . 'this step is complete.</p><button type="submit" disabled aria-disabled="true" data-i18n="encryption.create_private_key">Create private key file</button></fieldset>';
     }
     if (!$canCreate) {
-        return $out . '<p class="help">Unlock setup with the current password before creating this key.</p>'
-            . '<button type="submit" disabled aria-disabled="true">Create private key file</button></fieldset>';
+        return $out . '<p class="help" data-i18n="encryption.unlock_to_create">Unlock setup with the current password before creating this key.</p>'
+            . '<button type="submit" disabled aria-disabled="true" data-i18n="encryption.create_private_key">Create private key file</button></fieldset>';
     }
-    return $out . '<button type="submit" name="intent" value="create-local-key">Create private key file</button></fieldset>';
+    return $out . '<button type="submit" name="intent" value="create-local-key" data-i18n="encryption.create_private_key">Create private key file</button></fieldset>';
 }
 
 /* ------------------------------------------------------------------- web -- */
@@ -1252,16 +1252,18 @@ function webPage(
         if (!$schedule['available']) {
             $out[] = '<div class="banner warn">' . h((string)($schedule['reason'] ?? 'The crontab cannot be read here.')) . '</div>';
         } elseif ($php === '') {
-            $out[] = '<div class="banner warn">No usable command-line PHP binary was found, so this host cannot apply a schedule from Setup.</div>';
+            $out[] = '<div class="banner warn" data-i18n="schedule.no_php">No usable command-line PHP binary was found, so this host cannot apply a schedule from Setup.</div>';
         } else {
             try {
                 $status = (new SetupCronApi(__DIR__))->status($choices, $php);
                 $sync = (string)$status['sync'];
+                $copyKey = $sync === 'in_sync' ? 'schedule.in_sync'
+                    : ($sync === 'missing' ? 'schedule.missing' : 'schedule.out_of_sync');
                 $copy = $sync === 'in_sync' ? 'Saved schedule is installed and in sync.'
                     : ($sync === 'missing' ? 'Saved schedule is not installed yet.' : 'Installed schedule differs from the saved settings.');
-                $out[] = '<div class="banner ' . ($sync === 'in_sync' ? 'ok' : 'warn') . '"><strong>' . h($copy) . '</strong></div>';
+                $out[] = '<div class="banner ' . ($sync === 'in_sync' ? 'ok' : 'warn') . '"><strong data-i18n="' . $copyKey . '">' . h($copy) . '</strong></div>';
             } catch (Throwable $error) {
-                $out[] = '<div class="banner warn">Could not build the saved schedule: ' . h($error->getMessage()) . '</div>';
+                $out[] = '<div class="banner warn"><span data-i18n="schedule.build_error">Could not build the saved schedule:</span> ' . h($error->getMessage()) . '</div>';
             }
         }
         $out[] = '<fieldset><legend data-i18n="schedule.collector">Account collector schedule</legend>'

@@ -46,6 +46,7 @@ i18nExpect($setup !== false && str_contains($setup, "(string)(\$panel['title_key
 i18nExpect($setup !== false && str_contains($setup, 'data-i18n="schedule.intro"')
     && str_contains($setup, 'data-i18n="schedule.saved_preview"')
     && str_contains($setup, 'data-i18n="schedule.remove"')
+    && str_contains($setup, 'data-i18n="schedule.no_php"') && str_contains($setup, '$copyKey = $sync ===')
     && str_contains((string)file_get_contents($root . '/lib/setup-cron-editor.php'), 'schedule.custom_builder')
     && str_contains((string)file_get_contents($root . '/lib/setup-cron-editor.php'), 'schedule.job.'),
     'Setup schedule controls are not localized');
@@ -54,6 +55,9 @@ i18nExpect($setup !== false && str_contains($setup, 'data-i18n="installation.che
     'Setup installation checks are not localized');
 i18nExpect($setup !== false && str_contains($setup, 'data-i18n-alt="auth.qr_alt"'),
     'Setup authenticator QR alternative text is not localized');
+i18nExpect($setup !== false && str_contains($setup, 'data-i18n="encryption.private_key_exists"')
+    && str_contains($setup, 'data-i18n="encryption.create_private_key"'),
+    'Setup private-key provisioning is not localized');
 i18nExpect($setup !== false && str_contains($setup, 'data-i18n="auth.open_account"')
     && str_contains($setup, 'data-i18n="auth.provisioning_uri"'),
     'Setup authenticator enrollment guidance is not localized');

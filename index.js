@@ -12227,9 +12227,12 @@ function showCustodyRecoveryDrillDialog(candidates) {
   }, "Run recovery drill");
 }
 
+function marketplaceText(key, values = {}, fallback = "") {
+  return ZogographI18n.t(`marketplace.${key}`, values, fallback);
+}
+
 function renderMarketplace(data) {
   const body = $("marketplaceBody");
-  const marketplaceText = (key, values, fallback) => ZogographI18n.t(`marketplace.${key}`, values, fallback);
   const parts = [note(marketplaceText("discovery_notice", {}, "Packages are discovered from the configured local marketplace directory. Remote downloads and executable hooks are not supported. A package can only authorize a documented core-owned capability."))];
   if (data.errors?.length) parts.push(note(marketplaceText("ignored_manifests", { detail: data.errors.join("; ") }, `Ignored manifests: ${data.errors.join("; ")}`)));
   if (data.can_change) {
@@ -12239,7 +12242,7 @@ function renderMarketplace(data) {
     if (!data.packages.some(row => row.id === "zogograph-path-hygiene")) {
       const bundled = document.createElement("button"); bundled.type = "button"; bundled.className = "link"; bundled.textContent = marketplaceText("install_path_hygiene", {}, "Install Path-name hygiene");
       bundled.addEventListener("click", async () => {
-        try { await post("marketplace-install-path-hygiene"); await refreshMarketplace(); notice("Path-name hygiene installed for review. Enable it, then run a disk scan.", true); }
+        try { await post("marketplace-install-path-hygiene"); await refreshMarketplace(); notice(marketplaceText("path_hygiene_installed", {}, "Path-name hygiene installed for review. Enable it, then run a disk scan."), true); }
         catch (error) { notice(String(error.message || error)); }
       });
       parts.push(bundled);
@@ -12265,16 +12268,16 @@ function renderMarketplace(data) {
     { label: "", className: "row-actions", render: row => {
       const wrap = document.createDocumentFragment();
       if (row.recommendations?.length) {
-        const review = document.createElement("button"); review.className = "link"; review.textContent = "Review guidance";
-        review.addEventListener("click", () => showListDialog(`${row.name} guidance`, [factGrid(row.recommendations.flatMap(item => [[`${item.rule} · ${item.severity}`, item.reason]]))], "Recommendations are advisory only. This package cannot change alert settings or run code."));
+        const review = document.createElement("button"); review.className = "link"; review.textContent = marketplaceText("review_guidance", {}, "Review guidance");
+        review.addEventListener("click", () => showListDialog(marketplaceText("guidance_title", { name: row.name }, `${row.name} guidance`), [factGrid(row.recommendations.flatMap(item => [[`${item.rule} · ${item.severity}`, item.reason]]))], marketplaceText("guidance_boundary", {}, "Recommendations are advisory only. This package cannot change alert settings or run code.")));
         wrap.appendChild(review);
       }
       if (!data.can_change) return wrap;
-      const history = document.createElement("button"); history.className = "link"; history.textContent = "History";
+      const history = document.createElement("button"); history.className = "link"; history.textContent = marketplaceText("history", {}, "History");
       history.addEventListener("click", () => showMarketplaceHistory(row));
       wrap.appendChild(history);
       const button = document.createElement("button"); button.className = row.enabled ? "link danger" : "link";
-      button.textContent = row.enabled ? "Disable" : "Enable";
+      button.textContent = row.enabled ? marketplaceText("disable", {}, "Disable") : marketplaceText("enable", {}, "Enable");
       // The API validates again on POST. An older cached API response can lack
       // compatibility evidence, which is not a reason to hide an otherwise
       // valid enable request from its authoritative server-side check.
@@ -12282,8 +12285,9 @@ function renderMarketplace(data) {
       button.disabled = !canEnable;
       button.title = canEnable ? "" : [row.provenance?.detail, row.compatibility?.detail].filter(Boolean).join(" ");
       button.addEventListener("click", async () => {
-        if (!(await confirmDialog(`${row.enabled ? "Disable" : "Enable"} ${row.name}?\n\nCapabilities: ${row.capabilities.join(", ")}`, row.enabled ? "Disable package" : "Enable package"))) return;
-        try { await post("marketplace-enable", { id: row.id, enabled: row.enabled ? "0" : "1" }); await refreshMarketplace(); notice(`${row.name} ${row.enabled ? "disabled" : "enabled"}.`, true); }
+        const verb = row.enabled ? marketplaceText("disable", {}, "Disable") : marketplaceText("enable", {}, "Enable");
+        if (!(await confirmDialog(marketplaceText("toggle_confirmation", { verb, name: row.name, capabilities: row.capabilities.join(", ") }, `${verb} ${row.name}?\n\nCapabilities: ${row.capabilities.join(", ")}`), row.enabled ? marketplaceText("disable_package", {}, "Disable package") : marketplaceText("enable_package", {}, "Enable package")))) return;
+        try { await post("marketplace-enable", { id: row.id, enabled: row.enabled ? "0" : "1" }); await refreshMarketplace(); notice(marketplaceText("toggle_success", { name: row.name, status: row.enabled ? marketplaceText("disabled", {}, "disabled") : marketplaceText("enabled", {}, "enabled") }, `${row.name} ${row.enabled ? "disabled" : "enabled"}.`), true); }
         catch (error) { notice(String(error.message || error)); }
       });
       wrap.appendChild(button);
@@ -12299,32 +12303,32 @@ function showMarketplaceInstallDialog() {
   const manifest = document.createElement("textarea");
   manifest.className = "wide-field"; manifest.rows = 18; manifest.maxLength = 65536; manifest.spellcheck = false;
   manifest.placeholder = '{\n  "id": "uptime-guidance",\n  "version": "1.0.0"\n}';
-  showFormDialog("Install local marketplace manifest", [
-    fieldRow("Manifest JSON", manifest, "This saves only validated JSON, up to 64 KiB, in the local catalog. It cannot upload or execute code."),
+  showFormDialog(marketplaceText("install_dialog", {}, "Install local marketplace manifest"), [
+    fieldRow(marketplaceText("manifest_json", {}, "Manifest JSON"), manifest, marketplaceText("manifest_help", {}, "This saves only validated JSON, up to 64 KiB, in the local catalog. It cannot upload or execute code.")),
   ], async () => {
     await post("marketplace-install", { manifest: manifest.value });
     await refreshMarketplace();
-    notice("Local package manifest installed for review.", true);
-  }, "Install for review");
+    notice(marketplaceText("manifest_installed", {}, "Local package manifest installed for review."), true);
+  }, marketplaceText("install_for_review", {}, "Install for review"));
 }
 
 async function showMarketplaceHistory(row) {
   try {
     const data = await post("marketplace-history", { id: row.id });
-    if (!data.history.length) { showListDialog(`${row.name} history`, [note("No prior local revisions are available.")]); return; }
+    if (!data.history.length) { showListDialog(marketplaceText("history_title", { name: row.name }, `${row.name} history`), [note(marketplaceText("no_history", {}, "No prior local revisions are available."))]); return; }
     const list = document.createElement("div"); list.className = "stack";
     for (const revision of data.history) {
       const item = document.createElement("div"); item.className = "list-row";
-      const label = document.createElement("span"); label.textContent = `${revision.version} · saved ${whenSpan(revision.stored_at)}`;
-      const restore = document.createElement("button"); restore.className = "link"; restore.textContent = "Restore for review";
+      const label = document.createElement("span"); label.textContent = marketplaceText("saved_revision", { version: revision.version, saved: whenSpan(revision.stored_at) }, `${revision.version} · saved ${whenSpan(revision.stored_at)}`);
+      const restore = document.createElement("button"); restore.className = "link"; restore.textContent = marketplaceText("restore_for_review", {}, "Restore for review");
       restore.addEventListener("click", async () => {
-        if (!(await confirmDialog(`Restore ${row.name} ${revision.version}? The restored package remains disabled until reviewed again.`, "Restore package"))) return;
-        try { await post("marketplace-rollback", { id: row.id, revision: revision.revision }); $("noteDialog").close(); await refreshMarketplace(); notice(`${row.name} restored for review.`, true); }
+        if (!(await confirmDialog(marketplaceText("restore_confirmation", { name: row.name, version: revision.version }, `Restore ${row.name} ${revision.version}? The restored package remains disabled until reviewed again.`), marketplaceText("restore_package", {}, "Restore package")))) return;
+        try { await post("marketplace-rollback", { id: row.id, revision: revision.revision }); $("noteDialog").close(); await refreshMarketplace(); notice(marketplaceText("restore_success", { name: row.name }, `${row.name} restored for review.`), true); }
         catch (error) { notice(String(error.message || error)); }
       });
       item.append(label, restore); list.appendChild(item);
     }
-    showListDialog(`${row.name} history`, [list], "Restoring a prior revision preserves administrator control: it stays disabled until explicitly enabled again.");
+    showListDialog(marketplaceText("history_title", { name: row.name }, `${row.name} history`), [list], marketplaceText("history_boundary", {}, "Restoring a prior revision preserves administrator control: it stays disabled until explicitly enabled again."));
   } catch (error) { notice(String(error.message || error)); }
 }
 

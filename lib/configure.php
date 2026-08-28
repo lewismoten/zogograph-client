@@ -198,6 +198,15 @@ function configFields(array $sample): array
             'default' => (bool)($sample['core_features']['health'] ?? true),
         ],
         [
+            'key' => 'core_features_network',
+            'section' => 'features',
+            'path' => ['core_features', 'network'],
+            'type' => 'bool',
+            'label' => 'Network tools core feature',
+            'help' => 'Disabling this removes network views and blocks their API, outbound lookup, capture, URL/domain, reverse-DNS, and calendar actions. Existing outbound safety, allow-list, and rate-limit controls remain enforced whenever it is enabled.',
+            'default' => (bool)($sample['core_features']['network'] ?? true),
+        ],
+        [
             'key' => 'openid_enabled',
             'section' => 'openid',
             'path' => ['openid', 'enabled'],

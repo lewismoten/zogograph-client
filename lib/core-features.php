@@ -78,6 +78,11 @@ const CORE_FEATURES = [
         'dashboard_routes' => ['system'],
         'setup_section' => 'features',
     ],
+    'network' => [
+        'dashboard_routes' => ['network', 'net-ports', 'net-peers', 'net-capture', 'net-captures', 'net-dns',
+            'net-urls', 'net-fetch', 'net-rdns', 'domains', 'whois', 'whoami', 'calendar'],
+        'setup_section' => 'features',
+    ],
 ];
 
 /** Missing settings deliberately preserve existing installations. */
@@ -123,6 +128,9 @@ function coreFeatureForAction(string $action): ?string
     if ($action === 'uptime') return 'uptime';
     if ($action === 'charts' || $action === 'chart-series') return 'charts';
     if (in_array($action, ['health', 'self', 'diagnose', 'diagnosis-ignore', 'diagnosis-unignore'], true)) return 'health';
+    if (in_array($action, ['network', 'captures', 'dns', 'dns-records', 'urls', 'fetch', 'domains', 'whois',
+        'calendar', 'whoami', 'rdns', 'request-capture', 'dns-sweep'], true) || str_starts_with($action, 'rdns-')
+        || str_starts_with($action, 'url-') || str_starts_with($action, 'domain-') || str_starts_with($action, 'event-')) return 'network';
     if ($action === 'package-i18n' || $action === 'package-pages' || str_starts_with($action, 'package-runtime-')
         || $action === 'package-runtime') return 'packages';
     return null;

@@ -79,6 +79,10 @@ function aiRunTool(
         && !coreFeatureEnabled($config, 'storage')) {
         return ['error' => 'Account storage is disabled by this installation.'];
     }
+    if ($respectAccess && in_array($name, ['get_network_summary', 'get_site_check_results', 'get_domain_expiry'], true)
+        && !coreFeatureEnabled($config, 'network')) {
+        return ['error' => 'Network tools are disabled by this installation.'];
+    }
 
     try {
         $result = match ($name) {

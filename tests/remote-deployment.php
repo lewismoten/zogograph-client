@@ -2,6 +2,8 @@
 declare(strict_types=1);
 require_once __DIR__ . '/../lib/remote-deployment.php';
 function remoteDeploymentExpect(bool $condition, string $message): void { if (!$condition) throw new RuntimeException($message); }
+$deploymentSource = file_get_contents(__DIR__ . '/../lib/remote-deployment.php');
+remoteDeploymentExpect($deploymentSource !== false && str_contains($deploymentSource, '($written += strlen($chunk)) > $size') && str_contains($deploymentSource, '$written !== $size'), 'release ZIP staging does not enforce streamed entry-size bounds');
 $profile = remoteDeploymentProfile(['method' => 'rsync_ssh', 'host' => 'Remote.Example.com', 'port' => 22, 'username' => 'deploy-user', 'target_path' => '/srv/zogograph-remote', 'credential_reference' => 'deploy_ref:credential-reference', 'known_host_reference' => 'deploy_ref:host-key-reference', 'packages' => ['remote-core', 'collector'], 'controller_url' => 'https://core.example', 'update_mode' => 'download']);
 remoteDeploymentExpect($profile['host'] === 'remote.example.com' && $profile['known_host_reference'] === 'deploy_ref:host-key-reference' && $profile['packages'] === ['remote-core', 'collector'], 'valid SSH deployment profile was not normalized');
 $ftps = remoteDeploymentProfile(['method' => 'ftps', 'host' => '203.0.113.8', 'username' => 'deploy', 'target_path' => '/httpdocs/remote', 'credential_reference' => 'deploy_ref:ftps-credential-x', 'packages' => ['remote-core'], 'controller_url' => 'https://core.example', 'update_mode' => 'manual']);

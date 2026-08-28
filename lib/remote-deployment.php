@@ -262,7 +262,9 @@ function remoteDeploymentStageRelease(string $archive): array
             if (!is_dir($parent) && !mkdir($parent, 0700, true)) throw new RuntimeException('could not create a release path');
             $input = $zip->getStream($name); $output = @fopen($destination, 'xb');
             if (!is_resource($input) || !is_resource($output)) { if (is_resource($input)) fclose($input); if (is_resource($output)) fclose($output); throw new RuntimeException('could not read a release file'); }
-            while (!feof($input)) { $chunk = fread($input, 1048576); if ($chunk === false || fwrite($output, $chunk) !== strlen($chunk)) { fclose($input); fclose($output); throw new RuntimeException('could not stage a release file'); } }
+            $written = 0;
+            while (!feof($input)) { $chunk = fread($input, 1048576); if ($chunk === false || ($written += strlen($chunk)) > $size || fwrite($output, $chunk) !== strlen($chunk)) { fclose($input); fclose($output); throw new RuntimeException('release archive entry exceeds its declared size or could not be staged'); } }
+            if ($written !== $size) { fclose($input); fclose($output); throw new RuntimeException('release archive entry does not match its declared size'); }
             fclose($input); fclose($output); chmod($destination, 0600); $count++;
         }
         return ['directory' => $directory, 'files' => $count];

@@ -11736,7 +11736,7 @@ async function refreshPeers() {
 async function refreshMarketplace() {
   const body = $("marketplaceBody");
   if (!body) return;
-  if (!state.signedIn) { body.replaceChildren(note("Sign in to view local marketplace packages.")); return; }
+  if (!state.signedIn) { body.replaceChildren(note(ZogographI18n.t("marketplace.sign_in", {}, "Sign in to view local marketplace packages."))); return; }
   try { renderMarketplace(await api("marketplace")); }
   catch (error) { body.replaceChildren(note(String(error.message || error))); }
 }
@@ -12229,14 +12229,15 @@ function showCustodyRecoveryDrillDialog(candidates) {
 
 function renderMarketplace(data) {
   const body = $("marketplaceBody");
-  const parts = [note("Packages are discovered from the configured local marketplace directory. Remote downloads and executable hooks are not supported. A package can only authorize a documented core-owned capability.")];
-  if (data.errors?.length) parts.push(note(`Ignored manifests: ${data.errors.join("; ")}`));
+  const marketplaceText = (key, values, fallback) => ZogographI18n.t(`marketplace.${key}`, values, fallback);
+  const parts = [note(marketplaceText("discovery_notice", {}, "Packages are discovered from the configured local marketplace directory. Remote downloads and executable hooks are not supported. A package can only authorize a documented core-owned capability."))];
+  if (data.errors?.length) parts.push(note(marketplaceText("ignored_manifests", { detail: data.errors.join("; ") }, `Ignored manifests: ${data.errors.join("; ")}`)));
   if (data.can_change) {
-    const install = document.createElement("button"); install.type = "button"; install.className = "primary"; install.textContent = "Install local manifest";
+    const install = document.createElement("button"); install.type = "button"; install.className = "primary"; install.textContent = marketplaceText("install_local", {}, "Install local manifest");
     install.addEventListener("click", showMarketplaceInstallDialog);
     parts.push(install);
     if (!data.packages.some(row => row.id === "zogograph-path-hygiene")) {
-      const bundled = document.createElement("button"); bundled.type = "button"; bundled.className = "link"; bundled.textContent = "Install Path-name hygiene";
+      const bundled = document.createElement("button"); bundled.type = "button"; bundled.className = "link"; bundled.textContent = marketplaceText("install_path_hygiene", {}, "Install Path-name hygiene");
       bundled.addEventListener("click", async () => {
         try { await post("marketplace-install-path-hygiene"); await refreshMarketplace(); notice("Path-name hygiene installed for review. Enable it, then run a disk scan.", true); }
         catch (error) { notice(String(error.message || error)); }
@@ -12244,23 +12245,23 @@ function renderMarketplace(data) {
       parts.push(bundled);
     }
   }
-  if (!data.packages.length) { parts.push(note("No valid local package manifests were found.")); body.replaceChildren(...parts); return; }
-  const filter = document.createElement("input"); filter.type = "search"; filter.className = "wide-field"; filter.placeholder = "Search packages, publishers, or capabilities"; filter.setAttribute("aria-label", "Search marketplace packages");
+  if (!data.packages.length) { parts.push(note(marketplaceText("none_found", {}, "No valid local package manifests were found."))); body.replaceChildren(...parts); return; }
+  const filter = document.createElement("input"); filter.type = "search"; filter.className = "wide-field"; filter.placeholder = marketplaceText("search_placeholder", {}, "Search packages, publishers, or capabilities"); filter.setAttribute("aria-label", marketplaceText("search_label", {}, "Search marketplace packages"));
   const holder = document.createElement("div"); holder.id = "marketplaceTable"; parts.push(filter, holder); body.replaceChildren(...parts);
   const draw = () => {
     const query = filter.value.trim().toLocaleLowerCase();
     const rows = data.packages.filter(row => !query || [row.id, row.name, row.publisher, row.summary, row.license, ...row.capabilities].join(" ").toLocaleLowerCase().includes(query));
     holder.replaceChildren();
-    if (!rows.length) { holder.append(note("No marketplace packages match that search.")); return; }
+    if (!rows.length) { holder.append(note(marketplaceText("no_matches", {}, "No marketplace packages match that search."))); return; }
     renderTable("marketplaceTable", rows, [
-    { label: "Package", className: "name", render: row => `${row.name} · ${row.version}` },
-    { label: "Publisher", render: row => row.publisher },
-    { label: "What it offers", className: "cmd", render: row => row.summary },
-    { label: "Capabilities", render: row => row.capabilities.join(", ") },
-    { label: "Trust", render: row => row.provenance.status },
-    { label: "Compatibility", render: row => row.compatibility?.status || "server will verify" },
-    { label: "License", render: row => row.license },
-    { label: "Status", render: row => row.requires_reapproval ? "review required" : row.enabled ? "enabled" : "not enabled" },
+    { label: marketplaceText("table_package", {}, "Package"), className: "name", render: row => `${row.name} · ${row.version}` },
+    { label: marketplaceText("table_publisher", {}, "Publisher"), render: row => row.publisher },
+    { label: marketplaceText("table_summary", {}, "What it offers"), className: "cmd", render: row => row.summary },
+    { label: marketplaceText("table_capabilities", {}, "Capabilities"), render: row => row.capabilities.join(", ") },
+    { label: marketplaceText("table_trust", {}, "Trust"), render: row => row.provenance.status },
+    { label: marketplaceText("table_compatibility", {}, "Compatibility"), render: row => row.compatibility?.status || marketplaceText("server_will_verify", {}, "server will verify") },
+    { label: marketplaceText("table_license", {}, "License"), render: row => row.license },
+    { label: marketplaceText("table_status", {}, "Status"), render: row => row.requires_reapproval ? marketplaceText("review_required", {}, "review required") : row.enabled ? marketplaceText("enabled", {}, "enabled") : marketplaceText("not_enabled", {}, "not enabled") },
     { label: "", className: "row-actions", render: row => {
       const wrap = document.createDocumentFragment();
       if (row.recommendations?.length) {

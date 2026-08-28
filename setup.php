@@ -1463,6 +1463,10 @@ document.querySelectorAll("[data-package-settings-target]").forEach(function (pi
 
     check();
     setInterval(check, 60000);
+    // A deployment can happen while Setup is in another tab. Recheck on the
+    // return rather than making an administrator wait for the next poll.
+    document.addEventListener("visibilitychange", () => { if (!document.hidden) check(); });
+    window.addEventListener("focus", check);
     document.addEventListener("zogograph-i18n-load", () => { if (latest) show(latest); });
 })();
 </script>

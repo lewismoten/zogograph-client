@@ -486,29 +486,25 @@ function setupPrivateKeyExists(string $path): bool
 /** Groups the package-key setting with the action that provisions its value. */
 function packageSecretKeyQuickStart(string $field, string $path, bool $exists, bool $canCreate): string
 {
-    $out = '<fieldset><legend>Package secrets key</legend>' . $field
-        . '<p class="help">Create a separate key for optional separate custody of package credentials. It will be created in the '
-        . 'same hidden private directory as the primary encryption key, with owner-only permissions and '
-        . 'an Apache deny policy.</p><p class="help">Suggested location: <code>' . h($path) . '</code></p>'
+    $out = '<fieldset><legend data-i18n="encryption.package_key">Package secrets key</legend>' . $field
+        . '<p class="help" data-i18n="encryption.package_key_intro">Create a separate key for optional separate custody of package credentials. It is stored with owner-only permissions in the same hidden private directory as the primary encryption key and protected by an Apache deny policy.</p><p class="help"><span data-i18n="encryption.suggested_location">Suggested location:</span> <code>' . h($path) . '</code></p>'
         . '<input type="hidden" name="setup_key_create_token" value="' . h(setupKeyCreateToken()) . '">';
     if ($exists) {
-        return $out . '<p class="banner ok" role="status">Package-secrets key already exists at this location; '
-            . 'this step is complete.</p><button type="submit" disabled aria-disabled="true">Create package-secrets key file</button></fieldset>';
+        return $out . '<p class="banner ok" role="status" data-i18n="encryption.package_key_exists">Package-secrets key already exists at this location; this step is complete.</p><button type="submit" disabled aria-disabled="true" data-i18n="encryption.create_package_key">Create package-secrets key file</button></fieldset>';
     }
     if (!$canCreate) {
-        return $out . '<p class="help">Unlock setup with the current password before creating this key.</p>'
-            . '<button type="submit" disabled aria-disabled="true">Create package-secrets key file</button></fieldset>';
+        return $out . '<p class="help" data-i18n="encryption.unlock_to_create">Unlock setup with the current password before creating this key.</p>'
+            . '<button type="submit" disabled aria-disabled="true" data-i18n="encryption.create_package_key">Create package-secrets key file</button></fieldset>';
     }
-    return $out . '<button type="submit" name="intent" value="create-package-secret-key">Create package-secrets key file</button></fieldset>';
+    return $out . '<button type="submit" name="intent" value="create-package-secret-key" data-i18n="encryption.create_package_key">Create package-secrets key file</button></fieldset>';
 }
 
 /** Inline provisioning for the encryption setting, never on the bootstrap page. */
 function primaryKeyQuickStart(string $path, bool $exists, bool $canCreate): string
 {
-    $out = '<fieldset><legend>Create private encryption key</legend>'
-        . '<p class="help">Creates a Base64 256-bit key outside the web directory, with owner-only '
-        . 'permissions and an Apache deny policy for its private directory.</p>'
-        . '<label>New private key-file path (leave blank to use this location)<input type="text" name="key_path" '
+    $out = '<fieldset><legend data-i18n="encryption.private_key">Create private encryption key</legend>'
+        . '<p class="help" data-i18n="encryption.private_key_intro">Creates a Base64 256-bit key outside the web directory, with owner-only permissions and an Apache deny policy for its private directory.</p>'
+        . '<label><span data-i18n="encryption.key_path">New private key-file path (leave blank to use this location)</span><input type="text" name="key_path" '
         . 'placeholder="' . h($path) . '" autocomplete="off"' . ($exists ? ' disabled' : '') . '></label>'
         . '<input type="hidden" name="setup_key_create_token" value="' . h(setupKeyCreateToken()) . '">';
     if ($exists) {

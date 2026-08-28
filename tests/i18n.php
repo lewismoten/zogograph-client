@@ -25,7 +25,8 @@ i18nExpect($script !== false && str_contains($script, 'ZogographI18n.t("image.no
     && str_contains($script, 'ZogographI18n.t("image.send_screenshot"'),
     'dashboard fixed image descriptions do not use the locale catalog');
 i18nExpect($script !== false && str_contains($script, 'function packageText(')
-    && str_contains($script, 'package.runtime_intro') && str_contains($script, 'package.installed_for_review'),
+    && str_contains($script, 'package.runtime_intro') && str_contains($script, 'package.installed_for_review')
+    && str_contains($script, 'package.toggle_confirmation') && str_contains($script, 'package.remove_confirmation'),
     'package administration does not use localized named messages');
 i18nExpect($script !== false && str_contains($script, 'typeof page.parent === "string" && VIEWS[page.parent]')
     && str_contains($script, 'link.dataset.parent = parent'),

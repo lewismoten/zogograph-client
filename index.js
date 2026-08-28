@@ -11925,11 +11925,11 @@ function renderPackageDashboardPage(route) {
   const view = document.querySelector(`[data-view="${route}"]`); if (!view) return;
   const panel = document.createElement("section"); panel.className = "panel";
   const head = document.createElement("div"); head.className = "panel-head"; const title = document.createElement("h2"); title.textContent = view.dataset.packagePageTitleKey ? ZogographI18n.t(view.dataset.packagePageTitleKey, {}, view.dataset.packagePageTitle || route) : view.dataset.packagePageTitle || route; head.appendChild(title);
-  const summary = document.createElement("p"); summary.textContent = view.dataset.packagePageSummaryKey ? ZogographI18n.t(view.dataset.packagePageSummaryKey, {}, view.dataset.packagePageSummary || "") : view.dataset.packagePageSummary || "This package contributes a core-rendered dashboard page.";
-  const boundary = note("This page is rendered by the Zogograph shell from the package’s signed metadata. It does not load package HTML, styles, or browser code.");
+  const summary = document.createElement("p"); summary.textContent = view.dataset.packagePageSummaryKey ? ZogographI18n.t(view.dataset.packagePageSummaryKey, {}, view.dataset.packagePageSummary || "") : view.dataset.packagePageSummary || packageText("package.page_summary", {}, "This package contributes a core-rendered dashboard page.");
+  const boundary = note(packageText("package.page_boundary", {}, "This page is rendered by the Zogograph shell from the package’s signed metadata. It does not load package HTML, styles, or browser code."));
   panel.append(head, summary, boundary);
   if (state.access?.write) {
-    const settings = document.createElement("button"); settings.className = "link"; settings.textContent = "Open package settings";
+    const settings = document.createElement("button"); settings.className = "link"; settings.textContent = packageText("package.open_settings", {}, "Open package settings");
     settings.addEventListener("click", () => showPackageRuntimeSettings({ id: view.dataset.packageId })); panel.appendChild(settings);
   }
   view.replaceChildren(panel);
@@ -11938,34 +11938,34 @@ function renderPackageDashboardPage(route) {
 function packageRuntimeActions(row, canChange) {
   const wrap = document.createDocumentFragment();
   if (!canChange) return wrap;
-  const settings = document.createElement("button"); settings.className = "link"; settings.textContent = "Settings";
+  const settings = document.createElement("button"); settings.className = "link"; settings.textContent = packageText("package.settings", {}, "Settings");
   settings.addEventListener("click", () => showPackageRuntimeSettings(row)); wrap.appendChild(settings);
-  const secret = document.createElement("button"); secret.className = "link"; secret.textContent = "Add secret";
+  const secret = document.createElement("button"); secret.className = "link"; secret.textContent = packageText("package.add_secret", {}, "Add secret");
   secret.addEventListener("click", () => showPackageRuntimeSecret(row)); wrap.appendChild(secret);
-  const secrets = document.createElement("button"); secrets.className = "link"; secrets.textContent = "Manage secrets";
+  const secrets = document.createElement("button"); secrets.className = "link"; secrets.textContent = packageText("package.manage_secrets", {}, "Manage secrets");
   secrets.addEventListener("click", () => showPackageRuntimeSecrets(row)); wrap.appendChild(secrets);
   if (row.revoked) {
-    const lift = document.createElement("button"); lift.className = "link"; lift.textContent = "Lift revocation";
+    const lift = document.createElement("button"); lift.className = "link"; lift.textContent = packageText("package.lift_revocation", {}, "Lift revocation");
     lift.addEventListener("click", async () => {
-      if (!(await confirmDialog(`Lift the revocation for ${row.id}?\n\nThe package remains disabled. Review its files and explicitly grant/enable it again only if you trust it.`, "Lift package revocation"))) return;
-      try { await post("package-runtime-unrevoke", { id: row.id }); await refreshPackageRuntime(); notice(`${row.id} revocation lifted; it remains disabled.`, true); }
+      if (!(await confirmDialog(packageText("package.lift_confirmation", {id: row.id}, "Lift the revocation for {{id}}?\n\nThe package remains disabled. Review its files and explicitly grant/enable it again only if you trust it."), packageText("package.lift_revocation", {}, "Lift revocation")))) return;
+      try { await post("package-runtime-unrevoke", { id: row.id }); await refreshPackageRuntime(); notice(packageText("package.revocation_lifted", {id: row.id}, "{{id}} revocation lifted; it remains disabled."), true); }
       catch (error) { notice(String(error.message || error)); }
     });
     wrap.appendChild(lift); return wrap;
   }
-  const revoke = document.createElement("button"); revoke.className = "link danger"; revoke.textContent = "Revoke";
+  const revoke = document.createElement("button"); revoke.className = "link danger"; revoke.textContent = packageText("package.revoke", {}, "Revoke");
   revoke.addEventListener("click", () => showPackageRuntimeRevoke(row)); wrap.appendChild(revoke);
   if (!row.enabled) {
-    const remove = document.createElement("button"); remove.className = "link danger"; remove.textContent = "Remove";
+    const remove = document.createElement("button"); remove.className = "link danger"; remove.textContent = packageText("package.remove", {}, "Remove");
     remove.addEventListener("click", async () => {
-      if (!(await confirmDialog(`Remove ${row.id} ${row.version}?\n\nThis removes its immutable package files and registry record. Package-private data and encrypted secrets are retained so they can be recovered or reused after a future reinstall.`, "Remove package"))) return;
-      try { await post("package-runtime-remove", { id: row.id }); await refreshPackageRuntime(); notice(`${row.id} removed.`, true); }
+      if (!(await confirmDialog(packageText("package.remove_confirmation", {id: row.id, version: row.version}, "Remove {{id}} {{version}}?\n\nThis removes its immutable package files and registry record. Package-private data and encrypted secrets are retained so they can be recovered or reused after a future reinstall."), packageText("package.remove", {}, "Remove")))) return;
+      try { await post("package-runtime-remove", { id: row.id }); await refreshPackageRuntime(); notice(packageText("package.removed", {id: row.id}, "{{id}} removed."), true); }
       catch (error) { notice(String(error.message || error)); }
     });
     wrap.appendChild(remove);
   }
   if (!row.integrity) {
-    const failed = document.createElement("span"); failed.className = "muted small"; failed.textContent = "Review or remove altered files before enabling.";
+    const failed = document.createElement("span"); failed.className = "muted small"; failed.textContent = packageText("package.review_altered", {}, "Review or remove altered files before enabling.");
     wrap.appendChild(failed); return wrap;
   }
   if (row.probe_configured) {
@@ -12002,13 +12002,13 @@ function packageRuntimeActions(row, canChange) {
   }
   const toggle = document.createElement("button"); toggle.className = row.enabled ? "link danger" : "link";
   const platformReady = row.compatibility?.status === "ready" && row.dependency_status?.ok !== false;
-  toggle.textContent = row.enabled ? "Disable" : (platformReady ? "Grant & enable" : "Platform unavailable");
+  toggle.textContent = row.enabled ? packageText("package.disable", {}, "Disable") : (platformReady ? packageText("package.grant_enable", {}, "Grant & enable") : packageText("package.platform_unavailable", {}, "Platform unavailable"));
   toggle.disabled = !row.enabled && !platformReady;
-  toggle.title = toggle.disabled ? `Cannot enable: ${row.dependency_status?.detail || row.compatibility?.detail || "platform requirements are unavailable"}` : "";
+  toggle.title = toggle.disabled ? packageText("package.cannot_enable", {detail: row.dependency_status?.detail || row.compatibility?.detail || packageText("package.platform_requirements_unavailable", {}, "platform requirements are unavailable")}, "Cannot enable: {{detail}}") : "";
   toggle.addEventListener("click", async () => {
-    const verb = row.enabled ? "Disable" : "Grant every listed capability and enable";
-    if (!(await confirmDialog(`${verb} ${row.id}?\n\nCapabilities: ${row.capabilities.join(", ")}\n\nThis records permission only; it does not run package code.`, `${verb} package`))) return;
-    try { await post("package-runtime-enable", { id: row.id, enabled: row.enabled ? "0" : "1", grants: row.enabled ? "" : row.capabilities.join(",") }); await refreshPackageRuntime(); notice(`${row.id} ${row.enabled ? "disabled" : "enabled for future runtime use"}.`, true); }
+    const verb = row.enabled ? packageText("package.disable", {}, "Disable") : packageText("package.grant_all_enable", {}, "Grant every listed capability and enable");
+    if (!(await confirmDialog(packageText("package.toggle_confirmation", {verb, id: row.id, capabilities: row.capabilities.join(", ")}, "{{verb}} {{id}}?\n\nCapabilities: {{capabilities}}\n\nThis records permission only; it does not run package code."), packageText("package.toggle_title", {verb}, "{{verb}} package")))) return;
+    try { await post("package-runtime-enable", { id: row.id, enabled: row.enabled ? "0" : "1", grants: row.enabled ? "" : row.capabilities.join(",") }); await refreshPackageRuntime(); notice(row.enabled ? packageText("package.disabled", {id: row.id}, "{{id}} disabled.") : packageText("package.enabled", {id: row.id}, "{{id}} enabled for future runtime use."), true); }
     catch (error) { notice(String(error.message || error)); }
   });
   wrap.appendChild(toggle); return wrap;

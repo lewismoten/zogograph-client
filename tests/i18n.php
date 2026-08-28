@@ -18,11 +18,11 @@ foreach (['en-US', 'en-GB', 'es', 'hi', 'zh', 'ar'] as $locale) {
     $catalog = json_decode((string)file_get_contents($root . '/locales/' . $locale . '.json'), true);
     i18nExpect(is_array($catalog), "locale catalog $locale is invalid");
     if (in_array($locale, ['es', 'hi', 'zh', 'ar'], true)) {
-        i18nExpect(isset($catalog['navigation.charts'], $catalog['navigation.storage'], $catalog['navigation.backups'], $catalog['navigation.cpu']),
+        i18nExpect(isset($catalog['navigation.charts'], $catalog['navigation.storage'], $catalog['navigation.backups'], $catalog['navigation.cpu'], $catalog['navigation.memory'], $catalog['navigation.processes'], $catalog['navigation.network']),
             "locale catalog $locale lacks translated primary navigation");
     }
 }
-foreach (['navigation.charts', 'navigation.storage', 'navigation.backups', 'navigation.cpu'] as $key) {
+foreach (['navigation.charts', 'navigation.storage', 'navigation.backups', 'navigation.cpu', 'navigation.memory', 'navigation.processes', 'navigation.network'] as $key) {
     i18nExpect($page !== false && str_contains($page, 'data-i18n="' . $key . '"'), "dashboard navigation does not use $key");
 }
 echo "i18n checks passed\n";

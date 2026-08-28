@@ -72,7 +72,7 @@
   "setup.help.core_features_terminal": "禁用后会从仪表板移除终端及其会话，阻止其 API 路由，并阻止助手工具读取终端历史记录。现有私有终端证据会保留，以便日后重新启用。",
   "setup.help.core_features_notes": "禁用后会从仪表板移除笔记、数据库副本、图表注释和广播，并阻止其 API 路由。现有笔记和已捕获的证据会保留，以便日后重新启用。",
   "setup.help.core_features_problems": "禁用后会从仪表板移除“最近问题”、其仪表板徽章和 API 路由。Zogograph 会继续记录服务器错误，以确保诊断和支持安全可靠。",
-  "setup.help.core_features_storage": "禁用后会从仪表板移除帐户数据、主机数据和保留控制，并阻止其 API 路由。收集、已配置的保留和安全的自动汇总仍会在服务器端继续运行。",
+  "setup.help.core_features_storage": "禁用后会从仪表板移除帐户存储、文件视图、数据控制和保留控制，阻止其读取、管理和助手 API，同时保留扫描、已配置的保留和安全的服务器端汇总。",
   "setup.help.core_features_audit": "禁用后会从仪表板移除审计页面，并阻止其 API 路由和助手历史工具。Zogograph 会继续在服务器端记录问责条目。",
   "setup.help.core_features_metadata": "禁用后会从仪表板移除自定义名称和“事物说明”，并阻止其 API 路由。现有标签和说明会保留，以便日后重新启用。",
   "setup.help.core_features_notifications": "禁用后会从仪表板移除电子邮件警报，并阻止其配置和测试 API 路由。现有警报投递设置和服务器端警报评估保持不变。",

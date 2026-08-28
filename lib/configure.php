@@ -104,7 +104,7 @@ function configFields(array $sample): array
             'path' => ['core_features', 'storage'],
             'type' => 'bool',
             'label' => 'Data storage core feature',
-            'help' => 'Disabling this removes account data, host data, and retention controls from the dashboard and blocks their API routes. Collection, configured retention, and safe automatic rollups continue running server-side.',
+            'help' => 'Disabling this removes account storage, its file views, data controls, and retention controls from the dashboard; blocks their read, management, and assistant APIs; and preserves scans, configured retention, and safe server-side rollups.',
             'default' => (bool)($sample['core_features']['storage'] ?? true),
         ],
         [

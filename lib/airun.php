@@ -75,6 +75,10 @@ function aiRunTool(
         && !coreFeatureEnabled($config, 'charts')) {
         return ['error' => 'Chart history is disabled by this installation.'];
     }
+    if ($respectAccess && in_array($name, ['find_largest_paths', 'find_crowded_directories', 'get_symlink_problems'], true)
+        && !coreFeatureEnabled($config, 'storage')) {
+        return ['error' => 'Account storage is disabled by this installation.'];
+    }
 
     try {
         $result = match ($name) {

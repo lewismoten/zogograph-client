@@ -19,6 +19,7 @@ coreFeatureExpect($status[0]['id'] === 'assistant' && !$status[0]['enabled'] && 
     && $status[4]['id'] === 'notes' && !$status[4]['enabled'] && in_array('sys-notes', $status[4]['dashboard_routes'], true)
     && $status[5]['id'] === 'problems' && !$status[5]['enabled'] && in_array('sys-problems', $status[5]['dashboard_routes'], true)
     && $status[6]['id'] === 'storage' && !$status[6]['enabled'] && in_array('sys-retention', $status[6]['dashboard_routes'], true)
+    && in_array('storage-map', $status[6]['dashboard_routes'], true) && in_array('log-stream', $status[6]['dashboard_routes'], true)
     && $status[7]['id'] === 'audit' && !$status[7]['enabled'] && in_array('deletions', $status[7]['dashboard_routes'], true)
     && $status[8]['id'] === 'metadata' && !$status[8]['enabled'] && in_array('net-labels', $status[8]['dashboard_routes'], true)
     && $status[9]['id'] === 'notifications' && !$status[9]['enabled'] && in_array('email', $status[9]['dashboard_routes'], true)
@@ -35,6 +36,7 @@ coreFeatureExpect(coreFeatureForAction('ai-start') === 'assistant' && coreFeatur
     && coreFeatureForAction('terminal-run') === 'terminal'
     && coreFeatureForAction('note-save') === 'notes' && coreFeatureForAction('snapshot-delete') === 'notes'
     && coreFeatureForAction('clear-problems') === 'problems' && coreFeatureForAction('store-rollup') === 'storage'
+    && coreFeatureForAction('delete-file') === 'storage' && coreFeatureForAction('symlinks') === 'storage'
     && coreFeatureForAction('clear-audit') === 'audit' && coreFeatureForAction('description-save') === 'metadata'
     && coreFeatureForAction('email-save') === 'notifications' && coreFeatureForAction('backups') === 'backups'
     && coreFeatureForAction('encryption-seal') === 'encryption' && coreFeatureForAction('alert-mute') === 'alerts'
@@ -55,6 +57,8 @@ try { requireCoreFeatureAccess($disabled, 'clear-problems'); throw new RuntimeEx
 catch (ActionRefused $error) { coreFeatureExpect($error->getMessage() === 'this core feature is disabled', 'disabled problem route used an unsafe refusal'); }
 try { requireCoreFeatureAccess($disabled, 'store-rollup'); throw new RuntimeException('disabled storage route was accepted'); }
 catch (ActionRefused $error) { coreFeatureExpect($error->getMessage() === 'this core feature is disabled', 'disabled storage route used an unsafe refusal'); }
+try { requireCoreFeatureAccess($disabled, 'delete-file'); throw new RuntimeException('disabled storage deletion route was accepted'); }
+catch (ActionRefused $error) { coreFeatureExpect($error->getMessage() === 'this core feature is disabled', 'disabled storage deletion route used an unsafe refusal'); }
 try { requireCoreFeatureAccess($disabled, 'clear-audit'); throw new RuntimeException('disabled audit route was accepted'); }
 catch (ActionRefused $error) { coreFeatureExpect($error->getMessage() === 'this core feature is disabled', 'disabled audit route used an unsafe refusal'); }
 try { requireCoreFeatureAccess($disabled, 'description-save'); throw new RuntimeException('disabled metadata route was accepted'); }
@@ -105,6 +109,8 @@ coreFeatureExpect(is_string($airun) && str_contains($airun, "coreFeatureEnabled(
     'disabled audit feature leaves assistant action history active');
 coreFeatureExpect(is_string($airun) && str_contains($airun, "coreFeatureEnabled(\$config, 'charts')"),
     'disabled chart history leaves assistant chart tools active');
+coreFeatureExpect(is_string($airun) && str_contains($airun, "coreFeatureEnabled(\$config, 'storage')"),
+    'disabled account storage leaves assistant file tools active');
 coreFeatureExpect(is_string($api) && str_contains($api, "coreFeatureEnabled(\$config, 'notes')")
     && str_contains($api, "'broadcasts' => \$signedIn"), 'disabled notes feature leaves shared broadcasts active');
 echo "core feature checks passed\n";

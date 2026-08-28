@@ -34,7 +34,8 @@ const CORE_FEATURES = [
         'setup_section' => 'features',
     ],
     'storage' => [
-        'dashboard_routes' => ['sys-account', 'sys-host-data', 'sys-retention'],
+        'dashboard_routes' => ['storage', 'storage-files', 'storage-map', 'storage-links', 'log-stream',
+            'sys-account', 'sys-host-data', 'sys-retention'],
         'setup_section' => 'features',
     ],
     'audit' => [
@@ -107,7 +108,10 @@ function coreFeatureForAction(string $action): ?string
     if ($action === 'terminal' || str_starts_with($action, 'terminal-')) return 'terminal';
     if ($action === 'notes' || str_starts_with($action, 'note-') || $action === 'snapshot-delete') return 'notes';
     if ($action === 'problems' || $action === 'clear-problems') return 'problems';
-    if ($action === 'store' || str_starts_with($action, 'store-')) return 'storage';
+    if ($action === 'store' || str_starts_with($action, 'store-')
+        || in_array($action, ['scans', 'offenders', 'history', 'treemap', 'inspect', 'host-logs', 'log-stream',
+            'symlinks', 'link-fix', 'link-sweep', 'ldconfig', 'path-hygiene', 'path-hygiene-rename',
+            'delete-file', 'delete-dir', 'empty'], true)) return 'storage';
     if ($action === 'actions' || $action === 'clear-audit') return 'audit';
     if ($action === 'labels' || str_starts_with($action, 'label-') || $action === 'descriptions'
         || str_starts_with($action, 'description-')) return 'metadata';

@@ -53,6 +53,9 @@ i18nExpect($setup !== false && str_contains($setup, 'data-i18n="installation.che
     'Setup installation checks are not localized');
 i18nExpect($setup !== false && str_contains($setup, 'data-i18n-alt="auth.qr_alt"'),
     'Setup authenticator QR alternative text is not localized');
+i18nExpect($setup !== false && str_contains($setup, 'data-i18n="openid.provider_intro"')
+    && str_contains($setup, 'data-i18n="openid.secret_copy"'),
+    'Setup OpenID security guidance is not localized');
 i18nExpect($setup !== false && str_contains($setup, 'data-i18n="deployment.copy_release"')
     && str_contains($setup, 'data-i18n="deployment.review_transport"'),
     'Setup deployment release controls are not localized');
@@ -60,7 +63,7 @@ i18nExpect($configure !== false && str_contains($configure, 'function generatedF
     && str_contains($configure, "'label' => generatedFieldLabel(\$path)")
     && !str_contains($configure, "'label' => \$dotted"),
     'generated Setup fields can still expose dotted internal configuration paths');
-i18nExpect(is_array($english) && isset($english['example.readings'], $english['example.compact'], $english['example.cost'], $english['example.percent'], $english['example.storage'], $english['example.changed'], $english['update.available'], $english['range.10m'], $english['action.reload'], $english['navigation.storage'], $english['navigation.cpu'], $english['navigation.deleted_held'], $english['navigation.cpu_limits'], $english['deployment.test'], $english['deployment.copy_release'], $english['merge.apply'], $english['installation.checks'], $english['auth.qr_alt'], $english['image.generated'], $english['package.save_settings'], $english['schedule.custom_builder'], $english['schedule.job.vitals'], $english['schedule.remove'], $english['setup.search_results']),
+i18nExpect(is_array($english) && isset($english['example.readings'], $english['example.compact'], $english['example.cost'], $english['example.percent'], $english['example.storage'], $english['example.changed'], $english['update.available'], $english['range.10m'], $english['action.reload'], $english['navigation.storage'], $english['navigation.cpu'], $english['navigation.deleted_held'], $english['navigation.cpu_limits'], $english['deployment.test'], $english['deployment.copy_release'], $english['merge.apply'], $english['installation.checks'], $english['auth.qr_alt'], $english['image.generated'], $english['package.save_settings'], $english['schedule.custom_builder'], $english['schedule.job.vitals'], $english['schedule.remove'], $english['setup.search_results'], $english['openid.provider_intro'], $english['openid.secret_copy']),
     'English fallback catalog is incomplete');
 preg_match_all('/data-i18n(?:-placeholder|-title|-aria-label)?="([^"]+)"/', (string)$page, $pageKeys);
 foreach (array_unique($pageKeys[1] ?? []) as $key) {

@@ -1,8 +1,9 @@
 <?php
 declare(strict_types=1);
 
-/* Metadata-only Setup panel registry. Renderers stay core-owned until package
- * execution has an independently attested isolation boundary. */
+/* Package declarations are metadata-only. Setup renders their signed settings
+ * schema itself, so a package can contribute a usable panel without supplying
+ * executable PHP, HTML, or JavaScript to the privileged Setup process. */
 
 /** Normalizes inert panel metadata before it reaches Setup navigation. */
 function setupPanelDefinition(array $panel): array

@@ -123,6 +123,7 @@ i18nExpect($setup !== false && str_contains($setup, 'data-i18n="setup.new_mask_w
     'Setup configuration export mask warning is not localized');
 i18nExpect($setup !== false && str_contains($setup, 'setupRenderPackageSettingsPanel')
     && str_contains($setup, 'data-package-settings-target') && str_contains($setup, 'save-package-settings:')
+    && str_contains($setup, 'setupRedirect($packagePanelId)')
     && str_contains($setup, 'data-i18n="package.save_settings"') && str_contains($setup, 'data-i18n="package.no_reference"'),
     'Setup cannot render a signed package settings panel inside a core page');
 i18nExpect($setup !== false && str_contains($setup, 'data-i18n="package.unavailable"')

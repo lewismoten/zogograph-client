@@ -796,12 +796,14 @@ function runWeb(
     }
 
     if ($posted && str_starts_with((string)($_POST['intent'] ?? ''), 'save-package-settings')) {
+        $packagePanelId = '';
         try {
             if (!$unlocked) throw new RuntimeException('unlock setup before changing package settings');
             if (!hash_equals(setupPackageSettingsToken(), (string)($_POST['setup_package_settings_token'] ?? ''))) {
                 throw new RuntimeException('the package settings form expired; reload Setup and try again');
             }
             $intent = (string)$_POST['intent']; $panelId = str_starts_with($intent, 'save-package-settings:') ? substr($intent, strlen('save-package-settings:')) : (string)($_POST['package_panel_id'] ?? '');
+            $packagePanelId = $panelId;
             $panels = setupPanels($fields, $packagePanels);
             $panel = $panels[$panelId] ?? null;
             if (!is_array($panel) || $panel['kind'] !== 'package') throw new RuntimeException('that package settings panel is unavailable');
@@ -814,7 +816,10 @@ function runWeb(
         } catch (Throwable $error) {
             $_SESSION['setup_error'] = 'Could not save package settings: ' . $error->getMessage();
         }
-        setupRedirect((string)($_POST['package_panel_id'] ?? ''));
+        // The submit button names the signed panel; carry it through the
+        // redirect so a saved child panel does not unexpectedly strand the
+        // administrator on Setup's default page.
+        setupRedirect($packagePanelId);
         return;
     }
 

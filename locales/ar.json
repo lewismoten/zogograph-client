@@ -535,5 +535,9 @@
   "marketplace.restore_confirmation": "هل تريد استعادة {{name}} {{version}}؟ ستبقى الحزمة المستعادة معطلة حتى تُراجع مرة أخرى.",
   "marketplace.restore_package": "استعد الحزمة",
   "marketplace.restore_success": "استُعيدت {{name}} للمراجعة.",
-  "marketplace.history_boundary": "تُبقي استعادة مراجعة سابقة تحكم المسؤول قائمًا: تبقى الحزمة معطلة حتى تُفعّل صراحةً مرة أخرى."
+  "marketplace.history_boundary": "تُبقي استعادة مراجعة سابقة تحكم المسؤول قائمًا: تبقى الحزمة معطلة حتى تُفعّل صراحةً مرة أخرى.",
+  "peer.capacity": "إصدار {{edition}}: وحدة التحكم و{{limit, number}} مضيفًا بعيدًا. تم إعداد {{used, number}}؛ المتبقي {{remaining, number}}.",
+  "peer.add": "أضف خادمًا موثوقًا", "peer.capacity_reached": "بلغ هذا الإصدار حد المضيفين البعيدين. أزل خادمًا أو استبدله لتحرير مكان.", "peer.add_help": "أضف خادم Zogograph بعيدًا موثوقًا.", "peer.none": "لا توجد خوادم موثوقة مُعَدّة بعد.",
+  "peer.table_server": "الخادم", "peer.table_issuer": "المُصدِر", "peer.not_configured": "غير مُعَدّ", "peer.table_client": "العميل", "peer.table_secret": "السر", "peer.configured": "مُعَدّ", "peer.not_needed": "غير مطلوب", "peer.table_transport": "النقل", "peer.not_paired": "غير مقترن", "peer.awaiting_delivery": "بانتظار أول تسليم ({{elapsed}})", "peer.paired": "مقترن", "peer.table_last_delivery": "آخر تسليم", "peer.none_yet": "لا شيء بعد", "peer.table_cpu": "المعالج", "peer.table_memory": "الذاكرة", "peer.table_disk_free": "مساحة القرص الحرة", "peer.table_connected": "متصل", "peer.not_connected": "غير متصل",
+  "peer.test": "اختبر", "peer.test_oidc": "اختبر اكتشاف OIDC", "peer.delivery_separate": "يُضبط التسليم البعيد بشكل منفصل عن OIDC.", "peer.connected_to": "متصل بـ {{issuer}}.", "peer.reconnect": "أعد الاتصال", "peer.connect": "اتصل", "peer.view_data": "اعرض البيانات", "peer.overview_title": "نظرة عامة على {{name}}", "peer.collected": "جُمعت", "peer.nothing_collected": "لم يُجمع شيء", "peer.load": "الحمل", "peer.edit": "حرّر"
 }

@@ -922,7 +922,9 @@ function webPage(
         . '<a data-i18n="setup.installation" data-setup-nav-item data-setup-nav-terms="installation checks prerequisites"' . ($activeSection === 'basics' ? ' class="current"' : '') . ' href="?section=basics">Installation</a>';
     foreach ($panels as $name => $panel) {
         if ($name === 'basics') continue;
+        $navigationKey = $panel['kind'] === 'core' ? 'setup.section.' . $name : '';
         $out[] = '<a data-setup-nav-item data-setup-nav-terms="' . h($name . ' ' . $panel['title'] . ' ' . implode(' ', $panel['keywords'])) . '"'
+            . ($navigationKey !== '' ? ' data-i18n="' . h($navigationKey) . '"' : '')
             . ($activeSection === $name ? ' class="current"' : '')
             . ' href="?section=' . rawurlencode($name) . '">' . h($panel['title']) . '</a>';
     }

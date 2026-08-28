@@ -14,7 +14,8 @@ i18nExpect($runtime !== false && str_contains($runtime, 'Intl.NumberFormat') && 
 i18nExpect($page !== false && str_contains($page, 'id="languagePicker"') && str_contains($page, 'id="languageKeys"')
     && str_contains($page, 'src="i18n.js"'), 'dashboard language controls are unavailable');
 i18nExpect($setup !== false && str_contains($setup, 'src="i18n.js"') && str_contains($setup, 'id="languagePicker"')
-    && str_contains($setup, 'id="languageKeys"') && str_contains($setup, 'data-i18n="setup.installation"'),
+    && str_contains($setup, 'id="languageKeys"') && str_contains($setup, 'data-i18n="setup.installation"')
+    && str_contains($setup, "'setup.section.' . \$name"),
     'Setup language controls or localized shell are unavailable');
 i18nExpect(is_array($english) && isset($english['example.readings'], $english['example.compact'], $english['example.cost'], $english['update.available'], $english['range.10m'], $english['action.reload'], $english['navigation.storage'], $english['navigation.cpu']),
     'English fallback catalog is incomplete');

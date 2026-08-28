@@ -230,8 +230,20 @@ function setupTotpQrImage(string $uri): ?string
         $pipes = []; $process = @proc_open([$binary, '-t', 'SVG', '-o', '-'], [['pipe', 'r'], ['pipe', 'w'], ['pipe', 'w']], $pipes, null, null, ['bypass_shell' => true]);
         if (!is_resource($process)) continue;
         fwrite($pipes[0], $uri); fclose($pipes[0]);
-        $svg = stream_get_contents($pipes[1]); stream_get_contents($pipes[2]); fclose($pipes[1]); fclose($pipes[2]); $exit = proc_close($process);
-        if ($exit === 0 && is_string($svg) && strlen($svg) > 100 && strlen($svg) <= 1048576 && preg_match('/<svg\\b/i', $svg)) {
+        stream_set_blocking($pipes[1], false); stream_set_blocking($pipes[2], false);
+        $svg = ''; $deadline = microtime(true) + 2; $aborted = false;
+        do {
+            $chunk = stream_get_contents($pipes[1]); stream_get_contents($pipes[2]);
+            if ($chunk !== false) $svg .= $chunk;
+            $status = proc_get_status($process);
+            if (!$status['running']) break;
+            if (strlen($svg) > 1048576 || microtime(true) >= $deadline) { $aborted = true; proc_terminate($process); break; }
+            usleep(10000);
+        } while (true);
+        $exitCode = (int)($status['exitcode'] ?? -1);
+        foreach ([1, 2] as $pipe) { stream_get_contents($pipes[$pipe]); fclose($pipes[$pipe]); }
+        $closedCode = proc_close($process); $exit = $exitCode >= 0 ? $exitCode : $closedCode;
+        if (!$aborted && $exit === 0 && strlen($svg) > 100 && strlen($svg) <= 1048576 && preg_match('/<svg\\b/i', $svg)) {
             return 'data:image/svg+xml;base64,' . base64_encode($svg);
         }
     }

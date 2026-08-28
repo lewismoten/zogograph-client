@@ -20,9 +20,12 @@ function renderSetupCronEditor(string $prefix, string $title, array $choice, str
     if (!preg_match('/^[a-z][a-z0-9_-]{0,62}$/', $prefix)) {
         throw new InvalidArgumentException('cron editor form prefix is invalid');
     }
+    if (!in_array($job, ['vitals', 'scan'], true)) {
+        throw new InvalidArgumentException('cron editor job is invalid');
+    }
     $profile = (string)($choice['profile'] ?? 'none');
     $custom = (array)($choice['custom'] ?? []);
-    $out = '<fieldset><legend>' . setupCronEditorEscape($title) . '</legend><label><span data-i18n="schedule.profile">Profile</span><select name="'
+    $out = '<fieldset><legend data-i18n="schedule.job.' . setupCronEditorEscape($job) . '">' . setupCronEditorEscape($title) . '</legend><label><span data-i18n="schedule.profile">Profile</span><select name="'
         . setupCronEditorEscape($prefix) . '_profile">';
     foreach (cronEditorProfiles($job) as $id => $definition) {
         $out .= '<option value="' . setupCronEditorEscape($id) . '" data-i18n="schedule.profile.'

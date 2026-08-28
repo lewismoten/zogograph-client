@@ -27,6 +27,8 @@
   "schedule.intro": "Choose the account collector cadence and apply it here. Only Zogograph’s marked cron block is changed; every other account cron job stays untouched.",
   "schedule.collector": "Account collector schedule",
   "schedule.collector_help": "Vitals are lightweight readings. A scan walks the monitored directory and is normally left off or scheduled much less often.",
+  "schedule.job.vitals": "Vitals collection",
+  "schedule.job.scan": "Directory scan",
   "schedule.php_binary": "PHP command-line binary",
   "schedule.profile": "Profile",
   "schedule.offset_minute": "Minute offset (0–59)",

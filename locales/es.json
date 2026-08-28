@@ -26,6 +26,8 @@
   "deployment.store_action": "Guardar credencial cifrada",
   "schedule.intro": "Elija la frecuencia del recopilador de la cuenta y aplíquela aquí. Solo se modifica el bloque de cron marcado por Zogograph; los demás trabajos cron de la cuenta no cambian.",
   "schedule.collector": "Programación del recopilador de la cuenta",
+  "schedule.job.vitals": "Recopilación de métricas",
+  "schedule.job.scan": "Análisis de directorios",
   "schedule.collector_help": "Las métricas son lecturas ligeras. Un análisis recorre el directorio supervisado y normalmente se deja desactivado o se programa con mucha menos frecuencia.",
   "schedule.php_binary": "Binario de PHP de línea de comandos",
   "schedule.profile": "Perfil",

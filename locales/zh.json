@@ -218,6 +218,7 @@
   "deployment.last_copy_result": "上次版本复制：{{detail}}（{{files, number}} 个文件）",
   "language.label": "语言",
   "language.keys": "显示翻译键",
+  "language.highlight": "突出显示翻译来源",
   "form.yes": "是",
   "setup.label": "设置",
   "setup.title": "设置",

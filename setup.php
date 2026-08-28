@@ -1070,7 +1070,7 @@ function webPage(
         . '<span class="poll" aria-hidden="true"><svg viewBox="0 0 36 36"><circle class="poll-track" cx="18" cy="18" r="15"></circle><circle class="poll-fill" cx="18" cy="18" r="15"></circle><circle class="poll-host-track" cx="18" cy="18" r="9"></circle><circle class="poll-host-fill" cx="18" cy="18" r="9"></circle></svg><span class="poll-dot"></span></span>'
         . '<strong>Zogograph</strong><small data-i18n="setup.label">Setup</small></a><span class="setup-controls">'
         . '<label><span data-i18n="language.label">Language</span><select id="languagePicker" aria-label="Language" data-i18n-aria-label="language.label"><option value="en">English</option><option value="en-US">English (US)</option><option value="en-GB">English (UK)</option><option value="es">Español</option><option value="hi">हिन्दी</option><option value="zh">中文</option><option value="ar">العربية</option></select></label>'
-        . '<label><input id="languageKeys" type="checkbox"><span data-i18n="language.keys">Show translation keys</span></label>'
+        . '<label><input id="languageKeys" type="checkbox"><span data-i18n="language.keys">Show translation keys</span></label><label><input id="languageHighlight" type="checkbox"><span data-i18n="language.highlight">Highlight translation sources</span></label>'
         . ($unlocked ? '<a href="?lock=1" data-i18n="setup.lock">Lock setup</a> · ' : '')
         . '<a href="./" data-i18n="setup.dashboard">Open dashboard</a></span></header>';
     $out[] = '<h1 data-i18n="setup.title">Setup</h1>';

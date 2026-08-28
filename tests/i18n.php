@@ -26,6 +26,7 @@ i18nExpect($runtime !== false && str_contains($runtime, 'Package catalogs are tr
     && str_contains($runtime, 'function i18nClearPackageCatalogs()') && str_contains($runtime, 'clearPackageCatalogs: i18nClearPackageCatalogs'),
     'package locale catalogs can overwrite core translation text');
 i18nExpect($page !== false && str_contains($page, 'id="languagePicker"') && str_contains($page, 'id="languageKeys"')
+    && str_contains($page, 'id="languageHighlight"')
     && str_contains($page, 'src="i18n.js"'), 'dashboard language controls are unavailable');
 i18nExpect($script !== false && str_contains($script, 'new Intl.NumberFormat(document.documentElement.lang || undefined)')
     && str_contains($script, 'toLocaleString(document.documentElement.lang || undefined)') && str_contains($script, 'document.addEventListener("zogograph-i18n-load"')
@@ -66,7 +67,7 @@ i18nExpect($script !== false && str_contains($script, 'page.title_key ? Zogograp
     && str_contains($script, 'view.packagePage'),
     'package dashboard pages do not use signed locale keys or refresh after a locale change');
 i18nExpect($setup !== false && str_contains($setup, 'src="i18n.js"') && str_contains($setup, 'id="languagePicker"')
-    && str_contains($setup, 'id="languageKeys"') && str_contains($setup, 'data-i18n="setup.installation"')
+    && str_contains($setup, 'id="languageKeys"') && str_contains($setup, 'id="languageHighlight"') && str_contains($setup, 'data-i18n="setup.installation"')
     && str_contains($setup, "'setup.section.' . \$name") && str_contains($setup, "'setup.section.' . \$activeSection")
     && str_contains($setup, 'aria-current="page"') && str_contains($setup, 'data-setup-nav-results')
     && str_contains($setup, 'ZogographI18n?.t("update.compatibility"') && str_contains($setup, 'ZogographI18n?.t("action.reload"')

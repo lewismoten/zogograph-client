@@ -3499,3 +3499,5 @@ button.working { opacity: .75; cursor: progress; }
 /* A finished conversation reads rather than follows, so it grows with its
    content instead of being a fixed window with its own scrollbar. */
 .chat-log.past-chat { height: auto; max-height: 70vh; overflow: auto; }
+body.i18n-highlight .i18n-catalog { outline: 2px solid #18794e; outline-offset: 2px; background: color-mix(in srgb, #18794e 14%, transparent); }
+body.i18n-highlight .i18n-hardcoded { outline: 2px solid #b54708; outline-offset: 2px; background: color-mix(in srgb, #b54708 14%, transparent); }

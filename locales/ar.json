@@ -218,6 +218,7 @@
   "deployment.last_copy_result": "آخر نسخ للإصدار: {{detail}} ({{files, number}} ملفًا)",
   "language.label": "اللغة",
   "language.keys": "إظهار مفاتيح الترجمة",
+  "language.highlight": "ميّز مصادر الترجمة",
   "form.yes": "نعم",
   "setup.label": "الإعداد",
   "setup.title": "الإعداد",

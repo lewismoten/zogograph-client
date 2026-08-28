@@ -162,6 +162,7 @@
   "auth.recovery_complete": "Authenticator and recovery codes are set up.",
   "language.label": "Language",
   "language.keys": "Show translation keys",
+  "language.highlight": "Highlight translation sources",
   "form.yes": "Yes",
   "setup.label": "Setup",
   "setup.title": "Setup",

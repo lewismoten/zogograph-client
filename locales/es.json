@@ -218,6 +218,7 @@
   "deployment.last_copy_result": "Última copia de la versión: {{detail}} ({{files, number}} archivos)",
   "language.label": "Idioma",
   "language.keys": "Mostrar claves de traducción",
+  "language.highlight": "Resaltar fuentes de traducción",
   "form.yes": "Sí",
   "setup.label": "Configuración",
   "setup.title": "Configuración",

@@ -3,7 +3,7 @@
 const I18N_BASE = "en";
 const I18N_LOCALES = ["en", "en-US", "en-GB", "es", "hi", "zh", "ar"];
 const I18N_RTL = new Set(["ar"]);
-const i18n = { locale: I18N_BASE, catalog: {}, fallback: {}, keyMode: false, extensions: {} };
+const i18n = { locale: I18N_BASE, catalog: {}, fallback: {}, keyMode: false, highlight: localStorage.getItem("zogograph.i18n-highlight") === "1", extensions: {} };
 
 function i18nRequestedLocale() {
   const saved = localStorage.getItem("zogograph.locale");
@@ -55,7 +55,8 @@ function i18nNodeValues(node) {
 async function i18nLoad(locale = i18nRequestedLocale()) {
   const get = async name => { const r = await fetch(`./locales/${name}.json`, { cache: "no-store" }); return r.ok ? r.json() : {}; };
   i18n.fallback = await get(I18N_BASE);
-  const catalog = { ...i18n.fallback, ...(locale === I18N_BASE ? {} : await get(locale)) };
+  const localized = locale === I18N_BASE ? {} : await get(locale);
+  const catalog = { ...i18n.fallback, ...localized };
   // Package catalogs are translation extensions, not authority to rewrite the
   // shell. In particular, a package must not be able to change security,
   // consent, navigation, or action text that is supplied by the core locale.
@@ -72,6 +73,8 @@ async function i18nLoad(locale = i18nRequestedLocale()) {
     node.dataset.i18nFallback = fallback;
     node.textContent = t(key, i18nNodeValues(node), fallback);
     node.title = i18n.keyMode ? i18n.fallback[key] || fallback || key : "";
+    node.classList.toggle("i18n-catalog", key in catalog);
+    node.classList.toggle("i18n-hardcoded", !(key in catalog));
   });
   for (const [attribute, data] of [["placeholder", "i18nPlaceholder"], ["title", "i18nTitle"], ["aria-label", "i18nAriaLabel"], ["alt", "i18nAlt"]]) {
     document.querySelectorAll(`[data-${data.replace(/[A-Z]/g, letter => `-${letter.toLowerCase()}`)}]`).forEach(node => {
@@ -80,6 +83,8 @@ async function i18nLoad(locale = i18nRequestedLocale()) {
     });
   }
   const picker = document.querySelector("#languagePicker"); if (picker) picker.value = locale;
+  document.body.classList.toggle("i18n-highlight", i18n.highlight);
+  const highlight = document.querySelector("#languageHighlight"); if (highlight) highlight.checked = i18n.highlight;
   document.dispatchEvent(new Event("zogograph-i18n-load"));
 }
 
@@ -118,9 +123,10 @@ function i18nClearPackageCatalogs() {
   i18n.extensions = {};
   i18nLoad(i18n.locale);
 }
-window.ZogographI18n = { t, load: i18nLoad, loadPackageCatalogs: i18nLoadPackageCatalogs, clearPackageCatalogs: i18nClearPackageCatalogs, registerCatalog: i18nRegisterCatalog, setKeyMode: async enabled => { i18n.keyMode = enabled; await i18nLoad(i18n.locale); } };
+window.ZogographI18n = { t, load: i18nLoad, loadPackageCatalogs: i18nLoadPackageCatalogs, clearPackageCatalogs: i18nClearPackageCatalogs, registerCatalog: i18nRegisterCatalog, setKeyMode: async enabled => { i18n.keyMode = enabled; await i18nLoad(i18n.locale); }, setHighlight: async enabled => { i18n.highlight = enabled; localStorage.setItem("zogograph.i18n-highlight", enabled ? "1" : "0"); await i18nLoad(i18n.locale); } };
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelector("#languagePicker")?.addEventListener("change", event => { localStorage.setItem("zogograph.locale", event.target.value); i18nLoad(event.target.value); });
   document.querySelector("#languageKeys")?.addEventListener("change", event => ZogographI18n.setKeyMode(event.target.checked));
+  document.querySelector("#languageHighlight")?.addEventListener("change", event => ZogographI18n.setHighlight(event.target.checked));
   i18nLoad();
 });

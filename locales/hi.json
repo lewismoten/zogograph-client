@@ -218,6 +218,7 @@
   "deployment.last_copy_result": "पिछली रिलीज़ कॉपी: {{detail}} ({{files, number}} फ़ाइलें)",
   "language.label": "भाषा",
   "language.keys": "अनुवाद कुंजियाँ दिखाएँ",
+  "language.highlight": "अनुवाद स्रोत हाइलाइट करें",
   "form.yes": "हाँ",
   "setup.label": "सेटअप",
   "setup.title": "सेटअप",

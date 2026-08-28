@@ -14,8 +14,9 @@ function setupPanelDefinition(array $panel): array
         throw new InvalidArgumentException('setup panel metadata is invalid');
     }
     $keywords = array_values(array_unique(array_filter((array)($panel['keywords'] ?? []), static fn(mixed $word): bool => is_string($word) && preg_match('/^[a-z0-9 _-]{1,40}$/i', $word))));
+    $parent = isset($panel['parent']) ? setupPanelId((string)$panel['parent']) : null;
     return ['id' => $id, 'title' => $title, 'kind' => $kind, 'keywords' => $keywords,
-        'feature' => isset($panel['feature']) ? setupPanelId((string)$panel['feature']) : null];
+        'feature' => isset($panel['feature']) ? setupPanelId((string)$panel['feature']) : null, 'parent' => $parent];
 }
 
 /** Registry shared by core Setup and the future isolated package bridge. */
@@ -61,7 +62,9 @@ final class SetupPanelRegistry
 function setupPanels(array $fields, array $registered = []): array
 {
     $registry = new SetupPanelRegistry($fields);
-    foreach ($registered as $panel) $registry->add((array)$panel);
+    // A parented package panel is rendered inside that existing core page; it
+    // is deliberately not duplicated as a separate navigation destination.
+    foreach ($registered as $panel) if (!isset($panel['parent']) || $panel['parent'] === null) $registry->add((array)$panel);
     return $registry->all();
 }
 

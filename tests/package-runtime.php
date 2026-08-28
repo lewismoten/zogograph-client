@@ -4,6 +4,7 @@ require_once __DIR__ . '/../lib/db.php';
 require_once __DIR__ . '/../lib/package-runtime.php';
 require_once __DIR__ . '/../lib/alerts.php';
 require_once __DIR__ . '/../lib/configure.php';
+require_once __DIR__ . '/../lib/setup-panels.php';
 function runtimeExpect(bool $condition, string $message): void { if (!$condition) throw new RuntimeException($message); }
 if (!function_exists('sodium_crypto_sign_keypair')) { echo "package runtime checks skipped: sodium is unavailable\n"; exit(0); }
 $root = sys_get_temp_dir() . '/hostscope-runtime-' . bin2hex(random_bytes(4));
@@ -61,7 +62,10 @@ try {
         'settings_schema' => 'settings.schema.json',
         'locales' => ['es' => 'locales/es.json'],
         'dashboard_pages' => [['id' => 'status', 'title' => 'Package status', 'summary' => 'A core-rendered package status page.', 'keywords' => ['package', 'status']]],
-        'setup_panels' => [['id' => 'test-runtime-settings', 'title' => 'Test runtime settings', 'keywords' => ['retention']]],
+        'setup_panels' => [
+            ['id' => 'test-runtime-settings', 'title' => 'Test runtime settings', 'keywords' => ['retention']],
+            ['id' => 'test-runtime-security', 'title' => 'Test runtime security', 'parent' => 'security', 'keywords' => ['security']],
+        ],
         'data' => ['migrations' => ['migrations/001-private-evidence.sql']],
     ];
     mkdir($source . '/locales', 0700, true); file_put_contents($source . '/locales/es.json', json_encode(['test-runtime.greeting' => 'Hola'], JSON_THROW_ON_ERROR));
@@ -119,6 +123,10 @@ try {
     }
     runtimeExpect((packageRuntimePackages($pdo)[0]['setup_panels'][0]['id'] ?? '') === 'test-runtime-settings',
         'signed package Setup panel metadata was not retained');
+    runtimeExpect((packageRuntimePackages($pdo)[0]['setup_panels'][1]['parent'] ?? null) === 'security',
+        'signed package parent Setup panel metadata was not retained');
+    runtimeExpect(!isset(setupPanels([], [['id' => 'test-runtime-security', 'title' => 'Test runtime security', 'kind' => 'package', 'feature' => 'test-runtime', 'parent' => 'security']])['test-runtime-security']),
+        'a parented package panel was incorrectly added as a standalone Setup navigation item');
     $genericReadiness = packageRuntimeProviderReadiness($pdo, $config, 'test-runtime');
     runtimeExpect($genericReadiness['state'] === 'not-applicable' && !$genericReadiness['endpoint_tested'],
         'non-provider package received an incorrect custody readiness state');

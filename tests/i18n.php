@@ -22,6 +22,9 @@ i18nExpect($setup !== false && str_contains($setup, 'src="i18n.js"') && str_cont
     && str_contains($setup, 'id="languageKeys"') && str_contains($setup, 'data-i18n="setup.installation"')
     && str_contains($setup, "'setup.section.' . \$name"),
     'Setup language controls or localized shell are unavailable');
+i18nExpect($setup !== false && str_contains($setup, 'setupRenderPackageSettingsPanel')
+    && str_contains($setup, 'data-package-settings-target') && str_contains($setup, 'save-package-settings:'),
+    'Setup cannot render a signed package settings panel inside a core page');
 i18nExpect($configure !== false && str_contains($configure, 'function generatedFieldLabel')
     && str_contains($configure, "'label' => generatedFieldLabel(\$path)")
     && !str_contains($configure, "'label' => \$dotted"),

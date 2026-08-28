@@ -350,6 +350,34 @@ function setupPackageSecretPicker(?array $config, string $packageId): array
         'references' => packageRuntimeSecrets($registry, $config, $packageId)];
 }
 
+/** Core-owned renderer for both standalone and parented signed package panels. */
+function setupRenderPackageSettingsPanel(array $panel, ?array $config): string
+{
+    $packageId = (string)($panel['feature'] ?? ''); $panelId = (string)($panel['id'] ?? '');
+    if ($packageId === '' || $panelId === '') throw new RuntimeException('package panel metadata is unavailable');
+    $settings = setupPackageSettings($config, $packageId);
+    $encoded = json_encode(setupDisplayValue($settings), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR);
+    $fieldName = 'package_settings_' . $panelId;
+    $out = '<fieldset><legend>' . h((string)($panel['title'] ?? 'Package settings')) . '</legend><p class="help">These settings are validated against the signed package schema. Setup does not load package code to render this panel.</p><label>Settings (JSON)'
+        . '<textarea name="' . h($fieldName) . '" rows="16" spellcheck="false">' . h($encoded) . '</textarea></label>'
+        . '<input type="hidden" name="setup_package_settings_token" value="' . h(setupPackageSettingsToken()) . '">'
+        . '<button type="submit" name="intent" value="save-package-settings:' . h($panelId) . '">Save package settings</button></fieldset>';
+    $picker = setupPackageSecretPicker($config, $packageId);
+    if ($picker['names'] === []) return $out;
+    $out .= '<fieldset><legend>Protected secret references</legend><p class="help">Select a reference already stored for this package. The secret value is never shown or copied into this page. Create a new secret from the dashboard’s Packages area first if this list is empty.</p>';
+    foreach ($picker['names'] as $name) {
+        $selected = (string)($settings[$name] ?? '');
+        $out .= '<label>' . h($name) . '<select data-package-secret-picker="' . h($name) . '" data-package-settings-target="' . h($fieldName) . '"><option value="">No reference selected</option>';
+        foreach ($picker['references'] as $secret) {
+            $reference = (string)$secret['reference'];
+            $out .= '<option value="' . h($reference) . '"' . ($reference === $selected ? ' selected' : '') . '>'
+                . h($reference) . ($secret['referenced'] ? ' (currently used)' : '') . '</option>';
+        }
+        $out .= '</select></label>';
+    }
+    return $out . '</fieldset>';
+}
+
 function setupSavePackageSettings(?array $config, string $packageId, array $settings): void
 {
     if ($config === null || ($registry = setupPackageRegistry($config)) === null) {
@@ -749,17 +777,17 @@ function runWeb(
         return;
     }
 
-    if ($posted && ($_POST['intent'] ?? '') === 'save-package-settings') {
+    if ($posted && str_starts_with((string)($_POST['intent'] ?? ''), 'save-package-settings')) {
         try {
             if (!$unlocked) throw new RuntimeException('unlock setup before changing package settings');
             if (!hash_equals(setupPackageSettingsToken(), (string)($_POST['setup_package_settings_token'] ?? ''))) {
                 throw new RuntimeException('the package settings form expired; reload Setup and try again');
             }
-            $panelId = (string)($_POST['package_panel_id'] ?? '');
+            $intent = (string)$_POST['intent']; $panelId = str_starts_with($intent, 'save-package-settings:') ? substr($intent, strlen('save-package-settings:')) : (string)($_POST['package_panel_id'] ?? '');
             $panels = setupPanels($fields, $packagePanels);
             $panel = $panels[$panelId] ?? null;
             if (!is_array($panel) || $panel['kind'] !== 'package') throw new RuntimeException('that package settings panel is unavailable');
-            $settings = json_decode((string)($_POST['package_settings'] ?? ''), true, 64, JSON_THROW_ON_ERROR);
+            $settings = json_decode((string)($_POST['package_settings_' . $panelId] ?? $_POST['package_settings'] ?? ''), true, 64, JSON_THROW_ON_ERROR);
             if (!is_array($settings) || array_is_list($settings)) throw new RuntimeException('package settings must be a JSON object');
             setupSavePackageSettings($current, (string)$panel['feature'], $settings);
             $_SESSION['setup_notice'] = 'Package settings were saved using the package’s signed schema.';
@@ -1267,36 +1295,19 @@ function webPage(
         }
     } elseif (is_array($activePanel) && $activePanel['kind'] === 'package') {
         try {
-            $packageId = (string)$activePanel['feature'];
-            $settings = setupPackageSettings($current, $packageId);
-            $encoded = json_encode(setupDisplayValue($settings), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR);
-            $out[] = '<p class="help">These settings are validated against the signed package schema. Setup does not load package code to render this panel.</p>'
-                . '<fieldset><legend>Package settings</legend><label>Settings (JSON)'
-                . '<textarea name="package_settings" rows="16" spellcheck="false">' . h($encoded) . '</textarea></label>'
-                . '<input type="hidden" name="package_panel_id" value="' . h($activeSection) . '">'
-                . '<input type="hidden" name="setup_package_settings_token" value="' . h(setupPackageSettingsToken()) . '">'
-                . '<button type="submit" name="intent" value="save-package-settings">Save package settings</button></fieldset>';
-            $picker = setupPackageSecretPicker($current, $packageId);
-            if ($picker['names'] !== []) {
-                $out[] = '<fieldset><legend>Protected secret references</legend><p class="help">Select a reference already stored for this package. The secret value is never shown or copied into this page. Create a new secret from the dashboard’s Packages area first if this list is empty.</p>';
-                foreach ($picker['names'] as $name) {
-                    $selected = (string)($settings[$name] ?? '');
-                    $out[] = '<label>' . h($name) . '<select data-package-secret-picker="' . h($name) . '"><option value="">No reference selected</option>';
-                    foreach ($picker['references'] as $secret) {
-                        $reference = (string)$secret['reference'];
-                        $out[] = '<option value="' . h($reference) . '"' . ($reference === $selected ? ' selected' : '') . '>'
-                            . h($reference) . ($secret['referenced'] ? ' (currently used)' : '') . '</option>';
-                    }
-                    $out[] = '</select></label>';
-                }
-                $out[] = '</fieldset>';
-            }
+            $out[] = setupRenderPackageSettingsPanel($activePanel, $current);
         } catch (Throwable $error) {
             $out[] = '<div class="banner warn">Package settings are unavailable: ' . h($error->getMessage()) . '</div>';
         }
     } else {
         $help = sampleHelp($samplePath)['sections'][$activeSection] ?? '';
         if ($help !== '') $out[] = '<p class="help">' . h(firstParagraph($help)) . '</p>';
+    }
+    if (!$editingLocked && (!is_array($activePanel) || $activePanel['kind'] !== 'package')) {
+        foreach ($packagePanels as $panel) if (($panel['parent'] ?? null) === $activeSection) {
+            try { $out[] = setupRenderPackageSettingsPanel($panel, $current); }
+            catch (Throwable $error) { $out[] = '<div class="banner warn">Package settings are unavailable: ' . h($error->getMessage()) . '</div>'; }
+        }
     }
     if (!$editingLocked) {
         foreach ($fields as $field) {
@@ -1353,6 +1364,7 @@ function webPage(
     }
 
     $out[] = '<script>document.querySelector("[data-setup-nav-search]")?.addEventListener("input",function(){const q=this.value.trim().toLowerCase();document.querySelectorAll("[data-setup-nav-item]").forEach(function(item){item.hidden=q!==""&&!item.dataset.setupNavTerms.toLowerCase().includes(q);});});document.querySelectorAll("[data-package-secret-picker]").forEach(function(picker){picker.addEventListener("change",function(){const box=document.querySelector("textarea[name=package_settings]");if(!box)return;try{const settings=JSON.parse(box.value);settings[picker.dataset.packageSecretPicker]=picker.value;box.value=JSON.stringify(settings,null,2);}catch(error){picker.value="";window.alert("Fix the package settings JSON before choosing a secret reference.");}});});(function(){let current=null,announced=null,checking=false;const identity=build=>[build?.commit,build?.runId,build?.createdAt].filter(Boolean).join(":");async function check(){if(document.hidden||checking)return;checking=true;try{const response=await fetch("./build.json?at="+Date.now(),{cache:"no-store",credentials:"same-origin"});if(!response.ok)return;const build=await response.json(),next=identity(build);if(!next)return;if(current===null){current=next;return;}if(current!==next&&announced!==next){announced=next;const banner=document.querySelector("#setupUpdateBanner");banner.replaceChildren();const text=document.createElement("span");text.textContent=build.browserRefreshRequired===true?"A compatibility update is ready. Reload before changing settings.":"A newer Zogograph update is available. Reload when you are ready.";const reload=document.createElement("button");reload.type="button";reload.textContent="Reload now";reload.addEventListener("click",()=>location.reload());banner.append(text,reload);banner.hidden=false;}}catch(error){}finally{checking=false;}}check();setInterval(check,60000);})();</script>';
+    $out[] = '<script>document.querySelectorAll("[data-package-settings-target]").forEach(function(picker){picker.addEventListener("change",function(){const box=document.querySelector("textarea[name="+picker.dataset.packageSettingsTarget+"]");if(!box)return;try{const settings=JSON.parse(box.value);settings[picker.dataset.packageSecretPicker]=picker.value;box.value=JSON.stringify(settings,null,2);}catch(error){picker.value="";window.alert("Fix the package settings JSON before choosing a secret reference.");}});});</script>';
     $out[] = '</body></html>';
     return implode("\n", $out);
 }

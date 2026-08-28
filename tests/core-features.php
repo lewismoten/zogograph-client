@@ -8,7 +8,7 @@ function coreFeatureExpect(bool $condition, string $message): void { if (!$condi
 
 $legacy = ['ai' => ['enabled' => true]];
 coreFeatureExpect(coreFeatureEnabled($legacy, 'assistant'), 'a legacy installation did not preserve the assistant feature');
-$disabled = ['core_features' => ['assistant' => false, 'peers' => false, 'marketplace' => false, 'terminal' => false, 'notes' => false, 'problems' => false, 'storage' => false, 'audit' => false, 'metadata' => false, 'notifications' => false, 'backups' => false, 'encryption' => false, 'alerts' => false, 'uptime' => false, 'packages' => false, 'charts' => false, 'health' => false, 'network' => false], 'ai' => ['enabled' => true]];
+$disabled = ['core_features' => ['assistant' => false, 'peers' => false, 'marketplace' => false, 'terminal' => false, 'notes' => false, 'problems' => false, 'storage' => false, 'audit' => false, 'metadata' => false, 'notifications' => false, 'backups' => false, 'encryption' => false, 'alerts' => false, 'uptime' => false, 'packages' => false, 'charts' => false, 'health' => false, 'network' => false, 'host' => false], 'ai' => ['enabled' => true]];
 coreFeatureExpect(!coreFeatureEnabled($disabled, 'assistant') && !aiSettings($disabled)['enabled'],
     'disabled assistant core feature still enabled assistant operations');
 $status = coreFeatureStatus($disabled);
@@ -30,7 +30,8 @@ coreFeatureExpect($status[0]['id'] === 'assistant' && !$status[0]['enabled'] && 
     && $status[14]['id'] === 'packages' && !$status[14]['enabled'] && in_array('sys-packages', $status[14]['dashboard_routes'], true)
     && $status[15]['id'] === 'charts' && !$status[15]['enabled'] && in_array('charts', $status[15]['dashboard_routes'], true)
     && $status[16]['id'] === 'health' && !$status[16]['enabled'] && in_array('system', $status[16]['dashboard_routes'], true)
-    && $status[17]['id'] === 'network' && !$status[17]['enabled'] && in_array('net-fetch', $status[17]['dashboard_routes'], true),
+    && $status[17]['id'] === 'network' && !$status[17]['enabled'] && in_array('net-fetch', $status[17]['dashboard_routes'], true)
+    && $status[18]['id'] === 'host' && !$status[18]['enabled'] && in_array('cpu-limits', $status[18]['dashboard_routes'], true),
     'core feature status does not expose its disabled dashboard boundary');
 coreFeatureExpect(coreFeatureForAction('ai-start') === 'assistant' && coreFeatureForAction('peer-test') === 'peers'
     && coreFeatureForAction('marketplace-install') === 'marketplace'
@@ -41,7 +42,7 @@ coreFeatureExpect(coreFeatureForAction('ai-start') === 'assistant' && coreFeatur
     && coreFeatureForAction('clear-audit') === 'audit' && coreFeatureForAction('description-save') === 'metadata'
     && coreFeatureForAction('email-save') === 'notifications' && coreFeatureForAction('backups') === 'backups'
     && coreFeatureForAction('encryption-seal') === 'encryption' && coreFeatureForAction('alert-mute') === 'alerts'
-    && coreFeatureForAction('uptime') === 'uptime' && coreFeatureForAction('charts') === 'charts' && coreFeatureForAction('diagnose') === 'health' && coreFeatureForAction('fetch') === 'network' && coreFeatureForAction('package-runtime-enable') === 'packages'
+    && coreFeatureForAction('uptime') === 'uptime' && coreFeatureForAction('charts') === 'charts' && coreFeatureForAction('diagnose') === 'health' && coreFeatureForAction('fetch') === 'network' && coreFeatureForAction('stop-process') === 'host' && coreFeatureForAction('package-runtime-enable') === 'packages'
     && coreFeatureDependenciesForAction('package-runtime-custody-envelope-store') === ['encryption', 'packages']
     && coreFeatureForAction('overview') === null, 'core feature API action mapping is incomplete or overbroad');
 try { requireCoreFeatureAccess($disabled, 'ai-start'); throw new RuntimeException('disabled assistant route was accepted'); }
@@ -82,6 +83,8 @@ try { requireCoreFeatureAccess($disabled, 'diagnose'); throw new RuntimeExceptio
 catch (ActionRefused $error) { coreFeatureExpect($error->getMessage() === 'this core feature is disabled', 'disabled system-health route used an unsafe refusal'); }
 try { requireCoreFeatureAccess($disabled, 'domain-check'); throw new RuntimeException('disabled network route was accepted'); }
 catch (ActionRefused $error) { coreFeatureExpect($error->getMessage() === 'this core feature is disabled', 'disabled network route used an unsafe refusal'); }
+try { requireCoreFeatureAccess($disabled, 'stop-process'); throw new RuntimeException('disabled host route was accepted'); }
+catch (ActionRefused $error) { coreFeatureExpect($error->getMessage() === 'this core feature is disabled', 'disabled host route used an unsafe refusal'); }
 $packagesDisabled = ['core_features' => ['packages' => false, 'encryption' => true]];
 try { requireCoreFeatureAccess($packagesDisabled, 'package-runtime-custody-envelope-store'); throw new RuntimeException('disabled package management still accepted custody storage'); }
 catch (ActionRefused $error) { coreFeatureExpect($error->getMessage() === 'this core feature is disabled', 'disabled package custody boundary used an unsafe refusal'); }
@@ -116,6 +119,8 @@ coreFeatureExpect(is_string($airun) && str_contains($airun, "coreFeatureEnabled(
     'disabled account storage leaves assistant file tools active');
 coreFeatureExpect(is_string($airun) && str_contains($airun, "coreFeatureEnabled(\$config, 'network')"),
     'disabled network feature leaves assistant network tools active');
+coreFeatureExpect(is_string($airun) && str_contains($airun, "coreFeatureEnabled(\$config, 'host')"),
+    'disabled host feature leaves assistant host-observation tools active');
 coreFeatureExpect(is_string($api) && str_contains($api, "coreFeatureEnabled(\$config, 'notes')")
     && str_contains($api, "'broadcasts' => \$signedIn"), 'disabled notes feature leaves shared broadcasts active');
 echo "core feature checks passed\n";

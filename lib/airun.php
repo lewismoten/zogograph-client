@@ -83,6 +83,10 @@ function aiRunTool(
         && !coreFeatureEnabled($config, 'network')) {
         return ['error' => 'Network tools are disabled by this installation.'];
     }
+    if ($respectAccess && in_array($name, ['get_busiest_processes', 'get_filesystems', 'get_services', 'get_recent_changes', 'what_the_host_can_be_asked', 'get_pending_host_requests'], true)
+        && !coreFeatureEnabled($config, 'host')) {
+        return ['error' => 'Host observations are disabled by this installation.'];
+    }
 
     try {
         $result = match ($name) {

@@ -60,6 +60,7 @@ return [
         'charts' => true,
         'health' => true,
         'network' => true,
+        'host' => true,
     ],
 
     // The account crontab desired by Setup. The editor writes only Zogograph's

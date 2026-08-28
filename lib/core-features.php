@@ -83,6 +83,13 @@ const CORE_FEATURES = [
             'net-urls', 'net-fetch', 'net-rdns', 'domains', 'whois', 'whoami', 'calendar'],
         'setup_section' => 'features',
     ],
+    'host' => [
+        'dashboard_routes' => ['host-disk', 'disk-dirs', 'disk-deleted', 'disk-procs', 'disk-rootfiles',
+            'host-layout', 'cagefs', 'storage-io', 'cpu', 'cpu-time', 'cpu-cores', 'cpu-procs', 'cpu-queue',
+            'cpu-limits', 'host', 'mem-users', 'mem-goes', 'mem-services', 'mem-procs', 'mem-slab',
+            'processes', 'services', 'busy', 'units', 'capabilities', 'sys-installed', 'sys-changed'],
+        'setup_section' => 'features',
+    ],
 ];
 
 /** Missing settings deliberately preserve existing installations. */
@@ -131,6 +138,10 @@ function coreFeatureForAction(string $action): ?string
     if (in_array($action, ['network', 'captures', 'dns', 'dns-records', 'urls', 'fetch', 'domains', 'whois',
         'calendar', 'whoami', 'rdns', 'request-capture', 'dns-sweep'], true) || str_starts_with($action, 'rdns-')
         || str_starts_with($action, 'url-') || str_starts_with($action, 'domain-') || str_starts_with($action, 'event-')) return 'network';
+    if (in_array($action, ['host-disk', 'mounts', 'cpu', 'host', 'host-series', 'host-io', 'processes', 'busy',
+        'units', 'capabilities', 'changed', 'capability-changes', 'installed', 'check-capabilities',
+        'request-host-task', 'request-host-walk', 'match-processes', 'stop-process', 'stop-group',
+        'stop-matching', 'daemon-watch'], true)) return 'host';
     if ($action === 'package-i18n' || $action === 'package-pages' || str_starts_with($action, 'package-runtime-')
         || $action === 'package-runtime') return 'packages';
     return null;

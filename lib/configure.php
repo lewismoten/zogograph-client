@@ -207,6 +207,12 @@ function configFields(array $sample): array
             'default' => (bool)($sample['core_features']['network'] ?? true),
         ],
         [
+            'key' => 'core_features_host', 'section' => 'features', 'path' => ['core_features', 'host'], 'type' => 'bool',
+            'label' => 'Host observations core feature',
+            'help' => 'Disabling this removes host, CPU, process, filesystem, capability, and change views; blocks their APIs, assistant tools, and on-demand host-task requests. Root-owned collection and its configured schedule continue unchanged.',
+            'default' => (bool)($sample['core_features']['host'] ?? true),
+        ],
+        [
             'key' => 'openid_enabled',
             'section' => 'openid',
             'path' => ['openid', 'enabled'],

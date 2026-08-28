@@ -8,7 +8,7 @@ final class KeyCustodyProvider
     /** @return array{id:string,state:string,reason:string} */
     public function capability(): array
     {
-        return ['id' => 'hostscope-key-custody', 'state' => 'unavailable',
+        return ['id' => 'zogograph-key-custody', 'state' => 'unavailable',
             'reason' => 'The isolated HostScope package runtime is not installed.'];
     }
 
@@ -21,7 +21,7 @@ final class KeyCustodyProvider
     public function preflight(string $serviceBaseUrl, ?string $tlsSpkiPin = null): array
     {
         KeyCustodyHttpClient::healthEndpoint($serviceBaseUrl, $tlsSpkiPin);
-        return ['id' => 'hostscope-key-custody', 'state' => 'endpoint-ready',
+        return ['id' => 'zogograph-key-custody', 'state' => 'endpoint-ready',
             'reason' => 'The configured custody endpoint returned the expected service identity and API version. No enrollment credential or key material was sent.'];
     }
 
@@ -33,7 +33,7 @@ final class KeyCustodyProvider
     public function enrollmentCheck(string $serviceBaseUrl, string $clientCredential, string $clientSigningKey, ?string $tlsSpkiPin = null): array
     {
         $entitlement = (new KeyCustodyHttpClient($serviceBaseUrl, $clientCredential, $clientSigningKey, $tlsSpkiPin))->envelopeEntitlement();
-        return ['id' => 'hostscope-key-custody', 'state' => 'enrollment-ready',
+        return ['id' => 'zogograph-key-custody', 'state' => 'enrollment-ready',
             'reason' => $entitlement['can_store_envelopes']
                 ? 'The enrolled client credential is accepted and may store a future wrapped data-key envelope. No envelope or key was requested.'
                 : 'The enrolled client credential is accepted, but its current subscription or envelope quota does not permit a new envelope. No envelope or key was requested.'];
@@ -54,7 +54,7 @@ final class KeyCustodyProvider
         $client = new KeyCustodyHttpClient($serviceBaseUrl, $clientCredential, $clientSigningKey, $tlsSpkiPin);
         $envelope = KeyCustodyHttpClient::sealDataKey($dataKey, $client->wrappingPublicKey($keyId));
         $client->storeEnvelope($keyId, $artifactId, $envelope);
-        return ['id' => 'hostscope-key-custody', 'state' => 'envelope-stored',
+        return ['id' => 'zogograph-key-custody', 'state' => 'envelope-stored',
             'reason' => 'The custody service accepted one sealed data-key envelope. The data key and envelope were not returned to HostScope core.',
             'envelope_sha256' => hash('sha256', $envelope)];
     }
@@ -67,7 +67,7 @@ final class KeyCustodyProvider
             throw new \InvalidArgumentException('custody recovery input is invalid');
         }
         $key = (new KeyCustodyHttpClient($serviceBaseUrl, $clientCredential, $clientSigningKey, $tlsSpkiPin))->unwrap($keyId, $artifactId, 0);
-        return ['id' => 'hostscope-key-custody', 'state' => 'unwrap-released',
+        return ['id' => 'zogograph-key-custody', 'state' => 'unwrap-released',
             'reason' => 'The custody service released one named artifact data key for immediate in-memory recovery verification.',
             'data_key' => base64_encode($key)];
     }

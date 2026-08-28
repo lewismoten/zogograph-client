@@ -111,9 +111,9 @@ jobs:
         run: |
           set -euo pipefail
           install -d -m 700 "$HOME/.ssh"
-          printf '%s\n' "$DEPLOY_SSH_PRIVATE_KEY" > "$HOME/.ssh/hostscope_deploy_key"
+          printf '%s\n' "$DEPLOY_SSH_PRIVATE_KEY" > "$HOME/.ssh/zogograph_deploy_key"
           printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
-          chmod 600 "$HOME/.ssh/hostscope_deploy_key" "$HOME/.ssh/known_hosts"
+          chmod 600 "$HOME/.ssh/zogograph_deploy_key" "$HOME/.ssh/known_hosts"
 
       - name: Install rsync
         shell: bash
@@ -128,15 +128,15 @@ jobs:
           set -euo pipefail
           snapshot_id="${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT:-1}"
           printf 'id=%s\n' "$snapshot_id" >> "$GITHUB_OUTPUT"
-          remote_script=".hostscope-snapshot-${GITHUB_RUN_ID}.sh"
-          ssh -i "$HOME/.ssh/hostscope_deploy_key" -p "${DEPLOY_PORT:-22}" \
+          remote_script=".zogograph-snapshot-${GITHUB_RUN_ID}.sh"
+          ssh -i "$HOME/.ssh/zogograph_deploy_key" -p "${DEPLOY_PORT:-22}" \
             -o BatchMode=yes -o IdentitiesOnly=yes -o ConnectTimeout=15 \
             "${DEPLOY_USER}@${DEPLOY_HOST}" "mkdir -p '$SNAPSHOT_DIRECTORY'"
           rsync -az \
-            -e "ssh -i $HOME/.ssh/hostscope_deploy_key -p ${DEPLOY_PORT:-22} -o BatchMode=yes -o IdentitiesOnly=yes" \
-            .forgejo/scripts/hostscope-snapshot.sh \
+            -e "ssh -i $HOME/.ssh/zogograph_deploy_key -p ${DEPLOY_PORT:-22} -o BatchMode=yes -o IdentitiesOnly=yes" \
+            .forgejo/scripts/zogograph-snapshot.sh \
             "${DEPLOY_USER}@${DEPLOY_HOST}:${remote_script}"
-          ssh -i "$HOME/.ssh/hostscope_deploy_key" -p "${DEPLOY_PORT:-22}" \
+          ssh -i "$HOME/.ssh/zogograph_deploy_key" -p "${DEPLOY_PORT:-22}" \
             -o BatchMode=yes -o IdentitiesOnly=yes -o ConnectTimeout=15 \
             "${DEPLOY_USER}@${DEPLOY_HOST}" \
             "bash '$remote_script' '$DEPLOY_PATH' '$SNAPSHOT_DIRECTORY' '$snapshot_id' && rm -f '$remote_script'"
@@ -149,7 +149,7 @@ jobs:
             --exclude='data/***' \
             --exclude='lib/config.php' \
             --exclude='.well-known/' \
-            -e "ssh -i $HOME/.ssh/hostscope_deploy_key -p ${DEPLOY_PORT:-22} -o BatchMode=yes -o IdentitiesOnly=yes" \
+            -e "ssh -i $HOME/.ssh/zogograph_deploy_key -p ${DEPLOY_PORT:-22} -o BatchMode=yes -o IdentitiesOnly=yes" \
             .release/ \
             "${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}/"
 
@@ -170,12 +170,12 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          remote_script=".hostscope-snapshot-prune-${GITHUB_RUN_ID}.sh"
+          remote_script=".zogograph-snapshot-prune-${GITHUB_RUN_ID}.sh"
           rsync -az \
-            -e "ssh -i $HOME/.ssh/hostscope_deploy_key -p ${DEPLOY_PORT:-22} -o BatchMode=yes -o IdentitiesOnly=yes" \
-            .forgejo/scripts/hostscope-snapshot-prune.sh \
+            -e "ssh -i $HOME/.ssh/zogograph_deploy_key -p ${DEPLOY_PORT:-22} -o BatchMode=yes -o IdentitiesOnly=yes" \
+            .forgejo/scripts/zogograph-snapshot-prune.sh \
             "${DEPLOY_USER}@${DEPLOY_HOST}:${remote_script}"
-          ssh -i "$HOME/.ssh/hostscope_deploy_key" -p "${DEPLOY_PORT:-22}" \
+          ssh -i "$HOME/.ssh/zogograph_deploy_key" -p "${DEPLOY_PORT:-22}" \
             -o BatchMode=yes -o IdentitiesOnly=yes -o ConnectTimeout=15 \
             "${DEPLOY_USER}@${DEPLOY_HOST}" \
             "bash '$remote_script' '$SNAPSHOT_DIRECTORY' '${SNAPSHOT_RETENTION:-3}' && rm -f '$remote_script'"

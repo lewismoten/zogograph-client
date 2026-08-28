@@ -1989,7 +1989,7 @@ current live database before replacement, uses an atomic rename, and removes
 stale WAL files:
 
 ```sh
-php scripts/restore-account.php --from /secure/hostscope-account.db --writers-stopped
+php scripts/restore-account.php --from /secure/zogograph-account.db --writers-stopped
 ```
 
 Do not use it while web or collector writers are running. The explicit flag is

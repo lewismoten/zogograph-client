@@ -5,7 +5,7 @@ require_once __DIR__ . '/../lib/setupstore.php';
 
 function setupVaultExpect(bool $condition, string $message): void { if (!$condition) throw new RuntimeException($message); }
 if (!encryptionAvailable()) { echo "setup-store encryption checks skipped: encryption is unavailable\n"; exit(0); }
-$root = sys_get_temp_dir() . '/hostscope-setup-vault-' . bin2hex(random_bytes(4));
+$root = sys_get_temp_dir() . '/zogograph-setup-vault-' . bin2hex(random_bytes(4));
 mkdir($root . '/data', 0700, true); mkdir($root . '/web', 0700, true); mkdir($root . '/keys', 0700, true);
 try {
     $configFile = $root . '/web/config.php'; $key = $root . '/keys/setup.key';

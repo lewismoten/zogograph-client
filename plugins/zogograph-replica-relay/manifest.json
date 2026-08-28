@@ -1,14 +1,14 @@
 {
-  "id": "hostscope-replica-relay",
+  "id": "zogograph-replica-relay",
   "version": "0.1.0",
   "name": "HostScope ciphertext replica relay",
   "publisher": "HostScope",
   "summary": "Optional signed client for a tenant-isolated ciphertext-only HostScope replica relay.",
   "license": "Proprietary preview",
   "capabilities": ["network_client", "ciphertext_replica", "package_private_database"],
-  "runtime": {"kind": "hostscope-isolated-php-package", "entrypoint": "src/ReplicaRelayProvider.php", "provider_class": "HostScope\\Plugin\\ReplicaRelay\\ReplicaRelayProvider", "operations": ["capability"], "minimum_api": "1.0"},
+  "runtime": {"kind": "zogograph-isolated-php-package", "entrypoint": "src/ReplicaRelayProvider.php", "provider_class": "HostScope\\Plugin\\ReplicaRelay\\ReplicaRelayProvider", "operations": ["capability"], "minimum_api": "1.0"},
   "settings_schema": "settings.schema.json",
-  "data": {"directory": "data", "migration_namespace": "hostscope_replica_relay"},
+  "data": {"directory": "data", "migration_namespace": "zogograph_replica_relay"},
   "compatibility": {"min_php": "8.1.0", "requires_extensions": ["curl", "openssl", "sodium"], "requires_runtime_capability": "isolated_package_runtime"},
   "integrity": {"algorithm": "sha256", "files": {
     "README.md": "74eb17c4c34de74b8ef61d7507caf365e57eca406c969d75a75de1ef34d771dd",

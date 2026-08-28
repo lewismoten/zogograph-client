@@ -67,10 +67,10 @@ function packageRuntimeManifest(string $directory, array $trustedKeys): array
     $operations = array_values(array_unique((array)($runtime['operations'] ?? [])));
     $allowedOperations = match ($id) {
         'sqlcipher-encrypted-sqlite' => ['capability', 'sqlcipher_preflight'],
-        'hostscope-key-custody' => ['capability', 'custody_endpoint_probe', 'custody_enrollment_check'],
+        'zogograph-key-custody' => ['capability', 'custody_endpoint_probe', 'custody_enrollment_check'],
         default => ['capability'],
     };
-    if (($runtime['kind'] ?? '') !== 'hostscope-isolated-php-package'
+    if (($runtime['kind'] ?? '') !== 'zogograph-isolated-php-package'
         || !preg_match('/^[0-9]+\.[0-9]+$/', $runtimeApi)
         || !preg_match('/^(?:[A-Za-z_][A-Za-z0-9_]*\\\\)*[A-Za-z_][A-Za-z0-9_]*$/', $providerClass)
         || $operations !== $allowedOperations
@@ -483,7 +483,7 @@ function packageRuntimeRemove(array $config, PDO $pdo, string $id): void
  * diagnostic. It never enables package execution or grants private storage. */
 function packageRuntimeApproveCustodyDiagnostic(PDO $pdo, string $id, string $actor): void
 {
-    if ($id !== 'hostscope-key-custody') throw new InvalidArgumentException('this diagnostic approval is only available for the custody package');
+    if ($id !== 'zogograph-key-custody') throw new InvalidArgumentException('this diagnostic approval is only available for the custody package');
     $row = $pdo->prepare('SELECT manifest_json, manifest_sha256, install_path FROM runtime_packages WHERE package_id = ?'); $row->execute([$id]); $package = $row->fetch();
     $manifest = is_array($package) ? json_decode((string)$package['manifest_json'], true) : null;
     if (!is_array($manifest)) throw new InvalidArgumentException('package is not installed');
@@ -688,7 +688,7 @@ function packageRuntimeSaveSettings(PDO $pdo, array $config, string $id, array $
     packageRuntimeValidateSettingsSecretReferences($settings, $id);
     packageRuntimeValidateManifestSettings($pdo, $id, $settings);
     $references = packageRuntimeSettingsSecretReferences($settings, $id);
-    if ($id === 'hostscope-key-custody' && $references !== []) {
+    if ($id === 'zogograph-key-custody' && $references !== []) {
         $probe = packageRuntimeProbeOperationEvidence($config, $id, 'custody_endpoint_probe');
         if ($probe === null || $probe['state'] !== 'endpoint-ready' || $probe['probed_at'] < time() - 86400) {
             throw new InvalidArgumentException('run a successful custody endpoint test within the last 24 hours before saving enrollment secret references');
@@ -709,7 +709,7 @@ function packageRuntimeSaveSettings(PDO $pdo, array $config, string $id, array $
     $store->prepare('INSERT INTO package_runtime_settings (package_id, value, updated_at, updated_by) VALUES (?, ?, ?, ?)
         ON CONFLICT(package_id) DO UPDATE SET value = excluded.value, updated_at = excluded.updated_at, updated_by = excluded.updated_by')
         ->execute([$id, $value, time(), mb_substr($actor, 0, 120)]);
-    $endpointChanged = $id !== 'hostscope-key-custody'
+    $endpointChanged = $id !== 'zogograph-key-custody'
         || ($prior['service_base_url'] ?? null) !== ($settings['service_base_url'] ?? null)
         || ($prior['tls_spki_pin'] ?? null) !== ($settings['tls_spki_pin'] ?? null);
     if ($endpointChanged) packageRuntimeClearProbeEvidence($config, $id);
@@ -975,7 +975,7 @@ function packageRuntimeCustodyCredentialInvoker(array $config, string $id, strin
     $port = is_array($parts) && isset($parts['port']) ? (int)$parts['port'] : 0;
     $expected = is_array($parts) ? $scheme . '://' . strtolower((string)($parts['host'] ?? ''))
         . ($port !== 0 && !($scheme === 'https' && $port === 443) ? ':' . $port : '') : '';
-    if ($id !== 'hostscope-key-custody' || count($command) < 1 || count($command) > 24 || !preg_match('/^[a-z0-9][a-z0-9._:-]{2,120}$/i', $profile)
+    if ($id !== 'zogograph-key-custody' || count($command) < 1 || count($command) > 24 || !preg_match('/^[a-z0-9][a-z0-9._:-]{2,120}$/i', $profile)
         || !preg_match('/^[a-f0-9]{64}$/', $hash) || !hash_equals($manifestHash, $hash) || $expected === '' || !hash_equals($expected, $origin)) {
         throw new RuntimeException("no reviewed endpoint-restricted custody {$purpose} launcher is configured for this exact package and service origin");
     }
@@ -992,7 +992,7 @@ function packageRuntimeCustodyCredentialInvoker(array $config, string $id, strin
  * enrolled-client entitlement endpoint and cannot accept caller-supplied data. */
 function packageRuntimeInvokeCustodyEnrollmentCheck(PDO $registry, array $config): array
 {
-    $id = 'hostscope-key-custody';
+    $id = 'zogograph-key-custody';
     $settings = packageRuntimeSettings($registry, $config, $id);
     $readiness = packageRuntimeProviderReadiness($registry, $config, $id);
     if (($readiness['state'] ?? '') !== 'awaiting-isolated-runtime') throw new InvalidArgumentException($readiness['reason'] ?? 'custody enrollment is not ready');
@@ -1012,7 +1012,7 @@ function packageRuntimeInvokeCustodyEnrollmentCheck(PDO $registry, array $config
  * The DEK is opened in memory and passed once to the separate write sandbox. */
 function packageRuntimeStoreCustodyEnvelope(PDO $registry, array $config, string $webRoot, string $artifactId): array
 {
-    $id = 'hostscope-key-custody';
+    $id = 'zogograph-key-custody';
     if ($artifactId === '' || strlen($artifactId) > 200 || preg_match('/[\x00-\x1F\x7F]/', $artifactId)) throw new InvalidArgumentException('artifact identity is invalid');
     $settings = packageRuntimeSettings($registry, $config, $id);
     $readiness = packageRuntimeProviderReadiness($registry, $config, $id);
@@ -1055,7 +1055,7 @@ function packageRuntimeStoreCustodyEnvelope(PDO $registry, array $config, string
 /** Runs a non-destructive remote-custody recovery drill for one stored envelope. */
 function packageRuntimeVerifyCustodyEnvelope(PDO $registry, array $config, string $webRoot, string $artifactId): array
 {
-    $id = 'hostscope-key-custody'; $settings = packageRuntimeSettings($registry, $config, $id);
+    $id = 'zogograph-key-custody'; $settings = packageRuntimeSettings($registry, $config, $id);
     $readiness = packageRuntimeProviderReadiness($registry, $config, $id);
     if (($readiness['state'] ?? '') !== 'awaiting-isolated-runtime') throw new InvalidArgumentException($readiness['reason'] ?? 'custody enrollment is not ready');
     $enrollment = packageRuntimeProbeOperationEvidence($config, $id, 'custody_enrollment_check');
@@ -1234,7 +1234,7 @@ function packageRuntimeProbeOperationEvidence(array $config, string $id, string 
 function packageRuntimeProviderReadiness(PDO $registry, array $config, string $id): array
 {
     packageRuntimeInstalled($registry, $id);
-    if ($id !== 'hostscope-key-custody') return ['state' => 'not-applicable', 'reason' => 'This package has no remote-provider enrollment flow.',
+    if ($id !== 'zogograph-key-custody') return ['state' => 'not-applicable', 'reason' => 'This package has no remote-provider enrollment flow.',
         'endpoint_tested' => false, 'enrollment_references_ready' => false];
     $settings = packageRuntimeSettings($registry, $config, $id);
     $endpointConfigured = is_string($settings['service_base_url'] ?? null) && $settings['service_base_url'] !== ''

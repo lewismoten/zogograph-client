@@ -49,8 +49,8 @@ try {
 } catch (ActionRefused) {
 }
 
-$root = sys_get_temp_dir() . '/hostscope-editor-root-' . bin2hex(random_bytes(4));
-$outside = sys_get_temp_dir() . '/hostscope-editor-outside-' . bin2hex(random_bytes(4));
+$root = sys_get_temp_dir() . '/zogograph-editor-root-' . bin2hex(random_bytes(4));
+$outside = sys_get_temp_dir() . '/zogograph-editor-outside-' . bin2hex(random_bytes(4));
 editorExpect(mkdir($root, 0700) && mkdir($outside, 0700), 'could not prepare browser test directories');
 $root = realpath($root) ?: throw new RuntimeException('could not resolve browser test root');
 mkdir($root . '/child', 0700);
@@ -74,7 +74,7 @@ try {
 @rmdir($root);
 @rmdir($outside);
 
-$directory = sys_get_temp_dir() . '/hostscope-editor-test-' . bin2hex(random_bytes(4));
+$directory = sys_get_temp_dir() . '/zogograph-editor-test-' . bin2hex(random_bytes(4));
 $config = ['database' => $directory . '/stats.db'];
 $copy = terminalEditorBackup($config, '/watched/one.txt', 'before');
 editorExpect($copy !== null && count(terminalEditorBackups($config, '/watched/one.txt')) === 1,

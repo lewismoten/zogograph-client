@@ -25,7 +25,7 @@ function packageCreateReviewBundle(string $directory, string $output, string $pu
             $content = file_get_contents($root . '/' . $relative);
             if (!is_string($content) || !$archive->addFromString('package/' . $relative, $content)) throw new RuntimeException('could not add a signed package file');
         }
-        $review = ['schema' => 'hostscope-package-review-1', 'package_id' => $manifest['id'] ?? null,
+        $review = ['schema' => 'zogograph-package-review-1', 'package_id' => $manifest['id'] ?? null,
             'version' => $manifest['version'] ?? null, 'publisher' => $manifest['publisher'] ?? null,
             'key_id' => $keyId, 'files' => count($manifest['integrity']['files'])];
         if (!$archive->addFromString('review.json', json_encode($review, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR) . "\n")) {

@@ -1,6 +1,6 @@
 # Bundled marketplace manifests
 
-`hostscope-path-hygiene.json` is a data-only package manifest for the local
+`zogograph-path-hygiene.json` is a data-only package manifest for the local
 marketplace. It authorizes a small, core-owned check; it does not load or run
 package code.
 

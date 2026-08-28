@@ -106,7 +106,7 @@ foreach ([
     "accessAllows(\$config, 'pages', 'system')",
     "csrfValid(\$_POST['csrf'] ?? null)",
     "logAction(\$pdo, 'diagnostic_export'",
-    "'format' => 'hostscope-diagnostic-v1'",
+    "'format' => 'zogograph-diagnostic-v1'",
     "'no credentials, paths, or hostnames'",
     "'edition' => hostEntitlement(\$config)",
 ] as $required) {

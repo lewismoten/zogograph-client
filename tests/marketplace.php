@@ -2,7 +2,7 @@
 declare(strict_types=1);
 require_once __DIR__ . '/../lib/marketplace.php';
 function marketplaceExpect(bool $ok, string $message): void { if (!$ok) throw new RuntimeException($message); }
-$root = sys_get_temp_dir() . '/hostscope-marketplace-' . bin2hex(random_bytes(4));
+$root = sys_get_temp_dir() . '/zogograph-marketplace-' . bin2hex(random_bytes(4));
 mkdir($root, 0700);
 marketplaceExpect(str_ends_with(marketplaceDirectory([]), '/data/marketplace'), 'legacy configuration did not receive the private marketplace default');
 file_put_contents($root . '/uptime-pack.json', json_encode(['id'=>'uptime-pack','version'=>'1.0.0','name'=>'Uptime pack','publisher'=>'HostScope','summary'=>'Useful uptime recommendations.','license'=>'Proprietary','capabilities'=>['alert_recommendations'], 'recommendations'=>[['rule'=>'host_uptime','severity'=>'warning','reason'=>'Review unexpected restarts.']]]));

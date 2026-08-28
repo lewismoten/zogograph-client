@@ -4,7 +4,7 @@ require_once __DIR__ . '/../lib/alerts.php';
 
 function encryptionAlertExpect(bool $condition, string $message): void { if (!$condition) throw new RuntimeException($message); }
 if (!encryptionAvailable()) { echo "encryption alert checks skipped: OpenSSL AES-256-GCM is unavailable\n"; exit(0); }
-$root = sys_get_temp_dir() . '/hostscope-encryption-alerts-' . bin2hex(random_bytes(4)); mkdir($root, 0700, true);
+$root = sys_get_temp_dir() . '/zogograph-encryption-alerts-' . bin2hex(random_bytes(4)); mkdir($root, 0700, true);
 try {
     $key = $root . '/local.key'; encryptionCreateLocalKey($key, dirname(__DIR__));
     $pdo = new PDO('sqlite::memory:', null, null, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);

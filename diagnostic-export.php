@@ -46,7 +46,7 @@ $database = (string)$config['database'];
 $bytes = 0;
 foreach (['', '-wal', '-shm'] as $suffix) $bytes += (int)(@filesize($database . $suffix) ?: 0);
 $snapshot = [
-    'format' => 'hostscope-diagnostic-v1',
+    'format' => 'zogograph-diagnostic-v1',
     'generated_at' => gmdate('c'),
     'runtime' => [
         'php_version' => PHP_VERSION,
@@ -80,7 +80,7 @@ $snapshot = [
 logAction($pdo, 'diagnostic_export', 'sanitized support snapshot', 'ok', 0, 0, 'no credentials, paths, or hostnames');
 
 header('Content-Type: application/json; charset=utf-8');
-header('Content-Disposition: attachment; filename="hostscope-diagnostic-' . gmdate('Ymd-His') . '.json"');
+header('Content-Disposition: attachment; filename="zogograph-diagnostic-' . gmdate('Ymd-His') . '.json"');
 header('Cache-Control: no-store');
 header('X-Content-Type-Options: nosniff');
 echo json_encode($snapshot, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR) . "\n";

@@ -4,7 +4,7 @@ declare(strict_types=1);
 /* An opt-in, core-owned marketplace capability. It never executes package
  * files: the package only grants this fixed scanner during an existing walk. */
 
-const PATH_HYGIENE_PACKAGE = 'hostscope-path-hygiene';
+const PATH_HYGIENE_PACKAGE = 'zogograph-path-hygiene';
 const PATH_HYGIENE_LIMIT = 50;
 
 function pathHygieneEnabled(array $config, PDO $pdo): bool

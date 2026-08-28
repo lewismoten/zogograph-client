@@ -9,7 +9,7 @@ function setupExpect(bool $condition, string $message): void
     if (!$condition) throw new RuntimeException($message);
 }
 
-$root = sys_get_temp_dir() . '/hostscope-preflight-' . bin2hex(random_bytes(6));
+$root = sys_get_temp_dir() . '/zogograph-preflight-' . bin2hex(random_bytes(6));
 mkdir($root . '/data', 0700, true);
 mkdir($root . '/lib', 0700, true);
 $config = $root . '/lib/config.php';

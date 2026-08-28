@@ -57,7 +57,7 @@ fi
 
 snapshot="$snapshots/$snapshot_id"
 test ! -e "$snapshot" || fail "snapshot already exists: $snapshot"
-stage="$snapshots/.hostscope-snapshot-${snapshot_id}-$$"
+stage="$snapshots/.zogograph-snapshot-${snapshot_id}-$$"
 test ! -e "$stage" || fail "snapshot staging path already exists: $stage"
 cleanup() { rm -rf -- "$stage"; }
 trap cleanup EXIT

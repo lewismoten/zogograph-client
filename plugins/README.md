@@ -65,9 +65,9 @@ JavaScript, CSS, route handlers, or a renderer through this field.
 
 - `sqlcipher-encrypted-sqlite` — live encrypted SQLite only on a verified
   SQLCipher/PDO platform; never falls back to plaintext SQLite.
-- `hostscope-key-custody` — optional remote wrapped-key custody using an
+- `zogograph-key-custody` — optional remote wrapped-key custody using an
   enrolled client credential, separate from management and billing tokens.
-- `hostscope-replica-relay` — optional signed transfer of already-sealed
+- `zogograph-replica-relay` — optional signed transfer of already-sealed
   ciphertext to a separate relay; it never sends a plaintext store or key.
 
 These packages are intentionally unavailable until the isolated runtime can

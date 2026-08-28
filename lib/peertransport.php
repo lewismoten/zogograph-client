@@ -70,9 +70,9 @@ function peerTransportPost(array $policy, string $peer, string $secret, string $
         CURLOPT_PROTOCOLS => CURLPROTO_HTTPS, CURLOPT_REDIR_PROTOCOLS => CURLPROTO_HTTPS,
         CURLOPT_SSL_VERIFYPEER => true, CURLOPT_SSL_VERIFYHOST => 2, CURLOPT_RESOLVE => $policy['resolve'],
         CURLOPT_HTTPHEADER => [
-            'Content-Type: application/json', 'X-Hostscope-Peer: ' . $peer,
-            'X-Hostscope-Timestamp: ' . $at, 'X-Hostscope-Nonce: ' . $nonce,
-            'X-Hostscope-Signature: ' . peerTransportSignature($secret, $peer, $at, $nonce, $wire),
+            'Content-Type: application/json', 'X-Zogograph-Peer: ' . $peer,
+            'X-Zogograph-Timestamp: ' . $at, 'X-Zogograph-Nonce: ' . $nonce,
+            'X-Zogograph-Signature: ' . peerTransportSignature($secret, $peer, $at, $nonce, $wire),
             ...($encoding === null ? [] : ['Content-Encoding: ' . $encoding]),
         ],
     ]);

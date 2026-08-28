@@ -40,6 +40,7 @@
   "dashboard.live": "مباشر",
   "auth.sign_in": "تسجيل الدخول",
   "auth.qr_alt": "امسح رمز QR هذا باستخدام تطبيق المصادقة",
+  "image.reaction": "تفاعل", "image.generated": "صورة مُنشأة", "image.note_screenshot": "لقطة الشاشة التي ستُحفظ مع هذه الملاحظة", "image.send_screenshot": "لقطة الشاشة كما ستُرسل",
   "navigation.overview": "نظرة عامة",
   "navigation.charts": "عبر الزمن",
   "navigation.alerts": "التنبيهات",

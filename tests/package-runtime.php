@@ -7,7 +7,7 @@ require_once __DIR__ . '/../lib/configure.php';
 require_once __DIR__ . '/../lib/setup-panels.php';
 function runtimeExpect(bool $condition, string $message): void { if (!$condition) throw new RuntimeException($message); }
 if (!function_exists('sodium_crypto_sign_keypair')) { echo "package runtime checks skipped: sodium is unavailable\n"; exit(0); }
-$root = sys_get_temp_dir() . '/hostscope-runtime-' . bin2hex(random_bytes(4));
+$root = sys_get_temp_dir() . '/zogograph-runtime-' . bin2hex(random_bytes(4));
 $source = $root . '/source';
 mkdir($source . '/src', 0700, true);
 mkdir($source . '/migrations', 0700, true);
@@ -43,7 +43,7 @@ try {
     runtimeExpect(packageRuntimeTrustedKeys($trustedKey) === $trustedKey, 'trusted publisher key was not normalized');
     runtimeExpect(packageRuntimeCompatibility(['compatibility' => ['requires_runtime_capability' => 'isolated_package_runtime']])['status'] === 'unavailable',
         'package runtime claimed its absent isolation capability was available');
-    runtimeExpect(packageRuntimeCompatibility(['compatibility' => ['requires_extensions' => ['hostscope_test_missing_extension']]])['status'] === 'unavailable',
+    runtimeExpect(packageRuntimeCompatibility(['compatibility' => ['requires_extensions' => ['zogograph_test_missing_extension']]])['status'] === 'unavailable',
         'missing package PHP extension was presented as available');
     try { packageRuntimeManifestCompatibility(['min_php' => 'not-a-version']); throw new RuntimeException('invalid package PHP compatibility was accepted'); }
     catch (InvalidArgumentException $error) { runtimeExpect($error->getMessage() !== 'invalid package PHP compatibility was accepted', $error->getMessage()); }
@@ -58,7 +58,7 @@ try {
     $manifest = [
         'id' => 'test-runtime', 'version' => '1.0.0', 'publisher' => 'Test publisher',
         'capabilities' => ['package_private_database'],
-        'runtime' => ['kind' => 'hostscope-isolated-php-package', 'entrypoint' => 'src/Provider.php', 'provider_class' => 'TestRuntime\\Provider', 'operations' => ['capability'], 'minimum_api' => '1.0'],
+        'runtime' => ['kind' => 'zogograph-isolated-php-package', 'entrypoint' => 'src/Provider.php', 'provider_class' => 'TestRuntime\\Provider', 'operations' => ['capability'], 'minimum_api' => '1.0'],
         'settings_schema' => 'settings.schema.json',
         'locales' => ['es' => 'locales/es.json'],
         'dashboard_pages' => [['id' => 'status', 'title' => 'Package status', 'summary' => 'A core-rendered package status page.', 'title_key' => 'test-runtime.page.title', 'summary_key' => 'test-runtime.page.summary', 'parent' => 'storage', 'keywords' => ['package', 'status']]],

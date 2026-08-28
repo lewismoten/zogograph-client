@@ -40,7 +40,7 @@ try {
     logAction($pdo, 'database_export', 'account', 'ok', $copy['bytes'], 0, 'one-time SQLite export');
 
     header('Content-Type: application/vnd.sqlite3');
-    header('Content-Disposition: attachment; filename="hostscope-account-' . gmdate('Ymd-His') . '.db"');
+    header('Content-Disposition: attachment; filename="zogograph-account-' . gmdate('Ymd-His') . '.db"');
     header('Content-Length: ' . $copy['bytes']);
     header('Cache-Control: no-store');
     header('X-Content-Type-Options: nosniff');

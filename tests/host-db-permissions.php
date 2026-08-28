@@ -5,7 +5,7 @@ require_once __DIR__ . '/../lib/hostdb.php';
 
 function hostPermissionExpect(bool $condition, string $message): void { if (!$condition) throw new RuntimeException($message); }
 
-$root = sys_get_temp_dir() . '/hostscope-host-db-' . bin2hex(random_bytes(4));
+$root = sys_get_temp_dir() . '/zogograph-host-db-' . bin2hex(random_bytes(4));
 mkdir($root, 0700, true);
 try {
     $config = ['database' => $root . '/account.db', 'host' => ['database' => $root . '/host.db']];

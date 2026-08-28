@@ -295,7 +295,7 @@ function terminalEditorSave(array $config, PDO $pdo, string $asked, string $text
     if (is_file($path) && $backup === null) {
         throw new ActionRefused('could not make a private recovery copy; the file was not changed');
     }
-    $temporary = $path . '.hostscope-edit-' . bin2hex(random_bytes(4));
+    $temporary = $path . '.zogograph-edit-' . bin2hex(random_bytes(4));
     if (file_put_contents($temporary, $text, LOCK_EX) === false || !rename($temporary, $path)) {
         @unlink($temporary);
         throw new ActionRefused('could not save that file');

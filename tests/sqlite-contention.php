@@ -10,7 +10,7 @@ function contentionExpect(bool $condition, string $message): void
     }
 }
 
-$directory = sys_get_temp_dir() . '/hostscope-contention-' . bin2hex(random_bytes(8));
+$directory = sys_get_temp_dir() . '/zogograph-contention-' . bin2hex(random_bytes(8));
 contentionExpect(mkdir($directory, 0700), 'could not create a temporary test directory');
 $database = $directory . '/contention.db';
 

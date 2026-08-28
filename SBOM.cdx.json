@@ -15,7 +15,7 @@
   },
   "components": [],
   "properties": [{
-    "name": "hostscope:dependency-inventory",
+    "name": "zogograph:dependency-inventory",
     "value": "No Composer, npm, or vendored runtime dependencies are present in this source tree."
   }]
 }

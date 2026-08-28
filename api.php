@@ -5673,15 +5673,15 @@ function doMarketplaceInstall(array $config, PDO $pdo, bool $post): array
 function doMarketplaceInstallPathHygiene(array $config, PDO $pdo, bool $post): array
 {
     requireWrite($post);
-    $json = @file_get_contents(__DIR__ . '/marketplace/hostscope-path-hygiene.json');
+    $json = @file_get_contents(__DIR__ . '/marketplace/zogograph-path-hygiene.json');
     if (!is_string($json)) throw new ActionRefused('the bundled path-name hygiene manifest is unavailable');
     try {
         $result = marketplaceInstallManifest($config, $pdo, $json, currentAccountName());
-        if ($result['package']['id'] !== 'hostscope-path-hygiene') throw new RuntimeException('bundled manifest identity did not match');
+        if ($result['package']['id'] !== 'zogograph-path-hygiene') throw new RuntimeException('bundled manifest identity did not match');
     } catch (InvalidArgumentException|RuntimeException $error) {
         throw new ActionRefused($error->getMessage());
     }
-    logAction($pdo, 'marketplace_install_bundled', 'hostscope-path-hygiene', 'ok', 0, 0,
+    logAction($pdo, 'marketplace_install_bundled', 'zogograph-path-hygiene', 'ok', 0, 0,
         $result['package']['version']);
     return ['ok' => true, 'package' => $result['package']];
 }
@@ -5794,9 +5794,9 @@ function doPackageRuntimeCustodyDiagnosticApprove(PDO $pdo, bool $post): array
 function doPackageRuntimeCustodyEnrollmentCheck(array $config, PDO $pdo, bool $post): array
 {
     requireWrite($post);
-    try { $result = packageRuntimeInvokeCustodyEnrollmentCheck($pdo, $config); packageRuntimeRecordProbe($config, 'hostscope-key-custody', 'custody_enrollment_check', $result); }
+    try { $result = packageRuntimeInvokeCustodyEnrollmentCheck($pdo, $config); packageRuntimeRecordProbe($config, 'zogograph-key-custody', 'custody_enrollment_check', $result); }
     catch (InvalidArgumentException|RuntimeException $error) { throw new ActionRefused($error->getMessage()); }
-    logAction($pdo, 'package_runtime_custody_enrollment_check', 'hostscope-key-custody', 'ok', 0, 0, 'credential accepted; no envelope, unwrap, or key operation requested');
+    logAction($pdo, 'package_runtime_custody_enrollment_check', 'zogograph-key-custody', 'ok', 0, 0, 'credential accepted; no envelope, unwrap, or key operation requested');
     return ['ok' => true, 'result' => $result,
         'warning' => 'The enrolled-client credential was delivered only to the configured one-shot credential-check sandbox. This checked subscription readiness only; it did not create an envelope, unwrap a key, or access a Zogograph database.'];
 }

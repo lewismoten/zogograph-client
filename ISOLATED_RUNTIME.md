@@ -88,7 +88,7 @@ evidence is required before that capability can be enabled.
 ## Contract version 1.0
 
 Every executable manifest declares `runtime.kind` as
-`hostscope-isolated-php-package`, its signed relative `entrypoint`, and a
+`zogograph-isolated-php-package`, its signed relative `entrypoint`, and a
 `runtime.minimum_api` such as `1.0`. Core validates this declaration during
 installation and treats a package requiring a later API as unavailable. This
 is a compatibility contract, not a permission to execute code.

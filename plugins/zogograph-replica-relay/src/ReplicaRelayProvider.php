@@ -8,7 +8,7 @@ final class ReplicaRelayProvider
     /** @return array{id:string,state:string,reason:string} */
     public function capability(): array
     {
-        return ['id' => 'hostscope-replica-relay', 'state' => 'unavailable',
+        return ['id' => 'zogograph-replica-relay', 'state' => 'unavailable',
             'reason' => 'The isolated HostScope package runtime is not installed.'];
     }
 

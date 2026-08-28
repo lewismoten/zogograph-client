@@ -18,6 +18,9 @@ i18nExpect($page !== false && str_contains($page, 'id="languagePicker"') && str_
 i18nExpect($script !== false && str_contains($script, 'new Intl.NumberFormat(document.documentElement.lang || undefined)')
     && str_contains($script, 'toLocaleString(document.documentElement.lang || undefined)') && str_contains($script, 'document.addEventListener("zogograph-i18n-load"')
     && str_contains($script, 'view.manual'), 'dashboard value formatting ignores the selected locale or refreshes manual views');
+i18nExpect($script !== false && str_contains($script, 'ZogographI18n.t("image.note_screenshot"')
+    && str_contains($script, 'ZogographI18n.t("image.send_screenshot"'),
+    'dashboard fixed image descriptions do not use the locale catalog');
 i18nExpect($script !== false && str_contains($script, 'typeof page.parent === "string" && VIEWS[page.parent]')
     && str_contains($script, 'link.dataset.parent = parent'),
     'package dashboard pages cannot select a safe core navigation parent');
@@ -57,7 +60,7 @@ i18nExpect($configure !== false && str_contains($configure, 'function generatedF
     && str_contains($configure, "'label' => generatedFieldLabel(\$path)")
     && !str_contains($configure, "'label' => \$dotted"),
     'generated Setup fields can still expose dotted internal configuration paths');
-i18nExpect(is_array($english) && isset($english['example.readings'], $english['example.compact'], $english['example.cost'], $english['example.percent'], $english['example.storage'], $english['example.changed'], $english['update.available'], $english['range.10m'], $english['action.reload'], $english['navigation.storage'], $english['navigation.cpu'], $english['navigation.deleted_held'], $english['navigation.cpu_limits'], $english['deployment.test'], $english['deployment.copy_release'], $english['merge.apply'], $english['installation.checks'], $english['auth.qr_alt'], $english['package.save_settings'], $english['schedule.custom_builder'], $english['schedule.job.vitals'], $english['schedule.remove'], $english['setup.search_results']),
+i18nExpect(is_array($english) && isset($english['example.readings'], $english['example.compact'], $english['example.cost'], $english['example.percent'], $english['example.storage'], $english['example.changed'], $english['update.available'], $english['range.10m'], $english['action.reload'], $english['navigation.storage'], $english['navigation.cpu'], $english['navigation.deleted_held'], $english['navigation.cpu_limits'], $english['deployment.test'], $english['deployment.copy_release'], $english['merge.apply'], $english['installation.checks'], $english['auth.qr_alt'], $english['image.generated'], $english['package.save_settings'], $english['schedule.custom_builder'], $english['schedule.job.vitals'], $english['schedule.remove'], $english['setup.search_results']),
     'English fallback catalog is incomplete');
 preg_match_all('/data-i18n(?:-placeholder|-title|-aria-label)?="([^"]+)"/', (string)$page, $pageKeys);
 foreach (array_unique($pageKeys[1] ?? []) as $key) {

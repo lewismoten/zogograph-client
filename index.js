@@ -3354,7 +3354,7 @@ function downloadFile(name, text, type) {
 function exportRows(target, rows, columns, format) {
   const headers = columns.map(c => c.label).filter(Boolean);
   const stamp = new Date().toISOString().slice(0, 19).replace(/[:T]/g, "-");
-  const name = `hostscope-${target}-${stamp}.${format}`;
+  const name = `zogograph-${target}-${stamp}.${format}`;
 
   if (format === "json") {
     const out = rows.map(row => {
@@ -7298,7 +7298,7 @@ function chatReactionCard(message) {
 
   const image = document.createElement("img");
   image.src = message.url;
-  image.alt = String(message.arguments?.mood || "a reaction");
+  image.alt = String(message.arguments?.mood || ZogographI18n.t("image.reaction", {}, "A reaction"));
   image.loading = "lazy";
   card.appendChild(image);
 
@@ -7402,7 +7402,7 @@ function chatPictureCard(message) {
 
   const image = document.createElement("img");
   image.src = message.url;
-  image.alt = String(message.arguments?.description || "a generated picture");
+  image.alt = String(message.arguments?.description || ZogographI18n.t("image.generated", {}, "A generated picture"));
   image.loading = "lazy";
   card.appendChild(image);
 
@@ -11433,7 +11433,7 @@ async function showNoteDialog(preset = {}) {
     const thumb = document.createElement("img");
     thumb.className = "note-shot";
     thumb.src = pageShot;
-    thumb.alt = "the screenshot that will be saved with this note";
+    thumb.alt = ZogographI18n.t("image.note_screenshot", {}, "The screenshot that will be saved with this note");
     shotHolder.appendChild(thumb);
 
     const drop = document.createElement("button");
@@ -11966,7 +11966,7 @@ function packageRuntimeActions(row, canChange) {
   }
   if (row.probe_configured) {
     const probe = document.createElement("button"); probe.className = "link";
-    const operation = row.id === "sqlcipher-encrypted-sqlite" ? "sqlcipher_preflight" : row.id === "hostscope-key-custody" ? "custody_endpoint_probe" : "capability";
+    const operation = row.id === "sqlcipher-encrypted-sqlite" ? "sqlcipher_preflight" : row.id === "zogograph-key-custody" ? "custody_endpoint_probe" : "capability";
     probe.textContent = operation === "sqlcipher_preflight" ? "Run SQLCipher preflight" : operation === "custody_endpoint_probe" ? "Test custody endpoint" : "Run isolated probe";
     probe.addEventListener("click", async () => {
       const inputNote = operation === "custody_endpoint_probe" ? "It uses only the saved endpoint and optional public TLS pin; it does not send an enrollment credential or key." : "It receives no Zogograph settings, secrets, or live database path.";
@@ -11978,7 +11978,7 @@ function packageRuntimeActions(row, canChange) {
     });
     wrap.appendChild(probe);
   }
-  if (row.id === "hostscope-key-custody" && !["key_provider", "network_client"].every(capability => row.grants.includes(capability))) {
+  if (row.id === "zogograph-key-custody" && !["key_provider", "network_client"].every(capability => row.grants.includes(capability))) {
     const approve = document.createElement("button"); approve.className = "link"; approve.textContent = "Approve enrollment check";
     approve.addEventListener("click", async () => {
       if (!(await confirmDialog("Approve only key-provider and network-client permission for the custody enrollment check?\n\nThis does not enable the package, create an envelope, unwrap a key, or grant database access.", "Approve custody diagnostic"))) return;
@@ -11987,7 +11987,7 @@ function packageRuntimeActions(row, canChange) {
     });
     wrap.appendChild(approve);
   }
-  if (row.id === "hostscope-key-custody" && ["key_provider", "network_client"].every(capability => row.grants.includes(capability))) {
+  if (row.id === "zogograph-key-custody" && ["key_provider", "network_client"].every(capability => row.grants.includes(capability))) {
     const enrollment = document.createElement("button"); enrollment.className = "link"; enrollment.textContent = "Check enrolled credential";
     enrollment.addEventListener("click", async () => {
       if (!(await confirmDialog("Send the two encrypted enrollment credentials once to the deployment-configured, endpoint-restricted sandbox?\n\nIt will only read custody subscription readiness. It cannot create an envelope, unwrap a key, or access a Zogograph database.", "Check enrolled custody credential"))) return;
@@ -12013,7 +12013,7 @@ function packageRuntimeActions(row, canChange) {
 async function showPackageRuntimeSettings(row) {
   try {
     const data = await api("package-runtime-settings", { id: row.id });
-    if (row.id === "hostscope-key-custody") return showCustodyPackageSettings(row, data.settings);
+    if (row.id === "zogograph-key-custody") return showCustodyPackageSettings(row, data.settings);
     const settings = document.createElement("textarea"); settings.className = "wide-field"; settings.rows = 14; settings.spellcheck = false;
     settings.value = JSON.stringify(data.settings, null, 2);
     showFormDialog(`${row.id} settings`, [fieldRow("Settings JSON", settings, "Use only package-scoped secret_ref: values for credentials. Raw tokens and private keys are refused.")], async () => {
@@ -12029,8 +12029,8 @@ function showCustodyPackageSettings(row, saved) {
   const key = document.createElement("input"); key.type = "text"; key.className = "wide-field"; key.placeholder = "key_…"; key.value = saved.custody_key_id || "";
   const pin = document.createElement("input"); pin.type = "text"; pin.className = "wide-field"; pin.placeholder = "sha256//… (optional)"; pin.value = saved.tls_spki_pin || "";
   const cache = document.createElement("input"); cache.type = "number"; cache.min = "0"; cache.max = "900"; cache.step = "1"; cache.className = "wide-field"; cache.value = String(saved.authorization_cache_seconds ?? 0);
-  const credential = document.createElement("input"); credential.type = "text"; credential.className = "wide-field"; credential.placeholder = "secret_ref:hostscope-key-custody:…"; credential.value = saved.client_credential_secret || "";
-  const signing = document.createElement("input"); signing.type = "text"; signing.className = "wide-field"; signing.placeholder = "secret_ref:hostscope-key-custody:…"; signing.value = saved.client_signing_secret || "";
+  const credential = document.createElement("input"); credential.type = "text"; credential.className = "wide-field"; credential.placeholder = "secret_ref:zogograph-key-custody:…"; credential.value = saved.client_credential_secret || "";
+  const signing = document.createElement("input"); signing.type = "text"; signing.className = "wide-field"; signing.placeholder = "secret_ref:zogograph-key-custody:…"; signing.value = saved.client_signing_secret || "";
   showFormDialog("Remote key custody settings", [
     fieldRow("Custody service URL", base, "Use the service root or its /v1 API root. Run Test custody endpoint before adding enrollment references."),
     fieldRow("Tenant ID", tenant, "The ten_… identifier from enrollment. It is not a credential."),
@@ -12231,7 +12231,7 @@ function renderMarketplace(data) {
     const install = document.createElement("button"); install.type = "button"; install.className = "primary"; install.textContent = "Install local manifest";
     install.addEventListener("click", showMarketplaceInstallDialog);
     parts.push(install);
-    if (!data.packages.some(row => row.id === "hostscope-path-hygiene")) {
+    if (!data.packages.some(row => row.id === "zogograph-path-hygiene")) {
       const bundled = document.createElement("button"); bundled.type = "button"; bundled.className = "link"; bundled.textContent = "Install Path-name hygiene";
       bundled.addEventListener("click", async () => {
         try { await post("marketplace-install-path-hygiene"); await refreshMarketplace(); notice("Path-name hygiene installed for review. Enable it, then run a disk scan.", true); }
@@ -15515,7 +15515,7 @@ async function closeNoteDialog() {
 }
 
 /* Local-only accessibility choices must work even on a read-only dashboard. */
-const DISPLAY_PREFERENCES_KEY = "hostscope-display-preferences";
+const DISPLAY_PREFERENCES_KEY = "zogograph-display-preferences";
 
 function displayPreferences() {
   try {
@@ -16096,7 +16096,7 @@ async function tryBrowserTool(tool, args) {
     wrap.className = "chat-reaction";
     const image = document.createElement("img");
     image.src = found.url;
-    image.alt = String(args.mood || "a reaction");
+    image.alt = String(args.mood || ZogographI18n.t("image.reaction", {}, "A reaction"));
     wrap.appendChild(image);
     if (args.why) {
       const caption = document.createElement("div");
@@ -16252,7 +16252,7 @@ async function tryBrowserTool(tool, args) {
 
     const image = document.createElement("img");
     image.src = edited;
-    image.alt = "the screenshot as it would be sent";
+    image.alt = ZogographI18n.t("image.send_screenshot", {}, "The screenshot as it would be sent");
     image.className = "try-chart";
     wrap.appendChild(image);
 
@@ -16493,7 +16493,7 @@ async function runAiTry(tool) {
       const picture = document.createElement("img");
       picture.className = "try-picture";
       picture.src = result.picture.url;
-      picture.alt = result.picture.prompt || "the generated picture";
+      picture.alt = result.picture.prompt || ZogographI18n.t("image.generated", {}, "A generated picture");
       picture.loading = "lazy";
       parts.push(section("Generated picture", picture));
       parts.push(note(`Style: ${result.picture.style || "not reported"}. This is the image the tool just made.`));
@@ -21754,7 +21754,7 @@ const SEVERITY_ICON = { critical: "\u{1F534}", warning: "\u{1F7E0}", info: "\u{1
  * there for private browsing, quietly turned that into "nothing was dismissed".
  * The dismissal was being written correctly and discarded on every load.
  */
-const DISMISS_KEY = "hostscope.alertsDismissedThrough";
+const DISMISS_KEY = "zogograph.alertsDismissedThrough";
 const severityIcon = severity => SEVERITY_ICON[severity] || "\u26AA";
 
 const alertState = {
@@ -28458,7 +28458,7 @@ function renderDomains(data) {
 
 /* ----------------------------------------------------------------- whois -- */
 
-const WHOIS_TERMS_KEY = "hostscope.whoisTermsAccepted";
+const WHOIS_TERMS_KEY = "zogograph.whoisTermsAccepted";
 
 function whoisTermsAccepted() {
   try {

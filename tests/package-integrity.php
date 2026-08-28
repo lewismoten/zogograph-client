@@ -2,13 +2,13 @@
 declare(strict_types=1);
 require_once __DIR__ . '/../lib/package-integrity.php';
 require_once __DIR__ . '/../lib/package-submission.php';
-require_once __DIR__ . '/../plugins/hostscope-key-custody/src/KeyCustodyHttpClient.php';
-require_once __DIR__ . '/../plugins/hostscope-key-custody/src/KeyCustodyProvider.php';
-require_once __DIR__ . '/../plugins/hostscope-replica-relay/src/ReplicaRelayHttpClient.php';
+require_once __DIR__ . '/../plugins/zogograph-key-custody/src/KeyCustodyHttpClient.php';
+require_once __DIR__ . '/../plugins/zogograph-key-custody/src/KeyCustodyProvider.php';
+require_once __DIR__ . '/../plugins/zogograph-replica-relay/src/ReplicaRelayHttpClient.php';
 require_once __DIR__ . '/../plugins/sqlcipher-encrypted-sqlite/src/SqlcipherStorageProvider.php';
 function packageExpect(bool $condition, string $message): void { if (!$condition) throw new RuntimeException($message); }
 if (!function_exists('sodium_crypto_sign_keypair')) { echo "package integrity checks skipped: sodium is unavailable\n"; exit(0); }
-$root = sys_get_temp_dir() . '/hostscope-package-' . bin2hex(random_bytes(4));
+$root = sys_get_temp_dir() . '/zogograph-package-' . bin2hex(random_bytes(4));
 mkdir($root . '/src', 0700, true);
 file_put_contents($root . '/src/provider.php', "<?php return 'safe';\n");
 $manifest = ['id' => 'test-package', 'version' => '1.0.0', 'name' => 'Test package'];
@@ -49,7 +49,7 @@ try {
     packageExpect($custodyApiUrl->invoke(null, 'https://custody.example/services/key-custody', '/health') === 'https://custody.example/services/key-custody/v1/health'
         && $custodyApiUrl->invoke(null, 'https://custody.example/services/key-custody/v1', '/health') === 'https://custody.example/services/key-custody/v1/health',
         'custody service root and API-root URLs did not normalize to one endpoint');
-    $custodySource = file_get_contents(__DIR__ . '/../plugins/hostscope-key-custody/src/KeyCustodyHttpClient.php');
+    $custodySource = file_get_contents(__DIR__ . '/../plugins/zogograph-key-custody/src/KeyCustodyHttpClient.php');
     packageExpect($custodySource !== false && str_contains($custodySource, 'int $requestedTtl = 0')
         && str_contains($custodySource, "'requested_ttl_seconds' => \$requestedTtl")
         && str_contains($custodySource, 'CURLOPT_SSL_VERIFYPEER => true')
@@ -59,7 +59,7 @@ try {
         && str_contains($custodySource, "retry_after_seconds")
         && method_exists(\HostScope\Plugin\KeyCustody\KeyCustodyHttpClient::class, 'health')
         && method_exists(\HostScope\Plugin\KeyCustody\KeyCustodyHttpClient::class, 'healthEndpoint'), 'custody client does not enforce its secure transport defaults');
-    $custodyDirectory = __DIR__ . '/../plugins/hostscope-key-custody';
+    $custodyDirectory = __DIR__ . '/../plugins/zogograph-key-custody';
     $custodyManifest = json_decode((string)file_get_contents($custodyDirectory . '/manifest.json'), true, 512, JSON_THROW_ON_ERROR);
     packageExpect(is_array($custodyManifest) && ($custodyManifest['runtime']['operations'] ?? null) === ['capability', 'custody_endpoint_probe', 'custody_enrollment_check', 'custody_store_envelope', 'custody_unwrap_artifact']
         && method_exists(\HostScope\Plugin\KeyCustody\KeyCustodyProvider::class, 'preflight')
@@ -75,14 +75,14 @@ try {
     catch (InvalidArgumentException $error) { packageExpect($error->getMessage() !== 'relay client accepted a malformed TLS pin', $error->getMessage()); }
     try { \HostScope\Plugin\ReplicaRelay\ReplicaRelayHttpClient::healthEndpoint('http://example.test'); throw new RuntimeException('relay health probe accepted an insecure endpoint'); }
     catch (InvalidArgumentException $error) { packageExpect($error->getMessage() !== 'relay health probe accepted an insecure endpoint', $error->getMessage()); }
-    $relaySource = file_get_contents(__DIR__ . '/../plugins/hostscope-replica-relay/src/ReplicaRelayHttpClient.php');
+    $relaySource = file_get_contents(__DIR__ . '/../plugins/zogograph-replica-relay/src/ReplicaRelayHttpClient.php');
     packageExpect($relaySource !== false && str_contains($relaySource, 'CURLOPT_UPLOAD => true')
         && str_contains($relaySource, 'CURLOPT_SSL_VERIFYPEER => true') && str_contains($relaySource, 'CURLOPT_SSL_VERIFYHOST => 2')
         && str_contains($relaySource, 'CURLOPT_PINNEDPUBLICKEY') && str_contains($relaySource, "'/v1/health'")
         && method_exists(\HostScope\Plugin\ReplicaRelay\ReplicaRelayHttpClient::class, 'health')
         && method_exists(\HostScope\Plugin\ReplicaRelay\ReplicaRelayHttpClient::class, 'healthEndpoint'),
         'relay client does not stream ciphertext with secure transport defaults');
-    $relayDirectory = __DIR__ . '/../plugins/hostscope-replica-relay';
+    $relayDirectory = __DIR__ . '/../plugins/zogograph-replica-relay';
     $relayManifest = json_decode((string)file_get_contents($relayDirectory . '/manifest.json'), true, 512, JSON_THROW_ON_ERROR);
     packageExpect(is_array($relayManifest) && in_array('ciphertext_replica', (array)($relayManifest['capabilities'] ?? []), true)
         && packageVerifyIntegrity($relayManifest, $relayDirectory)['ok'],

@@ -13,7 +13,7 @@ if ($argc === 6 && $argv[1] === '--store' && $argv[3] === '--from' && $argv[5] =
 } else {
     fwrite(STDERR, "Usage:\n"
         . "  php scripts/restore-store.php --store setup|account|host|ai --from /secure/known-good.db --writers-stopped\n"
-        . "  php scripts/restore-store.php --store setup|account|host|ai --sealed /secure/store.sealed --key /secure/hostscope.key --writers-stopped\n");
+        . "  php scripts/restore-store.php --store setup|account|host|ai --sealed /secure/store.sealed --key /secure/zogograph.key --writers-stopped\n");
     exit(64);
 }
 

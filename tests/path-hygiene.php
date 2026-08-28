@@ -19,10 +19,10 @@ foreach ($sourceIterator as $sourceFile) {
     foreach ($forbiddenPathText as $needle) pathHygieneExpect(!is_string($contents) || !str_contains(strtolower($contents), $needle), 'shipped source contains forbidden account-specific or unresolved path text: ' . $relative);
 }
 
-$root = sys_get_temp_dir() . '/hostscope-path-hygiene-' . bin2hex(random_bytes(4));
+$root = sys_get_temp_dir() . '/zogograph-path-hygiene-' . bin2hex(random_bytes(4));
 mkdir($root, 0700);
-file_put_contents($root . '/hostscope-path-hygiene.json', json_encode([
-    'id' => 'hostscope-path-hygiene', 'version' => '1.0.0', 'name' => 'Path-name hygiene',
+file_put_contents($root . '/zogograph-path-hygiene.json', json_encode([
+    'id' => 'zogograph-path-hygiene', 'version' => '1.0.0', 'name' => 'Path-name hygiene',
     'publisher' => 'HostScope', 'summary' => 'Advisory path name review.', 'license' => 'Proprietary',
     'capabilities' => ['path_hygiene'], 'recommendations' => [],
 ]));
@@ -32,7 +32,7 @@ $pdo->exec('CREATE TABLE scans (id INTEGER PRIMARY KEY)');
 $pdo->exec('CREATE TABLE path_hygiene_scans (scan_id INTEGER PRIMARY KEY, checked_at INTEGER, findings_json TEXT, findings_total INTEGER, truncated INTEGER)');
 $config = ['marketplace' => ['directory' => $root]];
 pathHygieneExpect(!pathHygieneEnabled($config, $pdo), 'disabled package enabled the scanner');
-marketplaceSetEnabled($config, $pdo, 'hostscope-path-hygiene', true, 'administrator');
+marketplaceSetEnabled($config, $pdo, 'zogograph-path-hygiene', true, 'administrator');
 pathHygieneExpect(pathHygieneEnabled($config, $pdo), 'enabled package did not activate the fixed scanner');
 $state = pathHygieneStart(true);
 pathHygieneObserve('/tmp/normal name', 'normal name', $state);
@@ -55,5 +55,5 @@ $renamed = pathHygieneRename(['scan_root' => $renameRoot], $pdo, $oldPath, 'rena
 pathHygieneExpect($renamed['to'] === $renameRoot . '/rename-this' && is_file($renamed['to']), 'path hygiene rename did not move the exact finding');
 pathHygieneExpect(pathHygieneLast($pdo)['total'] === 0, 'renamed path remained an active finding');
 unlink($renamed['to']); rmdir($renameRoot);
-unlink($root . '/hostscope-path-hygiene.json'); rmdir($root);
+unlink($root . '/zogograph-path-hygiene.json'); rmdir($root);
 echo "path hygiene checks passed\n";

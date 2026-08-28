@@ -35,7 +35,7 @@ final class SqlcipherStorageProvider
     {
         $capability = $this->capability();
         if ($capability['state'] !== 'driver-ready') return $capability;
-        $path = tempnam(sys_get_temp_dir(), 'hostscope-sqlcipher-');
+        $path = tempnam(sys_get_temp_dir(), 'zogograph-sqlcipher-');
         if ($path === false) throw new \RuntimeException('could not create SQLCipher preflight file');
         @unlink($path); $key = random_bytes(32);
         try {

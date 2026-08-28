@@ -11,7 +11,7 @@
     "package_private_database"
   ],
   "runtime": {
-    "kind": "hostscope-isolated-php-package",
+    "kind": "zogograph-isolated-php-package",
     "entrypoint": "src/SqlcipherStorageProvider.php",
     "provider_class": "HostScope\\Plugin\\SqlcipherEncryptedSqlite\\SqlcipherStorageProvider",
     "operations": ["capability", "sqlcipher_preflight"],

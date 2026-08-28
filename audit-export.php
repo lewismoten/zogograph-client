@@ -37,7 +37,7 @@ $pdo = db($config);
 logAction($pdo, 'audit_export', null, 'ok', 0, 0, 'full CSV audit export');
 
 header('Content-Type: text/csv; charset=utf-8');
-header('Content-Disposition: attachment; filename="hostscope-audit-' . gmdate('Ymd-His') . '.csv"');
+header('Content-Disposition: attachment; filename="zogograph-audit-' . gmdate('Ymd-His') . '.csv"');
 header('Cache-Control: no-store');
 header('X-Content-Type-Options: nosniff');
 

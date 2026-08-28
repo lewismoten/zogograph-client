@@ -125,7 +125,7 @@ return [
          * by default and never enables package/database/key operations.
          *
          * 'custody_credential_check_invokers' => [
-         *   'hostscope-key-custody' => [
+         *   'zogograph-key-custody' => [
          *     'command' => ['/usr/bin/docker', 'compose', '-f', '/etc/zogograph/custody-credential-check.yml', 'run', '--rm', '-T', 'package-worker'],
          *     'isolation_profile' => 'container-one-shot-egress-restricted-v1',
          *     'network_egress_origin' => 'https://custody.example',
@@ -139,7 +139,7 @@ return [
          * custody origin and receive its input through standard input.
          *
          * 'custody_envelope_invokers' => [
-         *   'hostscope-key-custody' => [
+         *   'zogograph-key-custody' => [
          *     'command' => ['/usr/bin/docker', 'compose', '-f', '/etc/zogograph/custody-envelope-store.yml', 'run', '--rm', '-T', 'package-worker'],
          *     'isolation_profile' => 'container-one-shot-egress-restricted-v1',
          *     'network_egress_origin' => 'https://custody.example',
@@ -154,7 +154,7 @@ return [
          * persisted by the launcher.
          *
          * 'custody_unwrap_invokers' => [
-         *   'hostscope-key-custody' => [
+         *   'zogograph-key-custody' => [
          *     'command' => ['/usr/bin/docker', 'compose', '-f', '/etc/zogograph/custody-recovery-unwrap.yml', 'run', '--rm', '-T', 'package-worker'],
          *     'isolation_profile' => 'container-one-shot-egress-restricted-v1',
          *     'network_egress_origin' => 'https://custody.example',

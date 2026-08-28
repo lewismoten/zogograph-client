@@ -30,7 +30,7 @@ if ($command === 'rotate' && count($args) === 5) {
     exit(0);
 }
 fwrite(STDERR, "Usage:\n"
-    . "  php scripts/encryption-key.php create /absolute/private/hostscope.key\n"
+    . "  php scripts/encryption-key.php create /absolute/private/zogograph.key\n"
     . "  php scripts/encryption-key.php decrypt /private/key source.sealed output.db\n"
     . "  php scripts/encryption-key.php rotate /old/key /new/key source.sealed replacement.sealed artifact-id\n");
 fwrite(STDERR, "For a configured installation, use rotate-sealed-copies.php to rotate every retained artifact before switching keys.\n");

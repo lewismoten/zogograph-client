@@ -1181,7 +1181,11 @@ function webPage(
             . '<label class="row"><input type="checkbox" name="rotate_mask" value="1"> <span data-i18n="privacy.rotate_mask">Generate a new mask secret</span></label>'
             . '</fieldset>';
     } elseif ($activeSection === 'host') {
-        $hostStatus = setupHostStatus($current ?? ['database' => $root . '/data/stats.db', 'host' => ['enabled' => (bool)($values['host_enabled'] ?? false), 'owner' => (string)($values['host_owner'] ?? '')]]);
+        // Status exposes only derived filesystem and schedule facts, never the
+        // saved configuration itself. It must still reflect the saved Host
+        // checkbox after the normal Setup unlock session has expired.
+        $hostConfig = $current ?? readExistingConfig($targetPath) ?? ['database' => $root . '/data/stats.db', 'host' => ['enabled' => (bool)($values['host_enabled'] ?? false), 'owner' => (string)($values['host_owner'] ?? '')]];
+        $hostStatus = setupHostStatus($hostConfig);
         $rows = [
             ['Enabled', $hostStatus['enabled'] ? 'Yes' : 'No', $hostStatus['enabled'] ? 'ok' : 'warn'],
             ['Database exists', $hostStatus['exists'] ? 'Yes' : 'No', $hostStatus['exists'] ? 'ok' : 'warn'],

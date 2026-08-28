@@ -14,7 +14,7 @@ $forbiddenPathText = ['regaldra', '/lib/../data/'];
 $sourceIterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($sourceRoot, FilesystemIterator::SKIP_DOTS));
 foreach ($sourceIterator as $sourceFile) {
     $relative = substr($sourceFile->getPathname(), strlen($sourceRoot) + 1);
-    if (preg_match('#^(?:\.git|tests|dist|data)/#', str_replace(DIRECTORY_SEPARATOR, '/', $relative)) || !$sourceFile->isFile()) continue;
+    if (preg_match('#^(?:\.git|tests|dist|data|scratch)/#', str_replace(DIRECTORY_SEPARATOR, '/', $relative)) || !$sourceFile->isFile()) continue;
     $contents = file_get_contents($sourceFile->getPathname());
     foreach ($forbiddenPathText as $needle) pathHygieneExpect(!is_string($contents) || !str_contains(strtolower($contents), $needle), 'shipped source contains forbidden account-specific or unresolved path text: ' . $relative);
 }

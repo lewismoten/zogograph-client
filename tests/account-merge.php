@@ -28,15 +28,28 @@ try {
     $source->exec("INSERT INTO paths (path, kind, first_seen, last_seen) VALUES ('/source/file', 'file', 150, 150)");
     $source->exec('INSERT INTO scan_totals (scan_id, category, bytes, files) VALUES (1, "other", 12, 1)');
     $source->exec('INSERT INTO path_sizes (scan_id, path_id, bytes, files) VALUES (1, 1, 12, 1)');
-    $legacyVersion = max(array_keys(migrations())) - 1;
-    $source->prepare('DELETE FROM schema_version WHERE version > ?')->execute([$legacyVersion]); $source = null;
-    $older = accountMergeInspect($sourcePath);
-    accountMergeExpect($older['eligible'] && $older['source_version'] === $legacyVersion && $older['source_version'] < $older['current_version'],
-        'an older collector source was not eligible for a private upgrade before merge');
-    $prepared = accountMergePreparedSource($sourcePath, $dir . '/prepared-source');
+    $source = null;
+    /* This is a real historical collector shape, not a current database with
+     * only its version ledger edited. Its private preparation must exercise
+     * every migration required by a first-generation production account DB. */
+    $historicalPath = $dir . '/historical-v1.db';
+    $historical = new PDO('sqlite:' . $historicalPath, null, null, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+    foreach (migrations()[1] as $statement) $historical->exec($statement);
+    $historical->exec('CREATE TABLE schema_version (version INTEGER NOT NULL)');
+    $historical->exec('INSERT INTO schema_version VALUES (1)');
+    $historical->exec('INSERT INTO vitals (taken_at, source) VALUES (50, "historical")');
+    $historical->exec('INSERT INTO scans (started_at) VALUES (50)');
+    $historical->exec("INSERT INTO paths (path, kind, first_seen, last_seen) VALUES ('/historical/file', 'file', 50, 50)");
+    $historical->exec('INSERT INTO scan_totals (scan_id, category, bytes, files) VALUES (1, "other", 4, 1)');
+    $historical->exec('INSERT INTO path_sizes (scan_id, path_id, bytes, files) VALUES (1, 1, 4, 1)');
+    $historical = null;
+    $older = accountMergeInspect($historicalPath);
+    accountMergeExpect($older['eligible'] && $older['source_version'] === 1 && $older['source_version'] < $older['current_version'],
+        'a genuine historical collector source was not eligible for a private upgrade before merge');
+    $prepared = accountMergePreparedSource($historicalPath, $dir . '/prepared-source');
     $preparedPdo = new PDO('sqlite:' . $prepared, null, null, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
     accountMergeExpect((int)$preparedPdo->query('SELECT MAX(version) FROM schema_version')->fetchColumn() === $older['current_version']
-        && accountMergeInspect($sourcePath)['source_version'] === $legacyVersion,
+        && accountMergeInspect($historicalPath)['source_version'] === 1,
         'merge preparation did not upgrade only the private source clone');
     $preparedPdo = null; @unlink($prepared); @rmdir($dir . '/prepared-source');
     $target = new PDO('sqlite::memory:', null, null, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]); migrate($target, true);
@@ -49,18 +62,22 @@ try {
     $targetPath = $dir . '/target.db'; $fileTarget = new PDO('sqlite:' . $targetPath, null, null, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]); migrate($fileTarget, true);
     $fileTarget->exec('INSERT INTO vitals (taken_at, source) VALUES (200, "target"), (300, "target")');
     $fileTarget->exec('INSERT INTO scans (started_at) VALUES (400)');
+    $historicalResult = accountMergeApply($fileTarget, $historicalPath, true);
+    accountMergeExpect($historicalResult['vitals'] === 1 && $historicalResult['scans'] === 1 && $historicalResult['paths'] === 1
+        && $historicalResult['scan_totals'] === 1 && $historicalResult['path_sizes'] === 1,
+        'a genuine historical collector source did not upgrade and merge its mapped rows');
     $result = accountMergeApply($fileTarget, $sourcePath, true);
     accountMergeExpect($result['vitals'] === 1 && $result['scans'] === 1 && $result['paths'] === 1
         && $result['scan_totals'] === 1 && $result['path_sizes'] === 1 && is_file($result['snapshot'])
         && (fileperms($result['snapshot']) & 0077) === 0, 'collector merge did not create a private rollback or import mapped rows');
-    accountMergeExpect((int)$fileTarget->query('SELECT COUNT(*) FROM vitals')->fetchColumn() === 3
-        && (int)$fileTarget->query('SELECT COUNT(*) FROM path_sizes')->fetchColumn() === 1,
+    accountMergeExpect((int)$fileTarget->query('SELECT COUNT(*) FROM vitals')->fetchColumn() === 4
+        && (int)$fileTarget->query('SELECT COUNT(*) FROM path_sizes')->fetchColumn() === 2,
         'collector merge duplicated overlap or lost mapped child rows');
     $fileTarget = null;
     $future = $dir . '/future.db'; $pdo = new PDO('sqlite:' . $future); $pdo->exec('CREATE TABLE schema_version (version INTEGER NOT NULL)'); $pdo->exec('INSERT INTO schema_version VALUES (999)'); $pdo = null;
     accountMergeExpect(accountMergeInspect($future)['reason'] === 'source was created by a newer Zogograph version', 'future source was not rejected');
-    @unlink($future); @unlink($sourcePath); @unlink($targetPath); foreach (glob($dir . '/merge-backups/*') ?: [] as $file) @unlink($file); @rmdir($dir . '/merge-backups'); foreach (glob($dir . '/merge-workspace/*') ?: [] as $file) @unlink($file); @rmdir($dir . '/merge-workspace'); @rmdir($dir);
+    @unlink($future); @unlink($historicalPath); @unlink($sourcePath); @unlink($targetPath); foreach (glob($dir . '/merge-backups/*') ?: [] as $file) @unlink($file); @rmdir($dir . '/merge-backups'); foreach (glob($dir . '/merge-workspace/*') ?: [] as $file) @unlink($file); @rmdir($dir . '/merge-workspace'); @rmdir($dir);
     echo "account merge checks passed\n";
 } catch (Throwable $error) {
-    @unlink($sourcePath); @rmdir($dir); throw $error;
+    @unlink($historicalPath ?? ''); @unlink($sourcePath); @rmdir($dir); throw $error;
 }

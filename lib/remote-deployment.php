@@ -6,7 +6,7 @@ require_once __DIR__ . '/setupstore.php';
  * A profile never carries a password or private key value through a browser. */
 
 const REMOTE_DEPLOYMENT_METHODS = ['rsync_ssh', 'sftp', 'ftps'];
-const REMOTE_DEPLOYMENT_UPDATE_MODES = ['manual', 'download', 'automatic'];
+const REMOTE_DEPLOYMENT_UPDATE_MODES = ['manual', 'download', 'auto'];
 
 function remoteDeploymentRelativePath(string $path): bool
 {
@@ -128,7 +128,11 @@ function remoteDeploymentProfile(array $input): array
     $controller = trim((string)($input['controller_url'] ?? ''));
     $parts = parse_url($controller);
     if ($parts === false || strtolower((string)($parts['scheme'] ?? '')) !== 'https' || empty($parts['host']) || remoteDeploymentHost((string)$parts['host']) === null || isset($parts['user'], $parts['pass'], $parts['query'], $parts['fragment'])) throw new InvalidArgumentException('controller URL must be a plain HTTPS URL');
+    // `automatic` was the original core-only spelling. The remote updater's
+    // signed configuration protocol uses `auto`; accept old saved profiles,
+    // then normalize them before a profile is reviewed or handed off.
     $update = (string)($input['update_mode'] ?? 'manual');
+    if ($update === 'automatic') $update = 'auto';
     if (!in_array($update, REMOTE_DEPLOYMENT_UPDATE_MODES, true)) throw new InvalidArgumentException('choose a supported remote update policy');
     return ['method' => $method, 'host' => $host, 'port' => (int)$port, 'username' => $username, 'target_path' => $target,
         'credential_reference' => $credential, 'known_host_reference' => $known === '' ? null : $known, 'packages' => $packages,

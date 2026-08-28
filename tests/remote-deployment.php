@@ -8,6 +8,9 @@ $profile = remoteDeploymentProfile(['method' => 'rsync_ssh', 'host' => 'Remote.E
 remoteDeploymentExpect($profile['host'] === 'remote.example.com' && $profile['known_host_reference'] === 'deploy_ref:host-key-reference' && $profile['packages'] === ['remote-core', 'collector'], 'valid SSH deployment profile was not normalized');
 $ftps = remoteDeploymentProfile(['method' => 'ftps', 'host' => '203.0.113.8', 'username' => 'deploy', 'target_path' => '/httpdocs/remote', 'credential_reference' => 'deploy_ref:ftps-credential-x', 'packages' => ['remote-core'], 'controller_url' => 'https://core.example', 'update_mode' => 'manual']);
 remoteDeploymentExpect($ftps['port'] === 21 && $ftps['known_host_reference'] === null, 'FTPS profile defaults are incorrect');
+$auto = remoteDeploymentProfile(['update_mode' => 'automatic'] + $profile);
+remoteDeploymentExpect($auto['update_mode'] === 'auto' && in_array('auto', REMOTE_DEPLOYMENT_UPDATE_MODES, true),
+    'legacy automatic deployment policy was not normalized to the remote updater wire value');
 $plan = remoteDeploymentCommandPlan($profile);
 remoteDeploymentExpect($plan['method'] === 'rsync_ssh' && in_array('StrictHostKeyChecking=yes', $plan['preflight'], true)
     && !str_contains(implode(' ', $plan['copy']), 'deploy_ref:'), 'SSH deployment preview exposes a reference or lacks host-key verification');

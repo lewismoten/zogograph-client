@@ -1233,6 +1233,8 @@ function webPage(
             try {
                 $plan = remoteDeploymentCommandPlan($deployment);
                 $out[] = '<details><summary data-i18n="deployment.review_transport">Review planned transport</summary><p class="help" data-i18n="deployment.review_transport_help">This is a secret-free argument preview only. Braced values are supplied by the reviewed worker at test/copy time; saving or opening this preview makes no network connection.</p><pre><code>' . h(json_encode($plan, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR)) . '</code></pre></details>';
+                $handoff = remoteDeploymentSetupHandoff($deployment);
+                $out[] = '<details><summary data-i18n="deployment.review_transport">Review planned transport</summary><p class="help" data-i18n="deployment.review_transport_help">This is a secret-free argument preview only. Braced values are supplied by the reviewed worker at test/copy time; saving or opening this preview makes no network connection.</p><textarea readonly rows="7" aria-label="Remote setup handoff">' . h(json_encode($handoff, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR)) . '</textarea></details>';
             } catch (Throwable) {
                 $out[] = '<p class="help" data-i18n="deployment.save_to_review">Save a complete deployment profile to review its planned transport.</p>';
             }

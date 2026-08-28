@@ -72,9 +72,10 @@ the product is complete.
   independently applied managed jobs.
 - [x] Inert signed package panels, schema-validated package settings, audit,
   and opaque secret-reference selection in Setup.
-- [~] Explain and provision the existing OpenID Connect provider in Setup.
-  Provider capability, issuer, and signing-key configuration are visible;
-  safe signing-key generation and trusted-client management remain.
+- [x] Explain and provision the existing OpenID Connect provider in Setup.
+  Setup validates the HTTPS issuer, generates a dedicated 3072-bit signing
+  key inside a protected session, and manages exact-redirect trusted clients
+  with one-time confidential-client secrets.
 - [x] Guided TOTP enrollment: Setup generates a Base32 secret, offers a local
   QR presentation when the host provides `qrencode`, requires a successful
   verification code before saving, and displays one-time backup codes once

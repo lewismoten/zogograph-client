@@ -1348,7 +1348,7 @@ function webPage(
 
     if (!$editingLocked && !in_array($activeSection, ['basics', 'security', 'schedule', 'maintenance'], true)
         && (!is_array($activePanel) || $activePanel['kind'] !== 'package')) {
-        $out[] = '<button type="submit">Save ' . h($title) . '</button>';
+        $out[] = '<button type="submit" data-i18n="setup.save">Save</button>';
     }
     $out[] = '</form></main></div>';
 

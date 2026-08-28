@@ -57,6 +57,8 @@ i18nExpect($setup !== false && str_contains($setup, 'data-i18n="setup.root_verif
     'Setup host-collector verification guidance is not localized');
 i18nExpect($setup !== false && str_contains($setup, 'data-i18n="setup.root_schedule_help"'),
     'Setup host-collector schedule boundary is not localized');
+i18nExpect($setup !== false && str_contains($setup, 'data-i18n="setup.save"'),
+    'Setup generic save action is not localized');
 i18nExpect($setup !== false && str_contains($setup, 'setupRenderPackageSettingsPanel')
     && str_contains($setup, 'data-package-settings-target') && str_contains($setup, 'save-package-settings:')
     && str_contains($setup, 'data-i18n="package.save_settings"') && str_contains($setup, 'data-i18n="package.no_reference"'),

@@ -31,6 +31,7 @@
   "setup.root_install_help": "The host collector cannot be installed from here — it runs as root, and this page runs as your account. Log in to WHM or SSH as root and add this to root’s crontab (crontab -e):",
   "setup.root_verify_help": "Then run it once by hand to see that it works — without the schedule, and without --quiet so it tells you what it found:",
   "setup.root_schedule_help": "Until it runs, the whole-machine panel on the dashboard will say so rather than showing anything. The dashboard’s schedule editor cannot manage this job: it edits your account’s crontab, and this one belongs to root.",
+  "setup.save": "Save",
   "setup.installation": "Installation",
   "installation.checks": "Installation checks",
   "installation.check": "Check",

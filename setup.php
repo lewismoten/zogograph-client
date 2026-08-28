@@ -260,6 +260,11 @@ function setupSavePackageSettings(?array $config, string $packageId, array $sett
         throw new RuntimeException('the package registry is unavailable');
     }
     packageRuntimeSaveSettings($registry, $config, $packageId, $settings, 'setup administrator');
+    // Package settings themselves live in protected setup.db. The fact that
+    // they changed belongs in the account action trail, without copying any
+    // setting values or secret references into it.
+    logAction($registry, 'package_runtime_settings_save', $packageId, 'ok', 0, 0,
+        'saved from setup.php using signed package schema');
 }
 
 /** The stable persisted shape consumed by SetupCronApi and future panels. */

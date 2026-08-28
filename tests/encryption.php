@@ -96,6 +96,7 @@ try {
         && str_contains($setupPage, 'setupPackagePanels($current)')
         && str_contains($setupPage, 'save-package-settings')
         && str_contains($setupPage, 'signed package schema')
+        && str_contains($setupPage, 'package_runtime_settings_save')
         && str_contains($setupPage, 'leave blank to use this location')
         && str_contains($setupPage, 'this step is complete')
         && str_contains($setupPage, 'Its contents were not shown or saved in the browser'),

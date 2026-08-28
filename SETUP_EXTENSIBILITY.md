@@ -73,6 +73,7 @@ reviewed capability and command registry, not a broader cron API.
 2. Searchable, scrollable Setup navigation driven by panel metadata. (Done.)
 3. Add core-panel enablement and feature gating to the registry.
 4. Surface signed inert package panels through generic schema settings. (Done.)
-5. Add settings-save audit records and a package-local secret reference picker.
-6. Bridge renderer callbacks only after package execution is independently
+5. Add settings-save audit records. (Done.)
+6. Add a package-local secret reference picker.
+7. Bridge renderer callbacks only after package execution is independently
    attested, with a separately reviewed isolation contract.

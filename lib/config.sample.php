@@ -58,6 +58,7 @@ return [
         'uptime' => true,
         'packages' => true,
         'charts' => true,
+        'health' => true,
     ],
 
     // The account crontab desired by Setup. The editor writes only Zogograph's

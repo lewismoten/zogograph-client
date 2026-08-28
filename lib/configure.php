@@ -189,6 +189,15 @@ function configFields(array $sample): array
             'default' => (bool)($sample['core_features']['charts'] ?? true),
         ],
         [
+            'key' => 'core_features_health',
+            'section' => 'features',
+            'path' => ['core_features', 'health'],
+            'type' => 'bool',
+            'label' => 'System health core feature',
+            'help' => 'Disabling this removes the System health and self-diagnostic dashboard, blocks its presentation and diagnosis APIs, and hides overview findings. Setup checks and server-side collector safety checks continue to run.',
+            'default' => (bool)($sample['core_features']['health'] ?? true),
+        ],
+        [
             'key' => 'openid_enabled',
             'section' => 'openid',
             'path' => ['openid', 'enabled'],

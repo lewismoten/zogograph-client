@@ -10080,6 +10080,13 @@ async function runRequestFromHost(args) {
 async function runWaitForReadings(args) {
   const which = args.which === "host" ? "host" : "account";
   const seconds = Math.max(30, Math.min(1800, Number(args.seconds) || 300));
+  if (disabledCoreRoutes.has("system")) {
+    return {
+      arrived: false,
+      which,
+      note: "Collector waiting is unavailable while the System health feature is disabled.",
+    };
+  }
 
   /*
    * The collectors' own last-run times, from the page that already reports them.
@@ -23195,6 +23202,7 @@ function applyCoreFeatureVisibility(features) {
       ZogographI18n.clearPackageCatalogs();
     }
     if (feature.id === "charts") chartNames.known = {};
+    if (feature.id === "health") $("diagnoseBody")?.replaceChildren();
   }
 }
 
@@ -31854,7 +31862,7 @@ const VIEWS = {
     label: "Overview",
     refresh: async () => {
       await refreshVitals();
-      await refreshDiagnosis();
+      if (!disabledCoreRoutes.has("system")) await refreshDiagnosis();
     },
   },
   /*

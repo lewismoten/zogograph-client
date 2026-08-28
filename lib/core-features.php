@@ -73,6 +73,10 @@ const CORE_FEATURES = [
         'dashboard_routes' => ['charts'],
         'setup_section' => 'features',
     ],
+    'health' => [
+        'dashboard_routes' => ['system'],
+        'setup_section' => 'features',
+    ],
 ];
 
 /** Missing settings deliberately preserve existing installations. */
@@ -114,6 +118,7 @@ function coreFeatureForAction(string $action): ?string
     if ($action === 'alerts' || str_starts_with($action, 'alert-')) return 'alerts';
     if ($action === 'uptime') return 'uptime';
     if ($action === 'charts' || $action === 'chart-series') return 'charts';
+    if (in_array($action, ['health', 'self', 'diagnose', 'diagnosis-ignore', 'diagnosis-unignore'], true)) return 'health';
     if ($action === 'package-i18n' || $action === 'package-pages' || str_starts_with($action, 'package-runtime-')
         || $action === 'package-runtime') return 'packages';
     return null;

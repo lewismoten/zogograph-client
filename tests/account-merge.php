@@ -8,6 +8,10 @@ $mergeScript = file_get_contents(__DIR__ . '/../scripts/merge-account.php');
 accountMergeExpect($mergeScript !== false && str_contains($mergeScript, '--review') && str_contains($mergeScript, '--allow-overlap')
     && str_contains($mergeScript, '--writers-stopped') && str_contains($mergeScript, 'accountMergeApply'),
     'collector merge command lacks review or explicit apply safeguards');
+$setup = file_get_contents(__DIR__ . '/../setup.php');
+accountMergeExpect($setup !== false && str_contains($setup, 'review-account-merge') && str_contains($setup, 'apply-account-merge')
+    && str_contains($setup, 'writers_stopped') && str_contains($setup, 'allow_overlap') && str_contains($setup, 'move_uploaded_file'),
+    'collector merge setup workflow lacks reviewed upload and explicit apply safeguards');
 $dir = sys_get_temp_dir() . '/zogograph-account-merge-' . bin2hex(random_bytes(6));
 accountMergeExpect(mkdir($dir, 0700), 'could not make account-merge test directory');
 $sourcePath = $dir . '/source.db';

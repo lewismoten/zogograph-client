@@ -63,6 +63,7 @@ require_once $root . '/lib/auth.php';
 require_once $root . '/lib/openid.php';
 require_once $root . '/lib/remote-deployment.php';
 require_once $root . '/lib/db.php';
+require_once $root . '/lib/account-merge.php';
 // For hostCronLine/hostCronCommand, shown after a successful write.
 require_once $root . '/lib/hostdb.php';
 
@@ -238,6 +239,23 @@ function setupDeploymentToken(): string
 {
     if (!is_string($_SESSION['setup_deployment_token'] ?? null)) $_SESSION['setup_deployment_token'] = bin2hex(random_bytes(32));
     return $_SESSION['setup_deployment_token'];
+}
+
+/** CSRF token for the explicitly reviewed account collector merge workflow. */
+function setupAccountMergeToken(): string
+{
+    if (!is_string($_SESSION['setup_account_merge_token'] ?? null)) $_SESSION['setup_account_merge_token'] = bin2hex(random_bytes(32));
+    return $_SESSION['setup_account_merge_token'];
+}
+
+function setupAccountMergeUploadDirectory(array $config): string
+{
+    $database = trim((string)($config['database'] ?? ''));
+    if ($database === '' || !str_starts_with($database, '/')) throw new RuntimeException('the live account database is unavailable');
+    $directory = dirname($database) . '/merge-review-inputs';
+    if (!is_dir($directory) && !mkdir($directory, 0700, true)) throw new RuntimeException('could not prepare private merge review storage');
+    if (is_link($directory) || !is_writable($directory)) throw new RuntimeException('private merge review storage is unavailable');
+    @chmod($directory, 0700); return $directory;
 }
 
 /** Opens the already-configured local registry without creating or migrating it. */
@@ -618,6 +636,40 @@ function runWeb(
             $_SESSION['setup_error'] = 'Could not save remote deployment settings: ' . $error->getMessage();
         }
         header('Location: ' . strtok((string)$_SERVER['REQUEST_URI'], '?') . '?section=deployment', true, 303);
+        return;
+    }
+
+    if ($posted && in_array($_POST['intent'] ?? '', ['review-account-merge', 'apply-account-merge'], true)) {
+        try {
+            if (!$configured || !$unlocked || $current === null) throw new RuntimeException('unlock setup before reviewing an account merge');
+            if (!hash_equals(setupAccountMergeToken(), (string)($_POST['setup_account_merge_token'] ?? ''))) throw new RuntimeException('the account merge form expired; reload Setup and try again');
+            if (($_POST['intent'] ?? '') === 'review-account-merge') {
+                $upload = $_FILES['account_merge_source'] ?? null;
+                if (!is_array($upload) || ($upload['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK || !is_string($upload['tmp_name'] ?? null) || !is_uploaded_file($upload['tmp_name'])) throw new RuntimeException('choose an exported account SQLite file to review');
+                $bytes = filesize($upload['tmp_name']);
+                if (!is_int($bytes) || $bytes < 1 || $bytes > 1073741824) throw new RuntimeException('the account database export must be between 1 byte and 1 GiB');
+                $source = setupAccountMergeUploadDirectory($current) . '/review-' . bin2hex(random_bytes(16)) . '.db';
+                if (!move_uploaded_file($upload['tmp_name'], $source) || !chmod($source, 0600)) { @unlink($source); throw new RuntimeException('could not safely retain the uploaded account export for review'); }
+                $plan = accountMergePlan(db($current), $source);
+                if (!$plan['eligible']) { @unlink($source); throw new RuntimeException((string)$plan['reason']); }
+                $_SESSION['setup_account_merge'] = ['source' => $source, 'expires_at' => time() + 900];
+                $_SESSION['setup_account_merge_plan'] = $plan;
+                $_SESSION['setup_notice'] = 'Account collector merge reviewed. No data has changed; read the ranges and confirm before applying it.';
+            } else {
+                $review = $_SESSION['setup_account_merge'] ?? null;
+                $source = is_array($review) ? (string)($review['source'] ?? '') : '';
+                if ($source === '' || (int)($review['expires_at'] ?? 0) < time() || !is_file($source) || is_link($source)) throw new RuntimeException('the reviewed account export is no longer available; upload it again for a fresh review');
+                if (($_POST['writers_stopped'] ?? '') !== '1') throw new RuntimeException('confirm that all dashboard and collector writers are stopped before applying a merge');
+                if (($_POST['allow_overlap'] ?? '') !== '1') throw new RuntimeException('confirm that overlapping collector times may be deduplicated before applying a merge');
+                $result = accountMergeApply(db($current), $source, true);
+                @unlink($source); unset($_SESSION['setup_account_merge'], $_SESSION['setup_account_merge_plan']);
+                $_SESSION['setup_account_merge_result'] = $result;
+                $_SESSION['setup_notice'] = 'Account collector data merged. A private rollback snapshot was created before the transaction.';
+            }
+        } catch (Throwable $error) {
+            $_SESSION['setup_error'] = 'Could not complete the account merge: ' . $error->getMessage();
+        }
+        header('Location: ' . strtok((string)$_SERVER['REQUEST_URI'], '?') . '?section=maintenance', true, 303);
         return;
     }
 
@@ -1106,6 +1158,23 @@ function webPage(
                 . '<button type="submit" name="schedule_action" value="' . h($job . ':remove') . '"' . ($editingLocked || !$schedule['available'] || $php === '' ? ' disabled aria-disabled="true"' : '') . '>Remove</button>';
         }
         $out[] = '</fieldset>';
+    } elseif ($activeSection === 'maintenance') {
+        $review = $_SESSION['setup_account_merge'] ?? null;
+        $plan = $_SESSION['setup_account_merge_plan'] ?? null;
+        $out[] = '<fieldset><legend>Merge another account’s collector database</legend><p class="help">Upload an exported Zogograph account SQLite database to review it. The review reads only collector paths, vitals, scans, totals, and path sizes; it never copies accounts, passwords, alerts, settings, packages, or audit history. Nothing changes until you explicitly apply the reviewed merge.</p><input type="hidden" name="setup_account_merge_token" value="' . h(setupAccountMergeToken()) . '"><label>Exported account SQLite file<input required type="file" name="account_merge_source" accept="application/vnd.sqlite3,application/octet-stream,.db,.sqlite"></label><button type="submit" name="intent" value="review-account-merge">Review collector merge</button></fieldset>';
+        if (is_array($review) && is_array($plan) && ($plan['eligible'] ?? false) === true && (int)($review['expires_at'] ?? 0) >= time()) {
+            $out[] = '<fieldset><legend>Reviewed collector merge</legend><p class="help">This review expires in ' . h((string)max(0, (int)ceil(((int)$review['expires_at'] - time()) / 60))) . ' minutes. The live database is checked again when you apply it.</p><table class="preflight"><thead><tr><th>Collector data</th><th>Imported rows</th><th>Existing rows</th><th>Ranges overlap</th></tr></thead><tbody>';
+            foreach ((array)($plan['collector'] ?? []) as $kind => $evidence) {
+                $source = (array)($evidence['source'] ?? []); $target = (array)($evidence['target'] ?? []);
+                $range = static fn(array $range): string => ($range['first'] ?? null) === null ? 'none' : gmdate('Y-m-d H:i', (int)$range['first']) . '–' . gmdate('Y-m-d H:i', (int)$range['last']);
+                $out[] = '<tr><th>' . h(ucfirst((string)$kind)) . '</th><td>' . h((string)($source['rows'] ?? 0)) . ' · ' . h($range($source)) . '</td><td>' . h((string)($target['rows'] ?? 0)) . ' · ' . h($range($target)) . '</td><td>' . (($evidence['overlap'] ?? false) ? 'Yes — duplicates are skipped by timestamp' : 'No') . '</td></tr>';
+            }
+            $out[] = '</tbody></table><p class="help">Stop the account collector cron jobs and any dashboard writers first. Applying creates a private rollback snapshot, upgrades a private clone of the import when needed, then merges collector rows in one transaction.</p><label class="row"><input type="checkbox" name="writers_stopped" value="1"> I stopped all dashboard and collector writers.</label><label class="row"><input type="checkbox" name="allow_overlap" value="1"> I understand overlapping vitals and scans are deduplicated by timestamp.</label><input type="hidden" name="setup_account_merge_token" value="' . h(setupAccountMergeToken()) . '"><button type="submit" name="intent" value="apply-account-merge">Apply reviewed collector merge</button></fieldset>';
+        }
+        $result = $_SESSION['setup_account_merge_result'] ?? null;
+        if (is_array($result) && isset($result['vitals'], $result['scans'], $result['paths'])) {
+            $out[] = '<p class="banner ok"><strong>Last collector merge:</strong> ' . h((string)$result['paths']) . ' paths, ' . h((string)$result['vitals']) . ' vitals, and ' . h((string)$result['scans']) . ' scans added. A private rollback snapshot was retained.</p>';
+        }
     } elseif (is_array($activePanel) && $activePanel['kind'] === 'package') {
         try {
             $packageId = (string)$activePanel['feature'];
@@ -1172,7 +1241,7 @@ function webPage(
     }
     $out[] = '</section>';
 
-    if (!$editingLocked && !in_array($activeSection, ['basics', 'security', 'schedule'], true)
+    if (!$editingLocked && !in_array($activeSection, ['basics', 'security', 'schedule', 'maintenance'], true)
         && (!is_array($activePanel) || $activePanel['kind'] !== 'package')) {
         $out[] = '<button type="submit">Save ' . h($title) . '</button>';
     }

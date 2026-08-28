@@ -12220,7 +12220,7 @@ function showCustodyEnvelopeDialog(candidates) {
   ], async () => {
     if (!(await confirmDialog("Add an optional remote key-recovery envelope for this verified local artifact?\n\nThis is an extra recovery path, not a replacement for your local recovery key or a database upload. The configured custody service will receive a sealed data-key envelope only.", "Store remote recovery envelope"))) return;
     const result = await post("package-runtime-custody-envelope-store", { artifact_id: select.value, confirm: "store-remote-envelope" });
-    showListDialog("Remote custody envelope stored", [factGrid([["Artifact", result.artifact_id], ["State", result.result.state], ["Result", result.result.reason], ["Safety boundary", result.warning]])]);
+    showListDialog("Remote custody envelope stored", [factGrid([["Artifact", result.artifact_id], [packageText("table_state", {}, "State"), result.result.state], [packageText("table_result", {}, "Result"), result.result.reason], [packageText("table_safety", {}, "Safety boundary"), result.warning]])]);
     await refreshEncryptionStatus();
   }, ZogographI18n.t("encryption.store_optional_envelope", {}, "Store optional envelope"));
 }
@@ -12238,7 +12238,7 @@ function showCustodyRecoveryDrillDialog(candidates) {
   ], async () => {
     if (!(await confirmDialog("Run a non-destructive remote custody recovery drill for this artifact?\n\nThis asks custody to release one temporary data key solely to authenticate the existing sealed copy. The key and temporary plaintext are discarded.", "Run remote recovery drill"))) return;
     const result = await post("package-runtime-custody-recovery-drill", { artifact_id: select.value, confirm: "run-remote-recovery-drill" });
-    showListDialog("Remote custody recovery verified", [factGrid([["Artifact", result.artifact_id], ["State", result.result.state], ["Result", result.result.reason], ["Safety boundary", result.warning]])]);
+    showListDialog("Remote custody recovery verified", [factGrid([["Artifact", result.artifact_id], [packageText("table_state", {}, "State"), result.result.state], [packageText("table_result", {}, "Result"), result.result.reason], [packageText("table_safety", {}, "Safety boundary"), result.warning]])]);
     await refreshEncryptionStatus();
   }, ZogographI18n.t("encryption.run_recovery_drill", {}, "Run recovery drill"));
 }

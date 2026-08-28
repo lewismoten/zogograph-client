@@ -453,8 +453,11 @@ validate provenance and configuration without silently running new code.
 
 Package settings may contain opaque `secret_ref:` values, never a raw provider
 token or private key. Before creating one, configure **Package secrets key
-file** in setup: leave it blank to reuse the local sealed-copy key, or choose a
-separate absolute 0600 key file outside the web root for separate custody. The
-authenticated package API can create a reference once; it returns the reference
-but never the secret value. Losing that external key makes the referenced
-provider credential unrecoverable, so keep an offline recovery copy.
+file** in setup: leave it blank to reuse the local sealed-copy key, or use
+**Create a separate package-secrets key** to create
+`$HOME/.private/zogograph-package-secrets.key`. It uses the same private
+directory and Apache deny policy as the sealed-copy key. Enter that path in
+**Package secrets key file** and save it for separate custody. The authenticated
+package API can create a reference once; it returns the reference but never the
+secret value. Losing that external key makes the referenced provider credential
+unrecoverable, so keep an offline recovery copy.

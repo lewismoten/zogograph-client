@@ -218,6 +218,12 @@ function setupSuggestedPrivateKeyPath(): string
         : '/home/your-account/.private/zogograph.key';
 }
 
+/** Package credentials can use a separate key without needing another directory. */
+function setupSuggestedPackageSecretKeyPath(): string
+{
+    return dirname(setupSuggestedPrivateKeyPath()) . '/zogograph-package-secrets.key';
+}
+
 /** An empty quick-start field deliberately means “use the displayed default”. */
 function setupRequestedPrivateKeyPath(mixed $submittedPath): string
 {
@@ -226,9 +232,8 @@ function setupRequestedPrivateKeyPath(mixed $submittedPath): string
 }
 
 /** A link counts as occupied too: key creation must never follow or replace it. */
-function setupSuggestedPrivateKeyExists(): bool
+function setupPrivateKeyExists(string $path): bool
 {
-    $path = setupSuggestedPrivateKeyPath();
     return is_file($path) || is_link($path);
 }
 
@@ -295,7 +300,8 @@ function runWeb(
         return;
     }
 
-    if ($posted && ($_POST['intent'] ?? '') === 'create-local-key') {
+    if ($posted && in_array($_POST['intent'] ?? '', ['create-local-key', 'create-package-secret-key'], true)) {
+        $creatingPackageSecretKey = ($_POST['intent'] ?? '') === 'create-package-secret-key';
         $canCreate = $existing === null || $unlocked
             || mayOverwrite($existing, (string)($_POST['current_password'] ?? ''));
         if (!hash_equals(setupKeyCreateToken(), (string)($_POST['setup_key_create_token'] ?? ''))) {
@@ -304,8 +310,13 @@ function runWeb(
             $_SESSION['setup_error'] = 'Enter the current setup password before creating a new local key file.';
         } else {
             try {
-                encryptionCreateLocalKey(setupRequestedPrivateKeyPath($_POST['key_path'] ?? ''), $root);
-                $_SESSION['setup_notice'] = 'A new private local key file was created. Its contents were not shown or saved in the browser. Record an offline recovery copy before enabling encrypted copies.';
+                $path = $creatingPackageSecretKey
+                    ? setupSuggestedPackageSecretKeyPath()
+                    : setupRequestedPrivateKeyPath($_POST['key_path'] ?? '');
+                encryptionCreateLocalKey($path, $root);
+                $_SESSION['setup_notice'] = $creatingPackageSecretKey
+                    ? 'A separate private package-secrets key file was created. Its contents were not shown or saved in the browser. Enter its path in Package secrets key file and save that setting before storing package secrets.'
+                    : 'A new private local key file was created. Its contents were not shown or saved in the browser. Record an offline recovery copy before enabling encrypted copies.';
             } catch (Throwable $error) {
                 $_SESSION['setup_error'] = 'Could not create the local key file: ' . $error->getMessage();
             }
@@ -660,7 +671,9 @@ function webPage(
     $out[] = '<section class="setup-section"><h2>' . h($title) . '</h2>';
     if ($activeSection === 'basics') {
         $suggestedKeyPath = setupSuggestedPrivateKeyPath();
-        $suggestedKeyExists = setupSuggestedPrivateKeyExists();
+        $suggestedKeyExists = setupPrivateKeyExists($suggestedKeyPath);
+        $suggestedPackageSecretKeyPath = setupSuggestedPackageSecretKeyPath();
+        $suggestedPackageSecretKeyExists = setupPrivateKeyExists($suggestedPackageSecretKeyPath);
         $out[] = '<p class="help">The minimum needed to make this installation safe and useful. '
             . 'Save this first; the rest of the sections can then be adjusted independently.</p>';
         $out[] = '</form><details><summary>Create a local encryption key for verified encrypted copies</summary>'
@@ -682,6 +695,22 @@ function webPage(
                 : '')
             . '<button type="submit"' . ($suggestedKeyExists ? ' disabled aria-disabled="true"' : '')
             . '>Create private key file</button></form></details><form method="post">'
+            . '</form><details><summary>Create a separate package-secrets key</summary>'
+            . '<p class="help">Creates a second Base64 256-bit key in the same private directory for package '
+            . 'credentials. The directory uses the same owner-only permissions and Apache deny policy. After '
+            . 'creation, enter this path in <strong>Package secrets key file</strong> and save that setting '
+            . 'before storing package secrets.</p>'
+            . '<p class="help"><code>' . h($suggestedPackageSecretKeyPath) . '</code></p>'
+            . '<form method="post"><input type="hidden" name="intent" value="create-package-secret-key">'
+            . '<input type="hidden" name="setup_key_create_token" value="' . h(setupKeyCreateToken()) . '">'
+            . ($configured && !$unlocked
+                ? '<label>Current setup password<input type="password" name="current_password" autocomplete="current-password"></label>'
+                : '')
+            . ($suggestedPackageSecretKeyExists
+                ? '<p class="banner ok" role="status">Package-secrets key already exists at this location; this step is complete.</p>'
+                : '')
+            . '<button type="submit"' . ($suggestedPackageSecretKeyExists ? ' disabled aria-disabled="true"' : '')
+            . '>Create package-secrets key file</button></form></details><form method="post">'
             . '<input type="hidden" name="section" value="' . h($activeSection) . '">';
     } else {
         $help = sampleHelp($samplePath)['sections'][$activeSection] ?? '';

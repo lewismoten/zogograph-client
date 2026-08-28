@@ -115,6 +115,8 @@
   "merge.review": "Review collector merge",
   "merge.reviewed_title": "Reviewed collector merge",
   "merge.apply": "Apply reviewed collector merge",
+  "merge.upload_intro": "Upload an exported Zogograph account SQLite database to review it. The review reads only collector paths, vitals, scans, totals, and path sizes; it never copies accounts, passwords, alerts, settings, packages, or audit history. Nothing changes until you explicitly apply the reviewed merge.",
+  "merge.export_file": "Exported account SQLite file",
   "brand.tagline": "clear server monitoring",
   "dashboard.refresh": "Refresh now",
   "dashboard.refresh_status": "Collector status; refresh now",

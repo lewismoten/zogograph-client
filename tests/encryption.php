@@ -87,6 +87,11 @@ try {
         'setup does not provide a guarded local encryption-key quick start');
 
     $sample = require __DIR__ . '/../lib/config.sample.php';
+    $sampleText = file_get_contents(__DIR__ . '/../lib/config.sample.php');
+    encryptionExpect(is_string($sample['scan_root'] ?? null) && str_starts_with($sample['scan_root'], '/')
+        && $sampleText !== false && str_contains($sampleText, 'posix_getpwuid')
+        && str_contains($sampleText, "realpath(__DIR__ . '/..')"),
+        'scan-root default does not derive from the service account or installation directory');
     $fields = array_column(configFields($sample), null, 'key');
     encryptionExpect(($sample['encryption']['stores'] ?? []) === ['config', 'setup', 'account'],
         'quick-install encryption defaults included optional host or assistant stores');

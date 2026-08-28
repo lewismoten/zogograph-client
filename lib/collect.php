@@ -715,7 +715,7 @@ function runScan(array $config, PDO $pdo): array
  * published at /etc/apache2/logs/domlogs/site and again under a per-account
  * directory - and `ls -l` gives it away with a link count of 2:
  *
- *     -rw-r----- 2 root regaldra 199M ... git.lewismoten.com-ssl_log
+ *     -rw-r----- 2 root account 199M ... git.lewismoten.com-ssl_log
  *
  * Adding both paths up reports 398 MB of disk that does not exist, and the
  * error compounds: the totals are wrong, the category is wrong, the growth

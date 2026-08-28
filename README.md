@@ -1587,8 +1587,8 @@ sqlite3 data/stats.db "
 A hard link is not a copy. Two directory entries can point at one inode, sharing
 a single allocation on disk, and `ls -l` gives it away only in the link count:
 
-    -rw-r----- 2 root regaldra 199M ... domlogs/git.lewismoten.com-ssl_log
-    -rw-r----- 2 root regaldra 199M ... domlogs/regaldra/git.lewismoten.com-ssl_log
+    -rw-r----- 2 root account 199M ... domlogs/git.lewismoten.com-ssl_log
+    -rw-r----- 2 root account 199M ... domlogs/account/git.lewismoten.com-ssl_log
 
 Apache does exactly this — the same log published flat and again under a
 per-account directory. Both names report 199 MiB because both describe the same
@@ -1619,7 +1619,7 @@ row per physical file, with the other names beneath it:
 
 | Path | Size | Names |
 |---|---|---|
-| `…/domlogs/git.lewismoten.com-ssl_log`<br>*also at `…/domlogs/regaldra/git.lewismoten.com-ssl_log`* | 199 MiB | 2 paths, 1 file |
+| `…/domlogs/git.lewismoten.com-ssl_log`<br>*also at `…/domlogs/account/git.lewismoten.com-ssl_log`* | 199 MiB | 2 paths, 1 file |
 
 and under the table, `250 MiB across 2 files, reached by 3 paths.` Where a file
 has more links than the watch list can see, it says so — `2 here of 5` — because

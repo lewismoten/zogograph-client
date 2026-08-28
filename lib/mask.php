@@ -12,7 +12,7 @@ declare(strict_types=1);
  * requests, or a chart of one file's growth is meaningless and the table
  * reshuffles its own labels every poll. So it is a keyed hash of the path
  * rather than a counter. Keyed, because an unkeyed hash of a path is a
- * confirmation oracle: anyone who guesses "/home/regaldra/logs/error.log" can
+ * confirmation oracle: anyone who guesses "/home/account/logs/error.log" can
  * hash it and check.
  */
 

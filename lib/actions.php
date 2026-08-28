@@ -56,8 +56,8 @@ function resolveDeletable(array $config, string $requested): string
         throw new ActionRefused('scan root does not resolve');
     }
 
-    // The trailing separator matters: without it "/home/regaldra-old" passes a
-    // prefix test against "/home/regaldra".
+    // The trailing separator matters: without it "/home/account-old" passes a
+    // prefix test against "/home/account".
     if ($real !== $root && !str_starts_with($real . '/', rtrim($root, '/') . '/')) {
         throw new ActionRefused('outside the scan root');
     }

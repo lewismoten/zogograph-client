@@ -11,10 +11,28 @@ declare(strict_types=1);
  *   php -r 'echo bin2hex(random_bytes(32)), "\n";'
  */
 
+$defaultScanRoot = static function (): string {
+    $home = getenv('HOME');
+    if (!is_string($home) || $home === '' || $home[0] !== '/') {
+        $home = '';
+        if (function_exists('posix_geteuid') && function_exists('posix_getpwuid')) {
+            $account = @posix_getpwuid(posix_geteuid());
+            $home = is_array($account) ? (string)($account['dir'] ?? '') : '';
+        }
+    }
+    if ($home !== '' && $home[0] === '/') {
+        return rtrim($home, '/') ?: '/';
+    }
+
+    // A constrained PHP environment may disclose neither account home nor HOME.
+    // Watching the installed application is safer than assuming another account.
+    return realpath(__DIR__ . '/..') ?: dirname(__DIR__);
+};
+
 return [
     // What to walk. Everything the monitor reports lives under here, and every
     // destructive action is refused outside it.
-    'scan_root' => getenv('HOME') ?: '/home/regaldra',
+    'scan_root' => $defaultScanRoot(),
     'timezone' => 'America/New_York',
 
     'database' => __DIR__ . '/../data/stats.db',

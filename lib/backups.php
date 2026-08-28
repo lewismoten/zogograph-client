@@ -531,7 +531,7 @@ function backupsByAccount(array $byPath, array $jet, array $roots, int $totalByt
          * silently reported no accounts at all.
          *
          * The deepest match wins, because the size recorded against
-         * /backup/x/regaldra is that account's and the size against /backup/x
+         * /backup/x/account is that account's and the size against /backup/x
          * is everybody's.
          */
         foreach ($byPath as $path => $row) {

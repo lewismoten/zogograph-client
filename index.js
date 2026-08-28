@@ -12332,43 +12332,50 @@ async function showMarketplaceHistory(row) {
   } catch (error) { notice(String(error.message || error)); }
 }
 
+function peerText(key, values = {}, fallback = "") {
+  return ZogographI18n.t(`peer.${key}`, values, fallback);
+}
+
+function peerPercent(value) {
+  return new Intl.NumberFormat(document.documentElement.lang || undefined, {maximumFractionDigits: 1, minimumFractionDigits: 1}).format(Number(value)) + "%";
+}
+
 function renderPeers(data) {
   const body = $("peersAdminBody");
   const parts = [];
   const capacity = data.capacity || { name: "Free", remote_host_limit: 3, used: data.rows.length, remaining: 0 };
-  parts.push(note(`${capacity.name} edition: controller plus ${capacity.remote_host_limit} remote hosts. `
-    + `${count(capacity.used, "remote host")} configured; ${capacity.remaining} remaining.`));
+  parts.push(note(peerText("capacity", { edition: capacity.name, limit: capacity.remote_host_limit, used: capacity.used, remaining: capacity.remaining }, `${capacity.name} edition: controller plus ${capacity.remote_host_limit} remote hosts. ${count(capacity.used, "remote host")} configured; ${capacity.remaining} remaining.`)));
   const add = document.createElement("button");
   add.type = "button";
   add.className = "primary";
-  add.textContent = "Add trusted server";
+  add.textContent = peerText("add", {}, "Add trusted server");
   add.disabled = !data.writable || capacity.remaining === 0;
   add.title = capacity.remaining === 0
-    ? "This edition has reached its remote-host limit. Remove or replace a server to free a slot."
-    : "Add a trusted remote Zogograph server.";
+    ? peerText("capacity_reached", {}, "This edition has reached its remote-host limit. Remove or replace a server to free a slot.")
+    : peerText("add_help", {}, "Add a trusted remote Zogograph server.");
   add.addEventListener("click", () => showPeerDialog());
   parts.push(add);
 
   if (!data.rows.length) {
-    parts.push(note("No trusted servers are configured yet."));
+    parts.push(note(peerText("none", {}, "No trusted servers are configured yet.")));
   } else {
     const holder = document.createElement("div");
     holder.id = "peerTable";
     parts.push(holder);
     body.replaceChildren(...parts);
     renderTable("peerTable", data.rows, [
-      { label: "Server", className: "name", render: row => row.description || row.tags?.length
+      { label: peerText("table_server", {}, "Server"), className: "name", render: row => row.description || row.tags?.length
         ? `${row.label} — ${[row.description, row.tags?.join(", ")].filter(Boolean).join(" · ")}` : row.label },
-      { label: "Issuer", className: "cmd", render: row => row.has_oidc ? row.issuer : "not configured" },
-      { label: "Client", render: row => row.has_oidc ? row.client_id : "—" },
-      { label: "Secret", render: row => row.has_oidc ? "configured" : "not needed" },
-      { label: "Transport", render: row => !row.transport_configured ? "not paired"
-        : row.transport_pending_until ? `awaiting first delivery (${ago(row.transport_pending_until)})` : "paired" },
-      { label: "Last delivery", render: row => row.last_received_at ? ago(row.last_received_at) : "none yet" },
-      { label: "CPU", render: row => row.remote_vitals?.vitals?.cpu_percent == null ? "—" : `${Number(row.remote_vitals.vitals.cpu_percent).toFixed(1)}%` },
-      { label: "Memory", render: row => row.remote_vitals?.vitals?.mem_used_percent == null ? "—" : `${Number(row.remote_vitals.vitals.mem_used_percent).toFixed(1)}%` },
-      { label: "Disk free", render: row => row.remote_vitals?.vitals?.disk_free_bytes == null ? "—" : humanBytes(row.remote_vitals.vitals.disk_free_bytes) },
-      { label: "Connected", render: row => row.connected_as || "not connected" },
+      { label: peerText("table_issuer", {}, "Issuer"), className: "cmd", render: row => row.has_oidc ? row.issuer : peerText("not_configured", {}, "not configured") },
+      { label: peerText("table_client", {}, "Client"), render: row => row.has_oidc ? row.client_id : "—" },
+      { label: peerText("table_secret", {}, "Secret"), render: row => row.has_oidc ? peerText("configured", {}, "configured") : peerText("not_needed", {}, "not needed") },
+      { label: peerText("table_transport", {}, "Transport"), render: row => !row.transport_configured ? peerText("not_paired", {}, "not paired")
+        : row.transport_pending_until ? peerText("awaiting_delivery", { elapsed: ago(row.transport_pending_until) }, `awaiting first delivery (${ago(row.transport_pending_until)})`) : peerText("paired", {}, "paired") },
+      { label: peerText("table_last_delivery", {}, "Last delivery"), render: row => row.last_received_at ? ago(row.last_received_at) : peerText("none_yet", {}, "none yet") },
+      { label: peerText("table_cpu", {}, "CPU"), render: row => row.remote_vitals?.vitals?.cpu_percent == null ? "—" : peerPercent(row.remote_vitals.vitals.cpu_percent) },
+      { label: peerText("table_memory", {}, "Memory"), render: row => row.remote_vitals?.vitals?.mem_used_percent == null ? "—" : peerPercent(row.remote_vitals.vitals.mem_used_percent) },
+      { label: peerText("table_disk_free", {}, "Disk free"), render: row => row.remote_vitals?.vitals?.disk_free_bytes == null ? "—" : humanBytes(row.remote_vitals.vitals.disk_free_bytes) },
+      { label: peerText("table_connected", {}, "Connected"), render: row => row.connected_as || peerText("not_connected", {}, "not connected") },
       {
         label: "",
         className: "row-actions",
@@ -12376,42 +12383,42 @@ function renderPeers(data) {
           const wrap = document.createDocumentFragment();
           const test = document.createElement("button");
           test.className = "link";
-          test.textContent = "Test";
+          test.textContent = peerText("test", {}, "Test");
           test.disabled = !row.has_oidc;
-          test.title = row.has_oidc ? "Test OIDC discovery" : "Remote delivery is configured separately from OIDC.";
+          test.title = row.has_oidc ? peerText("test_oidc", {}, "Test OIDC discovery") : peerText("delivery_separate", {}, "Remote delivery is configured separately from OIDC.");
           test.addEventListener("click", async () => {
             try {
               const result = await post("peer-test", { name: row.name });
-              notice(result.ok ? `Connected to ${result.issuer}.` : result.error, result.ok);
+              notice(result.ok ? peerText("connected_to", { issuer: result.issuer }, `Connected to ${result.issuer}.`) : result.error, result.ok);
             } catch (error) { notice(String(error.message || error)); }
           });
           const connect = document.createElement("a");
           connect.className = "link";
           connect.href = `peer-connect.php?peer=${encodeURIComponent(row.name)}`;
-          connect.textContent = row.connected_as ? "Reconnect" : "Connect";
+          connect.textContent = row.connected_as ? peerText("reconnect", {}, "Reconnect") : peerText("connect", {}, "Connect");
           connect.hidden = !row.has_oidc;
           const read = document.createElement("button");
           read.className = "link";
-          read.textContent = "View data";
+          read.textContent = peerText("view_data", {}, "View data");
           read.disabled = !row.connected_as;
           read.addEventListener("click", async () => {
             try {
               const result = await post("peer-read", { name: row.name });
               const vital = result.vitals || {};
-              showListDialog(`${result.host || row.label} overview`, [
+              showListDialog(peerText("overview_title", { name: result.host || row.label }, `${result.host || row.label} overview`), [
                 factGrid([
-                  ["Collected", result.taken_at ? humanTime(result.taken_at) : "nothing collected"],
-                  ["Disk free", vital.disk_free_bytes == null ? "—" : humanBytes(vital.disk_free_bytes)],
-                  ["CPU", vital.cpu_percent == null ? "—" : `${Number(vital.cpu_percent).toFixed(1)}%`],
-                  ["Memory", vital.mem_used_percent == null ? "—" : `${Number(vital.mem_used_percent).toFixed(1)}%`],
-                  ["Load", vital.load1 == null ? "—" : String(vital.load1)],
+                  [peerText("collected", {}, "Collected"), result.taken_at ? humanTime(result.taken_at) : peerText("nothing_collected", {}, "nothing collected")],
+                  [peerText("table_disk_free", {}, "Disk free"), vital.disk_free_bytes == null ? "—" : humanBytes(vital.disk_free_bytes)],
+                  [peerText("table_cpu", {}, "CPU"), vital.cpu_percent == null ? "—" : peerPercent(vital.cpu_percent)],
+                  [peerText("table_memory", {}, "Memory"), vital.mem_used_percent == null ? "—" : peerPercent(vital.mem_used_percent)],
+                  [peerText("load", {}, "Load"), vital.load1 == null ? "—" : String(vital.load1)],
                 ]),
               ]);
             } catch (error) { notice(String(error.message || error)); }
           });
           const edit = document.createElement("button");
           edit.className = "link";
-          edit.textContent = "Edit";
+          edit.textContent = peerText("edit", {}, "Edit");
           edit.addEventListener("click", () => showPeerDialog(row));
           const rotate = document.createElement("button");
           rotate.className = "link";

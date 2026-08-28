@@ -33,6 +33,11 @@ i18nExpect($script !== false && str_contains($script, 'marketplaceText("discover
     && str_contains($script, 'marketplaceText("toggle_confirmation"') && str_contains($script, 'marketplaceText("restore_confirmation"')
     && is_array($english) && isset($english['marketplace.discovery_notice'], $english['marketplace.ignored_manifests'], $english['marketplace.search_label'], $english['marketplace.toggle_confirmation'], $english['marketplace.restore_confirmation']),
     'marketplace controls do not use translatable catalog messages');
+i18nExpect($script !== false && str_contains($script, 'function peerText(')
+    && str_contains($script, 'peerText("table_transport"') && str_contains($script, 'peerText("overview_title"')
+    && str_contains($script, 'function peerPercent(') && is_array($english)
+    && isset($english['peer.capacity'], $english['peer.table_transport'], $english['peer.overview_title']),
+    'trusted-server controls do not use locale-aware catalog messages');
 i18nExpect($script !== false && str_contains($script, 'ZogographI18n.t("encryption.custody_notice"')
     && str_contains($script, 'ZogographI18n.t("diagnosis.ignore_confirm"')
     && str_contains($script, 'ZogographI18n.t("diagnosis.ignore_success"'),

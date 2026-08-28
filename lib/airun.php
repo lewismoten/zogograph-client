@@ -30,6 +30,7 @@ require_once __DIR__ . '/logwatch.php';
 require_once __DIR__ . '/aicharts.php';
 require_once __DIR__ . '/aimemory.php';
 require_once __DIR__ . '/terminal.php';
+require_once __DIR__ . '/core-features.php';
 require_once __DIR__ . '/hostdb.php';
 require_once __DIR__ . '/hostdisk.php';
 require_once __DIR__ . '/symlinks.php';
@@ -1482,6 +1483,13 @@ function terminalToolbox(): array
  */
 function aiTerminalTools(array $config, PDO $pdo): array
 {
+    if (!coreFeatureEnabled($config, 'terminal')) {
+        return [
+            'terminal_available' => false,
+            'why' => 'The Terminal core feature is disabled.',
+            'note' => 'Do not suggest terminal commands or read terminal evidence while this feature is disabled.',
+        ];
+    }
     $settings = terminalSettings($config, $pdo);
 
     if (!$settings['can']) {
@@ -1728,6 +1736,9 @@ function aiHostJobs(array $config, PDO $pdo): array
  */
 function aiTerminalCommands(array $config, array $values): array
 {
+    if (!coreFeatureEnabled($config, 'terminal')) {
+        return ['error' => 'The Terminal core feature is disabled.'];
+    }
     $sessions = terminalSessions($config);
     if ($sessions === []) {
         return [
@@ -1773,6 +1784,9 @@ function aiTerminalCommands(array $config, array $values): array
  */
 function aiTerminalOutput(array $config, array $values): array
 {
+    if (!coreFeatureEnabled($config, 'terminal')) {
+        return ['error' => 'The Terminal core feature is disabled.'];
+    }
     $sessions = terminalSessions($config);
     if ($sessions === []) {
         return ['error' => 'Nothing has been run in the terminal.'];

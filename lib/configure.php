@@ -72,6 +72,15 @@ function configFields(array $sample): array
             'default' => (bool)($sample['core_features']['marketplace'] ?? true),
         ],
         [
+            'key' => 'core_features_terminal',
+            'section' => 'features',
+            'path' => ['core_features', 'terminal'],
+            'type' => 'bool',
+            'label' => 'Terminal core feature',
+            'help' => 'Disabling this removes the Terminal and its sessions from the dashboard, blocks its API routes, and prevents assistant tools from reading terminal history. Existing private terminal evidence is retained for a later re-enable.',
+            'default' => (bool)($sample['core_features']['terminal'] ?? true),
+        ],
+        [
             'key' => 'openid_enabled',
             'section' => 'openid',
             'path' => ['openid', 'enabled'],

@@ -543,6 +543,8 @@
   "marketplace.install_path_hygiene": "ثبّت فحص سلامة أسماء المسارات",
   "marketplace.none_found": "لم يُعثر على بيانات حزم محلية صالحة.",
   "marketplace.search_placeholder": "ابحث عن الحزم أو الناشرين أو القدرات",
+  "log.search_placeholder": "النص المطلوب العثور عليه",
+  "assistant.prompt_placeholder": "ما الذي يحدث بشكل خاطئ؟",
   "marketplace.search_label": "ابحث في حزم السوق",
   "marketplace.no_matches": "لا توجد حزم في السوق تطابق هذا البحث.",
   "marketplace.table_package": "الحزمة",

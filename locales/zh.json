@@ -543,6 +543,8 @@
   "marketplace.install_path_hygiene": "安装路径名称规范检查",
   "marketplace.none_found": "未找到有效的本地软件包清单。",
   "marketplace.search_placeholder": "搜索软件包、发布者或功能",
+  "log.search_placeholder": "要查找的文本",
+  "assistant.prompt_placeholder": "出了什么问题？",
   "marketplace.search_label": "搜索市场软件包",
   "marketplace.no_matches": "没有市场软件包符合该搜索条件。",
   "marketplace.table_package": "软件包",

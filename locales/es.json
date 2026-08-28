@@ -547,6 +547,8 @@
   "marketplace.install_path_hygiene": "Instalar higiene de nombres de ruta",
   "marketplace.none_found": "No se encontraron manifiestos de paquetes locales válidos.",
   "marketplace.search_placeholder": "Buscar paquetes, editores o capacidades",
+  "log.search_placeholder": "texto que buscar",
+  "assistant.prompt_placeholder": "¿Qué está fallando?",
   "marketplace.search_label": "Buscar paquetes del mercado",
   "marketplace.no_matches": "Ningún paquete del mercado coincide con esa búsqueda.",
   "marketplace.table_package": "Paquete",

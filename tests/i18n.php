@@ -62,6 +62,8 @@ i18nExpect($setup !== false && str_contains($setup, 'data-i18n="setup.save"'),
 i18nExpect($setup !== false && str_contains($setup, 'data-i18n="setup.copy_config"')
     && str_contains($setup, 'data-i18n="setup.copy_config_help"'),
     'Setup configuration export guidance is not localized');
+i18nExpect($setup !== false && str_contains($setup, 'data-i18n="setup.new_mask_warning"'),
+    'Setup configuration export mask warning is not localized');
 i18nExpect($setup !== false && str_contains($setup, 'setupRenderPackageSettingsPanel')
     && str_contains($setup, 'data-package-settings-target') && str_contains($setup, 'save-package-settings:')
     && str_contains($setup, 'data-i18n="package.save_settings"') && str_contains($setup, 'data-i18n="package.no_reference"'),

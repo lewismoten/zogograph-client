@@ -34,6 +34,7 @@
   "setup.save": "सहेजें",
   "setup.copy_config": "इसे lib/config.php में कॉपी करें",
   "setup.copy_config_help": "यह पूरी फ़ाइल को बदलता है। इसे पहुँच से दूर रखें — lib/.htaccess पहले से इस निर्देशिका को अस्वीकार करता है।",
+  "setup.new_mask_warning": "इस पाठ में नया मास्क रहस्य है, इसलिए इसका उपयोग डैशबोर्ड के हर मास्क किए गए पथ का नाम बदल देता है।",
   "setup.installation": "स्थापना",
   "installation.checks": "स्थापना जांच", "installation.check": "जांच", "installation.state": "स्थिति", "installation.detail": "विवरण",
   "setup.section.privacy": "गोपनीयता",

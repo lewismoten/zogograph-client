@@ -34,6 +34,7 @@
   "setup.save": "Guardar",
   "setup.copy_config": "Copie esto en lib/config.php",
   "setup.copy_config_help": "Reemplaza el archivo completo. Manténgalo fuera de alcance: lib/.htaccess ya deniega el directorio.",
+  "setup.new_mask_warning": "Este texto contiene un nuevo secreto de enmascaramiento; al usarlo se cambia el nombre de cada ruta enmascarada del panel.",
   "setup.installation": "Instalación",
   "installation.checks": "Comprobaciones de instalación",
   "installation.check": "Comprobación",

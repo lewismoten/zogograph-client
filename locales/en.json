@@ -34,6 +34,7 @@
   "setup.save": "Save",
   "setup.copy_config": "Copy this into lib/config.php",
   "setup.copy_config_help": "Replacing the whole file. Keep it out of reach — lib/.htaccess already denies the directory.",
+  "setup.new_mask_warning": "This text carries a new mask secret, so using it renames every masked path on the dashboard.",
   "setup.installation": "Installation",
   "installation.checks": "Installation checks",
   "installation.check": "Check",

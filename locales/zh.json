@@ -34,6 +34,7 @@
   "setup.save": "保存",
   "setup.copy_config": "将此内容复制到 lib/config.php",
   "setup.copy_config_help": "这会替换整个文件。请将其置于不可访问处：lib/.htaccess 已拒绝访问该目录。",
+  "setup.new_mask_warning": "此文本包含新的掩码密钥，使用它会重命名仪表板上的每个掩码路径。",
   "setup.installation": "安装",
   "installation.checks": "安装检查", "installation.check": "检查项", "installation.state": "状态", "installation.detail": "详情",
   "setup.section.privacy": "隐私",

@@ -152,8 +152,10 @@ foreach (['en-US', 'en-GB', 'es', 'hi', 'zh', 'ar'] as $locale) {
     }
 }
 foreach (array_keys(array_filter($english, static fn(mixed $value, string $key): bool => str_starts_with($key, 'setup.field.'), ARRAY_FILTER_USE_BOTH)) as $key) {
-    $spanish = json_decode((string)file_get_contents($root . '/locales/es.json'), true);
-    i18nExpect(is_array($spanish) && isset($spanish[$key]), "Spanish catalog lacks schema-driven Setup field $key");
+    foreach (['es' => 'Spanish', 'hi' => 'Hindi'] as $locale => $language) {
+        $catalog = json_decode((string)file_get_contents($root . '/locales/' . $locale . '.json'), true);
+        i18nExpect(is_array($catalog) && isset($catalog[$key]), "$language catalog lacks schema-driven Setup field $key");
+    }
 }
 foreach (['navigation.charts', 'navigation.storage', 'navigation.backups', 'navigation.cpu', 'navigation.memory', 'navigation.processes', 'navigation.network', 'navigation.deleted_held', 'navigation.cpu_limits'] as $key) {
     i18nExpect($page !== false && str_contains($page, 'data-i18n="' . $key . '"'), "dashboard navigation does not use $key");

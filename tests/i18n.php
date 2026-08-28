@@ -166,8 +166,10 @@ foreach (array_keys(array_filter($english, static fn(mixed $value, string $key):
     }
 }
 foreach (array_keys(array_filter($english, static fn(mixed $value, string $key): bool => str_starts_with($key, 'setup.help.'), ARRAY_FILTER_USE_BOTH)) as $key) {
-    $spanish = json_decode((string)file_get_contents($root . '/locales/es.json'), true);
-    i18nExpect(is_array($spanish) && isset($spanish[$key]), "Spanish catalog lacks schema-driven Setup help $key");
+    foreach (['es' => 'Spanish', 'hi' => 'Hindi'] as $locale => $language) {
+        $catalog = json_decode((string)file_get_contents($root . '/locales/' . $locale . '.json'), true);
+        i18nExpect(is_array($catalog) && isset($catalog[$key]), "$language catalog lacks schema-driven Setup help $key");
+    }
 }
 foreach ($schemaFields as $field) {
     $fieldKey = (string)$field['key'];

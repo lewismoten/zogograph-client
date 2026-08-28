@@ -29,6 +29,7 @@
   "setup.keep_setup": "Mantenga setup.php disponible para cambios posteriores del administrador. Requiere la contraseña actual antes de poder reemplazar su configuración.",
   "setup.root_step": "Un paso más, como root.",
   "setup.root_install_help": "El recopilador del host no puede instalarse desde aquí: se ejecuta como root y esta página se ejecuta como su cuenta. Inicie sesión en WHM o por SSH como root y añada esto al crontab de root (crontab -e):",
+  "setup.root_verify_help": "Después ejecútelo una vez manualmente para comprobar que funciona, sin la programación y sin --quiet para que le indique lo que encontró:",
   "setup.installation": "Instalación",
   "installation.checks": "Comprobaciones de instalación",
   "installation.check": "Comprobación",

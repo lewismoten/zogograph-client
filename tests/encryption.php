@@ -84,7 +84,7 @@ try {
         && str_contains($setupPage, 'setupRequestedPrivateKeyPath')
         && str_contains($setupPage, 'setupSuggestedPackageSecretKeyPath')
         && str_contains($setupPage, 'create-package-secret-key')
-        && str_contains($setupPage, 'Create a separate package-secrets key')
+        && str_contains($setupPage, '<legend>Package secrets key</legend>')
         && str_contains($setupPage, 'Suggested location:')
         && str_contains($setupPage, '$field[\'key\'] === \'package_runtime_secret_key_file\'')
         && str_contains($setupPage, 'leave blank to use this location')

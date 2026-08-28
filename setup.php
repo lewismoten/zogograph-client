@@ -237,11 +237,11 @@ function setupPrivateKeyExists(string $path): bool
     return is_file($path) || is_link($path);
 }
 
-/** Inline action shown beside the setting that consumes this separate key. */
-function packageSecretKeyQuickStart(string $path, bool $exists, bool $canCreate): string
+/** Groups the package-key setting with the action that provisions its value. */
+function packageSecretKeyQuickStart(string $field, string $path, bool $exists, bool $canCreate): string
 {
-    $out = '<fieldset><legend>Create a separate package-secrets key</legend>'
-        . '<p class="help">Optional separate custody for package credentials. It will be created in the '
+    $out = '<fieldset><legend>Package secrets key</legend>' . $field
+        . '<p class="help">Create a separate key for optional separate custody of package credentials. It will be created in the '
         . 'same hidden private directory as the primary encryption key, with owner-only permissions and '
         . 'an Apache deny policy.</p><p class="help">Suggested location: <code>' . h($path) . '</code></p>'
         . '<input type="hidden" name="setup_key_create_token" value="' . h(setupKeyCreateToken()) . '">';
@@ -721,13 +721,15 @@ function webPage(
     }
     foreach ($fields as $field) {
         if (fieldIsInSection($field, $activeSection)) {
-            $out[] = renderField($field, $values, $errors, $configured);
             if ($field['key'] === 'package_runtime_secret_key_file') {
                 $out[] = packageSecretKeyQuickStart(
+                    renderField($field, $values, $errors, $configured),
                     $suggestedPackageSecretKeyPath,
                     $suggestedPackageSecretKeyExists,
                     !$configured || $unlocked
                 );
+            } else {
+                $out[] = renderField($field, $values, $errors, $configured);
             }
         }
     }

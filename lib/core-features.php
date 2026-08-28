@@ -41,6 +41,10 @@ const CORE_FEATURES = [
         'dashboard_routes' => ['deletions'],
         'setup_section' => 'features',
     ],
+    'metadata' => [
+        'dashboard_routes' => ['net-labels', 'sys-descriptions'],
+        'setup_section' => 'features',
+    ],
 ];
 
 /** Missing settings deliberately preserve existing installations. */
@@ -73,6 +77,8 @@ function coreFeatureForAction(string $action): ?string
     if ($action === 'problems' || $action === 'clear-problems') return 'problems';
     if ($action === 'store' || str_starts_with($action, 'store-')) return 'storage';
     if ($action === 'actions' || $action === 'clear-audit') return 'audit';
+    if ($action === 'labels' || str_starts_with($action, 'label-') || $action === 'descriptions'
+        || str_starts_with($action, 'description-')) return 'metadata';
     return null;
 }
 

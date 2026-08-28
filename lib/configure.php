@@ -117,6 +117,15 @@ function configFields(array $sample): array
             'default' => (bool)($sample['core_features']['audit'] ?? true),
         ],
         [
+            'key' => 'core_features_metadata',
+            'section' => 'features',
+            'path' => ['core_features', 'metadata'],
+            'type' => 'bool',
+            'label' => 'Custom names and descriptions core feature',
+            'help' => 'Disabling this removes Custom names and What things are from the dashboard and blocks their API routes. Existing labels and descriptions are retained for a later re-enable.',
+            'default' => (bool)($sample['core_features']['metadata'] ?? true),
+        ],
+        [
             'key' => 'openid_enabled',
             'section' => 'openid',
             'path' => ['openid', 'enabled'],

@@ -61,14 +61,14 @@ try {
         'runtime' => ['kind' => 'hostscope-isolated-php-package', 'entrypoint' => 'src/Provider.php', 'provider_class' => 'TestRuntime\\Provider', 'operations' => ['capability'], 'minimum_api' => '1.0'],
         'settings_schema' => 'settings.schema.json',
         'locales' => ['es' => 'locales/es.json'],
-        'dashboard_pages' => [['id' => 'status', 'title' => 'Package status', 'summary' => 'A core-rendered package status page.', 'parent' => 'storage', 'keywords' => ['package', 'status']]],
+        'dashboard_pages' => [['id' => 'status', 'title' => 'Package status', 'summary' => 'A core-rendered package status page.', 'title_key' => 'test-runtime.page.title', 'summary_key' => 'test-runtime.page.summary', 'parent' => 'storage', 'keywords' => ['package', 'status']]],
         'setup_panels' => [
             ['id' => 'test-runtime-settings', 'title' => 'Test runtime settings', 'keywords' => ['retention']],
             ['id' => 'test-runtime-security', 'title' => 'Test runtime security', 'parent' => 'security', 'keywords' => ['security']],
         ],
         'data' => ['migrations' => ['migrations/001-private-evidence.sql']],
     ];
-    mkdir($source . '/locales', 0700, true); file_put_contents($source . '/locales/es.json', json_encode(['test-runtime.greeting' => 'Hola'], JSON_THROW_ON_ERROR));
+    mkdir($source . '/locales', 0700, true); file_put_contents($source . '/locales/es.json', json_encode(['test-runtime.greeting' => 'Hola', 'test-runtime.page.title' => 'Estado del paquete', 'test-runtime.page.summary' => 'Una página del paquete renderizada por el núcleo.'], JSON_THROW_ON_ERROR));
     $signed = packageSignManifest($manifest, $source, 'test-publisher', sodium_crypto_sign_secretkey($pair));
     file_put_contents($source . '/manifest.json', json_encode($signed, JSON_THROW_ON_ERROR));
     if (function_exists('proc_open')) {
@@ -167,7 +167,8 @@ try {
     runtimeExpect($after['enabled'] && str_starts_with($after['state'], 'registered; platform requirements are met'), 'package was not registered after explicit grant');
     runtimeExpect((packageRuntimeLocaleCatalogs($pdo)['test-runtime']['es']['test-runtime.greeting'] ?? '') === 'Hola', 'enabled package locale catalog was not available through the data-only bridge');
     runtimeExpect((packageRuntimeDashboardPages($pdo)[0]['route'] ?? '') === 'package-test-runtime-status'
-        && (packageRuntimeDashboardPages($pdo)[0]['parent'] ?? null) === 'storage', 'enabled package dashboard page was not available through the core shell bridge');
+        && (packageRuntimeDashboardPages($pdo)[0]['parent'] ?? null) === 'storage'
+        && (packageRuntimeDashboardPages($pdo)[0]['title_key'] ?? null) === 'test-runtime.page.title', 'enabled package dashboard page was not available through the core shell bridge');
     $dependentManifest = $signed; $dependentManifest['dependencies'] = ['missing-runtime'];
     $pdo->prepare('UPDATE runtime_packages SET manifest_json = ? WHERE package_id = ?')->execute([json_encode($dependentManifest, JSON_THROW_ON_ERROR), 'test-runtime']);
     $dependent = packageRuntimePackages($pdo)[0];

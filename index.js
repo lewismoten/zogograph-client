@@ -11907,20 +11907,21 @@ async function loadPackageDashboardPages() {
 function addPackageDashboardPage(page) {
   if (!page || VIEWS[page.route] || !/^[a-z][a-z0-9-]{3,190}$/.test(page.route)) return;
   const parent = typeof page.parent === "string" && VIEWS[page.parent] ? page.parent : "sys-packages";
-  VIEWS[page.route] = { manual: true, label: page.title, parent, packagePage: true, refresh: () => renderPackageDashboardPage(page.route) };
+  const title = page.title_key ? ZogographI18n.t(page.title_key, {}, page.title) : page.title;
+  VIEWS[page.route] = { manual: true, label: title, parent, packagePage: true, refresh: () => renderPackageDashboardPage(page.route) };
   const link = document.createElement("a"); link.className = "nav-item nav-sub"; link.href = `#/${page.route}`; link.dataset.nav = page.route; link.dataset.parent = parent; link.dataset.pluginKeywords = (page.keywords || []).join(" ");
   const icon = document.createElement("span"); icon.className = "nav-icon"; icon.setAttribute("aria-hidden", "true"); icon.textContent = "›";
-  const label = document.createElement("span"); label.className = "nav-label"; label.textContent = page.title; link.append(icon, label); bindNavLink(link);
+  const label = document.createElement("span"); label.className = "nav-label"; if (page.title_key) label.dataset.i18n = page.title_key; label.textContent = title; link.append(icon, label); bindNavLink(link);
   document.querySelector(".sidebar .nav-foot")?.before(link);
-  const view = document.createElement("section"); view.className = "view"; view.hidden = true; view.dataset.view = page.route; view.dataset.packageId = page.package_id; view.dataset.packagePageTitle = page.title; view.dataset.packagePageSummary = page.summary;
+  const view = document.createElement("section"); view.className = "view"; view.hidden = true; view.dataset.view = page.route; view.dataset.packageId = page.package_id; view.dataset.packagePageTitle = page.title; view.dataset.packagePageSummary = page.summary; if (page.title_key) view.dataset.packagePageTitleKey = page.title_key; if (page.summary_key) view.dataset.packagePageSummaryKey = page.summary_key;
   $("main")?.appendChild(view);
 }
 
 function renderPackageDashboardPage(route) {
   const view = document.querySelector(`[data-view="${route}"]`); if (!view) return;
   const panel = document.createElement("section"); panel.className = "panel";
-  const head = document.createElement("div"); head.className = "panel-head"; const title = document.createElement("h2"); title.textContent = view.dataset.packagePageTitle || route; head.appendChild(title);
-  const summary = document.createElement("p"); summary.textContent = view.dataset.packagePageSummary || "This package contributes a core-rendered dashboard page.";
+  const head = document.createElement("div"); head.className = "panel-head"; const title = document.createElement("h2"); title.textContent = view.dataset.packagePageTitleKey ? ZogographI18n.t(view.dataset.packagePageTitleKey, {}, view.dataset.packagePageTitle || route) : view.dataset.packagePageTitle || route; head.appendChild(title);
+  const summary = document.createElement("p"); summary.textContent = view.dataset.packagePageSummaryKey ? ZogographI18n.t(view.dataset.packagePageSummaryKey, {}, view.dataset.packagePageSummary || "") : view.dataset.packagePageSummary || "This package contributes a core-rendered dashboard page.";
   const boundary = note("This page is rendered by the Zogograph shell from the package’s signed metadata. It does not load package HTML, styles, or browser code.");
   panel.append(head, summary, boundary);
   if (state.access?.write) {
@@ -33790,7 +33791,7 @@ document.addEventListener("visibilitychange", () => {
 let localeRefreshPending = false;
 document.addEventListener("zogograph-i18n-load", () => {
   const view = VIEWS[state.view] || VIEWS[DEFAULT_VIEW];
-  if (document.hidden || view.manual || localeRefreshPending) return;
+  if (document.hidden || (view.manual && !view.packagePage) || localeRefreshPending) return;
   localeRefreshPending = true;
   requestAnimationFrame(() => {
     localeRefreshPending = false;

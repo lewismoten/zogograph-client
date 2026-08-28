@@ -833,7 +833,7 @@ function generatedField(string $dotted, array $path, mixed $value, string $help)
     $field = [
         'key' => 'cfg_' . str_replace('.', '__', $dotted),
         'path' => $path,
-        'label' => $dotted,
+        'label' => generatedFieldLabel($path),
         'help' => $help,
         'section' => count($path) > 1 ? $path[0] : 'general',
         'generated' => true,
@@ -887,13 +887,32 @@ function generatedStructuredField(string $dotted, array $path, mixed $value, str
     return [
         'key' => 'cfg_' . str_replace('.', '__', $dotted),
         'path' => $path,
-        'label' => $dotted,
+        'label' => generatedFieldLabel($path),
         'help' => trim($help . ' Enter a JSON object; its keys and nested values are preserved exactly.'),
         'section' => count($path) > 1 ? $path[0] : 'general',
         'generated' => true,
         'type' => 'json',
         'default' => $value,
     ];
+}
+
+/**
+ * The last-resort field generator must never leak an internal dotted config
+ * path into Setup or the CLI. The surrounding panel supplies the broad
+ * context; this produces a short operator-facing question for the setting.
+ */
+function generatedFieldLabel(array $path): string
+{
+    $leaf = (string)end($path);
+    $words = preg_split('/[_-]+/', $leaf) ?: [];
+    $acronyms = ['ai' => 'AI', 'api' => 'API', 'cpu' => 'CPU', 'dns' => 'DNS', 'id' => 'ID', 'ip' => 'IP', 'oidc' => 'OpenID Connect', 'ssl' => 'SSL', 'tls' => 'TLS', 'totp' => 'TOTP', 'ttl' => 'TTL', 'url' => 'URL'];
+    $label = [];
+    foreach ($words as $word) {
+        $lower = strtolower($word);
+        $label[] = $acronyms[$lower] ?? ucfirst($lower);
+    }
+    $text = implode(' ', $label);
+    return $text !== '' ? $text : 'Additional setting';
 }
 
 /**

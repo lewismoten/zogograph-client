@@ -1349,7 +1349,7 @@ function webPage(
         }
     }
     if ($activeSection === 'basics') {
-        $out[] = '<details open><summary>Installation checks</summary><table class="preflight"><thead><tr><th>Check</th><th>State</th><th>Detail</th></tr></thead><tbody>';
+        $out[] = '<details open><summary data-i18n="installation.checks">Installation checks</summary><table class="preflight"><thead><tr><th data-i18n="installation.check">Check</th><th data-i18n="installation.state">State</th><th data-i18n="installation.detail">Detail</th></tr></thead><tbody>';
         foreach ($preflight as $check) {
             $out[] = '<tr><th>' . h($check['label']) . '</th><td class="' . h($check['state']) . '">' . h(strtoupper($check['state']))
                 . '</td><td>' . h($check['detail']) . '</td></tr>';

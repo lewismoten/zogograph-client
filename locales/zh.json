@@ -9,6 +9,7 @@
   "setup.search": "搜索设置",
   "setup.search_results": "显示 {{count, number}} 个设置栏目",
   "setup.installation": "安装",
+  "installation.checks": "安装检查", "installation.check": "检查项", "installation.state": "状态", "installation.detail": "详情",
   "setup.section.privacy": "隐私",
   "setup.section.schedule": "计划任务",
   "setup.section.alerts": "警报",

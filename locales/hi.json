@@ -9,6 +9,7 @@
   "setup.search": "सेटिंग खोजें",
   "setup.search_results": "{{count, number}} सेटिंग अनुभाग दिखाए जा रहे हैं",
   "setup.installation": "स्थापना",
+  "installation.checks": "स्थापना जांच", "installation.check": "जांच", "installation.state": "स्थिति", "installation.detail": "विवरण",
   "setup.section.privacy": "गोपनीयता",
   "setup.section.schedule": "शेड्यूल",
   "setup.section.alerts": "चेतावनियाँ",

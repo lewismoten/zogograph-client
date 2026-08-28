@@ -78,7 +78,7 @@ the product is complete.
   once, require a successful verification code before saving, then show
   one-time backup codes exactly once after acknowledgement.
 - [ ] Replace raw dotted generated labels with authored Setup questions.
-- [ ] Build locale catalogs, locale preference/detection, named formatting,
+- [~] Build locale catalogs, locale preference/detection, named formatting,
   RTL support, key-inspection mode, and package language catalog merge rules.
 - [ ] Move core pages to a dependency-aware, enable/disable-able plugin-shell
   model; retain safe archive upload/install/remove lifecycle checks.

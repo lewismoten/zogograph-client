@@ -1,0 +1,15 @@
+{
+  "language.label": "Language",
+  "language.keys": "Show translation keys",
+  "dashboard.range": "Range",
+  "dashboard.show": "Show",
+  "dashboard.live": "Live",
+  "dashboard.ready": "Ready",
+  "auth.sign_in": "Sign in",
+  "auth.sign_out": "Sign out",
+  "navigation.overview": "Overview",
+  "navigation.search": "Search sections",
+  "update.available": "A newer Zogograph update is available. Reload when you are ready.",
+  "example.readings": "{{count, number}} readings",
+  "example.updated": "Updated {{at, date}}"
+}

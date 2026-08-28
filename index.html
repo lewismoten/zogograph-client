@@ -7,6 +7,7 @@
 <meta name="theme-color" content="#0b1018">
 <title>Zogograph — infrastructure observation</title>
 <link rel="stylesheet" href="index.css">
+<script src="i18n.js" defer></script>
 <script src="index.js" defer></script>
 </head>
 <body>
@@ -39,7 +40,7 @@
 
   <div class="topbar-controls">
     <label class="inline">
-      <span class="control-label">Range</span>
+      <span class="control-label" data-i18n="dashboard.range">Range</span>
       <select id="range">
         <option value="600">Last 10 minutes</option>
         <option value="3600">Last hour</option>
@@ -52,7 +53,7 @@
     </label>
 
     <label class="inline" id="unitsWrap">
-      <span class="control-label">Show</span>
+      <span class="control-label" data-i18n="dashboard.show">Show</span>
       <select id="units">
         <option value="bytes" selected>Absolute</option>
         <option value="percent">Percent free</option>
@@ -61,36 +62,38 @@
     </label>
 
     <button id="live" class="toggle" aria-pressed="false">
-      <span class="dot" aria-hidden="true"></span> Live
+      <span class="dot" aria-hidden="true"></span> <span data-i18n="dashboard.live">Live</span>
     </button>
 
     <span id="fetchState" class="fetch-state" role="status" aria-live="polite">
       <span class="fetch-state-dot" aria-hidden="true"></span>
-      <span>Ready</span>
+      <span data-i18n="dashboard.ready">Ready</span>
     </span>
 
   </div>
 
   <div class="topbar-actions">
+    <label class="inline"><span class="control-label" data-i18n="language.label">Language</span><select id="languagePicker"><option value="en">English</option><option value="en-US">English (US)</option><option value="en-GB">English (UK)</option><option value="es">Español</option><option value="hi">हिन्दी</option><option value="zh">中文</option><option value="ar">العربية</option></select></label>
+    <label class="inline"><input id="languageKeys" type="checkbox"><span data-i18n="language.keys">Show translation keys</span></label>
     <button id="ipPrivacy" class="link" hidden title="Hide IP addresses in this browser session">Hide IPs</button>
     <button id="accountPrivacy" class="link" hidden title="Hide this account name in this browser session">Hide account</button>
     <button id="pageHelp" class="header-help" type="button" aria-label="Help for this page" title="Help for this page">?</button>
     <button id="displayPreferences" class="link" type="button" title="Change text size and motion">Display</button>
     <button id="totpRecoveryCodes" class="link" hidden title="Create new one-time recovery codes after confirming your authenticator">Recovery codes</button>
     <button id="revokeSessions" class="link danger" hidden title="End all signed-in browser sessions">End all sessions</button>
-    <button id="signInOut" class="primary">Sign in</button>
+    <button id="signInOut" class="primary" data-i18n="auth.sign_in">Sign in</button>
   </div>
 </header>
 
 <div class="shell">
   <nav class="sidebar" id="sidebar" aria-label="Sections">
     <label class="nav-search" for="navSearch">
-      <span class="sr-only">Search sections</span>
+      <span class="sr-only" data-i18n="navigation.search">Search sections</span>
       <input id="navSearch" type="search" placeholder="Search sections" autocomplete="off">
     </label>
     <a class="nav-item" href="#/overview" data-nav="overview">
       <span class="nav-icon" aria-hidden="true">◴</span>
-      <span class="nav-label">Overview</span>
+      <span class="nav-label" data-i18n="navigation.overview">Overview</span>
       <span class="nav-badge" data-badge="overview" hidden></span>
     </a>
     <a class="nav-item nav-sub" href="#/charts" data-nav="charts" data-parent="overview">

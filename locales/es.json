@@ -1,0 +1,13 @@
+{
+  "language.label": "Idioma",
+  "language.keys": "Mostrar claves de traducción",
+  "dashboard.range": "Periodo",
+  "dashboard.show": "Mostrar",
+  "dashboard.live": "En vivo",
+  "dashboard.ready": "Listo",
+  "auth.sign_in": "Iniciar sesión",
+  "auth.sign_out": "Cerrar sesión",
+  "navigation.overview": "Resumen",
+  "navigation.search": "Buscar secciones",
+  "update.available": "Hay una actualización más reciente de Zogograph disponible. Recargue cuando esté listo."
+}

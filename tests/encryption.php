@@ -113,6 +113,10 @@ try {
         'password management is not isolated to the Security section');
     encryptionExpect(isset(setupPanels(configFields($sample))['schedule'])
         && setupPanelId('plugin-panel') === 'plugin-panel', 'Setup panel registry is unavailable');
+    $registeredPanel = setupPanels([], [['id' => 'sample-plugin', 'title' => 'Sample plugin', 'kind' => 'package', 'keywords' => ['sample']]]);
+    encryptionExpect(($registeredPanel['sample-plugin']['kind'] ?? '') === 'package'
+        && ($registeredPanel['sample-plugin']['keywords'] ?? []) === ['sample'],
+        'Setup panel registry does not retain validated package metadata');
     encryptionExpect(cronEditorExpression('every-5m') === '0,5,10,15,20,25,30,35,40,45,50,55 * * * *'
         && cronEditorExpression('custom', ['minute' => '7', 'hour' => '2']) === '7 2 * * *',
         'reusable cron editor profiles are unavailable');

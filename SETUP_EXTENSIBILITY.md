@@ -8,7 +8,9 @@ directly from its renderer.
 
 ## Panel API
 
-Core registers panel metadata in `lib/setup-panels.php`. `SetupCronApi` is the
+Core registers panel metadata in `lib/setup-panels.php`. Each definition has a
+validated id, title, kind, keywords, and optional feature id, so the Setup
+sidebar can remain data-driven and searchable as panels grow. `SetupCronApi` is the
 first concrete restricted capability; it is used by the core Schedule panel
 today. A future isolated package receives a `SetupPanelApi` object rather than
 the full application:

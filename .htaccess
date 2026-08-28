@@ -1,0 +1,119 @@
+# HostScope
+#
+# The dashboard is deliberately readable without logging in: anyone who can
+# reach it sees sizes and trends, but every path is masked until they sign in.
+# So this file does not lock the whole directory - it locks the things that
+# would hand over the details regardless of who is asking.
+#
+# See also data/.htaccess and lib/.htaccess, which deny those directories
+# outright. They are separate files rather than rules here because a rule
+# written against a URL path breaks the moment the site moves into a
+# subdirectory, and a .htaccess inside the directory cannot.
+
+Options -Indexes
+DirectoryIndex index.html
+
+<IfModule mod_setenvif.c>
+  # PHP on some Apache handlers does not receive Authorization without this.
+  SetEnvIf Authorization "(.+)" HTTP_AUTHORIZATION=$1
+</IfModule>
+
+# The database is the whole store. Serving it would hand over every path,
+# every size, and the password hash in one request.
+<FilesMatch "\.(db|db-journal|db-wal|db-shm|sqlite|sqlite3)$">
+  Require all denied
+</FilesMatch>
+
+# The collector is a CLI program. There is no reason for it to be reachable
+# over HTTP, and running a full scan is expensive enough to be a denial of
+# service on its own.
+<Files "cron.php">
+  Require all denied
+</Files>
+
+# The host collector runs as root. It refuses to run under a web server on its
+# own as well, but a root-privileged entry point reachable from a browser is not
+# something to leave to one layer.
+<Files "host-cron.php">
+  Require all denied
+</Files>
+
+# This helper removes files. It validates CLI use itself too, but keeping it
+# out of the web server avoids even reaching PHP on a misconfigured host.
+<Files "no-mac.php">
+  Require all denied
+</Files>
+
+# setup.php is deliberately reachable: it is how the thing gets configured
+# without an ssh session. It guards itself instead - it writes lib/config.php
+# freely only while that file does not exist, and once it does, replacing it
+# needs the password already in it. Anyone else gets text to paste, which needs
+# filesystem access and is therefore its own authorisation.
+#
+# Delete setup.php once you are set up. Or, if you would rather keep it and shut
+# the door completely, uncomment this:
+#
+# <Files "setup.php">
+#   Require all denied
+# </Files>
+
+<IfModule mod_headers.c>
+  # The dashboard loads nothing from anywhere else, so it can say so.
+  Header always set Content-Security-Policy "default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'; frame-ancestors 'none'"
+
+  # health.php and setup.php carry their own stylesheet inline, and the policy
+  # above blocks it - so both were rendering completely unstyled. That matters
+  # most for health.php, which is the page you open when nothing else works and
+  # which deliberately depends on no other file: giving it an external
+  # stylesheet would hand it a dependency that can be missing in exactly the
+  # situation it exists for.
+  #
+  # So style-src is relaxed for those two files only. The dashboard keeps the
+  # strict policy. Neither page renders untrusted content into a style context -
+  # health.php reports states and never values, and setup.php escapes everything
+  # it echoes - so inline styles there are not a route to anything.
+  <FilesMatch "^(health|setup)\.php$">
+    Header always set Content-Security-Policy "default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; base-uri 'none'; form-action 'self'; frame-ancestors 'none'"
+  </FilesMatch>
+  Header always set X-Content-Type-Options "nosniff"
+  # CSP frame-ancestors is authoritative; this keeps older embedding engines
+  # from presenting the dashboard inside an attacker-controlled frame too.
+  Header always set X-Frame-Options "DENY"
+  Header always set Referrer-Policy "no-referrer"
+  # Voice dictation is an explicit local user action, so only this origin may
+  # request a microphone. The other unused browser capabilities stay denied.
+  Header always set Permissions-Policy "camera=(), geolocation=(), microphone=(self), payment=(), usb=()"
+  # Nothing here should ever be cached by a shared proxy: even masked, the
+  # sizes are information about a private machine.
+  Header always set Cache-Control "no-store"
+</IfModule>
+
+# API responses can carry large chart series. Compress JSON when Apache has
+# mod_deflate; dynamic responses remain no-store and Vary is set by the module.
+<IfModule mod_filter.c>
+  AddOutputFilterByType DEFLATE application/json application/problem+json
+</IfModule>
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  # A login sends a password. Never over plain HTTP.
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+  # OIDC Discovery has a fixed well-known path. Keep the implementation in a
+  # normal PHP file rather than making a served lib/ directory an exception.
+  RewriteRule ^\.well-known/openid-configuration$ openid.php [L]
+</IfModule>
+
+# If you would rather nobody at all sees this without a password, uncomment
+# the block below and create the password file outside the web root:
+#
+#   htpasswd -c /home/USER/.stats-htpasswd USER
+#
+# The app's own login still works behind it, and still controls whether paths
+# are unmasked and whether the delete actions are offered.
+#
+# AuthType Basic
+# AuthName "HostScope"
+# AuthUserFile /home/USER/.stats-htpasswd
+# Require valid-user

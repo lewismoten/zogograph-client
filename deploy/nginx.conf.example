@@ -1,0 +1,58 @@
+# Include inside an HTTPS `server {}` block after setting `root` to this repo.
+# Replace the PHP-FPM socket with the one supplied by the host or container.
+
+index index.html;
+autoindex off;
+
+# The application serves its OIDC discovery from a normal PHP entry point.
+location = /.well-known/openid-configuration {
+    try_files /openid.php =404;
+}
+
+# Never let a static-file fallback hand over private stores, source, or CLI jobs.
+location ~* \.(?:db|db-journal|db-wal|db-shm|sqlite|sqlite3)$ { deny all; }
+location ~ ^/(?:data|lib|scripts)(?:/|$) { deny all; }
+location ~ ^/(?:cron|host-cron|no-mac)\.php$ { deny all; }
+
+# Keep setup reachable only while an operator explicitly needs it. Remove this
+# location or return 404 after installation if setup.php is not retained.
+location = /setup.php {
+    include fastcgi_params;
+    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    fastcgi_pass unix:/run/php/php-fpm.sock;
+    add_header Content-Security-Policy "default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; base-uri 'none'; form-action 'self'; frame-ancestors 'none'" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-Frame-Options "DENY" always;
+    add_header Referrer-Policy "no-referrer" always;
+    add_header Permissions-Policy "camera=(), geolocation=(), microphone=(self), payment=(), usb=()" always;
+    add_header Cache-Control "no-store" always;
+}
+
+# health.php is intentionally standalone and carries a small inline stylesheet.
+location = /health.php {
+    include fastcgi_params;
+    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    fastcgi_pass unix:/run/php/php-fpm.sock;
+    add_header Content-Security-Policy "default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; base-uri 'none'; form-action 'self'; frame-ancestors 'none'" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-Frame-Options "DENY" always;
+    add_header Referrer-Policy "no-referrer" always;
+    add_header Permissions-Policy "camera=(), geolocation=(), microphone=(self), payment=(), usb=()" always;
+    add_header Cache-Control "no-store" always;
+}
+
+location ~ \.php$ {
+    try_files $uri =404;
+    include fastcgi_params;
+    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    fastcgi_pass unix:/run/php/php-fpm.sock;
+}
+
+# Apply these to normal application and static responses. Use a separate HTTP
+# server block that returns 301 to HTTPS; never send the sign-in form over HTTP.
+add_header Content-Security-Policy "default-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'; frame-ancestors 'none'" always;
+add_header X-Content-Type-Options "nosniff" always;
+add_header X-Frame-Options "DENY" always;
+add_header Referrer-Policy "no-referrer" always;
+add_header Permissions-Policy "camera=(), geolocation=(), microphone=(self), payment=(), usb=()" always;
+add_header Cache-Control "no-store" always;

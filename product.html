@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zogograph — server observation and diagnostics</title>
+<style>
+  :root { color-scheme: dark; font-family: Inter, system-ui, sans-serif; background:#0b1018; color:#edf3fb; }
+  body { max-width:960px; margin:0 auto; padding:clamp(2rem,7vw,7rem) 1.5rem; line-height:1.55; }
+  h1 { font-size:clamp(2.6rem,8vw,5.5rem); line-height:.95; letter-spacing:-.06em; max-width:12ch; margin:0 0 1.5rem; }
+  h2 { margin-top:4rem; } p { max-width:65ch; color:#b9c6d6; font-size:1.1rem; }
+  .accent { color:#68a7ff; } .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:1rem; margin-top:2rem; }
+  article { background:#151f2d; border:1px solid #2a3849; border-radius:12px; padding:1.25rem; }
+  article p { font-size:1rem; margin-bottom:0; } a { color:#9ac5ff; }
+  .cta { display:inline-block; margin-top:1rem; border-radius:8px; padding:.8rem 1rem; background:#68a7ff; color:#07101d; font-weight:700; text-decoration:none; }
+</style>
+<main>
+  <p class="accent">ZOGOGRAPH</p>
+  <h1>Know what your server is doing.</h1>
+  <p>Zogograph turns storage, CPU, memory, network, backup, and availability signals into a calm, explainable dashboard for the people responsible for a machine.</p>
+  <a class="cta" href="index.html">Open the dashboard</a>
+  <h2>One clear view of the machine</h2>
+  <section class="grid">
+    <article><h3>Explainable signals</h3><p>Every chart names what it measures, why it matters, and the terminal command behind it.</p></article>
+    <article><h3>CPU, memory, and network</h3><p>Track per-core load, memory pressure, busy processes, ports, peers, and availability without jumping between tools.</p></article>
+    <article><h3>Storage without surprises</h3><p>Follow space, inodes, large paths, mounts, deleted-open files, and growth before a full disk becomes an outage.</p></article>
+    <article><h3>Backup evidence</h3><p>See ordinary archives alongside detected JetBackup jobs, destinations, reported sizes, and age.</p></article>
+    <article><h3>Safe operations</h3><p>Actions are deliberate, scoped, and recorded. Backups are diagnosed without pretending that deleting files is safe.</p></article>
+    <article><h3>Shared awareness</h3><p>Group-scoped notes and alerts keep the next operator from rediscovering the same incident.</p></article>
+    <article><h3>Private by design</h3><p>Public, staff, and administrator access can be defined locally in configuration. Sensitive paths stay protected.</p></article>
+    <article><h3>Alerts that reach people</h3><p>Use email or Telegram notifications, test delivery before relying on it, and retain the alert history for review.</p></article>
+    <article><h3>Connected, on your terms</h3><p>Trusted Zogograph servers can use OpenID Connect to exchange a deliberately small, read-only monitoring snapshot.</p></article>
+    <article><h3>Assistant</h3><p>An optional assistant can explain the signals through a bounded tool catalogue, with presets and per-tool approval.</p></article>
+    <article><h3>Made for real handoffs</h3><p>Printable views, time ranges, collector health, and clear ownership make an incident easier to continue across a team.</p></article>
+  </section>
+</main>

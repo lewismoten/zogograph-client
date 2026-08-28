@@ -1,0 +1,15 @@
+{
+  "title": "HostScope remote key custody",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["service_base_url", "tenant_id", "custody_key_id", "authorization_cache_seconds"],
+  "properties": {
+    "service_base_url": {"type": "string", "format": "uri", "pattern": "^https://", "description": "Configured HTTPS key-custody API base URL; embedded credentials, queries, and fragments are refused by the adapter."},
+    "tenant_id": {"type": "string", "pattern": "^ten_[a-f0-9]{24}$", "description": "Tenant identifier returned during custody enrollment."},
+    "custody_key_id": {"type": "string", "pattern": "^key_[a-f0-9]{32}$", "description": "Active custody key created through the customer management API. It identifies a wrapping key only; it is not a credential."},
+    "client_credential_secret": {"type": "string", "pattern": "^secret_ref:"},
+    "client_signing_secret": {"type": "string", "pattern": "^secret_ref:", "description": "Base64 Ed25519 private key emitted once during client enrollment."},
+    "tls_spki_pin": {"type": "string", "pattern": "^sha256//[A-Za-z0-9+/]{43}=$", "description": "Optional SHA-256 SPKI pin for the custody HTTPS certificate. Leave unset for normal CA validation; update through a tested endpoint-identity migration before a certificate-key rotation."},
+    "authorization_cache_seconds": {"type": "integer", "minimum": 0, "maximum": 900, "default": 0}
+  }
+}

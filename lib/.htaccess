@@ -1,0 +1,3 @@
+# Library code, included by api.php and cron.php. Never served directly:
+# config.php holds the password hash and the mask secret.
+Require all denied

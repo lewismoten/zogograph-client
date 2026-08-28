@@ -1,0 +1,19 @@
+{
+  "id": "hostscope-path-hygiene",
+  "version": "1.0.1",
+  "name": "Path-name hygiene",
+  "publisher": "HostScope",
+  "summary": "During an existing account disk walk, records path names that can confuse scripts, terminals, or copy and paste. It is advisory and never sends notifications.",
+  "license": "Proprietary",
+  "capabilities": ["path_hygiene"],
+  "view_contributions": [{
+    "capability": "path_hygiene",
+    "view": "storage",
+    "keywords": ["path", "path-name hygiene", "shell", "filename"],
+    "priority": "medium",
+    "before": [],
+    "after": []
+  }],
+  "recommendations": [],
+  "compatibility": {"min_php": "8.1.0", "min_schema": 57}
+}

@@ -1,0 +1,35 @@
+# Optional one-shot worker sandbox. Copy outside the Zogograph web root and
+# replace the host paths/image tag after reviewing the package release.
+services:
+  package-worker:
+    image: php:8.3-cli-alpine
+    network_mode: none
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 32
+    mem_limit: 128m
+    cpus: 0.50
+    user: "65534:65534"
+    stdin_open: true
+    tty: false
+    environment:
+      HOSTSCOPE_PACKAGE_SANDBOX: "1"
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,nodev,size=16m
+    volumes:
+      # Mount only the reviewed core worker script, not the Zogograph web tree.
+      - /absolute/path/to/zogograph/scripts/package-runtime-worker.php:/worker/package-runtime-worker.php:ro
+      # Verified installed package release: read-only. Do not mount the
+      # Zogograph web root, config, setup.db, key files, or any core database.
+      - /absolute/private/zogograph/packages/PACKAGE-VERSION:/package:ro
+      # Mount a package-specific private-data directory only when a later
+      # signed operation explicitly needs it; capability probes do not.
+      # - /absolute/private/zogograph/packages/PACKAGE-data:/package-data:rw
+    command:
+      - php
+      - /worker/package-runtime-worker.php
+      - --package-root
+      - /package

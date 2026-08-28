@@ -1,0 +1,175 @@
+<?php
+declare(strict_types=1);
+
+/* OpenID Connect provider primitives for explicitly registered trusted peers.
+ * The provider never advertises itself until its issuer and signing key are
+ * valid, and the endpoint enforces authorization code, PKCE, and signed ID
+ * tokens rather than presenting a discovery document for an imaginary login. */
+
+function openIdIssuer(array $config): ?string
+{
+    $issuer = rtrim(trim((string)($config['openid']['issuer'] ?? '')), '/');
+    if (empty($config['openid']['enabled']) || $issuer === '' || !str_starts_with($issuer, 'https://')) {
+        return null;
+    }
+    return $issuer;
+}
+
+function openIdDiscovery(array $config): ?array
+{
+    $issuer = openIdIssuer($config);
+    if ($issuer === null) {
+        return null;
+    }
+    $jwk = openIdJwk($config);
+    if ($jwk === null) {
+        return null;
+    }
+    return [
+        'issuer' => $issuer,
+        'authorization_endpoint' => $issuer . '/openid.php?action=authorize',
+        'token_endpoint' => $issuer . '/openid.php?action=token',
+        'jwks_uri' => $issuer . '/openid.php?action=jwks',
+        'response_types_supported' => ['code'],
+        'grant_types_supported' => ['authorization_code'],
+        'code_challenge_methods_supported' => ['S256'],
+        // The application only manages locally named groups, so this is the
+        // claim a peer will eventually map after signature validation.
+        'scopes_supported' => ['openid', 'profile', 'groups'],
+        'id_token_signing_alg_values_supported' => ['RS256'],
+    ];
+}
+
+function openIdBase64Url(string $value): string
+{
+    return rtrim(strtr(base64_encode($value), '+/', '-_'), '=');
+}
+
+function openIdDecodeBase64Url(string $value): string|false
+{
+    $pad = strlen($value) % 4;
+    return base64_decode(strtr($value . ($pad ? str_repeat('=', 4 - $pad) : ''), '-_', '+/'), true);
+}
+
+function openIdJwk(array $config): ?array
+{
+    $key = trim((string)($config['openid']['signing_private_key'] ?? ''));
+    if ($key === '' || !function_exists('openssl_pkey_get_private')) {
+        return null;
+    }
+    $resource = openssl_pkey_get_private($key);
+    $details = $resource === false ? false : openssl_pkey_get_details($resource);
+    if (!is_array($details) || ($details['type'] ?? null) !== OPENSSL_KEYTYPE_RSA
+        || !isset($details['rsa']['n'], $details['rsa']['e'])) {
+        return null;
+    }
+    $n = openIdBase64Url($details['rsa']['n']);
+    $e = openIdBase64Url($details['rsa']['e']);
+    return [
+        'kty' => 'RSA', 'use' => 'sig', 'alg' => 'RS256',
+        'kid' => substr(hash('sha256', $n . '.' . $e), 0, 16), 'n' => $n, 'e' => $e,
+    ];
+}
+
+function openIdClient(array $config, string $clientId): ?array
+{
+    foreach ((array)($config['openid']['clients'] ?? []) as $name => $client) {
+        if (is_array($client) && hash_equals((string)($client['client_id'] ?? $name), $clientId)) {
+            return $client + ['name' => $name];
+        }
+    }
+    return null;
+}
+
+function openIdRedirectAllowed(array $client, string $redirect): bool
+{
+    foreach ((array)($client['redirect_uris'] ?? []) as $known) {
+        if (is_string($known) && hash_equals($known, $redirect)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function openIdCreateCode(PDO $pdo, string $clientId, string $redirect, string $challenge,
+    string $username, array $groups, ?string $nonce): string
+{
+    $code = openIdBase64Url(random_bytes(32));
+    $pdo->prepare(
+        'INSERT INTO openid_codes (code_hash, client_id, redirect_uri, code_challenge, username, groups_json, nonce, auth_time, expires_at)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'
+    )->execute([
+        hash('sha256', $code), $clientId, $redirect, $challenge, $username,
+        json_encode(array_values($groups), JSON_UNESCAPED_SLASHES), $nonce, time(), time() + 120,
+    ]);
+    return $code;
+}
+
+function openIdConsumeCode(PDO $pdo, string $code, string $verifier): ?array
+{
+    $hash = hash('sha256', $code);
+    $stmt = $pdo->prepare('SELECT * FROM openid_codes WHERE code_hash = ? AND used_at IS NULL AND expires_at >= ?');
+    $stmt->execute([$hash, time()]);
+    $row = $stmt->fetch();
+    if (!is_array($row)) {
+        return null;
+    }
+    if (!preg_match('/^[A-Za-z0-9._~-]{43,128}$/', $verifier)
+        || !hash_equals((string)$row['code_challenge'], openIdBase64Url(hash('sha256', $verifier, true)))) {
+        return null;
+    }
+    $used = $pdo->prepare('UPDATE openid_codes SET used_at = ? WHERE code_hash = ? AND used_at IS NULL');
+    $used->execute([time(), $hash]);
+    return $used->rowCount() === 1 ? $row : null;
+}
+
+function openIdIdToken(array $config, array $code): string
+{
+    $jwk = openIdJwk($config);
+    $key = trim((string)($config['openid']['signing_private_key'] ?? ''));
+    if ($jwk === null || $key === '') {
+        throw new ActionRefused('OpenID signing key is not configured');
+    }
+    $now = time();
+    $payload = [
+        'iss' => openIdIssuer($config), 'sub' => (string)$code['username'],
+        'aud' => (string)$code['client_id'], 'iat' => $now, 'exp' => $now + 600,
+        'auth_time' => (int)$code['auth_time'],
+        'groups' => json_decode((string)$code['groups_json'], true) ?: [],
+    ];
+    if ($code['nonce'] !== null && $code['nonce'] !== '') {
+        $payload['nonce'] = (string)$code['nonce'];
+    }
+    $head = openIdBase64Url(json_encode(['alg' => 'RS256', 'typ' => 'JWT', 'kid' => $jwk['kid']]) ?: '{}');
+    $body = openIdBase64Url(json_encode($payload, JSON_UNESCAPED_SLASHES) ?: '{}');
+    if (openssl_sign($head . '.' . $body, $signature, $key, OPENSSL_ALGO_SHA256) !== true) {
+        throw new ActionRefused('OpenID signing failed');
+    }
+    return $head . '.' . $body . '.' . openIdBase64Url($signature);
+}
+
+/** Validates a token this Zogograph instance itself signed. */
+function openIdVerifyOwnToken(array $config, string $token): ?array
+{
+    $parts = explode('.', $token);
+    if (count($parts) !== 3) return null;
+    $header = json_decode(openIdDecodeBase64Url($parts[0]) ?: '', true);
+    $claims = json_decode(openIdDecodeBase64Url($parts[1]) ?: '', true);
+    $signature = openIdDecodeBase64Url($parts[2]);
+    $private = openssl_pkey_get_private((string)($config['openid']['signing_private_key'] ?? ''));
+    $details = $private === false ? false : openssl_pkey_get_details($private);
+    if (!is_array($header) || !is_array($claims) || $signature === false || !is_array($details)
+        || ($header['alg'] ?? '') !== 'RS256' || openssl_verify($parts[0] . '.' . $parts[1], $signature, $details['key'], OPENSSL_ALGO_SHA256) !== 1) {
+        return null;
+    }
+    $aud = $claims['aud'] ?? null;
+    $audiences = is_array($aud) ? $aud : [$aud];
+    $registered = false;
+    foreach ($audiences as $id) if (is_string($id) && openIdClient($config, $id) !== null) $registered = true;
+    $now = time();
+    return $registered && hash_equals((string)openIdIssuer($config), (string)($claims['iss'] ?? ''))
+        && (int)($claims['exp'] ?? 0) >= $now
+        && (int)($claims['iat'] ?? 0) > 0 && (int)$claims['iat'] <= $now + 60
+        && (!isset($claims['nbf']) || (int)$claims['nbf'] <= $now + 60)
+        && is_string($claims['sub'] ?? null) ? $claims : null;
+}

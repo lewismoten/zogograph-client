@@ -1,0 +1,21 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "serialNumber": "urn:uuid:310b15b3-eac4-4ac1-8b3d-85fef2fe4d46",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-08-26T00:00:00Z",
+    "component": {
+      "type": "application",
+      "name": "HostScope",
+      "version": "unreleased",
+      "description": "Self-hosted PHP and SQLite server diagnostics platform"
+    },
+    "tools": [{"vendor": "HostScope", "name": "repository inventory", "version": "1"}]
+  },
+  "components": [],
+  "properties": [{
+    "name": "hostscope:dependency-inventory",
+    "value": "No Composer, npm, or vendored runtime dependencies are present in this source tree."
+  }]
+}

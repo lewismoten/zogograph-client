@@ -1,0 +1,94 @@
+name: Restore Zogograph Client Snapshot
+
+on:
+  workflow_dispatch:
+    inputs:
+      snapshot_id:
+        description: Snapshot ID to restore (from the deploy job output)
+        required: true
+        type: string
+      confirmation:
+        description: Type restore-zogograph-snapshot to confirm
+        required: true
+        type: string
+
+concurrency:
+  group: zogograph-client-lifecycle
+  cancel-in-progress: false
+
+jobs:
+  restore:
+    if: ${{ github.event.inputs.confirmation == 'restore-zogograph-snapshot' }}
+    runs-on: ubuntu-latest
+    env:
+      SNAPSHOT_ID: ${{ github.event.inputs.snapshot_id }}
+      DEPLOY_HOST: ${{ vars.DEPLOY_HOST }}
+      DEPLOY_PORT: ${{ vars.DEPLOY_PORT }}
+      DEPLOY_USER: ${{ vars.DEPLOY_USER }}
+      DEPLOY_PATH: ${{ vars.DEPLOY_PATH }}
+      DEPLOY_KNOWN_HOSTS: ${{ vars.DEPLOY_KNOWN_HOSTS }}
+      SNAPSHOT_PATH: ${{ vars.SNAPSHOT_PATH }}
+      DEPLOY_SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
+
+    steps:
+      - name: Validate restore settings
+        shell: bash
+        run: |
+          set -euo pipefail
+          for setting in SNAPSHOT_ID DEPLOY_HOST DEPLOY_USER DEPLOY_PATH DEPLOY_KNOWN_HOSTS SNAPSHOT_PATH DEPLOY_SSH_PRIVATE_KEY; do
+            test -n "${!setting}" || { echo "Missing required restore setting: $setting"; exit 1; }
+          done
+          for setting in DEPLOY_PATH SNAPSHOT_PATH; do
+            case "${!setting}" in /*) ;; *) echo "$setting must be an absolute path." >&2; exit 1;; esac
+            case "${!setting}" in *[!A-Za-z0-9._/-]*) echo "$setting contains an unsafe character." >&2; exit 1;; esac
+          done
+          case "$SNAPSHOT_ID" in *[!A-Za-z0-9._-]*|''|.|..) echo 'Invalid snapshot ID.' >&2; exit 1;; esac
+
+      - name: Install SSH key
+        shell: bash
+        run: |
+          set -euo pipefail
+          install -d -m 700 "$HOME/.ssh"
+          printf '%s\n' "$DEPLOY_SSH_PRIVATE_KEY" > "$HOME/.ssh/hostscope_deploy_key"
+          printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
+          chmod 600 "$HOME/.ssh/hostscope_deploy_key" "$HOME/.ssh/known_hosts"
+
+      - name: Install rsync
+        shell: bash
+        run: |
+          set -euo pipefail
+          command -v rsync >/dev/null || { apt-get update; apt-get install -y rsync; }
+
+      - name: Snapshot the current site before restore
+        id: pre_restore_snapshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          backup_id="pre-restore-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT:-1}"
+          printf 'id=%s\n' "$backup_id" >> "$GITHUB_OUTPUT"
+          remote_script=".hostscope-snapshot-${GITHUB_RUN_ID}.sh"
+          rsync -az \
+            -e "ssh -i $HOME/.ssh/hostscope_deploy_key -p ${DEPLOY_PORT:-22} -o BatchMode=yes -o IdentitiesOnly=yes" \
+            .forgejo/scripts/hostscope-snapshot.sh \
+            "${DEPLOY_USER}@${DEPLOY_HOST}:${remote_script}"
+          ssh -i "$HOME/.ssh/hostscope_deploy_key" -p "${DEPLOY_PORT:-22}" \
+            -o BatchMode=yes -o IdentitiesOnly=yes -o ConnectTimeout=15 \
+            "${DEPLOY_USER}@${DEPLOY_HOST}" \
+            "bash '$remote_script' '$DEPLOY_PATH' '$SNAPSHOT_PATH' '$backup_id' && rm -f '$remote_script'"
+
+      - name: Restore application and database snapshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          remote_script=".hostscope-restore-${GITHUB_RUN_ID}.sh"
+          rsync -az \
+            -e "ssh -i $HOME/.ssh/hostscope_deploy_key -p ${DEPLOY_PORT:-22} -o BatchMode=yes -o IdentitiesOnly=yes" \
+            .forgejo/scripts/hostscope-restore.sh \
+            "${DEPLOY_USER}@${DEPLOY_HOST}:${remote_script}"
+          ssh -i "$HOME/.ssh/hostscope_deploy_key" -p "${DEPLOY_PORT:-22}" \
+            -o BatchMode=yes -o IdentitiesOnly=yes -o ConnectTimeout=15 \
+            "${DEPLOY_USER}@${DEPLOY_HOST}" \
+            "bash '$remote_script' '$DEPLOY_PATH' '$SNAPSHOT_PATH' '$SNAPSHOT_ID' && rm -f '$remote_script'"
+
+      - name: Report restore safety snapshot
+        run: 'echo "Current site preserved first as ${{ steps.pre_restore_snapshot.outputs.id }}"'

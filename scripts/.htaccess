@@ -1,0 +1,2 @@
+# Recovery and restore commands are executable only from a shell.
+Require all denied

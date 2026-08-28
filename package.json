@@ -1,0 +1,12 @@
+{
+  "name": "zogograph-client",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Zogograph self-hosted client and host-observation dashboard.",
+  "scripts": {
+    "build": "sh build.sh",
+    "test": "sh test.sh",
+    "start": "php -S 127.0.0.1:4173",
+    "smoke": "php health.php >/dev/null"
+  }
+}

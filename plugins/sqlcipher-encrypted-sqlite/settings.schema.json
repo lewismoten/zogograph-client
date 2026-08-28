@@ -1,0 +1,24 @@
+{
+  "title": "SQLCipher encrypted SQLite",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["stores", "key_provider", "verification_policy"],
+  "properties": {
+    "stores": {
+      "type": "array",
+      "items": {"enum": ["setup", "account", "host", "ai"]},
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "key_provider": {
+      "type": "string",
+      "description": "Reference to an enabled key-provider package, never raw key material."
+    },
+    "verification_policy": {
+      "enum": ["before_activate", "every_start", "scheduled"]
+    },
+    "migration_backup_policy": {
+      "enum": ["require_verified_sealed_copy", "operator_confirmed"]
+    }
+  }
+}

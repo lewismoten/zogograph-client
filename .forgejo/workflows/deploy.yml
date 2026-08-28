@@ -1,0 +1,168 @@
+name: Deploy Zogograph Client
+
+on:
+  push:
+    branches:
+      - develop
+      - feature-dashboard-professional-polish
+    paths:
+      - '**'
+  workflow_dispatch:
+
+concurrency:
+  group: zogograph-client-lifecycle
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      DEPLOY_HOST: ${{ vars.DEPLOY_HOST }}
+      DEPLOY_PORT: ${{ vars.DEPLOY_PORT }}
+      DEPLOY_USER: ${{ vars.DEPLOY_USER }}
+      DEPLOY_PATH: ${{ vars.DEPLOY_PATH }}
+      DEPLOY_URL: ${{ vars.DEPLOY_URL }}
+      DEPLOY_KNOWN_HOSTS: ${{ vars.DEPLOY_KNOWN_HOSTS }}
+      SNAPSHOT_PATH: ${{ vars.SNAPSHOT_PATH }}
+      SNAPSHOT_RETENTION: ${{ vars.SNAPSHOT_RETENTION }}
+      CLIENT_HOSTSCOPE_BROWSER_REFRESH_REQUIRED: ${{ vars.CLIENT_HOSTSCOPE_BROWSER_REFRESH_REQUIRED }}
+      DEPLOY_SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate deployment settings
+        shell: bash
+        run: |
+          set -euo pipefail
+          for setting in DEPLOY_HOST DEPLOY_USER DEPLOY_PATH DEPLOY_URL DEPLOY_KNOWN_HOSTS SNAPSHOT_PATH DEPLOY_SSH_PRIVATE_KEY; do
+            test -n "${!setting}" || { echo "Missing required deployment setting: $setting"; exit 1; }
+          done
+          for setting in DEPLOY_PATH SNAPSHOT_PATH; do
+            case "${!setting}" in /*) ;; *) echo "$setting must be an absolute path." >&2; exit 1;; esac
+            case "${!setting}" in *[!A-Za-z0-9._/-]*) echo "$setting contains an unsafe character." >&2; exit 1;; esac
+          done
+          case "${SNAPSHOT_RETENTION:-3}" in *[!0-9]*|'') echo 'SNAPSHOT_RETENTION must be a whole number.' >&2; exit 1;; esac
+          [ "${SNAPSHOT_RETENTION:-3}" -ge 1 ] && [ "${SNAPSHOT_RETENTION:-3}" -le 50 ] || { echo 'SNAPSHOT_RETENTION must be between 1 and 50.' >&2; exit 1; }
+          test -f package.json
+
+      - name: Validate, test, and build
+        shell: bash
+        run: npm ci && npm test && npm run build
+
+      - name: Assemble release
+        shell: bash
+        run: |
+          set -euo pipefail
+          command -v rsync >/dev/null || { apt-get update; apt-get install -y rsync; }
+          release=.release
+          mkdir -p "$release"
+          rsync -a --delete \
+            --exclude='.git/' \
+            --exclude='.release/' \
+            --exclude='dist/' \
+            --exclude='data/***' \
+            --exclude='lib/config.php' \
+            --exclude='tests/' \
+            --exclude='deploy/' \
+            --exclude='*.md' \
+            ./ "$release/"
+
+      - name: Create build manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          release=.release
+          created_at="$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+          version="$(git describe --tags --always)"
+          case "${CLIENT_HOSTSCOPE_BROWSER_REFRESH_REQUIRED:-}" in ''|false) browser_refresh_required=false;; true) browser_refresh_required=true;; *) echo 'CLIENT_HOSTSCOPE_BROWSER_REFRESH_REQUIRED must be true or false.' >&2; exit 1;; esac
+          cat > "$release/build.json" <<EOF
+          {
+            "commit": "${GITHUB_SHA}",
+            "ref": "${GITHUB_REF_NAME}",
+            "runId": "${GITHUB_RUN_ID}",
+            "runNumber": "${GITHUB_RUN_NUMBER}",
+            "createdAt": "${created_at}",
+            "version": "${version}",
+            "repo": "${GITHUB_REPOSITORY}",
+            "application": "Zogograph",
+            "part": "client",
+            "browserRefreshRequired": ${browser_refresh_required}
+          }
+          EOF
+          cat "$release/build.json"
+
+      - name: Install SSH key
+        shell: bash
+        run: |
+          set -euo pipefail
+          install -d -m 700 "$HOME/.ssh"
+          printf '%s\n' "$DEPLOY_SSH_PRIVATE_KEY" > "$HOME/.ssh/hostscope_deploy_key"
+          printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
+          chmod 600 "$HOME/.ssh/hostscope_deploy_key" "$HOME/.ssh/known_hosts"
+
+      - name: Install rsync
+        shell: bash
+        run: |
+          set -euo pipefail
+          command -v rsync >/dev/null || { apt-get update; apt-get install -y rsync; }
+
+      - name: Snapshot the live site and SQLite databases
+        id: snapshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          snapshot_id="${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT:-1}"
+          printf 'id=%s\n' "$snapshot_id" >> "$GITHUB_OUTPUT"
+          remote_script=".hostscope-snapshot-${GITHUB_RUN_ID}.sh"
+          rsync -az \
+            -e "ssh -i $HOME/.ssh/hostscope_deploy_key -p ${DEPLOY_PORT:-22} -o BatchMode=yes -o IdentitiesOnly=yes" \
+            .forgejo/scripts/hostscope-snapshot.sh \
+            "${DEPLOY_USER}@${DEPLOY_HOST}:${remote_script}"
+          ssh -i "$HOME/.ssh/hostscope_deploy_key" -p "${DEPLOY_PORT:-22}" \
+            -o BatchMode=yes -o IdentitiesOnly=yes -o ConnectTimeout=15 \
+            "${DEPLOY_USER}@${DEPLOY_HOST}" \
+            "bash '$remote_script' '$DEPLOY_PATH' '$SNAPSHOT_PATH' '$snapshot_id' && rm -f '$remote_script'"
+
+      - name: Upload application files
+        shell: bash
+        run: |
+          set -euo pipefail
+          rsync -az --delete \
+            --exclude='data/***' \
+            --exclude='lib/config.php' \
+            --exclude='.well-known/' \
+            -e "ssh -i $HOME/.ssh/hostscope_deploy_key -p ${DEPLOY_PORT:-22} -o BatchMode=yes -o IdentitiesOnly=yes" \
+            .release/ \
+            "${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}/"
+
+      - name: Verify deployed build
+        shell: bash
+        run: |
+          set -euo pipefail
+          build_url="${DEPLOY_URL%/}/build.json"
+          for attempt in 1 2 3 4 5; do
+            deployed="$(curl --fail --silent --show-error --location --connect-timeout 10 --max-time 30 "${build_url}?run=${GITHUB_RUN_ID}" | sed -n 's/.*"commit": "\([^"]*\)".*/\1/p')" || deployed=''
+            [ "$deployed" = "$GITHUB_SHA" ] && exit 0
+            echo "Attempt $attempt did not return ${GITHUB_SHA}."
+            sleep 5
+          done
+          exit 1
+
+      - name: Retain recent complete snapshots
+        shell: bash
+        run: |
+          set -euo pipefail
+          remote_script=".hostscope-snapshot-prune-${GITHUB_RUN_ID}.sh"
+          rsync -az \
+            -e "ssh -i $HOME/.ssh/hostscope_deploy_key -p ${DEPLOY_PORT:-22} -o BatchMode=yes -o IdentitiesOnly=yes" \
+            .forgejo/scripts/hostscope-snapshot-prune.sh \
+            "${DEPLOY_USER}@${DEPLOY_HOST}:${remote_script}"
+          ssh -i "$HOME/.ssh/hostscope_deploy_key" -p "${DEPLOY_PORT:-22}" \
+            -o BatchMode=yes -o IdentitiesOnly=yes -o ConnectTimeout=15 \
+            "${DEPLOY_USER}@${DEPLOY_HOST}" \
+            "bash '$remote_script' '$SNAPSHOT_PATH' '${SNAPSHOT_RETENTION:-3}' && rm -f '$remote_script'"
+
+      - name: Report snapshot
+        run: 'echo "Pre-deploy snapshot: ${{ steps.snapshot.outputs.id }}"'

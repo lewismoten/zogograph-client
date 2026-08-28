@@ -89,8 +89,10 @@ the product is complete.
 - [~] Give client-remote the same shell, controller enrollment/configuration,
   tested transport deployment choices, updates, and compatible database merge.
   Restricted private setup, controller protocol preflight, pairing storage, and
-  update policy configuration exist; delivery methods, approved telemetry
-  sender, update execution, and database merge remain.
+  update policy configuration exist. Core now validates rsync/SSH, SFTP, and
+  explicit-TLS FTP deployment profiles using opaque credential and host-key
+  references; transfer testing, copying, approved telemetry sender, update
+  execution, and database merge apply remain.
 
 Audit route-level state changes and secret exposure next. The first finding was
 an unprotected sign-out route; it now requires POST plus the current CSRF token.

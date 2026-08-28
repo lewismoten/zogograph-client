@@ -8,6 +8,20 @@ require_once __DIR__ . '/setupstore.php';
 const REMOTE_DEPLOYMENT_METHODS = ['rsync_ssh', 'sftp', 'ftps'];
 const REMOTE_DEPLOYMENT_UPDATE_MODES = ['manual', 'download', 'automatic'];
 
+function remoteDeploymentRelativePath(string $path): bool
+{
+    return $path !== '' && !str_starts_with($path, '/') && !str_contains($path, "\0")
+        && !in_array('..', explode('/', str_replace('\\', '/', $path)), true);
+}
+
+function remoteDeploymentRemoveDirectory(string $directory): void
+{
+    if (!is_dir($directory) || is_link($directory)) return;
+    $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($directory, FilesystemIterator::SKIP_DOTS), RecursiveIteratorIterator::CHILD_FIRST);
+    foreach ($iterator as $file) $file->isDir() && !$file->isLink() ? @rmdir($file->getPathname()) : @unlink($file->getPathname());
+    @rmdir($directory);
+}
+
 function remoteDeploymentSecretReference(): string
 {
     return 'deploy_ref:' . rtrim(strtr(base64_encode(random_bytes(18)), '+/', '-_'), '=');
@@ -207,4 +221,95 @@ function remoteDeploymentTest(array $config, array $input, ?callable $runner = n
         foreach (glob($directory . '/*') ?: [] as $file) @unlink($file);
         @rmdir($directory);
     }
+}
+
+/** Extract a bounded release ZIP into a private staging directory. */
+function remoteDeploymentStageRelease(string $archive): array
+{
+    if (!class_exists(ZipArchive::class)) throw new RuntimeException('PHP ZipArchive support is required to stage a deployment release');
+    if (!is_file($archive) || is_link($archive) || !is_readable($archive)) throw new InvalidArgumentException('choose a readable ZIP release archive');
+    $bytes = filesize($archive);
+    if (!is_int($bytes) || $bytes < 1 || $bytes > 67108864) throw new InvalidArgumentException('release archive must be between 1 byte and 64 MiB');
+    $zip = new ZipArchive();
+    if ($zip->open($archive, ZipArchive::RDONLY) !== true) throw new InvalidArgumentException('release archive is not a readable ZIP file');
+    $directory = rtrim(sys_get_temp_dir(), '/') . '/zogograph-deploy-release-' . bin2hex(random_bytes(12));
+    if (!mkdir($directory, 0700)) { $zip->close(); throw new RuntimeException('could not prepare a private release workspace'); }
+    try {
+        if ($zip->numFiles < 1 || $zip->numFiles > 1000) throw new InvalidArgumentException('release archive contains an unsupported number of files');
+        $entries = []; $total = 0;
+        for ($index = 0; $index < $zip->numFiles; $index++) {
+            $stat = $zip->statIndex($index);
+            if (!is_array($stat)) throw new InvalidArgumentException('release archive entry is invalid');
+            $name = str_replace('\\', '/', (string)($stat['name'] ?? ''));
+            if ($name === '' || str_ends_with($name, '/')) continue;
+            if (!remoteDeploymentRelativePath($name) || isset($entries[$name])) throw new InvalidArgumentException('release archive contains an unsafe path');
+            $size = (int)($stat['size'] ?? -1); $compressed = (int)($stat['comp_size'] ?? -1);
+            if ($size < 0 || $size > 33554432 || $compressed < 0 || ($size > 1048576 && $compressed === 0) || ($compressed > 0 && $size > $compressed * 200) || ($total += $size) > 67108864) throw new InvalidArgumentException('release archive has an unsafe expanded size');
+            $attributes = 0; $system = 0;
+            if (!$zip->getExternalAttributesIndex($index, $system, $attributes)) throw new InvalidArgumentException('release archive entry attributes are unavailable');
+            $type = ($attributes >> 16) & 0170000;
+            if ($type !== 0 && $type !== 0100000) throw new InvalidArgumentException('release archive may contain regular files only');
+            $entries[$name] = $index;
+        }
+        if ($entries === []) throw new InvalidArgumentException('release archive does not contain files');
+        $parts = array_map(static fn(string $name): string => explode('/', $name, 2)[0], array_keys($entries));
+        $prefix = count(array_unique($parts)) === 1 && str_contains((string)array_key_first($entries), '/') ? $parts[0] . '/' : '';
+        $count = 0;
+        foreach ($entries as $name => $index) {
+            $relative = $prefix === '' ? $name : substr($name, strlen($prefix));
+            if ($relative === '' || !remoteDeploymentRelativePath($relative)) throw new InvalidArgumentException('release archive root is invalid');
+            $destination = $directory . '/' . $relative; $parent = dirname($destination);
+            if (!is_dir($parent) && !mkdir($parent, 0700, true)) throw new RuntimeException('could not create a release path');
+            $input = $zip->getStream($name); $output = @fopen($destination, 'xb');
+            if (!is_resource($input) || !is_resource($output)) { if (is_resource($input)) fclose($input); if (is_resource($output)) fclose($output); throw new RuntimeException('could not read a release file'); }
+            while (!feof($input)) { $chunk = fread($input, 1048576); if ($chunk === false || fwrite($output, $chunk) !== strlen($chunk)) { fclose($input); fclose($output); throw new RuntimeException('could not stage a release file'); } }
+            fclose($input); fclose($output); chmod($destination, 0600); $count++;
+        }
+        return ['directory' => $directory, 'files' => $count];
+    } catch (Throwable $error) {
+        remoteDeploymentRemoveDirectory($directory); throw $error;
+    } finally { $zip->close(); }
+}
+
+/** Re-tests the target, then copies a staged release. It never exposes process output. */
+function remoteDeploymentCopyRelease(array $config, array $input, string $archive, ?callable $runner = null): array
+{
+    $profile = remoteDeploymentProfile($input); $run = $runner ?? 'remoteDeploymentRun';
+    $tested = remoteDeploymentTest($config, $profile, $run);
+    if (!$tested['ok']) return $tested + ['files' => 0];
+    $release = remoteDeploymentStageRelease($archive); $workspace = rtrim(sys_get_temp_dir(), '/') . '/zogograph-deploy-copy-' . bin2hex(random_bytes(12));
+    if (!mkdir($workspace, 0700)) { remoteDeploymentRemoveDirectory($release['directory']); throw new RuntimeException('could not prepare a private deployment workspace'); }
+    try {
+        $credential = remoteDeploymentSecretValue($config, $profile['credential_reference']);
+        $identity = $profile['username'] . '@' . $profile['host'];
+        if ($profile['method'] === 'ftps') {
+            $netrc = $workspace . '/netrc';
+            $contents = 'machine ' . $profile['host'] . "\nlogin " . $profile['username'] . "\npassword " . str_replace(["\r", "\n"], '', $credential) . "\n";
+            if (file_put_contents($netrc, $contents) === false) throw new RuntimeException('could not prepare the FTPS credential');
+            chmod($netrc, 0600);
+            $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($release['directory'], FilesystemIterator::SKIP_DOTS));
+            foreach ($iterator as $file) {
+                if (!$file->isFile() || $file->isLink()) throw new RuntimeException('staged release contains an unsafe file');
+                $relative = str_replace(DIRECTORY_SEPARATOR, '/', substr($file->getPathname(), strlen($release['directory']) + 1));
+                $result = $run(['curl', '--fail', '--silent', '--show-error', '--connect-timeout', '10', '--max-time', '25', '--ftp-ssl-reqd', '--ftp-create-dirs', '--netrc-file', $netrc, '--upload-file', $file->getPathname(), '--url', 'ftps://' . $profile['host'] . ':' . $profile['port'] . $profile['target_path'] . '/' . $relative]);
+                if (!($result['ok'] ?? false)) return ['ok' => false, 'detail' => 'release copy failed before all files were transferred', 'method' => $profile['method'], 'files' => $release['files']];
+            }
+        } else {
+            $key = $workspace . '/identity'; $knownHosts = $workspace . '/known_hosts';
+            $known = remoteDeploymentSecretValue($config, (string)$profile['known_host_reference']);
+            if (file_put_contents($key, $credential) === false || file_put_contents($knownHosts, $known) === false) throw new RuntimeException('could not prepare the SSH credential');
+            chmod($key, 0600); chmod($knownHosts, 0600);
+            $options = ['-o', 'BatchMode=yes', '-o', 'ConnectTimeout=10', '-o', 'ConnectionAttempts=1', '-o', 'StrictHostKeyChecking=yes', '-o', 'UserKnownHostsFile=' . $knownHosts, '-i', $key];
+            if ($profile['method'] === 'rsync_ssh') {
+                $ssh = array_map('escapeshellarg', ['ssh', '-p', (string)$profile['port'], ...$options]);
+                $result = $run(['rsync', '--archive', '--delete-delay', '--protect-args', '-e', implode(' ', $ssh), $release['directory'] . '/', $identity . ':' . $profile['target_path'] . '/']);
+            } else {
+                $batch = $workspace . '/sftp.batch';
+                if (file_put_contents($batch, 'put -r ' . $release['directory'] . '/. ' . $profile['target_path'] . "\n") === false) throw new RuntimeException('could not prepare the SFTP copy');
+                chmod($batch, 0600); $result = $run(['sftp', '-P', (string)$profile['port'], ...$options, '-b', $batch, $identity]);
+            }
+            if (!($result['ok'] ?? false)) return ['ok' => false, 'detail' => 'release copy failed before all files were transferred', 'method' => $profile['method'], 'files' => $release['files']];
+        }
+        return ['ok' => true, 'detail' => 'release copied after target verification', 'method' => $profile['method'], 'files' => $release['files'], 'copied_at' => time()];
+    } finally { remoteDeploymentRemoveDirectory($release['directory']); remoteDeploymentRemoveDirectory($workspace); }
 }

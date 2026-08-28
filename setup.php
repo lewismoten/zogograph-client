@@ -581,7 +581,7 @@ function runWeb(
         $values['openid_signing_private_key'] = $_SESSION['setup_pending_openid_signing_key'];
     }
 
-    if ($posted && in_array($_POST['intent'] ?? '', ['store-deployment-secret', 'save-deployment-profile', 'test-deployment-target'], true)) {
+    if ($posted && in_array($_POST['intent'] ?? '', ['store-deployment-secret', 'save-deployment-profile', 'test-deployment-target', 'copy-deployment-release'], true)) {
         try {
             if (!$configured || !$unlocked || $current === null) throw new RuntimeException('unlock setup before changing remote deployment');
             if (!hash_equals(setupDeploymentToken(), (string)($_POST['setup_deployment_token'] ?? ''))) throw new RuntimeException('the deployment form expired; reload Setup and try again');
@@ -596,6 +596,15 @@ function runWeb(
                 $result = remoteDeploymentTest($current, $profile);
                 $_SESSION['setup_deployment_test'] = $result;
                 $_SESSION['setup_notice'] = $result['ok'] ? 'Remote deployment target verified. You may now review and copy a build.' : 'Remote deployment target was not verified: ' . $result['detail'];
+            } elseif (($_POST['intent'] ?? '') === 'copy-deployment-release') {
+                $profile = remoteDeploymentProfile($_POST);
+                if (!remoteDeploymentSecretExists($current, $profile['credential_reference'])) throw new RuntimeException('the selected deployment credential reference is unavailable');
+                if ($profile['known_host_reference'] !== null && !remoteDeploymentSecretExists($current, $profile['known_host_reference'])) throw new RuntimeException('the selected SSH host-key reference is unavailable');
+                $release = $_FILES['deployment_release'] ?? null;
+                if (!is_array($release) || ($release['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK || !is_string($release['tmp_name'] ?? null) || !is_uploaded_file($release['tmp_name'])) throw new RuntimeException('choose the ZIP release archive to copy');
+                $result = remoteDeploymentCopyRelease($current, $profile, $release['tmp_name']);
+                $_SESSION['setup_deployment_copy'] = $result;
+                $_SESSION['setup_notice'] = $result['ok'] ? 'Remote deployment release copied after a fresh target verification.' : 'Remote deployment release was not copied: ' . $result['detail'];
             } else {
                 $profile = remoteDeploymentProfile($_POST);
                 if (!remoteDeploymentSecretExists($current, $profile['credential_reference'])) throw new RuntimeException('the selected deployment credential reference is unavailable');
@@ -967,7 +976,7 @@ function webPage(
             . ($activeSection === $name ? ' class="current"' : '')
             . ' href="?section=' . rawurlencode($name) . '">' . h($panel['title']) . '</a>';
     }
-    $out[] = '</aside><main class="setup-main"><form method="post">'
+    $out[] = '</aside><main class="setup-main"><form method="post" enctype="multipart/form-data">'
         . '<input type="hidden" name="section" value="' . h($activeSection) . '">';
 
     $editingLocked = $configured && $existing['password_hash'] !== '' && !$unlocked;
@@ -1036,6 +1045,7 @@ function webPage(
             . '<label>Encrypted credential reference<input required name="credential_reference" value="' . h((string)($deployment['credential_reference'] ?? $lastReference)) . '" autocomplete="off"></label><label>SSH host-key reference (not used for FTPS)<input name="known_host_reference" value="' . h((string)($deployment['known_host_reference'] ?? '')) . '" autocomplete="off"></label><label>Core controller URL<input required type="url" name="controller_url" value="' . h((string)($deployment['controller_url'] ?? '')) . '" placeholder="https://core.example"></label><label>Remote update behavior<select name="update_mode"><option value="manual"' . (($deployment['update_mode'] ?? 'manual') === 'manual' ? ' selected' : '') . '>Manual install</option><option value="download"' . (($deployment['update_mode'] ?? '') === 'download' ? ' selected' : '') . '>Download, then wait for approval</option><option value="automatic"' . (($deployment['update_mode'] ?? '') === 'automatic' ? ' selected' : '') . '>Install automatically</option></select></label><label>Package groups (comma-separated)<input required name="packages[]" value="remote-core" readonly></label><button type="submit" name="intent" value="save-deployment-profile" data-i18n="deployment.save">Save deployment profile</button><button type="submit" name="intent" value="test-deployment-target" data-i18n="deployment.test">Test target and credentials</button></fieldset>';
         $out[] = '<fieldset><legend data-i18n="deployment.store">Store deployment credential or host key</legend><p class="help">Paste one password, private key, or known_hosts entry. It is encrypted with the configured local key and shown only as an opaque reference after storage.</p><label>Credential or host-key material<textarea name="deployment_secret" rows="5" autocomplete="off"></textarea></label><button type="submit" name="intent" value="store-deployment-secret" data-i18n="deployment.store_action">Store encrypted credential</button>'
             . ($lastReference !== '' ? '<p class="banner ok">New encrypted reference: <code>' . h($lastReference) . '</code></p>' : '') . '</fieldset>';
+        $out[] = '<fieldset><legend>Copy a tested release</legend><p class="help">Upload the ZIP made from the selected remote-core release. Copying always repeats the target and credential check first. The ZIP is unpacked only in a private temporary directory, and its contents are removed after transfer.</p><label>Remote-core ZIP release<input required type="file" name="deployment_release" accept="application/zip,.zip"></label><button type="submit" name="intent" value="copy-deployment-release">Verify again and copy release</button></fieldset>';
         if ($deployment !== []) {
             try {
                 $plan = remoteDeploymentCommandPlan($deployment);
@@ -1047,6 +1057,10 @@ function webPage(
         $lastTest = $_SESSION['setup_deployment_test'] ?? null;
         if (is_array($lastTest) && isset($lastTest['ok'], $lastTest['detail'], $lastTest['tested_at'])) {
             $out[] = '<p class="banner ' . ($lastTest['ok'] ? 'ok' : 'warn') . '"><strong>Last target test:</strong> ' . h((string)$lastTest['detail']) . ' (' . h(gmdate('Y-m-d H:i:s', (int)$lastTest['tested_at'])) . ' UTC)</p>';
+        }
+        $lastCopy = $_SESSION['setup_deployment_copy'] ?? null;
+        if (is_array($lastCopy) && isset($lastCopy['ok'], $lastCopy['detail'], $lastCopy['files'])) {
+            $out[] = '<p class="banner ' . ($lastCopy['ok'] ? 'ok' : 'warn') . '"><strong>Last release copy:</strong> ' . h((string)$lastCopy['detail']) . ' (' . h((string)$lastCopy['files']) . ' files)</p>';
         }
     } elseif ($activeSection === 'schedule') {
         $schedule = scheduleState(__DIR__);

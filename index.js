@@ -3512,7 +3512,9 @@ function renderTable(target, rows, columns, onRowClick, rowClass, key) {
   if (!rows || !rows.length) {
     if (TABLE_DREW.get(target) !== "empty") {
       TABLE_DREW.set(target, "empty");
-      el.innerHTML = '<p class="muted">Nothing to show.</p>';
+      el.replaceChildren(Object.assign(document.createElement("p"), {
+        className: "muted", textContent: "Nothing to show.",
+      }));
     }
     return;
   }
@@ -4193,9 +4195,13 @@ function renderTypePie(scans, total) {
  */
 function renderOtherExtensions(rows) {
   if (!rows.length) {
-    $("otherExtensions").innerHTML =
-      '<p class="muted">Nothing landed in <code>other</code>, or the last scan '
-      + 'ran before this was measured.</p>';
+    const message = document.createElement("p");
+    message.className = "muted";
+    message.append("Nothing landed in ");
+    const other = document.createElement("code");
+    other.textContent = "other";
+    message.append(other, ", or the last scan ran before this was measured.");
+    $("otherExtensions").replaceChildren(message);
     return;
   }
 

@@ -78,8 +78,8 @@ foreach (['peer-data.php', 'peer-connect.php', 'openid.php'] as $file) {
 
 $dashboard = file_get_contents(__DIR__ . '/../index.js');
 if ($dashboard === false || !str_contains($dashboard, 'hint.textContent = meta.hint;')
-    || str_contains($dashboard, 'hint.innerHTML = meta.hint;')) {
-    throw new RuntimeException('URL-check hints must not use a dynamic HTML sink');
+    || preg_match('/\.innerHTML\s*=/', $dashboard) === 1) {
+    throw new RuntimeException('dashboard rendering must not use an HTML sink');
 }
 
 foreach ([

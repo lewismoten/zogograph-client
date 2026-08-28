@@ -28,6 +28,7 @@
   "setup.first_readings": "Take the first readings, then open the dashboard:",
   "setup.keep_setup": "Keep setup.php available for later administrator changes. It requires the current password before it can replace your configuration.",
   "setup.root_step": "One more step, as root.",
+  "setup.root_install_help": "The host collector cannot be installed from here — it runs as root, and this page runs as your account. Log in to WHM or SSH as root and add this to root’s crontab (crontab -e):",
   "setup.installation": "Installation",
   "installation.checks": "Installation checks",
   "installation.check": "Check",

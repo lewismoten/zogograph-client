@@ -28,6 +28,7 @@
   "setup.first_readings": "पहली रीडिंग लें, फिर डैशबोर्ड खोलें:",
   "setup.keep_setup": "बाद के व्यवस्थापक बदलावों के लिए setup.php उपलब्ध रखें। आपकी कॉन्फ़िगरेशन बदलने से पहले इसे वर्तमान पासवर्ड चाहिए।",
   "setup.root_step": "root के रूप में एक और चरण।",
+  "setup.root_install_help": "होस्ट कलेक्टर यहाँ से स्थापित नहीं किया जा सकता — यह root के रूप में चलता है और यह पृष्ठ आपके खाते के रूप में चलता है। WHM में लॉग इन करें या root के रूप में SSH करें और इसे root के crontab (crontab -e) में जोड़ें:",
   "setup.installation": "स्थापना",
   "installation.checks": "स्थापना जांच", "installation.check": "जांच", "installation.state": "स्थिति", "installation.detail": "विवरण",
   "setup.section.privacy": "गोपनीयता",

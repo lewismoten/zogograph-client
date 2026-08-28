@@ -1080,9 +1080,7 @@ function webPage(
 
         if (!empty($values['host_enabled'])) {
             $out[] = '<div class="banner warn"><strong data-i18n="setup.root_step">One more step, as root.</strong>'
-                . '<p>The host collector cannot be installed from here — it runs as root, and '
-                . 'this page runs as your account. Log in to WHM or ssh as root and add this '
-                . 'to <em>root\'s</em> crontab (<code>crontab -e</code>):</p>'
+                . '<p data-i18n="setup.root_install_help">The host collector cannot be installed from here — it runs as root, and this page runs as your account. Log in to WHM or SSH as root and add this to root’s crontab (crontab -e):</p>'
                 . '<pre><code>' . h(hostCronLine()) . '</code></pre>'
                 . '<p>Then run it once by hand to see that it works — without the '
                 . 'schedule, and without <code>--quiet</code> so it tells you what it found:</p>'

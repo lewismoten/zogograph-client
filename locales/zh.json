@@ -28,6 +28,7 @@
   "setup.first_readings": "先获取初始读数，然后打开仪表板：",
   "setup.keep_setup": "请保留 setup.php 以供日后管理员更改。替换配置前必须提供当前密码。",
   "setup.root_step": "还需要以 root 身份完成一步。",
+  "setup.root_install_help": "无法从此处安装主机采集器：它以 root 身份运行，而此页面以您的账户身份运行。请以 root 身份登录 WHM 或通过 SSH 登录，并将以下内容添加到 root 的 crontab（crontab -e）：",
   "setup.installation": "安装",
   "installation.checks": "安装检查", "installation.check": "检查项", "installation.state": "状态", "installation.detail": "详情",
   "setup.section.privacy": "隐私",

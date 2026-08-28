@@ -1437,10 +1437,10 @@
   </p>
   <form id="dnsForm" class="pattern-row">
     <input type="text" id="dnsName" spellcheck="false" autocomplete="off"
-           placeholder="git.lewismoten.com">
+           placeholder="git.lewismoten.com" data-i18n-placeholder="network.dns_name_placeholder">
     <select id="dnsType"></select>
     <input type="text" id="dnsServer" spellcheck="false" autocomplete="off"
-           placeholder="server (optional)">
+           placeholder="server (optional)" data-i18n-placeholder="network.dns_server_placeholder">
     <button type="submit">Look it up</button>
   </form>
   <div id="dnsBody"></div>
@@ -1526,7 +1526,7 @@
       guessed silently.
     -->
     <input type="text" id="fetchUrl" inputmode="url" spellcheck="false" autocomplete="off"
-           placeholder="example.com or https://example.com/">
+           placeholder="example.com or https://example.com/" data-i18n-placeholder="network.fetch_placeholder">
     <select id="fetchMethod">
       <option value="GET">GET</option>
       <option value="HEAD">HEAD</option>
@@ -1755,7 +1755,7 @@
   </p>
   <form id="domainForm" class="pattern-row">
     <input type="text" id="domainName" spellcheck="false" autocomplete="off"
-           placeholder="example.com">
+           placeholder="example.com" data-i18n-placeholder="network.domain_placeholder">
     <label class="pill">warn
       <input type="number" id="domainWarn" min="1" max="365" value="45" class="narrow">
       days before
@@ -1786,7 +1786,7 @@
   </p>
   <form id="whoisForm" class="pattern-row">
     <input type="text" id="whoisName" spellcheck="false" autocomplete="off"
-           placeholder="example.com">
+           placeholder="example.com" data-i18n-placeholder="network.domain_placeholder">
     <button type="submit">Ask</button>
   </form>
   <div id="whoisBody"></div>

@@ -72,18 +72,25 @@ the product is complete.
   independently applied managed jobs.
 - [x] Inert signed package panels, schema-validated package settings, audit,
   and opaque secret-reference selection in Setup.
-- [ ] Explain and provision the existing OpenID Connect provider in Setup,
-  including safe signing-key generation and trusted-client management.
-- [ ] Guided TOTP enrollment: create a Base32 secret, show QR/manual setup
-  once, require a successful verification code before saving, then show
-  one-time backup codes exactly once after acknowledgement.
+- [~] Explain and provision the existing OpenID Connect provider in Setup.
+  Provider capability, issuer, and signing-key configuration are visible;
+  safe signing-key generation and trusted-client management remain.
+- [~] Guided TOTP enrollment: Setup generates a Base32 secret, requires a
+  successful verification code before saving, and displays one-time backup
+  codes once after acknowledgement. A scannable QR presentation remains.
 - [ ] Replace raw dotted generated labels with authored Setup questions.
 - [~] Build locale catalogs, locale preference/detection, named formatting,
   RTL support, key-inspection mode, and package language catalog merge rules.
-- [ ] Move core pages to a dependency-aware, enable/disable-able plugin-shell
-  model; retain safe archive upload/install/remove lifecycle checks.
-- [ ] Give client-remote the same shell, controller enrollment/configuration,
+  The dashboard shell and signed package catalogs are covered; feature-panel
+  and server-rendered Setup localization remain.
+- [~] Move core pages to a dependency-aware, enable/disable-able plugin-shell
+  model. Signed archive upload/install/remove, dependency gating, Setup panels,
+  and core-rendered dashboard pages exist; core feature-page conversion remains.
+- [~] Give client-remote the same shell, controller enrollment/configuration,
   tested transport deployment choices, updates, and compatible database merge.
+  Restricted private setup, controller protocol preflight, pairing storage, and
+  update policy configuration exist; delivery methods, approved telemetry
+  sender, update execution, and database merge remain.
 
 Audit route-level state changes and secret exposure next. The first finding was
 an unprotected sign-out route; it now requires POST plus the current CSRF token.

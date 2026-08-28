@@ -406,8 +406,8 @@ instead of deleting it, and switches the saved encryption setting only after
 those steps succeed:
 
 ```bash
-php scripts/encryption-key.php create /secure/zogograph/replacement.key
-php scripts/rotate-sealed-copies.php --new-key /secure/zogograph/replacement.key --confirm
+php scripts/encryption-key.php create "$HOME/.private/zogograph-replacement.key"
+php scripts/rotate-sealed-copies.php --new-key "$HOME/.private/zogograph-replacement.key" --confirm
 php cron.php --verify-sealed
 ```
 

@@ -19,7 +19,7 @@ if ($argc === 4 && $argv[1] === '--from' && $argv[3] === '--writers-stopped') {
 } else {
     fwrite(STDERR, "Usage:\n"
         . "  php scripts/restore-account.php --from /secure/known-good.db --writers-stopped\n"
-        . "  php scripts/restore-account.php --sealed /secure/account.sealed --key /secure/zogograph.key --writers-stopped\n");
+        . "  php scripts/restore-account.php --sealed /secure/account.sealed --key \$HOME/.private/zogograph.key --writers-stopped\n");
     exit(64);
 }
 

@@ -7,7 +7,7 @@ declare(strict_types=1);
  * then atomically replaces it. */
 if (PHP_SAPI !== 'cli') { http_response_code(403); exit("This recovery command is CLI-only.\n"); }
 if ($argc !== 6 || $argv[1] !== '--sealed' || $argv[3] !== '--key' || $argv[5] !== '--confirm') {
-    fwrite(STDERR, "Usage: php scripts/restore-config.php --sealed /secure/config.sealed --key /secure/zogograph.key --confirm\n");
+    fwrite(STDERR, "Usage: php scripts/restore-config.php --sealed /secure/config.sealed --key \$HOME/.private/zogograph.key --confirm\n");
     exit(64);
 }
 require_once __DIR__ . '/../lib/encryption.php';

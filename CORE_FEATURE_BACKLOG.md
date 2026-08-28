@@ -7,7 +7,6 @@ and any shared dashboard or assistant data path must be closed too.
 
 | Core package | Remaining routes | Boundary work still required |
 | --- | --- | --- |
-| Monitoring overview | `overview` | Alert, uptime, and chart-history boundaries are complete. Any overview boundary must preserve active collection and setup guidance while closing only its shared presentation data. |
 
 Completed groups are documented in `GOAL_AUDIT.md`. This file is deliberately
 kept as a conversion queue rather than a completion claim.

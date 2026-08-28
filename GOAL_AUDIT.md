@@ -18,6 +18,14 @@ whole objective is finished.
 
 ## Non-negotiable boundaries
 
+## Recent core-boundary evidence
+
+Overview is now a core feature. Its bootstrap endpoint remains reachable only
+to supply shell/access state, and returns empty overview measurements when the
+feature is disabled; the browser then falls back to another allowed page.
+`tests/core-features.php` covers the declared feature status and bootstrap
+redaction source.
+
 - Packages must never turn signed metadata into executable dashboard or Setup
   code without an independently verified isolation boundary.
 - Core feature toggles need runtime enforcement, not merely hidden navigation.

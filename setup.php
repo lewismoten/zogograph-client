@@ -1181,17 +1181,18 @@ function webPage(
             . '<label class="row"><input type="checkbox" name="rotate_mask" value="1"> <span data-i18n="privacy.rotate_mask">Generate a new mask secret</span></label>'
             . '</fieldset>';
     } elseif ($activeSection === 'host') {
-        $hostStatus = setupHostStatus($values);
+        $hostStatus = setupHostStatus($current ?? ['database' => $root . '/data/stats.db', 'host' => ['enabled' => (bool)($values['host_enabled'] ?? false), 'owner' => (string)($values['host_owner'] ?? '')]]);
         $rows = [
             ['Enabled', $hostStatus['enabled'] ? 'Yes' : 'No', $hostStatus['enabled'] ? 'ok' : 'warn'],
             ['Database exists', $hostStatus['exists'] ? 'Yes' : 'No', $hostStatus['exists'] ? 'ok' : 'warn'],
             ['Database access', $hostStatus['access'], $hostStatus['readable'] ? 'ok' : 'warn'],
             ['Database owner', $hostStatus['owner'], $hostStatus['owner_matches'] ? 'ok' : 'warn'],
+            ['Current account crontab', $hostStatus['account_cron'], $hostStatus['account_cron_ok'] ? 'ok' : 'warn'],
             ['Samples', $hostStatus['samples'], $hostStatus['sample_count'] > 0 ? 'ok' : 'warn'],
             ['Cadence', $hostStatus['cadence'], $hostStatus['cadence_ok'] ? 'ok' : 'warn'],
             ['Next expected', $hostStatus['next'], $hostStatus['next_ok'] ? 'ok' : 'warn'],
         ];
-        $out[] = '<fieldset><legend>Host collector status</legend><p class="help">These checks use the host database as the dashboard account can read it. Root collection is required for host-wide results; an account-run collector records only its own visible subset.</p><table class="preflight"><thead><tr><th>Check</th><th>State</th><th>Detail</th></tr></thead><tbody>';
+        $out[] = '<fieldset><legend>Host collector status</legend><p class="help">These checks use the host database as the dashboard account can read it. Root collection is required for host-wide results; an account-run collector records only its own visible subset. This page can inspect this account’s crontab, but cannot read root’s crontab.</p><table class="preflight"><thead><tr><th>Check</th><th>State</th><th>Detail</th></tr></thead><tbody>';
         foreach ($rows as [$label, $detail, $state]) $out[] = '<tr><th>' . h($label) . '</th><td class="' . h($state) . '">' . h($state === 'ok' ? 'Ready' : 'Needs attention') . '</td><td>' . h($detail) . '</td></tr>';
         $out[] = '</tbody></table><p class="help">Run this once as root after saving Host settings:</p><pre><code>' . h(hostCronCommand()) . '</code></pre><p class="help">Then add to root’s crontab:</p><pre><code>' . h(hostCronLine()) . '</code></pre></fieldset>';
     } elseif ($activeSection === 'openid') {
@@ -1518,7 +1519,7 @@ function firstParagraph(string $text): string
     return $said === '' ? $text : $said;
 }
 
-/** @return array{enabled:bool,exists:bool,readable:bool,owner:string,owner_matches:bool,sample_count:int,samples:string,cadence:string,cadence_ok:bool,next:string,next_ok:bool,access:string} */
+/** @return array{enabled:bool,exists:bool,readable:bool,owner:string,owner_matches:bool,sample_count:int,samples:string,cadence:string,cadence_ok:bool,next:string,next_ok:bool,access:string,account_cron:string,account_cron_ok:bool} */
 function setupHostStatus(array $config): array
 {
     $path = hostDatabasePath($config);
@@ -1531,6 +1532,8 @@ function setupHostStatus(array $config): array
         if (is_array($resolved) && isset($resolved['name'])) $owner = (string)$resolved['name'];
     }
     $expectedOwner = trim((string)($config['host']['owner'] ?? currentAccountName()));
+    $accountCron = readCrontab();
+    $accountRunsHost = ($accountCron['available'] ?? false) && str_contains((string)($accountCron['raw'] ?? ''), hostCronCommand());
     $count = 0; $times = [];
     if ($readable) try {
         $pdo = new PDO('sqlite:' . $path, null, null, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
@@ -1543,7 +1546,7 @@ function setupHostStatus(array $config): array
     $last = $times[0] ?? 0; $due = $cadence === null ? 0 : $last + $cadence; $now = time();
     $samples = $count === 0 ? 'No samples yet' : ($count >= 10000 ? '10k+ samples' : ($count >= 1000 ? '1k+ samples' : ($count >= 100 ? '100+ samples' : ($count >= 78 ? '78+ samples' : $count . ' sample' . ($count === 1 ? '' : 's')))));
     $next = $cadence === null ? 'Need ' . max(1, 2 - $count) . ' more sample' . ($count === 1 ? '' : 's') : ($due >= $now ? 'Expected in ' . max(1, (int)ceil(($due - $now) / 60)) . 'm' : (($now - $due) > $cadence * 4 ? 'Stopped; last sample ' . (int)floor(($now - $last) / 3600) . 'h ago' : 'Overdue ' . max(1, (int)ceil(($now - $due) / 60)) . 'm'));
-    return ['enabled' => (bool)($config['host']['enabled'] ?? false), 'exists' => $exists, 'readable' => $readable, 'owner' => $owner, 'owner_matches' => $owner === $expectedOwner, 'sample_count' => $count, 'samples' => $samples, 'cadence' => $cadence === null ? 'No; need more samples' : 'Yes; every ' . max(1, (int)round($cadence / 60)) . 'm', 'cadence_ok' => $cadence !== null, 'next' => $next, 'next_ok' => $cadence !== null && $due >= $now, 'access' => $readable ? 'Readable by this dashboard account' : ($exists ? 'Exists but is not readable by this dashboard account' : 'No database yet')];
+    return ['enabled' => (bool)($config['host']['enabled'] ?? false), 'exists' => $exists, 'readable' => $readable, 'owner' => $owner, 'owner_matches' => $owner === $expectedOwner, 'sample_count' => $count, 'samples' => $samples, 'cadence' => $cadence === null ? 'No; need more samples' : 'Yes; every ' . max(1, (int)round($cadence / 60)) . 'm', 'cadence_ok' => $cadence !== null, 'next' => $next, 'next_ok' => $cadence !== null && $due >= $now, 'access' => $readable ? 'Readable by this dashboard account' : ($exists ? 'Exists but is not readable by this dashboard account' : 'No database yet'), 'account_cron' => !($accountCron['available'] ?? false) ? 'Cannot read this account’s crontab' : ($accountRunsHost ? 'Yes; this account runs host-cron.php' : 'No host-cron.php entry in this account’s crontab'), 'account_cron_ok' => $accountRunsHost];
 }
 
 function renderField(array $field, array $values, array $errors, bool $configured): string

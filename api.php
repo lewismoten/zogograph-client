@@ -505,7 +505,8 @@ function overview(array $config, PDO $pdo, bool $signedIn): array
          * whole point is that somebody arriving at two in the morning sees
          * "I know about the disk" before they start investigating it again.
          */
-        'broadcasts' => $signedIn && accessAllows($config, 'notes') ? noteBroadcasts($pdo, $config) : [],
+        'broadcasts' => $signedIn && coreFeatureEnabled($config, 'notes') && accessAllows($config, 'notes')
+            ? noteBroadcasts($pdo, $config) : [],
         /*
          * Two strings, carried on the call every page already makes.
          *

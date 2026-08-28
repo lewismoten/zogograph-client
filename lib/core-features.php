@@ -25,6 +25,10 @@ const CORE_FEATURES = [
         'dashboard_routes' => ['sys-terminal', 'sys-sessions'],
         'setup_section' => 'features',
     ],
+    'notes' => [
+        'dashboard_routes' => ['sys-notes', 'sys-snapshots'],
+        'setup_section' => 'features',
+    ],
 ];
 
 /** Missing settings deliberately preserve existing installations. */
@@ -53,6 +57,7 @@ function coreFeatureForAction(string $action): ?string
     if ($action === 'peers' || str_starts_with($action, 'peer-')) return 'peers';
     if ($action === 'marketplace' || str_starts_with($action, 'marketplace-')) return 'marketplace';
     if ($action === 'terminal' || str_starts_with($action, 'terminal-')) return 'terminal';
+    if ($action === 'notes' || str_starts_with($action, 'note-') || $action === 'snapshot-delete') return 'notes';
     return null;
 }
 

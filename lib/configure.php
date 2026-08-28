@@ -81,6 +81,15 @@ function configFields(array $sample): array
             'default' => (bool)($sample['core_features']['terminal'] ?? true),
         ],
         [
+            'key' => 'core_features_notes',
+            'section' => 'features',
+            'path' => ['core_features', 'notes'],
+            'type' => 'bool',
+            'label' => 'Notes core feature',
+            'help' => 'Disabling this removes notes, database copies, chart annotations, and broadcasts from the dashboard and blocks their API routes. Existing notes and captured evidence are retained for a later re-enable.',
+            'default' => (bool)($sample['core_features']['notes'] ?? true),
+        ],
+        [
             'key' => 'openid_enabled',
             'section' => 'openid',
             'path' => ['openid', 'enabled'],

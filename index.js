@@ -23204,7 +23204,7 @@ function applyAccessChrome() {
 
   const corner = $("cornerMenu");
   if (corner) {
-    const mayWriteNote = Boolean(state.signedIn && state.access?.notes);
+    const mayWriteNote = Boolean(state.signedIn && state.access?.notes && !disabledCoreRoutes.has("sys-notes"));
     const mayAskAi = Boolean(state.signedIn && state.access?.ai);
     const mayDiagnose = Boolean(state.signedIn
       && (state.access?.pages?.includes("*") || state.access?.pages?.includes("diagnose")));

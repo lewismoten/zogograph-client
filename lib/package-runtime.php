@@ -489,6 +489,34 @@ function packageRuntimeSettingsDefaults(PDO $pdo, string $id): array
     return $defaults;
 }
 
+/**
+ * Top-level schema properties that accept a package secret reference.
+ * The generic Setup editor can offer a picker for these without reading a
+ * secret or guessing about nested package-owned configuration structures.
+ *
+ * @return list<string>
+ */
+function packageRuntimeSecretSettingNames(PDO $pdo, string $id): array
+{
+    $stmt = $pdo->prepare('SELECT manifest_json, manifest_sha256, install_path FROM runtime_packages WHERE package_id = ?');
+    $stmt->execute([$id]); $package = $stmt->fetch();
+    $manifest = is_array($package) ? json_decode((string)$package['manifest_json'], true) : null;
+    $relative = is_array($manifest) ? (string)($manifest['settings_schema'] ?? '') : '';
+    if ($relative === '') return [];
+    $root = realpath((string)$package['install_path']); $path = $root === false ? false : realpath($root . '/' . $relative);
+    if ($root === false || $path === false || is_link($root . '/' . $relative) || !is_file($path)
+        || !str_starts_with($path, rtrim($root, '/') . '/')) throw new RuntimeException('installed package settings schema is unavailable');
+    $integrity = packageRuntimeVerifyInstalledPackage($manifest, (string)$package['install_path'], (string)($package['manifest_sha256'] ?? ''));
+    if (!$integrity['ok']) throw new RuntimeException('installed package integrity failed: ' . $integrity['detail']);
+    $schema = json_decode((string)file_get_contents($path), true, 64, JSON_THROW_ON_ERROR);
+    $out = [];
+    foreach ((array)($schema['properties'] ?? []) as $name => $property) {
+        if (is_string($name) && is_array($property) && preg_match('/(?:secret|token|password|private[_-]?key)/i', $name)) $out[] = $name;
+    }
+    sort($out, SORT_STRING);
+    return $out;
+}
+
 function packageRuntimeSaveSettings(PDO $pdo, array $config, string $id, array $settings, string $actor): void
 {
     packageRuntimeInstalled($pdo, $id);

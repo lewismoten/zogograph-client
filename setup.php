@@ -254,6 +254,16 @@ function setupPackageSettings(?array $config, string $packageId): array
     return packageRuntimeSettings($registry, $config, $packageId);
 }
 
+/** @return array{names:list<string>,references:list<array{reference:string,created_at:int,updated_at:int,referenced:bool}>} */
+function setupPackageSecretPicker(?array $config, string $packageId): array
+{
+    if ($config === null || ($registry = setupPackageRegistry($config)) === null) {
+        throw new RuntimeException('the package registry is unavailable');
+    }
+    return ['names' => packageRuntimeSecretSettingNames($registry, $packageId),
+        'references' => packageRuntimeSecrets($registry, $config, $packageId)];
+}
+
 function setupSavePackageSettings(?array $config, string $packageId, array $settings): void
 {
     if ($config === null || ($registry = setupPackageRegistry($config)) === null) {
@@ -925,6 +935,21 @@ function webPage(
                 . '<input type="hidden" name="package_panel_id" value="' . h($activeSection) . '">'
                 . '<input type="hidden" name="setup_package_settings_token" value="' . h(setupPackageSettingsToken()) . '">'
                 . '<button type="submit" name="intent" value="save-package-settings">Save package settings</button></fieldset>';
+            $picker = setupPackageSecretPicker($current, $packageId);
+            if ($picker['names'] !== []) {
+                $out[] = '<fieldset><legend>Protected secret references</legend><p class="help">Select a reference already stored for this package. The secret value is never shown or copied into this page. Create a new secret from the dashboard’s Packages area first if this list is empty.</p>';
+                foreach ($picker['names'] as $name) {
+                    $selected = (string)($settings[$name] ?? '');
+                    $out[] = '<label>' . h($name) . '<select data-package-secret-picker="' . h($name) . '"><option value="">No reference selected</option>';
+                    foreach ($picker['references'] as $secret) {
+                        $reference = (string)$secret['reference'];
+                        $out[] = '<option value="' . h($reference) . '"' . ($reference === $selected ? ' selected' : '') . '>'
+                            . h($reference) . ($secret['referenced'] ? ' (currently used)' : '') . '</option>';
+                    }
+                    $out[] = '</select></label>';
+                }
+                $out[] = '</fieldset>';
+            }
         } catch (Throwable $error) {
             $out[] = '<div class="banner warn">Package settings are unavailable: ' . h($error->getMessage()) . '</div>';
         }
@@ -983,7 +1008,7 @@ function webPage(
         $out[] = '<textarea readonly onclick="this.select()">' . h($rendered) . '</textarea>';
     }
 
-    $out[] = '<script>document.querySelector("[data-setup-nav-search]")?.addEventListener("input",function(){const q=this.value.trim().toLowerCase();document.querySelectorAll("[data-setup-nav-item]").forEach(function(item){item.hidden=q!==""&&!item.dataset.setupNavTerms.toLowerCase().includes(q);});});</script>';
+    $out[] = '<script>document.querySelector("[data-setup-nav-search]")?.addEventListener("input",function(){const q=this.value.trim().toLowerCase();document.querySelectorAll("[data-setup-nav-item]").forEach(function(item){item.hidden=q!==""&&!item.dataset.setupNavTerms.toLowerCase().includes(q);});});document.querySelectorAll("[data-package-secret-picker]").forEach(function(picker){picker.addEventListener("change",function(){const box=document.querySelector("textarea[name=package_settings]");if(!box)return;try{const settings=JSON.parse(box.value);settings[picker.dataset.packageSecretPicker]=picker.value;box.value=JSON.stringify(settings,null,2);}catch(error){picker.value="";window.alert("Fix the package settings JSON before choosing a secret reference.");}});});</script>';
     $out[] = '</body></html>';
     return implode("\n", $out);
 }

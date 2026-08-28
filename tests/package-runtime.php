@@ -109,6 +109,8 @@ try {
     catch (InvalidArgumentException $error) { runtimeExpect($error->getMessage() !== 'non-custody package received custody diagnostic approval', $error->getMessage()); }
     runtimeExpect(packageRuntimeSettings($pdo, $config, 'test-runtime')['retention_days'] === 30,
         'signed package settings defaults were not shown before setup');
+    runtimeExpect(packageRuntimeSecretSettingNames($pdo, 'test-runtime') === ['custody_secret'],
+        'package secret-reference schema properties were not identified');
     if (function_exists('proc_open')) {
         try { packageRuntimeInvokeProbe($pdo, $config, 'test-runtime'); throw new RuntimeException('unconfigured probe launcher was accepted'); }
         catch (RuntimeException $error) { runtimeExpect($error->getMessage() !== 'unconfigured probe launcher was accepted', $error->getMessage()); }

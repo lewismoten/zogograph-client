@@ -28,8 +28,10 @@ configuration, or bypass Setup's password/session/CSRF checks.
 No package receives a direct settings object or a renderer callback. Setup's
 own generic editor is the only current settings path; it validates a signed
 schema, maintains Setup CSRF/unlock checks, and never loads package code.
-Audit records and a package-local secret-reference picker remain follow-up
-work.
+Only top-level signed-schema secret fields receive a package-local
+secret-reference picker; it lists opaque references and never secret material.
+Nested package-specific secret structures remain a future renderer-bridge
+feature.
 
 ## Signed package panels
 
@@ -74,6 +76,6 @@ reviewed capability and command registry, not a broader cron API.
 3. Add core-panel enablement and feature gating to the registry.
 4. Surface signed inert package panels through generic schema settings. (Done.)
 5. Add settings-save audit records. (Done.)
-6. Add a package-local secret reference picker.
+6. Add a package-local secret reference picker. (Done for top-level fields.)
 7. Bridge renderer callbacks only after package execution is independently
    attested, with a separately reviewed isolation contract.

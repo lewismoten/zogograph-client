@@ -22,13 +22,12 @@ the full application. The currently concrete `SetupPanelApi` offers:
   jobs, never arbitrary shell commands or an arbitrary crontab line.
 
 Package panels are hidden unless their package is intact, compatible, granted,
-and enabled. Core-panel enablement is not implemented yet; it requires core
-features to have real lifecycle boundaries rather than merely hiding settings.
-The host collector is the reference boundary: `host.enabled` prevents host
-collection and host-data APIs from running, while the Host Setup panel remains
-available so an administrator can re-enable it. A future core feature toggle
-must likewise enforce its runtime boundary and leave a safe configuration path
-to restore it; it must not merely hide navigation.
+and enabled. Core feature enablement is implemented through
+`core_features.*`: every declared feature has a runtime API/dashboard boundary,
+while its toggle remains in Setup’s Features panel so an administrator can
+re-enable it without editing a file. The host collector remains a separate
+operational setting: `host.enabled` controls collection itself, whereas the
+Host observations feature controls only its dashboard/API presentation.
 Plugins cannot replace core panels, add executable shell text, access another
 plugin's configuration, or bypass Setup's password/session/CSRF checks.
 
@@ -83,8 +82,8 @@ reviewed capability and command registry, not a broader cron API.
 
 1. Core cron editor, desired-state persistence, apply, and comparison. (Done.)
 2. Searchable, scrollable Setup navigation driven by panel metadata. (Done.)
-3. Add core-panel enablement and feature gating to the registry, after each
-   candidate feature has a host-like enforced runtime lifecycle boundary.
+3. Add core-feature enablement and runtime gating to the registry after each
+   candidate feature has an enforced lifecycle boundary. (Done.)
 4. Surface signed inert package panels through generic schema settings. (Done.)
 5. Add settings-save audit records. (Done.)
 6. Add a package-local secret reference picker. (Done for top-level fields.)

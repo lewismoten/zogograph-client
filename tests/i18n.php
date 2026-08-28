@@ -68,6 +68,9 @@ i18nExpect($setup !== false && str_contains($setup, 'setupRenderPackageSettingsP
     && str_contains($setup, 'data-package-settings-target') && str_contains($setup, 'save-package-settings:')
     && str_contains($setup, 'data-i18n="package.save_settings"') && str_contains($setup, 'data-i18n="package.no_reference"'),
     'Setup cannot render a signed package settings panel inside a core page');
+i18nExpect($setup !== false && str_contains($setup, 'data-i18n="package.unavailable"')
+    && str_contains($setup, "json_encode(['detail' => \$error->getMessage()]"),
+    'Setup package-settings failure does not use localized named values');
 i18nExpect($setup !== false && !str_contains($setup, 'textarea[name=package_settings]')
     && substr_count($setup, 'document.querySelectorAll("[data-package-settings-target]")') === 1,
     'Setup package-secret selectors do not use one panel-specific handler');

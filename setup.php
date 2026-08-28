@@ -1298,7 +1298,7 @@ function webPage(
         try {
             $out[] = setupRenderPackageSettingsPanel($activePanel, $current);
         } catch (Throwable $error) {
-            $out[] = '<div class="banner warn">Package settings are unavailable: ' . h($error->getMessage()) . '</div>';
+            $out[] = '<div class="banner warn" data-i18n="package.unavailable" data-i18n-values="' . h(json_encode(['detail' => $error->getMessage()], JSON_THROW_ON_ERROR)) . '">Package settings are unavailable: ' . h($error->getMessage()) . '</div>';
         }
     } else {
         $help = sampleHelp($samplePath)['sections'][$activeSection] ?? '';
@@ -1307,7 +1307,7 @@ function webPage(
     if (!$editingLocked && (!is_array($activePanel) || $activePanel['kind'] !== 'package')) {
         foreach ($packagePanels as $panel) if (($panel['parent'] ?? null) === $activeSection) {
             try { $out[] = setupRenderPackageSettingsPanel($panel, $current); }
-            catch (Throwable $error) { $out[] = '<div class="banner warn">Package settings are unavailable: ' . h($error->getMessage()) . '</div>'; }
+            catch (Throwable $error) { $out[] = '<div class="banner warn" data-i18n="package.unavailable" data-i18n-values="' . h(json_encode(['detail' => $error->getMessage()], JSON_THROW_ON_ERROR)) . '">Package settings are unavailable: ' . h($error->getMessage()) . '</div>'; }
         }
     }
     if (!$editingLocked) {

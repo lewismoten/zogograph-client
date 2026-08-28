@@ -60,6 +60,7 @@ try {
         'runtime' => ['kind' => 'hostscope-isolated-php-package', 'entrypoint' => 'src/Provider.php', 'provider_class' => 'TestRuntime\\Provider', 'operations' => ['capability'], 'minimum_api' => '1.0'],
         'settings_schema' => 'settings.schema.json',
         'locales' => ['es' => 'locales/es.json'],
+        'dashboard_pages' => [['id' => 'status', 'title' => 'Package status', 'summary' => 'A core-rendered package status page.', 'keywords' => ['package', 'status']]],
         'setup_panels' => [['id' => 'test-runtime-settings', 'title' => 'Test runtime settings', 'keywords' => ['retention']]],
         'data' => ['migrations' => ['migrations/001-private-evidence.sql']],
     ];
@@ -157,6 +158,7 @@ try {
     $after = packageRuntimePackages($pdo)[0];
     runtimeExpect($after['enabled'] && str_starts_with($after['state'], 'registered; platform requirements are met'), 'package was not registered after explicit grant');
     runtimeExpect((packageRuntimeLocaleCatalogs($pdo)['test-runtime']['es']['test-runtime.greeting'] ?? '') === 'Hola', 'enabled package locale catalog was not available through the data-only bridge');
+    runtimeExpect((packageRuntimeDashboardPages($pdo)[0]['route'] ?? '') === 'package-test-runtime-status', 'enabled package dashboard page was not available through the core shell bridge');
     $dependentManifest = $signed; $dependentManifest['dependencies'] = ['missing-runtime'];
     $pdo->prepare('UPDATE runtime_packages SET manifest_json = ? WHERE package_id = ?')->execute([json_encode($dependentManifest, JSON_THROW_ON_ERROR), 'test-runtime']);
     $dependent = packageRuntimePackages($pdo)[0];

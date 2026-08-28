@@ -11890,6 +11890,45 @@ function showPackageRuntimeUpload() {
   }, "Verify and install");
 }
 
+let packageDashboardPagesLoaded = false;
+async function loadPackageDashboardPages() {
+  if (packageDashboardPagesLoaded) return;
+  try {
+    const data = await api("package-pages");
+    for (const page of data.pages || []) addPackageDashboardPage(page);
+    packageDashboardPagesLoaded = true;
+    if (location.hash && VIEWS[readRoute().view]?.packagePage) applyRoute();
+  } catch {
+    // Package pages are optional, and page access may deliberately exclude
+    // the package runtime from this account.
+  }
+}
+
+function addPackageDashboardPage(page) {
+  if (!page || VIEWS[page.route] || !/^[a-z][a-z0-9-]{3,190}$/.test(page.route)) return;
+  VIEWS[page.route] = { manual: true, label: page.title, parent: "sys-packages", packagePage: true, refresh: () => renderPackageDashboardPage(page.route) };
+  const link = document.createElement("a"); link.className = "nav-item nav-sub"; link.href = `#/${page.route}`; link.dataset.nav = page.route; link.dataset.parent = "sys-packages"; link.dataset.pluginKeywords = (page.keywords || []).join(" ");
+  const icon = document.createElement("span"); icon.className = "nav-icon"; icon.setAttribute("aria-hidden", "true"); icon.textContent = "›";
+  const label = document.createElement("span"); label.className = "nav-label"; label.textContent = page.title; link.append(icon, label); bindNavLink(link);
+  document.querySelector(".sidebar .nav-foot")?.before(link);
+  const view = document.createElement("section"); view.className = "view"; view.hidden = true; view.dataset.view = page.route; view.dataset.packageId = page.package_id; view.dataset.packagePageTitle = page.title; view.dataset.packagePageSummary = page.summary;
+  $("main")?.appendChild(view);
+}
+
+function renderPackageDashboardPage(route) {
+  const view = document.querySelector(`[data-view="${route}"]`); if (!view) return;
+  const panel = document.createElement("section"); panel.className = "panel";
+  const head = document.createElement("div"); head.className = "panel-head"; const title = document.createElement("h2"); title.textContent = view.dataset.packagePageTitle || route; head.appendChild(title);
+  const summary = document.createElement("p"); summary.textContent = view.dataset.packagePageSummary || "This package contributes a core-rendered dashboard page.";
+  const boundary = note("This page is rendered by the Zogograph shell from the package’s signed metadata. It does not load package HTML, styles, or browser code.");
+  panel.append(head, summary, boundary);
+  if (state.access?.write) {
+    const settings = document.createElement("button"); settings.className = "link"; settings.textContent = "Open package settings";
+    settings.addEventListener("click", () => showPackageRuntimeSettings({ id: view.dataset.packageId })); panel.appendChild(settings);
+  }
+  view.replaceChildren(panel);
+}
+
 function packageRuntimeActions(row, canChange) {
   const wrap = document.createDocumentFragment();
   if (!canChange) return wrap;
@@ -23034,6 +23073,7 @@ function applySignedInChrome() {
   renderViewGuide(state.view);
   renderEmptyButtons();
   if (state.signedIn) ZogographI18n.loadPackageCatalogs();
+  if (state.signedIn) loadPackageDashboardPages();
 }
 
 document.addEventListener("zogograph-i18n-load", () => {
@@ -23042,6 +23082,7 @@ document.addEventListener("zogograph-i18n-load", () => {
 });
 
 function mayUsePage(view) {
+  if (VIEWS[view]?.packagePage) return mayUsePage("sys-packages");
   const pages = state.access?.pages;
   return !Array.isArray(pages) || pages.includes("*") || pages.includes(view);
 }
@@ -33747,12 +33788,13 @@ document.addEventListener("visibilitychange", () => {
 
 /* ------------------------------------------------------------------ start -- */
 
-for (const link of document.querySelectorAll("[data-nav]")) {
+function bindNavLink(link) {
   link.addEventListener("click", event => {
     event.preventDefault();
     showView(link.dataset.nav);
   });
 }
+for (const link of document.querySelectorAll("[data-nav]")) bindNavLink(link);
 
 $("navSearch")?.addEventListener("input", syncNavigationSearch);
 

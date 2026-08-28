@@ -313,6 +313,7 @@ function route(array $config, PDO $pdo, string $action, bool $post): array
         'marketplace-rollback' => doMarketplaceRollback($config, $pdo, $post),
         'package-runtime' => packageRuntimeView($config, $pdo, $signedIn),
         'package-i18n' => packageRuntimeLocaleCatalogsView($pdo, $signedIn),
+        'package-pages' => packageRuntimeDashboardPagesView($pdo, $signedIn),
         'package-runtime-install-archive' => doPackageRuntimeInstallArchive($config, $pdo, $post),
         'package-runtime-remove' => doPackageRuntimeRemove($config, $pdo, $post),
         'package-runtime-probe' => doPackageRuntimeProbe($config, $pdo, $post),
@@ -370,6 +371,7 @@ function requireActionAccess(array $config, string $action): void
         'marketplace-install-path-hygiene' => 'sys-marketplace',
         'package-runtime' => 'sys-packages',
         'package-i18n' => 'sys-packages',
+        'package-pages' => 'sys-packages',
         'package-runtime-install-archive' => 'sys-packages',
         'package-runtime-remove' => 'sys-packages',
         'package-runtime-probe' => 'sys-packages',
@@ -5727,6 +5729,12 @@ function packageRuntimeLocaleCatalogsView(PDO $pdo, bool $signedIn): array
 {
     if (!$signedIn) throw new ActionRefused('sign in to load package translations');
     return ['catalogs' => packageRuntimeLocaleCatalogs($pdo)];
+}
+
+function packageRuntimeDashboardPagesView(PDO $pdo, bool $signedIn): array
+{
+    if (!$signedIn) throw new ActionRefused('sign in to load package pages');
+    return ['pages' => packageRuntimeDashboardPages($pdo)];
 }
 
 /** Archive bytes are accepted only through PHP's upload temporary file. */

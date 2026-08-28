@@ -21218,13 +21218,13 @@ function drawSchedule(data) {
   );
   holder.appendChild(form);
 
-  const note = document.createElement("p");
-  note.className = "muted small";
-  note.id = "schedNote";
+  const scheduleNoteElement = document.createElement("p");
+  scheduleNoteElement.className = "muted small";
+  scheduleNoteElement.id = "schedNote";
   const times = document.createElement("p");
   times.className = "muted small";
   times.id = "schedTimes";
-  holder.append(note, times);
+  holder.append(scheduleNoteElement, times);
 
   /*
    * What will actually be written, shown before it is.

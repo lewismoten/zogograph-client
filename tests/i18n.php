@@ -210,6 +210,7 @@ $translatedPackageCustody = [
     'package.table_state',
     'package.table_result',
     'package.table_safety',
+    'package.table_artifact',
     'package.custody_approve',
     'package.custody_approve_confirmation',
     'package.custody_approved',

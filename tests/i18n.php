@@ -19,6 +19,10 @@ i18nExpect($setup !== false && str_contains($setup, 'src="i18n.js"') && str_cont
     'Setup language controls or localized shell are unavailable');
 i18nExpect(is_array($english) && isset($english['example.readings'], $english['example.compact'], $english['example.cost'], $english['update.available'], $english['range.10m'], $english['action.reload'], $english['navigation.storage'], $english['navigation.cpu']),
     'English fallback catalog is incomplete');
+preg_match_all('/data-i18n="([^"]+)"/', (string)$page, $pageKeys);
+foreach (array_unique($pageKeys[1] ?? []) as $key) {
+    i18nExpect(isset($english[$key]), "dashboard i18n key $key has no English fallback");
+}
 foreach (['en-US', 'en-GB', 'es', 'hi', 'zh', 'ar'] as $locale) {
     $catalog = json_decode((string)file_get_contents($root . '/locales/' . $locale . '.json'), true);
     i18nExpect(is_array($catalog), "locale catalog $locale is invalid");

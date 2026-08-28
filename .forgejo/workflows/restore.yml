@@ -44,6 +44,14 @@ jobs:
           done
           case "$SNAPSHOT_ID" in *[!A-Za-z0-9._-]*|''|.|..) echo 'Invalid snapshot ID.' >&2; exit 1;; esac
 
+      - name: Resolve repository snapshot directory
+        shell: bash
+        run: |
+          set -euo pipefail
+          snapshot_repository="${GITHUB_REPOSITORY##*/}"
+          case "$snapshot_repository" in ''|*[!A-Za-z0-9._-]*) echo 'Repository name is unsafe for the snapshot path.' >&2; exit 1;; esac
+          printf 'SNAPSHOT_DIRECTORY=%s/%s\n' "${SNAPSHOT_PATH%/}" "$snapshot_repository" >> "$GITHUB_ENV"
+
       - name: Install SSH key
         shell: bash
         run: |
@@ -67,6 +75,9 @@ jobs:
           backup_id="pre-restore-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT:-1}"
           printf 'id=%s\n' "$backup_id" >> "$GITHUB_OUTPUT"
           remote_script=".hostscope-snapshot-${GITHUB_RUN_ID}.sh"
+          ssh -i "$HOME/.ssh/hostscope_deploy_key" -p "${DEPLOY_PORT:-22}" \
+            -o BatchMode=yes -o IdentitiesOnly=yes -o ConnectTimeout=15 \
+            "${DEPLOY_USER}@${DEPLOY_HOST}" "mkdir -p '$SNAPSHOT_DIRECTORY'"
           rsync -az \
             -e "ssh -i $HOME/.ssh/hostscope_deploy_key -p ${DEPLOY_PORT:-22} -o BatchMode=yes -o IdentitiesOnly=yes" \
             .forgejo/scripts/hostscope-snapshot.sh \
@@ -74,7 +85,7 @@ jobs:
           ssh -i "$HOME/.ssh/hostscope_deploy_key" -p "${DEPLOY_PORT:-22}" \
             -o BatchMode=yes -o IdentitiesOnly=yes -o ConnectTimeout=15 \
             "${DEPLOY_USER}@${DEPLOY_HOST}" \
-            "bash '$remote_script' '$DEPLOY_PATH' '$SNAPSHOT_PATH' '$backup_id' && rm -f '$remote_script'"
+            "bash '$remote_script' '$DEPLOY_PATH' '$SNAPSHOT_DIRECTORY' '$backup_id' && rm -f '$remote_script'"
 
       - name: Restore application and database snapshot
         shell: bash
@@ -88,7 +99,7 @@ jobs:
           ssh -i "$HOME/.ssh/hostscope_deploy_key" -p "${DEPLOY_PORT:-22}" \
             -o BatchMode=yes -o IdentitiesOnly=yes -o ConnectTimeout=15 \
             "${DEPLOY_USER}@${DEPLOY_HOST}" \
-            "bash '$remote_script' '$DEPLOY_PATH' '$SNAPSHOT_PATH' '$SNAPSHOT_ID' && rm -f '$remote_script'"
+            "bash '$remote_script' '$DEPLOY_PATH' '$SNAPSHOT_DIRECTORY' '$SNAPSHOT_ID' && rm -f '$remote_script'"
 
       - name: Report restore safety snapshot
         run: 'echo "Current site preserved first as ${{ steps.pre_restore_snapshot.outputs.id }}"'

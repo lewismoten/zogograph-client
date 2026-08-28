@@ -186,12 +186,20 @@ function takeSetupError(): ?string
     return is_string($message) ? $message : null;
 }
 
+/** Stores one localized, secret-free success notice across a Setup redirect. */
+function setupFlashNotice(string $key, string $fallback, array $values = []): void
+{
+    $_SESSION['setup_notice'] = ['key' => $key, 'fallback' => $fallback, 'values' => $values];
+}
+
 /** A one-time success notice, deliberately without a key path or key material. */
-function takeSetupNotice(): ?string
+function takeSetupNotice(): ?array
 {
     $message = $_SESSION['setup_notice'] ?? null;
     unset($_SESSION['setup_notice']);
-    return is_string($message) ? $message : null;
+    if (is_string($message)) return ['text' => $message];
+    if (!is_array($message) || !is_string($message['key'] ?? null) || !is_string($message['fallback'] ?? null)) return null;
+    return ['key' => $message['key'], 'fallback' => $message['fallback'], 'values' => is_array($message['values'] ?? null) ? $message['values'] : []];
 }
 
 /** CSRF token limited to the key-creation action; the key is never returned. */
@@ -588,7 +596,7 @@ function runWeb(
         } else {
             try {
                 $_SESSION['setup_pending_openid_signing_key'] = openIdGenerateSigningKey();
-                $_SESSION['setup_notice'] = 'A dedicated OpenID signing key was generated. Review the OpenID settings and save this section to commit it.';
+                setupFlashNotice('openid.key_generated', 'A dedicated OpenID signing key was generated. Review the OpenID settings and save this section to commit it.');
             } catch (Throwable $error) {
                 $_SESSION['setup_error'] = 'Could not generate the OpenID signing key: ' . $error->getMessage();
             }
@@ -610,15 +618,15 @@ function runWeb(
                 $config['openid']['clients'][$client['name']] = ['client_id' => $client['client_id'], 'client_secret' => $client['client_secret'], 'redirect_uris' => $client['redirect_uris']];
                 [$saved, $problem] = writeConfig($targetPath, $config, $root . '/lib'); if (!$saved) throw new RuntimeException((string)$problem);
                 $_SESSION['setup_openid_client_secret'] = ['client_id' => $client['client_id'], 'secret' => $client['client_secret']];
-                $_SESSION['setup_notice'] = 'Trusted OpenID client saved. Copy its secret now; it will not be shown again.';
+                setupFlashNotice('openid.client_saved', 'Trusted OpenID client saved. Copy its secret now; it will not be shown again.');
             } elseif ($intent === 'remove-openid-client') {
                 $id = (string)($_POST['remove_openid_client_id'] ?? ''); $client = openIdClientDefinitions($config)[$id] ?? null;
                 if ($client === null) throw new RuntimeException('that trusted OpenID client is unavailable');
                 unset($config['openid']['clients'][$client['name']]);
                 [$saved, $problem] = writeConfig($targetPath, $config, $root . '/lib'); if (!$saved) throw new RuntimeException((string)$problem);
-                $_SESSION['setup_notice'] = 'Trusted OpenID client removed. Its secret and existing sessions are no longer accepted for new token exchanges.';
+                setupFlashNotice('openid.client_removed', 'Trusted OpenID client removed. Its secret and existing sessions are no longer accepted for new token exchanges.');
             } else {
-                unset($_SESSION['setup_openid_client_secret']); $_SESSION['setup_notice'] = 'OpenID client secret acknowledgement saved.';
+                unset($_SESSION['setup_openid_client_secret']); setupFlashNotice('openid.secret_acknowledged', 'OpenID client secret acknowledgement saved.');
             }
         } catch (Throwable $error) { $_SESSION['setup_error'] = 'Could not manage trusted OpenID clients: ' . $error->getMessage(); }
         setupRedirect('openid');
@@ -639,9 +647,11 @@ function runWeb(
                     ? setupSuggestedPackageSecretKeyPath()
                     : setupRequestedPrivateKeyPath($_POST['key_path'] ?? '');
                 encryptionCreateLocalKey($path, $root);
-                $_SESSION['setup_notice'] = $creatingPackageSecretKey
-                    ? 'A separate private package-secrets key file was created. Its contents were not shown or saved in the browser. Enter its path in Package secrets key file and save that setting before storing package secrets.'
-                    : 'A new private local key file was created. Its contents were not shown or saved in the browser. Record an offline recovery copy before enabling encrypted copies.';
+                if ($creatingPackageSecretKey) {
+                    setupFlashNotice('encryption.package_key_created', 'A separate private package-secrets key file was created. Its contents were not shown or saved in the browser. Enter its path in Package secrets key file and save that setting before storing package secrets.');
+                } else {
+                    setupFlashNotice('encryption.private_key_created', 'A new private local key file was created. Its contents were not shown or saved in the browser. Record an offline recovery copy before enabling encrypted copies.');
+                }
             } catch (Throwable $error) {
                 $_SESSION['setup_error'] = 'Could not create the local key file: ' . $error->getMessage();
             }
@@ -676,7 +686,7 @@ function runWeb(
                 [$saved, $problem] = writeConfig($targetPath, $config, $root . '/lib');
                 if (!$saved) throw new RuntimeException((string)$problem);
                 $api->applyJob($job, $choices[$job], $php);
-                $_SESSION['setup_notice'] = ucfirst($job) . ' schedule ' . ($operation === 'remove' ? 'removed.' : 'saved and applied.');
+                setupFlashNotice($operation === 'remove' ? 'schedule.removed' : 'schedule.saved_applied', $operation === 'remove' ? '{{job}} schedule removed.' : '{{job}} schedule saved and applied.', ['job' => ucfirst($job)]);
             } catch (Throwable $error) {
                 $_SESSION['setup_error'] = 'Could not apply the schedule: ' . $error->getMessage();
             }
@@ -714,14 +724,14 @@ function runWeb(
             if (($_POST['intent'] ?? '') === 'store-deployment-secret') {
                 $reference = remoteDeploymentSecretStore($current, (string)($_POST['deployment_secret'] ?? ''), 'setup administrator');
                 $_SESSION['setup_deployment_last_reference'] = $reference;
-                $_SESSION['setup_notice'] = 'Deployment credential stored with encryption. Its value was not retained in this page.';
+                setupFlashNotice('deployment.credential_stored', 'Deployment credential stored with encryption. Its value was not retained in this page.');
             } elseif (($_POST['intent'] ?? '') === 'test-deployment-target') {
                 $profile = remoteDeploymentProfile($_POST);
                 if (!remoteDeploymentSecretExists($current, $profile['credential_reference'])) throw new RuntimeException('the selected deployment credential reference is unavailable');
                 if ($profile['known_host_reference'] !== null && !remoteDeploymentSecretExists($current, $profile['known_host_reference'])) throw new RuntimeException('the selected SSH host-key reference is unavailable');
                 $result = remoteDeploymentTest($current, $profile);
                 $_SESSION['setup_deployment_test'] = $result;
-                $_SESSION['setup_notice'] = $result['ok'] ? 'Remote deployment target verified. You may now review and copy a build.' : 'Remote deployment target was not verified: ' . $result['detail'];
+                setupFlashNotice($result['ok'] ? 'deployment.target_verified' : 'deployment.target_not_verified', $result['ok'] ? 'Remote deployment target verified. You may now review and copy a build.' : 'Remote deployment target was not verified: {{detail}}', $result['ok'] ? [] : ['detail' => (string)$result['detail']]);
             } elseif (($_POST['intent'] ?? '') === 'copy-deployment-release') {
                 $profile = remoteDeploymentProfile($_POST);
                 if (!remoteDeploymentSecretExists($current, $profile['credential_reference'])) throw new RuntimeException('the selected deployment credential reference is unavailable');
@@ -730,7 +740,7 @@ function runWeb(
                 if (!is_array($release) || ($release['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK || !is_string($release['tmp_name'] ?? null) || !is_uploaded_file($release['tmp_name'])) throw new RuntimeException('choose the ZIP release archive to copy');
                 $result = remoteDeploymentCopyRelease($current, $profile, $release['tmp_name']);
                 $_SESSION['setup_deployment_copy'] = $result;
-                $_SESSION['setup_notice'] = $result['ok'] ? 'Remote deployment release copied after a fresh target verification.' : 'Remote deployment release was not copied: ' . $result['detail'];
+                setupFlashNotice($result['ok'] ? 'deployment.release_copied' : 'deployment.release_not_copied', $result['ok'] ? 'Remote deployment release copied after a fresh target verification.' : 'Remote deployment release was not copied: {{detail}}', $result['ok'] ? [] : ['detail' => (string)$result['detail']]);
             } else {
                 $profile = remoteDeploymentProfile($_POST);
                 if (!remoteDeploymentSecretExists($current, $profile['credential_reference'])) throw new RuntimeException('the selected deployment credential reference is unavailable');
@@ -738,7 +748,7 @@ function runWeb(
                 $current['remote_deployment'] = $profile;
                 [$saved, $problem] = writeConfig($targetPath, $current, $root . '/lib');
                 if (!$saved) throw new RuntimeException((string)$problem);
-                $_SESSION['setup_notice'] = 'Remote deployment profile saved. Test the target before copying any files.';
+                setupFlashNotice('deployment.profile_saved', 'Remote deployment profile saved. Test the target before copying any files.');
             }
         } catch (Throwable $error) {
             $_SESSION['setup_error'] = 'Could not save remote deployment settings: ' . $error->getMessage();
@@ -762,7 +772,7 @@ function runWeb(
                 if (!$plan['eligible']) { @unlink($source); throw new RuntimeException((string)$plan['reason']); }
                 $_SESSION['setup_account_merge'] = ['source' => $source, 'expires_at' => time() + 900];
                 $_SESSION['setup_account_merge_plan'] = $plan;
-                $_SESSION['setup_notice'] = 'Account collector merge reviewed. No data has changed; read the ranges and confirm before applying it.';
+                setupFlashNotice('merge.reviewed', 'Account collector merge reviewed. No data has changed; read the ranges and confirm before applying it.');
             } else {
                 $review = $_SESSION['setup_account_merge'] ?? null;
                 $source = is_array($review) ? (string)($review['source'] ?? '') : '';
@@ -776,7 +786,7 @@ function runWeb(
                 $result = accountMergeApply(db($current), $source, true);
                 @unlink($source); unset($_SESSION['setup_account_merge'], $_SESSION['setup_account_merge_plan']);
                 $_SESSION['setup_account_merge_result'] = $result;
-                $_SESSION['setup_notice'] = 'Account collector data merged. A private rollback snapshot was created before the transaction.';
+                setupFlashNotice('merge.completed', 'Account collector data merged. A private rollback snapshot was created before the transaction.');
             }
         } catch (Throwable $error) {
             $_SESSION['setup_error'] = 'Could not complete the account merge: ' . $error->getMessage();
@@ -798,7 +808,7 @@ function runWeb(
             $settings = json_decode((string)($_POST['package_settings_' . $panelId] ?? $_POST['package_settings'] ?? ''), true, 64, JSON_THROW_ON_ERROR);
             if (!is_array($settings) || array_is_list($settings)) throw new RuntimeException('package settings must be a JSON object');
             setupSavePackageSettings($current, (string)$panel['feature'], $settings);
-            $_SESSION['setup_notice'] = 'Package settings were saved using the package’s signed schema.';
+            setupFlashNotice('package.settings_saved', 'Package settings were saved using the package’s signed schema.');
         } catch (JsonException) {
             $_SESSION['setup_error'] = 'Package settings must be valid JSON.';
         } catch (Throwable $error) {
@@ -829,7 +839,7 @@ function runWeb(
             } else {
                 if (empty($_POST['recovery_confirmed'])) throw new RuntimeException('confirm that you stored the recovery codes before continuing');
                 unset($_SESSION['setup_recovery_codes']);
-                $_SESSION['setup_notice'] = 'Authenticator and recovery codes are set up.';
+                setupFlashNotice('auth.recovery_complete', 'Authenticator and recovery codes are set up.');
             }
         } catch (Throwable $error) { $_SESSION['setup_error'] = 'Could not update authentication: ' . $error->getMessage(); }
         setupRedirect('auth');
@@ -998,7 +1008,7 @@ function webPage(
     bool $posted,
     ?array $existing,
     ?string $refusal,
-    ?string $notice,
+    ?array $notice,
     bool $unlocked,
     string $samplePath,
     string $activeSection,
@@ -1107,7 +1117,12 @@ function webPage(
         $out[] = '<div class="banner crit">' . h($refusal) . '</div>';
     }
     if ($notice !== null) {
-        $out[] = '<div class="banner ok">' . h($notice) . '</div>';
+        if (isset($notice['key'], $notice['fallback'])) {
+            $values = isset($notice['values']) ? ' data-i18n-values="' . h(json_encode($notice['values'], JSON_THROW_ON_ERROR)) . '"' : '';
+            $out[] = '<div class="banner ok" data-i18n="' . h((string)$notice['key']) . '"' . $values . '>' . h((string)$notice['fallback']) . '</div>';
+        } else {
+            $out[] = '<div class="banner ok">' . h((string)($notice['text'] ?? '')) . '</div>';
+        }
     }
     if ($writeError !== null) {
         $out[] = '<div class="banner crit">' . h($writeError) . '</div>';

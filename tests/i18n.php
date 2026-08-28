@@ -50,6 +50,9 @@ i18nExpect($setup !== false && str_contains($setup, 'data-i18n="setup.validation
     'Setup validation feedback is not localized');
 i18nExpect($setup !== false && str_contains($setup, 'data-i18n="setup.saved_section"'),
     'Setup save confirmation is not localized');
+i18nExpect($setup !== false && str_contains($setup, 'function setupFlashNotice')
+    && str_contains($setup, 'data-i18n-values="') && str_contains($setup, "'deployment.target_verified'"),
+    'Setup action feedback does not use localized flash notices');
 i18nExpect($setup !== false && str_contains($setup, 'data-i18n="setup.settings_saved"')
     && str_contains($setup, 'data-i18n="setup.first_readings"'),
     'Setup post-save guidance is not localized');

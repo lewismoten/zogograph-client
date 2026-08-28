@@ -20,6 +20,11 @@ function i18nFormat(value, kind, name, values) {
   try {
     if (kind === "number") return new Intl.NumberFormat(i18n.locale).format(Number(value));
     if (kind === "latin-number") return new Intl.NumberFormat(i18n.locale, { numberingSystem: "latn" }).format(Number(value));
+    // Arabic content can require either Arabic-Indic (٠١٢) or Eastern
+    // Arabic-Indic (۰۱۲) digits regardless of the surrounding locale. Keep
+    // these explicit; `number` remains the ordinary locale-native choice.
+    if (kind === "arabic-number") return new Intl.NumberFormat(i18n.locale, { numberingSystem: "arab" }).format(Number(value));
+    if (kind === "eastern-arabic-number") return new Intl.NumberFormat(i18n.locale, { numberingSystem: "arabext" }).format(Number(value));
     if (kind === "compact") return new Intl.NumberFormat(i18n.locale, { notation: "compact" }).format(Number(value));
     if (kind === "percent") return new Intl.NumberFormat(i18n.locale, { style: "percent" }).format(Number(value));
     if (kind === "unit") return new Intl.NumberFormat(i18n.locale, { style: "unit", unit: values[`${name}Unit`] || "byte", unitDisplay: values[`${name}UnitDisplay`] || "short" }).format(Number(value));
@@ -35,7 +40,7 @@ function t(key, values = {}, fallbackText = "") {
   const fallback = i18n.fallback[key] || fallbackText || key;
   const text = i18n.catalog[key] || fallback;
   if (i18n.keyMode) return key;
-  return text.replace(/\{\{([\w.-]+)(?:,\s*(number|latin-number|compact|percent|unit|currency|date|time|date-time))?\}\}/g, (_, name, kind) => i18nFormat(values[name], kind, name, values));
+  return text.replace(/\{\{([\w.-]+)(?:,\s*(number|latin-number|arabic-number|eastern-arabic-number|compact|percent|unit|currency|date|time|date-time))?\}\}/g, (_, name, kind) => i18nFormat(values[name], kind, name, values));
 }
 
 function i18nNodeValues(node) {

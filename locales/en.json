@@ -501,6 +501,8 @@
   "example.percent": "{{ratio, percent}} complete",
   "example.storage": "{{bytes, unit}} stored",
   "example.changed": "Changed {{at, date-time}}",
+  "example.arabic_digits": "{{count, arabic-number}} Arabic-Indic digits",
+  "example.eastern_arabic_digits": "{{count, eastern-arabic-number}} Eastern Arabic-Indic digits",
   "encryption.custody_notice": "Optional remote key custody adds a separately authorized recovery envelope; it is not live-database encryption and does not upload a database or ciphertext. Before using it, configure the signed custody package, verify its endpoint and enrolled credential, review its dedicated sandbox launcher, and keep local recovery enabled. Ciphertext replica storage remains a separate future capability. Never enter a custody or relay management token, billing credential, plaintext database, or recovery key into this client.",
   "diagnosis.ignore_action": "Ignore this finding",
   "diagnosis.ignore_title": "Hide this exact diagnostic on future checks until the configuration is changed.",

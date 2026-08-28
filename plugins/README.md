@@ -51,6 +51,16 @@ also fail-closed; reinstall their reviewed signed release to establish new
 evidence. Never treat a manifest comment or a browser status alone as evidence
 that altered package code is safe.
 
+## Shell placement metadata
+
+Signed `dashboard_pages` and `setup_panels` may declare an optional `parent`
+whose value is an existing core page or Setup section id, such as `storage` or
+`security`. The shell uses that metadata only for navigation placement; it
+continues to render the signed title, summary, and schema-validated settings
+itself. If a dashboard parent is unavailable in the installed shell, the page
+safely falls back under **Package runtime**. A package cannot supply HTML,
+JavaScript, CSS, route handlers, or a renderer through this field.
+
 ## Bundled design-preview providers
 
 - `sqlcipher-encrypted-sqlite` — live encrypted SQLite only on a verified

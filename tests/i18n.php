@@ -18,6 +18,9 @@ i18nExpect($page !== false && str_contains($page, 'id="languagePicker"') && str_
 i18nExpect($script !== false && str_contains($script, 'new Intl.NumberFormat(document.documentElement.lang || undefined)')
     && str_contains($script, 'toLocaleString(document.documentElement.lang || undefined)') && str_contains($script, 'document.addEventListener("zogograph-i18n-load"')
     && str_contains($script, 'view.manual'), 'dashboard value formatting ignores the selected locale or refreshes manual views');
+i18nExpect($script !== false && str_contains($script, 'typeof page.parent === "string" && VIEWS[page.parent]')
+    && str_contains($script, 'link.dataset.parent = parent'),
+    'package dashboard pages cannot select a safe core navigation parent');
 i18nExpect($setup !== false && str_contains($setup, 'src="i18n.js"') && str_contains($setup, 'id="languagePicker"')
     && str_contains($setup, 'id="languageKeys"') && str_contains($setup, 'data-i18n="setup.installation"')
     && str_contains($setup, "'setup.section.' . \$name"),

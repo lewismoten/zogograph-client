@@ -11906,8 +11906,9 @@ async function loadPackageDashboardPages() {
 
 function addPackageDashboardPage(page) {
   if (!page || VIEWS[page.route] || !/^[a-z][a-z0-9-]{3,190}$/.test(page.route)) return;
-  VIEWS[page.route] = { manual: true, label: page.title, parent: "sys-packages", packagePage: true, refresh: () => renderPackageDashboardPage(page.route) };
-  const link = document.createElement("a"); link.className = "nav-item nav-sub"; link.href = `#/${page.route}`; link.dataset.nav = page.route; link.dataset.parent = "sys-packages"; link.dataset.pluginKeywords = (page.keywords || []).join(" ");
+  const parent = typeof page.parent === "string" && VIEWS[page.parent] ? page.parent : "sys-packages";
+  VIEWS[page.route] = { manual: true, label: page.title, parent, packagePage: true, refresh: () => renderPackageDashboardPage(page.route) };
+  const link = document.createElement("a"); link.className = "nav-item nav-sub"; link.href = `#/${page.route}`; link.dataset.nav = page.route; link.dataset.parent = parent; link.dataset.pluginKeywords = (page.keywords || []).join(" ");
   const icon = document.createElement("span"); icon.className = "nav-icon"; icon.setAttribute("aria-hidden", "true"); icon.textContent = "›";
   const label = document.createElement("span"); label.className = "nav-label"; label.textContent = page.title; link.append(icon, label); bindNavLink(link);
   document.querySelector(".sidebar .nav-foot")?.before(link);

@@ -124,10 +124,10 @@ function packageRuntimeDashboardPageDeclarations(array $pages): array
     $out = [];
     foreach ($pages as $page) {
         if (!is_array($page)) throw new InvalidArgumentException('package dashboard page is invalid');
-        $id = trim((string)($page['id'] ?? '')); $title = trim((string)($page['title'] ?? '')); $summary = trim((string)($page['summary'] ?? ''));
+        $id = trim((string)($page['id'] ?? '')); $title = trim((string)($page['title'] ?? '')); $summary = trim((string)($page['summary'] ?? '')); $parent = isset($page['parent']) ? trim((string)$page['parent']) : null;
         $keywords = array_values(array_unique(array_filter((array)($page['keywords'] ?? []), static fn(mixed $word): bool => is_string($word) && preg_match('/^[a-z0-9 _-]{1,40}$/i', $word))));
-        if (!preg_match('/^[a-z][a-z0-9_-]{1,62}$/', $id) || $title === '' || mb_strlen($title) > 80 || $summary === '' || mb_strlen($summary) > 500 || count($keywords) !== count((array)($page['keywords'] ?? [])) || isset($out[$id])) throw new InvalidArgumentException('package dashboard page is invalid');
-        $out[$id] = ['id' => $id, 'title' => $title, 'summary' => $summary, 'keywords' => $keywords];
+        if (!preg_match('/^[a-z][a-z0-9_-]{1,62}$/', $id) || $title === '' || mb_strlen($title) > 80 || $summary === '' || mb_strlen($summary) > 500 || ($parent !== null && !preg_match('/^[a-z][a-z0-9_-]{1,62}$/', $parent)) || count($keywords) !== count((array)($page['keywords'] ?? [])) || isset($out[$id])) throw new InvalidArgumentException('package dashboard page is invalid');
+        $out[$id] = ['id' => $id, 'title' => $title, 'summary' => $summary, 'keywords' => $keywords, 'parent' => $parent];
     }
     return array_values($out);
 }

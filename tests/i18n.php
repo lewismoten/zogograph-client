@@ -28,6 +28,10 @@ i18nExpect($script !== false && str_contains($script, 'new Intl.NumberFormat(doc
 i18nExpect($script !== false && str_contains($script, 'ZogographI18n.t("image.note_screenshot"')
     && str_contains($script, 'ZogographI18n.t("image.send_screenshot"'),
     'dashboard fixed image descriptions do not use the locale catalog');
+i18nExpect($script !== false && str_contains($script, 'ZogographI18n.t("image.portrait_alt"')
+    && str_contains($script, 'ZogographI18n.t("image.note_picture_alt"') && str_contains($script, 'ZogographI18n.t("image.preview_unavailable"')
+    && is_array($english) && isset($english['image.portrait_alt'], $english['image.chart_alt'], $english['image.preview_unavailable']),
+    'dashboard image descriptions or failures do not use localized catalog messages');
 i18nExpect($script !== false && str_contains($script, 'marketplaceText("discovery_notice"')
     && str_contains($script, 'marketplaceText("search_label"') && str_contains($script, 'marketplaceText("table_compatibility"')
     && str_contains($script, 'marketplaceText("toggle_confirmation"') && str_contains($script, 'marketplaceText("restore_confirmation"')

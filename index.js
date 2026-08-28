@@ -6552,12 +6552,12 @@ function personaFields(data) {
     const image = document.createElement("img");
     image.className = "portrait";
     image.src = who.portrait.url;
-    image.alt = `${who.name}, as it describes itself`;
+    image.alt = ZogographI18n.t("image.portrait_alt", { name: who.name }, `${who.name}, as it describes itself`);
     face.appendChild(image);
 
     const said = document.createElement("div");
     said.className = "muted small";
-    said.textContent = `Drawn ${ago(who.portrait.at)}, from: "${who.portrait.as}"`;
+    said.textContent = ZogographI18n.t("image.portrait_caption", { elapsed: ago(who.portrait.at), description: who.portrait.as }, `Drawn ${ago(who.portrait.at)}, from: "${who.portrait.as}"`);
     face.appendChild(said);
 
     const clear = document.createElement("button");
@@ -12791,7 +12791,7 @@ async function showNoteSnapshots(row) {
       const picture = document.createElement("img");
       picture.className = "note-picture";
       picture.src = `noteimage.php?id=${encodeURIComponent(snapshot.id)}`;
-      picture.alt = `${snapshot.label}, as it was drawn when this note was written`;
+      picture.alt = ZogographI18n.t("image.note_picture_alt", { label: snapshot.label }, `${snapshot.label}, as it was drawn when this note was written`);
       picture.loading = "lazy";
       item.appendChild(picture);
 
@@ -16130,7 +16130,7 @@ async function tryBrowserTool(tool, args) {
 
     const image = document.createElement("img");
     image.src = card.image;
-    image.alt = `the ${args.chart} chart`;
+    image.alt = ZogographI18n.t("image.chart_alt", { chart: args.chart }, `the ${args.chart} chart`);
     image.className = "try-chart";
     wrap.appendChild(image);
 
@@ -16154,7 +16154,7 @@ async function tryBrowserTool(tool, args) {
     const url = await renderChartImage(args);
     const image = document.createElement("img");
     image.src = url;
-    image.alt = `the ${args.chart} chart`;
+    image.alt = ZogographI18n.t("image.chart_alt", { chart: args.chart }, `the ${args.chart} chart`);
     image.className = "try-chart";
 
     return {
@@ -24099,7 +24099,7 @@ function inspectImage(data) {
   img.alt = data.name;
   img.src = `thumb.php?path=${encodeURIComponent(data.path)}`;
   img.addEventListener("error", () => {
-    img.replaceWith(note("The preview could not be loaded."));
+    img.replaceWith(note(ZogographI18n.t("image.preview_unavailable", {}, "The preview could not be loaded.")));
   });
   wrap.appendChild(img);
 

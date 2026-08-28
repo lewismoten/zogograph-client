@@ -90,6 +90,15 @@ function configFields(array $sample): array
             'default' => (bool)($sample['core_features']['notes'] ?? true),
         ],
         [
+            'key' => 'core_features_problems',
+            'section' => 'features',
+            'path' => ['core_features', 'problems'],
+            'type' => 'bool',
+            'label' => 'Recent problems core feature',
+            'help' => 'Disabling this removes Recent problems, its dashboard badges, and its API routes. Zogograph continues recording server errors so diagnostics and support remain safe.',
+            'default' => (bool)($sample['core_features']['problems'] ?? true),
+        ],
+        [
             'key' => 'openid_enabled',
             'section' => 'openid',
             'path' => ['openid', 'enabled'],

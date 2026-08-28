@@ -29,6 +29,10 @@ const CORE_FEATURES = [
         'dashboard_routes' => ['sys-notes', 'sys-snapshots'],
         'setup_section' => 'features',
     ],
+    'problems' => [
+        'dashboard_routes' => ['sys-problems'],
+        'setup_section' => 'features',
+    ],
 ];
 
 /** Missing settings deliberately preserve existing installations. */
@@ -58,6 +62,7 @@ function coreFeatureForAction(string $action): ?string
     if ($action === 'marketplace' || str_starts_with($action, 'marketplace-')) return 'marketplace';
     if ($action === 'terminal' || str_starts_with($action, 'terminal-')) return 'terminal';
     if ($action === 'notes' || str_starts_with($action, 'note-') || $action === 'snapshot-delete') return 'notes';
+    if ($action === 'problems' || $action === 'clear-problems') return 'problems';
     return null;
 }
 

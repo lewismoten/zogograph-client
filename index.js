@@ -3888,6 +3888,12 @@ async function refreshBadges() {
     return;
   }
 
+  if (disabledCoreRoutes.has("sys-problems")) {
+    setBadge("system", 0);
+    setBadge("sys-problems", 0);
+    return;
+  }
+
   try {
     const problems = await api("problems", { limit: 1 });
     const total = Number(problems.total || 0);

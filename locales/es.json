@@ -1,4 +1,5 @@
 {
+  "setup.error_detail": "Setup no pudo completar esta acción: {{detail}}",
   "setup.help.openid_enabled": "Permite que aplicaciones de confianza registradas explícitamente inicien sesión de usuarios mediante esta instalación de Zogograph. No convierte este servidor en un servicio público de identidad.",
   "setup.help.openid_issuer": "La URL HTTPS que usan los clientes de confianza para descubrir este proveedor; por ejemplo, https://monitor.example.com. No incluya una barra final.",
   "setup.help.openid_signing_private_key": "Se requiere antes de habilitar el proveedor. Use una clave privada RSA dedicada; nunca reutilice la clave del certificado TLS. Setup puede generar una clave dedicada que solo permanece en la sesión protegida hasta guardar esta sección.",

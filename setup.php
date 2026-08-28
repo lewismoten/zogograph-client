@@ -179,11 +179,11 @@ function startSetupSession(): void
 }
 
 /** A message left behind by a redirect, shown once. */
-function takeSetupError(): ?string
+function takeSetupError(): ?array
 {
     $message = $_SESSION['setup_error'] ?? null;
     unset($_SESSION['setup_error']);
-    return is_string($message) ? $message : null;
+    return is_string($message) ? ['detail' => $message] : null;
 }
 
 /** Stores one localized, secret-free success notice across a Setup redirect. */
@@ -1007,7 +1007,7 @@ function webPage(
     bool $authorised,
     bool $posted,
     ?array $existing,
-    ?string $refusal,
+    array|string|null $refusal,
     ?array $notice,
     bool $unlocked,
     string $samplePath,
@@ -1114,7 +1114,8 @@ function webPage(
     }
 
     if ($refusal !== null) {
-        $out[] = '<div class="banner crit">' . h($refusal) . '</div>';
+        $detail = is_array($refusal) ? (string)($refusal['detail'] ?? '') : $refusal;
+        $out[] = '<div class="banner crit" data-i18n="setup.error_detail" data-i18n-values="' . h(json_encode(['detail' => $detail], JSON_THROW_ON_ERROR)) . '">Setup could not complete this action: ' . h($detail) . '</div>';
     }
     if ($notice !== null) {
         if (isset($notice['key'], $notice['fallback'])) {
@@ -1125,7 +1126,7 @@ function webPage(
         }
     }
     if ($writeError !== null) {
-        $out[] = '<div class="banner crit">' . h($writeError) . '</div>';
+        $out[] = '<div class="banner crit" data-i18n="setup.error_detail" data-i18n-values="' . h(json_encode(['detail' => $writeError], JSON_THROW_ON_ERROR)) . '">Setup could not complete this action: ' . h($writeError) . '</div>';
     }
     if ($posted && $errors) {
         $out[] = '<div class="banner crit" data-i18n="setup.validation_error">Some answers need another look.</div>';

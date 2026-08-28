@@ -1,4 +1,5 @@
 {
+  "setup.error_detail": "设置无法完成此操作：{{detail}}",
   "setup.help.path_jump_bytes": "这条警报会指出罪魁祸首，而不是症状。",
   "setup.help.cpu_percent": "这是持续使用，不是峰值：它必须在下方的整个窗口内保持。零会关闭它。在 CloudLinux 上，这是账户可使用份额，而非整台机器的份额。",
   "setup.help.cpu_minutes": "突发使用无法在长窗口内保持；这正是测量持续时间而非高度的意义。",

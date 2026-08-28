@@ -62,7 +62,8 @@ i18nExpect($setup !== false && str_contains($setup, 'data-i18n="openid.provider_
     'Setup OpenID security guidance is not localized');
 i18nExpect($setup !== false && str_contains($setup, 'data-i18n="deployment.copy_release"')
     && str_contains($setup, 'data-i18n="deployment.review_transport"')
-    && str_contains($setup, 'data-i18n="deployment.method"') && str_contains($setup, 'data-i18n="deployment.update_manual"'),
+    && str_contains($setup, 'data-i18n="deployment.method"') && str_contains($setup, 'data-i18n="deployment.update_manual"')
+    && str_contains($setup, 'data-i18n="deployment.store_help"') && str_contains($setup, 'data-i18n="deployment.last_test"'),
     'Setup deployment release controls are not localized');
 i18nExpect($setup !== false && str_contains($setup, 'data-i18n="merge.review_expiry"')
     && str_contains($setup, 'data-i18n-values=') && str_contains($setup, 'data-i18n="merge.apply_help"')

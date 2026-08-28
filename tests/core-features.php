@@ -19,4 +19,12 @@ coreFeatureExpect(coreFeatureForAction('ai-start') === 'assistant' && coreFeatur
 try { requireCoreFeatureAccess($disabled, 'ai-start'); throw new RuntimeException('disabled assistant route was accepted'); }
 catch (ActionRefused $error) { coreFeatureExpect($error->getMessage() === 'this core feature is disabled', 'disabled assistant route used an unsafe refusal'); }
 requireCoreFeatureAccess($legacy, 'ai-start');
+$api = file_get_contents(__DIR__ . '/../api.php');
+$dashboard = file_get_contents(__DIR__ . '/../index.js');
+coreFeatureExpect(is_string($api) && str_contains($api, "requireCoreFeatureAccess(\$config, \$action)")
+    && str_contains($api, "'core_features' => coreFeatureStatus(\$config)"),
+    'core feature boundary is not wired into the API shell');
+coreFeatureExpect(is_string($dashboard) && str_contains($dashboard, 'applyCoreFeatureVisibility(overview.core_features)')
+    && str_contains($dashboard, 'disabledCoreRoutes.has(view)'),
+    'core feature boundary does not suppress disabled dashboard routes');
 echo "core feature checks passed\n";

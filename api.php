@@ -41,6 +41,7 @@ define('DISKMON_LOG', dirname((string)$config['database']) . '/error.log');
 require_once __DIR__ . '/lib/db.php';
 require_once __DIR__ . '/lib/auth.php';
 require_once __DIR__ . '/lib/access.php';
+require_once __DIR__ . '/lib/core-features.php';
 require_once __DIR__ . '/lib/mask.php';
 require_once __DIR__ . '/lib/alerts.php';
 require_once __DIR__ . '/lib/incident.php';
@@ -124,6 +125,7 @@ function route(array $config, PDO $pdo, string $action, bool $post): array
 {
     $signedIn = isSignedIn();
     requireActionAccess($config, $action);
+    requireCoreFeatureAccess($config, $action);
 
     return match ($action) {
         'overview' => overview($config, $pdo, $signedIn),
@@ -473,6 +475,7 @@ function overview(array $config, PDO $pdo, bool $signedIn): array
 
     return [
         'signed_in' => $signedIn,
+        'core_features' => coreFeatureStatus($config),
         'csrf' => $signedIn ? csrfToken() : null,
         'access' => accessView($config),
         /*
@@ -494,7 +497,7 @@ function overview(array $config, PDO $pdo, bool $signedIn): array
          * results that name paths and processes, and no amount of redacting a
          * paragraph afterwards makes that safe for the open internet.
          */
-        'report' => $signedIn ? aiLatestReport($pdo) : null,
+        'report' => $signedIn && coreFeatureEnabled($config, 'assistant') ? aiLatestReport($pdo) : null,
         /*
          * Messages one person left for whoever else opens this.
          *
@@ -511,7 +514,7 @@ function overview(array $config, PDO $pdo, bool $signedIn): array
          * meant the menu said one thing and the panel said another until you
          * clicked.
          */
-        'who' => $signedIn ? (function () use ($config): array {
+        'who' => $signedIn && coreFeatureEnabled($config, 'assistant') ? (function () use ($config): array {
             $persona = aiPersona($config);
             return ['name' => $persona['name'], 'emoji' => $persona['emoji']];
         })() : null,
@@ -523,7 +526,7 @@ function overview(array $config, PDO $pdo, bool $signedIn): array
          * access log - which on a host behind a CDN may not be readable and on
          * any host is full of crawlers.
          */
-        'browsing_noted' => $signedIn ? aiNoteBrowsing($pdo) : false,
+        'browsing_noted' => $signedIn && coreFeatureEnabled($config, 'assistant') ? aiNoteBrowsing($pdo) : false,
         'vitals' => $vitals,
         'scan' => $scan,
         'scan_running' => scanRunning($pdo),

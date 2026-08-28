@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+require_once __DIR__ . '/core-features.php';
 
 /*
  * Talking to a model, and keeping the bill.
@@ -150,7 +151,7 @@ function aiSettings(array $config): array
         'known_prices' => $set['known_prices'] ?? []], $provider, $model);
 
     return [
-        'enabled' => (bool)($set['enabled'] ?? false),
+        'enabled' => coreFeatureEnabled($config, 'assistant') && (bool)($set['enabled'] ?? false),
         'provider' => $provider,
         'base_url' => trim((string)($set['base_url'] ?? '')) ?: $providers[$provider]['base'],
         'model' => $model,

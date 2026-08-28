@@ -38,6 +38,13 @@ return [
 
     'database' => $dataDirectory . '/stats.db',
 
+    /* Built-in feature packages. Disabled features remove their dashboard and
+     * API surfaces while preserving their existing private settings for a
+     * later re-enable. */
+    'core_features' => [
+        'assistant' => true,
+    ],
+
     // The account crontab desired by Setup. The editor writes only Zogograph's
     // marked block, then compares this intent with what cron actually has.
     'schedule' => [

@@ -122,6 +122,7 @@ const state = {
 const BUILD_IDENTITY_STORAGE_KEY = "zogograph.build.identity";
 const BUILD_UPDATE_STORAGE_KEY = "zogograph.build.update";
 const buildState = { current: null, announced: null, update: null, checking: false };
+const disabledCoreRoutes = new Set();
 
 const $ = id => document.getElementById(id);
 const escapeRegex = text => String(text).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -3762,6 +3763,7 @@ async function refreshShared() {
   state.emptied = overview.emptied || {};
   state.viewable = overview.viewable || [];
   state.categories = overview.categories ?? [];
+  applyCoreFeatureVisibility(overview.core_features);
 
   /*
    * The newest summary, on the front page.
@@ -23154,9 +23156,27 @@ document.addEventListener("zogograph-i18n-load", () => {
 });
 
 function mayUsePage(view) {
+  if (disabledCoreRoutes.has(view)) return false;
   if (VIEWS[view]?.packagePage) return mayUsePage("sys-packages");
   const pages = state.access?.pages;
   return !Array.isArray(pages) || pages.includes("*") || pages.includes(view);
+}
+
+/* The server owns feature state. Browser chrome follows it, but the matching
+ * API guard is what actually prevents an old link or stale tab from using a
+ * disabled core feature. A reload is the deliberate way to re-enable routes
+ * after Setup changes the feature state. */
+function applyCoreFeatureVisibility(features) {
+  if (!Array.isArray(features)) return;
+  for (const feature of features) {
+    if (!feature || feature.enabled !== false || !Array.isArray(feature.dashboard_routes)) continue;
+    for (const route of feature.dashboard_routes) {
+      if (typeof route !== "string") continue;
+      disabledCoreRoutes.add(route);
+      const section = document.querySelector(`[data-view="${route}"]`);
+      if (section) section.hidden = true;
+    }
+  }
 }
 
 function navSearchMatches(link) {

@@ -51,8 +51,11 @@ i18nExpect($setup !== false && str_contains($setup, 'data-i18n="setup.not_config
 i18nExpect($setup !== false && str_contains($setup, 'data-i18n="setup.validation_error"'),
     'Setup validation feedback is not localized');
 i18nExpect($setup !== false && str_contains($setup, 'data-i18n="setup.validation_detail"')
-    && str_contains($setup, "json_encode(['detail' => (string)\$errors[\$key]]"),
+    && str_contains($setup, "json_encode(['detail' => (string)\$error]"),
     'Setup field-level validation details do not use localized named values');
+i18nExpect($setup !== false && str_contains($setup, "'auth.password_minimum'")
+    && is_array($english) && isset($english['auth.password_mismatch'], $english['auth.password_required_current']),
+    'Setup password validation messages are not localized');
 i18nExpect($setup !== false && str_contains($setup, 'data-i18n="setup.error_detail"')
     && str_contains($setup, "json_encode(['detail' => \$detail]"),
     'Setup server-side error feedback does not use localized named values');

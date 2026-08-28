@@ -1,4 +1,8 @@
 {
+  "auth.password_minimum": "कम-से-कम 8 वर्ण उपयोग करें।",
+  "auth.password_mismatch": "ये मेल नहीं खाते।",
+  "auth.password_required_current": "पासवर्ड चुनें। वर्तमान पासवर्ड उस व्यक्ति को दिखाए गए पाठ में शामिल नहीं किया जा सकता जिसने इसे दर्ज नहीं किया है।",
+  "auth.password_required": "जारी रखने से पहले पासवर्ड बनाएं।",
   "setup.validation_detail": "कृपया यह मान ठीक करें: {{detail}}",
   "setup.error_detail": "Setup यह कार्रवाई पूरी नहीं कर सका: {{detail}}",
   "setup.help.path_jump_bytes": "यह चेतावनी लक्षण के बजाय जिम्मेदार कारण का नाम बताती है।",

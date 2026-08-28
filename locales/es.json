@@ -1,4 +1,8 @@
 {
+  "auth.password_minimum": "Use al menos 8 caracteres.",
+  "auth.password_mismatch": "No coinciden.",
+  "auth.password_required_current": "Elija una contraseña. La actual no puede incluirse en el texto que se muestra a alguien que no la ha introducido.",
+  "auth.password_required": "Cree una contraseña antes de continuar.",
   "setup.validation_detail": "Corrija este valor: {{detail}}",
   "setup.error_detail": "Setup no pudo completar esta acción: {{detail}}",
   "setup.help.openid_enabled": "Permite que aplicaciones de confianza registradas explícitamente inicien sesión de usuarios mediante esta instalación de Zogograph. No convierte este servidor en un servicio público de identidad.",

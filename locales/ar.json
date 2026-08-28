@@ -1,4 +1,8 @@
 {
+  "auth.password_minimum": "استخدم 8 أحرف على الأقل.",
+  "auth.password_mismatch": "القيمتان غير متطابقتين.",
+  "auth.password_required_current": "اختر كلمة مرور. لا يمكن نقل الكلمة الحالية إلى نص يظهر لمن لم يدخلها.",
+  "auth.password_required": "أنشئ كلمة مرور قبل المتابعة.",
   "setup.validation_detail": "يُرجى تصحيح هذه القيمة: {{detail}}",
   "setup.error_detail": "تعذر على الإعداد إكمال هذا الإجراء: {{detail}}",
   "setup.help.path_jump_bytes": "هذا هو التنبيه الذي يسمّي المسؤول بدلًا من العَرَض.",

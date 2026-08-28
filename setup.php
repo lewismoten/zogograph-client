@@ -895,9 +895,9 @@ function runWeb(
 
         if ($password !== '' || $again !== '') {
             if (strlen($password) < 8) {
-                $errors['password'] = 'Use at least 8 characters.';
+                $errors['password'] = ['key' => 'auth.password_minimum', 'fallback' => 'Use at least 8 characters.'];
             } elseif ($password !== $again) {
-                $errors['password'] = 'Those did not match.';
+                $errors['password'] = ['key' => 'auth.password_mismatch', 'fallback' => 'Those did not match.'];
             } else {
                 $hash = password_hash($password, PASSWORD_DEFAULT);
             }
@@ -913,10 +913,9 @@ function runWeb(
              * them a config that silently disables sign-in the moment they
              * paste it. Asking for a password is the only honest option.
              */
-            $errors['password'] = 'Choose a password. The current one cannot be carried over '
-                . 'into text shown to somebody who has not entered it.';
+            $errors['password'] = ['key' => 'auth.password_required_current', 'fallback' => 'Choose a password. The current one cannot be carried over into text shown to somebody who has not entered it.'];
         } else {
-            $errors['password'] = 'Create a password before continuing.';
+            $errors['password'] = ['key' => 'auth.password_required', 'fallback' => 'Create a password before continuing.'];
         }
 
         if (!$errors) {
@@ -1425,7 +1424,13 @@ function renderField(array $field, array $values, array $errors, bool $configure
     $labelText = $key === 'password' ? ($configured ? 'Change password' : 'Create sign-in password') : (string)$field['label'];
     $label = '<span data-i18n="setup.field.' . h($key) . '">' . h($labelText) . '</span>';
     $help = isset($field['help']) ? '<span class="help" data-i18n="setup.help.' . h($key) . '">' . h($field['help']) . '</span>' : '';
-    $bad = isset($errors[$key]) ? '<span class="bad" data-i18n="setup.validation_detail" data-i18n-values="' . h(json_encode(['detail' => (string)$errors[$key]], JSON_THROW_ON_ERROR)) . '">Please correct this value: ' . h((string)$errors[$key]) . '</span>' : '';
+    $error = $errors[$key] ?? null;
+    $bad = '';
+    if (is_array($error) && isset($error['key'], $error['fallback'])) {
+        $bad = '<span class="bad" data-i18n="' . h((string)$error['key']) . '">' . h((string)$error['fallback']) . '</span>';
+    } elseif ($error !== null) {
+        $bad = '<span class="bad" data-i18n="setup.validation_detail" data-i18n-values="' . h(json_encode(['detail' => (string)$error], JSON_THROW_ON_ERROR)) . '">Please correct this value: ' . h((string)$error) . '</span>';
+    }
 
     if ($field['type'] === 'password') {
         $note = $configured ? 'Leave blank to keep the current password.' : h((string)$field['help']);

@@ -1,4 +1,8 @@
 {
+  "auth.password_minimum": "请至少使用 8 个字符。",
+  "auth.password_mismatch": "两者不匹配。",
+  "auth.password_required_current": "请选择一个密码。当前密码不能带入展示给未输入该密码者的文本中。",
+  "auth.password_required": "请先创建密码再继续。",
   "setup.validation_detail": "请更正此值：{{detail}}",
   "setup.error_detail": "设置无法完成此操作：{{detail}}",
   "setup.help.path_jump_bytes": "这条警报会指出罪魁祸首，而不是症状。",

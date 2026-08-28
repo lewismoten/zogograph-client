@@ -1,4 +1,8 @@
 {
+  "auth.password_minimum": "Use at least 8 characters.",
+  "auth.password_mismatch": "Those did not match.",
+  "auth.password_required_current": "Choose a password. The current one cannot be carried over into text shown to somebody who has not entered it.",
+  "auth.password_required": "Create a password before continuing.",
   "setup.validation_detail": "Please correct this value: {{detail}}",
   "setup.error_detail": "Setup could not complete this action: {{detail}}",
   "setup.help.openid_enabled": "Lets explicitly registered trusted applications sign users in through this Zogograph installation. It does not make this server a public identity service.",

@@ -237,6 +237,25 @@ function setupPrivateKeyExists(string $path): bool
     return is_file($path) || is_link($path);
 }
 
+/** Inline action shown beside the setting that consumes this separate key. */
+function packageSecretKeyQuickStart(string $path, bool $exists, bool $canCreate): string
+{
+    $out = '<fieldset><legend>Create a separate package-secrets key</legend>'
+        . '<p class="help">Optional separate custody for package credentials. It will be created in the '
+        . 'same hidden private directory as the primary encryption key, with owner-only permissions and '
+        . 'an Apache deny policy.</p><p class="help">Suggested location: <code>' . h($path) . '</code></p>'
+        . '<input type="hidden" name="setup_key_create_token" value="' . h(setupKeyCreateToken()) . '">';
+    if ($exists) {
+        return $out . '<p class="banner ok" role="status">Package-secrets key already exists at this location; '
+            . 'this step is complete.</p><button type="submit" disabled aria-disabled="true">Create package-secrets key file</button></fieldset>';
+    }
+    if (!$canCreate) {
+        return $out . '<p class="help">Unlock setup with the current password before creating this key.</p>'
+            . '<button type="submit" disabled aria-disabled="true">Create package-secrets key file</button></fieldset>';
+    }
+    return $out . '<button type="submit" name="intent" value="create-package-secret-key">Create package-secrets key file</button></fieldset>';
+}
+
 /* ------------------------------------------------------------------- web -- */
 
 function runWeb(
@@ -668,12 +687,12 @@ function webPage(
     }
 
     $title = $activeSection === 'basics' ? 'Start here' : sectionTitle($activeSection);
+    $suggestedPackageSecretKeyPath = setupSuggestedPackageSecretKeyPath();
+    $suggestedPackageSecretKeyExists = setupPrivateKeyExists($suggestedPackageSecretKeyPath);
     $out[] = '<section class="setup-section"><h2>' . h($title) . '</h2>';
     if ($activeSection === 'basics') {
         $suggestedKeyPath = setupSuggestedPrivateKeyPath();
         $suggestedKeyExists = setupPrivateKeyExists($suggestedKeyPath);
-        $suggestedPackageSecretKeyPath = setupSuggestedPackageSecretKeyPath();
-        $suggestedPackageSecretKeyExists = setupPrivateKeyExists($suggestedPackageSecretKeyPath);
         $out[] = '<p class="help">The minimum needed to make this installation safe and useful. '
             . 'Save this first; the rest of the sections can then be adjusted independently.</p>';
         $out[] = '</form><details><summary>Create a local encryption key for verified encrypted copies</summary>'
@@ -695,22 +714,6 @@ function webPage(
                 : '')
             . '<button type="submit"' . ($suggestedKeyExists ? ' disabled aria-disabled="true"' : '')
             . '>Create private key file</button></form></details><form method="post">'
-            . '</form><details><summary>Create a separate package-secrets key</summary>'
-            . '<p class="help">Creates a second Base64 256-bit key in the same private directory for package '
-            . 'credentials. The directory uses the same owner-only permissions and Apache deny policy. After '
-            . 'creation, enter this path in <strong>Package secrets key file</strong> and save that setting '
-            . 'before storing package secrets.</p>'
-            . '<p class="help"><code>' . h($suggestedPackageSecretKeyPath) . '</code></p>'
-            . '<form method="post"><input type="hidden" name="intent" value="create-package-secret-key">'
-            . '<input type="hidden" name="setup_key_create_token" value="' . h(setupKeyCreateToken()) . '">'
-            . ($configured && !$unlocked
-                ? '<label>Current setup password<input type="password" name="current_password" autocomplete="current-password"></label>'
-                : '')
-            . ($suggestedPackageSecretKeyExists
-                ? '<p class="banner ok" role="status">Package-secrets key already exists at this location; this step is complete.</p>'
-                : '')
-            . '<button type="submit"' . ($suggestedPackageSecretKeyExists ? ' disabled aria-disabled="true"' : '')
-            . '>Create package-secrets key file</button></form></details><form method="post">'
             . '<input type="hidden" name="section" value="' . h($activeSection) . '">';
     } else {
         $help = sampleHelp($samplePath)['sections'][$activeSection] ?? '';
@@ -719,6 +722,13 @@ function webPage(
     foreach ($fields as $field) {
         if (fieldIsInSection($field, $activeSection)) {
             $out[] = renderField($field, $values, $errors, $configured);
+            if ($field['key'] === 'package_runtime_secret_key_file') {
+                $out[] = packageSecretKeyQuickStart(
+                    $suggestedPackageSecretKeyPath,
+                    $suggestedPackageSecretKeyExists,
+                    !$configured || $unlocked
+                );
+            }
         }
     }
     $out[] = '</section>';

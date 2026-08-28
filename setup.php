@@ -1377,7 +1377,94 @@ function webPage(
         $out[] = '<textarea readonly onclick="this.select()">' . h($rendered) . '</textarea>';
     }
 
-    $out[] = '<script>document.querySelector("[data-setup-nav-search]")?.addEventListener("input",function(){const q=this.value.trim().toLowerCase();let visible=0;document.querySelectorAll("[data-setup-nav-item]").forEach(function(item){item.hidden=q!==""&&!((item.dataset.setupNavTerms+" "+item.textContent).toLowerCase().includes(q));if(!item.hidden)visible++;});const results=document.querySelector("[data-setup-nav-results]");if(results)results.textContent=q===""?"":(window.ZogographI18n?.t("setup.search_results",{count:visible},"Showing "+visible+" settings sections")||"Showing "+visible+" settings sections");});document.querySelectorAll("[data-package-settings-target]").forEach(function(picker){picker.addEventListener("change",function(){const box=document.querySelector("textarea[name="+picker.dataset.packageSettingsTarget+"]");if(!box)return;try{const settings=JSON.parse(box.value);settings[picker.dataset.packageSecretPicker]=picker.value;box.value=JSON.stringify(settings,null,2);}catch(error){picker.value="";window.alert(window.ZogographI18n?.t("package.fix_settings_json",{},"Fix the package settings JSON before choosing a secret reference.")||"Fix the package settings JSON before choosing a secret reference.");}});});(function(){let current=null,announced=null,checking=false;const identity=build=>[build?.commit,build?.runId,build?.createdAt].filter(Boolean).join(":");async function check(){if(document.hidden||checking)return;checking=true;try{const response=await fetch("./build.json?at="+Date.now(),{cache:"no-store",credentials:"same-origin"});if(!response.ok)return;const build=await response.json(),next=identity(build);if(!next)return;if(current===null){current=next;return;}if(current!==next&&announced!==next){announced=next;const banner=document.querySelector("#setupUpdateBanner");banner.replaceChildren();const text=document.createElement("span");text.textContent=build.browserRefreshRequired===true?(window.ZogographI18n?.t("update.compatibility",{},"A compatibility update is ready. Reload before changing settings.")||"A compatibility update is ready. Reload before changing settings."):(window.ZogographI18n?.t("update.available",{},"A newer Zogograph update is available. Reload when you are ready.")||"A newer Zogograph update is available. Reload when you are ready.");const reload=document.createElement("button");reload.type="button";reload.textContent=window.ZogographI18n?.t("action.reload",{},"Reload now")||"Reload now";reload.addEventListener("click",()=>location.reload());banner.append(text,reload);banner.hidden=false;}}catch(error){}finally{checking=false;}}check();setInterval(check,60000);document.addEventListener("zogograph-i18n-load",()=>{if(document.querySelector("#setupUpdateBanner")?.hidden===false){announced=null;check();}});})();</script>';
+    $out[] = <<<'HTML'
+<script>
+document.querySelector("[data-setup-nav-search]")?.addEventListener("input", function () {
+    const query = this.value.trim().toLowerCase();
+    let visible = 0;
+    document.querySelectorAll("[data-setup-nav-item]").forEach(function (item) {
+        item.hidden = query !== "" && !((item.dataset.setupNavTerms + " " + item.textContent).toLowerCase().includes(query));
+        if (!item.hidden) visible++;
+    });
+    const results = document.querySelector("[data-setup-nav-results]");
+    if (results) results.textContent = query === "" ? "" : (window.ZogographI18n?.t("setup.search_results", {count: visible}, "Showing " + visible + " settings sections") || "Showing " + visible + " settings sections");
+});
+document.querySelectorAll("[data-package-settings-target]").forEach(function (picker) {
+    picker.addEventListener("change", function () {
+        const box = document.querySelector("textarea[name=" + picker.dataset.packageSettingsTarget + "]");
+        if (!box) return;
+        try {
+            const settings = JSON.parse(box.value);
+            settings[picker.dataset.packageSecretPicker] = picker.value;
+            box.value = JSON.stringify(settings, null, 2);
+        } catch (error) {
+            picker.value = "";
+            window.alert(window.ZogographI18n?.t("package.fix_settings_json", {}, "Fix the package settings JSON before choosing a secret reference.") || "Fix the package settings JSON before choosing a secret reference.");
+        }
+    });
+});
+(function () {
+    const storageKey = "zogograph.setup.build.identity";
+    const identity = build => [build?.commit, build?.runId, build?.createdAt].filter(Boolean).join(":");
+    const savedIdentity = function () {
+        try { return sessionStorage.getItem(storageKey); } catch (error) { return null; }
+    };
+    const rememberIdentity = function (value) {
+        try { sessionStorage.setItem(storageKey, value); } catch (error) { /* Storage is optional. */ }
+    };
+    let current = savedIdentity();
+    let latest = null;
+    let checking = false;
+
+    function show(build) {
+        const banner = document.querySelector("#setupUpdateBanner");
+        if (!banner) return;
+        banner.replaceChildren();
+        const text = document.createElement("span");
+        text.textContent = build.browserRefreshRequired === true
+            ? (window.ZogographI18n?.t("update.compatibility", {}, "A compatibility update is ready. Reload before changing settings.") || "A compatibility update is ready. Reload before changing settings.")
+            : (window.ZogographI18n?.t("update.available", {}, "A newer Zogograph update is available. Reload when you are ready.") || "A newer Zogograph update is available. Reload when you are ready.");
+        const reload = document.createElement("button");
+        reload.type = "button";
+        reload.textContent = window.ZogographI18n?.t("action.reload", {}, "Reload now") || "Reload now";
+        reload.addEventListener("click", () => location.reload());
+        banner.append(text, reload);
+        banner.hidden = false;
+    }
+
+    async function check() {
+        if (document.hidden || checking) return;
+        checking = true;
+        try {
+            const response = await fetch("./build.json?at=" + Date.now(), {cache: "no-store", credentials: "same-origin"});
+            if (!response.ok) return;
+            const build = await response.json();
+            const next = identity(build);
+            if (!next) return;
+            if (current === null) {
+                current = next;
+                rememberIdentity(next);
+                return;
+            }
+            if (current !== next) {
+                current = next;
+                rememberIdentity(next);
+                latest = build;
+                show(build);
+            }
+        } catch (error) {
+            // Deployment metadata is optional and must never interrupt Setup.
+        } finally {
+            checking = false;
+        }
+    }
+
+    check();
+    setInterval(check, 60000);
+    document.addEventListener("zogograph-i18n-load", () => { if (latest) show(latest); });
+})();
+</script>
+HTML;
     $out[] = '</body></html>';
     return implode("\n", $out);
 }

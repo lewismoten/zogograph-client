@@ -1327,10 +1327,15 @@ function renderValue(mixed $value, int $depth, string $libDir = ''): string
  */
 function relativeToLib(string $value, string $libDir): string
 {
-    if ($libDir !== '' && str_starts_with($value, $libDir . '/')) {
-        return '__DIR__ . ' . renderScalar(substr($value, strlen($libDir)));
+    // A legacy value that walks back out of lib starts with lib/ even though
+    // it is not actually inside lib. Normalize it before deciding
+    // whether it is safe to render as a __DIR__ expression; otherwise every
+    // Setup save preserves the confusing lib/../ spelling.
+    $displayPath = setupDisplayPath($value);
+    if ($libDir !== '' && str_starts_with($displayPath, $libDir . '/')) {
+        return '__DIR__ . ' . renderScalar(substr($displayPath, strlen($libDir)));
     }
-    return renderScalar($value);
+    return renderScalar($displayPath);
 }
 
 function renderScalar(mixed $value): string

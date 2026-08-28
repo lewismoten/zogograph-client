@@ -132,6 +132,10 @@ try {
         && setupDisplayPath('/home/zogograph/client.zogograph.com/lib/../data/marketplace') === '/home/zogograph/client.zogograph.com/data/marketplace'
         && setupDisplayValue(['directory' => '/home/zogograph/client.zogograph.com/lib/../data/marketplace'])['directory'] === '/home/zogograph/client.zogograph.com/data/marketplace',
         'Setup displays non-canonical private data paths');
+    $legacyPathConfig = renderConfig(['marketplace' => ['directory' => '/home/zogograph/client.zogograph.com/lib/../data/marketplace']], '/home/zogograph/client.zogograph.com/lib');
+    encryptionExpect(!str_contains($legacyPathConfig, '/lib/../data/')
+        && str_contains($legacyPathConfig, "'/home/zogograph/client.zogograph.com/data/marketplace'"),
+        'Setup re-rendered a legacy private data path through lib/../');
     $fields = array_column(configFields($sample), null, 'key');
     encryptionExpect(array_filter(configFields($sample), static fn(array $field): bool => !empty($field['generated'])) === [],
         'a configuration field still relies on a generated Setup label rather than an authored question');

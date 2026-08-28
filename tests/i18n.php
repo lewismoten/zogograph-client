@@ -29,7 +29,8 @@ i18nExpect($setup !== false && str_contains($setup, 'src="i18n.js"') && str_cont
     && str_contains($setup, "'setup.section.' . \$name") && str_contains($setup, "'setup.section.' . \$activeSection"),
     'Setup language controls or localized shell are unavailable');
 i18nExpect($setup !== false && str_contains($setup, 'setupRenderPackageSettingsPanel')
-    && str_contains($setup, 'data-package-settings-target') && str_contains($setup, 'save-package-settings:'),
+    && str_contains($setup, 'data-package-settings-target') && str_contains($setup, 'save-package-settings:')
+    && str_contains($setup, 'data-i18n="package.save_settings"') && str_contains($setup, 'data-i18n="package.no_reference"'),
     'Setup cannot render a signed package settings panel inside a core page');
 i18nExpect($setup !== false && !str_contains($setup, 'textarea[name=package_settings]')
     && substr_count($setup, 'document.querySelectorAll("[data-package-settings-target]")') === 1,
@@ -47,7 +48,7 @@ i18nExpect($configure !== false && str_contains($configure, 'function generatedF
     && str_contains($configure, "'label' => generatedFieldLabel(\$path)")
     && !str_contains($configure, "'label' => \$dotted"),
     'generated Setup fields can still expose dotted internal configuration paths');
-i18nExpect(is_array($english) && isset($english['example.readings'], $english['example.compact'], $english['example.cost'], $english['example.percent'], $english['example.storage'], $english['example.changed'], $english['update.available'], $english['range.10m'], $english['action.reload'], $english['navigation.storage'], $english['navigation.cpu'], $english['navigation.deleted_held'], $english['navigation.cpu_limits'], $english['deployment.test'], $english['merge.apply'], $english['schedule.custom_builder'], $english['schedule.job.vitals'], $english['schedule.remove']),
+i18nExpect(is_array($english) && isset($english['example.readings'], $english['example.compact'], $english['example.cost'], $english['example.percent'], $english['example.storage'], $english['example.changed'], $english['update.available'], $english['range.10m'], $english['action.reload'], $english['navigation.storage'], $english['navigation.cpu'], $english['navigation.deleted_held'], $english['navigation.cpu_limits'], $english['deployment.test'], $english['merge.apply'], $english['package.save_settings'], $english['schedule.custom_builder'], $english['schedule.job.vitals'], $english['schedule.remove']),
     'English fallback catalog is incomplete');
 preg_match_all('/data-i18n(?:-placeholder|-title|-aria-label)?="([^"]+)"/', (string)$page, $pageKeys);
 foreach (array_unique($pageKeys[1] ?? []) as $key) {

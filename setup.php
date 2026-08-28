@@ -359,16 +359,16 @@ function setupRenderPackageSettingsPanel(array $panel, ?array $config): string
     $encoded = json_encode(setupDisplayValue($settings), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR);
     $fieldName = 'package_settings_' . $panelId;
     $titleKey = trim((string)($panel['title_key'] ?? ''));
-    $out = '<fieldset><legend' . ($titleKey !== '' ? ' data-i18n="' . h($titleKey) . '"' : '') . '>' . h((string)($panel['title'] ?? 'Package settings')) . '</legend><p class="help">These settings are validated against the signed package schema. Setup does not load package code to render this panel.</p><label>Settings (JSON)'
+    $out = '<fieldset><legend' . ($titleKey !== '' ? ' data-i18n="' . h($titleKey) . '"' : '') . '>' . h((string)($panel['title'] ?? 'Package settings')) . '</legend><p class="help" data-i18n="package.settings_help">These settings are validated against the signed package schema. Setup does not load package code to render this panel.</p><label><span data-i18n="package.settings_json">Settings (JSON)</span>'
         . '<textarea name="' . h($fieldName) . '" rows="16" spellcheck="false">' . h($encoded) . '</textarea></label>'
         . '<input type="hidden" name="setup_package_settings_token" value="' . h(setupPackageSettingsToken()) . '">'
-        . '<button type="submit" name="intent" value="save-package-settings:' . h($panelId) . '">Save package settings</button></fieldset>';
+        . '<button type="submit" name="intent" value="save-package-settings:' . h($panelId) . '" data-i18n="package.save_settings">Save package settings</button></fieldset>';
     $picker = setupPackageSecretPicker($config, $packageId);
     if ($picker['names'] === []) return $out;
-    $out .= '<fieldset><legend>Protected secret references</legend><p class="help">Select a reference already stored for this package. The secret value is never shown or copied into this page. Create a new secret from the dashboard’s Packages area first if this list is empty.</p>';
+    $out .= '<fieldset><legend data-i18n="package.secret_references">Protected secret references</legend><p class="help" data-i18n="package.secret_references_help">Select a reference already stored for this package. The secret value is never shown or copied into this page. Create a new secret from the dashboard’s Packages area first if this list is empty.</p>';
     foreach ($picker['names'] as $name) {
         $selected = (string)($settings[$name] ?? '');
-        $out .= '<label>' . h($name) . '<select data-package-secret-picker="' . h($name) . '" data-package-settings-target="' . h($fieldName) . '"><option value="">No reference selected</option>';
+        $out .= '<label>' . h($name) . '<select data-package-secret-picker="' . h($name) . '" data-package-settings-target="' . h($fieldName) . '"><option value="" data-i18n="package.no_reference">No reference selected</option>';
         foreach ($picker['references'] as $secret) {
             $reference = (string)$secret['reference'];
             $out .= '<option value="' . h($reference) . '"' . ($reference === $selected ? ' selected' : '') . '>'

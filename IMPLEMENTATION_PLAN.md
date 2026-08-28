@@ -75,9 +75,10 @@ the product is complete.
 - [~] Explain and provision the existing OpenID Connect provider in Setup.
   Provider capability, issuer, and signing-key configuration are visible;
   safe signing-key generation and trusted-client management remain.
-- [~] Guided TOTP enrollment: Setup generates a Base32 secret, requires a
-  successful verification code before saving, and displays one-time backup
-  codes once after acknowledgement. A scannable QR presentation remains.
+- [x] Guided TOTP enrollment: Setup generates a Base32 secret, offers a local
+  QR presentation when the host provides `qrencode`, requires a successful
+  verification code before saving, and displays one-time backup codes once
+  after acknowledgement.
 - [ ] Replace raw dotted generated labels with authored Setup questions.
 - [~] Build locale catalogs, locale preference/detection, named formatting,
   RTL support, key-inspection mode, and package language catalog merge rules.

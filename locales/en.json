@@ -264,6 +264,8 @@
   "deployment.copy_action": "Verify again and copy release",
   "deployment.review_transport": "Review planned transport",
   "deployment.review_transport_help": "This is a secret-free argument preview only. Braced values are supplied by the reviewed worker at test/copy time; saving or opening this preview makes no network connection.",
+  "deployment.handoff": "Remote setup handoff",
+  "deployment.handoff_help": "Copy this nonsecret JSON into the remote Setup import form after unlocking it. It includes the controller address, update policy, and selected package groups; it never includes deployment credentials, host keys, pairing credentials, or local passwords.",
   "deployment.save_to_review": "Save a complete deployment profile to review its planned transport.",
   "deployment.last_test": "Last target test:",
   "deployment.last_copy": "Last release copy:",

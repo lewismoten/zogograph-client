@@ -45,6 +45,23 @@ function openIdBase64Url(string $value): string
     return rtrim(strtr(base64_encode($value), '+/', '-_'), '=');
 }
 
+/** Creates a dedicated provider key; callers decide where its private PEM lives. */
+function openIdGenerateSigningKey(): string
+{
+    if (!function_exists('openssl_pkey_new') || !function_exists('openssl_pkey_export')) {
+        throw new ActionRefused('OpenSSL is not available to generate an OpenID signing key');
+    }
+    $key = openssl_pkey_new(['private_key_type' => OPENSSL_KEYTYPE_RSA, 'private_key_bits' => 3072]);
+    if ($key === false || !openssl_pkey_export($key, $private)) {
+        throw new ActionRefused('OpenSSL could not generate an OpenID signing key');
+    }
+    $details = openssl_pkey_get_details($key);
+    if (!is_array($details) || ($details['type'] ?? null) !== OPENSSL_KEYTYPE_RSA || (int)($details['bits'] ?? 0) < 3072) {
+        throw new ActionRefused('OpenSSL returned an unsuitable OpenID signing key');
+    }
+    return $private;
+}
+
 function openIdDecodeBase64Url(string $value): string|false
 {
     $pad = strlen($value) % 4;

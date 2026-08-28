@@ -60,6 +60,7 @@ require_once $root . '/lib/setup-cron-editor.php';
 require_once $root . '/lib/setup-panels.php';
 require_once $root . '/lib/package-runtime.php';
 require_once $root . '/lib/auth.php';
+require_once $root . '/lib/openid.php';
 require_once $root . '/lib/db.php';
 // For hostCronLine/hostCronCommand, shown after a successful write.
 require_once $root . '/lib/hostdb.php';
@@ -213,6 +214,13 @@ function setupTotpToken(): string
 {
     if (!is_string($_SESSION['setup_totp_token'] ?? null)) $_SESSION['setup_totp_token'] = bin2hex(random_bytes(32));
     return $_SESSION['setup_totp_token'];
+}
+
+/** CSRF protection for generating a provider signing key without saving a form. */
+function setupOpenIdKeyToken(): string
+{
+    if (!is_string($_SESSION['setup_openid_key_token'] ?? null)) $_SESSION['setup_openid_key_token'] = bin2hex(random_bytes(32));
+    return $_SESSION['setup_openid_key_token'];
 }
 
 /** CSRF token limited to schema-validated package-setting writes. */
@@ -466,6 +474,23 @@ function runWeb(
         return;
     }
 
+    if ($posted && ($_POST['intent'] ?? '') === 'generate-openid-signing-key') {
+        if ($configured && !$unlocked) {
+            $_SESSION['setup_error'] = 'Unlock setup before generating an OpenID signing key.';
+        } elseif (!hash_equals(setupOpenIdKeyToken(), (string)($_POST['setup_openid_key_token'] ?? ''))) {
+            $_SESSION['setup_error'] = 'The OpenID key form expired. Reload setup and try again.';
+        } else {
+            try {
+                $_SESSION['setup_pending_openid_signing_key'] = openIdGenerateSigningKey();
+                $_SESSION['setup_notice'] = 'A dedicated OpenID signing key was generated. Review the OpenID settings and save this section to commit it.';
+            } catch (Throwable $error) {
+                $_SESSION['setup_error'] = 'Could not generate the OpenID signing key: ' . $error->getMessage();
+            }
+        }
+        header('Location: ' . strtok((string)$_SERVER['REQUEST_URI'], '?') . '?section=openid', true, 303);
+        return;
+    }
+
     if ($posted && in_array($_POST['intent'] ?? '', ['create-local-key', 'create-package-secret-key'], true)) {
         $creatingPackageSecretKey = ($_POST['intent'] ?? '') === 'create-package-secret-key';
         $canCreate = $existing === null || $unlocked
@@ -543,6 +568,9 @@ function runWeb(
         $values[$field['key']] = $current !== null
             ? valueAtPath($current, $field['path'], $field['default'])
             : $field['default'];
+    }
+    if (is_string($_SESSION['setup_pending_openid_signing_key'] ?? null)) {
+        $values['openid_signing_private_key'] = $_SESSION['setup_pending_openid_signing_key'];
     }
 
     if ($posted && ($_POST['intent'] ?? '') === 'save-package-settings') {
@@ -687,6 +715,9 @@ function runWeb(
 
             if ($authorised) {
                 [$written, $writeError] = writeConfig($targetPath, $config, $root . '/lib');
+                if ($written) {
+                    unset($_SESSION['setup_pending_openid_signing_key']);
+                }
                 if ($written && $configured) {
                     header('Location: ' . strtok((string)$_SERVER['REQUEST_URI'], '?')
                         . '?section=' . rawurlencode($activeSection) . '&saved=1', true, 303);
@@ -934,7 +965,8 @@ function webPage(
             . '<label class="row"><input type="checkbox" name="rotate_mask" value="1"> Generate a new mask secret</label>'
             . '</fieldset>';
     } elseif ($activeSection === 'openid') {
-        $out[] = '<fieldset><legend>OpenID Connect provider</legend><p class="help">This installation can already act as an OpenID Connect provider for trusted applications. Enable it only after setting its public HTTPS issuer, a dedicated signing key, and registered client redirect URLs. The provider supports authorization code with PKCE, discovery, JWKS, and signed ID tokens.</p><p class="help">Client registrations are managed below as structured settings; each client needs an exact redirect URL and a private client secret.</p></fieldset>';
+        $pendingOpenIdKey = is_string($_SESSION['setup_pending_openid_signing_key'] ?? null);
+        $out[] = '<fieldset><legend>OpenID Connect provider</legend><p class="help">This installation can already act as an OpenID Connect provider for trusted applications. Enable it only after setting its public HTTPS issuer, a dedicated signing key, and registered client redirect URLs. The provider supports authorization code with PKCE, discovery, JWKS, and signed ID tokens.</p><p class="help">Client registrations are managed below as structured settings; each client needs an exact redirect URL and a private client secret.</p><input type="hidden" name="setup_openid_key_token" value="' . h(setupOpenIdKeyToken()) . '"><button type="submit" name="intent" value="generate-openid-signing-key"' . ($editingLocked ? ' disabled aria-disabled="true"' : '') . '>Generate dedicated RSA signing key</button><p class="help">' . ($pendingOpenIdKey ? 'A new key is ready in this protected setup session. Save this section to commit it; it is not included in notices or logs.' : 'Generation creates a new 3072-bit RSA key in this protected setup session. It is not committed until you save this section.') . '</p></fieldset>';
     } elseif ($activeSection === 'auth') {
         $pendingTotp = (string)($_SESSION['setup_pending_totp'] ?? '');
         $recoveryCodes = (array)($_SESSION['setup_recovery_codes'] ?? []);

@@ -69,7 +69,7 @@ function configFields(array $sample): array
             'path' => ['openid', 'signing_private_key'],
             'type' => 'textarea',
             'label' => 'OpenID signing private key',
-            'help' => 'Required before enabling the provider. Use a dedicated RSA private key; never reuse the TLS certificate key. Key generation in Setup is the next authentication-workflow step.',
+            'help' => 'Required before enabling the provider. Use a dedicated RSA private key; never reuse the TLS certificate key. Setup can generate a dedicated key that is kept only in the protected setup session until this section is saved.',
             'default' => (string)($sample['openid']['signing_private_key'] ?? ''),
             'when' => ['openid_enabled' => true],
         ],

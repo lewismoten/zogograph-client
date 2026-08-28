@@ -1439,7 +1439,7 @@ function renderField(array $field, array $values, array $errors, bool $configure
         $checked = !empty($values[$key]) ? ' checked' : '';
         return '<fieldset><legend>' . $label . '</legend>'
             . '<label class="row" style="margin:0"><input type="checkbox" name="' . h($key)
-            . '" value="1"' . $checked . '> Yes</label>'
+            . '" value="1"' . $checked . '> <span data-i18n="form.yes">Yes</span></label>'
             . $help . $bad . '</fieldset>';
     }
 

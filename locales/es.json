@@ -1,6 +1,7 @@
 {
   "language.label": "Idioma",
   "language.keys": "Mostrar claves de traducción",
+  "form.yes": "Sí",
   "setup.label": "Configuración",
   "setup.title": "Configuración",
   "setup.lock": "Bloquear configuración",

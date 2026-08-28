@@ -1,6 +1,7 @@
 {
   "language.label": "语言",
   "language.keys": "显示翻译键",
+  "form.yes": "是",
   "setup.label": "设置",
   "setup.title": "设置",
   "setup.lock": "锁定设置",

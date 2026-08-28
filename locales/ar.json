@@ -1,6 +1,7 @@
 {
   "language.label": "اللغة",
   "language.keys": "إظهار مفاتيح الترجمة",
+  "form.yes": "نعم",
   "setup.label": "الإعداد",
   "setup.title": "الإعداد",
   "setup.lock": "قفل الإعداد",

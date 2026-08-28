@@ -1,6 +1,7 @@
 {
   "language.label": "Language",
   "language.keys": "Show translation keys",
+  "form.yes": "Yes",
   "setup.label": "Setup",
   "setup.title": "Setup",
   "setup.lock": "Lock setup",

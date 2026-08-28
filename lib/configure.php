@@ -126,6 +126,15 @@ function configFields(array $sample): array
             'default' => (bool)($sample['core_features']['metadata'] ?? true),
         ],
         [
+            'key' => 'core_features_notifications',
+            'section' => 'features',
+            'path' => ['core_features', 'notifications'],
+            'type' => 'bool',
+            'label' => 'Email alerts configuration core feature',
+            'help' => 'Disabling this removes Email alerts from the dashboard and blocks its configuration and test API routes. Existing alert delivery settings and server-side alert evaluation continue unchanged.',
+            'default' => (bool)($sample['core_features']['notifications'] ?? true),
+        ],
+        [
             'key' => 'openid_enabled',
             'section' => 'openid',
             'path' => ['openid', 'enabled'],

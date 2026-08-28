@@ -75,5 +75,8 @@
   "example.readings": "{{count, number}} readings",
   "example.updated": "Updated {{at, date}}",
   "example.compact": "{{count, compact}} items",
-  "example.cost": "{{amount, currency}}"
+  "example.cost": "{{amount, currency}}",
+  "example.percent": "{{ratio, percent}} complete",
+  "example.storage": "{{bytes, unit}} stored",
+  "example.changed": "Changed {{at, date-time}}"
 }

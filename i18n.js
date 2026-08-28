@@ -17,12 +17,17 @@ function i18nRequestedLocale() {
 }
 
 function i18nFormat(value, kind, name, values) {
-  if (kind === "number") return new Intl.NumberFormat(i18n.locale).format(Number(value));
-  if (kind === "latin-number") return new Intl.NumberFormat(i18n.locale, { numberingSystem: "latn" }).format(Number(value));
-  if (kind === "compact") return new Intl.NumberFormat(i18n.locale, { notation: "compact" }).format(Number(value));
-  if (kind === "currency") return new Intl.NumberFormat(i18n.locale, { style: "currency", currency: values[`${name}Currency`] || "USD" }).format(Number(value));
-  if (kind === "date") return new Intl.DateTimeFormat(i18n.locale, { dateStyle: "medium" }).format(new Date(value));
-  if (kind === "time") return new Intl.DateTimeFormat(i18n.locale, { timeStyle: "short" }).format(new Date(value));
+  try {
+    if (kind === "number") return new Intl.NumberFormat(i18n.locale).format(Number(value));
+    if (kind === "latin-number") return new Intl.NumberFormat(i18n.locale, { numberingSystem: "latn" }).format(Number(value));
+    if (kind === "compact") return new Intl.NumberFormat(i18n.locale, { notation: "compact" }).format(Number(value));
+    if (kind === "percent") return new Intl.NumberFormat(i18n.locale, { style: "percent" }).format(Number(value));
+    if (kind === "unit") return new Intl.NumberFormat(i18n.locale, { style: "unit", unit: values[`${name}Unit`] || "byte", unitDisplay: values[`${name}UnitDisplay`] || "short" }).format(Number(value));
+    if (kind === "currency") return new Intl.NumberFormat(i18n.locale, { style: "currency", currency: values[`${name}Currency`] || "USD" }).format(Number(value));
+    if (kind === "date") return new Intl.DateTimeFormat(i18n.locale, { dateStyle: "medium" }).format(new Date(value));
+    if (kind === "time") return new Intl.DateTimeFormat(i18n.locale, { timeStyle: "short" }).format(new Date(value));
+    if (kind === "date-time") return new Intl.DateTimeFormat(i18n.locale, { dateStyle: "medium", timeStyle: "short" }).format(new Date(value));
+  } catch { return String(value ?? ""); }
   return String(value ?? "");
 }
 
@@ -30,7 +35,7 @@ function t(key, values = {}, fallbackText = "") {
   const fallback = i18n.fallback[key] || fallbackText || key;
   const text = i18n.catalog[key] || fallback;
   if (i18n.keyMode) return key;
-  return text.replace(/\{\{([\w.-]+)(?:,\s*(number|latin-number|compact|currency|date|time))?\}\}/g, (_, name, kind) => i18nFormat(values[name], kind, name, values));
+  return text.replace(/\{\{([\w.-]+)(?:,\s*(number|latin-number|compact|percent|unit|currency|date|time|date-time))?\}\}/g, (_, name, kind) => i18nFormat(values[name], kind, name, values));
 }
 
 async function i18nLoad(locale = i18nRequestedLocale()) {

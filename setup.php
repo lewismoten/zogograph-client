@@ -218,6 +218,26 @@ function setupTotpToken(): string
     return $_SESSION['setup_totp_token'];
 }
 
+/**
+ * Optional local QR rendering for a pending TOTP URI. No URI is sent over the
+ * network; hosts without qrencode retain the manual-secret and app-link flow.
+ */
+function setupTotpQrImage(string $uri): ?string
+{
+    if ($uri === '' || strlen($uri) > 1024 || !function_exists('proc_open')) return null;
+    foreach (['/usr/bin/qrencode', '/usr/local/bin/qrencode', '/opt/homebrew/bin/qrencode'] as $binary) {
+        if (!is_file($binary) || !is_executable($binary)) continue;
+        $pipes = []; $process = @proc_open([$binary, '-t', 'SVG', '-o', '-'], [['pipe', 'r'], ['pipe', 'w'], ['pipe', 'w']], $pipes, null, null, ['bypass_shell' => true]);
+        if (!is_resource($process)) continue;
+        fwrite($pipes[0], $uri); fclose($pipes[0]);
+        $svg = stream_get_contents($pipes[1]); stream_get_contents($pipes[2]); fclose($pipes[1]); fclose($pipes[2]); $exit = proc_close($process);
+        if ($exit === 0 && is_string($svg) && strlen($svg) > 100 && strlen($svg) <= 1048576 && preg_match('/<svg\\b/i', $svg)) {
+            return 'data:image/svg+xml;base64,' . base64_encode($svg);
+        }
+    }
+    return null;
+}
+
 /** CSRF protection for generating a provider signing key without saving a form. */
 function setupOpenIdKeyToken(): string
 {
@@ -1091,7 +1111,10 @@ function webPage(
         } elseif ($pendingTotp !== '') {
             $issuer = rawurlencode('Zogograph'); $account = rawurlencode('administrator');
             $uri = 'otpauth://totp/' . $issuer . ':' . $account . '?secret=' . rawurlencode($pendingTotp) . '&issuer=' . $issuer . '&algorithm=SHA1&digits=6&period=30';
-            $out[] = '<p>Enter this secret into your authenticator app:</p><pre><code>' . h($pendingTotp) . '</code></pre><p class="help">On a device with a compatible authenticator installed, <a href="' . h($uri) . '">open this account in the authenticator app</a>. Otherwise add the secret above manually.</p><p class="help">Provisioning URI: <code>' . h($uri) . '</code></p><label>Current six-digit code<input type="text" name="totp_code" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="one-time-code"></label><input type="hidden" name="setup_totp_token" value="' . h(setupTotpToken()) . '"><button type="submit" name="intent" value="confirm-totp">Verify and enable authenticator</button>';
+            $qr = setupTotpQrImage($uri);
+            $out[] = '<p>Enter this secret into your authenticator app:</p><pre><code>' . h($pendingTotp) . '</code></pre>'
+                . ($qr === null ? '' : '<p><img width="220" height="220" alt="Scan this QR code with your authenticator app" src="' . h($qr) . '"></p>')
+                . '<p class="help">On a device with a compatible authenticator installed, <a href="' . h($uri) . '">open this account in the authenticator app</a>. Otherwise add the secret above manually.</p><p class="help">Provisioning URI: <code>' . h($uri) . '</code></p><label>Current six-digit code<input type="text" name="totp_code" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="one-time-code"></label><input type="hidden" name="setup_totp_token" value="' . h(setupTotpToken()) . '"><button type="submit" name="intent" value="confirm-totp">Verify and enable authenticator</button>';
         } else {
             $out[] = '<input type="hidden" name="setup_totp_token" value="' . h(setupTotpToken()) . '"><button type="submit" name="intent" value="start-totp">Create authenticator secret</button>';
         }

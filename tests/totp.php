@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/../lib/auth.php';
 $setup = file_get_contents(__DIR__ . '/../setup.php');
-if ($setup === false || !str_contains($setup, 'open this account in the authenticator app') || !str_contains($setup, 'href="' . "' . h(\$uri) . '")) throw new RuntimeException('setup does not expose the local authenticator provisioning link');
+if ($setup === false || !str_contains($setup, 'open this account in the authenticator app') || !str_contains($setup, 'setupTotpQrImage') || !str_contains($setup, 'data:image/svg+xml;base64,')) throw new RuntimeException('setup does not expose local authenticator provisioning options');
 if (!preg_match('/^[A-Z2-7]{32}$/', totpGenerateSecret())) throw new RuntimeException('generated TOTP seed is not Base32 160-bit material');
 
 function totpExpect(bool $condition, string $message): void

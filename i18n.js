@@ -50,7 +50,15 @@ function i18nNodeValues(node) {
 async function i18nLoad(locale = i18nRequestedLocale()) {
   const get = async name => { const r = await fetch(`./locales/${name}.json`, { cache: "no-store" }); return r.ok ? r.json() : {}; };
   i18n.fallback = await get(I18N_BASE);
-  i18n.catalog = { ...i18n.fallback, ...(locale === I18N_BASE ? {} : await get(locale)), ...(i18n.extensions[I18N_BASE] || {}), ...(i18n.extensions[locale] || {}) };
+  const catalog = { ...i18n.fallback, ...(locale === I18N_BASE ? {} : await get(locale)) };
+  // Package catalogs are translation extensions, not authority to rewrite the
+  // shell. In particular, a package must not be able to change security,
+  // consent, navigation, or action text that is supplied by the core locale.
+  // A locale-specific package value can still replace that package's English
+  // fallback because both remain absent from the core catalog.
+  const extensions = { ...(i18n.extensions[I18N_BASE] || {}), ...(i18n.extensions[locale] || {}) };
+  for (const [key, value] of Object.entries(extensions)) if (!(key in catalog)) catalog[key] = value;
+  i18n.catalog = catalog;
   i18n.locale = locale; document.documentElement.lang = locale;
   document.documentElement.dir = I18N_RTL.has(locale.split("-")[0]) ? "rtl" : "ltr";
   document.querySelectorAll("[data-i18n]").forEach(node => {

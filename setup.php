@@ -1192,18 +1192,18 @@ function webPage(
     } elseif ($activeSection === 'auth') {
         $pendingTotp = (string)($_SESSION['setup_pending_totp'] ?? '');
         $recoveryCodes = (array)($_SESSION['setup_recovery_codes'] ?? []);
-        $out[] = '<fieldset><legend>Authenticator app</legend><p class="help">Use an authenticator app such as Google Authenticator, 1Password, or Authy for a six-digit second factor. The secret is not saved until the app proves it can create a correct code.</p>';
+        $out[] = '<fieldset><legend data-i18n="auth.app">Authenticator app</legend><p class="help" data-i18n="auth.app_intro">Use an authenticator app such as Google Authenticator, 1Password, or Authy for a six-digit second factor. The secret is not saved until the app proves it can create a correct code.</p>';
         if ($recoveryCodes !== []) {
-            $out[] = '<div class="banner warn"><strong>Save these recovery codes now.</strong><p>They will not be shown again. Each code works once if your authenticator is unavailable.</p><pre><code>' . h(implode("\n", $recoveryCodes)) . '</code></pre><label class="row"><input type="checkbox" name="recovery_confirmed" value="1"> I saved these recovery codes somewhere safe.</label><input type="hidden" name="setup_totp_token" value="' . h(setupTotpToken()) . '"><button type="submit" name="intent" value="ack-totp-recovery">Finish recovery-code setup</button></div>';
+            $out[] = '<div class="banner warn"><strong data-i18n="auth.recovery_title">Save these recovery codes now.</strong><p data-i18n="auth.recovery_help">They will not be shown again. Each code works once if your authenticator is unavailable.</p><pre><code>' . h(implode("\n", $recoveryCodes)) . '</code></pre><label class="row"><input type="checkbox" name="recovery_confirmed" value="1"> <span data-i18n="auth.recovery_confirm">I saved these recovery codes somewhere safe.</span></label><input type="hidden" name="setup_totp_token" value="' . h(setupTotpToken()) . '"><button type="submit" name="intent" value="ack-totp-recovery" data-i18n="auth.finish_recovery">Finish recovery-code setup</button></div>';
         } elseif ($pendingTotp !== '') {
             $issuer = rawurlencode('Zogograph'); $account = rawurlencode('administrator');
             $uri = 'otpauth://totp/' . $issuer . ':' . $account . '?secret=' . rawurlencode($pendingTotp) . '&issuer=' . $issuer . '&algorithm=SHA1&digits=6&period=30';
             $qr = setupTotpQrImage($uri);
-            $out[] = '<p>Enter this secret into your authenticator app:</p><pre><code>' . h($pendingTotp) . '</code></pre>'
+            $out[] = '<p data-i18n="auth.enter_secret">Enter this secret into your authenticator app:</p><pre><code>' . h($pendingTotp) . '</code></pre>'
                 . ($qr === null ? '' : '<p><img width="220" height="220" alt="Scan this QR code with your authenticator app" src="' . h($qr) . '"></p>')
-                . '<p class="help">On a device with a compatible authenticator installed, <a href="' . h($uri) . '">open this account in the authenticator app</a>. Otherwise add the secret above manually.</p><p class="help">Provisioning URI: <code>' . h($uri) . '</code></p><label>Current six-digit code<input type="text" name="totp_code" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="one-time-code"></label><input type="hidden" name="setup_totp_token" value="' . h(setupTotpToken()) . '"><button type="submit" name="intent" value="confirm-totp">Verify and enable authenticator</button>';
+                . '<p class="help">On a device with a compatible authenticator installed, <a href="' . h($uri) . '">open this account in the authenticator app</a>. Otherwise add the secret above manually.</p><p class="help">Provisioning URI: <code>' . h($uri) . '</code></p><label><span data-i18n="auth.current_code">Current six-digit code</span><input type="text" name="totp_code" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="one-time-code"></label><input type="hidden" name="setup_totp_token" value="' . h(setupTotpToken()) . '"><button type="submit" name="intent" value="confirm-totp" data-i18n="auth.verify">Verify and enable authenticator</button>';
         } else {
-            $out[] = '<input type="hidden" name="setup_totp_token" value="' . h(setupTotpToken()) . '"><button type="submit" name="intent" value="start-totp">Create authenticator secret</button>';
+            $out[] = '<input type="hidden" name="setup_totp_token" value="' . h(setupTotpToken()) . '"><button type="submit" name="intent" value="start-totp" data-i18n="auth.start">Create authenticator secret</button>';
         }
         $out[] = '</fieldset>';
     } elseif ($activeSection === 'deployment') {

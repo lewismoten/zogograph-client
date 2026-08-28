@@ -54,6 +54,12 @@ jobs:
           case "$snapshot_repository" in ''|*[!A-Za-z0-9._-]*) echo 'Repository name is unsafe for the snapshot path.' >&2; exit 1;; esac
           printf 'SNAPSHOT_DIRECTORY=%s/%s\n' "${SNAPSHOT_PATH%/}" "$snapshot_repository" >> "$GITHUB_ENV"
 
+      - name: Install PHP test runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          command -v php >/dev/null || { apt-get update; apt-get install -y php-cli php-sqlite3 php-mbstring; }
+
       - name: Validate, test, and build
         shell: bash
         run: npm ci && npm test && npm run build

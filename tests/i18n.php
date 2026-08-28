@@ -8,6 +8,8 @@ $script = file_get_contents($root . '/index.js');
 $setup = file_get_contents($root . '/setup.php');
 $configure = file_get_contents($root . '/lib/configure.php');
 $english = json_decode((string)file_get_contents($root . '/locales/en.json'), true);
+require_once $root . '/lib/configure.php';
+$schemaFields = configFields(require $root . '/lib/config.sample.php');
 i18nExpect($runtime !== false && str_contains($runtime, 'Intl.NumberFormat') && str_contains($runtime, 'I18N_RTL')
     && str_contains($runtime, 'zogograph.locale') && str_contains($runtime, 'data-i18n') && str_contains($runtime, 'registerCatalog')
     && str_contains($runtime, 'i18nNodeValues')
@@ -166,6 +168,15 @@ foreach (array_keys(array_filter($english, static fn(mixed $value, string $key):
 foreach (array_keys(array_filter($english, static fn(mixed $value, string $key): bool => str_starts_with($key, 'setup.help.'), ARRAY_FILTER_USE_BOTH)) as $key) {
     $spanish = json_decode((string)file_get_contents($root . '/locales/es.json'), true);
     i18nExpect(is_array($spanish) && isset($spanish[$key]), "Spanish catalog lacks schema-driven Setup help $key");
+}
+foreach ($schemaFields as $field) {
+    $fieldKey = (string)$field['key'];
+    i18nExpect(isset($english['setup.field.' . $fieldKey]), "English catalog lacks schema-driven Setup field $fieldKey");
+    if (isset($field['help'])) i18nExpect(isset($english['setup.help.' . $fieldKey]), "English catalog lacks schema-driven Setup help $fieldKey");
+    foreach ((array)($field['options'] ?? []) as $value => $text) {
+        $option = array_is_list((array)$field['options']) ? $text : $value;
+        i18nExpect(isset($english['setup.option.' . $fieldKey . '.' . $option]), "English catalog lacks schema-driven Setup option $fieldKey.$option");
+    }
 }
 foreach (['navigation.charts', 'navigation.storage', 'navigation.backups', 'navigation.cpu', 'navigation.memory', 'navigation.processes', 'navigation.network', 'navigation.deleted_held', 'navigation.cpu_limits'] as $key) {
     i18nExpect($page !== false && str_contains($page, 'data-i18n="' . $key . '"'), "dashboard navigation does not use $key");

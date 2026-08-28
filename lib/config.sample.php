@@ -44,6 +44,7 @@ return [
     'core_features' => [
         'assistant' => true,
         'peers' => true,
+        'marketplace' => true,
     ],
 
     // The account crontab desired by Setup. The editor writes only Zogograph's

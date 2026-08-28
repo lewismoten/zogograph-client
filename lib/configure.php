@@ -63,6 +63,15 @@ function configFields(array $sample): array
             'default' => (bool)($sample['core_features']['peers'] ?? true),
         ],
         [
+            'key' => 'core_features_marketplace',
+            'section' => 'features',
+            'path' => ['core_features', 'marketplace'],
+            'type' => 'bool',
+            'label' => 'Marketplace core feature',
+            'help' => 'Disabling this removes Marketplace from the dashboard and blocks its API routes. Installed marketplace metadata and revision history are retained for a later re-enable.',
+            'default' => (bool)($sample['core_features']['marketplace'] ?? true),
+        ],
+        [
             'key' => 'openid_enabled',
             'section' => 'openid',
             'path' => ['openid', 'enabled'],

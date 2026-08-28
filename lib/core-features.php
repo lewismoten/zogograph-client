@@ -17,6 +17,10 @@ const CORE_FEATURES = [
         'dashboard_routes' => ['sys-peers'],
         'setup_section' => 'features',
     ],
+    'marketplace' => [
+        'dashboard_routes' => ['sys-marketplace'],
+        'setup_section' => 'features',
+    ],
 ];
 
 /** Missing settings deliberately preserve existing installations. */
@@ -43,6 +47,7 @@ function coreFeatureForAction(string $action): ?string
 {
     if ($action === 'ai' || str_starts_with($action, 'ai-')) return 'assistant';
     if ($action === 'peers' || str_starts_with($action, 'peer-')) return 'peers';
+    if ($action === 'marketplace' || str_starts_with($action, 'marketplace-')) return 'marketplace';
     return null;
 }
 

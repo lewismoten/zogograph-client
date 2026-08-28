@@ -11987,31 +11987,31 @@ function packageRuntimeActions(row, canChange) {
   if (row.probe_configured) {
     const probe = document.createElement("button"); probe.className = "link";
     const operation = row.id === "sqlcipher-encrypted-sqlite" ? "sqlcipher_preflight" : row.id === "zogograph-key-custody" ? "custody_endpoint_probe" : "capability";
-    probe.textContent = operation === "sqlcipher_preflight" ? "Run SQLCipher preflight" : operation === "custody_endpoint_probe" ? "Test custody endpoint" : "Run isolated probe";
+    probe.textContent = operation === "sqlcipher_preflight" ? packageText("package.probe_sqlcipher", {}, "Run SQLCipher preflight") : operation === "custody_endpoint_probe" ? packageText("package.probe_custody", {}, "Test custody endpoint") : packageText("package.probe_isolated", {}, "Run isolated probe");
     probe.addEventListener("click", async () => {
-      const inputNote = operation === "custody_endpoint_probe" ? "It uses only the saved endpoint and optional public TLS pin; it does not send an enrollment credential or key." : "It receives no Zogograph settings, secrets, or live database path.";
-      if (!(await confirmDialog(`Run the isolated ${operation} probe for ${row.id}?\n\n${inputNote} It does not enable the package or activate protection.`, "Run isolated probe"))) return;
+      const inputNote = operation === "custody_endpoint_probe" ? packageText("package.probe_input_custody", {}, "It uses only the saved endpoint and optional public TLS pin; it does not send an enrollment credential or key.") : packageText("package.probe_input_generic", {}, "It receives no Zogograph settings, secrets, or live database path.");
+      if (!(await confirmDialog(packageText("package.probe_confirmation", { operation, id: row.id, input: inputNote }, `Run the isolated ${operation} probe for ${row.id}?\n\n${inputNote} It does not enable the package or activate protection.`), packageText("package.probe_isolated", {}, "Run isolated probe")))) return;
       try {
         const result = await post("package-runtime-probe", { id: row.id, operation });
-        showListDialog("Isolated probe result", [factGrid([["Package", row.id], ["Operation", operation], ["State", result.result.state], ["Result", result.result.reason], ["Safety boundary", result.warning]])]);
+        showListDialog(packageText("package.probe_result", {}, "Isolated probe result"), [factGrid([[packageText("package.table_package", {}, "Package"), row.id], [packageText("package.table_operation", {}, "Operation"), operation], [packageText("package.table_state", {}, "State"), result.result.state], [packageText("package.table_result", {}, "Result"), result.result.reason], [packageText("package.table_safety", {}, "Safety boundary"), result.warning]])]);
       } catch (error) { notice(String(error.message || error)); }
     });
     wrap.appendChild(probe);
   }
   if (row.id === "zogograph-key-custody" && !["key_provider", "network_client"].every(capability => row.grants.includes(capability))) {
-    const approve = document.createElement("button"); approve.className = "link"; approve.textContent = "Approve enrollment check";
+    const approve = document.createElement("button"); approve.className = "link"; approve.textContent = packageText("package.custody_approve", {}, "Approve enrollment check");
     approve.addEventListener("click", async () => {
-      if (!(await confirmDialog("Approve only key-provider and network-client permission for the custody enrollment check?\n\nThis does not enable the package, create an envelope, unwrap a key, or grant database access.", "Approve custody diagnostic"))) return;
-      try { await post("package-runtime-custody-diagnostic-approve", { id: row.id }); await refreshPackageRuntime(); notice("Custody enrollment-check permissions approved; the package remains inactive.", true); }
+      if (!(await confirmDialog(packageText("package.custody_approve_confirmation", {}, "Approve only key-provider and network-client permission for the custody enrollment check?\n\nThis does not enable the package, create an envelope, unwrap a key, or grant database access."), packageText("package.custody_approve", {}, "Approve enrollment check")))) return;
+      try { await post("package-runtime-custody-diagnostic-approve", { id: row.id }); await refreshPackageRuntime(); notice(packageText("package.custody_approved", {}, "Custody enrollment-check permissions approved; the package remains inactive."), true); }
       catch (error) { notice(String(error.message || error)); }
     });
     wrap.appendChild(approve);
   }
   if (row.id === "zogograph-key-custody" && ["key_provider", "network_client"].every(capability => row.grants.includes(capability))) {
-    const enrollment = document.createElement("button"); enrollment.className = "link"; enrollment.textContent = "Check enrolled credential";
+    const enrollment = document.createElement("button"); enrollment.className = "link"; enrollment.textContent = packageText("package.custody_check", {}, "Check enrolled credential");
     enrollment.addEventListener("click", async () => {
-      if (!(await confirmDialog("Send the two encrypted enrollment credentials once to the deployment-configured, endpoint-restricted sandbox?\n\nIt will only read custody subscription readiness. It cannot create an envelope, unwrap a key, or access a Zogograph database.", "Check enrolled custody credential"))) return;
-      try { const result = await post("package-runtime-custody-enrollment-check", {}); showListDialog("Custody enrollment check", [factGrid([["State", result.result.state], ["Result", result.result.reason], ["Safety boundary", result.warning]])]); await refreshPackageRuntime(); }
+      if (!(await confirmDialog(packageText("package.custody_check_confirmation", {}, "Send the two encrypted enrollment credentials once to the deployment-configured, endpoint-restricted sandbox?\n\nIt will only read custody subscription readiness. It cannot create an envelope, unwrap a key, or access a Zogograph database."), packageText("package.custody_check", {}, "Check enrolled credential")))) return;
+      try { const result = await post("package-runtime-custody-enrollment-check", {}); showListDialog(packageText("package.custody_check_result", {}, "Custody enrollment check"), [factGrid([[packageText("package.table_state", {}, "State"), result.result.state], [packageText("package.table_result", {}, "Result"), result.result.reason], [packageText("package.table_safety", {}, "Safety boundary"), result.warning]])]); await refreshPackageRuntime(); }
       catch (error) { notice(String(error.message || error)); }
     });
     wrap.appendChild(enrollment);

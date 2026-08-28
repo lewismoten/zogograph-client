@@ -45,6 +45,12 @@ function configFields(array $sample): array
 {
     return [
         [
+            'key' => 'core_features_overview', 'section' => 'features', 'path' => ['core_features', 'overview'], 'type' => 'bool',
+            'label' => 'Overview core feature',
+            'help' => 'Disabling this removes the Overview dashboard and its shared measurements. The shell keeps only the feature and access state needed to open another enabled page; collection continues unchanged.',
+            'default' => (bool)($sample['core_features']['overview'] ?? true),
+        ],
+        [
             'key' => 'core_features_assistant',
             'section' => 'features',
             'path' => ['core_features', 'assistant'],

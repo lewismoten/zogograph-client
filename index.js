@@ -23260,12 +23260,16 @@ function applyAccessChrome() {
   }
 
   if (!mayUsePage(state.view)) {
-    state.view = DEFAULT_VIEW;
+    state.view = fallbackView();
     writeRoute(true);
     for (const section of document.querySelectorAll("[data-view]")) {
-      section.hidden = section.dataset.view !== DEFAULT_VIEW;
+      section.hidden = section.dataset.view !== state.view;
     }
   }
+}
+
+function fallbackView() {
+  return Object.keys(VIEWS).find(view => view !== DEFAULT_VIEW && mayUsePage(view)) || DEFAULT_VIEW;
 }
 
 function syncRangeAccess() {
@@ -32455,7 +32459,7 @@ function applyRoute() {
 
 function showView(view, push = true) {
   if (!VIEWS[view]) view = DEFAULT_VIEW;
-  if (!mayUsePage(view)) view = DEFAULT_VIEW;
+  if (!mayUsePage(view)) view = fallbackView();
 
   const changed = state.view !== view;
   const leavingChat = state.view === "sys-ai" && view !== "sys-ai";

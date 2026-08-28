@@ -7,6 +7,10 @@ declare(strict_types=1);
  * never treated as enforcement. */
 
 const CORE_FEATURES = [
+    'overview' => [
+        'dashboard_routes' => ['overview'],
+        'setup_section' => 'features',
+    ],
     'assistant' => [
         'dashboard_routes' => ['sys-ai', 'sys-ai-past', 'sys-ai-identity', 'sys-ai-model', 'sys-ai-prices',
             'sys-ai-limits', 'sys-ai-images', 'sys-ai-tools', 'sys-ai-try', 'sys-ai-billing', 'sys-reports',

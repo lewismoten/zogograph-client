@@ -8,31 +8,14 @@ function coreFeatureExpect(bool $condition, string $message): void { if (!$condi
 
 $legacy = ['ai' => ['enabled' => true]];
 coreFeatureExpect(coreFeatureEnabled($legacy, 'assistant'), 'a legacy installation did not preserve the assistant feature');
-$disabled = ['core_features' => ['assistant' => false, 'peers' => false, 'marketplace' => false, 'terminal' => false, 'notes' => false, 'problems' => false, 'storage' => false, 'audit' => false, 'metadata' => false, 'notifications' => false, 'backups' => false, 'encryption' => false, 'alerts' => false, 'uptime' => false, 'packages' => false, 'charts' => false, 'health' => false, 'network' => false, 'host' => false], 'ai' => ['enabled' => true]];
+$disabled = ['core_features' => ['overview' => false, 'assistant' => false, 'peers' => false, 'marketplace' => false, 'terminal' => false, 'notes' => false, 'problems' => false, 'storage' => false, 'audit' => false, 'metadata' => false, 'notifications' => false, 'backups' => false, 'encryption' => false, 'alerts' => false, 'uptime' => false, 'packages' => false, 'charts' => false, 'health' => false, 'network' => false, 'host' => false], 'ai' => ['enabled' => true]];
 coreFeatureExpect(!coreFeatureEnabled($disabled, 'assistant') && !aiSettings($disabled)['enabled'],
     'disabled assistant core feature still enabled assistant operations');
-$status = coreFeatureStatus($disabled);
-coreFeatureExpect($status[0]['id'] === 'assistant' && !$status[0]['enabled'] && in_array('sys-ai', $status[0]['dashboard_routes'], true)
-    && $status[1]['id'] === 'peers' && !$status[1]['enabled'] && in_array('sys-peers', $status[1]['dashboard_routes'], true)
-    && $status[2]['id'] === 'marketplace' && !$status[2]['enabled'] && in_array('sys-marketplace', $status[2]['dashboard_routes'], true)
-    && $status[3]['id'] === 'terminal' && !$status[3]['enabled'] && in_array('sys-terminal', $status[3]['dashboard_routes'], true)
-    && $status[4]['id'] === 'notes' && !$status[4]['enabled'] && in_array('sys-notes', $status[4]['dashboard_routes'], true)
-    && $status[5]['id'] === 'problems' && !$status[5]['enabled'] && in_array('sys-problems', $status[5]['dashboard_routes'], true)
-    && $status[6]['id'] === 'storage' && !$status[6]['enabled'] && in_array('sys-retention', $status[6]['dashboard_routes'], true)
-    && in_array('storage-map', $status[6]['dashboard_routes'], true) && in_array('log-stream', $status[6]['dashboard_routes'], true)
-    && $status[7]['id'] === 'audit' && !$status[7]['enabled'] && in_array('deletions', $status[7]['dashboard_routes'], true)
-    && $status[8]['id'] === 'metadata' && !$status[8]['enabled'] && in_array('net-labels', $status[8]['dashboard_routes'], true)
-    && $status[9]['id'] === 'notifications' && !$status[9]['enabled'] && in_array('email', $status[9]['dashboard_routes'], true)
-    && $status[10]['id'] === 'backups' && !$status[10]['enabled'] && in_array('backups-jetbackup', $status[10]['dashboard_routes'], true)
-    && $status[11]['id'] === 'encryption' && !$status[11]['enabled'] && in_array('sys-encryption', $status[11]['dashboard_routes'], true)
-    && $status[12]['id'] === 'alerts' && !$status[12]['enabled'] && in_array('alerts', $status[12]['dashboard_routes'], true)
-    && $status[13]['id'] === 'uptime' && !$status[13]['enabled'] && in_array('uptime', $status[13]['dashboard_routes'], true)
-    && $status[14]['id'] === 'packages' && !$status[14]['enabled'] && in_array('sys-packages', $status[14]['dashboard_routes'], true)
-    && $status[15]['id'] === 'charts' && !$status[15]['enabled'] && in_array('charts', $status[15]['dashboard_routes'], true)
-    && $status[16]['id'] === 'health' && !$status[16]['enabled'] && in_array('system', $status[16]['dashboard_routes'], true)
-    && $status[17]['id'] === 'network' && !$status[17]['enabled'] && in_array('net-fetch', $status[17]['dashboard_routes'], true)
-    && $status[18]['id'] === 'host' && !$status[18]['enabled'] && in_array('cpu-limits', $status[18]['dashboard_routes'], true),
-    'core feature status does not expose its disabled dashboard boundary');
+$status = array_column(coreFeatureStatus($disabled), null, 'id');
+foreach (CORE_FEATURES as $id => $feature) {
+    coreFeatureExpect(isset($status[$id]) && !$status[$id]['enabled'] && $status[$id]['dashboard_routes'] === $feature['dashboard_routes'],
+        'core feature status does not expose its disabled dashboard boundary: ' . $id);
+}
 coreFeatureExpect(coreFeatureForAction('ai-start') === 'assistant' && coreFeatureForAction('peer-test') === 'peers'
     && coreFeatureForAction('marketplace-install') === 'marketplace'
     && coreFeatureForAction('terminal-run') === 'terminal'

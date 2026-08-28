@@ -42,6 +42,7 @@ return [
      * API surfaces while preserving their existing private settings for a
      * later re-enable. */
     'core_features' => [
+        'overview' => true,
         'assistant' => true,
         'peers' => true,
         'marketplace' => true,

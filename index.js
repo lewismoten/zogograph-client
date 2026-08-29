@@ -14679,8 +14679,7 @@ function permitForm(data) {
   if (data.config_says === false && data.from_config) {
     const said = document.createElement("p");
     said.className = "muted small";
-    said.textContent = "lib/config.php has it off, which is the default. Switching it on "
-      + "here overrules that and is remembered; the config file is not rewritten.";
+    said.textContent = ZogographI18n.t("terminal.config_disabled", {}, "lib/config.php has it off, which is the default. Switching it on here overrules that and is remembered; the config file is not rewritten.");
     wrap.appendChild(said);
   }
 
@@ -14692,9 +14691,7 @@ function unlockForm(data) {
 
   const said = document.createElement("p");
   said.className = "muted small";
-  said.textContent = "The terminal is locked. It locks itself after a while on purpose — "
-    + "an always-open shell is one that whoever gets this password inherits. Open it for "
-    + "as long as you need and it will close on its own.";
+  said.textContent = ZogographI18n.t("terminal.locked_help", {}, "The terminal is locked. It locks itself after a while on purpose — an always-open shell is one that whoever gets this password inherits. Open it for as long as you need and it will close on its own.");
   wrap.appendChild(said);
 
   const row = document.createElement("div");

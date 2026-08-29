@@ -76,6 +76,8 @@
   "terminal.enabled_locked": "The terminal is switched on. It is still locked until you open it.",
   "terminal.locked": "Locked.",
   "terminal.open_until": "Open until {{when}}.",
+  "terminal.config_disabled": "lib/config.php has it off, which is the default. Switching it on here overrules that and is remembered; the config file is not rewritten.",
+  "terminal.locked_help": "The terminal is locked. It locks itself after a while on purpose — an always-open shell is one that whoever gets this password inherits. Open it for as long as you need and it will close on its own.",
   "setup.form_held": "Not refreshed while you are editing. Save, or move away and come back, to see what is stored.",
   "package.settings": "Settings",
   "package.add_secret": "Add secret",

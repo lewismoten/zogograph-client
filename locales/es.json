@@ -76,6 +76,8 @@
   "terminal.enabled_locked": "La terminal está activada. Seguirá bloqueada hasta que la abra.",
   "terminal.locked": "Bloqueada.",
   "terminal.open_until": "Abierta hasta {{when}}.",
+  "terminal.config_disabled": "lib/config.php la tiene desactivada, que es el valor predeterminado. Activarla aquí lo anula y se recuerda; el archivo de configuración no se reescribe.",
+  "terminal.locked_help": "La terminal está bloqueada. Se bloquea sola al cabo de un tiempo intencionalmente: una shell siempre abierta la hereda cualquiera que obtenga esta contraseña. Ábrala el tiempo que necesite y se cerrará sola.",
   "setup.form_held": "No se actualizó mientras estaba editando. Guarde o salga y vuelva para ver qué se almacenó.",
   "package.settings": "Configuración",
   "package.add_secret": "Agregar secreto",

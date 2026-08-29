@@ -5648,14 +5648,14 @@ function startDialTicker() {
       const left = Number(spot.dataset.untilFrom || 0) - Math.floor(Date.now() / 1000);
 
       if (left <= 0) {
-        spot.textContent = "It has locked itself again.";
+        spot.textContent = ZogographI18n.t("terminal.locked_again", {}, "It has locked itself again.");
         // Redrawn once, so the unlock form replaces the countdown.
         if (!spot.dataset.saidSo) {
           spot.dataset.saidSo = "1";
           refreshTerminal().catch(() => {});
         }
       } else {
-        spot.textContent = `Open for another ${humanSpan(left, true)}.`;
+        spot.textContent = ZogographI18n.t("terminal.open_for", { duration: humanSpan(left, true) }, "Open for another {{duration}}.");
         if (left < 120) spot.className = "band-crit small";
       }
     }

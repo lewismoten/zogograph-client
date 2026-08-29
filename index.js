@@ -6091,10 +6091,10 @@ function renderAiSettings(data) {
   window_.className = "days";
   window_.value = String(data.context_tokens ?? 128000);
   room.appendChild(fieldRow(aiSettingsText("context_window_label", "Context window (tokens)"), window_,
-    "How much the chosen model can hold at once. It is a fact about the model, not "
+    aiSettingsText("context_window_help", "How much the chosen model can hold at once. It is a fact about the model, not "
     + "something the API will tell us, so it is typed in — check the model's own "
     + "documentation. Guessing high is the worse mistake: the provider rejects the "
-    + "request outright, which ends the conversation."));
+    + "request outright, which ends the conversation.")));
 
   const at = document.createElement("input");
   at.type = "number";
@@ -6104,9 +6104,9 @@ function renderAiSettings(data) {
   at.className = "days";
   at.value = String(data.compact_at ?? 70);
   room.appendChild(fieldRow(aiSettingsText("compact_at_label", "Summarise at (%)"), at,
-    "How full it gets before the older part of a conversation is replaced with a summary. "
+    aiSettingsText("compact_at_help", "How full it gets before the older part of a conversation is replaced with a summary. "
     + "Deliberately not near 100: summarising means sending the part being summarised, so "
-    + "a limit that fires when the window is already full is a limit that cannot act."));
+    + "a limit that fires when the window is already full is a limit that cannot act.")));
 
   const auto = document.createElement("input");
   auto.type = "checkbox";

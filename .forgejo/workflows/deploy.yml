@@ -32,6 +32,7 @@ jobs:
       DEPLOY_USER: ${{ vars.DEPLOY_USER }}
       DEPLOY_PATH: ${{ matrix.deploy_path }}
       DEPLOY_URL: ${{ matrix.deploy_url }}
+      DEPLOY_TARGET: ${{ matrix.environment }}
       DEPLOY_KNOWN_HOSTS: ${{ vars.DEPLOY_KNOWN_HOSTS }}
       SNAPSHOT_PATH: ${{ format('{0}/{1}', vars.SNAPSHOT_PATH, matrix.environment) }}
       SNAPSHOT_RETENTION: ${{ vars.SNAPSHOT_RETENTION }}
@@ -140,7 +141,7 @@ jobs:
           set -euo pipefail
           snapshot_id="${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT:-1}"
           printf 'id=%s\n' "$snapshot_id" >> "$GITHUB_OUTPUT"
-          remote_script=".zogograph-snapshot-${GITHUB_RUN_ID}.sh"
+          remote_script=".zogograph-snapshot-${GITHUB_RUN_ID}-${DEPLOY_TARGET}.sh"
           ssh -i "$HOME/.ssh/zogograph_deploy_key" -p "${DEPLOY_PORT:-22}" \
             -o BatchMode=yes -o IdentitiesOnly=yes -o ConnectTimeout=15 \
             "${DEPLOY_USER}@${DEPLOY_HOST}" "mkdir -p '$SNAPSHOT_DIRECTORY'"
@@ -182,7 +183,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          remote_script=".zogograph-snapshot-prune-${GITHUB_RUN_ID}.sh"
+          remote_script=".zogograph-snapshot-prune-${GITHUB_RUN_ID}-${DEPLOY_TARGET}.sh"
           rsync -az \
             -e "ssh -i $HOME/.ssh/zogograph_deploy_key -p ${DEPLOY_PORT:-22} -o BatchMode=yes -o IdentitiesOnly=yes" \
             .forgejo/scripts/zogograph-snapshot-prune.sh \

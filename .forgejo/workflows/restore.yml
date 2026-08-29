@@ -3,6 +3,13 @@ name: Restore Zogograph Client Snapshot
 on:
   workflow_dispatch:
     inputs:
+      target:
+        description: Site whose snapshot will be restored
+        required: true
+        type: choice
+        options:
+          - test
+          - client
       snapshot_id:
         description: Snapshot ID to restore (from the deploy job output)
         required: true
@@ -18,7 +25,7 @@ concurrency:
 
 jobs:
   restore:
-    if: ${{ github.event.inputs.confirmation == 'restore-zogograph-snapshot' }}
+    if: ${{ github.event.inputs.confirmation == 'restore-zogograph-snapshot' && github.event.inputs.target == matrix.environment }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -35,7 +42,8 @@ jobs:
       DEPLOY_HOST: ${{ vars.DEPLOY_HOST }}
       DEPLOY_PORT: ${{ vars.DEPLOY_PORT }}
       DEPLOY_USER: ${{ vars.DEPLOY_USER }}
-      DEPLOY_PATH: ${{ matrix.deploy_paththe }}
+      DEPLOY_PATH: ${{ matrix.deploy_path }}
+      DEPLOY_TARGET: ${{ matrix.environment }}
       DEPLOY_KNOWN_HOSTS: ${{ vars.DEPLOY_KNOWN_HOSTS }}
       SNAPSHOT_PATH: ${{ format('{0}/{1}', vars.SNAPSHOT_PATH, matrix.environment) }}
       DEPLOY_SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
@@ -84,7 +92,7 @@ jobs:
           set -euo pipefail
           backup_id="pre-restore-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT:-1}"
           printf 'id=%s\n' "$backup_id" >> "$GITHUB_OUTPUT"
-          remote_script=".zogograph-snapshot-${GITHUB_RUN_ID}.sh"
+          remote_script=".zogograph-snapshot-${GITHUB_RUN_ID}-${DEPLOY_TARGET}.sh"
           ssh -i "$HOME/.ssh/zogograph_deploy_key" -p "${DEPLOY_PORT:-22}" \
             -o BatchMode=yes -o IdentitiesOnly=yes -o ConnectTimeout=15 \
             "${DEPLOY_USER}@${DEPLOY_HOST}" "mkdir -p '$SNAPSHOT_DIRECTORY'"
@@ -101,7 +109,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          remote_script=".zogograph-restore-${GITHUB_RUN_ID}.sh"
+          remote_script=".zogograph-restore-${GITHUB_RUN_ID}-${DEPLOY_TARGET}.sh"
           rsync -az \
             -e "ssh -i $HOME/.ssh/zogograph_deploy_key -p ${DEPLOY_PORT:-22} -o BatchMode=yes -o IdentitiesOnly=yes" \
             .forgejo/scripts/zogograph-restore.sh \

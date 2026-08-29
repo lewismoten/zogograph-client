@@ -20,8 +20,10 @@ $restoreWorkflow = file_get_contents($root . '/.forgejo/workflows/restore.yml');
 releaseExpect(is_string($workflow) && str_contains($workflow, 'Create build manifest')
     && str_contains($workflow, '"commit": "${GITHUB_SHA}"') && str_contains($workflow, '"runId": "${GITHUB_RUN_ID}"')
     && str_contains($workflow, '"createdAt": "${created_at}"') && str_contains($workflow, '"browserRefreshRequired": ${browser_refresh_required}')
-    && str_contains($workflow, 'TEST_PATH: ${{ vars.TEST_PATH }}') && str_contains($workflow, 'TEST_URL: ${{ vars.TEST_URL }}')
-    && str_contains($workflow, 'Verify deployed build') && str_contains($workflow, 'build_url="${TEST_URL%/}/build.json"')
+    && str_contains($workflow, 'environment: test') && str_contains($workflow, 'environment:  client')
+    && str_contains($workflow, 'deploy_path: ${{ vars.TEST_PATH }}') && str_contains($workflow, 'deploy_url: ${{ vars.TEST_URL }}')
+    && str_contains($workflow, 'deploy_path: ${{ vars.DEPLOY_PATH }}') && str_contains($workflow, 'deploy_url: ${{ vars.DEPLOY_URL }}')
+    && str_contains($workflow, 'Verify deployed build') && str_contains($workflow, 'build_url="${DEPLOY_URL%/}/build.json"')
     && str_contains($workflow, 'apt-get install -y php-cli php-sqlite3 php-mbstring')
     && str_contains($workflow, 'extension_loaded("zip")') && str_contains($workflow, 'apt-get install -y php-zip'),
     'release workflow no longer creates and verifies the public build metadata required for update notices');
@@ -29,7 +31,11 @@ releaseExpect(is_string($workflow) && is_string($restoreWorkflow)
     && str_contains($workflow, 'snapshot_repository="${GITHUB_REPOSITORY##*/}"')
     && str_contains($restoreWorkflow, 'snapshot_repository="${GITHUB_REPOSITORY##*/}"')
     && str_contains($workflow, 'command -v rsync >/dev/null || { apt-get update; apt-get install -y rsync; }')
-    && str_contains($restoreWorkflow, 'command -v rsync >/dev/null || { apt-get update; apt-get install -y rsync; }'),
-    'deployment workflows no longer provision rsync or isolate snapshots by repository');
+    && str_contains($restoreWorkflow, 'command -v rsync >/dev/null || { apt-get update; apt-get install -y rsync; }')
+    && str_contains($restoreWorkflow, 'github.event.inputs.target == matrix.environment')
+    && str_contains($restoreWorkflow, 'DEPLOY_PATH: ${{ matrix.deploy_path }}')
+    && str_contains($workflow, 'remote_script=".zogograph-snapshot-${GITHUB_RUN_ID}-${DEPLOY_TARGET}.sh"')
+    && str_contains($restoreWorkflow, 'remote_script=".zogograph-restore-${GITHUB_RUN_ID}-${DEPLOY_TARGET}.sh"'),
+    'deployment workflows no longer provision rsync, isolate snapshots, or target restores safely');
 
 echo "release artifact checks passed\n";

@@ -55,6 +55,10 @@ i18nExpect($script !== false && str_contains($script, 'ZogographI18n.t("filter.a
     && $page !== false && substr_count($page, 'data-i18n="filter.all"') === 2
     && is_array($english) && isset($english['filter.all']),
     'shared filter default does not use the locale catalog');
+i18nExpect($page !== false && str_contains($page, 'data-i18n="storage.host_logs_title"')
+    && str_contains($page, 'data-i18n="storage.check_again"') && str_contains($page, 'data-i18n="storage.host_logs_help"')
+    && is_array($english) && isset($english['storage.host_logs_title'], $english['storage.check_again'], $english['storage.host_logs_help']),
+    'Storage host-log guidance does not use the locale catalog');
 i18nExpect($script !== false && str_contains($script, 'marketplaceText("discovery_notice"')
     && str_contains($script, 'marketplaceText("search_label"') && str_contains($script, 'marketplaceText("table_compatibility"')
     && str_contains($script, 'marketplaceText("toggle_confirmation"') && str_contains($script, 'marketplaceText("restore_confirmation"')

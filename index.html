@@ -750,15 +750,10 @@
 <section class="view" data-view="storage-files" hidden>
 <section class="panel" id="hostLogPanel" hidden>
   <div class="panel-head">
-    <h2>The server's own logs</h2>
-    <button id="hostLogRefresh" class="link">Check again</button>
+    <h2 data-i18n="storage.host_logs_title">The server's own logs</h2>
+    <button id="hostLogRefresh" class="link" data-i18n="storage.check_again">Check again</button>
   </div>
-  <p class="muted small sub-note">
-    The logs named in <code>host_log_paths</code>. These belong to root and live
-    outside this account, so on most shared servers they will be listed and
-    refused — which is itself the answer. Where the host has granted read
-    access, they open in the same viewer as the account's own logs.
-  </p>
+  <p class="muted small sub-note" data-i18n="storage.host_logs_help">The logs named in host_log_paths belong to root and live outside this account. On most shared servers they will be listed and refused, which is itself the answer. Where the host grants read access, they open in the same viewer as the account's own logs.</p>
   <div id="hostLogs"></div>
 </section>
 <section class="panel" id="offenderPanel">

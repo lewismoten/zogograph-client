@@ -33625,8 +33625,12 @@ $("rdnsNow").addEventListener("click", async () => {
     notice(
       result.done.length
         ? result.done.map(one =>
-            `${one.address} \u2192 ${one.name || "no name"} (${one.ms} ms)`).join("; ")
-        : "Nothing was waiting.",
+            ZogographI18n.t("rdns.lookup_result", {
+              address: one.address,
+              name: one.name || ZogographI18n.t("rdns.no_name", {}, "no name"),
+              milliseconds: one.ms,
+            }, "{{address}} → {{name}} ({{milliseconds, number}} ms)")).join("; ")
+        : ZogographI18n.t("rdns.nothing_waiting", {}, "Nothing was waiting."),
       result.done.length > 0
     );
     renderRdns(result);

@@ -9842,7 +9842,7 @@ function renderChatStatus(session) {
   if (["stopped", "ended", "failed"].includes(session.state)) {
     const again = document.createElement("button");
     again.className = "link";
-    again.textContent = "Start a new one";
+    again.textContent = ZogographI18n.t("ai.start_new", {}, "Start a new one");
     again.addEventListener("click", () => startChat());
     status.appendChild(again);
   }
@@ -10413,7 +10413,7 @@ function chatAsk({ title, why, seconds, defaultLabel, build, confirmLabel = "Sen
     const skip = document.createElement("button");
     skip.type = "button";
     skip.className = "link";
-    skip.textContent = "Skip";
+    skip.textContent = ZogographI18n.t("action.skip", {}, "Skip");
     skip.title = "Carry on without answering — the same as letting the clock run out";
     skip.addEventListener("click", () => finish({ answered: false, value: null }));
     actions.insertBefore(skip, clock);
@@ -10920,7 +10920,7 @@ function renderRdns(data) {
         render: row => {
           const again = document.createElement("button");
           again.className = "link";
-          again.textContent = "Ask again";
+          again.textContent = ZogographI18n.t("action.ask_again", {}, "Ask again");
           again.title = "Queue another lookup — names do change";
           again.addEventListener("click", async () => {
             again.disabled = true;

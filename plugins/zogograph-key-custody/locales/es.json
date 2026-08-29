@@ -1,0 +1,19 @@
+{
+  "zogograph-key-custody.settings_title": "Ajustes de custodia remota de claves",
+  "zogograph-key-custody.service_url": "URL del servicio de custodia",
+  "zogograph-key-custody.service_url_help": "Use la raíz del servicio o su raíz de API /v1. Ejecute Probar extremo de custodia antes de añadir referencias de inscripción.",
+  "zogograph-key-custody.tenant_id": "ID de inquilino",
+  "zogograph-key-custody.tenant_id_help": "El identificador ten_… de la inscripción. No es una credencial.",
+  "zogograph-key-custody.key_id": "ID de clave de custodia activa",
+  "zogograph-key-custody.key_id_help": "Cree o elija esta clave mediante la API de gestión de clientes. Solo identifica la clave de envoltura remota; no es un token ni un secreto.",
+  "zogograph-key-custody.tls_pin": "Pin de clave pública TLS",
+  "zogograph-key-custody.tls_pin_help": "Opcional. Déjelo vacío para la validación normal recomendada de CA/nombre de host. Un pin necesita un plan de rotación de clave de certificado del extremo.",
+  "zogograph-key-custody.cache": "Caché de clave de datos",
+  "zogograph-key-custody.cache_help": "Recomendado: 0 segundos. Una caché distinta de cero puede mantener una clave de datos liberada utilizable hasta que caduque; 900 segundos es el máximo.",
+  "zogograph-key-custody.credential_reference": "Referencia de credencial de cliente",
+  "zogograph-key-custody.credential_reference_help": "Tras una prueba correcta del extremo en 24 horas, cree un secreto cifrado del paquete y pegue solo su valor secret_ref:. No pegue aquí un token bearer sin procesar.",
+  "zogograph-key-custody.signing_reference": "Referencia de clave de firma de cliente",
+  "zogograph-key-custody.signing_reference_help": "Después de esa misma prueba, cree un segundo secreto cifrado del paquete para la clave de firma Ed25519 Base64 de un solo uso. Nunca pegue aquí la clave privada.",
+  "zogograph-key-custody.save_action": "Guardar ajustes de custodia",
+  "zogograph-key-custody.saved": "Se guardaron los ajustes de custodia remota. Una prueba correcta del extremo no activa la custodia remota."
+}

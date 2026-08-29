@@ -8,12 +8,13 @@
   "capabilities": ["key_provider", "network_client", "package_private_database"],
   "runtime": {"kind": "zogograph-isolated-php-package", "entrypoint": "src/KeyCustodyProvider.php", "provider_class": "HostScope\\Plugin\\KeyCustody\\KeyCustodyProvider", "operations": ["capability", "custody_endpoint_probe", "custody_enrollment_check", "custody_store_envelope", "custody_unwrap_artifact"], "minimum_api": "1.0"},
   "settings_schema": "settings.schema.json",
-  "locales": {"en": "locales/en.json"},
+  "locales": {"en": "locales/en.json", "es": "locales/es.json"},
   "data": {"directory": "data", "migration_namespace": "zogograph_key_custody"},
   "compatibility": {"min_php": "8.1.0", "requires_extensions": ["curl", "openssl", "sodium"], "requires_runtime_capability": "isolated_package_runtime"},
   "integrity": {"algorithm": "sha256", "files": {
     "README.md": "d423ab75d3a925840b77a36d36490044d4cd44700e23a8f1d85ebf40b5ab45cd",
     "locales/en.json": "0148be737fc3abc10dfddce805fdbbd91e2b10fe66822e550b7c2fb48b177271",
+    "locales/es.json": "4c5fdd687b680239363e047537eec1c08be24559fa8419e69b0c3a2a197bad5e",
     "settings.schema.json": "93184f8057c1bde0d8ddcad65923615365fa6d60d9231117214aed0f87f7c37b",
     "src/KeyCustodyProvider.php": "4b0d54e927f40e011295ca7bbb46dce7017ee0febb25cec5a4e453cfd417340a",
     "src/KeyCustodyHttpClient.php": "89aa16ac8292571ef7c18ae95997f33c4921074f4a67def23b118df16caf9db6"

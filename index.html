@@ -2025,7 +2025,7 @@
 <section class="view" data-view="alerts" hidden>
 <section class="panel">
     <div class="panel-head">
-      <h2>When alerts fired</h2>
+      <h2 data-i18n="alerts.timeline_title">When alerts fired</h2>
       <span class="muted" id="alertRange"></span>
     </div>
     <canvas id="alertTimeline"></canvas>
@@ -2034,14 +2034,14 @@
 
 <section class="panel">
     <div class="panel-head">
-      <h2>Alerts</h2>
+      <h2 data-i18n="alerts.title">Alerts</h2>
       <div class="panel-tools">
-        <label class="pill"><input type="checkbox" id="alertUnreadOnly"> Unread only</label>
-        <button class="link" id="alertAckAll">Mark all read</button>
-        <button class="link" id="alertAckSome" disabled>Mark read</button>
-        <button class="link" id="alertUnackSome" disabled>Mark unread</button>
-        <button class="link" id="alertMutes">Active mutes</button>
-        <button class="link danger" id="alertDeleteSome" disabled>Delete</button>
+        <label class="pill"><input type="checkbox" id="alertUnreadOnly"> <span data-i18n="alerts.unread_only">Unread only</span></label>
+        <button class="link" id="alertAckAll" data-i18n="alerts.mark_all_read">Mark all read</button>
+        <button class="link" id="alertAckSome" disabled data-i18n="alerts.mark_read">Mark read</button>
+        <button class="link" id="alertUnackSome" disabled data-i18n="alerts.mark_unread">Mark unread</button>
+        <button class="link" id="alertMutes" data-i18n="alerts.active_mutes">Active mutes</button>
+        <button class="link danger" id="alertDeleteSome" disabled data-i18n="action.delete">Delete</button>
       </div>
     </div>
     <div id="alertMarketplaceGuidance"></div>
@@ -2050,8 +2050,8 @@
 
 <section class="panel" id="incidentPanel" hidden>
   <div class="panel-head">
-    <h2 id="incidentTitle">Why this fired</h2>
-    <button id="incidentClose" class="link">Close</button>
+    <h2 id="incidentTitle" data-i18n="alerts.incident_title">Why this fired</h2>
+    <button id="incidentClose" class="link" data-i18n="action.close">Close</button>
   </div>
   <p class="muted" id="incidentWhen"></p>
   <div id="incidentBody"></div>

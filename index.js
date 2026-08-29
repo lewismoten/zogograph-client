@@ -20043,15 +20043,16 @@ function renderHostDisks(rows, sample, sampleCount) {
      * to the wrong machine.
      */
     if (sample && sample.diskstats_available == null) {
-      why = "The reading was written by an older build of the collector that did not "
-        + "record disk counters. Upload host-cron.php and lib/, then let it run twice.";
+      why = ZogographI18n.t("host.io_disks_old_collector", {},
+        "The reading was written by an older build of the collector that did not record disk counters. Upload host-cron.php and lib/, then let it run twice.");
     } else if (sample && Number(sample.diskstats_available) === 0) {
-      why = "The host collector ran but could not read /proc/diskstats, even as root.";
+      why = ZogographI18n.t("host.io_disks_unreadable", {},
+        "The host collector ran but could not read /proc/diskstats, even as root.");
     } else if (sampleCount < 2) {
-      why = "Needs two host readings before a rate can be worked out — "
-        + `there ${sampleCount === 1 ? "is 1" : `are ${sampleCount}`} so far.`;
+      why = ZogographI18n.t("host.io_disks_needs_readings", { readings: sampleCount },
+        "Needs two host readings before a rate can be worked out — there {{readings, number}} so far.");
     } else {
-      why = "No devices were recorded in the latest reading.";
+      why = ZogographI18n.t("host.io_disks_empty", {}, "No devices were recorded in the latest reading.");
     }
 
     holder.replaceChildren(Object.assign(document.createElement("p"), {
@@ -20065,24 +20066,24 @@ function renderHostDisks(rows, sample, sampleCount) {
 
   renderTable("hostDisks", rows, [
     {
-      label: "Device",
+      label: ZogographI18n.t("host.io_device", {}, "Device"),
       render: row => {
         if (!row.stacked) return row.name;
         const box = document.createElement("span");
         box.appendChild(document.createTextNode(row.name));
         const note = document.createElement("span");
         note.className = "muted small";
-        note.textContent = " · stacked";
-        note.title = "A volume mapped onto another device. Its traffic is already "
-          + "counted there, so it is not added into any total.";
+        note.textContent = ZogographI18n.t("host.io_stacked", {}, " · stacked");
+        note.title = ZogographI18n.t("host.io_stacked_tip", {},
+          "A volume mapped onto another device. Its traffic is already counted there, so it is not added into any total.");
         box.appendChild(note);
         return box;
       },
     },
-    { label: "Read", className: "size", render: row => rate(row.read_rate) },
-    { label: "Written", className: "size", render: row => rate(row.write_rate) },
+    { label: ZogographI18n.t("host.io_read", {}, "Read"), className: "size", render: row => rate(row.read_rate) },
+    { label: ZogographI18n.t("host.io_written", {}, "Written"), className: "size", render: row => rate(row.write_rate) },
     {
-      label: "Busy",
+      label: ZogographI18n.t("host.io_busy", {}, "Busy"),
       className: "size",
       render: row => {
         if (row.util_percent == null) return "—";
@@ -20094,11 +20095,11 @@ function renderHostDisks(rows, sample, sampleCount) {
       },
     },
     {
-      label: "Queue",
+      label: ZogographI18n.t("host.io_queue", {}, "Queue"),
       className: "size",
       render: row => (row.queue_depth == null ? "—" : Number(row.queue_depth).toFixed(2)),
     },
-    { label: "In flight", className: "size", render: row => row.in_flight },
+    { label: ZogographI18n.t("host.io_in_flight", {}, "In flight"), className: "size", render: row => row.in_flight },
   ]);
 }
 

@@ -12215,9 +12215,9 @@ function renderEncryptionStatus(data) {
   if (data.setup_configuration?.state !== "ok") parts.push(note(`Setup configuration: ${data.setup_configuration?.detail || "status unavailable"}`));
   if (data.sqlcipher) parts.push(note(`Live SQLCipher option: ${data.sqlcipher.detail}`));
   if (data.mode === "none") {
-    parts.push(note("Protection is off. Live SQLite databases and ordinary copies remain unencrypted unless your host protects their storage separately. Start with the setup wizard's Encryption section; Zogograph will not generate, upload, or store a private key from this page."));
+    parts.push(note(ZogographI18n.t("encryption.protection_disabled_notice", {}, "Protection is off. Live SQLite databases and ordinary copies remain unencrypted unless your host protects their storage separately. Start with the setup wizard's Encryption section; Zogograph will not generate, upload, or store a private key from this page.")));
   } else if (data.mode === "operator_managed_volume") {
-    parts.push(note("Zogograph records your host/VM protection policy but cannot verify it. The displayed evidence is your declaration, not a verified encrypted copy. Confirm that every selected database, SQLite WAL/SHM companion, configuration file, log, export, and backup destination is covered."));
+    parts.push(note(ZogographI18n.t("encryption.volume_policy_notice", {}, "Zogograph records your host/VM protection policy but cannot verify it. The displayed evidence is your declaration, not a verified encrypted copy. Confirm that every selected database, SQLite WAL/SHM companion, configuration file, log, export, and backup destination is covered.")));
   } else if (data.mode === "sealed_copies_local") {
     parts.push(note("Verified encrypted copies protect backup artifacts, not the running SQLite database. Run `php cron.php --seal` and then `php cron.php --recovery-drill` from the server after setup. The drill decrypts and validates current copies without touching live data; schedule seals separately. Recovery requires the private key outside the web root and an explicit CLI restore."));
     parts.push(note("Bootstrap configuration recovery is deliberately CLI-only: `scripts/restore-config.php` authenticates and parses the sealed PHP without executing it, atomically replaces `lib/config.php`, and leaves the prior configuration as a sealed rollback artifact. Test the recovered settings before deleting that artifact."));
@@ -12258,7 +12258,7 @@ function renderEncryptionStatus(data) {
       actions.append(seal, drill, remote, remoteDrill); parts.push(actions);
     }
   } else {
-    parts.push(note("The selected protection mode is not available in this Zogograph release. Keep the current data and recovery key safe while choosing a supported package or local mode."));
+    parts.push(note(ZogographI18n.t("encryption.mode_unavailable_notice", {}, "The selected protection mode is not available in this Zogograph release. Keep the current data and recovery key safe while choosing a supported package or local mode.")));
   }
   const artifacts = data.artifacts?.length ? data.artifacts : null;
   if (artifacts) {

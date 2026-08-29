@@ -785,9 +785,11 @@ return [
          *                     reasoning is turned off entirely, which is
          *                     throwing away the reason for using them.
          *   anthropic         its own message format, translated to and from.
-         *   compatible        anything OpenAI-shaped: Ollama, llama.cpp, vLLM,
-         *                     a gateway of your own. No key needed, and nothing
-         *                     leaves the machine.
+         *   compatible        Ollama or anything OpenAI-shaped: llama.cpp,
+         *                     vLLM, or a gateway of your own. No key needed.
+         *                     Loopback HTTP(S) is allowed for a local model;
+         *                     a remote model must use a public HTTPS address
+         *                     (a custom port such as :8443 is supported).
          */
         'provider' => 'openai',
         'base_url' => '',

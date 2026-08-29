@@ -45,6 +45,12 @@ function configFields(array $sample): array
 {
     return [
         [
+            'key' => 'branding_name', 'section' => 'display', 'path' => ['branding', 'name'], 'type' => 'text',
+            'label' => 'Product name',
+            'help' => 'The short name shown in the dashboard and setup shell. It is plain text, not HTML.',
+            'default' => (string)($sample['branding']['name'] ?? 'Zogograph'),
+        ],
+        [
             'key' => 'core_features_overview', 'section' => 'features', 'path' => ['core_features', 'overview'], 'type' => 'bool',
             'label' => 'Overview core feature',
             'help' => 'Disabling this removes the Overview dashboard and its shared measurements. The shell keeps only the feature and access state needed to open another enabled page; collection continues unchanged.',

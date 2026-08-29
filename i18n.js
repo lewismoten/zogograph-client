@@ -4,6 +4,15 @@ const I18N_BASE = "en";
 const I18N_LOCALES = ["en", "en-US", "en-GB", "es", "hi", "zh", "ar"];
 const I18N_RTL = new Set(["ar"]);
 const i18n = { locale: I18N_BASE, catalog: {}, fallback: {}, keyMode: false, highlight: localStorage.getItem("zogograph.i18n-highlight") === "1", extensions: {} };
+let i18nBrand = String(window.ZogographBrand || document.querySelector("[data-brand]")?.textContent || "Zogograph").trim();
+
+function i18nSetBrand(name) {
+  const candidate = String(name || "").trim();
+  if (!candidate || candidate.length > 80 || /[\x00-\x1f\x7f]/.test(candidate)) return;
+  i18nBrand = candidate;
+  document.querySelectorAll("[data-brand]").forEach(node => { node.textContent = candidate; });
+  document.querySelector('meta[name="application-name"]')?.setAttribute("content", candidate);
+}
 
 function i18nRequestedLocale() {
   const saved = localStorage.getItem("zogograph.locale");
@@ -40,7 +49,8 @@ function t(key, values = {}, fallbackText = "") {
   const fallback = i18n.fallback[key] || fallbackText || key;
   const text = i18n.catalog[key] || fallback;
   if (i18n.keyMode) return key;
-  return text.replace(/\{\{([\w.-]+)(?:,\s*(number|latin-number|arabic-number|eastern-arabic-number|compact|percent|unit|currency|date|time|date-time))?\}\}/g, (_, name, kind) => i18nFormat(values[name], kind, name, values));
+  const allValues = { brand: i18nBrand, ...values };
+  return text.replace(/\{\{([\w.-]+)(?:,\s*(number|latin-number|arabic-number|eastern-arabic-number|compact|percent|unit|currency|date|time|date-time))?\}\}/g, (_, name, kind) => i18nFormat(allValues[name], kind, name, allValues));
 }
 
 function i18nMarkSource(node, key, fallback = "") {
@@ -167,7 +177,7 @@ function i18nClearPackageCatalogs() {
   i18n.extensions = {};
   i18nLoad(i18n.locale);
 }
-window.ZogographI18n = { t, markSource: i18nMarkSource, load: i18nLoad, loadPackageCatalogs: i18nLoadPackageCatalogs, clearPackageCatalogs: i18nClearPackageCatalogs, registerCatalog: i18nRegisterCatalog, setKeyMode: async enabled => { i18n.keyMode = enabled; await i18nLoad(i18n.locale); }, setHighlight: async enabled => { i18n.highlight = enabled; localStorage.setItem("zogograph.i18n-highlight", enabled ? "1" : "0"); await i18nLoad(i18n.locale); } };
+window.ZogographI18n = { t, markSource: i18nMarkSource, load: i18nLoad, loadPackageCatalogs: i18nLoadPackageCatalogs, clearPackageCatalogs: i18nClearPackageCatalogs, registerCatalog: i18nRegisterCatalog, setBrand: i18nSetBrand, setKeyMode: async enabled => { i18n.keyMode = enabled; await i18nLoad(i18n.locale); }, setHighlight: async enabled => { i18n.highlight = enabled; localStorage.setItem("zogograph.i18n-highlight", enabled ? "1" : "0"); await i18nLoad(i18n.locale); } };
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelector("#languagePicker")?.addEventListener("change", event => { localStorage.setItem("zogograph.locale", event.target.value); i18nLoad(event.target.value); });
   document.querySelector("#languageKeys")?.addEventListener("change", event => ZogographI18n.setKeyMode(event.target.checked));

@@ -3824,6 +3824,7 @@ async function refreshShared() {
   const overview = await api("overview");
 
   state.signedIn = overview.signed_in;
+  ZogographI18n.setBrand(overview.brand);
   state.csrf = overview.csrf;
   state.access = overview.access || null;
   state.account = overview.account ?? state.account;

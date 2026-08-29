@@ -52,6 +52,7 @@ if (!is_file($samplePath)) {
 }
 
 require_once $root . '/lib/configure.php';
+require_once $root . '/lib/branding.php';
 require_once $root . '/lib/encryption.php';
 require_once $root . '/lib/setupstore.php';
 require_once $root . '/lib/setup-preflight.php';
@@ -1048,12 +1049,13 @@ function webPage(
     if ($activeSection === 'openid' && is_string($_SESSION['setup_pending_openid_signing_key'] ?? null)) {
         $values['openid_signing_private_key'] = $_SESSION['setup_pending_openid_signing_key'];
     }
+    $brand = brandName($current ?? []);
     $out = [];
     $out[] = '<!doctype html><html lang="en"><head><meta charset="utf-8">';
     $out[] = '<meta name="viewport" content="width=device-width, initial-scale=1">';
-    $out[] = '<title data-i18n="setup.document_title">Zogograph — Setup</title>';
+    $out[] = '<title data-i18n="setup.document_title">' . h($brand) . ' — Setup</title>';
     $out[] = '<link rel="stylesheet" href="index.css">';
-    $out[] = '<script src="i18n.js"></script>';
+    $out[] = '<script>window.ZogographBrand=' . json_encode($brand, JSON_THROW_ON_ERROR) . ';</script><script src="i18n.js"></script>';
     $out[] = '<style>'
         . 'body{max-width:1180px;padding-top:0}'
         . '.setup-header{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0;background:var(--bg)}'
@@ -1101,7 +1103,7 @@ function webPage(
 
     $out[] = '<header class="setup-header"><a class="setup-brand" href="?section=basics">'
         . '<span class="poll" aria-hidden="true"><svg viewBox="0 0 36 36"><circle class="poll-track" cx="18" cy="18" r="15"></circle><circle class="poll-fill" cx="18" cy="18" r="15"></circle><circle class="poll-host-track" cx="18" cy="18" r="9"></circle><circle class="poll-host-fill" cx="18" cy="18" r="9"></circle></svg><span class="poll-dot"></span></span>'
-        . '<strong>Zogograph</strong><small data-i18n="setup.label">Setup</small></a><span class="setup-controls">'
+        . '<strong data-brand>' . h($brand) . '</strong><small data-i18n="setup.label">Setup</small></a><span class="setup-controls">'
         . '<label><span data-i18n="language.label">Language</span><select id="languagePicker" aria-label="Language" data-i18n-aria-label="language.label"><option value="en">English</option><option value="en-US">English (US)</option><option value="en-GB">English (UK)</option><option value="es">Español</option><option value="hi">हिन्दी</option><option value="zh">中文</option><option value="ar">العربية</option></select></label>'
         . '<label><input id="languageKeys" type="checkbox"><span data-i18n="language.keys">Show translation keys</span></label><label><input id="languageHighlight" type="checkbox"><span data-i18n="language.highlight">Highlight translation sources</span></label>'
         . ($unlocked ? '<a href="?lock=1" data-i18n="setup.lock">Lock setup</a> · ' : '')

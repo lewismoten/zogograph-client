@@ -41,6 +41,7 @@ define('DISKMON_LOG', dirname((string)$config['database']) . '/error.log');
 require_once __DIR__ . '/lib/db.php';
 require_once __DIR__ . '/lib/auth.php';
 require_once __DIR__ . '/lib/access.php';
+require_once __DIR__ . '/lib/branding.php';
 require_once __DIR__ . '/lib/core-features.php';
 require_once __DIR__ . '/lib/mask.php';
 require_once __DIR__ . '/lib/alerts.php';
@@ -461,6 +462,7 @@ function overview(array $config, PDO $pdo, bool $signedIn): array
     if (!coreFeatureEnabled($config, 'overview')) {
         return [
             'signed_in' => $signedIn,
+            'brand' => brandName($config),
             'core_features' => coreFeatureStatus($config),
             'csrf' => $signedIn ? csrfToken() : null,
             'access' => accessView($config),
@@ -505,6 +507,7 @@ function overview(array $config, PDO $pdo, bool $signedIn): array
 
     return [
         'signed_in' => $signedIn,
+        'brand' => brandName($config),
         'core_features' => coreFeatureStatus($config),
         'csrf' => $signedIn ? csrfToken() : null,
         'access' => accessView($config),

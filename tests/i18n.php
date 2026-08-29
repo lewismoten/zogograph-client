@@ -20,6 +20,13 @@ i18nExpect($runtime !== false && str_contains($runtime, 'Intl.NumberFormat') && 
 i18nExpect($runtime !== false && str_contains($runtime, 'node.dataset.i18nFallback')
     && str_contains($runtime, 't(key, i18nNodeValues(node), fallback)'),
     'locale runtime can expose untranslated navigation keys instead of server-rendered English');
+i18nExpect($runtime !== false && str_contains($runtime, 'function i18nSetBrand(name)')
+    && str_contains($runtime, 'const allValues = { brand: i18nBrand, ...values }')
+    && str_contains($runtime, 'setBrand: i18nSetBrand')
+    && $script !== false && str_contains($script, 'ZogographI18n.setBrand(overview.brand)')
+    && $setup !== false && str_contains($setup, 'data-brand')
+    && is_array($english) && ($english['setup.document_title'] ?? '') === '{{brand}} — Setup',
+    'product branding is not supplied consistently to dashboard and setup localization');
 i18nExpect($runtime !== false && str_contains($runtime, 'Package catalogs are translation extensions')
     && str_contains($runtime, 'if (!(key in catalog)) catalog[key] = value')
     && str_contains($runtime, 'key.startsWith(prefix)') && str_contains($runtime, 'for (const [packageId, catalogs] of Object.entries(data.catalogs || {}))')

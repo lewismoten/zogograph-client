@@ -31,6 +31,10 @@ $defaultScanRoot = static function (): string {
 $dataDirectory = dirname(__DIR__) . '/data';
 
 return [
+    // Display name used by the dashboard and setup shell. Keep it short: it
+    // appears in browser titles and navigation as well as in visible branding.
+    'branding' => ['name' => 'Zogograph'],
+
     // What to walk. Everything the monitor reports lives under here, and every
     // destructive action is refused outside it.
     'scan_root' => $defaultScanRoot(),

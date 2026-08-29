@@ -619,5 +619,6 @@
   "storage.tree_title": "空间在哪里", "tree.source": "来源", "tree.source_account": "此账户", "tree.source_host": "主机（仅 root）", "tree.colour_by": "着色依据", "tree.colour_type": "文件类型", "tree.colour_age": "最近修改时间", "tree.only": "仅", "tree.every_type": "所有类型", "tree.up": "向上一层", "tree.help": "面积表示大小。装满小文件的目录在最大路径列表中并不显眼，但在这里会很明显。单击矩形查看详情，双击目录进入，悬停可看摘要。按类型筛选时，每个目录只保留该类型的文件。", "tree.sign_in": "请登录以浏览磁盘。", "tree.measuring": "正在测量…", "tree.measuring_directory": "正在测量此目录…",
   "backup.storage_title": "备份存储", "backup.storage_help": "备份通常是服务器上最大的内容，也是最后才被查看的内容，因为它们不在 /home 中。此处回答四个问题：占用多少空间、属于谁、有多旧，以及可以安全采取什么操作。",
   "backup.actions_title": "可以如何处理", "backup.actions_help": "此处按操作的安全程度排序，而非按可释放的空间排序。标记为破坏性的操作会删除某项内容的唯一副本。",
-  "backup.other_title": "其他可能的备份", "backup.other_help": "看起来像备份、但没有任何管理程序处理的目录：升级前创建的 tar.gz、带日期的网站副本或数据库转储。没有任何机制轮换它们，因此它们常是磁盘上最老的大型内容。可能是关键词：每项都只是根据名称和形状做出的猜测，操作前值得检查。"
+  "backup.other_title": "其他可能的备份", "backup.other_help": "看起来像备份、但没有任何管理程序处理的目录：升级前创建的 tar.gz、带日期的网站副本或数据库转储。没有任何机制轮换它们，因此它们常是磁盘上最老的大型内容。可能是关键词：每项都只是根据名称和形状做出的猜测，操作前值得检查。",
+  "backup.jetbackup_title": "JetBackup", "backup.jetbackup_help": "备份系统对其自身备份的说明，是查找名为 files0000000005 的目录背后账户和日期的唯一途径。它需要 JetBackup 命令行工具，通常还需要以 root 身份运行。"
 }

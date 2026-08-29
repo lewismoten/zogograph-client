@@ -12240,11 +12240,19 @@ function renderEncryptionStatus(data) {
       const actions = document.createElement("div"); actions.className = "row-actions";
       const seal = document.createElement("button"); seal.type = "button"; seal.textContent = ZogographI18n.t("encryption.create_verified_copies", {}, "Create verified encrypted copies");
       seal.addEventListener("click", async () => {
-        if (!(await confirmDialog("Create a fresh encrypted copy of every selected available store now? This does not encrypt the running database. Retention pruning may remove only expired, hash-verified copies and never the newest verified copy for a store.", "Create encrypted copies"))) return;
+        if (!(await confirmDialog(ZogographI18n.t("encryption.create_copies_confirm", {}, "Create a fresh encrypted copy of every selected available store now? This does not encrypt the running database. Retention pruning may remove only expired, hash-verified copies and never the newest verified copy for a store."), ZogographI18n.t("encryption.create_copies_title", {}, "Create encrypted copies")))) return;
         seal.disabled = true;
         try {
           const result = await post("encryption-seal"); await refreshEncryptionStatus();
-          notice(`Created ${result.created} verified encrypted ${result.created === 1 ? "copy" : "copies"}.${result.pruned ? ` Pruned ${result.pruned} expired ${result.pruned === 1 ? "copy" : "copies"}.` : ""}`, true);
+          const created = ZogographI18n.t("encryption.copies_created", { count: result.created },
+            "Created {{count, number}} verified encrypted copies.");
+          const pruned = result.pruned
+            ? ZogographI18n.t(result.pruned === 1 ? "encryption.copy_pruned" : "encryption.copies_pruned",
+              { count: result.pruned }, result.pruned === 1
+                ? " Pruned {{count, number}} expired copy."
+                : " Pruned {{count, number}} expired copies.")
+            : "";
+          notice(created + pruned, true);
         } catch (error) { notice(String(error.message || error)); }
         finally { seal.disabled = false; }
       });

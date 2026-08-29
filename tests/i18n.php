@@ -183,10 +183,14 @@ i18nExpect($page !== false && str_contains($page, 'src="cards/cpu-findings.js"')
     'CPU findings are not isolated behind their core card-module boundary');
 i18nExpect($page !== false && str_contains($page, 'src="cards/cpu-cores.js"')
     && $cpuCoresCard !== false && str_contains($cpuCoresCard, 'window.ZogographCpuCoresCard')
-    && str_contains($cpuCoresCard, 'id: "core-cpu-cores"') && str_contains($cpuCoresCard, 'locales: ["cpu."]')
+    && str_contains($cpuCoresCard, 'id: "core-cpu-cores"') && str_contains($cpuCoresCard, 'locales: ["core-cpu-cores."]')
     && str_contains($cpuCoresCard, 'helpers: ["target", "buildGauge", "cpuCoreShare", "i18n"]')
     && str_contains($script, 'renderCoreCardPackage(ZogographCpuCoresCard, "core-cpu-cores", data.cores ?? [],'),
     'CPU core gauges are not isolated behind their core card-module boundary');
+i18nExpect($cpuCoresCard !== false && str_contains($cpuCoresCard, 'catalogs: Object.freeze({')
+    && str_contains($cpuCoresCard, '"core-cpu-cores.no_per_core_lines"')
+    && is_array($english) && !isset($english['cpu.no_per_core_lines']),
+    'CPU core card does not own its locale catalog');
 i18nExpect($page !== false && str_contains($page, 'src="cards/host-memory.js"')
     && $hostMemoryCard !== false && str_contains($hostMemoryCard, 'window.ZogographHostMemoryCard')
     && str_contains($hostMemoryCard, 'id: "core-host-memory"') && str_contains($hostMemoryCard, 'locales: ["host."]')

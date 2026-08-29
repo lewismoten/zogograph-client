@@ -14620,7 +14620,7 @@ function permitForm(data) {
   const wrap = document.createElement("div");
 
   if (!state.signedIn) {
-    wrap.appendChild(note("Sign in to switch it on."));
+    wrap.appendChild(note(ZogographI18n.t("terminal.sign_in_to_enable", {}, "Sign in to switch it on.")));
     return wrap;
   }
 
@@ -14647,7 +14647,7 @@ function permitForm(data) {
 
     try {
       renderTerminal(await post("terminal-permit", { allowed: "1" }));
-      notice("The terminal is switched on. It is still locked until you open it.");
+      notice(ZogographI18n.t("terminal.enabled_locked", {}, "The terminal is switched on. It is still locked until you open it."));
     } catch (error) {
       notice(String(error.message || error));
     }
@@ -14736,7 +14736,7 @@ function openForNow(data) {
   lock.addEventListener("click", async () => {
     try {
       renderTerminal(await post("terminal-lock"));
-      notice("Locked.", true);
+      notice(ZogographI18n.t("terminal.locked", {}, "Locked."), true);
     } catch (error) {
       notice(String(error.message || error));
     }
@@ -14750,7 +14750,7 @@ async function unlockTerminal(seconds) {
   try {
     const data = await post("terminal-unlock", { seconds });
     renderTerminal(data);
-    notice(`Open until ${whenLabel(data.until)}.`, true);
+    notice(ZogographI18n.t("terminal.open_until", { when: whenLabel(data.until) }, "Open until {{when}}."), true);
   } catch (error) {
     notice(String(error.message || error));
   }

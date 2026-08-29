@@ -26,6 +26,8 @@ i18nExpect($runtime !== false && str_contains($runtime, 'node.dataset.i18nFallba
     'locale runtime can expose untranslated navigation keys instead of server-rendered English');
 i18nExpect($runtime !== false && str_contains($runtime, 'function i18nSetBrand(name)')
     && str_contains($runtime, 'const allValues = { brand: i18nBrand, ...values }')
+    && str_contains($runtime, 'I18N_DEFAULT_BRAND')
+    && str_contains($runtime, 'replaceAll(I18N_DEFAULT_BRAND, "{{brand}}")')
     && str_contains($runtime, 'setBrand: i18nSetBrand')
     && $script !== false && str_contains($script, 'ZogographI18n.setBrand(overview.brand)')
     && $setup !== false && str_contains($setup, 'data-brand')

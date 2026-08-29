@@ -1,10 +1,11 @@
 /* Small dependency-free localization layer. Catalogs are inert JSON and can be
  * extended by signed packages only through the future package catalog bridge. */
 const I18N_BASE = "en";
+const I18N_DEFAULT_BRAND = "Zogograph";
 const I18N_LOCALES = ["en", "en-US", "en-GB", "es", "hi", "zh", "ar"];
 const I18N_RTL = new Set(["ar"]);
 const i18n = { locale: I18N_BASE, catalog: {}, fallback: {}, keyMode: false, highlight: localStorage.getItem("zogograph.i18n-highlight") === "1", extensions: {} };
-let i18nBrand = String(window.ZogographBrand || document.querySelector("[data-brand]")?.textContent || "Zogograph").trim();
+let i18nBrand = String(window.ZogographBrand || document.querySelector("[data-brand]")?.textContent || I18N_DEFAULT_BRAND).trim();
 
 function i18nSetBrand(name) {
   const candidate = String(name || "").trim();
@@ -47,7 +48,11 @@ function i18nFormat(value, kind, name, values) {
 
 function t(key, values = {}, fallbackText = "") {
   const fallback = i18n.fallback[key] || fallbackText || key;
-  const text = i18n.catalog[key] || fallback;
+  // Existing core catalogs predate configurable branding and contain the
+  // default display name in ordinary prose. Treat that literal like the
+  // {{brand}} token at the single rendering boundary; protocol names, paths,
+  // and server-side identifiers never enter this catalog path.
+  const text = (i18n.catalog[key] || fallback).replaceAll(I18N_DEFAULT_BRAND, "{{brand}}");
   if (i18n.keyMode) return key;
   const allValues = { brand: i18nBrand, ...values };
   return text.replace(/\{\{([\w.-]+)(?:,\s*(number|latin-number|arabic-number|eastern-arabic-number|compact|percent|unit|currency|date|time|date-time))?\}\}/g, (_, name, kind) => i18nFormat(allValues[name], kind, name, allValues));

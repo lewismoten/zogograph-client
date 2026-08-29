@@ -36,7 +36,7 @@ foreach ($modules as $module) {
 
 $english = json_decode((string)file_get_contents($root . '/locales/en.json'), true);
 aiToolPackageExpect(is_array($english), 'shared English catalog is unavailable');
-foreach (['core-ai-get-collection-schedule', 'core-ai-get-current-status', 'core-ai-get-filesystems'] as $package) {
+foreach (['core-ai-get-collection-schedule', 'core-ai-get-current-status', 'core-ai-get-filesystems', 'core-ai-get-recent-alerts'] as $package) {
     aiToolPackageExpect(!isset($english[$package . '.summary']), "$package still owns its summary in the shared catalog");
     foreach (['en', 'es', 'hi', 'ar', 'zh'] as $locale) {
         $file = $root . '/lib/ai-tools/locales/' . $package . '/' . $locale . '.json';

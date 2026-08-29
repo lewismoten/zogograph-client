@@ -509,6 +509,7 @@
   "schedule.custom.weekday": "星期 (0–7)",
   "schedule.saved_preview": "已保存的预览",
   "schedule.installed": "当前已安装",
+  "alerts.mark_read_none": "标为已读", "alerts.mark_unread_none": "标为未读", "alerts.delete_none": "删除",
   "alerts.ignored": "已忽略", "alerts.ignored_help": "规则将此项标为 {{severity}}。{{assistant}} 认为无需发送。", "alerts.yes": "是", "alerts.no": "否", "alerts.muted": "已静音", "alerts.why_not": "原因", "alerts.failed": "失败",
   "alerts.mark_read": "将 {{count, number}} 条标为已读", "alerts.mark_unread": "将 {{count, number}} 条标为未读", "alerts.delete_selected": "删除 {{count, number}} 条", "alerts.marketplace_guidance": "已启用的市场指导仅供参考。它不会更改警报规则或投递。", "alerts.when": "时间", "alerts.severity": "严重程度", "alerts.what": "内容", "alerts.emailed": "已发邮件",
   "broadcast.one": "上次访问者留下的一条消息", "broadcast.many": "上次访问者留下的 {{count, number}} 条消息", "broadcast.somebody": "某人", "broadcast.who": "{{who}}，{{ago}}", "broadcast.clear": "清除", "broadcast.clear_help": "停止向所有人显示此内容",

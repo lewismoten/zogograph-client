@@ -22141,9 +22141,9 @@ function syncAlertTools() {
   $("alertAckSome").disabled = !chosen;
   $("alertUnackSome").disabled = !chosen;
   $("alertDeleteSome").disabled = !chosen;
-  $("alertAckSome").textContent = ZogographI18n.t("alerts.mark_read", { count: chosen }, chosen ? "Mark {{count, number}} read" : "Mark read");
-  $("alertUnackSome").textContent = ZogographI18n.t("alerts.mark_unread", { count: chosen }, chosen ? "Mark {{count, number}} unread" : "Mark unread");
-  $("alertDeleteSome").textContent = ZogographI18n.t("alerts.delete_selected", { count: chosen }, chosen ? "Delete {{count, number}}" : "Delete");
+  $("alertAckSome").textContent = chosen ? ZogographI18n.t("alerts.mark_read", { count: chosen }, "Mark {{count, number}} read") : ZogographI18n.t("alerts.mark_read_none", {}, "Mark read");
+  $("alertUnackSome").textContent = chosen ? ZogographI18n.t("alerts.mark_unread", { count: chosen }, "Mark {{count, number}} unread") : ZogographI18n.t("alerts.mark_unread_none", {}, "Mark unread");
+  $("alertDeleteSome").textContent = chosen ? ZogographI18n.t("alerts.delete_selected", { count: chosen }, "Delete {{count, number}}") : ZogographI18n.t("alerts.delete_none", {}, "Delete");
 }
 
 async function refreshAlerts() {

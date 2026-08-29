@@ -509,6 +509,8 @@
   "schedule.custom.weekday": "يوم الأسبوع (0–7)",
   "schedule.saved_preview": "معاينة محفوظة",
   "schedule.installed": "مثبّت حاليًا",
+  "broadcast.one": "رسالة ممن كان هنا آخر مرة", "broadcast.many": "{{count, number}} رسائل ممن كان هنا آخر مرة", "broadcast.somebody": "شخص ما", "broadcast.who": "{{who}}، {{ago}}", "broadcast.clear": "امسحها", "broadcast.clear_help": "أوقف إظهارها للجميع",
+  "alerts.unread_count": "{{count, number}} تنبيهات غير مقروءة", "alerts.see_all": "عرض الكل", "alerts.hide_until_new": "أخفه حتى يطلق شيء جديد", "alerts.dismiss": "تجاهل",
   "schedule.times_unknown_zone": "{{job}}: ‏{{expression}} في المنطقة الزمنية للخادم التي تعذر تحديدها",
   "schedule.times_frequent": "{{job}}: ‏{{profile}}، التشغيل التالي عند {{next}}",
   "schedule.confirm_remove": "إزالة سطور هذه اللوحة من crontab لديك؟",

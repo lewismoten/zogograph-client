@@ -509,6 +509,8 @@
   "schedule.custom.weekday": "星期 (0–7)",
   "schedule.saved_preview": "已保存的预览",
   "schedule.installed": "当前已安装",
+  "broadcast.one": "上次访问者留下的一条消息", "broadcast.many": "上次访问者留下的 {{count, number}} 条消息", "broadcast.somebody": "某人", "broadcast.who": "{{who}}，{{ago}}", "broadcast.clear": "清除", "broadcast.clear_help": "停止向所有人显示此内容",
+  "alerts.unread_count": "{{count, number}} 条未读警报", "alerts.see_all": "查看全部", "alerts.hide_until_new": "隐藏直到有新警报触发", "alerts.dismiss": "关闭",
   "schedule.times_unknown_zone": "{{job}}：{{expression}} 使用无法确定的服务器时区",
   "schedule.times_frequent": "{{job}}：{{profile}}，下次为 {{next}}",
   "schedule.confirm_remove": "从您的 crontab 中移除此仪表板的行吗？",

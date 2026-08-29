@@ -509,6 +509,8 @@
   "schedule.custom.weekday": "सप्ताह का दिन (0–7)",
   "schedule.saved_preview": "सहेजा गया पूर्वावलोकन",
   "schedule.installed": "वर्तमान में स्थापित",
+  "broadcast.one": "पिछली बार यहाँ आए व्यक्ति का संदेश", "broadcast.many": "पिछली बार यहाँ आए व्यक्ति के {{count, number}} संदेश", "broadcast.somebody": "कोई", "broadcast.who": "{{who}}, {{ago}}", "broadcast.clear": "साफ़ करें", "broadcast.clear_help": "इसे सभी को दिखाना बंद करें",
+  "alerts.unread_count": "{{count, number}} अपठित चेतावनियाँ", "alerts.see_all": "सभी देखें", "alerts.hide_until_new": "कुछ नया आने तक छिपाएँ", "alerts.dismiss": "खारिज करें",
   "schedule.times_unknown_zone": "{{job}}: {{expression}} सर्वर के समय क्षेत्र में, जिसे निर्धारित नहीं किया जा सका",
   "schedule.times_frequent": "{{job}}: {{profile}}, अगला {{next}} पर",
   "schedule.confirm_remove": "इस डैशबोर्ड की पंक्तियाँ अपने crontab से हटाएँ?",

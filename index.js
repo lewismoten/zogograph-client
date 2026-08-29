@@ -22018,8 +22018,8 @@ function renderBroadcasts(rows) {
 
   const head = document.createElement("strong");
   head.textContent = rows.length === 1
-    ? "A message from whoever was here last"
-    : `${count(rows.length, "message")} from whoever was here last`;
+    ? ZogographI18n.t("broadcast.one", {}, "A message from whoever was here last")
+    : ZogographI18n.t("broadcast.many", { count: rows.length }, "{{count, number}} messages from whoever was here last");
   frag.appendChild(head);
 
   for (const row of rows) {
@@ -22032,15 +22032,15 @@ function renderBroadcasts(rows) {
 
     const who = document.createElement("div");
     who.className = "who";
-    who.textContent = `${row.who || "somebody"}, ${ago(row.at)}`;
+    who.textContent = ZogographI18n.t("broadcast.who", { who: row.who || ZogographI18n.t("broadcast.somebody", {}, "somebody"), ago: ago(row.at) }, "{{who}}, {{ago}}");
     item.appendChild(who);
 
     if (row.link) item.appendChild(externalLink(row.link));
 
     const clear = document.createElement("button");
     clear.className = "link";
-    clear.textContent = "Clear it";
-    clear.title = "Stop showing this to everyone";
+    clear.textContent = ZogographI18n.t("broadcast.clear", {}, "Clear it");
+    clear.title = ZogographI18n.t("broadcast.clear_help", {}, "Stop showing this to everyone");
     clear.addEventListener("click", async () => {
       clear.disabled = true;
       try {
@@ -22087,7 +22087,7 @@ function renderAlertBanner(unread) {
 
   const frag = document.createDocumentFragment();
   const head = document.createElement("strong");
-  head.textContent = `${count(unread.length, "unread alert")}`;
+  head.textContent = ZogographI18n.t("alerts.unread_count", { count: unread.length }, "{{count, number}} unread alert(s)");
   frag.appendChild(head);
 
   const list = document.createElement("ul");
@@ -22100,14 +22100,14 @@ function renderAlertBanner(unread) {
 
   const go = document.createElement("button");
   go.className = "link";
-  go.textContent = "See all";
+  go.textContent = ZogographI18n.t("alerts.see_all", {}, "See all");
   go.addEventListener("click", () => showView("alerts"));
   frag.appendChild(go);
 
   const close = document.createElement("button");
   close.className = "dismiss";
-  close.title = "Hide this until something new fires";
-  close.setAttribute("aria-label", "Dismiss");
+  close.title = ZogographI18n.t("alerts.hide_until_new", {}, "Hide this until something new fires");
+  close.setAttribute("aria-label", ZogographI18n.t("alerts.dismiss", {}, "Dismiss"));
   close.textContent = "\u00d7";
   close.addEventListener("click", () => {
     writeDismissed(newest);

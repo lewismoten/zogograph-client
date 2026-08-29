@@ -372,6 +372,7 @@
   "setup.unlock": "Unlock",
   "setup.unlock_to_view": "Unlock setup to view or change this section.",
   "setup.basics_help": "Review these checks, then open Security to create the sign-in password. All other settings are available from the navigation when you need them.",
+  "setup.basics_first_run_help": "Create the sign-in password to finish the first step. Installation checks stay below it; other settings appear after the password is saved.",
   "setup.not_configured": "Nothing is configured yet.",
   "setup.not_configured_help": "Until you finish, anybody who can reach this page can set the password. Do it now; afterwards this remains the password-protected configuration backend.",
   "setup.no_password": "Already configured, with no password.",

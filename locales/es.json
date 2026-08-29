@@ -430,6 +430,7 @@
   "setup.unlock": "Desbloquear",
   "setup.unlock_to_view": "Desbloquee la configuración para ver o cambiar esta sección.",
   "setup.basics_help": "Revise estas comprobaciones y después abra Seguridad para crear la contraseña de inicio de sesión. Las demás opciones están disponibles desde la navegación cuando las necesite.",
+  "setup.basics_first_run_help": "Cree la contraseña de inicio de sesión para terminar el primer paso. Las comprobaciones de instalación quedan debajo; los demás ajustes aparecen tras guardar la contraseña.",
   "setup.not_configured": "Aún no hay nada configurado.",
   "setup.not_configured_help": "Hasta que termine, cualquier persona que pueda acceder a esta página puede establecer la contraseña. Hágalo ahora; después seguirá siendo el backend de configuración protegido por contraseña.",
   "setup.no_password": "Ya está configurado, sin contraseña.",

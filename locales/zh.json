@@ -430,6 +430,7 @@
   "setup.unlock": "解锁",
   "setup.unlock_to_view": "请解锁设置以查看或更改此栏目。",
   "setup.basics_help": "查看这些检查项，然后打开“安全”创建登录密码。需要时可从导航中访问其他所有设置。",
+  "setup.basics_first_run_help": "创建登录密码以完成第一步。安装检查会保留在下方；保存密码后会显示其他设置。",
   "setup.not_configured": "尚未完成任何配置。",
   "setup.not_configured_help": "在您完成之前，任何能够访问此页面的人都可以设置密码。请立即完成；之后这里仍是受密码保护的配置后端。",
   "setup.no_password": "已经配置，但没有密码。",

@@ -1131,18 +1131,22 @@ function webPage(
     }
 
     $panels = setupPanels($fields, $packagePanels);
-    $out[] = '<div class="setup-layout"><aside class="setup-nav" aria-label="Setup sections" data-i18n-aria-label="setup.sections">'
-        . '<label class="setup-nav-search"><span data-i18n="setup.search">Search settings</span><input type="search" data-setup-nav-search placeholder="Search settings" data-i18n-placeholder="setup.search" autocomplete="off"></label>'
-        . '<a data-i18n="setup.installation" data-setup-nav-item data-setup-nav-terms="installation checks prerequisites"' . ($activeSection === 'basics' ? ' class="current" aria-current="page"' : '') . ' href="?section=basics">Installation</a>';
-    foreach ($panels as $name => $panel) {
-        if ($name === 'basics') continue;
-        $navigationKey = $panel['kind'] === 'core' ? 'setup.section.' . $name : (string)($panel['title_key'] ?? '');
-        $out[] = '<a data-setup-nav-item data-setup-nav-terms="' . h($name . ' ' . $panel['title'] . ' ' . implode(' ', $panel['keywords'])) . '"'
-            . ($navigationKey !== '' ? ' data-i18n="' . h($navigationKey) . '"' : '')
-            . ($activeSection === $name ? ' class="current" aria-current="page"' : '')
-            . ' href="?section=' . rawurlencode($name) . '">' . h($panel['title']) . '</a>';
+    $out[] = '<div class="setup-layout">';
+    if ($configured) {
+        $out[] = '<aside class="setup-nav" aria-label="Setup sections" data-i18n-aria-label="setup.sections">'
+            . '<label class="setup-nav-search"><span data-i18n="setup.search">Search settings</span><input type="search" data-setup-nav-search placeholder="Search settings" data-i18n-placeholder="setup.search" autocomplete="off"></label>'
+            . '<a data-i18n="setup.installation" data-setup-nav-item data-setup-nav-terms="installation checks prerequisites"' . ($activeSection === 'basics' ? ' class="current" aria-current="page"' : '') . ' href="?section=basics">Installation</a>';
+        foreach ($panels as $name => $panel) {
+            if ($name === 'basics') continue;
+            $navigationKey = $panel['kind'] === 'core' ? 'setup.section.' . $name : (string)($panel['title_key'] ?? '');
+            $out[] = '<a data-setup-nav-item data-setup-nav-terms="' . h($name . ' ' . $panel['title'] . ' ' . implode(' ', $panel['keywords'])) . '"'
+                . ($navigationKey !== '' ? ' data-i18n="' . h($navigationKey) . '"' : '')
+                . ($activeSection === $name ? ' class="current" aria-current="page"' : '')
+                . ' href="?section=' . rawurlencode($name) . '">' . h($panel['title']) . '</a>';
+        }
+        $out[] = '<p class="setup-nav-results" data-setup-nav-results role="status" aria-live="polite" aria-atomic="true"></p></aside>';
     }
-    $out[] = '<p class="setup-nav-results" data-setup-nav-results role="status" aria-live="polite" aria-atomic="true"></p></aside><main class="setup-main"><form method="post" enctype="multipart/form-data">'
+    $out[] = '<main class="setup-main"><form method="post" enctype="multipart/form-data">'
         . '<input type="hidden" name="section" value="' . h($activeSection) . '">';
 
     $editingLocked = $configured && $existing['password_hash'] !== '' && !$unlocked;
@@ -1172,8 +1176,19 @@ function webPage(
     if ($editingLocked && $activeSection !== 'basics') {
         $out[] = '<p class="help" data-i18n="setup.unlock_to_view">Unlock setup to view or change this section.</p>';
     } elseif ($activeSection === 'basics') {
-        $out[] = '<p class="help" data-i18n="setup.basics_help">Review these checks, then open Security to create the sign-in password. '
-            . 'All other settings are available from the navigation when you need them.</p>';
+        if (!$configured) {
+            foreach ($fields as $field) {
+                if ($field['key'] !== 'password') continue;
+                $out[] = renderField($field, $values, $errors, false)
+                    . '<button type="submit" data-i18n="auth.create_password">Create password</button>';
+                break;
+            }
+        }
+        $basicsHelpKey = $configured ? 'setup.basics_help' : 'setup.basics_first_run_help';
+        $basicsHelp = $configured
+            ? 'Review these checks, then open Security to create the sign-in password. All other settings are available from the navigation when you need them.'
+            : 'Create the sign-in password to finish the first step. Installation checks stay below it; other settings appear after the password is saved.';
+        $out[] = '<p class="help" data-i18n="' . $basicsHelpKey . '">' . h($basicsHelp) . '</p>';
     } elseif ($activeSection === 'privacy') {
         $out[] = '<fieldset><legend data-i18n="privacy.masked_paths">Masked-path privacy</legend>'
             . '<p class="help" data-i18n="privacy.masked_paths_help">Signed-out visitors see stable anonymous labels instead of real filesystem '

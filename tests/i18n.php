@@ -148,6 +148,10 @@ i18nExpect($setup !== false && str_contains($setup, 'item.dataset.setupNavTerms 
     'Setup navigation search ignores translated visible labels');
 i18nExpect($setup !== false && str_contains($setup, 'data-i18n="setup.document_title"'),
     'Setup document title is not localized');
+i18nExpect($setup !== false && str_contains($setup, 'if ($configured) {')
+    && str_contains($setup, "renderField(\$field, \$values, \$errors, false)")
+    && str_contains($setup, 'data-i18n="auth.create_password"'),
+    'first-run Setup does not limit itself to password creation before installation checks');
 i18nExpect($setup !== false && str_contains($setup, 'data-i18n="setup.authorize"')
     && str_contains($setup, 'data-i18n="setup.unlock_to_view"') && str_contains($setup, 'data-i18n="privacy.masked_paths"')
     && str_contains($setup, 'data-i18n="privacy.rotate_mask"'),

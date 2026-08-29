@@ -5775,6 +5775,8 @@ function startDialTicker() {
 /* --------------------------------------------------------- setting lookout -- */
 
 const aiSetState = { data: null };
+const aiSettingsText = (key, fallback, values = {}) =>
+  ZogographI18n.t(`ai.settings.${key}`, values, fallback);
 
 /** Every container the settings are split across. */
 const AI_SETTING_PAGES = [
@@ -5818,15 +5820,11 @@ function renderAiSettings(data) {
   const parts = [];
 
   if (!data.writable) {
-    parts.push(note(
-      "lib/config.php is not writable by the web server, so this page can show the "
-      + "settings but not change them."
-    ));
+    parts.push(note(aiSettingsText("config_read_only",
+      "lib/config.php is not writable by the web server, so this page can show the settings but not change them.")));
   } else if (!data.can_change) {
-    parts.push(note(
-      "Your signed-in role can use the assistant but cannot change its configuration. "
-      + "Sign in with an administrator account to save provider credentials or model settings."
-    ));
+    parts.push(note(aiSettingsText("role_read_only",
+      "Your signed-in role can use the assistant but cannot change its configuration. Sign in with an administrator account to save provider credentials or model settings.")));
   }
 
   if (data.enabled && !data.ready) {
@@ -5858,7 +5856,7 @@ function renderAiSettings(data) {
     option.selected = data.provider === key;
     provider.appendChild(option);
   }
-  form.appendChild(fieldRow("Provider", provider, ""));
+  form.appendChild(fieldRow(aiSettingsText("provider_label", "Provider"), provider, ""));
   form.appendChild(providerNote);
 
   const base = document.createElement("input");
@@ -5866,9 +5864,8 @@ function renderAiSettings(data) {
   base.id = "aiBase";
   base.className = "wide-field";
   base.value = data.base_url || "";
-  form.appendChild(fieldRow("Address", base,
-    "Leave blank for the provider's own. Point it elsewhere for a gateway, a proxy, or "
-    + "a model running on this machine."));
+  form.appendChild(fieldRow(aiSettingsText("address_label", "Address"), base,
+    aiSettingsText("address_help", "Leave blank for the provider's own. Point it elsewhere for a gateway, a proxy, or a model running on this machine.")));
 
   const model = document.createElement("select");
   model.id = "aiModel";
@@ -5881,17 +5878,17 @@ function renderAiSettings(data) {
   key.className = "wide-field";
   key.autocomplete = "off";
   key.placeholder = data.has_key ? "•".repeat(24) + " (unchanged)" : "";
-  form.appendChild(fieldRow("API key", key,
+  form.appendChild(fieldRow(aiSettingsText("api_key_label", "API key"), key,
     data.has_key
-      ? "A key is set. It is never sent back to this page, so leaving this blank keeps "
-        + "the existing one — type a new one to replace it."
-      : "Stored in lib/config.php, which is outside the web root. A local model needs "
-        + "none."));
+      ? aiSettingsText("api_key_set_help", "A key is set. It is never sent back to this page, so leaving this blank keeps the existing one — type a new one to replace it.")
+      : aiSettingsText("api_key_empty_help", "Stored in lib/config.php, which is outside the web root. A local model needs none.")));
 
   const selected = document.createElement("div"); selected.className = "settings";
   const selectedProvider = provider.cloneNode(true); selectedProvider.id = "aiSelectedProvider";
-  selected.appendChild(fieldRow("Provider", selectedProvider, "Choose which provider's models to show."));
-  selected.appendChild(fieldRow("Available model", model, "Models supplied by the provider or added on Available Models."));
+  selected.appendChild(fieldRow(aiSettingsText("provider_label", "Provider"), selectedProvider,
+    aiSettingsText("selected_provider_help", "Choose which provider's models to show.")));
+  selected.appendChild(fieldRow(aiSettingsText("available_model_label", "Available model"), model,
+    aiSettingsText("available_model_help", "Models supplied by the provider or added on Available Models.")));
 
   /*
    * How hard a reasoning model should think, where the endpoint takes one.
@@ -5915,7 +5912,7 @@ function renderAiSettings(data) {
     option.selected = (data.reasoning_effort || "") === value;
     effort.appendChild(option);
   }
-  const effortRow = fieldRow("How hard to think", effort,
+  const effortRow = fieldRow(aiSettingsText("reasoning_label", "How hard to think"), effort,
     "Reasoning models charge for the thinking as output tokens, so this is the setting "
     + "that moves the bill most. Higher is worth it for a knotty problem and wasted on "
     + "\u201cis the disk full\u201d.");
@@ -5955,8 +5952,8 @@ function renderAiSettings(data) {
   for (const key of Object.keys(pages)) pages[key].push(...parts.map(node => node.cloneNode(true)));
 
   pages.identity.push(section("Identity", personaFields(data)));
-  pages.providers.push(section("Provider connection", form));
-  pages.model.push(section("Which model", selected));
+  pages.providers.push(section(aiSettingsText("provider_connection", "Provider connection"), form));
+  pages.model.push(section(aiSettingsText("which_model", "Which model"), selected));
 
   /*
    * A test before any of it is used in anger.

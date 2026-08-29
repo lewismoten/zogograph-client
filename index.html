@@ -2878,18 +2878,18 @@
 
 <dialog id="signInDialog">
   <form id="signInForm">
-    <h2>Sign in</h2>
-    <p class="muted small">Reveals real paths and enables deleting.</p>
+    <h2 data-i18n="auth.sign_in">Sign in</h2>
+    <p class="muted small" data-i18n="auth.sign_in_help">Reveals real paths and enables deleting.</p>
     <label>
-      Username <span class="muted small">(optional for the administrator password)</span>
+      <span data-i18n="auth.username">Username</span> <span class="muted small" data-i18n="auth.username_optional">(optional for the administrator password)</span>
       <input type="text" id="username" autocomplete="username">
     </label>
       <label>
-        Password
+        <span data-i18n="auth.password_label">Password</span>
         <input type="password" id="password" autocomplete="current-password" required>
       </label>
       <label>
-        Verification code <span class="muted small">(if enabled)</span>
+        <span data-i18n="auth.verification_code">Verification code</span> <span class="muted small" data-i18n="auth.verification_optional">(if enabled)</span>
         <input type="text" id="totp" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="one-time-code">
       </label>
     <p class="error small" id="signInError" hidden></p>

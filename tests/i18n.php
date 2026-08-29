@@ -233,7 +233,7 @@ foreach ($placeholderNodes[0] ?? [] as $node) {
     i18nExpect(str_contains($node, 'data-i18n-placeholder="'),
         'dashboard static placeholder is not backed by an i18n key');
 }
-preg_match_all('/data-i18n(?:-placeholder|-title|-aria-label)?="([^"]+)"/', (string)$page, $pageKeys);
+preg_match_all('/data-i18n(?:-placeholder|-title|-aria-label|-rich)?="([^"]+)"/', (string)$page, $pageKeys);
 foreach (array_unique($pageKeys[1] ?? []) as $key) {
     i18nExpect(isset($english[$key]), "dashboard i18n attribute key $key has no English fallback");
 }
@@ -241,6 +241,9 @@ preg_match_all('/ZogographI18n\\.t\\(\\s*"([a-z][\\w.-]+)"/', (string)$script, $
 foreach (array_unique($dynamicDashboardKeys[1] ?? []) as $key) {
     i18nExpect(isset($english[$key]), "dashboard dynamic i18n key $key has no English fallback");
 }
+i18nExpect(str_contains($runtime, 'data-i18n-rich') && str_contains($runtime, 'data-i18n-tag')
+    && str_contains($runtime, 'cloneNode(true)'),
+    'locale runtime lacks a constrained named-tag renderer for trusted inline markup');
 $setupLocaleSources = (string)$setup . "\n" . (string)file_get_contents($root . '/lib/setup-cron-editor.php');
 preg_match_all('/<(?:input|textarea)\\b[^>]*\\bplaceholder="[^"]+"[^>]*>/i', $setupLocaleSources, $setupPlaceholderNodes);
 foreach ($setupPlaceholderNodes[0] ?? [] as $node) {

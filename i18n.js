@@ -60,6 +60,41 @@ function i18nNodeValues(node) {
   } catch { return {}; }
 }
 
+/* Rich locale strings are intentionally narrow: catalogs provide text and
+ * ordering only, while the document provides every element that can be
+ * inserted. A translator can move {{name}} tokens, but can never introduce a
+ * link, executable markup, or an unsafe URL. */
+function i18nApplyRichNode(node) {
+  if (!node._i18nRich) {
+    const tags = {};
+    for (const child of node.querySelectorAll("[data-i18n-tag]")) {
+      const name = child.dataset.i18nTag;
+      if (!/^[a-z][\w-]{0,31}$/i.test(name || "") || tags[name]) continue;
+      tags[name] = child.cloneNode(true);
+      child.replaceWith(document.createTextNode(`{{${name}}}`));
+    }
+    node._i18nRich = { tags, fallback: node.textContent };
+  }
+  const { tags, fallback } = node._i18nRich;
+  const values = {};
+  const markers = {};
+  Object.keys(tags).forEach((name, index) => {
+    const marker = `\uE000${index}\uE001`;
+    values[name] = marker;
+    markers[marker] = name;
+  });
+  const rendered = t(node.dataset.i18nRich, values, fallback);
+  node.replaceChildren();
+  const parts = rendered.split(/(\uE000\d+\uE001)/g);
+  for (const part of parts) {
+    const name = markers[part];
+    node.append(name ? tags[name].cloneNode(true) : document.createTextNode(part));
+  }
+  node.title = i18n.keyMode ? i18n.fallback[node.dataset.i18nRich] || fallback || node.dataset.i18nRich : "";
+  node.classList.toggle("i18n-catalog", node.dataset.i18nRich in i18n.catalog);
+  node.classList.toggle("i18n-hardcoded", !(node.dataset.i18nRich in i18n.catalog));
+}
+
 async function i18nLoad(locale = i18nRequestedLocale()) {
   const get = async name => { const r = await fetch(`./locales/${name}.json`, { cache: "no-store" }); return r.ok ? r.json() : {}; };
   i18n.fallback = await get(I18N_BASE);
@@ -75,6 +110,7 @@ async function i18nLoad(locale = i18nRequestedLocale()) {
   i18n.catalog = catalog;
   i18n.locale = locale; document.documentElement.lang = locale;
   document.documentElement.dir = I18N_RTL.has(locale.split("-")[0]) ? "rtl" : "ltr";
+  document.querySelectorAll("[data-i18n-rich]").forEach(i18nApplyRichNode);
   document.querySelectorAll("[data-i18n]").forEach(node => {
     const key = node.dataset.i18n;
     const fallback = node.dataset.i18nFallback ?? node.textContent;

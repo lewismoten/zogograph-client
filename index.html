@@ -1121,13 +1121,13 @@
 
 <section class="view" data-view="host-disk" hidden>
 <section class="panel" id="hostDiskPanel">
-  <h2>Filesystems, and the space nothing accounts for</h2>
-  <p class="muted small sub-note">
-    For when <code>df</code> reports a number nothing else can explain. Every
+  <h2 data-i18n="host.filesystems_title">Filesystems, and the space nothing accounts for</h2>
+  <p class="muted small sub-note" data-i18n-rich="host.filesystems_help">
+    For when <code data-i18n-tag="df">df</code> reports a number nothing else can explain. Every
     filesystem root can see, and the gap between what the filesystem says is used
     and what walking it actually found. The two usual explanations have pages of
-    their own: <a href="#/disk-deleted">deleted files still held open</a> and
-    <a href="#/disk-dirs">the biggest directories</a>.
+    their own: <a data-i18n-tag="deleted" href="#/disk-deleted">deleted files still held open</a> and
+    <a data-i18n-tag="directories" href="#/disk-dirs">the biggest directories</a>.
   </p>
   <div id="hostDisk"></div>
 </section>

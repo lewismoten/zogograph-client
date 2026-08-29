@@ -1565,7 +1565,7 @@
 <section class="view" data-view="sys-descriptions" hidden>
 <section class="panel" id="descriptionsPanel">
   <div class="panel-head">
-    <h2>What things are</h2>
+    <h2 data-i18n="metadata.descriptions_title">What things are</h2>
   </div>
   <p class="muted small sub-note">
     <code>dentry</code> holding 400 MB and <code>kworker/3:1H</code> at the top
@@ -1588,8 +1588,8 @@
   <form id="descriptionForm">
     <div class="pattern-row">
       <select id="descriptionKind">
-        <option value="process">A process</option>
-        <option value="slab">A kernel slab cache</option>
+        <option value="process" data-i18n="metadata.description_kind_process">A process</option>
+        <option value="slab" data-i18n="metadata.description_kind_slab">A kernel slab cache</option>
       </select>
       <input type="text" id="descriptionName" spellcheck="false" autocomplete="off"
              placeholder="backup-shim, or php-fpm*" data-i18n-placeholder="metadata.description_name_placeholder">
@@ -1598,7 +1598,7 @@
     </div>
     <textarea id="descriptionWhat" rows="3" spellcheck="true"
               placeholder="What it is, and — more usefully — what makes it grow." data-i18n-placeholder="metadata.description_placeholder"></textarea>
-    <button type="submit">Save it</button>
+    <button type="submit" data-i18n="action.save">Save it</button>
   </form>
   <div id="descriptionsBody"></div>
 </section>

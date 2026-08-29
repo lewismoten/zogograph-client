@@ -6069,7 +6069,18 @@ function renderAiSettings(data) {
 
     const said = document.createElement("span");
     said.className = "muted small";
-    said.textContent = ZogographI18n.t("ai.save_all_pages", {}, "Saves everything on all of these pages.");
+    if (key === "providers" && !data.writable) {
+      said.textContent = aiSettingsText("provider_save_unavailable_config",
+        "Connection saving is unavailable because PHP cannot write the configuration store.");
+    } else if (key === "providers" && !data.can_change) {
+      said.textContent = aiSettingsText("provider_save_unavailable_role",
+        "Connection saving is unavailable for your current account. An administrator can save it.");
+    } else if (key === "providers") {
+      said.textContent = aiSettingsText("provider_save_ready",
+        "This connection can be saved without an API key. Saving also keeps the settings on the other Assistant pages.");
+    } else {
+      said.textContent = ZogographI18n.t("ai.save_all_pages", {}, "Saves everything on all of these pages.");
+    }
     actions.appendChild(said);
 
     holder.replaceChildren(...pages[key], actions);

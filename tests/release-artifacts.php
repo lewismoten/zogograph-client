@@ -20,7 +20,8 @@ $restoreWorkflow = file_get_contents($root . '/.forgejo/workflows/restore.yml');
 releaseExpect(is_string($workflow) && str_contains($workflow, 'Create build manifest')
     && str_contains($workflow, '"commit": "${GITHUB_SHA}"') && str_contains($workflow, '"runId": "${GITHUB_RUN_ID}"')
     && str_contains($workflow, '"createdAt": "${created_at}"') && str_contains($workflow, '"browserRefreshRequired": ${browser_refresh_required}')
-    && str_contains($workflow, 'Verify deployed build') && str_contains($workflow, 'build_url="${DEPLOY_URL%/}/build.json"')
+    && str_contains($workflow, 'TEST_PATH: ${{ vars.TEST_PATH }}') && str_contains($workflow, 'TEST_URL: ${{ vars.TEST_URL }}')
+    && str_contains($workflow, 'Verify deployed build') && str_contains($workflow, 'build_url="${TEST_URL%/}/build.json"')
     && str_contains($workflow, 'apt-get install -y php-cli php-sqlite3 php-mbstring')
     && str_contains($workflow, 'extension_loaded("zip")') && str_contains($workflow, 'apt-get install -y php-zip'),
     'release workflow no longer creates and verifies the public build metadata required for update notices');

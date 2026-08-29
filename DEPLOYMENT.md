@@ -15,6 +15,8 @@ Repository **variables**:
 | `DEPLOY_USER` | restricted deployment user |
 | `DEPLOY_PATH` | absolute web-root path for this Zogograph client install |
 | `DEPLOY_URL` | public HTTPS URL for the install, without a trailing slash |
+| `TEST_PATH` | absolute web-root path for the disposable develop/test install |
+| `TEST_URL` | public HTTPS URL for the disposable develop/test install, without a trailing slash |
 | `DEPLOY_KNOWN_HOSTS` | exact `known_hosts` line for the server's SSH host key |
 | `SNAPSHOT_PATH` | absolute private snapshot root, outside the web root and deploy path; the workflow creates a repository-name subdirectory below it |
 | `SNAPSHOT_RETENTION` | optional whole number from `1` to `50`; defaults to `3` complete snapshots |
@@ -30,7 +32,7 @@ The deployment user needs read/write access to both deployment and snapshot
 paths, and the server needs `bash`, `rsync`, and `sqlite3`. Do not make either
 the deployment path or snapshot path world-readable.
 
-`DEPLOY_PATH` and `SNAPSHOT_PATH` must be existing absolute paths using only
+`DEPLOY_PATH`, `TEST_PATH`, and `SNAPSHOT_PATH` must be existing absolute paths using only
 letters, digits, `.`, `_`, `-`, and `/`. This intentionally rejects spaces,
 quotes, line feeds, and relative paths. In particular, re-enter
 `SNAPSHOT_PATH` manually if it was pasted from a source that might have added a
@@ -49,8 +51,10 @@ as a variable. Do not disable host-key checking in the workflow.
 ## Deploying
 
 `deploy.yml` runs on pushes to the configured development branches and can be
-run manually from any selected ref. The workflow assumes this directory is the
-repository root, so it has no monorepo path dependency.
+run manually from any selected ref. It always deploys to `TEST_PATH` and
+verifies `TEST_URL`; it never uses the production `DEPLOY_PATH` or `DEPLOY_URL`.
+The workflow assumes this directory is the repository root, so it has no
+monorepo path dependency.
 
 Each run:
 

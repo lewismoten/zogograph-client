@@ -10738,15 +10738,15 @@ function renderRdns(data) {
         className: "name",
         render: row => row.address,
       },
-      { label: "Asked", render: row => `${ago(row.asked_at)} by ${row.asked_by}` },
-      { label: "Waiting", render: row => humanSpan(row.waited) },
+      { label: ZogographI18n.t("network.rdns_asked"), render: row => ZogographI18n.t("network.rdns_asked_by", { ago: ago(row.asked_at), by: row.asked_by }) },
+      { label: ZogographI18n.t("network.rdns_waiting"), render: row => humanSpan(row.waited) },
       {
         label: "",
         render: row => {
           if (!row.taken) return "";
           const span = document.createElement("span");
           span.className = "band-warn";
-          span.textContent = `${row.taken_by} is looking now`;
+          span.textContent = ZogographI18n.t("network.rdns_looking_now", { collector: row.taken_by });
           return span;
         },
       },
@@ -10766,8 +10766,8 @@ function renderRdns(data) {
            */
           button.disabled = row.taken;
           button.title = row.taken
-            ? "A collector has already taken this one"
-            : "Take it off the queue";
+            ? ZogographI18n.t("network.rdns_taken_tip")
+            : ZogographI18n.t("network.rdns_cancel_tip");
           button.addEventListener("click", async () => {
             button.disabled = true;
             try {
@@ -10787,31 +10787,30 @@ function renderRdns(data) {
     renderTable("rdnsKnown", data.known, [
       { label: "Address", className: "name", render: row => row.address },
       {
-        label: "Called",
+        label: ZogographI18n.t("network.rdns_called"),
         className: "name",
         render: row => {
           if (row.name) return row.name;
           const span = document.createElement("span");
           span.className = "muted";
-          span.textContent = "no name";
-          span.title = "The address resolved, and the answer is that it has no PTR record. "
-            + "That is a real answer and is remembered, so it is not asked again for a week.";
+          span.textContent = ZogographI18n.t("network.rdns_no_name");
+          span.title = ZogographI18n.t("network.rdns_no_name_tip");
           return span;
         },
       },
       {
-        label: "Looked up",
+        label: ZogographI18n.t("network.rdns_looked_up"),
         render: row => {
           const span = document.createElement("span");
           span.textContent = ago(row.checked_at);
           if (row.stale) {
             span.className = "muted";
-            span.title = `Older than ${humanSpan(data.fresh_for)}. Ask again to refresh it.`;
+            span.title = ZogographI18n.t("network.rdns_stale_tip", { age: humanSpan(data.fresh_for) });
           }
           return span;
         },
       },
-      { label: "By", render: row => row.resolved_by },
+      { label: ZogographI18n.t("network.rdns_by"), render: row => row.resolved_by },
       {
         label: "",
         className: "row-actions",
@@ -10819,7 +10818,7 @@ function renderRdns(data) {
           const again = document.createElement("button");
           again.className = "link";
           again.textContent = ZogographI18n.t("action.ask_again", {}, "Ask again");
-          again.title = "Queue another lookup — names do change";
+          again.title = ZogographI18n.t("network.rdns_ask_again_tip");
           again.addEventListener("click", async () => {
             again.disabled = true;
             try {
@@ -10831,7 +10830,7 @@ function renderRdns(data) {
                * of date.
                */
               renderRdns(await post("rdns-ask", { addresses: row.address, force: "1" }));
-              notice(`${row.address} queued.`, true);
+              notice(ZogographI18n.t("network.rdns_address_queued", { address: row.address }), true);
             } catch (error) {
               notice(String(error.message || error));
             } finally {

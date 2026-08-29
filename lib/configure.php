@@ -246,6 +246,8 @@ function configFields(array $sample): array
             'label' => 'OpenID signing private key',
             'help' => 'Required before enabling the provider. Use a dedicated RSA private key; never reuse the TLS certificate key. Setup can generate a dedicated key that is kept only in the protected setup session until this section is saved.',
             'default' => (string)($sample['openid']['signing_private_key'] ?? ''),
+            'validate' => static fn(string $value): ?string => $value === '' || openIdSigningKeyDetails($value) !== null
+                ? null : 'Use a dedicated RSA private key with at least 3072 bits.',
             'when' => ['openid_enabled' => true],
         ],
         [

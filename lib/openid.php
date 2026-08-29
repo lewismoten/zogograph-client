@@ -96,18 +96,24 @@ function openIdDecodeBase64Url(string $value): string|false
     return base64_decode(strtr($value . ($pad ? str_repeat('=', 4 - $pad) : ''), '-_', '+/'), true);
 }
 
-function openIdJwk(array $config): ?array
+/** Returns the usable details for the provider's dedicated RSA signing key. */
+function openIdSigningKeyDetails(string $key): ?array
 {
-    $key = trim((string)($config['openid']['signing_private_key'] ?? ''));
-    if ($key === '' || !function_exists('openssl_pkey_get_private')) {
-        return null;
-    }
+    if ($key === '' || !function_exists('openssl_pkey_get_private')) return null;
     $resource = openssl_pkey_get_private($key);
     $details = $resource === false ? false : openssl_pkey_get_details($resource);
     if (!is_array($details) || ($details['type'] ?? null) !== OPENSSL_KEYTYPE_RSA
-        || !isset($details['rsa']['n'], $details['rsa']['e'])) {
+        || (int)($details['bits'] ?? 0) < 3072 || !isset($details['rsa']['n'], $details['rsa']['e'])) {
         return null;
     }
+    return $details;
+}
+
+function openIdJwk(array $config): ?array
+{
+    $key = trim((string)($config['openid']['signing_private_key'] ?? ''));
+    $details = openIdSigningKeyDetails($key);
+    if ($details === null) return null;
     $n = openIdBase64Url($details['rsa']['n']);
     $e = openIdBase64Url($details['rsa']['e']);
     return [
@@ -238,8 +244,7 @@ function openIdVerifyOwnToken(array $config, string $token): ?array
     $header = json_decode(openIdDecodeBase64Url($parts[0]) ?: '', true);
     $claims = json_decode(openIdDecodeBase64Url($parts[1]) ?: '', true);
     $signature = openIdDecodeBase64Url($parts[2]);
-    $private = openssl_pkey_get_private((string)($config['openid']['signing_private_key'] ?? ''));
-    $details = $private === false ? false : openssl_pkey_get_details($private);
+    $details = openIdSigningKeyDetails((string)($config['openid']['signing_private_key'] ?? ''));
     if (!is_array($header) || !is_array($claims) || $signature === false || !is_array($details)
         || ($header['alg'] ?? '') !== 'RS256' || openssl_verify($parts[0] . '.' . $parts[1], $signature, $details['key'], OPENSSL_ALGO_SHA256) !== 1) {
         return null;

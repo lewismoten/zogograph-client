@@ -15,13 +15,13 @@ if (!function_exists('openssl_pkey_new')) {
 }
 
 $key = openssl_pkey_new(['private_key_type' => OPENSSL_KEYTYPE_RSA, 'private_key_bits' => 2048]);
-openIdExpect($key !== false && openssl_pkey_export($key, $private), 'could not generate an OpenID test key');
+openIdExpect($key !== false && openssl_pkey_export($key, $weakPrivate), 'could not generate an OpenID test key');
 $generated = openIdGenerateSigningKey();
 $generatedDetails = openssl_pkey_get_details(openssl_pkey_get_private($generated));
 openIdExpect(is_array($generatedDetails) && ($generatedDetails['type'] ?? null) === OPENSSL_KEYTYPE_RSA
     && (int)($generatedDetails['bits'] ?? 0) >= 3072, 'generated OpenID signing key is not a 3072-bit RSA key');
 $config = ['openid' => ['enabled' => true, 'issuer' => 'https://zogograph.example',
-    'signing_private_key' => $private, 'clients' => ['peer' => [
+    'signing_private_key' => $generated, 'clients' => ['peer' => [
         'client_id' => 'peer-client', 'client_secret' => str_repeat('a', 64),
         'redirect_uris' => ['https://peer.example/callback'],
     ]]]];
@@ -30,6 +30,9 @@ openIdExpect(openIdIssuerUrl('https://zogograph.example/openid') === 'https://zo
     && openIdIssuerUrl('https://zogograph.example/?unexpected=1') === null
     && openIdIssuerUrl('https://zogograph.example/#fragment') === null,
     'ambiguous OpenID issuer URL was accepted');
+openIdExpect(openIdSigningKeyDetails($weakPrivate) === null
+    && openIdJwk(['openid' => ['signing_private_key' => $weakPrivate]]) === null,
+    'OpenID accepted a manually supplied RSA signing key below 3072 bits');
 openIdExpect(openIdOpaqueAuthorizeValueValid('opaque-state_123', 2048)
     && !openIdOpaqueAuthorizeValueValid("state\r\nLocation: https://attacker.example", 2048)
     && !openIdOpaqueAuthorizeValueValid(str_repeat('x', 2049), 2048)
@@ -59,7 +62,7 @@ openIdExpect(is_array($claims) && $claims['sub'] === 'operator' && $claims['nonc
 $claims['iat'] = time() + 120;
 $header = openIdBase64Url(json_encode(['alg' => 'RS256', 'typ' => 'JWT']) ?: '{}');
 $body = openIdBase64Url(json_encode($claims, JSON_UNESCAPED_SLASHES) ?: '{}');
-openssl_sign($header . '.' . $body, $signature, $private, OPENSSL_ALGO_SHA256);
+openssl_sign($header . '.' . $body, $signature, $generated, OPENSSL_ALGO_SHA256);
 $future = $header . '.' . $body . '.' . openIdBase64Url($signature);
 openIdExpect(openIdVerifyOwnToken($config, $future) === null,
     'a locally signed token issued too far in the future was accepted');

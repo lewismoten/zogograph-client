@@ -1931,12 +1931,12 @@
 <section class="view" data-view="cpu-queue" hidden>
 <section class="panel" id="cpuQueuePanel">
   <div class="panel-head">
-    <h2>Waiting to run</h2>
+    <h2 data-i18n="cpu.queue_title">Waiting to run</h2>
   </div>
-  <p class="muted small sub-note">
+  <p class="muted small sub-note" data-i18n-rich="cpu.queue_help">
     Why a load average of 40 can sit on a machine that is 5% busy. Load is a
     queue length, not a processor reading: it counts everything runnable
-    <em>and</em> everything stuck in uninterruptible sleep waiting on storage, so
+    <em data-i18n-tag="and">and</em> everything stuck in uninterruptible sleep waiting on storage, so
     a hung disk drives it into the dozens while the cores idle. These are the
     figures that tell those two apart.
   </p>
@@ -1945,11 +1945,11 @@
     <div class="cards" id="cpuQueueCards"></div>
     <p class="muted small" id="cpuQueueNote"></p>
 
-    <h3 class="sub-head">The queue, and the load average beside it</h3>
+    <h3 class="sub-head" data-i18n="cpu.queue_chart_title">The queue, and the load average beside it</h3>
     <canvas id="cpuQueueChart"></canvas>
 
-    <h3 class="sub-head">Context switches, interrupts and new processes</h3>
-    <p class="muted small sub-note">
+    <h3 class="sub-head" data-i18n="cpu.rates_title">Context switches, interrupts and new processes</h3>
+    <p class="muted small sub-note" data-i18n="cpu.rates_help">
       The counters that explain a machine which is busy while nothing on it
       looks busy. A high fork rate with an empty process table means the work is
       arriving and leaving between readings. Context switches climbing without

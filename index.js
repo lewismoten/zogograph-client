@@ -5079,7 +5079,7 @@ function deleteButton(row) {
 
   const button = document.createElement("button");
   button.className = "danger";
-  button.textContent = "Delete";
+  button.textContent = ZogographI18n.t("action.delete", {}, "Delete");
   button.addEventListener("click", async () => {
     const directory = row.kind === "dir";
     const question = directory
@@ -12735,7 +12735,7 @@ function notePreview(row) {
 function noteDeleteButton(row) {
   const remove = document.createElement("button");
   remove.className = "link danger";
-  remove.textContent = "Delete";
+  remove.textContent = ZogographI18n.t("action.delete", {}, "Delete");
   remove.disabled = !state.access?.write;
   remove.addEventListener("click", async event => {
     event.stopPropagation();
@@ -12833,7 +12833,7 @@ function noteActions(row) {
 
   const remove = document.createElement("button");
   remove.className = "link danger";
-  remove.textContent = "Delete";
+  remove.textContent = ZogographI18n.t("action.delete", {}, "Delete");
   remove.addEventListener("click", async () => {
     if (!(await confirmDialog(
       "Delete this note?"
@@ -12980,7 +12980,7 @@ function renderSnapshotFiles(data) {
       render: row => {
         const remove = document.createElement("button");
         remove.className = "link danger";
-        remove.textContent = "Delete";
+        remove.textContent = ZogographI18n.t("action.delete", {}, "Delete");
         remove.disabled = !state.access?.write;
         remove.addEventListener("click", async () => {
           if (!(await confirmDialog(
@@ -15909,7 +15909,7 @@ function renderReports(data) {
 
     const drop = document.createElement("button");
     drop.className = "link danger small";
-    drop.textContent = "Delete";
+    drop.textContent = ZogographI18n.t("action.delete", {}, "Delete");
     drop.addEventListener("click", async () => {
       if (!(await confirmDialog("Delete this summary?", "Delete summary"))) return;
       try {
@@ -22484,7 +22484,7 @@ function alertRowActions(row) {
 
   const remove = document.createElement("button");
   remove.className = "link danger";
-  remove.textContent = "Delete";
+  remove.textContent = ZogographI18n.t("action.delete", {}, "Delete");
   remove.addEventListener("click", async () => {
     if (await confirmDialog("Delete this alert? The history goes with it.", "Delete alert")) {
       alertAction("delete", [row.id]);

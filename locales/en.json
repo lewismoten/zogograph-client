@@ -1333,6 +1333,7 @@
   "storage.check_again": "Check again",
   "storage.host_logs_help": "The logs named in host_log_paths belong to root and live outside this account. On most shared servers they will be listed and refused, which is itself the answer. Where the host grants read access, they open in the same viewer as the account's own logs.",
   "storage.scan_now": "Scan now",
+  "storage.first_scan_running": "The first scan is running now.", "storage.no_completed_scan": "No completed scan yet.", "storage.last_scan_label": "Last scan", "storage.scan_took": "took {{duration}}", "storage.seen_label": "Seen", "storage.files_in_directories": "{{files}} files in {{directories}} directories", "storage.scans_in_range": "Scans in this range", "storage.each_chart_point": "each point on the charts below", "storage.not_enough_trend": "not enough to draw a trend", "storage.last_scan_reported": "The last scan reported: {{error}}", "storage.types_not_measured": "The last scan ran before this was measured. The next one will fill it in.", "storage.no_scan_in_range": "No completed scan in this range.",
   "storage.scanning": "Scanning… ({{elapsed}})",
   "storage.history": "History",
   "storage.log": "Log",

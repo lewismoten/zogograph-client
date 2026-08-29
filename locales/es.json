@@ -1248,6 +1248,7 @@
   "storage.check_again": "Comprobar de nuevo",
   "storage.host_logs_help": "Los registros indicados en host_log_paths pertenecen a root y se encuentran fuera de esta cuenta. En la mayoría de los servidores compartidos se mostrarán y se denegará el acceso; eso ya es una respuesta. Cuando el host concede acceso de lectura, se abren en el mismo visor que los registros de la cuenta.",
   "storage.scan_now": "Analizar ahora",
+  "storage.first_scan_running": "El primer análisis se está ejecutando ahora.", "storage.no_completed_scan": "Aún no hay ningún análisis completado.", "storage.last_scan_label": "Último análisis", "storage.scan_took": "duró {{duration}}", "storage.seen_label": "Visto", "storage.files_in_directories": "{{files}} archivos en {{directories}} directorios", "storage.scans_in_range": "Análisis en este intervalo", "storage.each_chart_point": "cada punto de los gráficos de abajo", "storage.not_enough_trend": "no hay suficiente para dibujar una tendencia", "storage.last_scan_reported": "El último análisis informó: {{error}}", "storage.types_not_measured": "El último análisis se ejecutó antes de medir esto. El siguiente lo completará.", "storage.no_scan_in_range": "No hay análisis completado en este intervalo.",
   "storage.scanning": "Analizando… ({{elapsed}})",
   "storage.history": "Historial",
   "storage.log": "Registro",

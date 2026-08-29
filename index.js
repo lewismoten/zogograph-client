@@ -3966,18 +3966,18 @@ function renderScanFacts(scans) {
   if (!last) {
     holder.replaceChildren();
     $("scanNote").textContent = scans.scan_running
-      ? "The first scan is running now."
-      : "No completed scan yet.";
+      ? ZogographI18n.t("storage.first_scan_running", {}, "The first scan is running now.")
+      : ZogographI18n.t("storage.no_completed_scan", {}, "No completed scan yet.");
     return;
   }
 
   const cards = [
-    ["Last scan", humanTime(last.finished_at || last.started_at),
-      last.duration_ms ? `took ${humanDuration(last.duration_ms / 1000)}` : ""],
-    ["Seen", humanBytes(last.bytes_seen),
-      `${humanCount(last.files_seen)} files in ${humanCount(last.dirs_seen)} directories`],
-    ["Scans in this range", String(scans.rows.length),
-      scans.rows.length > 1 ? "each point on the charts below" : "not enough to draw a trend"],
+    [ZogographI18n.t("storage.last_scan_label", {}, "Last scan"), humanTime(last.finished_at || last.started_at),
+      last.duration_ms ? ZogographI18n.t("storage.scan_took", { duration: humanDuration(last.duration_ms / 1000) }, `took ${humanDuration(last.duration_ms / 1000)}`) : ""],
+    [ZogographI18n.t("storage.seen_label", {}, "Seen"), humanBytes(last.bytes_seen),
+      ZogographI18n.t("storage.files_in_directories", { files: humanCount(last.files_seen), directories: humanCount(last.dirs_seen) }, `${humanCount(last.files_seen)} files in ${humanCount(last.dirs_seen)} directories`)],
+    [ZogographI18n.t("storage.scans_in_range", {}, "Scans in this range"), String(scans.rows.length),
+      scans.rows.length > 1 ? ZogographI18n.t("storage.each_chart_point", {}, "each point on the charts below") : ZogographI18n.t("storage.not_enough_trend", {}, "not enough to draw a trend")],
   ];
 
   const frag = document.createDocumentFragment();
@@ -3995,7 +3995,7 @@ function renderScanFacts(scans) {
   holder.replaceChildren(frag);
 
   $("scanNote").textContent = last.error
-    ? `The last scan reported: ${last.error}`
+    ? ZogographI18n.t("storage.last_scan_reported", { error: last.error }, `The last scan reported: ${last.error}`)
     : "";
 }
 
@@ -4040,8 +4040,8 @@ function renderFileTypes(scans) {
     cards.replaceChildren(Object.assign(document.createElement("p"), {
       className: "muted",
       textContent: (scans.rows ?? []).length
-        ? "The last scan ran before this was measured. The next one will fill it in."
-        : "No completed scan in this range.",
+        ? ZogographI18n.t("storage.types_not_measured", {}, "The last scan ran before this was measured. The next one will fill it in.")
+        : ZogographI18n.t("storage.no_scan_in_range", {}, "No completed scan in this range."),
     }));
     // A large empty chart says the scan failed even when it simply predates
     // type collection. Keep the reason near the scan facts, not in a blank

@@ -2019,6 +2019,7 @@
   "ai.try_range_missing": "No existe el intervalo {{range}}.",
   "ai.try_range_unavailable": "Este panel no ofrece el intervalo {{range}}. Ofrece: {{options}}.",
   "core-ai-get-collection-schedule.summary": "Vea con qué frecuencia se ejecuta cada recolector y cuándo lo hizo por última vez.",
+  "core-ai-get-current-status.summary": "El estado actual de la máquina en una llamada.",
   "ai.try_help": "Ejecuta una herramienta con los parámetros que elija y muestra exactamente lo que vuelve, lo mismo que recibiría el modelo y con la misma forma. Sirve para dos cosas: comprobar que una herramienta funciona en esta instalación antes de activarla y leer lo que se le comunica al modelo cuando su respuesta parece incorrecta. Nada aquí implica al modelo y nada sale de la máquina.",
   "ai.billing_title": "Facturación",
   "ai.billing_help": "Cada conversación, con los tokens que usó y en cuánto se tradujeron. Los costes se muestran solo cuando se fijan precios; sin ellos se informan conteos de tokens y no dinero, porque un precio incorrecto es peor que no tener precio.",

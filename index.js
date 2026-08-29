@@ -8362,7 +8362,7 @@ function scanTable(rows, data) {
     if (scan.pending) {
       const waiting = document.createElement("span");
       waiting.className = "band-warn small";
-      waiting.textContent = `asked ${ago(scan.pending.requested_at)}`;
+      waiting.textContent = ZogographI18n.t("scan.requested", { when: ago(scan.pending.requested_at) }, "asked {{when}}");
       actions.appendChild(waiting);
 
       const cancel = document.createElement("button");

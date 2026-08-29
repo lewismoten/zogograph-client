@@ -22320,9 +22320,9 @@ async function showAlertEmail(row) {
 
   if (mail.covered.length > 1) {
     renderTable("alertEmailCovers", mail.covered, [
-      { label: "When", render: one => whenSpan(one.raised_at) },
-      { label: "Severity", render: one => one.severity },
-      { label: "What", className: "name", render: one => one.subject },
+      { label: ZogographI18n.t("alert.when", {}, "When"), render: one => whenSpan(one.raised_at) },
+      { label: ZogographI18n.t("alert.severity", {}, "Severity"), render: one => one.severity },
+      { label: ZogographI18n.t("alert.what", {}, "What"), className: "name", render: one => one.subject },
     ], null, one => (one.id === row.id ? "row-ok" : ""), one => String(one.id));
   }
 }
@@ -22338,7 +22338,7 @@ function alertOpinion(row) {
 
   const more = document.createElement("button");
   more.className = "link small";
-  more.textContent = "details";
+  more.textContent = ZogographI18n.t("alert.details", {}, "details");
   more.addEventListener("click", () => showAlertVerdict(row));
   wrap.appendChild(more);
 
@@ -22358,7 +22358,9 @@ function showAlertVerdict(row) {
   const said = document.createElement("div");
   said.className = "day-entry";
   const head = document.createElement("strong");
-  head.textContent = row.silenced ? "It held this back" : "What it made of it";
+  head.textContent = row.silenced
+    ? ZogographI18n.t("alert.held_back", {}, "It held this back")
+    : ZogographI18n.t("alert.verdict", {}, "What it made of it");
   said.appendChild(head);
   const body = document.createElement("div");
   body.appendChild(renderMarkdown(row.ai_summary || ""));
@@ -22369,7 +22371,9 @@ function showAlertVerdict(row) {
     const why = document.createElement("div");
     why.className = "day-entry";
     const title = document.createElement("strong");
-    title.textContent = row.silenced ? "Why it was not sent" : "Why it said that";
+    title.textContent = row.silenced
+      ? ZogographI18n.t("alert.not_sent_why", {}, "Why it was not sent")
+      : ZogographI18n.t("alert.verdict_why", {}, "Why it said that");
     why.appendChild(title);
     const text = document.createElement("div");
     text.appendChild(renderMarkdown(row.ai_reason));
@@ -22381,7 +22385,7 @@ function showAlertVerdict(row) {
     const better = document.createElement("div");
     better.className = "day-entry";
     const title = document.createElement("strong");
-    title.textContent = "What would let the rule decide this itself";
+    title.textContent = ZogographI18n.t("alert.rule_advice", {}, "What would let the rule decide this itself");
     better.appendChild(title);
     const text = document.createElement("div");
     text.appendChild(renderMarkdown(row.ai_advice));

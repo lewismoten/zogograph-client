@@ -509,6 +509,7 @@
   "schedule.custom.weekday": "星期 (0–7)",
   "schedule.saved_preview": "已保存的预览",
   "schedule.installed": "当前已安装",
+  "alerts.active_mutes": "活动警报静音", "alerts.no_active_mutes": "没有暂时静音的警报规则。", "alerts.active_mutes_help": "静音需要原因并会自动到期。错误和严重警报始终会绕过它。", "alerts.active_mutes_detail": "静音的信息和警告事件仍会显示其投递原因。错误和严重警报始终会绕过静音。", "alerts.rule": "规则", "alerts.until": "截止", "alerts.end_mute": "结束静音", "alerts.end_mute_confirm": "结束 {{rule}} 的静音吗？", "alerts.mute_ended": "{{rule}} 的静音已结束。",
   "alerts.mute_reason_placeholder": "计划维护", "alerts.mute_explainer": "静音“{{rule}}”？匹配的信息和警告警报仍会被记录，但不会发送。错误和严重警报始终会绕过此静音。", "alerts.mute_for": "时长", "alerts.mute_expires": "自动到期。", "alerts.mute_reason": "原因", "alerts.mute_reason_help": "存储在保留事件和审计记录中。", "alerts.muted_until": "已将 {{rule}} 静音至 {{until}}。",
   "alerts.mute_rule": "静音规则", "alerts.delete_confirm": "删除此警报吗？其历史记录也将一并删除。", "alerts.delete_title": "删除警报", "alerts.mute_title": "暂时静音此规则",
   "alerts.mark_read_none": "标为已读", "alerts.mark_unread_none": "标为未读", "alerts.delete_none": "删除",

@@ -22563,27 +22563,27 @@ function openAlertMute(row) {
 function showAlertMutes() {
   const mutes = alertState.mutes || [];
   if (!mutes.length) {
-    showListDialog("Active alert mutes", [note("No alert rules are temporarily muted.")],
-      "A mute requires a reason and expires automatically. Error and Critical alerts always bypass it.");
+    showListDialog(ZogographI18n.t("alerts.active_mutes", {}, "Active alert mutes"), [note(ZogographI18n.t("alerts.no_active_mutes", {}, "No alert rules are temporarily muted."))],
+      ZogographI18n.t("alerts.active_mutes_help", {}, "A mute requires a reason and expires automatically. Error and Critical alerts always bypass it."));
     return;
   }
   const holder = document.createElement("div");
   holder.id = "alertMuteList";
-  showListDialog("Active alert mutes", [holder],
-    "Muted Information and Warning events remain visible with their delivery reason. Error and Critical alerts always bypass a mute.");
+  showListDialog(ZogographI18n.t("alerts.active_mutes", {}, "Active alert mutes"), [holder],
+    ZogographI18n.t("alerts.active_mutes_detail", {}, "Muted Information and Warning events remain visible with their delivery reason. Error and Critical alerts always bypass a mute."));
   renderTable("alertMuteList", mutes, [
-    { label: "Rule", render: row => row.rule },
-    { label: "Until", render: row => whenSpan(row.expires_at) },
-    { label: "Reason", className: "name", render: row => row.reason },
+    { label: ZogographI18n.t("alerts.rule", {}, "Rule"), render: row => row.rule },
+    { label: ZogographI18n.t("alerts.until", {}, "Until"), render: row => whenSpan(row.expires_at) },
+    { label: ZogographI18n.t("alerts.mute_reason", {}, "Reason"), className: "name", render: row => row.reason },
     { label: "", render: row => {
       const end = document.createElement("button");
-      end.className = "link danger"; end.textContent = "End mute";
+      end.className = "link danger"; end.textContent = ZogographI18n.t("alerts.end_mute", {}, "End mute");
       end.addEventListener("click", async () => {
-        if (!(await confirmDialog(`End the mute for ${row.rule}?`, "End mute"))) return;
+        if (!(await confirmDialog(ZogographI18n.t("alerts.end_mute_confirm", { rule: row.rule }, "End the mute for {{rule}}?"), ZogographI18n.t("alerts.end_mute", {}, "End mute")))) return;
         try {
           await post("alert-unmute", { id: row.id });
           await refreshAlerts(); await refreshBadges();
-          $("noteDialog").close(); notice(`The mute for ${row.rule} ended.`, true);
+          $("noteDialog").close(); notice(ZogographI18n.t("alerts.mute_ended", { rule: row.rule }, "The mute for {{rule}} ended."), true);
         } catch (error) { notice(String(error.message || error)); }
       });
       return end;

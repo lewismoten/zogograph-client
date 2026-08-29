@@ -2002,6 +2002,7 @@
   "ai.try_range_unavailable": "此仪表板不提供 {{range}} 范围。可用范围：{{options}}。",
   "core-ai-get-collection-schedule.summary": "查看每个收集器的运行频率及其上次运行时间。",
   "core-ai-get-current-status.summary": "一次调用获取机器当前状态。",
+  "core-ai-get-filesystems.summary": "每个已挂载的文件系统及其使用情况。",
   "ai.try_help": "使用您选择的参数运行一个工具，并准确显示返回的内容——模型会以相同形式收到同样的内容。它可用于两件事：在启用前确认工具在此安装上确实可用；以及当模型回答看似错误时，读取模型得到的信息。这里不会涉及模型，任何内容都不会离开机器。",
   "ai.billing_title": "费用",
   "ai.billing_help": "每段对话以及它使用的令牌数和相应费用。只有在设置价格时才会显示费用；未设置时这里报告令牌数而非金额，因为错误的价格比没有价格更糟。",

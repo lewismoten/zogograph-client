@@ -36,10 +36,15 @@ foreach ($modules as $module) {
 
 $english = json_decode((string)file_get_contents($root . '/locales/en.json'), true);
 aiToolPackageExpect(is_array($english), 'shared English catalog is unavailable');
-foreach (['core-ai-get-collection-schedule', 'core-ai-get-current-status', 'core-ai-get-filesystems', 'core-ai-get-recent-alerts', 'core-ai-get-measurement-history', 'core-ai-get-recent-log-lines', 'core-ai-get-repeated-log-lines'] as $package) {
+$localePackages = glob($root . '/lib/ai-tools/locales/core-ai-*', GLOB_ONLYDIR) ?: [];
+aiToolPackageExpect($localePackages !== [], 'no core AI tool package catalogs were found');
+foreach ($localePackages as $directory) {
+    $package = basename($directory);
+    aiToolPackageExpect(preg_match('/^core-ai-[a-z0-9-]{1,55}$/', $package) === 1,
+        "AI tool locale directory $package has an invalid package identity");
     aiToolPackageExpect(!isset($english[$package . '.summary']), "$package still owns its summary in the shared catalog");
     foreach (['en', 'es', 'hi', 'ar', 'zh'] as $locale) {
-        $file = $root . '/lib/ai-tools/locales/' . $package . '/' . $locale . '.json';
+        $file = $directory . '/' . $locale . '.json';
         $catalog = is_file($file) ? json_decode((string)file_get_contents($file), true) : null;
         aiToolPackageExpect(is_array($catalog) && is_string($catalog[$package . '.summary'] ?? null),
             "$package does not provide its $locale summary in its own package catalog");

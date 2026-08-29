@@ -15820,7 +15820,8 @@ function renderAiTry(data) {
     for (const tool of list) {
       const option = document.createElement("option");
       option.value = tool.name;
-      option.textContent = `${tool.name}${tool.why_not ? " (cannot be run here)" : ""}`;
+      option.textContent = tool.name + (tool.why_not
+        ? ZogographI18n.t("ai.try_cannot_run", {}, " (cannot be run here)") : "");
       option.selected = tryState.tool === tool.name;
       holder.appendChild(option);
     }
@@ -15902,7 +15903,9 @@ function renderAiTry(data) {
 
     fields.replaceChildren(...tryFields(tool));
     $("aiTryRun").disabled = Boolean(tool?.why_not);
-    $("aiTryRun").textContent = tool?.group === "pictures" ? "Run it (this costs)" : "Run it";
+    $("aiTryRun").textContent = tool?.group === "pictures"
+      ? ZogographI18n.t("ai.try_run_costs", {}, "Run it (this costs)")
+      : ZogographI18n.t("action.run", {}, "Run it");
   };
 
   pick.addEventListener("change", sync);

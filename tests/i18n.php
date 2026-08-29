@@ -9,6 +9,7 @@ $overviewCards = file_get_contents($root . '/cards/overview-vitals.js');
 $scanFactCards = file_get_contents($root . '/cards/scan-facts.js');
 $typeGrowthCard = file_get_contents($root . '/cards/type-growth.js');
 $otherExtensionsCard = file_get_contents($root . '/cards/other-extensions.js');
+$cpuQueueCard = file_get_contents($root . '/cards/cpu-queue.js');
 $setup = file_get_contents($root . '/setup.php');
 $setupPanels = file_get_contents($root . '/lib/setup-panels.php');
 $configure = file_get_contents($root . '/lib/configure.php');
@@ -78,6 +79,12 @@ i18nExpect($page !== false && str_contains($page, 'src="cards/other-extensions.j
     && str_contains($otherExtensionsCard, 'render(rows, helpers)')
     && $script !== false && str_contains($script, 'renderCoreCardPackage(ZogographOtherExtensionsCard, "core-other-extensions", rows,'),
     'storage other-extensions table is not isolated behind its core card-module boundary');
+i18nExpect($page !== false && str_contains($page, 'src="cards/cpu-queue.js"')
+    && $cpuQueueCard !== false && str_contains($cpuQueueCard, 'window.ZogographCpuQueueCard')
+    && str_contains($cpuQueueCard, 'id: "core-cpu-queue"') && str_contains($cpuQueueCard, 'locales: ["cpu."]')
+    && str_contains($cpuQueueCard, 'render(input, helpers)')
+    && $script !== false && str_contains($script, 'renderCoreCardPackage(ZogographCpuQueueCard, "core-cpu-queue", { now, sample },'),
+    'CPU queue cards are not isolated behind their core card-module boundary');
 i18nExpect($script !== false && str_contains($script, 'function humanDuration(seconds)')
     && str_contains($script, '"duration.value"')
     && is_array($english) && isset($english['duration.value']),

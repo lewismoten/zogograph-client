@@ -1387,40 +1387,11 @@ function renderCpuQueue(data) {
 
   const holder = $("cpuQueueCards");
   if (holder) holder.replaceChildren();
-
-  const card = (label, value, sub, level = "") =>
-    setHostCard(label, value, sub, level, "", "cpuQueueCards");
-
-  const running = now?.procs_running ?? null;
-  const blocked = now?.procs_blocked ?? null;
   const load = sample.load1 == null ? null : Number(sample.load1);
-
-  card(ZogographI18n.t("cpu.wanting_to_run", {}, "Wanting to run"), running == null ? "—" : String(running),
-    cores ? ZogographI18n.t("cpu.across_cores", { count: cores }, "across {{count, number}} cores") : ZogographI18n.t("cpu.cores_unknown", {}, "cores unknown"),
-    running != null && cores && running > cores * 2 ? "warn" : "");
-
-  card(ZogographI18n.t("cpu.blocked_in_kernel", {}, "Blocked in the kernel"), blocked == null ? "—" : String(blocked),
-    ZogographI18n.t("cpu.uninterruptible_storage", {}, "uninterruptible — waiting on storage"),
-    blocked != null && blocked >= 4 ? "warn" : "");
-
-  card(ZogographI18n.t("cpu.load_one_minute", {}, "Load, one minute"), load == null ? "—" : load.toFixed(2),
-    // Said every time it is shown, because it is the most misread number on
-    // any Linux dashboard: it counts blocked tasks, which use no processor.
-    ZogographI18n.t("cpu.queue_not_cpu", {}, "a queue length, not a CPU reading"));
-
-  const pressure = now?.cpu_pressure_some ?? null;
-  card(ZogographI18n.t("cpu.waiting_for_core", {}, "Waiting for a core"), pressure == null ? "—" : `${Number(pressure).toFixed(0)}%`,
-    pressure == null
-      ? ZogographI18n.t("cpu.no_pressure_stall", {}, "no pressure stall info on this kernel")
-      : ZogographI18n.t("cpu.last_ten_seconds", {}, "share of the last ten seconds"),
-    pressure != null && pressure >= 20 ? "warn" : "");
-
-  card(ZogographI18n.t("cpu.context_switches", {}, "Context switches"), now?.ctxt_rate == null ? "—" : `${humanCount(now.ctxt_rate)}/s`,
-    ZogographI18n.t("cpu.scheduler_change", {}, "the scheduler changing its mind"));
-  card(ZogographI18n.t("cpu.interrupts", {}, "Interrupts"), now?.intr_rate == null ? "—" : `${humanCount(now.intr_rate)}/s`,
-    ZogographI18n.t("cpu.devices_attention", {}, "devices asking for attention"));
-  card(ZogographI18n.t("cpu.new_processes", {}, "New processes"), now?.fork_rate == null ? "—" : `${humanCount(now.fork_rate)}/s`,
-    ZogographI18n.t("cpu.forks_execs_second", {}, "forks and execs per second"));
+  renderCoreCardPackage(ZogographCpuQueueCard, "core-cpu-queue", { now, sample }, {
+    setCard: (label, value, sub, level = "") => setHostCard(label, value, sub, level, "", "cpuQueueCards"),
+    humanCount, i18n: ZogographI18n,
+  });
 
   $("cpuQueueNote").textContent = cpuQueueVerdict(now, load, cores);
 

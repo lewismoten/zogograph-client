@@ -1199,6 +1199,7 @@
   "page.document_title": "{{page}} · Zogograph",
   "page.title": "{{page}} — Zogograph अवसंरचना अवलोकन",
   "table.download_rows": "{{count, number}} पंक्तियाँ {{format}} के रूप में डाउनलोड करें",
+  "table.nothing_to_show": "दिखाने के लिए कुछ नहीं है।",
   "table.sort_by": "{{label}} के अनुसार क्रमित करें",
   "table.rows_total": "{{count, number}} पंक्तियाँ",
   "table.rows_shown": "{{total, number}} में से {{shown, number}} पंक्तियाँ दिखाई जा रही हैं",

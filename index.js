@@ -3565,7 +3565,7 @@ function renderTable(target, rows, columns, onRowClick, rowClass, key) {
     if (TABLE_DREW.get(target) !== "empty") {
       TABLE_DREW.set(target, "empty");
       el.replaceChildren(Object.assign(document.createElement("p"), {
-        className: "muted", textContent: "Nothing to show.",
+        className: "muted", textContent: ZogographI18n.t("table.nothing_to_show", {}, "Nothing to show."),
       }));
     }
     return;

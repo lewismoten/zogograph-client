@@ -1218,6 +1218,7 @@
   "page.document_title": "{{page}} · Zogograph",
   "page.title": "{{page}} — Zogograph infrastructure observation",
   "table.download_rows": "Download {{count, number}} rows as {{format}}",
+  "table.nothing_to_show": "Nothing to show.",
   "table.sort_by": "Sort by {{label}}",
   "table.rows_total": "{{count, number}} rows",
   "table.rows_shown": "Showing {{shown, number}} of {{total, number}} rows",

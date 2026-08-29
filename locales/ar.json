@@ -1199,6 +1199,7 @@
   "page.document_title": "{{page}} · Zogograph",
   "page.title": "{{page}} — مراقبة البنية التحتية لـ Zogograph",
   "table.download_rows": "نزّل {{count, number}} صفًا بصيغة {{format}}",
+  "table.nothing_to_show": "لا يوجد ما يمكن عرضه.",
   "table.sort_by": "فرز حسب {{label}}",
   "table.rows_total": "{{count, number}} صفًا",
   "table.rows_shown": "يتم عرض {{shown, number}} من {{total, number}} صفًا",

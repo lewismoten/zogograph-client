@@ -1199,6 +1199,7 @@
   "page.document_title": "{{page}} · Zogograph",
   "page.title": "{{page}} — Zogograph 基础设施观测",
   "table.download_rows": "将 {{count, number}} 行下载为 {{format}}",
+  "table.nothing_to_show": "没有可显示的内容。",
   "table.sort_by": "按 {{label}} 排序",
   "table.rows_total": "{{count, number}} 行",
   "table.rows_shown": "显示 {{total, number}} 行中的 {{shown, number}} 行",

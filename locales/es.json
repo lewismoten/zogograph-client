@@ -1203,6 +1203,7 @@
   "page.document_title": "{{page}} · Zogograph",
   "page.title": "{{page}} — observación de infraestructura de Zogograph",
   "table.download_rows": "Descargar {{count, number}} filas como {{format}}",
+  "table.nothing_to_show": "No hay nada que mostrar.",
   "table.sort_by": "Ordenar por {{label}}",
   "table.rows_total": "{{count, number}} filas",
   "table.rows_shown": "Se muestran {{shown, number}} de {{total, number}} filas",

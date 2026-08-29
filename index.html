@@ -1334,10 +1334,10 @@
 <section class="view" data-view="net-ports" hidden>
 <section class="panel" id="portsPanel">
   <div class="panel-head">
-    <h2>Open ports</h2>
-    <label class="pill"><input type="checkbox" id="portsPublicOnly"> Reachable from outside only</label>
+    <h2 data-i18n="network.open_ports_title">Open ports</h2>
+    <label class="pill"><input type="checkbox" id="portsPublicOnly"><span data-i18n="network.ports_public_only">Reachable from outside only</span></label>
   </div>
-  <p class="muted small sub-note">
+  <p class="muted small sub-note" data-i18n="network.open_ports_help">
     What is listening, and what usually answers on each port. A port number is a
     convention rather than a fact — anything may bind 443 — so the service column
     is the <em>expectation</em> and the process column is the reality. Where they

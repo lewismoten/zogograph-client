@@ -4267,7 +4267,7 @@ function renderOtherExtensions(rows) {
     message.className = "muted";
     message.append("Nothing landed in ");
     const other = document.createElement("code");
-    other.textContent = "other";
+    other.textContent = ZogographI18n.t("chart.other", {}, "Other");
     message.append(other, ", or the last scan ran before this was measured.");
     $("otherExtensions").replaceChildren(message);
     return;

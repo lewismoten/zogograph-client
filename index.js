@@ -5821,6 +5821,11 @@ function renderAiSettings(data) {
       "lib/config.php is not writable by the web server, so this page can show the "
       + "settings but not change them."
     ));
+  } else if (!data.can_change) {
+    parts.push(note(
+      "Your signed-in role can use the assistant but cannot change its configuration. "
+      + "Sign in with an administrator account to save provider credentials or model settings."
+    ));
   }
 
   if (data.enabled && !data.ready) {
@@ -6264,7 +6269,7 @@ function renderAiSettings(data) {
     const save = document.createElement("button");
     save.type = "submit";
     save.textContent = ZogographI18n.t("ai.save_settings", {}, "Save these settings");
-    save.disabled = !data.writable;
+    save.disabled = !data.writable || !data.can_change;
     actions.appendChild(save);
 
     const said = document.createElement("span");

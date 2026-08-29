@@ -4807,6 +4807,7 @@ function emailSettings(array $config, PDO $pdo, bool $signedIn): array
         'mail_available' => function_exists('mail'),
         'recent' => $last,
         'writable' => configuredSettingsWritable(__DIR__ . '/lib/config.php'),
+        'can_change' => accessAllows($config, 'write'),
     ];
 }
 

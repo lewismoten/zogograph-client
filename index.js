@@ -25326,13 +25326,13 @@ function renderCapture(capture, target = "captureBody") {
   if (!body) return;
 
   if (!capture) {
-    body.replaceChildren(note("No capture has been taken yet."));
+    body.replaceChildren(note(ZogographI18n.t("network.capture_empty")));
     return;
   }
 
   if (!capture.ok) {
     body.replaceChildren(
-      note(`The capture of ${humanTime(capture.taken_at)} did not run: ${capture.reason}`)
+      note(ZogographI18n.t("network.capture_failed", { time: humanTime(capture.taken_at), reason: capture.reason }))
     );
     return;
   }
@@ -25349,25 +25349,28 @@ function renderCapture(capture, target = "captureBody") {
    * compare; totals do not.
    */
   const facts = [
-    ["Taken", `${humanTime(capture.taken_at)} (${ago(capture.taken_at)})`],
-    ["Interface and filter", `${capture.interface} \u00b7 ${capture.filter_label || capture.filter}`],
-    ["Over", `${seconds}s`],
-    ["Packets", seconds > 0
-      ? `${humanCount(packets)} \u2014 ${humanCount(Math.round(packets / seconds))} a second`
+    [ZogographI18n.t("network.taken"), `${humanTime(capture.taken_at)} (${ago(capture.taken_at)})`],
+    [ZogographI18n.t("network.interface_filter"), `${capture.interface} \u00b7 ${capture.filter_label || capture.filter}`],
+    [ZogographI18n.t("network.over"), `${seconds}s`],
+    [ZogographI18n.t("network.packets"), seconds > 0
+      ? ZogographI18n.t("network.packets_rate", { packets: humanCount(packets), rate: humanCount(Math.round(packets / seconds)) })
       : humanCount(packets)],
-    ["Arriving", `${humanCount(capture.in_packets)} packets, ${humanBytes(capture.in_bytes)}`
-      + (seconds > 0 ? ` \u2014 ${humanBytes(capture.in_bytes / seconds)}/s` : "")],
-    ["Leaving", `${humanCount(capture.out_packets)} packets, ${humanBytes(capture.out_bytes)}`
-      + (seconds > 0 ? ` \u2014 ${humanBytes(capture.out_bytes / seconds)}/s` : "")],
-    ["Distinct remote addresses", humanCount(capture.distinct_peers)],
+    [ZogographI18n.t("network.arriving"), ZogographI18n.t("network.capture_direction_detail", {
+      packets: humanCount(capture.in_packets), bytes: humanBytes(capture.in_bytes),
+      rate: seconds > 0 ? ` — ${humanBytes(capture.in_bytes / seconds)}/s` : "",
+    })],
+    [ZogographI18n.t("network.leaving"), ZogographI18n.t("network.capture_direction_detail", {
+      packets: humanCount(capture.out_packets), bytes: humanBytes(capture.out_bytes),
+      rate: seconds > 0 ? ` — ${humanBytes(capture.out_bytes / seconds)}/s` : "",
+    })],
+    [ZogographI18n.t("network.distinct_remote_addresses"), humanCount(capture.distinct_peers)],
   ];
 
   if (Number(capture.distinct_names) > 0) {
-    facts.push(["Distinct names asked for", humanCount(capture.distinct_names)]);
+    facts.push([ZogographI18n.t("network.distinct_names_asked"), humanCount(capture.distinct_names)]);
   }
   if (capture.unparsed > 0) {
-    facts.push(["Counted but not attributed", `${humanCount(capture.unparsed)} \u2014 `
-      + "ARP, ICMP and anything not in a shape this parses"]);
+    facts.push([ZogographI18n.t("network.counted_unattributed"), ZogographI18n.t("network.unparsed_detail", { count: humanCount(capture.unparsed) })]);
   }
   if (capture.inferred_local) {
     /*
@@ -25378,15 +25381,13 @@ function renderCapture(capture, target = "captureBody") {
      * is still a guess, and a guess presented as a measurement is how a report
      * quietly becomes wrong.
      */
-    facts.push(["This machine assumed to be", `${capture.inferred_local} \u2014 inferred from `
-      + "appearing in most packets, because its addresses could not be read directly"]);
+    facts.push([ZogographI18n.t("network.inferred_machine"), ZogographI18n.t("network.inferred_machine_detail", { address: capture.inferred_local })]);
   }
   if (capture.hit_limit) {
-    facts.push(["Stopped early", "The packet ceiling was reached before the time ran out, so "
-      + "this covers the first part of the period rather than all of it."]);
+    facts.push([ZogographI18n.t("network.stopped_early"), ZogographI18n.t("network.stopped_early_detail")]);
   }
 
-  parts.push(section("The sample", factGrid(facts)));
+  parts.push(section(ZogographI18n.t("network.the_sample"), factGrid(facts)));
 
   /*
    * The flags, because they say what kind of busy this is.

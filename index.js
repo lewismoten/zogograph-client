@@ -20562,22 +20562,23 @@ function renderTrackSummary(tracks, to) {
     const said = [];
 
     if (track.unreadable) {
-      said.push("its database cannot be read from this account, so nothing can be said "
-        + "about whether it is running");
+      said.push(ZogographI18n.t("uptime.track_unreadable", {},
+        "its database cannot be read from this account, so nothing can be said about whether it is running"));
     } else if (!track.readings) {
-      said.push("nothing recorded in this window");
+      said.push(ZogographI18n.t("uptime.track_nothing_recorded", {}, "nothing recorded in this window"));
     } else {
-      said.push(`${humanCount(track.readings)} readings`);
-      if (track.interval) said.push(`about every ${humanSpan(track.interval)}`);
+      said.push(ZogographI18n.t("uptime.track_readings", { count: track.readings }, "{{count, number}} readings"));
+      if (track.interval) said.push(ZogographI18n.t("uptime.track_every", { duration: humanSpan(track.interval) }, "about every {{duration}}"));
 
       const age = to - track.last;
       const late = track.interval && age > track.interval * 2.5;
-      said.push(`last one ${humanSpan(age)} ago${late ? " — later than usual" : ""}`);
+      said.push(ZogographI18n.t(late ? "uptime.track_last_late" : "uptime.track_last", { duration: humanSpan(age) },
+        late ? "last one {{duration}} ago — later than usual" : "last one {{duration}} ago"));
 
       const holes = (track.gaps || []).length;
-      if (holes) said.push(`${count(holes, "gap")} in this window`);
+      if (holes) said.push(ZogographI18n.t("uptime.track_gaps", { count: holes }, "{{count, number}} gaps in this window"));
       if ((track.marks || []).length) {
-        said.push(`${count(track.marks.length, "request")} answered`);
+        said.push(ZogographI18n.t("uptime.track_requests_answered", { count: track.marks.length }, "{{count, number}} requests answered"));
       }
     }
 

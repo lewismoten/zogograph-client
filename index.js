@@ -12208,10 +12208,10 @@ function renderEncryptionStatus(data) {
     ]);
   }
   if (data.mode === "sealed_copies_local" && data.policy) {
-    overview.push(["Copy schedule", data.policy.backup_schedule || "manual"]);
+    overview.push([ZogographI18n.t("encryption.copy_schedule", {}, "Copy schedule"), data.policy.backup_schedule || ZogographI18n.t("encryption.manual", {}, "manual")]);
     const tiers = Object.entries(data.policy.retention_tiers || {}).filter(([, copies]) => Number(copies) > 0).map(([tier, copies]) => `${copies} ${tier}`);
-    overview.push(["Local retention", Number(data.policy.retention_days) === 0 ? "Keep every copy" : `${data.policy.retention_days} days${tiers.length ? ` · plus ${tiers.join(", ")}` : ""}`]);
-    overview.push(["Recovery-drill review", Number(data.policy.recovery_drill_review_days) === 0 ? "Initial drill only" : `Every ${data.policy.recovery_drill_review_days} days`]);
+    overview.push([ZogographI18n.t("encryption.local_retention", {}, "Local retention"), Number(data.policy.retention_days) === 0 ? ZogographI18n.t("encryption.keep_every_copy", {}, "Keep every copy") : ZogographI18n.t("encryption.retention_days", { days: data.policy.retention_days, tiers: tiers.length ? ` · plus ${tiers.join(", ")}` : "" }, "{{days}} days{{tiers}}")]);
+    overview.push([ZogographI18n.t("encryption.recovery_drill_review", {}, "Recovery-drill review"), Number(data.policy.recovery_drill_review_days) === 0 ? ZogographI18n.t("encryption.initial_drill_only", {}, "Initial drill only") : ZogographI18n.t("encryption.every_days", { days: data.policy.recovery_drill_review_days }, "Every {{days}} days")]);
   }
   if (data.waiting_stores?.length) overview.push(["Waiting until present", data.waiting_stores.join(", ")]);
   const drilled = (data.artifacts || []).filter(row => Number(row.last_recovery_drill_at || 0) > 0).length;

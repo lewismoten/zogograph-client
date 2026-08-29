@@ -1,0 +1,19 @@
+{
+  "zogograph-key-custody.settings_title": "रिमोट कुंजी कस्टडी सेटिंग्स",
+  "zogograph-key-custody.service_url": "कस्टडी सेवा URL",
+  "zogograph-key-custody.service_url_help": "सेवा रूट या उसका /v1 API रूट उपयोग करें। नामांकन संदर्भ जोड़ने से पहले कस्टडी एंडपॉइंट परीक्षण चलाएं।",
+  "zogograph-key-custody.tenant_id": "टेनेंट ID",
+  "zogograph-key-custody.tenant_id_help": "नामांकन से मिला ten_… पहचानकर्ता। यह क्रेडेंशियल नहीं है।",
+  "zogograph-key-custody.key_id": "सक्रिय कस्टडी कुंजी ID",
+  "zogograph-key-custody.key_id_help": "ग्राहक प्रबंधन API के जरिए यह कुंजी बनाएं या चुनें। यह केवल रिमोट रैपिंग कुंजी को पहचानती है; यह टोकन या गुप्त नहीं है।",
+  "zogograph-key-custody.tls_pin": "TLS सार्वजनिक-कुंजी पिन",
+  "zogograph-key-custody.tls_pin_help": "वैकल्पिक। अनुशंसित सामान्य CA/होस्टनाम सत्यापन के लिए खाली छोड़ें। पिन के लिए एंडपॉइंट प्रमाणपत्र-कुंजी रोटेशन योजना चाहिए।",
+  "zogograph-key-custody.cache": "डेटा-कुंजी कैश",
+  "zogograph-key-custody.cache_help": "अनुशंसित: 0 सेकंड। शून्येतर कैश रिलीज़ की गई डेटा कुंजी को समाप्त होने तक उपयोग योग्य रख सकता है; 900 सेकंड अधिकतम है।",
+  "zogograph-key-custody.credential_reference": "क्लाइंट क्रेडेंशियल संदर्भ",
+  "zogograph-key-custody.credential_reference_help": "24 घंटों के भीतर सफल एंडपॉइंट परीक्षण के बाद एन्क्रिप्टेड पैकेज गुप्त बनाएं और केवल उसका secret_ref: मान चिपकाएं। यहां कच्चा bearer टोकन कभी न चिपकाएं।",
+  "zogograph-key-custody.signing_reference": "क्लाइंट हस्ताक्षर-कुंजी संदर्भ",
+  "zogograph-key-custody.signing_reference_help": "उसी परीक्षण के बाद एक बार उपयोग होने वाली Base64 Ed25519 हस्ताक्षर कुंजी के लिए दूसरा एन्क्रिप्टेड पैकेज गुप्त बनाएं। निजी कुंजी यहां कभी न चिपकाएं।",
+  "zogograph-key-custody.save_action": "कस्टडी सेटिंग्स सहेजें",
+  "zogograph-key-custody.saved": "रिमोट कस्टडी सेटिंग्स सहेजी गईं। सफल एंडपॉइंट जांच रिमोट कस्टडी को सक्रिय नहीं करती।"
+}

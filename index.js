@@ -19455,7 +19455,9 @@ async function refreshHostDisk() {
     const el = $(id);
     // Only when there is nothing there yet: replacing a drawn page with a
     // spinner every poll would be worse than the blank it replaces.
-    if (el && !el.childElementCount) el.replaceChildren(spinner("Reading the last walk\u2026"));
+    if (el && !el.childElementCount) el.replaceChildren(spinner(
+      ZogographI18n.t("host.walk_loading", {}, "Reading the last walk\u2026")
+    ));
   }
 
   let data;
@@ -19467,7 +19469,7 @@ async function refreshHostDisk() {
   }
 
   if (!data.available) {
-    everywhere(data.reason || "No disk walk recorded.");
+    everywhere(data.reason || ZogographI18n.t("host.no_disk_walk", {}, "No disk walk recorded."));
     renderWalkButton(data);
     return;
   }
@@ -19660,19 +19662,22 @@ function walkButton(data) {
 
   if (data.pending) {
     box.className = "muted small";
-    box.textContent = `A walk was requested ${ago(data.requested_at)} and is waiting for the `
-      + "next host collection. It runs on the collector's schedule — every five minutes with "
-      + "the suggested crontab line.";
+    box.textContent = ZogographI18n.t("host.walk_pending", {
+      ago: ago(data.requested_at),
+    }, "A walk was requested {{ago}} and is waiting for the next host collection. It runs on the collector's schedule — every five minutes with the suggested crontab line.");
     return box;
   }
 
   const button = document.createElement("button");
-  button.textContent = data.taken_at ? "Walk the disk again" : "Walk the disk";
+  button.textContent = data.taken_at
+    ? ZogographI18n.t("host.walk_disk_again", {}, "Walk the disk again")
+    : ZogographI18n.t("host.walk_disk", {}, "Walk the disk");
   button.addEventListener("click", async () => {
     button.disabled = true;
     try {
       await post("request-host-walk");
-      notice("Requested. The host collector will walk the disk on its next run.");
+      notice(ZogographI18n.t("host.walk_requested", {},
+        "Requested. The host collector will walk the disk on its next run."));
       await refreshHostDisk();
     } catch (error) {
       notice(String(error.message || error));

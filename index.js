@@ -11618,7 +11618,7 @@ async function showNoteDialog(preset = {}) {
 
   const save = document.createElement("button");
   save.type = "submit";
-  save.textContent = "Save it";
+  save.textContent = ZogographI18n.t("action.save", {}, "Save it");
   actions.appendChild(save);
   parts.push(actions);
 
@@ -11706,7 +11706,7 @@ async function showNoteDialog(preset = {}) {
       notice(String(error.message || error));
     } finally {
       save.disabled = false;
-      save.textContent = "Save it";
+      save.textContent = ZogographI18n.t("action.save", {}, "Save it");
     }
   };
 

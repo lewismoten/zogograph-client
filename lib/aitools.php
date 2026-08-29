@@ -42,6 +42,7 @@ require_once __DIR__ . '/ai-tools/recent-log-lines.php';
 require_once __DIR__ . '/ai-tools/repeated-log-lines.php';
 require_once __DIR__ . '/ai-tools/crowded-directories.php';
 require_once __DIR__ . '/ai-tools/busiest-processes.php';
+require_once __DIR__ . '/ai-tools/site-check-results.php';
 
 /**
  * Every tool, with its schema and how it runs.
@@ -63,6 +64,7 @@ function aiToolCatalogue(): array
         ...aiToolRepeatedLogLinesPackage(),
         ...aiToolCrowdedDirectoriesPackage(),
         ...aiToolBusiestProcessesPackage(),
+        ...aiToolSiteCheckResultsPackage(),
 
         /* ------------------------------------------------- what is wrong -- */
 
@@ -109,31 +111,6 @@ function aiToolCatalogue(): array
                     'type' => 'integer', 'minimum' => 1, 'maximum' => 40,
                     'required' => false, 'default' => 15,
                     'description' => 'How many paths to return.',
-                ],
-            ],
-        ],
-
-        'get_site_check_results' => [
-            'group' => 'diagnostic',
-            'where' => 'server',
-            'permission' => false,
-            'summary' => 'Whether the watched addresses are answering.',
-            'description' =>
-                "Returns the configured URL checks with their most recent result, response "
-                . "time, and how often each has failed recently.\n\n"
-                . "USE THIS WHEN THE USER SAYS THE SITE IS DOWN, SLOW, OR RETURNING "
-                . "ERRORS. These are the only measurements here taken from outside the "
-                . "machine: every internal reading can be perfectly healthy while the site "
-                . "returns 500, and this is the one thing that would notice.\n\n"
-                . "DO NOT use this for problems the user has described as internal - a "
-                . "full disk, a slow database, a cron that stopped.\n\n"
-                . "If it returns no checks at all, say so: it means nobody has configured "
-                . "one, not that the site is fine.",
-            'parameters' => [
-                'hours' => [
-                    'type' => 'integer', 'minimum' => 1, 'maximum' => 720,
-                    'required' => false, 'default' => 24,
-                    'description' => 'How far back to summarise failures.',
                 ],
             ],
         ],

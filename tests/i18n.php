@@ -43,6 +43,9 @@ i18nExpect($script !== false && str_contains($script, 'function humanDuration(se
     && str_contains($script, '"duration.value"')
     && is_array($english) && isset($english['duration.value']),
     'duration values do not honor the selected locale');
+i18nExpect($script !== false && str_contains($script, 'function humanWhen(seconds, long = false)')
+    && str_contains($script, 'new Intl.RelativeTimeFormat(document.documentElement.lang || undefined,'),
+    'relative time values do not honor the selected locale');
 i18nExpect($script !== false && str_contains($script, 'ZogographI18n.t("image.note_screenshot"')
     && str_contains($script, 'ZogographI18n.t("image.send_screenshot"'),
     'dashboard fixed image descriptions do not use the locale catalog');

@@ -310,8 +310,24 @@ function humanSpan(seconds, long = false) {
 /** The same span with its direction said out loud, because a minus sign is missable. */
 function humanWhen(seconds, long = false) {
   if (!Number.isFinite(seconds)) return "—";
-  if (Math.abs(seconds) < 60) return "now";
-  return seconds > 0 ? `in ${humanSpan(seconds, long)}` : `${humanSpan(seconds, long)} ago`;
+  const magnitude = Math.abs(seconds);
+  const [unit, divisor] = magnitude >= SPAN_YEAR
+    ? ["year", SPAN_YEAR]
+    : magnitude >= SPAN_MONTH
+      ? ["month", SPAN_MONTH]
+      : magnitude >= SPAN_WEEK
+        ? ["week", SPAN_WEEK]
+        : magnitude >= SPAN_DAY
+          ? ["day", SPAN_DAY]
+          : magnitude >= SPAN_HOUR
+            ? ["hour", SPAN_HOUR]
+            : magnitude >= SPAN_MINUTE
+              ? ["minute", SPAN_MINUTE]
+              : ["second", 1];
+  return new Intl.RelativeTimeFormat(document.documentElement.lang || undefined, {
+    numeric: "auto",
+    style: long ? "long" : "short",
+  }).format(Math.round(seconds / divisor), unit);
 }
 
 function humanDuration(seconds) {

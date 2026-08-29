@@ -115,6 +115,8 @@
   "display.voice_ready": "إعدادات صوت Zogograph جاهزة.",
   "action.continue": "متابعة",
   "dialog.please_confirm": "يرجى التأكيد",
+  "display.preferences": "تفضيلات العرض",
+  "display.apply": "طبّق خيارات العرض",
   "ai.start_new": "ابدأ محادثة جديدة",
   "terminal.copy_output": "نسخ المخرجات",
   "terminal.switch_on": "شغّله",

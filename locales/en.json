@@ -115,6 +115,8 @@
   "display.voice_ready": "Zogograph voice settings are ready.",
   "action.continue": "Continue",
   "dialog.please_confirm": "Please confirm",
+  "display.preferences": "Display preferences",
+  "display.apply": "Apply display choices",
   "ai.start_new": "Start a new one",
   "terminal.copy_output": "Copy the output",
   "terminal.switch_on": "Switch it on",

@@ -15750,7 +15750,7 @@ function openDisplayPreferences() {
   const volume = document.createElement("input"); volume.type = "range"; volume.min = "0"; volume.max = "1"; volume.step = ".1"; volume.value = String(current.volume);
   const test = document.createElement("button"); test.type = "button"; test.className = "link"; test.textContent = ZogographI18n.t("display.test_voice", {}, "Test voice");
   test.addEventListener("click", () => { const utterance = configureUtterance(new SpeechSynthesisUtterance(ZogographI18n.t("display.voice_ready", {}, "Zogograph voice settings are ready."))); const selected = (window.speechSynthesis?.getVoices() || []).find(item => item.voiceURI === voice.value); if (selected) utterance.voice = selected; utterance.rate = Number(rate.value); utterance.pitch = Number(pitch.value); utterance.volume = Number(volume.value); window.speechSynthesis?.cancel(); window.speechSynthesis?.speak(utterance); });
-  showFormDialog("Display preferences", [
+  showFormDialog(ZogographI18n.t("display.preferences", {}, "Display preferences"), [
     fieldRow("Text size", textSize, "Applies to this browser only."),
     fieldRow("Motion", motion, "Reduce motion disables decorative animation and transitions in this browser."),
     fieldRow("Editor typeface", editorFont, "Changes only local code, diff, and syntax readers. No file content leaves this browser."),
@@ -15765,7 +15765,7 @@ function openDisplayPreferences() {
   ], async () => {
     applyDisplayPreferences({ textSize: textSize.value, motion: motion.value, editorFont: editorFont.value, colorVision: colorVision.value, speaking: speaking.value, listening: listening.value, voice: voice.value, rate: Number(rate.value), pitch: Number(pitch.value), volume: Number(volume.value) });
     redrawCharts(document);
-  }, "Apply display choices");
+  }, ZogographI18n.t("display.apply", {}, "Apply display choices"));
 }
 
 applyDisplayPreferences(displayPreferences(), false);

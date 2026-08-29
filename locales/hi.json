@@ -115,6 +115,8 @@
   "display.voice_ready": "Zogograph की आवाज़ सेटिंग तैयार हैं।",
   "action.continue": "जारी रखें",
   "dialog.please_confirm": "कृपया पुष्टि करें",
+  "display.preferences": "डिस्प्ले प्राथमिकताएँ",
+  "display.apply": "डिस्प्ले विकल्प लागू करें",
   "ai.start_new": "नई बातचीत शुरू करें",
   "terminal.copy_output": "आउटपुट कॉपी करें",
   "terminal.switch_on": "इसे चालू करें",

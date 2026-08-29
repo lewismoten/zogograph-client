@@ -115,6 +115,8 @@
   "display.voice_ready": "Zogograph 语音设置已就绪。",
   "action.continue": "继续",
   "dialog.please_confirm": "请确认",
+  "display.preferences": "显示首选项",
+  "display.apply": "应用显示选项",
   "ai.start_new": "开始新对话",
   "terminal.copy_output": "复制输出",
   "terminal.switch_on": "启用它",

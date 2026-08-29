@@ -115,6 +115,8 @@
   "display.voice_ready": "La configuración de voz de Zogograph está lista.",
   "action.continue": "Continuar",
   "dialog.please_confirm": "Confirme, por favor",
+  "display.preferences": "Preferencias de visualización",
+  "display.apply": "Aplicar opciones de visualización",
   "ai.start_new": "Iniciar una nueva",
   "terminal.copy_output": "Copiar la salida",
   "terminal.switch_on": "Activarlo",

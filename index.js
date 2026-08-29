@@ -12769,7 +12769,7 @@ function showNoteDetails(row) {
   if (row.link) nodes.push(externalLink(row.link));
   if (row.snapshots) {
     const captured = document.createElement("button");
-    captured.className = "link"; captured.textContent = "What it captured";
+    captured.className = "link"; captured.textContent = ZogographI18n.t("notes.what_captured", {}, "What it captured");
     captured.addEventListener("click", () => showNoteSnapshots(row));
     nodes.push(captured);
   }
@@ -12798,8 +12798,8 @@ function noteActions(row) {
   if (row.view && VIEWS[row.view]) {
     const go = document.createElement("button");
     go.className = "link";
-    go.textContent = "Go there";
-    go.title = `Open ${VIEWS[row.view].label}`;
+    go.textContent = ZogographI18n.t("action.go_there", {}, "Go there");
+    go.title = ZogographI18n.t("notes.open_view", { view: VIEWS[row.view].label }, "Open {{view}}");
     go.addEventListener("click", () => { location.hash = `#/${row.view}?range=${state.range}`; });
     wrap.appendChild(go);
   }
@@ -12807,7 +12807,7 @@ function noteActions(row) {
   if (row.snapshots) {
     const get = document.createElement("button");
     get.className = "link";
-    get.textContent = "What it captured";
+    get.textContent = ZogographI18n.t("notes.what_captured", {}, "What it captured");
     get.addEventListener("click", () => showNoteSnapshots(row));
     wrap.appendChild(get);
   }
@@ -12815,8 +12815,8 @@ function noteActions(row) {
   if (row.broadcast && !row.cleared_at) {
     const clear = document.createElement("button");
     clear.className = "link";
-    clear.textContent = "Clear it";
-    clear.title = "Stop showing this to everyone";
+    clear.textContent = ZogographI18n.t("notes.clear", {}, "Clear it");
+    clear.title = ZogographI18n.t("notes.clear_title", {}, "Stop showing this to everyone");
     clear.addEventListener("click", async () => {
       try {
         await post("note-clear", { id: row.id });

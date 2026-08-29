@@ -384,7 +384,7 @@ function whenLabel(epoch) {
   const midnight = new Date(now);
   midnight.setHours(0, 0, 0, 0);
 
-  const clock = at.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
+  const clock = at.toLocaleTimeString(document.documentElement.lang || undefined, { hour: "2-digit", minute: "2-digit" });
 
   if (at >= midnight) return clock;
 
@@ -392,10 +392,10 @@ function whenLabel(epoch) {
   weekAgo.setDate(weekAgo.getDate() - 6);
 
   if (at >= weekAgo) {
-    return `${at.toLocaleDateString(undefined, { weekday: "short" })} ${clock}`;
+    return `${at.toLocaleDateString(document.documentElement.lang || undefined, { weekday: "short" })} ${clock}`;
   }
 
-  const day = at.toLocaleDateString(undefined, { day: "numeric", month: "short" });
+  const day = at.toLocaleDateString(document.documentElement.lang || undefined, { day: "numeric", month: "short" });
 
   return at.getFullYear() === now.getFullYear()
     ? `${day} ${clock}`
@@ -415,18 +415,18 @@ function whenRange(from, to) {
   const b = whenLabel(to);
 
   // A rough proxy for "carries more of the date": the longer label does.
-  if (a.length === b.length) return `${a} to ${b}`;
+  if (a.length === b.length) return `${a} ${ZogographI18n.t("time.range_to", {}, "to")} ${b}`;
 
   const wordy = at => {
     const when = new Date(at * 1000);
-    const day = when.toLocaleDateString(undefined, { day: "numeric", month: "short" });
-    const clock = when.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
+    const day = when.toLocaleDateString(document.documentElement.lang || undefined, { day: "numeric", month: "short" });
+    const clock = when.toLocaleTimeString(document.documentElement.lang || undefined, { hour: "2-digit", minute: "2-digit" });
     return when.getFullYear() === new Date().getFullYear()
       ? `${day} ${clock}`
       : `${day} ${when.getFullYear()} ${clock}`;
   };
 
-  return `${wordy(from)} to ${wordy(to)}`;
+  return `${wordy(from)} ${ZogographI18n.t("time.range_to", {}, "to")} ${wordy(to)}`;
 }
 
 /**

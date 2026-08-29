@@ -617,6 +617,7 @@
   "table.means": "Means",
   "whois.registry_wording": "As the registry writes it",
   "duration.value": "{{value, unit}}",
+  "time.range_to": "to",
   "table.name": "Name",
   "table.header": "Header",
   "table.says": "Says",

@@ -634,6 +634,7 @@
   "table.means": "अर्थ",
   "whois.registry_wording": "जैसा रजिस्ट्री लिखती है",
   "duration.value": "{{value, unit}}",
+  "time.range_to": "से",
   "table.name": "नाम",
   "table.header": "हेडर",
   "table.says": "कहता है",

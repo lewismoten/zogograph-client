@@ -634,6 +634,7 @@
   "table.means": "يعني",
   "whois.registry_wording": "كما يكتبه السجل",
   "duration.value": "{{value, unit}}",
+  "time.range_to": "إلى",
   "table.name": "الاسم",
   "table.header": "الترويسة",
   "table.says": "يقول",

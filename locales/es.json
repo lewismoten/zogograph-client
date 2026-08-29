@@ -636,6 +636,7 @@
   "table.means": "Significado",
   "whois.registry_wording": "Como lo escribe el registro",
   "duration.value": "{{value, unit}}",
+  "time.range_to": "a",
   "table.name": "Nombre",
   "table.header": "Cabecera",
   "table.says": "Dice",

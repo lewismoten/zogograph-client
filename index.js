@@ -26249,11 +26249,14 @@ function renderRegexResult(out, groupInput) {
     const nav = document.createElement("div");
     nav.className = "inspect-actions";
 
-    for (const [text, step] of [["‹ Previous", -1], ["Next ›", 1]]) {
+    for (const [key, fallback, step] of [
+      ["regex.previous", "‹ Previous", -1],
+      ["regex.next", "Next ›", 1],
+    ]) {
       const button = document.createElement("button");
       button.type = "button";
       button.className = "link";
-      button.textContent = text;
+      button.textContent = ZogographI18n.t(key, {}, fallback);
       button.disabled = step < 0
         ? regexState.at === 0
         : regexState.at >= result.matches.length - 1;

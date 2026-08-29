@@ -514,6 +514,8 @@
   "schedule.saved_preview": "معاينة محفوظة",
   "schedule.installed": "مثبّت حاليًا",
   "regex.pattern": "النمط",
+  "regex.previous": "‹ السابق",
+  "regex.next": "التالي ›",
   "regex.keep_group": "احتفظ بهذا",
   "regex.pattern_help": "اكتبه دون شرطتين مائلتين حوله — تُضافان لك، لذا لا تحتاج إلى تهريب / داخل النمط.",
   "regex.sample_placeholder": "الصق جزءًا من الصفحة هنا — اعرض المصدر وخذ الجزء الذي تطابقه.",

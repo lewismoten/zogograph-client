@@ -514,6 +514,8 @@
   "schedule.saved_preview": "已保存的预览",
   "schedule.installed": "当前已安装",
   "regex.pattern": "模式",
+  "regex.previous": "‹ 上一个",
+  "regex.next": "下一个 ›",
   "regex.keep_group": "保留此项",
   "regex.pattern_help": "请勿在两侧加斜杠；系统会自动添加，因此模式中的 / 无需转义。",
   "regex.sample_placeholder": "请在此粘贴页面的一部分——查看源代码并取出要匹配的部分。",

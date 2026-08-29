@@ -516,6 +516,8 @@
   "schedule.saved_preview": "Vista previa guardada",
   "schedule.installed": "Instalado actualmente",
   "regex.pattern": "Patrón",
+  "regex.previous": "‹ Anterior",
+  "regex.next": "Siguiente ›",
   "regex.keep_group": "Conservar este",
   "regex.pattern_help": "Escríbalo sin barras: se añaden automáticamente, por lo que una / dentro del patrón no necesita escape.",
   "regex.sample_placeholder": "Pegue aquí parte de la página; vea el código fuente y tome la parte con la que desea comparar.",

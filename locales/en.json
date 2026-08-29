@@ -497,6 +497,8 @@
   "schedule.saved_preview": "Saved preview",
   "schedule.installed": "Currently installed",
   "regex.pattern": "Pattern",
+  "regex.previous": "‹ Previous",
+  "regex.next": "Next ›",
   "regex.keep_group": "Keep this one",
   "regex.pattern_help": "Written without slashes around it — they are added for you, so a / in the pattern needs no escaping.",
   "regex.sample_placeholder": "Paste some of the page here — view source and take the part you are matching against.",

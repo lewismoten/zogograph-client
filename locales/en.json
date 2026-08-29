@@ -815,6 +815,7 @@
   "action.run_full_integrity_check": "Run full integrity check",
   "action.rewriting": "Rewriting…", "action.reclaim_empty_space": "Reclaim empty space",
   "action.checking": "Checking…", "action.check_now": "Check now", "changed.checked": "Checked. Anything that moved since last time is listed above.",
+  "changed.noticed": "Noticed", "changed.what": "What", "changed.was": "Was", "changed.became": "Became", "changed.by_fingerprint": "by fingerprint",
   "action.testing": "Testing…", "action.test_connection": "Test the connection",
   "guide.sign_in_help": "Sign in to see protected measurements and controls. This guide remains available so the page is never an unexplained empty state.", "guide.read_help": "Read page help",
   "unit.percent": "%", "unit.fraction": "% of readings", "unit.bytes": "MiB", "unit.hours": "hours", "unit.minutes": "minutes", "unit.readings": "readings", "unit.files": "files", "unit.processes": "processes", "unit.times": "× the usual",

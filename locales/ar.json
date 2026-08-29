@@ -1230,6 +1230,7 @@
   "storage.check_again": "تحقق مجددًا",
   "storage.host_logs_help": "السجلات المسماة في host_log_paths تخص root وتوجد خارج هذا الحساب. في معظم الخوادم المشتركة ستُدرج ثم يُرفض الوصول إليها، وهذه إجابة بحد ذاتها. عندما يمنح المضيف إذن القراءة، تُفتح في العارض نفسه المستخدم لسجلات الحساب.",
   "storage.scan_now": "افحص الآن",
+  "changed.noticed": "لوحظ", "changed.what": "ما", "changed.was": "كان", "changed.became": "أصبح", "changed.by_fingerprint": "بصمة الملف",
   "storage.other_empty_before": "لم يقع شيء ضمن ", "storage.other_empty_after": "، أو أن الفحص الأخير جرى قبل قياس هذا.", "storage.extension": "الامتداد", "storage.no_extension": "(بلا امتداد)", "storage.size": "الحجم", "storage.files": "الملفات", "storage.of_other": "من الآخر", "storage.no_scans_in_range_yet": "لا توجد فحوصات مكتملة في هذا النطاق بعد",
   "storage.two_scans_for_change": "يلزم فحصان مكتملان قبل رسم تغيير",
   "storage.watched_category": "{{name}} (مراقَب)", "storage.types_categories_help": "الحلقة الخارجية: كل ملف حسب النوع يُحسب مرة واحدة، ولذلك تمثل الحساب كله. الحلقة الداخلية: الفئات التي تراقبها قواعد التنبيه مقابل المجموع نفسه؛ والباقي الداكن ما لا تغطيه. تقيس الحلقتان بعض البايتات نفسها مرتين لأن ملف السجل يقع في كلتيهما؛ فاقرأ كل حلقة نسبة إلى المجموع لا إلى الأخرى.", "storage.types_help": "يُحسب كل ملف مرة واحدة، ولذلك تمثل الشرائح الحساب كله.",

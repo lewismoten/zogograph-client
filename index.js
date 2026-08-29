@@ -11126,9 +11126,9 @@ function renderChangedList(data) {
   body.replaceChildren(holder);
 
   renderTable("changedTable", data.events, [
-    { label: "Noticed", render: row => whenSpan(row.at) },
+    { label: ZogographI18n.t("changed.noticed", {}, "Noticed"), render: row => whenSpan(row.at) },
     {
-      label: "What",
+      label: ZogographI18n.t("changed.what", {}, "What"),
       className: "name",
       render: row => {
         const span = document.createElement("span");
@@ -11139,8 +11139,8 @@ function renderChangedList(data) {
         return span;
       },
     },
-    { label: "Was", className: "cmd", render: row => row.from ?? "—" },
-    { label: "Became", className: "cmd", render: row => row.to },
+    { label: ZogographI18n.t("changed.was", {}, "Was"), className: "cmd", render: row => row.from ?? "—" },
+    { label: ZogographI18n.t("changed.became", {}, "Became"), className: "cmd", render: row => row.to },
     {
       label: "",
       render: row => {
@@ -11153,7 +11153,7 @@ function renderChangedList(data) {
         if (row.by_fingerprint) {
           const span = document.createElement("span");
           span.className = "muted small";
-          span.textContent = "by fingerprint";
+          span.textContent = ZogographI18n.t("changed.by_fingerprint", {}, "by fingerprint");
           span.title = "This program offers no readable version, so the change was noticed "
             + "by the file being different. It says something moved, not what.";
           return span;

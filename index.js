@@ -21579,7 +21579,7 @@ function updateSchedulePreview() {
 
   $("schedPreview").textContent = lines.length
     ? lines.join("\n")
-    : "Nothing — saving will remove this dashboard's lines from the crontab.";
+    : ZogographI18n.t("schedule.preview_none", {}, "Nothing — saving will remove this dashboard's lines from the crontab.");
 
   $("schedNote").textContent = scheduleNote(limit);
   $("schedTimes").textContent = lines.length ? describeTimes(jobs, data, minute, hour) : "";
@@ -21606,19 +21606,20 @@ function applyBound(id, bound) {
 }
 
 function scheduleNote(limit) {
-  const unused = [];
-  if (!limit.minute.used) unused.push("minute");
-  if (!limit.hour.used) unused.push("hour");
-
-  if (!unused.length) {
+  if (limit.minute.used && limit.hour.used) {
     // Any value is accepted: a repeating schedule always includes the time it
     // was asked to start from, whatever the step.
-    return "The minute and hour are when it first runs; a repeating schedule "
-      + "then carries on from there at its own interval.";
+    return ZogographI18n.t("schedule.note_offsets_used", {},
+      "The minute and hour are when it first runs; a repeating schedule then carries on from there at its own interval.");
   }
 
-  return `The ${unused.join(" and ")} ${unused.length === 1 ? "field is" : "fields are"} `
-    + "not used by the schedules you have chosen.";
+  if (!limit.minute.used && !limit.hour.used) {
+    return ZogographI18n.t("schedule.note_offsets_unused", {},
+      "The selected schedules do not use the minute or hour fields.");
+  }
+  return limit.minute.used
+    ? ZogographI18n.t("schedule.note_hour_unused", {}, "The selected schedules do not use the hour field.")
+    : ZogographI18n.t("schedule.note_minute_unused", {}, "The selected schedules do not use the minute field.");
 }
 
 /* ------------------------------------------------------- when cron fires -- */

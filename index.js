@@ -5257,7 +5257,9 @@ function renderEmptyButtons() {
 
     const sub = document.createElement("div");
     sub.className = "sub muted";
-    sub.textContent = totals.files ? count(totals.files, "file") : "nothing counted here";
+    sub.textContent = totals.files
+      ? count(totals.files, "file")
+      : ZogographI18n.t("storage.nothing_counted", {}, "nothing counted here");
     if (emptiedAt) sub.classList.add("struck-through");
     card.appendChild(sub);
 
@@ -5270,8 +5272,8 @@ function renderEmptyButtons() {
        */
       const done = document.createElement("div");
       done.className = "muted small";
-      done.textContent = `emptied ${humanTime(emptiedAt)}`;
-      done.title = "The next scan will show what is in it now.";
+      done.textContent = ZogographI18n.t("storage.emptied_at", { at: humanTime(emptiedAt) }, "emptied {{at}}");
+      done.title = ZogographI18n.t("storage.emptied_help", {}, "The next scan will show what is in it now.");
       card.appendChild(done);
       return card;
     }

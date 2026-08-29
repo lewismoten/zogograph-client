@@ -1627,6 +1627,7 @@
   "host.io_in_flight": "进行中",
   "host.io_processes_empty": "尚未记录每个进程的磁盘 I/O。它需要以 root 身份运行的主机采集器。",
   "host.io_process": "进程",
+  "host.io_process_meta": " · 进程 ID {{pid}} · {{user}}",
   "host.io_reading": "读取",
   "host.io_writing": "写入",
   "host.io_since_started": "自启动以来",

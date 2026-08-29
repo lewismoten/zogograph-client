@@ -1728,6 +1728,7 @@
   "host.io_in_flight": "In flight",
   "host.io_processes_empty": "No per-process disk I/O recorded yet. It needs the host collector, running as root.",
   "host.io_process": "Process",
+  "host.io_process_meta": " · pid {{pid}} · {{user}}",
   "host.io_reading": "Reading",
   "host.io_writing": "Writing",
   "host.io_since_started": "Since it started",

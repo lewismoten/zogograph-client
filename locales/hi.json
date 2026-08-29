@@ -1641,6 +1641,7 @@
   "host.io_in_flight": "प्रगति पर",
   "host.io_processes_empty": "अभी तक प्रति-प्रक्रिया डिस्क I/O दर्ज नहीं है। इसके लिए root के रूप में चल रहे होस्ट कलेक्टर की आवश्यकता है।",
   "host.io_process": "प्रक्रिया",
+  "host.io_process_meta": " · PID {{pid}} · {{user}}",
   "host.io_reading": "पढ़ रहा है",
   "host.io_writing": "लिख रहा है",
   "host.io_since_started": "शुरू होने से",

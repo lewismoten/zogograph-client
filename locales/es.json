@@ -1645,6 +1645,7 @@
   "host.io_in_flight": "En curso",
   "host.io_processes_empty": "Aún no se ha registrado E/S de disco por proceso. Necesita el recopilador del host ejecutándose como root.",
   "host.io_process": "Proceso",
+  "host.io_process_meta": " · PID {{pid}} · {{user}}",
   "host.io_reading": "Lectura",
   "host.io_writing": "Escritura",
   "host.io_since_started": "Desde que se inició",

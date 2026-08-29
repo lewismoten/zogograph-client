@@ -19811,7 +19811,8 @@ function renderHostIoProcs(io) {
         box.appendChild(document.createTextNode(row.name));
         const note = document.createElement("span");
         note.className = "muted small";
-        note.textContent = ` · pid ${row.pid} · ${row.user}`;
+        note.textContent = ZogographI18n.t("host.io_process_meta", { pid: row.pid, user: row.user },
+          " · pid {{pid}} · {{user}}");
         box.appendChild(note);
         box.title = row.command;
         return box;

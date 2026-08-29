@@ -639,5 +639,7 @@
   "host.root_files_title": "仅 root 可见的文件", "host.root_files_help": "Apache 将每个域名的日志写入归 root 所有的 /etc。那里的轮转日志占用的磁盘空间与主目录中的日志完全相同，但账户能运行的所有工具都无法看到它。",
   "host.filesystems_title": "文件系统，以及无从解释的空间", "host.filesystems_help": "当 {{df}} 报告了其他内容无法解释的数值时，可查看这里。这里显示每个可见文件系统根目录，以及文件系统所称已用空间与实际扫描所发现空间之间的差额。两个常见原因各有独立页面：{{deleted}} 和 {{directories}}。",
   "host.deleted_held_title": "已删除，但仍占用空间", "host.deleted_held_help": "文件虽已取消链接，但只要进程仍将其打开，它的块就会保留。{{df}} 会统计它们；{{du}}、{{ls}}、{{find}} 和树状图完全看不到它们。这是目录扫描永远找不到的唯一一种丢失空间；重启列出的进程即可释放它。",
-  "host.cagefs_title": "CageFS 骨架", "host.cagefs_help": "CageFS 为每个账户提供各自的 {{usr}}、{{lib}} 和 {{proc}}，它们由 {{skeleton}} 中的共享骨架组成。因此，服务器上已有的程序可能在账户内部缺失，仪表板看到的机器范围也比机器本身更窄。在隔离环境中，骨架自身的挂载点不可见；所以这里的空结果并不证明 CageFS 不存在，本页会说明当前查看的是两者中的哪一个。"
+  "host.cagefs_title": "CageFS 骨架", "host.cagefs_help": "CageFS 为每个账户提供各自的 {{usr}}、{{lib}} 和 {{proc}}，它们由 {{skeleton}} 中的共享骨架组成。因此，服务器上已有的程序可能在账户内部缺失，仪表板看到的机器范围也比机器本身更窄。在隔离环境中，骨架自身的挂载点不可见；所以这里的空结果并不证明 CageFS 不存在，本页会说明当前查看的是两者中的哪一个。",
+  "host.processes_title": "什么在使用这台机器", "host.processes_help": "当前正在运行的进程，同名进程会合并计算。“已运行”取组中最早的进程：若一个长期存在的池中最新成员只有几秒钟大，它正以死亡的速度重启。看似密码的参数会被隐藏。",
+  "processes.by": "按", "processes.cpu": "CPU", "processes.memory": "内存", "processes.group_by_name": "按名称分组"
 }

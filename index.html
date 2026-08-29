@@ -1233,23 +1233,23 @@
 <section class="view" data-view="processes" hidden>
 <section class="panel" id="processPanel" hidden>
   <div class="panel-head">
-    <h2>What is using the machine</h2>
+    <h2 data-i18n="host.processes_title">What is using the machine</h2>
     <div class="panel-controls">
       <label class="inline">
-        By
+        <span data-i18n="processes.by">By</span>
         <select id="procBy">
-          <option value="cpu" selected>CPU</option>
-          <option value="memory">Memory</option>
+          <option value="cpu" selected data-i18n="processes.cpu">CPU</option>
+          <option value="memory" data-i18n="processes.memory">Memory</option>
         </select>
       </label>
       <label class="inline">
         <input type="checkbox" id="procGroup" checked>
-        Group by name
+        <span data-i18n="processes.group_by_name">Group by name</span>
       </label>
-      <button id="procRefresh" class="link">Refresh</button>
+      <button id="procRefresh" class="link" data-i18n="action.refresh">Refresh</button>
     </div>
   </div>
-  <p class="muted small sub-note">
+  <p class="muted small sub-note" data-i18n="host.processes_help">
     Running right now, with processes of the same name added together. “Running
     for” is the oldest of the group — a long-lived pool whose newest member is
     seconds old is restarting as fast as it dies. Arguments that look like

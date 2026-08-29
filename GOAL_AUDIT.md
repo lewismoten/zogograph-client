@@ -17,6 +17,14 @@ whole objective is finished.
 | Account merge | Review-before-apply, private source clone upgrade, rollback snapshot, overlap consent, and a genuine version-1 collector schema regression live in `lib/account-merge.php` and `tests/account-merge.php`. When supplied, `scratch/old-stats.db` is also inspected and privately prepared without modifying its source. | Keep adding sanitized fixtures when an older production schema is encountered; the supplied account fixture is currently schema 57, so it verifies the real-store path but not an older account migration. |
 | Historical database fixtures | `tests/migration-snapshots.php` makes private copies of the supplied `old-stats.db`, `old-host.db`, `old-ai.db`, and `old-setup.db` fixtures; it checks source integrity, migrates each applicable clone, rechecks clone integrity, and verifies the original SHA-256 is unchanged. All four supplied fixtures passed this path on 2026-08-28. | Add a sanitized fixture whenever a production schema not represented by these files is encountered. |
 
+## Live-validation prerequisites
+
+As of 2026-08-28, this workspace has no `TEST_URL`, `TEST_PATH`, or
+`ZOGOGRAPH_TEST_URL` configured. Local tests and builds can continue, but the
+browser checks in `INTEGRATION_VALIDATION.md` require a safe test deployment
+and its test-only OIDC, TOTP, and remote-transfer configuration. Those values
+must not be committed or placed in the public release tree.
+
 ## Recent core-boundary evidence
 
 Overview is now a core feature. Its bootstrap endpoint remains reachable only

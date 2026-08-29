@@ -6499,8 +6499,8 @@ function personaFields(data) {
   name.value = who.name;
   name.size = 24;
   name.maxLength = 40;
-  form.appendChild(fieldRow("Name", name,
-    "What it calls itself, and what this page and the menu call it."));
+  form.appendChild(fieldRow(aiSettingsText("identity_name_label", "Name"), name,
+    aiSettingsText("identity_name_help", "What it calls itself, and what this page and the menu call it.")));
 
   const emoji = document.createElement("input");
   emoji.type = "text";
@@ -6508,8 +6508,8 @@ function personaFields(data) {
   emoji.value = who.emoji;
   emoji.size = 4;
   emoji.maxLength = 8;
-  form.appendChild(fieldRow("Emoji", emoji,
-    "Shown beside the name everywhere it appears, including in the menu."));
+  form.appendChild(fieldRow(aiSettingsText("identity_emoji_label", "Emoji"), emoji,
+    aiSettingsText("identity_emoji_help", "Shown beside the name everywhere it appears, including in the menu.")));
 
   const personality = document.createElement("textarea");
   personality.id = "aiPersonality";
@@ -6525,11 +6525,11 @@ function personaFields(data) {
    * meant scrolling a box to read a paragraph. Everything else on this page is
    * one line; this is the one field that is a document.
    */
-  form.appendChild(fieldRow("Character", personality,
-    "Sent with every single request, so length here is a cost on every turn. It cannot "
+  form.appendChild(fieldRow(aiSettingsText("identity_character_label", "Character"), personality,
+    aiSettingsText("identity_character_help", "Sent with every single request, so length here is a cost on every turn. It cannot "
     + "override the rules that keep the answers honest — never state a cause you have "
     + "not measured, say when a tool returned nothing — which are added after it and "
-    + "say so."));
+    + "say so.")));
 
   /*
    * The picker is built after the boxes because it writes into them.
@@ -6575,9 +6575,9 @@ function personaFields(data) {
     });
     face.appendChild(clear);
 
-    form.appendChild(fieldRow("Portrait", face,
-      "It drew this itself, the last time it was asked to. Turning off self-portraits "
-      + "below stops it drawing another; this one stays until it does."));
+    form.appendChild(fieldRow(aiSettingsText("identity_portrait_label", "Portrait"), face,
+      aiSettingsText("identity_portrait_help", "It drew this itself, the last time it was asked to. Turning off self-portraits "
+      + "below stops it drawing another; this one stays until it does.")));
   }
 
   wrap.appendChild(form);

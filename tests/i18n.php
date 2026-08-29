@@ -68,6 +68,22 @@ i18nExpect($page !== false && str_contains($page, 'data-i18n="storage.history"')
     && $script !== false && str_contains($script, 'ZogographI18n.t("storage.log"') && is_array($english)
     && isset($english['storage.history'], $english['storage.log'], $english['action.close'], $english['log.search'], $english['log.lines'], $english['log.newer'], $english['log.older']),
     'Storage history and log controls do not use the locale catalog');
+i18nExpect($page !== false && str_contains($page, 'data-i18n="storage.last_scan_title"')
+    && str_contains($page, 'data-i18n-rich="storage.whole_machine_help"')
+    && str_contains($page, 'data-i18n="storage.type_title"')
+    && str_contains($page, 'data-i18n-rich="storage.type_help"')
+    && str_contains($page, 'data-i18n="storage.path_hygiene_title"')
+    && is_array($english) && isset($english['storage.last_scan_title'], $english['storage.whole_machine_help'], $english['storage.type_title'], $english['storage.type_help'], $english['storage.path_hygiene_title']),
+    'Storage scan and analysis guidance does not use the locale catalog');
+i18nExpect($page !== false && str_contains($page, 'data-i18n="auth.sign_in_help"')
+    && str_contains($page, 'data-i18n="auth.username"')
+    && str_contains($page, 'data-i18n="auth.verification_code"')
+    && is_array($english) && isset($english['auth.sign_in_help'], $english['auth.username'], $english['auth.password_label'], $english['auth.verification_code']),
+    'Sign-in dialog does not use the locale catalog');
+i18nExpect($page !== false && str_contains($page, 'data-i18n="log.repeat_title"')
+    && str_contains($page, 'data-i18n="log.repeat_help"')
+    && is_array($english) && isset($english['log.repeat_title'], $english['log.repeat_help']),
+    'Repeated-log guidance does not use the locale catalog');
 i18nExpect($script !== false && str_contains($script, 'marketplaceText("discovery_notice"')
     && str_contains($script, 'marketplaceText("search_label"') && str_contains($script, 'marketplaceText("table_compatibility"')
     && str_contains($script, 'marketplaceText("toggle_confirmation"') && str_contains($script, 'marketplaceText("restore_confirmation"')

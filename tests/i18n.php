@@ -50,6 +50,10 @@ i18nExpect($script !== false && str_contains($script, 'function humanSpan(second
     && str_contains($script, 'function humanSpanUnit(value, unit, long)')
     && str_contains($script, 'style: "unit"'),
     'time spans do not honor the selected locale');
+i18nExpect($script !== false && str_contains($script, 'function whenRange(from, to)')
+    && str_contains($script, 'fromDate.toDateString() === toDate.toDateString()')
+    && !str_contains($script, 'if (a.length === b.length)'),
+    'date ranges decide their format from translated label length');
 i18nExpect($script !== false && str_contains($script, 'ZogographI18n.t("image.note_screenshot"')
     && str_contains($script, 'ZogographI18n.t("image.send_screenshot"'),
     'dashboard fixed image descriptions do not use the locale catalog');

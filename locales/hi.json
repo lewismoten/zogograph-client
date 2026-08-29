@@ -732,5 +732,5 @@
   "assistant.panel_label": "समस्या-निवारण सहायक", "assistant.drag_window": "इस चैट विंडो को स्थानांतरित करने के लिए खींचें", "assistant.title": "सहायक", "assistant.effort_title": "कितना विचार करना है", "assistant.speak": "बोलें", "assistant.speak_title": "जवाब ज़ोर से पढ़ें", "assistant.listen": "सुनें", "assistant.listen_title": "संदेश बोलकर लिखें", "assistant.new": "नया", "assistant.new_title": "नई बातचीत शुरू करें", "assistant.interrupt": "रोकें", "assistant.interrupt_title": "जो कर रहा है उसे रोकें, बातचीत रखें", "assistant.stop": "बंद करें", "assistant.stop_title": "मॉडल का वर्तमान उत्तर रोकें", "assistant.hide_title": "इसे छिपाएँ — बातचीत जारी रहती है", "assistant.close": "चैट बंद करें",
   "navigation.sections": "अनुभाग", "audit.download_csv_title": "पूरा ऑडिट इतिहास CSV फ़ाइल के रूप में डाउनलोड करें", "audit.clear_title": "पुरानी ऑडिट प्रविष्टियाँ हटाएँ और इस रीसेट का रिकॉर्ड रखें", "quick.open_title": "त्वरित क्रियाएँ खोलें",
   "assistant.speaking": "बोल रहा है", "assistant.hold_to_talk": "बोलने के लिए दबाए रखें", "assistant.start_listening": "सुनना शुरू करें", "assistant.listening": "सुन रहा है…", "assistant.stop_listening": "सुनना बंद करें",
-  "host.open_setup": "होस्ट सेटअप खोलें"
+  "host.open_setup": "होस्ट सेटअप खोलें", "action.view": "देखें"
 }

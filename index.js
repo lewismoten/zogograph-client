@@ -5035,7 +5035,7 @@ function rowButtons(row) {
    */
   if (row.viewable) {
     const view = document.createElement("button");
-    view.textContent = "View";
+    view.textContent = ZogographI18n.t("action.view", {}, "View");
     view.addEventListener("click", () => showLog(row.path_id));
     holder.appendChild(view);
   }
@@ -30734,7 +30734,7 @@ async function refreshHostLogs() {
         if (!row.readable) return "";
         const button = document.createElement("button");
         button.className = "link";
-        button.textContent = "View";
+        button.textContent = ZogographI18n.t("action.view", {}, "View");
         button.addEventListener("click", () => showLogPath(row.path));
         return button;
       },

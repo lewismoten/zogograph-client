@@ -732,5 +732,5 @@
   "assistant.panel_label": "故障排查助手", "assistant.drag_window": "拖动以移动此聊天窗口", "assistant.title": "助手", "assistant.effort_title": "思考强度", "assistant.speak": "朗读", "assistant.speak_title": "朗读回复", "assistant.listen": "听写", "assistant.listen_title": "听写消息", "assistant.new": "新建", "assistant.new_title": "开始新对话", "assistant.interrupt": "中断", "assistant.interrupt_title": "停止当前操作并保留对话", "assistant.stop": "停止", "assistant.stop_title": "结束当前模型轮次", "assistant.hide_title": "隐藏此窗口——对话会继续", "assistant.close": "关闭聊天",
   "navigation.sections": "栏目", "audit.download_csv_title": "将完整审计历史下载为 CSV 文件", "audit.clear_title": "删除较早的审计记录并保留本次重置的记录", "quick.open_title": "打开快速操作",
   "assistant.speaking": "正在朗读", "assistant.hold_to_talk": "按住说话", "assistant.start_listening": "开始听写", "assistant.listening": "正在听写…", "assistant.stop_listening": "停止听写",
-  "host.open_setup": "打开主机设置"
+  "host.open_setup": "打开主机设置", "action.view": "查看"
 }

@@ -802,5 +802,5 @@
   "assistant.panel_label": "The troubleshooting assistant", "assistant.drag_window": "Drag to move this chat window", "assistant.title": "Assistant", "assistant.effort_title": "How hard to think", "assistant.speak": "Speak", "assistant.speak_title": "Read replies aloud", "assistant.listen": "Listen", "assistant.listen_title": "Dictate a message", "assistant.new": "New", "assistant.new_title": "Start a fresh conversation", "assistant.interrupt": "Interrupt", "assistant.interrupt_title": "Stop what it is doing, keep the conversation", "assistant.stop": "Stop", "assistant.stop_title": "End the current model turn", "assistant.hide_title": "Hide this — the conversation carries on", "assistant.close": "Close chat",
   "navigation.sections": "Sections", "audit.download_csv_title": "Download the full audit history as a CSV file", "audit.clear_title": "Remove earlier audit entries and retain a record of this reset", "quick.open_title": "Open quick actions",
   "assistant.speaking": "Speaking", "assistant.hold_to_talk": "Hold to talk", "assistant.start_listening": "Start listening", "assistant.listening": "Listening…", "assistant.stop_listening": "Stop listening",
-  "host.open_setup": "Open Host setup"
+  "host.open_setup": "Open Host setup", "action.view": "View"
 }

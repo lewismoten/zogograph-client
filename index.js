@@ -27883,20 +27883,23 @@ function renderFetchMeta(data) {
     return wrap;
   }
 
-  wrap.appendChild(section("Title", (() => {
+  wrap.appendChild(section(ZogographI18n.t("fetch.metadata.title", {}, "Title"), (() => {
     const p = document.createElement("p");
     p.className = "page-title";
     p.textContent = meta.title || "";
     if (!meta.title) {
       p.className = "page-title muted";
-      p.textContent = "This page has no title, which is a real problem for anyone "
-        + "finding it or bookmarking it.";
+      p.textContent = ZogographI18n.t(
+        "fetch.metadata.missing_title",
+        {},
+        "This page has no title, which is a real problem for anyone finding it or bookmarking it.",
+      );
     }
     return p;
   })()));
 
   if (!meta.tags.length) {
-    wrap.appendChild(note("There are no meta tags at all."));
+    wrap.appendChild(note(ZogographI18n.t("fetch.metadata.none", {}, "There are no meta tags at all.")));
     return wrap;
   }
 
@@ -27905,7 +27908,11 @@ function renderFetchMeta(data) {
   const flush = () => {
     if (!rows.length) return;
     wrap.appendChild(section(group, simpleTable(
-      ["Name", "Value", "What it does"],
+      [
+        ZogographI18n.t("table.name", {}, "Name"),
+        ZogographI18n.t("table.value", {}, "Value"),
+        ZogographI18n.t("fetch.metadata.what_it_does", {}, "What it does"),
+      ],
       rows,
       ["name", "", "muted"]
     )));

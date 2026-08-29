@@ -14645,17 +14645,12 @@ function permitForm(data) {
   go.type = "button";
   go.textContent = ZogographI18n.t("terminal.switch_on", {}, "Switch it on");
   go.addEventListener("click", async () => {
-    const yes = await askFirst("Allow a shell in this web page?", [
-      "This runs whatever is typed into it, as the user the web server runs as, and "
-      + "shows the output. It is a web shell.",
-      "That means anybody who has this dashboard's password has it too. If that "
-      + "password is shared, or is the only thing between the internet and this "
-      + "machine, decide about that first.",
-      "Every command is written to the action log before it runs, so a command that "
-      + "hangs the machine still appears in the record. It stays locked until you open "
-      + "it, and it locks itself again after the time you choose.",
-      "You can switch it off again here at any time.",
-    ], "Switch it on", true);
+    const yes = await askFirst(ZogographI18n.t("terminal.enable_title", {}, "Allow a shell in this web page?"), [
+      ZogographI18n.t("terminal.enable_warning_execution", {}, "This runs whatever is typed into it, as the user the web server runs as, and shows the output. It is a web shell."),
+      ZogographI18n.t("terminal.enable_warning_password", {}, "That means anybody who has this dashboard's password has it too. If that password is shared, or is the only thing between the internet and this machine, decide about that first."),
+      ZogographI18n.t("terminal.enable_warning_audit", {}, "Every command is written to the action log before it runs, so a command that hangs the machine still appears in the record. It stays locked until you open it, and it locks itself again after the time you choose."),
+      ZogographI18n.t("terminal.enable_warning_disable", {}, "You can switch it off again here at any time."),
+    ], ZogographI18n.t("terminal.switch_on", {}, "Switch it on"), true);
 
     if (!yes) return;
 

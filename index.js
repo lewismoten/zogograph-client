@@ -11937,6 +11937,7 @@ function showPackageRuntimeUpload() {
 }
 
 let packageDashboardPagesLoaded = false;
+let packageDashboardCards = [];
 function removeUnavailablePackageDashboardPages(available) {
   for (const [route, view] of Object.entries(VIEWS)) {
     if (!view.packagePage || available.has(route)) continue;
@@ -11952,10 +11953,11 @@ function removeUnavailablePackageDashboardPages(available) {
 /* Packages provide signed data only. The shell owns this fixed renderer and
  * always uses textContent, so package metadata cannot become browser code. */
 function renderPackageDashboardCards(cards) {
+  packageDashboardCards = Array.isArray(cards) ? cards : [];
   const holder = $("packageDashboardCards");
   if (!holder) return;
   const nodes = [];
-  for (const card of cards || []) {
+  for (const card of packageDashboardCards) {
     if (!card || card.renderer !== "overview-facts" || !Array.isArray(card.facts)) continue;
     const panel = document.createElement("section"); panel.className = "panel";
     const head = document.createElement("div"); head.className = "panel-head";
@@ -11971,9 +11973,15 @@ function renderPackageDashboardCards(cards) {
   holder.replaceChildren(...nodes);
 }
 
+// Core i18n may reload after package catalogs arrive, or when the operator
+// changes language. The signed metadata remains data; only its text is drawn
+// again by this fixed renderer.
+document.addEventListener("zogograph-i18n-load", () => renderPackageDashboardCards(packageDashboardCards));
+
 async function loadPackageDashboardPages() {
   if (disabledCoreRoutes.has("sys-packages")) {
     removeUnavailablePackageDashboardPages(new Set());
+    renderPackageDashboardCards([]);
     return;
   }
   try {
@@ -11990,6 +11998,7 @@ async function loadPackageDashboardPages() {
   } catch {
     // Package pages are optional, and page access may deliberately exclude
     // the package runtime from this account.
+    renderPackageDashboardCards([]);
   }
 }
 
@@ -23200,6 +23209,7 @@ function applySignedInChrome() {
   if (state.signedIn && !disabledCoreRoutes.has("sys-packages")) loadPackageDashboardPages();
   if (!state.signedIn) {
     removeUnavailablePackageDashboardPages(new Set());
+    renderPackageDashboardCards([]);
     ZogographI18n.clearPackageCatalogs();
   }
 }

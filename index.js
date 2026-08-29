@@ -4164,8 +4164,8 @@ function renderRoomChart(rows) {
   const shapes = {
     bytes: {
       series: [
-        { key: "disk_free_bytes", label: "Disk free" },
-        { key: "inodes_free", label: "Inodes free (right)", axis: "right" },
+        { key: "disk_free_bytes", label: ZogographI18n.t("storage.chart_disk_free") },
+        { key: "inodes_free", label: ZogographI18n.t("storage.chart_inodes_free_right"), axis: "right" },
       ],
       options: { axis: bytesAxis, rightAxis: countAxis },
       note: "Disk space and inodes. Either can run out on its own \u2014 a disk with "
@@ -4173,8 +4173,8 @@ function renderRoomChart(rows) {
     },
     percent: {
       series: [
-        { key: "disk_free_percent", label: "Disk free %" },
-        { key: "inodes_free_percent", label: "Inodes free %" },
+        { key: "disk_free_percent", label: ZogographI18n.t("storage.chart_disk_free_percent") },
+        { key: "inodes_free_percent", label: ZogographI18n.t("storage.chart_inodes_free_percent") },
       ],
       options: { axis: percentAxis, zeroBased: true, max: 100 },
       note: "How close to the edge each one is. Both on one scale, so they can be "
@@ -4182,8 +4182,8 @@ function renderRoomChart(rows) {
     },
     delta: {
       series: [
-        { key: "disk_delta", label: "Disk change" },
-        { key: "inodes_delta", label: "Inode change (right)", axis: "right" },
+        { key: "disk_delta", label: ZogographI18n.t("storage.chart_disk_change") },
+        { key: "inodes_delta", label: ZogographI18n.t("storage.chart_inode_change_right"), axis: "right" },
       ],
       options: { axis: bytesAxis, rightAxis: countAxis, zeroLine: true, trim: 0.02 },
       note: "What changed between one reading and the next. Below the line is space "

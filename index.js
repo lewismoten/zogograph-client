@@ -23202,7 +23202,22 @@ function applySignedInChrome() {
   }
 }
 
+/* The navigation is the localized source of truth for core route names. Keep
+ * dynamic references—titles, assistants, dialogs, and search parents—in step
+ * after a language change rather than leaving their English construction-time
+ * labels behind. */
+function syncViewLabelsFromNavigation() {
+  for (const link of document.querySelectorAll("[data-nav]")) {
+    const route = link.dataset.nav;
+    const label = link.querySelector(".nav-label")?.textContent.trim();
+    if (route && label && VIEWS[route] && !VIEWS[route].packagePage) {
+      VIEWS[route].label = label;
+    }
+  }
+}
+
 document.addEventListener("zogograph-i18n-load", () => {
+  syncViewLabelsFromNavigation();
   if (typeof state !== "undefined") applySignedInChrome();
   if (buildState.update) showBuildUpdate(buildState.update);
 });

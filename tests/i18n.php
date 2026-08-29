@@ -31,7 +31,9 @@ i18nExpect($page !== false && str_contains($page, 'id="languagePicker"') && str_
     && str_contains($page, 'src="i18n.js"'), 'dashboard language controls are unavailable');
 i18nExpect($script !== false && str_contains($script, 'new Intl.NumberFormat(document.documentElement.lang || undefined)')
     && str_contains($script, 'toLocaleString(document.documentElement.lang || undefined)') && str_contains($script, 'document.addEventListener("zogograph-i18n-load"')
-    && str_contains($script, 'view.manual'), 'dashboard value formatting ignores the selected locale or refreshes manual views');
+    && str_contains($script, 'view.manual') && str_contains($script, 'function syncViewLabelsFromNavigation()')
+    && str_contains($script, 'syncViewLabelsFromNavigation();'),
+    'dashboard value formatting ignores the selected locale or refreshes manual views');
 i18nExpect($script !== false && str_contains($script, 'ZogographI18n.t("image.note_screenshot"')
     && str_contains($script, 'ZogographI18n.t("image.send_screenshot"'),
     'dashboard fixed image descriptions do not use the locale catalog');

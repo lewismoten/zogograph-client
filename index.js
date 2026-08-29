@@ -5834,15 +5834,15 @@ function renderAiSettings(data) {
   const form = document.createElement("div");
   form.className = "settings";
 
-  form.appendChild(fieldRow(`Use ${chatState.who.name}`, (() => {
+  form.appendChild(fieldRow(aiSettingsText("enabled_label", `Use ${chatState.who.name}`, { assistant: chatState.who.name }), (() => {
     const box = document.createElement("input");
     box.type = "checkbox";
     box.id = "aiEnabled";
     box.checked = data.enabled;
     return box;
   })(),
-    `Off means ${chatState.who.name} is unavailable and nothing is ever sent anywhere. `
-    + "Turning it on does not send anything by itself — only asking it something does."));
+    aiSettingsText("enabled_help", `Off means ${chatState.who.name} is unavailable and nothing is ever sent anywhere. `
+    + "Turning it on does not send anything by itself — only asking it something does.", { assistant: chatState.who.name })));
 
   const provider = document.createElement("select");
   provider.id = "aiProvider";
@@ -5900,11 +5900,11 @@ function renderAiSettings(data) {
   const effort = document.createElement("select");
   effort.id = "aiEffort";
   for (const [value, label] of [
-    ["", "the provider's default"],
-    ["minimal", "minimal"],
-    ["low", "low"],
-    ["medium", "medium"],
-    ["high", "high"],
+    ["", aiSettingsText("effort_default", "the provider's default")],
+    ["minimal", aiSettingsText("effort_minimal", "minimal")],
+    ["low", aiSettingsText("effort_low", "low")],
+    ["medium", aiSettingsText("effort_medium", "medium")],
+    ["high", aiSettingsText("effort_high", "high")],
   ]) {
     const option = document.createElement("option");
     option.value = value;
@@ -5949,7 +5949,7 @@ function renderAiSettings(data) {
   // Whatever the page said about being read-only belongs on all of them.
   for (const key of Object.keys(pages)) pages[key].push(...parts.map(node => node.cloneNode(true)));
 
-  pages.identity.push(section("Identity", personaFields(data)));
+  pages.identity.push(section(aiSettingsText("identity_title", "Identity"), personaFields(data)));
   pages.providers.push(section(aiSettingsText("provider_connection", "Provider connection"), form));
   pages.model.push(section(aiSettingsText("which_model", "Which model"), selected));
 

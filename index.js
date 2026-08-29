@@ -27485,7 +27485,7 @@ function renderDescriptions() {
         if (!row.link) return "";
         const link = document.createElement("a");
         link.href = row.link;
-        link.textContent = "open";
+        link.textContent = ZogographI18n.t("action.open", {}, "Open");
         link.target = "_blank";
         link.rel = "noopener noreferrer";
         return link;

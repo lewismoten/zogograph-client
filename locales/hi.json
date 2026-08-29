@@ -3,6 +3,7 @@
   "package.page_boundary": "यह पृष्ठ पैकेज के हस्ताक्षरित मेटाडेटा से Zogograph शेल द्वारा रेंडर होता है। यह पैकेज HTML, शैली या ब्राउज़र कोड लोड नहीं करता।",
   "package.open_settings": "पैकेज सेटिंग खोलें",
   "action.copy": "कॉपी करें",
+  "action.open": "खोलें",
   "action.copied": "कॉपी हो गया",
   "action.copy_value": "इसे कॉपी करें",
   "action.copy_line": "लाइन कॉपी करें",

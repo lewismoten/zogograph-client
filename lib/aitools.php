@@ -52,6 +52,7 @@ require_once __DIR__ . '/ai-tools/list-charts.php';
 require_once __DIR__ . '/ai-tools/filesystems.php';
 require_once __DIR__ . '/ai-tools/symlink-problems.php';
 require_once __DIR__ . '/ai-tools/backups.php';
+require_once __DIR__ . '/ai-tools/domain-expiry.php';
 
 /**
  * Every tool, with its schema and how it runs.
@@ -83,6 +84,7 @@ function aiToolCatalogue(): array
         ...aiToolFilesystemsPackage(),
         ...aiToolSymlinkProblemsPackage(),
         ...aiToolBackupsPackage(),
+        ...aiToolDomainExpiryPackage(),
 
         /* ------------------------------------------------- what is wrong -- */
 
@@ -281,23 +283,6 @@ function aiToolCatalogue(): array
         ],
 
         /* --------------------------------------------------- saying things -- */
-
-        'get_domain_expiry' => [
-            'group' => 'diagnostic',
-            'where' => 'server',
-            'permission' => false,
-            'summary' => 'watched domain names and when each expires.',
-            'description' =>
-                "Every domain being watched, when it expires, and who it is registered "
-                . "with.\n\n"
-                . "USE THIS when a site has stopped answering and nothing on the machine "
-                . "explains it. An expired domain looks exactly like a network fault from "
-                . "inside the machine, and it is the one cause that no amount of looking "
-                . "at the server will find.\n\n"
-                . "The dates come from whois, which the host collector runs, so they are "
-                . "as fresh as the last lookup. Each row says when it was checked.",
-            'parameters' => [],
-        ],
 
         'get_services' => [
             'group' => 'diagnostic',

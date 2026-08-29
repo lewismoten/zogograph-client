@@ -41,7 +41,7 @@ function packageRuntimeTrustedKeys(array $keys): array
     return $out;
 }
 
-/** @return array{id:string,version:string,publisher:string,capabilities:list<string>,dependencies:list<string>,dashboard_pages:list<array>,runtime:array,settings_schema:?string,setup_panels:list<array>,data:array,compatibility:array,integrity:array,signature:array} */
+/** @return array{id:string,version:string,publisher:string,capabilities:list<string>,dependencies:list<string>,dashboard_pages:list<array>,dashboard_cards:list<array>,runtime:array,settings_schema:?string,setup_panels:list<array>,data:array,compatibility:array,integrity:array,signature:array} */
 function packageRuntimeManifest(string $directory, array $trustedKeys): array
 {
     $root = realpath($directory);
@@ -86,6 +86,7 @@ function packageRuntimeManifest(string $directory, array $trustedKeys): array
     }
     $setupPanels = packageRuntimeSetupPanelDeclarations((array)($raw['setup_panels'] ?? []));
     $dashboardPages = packageRuntimeDashboardPageDeclarations((array)($raw['dashboard_pages'] ?? []));
+    $dashboardCards = packageRuntimeDashboardCardDeclarations((array)($raw['dashboard_cards'] ?? []));
     $locales = packageRuntimeLocaleDeclarations((array)($raw['locales'] ?? []), $root, (array)($raw['integrity']['files'] ?? []));
     $dependencies = array_values(array_unique((array)($raw['dependencies'] ?? [])));
     if (count($dependencies) > 20 || in_array($id, $dependencies, true)) throw new InvalidArgumentException('package dependencies are invalid');
@@ -113,7 +114,7 @@ function packageRuntimeManifest(string $directory, array $trustedKeys): array
     }
     return ['id' => $id, 'version' => $version, 'publisher' => $publisher, 'capabilities' => $capabilities,
         'runtime' => $runtime, 'settings_schema' => isset($raw['settings_schema']) ? (string)$raw['settings_schema'] : null,
-        'dependencies' => $dependencies, 'locales' => $locales, 'dashboard_pages' => $dashboardPages, 'setup_panels' => $setupPanels,
+        'dependencies' => $dependencies, 'locales' => $locales, 'dashboard_pages' => $dashboardPages, 'dashboard_cards' => $dashboardCards, 'setup_panels' => $setupPanels,
         'data' => $data, 'compatibility' => $compatibility, 'integrity' => (array)$raw['integrity'], 'signature' => (array)$raw['signature']];
 }
 
@@ -129,6 +130,28 @@ function packageRuntimeDashboardPageDeclarations(array $pages): array
         $keywords = array_values(array_unique(array_filter((array)($page['keywords'] ?? []), static fn(mixed $word): bool => is_string($word) && preg_match('/^[a-z0-9 _-]{1,40}$/i', $word))));
         if (!preg_match('/^[a-z][a-z0-9_-]{1,62}$/', $id) || $title === '' || mb_strlen($title) > 80 || $summary === '' || mb_strlen($summary) > 500 || ($parent !== null && !preg_match('/^[a-z][a-z0-9_-]{1,62}$/', $parent)) || ($titleKey !== null && !preg_match('/^[a-z][\w.-]{0,119}$/i', $titleKey)) || ($summaryKey !== null && !preg_match('/^[a-z][\w.-]{0,119}$/i', $summaryKey)) || count($keywords) !== count((array)($page['keywords'] ?? [])) || isset($out[$id])) throw new InvalidArgumentException('package dashboard page is invalid');
         $out[$id] = ['id' => $id, 'title' => $title, 'summary' => $summary, 'keywords' => $keywords, 'parent' => $parent, 'title_key' => $titleKey, 'summary_key' => $summaryKey];
+    }
+    return array_values($out);
+}
+
+/**
+ * Signed metadata for a card rendered only by an allowlisted core renderer.
+ * A package may name and translate the card, but cannot supply HTML, CSS,
+ * JavaScript, a query, or a data source.
+ */
+function packageRuntimeDashboardCardDeclarations(array $cards): array
+{
+    if (count($cards) > 16) throw new InvalidArgumentException('package dashboard cards are invalid');
+    $out = [];
+    foreach ($cards as $card) {
+        if (!is_array($card)) throw new InvalidArgumentException('package dashboard card is invalid');
+        $id = trim((string)($card['id'] ?? '')); $renderer = trim((string)($card['renderer'] ?? ''));
+        $title = trim((string)($card['title'] ?? '')); $titleKey = isset($card['title_key']) ? trim((string)$card['title_key']) : null;
+        if (!preg_match('/^[a-z][a-z0-9_-]{1,62}$/', $id) || !in_array($renderer, ['overview-facts'], true)
+            || $title === '' || mb_strlen($title) > 80 || ($titleKey !== null && !preg_match('/^[a-z][\w.-]{0,119}$/i', $titleKey)) || isset($out[$id])) {
+            throw new InvalidArgumentException('package dashboard card is invalid');
+        }
+        $out[$id] = ['id' => $id, 'renderer' => $renderer, 'title' => $title, 'title_key' => $titleKey];
     }
     return array_values($out);
 }
@@ -367,7 +390,7 @@ function packageRuntimeRemoveDirectory(string $directory): void
     @rmdir($directory);
 }
 
-/** @return list<array{id:string,version:string,publisher:string,enabled:bool,revoked:bool,integrity:bool,integrity_detail:string,compatibility:array,dependencies:list<string>,dependency_status:array,locales:array,dashboard_pages:list<array>,capabilities:list<string>,grants:list<string>,setup_panels:list<array>,state:string}> */
+/** @return list<array{id:string,version:string,publisher:string,enabled:bool,revoked:bool,integrity:bool,integrity_detail:string,compatibility:array,dependencies:list<string>,dependency_status:array,locales:array,dashboard_pages:list<array>,dashboard_cards:list<array>,capabilities:list<string>,grants:list<string>,setup_panels:list<array>,state:string}> */
 function packageRuntimePackages(PDO $pdo): array
 {
     $grants = [];
@@ -390,7 +413,7 @@ function packageRuntimePackages(PDO $pdo): array
         $out[] = ['id' => $row['package_id'], 'version' => $row['version'], 'publisher' => $row['publisher'],
             'enabled' => $enabled, 'revoked' => $revoked, 'integrity' => $integrity['ok'], 'integrity_detail' => $integrity['detail'], 'capabilities' => $required, 'grants' => $given,
             'setup_panels' => packageRuntimeSetupPanelDeclarations((array)($manifest['setup_panels'] ?? [])),
-            'compatibility' => $compatibility, 'dependencies' => (array)($manifest['dependencies'] ?? []), 'dependency_status' => $dependencyStatus, 'locales' => (array)($manifest['locales'] ?? []), 'dashboard_pages' => (array)($manifest['dashboard_pages'] ?? []),
+            'compatibility' => $compatibility, 'dependencies' => (array)($manifest['dependencies'] ?? []), 'dependency_status' => $dependencyStatus, 'locales' => (array)($manifest['locales'] ?? []), 'dashboard_pages' => (array)($manifest['dashboard_pages'] ?? []), 'dashboard_cards' => (array)($manifest['dashboard_cards'] ?? []),
             'state' => !$integrity['ok'] ? 'integrity failed: ' . $integrity['detail'] : ($revoked ? 'revoked: ' . $row['revocation_reason'] : ($compatibility['status'] !== 'ready' ? 'platform unavailable: ' . $compatibility['detail'] : (!$dependencyStatus['ok'] ? 'dependency unavailable: ' . $dependencyStatus['detail'] : ($enabled ? 'registered; ' . $compatibility['detail'] : 'needs explicit capability grants'))))];
     }
     return $out;

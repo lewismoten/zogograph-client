@@ -52,6 +52,8 @@ try {
         'package runtime claimed its absent isolation capability was available');
     runtimeExpect(packageRuntimeCompatibility(['compatibility' => ['requires_extensions' => ['zogograph_test_missing_extension']]])['status'] === 'unavailable',
         'missing package PHP extension was presented as available');
+    try { packageRuntimeDashboardCardDeclarations([['id' => 'unsafe', 'renderer' => 'package-javascript', 'title' => 'Unsafe']]); throw new RuntimeException('package card accepted an executable renderer'); }
+    catch (InvalidArgumentException $error) { runtimeExpect($error->getMessage() !== 'package card accepted an executable renderer', $error->getMessage()); }
     try { packageRuntimeManifestCompatibility(['min_php' => 'not-a-version']); throw new RuntimeException('invalid package PHP compatibility was accepted'); }
     catch (InvalidArgumentException $error) { runtimeExpect($error->getMessage() !== 'invalid package PHP compatibility was accepted', $error->getMessage()); }
     $fields = array_column(configFields(require __DIR__ . '/../lib/config.sample.php'), null, 'key');
@@ -69,13 +71,14 @@ try {
         'settings_schema' => 'settings.schema.json',
         'locales' => ['es' => 'locales/es.json'],
         'dashboard_pages' => [['id' => 'status', 'title' => 'Package status', 'summary' => 'A core-rendered package status page.', 'title_key' => 'test-runtime.page.title', 'summary_key' => 'test-runtime.page.summary', 'parent' => 'storage', 'keywords' => ['package', 'status']]],
+        'dashboard_cards' => [['id' => 'facts', 'renderer' => 'overview-facts', 'title' => 'Package facts', 'title_key' => 'test-runtime.card.title']],
         'setup_panels' => [
             ['id' => 'test-runtime-settings', 'title' => 'Test runtime settings', 'title_key' => 'test-runtime.setup.title', 'keywords' => ['retention']],
             ['id' => 'test-runtime-security', 'title' => 'Test runtime security', 'title_key' => 'test-runtime.security.title', 'parent' => 'security', 'keywords' => ['security']],
         ],
         'data' => ['migrations' => ['migrations/001-private-evidence.sql']],
     ];
-    mkdir($source . '/locales', 0700, true); file_put_contents($source . '/locales/es.json', json_encode(['test-runtime.greeting' => 'Hola', 'test-runtime.page.title' => 'Estado del paquete', 'test-runtime.page.summary' => 'Una página del paquete renderizada por el núcleo.', 'test-runtime.setup.title' => 'Configuración de prueba', 'test-runtime.security.title' => 'Seguridad de prueba', 'navigation.storage' => 'No debe reemplazar la navegación central'], JSON_THROW_ON_ERROR));
+    mkdir($source . '/locales', 0700, true); file_put_contents($source . '/locales/es.json', json_encode(['test-runtime.greeting' => 'Hola', 'test-runtime.page.title' => 'Estado del paquete', 'test-runtime.page.summary' => 'Una página del paquete renderizada por el núcleo.', 'test-runtime.card.title' => 'Datos del paquete', 'test-runtime.setup.title' => 'Configuración de prueba', 'test-runtime.security.title' => 'Seguridad de prueba', 'navigation.storage' => 'No debe reemplazar la navegación central'], JSON_THROW_ON_ERROR));
     $signed = packageSignManifest($manifest, $source, 'test-publisher', sodium_crypto_sign_secretkey($pair));
     file_put_contents($source . '/manifest.json', json_encode($signed, JSON_THROW_ON_ERROR));
     if (function_exists('proc_open')) {
@@ -178,6 +181,8 @@ try {
     runtimeExpect((packageRuntimeDashboardPages($pdo)[0]['route'] ?? '') === 'package-test-runtime-status'
         && (packageRuntimeDashboardPages($pdo)[0]['parent'] ?? null) === 'storage'
         && (packageRuntimeDashboardPages($pdo)[0]['title_key'] ?? null) === 'test-runtime.page.title', 'enabled package dashboard page was not available through the core shell bridge');
+    runtimeExpect((packageRuntimePackages($pdo)[0]['dashboard_cards'][0]['renderer'] ?? null) === 'overview-facts'
+        && (packageRuntimePackages($pdo)[0]['dashboard_cards'][0]['title_key'] ?? null) === 'test-runtime.card.title', 'signed package card metadata was not retained');
     $dependentManifest = $signed; $dependentManifest['dependencies'] = ['missing-runtime'];
     $pdo->prepare('UPDATE runtime_packages SET manifest_json = ? WHERE package_id = ?')->execute([json_encode($dependentManifest, JSON_THROW_ON_ERROR), 'test-runtime']);
     $dependent = packageRuntimePackages($pdo)[0];

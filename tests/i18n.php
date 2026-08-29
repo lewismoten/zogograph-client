@@ -237,6 +237,10 @@ preg_match_all('/data-i18n(?:-placeholder|-title|-aria-label)?="([^"]+)"/', (str
 foreach (array_unique($pageKeys[1] ?? []) as $key) {
     i18nExpect(isset($english[$key]), "dashboard i18n attribute key $key has no English fallback");
 }
+preg_match_all('/ZogographI18n\\.t\\(\\s*"([a-z][\\w.-]+)"/', (string)$script, $dynamicDashboardKeys);
+foreach (array_unique($dynamicDashboardKeys[1] ?? []) as $key) {
+    i18nExpect(isset($english[$key]), "dashboard dynamic i18n key $key has no English fallback");
+}
 $setupLocaleSources = (string)$setup . "\n" . (string)file_get_contents($root . '/lib/setup-cron-editor.php');
 preg_match_all('/<(?:input|textarea)\\b[^>]*\\bplaceholder="[^"]+"[^>]*>/i', $setupLocaleSources, $setupPlaceholderNodes);
 foreach ($setupPlaceholderNodes[0] ?? [] as $node) {
@@ -279,6 +283,8 @@ foreach (['en-US', 'en-GB', 'es', 'hi', 'zh', 'ar'] as $locale) {
     if (in_array($locale, ['es', 'hi', 'zh', 'ar'], true)) {
         i18nExpect(array_diff(array_unique($pageKeys[1] ?? []), array_keys($catalog)) === [],
             "locale catalog $locale falls back to English for a visible dashboard label");
+        i18nExpect(array_diff(array_unique($dynamicDashboardKeys[1] ?? []), array_keys($catalog)) === [],
+            "locale catalog $locale falls back to English for a visible dashboard message");
         i18nExpect(isset($catalog['navigation.charts'], $catalog['navigation.storage'], $catalog['navigation.backups'], $catalog['navigation.cpu'], $catalog['navigation.memory'], $catalog['navigation.processes'], $catalog['navigation.network'], $catalog['setup.section.deployment'], $catalog['setup.authorize'], $catalog['privacy.masked_paths'], $catalog['auth.app'], $catalog['auth.recovery_title'], $catalog['auth.verify'], $catalog['openid.provider'], $catalog['openid.create_client'], $catalog['schedule.custom_builder'], $catalog['schedule.remove']) && array_diff($translatedNavigation, array_keys($catalog)) === [],
             "locale catalog $locale lacks translated primary navigation");
         i18nExpect(array_diff(array_unique($setupKeys[1] ?? []), array_keys($catalog)) === [],

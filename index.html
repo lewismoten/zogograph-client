@@ -1012,10 +1012,10 @@
 <section class="view" data-view="mem-goes" hidden>
 <section class="panel" id="memGoesPanel">
   <div class="panel-head">
-    <h2>Where the memory goes</h2>
-    <button id="memGoesRefresh" class="link">Refresh</button>
+    <h2 data-i18n="host.memory_breakdown_title">Where the memory goes</h2>
+    <button id="memGoesRefresh" class="link" data-i18n="action.refresh">Refresh</button>
   </div>
-  <p class="muted small sub-note">The share of measured process memory each service holds, drawn from PSS rather than RSS — a pie claims its slices make a whole, and resident memory cannot: a page shared by ten processes would be counted ten times.</p>
+  <p class="muted small sub-note" data-i18n="host.memory_breakdown_help">The share of measured process memory each service holds, drawn from PSS rather than RSS — a pie claims its slices make a whole, and resident memory cannot: a page shared by ten processes would be counted ten times.</p>
   <div id="memGoesBody"></div>
   <div id="memGoesContent" hidden>
     <p class="muted small sub-note" id="hostPieNote">
@@ -1032,10 +1032,10 @@
 <section class="view" data-view="mem-procs" hidden>
 <section class="panel" id="memProcsPanel">
   <div class="panel-head">
-    <h2>Biggest processes on the host</h2>
-    <button id="memProcsRefresh" class="link">Refresh</button>
+    <h2 data-i18n="host.memory_processes_title">Biggest processes on the host</h2>
+    <button id="memProcsRefresh" class="link" data-i18n="action.refresh">Refresh</button>
   </div>
-  <p class="muted small sub-note">Every process on the machine, not just this account's. This is the list that answers &ldquo;what is actually holding the memory&rdquo; when the per-user totals only say whose it is.</p>
+  <p class="muted small sub-note" data-i18n="host.memory_processes_help">Every process on the machine, not just this account's. This is the list that answers &ldquo;what is actually holding the memory&rdquo; when the per-user totals only say whose it is.</p>
   <div id="memProcsBody"></div>
   <div id="memProcsContent" hidden>
     <div id="hostProcesses"></div>

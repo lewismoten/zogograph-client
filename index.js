@@ -25246,7 +25246,7 @@ function labelled(value, label, row = null) {
       const tag = document.createElement("span");
       tag.className = "own-label";
       tag.textContent = ` ${label}`;
-      tag.title = "A name you gave this, under Settings \u2192 Your own names.";
+      tag.title = ZogographI18n.t("network.own_label_tip");
       span.appendChild(tag);
     }
 
@@ -25254,14 +25254,13 @@ function labelled(value, label, row = null) {
       const tag = document.createElement("span");
       tag.className = "rdns-name muted small";
       tag.textContent = ` ${row.rdns_name}`;
-      tag.title = "What the internet says this address is called \u2014 a PTR record, which "
-        + "its owner controls and can set to anything.";
+      tag.title = ZogographI18n.t("network.rdns_name_tip");
       span.appendChild(tag);
     } else if (row?.rdns_asked) {
       const tag = document.createElement("span");
       tag.className = "muted small";
       tag.textContent = " \u2026";
-      tag.title = "Waiting to be looked up. One is resolved per collector run.";
+      tag.title = ZogographI18n.t("network.rdns_waiting_tip");
       span.appendChild(tag);
     } else if (row?.rdns_none) {
       /*
@@ -25274,8 +25273,7 @@ function labelled(value, label, row = null) {
       const tag = document.createElement("span");
       tag.className = "muted small";
       tag.textContent = " \u2014";
-      tag.title = "Looked up: this address has no PTR record, so it has no name to show. "
-        + "That is a real answer, not a failure.";
+      tag.title = ZogographI18n.t("network.rdns_none_tip");
       span.appendChild(tag);
     } else if (row && row.address && row.private === false) {
       /*
@@ -25287,8 +25285,8 @@ function labelled(value, label, row = null) {
        */
       const ask = document.createElement("button");
       ask.className = "link tiny";
-      ask.textContent = "name?";
-      ask.title = "Queue a reverse lookup for this address";
+      ask.textContent = ZogographI18n.t("network.rdns_ask");
+      ask.title = ZogographI18n.t("network.rdns_ask_tip");
       ask.addEventListener("click", async event => {
         event.stopPropagation();
         ask.disabled = true;
@@ -25297,7 +25295,7 @@ function labelled(value, label, row = null) {
           ask.replaceWith(Object.assign(document.createElement("span"), {
             className: "muted small",
             textContent: " \u2026",
-            title: "Queued. One is resolved per collector run.",
+            title: ZogographI18n.t("network.rdns_queued_tip"),
           }));
         } catch (error) {
           notice(String(error.message || error));

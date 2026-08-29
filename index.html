@@ -1460,12 +1460,12 @@
 <section class="view" data-view="net-fetch" hidden>
 <section class="panel" id="fetchPanel">
   <div class="panel-head">
-    <h2>Ask for a page</h2>
+    <h2 data-i18n="network.fetch_title">Ask for a page</h2>
   </div>
-  <p class="muted small sub-note">
+  <p class="muted small sub-note" data-i18n-rich="network.fetch_help">
     One request, made now, reported in full — what the server actually sends,
     which is the question while you are setting a check up or arguing with a
-    cache. Type an address with or without <code>https://</code>. The body is
+    cache. Type an address with or without <code data-i18n-tag="https">https://</code>. The body is
     shown as text and never inserted as markup; the preview runs in a sandboxed
     frame of its own, which can neither read this page nor act as you. The body
     is kept for an hour so the preview can load it, then discarded.
@@ -1486,8 +1486,8 @@
       <option value="HEAD">HEAD</option>
       <option value="OPTIONS">OPTIONS</option>
     </select>
-    <label class="pill"><input type="checkbox" id="fetchFollow" checked> Follow redirects</label>
-    <button type="submit">Ask</button>
+    <label class="pill"><input type="checkbox" id="fetchFollow" checked><span data-i18n="network.fetch_follow_redirects">Follow redirects</span></label>
+    <button type="submit" data-i18n="network.fetch_ask">Ask</button>
   </form>
   <div id="fetchBody"></div>
 </section>

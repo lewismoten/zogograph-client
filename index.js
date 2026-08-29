@@ -28453,7 +28453,7 @@ function renderDnsChanges(data) {
 async function refreshWhoAmI() {
   const body = $("whoamiBody");
   if (!state.signedIn) {
-    body.replaceChildren(note("Sign in to see who you are."));
+    body.replaceChildren(note(ZogographI18n.t("network.sign_in_whoami", {}, "Sign in to see who you are.")));
     return;
   }
 

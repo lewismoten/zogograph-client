@@ -555,6 +555,7 @@
   "table.what": "क्या",
   "dns.change.appeared": "दिखाई दिया",
   "dns.change.disappeared": "गायब हुआ",
+  "network.sign_in_whoami": "यह जानने के लिए साइन इन करें कि आप कौन हैं।",
   "table.name": "नाम",
   "table.type": "प्रकार",
   "table.value": "मान",

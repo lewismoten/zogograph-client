@@ -538,6 +538,7 @@
   "table.what": "What",
   "dns.change.appeared": "Appeared",
   "dns.change.disappeared": "Disappeared",
+  "network.sign_in_whoami": "Sign in to see who you are.",
   "table.name": "Name",
   "table.type": "Type",
   "table.value": "Value",

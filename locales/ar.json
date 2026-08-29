@@ -555,6 +555,7 @@
   "table.what": "ما الذي",
   "dns.change.appeared": "ظهر",
   "dns.change.disappeared": "اختفى",
+  "network.sign_in_whoami": "سجّل الدخول لمعرفة هويتك.",
   "table.name": "الاسم",
   "table.type": "النوع",
   "table.value": "القيمة",

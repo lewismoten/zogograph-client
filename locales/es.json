@@ -557,6 +557,7 @@
   "table.what": "Qué",
   "dns.change.appeared": "Apareció",
   "dns.change.disappeared": "Desapareció",
+  "network.sign_in_whoami": "Inicie sesión para ver quién es.",
   "table.name": "Nombre",
   "table.type": "Tipo",
   "table.value": "Valor",

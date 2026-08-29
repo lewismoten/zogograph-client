@@ -555,6 +555,7 @@
   "table.what": "内容",
   "dns.change.appeared": "已出现",
   "dns.change.disappeared": "已消失",
+  "network.sign_in_whoami": "登录以查看您的身份。",
   "table.name": "名称",
   "table.type": "类型",
   "table.value": "值",

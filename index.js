@@ -6493,20 +6493,26 @@ function renderAiTools(data) {
 
   const savePreset = document.createElement("button");
   savePreset.type = "button";
-  savePreset.textContent = "Save as toolset";
+  savePreset.textContent = ZogographI18n.t("ai.save_as_toolset", {}, "Save as toolset");
   savePreset.disabled = !data.writable;
   savePreset.addEventListener("click", async () => {
-    const name = await askTextDialog("Save toolset", "Short preset name", "",
-      "Use lowercase letters, numbers, - or _.");
+    const name = await askTextDialog(
+      ZogographI18n.t("ai.toolset_title", {}, "Save toolset"),
+      ZogographI18n.t("ai.toolset_short_name", {}, "Short preset name"),
+      "",
+      ZogographI18n.t("ai.toolset_name_hint", {}, "Use lowercase letters, numbers, - or _."));
     if (!name) return;
-    const label = await askTextDialog("Save toolset", "Label", name,
-      "This is the name people see in the list.");
+    const label = await askTextDialog(
+      ZogographI18n.t("ai.toolset_title", {}, "Save toolset"),
+      ZogographI18n.t("ai.toolset_label", {}, "Label"),
+      name,
+      ZogographI18n.t("ai.toolset_label_hint", {}, "This is the name people see in the list."));
     if (label === null) return;
     try {
       const on = [...body.querySelectorAll("input.tool-on:checked")].map(box => box.dataset.tool).join(",");
       const ask = [...body.querySelectorAll("input.tool-ask:checked")].map(box => box.dataset.tool).join(",");
       renderAiSettings(await post("ai-toolset-save", { name, label, tools_on: on, tools_ask: ask }));
-      notice("Toolset saved.", true);
+      notice(ZogographI18n.t("ai.toolset_saved", {}, "Toolset saved."), true);
     } catch (error) {
       notice(String(error.message || error));
     }
@@ -6516,18 +6522,20 @@ function renderAiTools(data) {
   const removePreset = document.createElement("button");
   removePreset.type = "button";
   removePreset.className = "link danger";
-  removePreset.textContent = "Delete saved toolset";
+  removePreset.textContent = ZogographI18n.t("ai.delete_toolset", {}, "Delete saved toolset");
   removePreset.disabled = !data.writable;
   removePreset.addEventListener("click", async () => {
     const set = (data.toolsets || []).find(one => one.name === presetPick.value);
     if (!set || set.builtin) {
-      notice("Built-in toolsets cannot be deleted.");
+      notice(ZogographI18n.t("ai.builtin_toolset", {}, "Built-in toolsets cannot be deleted."));
       return;
     }
-    if (!(await confirmDialog(`Delete toolset “${set.label}”?`, "Delete toolset"))) return;
+    if (!(await confirmDialog(
+      ZogographI18n.t("ai.delete_toolset_confirm", { label: set.label }, "Delete toolset “{{label}}”?"),
+      ZogographI18n.t("ai.delete_toolset_title", {}, "Delete toolset")))) return;
     try {
       renderAiSettings(await post("ai-toolset-delete", { name: set.name }));
-      notice("Toolset deleted.", true);
+      notice(ZogographI18n.t("ai.toolset_deleted", {}, "Toolset deleted."), true);
     } catch (error) {
       notice(String(error.message || error));
     }

@@ -14629,7 +14629,7 @@ function permitForm(data) {
 
   const go = document.createElement("button");
   go.type = "button";
-  go.textContent = "Switch it on";
+  go.textContent = ZogographI18n.t("terminal.switch_on", {}, "Switch it on");
   go.addEventListener("click", async () => {
     const yes = await askFirst("Allow a shell in this web page?", [
       "This runs whatever is typed into it, as the user the web server runs as, and "
@@ -14699,7 +14699,7 @@ function unlockForm(data) {
 
   const go = document.createElement("button");
   go.type = "button";
-  go.textContent = "Unlock it";
+  go.textContent = ZogographI18n.t("terminal.unlock", {}, "Unlock it");
   go.addEventListener("click", () => unlockTerminal(Number(howLong.value)));
   row.appendChild(go);
 
@@ -14721,18 +14721,18 @@ function openForNow(data) {
    * and this one has a decision attached to it.
    */
   said.dataset.untilFrom = String(data.unlocked_until);
-  said.textContent = `Open for another ${humanSpan(data.unlocked_for, true)}.`;
+  said.textContent = ZogographI18n.t("terminal.open_for", { duration: humanSpan(data.unlocked_for, true) }, "Open for another {{duration}}.");
   wrap.appendChild(said);
 
   const extend = document.createElement("button");
   extend.className = "link";
-  extend.textContent = "Give it longer";
+  extend.textContent = ZogographI18n.t("terminal.extend", {}, "Give it longer");
   extend.addEventListener("click", () => unlockTerminal(1800));
   wrap.appendChild(extend);
 
   const lock = document.createElement("button");
   lock.className = "link danger";
-  lock.textContent = "Lock it now";
+  lock.textContent = ZogographI18n.t("terminal.lock_now", {}, "Lock it now");
   lock.addEventListener("click", async () => {
     try {
       renderTerminal(await post("terminal-lock"));

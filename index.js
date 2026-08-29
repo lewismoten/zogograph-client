@@ -13672,7 +13672,7 @@ function renderSessionLog() {
     const one = document.createElement("button");
     one.type = "button";
     one.className = "link";
-    one.textContent = "Copy this one";
+    one.textContent = ZogographI18n.t("terminal.copy_entry", {}, "Copy this one");
     one.addEventListener("click", () => copyText(sessionEntryText(command)));
     tools.appendChild(one);
 
@@ -13680,7 +13680,7 @@ function renderSessionLog() {
       const just = document.createElement("button");
       just.type = "button";
       just.className = "link";
-      just.textContent = "Copy only its output";
+      just.textContent = ZogographI18n.t("terminal.copy_entry_output", {}, "Copy only its output");
       just.addEventListener("click", () => copyText(stripAnsi(command.text)));
       tools.appendChild(just);
     }
@@ -13688,7 +13688,7 @@ function renderSessionLog() {
     if (command.text_from_end) {
       const said = document.createElement("span");
       said.className = "muted small";
-      said.textContent = "the end of a longer output";
+      said.textContent = ZogographI18n.t("terminal.output_tail", {}, "the end of a longer output");
       tools.appendChild(said);
     }
 

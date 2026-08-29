@@ -50,6 +50,7 @@
   "notes.page": "Page",
   "notes.holding": "Holding",
   "notes.from": "Note from {{when}}",
+  "notes.sign_in": "Sign in to see the notes.",
   "notes.inbox_help": "Click a note in the inbox to read it without stretching the table.",
   "notes.take_another_screenshot": "Take another",
   "notes.take_screenshot": "Take a screenshot",

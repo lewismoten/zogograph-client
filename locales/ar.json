@@ -50,6 +50,7 @@
   "notes.page": "الصفحة",
   "notes.holding": "تحتوي",
   "notes.from": "ملاحظة من {{when}}",
+  "notes.sign_in": "سجّل الدخول لرؤية الملاحظات.",
   "notes.inbox_help": "انقر ملاحظة في صندوق الوارد لقراءتها دون تمديد الجدول.",
   "notes.take_another_screenshot": "التقط أخرى",
   "notes.take_screenshot": "التقط لقطة شاشة",

@@ -50,6 +50,7 @@
   "notes.page": "页面",
   "notes.holding": "包含",
   "notes.from": "来自 {{when}} 的备注",
+  "notes.sign_in": "登录后可查看备注。",
   "notes.inbox_help": "单击收件箱中的备注即可阅读，而不会拉长表格。",
   "notes.take_another_screenshot": "再拍一张",
   "notes.take_screenshot": "截取屏幕截图",

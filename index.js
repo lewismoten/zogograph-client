@@ -11745,7 +11745,7 @@ async function refreshNotes() {
   const body = $("notesBody");
 
   if (!state.signedIn) {
-    body.replaceChildren(note("Sign in to see the notes."));
+    body.replaceChildren(note(ZogographI18n.t("notes.sign_in", {}, "Sign in to see the notes.")));
     $("snapshotBody").replaceChildren();
     return;
   }

@@ -50,6 +50,7 @@
   "notes.page": "Página",
   "notes.holding": "Contiene",
   "notes.from": "Nota de {{when}}",
+  "notes.sign_in": "Inicie sesión para ver las notas.",
   "notes.inbox_help": "Haga clic en una nota de la bandeja de entrada para leerla sin estirar la tabla.",
   "notes.take_another_screenshot": "Tomar otra",
   "notes.take_screenshot": "Tomar una captura de pantalla",

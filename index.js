@@ -776,91 +776,6 @@ function gaugeBandWord(band) {
   })[band]);
 }
 
-function renderGauges(overview, rows = null) {
-  const v = overview.vitals;
-  const holder = $("gauges");
-
-  /*
-   * The history behind each dial, from the readings already fetched.
-   *
-   * Passed in rather than fetched: refreshVitals has them, and asking for the
-   * same series again to draw a 32-pixel strip would double every poll.
-   */
-  const readings = rows ?? state.vitalRows ?? [];
-
-  if (!v) {
-    holder.replaceChildren(Object.assign(document.createElement("p"), {
-      className: "muted",
-      textContent: ZogographI18n.t("gauge.nothing_collected", {}, "Nothing collected yet."),
-    }));
-    return;
-  }
-
-  const host = overview.limits?.rows || [];
-  const hostOf = name => host.find(r => r.name === name)?.host ?? null;
-
-  const usedPercent = v.disk_total_bytes
-    ? (v.disk_used_bytes / v.disk_total_bytes) * 100
-    : null;
-  const inodePercent = v.inodes_total
-    ? (v.inodes_used / v.inodes_total) * 100
-    : null;
-  const cores = v.cpu_cores ? Number(v.cpu_cores) : null;
-  const perCore = v.load1 != null && cores ? (Number(v.load1) / cores) * 100 : null;
-  const hostCpu = hostOf("CPU in use");
-
-  const dials = [
-    {
-      label: ZogographI18n.t("gauge.disk_used", {}, "Disk used"), value: usedPercent, warn: 88, crit: 95,
-      series: gaugeSeries(readings, row => (row.disk_total_bytes
-        ? (row.disk_used_bytes / row.disk_total_bytes) * 100 : null)),
-      sub: v.disk_total_bytes
-        ? ZogographI18n.t("gauge.free_of_total", { free: humanBytes(v.disk_free_bytes), total: humanBytes(v.disk_total_bytes) }, "{{free}} free of {{total}}")
-        : ZogographI18n.t("gauge.not_reported", {}, "not reported"),
-    },
-    {
-      label: ZogographI18n.t("gauge.inodes_used", {}, "Inodes used"), value: inodePercent, warn: 88, crit: 95,
-      series: gaugeSeries(readings, row => (row.inodes_total
-        ? (row.inodes_used / row.inodes_total) * 100 : null)),
-      sub: v.inodes_total
-        ? ZogographI18n.t("gauge.free", { count: v.inodes_free }, "{{count, number}} free")
-        : ZogographI18n.t("gauge.not_reported", {}, "not reported"),
-    },
-    {
-      label: ZogographI18n.t("gauge.cpu", {}, "CPU"), value: v.cpu_percent == null ? null : Number(v.cpu_percent),
-      warn: 70, crit: 90,
-      series: gaugeSeries(readings, row => row.cpu_percent),
-      // The account's allowance, with the machine's own figure under it - see
-      // the limits panel for why they are not the same measurement.
-      sub: v.cpu_percent == null
-        ? ZogographI18n.t("gauge.no_proc_stat", {}, "no /proc/stat here")
-        : hostCpu == null
-          ? ZogographI18n.t("gauge.account_allowance", {}, "of this account's allowance")
-          : ZogographI18n.t("gauge.allowance_host", { percent: Number(hostCpu).toFixed(0) }, "of the allowance · host {{percent}}%"),
-    },
-    {
-      label: ZogographI18n.t("gauge.memory", {}, "Memory"), value: v.mem_used_percent == null ? null : Number(v.mem_used_percent),
-      warn: 80, crit: 92,
-      series: gaugeSeries(readings, row => row.mem_used_percent),
-      sub: v.mem_total_bytes
-        ? ZogographI18n.t("gauge.available_of_total", { available: humanBytes(v.mem_available_bytes), total: humanBytes(v.mem_total_bytes) }, "{{available}} available of {{total}}")
-        : ZogographI18n.t("gauge.not_reported", {}, "not reported"),
-    },
-    {
-      label: ZogographI18n.t("gauge.load", {}, "Load"), value: perCore, warn: 100, crit: 150, max: 200,
-      series: gaugeSeries(readings, row => (row.load1 != null && row.cpu_cores
-        ? (Number(row.load1) / Number(row.cpu_cores)) * 100 : null)),
-      sub: v.load1 == null
-        ? ZogographI18n.t("gauge.not_reported", {}, "not reported")
-        : cores
-          ? ZogographI18n.t("gauge.load_over_cores", { load: Number(v.load1).toFixed(2), count: cores }, "{{load}} over {{count, number}} cores")
-          : ZogographI18n.t("gauge.load_cores_unknown", { load: Number(v.load1).toFixed(2) }, "{{load}}, cores unknown"),
-    },
-  ];
-
-  holder.replaceChildren(...dials.map(buildGauge));
-}
-
 /*
  * The processor, from the same host reading the memory page uses.
  *
@@ -3807,7 +3722,11 @@ async function refreshVitals() {
   // Kept so a redraw - a resize, a theme change - can rebuild the sparklines
   // without a second fetch.
   state.vitalRows = vitals.rows;
-  renderGauges(overview, vitals.rows);
+  renderCoreCardPackage(ZogographOverviewGaugesCard, "core-overview-gauges", {
+    overview, rows: vitals.rows,
+  }, {
+    target: $("gauges"), buildGauge, gaugeSeries, humanBytes, i18n: ZogographI18n,
+  });
   renderLimits(overview.limits);
   renderCards(overview, vitals.rows);
 

@@ -13,6 +13,7 @@ $cpuQueueCard = file_get_contents($root . '/cards/cpu-queue.js');
 $cpuGaugesCard = file_get_contents($root . '/cards/cpu-gauges.js');
 $networkGaugesCard = file_get_contents($root . '/cards/network-gauges.js');
 $hostMemoryGaugesCard = file_get_contents($root . '/cards/host-memory-gauges.js');
+$overviewGaugesCard = file_get_contents($root . '/cards/overview-gauges.js');
 $hostMemoryCard = file_get_contents($root . '/cards/host-memory.js');
 $uptimeCard = file_get_contents($root . '/cards/uptime.js');
 $setup = file_get_contents($root . '/setup.php');
@@ -127,6 +128,12 @@ i18nExpect($page !== false && str_contains($page, 'src="cards/host-memory-gauges
     && str_contains($hostMemoryGaugesCard, 'helpers: ["target", "buildGauge", "humanBytes", "i18n"]')
     && str_contains($script, 'renderCoreCardPackage(ZogographHostMemoryGaugesCard, "core-host-memory-gauges",'),
     'host memory gauges are not isolated behind their core card-module boundary');
+i18nExpect($page !== false && str_contains($page, 'src="cards/overview-gauges.js"')
+    && $overviewGaugesCard !== false && str_contains($overviewGaugesCard, 'window.ZogographOverviewGaugesCard')
+    && str_contains($overviewGaugesCard, 'id: "core-overview-gauges"') && str_contains($overviewGaugesCard, 'locales: ["gauge."]')
+    && str_contains($overviewGaugesCard, 'helpers: ["target", "buildGauge", "gaugeSeries", "humanBytes", "i18n"]')
+    && str_contains($script, 'renderCoreCardPackage(ZogographOverviewGaugesCard, "core-overview-gauges",'),
+    'overview gauges are not isolated behind their core card-module boundary');
 i18nExpect($page !== false && str_contains($page, 'src="cards/host-memory.js"')
     && $hostMemoryCard !== false && str_contains($hostMemoryCard, 'window.ZogographHostMemoryCard')
     && str_contains($hostMemoryCard, 'id: "core-host-memory"') && str_contains($hostMemoryCard, 'locales: ["host."]')

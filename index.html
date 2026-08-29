@@ -2535,27 +2535,27 @@
 <section class="view" data-view="sys-terminal" hidden>
 <section class="panel" id="terminalPanel">
   <div class="panel-head">
-    <h2>Terminal</h2>
+    <h2 data-i18n="terminal.title">Terminal</h2>
     <div class="panel-controls">
-      <button id="terminalStop" class="link danger" hidden>Stop it</button>
+      <button id="terminalStop" class="link danger" hidden data-i18n="terminal.stop">Stop it</button>
     </div>
   </div>
-  <p class="muted small sub-note">
+  <p class="muted small sub-note" data-i18n-rich="terminal.help">
     This runs what you type, as the user the web server runs as, and shows the
     output. Be clear-eyed about what that means: anybody who has the dashboard
     password has this, so it stays off until somebody switches it on here, and
     every command is written to the action log before it runs. Each command is
     its own process; the directory it runs in carries over between them and is
-    shown above the box, so <code>cd</code> works and you can see where you are.
+    shown above the box, so <code data-i18n-tag="cd">cd</code> works and you can see where you are.
     What does not carry over is anything else a shell remembers &mdash;
     variables, functions, background jobs &mdash; because there is no shell
     sitting between requests to remember them.
   </p>
-  <p class="muted small sub-note">
+  <p class="muted small sub-note" data-i18n-rich="terminal.interactive_help">
     It is a transcript, not a screen. Colour, bold, tabs and progress lines that
-    rewrite themselves all render. Text editors such as <code>vi</code> and
-    <code>nano</code> open a constrained browser editor instead. Programs that
-    need an interactive terminal &mdash; <code>top</code>, <code>ssh</code>, or
+    rewrite themselves all render. Text editors such as <code data-i18n-tag="vi">vi</code> and
+    <code data-i18n-tag="nano">nano</code> open a constrained browser editor instead. Programs that
+    need an interactive terminal &mdash; <code data-i18n-tag="top">top</code>, <code data-i18n-tag="ssh">ssh</code>, or
     anything asking for a password &mdash; cannot be driven from here.
   </p>
   <div id="terminalBody"></div>

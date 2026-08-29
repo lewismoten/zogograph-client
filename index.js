@@ -17011,8 +17011,10 @@ function renderMarkdown(text) {
       const copy = document.createElement("button");
       copy.type = "button";
       copy.className = "md-copy";
-      copy.textContent = "Copy";
-      copy.title = language ? `Copy this ${language} block` : "Copy this block";
+      copy.textContent = ZogographI18n.t("action.copy", {}, "Copy");
+      copy.title = language
+        ? ZogographI18n.t("markdown.copy_language_block", { language }, "Copy this {{language}} block")
+        : ZogographI18n.t("markdown.copy_block", {}, "Copy this block");
       copy.addEventListener("click", async event => {
         // The block may be inside something clickable; taking a copy of it is
         // not asking to open whatever that is.
@@ -23723,9 +23725,9 @@ async function inspect(path) {
   panel.hidden = false;
   treeState.selected = path;
 
-  $("inspectTitle").textContent = "Details";
+  $("inspectTitle").textContent = ZogographI18n.t("action.details", {}, "Details");
   $("inspectPath").textContent = path;
-  $("inspectBody").replaceChildren(note("Looking\u2026"));
+  $("inspectBody").replaceChildren(note(ZogographI18n.t("common.looking", {}, "Looking…")));
 
   let data;
   try {
@@ -32510,7 +32512,11 @@ function setFetchState(kind) {
   stateEl.classList.toggle("is-loading", kind === "loading");
   stateEl.classList.toggle("is-error", kind === "error");
   const label = stateEl.querySelector("span:last-child");
-  if (label) label.textContent = kind === "loading" ? "Loading" : kind === "error" ? "Could not refresh" : "Ready";
+  if (label) label.textContent = kind === "loading"
+    ? ZogographI18n.t("common.loading", {}, "Loading…")
+    : kind === "error"
+      ? ZogographI18n.t("common.refresh_failed", {}, "Could not refresh")
+      : ZogographI18n.t("common.ready", {}, "Ready");
 }
 
 /*

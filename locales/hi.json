@@ -3,6 +3,8 @@
   "package.page_boundary": "यह पृष्ठ पैकेज के हस्ताक्षरित मेटाडेटा से Zogograph शेल द्वारा रेंडर होता है। यह पैकेज HTML, शैली या ब्राउज़र कोड लोड नहीं करता।",
   "package.open_settings": "पैकेज सेटिंग खोलें",
   "action.copy": "कॉपी करें",
+  "markdown.copy_block": "इस ब्लॉक को कॉपी करें", "markdown.copy_language_block": "इस {{language}} ब्लॉक को कॉपी करें",
+  "common.looking": "देख रहे हैं…", "common.refresh_failed": "रीफ़्रेश नहीं हो सका", "common.ready": "तैयार",
   "common.sign_in_to_see": "इसे देखने के लिए साइन इन करें।",
   "reports.sign_in": "सारांश पढ़ने के लिए साइन इन करें।",
   "network.sign_in": "नेटवर्क देखने के लिए साइन इन करें।",

@@ -3,6 +3,8 @@
   "package.page_boundary": "此页面由 Zogograph 外壳根据软件包的已签名元数据渲染。它不会加载软件包 HTML、样式或浏览器代码。",
   "package.open_settings": "打开软件包设置",
   "action.copy": "复制",
+  "markdown.copy_block": "复制此代码块", "markdown.copy_language_block": "复制此 {{language}} 代码块",
+  "common.looking": "正在查看…", "common.refresh_failed": "无法刷新", "common.ready": "就绪",
  "common.sign_in_to_see": "登录后可查看此内容。",
   "reports.sign_in": "登录后可阅读摘要。",
   "network.sign_in": "登录后可查看网络。",

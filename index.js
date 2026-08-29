@@ -18870,7 +18870,9 @@ async function refreshHost() {
 
   for (const id of bodies) {
     const el = $(id);
-    if (el && !el.childElementCount) el.replaceChildren(spinner("Reading the host collector\u2026"));
+    if (el && !el.childElementCount) el.replaceChildren(spinner(
+      ZogographI18n.t("host.collector_loading", {}, "Reading the host collector\u2026")
+    ));
   }
 
   const panel = $("hostPanel");
@@ -18915,20 +18917,20 @@ async function refreshHost() {
       if (el) {
         el.replaceChildren(Object.assign(document.createElement("p"), {
           className: "muted",
-          textContent: data.reason || "No host readings.",
+          textContent: data.reason || ZogographI18n.t("host.no_readings", {}, "No host readings."),
         }));
       }
     }
     holder.replaceChildren(Object.assign(document.createElement("p"), {
       className: "muted",
-      textContent: data.reason || "No host readings.",
+      textContent: data.reason || ZogographI18n.t("host.no_readings", {}, "No host readings."),
     }));
 
     if (data.cron) {
       holder.appendChild(Object.assign(document.createElement("p"), {
         className: "muted small",
-        textContent: "As root — ssh in or use WHM's Terminal — add this to root's "
-          + "crontab with crontab -e:",
+        textContent: ZogographI18n.t("host.add_root_collector_cron", {},
+          "As root — SSH in or use WHM's Terminal — add this to root's crontab with crontab -e:"),
       }));
       const pre = document.createElement("pre");
       pre.className = "paste";
@@ -18936,8 +18938,8 @@ async function refreshHost() {
       holder.appendChild(pre);
       holder.appendChild(Object.assign(document.createElement("p"), {
         className: "muted small",
-        textContent: "Then run it once by hand to see what it finds: "
-          + data.command,
+        textContent: ZogographI18n.t("host.run_collector_once", { command: data.command },
+          "Then run it once by hand to see what it finds: {{command}}"),
       }));
     }
 

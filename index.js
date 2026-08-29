@@ -28661,7 +28661,7 @@ function renderDomains(data) {
 
         const now = document.createElement("button");
         now.className = "link";
-        now.textContent = "Check";
+        now.textContent = ZogographI18n.t("action.check_now", {}, "Check now");
         now.title = "Run a fresh registry lookup now";
         now.addEventListener("click", async () => {
           now.disabled = true;

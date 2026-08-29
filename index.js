@@ -5058,12 +5058,12 @@ async function deletePicked() {
   const bytes = rows.reduce((sum, r) => sum + Number(r.bytes || 0), 0);
   const dirs = rows.filter(r => r.kind === "dir").length;
 
-  const question = `Delete ${count(rows.length, "item")} permanently?\n\n`
+  const question = ZogographI18n.t("storage.delete_permanently", { count: rows.length }, "Delete {{count, number}} permanently?") + "\n\n"
     + rows.slice(0, 12).map(r => `${r.kind === "dir" ? "[dir] " : ""}${r.display}`).join("\n")
-    + (rows.length > 12 ? `\n\u2026and ${rows.length - 12} more` : "")
-    + `\n\nThat is ${humanBytes(bytes)}`
-    + (dirs ? `, and ${count(dirs, "directory", "directories")} will be emptied recursively` : "")
-    + ". This cannot be undone.";
+    + (rows.length > 12 ? "\n" + ZogographI18n.t("storage.delete_more", { count: rows.length - 12 }, "…and {{count, number}} more") : "")
+    + "\n\n" + ZogographI18n.t("storage.delete_size", { bytes: humanBytes(bytes) }, "That is {{bytes}}")
+    + (dirs ? ", " + ZogographI18n.t("storage.delete_recursive", { count: dirs }, "and {{count, number}} will be emptied recursively") : "")
+    + ". " + ZogographI18n.t("storage.cannot_undo", {}, "This cannot be undone.");
 
   if (!(await confirmDialog(question, "Delete"))) return;
 
@@ -5089,8 +5089,8 @@ async function deletePicked() {
   }
 
   notice(
-    `Removed ${count(done, "item")}, freeing ${humanBytes(freed)}.`
-      + (failed.length ? ` ${count(failed.length, "item")} could not be removed: ${failed[0]}` : ""),
+    ZogographI18n.t("storage.removed", { count: done, bytes: humanBytes(freed) }, "Removed {{count, number}}, freeing {{bytes}}.")
+      + (failed.length ? " " + ZogographI18n.t("storage.remove_failed", { count: failed.length, detail: failed[0] }, "{{count, number}} could not be removed: {{detail}}") : ""),
     !failed.length
   );
 

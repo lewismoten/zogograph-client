@@ -7237,7 +7237,7 @@ function chatProgressCard(message) {
 
   const head = document.createElement("div");
   head.className = "chat-progress-head";
-  head.textContent = String(args.what || "Working");
+  head.textContent = String(args.what || aiSettingsText("progress_working", "Working"));
   card.appendChild(head);
 
   const track = document.createElement("div");
@@ -7260,14 +7260,14 @@ function chatProgressCard(message) {
      * picture attached.
      */
     track.classList.add("indeterminate");
-    said.textContent = "Working — the size of this job is not known.";
+    said.textContent = aiSettingsText("progress_unknown", "Working — the size of this job is not known.");
   } else if (kind === "count") {
     const total = Math.max(1, Number(args.total) || 1);
     const done = Math.max(0, Math.min(total, Number(args.done) || 0));
-    const unit = String(args.unit || "steps");
+    const unit = String(args.unit || aiSettingsText("progress_steps", "steps"));
 
     fill.style.setProperty("--fill", `${Math.round((done / total) * 100)}%`);
-    said.textContent = `${done} of ${total} ${unit} done`;
+    said.textContent = aiSettingsText("progress_count", "{{done}} of {{total}} {{unit}} done", { done, total, unit });
   } else {
     const percent = Math.max(0, Math.min(100, Number(args.percent) || 0));
     const left = Number(args.seconds_left);
@@ -7275,7 +7275,7 @@ function chatProgressCard(message) {
     fill.style.setProperty("--fill", `${percent}%`);
     said.textContent = `${percent}%`
       + (Number.isFinite(left) && left > 0
-        ? ` · about ${humanSpan(left, true)} left`
+        ? aiSettingsText("progress_time_left", " · about {{duration}} left", { duration: humanSpan(left, true) })
         : "");
   }
 
@@ -7288,8 +7288,8 @@ function chatProgressCard(message) {
    * saying nothing about how far along anything is.
    */
   said.title = kind === "working"
-    ? `Started ${humanTime(message.at)}. The sweep is decoration; it does not track anything.`
-    : `Drawn ${humanTime(message.at)}. It does not move on its own.`;
+    ? aiSettingsText("progress_indeterminate_title", "Started {{time}}. The sweep is decoration; it does not track anything.", { time: humanTime(message.at) })
+    : aiSettingsText("progress_drawn_title", "Drawn {{time}}. It does not move on its own.", { time: humanTime(message.at) });
   card.appendChild(said);
 
   return card;

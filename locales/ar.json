@@ -734,5 +734,5 @@
   "assistant.speaking": "يتحدث", "assistant.hold_to_talk": "اضغط باستمرار للتحدث", "assistant.start_listening": "ابدأ الاستماع", "assistant.listening": "يستمع…", "assistant.stop_listening": "أوقف الاستماع",
   "host.open_setup": "افتح إعداد المضيف", "action.view": "عرض", "storage.empty": "إفراغ",
   "scan.set_up": "أعِدّ واحدًا", "scan.set_up_title": "يجب اختياره قبل أن يمكن طلبه", "scan.ask": "اطلب واحدًا", "scan.ask_title": "سيحدث في المرور التالي للجامع، وليس الآن",
-  "scan.what": "المهمة", "scan.how_often": "التكرار", "scan.recommended": "الموصى به", "scan.last_run": "آخر تشغيل", "scan.next": "التالي", "scan.as_recommended": "كما هو موصى به", "scan.never": "أبدًا", "scan.due_now": "مستحق الآن"
+  "scan.what": "المهمة", "scan.how_often": "التكرار", "scan.recommended": "الموصى به", "scan.last_run": "آخر تشغيل", "scan.next": "التالي", "scan.as_recommended": "كما هو موصى به", "scan.never": "أبدًا", "scan.due_now": "مستحق الآن", "scan.boost_while_browsing": "سرّع إلى كل {{interval}} أثناء وجود شخص يشاهد", "scan.only_while_browsing": "فقط أثناء وجود شخص يشاهد"
 }

@@ -734,5 +734,5 @@
   "assistant.speaking": "正在朗读", "assistant.hold_to_talk": "按住说话", "assistant.start_listening": "开始听写", "assistant.listening": "正在听写…", "assistant.stop_listening": "停止听写",
   "host.open_setup": "打开主机设置", "action.view": "查看", "storage.empty": "清空",
   "scan.set_up": "设置一个", "scan.set_up_title": "需要先选择它，才能请求", "scan.ask": "请求一个", "scan.ask_title": "它会在收集器下一次运行时执行，不是现在",
-  "scan.what": "项目", "scan.how_often": "频率", "scan.recommended": "建议", "scan.last_run": "上次运行", "scan.next": "下次", "scan.as_recommended": "按建议设置", "scan.never": "从未", "scan.due_now": "现在到期"
+  "scan.what": "项目", "scan.how_often": "频率", "scan.recommended": "建议", "scan.last_run": "上次运行", "scan.next": "下次", "scan.as_recommended": "按建议设置", "scan.never": "从未", "scan.due_now": "现在到期", "scan.boost_while_browsing": "有人查看时加快至每 {{interval}} 一次", "scan.only_while_browsing": "仅在有人查看时"
 }

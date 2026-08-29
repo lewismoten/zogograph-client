@@ -8321,12 +8321,13 @@ function scanTable(rows, data) {
      * choice is better than one that is available and wrong.
      */
     if (scan.browse_boost > 0) {
-      often.appendChild(toggleLine("boost", scan, data,
-        `speed up to every ${humanSpan(scan.browse_boost)} while somebody is looking`));
+      often.appendChild(toggleLine("boost", scan, data, ZogographI18n.t(
+        "scan.boost_while_browsing", { interval: humanSpan(scan.browse_boost) },
+        "speed up to every {{interval}} while somebody is looking")));
     }
     if (scan.live_only || scan.browse_boost > 0) {
       often.appendChild(toggleLine("live_only", scan, data,
-        "only while somebody is looking"));
+        ZogographI18n.t("scan.only_while_browsing", {}, "only while somebody is looking")));
     }
 
     const suggested = row.insertCell();

@@ -45,6 +45,7 @@ require_once __DIR__ . '/ai-tools/busiest-processes.php';
 require_once __DIR__ . '/ai-tools/site-check-results.php';
 require_once __DIR__ . '/ai-tools/network-summary.php';
 require_once __DIR__ . '/ai-tools/collector-health.php';
+require_once __DIR__ . '/ai-tools/recent-changes.php';
 
 /**
  * Every tool, with its schema and how it runs.
@@ -69,6 +70,7 @@ function aiToolCatalogue(): array
         ...aiToolSiteCheckResultsPackage(),
         ...aiToolNetworkSummaryPackage(),
         ...aiToolCollectorHealthPackage(),
+        ...aiToolRecentChangesPackage(),
 
         /* ------------------------------------------------- what is wrong -- */
 
@@ -115,31 +117,6 @@ function aiToolCatalogue(): array
                     'type' => 'integer', 'minimum' => 1, 'maximum' => 40,
                     'required' => false, 'default' => 15,
                     'description' => 'How many paths to return.',
-                ],
-            ],
-        ],
-
-        'get_recent_changes' => [
-            'group' => 'diagnostic',
-            'where' => 'server',
-            'permission' => false,
-            'summary' => 'Software that changed underneath.',
-            'description' =>
-                "Returns changes noticed in installed software - the kernel, PHP, OpenSSL, "
-                . "the C library, and the programs this dashboard watches - with what each "
-                . "was and what it became.\n\n"
-                . "USE THIS WHENEVER THE USER SAYS SOMETHING WORKED BEFORE AND DOES NOT "
-                . "NOW. It is the single most common cause and the least visible: a "
-                . "package update at three in the morning explains a great deal of "
-                . "otherwise inexplicable behaviour.\n\n"
-                . "The times are when the change was NOTICED, not when it happened - this "
-                . "is recorded on a probe rather than continuously. Say so rather than "
-                . "asserting a change happened at a particular minute.",
-            'parameters' => [
-                'hours' => [
-                    'type' => 'integer', 'minimum' => 1, 'maximum' => 8760,
-                    'required' => false, 'default' => 336,
-                    'description' => 'How far back to look. Defaults to a fortnight.',
                 ],
             ],
         ],

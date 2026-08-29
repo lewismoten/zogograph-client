@@ -35,6 +35,10 @@ i18nExpect($script !== false && str_contains($script, 'new Intl.NumberFormat(doc
     && str_contains($script, 'syncViewLabelsFromNavigation();') && str_contains($script, 'function renderViewTitles(view)')
     && str_contains($script, 'ZogographI18n.t("page.document_title"') && str_contains($script, '"page.title"'),
     'dashboard value formatting ignores the selected locale or refreshes manual views');
+i18nExpect($script !== false && str_contains($script, 'function humanBytes(value, digits)')
+    && str_contains($script, 'minimumFractionDigits: places')
+    && str_contains($script, 'maximumFractionDigits: places'),
+    'human-readable byte values do not honor the selected locale');
 i18nExpect($script !== false && str_contains($script, 'ZogographI18n.t("image.note_screenshot"')
     && str_contains($script, 'ZogographI18n.t("image.send_screenshot"'),
     'dashboard fixed image descriptions do not use the locale catalog');

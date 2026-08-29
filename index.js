@@ -21471,11 +21471,11 @@ function drawSchedule(data) {
   const form = document.createElement("div");
   form.className = "row";
   form.append(
-    picker("schedVitals", "Vitals", data.presets.vitals, guessPick(data.lines, "--vitals", data.presets.vitals)),
-    picker("schedScan", "Scan", data.presets.scan, guessPick(data.lines, "--scan", data.presets.scan)),
-    numberField("schedMinute", "At minute", 0, 59, 7),
-    numberField("schedHour", "At hour", 0, 23, 2),
-    picker("schedPhp", "PHP binary",
+    picker("schedVitals", ZogographI18n.t("schedule.job.vitals", {}, "Vitals collection"), data.presets.vitals, guessPick(data.lines, "--vitals", data.presets.vitals)),
+    picker("schedScan", ZogographI18n.t("schedule.job.scan", {}, "Directory scan"), data.presets.scan, guessPick(data.lines, "--scan", data.presets.scan)),
+    numberField("schedMinute", ZogographI18n.t("schedule.at_minute", {}, "At minute"), 0, 59, 7),
+    numberField("schedHour", ZogographI18n.t("schedule.at_hour", {}, "At hour"), 0, 23, 2),
+    picker("schedPhp", ZogographI18n.t("schedule.php_binary", {}, "PHP command-line binary"),
       Object.fromEntries(data.binaries.map(b => [b, { label: b }])), data.binaries[0]),
   );
   holder.appendChild(form);
@@ -21502,7 +21502,7 @@ function drawSchedule(data) {
    */
   const previewLabel = document.createElement("p");
   previewLabel.className = "muted small";
-  previewLabel.textContent = "This will be written:";
+  previewLabel.textContent = ZogographI18n.t("schedule.preview_written", {}, "This will be written:");
   const preview = document.createElement("pre");
   preview.id = "schedPreview";
   holder.append(previewLabel, preview);
@@ -21515,14 +21515,14 @@ function drawSchedule(data) {
   // The form can add one job while removing the other. Its action is therefore
   // an intentional replacement of Zogograph's managed block, never merely
   // “add” or “remove” based on what happened to be installed before editing.
-  save.textContent = "Apply schedule changes";
+  save.textContent = ZogographI18n.t("schedule.apply_changes", {}, "Apply schedule changes");
   save.addEventListener("click", () => saveSchedule(false));
   buttons.appendChild(save);
 
   if (data.lines.length) {
     const remove = document.createElement("button");
     remove.className = "danger";
-    remove.textContent = "Remove from the crontab";
+    remove.textContent = ZogographI18n.t("schedule.remove_crontab", {}, "Remove from the crontab");
     remove.addEventListener("click", () => saveSchedule(true));
     buttons.appendChild(remove);
   }

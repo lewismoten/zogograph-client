@@ -30309,8 +30309,7 @@ function renderEmail(data) {
   const parts = [];
 
   if (!data.mail_available) {
-    parts.push(note("This PHP has no mail() function, so nothing can be sent from here "
-      + "whatever is set below. That is a host setting, not one of these."));
+    parts.push(note(ZogographI18n.t("email.mail_unavailable", {}, "This PHP has no mail() function, so nothing can be sent from here whatever is set below. That is a host setting, not one of these.")));
   }
 
   const form = document.createElement("div");
@@ -30322,7 +30321,7 @@ function renderEmail(data) {
     box.id = "emailEnabled";
     box.checked = data.enabled;
     return box;
-  })(), "Nothing is sent while this is off, however bad things get."));
+  })(), ZogographI18n.t("email.enabled_help", {}, "Nothing is sent while this is off, however bad things get.")));
 
   form.appendChild(fieldRow(ZogographI18n.t("email.send_to", {}, "Send to"), (() => {
     /*

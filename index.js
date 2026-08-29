@@ -6092,7 +6092,7 @@ function renderAiSettings(data) {
   window_.step = "1000";
   window_.className = "days";
   window_.value = String(data.context_tokens ?? 128000);
-  room.appendChild(fieldRow("Context window (tokens)", window_,
+  room.appendChild(fieldRow(aiSettingsText("context_window_label", "Context window (tokens)"), window_,
     "How much the chosen model can hold at once. It is a fact about the model, not "
     + "something the API will tell us, so it is typed in — check the model's own "
     + "documentation. Guessing high is the worse mistake: the provider rejects the "
@@ -6105,7 +6105,7 @@ function renderAiSettings(data) {
   at.max = "85";
   at.className = "days";
   at.value = String(data.compact_at ?? 70);
-  room.appendChild(fieldRow("Summarise at (%)", at,
+  room.appendChild(fieldRow(aiSettingsText("compact_at_label", "Summarise at (%)"), at,
     "How full it gets before the older part of a conversation is replaced with a summary. "
     + "Deliberately not near 100: summarising means sending the part being summarised, so "
     + "a limit that fires when the window is already full is a limit that cannot act."));
@@ -6114,7 +6114,7 @@ function renderAiSettings(data) {
   auto.type = "checkbox";
   auto.id = "aiCompactAuto";
   auto.checked = data.compact_automatically !== false;
-  room.appendChild(fieldRow("Summarise automatically", auto,
+  room.appendChild(fieldRow(aiSettingsText("compact_automatically_label", "Summarise automatically"), auto,
     "On, it happens on the next turn after the mark is passed. Off, the ring in the chat "
     + "window goes amber and waits for you to click it — and the conversation will "
     + "eventually be refused by the provider if you never do."));
@@ -6123,7 +6123,7 @@ function renderAiSettings(data) {
   explain.type = "checkbox";
   explain.id = "aiExplain";
   explain.checked = data.explain_commands !== false;
-  room.appendChild(fieldRow("Explain its commands", explain,
+  room.appendChild(fieldRow(aiSettingsText("explain_commands_label", "Explain its commands"), explain,
     "When it suggests a terminal command, it comments each part, says what the output "
     + "should look like, and links to the documentation. Worth leaving on: somebody "
     + "pasting a command they have not understood is the thing this is meant to prevent. "
@@ -6133,7 +6133,7 @@ function renderAiSettings(data) {
   hostCommands.type = "checkbox";
   hostCommands.id = "aiHostCommands";
   hostCommands.checked = data.host_commands === true;
-  room.appendChild(fieldRow("Let it see what only root can run", hostCommands,
+  room.appendChild(fieldRow(aiSettingsText("host_commands_label", "Let it see what only root can run"), hostCommands,
     "The host collector already records which programs exist and which this account can "
     + "reach. With this on, the assistant can see the difference and may suggest asking "
     + "your host to run one and send back the output — which is an ordinary support "

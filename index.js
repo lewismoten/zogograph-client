@@ -14317,7 +14317,7 @@ function renderTerminal(data) {
   const browse = document.createElement("button");
   browse.type = "button";
   browse.className = "link";
-  browse.textContent = "Browse watched files";
+  browse.textContent = ZogographI18n.t("terminal.browse_watched", {}, "Browse watched files");
   browse.addEventListener("click", () => browseTerminalEditor().catch(error => notice(String(error.message || error))));
   parts.push(browse);
 
@@ -14452,9 +14452,11 @@ function renderTerminal(data) {
   const said = document.createElement("p");
   said.className = "muted small";
   said.id = "terminalSaid";
-  said.textContent = `Runs as this account with ${data.shell}. Anything still going after `
-    + `${humanSpan(data.max_seconds, true)} is stopped, and output stops at `
-    + `${humanBytes(data.cap || 8388608)}.`;
+  said.textContent = ZogographI18n.t("terminal.limits", {
+    shell: data.shell,
+    duration: humanSpan(data.max_seconds, true),
+    output: humanBytes(data.cap || 8388608),
+  }, "Runs as this account with {{shell}}. Anything still going after {{duration}} is stopped, and output stops at {{output}}.");
   parts.push(said);
 
   const actions = document.createElement("div");
@@ -14472,7 +14474,7 @@ function renderTerminal(data) {
   const off = document.createElement("button");
   off.type = "button";
   off.className = "link danger";
-  off.textContent = "Switch the terminal off";
+  off.textContent = ZogographI18n.t("terminal.switch_off", {}, "Switch the terminal off");
   off.addEventListener("click", async () => {
     const yes = await askFirst("Switch the terminal off?", [
       "This withdraws the permission, not just the unlock. Anything running now is "

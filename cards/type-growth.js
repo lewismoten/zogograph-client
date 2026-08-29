@@ -1,5 +1,9 @@
 /* Core card package: chart/data helpers are supplied by the shell. */
 window.ZogographTypeGrowthCard = {
+  manifest: Object.freeze({
+    id: "core-type-growth", locales: ["storage."],
+    helpers: ["canvas", "mode", "drawLineChart", "bytesAxis", "typeColor", "i18n"],
+  }),
   render(scans, helpers) {
     const { canvas, mode, drawLineChart, bytesAxis, typeColor, i18n } = helpers;
     const history = scans.file_type_history ?? [];

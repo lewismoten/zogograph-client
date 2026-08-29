@@ -1,5 +1,9 @@
 /* Core card package: the shell supplies all rendering and formatting helpers. */
 window.ZogographOtherExtensionsCard = {
+  manifest: Object.freeze({
+    id: "core-other-extensions", locales: ["storage.", "chart."],
+    helpers: ["target", "renderTable", "humanBytes", "humanCount", "i18n"],
+  }),
   render(rows, helpers) {
     const { target, renderTable, humanBytes, humanCount, i18n } = helpers;
     const t = (key, values, fallback) => i18n.t(key, values, fallback);

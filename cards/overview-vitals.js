@@ -1,5 +1,9 @@
 /* Core card package: only declared dependencies are received from the shell. */
 window.ZogographOverviewVitalsCards = {
+  manifest: Object.freeze({
+    id: "core-overview-vitals", locales: ["overview."],
+    helpers: ["setCard", "humanBytes", "humanCount", "humanDuration", "projectedDate", "i18n"],
+  }),
   render(overview, helpers) {
     const { setCard, humanBytes, humanCount, humanDuration, projectedDate, i18n } = helpers;
     const t = (key, values, fallback) => i18n.t(`overview.${key}`, values, fallback);

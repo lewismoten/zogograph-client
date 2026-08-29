@@ -1876,8 +1876,21 @@ function renderLimits(limits, bodyId = "limitsBody", whenId = "limitsWhen") {
   }));
 }
 
+/* Core card packages receive only the helpers they explicitly declare. This is
+ * the internal contract mirrored by the data-only signed package renderer. */
+function renderCoreCardPackage(cardPackage, id, input, helpers) {
+  const manifest = cardPackage?.manifest;
+  if (!manifest || manifest.id !== id || typeof cardPackage.render !== "function"
+      || !Array.isArray(manifest.locales) || !Array.isArray(manifest.helpers)
+      || !manifest.helpers.every(name => typeof name === "string" && name in helpers)) {
+    console.error(`Core card package ${id} has an invalid manifest.`);
+    return;
+  }
+  cardPackage.render(input, helpers);
+}
+
 function renderCards(overview, vitalRows) {
-  ZogographOverviewVitalsCards.render(overview, {
+  renderCoreCardPackage(ZogographOverviewVitalsCards, "core-overview-vitals", overview, {
     setCard, humanBytes, humanCount, humanDuration, projectedDate, i18n: ZogographI18n,
   });
 }
@@ -3960,7 +3973,7 @@ async function refreshAll() {
  * should probably not start again, and only these figures can say so.
  */
 function renderScanFacts(scans) {
-  ZogographScanFactCards.render(scans, {
+  renderCoreCardPackage(ZogographScanFactCards, "core-scan-facts", scans, {
     facts: $("scanFacts"), note: $("scanNote"), humanTime, humanDuration,
     humanBytes, humanCount, i18n: ZogographI18n,
   });
@@ -4126,7 +4139,7 @@ function renderTypePie(scans, total) {
  * is. The point is to be able to say "so *that* is what .bkup is doing here".
  */
 function renderOtherExtensions(rows) {
-  ZogographOtherExtensionsCard.render(rows, {
+  renderCoreCardPackage(ZogographOtherExtensionsCard, "core-other-extensions", rows, {
     target: $("otherExtensions"), renderTable, humanBytes, humanCount, i18n: ZogographI18n,
   });
 }
@@ -4139,7 +4152,7 @@ function renderOtherExtensions(rows) {
  * one climbing through 40 GiB draw the same flat-looking line at that scale.
  */
 function renderTypeGrowth(scans) {
-  ZogographTypeGrowthCard.render(scans, {
+  renderCoreCardPackage(ZogographTypeGrowthCard, "core-type-growth", scans, {
     canvas: $("typeGrowthChart"), mode: $("typeGrowthMode").value,
     drawLineChart, bytesAxis, typeColor, i18n: ZogographI18n,
   });

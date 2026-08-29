@@ -54,23 +54,27 @@ i18nExpect($script !== false && str_contains($script, 'function humanBytes(value
     'human-readable byte values do not honor the selected locale');
 i18nExpect($page !== false && str_contains($page, 'src="cards/overview-vitals.js"')
     && $overviewCards !== false && str_contains($overviewCards, 'window.ZogographOverviewVitalsCards')
+    && str_contains($overviewCards, 'id: "core-overview-vitals"') && str_contains($overviewCards, 'locales: ["overview."]')
     && str_contains($overviewCards, 'render(overview, helpers)')
-    && $script !== false && str_contains($script, 'ZogographOverviewVitalsCards.render(overview,'),
+    && $script !== false && str_contains($script, 'renderCoreCardPackage(ZogographOverviewVitalsCards, "core-overview-vitals", overview,'),
     'overview vitals cards are not isolated behind their core card-module boundary');
 i18nExpect($page !== false && str_contains($page, 'src="cards/scan-facts.js"')
     && $scanFactCards !== false && str_contains($scanFactCards, 'window.ZogographScanFactCards')
+    && str_contains($scanFactCards, 'id: "core-scan-facts"') && str_contains($scanFactCards, 'locales: ["storage."]')
     && str_contains($scanFactCards, 'render(scans, helpers)')
-    && $script !== false && str_contains($script, 'ZogographScanFactCards.render(scans,'),
+    && $script !== false && str_contains($script, 'renderCoreCardPackage(ZogographScanFactCards, "core-scan-facts", scans,'),
     'storage scan-fact cards are not isolated behind their core card-module boundary');
 i18nExpect($page !== false && str_contains($page, 'src="cards/type-growth.js"')
     && $typeGrowthCard !== false && str_contains($typeGrowthCard, 'window.ZogographTypeGrowthCard')
+    && str_contains($typeGrowthCard, 'id: "core-type-growth"') && str_contains($typeGrowthCard, 'locales: ["storage."]')
     && str_contains($typeGrowthCard, 'render(scans, helpers)')
-    && $script !== false && str_contains($script, 'ZogographTypeGrowthCard.render(scans,'),
+    && $script !== false && str_contains($script, 'renderCoreCardPackage(ZogographTypeGrowthCard, "core-type-growth", scans,'),
     'storage type-growth chart is not isolated behind its core card-module boundary');
 i18nExpect($page !== false && str_contains($page, 'src="cards/other-extensions.js"')
     && $otherExtensionsCard !== false && str_contains($otherExtensionsCard, 'window.ZogographOtherExtensionsCard')
+    && str_contains($otherExtensionsCard, 'id: "core-other-extensions"') && str_contains($otherExtensionsCard, 'locales: ["storage.", "chart."]')
     && str_contains($otherExtensionsCard, 'render(rows, helpers)')
-    && $script !== false && str_contains($script, 'ZogographOtherExtensionsCard.render(rows,'),
+    && $script !== false && str_contains($script, 'renderCoreCardPackage(ZogographOtherExtensionsCard, "core-other-extensions", rows,'),
     'storage other-extensions table is not isolated behind its core card-module boundary');
 i18nExpect($script !== false && str_contains($script, 'function humanDuration(seconds)')
     && str_contains($script, '"duration.value"')

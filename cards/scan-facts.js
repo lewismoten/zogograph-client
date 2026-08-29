@@ -1,5 +1,9 @@
 /* Core card package: receives presentation helpers explicitly from the shell. */
 window.ZogographScanFactCards = {
+  manifest: Object.freeze({
+    id: "core-scan-facts", locales: ["storage."],
+    helpers: ["facts", "note", "humanTime", "humanDuration", "humanBytes", "humanCount", "i18n"],
+  }),
   render(scans, helpers) {
     const { facts, note, humanTime, humanDuration, humanBytes, humanCount, i18n } = helpers;
     const t = (key, values, fallback) => i18n.t(`storage.${key}`, values, fallback);

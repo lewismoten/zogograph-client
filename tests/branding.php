@@ -16,5 +16,9 @@ brandingExpect(brandName(['branding' => ['name' => "bad\nname"]]) === 'Zogograph
 $setup = file_get_contents(__DIR__ . '/../setup.php');
 brandingExpect($setup !== false && str_contains($setup, '$issuer = rawurlencode($brand)'),
     'authenticator issuer does not use the configured product brand');
+brandingExpect($setup !== false && str_contains($setup, '$brand = brandName($existing ?? [])')
+    && str_contains($setup, '{$brand} — config wizard')
+    && str_contains($setup, "say('  ' . \$brand . ' — config wizard')"),
+    'command-line setup wizard does not use the configured product brand');
 
 echo "branding checks passed\n";

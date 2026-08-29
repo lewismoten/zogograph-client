@@ -1742,10 +1742,11 @@ function runCli(
 ): void {
     $has = fn(string $flag): bool => in_array($flag, $flags, true);
     $configured = $existing !== null && is_file(setupStorePath(require $targetPath));
+    $brand = brandName($existing ?? []);
 
     if ($has('--help') || $has('-h')) {
         echo <<<TEXT
-        Zogograph — config wizard
+        {$brand} — config wizard
 
           php setup.php              ask, then print the config to paste
           php setup.php --write      ask, then write lib/config.php
@@ -1764,7 +1765,7 @@ function runCli(
     $quiet = $has('--defaults');
 
     say('');
-    say('  Zogograph — config wizard');
+    say('  ' . $brand . ' — config wizard');
     foreach (setupPreflight($root, $targetPath) as $check) {
         say('  [' . strtoupper($check['state']) . '] ' . $check['label'] . ': ' . $check['detail']);
     }

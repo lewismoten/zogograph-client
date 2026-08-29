@@ -7560,15 +7560,15 @@ function drawAssistantVisual(canvas, args) {
   const data = JSON.parse(String(args.data || "{}"));
   if (args.kind === "pie") {
     const slices = (data.slices || []).slice(0, 12).map(row => ({
-      label: String(row.label || "item").slice(0, 40), value: Number(row.value),
+      label: String(row.label || ZogographI18n.t("chart.visual_item", {}, "item")).slice(0, 40), value: Number(row.value),
     })).filter(row => Number.isFinite(row.value) && row.value >= 0);
-    if (!slices.length) throw new Error("pie data needs numeric slices");
+    if (!slices.length) throw new Error(ZogographI18n.t("chart.visual_pie_data_error", {}, "Pie data needs numeric slices."));
     drawPieChart(canvas, slices, { axis: plainAxis });
     return;
   }
   if (args.kind === "gauge") {
     const value = Number(data.value), max = Number(data.max);
-    if (!Number.isFinite(value) || !Number.isFinite(max) || max <= 0) throw new Error("gauge needs value and a positive max");
+    if (!Number.isFinite(value) || !Number.isFinite(max) || max <= 0) throw new Error(ZogographI18n.t("chart.visual_gauge_data_error", {}, "Gauge data needs a value and a positive maximum."));
     drawGauge(canvas, {
       value, max,
       plain: data.label ? `${data.label}: ${value} / ${max}` : `${value} / ${max}`,
@@ -7576,10 +7576,10 @@ function drawAssistantVisual(canvas, args) {
     return;
   }
   const series = (data.series || []).slice(0, 6).map(row => ({
-    key: String(row.key || ""), label: String(row.label || row.key || "series"),
+    key: String(row.key || ""), label: String(row.label || row.key || ZogographI18n.t("chart.visual_series", {}, "series")),
   })).filter(row => row.key);
   const rows = (data.points || []).slice(0, 500).map((row, i) => ({ ...row, at: Number(row.at) || i }));
-  if (!series.length || !rows.length) throw new Error("line data needs series and points");
+  if (!series.length || !rows.length) throw new Error(ZogographI18n.t("chart.visual_line_data_error", {}, "Line data needs series and points."));
   drawLineChart(canvas, rows, series, { xKey: "at", axis: plainAxis, zeroBased: false });
 }
 
@@ -7617,7 +7617,7 @@ async function renderChartImage(args) {
  */
 async function captureScreen() {
   if (!navigator.mediaDevices?.getDisplayMedia) {
-    throw new Error("this browser cannot take a screenshot from a page");
+    throw new Error(ZogographI18n.t("chart.screenshot_unsupported", {}, "This browser cannot take a screenshot from a page."));
   }
 
   const stream = await navigator.mediaDevices.getDisplayMedia({

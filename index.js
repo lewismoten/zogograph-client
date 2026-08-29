@@ -15801,7 +15801,7 @@ function renderAiTry(data) {
   const parts = [];
 
   if (!tools.length) {
-    body.replaceChildren(note("There are no tools."));
+    body.replaceChildren(note(ZogographI18n.t("ai.try_empty", {}, "There are no tools.")));
     return;
   }
 

@@ -1611,6 +1611,7 @@
   "host.days_7_ago": "7 天前",
   "host.change_7d": "7 天变化",
   "host.swapped": "已交换",
+  "host.processes": "进程", "host.proportional_pss": "按比例（PSS）",
   "host.services_chart_empty": "尚无足够的服务历史可供绘制",
   "host.services_counter_rate_help": "计数器已微分为速率；出现间隔意味着服务已重启。",
   "host.io_disks_old_collector": "该读数由较旧的采集器版本写入，该版本未记录磁盘计数器。请上传 host-cron.php 和 lib/，然后让它运行两次。",

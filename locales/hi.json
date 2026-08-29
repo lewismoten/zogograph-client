@@ -1625,6 +1625,7 @@
   "host.days_7_ago": "7दि. पहले",
   "host.change_7d": "7दि. बदलाव",
   "host.swapped": "स्वैप किया गया",
+  "host.processes": "प्रोसेस", "host.proportional_pss": "आनुपातिक (PSS)",
   "host.services_chart_empty": "अभी बनाने के लिए पर्याप्त सेवा इतिहास नहीं है",
   "host.services_counter_rate_help": "काउंटरों को दर में बदला गया; अंतर का अर्थ है कि सेवा पुनः आरंभ हुई।",
   "host.io_disks_old_collector": "रीडिंग कलेक्टर के पुराने बिल्ड से लिखी गई थी, जिसमें डिस्क काउंटर दर्ज नहीं होते थे। host-cron.php और lib/ अपलोड करें, फिर इसे दो बार चलने दें।",

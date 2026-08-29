@@ -18877,21 +18877,21 @@ async function refreshHost() {
   const rank = topTwo(data.users, ["rss_bytes", "pss_bytes", "swap_bytes"]);
 
   renderTable("hostUsers", data.users, [
-    { label: "User", render: r => userCell(r.user) },
-    { label: "Processes", className: "size", render: r => r.procs },
-    { label: "Threads", className: "size", render: r => r.threads },
+    { label: ZogographI18n.t("cpu.user", {}, "User"), render: r => userCell(r.user) },
+    { label: ZogographI18n.t("host.processes", {}, "Processes"), className: "size", render: r => r.procs },
+    { label: ZogographI18n.t("cpu.threads", {}, "Threads"), className: "size", render: r => r.threads },
     {
-      label: "Resident",
+      label: ZogographI18n.t("cpu.resident", {}, "Resident"),
       className: "size",
       render: r => rankedCell(humanBytes(r.rss_bytes), rank.rss_bytes, r),
     },
     {
-      label: "Proportional (PSS)",
+      label: ZogographI18n.t("host.proportional_pss", {}, "Proportional (PSS)"),
       className: "size",
       render: r => rankedCell(hostPss(r.pss_bytes), rank.pss_bytes, r),
     },
     {
-      label: "Swapped",
+      label: ZogographI18n.t("host.swapped", {}, "Swapped"),
       className: "size",
       render: r => rankedCell(humanBytes(r.swap_bytes), rank.swap_bytes, r),
     },
@@ -18907,16 +18907,16 @@ async function refreshHost() {
   renderMemoryPie(data.services ?? [], s);
 
   renderTable("hostProcesses", data.processes, [
-    { label: "PID", className: "size", render: r => r.pid },
-    { label: "User", render: r => userCell(r.user) },
-    { label: "Process", render: r => namedThing("process", r.name) },
-    { label: "Resident", className: "size", render: r => humanBytes(r.rss_bytes) },
-    { label: "Proportional (PSS)", className: "size", render: r => hostPss(r.pss_bytes) },
-    { label: "Swapped", className: "size", render: r => humanBytes(r.swap_bytes) },
-    { label: "Threads", className: "size", render: r => r.threads },
-    { label: "Running for", className: "size",
+    { label: ZogographI18n.t("cpu.pid", {}, "PID"), className: "size", render: r => r.pid },
+    { label: ZogographI18n.t("cpu.user", {}, "User"), render: r => userCell(r.user) },
+    { label: ZogographI18n.t("cpu.process", {}, "Process"), render: r => namedThing("process", r.name) },
+    { label: ZogographI18n.t("cpu.resident", {}, "Resident"), className: "size", render: r => humanBytes(r.rss_bytes) },
+    { label: ZogographI18n.t("host.proportional_pss", {}, "Proportional (PSS)"), className: "size", render: r => hostPss(r.pss_bytes) },
+    { label: ZogographI18n.t("host.swapped", {}, "Swapped"), className: "size", render: r => humanBytes(r.swap_bytes) },
+    { label: ZogographI18n.t("cpu.threads", {}, "Threads"), className: "size", render: r => r.threads },
+    { label: ZogographI18n.t("cpu.running_for", {}, "Running for"), className: "size",
       render: r => (r.elapsed_seconds == null ? "—" : humanDuration(r.elapsed_seconds)) },
-    { label: "Command", className: "cmd", render: r => r.command },
+    { label: ZogographI18n.t("cpu.command", {}, "Command"), className: "cmd", render: r => r.command },
   ]);
 
   /*

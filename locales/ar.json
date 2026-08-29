@@ -1611,6 +1611,7 @@
   "host.days_7_ago": "قبل 7 أيام",
   "host.change_7d": "تغير 7 أيام",
   "host.swapped": "مبدّل",
+  "host.processes": "العمليات", "host.proportional_pss": "تناسبية (PSS)",
   "host.services_chart_empty": "لا يوجد سجل خدمات كافٍ للرسم بعد",
   "host.services_counter_rate_help": "حُوّلت العدادات إلى معدل؛ والفجوة تعني أن الخدمة أعيد تشغيلها.",
   "host.io_disks_old_collector": "كُتبت القراءة بواسطة إصدار أقدم من الجامع لا يسجل عدادات القرص. ارفع host-cron.php وlib/، ثم اتركه يعمل مرتين.",

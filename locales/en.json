@@ -1712,6 +1712,7 @@
   "host.days_7_ago": "7d ago",
   "host.change_7d": "Change 7d",
   "host.swapped": "Swapped",
+  "host.processes": "Processes", "host.proportional_pss": "Proportional (PSS)",
   "host.services_chart_empty": "Not enough service history to draw yet",
   "host.services_counter_rate_help": "Counters differentiated into a rate; a gap means the service restarted.",
   "host.io_disks_old_collector": "The reading was written by an older build of the collector that did not record disk counters. Upload host-cron.php and lib/, then let it run twice.",

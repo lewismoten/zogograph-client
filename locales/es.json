@@ -1629,6 +1629,7 @@
   "host.days_7_ago": "Hace 7 d",
   "host.change_7d": "Cambio en 7 d",
   "host.swapped": "En intercambio",
+  "host.processes": "Procesos", "host.proportional_pss": "Proporcional (PSS)",
   "host.services_chart_empty": "Aún no hay suficiente historial de servicios para dibujar",
   "host.services_counter_rate_help": "Los contadores se diferenciaron en una tasa; una brecha significa que el servicio se reinició.",
   "host.io_disks_old_collector": "La lectura la escribió una versión antigua del recopilador que no registraba contadores de disco. Cargue host-cron.php y lib/, y déjelo ejecutarse dos veces.",

@@ -12172,22 +12172,25 @@ async function showPackageRuntimeSecrets(row) {
   try {
     const data = await api("package-runtime-secrets", { id: row.id });
     const rows = data.secrets || [];
-    if (!rows.length) { showListDialog(`${row.id} secrets`, [note("No encrypted package secrets have been stored. Add a secret to create an opaque reference; its value cannot be shown later.")]); return; }
+    const title = packageText("package.secret_list_title", { id: row.id }, "{{id}} secrets");
+    if (!rows.length) { showListDialog(title, [note(packageText("package.secret_empty", {}, "No encrypted package secrets have been stored. Add a secret to create an opaque reference; its value cannot be shown later."))]); return; }
     const choices = rows.filter(item => !item.referenced);
-    const items = [factGrid(rows.map(item => [item.reference, item.referenced ? `In use · updated ${humanTime(item.updated_at)}` : `Unused · updated ${humanTime(item.updated_at)}`]))];
+    const items = [factGrid(rows.map(item => [item.reference, item.referenced
+      ? packageText("package.secret_in_use_updated", { time: humanTime(item.updated_at) }, "In use · updated {{time}}")
+      : packageText("package.secret_unused_updated", { time: humanTime(item.updated_at) }, "Unused · updated {{time}}")]))];
     if (!choices.length) {
-      items.push(note("Every stored reference is in use. Save a replacement reference in package settings before deleting an older credential."));
-      showListDialog(`${row.id} secrets`, items); return;
+      items.push(note(packageText("package.secret_all_in_use", {}, "Every stored reference is in use. Save a replacement reference in package settings before deleting an older credential.")));
+      showListDialog(title, items); return;
     }
     const select = document.createElement("select"); select.className = "wide-field";
     choices.forEach(item => { const option = document.createElement("option"); option.value = item.reference; option.textContent = item.reference; select.appendChild(option); });
-    items.push(fieldRow("Unused reference to delete", select, "Only unused references can be deleted. The secret value is never displayed."));
-    showFormDialog(`${row.id} secrets`, items, async () => {
+    items.push(fieldRow(packageText("package.secret_unused_reference", {}, "Unused reference to delete"), select, packageText("package.secret_unused_reference_help", {}, "Only unused references can be deleted. The secret value is never displayed.")));
+    showFormDialog(title, items, async () => {
       const reference = select.value;
-      if (!(await confirmDialog("Delete this unused encrypted secret? Its value cannot be recovered from Zogograph after deletion.", "Delete unused secret"))) return;
+      if (!(await confirmDialog(packageText("package.secret_delete_confirmation", {}, "Delete this unused encrypted secret? Its value cannot be recovered from {{brand}} after deletion."), packageText("package.secret_delete_title", {}, "Delete unused secret")))) return;
       await post("package-runtime-secret-delete", { id: row.id, reference });
-      notice("Unused package secret deleted.", true);
-    }, "Delete selected secret");
+      notice(packageText("package.secret_deleted", {}, "Unused package secret deleted."), true);
+    }, packageText("package.secret_delete_action", {}, "Delete selected secret"));
   } catch (error) { notice(String(error.message || error)); }
 }
 

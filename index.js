@@ -6789,21 +6789,22 @@ function personalityPicker(data, boxes) {
   const forget = document.createElement("button");
   forget.type = "button";
   forget.className = "link danger";
-  forget.textContent = "Delete this personality";
+  forget.textContent = ZogographI18n.t("ai.delete_personality", {}, "Delete this personality");
   forget.hidden = true;
   forget.addEventListener("click", async () => {
     const entry = chosen();
     if (!entry?.mine) return;
 
-    const yes = await askFirst(`Delete ${entry.name}?`, [
-      "It goes from the list. The boxes keep what is in them, so whatever is in force "
-      + "stays in force until you change it.",
-    ], "Delete it", true);
+    const yes = await askFirst(
+      ZogographI18n.t("ai.delete_personality_confirm", { name: entry.name }, "Delete {{name}}?"),
+      [ZogographI18n.t("ai.delete_personality_help", {}, "It goes from the list. The boxes keep what is in them, so whatever is in force stays in force until you change it.")],
+      ZogographI18n.t("ai.delete_personality_action", {}, "Delete it"),
+      true);
     if (!yes) return;
 
     try {
       renderAiSettings(await post("ai-personality-forget", { id: entry.id }));
-      notice("Deleted.", true);
+      notice(ZogographI18n.t("ai.personality_deleted", {}, "Deleted."), true);
     } catch (error) {
       notice(String(error.message || error));
     }

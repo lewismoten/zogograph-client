@@ -84,7 +84,7 @@ const CORE_FEATURES = [
     ],
     'network' => [
         'dashboard_routes' => ['network', 'net-ports', 'net-peers', 'net-capture', 'net-captures', 'net-dns',
-            'net-urls', 'net-fetch', 'net-rdns', 'domains', 'whois', 'whoami', 'calendar'],
+            'net-urls', 'net-fetch', 'net-rdns', 'dns-records', 'domains', 'whois', 'whoami', 'calendar'],
         'setup_section' => 'features',
     ],
     'host' => [

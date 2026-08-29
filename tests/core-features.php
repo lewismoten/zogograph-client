@@ -16,6 +16,17 @@ foreach (CORE_FEATURES as $id => $feature) {
     coreFeatureExpect(isset($status[$id]) && !$status[$id]['enabled'] && $status[$id]['dashboard_routes'] === $feature['dashboard_routes'],
         'core feature status does not expose its disabled dashboard boundary: ' . $id);
 }
+$dashboardPage = file_get_contents(__DIR__ . '/../index.html');
+preg_match_all('/data-view="([^"]+)"/', is_string($dashboardPage) ? $dashboardPage : '', $staticViewMatches);
+$staticViews = array_values(array_unique($staticViewMatches[1] ?? []));
+$routeOwners = [];
+foreach (CORE_FEATURES as $id => $feature) {
+    foreach ($feature['dashboard_routes'] as $route) $routeOwners[$route][] = $id;
+}
+foreach ($staticViews as $view) {
+    coreFeatureExpect(isset($routeOwners[$view]) && count($routeOwners[$view]) === 1,
+        'static dashboard view lacks exactly one core feature owner: ' . $view);
+}
 coreFeatureExpect(coreFeatureForAction('ai-start') === 'assistant' && coreFeatureForAction('peer-test') === 'peers'
     && coreFeatureForAction('marketplace-install') === 'marketplace'
     && coreFeatureForAction('terminal-run') === 'terminal'
@@ -77,7 +88,6 @@ catch (ActionRefused $error) { coreFeatureExpect($error->getMessage() === 'this 
 requireCoreFeatureAccess($legacy, 'ai-start');
 $api = file_get_contents(__DIR__ . '/../api.php');
 $dashboard = file_get_contents(__DIR__ . '/../index.js');
-$dashboardPage = file_get_contents(__DIR__ . '/../index.html');
 coreFeatureExpect(is_string($api) && str_contains($api, "requireCoreFeatureAccess(\$config, \$action)")
     && str_contains($api, "'core_features' => coreFeatureStatus(\$config)")
     && str_contains($api, "!coreFeatureEnabled(\$config, 'overview')"),

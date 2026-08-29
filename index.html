@@ -1213,13 +1213,13 @@
 <section class="view" data-view="cagefs" hidden>
 <section class="panel" id="cagefsPanel">
   <div class="panel-head">
-    <h2>The CageFS skeleton</h2>
-    <button id="cagefsRefresh" class="link">Refresh</button>
+    <h2 data-i18n="host.cagefs_title">The CageFS skeleton</h2>
+    <button id="cagefsRefresh" class="link" data-i18n="action.refresh">Refresh</button>
   </div>
-  <p class="muted small sub-note">
-    CageFS gives each account its own <code>/usr</code>, <code>/lib</code> and
-    <code>/proc</code>, assembled from a shared skeleton at
-    <code>/usr/share/cagefs-skeleton</code>. That is why a program the server has
+  <p class="muted small sub-note" data-i18n-rich="host.cagefs_help">
+    CageFS gives each account its own <code data-i18n-tag="usr">/usr</code>, <code data-i18n-tag="lib">/lib</code> and
+    <code data-i18n-tag="proc">/proc</code>, assembled from a shared skeleton at
+    <code data-i18n-tag="skeleton">/usr/share/cagefs-skeleton</code>. That is why a program the server has
     can be missing from inside the account, and why this dashboard's view of the
     machine is narrower than the machine. From inside a cage the skeleton's own
     mounts are invisible — so an empty answer here is not evidence that CageFS

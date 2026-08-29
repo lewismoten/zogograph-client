@@ -1846,9 +1846,9 @@
 <section class="view" data-view="cpu-time" hidden>
 <section class="panel" id="cpuTimePanel">
   <div class="panel-head">
-    <h2>Where the time goes</h2>
+    <h2 data-i18n="cpu.time_title">Where the time goes</h2>
   </div>
-  <p class="muted small sub-note">
+  <p class="muted small sub-note" data-i18n="cpu.time_help">
     A processor is never simply "busy". Every jiffy it spends is charged to one
     of eight states, and which one decides what to do next — work in userland is
     the machine earning its keep, time in the kernel is a syscall-heavy
@@ -1864,7 +1864,7 @@
 
     <canvas id="cpuStateChart"></canvas>
 
-    <h3 class="sub-head">What each of them means</h3>
+    <h3 class="sub-head" data-i18n="cpu.time_meaning_title">What each of them means</h3>
     <div id="cpuStateTable"></div>
   </div>
 </section>

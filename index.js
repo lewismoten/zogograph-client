@@ -7152,7 +7152,7 @@ async function saveAiSettings(extra = {}) {
       ...extra,
     });
 
-    notice("Saved.", true);
+    notice(aiSettingsText("saved", "Saved."), true);
     if (result.who) {
       chatState.who = {
         name: result.who.name,
@@ -7174,7 +7174,7 @@ async function refreshAiSessions() {
     const data = await api("ai-sessions");
 
     if (!data.sessions.length) {
-      body.replaceChildren(note("No conversations yet."));
+      body.replaceChildren(note(aiSettingsText("sessions_empty", "No conversations yet.")));
       return;
     }
 
@@ -7182,11 +7182,12 @@ async function refreshAiSessions() {
     const totals = data.totals;
 
     parts.push(factGrid([
-      ["Conversations", humanCount(totals.sessions)],
-      ["Turns", humanCount(totals.turns)],
-      ["Tokens", `${humanCount(totals.tokens_in)} in, ${humanCount(totals.tokens_out)} out`
-        + (totals.tokens_cached ? `, ${humanCount(totals.tokens_cached)} cached` : "")],
-      ["Spent", totals.spent],
+      [aiSettingsText("sessions_conversations", "Conversations"), humanCount(totals.sessions)],
+      [aiSettingsText("sessions_turns", "Turns"), humanCount(totals.turns)],
+      [aiSettingsText("sessions_tokens", "Tokens"), aiSettingsText("sessions_tokens_summary",
+        "{{input}} in, {{output}} out", { input: humanCount(totals.tokens_in), output: humanCount(totals.tokens_out) })
+        + (totals.tokens_cached ? aiSettingsText("sessions_tokens_cached", ", {{tokens}} cached", { tokens: humanCount(totals.tokens_cached) }) : "")],
+      [aiSettingsText("sessions_spent", "Spent"), totals.spent],
     ]));
 
     const holder = document.createElement("div");
@@ -7195,10 +7196,10 @@ async function refreshAiSessions() {
     body.replaceChildren(...parts);
 
     renderTable("aiSessionTable", data.sessions, [
-      { label: "Started", render: row => whenSpan(row.started_at) },
-      { label: "Ran for", render: row => row.ran_for },
+      { label: aiSettingsText("sessions_started", "Started"), render: row => whenSpan(row.started_at) },
+      { label: aiSettingsText("sessions_ran_for", "Ran for"), render: row => row.ran_for },
       {
-        label: "How it ended",
+        label: aiSettingsText("sessions_ended", "How it ended"),
         render: row => {
           const span = document.createElement("span");
           span.textContent = row.state;
@@ -7207,10 +7208,10 @@ async function refreshAiSessions() {
           return span;
         },
       },
-      { label: "Model", className: "cmd", render: row => row.model },
-      { label: "Turns", className: "size", render: row => String(row.turns) },
-      { label: "Tokens", className: "size", render: row => humanCount(row.tokens) },
-      { label: "Cost", className: "size", render: row => row.spent },
+      { label: aiSettingsText("sessions_model", "Model"), className: "cmd", render: row => row.model },
+      { label: aiSettingsText("sessions_turns", "Turns"), className: "size", render: row => String(row.turns) },
+      { label: aiSettingsText("sessions_tokens", "Tokens"), className: "size", render: row => humanCount(row.tokens) },
+      { label: aiSettingsText("sessions_cost", "Cost"), className: "size", render: row => row.spent },
     ], null, null, row => String(row.id));
   } catch (error) {
     body.replaceChildren(note(String(error.message || error)));

@@ -511,6 +511,7 @@
   "schedule.custom.weekday": "Día de la semana (0–7)",
   "schedule.saved_preview": "Vista previa guardada",
   "schedule.installed": "Instalado actualmente",
+  "email.enabled": "Enviar alertas por correo", "email.send_to": "Enviar a", "email.send_from": "Enviar desde", "email.dashboard_address": "Dirección de este panel",
   "email.readonly_help": "lib/config.php no permite escritura al servidor web, por lo que esta página puede mostrar los ajustes pero no cambiarlos. Use setup.php o edite el archivo.", "email.recently_sent": "Enviados recientemente", "email.when": "Cuándo", "email.to": "Para", "email.result": "Resultado", "email.about": "Acerca de",
   "email.where_to_send": "Dónde enviar", "email.how_loud": "Con qué intensidad y frecuencia", "email.what_to_send": "Qué enviar y cuándo",
   "email.show_me": "Muéstramelo", "email.save_settings": "Guardar estos ajustes",

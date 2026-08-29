@@ -492,6 +492,7 @@
   "schedule.custom.weekday": "Day of week (0–7)",
   "schedule.saved_preview": "Saved preview",
   "schedule.installed": "Currently installed",
+  "email.enabled": "Send alerts by email", "email.send_to": "Send to", "email.send_from": "Send from", "email.dashboard_address": "This dashboard's address",
   "email.readonly_help": "lib/config.php is not writable by the web server, so this page can show the settings but not change them. Use setup.php, or edit the file.", "email.recently_sent": "Recently sent", "email.when": "When", "email.to": "To", "email.result": "Result", "email.about": "About",
   "email.where_to_send": "Where to send", "email.how_loud": "How loud, and how often", "email.what_to_send": "What to send about, and when",
   "email.show_me": "Show me", "email.save_settings": "Save these settings",

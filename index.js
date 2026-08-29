@@ -30316,7 +30316,7 @@ function renderEmail(data) {
   const form = document.createElement("div");
   form.className = "settings";
 
-  form.appendChild(fieldRow("Send alerts by email", (() => {
+  form.appendChild(fieldRow(ZogographI18n.t("email.enabled", {}, "Send alerts by email"), (() => {
     const box = document.createElement("input");
     box.type = "checkbox";
     box.id = "emailEnabled";
@@ -30324,7 +30324,7 @@ function renderEmail(data) {
     return box;
   })(), "Nothing is sent while this is off, however bad things get."));
 
-  form.appendChild(fieldRow("Send to", (() => {
+  form.appendChild(fieldRow(ZogographI18n.t("email.send_to", {}, "Send to"), (() => {
     /*
      * Text rather than email, because several addresses go in here.
      *
@@ -30352,7 +30352,7 @@ function renderEmail(data) {
     form.appendChild(note(`${count(data.recipients.length, "address", "addresses")} will be told.`));
   }
 
-  form.appendChild(fieldRow("Send from", (() => {
+  form.appendChild(fieldRow(ZogographI18n.t("email.send_from", {}, "Send from"), (() => {
     const input = document.createElement("input");
     input.type = "email";
     input.id = "emailFrom";
@@ -30363,7 +30363,7 @@ function renderEmail(data) {
   })(), "Optional. Some hosts reject mail with no From header; others rewrite it "
     + "whatever you put here."));
 
-  form.appendChild(fieldRow("This dashboard's address", (() => {
+  form.appendChild(fieldRow(ZogographI18n.t("email.dashboard_address", {}, "This dashboard's address"), (() => {
     const input = document.createElement("input");
     input.type = "text";
     input.id = "emailSite";

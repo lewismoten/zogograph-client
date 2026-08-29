@@ -23096,13 +23096,13 @@ async function refreshActionLog() {
   renderActionSummary(rows);
 
   renderTable("actionLog", rows, [
-    { label: "When", render: row => whenSpan(row.at) },
-    { label: "What", render: row => ACTION_WORDS[row.action] || row.action },
-    { label: "Target", className: "name", render: row => row.target ?? "" },
-    { label: "Outcome", render: row => row.outcome + (row.detail ? ` \u2014 ${row.detail}` : "") },
-    { label: "Freed", className: "size", render: row => humanBytes(row.bytes_freed) },
-    { label: "Actor", render: row => row.actor || "\u2014" },
-    { label: "From", render: row => row.remote_addr || "\u2014" },
+    { label: ZogographI18n.t("action_log.when", {}, "When"), render: row => whenSpan(row.at) },
+    { label: ZogographI18n.t("action_log.what", {}, "What"), render: row => ACTION_WORDS[row.action] || row.action },
+    { label: ZogographI18n.t("action_log.target", {}, "Target"), className: "name", render: row => row.target ?? "" },
+    { label: ZogographI18n.t("action_log.outcome", {}, "Outcome"), render: row => row.outcome + (row.detail ? ` \u2014 ${row.detail}` : "") },
+    { label: ZogographI18n.t("action_log.freed", {}, "Freed"), className: "size", render: row => humanBytes(row.bytes_freed) },
+    { label: ZogographI18n.t("action_log.actor", {}, "Actor"), render: row => row.actor || "\u2014" },
+    { label: ZogographI18n.t("action_log.from", {}, "From"), render: row => row.remote_addr || "\u2014" },
   ], null, row => (row.outcome === "ok" ? "" : "row-bad"));
 }
 

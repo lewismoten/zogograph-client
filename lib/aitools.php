@@ -70,6 +70,8 @@ require_once __DIR__ . '/ai-tools/recommend-command.php';
 require_once __DIR__ . '/ai-tools/show-progress.php';
 require_once __DIR__ . '/ai-tools/show-reaction.php';
 require_once __DIR__ . '/ai-tools/redraw-portrait.php';
+require_once __DIR__ . '/ai-tools/terminal-commands.php';
+require_once __DIR__ . '/ai-tools/terminal-output.php';
 
 /**
  * Every tool, with its schema and how it runs.
@@ -119,6 +121,8 @@ function aiToolCatalogue(): array
         ...aiToolShowProgressPackage(),
         ...aiToolShowReactionPackage(),
         ...aiToolRedrawPortraitPackage(),
+        ...aiToolTerminalCommandsPackage(),
+        ...aiToolTerminalOutputPackage(),
 
         /* ------------------------------------------------- what is wrong -- */
 
@@ -216,89 +220,6 @@ function aiToolCatalogue(): array
         /* ------------------------------------------- asking the user -- */
 
         /* --------------------------------------- what somebody just ran -- */
-
-        'get_terminal_commands' => [
-            'group' => 'terminal',
-            'where' => 'server',
-            'permission' => false,
-            'summary' => 'see what commands the user has run in the terminal.',
-            'description' =>
-                "Returns the commands run in the most recent terminal session - what was "
-                . "typed, when, how long each took, and how it ended. NOT what any of them "
-                . "printed.\n\n"
-                . "USE THIS WHEN THE USER IS ASKING ABOUT SOMETHING THEY JUST DID. \"I ran "
-                . "the thing you said and it did not work\" is unanswerable without knowing "
-                . "what they actually ran, and asking them to paste it back is asking them "
-                . "to do work you can do yourself. It is also how you find out that the "
-                . "command you suggested was typed with a different flag.\n\n"
-                . "THE EXIT CODE IS THE MOST USEFUL FIELD. 0 means it worked, 1 usually "
-                . "means it ran and refused, 127 means the program does not exist, 126 "
-                . "means it exists and is not executable, and anything over 128 means a "
-                . "signal killed it - 130 is Ctrl-C, 137 is SIGKILL, 143 is SIGTERM. "
-                . "`stopped_by` means the user stopped it on purpose, and `timed_out` "
-                . "means it hit the terminal's own limit.\n\n"
-                . "THIS DOES NOT SHOW OUTPUT, on purpose. A command line is what somebody "
-                . "chose to type; its output is whatever happened to be in a file, which "
-                . "may be a password, a key or a customer's details. If you need what it "
-                . "printed, that is get_terminal_output, which is a separate tool with its "
-                . "own permission - and the operator may well have allowed one and not the "
-                . "other.\n\n"
-                . "A command line can still hold a secret - somebody types a password into "
-                . "one now and then. Do not repeat one back in full unless the user needs "
-                . "to see it.",
-            'parameters' => [
-                'limit' => [
-                    'type' => 'integer', 'minimum' => 1, 'maximum' => 50,
-                    'required' => false, 'default' => 20,
-                    'description' => 'How many of the most recent commands. The newest are '
-                        . 'almost always the relevant ones.',
-                ],
-            ],
-        ],
-
-        'get_terminal_output' => [
-            'group' => 'terminal',
-            'where' => 'server',
-            'permission' => true,
-            'summary' => 'read what a command the user ran printed back.',
-            'description' =>
-                "Returns what one terminal command printed, or what the most recent one "
-                . "did.\n\n"
-                . "USE THIS ONLY WHEN THE OUTPUT IS THE QUESTION. \"It said something about "
-                . "permission denied and I do not understand it\", or a command whose exit "
-                . "code says it failed and whose reason is only in what it printed. Call "
-                . "get_terminal_commands first: the command line and the exit code answer a "
-                . "surprising number of these on their own, and they carry far less than "
-                . "the output does.\n\n"
-                . "THIS IS THE MOST SENSITIVE TOOL YOU HAVE. It returns whatever a program "
-                . "wrote to the screen on a machine you are helping with: `cat` of a config "
-                . "file is a database password, a mail log is customer addresses, an "
-                . "environment dump is every key the account holds. It asks the user before "
-                . "every call for that reason, and the answer may be no - which is a "
-                . "legitimate answer and not an obstacle to work around. Carry on with the "
-                . "command and the exit code and say what you cannot see.\n\n"
-                . "DO NOT QUOTE MORE OF IT BACK THAN THE POINT NEEDS. Repeating a whole "
-                . "config file into the conversation puts it somewhere it was not before. "
-                . "Quote the line that matters.\n\n"
-                . "Long output comes back from the end rather than the beginning: what a "
-                . "command was doing when it stopped is almost always the half worth "
-                . "reading, and an error is usually the last thing said.",
-            'parameters' => [
-                'command_id' => [
-                    'type' => 'string', 'maxLength' => 16, 'required' => false,
-                    'description' => 'Which command, from get_terminal_commands. Left out, '
-                        . 'you get the most recent one - which is what the user means by '
-                        . '"it" almost every time.',
-                ],
-                'bytes' => [
-                    'type' => 'integer', 'minimum' => 256, 'maximum' => 65536,
-                    'required' => false, 'default' => 8192,
-                    'description' => 'How much of it to read, from the end. Ask for what '
-                        . 'you need rather than the maximum: everything you pull in is '
-                        . 'something that has left that machine.',
-                ],
-            ],
-        ],
 
         'offer_choices' => [
             'group' => 'navigation',

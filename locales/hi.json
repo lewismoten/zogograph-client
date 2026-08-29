@@ -1663,6 +1663,7 @@
   "system.health_title": "स्वास्थ्य",
   "system.health_help": "यह इंस्टॉलेशन क्या कर सकता है और क्या नहीं। पहले तीन नए डिप्लॉयमेंट के त्रुटियाँ लौटाने का सामान्य कारण हैं।",
   "health.data_dir_writable": "डेटा निर्देशिका लिखने योग्य", "health.database_writable": "डेटाबेस लिखने योग्य", "health.scan_root_readable": "निगरानी निर्देशिका पढ़ने योग्य", "health.php_new_enough": "PHP 8.1 या नया", "health.sqlite": "SQLite ड्राइवर", "health.mail_available": "mail() उपलब्ध", "health.shell_available": "shell_exec उपलब्ध", "health.proc_readable": "/proc पढ़ने योग्य", "health.no_inline_styles": "डैशबोर्ड में इनलाइन स्टाइल नहीं हैं", "health.diskstats_readable": "डिस्क काउंटर पढ़ने योग्य", "health.io_pressure_available": "I/O दबाव उपलब्ध",
+  "health.php_version": "PHP {{version}}", "health.kernel_version": "कर्नेल {{version}}", "health.schema_version": "स्कीमा v{{version}}", "health.problem_logged_one": "{{count, number}} समस्या दर्ज", "health.problem_logged_many": "{{count, number}} समस्याएँ दर्ज", "health.php_logs_to": "PHP लॉग यहाँ लिखता है: {{path}}", "health.this_log": "यह लॉग: {{path}}",
   "problems.none": "कुछ गलत नहीं हुआ। अच्छा।", "problems.last_seen": "अंतिम बार देखा", "problems.times": "बार", "problems.level": "स्तर", "problems.where": "कहाँ", "problems.what_happened": "क्या हुआ", "problems.reference": "संदर्भ",
   "ai.past_title": "पिछली बातचीत",
   "ai.past_help": "हर बातचीत, सबसे नई पहले। एक को पढ़ने के लिए खोलें या जहाँ छूटी थी वहाँ से उठाएँ—इससे कही गई बातों को लेकर नई बातचीत शुरू होती है, इसलिए उससे मिली सीमाएँ साथ नहीं आतीं।",

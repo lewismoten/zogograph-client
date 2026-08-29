@@ -21081,13 +21081,13 @@ async function refreshHealth() {
   const facts = document.createElement("p");
   facts.className = "muted small";
   const bits = [
-    `PHP ${checks.php_version}`,
-    ...(checks.kernel ? [`kernel ${checks.kernel}`] : []),
-    `schema v${checks.schema_version}`,
-    `${checks.problem_log_entries} problem${checks.problem_log_entries === 1 ? "" : "s"} logged`,
+    ZogographI18n.t("health.php_version", { version: checks.php_version }, "PHP {{version}}"),
+    ...(checks.kernel ? [ZogographI18n.t("health.kernel_version", { version: checks.kernel }, "kernel {{version}}")]: []),
+    ZogographI18n.t("health.schema_version", { version: checks.schema_version }, "schema v{{version}}"),
+    ZogographI18n.t(checks.problem_log_entries === 1 ? "health.problem_logged_one" : "health.problem_logged_many", { count: checks.problem_log_entries }, checks.problem_log_entries === 1 ? "{{count, number}} problem logged" : "{{count, number}} problems logged"),
   ];
-  if (checks.php_error_log) bits.push(`PHP logs to ${checks.php_error_log}`);
-  if (checks.problem_log) bits.push(`this log: ${checks.problem_log}`);
+  if (checks.php_error_log) bits.push(ZogographI18n.t("health.php_logs_to", { path: checks.php_error_log }, "PHP logs to {{path}}"));
+  if (checks.problem_log) bits.push(ZogographI18n.t("health.this_log", { path: checks.problem_log }, "this log: {{path}}"));
   facts.textContent = bits.join(" \u00b7 ");
 
   $("healthBody").replaceChildren(table, facts);

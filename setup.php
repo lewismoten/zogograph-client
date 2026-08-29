@@ -223,6 +223,12 @@ function setupScheduleToken(): string
 /** Redirects Setup POST flows to a fixed local path, never a request-supplied URL. */
 function setupRedirect(?string $section = null, bool $saved = false): void
 {
+    // Setup actions place one-time notices and client secrets in the session
+    // immediately before redirecting. Persist that state before emitting the
+    // redirect so the following request cannot race PHP's shutdown write.
+    if (session_status() === PHP_SESSION_ACTIVE) {
+        session_write_close();
+    }
     $location = './setup.php';
     if ($section !== null) {
         if (!preg_match('/^[a-z][a-z0-9_-]{1,62}$/', $section)) $section = 'basics';

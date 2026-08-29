@@ -16098,8 +16098,9 @@ async function tryBrowserTool(tool, args) {
     if (![...picker.options].some(o => Number(o.value) === seconds)) {
       return {
         result: {
-          error: `This dashboard does not offer a ${args.range} range. It offers: `
-            + `${[...picker.options].map(o => o.textContent).join(", ")}.`,
+          error: ZogographI18n.t("ai.try_range_unavailable", {
+            range: args.range, options: [...picker.options].map(o => o.textContent).join(", "),
+          }, "This dashboard does not offer a {{range}} range. It offers: {{options}}."),
         },
         shown: null,
       };

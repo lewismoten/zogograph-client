@@ -1982,6 +1982,7 @@
   "ai.providers_help": "选择平台、其地址以及所需凭据。兼容 Ollama 的服务器可不使用密钥；远程服务器必须使用 HTTPS。",
   "ai.available_models_title": "可用模型",
   "ai.add_model": "添加模型",
+  "ai.review_page_title": "查看页面 HTML", "ai.review_page_requested_reason": "{{assistant}} 请求查看页面结构：{{reason}}", "ai.review_page_requested": "{{assistant}} 请求查看当前页面结构。", "ai.review_page_help": "发送前请先查看。删除或替换任何您不想共享的元素或文本。", "ai.chat_add": "添加", "ai.chat_ask": "提问", "ai.chat_add_help": "它正在工作。这会立即加入，并会在下一轮阅读。",
   "ai.prices_help": "此安装已获知的价格，按提供商和模型区分。在“模型”页面更改模型会从这里填充价格框，不必再次查找；之前用过的模型会保留您为它设定的值。这里不从任何地方抓取数据：这些是您收到的报价数字，也是唯一诚实的来源。",
   "ai.pricing_empty": "尚未保存价格。请在“模型”页面设置；它们会随所选提供商和模型保留，因此切换后再切回时无需重新查找。", "ai.pricing_current": "当前价格", "ai.pricing_upcoming": "即将生效的价格", "ai.pricing_expired": "已过期的价格",
   "ai.pricing_provider": "提供商", "ai.pricing_model": "模型", "ai.pricing_in_use": " 使用中", "ai.pricing_input": "输入", "ai.pricing_output": "输出", "ai.pricing_cached": "已缓存",

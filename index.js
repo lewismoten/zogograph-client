@@ -9027,17 +9027,17 @@ function reviewCurrentPageHtml(why) {
     const said = document.createElement("p");
     said.className = "muted small";
     said.textContent = why
-      ? `${chatState.who.name} asked for the page structure: ${why}`
-      : `${chatState.who.name} asked for the current page structure.`;
+      ? ZogographI18n.t("ai.review_page_requested_reason", { assistant: chatState.who.name, reason: why }, "{{assistant}} asked for the page structure: {{reason}}")
+      : ZogographI18n.t("ai.review_page_requested", { assistant: chatState.who.name }, "{{assistant}} asked for the current page structure.");
     const help = document.createElement("p");
     help.className = "muted small";
-    help.textContent = "Review this before sending it. Delete or replace any element or text you do not want shared.";
+    help.textContent = ZogographI18n.t("ai.review_page_help", {}, "Review this before sending it. Delete or replace any element or text you do not want shared.");
     const text = document.createElement("textarea");
     text.className = "wide terminal-editor";
     text.rows = 24;
     text.spellcheck = false;
     text.value = clone.outerHTML.slice(0, 300 * 1024);
-    showFormDialog("Review page HTML", [said, help, text], async () => resolve(text.value));
+    showFormDialog(ZogographI18n.t("ai.review_page_title", {}, "Review page HTML"), [said, help, text], async () => resolve(text.value));
   });
 }
 
@@ -9269,9 +9269,11 @@ function renderChat() {
    */
   $("chatSend").disabled = finished;
   $("chatText").disabled = finished;
-  $("chatSend").textContent = busy ? "Add" : "Ask";
+  $("chatSend").textContent = busy
+    ? ZogographI18n.t("ai.chat_add", {}, "Add")
+    : ZogographI18n.t("ai.chat_ask", {}, "Ask");
   $("chatSend").title = busy
-    ? "It is working. This goes in now and it reads it on its next turn."
+    ? ZogographI18n.t("ai.chat_add_help", {}, "It is working. This goes in now and it reads it on its next turn.")
     : "";
   // Stop is meaningful only while PHP/the model is actually working. Leaving
   // it visible on an idle conversation made it look like a broken emergency

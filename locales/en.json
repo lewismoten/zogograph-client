@@ -2101,6 +2101,7 @@
   "ai.providers_help": "Choose the platform, its endpoint, and any credentials it needs. Ollama-compatible servers may use no key; remote ones must use HTTPS.",
   "ai.available_models_title": "Available models",
   "ai.add_model": "Add a model",
+  "ai.review_page_title": "Review page HTML", "ai.review_page_requested_reason": "{{assistant}} asked for the page structure: {{reason}}", "ai.review_page_requested": "{{assistant}} asked for the current page structure.", "ai.review_page_help": "Review this before sending it. Delete or replace any element or text you do not want shared.", "ai.chat_add": "Add", "ai.chat_ask": "Ask", "ai.chat_add_help": "It is working. This goes in now and it reads it on its next turn.",
   "ai.prices_help": "Models and prices this install has been told about, per provider. Changing the selected model fills its price boxes from here rather than making you look them up again — and a model you have used before keeps whatever you set for it. Nothing here is fetched from anywhere: these are the numbers you were quoted, which is the only honest source for them.",
   "ai.pricing_empty": "Nothing remembered yet. Set the prices on the Model page and they are kept here against whichever provider and model are selected — so switching models and switching back does not mean looking them up again.",
   "ai.pricing_current": "Current prices", "ai.pricing_upcoming": "Upcoming prices", "ai.pricing_expired": "Expired prices",

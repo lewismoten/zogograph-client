@@ -6448,23 +6448,24 @@ function renderAiTools(data) {
   const extensionText = document.createElement("span");
   extensionText.className = "muted small";
   const inactive = groups.get(toolTab)?.filter(tool => !tool.enabled).length ?? 0;
+  const groupLabel = TOOL_GROUP_NAMES[toolTab] ?? toolTab;
   extensionText.textContent = inactive
-    ? `${chatState.who.name} starts with diagnostic tools. Enable ${TOOL_GROUP_NAMES[toolTab] ?? toolTab} tools if this conversation needs that subject.`
-    : `All ${TOOL_GROUP_NAMES[toolTab] ?? toolTab} tools are enabled for ${chatState.who.name}.`;
+    ? ZogographI18n.t("ai.tool_subject_intro", { assistant: chatState.who.name, group: groupLabel }, "{{assistant}} starts with diagnostic tools. Enable {{group}} tools if this conversation needs that subject.")
+    : ZogographI18n.t("ai.tool_subject_all_enabled", { assistant: chatState.who.name, group: groupLabel }, "All {{group}} tools are enabled for {{assistant}}.");
   extension.appendChild(extensionText);
   if (inactive && data.writable) {
     const enableGroup = document.createElement("button");
     enableGroup.type = "button";
     enableGroup.className = "link";
-    enableGroup.textContent = `Enable this subject (${inactive})`;
+    enableGroup.textContent = ZogographI18n.t("ai.enable_subject", { count: inactive }, "Enable this subject ({{count}})");
     enableGroup.addEventListener("click", () => {
       for (const tool of groups.get(toolTab) ?? []) {
         const toggle = body.querySelector(`.tool-on[data-tool="${tool.name}"]`);
         if (toggle) toggle.checked = true;
       }
       enableGroup.disabled = true;
-      enableGroup.textContent = "Subject enabled — save settings";
-      extensionText.textContent = `${TOOL_GROUP_NAMES[toolTab] ?? toolTab} tools will be available after you save these settings.`;
+      enableGroup.textContent = ZogographI18n.t("ai.subject_enabled_save", {}, "Subject enabled — save settings");
+      extensionText.textContent = ZogographI18n.t("ai.tool_subject_available_after_save", { group: groupLabel }, "{{group}} tools will be available after you save these settings.");
     });
     extension.appendChild(enableGroup);
   }

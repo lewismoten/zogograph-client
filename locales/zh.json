@@ -626,5 +626,6 @@
   "host.memory_by_user": "按用户划分的内存", "host.memory_by_user_help": "CageFS 隐藏的那一列。在隔离环境中，此账户只能看到自己的进程，因此除了这里，无法得知还有谁在使用机器内存。",
   "dashboard.skip_content": "跳至内容", "dashboard.menu": "菜单", "page.dashboard_title": "Zogograph 基础设施观测仪表板", "navigation.copy_link": "复制此视图的链接",
   "privacy.hide_ips": "隐藏 IP", "privacy.show_ips": "显示 IP", "privacy.hide_ips_title": "在此浏览器会话中隐藏 IP 地址", "privacy.show_ips_title": "在此浏览器会话中再次显示 IP 地址", "privacy.hide_account": "隐藏账户", "privacy.show_account": "显示账户", "privacy.hide_account_title": "在此浏览器会话中隐藏该账户名称", "privacy.show_account_title": "在此浏览器会话中再次显示该账户名称",
-  "auth.recovery_codes": "恢复代码", "auth.recovery_codes_title": "确认身份验证器后创建新的一次性恢复代码", "auth.end_sessions": "结束所有会话", "auth.end_sessions_title": "结束所有已登录的浏览器会话"
+  "auth.recovery_codes": "恢复代码", "auth.recovery_codes_title": "确认身份验证器后创建新的一次性恢复代码", "auth.end_sessions": "结束所有会话", "auth.end_sessions_title": "结束所有已登录的浏览器会话",
+  "onboarding.title": "完成 Zogograph 设置", "diagnostics.title": "出了什么问题", "diagnostics.check_again": "再次检查", "diagnostics.help": "这里有四十个页面，每个页面都能很好地回答一个问题——当您已经知道问题时很有帮助。此处会一次读取全部页面。每一行都带有来源读数及完整页面的链接，这里不会根据相关性作出推断。"
 }

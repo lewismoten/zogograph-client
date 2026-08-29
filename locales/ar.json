@@ -509,6 +509,7 @@
   "schedule.custom.weekday": "يوم الأسبوع (0–7)",
   "schedule.saved_preview": "معاينة محفوظة",
   "schedule.installed": "مثبّت حاليًا",
+  "alerts.timeline_level": "{{level}} ({{total, number}})", "alerts.timeline_restarts": "{{count, number}} إعادة تشغيل (متقطع)", "alerts.timeline_day": "يوم", "alerts.timeline_hour": "ساعة", "alerts.timeline_range": "{{count, number}} تنبيه، شريط لكل {{period}}", "alerts.timeline_held_back": " — حجب {{assistant}} {{count, number}} ولا تزال محسوبة هنا",
   "alerts.timeline_empty": "لم يُطلق شيء بعد.",
   "alerts.active_mutes": "كتم التنبيهات النشط", "alerts.no_active_mutes": "لا توجد قواعد تنبيه مكتومة مؤقتًا.", "alerts.active_mutes_help": "يتطلب الكتم سببًا وينتهي تلقائيًا. يتجاوز الخطأ والحرج الكتم دائمًا.", "alerts.active_mutes_detail": "تبقى أحداث المعلومات والتحذير المكتومة مرئية مع سبب التسليم. يتجاوز الخطأ والحرج الكتم دائمًا.", "alerts.rule": "القاعدة", "alerts.until": "حتى", "alerts.end_mute": "إنهاء الكتم", "alerts.end_mute_confirm": "إنهاء كتم {{rule}}؟", "alerts.mute_ended": "انتهى كتم {{rule}}.",
   "alerts.mute_reason_placeholder": "صيانة مخططة", "alerts.mute_explainer": "كتم “{{rule}}”؟ تظل تنبيهات المعلومات والتحذير المطابقة مسجلة لكنها لا تُرسل. يتجاوز الخطأ والحرج هذا الكتم دائمًا.", "alerts.mute_for": "لمدة", "alerts.mute_expires": "تنتهي تلقائيًا.", "alerts.mute_reason": "السبب", "alerts.mute_reason_help": "يُحفظ في الأحداث المحتجزة ومسار التدقيق.", "alerts.muted_until": "كُتم {{rule}} حتى {{until}}.",

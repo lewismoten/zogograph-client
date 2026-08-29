@@ -20321,22 +20321,23 @@ function renderHostGauges(sample, swapUsed, swap) {
     const workloadCommitted = monitoringPss == null ? null
       : Math.max(0, committed - monitoringPss);
     dials.push({
-      label: "Memory committed",
+      label: ZogographI18n.t("host.memory_committed", {}, "Memory committed"),
       value: (committed / total) * 100,
       warn: 80, crit: 92,
       overlay: monitoringPss == null ? null : (monitoringPss / total) * 100,
       overlayLabel: monitoringPss == null ? null
-        : `dark arc: collector tree ${humanBytes(monitoringPss)} PSS`,
-      sub: `${humanBytes(committed)} of ${humanBytes(total)} \u00b7 `
-        + `${humanBytes(available)} still available`
-        + (workloadCommitted == null ? "" : ` · ${humanBytes(workloadCommitted)} non-monitor committed`)
-        + (sample.monitoring_processes == null ? "" : ` \u00b7 ${sample.monitoring_processes} monitoring process${Number(sample.monitoring_processes) === 1 ? "" : "es"}`),
+        : ZogographI18n.t("host.memory_collector_arc", { amount: humanBytes(monitoringPss) }, "dark arc: collector tree {{amount}} PSS"),
+      sub: ZogographI18n.t("host.memory_committed_sub", {
+        committed: humanBytes(committed), total: humanBytes(total), available: humanBytes(available),
+      }, "{{committed}} of {{total}} · {{available}} still available")
+        + (workloadCommitted == null ? "" : ZogographI18n.t("host.memory_non_monitor", { amount: humanBytes(workloadCommitted) }, " · {{amount}} non-monitor committed"))
+        + (sample.monitoring_processes == null ? "" : ZogographI18n.t("host.memory_monitoring_processes", { count: sample.monitoring_processes }, " · {{count, number}} monitoring processes")),
     });
   }
 
   if (swapTotal > 0) {
     dials.push({
-      label: "Swap used",
+      label: ZogographI18n.t("host.swap_used", {}, "Swap used"),
       value: (swapUsed / swapTotal) * 100,
       /*
        * Swap in use is not itself a problem - the kernel pages out things
@@ -20346,13 +20347,15 @@ function renderHostGauges(sample, swapUsed, swap) {
        */
       warn: swap?.state === "pressure" ? 1 : 60,
       crit: swap?.state === "pressure" ? 25 : 90,
-      sub: `${humanBytes(swapUsed)} of ${humanBytes(swapTotal)}`
-        + (swap?.state === "pressure" ? " \u00b7 under pressure" : " \u00b7 no pressure"),
+      sub: ZogographI18n.t("host.swap_used_sub", { used: humanBytes(swapUsed), total: humanBytes(swapTotal) }, "{{used}} of {{total}}")
+        + (swap?.state === "pressure"
+          ? ZogographI18n.t("host.swap_under_pressure", {}, " · under pressure")
+          : ZogographI18n.t("host.swap_no_pressure", {}, " · no pressure")),
     });
   } else {
     dials.push({
-      label: "Swap used", value: null, warn: 60, crit: 90,
-      sub: "no swap configured on this machine",
+      label: ZogographI18n.t("host.swap_used", {}, "Swap used"), value: null, warn: 60, crit: 90,
+      sub: ZogographI18n.t("host.swap_not_configured", {}, "no swap configured on this machine"),
     });
   }
 
@@ -20375,13 +20378,14 @@ function renderHostGauges(sample, swapUsed, swap) {
   const mine = Number(state.overview?.vitals?.mem_total_bytes) || 0;
   if (total > 0 && mine > 0 && mine < total) {
     dials.push({
-      label: "This account's share",
+      label: ZogographI18n.t("host.account_memory_share", {}, "This account's share"),
       value: (mine / total) * 100,
       // Not a health measure: a small share is the normal, healthy state of a
       // tenant on a shared box. Bands set past anything ordinary so it stays
       // green unless the account really is most of the machine.
       warn: 60, crit: 85,
-      sub: `may use ${humanBytes(mine)} of the machine's ${humanBytes(total)}`,
+      sub: ZogographI18n.t("host.account_memory_share_sub", { amount: humanBytes(mine), total: humanBytes(total) },
+        "may use {{amount}} of the machine's {{total}}"),
     });
   }
 

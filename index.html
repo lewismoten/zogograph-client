@@ -1312,10 +1312,10 @@
 <section class="view" data-view="network" hidden>
 <section class="panel" id="networkPanel">
   <div class="panel-head">
-    <h2>Network</h2>
-    <button id="networkRefresh" class="link">Refresh</button>
+    <h2 data-i18n="overview.network">Network</h2>
+    <button id="networkRefresh" class="link" data-i18n="action.refresh">Refresh</button>
   </div>
-  <p class="muted small sub-note">
+  <p class="muted small sub-note" data-i18n="network.intro">
     Every other page here measures something being used up — disk, memory, CPU —
     and none of them can say why. A machine pinned at 100% because it is
     answering four thousand DNS queries a second looks exactly like a machine
@@ -1325,7 +1325,7 @@
   <div id="networkBody"></div>
   <div id="networkContent" hidden>
     <div class="gauges" id="networkGauges"></div>
-    <h3 class="sub-head">Interfaces</h3>
+    <h3 class="sub-head" data-i18n="network.interfaces">Interfaces</h3>
     <div id="networkInterfaces"></div>
   </div>
 </section>

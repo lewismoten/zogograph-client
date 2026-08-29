@@ -15,5 +15,21 @@
   "zogograph-key-custody.signing_reference": "مرجع مفتاح توقيع العميل",
   "zogograph-key-custody.signing_reference_help": "بعد الاختبار نفسه، أنشئ سر حزمة مشفراً ثانياً لمفتاح توقيع Ed25519 بترميز Base64 لمرة واحدة. لا تلصق المفتاح الخاص هنا مطلقاً.",
   "zogograph-key-custody.save_action": "حفظ إعدادات الحفظ",
-  "zogograph-key-custody.saved": "حُفظت إعدادات الحفظ عن بُعد. لا يؤدي اختبار ناجح لنقطة النهاية إلى تفعيل الحفظ عن بُعد."
+  "zogograph-key-custody.saved": "حُفظت إعدادات الحفظ عن بُعد. لا يؤدي اختبار ناجح لنقطة النهاية إلى تفعيل الحفظ عن بُعد.",
+  "zogograph-key-custody.remote_envelope_unavailable": "أنشئ نسخة مشفرة متحققاً منها قبل إضافة مظروف بعيد اختياري.",
+  "zogograph-key-custody.remote_envelope_ready": "يتطلب تسجيل حفظ وصناديق عزل لتخزين المظاريف مهيأة بشكل منفصل.",
+  "zogograph-key-custody.remote_drill_unavailable": "يلزم عنصر محلي متحقق منه قبل تمرين استرداد بعيد.",
+  "zogograph-key-custody.remote_drill_ready": "يتطلب مظروفاً بعيداً مخزناً وصندوق عزل لفك الحفظ مهيأ بشكل منفصل.",
+  "zogograph-key-custody.remote_envelope_dialog": "إضافة مظروف استرداد للحفظ البعيد",
+  "zogograph-key-custody.verified_local_artifact": "عنصر محلي متحقق منه",
+  "zogograph-key-custody.verified_local_artifact_help": "سيعيد Zogograph التحقق من تجزئة النص المشفر لهذا العنصر المحلي قبل إجراء أي شيء عن بُعد.",
+  "zogograph-key-custody.remote_envelope_safety": "يرسل هذا فقط مفتاح البيانات الجديد الموجود في الذاكرة للعنصر المحدد ومعرّف مفتاح الحفظ المهيأ وبيانات اعتماد العميل المسجل إلى صندوق العزل أحادي الاستخدام المهيأ بشكل منفصل. يختم الصندوق المفتاح للحفظ ولا يعيد إلا ملخص إيصال. لا يتلقى أبداً مسار قاعدة بيانات أو بايتات قاعدة بيانات أو نصاً صريحاً أو مفتاح استرداد محلياً أو بيانات اعتماد فوترة أو رمز إدارة. يظل الاسترداد المحلي مطلوباً.",
+  "zogograph-key-custody.store_envelope_confirm": "هل تريد إضافة مظروف اختياري لاسترداد مفتاح بعيد لهذا العنصر المحلي المتحقق منه؟\n\nإنه مسار استرداد إضافي، وليس بديلاً لمفتاح الاسترداد المحلي أو تحميل قاعدة بيانات. ستتلقى خدمة الحفظ المهيأة مظروف مفتاح بيانات مختوماً فقط.",
+  "zogograph-key-custody.store_envelope_title": "تخزين مظروف الاسترداد البعيد",
+  "zogograph-key-custody.remote_recovery_dialog": "تمرين استرداد الحفظ البعيد",
+  "zogograph-key-custody.artifact_with_envelope": "عنصر له مظروف بعيد مخزن",
+  "zogograph-key-custody.artifact_with_envelope_help": "يجب أن يكون للعنصر المحدد مظروف حفظ مخزن بالفعل. سيعيد Zogograph التحقق من نصه المشفر قبل طلب إصدار مفتاح مؤقت.",
+  "zogograph-key-custody.remote_drill_safety": "يُعاد مفتاح الحفظ فقط عبر أنبوب العملية الخاص بالعامل المعزول، ويُستخدم في الذاكرة لمصادقة ملف مسترد مؤقت ثم يُتلف. يُزال الملف المؤقت. لا يظهر المفتاح ولا النص الصريح في هذا المتصفح.",
+  "zogograph-key-custody.run_remote_drill_confirm": "هل تريد تشغيل تمرين استرداد حفظ بعيد غير هدّام لهذا العنصر؟\n\nيطلب هذا من الحفظ إصدار مفتاح بيانات مؤقت واحد فقط لمصادقة النسخة المختومة الموجودة. يُتلف المفتاح والنص الصريح المؤقت.",
+  "zogograph-key-custody.run_remote_drill_title": "تشغيل تمرين الاسترداد البعيد"
 }

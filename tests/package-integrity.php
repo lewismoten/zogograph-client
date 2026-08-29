@@ -71,6 +71,19 @@ try {
         && is_array($custodyLocale) && isset($custodyLocale['zogograph-key-custody.settings_title'])
         && isset($custodyLocale['zogograph-key-custody.save_action']),
         'key custody package does not own its declared localization catalog');
+    $custodyLocaleKeys = array_keys($custodyLocale);
+    foreach ((array)($custodyManifest['locales'] ?? []) as $localeFile) {
+        $catalog = json_decode((string)file_get_contents($custodyDirectory . '/' . $localeFile), true, 128, JSON_THROW_ON_ERROR);
+        packageExpect(is_array($catalog) && array_keys($catalog) === $custodyLocaleKeys,
+            'key custody package locales do not share one complete catalog');
+    }
+    $dashboardSource = file_get_contents(__DIR__ . '/../index.js');
+    packageExpect($dashboardSource !== false
+        && str_contains($dashboardSource, 'zogograph-key-custody.remote_envelope_dialog')
+        && str_contains($dashboardSource, 'zogograph-key-custody.remote_recovery_dialog')
+        && isset($custodyLocale['zogograph-key-custody.store_envelope_confirm'])
+        && isset($custodyLocale['zogograph-key-custody.run_remote_drill_confirm']),
+        'key custody recovery controls do not use the package localization catalog');
     $relayPair = sodium_crypto_sign_keypair(); $relaySecret = sodium_crypto_sign_secretkey($relayPair);
     try { new \HostScope\Plugin\ReplicaRelay\ReplicaRelayHttpClient('https://user@example.test', 'test-token', base64_encode($relaySecret)); throw new RuntimeException('relay client accepted an ambiguous endpoint'); }
     catch (InvalidArgumentException $error) { packageExpect($error->getMessage() !== 'relay client accepted an ambiguous endpoint', $error->getMessage()); }

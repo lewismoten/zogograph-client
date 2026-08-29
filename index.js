@@ -12270,11 +12270,15 @@ function renderEncryptionStatus(data) {
       });
       const remote = document.createElement("button"); remote.type = "button"; remote.textContent = ZogographI18n.t("encryption.add_remote_envelope", {}, "Add optional remote custody envelope");
       remote.disabled = !data.remote_envelope_candidates?.length;
-      remote.title = remote.disabled ? "Create a verified encrypted copy before adding an optional remote envelope." : "Requires separately configured custody enrollment and envelope-store sandboxes.";
+      remote.title = remote.disabled
+        ? packageText("zogograph-key-custody.remote_envelope_unavailable", {}, "Create a verified encrypted copy before adding an optional remote envelope.")
+        : packageText("zogograph-key-custody.remote_envelope_ready", {}, "Requires separately configured custody enrollment and envelope-store sandboxes.");
       remote.addEventListener("click", () => showCustodyEnvelopeDialog(data.remote_envelope_candidates || []));
       const remoteDrill = document.createElement("button"); remoteDrill.type = "button"; remoteDrill.textContent = ZogographI18n.t("encryption.run_remote_recovery_drill", {}, "Run remote custody recovery drill");
       remoteDrill.disabled = !data.remote_recovery_candidates?.length;
-      remoteDrill.title = remoteDrill.disabled ? "A verified local artifact is required before a remote recovery drill." : "Requires a stored remote envelope and separately configured custody unwrap sandbox.";
+      remoteDrill.title = remoteDrill.disabled
+        ? packageText("zogograph-key-custody.remote_drill_unavailable", {}, "A verified local artifact is required before a remote recovery drill.")
+        : packageText("zogograph-key-custody.remote_drill_ready", {}, "Requires a stored remote envelope and separately configured custody unwrap sandbox.");
       remoteDrill.addEventListener("click", () => showCustodyRecoveryDrillDialog(data.remote_recovery_candidates || []));
       actions.append(seal, drill, remote, remoteDrill); parts.push(actions);
     }
@@ -12308,11 +12312,11 @@ function showCustodyEnvelopeDialog(candidates) {
     option.textContent = `${artifact.store} · ${humanTime(artifact.created_at)} · ${artifact.artifact_id}`;
     select.appendChild(option);
   }
-  showFormDialog(ZogographI18n.t("encryption.remote_envelope_dialog", {}, "Add remote custody recovery envelope"), [
-    fieldRow(ZogographI18n.t("encryption.verified_local_artifact", {}, "Verified local artifact"), select, "Zogograph will recheck this local artifact’s ciphertext hash before doing anything remotely."),
-    note("This sends only the selected artifact’s fresh in-memory data key, the configured custody key identifier, and the enrolled-client credentials to the separately configured one-shot sandbox. The sandbox seals the key for custody and returns only a receipt digest. It never receives a database path, database bytes, plaintext, local recovery key, billing credential, or management token. Local recovery remains required."),
+  showFormDialog(packageText("zogograph-key-custody.remote_envelope_dialog", {}, "Add remote custody recovery envelope"), [
+    fieldRow(packageText("zogograph-key-custody.verified_local_artifact", {}, "Verified local artifact"), select, packageText("zogograph-key-custody.verified_local_artifact_help", {}, "Zogograph will recheck this local artifact’s ciphertext hash before doing anything remotely.")),
+    note(packageText("zogograph-key-custody.remote_envelope_safety", {}, "This sends only the selected artifact’s fresh in-memory data key, the configured custody key identifier, and the enrolled-client credentials to the separately configured one-shot sandbox. The sandbox seals the key for custody and returns only a receipt digest. It never receives a database path, database bytes, plaintext, local recovery key, billing credential, or management token. Local recovery remains required.")),
   ], async () => {
-    if (!(await confirmDialog("Add an optional remote key-recovery envelope for this verified local artifact?\n\nThis is an extra recovery path, not a replacement for your local recovery key or a database upload. The configured custody service will receive a sealed data-key envelope only.", "Store remote recovery envelope"))) return;
+    if (!(await confirmDialog(packageText("zogograph-key-custody.store_envelope_confirm", {}, "Add an optional remote key-recovery envelope for this verified local artifact?\n\nThis is an extra recovery path, not a replacement for your local recovery key or a database upload. The configured custody service will receive a sealed data-key envelope only."), packageText("zogograph-key-custody.store_envelope_title", {}, "Store remote recovery envelope")))) return;
     const result = await post("package-runtime-custody-envelope-store", { artifact_id: select.value, confirm: "store-remote-envelope" });
     showListDialog(ZogographI18n.t("encryption.remote_envelope_stored", {}, "Remote custody envelope stored"), [factGrid([[packageText("table_artifact", {}, "Artifact"), result.artifact_id], [packageText("table_state", {}, "State"), result.result.state], [packageText("table_result", {}, "Result"), result.result.reason], [packageText("table_safety", {}, "Safety boundary"), result.warning]])]);
     await refreshEncryptionStatus();
@@ -12326,11 +12330,11 @@ function showCustodyRecoveryDrillDialog(candidates) {
     option.textContent = `${artifact.store} · ${humanTime(artifact.created_at)} · ${artifact.artifact_id}`;
     select.appendChild(option);
   }
-  showFormDialog(ZogographI18n.t("encryption.remote_recovery_dialog", {}, "Remote custody recovery drill"), [
-    fieldRow(ZogographI18n.t("encryption.artifact_with_envelope", {}, "Artifact with stored remote envelope"), select, "The selected artifact must already have a stored custody envelope. Zogograph will recheck its ciphertext before requesting a temporary key release."),
-    note("The custody key is returned only through the isolated worker’s private process pipe, used in memory to authenticate a temporary recovered file, then discarded. The temporary file is removed. Neither key nor plaintext appears in this browser."),
+  showFormDialog(packageText("zogograph-key-custody.remote_recovery_dialog", {}, "Remote custody recovery drill"), [
+    fieldRow(packageText("zogograph-key-custody.artifact_with_envelope", {}, "Artifact with stored remote envelope"), select, packageText("zogograph-key-custody.artifact_with_envelope_help", {}, "The selected artifact must already have a stored custody envelope. Zogograph will recheck its ciphertext before requesting a temporary key release.")),
+    note(packageText("zogograph-key-custody.remote_drill_safety", {}, "The custody key is returned only through the isolated worker’s private process pipe, used in memory to authenticate a temporary recovered file, then discarded. The temporary file is removed. Neither key nor plaintext appears in this browser.")),
   ], async () => {
-    if (!(await confirmDialog("Run a non-destructive remote custody recovery drill for this artifact?\n\nThis asks custody to release one temporary data key solely to authenticate the existing sealed copy. The key and temporary plaintext are discarded.", "Run remote recovery drill"))) return;
+    if (!(await confirmDialog(packageText("zogograph-key-custody.run_remote_drill_confirm", {}, "Run a non-destructive remote custody recovery drill for this artifact?\n\nThis asks custody to release one temporary data key solely to authenticate the existing sealed copy. The key and temporary plaintext are discarded."), packageText("zogograph-key-custody.run_remote_drill_title", {}, "Run remote recovery drill")))) return;
     const result = await post("package-runtime-custody-recovery-drill", { artifact_id: select.value, confirm: "run-remote-recovery-drill" });
     showListDialog(ZogographI18n.t("encryption.remote_recovery_verified", {}, "Remote custody recovery verified"), [factGrid([[packageText("table_artifact", {}, "Artifact"), result.artifact_id], [packageText("table_state", {}, "State"), result.result.state], [packageText("table_result", {}, "Result"), result.result.reason], [packageText("table_safety", {}, "Safety boundary"), result.warning]])]);
     await refreshEncryptionStatus();

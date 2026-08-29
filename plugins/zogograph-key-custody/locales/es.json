@@ -15,5 +15,21 @@
   "zogograph-key-custody.signing_reference": "Referencia de clave de firma de cliente",
   "zogograph-key-custody.signing_reference_help": "Después de esa misma prueba, cree un segundo secreto cifrado del paquete para la clave de firma Ed25519 Base64 de un solo uso. Nunca pegue aquí la clave privada.",
   "zogograph-key-custody.save_action": "Guardar ajustes de custodia",
-  "zogograph-key-custody.saved": "Se guardaron los ajustes de custodia remota. Una prueba correcta del extremo no activa la custodia remota."
+  "zogograph-key-custody.saved": "Se guardaron los ajustes de custodia remota. Una prueba correcta del extremo no activa la custodia remota.",
+  "zogograph-key-custody.remote_envelope_unavailable": "Cree una copia cifrada verificada antes de añadir un sobre remoto opcional.",
+  "zogograph-key-custody.remote_envelope_ready": "Requiere una inscripción de custodia y entornos aislados de almacenamiento de sobres configurados por separado.",
+  "zogograph-key-custody.remote_drill_unavailable": "Se requiere un artefacto local verificado antes de una prueba de recuperación remota.",
+  "zogograph-key-custody.remote_drill_ready": "Requiere un sobre remoto guardado y un entorno aislado de desbloqueo de custodia configurado por separado.",
+  "zogograph-key-custody.remote_envelope_dialog": "Añadir sobre de recuperación de custodia remota",
+  "zogograph-key-custody.verified_local_artifact": "Artefacto local verificado",
+  "zogograph-key-custody.verified_local_artifact_help": "Zogograph volverá a comprobar el hash del texto cifrado de este artefacto local antes de hacer nada de forma remota.",
+  "zogograph-key-custody.remote_envelope_safety": "Esto envía solo la clave de datos nueva en memoria del artefacto seleccionado, el identificador de clave de custodia configurado y las credenciales del cliente inscrito al entorno aislado de un solo uso configurado por separado. El entorno sella la clave para custodia y devuelve solo un resumen del recibo. Nunca recibe una ruta de base de datos, bytes de base de datos, texto plano, clave de recuperación local, credencial de facturación ni token de administración. La recuperación local sigue siendo necesaria.",
+  "zogograph-key-custody.store_envelope_confirm": "¿Añadir un sobre opcional de recuperación de clave remota para este artefacto local verificado?\n\nEs una ruta de recuperación adicional, no un reemplazo de su clave de recuperación local ni una carga de base de datos. El servicio de custodia configurado recibirá solo un sobre de clave de datos sellado.",
+  "zogograph-key-custody.store_envelope_title": "Guardar sobre de recuperación remota",
+  "zogograph-key-custody.remote_recovery_dialog": "Prueba de recuperación de custodia remota",
+  "zogograph-key-custody.artifact_with_envelope": "Artefacto con sobre remoto guardado",
+  "zogograph-key-custody.artifact_with_envelope_help": "El artefacto seleccionado ya debe tener un sobre de custodia guardado. Zogograph volverá a comprobar su texto cifrado antes de solicitar una liberación temporal de clave.",
+  "zogograph-key-custody.remote_drill_safety": "La clave de custodia se devuelve solo a través de la tubería privada del proceso del trabajador aislado, se usa en memoria para autenticar un archivo recuperado temporal y después se descarta. El archivo temporal se elimina. Ni la clave ni el texto plano aparecen en este navegador.",
+  "zogograph-key-custody.run_remote_drill_confirm": "¿Ejecutar una prueba de recuperación de custodia remota no destructiva para este artefacto?\n\nEsto pide a custodia que libere una clave de datos temporal únicamente para autenticar la copia sellada existente. La clave y el texto plano temporal se descartan.",
+  "zogograph-key-custody.run_remote_drill_title": "Ejecutar prueba de recuperación remota"
 }

@@ -15,5 +15,21 @@
   "zogograph-key-custody.signing_reference": "客户端签名密钥引用",
   "zogograph-key-custody.signing_reference_help": "完成同一测试后，请为一次性 Base64 Ed25519 签名密钥创建第二个加密的软件包密钥。切勿在此粘贴私钥。",
   "zogograph-key-custody.save_action": "保存托管设置",
-  "zogograph-key-custody.saved": "已保存远程托管设置。成功的端点探测不会激活远程托管。"
+  "zogograph-key-custody.saved": "已保存远程托管设置。成功的端点探测不会激活远程托管。",
+  "zogograph-key-custody.remote_envelope_unavailable": "请先创建经过验证的加密副本，再添加可选的远程信封。",
+  "zogograph-key-custody.remote_envelope_ready": "需要单独配置托管登记和信封存储沙箱。",
+  "zogograph-key-custody.remote_drill_unavailable": "远程恢复演练需要经过验证的本地工件。",
+  "zogograph-key-custody.remote_drill_ready": "需要已存储的远程信封和单独配置的托管解封沙箱。",
+  "zogograph-key-custody.remote_envelope_dialog": "添加远程托管恢复信封",
+  "zogograph-key-custody.verified_local_artifact": "经过验证的本地工件",
+  "zogograph-key-custody.verified_local_artifact_help": "Zogograph 会在远程执行任何操作前重新检查此本地工件密文的哈希值。",
+  "zogograph-key-custody.remote_envelope_safety": "这只会将所选工件的新内存数据密钥、已配置的托管密钥标识符和已登记客户端凭据发送到单独配置的一次性沙箱。该沙箱会为托管服务封装密钥，并且只返回收据摘要。它绝不会收到数据库路径、数据库字节、明文、本地恢复密钥、计费凭据或管理令牌。本地恢复仍是必需的。",
+  "zogograph-key-custody.store_envelope_confirm": "要为此经过验证的本地工件添加可选的远程密钥恢复信封吗？\n\n这是额外的恢复路径，不是对本地恢复密钥的替代，也不是数据库上传。已配置的托管服务只会收到一个封装的数据密钥信封。",
+  "zogograph-key-custody.store_envelope_title": "存储远程恢复信封",
+  "zogograph-key-custody.remote_recovery_dialog": "远程托管恢复演练",
+  "zogograph-key-custody.artifact_with_envelope": "具有已存储远程信封的工件",
+  "zogograph-key-custody.artifact_with_envelope_help": "所选工件必须已经有已存储的托管信封。Zogograph 会在请求临时密钥释放前重新检查其密文。",
+  "zogograph-key-custody.remote_drill_safety": "托管密钥只会通过隔离工作进程的私有进程管道返回，在内存中用于验证临时恢复文件后即被丢弃。临时文件会被删除。密钥和明文都不会出现在此浏览器中。",
+  "zogograph-key-custody.run_remote_drill_confirm": "要对此工件运行非破坏性的远程托管恢复演练吗？\n\n这会要求托管服务仅释放一个临时数据密钥，以验证现有的封装副本。密钥和临时明文都会被丢弃。",
+  "zogograph-key-custody.run_remote_drill_title": "运行远程恢复演练"
 }

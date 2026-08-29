@@ -15,5 +15,21 @@
   "zogograph-key-custody.signing_reference": "Client signing-key reference",
   "zogograph-key-custody.signing_reference_help": "After that same test, create a second encrypted package secret for the one-time Base64 Ed25519 signing key. Never paste the private key here.",
   "zogograph-key-custody.save_action": "Save custody settings",
-  "zogograph-key-custody.saved": "Remote custody settings saved. A successful endpoint probe does not activate remote custody."
+  "zogograph-key-custody.saved": "Remote custody settings saved. A successful endpoint probe does not activate remote custody.",
+  "zogograph-key-custody.remote_envelope_unavailable": "Create a verified encrypted copy before adding an optional remote envelope.",
+  "zogograph-key-custody.remote_envelope_ready": "Requires separately configured custody enrollment and envelope-store sandboxes.",
+  "zogograph-key-custody.remote_drill_unavailable": "A verified local artifact is required before a remote recovery drill.",
+  "zogograph-key-custody.remote_drill_ready": "Requires a stored remote envelope and separately configured custody unwrap sandbox.",
+  "zogograph-key-custody.remote_envelope_dialog": "Add remote custody recovery envelope",
+  "zogograph-key-custody.verified_local_artifact": "Verified local artifact",
+  "zogograph-key-custody.verified_local_artifact_help": "Zogograph will recheck this local artifact’s ciphertext hash before doing anything remotely.",
+  "zogograph-key-custody.remote_envelope_safety": "This sends only the selected artifact’s fresh in-memory data key, the configured custody key identifier, and the enrolled-client credentials to the separately configured one-shot sandbox. The sandbox seals the key for custody and returns only a receipt digest. It never receives a database path, database bytes, plaintext, local recovery key, billing credential, or management token. Local recovery remains required.",
+  "zogograph-key-custody.store_envelope_confirm": "Add an optional remote key-recovery envelope for this verified local artifact?\n\nThis is an extra recovery path, not a replacement for your local recovery key or a database upload. The configured custody service will receive a sealed data-key envelope only.",
+  "zogograph-key-custody.store_envelope_title": "Store remote recovery envelope",
+  "zogograph-key-custody.remote_recovery_dialog": "Remote custody recovery drill",
+  "zogograph-key-custody.artifact_with_envelope": "Artifact with stored remote envelope",
+  "zogograph-key-custody.artifact_with_envelope_help": "The selected artifact must already have a stored custody envelope. Zogograph will recheck its ciphertext before requesting a temporary key release.",
+  "zogograph-key-custody.remote_drill_safety": "The custody key is returned only through the isolated worker’s private process pipe, used in memory to authenticate a temporary recovered file, then discarded. The temporary file is removed. Neither key nor plaintext appears in this browser.",
+  "zogograph-key-custody.run_remote_drill_confirm": "Run a non-destructive remote custody recovery drill for this artifact?\n\nThis asks custody to release one temporary data key solely to authenticate the existing sealed copy. The key and temporary plaintext are discarded.",
+  "zogograph-key-custody.run_remote_drill_title": "Run remote recovery drill"
 }

@@ -1879,7 +1879,7 @@ function renderLimits(limits, bodyId = "limitsBody", whenId = "limitsWhen") {
 function renderCards(overview, vitalRows) {
   const v = overview.vitals;
   if (!v) {
-    setCard("cardDisk", "—", "nothing collected yet");
+    setCard("cardDisk", "—", ZogographI18n.t("overview.nothing_collected", {}, "nothing collected yet"));
     return;
   }
 
@@ -1890,7 +1890,7 @@ function renderCards(overview, vitalRows) {
   setCard(
     "cardDisk",
     humanBytes(v.disk_free_bytes),
-    freePercent === null ? "" : `${freePercent.toFixed(1)}% free of ${humanBytes(v.disk_total_bytes)}`,
+    freePercent === null ? "" : ZogographI18n.t("overview.free_of", { percent: freePercent.toFixed(1), total: humanBytes(v.disk_total_bytes) }, `${freePercent.toFixed(1)}% free of ${humanBytes(v.disk_total_bytes)}`),
     freePercent === null ? "" : freePercent < 5 ? "crit" : freePercent < 12 ? "warn" : ""
   );
 
@@ -1899,22 +1899,22 @@ function renderCards(overview, vitalRows) {
   const inodePercent = v.inodes_total ? (v.inodes_free / v.inodes_total) * 100 : null;
   setCard(
     "cardInodes",
-    v.inodes_free == null ? "n/a" : humanCount(v.inodes_free),
-    inodePercent === null ? "not reported" : `${inodePercent.toFixed(1)}% free`,
+    v.inodes_free == null ? ZogographI18n.t("overview.not_available", {}, "n/a") : humanCount(v.inodes_free),
+    inodePercent === null ? ZogographI18n.t("overview.not_reported", {}, "not reported") : ZogographI18n.t("overview.percent_free", { percent: inodePercent.toFixed(1) }, `${inodePercent.toFixed(1)}% free`),
     inodePercent === null ? "" : inodePercent < 5 ? "crit" : inodePercent < 12 ? "warn" : ""
   );
 
   setCard(
     "cardCpu",
-    v.cpu_percent == null ? "n/a" : `${Number(v.cpu_percent).toFixed(0)}%`,
-    v.cpu_percent == null ? "no /proc/stat here" : `since the previous reading`,
+    v.cpu_percent == null ? ZogographI18n.t("overview.not_available", {}, "n/a") : `${Number(v.cpu_percent).toFixed(0)}%`,
+    v.cpu_percent == null ? ZogographI18n.t("overview.no_proc_stat", {}, "no /proc/stat here") : ZogographI18n.t("overview.since_previous_reading", {}, "since the previous reading"),
     v.cpu_percent > 90 ? "crit" : v.cpu_percent > 70 ? "warn" : ""
   );
 
   setCard(
     "cardMem",
-    v.mem_used_percent == null ? "n/a" : `${Number(v.mem_used_percent).toFixed(0)}%`,
-    v.mem_total_bytes ? `${humanBytes(v.mem_available_bytes)} available` : "no /proc/meminfo here",
+    v.mem_used_percent == null ? ZogographI18n.t("overview.not_available", {}, "n/a") : `${Number(v.mem_used_percent).toFixed(0)}%`,
+    v.mem_total_bytes ? ZogographI18n.t("overview.available", { amount: humanBytes(v.mem_available_bytes) }, `${humanBytes(v.mem_available_bytes)} available`) : ZogographI18n.t("overview.no_proc_meminfo", {}, "no /proc/meminfo here"),
     v.mem_used_percent > 92 ? "crit" : v.mem_used_percent > 80 ? "warn" : ""
   );
 
@@ -1933,8 +1933,8 @@ function renderCards(overview, vitalRows) {
     v.load1 == null ? "n/a" : Number(v.load1).toFixed(2),
     v.load1 == null
       ? ""
-      : (cores ? `${(perCore * 100).toFixed(0)}% of ${cores} cores · ` : "")
-        + `${Number(v.load5).toFixed(2)} / ${Number(v.load15).toFixed(2)} at 5 and 15 min`,
+      : (cores ? ZogographI18n.t("overview.percent_of_cores", { percent: (perCore * 100).toFixed(0), cores }, `${(perCore * 100).toFixed(0)}% of ${cores} cores · `) : "")
+        + ZogographI18n.t("overview.load_at", { five: Number(v.load5).toFixed(2), fifteen: Number(v.load15).toFixed(2) }, `${Number(v.load5).toFixed(2)} / ${Number(v.load15).toFixed(2)} at 5 and 15 min`),
     perCore == null ? "" : perCore > 1.5 ? "crit" : perCore > 1 ? "warn" : ""
   );
 
@@ -1942,8 +1942,8 @@ function renderCards(overview, vitalRows) {
   const tx = v.net_tx_rate == null ? null : Number(v.net_tx_rate);
   setCard(
     "cardNet",
-    rx == null ? "n/a" : `${humanBytes(rx, 1)}/s`,
-    rx == null ? "no /proc/net/dev here" : `in · ${humanBytes(tx, 1)}/s out`
+    rx == null ? ZogographI18n.t("overview.not_available", {}, "n/a") : `${humanBytes(rx, 1)}/s`,
+    rx == null ? ZogographI18n.t("overview.no_proc_net_dev", {}, "no /proc/net/dev here") : ZogographI18n.t("overview.network_in_out", { incoming: humanBytes(rx, 1), outgoing: humanBytes(tx, 1) }, `in · ${humanBytes(tx, 1)}/s out`)
   );
 }
 
@@ -1957,29 +1957,28 @@ function renderCards(overview, vitalRows) {
  */
 function setTrendCard(trend) {
   if (!trend) {
-    setCard("cardTrend", "—", "not enough history yet");
+    setCard("cardTrend", "—", ZogographI18n.t("overview.not_enough_history", {}, "not enough history yet"));
     return;
   }
 
   if (trend.spike) {
     setCard(
       "cardTrend",
-      "one-off",
-      `${humanBytes(-trend.overall * (trend.span_seconds || 1))} went at once, not a trend`
+      ZogographI18n.t("overview.one_off", {}, "one-off"),
+      ZogographI18n.t("overview.went_at_once", { amount: humanBytes(-trend.overall * (trend.span_seconds || 1)) }, `${humanBytes(-trend.overall * (trend.span_seconds || 1))} went at once, not a trend`)
     );
     return;
   }
 
   if (!trend.sustained || trend.seconds_left == null) {
-    setCard("cardTrend", "steady", "free space is not falling");
+    setCard("cardTrend", ZogographI18n.t("overview.steady", {}, "steady"), ZogographI18n.t("overview.free_space_steady", {}, "free space is not falling"));
     return;
   }
 
   setCard(
     "cardTrend",
     projectedDate(trend.seconds_left),
-    `losing ${humanBytes(-trend.rate * 3600)}/h`
-      + `, measured over ${humanDuration(trend.window_seconds || 86400)}`,
+    ZogographI18n.t("overview.losing_rate", { rate: humanBytes(-trend.rate * 3600), window: humanDuration(trend.window_seconds || 86400) }, `losing ${humanBytes(-trend.rate * 3600)}/h, measured over ${humanDuration(trend.window_seconds || 86400)}`),
     trend.seconds_left < 86400 ? "crit" : trend.seconds_left < 604800 ? "warn" : ""
   );
 }

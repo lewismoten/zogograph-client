@@ -1314,6 +1314,7 @@
   "overview.up_for": "已运行",
   "overview.projected_full": "预计填满",
   "overview.network": "网络",
+  "overview.nothing_collected": "尚未收集到数据", "overview.free_of": "{{total}} 中有 {{percent}}% 可用", "overview.not_available": "不适用", "overview.not_reported": "未报告", "overview.percent_free": "{{percent}}% 可用", "overview.no_proc_stat": "此处没有 /proc/stat", "overview.since_previous_reading": "自上次读数以来", "overview.available": "{{amount}} 可用", "overview.no_proc_meminfo": "此处没有 /proc/meminfo", "overview.percent_of_cores": "{{cores}} 个核心的 {{percent}}% · ", "overview.load_at": "5 和 15 分钟时为 {{five}} / {{fifteen}}", "overview.no_proc_net_dev": "此处没有 /proc/net/dev", "overview.network_in_out": "入站 · 出站 {{outgoing}}/秒", "overview.not_enough_history": "历史数据不足", "overview.one_off": "一次性", "overview.went_at_once": "{{amount}} 一次性消失，并非趋势", "overview.steady": "稳定", "overview.free_space_steady": "可用空间没有下降", "overview.losing_rate": "每小时减少 {{rate}}，统计窗口为 {{window}}",
   "host.memory_breakdown_title": "内存去了哪里",
   "host.memory_breakdown_help": "每项服务占用的已测量进程内存份额，采用 PSS 而非 RSS。饼图要求各分块构成整体，而常驻内存做不到：被十个进程共享的一页会被计算十次。",
   "host.memory_processes_title": "主机上最大的进程",

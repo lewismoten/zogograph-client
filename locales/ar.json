@@ -1314,6 +1314,7 @@
   "overview.up_for": "قيد التشغيل منذ",
   "overview.projected_full": "الامتلاء المتوقع",
   "overview.network": "الشبكة",
+  "overview.nothing_collected": "لم تُجمع بيانات بعد", "overview.free_of": "{{percent}}% متاح من {{total}}", "overview.not_available": "غير متاح", "overview.not_reported": "لم يُبلّغ عنه", "overview.percent_free": "{{percent}}% متاح", "overview.no_proc_stat": "لا يوجد /proc/stat هنا", "overview.since_previous_reading": "منذ القراءة السابقة", "overview.available": "{{amount}} متاح", "overview.no_proc_meminfo": "لا يوجد /proc/meminfo هنا", "overview.percent_of_cores": "{{percent}}% من {{cores}} نوى · ", "overview.load_at": "{{five}} / {{fifteen}} عند 5 و15 دقيقة", "overview.no_proc_net_dev": "لا يوجد /proc/net/dev هنا", "overview.network_in_out": "داخل · {{outgoing}}/ث خارج", "overview.not_enough_history": "لا توجد بيانات تاريخية كافية بعد", "overview.one_off": "مرة واحدة", "overview.went_at_once": "اختفى {{amount}} دفعة واحدة، وليس اتجاهًا", "overview.steady": "مستقر", "overview.free_space_steady": "المساحة المتاحة لا تنخفض", "overview.losing_rate": "يفقد {{rate}}/ساعة، مقاسًا على {{window}}",
   "host.memory_breakdown_title": "أين تذهب الذاكرة",
   "host.memory_breakdown_help": "حصة ذاكرة العمليات المقاسة التي يشغلها كلّ خادم، مأخوذة من PSS بدل RSS. يفترض المخطط الدائري أن شرائحه تكوّن الكل، أما الذاكرة المقيمة فلا يمكنها ذلك: فالصفحة المشتركة بين عشر عمليات ستُحسب عشر مرات.",
   "host.memory_processes_title": "أكبر العمليات على المضيف",

@@ -44,6 +44,7 @@ require_once __DIR__ . '/ai-tools/crowded-directories.php';
 require_once __DIR__ . '/ai-tools/busiest-processes.php';
 require_once __DIR__ . '/ai-tools/site-check-results.php';
 require_once __DIR__ . '/ai-tools/network-summary.php';
+require_once __DIR__ . '/ai-tools/collector-health.php';
 
 /**
  * Every tool, with its schema and how it runs.
@@ -67,6 +68,7 @@ function aiToolCatalogue(): array
         ...aiToolBusiestProcessesPackage(),
         ...aiToolSiteCheckResultsPackage(),
         ...aiToolNetworkSummaryPackage(),
+        ...aiToolCollectorHealthPackage(),
 
         /* ------------------------------------------------- what is wrong -- */
 
@@ -115,24 +117,6 @@ function aiToolCatalogue(): array
                     'description' => 'How many paths to return.',
                 ],
             ],
-        ],
-
-        'get_collector_health' => [
-            'group' => 'diagnostic',
-            'where' => 'server',
-            'permission' => false,
-            'summary' => 'Whether the monitoring itself is working.',
-            'description' =>
-                "Returns when each collector last ran, how often it usually runs, and "
-                . "whether it is late.\n\n"
-                . "USE THIS BEFORE CONCLUDING THAT ANYTHING IS FINE. Every chart on this "
-                . "dashboard goes quiet when a collector stops, and quiet looks exactly "
-                . "like healthy. If the user says 'it looks fine but something is wrong', "
-                . "check this first - the answer is often that the readings stopped three "
-                . "days ago.\n\n"
-                . "Also use it when readings look impossibly flat or a gap appears in a "
-                . "chart.",
-            'parameters' => [],
         ],
 
         'get_recent_changes' => [

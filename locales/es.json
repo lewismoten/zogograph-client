@@ -517,6 +517,7 @@
   "schedule.saved_preview": "Vista previa guardada",
   "schedule.installed": "Instalado actualmente",
   "support.provider_message": "Mensaje para su proveedor de alojamiento",
+  "support.provider_message_help": "Explica qué se midió y solicita únicamente acciones seguras. Deliberadamente no pide a nadie que elimine nada del directorio de copias de seguridad.",
   "help.page_purpose": "Para qué sirve esta página",
   "help.page_useful": "Por qué es útil",
   "help.terminal_commands_note": "Estas son comprobaciones de solo lectura o los recopiladores que alimentan este panel. Ejecute solo los comandos apropiados para este host y cuenta.",

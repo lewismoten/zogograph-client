@@ -498,6 +498,7 @@
   "schedule.saved_preview": "Saved preview",
   "schedule.installed": "Currently installed",
   "support.provider_message": "Message for your hosting provider",
+  "support.provider_message_help": "Explains what was measured and requests only safe actions. It deliberately does not ask anyone to delete anything in the backup directory.",
   "help.page_purpose": "What this page is for",
   "help.page_useful": "Why it is useful",
   "help.terminal_commands_note": "These are read-only checks or the collectors that supply this dashboard. Run only commands appropriate for this host and account.",

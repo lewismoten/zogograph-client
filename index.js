@@ -31961,9 +31961,11 @@ function backupActionList(data) {
 
 function showProviderMessage(message) {
   $("listDialogTitle").textContent = ZogographI18n.t("support.provider_message", {}, "Message for your hosting provider");
-  $("listDialogNote").textContent = "Describes what was measured and asks for the safe "
-    + "actions only. It deliberately does not ask anybody to delete anything from the "
-    + "backup directory.";
+  $("listDialogNote").textContent = ZogographI18n.t(
+    "support.provider_message_help",
+    {},
+    "Explains what was measured and requests only safe actions. It deliberately does not ask anyone to delete anything in the backup directory.",
+  );
 
   const body = $("listDialogBody");
   body.className = "";

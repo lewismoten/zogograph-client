@@ -8257,7 +8257,7 @@ function renderScans(data) {
     actions.className = "inspect-actions";
     const save = document.createElement("button");
     save.type = "submit";
-    save.textContent = "Save these";
+    save.textContent = ZogographI18n.t("setup.save", {}, "Save");
     save.disabled = !data.writable;
     actions.appendChild(save);
 
@@ -8478,7 +8478,7 @@ function renderThrottles(data) {
   actions.className = "inspect-actions";
   const save = document.createElement("button");
   save.type = "submit";
-  save.textContent = "Save these";
+  save.textContent = ZogographI18n.t("setup.save", {}, "Save");
   save.disabled = !data.writable;
   actions.appendChild(save);
   parts.push(actions);
@@ -13453,7 +13453,7 @@ function renderRetention(data) {
 
   const save = document.createElement("button");
   save.type = "submit";
-  save.textContent = "Save these";
+  save.textContent = ZogographI18n.t("setup.save", {}, "Save");
   save.disabled = !data.writable;
   actions.appendChild(save);
   parts.push(actions);

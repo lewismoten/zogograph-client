@@ -836,39 +836,32 @@
 <section class="view" data-view="storage-map" hidden>
 <section class="panel" id="treemapPanel">
   <div class="panel-head">
-    <h2>Where the space is</h2>
+    <h2 data-i18n="storage.tree_title">Where the space is</h2>
     <div class="panel-controls">
       <label class="inline">
-        Source
+        <span data-i18n="tree.source">Source</span>
         <select id="treeSource">
-          <option value="account">This account</option>
-          <option value="host">Host (root only)</option>
+          <option value="account" data-i18n="tree.source_account">This account</option>
+          <option value="host" data-i18n="tree.source_host">Host (root only)</option>
         </select>
       </label>
       <label class="inline">
-        Colour by
+        <span data-i18n="tree.colour_by">Colour by</span>
         <select id="treeColourBy">
-          <option value="type">File type</option>
-          <option value="age">How recently touched</option>
+          <option value="type" data-i18n="tree.colour_type">File type</option>
+          <option value="age" data-i18n="tree.colour_age">How recently touched</option>
         </select>
       </label>
       <label class="inline">
-        Only
+        <span data-i18n="tree.only">Only</span>
         <select id="treeTypeFilter">
-          <option value="">every type</option>
+          <option value="" data-i18n="tree.every_type">every type</option>
         </select>
       </label>
-      <button id="treeUp" class="link">Up one level</button>
+      <button id="treeUp" class="link" data-i18n="tree.up">Up one level</button>
     </div>
   </div>
-  <p class="muted small sub-note">
-    Area is size. A directory full of small files is invisible in a list of the
-    biggest paths and obvious here, because forty thousand session files add up
-    to a large rectangle even though not one of them is large. Click a rectangle
-    for its details, double-click a directory to go into it, hover for a quick
-    summary. Filtering to one type shrinks every directory to just the files of
-    that kind inside it, which is how you find where the audio is.
-  </p>
+  <p class="muted small sub-note" data-i18n="tree.help">Area is size. A directory full of small files is invisible in a list of the biggest paths and obvious here, because forty thousand session files add up to a large rectangle even though not one of them is large. Click a rectangle for its details, double-click a directory to go into it, hover for a quick summary. Filtering to one type shrinks every directory to just the files of that kind inside it, which is how you find where the audio is.</p>
   <div id="treeCrumbs" class="crumbs"></div>
   <div id="treemapHolder" class="treemap-holder">
     <canvas id="treemap"></canvas>

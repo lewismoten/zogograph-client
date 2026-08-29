@@ -12142,22 +12142,22 @@ function showCustodyPackageSettings(row, saved) {
   const cache = document.createElement("input"); cache.type = "number"; cache.min = "0"; cache.max = "900"; cache.step = "1"; cache.className = "wide-field"; cache.value = String(saved.authorization_cache_seconds ?? 0);
   const credential = document.createElement("input"); credential.type = "text"; credential.className = "wide-field"; credential.placeholder = "secret_ref:zogograph-key-custody:…"; credential.value = saved.client_credential_secret || "";
   const signing = document.createElement("input"); signing.type = "text"; signing.className = "wide-field"; signing.placeholder = "secret_ref:zogograph-key-custody:…"; signing.value = saved.client_signing_secret || "";
-  showFormDialog("Remote key custody settings", [
-    fieldRow("Custody service URL", base, "Use the service root or its /v1 API root. Run Test custody endpoint before adding enrollment references."),
-    fieldRow("Tenant ID", tenant, "The ten_… identifier from enrollment. It is not a credential."),
-    fieldRow("Active custody key ID", key, "Create or choose this key through the customer management API. It identifies only the remote wrapping key; it is not a token or secret."),
-    fieldRow("TLS public-key pin", pin, "Optional. Leave blank for the recommended normal CA/hostname validation. A pin needs an endpoint certificate-key rotation plan."),
-    fieldRow("Data-key cache", cache, "Recommended: 0 seconds. A nonzero cache can keep a released data key usable until it expires; 900 seconds is the maximum."),
-    fieldRow("Client credential reference", credential, "After a successful endpoint test within 24 hours, create an encrypted package secret and paste only its secret_ref: value. Never paste a raw bearer token here."),
-    fieldRow("Client signing-key reference", signing, "After that same test, create a second encrypted package secret for the one-time Base64 Ed25519 signing key. Never paste the private key here."),
+  showFormDialog(packageText("zogograph-key-custody.settings_title", {}, "Remote key custody settings"), [
+    fieldRow(packageText("zogograph-key-custody.service_url", {}, "Custody service URL"), base, packageText("zogograph-key-custody.service_url_help", {}, "Use the service root or its /v1 API root. Run Test custody endpoint before adding enrollment references.")),
+    fieldRow(packageText("zogograph-key-custody.tenant_id", {}, "Tenant ID"), tenant, packageText("zogograph-key-custody.tenant_id_help", {}, "The ten_… identifier from enrollment. It is not a credential.")),
+    fieldRow(packageText("zogograph-key-custody.key_id", {}, "Active custody key ID"), key, packageText("zogograph-key-custody.key_id_help", {}, "Create or choose this key through the customer management API. It identifies only the remote wrapping key; it is not a token or secret.")),
+    fieldRow(packageText("zogograph-key-custody.tls_pin", {}, "TLS public-key pin"), pin, packageText("zogograph-key-custody.tls_pin_help", {}, "Optional. Leave blank for the recommended normal CA/hostname validation. A pin needs an endpoint certificate-key rotation plan.")),
+    fieldRow(packageText("zogograph-key-custody.cache", {}, "Data-key cache"), cache, packageText("zogograph-key-custody.cache_help", {}, "Recommended: 0 seconds. A nonzero cache can keep a released data key usable until it expires; 900 seconds is the maximum.")),
+    fieldRow(packageText("zogograph-key-custody.credential_reference", {}, "Client credential reference"), credential, packageText("zogograph-key-custody.credential_reference_help", {}, "After a successful endpoint test within 24 hours, create an encrypted package secret and paste only its secret_ref: value. Never paste a raw bearer token here.")),
+    fieldRow(packageText("zogograph-key-custody.signing_reference", {}, "Client signing-key reference"), signing, packageText("zogograph-key-custody.signing_reference_help", {}, "After that same test, create a second encrypted package secret for the one-time Base64 Ed25519 signing key. Never paste the private key here.")),
   ], async () => {
     const settings = { service_base_url: base.value.trim(), tenant_id: tenant.value.trim(), custody_key_id: key.value.trim(), authorization_cache_seconds: Number(cache.value) };
     if (pin.value.trim()) settings.tls_spki_pin = pin.value.trim();
     if (credential.value.trim()) settings.client_credential_secret = credential.value.trim();
     if (signing.value.trim()) settings.client_signing_secret = signing.value.trim();
     await post("package-runtime-settings-save", { id: row.id, settings: JSON.stringify(settings) });
-    notice("Remote custody settings saved. A successful endpoint probe does not activate remote custody.", true);
-  }, "Save custody settings");
+    notice(packageText("zogograph-key-custody.saved", {}, "Remote custody settings saved. A successful endpoint probe does not activate remote custody."), true);
+  }, packageText("zogograph-key-custody.save_action", {}, "Save custody settings"));
 }
 
 function showPackageRuntimeSecret(row) {

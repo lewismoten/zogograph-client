@@ -1662,10 +1662,10 @@
 <section class="view" data-view="calendar" hidden>
 <section class="panel" id="calendarPanel">
   <div class="panel-head">
-    <h2>What is coming up</h2>
-    <button id="eventAdd" class="link">Add a date</button>
+    <h2 data-i18n="calendar.upcoming_title">What is coming up</h2>
+    <button id="eventAdd" class="link" data-i18n="calendar.add_date">Add a date</button>
   </div>
-  <p class="muted small sub-note">
+  <p class="muted small sub-note" data-i18n="calendar.upcoming_help">
     Three months back and twelve forward. Domain expiries and the projected
     full-disk date are worked out here; renewals, invoices and anything else
     only you know about are the ones you add. Behind us: the critical alerts
@@ -1677,8 +1677,8 @@
 
 <section class="panel" id="eventFormPanel" hidden>
   <div class="panel-head">
-    <h2 id="eventFormTitle">Add a date</h2>
-    <button id="eventFormClose" class="link">Close</button>
+    <h2 id="eventFormTitle" data-i18n="calendar.add_date">Add a date</h2>
+    <button id="eventFormClose" class="link" data-i18n="action.close">Close</button>
   </div>
   <div id="eventForm" class="settings"></div>
 </section>

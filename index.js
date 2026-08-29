@@ -12258,13 +12258,13 @@ function renderEncryptionStatus(data) {
       });
       const drill = document.createElement("button"); drill.type = "button"; drill.textContent = ZogographI18n.t("encryption.run_recovery_drill", {}, "Run non-destructive recovery drill");
       drill.disabled = !data.artifacts?.length;
-      drill.title = drill.disabled ? "Create verified encrypted copies before running a recovery drill." : "";
+      drill.title = drill.disabled ? ZogographI18n.t("encryption.recovery_drill_unavailable", {}, "Create verified encrypted copies before running a recovery drill.") : "";
       drill.addEventListener("click", async () => {
-        if (!(await confirmDialog("Decrypt and validate the latest verified copy of every selected store now? Live data is not changed and decrypted temporary files are removed.", "Run recovery drill"))) return;
+        if (!(await confirmDialog(ZogographI18n.t("encryption.recovery_drill_confirm", {}, "Decrypt and validate the latest verified copy of every selected store now? Live data is not changed and decrypted temporary files are removed."), ZogographI18n.t("encryption.recovery_drill_title", {}, "Run recovery drill")))) return;
         drill.disabled = true;
         try {
           const result = await post("encryption-recovery-drill"); await refreshEncryptionStatus();
-          notice(`Recovery drill verified ${result.tested} selected ${result.tested === 1 ? "store" : "stores"}.`, true);
+          notice(ZogographI18n.t(result.tested === 1 ? "encryption.recovery_drill_verified_one" : "encryption.recovery_drill_verified_many", { count: result.tested }, result.tested === 1 ? "Recovery drill verified {{count, number}} selected store." : "Recovery drill verified {{count, number}} selected stores."), true);
         } catch (error) { notice(String(error.message || error)); }
         finally { drill.disabled = false; }
       });

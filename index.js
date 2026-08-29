@@ -20119,7 +20119,7 @@ function renderServices(rows, series, charted, metrics, metric) {
   if (!rows.length) {
     $("hostServices").replaceChildren(Object.assign(document.createElement("p"), {
       className: "muted",
-      textContent: "No service history yet — this needs a few readings to build up.",
+      textContent: ZogographI18n.t("host.services_no_history", {}, "No service history yet — this needs a few readings to build up."),
     }));
     $("hostServiceChart").hidden = true;
     return;
@@ -20141,29 +20141,29 @@ function renderServices(rows, series, charted, metrics, metric) {
   };
 
   renderTable("hostServices", rows, [
-    { label: "Service", render: r => r.name },
-    { label: "Processes", className: "size", render: r => r.procs },
-    { label: "Now", className: "size", render: r => humanBytes(r.pss_bytes) },
+    { label: ZogographI18n.t("host.service", {}, "Service"), render: r => r.name },
+    { label: ZogographI18n.t("host.processes", {}, "Processes"), className: "size", render: r => r.procs },
+    { label: ZogographI18n.t("host.now", {}, "Now"), className: "size", render: r => humanBytes(r.pss_bytes) },
     {
-      label: "24h ago",
+      label: ZogographI18n.t("host.hours_24_ago", {}, "24h ago"),
       className: "size",
       render: r => (r.day_ago == null ? "—" : humanBytes(r.day_ago)),
     },
-    { label: "Change 24h", className: "size", render: r => change(r.change_day) },
+    { label: ZogographI18n.t("host.change_24h", {}, "Change 24h"), className: "size", render: r => change(r.change_day) },
     {
-      label: "7d ago",
+      label: ZogographI18n.t("host.days_7_ago", {}, "7d ago"),
       className: "size",
       render: r => (r.week_ago == null ? "—" : humanBytes(r.week_ago)),
     },
-    { label: "Change 7d", className: "size", render: r => change(r.change_week) },
-    { label: "Swapped", className: "size", render: r => humanBytes(r.swap_bytes) },
+    { label: ZogographI18n.t("host.change_7d", {}, "Change 7d"), className: "size", render: r => change(r.change_week) },
+    { label: ZogographI18n.t("host.swapped", {}, "Swapped"), className: "size", render: r => humanBytes(r.swap_bytes) },
     {
-      label: "Reading",
+      label: ZogographI18n.t("host.io_reading", {}, "Reading"),
       className: "size",
       render: r => (r.read_rate == null ? "—" : `${humanBytes(r.read_rate)}/s`),
     },
     {
-      label: "Writing",
+      label: ZogographI18n.t("host.io_writing", {}, "Writing"),
       className: "size",
       render: r => (r.write_rate == null ? "—" : `${humanBytes(r.write_rate)}/s`),
     },
@@ -20216,14 +20216,14 @@ function drawServiceChart(series, charted, metric) {
     {
       axis,
       zeroBased: true,
-      empty: "Not enough service history to draw yet",
+      empty: ZogographI18n.t("host.services_chart_empty", {}, "Not enough service history to draw yet"),
     }
   );
 
   $("hostMetricNote").textContent = (metric === "read" || metric === "write")
     // Worth saying, because the stored column is cumulative and somebody
     // reading the database directly will see a number that only ever climbs.
-    ? "Counters differentiated into a rate; a gap means the service restarted."
+    ? ZogographI18n.t("host.services_counter_rate_help", {}, "Counters differentiated into a rate; a gap means the service restarted.")
     : "";
 }
 

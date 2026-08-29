@@ -12199,8 +12199,13 @@ function renderEncryptionStatus(data) {
     data.sqlcipher.state === "driver-ready" ? ZogographI18n.t("encryption.driver_detected_inactive", {}, "Driver detected; provider remains inactive") : ZogographI18n.t("encryption.driver_not_detected", {}, "Driver not detected"),
   ]);
   if (data.storage_estimate?.required_bytes) {
-    const free = data.storage_estimate.free_bytes == null ? "free space unavailable" : `${humanBytes(data.storage_estimate.free_bytes)} free`;
-    overview.push(["Space for next seal", `${humanBytes(data.storage_estimate.required_bytes)} estimated · ${free}`]);
+    const free = data.storage_estimate.free_bytes == null
+      ? ZogographI18n.t("encryption.free_space_unavailable", {}, "free space unavailable")
+      : ZogographI18n.t("encryption.free_space", { amount: humanBytes(data.storage_estimate.free_bytes) }, "{{amount}} free");
+    overview.push([
+      ZogographI18n.t("encryption.space_next_seal", {}, "Space for next seal"),
+      ZogographI18n.t("encryption.space_estimated", { amount: humanBytes(data.storage_estimate.required_bytes), free }, "{{amount}} estimated · {{free}}"),
+    ]);
   }
   if (data.mode === "sealed_copies_local" && data.policy) {
     overview.push(["Copy schedule", data.policy.backup_schedule || "manual"]);

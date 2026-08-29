@@ -31344,13 +31344,13 @@ function showExposeDialog(row) {
   const queue = document.createElement("button");
   queue.className = "link";
   queue.style.marginLeft = "10px";
-  queue.textContent = "Ask the collector to check afterwards";
-  queue.title = "Queues a capability sweep so the next host run confirms whether it worked.";
+  queue.textContent = ZogographI18n.t("capabilities.queue_check", {}, "Ask the collector to check afterwards");
+  queue.title = ZogographI18n.t("capabilities.queue_check_help", {}, "Queues a capability sweep so the next host run confirms whether it worked.");
   queue.addEventListener("click", async () => {
     queue.disabled = true;
     try {
       await post("request-host-task", { task: "expose", program: row.name });
-      notice(`Queued. The host collector will confirm ${row.name} on its next run.`);
+      notice(ZogographI18n.t("capabilities.queued_confirmation", { program: row.name }, "Queued. The host collector will confirm {{program}} on its next run."));
       await refreshCapabilities();
     } catch (error) {
       notice(String(error.message || error));

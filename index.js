@@ -24835,7 +24835,7 @@ async function refreshNetwork() {
   if (!state.signedIn) {
     for (const id of bodies) {
       const el = $(id);
-      if (el) el.replaceChildren(note("Sign in to see the network."));
+      if (el) el.replaceChildren(note(ZogographI18n.t("network.sign_in", {}, "Sign in to see the network.")));
     }
     return;
   }

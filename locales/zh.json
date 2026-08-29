@@ -4,6 +4,7 @@
   "package.open_settings": "打开软件包设置",
   "action.copy": "复制",
   "common.sign_in_to_see": "登录后可查看此内容。",
+  "network.sign_in": "登录后可查看网络。",
   "diagnosis.sign_in": "登录后可查看诊断结果。",
   "network.captures_sign_in": "登录后可查看捕获记录。",
   "monitor.sign_in": "登录后可查看监控器自身状态。",

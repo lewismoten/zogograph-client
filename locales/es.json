@@ -4,6 +4,7 @@
   "package.open_settings": "Abrir configuración del paquete",
   "action.copy": "Copiar",
   "common.sign_in_to_see": "Inicie sesión para ver esto.",
+  "network.sign_in": "Inicie sesión para ver la red.",
   "diagnosis.sign_in": "Inicie sesión para ver el diagnóstico.",
   "network.captures_sign_in": "Inicie sesión para ver las capturas.",
   "monitor.sign_in": "Inicie sesión para ver el estado del propio monitor.",

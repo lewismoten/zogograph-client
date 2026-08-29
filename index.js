@@ -24897,14 +24897,14 @@ function renderNetworkGauges(data) {
 
   if (busiest && busiest.speed_mbit) {
     const capacity = busiest.speed_mbit * 125000;  // megabit to bytes per second
-    for (const [label, rate] of [["In", busiest.rx_rate], ["Out", busiest.tx_rate]]) {
+    for (const [label, rate] of [[ZogographI18n.t("network.in"), busiest.rx_rate], [ZogographI18n.t("network.out"), busiest.tx_rate]]) {
       dials.push({
-        label: `${label} on ${busiest.name}`,
+        label: ZogographI18n.t("network.rate_on_interface", { label, interface: busiest.name }),
         value: rate == null ? null : (rate / capacity) * 100,
         warn: 60, crit: 85,
         sub: rate == null
-          ? "needs two readings"
-          : `${humanBytes(rate)}/s of a ${busiest.speed_mbit} Mbit link`,
+          ? ZogographI18n.t("network.needs_two_readings")
+          : ZogographI18n.t("network.rate_of_link", { rate: `${humanBytes(rate)}/s`, speed: busiest.speed_mbit }),
       });
     }
   }
@@ -24912,22 +24912,22 @@ function renderNetworkGauges(data) {
   const peers = (data.peers || []).reduce((sum, p) => sum + Number(p.connections || 0), 0);
   const top = (data.peers || [])[0];
   dials.push({
-    label: "Connections",
+    label: ZogographI18n.t("network.connections"),
     value: null,
     warn: 0, crit: 0,
     sub: peers
-      ? `${humanCount(peers)} open, busiest peer holds ${humanCount(top.connections)}`
-      : "none recorded",
+      ? ZogographI18n.t("network.connections_busiest", { connections: humanCount(peers), busiest: humanCount(top.connections) })
+      : ZogographI18n.t("network.none_recorded"),
     plain: peers ? humanCount(peers) : "\u2014",
   });
 
   const open = (data.ports || []).length;
   const exposed = (data.ports || []).filter(p => p.public).length;
   dials.push({
-    label: "Listening ports",
+    label: ZogographI18n.t("network.listening_ports"),
     value: null,
     warn: 0, crit: 0,
-    sub: `${exposed} of ${open} reachable from outside`,
+    sub: ZogographI18n.t("network.ports_reachable_summary", { exposed, open }),
     plain: String(open),
   });
 
@@ -24936,7 +24936,7 @@ function renderNetworkGauges(data) {
 
 function renderInterfaces(rows) {
   if (!rows.length) {
-    $("networkInterfaces").replaceChildren(note("No interfaces recorded."));
+    $("networkInterfaces").replaceChildren(note(ZogographI18n.t("network.interfaces_empty")));
     return;
   }
 

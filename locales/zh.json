@@ -1230,6 +1230,7 @@
   "storage.check_again": "再次检查",
   "storage.host_logs_help": "host_log_paths 中列出的日志属于 root，位于此账户之外。在大多数共享服务器上，它们会被列出但拒绝访问；这本身就是答案。主机授予读取权限时，它们会在与账户自身日志相同的查看器中打开。",
   "storage.scan_now": "立即扫描",
+  "storage.watched_category": "{{name}}（已监视）", "storage.types_categories_help": "外环：每种类型的每个文件只计算一次，因此代表整个账户。内环：警报规则监视的类别，以同一总数为基准；深色余量是它们未覆盖的内容。由于日志文件同时属于两者，两个环会重复计算部分字节；请分别相对于总数阅读每个环，而不是相互比较。", "storage.types_help": "每个文件只计算一次，因此各扇区代表整个账户。",
   "storage.types_measured": "{{files}} 中有 {{bytes}}，测量于 {{when}}", "storage.types_total": "{{files}} 中有 {{bytes}}", "storage.not_measured_yet": "尚未测量",
   "storage.first_scan_running": "第一次扫描正在运行。", "storage.no_completed_scan": "尚无已完成的扫描。", "storage.last_scan_label": "上次扫描", "storage.scan_took": "耗时 {{duration}}", "storage.seen_label": "已发现", "storage.files_in_directories": "{{directories}} 个目录中有 {{files}} 个文件", "storage.scans_in_range": "此范围内的扫描", "storage.each_chart_point": "下方图表中的每个点", "storage.not_enough_trend": "没有足够的数据绘制趋势", "storage.last_scan_reported": "上次扫描报告：{{error}}", "storage.types_not_measured": "上次扫描在测量此项之前运行。下一次会补齐。", "storage.no_scan_in_range": "此范围内没有完成的扫描。",
   "storage.scanning": "正在扫描…（{{elapsed}}）",

@@ -4133,24 +4133,22 @@ function renderTypePie(scans, total) {
     drawPieChart($("typePie"), slices, {
       empty: ZogographI18n.t("storage.not_measured_yet", {}, "Not measured yet"),
       inner: categories.map(c => ({
-        label: `${c.name} (watched)`,
+        label: ZogographI18n.t("storage.watched_category", { name: c.name }, `${c.name} (watched)`),
         value: c.bytes,
         color: CATEGORY_COLORS[c.name] || "#8899aa",
       })),
     });
 
-    $("pieNote").textContent =
-      "Outer ring: every file by type, each counted once, so it is the whole "
+    $("pieNote").textContent = ZogographI18n.t("storage.types_categories_help", {}, "Outer ring: every file by type, each counted once, so it is the whole "
       + "account. Inner ring: the categories the alert rules watch, against that "
       + "same total \u2014 the dark remainder is everything they do not cover. The "
       + "two rings measure some of the same bytes twice, since a log file is in "
-      + "both, so read each ring against the whole rather than against the other.";
+      + "both, so read each ring against the whole rather than against the other.");
     return;
   }
 
   drawPieChart($("typePie"), slices, { empty: ZogographI18n.t("storage.not_measured_yet", {}, "Not measured yet") });
-  $("pieNote").textContent =
-    "Every file counted once, so the slices are the whole account.";
+  $("pieNote").textContent = ZogographI18n.t("storage.types_help", {}, "Every file counted once, so the slices are the whole account.");
 }
 
 /*

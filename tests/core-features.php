@@ -27,6 +27,11 @@ foreach ($staticViews as $view) {
     coreFeatureExpect(isset($routeOwners[$view]) && count($routeOwners[$view]) === 1,
         'static dashboard view lacks exactly one core feature owner: ' . $view);
 }
+preg_match_all('/data-nav="([^"]+)"/', is_string($dashboardPage) ? $dashboardPage : '', $navigationMatches);
+foreach (array_unique($navigationMatches[1] ?? []) as $route) {
+    coreFeatureExpect(isset($routeOwners[$route]) && count($routeOwners[$route]) === 1,
+        'static dashboard navigation route lacks exactly one core feature owner: ' . $route);
+}
 coreFeatureExpect(coreFeatureForAction('ai-start') === 'assistant' && coreFeatureForAction('peer-test') === 'peers'
     && coreFeatureForAction('marketplace-install') === 'marketplace'
     && coreFeatureForAction('terminal-run') === 'terminal'

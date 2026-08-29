@@ -637,5 +637,6 @@
   "host.big_directories_title": "机器上最大的目录", "host.big_directories_help": "来自 root 对整块磁盘的扫描，因此能到达此账户无法到达的位置：其他账户的主目录、/var、/backup，以及意外挂载的任何内容。",
   "host.disk_processes_title": "访问磁盘的进程", "host.disk_processes_help": "磁盘吞吐量实际来自哪些进程。CPU 使用率可能很低，但某个任务持续占用磁盘时，会让其他一切都变慢；而该任务在本站其他面板中都不可见。",
   "host.root_files_title": "仅 root 可见的文件", "host.root_files_help": "Apache 将每个域名的日志写入归 root 所有的 /etc。那里的轮转日志占用的磁盘空间与主目录中的日志完全相同，但账户能运行的所有工具都无法看到它。",
-  "host.filesystems_title": "文件系统，以及无从解释的空间", "host.filesystems_help": "当 {{df}} 报告了其他内容无法解释的数值时，可查看这里。这里显示每个可见文件系统根目录，以及文件系统所称已用空间与实际扫描所发现空间之间的差额。两个常见原因各有独立页面：{{deleted}} 和 {{directories}}。"
+  "host.filesystems_title": "文件系统，以及无从解释的空间", "host.filesystems_help": "当 {{df}} 报告了其他内容无法解释的数值时，可查看这里。这里显示每个可见文件系统根目录，以及文件系统所称已用空间与实际扫描所发现空间之间的差额。两个常见原因各有独立页面：{{deleted}} 和 {{directories}}。",
+  "host.deleted_held_title": "已删除，但仍占用空间", "host.deleted_held_help": "文件虽已取消链接，但只要进程仍将其打开，它的块就会保留。{{df}} 会统计它们；{{du}}、{{ls}}、{{find}} 和树状图完全看不到它们。这是目录扫描永远找不到的唯一一种丢失空间；重启列出的进程即可释放它。"
 }

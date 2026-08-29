@@ -1135,11 +1135,11 @@
 
 <section class="view" data-view="disk-deleted" hidden>
 <section class="panel">
-  <h2>Deleted, still holding space</h2>
-  <p class="muted small sub-note">
+  <h2 data-i18n="host.deleted_held_title">Deleted, still holding space</h2>
+  <p class="muted small sub-note" data-i18n-rich="host.deleted_held_help">
     A file that has been unlinked while a process still has it open keeps its
-    blocks. <code>df</code> counts them; <code>du</code>, <code>ls</code>,
-    <code>find</code> and the tree map cannot see them at all. This is the one
+    blocks. <code data-i18n-tag="df">df</code> counts them; <code data-i18n-tag="du">du</code>, <code data-i18n-tag="ls">ls</code>,
+    <code data-i18n-tag="find">find</code> and the tree map cannot see them at all. This is the one
     kind of missing space no directory walk can ever find, and restarting the
     process listed is what frees it.
   </p>

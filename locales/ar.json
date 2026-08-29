@@ -4,6 +4,7 @@
   "package.open_settings": "فتح إعدادات الحزمة",
   "action.copy": "نسخ",
   "action.copied": "تم النسخ",
+  "action.select_to_copy": "حدده وانسخه",
   "action.skip": "تخطَّ",
   "action.ask_again": "اطلب مرة أخرى",
   "action.run": "شغّله",

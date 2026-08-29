@@ -30127,6 +30127,15 @@ function compareColumn(title, items) {
 }
 
 /** A block of text meant to be copied, with a button that copies it. */
+function copyButtonLabel(state) {
+  const fallbacks = {
+    copy: "Copy",
+    copied: "Copied",
+    select_to_copy: "Select it and copy",
+  };
+  return ZogographI18n.t(`action.${state}`, {}, fallbacks[state]);
+}
+
 function paste(text) {
   const wrap = document.createElement("div");
   wrap.className = "paste-wrap";
@@ -30138,17 +30147,17 @@ function paste(text) {
 
   const button = document.createElement("button");
   button.className = "link";
-  button.textContent = "Copy";
+  button.textContent = copyButtonLabel("copy");
   button.addEventListener("click", async () => {
     try {
       await navigator.clipboard.writeText(text);
-      button.textContent = "Copied";
-      setTimeout(() => { button.textContent = "Copy"; }, 1500);
+      button.textContent = copyButtonLabel("copied");
+      setTimeout(() => { button.textContent = copyButtonLabel("copy"); }, 1500);
     } catch {
       // Clipboard access is refused outside a secure context, which is exactly
       // where somebody runs this over plain HTTP on a LAN. The text is on
       // screen and selectable either way.
-      button.textContent = "Select it and copy";
+      button.textContent = copyButtonLabel("select_to_copy");
     }
   });
   wrap.appendChild(button);
@@ -31296,19 +31305,19 @@ function showExposeDialog(row) {
   const buttons = document.createElement("p");
 
   const copy = document.createElement("button");
-  copy.textContent = "Copy";
+  copy.textContent = copyButtonLabel("copy");
   copy.addEventListener("click", async () => {
     try {
       await navigator.clipboard.writeText(row.expose.commands.join("\n"));
-      copy.textContent = "Copied";
-      setTimeout(() => { copy.textContent = "Copy"; }, 1500);
+      copy.textContent = copyButtonLabel("copied");
+      setTimeout(() => { copy.textContent = copyButtonLabel("copy"); }, 1500);
     } catch {
       /*
        * Clipboard access is refused outside a secure context, which is
        * exactly where a self-hosted panel often lives. Selecting the text is
        * the fallback, and saying so beats a button that silently does nothing.
        */
-      copy.textContent = "Select it and copy";
+      copy.textContent = copyButtonLabel("select_to_copy");
       const range = document.createRange();
       range.selectNodeContents(pre);
       const selection = window.getSelection();
@@ -31952,14 +31961,14 @@ function showProviderMessage(message) {
   pre.textContent = message;
 
   const copy = document.createElement("button");
-  copy.textContent = "Copy";
+  copy.textContent = copyButtonLabel("copy");
   copy.addEventListener("click", async () => {
     try {
       await navigator.clipboard.writeText(message);
-      copy.textContent = "Copied";
-      setTimeout(() => { copy.textContent = "Copy"; }, 1500);
+      copy.textContent = copyButtonLabel("copied");
+      setTimeout(() => { copy.textContent = copyButtonLabel("copy"); }, 1500);
     } catch {
-      copy.textContent = "Select it and copy";
+      copy.textContent = copyButtonLabel("select_to_copy");
       const range = document.createRange();
       range.selectNodeContents(pre);
       const selection = window.getSelection();

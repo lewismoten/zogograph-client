@@ -4,6 +4,7 @@
   "package.open_settings": "打开软件包设置",
   "action.copy": "复制",
   "action.copied": "已复制",
+  "action.select_to_copy": "请选择并复制",
   "action.skip": "跳过",
   "action.ask_again": "再次请求",
   "action.run": "运行它",

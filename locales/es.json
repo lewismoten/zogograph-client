@@ -4,6 +4,7 @@
   "package.open_settings": "Abrir configuración del paquete",
   "action.copy": "Copiar",
   "action.copied": "Copiado",
+  "action.select_to_copy": "Selecciónelo y cópielo",
   "action.skip": "Omitir",
   "action.ask_again": "Preguntar de nuevo",
   "action.run": "Ejecutarlo",

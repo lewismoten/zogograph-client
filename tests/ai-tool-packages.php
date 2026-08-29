@@ -1,0 +1,31 @@
+<?php
+declare(strict_types=1);
+
+function aiToolPackageExpect(bool $condition, string $message): void
+{
+    if (!$condition) throw new RuntimeException($message);
+}
+
+$root = dirname(__DIR__);
+$catalogue = file_get_contents($root . '/lib/aitools.php');
+aiToolPackageExpect($catalogue !== false, 'central AI tool catalogue is unavailable');
+aiToolPackageExpect(preg_match('/^\s{8}\'[a-z0-9_]+\'\s*=>\s*\[/m', $catalogue) !== 1,
+    'central AI tool catalogue still contains an inline tool declaration');
+
+$modules = glob($root . '/lib/ai-tools/*.php') ?: [];
+aiToolPackageExpect($modules !== [], 'no core AI tool modules were found');
+foreach ($modules as $module) {
+    $source = file_get_contents($module);
+    $name = basename($module);
+    aiToolPackageExpect($source !== false, "AI tool module $name is unavailable");
+    aiToolPackageExpect(preg_match_all('/function\s+(aiTool[A-Za-z0-9]+Package)\s*\(\)\s*:\s*array/', $source, $functions) === 1,
+        "AI tool module $name must declare exactly one package function");
+    aiToolPackageExpect(preg_match_all('/return\s+\[\s*\'[a-z0-9_]+\'\s*=>\s*\[/s', $source) === 1,
+        "AI tool module $name must return exactly one tool declaration");
+    $function = $functions[1][0];
+    aiToolPackageExpect(str_contains($catalogue, "require_once __DIR__ . '/ai-tools/$name';")
+        && str_contains($catalogue, "...$function()"),
+        "AI tool module $name is not assembled through the central policy catalogue");
+}
+
+echo "AI tool package checks passed\n";

@@ -514,6 +514,7 @@
   "schedule.saved_preview": "सहेजा गया पूर्वावलोकन",
   "schedule.installed": "वर्तमान में स्थापित",
   "regex.pattern": "पैटर्न",
+  "regex.showing_first": "पहले {{count, number}} दिखाए जा रहे हैं।",
   "regex.no_match": "पैटर्न मान्य है, लेकिन उस पाठ में कुछ भी नहीं मिला। हर पाँच मिनट में विफल होने वाली जाँच से यह अभी जान लेना बेहतर है।",
   "regex.match_position": "मिलान {{current, number}} / {{total, number}}",
   "regex.record_group": "हर रन में समूह {{group, number}} रिकॉर्ड करें",

@@ -26232,7 +26232,7 @@ function renderRegexResult(out, groupInput) {
   parts.push(said);
 
   if (result.truncated) {
-    parts.push(note(`Showing the first ${result.matches.length}.`));
+    parts.push(note(ZogographI18n.t("regex.showing_first", { count: result.matches.length }, "Showing the first {{count, number}}.")));
   }
 
   /*

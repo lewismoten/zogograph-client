@@ -514,6 +514,7 @@
   "schedule.saved_preview": "已保存的预览",
   "schedule.installed": "当前已安装",
   "regex.pattern": "模式",
+  "regex.showing_first": "显示前 {{count, number}} 项。",
   "regex.no_match": "该模式有效，但在该文本中没有匹配项。现在知道这一点总比每五分钟让检查失败一次更好。",
   "regex.match_position": "匹配 {{current, number}} / {{total, number}}",
   "regex.record_group": "每次运行都记录第 {{group, number}} 组",

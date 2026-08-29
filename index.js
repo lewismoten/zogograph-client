@@ -28772,15 +28772,23 @@ function renderDomains(data) {
         const now = document.createElement("button");
         now.className = "link";
         now.textContent = ZogographI18n.t("action.check_now", {}, "Check now");
-        now.title = "Run a fresh registry lookup now";
+        now.title = ZogographI18n.t("domain.fresh_lookup_title", {}, "Run a fresh registry lookup now");
         now.addEventListener("click", async () => {
           now.disabled = true;
           try {
             const result = await post("domain-check", { id: row.id });
             notice(result.result.ok
-              ? `${row.name}: ${result.result.expires_at
-                ? "expires " + humanTime(result.result.expires_at).split(",")[0]
-                : "the answer had no expiry date in it"}`
+              ? (result.result.expires_at
+                ? ZogographI18n.t(
+                  "domain.lookup_expiry",
+                  { name: row.name, date: humanTime(result.result.expires_at).split(",")[0] },
+                  "{{name}}: expires {{date}}",
+                )
+                : ZogographI18n.t(
+                  "domain.lookup_no_expiry",
+                  { name: row.name },
+                  "{{name}}: the answer had no expiry date in it",
+                ))
               : `${row.name}: ${result.result.error}`, result.result.ok);
             renderDomains(result);
           } catch (error) {
@@ -28792,15 +28800,27 @@ function renderDomains(data) {
 
         const raw = document.createElement("button");
         raw.className = "link";
-        raw.textContent = "Details";
-        raw.title = "Show the last saved registry answer; this does not run a lookup";
+        raw.textContent = ZogographI18n.t("action.details", {}, "Details");
+        raw.title = ZogographI18n.t(
+          "domain.details_title",
+          {},
+          "Show the last saved registry answer; this does not run a lookup",
+        );
         raw.addEventListener("click", async () => {
           try {
             const result = await api("domains", { id: row.id });
             $("domainWhoisPanel").hidden = false;
-            $("domainWhoisTitle").textContent = `whois ${row.name}`;
+            $("domainWhoisTitle").textContent = ZogographI18n.t(
+              "domain.details_heading",
+              { name: row.name },
+              "WHOIS {{name}}",
+            );
             $("domainWhoisText").textContent = result.whois
-              || "Nothing stored. Press Check now to fetch it.";
+              || ZogographI18n.t(
+                "domain.no_stored_whois",
+                {},
+                "Nothing stored. Press Check now to fetch it.",
+              );
             $("domainWhoisPanel").scrollIntoView({ behavior: "smooth", block: "nearest" });
           } catch (error) {
             notice(String(error.message || error));
@@ -28811,9 +28831,12 @@ function renderDomains(data) {
         const remove = document.createElement("button");
         remove.className = "link danger";
         remove.textContent = ZogographI18n.t("action.stop", {}, "Stop it");
-        remove.title = "Stop watching this domain";
+        remove.title = ZogographI18n.t("domain.stop_watching_title", {}, "Stop watching this domain");
         remove.addEventListener("click", async () => {
-          if (!(await confirmDialog(`Stop watching ${row.name}?`, "Stop watching"))) return;
+          if (!(await confirmDialog(
+            ZogographI18n.t("domain.stop_watching_confirm", { name: row.name }, "Stop watching {{name}}?"),
+            ZogographI18n.t("domain.stop_watching", {}, "Stop watching"),
+          ))) return;
           try {
             renderDomains(await post("domain-delete", { id: row.id }));
           } catch (error) {

@@ -26289,10 +26289,10 @@ function renderRegexResult(out, groupInput) {
     });
 
     return [
-      group.n === 0 ? "whole match" : String(group.n),
+      group.n === 0 ? ZogographI18n.t("regex.whole_match", {}, "whole match") : String(group.n),
       group.matched
         ? group.text
-        : "— did not take part in this match",
+        : ZogographI18n.t("regex.group_absent", {}, "— did not take part in this match"),
       keep,
     ];
   });

@@ -2135,12 +2135,12 @@
 <section class="view" data-view="email" hidden>
 <section class="panel" id="emailPanel">
   <div class="panel-head">
-    <h2>Email alerts</h2>
-    <button id="testEmail">Send a test email</button>
-    <button id="testTelegram">Send a test Telegram</button>
+    <h2 data-i18n="email.title">Email alerts</h2>
+    <button id="testEmail" data-i18n="email.test_email">Send a test email</button>
+    <button id="testTelegram" data-i18n="email.test_telegram">Send a test Telegram</button>
   </div>
-  <p class="muted small sub-note">
-    Mail goes out through PHP's <code>mail()</code>, which on a cPanel host
+  <p class="muted small sub-note" data-i18n-rich="email.help">
+    Mail goes out through PHP's <code data-i18n-tag="mail">mail()</code>, which on a cPanel host
     means the server's own mail queue. One message per alerting run rather than
     one per rule — a disk filling up trips several rules at once, and five
     separate emails about the same event is how people learn to ignore them. The

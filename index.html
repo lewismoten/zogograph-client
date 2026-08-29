@@ -2374,22 +2374,22 @@
 <section class="view" data-view="sys-changed" hidden>
 <section class="panel" id="changedPanel">
   <div class="panel-head">
-    <h2>What changed underneath</h2>
+    <h2 data-i18n="system.changed_title">What changed underneath</h2>
     <div class="panel-controls">
-      <label class="pill">Showing
+      <label class="pill"><span data-i18n="system.showing">Showing</span>
         <select id="changedOnly"></select>
       </label>
-      <button id="changedCheck" class="link">Check now</button>
+      <button id="changedCheck" class="link" data-i18n="capabilities.check_now">Check now</button>
     </div>
   </div>
-  <p class="muted small sub-note">
-    Almost every <em>it was working yesterday</em> turns out to be something
+  <p class="muted small sub-note" data-i18n-rich="system.changed_help">
+    Almost every <em data-i18n-tag="working_yesterday">it was working yesterday</em> turns out to be something
     changing underneath — a kernel that came with a package update, an OpenSSL
     bump that moved a default, a PHP point release that deprecated a function.
     None of it shows in any other chart here, and the machine does not keep a
     usable note of it either: the package log belongs to root, is not always
-    present, and records what was <em>installed</em> rather than what is now
-    answering. Every time on this page is when a change was <strong>noticed</strong>,
+    present, and records what was <em data-i18n-tag="installed">installed</em> rather than what is now
+    answering. Every time on this page is when a change was <strong data-i18n-tag="noticed">noticed</strong>,
     not when it happened — this runs when capabilities are checked, so a weekly
     check turns a Tuesday upgrade into a Sunday event.
   </p>
@@ -2397,12 +2397,12 @@
   <p class="muted small chart-note" id="changedChartNote"></p>
   <div id="changedBody"></div>
 
-  <h3 class="sub-head">What changed, by group</h3>
-  <p class="muted small sub-note">
+  <h3 class="sub-head" data-i18n="system.changed_groups_title">What changed, by group</h3>
+  <p class="muted small sub-note" data-i18n-rich="system.changed_groups_help">
     Each bar counts the programs whose availability or version moved, coloured
     by group. Click one to see exactly what. This was on
-    <a href="#/capabilities">what the host allows</a>, which is a page about
-    what is available <em>now</em>; a history of changes belongs beside the rest
+    <a href="#/capabilities" data-i18n-tag="capabilities">what the host allows</a>, which is a page about
+    what is available <em data-i18n-tag="now">now</em>; a history of changes belongs beside the rest
     of the history.
   </p>
   <canvas id="capChanges"></canvas>

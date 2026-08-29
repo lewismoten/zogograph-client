@@ -181,7 +181,11 @@ function aiToolCatalogue(): array
     foreach ($tools as $name => &$tool) {
         $slug = str_replace('_', '-', (string)$name);
         $tool['package'] = 'core-ai-' . $slug;
-        $tool['locale_namespace'] = 'ai-tools.' . $slug . '.';
+        // The browser rejects package catalog keys outside `${package}.`, so
+        // this must be derived from the same stable package ID rather than a
+        // human-oriented folder name. That keeps core and signed packages on
+        // the exact same ownership rule.
+        $tool['locale_namespace'] = $tool['package'] . '.';
     }
     unset($tool);
 

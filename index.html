@@ -2190,32 +2190,6 @@
 </section>
 </section>
 
-<section class="view" data-view="schedule" hidden>
-<section class="panel" id="schedulePanel" hidden>
-  <div class="panel-head">
-    <h2>Schedule</h2>
-  </div>
-  <p class="muted small sub-note">
-    The two jobs run on different clocks: vitals cost milliseconds, a scan costs
-    minutes of disk work. Only the lines between this dashboard's markers are
-    touched — anything else in your crontab is left exactly as it is.
-  </p>
-  <div id="scheduleBody"></div>
-</section>
-
-<section class="panel" id="hostSchedulePanel">
-  <h2>The host collector</h2>
-  <p class="muted small sub-note">
-    Everything on this site that reaches past the account — memory by user, the
-    machine's disks, whether daemons are alive, the space held by deleted files —
-    comes from a second collector that has to run as a user who can read
-    <code>/proc</code> for every process. The dashboard cannot start it and
-    cannot install it; it can only tell you exactly what to run.
-  </p>
-  <div id="hostScheduleBody"></div>
-</section>
-</section>
-
 <section class="view" data-view="system" hidden>
 <section class="panel" id="selfPanel">
   <div class="panel-head">

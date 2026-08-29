@@ -91,6 +91,7 @@ coreFeatureExpect(is_string($dashboard) && str_contains($dashboard, 'applyCoreFe
 coreFeatureExpect(is_string($dashboardPage) && is_string($dashboard)
     && !str_contains($dashboardPage, 'data-view="scans-account"')
     && !str_contains($dashboardPage, 'data-view="scans-host"')
+    && !str_contains($dashboardPage, 'data-view="schedule"')
     && !str_contains($dashboard, '"scans-account":') && !str_contains($dashboard, '"scans-host":')
     && str_contains($dashboard, './setup.php?section=schedule'),
     'legacy dashboard scheduling remains reachable instead of using protected Setup');

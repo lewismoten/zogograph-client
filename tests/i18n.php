@@ -61,6 +61,10 @@ i18nExpect($runtime !== false && str_contains($runtime, 'Package catalogs are tr
     && str_contains($runtime, 'async function i18nLoadPackageCatalogs(force = false)') && str_contains($runtime, 'if (force) i18n.extensions = {}')
     && str_contains($runtime, 'function i18nClearPackageCatalogs()') && str_contains($runtime, 'clearPackageCatalogs: i18nClearPackageCatalogs'),
     'package locale catalogs can overwrite core translation text');
+i18nExpect($runtime !== false && str_contains($runtime, 'if (!reload && (locale === I18N_BASE || locale === i18n.locale)) Object.assign(i18n.catalog, clean);')
+    && $script !== false && str_contains($script, 'if (manifest.catalogs !== undefined)')
+    && str_contains($script, 'helpers.i18n.registerCatalog(locale, catalog, false, id)'),
+    'core card package catalogs are not namespace-registered before their first render');
 i18nExpect($page !== false && str_contains($page, 'id="languagePicker"') && str_contains($page, 'id="languageKeys"')
     && str_contains($page, 'id="languageHighlight"')
     && str_contains($page, 'src="i18n.js"'), 'dashboard language controls are unavailable');

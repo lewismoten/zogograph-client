@@ -1138,8 +1138,8 @@ function webPage(
     }
     if ($notice !== null) {
         if (isset($notice['key'], $notice['fallback'])) {
-            $values = isset($notice['values']) ? ' data-i18n-values="' . h(json_encode($notice['values'], JSON_THROW_ON_ERROR)) . '"' : '';
-            $out[] = '<div class="banner ok" data-i18n="' . h((string)$notice['key']) . '"' . $values . '>' . h((string)$notice['fallback']) . '</div>';
+            $noticeValues = isset($notice['values']) ? ' data-i18n-values="' . h(json_encode($notice['values'], JSON_THROW_ON_ERROR)) . '"' : '';
+            $out[] = '<div class="banner ok" data-i18n="' . h((string)$notice['key']) . '"' . $noticeValues . '>' . h((string)$notice['fallback']) . '</div>';
         } else {
             $out[] = '<div class="banner ok">' . h((string)($notice['text'] ?? '')) . '</div>';
         }

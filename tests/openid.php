@@ -100,7 +100,9 @@ openIdExpect($setup !== false && str_contains($setup, 'setupOpenIdClientToken')
     && str_contains($setup, 'create-openid-client') && str_contains($setup, 'remove-openid-client')
     && str_contains($setup, "\$field['path'] === ['openid', 'clients']")
     && str_contains($setup, 'session_write_close()')
+    && str_contains($setup, '$noticeValues = isset($notice[\'values\'])')
+    && !str_contains($setup, '$values = isset($notice[\'values\'])')
     && str_contains($setup, 'I saved the client secret'),
-    'protected OpenID client management is not available in Setup');
+    'protected OpenID client management cannot display a saved client secret in Setup');
 
 echo "OpenID checks passed\n";

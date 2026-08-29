@@ -9306,6 +9306,7 @@ function redactReviewedPageHtml(root) {
     field.setAttribute("data-review-redacted", "form-state");
   });
   root.querySelectorAll("[data-sensitive], [data-secret], [data-private]").forEach(node => {
+    Array.from(node.attributes).forEach(attribute => node.removeAttribute(attribute.name));
     node.replaceChildren("[redacted]");
     node.setAttribute("data-review-redacted", "sensitive-content");
   });

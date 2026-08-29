@@ -83,6 +83,7 @@ if ($dashboard === false || !str_contains($dashboard, 'hint.textContent = meta.h
 }
 if (!str_contains($dashboard, 'function redactReviewedPageHtml(root)')
     || !str_contains($dashboard, '[data-sensitive], [data-secret], [data-private]')
+    || !str_contains($dashboard, 'Array.from(node.attributes).forEach(attribute => node.removeAttribute(attribute.name));')
     || !str_contains($dashboard, 'data-review-redacted')) {
     throw new RuntimeException('reviewed assistant page HTML must redact form and marked sensitive content');
 }

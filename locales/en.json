@@ -492,6 +492,7 @@
   "schedule.custom.weekday": "Day of week (0–7)",
   "schedule.saved_preview": "Saved preview",
   "schedule.installed": "Currently installed",
+  "action.run_full_integrity_check": "Run full integrity check",
   "action.rewriting": "Rewriting…", "action.reclaim_empty_space": "Reclaim empty space",
   "action.checking": "Checking…", "action.check_now": "Check now", "changed.checked": "Checked. Anything that moved since last time is listed above.",
   "action.testing": "Testing…", "action.test_connection": "Test the connection",

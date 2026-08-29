@@ -17629,7 +17629,7 @@ async function checkSymlinks() {
   const holder = $("symlinkBody");
 
   button.disabled = true;
-  button.textContent = "Checking…";
+  button.textContent = ZogographI18n.t("action.checking", {}, "Checking…");
   holder.replaceChildren(spinner("Walking the tree…"));
 
   try {
@@ -33783,7 +33783,7 @@ $("storeIntegrity").addEventListener("click", async () => {
     notice(String(error.message || error));
   } finally {
     button.disabled = false;
-    button.textContent = "Run full integrity check";
+    button.textContent = ZogographI18n.t("action.run_full_integrity_check", {}, "Run full integrity check");
   }
 });
 

@@ -509,6 +509,7 @@
   "schedule.custom.weekday": "星期 (0–7)",
   "schedule.saved_preview": "已保存的预览",
   "schedule.installed": "当前已安装",
+  "action.run_full_integrity_check": "运行完整性检查",
   "action.rewriting": "正在重写…", "action.reclaim_empty_space": "回收空闲空间",
   "action.checking": "正在检查…", "action.check_now": "立即检查", "changed.checked": "已检查。自上次以来发生变化的所有内容均列在上方。",
   "action.testing": "正在测试…", "action.test_connection": "测试连接",

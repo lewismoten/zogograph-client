@@ -42,6 +42,11 @@ i18nExpect($script !== false && str_contains($script, 'ZogographI18n.t("image.po
     && str_contains($script, 'ZogographI18n.t("image.note_picture_alt"') && str_contains($script, 'ZogographI18n.t("image.preview_unavailable"')
     && is_array($english) && isset($english['image.portrait_alt'], $english['image.chart_alt'], $english['image.preview_unavailable']),
     'dashboard image descriptions or failures do not use localized catalog messages');
+i18nExpect($script !== false && str_contains($script, 'ZogographI18n.t("table.download_rows"')
+    && str_contains($script, 'ZogographI18n.t("table.sort_by"') && str_contains($script, 'ZogographI18n.t("table.rows_shown"')
+    && str_contains($script, 'ZogographI18n.t("chart.your_notes"') && is_array($english)
+    && isset($english['table.download_rows'], $english['table.sort_by'], $english['table.rows_total'], $english['table.rows_shown'], $english['table.show_more'], $english['chart.your_notes']),
+    'shared dashboard table controls or chart-note labels do not use the locale catalog');
 i18nExpect($script !== false && str_contains($script, 'marketplaceText("discovery_notice"')
     && str_contains($script, 'marketplaceText("search_label"') && str_contains($script, 'marketplaceText("table_compatibility"')
     && str_contains($script, 'marketplaceText("toggle_confirmation"') && str_contains($script, 'marketplaceText("restore_confirmation"')

@@ -1986,7 +1986,7 @@ function drawLegend(canvas, series) {
   if (typeof noteState !== "undefined" && canvas.id && marksForChart(canvas.id).length) {
     const span = document.createElement("span");
     span.className = "legend-note";
-    span.textContent = "Your notes";
+    span.textContent = ZogographI18n.t("chart.your_notes", {}, "Your notes");
     span.title = marksForChart(canvas.id).map(mark => mark.label).join("\n\n");
     el.appendChild(span);
   }
@@ -3563,7 +3563,7 @@ function renderTable(target, rows, columns, onRowClick, rowClass, key) {
     const button = document.createElement("button");
     button.className = "link";
     button.textContent = format.toUpperCase();
-    button.title = `Download these ${rows.length} rows as ${format.toUpperCase()}`;
+    button.title = ZogographI18n.t("table.download_rows", { count: rows.length, format: format.toUpperCase() }, "Download {{count, number}} rows as {{format}}");
     button.addEventListener("click", () => exportRows(target, rows, columns, format));
     tools.appendChild(button);
   }
@@ -3576,7 +3576,7 @@ function renderTable(target, rows, columns, onRowClick, rowClass, key) {
       const button = document.createElement("button");
       button.className = "link table-sort";
       button.textContent = col.label + (col.sortMark || "");
-      button.title = `Sort by ${col.label}`;
+      button.title = ZogographI18n.t("table.sort_by", { label: col.label }, "Sort by {{label}}");
       button.addEventListener("click", col.onSort);
       th.appendChild(button);
     } else th.textContent = col.label;
@@ -3619,11 +3619,11 @@ function renderTable(target, rows, columns, onRowClick, rowClass, key) {
     TABLE_SHOWN.set(target, shown);
 
     counter.textContent = shown >= rows.length
-      ? count(rows.length, "row")
-      : `${shown} of ${count(rows.length, "row")}`;
+      ? ZogographI18n.t("table.rows_total", { count: rows.length }, "{{count, number}} rows")
+      : ZogographI18n.t("table.rows_shown", { shown, total: rows.length }, "Showing {{shown, number}} of {{total, number}} rows");
 
     more.hidden = shown >= rows.length;
-    more.textContent = `Show ${Math.min(TABLE_PAGE, rows.length - shown)} more`;
+    more.textContent = ZogographI18n.t("table.show_more", { count: Math.min(TABLE_PAGE, rows.length - shown) }, "Show {{count, number}} more");
   };
 
   /*

@@ -1609,6 +1609,7 @@
   "host.memory_non_monitor": " · {{amount}} comprometidos sin monitorización",
   "host.memory_monitoring_processes": " · {{count, number}} procesos de monitorización",
   "host.swap_used": "Intercambio usado",
+  "host.slab_cache": "Caché", "host.slab_holding": "Retenido", "host.slab_objects": "Objetos", "host.slab_each": "Cada uno",
   "host.swap_verdict_clear": "No se está usando intercambio.", "host.swap_verdict_pressure": "El intercambio sube ({{swap}}) mientras baja la memoria disponible ({{available}}). Juntos son presión real, no páginas frías restantes: la máquina está pagando memoria con disco.", "host.swap_verdict_filling": "El intercambio crece ({{swap}}), pero la memoria disponible se mantiene estable. El kernel mueve páginas frías, no falta memoria.", "host.swap_verdict_cold": "Quedan páginas antiguas o frías de una presión anterior. Linux no las devuelve del intercambio solo porque se libere RAM; es una marca de máximo, no una medida actual.", "host.swap_verdict_waiting": "Aún no hay lecturas suficientes para saber si esto quedó atrás o sigue creciendo; hace falta aproximadamente media hora de historial.",
   "host.swap_used_sub": "{{used}} de {{total}}",
   "host.swap_under_pressure": " · bajo presión",

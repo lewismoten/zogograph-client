@@ -18946,10 +18946,10 @@ async function refreshHost() {
   renderHostDaemons(data.daemons ?? null);
 
   renderTable("hostSlab", data.slab, [
-    { label: "Cache", render: r => namedThing("slab", r.name) },
-    { label: "Holding", className: "size", render: r => humanBytes(r.cache_bytes) },
-    { label: "Objects", className: "size", render: r => Number(r.objs).toLocaleString() },
-    { label: "Each", className: "size", render: r => humanBytes(r.obj_bytes) },
+    { label: ZogographI18n.t("host.slab_cache", {}, "Cache"), render: r => namedThing("slab", r.name) },
+    { label: ZogographI18n.t("host.slab_holding", {}, "Holding"), className: "size", render: r => humanBytes(r.cache_bytes) },
+    { label: ZogographI18n.t("host.slab_objects", {}, "Objects"), className: "size", render: r => Number(r.objs).toLocaleString(document.documentElement.lang || undefined) },
+    { label: ZogographI18n.t("host.slab_each", {}, "Each"), className: "size", render: r => humanBytes(r.obj_bytes) },
   ]);
 
   renderHostFiles(data.files ?? [], data.file_totals ?? null);
@@ -18957,10 +18957,10 @@ async function refreshHost() {
   $("hostLveWrap").hidden = !data.lve.length;
   if (data.lve.length) {
     renderTable("hostLve", data.lve, [
-      { label: "Account", render: r => r.user },
-      { label: "CPU faults", className: "size", render: r => r.faults_cpu },
-      { label: "Memory faults", className: "size", render: r => r.faults_mem },
-      { label: "Process faults", className: "size", render: r => r.faults_procs },
+      { label: ZogographI18n.t("cpu.account", {}, "Account"), render: r => r.user },
+      { label: ZogographI18n.t("cpu.cpu_faults", {}, "CPU faults"), className: "size", render: r => r.faults_cpu },
+      { label: ZogographI18n.t("cpu.memory_faults", {}, "Memory faults"), className: "size", render: r => r.faults_mem },
+      { label: ZogographI18n.t("cpu.process_faults", {}, "Process faults"), className: "size", render: r => r.faults_procs },
     ]);
   }
 }

@@ -1605,6 +1605,7 @@
   "host.memory_non_monitor": " · {{amount}} गैर-मॉनिटर प्रतिबद्ध",
   "host.memory_monitoring_processes": " · {{count, number}} मॉनिटरिंग प्रक्रियाएँ",
   "host.swap_used": "उपयोग किया गया स्वैप",
+  "host.slab_cache": "कैश", "host.slab_holding": "धारण", "host.slab_objects": "ऑब्जेक्ट", "host.slab_each": "प्रत्येक",
   "host.swap_verdict_clear": "कोई स्वैप उपयोग में नहीं है।", "host.swap_verdict_pressure": "स्वैप बढ़ रहा है ({{swap}}) जबकि उपलब्ध मेमोरी गिर रही है ({{available}})। साथ में यह वास्तविक दबाव है, बची हुई ठंडी पेज नहीं।", "host.swap_verdict_filling": "स्वैप बढ़ रहा है ({{swap}}), पर उपलब्ध मेमोरी स्थिर है। कर्नेल ठंडे पेज हटा रहा है, मशीन में कमी नहीं है।", "host.swap_verdict_cold": "पुराने दबाव से बचे पुराने या ठंडे पेज। RAM खाली होने पर Linux उन्हें स्वैप से वापस नहीं खींचता; यह वर्तमान माप नहीं, उच्चतम निशान है।", "host.swap_verdict_waiting": "यह जानने के लिए पर्याप्त रीडिंग नहीं हैं कि यह बचा हुआ है या बढ़ रहा है; लगभग आधे घंटे का इतिहास चाहिए।",
   "host.swap_used_sub": "{{used}} / {{total}}",
   "host.swap_under_pressure": " · दबाव में",

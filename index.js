@@ -21341,14 +21341,14 @@ function drawSchedule(data) {
     pre.textContent = data.lines.join("\n");
     current.append(Object.assign(document.createElement("p"), {
       className: "muted small",
-      textContent: `Installed now${data.other_lines > 0
-        ? `, alongside ${data.other_lines} other line${data.other_lines === 1 ? "" : "s"} this dashboard does not touch`
-        : ""}:`,
+      textContent: data.other_lines > 0
+        ? ZogographI18n.t("schedule.installed_with_other", { count: data.other_lines }, "Installed now, alongside {{count, number}} other line(s) this dashboard does not touch:")
+        : ZogographI18n.t("schedule.installed_only", {}, "Installed now:"),
     }), pre);
   } else {
     current.append(Object.assign(document.createElement("p"), {
       className: "muted small",
-      textContent: "Nothing is scheduled. The dashboard will only show whatever you collect by hand.",
+      textContent: ZogographI18n.t("schedule.nothing_scheduled", {}, "Nothing is scheduled. The dashboard will only show whatever you collect by hand."),
     }));
   }
   holder.appendChild(current);
@@ -21360,14 +21360,17 @@ function drawSchedule(data) {
   if (runs.length) {
     const runsHolder = document.createElement("div");
     runsHolder.id = "scheduleRuns";
-    holder.appendChild(section("Recent collector runs", runsHolder,
-      "Normal and requested work share this ledger, so a new task can be compared with the work already scheduled."));
+    holder.appendChild(section(
+      ZogographI18n.t("schedule.recent_runs", {}, "Recent collector runs"),
+      runsHolder,
+      ZogographI18n.t("schedule.recent_runs_help", {}, "Normal and requested work share this ledger, so a new task can be compared with the work already scheduled."),
+    ));
     renderTable("scheduleRuns", runs, [
-      { label: "Started", render: row => whenSpan(row.started_at) },
-      { label: "Collector", render: row => row.collector },
-      { label: "Work", className: "cmd", render: row => row.jobs },
-      { label: "Took", className: "size", render: row => humanDuration(Number(row.seconds)) },
-      { label: "Result", render: row => row.ok ? "ok" : (row.error || "failed") },
+      { label: ZogographI18n.t("schedule.run_started", {}, "Started"), render: row => whenSpan(row.started_at) },
+      { label: ZogographI18n.t("schedule.run_collector", {}, "Collector"), render: row => row.collector },
+      { label: ZogographI18n.t("schedule.run_work", {}, "Work"), className: "cmd", render: row => row.jobs },
+      { label: ZogographI18n.t("schedule.run_took", {}, "Took"), className: "size", render: row => humanDuration(Number(row.seconds)) },
+      { label: ZogographI18n.t("schedule.run_result", {}, "Result"), render: row => row.ok ? ZogographI18n.t("schedule.run_ok", {}, "ok") : (row.error || ZogographI18n.t("schedule.run_failed", {}, "failed")) },
     ], null, row => row.ok ? "" : "row-bad", row => `${row.collector}:${row.started_at}:${row.jobs}`);
   }
 

@@ -732,5 +732,5 @@
   "assistant.panel_label": "مساعد استكشاف المشكلات", "assistant.drag_window": "اسحب لتحريك نافذة الدردشة هذه", "assistant.title": "المساعد", "assistant.effort_title": "مدى عمق التفكير", "assistant.speak": "اقرأ", "assistant.speak_title": "اقرأ الردود بصوت عالٍ", "assistant.listen": "أملِ", "assistant.listen_title": "أملِ رسالة", "assistant.new": "جديدة", "assistant.new_title": "ابدأ محادثة جديدة", "assistant.interrupt": "قاطع", "assistant.interrupt_title": "أوقف ما يفعله مع إبقاء المحادثة", "assistant.stop": "أوقف", "assistant.stop_title": "أنهِ دور النموذج الحالي", "assistant.hide_title": "أخفِ هذا — تستمر المحادثة", "assistant.close": "أغلق الدردشة",
   "navigation.sections": "الأقسام", "audit.download_csv_title": "نزّل سجل التدقيق الكامل كملف CSV", "audit.clear_title": "أزل إدخالات التدقيق الأقدم واحتفظ بسجل عملية إعادة الضبط", "quick.open_title": "افتح الإجراءات السريعة",
   "assistant.speaking": "يتحدث", "assistant.hold_to_talk": "اضغط باستمرار للتحدث", "assistant.start_listening": "ابدأ الاستماع", "assistant.listening": "يستمع…", "assistant.stop_listening": "أوقف الاستماع",
-  "host.open_setup": "افتح إعداد المضيف", "action.view": "عرض"
+  "host.open_setup": "افتح إعداد المضيف", "action.view": "عرض", "storage.empty": "إفراغ"
 }

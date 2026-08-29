@@ -5180,7 +5180,7 @@ function renderEmptyButtons() {
 
     const button = document.createElement("button");
     button.className = "danger small";
-    button.textContent = "Empty";
+    button.textContent = ZogographI18n.t("storage.empty", {}, "Empty");
     button.disabled = !totals.bytes && !totals.files;
 
     button.addEventListener("click", async () => {

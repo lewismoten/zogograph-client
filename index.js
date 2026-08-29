@@ -30396,14 +30396,13 @@ function renderEmail(data) {
   save.appendChild(button);
 
   if (!data.writable) {
-    save.appendChild(note("lib/config.php is not writable by the web server, so this page "
-      + "can show the settings but not change them. Use setup.php, or edit the file."));
+    save.appendChild(note(ZogographI18n.t("email.readonly_help", {}, "lib/config.php is not writable by the web server, so this page can show the settings but not change them. Use setup.php, or edit the file.")));
   }
   parts.push(save);
 
   if (data.recent.length) {
-    parts.push(section("Recently sent", simpleTable(
-      ["When", "To", "Result", "About"],
+    parts.push(section(ZogographI18n.t("email.recently_sent", {}, "Recently sent"), simpleTable(
+      [ZogographI18n.t("email.when", {}, "When"), ZogographI18n.t("email.to", {}, "To"), ZogographI18n.t("email.result", {}, "Result"), ZogographI18n.t("email.about", {}, "About")],
       data.recent.map(r => [
         humanTime(r.at), r.target || "\u2014", r.outcome, r.detail || "\u2014",
       ]),

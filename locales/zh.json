@@ -1875,6 +1875,7 @@
   "cpu.busy_title": "忙碌程度及其原因",
   "cpu.busy_help": "总忙碌线按构成它的状态拆分。还会显示监控树和其余工作负载：它们共同解释总量，而警报仍使用主机 CPU 总量。百分比是所有核心相加的结果，因此 100% 表示整台机器被占用，而不是一个核心。",
   "cpu.time_title": "时间都用在哪里",
+  "cpu.time_verdict_spread": "百分比是所有 {{cores}} 合计的结果，因此 100% 表示整台机器都被占用。", "cpu.time_verdict_idle": "机器处于空闲状态——上一次读数中忙碌 {{busy}}%。{{spread}}", "cpu.time_verdict_busy": "忙碌 {{busy}}%，其中大部分是{{state}}（{{percent}}%）{{next}}。{{spread}}", "cpu.time_verdict_second": "，其次是{{state}}（{{percent}}%）", "cpu.time_verdict_state.user": "用户空间中的普通工作", "cpu.time_verdict_state.nice": "低优先级工作", "cpu.time_verdict_state.system": "代表进程执行的内核工作", "cpu.time_verdict_state.iowait": "等待存储", "cpu.time_verdict_state.steal": "虚拟机监控程序占用的时间", "cpu.time_verdict_state.softirq": "延迟的中断工作", "cpu.time_verdict_state.irq": "硬件中断",
   "cpu.time_help": "处理器从不会只是“忙碌”。它消耗的每个 jiffy 都会记入八种状态之一，而哪一种决定下一步该做什么：用户态工作是机器在做正事，内核时间是系统调用密集型负载，iowait 是披着 CPU 外衣的磁盘问题，steal 则是虚拟机监控程序的问题，完全不是您的问题。仪表板其他位置的单一忙碌百分比正是这些数值的总和，因此这个问题通常要问两遍。",
   "cpu.time_meaning_title": "它们各自代表什么",
   "cpu.cores_title": "每个核心",

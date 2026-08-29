@@ -1027,28 +1027,10 @@ function cpuTimeVerdict(now, cores) {
 /* ---------------------------------------------------------- each core -- */
 
 function renderCpuCores(data) {
-  const grid = $("cpuCoreGrid");
   const spread = data.spread ?? {};
-  if (!grid) return;
-
-  const cores = data.cores ?? [];
-  if (!cores.length) {
-    grid.replaceChildren(Object.assign(document.createElement("p"), {
-      className: "muted",
-      textContent: ZogographI18n.t("cpu.no_per_core_lines", {}, "No per-core lines in this reading. /proc/stat on this kernel did not break the counters down by core, so only the whole-machine figure exists."),
-    }));
-  } else {
-    grid.replaceChildren(...cores.map(core => {
-      const value = core.busy_percent == null ? null : Number(core.busy_percent);
-      return buildGauge({
-        label: ZogographI18n.t("cpu.core_label", { core: core.cpu }, "Core {{core, number}}"),
-        value,
-        warn: 75,
-        crit: 90,
-        sub: value == null ? ZogographI18n.t("cpu.not_measured_yet", {}, "not measured yet") : cpuCoreShare(core),
-      });
-    }));
-  }
+  renderCoreCardPackage(ZogographCpuCoresCard, "core-cpu-cores", data.cores ?? [], {
+    target: $("cpuCoreGrid"), buildGauge, cpuCoreShare, i18n: ZogographI18n,
+  });
 
   $("cpuSpreadNote").textContent = cpuSpreadVerdict(spread);
 

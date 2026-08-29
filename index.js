@@ -26220,10 +26220,7 @@ function renderRegexResult(out, groupInput) {
   const parts = [];
 
   if (!result.total) {
-    parts.push(note(
-      "The pattern is valid but matched nothing in that text. Which is worth knowing now "
-      + "rather than as a check that fails every five minutes."
-    ));
+    parts.push(note(ZogographI18n.t("regex.no_match", {}, "The pattern is valid but matched nothing in that text. Which is worth knowing now rather than as a check that fails every five minutes.")));
     out.replaceChildren(...parts);
     return;
   }

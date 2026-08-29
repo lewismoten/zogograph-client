@@ -516,6 +516,7 @@
   "schedule.saved_preview": "Vista previa guardada",
   "schedule.installed": "Instalado actualmente",
   "regex.pattern": "Patrón",
+  "regex.no_match": "El patrón es válido, pero no coincidió con nada en ese texto. Es mejor saberlo ahora que tener una comprobación que falle cada cinco minutos.",
   "regex.match_position": "Coincidencia {{current, number}} de {{total, number}}",
   "regex.record_group": "Registrar el grupo {{group, number}} en cada ejecución",
   "regex.group_recorded": "Esta comprobación registrará el grupo {{group, number}}.",

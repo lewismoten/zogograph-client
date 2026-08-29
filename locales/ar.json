@@ -514,6 +514,7 @@
   "schedule.saved_preview": "معاينة محفوظة",
   "schedule.installed": "مثبّت حاليًا",
   "regex.pattern": "النمط",
+  "regex.no_match": "النمط صالح لكنه لم يطابق شيئًا في ذلك النص. من الأفضل معرفة ذلك الآن بدلًا من فحص يفشل كل خمس دقائق.",
   "regex.match_position": "المطابقة {{current, number}} من {{total, number}}",
   "regex.record_group": "سجّل المجموعة {{group, number}} في كل تشغيل",
   "regex.group_recorded": "سيسجل هذا الفحص المجموعة {{group, number}}.",

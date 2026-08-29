@@ -497,6 +497,7 @@
   "schedule.saved_preview": "Saved preview",
   "schedule.installed": "Currently installed",
   "regex.pattern": "Pattern",
+  "regex.no_match": "The pattern is valid but matched nothing in that text. Which is worth knowing now rather than as a check that fails every five minutes.",
   "regex.match_position": "Match {{current, number}} of {{total, number}}",
   "regex.record_group": "Record group {{group, number}} on every run",
   "regex.group_recorded": "This check will record group {{group, number}}.",

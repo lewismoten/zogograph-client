@@ -18977,7 +18977,7 @@ async function refreshHost() {
     sample: s, swap, swapUsed, swapPercent,
   }, {
     setCard: (label, value, sub, level = "", valueClass = "") => setHostCard(label, value, sub, level, valueClass),
-    humanBytes,
+    humanBytes, i18n: ZogographI18n,
   });
 
   $("hostSwapNote").textContent = swapVerdict(swap, swapUsed);

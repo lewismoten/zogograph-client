@@ -70,6 +70,7 @@
   "ai.settings.identity_portrait_help": "Lo dibujó por sí mismo la última vez que se lo pidieron. Desactivar los autorretratos a continuación evita que dibuje otro; este se conserva hasta entonces.",
   "ai.settings.sign_in_required": "Inicie sesión para ver estos ajustes.",
   "ai.settings.no_available_models": "Aún no hay modelos disponibles; añada uno en Modelos disponibles",
+  "path_hygiene.sign_in": "Inicie sesión para revisar los nombres de ruta.",
   "ai.settings.provider_label": "Proveedor",
   "ai.settings.address_label": "Dirección",
   "ai.settings.address_help": "Déjela vacía para usar la propia del proveedor. Indique otra para una puerta de enlace, un proxy o un modelo que se ejecute en esta máquina.",

@@ -11784,7 +11784,7 @@ async function refreshMarketplace() {
 async function refreshPathHygiene() {
   const body = $("pathHygieneBody");
   if (!body) return;
-  if (!state.signedIn) { body.replaceChildren(note("Sign in to review path names.")); return; }
+  if (!state.signedIn) { body.replaceChildren(note(ZogographI18n.t("path_hygiene.sign_in", {}, "Sign in to review path names."))); return; }
   try { renderPathHygiene(await api("path-hygiene")); }
   catch (error) { body.replaceChildren(note(String(error.message || error))); }
 }

@@ -2453,9 +2453,9 @@
 <section class="view" data-view="sys-snapshots" hidden>
 <section class="panel" id="snapshotPanel">
   <div class="panel-head">
-    <h2>Database copies</h2>
+    <h2 data-i18n="system.snapshots_title">Database copies</h2>
   </div>
-  <p class="muted small sub-note">
+  <p class="muted small sub-note" data-i18n="system.snapshots_help">
     Forensic copies, written beside the databases and deliberately outside every
     retention rule — the point of one is to survive the roll-up that would
     otherwise discard the readings it is about. Which also means nothing expires
@@ -2467,32 +2467,32 @@
 
 <section class="view" data-view="sys-peers" hidden>
 <section class="panel">
-  <div class="panel-head"><h2>Trusted Zogograph servers</h2></div>
-  <p class="muted small sub-note">A trusted server is explicitly configured here and checked through HTTPS OpenID Connect discovery. Saving it does not share data or sign anyone in; those authorization-code steps are deliberately separate.</p>
+  <div class="panel-head"><h2 data-i18n="system.peers_title">Trusted Zogograph servers</h2></div>
+  <p class="muted small sub-note" data-i18n="system.peers_help">A trusted server is explicitly configured here and checked through HTTPS OpenID Connect discovery. Saving it does not share data or sign anyone in; those authorization-code steps are deliberately separate.</p>
   <div id="peersAdminBody"></div>
 </section>
 </section>
 
 <section class="view" data-view="sys-marketplace" hidden>
 <section class="panel">
-  <div class="panel-head"><h2>Marketplace</h2></div>
-  <p class="muted small sub-note">Local package manifests only. Enabling never executes package code. A few fixed, core-owned capabilities may be authorized; requested capabilities remain visible for review.</p>
+  <div class="panel-head"><h2 data-i18n="system.marketplace_title">Marketplace</h2></div>
+  <p class="muted small sub-note" data-i18n="system.marketplace_help">Local package manifests only. Enabling never executes package code. A few fixed, core-owned capabilities may be authorized; requested capabilities remain visible for review.</p>
   <div id="marketplaceBody"></div>
 </section>
 </section>
 
 <section class="view" data-view="sys-encryption" hidden>
 <section class="panel">
-  <div class="panel-head"><h2>Data protection</h2></div>
-  <p class="muted small sub-note">This page reports Zogograph evidence, not assumptions. It never shows key paths or key material. Change protection choices in the setup wizard; recovery and sealing stay CLI-only so a browser session cannot handle a private key.</p>
+  <div class="panel-head"><h2 data-i18n="system.encryption_title">Data protection</h2></div>
+  <p class="muted small sub-note" data-i18n="system.encryption_help">This page reports Zogograph evidence, not assumptions. It never shows key paths or key material. Change protection choices in the setup wizard; recovery and sealing stay CLI-only so a browser session cannot handle a private key.</p>
   <div id="encryptionBody"></div>
 </section>
 </section>
 
 <section class="view" data-view="sys-packages" hidden>
 <section class="panel">
-  <div class="panel-head"><h2>Executable package runtime</h2></div>
-  <p class="muted small sub-note">Signed packages are reviewed here before any future runtime can use them. Enabling records explicit capability grants and private-package settings; it does not execute package PHP in this Zogograph release.</p>
+  <div class="panel-head"><h2 data-i18n="system.package_runtime_title">Executable package runtime</h2></div>
+  <p class="muted small sub-note" data-i18n="system.package_runtime_help">Signed packages are reviewed here before any future runtime can use them. Enabling records explicit capability grants and private-package settings; it does not execute package PHP in this Zogograph release.</p>
   <div id="packageRuntimeBody"></div>
 </section>
 </section>

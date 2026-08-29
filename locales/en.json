@@ -496,6 +496,7 @@
   "schedule.custom.weekday": "Day of week (0–7)",
   "schedule.saved_preview": "Saved preview",
   "schedule.installed": "Currently installed",
+  "cagefs.what_is": "What CageFS is",
   "terminal.running_in": "Running in ",
   "terminal.return_home": "back to the top",
   "terminal.return_home_title": "Return to {{home}}",

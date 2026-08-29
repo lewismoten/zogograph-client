@@ -31122,7 +31122,7 @@ function renderCagefsExplainer(mounts, capabilities) {
   box.className = "explainer";
 
   const head = document.createElement("h3");
-  head.textContent = "What CageFS is";
+  head.textContent = ZogographI18n.t("cagefs.what_is", {}, "What CageFS is");
   box.appendChild(head);
 
   const paragraphs = [

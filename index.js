@@ -6113,33 +6113,33 @@ function renderAiSettings(data) {
   auto.id = "aiCompactAuto";
   auto.checked = data.compact_automatically !== false;
   room.appendChild(fieldRow(aiSettingsText("compact_automatically_label", "Summarise automatically"), auto,
-    "On, it happens on the next turn after the mark is passed. Off, the ring in the chat "
+    aiSettingsText("compact_automatically_help", "On, it happens on the next turn after the mark is passed. Off, the ring in the chat "
     + "window goes amber and waits for you to click it — and the conversation will "
-    + "eventually be refused by the provider if you never do."));
+    + "eventually be refused by the provider if you never do.")));
 
   const explain = document.createElement("input");
   explain.type = "checkbox";
   explain.id = "aiExplain";
   explain.checked = data.explain_commands !== false;
   room.appendChild(fieldRow(aiSettingsText("explain_commands_label", "Explain its commands"), explain,
-    "When it suggests a terminal command, it comments each part, says what the output "
+    aiSettingsText("explain_commands_help", "When it suggests a terminal command, it comments each part, says what the output "
     + "should look like, and links to the documentation. Worth leaving on: somebody "
     + "pasting a command they have not understood is the thing this is meant to prevent. "
-    + "Turn it off if you read shell fluently and find the commentary noise."));
+    + "Turn it off if you read shell fluently and find the commentary noise.")));
 
   const hostCommands = document.createElement("input");
   hostCommands.type = "checkbox";
   hostCommands.id = "aiHostCommands";
   hostCommands.checked = data.host_commands === true;
   room.appendChild(fieldRow(aiSettingsText("host_commands_label", "Let it see what only root can run"), hostCommands,
-    "The host collector already records which programs exist and which this account can "
+    aiSettingsText("host_commands_help", "The host collector already records which programs exist and which this account can "
     + "reach. With this on, the assistant can see the difference and may suggest asking "
     + "your host to run one and send back the output — which is an ordinary support "
     + "request and often the fastest route to an answer. It is told to suggest reading "
     + "only, never changes to a shared server. Off by default because it changes the kind "
-    + "of advice you get."));
+    + "of advice you get.")));
 
-  pages.limits.push(section("How much it can hold", room));
+  pages.limits.push(section(aiSettingsText("context_title", "How much it can hold"), room));
 
   /* ---- what it does without being asked ---- */
 
@@ -6148,41 +6148,41 @@ function renderAiSettings(data) {
 
   const mode = document.createElement("select");
   mode.id = "aiAlertMode";
-  for (const [value, label] of [
-    ["off", "nothing — alerts behave exactly as they always have"],
-    ["comment", "read each alert and write a note on it"],
-    ["look", "…and look things up first, so the note is informed"],
-    ["decide", "…and may conclude one did not warrant sending"],
+  for (const [value, labelKey, label] of [
+    ["off", "alert_mode_off", "nothing — alerts behave exactly as they always have"],
+    ["comment", "alert_mode_comment", "read each alert and write a note on it"],
+    ["look", "alert_mode_look", "…and look things up first, so the note is informed"],
+    ["decide", "alert_mode_decide", "…and may conclude one did not warrant sending"],
   ]) {
     const option = document.createElement("option");
     option.value = value;
-    option.textContent = label;
+    option.textContent = aiSettingsText(labelKey, label);
     option.selected = (data.alerts?.mode ?? "off") === value;
     mode.appendChild(option);
   }
   unattended.appendChild(fieldRow(aiSettingsText("alert_mode_label", "When an alert fires"), mode,
-    "This runs from cron with nobody watching, so it only ever gets the read-only tools "
+    aiSettingsText("alert_mode_help", "This runs from cron with nobody watching, so it only ever gets the read-only tools "
     + "that need no permission. Anything it cannot do — reach the model, parse an answer "
     + "— leaves the alert exactly as it would have been, because a thing standing between "
-    + "a machine noticing a problem and you being told has one acceptable failure mode."));
+    + "a machine noticing a problem and you being told has one acceptable failure mode.")));
 
   const floor = document.createElement("select");
   floor.id = "aiAlertFloor";
-  for (const [value, label] of [
-    ["error", "never for error or critical"],
-    ["warning", "never for warning and above"],
-    ["critical", "never for critical"],
-    ["none", "any of them, including critical"],
+  for (const [value, labelKey, label] of [
+    ["error", "alert_floor_error", "never for error or critical"],
+    ["warning", "alert_floor_warning", "never for warning and above"],
+    ["critical", "alert_floor_critical", "never for critical"],
+    ["none", "alert_floor_none", "any of them, including critical"],
   ]) {
     const option = document.createElement("option");
     option.value = value;
-    option.textContent = label;
+    option.textContent = aiSettingsText(labelKey, label);
     option.selected = (data.alerts?.never_above ?? "error") === value;
     floor.appendChild(option);
   }
   unattended.appendChild(fieldRow(aiSettingsText("alert_floor_label", "Except"), floor,
-    "A critical alert is the one case where a delay and a model's opinion are both worse "
-    + "than a plain fast message. Left at the default it never touches those."));
+    aiSettingsText("alert_floor_help", "A critical alert is the one case where a delay and a model's opinion are both worse "
+    + "than a plain fast message. Left at the default it never touches those.")));
 
   const perRun = document.createElement("input");
   perRun.type = "number";
@@ -6192,19 +6192,19 @@ function renderAiSettings(data) {
   perRun.className = "days";
   perRun.value = String(data.alerts?.per_run ?? 5);
   unattended.appendChild(fieldRow(aiSettingsText("alert_per_run_label", "At most, per run"), perRun,
-    "A disk filling up trips several rules at once. This is what stops a storm becoming "
-    + "a bill."));
+    aiSettingsText("alert_per_run_help", "A disk filling up trips several rules at once. This is what stops a storm becoming "
+    + "a bill.")));
 
-  for (const [id, key, label] of [
-    ["aiDaily", "daily", "Write a daily summary"],
-    ["aiWeekly", "weekly", "…a weekly one"],
-    ["aiMonthly", "monthly", "…a monthly one"],
+  for (const [id, key, labelKey, label] of [
+    ["aiDaily", "daily", "daily_summary", "Write a daily summary"],
+    ["aiWeekly", "weekly", "weekly_summary", "…a weekly one"],
+    ["aiMonthly", "monthly", "monthly_summary", "…a monthly one"],
   ]) {
     const box = document.createElement("input");
     box.type = "checkbox";
     box.id = id;
     box.checked = data.alerts?.[key] === true;
-    unattended.appendChild(fieldRow(label, box, ""));
+    unattended.appendChild(fieldRow(aiSettingsText(labelKey, label), box, ""));
   }
 
   const reportTo = document.createElement("input");
@@ -6212,19 +6212,17 @@ function renderAiSettings(data) {
   reportTo.id = "aiReportTo";
   reportTo.className = "wide-field";
   reportTo.value = data.alerts?.report_to ?? "";
-  reportTo.placeholder = "leave blank to use the alert addresses";
+  reportTo.placeholder = aiSettingsText("report_to_placeholder", "leave blank to use the alert addresses");
   unattended.appendChild(fieldRow(aiSettingsText("report_to_label", "Send summaries to"), reportTo,
-    "Semicolon-separated. A summary and an alert are different kinds of message and may "
+    aiSettingsText("report_to_help", "Semicolon-separated. A summary and an alert are different kinds of message and may "
     + "reasonably go to different places — but requiring a second address before the "
     + "feature works at all would be a needless step, so blank means the alert "
-    + "addresses."));
+    + "addresses.")));
 
-  pages.limits.push(section("What it does without being asked", unattended));
-  pages.limits.push(note(
-    "Everything in this section costs money on a schedule, with nobody watching. The "
+  pages.limits.push(section(aiSettingsText("unattended_title", "What it does without being asked"), unattended));
+  pages.limits.push(note(aiSettingsText("unattended_help", "Everything in this section costs money on a schedule, with nobody watching. The "
     + "per-conversation limits above do not apply to it — those are about one "
-    + "conversation, and this is not one."
-  ));
+    + "conversation, and this is not one.")));
   pages.images.push(pictureFields(data));
 
   /*

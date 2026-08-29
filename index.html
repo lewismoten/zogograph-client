@@ -2260,9 +2260,9 @@
 <section class="view" data-view="sys-ai-model" hidden>
 <section class="panel" id="aiModelPanel">
   <div class="panel-head">
-    <h2>Model</h2>
+    <h2 data-i18n="ai.model_title">Model</h2>
   </div>
-  <p class="muted small sub-note">
+  <p class="muted small sub-note" data-i18n="ai.model_help">
     Which service to speak to, which model, and what it costs. Prices are per million
     tokens, in cents, and are optional — without them everything still works and the
     running total reports token counts rather than money, because a wrong price is worse
@@ -2277,10 +2277,10 @@
 <section class="view" data-view="sys-ai-prices" hidden>
 <section class="panel" id="aiPricesPanel">
   <div class="panel-head">
-    <h2>Remembered prices</h2>
-    <button id="aiPriceAdd" class="link">Add a model</button>
+    <h2 data-i18n="ai.prices_title">Remembered prices</h2>
+    <button id="aiPriceAdd" class="link" data-i18n="ai.add_model">Add a model</button>
   </div>
-  <p class="muted small sub-note">
+  <p class="muted small sub-note" data-i18n="ai.prices_help">
     Prices this install has been told about, per provider and model. Changing the model on
     the Model page fills the price boxes from here rather than making you look them up
     again — and a model you have used before keeps whatever you set for it. Nothing here
@@ -2294,9 +2294,9 @@
 <section class="view" data-view="sys-ai-limits" hidden>
 <section class="panel" id="aiLimitsPanel">
   <div class="panel-head">
-    <h2>Thresholds</h2>
+    <h2 data-i18n="ai.limits_title">Thresholds</h2>
   </div>
-  <p class="muted small sub-note">
+  <p class="muted small sub-note" data-i18n="ai.limits_help">
     What stops a conversation, and how much of one the model can hold at a time. Every
     limit here is checked before a request rather than after, so it stops the next call
     rather than being noticed once the money is gone.

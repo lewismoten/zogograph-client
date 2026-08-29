@@ -21116,7 +21116,7 @@ async function refreshProblems() {
   }
 
   $("problemPath").textContent = data.lines
-    ? `${count(data.lines, "entry", "entries")} in ${data.path}`
+    ? ZogographI18n.t(data.lines === 1 ? "problems.path_entry_one" : "problems.path_entry_many", { count: data.lines, path: data.path }, data.lines === 1 ? "{{count, number}} entry in {{path}}" : "{{count, number}} entries in {{path}}")
     : data.path;
   $("problemClear").hidden = !data.lines;
 

@@ -33819,11 +33819,14 @@ $("storeRollup").addEventListener("click", async () => {
     const result = await post("store-rollup");
     const said = result.result;
     notice(
-      `${humanCount(said.removed)} readings merged into ${humanCount(said.compacted)}.`
+      ZogographI18n.t("store.rollup_result", {
+        removed: said.removed,
+        compacted: said.compacted,
+      }, "{{removed, number}} readings merged into {{compacted, number}}.")
       + (said.protected
-        ? ` ${humanCount(said.protected)} left at full detail because they sit beside an alert.`
+        ? ` ${ZogographI18n.t("store.rollup_protected", { count: said.protected }, "{{count, number}} left at full detail because they sit beside an alert.")}`
         : "")
-      + " The space they used is inside the file until you reclaim it.",
+      + ` ${ZogographI18n.t("store.rollup_space", {}, "The space they used is inside the file until you reclaim it.")}`,
       true
     );
     renderStore(result);

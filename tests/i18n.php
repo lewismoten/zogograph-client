@@ -311,6 +311,10 @@ $translatedPackageCustody = [
 foreach (['en-US', 'en-GB', 'es', 'hi', 'zh', 'ar'] as $locale) {
     $catalog = json_decode((string)file_get_contents($root . '/locales/' . $locale . '.json'), true);
     i18nExpect(is_array($catalog), "locale catalog $locale is invalid");
+    if (in_array($locale, ['en-US', 'en-GB'], true)) {
+        i18nExpect($catalog === [] && str_contains($runtime, 'const catalog = { ...i18n.fallback, ...localized };'),
+            "locale catalog $locale must remain an explicit English fallback override");
+    }
     if (in_array($locale, ['es', 'hi', 'zh', 'ar'], true)) {
         i18nExpect(array_diff(array_unique($pageKeys[1] ?? []), array_keys($catalog)) === [],
             "locale catalog $locale falls back to English for a visible dashboard label");

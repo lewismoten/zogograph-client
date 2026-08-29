@@ -18893,7 +18893,11 @@ async function refreshHost() {
     ? Math.round((swapUsed / num(s.swap_total)) * 100)
     : null;
 
-  renderHostGauges(s, swapUsed, swap);
+  renderCoreCardPackage(ZogographHostMemoryGaugesCard, "core-host-memory-gauges", {
+    sample: s, swapUsed, swap, accountVitals: state.overview?.vitals ?? {},
+  }, {
+    target: $("hostGauges"), buildGauge, humanBytes, i18n: ZogographI18n,
+  });
 
   renderCoreCardPackage(ZogographHostMemoryCard, "core-host-memory", {
     sample: s, swap, swapUsed, swapPercent,
@@ -20229,103 +20233,6 @@ function hostPss(value) {
  * happily fill RAM with reclaimable cache; what matters is how little is
  * available, which is why that one is drawn as headroom rather than as usage.
  */
-function renderHostGauges(sample, swapUsed, swap) {
-  const holder = $("hostGauges");
-  if (!holder) return;
-
-  const total = Number(sample.mem_total) || 0;
-  const available = Number(sample.mem_available) || 0;
-  const swapTotal = Number(sample.swap_total) || 0;
-  const cores = Number(sample.cpu_cores) || 0;
-  const load1 = sample.load1 == null ? null : Number(sample.load1);
-
-  const dials = [];
-
-  if (total > 0) {
-    /*
-     * Committed memory: what is neither free nor reclaimable.
-     *
-     * Drawn instead of "used" because used includes cache, and a machine whose
-     * RAM is full of page cache is a machine working correctly. This is the
-     * figure that actually runs out.
-     */
-    const committed = Math.max(0, total - available);
-    const monitoringPss = sample.monitoring_pss_bytes == null
-      ? null : Number(sample.monitoring_pss_bytes);
-    const workloadCommitted = monitoringPss == null ? null
-      : Math.max(0, committed - monitoringPss);
-    dials.push({
-      label: ZogographI18n.t("host.memory_committed", {}, "Memory committed"),
-      value: (committed / total) * 100,
-      warn: 80, crit: 92,
-      overlay: monitoringPss == null ? null : (monitoringPss / total) * 100,
-      overlayLabel: monitoringPss == null ? null
-        : ZogographI18n.t("host.memory_collector_arc", { amount: humanBytes(monitoringPss) }, "dark arc: collector tree {{amount}} PSS"),
-      sub: ZogographI18n.t("host.memory_committed_sub", {
-        committed: humanBytes(committed), total: humanBytes(total), available: humanBytes(available),
-      }, "{{committed}} of {{total}} · {{available}} still available")
-        + (workloadCommitted == null ? "" : ZogographI18n.t("host.memory_non_monitor", { amount: humanBytes(workloadCommitted) }, " · {{amount}} non-monitor committed"))
-        + (sample.monitoring_processes == null ? "" : ZogographI18n.t("host.memory_monitoring_processes", { count: sample.monitoring_processes }, " · {{count, number}} monitoring processes")),
-    });
-  }
-
-  if (swapTotal > 0) {
-    dials.push({
-      label: ZogographI18n.t("host.swap_used", {}, "Swap used"),
-      value: (swapUsed / swapTotal) * 100,
-      /*
-       * Swap in use is not itself a problem - the kernel pages out things
-       * nothing has touched in hours, and that is the system working. The
-       * collector decides separately whether there is real pressure, and that
-       * verdict is what colours this rather than the percentage alone.
-       */
-      warn: swap?.state === "pressure" ? 1 : 60,
-      crit: swap?.state === "pressure" ? 25 : 90,
-      sub: ZogographI18n.t("host.swap_used_sub", { used: humanBytes(swapUsed), total: humanBytes(swapTotal) }, "{{used}} of {{total}}")
-        + (swap?.state === "pressure"
-          ? ZogographI18n.t("host.swap_under_pressure", {}, " · under pressure")
-          : ZogographI18n.t("host.swap_no_pressure", {}, " · no pressure")),
-    });
-  } else {
-    dials.push({
-      label: ZogographI18n.t("host.swap_used", {}, "Swap used"), value: null, warn: 60, crit: 90,
-      sub: ZogographI18n.t("host.swap_not_configured", {}, "no swap configured on this machine"),
-    });
-  }
-
-  /*
-   * Load and CPU are not memory, and have moved.
-   *
-   * They were here because this was the only page fed by the host reading. They
-   * belong on the CPU page, which is fed by the same reading - see
-   * renderCpuGauges. Leaving a copy on both would mean two places to change one
-   * threshold.
-   */
-
-  /*
-   * The account's share of the machine, when both readings exist.
-   *
-   * The one number that says whether this account is the reason the machine is
-   * busy - and the one nothing else on the site can produce, because it needs a
-   * reading from inside the cage and one from outside it at the same moment.
-   */
-  const mine = Number(state.overview?.vitals?.mem_total_bytes) || 0;
-  if (total > 0 && mine > 0 && mine < total) {
-    dials.push({
-      label: ZogographI18n.t("host.account_memory_share", {}, "This account's share"),
-      value: (mine / total) * 100,
-      // Not a health measure: a small share is the normal, healthy state of a
-      // tenant on a shared box. Bands set past anything ordinary so it stays
-      // green unless the account really is most of the machine.
-      warn: 60, crit: 85,
-      sub: ZogographI18n.t("host.account_memory_share_sub", { amount: humanBytes(mine), total: humanBytes(total) },
-        "may use {{amount}} of the machine's {{total}}"),
-    });
-  }
-
-  holder.replaceChildren(...dials.map(buildGauge));
-}
-
 function setHostCard(label, value, sub, level = "", valueClass = "", holder = "hostCards") {
   const card = document.createElement("div");
   card.className = `card ${level}`.trim();

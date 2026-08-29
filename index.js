@@ -30787,13 +30787,13 @@ async function refreshHostLogs() {
         const span = document.createElement("span");
         if (!row.exists) {
           span.className = "muted";
-          span.textContent = "not on this machine";
+          span.textContent = ZogographI18n.t("host_log.not_on_machine", {}, "not on this machine");
         } else if (row.readable) {
           span.className = "ok";
-          span.textContent = "readable";
+          span.textContent = ZogographI18n.t("host_log.readable", {}, "readable");
         } else {
           span.className = "muted";
-          span.textContent = "refused by the host";
+          span.textContent = ZogographI18n.t("host_log.refused", {}, "refused by the host");
           span.title = "The file is there and this account may not open it. That needs a "
             + "group membership or an ACL granted by root \u2014 nothing in here can change it.";
         }

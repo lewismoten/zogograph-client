@@ -83,8 +83,9 @@ function aiProviders(): array
             'base' => 'http://127.0.0.1:11434/v1',
             'auth' => 'bearer',
             'note' => 'Ollama, llama.cpp, LM Studio, vLLM, or a gateway of your own. '
-                . 'A local model needs no key and nothing leaves the machine, which for '
-                . 'a tool that reads your logs is worth considering.',
+                . 'No API key is required. Use loopback HTTP(S) for a local model, or a '
+                . 'public HTTPS address (including a custom port such as :8443) for a '
+                . 'remote Ollama-compatible server.',
             'models' => [],
         ],
     ];
@@ -97,7 +98,9 @@ function aiProviders(): array
  * not let a compromised administrator session make PHP fetch local metadata or
  * a private control panel. Public names are resolved here and pinned on the
  * outgoing request, closing the DNS-rebinding gap between validation and cURL.
- * Compatible/local models intentionally retain loopback HTTP support.
+ * Compatible models retain loopback HTTP support, but may also use a public
+ * HTTPS endpoint without a credential. Public destinations are pinned just as
+ * hosted providers are, so this does not turn the model URL into an SSRF path.
  *
  * @return array{url: string, resolve: list<string>, local: bool}
  */
@@ -114,10 +117,12 @@ function aiEndpointPolicy(string $provider, string $base, bool $allowQuery = fal
     $port = (int)($parts['port'] ?? ($scheme === 'https' ? 443 : 80));
 
     if ($provider === 'compatible') {
-        if (!in_array($scheme, ['http', 'https'], true) || !outboundLoopbackHost($host)) {
-            throw new ActionRefused('compatible models must use a loopback HTTP(S) endpoint');
+        if (in_array($scheme, ['http', 'https'], true) && outboundLoopbackHost($host)) {
+            return ['url' => $url, 'resolve' => [], 'local' => true];
         }
-        return ['url' => $url, 'resolve' => [], 'local' => true];
+        if ($scheme !== 'https') {
+            throw new ActionRefused('a remote compatible model must use HTTPS; HTTP is allowed only on loopback');
+        }
     }
 
     if ($scheme !== 'https') {

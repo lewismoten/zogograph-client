@@ -30,10 +30,13 @@ expect($free['remote_host_limit'] === 3 && $free['used'] === 3 && $free['remaini
 
 $local = aiEndpointPolicy('compatible', 'http://127.0.0.1:11434/v1');
 expect($local['local'] && $local['resolve'] === [], 'loopback-compatible AI must remain supported');
+$remoteCompatible = aiEndpointPolicy('compatible', 'https://1.1.1.1:8443/v1');
+expect(!$remoteCompatible['local'] && $remoteCompatible['resolve'] === ['1.1.1.1:8443:1.1.1.1'],
+    'a public HTTPS compatible model on a custom port must remain pinned and keyless');
 expectRefused(fn() => aiEndpointPolicy('openai', 'https://127.0.0.1/v1'),
     'hosted AI must reject loopback targets');
-expectRefused(fn() => aiEndpointPolicy('compatible', 'https://example.com/v1'),
-    'compatible AI must not reach arbitrary public hosts');
+expectRefused(fn() => aiEndpointPolicy('compatible', 'http://1.1.1.1:8443/v1'),
+    'a remote compatible model must not use plain HTTP');
 
 expectRefused(fn() => urlWatchEndpointPolicy('http://127.0.0.1/status'),
     'URL watch must reject unapproved private targets');

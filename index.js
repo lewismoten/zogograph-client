@@ -277,34 +277,39 @@ const SPAN_WEEK = 604800;
 const SPAN_MONTH = 2629746;
 const SPAN_YEAR = 31556952;
 
+function humanSpanUnit(value, unit, long) {
+  return new Intl.NumberFormat(document.documentElement.lang || undefined, {
+    style: "unit",
+    unit,
+    unitDisplay: long ? "long" : "short",
+  }).format(value);
+}
+
 function humanSpan(seconds, long = false) {
   if (!Number.isFinite(seconds)) return "—";
   const total = Math.round(Math.abs(seconds));
-  if (total < 1) return long ? "no time at all" : "0s";
+  if (total < 1) return humanSpanUnit(0, "second", long);
 
   // Threshold, the unit at that size, and the unit that fills the second slot.
   const ladder = [
-    [SPAN_YEAR, SPAN_YEAR, SPAN_MONTH, "y", "m", "year", "month"],
-    [2 * SPAN_MONTH, SPAN_MONTH, SPAN_DAY, "m", "d", "month", "day"],
-    [SPAN_WEEK, SPAN_WEEK, SPAN_DAY, "w", "d", "week", "day"],
-    [SPAN_DAY, SPAN_DAY, SPAN_HOUR, "d", "h", "day", "hour"],
-    [SPAN_HOUR, SPAN_HOUR, SPAN_MINUTE, "h", "m", "hour", "minute"],
-    [SPAN_MINUTE, SPAN_MINUTE, 1, "m", "s", "minute", "second"],
+    [SPAN_YEAR, SPAN_YEAR, SPAN_MONTH, "year", "month"],
+    [2 * SPAN_MONTH, SPAN_MONTH, SPAN_DAY, "month", "day"],
+    [SPAN_WEEK, SPAN_WEEK, SPAN_DAY, "week", "day"],
+    [SPAN_DAY, SPAN_DAY, SPAN_HOUR, "day", "hour"],
+    [SPAN_HOUR, SPAN_HOUR, SPAN_MINUTE, "hour", "minute"],
+    [SPAN_MINUTE, SPAN_MINUTE, 1, "minute", "second"],
   ];
 
-  for (const [at, big, small, bigShort, smallShort, bigLong, smallLong] of ladder) {
+  for (const [at, big, small, bigUnit, smallUnit] of ladder) {
     if (total < at) continue;
 
     const whole = Math.floor(total / big);
     const rest = Math.floor((total % big) / small);
-
-    if (!long) return rest > 0 ? `${whole}${bigShort} ${rest}${smallShort}` : `${whole}${bigShort}`;
-
-    const said = `${whole} ${bigLong}${whole === 1 ? "" : "s"}`;
-    return rest > 0 ? `${said} ${rest} ${smallLong}${rest === 1 ? "" : "s"}` : said;
+    const said = humanSpanUnit(whole, bigUnit, long);
+    return rest > 0 ? `${said} ${humanSpanUnit(rest, smallUnit, long)}` : said;
   }
 
-  return long ? `${total} second${total === 1 ? "" : "s"}` : `${total}s`;
+  return humanSpanUnit(total, "second", long);
 }
 
 /** The same span with its direction said out loud, because a minus sign is missable. */

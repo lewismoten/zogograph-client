@@ -509,6 +509,7 @@
   "schedule.custom.weekday": "星期 (0–7)",
   "schedule.saved_preview": "已保存的预览",
   "schedule.installed": "当前已安装",
+  "email.show_me": "带我查看", "email.save_settings": "保存这些设置",
   "alerts.why_fired": "为何触发此警报？",
   "common.loading": "正在加载…",
   "alerts.timeline_level": "{{level}}（{{total, number}}）", "alerts.timeline_restarts": "{{count, number}} 次重启（虚线）", "alerts.timeline_day": "天", "alerts.timeline_hour": "小时", "alerts.timeline_range": "{{count, number}} 条警报，每 {{period}} 一根柱", "alerts.timeline_held_back": " — {{assistant}} 拦截了 {{count, number}} 条，仍计入此处",

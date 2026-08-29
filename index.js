@@ -30290,7 +30290,7 @@ function ruleSettings(data) {
     const go = document.createElement("button");
     go.type = "button";
     go.className = "link";
-    go.textContent = "Show me";
+    go.textContent = ZogographI18n.t("email.show_me", {}, "Show me");
     go.title = VIEWS[rule.view] ? `Open ${VIEWS[rule.view].label}` : rule.view;
     go.addEventListener("click", () => {
       location.hash = `#/${rule.view}?range=${state.range}`;
@@ -30391,7 +30391,7 @@ function renderEmail(data) {
   save.className = "inspect-actions";
   const button = document.createElement("button");
   button.id = "emailSave";
-  button.textContent = "Save these settings";
+  button.textContent = ZogographI18n.t("email.save_settings", {}, "Save these settings");
   button.disabled = !data.writable;
   save.appendChild(button);
 

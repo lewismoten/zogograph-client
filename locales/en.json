@@ -492,6 +492,7 @@
   "schedule.custom.weekday": "Day of week (0–7)",
   "schedule.saved_preview": "Saved preview",
   "schedule.installed": "Currently installed",
+  "email.show_me": "Show me", "email.save_settings": "Save these settings",
   "alerts.why_fired": "Why did this fire?",
   "common.loading": "Loading…",
   "alerts.timeline_level": "{{level}} ({{total, number}})", "alerts.timeline_restarts": "{{count, number}} restart(s) (dashed)", "alerts.timeline_day": "day", "alerts.timeline_hour": "hour", "alerts.timeline_range": "{{count, number}} alert(s), one bar per {{period}}", "alerts.timeline_held_back": " — {{count, number}} held back by {{assistant}}, still counted here",

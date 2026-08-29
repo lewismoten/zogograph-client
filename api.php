@@ -8890,6 +8890,7 @@ function aiSettingsView(array $config, PDO $pdo, bool $signedIn): array
         'ready' => $ready['ok'],
         'why' => $ready['why'],
         'writable' => configuredSettingsWritable(__DIR__ . '/lib/config.php'),
+        'can_change' => accessAllows($config, 'write'),
         'database' => aiDatabaseFacts($config),
         'views' => $views,
     ];

@@ -29780,7 +29780,7 @@ function showLogLine(row, index, rows) {
   if (row.path && state.viewable?.some(entry => entry.path === row.path)) {
     const open = document.createElement("button");
     open.className = "link";
-    open.textContent = "Open the whole file";
+    open.textContent = ZogographI18n.t("log.open_whole_file", {}, "Open the whole file");
     open.addEventListener("click", () => {
       $("listDialog").close();
       showLogPath(row.path);

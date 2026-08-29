@@ -513,6 +513,7 @@
   "schedule.custom.weekday": "星期 (0–7)",
   "schedule.saved_preview": "已保存的预览",
   "schedule.installed": "当前已安装",
+  "log.open_whole_file": "打开整个文件",
   "filter.any": "任意",
   "filter.clear": "清除筛选条件",
   "regex.pattern": "模式",

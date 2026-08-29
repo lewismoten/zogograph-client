@@ -496,6 +496,7 @@
   "schedule.custom.weekday": "Day of week (0–7)",
   "schedule.saved_preview": "Saved preview",
   "schedule.installed": "Currently installed",
+  "log.open_whole_file": "Open the whole file",
   "filter.any": "any",
   "filter.clear": "Clear the filters",
   "regex.pattern": "Pattern",

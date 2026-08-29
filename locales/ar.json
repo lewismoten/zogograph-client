@@ -513,6 +513,7 @@
   "schedule.custom.weekday": "يوم الأسبوع (0–7)",
   "schedule.saved_preview": "معاينة محفوظة",
   "schedule.installed": "مثبّت حاليًا",
+  "log.open_whole_file": "افتح الملف كاملًا",
   "filter.any": "أيّ",
   "filter.clear": "امسح عوامل التصفية",
   "regex.pattern": "النمط",

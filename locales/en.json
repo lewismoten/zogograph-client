@@ -492,6 +492,7 @@
   "schedule.custom.weekday": "Day of week (0–7)",
   "schedule.saved_preview": "Saved preview",
   "schedule.installed": "Currently installed",
+  "alerts.mute_rule": "Mute rule", "alerts.delete_confirm": "Delete this alert? The history goes with it.", "alerts.delete_title": "Delete alert", "alerts.mute_title": "Temporarily mute this rule",
   "alerts.mark_read_none": "Mark read", "alerts.mark_unread_none": "Mark unread", "alerts.delete_none": "Delete",
   "alerts.ignored": "ignored", "alerts.ignored_help": "The rule called this {{severity}}. {{assistant}} concluded it did not warrant sending.", "alerts.yes": "yes", "alerts.no": "no", "alerts.muted": "muted", "alerts.why_not": "why not", "alerts.failed": "it failed",
   "alerts.mark_read": "Mark {{count, number}} read", "alerts.mark_unread": "Mark {{count, number}} unread", "alerts.delete_selected": "Delete {{count, number}}", "alerts.marketplace_guidance": "Enabled marketplace guidance is advisory only. It does not change alert rules or delivery.", "alerts.when": "When", "alerts.severity": "Severity", "alerts.what": "What", "alerts.emailed": "Emailed",

@@ -509,6 +509,7 @@
   "schedule.custom.weekday": "يوم الأسبوع (0–7)",
   "schedule.saved_preview": "معاينة محفوظة",
   "schedule.installed": "مثبّت حاليًا",
+  "alerts.mute_rule": "اكتم القاعدة", "alerts.delete_confirm": "حذف هذا التنبيه؟ سيُحذف سجله معه.", "alerts.delete_title": "حذف التنبيه", "alerts.mute_title": "اكتم هذه القاعدة مؤقتًا",
   "alerts.mark_read_none": "علّم كمقروءة", "alerts.mark_unread_none": "علّم كغير مقروءة", "alerts.delete_none": "احذف",
   "alerts.ignored": "تُجاهل", "alerts.ignored_help": "سمّت القاعدة هذا {{severity}}. وخلص {{assistant}} إلى أنه لا يستحق الإرسال.", "alerts.yes": "نعم", "alerts.no": "لا", "alerts.muted": "مكتوم", "alerts.why_not": "لماذا لا", "alerts.failed": "فشل",
   "alerts.mark_read": "علّم {{count, number}} كمقروءة", "alerts.mark_unread": "علّم {{count, number}} كغير مقروءة", "alerts.delete_selected": "احذف {{count, number}}", "alerts.marketplace_guidance": "إرشاد السوق المفعّل استشاري فقط. لا يغير قواعد التنبيه أو إرساله.", "alerts.when": "متى", "alerts.severity": "الشدة", "alerts.what": "ما", "alerts.emailed": "أرسل بالبريد",

@@ -22507,13 +22507,13 @@ function alertRowActions(row) {
   if (!row.acknowledged_at) {
     const ack = document.createElement("button");
     ack.className = "link";
-    ack.textContent = "Mark read";
+    ack.textContent = ZogographI18n.t("alerts.mark_read_none", {}, "Mark read");
     ack.addEventListener("click", () => alertAction("ack", [row.id]));
     cell.appendChild(ack);
   } else {
     const unack = document.createElement("button");
     unack.className = "link";
-    unack.textContent = "Mark unread";
+    unack.textContent = ZogographI18n.t("alerts.mark_unread_none", {}, "Mark unread");
     unack.addEventListener("click", () => alertAction("unack", [row.id]));
     cell.appendChild(unack);
   }
@@ -22521,7 +22521,7 @@ function alertRowActions(row) {
   if (!['error', 'critical'].includes(row.severity)) {
     const mute = document.createElement("button");
     mute.className = "link";
-    mute.textContent = "Mute rule";
+    mute.textContent = ZogographI18n.t("alerts.mute_rule", {}, "Mute rule");
     mute.addEventListener("click", () => openAlertMute(row));
     cell.appendChild(mute);
   }
@@ -22530,7 +22530,7 @@ function alertRowActions(row) {
   remove.className = "link danger";
   remove.textContent = ZogographI18n.t("action.delete", {}, "Delete");
   remove.addEventListener("click", async () => {
-    if (await confirmDialog("Delete this alert? The history goes with it.", "Delete alert")) {
+    if (await confirmDialog(ZogographI18n.t("alerts.delete_confirm", {}, "Delete this alert? The history goes with it."), ZogographI18n.t("alerts.delete_title", {}, "Delete alert"))) {
       alertAction("delete", [row.id]);
     }
   });
@@ -22549,7 +22549,7 @@ function openAlertMute(row) {
   const reason = document.createElement("input");
   reason.type = "text"; reason.className = "wide"; reason.maxLength = 240; reason.required = true;
   reason.placeholder = "planned maintenance";
-  showFormDialog("Temporarily mute this rule", [
+  showFormDialog(ZogographI18n.t("alerts.mute_title", {}, "Temporarily mute this rule"), [
     note(`Mute “${row.rule}”? Matching Information and Warning alerts stay recorded but are not sent. Error and Critical always bypass this mute.`),
     fieldRow("For", duration, "Expires automatically."),
     fieldRow("Reason", reason, "Stored on held events and in the audit trail."),
@@ -22557,7 +22557,7 @@ function openAlertMute(row) {
     await post("alert-mute", { rule: row.rule, seconds: duration.value, reason: reason.value });
     await refreshAlerts(); await refreshBadges();
     notice(`Muted ${row.rule} until ${whenLabel(Math.floor(Date.now() / 1000) + Number(duration.value))}.`, true);
-  }, "Mute rule");
+  }, ZogographI18n.t("alerts.mute_rule", {}, "Mute rule"));
 }
 
 function showAlertMutes() {

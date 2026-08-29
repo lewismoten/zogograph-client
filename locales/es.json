@@ -511,6 +511,7 @@
   "schedule.custom.weekday": "Día de la semana (0–7)",
   "schedule.saved_preview": "Vista previa guardada",
   "schedule.installed": "Instalado actualmente",
+  "alerts.mute_rule": "Silenciar regla", "alerts.delete_confirm": "¿Eliminar esta alerta? Su historial se eliminará con ella.", "alerts.delete_title": "Eliminar alerta", "alerts.mute_title": "Silenciar esta regla temporalmente",
   "alerts.mark_read_none": "Marcar como leídas", "alerts.mark_unread_none": "Marcar como no leídas", "alerts.delete_none": "Eliminar",
   "alerts.ignored": "ignorada", "alerts.ignored_help": "La regla llamó a esto {{severity}}. {{assistant}} concluyó que no justificaba enviarlo.", "alerts.yes": "sí", "alerts.no": "no", "alerts.muted": "silenciada", "alerts.why_not": "por qué no", "alerts.failed": "falló",
   "alerts.mark_read": "Marcar {{count, number}} como leídas", "alerts.mark_unread": "Marcar {{count, number}} como no leídas", "alerts.delete_selected": "Eliminar {{count, number}}", "alerts.marketplace_guidance": "La guía del mercado habilitada es solo informativa. No cambia las reglas ni el envío de alertas.", "alerts.when": "Cuándo", "alerts.severity": "Gravedad", "alerts.what": "Qué", "alerts.emailed": "Enviado por correo",

@@ -1643,6 +1643,7 @@
   "uptime.restarted": "Reiniciado", "uptime.reading_gap": "Hueco de lecturas", "uptime.no_gaps_or_restarts": "Todas las lecturas de esta ventana están presentes y la máquina nunca se reinició. No hay nada que explicar.", "uptime.table_from": "Desde", "uptime.table_until": "Hasta", "uptime.table_for": "Durante", "uptime.table_meaning": "Qué significa",
   "uptime.boot_history_title": "Por qué se reinició",
   "uptime.boot_history_help": "Desde {{last}} en el host, que solo root puede leer. Un arranque con apagado registrado ocurrió después de solicitarle que se detuviera; uno sin ello significa que la sesión anterior terminó sin registrar uno.",
+  "uptime.no_boot_history": "No hay historial de arranques.", "uptime.came_up": "Arrancó", "uptime.kernel": "Kernel", "uptime.previous_session_ended": "La sesión anterior terminó", "uptime.ended_cleanly": "correctamente", "uptime.ended_unclean": "sin apagado", "uptime.not_known": "no se sabe", "uptime.still_running": "Sigue en ejecución", "uptime.what_that_means": "Qué significa",
   "audit.title": "Todo lo que ha hecho este monitor",
   "audit.download_csv": "Descargar CSV",
   "audit.clear": "Limpiar auditoría",

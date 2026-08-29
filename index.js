@@ -20984,24 +20984,24 @@ function renderBootHistory(history) {
   if (!history.available) {
     $("bootHistory").replaceChildren(Object.assign(document.createElement("p"), {
       className: "muted",
-      textContent: history.reason || "No boot history.",
+      textContent: history.reason || ZogographI18n.t("uptime.no_boot_history", {}, "No boot history."),
     }));
     return;
   }
 
   renderTable("bootHistory", history.boots, [
-    { label: "Came up", render: row => whenSpan(row.booted_at) },
+    { label: ZogographI18n.t("uptime.came_up", {}, "Came up"), render: row => whenSpan(row.booted_at) },
     {
-      label: "Kernel",
+      label: ZogographI18n.t("uptime.kernel", {}, "Kernel"),
       render: row => row.kernel || "—",
     },
     {
-      label: "Previous session ended",
+      label: ZogographI18n.t("uptime.previous_session_ended", {}, "Previous session ended"),
       render: row => {
         const span = document.createElement("span");
         span.textContent = row.ended === "shutdown"
-          ? "cleanly"
-          : (row.ended === "unclean" ? "without a shutdown" : "not known");
+          ? ZogographI18n.t("uptime.ended_cleanly", {}, "cleanly")
+          : (row.ended === "unclean" ? ZogographI18n.t("uptime.ended_unclean", {}, "without a shutdown") : ZogographI18n.t("uptime.not_known", {}, "not known"));
         // Only the unclean case is coloured: a clean shutdown is not news, and
         // an unknown one is an absence of evidence rather than a fault.
         if (row.ended === "unclean") span.className = "grew";
@@ -21009,11 +21009,11 @@ function renderBootHistory(history) {
       },
     },
     {
-      label: "Still running",
+      label: ZogographI18n.t("uptime.still_running", {}, "Still running"),
       className: "size",
-      render: row => (Number(row.still_running) ? "yes" : ""),
+      render: row => (Number(row.still_running) ? ZogographI18n.t("form.yes", {}, "yes") : ""),
     },
-    { label: "What that means", className: "name", render: row => row.reason },
+    { label: ZogographI18n.t("uptime.what_that_means", {}, "What that means"), className: "name", render: row => row.reason },
   ]);
 }
 

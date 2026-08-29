@@ -1639,6 +1639,7 @@
   "uptime.restarted": "रीस्टार्ट हुआ", "uptime.reading_gap": "रीडिंग अंतराल", "uptime.no_gaps_or_restarts": "इस अवधि की हर रीडिंग मौजूद है और मशीन कभी रीस्टार्ट नहीं हुई। समझाने के लिए कुछ नहीं।", "uptime.table_from": "से", "uptime.table_until": "तक", "uptime.table_for": "अवधि", "uptime.table_meaning": "इसका अर्थ",
   "uptime.boot_history_title": "यह क्यों रीस्टार्ट हुआ",
   "uptime.boot_history_help": "होस्ट पर {{last}} से, जिसे केवल root पढ़ सकता है। जिस बूट से पहले बंद होना रिकॉर्ड है, उसे रुकने को कहा गया था; जिसके पास नहीं है उसमें पिछला सत्र बिना रिकॉर्ड किए समाप्त हुआ।",
+  "uptime.no_boot_history": "कोई बूट इतिहास नहीं।", "uptime.came_up": "चालू हुआ", "uptime.kernel": "कर्नेल", "uptime.previous_session_ended": "पिछला सत्र समाप्त हुआ", "uptime.ended_cleanly": "सही तरीके से", "uptime.ended_unclean": "शटडाउन के बिना", "uptime.not_known": "ज्ञात नहीं", "uptime.still_running": "अभी भी चल रहा है", "uptime.what_that_means": "इसका अर्थ",
   "audit.title": "इस मॉनिटर ने जो कुछ किया",
   "audit.download_csv": "CSV डाउनलोड करें",
   "audit.clear": "ऑडिट साफ़ करें",

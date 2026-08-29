@@ -1744,6 +1744,7 @@
   "uptime.restarted": "Restarted", "uptime.reading_gap": "Reading gap", "uptime.no_gaps_or_restarts": "Every reading in this window is present and the machine never restarted. Nothing to explain.", "uptime.table_from": "From", "uptime.table_until": "Until", "uptime.table_for": "For", "uptime.table_meaning": "What it means",
   "uptime.boot_history_title": "Why it restarted",
   "uptime.boot_history_help": "From {{last}} on the host, which only root can read. A boot with a shutdown recorded before it was asked to stop; a boot with none means the previous session ended without recording one.",
+  "uptime.no_boot_history": "No boot history.", "uptime.came_up": "Came up", "uptime.kernel": "Kernel", "uptime.previous_session_ended": "Previous session ended", "uptime.ended_cleanly": "cleanly", "uptime.ended_unclean": "without a shutdown", "uptime.not_known": "not known", "uptime.still_running": "Still running", "uptime.what_that_means": "What that means",
   "audit.title": "Everything this monitor has done",
   "audit.download_csv": "Download CSV",
   "audit.clear": "Clear audit",

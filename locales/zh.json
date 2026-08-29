@@ -1625,6 +1625,7 @@
   "uptime.restarted": "已重启", "uptime.reading_gap": "读数缺口", "uptime.no_gaps_or_restarts": "此窗口中的每个读数都存在，并且机器从未重启。无需解释。", "uptime.table_from": "从", "uptime.table_until": "到", "uptime.table_for": "持续", "uptime.table_meaning": "含义",
   "uptime.boot_history_title": "为何重启",
   "uptime.boot_history_help": "来自主机上的 {{last}}，只有 root 能读取。一个启动若在被要求停止前记录了关机；没有记录的启动表示上一个会话结束时未记录关机。",
+  "uptime.no_boot_history": "没有启动历史记录。", "uptime.came_up": "已启动", "uptime.kernel": "内核", "uptime.previous_session_ended": "上一个会话结束", "uptime.ended_cleanly": "正常关闭", "uptime.ended_unclean": "未关闭", "uptime.not_known": "未知", "uptime.still_running": "仍在运行", "uptime.what_that_means": "这意味着什么",
   "audit.title": "此监控器完成的所有操作",
   "audit.download_csv": "下载 CSV",
   "audit.clear": "清除审计记录",

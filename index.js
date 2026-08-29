@@ -21901,9 +21901,10 @@ function numberField(id, label, min, max, value) {
 async function saveSchedule(remove) {
   const preview = remove ? "" : ($("schedPreview")?.textContent ?? "");
   const what = remove
-    ? "Remove this dashboard's lines from your crontab?"
-    : `Write this into your crontab?\n\n${preview}`;
-  if (!(await confirmDialog(`${what}\n\nNothing else in it is changed.`, "Apply crontab change"))) return;
+    ? ZogographI18n.t("schedule.confirm_remove", {}, "Remove this dashboard's lines from your crontab?")
+    : ZogographI18n.t("schedule.confirm_write", { preview }, "Write this into your crontab?\n\n{{preview}}");
+  const detail = ZogographI18n.t("schedule.confirm_unchanged", {}, "Nothing else in it is changed.");
+  if (!(await confirmDialog(`${what}\n\n${detail}`, ZogographI18n.t("schedule.confirm_title", {}, "Apply crontab change")))) return;
 
   try {
     const result = await post("schedule-save", {
@@ -21914,8 +21915,8 @@ async function saveSchedule(remove) {
       php: $("schedPhp").value,
     });
     notice(result.lines.length
-      ? `Crontab updated with ${result.lines.length} line${result.lines.length === 1 ? "" : "s"}.`
-      : "Removed from the crontab.", true);
+      ? ZogographI18n.t("schedule.updated", { count: result.lines.length }, "Crontab updated with {{count, number}} line(s).")
+      : ZogographI18n.t("schedule.removed_from_crontab", {}, "Removed from the crontab."), true);
     // The edits are committed, so the panel may follow the installed state again.
     state.scheduleDirty = false;
     await refreshSchedule();

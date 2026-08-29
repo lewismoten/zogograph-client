@@ -1490,28 +1490,22 @@ function cpuLimitVerdict(mine, host, faults, rows) {
   const both = mine != null && host != null;
 
   if (faults > 0) {
-    return `${count(faults, "CPU fault")} recorded at the last reading across `
-      + `${count(rows.length, "account")}. A fault is an account asking for more processor `
-      + `than its LVE allows and being held back — this is being throttled now, not being `
-      + `near a limit. A throttled account's own percentage sits calmly at its ceiling, `
-      + `which is why the fault count is the figure to watch and not the percentage.`;
+    return ZogographI18n.t("cpu.limit_faults", { faults, accounts: rows.length },
+      "{{faults, number}} CPU fault(s) recorded at the last reading across {{accounts, number}} account(s). A fault is an account asking for more processor than its LVE allows and being held back — this is being throttled now, not being near a limit. A throttled account's own percentage sits calmly at its ceiling, which is why the fault count is the figure to watch and not the percentage.");
   }
 
   if (both && mine >= 85 && host < 50) {
-    return `This account is at ${mine.toFixed(0)}% of its own allowance while the machine `
-      + `is ${host.toFixed(0)}% busy. That is not a contradiction: the two percentages have `
-      + `different denominators. It is the ordinary shape of hitting a limit, and it is `
-      + `felt as a slow site even though the server has plenty of processor left.`;
+    return ZogographI18n.t("cpu.limit_throttled", { account: Math.round(mine), host: Math.round(host) },
+      "This account is at {{account, number}}% of its own allowance while the machine is {{host, number}}% busy. That is not a contradiction: the two percentages have different denominators. It is the ordinary shape of hitting a limit, and it is felt as a slow site even though the server has plenty of processor left.");
   }
 
   if (both) {
-    return `This account is using ${mine.toFixed(0)}% of what it is allowed; the machine as `
-      + `a whole is ${host.toFixed(0)}% busy. Neither number is a share of the other, and `
-      + `dividing them produces nothing meaningful.`;
+    return ZogographI18n.t("cpu.limit_comparison", { account: Math.round(mine), host: Math.round(host) },
+      "This account is using {{account, number}}% of what it is allowed; the machine as a whole is {{host, number}}% busy. Neither number is a share of the other, and dividing them produces nothing meaningful.");
   }
 
-  return "Both halves of this comparison need a reading — one from this account and one "
-    + "from the host collector running as root.";
+  return ZogographI18n.t("cpu.limit_missing_side", {},
+    "Both halves of this comparison need a reading — one from this account and one from the host collector running as root.");
 }
 
 

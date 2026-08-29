@@ -701,5 +701,7 @@
   "system.peers_title": "受信任的 Zogograph 服务器", "system.peers_help": "受信任服务器会在此明确配置，并通过 HTTPS OpenID Connect 发现进行检查。保存它不会共享数据或让任何人登录；这些授权代码步骤有意保持独立。",
   "system.marketplace_title": "市场", "system.marketplace_help": "仅限本地软件包清单。启用不会执行软件包代码。少数固定的核心自有功能可以获得授权；请求的功能仍会显示以供审查。",
   "system.encryption_title": "数据保护", "system.encryption_help": "此页报告 Zogograph 证据，而非假设。它绝不显示密钥路径或密钥材料。在设置向导中更改保护选择；恢复和封存仅限 CLI，因此浏览器会话无法处理私钥。",
-  "system.package_runtime_title": "可执行软件包运行时", "system.package_runtime_help": "任何未来运行时使用签名软件包之前都会在此进行审查。启用会记录明确的功能授权和私有软件包设置；本 Zogograph 版本不会执行软件包 PHP。"
+  "system.package_runtime_title": "可执行软件包运行时", "system.package_runtime_help": "任何未来运行时使用签名软件包之前都会在此进行审查。启用会记录明确的功能授权和私有软件包设置；本 Zogograph 版本不会执行软件包 PHP。",
+  "system.problems_title": "最近的问题", "system.clear_log": "清除日志", "system.problems_help": "此仪表板自身的日志。请求失败时会显示一个引用编号——在这里查找相同编号即可了解实际发生了什么。相同故障会合并计数而非每次都列出：仪表板轮询，每次轮询都会调用 API，一个损坏的函数一分钟内就会变成四十行记录。",
+  "reports.title": "摘要", "reports.write_now": "立即写一份", "reports.help": "{{assistant}} 按计划从该时段的一组固定数据中写出摘要——每次提出相同的问题，因此两个摘要可以比较。不同之处在于它如何理解这些数据。每份摘要写成时都会通过电子邮件发送；它们保存在这里。"
 }

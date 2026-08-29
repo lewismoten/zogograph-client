@@ -2500,13 +2500,13 @@
 <section class="view" data-view="sys-problems" hidden>
 <section class="panel" id="problemPanel">
   <div class="panel-head">
-    <h2>Recent problems</h2>
+    <h2 data-i18n="system.problems_title">Recent problems</h2>
     <div class="panel-controls">
       <span class="muted small" id="problemPath"></span>
-      <button id="problemClear" class="danger small">Clear the log</button>
+      <button id="problemClear" class="danger small" data-i18n="system.clear_log">Clear the log</button>
     </div>
   </div>
-  <p class="muted small sub-note">
+  <p class="muted small sub-note" data-i18n="system.problems_help">
     This dashboard's own log. When a request fails it shows you a reference —
     find the same reference here for what actually happened. Identical faults are
     counted together rather than listed each time: the dashboard polls, every
@@ -2519,11 +2519,11 @@
 <section class="view" data-view="sys-reports" hidden>
 <section class="panel" id="reportsPanel">
   <div class="panel-head">
-    <h2>Summaries</h2>
-    <button id="reportNow" class="link">Write one now</button>
+    <h2 data-i18n="reports.title">Summaries</h2>
+    <button id="reportNow" class="link" data-i18n="reports.write_now">Write one now</button>
   </div>
-  <p class="muted small sub-note">
-    Written on a schedule by <span class="ai-name">Assistant</span> from a fixed set of
+  <p class="muted small sub-note" data-i18n-rich="reports.help">
+    Written on a schedule by <span class="ai-name" data-i18n-tag="assistant">Assistant</span> from a fixed set of
     figures for the period — the same questions every time, so two summaries can be
     compared. What varies is what it makes of them. Each one is emailed when it is
     written; this is where they are kept.

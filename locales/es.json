@@ -725,5 +725,6 @@
   "charts.cpu_title": "CPU y memoria", "charts.cpu_help": "Parte de lo que esta cuenta puede usar desde la lectura anterior.",
   "charts.io_title": "E/S de disco", "charts.io_help": "Bytes que llegan realmente a un disco, no bytes servidos desde caché.",
   "charts.load_title": "Promedio de carga", "charts.load_help": "No es un porcentaje: es cuántos procesos querían ejecutarse a la vez. Compárelo con el número de núcleos: a uno por núcleo la máquina está ocupada; por encima, el trabajo hace cola.",
-  "charts.network_title": "Red", "charts.network_help": "Bytes por segundo de entrada y salida, sumados sobre las interfaces reales. No se cuenta loopback."
+  "charts.network_title": "Red", "charts.network_help": "Bytes por segundo de entrada y salida, sumados sobre las interfaces reales. No se cuenta loopback.",
+  "storage.last_scan_title": "El último análisis", "storage.whole_machine_title": "Toda la máquina", "storage.whole_machine_help": "Un segundo recorrido, ejecutado como root, que alcanza todo lo que esta cuenta no puede: otras cuentas, {{var}}, {{backup}} y espacio ocupado por archivos eliminados que siguen abiertos. Tarda decenas de segundos, por lo que no forma parte de la recopilación por minuto: al pulsar esto queda una solicitud que el recolector del host atenderá en su próxima ejecución. Los resultados están en {{filesystems}}, {{directories}} y {{deleted}}."
 }

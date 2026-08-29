@@ -791,5 +791,6 @@
   "charts.cpu_title": "CPU and memory", "charts.cpu_help": "Share of what this account may use, since the previous reading.",
   "charts.io_title": "Disk I/O", "charts.io_help": "Bytes actually reaching a disk, not bytes served from cache.",
   "charts.load_title": "Load average", "charts.load_help": "Not a percentage: it is how many processes wanted to run at once. Compare it to the core count — at one per core the machine is busy, above that work is queueing.",
-  "charts.network_title": "Network", "charts.network_help": "Bytes a second in and out, summed over the real interfaces. Loopback is not counted."
+  "charts.network_title": "Network", "charts.network_help": "Bytes a second in and out, summed over the real interfaces. Loopback is not counted.",
+  "storage.last_scan_title": "The last scan", "storage.scan_now": "Scan now", "storage.whole_machine_title": "The whole machine", "storage.whole_machine_help": "A second walk, run by root, that reaches everything this account cannot — other accounts, {{var}}, {{backup}}, and space held by deleted files still open. It takes tens of seconds, so it is not part of the per-minute collection: pressing this leaves a request that the host collector picks up on its next run. The results are under {{filesystems}}, {{directories}} and {{deleted}}."
 }

@@ -12204,12 +12204,20 @@ function showPackageRuntimeRevoke(row) {
 
 function renderEncryptionStatus(data) {
   const body = $("encryptionBody");
-  const names = { none: "Off", sealed_copies_local: "Verified encrypted copies", operator_managed_volume: "Host/VM volume protection" };
-  const evidence = { none: "No protection evidence", operator_declared: "Operator-declared host/volume coverage (not verified)", verified_sealed_copies: "Verified encrypted-copy and recovery evidence" };
+  const names = {
+    none: ZogographI18n.t("encryption.mode_none", {}, "Off"),
+    sealed_copies_local: ZogographI18n.t("encryption.mode_sealed_copies", {}, "Verified encrypted copies"),
+    operator_managed_volume: ZogographI18n.t("encryption.mode_volume", {}, "Host/VM volume protection"),
+  };
+  const evidence = {
+    none: ZogographI18n.t("encryption.evidence_none", {}, "No protection evidence"),
+    operator_declared: ZogographI18n.t("encryption.evidence_operator_declared", {}, "Operator-declared host/volume coverage (not verified)"),
+    verified_sealed_copies: ZogographI18n.t("encryption.evidence_verified_copies", {}, "Verified encrypted-copy and recovery evidence"),
+  };
   const overview = [
-    ["Protection mode", names[data.mode] || "Unavailable"],
-    ["Selected stores", data.stores?.length ? data.stores.join(", ") : "None"],
-    ["Protection evidence", evidence[data.evidence] || "Needs attention"],
+    [ZogographI18n.t("encryption.protection_mode", {}, "Protection mode"), names[data.mode] || ZogographI18n.t("encryption.unavailable", {}, "Unavailable")],
+    [ZogographI18n.t("encryption.selected_stores", {}, "Selected stores"), data.stores?.length ? data.stores.join(", ") : ZogographI18n.t("encryption.none", {}, "None")],
+    [ZogographI18n.t("encryption.protection_evidence", {}, "Protection evidence"), evidence[data.evidence] || ZogographI18n.t("encryption.needs_attention", {}, "Needs attention")],
   ];
   if (data.setup_configuration) overview.push(["Setup configuration at rest", data.setup_configuration.state === "ok" ? "Encrypted and verified" : data.setup_configuration.state === "error" ? "Verification failed" : "Private permissions only"]);
   if (data.sqlcipher) overview.push(["Live SQLCipher option", data.sqlcipher.state === "driver-ready" ? "Driver detected; provider remains inactive" : "Driver not detected"]);

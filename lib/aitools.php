@@ -41,6 +41,7 @@ require_once __DIR__ . '/ai-tools/recent-alerts.php';
 require_once __DIR__ . '/ai-tools/recent-log-lines.php';
 require_once __DIR__ . '/ai-tools/repeated-log-lines.php';
 require_once __DIR__ . '/ai-tools/crowded-directories.php';
+require_once __DIR__ . '/ai-tools/busiest-processes.php';
 
 /**
  * Every tool, with its schema and how it runs.
@@ -61,6 +62,7 @@ function aiToolCatalogue(): array
         ...aiToolRecentLogLinesPackage(),
         ...aiToolRepeatedLogLinesPackage(),
         ...aiToolCrowdedDirectoriesPackage(),
+        ...aiToolBusiestProcessesPackage(),
 
         /* ------------------------------------------------- what is wrong -- */
 
@@ -107,38 +109,6 @@ function aiToolCatalogue(): array
                     'type' => 'integer', 'minimum' => 1, 'maximum' => 40,
                     'required' => false, 'default' => 15,
                     'description' => 'How many paths to return.',
-                ],
-            ],
-        ],
-
-        'get_busiest_processes' => [
-            'group' => 'diagnostic',
-            'where' => 'server',
-            'permission' => false,
-            'summary' => 'What is running and what it is using.',
-            'description' =>
-                "Returns the processes recorded at the last collection, with their process "
-                . "id, owner, CPU and memory use, how long each has been running, and its "
-                . "command line.\n\n"
-                . "USE THIS FOR CPU OR MEMORY PROBLEMS ONLY. The two things worth looking "
-                . "for are a process using far more than the others, and a process that "
-                . "has been running far longer than it should have - a request handler "
-                . "alive for six hours is stuck, whatever its CPU says.\n\n"
-                . "DO NOT use this for disk space or network problems.\n\n"
-                . "This is a snapshot from the last collector run, not a live view, so a "
-                . "process that has since exited may still be listed and one that started "
-                . "since will not be. Say so if the timing matters.",
-            'parameters' => [
-                'sort_by' => [
-                    'type' => 'string', 'enum' => ['cpu', 'memory', 'age'],
-                    'required' => true,
-                    'description' => 'Which column to sort by, largest first. Use "age" to '
-                        . 'find stuck processes.',
-                ],
-                'limit' => [
-                    'type' => 'integer', 'minimum' => 1, 'maximum' => 30,
-                    'required' => false, 'default' => 12,
-                    'description' => 'How many processes to return.',
                 ],
             ],
         ],

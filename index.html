@@ -1964,9 +1964,9 @@
 <section class="view" data-view="cpu-limits" hidden>
 <section class="panel" id="cpuLimitsPanel">
   <div class="panel-head">
-    <h2>Ceilings and throttling</h2>
+    <h2 data-i18n="cpu.limits_title">Ceilings and throttling</h2>
   </div>
-  <p class="muted small sub-note">
+  <p class="muted small sub-note" data-i18n="cpu.limits_help">
     The page for "the CPU is pinned and the server is idle", which is not a
     contradiction and not a broken reading. On shared hosting this account is
     given a slice of the machine and told, through a percentage of its own
@@ -1980,8 +1980,8 @@
     <p class="muted small" id="cpuLimitsNote"></p>
 
     <div id="cpuLveWrap" hidden>
-      <h3 class="sub-head">Where the ceiling was actually hit</h3>
-      <p class="muted small sub-note">
+      <h3 class="sub-head" data-i18n="cpu.lve_title">Where the ceiling was actually hit</h3>
+      <p class="muted small sub-note" data-i18n="cpu.lve_help">
         CloudLinux records a fault every time an account asks for more processor
         than its LVE allows and is held back. This is the difference between "we
         are near the limit" and "we are being throttled right now", and it is the

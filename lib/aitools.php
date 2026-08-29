@@ -67,6 +67,7 @@ require_once __DIR__ . '/ai-tools/show-chart.php';
 require_once __DIR__ . '/ai-tools/chart-image.php';
 require_once __DIR__ . '/ai-tools/present-visual.php';
 require_once __DIR__ . '/ai-tools/recommend-command.php';
+require_once __DIR__ . '/ai-tools/show-progress.php';
 
 /**
  * Every tool, with its schema and how it runs.
@@ -113,6 +114,7 @@ function aiToolCatalogue(): array
         ...aiToolChartImagePackage(),
         ...aiToolPresentVisualPackage(),
         ...aiToolRecommendCommandPackage(),
+        ...aiToolShowProgressPackage(),
 
         /* ------------------------------------------------- what is wrong -- */
 
@@ -207,6 +209,7 @@ function aiToolCatalogue(): array
             ],
         ],
 
+        /* show_progress moved to ai-tools/show-progress.php
         'show_progress' => [
             'group' => 'navigation',
             'where' => 'browser',
@@ -283,7 +286,7 @@ function aiToolCatalogue(): array
                         . '"checks", "files", "domains". Defaults to "steps".',
                 ],
             ],
-        ],
+        ],*/
 
         /* ------------------------------------------- asking the user -- */
 

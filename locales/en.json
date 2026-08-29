@@ -2131,6 +2131,7 @@
   "ai.try_empty": "There are no tools.",
   "ai.try_tool": "Tool", "ai.try_catalogue_count": "{{count, number}} in the catalogue.",
   "ai.try_cannot_run": " (cannot be run here)", "ai.try_run_costs": "Run it (this costs)",
+  "ai.try_range_missing": "There is no {{range}} range.",
   "ai.try_help": "Runs one tool with parameters you choose and shows exactly what comes back — the same thing the model would receive, in the same shape. Useful for two things: seeing whether a tool actually works on this install before switching it on, and reading what the model is being told when its answer looks wrong. Nothing here involves the model and nothing leaves the machine.",
   "ai.billing_title": "Billing",
   "ai.billing_help": "Every conversation, with the tokens it used and what that came to. Costs are shown only when prices are set — without them this reports token counts and no money, because a wrong price is worse than no price.",

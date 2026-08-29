@@ -16090,7 +16090,8 @@ async function tryBrowserTool(tool, args) {
                       "24h": 86400, "7d": 604800, "30d": 2592000 }[args.range];
 
     if (!seconds) {
-      return { result: { error: `There is no "${args.range}" range.` }, shown: null };
+      return { result: { error: ZogographI18n.t("ai.try_range_missing", { range: args.range },
+        "There is no {{range}} range.") }, shown: null };
     }
 
     const picker = $("range");

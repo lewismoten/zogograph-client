@@ -6424,15 +6424,13 @@ function renderAiTools(data) {
     const show = document.createElement("button");
     show.type = "button";
     show.className = "link";
-    show.textContent = "What it is told";
-    show.title = "The exact description the model is given for this tool";
+    show.textContent = ZogographI18n.t("ai.tool_description", {}, "What it is told");
+    show.title = ZogographI18n.t("ai.tool_description_title", {}, "The exact description the model is given for this tool");
     show.addEventListener("click", () => {
       const pre = document.createElement("pre");
       pre.className = "paste";
       pre.textContent = tool.description;
-      showListDialog(tool.name, [pre],
-        "This is what the model reads before deciding whether to use it. The “do not "
-        + "use this when…” half is what stops a confident wrong call.");
+      showListDialog(tool.name, [pre], ZogographI18n.t("ai.tool_description_help", {}, "This is what the model reads before deciding whether to use it. The “do not use this when…” half is what stops a confident wrong call."));
     });
     detail.appendChild(show);
   }

@@ -11115,8 +11115,8 @@ function renderChangedList(data) {
         const span = document.createElement("span");
         span.textContent = row.label;
         span.title = row.kind === "software"
-          ? "Part of the system software"
-          : `A program this tool watches${row.group ? ` (${row.group})` : ""}`;
+          ? ZogographI18n.t("installed.system_software_tip")
+          : ZogographI18n.t("installed.watched_program_tip", { group: row.group ? ` (${row.group})` : "" });
         return span;
       },
     },
@@ -11135,8 +11135,7 @@ function renderChangedList(data) {
           const span = document.createElement("span");
           span.className = "muted small";
           span.textContent = ZogographI18n.t("changed.by_fingerprint", {}, "by fingerprint");
-          span.title = "This program offers no readable version, so the change was noticed "
-            + "by the file being different. It says something moved, not what.";
+          span.title = ZogographI18n.t("installed.fingerprint_change_tip");
           return span;
         }
         return "";
@@ -11151,12 +11150,12 @@ function renderInstalled(data) {
   const parts = [];
 
   if (data.last_checked) {
-    parts.push(note(`Last checked ${ago(data.last_checked)}.`));
+    parts.push(note(ZogographI18n.t("installed.last_checked", { ago: ago(data.last_checked) })));
   }
 
   if (data.now.length) {
-    parts.push(section("System software", simpleTable(
-      ["What", "Is", "Unchanged for", "Why it matters"],
+    parts.push(section(ZogographI18n.t("installed.system_software"), simpleTable(
+      [ZogographI18n.t("installed.what"), ZogographI18n.t("installed.is"), ZogographI18n.t("installed.unchanged_for"), ZogographI18n.t("installed.why_it_matters")],
       data.now.map(row => [
         row.label,
         row.value,
@@ -11167,24 +11166,23 @@ function renderInstalled(data) {
     )));
   } else {
     parts.push(note(
-      "Nothing recorded yet. This is gathered when capabilities are checked."
+      ZogographI18n.t("installed.empty")
     ));
   }
 
   const watched = (data.capabilities || []).filter(row => row.version || row.fingerprint);
   if (watched.length) {
-    parts.push(section("Programs this tool watches", simpleTable(
-      ["Program", "Version", "Where"],
+    parts.push(section(ZogographI18n.t("installed.watched_programs"), simpleTable(
+      [ZogographI18n.t("installed.program"), ZogographI18n.t("installed.version"), ZogographI18n.t("installed.where")],
       watched.map(row => [
         row.name,
-        row.version || (row.fingerprint ? `file ${row.fingerprint}` : "—"),
+        row.version || (row.fingerprint ? ZogographI18n.t("installed.file_fingerprint", { fingerprint: row.fingerprint }) : "—"),
         row.path,
       ]),
       ["name", "cmd", "cmd"]
     )));
     parts.push(note(
-      "A value beginning “file” is a fingerprint, not a version: that program "
-      + "offers no readable version, so a change can be detected but not described."
+      ZogographI18n.t("installed.fingerprint_note")
     ));
   }
 

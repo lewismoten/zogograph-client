@@ -26227,8 +26227,10 @@ function renderRegexResult(out, groupInput) {
 
   const said = document.createElement("p");
   said.className = "band-ok";
-  said.textContent = `${count(result.total, "match", "matches")}, `
-    + `with ${count(result.groups, "group")} in the pattern.`;
+  said.textContent = ZogographI18n.t("regex.summary", {
+    matches: result.total,
+    groups: result.groups,
+  }, "Matches: {{matches, number}}; groups in pattern: {{groups, number}}.");
   parts.push(said);
 
   if (result.truncated) {

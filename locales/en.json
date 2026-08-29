@@ -497,6 +497,7 @@
   "schedule.saved_preview": "Saved preview",
   "schedule.installed": "Currently installed",
   "regex.pattern": "Pattern",
+  "regex.summary": "Matches: {{matches, number}}; groups in pattern: {{groups, number}}.",
   "regex.whole_match": "whole match",
   "regex.group_absent": "— did not take part in this match",
   "regex.showing_first": "Showing the first {{count, number}}.",

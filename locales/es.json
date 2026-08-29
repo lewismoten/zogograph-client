@@ -516,6 +516,7 @@
   "schedule.saved_preview": "Vista previa guardada",
   "schedule.installed": "Instalado actualmente",
   "regex.pattern": "Patrón",
+  "regex.summary": "Coincidencias: {{matches, number}}; grupos en el patrón: {{groups, number}}.",
   "regex.whole_match": "coincidencia completa",
   "regex.group_absent": "— no participó en esta coincidencia",
   "regex.showing_first": "Se muestran los primeros {{count, number}}.",

@@ -514,6 +514,7 @@
   "schedule.saved_preview": "معاينة محفوظة",
   "schedule.installed": "مثبّت حاليًا",
   "regex.pattern": "النمط",
+  "regex.summary": "المطابقات: {{matches, number}}؛ المجموعات في النمط: {{groups, number}}.",
   "regex.whole_match": "المطابقة كاملة",
   "regex.group_absent": "— لم يشارك في هذه المطابقة",
   "regex.showing_first": "يُعرض أول {{count, number}}.",

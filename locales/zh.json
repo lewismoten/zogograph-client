@@ -514,6 +514,7 @@
   "schedule.saved_preview": "已保存的预览",
   "schedule.installed": "当前已安装",
   "regex.pattern": "模式",
+  "regex.summary": "匹配项：{{matches, number}}；模式中的分组：{{groups, number}}。",
   "regex.whole_match": "完整匹配",
   "regex.group_absent": "— 未参与此匹配",
   "regex.showing_first": "显示前 {{count, number}} 项。",

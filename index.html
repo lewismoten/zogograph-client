@@ -1607,11 +1607,11 @@
 <section class="view" data-view="units" hidden>
 <section class="panel" id="unitsPanel">
   <div class="panel-head">
-    <h2>Every service</h2>
+    <h2 data-i18n="host.units_title">Every service</h2>
   </div>
-  <p class="muted small sub-note">
-    The whole list, not just the watched ones. <strong>Failed</strong> and
-    <strong>masked</strong> are called out because they are the two states that
+  <p class="muted small sub-note" data-i18n-rich="host.units_help">
+    The whole list, not just the watched ones. <strong data-i18n-tag="failed">Failed</strong> and
+    <strong data-i18n-tag="masked">masked</strong> are called out because they are the two states that
     are silently wrong: a failed unit uses no memory and no CPU, so it is absent
     from every other panel here rather than standing out in one, and a masked
     one cannot be started at all until somebody unmasks it.

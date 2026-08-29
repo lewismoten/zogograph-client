@@ -654,5 +654,6 @@
   "network.fetch_title": "请求一个页面", "network.fetch_help": "一项现在发出的请求，并完整报告服务器实际发送的内容；这正是在配置检查或与缓存争论时需要知道的。输入带或不带 {{https}} 的地址。正文会以文本显示，绝不会作为标记插入；预览在独立的沙盒框架中运行，既不能读取本页，也不能以您的身份操作。正文会保留一小时以供预览加载，然后被丢弃。", "network.fetch_follow_redirects": "跟随重定向", "network.fetch_ask": "请求",
   "network.rdns_title": "互联网如何称呼一个地址", "network.rdns_resolve_next": "立即解析下一个", "network.rdns_help": "捕获或访问日志是一堵数字墙；同一个数字在周一毫无意义，但有人查过后到了周五就有了意义。这并非 {{labels}}——那是您决定某地址含义的自定义名称，规模小、手写且永久。这是互联网所说的名称：自动生成、偶尔错误，并会在数月内过时。", "network.rdns_lookup": "查询这些",
   "metadata.labels_title": "您自己的名称", "metadata.label_kind_address": "地址或网络", "metadata.label_kind_port": "端口", "metadata.label_kind_header": "HTTP 标头", "action.add": "添加",
-  "metadata.descriptions_title": "这些东西是什么", "metadata.description_kind_process": "一个进程", "metadata.description_kind_slab": "内核 slab 缓存", "action.save": "保存"
+  "metadata.descriptions_title": "这些东西是什么", "metadata.description_kind_process": "一个进程", "metadata.description_kind_slab": "内核 slab 缓存", "action.save": "保存",
+  "host.units_title": "每项服务", "host.units_help": "完整列表，而不只是受监视的服务。{{failed}} 和 {{masked}} 会被特别标出，因为它们是两种悄然出错的状态：失败的单元不使用内存或 CPU，因此不会在某个面板中突出，而是从这里的其他所有面板中消失；被屏蔽的单元在有人解除屏蔽前根本无法启动。"
 }

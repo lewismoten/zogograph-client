@@ -34089,7 +34089,7 @@ function showPendingDialog() {
       try {
         const result = await post("cancel-task", { task: row.task });
         notice(result.already
-          ? "The collector had already answered that one."
+          ? ZogographI18n.t("scan.request_already_completed", {}, "The collector had already answered that one.")
           : ZogographI18n.t("scan.request_withdrawn", {}, "Request withdrawn. The collector will not run it."), true);
         $("listDialog").close();
         await refreshShared();

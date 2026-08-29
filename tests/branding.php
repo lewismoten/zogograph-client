@@ -14,11 +14,15 @@ brandingExpect(brandName(['branding' => ['name' => 'Northstar Monitor']]) === 'N
 brandingExpect(brandName(['branding' => ['name' => "bad\nname"]]) === 'Zogograph',
     'a control character was accepted in the product brand');
 $setup = file_get_contents(__DIR__ . '/../setup.php');
+$openid = file_get_contents(__DIR__ . '/../openid.php');
 brandingExpect($setup !== false && str_contains($setup, '$issuer = rawurlencode($brand)'),
     'authenticator issuer does not use the configured product brand');
 brandingExpect($setup !== false && str_contains($setup, '$brand = brandName($existing ?? [])')
     && str_contains($setup, '{$brand} — config wizard')
     && str_contains($setup, "say('  ' . \$brand . ' — config wizard')"),
     'command-line setup wizard does not use the configured product brand');
+brandingExpect($openid !== false && str_contains($openid, "require_once __DIR__ . '/lib/branding.php';")
+    && str_contains($openid, "brandName(\$config) . ' before authorizing a trusted client'"),
+    'OpenID authorization does not use the configured product brand');
 
 echo "branding checks passed\n";

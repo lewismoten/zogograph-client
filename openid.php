@@ -7,6 +7,7 @@ require_once __DIR__ . '/lib/setupstore.php';
 require_once __DIR__ . '/lib/db.php';
 require_once __DIR__ . '/lib/auth.php';
 require_once __DIR__ . '/lib/actions.php';
+require_once __DIR__ . '/lib/branding.php';
 require_once __DIR__ . '/lib/openid.php';
 
 $file = __DIR__ . '/lib/config.php';
@@ -41,7 +42,7 @@ if ($action === 'jwks') {
 if ($action === 'authorize') {
     startSession($config);
     if (!isSignedIn()) {
-        $json(['error' => 'sign in to Zogograph before authorizing a trusted client'], 401);
+        $json(['error' => 'sign in to ' . brandName($config) . ' before authorizing a trusted client'], 401);
     }
     $clientId = (string)($_GET['client_id'] ?? '');
     $redirect = (string)($_GET['redirect_uri'] ?? '');

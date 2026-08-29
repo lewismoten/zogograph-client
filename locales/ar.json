@@ -1369,6 +1369,7 @@
   "table.rows_shown": "يتم عرض {{shown, number}} من {{total, number}} صفًا",
   "table.show_more": "اعرض {{count, number}} إضافية",
   "chart.your_notes": "ملاحظاتك",
+  "chart.everything_else": "كل ما عدا ذلك",
   "onboarding.intro": "تم إعداد Zogograph، لكنه لا يملك بعد بيانات محلية كافية لعرض لوحة المعلومات كاملة.",
   "onboarding.vitals_missing": "أعِد جامع الحساب أو شغّله للحصول على أول قراءة حيوية.",
   "onboarding.open_schedule": "افتح جدولة الإعداد",

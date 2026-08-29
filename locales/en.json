@@ -1484,6 +1484,7 @@
   "table.rows_shown": "Showing {{shown, number}} of {{total, number}} rows",
   "table.show_more": "Show {{count, number}} more",
   "chart.your_notes": "Your notes",
+  "chart.everything_else": "everything else",
   "onboarding.intro": "Zogograph is configured but does not yet have enough local evidence to show its full dashboard.",
   "onboarding.vitals_missing": "Set up or run the account collector for its first vital reading.",
   "onboarding.open_schedule": "Open Setup schedule",

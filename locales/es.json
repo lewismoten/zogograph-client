@@ -1387,6 +1387,7 @@
   "table.rows_shown": "Se muestran {{shown, number}} de {{total, number}} filas",
   "table.show_more": "Mostrar {{count, number}} más",
   "chart.your_notes": "Tus notas",
+  "chart.everything_else": "todo lo demás",
   "onboarding.intro": "Zogograph está configurado, pero aún no tiene suficientes datos locales para mostrar el panel completo.",
   "onboarding.vitals_missing": "Configure o ejecute el recopilador de la cuenta para obtener su primera lectura vital.",
   "onboarding.open_schedule": "Abrir programación de Setup",

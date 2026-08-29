@@ -1369,6 +1369,7 @@
   "table.rows_shown": "显示 {{total, number}} 行中的 {{shown, number}} 行",
   "table.show_more": "再显示 {{count, number}} 行",
   "chart.your_notes": "你的笔记",
+  "chart.everything_else": "其余所有内容",
   "onboarding.intro": "Zogograph 已配置完成，但尚无足够的本地数据来显示完整仪表板。",
   "onboarding.vitals_missing": "请设置或运行账户采集器，以获取第一项关键读数。",
   "onboarding.open_schedule": "打开 Setup 计划",

@@ -3009,7 +3009,7 @@ function drawPieChart(canvas, slices, options = {}) {
     let innerAngle = -Math.PI / 2;
     const named = inner.reduce((sum, slice) => sum + slice.value, 0);
     const parts = [...inner, {
-      label: "everything else", value: Math.max(0, total - named), quiet: true,
+      label: ZogographI18n.t("chart.everything_else"), value: Math.max(0, total - named), quiet: true,
     }];
 
     for (const slice of parts) {

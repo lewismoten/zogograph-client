@@ -2817,16 +2817,16 @@
 -->
 <dialog id="shotDialog" class="shot-dialog">
   <div class="panel-head">
-    <h2>Before this is sent</h2>
-    <button id="shotCancel" class="link danger">Do not send it</button>
+    <h2 data-i18n="screenshot.before_send">Before this is sent</h2>
+    <button id="shotCancel" class="link danger" data-i18n="screenshot.do_not_send">Do not send it</button>
   </div>
   <p class="muted small" id="shotWhy"></p>
   <div class="shot-tools" id="shotTools">
-    <button type="button" id="shotRedactMode" class="link chosen">Black something out</button>
-    <button type="button" id="shotCropMode" class="link">Keep only part of it</button>
-    <button type="button" id="shotUndo" class="link">Undo</button>
-    <button type="button" id="shotDrop" class="link danger" hidden>Remove this one</button>
-    <button type="button" id="shotUncrop" class="link" hidden>Show all of it again</button>
+    <button type="button" id="shotRedactMode" class="link chosen" data-i18n="screenshot.redact">Black something out</button>
+    <button type="button" id="shotCropMode" class="link" data-i18n="screenshot.crop">Keep only part of it</button>
+    <button type="button" id="shotUndo" class="link" data-i18n="action.undo">Undo</button>
+    <button type="button" id="shotDrop" class="link danger" hidden data-i18n="screenshot.remove">Remove this one</button>
+    <button type="button" id="shotUncrop" class="link" hidden data-i18n="screenshot.uncrop">Show all of it again</button>
     <span class="muted small" id="shotCount"></span>
   </div>
   <p class="muted small" id="shotHint"></p>
@@ -2834,7 +2834,7 @@
     <canvas id="shotCanvas"></canvas>
   </div>
   <div class="inspect-actions">
-    <button type="button" id="shotSend">Send this</button>
+    <button type="button" id="shotSend" data-i18n="screenshot.send">Send this</button>
   </div>
 </dialog>
 

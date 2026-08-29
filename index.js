@@ -32495,7 +32495,7 @@ function renderViewGuide(view) {
   const signIn = document.createElement("button");
   signIn.type = "button";
   signIn.className = "primary";
-  signIn.textContent = "Sign in to continue";
+  signIn.textContent = ZogographI18n.t("auth.sign_in", {}, "Sign in");
   signIn.addEventListener("click", () => $("signInOut")?.click());
   const help = document.createElement("button");
   help.type = "button";

@@ -12522,10 +12522,10 @@ function renderPeers(data) {
               const result = await post("peer-transport-rotate", { name: row.name });
               renderPeers(result);
               showListDialog(`Pair ${row.label}`, [
-                note("The previous credential is revoked. Copy this complete replacement into the remote Zogograph configuration within 24 hours; it activates on first delivery and is not shown again."),
+                note(peerText("rotated_credential_help")),
                 paste(result.transport_enrollment),
               ]);
-              notice("Remote-delivery credential rotated.", true);
+              notice(peerText("delivery_credential_rotated"), true);
             } catch (error) { notice(String(error.message || error)); }
           });
           const drop = document.createElement("button");
@@ -12585,13 +12585,13 @@ function showPeerDialog(row = null) {
     renderPeers(result);
     if (result.transport_secret) {
       showListDialog(`Pair ${label.value || name.value}`, [
-        note("Copy this complete one-time pairing fragment into the remote Zogograph configuration within 24 hours. It activates on first delivery and is not shown again."),
+        note(peerText("pairing_fragment_help")),
         paste(result.transport_enrollment),
       ]);
     }
     notice(result.rows.find(item => item.name === name.value)?.has_oidc
       ? "Trusted server saved. Test OIDC discovery before using the read connection."
-      : "Remote delivery peer saved. Copy its one-time pairing fragment to the remote Zogograph.", true);
+      : peerText("delivery_peer_saved"), true);
   });
 }
 

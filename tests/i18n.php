@@ -117,6 +117,10 @@ i18nExpect($page !== false && str_contains($page, 'src="cards/cpu-queue.js"')
     && str_contains($cpuQueueCard, 'render(input, helpers)')
     && $script !== false && str_contains($script, 'renderCoreCardPackage(ZogographCpuQueueCard, "core-cpu-queue", { now, sample },'),
     'CPU queue cards are not isolated behind their core card-module boundary');
+i18nExpect($cpuFindingsCard !== false && str_contains($cpuFindingsCard, 'locales: ["core-cpu-findings."]')
+    && str_contains($cpuFindingsCard, '"core-cpu-findings.nothing_to_report"')
+    && is_array($english) && !isset($english['cpu.nothing_to_report']),
+    'CPU findings card does not own its locale catalog');
 i18nExpect($page !== false && str_contains($page, 'src="cards/cpu-gauges.js"')
     && $cpuGaugesCard !== false && str_contains($cpuGaugesCard, 'window.ZogographCpuGaugesCard')
     && str_contains($cpuGaugesCard, 'id: "core-cpu-gauges"') && str_contains($cpuGaugesCard, 'locales: ["cpu."]')
@@ -154,7 +158,7 @@ i18nExpect($page !== false && str_contains($page, 'src="cards/action-summary.js"
     'action summary is not isolated behind its core card-module boundary');
 i18nExpect($page !== false && str_contains($page, 'src="cards/cpu-findings.js"')
     && $cpuFindingsCard !== false && str_contains($cpuFindingsCard, 'window.ZogographCpuFindingsCard')
-    && str_contains($cpuFindingsCard, 'id: "core-cpu-findings"') && str_contains($cpuFindingsCard, 'locales: ["cpu."]')
+    && str_contains($cpuFindingsCard, 'id: "core-cpu-findings"') && str_contains($cpuFindingsCard, 'locales: ["core-cpu-findings."]')
     && str_contains($cpuFindingsCard, 'helpers: ["target", "findingRow", "i18n"]')
     && str_contains($script, 'renderCoreCardPackage(ZogographCpuFindingsCard, "core-cpu-findings", data.findings ?? [],'),
     'CPU findings are not isolated behind their core card-module boundary');

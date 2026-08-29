@@ -916,9 +916,9 @@
 <section class="view" data-view="host" hidden>
 <section class="panel" id="hostPanel" hidden>
   <div class="panel-head">
-    <h2>Memory</h2>
+    <h2 data-i18n="host.memory_title">Memory</h2>
     <div class="panel-controls">
-      <button id="hostRefresh" class="link">Refresh</button>
+      <button id="hostRefresh" class="link" data-i18n="action.refresh">Refresh</button>
     </div>
   </div>
   <p class="muted small sub-note">
@@ -933,18 +933,15 @@
 
   <div id="hostMemory" hidden>
     <div class="gauges" id="hostGauges"></div>
-    <h3 class="sub-head">Where the memory went</h3>
+    <h3 class="sub-head" data-i18n="host.memory_where">Where the memory went</h3>
     <p class="muted small sub-note" id="hostMemNote"></p>
     <div class="cards" id="hostCards"></div>
     <p class="muted small sub-note" id="hostSwapNote"></p>
     <canvas id="hostChart"></canvas>
 
     <div id="hostLveWrap" hidden>
-      <h3 class="sub-head">CloudLinux limits</h3>
-      <p class="muted small sub-note">
-        A process killed for hitting an LVE limit leaves no other trace. A rising
-        fault count is the evidence.
-      </p>
+      <h3 class="sub-head" data-i18n="host.cloudlinux_limits">CloudLinux limits</h3>
+      <p class="muted small sub-note" data-i18n="host.cloudlinux_help">A process killed for hitting an LVE limit leaves no other trace. A rising fault count is the evidence.</p>
       <div id="hostLve"></div>
     </div>
   </div>

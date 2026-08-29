@@ -620,5 +620,6 @@
   "backup.storage_title": "备份存储", "backup.storage_help": "备份通常是服务器上最大的内容，也是最后才被查看的内容，因为它们不在 /home 中。此处回答四个问题：占用多少空间、属于谁、有多旧，以及可以安全采取什么操作。",
   "backup.actions_title": "可以如何处理", "backup.actions_help": "此处按操作的安全程度排序，而非按可释放的空间排序。标记为破坏性的操作会删除某项内容的唯一副本。",
   "backup.other_title": "其他可能的备份", "backup.other_help": "看起来像备份、但没有任何管理程序处理的目录：升级前创建的 tar.gz、带日期的网站副本或数据库转储。没有任何机制轮换它们，因此它们常是磁盘上最老的大型内容。可能是关键词：每项都只是根据名称和形状做出的猜测，操作前值得检查。",
-  "backup.jetbackup_title": "JetBackup", "backup.jetbackup_help": "备份系统对其自身备份的说明，是查找名为 files0000000005 的目录背后账户和日期的唯一途径。它需要 JetBackup 命令行工具，通常还需要以 root 身份运行。"
+  "backup.jetbackup_title": "JetBackup", "backup.jetbackup_help": "备份系统对其自身备份的说明，是查找名为 files0000000005 的目录背后账户和日期的唯一途径。它需要 JetBackup 命令行工具，通常还需要以 root 身份运行。",
+  "host.memory_title": "内存", "action.refresh": "刷新", "host.memory_where": "内存去了哪里", "host.cloudlinux_limits": "CloudLinux 限制", "host.cloudlinux_help": "因达到 LVE 限制而被终止的进程不会留下其他痕迹。不断增加的故障计数就是证据。"
 }

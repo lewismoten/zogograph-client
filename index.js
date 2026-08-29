@@ -15817,7 +15817,7 @@ function renderReports(data) {
 
   if (!data.ready) {
     parts.push(note(
-      `${data.who.name} is not set up, so nothing can be written: ${data.why}`
+      ZogographI18n.t("reports.not_ready", { assistant: data.who.name, why: data.why })
     ));
   }
 
@@ -15832,13 +15832,12 @@ function renderReports(data) {
   const said = document.createElement("p");
   said.className = "muted small";
   said.textContent = on.length
-    ? `Writing ${on.join(", ")}. Each one is emailed when it is written.`
-    : "None of the three schedules are switched on, so none are written automatically. "
-      + "Turn them on under Thresholds, or write one now to see what they look like.";
+    ? ZogographI18n.t("reports.schedules_on", { schedules: on.join(", ") })
+    : ZogographI18n.t("reports.schedules_off");
   parts.push(said);
 
   if (!data.reports.length) {
-    parts.push(note("Nothing written yet."));
+    parts.push(note(ZogographI18n.t("reports.empty")));
     body.replaceChildren(...parts);
     return;
   }
@@ -15851,7 +15850,7 @@ function renderReports(data) {
     head.className = "report-head";
 
     const title = document.createElement("strong");
-    title.textContent = `${data.periods[report.period]?.label ?? report.period} summary`;
+    title.textContent = ZogographI18n.t("reports.period_summary", { period: data.periods[report.period]?.label ?? report.period });
     head.appendChild(title);
 
     const covers = document.createElement("span");
@@ -15863,8 +15862,8 @@ function renderReports(data) {
     const sent = document.createElement("span");
     sent.className = "muted small";
     sent.textContent = report.emailed_at
-      ? `emailed ${whenLabel(report.emailed_at)}`
-      : "not emailed";
+      ? ZogographI18n.t("reports.emailed", { when: whenLabel(report.emailed_at) })
+      : ZogographI18n.t("reports.not_emailed");
     if (report.emailed_at) sent.title = whenTitle(report.emailed_at);
     head.appendChild(sent);
 
@@ -15872,7 +15871,7 @@ function renderReports(data) {
       const cost = document.createElement("span");
       cost.className = "muted small";
       cost.textContent = report.cost;
-      cost.title = "What writing it cost.";
+      cost.title = ZogographI18n.t("reports.cost_tip");
       head.appendChild(cost);
     }
 
@@ -15880,7 +15879,7 @@ function renderReports(data) {
     drop.className = "link danger small";
     drop.textContent = ZogographI18n.t("action.delete", {}, "Delete");
     drop.addEventListener("click", async () => {
-      if (!(await confirmDialog("Delete this summary?", "Delete summary"))) return;
+      if (!(await confirmDialog(ZogographI18n.t("reports.delete_confirm"), ZogographI18n.t("reports.delete_title")))) return;
       try {
         renderReports(await post("ai-report-forget", { id: report.id }));
       } catch (error) {
@@ -15900,9 +15899,7 @@ function renderReports(data) {
   }
 
   parts.push(note(
-    `Written by ${data.who.name}, which is a language model reading the figures. The `
-    + "figures themselves are on the dashboard, and are what to check if a summary says "
-    + "something surprising."
+    ZogographI18n.t("reports.authorship_note", { assistant: data.who.name })
   ));
 
   body.replaceChildren(...parts);
@@ -15930,7 +15927,7 @@ function renderLatestReport(report) {
   head.className = "report-head";
 
   const title = document.createElement("strong");
-  title.textContent = `${chatState.who.name}'s latest summary`;
+  title.textContent = ZogographI18n.t("reports.latest", { assistant: chatState.who.name });
   head.appendChild(title);
 
   const when = document.createElement("span");
@@ -15941,7 +15938,7 @@ function renderLatestReport(report) {
 
   const all = document.createElement("button");
   all.className = "link small";
-  all.textContent = "All of them";
+  all.textContent = ZogographI18n.t("reports.all");
   all.addEventListener("click", () => { location.hash = "#/sys-reports"; });
   head.appendChild(all);
 

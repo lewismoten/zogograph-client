@@ -113,10 +113,14 @@ i18nExpect($page !== false && str_contains($page, 'src="cards/other-extensions.j
     'storage other-extensions table is not isolated behind its core card-module boundary');
 i18nExpect($page !== false && str_contains($page, 'src="cards/cpu-queue.js"')
     && $cpuQueueCard !== false && str_contains($cpuQueueCard, 'window.ZogographCpuQueueCard')
-    && str_contains($cpuQueueCard, 'id: "core-cpu-queue"') && str_contains($cpuQueueCard, 'locales: ["cpu."]')
+    && str_contains($cpuQueueCard, 'id: "core-cpu-queue"') && str_contains($cpuQueueCard, 'locales: ["core-cpu-queue."]')
     && str_contains($cpuQueueCard, 'render(input, helpers)')
     && $script !== false && str_contains($script, 'renderCoreCardPackage(ZogographCpuQueueCard, "core-cpu-queue", { now, sample },'),
     'CPU queue cards are not isolated behind their core card-module boundary');
+i18nExpect($cpuQueueCard !== false && str_contains($cpuQueueCard, 'catalogs: Object.freeze({')
+    && str_contains($cpuQueueCard, '"core-cpu-queue.wanting_to_run"')
+    && is_array($english) && isset($english['cpu.wanting_to_run']),
+    'CPU queue card has no package locale catalog or removed a shared chart label');
 i18nExpect($cpuFindingsCard !== false && str_contains($cpuFindingsCard, 'locales: ["core-cpu-findings."]')
     && str_contains($cpuFindingsCard, '"core-cpu-findings.nothing_to_report"')
     && is_array($english) && !isset($english['cpu.nothing_to_report']),

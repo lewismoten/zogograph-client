@@ -510,6 +510,7 @@
   "schedule.custom.weekday": "يوم الأسبوع (0–7)",
   "schedule.saved_preview": "معاينة محفوظة",
   "schedule.installed": "مثبّت حاليًا",
+  "domain.watching": "تجري مراقبته الآن. جرى البحث عن تاريخ الانتهاء فورًا.",
   "action.looking": "جارٍ البحث…",
   "rdns.resolve_next": "حلّ التالي الآن",
   "dns.look_up_all": "ابحث عنها كلها",

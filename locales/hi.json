@@ -510,6 +510,7 @@
   "schedule.custom.weekday": "सप्ताह का दिन (0–7)",
   "schedule.saved_preview": "सहेजा गया पूर्वावलोकन",
   "schedule.installed": "वर्तमान में स्थापित",
+  "domain.watching": "अब इसकी निगरानी हो रही है। समाप्ति तिथि तुरंत देख ली गई।",
   "action.looking": "खोजा जा रहा है…",
   "rdns.resolve_next": "अगला अभी रिज़ॉल्व करें",
   "dns.look_up_all": "सब कुछ देखें",

@@ -493,6 +493,7 @@
   "schedule.custom.weekday": "Day of week (0–7)",
   "schedule.saved_preview": "Saved preview",
   "schedule.installed": "Currently installed",
+  "domain.watching": "Watching it. The expiry was looked up straight away.",
   "action.looking": "Looking…",
   "rdns.resolve_next": "Resolve the next one now",
   "dns.look_up_all": "Look it all up",

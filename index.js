@@ -34210,7 +34210,7 @@ $("domainForm").addEventListener("submit", async event => {
     });
     $("domainName").value = "";
     renderDomains(result);
-    notice("Watching it. The expiry was looked up straight away.", true);
+    notice(ZogographI18n.t("domain.watching", {}, "Watching it. The expiry was looked up straight away."), true);
   } catch (error) {
     notice(String(error.message || error));
   }

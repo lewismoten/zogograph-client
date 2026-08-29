@@ -16507,11 +16507,10 @@ function renderAiPrices(data) {
   const parts = [];
 
   if (!rows.length) {
-    parts.push(note(
+    parts.push(note(ZogographI18n.t("ai.pricing_empty", {},
       "Nothing remembered yet. Set the prices on the Model page and they are kept here "
       + "against whichever provider and model are selected — so switching models and "
-      + "switching back does not mean looking them up again."
-    ));
+      + "switching back does not mean looking them up again.")));
     body.replaceChildren(...parts);
     return;
   }
@@ -16539,19 +16538,19 @@ function renderAiPrices(data) {
   const current = rows.filter(row => row.active_from <= today && (!row.retired_on || row.retired_on >= today));
   const upcoming = rows.filter(row => row.active_from > today);
   const expired = rows.filter(row => row.retired_on && row.retired_on < today);
-  panel("aiPricesCurrent", "Current prices", current);
-  panel("aiPricesUpcoming", "Upcoming prices", upcoming);
-  panel("aiPricesExpired", "Expired prices", expired);
+  panel("aiPricesCurrent", ZogographI18n.t("ai.pricing_current", {}, "Current prices"), current);
+  panel("aiPricesUpcoming", ZogographI18n.t("ai.pricing_upcoming", {}, "Upcoming prices"), upcoming);
+  panel("aiPricesExpired", ZogographI18n.t("ai.pricing_expired", {}, "Expired prices"), expired);
   body.replaceChildren(...parts);
   for (const [id, list] of panels) renderPriceTable(id, list, sort);
 }
 
 function renderPriceTable(target, rows, sort) {
   const columns = [
-    { label: "Provider", render: row => row.provider, onSort: () => sort("provider"),
+    { label: ZogographI18n.t("ai.pricing_provider", {}, "Provider"), render: row => row.provider, onSort: () => sort("provider"),
       sortMark: aiPriceState.field === "provider" ? (aiPriceState.direction > 0 ? " ↑" : " ↓") : "" },
     {
-      label: "Model",
+      label: ZogographI18n.t("ai.pricing_model", {}, "Model"),
       className: "name",
       onSort: () => sort("model"),
       sortMark: aiPriceState.field === "model" ? (aiPriceState.direction > 0 ? " ↑" : " ↓") : "",
@@ -16561,17 +16560,17 @@ function renderPriceTable(target, rows, sort) {
         if (row.current) {
           const mark = document.createElement("span");
           mark.className = "band-ok small";
-          mark.textContent = " in use";
+          mark.textContent = ZogographI18n.t("ai.pricing_in_use", {}, " in use");
           span.appendChild(mark);
         }
         return span;
       },
     },
-    { label: "In", className: "size", render: row => `${row.in}¢/M`, onSort: () => sort("in"),
+    { label: ZogographI18n.t("ai.pricing_input", {}, "In"), className: "size", render: row => `${row.in}¢/M`, onSort: () => sort("in"),
       sortMark: aiPriceState.field === "in" ? (aiPriceState.direction > 0 ? " ↑" : " ↓") : "" },
-    { label: "Out", className: "size", render: row => `${row.out}¢/M`, onSort: () => sort("out"),
+    { label: ZogographI18n.t("ai.pricing_output", {}, "Out"), className: "size", render: row => `${row.out}¢/M`, onSort: () => sort("out"),
       sortMark: aiPriceState.field === "out" ? (aiPriceState.direction > 0 ? " ↑" : " ↓") : "" },
-    { label: "Cached", className: "size", render: row => `${row.cached}¢/M`, onSort: () => sort("cached"),
+    { label: ZogographI18n.t("ai.pricing_cached", {}, "Cached"), className: "size", render: row => `${row.cached}¢/M`, onSort: () => sort("cached"),
       sortMark: aiPriceState.field === "cached" ? (aiPriceState.direction > 0 ? " ↑" : " ↓") : "" },
     {
       label: "",
@@ -16583,12 +16582,13 @@ function renderPriceTable(target, rows, sort) {
           const use = document.createElement("button");
           use.className = "link icon-action";
           use.textContent = "✓";
-          use.title = "Use this active price record on the Model page.";
+          use.title = ZogographI18n.t("ai.pricing_use_title", {}, "Use this active price record on the Model page.");
           use.addEventListener("click", () => {
             $("aiPriceIn").value = String(row.in);
             $("aiPriceOut").value = String(row.out);
             $("aiPriceCached").value = String(row.cached);
-            notice(`Prices for ${row.model} filled in. Save on the Model page to keep them.`, true);
+            notice(ZogographI18n.t("ai.pricing_filled", { model: row.model },
+              "Prices for {{model}} filled in. Save on the Model page to keep them."), true);
             location.hash = "#/sys-ai-model";
           });
           wrap.appendChild(use);
@@ -16597,27 +16597,31 @@ function renderPriceTable(target, rows, sort) {
         const edit = document.createElement("button");
         edit.className = "link icon-action";
         edit.textContent = "✎";
-        edit.title = `Edit the ${row.active_from} price record for ${row.model}`;
+        edit.title = ZogographI18n.t("ai.pricing_edit_title", { date: row.active_from, model: row.model },
+          "Edit the {{date}} price record for {{model}}");
         edit.addEventListener("click", () => showPriceDialog(row));
         wrap.appendChild(edit);
 
         const duplicate = document.createElement("button");
         duplicate.className = "link icon-action";
         duplicate.textContent = "⧉";
-        duplicate.title = "Duplicate this price record, then choose its next active date.";
+        duplicate.title = ZogographI18n.t("ai.pricing_duplicate_title", {}, "Duplicate this price record, then choose its next active date.");
         duplicate.addEventListener("click", () => showPriceDialog({ ...row, key: null, active_from: today, retired_on: null }));
         wrap.appendChild(duplicate);
 
         const drop = document.createElement("button");
         drop.className = "link danger icon-action";
         drop.textContent = "⌫";
-        drop.title = `Remove this ${row.active_from} price record permanently.`;
+        drop.title = ZogographI18n.t("ai.pricing_remove_title", { date: row.active_from, model: row.model },
+          "Remove the {{date}} price record for {{model}} permanently.");
         drop.addEventListener("click", () => {
-          const warning = note(`Remove the ${row.active_from} price record for ${row.provider}/${row.model}? This cannot be undone.`);
-          showFormDialog("Remove price record", [warning], async () => {
+          const warning = note(ZogographI18n.t("ai.pricing_remove_warning", {
+            date: row.active_from, provider: row.provider, model: row.model,
+          }, "Remove the {{date}} price record for {{provider}}/{{model}}? This cannot be undone."));
+          showFormDialog(ZogographI18n.t("ai.pricing_remove_dialog", {}, "Remove price record"), [warning], async () => {
             renderAiPrices(await post("ai-price-forget", { key: row.key }));
             notice("Removed.", true);
-          }, "Remove record");
+          }, ZogographI18n.t("ai.pricing_remove_action", {}, "Remove record"));
         });
         wrap.appendChild(drop);
 
@@ -16641,26 +16645,24 @@ function showPriceDialog(row) {
     option.selected = (row?.provider ?? data.provider) === key;
     provider.appendChild(option);
   }
-  parts.push(fieldRow("Provider", provider, ""));
+  parts.push(fieldRow(ZogographI18n.t("ai.pricing_provider", {}, "Provider"), provider, ""));
 
   const model = document.createElement("input");
   model.type = "text";
   model.className = "wide-field";
   model.spellcheck = false;
   model.value = row?.model ?? data.model ?? "";
-  parts.push(fieldRow("Model", model,
-    "Exactly as the provider names it — this is matched against what is sent."));
+  parts.push(fieldRow(ZogographI18n.t("ai.pricing_model", {}, "Model"), model,
+    ZogographI18n.t("ai.pricing_model_help", {}, "Exactly as the provider names it — this is matched against what is sent.")));
 
   const boxes = {};
   for (const [key, label, hint] of [
-    ["in", "Input, per million", "In cents."],
-    ["out", "Output, per million", "In cents. Usually several times the input price."],
-    ["cached", "Cached input, per million",
-      "In cents. Usually about a tenth of the input price, and most of the bill on a "
-      + "long conversation."],
-    ["cache_write_5m", "Cache write (5 minutes), per million", "Anthropic prompt-cache write price, in cents."],
-    ["cache_write_1h", "Cache write (1 hour), per million", "Anthropic long prompt-cache write price, in cents."],
-    ["cache_refresh", "Cache hit / refresh, per million", "Provider cache-hit or refresh price, in cents."],
+    ["in", "pricing_input_per_million", "Input, per million", "pricing_cents_help", "In cents."],
+    ["out", "pricing_output_per_million", "Output, per million", "pricing_output_help", "In cents. Usually several times the input price."],
+    ["cached", "pricing_cached_per_million", "Cached input, per million", "pricing_cached_help", "In cents. Usually about a tenth of the input price, and most of the bill on a long conversation."],
+    ["cache_write_5m", "pricing_cache_write_5m", "Cache write (5 minutes), per million", "pricing_cache_write_5m_help", "Anthropic prompt-cache write price, in cents."],
+    ["cache_write_1h", "pricing_cache_write_1h", "Cache write (1 hour), per million", "pricing_cache_write_1h_help", "Anthropic long prompt-cache write price, in cents."],
+    ["cache_refresh", "pricing_cache_refresh", "Cache hit / refresh, per million", "pricing_cache_refresh_help", "Provider cache-hit or refresh price, in cents."],
   ]) {
     const box = document.createElement("input");
     box.type = "number";
@@ -16669,17 +16671,22 @@ function showPriceDialog(row) {
     box.className = "days";
     box.value = String(row?.[key] ?? 0);
     boxes[key] = box;
-    parts.push(fieldRow(label, box, hint));
+    parts.push(fieldRow(ZogographI18n.t(`ai.${label}`, {}, label), box,
+      ZogographI18n.t(`ai.${hint}`, {}, hint)));
   }
 
   const from = document.createElement("input");
   from.type = "date"; from.value = row?.active_from ?? new Date().toISOString().slice(0, 10);
-  parts.push(fieldRow("Active from", from, "Prices apply from this date."));
+  parts.push(fieldRow(ZogographI18n.t("ai.pricing_active_from", {}, "Active from"), from,
+    ZogographI18n.t("ai.pricing_active_from_help", {}, "Prices apply from this date.")));
   const retired = document.createElement("input");
   retired.type = "date"; retired.value = row?.retired_on ?? "";
-  parts.push(fieldRow("Retired on", retired, "Leave blank until this price is retired."));
+  parts.push(fieldRow(ZogographI18n.t("ai.pricing_retired_on", {}, "Retired on"), retired,
+    ZogographI18n.t("ai.pricing_retired_on_help", {}, "Leave blank until this price is retired.")));
 
-  showFormDialog(row ? "Edit remembered prices" : "Remember prices for a model", parts,
+  showFormDialog(row
+    ? ZogographI18n.t("ai.pricing_edit_dialog", {}, "Edit remembered prices")
+    : ZogographI18n.t("ai.pricing_add_dialog", {}, "Remember prices for a model"), parts,
     async () => {
       renderAiPrices(await post("ai-price-save", {
         price_id: row?.key ?? "",

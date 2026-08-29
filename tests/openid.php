@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/../lib/auth.php';
 require_once __DIR__ . '/../lib/openid.php';
+require_once __DIR__ . '/../lib/configure.php';
 
 function openIdExpect(bool $condition, string $message): void
 {
@@ -75,6 +76,25 @@ openIdExpect($discovery['code_challenge_methods_supported'] === ['S256']
     && $discovery['subject_types_supported'] === ['public']
     && $discovery['token_endpoint_auth_methods_supported'] === ['client_secret_post'],
     'OpenID discovery did not advertise its enforced token and client capabilities');
+$sample = require __DIR__ . '/../lib/config.sample.php';
+$fields = allConfigFields($sample, __DIR__ . '/../lib/config.sample.php');
+$providerValues = [];
+foreach ($fields as $field) $providerValues[$field['key']] = $field['default'];
+$providerPost = [
+    'openid_enabled' => '1',
+    'openid_issuer' => 'https://test.zogograph.com',
+    'openid_signing_private_key' => $generated,
+];
+$providerErrors = [];
+foreach ($fields as $field) {
+    if (($field['section'] ?? 'basics') !== 'openid' || $field['type'] === 'password'
+        || $field['path'] === ['openid', 'clients']) continue;
+    $blank = in_array($field['type'], ['bool', 'categories'], true) ? [] : '';
+    [$parsed, $problem] = parseField($field, $providerPost[$field['key']] ?? $blank);
+    $providerValues[$field['key']] = $parsed;
+    if ($problem !== null && fieldApplies($field, $providerValues)) $providerErrors[$field['key']] = $problem;
+}
+openIdExpect($providerErrors === [], 'OpenID provider settings cannot be saved without submitting the separately managed client registry');
 $setup = file_get_contents(__DIR__ . '/../setup.php');
 openIdExpect($setup !== false && str_contains($setup, 'setupOpenIdClientToken')
     && str_contains($setup, 'create-openid-client') && str_contains($setup, 'remove-openid-client')

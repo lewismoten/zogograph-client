@@ -1764,19 +1764,19 @@ function renderLimits(limits, bodyId = "limitsBody", whenId = "limitsWhen") {
     if (when) when.textContent = "";
     body.replaceChildren(Object.assign(document.createElement("p"), {
       className: "muted",
-      textContent: limits?.reason || "No comparison available.",
+      textContent: limits?.reason || ZogographI18n.t("cpu.limit_unavailable"),
     }));
     return;
   }
 
   if (when) {
     when.textContent = limits.host_at
-      ? `host reading ${humanTime(limits.host_at)}`
+      ? ZogographI18n.t("cpu.limit_host_reading", { time: humanTime(limits.host_at) })
       : "";
   }
 
   const format = (value, unit) => {
-    if (value == null) return "not measured";
+    if (value == null) return ZogographI18n.t("cpu.limit_not_measured");
     if (unit === "bytes") return humanBytes(value);
     if (unit === "percent") return `${Number(value).toFixed(0)}%`;
     return String(Number(value) % 1 === 0 ? value : Number(value).toFixed(2));
@@ -1791,7 +1791,7 @@ function renderLimits(limits, bodyId = "limitsBody", whenId = "limitsWhen") {
     name.textContent = row.name;
     div.appendChild(name);
 
-    for (const [side, value] of [["This account sees", row.account], ["The machine has", row.host]]) {
+    for (const [side, value] of [[ZogographI18n.t("cpu.limit_account_sees"), row.account], [ZogographI18n.t("cpu.limit_machine_has"), row.host]]) {
       const pair = document.createElement("div");
       pair.className = "limit-pair";
 
@@ -1802,7 +1802,7 @@ function renderLimits(limits, bodyId = "limitsBody", whenId = "limitsWhen") {
 
       const figure = document.createElement("div");
       figure.textContent = format(value, row.unit);
-      if (row.verdict === "capped" && side === "This account sees") {
+      if (row.verdict === "capped" && side === ZogographI18n.t("cpu.limit_account_sees")) {
         figure.className = "band-warn";
       }
       pair.appendChild(figure);

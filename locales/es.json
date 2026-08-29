@@ -511,6 +511,7 @@
   "schedule.custom.weekday": "Día de la semana (0–7)",
   "schedule.saved_preview": "Vista previa guardada",
   "schedule.installed": "Instalado actualmente",
+  "common.loading": "Cargando…",
   "alerts.timeline_level": "{{level}} ({{total, number}})", "alerts.timeline_restarts": "{{count, number}} reinicio(s) (discontinuo)", "alerts.timeline_day": "día", "alerts.timeline_hour": "hora", "alerts.timeline_range": "{{count, number}} alertas, una barra por {{period}}", "alerts.timeline_held_back": " — {{count, number}} retenidas por {{assistant}}, aún contadas aquí",
   "alerts.timeline_empty": "Aún no se ha activado nada.",
   "alerts.active_mutes": "Silencios de alerta activos", "alerts.no_active_mutes": "No hay reglas de alerta silenciadas temporalmente.", "alerts.active_mutes_help": "Un silencio requiere un motivo y caduca automáticamente. Las alertas de Error y Crítica siempre lo omiten.", "alerts.active_mutes_detail": "Los eventos de Información y Advertencia silenciados siguen visibles con su motivo de entrega. Error y Crítica siempre omiten un silencio.", "alerts.rule": "Regla", "alerts.until": "Hasta", "alerts.end_mute": "Terminar silencio", "alerts.end_mute_confirm": "¿Terminar el silencio de {{rule}}?", "alerts.mute_ended": "Terminó el silencio de {{rule}}.",

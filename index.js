@@ -22981,7 +22981,7 @@ function section(title, contents) {
  * announces its change without adding a spinner that shifts the page just
  * before the answer appears.
  */
-function spinner(text = "Loading\u2026") {
+function spinner(text = ZogographI18n.t("common.loading", {}, "Loading…")) {
   const wrap = document.createElement("p");
   wrap.className = "loading sr-only";
   wrap.appendChild(document.createTextNode(text));

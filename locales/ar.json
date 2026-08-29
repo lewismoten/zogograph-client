@@ -514,7 +514,7 @@
   "fetch.use_page_help": "أدخل عنوان URL في النموذج أعلاه والصق متن الصفحة هنا",
   "fetch.enter_address": "أدخل عنوانًا في النموذج أولًا.",
   "action.fetching": "جارٍ الجلب…",
-  "fetch.fetched": "جُلب {{bytes, number}} بايت من {{url}}.",
+  "fetch.fetched": "جُلب {{bytes}} من {{url}}.",
   "rdns.lookup_result": "{{address}} ← {{name}} ({{milliseconds, number}} مللي ثانية)",
   "rdns.no_name": "بلا اسم",
   "rdns.nothing_waiting": "لم يكن هناك شيء قيد الانتظار.",

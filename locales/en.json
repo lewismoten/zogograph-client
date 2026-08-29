@@ -497,7 +497,7 @@
   "fetch.use_page_help": "Ask for the URL in the form above and paste its body in here",
   "fetch.enter_address": "Put an address in the form first.",
   "action.fetching": "Fetching…",
-  "fetch.fetched": "Fetched {{bytes, number}} bytes from {{url}}.",
+  "fetch.fetched": "Fetched {{bytes}} from {{url}}.",
   "rdns.lookup_result": "{{address}} → {{name}} ({{milliseconds, number}} ms)",
   "rdns.no_name": "no name",
   "rdns.nothing_waiting": "Nothing was waiting.",

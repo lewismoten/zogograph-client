@@ -514,7 +514,7 @@
   "fetch.use_page_help": "ऊपर दिए गए फ़ॉर्म में URL लिखें और उसका मुख्य भाग यहाँ चिपकाएँ",
   "fetch.enter_address": "पहले फ़ॉर्म में एक पता डालें।",
   "action.fetching": "लाया जा रहा है…",
-  "fetch.fetched": "{{url}} से {{bytes, number}} बाइट लाए गए।",
+  "fetch.fetched": "{{url}} से {{bytes}} लाए गए।",
   "rdns.lookup_result": "{{address}} → {{name}} ({{milliseconds, number}} ms)",
   "rdns.no_name": "कोई नाम नहीं",
   "rdns.nothing_waiting": "कोई भी प्रतीक्षा में नहीं था।",

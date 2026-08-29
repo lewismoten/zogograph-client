@@ -244,7 +244,11 @@ function humanBytes(value, digits) {
   let i = 0;
   while (n >= 1024 && i < units.length - 1) { n /= 1024; i++; }
   const places = digits ?? (i === 0 ? 0 : n >= 100 ? 0 : n >= 10 ? 1 : 2);
-  return `${sign}${n.toFixed(places)} ${units[i]}`;
+  const localized = new Intl.NumberFormat(document.documentElement.lang || undefined, {
+    minimumFractionDigits: places,
+    maximumFractionDigits: places,
+  }).format(n);
+  return `${sign}${localized} ${units[i]}`;
 }
 
 function humanCount(value) {
@@ -26177,9 +26181,9 @@ function showRegexTester(patternInput, groupInput) {
       if (!got.ok) throw new Error(got.error || "nothing came back");
       sample.value = got.body || "";
       notice(ZogographI18n.t("fetch.fetched", {
-        bytes: got.bytes,
+        bytes: humanBytes(got.bytes),
         url: got.url,
-      }, "Fetched {{bytes, number}} bytes from {{url}}."), true);
+      }, "Fetched {{bytes}} from {{url}}."), true);
     } catch (error) {
       notice(String(error.message || error));
     } finally {

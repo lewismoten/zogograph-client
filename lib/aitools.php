@@ -69,6 +69,7 @@ require_once __DIR__ . '/ai-tools/present-visual.php';
 require_once __DIR__ . '/ai-tools/recommend-command.php';
 require_once __DIR__ . '/ai-tools/show-progress.php';
 require_once __DIR__ . '/ai-tools/show-reaction.php';
+require_once __DIR__ . '/ai-tools/redraw-portrait.php';
 
 /**
  * Every tool, with its schema and how it runs.
@@ -117,6 +118,7 @@ function aiToolCatalogue(): array
         ...aiToolRecommendCommandPackage(),
         ...aiToolShowProgressPackage(),
         ...aiToolShowReactionPackage(),
+        ...aiToolRedrawPortraitPackage(),
 
         /* ------------------------------------------------- what is wrong -- */
 
@@ -766,6 +768,7 @@ function aiToolCatalogue(): array
             ],
         ],
 
+        /* redraw_yourself moved to ai-tools/redraw-portrait.php
         'redraw_yourself' => [
             'group' => 'pictures',
             'where' => 'server',
@@ -794,7 +797,7 @@ function aiToolCatalogue(): array
                     'description' => 'What prompted it. Shown when asking permission.',
                 ],
             ],
-        ],
+        ],*/
 
         /* ---------------------------------------------------- the browser -- */
 

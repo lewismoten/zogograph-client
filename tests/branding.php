@@ -15,6 +15,7 @@ brandingExpect(brandName(['branding' => ['name' => "bad\nname"]]) === 'Zogograph
     'a control character was accepted in the product brand');
 $setup = file_get_contents(__DIR__ . '/../setup.php');
 $openid = file_get_contents(__DIR__ . '/../openid.php');
+$peerConnect = file_get_contents(__DIR__ . '/../peer-connect.php');
 brandingExpect($setup !== false && str_contains($setup, '$issuer = rawurlencode($brand)'),
     'authenticator issuer does not use the configured product brand');
 brandingExpect($setup !== false && str_contains($setup, '$brand = brandName($existing ?? [])')
@@ -24,5 +25,9 @@ brandingExpect($setup !== false && str_contains($setup, '$brand = brandName($exi
 brandingExpect($openid !== false && str_contains($openid, "require_once __DIR__ . '/lib/branding.php';")
     && str_contains($openid, "brandName(\$config) . ' before authorizing a trusted client'"),
     'OpenID authorization does not use the configured product brand');
+brandingExpect($peerConnect !== false && str_contains($peerConnect, '$brand = brandName($config);')
+    && str_contains($peerConnect, 'htmlspecialchars($brand, ENT_QUOTES)')
+    && str_contains($peerConnect, 'Peer connection</title>'),
+    'peer-connect page does not use the shared configured brand');
 
 echo "branding checks passed\n";

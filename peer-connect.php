@@ -7,6 +7,8 @@ require_once __DIR__ . '/lib/setupstore.php';
 $file = __DIR__ . '/lib/config.php';
 if (!is_file($file)) { http_response_code(503); exit('Zogograph is not configured.'); }
 $config = loadConfiguredSettings($file);
+require_once __DIR__ . '/lib/branding.php';
+$brand = brandName($config);
 require_once __DIR__ . '/lib/core-features.php';
 if (!coreFeatureEnabled($config, 'peers')) { http_response_code(404); exit; }
 require_once __DIR__ . '/lib/db.php';
@@ -43,5 +45,5 @@ try {
 } catch (Throwable $e) {
     http_response_code(400);
     header('Content-Type: text/html; charset=utf-8');
-    echo '<!doctype html><title>Peer connection</title><p>' . htmlspecialchars($e->getMessage(), ENT_QUOTES) . '</p><p><a href="index.html#/sys-peers">Return to trusted servers</a></p>';
+    echo '<!doctype html><title>' . htmlspecialchars($brand, ENT_QUOTES) . ' — Peer connection</title><p>' . htmlspecialchars($e->getMessage(), ENT_QUOTES) . '</p><p><a href="index.html#/sys-peers">Return to trusted servers</a></p>';
 }

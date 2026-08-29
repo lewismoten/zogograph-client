@@ -29985,7 +29985,7 @@ function renderRepeats(data) {
 async function refreshSelf() {
   const body = $("selfBody");
   if (!state.signedIn) {
-    body.replaceChildren(note("Sign in to see the monitor's own state."));
+    body.replaceChildren(note(ZogographI18n.t("monitor.sign_in", {}, "Sign in to see the monitor's own state.")));
     return;
   }
 

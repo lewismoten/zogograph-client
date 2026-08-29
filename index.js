@@ -5942,6 +5942,14 @@ const TOOL_GROUP_NAMES = {
  */
 let toolTab = "diagnostic";
 
+/** Package-owned tool copy falls back to the server's safety description. */
+function aiToolText(tool, key, fallback) {
+  const namespace = String(tool?.locale_namespace ?? "");
+  return /^[a-z][a-z0-9-]{2,62}\.$/.test(namespace)
+    ? ZogographI18n.t(namespace + key, {}, fallback)
+    : fallback;
+}
+
 function renderAiTools(data) {
   const body = $("aiToolsBody");
   const parts = [];
@@ -6054,7 +6062,7 @@ function renderAiTools(data) {
 
     const what = row.insertCell();
     what.className = "name";
-    what.appendChild(document.createTextNode(tool.summary.replace(/\.$/, "")));
+    what.appendChild(document.createTextNode(aiToolText(tool, "summary", tool.summary).replace(/\.$/, "")));
 
     const name = document.createElement("div");
     name.className = "muted small";

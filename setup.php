@@ -1041,6 +1041,13 @@ function webPage(
     array $packagePanels,
     ?array $current
 ): string {
+    // Keep a generated provider key in the protected Setup session until this
+    // section is saved. Bind it at the rendering boundary as well as when the
+    // form state is first assembled: success notices and section-specific
+    // rendering must never turn a ready key into an empty textarea.
+    if ($activeSection === 'openid' && is_string($_SESSION['setup_pending_openid_signing_key'] ?? null)) {
+        $values['openid_signing_private_key'] = $_SESSION['setup_pending_openid_signing_key'];
+    }
     $out = [];
     $out[] = '<!doctype html><html lang="en"><head><meta charset="utf-8">';
     $out[] = '<meta name="viewport" content="width=device-width, initial-scale=1">';

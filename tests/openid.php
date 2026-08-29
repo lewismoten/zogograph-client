@@ -103,6 +103,7 @@ openIdExpect($setup !== false && str_contains($setup, 'setupOpenIdClientToken')
     && str_contains($setup, 'create-openid-client') && str_contains($setup, 'remove-openid-client')
     && str_contains($setup, "\$field['path'] === ['openid', 'clients']")
     && str_contains($setup, 'session_write_close()')
+    && str_contains($setup, "\$values['openid_signing_private_key'] = \$_SESSION['setup_pending_openid_signing_key']")
     && str_contains($setup, '$noticeValues = isset($notice[\'values\'])')
     && !str_contains($setup, '$values = isset($notice[\'values\'])')
     && str_contains($setup, 'I saved the client secret'),

@@ -628,5 +628,6 @@
   "privacy.hide_ips": "隐藏 IP", "privacy.show_ips": "显示 IP", "privacy.hide_ips_title": "在此浏览器会话中隐藏 IP 地址", "privacy.show_ips_title": "在此浏览器会话中再次显示 IP 地址", "privacy.hide_account": "隐藏账户", "privacy.show_account": "显示账户", "privacy.hide_account_title": "在此浏览器会话中隐藏该账户名称", "privacy.show_account_title": "在此浏览器会话中再次显示该账户名称",
   "auth.recovery_codes": "恢复代码", "auth.recovery_codes_title": "确认身份验证器后创建新的一次性恢复代码", "auth.end_sessions": "结束所有会话", "auth.end_sessions_title": "结束所有已登录的浏览器会话",
   "onboarding.title": "完成 Zogograph 设置", "diagnostics.title": "出了什么问题", "diagnostics.check_again": "再次检查", "diagnostics.help": "这里有四十个页面，每个页面都能很好地回答一个问题——当您已经知道问题时很有帮助。此处会一次读取全部页面。每一行都带有来源读数及完整页面的链接，这里不会根据相关性作出推断。",
-  "host.capabilities_title": "主机允许此账户做什么", "host.capabilities_help": "在共享主机上，上方数字是隔离环境给出的答案。在 CageFS 中，此账户看到的是为它生成的 /proc：其 CPU 配额看似机器的核心数，内存限制看似机器的 RAM。比较这两项读数，才是区分限制与服务器实际大小的唯一方法。"
+  "host.capabilities_title": "主机允许此账户做什么", "host.capabilities_help": "在共享主机上，上方数字是隔离环境给出的答案。在 CageFS 中，此账户看到的是为它生成的 /proc：其 CPU 配额看似机器的核心数，内存限制看似机器的 RAM。比较这两项读数，才是区分限制与服务器实际大小的唯一方法。",
+  "overview.up_for": "已运行", "overview.projected_full": "预计填满", "overview.network": "网络"
 }

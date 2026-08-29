@@ -516,6 +516,7 @@
   "schedule.custom.weekday": "Día de la semana (0–7)",
   "schedule.saved_preview": "Vista previa guardada",
   "schedule.installed": "Instalado actualmente",
+  "support.provider_message": "Mensaje para su proveedor de alojamiento",
   "help.page_purpose": "Para qué sirve esta página",
   "help.page_useful": "Por qué es útil",
   "help.terminal_commands_note": "Estas son comprobaciones de solo lectura o los recopiladores que alimentan este panel. Ejecute solo los comandos apropiados para este host y cuenta.",

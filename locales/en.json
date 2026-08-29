@@ -497,6 +497,7 @@
   "schedule.custom.weekday": "Day of week (0–7)",
   "schedule.saved_preview": "Saved preview",
   "schedule.installed": "Currently installed",
+  "support.provider_message": "Message for your hosting provider",
   "help.page_purpose": "What this page is for",
   "help.page_useful": "Why it is useful",
   "help.terminal_commands_note": "These are read-only checks or the collectors that supply this dashboard. Run only commands appropriate for this host and account.",

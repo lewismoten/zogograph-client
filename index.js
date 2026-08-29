@@ -31951,7 +31951,7 @@ function backupActionList(data) {
   // The message for whoever does have root.
   const ask = document.createElement("p");
   const button = document.createElement("button");
-  button.textContent = "Message for your hosting provider";
+  button.textContent = ZogographI18n.t("support.provider_message", {}, "Message for your hosting provider");
   button.addEventListener("click", () => showProviderMessage(data.message));
   ask.appendChild(button);
   wrap.appendChild(ask);
@@ -31960,7 +31960,7 @@ function backupActionList(data) {
 }
 
 function showProviderMessage(message) {
-  $("listDialogTitle").textContent = "Message for your hosting provider";
+  $("listDialogTitle").textContent = ZogographI18n.t("support.provider_message", {}, "Message for your hosting provider");
   $("listDialogNote").textContent = "Describes what was measured and asks for the safe "
     + "actions only. It deliberately does not ask anybody to delete anything from the "
     + "backup directory.";

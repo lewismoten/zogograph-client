@@ -28287,8 +28287,8 @@ function recordValueCell(row) {
   button.className = "link value-cell";
   button.textContent = value;
   button.title = detailed
-    ? "Show the whole value, broken into its parts"
-    : "Show the whole value";
+    ? ZogographI18n.t("record.show_whole_with_parts", {}, "Show the whole value, broken into its parts")
+    : ZogographI18n.t("record.show_whole", {}, "Show the whole value");
   button.addEventListener("click", () => showRecordDialog(row));
   return button;
 }

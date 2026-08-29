@@ -513,6 +513,8 @@
   "schedule.custom.weekday": "星期 (0–7)",
   "schedule.saved_preview": "已保存的预览",
   "schedule.installed": "当前已安装",
+  "record.show_whole": "显示完整值",
+  "record.show_whole_with_parts": "显示完整值，并分解为各部分",
   "fetch.use_page": "获取并使用该页面",
   "fetch.use_page_help": "在上方表单中填写 URL，然后将其正文粘贴到这里",
   "fetch.enter_address": "请先在表单中填写地址。",

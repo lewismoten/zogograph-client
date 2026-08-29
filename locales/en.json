@@ -496,6 +496,8 @@
   "schedule.custom.weekday": "Day of week (0–7)",
   "schedule.saved_preview": "Saved preview",
   "schedule.installed": "Currently installed",
+  "record.show_whole": "Show the whole value",
+  "record.show_whole_with_parts": "Show the whole value, broken into its parts",
   "fetch.use_page": "Fetch the page and use that",
   "fetch.use_page_help": "Ask for the URL in the form above and paste its body in here",
   "fetch.enter_address": "Put an address in the form first.",

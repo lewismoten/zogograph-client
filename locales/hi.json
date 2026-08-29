@@ -513,6 +513,8 @@
   "schedule.custom.weekday": "सप्ताह का दिन (0–7)",
   "schedule.saved_preview": "सहेजा गया पूर्वावलोकन",
   "schedule.installed": "वर्तमान में स्थापित",
+  "record.show_whole": "पूरा मान दिखाएँ",
+  "record.show_whole_with_parts": "पूरा मान उसके भागों में बाँटकर दिखाएँ",
   "fetch.use_page": "पेज लाएँ और उसका उपयोग करें",
   "fetch.use_page_help": "ऊपर दिए गए फ़ॉर्म में URL लिखें और उसका मुख्य भाग यहाँ चिपकाएँ",
   "fetch.enter_address": "पहले फ़ॉर्म में एक पता डालें।",

@@ -513,6 +513,8 @@
   "schedule.custom.weekday": "يوم الأسبوع (0–7)",
   "schedule.saved_preview": "معاينة محفوظة",
   "schedule.installed": "مثبّت حاليًا",
+  "record.show_whole": "اعرض القيمة كاملة",
+  "record.show_whole_with_parts": "اعرض القيمة كاملةً مقسّمة إلى أجزائها",
   "fetch.use_page": "اجلب الصفحة واستخدمها",
   "fetch.use_page_help": "أدخل عنوان URL في النموذج أعلاه والصق متن الصفحة هنا",
   "fetch.enter_address": "أدخل عنوانًا في النموذج أولًا.",

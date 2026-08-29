@@ -87,6 +87,7 @@ function packageRuntimeManifest(string $directory, array $trustedKeys): array
     $setupPanels = packageRuntimeSetupPanelDeclarations((array)($raw['setup_panels'] ?? []));
     $dashboardPages = packageRuntimeDashboardPageDeclarations((array)($raw['dashboard_pages'] ?? []));
     $dashboardCards = packageRuntimeDashboardCardDeclarations((array)($raw['dashboard_cards'] ?? []));
+    packageRuntimeOwnLocaleKeys($id, $setupPanels, $dashboardPages, $dashboardCards);
     $locales = packageRuntimeLocaleDeclarations((array)($raw['locales'] ?? []), $root, (array)($raw['integrity']['files'] ?? []));
     $dependencies = array_values(array_unique((array)($raw['dependencies'] ?? [])));
     if (count($dependencies) > 20 || in_array($id, $dependencies, true)) throw new InvalidArgumentException('package dependencies are invalid');
@@ -116,6 +117,29 @@ function packageRuntimeManifest(string $directory, array $trustedKeys): array
         'runtime' => $runtime, 'settings_schema' => isset($raw['settings_schema']) ? (string)$raw['settings_schema'] : null,
         'dependencies' => $dependencies, 'locales' => $locales, 'dashboard_pages' => $dashboardPages, 'dashboard_cards' => $dashboardCards, 'setup_panels' => $setupPanels,
         'data' => $data, 'compatibility' => $compatibility, 'integrity' => (array)$raw['integrity'], 'signature' => (array)$raw['signature']];
+}
+
+/** Package chrome may translate only its own signed namespace. */
+function packageRuntimeOwnLocaleKeys(string $packageId, array $setupPanels, array $dashboardPages, array $dashboardCards): void
+{
+    $keys = [];
+    foreach ($setupPanels as $panel) $keys[] = $panel['title_key'] ?? null;
+    foreach ($dashboardPages as $page) {
+        $keys[] = $page['title_key'] ?? null;
+        $keys[] = $page['summary_key'] ?? null;
+    }
+    foreach ($dashboardCards as $card) {
+        $keys[] = $card['title_key'] ?? null;
+        foreach ((array)($card['facts'] ?? []) as $fact) {
+            $keys[] = $fact['label_key'] ?? null;
+            $keys[] = $fact['value_key'] ?? null;
+        }
+    }
+    foreach ($keys as $key) {
+        if ($key !== null && !str_starts_with((string)$key, $packageId . '.')) {
+            throw new InvalidArgumentException('package localization keys must use the package namespace');
+        }
+    }
 }
 
 /** Validates metadata for core-rendered package dashboard pages. */

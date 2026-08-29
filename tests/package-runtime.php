@@ -54,6 +54,9 @@ try {
         'missing package PHP extension was presented as available');
     try { packageRuntimeDashboardCardDeclarations([['id' => 'unsafe', 'renderer' => 'package-javascript', 'title' => 'Unsafe']]); throw new RuntimeException('package card accepted an executable renderer'); }
     catch (InvalidArgumentException $error) { runtimeExpect($error->getMessage() !== 'package card accepted an executable renderer', $error->getMessage()); }
+    packageRuntimeOwnLocaleKeys('test-runtime', [['title_key' => 'test-runtime.setup.title']], [['title_key' => 'test-runtime.page.title', 'summary_key' => 'test-runtime.page.summary']], [['title_key' => 'test-runtime.card.title', 'facts' => [['label_key' => 'test-runtime.card.state', 'value_key' => 'test-runtime.card.ready']]]]);
+    try { packageRuntimeOwnLocaleKeys('test-runtime', [], [['title_key' => 'navigation.storage']], []); throw new RuntimeException('package page borrowed a core localization key'); }
+    catch (InvalidArgumentException $error) { runtimeExpect($error->getMessage() !== 'package page borrowed a core localization key', $error->getMessage()); }
     try { packageRuntimeManifestCompatibility(['min_php' => 'not-a-version']); throw new RuntimeException('invalid package PHP compatibility was accepted'); }
     catch (InvalidArgumentException $error) { runtimeExpect($error->getMessage() !== 'invalid package PHP compatibility was accepted', $error->getMessage()); }
     $fields = array_column(configFields(require __DIR__ . '/../lib/config.sample.php'), null, 'key');

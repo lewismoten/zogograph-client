@@ -513,6 +513,7 @@
   "schedule.custom.weekday": "يوم الأسبوع (0–7)",
   "schedule.saved_preview": "معاينة محفوظة",
   "schedule.installed": "مثبّت حاليًا",
+  "help.terminal_commands_note": "هذه فحوصات للقراءة فقط أو جامعات بيانات تزوّد لوحة المعلومات هذه. شغّل فقط الأوامر المناسبة لهذا المضيف والحساب.",
   "help.command_references": "مراجع الأوامر الرسمية",
   "help.terminal_commands": "أوامر طرفية ذات صلة",
   "host_log.refused_help": "الملف موجود، لكن قد لا يتمكن هذا الحساب من فتحه. يتطلب ذلك عضوية مجموعة أو ACL يمنحها root — ولا يمكن لأي شيء هنا تغيير ذلك.",

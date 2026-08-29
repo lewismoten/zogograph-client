@@ -32472,7 +32472,7 @@ function buildPageHelp(view) {
   commands.textContent = profile.commands.join("\n");
   const commandsNote = document.createElement("p");
   commandsNote.className = "muted small";
-  commandsNote.textContent = "These are read-only checks or the collectors that supply this dashboard. Run only commands appropriate for this host and account.";
+  commandsNote.textContent = ZogographI18n.t("help.terminal_commands_note", {}, "These are read-only checks or the collectors that supply this dashboard. Run only commands appropriate for this host and account.");
   fragment.append(commandsTitle, commands, commandsNote);
 
   const linksTitle = document.createElement("h3");

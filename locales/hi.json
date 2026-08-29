@@ -513,6 +513,8 @@
   "schedule.custom.weekday": "सप्ताह का दिन (0–7)",
   "schedule.saved_preview": "सहेजा गया पूर्वावलोकन",
   "schedule.installed": "वर्तमान में स्थापित",
+  "filter.any": "कोई भी",
+  "filter.clear": "फ़िल्टर साफ़ करें",
   "regex.pattern": "पैटर्न",
   "regex.summary": "मिलान: {{matches, number}}; पैटर्न में समूह: {{groups, number}}।",
   "regex.whole_match": "पूरा मिलान",

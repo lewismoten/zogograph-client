@@ -29308,7 +29308,7 @@ function unitFilters(data, problems) {
 
     const any = document.createElement("option");
     any.value = "";
-    any.textContent = "any";
+    any.textContent = ZogographI18n.t("filter.any", {}, "any");
     select.appendChild(any);
 
     for (const [value, n] of Object.entries(values)) {
@@ -29340,7 +29340,7 @@ function unitFilters(data, problems) {
   const clear = document.createElement("button");
   clear.type = "button";
   clear.className = "link";
-  clear.textContent = "Clear the filters";
+  clear.textContent = ZogographI18n.t("filter.clear", {}, "Clear the filters");
   clear.hidden = !unitState.category && !unitState.boot && !unitState.says;
   clear.addEventListener("click", () => {
     unitState.category = "";

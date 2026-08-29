@@ -515,6 +515,8 @@
   "schedule.custom.weekday": "Día de la semana (0–7)",
   "schedule.saved_preview": "Vista previa guardada",
   "schedule.installed": "Instalado actualmente",
+  "filter.any": "cualquiera",
+  "filter.clear": "Borrar los filtros",
   "regex.pattern": "Patrón",
   "regex.summary": "Coincidencias: {{matches, number}}; grupos en el patrón: {{groups, number}}.",
   "regex.whole_match": "coincidencia completa",

@@ -511,6 +511,7 @@
   "schedule.custom.weekday": "Día de la semana (0–7)",
   "schedule.saved_preview": "Vista previa guardada",
   "schedule.installed": "Instalado actualmente",
+  "unit.percent": "%", "unit.fraction": "% de lecturas", "unit.bytes": "MiB", "unit.hours": "horas", "unit.minutes": "minutos", "unit.readings": "lecturas", "unit.files": "archivos", "unit.processes": "procesos", "unit.times": "× lo habitual",
   "email.mail_unavailable": "Este PHP no tiene función mail(), por lo que no se puede enviar nada desde aquí sin importar lo que se configure abajo. Es una configuración del host, no una de estas.", "email.enabled_help": "No se envía nada mientras esté desactivado, por graves que sean los problemas.",
   "email.enabled": "Enviar alertas por correo", "email.send_to": "Enviar a", "email.send_from": "Enviar desde", "email.dashboard_address": "Dirección de este panel",
   "email.readonly_help": "lib/config.php no permite escritura al servidor web, por lo que esta página puede mostrar los ajustes pero no cambiarlos. Use setup.php o edite el archivo.", "email.recently_sent": "Enviados recientemente", "email.when": "Cuándo", "email.to": "Para", "email.result": "Resultado", "email.about": "Acerca de",

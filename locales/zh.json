@@ -509,6 +509,7 @@
   "schedule.custom.weekday": "星期 (0–7)",
   "schedule.saved_preview": "已保存的预览",
   "schedule.installed": "当前已安装",
+  "unit.percent": "%", "unit.fraction": "% 的读数", "unit.bytes": "MiB", "unit.hours": "小时", "unit.minutes": "分钟", "unit.readings": "读数", "unit.files": "文件", "unit.processes": "进程", "unit.times": "× 通常值",
   "email.mail_unavailable": "此 PHP 没有 mail() 函数，因此无论在下面设置什么，都无法从这里发送内容。这是主机设置，不是这里的设置。", "email.enabled_help": "关闭此选项时，无论问题多么严重都不会发送任何内容。",
   "email.enabled": "通过电子邮件发送警报", "email.send_to": "发送给", "email.send_from": "发件人", "email.dashboard_address": "此仪表板的地址",
   "email.readonly_help": "Web 服务器无法写入 lib/config.php，因此此页面可以显示设置但无法更改它们。请使用 setup.php 或编辑该文件。", "email.recently_sent": "最近发送", "email.when": "时间", "email.to": "收件人", "email.result": "结果", "email.about": "关于",

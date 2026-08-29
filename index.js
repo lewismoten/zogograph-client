@@ -30512,7 +30512,7 @@ function thresholdField(field) {
 
   const unit = document.createElement("span");
   unit.className = "muted small threshold-unit";
-  unit.textContent = UNIT_WORDS[field.unit] || field.unit;
+  unit.textContent = unitWord(field.unit);
   row.appendChild(unit);
 
   return row;
@@ -30529,6 +30529,11 @@ const UNIT_WORDS = {
   processes: "processes",
   times: "\u00d7 the usual",
 };
+
+function unitWord(unit) {
+  const fallback = UNIT_WORDS[unit] || unit;
+  return UNIT_WORDS[unit] ? ZogographI18n.t(`unit.${unit}`, {}, fallback) : fallback;
+}
 
 /** A number without trailing zeros, for putting in a field. */
 function trimNumber(value) {

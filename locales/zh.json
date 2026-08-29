@@ -122,6 +122,7 @@
   "terminal.copy_entry": "复制此项",
   "terminal.copy_entry_output": "仅复制其输出",
   "terminal.output_tail": "较长输出的结尾",
+  "terminal.session_empty": "此会话中没有运行任何内容，或者已被清除。",
   "terminal.switch_on": "启用它",
   "terminal.unlock": "解锁它",
   "terminal.extend": "延长时间",

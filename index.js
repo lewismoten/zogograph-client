@@ -13648,7 +13648,7 @@ function renderSessionLog() {
 
   const body = $("sessionLogBody");
   if (!data.commands.length) {
-    body.replaceChildren(note("Nothing was run in this one, or it has been swept."));
+    body.replaceChildren(note(ZogographI18n.t("terminal.session_empty", {}, "Nothing was run in this one, or it has been swept.")));
     return;
   }
 

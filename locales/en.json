@@ -122,6 +122,7 @@
   "terminal.copy_entry": "Copy this one",
   "terminal.copy_entry_output": "Copy only its output",
   "terminal.output_tail": "the end of a longer output",
+  "terminal.session_empty": "Nothing was run in this one, or it has been swept.",
   "terminal.switch_on": "Switch it on",
   "terminal.unlock": "Unlock it",
   "terminal.extend": "Give it longer",

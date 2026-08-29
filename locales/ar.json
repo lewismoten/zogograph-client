@@ -122,6 +122,7 @@
   "terminal.copy_entry": "انسخ هذه",
   "terminal.copy_entry_output": "انسخ مخرجاتها فقط",
   "terminal.output_tail": "نهاية مخرجات أطول",
+  "terminal.session_empty": "لم يُشغّل شيء في هذه الجلسة، أو جرى مسحها.",
   "terminal.switch_on": "شغّله",
   "terminal.unlock": "افتح قفله",
   "terminal.extend": "امنحه وقتًا أطول",

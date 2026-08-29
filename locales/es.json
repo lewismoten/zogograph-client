@@ -122,6 +122,7 @@
   "terminal.copy_entry": "Copiar esta",
   "terminal.copy_entry_output": "Copiar solo su salida",
   "terminal.output_tail": "el final de una salida más larga",
+  "terminal.session_empty": "No se ejecutó nada en esta sesión, o se limpió.",
   "terminal.switch_on": "Activarlo",
   "terminal.unlock": "Desbloquearlo",
   "terminal.extend": "Ampliar el tiempo",

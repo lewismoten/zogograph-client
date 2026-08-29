@@ -1404,6 +1404,11 @@ function displayValue(array $field, mixed $value): string
  */
 function setupDisplayPath(string $value): string
 {
+    // PEM is structured cryptographic material, not a filesystem path. Its
+    // base64 lines can legitimately begin with a slash; normalizing those
+    // lines as paths corrupts a generated OpenID signing key before it can be
+    // reviewed and saved by Setup.
+    if (str_starts_with($value, '-----BEGIN ')) return $value;
     if (str_contains($value, "\n")) {
         return implode("\n", array_map('setupDisplayPath', explode("\n", $value)));
     }

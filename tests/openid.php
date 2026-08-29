@@ -21,6 +21,9 @@ $generated = openIdGenerateSigningKey();
 $generatedDetails = openssl_pkey_get_details(openssl_pkey_get_private($generated));
 openIdExpect(is_array($generatedDetails) && ($generatedDetails['type'] ?? null) === OPENSSL_KEYTYPE_RSA
     && (int)($generatedDetails['bits'] ?? 0) >= 3072, 'generated OpenID signing key is not a 3072-bit RSA key');
+$keyField = ['type' => 'textarea'];
+openIdExpect(displayValue($keyField, $generated) === $generated,
+    'Setup path display corrupted a generated OpenID signing key');
 $config = ['openid' => ['enabled' => true, 'issuer' => 'https://zogograph.example',
     'signing_private_key' => $generated, 'clients' => ['peer' => [
         'client_id' => 'peer-client', 'client_secret' => str_repeat('a', 64),

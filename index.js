@@ -28439,7 +28439,7 @@ async function refreshWhoAmI() {
     wrap.appendChild(note("This address has no name yet. Naming it means it is recognised "
       + "wherever it appears \u2014 in captures, in the connection list, in the ports table."));
     const go = document.createElement("button");
-    go.textContent = "Give it a name";
+    go.textContent = ZogographI18n.t("action.edit", {}, "Edit");
     go.addEventListener("click", () => {
       showView("net-labels");
       const field = $("labelMatch");

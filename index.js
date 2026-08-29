@@ -24802,7 +24802,9 @@ async function refreshNetwork() {
   $("networkBody").replaceChildren();
   $("networkContent").hidden = false;
 
-  renderNetworkGauges(data);
+  renderCoreCardPackage(ZogographNetworkGaugesCard, "core-network-gauges", data, {
+    target: $("networkGauges"), buildGauge, humanBytes, humanCount, i18n: ZogographI18n,
+  });
   renderInterfaces(data.interfaces || []);
   renderPorts(data);
   renderPeers(data);
@@ -24818,56 +24820,6 @@ async function refreshNetwork() {
  * invented denominator on exactly the machines this runs on. Where the speed is
  * known it is used and said; where it is not, the rate is a card and not a dial.
  */
-function renderNetworkGauges(data) {
-  const holder = $("networkGauges");
-  if (!holder) return;
-
-  const real = (data.interfaces || []).filter(i => !i.loopback);
-  const busiest = real.slice().sort(
-    (a, b) => ((b.rx_rate || 0) + (b.tx_rate || 0)) - ((a.rx_rate || 0) + (a.tx_rate || 0))
-  )[0];
-
-  const dials = [];
-
-  if (busiest && busiest.speed_mbit) {
-    const capacity = busiest.speed_mbit * 125000;  // megabit to bytes per second
-    for (const [label, rate] of [[ZogographI18n.t("network.in"), busiest.rx_rate], [ZogographI18n.t("network.out"), busiest.tx_rate]]) {
-      dials.push({
-        label: ZogographI18n.t("network.rate_on_interface", { label, interface: busiest.name }),
-        value: rate == null ? null : (rate / capacity) * 100,
-        warn: 60, crit: 85,
-        sub: rate == null
-          ? ZogographI18n.t("network.needs_two_readings")
-          : ZogographI18n.t("network.rate_of_link", { rate: `${humanBytes(rate)}/s`, speed: busiest.speed_mbit }),
-      });
-    }
-  }
-
-  const peers = (data.peers || []).reduce((sum, p) => sum + Number(p.connections || 0), 0);
-  const top = (data.peers || [])[0];
-  dials.push({
-    label: ZogographI18n.t("network.connections"),
-    value: null,
-    warn: 0, crit: 0,
-    sub: peers
-      ? ZogographI18n.t("network.connections_busiest", { connections: humanCount(peers), busiest: humanCount(top.connections) })
-      : ZogographI18n.t("network.none_recorded"),
-    plain: peers ? humanCount(peers) : "\u2014",
-  });
-
-  const open = (data.ports || []).length;
-  const exposed = (data.ports || []).filter(p => p.public).length;
-  dials.push({
-    label: ZogographI18n.t("network.listening_ports"),
-    value: null,
-    warn: 0, crit: 0,
-    sub: ZogographI18n.t("network.ports_reachable_summary", { exposed, open }),
-    plain: String(open),
-  });
-
-  holder.replaceChildren(...dials.map(buildGauge));
-}
-
 function renderInterfaces(rows) {
   if (!rows.length) {
     $("networkInterfaces").replaceChildren(note(ZogographI18n.t("network.interfaces_empty")));

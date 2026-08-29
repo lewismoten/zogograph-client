@@ -1998,21 +1998,21 @@
 <section class="view" data-view="capabilities" hidden>
 <section class="panel" id="capabilityPanel">
   <div class="panel-head">
-    <h2>Capabilities</h2>
+    <h2 data-i18n="capabilities.title">Capabilities</h2>
     <div class="panel-controls">
       <label class="inline">
-        Show
+        <span data-i18n="capabilities.show">Show</span>
         <select id="capFilter">
-          <option value="key">The ones worth having</option>
-          <option value="gap">Not available here</option>
-          <option value="all">Everything</option>
+          <option value="key" data-i18n="capabilities.filter_key">The ones worth having</option>
+          <option value="gap" data-i18n="capabilities.filter_gap">Not available here</option>
+          <option value="all" data-i18n="capabilities.filter_all">Everything</option>
         </select>
       </label>
-      <button id="capCheck">Check now</button>
-      <button id="capHostCheck" class="link">Ask the host</button>
+      <button id="capCheck" data-i18n="capabilities.check_now">Check now</button>
+      <button id="capHostCheck" class="link" data-i18n="capabilities.ask_host">Ask the host</button>
     </div>
   </div>
-  <p class="muted small sub-note">
+  <p class="muted small sub-note" data-i18n="capabilities.help">
     What this account can actually run, and what the machine has that it cannot
     reach. Those are the same question on ordinary hosting and different ones
     here — see below.

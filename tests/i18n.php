@@ -102,6 +102,10 @@ i18nExpect($script !== false && str_contains($script, 'ZogographI18n.t("encrypti
 i18nExpect($script !== false && str_contains($script, 'ZogographI18n.t("encryption.create_verified_copies"')
     && str_contains($script, 'ZogographI18n.t("encryption.run_remote_recovery_drill"'),
     'encryption recovery actions do not use the locale catalog');
+i18nExpect($script !== false && str_contains($script, 'function copyButtonLabel(state)')
+    && str_contains($script, 'ZogographI18n.t("store.rollup_result"')
+    && str_contains($script, 'ZogographI18n.t("capabilities.checked_changes"'),
+    'shared operational controls do not use the locale catalog');
 i18nExpect($script !== false && str_contains($script, 'function packageText(')
     && str_contains($script, 'package.runtime_intro') && str_contains($script, 'package.installed_for_review')
     && str_contains($script, 'package.toggle_confirmation') && str_contains($script, 'package.remove_confirmation'),
@@ -286,6 +290,28 @@ foreach (array_unique($setupKeys[1] ?? []) as $key) {
 $translatedNavigation = ['navigation.deleted_held', 'navigation.cpu_limits', 'navigation.memory_by_user', 'navigation.memory_breakdown', 'navigation.memory_services', 'navigation.memory_processes', 'navigation.kernel_slab', 'navigation.services', 'navigation.units', 'navigation.last_busy', 'navigation.url_checks', 'navigation.open_ports', 'navigation.connected_peers', 'navigation.network_capture', 'navigation.network_captures', 'navigation.dns_lookups', 'navigation.domains', 'navigation.whois', 'navigation.fetch_page', 'navigation.dns_records', 'navigation.whoami', 'navigation.reverse_dns', 'navigation.assistant', 'navigation.assistant_identity', 'navigation.past_conversations', 'navigation.summaries', 'navigation.assistant_memory', 'navigation.ai_model', 'navigation.prices', 'navigation.thresholds', 'navigation.images', 'navigation.tools', 'navigation.try_tool', 'navigation.billing', 'navigation.assistant_data', 'navigation.terminal', 'navigation.sessions', 'navigation.host_capabilities', 'navigation.installed_software', 'navigation.changes', 'navigation.system', 'navigation.account_data', 'navigation.protection', 'navigation.host_data', 'navigation.data_retention', 'navigation.trusted_servers', 'navigation.marketplace', 'navigation.package_runtime', 'navigation.forensics', 'navigation.database_copies', 'navigation.recent_problems', 'navigation.email_alerts', 'navigation.account_scans', 'navigation.host_scans', 'navigation.custom_names', 'navigation.audit', 'navigation.descriptions'];
 $translatedSecurityMessages = ['encryption.custody_notice', 'diagnosis.ignore_action', 'diagnosis.ignore_title', 'diagnosis.ignore_confirm', 'diagnosis.ignore_success'];
 $translatedEncryptionRecoveryActions = ['encryption.create_verified_copies', 'encryption.run_recovery_drill', 'encryption.add_remote_envelope', 'encryption.run_remote_recovery_drill', 'encryption.remote_envelope_dialog', 'encryption.verified_local_artifact', 'encryption.store_optional_envelope', 'encryption.remote_recovery_dialog', 'encryption.artifact_with_envelope', 'encryption.remote_envelope_stored', 'encryption.remote_recovery_verified'];
+$translatedOperationalControls = [
+    'action.copy',
+    'action.copied',
+    'action.select_to_copy',
+    'action.checking',
+    'action.check_now',
+    'action.rolling_up',
+    'action.roll_up_old_readings',
+    'action.reclaim_empty_space',
+    'action.run_full_integrity_check',
+    'store.preparing_export',
+    'store.rollup_result',
+    'store.rollup_protected',
+    'store.rollup_space',
+    'email.test_sent',
+    'delivery.could_not_send',
+    'telegram.test_sent',
+    'telegram.test_failed',
+    'capabilities.checked',
+    'capabilities.checked_changes',
+    'capabilities.host_requested',
+];
 $translatedMarketplace = array_keys(array_filter($english, static fn(mixed $value, string $key): bool => str_starts_with($key, 'marketplace.'), ARRAY_FILTER_USE_BOTH));
 $translatedPeers = array_keys(array_filter($english, static fn(mixed $value, string $key): bool => str_starts_with($key, 'peer.'), ARRAY_FILTER_USE_BOTH));
 $translatedPackageCustody = [
@@ -328,6 +354,8 @@ foreach (['en-US', 'en-GB', 'es', 'hi', 'zh', 'ar'] as $locale) {
             "locale catalog $locale lacks translated security-sensitive dashboard text");
         i18nExpect(array_diff($translatedEncryptionRecoveryActions, array_keys($catalog)) === [],
             "locale catalog $locale falls back to English for encryption recovery actions");
+        i18nExpect(array_diff($translatedOperationalControls, array_keys($catalog)) === [],
+            "locale catalog $locale falls back to English for shared operational controls");
         i18nExpect(array_diff($translatedMarketplace, array_keys($catalog)) === [],
             "locale catalog $locale falls back to English for marketplace controls");
         i18nExpect(array_diff($translatedPeers, array_keys($catalog)) === [],

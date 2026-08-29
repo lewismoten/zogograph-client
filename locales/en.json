@@ -683,5 +683,6 @@
   "onboarding.intro": "Zogograph is configured but does not yet have enough local evidence to show its full dashboard.", "onboarding.vitals_missing": "Set up or run the account collector for its first vital reading.", "onboarding.open_schedule": "Open Setup schedule", "onboarding.vitals_ready": "Vital readings are arriving. Keep the collector scheduled so charts can build history.", "onboarding.review_schedule": "Review Setup schedule", "onboarding.scan_missing": "Run the first storage scan to identify what uses space.", "onboarding.open_storage": "Open Storage", "onboarding.scan_ready": "The first storage scan is complete. Review the largest items and set alerts when ready.", "onboarding.review_storage": "Review storage",
   "filter.all": "All",
   "storage.host_logs_title": "The server's own logs", "storage.check_again": "Check again", "storage.host_logs_help": "The logs named in host_log_paths belong to root and live outside this account. On most shared servers they will be listed and refused, which is itself the answer. Where the host grants read access, they open in the same viewer as the account's own logs.",
-  "storage.scan_now": "Scan now", "storage.scanning": "Scanning… ({{elapsed}})"
+  "storage.scan_now": "Scan now", "storage.scanning": "Scanning… ({{elapsed}})",
+  "storage.history": "History", "storage.log": "Log", "action.close": "Close", "log.search": "Search", "log.lines": "Lines", "log.newer": "Newer", "log.older": "Older"
 }

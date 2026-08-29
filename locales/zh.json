@@ -613,5 +613,6 @@
   "onboarding.intro": "Zogograph 已配置完成，但尚无足够的本地数据来显示完整仪表板。", "onboarding.vitals_missing": "请设置或运行账户采集器，以获取第一项关键读数。", "onboarding.open_schedule": "打开 Setup 计划", "onboarding.vitals_ready": "关键读数正在到达。请保持采集器按计划运行，以便图表积累历史记录。", "onboarding.review_schedule": "查看 Setup 计划", "onboarding.scan_missing": "运行首次存储扫描，以确定哪些内容占用了空间。", "onboarding.open_storage": "打开存储", "onboarding.scan_ready": "首次存储扫描已完成。请查看最大的项目，并在准备好后设置警报。", "onboarding.review_storage": "查看存储",
   "filter.all": "全部",
   "storage.host_logs_title": "服务器自身的日志", "storage.check_again": "再次检查", "storage.host_logs_help": "host_log_paths 中列出的日志属于 root，位于此账户之外。在大多数共享服务器上，它们会被列出但拒绝访问；这本身就是答案。主机授予读取权限时，它们会在与账户自身日志相同的查看器中打开。",
-  "storage.scan_now": "立即扫描", "storage.scanning": "正在扫描…（{{elapsed}}）"
+  "storage.scan_now": "立即扫描", "storage.scanning": "正在扫描…（{{elapsed}}）",
+  "storage.history": "历史记录", "storage.log": "日志", "action.close": "关闭", "log.search": "搜索", "log.lines": "行数", "log.newer": "较新", "log.older": "较旧"
 }

@@ -63,6 +63,11 @@ i18nExpect($script !== false && str_contains($script, 'ZogographI18n.t("storage.
     && str_contains($script, 'ZogographI18n.t("storage.scan_now"') && is_array($english)
     && isset($english['storage.scan_now'], $english['storage.scanning']),
     'Storage scan status does not use the locale catalog');
+i18nExpect($page !== false && str_contains($page, 'data-i18n="storage.history"')
+    && str_contains($page, 'data-i18n="log.search"') && str_contains($page, 'data-i18n="log.newer"')
+    && $script !== false && str_contains($script, 'ZogographI18n.t("storage.log"') && is_array($english)
+    && isset($english['storage.history'], $english['storage.log'], $english['action.close'], $english['log.search'], $english['log.lines'], $english['log.newer'], $english['log.older']),
+    'Storage history and log controls do not use the locale catalog');
 i18nExpect($script !== false && str_contains($script, 'marketplaceText("discovery_notice"')
     && str_contains($script, 'marketplaceText("search_label"') && str_contains($script, 'marketplaceText("table_compatibility"')
     && str_contains($script, 'marketplaceText("toggle_confirmation"') && str_contains($script, 'marketplaceText("restore_confirmation"')

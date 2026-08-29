@@ -5315,7 +5315,7 @@ async function showLog(pathId, quiet = false) {
     }
 
     panel.hidden = false;
-    $("logTitle").textContent = "Log";
+    $("logTitle").textContent = ZogographI18n.t("storage.log", {}, "Log");
     $("logStatus").textContent = said;
     body.replaceChildren();
     return;

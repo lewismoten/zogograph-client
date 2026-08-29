@@ -802,22 +802,22 @@
 
 <section class="panel" id="historyPanel" hidden>
   <div class="panel-head">
-    <h2 id="historyTitle">History</h2>
-    <button id="historyClose" class="link">Close</button>
+    <h2 id="historyTitle" data-i18n="storage.history">History</h2>
+    <button id="historyClose" class="link" data-i18n="action.close">Close</button>
   </div>
   <canvas id="historyChart"></canvas>
 </section>
 
 <section class="panel" id="logPanel" hidden>
   <div class="panel-head">
-    <h2 id="logTitle">Log</h2>
+    <h2 id="logTitle" data-i18n="storage.log">Log</h2>
     <div class="panel-controls">
       <label class="inline">
-        Search
+        <span data-i18n="log.search">Search</span>
         <input type="search" id="logSearch" placeholder="text to find" data-i18n-placeholder="log.search_placeholder" size="18">
       </label>
       <label class="inline">
-        Lines
+        <span data-i18n="log.lines">Lines</span>
         <select id="logLines">
           <option>100</option>
           <option selected>200</option>
@@ -825,9 +825,9 @@
           <option>1000</option>
         </select>
       </label>
-      <button id="logNewer">Newer</button>
-      <button id="logOlder">Older</button>
-      <button id="logClose" class="link">Close</button>
+      <button id="logNewer" data-i18n="log.newer">Newer</button>
+      <button id="logOlder" data-i18n="log.older">Older</button>
+      <button id="logClose" class="link" data-i18n="action.close">Close</button>
     </div>
   </div>
   <p class="muted small" id="logStatus"></p>

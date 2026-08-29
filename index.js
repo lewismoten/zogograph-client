@@ -3717,7 +3717,7 @@ function renderOnboarding(overview) {
 
   const intro = document.createElement("p");
   intro.className = "muted small";
-  intro.textContent = "Zogograph is configured but does not yet have enough local evidence to show its full dashboard.";
+  intro.textContent = ZogographI18n.t("onboarding.intro", {}, "Zogograph is configured but does not yet have enough local evidence to show its full dashboard.");
   const list = document.createElement("ol");
   list.className = "onboarding-list";
   const step = (text, href, label) => {
@@ -3730,14 +3730,30 @@ function renderOnboarding(overview) {
     list.appendChild(item);
   };
   if (missingVitals) {
-    step("Set up or run the account collector for its first vital reading.", "./setup.php?section=schedule", "Open Setup schedule");
+    step(
+      ZogographI18n.t("onboarding.vitals_missing", {}, "Set up or run the account collector for its first vital reading."),
+      "./setup.php?section=schedule",
+      ZogographI18n.t("onboarding.open_schedule", {}, "Open Setup schedule"),
+    );
   } else {
-    step("Vital readings are arriving. Keep the collector scheduled so charts can build history.", "./setup.php?section=schedule", "Review Setup schedule");
+    step(
+      ZogographI18n.t("onboarding.vitals_ready", {}, "Vital readings are arriving. Keep the collector scheduled so charts can build history."),
+      "./setup.php?section=schedule",
+      ZogographI18n.t("onboarding.review_schedule", {}, "Review Setup schedule"),
+    );
   }
   if (missingScan) {
-    step("Run the first storage scan to identify what uses space.", "#/storage", "Open Storage");
+    step(
+      ZogographI18n.t("onboarding.scan_missing", {}, "Run the first storage scan to identify what uses space."),
+      "#/storage",
+      ZogographI18n.t("onboarding.open_storage", {}, "Open Storage"),
+    );
   } else {
-    step("The first storage scan is complete. Review the largest items and set alerts when ready.", "#/storage-files", "Review storage");
+    step(
+      ZogographI18n.t("onboarding.scan_ready", {}, "The first storage scan is complete. Review the largest items and set alerts when ready."),
+      "#/storage-files",
+      ZogographI18n.t("onboarding.review_storage", {}, "Review storage"),
+    );
   }
   body.replaceChildren(intro, list);
 }

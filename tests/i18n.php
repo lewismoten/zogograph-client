@@ -47,6 +47,10 @@ i18nExpect($script !== false && str_contains($script, 'ZogographI18n.t("table.do
     && str_contains($script, 'ZogographI18n.t("chart.your_notes"') && is_array($english)
     && isset($english['table.download_rows'], $english['table.sort_by'], $english['table.rows_total'], $english['table.rows_shown'], $english['table.show_more'], $english['chart.your_notes']),
     'shared dashboard table controls or chart-note labels do not use the locale catalog');
+i18nExpect($script !== false && str_contains($script, 'ZogographI18n.t("onboarding.intro"')
+    && str_contains($script, 'ZogographI18n.t("onboarding.vitals_missing"') && str_contains($script, 'ZogographI18n.t("onboarding.scan_ready"')
+    && is_array($english) && isset($english['onboarding.intro'], $english['onboarding.vitals_missing'], $english['onboarding.open_schedule'], $english['onboarding.vitals_ready'], $english['onboarding.review_schedule'], $english['onboarding.scan_missing'], $english['onboarding.open_storage'], $english['onboarding.scan_ready'], $english['onboarding.review_storage']),
+    'first-run dashboard guidance does not use the locale catalog');
 i18nExpect($script !== false && str_contains($script, 'marketplaceText("discovery_notice"')
     && str_contains($script, 'marketplaceText("search_label"') && str_contains($script, 'marketplaceText("table_compatibility"')
     && str_contains($script, 'marketplaceText("toggle_confirmation"') && str_contains($script, 'marketplaceText("restore_confirmation"')

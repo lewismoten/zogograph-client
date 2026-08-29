@@ -1258,7 +1258,7 @@
   <div id="processBody"></div>
   <p class="muted small" id="procStopNote"></p>
 
-  <h3 class="sub-head">Reported process load over this range</h3>
+  <h3 class="sub-head" data-i18n="processes.trend_title">Reported process load over this range</h3>
   <p class="muted small sub-note" id="processTrendNote">
     The newest reported processes lead this list, with high peaks retained so a
     process that has settled down is still visible. Names group replacement
@@ -1266,18 +1266,18 @@
   </p>
   <canvas id="processTrendChart"></canvas>
 
-  <h3 class="sub-head">Stop by command line</h3>
-  <p class="muted small sub-note">
+  <h3 class="sub-head" data-i18n="processes.stop_title">Stop by command line</h3>
+  <p class="muted small sub-note" data-i18n-rich="processes.stop_help">
     For when the name is not specific enough to aim with — twelve
-    <code>webalizer</code> processes where one of them is chewing through one
-    particular log. This is <code>pkill -f</code>, with the two differences that
+    <code data-i18n-tag="webalizer">webalizer</code> processes where one of them is chewing through one
+    particular log. This is <code data-i18n-tag="pkill">pkill -f</code>, with the two differences that
     matter: the pattern is matched here rather than handed to a shell, and it
     shows you what it would hit before it hits anything.
   </p>
   <form id="patternForm" class="pattern-row">
     <input type="text" id="patternText" spellcheck="false" autocomplete="off"
            placeholder="webalizer/bin/english.*ssl_log\.bkup" data-i18n-placeholder="processes.pattern_placeholder">
-    <button type="submit" id="patternPreview">Show matches</button>
+    <button type="submit" id="patternPreview" data-i18n="processes.show_matches">Show matches</button>
   </form>
   <div id="patternBody"></div>
 

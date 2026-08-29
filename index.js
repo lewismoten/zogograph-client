@@ -883,25 +883,25 @@ function renderCpuGauges(sample) {
     const workloadCpu = monitoringCpu == null ? null
       : Math.max(0, Number(sample.cpu_percent) - monitoringCpu);
     dials.push({
-      label: "Host CPU",
+      label: ZogographI18n.t("cpu.gauge_host_cpu"),
       value: Number(sample.cpu_percent),
       warn: 70, crit: 90,
       overlay: monitoringCpu,
       overlayLabel: monitoringCpu == null ? null
-        : `dark arc: collector tree ${monitoringCpu.toFixed(1)}%`,
-      sub: `total, of every core on the machine${cores ? ` (${cores})` : ""}`
-        + (workloadCpu == null ? "" : ` · ${workloadCpu.toFixed(1)}% workload excluding monitor`),
+        : ZogographI18n.t("cpu.gauge_collector_arc", { percent: monitoringCpu.toFixed(1) }),
+      sub: ZogographI18n.t("cpu.gauge_host_total", { cores })
+        + (workloadCpu == null ? "" : ZogographI18n.t("cpu.gauge_workload_excluding_monitor", { percent: workloadCpu.toFixed(1) })),
     });
   }
 
   const mine = state.overview?.vitals?.cpu_percent;
   if (mine != null) {
     dials.push({
-      label: "This account's CPU",
+      label: ZogographI18n.t("cpu.gauge_account_cpu"),
       value: Number(mine),
       warn: 70, crit: 90,
       // Not comparable with the figure beside it: different denominators.
-      sub: "of what this account may use, not of the machine",
+      sub: ZogographI18n.t("cpu.gauge_account_allowance"),
     });
   }
 
@@ -909,7 +909,7 @@ function renderCpuGauges(sample) {
     const monitorRunnable = sample.monitoring_runnable == null
       ? null : Number(sample.monitoring_runnable);
     dials.push({
-      label: "Load per core",
+      label: ZogographI18n.t("cpu.gauge_load_per_core"),
       value: (load1 / cores) * 100,
       // One job per core is a busy machine, not a broken one; past that work is
       // queueing, and half again is where it starts to be felt.
@@ -919,21 +919,21 @@ function renderCpuGauges(sample) {
       // that it is the collector's exact share of the average.
       overlay: monitorRunnable == null ? null : (monitorRunnable / cores) * 100,
       overlayLabel: monitorRunnable == null ? null
-        : `dark arc: ${monitorRunnable} collector task${monitorRunnable === 1 ? "" : "s"} runnable now, not a load-average share`,
-      sub: `${load1.toFixed(2)} over ${count(cores, "core")}`
-        + (monitorRunnable == null ? "" : ` · collector tree has ${monitorRunnable} runnable now`),
+        : ZogographI18n.t("cpu.gauge_runnable_arc", { count: monitorRunnable }),
+      sub: ZogographI18n.t("cpu.gauge_load_over_cores", { load: load1.toFixed(2), cores: count(cores, "core") })
+        + (monitorRunnable == null ? "" : ZogographI18n.t("cpu.gauge_collector_runnable", { count: monitorRunnable })),
     });
   }
 
   const myCores = Number(state.overview?.vitals?.cpu_cores) || 0;
   if (myCores > 0 && cores > 0 && myCores < cores) {
     dials.push({
-      label: "Share of the cores",
+      label: ZogographI18n.t("cpu.gauge_core_share"),
       value: (myCores / cores) * 100,
       // A small share is the normal, healthy state of a tenant on a shared box,
       // so the bands sit past anything ordinary.
       warn: 60, crit: 85,
-      sub: `${myCores} of the machine's ${cores}`,
+      sub: ZogographI18n.t("cpu.gauge_core_share_summary", { mine: myCores, total: cores }),
     });
   }
 

@@ -68,6 +68,8 @@
   "ai.settings.identity_character_help": "Sent with every single request, so length here is a cost on every turn. It cannot override the rules that keep the answers honest — never state a cause you have not measured, say when a tool returned nothing — which are added after it and say so.",
   "ai.settings.identity_portrait_label": "Portrait",
   "ai.settings.identity_portrait_help": "It drew this itself, the last time it was asked to. Turning off self-portraits below stops it drawing another; this one stays until it does.",
+  "ai.settings.sign_in_required": "Sign in to see these settings.",
+  "ai.settings.no_available_models": "No available models yet — add one on Available Models",
   "ai.settings.provider_label": "Provider",
   "ai.settings.address_label": "Address",
   "ai.settings.address_help": "Leave blank for the provider's own. Point it elsewhere for a gateway, a proxy, or a model running on this machine.",

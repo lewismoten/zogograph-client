@@ -5578,7 +5578,7 @@ async function refreshAiSettings() {
   const bodies = AI_SETTING_PAGES.map(id => $(id)).filter(Boolean);
 
   if (!state.signedIn) {
-    for (const body of bodies) body.replaceChildren(note("Sign in to see these settings."));
+    for (const body of bodies) body.replaceChildren(note(aiSettingsText("sign_in_required", "Sign in to see these settings.")));
     return;
   }
 
@@ -6101,7 +6101,7 @@ function renderAiSettings(data) {
     if (!model.options.length) {
       const option = document.createElement("option");
       option.value = "";
-      option.textContent = "No available models yet — add one on Available Models";
+      option.textContent = aiSettingsText("no_available_models", "No available models yet — add one on Available Models");
       model.appendChild(option);
     }
     model.value = wantedModel;

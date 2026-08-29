@@ -66,6 +66,8 @@
   "ai.settings.identity_character_help": "每个请求都会附带这段内容，因此其长度会增加每轮的成本。它不能覆盖保证回答诚实的规则——不得说明未测量的原因，工具没有返回结果时要说明——这些规则会在其后附加并明确说明这一点。",
   "ai.settings.identity_portrait_label": "肖像",
   "ai.settings.identity_portrait_help": "这是它上次被要求时为自己绘制的。关闭下面的自画像会阻止它再画一张；在那之前这张会保留。",
+  "ai.settings.sign_in_required": "登录后可查看这些设置。",
+  "ai.settings.no_available_models": "尚无可用模型——请在“可用模型”中添加一个",
   "ai.save_all_pages": "保存这些页面上的所有内容。",
   "ai.save_assistant_pages": "保存 {{assistant}} 所有页面上的内容，包括其他选项卡中的工具。",
   "ai.save_as_toolset": "另存为工具集",

@@ -509,6 +509,7 @@
   "schedule.custom.weekday": "يوم الأسبوع (0–7)",
   "schedule.saved_preview": "معاينة محفوظة",
   "schedule.installed": "مثبّت حاليًا",
+  "alerts.why_fired": "لماذا اشتعل هذا التنبيه؟",
   "common.loading": "جارٍ التحميل…",
   "alerts.timeline_level": "{{level}} ({{total, number}})", "alerts.timeline_restarts": "{{count, number}} إعادة تشغيل (متقطع)", "alerts.timeline_day": "يوم", "alerts.timeline_hour": "ساعة", "alerts.timeline_range": "{{count, number}} تنبيه، شريط لكل {{period}}", "alerts.timeline_held_back": " — حجب {{assistant}} {{count, number}} ولا تزال محسوبة هنا",
   "alerts.timeline_empty": "لم يُطلق شيء بعد.",

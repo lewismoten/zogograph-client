@@ -22831,7 +22831,7 @@ function alertWhat(row, detailed = state.signedIn) {
   if (row.incident_id && state.signedIn) {
     const button = document.createElement("button");
     button.className = "link why";
-    button.textContent = "Why did this fire?";
+    button.textContent = ZogographI18n.t("alerts.why_fired", {}, "Why did this fire?");
     button.addEventListener("click", () => showIncident(row.incident_id));
     cell.appendChild(button);
   }

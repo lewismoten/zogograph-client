@@ -511,6 +511,7 @@
   "schedule.custom.weekday": "Día de la semana (0–7)",
   "schedule.saved_preview": "Vista previa guardada",
   "schedule.installed": "Instalado actualmente",
+  "alerts.why_fired": "¿Por qué se activó esto?",
   "common.loading": "Cargando…",
   "alerts.timeline_level": "{{level}} ({{total, number}})", "alerts.timeline_restarts": "{{count, number}} reinicio(s) (discontinuo)", "alerts.timeline_day": "día", "alerts.timeline_hour": "hora", "alerts.timeline_range": "{{count, number}} alertas, una barra por {{period}}", "alerts.timeline_held_back": " — {{count, number}} retenidas por {{assistant}}, aún contadas aquí",
   "alerts.timeline_empty": "Aún no se ha activado nada.",

@@ -509,6 +509,7 @@
   "schedule.custom.weekday": "सप्ताह का दिन (0–7)",
   "schedule.saved_preview": "सहेजा गया पूर्वावलोकन",
   "schedule.installed": "वर्तमान में स्थापित",
+  "alerts.why_fired": "यह क्यों हुआ?",
   "common.loading": "लोड हो रहा है…",
   "alerts.timeline_level": "{{level}} ({{total, number}})", "alerts.timeline_restarts": "{{count, number}} पुनरारंभ (धराशायी)", "alerts.timeline_day": "दिन", "alerts.timeline_hour": "घंटा", "alerts.timeline_range": "{{count, number}} चेतावनियाँ, प्रति {{period}} एक बार", "alerts.timeline_held_back": " — {{assistant}} ने {{count, number}} रोकीं, फिर भी यहाँ गिनी गईं",
   "alerts.timeline_empty": "अभी तक कुछ नहीं हुआ है।",

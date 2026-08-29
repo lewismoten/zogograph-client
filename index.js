@@ -22897,9 +22897,9 @@ function renderActionSummary(rows) {
   const refused = rows.filter(r => r.outcome !== "ok").length;
 
   const cards = [
-    ["Things done", String(rows.length), rows.length ? `since ${humanTime(rows[rows.length - 1].at)}` : ""],
-    ["Space freed", humanBytes(freed), count(files, "file") + " removed"],
-    ["Refused or failed", String(refused), refused ? "these changed nothing" : "everything worked"],
+    [ZogographI18n.t("action_log.things_done"), String(rows.length), rows.length ? ZogographI18n.t("action_log.since", { time: humanTime(rows[rows.length - 1].at) }) : ""],
+    [ZogographI18n.t("action_log.space_freed"), humanBytes(freed), ZogographI18n.t("action_log.files_removed", { count: count(files, "file") })],
+    [ZogographI18n.t("action_log.refused_failed"), String(refused), refused ? ZogographI18n.t("action_log.changed_nothing") : ZogographI18n.t("action_log.everything_worked")],
   ];
 
   const frag = document.createDocumentFragment();

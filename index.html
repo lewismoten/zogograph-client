@@ -2606,13 +2606,13 @@
 <section class="view" data-view="sys-memory" hidden>
 <section class="panel" id="memoryPanel">
   <div class="panel-head">
-    <h2>What <span class="ai-name">Assistant</span> remembers</h2>
+    <h2 data-i18n-rich="ai.memory_title">What <span class="ai-name" data-i18n-tag="assistant">Assistant</span> remembers</h2>
     <div class="panel-controls">
-      <button id="memoryAdd" class="link">Add one</button>
-      <button id="memoryClear" class="link danger">Forget everything</button>
+      <button id="memoryAdd" class="link" data-i18n="ai.memory_add">Add one</button>
+      <button id="memoryClear" class="link danger" data-i18n="ai.memory_forget">Forget everything</button>
     </div>
   </div>
-  <p class="muted small sub-note">
+  <p class="muted small sub-note" data-i18n="ai.memory_help">
     A conversation ends and everything worked out in it goes with it. These are
     the things kept on purpose &mdash; which of the installed PHP versions the
     site actually runs, what the 03:10 spike turns out to be, how you have said
@@ -2627,12 +2627,12 @@
 <section class="view" data-view="sys-ai-data" hidden>
 <section class="panel" id="aiDataPanel">
   <div class="panel-head">
-    <h2><span class="ai-name">Assistant</span>&rsquo;s database</h2>
+    <h2 data-i18n-rich="ai.data_title"><span class="ai-name" data-i18n-tag="assistant">Assistant</span>&rsquo;s database</h2>
     <div class="panel-controls">
-      <button id="aiCompact" class="link">Reclaim empty space</button>
+      <button id="aiCompact" class="link" data-i18n="ai.reclaim_space">Reclaim empty space</button>
     </div>
   </div>
-  <p class="muted small sub-note">
+  <p class="muted small sub-note" data-i18n="ai.data_help">
     Kept apart from the account&rsquo;s own database on purpose: everything here
     is a record of what was sent to somebody else&rsquo;s service and what came
     back, and that is worth being able to read, export or delete without

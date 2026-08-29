@@ -3681,8 +3681,8 @@ function syncScanButton(overview) {
   const running = overview.scan_running;
   button.disabled = Boolean(running);
   button.textContent = running
-    ? `Scanning\u2026 (${humanDuration(Date.now() / 1000 - running.started_at)})`
-    : "Scan now";
+    ? ZogographI18n.t("storage.scanning", { elapsed: humanDuration(Date.now() / 1000 - running.started_at) }, "Scanning… ({{elapsed}})")
+    : ZogographI18n.t("storage.scan_now", {}, "Scan now");
 }
 
 /** Keeps the category filter in step with the rules the server is using. */

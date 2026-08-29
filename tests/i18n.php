@@ -59,6 +59,10 @@ i18nExpect($page !== false && str_contains($page, 'data-i18n="storage.host_logs_
     && str_contains($page, 'data-i18n="storage.check_again"') && str_contains($page, 'data-i18n="storage.host_logs_help"')
     && is_array($english) && isset($english['storage.host_logs_title'], $english['storage.check_again'], $english['storage.host_logs_help']),
     'Storage host-log guidance does not use the locale catalog');
+i18nExpect($script !== false && str_contains($script, 'ZogographI18n.t("storage.scanning"')
+    && str_contains($script, 'ZogographI18n.t("storage.scan_now"') && is_array($english)
+    && isset($english['storage.scan_now'], $english['storage.scanning']),
+    'Storage scan status does not use the locale catalog');
 i18nExpect($script !== false && str_contains($script, 'marketplaceText("discovery_notice"')
     && str_contains($script, 'marketplaceText("search_label"') && str_contains($script, 'marketplaceText("table_compatibility"')
     && str_contains($script, 'marketplaceText("toggle_confirmation"') && str_contains($script, 'marketplaceText("restore_confirmation"')

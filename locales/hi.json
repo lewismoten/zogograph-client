@@ -1416,7 +1416,7 @@
   "storage.two_scans_for_change": "बदलाव दिखाने से पहले दो पूरे स्कैन चाहिए",
   "storage.watched_category": "{{name}} (निगरानी में)", "storage.types_categories_help": "बाहरी वलय: प्रकार के अनुसार हर फ़ाइल एक बार गिनी जाती है, इसलिए यह पूरा खाता है। भीतरी वलय: अलर्ट नियम जिन श्रेणियों को देखते हैं, उसी कुल के विरुद्ध; गहरा शेष वे चीज़ें हैं जिन्हें वे नहीं कवर करतीं। दोनों वलय कुछ बाइट दो बार मापते हैं, क्योंकि लॉग फ़ाइल दोनों में है; हर वलय को पूरे के विरुद्ध पढ़ें, दूसरे के विरुद्ध नहीं।", "storage.types_help": "हर फ़ाइल एक बार गिनी जाती है, इसलिए स्लाइस पूरा खाता हैं।",
   "storage.types_measured": "{{files}} में {{bytes}}, मापा गया {{when}}", "storage.types_total": "{{files}} में {{bytes}}", "storage.not_measured_yet": "अभी मापा नहीं गया",
-  "storage.first_scan_running": "पहला स्कैन अभी चल रहा है।", "storage.no_completed_scan": "अभी तक कोई स्कैन पूरा नहीं हुआ है।", "storage.last_scan_label": "पिछला स्कैन", "storage.scan_took": "लगा {{duration}}", "storage.seen_label": "देखा गया", "storage.files_in_directories": "{{directories}} निर्देशिकाओं में {{files}} फ़ाइलें", "storage.scans_in_range": "इस दायरे में स्कैन", "storage.each_chart_point": "नीचे के चार्ट में हर बिंदु", "storage.not_enough_trend": "रुझान बनाने के लिए पर्याप्त नहीं", "storage.last_scan_reported": "पिछले स्कैन ने बताया: {{error}}", "storage.types_not_measured": "पिछला स्कैन इसे मापने से पहले चला था। अगला इसे भर देगा।", "storage.no_scan_in_range": "इस दायरे में कोई पूरा स्कैन नहीं है।",
+  "storage.types_not_measured": "पिछला स्कैन इसे मापने से पहले चला था। अगला इसे भर देगा।", "storage.no_scan_in_range": "इस दायरे में कोई पूरा स्कैन नहीं है।",
   "storage.scanning": "स्कैन हो रहा है… ({{elapsed}})",
   "storage.history": "इतिहास",
   "storage.log": "लॉग",

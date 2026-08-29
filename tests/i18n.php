@@ -95,10 +95,14 @@ i18nExpect($page !== false && str_contains($page, 'src="cards/overview-vitals.js
     'overview vitals cards are not isolated behind their core card-module boundary');
 i18nExpect($page !== false && str_contains($page, 'src="cards/scan-facts.js"')
     && $scanFactCards !== false && str_contains($scanFactCards, 'window.ZogographScanFactCards')
-    && str_contains($scanFactCards, 'id: "core-scan-facts"') && str_contains($scanFactCards, 'locales: ["storage."]')
+    && str_contains($scanFactCards, 'id: "core-scan-facts"') && str_contains($scanFactCards, 'locales: ["core-scan-facts."]')
     && str_contains($scanFactCards, 'render(scans, helpers)')
     && $script !== false && str_contains($script, 'renderCoreCardPackage(ZogographScanFactCards, "core-scan-facts", scans,'),
     'storage scan-fact cards are not isolated behind their core card-module boundary');
+i18nExpect($scanFactCards !== false && str_contains($scanFactCards, 'catalogs: Object.freeze({')
+    && str_contains($scanFactCards, '"core-scan-facts.first_scan_running"')
+    && is_array($english) && !isset($english['storage.first_scan_running']),
+    'storage scan-fact card does not own its locale catalog');
 i18nExpect($page !== false && str_contains($page, 'src="cards/type-growth.js"')
     && $typeGrowthCard !== false && str_contains($typeGrowthCard, 'window.ZogographTypeGrowthCard')
     && str_contains($typeGrowthCard, 'id: "core-type-growth"') && str_contains($typeGrowthCard, 'locales: ["storage."]')

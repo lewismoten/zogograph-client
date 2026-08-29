@@ -11904,7 +11904,7 @@ function renderPathHygiene(data) {
       { label: "", className: "row-actions", render: row => {
         const wrap = document.createDocumentFragment();
         if (!data.can_change) return wrap;
-        const rename = document.createElement("button"); rename.className = "link"; rename.textContent = "Rename";
+        const rename = document.createElement("button"); rename.className = "link"; rename.textContent = ZogographI18n.t("action.rename", {}, "Rename");
         rename.addEventListener("click", () => showPathHygieneRename(row)); wrap.appendChild(rename); return wrap;
       } },
     ]);
@@ -12567,7 +12567,7 @@ function renderPeers(data) {
           });
           const drop = document.createElement("button");
           drop.className = "link danger";
-          drop.textContent = "Remove";
+          drop.textContent = ZogographI18n.t("action.remove", {}, "Remove");
           drop.addEventListener("click", async () => {
             if (!(await confirmDialog(`Remove trusted server “${row.label}”?`, "Remove server"))) return;
             try { renderPeers(await post("peer-delete", { name: row.name })); }
@@ -12652,13 +12652,13 @@ function renderNotes(data) {
     controls.appendChild(selected);
     const clear = document.createElement("button");
     clear.className = "link";
-    clear.textContent = "Dismiss selected";
+    clear.textContent = ZogographI18n.t("action.dismiss_selected", {}, "Dismiss selected");
     clear.disabled = !state.access?.write || !noteState.selected.size;
     clear.title = "Clears selected broadcast notes; ordinary notes are left alone.";
     clear.addEventListener("click", () => batchNotes("clear"));
     const remove = document.createElement("button");
     remove.className = "link danger";
-    remove.textContent = "Delete selected";
+    remove.textContent = ZogographI18n.t("action.delete_selected", {}, "Delete selected");
     remove.disabled = !state.access?.write || !noteState.selected.size;
     remove.addEventListener("click", () => batchNotes("delete"));
     controls.append(clear, remove);
@@ -15533,13 +15533,13 @@ function renderMemories(data) {
 
         const edit = document.createElement("button");
         edit.className = "link";
-        edit.textContent = "Edit";
+        edit.textContent = ZogographI18n.t("action.edit", {}, "Edit");
         edit.addEventListener("click", () => showMemoryDialog(row));
         wrap.appendChild(edit);
 
         const drop = document.createElement("button");
         drop.className = "link danger";
-        drop.textContent = "Forget";
+        drop.textContent = ZogographI18n.t("action.forget", {}, "Forget");
         drop.addEventListener("click", async () => {
           if (!(await confirmDialog(`Forget "${row.subject}"?`, "Forget memory"))) return;
           try {
@@ -24547,7 +24547,7 @@ async function refreshDiagnosis() {
       row.appendChild(document.createTextNode(finding.title));
       const restore = document.createElement("button");
       restore.className = "link";
-      restore.textContent = "Restore";
+      restore.textContent = ZogographI18n.t("action.restore", {}, "Restore");
       restore.addEventListener("click", async () => {
         try {
           await post("diagnosis-unignore", { key: finding.key });
@@ -26796,13 +26796,13 @@ function renderEventList(data) {
 
         const edit = document.createElement("button");
         edit.className = "link";
-        edit.textContent = "Edit";
+        edit.textContent = ZogographI18n.t("action.edit", {}, "Edit");
         edit.addEventListener("click", () => openEventForm(row));
         wrap.appendChild(edit);
 
         const remove = document.createElement("button");
         remove.className = "link danger";
-        remove.textContent = "Remove";
+        remove.textContent = ZogographI18n.t("action.remove", {}, "Remove");
         remove.addEventListener("click", async () => {
           if (!(await confirmDialog(`Remove "${row.title}"?`, "Remove event"))) return;
           try {
@@ -27442,14 +27442,14 @@ function renderDescriptions() {
         const edit = document.createElement("button");
         edit.type = "button";
         edit.className = "link";
-        edit.textContent = "Edit";
+        edit.textContent = ZogographI18n.t("action.edit", {}, "Edit");
         edit.addEventListener("click", () => fillDescriptionForm(row.kind, row.name, row));
         wrap.appendChild(edit);
 
         const gone = document.createElement("button");
         gone.type = "button";
         gone.className = "link danger";
-        gone.textContent = "Forget";
+        gone.textContent = ZogographI18n.t("action.forget", {}, "Forget");
         gone.addEventListener("click", async () => {
           const yes = await askFirst(`Forget what ${row.name} is?`, [
             "The note goes; the built-in description takes over again if there is one "
@@ -28944,7 +28944,7 @@ function renderLabels(data) {
       render: row => {
         const button = document.createElement("button");
         button.className = "link danger";
-        button.textContent = "Remove";
+        button.textContent = ZogographI18n.t("action.remove", {}, "Remove");
         button.addEventListener("click", async () => {
           try {
             const result = await post("label-delete", { id: row.id });

@@ -1496,15 +1496,15 @@
 <section class="view" data-view="net-rdns" hidden>
 <section class="panel" id="rdnsPanel">
   <div class="panel-head">
-    <h2>What the internet calls an address</h2>
+    <h2 data-i18n="network.rdns_title">What the internet calls an address</h2>
     <div class="panel-controls">
-      <button id="rdnsNow" class="link">Resolve the next one now</button>
+      <button id="rdnsNow" class="link" data-i18n="network.rdns_resolve_next">Resolve the next one now</button>
     </div>
   </div>
-  <p class="muted small sub-note">
+  <p class="muted small sub-note" data-i18n-rich="network.rdns_help">
     A capture or an access log is a wall of numbers, and the same number means
     nothing on Monday and something on Friday once somebody has looked it up.
-    This is <em>not</em> <a href="#/net-labels">your own names</a> — that is what
+    This is <em>not</em> <a data-i18n-tag="labels" href="#/net-labels">your own names</a> — that is what
     <strong>you</strong> decided an address means, and is small, hand-written and
     permanent. This is what the internet says it is: automatic, occasionally
     wrong, and stale within months.
@@ -1519,7 +1519,7 @@
   <form id="rdnsForm" class="pattern-row">
     <input type="text" id="rdnsAddresses" spellcheck="false" autocomplete="off"
            placeholder="78.174.88.104, 2001:db8::1 — or paste a whole column" data-i18n-placeholder="network.rdns_placeholder">
-    <button type="submit">Look these up</button>
+    <button type="submit" data-i18n="network.rdns_lookup">Look these up</button>
   </form>
   <div id="rdnsBody"></div>
 </section>

@@ -5766,7 +5766,10 @@ function packageRuntimeView(array $config, PDO $pdo, bool $signedIn): array
 function packageRuntimeLocaleCatalogsView(PDO $pdo, bool $signedIn): array
 {
     if (!$signedIn) throw new ActionRefused('sign in to load package translations');
-    return ['catalogs' => packageRuntimeLocaleCatalogs($pdo)];
+    // Core AI tool modules share the exact inert, namespaced catalog contract
+    // used by installed packages. Their reviewed catalogs win if an installed
+    // package somehow reuses a reserved core package ID.
+    return ['catalogs' => array_replace(packageRuntimeLocaleCatalogs($pdo), aiToolCoreLocaleCatalogs())];
 }
 
 function packageRuntimeDashboardPagesView(PDO $pdo, bool $signedIn): array

@@ -14,6 +14,9 @@ aiToolPackageExpect(preg_match('/^\s{8}\'[a-z0-9_]+\'\s*=>\s*\[/m', $catalogue) 
 aiToolPackageExpect(str_contains($catalogue, "\$tool['package'] = 'core-ai-' . \$slug;")
     && str_contains($catalogue, "\$tool['locale_namespace'] = \$tool['package'] . '.';"),
     'core AI tool packages do not expose stable package and locale identities');
+aiToolPackageExpect(str_contains($catalogue, 'function aiToolCoreLocaleCatalogs(): array')
+    && str_contains($catalogue, "str_starts_with(\$key, \$package . '.')"),
+    'core AI tool packages do not provide namespace-bound locale catalogs');
 
 $modules = glob($root . '/lib/ai-tools/*.php') ?: [];
 aiToolPackageExpect($modules !== [], 'no core AI tool modules were found');
@@ -29,6 +32,18 @@ foreach ($modules as $module) {
     aiToolPackageExpect(str_contains($catalogue, "require_once __DIR__ . '/ai-tools/$name';")
         && str_contains($catalogue, "...$function()"),
         "AI tool module $name is not assembled through the central policy catalogue");
+}
+
+$english = json_decode((string)file_get_contents($root . '/locales/en.json'), true);
+aiToolPackageExpect(is_array($english), 'shared English catalog is unavailable');
+foreach (['core-ai-get-collection-schedule', 'core-ai-get-current-status', 'core-ai-get-filesystems'] as $package) {
+    aiToolPackageExpect(!isset($english[$package . '.summary']), "$package still owns its summary in the shared catalog");
+    foreach (['en', 'es', 'hi', 'ar', 'zh'] as $locale) {
+        $file = $root . '/lib/ai-tools/locales/' . $package . '/' . $locale . '.json';
+        $catalog = is_file($file) ? json_decode((string)file_get_contents($file), true) : null;
+        aiToolPackageExpect(is_array($catalog) && is_string($catalog[$package . '.summary'] ?? null),
+            "$package does not provide its $locale summary in its own package catalog");
+    }
 }
 
 echo "AI tool package checks passed\n";

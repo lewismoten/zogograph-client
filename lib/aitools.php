@@ -193,6 +193,41 @@ function aiToolCatalogue(): array
 }
 
 /**
+ * Translation catalogs owned by the core's one-tool packages.
+ *
+ * These packages are reviewed core code rather than installed executable
+ * packages, but their browser-facing contract deliberately matches the signed
+ * package runtime: every catalog is inert JSON and every key belongs to that
+ * package's stable ID. Keeping the files alongside the declaration gives a
+ * future extracted package its text without a second migration from the
+ * shared shell catalog.
+ *
+ * @return array<string, array<string, array<string, string>>>
+ */
+function aiToolCoreLocaleCatalogs(): array
+{
+    $out = [];
+    $root = __DIR__ . '/ai-tools/locales';
+    foreach (aiToolCatalogue() as $tool) {
+        $package = (string)($tool['package'] ?? '');
+        if (!preg_match('/^core-ai-[a-z0-9-]{1,55}$/', $package)) continue;
+        foreach (glob($root . '/' . $package . '/*.json') ?: [] as $file) {
+            $locale = basename($file, '.json');
+            if (!preg_match('/^[a-z]{2,3}(?:-[A-Z]{2})?$/', $locale) || !is_file($file) || is_link($file) || filesize($file) > 262144) continue;
+            try { $raw = json_decode((string)file_get_contents($file), true, 64, JSON_THROW_ON_ERROR); } catch (Throwable) { continue; }
+            if (!is_array($raw) || array_is_list($raw) || count($raw) > 1000) continue;
+            $catalog = [];
+            foreach ($raw as $key => $value) {
+                if (is_string($key) && str_starts_with($key, $package . '.') && preg_match('/^[a-z][\\w.-]{0,119}$/i', $key)
+                    && is_string($value) && mb_strlen($value) <= 4000) $catalog[$key] = $value;
+            }
+            if ($catalog !== []) $out[$package][$locale] = $catalog;
+        }
+    }
+    return $out;
+}
+
+/**
  * The catalogue with the pages filled in.
  *
  * `open_page` can only name a view that exists, and the list of views lives in

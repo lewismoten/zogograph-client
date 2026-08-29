@@ -9019,12 +9019,12 @@ async function refreshChat() {
 function renderChatUnavailable(why) {
   const log = $("chatLog");
   log.replaceChildren(note(
-    why + ` It is set up under System \u2192 ${chatState.who.name}.`
+    why + " " + ZogographI18n.t("ai.unavailable_setup", { assistant: chatState.who.name }, "It is set up under System → {{assistant}}.")
   ));
 
   const go = document.createElement("button");
   go.className = "link";
-  go.textContent = "Set it up";
+  go.textContent = ZogographI18n.t("ai.set_up", {}, "Set it up");
   go.addEventListener("click", () => { location.hash = "#/sys-ai?range=" + state.range; });
   log.appendChild(go);
 

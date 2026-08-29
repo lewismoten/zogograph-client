@@ -1215,7 +1215,7 @@ function renderCpuQueue(data) {
  */
 function cpuQueueVerdict(now, load, cores) {
   if (!now) {
-    return "Nothing to compare yet — the queue is read from two consecutive collections.";
+    return ZogographI18n.t("cpu.queue_verdict_waiting", {}, "Nothing to compare yet — the queue is read from two consecutive collections.");
   }
 
   const running = Number(now.procs_running);
@@ -1223,30 +1223,27 @@ function cpuQueueVerdict(now, load, cores) {
 
   if (load != null && cores > 0 && load > cores && Number.isFinite(blocked) && blocked >= 2
     && Number.isFinite(running) && running <= cores) {
-    return `Load is ${load.toFixed(2)} on ${count(cores, "core")}, but only ${running} `
-      + `${running === 1 ? "task wants" : "tasks want"} a core and `
-      + `${count(blocked, "task")} ${blocked === 1 ? "is" : "are"} blocked in the kernel. `
-      + `That load is storage, not processor: blocked tasks count towards it and use no `
-      + `CPU at all. A faster processor would change nothing here.`;
+    return ZogographI18n.t("cpu.queue_verdict_storage", {
+      load: load.toFixed(2), cores: count(cores, "core"), running,
+      blocked: count(blocked, "task"),
+    }, "Load is {{load}} on {{cores}}, but only {{running}} task(s) want a core and {{blocked}} are blocked in the kernel. That load is storage, not processor: blocked tasks count towards it and use no CPU at all. A faster processor would change nothing here.");
   }
 
   if (Number.isFinite(running) && cores > 0 && running > cores * 2) {
-    return `${count(running, "task")} runnable across ${count(cores, "core")}. Nothing is `
-      + `stalled — everything gets a turn — but each turn is shorter, and every job takes `
-      + `longer than it would on an idle machine. This is what "slow but nothing is `
-      + `broken" looks like from underneath.`;
+    return ZogographI18n.t("cpu.queue_verdict_runnable", { running: count(running, "task"), cores: count(cores, "core") },
+      "{{running}} runnable across {{cores}}. Nothing is stalled — everything gets a turn — but each turn is shorter, and every job takes longer than it would on an idle machine. This is what “slow but nothing is broken” looks like from underneath.");
   }
 
   if (Number.isFinite(blocked) && blocked >= 4) {
-    return `${count(blocked, "task")} in uninterruptible sleep. They are waiting on I/O, `
-      + `cannot be killed while they wait, and are inflating the load average without `
-      + `touching the processor.`;
+    return ZogographI18n.t("cpu.queue_verdict_blocked", { blocked: count(blocked, "task") },
+      "{{blocked}} in uninterruptible sleep. They are waiting on I/O, cannot be killed while they wait, and are inflating the load average without touching the processor.");
   }
 
-  return `Nothing is queueing: ${Number.isFinite(running) ? running : "an unknown number of"} `
-    + `${running === 1 ? "task" : "tasks"} runnable`
-    + (cores ? ` across ${count(cores, "core")}` : "")
-    + `, ${Number.isFinite(blocked) ? blocked : "an unknown number"} blocked.`;
+  return ZogographI18n.t("cpu.queue_verdict_clear", {
+    running: Number.isFinite(running) ? running : ZogographI18n.t("cpu.queue_unknown_count", {}, "an unknown number of"),
+    cores: cores ? ZogographI18n.t("cpu.across_cores", { count: cores }, "across {{count, number}} cores") : "",
+    blocked: Number.isFinite(blocked) ? blocked : ZogographI18n.t("cpu.queue_unknown_count", {}, "an unknown number of"),
+  }, "Nothing is queueing: {{running}} tasks runnable {{cores}}, {{blocked}} blocked.");
 }
 
 /* --------------------------------------------- ceilings and throttling -- */

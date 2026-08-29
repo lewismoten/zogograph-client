@@ -26276,7 +26276,7 @@ function renderRegexResult(out, groupInput) {
     const keep = document.createElement("button");
     keep.type = "button";
     keep.className = "link";
-    keep.textContent = "Keep this one";
+    keep.textContent = ZogographI18n.t("regex.keep_group", {}, "Keep this one");
     keep.title = `Record group ${group.n} on every run`;
     keep.disabled = !groupInput || Number(groupInput.value) === group.n;
     keep.addEventListener("click", () => {

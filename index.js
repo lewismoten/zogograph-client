@@ -4732,7 +4732,9 @@ async function refreshOffenders() {
        * beside it is not the number you would get back - and that is worth
        * knowing before pressing Delete rather than after.
        */
-      label: view === "deleted" ? "Size when last seen" : "Size",
+      label: view === "deleted"
+        ? ZogographI18n.t("storage.size_when_last_seen", {}, "Size when last seen")
+        : ZogographI18n.t("table.size", {}, "Size"),
       className: "size",
       render: row => {
         const links = Number(row.links ?? 1);
@@ -4749,9 +4751,12 @@ async function refreshOffenders() {
         box.appendChild(document.createTextNode(humanBytes(row.bytes)));
         const note = document.createElement("span");
         note.className = "muted small";
-        note.textContent = ` · ${links} links`;
-        note.title = `This file has ${links} names. Removing one frees nothing `
-          + `until the last one goes.`;
+        note.textContent = ZogographI18n.t("storage.link_count", { count: links }, " · {{count, number}} links");
+        note.title = ZogographI18n.t(
+          "storage.link_count_help",
+          { count: links },
+          "This file has {{count, number}} names. Removing one frees nothing until the last one goes.",
+        );
         box.appendChild(note);
         return box;
       },
@@ -4769,48 +4774,61 @@ async function refreshOffenders() {
      * "deleted".
      */
     columns.push({
-      label: "What happened",
+      label: ZogographI18n.t("storage.what_happened", {}, "What happened"),
       render: row => {
         const span = document.createElement("span");
         if (!row.gone) {
           span.className = "muted";
-          span.textContent = "still on disk — no longer among the largest";
-          span.title = "The file has not gone anywhere. Something else grew past it, so it "
-            + "dropped out of the paths this scan records.";
+          span.textContent = ZogographI18n.t("storage.still_on_disk", {}, "Still on disk — no longer among the largest");
+          span.title = ZogographI18n.t(
+            "storage.still_on_disk_help",
+            {},
+            "The file has not gone anywhere. Something else grew past it, so it dropped out of the paths this scan records.",
+          );
         } else if (row.deleted_at) {
           span.className = "shrank";
-          span.textContent = `deleted from here ${humanTime(row.deleted_at)}`;
-          span.title = "Deleted through this dashboard, from the action log.";
+          span.textContent = ZogographI18n.t(
+            "storage.deleted_here",
+            { at: humanTime(row.deleted_at) },
+            "Deleted from here {{at}}",
+          );
+          span.title = ZogographI18n.t("storage.deleted_here_help", {}, "Deleted through this dashboard, from the action log.");
         } else {
           span.className = "shrank";
-          span.textContent = "gone";
-          span.title = "Not on disk any more, and not deleted through this dashboard — so "
-            + "something else removed it: log rotation, a cron job, or a person.";
+          span.textContent = ZogographI18n.t("storage.gone", {}, "Gone");
+          span.title = ZogographI18n.t(
+            "storage.gone_help",
+            {},
+            "Not on disk any more, and not deleted through this dashboard — so something else removed it: log rotation, a cron job, or a person.",
+          );
         }
         return span;
       },
     });
   } else if (view === "new") {
     columns.push({
-      label: "First seen",
+      label: ZogographI18n.t("storage.first_seen", {}, "First seen"),
       render: row => {
         const span = document.createElement("span");
         if (row.never_seen_before) {
           span.className = "grew";
-          span.textContent = "new";
-          span.title = "This path has never been recorded before.";
+          span.textContent = ZogographI18n.t("storage.new", {}, "New");
+          span.title = ZogographI18n.t("storage.new_help", {}, "This path has never been recorded before.");
         } else {
           span.className = "muted";
-          span.textContent = "back in the list";
-          span.title = "Recorded before, absent from the previous scan, and back now — it "
-            + "grew past the size that gets a path recorded rather than being created.";
+          span.textContent = ZogographI18n.t("storage.back_in_list", {}, "Back in the list");
+          span.title = ZogographI18n.t(
+            "storage.back_in_list_help",
+            {},
+            "Recorded before, absent from the previous scan, and back now — it grew past the size that gets a path recorded rather than being created.",
+          );
         }
         return span;
       },
     });
   } else {
     columns.push({
-      label: "Change",
+      label: ZogographI18n.t("table.change", {}, "Change"),
       className: "size",
       render: row => growthCell(Number(row.growth || 0)),
     });
@@ -4823,7 +4841,11 @@ async function refreshOffenders() {
    * need the viewer opened - which for a two-gigabyte log is the difference
    * between a glance and a decision.
    */
-  columns.push({ label: "Last line", className: "cmd", render: row => lastLineCell(row) });
+  columns.push({
+    label: ZogographI18n.t("storage.last_line", {}, "Last line"),
+    className: "cmd",
+    render: row => lastLineCell(row),
+  });
 
   // A file that is gone has nothing to press. The deleted view is a report.
   if (view !== "deleted") {

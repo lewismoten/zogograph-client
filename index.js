@@ -33637,7 +33637,7 @@ $("changedOnly").addEventListener("change", event => {
 $("changedCheck").addEventListener("click", async () => {
   const button = $("changedCheck");
   button.disabled = true;
-  button.textContent = "Checking\u2026";
+  button.textContent = ZogographI18n.t("action.checking", {}, "Checking…");
 
   try {
     /*
@@ -33649,12 +33649,12 @@ $("changedCheck").addEventListener("click", async () => {
      */
     await post("check-capabilities", { versions: "1" });
     await refreshChanged();
-    notice("Checked. Anything that moved since last time is listed above.", true);
+    notice(ZogographI18n.t("changed.checked", {}, "Checked. Anything that moved since last time is listed above."), true);
   } catch (error) {
     notice(String(error.message || error));
   } finally {
     button.disabled = false;
-    button.textContent = "Check now";
+    button.textContent = ZogographI18n.t("action.check_now", {}, "Check now");
   }
 });
 $("noteDialogClose").addEventListener("click", () => { closeNoteDialog().catch(error => notice(String(error.message || error))); });

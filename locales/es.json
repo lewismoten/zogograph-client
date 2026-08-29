@@ -511,6 +511,7 @@
   "schedule.custom.weekday": "Día de la semana (0–7)",
   "schedule.saved_preview": "Vista previa guardada",
   "schedule.installed": "Instalado actualmente",
+  "action.checking": "Comprobando…", "action.check_now": "Comprobar ahora", "changed.checked": "Comprobado. Todo lo que cambió desde la última vez aparece arriba.",
   "action.testing": "Probando…", "action.test_connection": "Probar la conexión",
   "guide.sign_in_help": "Inicie sesión para ver mediciones y controles protegidos. Esta guía sigue disponible para que la página nunca sea un estado vacío sin explicación.", "guide.read_help": "Leer la ayuda de la página",
   "unit.percent": "%", "unit.fraction": "% de lecturas", "unit.bytes": "MiB", "unit.hours": "horas", "unit.minutes": "minutos", "unit.readings": "lecturas", "unit.files": "archivos", "unit.processes": "procesos", "unit.times": "× lo habitual",

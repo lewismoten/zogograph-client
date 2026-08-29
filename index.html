@@ -1178,10 +1178,10 @@
 <section class="view" data-view="disk-rootfiles" hidden>
 <section class="panel" id="rootFilesPanel">
   <div class="panel-head">
-    <h2>Files only root can see</h2>
-    <button id="rootFilesRefresh" class="link">Refresh</button>
+    <h2 data-i18n="host.root_files_title">Files only root can see</h2>
+    <button id="rootFilesRefresh" class="link" data-i18n="action.refresh">Refresh</button>
   </div>
-  <p class="muted small sub-note">
+  <p class="muted small sub-note" data-i18n="host.root_files_help">
     Apache writes each domain's logs under <code>/etc</code> owned by root. A
     rotated log there costs exactly as much disk as one in the home directory
     and is invisible to everything the account can run.

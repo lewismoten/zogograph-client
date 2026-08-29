@@ -6634,19 +6634,17 @@ function personaFields(data) {
     const clear = document.createElement("button");
     clear.type = "button";
     clear.className = "link danger";
-    clear.textContent = "Clear this portrait";
+    clear.textContent = ZogographI18n.t("ai.clear_portrait", {}, "Clear this portrait");
     clear.addEventListener("click", async () => {
-      const yes = await askFirst("Clear the portrait?", [
-        "The picture stops being shown and the emoji takes its place until it draws "
-        + "another one.",
-        "The record of it stays in the image log — it was generated and it cost "
-        + "something, and that is worth keeping whether or not the picture is shown.",
-      ], "Clear it", true);
+      const yes = await askFirst(ZogographI18n.t("ai.clear_portrait_title", {}, "Clear the portrait?"), [
+        ZogographI18n.t("ai.clear_portrait_hide", {}, "The picture stops being shown and the emoji takes its place until it draws another one."),
+        ZogographI18n.t("ai.clear_portrait_retention", {}, "The record of it stays in the image log — it was generated and it cost something, and that is worth keeping whether or not the picture is shown."),
+      ], ZogographI18n.t("notes.clear", {}, "Clear it"), true);
       if (!yes) return;
 
       try {
         renderAiSettings(await post("ai-portrait-clear", {}));
-        notice("Cleared.", true);
+        notice(ZogographI18n.t("ai.portrait_cleared", {}, "Cleared."), true);
       } catch (error) {
         notice(String(error.message || error));
       }

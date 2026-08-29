@@ -19552,14 +19552,15 @@ async function refreshHostDisk() {
       if (others.length) {
         const button = document.createElement("button");
         button.className = "link more-link";
-        button.textContent = `+${count(others.length, "mount point")}`;
-        button.title = "The same filesystem is mounted in these places too. Bind mounts, "
-          + "so the space is counted once.";
+        button.textContent = ZogographI18n.t("host.mount_points_more", { count: others.length },
+          "+{{count, number}} mount points");
+        button.title = ZogographI18n.t("host.mount_points_more_tip", {},
+          "The same filesystem is mounted in these places too. Bind mounts, so the space is counted once.");
         button.addEventListener("click", () => showPathList(
-          `${m.mount} is also mounted at`,
+          ZogographI18n.t("host.mount_also_at", { mount: m.mount }, "{{mount}} is also mounted at"),
           others,
-          "One filesystem, mounted in several places. The disk holds these bytes once — "
-          + "which is why this table shows one row rather than one per mount point."
+          ZogographI18n.t("host.mount_points_help", {},
+            "One filesystem, mounted in several places. The disk holds these bytes once — which is why this table shows one row rather than one per mount point.")
         ));
         first.appendChild(button);
       }
@@ -19626,8 +19627,11 @@ async function refreshHostDisk() {
       "Nothing recorded. Ask for a walk from the Storage page.")));
   }
 
-  const when = [`Walked ${humanTime(data.taken_at)} (${ago(data.taken_at)})`];
-  if (data.dirs_scanned) when.push(`${humanCount(data.dirs_scanned)} directories in ${data.seconds}s.`);
+  const when = [ZogographI18n.t("host.walked_at", { at: humanTime(data.taken_at), ago: ago(data.taken_at) },
+    "Walked {{at}} ({{ago}})")];
+  if (data.dirs_scanned) when.push(ZogographI18n.t("host.walked_directories", {
+    directories: data.dirs_scanned, seconds: data.seconds,
+  }, "{{directories, number}} directories in {{seconds, number}}s."));
   if (data.note) when.push(data.note);
 
   body.appendChild(note(when.join(" \u00b7 ")));

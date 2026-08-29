@@ -513,6 +513,7 @@
   "schedule.custom.weekday": "星期 (0–7)",
   "schedule.saved_preview": "已保存的预览",
   "schedule.installed": "当前已安装",
+  "help.terminal_commands": "相关终端命令",
   "host_log.refused_help": "文件存在，但此账户可能无法打开它。需要由 root 授予组成员资格或 ACL；这里无法更改此设置。",
   "capabilities.queue_check": "让采集器随后检查",
   "capabilities.queue_check_help": "将能力扫描排入队列，以便下次主机运行确认是否生效。",

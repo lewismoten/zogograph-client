@@ -496,6 +496,7 @@
   "schedule.custom.weekday": "Day of week (0–7)",
   "schedule.saved_preview": "Saved preview",
   "schedule.installed": "Currently installed",
+  "help.terminal_commands": "Related terminal commands",
   "host_log.refused_help": "The file is there and this account may not open it. That needs a group membership or an ACL granted by root — nothing in here can change it.",
   "capabilities.queue_check": "Ask the collector to check afterwards",
   "capabilities.queue_check_help": "Queues a capability sweep so the next host run confirms whether it worked.",

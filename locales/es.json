@@ -515,6 +515,7 @@
   "schedule.custom.weekday": "Día de la semana (0–7)",
   "schedule.saved_preview": "Vista previa guardada",
   "schedule.installed": "Instalado actualmente",
+  "help.terminal_commands": "Comandos de terminal relacionados",
   "host_log.refused_help": "El archivo existe, pero esta cuenta no puede abrirlo. Necesita pertenecer a un grupo o una ACL concedida por root; nada aquí puede cambiarlo.",
   "capabilities.queue_check": "Pedir al recopilador que lo compruebe después",
   "capabilities.queue_check_help": "Encola una comprobación de capacidades para que la siguiente ejecución del host confirme si funcionó.",

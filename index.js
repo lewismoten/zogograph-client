@@ -32466,7 +32466,7 @@ function buildPageHelp(view) {
   }
 
   const commandsTitle = document.createElement("h3");
-  commandsTitle.textContent = "Related terminal commands";
+  commandsTitle.textContent = ZogographI18n.t("help.terminal_commands", {}, "Related terminal commands");
   const commands = document.createElement("pre");
   commands.className = "page-help-commands";
   commands.textContent = profile.commands.join("\n");

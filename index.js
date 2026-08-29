@@ -4163,58 +4163,10 @@ function renderOtherExtensions(rows) {
  * one climbing through 40 GiB draw the same flat-looking line at that scale.
  */
 function renderTypeGrowth(scans) {
-  const history = scans.file_type_history ?? [];
-  const canvas = $("typeGrowthChart");
-
-  if (!history.length) {
-    drawLineChart(canvas, [], [], { empty: ZogographI18n.t("storage.no_scans_in_range_yet", {}, "No completed scans in this range yet") });
-    return;
-  }
-
-  const mode = $("typeGrowthMode").value;
-
-  // Long rows into one row per scan, which is what the chart draws from.
-  const byScan = new Map();
-  const seen = new Set();
-  for (const row of history) {
-    const at = Number(row.started_at);
-    if (!byScan.has(at)) byScan.set(at, { started_at: at });
-    byScan.get(at)[row.type] = Number(row.bytes);
-    seen.add(row.type);
-  }
-
-  let rows = [...byScan.values()].sort((a, b) => a.started_at - b.started_at);
-  const types = [...seen].sort();
-
-  if (mode === "change") {
-    const changes = [];
-    for (let i = 1; i < rows.length; i++) {
-      const row = { started_at: rows[i].started_at };
-      for (const type of types) {
-        const before = rows[i - 1][type];
-        const after = rows[i][type];
-        // A type that did not exist in one of the two scans has no change to
-        // report - not a change of its whole size from zero.
-        row[type] = before == null || after == null ? null : after - before;
-      }
-      changes.push(row);
-    }
-    rows = changes;
-  }
-
-  drawLineChart(
-    canvas,
-    rows,
-    types.map(type => ({ key: type, label: type, color: typeColor(type) })),
-    {
-      xKey: "started_at",
-      axis: bytesAxis,
-      zeroBased: mode !== "change",
-      empty: mode === "change"
-        ? "Two completed scans are needed before there is a change to draw"
-        : "No completed scans in this range yet",
-    }
-  );
+  ZogographTypeGrowthCard.render(scans, {
+    canvas: $("typeGrowthChart"), mode: $("typeGrowthMode").value,
+    drawLineChart, bytesAxis, typeColor, i18n: ZogographI18n,
+  });
 }
 
 /**

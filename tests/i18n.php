@@ -7,6 +7,7 @@ $page = file_get_contents($root . '/index.html');
 $script = file_get_contents($root . '/index.js');
 $overviewCards = file_get_contents($root . '/cards/overview-vitals.js');
 $scanFactCards = file_get_contents($root . '/cards/scan-facts.js');
+$typeGrowthCard = file_get_contents($root . '/cards/type-growth.js');
 $setup = file_get_contents($root . '/setup.php');
 $setupPanels = file_get_contents($root . '/lib/setup-panels.php');
 $configure = file_get_contents($root . '/lib/configure.php');
@@ -58,6 +59,11 @@ i18nExpect($page !== false && str_contains($page, 'src="cards/scan-facts.js"')
     && str_contains($scanFactCards, 'render(scans, helpers)')
     && $script !== false && str_contains($script, 'ZogographScanFactCards.render(scans,'),
     'storage scan-fact cards are not isolated behind their core card-module boundary');
+i18nExpect($page !== false && str_contains($page, 'src="cards/type-growth.js"')
+    && $typeGrowthCard !== false && str_contains($typeGrowthCard, 'window.ZogographTypeGrowthCard')
+    && str_contains($typeGrowthCard, 'render(scans, helpers)')
+    && $script !== false && str_contains($script, 'ZogographTypeGrowthCard.render(scans,'),
+    'storage type-growth chart is not isolated behind its core card-module boundary');
 i18nExpect($script !== false && str_contains($script, 'function humanDuration(seconds)')
     && str_contains($script, '"duration.value"')
     && is_array($english) && isset($english['duration.value']),

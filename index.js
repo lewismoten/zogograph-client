@@ -10129,7 +10129,7 @@ function renderPastChats() {
   const body = $("pastChatsBody");
 
   if (!pastChats.list.length) {
-    body.replaceChildren(note("There have been no conversations yet."));
+    body.replaceChildren(note(ZogographI18n.t("ai.past_empty")));
     return;
   }
 
@@ -10139,40 +10139,40 @@ function renderPastChats() {
 
   renderTable("pastChatsTable", pastChats.list, [
     {
-      label: "What it was about",
+      label: ZogographI18n.t("ai.past_topic"),
       className: "name",
       render: row => {
         if (row.title) {
           const said = document.createElement("span");
           said.textContent = row.title;
           if (row.title_by === "assistant") {
-            said.title = `${chatState.who.name} named this one.`;
+            said.title = ZogographI18n.t("ai.past_named_by", { assistant: chatState.who.name });
           }
           return said;
         }
         const said = document.createElement("span");
         said.className = "muted";
-        said.textContent = "no topic";
+        said.textContent = ZogographI18n.t("ai.past_no_topic");
         return said;
       },
     },
-    { label: "Started", render: row => whenSpan(row.started_at) },
-    { label: "Turns", className: "size", render: row => row.turns },
-    { label: "Cost", className: "size", render: row => row.spent?.said ?? "" },
+    { label: ZogographI18n.t("ai.past_started"), render: row => whenSpan(row.started_at) },
+    { label: ZogographI18n.t("ai.past_turns"), className: "size", render: row => row.turns },
+    { label: ZogographI18n.t("ai.past_cost"), className: "size", render: row => row.spent?.said ?? "" },
     {
-      label: "How it ended",
+      label: ZogographI18n.t("ai.past_ended"),
       render: row => row.state === "ended" || row.state === "stopped"
         ? (row.why_stopped || row.state)
         : row.state,
     },
     {
-      label: "Kept",
+      label: ZogographI18n.t("ai.past_kept"),
       render: row => {
         if (!row.pinned) return "";
         const said = document.createElement("span");
-        said.textContent = "pinned";
+        said.textContent = ZogographI18n.t("ai.past_pinned");
         said.className = "own-label";
-        said.title = "Retention will not delete this one.";
+        said.title = ZogographI18n.t("ai.past_pinned_tip");
         return said;
       },
     },

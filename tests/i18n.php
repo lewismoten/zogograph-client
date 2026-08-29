@@ -28,9 +28,11 @@ i18nExpect($runtime !== false && str_contains($runtime, 'function i18nSetBrand(n
     && str_contains($runtime, 'const allValues = { brand: i18nBrand, ...values }')
     && str_contains($runtime, 'I18N_DEFAULT_BRAND')
     && str_contains($runtime, 'replaceAll(I18N_DEFAULT_BRAND, "{{brand}}")')
+    && str_contains($runtime, 'data-brand-template')
     && str_contains($runtime, 'setBrand: i18nSetBrand')
     && $script !== false && str_contains($script, 'ZogographI18n.setBrand(overview.brand)')
     && $setup !== false && str_contains($setup, 'data-brand')
+    && $page !== false && str_contains($page, 'data-brand-template="{{brand}} — infrastructure observation"')
     && is_array($english) && ($english['setup.document_title'] ?? '') === '{{brand}} — Setup',
     'product branding is not supplied consistently to dashboard and setup localization');
 i18nExpect($runtime !== false && str_contains($runtime, 'Package catalogs are translation extensions')

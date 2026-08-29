@@ -12,6 +12,11 @@ function i18nSetBrand(name) {
   if (!candidate || candidate.length > 80 || /[\x00-\x1f\x7f]/.test(candidate)) return;
   i18nBrand = candidate;
   document.querySelectorAll("[data-brand]").forEach(node => { node.textContent = candidate; });
+  document.querySelectorAll("[data-brand-template]").forEach(node => {
+    const text = String(node.dataset.brandTemplate || "").replaceAll("{{brand}}", candidate);
+    if (node.tagName === "META") node.setAttribute("content", text);
+    else node.textContent = text;
+  });
   document.querySelector('meta[name="application-name"]')?.setAttribute("content", candidate);
 }
 

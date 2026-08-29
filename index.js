@@ -28080,19 +28080,28 @@ function colourJson(into, text) {
  * not always the command name - dig lives in bind-utils on Red Hat and dnsutils
  * on Debian - so the right one for this machine is worked out and printed.
  */
-function missingCommandNote(missing, where = "this account") {
+function missingCommandNote(
+  missing,
+  where = ZogographI18n.t("capabilities.this_account", {}, "this account"),
+) {
   const wrap = document.createDocumentFragment();
 
-  wrap.appendChild(note(
-    `${missing.command} is not available to ${where}. As root:`
-  ));
+  wrap.appendChild(note(ZogographI18n.t(
+    "capabilities.command_unavailable",
+    { command: missing.command, where },
+    "{{command}} is not available to {{where}}. As root:",
+  )));
   wrap.appendChild(paste(missing.install));
 
   if (missing.note) wrap.appendChild(note(missing.note));
 
   const after = document.createElement("p");
   after.className = "muted small";
-  after.append(document.createTextNode("Once it is installed, "));
+  after.append(document.createTextNode(ZogographI18n.t(
+    "capabilities.recheck_after_install",
+    {},
+    "After installing it, recheck the capability. ",
+  )));
 
   const go = document.createElement("button");
   go.className = "link";
@@ -28100,10 +28109,11 @@ function missingCommandNote(missing, where = "this account") {
   go.addEventListener("click", () => showView("capabilities"));
   after.appendChild(go);
 
-  after.append(document.createTextNode(
-    " so this notices \u2014 nothing re-probes on its own, because running a "
-    + "hundred command lookups on every page load would cost more than it saves."
-  ));
+  after.append(document.createTextNode(ZogographI18n.t(
+    "capabilities.probe_not_automatic",
+    {},
+    " The dashboard does not probe automatically, because running a hundred command lookups on every page load would cost more than it saves.",
+  )));
   wrap.appendChild(after);
 
   return wrap;
@@ -28558,7 +28568,10 @@ function renderDomains(data) {
       const detail = [note(data.host_has_whois
         ? "The root collector can run whois. This web account cannot, so the collector fetches expiry details on its normal run."
         : "This web account and the latest host capability sweep do not show whois as available.")];
-      if (data.missing) detail.push(missingCommandNote(data.missing, "this account or the host"));
+      if (data.missing) detail.push(missingCommandNote(
+        data.missing,
+        ZogographI18n.t("capabilities.this_account_or_host", {}, "this account or the host"),
+      ));
       showListDialog("WHOIS availability", detail,
         "The dashboard separates the web account's permissions from the host collector's tools.");
     });

@@ -5913,9 +5913,7 @@ function renderAiSettings(data) {
     effort.appendChild(option);
   }
   const effortRow = fieldRow(aiSettingsText("reasoning_label", "How hard to think"), effort,
-    "Reasoning models charge for the thinking as output tokens, so this is the setting "
-    + "that moves the bill most. Higher is worth it for a knotty problem and wasted on "
-    + "\u201cis the disk full\u201d.");
+    aiSettingsText("reasoning_help", "Reasoning models charge for the thinking as output tokens, so this is the setting that moves the bill most. Higher is worth it for a knotty problem and wasted on “is the disk full?”."));
   form.appendChild(effortRow);
 
   if (data.has_key) {
@@ -5924,8 +5922,8 @@ function renderAiSettings(data) {
     forget.className = "link danger";
     forget.textContent = ZogographI18n.t("ai.forget_key", {}, "Forget the key");
     forget.addEventListener("click", async () => {
-      if (!(await confirmDialog("Remove the stored API key? The assistant will stop working until "
-        + "another is set.", "Forget key"))) return;
+      if (!(await confirmDialog(aiSettingsText("forget_key_confirm", "Remove the stored API key? The assistant will stop working until another is set."),
+        aiSettingsText("forget_key_title", "Forget key")))) return;
       await saveAiSettings({ forget_key: "1" });
     });
     form.appendChild(fieldRow("", forget, ""));
@@ -5979,11 +5977,7 @@ function renderAiSettings(data) {
   testing.appendChild(testResult);
 
   pages.model.push(testing);
-  pages.model.push(note(
-    "The test asks the model one trivial question with one tool attached. It costs a few "
-    + "hundred tokens and tells you four things at once: the address answers, the key is "
-    + "accepted, the model exists, and it will take tools."
-  ));
+  pages.model.push(note(aiSettingsText("test_help", "The test asks the model one trivial question with one tool attached. It costs a few hundred tokens and tells you four things at once: the address answers, the key is accepted, the model exists, and it will take tools.")));
 
   /* ---- money ---- */
 

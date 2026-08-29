@@ -509,6 +509,7 @@
   "schedule.custom.weekday": "星期 (0–7)",
   "schedule.saved_preview": "已保存的预览",
   "schedule.installed": "当前已安装",
+  "guide.sign_in_help": "请登录以查看受保护的测量值和控件。此指南仍可用，因此页面不会成为毫无解释的空白状态。", "guide.read_help": "阅读页面帮助",
   "unit.percent": "%", "unit.fraction": "% 的读数", "unit.bytes": "MiB", "unit.hours": "小时", "unit.minutes": "分钟", "unit.readings": "读数", "unit.files": "文件", "unit.processes": "进程", "unit.times": "× 通常值",
   "email.mail_unavailable": "此 PHP 没有 mail() 函数，因此无论在下面设置什么，都无法从这里发送内容。这是主机设置，不是这里的设置。", "email.enabled_help": "关闭此选项时，无论问题多么严重都不会发送任何内容。",
   "email.enabled": "通过电子邮件发送警报", "email.send_to": "发送给", "email.send_from": "发件人", "email.dashboard_address": "此仪表板的地址",

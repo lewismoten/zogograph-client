@@ -509,6 +509,7 @@
   "schedule.custom.weekday": "يوم الأسبوع (0–7)",
   "schedule.saved_preview": "معاينة محفوظة",
   "schedule.installed": "مثبّت حاليًا",
+  "guide.sign_in_help": "سجّل الدخول لرؤية القياسات والضوابط المحمية. يظل هذا الدليل متاحًا كي لا تكون الصفحة حالة فارغة بلا تفسير.", "guide.read_help": "اقرأ مساعدة الصفحة",
   "unit.percent": "%", "unit.fraction": "% من القراءات", "unit.bytes": "MiB", "unit.hours": "ساعات", "unit.minutes": "دقائق", "unit.readings": "قراءات", "unit.files": "ملفات", "unit.processes": "عمليات", "unit.times": "× المعتاد",
   "email.mail_unavailable": "لا تملك PHP هذه دالة mail()، لذلك لا يمكن إرسال شيء من هنا مهما ضُبط أدناه. هذا إعداد للمضيف وليس من هذه الإعدادات.", "email.enabled_help": "لا يُرسل شيء أثناء إيقاف هذا الخيار مهما ساءت الأمور.",
   "email.enabled": "أرسل التنبيهات بالبريد", "email.send_to": "أرسل إلى", "email.send_from": "أرسل من", "email.dashboard_address": "عنوان هذه اللوحة",

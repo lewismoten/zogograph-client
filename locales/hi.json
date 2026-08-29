@@ -509,6 +509,7 @@
   "schedule.custom.weekday": "सप्ताह का दिन (0–7)",
   "schedule.saved_preview": "सहेजा गया पूर्वावलोकन",
   "schedule.installed": "वर्तमान में स्थापित",
+  "guide.sign_in_help": "सुरक्षित माप और नियंत्रण देखने के लिए साइन इन करें। यह गाइड उपलब्ध रहता है ताकि पृष्ठ कभी बिना व्याख्या की खाली स्थिति न हो।", "guide.read_help": "पृष्ठ सहायता पढ़ें",
   "unit.percent": "%", "unit.fraction": "% रीडिंग", "unit.bytes": "MiB", "unit.hours": "घंटे", "unit.minutes": "मिनट", "unit.readings": "रीडिंग", "unit.files": "फ़ाइलें", "unit.processes": "प्रक्रियाएँ", "unit.times": "× सामान्य",
   "email.mail_unavailable": "इस PHP में mail() फ़ंक्शन नहीं है, इसलिए नीचे कुछ भी सेट हो तब भी यहाँ से कुछ नहीं भेजा जा सकता। यह होस्ट सेटिंग है, इन सेटिंग में से नहीं।", "email.enabled_help": "यह बंद रहने पर, समस्याएँ कितनी भी खराब हों, कुछ नहीं भेजा जाता।",
   "email.enabled": "ईमेल से चेतावनी भेजें", "email.send_to": "को भेजें", "email.send_from": "से भेजें", "email.dashboard_address": "इस डैशबोर्ड का पता",

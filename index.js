@@ -32489,7 +32489,7 @@ function renderViewGuide(view) {
   purpose.textContent = profile.purpose;
   const access = document.createElement("p");
   access.className = "view-guide-auth";
-  access.textContent = "Sign in to see protected measurements and controls. This guide remains available so the page is never an unexplained empty state.";
+  access.textContent = ZogographI18n.t("guide.sign_in_help", {}, "Sign in to see protected measurements and controls. This guide remains available so the page is never an unexplained empty state.");
   const actions = document.createElement("div");
   actions.className = "view-guide-actions";
   const signIn = document.createElement("button");
@@ -32500,7 +32500,7 @@ function renderViewGuide(view) {
   const help = document.createElement("button");
   help.type = "button";
   help.className = "link";
-  help.textContent = "Read page help";
+  help.textContent = ZogographI18n.t("guide.read_help", {}, "Read page help");
   help.addEventListener("click", showPageHelp);
   actions.append(signIn, help);
   guide.append(heading, purpose, access, actions);

@@ -1651,6 +1651,19 @@ function renderCoreCardPackage(cardPackage, id, input, helpers) {
     console.error(`Core card package ${id} has an invalid manifest.`);
     return;
   }
+  if (manifest.catalogs !== undefined) {
+    if (!manifest.catalogs || Array.isArray(manifest.catalogs) || typeof manifest.catalogs !== "object"
+        || !helpers.i18n || typeof helpers.i18n.registerCatalog !== "function") {
+      console.error(`Core card package ${id} has invalid locale catalogs.`);
+      return;
+    }
+    for (const [locale, catalog] of Object.entries(manifest.catalogs)) {
+      if (!helpers.i18n.registerCatalog(locale, catalog, false, id)) {
+        console.error(`Core card package ${id} has an invalid ${locale} locale catalog.`);
+        return;
+      }
+    }
+  }
   cardPackage.render(input, helpers);
 }
 

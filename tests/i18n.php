@@ -165,7 +165,10 @@ i18nExpect($page !== false && str_contains($page, 'src="cards/host-memory.js"')
     'host memory cards are not isolated behind their core card-module boundary');
 i18nExpect($page !== false && str_contains($page, 'src="cards/uptime.js"')
     && $uptimeCard !== false && str_contains($uptimeCard, 'id: "core-uptime"')
-    && str_contains($uptimeCard, 'locales: ["uptime."]')
+    && str_contains($uptimeCard, 'locales: ["core-uptime."]')
+    && str_contains($uptimeCard, 'catalogs: Object.freeze({')
+    && str_contains($uptimeCard, '"core-uptime.no_boot_time"')
+    && is_array($english) && !isset($english['uptime.no_boot_time'])
     && str_contains($uptimeCard, 'helpers: ["setCard", "humanDuration", "humanTime", "i18n"]')
     && $script !== false && str_contains($script, 'renderCoreCardPackage(ZogographUptimeCard, "core-uptime",'),
     'uptime dashboard card is not isolated behind its core card-module boundary');

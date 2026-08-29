@@ -161,6 +161,11 @@ function i18nRegisterCatalog(locale, catalog, reload = true, packageId = "") {
   // catalog validation, so a malformed API response cannot shadow shell text.
   for (const [key, value] of Object.entries(catalog)) if ((prefix === "" || key.startsWith(prefix)) && /^[a-z][\w.-]{0,119}$/i.test(key) && typeof value === "string" && value.length <= 4000) clean[key] = value;
   i18n.extensions[locale] = { ...(i18n.extensions[locale] || {}), ...clean };
+  // Core card packages register their inert catalogs before a render. Merge
+  // the current language immediately as well, so the very first card render
+  // uses it; a later locale change still rebuilds the complete catalog from
+  // extensions in the normal way.
+  if (!reload && (locale === I18N_BASE || locale === i18n.locale)) Object.assign(i18n.catalog, clean);
   if (!I18N_LOCALES.includes(locale)) I18N_LOCALES.push(locale);
   const picker = document.querySelector("#languagePicker");
   if (picker && ![...picker.options].some(option => option.value === locale)) { const option = document.createElement("option"); option.value = locale; option.textContent = locale; picker.appendChild(option); }

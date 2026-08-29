@@ -213,85 +213,6 @@ function aiToolCatalogue(): array
             ],
         ],
 
-        /* show_progress moved to ai-tools/show-progress.php
-        'show_progress' => [
-            'group' => 'navigation',
-            'where' => 'browser',
-            'permission' => false,
-            'summary' => 'show progress on something that is running.',
-            'description' =>
-                "Draws a labelled progress indicator in the conversation.\n\n"
-                . "USE THIS when something is running that the user is waiting on. Three "
-                . "kinds, and picking the right one matters more than any other choice "
-                . "here, because each one makes a different promise:\n\n"
-                . "  kind=\"time\"    a bar and a clock. Requires percent, and "
-                . "seconds_left is what makes it worth drawing. Use it ONLY when you "
-                . "genuinely know roughly how long is left - a scan whose usual duration "
-                . "you have looked up, a capture with a fixed length.\n\n"
-                . "  kind=\"count\"   a bar and a tally: \"7 of 12 checks done\". "
-                . "Requires done and total. Use it when the work is a known number of "
-                . "steps and you are working through them. This is the honest answer far "
-                . "more often than a clock is, because you usually know how many things "
-                . "are left and not how long each takes.\n\n"
-                . "  kind=\"working\" a moving indicator with no end point, for work "
-                . "whose size you do not know. Takes neither a percent nor a total. Use it "
-                . "rather than inventing either.\n\n"
-                . "NEVER invent a duration, a percentage or a total. A made-up clock is "
-                . "worse than no clock, because people plan around it - and \"working\" "
-                . "is always available and always true. If you do not know how far through "
-                . "something is, that is what kind=\"working\" is for.\n\n"
-                . "DO NOT use any of them decoratively. This is for work the user is "
-                . "waiting on, not for narrating your own thinking.\n\n"
-                . "It draws once and does not animate its own value. Call it again to move "
-                . "it; each call replaces the last one for the same `what`.",
-            'parameters' => [
-                'what' => [
-                    'type' => 'string', 'maxLength' => 80, 'required' => true,
-                    'description' => 'What is running, in a few words. "Walking the disk", '
-                        . '"Resolving addresses". Calling again with the same text moves '
-                        . 'that bar rather than drawing a second one.',
-                ],
-                'kind' => [
-                    'type' => 'string',
-                    'enum' => ['time', 'count', 'working'],
-                    'required' => true,
-                    'description' => '"time" for a clock (needs percent, and should have '
-                        . 'seconds_left), "count" for a tally (needs done and total), '
-                        . '"working" when the size of the job is unknown.',
-                ],
-                'percent' => [
-                    'type' => 'integer', 'minimum' => 0, 'maximum' => 100,
-                    'required' => false,
-                    'description' => 'For kind="time" only. How far through it is, from '
-                        . 'what the tools told you rather than a guess. Ignored otherwise, '
-                        . 'since "count" works it out from done and total.',
-                ],
-                'seconds_left' => [
-                    'type' => 'integer', 'minimum' => 0, 'maximum' => 604800,
-                    'required' => false,
-                    'description' => 'For kind="time". Roughly how many seconds remain. '
-                        . 'Leave it out rather than inventing one - a bar with no clock is '
-                        . 'still honest.',
-                ],
-                'done' => [
-                    'type' => 'integer', 'minimum' => 0, 'maximum' => 1000000,
-                    'required' => false,
-                    'description' => 'For kind="count". How many steps are finished.',
-                ],
-                'total' => [
-                    'type' => 'integer', 'minimum' => 1, 'maximum' => 1000000,
-                    'required' => false,
-                    'description' => 'For kind="count". How many there are altogether. Only '
-                        . 'give this if you actually know it.',
-                ],
-                'unit' => [
-                    'type' => 'string', 'maxLength' => 24, 'required' => false,
-                    'description' => 'For kind="count". What is being counted, plural: '
-                        . '"checks", "files", "domains". Defaults to "steps".',
-                ],
-            ],
-        ],*/
-
         /* ------------------------------------------- asking the user -- */
 
         /* --------------------------------------- what somebody just ran -- */
@@ -698,36 +619,6 @@ function aiToolCatalogue(): array
             ],
         ],
 
-        /* show_reaction moved to ai-tools/show-reaction.php
-        'show_reaction' => [
-            'group' => 'navigation',
-            'where' => 'browser',
-            'permission' => false,
-            'summary' => 'show a small reaction image.',
-            'description' =>
-                "Finds and shows a short animated image matching a mood.\n\n"
-                . "USE THIS EXTREMELY SPARINGLY - at most once in a conversation, and only "
-                . "when something genuinely warrants it: a problem solved after a long "
-                . "hunt, or an absurd finding. It is an aside, not a punctuation mark.\n\n"
-                . "DO NOT use it when somebody is having a bad day, when the news is bad, "
-                . "or when a real problem is still unresolved. A cheerful animation over an "
-                . "unfixed outage is the single fastest way to make this whole tool feel "
-                . "like it is not taking the situation seriously.\n\n"
-                . "You do not choose the image, only the mood. What comes back may not be "
-                . "what you pictured, so never refer to its contents in your reply.",
-            'parameters' => [
-                'mood' => [
-                    'type' => 'string', 'maxLength' => 40, 'required' => true,
-                    'description' => 'Two or three words describing the feeling. '
-                        . '"mission accomplished", "slow clap", "everything is fine".',
-                ],
-                'why' => [
-                    'type' => 'string', 'maxLength' => 120, 'required' => true,
-                    'description' => 'A caption shown under it, in your own voice.',
-                ],
-            ],
-        ],*/
-
         'make_picture' => [
             'group' => 'pictures',
             'where' => 'server',
@@ -767,37 +658,6 @@ function aiToolCatalogue(): array
                 ],
             ],
         ],
-
-        /* redraw_yourself moved to ai-tools/redraw-portrait.php
-        'redraw_yourself' => [
-            'group' => 'pictures',
-            'where' => 'server',
-            'permission' => true,
-            'summary' => 'redraw your own portrait.',
-            'description' =>
-                "Generates a new portrait for yourself, which becomes the picture shown "
-                . "beside your name.\n\n"
-                . "This is a novelty. It costs money, it shares the hourly picture limit, "
-                . "and it needs permission every time.\n\n"
-                . "USE IT ALMOST NEVER - when the mood of a long session genuinely calls "
-                . "for it, and not otherwise. Describe yourself however you see fit; the "
-                . "result is squared off and shrunk to a thumbnail, so anything intricate "
-                . "is wasted.\n\n"
-                . "DO NOT do this in place of answering a question, and DO NOT ask twice "
-                . "in a session.",
-            'parameters' => [
-                'description' => [
-                    'type' => 'string', 'maxLength' => 400, 'required' => true,
-                    'description' => 'How you wish to be depicted. This is stored and '
-                        . 'shown as the portrait\'s caption, so write it as something a '
-                        . 'person will read.',
-                ],
-                'why' => [
-                    'type' => 'string', 'maxLength' => 160, 'required' => true,
-                    'description' => 'What prompted it. Shown when asking permission.',
-                ],
-            ],
-        ],*/
 
         /* ---------------------------------------------------- the browser -- */
 

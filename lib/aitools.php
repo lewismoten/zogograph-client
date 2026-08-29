@@ -83,6 +83,8 @@ require_once __DIR__ . '/ai-tools/remember.php';
 require_once __DIR__ . '/ai-tools/recall.php';
 require_once __DIR__ . '/ai-tools/wait-for-readings.php';
 require_once __DIR__ . '/ai-tools/request-from-host.php';
+require_once __DIR__ . '/ai-tools/make-picture.php';
+require_once __DIR__ . '/ai-tools/open-page.php';
 
 /**
  * Every tool, with its schema and how it runs.
@@ -145,6 +147,8 @@ function aiToolCatalogue(): array
         ...aiToolRecallPackage(),
         ...aiToolWaitForReadingsPackage(),
         ...aiToolRequestFromHostPackage(),
+        ...aiToolMakePicturePackage(),
+        ...aiToolOpenPagePackage(),
 
         /* ------------------------------------------------- what is wrong -- */
 
@@ -164,91 +168,7 @@ function aiToolCatalogue(): array
 
         /* ------------------------------------------ naming the session -- */
 
-        'make_picture' => [
-            'group' => 'pictures',
-            'where' => 'server',
-            'permission' => true,
-            'summary' => 'have a picture drawn and show it.',
-            'description' =>
-                "Describes a picture to an image generator and shows the result in the "
-                . "conversation.\n\n"
-                . "This costs real money per call and takes several seconds. There is an "
-                . "hourly limit, and every call needs the user's permission.\n\n"
-                . "USE THIS RARELY, and only when a picture does something words cannot: "
-                . "illustrating a shape, a layout, or an idea the user is struggling to "
-                . "describe.\n\n"
-                . "DO NOT use it to illustrate data - that is what the charts are for, and "
-                . "a drawing of a chart is a drawing, not a measurement. DO NOT use it as "
-                . "decoration. DO NOT use it to be funny more than once in a very long "
-                . "while; the joke does not survive repetition and the user is paying for "
-                . "each one.\n\n"
-                . "Describe the picture in full: the generator sees only your words and "
-                . "nothing of this conversation.",
-            'parameters' => [
-                'description' => [
-                    'type' => 'string', 'maxLength' => 600, 'required' => true,
-                    'description' => 'What the picture should show, described completely. '
-                        . 'The generator has no other context.',
-                ],
-                'style' => [
-                    'type' => 'string', 'enum' => [], 'required' => true,
-                    'description' => 'Which generator to use. The list is what this '
-                        . 'install allows.',
-                ],
-                'why' => [
-                    'type' => 'string', 'maxLength' => 160, 'required' => true,
-                    'description' => 'Why a picture rather than a sentence. Shown to the '
-                        . 'user when asking permission, so it has to be a reason they can '
-                        . 'judge.',
-                ],
-            ],
-        ],
-
         /* ---------------------------------------------------- the browser -- */
-
-        'open_page' => [
-            'group' => 'navigation',
-            'where' => 'browser',
-            'permission' => false,
-            'summary' => 'move you to a page of this dashboard.',
-            'description' =>
-                "Opens one of this dashboard's pages in the user's browser. The chat stays "
-                . "open and the conversation continues - this does not interrupt anything, "
-                . "it just changes what is behind the panel.\n\n"
-                . "USE THIS when you have found something and the user should see it for "
-                . "themselves, or when the page has a control they need - a button to "
-                . "empty a directory, a form to add a check. Say why you are taking them "
-                . "there in the same message.\n\n"
-                . "DO NOT use this to gather information. It shows the user a page; it "
-                . "does not tell YOU anything. The diagnostic tools are how you find "
-                . "things out, and calling this instead wastes a turn and moves the user "
-                . "somewhere for no reason.\n\n"
-                . "DO NOT call it more than once per message. Two navigations in a row "
-                . "means the user never sees the first.",
-            'parameters' => [
-                'page' => [
-                    'type' => 'string',
-                    'enum' => [],
-                    'required' => true,
-                    'description' => 'Which page to open. The list is fixed; anything not '
-                        . 'in it is refused.',
-                ],
-                'hours' => [
-                    'type' => 'integer', 'minimum' => 1, 'maximum' => 8760,
-                    'required' => false,
-                    'description' => 'Set the page\'s time range to this many hours, so the '
-                        . 'user arrives looking at the period being discussed rather than '
-                        . 'the default.',
-                ],
-                'why' => [
-                    'type' => 'string', 'maxLength' => 200, 'required' => true,
-                    'description' => 'One short sentence shown to the user explaining why '
-                        . 'they are being taken here. Write it for them, not for yourself: '
-                        . '"so you can see which directories grew" rather than "navigating '
-                        . 'to storage".',
-                ],
-            ],
-        ],
 
     ];
 }

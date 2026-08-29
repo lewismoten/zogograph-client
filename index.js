@@ -28223,7 +28223,7 @@ function renderDnsRecords(data) {
     holder.id = `dnsGroup_${group}`;
     wrap.appendChild(holder);
 
-    parts.push(section(GROUP_TITLES[group] || group, wrap));
+    parts.push(section(GROUP_TITLES[group]?.() || group, wrap));
   }
 
   body.replaceChildren(...parts);
@@ -28239,13 +28239,13 @@ function renderDnsRecords(data) {
 }
 
 const GROUP_TITLES = {
-  addresses: "Where the names point",
-  mail: "Mail",
-  delegation: "Who is in charge of the zone",
-  certificates: "Who may issue certificates",
-  proof: "Proof of ownership",
-  text: "Other text records",
-  other: "Everything else",
+  addresses: () => ZogographI18n.t("dns.group.addresses", {}, "Where the names point"),
+  mail: () => ZogographI18n.t("dns.group.mail", {}, "Mail"),
+  delegation: () => ZogographI18n.t("dns.group.delegation", {}, "Who is in charge of the zone"),
+  certificates: () => ZogographI18n.t("dns.group.certificates", {}, "Who may issue certificates"),
+  proof: () => ZogographI18n.t("dns.group.proof", {}, "Proof of ownership"),
+  text: () => ZogographI18n.t("dns.group.text", {}, "Other text records"),
+  other: () => ZogographI18n.t("dns.group.other", {}, "Everything else"),
 };
 
 function renderDnsGroup(id, rows) {
@@ -28254,7 +28254,7 @@ function renderDnsGroup(id, rows) {
 
   renderTable(id, rows, [
     {
-      label: "Name",
+      label: ZogographI18n.t("table.name", {}, "Name"),
       className: "name",
       render: row => {
         const span = document.createElement("span");
@@ -28265,10 +28265,10 @@ function renderDnsGroup(id, rows) {
         return span;
       },
     },
-    { label: "Type", render: row => row.type },
-    { label: "Value", className: "cmd", render: row => recordValueCell(row) },
+    { label: ZogographI18n.t("table.type", {}, "Type"), render: row => row.type },
+    { label: ZogographI18n.t("table.value", {}, "Value"), className: "cmd", render: row => recordValueCell(row) },
     {
-      label: "TTL",
+      label: ZogographI18n.t("dns.ttl", {}, "TTL"),
       className: "size",
       render: row => {
         const span = document.createElement("span");
@@ -28282,8 +28282,11 @@ function renderDnsGroup(id, rows) {
          */
         if (Number(row.ttl) > 0 && Number(row.ttl) <= 300) {
           span.className = "band-warn";
-          span.title = "A short TTL means resolvers re-ask constantly. Often left over from "
-            + "a migration.";
+          span.title = ZogographI18n.t(
+            "dns.short_ttl_help",
+            {},
+            "A short TTL means resolvers re-ask constantly. Often left over from a migration.",
+          );
         }
         return span;
       },

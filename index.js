@@ -24450,7 +24450,7 @@ async function deleteFromInspect(data) {
 async function refreshDiagnosis() {
   const body = $("diagnoseBody");
   if (!state.signedIn) {
-    body.replaceChildren(note("Sign in to see the diagnosis."));
+    body.replaceChildren(note(ZogographI18n.t("diagnosis.sign_in", {}, "Sign in to see the diagnosis.")));
     return;
   }
 

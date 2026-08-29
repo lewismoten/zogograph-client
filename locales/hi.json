@@ -4,6 +4,7 @@
   "package.open_settings": "पैकेज सेटिंग खोलें",
   "action.copy": "कॉपी करें",
   "common.sign_in_to_see": "इसे देखने के लिए साइन इन करें।",
+  "diagnosis.sign_in": "निदान देखने के लिए साइन इन करें।",
   "network.captures_sign_in": "कैप्चर देखने के लिए साइन इन करें।",
   "monitor.sign_in": "मॉनिटर की अपनी स्थिति देखने के लिए साइन इन करें।",
   "logs.sign_in": "लॉग फ़ाइलें पढ़ने के लिए साइन इन करें।",

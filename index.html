@@ -921,13 +921,13 @@
       <button id="hostRefresh" class="link" data-i18n="action.refresh">Refresh</button>
     </div>
   </div>
-  <p class="muted small sub-note">
-    From <code>host-cron.php</code>, run by root. Inside CageFS this account gets
-    its own <code>/proc</code> holding only its own processes, so everything
+  <p class="muted small sub-note" data-i18n-rich="host.memory_overview_help">
+    From <code data-i18n-tag="cron">host-cron.php</code>, run by root. Inside CageFS this account gets
+    its own <code data-i18n-tag="proc">/proc</code> holding only its own processes, so everything
     below is invisible to every other panel on this site. The detail sits on the
     pages beneath this one; what is here is the state of the machine's memory at
-    a glance. Its disks are under <a href="#/storage-io">Storage</a>, and whether
-    its daemons are alive is under <a href="#/services">Processes → Services</a>.
+    a glance. Its disks are under <a href="#/storage-io" data-i18n-tag="storage">Storage</a>, and whether
+    its daemons are alive is under <a href="#/services" data-i18n-tag="services">Processes → Services</a>.
   </p>
   <div id="hostBody"></div>
 

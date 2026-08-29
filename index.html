@@ -2671,9 +2671,9 @@
 <section class="view" data-view="sys-host-data" hidden>
 <section class="panel" id="hostDataPanel">
   <div class="panel-head">
-    <h2>The host collector's database</h2>
+    <h2 data-i18n="storage.host_title">The host collector's database</h2>
   </div>
-  <p class="muted small sub-note">
+  <p class="muted small sub-note" data-i18n="storage.host_help">
     Written by root's collector, and read-only from here. This account can
     usually open it to read and should never be the thing that rewrites it — a
     rewrite started from here would leave a file the collector could no longer
@@ -2687,11 +2687,11 @@
 <section class="view" data-view="sys-retention" hidden>
 <section class="panel" id="retentionPanel">
   <div class="panel-head">
-    <h2>How long it keeps things</h2>
-    <button id="retentionReset" class="link">Use the recommended settings</button>
+    <h2 data-i18n="storage.retention_title">How long it keeps things</h2>
+    <button id="retentionReset" class="link" data-i18n="storage.recommended_settings">Use the recommended settings</button>
   </div>
-  <p class="muted small sub-note">
-    Zero means <strong>keep for ever</strong>, and for several of these that is
+  <p class="muted small sub-note" data-i18n-rich="storage.retention_help">
+    Zero means <strong data-i18n-tag="forever">keep for ever</strong>, and for several of these that is
     the recommendation rather than an oversight — the note beside each one says
     what it is protecting. Readings are kept in tiers: full detail for the first
     stretch, then five-minute buckets, then hourly, then daily, each holding the

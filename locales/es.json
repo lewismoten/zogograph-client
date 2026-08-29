@@ -547,6 +547,8 @@
   "dns.group.other": "Todo lo demás",
   "dns.ttl": "TTL",
   "dns.short_ttl_help": "Un TTL corto hace que los resolutores vuelvan a consultar constantemente. Suele quedar de una migración.",
+  "dns.gone_since": "Eliminado desde {{date}}",
+  "dns.seen_since": "Visto desde {{date}}",
   "table.name": "Nombre",
   "table.type": "Tipo",
   "table.value": "Valor",

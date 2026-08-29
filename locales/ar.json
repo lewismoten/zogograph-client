@@ -545,6 +545,8 @@
   "dns.group.other": "كل شيء آخر",
   "dns.ttl": "TTL",
   "dns.short_ttl_help": "يعني TTL القصير أن المحلِّلات تعيد السؤال باستمرار. وغالبًا ما يكون متبقيًا من عملية ترحيل.",
+  "dns.gone_since": "غائب منذ {{date}}",
+  "dns.seen_since": "شوهد منذ {{date}}",
   "table.name": "الاسم",
   "table.type": "النوع",
   "table.value": "القيمة",

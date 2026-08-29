@@ -545,6 +545,8 @@
   "dns.group.other": "其他所有内容",
   "dns.ttl": "TTL",
   "dns.short_ttl_help": "TTL 过短意味着解析器会不断重新查询。这通常是迁移后遗留下来的。",
+  "dns.gone_since": "自 {{date}} 起已消失",
+  "dns.seen_since": "自 {{date}} 起已发现",
   "table.name": "名称",
   "table.type": "类型",
   "table.value": "值",

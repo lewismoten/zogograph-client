@@ -545,6 +545,8 @@
   "dns.group.other": "अन्य सभी",
   "dns.ttl": "TTL",
   "dns.short_ttl_help": "छोटे TTL का अर्थ है कि रिज़ॉल्वर लगातार फिर से पूछते हैं। यह अक्सर माइग्रेशन के बाद बचा रह जाता है।",
+  "dns.gone_since": "{{date}} से अनुपस्थित",
+  "dns.seen_since": "{{date}} से देखा गया",
   "table.name": "नाम",
   "table.type": "प्रकार",
   "table.value": "मान",

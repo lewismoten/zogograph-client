@@ -28297,8 +28297,16 @@ function renderDnsGroup(id, rows) {
         const span = document.createElement("span");
         span.className = "muted small";
         span.textContent = row.gone
-          ? `gone since ${humanTime(row.gone_at).split(",")[0]}`
-          : `seen since ${humanTime(row.first_seen).split(",")[0]}`;
+          ? ZogographI18n.t(
+            "dns.gone_since",
+            { date: humanTime(row.gone_at).split(",")[0] },
+            "Gone since {{date}}",
+          )
+          : ZogographI18n.t(
+            "dns.seen_since",
+            { date: humanTime(row.first_seen).split(",")[0] },
+            "Seen since {{date}}",
+          );
         return span;
       },
     },

@@ -528,6 +528,8 @@
   "dns.group.other": "Everything else",
   "dns.ttl": "TTL",
   "dns.short_ttl_help": "A short TTL means resolvers re-ask constantly. Often left over from a migration.",
+  "dns.gone_since": "Gone since {{date}}",
+  "dns.seen_since": "Seen since {{date}}",
   "table.name": "Name",
   "table.type": "Type",
   "table.value": "Value",

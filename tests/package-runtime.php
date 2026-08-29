@@ -183,6 +183,8 @@ try {
         && (packageRuntimeDashboardPages($pdo)[0]['title_key'] ?? null) === 'test-runtime.page.title', 'enabled package dashboard page was not available through the core shell bridge');
     runtimeExpect((packageRuntimePackages($pdo)[0]['dashboard_cards'][0]['renderer'] ?? null) === 'overview-facts'
         && (packageRuntimePackages($pdo)[0]['dashboard_cards'][0]['title_key'] ?? null) === 'test-runtime.card.title', 'signed package card metadata was not retained');
+    runtimeExpect((packageRuntimeDashboardCards($pdo)[0]['package_id'] ?? null) === 'test-runtime'
+        && (packageRuntimeDashboardCards($pdo)[0]['renderer'] ?? null) === 'overview-facts', 'enabled package card metadata was not available through the core bridge');
     $dependentManifest = $signed; $dependentManifest['dependencies'] = ['missing-runtime'];
     $pdo->prepare('UPDATE runtime_packages SET manifest_json = ? WHERE package_id = ?')->execute([json_encode($dependentManifest, JSON_THROW_ON_ERROR), 'test-runtime']);
     $dependent = packageRuntimePackages($pdo)[0];

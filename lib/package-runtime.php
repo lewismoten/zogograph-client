@@ -429,6 +429,16 @@ function packageRuntimeDashboardPages(PDO $pdo): array
     return $out;
 }
 
+/** @return list<array{package_id:string,id:string,renderer:string,title:string,title_key:?string}> */
+function packageRuntimeDashboardCards(PDO $pdo): array
+{
+    $out = [];
+    foreach (packageRuntimePackages($pdo) as $package) foreach (($package['enabled'] ? $package['dashboard_cards'] : []) as $card) {
+        $out[] = ['package_id' => $package['id']] + $card;
+    }
+    return $out;
+}
+
 /** @return array<string, array<string, array<string, string>>> enabled package id => locale => catalog */
 function packageRuntimeLocaleCatalogs(PDO $pdo): array
 {

@@ -5772,7 +5772,7 @@ function packageRuntimeLocaleCatalogsView(PDO $pdo, bool $signedIn): array
 function packageRuntimeDashboardPagesView(PDO $pdo, bool $signedIn): array
 {
     if (!$signedIn) throw new ActionRefused('sign in to load package pages');
-    return ['pages' => packageRuntimeDashboardPages($pdo)];
+    return ['pages' => packageRuntimeDashboardPages($pdo), 'cards' => packageRuntimeDashboardCards($pdo)];
 }
 
 /** Archive bytes are accepted only through PHP's upload temporary file. */

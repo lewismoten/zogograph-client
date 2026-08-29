@@ -5984,13 +5984,13 @@ function renderAiSettings(data) {
   const money = document.createElement("div");
   money.className = "settings";
 
-  for (const [id, label, value, hint] of [
-    ["aiPriceIn", "Input, per million", data.price_in,
-      "In cents. From the provider's pricing page."],
-    ["aiPriceOut", "Output, per million", data.price_out,
-      "In cents. Usually several times the input price."],
-    ["aiPriceCached", "Cached input, per million", data.price_cached,
-      "In cents. Usually about a tenth of the input price. On a conversation that "
+  for (const [id, labelKey, label, value, hintKey, hint] of [
+    ["aiPriceIn", "price_input_label", "Input, per million", data.price_in,
+      "price_input_help", "In cents. From the provider's pricing page."],
+    ["aiPriceOut", "price_output_label", "Output, per million", data.price_out,
+      "price_output_help", "In cents. Usually several times the input price."],
+    ["aiPriceCached", "price_cached_label", "Cached input, per million", data.price_cached,
+      "price_cached_help", "In cents. Usually about a tenth of the input price. On a conversation that "
       + "re-sends a long prompt every turn this is most of the bill, so leaving it at "
       + "the input price overstates the cost considerably."],
   ]) {
@@ -6001,16 +6001,14 @@ function renderAiSettings(data) {
     input.step = "0.01";
     input.className = "days";
     input.value = String(value || 0);
-    money.appendChild(fieldRow(label, input, hint));
+    money.appendChild(fieldRow(aiSettingsText(labelKey, label), input, aiSettingsText(hintKey, hint)));
   }
 
-  pages.model.push(section("Prices, if you want a cost", money));
-  pages.model.push(note(
-    "Leave these at zero and sessions report token counts and no money. That is the "
+  pages.model.push(section(aiSettingsText("prices_title", "Prices, if you want a cost"), money));
+  pages.model.push(note(aiSettingsText("prices_help", "Leave these at zero and sessions report token counts and no money. That is the "
     + "honest default — a wrong price is worse than no price, so nothing is guessed "
     + "from the model name. Prices you set here are remembered against this provider and "
-    + "model, so changing the model and changing back does not lose them."
-  ));
+    + "model, so changing the model and changing back does not lose them.")));
 
   /* ---- limits ---- */
 
@@ -6020,8 +6018,8 @@ function renderAiSettings(data) {
   const seconds = document.createElement("select");
   seconds.id = "aiMaxSeconds";
   for (const [value, label] of [
-    [0, "no limit"], [900, "15 minutes"], [3600, "an hour"],
-    [14400, "four hours"], [86400, "a day"],
+    [0, aiSettingsText("limit_none", "no limit")], [900, aiSettingsText("limit_15_minutes", "15 minutes")], [3600, aiSettingsText("limit_hour", "an hour")],
+    [14400, aiSettingsText("limit_4_hours", "four hours")], [86400, aiSettingsText("limit_day", "a day")],
   ]) {
     const option = document.createElement("option");
     option.value = String(value);
@@ -6030,8 +6028,8 @@ function renderAiSettings(data) {
     seconds.appendChild(option);
   }
   limits.appendChild(fieldRow(aiSettingsText("stop_after_label", "Stop a conversation after"), seconds,
-    "Measured from when it started, not from the last message. A conversation left open "
-    + "overnight cannot quietly resume in the morning and carry on spending."));
+    aiSettingsText("stop_after_help", "Measured from when it started, not from the last message. A conversation left open "
+    + "overnight cannot quietly resume in the morning and carry on spending.")));
 
   const cents = document.createElement("input");
   cents.type = "number";
@@ -6041,9 +6039,9 @@ function renderAiSettings(data) {
   cents.className = "days";
   cents.value = String(data.max_cents || 0);
   limits.appendChild(fieldRow(aiSettingsText("spend_limit_label", "Or after spending (cents)"), cents,
-    "Checked before each request rather than after, so the limit stops the next call "
+    aiSettingsText("spend_limit_help", "Checked before each request rather than after, so the limit stops the next call "
     + "rather than being noticed once the money is gone. Zero means no limit — "
-    + "which, with prices set, means no limit on the bill either."));
+    + "which, with prices set, means no limit on the bill either.")));
 
   const turns = document.createElement("input");
   turns.type = "number";
@@ -6053,13 +6051,13 @@ function renderAiSettings(data) {
   turns.className = "days";
   turns.value = String(data.max_turns || 0);
   limits.appendChild(fieldRow(aiSettingsText("turn_limit_label", "Or after this many turns"), turns,
-    "One turn is one request to the model. A conversation that needs forty is usually "
+    aiSettingsText("turn_limit_help", "One turn is one request to the model. A conversation that needs forty is usually "
     + "one that has gone in a circle, so this is the limit most likely to catch a "
-    + "problem rather than a long investigation."));
+    + "problem rather than a long investigation.")));
 
-  for (const [id, label, value, note_] of [
-    ["aiDailyCents", "Shared daily spend (cents)", data.daily_cents, "Across every conversation and automated alert investigation. Zero means no daily cap."],
-    ["aiSharedMonthlyCents", "Shared monthly spend (cents)", data.monthly_cents, "UTC calendar month, across every conversation and automated alert investigation. Zero means no monthly cap."],
+  for (const [id, labelKey, label, value, noteKey, note_] of [
+    ["aiDailyCents", "daily_spend_label", "Shared daily spend (cents)", data.daily_cents, "daily_spend_help", "Across every conversation and automated alert investigation. Zero means no daily cap."],
+    ["aiSharedMonthlyCents", "monthly_spend_label", "Shared monthly spend (cents)", data.monthly_cents, "monthly_spend_help", "UTC calendar month, across every conversation and automated alert investigation. Zero means no monthly cap."],
   ]) {
     const input = document.createElement("input");
     input.type = "number";
@@ -6068,7 +6066,7 @@ function renderAiSettings(data) {
     input.step = "1";
     input.className = "days";
     input.value = String(value || 0);
-    limits.appendChild(fieldRow(label, input, note_));
+    limits.appendChild(fieldRow(aiSettingsText(labelKey, label), input, aiSettingsText(noteKey, note_)));
   }
   const shared = data.shared_budget || {};
   const sharedUsage = ["daily", "monthly"].flatMap(period => {
@@ -6076,9 +6074,9 @@ function renderAiSettings(data) {
     if (!budget || !Number(budget.limit_millicents)) return [];
     return [`${period}: ${(Number(budget.used_millicents) / 1000).toFixed(2)} of ${(Number(budget.limit_millicents) / 1000).toFixed(2)} cents`];
   });
-  if (sharedUsage.length) limits.appendChild(note(`Shared AI usage — ${sharedUsage.join("; ")}.`));
+  if (sharedUsage.length) limits.appendChild(note(aiSettingsText("shared_usage", `Shared AI usage — ${sharedUsage.join("; ")}.`, { usage: sharedUsage.join("; ") })));
 
-  pages.limits.push(section("Conversation and shared limits", limits));
+  pages.limits.push(section(aiSettingsText("limits_title", "Conversation and shared limits"), limits));
 
   /* ---- how much it can hold ---- */
 

@@ -19501,19 +19501,18 @@ async function refreshHostDisk() {
   const gap = data.unaccounted;
   if (gap) {
     const facts = [
-      [`${gap.mount} says used`, humanBytes(gap.used_bytes)],
-      ["Found by walking", humanBytes(gap.found_bytes) + (gap.complete ? "" : " (walk stopped early)")],
+      [ZogographI18n.t("host.gap_mount_used", { mount: gap.mount }, "{{mount}} says used"), humanBytes(gap.used_bytes)],
+      [ZogographI18n.t("host.gap_found_by_walking", {}, "Found by walking"), humanBytes(gap.found_bytes) + (gap.complete ? "" : ZogographI18n.t("host.gap_walk_stopped_early", {}, " (walk stopped early)"))],
     ];
     if (gap.deleted_bytes > 0) {
-      facts.push(["Deleted but still open", humanBytes(gap.deleted_bytes)]);
+      facts.push([ZogographI18n.t("host.gap_deleted_open", {}, "Deleted but still open"), humanBytes(gap.deleted_bytes)]);
     }
-    facts.push(["Still unaccounted for", humanBytes(gap.missing_bytes)]);
-    body.appendChild(section("The gap", factGrid(facts)));
+    facts.push([ZogographI18n.t("host.gap_unaccounted", {}, "Still unaccounted for"), humanBytes(gap.missing_bytes)]);
+    body.appendChild(section(ZogographI18n.t("host.gap_title", {}, "The gap"), factGrid(facts)));
 
     if (!gap.complete) {
-      body.appendChild(note("The walk ran out of time, so \u201cfound\u201d is a lower bound and "
-        + "the gap is an upper one. Raise host.walk_seconds and run it again before "
-        + "chasing the difference."));
+      body.appendChild(note(ZogographI18n.t("host.gap_incomplete_help", {},
+        "The walk ran out of time, so “found” is a lower bound and the gap is an upper one. Raise host.walk_seconds and run it again before chasing the difference.")));
     }
   }
 
@@ -19523,9 +19522,9 @@ async function refreshHostDisk() {
 
     const table = document.createElement("table");
     const head = table.createTHead().insertRow();
-    ["Mounted at", "Device", "Type", "Used", "Free", "Full"].forEach((label, i) => {
+    ["host.filesystem_mounted_at", "host.filesystem_device", "host.filesystem_type", "host.filesystem_used", "host.filesystem_free", "host.filesystem_full"].forEach((key, i) => {
       const th = document.createElement("th");
-      th.textContent = label;
+      th.textContent = ZogographI18n.t(key, {}, ["Mounted at", "Device", "Type", "Used", "Free", "Full"][i]);
       if (i === 0) th.className = "name";
       if (i >= 3) th.className = "size";
       head.appendChild(th);
@@ -19574,7 +19573,7 @@ async function refreshHostDisk() {
     }
 
     wrap.appendChild(table);
-    body.appendChild(section("Filesystems", wrap));
+    body.appendChild(section(ZogographI18n.t("host.filesystems", {}, "Filesystems"), wrap));
   }
 
   const deleted = document.createDocumentFragment();

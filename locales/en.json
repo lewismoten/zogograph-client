@@ -803,5 +803,6 @@
   "navigation.sections": "Sections", "audit.download_csv_title": "Download the full audit history as a CSV file", "audit.clear_title": "Remove earlier audit entries and retain a record of this reset", "quick.open_title": "Open quick actions",
   "assistant.speaking": "Speaking", "assistant.hold_to_talk": "Hold to talk", "assistant.start_listening": "Start listening", "assistant.listening": "Listening…", "assistant.stop_listening": "Stop listening",
   "host.open_setup": "Open Host setup", "action.view": "View", "storage.empty": "Empty",
-  "scan.set_up": "Set one up", "scan.set_up_title": "This one needs choosing before it can be asked for", "scan.ask": "Ask for one", "scan.ask_title": "It happens on the collector's next pass, not now"
+  "scan.set_up": "Set one up", "scan.set_up_title": "This one needs choosing before it can be asked for", "scan.ask": "Ask for one", "scan.ask_title": "It happens on the collector's next pass, not now",
+  "scan.what": "What", "scan.how_often": "How often", "scan.recommended": "Recommended", "scan.last_run": "Last run", "scan.next": "Next"
 }

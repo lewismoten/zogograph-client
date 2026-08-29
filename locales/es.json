@@ -737,5 +737,6 @@
   "navigation.sections": "Secciones", "audit.download_csv_title": "Descargar todo el historial de auditoría como archivo CSV", "audit.clear_title": "Eliminar entradas anteriores de auditoría y conservar un registro de este restablecimiento", "quick.open_title": "Abrir acciones rápidas",
   "assistant.speaking": "Hablando", "assistant.hold_to_talk": "Mantenga para hablar", "assistant.start_listening": "Empezar a escuchar", "assistant.listening": "Escuchando…", "assistant.stop_listening": "Dejar de escuchar",
   "host.open_setup": "Abrir configuración del host", "action.view": "Ver", "storage.empty": "Vaciar",
-  "scan.set_up": "Configurar uno", "scan.set_up_title": "Debe elegirlo antes de poder solicitarlo", "scan.ask": "Solicitar uno", "scan.ask_title": "Se ejecutará en la próxima pasada del recolector, no ahora"
+  "scan.set_up": "Configurar uno", "scan.set_up_title": "Debe elegirlo antes de poder solicitarlo", "scan.ask": "Solicitar uno", "scan.ask_title": "Se ejecutará en la próxima pasada del recolector, no ahora",
+  "scan.what": "Qué", "scan.how_often": "Frecuencia", "scan.recommended": "Recomendado", "scan.last_run": "Última ejecución", "scan.next": "Siguiente"
 }

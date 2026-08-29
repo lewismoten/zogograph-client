@@ -8277,9 +8277,9 @@ function scanTable(rows, data) {
   table.className = "retention";
 
   const head = table.createTHead().insertRow();
-  for (const label of ["What", "How often", "Recommended", "Last run", "Next", ""]) {
+  for (const [key, fallback] of [["scan.what", "What"], ["scan.how_often", "How often"], ["scan.recommended", "Recommended"], ["scan.last_run", "Last run"], ["scan.next", "Next"], ["", ""]]) {
     const th = document.createElement("th");
-    th.textContent = label;
+    th.textContent = key ? ZogographI18n.t(key, {}, fallback) : fallback;
     head.appendChild(th);
   }
 

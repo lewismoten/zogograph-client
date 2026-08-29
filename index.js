@@ -8384,8 +8384,8 @@ function scanTable(rows, data) {
       const go = document.createElement("button");
       go.type = "button";
       go.className = "link";
-      go.textContent = "Set one up";
-      go.title = "This one needs choosing before it can be asked for";
+      go.textContent = ZogographI18n.t("scan.set_up", {}, "Set one up");
+      go.title = ZogographI18n.t("scan.set_up_title", {}, "This one needs choosing before it can be asked for");
       go.addEventListener("click", () => {
         location.hash = `#/${scan.goes_to}?range=${state.range}`;
       });
@@ -8394,8 +8394,8 @@ function scanTable(rows, data) {
       const ask = document.createElement("button");
       ask.type = "button";
       ask.className = "link";
-      ask.textContent = "Ask for one";
-      ask.title = "It happens on the collector's next pass, not now";
+      ask.textContent = ZogographI18n.t("scan.ask", {}, "Ask for one");
+      ask.title = ZogographI18n.t("scan.ask_title", {}, "It happens on the collector's next pass, not now");
       ask.addEventListener("click", async () => {
         ask.disabled = true;
         try {

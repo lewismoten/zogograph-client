@@ -1068,22 +1068,22 @@
 <section class="view" data-view="storage-io" hidden>
 <section class="panel" id="hostIoPanel">
   <div class="panel-head">
-    <h2>How hard the disks are working</h2>
+    <h2 data-i18n="host.io_title">How hard the disks are working</h2>
   </div>
-  <p class="muted small sub-note" id="hostIoIntro">
+  <p class="muted small sub-note" id="hostIoIntro" data-i18n-rich="host.io_help">
     Throughput and saturation per device, read by root — so this is every
     account on the server together. A busy line here says the disk is working,
     never that this account is the reason; the account's own traffic is on
-    <a href="#/overview">the dashboard</a>, and
-    <a href="#/disk-procs">which processes are doing it</a> has its own page.
+    <a href="#/overview" data-i18n-tag="dashboard">the dashboard</a>, and
+    <a href="#/disk-procs" data-i18n-tag="processes">which processes are doing it</a> has its own page.
   </p>
   <div id="hostIoBody"></div>
 
   <div id="hostIoContent" hidden>
-    <h3 class="sub-head">Disks</h3>
-    <p class="muted small sub-note" id="hostDiskNote">
+    <h3 class="sub-head" data-i18n="host.io_disks_title">Disks</h3>
+    <p class="muted small sub-note" id="hostDiskNote" data-i18n-rich="host.io_disks_help">
       Throughput and how close each device is to saturated. LVM and RAID volumes
-      are shown but not added into any total: a write to <code>dm-0</code> is
+      are shown but not added into any total: a write to <code data-i18n-tag="dm0">dm-0</code> is
       remapped onto the disk underneath and advances both counters, so summing
       them reports twice the traffic that happened.
     </p>
@@ -1195,15 +1195,15 @@
 <section class="view" data-view="host-layout" hidden>
 <section class="panel" id="mountPanel">
   <div class="panel-head">
-    <h2>Filesystem layout</h2>
+    <h2 data-i18n="host.layout_title">Filesystem layout</h2>
   </div>
-  <p class="muted small sub-note">
+  <p class="muted small sub-note" data-i18n-rich="host.layout_help">
     Every mount the kernel reports, grouped by filesystem. Two paths on the same
     device are the same disk however different they look, which is why a bind
     mount can make one directory appear to be two — and why summing mount points
     reports the same space twice. The skeleton's own mounts used to be the
     second half of this page and are now on
-    <a href="#/cagefs">the CageFS skeleton page</a>, which is where somebody
+    <a href="#/cagefs" data-i18n-tag="cagefs">the CageFS skeleton page</a>, which is where somebody
     looking for them goes.
   </p>
   <div id="mountBody"></div>

@@ -33355,7 +33355,7 @@ function showTerminalCwd(cwd) {
 
   const label = document.createElement("span");
   label.className = "muted small";
-  label.textContent = "Running in ";
+  label.textContent = ZogographI18n.t("terminal.running_in", {}, "Running in ");
   where.appendChild(label);
 
   const path = document.createElement("code");
@@ -33367,8 +33367,8 @@ function showTerminalCwd(cwd) {
     const back = document.createElement("button");
     back.type = "button";
     back.className = "link";
-    back.textContent = "back to the top";
-    back.title = `Return to ${home}`;
+    back.textContent = ZogographI18n.t("terminal.return_home", {}, "back to the top");
+    back.title = ZogographI18n.t("terminal.return_home_title", { home }, "Return to {{home}}");
     back.addEventListener("click", () => {
       runTerminal(`cd ${home}`).catch(error => notice(String(error.message || error)));
     });

@@ -239,8 +239,6 @@ function route(array $config, PDO $pdo, string $action, bool $post): array
         'ai-reaction' => doAiReaction($config, $pdo, $post),
         'ai-sessions' => aiSessionsView($config, $signedIn),
         'charts' => chartCatalogueView($config, $signedIn),
-        'scan-schedule' => scansView($config, $pdo, $signedIn),
-        'scan-schedule-save' => doScansSave($config, $pdo, $post),
         'chart-series' => chartSeriesView($config, $pdo, $signedIn),
         'rdns-ask' => doRdnsAsk($config, $pdo, $post),
         'rdns-cancel' => doRdnsCancel($config, $pdo, $post),
@@ -398,7 +396,7 @@ function requireActionAccess(array $config, string $action): void
         'tail' => 'log-stream', 'last-lines' => 'log-stream', 'log-stream' => 'log-stream',
         'health' => 'system', 'self' => 'system', 'problems' => 'sys-problems',
         'path-hygiene' => 'storage', 'path-hygiene-rename' => 'storage',
-        'scan-schedule' => 'scans-account', 'host-setup' => 'scans-host',
+        'host-setup' => 'sys-host-data',
         'ai-memories' => 'sys-memory', 'ai-reports' => 'sys-reports',
         'ai-sessions' => 'sys-ai-billing',
     ];

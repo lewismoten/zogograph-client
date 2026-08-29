@@ -110,6 +110,9 @@ coreFeatureExpect(is_string($dashboardPage) && is_string($dashboard)
     && !str_contains($dashboard, '"scans-account":') && !str_contains($dashboard, '"scans-host":')
     && str_contains($dashboard, './setup.php?section=schedule'),
     'legacy dashboard scheduling remains reachable instead of using protected Setup');
+coreFeatureExpect(is_string($api) && !str_contains($api, "'scan-schedule' =>")
+    && !str_contains($api, "'scan-schedule-save' =>"),
+    'legacy dashboard scheduling API remains registered outside protected Setup');
 foreach (['peer-push.php', 'peer-data.php', 'peer-connect.php'] as $endpoint) {
     $source = file_get_contents(__DIR__ . '/../' . $endpoint);
     coreFeatureExpect(is_string($source) && str_contains($source, "coreFeatureEnabled(\$config, 'peers')")

@@ -22853,7 +22853,9 @@ async function refreshActionLog() {
     (!actionState.who || (data.identity === "actor" ? row.actor : row.remote_addr) === actionState.who) &&
     (!actionState.result || row.outcome === actionState.result));
 
-  renderActionSummary(rows);
+  renderCoreCardPackage(ZogographActionSummaryCard, "core-action-summary", rows, {
+    target: $("actionSummary"), humanBytes, humanTime, count, i18n: ZogographI18n,
+  });
 
   renderTable("actionLog", rows, [
     { label: ZogographI18n.t("action_log.when", {}, "When"), render: row => whenSpan(row.at) },
@@ -22889,32 +22891,6 @@ function fillFilter(select, values, current, label = v => v) {
     }
   }
   select.value = current;
-}
-
-function renderActionSummary(rows) {
-  const freed = rows.reduce((sum, r) => sum + Number(r.bytes_freed || 0), 0);
-  const files = rows.reduce((sum, r) => sum + Number(r.files_removed || 0), 0);
-  const refused = rows.filter(r => r.outcome !== "ok").length;
-
-  const cards = [
-    [ZogographI18n.t("action_log.things_done"), String(rows.length), rows.length ? ZogographI18n.t("action_log.since", { time: humanTime(rows[rows.length - 1].at) }) : ""],
-    [ZogographI18n.t("action_log.space_freed"), humanBytes(freed), ZogographI18n.t("action_log.files_removed", { count: count(files, "file") })],
-    [ZogographI18n.t("action_log.refused_failed"), String(refused), refused ? ZogographI18n.t("action_log.changed_nothing") : ZogographI18n.t("action_log.everything_worked")],
-  ];
-
-  const frag = document.createDocumentFragment();
-  for (const [label, value, sub] of cards) {
-    const card = document.createElement("div");
-    card.className = "card";
-    for (const [cls, text] of [["label", label], ["value", value], ["sub muted", sub]]) {
-      const div = document.createElement("div");
-      div.className = cls;
-      div.textContent = text;
-      card.appendChild(div);
-    }
-    frag.appendChild(card);
-  }
-  $("actionSummary").replaceChildren(frag);
 }
 
 function escapeHtml(text) {

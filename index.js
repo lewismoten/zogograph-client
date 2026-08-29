@@ -4126,33 +4126,9 @@ function renderTypePie(scans, total) {
  * is. The point is to be able to say "so *that* is what .bkup is doing here".
  */
 function renderOtherExtensions(rows) {
-  if (!rows.length) {
-    const message = document.createElement("p");
-    message.className = "muted";
-    message.append(ZogographI18n.t("storage.other_empty_before", {}, "Nothing landed in "));
-    const other = document.createElement("code");
-    other.textContent = ZogographI18n.t("chart.other", {}, "Other");
-    message.append(other, ZogographI18n.t("storage.other_empty_after", {}, ", or the last scan ran before this was measured."));
-    $("otherExtensions").replaceChildren(message);
-    return;
-  }
-
-  const total = rows.reduce((sum, r) => sum + Number(r.bytes || 0), 0);
-
-  renderTable("otherExtensions", rows, [
-    {
-      label: ZogographI18n.t("storage.extension", {}, "Extension"),
-      className: "name",
-      render: row => row.extension === "(none)" ? ZogographI18n.t("storage.no_extension", {}, "(no extension)") : `.${row.extension}`,
-    },
-    { label: ZogographI18n.t("storage.size", {}, "Size"), className: "size", render: row => humanBytes(row.bytes) },
-    { label: ZogographI18n.t("storage.files", {}, "Files"), className: "size", render: row => humanCount(row.files) },
-    {
-      label: ZogographI18n.t("storage.of_other", {}, "Of other"),
-      className: "size",
-      render: row => total ? `${((Number(row.bytes) / total) * 100).toFixed(1)}%` : "\u2014",
-    },
-  ]);
+  ZogographOtherExtensionsCard.render(rows, {
+    target: $("otherExtensions"), renderTable, humanBytes, humanCount, i18n: ZogographI18n,
+  });
 }
 
 /*

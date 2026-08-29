@@ -8,6 +8,7 @@ $script = file_get_contents($root . '/index.js');
 $overviewCards = file_get_contents($root . '/cards/overview-vitals.js');
 $scanFactCards = file_get_contents($root . '/cards/scan-facts.js');
 $typeGrowthCard = file_get_contents($root . '/cards/type-growth.js');
+$otherExtensionsCard = file_get_contents($root . '/cards/other-extensions.js');
 $setup = file_get_contents($root . '/setup.php');
 $setupPanels = file_get_contents($root . '/lib/setup-panels.php');
 $configure = file_get_contents($root . '/lib/configure.php');
@@ -64,6 +65,11 @@ i18nExpect($page !== false && str_contains($page, 'src="cards/type-growth.js"')
     && str_contains($typeGrowthCard, 'render(scans, helpers)')
     && $script !== false && str_contains($script, 'ZogographTypeGrowthCard.render(scans,'),
     'storage type-growth chart is not isolated behind its core card-module boundary');
+i18nExpect($page !== false && str_contains($page, 'src="cards/other-extensions.js"')
+    && $otherExtensionsCard !== false && str_contains($otherExtensionsCard, 'window.ZogographOtherExtensionsCard')
+    && str_contains($otherExtensionsCard, 'render(rows, helpers)')
+    && $script !== false && str_contains($script, 'ZogographOtherExtensionsCard.render(rows,'),
+    'storage other-extensions table is not isolated behind its core card-module boundary');
 i18nExpect($script !== false && str_contains($script, 'function humanDuration(seconds)')
     && str_contains($script, '"duration.value"')
     && is_array($english) && isset($english['duration.value']),

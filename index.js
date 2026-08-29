@@ -8239,7 +8239,7 @@ function renderScans(data) {
       const warning = note("The host collector is not enabled, so none of these run. ");
       const link = document.createElement("a");
       link.href = "./setup.php?section=host";
-      link.textContent = "Open Host setup";
+      link.textContent = ZogographI18n.t("host.open_setup", {}, "Open Host setup");
       warning.appendChild(link);
       parts.push(warning);
     }

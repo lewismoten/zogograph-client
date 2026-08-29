@@ -12127,10 +12127,10 @@ async function showPackageRuntimeSettings(row) {
     if (row.id === "zogograph-key-custody") return showCustodyPackageSettings(row, data.settings);
     const settings = document.createElement("textarea"); settings.className = "wide-field"; settings.rows = 14; settings.spellcheck = false;
     settings.value = JSON.stringify(data.settings, null, 2);
-    showFormDialog(`${row.id} settings`, [fieldRow("Settings JSON", settings, "Use only package-scoped secret_ref: values for credentials. Raw tokens and private keys are refused.")], async () => {
+    showFormDialog(packageText("package.settings_title", { id: row.id }, "{{id}} settings"), [fieldRow(packageText("package.settings_json", {}, "Settings (JSON)"), settings, packageText("package.settings_json_help", {}, "Use only package-scoped secret_ref: values for credentials. Raw tokens and private keys are refused."))], async () => {
       await post("package-runtime-settings-save", { id: row.id, settings: settings.value });
-      notice("Package settings saved.", true);
-    });
+      notice(packageText("package.settings_saved", {}, "Package settings were saved using the package’s signed schema."), true);
+    }, packageText("package.save_settings", {}, "Save package settings"));
   } catch (error) { notice(String(error.message || error)); }
 }
 

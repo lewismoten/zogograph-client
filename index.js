@@ -12213,15 +12213,15 @@ function renderEncryptionStatus(data) {
     overview.push([ZogographI18n.t("encryption.local_retention", {}, "Local retention"), Number(data.policy.retention_days) === 0 ? ZogographI18n.t("encryption.keep_every_copy", {}, "Keep every copy") : ZogographI18n.t("encryption.retention_days", { days: data.policy.retention_days, tiers: tiers.length ? ` · plus ${tiers.join(", ")}` : "" }, "{{days}} days{{tiers}}")]);
     overview.push([ZogographI18n.t("encryption.recovery_drill_review", {}, "Recovery-drill review"), Number(data.policy.recovery_drill_review_days) === 0 ? ZogographI18n.t("encryption.initial_drill_only", {}, "Initial drill only") : ZogographI18n.t("encryption.every_days", { days: data.policy.recovery_drill_review_days }, "Every {{days}} days")]);
   }
-  if (data.waiting_stores?.length) overview.push(["Waiting until present", data.waiting_stores.join(", ")]);
+  if (data.waiting_stores?.length) overview.push([ZogographI18n.t("encryption.waiting_until_present", {}, "Waiting until present"), data.waiting_stores.join(", ")]);
   const drilled = (data.artifacts || []).filter(row => Number(row.last_recovery_drill_at || 0) > 0).length;
-  if (data.mode === "sealed_copies_local") overview.push(["Recovery drill", data.artifacts?.length ? `${drilled}/${data.artifacts.length} stores recorded` : "Run after the first seal"]);
+  if (data.mode === "sealed_copies_local") overview.push([ZogographI18n.t("encryption.recovery_drill", {}, "Recovery drill"), data.artifacts?.length ? `${drilled}/${data.artifacts.length} stores recorded` : "Run after the first seal"]);
   const superseded = (data.superseded_artifacts || []).reduce((total, row) => total + Number(row.copies || 0), 0);
-  if (superseded) overview.push(["Superseded recovery copies", String(superseded)]);
+  if (superseded) overview.push([ZogographI18n.t("encryption.superseded_recovery_copies", {}, "Superseded recovery copies"), String(superseded)]);
   const retired = (data.retired_artifacts || []).reduce((total, row) => total + Number(row.copies || 0), 0);
-  if (retired) overview.push(["Retired recovery copies", String(retired)]);
+  if (retired) overview.push([ZogographI18n.t("encryption.retired_recovery_copies", {}, "Retired recovery copies"), String(retired)]);
   const remoteEnvelopes = (data.remote_envelopes || []).map(row => `${row.provider_package}: ${row.copies} ${row.state}`).join(" · ");
-  if (remoteEnvelopes) overview.push(["Optional remote envelopes", remoteEnvelopes]);
+  if (remoteEnvelopes) overview.push([ZogographI18n.t("encryption.optional_remote_envelopes", {}, "Optional remote envelopes"), remoteEnvelopes]);
   const parts = [factGrid(overview)];
   if (data.setup_configuration?.state !== "ok") parts.push(note(`Setup configuration: ${data.setup_configuration?.detail || "status unavailable"}`));
   if (data.sqlcipher) parts.push(note(`Live SQLCipher option: ${data.sqlcipher.detail}`));

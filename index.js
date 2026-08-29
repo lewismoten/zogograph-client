@@ -28308,7 +28308,7 @@ function showRecordDialog(row) {
 
   const copy = document.createElement("button");
   copy.className = "link";
-  copy.textContent = "Copy it";
+  copy.textContent = copyButtonLabel("copy_value");
   copy.addEventListener("click", async () => {
     /*
      * The clipboard API, with selection as the fallback.
@@ -28320,15 +28320,15 @@ function showRecordDialog(row) {
      */
     try {
       await navigator.clipboard.writeText(value);
-      copy.textContent = "Copied";
-      setTimeout(() => { copy.textContent = "Copy it"; }, 1500);
+      copy.textContent = copyButtonLabel("copied");
+      setTimeout(() => { copy.textContent = copyButtonLabel("copy_value"); }, 1500);
     } catch {
       const range = document.createRange();
       range.selectNodeContents(whole);
       const selection = window.getSelection();
       selection.removeAllRanges();
       selection.addRange(range);
-      copy.textContent = "Selected — press ⌘C";
+      copy.textContent = copyButtonLabel("selected_press_copy");
     }
   });
   tools.appendChild(copy);
@@ -29747,14 +29747,14 @@ function showLogLine(row, index, rows) {
 
   const copy = document.createElement("button");
   copy.className = "link";
-  copy.textContent = "Copy the line";
+  copy.textContent = copyButtonLabel("copy_line");
   copy.addEventListener("click", async () => {
     try {
       await navigator.clipboard.writeText(
         row.text + (row.trace?.length ? "\n" + row.trace.join("\n") : "")
       );
-      copy.textContent = "Copied";
-      setTimeout(() => { copy.textContent = "Copy the line"; }, 1500);
+      copy.textContent = copyButtonLabel("copied");
+      setTimeout(() => { copy.textContent = copyButtonLabel("copy_line"); }, 1500);
     } catch {
       // Needs a secure context, which plenty of these installs are not.
       const range = document.createRange();
@@ -29762,7 +29762,7 @@ function showLogLine(row, index, rows) {
       const selection = window.getSelection();
       selection.removeAllRanges();
       selection.addRange(range);
-      copy.textContent = "Selected — press ⌘C";
+      copy.textContent = copyButtonLabel("selected_press_copy");
     }
   });
   tools.appendChild(copy);
@@ -30139,6 +30139,9 @@ function copyButtonLabel(state) {
     copy: "Copy",
     copied: "Copied",
     select_to_copy: "Select it and copy",
+    copy_value: "Copy it",
+    copy_line: "Copy the line",
+    selected_press_copy: "Selected — press ⌘C",
   };
   return ZogographI18n.t(`action.${state}`, {}, fallbacks[state]);
 }

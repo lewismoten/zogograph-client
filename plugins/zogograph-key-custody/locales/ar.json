@@ -1,0 +1,19 @@
+{
+  "zogograph-key-custody.settings_title": "إعدادات حفظ المفاتيح عن بُعد",
+  "zogograph-key-custody.service_url": "عنوان خدمة الحفظ",
+  "zogograph-key-custody.service_url_help": "استخدم جذر الخدمة أو جذر API ‏/v1. شغّل اختبار نقطة نهاية الحفظ قبل إضافة مراجع التسجيل.",
+  "zogograph-key-custody.tenant_id": "معرّف المستأجر",
+  "zogograph-key-custody.tenant_id_help": "معرّف ten_… من التسجيل. ليس اعتماداً.",
+  "zogograph-key-custody.key_id": "معرّف مفتاح الحفظ النشط",
+  "zogograph-key-custody.key_id_help": "أنشئ هذا المفتاح أو اختره عبر API إدارة العملاء. إنه يعرّف مفتاح التغليف البعيد فقط؛ وليس رمزاً أو سراً.",
+  "zogograph-key-custody.tls_pin": "تثبيت المفتاح العام لـ TLS",
+  "zogograph-key-custody.tls_pin_help": "اختياري. اتركه فارغاً للتحقق العادي الموصى به من CA/اسم المضيف. يحتاج التثبيت إلى خطة لتدوير مفتاح شهادة نقطة النهاية.",
+  "zogograph-key-custody.cache": "ذاكرة تخزين مفتاح البيانات",
+  "zogograph-key-custody.cache_help": "الموصى به: 0 ثانية. يمكن لذاكرة تخزين غير صفرية أن تبقي مفتاح بيانات مُحرراً صالحاً حتى تنتهي صلاحيته؛ والحد الأقصى 900 ثانية.",
+  "zogograph-key-custody.credential_reference": "مرجع اعتماد العميل",
+  "zogograph-key-custody.credential_reference_help": "بعد اختبار ناجح لنقطة النهاية خلال 24 ساعة، أنشئ سر حزمة مشفراً والصق قيمة secret_ref: فقط. لا تلصق رمز bearer خاماً هنا.",
+  "zogograph-key-custody.signing_reference": "مرجع مفتاح توقيع العميل",
+  "zogograph-key-custody.signing_reference_help": "بعد الاختبار نفسه، أنشئ سر حزمة مشفراً ثانياً لمفتاح توقيع Ed25519 بترميز Base64 لمرة واحدة. لا تلصق المفتاح الخاص هنا مطلقاً.",
+  "zogograph-key-custody.save_action": "حفظ إعدادات الحفظ",
+  "zogograph-key-custody.saved": "حُفظت إعدادات الحفظ عن بُعد. لا يؤدي اختبار ناجح لنقطة النهاية إلى تفعيل الحفظ عن بُعد."
+}

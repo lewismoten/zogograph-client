@@ -28700,7 +28700,7 @@ function renderDomains(data) {
 
         const remove = document.createElement("button");
         remove.className = "link danger";
-        remove.textContent = "Stop";
+        remove.textContent = ZogographI18n.t("action.stop", {}, "Stop it");
         remove.title = "Stop watching this domain";
         remove.addEventListener("click", async () => {
           if (!(await confirmDialog(`Stop watching ${row.name}?`, "Stop watching"))) return;

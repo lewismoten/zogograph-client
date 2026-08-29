@@ -12761,9 +12761,12 @@ async function batchNotes(kind) {
 function showNoteDetails(row) {
   const nodes = [note(row.body)];
   const facts = [
-    ["About", whenSpan(row.at)], ["Written", `${ago(row.written_at)}${row.who ? ` by ${row.who}` : ""}`],
-    ["Page", row.view ? (VIEWS[row.view]?.label ?? row.view) : "—"],
-    ["Holding", row.snapshots ? `${count(row.snapshots, "capture")} · ${humanBytes(row.snapshot_bytes)}` : "—"],
+    [ZogographI18n.t("notes.about", {}, "About"), whenSpan(row.at)],
+    [ZogographI18n.t("notes.written", {}, "Written"), row.who
+      ? ZogographI18n.t("notes.written_by", { time: ago(row.written_at), who: row.who }, "{{time}} by {{who}}")
+      : ago(row.written_at)],
+    [ZogographI18n.t("notes.page", {}, "Page"), row.view ? (VIEWS[row.view]?.label ?? row.view) : "—"],
+    [ZogographI18n.t("notes.holding", {}, "Holding"), row.snapshots ? `${count(row.snapshots, "capture")} · ${humanBytes(row.snapshot_bytes)}` : "—"],
   ];
   nodes.push(factGrid(facts));
   if (row.link) nodes.push(externalLink(row.link));
@@ -12773,7 +12776,11 @@ function showNoteDetails(row) {
     captured.addEventListener("click", () => showNoteSnapshots(row));
     nodes.push(captured);
   }
-  showListDialog(`Note from ${whenSpan(row.at)}`, nodes, "Click a note in the inbox to read it without stretching the table.");
+  showListDialog(
+    ZogographI18n.t("notes.from", { when: whenSpan(row.at) }, "Note from {{when}}"),
+    nodes,
+    ZogographI18n.t("notes.inbox_help", {}, "Click a note in the inbox to read it without stretching the table.")
+  );
 }
 
 function noteBody(row) {

@@ -77,6 +77,7 @@ catch (ActionRefused $error) { coreFeatureExpect($error->getMessage() === 'this 
 requireCoreFeatureAccess($legacy, 'ai-start');
 $api = file_get_contents(__DIR__ . '/../api.php');
 $dashboard = file_get_contents(__DIR__ . '/../index.js');
+$dashboardPage = file_get_contents(__DIR__ . '/../index.html');
 coreFeatureExpect(is_string($api) && str_contains($api, "requireCoreFeatureAccess(\$config, \$action)")
     && str_contains($api, "'core_features' => coreFeatureStatus(\$config)")
     && str_contains($api, "!coreFeatureEnabled(\$config, 'overview')"),
@@ -87,6 +88,12 @@ coreFeatureExpect(is_string($dashboard) && str_contains($dashboard, 'applyCoreFe
     && str_contains($dashboard, 'disabledCoreRoutes.has("sys-packages")') && str_contains($dashboard, 'ZogographI18n.clearPackageCatalogs()')
     && str_contains($dashboard, 'disabledCoreRoutes.has("charts")') && str_contains($dashboard, 'disabledCoreRoutes.has("system")'),
     'core feature boundary does not suppress disabled dashboard routes');
+coreFeatureExpect(is_string($dashboardPage) && is_string($dashboard)
+    && !str_contains($dashboardPage, 'data-view="scans-account"')
+    && !str_contains($dashboardPage, 'data-view="scans-host"')
+    && !str_contains($dashboard, '"scans-account":') && !str_contains($dashboard, '"scans-host":')
+    && str_contains($dashboard, './setup.php?section=schedule'),
+    'legacy dashboard scheduling remains reachable instead of using protected Setup');
 foreach (['peer-push.php', 'peer-data.php', 'peer-connect.php'] as $endpoint) {
     $source = file_get_contents(__DIR__ . '/../' . $endpoint);
     coreFeatureExpect(is_string($source) && str_contains($source, "coreFeatureEnabled(\$config, 'peers')")

@@ -2318,8 +2318,6 @@ function aiViews(): array
         'sys-ai-billing' => 'assistant usage and cost history',
         'sys-ai-data' => 'data and retained material owned by the assistant',
         'sys-peers' => 'trusted Zogograph servers and their OpenID discovery health',
-        'scans-account' => 'the account collector schedule and its configured jobs',
-        'scans-host' => 'the host collector schedule and its configured jobs',
         'sys-ai' => 'the current assistant conversation',
         'sys-ai-identity' => 'the assistant’s displayed identity and personality',
         'sys-ai-past' => 'past assistant conversations',

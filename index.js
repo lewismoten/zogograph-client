@@ -3730,9 +3730,9 @@ function renderOnboarding(overview) {
     list.appendChild(item);
   };
   if (missingVitals) {
-    step("Set up or run the account collector for its first vital reading.", "#/scans-account", "Collector schedule");
+    step("Set up or run the account collector for its first vital reading.", "./setup.php?section=schedule", "Open Setup schedule");
   } else {
-    step("Vital readings are arriving. Keep the collector scheduled so charts can build history.", "#/scans-account", "Review schedule");
+    step("Vital readings are arriving. Keep the collector scheduled so charts can build history.", "./setup.php?section=schedule", "Review Setup schedule");
   }
   if (missingScan) {
     step("Run the first storage scan to identify what uses space.", "#/storage", "Open Storage");
@@ -32217,36 +32217,6 @@ const VIEWS = {
     parent: "sys-ai",
     refresh: () => refreshAiSettings(),
   },
-  "scans-account": {
-    /*
-     * Never on the timer.
-     *
-     * This page rebuilds its form from the server's answer, so a poll landing
-     * while somebody is typing replaces the box they are typing in - which is
-     * exactly what happened: an API key half entered, gone on the next tick.
-     * Opening the page still loads it, and saving redraws from what was
-     * written.
-     */
-    manual: true,
-    label: "Account scans",
-    parent: "system",
-    refresh: () => refreshScanSchedule("account"),
-  },
-  "scans-host": {
-    /*
-     * Never on the timer.
-     *
-     * This page rebuilds its form from the server's answer, so a poll landing
-     * while somebody is typing replaces the box they are typing in - which is
-     * exactly what happened: an API key half entered, gone on the next tick.
-     * Opening the page still loads it, and saving redraws from what was
-     * written.
-     */
-    manual: true,
-    label: "Host scans",
-    parent: "system",
-    refresh: () => refreshScanSchedule("host"),
-  },
   "net-rdns": {
     label: "Address names",
     parent: "network",
@@ -33177,13 +33147,6 @@ for (const id of ["aiIdentityForm", "aiModelForm", "aiLimitsForm", "aiImagesForm
   form.addEventListener("submit", event => {
     event.preventDefault();
     saveAiSettings();
-  });
-}
-
-for (const id of ["accountScansForm", "hostScansForm", "throttleForm"]) {
-  $(id).addEventListener("submit", event => {
-    event.preventDefault();
-    saveScans();
   });
 }
 

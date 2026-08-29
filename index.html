@@ -488,16 +488,6 @@
       <span class="nav-label" data-i18n="navigation.email_alerts">Email alerts</span>
       <span class="nav-badge" data-badge="email" hidden></span>
     </a>
-    <a class="nav-item nav-sub" href="#/scans-account" data-nav="scans-account" data-parent="system">
-      <span class="nav-icon" aria-hidden="true">›</span>
-      <span class="nav-label" data-i18n="navigation.account_scans">Account scans</span>
-      <span class="nav-badge" data-badge="scans-account" hidden></span>
-    </a>
-    <a class="nav-item nav-sub" href="#/scans-host" data-nav="scans-host" data-parent="system">
-      <span class="nav-icon" aria-hidden="true">›</span>
-      <span class="nav-label" data-i18n="navigation.host_scans">Host scans</span>
-      <span class="nav-badge" data-badge="scans-host" hidden></span>
-    </a>
     <a class="nav-item nav-sub" href="#/net-labels" data-nav="net-labels" data-parent="system">
       <span class="nav-icon" aria-hidden="true">›</span>
       <span class="nav-label" data-i18n="navigation.custom_names">Your own names</span>
@@ -2260,58 +2250,6 @@
 </section>
 
 
-</section>
-
-<section class="view" data-view="scans-account" hidden>
-<section class="panel" id="accountScansPanel">
-  <div class="panel-head">
-    <h2>What this account collects</h2>
-  </div>
-  <p class="muted small sub-note">
-    Everything the account's own cron does, and how often. The costs are real
-    and uneven — a reading is milliseconds, a disk walk reads every inode under
-    the account — so each carries a recommendation, and where that
-    recommendation is <em>only when asked</em> it is a decision rather than an
-    oversight. The reason is beside each one.
-  </p>
-  <form id="accountScansForm">
-    <div id="accountScansBody"></div>
-  </form>
-</section>
-</section>
-
-<section class="view" data-view="scans-host" hidden>
-<section class="panel" id="hostScansPanel">
-  <div class="panel-head">
-    <h2>What the host collects</h2>
-  </div>
-  <p class="muted small sub-note">
-    Everything root's collector does on this machine's behalf. These see what
-    the account cannot — the other tenants, every filesystem, the processes
-    outside the cage — and cost correspondingly more. Anything here can also be
-    asked for on the spot; it happens on the collector's next pass rather than
-    now, and what is waiting is shown.
-  </p>
-  <form id="hostScansForm">
-    <div id="hostScansBody"></div>
-  </form>
-</section>
-
-<section class="panel" id="throttlePanel">
-  <div class="panel-head">
-    <h2>Going outside</h2>
-  </div>
-  <p class="muted small sub-note">
-    How many outbound lookups either collector may make per run. These reach
-    registries and public resolvers, which defend themselves: a burst of twenty
-    gets this address rate-limited, and the result is twenty domains reported as
-    unknown — one self-inflicted problem wearing the costume of twenty real
-    ones. Queues drain oldest first, so nothing is starved by newer arrivals.
-  </p>
-  <form id="throttleForm">
-    <div id="throttleBody"></div>
-  </form>
-</section>
 </section>
 
 <!--

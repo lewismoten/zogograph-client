@@ -28524,10 +28524,17 @@ async function refreshWhoAmI() {
   }
 
   if (you.claims.length) {
-    parts.push(section("What the proxy chain claims", (() => {
+    parts.push(section(ZogographI18n.t(
+      "network.proxy_claims_title",
+      {},
+      "What the proxy chain claims",
+    ), (() => {
       const wrap = document.createDocumentFragment();
       wrap.appendChild(simpleTable(
-        ["Header", "Says"],
+        [
+          ZogographI18n.t("table.header", {}, "Header"),
+          ZogographI18n.t("table.says", {}, "Says"),
+        ],
         you.claims.map(c => [c.header, c.value]),
         ["name", "cmd"]
       ));
@@ -28538,9 +28545,11 @@ async function refreshWhoAmI() {
        * address is only in here; typed directly at the server they are whatever
        * the client felt like sending.
        */
-      wrap.appendChild(note("These are set by whatever spoke to the web server last. Behind a "
-        + "proxy they carry the real address; sent straight to the server they can say "
-        + "anything at all. The address above is the only one this process observed."));
+      wrap.appendChild(note(ZogographI18n.t(
+        "network.proxy_claims_help",
+        {},
+        "These are set by whatever spoke to the web server last. Behind a proxy they carry the real address; sent straight to the server they can say anything at all. The address above is the only one this process observed.",
+      )));
       return wrap;
     })()));
   }

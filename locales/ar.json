@@ -5,6 +5,7 @@
   "action.copy": "نسخ",
   "common.sign_in_to_see": "سجّل الدخول لرؤية هذا.",
   "terminal.sessions_sign_in": "سجّل الدخول لرؤية جلسات الطرفية.",
+  "terminal.use_sign_in": "سجّل الدخول لاستخدام الطرفية.",
   "action.open": "فتح",
   "action.copied": "تم النسخ",
   "action.copy_value": "انسخه",

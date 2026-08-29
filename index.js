@@ -14182,7 +14182,7 @@ async function refreshTerminal() {
   const body = $("terminalBody");
 
   if (!state.signedIn) {
-    body.replaceChildren(note("Sign in to use the terminal."));
+    body.replaceChildren(note(ZogographI18n.t("terminal.use_sign_in", {}, "Sign in to use the terminal.")));
     return;
   }
 

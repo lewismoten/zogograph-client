@@ -13466,7 +13466,7 @@ const sessionState = { list: [], open: null, log: null, withOutput: true };
 async function refreshSessions() {
   const body = $("sessionsBody");
   if (!state.signedIn) {
-    body.replaceChildren(note("Sign in to see terminal sessions."));
+    body.replaceChildren(note(ZogographI18n.t("terminal.sessions_sign_in", {}, "Sign in to see terminal sessions.")));
     return;
   }
 

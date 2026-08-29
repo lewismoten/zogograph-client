@@ -4,6 +4,7 @@
   "package.open_settings": "Abrir configuración del paquete",
   "action.copy": "Copiar",
   "common.sign_in_to_see": "Inicie sesión para ver esto.",
+  "terminal.sessions_sign_in": "Inicie sesión para ver las sesiones de terminal.",
   "action.open": "Abrir",
   "action.copied": "Copiado",
   "action.copy_value": "Copiarlo",

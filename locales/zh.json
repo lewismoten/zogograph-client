@@ -4,6 +4,7 @@
   "package.open_settings": "打开软件包设置",
   "action.copy": "复制",
   "common.sign_in_to_see": "登录后可查看此内容。",
+  "terminal.sessions_sign_in": "登录后可查看终端会话。",
   "action.open": "打开",
   "action.copied": "已复制",
   "action.copy_value": "复制它",

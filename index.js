@@ -1106,7 +1106,7 @@ function renderCpuTime(data) {
       setHostCard(
         meta.label,
         Number.isFinite(value) ? `${value.toFixed(1)}%` : "—",
-        average == null ? "" : `${average.toFixed(1)}% on average over this range`,
+        average == null ? "" : ZogographI18n.t("cpu.average_over_range", { percent: average.toFixed(1) }, "{{percent}}% on average over this range"),
         band === "crit" ? "crit" : band === "warn" ? "warn" : "",
         "",
         "cpuTimeCards"
@@ -1131,14 +1131,14 @@ function renderCpuTime(data) {
     now: now ? Number(now[key]) : null,
     what: meta.what,
   })), [
-    { label: "State", render: r => r.label },
-    { label: "In /proc/stat", className: "cmd", render: r => r.key },
+    { label: ZogographI18n.t("cpu.state", {}, "State"), render: r => r.label },
+    { label: ZogographI18n.t("cpu.in_proc_stat", {}, "In /proc/stat"), className: "cmd", render: r => r.key },
     {
-      label: "Now",
+      label: ZogographI18n.t("cpu.now", {}, "Now"),
       className: "size",
       render: r => (r.now == null || !Number.isFinite(r.now) ? "—" : `${r.now.toFixed(1)}%`),
     },
-    { label: "What it means", render: r => r.what },
+    { label: ZogographI18n.t("cpu.what_it_means", {}, "What it means"), render: r => r.what },
   ]);
 }
 

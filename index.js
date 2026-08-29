@@ -19970,7 +19970,8 @@ function renderHostIoProcs(io) {
     holder.replaceChildren(Object.assign(document.createElement("p"), {
       className: "muted",
       textContent: io?.reason
-        || "No per-process disk I/O recorded yet. It needs the host collector, running as root.",
+        || ZogographI18n.t("host.io_processes_empty", {},
+          "No per-process disk I/O recorded yet. It needs the host collector, running as root."),
     }));
     return;
   }
@@ -19979,7 +19980,7 @@ function renderHostIoProcs(io) {
 
   renderTable("hostIoProcs", io.rows, [
     {
-      label: "Process",
+      label: ZogographI18n.t("host.io_process", {}, "Process"),
       className: "name",
       render: row => {
         const box = document.createElement("span");
@@ -19992,26 +19993,25 @@ function renderHostIoProcs(io) {
         return box;
       },
     },
-    { label: "Reading", className: "size", render: row => rate(row.read_rate) },
-    { label: "Writing", className: "size", render: row => rate(row.write_rate) },
+    { label: ZogographI18n.t("host.io_reading", {}, "Reading"), className: "size", render: row => rate(row.read_rate) },
+    { label: ZogographI18n.t("host.io_writing", {}, "Writing"), className: "size", render: row => rate(row.write_rate) },
     {
-      label: "Since it started",
+      label: ZogographI18n.t("host.io_since_started", {}, "Since it started"),
       className: "size",
       render: row => `${humanBytes(row.read_bytes + row.write_bytes)}`,
     },
     {
-      label: "Rate is",
+      label: ZogographI18n.t("host.io_rate_is", {}, "Rate is"),
       render: row => {
         const span = document.createElement("span");
         if (row.basis === "current") {
-          span.textContent = `now (over ${io.seconds}s)`;
-          span.title = "Measured between the last two host readings.";
+          span.textContent = ZogographI18n.t("host.io_rate_now", { seconds: io.seconds }, "now (over {{seconds, number}}s)");
+          span.title = ZogographI18n.t("host.io_rate_now_tip", {}, "Measured between the last two host readings.");
         } else if (row.basis === "average") {
-          span.textContent = "lifetime average";
+          span.textContent = ZogographI18n.t("host.io_rate_lifetime", {}, "lifetime average");
           span.className = "muted";
-          span.title = "This process has only been seen once, so its total I/O is spread "
-            + "over how long it has been running. Accurate for a job that just started, "
-            + "much less so for a long-running daemon.";
+          span.title = ZogographI18n.t("host.io_rate_lifetime_tip", {},
+            "This process has only been seen once, so its total I/O is spread over how long it has been running. Accurate for a job that just started, much less so for a long-running daemon.");
         } else {
           span.textContent = "—";
           span.className = "muted";

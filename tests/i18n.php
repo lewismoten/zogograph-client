@@ -273,6 +273,12 @@ foreach ($setupPlaceholderNodes[0] ?? [] as $node) {
         || str_contains($node, 'data-i18n-placeholder-dynamic="server-path"'),
         'Setup static placeholder is not backed by an i18n key');
 }
+preg_match_all('/<[^>]*\\b(?:title|aria-label)="[^"]+"[^>]*>/i', $setupLocaleSources, $setupAccessibleNodes);
+foreach ($setupAccessibleNodes[0] ?? [] as $node) {
+    i18nExpect((!str_contains($node, 'title="') || str_contains($node, 'data-i18n-title="'))
+        && (!str_contains($node, 'aria-label="') || str_contains($node, 'data-i18n-aria-label="')),
+        'Setup static title or accessible label is not backed by an i18n key');
+}
 preg_match_all('/data-i18n(?:-placeholder|-title|-aria-label|-alt)?="([a-z][\\w.-]+)"/', $setupLocaleSources, $setupKeys);
 foreach (array_unique($setupKeys[1] ?? []) as $key) {
     i18nExpect(isset($english[$key]), "setup i18n attribute key $key has no English fallback");

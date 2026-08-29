@@ -51,6 +51,10 @@ i18nExpect($script !== false && str_contains($script, 'ZogographI18n.t("onboardi
     && str_contains($script, 'ZogographI18n.t("onboarding.vitals_missing"') && str_contains($script, 'ZogographI18n.t("onboarding.scan_ready"')
     && is_array($english) && isset($english['onboarding.intro'], $english['onboarding.vitals_missing'], $english['onboarding.open_schedule'], $english['onboarding.vitals_ready'], $english['onboarding.review_schedule'], $english['onboarding.scan_missing'], $english['onboarding.open_storage'], $english['onboarding.scan_ready'], $english['onboarding.review_storage']),
     'first-run dashboard guidance does not use the locale catalog');
+i18nExpect($script !== false && str_contains($script, 'ZogographI18n.t("filter.all"')
+    && $page !== false && substr_count($page, 'data-i18n="filter.all"') === 2
+    && is_array($english) && isset($english['filter.all']),
+    'shared filter default does not use the locale catalog');
 i18nExpect($script !== false && str_contains($script, 'marketplaceText("discovery_notice"')
     && str_contains($script, 'marketplaceText("search_label"') && str_contains($script, 'marketplaceText("table_compatibility"')
     && str_contains($script, 'marketplaceText("toggle_confirmation"') && str_contains($script, 'marketplaceText("restore_confirmation"')

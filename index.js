@@ -3699,7 +3699,7 @@ function syncCategoryOptions() {
     const option = document.createElement("option");
     option.value = value;
     option.textContent = value === ""
-      ? "All"
+      ? ZogographI18n.t("filter.all", {}, "All")
       : value.charAt(0).toUpperCase() + value.slice(1);
     return option;
   }));

@@ -14476,18 +14476,16 @@ function renderTerminal(data) {
   off.className = "link danger";
   off.textContent = ZogographI18n.t("terminal.switch_off", {}, "Switch the terminal off");
   off.addEventListener("click", async () => {
-    const yes = await askFirst("Switch the terminal off?", [
-      "This withdraws the permission, not just the unlock. Anything running now is "
-      + "stopped and the page goes back to offering a switch.",
-      "Nothing is lost - the transcript of what has been run stays in the action log, "
-      + "and you can switch it on again whenever you want it.",
-    ], "Switch it off", true);
+    const yes = await askFirst(ZogographI18n.t("terminal.switch_off_title", {}, "Switch the terminal off?"), [
+      ZogographI18n.t("terminal.switch_off_consequence", {}, "This withdraws the permission, not just the unlock. Anything running now is stopped and the page goes back to offering a switch."),
+      ZogographI18n.t("terminal.switch_off_retention", {}, "Nothing is lost - the transcript of what has been run stays in the action log, and you can switch it on again whenever you want it."),
+    ], ZogographI18n.t("terminal.switch_off_action", {}, "Switch it off"), true);
 
     if (!yes) return;
 
     try {
       renderTerminal(await post("terminal-permit", { allowed: "0" }));
-      notice("The terminal is switched off.");
+      notice(ZogographI18n.t("terminal.switched_off", {}, "The terminal is switched off."));
     } catch (error) {
       notice(String(error.message || error));
     }

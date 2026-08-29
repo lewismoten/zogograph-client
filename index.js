@@ -13467,7 +13467,7 @@ function purgeButton(entry) {
   const button = document.createElement("button");
   button.type = "button";
   button.className = "link danger";
-  button.textContent = "Clear";
+  button.textContent = ZogographI18n.t("action.clear", {}, "Clear");
   button.title = `Delete ${entry.label.toLowerCase()} older than a given age`;
 
   button.addEventListener("click", async () => {

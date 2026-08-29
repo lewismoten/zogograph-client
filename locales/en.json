@@ -492,6 +492,7 @@
   "schedule.custom.weekday": "Day of week (0–7)",
   "schedule.saved_preview": "Saved preview",
   "schedule.installed": "Currently installed",
+  "alerts.mark_read": "Mark {{count, number}} read", "alerts.mark_unread": "Mark {{count, number}} unread", "alerts.delete_selected": "Delete {{count, number}}", "alerts.marketplace_guidance": "Enabled marketplace guidance is advisory only. It does not change alert rules or delivery.", "alerts.when": "When", "alerts.severity": "Severity", "alerts.what": "What", "alerts.emailed": "Emailed",
   "broadcast.one": "A message from whoever was here last", "broadcast.many": "{{count, number}} messages from whoever was here last", "broadcast.somebody": "somebody", "broadcast.who": "{{who}}, {{ago}}", "broadcast.clear": "Clear it", "broadcast.clear_help": "Stop showing this to everyone",
   "alerts.unread_count": "{{count, number}} unread alert(s)", "alerts.see_all": "See all", "alerts.hide_until_new": "Hide this until something new fires", "alerts.dismiss": "Dismiss",
   "schedule.times_unknown_zone": "{{job}}: {{expression}} in the server's timezone, which could not be determined",

@@ -511,6 +511,7 @@
   "schedule.custom.weekday": "Día de la semana (0–7)",
   "schedule.saved_preview": "Vista previa guardada",
   "schedule.installed": "Instalado actualmente",
+  "alerts.mark_read": "Marcar {{count, number}} como leídas", "alerts.mark_unread": "Marcar {{count, number}} como no leídas", "alerts.delete_selected": "Eliminar {{count, number}}", "alerts.marketplace_guidance": "La guía del mercado habilitada es solo informativa. No cambia las reglas ni el envío de alertas.", "alerts.when": "Cuándo", "alerts.severity": "Gravedad", "alerts.what": "Qué", "alerts.emailed": "Enviado por correo",
   "broadcast.one": "Un mensaje de quien estuvo aquí por última vez", "broadcast.many": "{{count, number}} mensajes de quien estuvo aquí por última vez", "broadcast.somebody": "alguien", "broadcast.who": "{{who}}, {{ago}}", "broadcast.clear": "Borrarlo", "broadcast.clear_help": "Dejar de mostrarlo a todos",
   "alerts.unread_count": "{{count, number}} alertas sin leer", "alerts.see_all": "Ver todas", "alerts.hide_until_new": "Ocultar hasta que se active algo nuevo", "alerts.dismiss": "Descartar",
   "schedule.times_unknown_zone": "{{job}}: {{expression}} en la zona horaria del servidor, que no se pudo determinar",

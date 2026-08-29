@@ -22141,9 +22141,9 @@ function syncAlertTools() {
   $("alertAckSome").disabled = !chosen;
   $("alertUnackSome").disabled = !chosen;
   $("alertDeleteSome").disabled = !chosen;
-  $("alertAckSome").textContent = chosen ? `Mark ${chosen} read` : "Mark read";
-  $("alertUnackSome").textContent = chosen ? `Mark ${chosen} unread` : "Mark unread";
-  $("alertDeleteSome").textContent = chosen ? `Delete ${chosen}` : "Delete";
+  $("alertAckSome").textContent = ZogographI18n.t("alerts.mark_read", { count: chosen }, chosen ? "Mark {{count, number}} read" : "Mark read");
+  $("alertUnackSome").textContent = ZogographI18n.t("alerts.mark_unread", { count: chosen }, chosen ? "Mark {{count, number}} unread" : "Mark unread");
+  $("alertDeleteSome").textContent = ZogographI18n.t("alerts.delete_selected", { count: chosen }, chosen ? "Delete {{count, number}}" : "Delete");
 }
 
 async function refreshAlerts() {
@@ -22168,7 +22168,7 @@ async function refreshAlerts() {
   const guidance = $("alertMarketplaceGuidance");
   guidance.replaceChildren();
   if (state.signedIn && state.access?.write && data.marketplace_recommendations?.length) {
-    const label = note("Enabled marketplace guidance is advisory only. It does not change alert rules or delivery.");
+    const label = note(ZogographI18n.t("alerts.marketplace_guidance", {}, "Enabled marketplace guidance is advisory only. It does not change alert rules or delivery."));
     const list = document.createElement("ul"); list.className = "muted small";
     for (const item of data.marketplace_recommendations) {
       const entry = document.createElement("li");
@@ -22196,10 +22196,10 @@ async function refreshAlerts() {
     columns.push({ label: "", render: alertPicker });
   }
   columns.push(
-    { label: "When", render: row => whenSpan(row.raised_at) },
-    { label: "Severity", render: alertSeverity },
-    { label: "What", className: "name", render: row => alertWhat(row, state.signedIn) },
-    { label: "Emailed", render: row => alertEmailed(row, state.signedIn) },
+    { label: ZogographI18n.t("alerts.when", {}, "When"), render: row => whenSpan(row.raised_at) },
+    { label: ZogographI18n.t("alerts.severity", {}, "Severity"), render: alertSeverity },
+    { label: ZogographI18n.t("alerts.what", {}, "What"), className: "name", render: row => alertWhat(row, state.signedIn) },
+    { label: ZogographI18n.t("alerts.emailed", {}, "Emailed"), render: row => alertEmailed(row, state.signedIn) },
   );
 
   /*

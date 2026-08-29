@@ -61,11 +61,16 @@ try {
         && method_exists(\HostScope\Plugin\KeyCustody\KeyCustodyHttpClient::class, 'healthEndpoint'), 'custody client does not enforce its secure transport defaults');
     $custodyDirectory = __DIR__ . '/../plugins/zogograph-key-custody';
     $custodyManifest = json_decode((string)file_get_contents($custodyDirectory . '/manifest.json'), true, 512, JSON_THROW_ON_ERROR);
+    $custodyLocale = json_decode((string)file_get_contents($custodyDirectory . '/locales/en.json'), true, 128, JSON_THROW_ON_ERROR);
     packageExpect(is_array($custodyManifest) && ($custodyManifest['runtime']['operations'] ?? null) === ['capability', 'custody_endpoint_probe', 'custody_enrollment_check', 'custody_store_envelope', 'custody_unwrap_artifact']
         && method_exists(\HostScope\Plugin\KeyCustody\KeyCustodyProvider::class, 'preflight')
         && method_exists(\HostScope\Plugin\KeyCustody\KeyCustodyProvider::class, 'storeEnvelope')
         && method_exists(\HostScope\Plugin\KeyCustody\KeyCustodyProvider::class, 'unwrapArtifact') && packageVerifyIntegrity($custodyManifest, $custodyDirectory)['ok'],
         'key custody package manifest does not cover its installed files');
+    packageExpect(($custodyManifest['locales']['en'] ?? null) === 'locales/en.json'
+        && is_array($custodyLocale) && isset($custodyLocale['zogograph-key-custody.settings_title'])
+        && isset($custodyLocale['zogograph-key-custody.save_action']),
+        'key custody package does not own its declared localization catalog');
     $relayPair = sodium_crypto_sign_keypair(); $relaySecret = sodium_crypto_sign_secretkey($relayPair);
     try { new \HostScope\Plugin\ReplicaRelay\ReplicaRelayHttpClient('https://user@example.test', 'test-token', base64_encode($relaySecret)); throw new RuntimeException('relay client accepted an ambiguous endpoint'); }
     catch (InvalidArgumentException $error) { packageExpect($error->getMessage() !== 'relay client accepted an ambiguous endpoint', $error->getMessage()); }

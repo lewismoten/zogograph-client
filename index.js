@@ -12162,10 +12162,10 @@ function showCustodyPackageSettings(row, saved) {
 
 function showPackageRuntimeSecret(row) {
   const value = document.createElement("input"); value.type = "password"; value.className = "wide-field"; value.autocomplete = "off";
-  showFormDialog(`Add encrypted secret for ${row.id}`, [fieldRow("Secret value", value, "This value is encrypted in setup.db with your external package/encryption key. It is never returned after saving.")], async () => {
+  showFormDialog(packageText("package.secret_add_title", { id: row.id }, "Add encrypted secret for {{id}}"), [fieldRow(packageText("package.secret_value", {}, "Secret value"), value, packageText("package.secret_value_help", {}, "This value is encrypted in setup.db with your external package/encryption key. It is never returned after saving."))], async () => {
     const result = await post("package-runtime-secret-create", { id: row.id, value: value.value });
-    setTimeout(() => showListDialog("Secret reference created", [factGrid([["Reference", result.reference]])], "Copy this opaque reference into the package settings. It is the only value that settings will retain."), 0);
-  }, "Create reference");
+    setTimeout(() => showListDialog(packageText("package.secret_reference_created", {}, "Secret reference created"), [factGrid([[packageText("package.secret_reference", {}, "Reference"), result.reference]])], packageText("package.secret_reference_created_help", {}, "Copy this opaque reference into the package settings. It is the only value that settings will retain.")), 0);
+  }, packageText("package.secret_create_action", {}, "Create reference"));
 }
 
 async function showPackageRuntimeSecrets(row) {

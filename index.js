@@ -14598,7 +14598,9 @@ function renderTerminal(data) {
             kill.addEventListener("click", async () => {
               try {
                 const result = await post("terminal-stop", { id: row.id });
-                notice(result.killed ? "Stopped." : "It had already finished.", true);
+                notice(result.killed
+                  ? ZogographI18n.t("terminal.stopped", {}, "Stopped.")
+                  : ZogographI18n.t("terminal.already_finished", {}, "It had already finished."), true);
                 await refreshTerminal();
               } catch (error) {
                 notice(String(error.message || error));
@@ -14609,7 +14611,7 @@ function renderTerminal(data) {
 
           const again = document.createElement("button");
           again.className = "link";
-          again.textContent = "Run it again";
+          again.textContent = ZogographI18n.t("terminal.run_again", {}, "Run it again");
           again.addEventListener("click", () => {
             $("terminalInput").value = row.command;
             $("terminalInput").focus();

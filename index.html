@@ -2773,20 +2773,20 @@
     and a chat that lived on its own page could not do that.
   -->
   <div id="chatHome">
-  <aside id="chatPanel" class="chat-panel" hidden aria-label="The troubleshooting assistant">
-    <div class="chat-head" id="chatDragHandle" title="Drag to move this chat window">
-      <strong id="chatTitle">Assistant</strong>
+  <aside id="chatPanel" class="chat-panel" hidden aria-label="The troubleshooting assistant" data-i18n-aria-label="assistant.panel_label">
+    <div class="chat-head" id="chatDragHandle" title="Drag to move this chat window" data-i18n-title="assistant.drag_window">
+      <strong id="chatTitle" data-i18n="assistant.title">Assistant</strong>
       <span class="muted small" id="chatCost"></span>
       <span class="chat-room" id="chatRoom" hidden></span>
-      <select id="chatEffort" class="chat-effort" title="How hard to think"></select>
-      <button id="chatSpeak" class="link" type="button" title="Read replies aloud">Speak</button>
-      <button id="chatListen" class="link" type="button" title="Dictate a message">Listen</button>
-      <button id="chatNew" class="link" title="Start a fresh conversation">New</button>
+      <select id="chatEffort" class="chat-effort" title="How hard to think" data-i18n-title="assistant.effort_title"></select>
+      <button id="chatSpeak" class="link" type="button" title="Read replies aloud" data-i18n="assistant.speak" data-i18n-title="assistant.speak_title">Speak</button>
+      <button id="chatListen" class="link" type="button" title="Dictate a message" data-i18n="assistant.listen" data-i18n-title="assistant.listen_title">Listen</button>
+      <button id="chatNew" class="link" title="Start a fresh conversation" data-i18n="assistant.new" data-i18n-title="assistant.new_title">New</button>
       <button id="chatInterrupt" class="link" hidden
-              title="Stop what it is doing, keep the conversation">Interrupt</button>
-      <button id="chatStop" class="link danger" title="End the current model turn">Stop</button>
+              title="Stop what it is doing, keep the conversation" data-i18n="assistant.interrupt" data-i18n-title="assistant.interrupt_title">Interrupt</button>
+      <button id="chatStop" class="link danger" title="End the current model turn" data-i18n="assistant.stop" data-i18n-title="assistant.stop_title">Stop</button>
       <button id="chatClose" class="chat-close" title="Hide this — the conversation carries on"
-              aria-label="Close chat">×</button>
+              aria-label="Close chat" data-i18n-title="assistant.hide_title" data-i18n-aria-label="assistant.close">×</button>
     </div>
     <!--
       Permission questions live here, above the log and outside it.

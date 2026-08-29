@@ -5,6 +5,7 @@ $root = dirname(__DIR__);
 $runtime = file_get_contents($root . '/i18n.js');
 $page = file_get_contents($root . '/index.html');
 $script = file_get_contents($root . '/index.js');
+$overviewCards = file_get_contents($root . '/cards/overview-vitals.js');
 $setup = file_get_contents($root . '/setup.php');
 $setupPanels = file_get_contents($root . '/lib/setup-panels.php');
 $configure = file_get_contents($root . '/lib/configure.php');
@@ -46,6 +47,11 @@ i18nExpect($script !== false && str_contains($script, 'function humanBytes(value
     && str_contains($script, 'minimumFractionDigits: places')
     && str_contains($script, 'maximumFractionDigits: places'),
     'human-readable byte values do not honor the selected locale');
+i18nExpect($page !== false && str_contains($page, 'src="cards/overview-vitals.js"')
+    && $overviewCards !== false && str_contains($overviewCards, 'window.ZogographOverviewVitalsCards')
+    && str_contains($overviewCards, 'render(overview, helpers)')
+    && $script !== false && str_contains($script, 'ZogographOverviewVitalsCards.render(overview,'),
+    'overview vitals cards are not isolated behind their core card-module boundary');
 i18nExpect($script !== false && str_contains($script, 'function humanDuration(seconds)')
     && str_contains($script, '"duration.value"')
     && is_array($english) && isset($english['duration.value']),

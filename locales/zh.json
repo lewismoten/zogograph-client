@@ -1465,6 +1465,7 @@
   "backup.jetbackup_title": "JetBackup",
   "backup.jetbackup_help": "备份系统对其自身备份的说明，是查找名为 files0000000005 的目录背后账户和日期的唯一途径。它需要 JetBackup 命令行工具，通常还需要以 root 身份运行。",
   "host.memory_title": "内存",
+  "host.memory_summary_counts": "{{processes}} 个进程 {{users}} {{threads}}。", "host.memory_summary_counts_missing": "此读数未记录正在运行的进程或线程数量。", "host.memory_summary_rss_over": "它们的常驻大小合计为 {{resident}}，超过实际使用的 {{used}}；十个进程共享的一页会被计数十次。", "host.memory_summary_rss": "它们的常驻大小合计为 {{resident}}。常驻大小会为每个进程计数一次共享页，因此它是上限而非总计。", "host.memory_summary_pss": "按比例集合大小为 {{amount}}，分布在 {{processes}} 个进程中{{suffix}}。", "host.memory_summary_pss_largest": " 个最大的",
   "network.interface": "接口",
   "network.loopback": " · 回环，不会离开此机器",
   "network.state": "状态",

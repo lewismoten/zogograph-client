@@ -18823,33 +18823,31 @@ async function refreshHost() {
   const parts = [];
   if (s.proc_count != null || s.thread_count != null) {
     parts.push(
-      [
-        s.proc_count == null ? null : `${humanCount(s.proc_count)} processes`,
-        data.users.length ? `across ${count(data.users.length, "user")}` : null,
-        s.thread_count == null ? null : `${humanCount(s.thread_count)} threads`,
-      ].filter(Boolean).join(", ") + "."
+      ZogographI18n.t("host.memory_summary_counts", {
+        processes: s.proc_count == null ? "" : humanCount(s.proc_count),
+        users: data.users.length ? count(data.users.length, "user") : "",
+        threads: s.thread_count == null ? "" : humanCount(s.thread_count),
+      }, "{{processes}} processes {{users}} {{threads}}.").replace(/\s+/g, " ").trim()
     );
   } else {
-    parts.push("This reading did not record how many processes or threads were running.");
+    parts.push(ZogographI18n.t("host.memory_summary_counts_missing", {}, "This reading did not record how many processes or threads were running."));
   }
 
   const rssSum = num(s.rss_sum_bytes);
   const inUse = num(s.used_bytes);
   if (rssSum > 0) parts.push(
     rssSum > inUse
-      ? `Their resident sizes add up to ${humanBytes(rssSum)}, more than the `
-        + `${humanBytes(inUse)} actually in use — a page shared by ten processes is `
-        + `counted ten times, so that total is an overcount and the difference is `
-        + `not missing memory.`
-      : `Their resident sizes add up to ${humanBytes(rssSum)}. Resident size counts `
-        + `shared pages once per process, so it is an upper bound rather than a total.`
+      ? ZogographI18n.t("host.memory_summary_rss_over", { resident: humanBytes(rssSum), used: humanBytes(inUse) }, "Their resident sizes add up to {{resident}}, more than the {{used}} actually in use — a page shared by ten processes is counted ten times, so that total is an overcount and the difference is not missing memory.")
+      : ZogographI18n.t("host.memory_summary_rss", { resident: humanBytes(rssSum) }, "Their resident sizes add up to {{resident}}. Resident size counts shared pages once per process, so it is an upper bound rather than a total.")
   );
 
   if (num(s.pss_procs) > 0) {
     parts.push(
-      `Proportional set size — private memory in full plus a share of whatever is `
-      + `shared — comes to ${humanBytes(s.pss_sum_bytes)} across the ${s.pss_procs} biggest`
-      + (num(s.pss_procs) < num(s.proc_count) ? ` of them.` : `.`)
+      ZogographI18n.t("host.memory_summary_pss", {
+        amount: humanBytes(s.pss_sum_bytes), processes: s.pss_procs,
+        suffix: num(s.pss_procs) < num(s.proc_count)
+          ? ZogographI18n.t("host.memory_summary_pss_largest", {}, " biggest") : "",
+      }, "Proportional set size — private memory in full plus a share of whatever is shared — comes to {{amount}} across {{processes}} processes{{suffix}}.")
     );
   }
 

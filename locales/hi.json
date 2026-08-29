@@ -1479,6 +1479,7 @@
   "backup.jetbackup_title": "JetBackup",
   "backup.jetbackup_help": "बैकअप सिस्टम अपने बैकअप के बारे में जो बताता है, वही files0000000005 नाम की डायरेक्टरी के पीछे का खाता और तारीख जानने का एकमात्र स्थान है। इसके लिए JetBackup कमांड लाइन टूल और सामान्यतः root के रूप में चलाना आवश्यक है।",
   "host.memory_title": "मेमोरी",
+  "host.memory_summary_counts": "{{processes}} प्रोसेस {{users}} {{threads}}।", "host.memory_summary_counts_missing": "इस रीडिंग ने चल रहे प्रोसेस या थ्रेड की संख्या दर्ज नहीं की।", "host.memory_summary_rss_over": "उनके रेज़िडेंट आकार {{resident}} हैं, जो वास्तविक उपयोग के {{used}} से अधिक हैं; दस प्रोसेस की साझा पेज दस बार गिनी जाती है।", "host.memory_summary_rss": "उनके रेज़िडेंट आकार {{resident}} हैं। रेज़िडेंट आकार साझा पेज को हर प्रोसेस के लिए गिनता है, इसलिए यह ऊपरी सीमा है।", "host.memory_summary_pss": "आनुपातिक सेट आकार {{amount}} है, {{processes}} प्रोसेसों में{{suffix}}।", "host.memory_summary_pss_largest": " सबसे बड़े",
   "network.interface": "इंटरफ़ेस",
   "network.loopback": " · लूपबैक, मशीन से बाहर नहीं जाता",
   "network.state": "स्थिति",

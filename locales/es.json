@@ -1483,6 +1483,7 @@
   "backup.jetbackup_title": "JetBackup",
   "backup.jetbackup_help": "La información que el sistema de copias de seguridad ofrece sobre sus propias copias es el único lugar donde se encuentra la cuenta y la fecha tras un directorio llamado files0000000005. Requiere la herramienta de línea de comandos JetBackup y normalmente ejecutarse como root.",
   "host.memory_title": "Memoria",
+  "host.memory_summary_counts": "{{processes}} procesos {{users}} {{threads}}.", "host.memory_summary_counts_missing": "Esta lectura no registró cuántos procesos o hilos estaban en ejecución.", "host.memory_summary_rss_over": "Sus tamaños residentes suman {{resident}}, más que los {{used}} realmente en uso; una página compartida por diez procesos se cuenta diez veces, por lo que el total es excesivo y la diferencia no es memoria ausente.", "host.memory_summary_rss": "Sus tamaños residentes suman {{resident}}. El tamaño residente cuenta las páginas compartidas una vez por proceso, por lo que es un límite superior y no un total.", "host.memory_summary_pss": "El tamaño proporcional de conjunto —memoria privada completa más una parte de la compartida— suma {{amount}} en {{processes}} procesos{{suffix}}.", "host.memory_summary_pss_largest": " más grandes",
   "network.interface": "Interfaz",
   "network.loopback": " · bucle local, nunca sale de la máquina",
   "network.state": "Estado",

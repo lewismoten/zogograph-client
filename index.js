@@ -3960,43 +3960,10 @@ async function refreshAll() {
  * should probably not start again, and only these figures can say so.
  */
 function renderScanFacts(scans) {
-  const last = scans.last_scan;
-  const holder = $("scanFacts");
-
-  if (!last) {
-    holder.replaceChildren();
-    $("scanNote").textContent = scans.scan_running
-      ? ZogographI18n.t("storage.first_scan_running", {}, "The first scan is running now.")
-      : ZogographI18n.t("storage.no_completed_scan", {}, "No completed scan yet.");
-    return;
-  }
-
-  const cards = [
-    [ZogographI18n.t("storage.last_scan_label", {}, "Last scan"), humanTime(last.finished_at || last.started_at),
-      last.duration_ms ? ZogographI18n.t("storage.scan_took", { duration: humanDuration(last.duration_ms / 1000) }, `took ${humanDuration(last.duration_ms / 1000)}`) : ""],
-    [ZogographI18n.t("storage.seen_label", {}, "Seen"), humanBytes(last.bytes_seen),
-      ZogographI18n.t("storage.files_in_directories", { files: humanCount(last.files_seen), directories: humanCount(last.dirs_seen) }, `${humanCount(last.files_seen)} files in ${humanCount(last.dirs_seen)} directories`)],
-    [ZogographI18n.t("storage.scans_in_range", {}, "Scans in this range"), String(scans.rows.length),
-      scans.rows.length > 1 ? ZogographI18n.t("storage.each_chart_point", {}, "each point on the charts below") : ZogographI18n.t("storage.not_enough_trend", {}, "not enough to draw a trend")],
-  ];
-
-  const frag = document.createDocumentFragment();
-  for (const [label, value, sub] of cards) {
-    const card = document.createElement("div");
-    card.className = "card";
-    for (const [cls, text] of [["label", label], ["value", value], ["sub muted", sub]]) {
-      const div = document.createElement("div");
-      div.className = cls;
-      div.textContent = text;
-      card.appendChild(div);
-    }
-    frag.appendChild(card);
-  }
-  holder.replaceChildren(frag);
-
-  $("scanNote").textContent = last.error
-    ? ZogographI18n.t("storage.last_scan_reported", { error: last.error }, `The last scan reported: ${last.error}`)
-    : "";
+  ZogographScanFactCards.render(scans, {
+    facts: $("scanFacts"), note: $("scanNote"), humanTime, humanDuration,
+    humanBytes, humanCount, i18n: ZogographI18n,
+  });
 }
 
 /*

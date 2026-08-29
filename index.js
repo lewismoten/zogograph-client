@@ -730,8 +730,13 @@ function bandOf(value, warn, crit) {
   return value >= crit ? "crit" : value >= warn ? "warn" : "ok";
 }
 
-const BAND_WORD = { ok: "healthy", warn: "watch", crit: "urgent" };
 const BAND_COLOR = { ok: "#56c98a", warn: "#f0a35e", crit: "#f2616b" };
+
+function gaugeBandWord(band) {
+  return ZogographI18n.t(`gauge.band_${band}`, {}, ({
+    ok: "healthy", warn: "watch", crit: "urgent",
+  })[band]);
+}
 
 function renderGauges(overview, rows = null) {
   const v = overview.vitals;
@@ -748,7 +753,7 @@ function renderGauges(overview, rows = null) {
   if (!v) {
     holder.replaceChildren(Object.assign(document.createElement("p"), {
       className: "muted",
-      textContent: "Nothing collected yet.",
+      textContent: ZogographI18n.t("gauge.nothing_collected", {}, "Nothing collected yet."),
     }));
     return;
   }
@@ -768,48 +773,50 @@ function renderGauges(overview, rows = null) {
 
   const dials = [
     {
-      label: "Disk used", value: usedPercent, warn: 88, crit: 95,
+      label: ZogographI18n.t("gauge.disk_used", {}, "Disk used"), value: usedPercent, warn: 88, crit: 95,
       series: gaugeSeries(readings, row => (row.disk_total_bytes
         ? (row.disk_used_bytes / row.disk_total_bytes) * 100 : null)),
       sub: v.disk_total_bytes
-        ? `${humanBytes(v.disk_free_bytes)} free of ${humanBytes(v.disk_total_bytes)}`
-        : "not reported",
+        ? ZogographI18n.t("gauge.free_of_total", { free: humanBytes(v.disk_free_bytes), total: humanBytes(v.disk_total_bytes) }, "{{free}} free of {{total}}")
+        : ZogographI18n.t("gauge.not_reported", {}, "not reported"),
     },
     {
-      label: "Inodes used", value: inodePercent, warn: 88, crit: 95,
+      label: ZogographI18n.t("gauge.inodes_used", {}, "Inodes used"), value: inodePercent, warn: 88, crit: 95,
       series: gaugeSeries(readings, row => (row.inodes_total
         ? (row.inodes_used / row.inodes_total) * 100 : null)),
-      sub: v.inodes_total ? `${humanCount(v.inodes_free)} free` : "not reported",
+      sub: v.inodes_total
+        ? ZogographI18n.t("gauge.free", { count: v.inodes_free }, "{{count, number}} free")
+        : ZogographI18n.t("gauge.not_reported", {}, "not reported"),
     },
     {
-      label: "CPU", value: v.cpu_percent == null ? null : Number(v.cpu_percent),
+      label: ZogographI18n.t("gauge.cpu", {}, "CPU"), value: v.cpu_percent == null ? null : Number(v.cpu_percent),
       warn: 70, crit: 90,
       series: gaugeSeries(readings, row => row.cpu_percent),
       // The account's allowance, with the machine's own figure under it - see
       // the limits panel for why they are not the same measurement.
       sub: v.cpu_percent == null
-        ? "no /proc/stat here"
+        ? ZogographI18n.t("gauge.no_proc_stat", {}, "no /proc/stat here")
         : hostCpu == null
-          ? "of this account's allowance"
-          : `of the allowance · host ${Number(hostCpu).toFixed(0)}%`,
+          ? ZogographI18n.t("gauge.account_allowance", {}, "of this account's allowance")
+          : ZogographI18n.t("gauge.allowance_host", { percent: Number(hostCpu).toFixed(0) }, "of the allowance · host {{percent}}%"),
     },
     {
-      label: "Memory", value: v.mem_used_percent == null ? null : Number(v.mem_used_percent),
+      label: ZogographI18n.t("gauge.memory", {}, "Memory"), value: v.mem_used_percent == null ? null : Number(v.mem_used_percent),
       warn: 80, crit: 92,
       series: gaugeSeries(readings, row => row.mem_used_percent),
       sub: v.mem_total_bytes
-        ? `${humanBytes(v.mem_available_bytes)} available of ${humanBytes(v.mem_total_bytes)}`
-        : "not reported",
+        ? ZogographI18n.t("gauge.available_of_total", { available: humanBytes(v.mem_available_bytes), total: humanBytes(v.mem_total_bytes) }, "{{available}} available of {{total}}")
+        : ZogographI18n.t("gauge.not_reported", {}, "not reported"),
     },
     {
-      label: "Load", value: perCore, warn: 100, crit: 150, max: 200,
+      label: ZogographI18n.t("gauge.load", {}, "Load"), value: perCore, warn: 100, crit: 150, max: 200,
       series: gaugeSeries(readings, row => (row.load1 != null && row.cpu_cores
         ? (Number(row.load1) / Number(row.cpu_cores)) * 100 : null)),
       sub: v.load1 == null
-        ? "not reported"
+        ? ZogographI18n.t("gauge.not_reported", {}, "not reported")
         : cores
-          ? `${Number(v.load1).toFixed(2)} over ${count(cores, "core")}`
-          : `${Number(v.load1).toFixed(2)}, cores unknown`,
+          ? ZogographI18n.t("gauge.load_over_cores", { load: Number(v.load1).toFixed(2), count: cores }, "{{load}} over {{count, number}} cores")
+          : ZogographI18n.t("gauge.load_cores_unknown", { load: Number(v.load1).toFixed(2) }, "{{load}}, cores unknown"),
     },
   ];
 
@@ -1513,8 +1520,10 @@ function buildGauge(dial) {
   const state = document.createElement("div");
   state.className = "gauge-band " + (band ? `band-${band}` : "muted");
   state.textContent = band
-    ? BAND_WORD[band]
-    : (dial.plain != null ? "no ceiling to measure against" : "not measured");
+    ? gaugeBandWord(band)
+    : (dial.plain != null
+      ? ZogographI18n.t("gauge.no_ceiling", {}, "no ceiling to measure against")
+      : ZogographI18n.t("gauge.not_measured", {}, "not measured"));
   box.appendChild(state);
 
   /*

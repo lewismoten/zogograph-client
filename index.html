@@ -87,7 +87,7 @@
 </header>
 
 <div class="shell">
-  <nav class="sidebar" id="sidebar" aria-label="Sections">
+  <nav class="sidebar" id="sidebar" aria-label="Sections" data-i18n-aria-label="navigation.sections">
     <label class="nav-search" for="navSearch">
       <span class="sr-only" data-i18n="navigation.search">Search sections</span>
       <input id="navSearch" type="search" placeholder="Search sections" autocomplete="off" data-i18n-placeholder="navigation.search">
@@ -2102,8 +2102,8 @@
     <div class="panel-head">
       <h2 data-i18n="audit.title">Everything this monitor has done</h2>
       <div class="panel-tools">
-        <button id="actionExport" class="link" title="Download the full audit history as a CSV file" data-i18n="audit.download_csv">Download CSV</button>
-        <button id="actionClear" class="link danger" title="Remove earlier audit entries and retain a record of this reset" data-i18n="audit.clear">Clear audit</button>
+        <button id="actionExport" class="link" title="Download the full audit history as a CSV file" data-i18n="audit.download_csv" data-i18n-title="audit.download_csv_title">Download CSV</button>
+        <button id="actionClear" class="link danger" title="Remove earlier audit entries and retain a record of this reset" data-i18n="audit.clear" data-i18n-title="audit.clear_title">Clear audit</button>
         <label class="pill"><span data-i18n="audit.what">What</span>
           <select id="actionKind"><option value="" data-i18n="audit.everything">everything</option></select>
         </label>
@@ -2760,9 +2760,9 @@
       <button type="button" id="cornerNote" data-i18n="quick.write_note">✎ Write a note</button>
       <button type="button" id="cornerChat" data-i18n="quick.ask_assistant">✦ Ask assistant</button>
     </div>
-    <button id="noteButton" class="note-button" title="Open quick actions"
+    <button id="noteButton" class="note-button" title="Open quick actions" data-i18n-title="quick.open_title"
             aria-haspopup="true" aria-expanded="false"
-            aria-label="Open quick actions">☰</button>
+            aria-label="Open quick actions" data-i18n-aria-label="quick.open_title">☰</button>
   </div>
 
   <!--

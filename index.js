@@ -28163,34 +28163,46 @@ function renderDnsRecords(data) {
   const parts = [];
 
   if (!data.domains.length) {
-    parts.push(note("No domains are being watched yet. Add one on Domain names, then come "
-      + "back \u2014 a zone sweep is offered for domains you have said you care about rather "
-      + "than for any name, because it is a few dozen lookups against somebody's nameserver."));
+    parts.push(note(ZogographI18n.t(
+      "dns.no_domains_watched",
+      {},
+      "No domains are being watched yet. Add one on Domain names, then come back — a zone sweep is offered for domains you have said you care about rather than for any name, because it is a few dozen lookups against somebody's nameserver.",
+    )));
     body.replaceChildren(...parts);
     renderDnsChanges(data);
     return;
   }
 
   if (!data.have_dig) {
-    parts.push(note("dig is not available to this account, so zones cannot be looked up here. "
-      + "On Red Hat it is in bind-utils; on Debian, dnsutils."));
+    parts.push(note(ZogographI18n.t(
+      "dns.dig_unavailable",
+      {},
+      "dig is not available to this account, so zones cannot be looked up here. On Red Hat it is in bind-utils; on Debian, dnsutils.",
+    )));
   }
 
   const inventory = data.inventory;
   if (!inventory || !inventory.rows.length) {
     parts.push(note(data.have_dig
-      ? "Nothing recorded for this domain yet. Press \u201cLook it all up\u201d."
-      : "Nothing recorded for this domain."));
+      ? ZogographI18n.t("dns.no_records_sweep", {}, "Nothing recorded for this domain yet. Press “Look it all up”.")
+      : ZogographI18n.t("dns.no_records", {}, "Nothing recorded for this domain.")));
     body.replaceChildren(...parts);
     renderDnsChanges(data);
     return;
   }
 
   const live = inventory.rows.filter(r => !r.gone);
-  parts.push(note(
-    `${count(live.length, "record")} across ${count(inventory.names.length, "name")}`
-    + (data.last_swept ? `, last looked up ${ago(data.last_swept)}.` : ".")
-  ));
+  parts.push(note(data.last_swept
+    ? ZogographI18n.t(
+      "dns.inventory_summary_last",
+      { records: live.length, names: inventory.names.length, last: ago(data.last_swept) },
+      "{{records, number}} records across {{names, number}} names, last looked up {{last}}.",
+    )
+    : ZogographI18n.t(
+      "dns.inventory_summary",
+      { records: live.length, names: inventory.names.length },
+      "{{records, number}} records across {{names, number}} names.",
+    )));
 
   /*
    * Grouped by what each part of the zone is for.

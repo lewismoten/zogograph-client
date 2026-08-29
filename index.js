@@ -30794,8 +30794,7 @@ async function refreshHostLogs() {
         } else {
           span.className = "muted";
           span.textContent = ZogographI18n.t("host_log.refused", {}, "refused by the host");
-          span.title = "The file is there and this account may not open it. That needs a "
-            + "group membership or an ACL granted by root \u2014 nothing in here can change it.";
+          span.title = ZogographI18n.t("host_log.refused_help", {}, "The file is there and this account may not open it. That needs a group membership or an ACL granted by root — nothing in here can change it.");
         }
         return span;
       },

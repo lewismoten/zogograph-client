@@ -513,6 +513,7 @@
   "schedule.custom.weekday": "يوم الأسبوع (0–7)",
   "schedule.saved_preview": "معاينة محفوظة",
   "schedule.installed": "مثبّت حاليًا",
+  "host_log.refused_help": "الملف موجود، لكن قد لا يتمكن هذا الحساب من فتحه. يتطلب ذلك عضوية مجموعة أو ACL يمنحها root — ولا يمكن لأي شيء هنا تغيير ذلك.",
   "capabilities.queue_check": "اطلب من الجامع التحقق لاحقًا",
   "capabilities.queue_check_help": "يضع فحص القدرات في الطابور ليؤكد تشغيل المضيف التالي نجاحه.",
   "capabilities.queued_confirmation": "وُضع في الطابور. سيؤكد جامع المضيف {{program}} في تشغيله التالي.",

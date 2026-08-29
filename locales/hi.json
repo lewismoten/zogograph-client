@@ -513,6 +513,7 @@
   "schedule.custom.weekday": "सप्ताह का दिन (0–7)",
   "schedule.saved_preview": "सहेजा गया पूर्वावलोकन",
   "schedule.installed": "वर्तमान में स्थापित",
+  "host_log.refused_help": "फ़ाइल मौजूद है, लेकिन यह खाता इसे नहीं खोल सकता। इसके लिए root द्वारा दी गई समूह सदस्यता या ACL चाहिए — यहाँ कुछ भी इसे बदल नहीं सकता।",
   "capabilities.queue_check": "कलेक्टर से बाद में जाँचने को कहें",
   "capabilities.queue_check_help": "क्षमता जाँच को कतार में रखता है ताकि अगला होस्ट रन पुष्टि करे कि यह काम किया।",
   "capabilities.queued_confirmation": "कतार में है। होस्ट कलेक्टर अपने अगले रन में {{program}} की पुष्टि करेगा।",

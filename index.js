@@ -18973,62 +18973,12 @@ async function refreshHost() {
 
   renderHostGauges(s, swapUsed, swap);
 
-  setHostCard("Memory in use", humanBytes(s.used_bytes),
-    `of ${humanBytes(s.mem_total)}`);
-  if (s.monitoring_pss_bytes != null || s.monitoring_rss_bytes != null) {
-    const measured = s.monitoring_pss_bytes != null
-      ? humanBytes(s.monitoring_pss_bytes) + " PSS"
-      : humanBytes(s.monitoring_rss_bytes) + " RSS";
-    setHostCard("Monitoring footprint", measured,
-      `${Number(s.monitoring_processes || 0)} collector-tree process${Number(s.monitoring_processes || 0) === 1 ? "" : "es"}`);
-  }
-  /*
-   * MemAvailable, not free. The kernel's own estimate of what a new process
-   * could actually get, which counts reclaimable cache as available - `free` is
-   * the number that makes a healthy machine look full.
-   */
-  setHostCard("Available", humanBytes(s.mem_available),
-    `the kernel's estimate of what is left`);
-  setHostCard("Cache and buffers", humanBytes(s.cache_bytes),
-    "reclaimable — not a problem");
-  setHostCard("Kernel slab", humanBytes(s.slab),
-    `${humanBytes(s.sunreclaim)} of it unreclaimable`);
-  /*
-   * Named for what it is, because "shared" is overloaded here.
-   *
-   * This is Shmem from /proc/meminfo: tmpfs pages and System V segments, memory
-   * the kernel holds on behalf of no particular process. The PSS column in the
-   * tables below is a completely unrelated quantity - one page of one process's
-   * mapping, divided by however many processes map it. Labelling both "shared"
-   * invites the reader to add them together or compare them, and neither is
-   * meaningful.
-   */
-  setHostCard("Kernel shared memory / tmpfs", humanBytes(s.shmem),
-    s.devshm_used == null ? "" : `${humanBytes(s.devshm_used)} in /dev/shm`);
-  /*
-   * Swap is shown large but coloured only under real pressure.
-   *
-   * A number in warning colours that is usually nothing teaches people to
-   * ignore the colour, and this one is usually nothing.
-   */
-  setHostCard("Swap",
-    `${humanBytes(swapUsed)} / ${humanBytes(s.swap_total)}`,
-    swapPercent == null ? "" : `${swapPercent}% allocated`,
-    swap.state === "pressure" ? "warn" : "",
-    "pair");
-  /*
-   * Named for what it is rather than for what is missing.
-   *
-   * "Unaccounted" reads as a leak or a broken sum, and it is neither. A few
-   * hundred megabytes here is ordinary: vmalloc regions, DMA and driver
-   * buffers, hugepages, per-cpu areas the summary lines do not break out, and
-   * plain accounting differences between counters sampled at slightly
-   * different moments. Linux does not reconcile exactly from a handful of
-   * /proc figures and never claimed to. What is worth watching is the number
-   * *growing* over days, not the number existing.
-   */
-  setHostCard("Other kernel/system memory", humanBytes(s.unaccounted),
-    "not represented by the categories above");
+  renderCoreCardPackage(ZogographHostMemoryCard, "core-host-memory", {
+    sample: s, swap, swapUsed, swapPercent,
+  }, {
+    setCard: (label, value, sub, level = "", valueClass = "") => setHostCard(label, value, sub, level, valueClass),
+    humanBytes,
+  });
 
   $("hostSwapNote").textContent = swapVerdict(swap, swapUsed);
 

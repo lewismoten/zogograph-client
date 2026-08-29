@@ -33257,7 +33257,7 @@ document.addEventListener("click", async event => {
   const said = $("aiTestResult");
 
   button.disabled = true;
-  button.textContent = "Testing\u2026";
+  button.textContent = ZogographI18n.t("action.testing", {}, "Testing…");
   said.className = "muted small";
   said.textContent = "";
 
@@ -33286,7 +33286,7 @@ document.addEventListener("click", async event => {
     said.textContent = String(error.message || error);
   } finally {
     button.disabled = false;
-    button.textContent = "Test the connection";
+    button.textContent = ZogographI18n.t("action.test_connection", {}, "Test the connection");
   }
 });
 

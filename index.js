@@ -1464,25 +1464,25 @@ function renderCpuLimits(data) {
 
   if ((data.lve ?? []).length) {
     renderTable("cpuLve", data.lve, [
-      { label: "Account", render: r => r.user },
+      { label: ZogographI18n.t("cpu.account", {}, "Account"), render: r => r.user },
       {
-        label: "CPU faults",
+        label: ZogographI18n.t("cpu.cpu_faults", {}, "CPU faults"),
         className: "size",
         render: r => humanCount(r.faults_cpu),
       },
-      { label: "Memory faults", className: "size", render: r => humanCount(r.faults_mem) },
-      { label: "Process faults", className: "size", render: r => humanCount(r.faults_procs) },
+      { label: ZogographI18n.t("cpu.memory_faults", {}, "Memory faults"), className: "size", render: r => humanCount(r.faults_mem) },
+      { label: ZogographI18n.t("cpu.process_faults", {}, "Process faults"), className: "size", render: r => humanCount(r.faults_procs) },
       {
-        label: "CPU in use",
+        label: ZogographI18n.t("cpu.cpu_in_use", {}, "CPU in use"),
         className: "size",
         render: r => (r.cpu_percent == null ? "—" : `${Number(r.cpu_percent).toFixed(0)}%`),
       },
     ]);
 
     drawLineChart($("cpuLveChart"), data.lve_series ?? [], [
-      { key: "faults_cpu", label: "CPU faults" },
-      { key: "faults_mem", label: "Memory faults" },
-    ], { axis: countAxis, zeroBased: true, empty: "No LVE readings in this range" });
+      { key: "faults_cpu", label: ZogographI18n.t("cpu.cpu_faults", {}, "CPU faults") },
+      { key: "faults_mem", label: ZogographI18n.t("cpu.memory_faults", {}, "Memory faults") },
+    ], { axis: countAxis, zeroBased: true, empty: ZogographI18n.t("cpu.no_lve_readings", {}, "No LVE readings in this range") });
   }
 }
 

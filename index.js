@@ -15827,7 +15827,8 @@ function renderAiTry(data) {
     pick.appendChild(holder);
   }
 
-  parts.push(fieldRow("Tool", pick, `${tools.length} in the catalogue.`));
+  parts.push(fieldRow(ZogographI18n.t("ai.try_tool", {}, "Tool"), pick,
+    ZogographI18n.t("ai.try_catalogue_count", { count: tools.length }, "{{count, number}} in the catalogue.")));
 
   const what = document.createElement("p");
   what.className = "muted small";

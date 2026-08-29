@@ -864,6 +864,11 @@ function runWeb(
             if (!fieldIsInSection($field, $activeSection)) {
                 continue;
             }
+            // Trusted clients are managed by their dedicated, CSRF-protected
+            // actions below, not by this generic provider-settings form.
+            if ($activeSection === 'openid' && $field['path'] === ['openid', 'clients']) {
+                continue;
+            }
             $key = $field['key'];
             if ($field['type'] === 'password') {
                 continue;

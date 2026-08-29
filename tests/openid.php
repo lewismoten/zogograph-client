@@ -78,6 +78,7 @@ openIdExpect($discovery['code_challenge_methods_supported'] === ['S256']
 $setup = file_get_contents(__DIR__ . '/../setup.php');
 openIdExpect($setup !== false && str_contains($setup, 'setupOpenIdClientToken')
     && str_contains($setup, 'create-openid-client') && str_contains($setup, 'remove-openid-client')
+    && str_contains($setup, "\$field['path'] === ['openid', 'clients']")
     && str_contains($setup, 'I saved the client secret'),
     'protected OpenID client management is not available in Setup');
 

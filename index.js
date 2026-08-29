@@ -25002,19 +25002,19 @@ function renderPorts(data) {
 
   if (!rows.length) {
     $("portsBody").replaceChildren(note(networkState.publicOnly
-      ? "Nothing is listening on an address reachable from outside."
-      : "No listening sockets recorded."));
+      ? ZogographI18n.t("network.ports_public_empty")
+      : ZogographI18n.t("network.ports_empty")));
     return;
   }
 
   renderTable("portsBody", rows, [
     {
-      label: "Port",
+      label: ZogographI18n.t("network.port"),
       className: "size",
       render: row => labelled(`${row.port}/${row.protocol}`, row.own_label),
     },
     {
-      label: "Usually",
+      label: ZogographI18n.t("network.usually"),
       className: "name",
       render: row => {
         const span = document.createElement("span");
@@ -25024,12 +25024,17 @@ function renderPorts(data) {
         return span;
       },
     },
-    { label: "Held by", render: row => row.process || "not attributed" },
     {
-      label: "Reachable",
+      label: ZogographI18n.t("network.held_by"),
+      render: row => row.process || ZogographI18n.t("network.not_attributed"),
+    },
+    {
+      label: ZogographI18n.t("network.reachable"),
       render: row => {
         const span = document.createElement("span");
-        span.textContent = row.public ? "from anywhere" : "this machine only";
+        span.textContent = row.public
+          ? ZogographI18n.t("network.from_anywhere")
+          : ZogographI18n.t("network.this_machine_only");
         /*
          * The exposed database is the finding this column exists for.
          *
@@ -25041,16 +25046,15 @@ function renderPorts(data) {
         const risky = [3306, 5432, 6379, 11211, 27017, 9200];
         if (row.public && risky.includes(Number(row.port))) {
           span.className = "band-crit";
-          span.title = "This normally has no authentication by default. Reachable from off "
-            + "the machine, that is a serious exposure rather than a configuration choice.";
+          span.title = ZogographI18n.t("network.public_risky_port_tip");
         } else if (row.public) {
           span.className = "muted";
         }
         return span;
       },
     },
-    { label: "Addresses", className: "cmd", render: row => (row.addresses || []).join(", ") },
-    { label: "Stack", render: row => (row.families || []).join(" + ") },
+    { label: ZogographI18n.t("network.addresses"), className: "cmd", render: row => (row.addresses || []).join(", ") },
+    { label: ZogographI18n.t("network.stack"), render: row => (row.families || []).join(" + ") },
   ], null, null, row => `${row.protocol}:${row.port}`);
 }
 
@@ -25058,8 +25062,7 @@ function renderPeers(data) {
   const rows = data.peers || [];
   if (!rows.length) {
     $("peersBody").replaceChildren(note(
-      "No established connections were recorded. Either the machine is idle, or ss "
-      + "could not be run by the collector."
+      ZogographI18n.t("network.peers_empty")
     ));
     return;
   }
@@ -25067,8 +25070,9 @@ function renderPeers(data) {
   const total = rows.reduce((sum, r) => sum + Number(r.connections || 0), 0);
 
   const wrap = document.createDocumentFragment();
-  wrap.appendChild(note(`${humanCount(total)} connections across ${count(rows.length, "peer")}, `
-    + `recorded ${humanTime(data.taken_at)}.`));
+  wrap.appendChild(note(ZogographI18n.t("network.peers_summary", {
+    connections: humanCount(total), peers: count(rows.length, "peer"), at: humanTime(data.taken_at),
+  })));
   $("peersBody").replaceChildren(wrap);
 
   const holder = document.createElement("div");
@@ -25077,13 +25081,13 @@ function renderPeers(data) {
 
   renderTable("peersTable", rows, [
     {
-      label: "Address",
+      label: ZogographI18n.t("network.address"),
       className: "name",
       render: row => labelled(row.address, row.own_label, row),
     },
-    { label: "Connections", className: "size", render: row => humanCount(row.connections) },
+    { label: ZogographI18n.t("network.connections"), className: "size", render: row => humanCount(row.connections) },
     {
-      label: "Share",
+      label: ZogographI18n.t("network.share"),
       className: "size",
       render: row => total ? `${((row.connections / total) * 100).toFixed(1)}%` : "\u2014",
     },
@@ -25093,7 +25097,7 @@ function renderPeers(data) {
         if (!row.private) return "";
         const span = document.createElement("span");
         span.className = "muted small";
-        span.textContent = "a private address \u2014 another machine on this network";
+        span.textContent = ZogographI18n.t("network.private_address");
         return span;
       },
     },

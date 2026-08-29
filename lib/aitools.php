@@ -39,6 +39,7 @@ require_once __DIR__ . '/ai-tools/current-status.php';
 require_once __DIR__ . '/ai-tools/measurement-history.php';
 require_once __DIR__ . '/ai-tools/recent-alerts.php';
 require_once __DIR__ . '/ai-tools/recent-log-lines.php';
+require_once __DIR__ . '/ai-tools/repeated-log-lines.php';
 
 /**
  * Every tool, with its schema and how it runs.
@@ -57,36 +58,11 @@ function aiToolCatalogue(): array
         ...aiToolMeasurementHistoryPackage(),
         ...aiToolRecentAlertsPackage(),
         ...aiToolRecentLogLinesPackage(),
+        ...aiToolRepeatedLogLinesPackage(),
 
         /* ------------------------------------------------- what is wrong -- */
 
 
-
-        'get_repeated_log_lines' => [
-            'group' => 'diagnostic',
-            'where' => 'server',
-            'permission' => false,
-            'summary' => 'Which log messages keep coming back.',
-            'description' =>
-                "Groups recent log lines by shape - numbers, addresses and paths replaced "
-                . "with placeholders - and returns the most frequent, with a count and an "
-                . "example of each.\n\n"
-                . "USE THIS when a log is growing quickly, when a disk is filling with "
-                . "logs, or when the user says something is 'flooding' or 'spamming'. Ten "
-                . "thousand lines differing only in a request id are ONE event with a "
-                . "count of ten thousand, and that is the only presentation of it anybody "
-                . "can act on.\n\n"
-                . "DO NOT use this to read a specific error. It deliberately destroys the "
-                . "details that make one line different from another - use "
-                . "get_recent_log_lines for that.",
-            'parameters' => [
-                'limit' => [
-                    'type' => 'integer', 'minimum' => 1, 'maximum' => 25,
-                    'required' => false, 'default' => 10,
-                    'description' => 'How many distinct shapes to return, most frequent first.',
-                ],
-            ],
-        ],
 
         'find_largest_paths' => [
             'group' => 'diagnostic',

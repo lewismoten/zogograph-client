@@ -8373,7 +8373,7 @@ function scanTable(rows, data) {
         cancel.disabled = true;
         try {
           await post("cancel-task", { task: scan.pending.task });
-          notice("Withdrawn. The collector will not run it.", true);
+          notice(ZogographI18n.t("scan.request_withdrawn", {}, "Request withdrawn. The collector will not run it."), true);
           await refreshScanSchedule(scan.side);
         } catch (error) {
           notice(String(error.message || error));
@@ -34083,14 +34083,14 @@ function showPendingDialog() {
 
     const cancel = document.createElement("button");
     cancel.className = "link danger";
-    cancel.textContent = "Withdraw it";
+    cancel.textContent = ZogographI18n.t("action.cancel", {}, "Cancel");
     cancel.addEventListener("click", async () => {
       cancel.disabled = true;
       try {
         const result = await post("cancel-task", { task: row.task });
         notice(result.already
           ? "The collector had already answered that one."
-          : "Withdrawn. The collector will not run it.", true);
+          : ZogographI18n.t("scan.request_withdrawn", {}, "Request withdrawn. The collector will not run it."), true);
         $("listDialog").close();
         await refreshShared();
       } catch (error) {

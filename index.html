@@ -1629,17 +1629,17 @@
 <section class="view" data-view="log-stream" hidden>
 <section class="panel" id="streamPanel">
   <div class="panel-head">
-    <h2>Every log at once</h2>
+    <h2 data-i18n="log.stream_title">Every log at once</h2>
     <label class="inline">
-      Show
+      <span data-i18n="filter.show">Show</span>
       <select id="streamLines">
-        <option value="20" selected>20 lines</option>
-        <option value="50">50 lines</option>
-        <option value="100">100 lines</option>
+        <option value="20" selected data-i18n="log.lines_20">20 lines</option>
+        <option value="50" data-i18n="log.lines_50">50 lines</option>
+        <option value="100" data-i18n="log.lines_100">100 lines</option>
       </select>
     </label>
   </div>
-  <p class="muted small sub-note">
+  <p class="muted small sub-note" data-i18n="log.stream_help">
     A machine misbehaving does not tell you which log to open. This is all of
     them merged, newest first, because the line that explains it is the most
     recent one <em>somewhere</em>.

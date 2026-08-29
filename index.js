@@ -28472,20 +28472,28 @@ async function refreshWhoAmI() {
   const server = data.server;
 
   const yours = [
-    ["Your address", you.address
+    [ZogographI18n.t("network.your_address", {}, "Your address"), you.address
       ? (you.label ? `${you.address} \u2014 ${you.label}` : you.address)
-      : "not reported"],
+      : ZogographI18n.t("network.not_reported", {}, "Not reported")],
   ];
-  if (you.label_note) yours.push(["Your note", you.label_note]);
-  if (you.reverse) yours.push(["Resolves to", you.reverse]);
+  if (you.label_note) yours.push([ZogographI18n.t("network.your_note", {}, "Your note"), you.label_note]);
+  if (you.reverse) yours.push([ZogographI18n.t("network.resolves_to", {}, "Resolves to"), you.reverse]);
   if (you.private) {
-    yours.push(["", "A private address \u2014 you are on the same network as this machine, "
-      + "or behind a proxy that is."]);
+    yours.push(["", ZogographI18n.t(
+      "network.private_address_help",
+      {},
+      "A private address — you are on the same network as this machine, or behind a proxy that is.",
+    )]);
   }
-  yours.push(["Connection", you.secure ? "encrypted" : "not encrypted"]);
-  if (you.agent) yours.push(["Browser says", you.agent]);
+  yours.push([
+    ZogographI18n.t("network.connection", {}, "Connection"),
+    you.secure
+      ? ZogographI18n.t("network.encrypted", {}, "Encrypted")
+      : ZogographI18n.t("network.not_encrypted", {}, "Not encrypted"),
+  ]);
+  if (you.agent) yours.push([ZogographI18n.t("network.browser_says", {}, "Browser says"), you.agent]);
 
-  parts.push(section("You", factGrid(yours)));
+  parts.push(section(ZogographI18n.t("network.you", {}, "You"), factGrid(yours)));
 
   if (!you.label && you.address) {
     /*
@@ -28496,8 +28504,11 @@ async function refreshWhoAmI() {
      */
     const wrap = document.createElement("div");
     wrap.className = "inspect-actions";
-    wrap.appendChild(note("This address has no name yet. Naming it means it is recognised "
-      + "wherever it appears \u2014 in captures, in the connection list, in the ports table."));
+    wrap.appendChild(note(ZogographI18n.t(
+      "network.unlabelled_address_help",
+      {},
+      "This address has no name yet. Naming it means it is recognised wherever it appears — in captures, in the connection list, in the ports table.",
+    )));
     const go = document.createElement("button");
     go.textContent = ZogographI18n.t("action.edit", {}, "Edit");
     go.addEventListener("click", () => {

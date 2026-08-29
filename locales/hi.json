@@ -1662,6 +1662,7 @@
   "system.monitor_help": "डिस्क मॉनिटर को अपने डिस्क उपयोग का उत्तर दे पाना चाहिए और बताए बिना कभी संग्रह बंद नहीं करना चाहिए। यह दोनों कहीं और दिखाई नहीं देते: चुपचाप एक गीगाबाइट तक बढ़ता डेटाबेस ठीक डेटाबेस जैसा ही दिखता है और पिछले मंगलवार बंद हुआ cron जॉब हर चार्ट को शांत दिखाता है।",
   "system.health_title": "स्वास्थ्य",
   "system.health_help": "यह इंस्टॉलेशन क्या कर सकता है और क्या नहीं। पहले तीन नए डिप्लॉयमेंट के त्रुटियाँ लौटाने का सामान्य कारण हैं।",
+  "health.data_dir_writable": "डेटा निर्देशिका लिखने योग्य", "health.database_writable": "डेटाबेस लिखने योग्य", "health.scan_root_readable": "निगरानी निर्देशिका पढ़ने योग्य", "health.php_new_enough": "PHP 8.1 या नया", "health.sqlite": "SQLite ड्राइवर", "health.mail_available": "mail() उपलब्ध", "health.shell_available": "shell_exec उपलब्ध", "health.proc_readable": "/proc पढ़ने योग्य", "health.no_inline_styles": "डैशबोर्ड में इनलाइन स्टाइल नहीं हैं", "health.diskstats_readable": "डिस्क काउंटर पढ़ने योग्य", "health.io_pressure_available": "I/O दबाव उपलब्ध",
   "problems.none": "कुछ गलत नहीं हुआ। अच्छा।", "problems.last_seen": "अंतिम बार देखा", "problems.times": "बार", "problems.level": "स्तर", "problems.where": "कहाँ", "problems.what_happened": "क्या हुआ", "problems.reference": "संदर्भ",
   "ai.past_title": "पिछली बातचीत",
   "ai.past_help": "हर बातचीत, सबसे नई पहले। एक को पढ़ने के लिए खोलें या जहाँ छूटी थी वहाँ से उठाएँ—इससे कही गई बातों को लेकर नई बातचीत शुरू होती है, इसलिए उससे मिली सीमाएँ साथ नहीं आतीं।",

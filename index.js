@@ -21013,21 +21013,21 @@ function renderBootHistory(history) {
 
 /** Plain-language names for the checks, and what a false one means. */
 const HEALTH_LABELS = {
-  data_dir_writable: ["Data directory writable", "The database cannot be created or updated."],
-  database_writable: ["Database writable", "Readings cannot be recorded."],
-  scan_root_readable: ["Watched directory readable", "Scans will find nothing."],
-  php_new_enough: ["PHP 8.1 or newer", "This code will not run correctly."],
-  sqlite: ["SQLite driver", "Nothing can be stored at all."],
-  mail_available: ["mail() available", "Alert emails cannot be sent from here."],
-  shell_available: ["shell_exec available", "Inodes and the crontab editor are unavailable."],
-  proc_readable: ["/proc readable", "CPU, memory and network stay empty."],
+  data_dir_writable: ["health.data_dir_writable", "Data directory writable", "The database cannot be created or updated."],
+  database_writable: ["health.database_writable", "Database writable", "Readings cannot be recorded."],
+  scan_root_readable: ["health.scan_root_readable", "Watched directory readable", "Scans will find nothing."],
+  php_new_enough: ["health.php_new_enough", "PHP 8.1 or newer", "This code will not run correctly."],
+  sqlite: ["health.sqlite", "SQLite driver", "Nothing can be stored at all."],
+  mail_available: ["health.mail_available", "mail() available", "Alert emails cannot be sent from here."],
+  shell_available: ["health.shell_available", "shell_exec available", "Inodes and the crontab editor are unavailable."],
+  proc_readable: ["health.proc_readable", "/proc readable", "CPU, memory and network stay empty."],
   no_inline_styles: [
-    "Dashboard has no inline styles",
+    "health.no_inline_styles", "Dashboard has no inline styles",
     "index.html carries a style=\"\" attribute, which the content security policy "
       + "blocks — the rule silently does not apply. Move it into index.css.",
   ],
-  diskstats_readable: ["Disk counters readable", "Disk I/O throughput and utilisation stay empty."],
-  io_pressure_available: ["I/O pressure available", "Stall percentages stay empty."],
+  diskstats_readable: ["health.diskstats_readable", "Disk counters readable", "Disk I/O throughput and utilisation stay empty."],
+  io_pressure_available: ["health.io_pressure_available", "I/O pressure available", "Stall percentages stay empty."],
 };
 
 async function refreshHealth() {
@@ -21042,8 +21042,8 @@ async function refreshHealth() {
   const checks = data.checks;
   const rows = Object.entries(HEALTH_LABELS)
     .filter(([key]) => key in checks)
-    .map(([key, [label, consequence]]) => ({
-      label,
+    .map(([key, [labelKey, labelFallback, consequence]]) => ({
+      label: ZogographI18n.t(labelKey, {}, labelFallback),
       ok: Boolean(checks[key]),
       consequence,
       /*

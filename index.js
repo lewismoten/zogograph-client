@@ -27939,17 +27939,17 @@ function renderFetchLinkedData(data) {
   }
 
   if (!found.blocks.length) {
-    wrap.appendChild(note(
-      "This page publishes no structured data. Sites use application/ld+json to tell "
-      + "search engines what a page is about in machine-readable form \u2014 an article, "
-      + "a product, an organisation \u2014 and plenty of sites simply have none."
-    ));
+    wrap.appendChild(note(ZogographI18n.t(
+      "fetch.structured_data.none",
+      {},
+      "This page publishes no structured data. Sites use application/ld+json to tell search engines what a page is about in machine-readable form — an article, a product, an organisation — and plenty of sites simply have none.",
+    )));
     return wrap;
   }
 
   for (const block of found.blocks) {
     const heading = [block.type, block.name].filter(Boolean).join(" \u00b7 ")
-      || "Untyped entity";
+      || ZogographI18n.t("fetch.structured_data.untyped_entity", {}, "Untyped entity");
 
     if (block.error) {
       const bad = document.createDocumentFragment();
@@ -27974,18 +27974,20 @@ function renderFetchJson(data) {
   const parsed = data.json || {};
 
   if (!parsed.ok) {
-    wrap.appendChild(note(
-      `The server called this JSON, but it does not parse: ${parsed.error}. `
-      + "The raw view has exactly what arrived."
-    ));
+    wrap.appendChild(note(ZogographI18n.t(
+      "fetch.json.invalid",
+      { error: parsed.error },
+      "The server called this JSON, but it does not parse: {{error}}. The raw view has exactly what arrived.",
+    )));
     return wrap;
   }
 
   if (parsed.truncated) {
-    wrap.appendChild(note(
-      `Showing the first ${count(parsed.lines.length, "line")} of ${parsed.total}. `
-      + "The raw view has all of it."
-    ));
+    wrap.appendChild(note(ZogographI18n.t(
+      "fetch.json.truncated",
+      { shown: parsed.lines.length, total: parsed.total },
+      "Showing the first {{shown, number}} of {{total, number}} lines. The raw view has all of it.",
+    )));
   }
 
   wrap.appendChild(jsonBlock(parsed.lines));

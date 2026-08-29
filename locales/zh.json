@@ -513,6 +513,8 @@
   "schedule.custom.weekday": "星期 (0–7)",
   "schedule.saved_preview": "已保存的预览",
   "schedule.installed": "当前已安装",
+  "help.page_purpose": "此页面的用途",
+  "help.page_useful": "为什么它有用",
   "help.terminal_commands_note": "这些是只读检查或为此仪表板提供数据的采集器。请仅运行适合此主机和账户的命令。",
   "help.command_references": "官方命令参考",
   "help.terminal_commands": "相关终端命令",

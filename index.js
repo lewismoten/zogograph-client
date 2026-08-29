@@ -32457,9 +32457,12 @@ function buildPageHelp(view) {
   const profile = helpProfileFor(view);
   const fragment = document.createDocumentFragment();
 
-  for (const [heading, text] of [["What this page is for", profile.purpose], ["Why it is useful", profile.useful]]) {
+  for (const [key, fallback, text] of [
+    ["help.page_purpose", "What this page is for", profile.purpose],
+    ["help.page_useful", "Why it is useful", profile.useful],
+  ]) {
     const title = document.createElement("h3");
-    title.textContent = heading;
+    title.textContent = ZogographI18n.t(key, {}, fallback);
     const paragraph = document.createElement("p");
     paragraph.textContent = text;
     fragment.append(title, paragraph);

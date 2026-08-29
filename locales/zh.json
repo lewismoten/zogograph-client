@@ -2004,6 +2004,8 @@
   "screenshot.uncrop": "再次显示全部内容",
   "screenshot.send": "发送这一张",
   "notes.write_title": "写一条备注",
+  "notes.saving": "正在保存…",
+  "notes.saving_and_capturing": "正在保存并捕获…",
   "dialog.details": "详细信息",
   "dialog.page_help": "页面帮助",
   "dialog.are_you_sure": "确定吗？",

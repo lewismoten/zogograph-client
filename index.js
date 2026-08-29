@@ -11527,13 +11527,15 @@ async function showNoteDialog(preset = {}) {
   sync();
 
   $("noteFormBody").replaceChildren(...parts);
-  $("noteDialogTitle").textContent = "Write a note";
+  $("noteDialogTitle").textContent = ZogographI18n.t("notes.write_title");
 
   const form = $("noteForm");
   form.onsubmit = async event => {
     event.preventDefault();
     save.disabled = true;
-    save.textContent = snapshot.value === "none" ? "Saving…" : "Saving and capturing…";
+    save.textContent = snapshot.value === "none"
+      ? ZogographI18n.t("notes.saving")
+      : ZogographI18n.t("notes.saving_and_capturing");
 
     try {
       /*

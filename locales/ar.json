@@ -2004,6 +2004,8 @@
   "screenshot.uncrop": "أظهرها كلها مجددًا",
   "screenshot.send": "أرسل هذه",
   "notes.write_title": "اكتب ملاحظة",
+  "notes.saving": "يجري الحفظ…",
+  "notes.saving_and_capturing": "يجري الحفظ والالتقاط…",
   "dialog.details": "التفاصيل",
   "dialog.page_help": "مساعدة الصفحة",
   "dialog.are_you_sure": "هل أنت متأكد؟",

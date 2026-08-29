@@ -2022,6 +2022,8 @@
   "screenshot.uncrop": "Mostrarla completa de nuevo",
   "screenshot.send": "Enviar esta",
   "notes.write_title": "Escribir una nota",
+  "notes.saving": "Guardando…",
+  "notes.saving_and_capturing": "Guardando y capturando…",
   "dialog.details": "Detalles",
   "dialog.page_help": "Ayuda de la página",
   "dialog.are_you_sure": "¿Está seguro?",

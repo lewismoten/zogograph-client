@@ -2018,6 +2018,8 @@
   "screenshot.uncrop": "फिर से पूरा दिखाएँ",
   "screenshot.send": "इसे भेजें",
   "notes.write_title": "नोट लिखें",
+  "notes.saving": "सहेजा जा रहा है…",
+  "notes.saving_and_capturing": "सहेजा और कैप्चर किया जा रहा है…",
   "dialog.details": "विवरण",
   "dialog.page_help": "पृष्ठ सहायता",
   "dialog.are_you_sure": "क्या आप सुनिश्चित हैं?",

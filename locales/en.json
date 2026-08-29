@@ -2123,6 +2123,8 @@
   "screenshot.uncrop": "Show all of it again",
   "screenshot.send": "Send this",
   "notes.write_title": "Write a note",
+  "notes.saving": "Saving…",
+  "notes.saving_and_capturing": "Saving and capturing…",
   "dialog.details": "Details",
   "dialog.page_help": "Page help",
   "dialog.are_you_sure": "Are you sure?",

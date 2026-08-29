@@ -28549,34 +28549,37 @@ async function refreshWhoAmI() {
   const owner = server.files_owned_by;
 
   const mine = [
-    ["This machine", server.hostname],
-    ["Running as", running
-      ? `${running.name}${running.display ? ` (${running.display})` : ""} \u2014 uid ${running.uid}`
-      : "unknown"],
-    ["Files owned by", owner
+    [ZogographI18n.t("network.this_machine", {}, "This machine"), server.hostname],
+    [ZogographI18n.t("network.running_as", {}, "Running as"), running
+      ? `${running.name}${running.display ? ` (${running.display})` : ""} — ${ZogographI18n.t("network.uid", { uid: running.uid }, "UID {{uid, number}}")}`
+      : ZogographI18n.t("network.unknown", {}, "Unknown")],
+    [ZogographI18n.t("network.files_owned_by", {}, "Files owned by"), owner
       ? `${owner.name}${owner.display ? ` (${owner.display})` : ""}`
-      : "unknown"],
+      : ZogographI18n.t("network.unknown", {}, "Unknown")],
   ];
 
   if (running && owner && !server.same_user) {
-    mine.push(["", "These differ. Every \u201cpermission denied\u201d on this install traces back "
-      + "to that: the process cannot write what the other account owns."]);
+    mine.push(["", ZogographI18n.t(
+      "network.owner_mismatch_help",
+      {},
+      "These differ. Every “permission denied” on this install traces back to that: the process cannot write what the other account owns.",
+    )]);
   }
 
   mine.push(
-    ["Watching", server.scan_root],
-    ["Its data in", `${server.data_dir}${server.data_writable ? "" : " \u2014 not writable"}`],
+    [ZogographI18n.t("network.watching", {}, "Watching"), server.scan_root],
+    [ZogographI18n.t("network.data_in", {}, "Its data in"), `${server.data_dir}${server.data_writable ? "" : ZogographI18n.t("network.not_writable_suffix", {}, " — not writable")}`],
     ["PHP", `${server.php} via ${server.sapi}`],
   );
-  if (server.server_software) mine.push(["Web server", server.server_software]);
+  if (server.server_software) mine.push([ZogographI18n.t("network.web_server", {}, "Web server"), server.server_software]);
   if (server.host_owner) {
-    mine.push(["Host collector writes for", server.host_owner]);
+    mine.push([ZogographI18n.t("network.host_collector_writes_for", {}, "Host collector writes for"), server.host_owner]);
   }
   if (server.server_addresses?.length) {
-    mine.push(["This machine's addresses", server.server_addresses.join(", ")]);
+    mine.push([ZogographI18n.t("network.machine_addresses", {}, "This machine's addresses"), server.server_addresses.join(", ")]);
   }
 
-  parts.push(section("This install", factGrid(mine)));
+  parts.push(section(ZogographI18n.t("network.this_install", {}, "This install"), factGrid(mine)));
 
   body.replaceChildren(...parts);
 }

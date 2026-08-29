@@ -99,7 +99,7 @@ try {
         && str_contains($setupPage, 'package_runtime_settings_save')
         && str_contains($setupPage, 'data-package-secret-picker')
         && str_contains($setupPage, 'setupUpdateBanner')
-        && str_contains($setupPage, './build.json?at=')
+        && str_contains($setupPage, './build.json?at=') && str_contains($setupPage, '.setup-update[hidden]{display:none}')
         && str_contains($setupPage, 'start-totp') && str_contains($setupPage, 'confirm-totp')
         && str_contains($setupPage, 'generate-openid-signing-key')
         && str_contains($setupPage, 'openIdGenerateSigningKey')

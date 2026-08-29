@@ -1054,7 +1054,7 @@ function webPage(
         . '.banner.warn{border-color:#7a5a30;background:#2b2114}'
         . '.banner.ok{border-color:#2f6f3a;background:#152b1c}'
         . '.banner.crit{border-color:#7a3030;background:#2b1414}'
-        . '.setup-update{display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid var(--accent);border-radius:10px;padding:10px 12px;margin:0 0 16px;background:var(--panel)}'
+        . '.setup-update{display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid var(--accent);border-radius:10px;padding:10px 12px;margin:0 0 16px;background:var(--panel)}.setup-update[hidden]{display:none}'
         . '.preflight{width:100%;border-collapse:collapse;margin:0 0 16px}.preflight th,.preflight td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:left;font-size:.85rem}.preflight th{color:var(--muted);font-weight:500}.preflight .ok{color:#8be0a8}.preflight .warning{color:#f0c27b}.preflight .error{color:#ff9ca3}'
         . 'code{background:#111;padding:1px 5px;border-radius:4px}'
         . 'details{border:1px solid var(--line);border-radius:10px;margin:0 0 12px;padding:0 14px}'

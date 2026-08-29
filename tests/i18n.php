@@ -115,10 +115,14 @@ i18nExpect($typeGrowthCard !== false && str_contains($typeGrowthCard, 'catalogs:
     'storage type-growth card does not own its locale catalog');
 i18nExpect($page !== false && str_contains($page, 'src="cards/other-extensions.js"')
     && $otherExtensionsCard !== false && str_contains($otherExtensionsCard, 'window.ZogographOtherExtensionsCard')
-    && str_contains($otherExtensionsCard, 'id: "core-other-extensions"') && str_contains($otherExtensionsCard, 'locales: ["storage.", "chart."]')
+    && str_contains($otherExtensionsCard, 'id: "core-other-extensions"') && str_contains($otherExtensionsCard, 'locales: ["core-other-extensions."]')
     && str_contains($otherExtensionsCard, 'render(rows, helpers)')
     && $script !== false && str_contains($script, 'renderCoreCardPackage(ZogographOtherExtensionsCard, "core-other-extensions", rows,'),
     'storage other-extensions table is not isolated behind its core card-module boundary');
+i18nExpect($otherExtensionsCard !== false && str_contains($otherExtensionsCard, 'catalogs: Object.freeze({')
+    && str_contains($otherExtensionsCard, '"core-other-extensions.empty_before"')
+    && is_array($english) && !isset($english['storage.other_empty_before'], $english['chart.other']),
+    'storage other-extensions card does not own its locale catalog');
 i18nExpect($page !== false && str_contains($page, 'src="cards/cpu-queue.js"')
     && $cpuQueueCard !== false && str_contains($cpuQueueCard, 'window.ZogographCpuQueueCard')
     && str_contains($cpuQueueCard, 'id: "core-cpu-queue"') && str_contains($cpuQueueCard, 'locales: ["core-cpu-queue."]')

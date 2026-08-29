@@ -4860,7 +4860,11 @@ function growthCell(growth) {
   if (!growth) {
     span.className = "muted";
     span.textContent = "\u2014";
-    span.title = "No measurable change since the previous scan.";
+    span.title = ZogographI18n.t(
+      "storage.no_measurable_change",
+      {},
+      "No measurable change since the previous scan.",
+    );
     return span;
   }
 
@@ -4868,8 +4872,16 @@ function growthCell(growth) {
   span.className = up ? "grew" : "shrank";
   span.textContent = `${up ? "\u25b2" : "\u25bc"} ${humanBytes(Math.abs(growth))}`;
   span.title = up
-    ? `Grew by ${humanBytes(growth)} since the previous scan \u2014 this is taking space.`
-    : `Shrank by ${humanBytes(-growth)} since the previous scan \u2014 this gave space back.`;
+    ? ZogographI18n.t(
+      "storage.grew_since_scan",
+      { bytes: humanBytes(growth) },
+      "Grew by {{bytes}} since the previous scan — this is taking space.",
+    )
+    : ZogographI18n.t(
+      "storage.shrank_since_scan",
+      { bytes: humanBytes(-growth) },
+      "Shrank by {{bytes}} since the previous scan — this gave space back.",
+    );
   return span;
 }
 
@@ -4928,13 +4940,17 @@ function paintLastLines() {
     }
     if (!row.line) {
       cell.className = "lastline muted";
-      cell.textContent = "empty";
+      cell.textContent = ZogographI18n.t("storage.last_line_empty", {}, "Empty");
       continue;
     }
 
     cell.className = "lastline";
     cell.textContent = row.line;
-    cell.title = `Line ${row.line_number}: ${row.line}`;
+    cell.title = ZogographI18n.t(
+      "storage.last_line_number",
+      { number: row.line_number, line: row.line },
+      "Line {{number, number}}: {{line}}",
+    );
   }
 }
 
@@ -4946,7 +4962,9 @@ function lastLineCell(row) {
   span.dataset.lastline = String(row.path_id);
 
   const known = lastLines.get(row.path_id);
-  span.textContent = known ? (known.line ?? known.error ?? "empty") : "\u2026";
+  span.textContent = known
+    ? (known.line ?? known.error ?? ZogographI18n.t("storage.last_line_empty", {}, "Empty"))
+    : "\u2026";
   return span;
 }
 

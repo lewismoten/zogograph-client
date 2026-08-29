@@ -15769,7 +15769,7 @@ async function refreshReports() {
   if (!body) return;
 
   if (!state.signedIn) {
-    body.replaceChildren(note("Sign in to read the summaries."));
+    body.replaceChildren(note(ZogographI18n.t("reports.sign_in", {}, "Sign in to read the summaries.")));
     return;
   }
 

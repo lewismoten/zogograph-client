@@ -2840,8 +2840,8 @@
 
 <dialog id="noteDialog">
   <div class="panel-head">
-    <h2 id="noteDialogTitle">Write a note</h2>
-    <button id="noteDialogClose" class="link">Close</button>
+    <h2 id="noteDialogTitle" data-i18n="notes.write_title">Write a note</h2>
+    <button id="noteDialogClose" class="link" data-i18n="action.close">Close</button>
   </div>
   <form id="noteForm">
     <div id="noteFormBody"></div>
@@ -2850,8 +2850,8 @@
 
 <dialog id="listDialog">
   <div class="panel-head">
-    <h2 id="listDialogTitle">Details</h2>
-    <button id="listDialogClose" class="link">Close</button>
+    <h2 id="listDialogTitle" data-i18n="dialog.details">Details</h2>
+    <button id="listDialogClose" class="link" data-i18n="action.close">Close</button>
   </div>
   <p class="muted small" id="listDialogNote"></p>
   <div id="listDialogBody" class="scroll-list"></div>
@@ -2859,20 +2859,20 @@
 
 <dialog id="pageHelpDialog" class="page-help-dialog" aria-labelledby="pageHelpTitle">
   <div class="panel-head">
-    <h2 id="pageHelpTitle">Page help</h2>
-    <button id="pageHelpClose" class="link" type="button">Close</button>
+    <h2 id="pageHelpTitle" data-i18n="dialog.page_help">Page help</h2>
+    <button id="pageHelpClose" class="link" type="button" data-i18n="action.close">Close</button>
   </div>
   <div id="pageHelpBody"></div>
 </dialog>
 
 <dialog id="askDialog">
   <div class="panel-head">
-    <h2 id="askTitle">Are you sure?</h2>
+    <h2 id="askTitle" data-i18n="dialog.are_you_sure">Are you sure?</h2>
   </div>
   <div id="askBody" class="dialog-body"></div>
   <div class="dialog-actions">
-    <button id="askNo" class="link" type="button">Cancel</button>
-    <button id="askYes" type="button">Yes</button>
+    <button id="askNo" class="link" type="button" data-i18n="action.cancel">Cancel</button>
+    <button id="askYes" type="button" data-i18n="action.yes">Yes</button>
   </div>
 </dialog>
 

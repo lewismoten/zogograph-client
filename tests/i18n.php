@@ -249,6 +249,12 @@ foreach ($placeholderNodes[0] ?? [] as $node) {
     i18nExpect(str_contains($node, 'data-i18n-placeholder="'),
         'dashboard static placeholder is not backed by an i18n key');
 }
+preg_match_all('/<[^>]*\b(?:title|aria-label)="[^"]+"[^>]*>/i', (string)$page, $accessibleNodes);
+foreach ($accessibleNodes[0] ?? [] as $node) {
+    i18nExpect((!str_contains($node, 'title="') || str_contains($node, 'data-i18n-title="'))
+        && (!str_contains($node, 'aria-label="') || str_contains($node, 'data-i18n-aria-label="')),
+        'dashboard static title or accessible label is not backed by an i18n key');
+}
 preg_match_all('/data-i18n(?:-placeholder|-title|-aria-label|-rich)?="([^"]+)"/', (string)$page, $pageKeys);
 foreach (array_unique($pageKeys[1] ?? []) as $key) {
     i18nExpect(isset($english[$key]), "dashboard i18n attribute key $key has no English fallback");

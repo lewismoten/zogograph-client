@@ -6162,7 +6162,7 @@ function renderAiSettings(data) {
     option.selected = (data.alerts?.mode ?? "off") === value;
     mode.appendChild(option);
   }
-  unattended.appendChild(fieldRow("When an alert fires", mode,
+  unattended.appendChild(fieldRow(aiSettingsText("alert_mode_label", "When an alert fires"), mode,
     "This runs from cron with nobody watching, so it only ever gets the read-only tools "
     + "that need no permission. Anything it cannot do — reach the model, parse an answer "
     + "— leaves the alert exactly as it would have been, because a thing standing between "
@@ -6182,7 +6182,7 @@ function renderAiSettings(data) {
     option.selected = (data.alerts?.never_above ?? "error") === value;
     floor.appendChild(option);
   }
-  unattended.appendChild(fieldRow("Except", floor,
+  unattended.appendChild(fieldRow(aiSettingsText("alert_floor_label", "Except"), floor,
     "A critical alert is the one case where a delay and a model's opinion are both worse "
     + "than a plain fast message. Left at the default it never touches those."));
 
@@ -6193,7 +6193,7 @@ function renderAiSettings(data) {
   perRun.max = "20";
   perRun.className = "days";
   perRun.value = String(data.alerts?.per_run ?? 5);
-  unattended.appendChild(fieldRow("At most, per run", perRun,
+  unattended.appendChild(fieldRow(aiSettingsText("alert_per_run_label", "At most, per run"), perRun,
     "A disk filling up trips several rules at once. This is what stops a storm becoming "
     + "a bill."));
 
@@ -6215,7 +6215,7 @@ function renderAiSettings(data) {
   reportTo.className = "wide-field";
   reportTo.value = data.alerts?.report_to ?? "";
   reportTo.placeholder = "leave blank to use the alert addresses";
-  unattended.appendChild(fieldRow("Send summaries to", reportTo,
+  unattended.appendChild(fieldRow(aiSettingsText("report_to_label", "Send summaries to"), reportTo,
     "Semicolon-separated. A summary and an alert are different kinds of message and may "
     + "reasonably go to different places — but requiring a second address before the "
     + "feature works at all would be a needless step, so blank means the alert "

@@ -8781,7 +8781,7 @@ function toggleRecognition() {
   if (voiceState.listen) {
     voiceState.listen = false;
     voiceState.recognition?.stop();
-    $("chatListen").textContent = "Listen";
+    $("chatListen").textContent = ZogographI18n.t("assistant.listen", {}, "Listen");
     return;
   }
   const recognition = voiceState.recognition ?? new Recognition();
@@ -8797,13 +8797,17 @@ function toggleRecognition() {
   };
   recognition.onerror = event => {
     voiceState.listen = false;
-    $("chatListen").textContent = voiceState.listenMode === "push" ? "Hold to talk" : "Start listening";
+    $("chatListen").textContent = voiceState.listenMode === "push"
+      ? ZogographI18n.t("assistant.hold_to_talk", {}, "Hold to talk")
+      : ZogographI18n.t("assistant.start_listening", {}, "Start listening");
     notice(`Microphone listening stopped: ${event.error || "browser error"}.`);
   };
   voiceState.recognition = recognition;
   voiceState.listen = true;
   recognition.start();
-  $("chatListen").textContent = voiceState.listenMode === "push" ? "Listening…" : "Stop listening";
+  $("chatListen").textContent = voiceState.listenMode === "push"
+    ? ZogographI18n.t("assistant.listening", {}, "Listening…")
+    : ZogographI18n.t("assistant.stop_listening", {}, "Stop listening");
 }
 
 function applyVoicePreferences(preferences) {
@@ -8815,9 +8819,13 @@ function applyVoicePreferences(preferences) {
   voiceState.pitch = preferences.pitch;
   voiceState.volume = preferences.volume;
   if (voiceState.listen && (preferences.listening === "never" || priorMode !== preferences.listening)) toggleRecognition();
-  $("chatSpeak").textContent = voiceState.speak ? "Speaking" : "Speak";
+  $("chatSpeak").textContent = voiceState.speak
+    ? ZogographI18n.t("assistant.speaking", {}, "Speaking")
+    : ZogographI18n.t("assistant.speak", {}, "Speak");
   $("chatListen").hidden = preferences.listening === "never";
-  $("chatListen").textContent = preferences.listening === "push" ? "Hold to talk" : "Start listening";
+  $("chatListen").textContent = preferences.listening === "push"
+    ? ZogographI18n.t("assistant.hold_to_talk", {}, "Hold to talk")
+    : ZogographI18n.t("assistant.start_listening", {}, "Start listening");
 }
 
 /** How often to ask, by what the session is doing. */
@@ -33436,7 +33444,9 @@ $("chatClose").addEventListener("click", () => hideChat());
 $("chatNew").addEventListener("click", () => startChat());
 $("chatSpeak").addEventListener("click", () => {
   voiceState.speak = !voiceState.speak;
-  $("chatSpeak").textContent = voiceState.speak ? "Speaking" : "Speak";
+  $("chatSpeak").textContent = voiceState.speak
+    ? ZogographI18n.t("assistant.speaking", {}, "Speaking")
+    : ZogographI18n.t("assistant.speak", {}, "Speak");
   if (!voiceState.speak) window.speechSynthesis?.cancel();
 });
 $("chatListen").addEventListener("click", () => {

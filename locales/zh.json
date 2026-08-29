@@ -730,5 +730,6 @@
   "log.repeat_title": "反复出现的内容", "log.repeat_help": "占满磁盘的日志几乎从来不是由许多有趣且不同的事件组成；而是同一事件发生一万次。这里将相同行中可变的部分——数字、地址、路径和引号内字符串——剔除后计数，这是唯一可据以采取行动的呈现方式。",
   "calendar.saved_dates_title": "您保留的日期", "calendar.saved_dates_help": "标记为 {{important}} 表示它会在临近时显示在仪表板和警报邮件中，直到您将其标记为已处理。标记为已处理可随时撤销——这是某人作出的判断，也可能判断错误。",
   "assistant.panel_label": "故障排查助手", "assistant.drag_window": "拖动以移动此聊天窗口", "assistant.title": "助手", "assistant.effort_title": "思考强度", "assistant.speak": "朗读", "assistant.speak_title": "朗读回复", "assistant.listen": "听写", "assistant.listen_title": "听写消息", "assistant.new": "新建", "assistant.new_title": "开始新对话", "assistant.interrupt": "中断", "assistant.interrupt_title": "停止当前操作并保留对话", "assistant.stop": "停止", "assistant.stop_title": "结束当前模型轮次", "assistant.hide_title": "隐藏此窗口——对话会继续", "assistant.close": "关闭聊天",
-  "navigation.sections": "栏目", "audit.download_csv_title": "将完整审计历史下载为 CSV 文件", "audit.clear_title": "删除较早的审计记录并保留本次重置的记录", "quick.open_title": "打开快速操作"
+  "navigation.sections": "栏目", "audit.download_csv_title": "将完整审计历史下载为 CSV 文件", "audit.clear_title": "删除较早的审计记录并保留本次重置的记录", "quick.open_title": "打开快速操作",
+  "assistant.speaking": "正在朗读", "assistant.hold_to_talk": "按住说话", "assistant.start_listening": "开始听写", "assistant.listening": "正在听写…", "assistant.stop_listening": "停止听写"
 }

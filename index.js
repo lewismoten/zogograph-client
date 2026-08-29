@@ -6691,13 +6691,13 @@ function personalityPicker(data, boxes) {
    */
   const own = document.createElement("option");
   own.value = "";
-  own.textContent = "— your own wording —";
+  own.textContent = ZogographI18n.t("ai.personality_own", {}, "— your own wording —");
   pick.appendChild(own);
 
   const built = document.createElement("optgroup");
-  built.label = "Built in";
+  built.label = ZogographI18n.t("ai.built_in", {}, "Built in");
   const mine = document.createElement("optgroup");
-  mine.label = "Yours";
+  mine.label = ZogographI18n.t("ai.yours", {}, "Yours");
 
   for (const entry of list) {
     const option = document.createElement("option");
@@ -6723,7 +6723,7 @@ function personalityPicker(data, boxes) {
     const entry = chosen();
     said.textContent = entry
       ? entry.who
-      : "The boxes below are not one of these. Save it as one to come back to it.";
+      : ZogographI18n.t("ai.personality_unsaved", {}, "The boxes below are not one of these. Save it as one to come back to it.");
     forget.hidden = !entry?.mine;
   };
 
@@ -6733,7 +6733,7 @@ function personalityPicker(data, boxes) {
       boxes.name.value = entry.name;
       boxes.emoji.value = entry.emoji;
       boxes.personality.value = entry.character;
-      notice(`Filled in with ${entry.name}. Press Save to apply it.`, true);
+      notice(ZogographI18n.t("ai.personality_filled", { name: entry.name }, "Filled in with {{name}}. Press Save to apply it."), true);
     }
     sync();
   });
@@ -6765,10 +6765,13 @@ function personalityPicker(data, boxes) {
   const keep = document.createElement("button");
   keep.type = "button";
   keep.className = "link";
-  keep.textContent = "Save these as a personality";
+  keep.textContent = ZogographI18n.t("ai.save_personality", {}, "Save these as a personality");
   keep.addEventListener("click", async () => {
-    const label = await askTextDialog("Save personality", "Name", boxes.name.value || "My assistant",
-      "This is the name people see in the list.");
+    const label = await askTextDialog(
+      ZogographI18n.t("ai.save_personality_title", {}, "Save personality"),
+      ZogographI18n.t("ai.personality_name", {}, "Name"),
+      boxes.name.value || ZogographI18n.t("ai.my_assistant", {}, "My assistant"),
+      ZogographI18n.t("ai.personality_name_hint", {}, "This is the name people see in the list."));
     if (label === null) return;
 
     post("ai-personality-save", {
@@ -6778,7 +6781,7 @@ function personalityPicker(data, boxes) {
       personality: boxes.personality.value,
     }).then(fresh => {
       renderAiSettings(fresh);
-      notice("Saved. It is in the list now.", true);
+      notice(ZogographI18n.t("ai.personality_saved", {}, "Saved. It is in the list now."), true);
     }).catch(error => notice(String(error.message || error)));
   });
   actions.appendChild(keep);

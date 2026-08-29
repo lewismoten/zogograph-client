@@ -33887,11 +33887,12 @@ $("capFilter").addEventListener("change", () => {
 $("capCheck").addEventListener("click", async () => {
   const button = $("capCheck");
   button.disabled = true;
-  button.textContent = "Checking…";
+  button.textContent = ZogographI18n.t("action.checking", {}, "Checking…");
   try {
     const result = await post("check-capabilities");
-    notice(`Checked ${count(result.total, "program")} in ${result.seconds}s`
-      + (result.changes ? `, ${count(result.changes, "change")} since last time.` : "."));
+    notice(result.changes
+      ? ZogographI18n.t("capabilities.checked_changes", result, "{{total, number}} programs checked in {{seconds, number}} seconds; {{changes, number}} changed since last time.")
+      : ZogographI18n.t("capabilities.checked", result, "{{total, number}} programs checked in {{seconds, number}} seconds."));
     await refreshCapabilities();
     await refreshMounts();
     await refreshCapabilityChanges();
@@ -33899,14 +33900,14 @@ $("capCheck").addEventListener("click", async () => {
     notice(String(error.message || error));
   } finally {
     button.disabled = false;
-    button.textContent = "Check now";
+    button.textContent = ZogographI18n.t("action.check_now", {}, "Check now");
   }
 });
 
 $("capHostCheck").addEventListener("click", async () => {
   try {
     await post("request-host-task", { task: "capabilities" });
-    notice("Requested. The host collector will check on its next run.");
+    notice(ZogographI18n.t("capabilities.host_requested", {}, "Requested. The host collector will check on its next run."));
     await refreshCapabilities();
   } catch (error) {
     notice(String(error.message || error));

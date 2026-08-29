@@ -18980,31 +18980,24 @@ function swapVerdict(swap, swapUsed) {
 
   switch (swap.state) {
     case "clear":
-      return "Nothing is swapped.";
+      return ZogographI18n.t("host.swap_verdict_clear", {}, "Nothing is swapped.");
 
     case "pressure":
-      return `Swap is climbing (${perHour(swap.swap_rate)}) while available memory `
-        + `falls (${perHour(swap.available_rate)}). Those two together are real `
-        + `pressure rather than leftover cold pages — the machine is paying for `
-        + `memory with disk. This is the one worth acting on.`;
+      return ZogographI18n.t("host.swap_verdict_pressure", {
+        swap: perHour(swap.swap_rate), available: perHour(swap.available_rate),
+      }, "Swap is climbing ({{swap}}) while available memory falls ({{available}}). Those two together are real pressure rather than leftover cold pages — the machine is paying for memory with disk. This is the one worth acting on.");
 
     case "filling":
-      return `Swap is growing (${perHour(swap.swap_rate)}), but available memory is `
-        + `holding steady. That is the kernel moving cold pages out of the way, not `
-        + `the machine running short.`;
+      return ZogographI18n.t("host.swap_verdict_filling", { swap: perHour(swap.swap_rate) },
+        "Swap is growing ({{swap}}), but available memory is holding steady. That is the kernel moving cold pages out of the way, not the machine running short.");
 
     case "cold":
       return swapUsed > 0
-        ? "Old or cold pages left over from an earlier squeeze. Linux does not pull "
-          + "pages back out of swap just because RAM frees up, so this figure stays "
-          + "where it is until something touches them — a high-water mark, not a "
-          + "measure of now. No current shortage: watch for swap rising while "
-          + "available memory falls, which is a different thing entirely."
-        : "Nothing is swapped.";
+        ? ZogographI18n.t("host.swap_verdict_cold", {}, "Old or cold pages left over from an earlier squeeze. Linux does not pull pages back out of swap just because RAM frees up, so this figure stays where it is until something touches them — a high-water mark, not a measure of now. No current shortage: watch for swap rising while available memory falls, which is a different thing entirely.")
+        : ZogographI18n.t("host.swap_verdict_clear", {}, "Nothing is swapped.");
 
     default:
-      return "Not enough readings yet to say whether this is left over or still "
-        + "growing — that needs about half an hour of history.";
+      return ZogographI18n.t("host.swap_verdict_waiting", {}, "Not enough readings yet to say whether this is left over or still growing — that needs about half an hour of history.");
   }
 }
 

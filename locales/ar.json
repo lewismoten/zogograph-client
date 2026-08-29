@@ -1591,6 +1591,7 @@
   "host.memory_non_monitor": " · {{amount}} ملتزم خارج المراقبة",
   "host.memory_monitoring_processes": " · {{count, number}} عمليات مراقبة",
   "host.swap_used": "التبديل المستخدم",
+  "host.swap_verdict_clear": "لا توجد صفحات مبدلة.", "host.swap_verdict_pressure": "التبديل يتصاعد ({{swap}}) بينما تنخفض الذاكرة المتاحة ({{available}}). معاً هذا ضغط حقيقي لا صفحات باردة باقية.", "host.swap_verdict_filling": "التبديل ينمو ({{swap}})، لكن الذاكرة المتاحة ثابتة. تنقل النواة الصفحات الباردة، وليس هناك نقص في الذاكرة.", "host.swap_verdict_cold": "صفحات قديمة أو باردة بقيت من ضغط سابق. لا يسحب Linux الصفحات من التبديل لمجرد تحرر RAM؛ هذه علامة ذروة لا قياس للحاضر.", "host.swap_verdict_waiting": "لا توجد قراءات كافية بعد لمعرفة إن كان هذا باقياً أو ما زال ينمو؛ يلزم نحو نصف ساعة من التاريخ.",
   "host.swap_used_sub": "{{used}} من {{total}}",
   "host.swap_under_pressure": " · تحت ضغط",
   "host.swap_no_pressure": " · بلا ضغط",

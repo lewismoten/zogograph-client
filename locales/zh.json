@@ -1591,6 +1591,7 @@
   "host.memory_non_monitor": " · {{amount}} 非监控已提交内存",
   "host.memory_monitoring_processes": " · {{count, number}} 个监控进程",
   "host.swap_used": "已用交换空间",
+  "host.swap_verdict_clear": "没有正在交换的内容。", "host.swap_verdict_pressure": "交换空间正在增加（{{swap}}），而可用内存正在减少（{{available}}）。两者同时出现是实际压力，而非残留的冷页。", "host.swap_verdict_filling": "交换空间正在增加（{{swap}}），但可用内存保持稳定。这是内核移开冷页，而不是机器内存不足。", "host.swap_verdict_cold": "先前内存紧张遗留的旧页或冷页。Linux 不会仅因 RAM 释放就将页面移回；这是高水位标记，而非当前测量。", "host.swap_verdict_waiting": "读数还不足以判断这是遗留状态还是仍在增长；需要大约半小时的历史记录。",
   "host.swap_used_sub": "{{used}} / {{total}}",
   "host.swap_under_pressure": " · 存在压力",
   "host.swap_no_pressure": " · 无压力",

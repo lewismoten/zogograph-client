@@ -1099,13 +1099,13 @@
 <section class="view" data-view="services" hidden>
 <section class="panel" id="hostDaemonPanel">
   <div class="panel-head">
-    <h2>Are the services alive?</h2>
-    <button id="hostDaemonRefresh" class="link">Refresh</button>
+    <h2 data-i18n="host.services_alive_title">Are the services alive?</h2>
+    <button id="hostDaemonRefresh" class="link" data-i18n="action.refresh">Refresh</button>
   </div>
   <div id="hostDaemonBody"></div>
   <div id="hostDaemonContent" hidden>
-    <h3 class="sub-head">Are the services alive?</h3>
-    <p class="muted small sub-note">
+    <h3 class="sub-head" data-i18n="host.services_alive_title">Are the services alive?</h3>
+    <p class="muted small sub-note" data-i18n="host.services_alive_help">
       The one question the rest of this page cannot answer. A daemon that has
       died uses no memory, no CPU and no disk, so it vanishes from every chart
       above rather than standing out in one. <strong>Not installed</strong> is

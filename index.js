@@ -11958,6 +11958,28 @@ function removeUnavailablePackageDashboardPages(available) {
   if (currentRoute.startsWith("package-") && !VIEWS[currentRoute]) showView("sys-packages");
 }
 
+/* Packages provide signed data only. The shell owns this fixed renderer and
+ * always uses textContent, so package metadata cannot become browser code. */
+function renderPackageDashboardCards(cards) {
+  const holder = $("packageDashboardCards");
+  if (!holder) return;
+  const nodes = [];
+  for (const card of cards || []) {
+    if (!card || card.renderer !== "overview-facts" || !Array.isArray(card.facts)) continue;
+    const panel = document.createElement("section"); panel.className = "panel";
+    const head = document.createElement("div"); head.className = "panel-head";
+    const title = document.createElement("h2");
+    title.textContent = card.title_key ? ZogographI18n.t(card.title_key, {}, card.title) : card.title;
+    head.appendChild(title); panel.appendChild(head);
+    if (card.facts.length) panel.appendChild(factGrid(card.facts.map(fact => [
+      fact.label_key ? ZogographI18n.t(fact.label_key, {}, fact.label) : fact.label,
+      fact.value_key ? ZogographI18n.t(fact.value_key, {}, fact.value) : fact.value,
+    ])));
+    nodes.push(panel);
+  }
+  holder.replaceChildren(...nodes);
+}
+
 async function loadPackageDashboardPages() {
   if (disabledCoreRoutes.has("sys-packages")) {
     removeUnavailablePackageDashboardPages(new Set());
@@ -11965,6 +11987,7 @@ async function loadPackageDashboardPages() {
   }
   try {
     const data = await api("package-pages");
+    renderPackageDashboardCards(data.cards || []);
     const pages = (data.pages || []).filter(page => page && /^[a-z][a-z0-9-]{3,190}$/.test(page.route));
     const available = new Set(pages.map(page => page.route));
     removeUnavailablePackageDashboardPages(available);

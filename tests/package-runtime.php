@@ -71,14 +71,14 @@ try {
         'settings_schema' => 'settings.schema.json',
         'locales' => ['es' => 'locales/es.json'],
         'dashboard_pages' => [['id' => 'status', 'title' => 'Package status', 'summary' => 'A core-rendered package status page.', 'title_key' => 'test-runtime.page.title', 'summary_key' => 'test-runtime.page.summary', 'parent' => 'storage', 'keywords' => ['package', 'status']]],
-        'dashboard_cards' => [['id' => 'facts', 'renderer' => 'overview-facts', 'title' => 'Package facts', 'title_key' => 'test-runtime.card.title']],
+        'dashboard_cards' => [['id' => 'facts', 'renderer' => 'overview-facts', 'title' => 'Package facts', 'title_key' => 'test-runtime.card.title', 'facts' => [['label' => 'Runtime state', 'value' => 'Ready', 'label_key' => 'test-runtime.card.state', 'value_key' => 'test-runtime.card.ready']]]],
         'setup_panels' => [
             ['id' => 'test-runtime-settings', 'title' => 'Test runtime settings', 'title_key' => 'test-runtime.setup.title', 'keywords' => ['retention']],
             ['id' => 'test-runtime-security', 'title' => 'Test runtime security', 'title_key' => 'test-runtime.security.title', 'parent' => 'security', 'keywords' => ['security']],
         ],
         'data' => ['migrations' => ['migrations/001-private-evidence.sql']],
     ];
-    mkdir($source . '/locales', 0700, true); file_put_contents($source . '/locales/es.json', json_encode(['test-runtime.greeting' => 'Hola', 'test-runtime.page.title' => 'Estado del paquete', 'test-runtime.page.summary' => 'Una página del paquete renderizada por el núcleo.', 'test-runtime.card.title' => 'Datos del paquete', 'test-runtime.setup.title' => 'Configuración de prueba', 'test-runtime.security.title' => 'Seguridad de prueba', 'navigation.storage' => 'No debe reemplazar la navegación central'], JSON_THROW_ON_ERROR));
+    mkdir($source . '/locales', 0700, true); file_put_contents($source . '/locales/es.json', json_encode(['test-runtime.greeting' => 'Hola', 'test-runtime.page.title' => 'Estado del paquete', 'test-runtime.page.summary' => 'Una página del paquete renderizada por el núcleo.', 'test-runtime.card.title' => 'Datos del paquete', 'test-runtime.card.state' => 'Estado de tiempo de ejecución', 'test-runtime.card.ready' => 'Listo', 'test-runtime.setup.title' => 'Configuración de prueba', 'test-runtime.security.title' => 'Seguridad de prueba', 'navigation.storage' => 'No debe reemplazar la navegación central'], JSON_THROW_ON_ERROR));
     $signed = packageSignManifest($manifest, $source, 'test-publisher', sodium_crypto_sign_secretkey($pair));
     file_put_contents($source . '/manifest.json', json_encode($signed, JSON_THROW_ON_ERROR));
     if (function_exists('proc_open')) {

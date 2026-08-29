@@ -147,11 +147,25 @@ function packageRuntimeDashboardCardDeclarations(array $cards): array
         if (!is_array($card)) throw new InvalidArgumentException('package dashboard card is invalid');
         $id = trim((string)($card['id'] ?? '')); $renderer = trim((string)($card['renderer'] ?? ''));
         $title = trim((string)($card['title'] ?? '')); $titleKey = isset($card['title_key']) ? trim((string)$card['title_key']) : null;
+        $facts = [];
+        foreach ((array)($card['facts'] ?? []) as $fact) {
+            if (!is_array($fact)) throw new InvalidArgumentException('package dashboard card is invalid');
+            $label = trim((string)($fact['label'] ?? '')); $value = trim((string)($fact['value'] ?? ''));
+            $labelKey = isset($fact['label_key']) ? trim((string)$fact['label_key']) : null;
+            $valueKey = isset($fact['value_key']) ? trim((string)$fact['value_key']) : null;
+            if ($label === '' || $value === '' || mb_strlen($label) > 80 || mb_strlen($value) > 300
+                || ($labelKey !== null && !preg_match('/^[a-z][\w.-]{0,119}$/i', $labelKey))
+                || ($valueKey !== null && !preg_match('/^[a-z][\w.-]{0,119}$/i', $valueKey))) {
+                throw new InvalidArgumentException('package dashboard card is invalid');
+            }
+            $facts[] = ['label' => $label, 'value' => $value, 'label_key' => $labelKey, 'value_key' => $valueKey];
+        }
         if (!preg_match('/^[a-z][a-z0-9_-]{1,62}$/', $id) || !in_array($renderer, ['overview-facts'], true)
-            || $title === '' || mb_strlen($title) > 80 || ($titleKey !== null && !preg_match('/^[a-z][\w.-]{0,119}$/i', $titleKey)) || isset($out[$id])) {
+            || $title === '' || mb_strlen($title) > 80 || count($facts) > 6
+            || ($titleKey !== null && !preg_match('/^[a-z][\w.-]{0,119}$/i', $titleKey)) || isset($out[$id])) {
             throw new InvalidArgumentException('package dashboard card is invalid');
         }
-        $out[$id] = ['id' => $id, 'renderer' => $renderer, 'title' => $title, 'title_key' => $titleKey];
+        $out[$id] = ['id' => $id, 'renderer' => $renderer, 'title' => $title, 'title_key' => $titleKey, 'facts' => $facts];
     }
     return array_values($out);
 }

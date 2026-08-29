@@ -1281,6 +1281,13 @@ const CPU_STATE_WORDS = {
   I: "idle kernel thread",
 };
 
+function cpuProcessStateWord(state) {
+  const fallback = CPU_STATE_WORDS[state] ?? state;
+  return CPU_STATE_WORDS[state]
+    ? ZogographI18n.t(`cpu.process_state.${state}`, {}, fallback)
+    : fallback;
+}
+
 function renderCpuProcs(data) {
   const rows = data.processes ?? [];
   const cores = Number(data.sample?.cpu_cores) || 0;
@@ -1289,42 +1296,47 @@ function renderCpuProcs(data) {
   const busy = data.now ? Number(data.now.busy) : null;
 
   $("cpuProcsNote").textContent = !rows.length
-    ? "No process has used measurable processor time between two readings."
-    : `${count(rows.length, "process")} using the processor, adding up to `
-      + `${accounted.toFixed(0)}% of one core`
-      + (cores ? ` — about ${(accounted / cores).toFixed(0)}% of the machine` : "")
-      + (busy == null ? "." : `, against ${busy.toFixed(0)}% measured across all cores.`);
+    ? ZogographI18n.t("cpu.no_measurable_process", {}, "No process has used measurable processor time between two readings.")
+    : ZogographI18n.t("cpu.process_summary", {
+      processes: rows.length, percent: Math.round(accounted),
+      machine: cores
+        ? ZogographI18n.t("cpu.process_summary_machine", { percent: Math.round(accounted / cores) }, " — about {{percent, number}}% of the machine")
+        : "",
+      busy: busy == null
+        ? ""
+        : ZogographI18n.t("cpu.process_summary_busy", { percent: Math.round(busy) }, ", against {{percent, number}}% measured across all cores"),
+    }, "{{processes, number}} processes using the processor, adding up to {{percent, number}}% of one core{{machine}}{{busy}}.");
 
   renderTable("cpuProcs", rows, [
-    { label: "PID", className: "size", render: r => r.pid },
-    { label: "User", render: r => userCell(r.user) },
-    { label: "Process", render: r => namedThing("process", r.name) },
+    { label: ZogographI18n.t("cpu.pid", {}, "PID"), className: "size", render: r => r.pid },
+    { label: ZogographI18n.t("cpu.user", {}, "User"), render: r => userCell(r.user) },
+    { label: ZogographI18n.t("cpu.process", {}, "Process"), render: r => namedThing("process", r.name) },
     {
-      label: "CPU now (of one core)",
+      label: ZogographI18n.t("cpu.now_one_core", {}, "CPU now (of one core)"),
       className: "size",
       render: r => (r.cpu_percent == null ? "—" : `${Number(r.cpu_percent).toFixed(1)}%`),
     },
     {
       // The `ps` figure beside the `top` figure, which is the whole reason the
       // two tools appear to disagree about the same process.
-      label: "Average since it started",
+      label: ZogographI18n.t("cpu.average_since_started", {}, "Average since it started"),
       className: "size",
       render: r => (r.cpu_lifetime_percent == null
         ? "—"
         : `${Number(r.cpu_lifetime_percent).toFixed(1)}%`),
     },
     {
-      label: "State",
-      render: r => (r.state ? (CPU_STATE_WORDS[r.state] ?? r.state) : "—"),
+      label: ZogographI18n.t("cpu.state", {}, "State"),
+      render: r => (r.state ? cpuProcessStateWord(r.state) : "—"),
     },
-    { label: "Threads", className: "size", render: r => r.threads ?? "—" },
+    { label: ZogographI18n.t("cpu.threads", {}, "Threads"), className: "size", render: r => r.threads ?? "—" },
     {
-      label: "Running for",
+      label: ZogographI18n.t("cpu.running_for", {}, "Running for"),
       className: "size",
       render: r => (r.elapsed_seconds == null ? "—" : humanDuration(r.elapsed_seconds)),
     },
-    { label: "Resident", className: "size", render: r => humanBytes(r.rss_bytes) },
-    { label: "Command", className: "cmd", render: r => r.command },
+    { label: ZogographI18n.t("cpu.resident", {}, "Resident"), className: "size", render: r => humanBytes(r.rss_bytes) },
+    { label: ZogographI18n.t("cpu.command", {}, "Command"), className: "cmd", render: r => r.command },
   ]);
 }
 

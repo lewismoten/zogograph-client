@@ -20256,17 +20256,16 @@ function renderMemoryPie(services, sample) {
   const slices = memorySlices(services, measured);
 
   drawPieChart($("hostPie"), slices, {
-    empty: "No measured process memory in the latest reading",
+    empty: ZogographI18n.t("host.memory_pie_empty", {}, "No measured process memory in the latest reading"),
   });
 
   $("hostPieNote").textContent =
-    "Share of measured process memory. Drawn from PSS because a pie claims its "
-    + "slices make a whole, and resident memory cannot — a page shared by ten "
-    + "processes would be counted ten times and every slice inflated."
+    ZogographI18n.t("host.memory_pie_help", {},
+      "Share of measured process memory. Drawn from PSS because a pie claims its slices make a whole, and resident memory cannot — a page shared by ten processes would be counted ten times and every slice inflated.")
     + (measured
-      ? ` Total ${humanBytes(measured)} across the ${sample.pss_procs} biggest processes.`
-        + " The ten largest services get a slice; everything under 1%, and everything"
-        + " past the tenth, is folded into one."
+      ? ZogographI18n.t("host.memory_pie_total", {
+        amount: humanBytes(measured), processes: sample.pss_procs,
+      }, " Total {{amount}} across the {{processes, number}} biggest processes. The ten largest services get a slice; everything under 1%, and everything past the tenth, is folded into one.")
       : "");
 }
 

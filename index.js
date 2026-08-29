@@ -12193,10 +12193,10 @@ async function showPackageRuntimeSecrets(row) {
 
 function showPackageRuntimeRevoke(row) {
   const reason = document.createElement("textarea"); reason.className = "wide-field"; reason.rows = 4; reason.maxLength = 500;
-  showFormDialog(`Revoke ${row.id}`, [fieldRow("Reason", reason, "Revocation disables this package immediately and records why. Lifting it later still leaves the package disabled until capabilities are explicitly granted again.")], async () => {
+  showFormDialog(packageText("package.revoke_dialog_title", { id: row.id }, "Revoke {{id}}"), [fieldRow(packageText("package.revoke_reason", {}, "Reason"), reason, packageText("package.revoke_reason_help", {}, "Revocation disables this package immediately and records why. Lifting it later still leaves the package disabled until capabilities are explicitly granted again."))], async () => {
     await post("package-runtime-revoke", { id: row.id, reason: reason.value });
-    await Promise.all([loadPackageDashboardPages(), ZogographI18n.loadPackageCatalogs(true)]); await refreshPackageRuntime(); notice(`${row.id} revoked.`, true);
-  }, "Revoke package");
+    await Promise.all([loadPackageDashboardPages(), ZogographI18n.loadPackageCatalogs(true)]); await refreshPackageRuntime(); notice(packageText("package.revoked", { id: row.id }, "{{id}} revoked."), true);
+  }, packageText("package.revoke_action", {}, "Revoke package"));
 }
 
 function renderEncryptionStatus(data) {

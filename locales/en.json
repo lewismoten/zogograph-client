@@ -492,6 +492,8 @@
   "schedule.custom.weekday": "Day of week (0–7)",
   "schedule.saved_preview": "Saved preview",
   "schedule.installed": "Currently installed",
+  "schedule.times_unknown_zone": "{{job}}: {{expression}} in the server's timezone, which could not be determined",
+  "schedule.times_frequent": "{{job}}: {{profile}}, next at {{next}}",
   "schedule.confirm_remove": "Remove this dashboard's lines from your crontab?",
   "schedule.confirm_write": "Write this into your crontab?\n\n{{preview}}",
   "schedule.confirm_unchanged": "Nothing else in it is changed.",

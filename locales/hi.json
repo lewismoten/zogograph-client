@@ -509,6 +509,8 @@
   "schedule.custom.weekday": "सप्ताह का दिन (0–7)",
   "schedule.saved_preview": "सहेजा गया पूर्वावलोकन",
   "schedule.installed": "वर्तमान में स्थापित",
+  "schedule.times_unknown_zone": "{{job}}: {{expression}} सर्वर के समय क्षेत्र में, जिसे निर्धारित नहीं किया जा सका",
+  "schedule.times_frequent": "{{job}}: {{profile}}, अगला {{next}} पर",
   "schedule.confirm_remove": "इस डैशबोर्ड की पंक्तियाँ अपने crontab से हटाएँ?",
   "schedule.confirm_write": "इसे अपने crontab में लिखें?\n\n{{preview}}",
   "schedule.confirm_unchanged": "इसमें और कुछ नहीं बदला जाएगा।",

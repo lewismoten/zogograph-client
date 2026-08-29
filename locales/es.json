@@ -511,6 +511,8 @@
   "schedule.custom.weekday": "Día de la semana (0–7)",
   "schedule.saved_preview": "Vista previa guardada",
   "schedule.installed": "Instalado actualmente",
+  "schedule.times_unknown_zone": "{{job}}: {{expression}} en la zona horaria del servidor, que no se pudo determinar",
+  "schedule.times_frequent": "{{job}}: {{profile}}, próxima vez a las {{next}}",
   "schedule.confirm_remove": "¿Eliminar del crontab las líneas de este panel?",
   "schedule.confirm_write": "¿Escribir esto en su crontab?\n\n{{preview}}",
   "schedule.confirm_unchanged": "No se modifica nada más.",

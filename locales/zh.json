@@ -509,6 +509,8 @@
   "schedule.custom.weekday": "星期 (0–7)",
   "schedule.saved_preview": "已保存的预览",
   "schedule.installed": "当前已安装",
+  "schedule.times_unknown_zone": "{{job}}：{{expression}} 使用无法确定的服务器时区",
+  "schedule.times_frequent": "{{job}}：{{profile}}，下次为 {{next}}",
   "schedule.confirm_remove": "从您的 crontab 中移除此仪表板的行吗？",
   "schedule.confirm_write": "将此内容写入您的 crontab 吗？\n\n{{preview}}",
   "schedule.confirm_unchanged": "其中的其他内容不会被更改。",

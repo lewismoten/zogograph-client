@@ -21559,6 +21559,7 @@ function updateSchedulePreview() {
    */
   const limit = { minute: { used: false, max: 59 }, hour: { used: false, max: 23 } };
   for (const [job, pick] of jobs) {
+    const jobLabel = ZogographI18n.t(`schedule.job.${job}`, {}, job);
     const preset = data.presets[job]?.[pick];
     if (!preset || preset.minute_step == null) continue;
     if (preset.minute_step > 1) limit.minute.used = true;
@@ -21798,7 +21799,7 @@ function describeTimes(jobs, data, minute, hour) {
     if (!expr) continue;
 
     if (!zone) {
-      said.push(`${job}: ${expr} in the server's timezone, which could not be determined`);
+      said.push(ZogographI18n.t("schedule.times_unknown_zone", { job: jobLabel, expression: expr }, "{{job}}: {{expression}} in the server's timezone, which could not be determined"));
       continue;
     }
 
@@ -21822,7 +21823,7 @@ function describeTimes(jobs, data, minute, hour) {
      * times are the thing you need to check.
      */
     if (perDay > 24) {
-      said.push(`${job}: ${preset.label.toLowerCase()}, next at ${clock[0] ?? "—"}`);
+      said.push(ZogographI18n.t("schedule.times_frequent", { job: jobLabel, profile: preset.label, next: clock[0] ?? "—" }, "{{job}}: {{profile}}, next at {{next}}"));
       continue;
     }
 

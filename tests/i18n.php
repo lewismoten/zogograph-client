@@ -105,10 +105,14 @@ i18nExpect($scanFactCards !== false && str_contains($scanFactCards, 'catalogs: O
     'storage scan-fact card does not own its locale catalog');
 i18nExpect($page !== false && str_contains($page, 'src="cards/type-growth.js"')
     && $typeGrowthCard !== false && str_contains($typeGrowthCard, 'window.ZogographTypeGrowthCard')
-    && str_contains($typeGrowthCard, 'id: "core-type-growth"') && str_contains($typeGrowthCard, 'locales: ["storage."]')
+    && str_contains($typeGrowthCard, 'id: "core-type-growth"') && str_contains($typeGrowthCard, 'locales: ["core-type-growth."]')
     && str_contains($typeGrowthCard, 'render(scans, helpers)')
     && $script !== false && str_contains($script, 'renderCoreCardPackage(ZogographTypeGrowthCard, "core-type-growth", scans,'),
     'storage type-growth chart is not isolated behind its core card-module boundary');
+i18nExpect($typeGrowthCard !== false && str_contains($typeGrowthCard, 'catalogs: Object.freeze({')
+    && str_contains($typeGrowthCard, '"core-type-growth.no_scans_in_range_yet"')
+    && is_array($english) && !isset($english['storage.no_scans_in_range_yet']),
+    'storage type-growth card does not own its locale catalog');
 i18nExpect($page !== false && str_contains($page, 'src="cards/other-extensions.js"')
     && $otherExtensionsCard !== false && str_contains($otherExtensionsCard, 'window.ZogographOtherExtensionsCard')
     && str_contains($otherExtensionsCard, 'id: "core-other-extensions"') && str_contains($otherExtensionsCard, 'locales: ["storage.", "chart."]')

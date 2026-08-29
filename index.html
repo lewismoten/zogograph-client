@@ -2100,31 +2100,31 @@
 <section class="view" data-view="deletions" hidden>
 <section class="panel" id="actionPanel" hidden>
     <div class="panel-head">
-      <h2>Everything this monitor has done</h2>
+      <h2 data-i18n="audit.title">Everything this monitor has done</h2>
       <div class="panel-tools">
-        <button id="actionExport" class="link" title="Download the full audit history as a CSV file">Download CSV</button>
-        <button id="actionClear" class="link danger" title="Remove earlier audit entries and retain a record of this reset">Clear audit</button>
-        <label class="pill">What
-          <select id="actionKind"><option value="">everything</option></select>
+        <button id="actionExport" class="link" title="Download the full audit history as a CSV file" data-i18n="audit.download_csv">Download CSV</button>
+        <button id="actionClear" class="link danger" title="Remove earlier audit entries and retain a record of this reset" data-i18n="audit.clear">Clear audit</button>
+        <label class="pill"><span data-i18n="audit.what">What</span>
+          <select id="actionKind"><option value="" data-i18n="audit.everything">everything</option></select>
         </label>
-        <label class="pill">Who
-          <select id="actionWho"><option value="">anyone</option></select>
+        <label class="pill"><span data-i18n="audit.who">Who</span>
+          <select id="actionWho"><option value="" data-i18n="audit.anyone">anyone</option></select>
         </label>
-        <label class="pill">Result
+        <label class="pill"><span data-i18n="audit.result">Result</span>
           <select id="actionResult">
-            <option value="">any result</option>
-            <option value="ok">succeeded</option>
-            <option value="refused">refused</option>
-            <option value="failed">failed</option>
+            <option value="" data-i18n="audit.any_result">any result</option>
+            <option value="ok" data-i18n="audit.succeeded">succeeded</option>
+            <option value="refused" data-i18n="audit.refused">refused</option>
+            <option value="failed" data-i18n="audit.failed">failed</option>
           </select>
         </label>
       </div>
     </div>
-    <p class="muted small sub-note">
+    <p class="muted small sub-note" data-i18n-rich="audit.help">
       Every deletion, every scan, every request to the host collector, every
       email it sent, every configuration change and every sign-in — whether each
       worked or not. A refusal is kept as carefully as a success: knowing what
-      was <em>not</em> done is half of knowing what happened.
+      was <em data-i18n-tag="not">not</em> done is half of knowing what happened.
     </p>
     <p class="muted small sub-note" id="actionWhoNote"></p>
     <div id="actionSummary" class="cards small-cards"></div>

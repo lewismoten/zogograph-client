@@ -68,6 +68,7 @@ require_once __DIR__ . '/ai-tools/chart-image.php';
 require_once __DIR__ . '/ai-tools/present-visual.php';
 require_once __DIR__ . '/ai-tools/recommend-command.php';
 require_once __DIR__ . '/ai-tools/show-progress.php';
+require_once __DIR__ . '/ai-tools/show-reaction.php';
 
 /**
  * Every tool, with its schema and how it runs.
@@ -115,6 +116,7 @@ function aiToolCatalogue(): array
         ...aiToolPresentVisualPackage(),
         ...aiToolRecommendCommandPackage(),
         ...aiToolShowProgressPackage(),
+        ...aiToolShowReactionPackage(),
 
         /* ------------------------------------------------- what is wrong -- */
 
@@ -694,6 +696,7 @@ function aiToolCatalogue(): array
             ],
         ],
 
+        /* show_reaction moved to ai-tools/show-reaction.php
         'show_reaction' => [
             'group' => 'navigation',
             'where' => 'browser',
@@ -721,7 +724,7 @@ function aiToolCatalogue(): array
                     'description' => 'A caption shown under it, in your own voice.',
                 ],
             ],
-        ],
+        ],*/
 
         'make_picture' => [
             'group' => 'pictures',

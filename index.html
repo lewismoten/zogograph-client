@@ -2061,21 +2061,21 @@
 <section class="view" data-view="uptime" hidden>
 <section class="panel" id="uptimePanel" hidden>
   <div class="panel-head">
-    <h2>Uptime and outages</h2>
+    <h2 data-i18n="uptime.title">Uptime and outages</h2>
     <span class="muted small" id="uptimeSummary"></span>
   </div>
-  <p class="muted small sub-note">
+  <p class="muted small sub-note" data-i18n-rich="uptime.gaps_help">
     A hole in the readings is not the same as the machine being off, and the
-    charts distinguish them — <span class="band-restart">red shading</span> where
+    charts distinguish them — <span class="band-restart" data-i18n-tag="restart_shading">red shading</span> where
     the boot time moved, so it really did restart, and
-    <span class="band-gap">grey</span> where the boot time was unchanged either
+    <span class="band-gap" data-i18n-tag="gap_shading">grey</span> where the boot time was unchanged either
     side and the collector simply was not running. Uptime counts only the first
     kind; a cron job that stops should not look like a server that keeps falling
     over.
   </p>
-  <p class="muted small sub-note">
-    A <span class="band-restart">dashed red line</span> marks each restart the
-    host knows about from <code>last</code>. Those need not leave a hole at all —
+  <p class="muted small sub-note" data-i18n-rich="uptime.restart_help">
+    A <span class="band-restart" data-i18n-tag="restart_line">dashed red line</span> marks each restart the
+    host knows about from <code data-i18n-tag="last">last</code>. Those need not leave a hole at all —
     a reboot the collector resumes after within a minute has nothing to shade —
     and they include restarts from before boot times were being recorded, which
     the readings alone cannot show.
@@ -2086,9 +2086,9 @@
   <div id="uptimeBody"></div>
 
   <div id="bootHistoryWrap" hidden>
-    <h3 class="sub-head">Why it restarted</h3>
-    <p class="muted small sub-note">
-      From <code>last</code> on the host, which only root can read. A boot with a
+    <h3 class="sub-head" data-i18n="uptime.boot_history_title">Why it restarted</h3>
+    <p class="muted small sub-note" data-i18n-rich="uptime.boot_history_help">
+      From <code data-i18n-tag="last">last</code> on the host, which only root can read. A boot with a
       shutdown recorded before it was asked to stop; a boot with none means the
       previous session ended without recording one.
     </p>

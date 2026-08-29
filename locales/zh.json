@@ -677,5 +677,8 @@
   "cpu.limits_title": "上限与限速", "cpu.limits_help": "此页面解释“CPU 已顶住但服务器很空闲”的情况；这既不是矛盾，也不是错误读数。在共享主机上，此账户获得机器的一部分，并通过其自身配额的百分比了解自己使用了这部分中的多少。两个数值都正确，只是衡量不同的事情；将其作为比例比较没有意义，因此本页将它们并列显示。",
   "cpu.lve_title": "实际上撞到上限的位置", "cpu.lve_help": "每当账户请求的处理器资源超过其 LVE 允许范围而被限制时，CloudLinux 都会记录一次故障。这正是“接近上限”和“此刻正被限速”之间的区别，也是这里唯一直接说明这一点的数据——被限速账户自身的 CPU 百分比停在上限上，看起来却很平静。",
   "capabilities.title": "功能能力", "capabilities.show": "显示", "capabilities.filter_key": "值得拥有的功能", "capabilities.filter_gap": "此处不可用", "capabilities.filter_all": "全部", "capabilities.check_now": "立即检查", "capabilities.ask_host": "询问主机", "capabilities.help": "此账户实际上能运行什么，以及机器具备但它无法访问什么。在普通主机上这是同一个问题，在这里则是两个问题——请看下方。",
-  "alerts.timeline_title": "警报何时触发", "alerts.title": "警报", "alerts.unread_only": "仅未读", "alerts.mark_all_read": "全部标为已读", "alerts.mark_read": "标为已读", "alerts.mark_unread": "标为未读", "alerts.active_mutes": "当前静音", "alerts.incident_title": "为何触发", "action.delete": "删除"
+  "alerts.timeline_title": "警报何时触发", "alerts.title": "警报", "alerts.unread_only": "仅未读", "alerts.mark_all_read": "全部标为已读", "alerts.mark_read": "标为已读", "alerts.mark_unread": "标为未读", "alerts.active_mutes": "当前静音", "alerts.incident_title": "为何触发", "action.delete": "删除",
+  "uptime.title": "运行时间与中断", "uptime.gaps_help": "读数中的空档不等于机器关机，图表会将两者区分开来——启动时间发生变化的位置为{{restart_shading}}，表示它确实重启了；两侧启动时间未变而收集器根本未运行的位置为{{gap_shading}}。运行时间只统计前一种；停止运行的 cron 任务不应看起来像不断宕机的服务器。",
+  "uptime.restart_help": "主机从 {{last}} 得知的每次重启都会以{{restart_line}}标记。它们不一定会留下空档——收集器在一分钟内恢复的重启没有需要着色的内容——还包括在开始记录启动时间之前的重启，单靠读数无法显示这些重启。",
+  "uptime.boot_history_title": "为何重启", "uptime.boot_history_help": "来自主机上的 {{last}}，只有 root 能读取。一个启动若在被要求停止前记录了关机；没有记录的启动表示上一个会话结束时未记录关机。"
 }

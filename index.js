@@ -26108,24 +26108,25 @@ function showRegexTester(patternInput, groupInput) {
   pattern.className = "wide";
   pattern.spellcheck = false;
   pattern.value = regexState.pattern;
-  nodes.push(fieldRow("Pattern", pattern,
-    "Written without slashes around it — they are added for you, so a / in the pattern "
-    + "needs no escaping."));
+  nodes.push(fieldRow(
+    ZogographI18n.t("regex.pattern", {}, "Pattern"),
+    pattern,
+    ZogographI18n.t("regex.pattern_help", {}, "Written without slashes around it — they are added for you, so a / in the pattern needs no escaping.")
+  ));
 
   const sample = document.createElement("textarea");
   sample.rows = 8;
   sample.className = "wide";
   sample.spellcheck = false;
-  sample.placeholder = "Paste some of the page here — view source and take the part "
-    + "you are matching against.";
+  sample.placeholder = ZogographI18n.t("regex.sample_placeholder", {}, "Paste some of the page here — view source and take the part you are matching against.");
   sample.value = regexState.text;
-  nodes.push(fieldRow("Against", sample, ""));
+  nodes.push(fieldRow(ZogographI18n.t("regex.against", {}, "Against"), sample, ""));
 
   const tools = document.createElement("div");
   tools.className = "inspect-actions";
 
   const run = document.createElement("button");
-  run.textContent = "Test it";
+  run.textContent = ZogographI18n.t("action.test_it", {}, "Test it");
   tools.appendChild(run);
 
   const grab = document.createElement("button");
@@ -26146,7 +26147,7 @@ function showRegexTester(patternInput, groupInput) {
   run.addEventListener("click", async event => {
     event.preventDefault();
     run.disabled = true;
-    out.replaceChildren(spinner("Testing…"));
+    out.replaceChildren(spinner(ZogographI18n.t("action.testing", {}, "Testing…")));
 
     regexState.pattern = pattern.value;
     regexState.text = sample.value;
@@ -26193,10 +26194,9 @@ function showRegexTester(patternInput, groupInput) {
   });
 
   showListDialog(
-    "Try a pattern",
+    ZogographI18n.t("regex.dialog_title", {}, "Try a pattern"),
     nodes,
-    "Nothing here is saved or requested on a schedule. It runs the pattern exactly the way "
-    + "the check will, against whatever you paste."
+    ZogographI18n.t("regex.dialog_help", {}, "Nothing here is saved or requested on a schedule. It runs the pattern exactly the way the check will, against whatever you paste.")
   );
 
   draw();
@@ -26207,8 +26207,7 @@ function renderRegexResult(out, groupInput) {
 
   if (!result) {
     out.replaceChildren(note(
-      "Paste some text and press Test it. Every match is shown with its groups numbered, so "
-      + "you can see which number to keep."
+      ZogographI18n.t("regex.initial_help", {}, "Paste some text and press Test it. Every match is shown with its groups numbered, so you can see which number to keep.")
     ));
     return;
   }

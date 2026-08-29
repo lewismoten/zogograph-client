@@ -28893,7 +28893,7 @@ function renderWhoisTerms(terms, onAccept) {
   actions.className = "inspect-actions";
 
   const agree = document.createElement("button");
-  agree.textContent = "Understood \u2014 look it up";
+  agree.textContent = ZogographI18n.t("whois.terms_accept", {}, "Understood — look it up");
   agree.addEventListener("click", () => {
     try {
       localStorage.setItem(WHOIS_TERMS_KEY, "1");
@@ -28905,13 +28905,13 @@ function renderWhoisTerms(terms, onAccept) {
   actions.appendChild(agree);
   wrap.appendChild(actions);
 
-  return section("Before looking a name up", wrap);
+  return section(ZogographI18n.t("whois.terms_title", {}, "Before looking a name up"), wrap);
 }
 
 async function refreshWhois(name = "") {
   const body = $("whoisBody");
   if (!state.signedIn) {
-    body.replaceChildren(note("Sign in to run a lookup."));
+    body.replaceChildren(note(ZogographI18n.t("whois.sign_in_lookup", {}, "Sign in to run a lookup.")));
     return;
   }
 

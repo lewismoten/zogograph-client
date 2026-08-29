@@ -29455,7 +29455,7 @@ const unitState = { show: undefined, category: "", boot: "", says: "", data: nul
 async function refreshUnits() {
   const body = $("unitsBody");
   if (!state.signedIn) {
-    body.replaceChildren(note("Sign in to see the service list."));
+    body.replaceChildren(note(ZogographI18n.t("services.sign_in", {}, "Sign in to see the service list.")));
     return;
   }
 

@@ -4,6 +4,7 @@
   "package.open_settings": "पैकेज सेटिंग खोलें",
   "action.copy": "कॉपी करें",
   "common.sign_in_to_see": "इसे देखने के लिए साइन इन करें।",
+  "services.sign_in": "सेवा सूची देखने के लिए साइन इन करें।",
   "encryption.status_sign_in": "सुरक्षा स्थिति देखने के लिए साइन इन करें।",
   "setup.instructions_sign_in": "सेटअप निर्देश देखने के लिए साइन इन करें।",
   "terminal.sessions_sign_in": "टर्मिनल सत्र देखने के लिए साइन इन करें।",

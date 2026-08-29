@@ -1118,38 +1118,10 @@ function renderCpuTime(data) {
   if (!now) {
     $("cpuTimeNote").textContent = cpuEmptyWhy(data) + ".";
   } else {
-    /*
-     * Coloured only where the state is one that means something is wrong.
-     *
-     * 80% in userland is a machine doing its job and colouring it red teaches
-     * people to ignore the colour. Steal and iowait are different: any visible
-     * amount of either is a finding, because neither is work getting done.
-     */
-    const bands = {
-      steal: [5, 20],
-      iowait: [15, 35],
-      softirq: [10, 25],
-      irq: [5, 15],
-    };
-
-    const mean = key => {
-      const values = (data.series ?? []).map(r => Number(r[key])).filter(Number.isFinite);
-      return values.length ? values.reduce((a, b) => a + b, 0) / values.length : null;
-    };
-
-    for (const [key, meta] of Object.entries(states)) {
-      const value = Number(now[key]);
-      const band = bands[key] ? bandOf(value, bands[key][0], bands[key][1]) : null;
-      const average = mean(key);
-      setHostCard(
-        cpuStateLabel(meta),
-        Number.isFinite(value) ? `${value.toFixed(1)}%` : "—",
-        average == null ? "" : ZogographI18n.t("cpu.average_over_range", { percent: average.toFixed(1) }, "{{percent}}% on average over this range"),
-        band === "crit" ? "crit" : band === "warn" ? "warn" : "",
-        "",
-        "cpuTimeCards"
-      );
-    }
+    renderCoreCardPackage(ZogographCpuTimeCard, "core-cpu-time", { now, states, series: data.series ?? [] }, {
+      setCard: (label, value, sub, level = "") => setHostCard(label, value, sub, level, "", "cpuTimeCards"),
+      bandOf, cpuStateLabel, i18n: ZogographI18n,
+    });
 
     $("cpuTimeNote").textContent = cpuTimeVerdict(now, Number(data.sample?.cpu_cores) || 0);
   }

@@ -1,0 +1,19 @@
+{
+  "zogograph-key-custody.settings_title": "远程密钥托管设置",
+  "zogograph-key-custody.service_url": "托管服务 URL",
+  "zogograph-key-custody.service_url_help": "使用服务根地址或其 /v1 API 根地址。添加注册引用前，请运行测试托管端点。",
+  "zogograph-key-custody.tenant_id": "租户 ID",
+  "zogograph-key-custody.tenant_id_help": "注册返回的 ten_… 标识符。它不是凭据。",
+  "zogograph-key-custody.key_id": "活动托管密钥 ID",
+  "zogograph-key-custody.key_id_help": "请通过客户管理 API 创建或选择此密钥。它只标识远程包装密钥；不是令牌或密钥。",
+  "zogograph-key-custody.tls_pin": "TLS 公钥固定值",
+  "zogograph-key-custody.tls_pin_help": "可选。留空可使用建议的常规 CA/主机名验证。固定值需要为端点证书密钥轮换制定计划。",
+  "zogograph-key-custody.cache": "数据密钥缓存",
+  "zogograph-key-custody.cache_help": "建议：0 秒。非零缓存可能会让已释放的数据密钥在过期前保持可用；最长为 900 秒。",
+  "zogograph-key-custody.credential_reference": "客户端凭据引用",
+  "zogograph-key-custody.credential_reference_help": "在 24 小时内成功测试端点后，请创建加密的软件包密钥，并且只粘贴其 secret_ref: 值。切勿在此粘贴原始 bearer 令牌。",
+  "zogograph-key-custody.signing_reference": "客户端签名密钥引用",
+  "zogograph-key-custody.signing_reference_help": "完成同一测试后，请为一次性 Base64 Ed25519 签名密钥创建第二个加密的软件包密钥。切勿在此粘贴私钥。",
+  "zogograph-key-custody.save_action": "保存托管设置",
+  "zogograph-key-custody.saved": "已保存远程托管设置。成功的端点探测不会激活远程托管。"
+}

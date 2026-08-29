@@ -23216,8 +23216,22 @@ function syncViewLabelsFromNavigation() {
   }
 }
 
+function renderViewTitles(view) {
+  const label = VIEWS[view]?.label || VIEWS[DEFAULT_VIEW].label;
+  document.title = ZogographI18n.t("page.document_title", { page: label }, "{{page}} · Zogograph");
+  const pageTitle = $("pageTitle");
+  if (pageTitle) {
+    pageTitle.textContent = ZogographI18n.t(
+      "page.title",
+      { page: label },
+      "{{page}} — Zogograph infrastructure observation",
+    );
+  }
+}
+
 document.addEventListener("zogograph-i18n-load", () => {
   syncViewLabelsFromNavigation();
+  if (typeof state !== "undefined") renderViewTitles(state.view);
   if (typeof state !== "undefined") applySignedInChrome();
   if (buildState.update) showBuildUpdate(buildState.update);
 });
@@ -32518,9 +32532,7 @@ function showView(view, push = true) {
       || (Boolean(query) && !navSearchMatches(link));
   }
 
-  document.title = `${VIEWS[view].label} · Zogograph`;
-  const pageTitle = $("pageTitle");
-  if (pageTitle) pageTitle.textContent = `${VIEWS[view].label} — Zogograph infrastructure observation`;
+  renderViewTitles(view);
 
   /*
    * The pending strip is per-page, so changing page changes what belongs in it.

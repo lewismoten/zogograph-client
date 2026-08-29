@@ -930,7 +930,7 @@ async function refreshCpu() {
 
   for (const id of CPU_BODIES) {
     const el = $(id);
-    if (el && !el.childElementCount) el.replaceChildren(spinner("Reading the host collector…"));
+    if (el && !el.childElementCount) el.replaceChildren(spinner(ZogographI18n.t("cpu.reading_collector", {}, "Reading the host collector…")));
   }
 
   const show = hidden => CPU_CONTENTS.forEach(id => { const el = $(id); if (el) el.hidden = hidden; });
@@ -963,7 +963,7 @@ async function refreshCpu() {
   }
 
   if (!data.available) {
-    sayAll(data.reason || "No host readings.");
+    sayAll(data.reason || ZogographI18n.t("cpu.no_host_readings", {}, "No host readings."));
     // The instruction goes on the page somebody is most likely to have opened
     // first, once, rather than five times down the sidebar.
     collectorInstructions($("cpuBody"), data);
@@ -977,13 +977,13 @@ async function refreshCpu() {
   renderCpuGauges(data.sample);
   renderCpuFindings(data.findings ?? []);
   drawLineChart($("cpuBusyChart"), data.series ?? [], [
-    { key: "busy", label: "Busy" },
-    { key: "monitoring_cpu_percent", label: "Monitoring tree" },
-    { key: "workload_cpu_percent", label: "Workload (excl. monitor)" },
-    { key: "user", label: "Userland" },
-    { key: "system", label: "Kernel" },
-    { key: "iowait", label: "Waiting for storage" },
-    { key: "steal", label: "Stolen by the host" },
+    { key: "busy", label: ZogographI18n.t("cpu.busy", {}, "Busy") },
+    { key: "monitoring_cpu_percent", label: ZogographI18n.t("cpu.monitoring_tree", {}, "Monitoring tree") },
+    { key: "workload_cpu_percent", label: ZogographI18n.t("cpu.workload_excluding_monitor", {}, "Workload (excl. monitor)") },
+    { key: "user", label: ZogographI18n.t("cpu.userland", {}, "Userland") },
+    { key: "system", label: ZogographI18n.t("cpu.kernel", {}, "Kernel") },
+    { key: "iowait", label: ZogographI18n.t("cpu.waiting_for_storage", {}, "Waiting for storage") },
+    { key: "steal", label: ZogographI18n.t("cpu.stolen_by_host", {}, "Stolen by the host") },
   ], {
     axis: percentAxis, zeroBased: true, max: 100,
     empty: cpuEmptyWhy(data),
@@ -1016,10 +1016,9 @@ function cpuEmptyWhy(data) {
   if (data.schema_reason) return data.schema_reason;
 
   if (!data.series?.length && Number(data.sample_count ?? 0) > 1) {
-    return "No processor breakdown in this range yet — the collector records it "
-      + "from the version that added these pages onward";
+    return ZogographI18n.t("cpu.no_breakdown", {}, "No processor breakdown in this range yet — the collector records it from the version that added these pages onward");
   }
-  return "Only one reading so far — a percentage needs two";
+  return ZogographI18n.t("cpu.only_one_reading", {}, "Only one reading so far — a percentage needs two");
 }
 
 /**
@@ -1035,8 +1034,7 @@ function collectorInstructions(holder, data) {
 
   holder.appendChild(Object.assign(document.createElement("p"), {
     className: "muted small",
-    textContent: "As root — ssh in or use WHM's Terminal — add this to root's "
-      + "crontab with crontab -e:",
+    textContent: ZogographI18n.t("cpu.add_root_cron", {}, "As root — ssh in or use WHM's Terminal — add this to root's crontab with crontab -e:"),
   }));
   const pre = document.createElement("pre");
   pre.className = "paste";
@@ -1044,7 +1042,7 @@ function collectorInstructions(holder, data) {
   holder.appendChild(pre);
   holder.appendChild(Object.assign(document.createElement("p"), {
     className: "muted small",
-    textContent: "Then run it once by hand to see what it finds: " + data.command,
+    textContent: ZogographI18n.t("cpu.run_root_once", { command: data.command }, "Then run it once by hand to see what it finds: {{command}}"),
   }));
 }
 
@@ -1055,7 +1053,7 @@ function renderCpuFindings(findings) {
   if (!findings.length) {
     holder.replaceChildren(Object.assign(document.createElement("p"), {
       className: "muted",
-      textContent: "Nothing to report.",
+      textContent: ZogographI18n.t("cpu.nothing_to_report", {}, "Nothing to report."),
     }));
     return;
   }

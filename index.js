@@ -6163,13 +6163,13 @@ function renderAiSettings(data) {
 
     const save = document.createElement("button");
     save.type = "submit";
-    save.textContent = "Save these settings";
+    save.textContent = ZogographI18n.t("ai.save_settings", {}, "Save these settings");
     save.disabled = !data.writable;
     actions.appendChild(save);
 
     const said = document.createElement("span");
     said.className = "muted small";
-    said.textContent = "Saves everything on all of these pages.";
+    said.textContent = ZogographI18n.t("ai.save_all_pages", {}, "Saves everything on all of these pages.");
     actions.appendChild(said);
 
     holder.replaceChildren(...pages[key], actions);
@@ -6482,14 +6482,13 @@ function renderAiTools(data) {
 
   const save = document.createElement("button");
   save.type = "submit";
-  save.textContent = "Save these settings";
+  save.textContent = ZogographI18n.t("ai.save_settings", {}, "Save these settings");
   save.disabled = !data.writable;
   actions.appendChild(save);
 
   const said = document.createElement("span");
   said.className = "muted small";
-  said.textContent = `Saves everything on all of ${data.who?.name ?? "the assistant"}'s `
-    + "pages, including the tools on the other tabs.";
+  said.textContent = ZogographI18n.t("ai.save_assistant_pages", { assistant: data.who?.name ?? "the assistant" }, "Saves everything on all of {{assistant}}'s pages, including the tools on the other tabs.");
   actions.appendChild(said);
 
   const savePreset = document.createElement("button");

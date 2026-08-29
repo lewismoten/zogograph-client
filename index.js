@@ -29590,7 +29590,7 @@ function renderUnits() {
 async function refreshLogStream() {
   const body = $("streamBody");
   if (!state.signedIn) {
-    body.replaceChildren(note("Sign in to read log files."));
+    body.replaceChildren(note(ZogographI18n.t("logs.sign_in", {}, "Sign in to read log files.")));
     $("repeatBody").replaceChildren();
     return;
   }

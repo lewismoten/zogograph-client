@@ -4,6 +4,7 @@
   "package.open_settings": "فتح إعدادات الحزمة",
   "action.copy": "نسخ",
   "common.sign_in_to_see": "سجّل الدخول لرؤية هذا.",
+  "logs.sign_in": "سجّل الدخول لقراءة ملفات السجل.",
   "services.sign_in": "سجّل الدخول لرؤية قائمة الخدمات.",
   "encryption.status_sign_in": "سجّل الدخول لعرض حالة الحماية.",
   "setup.instructions_sign_in": "سجّل الدخول لرؤية تعليمات الإعداد.",

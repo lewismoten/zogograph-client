@@ -4,6 +4,7 @@
   "package.open_settings": "Abrir configuración del paquete",
   "action.copy": "Copiar",
   "common.sign_in_to_see": "Inicie sesión para ver esto.",
+  "logs.sign_in": "Inicie sesión para leer archivos de registro.",
   "services.sign_in": "Inicie sesión para ver la lista de servicios.",
   "encryption.status_sign_in": "Inicie sesión para ver el estado de protección.",
   "setup.instructions_sign_in": "Inicie sesión para ver las instrucciones de configuración.",

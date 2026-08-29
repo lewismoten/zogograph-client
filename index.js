@@ -33807,7 +33807,7 @@ $("storeExport").addEventListener("click", async () => {
   document.body.appendChild(form);
   form.submit();
   form.remove();
-  notice("Preparing the safe database export…", true);
+  notice(ZogographI18n.t("store.preparing_export", {}, "Preparing the safe database export…"), true);
 });
 
 $("storeRollup").addEventListener("click", async () => {
@@ -33849,8 +33849,8 @@ $("testEmail").addEventListener("click", async () => {
   try {
     const result = await post("test-email");
     notice(result.sent
-      ? `Test email sent to ${result.to}. If it does not arrive, check the spam folder and the host's mail log.`
-      : (result.error || "Could not send."), result.sent);
+      ? ZogographI18n.t("email.test_sent", { recipient: result.to }, "Test email sent to {{recipient}}. If it does not arrive, check the spam folder and the host's mail log.")
+      : (result.error || ZogographI18n.t("delivery.could_not_send", {}, "Could not send.")), result.sent);
   } catch (error) {
     notice(String(error.message || error));
   } finally {
@@ -33864,8 +33864,8 @@ $("testTelegram").addEventListener("click", async () => {
   try {
     const result = await post("test-telegram");
     notice(result.sent
-      ? `Test Telegram sent to ${result.to}.`
-      : (result.error || "Could not send the Telegram test."), result.sent);
+      ? ZogographI18n.t("telegram.test_sent", { recipient: result.to }, "Test Telegram sent to {{recipient}}.")
+      : (result.error || ZogographI18n.t("telegram.test_failed", {}, "Could not send the Telegram test.")), result.sent);
   } catch (error) {
     notice(String(error.message || error));
   } finally {

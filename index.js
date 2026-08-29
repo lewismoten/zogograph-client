@@ -9270,6 +9270,7 @@ function reviewCurrentPageHtml(why) {
     const clone = $("main").cloneNode(true);
     // The conversation and transient controls are not part of the page being diagnosed.
     clone.querySelectorAll("#toasts, #chatPanel, dialog, script, style").forEach(node => node.remove());
+    redactReviewedPageHtml(clone);
     const said = document.createElement("p");
     said.className = "muted small";
     said.textContent = why
@@ -9284,6 +9285,29 @@ function reviewCurrentPageHtml(why) {
     text.spellcheck = false;
     text.value = clone.outerHTML.slice(0, 300 * 1024);
     showFormDialog("Review page HTML", [said, help, text], async () => resolve(text.value));
+  });
+}
+
+/*
+ * A reviewed page is still a disclosure to the configured AI provider. Keep
+ * the useful shape, labels, and accessible relationships, but never prefill
+ * the review editor with form state. CSS/data hooks give feature authors a
+ * simple escape hatch for values that are rendered as ordinary text instead.
+ */
+function redactReviewedPageHtml(root) {
+  root.querySelectorAll("input, textarea, select, [contenteditable]").forEach(field => {
+    field.removeAttribute("value");
+    field.removeAttribute("checked");
+    field.removeAttribute("selected");
+    field.removeAttribute("aria-checked");
+    if (field instanceof HTMLTextAreaElement || field.hasAttribute("contenteditable")) {
+      field.replaceChildren();
+    }
+    field.setAttribute("data-review-redacted", "form-state");
+  });
+  root.querySelectorAll("[data-sensitive], [data-secret], [data-private]").forEach(node => {
+    node.replaceChildren("[redacted]");
+    node.setAttribute("data-review-redacted", "sensitive-content");
   });
 }
 

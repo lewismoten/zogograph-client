@@ -81,6 +81,11 @@ if ($dashboard === false || !str_contains($dashboard, 'hint.textContent = meta.h
     || preg_match('/\.innerHTML\s*=/', $dashboard) === 1) {
     throw new RuntimeException('dashboard rendering must not use an HTML sink');
 }
+if (!str_contains($dashboard, 'function redactReviewedPageHtml(root)')
+    || !str_contains($dashboard, '[data-sensitive], [data-secret], [data-private]')
+    || !str_contains($dashboard, 'data-review-redacted')) {
+    throw new RuntimeException('reviewed assistant page HTML must redact form and marked sensitive content');
+}
 
 foreach ([
     "PHP_SAPI !== 'cli'",

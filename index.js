@@ -8262,7 +8262,7 @@ function renderScans(data) {
     actions.appendChild(save);
 
     if (!data.writable) {
-      actions.appendChild(note("lib/config.php is not writable, so these cannot change."));
+      actions.appendChild(note(ZogographI18n.t("setup.config_not_writable", {}, "lib/config.php is not writable, so these cannot change.")));
     }
     parts.push(actions);
 

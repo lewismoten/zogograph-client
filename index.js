@@ -14807,12 +14807,12 @@ function suggestionList(suggestions) {
 
     const copy = document.createElement("button");
     copy.className = "link";
-    copy.textContent = "Copy";
+    copy.textContent = ZogographI18n.t("action.copy", {}, "Copy");
     copy.addEventListener("click", async () => {
       try {
         await navigator.clipboard.writeText(one.command);
-        copy.textContent = "Copied";
-        setTimeout(() => { copy.textContent = "Copy"; }, 1400);
+        copy.textContent = ZogographI18n.t("action.copied", {}, "Copied");
+        setTimeout(() => { copy.textContent = ZogographI18n.t("action.copy", {}, "Copy"); }, 1400);
       } catch {
         notice("Select the command and copy it — this browser would not.");
       }
@@ -15382,12 +15382,12 @@ function renderTerminalActions() {
 
   const copy = document.createElement("button");
   copy.className = "link";
-  copy.textContent = "Copy the output";
+  copy.textContent = ZogographI18n.t("terminal.copy_output", {}, "Copy the output");
   copy.addEventListener("click", async () => {
     try {
       await navigator.clipboard.writeText(termState.text);
-      copy.textContent = "Copied";
-      setTimeout(() => { copy.textContent = "Copy the output"; }, 1400);
+      copy.textContent = ZogographI18n.t("action.copied", {}, "Copied");
+      setTimeout(() => { copy.textContent = ZogographI18n.t("terminal.copy_output", {}, "Copy the output"); }, 1400);
     } catch {
       notice("This browser would not copy it.");
     }

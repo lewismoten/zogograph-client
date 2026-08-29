@@ -1242,39 +1242,31 @@ function cpuCoreShare(core) {
 
 function cpuSpreadVerdict(spread) {
   if (!spread || !spread.measured) {
-    return "No per-core percentages yet. Each one is a difference between two readings, "
-      + "so the first collection after this feature was added has nothing to compare "
-      + "against.";
+    return ZogographI18n.t("cpu.spread_not_measured", {}, "No per-core percentages yet. Each one is a difference between two readings, so the first collection after this feature was added has nothing to compare against.");
   }
 
   if (spread.measured === 1) {
-    return "One core, so there is no distribution to look at — the whole-machine figure "
-      + "is the core's figure.";
+    return ZogographI18n.t("cpu.spread_one_core", {}, "One core, so there is no distribution to look at — the whole-machine figure is the core's figure.");
   }
 
-  const shape = `Busiest core ${spread.max.toFixed(0)}%, quietest ${spread.min.toFixed(0)}%, `
-    + `${spread.mean.toFixed(0)}% on average across ${count(spread.measured, "core")}.`;
+  const shape = ZogographI18n.t("cpu.spread_shape", {
+    busiest: Math.round(spread.max), quietest: Math.round(spread.min),
+    average: Math.round(spread.mean), cores: spread.measured,
+  }, "Busiest core {{busiest, number}}%, quietest {{quietest, number}}%, {{average, number}}% on average across {{cores, number}} cores.");
 
   if (spread.pinned === spread.measured) {
-    return `${shape} Every core is pinned: the machine has no processor headroom at all. `
-      + `Unlike a single busy core this does respond to more cores — but it is worth `
-      + `checking first that the work is work you wanted done.`;
+    return ZogographI18n.t("cpu.spread_all_pinned", { shape }, "{{shape}} Every core is pinned: the machine has no processor headroom at all. Unlike a single busy core this does respond to more cores — but it is worth checking first that the work is work you wanted done.");
   }
 
   if (spread.pinned > 0 && spread.mean < 50 && spread.idle >= spread.measured / 2) {
-    return `${shape} That is the shape of a single-threaded bottleneck: one piece of work `
-      + `that cannot be split, holding things up while the machine looks mostly free. `
-      + `The whole-machine percentage will never look alarming however stuck it gets, and `
-      + `more cores would not move it.`;
+    return ZogographI18n.t("cpu.spread_single_threaded", { shape }, "{{shape}} That is the shape of a single-threaded bottleneck: one piece of work that cannot be split, holding things up while the machine looks mostly free. The whole-machine percentage will never look alarming however stuck it gets, and more cores would not move it.");
   }
 
   if (spread.spread < 25) {
-    return `${shape} The work is spreading evenly, so the only question left is how much `
-      + `of it there is.`;
+    return ZogographI18n.t("cpu.spread_even", { shape }, "{{shape}} The work is spreading evenly, so the only question left is how much of it there is.");
   }
 
-  return `${shape} Uneven, but not one core carrying everything — normal on a machine `
-    + `running a mixture of jobs, and worth a second look if the gap keeps widening.`;
+  return ZogographI18n.t("cpu.spread_uneven", { shape }, "{{shape}} Uneven, but not one core carrying everything — normal on a machine running a mixture of jobs, and worth a second look if the gap keeps widening.");
 }
 
 /* ------------------------------------------------- what is burning it -- */

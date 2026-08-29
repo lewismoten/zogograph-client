@@ -1648,6 +1648,7 @@
   "system.monitor_help": "磁盘监控器应能说明自身的磁盘使用情况，并且绝不能悄悄停止收集。这两点在此站点其他位置都看不到：悄然增长到一千兆字节的数据库看起来与正常数据库完全一样，而上周二停止的 cron 任务只会让每张图表看起来都很平静。",
   "system.health_title": "运行状况",
   "system.health_help": "此安装能够做什么以及不能做什么。前三项通常是全新部署返回错误的原因。",
+  "problems.none": "没有出现任何问题。很好。", "problems.last_seen": "最后出现", "problems.times": "次数", "problems.level": "级别", "problems.where": "位置", "problems.what_happened": "发生了什么", "problems.reference": "参考",
   "ai.past_title": "过往对话",
   "ai.past_help": "所有对话按最新优先排列。打开一项即可阅读，或从中断处继续——这会新建一个带有先前内容的对话，因此它遇到的限制不会一同带来。",
   "ai.past_retention_help": "置顶会让它保留超过保留规则。该规则按时间删除，这对那九十九个不会再阅读的对话是正确的，却不适合那个解释过一次故障的对话。",

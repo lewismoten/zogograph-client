@@ -1767,6 +1767,7 @@
   "system.monitor_help": "A disk monitor should be able to answer for its own disk use, and should never stop collecting without saying so. Neither is visible anywhere else on this site: a database quietly growing to a gigabyte looks exactly like one that is fine, and a cron job that stopped last Tuesday just makes every chart look quiet.",
   "system.health_title": "Health",
   "system.health_help": "What this install can and cannot do. The first three are the usual reason a fresh deployment returns errors.",
+  "problems.none": "Nothing has gone wrong. Good.", "problems.last_seen": "Last seen", "problems.times": "Times", "problems.level": "Level", "problems.where": "Where", "problems.what_happened": "What happened", "problems.reference": "Reference",
   "ai.past_title": "Past conversations",
   "ai.past_help": "Every conversation, newest first. Open one to read it, or pick it up where it left off — that starts a fresh conversation carrying what was said, so the limits it ran into do not come with it.",
   "ai.past_retention_help": "Pinning one keeps it past the retention rule. That rule deletes by age, which is right for the ninety-nine nobody will read again and wrong for the one that explained an outage.",

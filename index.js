@@ -21123,27 +21123,27 @@ async function refreshProblems() {
   if (!data.rows.length) {
     $("problemBody").replaceChildren(Object.assign(document.createElement("p"), {
       className: "muted",
-      textContent: "Nothing has gone wrong. Good.",
+      textContent: ZogographI18n.t("problems.none", {}, "Nothing has gone wrong. Good."),
     }));
     return;
   }
 
   renderTable("problemBody", data.rows, [
     {
-      label: "Last seen",
+      label: ZogographI18n.t("problems.last_seen", {}, "Last seen"),
       render: row => (row.last ? new Date(row.last).toLocaleString() : ""),
     },
     {
       // One row per distinct fault, so a number here is repetition rather than
       // separate problems - which is the difference between "89 things are
       // broken" and "three things are broken, one of them noisily".
-      label: "Times",
+      label: ZogographI18n.t("problems.times", {}, "Times"),
       className: "size",
       render: row => (row.count > 1 ? row.count : ""),
     },
-    { label: "Level", render: row => row.level },
+    { label: ZogographI18n.t("problems.level", {}, "Level"), render: row => row.level },
     {
-      label: "Where",
+      label: ZogographI18n.t("problems.where", {}, "Where"),
       render: row => {
         const span = document.createElement("span");
         span.textContent = row.where;
@@ -21156,9 +21156,9 @@ async function refreshProblems() {
         return span;
       },
     },
-    { label: "What happened", className: "name", render: row => row.message },
+    { label: ZogographI18n.t("problems.what_happened", {}, "What happened"), className: "name", render: row => row.message },
     {
-      label: "Reference",
+      label: ZogographI18n.t("problems.reference", {}, "Reference"),
       className: "size",
       render: row => (row.reference ? row.reference : ""),
     },

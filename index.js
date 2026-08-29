@@ -32476,7 +32476,7 @@ function buildPageHelp(view) {
   fragment.append(commandsTitle, commands, commandsNote);
 
   const linksTitle = document.createElement("h3");
-  linksTitle.textContent = "Official command references";
+  linksTitle.textContent = ZogographI18n.t("help.command_references", {}, "Official command references");
   const links = document.createElement("ul");
   links.className = "page-help-links";
   for (const [label, href] of profile.links) appendHelpLink(links, label, href);

@@ -513,6 +513,7 @@
   "schedule.custom.weekday": "सप्ताह का दिन (0–7)",
   "schedule.saved_preview": "सहेजा गया पूर्वावलोकन",
   "schedule.installed": "वर्तमान में स्थापित",
+  "help.command_references": "आधिकारिक कमांड संदर्भ",
   "help.terminal_commands": "संबंधित टर्मिनल कमांड",
   "host_log.refused_help": "फ़ाइल मौजूद है, लेकिन यह खाता इसे नहीं खोल सकता। इसके लिए root द्वारा दी गई समूह सदस्यता या ACL चाहिए — यहाँ कुछ भी इसे बदल नहीं सकता।",
   "capabilities.queue_check": "कलेक्टर से बाद में जाँचने को कहें",

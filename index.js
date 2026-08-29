@@ -5108,9 +5108,9 @@ function rowButtons(row) {
   if (row.kind === "file" && row.deleted_at) {
     const gone = document.createElement("span");
     gone.className = "muted small";
-    gone.textContent = "deleted";
-    gone.title = `Deleted ${humanTime(row.deleted_at)}. Still listed because the last `
-      + `scan found it; the next scan will drop it.`;
+    gone.textContent = ZogographI18n.t("storage.deleted", {}, "deleted");
+    gone.title = ZogographI18n.t("storage.deleted_row_help", { at: humanTime(row.deleted_at) },
+      "Deleted {{at}}. Still listed because the last scan found it; the next scan will drop it.");
     return gone;
   }
 

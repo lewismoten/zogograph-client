@@ -4090,8 +4090,8 @@ function renderFileTypes(scans) {
 
   const scan = (scans.rows ?? []).find(row => row.id === scans.file_types_scan_id);
   $("typeWhen").textContent = scan
-    ? `${humanBytes(total)} in ${count(files, "file")}, measured ${humanTime(scan.finished_at || scan.started_at)}`
-    : `${humanBytes(total)} in ${count(files, "file")}`;
+    ? ZogographI18n.t("storage.types_measured", { bytes: humanBytes(total), files: count(files, "file"), when: humanTime(scan.finished_at || scan.started_at) }, `${humanBytes(total)} in ${count(files, "file")}, measured ${humanTime(scan.finished_at || scan.started_at)}`)
+    : ZogographI18n.t("storage.types_total", { bytes: humanBytes(total), files: count(files, "file") }, `${humanBytes(total)} in ${count(files, "file")}`);
 }
 
 /*
@@ -4131,7 +4131,7 @@ function renderTypePie(scans, total) {
 
   if (categories.length) {
     drawPieChart($("typePie"), slices, {
-      empty: "Not measured yet",
+      empty: ZogographI18n.t("storage.not_measured_yet", {}, "Not measured yet"),
       inner: categories.map(c => ({
         label: `${c.name} (watched)`,
         value: c.bytes,
@@ -4148,7 +4148,7 @@ function renderTypePie(scans, total) {
     return;
   }
 
-  drawPieChart($("typePie"), slices, { empty: "Not measured yet" });
+  drawPieChart($("typePie"), slices, { empty: ZogographI18n.t("storage.not_measured_yet", {}, "Not measured yet") });
   $("pieNote").textContent =
     "Every file counted once, so the slices are the whole account.";
 }

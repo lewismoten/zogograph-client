@@ -1244,6 +1244,7 @@
   "storage.check_again": "फिर जाँचें",
   "storage.host_logs_help": "host_log_paths में दिए गए लॉग root के हैं और इस खाते के बाहर रहते हैं। अधिकांश साझा सर्वरों पर वे सूचीबद्ध होंगे और उन तक पहुँच अस्वीकार होगी; यही अपने-आप में उत्तर है। जहाँ होस्ट पढ़ने की अनुमति देता है, वे खाते के अपने लॉग के समान व्यूअर में खुलते हैं।",
   "storage.scan_now": "अभी स्कैन करें",
+  "storage.types_measured": "{{files}} में {{bytes}}, मापा गया {{when}}", "storage.types_total": "{{files}} में {{bytes}}", "storage.not_measured_yet": "अभी मापा नहीं गया",
   "storage.first_scan_running": "पहला स्कैन अभी चल रहा है।", "storage.no_completed_scan": "अभी तक कोई स्कैन पूरा नहीं हुआ है।", "storage.last_scan_label": "पिछला स्कैन", "storage.scan_took": "लगा {{duration}}", "storage.seen_label": "देखा गया", "storage.files_in_directories": "{{directories}} निर्देशिकाओं में {{files}} फ़ाइलें", "storage.scans_in_range": "इस दायरे में स्कैन", "storage.each_chart_point": "नीचे के चार्ट में हर बिंदु", "storage.not_enough_trend": "रुझान बनाने के लिए पर्याप्त नहीं", "storage.last_scan_reported": "पिछले स्कैन ने बताया: {{error}}", "storage.types_not_measured": "पिछला स्कैन इसे मापने से पहले चला था। अगला इसे भर देगा।", "storage.no_scan_in_range": "इस दायरे में कोई पूरा स्कैन नहीं है।",
   "storage.scanning": "स्कैन हो रहा है… ({{elapsed}})",
   "storage.history": "इतिहास",

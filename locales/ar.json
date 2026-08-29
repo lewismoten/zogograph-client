@@ -1230,6 +1230,7 @@
   "storage.check_again": "تحقق مجددًا",
   "storage.host_logs_help": "السجلات المسماة في host_log_paths تخص root وتوجد خارج هذا الحساب. في معظم الخوادم المشتركة ستُدرج ثم يُرفض الوصول إليها، وهذه إجابة بحد ذاتها. عندما يمنح المضيف إذن القراءة، تُفتح في العارض نفسه المستخدم لسجلات الحساب.",
   "storage.scan_now": "افحص الآن",
+  "storage.types_measured": "{{bytes}} في {{files}}، قيس {{when}}", "storage.types_total": "{{bytes}} في {{files}}", "storage.not_measured_yet": "لم يُقَس بعد",
   "storage.first_scan_running": "يجري الفحص الأول الآن.", "storage.no_completed_scan": "لا يوجد فحص مكتمل بعد.", "storage.last_scan_label": "آخر فحص", "storage.scan_took": "استغرق {{duration}}", "storage.seen_label": "شوهد", "storage.files_in_directories": "{{files}} ملفًا في {{directories}} دليلًا", "storage.scans_in_range": "الفحوصات في هذا النطاق", "storage.each_chart_point": "كل نقطة في المخططات أدناه", "storage.not_enough_trend": "لا تكفي البيانات لرسم اتجاه", "storage.last_scan_reported": "أفاد آخر فحص: {{error}}", "storage.types_not_measured": "جرى آخر فحص قبل قياس هذا. سيكمله الفحص التالي.", "storage.no_scan_in_range": "لا يوجد فحص مكتمل في هذا النطاق.",
   "storage.scanning": "جارٍ الفحص… ({{elapsed}})",
   "storage.history": "السجل",

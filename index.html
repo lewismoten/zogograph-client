@@ -1903,12 +1903,12 @@
 <section class="view" data-view="cpu-procs" hidden>
 <section class="panel" id="cpuProcsPanel">
   <div class="panel-head">
-    <h2>What is burning it</h2>
+    <h2 data-i18n="cpu.procs_title">What is burning it</h2>
   </div>
-  <p class="muted small sub-note">
+  <p class="muted small sub-note" data-i18n-rich="cpu.procs_help">
     Processor use per process, read as root, so this is every account on the
-    machine and not only this one. Percentages here are of <em>one core</em>, the
-    way <code>top</code> reports them — a process with four busy threads shows
+    machine and not only this one. Percentages here are of <em data-i18n-tag="core">one core</em>, the
+    way <code data-i18n-tag="top">top</code> reports them — a process with four busy threads shows
     400%, which is a fact about it rather than an error. That is the opposite
     convention to every other percentage on these pages, and the columns say so.
   </p>
@@ -1916,13 +1916,13 @@
   <div id="cpuProcsContent" hidden>
     <p class="muted small" id="cpuProcsNote"></p>
     <div id="cpuProcs"></div>
-    <p class="muted small sub-note">
+    <p class="muted small sub-note" data-i18n-rich="cpu.procs_visibility_help">
       A process is only here if it was alive for two consecutive readings or has
       burned real time since it started. Work that arrives and leaves inside one
       minute — a fork-per-request server, a tight cron loop — can hold a core
       permanently without a single one of its processes ever appearing in this
       table. If the machine is busy and this list is not,
-      <a href="#/cpu-queue">the fork rate</a> is where that shows up.
+      <a href="#/cpu-queue" data-i18n-tag="fork_rate">the fork rate</a> is where that shows up.
     </p>
   </div>
 </section>

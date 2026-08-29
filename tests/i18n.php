@@ -11,6 +11,7 @@ $typeGrowthCard = file_get_contents($root . '/cards/type-growth.js');
 $otherExtensionsCard = file_get_contents($root . '/cards/other-extensions.js');
 $cpuQueueCard = file_get_contents($root . '/cards/cpu-queue.js');
 $hostMemoryCard = file_get_contents($root . '/cards/host-memory.js');
+$uptimeCard = file_get_contents($root . '/cards/uptime.js');
 $setup = file_get_contents($root . '/setup.php');
 $setupPanels = file_get_contents($root . '/lib/setup-panels.php');
 $configure = file_get_contents($root . '/lib/configure.php');
@@ -68,6 +69,9 @@ i18nExpect($script !== false && str_contains($script, 'function humanBytes(value
 i18nExpect($script !== false && str_contains($script, 'manifest.locales.length === 0')
     && str_contains($script, 'manifest.locales.every(prefix => typeof prefix === "string"'),
     'core card packages can omit a declared localization namespace');
+i18nExpect($script !== false && substr_count($script, 'setHostCard(') === 4
+    && substr_count($script, '=> setHostCard(') === 3,
+    'a host summary card bypasses the core card-package boundary');
 i18nExpect($page !== false && str_contains($page, 'src="cards/overview-vitals.js"')
     && $overviewCards !== false && str_contains($overviewCards, 'window.ZogographOverviewVitalsCards')
     && str_contains($overviewCards, 'id: "core-overview-vitals"') && str_contains($overviewCards, 'locales: ["overview."]')
@@ -106,6 +110,12 @@ i18nExpect($page !== false && str_contains($page, 'src="cards/host-memory.js"')
     && str_contains($hostMemoryCard, 'render(input, helpers)')
     && $script !== false && str_contains($script, 'renderCoreCardPackage(ZogographHostMemoryCard, "core-host-memory", {'),
     'host memory cards are not isolated behind their core card-module boundary');
+i18nExpect($page !== false && str_contains($page, 'src="cards/uptime.js"')
+    && $uptimeCard !== false && str_contains($uptimeCard, 'id: "core-uptime"')
+    && str_contains($uptimeCard, 'locales: ["uptime."]')
+    && str_contains($uptimeCard, 'helpers: ["setCard", "humanDuration", "humanTime", "i18n"]')
+    && $script !== false && str_contains($script, 'renderCoreCardPackage(ZogographUptimeCard, "core-uptime",'),
+    'uptime dashboard card is not isolated behind its core card-module boundary');
 i18nExpect($script !== false && str_contains($script, 'function humanDuration(seconds)')
     && str_contains($script, '"duration.value"')
     && is_array($english) && isset($english['duration.value']),

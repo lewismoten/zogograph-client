@@ -595,16 +595,16 @@
 </section>
 
 <section class="view" data-view="charts" hidden>
-<p class="muted small sub-note">
+<p class="muted small sub-note" data-i18n-rich="charts.help">
   The five measurements that describe the machine as a whole, over whatever
   range is selected. The gauges on the overview say where each one is
-  <em>now</em>; these say how it got there, which is the half that tells you
+  <em data-i18n-tag="now">now</em>; these say how it got there, which is the half that tells you
   whether it is going to be a problem.
 </p>
 <div class="grid">
   <section class="panel">
-    <h2>Room left</h2>
-    <p class="muted small sub-note" id="roomNote">
+    <h2 data-i18n="charts.room_title">Room left</h2>
+    <p class="muted small sub-note" id="roomNote" data-i18n="charts.room_help">
       Disk space and inodes. Either can run out on its own — a disk with free
       gigabytes and no inodes still refuses to create a file.
     </p>
@@ -612,24 +612,24 @@
   </section>
 
   <section class="panel">
-    <h2>CPU and memory</h2>
-    <p class="muted small sub-note" id="cpuNote">
+    <h2 data-i18n="charts.cpu_title">CPU and memory</h2>
+    <p class="muted small sub-note" id="cpuNote" data-i18n="charts.cpu_help">
       Share of what this account may use, since the previous reading.
     </p>
     <canvas id="cpuChart"></canvas>
   </section>
 
   <section class="panel">
-    <h2>Disk I/O</h2>
-    <p class="muted small sub-note" id="ioNote">
+    <h2 data-i18n="charts.io_title">Disk I/O</h2>
+    <p class="muted small sub-note" id="ioNote" data-i18n="charts.io_help">
       Bytes actually reaching a disk, not bytes served from cache.
     </p>
     <canvas id="ioChart"></canvas>
   </section>
 
   <section class="panel">
-    <h2>Load average</h2>
-    <p class="muted small sub-note">
+    <h2 data-i18n="charts.load_title">Load average</h2>
+    <p class="muted small sub-note" data-i18n="charts.load_help">
       Not a percentage: it is how many processes wanted to run at once. Compare
       it to the core count — at one per core the machine is busy, above that
       work is queueing.
@@ -638,8 +638,8 @@
   </section>
 
   <section class="panel">
-    <h2>Network</h2>
-    <p class="muted small sub-note">
+    <h2 data-i18n="charts.network_title">Network</h2>
+    <p class="muted small sub-note" data-i18n="charts.network_help">
       Bytes a second in and out, summed over the real interfaces. Loopback is
       not counted.
     </p>

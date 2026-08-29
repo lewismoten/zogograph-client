@@ -97,7 +97,7 @@ require_once __DIR__ . '/ai-tools/open-page.php';
  */
 function aiToolCatalogue(): array
 {
-    return [
+    $tools = [
 
         ...aiToolCurrentStatusPackage(),
         ...aiToolMeasurementHistoryPackage(),
@@ -171,6 +171,21 @@ function aiToolCatalogue(): array
         /* ---------------------------------------------------- the browser -- */
 
     ];
+
+    /*
+     * Each declaration above comes from one file under ai-tools/.  Make that
+     * package boundary explicit in the public catalogue as well: clients can
+     * now attach a tool's own translations without guessing from a group or a
+     * display label, and a future signed package has the same identity shape.
+     */
+    foreach ($tools as $name => &$tool) {
+        $slug = str_replace('_', '-', (string)$name);
+        $tool['package'] = 'core-ai-' . $slug;
+        $tool['locale_namespace'] = 'ai-tools.' . $slug . '.';
+    }
+    unset($tool);
+
+    return $tools;
 }
 
 /**

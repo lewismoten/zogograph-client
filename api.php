@@ -8755,6 +8755,8 @@ function aiSettingsView(array $config, PDO $pdo, bool $signedIn): array
 
         $tools[] = [
             'name' => $name,
+            'package' => (string)($tool['package'] ?? ''),
+            'locale_namespace' => (string)($tool['locale_namespace'] ?? ''),
             'group' => $tool['group'],
             'where' => $tool['where'],
             'summary' => $tool['summary'],

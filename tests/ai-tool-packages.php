@@ -11,6 +11,9 @@ $catalogue = file_get_contents($root . '/lib/aitools.php');
 aiToolPackageExpect($catalogue !== false, 'central AI tool catalogue is unavailable');
 aiToolPackageExpect(preg_match('/^\s{8}\'[a-z0-9_]+\'\s*=>\s*\[/m', $catalogue) !== 1,
     'central AI tool catalogue still contains an inline tool declaration');
+aiToolPackageExpect(str_contains($catalogue, "\$tool['package'] = 'core-ai-' . \$slug;")
+    && str_contains($catalogue, "\$tool['locale_namespace'] = 'ai-tools.' . \$slug . '.';"),
+    'core AI tool packages do not expose stable package and locale identities');
 
 $modules = glob($root . '/lib/ai-tools/*.php') ?: [];
 aiToolPackageExpect($modules !== [], 'no core AI tool modules were found');

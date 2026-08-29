@@ -209,6 +209,12 @@ foreach (array_unique($pageKeys[1] ?? []) as $key) {
     i18nExpect(isset($english[$key]), "dashboard i18n attribute key $key has no English fallback");
 }
 $setupLocaleSources = (string)$setup . "\n" . (string)file_get_contents($root . '/lib/setup-cron-editor.php');
+preg_match_all('/<(?:input|textarea)\\b[^>]*\\bplaceholder="[^"]+"[^>]*>/i', $setupLocaleSources, $setupPlaceholderNodes);
+foreach ($setupPlaceholderNodes[0] ?? [] as $node) {
+    i18nExpect(str_contains($node, 'data-i18n-placeholder="')
+        || str_contains($node, 'data-i18n-placeholder-dynamic="server-path"'),
+        'Setup static placeholder is not backed by an i18n key');
+}
 preg_match_all('/data-i18n(?:-placeholder|-title|-aria-label|-alt)?="([a-z][\\w.-]+)"/', $setupLocaleSources, $setupKeys);
 foreach (array_unique($setupKeys[1] ?? []) as $key) {
     i18nExpect(isset($english[$key]), "setup i18n attribute key $key has no English fallback");

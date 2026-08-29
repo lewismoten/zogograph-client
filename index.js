@@ -28601,7 +28601,7 @@ const domainState_ = { data: null };
 async function refreshDomains() {
   const body = $("domainBody");
   if (!state.signedIn) {
-    body.replaceChildren(note("Sign in to watch a domain."));
+    body.replaceChildren(note(ZogographI18n.t("domain.sign_in_watch", {}, "Sign in to watch a domain.")));
     return;
   }
 
@@ -28626,18 +28626,37 @@ function renderDomains(data) {
   if (!data.have_whois) {
     const availability = document.createElement("button");
     availability.className = "link domain-capability";
-    availability.textContent = "\u26a0 whois availability";
-    availability.title = "Explain how domain expiry lookups run";
+    availability.textContent = ZogographI18n.t("domain.whois_availability", {}, "⚠ WHOIS availability");
+    availability.title = ZogographI18n.t(
+      "domain.whois_availability_help",
+      {},
+      "Explain how domain expiry lookups run",
+    );
     availability.addEventListener("click", () => {
       const detail = [note(data.host_has_whois
-        ? "The root collector can run whois. This web account cannot, so the collector fetches expiry details on its normal run."
-        : "This web account and the latest host capability sweep do not show whois as available.")];
+        ? ZogographI18n.t(
+          "domain.whois_host_only",
+          {},
+          "The root collector can run WHOIS. This web account cannot, so the collector fetches expiry details on its normal run.",
+        )
+        : ZogographI18n.t(
+          "domain.whois_unavailable",
+          {},
+          "This web account and the latest host capability sweep do not show WHOIS as available.",
+        ))];
       if (data.missing) detail.push(missingCommandNote(
         data.missing,
         ZogographI18n.t("capabilities.this_account_or_host", {}, "this account or the host"),
       ));
-      showListDialog("WHOIS availability", detail,
-        "The dashboard separates the web account's permissions from the host collector's tools.");
+      showListDialog(
+        ZogographI18n.t("domain.whois_availability_title", {}, "WHOIS availability"),
+        detail,
+        ZogographI18n.t(
+          "domain.whois_availability_note",
+          {},
+          "The dashboard separates the web account's permissions from the host collector's tools.",
+        ),
+      );
     });
     parts.push(availability);
   }
@@ -28650,15 +28669,15 @@ function renderDomains(data) {
      * draining, and eleven rows reading "not checked" is indistinguishable
      * from eleven failures without this line.
      */
-    parts.push(note(
-      `${count(data.queue.due, "domain")} due, and ${data.queue.per_run} looked up per run \u2014 `
-      + "registries rate-limit anyone who asks faster, and a blocked address reports every "
-      + "domain as unknown. The oldest waits least."
-    ));
+    parts.push(note(ZogographI18n.t(
+      "domain.queue_waiting",
+      { due: data.queue.due, perRun: data.queue.per_run },
+      "{{due, number}} domains are due, with {{perRun, number}} looked up per run — registries rate-limit anyone who asks faster, and a blocked address reports every domain as unknown. The oldest waits least.",
+    )));
   }
 
   if (!data.rows.length) {
-    parts.push(note("No domains are being watched."));
+    parts.push(note(ZogographI18n.t("domain.none_watched", {}, "No domains are being watched.")));
     body.replaceChildren(...parts);
     return;
   }

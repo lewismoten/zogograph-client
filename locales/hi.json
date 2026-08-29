@@ -1445,6 +1445,8 @@
   "backup.jetbackup_title": "JetBackup",
   "backup.jetbackup_help": "बैकअप सिस्टम अपने बैकअप के बारे में जो बताता है, वही files0000000005 नाम की डायरेक्टरी के पीछे का खाता और तारीख जानने का एकमात्र स्थान है। इसके लिए JetBackup कमांड लाइन टूल और सामान्यतः root के रूप में चलाना आवश्यक है।",
   "host.memory_title": "मेमोरी",
+  "chart.compaction_bucket": "हर बिंदु {{duration}} को कवर करता है और उस अवधि का सबसे खराब मान दिखाता है, औसत नहीं।",
+  "chart.compaction_disk": "यहाँ की सबसे पुरानी रीडिंग डिस्क पर भी कॉम्पैक्ट की गई हैं, एक पंक्ति में {{readings, number}} रीडिंग तक। अलर्ट के आस-पास की रीडिंग कभी कॉम्पैक्ट नहीं की जातीं।",
   "host.memory_committed": "प्रतिबद्ध मेमोरी",
   "host.memory_collector_arc": "गहरा चाप: कलेक्टर ट्री {{amount}} PSS",
   "host.memory_committed_sub": "{{committed}} / {{total}} · {{available}} अभी उपलब्ध",

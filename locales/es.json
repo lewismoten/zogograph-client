@@ -1449,6 +1449,8 @@
   "backup.jetbackup_title": "JetBackup",
   "backup.jetbackup_help": "La información que el sistema de copias de seguridad ofrece sobre sus propias copias es el único lugar donde se encuentra la cuenta y la fecha tras un directorio llamado files0000000005. Requiere la herramienta de línea de comandos JetBackup y normalmente ejecutarse como root.",
   "host.memory_title": "Memoria",
+  "chart.compaction_bucket": "Cada punto cubre {{duration}} y muestra el peor valor de ese período, no un promedio.",
+  "chart.compaction_disk": "Las lecturas más antiguas también se compactan en el disco, hasta {{readings, number}} lecturas por fila. Las lecturas cercanas a una alerta nunca se compactan.",
   "host.memory_committed": "Memoria comprometida",
   "host.memory_collector_arc": "arco oscuro: árbol del recopilador {{amount}} PSS",
   "host.memory_committed_sub": "{{committed}} de {{total}} · aún hay {{available}} disponibles",

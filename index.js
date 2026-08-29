@@ -20449,13 +20449,12 @@ function showCompactionNote(vitals) {
    * and neither is something to leave the reader to infer.
    */
   if (bucket > 0) {
-    parts.push(`Each point covers ${humanDuration(bucket)} and shows the worst value in `
-      + `that period, not an average.`);
+    parts.push(ZogographI18n.t("chart.compaction_bucket", { duration: humanDuration(bucket) },
+      "Each point covers {{duration}} and shows the worst value in that period, not an average."));
   }
   if (Number.isFinite(perPoint) && perPoint > 1) {
-    parts.push(`The oldest readings here are also compacted on disk, up to `
-      + `${count(perPoint, "reading")} to a row. Readings from around an alert are never `
-      + `compacted.`);
+    parts.push(ZogographI18n.t("chart.compaction_disk", { readings: perPoint },
+      "The oldest readings here are also compacted on disk, up to {{readings, number}} readings to a row. Readings from around an alert are never compacted."));
   }
 
   if (parts.length === 0) {

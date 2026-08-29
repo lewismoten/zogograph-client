@@ -1532,6 +1532,8 @@
   "backup.jetbackup_title": "JetBackup",
   "backup.jetbackup_help": "What the backup system says about its own backups is the only place the account and date behind a directory called files0000000005 can be found. It needs the JetBackup command line tool and usually needs running as root.",
   "host.memory_title": "Memory",
+  "chart.compaction_bucket": "Each point covers {{duration}} and shows the worst value in that period, not an average.",
+  "chart.compaction_disk": "The oldest readings here are also compacted on disk, up to {{readings, number}} readings to a row. Readings from around an alert are never compacted.",
   "host.memory_committed": "Memory committed",
   "host.memory_collector_arc": "dark arc: collector tree {{amount}} PSS",
   "host.memory_committed_sub": "{{committed}} of {{total}} · {{available}} still available",

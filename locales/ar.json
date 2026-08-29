@@ -1431,6 +1431,8 @@
   "backup.jetbackup_title": "JetBackup",
   "backup.jetbackup_help": "ما يقوله نظام النسخ الاحتياطي عن نسخه هو المكان الوحيد لمعرفة الحساب والتاريخ خلف مجلد اسمه files0000000005. يتطلب أداة سطر أوامر JetBackup، وعادةً التشغيل بصفة root.",
   "host.memory_title": "الذاكرة",
+  "chart.compaction_bucket": "تغطي كل نقطة {{duration}} وتعرض أسوأ قيمة في تلك الفترة، لا متوسطًا.",
+  "chart.compaction_disk": "تُضغط أقدم القراءات هنا أيضًا على القرص، حتى {{readings, number}} قراءة في الصف. لا تُضغط القراءات المحيطة بتنبيه أبدًا.",
   "host.memory_committed": "الذاكرة الملتزم بها",
   "host.memory_collector_arc": "قوس داكن: شجرة الجامع {{amount}} PSS",
   "host.memory_committed_sub": "{{committed}} من {{total}} · ما زال {{available}} متاحًا",

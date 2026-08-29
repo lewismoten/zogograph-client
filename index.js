@@ -26269,7 +26269,10 @@ function renderRegexResult(out, groupInput) {
 
     const which = document.createElement("span");
     which.className = "muted small";
-    which.textContent = `Match ${regexState.at + 1} of ${result.matches.length}`;
+    which.textContent = ZogographI18n.t("regex.match_position", {
+      current: regexState.at + 1,
+      total: result.matches.length,
+    }, "Match {{current, number}} of {{total, number}}");
     nav.appendChild(which);
     parts.push(nav);
   }
@@ -26280,11 +26283,11 @@ function renderRegexResult(out, groupInput) {
     keep.type = "button";
     keep.className = "link";
     keep.textContent = ZogographI18n.t("regex.keep_group", {}, "Keep this one");
-    keep.title = `Record group ${group.n} on every run`;
+    keep.title = ZogographI18n.t("regex.record_group", { group: group.n }, "Record group {{group, number}} on every run");
     keep.disabled = !groupInput || Number(groupInput.value) === group.n;
     keep.addEventListener("click", () => {
       groupInput.value = String(group.n);
-      notice(`This check will record group ${group.n}.`, true);
+      notice(ZogographI18n.t("regex.group_recorded", { group: group.n }, "This check will record group {{group, number}}."), true);
       renderRegexResult(out, groupInput);
     });
 

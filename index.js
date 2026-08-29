@@ -11879,7 +11879,7 @@ function showPathHygieneRename(row) {
 async function refreshEncryptionStatus() {
   const body = $("encryptionBody");
   if (!body) return;
-  if (!state.signedIn) { body.replaceChildren(note("Sign in to view protection status.")); return; }
+  if (!state.signedIn) { body.replaceChildren(note(ZogographI18n.t("encryption.status_sign_in", {}, "Sign in to view protection status."))); return; }
   try { renderEncryptionStatus(await api("encryption-status")); }
   catch (error) { body.replaceChildren(note(String(error.message || error))); }
 }

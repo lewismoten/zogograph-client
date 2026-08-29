@@ -1528,7 +1528,7 @@
 <section class="view" data-view="net-labels" hidden>
 <section class="panel" id="labelsPanel">
   <div class="panel-head">
-    <h2>Your own names</h2>
+    <h2 data-i18n="metadata.labels_title">Your own names</h2>
   </div>
   <p class="muted small sub-note">
     A report full of <code>165.245.160.135</code> and <code>8000</code> is one
@@ -1546,9 +1546,9 @@
   </p>
   <form id="labelForm" class="pattern-row">
     <select id="labelKind">
-      <option value="address">Address or network</option>
-      <option value="port">Port</option>
-      <option value="header">HTTP header</option>
+      <option value="address" data-i18n="metadata.label_kind_address">Address or network</option>
+      <option value="port" data-i18n="metadata.label_kind_port">Port</option>
+      <option value="header" data-i18n="metadata.label_kind_header">HTTP header</option>
     </select>
     <input type="text" id="labelMatch" spellcheck="false" autocomplete="off"
            placeholder="1.2.3.4, 10.0.0.0/8, 8000, or x-ac" data-i18n-placeholder="metadata.label_match_placeholder">
@@ -1556,7 +1556,7 @@
            placeholder="Lewis: home" data-i18n-placeholder="metadata.label_text_placeholder">
     <input type="text" id="labelNote" spellcheck="false" autocomplete="off"
            placeholder="a note (optional)" data-i18n-placeholder="metadata.optional_note_placeholder">
-    <button type="submit">Add it</button>
+    <button type="submit" data-i18n="action.add">Add it</button>
   </form>
   <div id="labelsBody"></div>
 </section>

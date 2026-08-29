@@ -951,10 +951,10 @@
 <section class="view" data-view="mem-users" hidden>
 <section class="panel" id="memUsersPanel">
   <div class="panel-head">
-    <h2>Memory by user</h2>
-    <button id="memUsersRefresh" class="link">Refresh</button>
+    <h2 data-i18n="host.memory_by_user">Memory by user</h2>
+    <button id="memUsersRefresh" class="link" data-i18n="action.refresh">Refresh</button>
   </div>
-  <p class="muted small sub-note">The column CageFS hides. Inside a cage this account sees only its own processes, so who else is using the machine's memory is unanswerable from anywhere but here.</p>
+  <p class="muted small sub-note" data-i18n="host.memory_by_user_help">The column CageFS hides. Inside a cage this account sees only its own processes, so who else is using the machine's memory is unanswerable from anywhere but here.</p>
   <div id="memUsersBody"></div>
   <div id="memUsersContent" hidden>
     <p class="muted small sub-note">

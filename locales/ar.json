@@ -614,5 +614,6 @@
   "filter.all": "الكل",
   "storage.host_logs_title": "سجلات الخادم نفسه", "storage.check_again": "تحقق مجددًا", "storage.host_logs_help": "السجلات المسماة في host_log_paths تخص root وتوجد خارج هذا الحساب. في معظم الخوادم المشتركة ستُدرج ثم يُرفض الوصول إليها، وهذه إجابة بحد ذاتها. عندما يمنح المضيف إذن القراءة، تُفتح في العارض نفسه المستخدم لسجلات الحساب.",
   "storage.scan_now": "افحص الآن", "storage.scanning": "جارٍ الفحص… ({{elapsed}})",
-  "storage.history": "السجل", "storage.log": "السجل التشغيلي", "action.close": "إغلاق", "log.search": "بحث", "log.lines": "الأسطر", "log.newer": "الأحدث", "log.older": "الأقدم"
+  "storage.history": "السجل", "storage.log": "السجل التشغيلي", "action.close": "إغلاق", "log.search": "بحث", "log.lines": "الأسطر", "log.newer": "الأحدث", "log.older": "الأقدم",
+  "storage.offender_title": "ما الذي يستهلك المساحة", "filter.category": "الفئة", "storage.category_trash": "سلة المهملات", "storage.category_logs": "السجلات", "storage.category_temp": "ملفات مؤقتة", "filter.kind": "النوع", "storage.kind_files": "ملفات", "storage.kind_directories": "مجلدات", "storage.delete_selected": "احذف المحدد", "filter.show": "اعرض", "storage.sort_size": "الأكبر", "storage.sort_growth": "نما أكثر منذ آخر فحص", "storage.sort_hour": "نما أكثر في الساعة الماضية", "storage.sort_today": "نما أكثر اليوم", "storage.sort_week": "نما أكثر خلال 7 أيام", "storage.sort_new": "ظهر حديثًا", "storage.sort_deleted": "اختفى منذ آخر فحص", "storage.masked_names": "تُخفى الأسماء حتى تسجّل الدخول. الأحجام والنمو حقيقيان."
 }

@@ -758,45 +758,43 @@
 </section>
 <section class="panel" id="offenderPanel">
   <div class="panel-head">
-    <h2>What is taking the space</h2>
+    <h2 data-i18n="storage.offender_title">What is taking the space</h2>
     <div class="panel-controls">
       <label class="inline">
-        Category
+        <span data-i18n="filter.category">Category</span>
         <select id="offCategory">
           <option value="" data-i18n="filter.all">All</option>
-          <option value="trash">Trash</option>
-          <option value="logs">Logs</option>
-          <option value="temp">Temp</option>
+          <option value="trash" data-i18n="storage.category_trash">Trash</option>
+          <option value="logs" data-i18n="storage.category_logs">Logs</option>
+          <option value="temp" data-i18n="storage.category_temp">Temp</option>
         </select>
       </label>
       <label class="inline">
-        Kind
+        <span data-i18n="filter.kind">Kind</span>
         <select id="offKind">
           <option value="" data-i18n="filter.all">All</option>
-          <option value="file">Files</option>
-          <option value="dir">Directories</option>
+          <option value="file" data-i18n="storage.kind_files">Files</option>
+          <option value="dir" data-i18n="storage.kind_directories">Directories</option>
         </select>
       </label>
-      <button id="offenderDelete" class="danger" disabled hidden>Delete selected</button>
+      <button id="offenderDelete" class="danger" disabled hidden data-i18n="storage.delete_selected">Delete selected</button>
       <label class="inline">
-        Show
+        <span data-i18n="filter.show">Show</span>
         <select id="offSort">
-          <option value="size">Largest</option>
-          <option value="growth">Grew most since last scan</option>
-          <option value="hour">Grew most in the last hour</option>
-          <option value="today">Grew most today</option>
-          <option value="week">Grew most in 7 days</option>
-          <option value="new">Newly appeared</option>
-          <option value="deleted">Gone since last scan</option>
+          <option value="size" data-i18n="storage.sort_size">Largest</option>
+          <option value="growth" data-i18n="storage.sort_growth">Grew most since last scan</option>
+          <option value="hour" data-i18n="storage.sort_hour">Grew most in the last hour</option>
+          <option value="today" data-i18n="storage.sort_today">Grew most today</option>
+          <option value="week" data-i18n="storage.sort_week">Grew most in 7 days</option>
+          <option value="new" data-i18n="storage.sort_new">Newly appeared</option>
+          <option value="deleted" data-i18n="storage.sort_deleted">Gone since last scan</option>
         </select>
       </label>
     </div>
   </div>
   <div id="emptyButtons" class="empty-buttons"></div>
   <p class="muted small chart-note" id="offNote"></p>
-  <p class="muted small" id="maskNote" hidden>
-    Names are hidden until you sign in. The sizes and the growth are real.
-  </p>
+  <p class="muted small" id="maskNote" hidden data-i18n="storage.masked_names">Names are hidden until you sign in. The sizes and the growth are real.</p>
   <div id="offenders"></div>
 </section>
 

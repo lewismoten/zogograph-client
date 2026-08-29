@@ -4474,10 +4474,15 @@ async function refreshOffenders() {
   $("offNote").textContent = data.note ?? "";
 
   const columns = [
-    { label: "Path", className: "name", render: row => row.display },
-    { label: "Kind", render: row => (row.kind === "dir" ? "directory" : "file") },
-    { label: "Category", render: row => row.category ?? "—" },
-    { label: "Files", className: "size", render: row => (row.kind === "dir" ? humanCount(row.files) : "") },
+    { label: ZogographI18n.t("storage.path"), className: "name", render: row => row.display },
+    {
+      label: ZogographI18n.t("storage.kind"),
+      render: row => row.kind === "dir"
+        ? ZogographI18n.t("storage.directory")
+        : ZogographI18n.t("storage.file"),
+    },
+    { label: ZogographI18n.t("storage.category"), render: row => row.category ?? "—" },
+    { label: ZogographI18n.t("storage.files"), className: "size", render: row => (row.kind === "dir" ? humanCount(row.files) : "") },
     {
       /*
        * Size, and a warning when the size is shared.

@@ -513,6 +513,8 @@
   "schedule.custom.weekday": "星期 (0–7)",
   "schedule.saved_preview": "已保存的预览",
   "schedule.installed": "当前已安装",
+  "domain.watch": "监控此域名",
+  "domain.now_watching": "现已监控 {{domain}}。",
   "cagefs.what_is": "什么是 CageFS",
   "terminal.running_in": "正在运行于 ",
   "terminal.return_home": "返回顶部",

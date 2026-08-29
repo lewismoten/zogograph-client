@@ -28925,11 +28925,11 @@ async function refreshWhois(name = "") {
       const actions = document.createElement("div");
       actions.className = "inspect-actions";
       const watch = document.createElement("button");
-      watch.textContent = "Watch this domain";
+      watch.textContent = ZogographI18n.t("domain.watch", {}, "Watch this domain");
       watch.addEventListener("click", async () => {
         try {
           await post("domain-save", { name: data.name, warn_days: 45, interval_seconds: 604800 });
-          notice(`Now watching ${data.name}.`, true);
+          notice(ZogographI18n.t("domain.now_watching", { domain: data.name }, "Now watching {{domain}}."), true);
           showView("domains");
         } catch (error) {
           notice(String(error.message || error));

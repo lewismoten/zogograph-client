@@ -515,6 +515,8 @@
   "schedule.custom.weekday": "Día de la semana (0–7)",
   "schedule.saved_preview": "Vista previa guardada",
   "schedule.installed": "Instalado actualmente",
+  "domain.watch": "Vigilar este dominio",
+  "domain.now_watching": "Ahora se vigila {{domain}}.",
   "cagefs.what_is": "Qué es CageFS",
   "terminal.running_in": "Ejecutando en ",
   "terminal.return_home": "volver al inicio",

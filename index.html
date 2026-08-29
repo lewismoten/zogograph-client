@@ -2415,19 +2415,19 @@
 <section class="view" data-view="sys-installed" hidden>
 <section class="panel" id="installedPanel">
   <div class="panel-head">
-    <h2>What is installed now</h2>
+    <h2 data-i18n="system.installed_title">What is installed now</h2>
   </div>
-  <p class="muted small sub-note">
+  <p class="muted small sub-note" data-i18n-rich="system.installed_help">
     What each thing is at this moment, and how long it has been that way. Where
     a program offers no readable version — and plenty do not — a fingerprint of
-    the file stands in: a weaker fact than <code>3.0.11 → 3.0.13</code>, but the
+    the file stands in: a weaker fact than <code data-i18n-tag="version">3.0.11 → 3.0.13</code>, but the
     same kind of fact, and the only one available.
   </p>
-  <p class="muted small sub-note">
-    This is the present tense of <a href="#/sys-changed">what changed</a>, and
+  <p class="muted small sub-note" data-i18n-rich="system.installed_history_help">
+    This is the present tense of <a href="#/sys-changed" data-i18n-tag="changed">what changed</a>, and
     the two answer different questions: this one is what you are running, that
     one is when it started being that. Both are filled in by the same check —
-    <a href="#/capabilities">what the host allows</a> is where it runs.
+    <a href="#/capabilities" data-i18n-tag="capabilities">what the host allows</a> is where it runs.
   </p>
   <div id="installedBody"></div>
 </section>
@@ -2436,12 +2436,12 @@
 <section class="view" data-view="sys-notes" hidden>
 <section class="panel" id="notesPanel">
   <div class="panel-head">
-    <h2>Notes</h2>
-    <button id="noteAdd" class="link">Write one</button>
+    <h2 data-i18n="notes.title">Notes</h2>
+    <button id="noteAdd" class="link" data-i18n="notes.add">Write one</button>
   </div>
-  <p class="muted small sub-note">
-    Every chart here answers <em>what happened</em>. None of them answer
-    <em>why</em>, and the why is almost never in the data — it is that somebody
+  <p class="muted small sub-note" data-i18n-rich="notes.help">
+    Every chart here answers <em data-i18n-tag="what">what happened</em>. None of them answer
+    <em data-i18n-tag="why">why</em>, and the why is almost never in the data — it is that somebody
     upgraded PHP on the Tuesday, or that the backup window moved. Six months
     later the chart still shows the step and nobody remembers the reason. A note
     is pinned to a moment and drawn on the charts it belongs to.

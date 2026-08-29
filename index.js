@@ -26127,8 +26127,8 @@ function showRegexTester(patternInput, groupInput) {
   const grab = document.createElement("button");
   grab.type = "button";
   grab.className = "link";
-  grab.textContent = "Fetch the page and use that";
-  grab.title = "Ask for the URL in the form above and paste its body in here";
+  grab.textContent = ZogographI18n.t("fetch.use_page", {}, "Fetch the page and use that");
+  grab.title = ZogographI18n.t("fetch.use_page_help", {}, "Ask for the URL in the form above and paste its body in here");
   tools.appendChild(grab);
 
   nodes.push(tools);
@@ -26166,22 +26166,25 @@ function showRegexTester(patternInput, groupInput) {
   grab.addEventListener("click", async () => {
     const url = $("urlUrl")?.value?.trim();
     if (!url) {
-      notice("Put an address in the form first.");
+      notice(ZogographI18n.t("fetch.enter_address", {}, "Put an address in the form first."));
       return;
     }
 
     grab.disabled = true;
-    grab.textContent = "Fetching…";
+    grab.textContent = ZogographI18n.t("action.fetching", {}, "Fetching…");
     try {
       const got = await api("fetch", { url, method: "GET", follow: "1" });
       if (!got.ok) throw new Error(got.error || "nothing came back");
       sample.value = got.body || "";
-      notice(`Fetched ${humanBytes(got.bytes)} from ${got.url}.`, true);
+      notice(ZogographI18n.t("fetch.fetched", {
+        bytes: got.bytes,
+        url: got.url,
+      }, "Fetched {{bytes, number}} bytes from {{url}}."), true);
     } catch (error) {
       notice(String(error.message || error));
     } finally {
       grab.disabled = false;
-      grab.textContent = "Fetch the page and use that";
+      grab.textContent = ZogographI18n.t("fetch.use_page", {}, "Fetch the page and use that");
     }
   });
 

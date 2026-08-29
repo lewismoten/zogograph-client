@@ -645,5 +645,6 @@
   "processes.trend_title": "此范围内报告的进程负载", "processes.stop_title": "按命令行停止", "processes.stop_help": "当名称不足以精确定位时，例如有十二个 {{webalizer}} 进程，其中一个正在处理某个特定日志。这是 {{pkill}}，但有两个重要区别：模式在此处匹配，而不会交给 shell；它会在执行前显示将要命中的内容。", "processes.show_matches": "显示匹配项",
   "host.last_busy_title": "上次繁忙是什么时候", "host.last_busy_help": "每当读数超过 CPU 或内存阈值时都会自动记录，因此夜间峰值在早晨仍有答案。采集器及其运行的 {{ps}} 会被排除：一份繁忙时刻的记录若把查看进程的工具本身列出来，按定义就是噪声。", "action.open_all": "全部展开",
   "network.intro": "这里的其他页面都在测量某种正在消耗的资源——磁盘、内存、CPU——但没有一个能说明原因。因每秒响应四千个 DNS 查询而占满 100% 的机器，看起来和因任何其他原因占满 100% 的机器完全一样；区别只能在线路上看到。", "network.interfaces": "接口",
-  "network.open_ports_title": "开放端口", "network.ports_public_only": "仅可从外部访问", "network.open_ports_help": "哪些内容正在监听，以及每个端口通常由什么响应。端口号是惯例而非事实——任何内容都可能绑定 443。因此，服务列是预期，进程列才是现实；两者不一致时，那个差异才值得关注。"
+  "network.open_ports_title": "开放端口", "network.ports_public_only": "仅可从外部访问", "network.open_ports_help": "哪些内容正在监听，以及每个端口通常由什么响应。端口号是惯例而非事实——任何内容都可能绑定 443。因此，服务列是预期，进程列才是现实；两者不一致时，那个差异才值得关注。",
+  "network.peers_title": "谁已连接", "network.peers_help": "按另一端地址分组的已建立连接。之所以分组，是因为“一个地址占用了九百个套接字”才是有用的形态；九百行的平面列表虽然会陈述这一点，却无法呈现出来。"
 }

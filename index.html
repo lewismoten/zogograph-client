@@ -1731,9 +1731,9 @@
 <section class="view" data-view="whois" hidden>
 <section class="panel" id="whoisPanel">
   <div class="panel-head">
-    <h2>Look a name up</h2>
+    <h2 data-i18n="network.whois_title">Look a name up</h2>
   </div>
-  <p class="muted small sub-note">
+  <p class="muted small sub-note" data-i18n="network.whois_help">
     A one-off lookup for a name you are not watching — whether it is taken, who
     holds it, when it expires. Nothing is stored and no domain is added to the
     list; there is a button for that if the answer makes you want one.
@@ -1741,7 +1741,7 @@
   <form id="whoisForm" class="pattern-row">
     <input type="text" id="whoisName" spellcheck="false" autocomplete="off"
            placeholder="example.com" data-i18n-placeholder="network.domain_placeholder">
-    <button type="submit">Ask</button>
+    <button type="submit" data-i18n="network.whois_ask">Ask</button>
   </form>
   <div id="whoisBody"></div>
 </section>

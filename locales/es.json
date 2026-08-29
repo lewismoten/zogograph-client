@@ -1729,6 +1729,7 @@
   "host.daemon_stop_watching_notice": "{{service}} dejará de registrarse en la próxima lectura del host.",
   "host.daemon_watch_notice": "{{service}} volverá a registrarse en la próxima lectura del host.",
   "host.collector_loading": "Leyendo el recopilador del host…",
+  "host.sees_kernel": "Kernel {{kernel}}", "host.sees_device_readable": "contadores de dispositivo legibles", "host.sees_device_unreadable": "contadores de dispositivo no legibles", "host.sees_psi_available": "información de bloqueo por presión disponible", "host.sees_psi_unavailable": "información de bloqueo por presión no disponible", "host.sees_summary": "Como root, el recopilador ve: {{values}}.",
   "host.no_readings": "No hay lecturas del host.",
   "host.add_root_collector_cron": "Como root — conéctese por SSH o use la Terminal de WHM — añada esto al crontab de root con crontab -e:",
   "host.run_collector_once": "Después ejecútelo una vez a mano para ver lo que encuentra: {{command}}",

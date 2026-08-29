@@ -1711,6 +1711,7 @@
   "host.daemon_stop_watching_notice": "سيتوقف تسجيل {{service}} عند قراءة المضيف التالية.",
   "host.daemon_watch_notice": "سيُسجَّل {{service}} مجددًا عند قراءة المضيف التالية.",
   "host.collector_loading": "تجري قراءة جامع المضيف…",
+  "host.sees_kernel": "النواة {{kernel}}", "host.sees_device_readable": "عدادات الأجهزة قابلة للقراءة", "host.sees_device_unreadable": "عدادات الأجهزة غير قابلة للقراءة", "host.sees_psi_available": "معلومات توقف الضغط متاحة", "host.sees_psi_unavailable": "معلومات توقف الضغط غير متاحة", "host.sees_summary": "بصفته root، يرى الجامع: {{values}}.",
   "host.no_readings": "لا توجد قراءات للمضيف.",
   "host.add_root_collector_cron": "بصفة root — سجّل الدخول عبر SSH أو استخدم Terminal في WHM — أضف هذا إلى crontab الخاص بـ root باستخدام crontab -e:",
   "host.run_collector_once": "ثم شغّله يدويًا مرة واحدة لترى ما يجده: {{command}}",

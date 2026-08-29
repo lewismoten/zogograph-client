@@ -18926,15 +18926,19 @@ async function refreshHost() {
    * machine have PSI".
    */
   const seen = [];
-  if (s.kernel) seen.push(`Kernel ${s.kernel}`);
+  if (s.kernel) seen.push(ZogographI18n.t("host.sees_kernel", { kernel: s.kernel }, "Kernel {{kernel}}"));
   if (s.diskstats_available != null) {
-    seen.push(`device counters ${Number(s.diskstats_available) ? "readable" : "unreadable"}`);
+    seen.push(ZogographI18n.t(Number(s.diskstats_available)
+      ? "host.sees_device_readable" : "host.sees_device_unreadable", {},
+    Number(s.diskstats_available) ? "device counters readable" : "device counters unreadable"));
   }
   if (s.psi_available != null) {
-    seen.push(`pressure stall info ${Number(s.psi_available) ? "available" : "unavailable"}`);
+    seen.push(ZogographI18n.t(Number(s.psi_available)
+      ? "host.sees_psi_available" : "host.sees_psi_unavailable", {},
+    Number(s.psi_available) ? "pressure stall info available" : "pressure stall info unavailable"));
   }
   $("hostSeesNote").textContent = seen.length
-    ? `As root, the collector sees: ${seen.join(", ")}.`
+    ? ZogographI18n.t("host.sees_summary", { values: seen.join(", ") }, "As root, the collector sees: {{values}}.")
       // The reason, from the collector rather than from here: this page runs as
       // the account and cannot read /boot/config to find out.
       + (s.psi_reason ? ` ${s.psi_reason}` : "")

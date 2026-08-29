@@ -1812,6 +1812,7 @@
   "host.daemon_stop_watching_notice": "{{service}} will stop being recorded at the next host reading.",
   "host.daemon_watch_notice": "{{service}} will be recorded again at the next host reading.",
   "host.collector_loading": "Reading the host collector…",
+  "host.sees_kernel": "Kernel {{kernel}}", "host.sees_device_readable": "device counters readable", "host.sees_device_unreadable": "device counters unreadable", "host.sees_psi_available": "pressure stall info available", "host.sees_psi_unavailable": "pressure stall info unavailable", "host.sees_summary": "As root, the collector sees: {{values}}.",
   "host.no_readings": "No host readings.",
   "host.add_root_collector_cron": "As root — SSH in or use WHM's Terminal — add this to root's crontab with crontab -e:",
   "host.run_collector_once": "Then run it once by hand to see what it finds: {{command}}",

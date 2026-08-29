@@ -1711,6 +1711,7 @@
   "host.daemon_stop_watching_notice": "{{service}} 将在下一次主机读数时停止记录。",
   "host.daemon_watch_notice": "{{service}} 将在下一次主机读数时再次记录。",
   "host.collector_loading": "正在读取主机采集器…",
+  "host.sees_kernel": "内核 {{kernel}}", "host.sees_device_readable": "设备计数器可读", "host.sees_device_unreadable": "设备计数器不可读", "host.sees_psi_available": "压力停顿信息可用", "host.sees_psi_unavailable": "压力停顿信息不可用", "host.sees_summary": "作为 root，收集器可见：{{values}}。",
   "host.no_readings": "没有主机读数。",
   "host.add_root_collector_cron": "以 root 身份通过 SSH 登录或使用 WHM 的终端，将此项用 crontab -e 加入 root 的 crontab：",
   "host.run_collector_once": "然后手动运行一次，查看它会发现什么：{{command}}",

@@ -1725,6 +1725,7 @@
   "host.daemon_stop_watching_notice": "{{service}} को अगली होस्ट रीडिंग पर रिकॉर्ड करना बंद कर दिया जाएगा।",
   "host.daemon_watch_notice": "{{service}} को अगली होस्ट रीडिंग पर फिर रिकॉर्ड किया जाएगा।",
   "host.collector_loading": "होस्ट कलेक्टर पढ़ा जा रहा है…",
+  "host.sees_kernel": "कर्नेल {{kernel}}", "host.sees_device_readable": "डिवाइस काउंटर पढ़ने योग्य", "host.sees_device_unreadable": "डिवाइस काउंटर पढ़ने योग्य नहीं", "host.sees_psi_available": "प्रेशर स्टॉल जानकारी उपलब्ध", "host.sees_psi_unavailable": "प्रेशर स्टॉल जानकारी उपलब्ध नहीं", "host.sees_summary": "root के रूप में कलेक्टर देखता है: {{values}}।",
   "host.no_readings": "होस्ट की कोई रीडिंग नहीं है।",
   "host.add_root_collector_cron": "root के रूप में — SSH से साइन इन करें या WHM का Terminal इस्तेमाल करें — इसे crontab -e से root के crontab में जोड़ें:",
   "host.run_collector_once": "फिर यह क्या ढूँढता है, देखने के लिए इसे एक बार हाथ से चलाएँ: {{command}}",

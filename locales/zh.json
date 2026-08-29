@@ -1241,6 +1241,8 @@
   "storage.kind_files": "文件",
   "storage.kind_directories": "目录",
   "storage.delete_selected": "删除所选项",
+  "storage.delete_selected_count": "删除所选 {{count, number}} 项",
+  "storage.select_row": "选择 {{name}}",
   "filter.show": "显示",
   "storage.sort_size": "最大",
   "storage.sort_growth": "自上次扫描后增长最多",

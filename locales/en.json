@@ -1260,6 +1260,8 @@
   "storage.kind_files": "Files",
   "storage.kind_directories": "Directories",
   "storage.delete_selected": "Delete selected",
+  "storage.delete_selected_count": "Delete {{count, number}} selected",
+  "storage.select_row": "Select {{name}}",
   "filter.show": "Show",
   "storage.sort_size": "Largest",
   "storage.sort_growth": "Grew most since last scan",

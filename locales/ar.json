@@ -1241,6 +1241,8 @@
   "storage.kind_files": "ملفات",
   "storage.kind_directories": "مجلدات",
   "storage.delete_selected": "احذف المحدد",
+  "storage.delete_selected_count": "احذف {{count, number}} المحدد",
+  "storage.select_row": "حدد {{name}}",
   "filter.show": "اعرض",
   "storage.sort_size": "الأكبر",
   "storage.sort_growth": "نما أكثر منذ آخر فحص",

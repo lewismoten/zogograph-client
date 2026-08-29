@@ -5010,7 +5010,11 @@ function offenderPicker(row) {
   const box = document.createElement("input");
   box.type = "checkbox";
   box.checked = offenderPicked.has(row.path);
-  box.setAttribute("aria-label", `Select ${row.display}`);
+  box.setAttribute("aria-label", ZogographI18n.t(
+    "storage.select_row",
+    { name: row.display },
+    "Select {{name}}",
+  ));
   box.addEventListener("click", event => event.stopPropagation());
   box.addEventListener("change", () => {
     box.checked ? offenderPicked.add(row.path) : offenderPicked.delete(row.path);
@@ -5034,7 +5038,9 @@ function syncOffenderTools(rows) {
   const picked = offenderPicked.size;
   button.hidden = !state.signedIn;
   button.disabled = !picked;
-  button.textContent = picked ? `Delete ${count(picked, "selected item")}` : "Delete selected";
+  button.textContent = picked
+    ? ZogographI18n.t("storage.delete_selected_count", { count: picked }, "Delete {{count, number}} selected")
+    : ZogographI18n.t("storage.delete_selected", {}, "Delete selected");
 }
 
 /*

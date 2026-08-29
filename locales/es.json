@@ -1245,6 +1245,8 @@
   "storage.kind_files": "Archivos",
   "storage.kind_directories": "Directorios",
   "storage.delete_selected": "Eliminar selección",
+  "storage.delete_selected_count": "Eliminar {{count, number}} elementos seleccionados",
+  "storage.select_row": "Seleccionar {{name}}",
   "filter.show": "Mostrar",
   "storage.sort_size": "Más grandes",
   "storage.sort_growth": "Crecieron más desde el último análisis",

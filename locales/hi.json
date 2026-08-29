@@ -1241,6 +1241,8 @@
   "storage.kind_files": "फ़ाइलें",
   "storage.kind_directories": "डायरेक्टरी",
   "storage.delete_selected": "चयनित हटाएँ",
+  "storage.delete_selected_count": "चुने गए {{count, number}} हटाएँ",
+  "storage.select_row": "{{name}} चुनें",
   "filter.show": "दिखाएँ",
   "storage.sort_size": "सबसे बड़े",
   "storage.sort_growth": "पिछले स्कैन के बाद सबसे अधिक बढ़े",

@@ -4129,10 +4129,10 @@ function renderOtherExtensions(rows) {
   if (!rows.length) {
     const message = document.createElement("p");
     message.className = "muted";
-    message.append("Nothing landed in ");
+    message.append(ZogographI18n.t("storage.other_empty_before", {}, "Nothing landed in "));
     const other = document.createElement("code");
     other.textContent = ZogographI18n.t("chart.other", {}, "Other");
-    message.append(other, ", or the last scan ran before this was measured.");
+    message.append(other, ZogographI18n.t("storage.other_empty_after", {}, ", or the last scan ran before this was measured."));
     $("otherExtensions").replaceChildren(message);
     return;
   }
@@ -4141,14 +4141,14 @@ function renderOtherExtensions(rows) {
 
   renderTable("otherExtensions", rows, [
     {
-      label: "Extension",
+      label: ZogographI18n.t("storage.extension", {}, "Extension"),
       className: "name",
-      render: row => row.extension === "(none)" ? "(no extension)" : `.${row.extension}`,
+      render: row => row.extension === "(none)" ? ZogographI18n.t("storage.no_extension", {}, "(no extension)") : `.${row.extension}`,
     },
-    { label: "Size", className: "size", render: row => humanBytes(row.bytes) },
-    { label: "Files", className: "size", render: row => humanCount(row.files) },
+    { label: ZogographI18n.t("storage.size", {}, "Size"), className: "size", render: row => humanBytes(row.bytes) },
+    { label: ZogographI18n.t("storage.files", {}, "Files"), className: "size", render: row => humanCount(row.files) },
     {
-      label: "Of other",
+      label: ZogographI18n.t("storage.of_other", {}, "Of other"),
       className: "size",
       render: row => total ? `${((Number(row.bytes) / total) * 100).toFixed(1)}%` : "\u2014",
     },
@@ -4167,7 +4167,7 @@ function renderTypeGrowth(scans) {
   const canvas = $("typeGrowthChart");
 
   if (!history.length) {
-    drawLineChart(canvas, [], [], { empty: "No completed scans in this range yet" });
+    drawLineChart(canvas, [], [], { empty: ZogographI18n.t("storage.no_scans_in_range_yet", {}, "No completed scans in this range yet") });
     return;
   }
 

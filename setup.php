@@ -1270,7 +1270,7 @@ function webPage(
         if ($recoveryCodes !== []) {
             $out[] = '<div class="banner warn"><strong data-i18n="auth.recovery_title">Save these recovery codes now.</strong><p data-i18n="auth.recovery_help">They will not be shown again. Each code works once if your authenticator is unavailable.</p><pre><code>' . h(implode("\n", $recoveryCodes)) . '</code></pre><label class="row"><input type="checkbox" name="recovery_confirmed" value="1"> <span data-i18n="auth.recovery_confirm">I saved these recovery codes somewhere safe.</span></label><input type="hidden" name="setup_totp_token" value="' . h(setupTotpToken()) . '"><button type="submit" name="intent" value="ack-totp-recovery" data-i18n="auth.finish_recovery">Finish recovery-code setup</button></div>';
         } elseif ($pendingTotp !== '') {
-            $issuer = rawurlencode('Zogograph'); $account = rawurlencode('administrator');
+            $issuer = rawurlencode($brand); $account = rawurlencode('administrator');
             $uri = 'otpauth://totp/' . $issuer . ':' . $account . '?secret=' . rawurlencode($pendingTotp) . '&issuer=' . $issuer . '&algorithm=SHA1&digits=6&period=30';
             $qr = setupTotpQrImage($uri);
             $out[] = '<p data-i18n="auth.enter_secret">Enter this secret into your authenticator app:</p><pre><code>' . h($pendingTotp) . '</code></pre>'

@@ -13,5 +13,8 @@ brandingExpect(brandName(['branding' => ['name' => 'Northstar Monitor']]) === 'N
     'a configured product brand was not retained');
 brandingExpect(brandName(['branding' => ['name' => "bad\nname"]]) === 'Zogograph',
     'a control character was accepted in the product brand');
+$setup = file_get_contents(__DIR__ . '/../setup.php');
+brandingExpect($setup !== false && str_contains($setup, '$issuer = rawurlencode($brand)'),
+    'authenticator issuer does not use the configured product brand');
 
 echo "branding checks passed\n";

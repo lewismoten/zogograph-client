@@ -1814,6 +1814,7 @@
   "host.collector_loading": "Reading the host collector…",
   "host.sees_kernel": "Kernel {{kernel}}", "host.sees_device_readable": "device counters readable", "host.sees_device_unreadable": "device counters unreadable", "host.sees_psi_available": "pressure stall info available", "host.sees_psi_unavailable": "pressure stall info unavailable", "host.sees_summary": "As root, the collector sees: {{values}}.",
   "host.no_readings": "No host readings.",
+  "host.one_reading": "Only one host reading so far",
   "host.add_root_collector_cron": "As root — SSH in or use WHM's Terminal — add this to root's crontab with crontab -e:",
   "host.run_collector_once": "Then run it once by hand to see what it finds: {{command}}",
   "action.refresh": "Refresh",

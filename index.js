@@ -18856,11 +18856,11 @@ async function refreshHost() {
   $("hostMemNote").textContent = parts.join(" ");
 
   drawLineChart($("hostChart"), data.rows, [
-    { key: "used_bytes", label: "In use" },
-    { key: "cache_bytes", label: "Cache" },
-    { key: "slab", label: "Slab" },
-    { key: "unaccounted", label: "Other kernel/system" },
-  ], { axis: bytesAxis, zeroBased: true, empty: "Only one host reading so far" });
+    { key: "used_bytes", label: ZogographI18n.t("host.memory_card_in_use", {}, "Memory in use") },
+    { key: "cache_bytes", label: ZogographI18n.t("host.slab_cache", {}, "Cache") },
+    { key: "slab", label: ZogographI18n.t("host.kernel_slab_title", {}, "Kernel slab caches") },
+    { key: "unaccounted", label: ZogographI18n.t("host.memory_card_other_kernel", {}, "Other kernel/system memory") },
+  ], { axis: bytesAxis, zeroBased: true, empty: ZogographI18n.t("host.one_reading", {}, "Only one host reading so far") });
 
   /*
    * The two biggest in each column, marked.

@@ -5,6 +5,7 @@
   "action.copy": "نسخ",
   "action.copied": "تم النسخ",
   "terminal.copy_output": "نسخ المخرجات",
+  "setup.form_held": "لم تُحدَّث الصفحة أثناء التحرير. احفظ، أو انتقل بعيدًا ثم عد لترى ما حُفظ.",
   "package.settings": "الإعدادات",
   "package.add_secret": "إضافة سر",
   "package.manage_secrets": "إدارة الأسرار",

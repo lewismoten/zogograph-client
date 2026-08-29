@@ -5,6 +5,7 @@
   "action.copy": "Copy",
   "action.copied": "Copied",
   "terminal.copy_output": "Copy the output",
+  "setup.form_held": "Not refreshed while you are editing. Save, or move away and come back, to see what is stored.",
   "package.settings": "Settings",
   "package.add_secret": "Add secret",
   "package.manage_secrets": "Manage secrets",

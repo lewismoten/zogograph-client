@@ -5,6 +5,7 @@
   "action.copy": "Copiar",
   "action.copied": "Copiado",
   "terminal.copy_output": "Copiar la salida",
+  "setup.form_held": "No se actualizó mientras estaba editando. Guarde o salga y vuelva para ver qué se almacenó.",
   "package.settings": "Configuración",
   "package.add_secret": "Agregar secreto",
   "package.manage_secrets": "Administrar secretos",

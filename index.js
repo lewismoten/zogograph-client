@@ -5602,8 +5602,7 @@ function keepIfEditing(containerId, draw) {
     if (!said) {
       said = document.createElement("p");
       said.className = "form-held muted small";
-      said.textContent = "Not refreshed while you are editing. Save, or move away and "
-        + "come back, to see what is stored.";
+      said.textContent = ZogographI18n.t("setup.form_held", {}, "Not refreshed while you are editing. Save, or move away and come back, to see what is stored.");
       container.prepend(said);
     }
     return false;

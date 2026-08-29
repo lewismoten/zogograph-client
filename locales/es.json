@@ -515,6 +515,7 @@
   "schedule.custom.weekday": "Día de la semana (0–7)",
   "schedule.saved_preview": "Vista previa guardada",
   "schedule.installed": "Instalado actualmente",
+  "diagnosis.whole_answer": "La respuesta completa",
   "log.open_whole_file": "Abrir el archivo completo",
   "filter.any": "cualquiera",
   "filter.clear": "Borrar los filtros",

@@ -37,6 +37,17 @@ expectRefused(fn() => aiEndpointPolicy('openai', 'https://127.0.0.1/v1'),
     'hosted AI must reject loopback targets');
 expectRefused(fn() => aiEndpointPolicy('compatible', 'http://1.1.1.1:8443/v1'),
     'a remote compatible model must not use plain HTTP');
+$providerConnections = aiSettings(['ai' => [
+    'provider' => 'anthropic', 'base_url' => 'https://legacy.example/v1', 'api_key' => 'legacy',
+    'providers' => [
+        'anthropic' => ['base_url' => 'https://anthropic.example/v1', 'api_key' => 'anthropic-secret'],
+        'compatible' => ['base_url' => 'https://ollama.example:8443/v1', 'api_key' => ''],
+    ],
+]]);
+expect($providerConnections['base_url'] === 'https://anthropic.example/v1'
+    && $providerConnections['api_key'] === 'anthropic-secret'
+    && $providerConnections['connections']['compatible']['has_key'] === false,
+    'AI provider connections must keep endpoints and credentials separate');
 
 expectRefused(fn() => urlWatchEndpointPolicy('http://127.0.0.1/status'),
     'URL watch must reject unapproved private targets');

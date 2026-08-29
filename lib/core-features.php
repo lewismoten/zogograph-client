@@ -12,7 +12,7 @@ const CORE_FEATURES = [
         'setup_section' => 'features',
     ],
     'assistant' => [
-        'dashboard_routes' => ['sys-ai', 'sys-ai-past', 'sys-ai-identity', 'sys-ai-model', 'sys-ai-prices',
+        'dashboard_routes' => ['sys-ai', 'sys-ai-past', 'sys-ai-identity', 'sys-ai-model', 'sys-ai-providers', 'sys-ai-prices',
             'sys-ai-limits', 'sys-ai-images', 'sys-ai-tools', 'sys-ai-try', 'sys-ai-billing', 'sys-reports',
             'sys-memory', 'sys-ai-data'],
         'setup_section' => 'features',

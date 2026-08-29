@@ -8859,6 +8859,7 @@ function aiSettingsView(array $config, PDO $pdo, bool $signedIn): array
         'providers' => aiProviders(),
         'base_url' => $settings['base_url'],
         'model' => $settings['model'],
+        'connections' => $settings['connections'],
         // Whether one is set, never what it is.
         'has_key' => $settings['api_key'] !== '',
         'reasoning_effort' => $settings['reasoning_effort'],
@@ -9368,6 +9369,13 @@ function doAiSettingsSave(array $config, PDO $pdo, bool $post): array
 
     $current['ai']['enabled'] = ($_POST['enabled'] ?? '0') === '1';
     $current['ai']['provider'] = $provider;
+    $connections = is_array($current['ai']['providers'] ?? null)
+        ? $current['ai']['providers'] : [];
+    $connection = is_array($connections[$provider] ?? null) ? $connections[$provider] : [];
+    $connection['base_url'] = $base;
+    $connections[$provider] = $connection;
+    $current['ai']['providers'] = $connections;
+    // Keep the legacy values current for hand-maintained configuration files.
     $current['ai']['base_url'] = $base;
     $current['ai']['model'] = trim((string)($_POST['model'] ?? ''));
 
@@ -9529,11 +9537,12 @@ function doAiSettingsSave(array $config, PDO $pdo, bool $post): array
      * deliberate button.
      */
     $key = trim((string)($_POST['api_key'] ?? ''));
-    if ($key !== '') {
-        $current['ai']['api_key'] = $key;
-    }
-    if (($_POST['forget_key'] ?? '0') === '1') {
-        $current['ai']['api_key'] = '';
+    if ($key !== '') $current['ai']['providers'][$provider]['api_key'] = $key;
+    if (($_POST['forget_key'] ?? '0') === '1') $current['ai']['providers'][$provider]['api_key'] = '';
+    // Do not duplicate a new secret into the old shared field.
+    if ($provider === (string)($config['ai']['provider'] ?? $provider)) {
+        $current['ai']['api_key'] = (string)($current['ai']['providers'][$provider]['api_key']
+            ?? ($config['ai']['api_key'] ?? ''));
     }
 
     foreach (['price_in', 'price_out', 'price_cached'] as $field) {

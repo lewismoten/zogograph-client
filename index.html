@@ -374,11 +374,15 @@
     </a>
     <a class="nav-item nav-sub" href="#/sys-ai-model" data-nav="sys-ai-model" data-parent="sys-ai">
       <span class="nav-icon" aria-hidden="true">›</span>
-      <span class="nav-label" data-i18n="navigation.ai_model">Model</span>
+      <span class="nav-label" data-i18n="navigation.ai_selected_model">Selected model</span>
+    </a>
+    <a class="nav-item nav-sub" href="#/sys-ai-providers" data-nav="sys-ai-providers" data-parent="sys-ai">
+      <span class="nav-icon" aria-hidden="true">›</span>
+      <span class="nav-label" data-i18n="navigation.ai_providers">Providers</span>
     </a>
     <a class="nav-item nav-sub" href="#/sys-ai-prices" data-nav="sys-ai-prices" data-parent="sys-ai">
       <span class="nav-icon" aria-hidden="true">›</span>
-      <span class="nav-label" data-i18n="navigation.prices">Prices</span>
+      <span class="nav-label" data-i18n="navigation.ai_available_models">Available models</span>
     </a>
     <a class="nav-item nav-sub" href="#/sys-ai-limits" data-nav="sys-ai-limits" data-parent="sys-ai">
       <span class="nav-icon" aria-hidden="true">›</span>
@@ -2260,10 +2264,10 @@
 <section class="view" data-view="sys-ai-model" hidden>
 <section class="panel" id="aiModelPanel">
   <div class="panel-head">
-    <h2 data-i18n="ai.model_title">Model</h2>
+    <h2 data-i18n="ai.selected_model_title">Selected model</h2>
   </div>
   <p class="muted small sub-note" data-i18n="ai.model_help">
-    Which service to speak to, which model, and what it costs. Prices are per million
+    Choose a platform and an available model. Prices are per million
     tokens, in cents, and are optional — without them everything still works and the
     running total reports token counts rather than money, because a wrong price is worse
     than no price.
@@ -2274,10 +2278,18 @@
 </section>
 </section>
 
+<section class="view" data-view="sys-ai-providers" hidden>
+<section class="panel" id="aiProvidersPanel">
+  <div class="panel-head"><h2 data-i18n="ai.providers_title">Providers</h2></div>
+  <p class="muted small sub-note" data-i18n="ai.providers_help">Choose the platform, its endpoint, and any credentials it needs. Ollama-compatible servers may use no key; remote ones must use HTTPS.</p>
+  <form id="aiProvidersForm"><div id="aiProvidersBody"></div></form>
+</section>
+</section>
+
 <section class="view" data-view="sys-ai-prices" hidden>
 <section class="panel" id="aiPricesPanel">
   <div class="panel-head">
-    <h2 data-i18n="ai.prices_title">Remembered prices</h2>
+    <h2 data-i18n="ai.available_models_title">Available models</h2>
     <button id="aiPriceAdd" class="link" data-i18n="ai.add_model">Add a model</button>
   </div>
   <p class="muted small sub-note" data-i18n="ai.prices_help">

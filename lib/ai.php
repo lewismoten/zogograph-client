@@ -79,7 +79,7 @@ function aiProviders(): array
             'models' => ['claude-sonnet-4-5', 'claude-haiku-4-5', 'claude-opus-4-5'],
         ],
         'compatible' => [
-            'label' => 'Anything OpenAI-compatible',
+            'label' => 'Ollama and OpenAI-compatible',
             'base' => 'http://127.0.0.1:11434/v1',
             'auth' => 'bearer',
             'note' => 'Ollama, llama.cpp, LM Studio, vLLM, or a gateway of your own. '
@@ -151,6 +151,18 @@ function aiSettings(array $config): array
     if (!isset($providers[$provider])) {
         $provider = 'openai';
     }
+    $connections = is_array($set['providers'] ?? null) ? $set['providers'] : [];
+    $connection = is_array($connections[$provider] ?? null) ? $connections[$provider] : [];
+    /*
+     * Older installs have one endpoint and key at the top level.  Keep using
+     * that pair for their active provider until it is saved on the Providers
+     * page; newly saved connections are isolated by provider.
+     */
+    $legacy = $provider === (string)($set['provider'] ?? '');
+    $base = trim((string)($connection['base_url'] ?? ''));
+    if ($base === '' && $legacy) $base = trim((string)($set['base_url'] ?? ''));
+    $key = (string)($connection['api_key'] ?? '');
+    if ($key === '' && $legacy) $key = (string)($set['api_key'] ?? '');
     $model = trim((string)($set['model'] ?? '')) ?: ($providers[$provider]['models'][0] ?? '');
     $activePrice = aiKnownPrice(['price_book' => $set['price_book'] ?? [],
         'known_prices' => $set['known_prices'] ?? []], $provider, $model);
@@ -158,10 +170,14 @@ function aiSettings(array $config): array
     return [
         'enabled' => coreFeatureEnabled($config, 'assistant') && (bool)($set['enabled'] ?? false),
         'provider' => $provider,
-        'base_url' => trim((string)($set['base_url'] ?? '')) ?: $providers[$provider]['base'],
+        'base_url' => $base ?: $providers[$provider]['base'],
         'model' => $model,
         // Never returned to the browser; see aiSettingsView.
-        'api_key' => (string)($set['api_key'] ?? ''),
+        'api_key' => $key,
+        'connections' => array_map(static fn($one): array => [
+            'base_url' => is_array($one) ? trim((string)($one['base_url'] ?? '')) : '',
+            'has_key' => is_array($one) && (string)($one['api_key'] ?? '') !== '',
+        ], $connections),
 
         /*
          * Prices per million tokens, in cents.

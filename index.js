@@ -5777,7 +5777,7 @@ const aiSetState = { data: null };
 
 /** Every container the settings are split across. */
 const AI_SETTING_PAGES = [
-  "aiIdentityBody", "aiModelBody", "aiLimitsBody", "aiImagesBody",
+  "aiIdentityBody", "aiProvidersBody", "aiModelBody", "aiLimitsBody", "aiImagesBody",
 ];
 
 async function refreshAiSettings() {
@@ -5864,18 +5864,10 @@ function renderAiSettings(data) {
     "Leave blank for the provider's own. Point it elsewhere for a gateway, a proxy, or "
     + "a model running on this machine."));
 
-  const model = document.createElement("input");
-  model.type = "text";
+  const model = document.createElement("select");
   model.id = "aiModel";
   model.className = "wide-field";
   model.value = data.model || "";
-  model.setAttribute("list", "aiModelList");
-  const models = document.createElement("datalist");
-  models.id = "aiModelList";
-  form.appendChild(fieldRow("Model", model,
-    "The exact name the provider expects. Suggestions appear as you type, but anything "
-    + "the provider accepts will work — this is not a fixed list."));
-  form.appendChild(models);
 
   const key = document.createElement("input");
   key.type = "password";
@@ -5889,6 +5881,11 @@ function renderAiSettings(data) {
         + "the existing one — type a new one to replace it."
       : "Stored in lib/config.php, which is outside the web root. A local model needs "
         + "none."));
+
+  const selected = document.createElement("div"); selected.className = "settings";
+  const selectedProvider = provider.cloneNode(true); selectedProvider.id = "aiSelectedProvider";
+  selected.appendChild(fieldRow("Provider", selectedProvider, "Choose which provider's models to show."));
+  selected.appendChild(fieldRow("Available model", model, "Models supplied by the provider or added on Available Models."));
 
   /*
    * How hard a reasoning model should think, where the endpoint takes one.
@@ -5942,6 +5939,7 @@ function renderAiSettings(data) {
    */
   const pages = {
     identity: [],
+    providers: [],
     model: [],
     limits: [],
     images: [],
@@ -5951,7 +5949,8 @@ function renderAiSettings(data) {
   for (const key of Object.keys(pages)) pages[key].push(...parts.map(node => node.cloneNode(true)));
 
   pages.identity.push(section("Identity", personaFields(data)));
-  pages.model.push(section("Which model", form));
+  pages.providers.push(section("Provider connection", form));
+  pages.model.push(section("Which model", selected));
 
   /*
    * A test before any of it is used in anger.
@@ -6251,6 +6250,7 @@ function renderAiSettings(data) {
    */
   for (const [key, id] of [
     ["identity", "aiIdentityBody"],
+    ["providers", "aiProvidersBody"],
     ["model", "aiModelBody"],
     ["limits", "aiLimitsBody"],
     ["images", "aiImagesBody"],
@@ -6281,19 +6281,40 @@ function renderAiSettings(data) {
 
   const syncProvider = () => {
     const meta = data.providers[provider.value];
+    const saved = data.connections?.[provider.value] ?? {};
     providerNote.textContent = meta?.note ?? "";
+    selectedProvider.value = provider.value;
 
     // Only one endpoint takes it, and offering it elsewhere would suggest it
     // does something.
     effortRow.hidden = provider.value !== "openai-responses";
-    models.replaceChildren(...(meta?.models ?? []).map(name => {
+    const wantedModel = model.value || (provider.value === data.provider ? data.model : "");
+    const available = new Set(meta?.models ?? []);
+    for (const price of data.price_book ?? []) if (price.provider === provider.value) available.add(price.model);
+    if (provider.value === data.provider && data.model) available.add(data.model);
+    model.replaceChildren(...[...available].sort().map(name => {
       const option = document.createElement("option");
       option.value = name;
+      option.textContent = name;
       return option;
     }));
-    if (base.value === "") base.placeholder = meta?.base ?? "";
+    if (!model.options.length) {
+      const option = document.createElement("option");
+      option.value = "";
+      option.textContent = "No available models yet — add one on Available Models";
+      model.appendChild(option);
+    }
+    model.value = wantedModel;
+    if (model.value === "" && model.options.length) model.selectedIndex = 0;
+
+    base.value = saved.base_url || (provider.value === data.provider ? data.base_url : "");
+    base.placeholder = meta?.base ?? "";
+    key.value = "";
+    const hasKey = saved.has_key || (provider.value === data.provider && data.has_key);
+    key.placeholder = hasKey ? "•".repeat(24) + " (unchanged)" : "No key required for Ollama";
   };
   provider.addEventListener("change", syncProvider);
+  selectedProvider.addEventListener("change", () => { provider.value = selectedProvider.value; syncProvider(); });
   syncProvider();
 
   renderAiTools(data);
@@ -32450,10 +32471,13 @@ const VIEWS = {
    * they are all drawn from the same answer.
    */
   "sys-ai-model": {
-    manual: true, label: "Model", parent: "sys-ai", refresh: () => refreshAiSettings(),
+    manual: true, label: "Selected model", parent: "sys-ai", refresh: () => refreshAiSettings(),
+  },
+  "sys-ai-providers": {
+    manual: true, label: "Providers", parent: "sys-ai", refresh: () => refreshAiSettings(),
   },
   "sys-ai-prices": {
-    manual: true, label: "Prices", parent: "sys-ai", refresh: () => refreshAiSettings(),
+    manual: true, label: "Available models", parent: "sys-ai", refresh: () => refreshAiSettings(),
   },
   "sys-ai-limits": {
     manual: true, label: "Thresholds", parent: "sys-ai", refresh: () => refreshAiSettings(),
@@ -33532,7 +33556,7 @@ $("cornerChat").addEventListener("click", () => {
  * alternative is somebody typing a name on Identity, going to Thresholds to
  * change a limit, and losing the name.
  */
-for (const id of ["aiIdentityForm", "aiModelForm", "aiLimitsForm", "aiImagesForm",
+for (const id of ["aiIdentityForm", "aiProvidersForm", "aiModelForm", "aiLimitsForm", "aiImagesForm",
                   "aiToolsForm"]) {
   const form = $(id);
   if (!form) continue;

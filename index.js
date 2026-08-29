@@ -33774,7 +33774,7 @@ $("storeIntegrity").addEventListener("click", async () => {
 
   const button = $("storeIntegrity");
   button.disabled = true;
-  button.textContent = "Checking…";
+  button.textContent = ZogographI18n.t("action.checking", {}, "Checking…");
   try {
     const result = await post("store-integrity");
     notice(result.result.messages.join(" "), result.ok);
@@ -33813,7 +33813,7 @@ $("storeExport").addEventListener("click", async () => {
 $("storeRollup").addEventListener("click", async () => {
   const button = $("storeRollup");
   button.disabled = true;
-  button.textContent = "Rolling up\u2026";
+  button.textContent = ZogographI18n.t("action.rolling_up", {}, "Rolling up…");
 
   try {
     const result = await post("store-rollup");
@@ -33831,7 +33831,7 @@ $("storeRollup").addEventListener("click", async () => {
     notice(String(error.message || error));
   } finally {
     button.disabled = false;
-    button.textContent = "Roll up old readings now";
+    button.textContent = ZogographI18n.t("action.roll_up_old_readings", {}, "Roll up old readings now");
   }
 });
 

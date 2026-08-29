@@ -492,6 +492,8 @@
   "schedule.custom.weekday": "Day of week (0–7)",
   "schedule.saved_preview": "Saved preview",
   "schedule.installed": "Currently installed",
+  "action.rolling_up": "Rolling up…",
+  "action.roll_up_old_readings": "Roll up old readings now",
   "action.run_full_integrity_check": "Run full integrity check",
   "action.rewriting": "Rewriting…", "action.reclaim_empty_space": "Reclaim empty space",
   "action.checking": "Checking…", "action.check_now": "Check now", "changed.checked": "Checked. Anything that moved since last time is listed above.",

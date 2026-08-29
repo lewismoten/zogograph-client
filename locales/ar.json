@@ -509,6 +509,8 @@
   "schedule.custom.weekday": "يوم الأسبوع (0–7)",
   "schedule.saved_preview": "معاينة محفوظة",
   "schedule.installed": "مثبّت حاليًا",
+  "action.rolling_up": "جارٍ التلخيص…",
+  "action.roll_up_old_readings": "لخّص القراءات القديمة الآن",
   "action.run_full_integrity_check": "شغّل فحص السلامة الكامل",
   "action.rewriting": "جارٍ إعادة الكتابة…", "action.reclaim_empty_space": "استعد المساحة الفارغة",
   "action.checking": "جارٍ التحقق…", "action.check_now": "تحقق الآن", "changed.checked": "اكتمل التحقق. كل ما تغير منذ المرة السابقة مدرج أعلاه.",

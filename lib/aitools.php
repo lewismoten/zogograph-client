@@ -49,6 +49,7 @@ require_once __DIR__ . '/ai-tools/recent-changes.php';
 require_once __DIR__ . '/ai-tools/action-history.php';
 require_once __DIR__ . '/ai-tools/gauges.php';
 require_once __DIR__ . '/ai-tools/list-charts.php';
+require_once __DIR__ . '/ai-tools/filesystems.php';
 
 /**
  * Every tool, with its schema and how it runs.
@@ -77,6 +78,7 @@ function aiToolCatalogue(): array
         ...aiToolActionHistoryPackage(),
         ...aiToolGaugesPackage(),
         ...aiToolListChartsPackage(),
+        ...aiToolFilesystemsPackage(),
 
         /* ------------------------------------------------- what is wrong -- */
 
@@ -275,24 +277,6 @@ function aiToolCatalogue(): array
         ],
 
         /* --------------------------------------------------- saying things -- */
-
-        'get_filesystems' => [
-            'group' => 'diagnostic',
-            'where' => 'server',
-            'permission' => false,
-            'summary' => 'every mounted filesystem and how full it is.',
-            'description' =>
-                "Every filesystem on the machine, with size, used, free and inode use.\n\n"
-                . "USE THIS when the disk figures do not add up, which happens more often "
-                . "than it sounds. The account's own reading is for the filesystem its "
-                . "home directory is on; a machine with a separate /var or /tmp can have "
-                . "one of those full while the account's own gauge is comfortable, and "
-                . "the symptom is writes failing for no visible reason.\n\n"
-                . "This comes from the host collector, so it is as fresh as that "
-                . "collector's last run and is absent entirely where there is no host "
-                . "collector. It says which.",
-            'parameters' => [],
-        ],
 
         'get_symlink_problems' => [
             'group' => 'diagnostic',

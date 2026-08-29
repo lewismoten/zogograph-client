@@ -20852,18 +20852,10 @@ function renderUptime() {
 
   const a = data.analysis || {};
 
-  if (data.up_for == null) {
-    setCard("cardUptime", "—", ZogographI18n.t("uptime.no_boot_time", {}, "no boot time recorded yet"));
-  } else {
-    setCard(
-      "cardUptime",
-      humanDuration(data.up_for),
-      ZogographI18n.t("uptime.since", { time: humanTime(data.boot_at) }, "since {{time}}"),
-      // Freshly booted is worth noticing: it means something restarted, and
-      // whatever was wrong before may be about to be wrong again.
-      data.up_for < 3600 ? "warn" : ""
-    );
-  }
+  renderCoreCardPackage(ZogographUptimeCard, "core-uptime", { upFor: data.up_for, bootAt: data.boot_at }, {
+    setCard: (value, sub, level = "") => setCard("cardUptime", value, sub, level),
+    humanDuration, humanTime, i18n: ZogographI18n,
+  });
 
   const panel = $("uptimePanel");
   panel.hidden = false;

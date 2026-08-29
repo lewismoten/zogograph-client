@@ -72,6 +72,9 @@ i18nExpect($script !== false && str_contains($script, 'manifest.locales.length =
 i18nExpect($script !== false && substr_count($script, 'setHostCard(') === 4
     && substr_count($script, '=> setHostCard(') === 3,
     'a host summary card bypasses the core card-package boundary');
+i18nExpect($script !== false && substr_count($script, 'setCard(') === 2
+    && substr_count($script, '=> setCard("cardUptime",') === 1,
+    'a dashboard summary card bypasses the core card-package boundary');
 i18nExpect($page !== false && str_contains($page, 'src="cards/overview-vitals.js"')
     && $overviewCards !== false && str_contains($overviewCards, 'window.ZogographOverviewVitalsCards')
     && str_contains($overviewCards, 'id: "core-overview-vitals"') && str_contains($overviewCards, 'locales: ["overview."]')

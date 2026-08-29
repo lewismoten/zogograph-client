@@ -6345,15 +6345,14 @@ function renderAiTools(data) {
     const where = row.insertCell();
     where.className = "muted small";
     where.textContent = {
-      server: "here",
-      browser: "in your browser",
-      ask: "changes something",
+      server: ZogographI18n.t("ai.tool_where_server", {}, "here"),
+      browser: ZogographI18n.t("ai.tool_where_browser", {}, "in your browser"),
+      ask: ZogographI18n.t("ai.tool_where_acts", {}, "changes something"),
     }[tool.where] ?? tool.where;
     where.title = {
-      server: "Answered from the databases on this server. Read-only.",
-      browser: "Only your browser can do it — moving you to a page, or capturing "
-        + "what you can see.",
-      ask: "This one acts rather than reads.",
+      server: ZogographI18n.t("ai.tool_where_server_title", {}, "Answered from the databases on this server. Read-only."),
+      browser: ZogographI18n.t("ai.tool_where_browser_title", {}, "Only your browser can do it — moving you to a page, or capturing what you can see."),
+      ask: ZogographI18n.t("ai.tool_where_acts_title", {}, "This one acts rather than reads."),
     }[tool.where] ?? "";
 
     const on = row.insertCell();
@@ -6401,9 +6400,8 @@ function renderAiTools(data) {
     if (tool.asks_by_design) {
       const said = document.createElement("span");
       said.className = "muted small";
-      said.textContent = "it asks you anyway";
-      said.title = "This tool exists to put a question to you. There is nothing it could "
-        + "do that you would want warning of.";
+      said.textContent = ZogographI18n.t("ai.tool_asks_anyway", {}, "it asks you anyway");
+      said.title = ZogographI18n.t("ai.tool_asks_anyway_title", {}, "This tool exists to put a question to you. There is nothing it could do that you would want warning of.");
       gate.appendChild(said);
     } else {
       const ask = document.createElement("input");
@@ -6417,7 +6415,7 @@ function renderAiTools(data) {
       if (tool.recommends_permission) {
         const said = document.createElement("span");
         said.className = "muted small";
-        said.textContent = " recommended";
+        said.textContent = " " + ZogographI18n.t("ai.recommended", {}, "recommended");
         gate.appendChild(said);
       }
     }

@@ -56,6 +56,9 @@ i18nExpect($script !== false && str_contains($script, 'function humanBytes(value
     && str_contains($script, 'minimumFractionDigits: places')
     && str_contains($script, 'maximumFractionDigits: places'),
     'human-readable byte values do not honor the selected locale');
+i18nExpect($script !== false && str_contains($script, 'manifest.locales.length === 0')
+    && str_contains($script, 'manifest.locales.every(prefix => typeof prefix === "string"'),
+    'core card packages can omit a declared localization namespace');
 i18nExpect($page !== false && str_contains($page, 'src="cards/overview-vitals.js"')
     && $overviewCards !== false && str_contains($overviewCards, 'window.ZogographOverviewVitalsCards')
     && str_contains($overviewCards, 'id: "core-overview-vitals"') && str_contains($overviewCards, 'locales: ["overview."]')

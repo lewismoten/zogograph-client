@@ -1852,7 +1852,9 @@ function renderLimits(limits, bodyId = "limitsBody", whenId = "limitsWhen") {
 function renderCoreCardPackage(cardPackage, id, input, helpers) {
   const manifest = cardPackage?.manifest;
   if (!manifest || manifest.id !== id || typeof cardPackage.render !== "function"
-      || !Array.isArray(manifest.locales) || !Array.isArray(manifest.helpers)
+      || !Array.isArray(manifest.locales) || manifest.locales.length === 0
+      || !manifest.locales.every(prefix => typeof prefix === "string" && /^[a-z][\\w-]*\.$/i.test(prefix))
+      || !Array.isArray(manifest.helpers)
       || !manifest.helpers.every(name => typeof name === "string" && name in helpers)) {
     console.error(`Core card package ${id} has an invalid manifest.`);
     return;

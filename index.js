@@ -25547,7 +25547,7 @@ const captureHistoryState = { showing: null };
 async function refreshCaptures() {
   const body = $("captureHistoryBody");
   if (!state.signedIn) {
-    body.replaceChildren(note("Sign in to see captures."));
+    body.replaceChildren(note(ZogographI18n.t("network.captures_sign_in", {}, "Sign in to see captures.")));
     return;
   }
 

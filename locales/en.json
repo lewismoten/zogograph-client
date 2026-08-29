@@ -4,6 +4,7 @@
   "package.open_settings": "Open package settings",
   "action.copy": "Copy",
   "common.sign_in_to_see": "Sign in to see this.",
+  "network.captures_sign_in": "Sign in to see captures.",
   "monitor.sign_in": "Sign in to see the monitor's own state.",
   "logs.sign_in": "Sign in to read log files.",
   "services.sign_in": "Sign in to see the service list.",

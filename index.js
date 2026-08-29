@@ -19700,7 +19700,7 @@ function renderHostDaemons(daemons) {
   if (!daemons || !daemons.available || !daemons.rows?.length) {
     holder.replaceChildren(Object.assign(document.createElement("p"), {
       className: "muted",
-      textContent: daemons?.reason || "No service states recorded yet.",
+      textContent: daemons?.reason || ZogographI18n.t("host.daemons_no_states", {}, "No service states recorded yet."),
     }));
     return;
   }
@@ -19708,18 +19708,18 @@ function renderHostDaemons(daemons) {
   const now = Date.now() / 1000;
 
   const STATES = {
-    running: { text: "running", className: "state-up" },
-    stopped: { text: "STOPPED", className: "state-down" },
-    absent: { text: "not installed", className: "state-absent" },
-    unknown: { text: "cannot tell", className: "state-absent" },
-    off: { text: "not watched", className: "state-absent" },
-    pending: { text: "waiting for a reading", className: "state-absent" },
+    running: { text: ZogographI18n.t("host.daemon_running", {}, "running"), className: "state-up" },
+    stopped: { text: ZogographI18n.t("host.daemon_stopped", {}, "STOPPED"), className: "state-down" },
+    absent: { text: ZogographI18n.t("host.daemon_not_installed", {}, "not installed"), className: "state-absent" },
+    unknown: { text: ZogographI18n.t("host.daemon_cannot_tell", {}, "cannot tell"), className: "state-absent" },
+    off: { text: ZogographI18n.t("host.daemon_not_watched", {}, "not watched"), className: "state-absent" },
+    pending: { text: ZogographI18n.t("host.daemon_waiting", {}, "waiting for a reading"), className: "state-absent" },
   };
 
   renderTable("hostDaemons", daemons.rows, [
-    { label: "Service", className: "name", render: row => row.label },
+    { label: ZogographI18n.t("host.daemon_service", {}, "Service"), className: "name", render: row => row.label },
     {
-      label: "State",
+      label: ZogographI18n.t("host.daemon_state", {}, "State"),
       render: row => {
         const span = document.createElement("span");
 
@@ -19735,9 +19735,9 @@ function renderHostDaemons(daemons) {
          */
         if (row.state === "stopped" && !row.since_known) {
           span.className = "state-absent";
-          span.textContent = "stopped";
-          span.title = "Stopped for every reading on record, so this was almost certainly "
-            + "disabled deliberately rather than having failed. It does not raise alerts.";
+          span.textContent = ZogographI18n.t("host.daemon_stopped_lower", {}, "stopped");
+          span.title = ZogographI18n.t("host.daemon_stopped_all_readings_tip", {},
+            "Stopped for every reading on record, so this was almost certainly disabled deliberately rather than having failed. It does not raise alerts.");
           return span;
         }
 
@@ -19745,25 +19745,25 @@ function renderHostDaemons(daemons) {
         span.className = shown.className;
         span.textContent = shown.text;
         if (row.state === "off") {
-          span.title = "Switched off here, so the collector is not recording it. Nothing is "
-            + "known about whether it is running.";
+          span.title = ZogographI18n.t("host.daemon_not_watched_tip", {},
+            "Switched off here, so the collector is not recording it. Nothing is known about whether it is running.");
         } else if (row.state === "pending") {
-          span.title = "Switched on, but the collector has not run since. It reports on its "
-            + "own schedule.";
+          span.title = ZogographI18n.t("host.daemon_waiting_tip", {},
+            "Switched on, but the collector has not run since. It reports on its own schedule.");
         } else if (row.state === "absent") {
-          span.title = "Neither a systemd unit nor a running process by any of the names "
-            + "this service is known by. Almost certainly not installed on this machine.";
+          span.title = ZogographI18n.t("host.daemon_not_installed_tip", {},
+            "Neither a systemd unit nor a running process by any of the names this service is known by. Almost certainly not installed on this machine.");
         } else if (row.state === "unknown") {
-          span.title = "systemd could not be asked and no matching process is running. "
-            + "Stopped and never-installed look identical from a process list.";
+          span.title = ZogographI18n.t("host.daemon_cannot_tell_tip", {},
+            "systemd could not be asked and no matching process is running. Stopped and never-installed look identical from a process list.");
         } else if (row.state === "stopped") {
-          span.title = "This was running earlier and is not now.";
+          span.title = ZogographI18n.t("host.daemon_stopped_tip", {}, "This was running earlier and is not now.");
         }
         return span;
       },
     },
     {
-      label: "For",
+      label: ZogographI18n.t("host.daemon_for", {}, "For"),
       className: "size",
       render: row => {
         // A duration for something that was never installed is not a fact
@@ -19782,38 +19782,41 @@ function renderHostDaemons(daemons) {
         const span = document.createElement("span");
         span.textContent = humanDuration(now - at);
         span.title = row.started_at
-          ? "Since systemd started it."
+          ? ZogographI18n.t("host.daemon_since_systemd", {}, "Since systemd started it.")
           : (row.since_known
-              ? "Since this state was first seen here."
-              : "At least this long — it has been this way for every reading on record.");
+              ? ZogographI18n.t("host.daemon_since_state", {}, "Since this state was first seen here.")
+              : ZogographI18n.t("host.daemon_at_least_this_long", {}, "At least this long — it has been this way for every reading on record."));
         if (!row.started_at && !row.since_known) span.className = "muted";
         return span;
       },
     },
     {
-      label: "Restarts",
+      label: ZogographI18n.t("host.daemon_restarts", {}, "Restarts"),
       className: "size",
       render: row => (row.restarts == null ? "—" : String(row.restarts)),
     },
     {
-      label: "Processes",
+      label: ZogographI18n.t("host.daemon_processes", {}, "Processes"),
       className: "size",
       render: row => {
         // The unit count is what matters for PHP-FPM, where cPanel runs one
         // service per installed PHP version and a missing one is the finding.
-        if (row.units_total > 1) return `${row.units_active}/${row.units_total} units`;
+        if (row.units_total > 1) return ZogographI18n.t("host.daemon_active_units", {
+          active: row.units_active, total: row.units_total,
+        }, "{{active}}/{{total}} units");
         return row.procs ? String(row.procs) : "—";
       },
     },
     {
-      label: "Last seen down",
+      label: ZogographI18n.t("host.daemon_last_seen_down", {}, "Last seen down"),
       render: row => {
         if (!row.last_down_at) {
           const span = document.createElement("span");
           span.className = "muted";
           span.textContent = row.state === "absent" || row.state === "off" || row.state === "pending"
             ? "—"
-            : `not in ${count(daemons.history_days, "day")}`;
+            : ZogographI18n.t("host.daemon_not_in_days", { days: daemons.history_days },
+              "not in {{days, number}} days");
           return span;
         }
         return whenSpan(row.last_down_at);
@@ -19824,11 +19827,14 @@ function renderHostDaemons(daemons) {
       render: row => {
         const button = document.createElement("button");
         button.className = row.watched ? "link" : "link muted";
-        button.textContent = row.watched ? "Stop watching" : "Watch";
+        button.textContent = row.watched
+          ? ZogographI18n.t("host.daemon_stop_watching", {}, "Stop watching")
+          : ZogographI18n.t("host.daemon_watch", {}, "Watch");
         button.title = row.watched
-          ? "Stop recording this service. Its history is kept, but nothing more is added "
-            + "and it will not raise alerts."
-          : "Start recording this service again from the collector's next run.";
+          ? ZogographI18n.t("host.daemon_stop_watching_tip", {},
+            "Stop recording this service. Its history is kept, but nothing more is added and it will not raise alerts.")
+          : ZogographI18n.t("host.daemon_watch_tip", {},
+            "Start recording this service again from the collector's next run.");
 
         button.addEventListener("click", async () => {
           button.disabled = true;
@@ -19842,8 +19848,10 @@ function renderHostDaemons(daemons) {
              * you press it, the row does not change, and you press it again.
              */
             notice(row.watched
-              ? `${row.label} will stop being recorded at the next host reading.`
-              : `${row.label} will be recorded again at the next host reading.`);
+              ? ZogographI18n.t("host.daemon_stop_watching_notice", { service: row.label },
+                "{{service}} will stop being recorded at the next host reading.")
+              : ZogographI18n.t("host.daemon_watch_notice", { service: row.label },
+                "{{service}} will be recorded again at the next host reading."));
             await refreshHost();
           } catch (error) {
             notice(String(error.message || error));

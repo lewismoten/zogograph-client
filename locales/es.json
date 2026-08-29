@@ -511,6 +511,7 @@
   "schedule.custom.weekday": "Día de la semana (0–7)",
   "schedule.saved_preview": "Vista previa guardada",
   "schedule.installed": "Instalado actualmente",
+  "email.where_to_send": "Dónde enviar", "email.how_loud": "Con qué intensidad y frecuencia", "email.what_to_send": "Qué enviar y cuándo",
   "email.show_me": "Muéstramelo", "email.save_settings": "Guardar estos ajustes",
   "alerts.why_fired": "¿Por qué se activó esto?",
   "common.loading": "Cargando…",

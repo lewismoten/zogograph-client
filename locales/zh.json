@@ -509,6 +509,7 @@
   "schedule.custom.weekday": "星期 (0–7)",
   "schedule.saved_preview": "已保存的预览",
   "schedule.installed": "当前已安装",
+  "email.where_to_send": "发送到哪里", "email.how_loud": "提醒强度和频率", "email.what_to_send": "发送什么及何时发送",
   "email.show_me": "带我查看", "email.save_settings": "保存这些设置",
   "alerts.why_fired": "为何触发此警报？",
   "common.loading": "正在加载…",

@@ -30377,15 +30377,15 @@ function renderEmail(data) {
     + "otherwise a message says what is wrong and leaves you to find the page at two in "
     + "the morning."));
 
-  parts.push(section("Where to send", form));
-  parts.push(section("How loud, and how often", ruleSettings(data)));
+  parts.push(section(ZogographI18n.t("email.where_to_send", {}, "Where to send"), form));
+  parts.push(section(ZogographI18n.t("email.how_loud", {}, "How loud, and how often"), ruleSettings(data)));
 
   const list = document.createElement("div");
   list.className = "conditions";
   for (const condition of data.conditions) {
     list.appendChild(conditionBlock(condition));
   }
-  parts.push(section("What to send about, and when", list));
+  parts.push(section(ZogographI18n.t("email.what_to_send", {}, "What to send about, and when"), list));
 
   const save = document.createElement("div");
   save.className = "inspect-actions";

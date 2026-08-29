@@ -509,6 +509,7 @@
   "schedule.custom.weekday": "يوم الأسبوع (0–7)",
   "schedule.saved_preview": "معاينة محفوظة",
   "schedule.installed": "مثبّت حاليًا",
+  "email.where_to_send": "إلى أين يُرسل", "email.how_loud": "مدى الإلحاح والتكرار", "email.what_to_send": "ما الذي يرسل ومتى",
   "email.show_me": "أرني", "email.save_settings": "احفظ هذه الإعدادات",
   "alerts.why_fired": "لماذا اشتعل هذا التنبيه؟",
   "common.loading": "جارٍ التحميل…",

@@ -492,6 +492,7 @@
   "schedule.custom.weekday": "Day of week (0–7)",
   "schedule.saved_preview": "Saved preview",
   "schedule.installed": "Currently installed",
+  "email.where_to_send": "Where to send", "email.how_loud": "How loud, and how often", "email.what_to_send": "What to send about, and when",
   "email.show_me": "Show me", "email.save_settings": "Save these settings",
   "alerts.why_fired": "Why did this fire?",
   "common.loading": "Loading…",

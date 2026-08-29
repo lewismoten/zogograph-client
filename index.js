@@ -1104,7 +1104,7 @@ function renderCpuTime(data) {
       const band = bands[key] ? bandOf(value, bands[key][0], bands[key][1]) : null;
       const average = mean(key);
       setHostCard(
-        meta.label,
+        cpuStateLabel(meta),
         Number.isFinite(value) ? `${value.toFixed(1)}%` : "—",
         average == null ? "" : ZogographI18n.t("cpu.average_over_range", { percent: average.toFixed(1) }, "{{percent}}% on average over this range"),
         band === "crit" ? "crit" : band === "warn" ? "warn" : "",
@@ -1122,14 +1122,14 @@ function renderCpuTime(data) {
       // plotting it adds a line that carries no information and dominates the
       // chart on any machine that is not in trouble.
       .filter(([key]) => key !== "idle")
-      .map(([key, meta]) => ({ key, label: meta.label })),
+      .map(([key, meta]) => ({ key, label: cpuStateLabel(meta) })),
     { axis: percentAxis, zeroBased: true, empty: cpuEmptyWhy(data) });
 
   renderTable("cpuStateTable", Object.entries(states).map(([key, meta]) => ({
     key,
-    label: meta.label,
+    label: cpuStateLabel(meta),
     now: now ? Number(now[key]) : null,
-    what: meta.what,
+    what: cpuStateMeaning(meta),
   })), [
     { label: ZogographI18n.t("cpu.state", {}, "State"), render: r => r.label },
     { label: ZogographI18n.t("cpu.in_proc_stat", {}, "In /proc/stat"), className: "cmd", render: r => r.key },
@@ -1140,6 +1140,16 @@ function renderCpuTime(data) {
     },
     { label: ZogographI18n.t("cpu.what_it_means", {}, "What it means"), render: r => r.what },
   ]);
+}
+
+function cpuStateLabel(meta) {
+  const key = String(meta?.short || "").trim();
+  return key ? ZogographI18n.t(`cpu.state_label.${key}`, {}, meta.label) : meta.label;
+}
+
+function cpuStateMeaning(meta) {
+  const key = String(meta?.short || "").trim();
+  return key ? ZogographI18n.t(`cpu.state_meaning.${key}`, {}, meta.what) : meta.what;
 }
 
 /** One sentence saying which state the busy time actually went to. */

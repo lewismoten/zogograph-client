@@ -29142,7 +29142,7 @@ async function refreshWhois(name = "") {
 async function refreshLabels() {
   const body = $("labelsBody");
   if (!state.signedIn) {
-    body.replaceChildren(note("Sign in to keep your own names."));
+    body.replaceChildren(note(ZogographI18n.t("labels.sign_in", {}, "Sign in to keep your own names.")));
     return;
   }
 
@@ -29161,10 +29161,11 @@ function renderLabels(data) {
   const body = $("labelsBody");
 
   if (!data.rows.length) {
-    body.replaceChildren(note(
-      "Nothing named yet. Start with this machine's own address and anything you recognise "
-      + "in a capture \u2014 those are the two that save the most reading."
-    ));
+    body.replaceChildren(note(ZogographI18n.t(
+      "labels.none",
+      {},
+      "Nothing named yet. Start with this machine's own address and anything you recognise in a capture — those are the two that save the most reading.",
+    )));
     return;
   }
 
@@ -29174,13 +29175,16 @@ function renderLabels(data) {
 
   renderTable("labelsTable", data.rows, [
     {
-      label: "Kind",
-      render: row => ({ address: "Address", port: "Port", header: "HTTP header" }[row.kind]
-        || row.kind),
+      label: ZogographI18n.t("labels.kind", {}, "Kind"),
+      render: row => ({
+        address: ZogographI18n.t("labels.kind.address", {}, "Address"),
+        port: ZogographI18n.t("labels.kind.port", {}, "Port"),
+        header: ZogographI18n.t("labels.kind.header", {}, "HTTP header"),
+      }[row.kind] || row.kind),
     },
-    { label: "Matches", className: "name", render: row => row.match },
-    { label: "Shown as", className: "name", render: row => row.label },
-    { label: "Note", className: "cmd", render: row => row.note || "" },
+    { label: ZogographI18n.t("labels.matches", {}, "Matches"), className: "name", render: row => row.match },
+    { label: ZogographI18n.t("labels.shown_as", {}, "Shown as"), className: "name", render: row => row.label },
+    { label: ZogographI18n.t("labels.note", {}, "Note"), className: "cmd", render: row => row.note || "" },
     {
       label: "",
       render: row => {

@@ -7341,10 +7341,9 @@ function chatSummaryCard(message, session) {
 
   const covers = message.covers ?? {};
   head.textContent = covers.messages
-    ? `— everything above here was summarised (${count(covers.messages, "message")}) —`
-    : "— everything above here was summarised —";
-  head.title = "Still yours to read. From here on the model receives the summary "
-    + "instead. Click to see it.";
+    ? aiSettingsText("summary_marker_count", "— everything above here was summarised ({{messages}} messages) —", { messages: covers.messages })
+    : aiSettingsText("summary_marker", "— everything above here was summarised —");
+  head.title = aiSettingsText("summary_marker_title", "Still yours to read. From here on the model receives the summary instead. Click to see it.");
 
   head.addEventListener("click", () => showCompaction(message, session));
   wrap.appendChild(head);
@@ -7360,21 +7359,15 @@ function showCompaction(message, session) {
   const what = document.createElement("p");
   what.className = "muted small";
   what.textContent = covers.messages
-    ? `${count(covers.messages, "message")} from earlier in this conversation `
-      + `${covers.messages === 1 ? "was" : "were"} replaced with the summary below, `
-      + `${whenLabel(message.at)}. `
-    : `The older part of this conversation was replaced with the summary below, `
-      + `${whenLabel(message.at)}. `;
-  what.textContent +=
-    "They are all still above this point in the panel and still in the database — "
-    + "nothing was deleted. What changed is what the model is sent: from here on it gets "
-    + "this summary instead of those messages.";
+    ? aiSettingsText("summary_replaced_count", "{{messages}} earlier messages were replaced with the summary below, {{time}}.", { messages: covers.messages, time: whenLabel(message.at) })
+    : aiSettingsText("summary_replaced", "The older part of this conversation was replaced with the summary below, {{time}}.", { time: whenLabel(message.at) });
+  what.textContent += " " + aiSettingsText("summary_retained", "They are all still above this point in the panel and still in the database — nothing was deleted. What changed is what the model is sent: from here on it gets this summary instead of those messages.");
   nodes.push(what);
 
   const body = document.createElement("div");
   body.className = "day-entry";
   const title = document.createElement("strong");
-  title.textContent = "The summary the model now receives";
+  title.textContent = aiSettingsText("summary_title", "The summary the model now receives");
   body.appendChild(title);
   const text = document.createElement("div");
   text.appendChild(renderMarkdown(message.content));
@@ -7390,17 +7383,14 @@ function showCompaction(message, session) {
   if (covers.from_message && covers.to_message) {
     const which = document.createElement("p");
     which.className = "muted small";
-    which.textContent = `It covers messages ${covers.from_message} to `
-      + `${covers.to_message} in this conversation.`;
+    which.textContent = aiSettingsText("summary_range", "It covers messages {{from}} to {{to}} in this conversation.", { from: covers.from_message, to: covers.to_message });
     nodes.push(which);
   }
 
   showListDialog(
-    "What was summarised",
+    aiSettingsText("summary_dialog_title", "What was summarised"),
     nodes,
-    "Written by the model, from the messages it replaced. If it says something the "
-    + "conversation above does not, that is worth knowing — and is the reason this can "
-    + "be opened."
+    aiSettingsText("summary_dialog_help", "Written by the model, from the messages it replaced. If it says something the conversation above does not, that is worth knowing — and is the reason this can be opened.")
   );
 }
 
@@ -7425,8 +7415,8 @@ function chatPictureCard(message) {
    * with a frame around it.
    */
   caption.textContent = message.arguments?.portrait
-    ? `${chatState.who.name}, as it describes itself: "${message.arguments.description}"`
-    : `Drawn from: "${message.arguments?.description ?? ""}"`;
+    ? aiSettingsText("picture_portrait_caption", "{{name}}, as it describes itself: \"{{description}}\"", { name: chatState.who.name, description: message.arguments.description })
+    : aiSettingsText("picture_caption", "Drawn from: \"{{description}}\"", { description: message.arguments?.description ?? "" });
   card.appendChild(caption);
 
   return card;

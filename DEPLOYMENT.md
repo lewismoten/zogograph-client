@@ -20,7 +20,7 @@ Repository **variables**:
 | `DEPLOY_KNOWN_HOSTS` | exact `known_hosts` line for the server's SSH host key |
 | `SNAPSHOT_PATH` | absolute private snapshot root, outside the web root and deploy path; the workflow creates a repository-name subdirectory below it |
 | `SNAPSHOT_RETENTION` | optional whole number from `1` to `50`; defaults to `3` complete snapshots |
-| `CLIENT_HOSTSCOPE_BROWSER_REFRESH_REQUIRED` | legacy compatibility variable: optional `true` when this release requires open browsers to reload; otherwise omit or use `false` |
+| `BROWSER_REFRESH_REQUIRED` | legacy compatibility variable: optional `true` when this release requires open browsers to reload; otherwise omit or use `false` |
 
 Repository **secret**:
 
@@ -77,7 +77,7 @@ restore use one lifecycle lock, so retention cannot race a restore.
 
 Open dashboards check `build.json` once a minute. A new ordinary build shows a
 non-disruptive **Reload now** message. Set
-`CLIENT_HOSTSCOPE_BROWSER_REFRESH_REQUIRED=true` (a preserved legacy variable) for a deployment that changes
+`BROWSER_REFRESH_REQUIRED=true` (a preserved legacy variable) for a deployment that changes
 the browser/server contract; the same prompt then clearly says the reload is
 required before continuing. The browser does not silently discard an in-progress
 form or other operator work.

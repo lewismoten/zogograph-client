@@ -15,16 +15,27 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - environment: test
+            deploy_path: ${{ vars.TEST_PATH }}
+            deploy_url: ${{ vars.TEST_URL }}
+
+          - environment:  client
+            deploy_path: ${{ vars.DEPLOY_PATH }}
+            deploy_url: ${{ vars.DEPLOY_URL }}
+
     env:
       DEPLOY_HOST: ${{ vars.DEPLOY_HOST }}
       DEPLOY_PORT: ${{ vars.DEPLOY_PORT }}
       DEPLOY_USER: ${{ vars.DEPLOY_USER }}
-      TEST_PATH: ${{ vars.TEST_PATH }}
-      TEST_URL: ${{ vars.TEST_URL }}
+      DEPLOY_PATH: ${{ matrix.deploy_path }}
+      DEPLOY_URL: ${{ matrix.deploy_url }}
       DEPLOY_KNOWN_HOSTS: ${{ vars.DEPLOY_KNOWN_HOSTS }}
-      SNAPSHOT_PATH: ${{ vars.SNAPSHOT_PATH }}
+      SNAPSHOT_PATH: ${{ format('{0}/{1}', vars.SNAPSHOT_PATH, matrix.environment) }}
       SNAPSHOT_RETENTION: ${{ vars.SNAPSHOT_RETENTION }}
-      CLIENT_HOSTSCOPE_BROWSER_REFRESH_REQUIRED: ${{ vars.CLIENT_HOSTSCOPE_BROWSER_REFRESH_REQUIRED }}
+      BROWSER_REFRESH_REQUIRED: ${{ vars.BROWSER_REFRESH_REQUIRED }}
       DEPLOY_SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
 
     steps:
@@ -35,10 +46,10 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          for setting in DEPLOY_HOST DEPLOY_USER TEST_PATH TEST_URL DEPLOY_KNOWN_HOSTS SNAPSHOT_PATH DEPLOY_SSH_PRIVATE_KEY; do
+          for setting in DEPLOY_HOST DEPLOY_USER DEPLOY_PATH DEPLOY_URL DEPLOY_KNOWN_HOSTS SNAPSHOT_PATH DEPLOY_SSH_PRIVATE_KEY; do
             test -n "${!setting}" || { echo "Missing required deployment setting: $setting"; exit 1; }
           done
-          for setting in TEST_PATH SNAPSHOT_PATH; do
+          for setting in DEPLOY_PATH SNAPSHOT_PATH; do
             case "${!setting}" in /*) ;; *) echo "$setting must be an absolute path." >&2; exit 1;; esac
             case "${!setting}" in *[!A-Za-z0-9._/-]*) echo "$setting contains an unsafe character." >&2; exit 1;; esac
           done
@@ -90,7 +101,7 @@ jobs:
           release=.release
           created_at="$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
           version="$(git describe --tags --always)"
-          case "${CLIENT_HOSTSCOPE_BROWSER_REFRESH_REQUIRED:-}" in ''|false) browser_refresh_required=false;; true) browser_refresh_required=true;; *) echo 'CLIENT_HOSTSCOPE_BROWSER_REFRESH_REQUIRED must be true or false.' >&2; exit 1;; esac
+          case "${BROWSER_REFRESH_REQUIRED:-}" in ''|false) browser_refresh_required=false;; true) browser_refresh_required=true;; *) echo 'BROWSER_REFRESH_REQUIRED must be true or false.' >&2; exit 1;; esac
           cat > "$release/build.json" <<EOF
           {
             "commit": "${GITHUB_SHA}",
@@ -140,7 +151,7 @@ jobs:
           ssh -i "$HOME/.ssh/zogograph_deploy_key" -p "${DEPLOY_PORT:-22}" \
             -o BatchMode=yes -o IdentitiesOnly=yes -o ConnectTimeout=15 \
             "${DEPLOY_USER}@${DEPLOY_HOST}" \
-            "bash '$remote_script' '$TEST_PATH' '$SNAPSHOT_DIRECTORY' '$snapshot_id' && rm -f '$remote_script'"
+            "bash '$remote_script' '$DEPLOY_PATH' '$SNAPSHOT_DIRECTORY' '$snapshot_id' && rm -f '$remote_script'"
 
       - name: Upload application files
         shell: bash
@@ -152,13 +163,13 @@ jobs:
             --exclude='.well-known/' \
             -e "ssh -i $HOME/.ssh/zogograph_deploy_key -p ${DEPLOY_PORT:-22} -o BatchMode=yes -o IdentitiesOnly=yes" \
             .release/ \
-            "${DEPLOY_USER}@${DEPLOY_HOST}:${TEST_PATH}/"
+            "${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}/"
 
       - name: Verify deployed build
         shell: bash
         run: |
           set -euo pipefail
-          build_url="${TEST_URL%/}/build.json"
+          build_url="${DEPLOY_URL%/}/build.json"
           for attempt in 1 2 3 4 5; do
             deployed="$(curl --fail --silent --show-error --location --connect-timeout 10 --max-time 30 "${build_url}?run=${GITHUB_RUN_ID}" | sed -n 's/.*"commit": "\([^"]*\)".*/\1/p')" || deployed=''
             [ "$deployed" = "$GITHUB_SHA" ] && exit 0

@@ -20,14 +20,24 @@ jobs:
   restore:
     if: ${{ github.event.inputs.confirmation == 'restore-zogograph-snapshot' }}
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - environment: test
+            deploy_path: ${{ vars.TEST_PATH }}
+            deploy_url: ${{ vars.TEST_URL }}
+
+          - environment:  client
+            deploy_path: ${{ vars.DEPLOY_PATH }}
+            deploy_url: ${{ vars.DEPLOY_URL }}
     env:
       SNAPSHOT_ID: ${{ github.event.inputs.snapshot_id }}
       DEPLOY_HOST: ${{ vars.DEPLOY_HOST }}
       DEPLOY_PORT: ${{ vars.DEPLOY_PORT }}
       DEPLOY_USER: ${{ vars.DEPLOY_USER }}
-      DEPLOY_PATH: ${{ vars.DEPLOY_PATH }}
+      DEPLOY_PATH: ${{ matrix.deploy_paththe }}
       DEPLOY_KNOWN_HOSTS: ${{ vars.DEPLOY_KNOWN_HOSTS }}
-      SNAPSHOT_PATH: ${{ vars.SNAPSHOT_PATH }}
+      SNAPSHOT_PATH: ${{ format('{0}/{1}', vars.SNAPSHOT_PATH, matrix.environment) }}
       DEPLOY_SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
 
     steps:

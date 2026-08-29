@@ -1750,15 +1750,15 @@
 <section class="view" data-view="dns-records" hidden>
 <section class="panel" id="dnsRecordsPanel">
   <div class="panel-head">
-    <h2>What a domain publishes</h2>
+    <h2 data-i18n="network.dns_records_title">What a domain publishes</h2>
     <div class="panel-controls">
-      <label class="inline">Domain
+      <label class="inline"><span data-i18n="network.dns_domain">Domain</span>
         <select id="dnsDomain"></select>
       </label>
-      <button id="dnsSweep">Look it all up</button>
+      <button id="dnsSweep" data-i18n="network.dns_sweep">Look it all up</button>
     </div>
   </div>
-  <p class="muted small sub-note">
+  <p class="muted small sub-note" data-i18n="network.dns_records_help">
     A name resolving is not the same as a zone being right. Mail stops arriving
     because an MX was dropped or an SPF edited; a subdomain starts pointing
     somewhere that is not yours; a TTL cut to sixty seconds during a migration
@@ -1771,8 +1771,8 @@
 </section>
 
 <section class="panel" id="dnsChangePanel">
-  <h2>What changed</h2>
-  <p class="muted small sub-note">
+  <h2 data-i18n="network.dns_change_title">What changed</h2>
+  <p class="muted small sub-note" data-i18n="network.dns_change_help">
     A record that stops resolving is kept and marked gone rather than deleted —
     &ldquo;the MX disappeared last Tuesday&rdquo; is the question somebody asks a
     week later, and a deleted row cannot answer it.

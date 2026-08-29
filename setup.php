@@ -823,12 +823,20 @@ function runWeb(
         return;
     }
 
-    if ($posted && in_array($_POST['intent'] ?? '', ['start-totp', 'confirm-totp', 'ack-totp-recovery'], true)) {
+    if ($posted && in_array($_POST['intent'] ?? '', ['start-totp', 'confirm-totp', 'ack-totp-recovery', 'reset-totp'], true)) {
         try {
             if (!$configured || !$unlocked) throw new RuntimeException('unlock setup before changing authentication');
             if (!hash_equals(setupTotpToken(), (string)($_POST['setup_totp_token'] ?? ''))) throw new RuntimeException('the authenticator form expired; reload Setup and try again');
             $intent = (string)$_POST['intent'];
-            if ($intent === 'start-totp') {
+            if ($intent === 'reset-totp') {
+                $config = readExistingConfig($targetPath);
+                if ($config === null) throw new RuntimeException('could not read the current setup settings');
+                $config['auth']['totp_secret'] = '';
+                [$saved, $problem] = writeConfig($targetPath, $config, $root . '/lib');
+                if (!$saved) throw new RuntimeException((string)$problem);
+                unset($_SESSION['setup_pending_totp'], $_SESSION['setup_recovery_codes']);
+                setupFlashNotice('auth.reset_complete', 'Authenticator reset. Create and verify a new secret before the next sign-in.');
+            } elseif ($intent === 'start-totp') {
                 $_SESSION['setup_pending_totp'] = totpGenerateSecret();
                 unset($_SESSION['setup_recovery_codes']);
             } elseif ($intent === 'confirm-totp') {
@@ -924,6 +932,8 @@ function runWeb(
              * paste it. Asking for a password is the only honest option.
              */
             $errors['password'] = ['key' => 'auth.password_required_current', 'fallback' => 'Choose a password. The current one cannot be carried over into text shown to somebody who has not entered it.'];
+        } elseif (trim((string)(($current ?? [])['auth']['totp_secret'] ?? '')) !== '') {
+            $out[] = '<p class="help" data-i18n="auth.enabled">An authenticator is currently enabled for this account.</p><input type="hidden" name="setup_totp_token" value="' . h(setupTotpToken()) . '"><button type="submit" name="intent" value="reset-totp" data-i18n="auth.reset">Reset authenticator</button>';
         } else {
             $errors['password'] = ['key' => 'auth.password_required', 'fallback' => 'Create a password before continuing.'];
         }

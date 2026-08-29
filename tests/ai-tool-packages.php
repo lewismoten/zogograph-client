@@ -20,6 +20,7 @@ aiToolPackageExpect(str_contains($catalogue, 'function aiToolCoreLocaleCatalogs(
 
 $modules = glob($root . '/lib/ai-tools/*.php') ?: [];
 aiToolPackageExpect($modules !== [], 'no core AI tool modules were found');
+$toolPackages = [];
 foreach ($modules as $module) {
     $source = file_get_contents($module);
     $name = basename($module);
@@ -28,6 +29,8 @@ foreach ($modules as $module) {
         "AI tool module $name must declare exactly one package function");
     aiToolPackageExpect(preg_match_all('/return\s+\[\s*\'[a-z0-9_]+\'\s*=>\s*\[/s', $source) === 1,
         "AI tool module $name must return exactly one tool declaration");
+    preg_match('/return\s+\[\s*\'([a-z0-9_]+)\'\s*=>\s*\[/s', (string)$source, $declaration);
+    $toolPackages[] = 'core-ai-' . str_replace('_', '-', (string)($declaration[1] ?? ''));
     $function = $functions[1][0];
     aiToolPackageExpect(str_contains($catalogue, "require_once __DIR__ . '/ai-tools/$name';")
         && str_contains($catalogue, "...$function()"),
@@ -37,11 +40,12 @@ foreach ($modules as $module) {
 $english = json_decode((string)file_get_contents($root . '/locales/en.json'), true);
 aiToolPackageExpect(is_array($english), 'shared English catalog is unavailable');
 $localePackages = glob($root . '/lib/ai-tools/locales/core-ai-*', GLOB_ONLYDIR) ?: [];
-aiToolPackageExpect($localePackages !== [], 'no core AI tool package catalogs were found');
-foreach ($localePackages as $directory) {
-    $package = basename($directory);
-    aiToolPackageExpect(preg_match('/^core-ai-[a-z0-9-]{1,55}$/', $package) === 1,
-        "AI tool locale directory $package has an invalid package identity");
+sort($toolPackages, SORT_STRING);
+$actualPackages = array_map('basename', $localePackages); sort($actualPackages, SORT_STRING);
+aiToolPackageExpect($toolPackages === $actualPackages,
+    'core AI tool locale directories do not exactly match the one-tool package declarations');
+foreach ($toolPackages as $package) {
+    $directory = $root . '/lib/ai-tools/locales/' . $package;
     aiToolPackageExpect(!isset($english[$package . '.summary']), "$package still owns its summary in the shared catalog");
     foreach (['en', 'es', 'hi', 'ar', 'zh'] as $locale) {
         $file = $directory . '/' . $locale . '.json';

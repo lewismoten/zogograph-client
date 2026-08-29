@@ -2707,16 +2707,16 @@
 <section class="view" data-view="storage-links" hidden>
 <section class="panel" id="linkPanel">
   <div class="panel-head">
-    <h2>Symlinks that eat things</h2>
-    <button id="symlinkCheck">Check the symlinks</button>
+    <h2 data-i18n="storage.symlinks_title">Symlinks that eat things</h2>
+    <button id="symlinkCheck" data-i18n="storage.check_symlinks">Check the symlinks</button>
   </div>
-  <p class="muted small sub-note">
+  <p class="muted small sub-note" data-i18n-rich="storage.symlinks_help">
     The scanner steps over every symlink it meets, deliberately — following one
     double-counts at best and walks out of the watched directory at worst. The
     consequence is that a bad link is invisible to this tool while still being
     the thing that ruins everything else: a link pointing at one of its own
-    ancestors is an infinitely deep directory to anything that <em>does</em>
-    follow links, and backups, <code>du</code>, <code>tar</code> and web
+    ancestors is an infinitely deep directory to anything that <em data-i18n-tag="does">does</em>
+    follow links, and backups, <code data-i18n-tag="du">du</code>, <code data-i18n-tag="tar">tar</code> and web
     crawlers all do. That is how a disk fills up with one file copied ten
     thousand times.
   </p>
@@ -2725,13 +2725,13 @@
 
 <section class="panel" id="linkSweepPanel" hidden>
   <div class="panel-head">
-    <h2>Clear out a whole path</h2>
+    <h2 data-i18n="storage.link_sweep_title">Clear out a whole path</h2>
   </div>
-  <p class="muted small sub-note">
+  <p class="muted small sub-note" data-i18n-rich="storage.link_sweep_help">
     When a directory of dangling links is the problem, ticking four hundred
-    boxes is not a workflow. Name a directory and everything <em>broken</em>
+    boxes is not a workflow. Name a directory and everything <em data-i18n-tag="broken">broken</em>
     under it goes, however deep — you do not need to know how many levels there
-    are, and you should not have to add a <code>*</code> until the count comes
+    are, and you should not have to add a <code data-i18n-tag="star">*</code> until the count comes
     out right. Working links under the same path are left alone and counted: the
     destructive half is bounded by a fact about each link, not by how carefully
     the path was typed. You are always shown exactly what would go before
@@ -2740,7 +2740,7 @@
   <form id="linkSweepForm" class="pattern-row">
     <input type="text" id="linkSweepPattern" spellcheck="false" autocomplete="off"
            placeholder="/home/you/public_html/previews" data-i18n-placeholder="storage.link_sweep_placeholder">
-    <button type="submit">Show me what matches</button>
+    <button type="submit" data-i18n="storage.show_matches">Show me what matches</button>
   </form>
   <div id="linkSweepBody"></div>
 </section>

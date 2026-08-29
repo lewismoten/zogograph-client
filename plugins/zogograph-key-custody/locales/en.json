@@ -1,0 +1,19 @@
+{
+  "zogograph-key-custody.settings_title": "Remote key custody settings",
+  "zogograph-key-custody.service_url": "Custody service URL",
+  "zogograph-key-custody.service_url_help": "Use the service root or its /v1 API root. Run Test custody endpoint before adding enrollment references.",
+  "zogograph-key-custody.tenant_id": "Tenant ID",
+  "zogograph-key-custody.tenant_id_help": "The ten_… identifier from enrollment. It is not a credential.",
+  "zogograph-key-custody.key_id": "Active custody key ID",
+  "zogograph-key-custody.key_id_help": "Create or choose this key through the customer management API. It identifies only the remote wrapping key; it is not a token or secret.",
+  "zogograph-key-custody.tls_pin": "TLS public-key pin",
+  "zogograph-key-custody.tls_pin_help": "Optional. Leave blank for the recommended normal CA/hostname validation. A pin needs an endpoint certificate-key rotation plan.",
+  "zogograph-key-custody.cache": "Data-key cache",
+  "zogograph-key-custody.cache_help": "Recommended: 0 seconds. A nonzero cache can keep a released data key usable until it expires; 900 seconds is the maximum.",
+  "zogograph-key-custody.credential_reference": "Client credential reference",
+  "zogograph-key-custody.credential_reference_help": "After a successful endpoint test within 24 hours, create an encrypted package secret and paste only its secret_ref: value. Never paste a raw bearer token here.",
+  "zogograph-key-custody.signing_reference": "Client signing-key reference",
+  "zogograph-key-custody.signing_reference_help": "After that same test, create a second encrypted package secret for the one-time Base64 Ed25519 signing key. Never paste the private key here.",
+  "zogograph-key-custody.save_action": "Save custody settings",
+  "zogograph-key-custody.saved": "Remote custody settings saved. A successful endpoint probe does not activate remote custody."
+}

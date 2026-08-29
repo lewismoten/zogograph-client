@@ -139,7 +139,7 @@ i18nExpect($page !== false && str_contains($page, 'src="cards/overview-gauges.js
     'overview gauges are not isolated behind their core card-module boundary');
 i18nExpect($page !== false && str_contains($page, 'src="cards/action-summary.js"')
     && $actionSummaryCard !== false && str_contains($actionSummaryCard, 'window.ZogographActionSummaryCard')
-    && str_contains($actionSummaryCard, 'id: "core-action-summary"') && str_contains($actionSummaryCard, 'locales: ["action_log."]')
+    && str_contains($actionSummaryCard, 'id: "core-action-summary"') && str_contains($actionSummaryCard, 'locales: ["core-action-summary."]')
     && str_contains($actionSummaryCard, 'helpers: ["target", "humanBytes", "humanTime", "count", "i18n"]')
     && str_contains($script, 'renderCoreCardPackage(ZogographActionSummaryCard, "core-action-summary", rows,'),
     'action summary is not isolated behind its core card-module boundary');
@@ -172,6 +172,10 @@ i18nExpect($page !== false && str_contains($page, 'src="cards/uptime.js"')
     && str_contains($uptimeCard, 'helpers: ["setCard", "humanDuration", "humanTime", "i18n"]')
     && $script !== false && str_contains($script, 'renderCoreCardPackage(ZogographUptimeCard, "core-uptime",'),
     'uptime dashboard card is not isolated behind its core card-module boundary');
+i18nExpect($actionSummaryCard !== false && str_contains($actionSummaryCard, 'locales: ["core-action-summary."]')
+    && str_contains($actionSummaryCard, '"core-action-summary.things_done"')
+    && is_array($english) && !isset($english['action_log.things_done']),
+    'action summary dashboard card does not own its locale catalog');
 i18nExpect($script !== false && str_contains($script, 'function humanDuration(seconds)')
     && str_contains($script, '"duration.value"')
     && is_array($english) && isset($english['duration.value']),

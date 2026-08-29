@@ -14348,7 +14348,7 @@ function renderTerminal(data) {
   const breakIt = document.createElement("button");
   breakIt.type = "button";
   breakIt.className = "link danger";
-  breakIt.textContent = "Stop it";
+  breakIt.textContent = ZogographI18n.t("action.stop", {}, "Stop it");
   breakIt.addEventListener("click", () => stopTerminal());
   running.appendChild(breakIt);
 
@@ -14372,7 +14372,7 @@ function renderTerminal(data) {
 
   const go = document.createElement("button");
   go.type = "submit";
-  go.textContent = "Run it";
+  go.textContent = ZogographI18n.t("action.run", {}, "Run it");
   form.appendChild(go);
 
   form.addEventListener("submit", event => {
@@ -14559,7 +14559,7 @@ function renderTerminal(data) {
           if (row.bytes > 0 || row.running) {
             const open = document.createElement("button");
             open.className = "link";
-            open.textContent = "Show it";
+            open.textContent = ZogographI18n.t("action.show", {}, "Show it");
             open.addEventListener("click", () => watchTerminal(row.id, true));
             wrap.appendChild(open);
           }
@@ -14575,7 +14575,7 @@ function renderTerminal(data) {
           if (row.running) {
             const kill = document.createElement("button");
             kill.className = "link danger";
-            kill.textContent = "Stop it";
+            kill.textContent = ZogographI18n.t("action.stop", {}, "Stop it");
             kill.addEventListener("click", async () => {
               try {
                 const result = await post("terminal-stop", { id: row.id });
@@ -16054,7 +16054,7 @@ function renderAiTry(data) {
   const go = document.createElement("button");
   go.type = "button";
   go.id = "aiTryRun";
-  go.textContent = "Run it";
+  go.textContent = ZogographI18n.t("action.run", {}, "Run it");
   actions.appendChild(go);
 
   const said = document.createElement("span");

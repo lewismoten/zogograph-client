@@ -6049,6 +6049,22 @@ function renderAiSettings(data) {
     save.type = "submit";
     save.textContent = ZogographI18n.t("ai.save_settings", {}, "Save these settings");
     save.disabled = !data.writable || !data.can_change;
+    /*
+     * A compatible endpoint deliberately needs no credential.  Keep the
+     * reason this button is unavailable separate from connection validation:
+     * otherwise an administrator sees a disabled Save after choosing Ollama
+     * and reasonably assumes the empty key is the problem.
+     */
+    if (!data.writable) {
+      save.title = aiSettingsText("config_read_only",
+        "lib/config.php is not writable by the web server, so this page can show the settings but not change them.");
+    } else if (!data.can_change) {
+      save.title = aiSettingsText("role_read_only",
+        "Your signed-in role can use the assistant but cannot change its configuration. Sign in with an administrator account to save provider credentials or model settings.");
+    } else if (key === "providers") {
+      save.title = aiSettingsText("compatible_keyless_save_help",
+        "An Ollama or OpenAI-compatible connection can be saved without an API key.");
+    }
     actions.appendChild(save);
 
     const said = document.createElement("span");

@@ -57,6 +57,7 @@
   "notes.screenshot": "لقطة شاشة",
   "notes.screenshot_help": "يُغلق هذا الحوار أثناء التقاط الصورة ويعود كل ما كتبته معه. يمكنك اقتصاص أي شيء أو طمسه قبل الاحتفاظ به.",
   "ai.save_settings": "احفظ هذه الإعدادات",
+  "ai.settings.compatible_keyless_save_help": "يمكن حفظ اتصال Ollama أو اتصال متوافق مع OpenAI من دون مفتاح API.",
   "ai.save_all_pages": "يحفظ كل شيء في هذه الصفحات.",
   "ai.save_assistant_pages": "يحفظ كل شيء في صفحات {{assistant}}، بما في ذلك الأدوات في علامات التبويب الأخرى.",
   "ai.save_as_toolset": "احفظ كمجموعة أدوات",

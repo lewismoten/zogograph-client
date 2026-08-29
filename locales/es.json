@@ -59,6 +59,7 @@
   "ai.save_settings": "Guardar esta configuración",
   "ai.settings.config_read_only": "lib/config.php no se puede escribir desde el servidor web, por lo que esta página puede mostrar los ajustes pero no cambiarlos.",
   "ai.settings.role_read_only": "Su función con sesión iniciada puede usar el asistente, pero no cambiar su configuración. Inicie sesión con una cuenta de administrador para guardar credenciales del proveedor o ajustes del modelo.",
+  "ai.settings.compatible_keyless_save_help": "Una conexión Ollama o compatible con OpenAI se puede guardar sin una clave de API.",
   "ai.settings.provider_label": "Proveedor",
   "ai.settings.address_label": "Dirección",
   "ai.settings.address_help": "Déjela vacía para usar la propia del proveedor. Indique otra para una puerta de enlace, un proxy o un modelo que se ejecute en esta máquina.",

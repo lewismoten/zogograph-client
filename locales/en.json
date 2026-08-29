@@ -59,6 +59,7 @@
   "ai.save_settings": "Save these settings",
   "ai.settings.config_read_only": "lib/config.php is not writable by the web server, so this page can show the settings but not change them.",
   "ai.settings.role_read_only": "Your signed-in role can use the assistant but cannot change its configuration. Sign in with an administrator account to save provider credentials or model settings.",
+  "ai.settings.compatible_keyless_save_help": "An Ollama or OpenAI-compatible connection can be saved without an API key.",
   "ai.settings.provider_label": "Provider",
   "ai.settings.address_label": "Address",
   "ai.settings.address_help": "Leave blank for the provider's own. Point it elsewhere for a gateway, a proxy, or a model running on this machine.",

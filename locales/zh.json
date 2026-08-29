@@ -57,6 +57,7 @@
   "notes.screenshot": "屏幕截图",
   "notes.screenshot_help": "截取图片时此对话框会关闭，您输入的所有内容都会随之恢复。保留前，您可以裁剪或涂黑任何内容。",
   "ai.save_settings": "保存这些设置",
+  "ai.settings.compatible_keyless_save_help": "无需 API 密钥即可保存 Ollama 或 OpenAI 兼容连接。",
   "ai.save_all_pages": "保存这些页面上的所有内容。",
   "ai.save_assistant_pages": "保存 {{assistant}} 所有页面上的内容，包括其他选项卡中的工具。",
   "ai.save_as_toolset": "另存为工具集",

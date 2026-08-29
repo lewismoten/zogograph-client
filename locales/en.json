@@ -4,6 +4,7 @@
   "package.open_settings": "Open package settings",
   "action.copy": "Copy",
   "common.sign_in_to_see": "Sign in to see this.",
+  "setup.instructions_sign_in": "Sign in to see the setup instructions.",
   "terminal.sessions_sign_in": "Sign in to see terminal sessions.",
   "terminal.use_sign_in": "Sign in to use the terminal.",
   "action.open": "Open",

@@ -30143,7 +30143,7 @@ function databaseFacts(data) {
 async function refreshHostSchedule() {
   const body = $("hostScheduleBody");
   if (!state.signedIn) {
-    body.replaceChildren(note("Sign in to see the setup instructions."));
+    body.replaceChildren(note(ZogographI18n.t("setup.instructions_sign_in", {}, "Sign in to see the setup instructions.")));
     return;
   }
 

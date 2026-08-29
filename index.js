@@ -12217,7 +12217,7 @@ function renderEncryptionStatus(data) {
   }
   if (data.waiting_stores?.length) overview.push([ZogographI18n.t("encryption.waiting_until_present", {}, "Waiting until present"), data.waiting_stores.join(", ")]);
   const drilled = (data.artifacts || []).filter(row => Number(row.last_recovery_drill_at || 0) > 0).length;
-  if (data.mode === "sealed_copies_local") overview.push([ZogographI18n.t("encryption.recovery_drill", {}, "Recovery drill"), data.artifacts?.length ? `${drilled}/${data.artifacts.length} stores recorded` : "Run after the first seal"]);
+  if (data.mode === "sealed_copies_local") overview.push([ZogographI18n.t("encryption.recovery_drill", {}, "Recovery drill"), data.artifacts?.length ? ZogographI18n.t("encryption.recovery_stores_recorded", { drilled, total: data.artifacts.length }, "{{drilled, number}}/{{total, number}} stores recorded") : ZogographI18n.t("encryption.recovery_after_first_seal", {}, "Run after the first seal")]);
   const superseded = (data.superseded_artifacts || []).reduce((total, row) => total + Number(row.copies || 0), 0);
   if (superseded) overview.push([ZogographI18n.t("encryption.superseded_recovery_copies", {}, "Superseded recovery copies"), String(superseded)]);
   const retired = (data.retired_artifacts || []).reduce((total, row) => total + Number(row.copies || 0), 0);
@@ -12297,11 +12297,11 @@ function renderEncryptionStatus(data) {
   }
   body.replaceChildren(...parts);
   if (artifacts) renderTable("encryptionArtifacts", artifacts, [
-    { label: "Store", render: row => row.store },
-    { label: "Verified copies", render: row => String(row.copies) },
-    { label: "Newest proof", render: row => whenSpan(row.created_at) },
-    { label: "Last re-check", render: row => row.last_verified_at ? whenSpan(row.last_verified_at) : "not rechecked" },
-    { label: "Recovery drill", render: row => row.last_recovery_drill_at ? whenSpan(row.last_recovery_drill_at) : "required" },
+    { label: ZogographI18n.t("encryption.table_store", {}, "Store"), render: row => row.store },
+    { label: ZogographI18n.t("encryption.table_verified_copies", {}, "Verified copies"), render: row => String(row.copies) },
+    { label: ZogographI18n.t("encryption.table_newest_proof", {}, "Newest proof"), render: row => whenSpan(row.created_at) },
+    { label: ZogographI18n.t("encryption.table_last_recheck", {}, "Last re-check"), render: row => row.last_verified_at ? whenSpan(row.last_verified_at) : ZogographI18n.t("encryption.not_rechecked", {}, "not rechecked") },
+    { label: ZogographI18n.t("encryption.recovery_drill", {}, "Recovery drill"), render: row => row.last_recovery_drill_at ? whenSpan(row.last_recovery_drill_at) : ZogographI18n.t("encryption.required", {}, "required") },
   ]);
 }
 

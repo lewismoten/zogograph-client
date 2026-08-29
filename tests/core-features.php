@@ -3,10 +3,22 @@ declare(strict_types=1);
 require_once __DIR__ . '/../lib/boot.php';
 require_once __DIR__ . '/../lib/core-features.php';
 require_once __DIR__ . '/../lib/ai.php';
+require_once __DIR__ . '/../lib/configure.php';
 
 function coreFeatureExpect(bool $condition, string $message): void { if (!$condition) throw new RuntimeException($message); }
 
 $legacy = ['ai' => ['enabled' => true]];
+$sample = require __DIR__ . '/../lib/config.sample.php';
+$configuredFeatures = array_keys((array)($sample['core_features'] ?? []));
+$declaredFeatures = array_keys(CORE_FEATURES);
+sort($configuredFeatures); sort($declaredFeatures);
+coreFeatureExpect($configuredFeatures === $declaredFeatures,
+    'core feature sample configuration does not match the declared feature registry');
+$featureFields = array_map(static fn(array $field): string => substr((string)$field['key'], strlen('core_features_')),
+    array_values(array_filter(configFields($sample), static fn(array $field): bool => str_starts_with((string)$field['key'], 'core_features_'))));
+sort($featureFields);
+coreFeatureExpect($featureFields === $declaredFeatures,
+    'Setup does not expose exactly one toggle for each declared core feature');
 coreFeatureExpect(coreFeatureEnabled($legacy, 'assistant'), 'a legacy installation did not preserve the assistant feature');
 $disabled = ['core_features' => ['overview' => false, 'assistant' => false, 'peers' => false, 'marketplace' => false, 'terminal' => false, 'notes' => false, 'problems' => false, 'storage' => false, 'audit' => false, 'metadata' => false, 'notifications' => false, 'backups' => false, 'encryption' => false, 'alerts' => false, 'uptime' => false, 'packages' => false, 'charts' => false, 'health' => false, 'network' => false, 'host' => false], 'ai' => ['enabled' => true]];
 coreFeatureExpect(!coreFeatureEnabled($disabled, 'assistant') && !aiSettings($disabled)['enabled'],

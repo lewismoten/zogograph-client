@@ -413,9 +413,14 @@ function whenLabel(epoch) {
 function whenRange(from, to) {
   const a = whenLabel(from);
   const b = whenLabel(to);
+  const fromDate = new Date(from * 1000);
+  const toDate = new Date(to * 1000);
 
-  // A rough proxy for "carries more of the date": the longer label does.
-  if (a.length === b.length) return `${a} ${ZogographI18n.t("time.range_to", {}, "to")} ${b}`;
+  // A translated label's length says nothing about how much calendar detail it
+  // contains. Keep the compact form only when both values are on one local day.
+  if (fromDate.toDateString() === toDate.toDateString()) {
+    return `${a} ${ZogographI18n.t("time.range_to", {}, "to")} ${b}`;
+  }
 
   const wordy = at => {
     const when = new Date(at * 1000);

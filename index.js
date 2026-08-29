@@ -23320,19 +23320,19 @@ function applyAccessChrome() {
   const privacy = $("ipPrivacy");
   if (privacy) {
     privacy.hidden = !state.signedIn || !state.access?.ips;
-    privacy.textContent = state.access?.ip_privacy ? "Show IPs" : "Hide IPs";
+    privacy.textContent = ZogographI18n.t(state.access?.ip_privacy ? "privacy.show_ips" : "privacy.hide_ips");
     privacy.title = state.access?.ip_privacy
-      ? "Show IP addresses again in this browser session"
-      : "Hide IP addresses in this browser session";
+      ? ZogographI18n.t("privacy.show_ips_title")
+      : ZogographI18n.t("privacy.hide_ips_title");
   }
 
   const accountPrivacy = $("accountPrivacy");
   if (accountPrivacy) {
     accountPrivacy.hidden = !state.signedIn;
-    accountPrivacy.textContent = state.access?.account_privacy ? "Show account" : "Hide account";
+    accountPrivacy.textContent = ZogographI18n.t(state.access?.account_privacy ? "privacy.show_account" : "privacy.hide_account");
     accountPrivacy.title = state.access?.account_privacy
-      ? "Show this account name again in this browser session"
-      : "Hide this account name in this browser session";
+      ? ZogographI18n.t("privacy.show_account_title")
+      : ZogographI18n.t("privacy.hide_account_title");
   }
 
   if (!mayUsePage(state.view)) {

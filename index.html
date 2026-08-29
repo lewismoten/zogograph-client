@@ -12,10 +12,10 @@
 </head>
 <body>
 
-<a class="skip-link" href="#main">Skip to content</a>
+<a class="skip-link" href="#main" data-i18n="dashboard.skip_content">Skip to content</a>
 
 <header class="topbar">
-  <button id="navToggle" class="icon-button" aria-label="Menu" aria-expanded="false">
+  <button id="navToggle" class="icon-button" aria-label="Menu" aria-expanded="false" data-i18n-aria-label="dashboard.menu">
     <span aria-hidden="true">&#9776;</span>
   </button>
 
@@ -76,12 +76,12 @@
     <label class="inline"><span class="control-label" data-i18n="language.label">Language</span><select id="languagePicker"><option value="en">English</option><option value="en-US">English (US)</option><option value="en-GB">English (UK)</option><option value="es">Español</option><option value="hi">हिन्दी</option><option value="zh">中文</option><option value="ar">العربية</option></select></label>
     <label class="inline"><input id="languageKeys" type="checkbox"><span data-i18n="language.keys">Show translation keys</span></label>
     <label class="inline"><input id="languageHighlight" type="checkbox"><span data-i18n="language.highlight">Highlight translation sources</span></label>
-    <button id="ipPrivacy" class="link" hidden title="Hide IP addresses in this browser session">Hide IPs</button>
-    <button id="accountPrivacy" class="link" hidden title="Hide this account name in this browser session">Hide account</button>
+    <button id="ipPrivacy" class="link" hidden data-i18n-title="privacy.hide_ips_title">Hide IPs</button>
+    <button id="accountPrivacy" class="link" hidden data-i18n-title="privacy.hide_account_title">Hide account</button>
     <button id="pageHelp" class="header-help" type="button" aria-label="Help for this page" title="Help for this page" data-i18n-aria-label="help.page" data-i18n-title="help.page">?</button>
     <button id="displayPreferences" class="link" type="button" title="Change text size and motion" data-i18n="display.label" data-i18n-title="display.change">Display</button>
-    <button id="totpRecoveryCodes" class="link" hidden title="Create new one-time recovery codes after confirming your authenticator">Recovery codes</button>
-    <button id="revokeSessions" class="link danger" hidden title="End all signed-in browser sessions">End all sessions</button>
+    <button id="totpRecoveryCodes" class="link" hidden data-i18n="auth.recovery_codes" data-i18n-title="auth.recovery_codes_title">Recovery codes</button>
+    <button id="revokeSessions" class="link danger" hidden data-i18n="auth.end_sessions" data-i18n-title="auth.end_sessions_title">End all sessions</button>
     <button id="signInOut" class="primary" data-i18n="auth.sign_in">Sign in</button>
   </div>
 </header>
@@ -504,14 +504,14 @@
       <span class="nav-badge" data-badge="sys-descriptions" hidden></span>
     </a>
     <div class="nav-foot">
-      <button id="shareLink" class="link">Copy link to this view</button>
+      <button id="shareLink" class="link" data-i18n="navigation.copy_link">Copy link to this view</button>
     </div>
   </nav>
 
   <div class="scrim" id="scrim" hidden></div>
 
   <main id="main">
-    <h1 id="pageTitle" class="sr-only">Zogograph infrastructure observation dashboard</h1>
+    <h1 id="pageTitle" class="sr-only" data-i18n="page.dashboard_title">Zogograph infrastructure observation dashboard</h1>
     <div id="notice"></div>
     <section id="updateBanner" hidden aria-live="polite"></section>
     <!--

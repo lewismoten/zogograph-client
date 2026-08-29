@@ -8367,7 +8367,7 @@ function scanTable(rows, data) {
       const cancel = document.createElement("button");
       cancel.type = "button";
       cancel.className = "link danger";
-      cancel.textContent = "Withdraw";
+      cancel.textContent = ZogographI18n.t("action.cancel", {}, "Cancel");
       cancel.addEventListener("click", async () => {
         cancel.disabled = true;
         try {
@@ -10859,7 +10859,7 @@ function renderRdns(data) {
         render: row => {
           const button = document.createElement("button");
           button.className = "link danger";
-          button.textContent = "Withdraw";
+          button.textContent = ZogographI18n.t("action.cancel", {}, "Cancel");
           /*
            * Only while it is still waiting.
            *

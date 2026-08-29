@@ -71,6 +71,8 @@
   "ai.clear_portrait_hide": "图片将不再显示，表情符号会取而代之，直到它绘制出另一张图片。",
   "ai.clear_portrait_retention": "其记录仍保留在图像日志中——它曾被生成且产生了成本，无论图片是否显示，都值得保留该记录。",
   "ai.portrait_cleared": "已清除。",
+  "ai.apply_toolset": "应用工具集",
+  "ai.toolset_applied": "已应用 {{label}}。请保存这些设置以使其生效。",
   "ai.start_new": "开始新对话",
   "terminal.copy_output": "复制输出",
   "terminal.switch_on": "启用它",

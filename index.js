@@ -6283,7 +6283,7 @@ function renderAiTools(data) {
   }
   const applyPreset = document.createElement("button");
   applyPreset.type = "button";
-  applyPreset.textContent = "Apply toolset";
+  applyPreset.textContent = ZogographI18n.t("ai.apply_toolset", {}, "Apply toolset");
   applyPreset.disabled = !data.writable;
   applyPreset.addEventListener("click", () => {
     const set = (data.toolsets || []).find(one => one.name === presetPick.value);
@@ -6294,7 +6294,7 @@ function renderAiTools(data) {
       if (enabled) enabled.checked = Boolean(setting.enabled);
       if (ask) ask.checked = Boolean(setting.permission);
     }
-    notice(`Applied ${set.label}. Save these settings to make it active.`, true);
+    notice(ZogographI18n.t("ai.toolset_applied", { label: set.label }, "Applied {{label}}. Save these settings to make it active."), true);
   });
   presets.append(presetPick, applyPreset);
   parts.push(presets);

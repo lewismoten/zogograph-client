@@ -71,6 +71,8 @@
   "ai.clear_portrait_hide": "تتوقف الصورة عن الظهور ويأخذ الرمز التعبيري مكانها إلى أن يرسم صورة أخرى.",
   "ai.clear_portrait_retention": "يبقى سجلها في سجل الصور—فقد أُنشئت وكلفت شيئًا، ومن المفيد الاحتفاظ بذلك سواء ظهرت الصورة أم لا.",
   "ai.portrait_cleared": "مُسحت.",
+  "ai.apply_toolset": "طبّق مجموعة الأدوات",
+  "ai.toolset_applied": "طُبقت {{label}}. احفظ هذه الإعدادات لتصبح نشطة.",
   "ai.start_new": "ابدأ محادثة جديدة",
   "terminal.copy_output": "نسخ المخرجات",
   "terminal.switch_on": "شغّله",

@@ -28087,7 +28087,7 @@ function missingCommandNote(missing, where = "this account") {
 
   const go = document.createElement("button");
   go.className = "link";
-  go.textContent = "check the capabilities again";
+  go.textContent = ZogographI18n.t("action.check_now", {}, "Check now");
   go.addEventListener("click", () => showView("capabilities"));
   after.appendChild(go);
 

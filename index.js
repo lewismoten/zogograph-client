@@ -6303,9 +6303,15 @@ function renderAiTools(data) {
   table.className = "retention";
 
   const head = table.createTHead().insertRow();
-  for (const label of ["Tool", "Runs", "May use it", "Ask me first", ""]) {
+  for (const [key, fallback] of [
+    ["ai.tool_column", "Tool"],
+    ["ai.runs_column", "Runs"],
+    ["ai.may_use_column", "May use it"],
+    ["ai.ask_first_column", "Ask me first"],
+    ["", ""],
+  ]) {
     const th = document.createElement("th");
-    th.textContent = label;
+    th.textContent = key ? ZogographI18n.t(key, {}, fallback) : fallback;
     head.appendChild(th);
   }
 
@@ -6371,7 +6377,7 @@ function renderAiTools(data) {
     if (tool.enabled && tool.offered === false) {
       const why = document.createElement("div");
       why.className = "band-warn small";
-      why.textContent = "not in use";
+      why.textContent = ZogographI18n.t("ai.tool_not_in_use", {}, "not in use");
       why.title = tool.not_offered_because ?? "";
       on.appendChild(why);
     }

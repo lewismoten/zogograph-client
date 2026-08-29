@@ -5823,7 +5823,7 @@ function renderAiSettings(data) {
     const forget = document.createElement("button");
     forget.type = "button";
     forget.className = "link danger";
-    forget.textContent = "Forget the key";
+    forget.textContent = ZogographI18n.t("ai.forget_key", {}, "Forget the key");
     forget.addEventListener("click", async () => {
       if (!(await confirmDialog("Remove the stored API key? The assistant will stop working until "
         + "another is set.", "Forget key"))) return;
@@ -5868,9 +5868,8 @@ function renderAiSettings(data) {
   const test = document.createElement("button");
   test.type = "button";
   test.id = "aiTest";
-  test.textContent = "Test the connection";
-  test.title = "One real request, with a tool attached, using whatever is in the boxes "
-    + "above \u2014 including a key you have typed but not saved";
+  test.textContent = ZogographI18n.t("ai.test_connection", {}, "Test the connection");
+  test.title = ZogographI18n.t("ai.test_connection_title", {}, "One real request, with a tool attached, using whatever is in the boxes above — including a key you have typed but not saved");
   testing.appendChild(test);
 
   const testResult = document.createElement("span");

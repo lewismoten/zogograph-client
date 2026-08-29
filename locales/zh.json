@@ -70,6 +70,7 @@
   "ai.settings.identity_portrait_help": "这是它上次被要求时为自己绘制的。关闭下面的自画像会阻止它再画一张；在那之前这张会保留。",
   "ai.settings.sign_in_required": "登录后可查看这些设置。",
   "ai.settings.no_available_models": "尚无可用模型——请在“可用模型”中添加一个",
+  "ai.settings.past_conversations_sign_in": "登录后可查看过去的对话。",
   "path_hygiene.sign_in": "登录后可检查路径名称。",
   "ai.save_all_pages": "保存这些页面上的所有内容。",
   "ai.save_assistant_pages": "保存 {{assistant}} 所有页面上的内容，包括其他选项卡中的工具。",

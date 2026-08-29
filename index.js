@@ -10147,7 +10147,7 @@ const pastChats = { list: [], open: null, session: null };
 async function refreshPastChats() {
   const body = $("pastChatsBody");
   if (!state.signedIn) {
-    body.replaceChildren(note("Sign in to see past conversations."));
+    body.replaceChildren(note(aiSettingsText("past_conversations_sign_in", "Sign in to see past conversations.")));
     return;
   }
 

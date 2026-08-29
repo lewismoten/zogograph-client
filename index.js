@@ -8334,7 +8334,7 @@ function scanTable(rows, data) {
     suggested.textContent = data.intervals[scan.recommended] ?? "";
     if (Number(scan.every) === Number(scan.recommended)) {
       suggested.className = "muted band-ok";
-      suggested.textContent = "as recommended";
+      suggested.textContent = ZogographI18n.t("scan.as_recommended", {}, "as recommended");
     }
     /*
      * "Only when asked" as a recommendation needs its reason attached.
@@ -8347,12 +8347,12 @@ function scanTable(rows, data) {
     }
 
     const last = row.insertCell();
-    last.textContent = scan.last_at ? ago(scan.last_at) : "never";
+    last.textContent = scan.last_at ? ago(scan.last_at) : ZogographI18n.t("scan.never", {}, "never");
     if (scan.last_at) last.title = humanTime(scan.last_at);
 
     const next = row.insertCell();
     next.className = "muted";
-    next.textContent = scan.due ? "due now" : scan.due_why;
+    next.textContent = scan.due ? ZogographI18n.t("scan.due_now", {}, "due now") : scan.due_why;
     if (scan.due) next.className = "band-warn";
 
     const actions = row.insertCell();

@@ -1047,10 +1047,10 @@
 <section class="view" data-view="mem-slab" hidden>
 <section class="panel" id="memSlabPanel">
   <div class="panel-head">
-    <h2>Kernel slab caches</h2>
-    <button id="memSlabRefresh" class="link">Refresh</button>
+    <h2 data-i18n="host.kernel_slab_title">Kernel slab caches</h2>
+    <button id="memSlabRefresh" class="link" data-i18n="action.refresh">Refresh</button>
   </div>
-  <p class="muted small sub-note">Memory the kernel holds for itself. It belongs to no process and no account, and it is the first place to look when the numbers do not add up — a quarter of a gigabyte of <code>xfs_inode</code> appears in nothing else on this site.</p>
+  <p class="muted small sub-note" data-i18n="host.kernel_slab_help">Memory the kernel holds for itself. It belongs to no process and no account, and it is the first place to look when the numbers do not add up — a quarter of a gigabyte of xfs_inode appears in nothing else on this site.</p>
   <div id="memSlabBody"></div>
   <div id="memSlabContent" hidden>
     <p class="muted small sub-note">

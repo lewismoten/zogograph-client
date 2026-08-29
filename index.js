@@ -869,77 +869,6 @@ function renderGauges(overview, rows = null) {
  * using. Inside CageFS the second can sit at the ceiling while the first is
  * idle, which is not a contradiction - it is what being throttled looks like.
  */
-function renderCpuGauges(sample) {
-  const holder = $("cpuGauges");
-  if (!holder) return;
-
-  const cores = Number(sample?.cpu_cores) || 0;
-  const load1 = sample?.load1 == null ? null : Number(sample.load1);
-  const dials = [];
-
-  if (sample?.cpu_percent != null) {
-    const monitoringCpu = sample.monitoring_cpu_percent == null
-      ? null : Number(sample.monitoring_cpu_percent);
-    const workloadCpu = monitoringCpu == null ? null
-      : Math.max(0, Number(sample.cpu_percent) - monitoringCpu);
-    dials.push({
-      label: ZogographI18n.t("cpu.gauge_host_cpu"),
-      value: Number(sample.cpu_percent),
-      warn: 70, crit: 90,
-      overlay: monitoringCpu,
-      overlayLabel: monitoringCpu == null ? null
-        : ZogographI18n.t("cpu.gauge_collector_arc", { percent: monitoringCpu.toFixed(1) }),
-      sub: ZogographI18n.t("cpu.gauge_host_total", { cores })
-        + (workloadCpu == null ? "" : ZogographI18n.t("cpu.gauge_workload_excluding_monitor", { percent: workloadCpu.toFixed(1) })),
-    });
-  }
-
-  const mine = state.overview?.vitals?.cpu_percent;
-  if (mine != null) {
-    dials.push({
-      label: ZogographI18n.t("cpu.gauge_account_cpu"),
-      value: Number(mine),
-      warn: 70, crit: 90,
-      // Not comparable with the figure beside it: different denominators.
-      sub: ZogographI18n.t("cpu.gauge_account_allowance"),
-    });
-  }
-
-  if (cores > 0 && load1 != null) {
-    const monitorRunnable = sample.monitoring_runnable == null
-      ? null : Number(sample.monitoring_runnable);
-    dials.push({
-      label: ZogographI18n.t("cpu.gauge_load_per_core"),
-      value: (load1 / cores) * 100,
-      // One job per core is a busy machine, not a broken one; past that work is
-      // queueing, and half again is where it starts to be felt.
-      warn: 100, crit: 150, max: 200,
-      // Load is an exponential average of both runnable and D-state tasks.
-      // This mark is a same-scale instantaneous queue equivalent, not a claim
-      // that it is the collector's exact share of the average.
-      overlay: monitorRunnable == null ? null : (monitorRunnable / cores) * 100,
-      overlayLabel: monitorRunnable == null ? null
-        : ZogographI18n.t("cpu.gauge_runnable_arc", { count: monitorRunnable }),
-      sub: ZogographI18n.t("cpu.gauge_load_over_cores", { load: load1.toFixed(2), cores: count(cores, "core") })
-        + (monitorRunnable == null ? "" : ZogographI18n.t("cpu.gauge_collector_runnable", { count: monitorRunnable })),
-    });
-  }
-
-  const myCores = Number(state.overview?.vitals?.cpu_cores) || 0;
-  if (myCores > 0 && cores > 0 && myCores < cores) {
-    dials.push({
-      label: ZogographI18n.t("cpu.gauge_core_share"),
-      value: (myCores / cores) * 100,
-      // A small share is the normal, healthy state of a tenant on a shared box,
-      // so the bands sit past anything ordinary.
-      warn: 60, crit: 85,
-      sub: ZogographI18n.t("cpu.gauge_core_share_summary", { mine: myCores, total: cores }),
-    });
-  }
-
-  holder.replaceChildren(...dials.map(buildGauge));
-}
-
 /* -------------------------------------------------------------- processor -- */
 
 /*
@@ -1012,7 +941,11 @@ async function refreshCpu() {
   CPU_BODIES.forEach(id => { const el = $(id); if (el) el.textContent = ""; });
   show(false);
 
-  renderCpuGauges(data.sample);
+  renderCoreCardPackage(ZogographCpuGaugesCard, "core-cpu-gauges", {
+    sample: data.sample, accountVitals: state.overview?.vitals ?? {},
+  }, {
+    target: $("cpuGauges"), buildGauge, count, i18n: ZogographI18n,
+  });
   renderCpuFindings(data.findings ?? []);
   drawLineChart($("cpuBusyChart"), data.series ?? [], [
     { key: "busy", label: ZogographI18n.t("cpu.busy", {}, "Busy") },

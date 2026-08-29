@@ -28921,7 +28921,7 @@ async function refreshWhois(name = "") {
         const terms = (await api("whois")).terms;
         if (terms) {
           body.replaceChildren(renderWhoisTerms(terms, () => {
-            body.replaceChildren(note("Type a name above."));
+            body.replaceChildren(note(ZogographI18n.t("whois.type_name", {}, "Type a name above.")));
           }));
           return;
         }
@@ -28930,7 +28930,7 @@ async function refreshWhois(name = "") {
         // statement, not a gate this should fail closed on.
       }
     }
-    body.replaceChildren(note("Type a name above."));
+    body.replaceChildren(note(ZogographI18n.t("whois.type_name", {}, "Type a name above.")));
     return;
   }
 
@@ -28946,7 +28946,11 @@ async function refreshWhois(name = "") {
     }
   }
 
-  body.replaceChildren(spinner("Asking the registry\u2026 this can take a few seconds."));
+  body.replaceChildren(spinner(ZogographI18n.t(
+    "whois.asking_registry",
+    {},
+    "Asking the registry… this can take a few seconds.",
+  )));
 
   let data;
   try {
@@ -28973,24 +28977,28 @@ async function refreshWhois(name = "") {
      * The pending banner above carries the countdown.
      */
     if (data.from_host?.pending) {
-      parts.push(note(
-        "whois is not available to this account, so root's collector has been asked to run it. "
-        + "It answers on its next run \u2014 the countdown is at the top of the page, and this "
-        + "page will have the answer once it lands."
-        + (data.from_host.previous_error
-          ? ` The last attempt on the host said: ${data.from_host.previous_error}`
-          : "")
-      ));
+      parts.push(note(ZogographI18n.t(
+        data.from_host.previous_error
+          ? "whois.host_pending_with_error"
+          : "whois.host_pending",
+        { error: data.from_host.previous_error },
+        data.from_host.previous_error
+          ? "WHOIS is not available to this account, so root's collector has been asked to run it. It answers on its next run — the countdown is at the top of the page, and this page will have the answer once it lands. The last attempt on the host said: {{error}}"
+          : "WHOIS is not available to this account, so root's collector has been asked to run it. It answers on its next run — the countdown is at the top of the page, and this page will have the answer once it lands.",
+      )));
     } else {
-      parts.push(note(data.error || "The lookup failed."));
+      parts.push(note(data.error || ZogographI18n.t("whois.lookup_failed", {}, "The lookup failed.")));
     }
     body.replaceChildren(...parts);
     return;
   }
 
   if (data.from_host?.answered_at) {
-    parts.push(note(`Answered by root's collector ${ago(data.from_host.answered_at)}, because `
-      + "whois is not available to this account."));
+    parts.push(note(ZogographI18n.t(
+      "whois.host_answered",
+      { when: ago(data.from_host.answered_at) },
+      "Answered by root's collector {{when}}, because WHOIS is not available to this account.",
+    )));
   }
 
   const p = data.parsed || {};

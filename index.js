@@ -20639,7 +20639,7 @@ function drawUptimeChart(from, to) {
    * root's.
    */
   const rows = [
-    { key: "machine", label: "The machine", height: 34 },
+    { key: "machine", label: ZogographI18n.t("uptime.machine", {}, "The machine"), height: 34 },
     ...tracks.map(track => ({ key: track.key, label: track.label, track, height: 22 })),
   ];
 

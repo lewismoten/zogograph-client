@@ -1431,6 +1431,7 @@
   "backup.jetbackup_title": "JetBackup",
   "backup.jetbackup_help": "备份系统对其自身备份的说明，是查找名为 files0000000005 的目录背后账户和日期的唯一途径。它需要 JetBackup 命令行工具，通常还需要以 root 身份运行。",
   "host.memory_title": "内存",
+  "uptime.machine": "此机器",
   "chart.compaction_bucket": "每个点覆盖 {{duration}}，并显示该时段内的最坏值，而非平均值。",
   "chart.compaction_disk": "此处最早的读数也会在磁盘上压缩，每行最多 {{readings, number}} 条读数。警报附近的读数永远不会压缩。",
   "host.memory_committed": "已提交内存",

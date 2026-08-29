@@ -17,6 +17,7 @@ $overviewGaugesCard = file_get_contents($root . '/cards/overview-gauges.js');
 $actionSummaryCard = file_get_contents($root . '/cards/action-summary.js');
 $cpuFindingsCard = file_get_contents($root . '/cards/cpu-findings.js');
 $cpuCoresCard = file_get_contents($root . '/cards/cpu-cores.js');
+$cpuTimeCard = file_get_contents($root . '/cards/cpu-time.js');
 $hostMemoryCard = file_get_contents($root . '/cards/host-memory.js');
 $uptimeCard = file_get_contents($root . '/cards/uptime.js');
 $setup = file_get_contents($root . '/setup.php');
@@ -119,6 +120,10 @@ i18nExpect($page !== false && str_contains($page, 'src="cards/cpu-gauges.js"')
     && str_contains($script, 'renderCoreCardPackage(ZogographCpuGaugesCard, "core-cpu-gauges",')
     && str_contains($script, 'sample: data.sample, accountVitals: state.overview?.vitals ?? {}'),
     'CPU gauges are not isolated behind their core card-module boundary');
+i18nExpect($cpuTimeCard !== false && str_contains($cpuTimeCard, 'locales: ["core-cpu-time."]')
+    && str_contains($cpuTimeCard, '"core-cpu-time.average_over_range"')
+    && is_array($english) && !isset($english['cpu.average_over_range']),
+    'CPU time card does not own its locale catalog');
 i18nExpect($page !== false && str_contains($page, 'src="cards/network-gauges.js"')
     && $networkGaugesCard !== false && str_contains($networkGaugesCard, 'window.ZogographNetworkGaugesCard')
     && str_contains($networkGaugesCard, 'id: "core-network-gauges"') && str_contains($networkGaugesCard, 'locales: ["network."]')

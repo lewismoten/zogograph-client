@@ -2236,17 +2236,17 @@
 <section class="view" data-view="sys-ai-identity" hidden>
 <section class="panel" id="aiSettingsPanel">
   <div class="panel-head">
-    <h2><span class="ai-name">Assistant</span></h2>
+    <h2 data-i18n-rich="ai.identity_title"><span class="ai-name" data-i18n-tag="assistant">Assistant</span></h2>
   </div>
-  <p class="muted small sub-note">
-    <span class="ai-name">Assistant</span> is a model you configure, given a fixed set of
+  <p class="muted small sub-note" data-i18n-rich="ai.identity_help">
+    <span class="ai-name" data-i18n-tag="assistant">Assistant</span> is a model you configure, given a fixed set of
     read-only tools for looking at this machine — the name is the job: somebody on watch
     who tells you what they can see. It is off until you set it up, and when it is on this
     tool sends parts of your logs, your disk figures and your process list to whichever
     service you point it at — which is worth deciding deliberately rather than
     discovering. A local model needs no key and nothing leaves the machine.
   </p>
-  <p class="muted small sub-note">
+  <p class="muted small sub-note" data-i18n="ai.identity_security_help">
     The model can never write a query. Every tool is a fixed statement with typed,
     enumerated parameters bound to it, and anything outside those bounds is refused before
     it reaches a database. The rest of the settings are on the pages under this one.

@@ -28385,7 +28385,11 @@ function showRecordDialog(row) {
 
     if (row.detail.fields.length) {
       nodes.push(simpleTable(
-        ["", "Value", "What it means"],
+        [
+          "",
+          ZogographI18n.t("table.value", {}, "Value"),
+          ZogographI18n.t("record.what_it_means", {}, "What it means"),
+        ],
         row.detail.fields.map(field => [field.name, field.value, field.note]),
         ["name", "cmd", "muted"]
       ));
@@ -28393,10 +28397,18 @@ function showRecordDialog(row) {
   }
 
   showListDialog(
-    `${row.type} record for ${row.name}`,
+    ZogographI18n.t(
+      "record.dialog_title",
+      { type: row.type, name: row.name },
+      "{{type}} record for {{name}}",
+    ),
     nodes,
     row.detail && row.detail.kind && row.detail.kind !== "text"
-      ? `This is a ${row.detail.kind} record.`
+      ? ZogographI18n.t(
+        "record.kind_note",
+        { kind: row.detail.kind },
+        "This is a {{kind}} record.",
+      )
       : ""
   );
 }
@@ -28405,7 +28417,11 @@ function renderDnsChanges(data) {
   const body = $("dnsChangeBody");
 
   if (!data.changes.length) {
-    body.replaceChildren(note("Nothing has changed since this started watching."));
+    body.replaceChildren(note(ZogographI18n.t(
+      "dns.no_changes",
+      {},
+      "Nothing has changed since this started watching.",
+    )));
     return;
   }
 
@@ -28414,19 +28430,21 @@ function renderDnsChanges(data) {
   body.replaceChildren(holder);
 
   renderTable("dnsChangeTable", data.changes, [
-    { label: "When", render: row => whenSpan(row.at) },
+    { label: ZogographI18n.t("table.when", {}, "When"), render: row => whenSpan(row.at) },
     {
-      label: "What",
+      label: ZogographI18n.t("table.what", {}, "What"),
       render: row => {
         const span = document.createElement("span");
-        span.textContent = row.change === "added" ? "appeared" : "disappeared";
+        span.textContent = row.change === "added"
+          ? ZogographI18n.t("dns.change.appeared", {}, "Appeared")
+          : ZogographI18n.t("dns.change.disappeared", {}, "Disappeared");
         span.className = row.change === "added" ? "band-ok" : "band-warn";
         return span;
       },
     },
-    { label: "Name", className: "name", render: row => row.name },
-    { label: "Type", render: row => row.type },
-    { label: "Value", className: "cmd", render: row => row.value },
+    { label: ZogographI18n.t("table.name", {}, "Name"), className: "name", render: row => row.name },
+    { label: ZogographI18n.t("table.type", {}, "Type"), render: row => row.type },
+    { label: ZogographI18n.t("table.value", {}, "Value"), className: "cmd", render: row => row.value },
   ], null, null, row => String(row.id));
 }
 

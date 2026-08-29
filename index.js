@@ -19588,14 +19588,15 @@ async function refreshHostDisk() {
      * directories will not think to look further down for it.
      */
     deleted.appendChild(section(
-      `Deleted, still holding ${humanBytes(data.deleted_bytes)}`,
+      ZogographI18n.t("host.deleted_holding", { amount: humanBytes(data.deleted_bytes) },
+        "Deleted, still holding {{amount}}"),
       (() => {
         const wrap = document.createDocumentFragment();
-        wrap.appendChild(note("These files have been unlinked but a process still has them "
-          + "open, so the blocks stay allocated. df counts them; du, ls, find and the "
-          + "treemap cannot see them. Restarting the process listed frees the space."));
+        wrap.appendChild(note(ZogographI18n.t("host.deleted_open_help", {},
+          "These files have been unlinked but a process still has them open, so the blocks stay allocated. df counts them; du, ls, find and the treemap cannot see them. Restarting the process listed frees the space.")));
         wrap.appendChild(simpleTable(
-          ["Path", "Held by", "PID", "Size"],
+          ["host.deleted_path", "host.deleted_held_by", "host.deleted_pid", "host.deleted_size"].map((key, index) =>
+            ZogographI18n.t(key, {}, ["Path", "Held by", "PID", "Size"][index])),
           data.deleted.map(d => [
             d.path, d.process + (d.holders > 1 ? ` (\u00d7${d.holders})` : ""),
             String(d.pid), humanBytes(d.bytes),
@@ -19606,20 +19607,23 @@ async function refreshHostDisk() {
       })()
     ));
   } else if (data.deleted_readable) {
-    deleted.appendChild(note("None \u2014 no process is holding space in a deleted file."));
+    deleted.appendChild(note(ZogographI18n.t("host.deleted_none", {},
+      "None — no process is holding space in a deleted file.")));
   } else {
-    deleted.appendChild(note("This needs /proc/<pid>/fd, which only root can read. "
-      + "Run the host collector to fill it in."));
+    deleted.appendChild(note(ZogographI18n.t("host.deleted_root_only", {},
+      "This needs /proc/<pid>/fd, which only root can read. Run the host collector to fill it in.")));
   }
 
   if (data.dirs.length) {
     dirs.appendChild(simpleTable(
-      ["Directory", "Size", "Files"],
+      ["host.directory", "host.deleted_size", "host.files"].map((key, index) =>
+        ZogographI18n.t(key, {}, ["Directory", "Size", "Files"][index])),
       data.dirs.map(d => [d.path, humanBytes(d.bytes), humanCount(d.files)]),
       ["name", "size", "size"]
     ));
   } else {
-    dirs.appendChild(note("Nothing recorded. Ask for a walk from the Storage page."));
+    dirs.appendChild(note(ZogographI18n.t("host.directories_none", {},
+      "Nothing recorded. Ask for a walk from the Storage page.")));
   }
 
   const when = [`Walked ${humanTime(data.taken_at)} (${ago(data.taken_at)})`];

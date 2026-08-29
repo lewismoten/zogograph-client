@@ -12190,8 +12190,14 @@ function renderEncryptionStatus(data) {
     [ZogographI18n.t("encryption.selected_stores", {}, "Selected stores"), data.stores?.length ? data.stores.join(", ") : ZogographI18n.t("encryption.none", {}, "None")],
     [ZogographI18n.t("encryption.protection_evidence", {}, "Protection evidence"), evidence[data.evidence] || ZogographI18n.t("encryption.needs_attention", {}, "Needs attention")],
   ];
-  if (data.setup_configuration) overview.push(["Setup configuration at rest", data.setup_configuration.state === "ok" ? "Encrypted and verified" : data.setup_configuration.state === "error" ? "Verification failed" : "Private permissions only"]);
-  if (data.sqlcipher) overview.push(["Live SQLCipher option", data.sqlcipher.state === "driver-ready" ? "Driver detected; provider remains inactive" : "Driver not detected"]);
+  if (data.setup_configuration) overview.push([
+    ZogographI18n.t("encryption.setup_configuration_at_rest", {}, "Setup configuration at rest"),
+    data.setup_configuration.state === "ok" ? ZogographI18n.t("encryption.encrypted_verified", {}, "Encrypted and verified") : data.setup_configuration.state === "error" ? ZogographI18n.t("encryption.verification_failed", {}, "Verification failed") : ZogographI18n.t("encryption.private_permissions_only", {}, "Private permissions only"),
+  ]);
+  if (data.sqlcipher) overview.push([
+    ZogographI18n.t("encryption.live_sqlcipher", {}, "Live SQLCipher option"),
+    data.sqlcipher.state === "driver-ready" ? ZogographI18n.t("encryption.driver_detected_inactive", {}, "Driver detected; provider remains inactive") : ZogographI18n.t("encryption.driver_not_detected", {}, "Driver not detected"),
+  ]);
   if (data.storage_estimate?.required_bytes) {
     const free = data.storage_estimate.free_bytes == null ? "free space unavailable" : `${humanBytes(data.storage_estimate.free_bytes)} free`;
     overview.push(["Space for next seal", `${humanBytes(data.storage_estimate.required_bytes)} estimated · ${free}`]);

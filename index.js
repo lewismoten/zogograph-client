@@ -7578,7 +7578,7 @@ function chatChartCard(message) {
       if (drawn.page && VIEWS[drawn.page]) {
         const go = document.createElement("button");
         go.className = "link small";
-        go.textContent = `Open it on ${VIEWS[drawn.page].label}`;
+        go.textContent = ZogographI18n.t("chart.open_on_page", { page: VIEWS[drawn.page].label }, "Open it on {{page}}");
         go.addEventListener("click", () => {
           location.hash = `#/${drawn.page}?range=${state.range}`;
         });
@@ -7586,12 +7586,12 @@ function chatChartCard(message) {
       }
 
       if (!drawn.points) {
-        caption.textContent = "Nothing was recorded in this period. "
+        caption.textContent = ZogographI18n.t("chart.no_data", {}, "Nothing was recorded in this period.") + " "
           + (caption.textContent || "");
       }
     } catch (error) {
-      head.textContent = "That chart could not be drawn";
-      caption.textContent = String(error.message || error);
+      head.textContent = ZogographI18n.t("chart.could_not_draw", {}, "That chart could not be drawn");
+      caption.textContent = ZogographI18n.t("chart.error", { error: String(error.message || error) }, "Could not draw this visual: {{error}}");
     }
   });
 
@@ -7606,7 +7606,7 @@ function chatAssistantVisualCard(message) {
   card.className = "chat-chart";
   const head = document.createElement("div");
   head.className = "chat-chart-head";
-  head.textContent = message.arguments.title || "Assistant visual";
+  head.textContent = message.arguments.title || ZogographI18n.t("chart.assistant_visual", {}, "Assistant visual");
   const canvas = document.createElement("canvas");
   canvas.className = "chat-chart-canvas";
   const caption = document.createElement("div");
@@ -7616,7 +7616,7 @@ function chatAssistantVisualCard(message) {
   chatState.charts.set(message.id, card);
   requestAnimationFrame(() => {
     try { drawAssistantVisual(canvas, message.arguments); }
-    catch (error) { caption.textContent = `Could not draw this visual: ${error.message || error}`; }
+    catch (error) { caption.textContent = ZogographI18n.t("chart.error", { error: String(error.message || error) }, "Could not draw this visual: {{error}}"); }
   });
   return card;
 }

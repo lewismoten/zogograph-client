@@ -20899,7 +20899,7 @@ function renderUptime() {
 
   const bands = [
     ...(a.outages || []).map(o => ({
-      kind: "Restarted",
+      kind: ZogographI18n.t("uptime.restarted", {}, "Restarted"),
       from: o.from,
       to: o.to,
       seconds: o.seconds_at_most,
@@ -20917,7 +20917,7 @@ function renderUptime() {
      * rather than in the label.
      */
     ...(a.gaps || []).map(g => ({
-      kind: "Reading gap",
+      kind: ZogographI18n.t("uptime.reading_gap", {}, "Reading gap"),
       from: g.from,
       to: g.to,
       seconds: g.seconds,
@@ -20936,31 +20936,30 @@ function renderUptime() {
   if (!bands.length) {
     $("uptimeBody").replaceChildren(Object.assign(document.createElement("p"), {
       className: "muted",
-      textContent: "Every reading in this window is present and the machine never "
-        + "restarted. Nothing to explain.",
+      textContent: ZogographI18n.t("uptime.no_gaps_or_restarts", {}, "Every reading in this window is present and the machine never restarted. Nothing to explain."),
     }));
   } else {
     renderTable("uptimeBody", bands, [
       {
-        label: "What",
+        label: ZogographI18n.t("table.what", {}, "What"),
         render: row => {
           const span = document.createElement("span");
           span.textContent = row.kind;
           // Only a restart is coloured. A gap in the readings is not a fault of
           // the machine's, and colouring it the same invites reading it as one.
-          if (row.kind === "Restarted") span.className = "grew";
+          if (row.kind === ZogographI18n.t("uptime.restarted", {}, "Restarted")) span.className = "grew";
           else span.className = "muted";
           return span;
         },
       },
-      { label: "From", render: row => whenSpan(row.from) },
-      { label: "Until", render: row => whenSpan(row.to) },
+      { label: ZogographI18n.t("uptime.table_from", {}, "From"), render: row => whenSpan(row.from) },
+      { label: ZogographI18n.t("uptime.table_until", {}, "Until"), render: row => whenSpan(row.to) },
       {
-        label: "For",
+        label: ZogographI18n.t("uptime.table_for", {}, "For"),
         className: "size",
-        render: row => (row.kind === "Restarted" ? "≤ " : "") + humanDuration(row.seconds),
+        render: row => (row.kind === ZogographI18n.t("uptime.restarted", {}, "Restarted") ? "≤ " : "") + humanDuration(row.seconds),
       },
-      { label: "What it means", className: "name", render: row => row.note },
+      { label: ZogographI18n.t("uptime.table_meaning", {}, "What it means"), className: "name", render: row => row.note },
     ]);
   }
 

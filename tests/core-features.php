@@ -20,7 +20,7 @@ sort($featureFields);
 coreFeatureExpect($featureFields === $declaredFeatures,
     'Setup does not expose exactly one toggle for each declared core feature');
 coreFeatureExpect(coreFeatureEnabled($legacy, 'assistant'), 'a legacy installation did not preserve the assistant feature');
-$disabled = ['core_features' => ['overview' => false, 'assistant' => false, 'peers' => false, 'marketplace' => false, 'terminal' => false, 'notes' => false, 'problems' => false, 'storage' => false, 'audit' => false, 'metadata' => false, 'notifications' => false, 'backups' => false, 'encryption' => false, 'alerts' => false, 'uptime' => false, 'packages' => false, 'charts' => false, 'health' => false, 'network' => false, 'host' => false], 'ai' => ['enabled' => true]];
+$disabled = ['core_features' => array_fill_keys(array_keys(CORE_FEATURES), false), 'ai' => ['enabled' => true]];
 coreFeatureExpect(!coreFeatureEnabled($disabled, 'assistant') && !aiSettings($disabled)['enabled'],
     'disabled assistant core feature still enabled assistant operations');
 $status = array_column(coreFeatureStatus($disabled), null, 'id');

@@ -76,6 +76,9 @@ require_once __DIR__ . '/ai-tools/offer-choices.php';
 require_once __DIR__ . '/ai-tools/ask-user.php';
 require_once __DIR__ . '/ai-tools/highlight-page.php';
 require_once __DIR__ . '/ai-tools/session-topic.php';
+require_once __DIR__ . '/ai-tools/request-tool-group.php';
+require_once __DIR__ . '/ai-tools/take-screenshot.php';
+require_once __DIR__ . '/ai-tools/inspect-page-html.php';
 
 /**
  * Every tool, with its schema and how it runs.
@@ -131,6 +134,9 @@ function aiToolCatalogue(): array
         ...aiToolAskUserPackage(),
         ...aiToolHighlightPagePackage(),
         ...aiToolSessionTopicPackage(),
+        ...aiToolRequestToolGroupPackage(),
+        ...aiToolTakeScreenshotPackage(),
+        ...aiToolInspectPageHtmlPackage(),
 
         /* ------------------------------------------------- what is wrong -- */
 
@@ -429,85 +435,6 @@ function aiToolCatalogue(): array
             ],
         ],
 
-        'request_tool_group' => [
-            'group' => 'diagnostic',
-            'where' => 'browser',
-            'permission' => true,
-            'summary' => 'ask to enable a subject-specific set of tools.',
-            'description' =>
-                "Asks the operator to enable one additional subject of tools, then opens "
-                . "the Tools settings page where they can inspect and save that choice. "
-                . "It never enables anything by itself.\n\n"
-                . "USE THIS only after the diagnostic tools have shown that the next "
-                . "question needs a disabled subject, such as host processes, terminal "
-                . "commands, navigation, memory analysis, or pictures. Say what that "
-                . "subject would let you check before calling it.\n\n"
-                . "DO NOT use this as a first step, or to request more than one subject "
-                . "at once. The point of the smaller initial set is to keep the operator "
-                . "in control of what you can see and do.",
-            'parameters' => [
-                'subject' => [
-                    'type' => 'string',
-                    'enum' => ['host', 'memory', 'navigation', 'terminal', 'pictures'],
-                    'required' => true,
-                    'description' => 'The one tool subject that would answer the next question.',
-                ],
-                'why' => [
-                    'type' => 'string', 'maxLength' => 200, 'required' => true,
-                    'description' => 'A concise explanation for the operator of what this subject would let you check.',
-                ],
-            ],
-        ],
-
-        'take_screenshot' => [
-            'group' => 'navigation',
-            'where' => 'browser',
-            'permission' => true,
-            'summary' => 'take a picture of what you can see.',
-            'description' =>
-                "Captures an image of the page the user currently has open and returns it "
-                . "to you.\n\n"
-                . "USE THIS SPARINGLY and only when the shape of something matters more "
-                . "than its numbers: a chart the user is describing in words, a layout "
-                . "problem, or a value they can see and you cannot find. Images cost far "
-                . "more tokens than text - a screenshot is worth roughly a thousand words "
-                . "of data you could have fetched precisely.\n\n"
-                . "DO NOT use this to read data that a diagnostic tool returns. If you "
-                . "want the disk figures, call get_current_status; a picture of them is "
-                . "worse in every way.\n\n"
-                . "DO NOT use it as a first step. Find out what you can from the data "
-                . "first, and reach for this when the user's description and the data "
-                . "disagree.\n\n"
-                . "The user is asked before each capture and may refuse.",
-            'parameters' => [
-                'why' => [
-                    'type' => 'string', 'maxLength' => 200, 'required' => true,
-                    'description' => 'What you expect to see and why the data cannot tell '
-                        . 'you. This is shown to the user when asking permission, so it '
-                        . 'has to be a real reason they can judge.',
-                ],
-            ],
-        ],
-
-        'inspect_current_page_html' => [
-            'group' => 'navigation',
-            'where' => 'browser',
-            'permission' => true,
-            'summary' => 'read a reviewed copy of the current page structure.',
-            'description' =>
-                "Asks the user to send the outer HTML of the current page's main content. "
-                . "This is usually more useful and much cheaper than a screenshot for a "
-                . "layout problem: it preserves labels, structure, and accessible state. "
-                . "The user sees an editable preview first and may redact any elements or "
-                . "text before it leaves the browser. Use this for page/layout questions, "
-                . "not to obtain diagnostic values that a normal tool can read.",
-            'parameters' => [
-                'why' => [
-                    'type' => 'string', 'maxLength' => 200, 'required' => true,
-                    'description' => 'What structural detail you need and why other tools cannot provide it.',
-                ],
-            ],
-        ],
     ];
 }
 

@@ -1149,8 +1149,8 @@
 
 <section class="view" data-view="disk-dirs" hidden>
 <section class="panel">
-  <h2>Biggest directories on the machine</h2>
-  <p class="muted small sub-note">
+  <h2 data-i18n="host.big_directories_title">Biggest directories on the machine</h2>
+  <p class="muted small sub-note" data-i18n="host.big_directories_help">
     From root's walk of the whole disk, so this reaches the places the account
     cannot: other accounts' homes, <code>/var</code>, <code>/backup</code>, and
     anything mounted somewhere unexpected.
@@ -1162,10 +1162,10 @@
 <section class="view" data-view="disk-procs" hidden>
 <section class="panel" id="diskProcsPanel">
   <div class="panel-head">
-    <h2>Processes touching the disk</h2>
-    <button id="diskProcsRefresh" class="link">Refresh</button>
+    <h2 data-i18n="host.disk_processes_title">Processes touching the disk</h2>
+    <button id="diskProcsRefresh" class="link" data-i18n="action.refresh">Refresh</button>
   </div>
-  <p class="muted small sub-note">
+  <p class="muted small sub-note" data-i18n="host.disk_processes_help">
     Which processes the throughput is actually coming from. CPU can sit low
     while one job makes everything else feel slow by keeping a disk busy, and
     that job is invisible in every other panel on this site.

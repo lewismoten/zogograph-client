@@ -14978,37 +14978,39 @@ async function openTerminalEditor(path) {
   editor.append(lines, text);
   const find = document.createElement("input");
   find.type = "search";
-  find.placeholder = "Find";
-  find.setAttribute("aria-label", "Find text in file");
+  find.placeholder = ZogographI18n.t("editor.find", {}, "Find");
+  find.setAttribute("aria-label", ZogographI18n.t("editor.find_text", {}, "Find text in file"));
   const replace = document.createElement("input");
   replace.type = "text";
-  replace.placeholder = "Replace with";
-  replace.setAttribute("aria-label", "Replacement text");
+  replace.placeholder = ZogographI18n.t("editor.replace_with", {}, "Replace with");
+  replace.setAttribute("aria-label", ZogographI18n.t("editor.replacement_text", {}, "Replacement text"));
   const searchStatus = document.createElement("span");
   searchStatus.className = "muted small";
   const findNext = () => {
     const needle = find.value;
-    if (!needle) { searchStatus.textContent = "Enter text to find."; return false; }
+    if (!needle) { searchStatus.textContent = ZogographI18n.t("editor.enter_find", {}, "Enter text to find."); return false; }
     let at = text.value.indexOf(needle, text.selectionEnd);
     const wrapped = at < 0;
     if (wrapped) at = text.value.indexOf(needle);
-    if (at < 0) { searchStatus.textContent = "No matches."; return false; }
+    if (at < 0) { searchStatus.textContent = ZogographI18n.t("editor.no_matches", {}, "No matches."); return false; }
     text.focus();
     text.setSelectionRange(at, at + needle.length);
-    searchStatus.textContent = wrapped ? "Wrapped to the first match." : "Match selected.";
+    searchStatus.textContent = wrapped
+      ? ZogographI18n.t("editor.wrapped_first", {}, "Wrapped to the first match.")
+      : ZogographI18n.t("editor.match_selected", {}, "Match selected.");
     return true;
   };
   const replaceNext = () => {
     if (!editable) return;
-    if (!find.value) { searchStatus.textContent = "Enter text to find."; return; }
+    if (!find.value) { searchStatus.textContent = ZogographI18n.t("editor.enter_find", {}, "Enter text to find."); return; }
     if (text.value.slice(text.selectionStart, text.selectionEnd) !== find.value && !findNext()) return;
     text.setRangeText(replace.value, text.selectionStart, text.selectionEnd, "select");
-    searchStatus.textContent = "One match replaced.";
+    searchStatus.textContent = ZogographI18n.t("editor.one_match_replaced", {}, "One match replaced.");
   };
   const replaceAll = () => {
     if (!editable) return;
     const needle = find.value;
-    if (!needle) { searchStatus.textContent = "Enter text to find."; return; }
+    if (!needle) { searchStatus.textContent = ZogographI18n.t("editor.enter_find", {}, "Enter text to find."); return; }
     let count = 0;
     let from = 0;
     while ((from = text.value.indexOf(needle, from)) >= 0) {
@@ -15016,23 +15018,27 @@ async function openTerminalEditor(path) {
       from += replace.value.length;
       count++;
     }
-    searchStatus.textContent = count ? `${count} match${count === 1 ? "" : "es"} replaced.` : "No matches.";
+    searchStatus.textContent = count === 0
+      ? ZogographI18n.t("editor.no_matches", {}, "No matches.")
+      : count === 1
+        ? ZogographI18n.t("editor.one_match_replaced", {}, "One match replaced.")
+        : ZogographI18n.t("editor.matches_replaced", { count }, "{{count}} matches replaced.");
   };
   const findButton = document.createElement("button");
   findButton.type = "button";
   findButton.className = "link";
-  findButton.textContent = "Find next";
+  findButton.textContent = ZogographI18n.t("editor.find_next", {}, "Find next");
   findButton.addEventListener("click", findNext);
   const replaceButton = document.createElement("button");
   replaceButton.type = "button";
   replaceButton.className = "link";
-  replaceButton.textContent = "Replace";
+  replaceButton.textContent = ZogographI18n.t("editor.replace", {}, "Replace");
   replaceButton.disabled = !editable;
   replaceButton.addEventListener("click", replaceNext);
   const allButton = document.createElement("button");
   allButton.type = "button";
   allButton.className = "link";
-  allButton.textContent = "Replace all";
+  allButton.textContent = ZogographI18n.t("editor.replace_all", {}, "Replace all");
   allButton.disabled = !editable;
   allButton.addEventListener("click", replaceAll);
   find.addEventListener("keydown", event => {

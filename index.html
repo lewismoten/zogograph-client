@@ -1380,10 +1380,10 @@
 <section class="view" data-view="net-dns" hidden>
 <section class="panel" id="dnsPanel">
   <div class="panel-head">
-    <h2>Name lookups</h2>
-    <button id="dnsRun" class="link">Run them again</button>
+    <h2 data-i18n="network.dns_title">Name lookups</h2>
+    <button id="dnsRun" class="link" data-i18n="network.dns_run_again">Run them again</button>
   </div>
-  <p class="muted small sub-note">
+  <p class="muted small sub-note" data-i18n="network.dns_help">
     Run when you open this page rather than read from a record — &ldquo;was it
     working five minutes ago&rdquo; is never the question. A nameserver that is
     busy <em>and</em> answering is a completely different situation from one that
@@ -1395,7 +1395,7 @@
     <select id="dnsType"></select>
     <input type="text" id="dnsServer" spellcheck="false" autocomplete="off"
            placeholder="server (optional)" data-i18n-placeholder="network.dns_server_placeholder">
-    <button type="submit">Look it up</button>
+    <button type="submit" data-i18n="network.dns_lookup">Look it up</button>
   </form>
   <div id="dnsBody"></div>
 </section>

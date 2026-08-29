@@ -28704,14 +28704,16 @@ function renderDomains(data) {
         return span;
       },
     },
-    { label: "Domain", className: "name", render: row => row.name },
+    { label: ZogographI18n.t("table.domain", {}, "Domain"), className: "name", render: row => row.name },
     {
-      label: "Expires",
+      label: ZogographI18n.t("domain.expires", {}, "Expires"),
       render: row => {
         if (!row.expires_at) {
           const span = document.createElement("span");
           span.className = "muted";
-          span.textContent = row.last_error ? "lookup failed" : "not read";
+          span.textContent = row.last_error
+            ? ZogographI18n.t("domain.lookup_failed", {}, "Lookup failed")
+            : ZogographI18n.t("domain.not_read", {}, "Not read");
           span.title = row.last_error || data.notes.unknown;
           return span;
         }
@@ -28721,7 +28723,7 @@ function renderDomains(data) {
       },
     },
     {
-      label: "Left",
+      label: ZogographI18n.t("domain.left", {}, "Left"),
       className: "size",
       render: row => {
         if (row.seconds_left === null) return "\u2014";
@@ -28736,9 +28738,9 @@ function renderDomains(data) {
         return span;
       },
     },
-    { label: "Registrar", render: row => row.registrar || "\u2014" },
+    { label: ZogographI18n.t("domain.registrar", {}, "Registrar"), render: row => row.registrar || "\u2014" },
     {
-      label: "Lock",
+      label: ZogographI18n.t("domain.lock", {}, "Lock"),
       render: row => {
         const span = document.createElement("span");
         const meanings = (row.status_plain || []).map(entry => entry.plain);
@@ -28751,13 +28753,16 @@ function renderDomains(data) {
          * emergency; both live in this field and neither reads that way.
          */
         span.textContent = meanings.length ? (locked ? "\ud83d\udd12" : "\ud83d\udd13") : "\u2014";
-        span.title = meanings.join("; ") || row.status || "No registry lock status was returned.";
+        span.title = meanings.join("; ") || row.status
+          || ZogographI18n.t("domain.no_lock_status", {}, "No registry lock status was returned.");
         return span;
       },
     },
     {
-      label: "Checked",
-      render: row => (row.last_checked_at ? ago(row.last_checked_at) : "never"),
+      label: ZogographI18n.t("domain.checked", {}, "Checked"),
+      render: row => (row.last_checked_at
+        ? ago(row.last_checked_at)
+        : ZogographI18n.t("domain.never", {}, "Never")),
     },
     {
       label: "",

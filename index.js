@@ -1357,48 +1357,48 @@ function renderCpuQueue(data) {
   const blocked = now?.procs_blocked ?? null;
   const load = sample.load1 == null ? null : Number(sample.load1);
 
-  card("Wanting to run", running == null ? "—" : String(running),
-    cores ? `across ${count(cores, "core")}` : "cores unknown",
+  card(ZogographI18n.t("cpu.wanting_to_run", {}, "Wanting to run"), running == null ? "—" : String(running),
+    cores ? ZogographI18n.t("cpu.across_cores", { count: cores }, "across {{count, number}} cores") : ZogographI18n.t("cpu.cores_unknown", {}, "cores unknown"),
     running != null && cores && running > cores * 2 ? "warn" : "");
 
-  card("Blocked in the kernel", blocked == null ? "—" : String(blocked),
-    "uninterruptible — waiting on storage",
+  card(ZogographI18n.t("cpu.blocked_in_kernel", {}, "Blocked in the kernel"), blocked == null ? "—" : String(blocked),
+    ZogographI18n.t("cpu.uninterruptible_storage", {}, "uninterruptible — waiting on storage"),
     blocked != null && blocked >= 4 ? "warn" : "");
 
-  card("Load, one minute", load == null ? "—" : load.toFixed(2),
+  card(ZogographI18n.t("cpu.load_one_minute", {}, "Load, one minute"), load == null ? "—" : load.toFixed(2),
     // Said every time it is shown, because it is the most misread number on
     // any Linux dashboard: it counts blocked tasks, which use no processor.
-    "a queue length, not a CPU reading");
+    ZogographI18n.t("cpu.queue_not_cpu", {}, "a queue length, not a CPU reading"));
 
   const pressure = now?.cpu_pressure_some ?? null;
-  card("Waiting for a core", pressure == null ? "—" : `${Number(pressure).toFixed(0)}%`,
+  card(ZogographI18n.t("cpu.waiting_for_core", {}, "Waiting for a core"), pressure == null ? "—" : `${Number(pressure).toFixed(0)}%`,
     pressure == null
-      ? "no pressure stall info on this kernel"
-      : "share of the last ten seconds",
+      ? ZogographI18n.t("cpu.no_pressure_stall", {}, "no pressure stall info on this kernel")
+      : ZogographI18n.t("cpu.last_ten_seconds", {}, "share of the last ten seconds"),
     pressure != null && pressure >= 20 ? "warn" : "");
 
-  card("Context switches", now?.ctxt_rate == null ? "—" : `${humanCount(now.ctxt_rate)}/s`,
-    "the scheduler changing its mind");
-  card("Interrupts", now?.intr_rate == null ? "—" : `${humanCount(now.intr_rate)}/s`,
-    "devices asking for attention");
-  card("New processes", now?.fork_rate == null ? "—" : `${humanCount(now.fork_rate)}/s`,
-    "forks and execs per second");
+  card(ZogographI18n.t("cpu.context_switches", {}, "Context switches"), now?.ctxt_rate == null ? "—" : `${humanCount(now.ctxt_rate)}/s`,
+    ZogographI18n.t("cpu.scheduler_change", {}, "the scheduler changing its mind"));
+  card(ZogographI18n.t("cpu.interrupts", {}, "Interrupts"), now?.intr_rate == null ? "—" : `${humanCount(now.intr_rate)}/s`,
+    ZogographI18n.t("cpu.devices_attention", {}, "devices asking for attention"));
+  card(ZogographI18n.t("cpu.new_processes", {}, "New processes"), now?.fork_rate == null ? "—" : `${humanCount(now.fork_rate)}/s`,
+    ZogographI18n.t("cpu.forks_execs_second", {}, "forks and execs per second"));
 
   $("cpuQueueNote").textContent = cpuQueueVerdict(now, load, cores);
 
   drawLineChart($("cpuQueueChart"), data.series ?? [], [
-    { key: "procs_running", label: "Wanting to run" },
-    { key: "procs_blocked", label: "Blocked on I/O" },
-    { key: "load1", label: "Load, one minute" },
-    { key: "cpu_pressure_some", label: "Waiting for a core (%)", axis: "right" },
+    { key: "procs_running", label: ZogographI18n.t("cpu.wanting_to_run", {}, "Wanting to run") },
+    { key: "procs_blocked", label: ZogographI18n.t("cpu.blocked_on_io", {}, "Blocked on I/O") },
+    { key: "load1", label: ZogographI18n.t("cpu.load_one_minute", {}, "Load, one minute") },
+    { key: "cpu_pressure_some", label: ZogographI18n.t("cpu.waiting_for_core_percent", {}, "Waiting for a core (%)"), axis: "right" },
   ], { axis: countAxis, rightAxis: percentAxis, zeroBased: true, empty: cpuEmptyWhy(data) });
 
   drawLineChart($("cpuRateChart"), data.series ?? [], [
-    { key: "ctxt_rate", label: "Context switches/s" },
-    { key: "intr_rate", label: "Interrupts/s" },
+    { key: "ctxt_rate", label: ZogographI18n.t("cpu.context_switches_second", {}, "Context switches/s") },
+    { key: "intr_rate", label: ZogographI18n.t("cpu.interrupts_second", {}, "Interrupts/s") },
     // Two or three orders of magnitude below the other two, so it gets the
     // other axis or it is a flat line along the bottom of its own chart.
-    { key: "fork_rate", label: "New processes/s", axis: "right" },
+    { key: "fork_rate", label: ZogographI18n.t("cpu.new_processes_second", {}, "New processes/s"), axis: "right" },
   ], { axis: countAxis, rightAxis: countAxis, zeroBased: true, empty: cpuEmptyWhy(data) });
 }
 

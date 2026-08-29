@@ -22659,7 +22659,7 @@ function drawAlertTimeline(rows) {
     ctx.fillStyle = "#8b98a8";
     ctx.font = "13px system-ui, sans-serif";
     ctx.textAlign = "center";
-    ctx.fillText("Nothing has fired yet.", width / 2, height / 2);
+    ctx.fillText(ZogographI18n.t("alerts.timeline_empty", {}, "Nothing has fired yet."), width / 2, height / 2);
     $("alertLegend").replaceChildren();
     $("alertRange").textContent = "";
     return;

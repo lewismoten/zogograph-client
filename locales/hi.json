@@ -509,6 +509,7 @@
   "schedule.custom.weekday": "सप्ताह का दिन (0–7)",
   "schedule.saved_preview": "सहेजा गया पूर्वावलोकन",
   "schedule.installed": "वर्तमान में स्थापित",
+  "alerts.mute_reason_placeholder": "नियोजित रखरखाव", "alerts.mute_explainer": "“{{rule}}” को म्यूट करें? मिलती हुई सूचना और चेतावनी रिकॉर्ड रहेंगी लेकिन भेजी नहीं जाएँगी। त्रुटि और गंभीर हमेशा इस म्यूट को बायपास करते हैं।", "alerts.mute_for": "अवधि", "alerts.mute_expires": "स्वचालित रूप से समाप्त होता है।", "alerts.mute_reason": "कारण", "alerts.mute_reason_help": "रुके हुए इवेंट और ऑडिट ट्रेल में संग्रहीत।", "alerts.muted_until": "{{rule}} को {{until}} तक म्यूट किया।",
   "alerts.mute_rule": "नियम म्यूट करें", "alerts.delete_confirm": "इस चेतावनी को हटाएँ? इसका इतिहास भी हट जाएगा।", "alerts.delete_title": "चेतावनी हटाएँ", "alerts.mute_title": "इस नियम को अस्थायी रूप से म्यूट करें",
   "alerts.mark_read_none": "पढ़ा हुआ चिह्नित करें", "alerts.mark_unread_none": "अपठित चिह्नित करें", "alerts.delete_none": "हटाएँ",
   "alerts.ignored": "अनदेखा", "alerts.ignored_help": "नियम ने इसे {{severity}} कहा। {{assistant}} ने निष्कर्ष निकाला कि इसे भेजना उचित नहीं था।", "alerts.yes": "हाँ", "alerts.no": "नहीं", "alerts.muted": "म्यूट", "alerts.why_not": "क्यों नहीं", "alerts.failed": "विफल",

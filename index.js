@@ -22548,15 +22548,15 @@ function openAlertMute(row) {
   }
   const reason = document.createElement("input");
   reason.type = "text"; reason.className = "wide"; reason.maxLength = 240; reason.required = true;
-  reason.placeholder = "planned maintenance";
+  reason.placeholder = ZogographI18n.t("alerts.mute_reason_placeholder", {}, "planned maintenance");
   showFormDialog(ZogographI18n.t("alerts.mute_title", {}, "Temporarily mute this rule"), [
-    note(`Mute “${row.rule}”? Matching Information and Warning alerts stay recorded but are not sent. Error and Critical always bypass this mute.`),
-    fieldRow("For", duration, "Expires automatically."),
-    fieldRow("Reason", reason, "Stored on held events and in the audit trail."),
+    note(ZogographI18n.t("alerts.mute_explainer", { rule: row.rule }, "Mute “{{rule}}”? Matching Information and Warning alerts stay recorded but are not sent. Error and Critical always bypass this mute.")),
+    fieldRow(ZogographI18n.t("alerts.mute_for", {}, "For"), duration, ZogographI18n.t("alerts.mute_expires", {}, "Expires automatically.")),
+    fieldRow(ZogographI18n.t("alerts.mute_reason", {}, "Reason"), reason, ZogographI18n.t("alerts.mute_reason_help", {}, "Stored on held events and in the audit trail.")),
   ], async () => {
     await post("alert-mute", { rule: row.rule, seconds: duration.value, reason: reason.value });
     await refreshAlerts(); await refreshBadges();
-    notice(`Muted ${row.rule} until ${whenLabel(Math.floor(Date.now() / 1000) + Number(duration.value))}.`, true);
+    notice(ZogographI18n.t("alerts.muted_until", { rule: row.rule, until: whenLabel(Math.floor(Date.now() / 1000) + Number(duration.value)) }, "Muted {{rule}} until {{until}}."), true);
   }, ZogographI18n.t("alerts.mute_rule", {}, "Mute rule"));
 }
 

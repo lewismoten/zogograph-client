@@ -511,6 +511,7 @@
   "schedule.custom.weekday": "Día de la semana (0–7)",
   "schedule.saved_preview": "Vista previa guardada",
   "schedule.installed": "Instalado actualmente",
+  "alerts.mute_reason_placeholder": "mantenimiento planificado", "alerts.mute_explainer": "¿Silenciar “{{rule}}”? Las alertas de Información y Advertencia coincidentes se siguen registrando pero no se envían. Error y Crítica siempre omiten este silencio.", "alerts.mute_for": "Durante", "alerts.mute_expires": "Caduca automáticamente.", "alerts.mute_reason": "Motivo", "alerts.mute_reason_help": "Se guarda en los eventos retenidos y en el registro de auditoría.", "alerts.muted_until": "{{rule}} silenciada hasta {{until}}.",
   "alerts.mute_rule": "Silenciar regla", "alerts.delete_confirm": "¿Eliminar esta alerta? Su historial se eliminará con ella.", "alerts.delete_title": "Eliminar alerta", "alerts.mute_title": "Silenciar esta regla temporalmente",
   "alerts.mark_read_none": "Marcar como leídas", "alerts.mark_unread_none": "Marcar como no leídas", "alerts.delete_none": "Eliminar",
   "alerts.ignored": "ignorada", "alerts.ignored_help": "La regla llamó a esto {{severity}}. {{assistant}} concluyó que no justificaba enviarlo.", "alerts.yes": "sí", "alerts.no": "no", "alerts.muted": "silenciada", "alerts.why_not": "por qué no", "alerts.failed": "falló",

@@ -56,6 +56,7 @@ require_once __DIR__ . '/ai-tools/domain-expiry.php';
 require_once __DIR__ . '/ai-tools/uptime.php';
 require_once __DIR__ . '/ai-tools/notes.php';
 require_once __DIR__ . '/ai-tools/terminal-capabilities.php';
+require_once __DIR__ . '/ai-tools/host-request-capabilities.php';
 
 /**
  * Every tool, with its schema and how it runs.
@@ -91,6 +92,7 @@ function aiToolCatalogue(): array
         ...aiToolUptimePackage(),
         ...aiToolNotesPackage(),
         ...aiToolTerminalCapabilitiesPackage(),
+        ...aiToolHostRequestCapabilitiesPackage(),
 
         /* ------------------------------------------------- what is wrong -- */
 
@@ -325,28 +327,6 @@ function aiToolCatalogue(): array
                     'description' => 'How many to return.',
                 ],
             ],
-        ],
-
-        'what_the_host_can_be_asked' => [
-            'group' => 'host',
-            'where' => 'server',
-            'permission' => false,
-            'summary' => 'list what root\'s collector can be asked to do.',
-            'description' =>
-                "Lists the jobs this dashboard can ask the host's root collector to run on "
-                . "the account's behalf, and what each one answers.\n\n"
-                . "This is the route to everything the account cannot see for itself: the "
-                . "whole machine's disk use, other accounts, /var and /backup, the process "
-                . "table as root sees it, what programs exist outside CageFS.\n\n"
-                . "IT IS NOT IMMEDIATE, and this is the part to get right when you talk "
-                . "about it. A request is left in a table; root's cron picks it up on its "
-                . "next run and does the work then. The answer comes back minutes later. "
-                . "The tool tells you how often that cron runs and when it last ran, so "
-                . "you can say how long it will be rather than guessing - and you can draw "
-                . "a progress bar with `show_progress` if the wait is worth showing.\n\n"
-                . "You cannot make the request. Each job names the page where the operator "
-                . "presses the button; send them there.",
-            'parameters' => [],
         ],
 
         'get_pending_host_requests' => [

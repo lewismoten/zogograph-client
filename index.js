@@ -29012,25 +29012,30 @@ async function refreshWhois(name = "") {
      */
     parts.push(Object.assign(document.createElement("p"), {
       className: "band-ok",
-      textContent: `${data.name} appears to be unregistered. The registry has no record of `
-        + "it, which is what an available name looks like — though a registry that is simply "
-        + "not answering can look the same, so check with a registrar before celebrating.",
+      textContent: ZogographI18n.t(
+        "whois.available_name",
+        { name: data.name },
+        "{{name}} appears to be unregistered. The registry has no record of it, which is what an available name looks like — though a registry that is simply not answering can look the same, so check with a registrar before celebrating.",
+      ),
     }));
   } else {
     const facts = [];
     if (p.expires_at) {
       const days = Math.floor((p.expires_at - Date.now() / 1000) / 86400);
-      facts.push(["Expires", `${humanTime(p.expires_at).split(",")[0]} \u2014 `
+      facts.push([ZogographI18n.t("domain.expires", {}, "Expires"), `${humanTime(p.expires_at).split(",")[0]} \u2014 `
         + (days < 0 ? `${Math.abs(days)} days ago` : count(days, "day") + " from now")]);
     } else {
-      facts.push(["Expires", "the answer contained no date this recognises"]);
+      facts.push([
+        ZogographI18n.t("domain.expires", {}, "Expires"),
+        ZogographI18n.t("whois.no_recognized_date", {}, "The answer contained no date this dashboard recognizes"),
+      ]);
     }
-    if (p.created_at) facts.push(["Registered", humanTime(p.created_at).split(",")[0]]);
+    if (p.created_at) facts.push([ZogographI18n.t("whois.registered", {}, "Registered"), humanTime(p.created_at).split(",")[0]]);
     if (p.updated_at) {
-      facts.push(["Record last changed", `${humanTime(p.updated_at).split(",")[0]} \u2014 `
+      facts.push([ZogographI18n.t("whois.record_last_changed", {}, "Record last changed"), `${humanTime(p.updated_at).split(",")[0]} \u2014 `
         + `${humanDuration(Date.now() / 1000 - p.updated_at)} ago`]);
     }
-    if (p.registrar) facts.push(["Registrar", p.registrar]);
+    if (p.registrar) facts.push([ZogographI18n.t("domain.registrar", {}, "Registrar"), p.registrar]);
     if (p.status) {
       /*
        * EPP status codes in plain language.
@@ -29039,20 +29044,29 @@ async function refreshWhois(name = "") {
        * clientTransferProhibited is the lock that stops somebody moving your
        * domain away from you, and seeing it should be reassuring.
        */
-      facts.push(["Status", (data.status_plain || [])
+      facts.push([ZogographI18n.t("whois.status", {}, "Status"), (data.status_plain || [])
         .map(s => s.plain)
         .join(", ") || p.status]);
     }
-    if (p.nameservers) facts.push(["Nameservers", p.nameservers.split(" ").join(", ")]);
+    if (p.nameservers) facts.push([ZogographI18n.t("whois.nameservers", {}, "Nameservers"), p.nameservers.split(" ").join(", ")]);
     if (p.auto_renew !== null && p.auto_renew !== undefined) {
-      facts.push(["Auto renew", p.auto_renew ? "on" : "off"]);
+      facts.push([
+        ZogographI18n.t("whois.auto_renew", {}, "Auto renew"),
+        p.auto_renew
+          ? ZogographI18n.t("state.on", {}, "On")
+          : ZogographI18n.t("state.off", {}, "Off"),
+      ]);
     }
 
-    parts.push(section("What the registry says", factGrid(facts)));
+    parts.push(section(ZogographI18n.t("whois.registry_facts", {}, "What the registry says"), factGrid(facts)));
 
     if ((data.status_plain || []).some(entry => entry.note)) {
-      parts.push(section("What those locks mean", simpleTable(
-        ["Status", "Means", "As the registry writes it"],
+      parts.push(section(ZogographI18n.t("whois.lock_meanings", {}, "What those locks mean"), simpleTable(
+        [
+          ZogographI18n.t("whois.status", {}, "Status"),
+          ZogographI18n.t("table.means", {}, "Means"),
+          ZogographI18n.t("whois.registry_wording", {}, "As the registry writes it"),
+        ],
         data.status_plain.filter(entry => entry.note)
           // Every spelling the registry used, not just the first: some list the
           // same code twice in different case, and that is worth seeing once

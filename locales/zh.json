@@ -529,6 +529,7 @@
   "capabilities.command_unavailable": "{{command}} 不可供{{where}}使用。请以 root 身份执行：",
   "capabilities.recheck_after_install": "安装后，请重新检查该功能。 ",
   "capabilities.probe_not_automatic": " 仪表板不会自动探测，因为每次加载页面时运行一百次命令查找的成本高于其节省的成本。",
+  "dns.sign_in_records": "登录以查看 DNS 记录。",
   "table.name": "名称",
   "table.value": "值",
   "help.page_purpose": "此页面的用途",

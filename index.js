@@ -28126,7 +28126,7 @@ const dnsRecordState = { data: null, domain: null };
 async function refreshDnsRecords() {
   const body = $("dnsRecordsBody");
   if (!state.signedIn) {
-    body.replaceChildren(note("Sign in to see DNS records."));
+    body.replaceChildren(note(ZogographI18n.t("dns.sign_in_records", {}, "Sign in to see DNS records.")));
     return;
   }
 

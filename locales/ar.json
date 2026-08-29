@@ -529,6 +529,7 @@
   "capabilities.command_unavailable": "الأمر {{command}} غير متاح لـ {{where}}. بصفتك root:",
   "capabilities.recheck_after_install": "بعد تثبيته، أعد فحص الإمكانية. ",
   "capabilities.probe_not_automatic": " لا تتحقق لوحة المعلومات تلقائيًا، لأن إجراء مئة عملية بحث عن أوامر عند كل تحميل للصفحة سيكلف أكثر مما يوفر.",
+  "dns.sign_in_records": "سجّل الدخول لعرض سجلات DNS.",
   "table.name": "الاسم",
   "table.value": "القيمة",
   "help.page_purpose": "الغرض من هذه الصفحة",

@@ -529,6 +529,7 @@
   "capabilities.command_unavailable": "{{command}}, {{where}} के लिए उपलब्ध नहीं है। root के रूप में:",
   "capabilities.recheck_after_install": "इसे स्थापित करने के बाद क्षमता को फिर से जाँचें। ",
   "capabilities.probe_not_automatic": " डैशबोर्ड स्वचालित रूप से जाँच नहीं करता, क्योंकि प्रत्येक पृष्ठ लोड पर सौ कमांड लुकअप चलाने में बचत से अधिक लागत आएगी।",
+  "dns.sign_in_records": "DNS रिकॉर्ड देखने के लिए साइन इन करें।",
   "table.name": "नाम",
   "table.value": "मान",
   "help.page_purpose": "यह पृष्ठ किस लिए है",

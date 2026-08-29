@@ -512,6 +512,7 @@
   "capabilities.command_unavailable": "{{command}} is not available to {{where}}. As root:",
   "capabilities.recheck_after_install": "After installing it, recheck the capability. ",
   "capabilities.probe_not_automatic": " The dashboard does not probe automatically, because running a hundred command lookups on every page load would cost more than it saves.",
+  "dns.sign_in_records": "Sign in to see DNS records.",
   "table.name": "Name",
   "table.value": "Value",
   "help.page_purpose": "What this page is for",

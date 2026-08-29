@@ -55,6 +55,7 @@ require_once __DIR__ . '/ai-tools/backups.php';
 require_once __DIR__ . '/ai-tools/domain-expiry.php';
 require_once __DIR__ . '/ai-tools/uptime.php';
 require_once __DIR__ . '/ai-tools/notes.php';
+require_once __DIR__ . '/ai-tools/terminal-capabilities.php';
 
 /**
  * Every tool, with its schema and how it runs.
@@ -89,6 +90,7 @@ function aiToolCatalogue(): array
         ...aiToolDomainExpiryPackage(),
         ...aiToolUptimePackage(),
         ...aiToolNotesPackage(),
+        ...aiToolTerminalCapabilitiesPackage(),
 
         /* ------------------------------------------------- what is wrong -- */
 
@@ -323,28 +325,6 @@ function aiToolCatalogue(): array
                     'description' => 'How many to return.',
                 ],
             ],
-        ],
-
-        'what_the_terminal_can_run' => [
-            'group' => 'terminal',
-            'where' => 'server',
-            'permission' => false,
-            'summary' => 'list the commands the operator could actually run.',
-            'description' =>
-                "Lists which common diagnostic programs exist on this machine and are on "
-                . "the PATH the terminal uses, so a command you suggest can actually run.\n\n"
-                . "USE THIS BEFORE `recommend_command`, the first time in a conversation "
-                . "that you are about to suggest something. Shared hosts are missing "
-                . "things you would assume are always present - `ss`, `lsof`, `dig` and "
-                . "`strace` are all commonly absent, and CageFS hides most of /usr/sbin "
-                . "from the account entirely. Suggesting a command that is not there wastes "
-                . "somebody's time and makes the next suggestion less trusted.\n\n"
-                . "It also says whether the terminal is switched on at all. If it is not, "
-                . "do not suggest commands - say that the terminal is off and where to turn "
-                . "it on.\n\n"
-                . "This checks for the programs on a fixed list. A program not on the list "
-                . "is not thereby absent; it was simply not looked for.",
-            'parameters' => [],
         ],
 
         'what_the_host_can_be_asked' => [

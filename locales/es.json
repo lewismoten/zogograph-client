@@ -3,6 +3,7 @@
   "package.page_boundary": "Esta página la renderiza la capa de Zogograph a partir de los metadatos firmados del paquete. No carga HTML, estilos ni código de navegador del paquete.",
   "package.open_settings": "Abrir configuración del paquete",
   "action.copy": "Copiar",
+  "common.sign_in_to_see": "Inicie sesión para ver esto.",
   "action.open": "Abrir",
   "action.copied": "Copiado",
   "action.copy_value": "Copiarlo",

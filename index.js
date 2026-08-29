@@ -8137,7 +8137,7 @@ async function refreshScanSchedule(side) {
   const body = $(side === "host" ? "hostScansBody" : "accountScansBody");
 
   if (!state.signedIn) {
-    body.replaceChildren(note("Sign in to see this."));
+    body.replaceChildren(note(ZogographI18n.t("common.sign_in_to_see", {}, "Sign in to see this.")));
     return;
   }
 
@@ -10706,7 +10706,7 @@ async function refreshRdns() {
   const body = $("rdnsBody");
 
   if (!state.signedIn) {
-    body.replaceChildren(note("Sign in to see this."));
+    body.replaceChildren(note(ZogographI18n.t("common.sign_in_to_see", {}, "Sign in to see this.")));
     return;
   }
 
@@ -10930,7 +10930,7 @@ async function refreshInstalled() {
   const body = $("installedBody");
 
   if (!state.signedIn) {
-    body.replaceChildren(note("Sign in to see this."));
+    body.replaceChildren(note(ZogographI18n.t("common.sign_in_to_see", {}, "Sign in to see this.")));
     return;
   }
 
@@ -10958,7 +10958,7 @@ async function refreshChanged() {
   const body = $("changedBody");
 
   if (!state.signedIn) {
-    body.replaceChildren(note("Sign in to see this."));
+    body.replaceChildren(note(ZogographI18n.t("common.sign_in_to_see", {}, "Sign in to see this.")));
     return;
   }
 
@@ -12948,7 +12948,7 @@ async function refreshStore() {
     .filter(Boolean);
 
   if (!state.signedIn) {
-    for (const body of bodies) body.replaceChildren(note("Sign in to see this."));
+    for (const body of bodies) body.replaceChildren(note(ZogographI18n.t("common.sign_in_to_see", {}, "Sign in to see this.")));
     return;
   }
 
@@ -15379,7 +15379,7 @@ async function refreshMemories() {
   const body = $("memoryBody");
 
   if (!state.signedIn) {
-    body.replaceChildren(note("Sign in to see this."));
+    body.replaceChildren(note(ZogographI18n.t("common.sign_in_to_see", {}, "Sign in to see this.")));
     return;
   }
 
@@ -16858,7 +16858,7 @@ async function refreshAiStore() {
   if (!body) return;
 
   if (!state.signedIn) {
-    body.replaceChildren(note("Sign in to see this."));
+    body.replaceChildren(note(ZogographI18n.t("common.sign_in_to_see", {}, "Sign in to see this.")));
     return;
   }
 

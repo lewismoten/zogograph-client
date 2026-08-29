@@ -3,6 +3,7 @@
   "package.page_boundary": "تعرض قشرة Zogograph هذه الصفحة من بيانات الحزمة الوصفية الموقّعة. ولا تحمّل HTML أو الأنماط أو رمز المتصفح الخاص بالحزمة.",
   "package.open_settings": "فتح إعدادات الحزمة",
   "action.copy": "نسخ",
+  "common.sign_in_to_see": "سجّل الدخول لرؤية هذا.",
   "action.open": "فتح",
   "action.copied": "تم النسخ",
   "action.copy_value": "انسخه",

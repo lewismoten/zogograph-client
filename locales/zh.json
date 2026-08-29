@@ -3,6 +3,7 @@
   "package.page_boundary": "此页面由 Zogograph 外壳根据软件包的已签名元数据渲染。它不会加载软件包 HTML、样式或浏览器代码。",
   "package.open_settings": "打开软件包设置",
   "action.copy": "复制",
+  "common.sign_in_to_see": "登录后可查看此内容。",
   "action.open": "打开",
   "action.copied": "已复制",
   "action.copy_value": "复制它",

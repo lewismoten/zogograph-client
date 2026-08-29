@@ -6029,7 +6029,7 @@ function renderAiSettings(data) {
     option.selected = Number(data.max_seconds) === value;
     seconds.appendChild(option);
   }
-  limits.appendChild(fieldRow("Stop a conversation after", seconds,
+  limits.appendChild(fieldRow(aiSettingsText("stop_after_label", "Stop a conversation after"), seconds,
     "Measured from when it started, not from the last message. A conversation left open "
     + "overnight cannot quietly resume in the morning and carry on spending."));
 
@@ -6040,7 +6040,7 @@ function renderAiSettings(data) {
   cents.step = "1";
   cents.className = "days";
   cents.value = String(data.max_cents || 0);
-  limits.appendChild(fieldRow("Or after spending (cents)", cents,
+  limits.appendChild(fieldRow(aiSettingsText("spend_limit_label", "Or after spending (cents)"), cents,
     "Checked before each request rather than after, so the limit stops the next call "
     + "rather than being noticed once the money is gone. Zero means no limit — "
     + "which, with prices set, means no limit on the bill either."));
@@ -6052,7 +6052,7 @@ function renderAiSettings(data) {
   turns.max = "500";
   turns.className = "days";
   turns.value = String(data.max_turns || 0);
-  limits.appendChild(fieldRow("Or after this many turns", turns,
+  limits.appendChild(fieldRow(aiSettingsText("turn_limit_label", "Or after this many turns"), turns,
     "One turn is one request to the model. A conversation that needs forty is usually "
     + "one that has gone in a circle, so this is the limit most likely to catch a "
     + "problem rather than a long investigation."));

@@ -861,7 +861,9 @@ async function refreshCpu() {
   }, {
     target: $("cpuGauges"), buildGauge, count, i18n: ZogographI18n,
   });
-  renderCpuFindings(data.findings ?? []);
+  renderCoreCardPackage(ZogographCpuFindingsCard, "core-cpu-findings", data.findings ?? [], {
+    target: $("cpuFindings"), findingRow, i18n: ZogographI18n,
+  });
   drawLineChart($("cpuBusyChart"), data.series ?? [], [
     { key: "busy", label: ZogographI18n.t("cpu.busy", {}, "Busy") },
     { key: "monitoring_cpu_percent", label: ZogographI18n.t("cpu.monitoring_tree", {}, "Monitoring tree") },
@@ -930,21 +932,6 @@ function collectorInstructions(holder, data) {
     className: "muted small",
     textContent: ZogographI18n.t("cpu.run_root_once", { command: data.command }, "Then run it once by hand to see what it finds: {{command}}"),
   }));
-}
-
-function renderCpuFindings(findings) {
-  const holder = $("cpuFindings");
-  if (!holder) return;
-
-  if (!findings.length) {
-    holder.replaceChildren(Object.assign(document.createElement("p"), {
-      className: "muted",
-      textContent: ZogographI18n.t("cpu.nothing_to_report", {}, "Nothing to report."),
-    }));
-    return;
-  }
-
-  holder.replaceChildren(...findings.map(findingRow));
 }
 
 /* ------------------------------------------------ where the time goes -- */

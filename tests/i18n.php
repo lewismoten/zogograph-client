@@ -15,6 +15,7 @@ $networkGaugesCard = file_get_contents($root . '/cards/network-gauges.js');
 $hostMemoryGaugesCard = file_get_contents($root . '/cards/host-memory-gauges.js');
 $overviewGaugesCard = file_get_contents($root . '/cards/overview-gauges.js');
 $actionSummaryCard = file_get_contents($root . '/cards/action-summary.js');
+$cpuFindingsCard = file_get_contents($root . '/cards/cpu-findings.js');
 $hostMemoryCard = file_get_contents($root . '/cards/host-memory.js');
 $uptimeCard = file_get_contents($root . '/cards/uptime.js');
 $setup = file_get_contents($root . '/setup.php');
@@ -141,6 +142,12 @@ i18nExpect($page !== false && str_contains($page, 'src="cards/action-summary.js"
     && str_contains($actionSummaryCard, 'helpers: ["target", "humanBytes", "humanTime", "count", "i18n"]')
     && str_contains($script, 'renderCoreCardPackage(ZogographActionSummaryCard, "core-action-summary", rows,'),
     'action summary is not isolated behind its core card-module boundary');
+i18nExpect($page !== false && str_contains($page, 'src="cards/cpu-findings.js"')
+    && $cpuFindingsCard !== false && str_contains($cpuFindingsCard, 'window.ZogographCpuFindingsCard')
+    && str_contains($cpuFindingsCard, 'id: "core-cpu-findings"') && str_contains($cpuFindingsCard, 'locales: ["cpu."]')
+    && str_contains($cpuFindingsCard, 'helpers: ["target", "findingRow", "i18n"]')
+    && str_contains($script, 'renderCoreCardPackage(ZogographCpuFindingsCard, "core-cpu-findings", data.findings ?? [],'),
+    'CPU findings are not isolated behind their core card-module boundary');
 i18nExpect($page !== false && str_contains($page, 'src="cards/host-memory.js"')
     && $hostMemoryCard !== false && str_contains($hostMemoryCard, 'window.ZogographHostMemoryCard')
     && str_contains($hostMemoryCard, 'id: "core-host-memory"') && str_contains($hostMemoryCard, 'locales: ["host."]')

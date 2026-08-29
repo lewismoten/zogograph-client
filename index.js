@@ -21378,29 +21378,32 @@ function drawSchedule(data) {
   const updateBox = document.createElement("div");
   updateBox.className = "settings";
   updateBox.appendChild(note(
-    "This is a root-only host-collector policy. The dashboard records your choices and "
-      + "shows the result; it never runs a package command itself."
+    ZogographI18n.t("schedule.updates_policy_help", {},
+      "This is a root-only host-collector policy. The dashboard records your choices and shows the result; it never runs a package command itself.")
   ));
   const stageRow = document.createElement("div");
   stageRow.className = "settings-row";
   const stageLabel = document.createElement("div");
   stageLabel.className = "settings-label";
-  stageLabel.textContent = "Update stages";
+  stageLabel.textContent = ZogographI18n.t("schedule.update_stages", {}, "Update stages");
   stageRow.appendChild(stageLabel);
   const stages = document.createElement("div");
   stages.className = "row";
   const none = document.createElement("button");
   none.type = "button";
   none.className = "link";
-  none.textContent = "None";
-  none.title = "Turn off every automatic update stage";
+  none.textContent = ZogographI18n.t("schedule.update_none", {}, "None");
+  none.title = ZogographI18n.t("schedule.update_none_help", {}, "Turn off every automatic update stage");
   none.addEventListener("click", () => {
     for (const input of stages.querySelectorAll("input")) input.checked = false;
     state.scheduleDirty = true;
   });
   stages.appendChild(none);
   const stageLabels = {
-    detect: "Detect", notify: "Notify", download: "Download", "auto-update": "Auto-Update",
+    detect: ZogographI18n.t("schedule.update_detect", {}, "Detect"),
+    notify: ZogographI18n.t("schedule.update_notify", {}, "Notify"),
+    download: ZogographI18n.t("schedule.update_download", {}, "Download"),
+    "auto-update": ZogographI18n.t("schedule.update_auto", {}, "Auto-Update"),
   };
   for (const [value, label] of Object.entries(stageLabels)) {
     const choice = document.createElement("label");
@@ -21421,11 +21424,15 @@ function drawSchedule(data) {
   interval.max = "744";
   interval.value = String(Math.round(Number(updates.interval_seconds || 86400) / 3600));
   interval.addEventListener("input", () => { state.scheduleDirty = true; });
-  updateBox.appendChild(fieldRow("Check every (hours)", interval,
-    `Host package manager: ${updates.manager || "not detected"}. Download and Auto-Update always detect first.`));
+  updateBox.appendChild(fieldRow(
+    ZogographI18n.t("schedule.update_interval", {}, "Check every (hours)"),
+    interval,
+    ZogographI18n.t("schedule.update_manager", { manager: updates.manager || ZogographI18n.t("schedule.not_detected", {}, "not detected") },
+      "Host package manager: {{manager}}. Download and Auto-Update always detect first."),
+  ));
   if (state.access?.write) {
     const saveUpdates = document.createElement("button");
-    saveUpdates.textContent = "Save update policy";
+    saveUpdates.textContent = ZogographI18n.t("schedule.save_update_policy", {}, "Save update policy");
     saveUpdates.addEventListener("click", async () => {
       saveUpdates.disabled = true;
       try {
@@ -21435,7 +21442,7 @@ function drawSchedule(data) {
         await post("updates-save", fields);
         state.scheduleDirty = false;
         await refreshSchedule();
-        notice("Saved the update policy. The root collector will apply it on its next run.", true);
+        notice(ZogographI18n.t("schedule.update_policy_saved", {}, "Saved the update policy. The root collector will apply it on its next run."), true);
       } catch (error) {
         notice(String(error.message || error));
       } finally {
@@ -21444,22 +21451,22 @@ function drawSchedule(data) {
     });
     updateBox.appendChild(saveUpdates);
   } else {
-    updateBox.appendChild(note("You can view this policy but need write access to change it."));
+    updateBox.appendChild(note(ZogographI18n.t("schedule.update_policy_readonly", {}, "You can view this policy but need write access to change it.")));
   }
   if (updates.runs.length) {
     const updateRuns = document.createElement("div");
     updateRuns.id = "updateRuns";
     updateBox.appendChild(updateRuns);
     queueMicrotask(() => renderTable("updateRuns", updates.runs, [
-      { label: "Started", render: row => whenSpan(row.started_at) },
-      { label: "Stage", render: row => row.stage },
-      { label: "Manager", render: row => row.manager },
-      { label: "Available", className: "size", render: row => row.updates == null ? "—" : row.updates },
-      { label: "Took", className: "size", render: row => humanDuration(Number(row.seconds)) },
-      { label: "Result", render: row => row.ok ? "ok" : (row.error || "failed") },
+      { label: ZogographI18n.t("schedule.run_started", {}, "Started"), render: row => whenSpan(row.started_at) },
+      { label: ZogographI18n.t("schedule.update_stage", {}, "Stage"), render: row => stageLabels[row.stage] || row.stage },
+      { label: ZogographI18n.t("schedule.update_manager_label", {}, "Manager"), render: row => row.manager },
+      { label: ZogographI18n.t("schedule.update_available", {}, "Available"), className: "size", render: row => row.updates == null ? "—" : row.updates },
+      { label: ZogographI18n.t("schedule.run_took", {}, "Took"), className: "size", render: row => humanDuration(Number(row.seconds)) },
+      { label: ZogographI18n.t("schedule.run_result", {}, "Result"), render: row => row.ok ? ZogographI18n.t("schedule.run_ok", {}, "ok") : (row.error || ZogographI18n.t("schedule.run_failed", {}, "failed")) },
     ], null, row => row.ok ? "" : "row-bad", row => `update:${row.started_at}:${row.stage}`));
   }
-  holder.appendChild(section("System updates", updateBox));
+  holder.appendChild(section(ZogographI18n.t("schedule.system_updates", {}, "System updates"), updateBox));
 
   const form = document.createElement("div");
   form.className = "row";

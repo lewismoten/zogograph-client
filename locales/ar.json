@@ -509,6 +509,7 @@
   "schedule.custom.weekday": "يوم الأسبوع (0–7)",
   "schedule.saved_preview": "معاينة محفوظة",
   "schedule.installed": "مثبّت حاليًا",
+  "alerts.ignored": "تُجاهل", "alerts.ignored_help": "سمّت القاعدة هذا {{severity}}. وخلص {{assistant}} إلى أنه لا يستحق الإرسال.", "alerts.yes": "نعم", "alerts.no": "لا", "alerts.muted": "مكتوم", "alerts.why_not": "لماذا لا", "alerts.failed": "فشل",
   "alerts.mark_read": "علّم {{count, number}} كمقروءة", "alerts.mark_unread": "علّم {{count, number}} كغير مقروءة", "alerts.delete_selected": "احذف {{count, number}}", "alerts.marketplace_guidance": "إرشاد السوق المفعّل استشاري فقط. لا يغير قواعد التنبيه أو إرساله.", "alerts.when": "متى", "alerts.severity": "الشدة", "alerts.what": "ما", "alerts.emailed": "أرسل بالبريد",
   "broadcast.one": "رسالة ممن كان هنا آخر مرة", "broadcast.many": "{{count, number}} رسائل ممن كان هنا آخر مرة", "broadcast.somebody": "شخص ما", "broadcast.who": "{{who}}، {{ago}}", "broadcast.clear": "امسحها", "broadcast.clear_help": "أوقف إظهارها للجميع",
   "alerts.unread_count": "{{count, number}} تنبيهات غير مقروءة", "alerts.see_all": "عرض الكل", "alerts.hide_until_new": "أخفه حتى يطلق شيء جديد", "alerts.dismiss": "تجاهل",

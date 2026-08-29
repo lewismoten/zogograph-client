@@ -509,6 +509,7 @@
   "schedule.custom.weekday": "सप्ताह का दिन (0–7)",
   "schedule.saved_preview": "सहेजा गया पूर्वावलोकन",
   "schedule.installed": "वर्तमान में स्थापित",
+  "alerts.ignored": "अनदेखा", "alerts.ignored_help": "नियम ने इसे {{severity}} कहा। {{assistant}} ने निष्कर्ष निकाला कि इसे भेजना उचित नहीं था।", "alerts.yes": "हाँ", "alerts.no": "नहीं", "alerts.muted": "म्यूट", "alerts.why_not": "क्यों नहीं", "alerts.failed": "विफल",
   "alerts.mark_read": "{{count, number}} को पढ़ा हुआ चिह्नित करें", "alerts.mark_unread": "{{count, number}} को अपठित चिह्नित करें", "alerts.delete_selected": "{{count, number}} हटाएँ", "alerts.marketplace_guidance": "सक्षम मार्केटप्लेस मार्गदर्शन केवल सलाह है। यह चेतावनी नियम या डिलीवरी नहीं बदलता।", "alerts.when": "कब", "alerts.severity": "गंभीरता", "alerts.what": "क्या", "alerts.emailed": "ईमेल किया",
   "broadcast.one": "पिछली बार यहाँ आए व्यक्ति का संदेश", "broadcast.many": "पिछली बार यहाँ आए व्यक्ति के {{count, number}} संदेश", "broadcast.somebody": "कोई", "broadcast.who": "{{who}}, {{ago}}", "broadcast.clear": "साफ़ करें", "broadcast.clear_help": "इसे सभी को दिखाना बंद करें",
   "alerts.unread_count": "{{count, number}} अपठित चेतावनियाँ", "alerts.see_all": "सभी देखें", "alerts.hide_until_new": "कुछ नया आने तक छिपाएँ", "alerts.dismiss": "खारिज करें",

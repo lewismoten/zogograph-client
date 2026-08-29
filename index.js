@@ -22256,9 +22256,8 @@ function alertSeverity(row) {
     icon.className = "sev";
     icon.textContent = "🔇";
     span.appendChild(icon);
-    span.appendChild(document.createTextNode("ignored"));
-    span.title = `The rule called this ${row.severity}. `
-      + `${chatState.who.name} concluded it did not warrant sending.`;
+    span.appendChild(document.createTextNode(ZogographI18n.t("alerts.ignored", {}, "ignored")));
+    span.title = ZogographI18n.t("alerts.ignored_help", { severity: row.severity, assistant: chatState.who.name }, "The rule called this {{severity}}. {{assistant}} concluded it did not warrant sending.");
     return span;
   }
 
@@ -22279,7 +22278,7 @@ function alertSeverity(row) {
 function alertEmailed(row, interactive = state.signedIn) {
   if (!interactive) {
     const said = document.createElement("span");
-    said.textContent = row.emailed_at ? "yes" : "no";
+    said.textContent = ZogographI18n.t(row.emailed_at ? "alerts.yes" : "alerts.no", {}, row.emailed_at ? "yes" : "no");
     return said;
   }
   if (row.emailed_at) {
@@ -22295,14 +22294,14 @@ function alertEmailed(row, interactive = state.signedIn) {
     if (row.email_id) {
       const open = document.createElement("button");
       open.className = "link";
-      open.textContent = "yes";
+      open.textContent = ZogographI18n.t("alerts.yes", {}, "yes");
       open.title = `Sent ${whenTitle(row.emailed_at)}. Click to read it.`;
       open.addEventListener("click", () => showAlertEmail(row));
       return open;
     }
 
     const span = document.createElement("span");
-    span.textContent = "yes";
+    span.textContent = ZogographI18n.t("alerts.yes", {}, "yes");
     span.className = "when";
     span.title = `Sent ${whenTitle(row.emailed_at)}. `
       + "This one went out before messages were kept, so there is nothing to open.";
@@ -22313,24 +22312,24 @@ function alertEmailed(row, interactive = state.signedIn) {
   if (row.notification_disposition === "suppressed") {
     const muted = document.createElement("button");
     muted.className = "link small";
-    muted.textContent = "muted";
+    muted.textContent = ZogographI18n.t("alerts.muted", {}, "muted");
     muted.title = "Delivery was held by a temporary operator mute. Click for details.";
     muted.addEventListener("click", () => showAlertMuteReason(row));
     wrap.appendChild(muted);
     return wrap;
   }
-  wrap.appendChild(document.createTextNode("no"));
+  wrap.appendChild(document.createTextNode(ZogographI18n.t("alerts.no", {}, "no")));
 
   if (row.silenced && row.ai_reason) {
     const why = document.createElement("button");
     why.className = "link small";
-    why.textContent = "why not";
+    why.textContent = ZogographI18n.t("alerts.why_not", {}, "why not");
     why.addEventListener("click", () => showAlertVerdict(row));
     wrap.appendChild(why);
   } else if (row.email_error) {
     const why = document.createElement("button");
     why.className = "link small danger";
-    why.textContent = "it failed";
+    why.textContent = ZogographI18n.t("alerts.failed", {}, "it failed");
     why.title = row.email_error;
     why.addEventListener("click", () => notice(row.email_error));
     wrap.appendChild(why);

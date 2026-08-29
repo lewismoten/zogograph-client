@@ -633,6 +633,7 @@
   "whois.lock_meanings": "ما تعنيه هذه الأقفال",
   "table.means": "يعني",
   "whois.registry_wording": "كما يكتبه السجل",
+  "duration.value": "{{value, unit}}",
   "table.name": "الاسم",
   "table.header": "الترويسة",
   "table.says": "يقول",

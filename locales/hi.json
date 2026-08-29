@@ -633,6 +633,7 @@
   "whois.lock_meanings": "इन लॉक का अर्थ",
   "table.means": "अर्थ",
   "whois.registry_wording": "जैसा रजिस्ट्री लिखती है",
+  "duration.value": "{{value, unit}}",
   "table.name": "नाम",
   "table.header": "हेडर",
   "table.says": "कहता है",

@@ -633,6 +633,7 @@
   "whois.lock_meanings": "这些锁定的含义",
   "table.means": "含义",
   "whois.registry_wording": "注册机构的原文",
+  "duration.value": "{{value, unit}}",
   "table.name": "名称",
   "table.header": "标头",
   "table.says": "内容",

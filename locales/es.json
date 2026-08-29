@@ -635,6 +635,7 @@
   "whois.lock_meanings": "Qué significan esos bloqueos",
   "table.means": "Significado",
   "whois.registry_wording": "Como lo escribe el registro",
+  "duration.value": "{{value, unit}}",
   "table.name": "Nombre",
   "table.header": "Cabecera",
   "table.says": "Dice",

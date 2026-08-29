@@ -316,10 +316,18 @@ function humanWhen(seconds, long = false) {
 
 function humanDuration(seconds) {
   if (!Number.isFinite(seconds) || seconds < 0) return "—";
-  if (seconds < 90) return `${Math.round(seconds)}s`;
-  if (seconds < 5400) return `${Math.round(seconds / 60)} min`;
-  if (seconds < 172800) return `${(seconds / 3600).toFixed(1)} h`;
-  return `${(seconds / 86400).toFixed(1)} days`;
+  const [value, unit] = seconds < 90
+    ? [Math.round(seconds), "second"]
+    : seconds < 5400
+      ? [Math.round(seconds / 60), "minute"]
+      : seconds < 172800
+        ? [Number((seconds / 3600).toFixed(1)), "hour"]
+        : [Number((seconds / 86400).toFixed(1)), "day"];
+  return ZogographI18n.t(
+    "duration.value",
+    { value, valueUnit: unit, valueUnitDisplay: "short" },
+    "{{value, unit}}",
+  );
 }
 
 function humanTime(epoch) {

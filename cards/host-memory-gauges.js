@@ -1,12 +1,20 @@
 /* Core card package: memory headroom, swap state, and account share gauges. */
 window.ZogographHostMemoryGaugesCard = {
   manifest: Object.freeze({
-    id: "core-host-memory-gauges", locales: ["host."],
+    id: "core-host-memory-gauges", locales: ["core-host-memory-gauges."],
     helpers: ["target", "buildGauge", "humanBytes", "i18n"],
+    catalogs: Object.freeze({
+      en: Object.freeze({"core-host-memory-gauges.collector_arc":"dark arc: collector tree {{amount}} PSS","core-host-memory-gauges.committed_sub":"{{committed}} of {{total}} · {{available}} still available","core-host-memory-gauges.non_monitor":" · {{amount}} non-monitor committed","core-host-memory-gauges.monitoring_processes":" · {{count, number}} monitoring processes","core-host-memory-gauges.swap_used_sub":"{{used}} of {{total}}","core-host-memory-gauges.swap_under_pressure":" · under pressure","core-host-memory-gauges.swap_no_pressure":" · no pressure","core-host-memory-gauges.swap_not_configured":"no swap configured on this machine"}),
+      es: Object.freeze({"core-host-memory-gauges.collector_arc":"arco oscuro: árbol del recopilador {{amount}} PSS","core-host-memory-gauges.committed_sub":"{{committed}} de {{total}} · aún hay {{available}} disponibles","core-host-memory-gauges.non_monitor":" · {{amount}} comprometidos sin monitorización","core-host-memory-gauges.monitoring_processes":" · {{count, number}} procesos de monitorización","core-host-memory-gauges.swap_used_sub":"{{used}} de {{total}}","core-host-memory-gauges.swap_under_pressure":" · bajo presión","core-host-memory-gauges.swap_no_pressure":" · sin presión","core-host-memory-gauges.swap_not_configured":"no hay intercambio configurado en esta máquina"}),
+      hi: Object.freeze({"core-host-memory-gauges.collector_arc":"गहरा चाप: कलेक्टर ट्री {{amount}} PSS","core-host-memory-gauges.committed_sub":"{{committed}} / {{total}} · {{available}} अभी उपलब्ध","core-host-memory-gauges.non_monitor":" · {{amount}} गैर-मॉनिटर प्रतिबद्ध","core-host-memory-gauges.monitoring_processes":" · {{count, number}} मॉनिटरिंग प्रक्रियाएँ","core-host-memory-gauges.swap_used_sub":"{{used}} / {{total}}","core-host-memory-gauges.swap_under_pressure":" · दबाव में","core-host-memory-gauges.swap_no_pressure":" · कोई दबाव नहीं","core-host-memory-gauges.swap_not_configured":"इस मशीन पर कोई स्वैप कॉन्फ़िगर नहीं है"}),
+      ar: Object.freeze({"core-host-memory-gauges.collector_arc":"قوس داكن: شجرة الجامع {{amount}} PSS","core-host-memory-gauges.committed_sub":"{{committed}} من {{total}} · ما زال {{available}} متاحًا","core-host-memory-gauges.non_monitor":" · {{amount}} ملتزم خارج المراقبة","core-host-memory-gauges.monitoring_processes":" · {{count, number}} عمليات مراقبة","core-host-memory-gauges.swap_used_sub":"{{used}} من {{total}}","core-host-memory-gauges.swap_under_pressure":" · تحت ضغط","core-host-memory-gauges.swap_no_pressure":" · بلا ضغط","core-host-memory-gauges.swap_not_configured":"لا توجد مساحة تبديل مهيأة على هذا الجهاز"}),
+      zh: Object.freeze({"core-host-memory-gauges.collector_arc":"深色弧：采集器树 {{amount}} PSS","core-host-memory-gauges.committed_sub":"{{committed}} / {{total}} · 仍有 {{available}} 可用","core-host-memory-gauges.non_monitor":" · {{amount}} 非监控已提交内存","core-host-memory-gauges.monitoring_processes":" · {{count, number}} 个监控进程","core-host-memory-gauges.swap_used_sub":"{{used}} / {{total}}","core-host-memory-gauges.swap_under_pressure":" · 存在压力","core-host-memory-gauges.swap_no_pressure":" · 无压力","core-host-memory-gauges.swap_not_configured":"此机器未配置交换空间"}),
+    }),
   }),
   render(input, helpers) {
     const { sample, swapUsed, swap, accountVitals } = input;
     const { target, buildGauge, humanBytes, i18n } = helpers;
+    const t = (key, values = {}) => i18n.t(`core-host-memory-gauges.${key}`, values);
     if (!target) return;
 
     const total = Number(sample.mem_total) || 0;
@@ -21,10 +29,10 @@ window.ZogographHostMemoryGaugesCard = {
       dials.push({
         label: i18n.t("host.memory_committed"), value: (committed / total) * 100, warn: 80, crit: 92,
         overlay: monitoringPss == null ? null : (monitoringPss / total) * 100,
-        overlayLabel: monitoringPss == null ? null : i18n.t("host.memory_collector_arc", { amount: humanBytes(monitoringPss) }),
-        sub: i18n.t("host.memory_committed_sub", { committed: humanBytes(committed), total: humanBytes(total), available: humanBytes(available) })
-          + (workloadCommitted == null ? "" : i18n.t("host.memory_non_monitor", { amount: humanBytes(workloadCommitted) }))
-          + (sample.monitoring_processes == null ? "" : i18n.t("host.memory_monitoring_processes", { count: sample.monitoring_processes })),
+        overlayLabel: monitoringPss == null ? null : t("collector_arc", { amount: humanBytes(monitoringPss) }),
+        sub: t("committed_sub", { committed: humanBytes(committed), total: humanBytes(total), available: humanBytes(available) })
+          + (workloadCommitted == null ? "" : t("non_monitor", { amount: humanBytes(workloadCommitted) }))
+          + (sample.monitoring_processes == null ? "" : t("monitoring_processes", { count: sample.monitoring_processes })),
       });
     }
 
@@ -32,13 +40,13 @@ window.ZogographHostMemoryGaugesCard = {
       dials.push({
         label: i18n.t("host.swap_used"), value: (swapUsed / swapTotal) * 100,
         warn: swap?.state === "pressure" ? 1 : 60, crit: swap?.state === "pressure" ? 25 : 90,
-        sub: i18n.t("host.swap_used_sub", { used: humanBytes(swapUsed), total: humanBytes(swapTotal) })
-          + (swap?.state === "pressure" ? i18n.t("host.swap_under_pressure") : i18n.t("host.swap_no_pressure")),
+        sub: t("swap_used_sub", { used: humanBytes(swapUsed), total: humanBytes(swapTotal) })
+          + (swap?.state === "pressure" ? t("swap_under_pressure") : t("swap_no_pressure")),
       });
     } else {
       dials.push({
         label: i18n.t("host.swap_used"), value: null, warn: 60, crit: 90,
-        sub: i18n.t("host.swap_not_configured"),
+        sub: t("swap_not_configured"),
       });
     }
 

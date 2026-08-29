@@ -162,10 +162,13 @@ i18nExpect($page !== false && str_contains($page, 'src="cards/network-gauges.js"
     'network gauges are not isolated behind their core card-module boundary');
 i18nExpect($page !== false && str_contains($page, 'src="cards/host-memory-gauges.js"')
     && $hostMemoryGaugesCard !== false && str_contains($hostMemoryGaugesCard, 'window.ZogographHostMemoryGaugesCard')
-    && str_contains($hostMemoryGaugesCard, 'id: "core-host-memory-gauges"') && str_contains($hostMemoryGaugesCard, 'locales: ["host."]')
+    && str_contains($hostMemoryGaugesCard, 'id: "core-host-memory-gauges"') && str_contains($hostMemoryGaugesCard, 'locales: ["core-host-memory-gauges."]')
     && str_contains($hostMemoryGaugesCard, 'helpers: ["target", "buildGauge", "humanBytes", "i18n"]')
     && str_contains($script, 'renderCoreCardPackage(ZogographHostMemoryGaugesCard, "core-host-memory-gauges",'),
     'host memory gauges are not isolated behind their core card-module boundary');
+i18nExpect($hostMemoryGaugesCard !== false && str_contains($hostMemoryGaugesCard, 'catalogs: Object.freeze({')
+    && str_contains($hostMemoryGaugesCard, '"core-host-memory-gauges.collector_arc"'),
+    'host memory gauges do not own a package locale catalog');
 i18nExpect($page !== false && str_contains($page, 'src="cards/overview-gauges.js"')
     && $overviewGaugesCard !== false && str_contains($overviewGaugesCard, 'window.ZogographOverviewGaugesCard')
     && str_contains($overviewGaugesCard, 'id: "core-overview-gauges"') && str_contains($overviewGaugesCard, 'locales: ["gauge."]')

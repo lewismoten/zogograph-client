@@ -16733,16 +16733,14 @@ function renderAiStore(data) {
   const who = data.who?.name ?? chatState.who.name;
 
   if (!data.file.exists) {
-    body.replaceChildren(note(
-      `Nothing has been asked yet, so ${who} has no database. One is made the first time `
-      + "a conversation starts, next to the account's own."
-    ));
+    body.replaceChildren(note(ZogographI18n.t("ai.store_empty", { assistant: who },
+      "Nothing has been asked yet, so {{assistant}} has no database. One is made the first time a conversation starts, next to the account's own.")));
     $("aiCompact").hidden = true;
     return;
   }
 
   $("aiCompact").hidden = false;
-  parts.push(section("The file", databaseCard(data.file, null)));
+  parts.push(section(ZogographI18n.t("ai.store_file", {}, "The file"), databaseCard(data.file, null)));
 
   if (data.why) parts.push(note(data.why));
 
@@ -16754,21 +16752,21 @@ function renderAiStore(data) {
    */
   const holds = document.createElement("div");
   holds.id = "aiHoldsTable";
-  parts.push(section(`What ${who} is keeping`, holds));
+  parts.push(section(ZogographI18n.t("ai.store_holds", { assistant: who }, "What {{assistant}} is keeping"), holds));
 
   if (data.measured) {
     const tables = document.createElement("div");
     tables.id = "aiTablesTable";
-    parts.push(section("Where the space goes", tables));
+    parts.push(section(ZogographI18n.t("ai.store_space", {}, "Where the space goes"), tables));
   } else if (data.table_why) {
     parts.push(note(data.table_why));
   }
 
   const gallery = document.createElement("div");
   gallery.id = "aiAssets";
-  parts.push(section("Pictures it has made", gallery));
+  parts.push(section(ZogographI18n.t("ai.store_pictures", {}, "Pictures it has made"), gallery));
 
-  parts.push(section("Forget old conversations", aiForgetForm(who)));
+  parts.push(section(ZogographI18n.t("ai.store_forget_title", {}, "Forget old conversations"), aiForgetForm(who)));
 
   body.replaceChildren(...parts);
 
@@ -16776,16 +16774,16 @@ function renderAiStore(data) {
 
   renderTable("aiHoldsTable", data.holds, [
     { label: "", render: row => row.label },
-    { label: "Rows", className: "size", render: row => humanCount(row.rows) },
+    { label: ZogographI18n.t("ai.store_rows", {}, "Rows"), className: "size", render: row => humanCount(row.rows) },
     {
-      label: "Oldest",
+      label: ZogographI18n.t("ai.store_oldest", {}, "Oldest"),
       render: row => (row.oldest ? ago(row.oldest) : "—"),
     },
     {
-      label: "Newest",
+      label: ZogographI18n.t("ai.store_newest", {}, "Newest"),
       render: row => (row.newest ? ago(row.newest) : "—"),
     },
-    { label: "What it is", className: "muted", render: row => row.note },
+    { label: ZogographI18n.t("ai.store_what", {}, "What it is"), className: "muted", render: row => row.note },
   ], null, null, row => row.key);
 
   if (data.measured) {
@@ -16798,11 +16796,11 @@ function renderAiStore(data) {
       .sort((a, b) => b.total_bytes - a.total_bytes);
 
     renderTable("aiTablesTable", tableRows, [
-      { label: "Table", className: "name", render: row => row.table },
-      { label: "Rows", className: "size", render: row => humanCount(row.rows) },
-      { label: "Data", className: "size", render: row => humanBytes(row.bytes) },
-      { label: "Indexes", className: "size", render: row => humanBytes(row.index_bytes) },
-      { label: "Total", className: "size", render: row => humanBytes(row.total_bytes) },
+      { label: ZogographI18n.t("ai.store_table", {}, "Table"), className: "name", render: row => row.table },
+      { label: ZogographI18n.t("ai.store_rows", {}, "Rows"), className: "size", render: row => humanCount(row.rows) },
+      { label: ZogographI18n.t("ai.store_data", {}, "Data"), className: "size", render: row => humanBytes(row.bytes) },
+      { label: ZogographI18n.t("ai.store_indexes", {}, "Indexes"), className: "size", render: row => humanBytes(row.index_bytes) },
+      { label: ZogographI18n.t("ai.store_total", {}, "Total"), className: "size", render: row => humanBytes(row.total_bytes) },
     ], null, null, row => row.table);
   }
 }
@@ -16823,16 +16821,13 @@ async function loadAiAssets() {
   try {
     data = await api("ai-asset");
   } catch {
-    holder.replaceChildren(note("The picture store could not be read."));
+    holder.replaceChildren(note(ZogographI18n.t("ai.store_pictures_unreadable", {}, "The picture store could not be read.")));
     return;
   }
 
   if (!data.assets.length) {
-    holder.replaceChildren(note(
-      "None yet. Anything generated is kept here at full size — the provider's own link "
-      + "expires within days, so a picture that was paid for would otherwise be a dead "
-      + "link by the time anybody looked."
-    ));
+    holder.replaceChildren(note(ZogographI18n.t("ai.store_pictures_empty", {},
+      "None yet. Anything generated is kept here at full size — the provider's own link expires within days, so a picture that was paid for would otherwise be a dead link by the time anybody looked.")));
     return;
   }
 
@@ -16847,7 +16842,7 @@ async function loadAiAssets() {
     link.href = `aiasset.php?id=${encodeURIComponent(asset.id)}`;
     link.target = "_blank";
     link.rel = "noopener";
-    link.title = "Open it at full size";
+    link.title = ZogographI18n.t("ai.store_open_full", {}, "Open it at full size");
 
     const image = document.createElement("img");
     image.src = link.href;
@@ -16883,11 +16878,8 @@ function aiForgetForm(who) {
 
   const said = document.createElement("p");
   said.className = "muted small";
-  said.textContent =
-    `Removes whole conversations that have been finished longer than this, with their `
-    + "messages, their tool runs and their cost records. The running totals on the "
-    + `${who} settings page are added up from those records, so they will drop too — `
-    + "this is deleting history, not tidying it.";
+  said.textContent = ZogographI18n.t("ai.store_forget_help", { assistant: who },
+    "Removes whole conversations that have been finished longer than this, with their messages, their tool runs and their cost records. The running totals on the {{assistant}} settings page are added up from those records, so they will drop too — this is deleting history, not tidying it.");
   wrap.appendChild(said);
 
   const row = document.createElement("div");
@@ -16895,11 +16887,11 @@ function aiForgetForm(who) {
 
   const days = document.createElement("select");
   for (const [value, label] of [
-    [7, "older than a week"],
-    [30, "older than a month"],
-    [90, "older than three months"],
-    [365, "older than a year"],
-    [0, "every finished conversation"],
+    [7, ZogographI18n.t("ai.store_forget_week", {}, "older than a week")],
+    [30, ZogographI18n.t("ai.store_forget_month", {}, "older than a month")],
+    [90, ZogographI18n.t("ai.store_forget_three_months", {}, "older than three months")],
+    [365, ZogographI18n.t("ai.store_forget_year", {}, "older than a year")],
+    [0, ZogographI18n.t("ai.store_forget_all", {}, "every finished conversation")],
   ]) {
     const option = document.createElement("option");
     option.value = String(value);
@@ -16912,13 +16904,12 @@ function aiForgetForm(who) {
   const go = document.createElement("button");
   go.type = "button";
   go.className = "danger";
-  go.textContent = "Forget them";
+  go.textContent = ZogographI18n.t("ai.store_forget_action", {}, "Forget them");
   go.addEventListener("click", async () => {
     const chose = days.options[days.selectedIndex].textContent;
     if (!(await confirmDialog(
-      `Delete ${chose}?\n\n`
-      + "The transcripts, the tool results and what each one cost all go. This cannot be "
-      + "undone from here."
+      ZogographI18n.t("ai.store_forget_confirm", { choice: chose },
+        "Delete {{choice}}?\n\nThe transcripts, the tool results and what each one cost all go. This cannot be undone from here.")
     ))) return;
 
     go.disabled = true;
@@ -16926,9 +16917,9 @@ function aiForgetForm(who) {
       const result = await post("ai-forget", { days: days.value });
       notice(
         result.sessions
-          ? `${count(result.sessions, "conversation")} forgotten, `
-            + `${humanBytes(result.reclaimed)} reclaimed.`
-          : "There was nothing that old to forget.",
+          ? ZogographI18n.t("ai.store_forget_result", { conversations: count(result.sessions, "conversation"), bytes: humanBytes(result.reclaimed) },
+            "{{conversations}} forgotten, {{bytes}} reclaimed.")
+          : ZogographI18n.t("ai.store_forget_nothing", {}, "There was nothing that old to forget."),
         true
       );
       renderAiStore(result);

@@ -33618,7 +33618,7 @@ $("rdnsForm").addEventListener("submit", async event => {
 $("rdnsNow").addEventListener("click", async () => {
   const button = $("rdnsNow");
   button.disabled = true;
-  button.textContent = "Looking\u2026";
+  button.textContent = ZogographI18n.t("action.looking", {}, "Looking…");
 
   try {
     const result = await post("rdns-now");
@@ -33634,7 +33634,7 @@ $("rdnsNow").addEventListener("click", async () => {
     notice(String(error.message || error));
   } finally {
     button.disabled = false;
-    button.textContent = "Resolve the next one now";
+    button.textContent = ZogographI18n.t("rdns.resolve_next", {}, "Resolve the next one now");
   }
 });
 
@@ -34227,7 +34227,7 @@ $("dnsSweep").addEventListener("click", async () => {
   if (!domain) return;
 
   button.disabled = true;
-  button.textContent = "Looking\u2026";
+  button.textContent = ZogographI18n.t("action.looking", {}, "Looking…");
   try {
     const result = await post("dns-sweep", { domain });
     const r = result.result;
@@ -34241,7 +34241,7 @@ $("dnsSweep").addEventListener("click", async () => {
     notice(String(error.message || error));
   } finally {
     button.disabled = false;
-    button.textContent = "Look it all up";
+    button.textContent = ZogographI18n.t("dns.look_up_all", {}, "Look it all up");
   }
 });
 

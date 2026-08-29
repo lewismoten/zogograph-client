@@ -1698,9 +1698,9 @@
 <section class="view" data-view="domains" hidden>
 <section class="panel" id="domainPanel">
   <div class="panel-head">
-    <h2>Domain names</h2>
+    <h2 data-i18n="network.domains_title">Domain names</h2>
   </div>
-  <p class="muted small sub-note">
+  <p class="muted small sub-note" data-i18n="network.domains_help">
     A domain expiring is the one outage nothing else here can see coming. Disk,
     memory, CPU and the HTTP checks all stay green right up to the moment the
     name stops resolving, and then everything fails at once for a reason that is
@@ -1710,11 +1710,11 @@
   <form id="domainForm" class="pattern-row">
     <input type="text" id="domainName" spellcheck="false" autocomplete="off"
            placeholder="example.com" data-i18n-placeholder="network.domain_placeholder">
-    <label class="pill">warn
+    <label class="pill"><span data-i18n="network.domain_warn">warn</span>
       <input type="number" id="domainWarn" min="1" max="365" value="45" class="narrow">
-      days before
+      <span data-i18n="network.domain_days_before">days before</span>
     </label>
-    <button type="submit">Watch it</button>
+    <button type="submit" data-i18n="network.domain_watch">Watch it</button>
   </form>
   <div id="domainBody"></div>
 </section>

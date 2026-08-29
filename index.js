@@ -15748,8 +15748,8 @@ function openDisplayPreferences() {
   const rate = document.createElement("input"); rate.type = "range"; rate.min = ".5"; rate.max = "2"; rate.step = ".1"; rate.value = String(current.rate);
   const pitch = document.createElement("input"); pitch.type = "range"; pitch.min = "0"; pitch.max = "2"; pitch.step = ".1"; pitch.value = String(current.pitch);
   const volume = document.createElement("input"); volume.type = "range"; volume.min = "0"; volume.max = "1"; volume.step = ".1"; volume.value = String(current.volume);
-  const test = document.createElement("button"); test.type = "button"; test.className = "link"; test.textContent = "Test voice";
-  test.addEventListener("click", () => { const utterance = configureUtterance(new SpeechSynthesisUtterance("Zogograph voice settings are ready.")); const selected = (window.speechSynthesis?.getVoices() || []).find(item => item.voiceURI === voice.value); if (selected) utterance.voice = selected; utterance.rate = Number(rate.value); utterance.pitch = Number(pitch.value); utterance.volume = Number(volume.value); window.speechSynthesis?.cancel(); window.speechSynthesis?.speak(utterance); });
+  const test = document.createElement("button"); test.type = "button"; test.className = "link"; test.textContent = ZogographI18n.t("display.test_voice", {}, "Test voice");
+  test.addEventListener("click", () => { const utterance = configureUtterance(new SpeechSynthesisUtterance(ZogographI18n.t("display.voice_ready", {}, "Zogograph voice settings are ready."))); const selected = (window.speechSynthesis?.getVoices() || []).find(item => item.voiceURI === voice.value); if (selected) utterance.voice = selected; utterance.rate = Number(rate.value); utterance.pitch = Number(pitch.value); utterance.volume = Number(volume.value); window.speechSynthesis?.cancel(); window.speechSynthesis?.speak(utterance); });
   showFormDialog("Display preferences", [
     fieldRow("Text size", textSize, "Applies to this browser only."),
     fieldRow("Motion", motion, "Reduce motion disables decorative animation and transitions in this browser."),
@@ -15771,7 +15771,7 @@ function openDisplayPreferences() {
 applyDisplayPreferences(displayPreferences(), false);
 
 /** A themed, asynchronous confirmation in place of the browser's bare prompt. */
-function confirmDialog(message, submitLabel = "Continue") {
+function confirmDialog(message, submitLabel = ZogographI18n.t("action.continue", {}, "Continue")) {
   return new Promise(resolve => {
     const text = document.createElement("p");
     text.className = "note";
@@ -15791,7 +15791,7 @@ function confirmDialog(message, submitLabel = "Continue") {
     go.textContent = submitLabel;
     actions.appendChild(go);
     $("noteFormBody").replaceChildren(text, actions);
-    $("noteDialogTitle").textContent = "Please confirm";
+    $("noteDialogTitle").textContent = ZogographI18n.t("dialog.please_confirm", {}, "Please confirm");
     $("noteForm").onsubmit = event => {
       event.preventDefault();
       finish(true);
@@ -15822,7 +15822,7 @@ function askTextDialog(title, label, initial = "", hint = "") {
     actions.className = "inspect-actions";
     const go = document.createElement("button");
     go.type = "submit";
-    go.textContent = "Continue";
+    go.textContent = ZogographI18n.t("action.continue", {}, "Continue");
     actions.appendChild(go);
     $("noteFormBody").replaceChildren(field, actions);
     $("noteDialogTitle").textContent = title;

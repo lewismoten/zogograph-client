@@ -33720,7 +33720,7 @@ $("aiCompact").addEventListener("click", async () => {
 
   const button = $("aiCompact");
   button.disabled = true;
-  button.textContent = "Rewriting\u2026";
+  button.textContent = ZogographI18n.t("action.rewriting", {}, "Rewriting…");
 
   try {
     const result = await post("ai-compact");
@@ -33733,7 +33733,7 @@ $("aiCompact").addEventListener("click", async () => {
     notice(String(error.message || error));
   } finally {
     button.disabled = false;
-    button.textContent = "Reclaim empty space";
+    button.textContent = ZogographI18n.t("action.reclaim_empty_space", {}, "Reclaim empty space");
   }
 });
 
@@ -33749,7 +33749,7 @@ $("storeCompact").addEventListener("click", async () => {
 
   const button = $("storeCompact");
   button.disabled = true;
-  button.textContent = "Rewriting\u2026";
+  button.textContent = ZogographI18n.t("action.rewriting", {}, "Rewriting…");
 
   try {
     const result = await post("store-compact");
@@ -33762,7 +33762,7 @@ $("storeCompact").addEventListener("click", async () => {
     notice(String(error.message || error));
   } finally {
     button.disabled = false;
-    button.textContent = "Reclaim empty space";
+    button.textContent = ZogographI18n.t("action.reclaim_empty_space", {}, "Reclaim empty space");
   }
 });
 

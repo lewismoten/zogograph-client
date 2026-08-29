@@ -509,6 +509,7 @@
   "schedule.custom.weekday": "يوم الأسبوع (0–7)",
   "schedule.saved_preview": "معاينة محفوظة",
   "schedule.installed": "مثبّت حاليًا",
+  "action.rewriting": "جارٍ إعادة الكتابة…", "action.reclaim_empty_space": "استعد المساحة الفارغة",
   "action.checking": "جارٍ التحقق…", "action.check_now": "تحقق الآن", "changed.checked": "اكتمل التحقق. كل ما تغير منذ المرة السابقة مدرج أعلاه.",
   "action.testing": "جارٍ الاختبار…", "action.test_connection": "اختبر الاتصال",
   "guide.sign_in_help": "سجّل الدخول لرؤية القياسات والضوابط المحمية. يظل هذا الدليل متاحًا كي لا تكون الصفحة حالة فارغة بلا تفسير.", "guide.read_help": "اقرأ مساعدة الصفحة",

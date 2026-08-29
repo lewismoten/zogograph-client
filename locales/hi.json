@@ -509,6 +509,7 @@
   "schedule.custom.weekday": "सप्ताह का दिन (0–7)",
   "schedule.saved_preview": "सहेजा गया पूर्वावलोकन",
   "schedule.installed": "वर्तमान में स्थापित",
+  "action.rewriting": "पुनर्लेखन हो रहा है…", "action.reclaim_empty_space": "खाली स्थान वापस लें",
   "action.checking": "जाँच हो रही है…", "action.check_now": "अभी जाँचें", "changed.checked": "जाँच हो गई। पिछली बार से बदली हर चीज़ ऊपर सूचीबद्ध है।",
   "action.testing": "जाँच हो रही है…", "action.test_connection": "कनेक्शन जाँचें",
   "guide.sign_in_help": "सुरक्षित माप और नियंत्रण देखने के लिए साइन इन करें। यह गाइड उपलब्ध रहता है ताकि पृष्ठ कभी बिना व्याख्या की खाली स्थिति न हो।", "guide.read_help": "पृष्ठ सहायता पढ़ें",

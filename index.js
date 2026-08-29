@@ -1180,18 +1180,17 @@ function renderCpuCores(data) {
   if (!cores.length) {
     grid.replaceChildren(Object.assign(document.createElement("p"), {
       className: "muted",
-      textContent: "No per-core lines in this reading. /proc/stat on this kernel did not "
-        + "break the counters down by core, so only the whole-machine figure exists.",
+      textContent: ZogographI18n.t("cpu.no_per_core_lines", {}, "No per-core lines in this reading. /proc/stat on this kernel did not break the counters down by core, so only the whole-machine figure exists."),
     }));
   } else {
     grid.replaceChildren(...cores.map(core => {
       const value = core.busy_percent == null ? null : Number(core.busy_percent);
       return buildGauge({
-        label: `Core ${core.cpu}`,
+        label: ZogographI18n.t("cpu.core_label", { core: core.cpu }, "Core {{core, number}}"),
         value,
         warn: 75,
         crit: 90,
-        sub: value == null ? "not measured yet" : cpuCoreShare(core),
+        sub: value == null ? ZogographI18n.t("cpu.not_measured_yet", {}, "not measured yet") : cpuCoreShare(core),
       });
     }));
   }
@@ -1199,13 +1198,13 @@ function renderCpuCores(data) {
   $("cpuSpreadNote").textContent = cpuSpreadVerdict(spread);
 
   drawLineChart($("cpuSpreadChart"), data.spread_series ?? [], [
-    { key: "hottest", label: "Busiest core" },
-    { key: "mean", label: "Average core" },
-    { key: "coolest", label: "Quietest core" },
+    { key: "hottest", label: ZogographI18n.t("cpu.busiest_core", {}, "Busiest core") },
+    { key: "mean", label: ZogographI18n.t("cpu.average_core", {}, "Average core") },
+    { key: "coolest", label: ZogographI18n.t("cpu.quietest_core", {}, "Quietest core") },
     // On the other axis with its own scale: a count of cores forced onto a
     // percentage scale would be a flat line along the bottom, and pinning the
     // percentage axis to 100 would drag the core count up with it.
-    { key: "pinned", label: "Cores at 90%+", axis: "right" },
+    { key: "pinned", label: ZogographI18n.t("cpu.cores_at_90", {}, "Cores at 90%+"), axis: "right" },
   ], { axis: percentAxis, rightAxis: countAxis, zeroBased: true, empty: cpuEmptyWhy(data) });
 }
 
@@ -1226,9 +1225,9 @@ function cpuCoreShare(core) {
   const iowait = share("iowait_ticks");
 
   // Only the two that mean something is wrong, and only when they are visible.
-  if (steal >= 1) return `${steal.toFixed(1)}% stolen since boot`;
-  if (iowait >= 5) return `${iowait.toFixed(0)}% iowait since boot`;
-  return `${share("user_ticks").toFixed(0)}% user since boot`;
+  if (steal >= 1) return ZogographI18n.t("cpu.stolen_since_boot", { percent: steal.toFixed(1) }, "{{percent}}% stolen since boot");
+  if (iowait >= 5) return ZogographI18n.t("cpu.iowait_since_boot", { percent: iowait.toFixed(0) }, "{{percent}}% iowait since boot");
+  return ZogographI18n.t("cpu.user_since_boot", { percent: share("user_ticks").toFixed(0) }, "{{percent}}% user since boot");
 }
 
 function cpuSpreadVerdict(spread) {

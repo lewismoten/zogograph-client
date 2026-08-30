@@ -1525,8 +1525,6 @@
   "domain.whois_unavailable": "This web account and the latest host capability sweep do not show WHOIS as available.",
   "domain.whois_availability_title": "WHOIS availability",
   "domain.whois_availability_note": "The dashboard separates the web account's permissions from the host collector's tools.",
-  "domain.queue_waiting": "{{due, number}} domains are due, with {{perRun, number}} looked up per run — registries rate-limit anyone who asks faster, and a blocked address reports every domain as unknown. The oldest waits least.",
-  "domain.none_watched": "No domains are being watched.",
   "table.domain": "Domain",
   "domain.expires": "Expires",
   "domain.lookup_failed": "Lookup failed",

@@ -1472,8 +1472,6 @@
   "domain.whois_unavailable": "यह वेब खाता और नवीनतम होस्ट क्षमता स्वीप WHOIS को उपलब्ध नहीं दिखाते हैं।",
   "domain.whois_availability_title": "WHOIS उपलब्धता",
   "domain.whois_availability_note": "डैशबोर्ड वेब खाते की अनुमतियों को होस्ट कलेक्टर के टूल से अलग रखता है।",
-  "domain.queue_waiting": "{{due, number}} डोमेन देय हैं और हर रन में {{perRun, number}} देखे जाते हैं — रजिस्ट्रियाँ तेज़ी से पूछने वालों को सीमित करती हैं और ब्लॉक किया गया पता हर डोमेन को अज्ञात बताता है। सबसे पुराने को सबसे कम इंतज़ार है।",
-  "domain.none_watched": "कोई डोमेन नहीं देखा जा रहा है।",
   "table.domain": "डोमेन",
   "domain.expires": "समाप्ति",
   "domain.lookup_failed": "लुकअप विफल",

@@ -1458,8 +1458,6 @@
   "domain.whois_unavailable": "此 Web 账户和最近的主机功能扫描均未显示 WHOIS 可用。",
   "domain.whois_availability_title": "WHOIS 可用性",
   "domain.whois_availability_note": "仪表板将 Web 账户的权限与主机采集器的工具分开。",
-  "domain.queue_waiting": "有 {{due, number}} 个域名待处理，每次运行查询 {{perRun, number}} 个——注册机构会限制查询过快的请求，而被阻止的地址会将每个域名报告为未知。最早的等待时间最短。",
-  "domain.none_watched": "尚未监测任何域名。",
   "table.domain": "域名",
   "domain.expires": "到期",
   "domain.lookup_failed": "查询失败",

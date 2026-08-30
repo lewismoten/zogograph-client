@@ -53,6 +53,7 @@ export default [
         ZogographJetBackupCard: 'readonly',
         ZogographCagefsExplainerCard: 'readonly',
         ZogographWhoisTermsCard: 'readonly',
+        ZogographDomainQueueCard: 'readonly',
         ZogographCagefsMountsCard: 'readonly',
         ZogographLogRepeatsCard: 'readonly',
         ZogographLogStreamSummaryCard: 'readonly',

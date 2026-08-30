@@ -37166,35 +37166,15 @@ function renderDomains(data) {
     parts.push(availability);
   }
 
-  if (data.queue && data.queue.due > data.queue.per_run) {
-    /*
-     * A patient queue looks like a broken one unless it says so.
-     *
-     * Twelve domains due against a budget of one per run is an hour of
-     * draining, and eleven rows reading "not checked" is indistinguishable
-     * from eleven failures without this line.
-     */
-    parts.push(
-      note(
-        ZogographI18n.t(
-          'domain.queue_waiting',
-          { due: data.queue.due, perRun: data.queue.per_run },
-          '{{due, number}} domains are due, with {{perRun, number}} looked up per run — registries rate-limit anyone who asks faster, and a blocked address reports every domain as unknown. The oldest waits least.',
-        ),
-      ),
-    );
-  }
+  /* A patient queue looks broken without an explanation of its rate limit. */
+  parts.push(
+    renderCoreCardPackage(ZogographDomainQueueCard, 'core-domain-queue', data, {
+      note,
+      i18n: ZogographI18n,
+    }),
+  );
 
   if (!data.rows.length) {
-    parts.push(
-      note(
-        ZogographI18n.t(
-          'domain.none_watched',
-          {},
-          'No domains are being watched.',
-        ),
-      ),
-    );
     body.replaceChildren(...parts);
     return;
   }

@@ -1458,8 +1458,6 @@
   "domain.whois_unavailable": "لا يُظهر حساب الويب هذا ولا أحدث مسح لإمكانات المضيف أن WHOIS متاح.",
   "domain.whois_availability_title": "توفر WHOIS",
   "domain.whois_availability_note": "تفصل لوحة المعلومات أذونات حساب الويب عن أدوات جامع المضيف.",
-  "domain.queue_waiting": "هناك {{due, number}} نطاقات مستحقة، ويُبحث عن {{perRun, number}} في كل تشغيل — تقيد السجلات من يسأل بسرعة أكبر، والعنوان المحظور يبلغ عن كل نطاق بأنه غير معروف. الأقدم ينتظر أقل.",
-  "domain.none_watched": "لا توجد نطاقات قيد المراقبة.",
   "table.domain": "النطاق",
   "domain.expires": "ينتهي",
   "domain.lookup_failed": "فشل البحث",

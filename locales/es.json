@@ -1474,8 +1474,6 @@
   "domain.whois_unavailable": "Esta cuenta web y el último barrido de capacidades del host no muestran que WHOIS esté disponible.",
   "domain.whois_availability_title": "Disponibilidad de WHOIS",
   "domain.whois_availability_note": "El panel separa los permisos de la cuenta web de las herramientas del recopilador del host.",
-  "domain.queue_waiting": "Hay {{due, number}} dominios pendientes y se consulta {{perRun, number}} en cada ejecución: los registros limitan las consultas rápidas y una dirección bloqueada informa de todos los dominios como desconocidos. Los más antiguos esperan menos.",
-  "domain.none_watched": "No se está vigilando ningún dominio.",
   "table.domain": "Dominio",
   "domain.expires": "Caduca",
   "domain.lookup_failed": "Falló la consulta",

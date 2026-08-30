@@ -5122,9 +5122,18 @@ function renderVitalCharts(rows, uptime) {
     $('loadChart'),
     rows,
     [
-      { key: 'load1', label: '1 min' },
-      { key: 'load5', label: '5 min' },
-      { key: 'load15', label: '15 min' },
+      {
+        key: 'load1',
+        label: ZogographI18n.t('vitals.load_one_minute', {}, '1 min'),
+      },
+      {
+        key: 'load5',
+        label: ZogographI18n.t('vitals.load_five_minutes', {}, '5 min'),
+      },
+      {
+        key: 'load15',
+        label: ZogographI18n.t('vitals.load_fifteen_minutes', {}, '15 min'),
+      },
     ],
     {
       axis: (step) => ({
@@ -5141,14 +5150,24 @@ function renderVitalCharts(rows, uptime) {
     $('netChart'),
     rows,
     [
-      { key: 'net_rx_rate', label: 'In' },
-      { key: 'net_tx_rate', label: 'Out' },
+      {
+        key: 'net_rx_rate',
+        label: ZogographI18n.t('vitals.network_in', {}, 'In'),
+      },
+      {
+        key: 'net_tx_rate',
+        label: ZogographI18n.t('vitals.network_out', {}, 'Out'),
+      },
     ],
     {
       axis: rateAxis,
       zeroBased: true,
       outages: bands,
-      empty: 'No network counters here — /proc/net/dev is not readable',
+      empty: ZogographI18n.t(
+        'vitals.network_unreadable',
+        {},
+        'No network counters here — /proc/net/dev is not readable',
+      ),
     },
   );
 }

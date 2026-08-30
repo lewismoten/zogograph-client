@@ -2633,6 +2633,7 @@
   "uptime.track_last_late": "आखिरी {{duration}} पहले — सामान्य से देर से",
   "uptime.track_gaps": "इस विंडो में {{count, number}} अंतर",
   "uptime.track_requests_answered": "{{count, number}} अनुरोधों का उत्तर दिया गया",
+  "uptime.track_summary": " — {{values}}।",
   "uptime.machine": "मशीन",
   "chart.compaction_bucket": "हर बिंदु {{duration}} को कवर करता है और उस अवधि का सबसे खराब मान दिखाता है, औसत नहीं।",
   "chart.compaction_disk": "यहाँ की सबसे पुरानी रीडिंग डिस्क पर भी कॉम्पैक्ट की गई हैं, एक पंक्ति में {{readings, number}} रीडिंग तक। अलर्ट के आस-पास की रीडिंग कभी कॉम्पैक्ट नहीं की जातीं।",

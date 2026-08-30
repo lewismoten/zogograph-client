@@ -2619,6 +2619,7 @@
   "uptime.track_last_late": "上一次在 {{duration}} 前——比平时晚",
   "uptime.track_gaps": "此窗口中有 {{count, number}} 个间隔",
   "uptime.track_requests_answered": "已响应 {{count, number}} 个请求",
+  "uptime.track_summary": " — {{values}}。",
   "uptime.machine": "此机器",
   "chart.compaction_bucket": "每个点覆盖 {{duration}}，并显示该时段内的最坏值，而非平均值。",
   "chart.compaction_disk": "此处最早的读数也会在磁盘上压缩，每行最多 {{readings, number}} 条读数。警报附近的读数永远不会压缩。",

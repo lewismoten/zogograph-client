@@ -28665,7 +28665,11 @@ function renderTrackSummary(tracks, to) {
     const stale = track.interval && to - track.last > track.interval * 2.5;
     text.className =
       stale || track.unreadable || !track.readings ? 'band-warn' : 'muted';
-    text.textContent = ` — ${said.join(', ')}.`;
+    text.textContent = ZogographI18n.t(
+      'uptime.track_summary',
+      { values: said.join(', ') },
+      ' — {{values}}.',
+    );
     line.appendChild(text);
 
     const why = document.createElement('div');

@@ -2633,6 +2633,7 @@
   "uptime.track_last_late": "la última hace {{duration}} — más tarde de lo habitual",
   "uptime.track_gaps": "{{count, number}} brechas en esta ventana",
   "uptime.track_requests_answered": "{{count, number}} solicitudes respondidas",
+  "uptime.track_summary": " — {{values}}.",
   "uptime.machine": "La máquina",
   "chart.compaction_bucket": "Cada punto cubre {{duration}} y muestra el peor valor de ese período, no un promedio.",
   "chart.compaction_disk": "Las lecturas más antiguas también se compactan en el disco, hasta {{readings, number}} lecturas por fila. Las lecturas cercanas a una alerta nunca se compactan.",

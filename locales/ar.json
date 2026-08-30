@@ -2619,6 +2619,7 @@
   "uptime.track_last_late": "آخر واحدة منذ {{duration}} — متأخرة عن المعتاد",
   "uptime.track_gaps": "{{count, number}} فجوات في هذه النافذة",
   "uptime.track_requests_answered": "{{count, number}} طلبات أُجيب عنها",
+  "uptime.track_summary": " — {{values}}.",
   "uptime.machine": "الجهاز",
   "chart.compaction_bucket": "تغطي كل نقطة {{duration}} وتعرض أسوأ قيمة في تلك الفترة، لا متوسطًا.",
   "chart.compaction_disk": "تُضغط أقدم القراءات هنا أيضًا على القرص، حتى {{readings, number}} قراءة في الصف. لا تُضغط القراءات المحيطة بتنبيه أبدًا.",

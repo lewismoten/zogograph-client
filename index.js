@@ -27532,6 +27532,21 @@ async function refreshHostDisk() {
  */
 function renderWalkButton(data) {
   const holder = $('hostWalk');
+  if (window.ZogographHostWalkControl) {
+    return renderCoreCardPackage(
+      ZogographHostWalkControl,
+      'core-host-walk-control',
+      data,
+      {
+        target: holder,
+        ago,
+        post,
+        notice,
+        refresh: refreshHostDisk,
+        i18n: ZogographI18n,
+      },
+    );
+  }
   if (holder) holder.replaceChildren(walkButton(data));
 }
 

@@ -130,6 +130,18 @@ $calendarGridCard = i18nCardSource(
 $calendarEventListCard = i18nCardSource(
     file_get_contents($root . '/cards/calendar-event-list.js'),
 );
+$reportsStatusCard = i18nCardSource(
+    file_get_contents($root . '/cards/reports-status.js'),
+);
+$reportsEmptyCard = i18nCardSource(
+    file_get_contents($root . '/cards/reports-empty.js'),
+);
+$reportsNotReadyCard = i18nCardSource(
+    file_get_contents($root . '/cards/reports-not-ready.js'),
+);
+$reportsAuthorshipCard = i18nCardSource(
+    file_get_contents($root . '/cards/reports-authorship.js'),
+);
 $changeHistoryCard = i18nCardSource(
     file_get_contents($root . '/cards/change-history.js'),
 );
@@ -844,6 +856,35 @@ i18nExpect(
             'renderCoreCardPackage(ZogographCalendarEventListCard, "core-calendar-event-list",',
         ),
     'calendar event list is not isolated behind its core card-module boundary',
+);
+i18nExpect(
+    $page !== false &&
+        $script !== false &&
+        str_contains($page, 'src="cards/reports-status.js"') &&
+        str_contains($page, 'src="cards/reports-empty.js"') &&
+        str_contains($page, 'src="cards/reports-not-ready.js"') &&
+        str_contains($page, 'src="cards/reports-authorship.js"') &&
+        str_contains($reportsStatusCard, 'core-reports-status.on') &&
+        str_contains($reportsEmptyCard, 'core-reports-empty.text') &&
+        str_contains($reportsNotReadyCard, 'core-reports-not-ready.text') &&
+        str_contains($reportsAuthorshipCard, 'core-reports-authorship.text') &&
+        str_contains(
+            $script,
+            'renderCoreCardPackage(ZogographReportsStatusCard',
+        ) &&
+        str_contains(
+            $script,
+            'renderCoreCardPackage(ZogographReportsEmptyCard',
+        ) &&
+        str_contains(
+            $script,
+            'renderCoreCardPackage(ZogographReportsNotReadyCard',
+        ) &&
+        str_contains(
+            $script,
+            'renderCoreCardPackage(ZogographReportsAuthorshipCard',
+        ),
+    'report page cards are not isolated behind core card-module boundaries',
 );
 i18nExpect(
     $page !== false &&

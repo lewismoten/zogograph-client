@@ -35643,9 +35643,13 @@ function renderCapture(capture, target = 'captureBody') {
   if ((capture.asked || []).length) {
     parts.push(
       section(
-        'What was looked up',
+        ZogographI18n.t('network.looked_up', {}, 'What was looked up'),
         simpleTable(
-          ['Record', 'Name', 'Queries'],
+          [
+            ZogographI18n.t('network.record', {}, 'Record'),
+            ZogographI18n.t('network.name', {}, 'Name'),
+            ZogographI18n.t('network.queries', {}, 'Queries'),
+          ],
           capture.asked
             .slice(0, 40)
             .map((a) => [a.how, a.what, humanCount(a.packets)]),

@@ -19174,69 +19174,18 @@ function renderTerminalBuffer() {
 
 /** One command and what it printed. */
 function terminalEntry(entry) {
-  const wrap = document.createElement('div');
-  wrap.className = 'term-entry';
-  if (entry.running) wrap.classList.add('running');
-
-  /*
-   * The command, with a prompt in front of it.
-   *
-   * This is the whole answer to "find each command in a sea of noisy results".
-   * A prompt character, a colour and a rule down the left are what the eye
-   * lands on when scrolling, and none of them can be confused with output
-   * because output does not get them.
-   */
-  const said = document.createElement('div');
-  said.className = 'term-prompt';
-
-  const mark = document.createElement('span');
-  mark.className = 'term-mark';
-  mark.textContent = '$';
-  said.appendChild(mark);
-
-  const what = document.createElement('span');
-  what.className = 'term-command';
-  what.textContent = entry.command;
-  said.appendChild(what);
-
-  said.appendChild(terminalVerdictChip(entry));
-  wrap.appendChild(said);
-
-  if (entry.text) {
-    const body = document.createElement('div');
-    body.className = 'term-body';
-
-    /*
-     * A single command's output is capped too.
-     *
-     * One `find /` can print more than the whole rest of the session, and the
-     * browser does not care that it came from one command rather than sixty.
-     * The end is kept rather than the beginning: what a command was doing when
-     * it stopped is almost always the interesting half.
-     */
-    const text =
-      entry.text.length > TERM_ENTRY_BYTES
-        ? entry.text.slice(-TERM_ENTRY_BYTES)
-        : entry.text;
-
-    if (text !== entry.text) {
-      const said = document.createElement('div');
-      said.className = 'term-folded';
-      said.textContent = ZogographI18n.t(
-        'terminal.output_truncated',
-        {
-          amount: humanBytes(entry.text.length - text.length),
-        },
-        '{{amount}} earlier in this command is not drawn. Copy it to get all of it.',
-      );
-      body.appendChild(said);
-    }
-
-    body.appendChild(ansiToNodes(text));
-    wrap.appendChild(body);
-  }
-
-  return wrap;
+  return renderCoreCardPackage(
+    ZogographTerminalEntryCard,
+    'core-terminal-entry',
+    entry,
+    {
+      outputLimit: TERM_ENTRY_BYTES,
+      verdict: terminalVerdictChip,
+      humanBytes,
+      ansiToNodes,
+      i18n: ZogographI18n,
+    },
+  );
 }
 
 /** How it ended, as a small chip beside the command. */

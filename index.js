@@ -44353,10 +44353,38 @@ async function refreshBackups() {
 function backupActionList(data) {
   const wrap = document.createDocumentFragment();
 
-  const REACH = {
-    here: 'you can do this here',
-    root: 'needs root or WHM',
-    provider: 'ask your hosting provider',
+  const reachByLevel = {
+    here: ZogographI18n.t('backup.reach_here', {}, 'you can do this here'),
+    root: ZogographI18n.t('backup.reach_root', {}, 'needs root or WHM'),
+    provider: ZogographI18n.t(
+      'backup.reach_provider',
+      {},
+      'ask your hosting provider',
+    ),
+  };
+
+  const labelByLevel = {
+    safe: ZogographI18n.t('backup.safe', {}, 'Safe'),
+    review: ZogographI18n.t('backup.review', {}, 'Review'),
+    dangerous: ZogographI18n.t('backup.dangerous', {}, 'Dangerous'),
+  };
+
+  const headingByLevel = {
+    safe: ZogographI18n.t(
+      'backup.safe_actions',
+      {},
+      'Safe — returns space the backup system already considers disposable',
+    ),
+    review: ZogographI18n.t(
+      'backup.review_actions',
+      {},
+      'Worth reviewing — a decision, not a chore',
+    ),
+    dangerous: ZogographI18n.t(
+      'backup.dangerous_actions',
+      {},
+      'Dangerous — listed so it can be named, not recommended',
+    ),
   };
 
   for (const level of ['safe', 'review', 'dangerous']) {
@@ -44367,11 +44395,7 @@ function backupActionList(data) {
     box.className = 'cap-group';
 
     const head = document.createElement('h3');
-    head.textContent = {
-      safe: 'Safe — returns space the backup system already considers disposable',
-      review: 'Worth reviewing — a decision, not a chore',
-      dangerous: 'Dangerous — listed so it can be named, not recommended',
-    }[level];
+    head.textContent = headingByLevel[level];
     box.appendChild(head);
 
     for (const action of members) {
@@ -44380,12 +44404,12 @@ function backupActionList(data) {
 
       const tag = document.createElement('span');
       tag.className = `level level-${level}`;
-      tag.textContent = level;
+      tag.textContent = labelByLevel[level];
       row.appendChild(tag);
 
       const reach = document.createElement('span');
       reach.className = 'reach';
-      reach.textContent = ' · ' + REACH[action.reach];
+      reach.textContent = ' · ' + reachByLevel[action.reach];
       row.appendChild(reach);
 
       const title = document.createElement('div');

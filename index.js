@@ -38777,38 +38777,14 @@ const LOG_MARKS = {
 function renderLogStream(data) {
   const body = $('streamBody');
   const wrap = document.createDocumentFragment();
-
-  const readable = (data.files || []).filter((f) => f.ok);
-  const skipped = (data.files || []).filter((f) => !f.ok);
-
   wrap.appendChild(
-    note(
-      `${count(readable.length, 'log')} read` +
-        (skipped.length
-          ? `, ${skipped.length} skipped (compressed, unreadable or not text)`
-          : '') +
-        `. Ordered by ${data.ordering}.`,
+    renderCoreCardPackage(
+      ZogographLogStreamSummaryCard,
+      'core-log-stream-summary',
+      data,
+      { note, count, i18n: ZogographI18n },
     ),
   );
-
-  if (data.note) wrap.appendChild(note(data.note));
-
-  const folded = data.rows.reduce(
-    (sum, row) => sum + (row.trace?.length ?? 0),
-    0,
-  );
-  if (folded) {
-    wrap.appendChild(
-      note(
-        `${count(folded, 'stack-trace line')} folded into the ${count(
-          data.rows.filter((row) => row.trace?.length).length,
-          'error',
-        )} they belong to. ` +
-          'A fatal writes one line for the error and a dozen for the trace, so without this ' +
-          'the twenty newest lines are one error and nineteen fragments of it.',
-      ),
-    );
-  }
 
   if (!data.rows.length) {
     wrap.appendChild(

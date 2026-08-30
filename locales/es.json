@@ -1887,6 +1887,7 @@
   "encryption.remote_recovery_verified": "Recuperación de custodia remota verificada",
   "package.table_artifact": "Artefacto",
   "diagnosis.ignore_action": "Ignorar este hallazgo",
+  "diagnosis.not_measured": "no medido",
   "diagnosis.ignore_title": "Oculta este diagnóstico exacto en comprobaciones futuras hasta que cambie la configuración.",
   "diagnosis.ignore_confirm": "¿Ignorar “{{title}}” ahora y en comprobaciones futuras?\n\nÚselo solo para una configuración intencional.",
   "diagnosis.ignore_success": "Se ignorará en comprobaciones futuras. La decisión queda en el registro de auditoría.",

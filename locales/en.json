@@ -1998,6 +1998,7 @@
   "encryption.remote_recovery_verified": "Remote custody recovery verified",
   "package.table_artifact": "Artifact",
   "diagnosis.ignore_action": "Ignore this finding",
+  "diagnosis.not_measured": "not measured",
   "diagnosis.ignore_title": "Hide this exact diagnostic on future checks until the configuration is changed.",
   "diagnosis.ignore_confirm": "Ignore “{{title}}” now and on future checks?\n\nUse this only for an intentional configuration.",
   "diagnosis.ignore_success": "Ignored for future checks. The decision is in the audit log.",

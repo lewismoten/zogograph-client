@@ -33864,7 +33864,10 @@ function findingRow(f) {
   level.className =
     'finding-level band-' +
     (f.level === 'critical' ? 'crit' : f.level === 'warning' ? 'warn' : 'ok');
-  level.textContent = f.level === 'unknown' ? 'not measured' : f.level;
+  level.textContent =
+    f.level === 'unknown'
+      ? ZogographI18n.t('diagnosis.not_measured', {}, 'not measured')
+      : f.level;
   head.appendChild(level);
 
   const title = document.createElement('strong');

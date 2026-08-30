@@ -1883,6 +1883,7 @@
   "encryption.remote_recovery_verified": "दूरस्थ कस्टडी पुनर्प्राप्ति सत्यापित हुई",
   "package.table_artifact": "आर्टिफ़ैक्ट",
   "diagnosis.ignore_action": "इस निष्कर्ष को अनदेखा करें",
+  "diagnosis.not_measured": "मापा नहीं गया",
   "diagnosis.ignore_title": "कॉन्फ़िगरेशन बदलने तक भविष्य की जाँचों में इस सटीक निदान को छिपाएँ।",
   "diagnosis.ignore_confirm": "“{{title}}” को अभी और भविष्य की जाँचों में अनदेखा करें?\n\nइसे केवल जानबूझकर की गई कॉन्फ़िगरेशन के लिए उपयोग करें।",
   "diagnosis.ignore_success": "भविष्य की जाँचों के लिए अनदेखा किया गया। निर्णय ऑडिट लॉग में है।",

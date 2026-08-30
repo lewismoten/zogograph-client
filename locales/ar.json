@@ -1869,6 +1869,7 @@
   "encryption.remote_recovery_verified": "تم التحقق من استرداد الحفظ البعيد",
   "package.table_artifact": "عنصر",
   "diagnosis.ignore_action": "تجاهل هذه النتيجة",
+  "diagnosis.not_measured": "غير مقاس",
   "diagnosis.ignore_title": "إخفاء هذا التشخيص الدقيق في الفحوصات القادمة إلى أن يتغير الإعداد.",
   "diagnosis.ignore_confirm": "هل تريد تجاهل “{{title}}” الآن وفي الفحوصات القادمة؟\n\nاستخدم ذلك فقط لإعداد مقصود.",
   "diagnosis.ignore_success": "سيتجاهل هذا في الفحوصات القادمة. القرار موجود في سجل التدقيق.",

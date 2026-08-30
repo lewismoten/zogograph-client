@@ -36957,6 +36957,27 @@ function renderCalendar(data) {
  * squares is worse than reading four lines.
  */
 function renderUpcoming(data) {
+  if (window.ZogographCalendarUpcomingCard) {
+    return renderCoreCardPackage(
+      ZogographCalendarUpcomingCard,
+      'core-calendar-upcoming',
+      {
+        now: data.now,
+        upcoming: (data.upcoming || []).map((entry) => ({
+          ...entry,
+          viewLabel: VIEWS[entry.view]?.label,
+        })),
+      },
+      {
+        target: $('calendarUpcoming'),
+        note,
+        humanTime,
+        section,
+        showView,
+        i18n: ZogographI18n,
+      },
+    );
+  }
   const holder = $('calendarUpcoming');
 
   if (!data.upcoming.length) {

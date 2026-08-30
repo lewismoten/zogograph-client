@@ -42055,7 +42055,11 @@ function ruleSettings(data) {
     if (![...cooldown.options].some((option) => option.selected)) {
       const option = document.createElement('option');
       option.value = String(rule.cooldown);
-      option.textContent = `${humanSpan(rule.cooldown)} (set by hand)`;
+      option.textContent = ZogographI18n.t(
+        'email.set_by_hand',
+        { duration: humanSpan(rule.cooldown) },
+        '{{duration}} (set by hand)',
+      );
       option.selected = true;
       cooldown.appendChild(option);
     }
@@ -42066,22 +42070,34 @@ function ruleSettings(data) {
     const bits = [];
     if (rule.severity !== rule.recommended_severity) {
       bits.push(
-        `recommended ${
-          data.levels[rule.recommended_severity]?.label ??
-          rule.recommended_severity
-        }`,
+        ZogographI18n.t(
+          'email.recommended',
+          {
+            value:
+              data.levels[rule.recommended_severity]?.label ??
+              rule.recommended_severity,
+          },
+          'recommended {{value}}',
+        ),
       );
     }
     if (Number(rule.cooldown) !== Number(rule.recommended_cooldown)) {
       bits.push(
-        `recommended ${
-          rule.recommended_cooldown === 0
-            ? 'every time'
-            : humanSpan(rule.recommended_cooldown)
-        }`,
+        ZogographI18n.t(
+          'email.recommended',
+          {
+            value:
+              rule.recommended_cooldown === 0
+                ? ZogographI18n.t('email.every_time', {}, 'every time')
+                : humanSpan(rule.recommended_cooldown),
+          },
+          'recommended {{value}}',
+        ),
       );
     }
-    said.textContent = bits.length ? bits.join(', ') : 'as recommended';
+    said.textContent = bits.length
+      ? bits.join(', ')
+      : ZogographI18n.t('email.as_recommended', {}, 'as recommended');
     if (!bits.length) said.className = 'muted small band-ok';
 
     /*

@@ -7097,49 +7097,26 @@ function renderAiTools(data) {
  * was there before".
  */
 function personaFields(data) {
-  const wrap = document.createDocumentFragment();
-  const who = data.who;
-
-  const identity = renderCoreCardPackage(
-    ZogographAiIdentityFieldsCard,
-    'core-ai-identity-fields',
-    { who },
-    { fieldRow, aiSettingsText, i18n: ZogographI18n },
+  return renderCoreCardPackage(
+    ZogographAiIdentitySettingsCard,
+    'core-ai-identity-settings',
+    { data },
+    {
+      fieldRow,
+      aiSettingsText,
+      personalityPicker,
+      renderCard: renderCoreCardPackage,
+      identityFieldsCard: ZogographAiIdentityFieldsCard,
+      portraitCard: ZogographAiPortraitCard,
+      ago,
+      askFirst,
+      post,
+      renderAiSettings,
+      notice,
+      aiPortraitAlt,
+      i18n: ZogographI18n,
+    },
   );
-  const { form, name, emoji, personality } = identity;
-
-  /*
-   * The picker is built after the boxes because it writes into them.
-   *
-   * It replaced a "put the character back" link: that restored one particular
-   * character, which was the only one there was. With a list of them, going
-   * back to the default is choosing the default.
-   */
-  wrap.appendChild(personalityPicker(data, { name, emoji, personality }));
-
-  if (who.portrait) {
-    form.appendChild(
-      renderCoreCardPackage(
-        ZogographAiPortraitCard,
-        'core-ai-portrait',
-        { who },
-        {
-          fieldRow,
-          aiSettingsText,
-          ago,
-          askFirst,
-          post,
-          renderAiSettings,
-          notice,
-          aiPortraitAlt,
-          i18n: ZogographI18n,
-        },
-      ),
-    );
-  }
-
-  wrap.appendChild(form);
-  return wrap;
 }
 
 /* Shared image description kept in the shell for image-accessibility tooling. */

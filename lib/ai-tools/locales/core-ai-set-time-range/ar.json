@@ -1,3 +1,5 @@
 {
-  "core-ai-set-time-range.summary": "غيّر النطاق الذي تعرضه لوحة المعلومات."
+  "core-ai-set-time-range.summary": "غيّر النطاق الذي تعرضه لوحة المعلومات.",
+  "core-ai-set-time-range.activity_range": "حوّل العرض إلى آخر {{range}}",
+  "core-ai-set-time-range.activity_live": "حوّل العرض إلى آخر {{range}}، مباشر"
 }

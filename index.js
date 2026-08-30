@@ -11273,11 +11273,15 @@ function chatToolPhrase({ tool, arguments: args, localeNamespace = '' }) {
           : '';
     const recallVariant =
       tool === 'recall' ? (args.about ? 'about' : 'all') : '';
+    const rangeVariant =
+      tool === 'set_time_range' ? (args.live ? 'live' : 'range') : '';
     const activityKey = activityVariant
       ? `${localeNamespace}activity_${activityVariant}`
       : recallVariant
         ? `${localeNamespace}activity_${recallVariant}`
-        : `${localeNamespace}activity`;
+        : rangeVariant
+          ? `${localeNamespace}activity_${rangeVariant}`
+          : `${localeNamespace}activity`;
     const values =
       tool === 'get_measurement_history'
         ? { measurement: args.measurement, hours: args.hours }
@@ -11289,7 +11293,9 @@ function chatToolPhrase({ tool, arguments: args, localeNamespace = '' }) {
               ? { subject: args.subject ?? 'something' }
               : tool === 'recall'
                 ? { about: args.about }
-                : {};
+                : tool === 'set_time_range'
+                  ? { range: args.range ?? '?' }
+                  : {};
     return ZogographI18n.t(activityKey, values, said ?? tool);
   }
   return said ?? tool;

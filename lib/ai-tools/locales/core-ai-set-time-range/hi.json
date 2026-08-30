@@ -1,3 +1,5 @@
 {
-  "core-ai-set-time-range.summary": "डैशबोर्ड में दिखाया जा रहा समय-सीमा बदलें।"
+  "core-ai-set-time-range.summary": "डैशबोर्ड में दिखाया जा रहा समय-सीमा बदलें।",
+  "core-ai-set-time-range.activity_range": "दृश्य को पिछले {{range}} पर बदला",
+  "core-ai-set-time-range.activity_live": "दृश्य को पिछले {{range}}, लाइव पर बदला"
 }

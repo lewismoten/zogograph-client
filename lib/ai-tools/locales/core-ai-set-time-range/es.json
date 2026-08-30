@@ -1,3 +1,5 @@
 {
-  "core-ai-set-time-range.summary": "Cambie el intervalo que muestra el panel."
+  "core-ai-set-time-range.summary": "Cambie el intervalo que muestra el panel.",
+  "core-ai-set-time-range.activity_range": "Cambió la vista a los últimos {{range}}",
+  "core-ai-set-time-range.activity_live": "Cambió la vista a los últimos {{range}}, en directo"
 }

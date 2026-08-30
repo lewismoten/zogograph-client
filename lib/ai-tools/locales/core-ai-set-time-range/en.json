@@ -1,3 +1,5 @@
 {
-  "core-ai-set-time-range.summary": "Change the range the dashboard is showing."
+  "core-ai-set-time-range.summary": "Change the range the dashboard is showing.",
+  "core-ai-set-time-range.activity_range": "Switched the view to the last {{range}}",
+  "core-ai-set-time-range.activity_live": "Switched the view to the last {{range}}, live"
 }

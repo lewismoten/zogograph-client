@@ -42,6 +42,11 @@ foreach ($cardFiles as $cardFile) {
             str_contains($cardSource, "locales: ['" . $cardId[1] . ".']"),
         basename($cardFile) . ' must declare its own locale namespace',
     );
+    i18nExpect(
+        !str_contains($cardSource, 'aiSettingsText'),
+        basename($cardFile) .
+            ' must not depend on the root AI-settings locale formatter',
+    );
 }
 $root = dirname(__DIR__);
 $runtime = file_get_contents($root . '/i18n.js');

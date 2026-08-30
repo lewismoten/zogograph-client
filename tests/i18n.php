@@ -112,6 +112,9 @@ $accountDatabaseStorageCard = i18nCardSource(
 $diagnosisResultsCard = i18nCardSource(
     file_get_contents($root . '/cards/diagnosis-results.js'),
 );
+$pendingWorkCard = i18nCardSource(
+    file_get_contents($root . '/cards/pending-work.js'),
+);
 $networkPeersCard = i18nCardSource(
     file_get_contents($root . '/cards/network-peers.js'),
 );
@@ -383,6 +386,22 @@ i18nExpect(
             'helpers.i18n.registerCatalog(locale, catalog, false, id)',
         ),
     'core card package catalogs are not namespace-registered before their first render',
+);
+i18nExpect(
+    $page !== false &&
+        str_contains($page, 'src="cards/pending-work.js"') &&
+        $pendingWorkCard !== false &&
+        str_contains($pendingWorkCard, 'window.ZogographPendingWorkCard') &&
+        str_contains($pendingWorkCard, 'id: "core-pending-work"') &&
+        str_contains($pendingWorkCard, 'locales: ["core-pending-work."]') &&
+        str_contains($pendingWorkCard, 'catalogs: Object.freeze({') &&
+        str_contains($pendingWorkCard, '"core-pending-work.waiting"') &&
+        $script !== false &&
+        str_contains(
+            $script,
+            'renderCoreCardPackage(ZogographPendingWorkCard, "core-pending-work",',
+        ),
+    'pending work is not isolated behind its core card-module boundary',
 );
 i18nExpect(
     $page !== false &&

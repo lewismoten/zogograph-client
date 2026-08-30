@@ -42,6 +42,7 @@ export default [
         ZogographHostDatabaseStorageCard: 'readonly',
         ZogographAccountDatabaseStorageCard: 'readonly',
         ZogographDiagnosisResultsCard: 'readonly',
+        ZogographPendingWorkCard: 'readonly',
         ZogographRoomChart: 'readonly',
         ZogographIoChart: 'readonly',
         ZogographCpuChart: 'readonly',

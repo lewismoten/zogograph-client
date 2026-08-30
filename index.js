@@ -34522,6 +34522,16 @@ function renderPending(rows) {
 
   banner.hidden = false;
 
+  if (window.ZogographPendingWorkCard) {
+    renderCoreCardPackage(ZogographPendingWorkCard, 'core-pending-work', here, {
+      target: banner,
+      i18n: ZogographI18n,
+    });
+    cancelAnimationFrame(pendingState.raf);
+    tickPending();
+    return;
+  }
+
   const frag = document.createDocumentFragment();
   for (const row of here) {
     const item = document.createElement('div');

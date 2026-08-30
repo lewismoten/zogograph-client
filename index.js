@@ -30658,20 +30658,40 @@ function showAlertVerdict(row) {
 
   const when = document.createElement('p');
   when.className = 'muted small';
-  when.textContent =
-    `The rule called this ${row.severity} and raised it ` +
-    `${whenLabel(row.raised_at)}. ` +
-    (row.ai_at
-      ? `${chatState.who.name} looked at it ${whenLabel(row.ai_at)}.`
-      : '');
+  when.textContent = ZogographI18n.t(
+    'alert.verdict_timing',
+    {
+      severity: row.severity,
+      raised: whenLabel(row.raised_at),
+      assistant: row.ai_at
+        ? ZogographI18n.t(
+            'alert.verdict_reviewed_at',
+            {
+              assistant: chatState.who.name,
+              when: whenLabel(row.ai_at),
+            },
+            '{{assistant}} looked at it {{when}}.',
+          )
+        : '',
+    },
+    'The rule called this {{severity}} and raised it {{raised}}. {{assistant}}',
+  );
   nodes.push(when);
 
   showListDialog(
-    row.silenced ? 'Held back' : `What ${chatState.who.name} said`,
+    row.silenced
+      ? ZogographI18n.t('alert.held_back_title', {}, 'Held back')
+      : ZogographI18n.t(
+          'alert.verdict_dialog_title',
+          { assistant: chatState.who.name },
+          'What {{assistant}} said',
+        ),
     nodes,
-    "This is a language model's opinion of a machine-generated alert. The alert itself is " +
-      'still here, still unread, and can be marked read or deleted like any other — ' +
-      'nothing was thrown away.',
+    ZogographI18n.t(
+      'alert.verdict_dialog_help',
+      {},
+      'This is a language model’s opinion of a machine-generated alert. The alert itself is still here, still unread, and can be marked read or deleted like any other — nothing was thrown away.',
+    ),
   );
 }
 

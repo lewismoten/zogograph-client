@@ -126,6 +126,7 @@
   "descriptions.write_own": "Escribir el suyo",
   "descriptions.slab_help": "Una caché slab del kernel: memoria que mantiene el propio kernel.",
   "descriptions.process_help": "Un proceso que se ejecuta en esta máquina.",
+  "descriptions.saved": "Guardado. A partir de ahora se muestra junto a ese nombre.",
   "action.see": "Ver",
   "url.method_get": "GET — obtener la página",
   "url.method_head": "HEAD — solo cabeceras, sin cuerpo",

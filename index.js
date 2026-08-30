@@ -34152,7 +34152,8 @@ $("descriptionForm").addEventListener("submit", async event => {
     $("descriptionWhat").value = "";
     $("descriptionLink").value = "";
     renderDescriptions();
-    notice("Saved. It shows beside that name from now on.", true);
+    notice(ZogographI18n.t("descriptions.saved", {},
+      "Saved. It shows beside that name from now on."), true);
   } catch (error) {
     notice(String(error.message || error));
   }

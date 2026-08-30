@@ -126,6 +126,7 @@
   "descriptions.write_own": "Write your own",
   "descriptions.slab_help": "A kernel slab cache — memory the kernel itself is holding.",
   "descriptions.process_help": "A process running on this machine.",
+  "descriptions.saved": "Saved. It shows beside that name from now on.",
   "action.see": "See",
   "url.method_get": "GET — fetch the page",
   "url.method_head": "HEAD — headers only, no body",

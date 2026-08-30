@@ -126,6 +126,7 @@
   "descriptions.write_own": "اكتب وصفك",
   "descriptions.slab_help": "ذاكرة slab مخبأة للنواة — ذاكرة تحتفظ بها النواة نفسها.",
   "descriptions.process_help": "عملية تعمل على هذه الآلة.",
+  "descriptions.saved": "تم الحفظ. سيظهر بجانب ذلك الاسم من الآن فصاعدًا.",
   "action.see": "عرض",
   "url.method_get": "GET — اجلب الصفحة",
   "url.method_head": "HEAD — الترويسات فقط، بلا متن",

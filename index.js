@@ -4835,7 +4835,11 @@ function renderIoChart(rows) {
     rightAxis: percentAxis,
     zeroBased: true,
     empty: series.length
-      ? 'Nothing collected for this range yet'
+      ? ZogographI18n.t(
+          'chart.nothing_collected_range',
+          {},
+          'Nothing collected for this range yet',
+        )
       : ZogographI18n.t(
           'vitals.io_empty_unreadable',
           {},

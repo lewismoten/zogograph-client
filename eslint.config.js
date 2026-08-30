@@ -58,6 +58,7 @@ export default [
         ZogographCapabilityListEmptyCard: 'readonly',
         ZogographPendingHostTasksCard: 'readonly',
         ZogographCapabilityExposeDialogCard: 'readonly',
+        ZogographEmailMailRuntimeCard: 'readonly',
         ZogographDatabaseSnapshotsCard: 'readonly',
         ZogographHostDatabaseStorageCard: 'readonly',
         ZogographAccountDatabaseStorageCard: 'readonly',

@@ -39862,12 +39862,11 @@ function renderEmail(data) {
 
   if (!data.mail_available) {
     parts.push(
-      note(
-        ZogographI18n.t(
-          'email.mail_unavailable',
-          {},
-          'This PHP has no mail() function, so nothing can be sent from here whatever is set below. That is a host setting, not one of these.',
-        ),
+      renderCoreCardPackage(
+        ZogographEmailMailRuntimeCard,
+        'core-email-mail-runtime',
+        data,
+        { note, i18n: ZogographI18n },
       ),
     );
   }

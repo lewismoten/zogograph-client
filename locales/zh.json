@@ -1652,7 +1652,6 @@
   "unit.files": "文件",
   "unit.processes": "进程",
   "unit.times": "× 通常值",
-  "email.mail_unavailable": "此 PHP 没有 mail() 函数，因此无论在下面设置什么，都无法从这里发送内容。这是主机设置，不是这里的设置。",
   "email.enabled_help": "关闭此选项时，无论问题多么严重都不会发送任何内容。",
   "email.send_to_placeholder": "you@example.com; oncall@example.com",
   "email.send_to_help": "多个地址以分号分隔。每个地址都会收到自己的邮件；一次发送会作为整体失败，因此一个坏邮箱会导致所有人都收不到通知。",

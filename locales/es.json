@@ -1668,7 +1668,6 @@
   "unit.files": "archivos",
   "unit.processes": "procesos",
   "unit.times": "× lo habitual",
-  "email.mail_unavailable": "Este PHP no tiene función mail(), por lo que no se puede enviar nada desde aquí sin importar lo que se configure abajo. Es una configuración del host, no una de estas.",
   "email.enabled_help": "No se envía nada mientras esté desactivado, por graves que sean los problemas.",
   "email.send_to_placeholder": "usted@ejemplo.com; guardia@ejemplo.com",
   "email.send_to_help": "Varias direcciones separadas por punto y coma. Cada una recibe su propio mensaje; un envío con todas falla como unidad, así que un buzón malo impediría que todos reciban avisos.",

@@ -17,7 +17,7 @@ window.ZogographChatToolCallCard = {
     line.className = 'chat-tool';
     line.textContent = helpers.i18n.t(
       'core-chat-tool-call.prefix',
-      { phrase: helpers.toolPhrase(input.tool, input.arguments) },
+      { phrase: helpers.toolPhrase(input) },
       '⚙ {{phrase}}',
     );
     line.title = JSON.stringify(input.arguments, null, 2);

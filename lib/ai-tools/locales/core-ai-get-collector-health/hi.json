@@ -1,3 +1,4 @@
 {
-  "core-ai-get-collector-health.summary": "क्या निगरानी स्वयं काम कर रही है।"
+  "core-ai-get-collector-health.summary": "क्या निगरानी स्वयं काम कर रही है।",
+  "core-ai-get-collector-health.activity": "जाँचा कि निगरानी अभी भी चल रही है"
 }

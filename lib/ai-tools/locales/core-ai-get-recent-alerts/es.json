@@ -1,3 +1,4 @@
 {
-  "core-ai-get-recent-alerts.summary": "Alertas que este panel ha generado."
+  "core-ai-get-recent-alerts.summary": "Alertas que este panel ha generado.",
+  "core-ai-get-recent-alerts.activity": "Leyó las alertas recientes"
 }

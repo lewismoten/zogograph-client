@@ -1,3 +1,4 @@
 {
-  "core-ai-get-current-status.summary": "The current state of the machine in one call."
+  "core-ai-get-current-status.summary": "The current state of the machine in one call.",
+  "core-ai-get-current-status.activity": "Checked how the machine is doing"
 }

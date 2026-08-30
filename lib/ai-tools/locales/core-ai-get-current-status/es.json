@@ -1,3 +1,4 @@
 {
-  "core-ai-get-current-status.summary": "El estado actual de la máquina en una llamada."
+  "core-ai-get-current-status.summary": "El estado actual de la máquina en una llamada.",
+  "core-ai-get-current-status.activity": "Comprobó cómo está funcionando la máquina"
 }

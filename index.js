@@ -11038,7 +11038,11 @@ function chatMessageNode(message, session) {
     return renderCoreCardPackage(
       ZogographChatToolCallCard,
       'core-chat-tool-call',
-      { tool: message.tool, arguments: message.arguments },
+      {
+        tool: message.tool,
+        arguments: message.arguments,
+        localeNamespace: message.locale_namespace,
+      },
       { toolPhrase: chatToolPhrase, i18n: ZogographI18n },
     );
   }
@@ -11212,7 +11216,7 @@ function chatPermissionPrompt(run) {
 const PERMISSION_SECONDS = 180;
 
 /** A tool call as a sentence rather than a function signature. */
-function chatToolPhrase(tool, args) {
+function chatToolPhrase({ tool, arguments: args, localeNamespace = '' }) {
   const said = {
     get_current_status: 'Checked how the machine is doing',
     get_collector_health: 'Checked whether the monitoring is still running',
@@ -11256,6 +11260,9 @@ function chatToolPhrase(tool, args) {
     redraw_yourself: 'Redrew itself',
   }[tool];
 
+  if (localeNamespace) {
+    return ZogographI18n.t(`${localeNamespace}activity`, {}, said ?? tool);
+  }
   return said ?? tool;
 }
 

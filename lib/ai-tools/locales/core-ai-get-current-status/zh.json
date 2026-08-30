@@ -1,3 +1,4 @@
 {
-  "core-ai-get-current-status.summary": "一次调用获取机器当前状态。"
+  "core-ai-get-current-status.summary": "一次调用获取机器当前状态。",
+  "core-ai-get-current-status.activity": "检查了机器的运行状况"
 }

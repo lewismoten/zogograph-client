@@ -1,3 +1,4 @@
 {
-  "core-ai-get-collector-health.summary": "ما إذا كانت المراقبة نفسها تعمل."
+  "core-ai-get-collector-health.summary": "ما إذا كانت المراقبة نفسها تعمل.",
+  "core-ai-get-collector-health.activity": "تحقق مما إذا كانت المراقبة لا تزال تعمل"
 }

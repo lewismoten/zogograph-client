@@ -1,3 +1,4 @@
 {
-  "core-ai-get-recent-alerts.summary": "Alerts this dashboard has raised."
+  "core-ai-get-recent-alerts.summary": "Alerts this dashboard has raised.",
+  "core-ai-get-recent-alerts.activity": "Read the recent alerts"
 }

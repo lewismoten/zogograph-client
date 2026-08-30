@@ -1,3 +1,4 @@
 {
-  "core-ai-get-collector-health.summary": "Si la supervisión en sí está funcionando."
+  "core-ai-get-collector-health.summary": "Si la supervisión en sí está funcionando.",
+  "core-ai-get-collector-health.activity": "Comprobó si la supervisión sigue en funcionamiento"
 }

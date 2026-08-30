@@ -1,3 +1,4 @@
 {
-  "core-ai-get-recent-alerts.summary": "此仪表板发出的警报。"
+  "core-ai-get-recent-alerts.summary": "此仪表板发出的警报。",
+  "core-ai-get-recent-alerts.activity": "读取了最近的警报"
 }

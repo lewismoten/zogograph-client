@@ -1,3 +1,4 @@
 {
-  "core-ai-get-current-status.summary": "الحالة الحالية للآلة في استدعاء واحد."
+  "core-ai-get-current-status.summary": "الحالة الحالية للآلة في استدعاء واحد.",
+  "core-ai-get-current-status.activity": "تحقق من حالة عمل الجهاز"
 }

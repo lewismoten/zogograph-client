@@ -1,3 +1,4 @@
 {
-  "core-ai-get-collector-health.summary": "Whether the monitoring itself is working."
+  "core-ai-get-collector-health.summary": "Whether the monitoring itself is working.",
+  "core-ai-get-collector-health.activity": "Checked whether the monitoring is still running"
 }

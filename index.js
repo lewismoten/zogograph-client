@@ -26747,7 +26747,11 @@ function renderHostFiles(rows, totals) {
     holder.replaceChildren(
       Object.assign(document.createElement('p'), {
         className: 'muted',
-        textContent: 'Nothing over the size threshold.',
+        textContent: ZogographI18n.t(
+          'host.files_empty',
+          {},
+          'Nothing over the size threshold.',
+        ),
       }),
     );
     return;
@@ -26768,7 +26772,7 @@ function renderHostFiles(rows, totals) {
     groups,
     [
       {
-        label: 'Path',
+        label: ZogographI18n.t('host.files_path', {}, 'Path'),
         className: 'name',
         render: (group) => {
           const box = document.createElement('div');
@@ -26791,12 +26795,12 @@ function renderHostFiles(rows, totals) {
         },
       },
       {
-        label: 'Size',
+        label: ZogographI18n.t('host.files_size', {}, 'Size'),
         className: 'size',
         render: (group) => humanBytes(group[0].bytes),
       },
       {
-        label: 'Names',
+        label: ZogographI18n.t('host.files_names', {}, 'Names'),
         className: 'size',
         render: (group) => {
           const links = Number(group[0].links ?? 1);
@@ -26812,9 +26816,12 @@ function renderHostFiles(rows, totals) {
             : `${group.length} here of ${links}, 1 file`;
         },
       },
-      { label: 'Owner', render: (group) => group[0].owner ?? '—' },
       {
-        label: 'Last written',
+        label: ZogographI18n.t('host.files_owner', {}, 'Owner'),
+        render: (group) => group[0].owner ?? '—',
+      },
+      {
+        label: ZogographI18n.t('host.files_last_written', {}, 'Last written'),
         className: 'size',
         render: (group) => whenSpan(group[0].mtime),
       },

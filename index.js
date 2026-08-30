@@ -41084,6 +41084,22 @@ function renderUnits() {
     'running-not-enabled',
     'enabled-not-running',
   ];
+  const stateLabels = {
+    failed: ZogographI18n.t('services.failed', {}, 'failed'),
+    masked: ZogographI18n.t('services.masked', {}, 'masked'),
+    'running-not-enabled': ZogographI18n.t(
+      'services.running_not_enabled',
+      {},
+      'running, not enabled',
+    ),
+    'enabled-not-running': ZogographI18n.t(
+      'services.enabled_not_running',
+      {},
+      'enabled, not running',
+    ),
+    running: ZogographI18n.t('services.running', {}, 'running'),
+    stopped: ZogographI18n.t('services.stopped', {}, 'stopped'),
+  };
 
   /*
    * Opens on what is broken, when anything is.
@@ -41141,7 +41157,7 @@ function renderUnits() {
           ? 'warn'
           : '');
     for (const [cls, text] of [
-      ['label', stateName.replace(/-/g, ' ')],
+      ['label', stateLabels[stateName] ?? stateName.replace(/-/g, ' ')],
       ['value', String(n)],
       ['sub muted', data.notes[stateName] || ''],
     ]) {
@@ -41154,7 +41170,13 @@ function renderUnits() {
   }
   wrap.appendChild(cards);
   wrap.appendChild(
-    note(`From the host reading of ${humanTime(data.taken_at)}.`),
+    note(
+      ZogographI18n.t(
+        'services.host_reading',
+        { when: humanTime(data.taken_at) },
+        'From the host reading of {{when}}.',
+      ),
+    ),
   );
 
   wrap.appendChild(unitFilters(data, problems));
@@ -41168,10 +41190,16 @@ function renderUnits() {
     $('unitsTable').replaceChildren(
       note(
         unitState.show === 'attention'
-          ? 'Nothing is failed, masked, or running when it should not be. That is the ' +
-              'answer this page exists to give.'
-          : 'Nothing matches those filters. The services are still there — only what is ' +
-              'drawn has changed.',
+          ? ZogographI18n.t(
+              'services.empty_attention',
+              {},
+              'Nothing is failed, masked, or running when it should not be. That is the answer this page exists to give.',
+            )
+          : ZogographI18n.t(
+              'services.empty_filters',
+              {},
+              'Nothing matches those filters. The services are still there — only what is drawn has changed.',
+            ),
       ),
     );
     return;
@@ -41181,22 +41209,28 @@ function renderUnits() {
     'unitsTable',
     rows,
     [
-      { label: 'Service', className: 'name', render: (row) => row.name },
       {
-        label: 'For',
+        label: ZogographI18n.t('services.service', {}, 'Service'),
+        className: 'name',
+        render: (row) => row.name,
+      },
+      {
+        label: ZogographI18n.t('services.for', {}, 'For'),
         render: (row) => {
           const span = document.createElement('span');
           span.className = 'muted';
-          span.textContent = row.category ?? 'other';
+          span.textContent =
+            row.category ?? ZogographI18n.t('services.other', {}, 'other');
           span.title = data.category_notes?.[row.category] ?? '';
           return span;
         },
       },
       {
-        label: 'State',
+        label: ZogographI18n.t('services.state', {}, 'State'),
         render: (row) => {
           const span = document.createElement('span');
-          span.textContent = row.state.replace(/-/g, ' ');
+          span.textContent =
+            stateLabels[row.state] ?? row.state.replace(/-/g, ' ');
           if (row.state === 'failed') span.className = 'band-crit';
           else if (problems.includes(row.state)) span.className = 'band-warn';
           else if (row.state === 'running') span.className = 'band-ok';
@@ -41205,10 +41239,16 @@ function renderUnits() {
           return span;
         },
       },
-      { label: 'At boot', render: (row) => row.enabled || '\u2014' },
-      { label: 'systemd says', render: (row) => `${row.active}/${row.sub}` },
       {
-        label: 'What it is',
+        label: ZogographI18n.t('services.at_boot', {}, 'At boot'),
+        render: (row) => row.enabled || '\u2014',
+      },
+      {
+        label: ZogographI18n.t('services.systemd_says', {}, 'systemd says'),
+        render: (row) => `${row.active}/${row.sub}`,
+      },
+      {
+        label: ZogographI18n.t('services.what_it_is', {}, 'What it is'),
         className: 'cmd',
         render: (row) => row.description || '',
       },

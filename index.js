@@ -27011,8 +27011,10 @@ function whatIsBubble(name, entry) {
   const more = document.createElement("div");
   more.className = "muted small";
   more.textContent = entry.mine
-    ? "Your own note. Click for the link and to edit it."
-    : (entry.link ? "Click to open this, with a link to more." : "Click to keep this open.");
+    ? ZogographI18n.t("descriptions.bubble_own", {}, "Your own note. Click for the link and to edit it.")
+    : (entry.link
+      ? ZogographI18n.t("descriptions.bubble_link", {}, "Click to open this, with a link to more.")
+      : ZogographI18n.t("descriptions.bubble_keep", {}, "Click to keep this open."));
   wrap.appendChild(more);
 
   return wrap;

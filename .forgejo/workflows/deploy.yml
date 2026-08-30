@@ -13,13 +13,49 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
-    name: Test & Build
+  test:
+    name: Test PHP ${{ matrix.php }}
     runs-on: zogograph-ci
-    # Forgejo Runner v13 requires credentials to be declared explicitly for
-    # private job images; the runner pulls this image before any step runs.
     container:
-      image: git.lewismoten.com/zogograph/runner-image:latest
+      # Forgejo Runner v13 requires credentials to be declared explicitly for
+      # private job images; the runner pulls this image before any step runs.
+      image: git.lewismoten.com/zogograph/runner-image:php-${{ matrix.php }}
+      credentials:
+        username: ${{ secrets.REGISTRY_USER }}
+        password: ${{ secrets.REGISTRY_TOKEN }}
+    timeout-minutes: 1
+    strategy:
+      fail-fast: false
+      max-parallel: 5
+      matrix:
+        php: ['8.1', '8.2', '8.3', '8.4', '8.5']
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify bundled PHP and Node runtimes
+        shell: bash
+        run: |
+          set -euo pipefail
+          php --version
+          node --version
+          npm --version
+
+      - name: Install Node dependencies
+        shell: bash
+        run: timeout 1m npm ci
+
+      - name: Test PHP ${{ matrix.php }} compatibility
+        shell: bash
+        run: timeout 1m npm test
+
+  build:
+    name: Build release with PHP 8.5
+    runs-on: zogograph-ci
+    needs: test
+    container:
+      image: git.lewismoten.com/zogograph/runner-image:php-8.5
       credentials:
         username: ${{ secrets.REGISTRY_USER }}
         password: ${{ secrets.REGISTRY_TOKEN }}
@@ -31,29 +67,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Node and npm are baked into the zogograph-ci image.  Avoid setup-node:
-      # it downloads a toolchain during every job and can starve the DIND API.
-      - name: Verify bundled Node runtime
+      - name: Verify bundled PHP and Node runtimes
         shell: bash
         run: |
           set -euo pipefail
+          php --version
           node --version
           npm --version
 
-      - name: Install formatting tools
+      - name: Install Node dependencies
         shell: bash
         run: timeout 1m npm ci
-
-      - name: Install PHP test runtime
-        shell: bash
-        run: |
-          set -euo pipefail
-          command -v php >/dev/null || { timeout 1m apt-get update; timeout 1m apt-get install -y php-cli php-sqlite3 php-mbstring; }
-          php -r 'exit(extension_loaded("zip") ? 0 : 1);' || { timeout 1m apt-get update; timeout 1m apt-get install -y php-zip; }
-
-      - name: Test PHP
-        shell: bash
-        run: timeout 1m npm test
 
       - name: Build
         shell: bash
@@ -112,7 +136,7 @@ jobs:
     name: Deploy to ${{ matrix.deploy_url }}
     runs-on: zogograph-ci
     container:
-      image: git.lewismoten.com/zogograph/runner-image:latest
+      image: git.lewismoten.com/zogograph/runner-image:php-8.5
       credentials:
         username: ${{ secrets.REGISTRY_USER }}
         password: ${{ secrets.REGISTRY_TOKEN }}

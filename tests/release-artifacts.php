@@ -24,8 +24,9 @@ releaseExpect(is_string($workflow) && str_contains($workflow, 'Create build mani
     && str_contains($workflow, 'deploy_path: ${{ vars.TEST_PATH }}') && str_contains($workflow, 'deploy_url: ${{ vars.TEST_URL }}')
     && str_contains($workflow, 'deploy_path: ${{ vars.DEPLOY_PATH }}') && str_contains($workflow, 'deploy_url: ${{ vars.DEPLOY_URL }}')
     && str_contains($workflow, 'Verify deployed build') && str_contains($workflow, 'build_url="${DEPLOY_URL%/}/build.json"')
-    && str_contains($workflow, 'apt-get install -y php-cli php-sqlite3 php-mbstring')
-    && str_contains($workflow, 'extension_loaded("zip")') && str_contains($workflow, 'apt-get install -y php-zip'),
+    && str_contains($workflow, "php: ['8.1', '8.2', '8.3', '8.4', '8.5']")
+    && str_contains($workflow, 'runner-image:php-${{ matrix.php }}')
+    && str_contains($workflow, 'runner-image:php-8.5'),
     'release workflow no longer creates and verifies the public build metadata required for update notices');
 releaseExpect(is_string($workflow) && is_string($restoreWorkflow)
     && str_contains($workflow, 'snapshot_repository="${GITHUB_REPOSITORY##*/}"')

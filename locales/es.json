@@ -292,6 +292,7 @@
   "log.stack_trace_folded": "{{count}} líneas de seguimiento de pila ocultas. Haga clic para leer.",
   "capability.expose_help": "Cómo exponer {{name}} a esta cuenta",
   "capability.documentation": "Documentación de {{name}}",
+  "capability.expose_title": "Exponer {{name}} a esta cuenta",
   "process.unavailable": "No se puede leer aquí la lista de procesos.",
   "process.no_matches": "Nada entre los {{scanned}} procesos en ejecución coincide con eso.",
   "process.matches_summary": "Coinciden {{matched}} de los {{scanned}} procesos en ejecución.",

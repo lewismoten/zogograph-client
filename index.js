@@ -42564,7 +42564,11 @@ function renderCagefsMounts(data) {
  * something a web button should do quietly on somebody's behalf.
  */
 function showExposeDialog(row) {
-  $('listDialogTitle').textContent = `Expose ${row.name} to this account`;
+  $('listDialogTitle').textContent = ZogographI18n.t(
+    'capability.expose_title',
+    { name: row.name },
+    `Expose ${row.name} to this account`,
+  );
   $('listDialogNote').textContent = row.reason || '';
 
   const body = $('listDialogBody');

@@ -292,6 +292,7 @@
   "log.stack_trace_folded": "{{count}} سطور تتبع مكدس مطوية. انقر للقراءة.",
   "capability.expose_help": "كيفية إتاحة {{name}} لهذا الحساب",
   "capability.documentation": "توثيق {{name}}",
+  "capability.expose_title": "إتاحة {{name}} لهذا الحساب",
   "process.unavailable": "تعذر قراءة قائمة العمليات هنا.",
   "process.no_matches": "لا شيء بين عمليات التشغيل {{scanned}} يطابق ذلك.",
   "process.matches_summary": "تطابق {{matched}} من عمليات التشغيل {{scanned}}.",

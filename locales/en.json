@@ -292,6 +292,7 @@
   "log.stack_trace_folded": "{{count}} stack-trace lines folded in. Click to read.",
   "capability.expose_help": "How to expose {{name}} to this account",
   "capability.documentation": "Documentation for {{name}}",
+  "capability.expose_title": "Expose {{name}} to this account",
   "process.unavailable": "Cannot read the process list here.",
   "process.no_matches": "Nothing among the {{scanned}} running processes matches that.",
   "process.matches_summary": "Matches {{matched}} of the {{scanned}} running processes.",

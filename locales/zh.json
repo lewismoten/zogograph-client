@@ -292,6 +292,7 @@
   "log.stack_trace_folded": "已折叠 {{count}} 行堆栈跟踪。点击阅读。",
   "capability.expose_help": "如何向此账户公开 {{name}}",
   "capability.documentation": "{{name}} 的文档",
+  "capability.expose_title": "向此账户公开 {{name}}",
   "process.unavailable": "无法在此读取进程列表。",
   "process.no_matches": "{{scanned}} 个运行中的进程没有任何匹配项。",
   "process.matches_summary": "{{scanned}} 个运行中的进程中有 {{matched}} 个匹配。",

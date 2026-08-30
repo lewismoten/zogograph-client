@@ -852,6 +852,7 @@
   "peers.admin_only": "لا يمكن إدارة الخوادم الموثوقة إلا للمسؤولين.",
   "ai.start_new": "ابدأ محادثة جديدة",
   "ai.nothing_chosen": "لم يُختر شيء بعد.",
+  "database.projected_with_growth": "{{projected}}، مع نحو {{growth}} سنويًا دون انتهاء أي شيء",
   "database.write_ahead_log_bytes": " + سجل كتابة مسبقة بحجم {{bytes}}",
   "database.quick_check_passed": "✓ اجتاز الفحص السريع",
   "database.not_checked": "لم يُفحص",

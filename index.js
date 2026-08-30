@@ -18972,8 +18972,14 @@ function databaseCard(file, projection) {
       ZogographI18n.t('database.settles_near', {}, 'Settles near'),
       projection.known
         ? humanBytes(projection.projected)
-        : `${humanBytes(projection.projected)}, plus about ${humanBytes(projection.growth)} ` +
-          'a year that nothing expires',
+        : ZogographI18n.t(
+            'database.projected_with_growth',
+            {
+              projected: humanBytes(projection.projected),
+              growth: humanBytes(projection.growth),
+            },
+            '{{projected}}, plus about {{growth}} a year that nothing expires',
+          ),
     ]);
   }
 

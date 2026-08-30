@@ -936,6 +936,7 @@
   "peers.admin_only": "Only administrators can manage trusted servers.",
   "ai.start_new": "Start a new one",
   "ai.nothing_chosen": "Nothing chosen yet.",
+  "database.projected_with_growth": "{{projected}}, plus about {{growth}} a year that nothing expires",
   "database.write_ahead_log_bytes": " + {{bytes}} write-ahead log",
   "database.quick_check_passed": "✓ Quick check passed",
   "database.not_checked": "not checked",

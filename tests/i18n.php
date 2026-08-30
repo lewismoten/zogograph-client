@@ -16,6 +16,7 @@ foreach ($cardFiles as $cardFile) {
     i18nExpect(
         $cardSource !== false &&
             str_contains($cardSource, 'catalogs: Object.freeze({') &&
+            str_contains($cardSource, "'i18n'") &&
             str_contains($cardSource, 'en: Object.freeze({') &&
             str_contains($cardSource, 'es: Object.freeze({') &&
             str_contains($cardSource, 'hi: Object.freeze({') &&

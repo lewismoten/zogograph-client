@@ -10,6 +10,30 @@ window.ZogographCpuProcessesCard = {
         "core-cpu-processes.machine": " — about {{percent, number}}% of the machine",
         "core-cpu-processes.busy": ", against {{percent, number}}% measured across all cores",
       }),
+      es: Object.freeze({
+        "core-cpu-processes.empty": "Ningún proceso ha usado tiempo de procesador medible entre dos lecturas.",
+        "core-cpu-processes.summary": "{{processes, number}} procesos usan el procesador y suman {{percent, number}}% de un núcleo{{machine}}{{busy}}.",
+        "core-cpu-processes.machine": " — cerca de {{percent, number}}% de la máquina",
+        "core-cpu-processes.busy": ", frente a {{percent, number}}% medido en todos los núcleos",
+      }),
+      hi: Object.freeze({
+        "core-cpu-processes.empty": "दो रीडिंग के बीच किसी प्रक्रिया ने मापने योग्य प्रोसेसर समय उपयोग नहीं किया।",
+        "core-cpu-processes.summary": "{{processes, number}} प्रक्रियाएँ प्रोसेसर उपयोग कर रही हैं, कुल एक कोर का {{percent, number}}%{{machine}}{{busy}}।",
+        "core-cpu-processes.machine": " — मशीन का लगभग {{percent, number}}%",
+        "core-cpu-processes.busy": ", सभी कोर पर मापे गए {{percent, number}}% के विरुद्ध",
+      }),
+      ar: Object.freeze({
+        "core-cpu-processes.empty": "لم تستخدم أي عملية وقت معالجة قابلًا للقياس بين قراءتين.",
+        "core-cpu-processes.summary": "تستخدم {{processes, number}} عمليات المعالج، بمجموع {{percent, number}}% من نواة واحدة{{machine}}{{busy}}.",
+        "core-cpu-processes.machine": " — نحو {{percent, number}}% من الجهاز",
+        "core-cpu-processes.busy": "، مقابل {{percent, number}}% مقاسة عبر جميع النوى",
+      }),
+      zh: Object.freeze({
+        "core-cpu-processes.empty": "两个读数之间没有进程使用可测量的处理器时间。",
+        "core-cpu-processes.summary": "{{processes, number}} 个进程正在使用处理器，共占一个核心的 {{percent, number}}%{{machine}}{{busy}}。",
+        "core-cpu-processes.machine": " — 约占整台机器的 {{percent, number}}%",
+        "core-cpu-processes.busy": "，而所有核心的测量值为 {{percent, number}}%",
+      }),
     }),
   }),
   render(data, helpers) {

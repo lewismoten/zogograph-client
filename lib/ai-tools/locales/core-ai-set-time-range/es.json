@@ -1,5 +1,9 @@
 {
   "core-ai-set-time-range.summary": "Cambie el intervalo que muestra el panel.",
   "core-ai-set-time-range.activity_range": "Cambió la vista a los últimos {{range}}",
-  "core-ai-set-time-range.activity_live": "Cambió la vista a los últimos {{range}}, en directo"
+  "core-ai-set-time-range.activity_live": "Cambió la vista a los últimos {{range}}, en directo",
+  "core-ai-set-time-range.try_range_missing": "No existe el intervalo {{range}}.",
+  "core-ai-set-time-range.try_range_unavailable": "Este panel no ofrece el intervalo {{range}}. Ofrece: {{options}}.",
+  "core-ai-set-time-range.try_range_set_shown": "El selector de intervalo en la parte superior de la página ahora muestra “{{range}}” y todos los gráficos de la página se han redibujado para coincidir.",
+  "core-ai-set-time-range.try_range_set_note": "El panel está mostrando ahora ese intervalo."
 }

@@ -308,6 +308,8 @@ $toolPackages = array_values(
     ),
 );
 $toolLocalePackages = array_map('basename', $toolLocaleDirectories);
+$toolEnglish = [];
+$toolCatalogs = array_fill_keys(['en', 'es', 'hi', 'ar', 'zh'], []);
 sort($toolPackages);
 sort($toolLocalePackages);
 i18nExpect(
@@ -338,8 +340,13 @@ foreach ($toolLocaleDirectories as $directory) {
                 "AI tool package $package owns an invalid $locale locale key",
             );
         }
+        $toolCatalogs[$locale] = array_replace(
+            $toolCatalogs[$locale],
+            $catalog,
+        );
         if ($locale === 'en') {
             $englishCatalog = $catalog;
+            $toolEnglish = array_replace($toolEnglish, $catalog);
             continue;
         }
         i18nExpect(
@@ -2739,7 +2746,7 @@ preg_match_all(
 );
 foreach (array_unique($dynamicDashboardKeys[1] ?? []) as $key) {
     i18nExpect(
-        isset($english[$key]),
+        isset($english[$key]) || isset($toolEnglish[$key]),
         "dashboard dynamic i18n key $key has no English fallback",
     );
 }
@@ -3251,7 +3258,9 @@ foreach (['en-US', 'en-GB', 'es', 'hi', 'zh', 'ar'] as $locale) {
         i18nExpect(
             array_diff(
                 array_unique($dynamicDashboardKeys[1] ?? []),
-                array_keys($catalog),
+                array_keys(
+                    array_replace($catalog, $toolCatalogs[$locale] ?? []),
+                ),
             ) === [],
             "locale catalog $locale falls back to English for a visible dashboard message",
         );

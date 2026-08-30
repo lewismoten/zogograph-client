@@ -1,5 +1,9 @@
 {
   "core-ai-set-time-range.summary": "Change the range the dashboard is showing.",
   "core-ai-set-time-range.activity_range": "Switched the view to the last {{range}}",
-  "core-ai-set-time-range.activity_live": "Switched the view to the last {{range}}, live"
+  "core-ai-set-time-range.activity_live": "Switched the view to the last {{range}}, live",
+  "core-ai-set-time-range.try_range_missing": "There is no {{range}} range.",
+  "core-ai-set-time-range.try_range_unavailable": "This dashboard does not offer a {{range}} range. It offers: {{options}}.",
+  "core-ai-set-time-range.try_range_set_shown": "The range picker at the top of the page now reads “{{range}}”, and every chart on the page has been redrawn to match.",
+  "core-ai-set-time-range.try_range_set_note": "The dashboard is showing that range now."
 }

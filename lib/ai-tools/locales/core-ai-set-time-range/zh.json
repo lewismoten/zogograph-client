@@ -1,5 +1,9 @@
 {
   "core-ai-set-time-range.summary": "更改仪表板显示的时间范围。",
   "core-ai-set-time-range.activity_range": "将视图切换到最近 {{range}}",
-  "core-ai-set-time-range.activity_live": "将视图切换到最近 {{range}}，实时"
+  "core-ai-set-time-range.activity_live": "将视图切换到最近 {{range}}，实时",
+  "core-ai-set-time-range.try_range_missing": "不存在 {{range}} 范围。",
+  "core-ai-set-time-range.try_range_unavailable": "此仪表板不提供 {{range}} 范围。可用范围：{{options}}。",
+  "core-ai-set-time-range.try_range_set_shown": "页面顶部的范围选择器现显示“{{range}}”，页面上的每个图表均已重新绘制以匹配该范围。",
+  "core-ai-set-time-range.try_range_set_note": "仪表板正在显示该范围。"
 }

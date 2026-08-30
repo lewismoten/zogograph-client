@@ -1,5 +1,9 @@
 {
   "core-ai-set-time-range.summary": "غيّر النطاق الذي تعرضه لوحة المعلومات.",
   "core-ai-set-time-range.activity_range": "حوّل العرض إلى آخر {{range}}",
-  "core-ai-set-time-range.activity_live": "حوّل العرض إلى آخر {{range}}، مباشر"
+  "core-ai-set-time-range.activity_live": "حوّل العرض إلى آخر {{range}}، مباشر",
+  "core-ai-set-time-range.try_range_missing": "لا يوجد نطاق {{range}}.",
+  "core-ai-set-time-range.try_range_unavailable": "لا توفر لوحة المعلومات نطاق {{range}}. المتاح: {{options}}.",
+  "core-ai-set-time-range.try_range_set_shown": "يعرض منتقي المدة أعلى الصفحة الآن “{{range}}”، وأعيد رسم كل مخطط في الصفحة لمطابقته.",
+  "core-ai-set-time-range.try_range_set_note": "تعرض لوحة المعلومات تلك المدة الآن."
 }

@@ -20926,7 +20926,7 @@ async function tryBrowserTool(tool, args) {
       return {
         result: {
           error: ZogographI18n.t(
-            'ai.try_range_missing',
+            'core-ai-set-time-range.try_range_missing',
             { range: args.range },
             'There is no {{range}} range.',
           ),
@@ -20940,7 +20940,7 @@ async function tryBrowserTool(tool, args) {
       return {
         result: {
           error: ZogographI18n.t(
-            'ai.try_range_unavailable',
+            'core-ai-set-time-range.try_range_unavailable',
             {
               range: args.range,
               options: [...picker.options].map((o) => o.textContent).join(', '),
@@ -20960,7 +20960,7 @@ async function tryBrowserTool(tool, args) {
     const shown = document.createElement('div');
     shown.className = 'try-shown';
     shown.textContent = ZogographI18n.t(
-      'ai.try_range_set_shown',
+      'core-ai-set-time-range.try_range_set_shown',
       {
         range: [...picker.options].find((o) => Number(o.value) === seconds)
           .textContent,
@@ -20973,7 +20973,7 @@ async function tryBrowserTool(tool, args) {
         range: args.range,
         live: false,
         note: ZogographI18n.t(
-          'ai.try_range_set_note',
+          'core-ai-set-time-range.try_range_set_note',
           {},
           'The dashboard is showing that range now.',
         ),

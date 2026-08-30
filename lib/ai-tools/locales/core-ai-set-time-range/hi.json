@@ -1,5 +1,9 @@
 {
   "core-ai-set-time-range.summary": "डैशबोर्ड में दिखाया जा रहा समय-सीमा बदलें।",
   "core-ai-set-time-range.activity_range": "दृश्य को पिछले {{range}} पर बदला",
-  "core-ai-set-time-range.activity_live": "दृश्य को पिछले {{range}}, लाइव पर बदला"
+  "core-ai-set-time-range.activity_live": "दृश्य को पिछले {{range}}, लाइव पर बदला",
+  "core-ai-set-time-range.try_range_missing": "{{range}} की कोई सीमा नहीं है।",
+  "core-ai-set-time-range.try_range_unavailable": "यह डैशबोर्ड {{range}} सीमा नहीं देता। उपलब्ध हैं: {{options}}।",
+  "core-ai-set-time-range.try_range_set_shown": "पृष्ठ के शीर्ष पर सीमा चयनकर्ता अब “{{range}}” दिखाता है और पृष्ठ के हर चार्ट को उसके अनुरूप फिर से बनाया गया है।",
+  "core-ai-set-time-range.try_range_set_note": "डैशबोर्ड अब वही सीमा दिखा रहा है।"
 }

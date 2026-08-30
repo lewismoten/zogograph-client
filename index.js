@@ -36483,8 +36483,16 @@ function renderUrlHistory(data) {
     changeBox.replaceChildren(
       section(
         changes.length
-          ? `${count(changes.length, 'change')} in this range`
-          : 'What it has been reporting',
+          ? ZogographI18n.t(
+              'url.changes_in_range',
+              { count: changes.length },
+              '{{count}} changes in this range',
+            )
+          : ZogographI18n.t(
+              'url.reporting_history',
+              {},
+              'What it has been reporting',
+            ),
         holder,
       ),
     );

@@ -158,6 +158,8 @@
   "url.chart_note": "此范围内的每次检查。间隙表示 cron 未运行，而不是网站宕机——两者在图表上看起来相同，却是相反的问题。{{changes}}",
   "url.chart_note_changes": " 蓝色标记表示此检查记录的内容发生了变化。",
   "url.first_seen_tip": "此范围内最早的读数，并非发生了某件事——它可能已经报告这一结果很久了。",
+  "url.changes_in_range": "此范围内有 {{count}} 项更改",
+  "url.reporting_history": "它一直在报告的内容",
   "url.status_label": "状态",
   "url.no_answer": "没有响应",
   "url.took": "耗时",

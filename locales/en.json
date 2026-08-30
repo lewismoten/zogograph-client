@@ -158,6 +158,8 @@
   "url.chart_note": "Every check in this range. A gap is the cron not running rather than the site being down — the two look identical on a chart and are opposite problems.{{changes}}",
   "url.chart_note_changes": " Blue marks are where what this check records changed.",
   "url.first_seen_tip": "The earliest reading in this range, not something that happened — it may have been saying this for far longer.",
+  "url.changes_in_range": "{{count}} changes in this range",
+  "url.reporting_history": "What it has been reporting",
   "url.status_label": "Status",
   "url.no_answer": "no answer",
   "url.took": "Took",

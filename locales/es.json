@@ -158,6 +158,8 @@
   "url.chart_note": "Cada comprobación de este intervalo. Un hueco significa que el cron no se ejecutó, no que el sitio estuviera caído: ambos se ven iguales en un gráfico y son problemas opuestos.{{changes}}",
   "url.chart_note_changes": " Las marcas azules indican dónde cambió lo que registra esta comprobación.",
   "url.first_seen_tip": "La lectura más antigua de este intervalo, no algo que haya ocurrido; puede haber estado indicando esto durante mucho más tiempo.",
+  "url.changes_in_range": "{{count}} cambios en este intervalo",
+  "url.reporting_history": "Lo que ha estado informando",
   "url.status_label": "Estado",
   "url.no_answer": "sin respuesta",
   "url.took": "Tardó",

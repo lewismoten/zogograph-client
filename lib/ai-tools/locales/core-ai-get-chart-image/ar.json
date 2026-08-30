@@ -1,3 +1,4 @@
 {
-  "core-ai-get-chart-image.summary": "احصل على صورة لمخطط واحد."
+  "core-ai-get-chart-image.summary": "احصل على صورة لمخطط واحد.",
+  "core-ai-get-chart-image.activity": "اطلع على {{chart}}"
 }

@@ -1,3 +1,4 @@
 {
-  "core-ai-get-chart-image.summary": "एक चार्ट का चित्र प्राप्त करें।"
+  "core-ai-get-chart-image.summary": "एक चार्ट का चित्र प्राप्त करें।",
+  "core-ai-get-chart-image.activity": "{{chart}} देखा"
 }

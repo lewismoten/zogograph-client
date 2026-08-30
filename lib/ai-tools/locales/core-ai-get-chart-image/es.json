@@ -1,3 +1,4 @@
 {
-  "core-ai-get-chart-image.summary": "Obtenga una imagen de un gráfico."
+  "core-ai-get-chart-image.summary": "Obtenga una imagen de un gráfico.",
+  "core-ai-get-chart-image.activity": "Revisó {{chart}}"
 }

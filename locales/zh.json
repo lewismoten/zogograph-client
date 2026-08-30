@@ -39,6 +39,8 @@
   "url.follow_redirects": "跟随重定向",
   "url.expected_status": "预期状态",
   "url.also_check": "同时检查",
+  "url.method_help": "HEAD 开销更低且没有正文，因此不能与内容检查结合使用。",
+  "url.follow_redirects_help": "每个重定向都会作为新目标检查。重定向到未经批准的私有主机将被拒绝，而不是跟随。",
   "url.ask_if_changed": "询问它是否变更",
   "url.looking_for": "查找内容",
   "url.keep_group": "保留分组",

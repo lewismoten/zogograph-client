@@ -39,6 +39,8 @@
   "url.follow_redirects": "Follow redirects",
   "url.expected_status": "Expected status",
   "url.also_check": "Also check",
+  "url.method_help": "HEAD is cheaper and has no body, so it cannot be combined with a content check.",
+  "url.follow_redirects_help": "Each redirect is checked as a new destination. A redirect into an unapproved private host is refused rather than followed.",
   "url.ask_if_changed": "Ask if it changed",
   "url.looking_for": "Looking for",
   "url.keep_group": "Keep group",

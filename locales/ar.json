@@ -39,6 +39,8 @@
   "url.follow_redirects": "اتبع عمليات إعادة التوجيه",
   "url.expected_status": "الحالة المتوقعة",
   "url.also_check": "تحقق أيضًا من",
+  "url.method_help": "يستهلك HEAD أقل ولا يحتوي على متن، لذا لا يمكن جمعه مع فحص المحتوى.",
+  "url.follow_redirects_help": "يُفحص كل تحويل كوجهة جديدة. يُرفض التحويل إلى مضيف خاص غير معتمد بدل اتباعه.",
   "url.ask_if_changed": "اسأل إن كان قد تغير",
   "url.looking_for": "البحث عن",
   "url.keep_group": "احتفظ بالمجموعة",

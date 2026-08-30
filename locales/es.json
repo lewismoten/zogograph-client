@@ -39,6 +39,8 @@
   "url.follow_redirects": "Seguir redirecciones",
   "url.expected_status": "Estado esperado",
   "url.also_check": "Comprobar también",
+  "url.method_help": "HEAD consume menos y no tiene cuerpo, por lo que no se puede combinar con una comprobación de contenido.",
+  "url.follow_redirects_help": "Cada redirección se comprueba como un destino nuevo. Se rechaza una redirección a un host privado no aprobado en vez de seguirla.",
   "url.ask_if_changed": "Preguntar si cambió",
   "url.looking_for": "Buscar",
   "url.keep_group": "Conservar grupo",

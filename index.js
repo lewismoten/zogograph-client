@@ -25964,14 +25964,14 @@ function openUrlForm(row = null) {
     method.appendChild(option);
   }
   field("urlMethod", ZogographI18n.t("url.method", {}, "Method"), method,
-    "HEAD is cheaper and has no body, so it cannot be combined with a content check.");
+    ZogographI18n.t("url.method_help", {}, "HEAD is cheaper and has no body, so it cannot be combined with a content check."));
 
   const follow = document.createElement("input");
   follow.type = "checkbox";
   follow.checked = row ? Boolean(Number(row.follow_redirects)) : true;
   field("urlFollow", ZogographI18n.t("url.follow_redirects", {}, "Follow redirects"), follow,
-    "Each redirect is checked as a new destination. A redirect into an unapproved private "
-    + "host is refused rather than followed.");
+    ZogographI18n.t("url.follow_redirects_help", {}, "Each redirect is checked as a new destination. A redirect into an unapproved private "
+    + "host is refused rather than followed."));
 
   const etag = document.createElement("input");
   etag.type = "checkbox";

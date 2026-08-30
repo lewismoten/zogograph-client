@@ -24155,7 +24155,11 @@ async function checkSymlinks() {
 
   button.disabled = true;
   button.textContent = ZogographI18n.t('action.checking', {}, 'Checking…');
-  holder.replaceChildren(spinner('Walking the tree…'));
+  holder.replaceChildren(
+    spinner(
+      ZogographI18n.t('storage.symlink_walking_tree', {}, 'Walking the tree…'),
+    ),
+  );
 
   try {
     linkState.data = await api('symlinks', { budget: 15, fresh: '1' });
@@ -24180,8 +24184,11 @@ function renderSymlinks() {
   if (!data) {
     holder.replaceChildren(
       note(
-        'Nothing has been checked yet. This walks the whole watched directory, which takes a ' +
-          'few seconds, so it runs when you ask rather than on every poll.',
+        ZogographI18n.t(
+          'storage.symlink_not_checked',
+          {},
+          'Nothing has been checked yet. This walks the whole watched directory, which takes a few seconds, so it runs when you ask rather than on every poll.',
+        ),
       ),
     );
     $('linkSweepPanel').hidden = true;
@@ -24192,23 +24199,47 @@ function renderSymlinks() {
 
   const summary = document.createElement('p');
   summary.className = 'muted small';
-  summary.textContent =
-    `${humanCount(data.links)} link${data.links === 1 ? '' : 's'} across ` +
-    `${humanCount(data.dirs)} directories in ${data.seconds}s. ` +
-    (data.complete
-      ? 'The whole tree was checked.'
-      : 'Stopped before the end of the tree — there may be more.') +
-    (linkState.at ? ` Checked ${ago(linkState.at)}.` : '') +
-    (data.stored
-      ? ' This is the stored result of that check, not a new one.'
-      : '');
+  summary.textContent = ZogographI18n.t(
+    data.complete
+      ? 'storage.symlink_summary_complete'
+      : 'storage.symlink_summary_incomplete',
+    {
+      links: humanCount(data.links),
+      dirs: humanCount(data.dirs),
+      seconds: humanCount(data.seconds),
+    },
+    data.complete
+      ? `${humanCount(data.links)} links across ${humanCount(data.dirs)} directories in ${humanCount(data.seconds)}s. The whole tree was checked.`
+      : `${humanCount(data.links)} links across ${humanCount(data.dirs)} directories in ${humanCount(data.seconds)}s. Stopped before the end of the tree — there may be more.`,
+  );
+  if (linkState.at) {
+    summary.append(
+      ZogographI18n.t(
+        'storage.symlink_checked_ago',
+        { time: ago(linkState.at) },
+        ` Checked ${ago(linkState.at)}.`,
+      ),
+    );
+  }
+  if (data.stored) {
+    summary.append(
+      ZogographI18n.t(
+        'storage.symlink_stored',
+        {},
+        ' This is the stored result of that check, not a new one.',
+      ),
+    );
+  }
   parts.push(summary);
 
   if (linkState.at && Date.now() / 1000 - linkState.at > 900) {
     parts.push(
       note(
-        'This is the last check, not a fresh one — the walk takes seconds and is not run ' +
-          'on a timer. Press Check again for the current state.',
+        ZogographI18n.t(
+          'storage.symlink_stale',
+          {},
+          'This is the last check, not a fresh one — the walk takes seconds and is not run on a timer. Press Check again for the current state.',
+        ),
       ),
     );
   }
@@ -24222,33 +24253,56 @@ function renderSymlinks() {
   if (data.first_walk) {
     parts.push(
       note(
-        'This is the first complete check, so nothing counts as new. From now on anything ' +
-          'that appears will be called out here and will raise an alert.',
+        ZogographI18n.t(
+          'storage.symlink_first_walk',
+          {},
+          'This is the first complete check, so nothing counts as new. From now on anything that appears will be called out here and will raise an alert.',
+        ),
       ),
     );
   } else if (data.new && data.new.length) {
     const said = document.createElement('p');
     said.className = 'band-crit';
-    said.textContent =
-      `${count(data.new.length, 'problem')} here for the first time. ` +
-      'An alert has been raised.';
+    said.textContent = ZogographI18n.t(
+      'storage.symlink_new_problems',
+      { count: humanCount(data.new.length) },
+      `${humanCount(data.new.length)} problems here for the first time. An alert has been raised.`,
+    );
     parts.push(said);
   } else if (data.gone > 0) {
     parts.push(
       note(
-        `Nothing new, and ${count(data.gone, 'problem')} gone since last time.`,
+        ZogographI18n.t(
+          'storage.symlink_gone',
+          { count: humanCount(data.gone) },
+          `Nothing new, and ${humanCount(data.gone)} problems gone since last time.`,
+        ),
       ),
     );
   } else if (data.problems.length) {
-    parts.push(note('Nothing new since the last check.'));
+    parts.push(
+      note(
+        ZogographI18n.t(
+          'storage.symlink_unchanged',
+          {},
+          'Nothing new since the last check.',
+        ),
+      ),
+    );
   }
 
   if (!data.problems.length) {
     const good = document.createElement('p');
     good.className = 'shrank';
-    good.textContent = data.complete
-      ? 'No symlink loops, dangling links or escapes found.'
-      : 'Nothing wrong in the part that was checked.';
+    good.textContent = ZogographI18n.t(
+      data.complete
+        ? 'storage.symlink_healthy'
+        : 'storage.symlink_healthy_partial',
+      {},
+      data.complete
+        ? 'No symlink loops, dangling links or escapes found.'
+        : 'Nothing wrong in the part that was checked.',
+    );
     parts.push(good);
     holder.replaceChildren(...parts);
     $('linkSweepPanel').hidden = true;

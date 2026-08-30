@@ -6526,9 +6526,15 @@ function startDialTicker() {
       if (spot.offsetParent === null) continue;
       const at = Number(spot.dataset.agoFrom || 0);
       if (at > 0) {
-        spot.textContent = `${humanDuration(
-          Math.max(0, Math.floor(Date.now() / 1000) - at),
-        )} ago`;
+        spot.textContent = ZogographI18n.t(
+          'time.ago',
+          {
+            duration: humanDuration(
+              Math.max(0, Math.floor(Date.now() / 1000) - at),
+            ),
+          },
+          '{{duration}} ago',
+        );
       }
     }
   }, 1000);

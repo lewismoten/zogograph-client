@@ -2377,4 +2377,13 @@ i18nExpect(
         isset($english['host.files_also_at']),
     'host file hard-link labels are not localized',
 );
+i18nExpect(
+    $script !== false &&
+        str_contains($script, 'function toolGroupLabel') &&
+        str_contains($script, "'ai.tool_group_tab'") &&
+        is_array($english) &&
+        isset($english['ai.tool_group.diagnostic']) &&
+        isset($english['ai.tool_group_tab']),
+    'AI tool-group labels are not localized through their shared helper',
+);
 echo "i18n checks passed\n";

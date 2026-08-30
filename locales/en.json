@@ -2787,6 +2787,7 @@
   "host.io_rate_lifetime": "lifetime average",
   "host.io_rate_lifetime_tip": "This process has only been seen once, so its total I/O is spread over how long it has been running. Accurate for a job that just started, much less so for a long-running daemon.",
   "host.io_read": "Read",
+  "host.io_rate_per_second": "{{amount}}/s",
   "host.io_written": "Written",
   "host.io_busiest_device": "Busiest device % (right)",
   "host.io_collector_missing": "The host collector is not installed.",

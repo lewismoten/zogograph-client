@@ -2684,6 +2684,7 @@
   "host.io_rate_lifetime": "生命周期平均值",
   "host.io_rate_lifetime_tip": "此进程仅出现过一次，因此其总 I/O 按运行时长分摊。对于刚启动的作业很准确，对于长期运行的守护进程则准确性低得多。",
   "host.io_read": "读取",
+  "host.io_rate_per_second": "{{amount}}/秒",
   "host.io_written": "写入",
   "host.io_busiest_device": "最繁忙设备 %（右轴）",
   "host.io_collector_missing": "未安装主机采集器。",

@@ -27987,7 +27987,14 @@ function renderHostIoProcs(io) {
     return;
   }
 
-  const rate = (value) => (value == null ? '—' : `${humanBytes(value)}/s`);
+  const rate = (value) =>
+    value == null
+      ? '—'
+      : ZogographI18n.t(
+          'host.io_rate_per_second',
+          { amount: humanBytes(value) },
+          '{{amount}}/s',
+        );
 
   renderTable(
     'hostIoProcs',

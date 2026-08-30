@@ -2698,6 +2698,7 @@
   "host.io_rate_lifetime": "promedio de toda la vida",
   "host.io_rate_lifetime_tip": "Este proceso solo se ha visto una vez, por lo que su E/S total se distribuye a lo largo de su tiempo de ejecución. Es preciso para un trabajo que acaba de empezar, mucho menos para un demonio de larga duración.",
   "host.io_read": "Leído",
+  "host.io_rate_per_second": "{{amount}}/s",
   "host.io_written": "Escrito",
   "host.io_busiest_device": "Dispositivo más ocupado % (derecha)",
   "host.io_collector_missing": "El recopilador del host no está instalado.",

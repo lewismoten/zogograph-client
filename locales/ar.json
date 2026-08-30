@@ -2684,6 +2684,7 @@
   "host.io_rate_lifetime": "متوسط العمر",
   "host.io_rate_lifetime_tip": "شوهدت هذه العملية مرة واحدة فقط، لذا موزع إجمالي مدخلاتها/مخرجاتها على مدة تشغيلها. دقيق لعمل بدأ للتو، وأقل دقة بكثير لخادم طويل التشغيل.",
   "host.io_read": "قراءة",
+  "host.io_rate_per_second": "{{amount}}/ث",
   "host.io_written": "كتابة",
   "host.io_busiest_device": "أكثر الأجهزة انشغالًا % (يمين)",
   "host.io_collector_missing": "جامع المضيف غير مثبّت.",

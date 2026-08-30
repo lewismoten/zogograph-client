@@ -2698,6 +2698,7 @@
   "host.io_rate_lifetime": "जीवनकाल औसत",
   "host.io_rate_lifetime_tip": "यह प्रक्रिया केवल एक बार देखी गई है, इसलिए इसका कुल I/O इसके चलने की अवधि में फैला है। अभी शुरू हुए काम के लिए सटीक, लंबे समय से चल रहे डेमन के लिए बहुत कम सटीक।",
   "host.io_read": "पढ़ा",
+  "host.io_rate_per_second": "{{amount}}/सेकंड",
   "host.io_written": "लिखा गया",
   "host.io_busiest_device": "सबसे व्यस्त डिवाइस % (दायाँ)",
   "host.io_collector_missing": "होस्ट कलेक्टर स्थापित नहीं है।",

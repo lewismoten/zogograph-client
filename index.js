@@ -26839,6 +26839,22 @@ function swapVerdict(swap, swapUsed) {
  * once.
  */
 function renderHostFiles(rows, totals) {
+  if (window.ZogographHostFilesCard) {
+    return renderCoreCardPackage(
+      ZogographHostFilesCard,
+      'core-host-files',
+      { rows, totals },
+      {
+        target: $('hostFiles'),
+        totalTarget: $('hostFilesTotal'),
+        renderTable,
+        humanBytes,
+        humanCount,
+        whenSpan,
+        i18n: ZogographI18n,
+      },
+    );
+  }
   const holder = $('hostFiles');
 
   if (!rows.length) {

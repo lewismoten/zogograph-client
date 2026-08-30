@@ -46,12 +46,13 @@ final class KeyCustodyProvider
         string $clientSigningKey,
         ?string $tlsSpkiPin = null,
     ): array {
-        $entitlement = new KeyCustodyHttpClient(
+        $client = new KeyCustodyHttpClient(
             $serviceBaseUrl,
             $clientCredential,
             $clientSigningKey,
             $tlsSpkiPin,
-        )->envelopeEntitlement();
+        );
+        $entitlement = $client->envelopeEntitlement();
         return [
             'id' => 'zogograph-key-custody',
             'state' => 'enrollment-ready',
@@ -127,12 +128,13 @@ final class KeyCustodyProvider
                 'custody recovery input is invalid',
             );
         }
-        $key = new KeyCustodyHttpClient(
+        $client = new KeyCustodyHttpClient(
             $serviceBaseUrl,
             $clientCredential,
             $clientSigningKey,
             $tlsSpkiPin,
-        )->unwrap($keyId, $artifactId, 0);
+        );
+        $key = $client->unwrap($keyId, $artifactId, 0);
         return [
             'id' => 'zogograph-key-custody',
             'state' => 'unwrap-released',

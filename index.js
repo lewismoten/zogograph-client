@@ -32045,19 +32045,28 @@ async function showIncident(id) {
   if (disk) {
     const growth = Object.entries(disk.growth_bytes || {}).map(
       ([label, bytes]) => [
-        `Grew over ${label}`,
-        bytes === null ? 'not enough history' : humanBytes(bytes),
+        ZogographI18n.t('incident.grew_over', { label }, 'Grew over {{label}}'),
+        bytes === null
+          ? ZogographI18n.t(
+              'incident.not_enough_history',
+              {},
+              'not enough history',
+            )
+          : humanBytes(bytes),
       ],
     );
     body.appendChild(
       section(
-        'Disk',
+        ZogographI18n.t('incident.disk', {}, 'Disk'),
         factGrid([
           [
-            'Used',
+            ZogographI18n.t('incident.used', {}, 'Used'),
             `${humanBytes(disk.used_bytes)} of ${humanBytes(disk.total_bytes)} (${disk.used_percent.toFixed(1)}%)`,
           ],
-          ['Free', humanBytes(disk.free_bytes)],
+          [
+            ZogographI18n.t('incident.free', {}, 'Free'),
+            humanBytes(disk.free_bytes),
+          ],
           ...growth,
         ]),
       ),
@@ -32066,9 +32075,17 @@ async function showIncident(id) {
     if (disk.categories?.length) {
       body.appendChild(
         section(
-          'By category, since the previous scan',
+          ZogographI18n.t(
+            'incident.by_category_since_scan',
+            {},
+            'By category, since the previous scan',
+          ),
           simpleTable(
-            ['Category', 'Size', 'Change'],
+            [
+              ZogographI18n.t('incident.category', {}, 'Category'),
+              ZogographI18n.t('incident.size', {}, 'Size'),
+              ZogographI18n.t('incident.change', {}, 'Change'),
+            ],
             disk.categories.map((c) => [
               c.category,
               humanBytes(c.bytes),
@@ -32085,9 +32102,17 @@ async function showIncident(id) {
   if (files && files.rows?.length) {
     body.appendChild(
       section(
-        'Files that grew most, since the previous scan',
+        ZogographI18n.t(
+          'incident.files_grew_most_since_scan',
+          {},
+          'Files that grew most, since the previous scan',
+        ),
         simpleTable(
-          ['Path', 'Size', 'Change'],
+          [
+            ZogographI18n.t('incident.path', {}, 'Path'),
+            ZogographI18n.t('incident.size', {}, 'Size'),
+            ZogographI18n.t('incident.change', {}, 'Change'),
+          ],
           files.rows.map((f) => [
             f.path,
             humanBytes(f.bytes),

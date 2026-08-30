@@ -23,7 +23,9 @@ jobs:
       credentials:
         username: ${{ secrets.REGISTRY_USER }}
         password: ${{ secrets.REGISTRY_TOKEN }}
-    timeout-minutes: 1
+    # Container setup and dependency restoration count toward this ceiling.
+    # Keep the job within the project-wide two-minute maximum.
+    timeout-minutes: 2
     strategy:
       fail-fast: false
       max-parallel: 5
@@ -59,7 +61,7 @@ jobs:
       credentials:
         username: ${{ secrets.REGISTRY_USER }}
         password: ${{ secrets.REGISTRY_TOKEN }}
-    timeout-minutes: 1
+    timeout-minutes: 2
 
     env:
       BROWSER_REFRESH_REQUIRED: ${{ vars.BROWSER_REFRESH_REQUIRED }}

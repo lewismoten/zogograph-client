@@ -13653,10 +13653,19 @@ async function showNoteDialog(preset = {}) {
   const body = document.createElement('textarea');
   body.rows = 5;
   body.className = 'wide';
-  body.placeholder =
-    'Upgraded PHP to 8.4 on the host. The memory step at 14:20 is that.';
+  body.placeholder = ZogographI18n.t(
+    'notes.body_placeholder',
+    {},
+    'Upgraded PHP to 8.4 on the host. The memory step at 14:20 is that.',
+  );
   body.value = preset.body ?? '';
-  parts.push(fieldRow('What happened', body, ''));
+  parts.push(
+    fieldRow(
+      ZogographI18n.t('notes.body_label', {}, 'What happened'),
+      body,
+      '',
+    ),
+  );
 
   /*
    * When it is about, which is not always now.
@@ -13670,10 +13679,14 @@ async function showNoteDialog(preset = {}) {
   when.value = localDateTimeValue(preset.at ?? Math.floor(Date.now() / 1000));
   parts.push(
     fieldRow(
-      'When',
+      ZogographI18n.t('notes.when_label', {}, 'When'),
       when,
-      'Defaults to now. Move it back if you are writing up something that already happened ' +
-        '— the mark belongs where the event was, not where the typing was.',
+      ZogographI18n.t(
+        'notes.when_help',
+        {},
+        'Defaults to now. Move it back if you are writing up something that already happened ' +
+          '— the mark belongs where the event was, not where the typing was.',
+      ),
     ),
   );
 
@@ -13695,7 +13708,13 @@ async function showNoteDialog(preset = {}) {
     option.selected = (preset.scope ?? 'page') === key;
     scope.appendChild(option);
   }
-  parts.push(fieldRow('Where it shows', scope, ''));
+  parts.push(
+    fieldRow(
+      ZogographI18n.t('notes.scope_label', {}, 'Where it shows'),
+      scope,
+      '',
+    ),
+  );
   parts.push(scopeNote);
 
   /*
@@ -13719,9 +13738,13 @@ async function showNoteDialog(preset = {}) {
         : [],
   );
   const chartRow = fieldRow(
-    'Which charts',
+    ZogographI18n.t('notes.charts_label', {}, 'Which charts'),
     chartPick.node,
-    'Ticking more than one puts the same mark on each of them.',
+    ZogographI18n.t(
+      'notes.charts_help',
+      {},
+      'Ticking more than one puts the same mark on each of them.',
+    ),
   );
   parts.push(chartRow);
 
@@ -13737,7 +13760,13 @@ async function showNoteDialog(preset = {}) {
     option.selected = (preset.snapshot ?? 'none') === key;
     snapshot.appendChild(option);
   }
-  parts.push(fieldRow('Also capture', snapshot, ''));
+  parts.push(
+    fieldRow(
+      ZogographI18n.t('notes.capture_label', {}, 'Also capture'),
+      snapshot,
+      '',
+    ),
+  );
   parts.push(snapshotNote);
 
   /*

@@ -1976,6 +1976,26 @@ function drawGauge(canvas, dial, band) {
  * account's CPU use, it is the reason its CPU use looks the way it does.
  */
 function renderLimits(limits, bodyId = 'limitsBody', whenId = 'limitsWhen') {
+  const rendered = renderCoreCardPackage(
+    window.ZogographLimitComparisonCard,
+    'core-limit-comparison',
+    { limits },
+    {
+      body: $(bodyId),
+      when: $(whenId),
+      humanBytes,
+      humanTime,
+      i18n: ZogographI18n,
+    },
+  );
+  return rendered || legacyRenderLimits(limits, bodyId, whenId);
+}
+
+function legacyRenderLimits(
+  limits,
+  bodyId = 'limitsBody',
+  whenId = 'limitsWhen',
+) {
   const body = $(bodyId);
   // The processor page shows the same comparison without a timestamp beside a
   // heading of its own, so the element is optional rather than assumed.

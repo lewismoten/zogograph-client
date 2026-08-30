@@ -886,7 +886,10 @@ async function refreshCpu() {
     humanDuration, humanBytes, i18n: ZogographI18n,
   });
   renderCpuQueue(data);
-  renderCpuLimits(data);
+  renderCoreCardPackage(ZogographCpuLimitsCard, "core-cpu-limits", data, {
+    renderLimits, noteTarget: $("cpuLimitsNote"), lveWrap: $("cpuLveWrap"), renderTable, humanCount,
+    drawLineChart, countAxis, i18n: ZogographI18n,
+  });
 }
 
 /**
@@ -1183,67 +1186,6 @@ function cpuQueueVerdict(now, load, cores) {
 }
 
 /* --------------------------------------------- ceilings and throttling -- */
-
-function renderCpuLimits(data) {
-  // The same comparison the limits panel draws, in its own frame here: the
-  // question "why is my CPU pinned while the server is idle" is a CPU question
-  // and sending somebody to another page to have it answered loses them.
-  renderLimits(data.limits, "cpuLimitsTable", "cpuLimitsWhen");
-
-  const mine = data.vitals?.cpu_percent == null ? null : Number(data.vitals.cpu_percent);
-  const host = data.sample?.cpu_percent == null ? null : Number(data.sample.cpu_percent);
-  const faults = (data.lve ?? []).reduce((sum, r) => sum + (Number(r.faults_cpu) || 0), 0);
-
-  $("cpuLimitsNote").textContent = cpuLimitVerdict(mine, host, faults, data.lve ?? []);
-
-  const wrap = $("cpuLveWrap");
-  if (wrap) wrap.hidden = !(data.lve ?? []).length;
-
-  if ((data.lve ?? []).length) {
-    renderTable("cpuLve", data.lve, [
-      { label: ZogographI18n.t("cpu.account", {}, "Account"), render: r => r.user },
-      {
-        label: ZogographI18n.t("cpu.cpu_faults", {}, "CPU faults"),
-        className: "size",
-        render: r => humanCount(r.faults_cpu),
-      },
-      { label: ZogographI18n.t("cpu.memory_faults", {}, "Memory faults"), className: "size", render: r => humanCount(r.faults_mem) },
-      { label: ZogographI18n.t("cpu.process_faults", {}, "Process faults"), className: "size", render: r => humanCount(r.faults_procs) },
-      {
-        label: ZogographI18n.t("cpu.cpu_in_use", {}, "CPU in use"),
-        className: "size",
-        render: r => (r.cpu_percent == null ? "—" : `${Number(r.cpu_percent).toFixed(0)}%`),
-      },
-    ]);
-
-    drawLineChart($("cpuLveChart"), data.lve_series ?? [], [
-      { key: "faults_cpu", label: ZogographI18n.t("cpu.cpu_faults", {}, "CPU faults") },
-      { key: "faults_mem", label: ZogographI18n.t("cpu.memory_faults", {}, "Memory faults") },
-    ], { axis: countAxis, zeroBased: true, empty: ZogographI18n.t("cpu.no_lve_readings", {}, "No LVE readings in this range") });
-  }
-}
-
-function cpuLimitVerdict(mine, host, faults, rows) {
-  const both = mine != null && host != null;
-
-  if (faults > 0) {
-    return ZogographI18n.t("cpu.limit_faults", { faults, accounts: rows.length },
-      "{{faults, number}} CPU fault(s) recorded at the last reading across {{accounts, number}} account(s). A fault is an account asking for more processor than its LVE allows and being held back — this is being throttled now, not being near a limit. A throttled account's own percentage sits calmly at its ceiling, which is why the fault count is the figure to watch and not the percentage.");
-  }
-
-  if (both && mine >= 85 && host < 50) {
-    return ZogographI18n.t("cpu.limit_throttled", { account: Math.round(mine), host: Math.round(host) },
-      "This account is at {{account, number}}% of its own allowance while the machine is {{host, number}}% busy. That is not a contradiction: the two percentages have different denominators. It is the ordinary shape of hitting a limit, and it is felt as a slow site even though the server has plenty of processor left.");
-  }
-
-  if (both) {
-    return ZogographI18n.t("cpu.limit_comparison", { account: Math.round(mine), host: Math.round(host) },
-      "This account is using {{account, number}}% of what it is allowed; the machine as a whole is {{host, number}}% busy. Neither number is a share of the other, and dividing them produces nothing meaningful.");
-  }
-
-  return ZogographI18n.t("cpu.limit_missing_side", {},
-    "Both halves of this comparison need a reading — one from this account and one from the host collector running as root.");
-}
 
 
 function buildGauge(dial) {

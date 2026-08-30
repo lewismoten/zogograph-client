@@ -7496,30 +7496,13 @@ function pictureFields(data) {
     ),
   );
 
-  const quality = document.createElement('select');
-  quality.id = 'aiQuality';
-  for (const [key_, meta] of Object.entries(pictures.qualities)) {
-    const option = document.createElement('option');
-    option.value = key_;
-    option.textContent = `${meta.label} — ${meta.what}`;
-    option.selected = pictures.quality === key_;
-    quality.appendChild(option);
-  }
-  form.appendChild(
-    fieldRow(ZogographI18n.t('ai.images_quality', {}, 'Quality'), quality, ''),
-  );
-
-  const shape = document.createElement('select');
-  shape.id = 'aiShape';
-  for (const [key_, meta] of Object.entries(pictures.shapes)) {
-    const option = document.createElement('option');
-    option.value = key_;
-    option.textContent = `${meta.label} (${meta.width}×${meta.height})`;
-    option.selected = pictures.shape === key_;
-    shape.appendChild(option);
-  }
-  form.appendChild(
-    fieldRow(ZogographI18n.t('ai.images_shape', {}, 'Shape'), shape, ''),
+  form.append(
+    ...renderCoreCardPackage(
+      ZogographAiImageRenderOptionsCard,
+      'core-ai-image-render-options',
+      { pictures },
+      { fieldRow, i18n: ZogographI18n },
+    ),
   );
 
   const perHour = document.createElement('input');

@@ -19511,9 +19511,22 @@ async function copyText(text) {
 
   try {
     await navigator.clipboard.writeText(text);
-    notice(`Copied ${humanBytes(text.length)}.`, true);
+    notice(
+      ZogographI18n.t(
+        'terminal.copy_done',
+        { amount: humanBytes(text.length) },
+        'Copied {{amount}}.',
+      ),
+      true,
+    );
   } catch {
-    notice('This browser would not let the page write to the clipboard.');
+    notice(
+      ZogographI18n.t(
+        'terminal.copy_refused',
+        {},
+        'This browser would not let the page write to the clipboard.',
+      ),
+    );
   }
 }
 
@@ -48443,7 +48456,14 @@ $('shareLink').addEventListener('click', async () => {
 
   try {
     await navigator.clipboard.writeText(location.href);
-    notice('Link copied. It opens this view over this exact window.', true);
+    notice(
+      ZogographI18n.t(
+        'share.link_copied',
+        {},
+        'Link copied. It opens this view over this exact window.',
+      ),
+      true,
+    );
   } catch {
     notice(location.href);
   }

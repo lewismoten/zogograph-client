@@ -936,6 +936,7 @@
   "peers.admin_only": "Only administrators can manage trusted servers.",
   "ai.start_new": "Start a new one",
   "ai.nothing_chosen": "Nothing chosen yet.",
+  "share.link_copied": "Link copied. It opens this view over this exact window.",
   "auth.sessions_ended": "Every signed-in session has been ended.",
   "auth.recovery_codes_ready": "Eight new one-time recovery codes are ready to save.",
   "audit.export_preparing": "Preparing the full audit CSV…",

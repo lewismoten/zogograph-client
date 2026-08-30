@@ -935,6 +935,7 @@
   "peers.admin_only": "Only administrators can manage trusted servers.",
   "ai.start_new": "Start a new one",
   "ai.nothing_chosen": "Nothing chosen yet.",
+  "ai.context_added": "Added. It will read that on its next turn.",
   "terminal.copy_output": "Copy the output",
   "terminal.suggestion_expectation": "What to look for: {{expectation}}",
   "terminal.syntax_preview_title": "Read the current {{syntax}} text with local syntax colors",

@@ -13192,7 +13192,14 @@ async function sayToChat(text) {
      * alongside the one in flight.
      */
     if (result.queued) {
-      notice('Added. It will read that on its next turn.', true);
+      notice(
+        ZogographI18n.t(
+          'ai.context_added',
+          {},
+          'Added. It will read that on its next turn.',
+        ),
+        true,
+      );
       scheduleChatPoll();
       return;
     }

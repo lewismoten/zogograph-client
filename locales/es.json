@@ -865,6 +865,7 @@
   "peers.admin_only": "Solo los administradores pueden administrar servidores de confianza.",
   "ai.start_new": "Iniciar una nueva",
   "ai.nothing_chosen": "Aún no se ha elegido nada.",
+  "ai.context_added": "Añadido. Lo leerá en su siguiente turno.",
   "terminal.copy_output": "Copiar la salida",
   "terminal.suggestion_expectation": "Qué buscar: {{expectation}}",
   "terminal.syntax_preview_title": "Leer el texto {{syntax}} actual con colores de sintaxis locales",

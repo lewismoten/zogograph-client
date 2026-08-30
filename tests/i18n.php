@@ -1383,6 +1383,9 @@ i18nExpect(
             $english['ai.ask_assistant'],
             $english['ai.data_page'],
             $english['ai.problem_placeholder'],
+            $english['ai.permission_wants'],
+            $english['ai.permission_allow'],
+            $english['ai.permission_decline'],
         ),
     'English fallback catalog is incomplete',
 );
@@ -1496,6 +1499,13 @@ i18nExpect(
         str_contains($script, 'ai.ask_assistant') &&
         str_contains($script, 'ai.problem_placeholder'),
     'assistant chat identity retains direct user-visible text',
+);
+i18nExpect(
+    $script !== false &&
+        str_contains($script, 'ai.permission_wants') &&
+        str_contains($script, 'ai.permission_allow') &&
+        str_contains($script, 'ai.permission_decline'),
+    'assistant permission card retains direct user-visible text',
 );
 i18nExpect(
     str_contains($runtime, 'data-i18n-rich') &&

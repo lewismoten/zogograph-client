@@ -12609,7 +12609,11 @@ function chatPermissionPrompt(run) {
   wrap.className = 'chat-permission';
 
   const what = document.createElement('div');
-  what.textContent = `It wants to ${run.summary.replace(/\.$/, '')}.`;
+  what.textContent = ZogographI18n.t(
+    'ai.permission_wants',
+    { action: run.summary.replace(/\.$/, '') },
+    'It wants to {{action}}.',
+  );
   wrap.appendChild(what);
 
   if (run.why) {
@@ -12622,13 +12626,13 @@ function chatPermissionPrompt(run) {
   const actions = document.createElement('div');
   actions.className = 'inspect-actions';
 
-  for (const [text, allow, className] of [
-    ['Allow', '1', ''],
-    ['Not this time', '0', 'danger'],
+  for (const [key, fallback, allow, className] of [
+    ['ai.permission_allow', 'Allow', '1', ''],
+    ['ai.permission_decline', 'Not this time', '0', 'danger'],
   ]) {
     const button = document.createElement('button');
     button.className = `link ${className}`;
-    button.textContent = text;
+    button.textContent = ZogographI18n.t(key, {}, fallback);
     button.addEventListener('click', async () => {
       for (const other of actions.querySelectorAll('button'))
         other.disabled = true;

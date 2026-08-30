@@ -3087,7 +3087,6 @@
   "ai.images_enabled_help": "关闭后，图片工具不会提供。每次调用都会产生费用，并且每次都要求您的许可。",
   "ai.images_key": "DeepAI 密钥",
   "ai.images_key_unchanged": "{{mask}}（未更改）",
-  "ai.images_key_placeholder": "您的 DeepAI 密钥",
   "ai.images_key_kept": "已设置密钥。留空可保留它。",
   "ai.images_key_required": "来自 deepai.org。没有密钥，图片工具将保持隐藏。",
   "ai.images_styles": "它可使用的风格",

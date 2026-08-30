@@ -3091,7 +3091,6 @@
   "ai.images_enabled_help": "Al desactivarlo, las herramientas de imágenes no se ofrecen en absoluto. Cada una cuesta dinero por llamada y pide permiso cada vez.",
   "ai.images_key": "Clave de DeepAI",
   "ai.images_key_unchanged": "{{mask}} (sin cambios)",
-  "ai.images_key_placeholder": "su clave de DeepAI",
   "ai.images_key_kept": "Hay una clave configurada. Dejarlo vacío la conserva.",
   "ai.images_key_required": "De deepai.org. Sin una, las herramientas de imágenes permanecen ocultas.",
   "ai.images_styles": "Estilos que puede usar",

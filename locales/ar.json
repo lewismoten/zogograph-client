@@ -3087,7 +3087,6 @@
   "ai.images_enabled_help": "عند إيقافه لا تُعرض أدوات الصور مطلقًا. كل واحدة تكلف مالًا لكل طلب وتطلب إذنك في كل مرة.",
   "ai.images_key": "مفتاح DeepAI",
   "ai.images_key_unchanged": "{{mask}} (دون تغيير)",
-  "ai.images_key_placeholder": "مفتاح DeepAI الخاص بك",
   "ai.images_key_kept": "يوجد مفتاح مضبوط. ترك هذا فارغًا يبقيه.",
   "ai.images_key_required": "من deepai.org. بدونه تبقى أدوات الصور مخفية.",
   "ai.images_styles": "الأنماط التي قد يستخدمها",

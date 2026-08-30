@@ -24507,14 +24507,30 @@ function linkActions(row) {
 
   for (const [text, title, run, danger] of [
     [
-      'Repoint',
-      'Point this link somewhere else',
+      ZogographI18n.t('storage.link_repoint', {}, 'Repoint'),
+      ZogographI18n.t(
+        'storage.link_repoint_title',
+        {},
+        'Point this link somewhere else',
+      ),
       async () => {
         const target = await askTextDialog(
-          'Repoint link',
-          `Where should ${basenameOf(row.path)} point?`,
+          ZogographI18n.t(
+            'storage.link_repoint_dialog_title',
+            {},
+            'Repoint link',
+          ),
+          ZogographI18n.t(
+            'storage.link_repoint_prompt',
+            { name: basenameOf(row.path) },
+            `Where should ${basenameOf(row.path)} point?`,
+          ),
           row.target || '',
-          "Use an absolute path or a path relative to the link's directory.",
+          ZogographI18n.t(
+            'storage.link_repoint_hint',
+            {},
+            "Use an absolute path or a path relative to the link's directory.",
+          ),
         );
         if (target === null || target.trim() === '') return;
         await act('repoint', { target: target.trim() });
@@ -24522,13 +24538,20 @@ function linkActions(row) {
       false,
     ],
     [
-      'Make it a folder',
-      'Remove the link and create a real, empty directory in its place',
+      ZogographI18n.t('storage.link_make_directory', {}, 'Make it a folder'),
+      ZogographI18n.t(
+        'storage.link_make_directory_title',
+        {},
+        'Remove the link and create a real, empty directory in its place',
+      ),
       async () => {
         if (
           !(await confirmDialog(
-            `Replace ${row.path} with a real, empty directory?\n\n` +
-              'The link goes; whatever it pointed at is untouched.',
+            ZogographI18n.t(
+              'storage.link_make_directory_confirm',
+              { path: row.path },
+              `Replace ${row.path} with a real, empty directory?\n\nThe link goes; whatever it pointed at is untouched.`,
+            ),
           ))
         )
           return;
@@ -24537,13 +24560,20 @@ function linkActions(row) {
       false,
     ],
     [
-      'Remove',
-      'Delete the link itself',
+      ZogographI18n.t('storage.link_remove', {}, 'Remove'),
+      ZogographI18n.t(
+        'storage.link_remove_title',
+        {},
+        'Delete the link itself',
+      ),
       async () => {
         if (
           !(await confirmDialog(
-            `Delete the link ${row.path}?\n\n` +
-              'Only the link is removed. Whatever it points at is not touched.',
+            ZogographI18n.t(
+              'storage.link_remove_confirm',
+              { path: row.path },
+              `Delete the link ${row.path}?\n\nOnly the link is removed. Whatever it points at is not touched.`,
+            ),
           ))
         )
           return;
@@ -24574,13 +24604,28 @@ function linkActions(row) {
 
 function linkSaid(how, result) {
   if (how === 'repoint') {
-    return (
-      `Now points at ${result.now}.` +
-      (result.exists ? '' : ' That is not there yet, which may be deliberate.')
+    return ZogographI18n.t(
+      result.exists
+        ? 'storage.link_repointed'
+        : 'storage.link_repointed_missing',
+      { target: result.now },
+      result.exists
+        ? `Now points at ${result.now}.`
+        : `Now points at ${result.now}. That is not there yet, which may be deliberate.`,
     );
   }
-  if (how === 'directory') return 'Replaced with an empty directory.';
-  return 'Link removed. What it pointed at was not touched.';
+  if (how === 'directory') {
+    return ZogographI18n.t(
+      'storage.link_made_directory',
+      {},
+      'Replaced with an empty directory.',
+    );
+  }
+  return ZogographI18n.t(
+    'storage.link_removed',
+    {},
+    'Link removed. What it pointed at was not touched.',
+  );
 }
 
 function basenameOf(path) {

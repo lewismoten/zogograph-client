@@ -1482,6 +1482,21 @@ i18nExpect(
             $english['storage.link_sweep_left_alone'],
             $english['storage.link_sweep_preview'],
             $english['storage.link_sweep_preview_skipped'],
+            $english['storage.link_repoint'],
+            $english['storage.link_repoint_title'],
+            $english['storage.link_repoint_dialog_title'],
+            $english['storage.link_repoint_prompt'],
+            $english['storage.link_repoint_hint'],
+            $english['storage.link_make_directory'],
+            $english['storage.link_make_directory_title'],
+            $english['storage.link_make_directory_confirm'],
+            $english['storage.link_remove'],
+            $english['storage.link_remove_title'],
+            $english['storage.link_remove_confirm'],
+            $english['storage.link_repointed'],
+            $english['storage.link_repointed_missing'],
+            $english['storage.link_made_directory'],
+            $english['storage.link_removed'],
         ),
     'English fallback catalog is incomplete',
 );
@@ -1709,6 +1724,14 @@ i18nExpect(
         str_contains($script, 'storage.link_sweep_preview_skipped') &&
         str_contains($script, 'storage.link_sweep_left_alone'),
     'broken-link sweep safety and result text retain direct user-visible text',
+);
+i18nExpect(
+    $script !== false &&
+        str_contains($script, 'storage.link_repoint_dialog_title') &&
+        str_contains($script, 'storage.link_make_directory_confirm') &&
+        str_contains($script, 'storage.link_remove_confirm') &&
+        str_contains($script, 'storage.link_repointed_missing'),
+    'broken-link remediation controls retain direct user-visible text',
 );
 i18nExpect(
     str_contains($runtime, 'data-i18n-rich') &&

@@ -34,6 +34,7 @@ export default [
         ZogographOverviewVitalsCards: 'readonly',
         ZogographScanFactCards: 'readonly',
         ZogographTypeGrowthCard: 'readonly',
+        ZogographTypePieCard: 'readonly',
         ZogographUptimeCard: 'readonly',
       },
     },

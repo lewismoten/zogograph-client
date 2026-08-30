@@ -1504,6 +1504,20 @@ i18nExpect(
             $english['storage.link_sweep_remove_confirm'],
             $english['storage.link_sweep_why_not'],
             $english['storage.link_sweep_pointed_at'],
+            $english['storage.symlink_kind_loop'],
+            $english['storage.symlink_kind_ancestor'],
+            $english['storage.symlink_kind_outside'],
+            $english['storage.symlink_kind_broken'],
+            $english['storage.symlink_view_all'],
+            $english['storage.symlink_view_broken'],
+            $english['storage.symlink_view_looped'],
+            $english['storage.symlink_view_external'],
+            $english['storage.symlink_filter_empty'],
+            $english['storage.symlink_link'],
+            $english['storage.symlink_new_marker'],
+            $english['storage.symlink_points_at'],
+            $english['storage.symlink_why_matters'],
+            $english['storage.symlink_showing_capped'],
         ),
     'English fallback catalog is incomplete',
 );
@@ -1746,6 +1760,13 @@ i18nExpect(
         str_contains($script, 'storage.link_sweep_remove_confirm') &&
         str_contains($script, 'storage.link_sweep_pointed_at'),
     'broken-link sweep limits and result table retain direct user-visible text',
+);
+i18nExpect(
+    $script !== false &&
+        str_contains($script, 'storage.symlink_kind_loop') &&
+        str_contains($script, 'storage.symlink_filter_empty') &&
+        str_contains($script, 'storage.symlink_showing_capped'),
+    'symlink filters and tables retain direct user-visible text',
 );
 i18nExpect(
     str_contains($runtime, 'data-i18n-rich') &&

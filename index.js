@@ -24098,10 +24098,10 @@ function targetPath(row) {
 }
 
 const SYMLINK_KINDS = {
-  loop: ['Loop', 'grew'],
-  ancestor: ['Endless directory', 'grew'],
-  outside: ['Leaves the tree', ''],
-  broken: ['Broken', 'muted'],
+  loop: ['storage.symlink_kind_loop', 'Loop', 'grew'],
+  ancestor: ['storage.symlink_kind_ancestor', 'Endless directory', 'grew'],
+  outside: ['storage.symlink_kind_outside', 'Leaves the tree', ''],
+  broken: ['storage.symlink_kind_broken', 'Broken', 'muted'],
 };
 
 /**
@@ -24121,11 +24121,27 @@ const linkState = { data: null, sweep: null, at: null, show: 'all' };
  * translation.
  */
 const SYMLINK_VIEWS = {
-  all: { label: 'All', kinds: null },
-  broken: { label: 'Broken', kinds: ['broken'] },
-  looped: { label: 'Looped', kinds: ['loop', 'ancestor'] },
-  external: { label: 'External', kinds: ['outside'] },
+  all: { key: 'storage.symlink_view_all', label: 'All', kinds: null },
+  broken: {
+    key: 'storage.symlink_view_broken',
+    label: 'Broken',
+    kinds: ['broken'],
+  },
+  looped: {
+    key: 'storage.symlink_view_looped',
+    label: 'Looped',
+    kinds: ['loop', 'ancestor'],
+  },
+  external: {
+    key: 'storage.symlink_view_external',
+    label: 'External',
+    kinds: ['outside'],
+  },
 };
+
+function symlinkViewLabel(view) {
+  return ZogographI18n.t(view.key, {}, view.label);
+}
 
 /**
  * Checks the tree for symlinks that will send something into a loop.
@@ -24288,8 +24304,11 @@ function renderSymlinks() {
   if (!rows.length) {
     $('symlinkTable').replaceChildren(
       note(
-        `Nothing in this check is ${SYMLINK_VIEWS[linkState.show].label.toLowerCase()}. ` +
-          'The other kinds are still there — the buttons above only change what is drawn.',
+        ZogographI18n.t(
+          'storage.symlink_filter_empty',
+          { view: symlinkViewLabel(SYMLINK_VIEWS[linkState.show]) },
+          `Nothing in this check is ${symlinkViewLabel(SYMLINK_VIEWS[linkState.show]).toLowerCase()}. The other kinds are still there — the buttons above only change what is drawn.`,
+        ),
       ),
     );
     $('linkSweepPanel').hidden = !data.problems.some(
@@ -24305,15 +24324,21 @@ function renderSymlinks() {
       {
         label: '',
         render: (row) => {
-          const [label, tone] = SYMLINK_KINDS[row.kind] ?? [row.kind, ''];
+          const [key, fallback, tone] = SYMLINK_KINDS[row.kind] ?? [
+            '',
+            row.kind,
+            '',
+          ];
           const span = document.createElement('span');
-          span.textContent = label;
+          span.textContent = key
+            ? ZogographI18n.t(key, {}, fallback)
+            : fallback;
           span.className = tone;
           return span;
         },
       },
       {
-        label: 'Link',
+        label: ZogographI18n.t('storage.symlink_link', {}, 'Link'),
         className: 'name',
         render: (row) => {
           const span = document.createElement('span');
@@ -24323,19 +24348,27 @@ function renderSymlinks() {
           if (fresh.has(`${row.path} ${row.kind}`)) {
             const mark = document.createElement('span');
             mark.className = 'band-crit small';
-            mark.textContent = ' new';
+            mark.textContent = ZogographI18n.t(
+              'storage.symlink_new_marker',
+              {},
+              ' new',
+            );
             span.appendChild(mark);
           }
           return span;
         },
       },
       {
-        label: 'Points at',
+        label: ZogographI18n.t('storage.symlink_points_at', {}, 'Points at'),
         className: 'name',
         render: (row) => targetPath(row),
       },
       {
-        label: 'Why it matters',
+        label: ZogographI18n.t(
+          'storage.symlink_why_matters',
+          {},
+          'Why it matters',
+        ),
         className: 'muted',
         render: (row) => row.note,
       },
@@ -24353,9 +24386,14 @@ function renderSymlinks() {
   if (data.total > data.shown) {
     $('symlinkTable').appendChild(
       note(
-        `Showing ${humanCount(data.shown)} of ${humanCount(data.total)} problems. ` +
-          'The rest are real and were counted — only the drawing is capped. Clearing out ' +
-          'a path below works on all of them, not just the ones on screen.',
+        ZogographI18n.t(
+          'storage.symlink_showing_capped',
+          {
+            shown: humanCount(data.shown),
+            total: humanCount(data.total),
+          },
+          `Showing ${humanCount(data.shown)} of ${humanCount(data.total)} problems. The rest are real and were counted — only the drawing is capped. Clearing out a path below works on all of them, not just the ones on screen.`,
+        ),
       ),
     );
   }
@@ -24387,7 +24425,7 @@ function symlinkFilter(data) {
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'seg' + (linkState.show === key ? ' on' : '');
-    button.textContent = `${view.label} ${humanCount(n)}`;
+    button.textContent = `${symlinkViewLabel(view)} ${humanCount(n)}`;
     button.disabled = n === 0 && key !== 'all';
     button.addEventListener('click', () => {
       linkState.show = key;

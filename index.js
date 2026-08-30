@@ -23012,191 +23012,60 @@ function renderAiPrices(data) {
 
 function renderPriceTable(target, rows, sort) {
   const today = new Date().toISOString().slice(0, 10);
-  const columns = [
+  renderCoreCardPackage(
+    ZogographAiPriceTableCard,
+    'core-ai-price-table',
+    { target, rows, today, sortState: aiPriceState },
     {
-      label: ZogographI18n.t('ai.pricing_provider', {}, 'Provider'),
-      render: (row) => row.provider,
-      onSort: () => sort('provider'),
-      sortMark:
-        aiPriceState.field === 'provider'
-          ? aiPriceState.direction > 0
-            ? ' ↑'
-            : ' ↓'
-          : '',
-    },
-    {
-      label: ZogographI18n.t('ai.pricing_model', {}, 'Model'),
-      className: 'name',
-      onSort: () => sort('model'),
-      sortMark:
-        aiPriceState.field === 'model'
-          ? aiPriceState.direction > 0
-            ? ' ↑'
-            : ' ↓'
-          : '',
-      render: (row) => {
-        const span = document.createElement('span');
-        span.textContent = row.model;
-        if (row.current) {
-          const mark = document.createElement('span');
-          mark.className = 'band-ok small';
-          mark.textContent = ZogographI18n.t(
-            'ai.pricing_in_use',
-            {},
-            ' in use',
-          );
-          span.appendChild(mark);
-        }
-        return span;
+      renderTable,
+      sort,
+      useRecord(row) {
+        $('aiPriceIn').value = String(row.in);
+        $('aiPriceOut').value = String(row.out);
+        $('aiPriceCached').value = String(row.cached);
+        notice(
+          ZogographI18n.t(
+            'ai.pricing_filled',
+            { model: row.model },
+            'Prices for {{model}} filled in. Save on the Model page to keep them.',
+          ),
+          true,
+        );
+        location.hash = '#/sys-ai-model';
       },
-    },
-    {
-      label: ZogographI18n.t('ai.pricing_input', {}, 'In'),
-      className: 'size',
-      render: (row) => `${row.in}¢/M`,
-      onSort: () => sort('in'),
-      sortMark:
-        aiPriceState.field === 'in'
-          ? aiPriceState.direction > 0
-            ? ' ↑'
-            : ' ↓'
-          : '',
-    },
-    {
-      label: ZogographI18n.t('ai.pricing_output', {}, 'Out'),
-      className: 'size',
-      render: (row) => `${row.out}¢/M`,
-      onSort: () => sort('out'),
-      sortMark:
-        aiPriceState.field === 'out'
-          ? aiPriceState.direction > 0
-            ? ' ↑'
-            : ' ↓'
-          : '',
-    },
-    {
-      label: ZogographI18n.t('ai.pricing_cached', {}, 'Cached'),
-      className: 'size',
-      render: (row) => `${row.cached}¢/M`,
-      onSort: () => sort('cached'),
-      sortMark:
-        aiPriceState.field === 'cached'
-          ? aiPriceState.direction > 0
-            ? ' ↑'
-            : ' ↓'
-          : '',
-    },
-    {
-      label: '',
-      className: 'row-actions',
-      render: (row) => {
-        const wrap = document.createDocumentFragment();
-
-        if (row.current) {
-          const use = document.createElement('button');
-          use.className = 'link icon-action';
-          use.textContent = '✓';
-          use.title = ZogographI18n.t(
-            'ai.pricing_use_title',
-            {},
-            'Use this active price record on the Model page.',
-          );
-          use.addEventListener('click', () => {
-            $('aiPriceIn').value = String(row.in);
-            $('aiPriceOut').value = String(row.out);
-            $('aiPriceCached').value = String(row.cached);
-            notice(
-              ZogographI18n.t(
-                'ai.pricing_filled',
-                { model: row.model },
-                'Prices for {{model}} filled in. Save on the Model page to keep them.',
-              ),
-              true,
-            );
-            location.hash = '#/sys-ai-model';
-          });
-          wrap.appendChild(use);
-        }
-
-        const edit = document.createElement('button');
-        edit.className = 'link icon-action';
-        edit.textContent = '✎';
-        edit.title = ZogographI18n.t(
-          'ai.pricing_edit_title',
-          { date: row.active_from, model: row.model },
-          'Edit the {{date}} price record for {{model}}',
-        );
-        edit.addEventListener('click', () => showPriceDialog(row));
-        wrap.appendChild(edit);
-
-        const duplicate = document.createElement('button');
-        duplicate.className = 'link icon-action';
-        duplicate.textContent = '⧉';
-        duplicate.title = ZogographI18n.t(
-          'ai.pricing_duplicate_title',
-          {},
-          'Duplicate this price record, then choose its next active date.',
-        );
-        duplicate.addEventListener('click', () =>
-          showPriceDialog({
-            ...row,
-            key: null,
-            active_from: today,
-            retired_on: null,
-          }),
-        );
-        wrap.appendChild(duplicate);
-
-        const drop = document.createElement('button');
-        drop.className = 'link danger icon-action';
-        drop.textContent = '⌫';
-        drop.title = ZogographI18n.t(
-          'ai.pricing_remove_title',
-          { date: row.active_from, model: row.model },
-          'Remove the {{date}} price record for {{model}} permanently.',
-        );
-        drop.addEventListener('click', () => {
-          const warning = note(
-            ZogographI18n.t(
-              'ai.pricing_remove_warning',
-              {
-                date: row.active_from,
-                provider: row.provider,
-                model: row.model,
-              },
-              'Remove the {{date}} price record for {{provider}}/{{model}}? This cannot be undone.',
-            ),
-          );
-          showFormDialog(
-            ZogographI18n.t(
-              'ai.pricing_remove_dialog',
-              {},
-              'Remove price record',
-            ),
-            [warning],
-            async () => {
-              renderAiPrices(await post('ai-price-forget', { key: row.key }));
-              notice(
-                ZogographI18n.t('ai.pricing_removed', {}, 'Removed.'),
-                true,
-              );
-            },
-            ZogographI18n.t('ai.pricing_remove_action', {}, 'Remove record'),
-          );
+      editRecord: showPriceDialog,
+      duplicateRecord(row) {
+        showPriceDialog({
+          ...row,
+          key: null,
+          active_from: today,
+          retired_on: null,
         });
-        wrap.appendChild(drop);
-
-        return wrap;
       },
+      removeRecord(row) {
+        const warning = note(
+          ZogographI18n.t(
+            'ai.pricing_remove_warning',
+            { date: row.active_from, provider: row.provider, model: row.model },
+            'Remove the {{date}} price record for {{provider}}/{{model}}? This cannot be undone.',
+          ),
+        );
+        showFormDialog(
+          ZogographI18n.t(
+            'ai.pricing_remove_dialog',
+            {},
+            'Remove price record',
+          ),
+          [warning],
+          async () => {
+            renderAiPrices(await post('ai-price-forget', { key: row.key }));
+            notice(ZogographI18n.t('ai.pricing_removed', {}, 'Removed.'), true);
+          },
+          ZogographI18n.t('ai.pricing_remove_action', {}, 'Remove record'),
+        );
+      },
+      i18n: ZogographI18n,
     },
-  ];
-  renderTable(
-    target,
-    rows,
-    columns,
-    null,
-    (row) => (row.current ? 'row-ok' : ''),
-    (row) => row.key,
   );
 }
 

@@ -77,6 +77,7 @@ export default [
         ZogographTreemapCrumbsCard: 'readonly',
         ZogographStorageHistoryCard: 'readonly',
         ZogographAiPriceSectionsCard: 'readonly',
+        ZogographAiPriceTableCard: 'readonly',
         ZogographNetworkCaptureRequestCard: 'readonly',
         ZogographNetworkCaptureHistoryCard: 'readonly',
         ZogographNetworkCaptureCard: 'readonly',

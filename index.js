@@ -5894,23 +5894,11 @@ function renderAiSettings(data) {
   form.className = 'settings';
 
   form.appendChild(
-    fieldRow(
-      aiSettingsText('enabled_label', `Use ${chatState.who.name}`, {
-        assistant: chatState.who.name,
-      }),
-      (() => {
-        const box = document.createElement('input');
-        box.type = 'checkbox';
-        box.id = 'aiEnabled';
-        box.checked = data.enabled;
-        return box;
-      })(),
-      aiSettingsText(
-        'enabled_help',
-        `Off means ${chatState.who.name} is unavailable and nothing is ever sent anywhere. ` +
-          'Turning it on does not send anything by itself — only asking it something does.',
-        { assistant: chatState.who.name },
-      ),
+    renderCoreCardPackage(
+      ZogographAiEnableToggleCard,
+      'core-ai-enable-toggle',
+      { enabled: data.enabled, assistant: chatState.who.name },
+      { fieldRow, i18n: ZogographI18n },
     ),
   );
 

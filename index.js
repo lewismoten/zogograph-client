@@ -22936,16 +22936,24 @@ async function tryBrowserTool(tool, args) {
 
     const shown = document.createElement('div');
     shown.className = 'try-shown';
-    shown.textContent =
-      'The range picker at the top of the page now reads ' +
-      `“${[...picker.options].find((o) => Number(o.value) === seconds).textContent}”, ` +
-      'and every chart on the page has been redrawn to match.';
+    shown.textContent = ZogographI18n.t(
+      'ai.try_range_set_shown',
+      {
+        range: [...picker.options].find((o) => Number(o.value) === seconds)
+          .textContent,
+      },
+      'The range picker at the top of the page now reads “{{range}}”, and every chart on the page has been redrawn to match.',
+    );
 
     return {
       result: {
         range: args.range,
         live: false,
-        note: 'The dashboard is showing that range now.',
+        note: ZogographI18n.t(
+          'ai.try_range_set_note',
+          {},
+          'The dashboard is showing that range now.',
+        ),
       },
       shown,
     };

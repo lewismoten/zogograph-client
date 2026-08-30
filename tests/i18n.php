@@ -94,6 +94,9 @@ $pathHygieneCard = i18nCardSource(
 $alertBannerCard = i18nCardSource(
     file_get_contents($root . '/cards/alert-banner.js'),
 );
+$broadcastBannerCard = i18nCardSource(
+    file_get_contents($root . '/cards/broadcast-banner.js'),
+);
 $networkPeersCard = i18nCardSource(
     file_get_contents($root . '/cards/network-peers.js'),
 );
@@ -365,6 +368,28 @@ i18nExpect(
             'helpers.i18n.registerCatalog(locale, catalog, false, id)',
         ),
     'core card package catalogs are not namespace-registered before their first render',
+);
+i18nExpect(
+    $page !== false &&
+        str_contains($page, 'src="cards/broadcast-banner.js"') &&
+        $broadcastBannerCard !== false &&
+        str_contains(
+            $broadcastBannerCard,
+            'window.ZogographBroadcastBannerCard',
+        ) &&
+        str_contains($broadcastBannerCard, 'id: "core-broadcast-banner"') &&
+        str_contains(
+            $broadcastBannerCard,
+            'locales: ["core-broadcast-banner."]',
+        ) &&
+        str_contains($broadcastBannerCard, 'catalogs: Object.freeze({') &&
+        str_contains($broadcastBannerCard, '"core-broadcast-banner.one"') &&
+        $script !== false &&
+        str_contains(
+            $script,
+            'renderCoreCardPackage(ZogographBroadcastBannerCard, "core-broadcast-banner",',
+        ),
+    'broadcast banner is not isolated behind its core card-module boundary',
 );
 i18nExpect(
     $page !== false &&

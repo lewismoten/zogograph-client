@@ -30588,6 +30588,24 @@ function renderBroadcasts(rows) {
   }
 
   banner.hidden = false;
+  if (window.ZogographBroadcastBannerCard) {
+    return renderCoreCardPackage(
+      ZogographBroadcastBannerCard,
+      'core-broadcast-banner',
+      rows,
+      {
+        target: banner,
+        ago,
+        externalLink,
+        clear: async (id) => {
+          await post('note-clear', { id });
+          await refreshShared();
+        },
+        notice,
+        i18n: ZogographI18n,
+      },
+    );
+  }
 
   const frag = document.createDocumentFragment();
 

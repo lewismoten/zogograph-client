@@ -36,6 +36,7 @@ export default [
         ZogographInstalledSoftwareCard: 'readonly',
         ZogographPathHygieneCard: 'readonly',
         ZogographAlertBannerCard: 'readonly',
+        ZogographBroadcastBannerCard: 'readonly',
         ZogographRoomChart: 'readonly',
         ZogographIoChart: 'readonly',
         ZogographCpuChart: 'readonly',

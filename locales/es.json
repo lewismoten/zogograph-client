@@ -866,6 +866,8 @@
   "peers.admin_only": "Solo los administradores pueden administrar servidores de confianza.",
   "ai.start_new": "Iniciar una nueva",
   "ai.nothing_chosen": "Aún no se ha elegido nada.",
+  "ai.extend_limit_help": "Duplica ese límite solo para ESTA conversación. La configuración de todas las conversaciones futuras no se modifica.",
+  "ai.limit_raised": "Aumentado para esta conversación. Continúe.",
   "ai.context_added": "Añadido. Lo leerá en su siguiente turno.",
   "terminal.copy_output": "Copiar la salida",
   "terminal.suggestion_expectation": "Qué buscar: {{expectation}}",

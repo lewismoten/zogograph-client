@@ -12083,9 +12083,11 @@ function renderChatStatus(session) {
         turns: 'Give it more turns',
       }[session.limit_hit] ?? 'Raise the limit';
 
-    more.title =
-      'Doubles that one limit for THIS conversation only. The settings for ' +
-      'every future conversation are not touched.';
+    more.title = ZogographI18n.t(
+      'ai.extend_limit_help',
+      {},
+      'Doubles that one limit for THIS conversation only. The settings for every future conversation are not touched.',
+    );
 
     more.addEventListener('click', async () => {
       try {
@@ -12094,7 +12096,14 @@ function renderChatStatus(session) {
           which: session.limit_hit,
         });
         chatState.session = fresh.session;
-        notice('Raised, for this conversation. Carry on.', true);
+        notice(
+          ZogographI18n.t(
+            'ai.limit_raised',
+            {},
+            'Raised, for this conversation. Carry on.',
+          ),
+          true,
+        );
         renderChat();
       } catch (error) {
         notice(String(error.message || error));

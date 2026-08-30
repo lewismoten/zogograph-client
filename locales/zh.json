@@ -852,6 +852,8 @@
   "peers.admin_only": "只有管理员可以管理受信任的服务器。",
   "ai.start_new": "开始新对话",
   "ai.nothing_chosen": "尚未选择任何内容。",
+  "ai.extend_limit_help": "仅将此对话的该限制翻倍。不会改动任何未来对话的设置。",
+  "ai.limit_raised": "已为此对话提高限制。请继续。",
   "ai.context_added": "已添加。它会在下一轮阅读它。",
   "terminal.copy_output": "复制输出",
   "terminal.suggestion_expectation": "要查找的内容：{{expectation}}",

@@ -209,7 +209,9 @@ function redactAccountNodes(root) {
       const span = document.createElement("span");
       const mine = match[1] === account;
       span.className = mine ? "user-me" : "user-root";
-      span.title = mine ? "This account — the one this dashboard runs as." : "root";
+      span.title = mine
+        ? ZogographI18n.t("account.this_account", {}, "This account — the one this dashboard runs as.")
+        : ZogographI18n.t("account.root", {}, "root");
       span.textContent = mine && state.access?.account_privacy ? "[self]" : match[1];
       fragment.append(span);
       at = match.index + match[0].length;
@@ -26864,10 +26866,11 @@ function userCell(user) {
 
   if (mine) {
     span.className = "user-me";
-    span.title = "This account — the one this dashboard runs as.";
+    span.title = ZogographI18n.t("account.this_account", {}, "This account — the one this dashboard runs as.");
   } else if (user === "root") {
     span.className = "user-root";
-    span.title = "root. This dashboard cannot stop or change these.";
+    span.title = ZogographI18n.t("account.root_unmanaged", {},
+      "root. This dashboard cannot stop or change these.");
   }
 
   return span;

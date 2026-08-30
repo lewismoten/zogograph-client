@@ -44115,9 +44115,9 @@ async function refreshBackups() {
     wrap.appendChild(
       simpleTable(
         [
-          'Account',
-          'Live data',
-          'Backups',
+          ZogographI18n.t('backup.account', {}, 'Account'),
+          ZogographI18n.t('backup.live_data', {}, 'Live data'),
+          ZogographI18n.t('backup.backups', {}, 'Backups'),
           'Ratio',
           'Copies',
           'Oldest',

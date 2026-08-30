@@ -5,16 +5,32 @@ window.ZogographCalendarGridCard = {
     locales: ['core-calendar-grid.'],
     helpers: ['target', 'openDay', 'i18n'],
     catalogs: Object.freeze({
-      en: Object.freeze({}),
-      es: Object.freeze({}),
-      hi: Object.freeze({}),
-      ar: Object.freeze({}),
-      zh: Object.freeze({}),
+      en: Object.freeze({
+        'core-calendar-grid.events_on_day':
+          '{{count, number}} events on {{date}}',
+      }),
+      es: Object.freeze({
+        'core-calendar-grid.events_on_day':
+          '{{count, number}} eventos el {{date}}',
+      }),
+      hi: Object.freeze({
+        'core-calendar-grid.events_on_day':
+          '{{date}} को {{count, number}} कार्यक्रम',
+      }),
+      ar: Object.freeze({
+        'core-calendar-grid.events_on_day':
+          '{{count, number}} أحداث في {{date}}',
+      }),
+      zh: Object.freeze({
+        'core-calendar-grid.events_on_day':
+          '{{date}} 有 {{count, number}} 个事项',
+      }),
     }),
   }),
 
   render(data, helpers) {
-    const { target, openDay } = helpers;
+    const { target, openDay, i18n } = helpers;
+    const t = (key, values, fallback) => i18n.t(key, values, fallback);
     if (!target) return;
     const fragment = document.createDocumentFragment();
     const start = new Date(data.from * 1000);
@@ -82,6 +98,21 @@ window.ZogographCalendarGridCard = {
           cell.tabIndex = 0;
           cell.setAttribute('role', 'button');
           cell.title = entries.map((entry) => entry.title).join('\n');
+          cell.setAttribute(
+            'aria-label',
+            t(
+              'core-calendar-grid.events_on_day',
+              {
+                count: entries.length,
+                date: date.toLocaleDateString(undefined, {
+                  day: 'numeric',
+                  month: 'long',
+                  year: 'numeric',
+                }),
+              },
+              '{{count, number}} events on {{date}}',
+            ),
+          );
           const open = () => openDay(key, entries);
           cell.addEventListener('click', open);
           cell.addEventListener('keydown', (event) => {

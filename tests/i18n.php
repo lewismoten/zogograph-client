@@ -368,6 +368,7 @@ i18nExpect(
         str_contains($calendarGridCard, 'id: "core-calendar-grid"') &&
         str_contains($calendarGridCard, 'locales: ["core-calendar-grid."]') &&
         str_contains($calendarGridCard, 'catalogs: Object.freeze({') &&
+        str_contains($calendarGridCard, '"core-calendar-grid.events_on_day"') &&
         $script !== false &&
         str_contains(
             $script,

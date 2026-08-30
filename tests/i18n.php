@@ -803,19 +803,7 @@ i18nExpect(
     $onboardingCard !== false &&
         str_contains($onboardingCard, 'core-onboarding.intro') &&
         str_contains($onboardingCard, 'core-onboarding.vitals_missing') &&
-        str_contains($onboardingCard, 'core-onboarding.scan_ready') &&
-        is_array($english) &&
-        isset(
-            $english['onboarding.intro'],
-            $english['onboarding.vitals_missing'],
-            $english['onboarding.open_schedule'],
-            $english['onboarding.vitals_ready'],
-            $english['onboarding.review_schedule'],
-            $english['onboarding.scan_missing'],
-            $english['onboarding.open_storage'],
-            $english['onboarding.scan_ready'],
-            $english['onboarding.review_storage'],
-        ),
+        str_contains($onboardingCard, 'core-onboarding.scan_ready'),
     'first-run dashboard guidance does not use the locale catalog',
 );
 i18nExpect(

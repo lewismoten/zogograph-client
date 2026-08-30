@@ -91,6 +91,9 @@ $installedSoftwareCard = i18nCardSource(
 $pathHygieneCard = i18nCardSource(
     file_get_contents($root . '/cards/path-hygiene.js'),
 );
+$alertBannerCard = i18nCardSource(
+    file_get_contents($root . '/cards/alert-banner.js'),
+);
 $networkPeersCard = i18nCardSource(
     file_get_contents($root . '/cards/network-peers.js'),
 );
@@ -362,6 +365,22 @@ i18nExpect(
             'helpers.i18n.registerCatalog(locale, catalog, false, id)',
         ),
     'core card package catalogs are not namespace-registered before their first render',
+);
+i18nExpect(
+    $page !== false &&
+        str_contains($page, 'src="cards/alert-banner.js"') &&
+        $alertBannerCard !== false &&
+        str_contains($alertBannerCard, 'window.ZogographAlertBannerCard') &&
+        str_contains($alertBannerCard, 'id: "core-alert-banner"') &&
+        str_contains($alertBannerCard, 'locales: ["core-alert-banner."]') &&
+        str_contains($alertBannerCard, 'catalogs: Object.freeze({') &&
+        str_contains($alertBannerCard, '"core-alert-banner.unread"') &&
+        $script !== false &&
+        str_contains(
+            $script,
+            'renderCoreCardPackage(ZogographAlertBannerCard, "core-alert-banner",',
+        ),
+    'alert banner is not isolated behind its core card-module boundary',
 );
 i18nExpect(
     $page !== false &&

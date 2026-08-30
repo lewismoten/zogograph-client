@@ -30684,6 +30684,23 @@ function renderAlertBanner(unread) {
   }
 
   banner.hidden = false;
+  if (window.ZogographAlertBannerCard) {
+    return renderCoreCardPackage(
+      ZogographAlertBannerCard,
+      'core-alert-banner',
+      unread,
+      {
+        target: banner,
+        severityIcon,
+        showView,
+        dismiss: () => {
+          writeDismissed(newest);
+          banner.hidden = true;
+        },
+        i18n: ZogographI18n,
+      },
+    );
+  }
   banner.className = unread.some((r) => r.severity === 'critical')
     ? 'crit'
     : '';

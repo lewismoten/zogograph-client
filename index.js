@@ -44118,10 +44118,10 @@ async function refreshBackups() {
           ZogographI18n.t('backup.account', {}, 'Account'),
           ZogographI18n.t('backup.live_data', {}, 'Live data'),
           ZogographI18n.t('backup.backups', {}, 'Backups'),
-          'Ratio',
-          'Copies',
-          'Oldest',
-          'Newest',
+          ZogographI18n.t('backup.ratio', {}, 'Ratio'),
+          ZogographI18n.t('backup.copies', {}, 'Copies'),
+          ZogographI18n.t('backup.oldest', {}, 'Oldest'),
+          ZogographI18n.t('backup.newest', {}, 'Newest'),
         ],
         data.accounts.map((row) => [
           // The unattributed remainder has no account, and an empty cell reads

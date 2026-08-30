@@ -27136,10 +27136,13 @@ function renderDescriptions() {
         gone.className = "link danger";
         gone.textContent = ZogographI18n.t("action.forget", {}, "Forget");
         gone.addEventListener("click", async () => {
-          const yes = await askFirst(`Forget what ${row.name} is?`, [
-            "The note goes; the built-in description takes over again if there is one "
-            + "for that name, and otherwise the name appears with nothing beside it.",
-          ], "Forget it", true);
+          const yes = await askFirst(ZogographI18n.t("descriptions.forget_prompt", {
+            name: row.name,
+          }, "Forget what {{name}} is?"), [
+            ZogographI18n.t("descriptions.forget_help", {},
+              "The note goes; the built-in description takes over again if there is one "
+              + "for that name, and otherwise the name appears with nothing beside it."),
+          ], ZogographI18n.t("descriptions.forget_action", {}, "Forget it"), true);
           if (!yes) return;
 
           try {

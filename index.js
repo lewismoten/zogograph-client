@@ -10230,13 +10230,13 @@ function renderChatStatus(session) {
     status.appendChild(more);
   }
 
-  if (['stopped', 'ended', 'failed'].includes(session.state)) {
-    const again = document.createElement('button');
-    again.className = 'link';
-    again.textContent = ZogographI18n.t('ai.start_new', {}, 'Start a new one');
-    again.addEventListener('click', () => startChat());
-    status.appendChild(again);
-  }
+  const again = renderCoreCardPackage(
+    ZogographChatRestartCard,
+    'core-chat-restart',
+    { state: session.state },
+    { startChat, i18n: ZogographI18n },
+  );
+  if (again) status.appendChild(again);
 }
 
 /* ------------------------------------------- what the new tools actually do -- */

@@ -87,6 +87,7 @@ export default [
         ZogographChatTitleCard: 'readonly',
         ZogographChatActivityCard: 'readonly',
         ZogographChatTerminalStateCard: 'readonly',
+        ZogographChatRestartCard: 'readonly',
         ZogographAiStoreCard: 'readonly',
         ZogographAiAssetGalleryCard: 'readonly',
         ZogographAiForgetFormCard: 'readonly',

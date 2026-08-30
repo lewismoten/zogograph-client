@@ -852,6 +852,7 @@
   "peers.admin_only": "只有管理员可以管理受信任的服务器。",
   "ai.start_new": "开始新对话",
   "ai.nothing_chosen": "尚未选择任何内容。",
+  "database.all_reading_tiers": "所有读数层级",
   "database.projected_with_growth": "{{projected}}，若没有任何内容到期，每年还会增加约 {{growth}}",
   "database.write_ahead_log_bytes": " + {{bytes}} 预写日志",
   "database.quick_check_passed": "✓ 快速检查已通过",

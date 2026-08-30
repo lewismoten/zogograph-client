@@ -18544,7 +18544,13 @@ function renderAccountData(data) {
         .filter((entry) => !entry.shares_table || entry.key === 'raw_days')
         .map((entry) => [
           entry.shares_table ? 'vitals' : entry.table,
-          entry.shares_table ? 'all reading tiers' : entry.label,
+          entry.shares_table
+            ? ZogographI18n.t(
+                'database.all_reading_tiers',
+                {},
+                'all reading tiers',
+              )
+            : entry.label,
         ]),
       ...account.others.map((other) => [other.table, '']),
     ];

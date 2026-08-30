@@ -20161,8 +20161,11 @@ function renderTerminal(data) {
   if (!data.can) {
     parts.push(
       note(
-        `${data.why} There is nothing this page can do about that, and nothing it should ` +
-          'try — a host that has taken shell functions away has taken them away on purpose.',
+        ZogographI18n.t(
+          'terminal.unavailable_reason',
+          { reason: data.why },
+          '{{reason}} There is nothing this page can do about that, and nothing it should try — a host that has taken shell functions away has taken them away on purpose.',
+        ),
       ),
     );
     body.replaceChildren(...parts);
@@ -20172,9 +20175,11 @@ function renderTerminal(data) {
   if (!data.permitted) {
     parts.push(
       note(
-        'The terminal is switched off. It is off by default because it runs whatever is ' +
-          'typed into it — that is not a reason to avoid it, but it is a reason for the ' +
-          'decision to be deliberate rather than inherited from a sample file.',
+        ZogographI18n.t(
+          'terminal.switched_off_help',
+          {},
+          'The terminal is switched off. It is off by default because it runs whatever is typed into it — that is not a reason to avoid it, but it is a reason for the decision to be deliberate rather than inherited from a sample file.',
+        ),
       ),
     );
     parts.push(permitForm(data));
@@ -20224,7 +20229,11 @@ function renderTerminal(data) {
   if (data.suggestions.length) {
     parts.push(
       section(
-        `${data.who.name} suggested ${count(data.suggestions.length, 'command')}`,
+        ZogographI18n.t(
+          'terminal.suggested_commands',
+          { assistant: data.who.name, count: data.suggestions.length },
+          '{{assistant}} suggested {{count, number}} commands',
+        ),
         suggestionList(data.suggestions),
       ),
     );
@@ -20281,7 +20290,11 @@ function renderTerminal(data) {
   box.id = 'terminalInput';
   box.rows = 2;
   box.spellcheck = false;
-  box.placeholder = 'df -h; echo; ls -la ~/public_html | head';
+  box.placeholder = ZogographI18n.t(
+    'terminal.command_placeholder',
+    {},
+    'df -h; echo; ls -la ~/public_html | head',
+  );
   form.appendChild(box);
 
   const go = document.createElement('button');

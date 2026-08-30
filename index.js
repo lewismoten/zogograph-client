@@ -35569,7 +35569,13 @@ function renderCapture(capture, target = 'captureBody') {
           humanBytes(p.in_bytes),
           humanBytes(p.out_bytes),
           p.opened ? humanCount(p.opened) : '\u2014',
-          p.private ? 'private address' : '',
+          p.private
+            ? ZogographI18n.t(
+                'network.private_address',
+                {},
+                'a private address — another machine on this network',
+              )
+            : '',
         ]),
       ['name', 'size', 'size', 'size', 'size', 'size', null],
     );

@@ -6964,11 +6964,14 @@ function renderAiTools(data) {
      * else.
      */
     if (tool.enabled && tool.offered === false) {
-      const why = document.createElement('div');
-      why.className = 'band-warn small';
-      why.textContent = ZogographI18n.t('ai.tool_not_in_use', {}, 'not in use');
-      why.title = tool.not_offered_because ?? '';
-      on.appendChild(why);
+      on.appendChild(
+        renderCoreCardPackage(
+          ZogographAiToolAvailabilityCard,
+          'core-ai-tool-availability',
+          { reason: tool.not_offered_because ?? '' },
+          { i18n: ZogographI18n },
+        ),
+      );
     }
 
     const gate = row.insertCell();

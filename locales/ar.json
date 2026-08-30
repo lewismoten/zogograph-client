@@ -232,6 +232,7 @@
   "alerts.mute_duration_4h": "4 ساعات",
   "alerts.mute_duration_1d": "يوم واحد",
   "alerts.mute_duration_7d": "7 أيام",
+  "alerts.assistant_says": "{{assistant}} يقول",
   "process.table_pid": "PID",
   "process.table_user": "المستخدم",
   "process.table_running_for": "يعمل منذ",

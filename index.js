@@ -30745,7 +30745,11 @@ async function refreshAlerts() {
    */
   if (state.signedIn && rows.some((row) => row.ai_summary)) {
     columns.push({
-      label: `${chatState.who.name} says`,
+      label: ZogographI18n.t(
+        'alerts.assistant_says',
+        { assistant: chatState.who.name },
+        '{{assistant}} says',
+      ),
       className: 'cmd',
       render: alertOpinion,
     });

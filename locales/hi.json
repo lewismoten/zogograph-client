@@ -232,6 +232,7 @@
   "alerts.mute_duration_4h": "4 घंटे",
   "alerts.mute_duration_1d": "1 दिन",
   "alerts.mute_duration_7d": "7 दिन",
+  "alerts.assistant_says": "{{assistant}} कहता है",
   "process.table_pid": "PID",
   "process.table_user": "उपयोगकर्ता",
   "process.table_running_for": "से चल रहा है",

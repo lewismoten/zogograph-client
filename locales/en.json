@@ -2371,6 +2371,7 @@
   "tree.measuring_directory": "Measuring this directory…",
   "backup.storage_title": "Backup storage",
   "backup.storage_help": "Backups are usually the largest thing on a server and the last place anybody looks, because they are not in /home. This asks four questions: how much space, whose, how old, and what is safe to do about it.",
+  "backup.jetbackup_empty": "JetBackup answered, but listed no backups and no destinations.",
   "backup.actions_title": "What can be done about it",
   "backup.actions_help": "Sorted by how safe each one is, not by how much it would free. Anything marked destructive removes the only copy of something — the whole point of a backup is that it is there on the day nobody expected to need it.",
   "backup.other_title": "Other probable backups",

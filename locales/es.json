@@ -2286,6 +2286,7 @@
   "tree.measuring_directory": "Midiendo este directorio…",
   "backup.storage_title": "Almacenamiento de copias de seguridad",
   "backup.storage_help": "Las copias de seguridad suelen ser lo más grande de un servidor y lo último que alguien mira, porque no están en /home. Esta página responde cuatro preguntas: cuánto espacio ocupan, de quién son, qué antigüedad tienen y qué es seguro hacer con ellas.",
+  "backup.jetbackup_empty": "JetBackup respondió, pero no enumeró copias de seguridad ni destinos.",
   "backup.actions_title": "Qué se puede hacer",
   "backup.actions_help": "Se ordenan por la seguridad de cada acción, no por cuánto liberarían. Toda acción destructiva elimina la única copia de algo; la razón de una copia de seguridad es que esté disponible el día que nadie esperaba necesitarla.",
   "backup.other_title": "Otras posibles copias de seguridad",

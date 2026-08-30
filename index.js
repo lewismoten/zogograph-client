@@ -43915,7 +43915,13 @@ function renderJetBackup(jet) {
 
   if (!out.childElementCount) {
     out.appendChild(
-      note('JetBackup answered, but listed no backups and no destinations.'),
+      note(
+        ZogographI18n.t(
+          'backup.jetbackup_empty',
+          {},
+          'JetBackup answered, but listed no backups and no destinations.',
+        ),
+      ),
     );
   }
 

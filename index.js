@@ -36746,79 +36746,18 @@ const GROUP_TITLES = {
 function renderDnsGroup(id, rows) {
   const el = $(id);
   if (!el) return;
-
-  renderTable(
-    id,
-    rows,
-    [
-      {
-        label: ZogographI18n.t('table.name', {}, 'Name'),
-        className: 'name',
-        render: (row) => {
-          const span = document.createElement('span');
-          span.textContent = row.name;
-          // A class rather than an inline style, to match the rest and to stay
-          // clear of the CSP question entirely.
-          if (row.gone) span.className = 'muted struck';
-          return span;
-        },
-      },
-      {
-        label: ZogographI18n.t('table.type', {}, 'Type'),
-        render: (row) => row.type,
-      },
-      {
-        label: ZogographI18n.t('table.value', {}, 'Value'),
-        className: 'cmd',
-        render: (row) => recordValueCell(row),
-      },
-      {
-        label: ZogographI18n.t('dns.ttl', {}, 'TTL'),
-        className: 'size',
-        render: (row) => {
-          const span = document.createElement('span');
-          span.textContent = humanDuration(Number(row.ttl));
-          /*
-           * A very short TTL is worth noticing.
-           *
-           * Sixty seconds is what somebody sets during a migration so a change
-           * propagates quickly, and it is nearly always meant to be put back.
-           * Left down, every resolver on the internet re-asks constantly.
-           */
-          if (Number(row.ttl) > 0 && Number(row.ttl) <= 300) {
-            span.className = 'band-warn';
-            span.title = ZogographI18n.t(
-              'dns.short_ttl_help',
-              {},
-              'A short TTL means resolvers re-ask constantly. Often left over from a migration.',
-            );
-          }
-          return span;
-        },
-      },
-      {
-        label: '',
-        render: (row) => {
-          const span = document.createElement('span');
-          span.className = 'muted small';
-          span.textContent = row.gone
-            ? ZogographI18n.t(
-                'dns.gone_since',
-                { date: humanTime(row.gone_at).split(',')[0] },
-                'Gone since {{date}}',
-              )
-            : ZogographI18n.t(
-                'dns.seen_since',
-                { date: humanTime(row.first_seen).split(',')[0] },
-                'Seen since {{date}}',
-              );
-          return span;
-        },
-      },
-    ],
-    null,
-    (row) => (row.gone ? 'row-bad' : ''),
-    (row) => `${row.name}|${row.type}|${row.value}`,
+  renderCoreCardPackage(
+    ZogographDnsRecordGroupCard,
+    'core-dns-record-group',
+    { rows },
+    {
+      target: el,
+      renderTable,
+      recordValueCell,
+      humanDuration,
+      humanTime,
+      i18n: ZogographI18n,
+    },
   );
 }
 

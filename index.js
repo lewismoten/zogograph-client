@@ -5326,35 +5326,18 @@ async function showHistory(pathId, quiet = false) {
     to,
   });
 
-  $('historyPanel').hidden = false;
-  $('historyTitle').textContent = data.path.display;
-  // Size on the left in bytes, file count on the right: a directory holding
-  // ten thousand small files and one holding a single huge one are different
-  // problems, and on one axis the count is a flat line along the bottom.
-  drawLineChart(
-    $('historyChart'),
-    data.rows,
-    [
-      {
-        key: 'bytes',
-        label: ZogographI18n.t('storage.size', {}, 'Size'),
-      },
-      {
-        key: 'files',
-        label: ZogographI18n.t('storage.files_right', {}, 'Files (right)'),
-        axis: 'right',
-      },
-    ],
+  renderCoreCardPackage(
+    ZogographStorageHistoryCard,
+    'core-storage-history',
+    data,
     {
-      xKey: 'started_at',
-      axis: bytesAxis,
-      rightAxis: countAxis,
-      zeroBased: true,
-      empty: ZogographI18n.t(
-        'storage.history_one_scan',
-        {},
-        'This path has only been seen in one scan so far',
-      ),
+      panel: $('historyPanel'),
+      title: $('historyTitle'),
+      chart: $('historyChart'),
+      drawLineChart,
+      bytesAxis,
+      countAxis,
+      i18n: ZogographI18n,
     },
   );
 

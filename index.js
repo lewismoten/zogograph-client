@@ -22343,70 +22343,87 @@ function applyDisplayPreferences(preferences, remember = true) {
 function openDisplayPreferences() {
   const current = displayPreferences();
   const textSize = document.createElement('select');
-  for (const [value, label] of [
-    ['small', 'Smaller'],
-    ['default', 'Default'],
-    ['large', 'Larger'],
+  for (const [value, labelKey, labelFallback] of [
+    ['small', 'display.text_size_small', 'Smaller'],
+    ['default', 'display.text_size_default', 'Default'],
+    ['large', 'display.text_size_large', 'Larger'],
   ]) {
     const option = document.createElement('option');
     option.value = value;
-    option.textContent = label;
+    option.textContent = ZogographI18n.t(labelKey, {}, labelFallback);
     option.selected = value === current.textSize;
     textSize.appendChild(option);
   }
   const motion = document.createElement('select');
-  for (const [value, label] of [
-    ['system', 'Use system setting'],
-    ['reduce', 'Reduce motion'],
+  for (const [value, labelKey, labelFallback] of [
+    ['system', 'display.motion_system', 'Use system setting'],
+    ['reduce', 'display.motion_reduce', 'Reduce motion'],
   ]) {
     const option = document.createElement('option');
     option.value = value;
-    option.textContent = label;
+    option.textContent = ZogographI18n.t(labelKey, {}, labelFallback);
     option.selected = value === current.motion;
     motion.appendChild(option);
   }
   const editorFont = document.createElement('select');
-  for (const [value, label] of [
-    ['system', 'System monospace'],
-    ['compact', 'Compact monospace'],
-    ['classic', 'Classic monospace'],
+  for (const [value, labelKey, labelFallback] of [
+    ['system', 'display.font_system', 'System monospace'],
+    ['compact', 'display.font_compact', 'Compact monospace'],
+    ['classic', 'display.font_classic', 'Classic monospace'],
   ]) {
     const option = document.createElement('option');
     option.value = value;
-    option.textContent = label;
+    option.textContent = ZogographI18n.t(labelKey, {}, labelFallback);
     option.selected = value === current.editorFont;
     editorFont.appendChild(option);
   }
   const colorVision = document.createElement('select');
-  for (const [value, label] of [
-    ['system', 'Default palette'],
-    ['distinguish', 'High-distinction palette'],
+  for (const [value, labelKey, labelFallback] of [
+    ['system', 'display.palette_default', 'Default palette'],
+    ['distinguish', 'display.palette_distinction', 'High-distinction palette'],
   ]) {
     const option = document.createElement('option');
     option.value = value;
-    option.textContent = label;
+    option.textContent = ZogographI18n.t(labelKey, {}, labelFallback);
     option.selected = value === current.colorVision;
     colorVision.appendChild(option);
   }
   const speaking = document.createElement('select');
-  for (const [value, label] of [
-    ['never', 'Never'],
-    ['replies', 'Read assistant replies'],
+  for (const [value, labelKey, labelFallback] of [
+    ['never', 'display.voice_never', 'Never'],
+    ['replies', 'display.voice_replies', 'Read assistant replies'],
   ]) {
-    const option = new Option(label, value, false, value === current.speaking);
+    const option = new Option(
+      ZogographI18n.t(labelKey, {}, labelFallback),
+      value,
+      false,
+      value === current.speaking,
+    );
     speaking.append(option);
   }
   const listening = document.createElement('select');
-  for (const [value, label] of [
-    ['never', 'Never'],
-    ['push', 'Push to talk'],
-    ['always', 'Always on'],
+  for (const [value, labelKey, labelFallback] of [
+    ['never', 'display.voice_never', 'Never'],
+    ['push', 'display.voice_push', 'Push to talk'],
+    ['always', 'display.voice_always', 'Always on'],
   ]) {
-    const option = new Option(label, value, false, value === current.listening);
+    const option = new Option(
+      ZogographI18n.t(labelKey, {}, labelFallback),
+      value,
+      false,
+      value === current.listening,
+    );
     listening.append(option);
   }
   const voice = document.createElement('select');
-  voice.append(new Option('Browser default', '', false, current.voice === ''));
+  voice.append(
+    new Option(
+      ZogographI18n.t('display.voice_browser_default', {}, 'Browser default'),
+      '',
+      false,
+      current.voice === '',
+    ),
+  );
   for (const item of window.speechSynthesis?.getVoices() || [])
     voice.append(
       new Option(

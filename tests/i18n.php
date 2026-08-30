@@ -1322,6 +1322,9 @@ i18nExpect(
             $english['openid.secret_copy'],
             $english['page.document_title'],
             $english['page.title'],
+            $english['terminal.suggestion_expectation'],
+            $english['terminal.syntax_preview_title'],
+            $english['terminal.send_output_to'],
         ),
     'English fallback catalog is incomplete',
 );
@@ -1372,6 +1375,13 @@ foreach (array_unique($dynamicDashboardKeys[1] ?? []) as $key) {
         "dashboard dynamic i18n key $key has no English fallback",
     );
 }
+i18nExpect(
+    $script !== false &&
+        str_contains($script, 'terminal.suggestion_expectation') &&
+        str_contains($script, 'terminal.syntax_preview_title') &&
+        str_contains($script, 'terminal.send_output_to'),
+    'terminal editor actions are not localized',
+);
 i18nExpect(
     str_contains($runtime, 'data-i18n-rich') &&
         str_contains($runtime, 'data-i18n-tag') &&

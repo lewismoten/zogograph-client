@@ -20017,7 +20017,11 @@ function suggestionList(suggestions) {
     if (one.expect) {
       const expect = document.createElement('div');
       expect.className = 'muted small';
-      expect.textContent = `What to look for: ${one.expect}`;
+      expect.textContent = ZogographI18n.t(
+        'terminal.suggestion_expectation',
+        { expectation: one.expect },
+        'What to look for: {{expectation}}',
+      );
       card.appendChild(expect);
     }
 
@@ -20508,7 +20512,11 @@ async function openTerminalEditor(path) {
       {},
       'Syntax preview',
     );
-    syntaxButton.title = `Read the current ${syntax.toUpperCase()} text with local syntax colors`;
+    syntaxButton.title = ZogographI18n.t(
+      'terminal.syntax_preview_title',
+      { syntax: syntax.toUpperCase() },
+      'Read the current {{syntax}} text with local syntax colors',
+    );
     syntaxButton.addEventListener('click', () => {
       const preview = terminalEditorSyntaxPreview(data.path, text.value);
       if (preview === null) return;
@@ -20840,7 +20848,11 @@ function renderTerminalActions() {
 
   const send = document.createElement('button');
   send.className = 'link';
-  send.textContent = `Send this output to ${termState.data?.who?.name ?? 'the assistant'}`;
+  send.textContent = ZogographI18n.t(
+    'terminal.send_output_to',
+    { assistant: termState.data?.who?.name ?? 'the assistant' },
+    'Send this output to {{assistant}}',
+  );
   send.title = 'It goes into the conversation as a message from you.';
   send.addEventListener('click', () => {
     sendOutputToChat(data).catch((error) =>

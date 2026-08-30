@@ -1,3 +1,5 @@
 {
-  "core-ai-highlight-on-page.summary": "أشر إلى شيء في الصفحة."
+  "core-ai-highlight-on-page.summary": "أشر إلى شيء في الصفحة.",
+  "core-ai-highlight-on-page.try_found": "يظهر محددًا ونابضًا في الصفحة خلف هذه. افتح الصفحة التي يوجد فيها لترى ذلك.",
+  "core-ai-highlight-on-page.try_not_found": "لم يطابق شيء في الصفحة المفتوحة، وهذا بالضبط ما يُقال للنموذج."
 }

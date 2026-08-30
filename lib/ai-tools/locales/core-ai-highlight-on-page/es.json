@@ -1,3 +1,5 @@
 {
-  "core-ai-highlight-on-page.summary": "Señale algo en la página."
+  "core-ai-highlight-on-page.summary": "Señale algo en la página.",
+  "core-ai-highlight-on-page.try_found": "Está delineado y pulsando en la página detrás de esta. Abra la página donde está para verlo ocurrir.",
+  "core-ai-highlight-on-page.try_not_found": "Nada de la página abierta coincidió, que es exactamente lo que se comunica al modelo."
 }

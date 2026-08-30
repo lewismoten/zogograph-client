@@ -20804,10 +20804,15 @@ async function tryBrowserTool(tool, args) {
     return {
       result,
       shown: note(
-        result.found
-          ? 'It is outlined and pulsing on the page behind this one. Open the page it is ' +
-              'on to watch it happen.'
-          : 'Nothing on the open page matched, which is exactly what the model is told.',
+        ZogographI18n.t(
+          result.found
+            ? 'core-ai-highlight-on-page.try_found'
+            : 'core-ai-highlight-on-page.try_not_found',
+          {},
+          result.found
+            ? 'It is outlined and pulsing on the page behind this one.'
+            : 'Nothing on the open page matched.',
+        ),
       ),
     };
   }

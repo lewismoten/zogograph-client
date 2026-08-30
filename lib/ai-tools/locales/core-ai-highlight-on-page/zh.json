@@ -1,3 +1,5 @@
 {
-  "core-ai-highlight-on-page.summary": "指向页面上的某个内容。"
+  "core-ai-highlight-on-page.summary": "指向页面上的某个内容。",
+  "core-ai-highlight-on-page.try_found": "它在当前页面后面的页面上被描边并闪动。打开所在页面即可看到效果。",
+  "core-ai-highlight-on-page.try_not_found": "打开的页面中没有任何内容匹配，而这正是告诉模型的内容。"
 }

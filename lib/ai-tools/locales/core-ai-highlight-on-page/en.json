@@ -1,3 +1,5 @@
 {
-  "core-ai-highlight-on-page.summary": "Point at something on the page."
+  "core-ai-highlight-on-page.summary": "Point at something on the page.",
+  "core-ai-highlight-on-page.try_found": "It is outlined and pulsing on the page behind this one. Open the page it is on to watch it happen.",
+  "core-ai-highlight-on-page.try_not_found": "Nothing on the open page matched, which is exactly what the model is told."
 }

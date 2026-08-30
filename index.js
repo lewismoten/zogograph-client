@@ -7505,61 +7505,12 @@ function pictureFields(data) {
     ),
   );
 
-  const perHour = document.createElement('input');
-  perHour.type = 'number';
-  perHour.id = 'aiPerHour';
-  perHour.min = '0';
-  perHour.max = '200';
-  perHour.className = 'days';
-  perHour.value = String(pictures.per_hour);
-  form.appendChild(
-    fieldRow(
-      ZogographI18n.t('ai.images_per_hour', {}, 'At most, per hour'),
-      perHour,
-      ZogographI18n.t(
-        'ai.images_per_hour_help',
-        {},
-        'Across everything on this panel. A model that finds something amusing will keep doing it, and each one is billed — this is what stops a loop running up a bill before anybody notices. Zero switches picture-making off without losing the rest of these settings.',
-      ) +
-        (pictures.budget
-          ? ` ${ZogographI18n.t(
-              'ai.images_per_hour_used',
-              { count: pictures.budget.used },
-              '{{count, number}} made in the last hour.',
-            )}`
-          : ''),
-    ),
-  );
-
-  const self = document.createElement('input');
-  self.type = 'checkbox';
-  self.id = 'aiSelfPortrait';
-  self.checked = pictures.self_portrait;
-  form.appendChild(
-    fieldRow(
-      ZogographI18n.t('ai.images_self_portrait', {}, 'Let it redraw itself'),
-      self,
-      ZogographI18n.t(
-        'ai.images_self_portrait_help',
-        {},
-        'A novelty: it can generate its own portrait, squared off and shrunk to a thumbnail. Shares the hourly limit and asks permission each time.',
-      ),
-    ),
-  );
-
-  const reactions = document.createElement('input');
-  reactions.type = 'checkbox';
-  reactions.id = 'aiReactions';
-  reactions.checked = pictures.reactions;
-  form.appendChild(
-    fieldRow(
-      ZogographI18n.t('ai.images_reactions', {}, 'Let it react'),
-      reactions,
-      ZogographI18n.t(
-        'ai.images_reactions_help',
-        {},
-        'Short animated images, searched rather than generated, for the occasional aside. It chooses a mood, not an image — what comes back is whatever the catalogue returns.',
-      ),
+  form.append(
+    ...renderCoreCardPackage(
+      ZogographAiImageLimitsCard,
+      'core-ai-image-limits',
+      { pictures },
+      { fieldRow, i18n: ZogographI18n },
     ),
   );
 

@@ -366,6 +366,8 @@
   "log.repeat_in": "में",
   "log.repeat_last_one": "अंतिम",
   "log.repeat_what_it_says": "यह क्या कहता है",
+  "log.stream_loading": "हर लॉग का अंत पढ़ा जा रहा है…",
+  "log.stream_empty": "इनमें से किसी में भी कुछ नहीं है।",
   "capability.expose_help": "इस खाते में {{name}} को कैसे उपलब्ध करें",
   "capability.documentation": "{{name}} के लिए दस्तावेज़",
   "capability.expose_title": "इस खाते में {{name}} उपलब्ध करें",

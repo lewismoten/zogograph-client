@@ -366,6 +366,8 @@
   "log.repeat_in": "在",
   "log.repeat_last_one": "最后一个",
   "log.repeat_what_it_says": "它说了什么",
+  "log.stream_loading": "正在读取每个日志的末尾…",
+  "log.stream_empty": "其中任何一个都没有内容。",
   "capability.expose_help": "如何向此账户公开 {{name}}",
   "capability.documentation": "{{name}} 的文档",
   "capability.expose_title": "向此账户公开 {{name}}",

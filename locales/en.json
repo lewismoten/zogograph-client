@@ -366,6 +366,8 @@
   "log.repeat_in": "In",
   "log.repeat_last_one": "Last one",
   "log.repeat_what_it_says": "What it says",
+  "log.stream_loading": "Reading the end of every log…",
+  "log.stream_empty": "Nothing in any of them.",
   "capability.expose_help": "How to expose {{name}} to this account",
   "capability.documentation": "Documentation for {{name}}",
   "capability.expose_title": "Expose {{name}} to this account",

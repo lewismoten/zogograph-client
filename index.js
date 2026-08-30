@@ -40928,7 +40928,15 @@ async function refreshLogStream() {
   }
 
   if (!body.childElementCount)
-    body.replaceChildren(spinner('Reading the end of every log\u2026'));
+    body.replaceChildren(
+      spinner(
+        ZogographI18n.t(
+          'log.stream_loading',
+          {},
+          'Reading the end of every log…',
+        ),
+      ),
+    );
 
   let data;
   try {
@@ -40995,7 +41003,9 @@ function renderLogStream(data) {
   }
 
   if (!data.rows.length) {
-    wrap.appendChild(note('Nothing in any of them.'));
+    wrap.appendChild(
+      note(ZogographI18n.t('log.stream_empty', {}, 'Nothing in any of them.')),
+    );
     body.replaceChildren(wrap);
     return;
   }

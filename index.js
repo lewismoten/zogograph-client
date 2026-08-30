@@ -10076,34 +10076,26 @@ function renderChatEffort(session) {
  * says how much they have missed.
  */
 function renderChatCatchUp(log, session) {
-  let button = $('chatCatchUp');
-
-  if (!button) {
-    button = document.createElement('button');
-    button.id = 'chatCatchUp';
-    button.className = 'chat-catchup';
-    button.type = 'button';
-    button.addEventListener('click', () => {
-      log.scrollTop = log.scrollHeight;
-      chatState.pinnedUp = false;
-      button.hidden = true;
-    });
-    log.parentElement.insertBefore(button, log.nextSibling);
-  }
-
-  const behind =
-    chatState.pinnedUp &&
-    log.scrollHeight - log.scrollTop - log.clientHeight > 60;
-
-  button.hidden = !behind;
-  if (behind) {
-    const busy = ['thinking', 'waiting_permission', 'waiting_browser'].includes(
-      session.state,
-    );
-    button.textContent = busy
-      ? `${chatState.who.name} is still going — jump to the end ↓`
-      : 'Jump to the end ↓';
-  }
+  renderCoreCardPackage(
+    ZogographChatCatchUpCard,
+    'core-chat-catch-up',
+    {
+      log,
+      session,
+      button: $('chatCatchUp'),
+      pinnedUp: chatState.pinnedUp,
+      assistant: chatState.who.name,
+    },
+    {
+      reset: () => {
+        log.scrollTop = log.scrollHeight;
+        chatState.pinnedUp = false;
+        const button = $('chatCatchUp');
+        if (button) button.hidden = true;
+      },
+      i18n: ZogographI18n,
+    },
+  );
 }
 
 /** What the model is doing, in words, plus anything it is waiting on. */

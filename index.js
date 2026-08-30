@@ -33536,9 +33536,14 @@ function renderInspect(data) {
 
   const f = data.facts;
   const facts = [
-    ['Kind', data.kind === 'dir' ? 'directory' : data.kind],
     [
-      'Size',
+      ZogographI18n.t('storage.kind', {}, 'Kind'),
+      data.kind === 'dir'
+        ? ZogographI18n.t('storage.directory', {}, 'directory')
+        : data.kind,
+    ],
+    [
+      ZogographI18n.t('storage.size', {}, 'Size'),
       data.kind === 'dir'
         ? `${humanBytes(data.contents.bytes)}${data.contents.complete ? '' : ' or more'}`
         : humanBytes(f.size_bytes),
@@ -33559,7 +33564,7 @@ function renderInspect(data) {
     Math.abs(data.allocated_bytes - f.size_bytes) > 4096
   ) {
     facts.push([
-      'On disk',
+      ZogographI18n.t('storage.on_disk', {}, 'On disk'),
       `${humanBytes(data.allocated_bytes)} allocated ` +
         (data.allocated_bytes > f.size_bytes
           ? '(block padding)'
@@ -33569,23 +33574,40 @@ function renderInspect(data) {
 
   if (data.type)
     facts.push([
-      'Type',
+      ZogographI18n.t('storage.type', {}, 'Type'),
       `${data.type}${data.extension ? ` (.${data.extension})` : ''}`,
     ]);
-  if (data.category) facts.push(['Watched as', data.category]);
+  if (data.category)
+    facts.push([
+      ZogographI18n.t('storage.watched_as', {}, 'Watched as'),
+      data.category,
+    ]);
 
   facts.push(
     [
-      'Last modified',
+      ZogographI18n.t('storage.last_modified', {}, 'Last modified'),
       f.modified_at
         ? `${humanTime(f.modified_at)} (${humanDuration(Date.now() / 1000 - f.modified_at)} ago)`
         : 'unknown',
     ],
-    ['Last read', f.accessed_at ? humanTime(f.accessed_at) : 'unknown'],
+    [
+      ZogographI18n.t('storage.last_read', {}, 'Last read'),
+      f.accessed_at
+        ? humanTime(f.accessed_at)
+        : ZogographI18n.t('storage.unknown', {}, 'unknown'),
+    ],
     // Named for what it is: Unix does not record a creation time, and every
     // file manager that labels ctime "created" is repeating the same mistake.
-    ['Inode last changed', f.changed_at ? humanTime(f.changed_at) : 'unknown'],
-    ['Owner', f.owner ?? 'unknown'],
+    [
+      ZogographI18n.t('storage.inode_last_changed', {}, 'Inode last changed'),
+      f.changed_at
+        ? humanTime(f.changed_at)
+        : ZogographI18n.t('storage.unknown', {}, 'unknown'),
+    ],
+    [
+      ZogographI18n.t('storage.owner', {}, 'Owner'),
+      f.owner ?? ZogographI18n.t('storage.unknown', {}, 'unknown'),
+    ],
     [
       'Permissions',
       f.mode

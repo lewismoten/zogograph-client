@@ -2370,4 +2370,11 @@ foreach (
         "dashboard navigation does not use $key",
     );
 }
+i18nExpect(
+    $script !== false &&
+        str_contains($script, "'host.files_also_at'") &&
+        is_array($english) &&
+        isset($english['host.files_also_at']),
+    'host file hard-link labels are not localized',
+);
 echo "i18n checks passed\n";

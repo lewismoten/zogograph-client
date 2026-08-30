@@ -22970,24 +22970,6 @@ function renderAiPrices(data) {
     };
   });
 
-  const parts = [];
-
-  if (!rows.length) {
-    parts.push(
-      note(
-        ZogographI18n.t(
-          'ai.pricing_empty',
-          {},
-          'Nothing remembered yet. Set the prices on the Model page and they are kept here ' +
-            'against whichever provider and model are selected — so switching models and ' +
-            'switching back does not mean looking them up again.',
-        ),
-      ),
-    );
-    body.replaceChildren(...parts);
-    return;
-  }
-
   const sort = (field) => {
     aiPriceState.direction =
       aiPriceState.field === field ? -aiPriceState.direction : 1;
@@ -23005,16 +22987,6 @@ function renderAiPrices(data) {
           : String(left ?? '').localeCompare(String(right ?? '')))
       );
     });
-  const panels = [];
-  const panel = (id, title, list) => {
-    if (!list.length) return;
-    const heading = document.createElement('h3');
-    heading.textContent = title;
-    const holder = document.createElement('div');
-    holder.id = id;
-    parts.push(heading, holder);
-    panels.push([holder.id, sortRows(list)]);
-  };
   const current = rows.filter(
     (row) =>
       row.active_from <= today && (!row.retired_on || row.retired_on >= today),
@@ -23023,23 +22995,19 @@ function renderAiPrices(data) {
   const expired = rows.filter(
     (row) => row.retired_on && row.retired_on < today,
   );
-  panel(
-    'aiPricesCurrent',
-    ZogographI18n.t('ai.pricing_current', {}, 'Current prices'),
-    current,
+  renderCoreCardPackage(
+    ZogographAiPriceSectionsCard,
+    'core-ai-price-sections',
+    { rows, current, upcoming, expired },
+    {
+      target: body,
+      note,
+      sortRows,
+      renderPriceTable,
+      sort,
+      i18n: ZogographI18n,
+    },
   );
-  panel(
-    'aiPricesUpcoming',
-    ZogographI18n.t('ai.pricing_upcoming', {}, 'Upcoming prices'),
-    upcoming,
-  );
-  panel(
-    'aiPricesExpired',
-    ZogographI18n.t('ai.pricing_expired', {}, 'Expired prices'),
-    expired,
-  );
-  body.replaceChildren(...parts);
-  for (const [id, list] of panels) renderPriceTable(id, list, sort);
 }
 
 function renderPriceTable(target, rows, sort) {

@@ -21622,35 +21622,48 @@ function renderMemories(data) {
         },
       },
       {
-        label: 'Kind',
+        label: ZogographI18n.t('ai.memory_kind', {}, 'Kind'),
         render: (row) => data.kinds[row.kind]?.label ?? row.kind,
       },
-      { label: 'About', className: 'name', render: (row) => row.subject },
       {
-        label: 'What it remembers',
+        label: ZogographI18n.t('ai.memory_about', {}, 'About'),
+        className: 'name',
+        render: (row) => row.subject,
+      },
+      {
+        label: ZogographI18n.t('ai.memory_remembers', {}, 'What it remembers'),
         className: 'cmd',
         render: (row) => row.body,
       },
       {
-        label: 'Written',
+        label: ZogographI18n.t('ai.memory_written', {}, 'Written'),
         render: (row) => {
           const span = document.createElement('span');
           span.textContent = ago(row.updated_at);
           span.title =
             row.written_by === 'you'
-              ? 'You wrote this.'
-              : `Written by the assistant${
-                  row.source_session
-                    ? ` in conversation ${row.source_session}`
-                    : ''
-                }.`;
+              ? ZogographI18n.t('ai.memory_you_wrote', {}, 'You wrote this.')
+              : row.source_session
+                ? ZogographI18n.t(
+                    'ai.memory_written_in_conversation',
+                    { id: row.source_session },
+                    'Written by the assistant in conversation {{id}}.',
+                  )
+                : ZogographI18n.t(
+                    'ai.memory_written_by_assistant',
+                    {},
+                    'Written by the assistant.',
+                  );
           return span;
         },
       },
       {
-        label: 'Used',
+        label: ZogographI18n.t('ai.memory_used', {}, 'Used'),
         className: 'size',
-        render: (row) => (row.used ? `${humanCount(row.used)}×` : 'never'),
+        render: (row) =>
+          row.used
+            ? `${humanCount(row.used)}×`
+            : ZogographI18n.t('ai.memory_never', {}, 'never'),
       },
       {
         label: '',
@@ -21670,8 +21683,12 @@ function renderMemories(data) {
           drop.addEventListener('click', async () => {
             if (
               !(await confirmDialog(
-                `Forget "${row.subject}"?`,
-                'Forget memory',
+                ZogographI18n.t(
+                  'ai.memory_forget_confirm',
+                  { subject: row.subject },
+                  'Forget “{{subject}}”?',
+                ),
+                ZogographI18n.t('ai.memory_forget_title', {}, 'Forget memory'),
               ))
             )
               return;

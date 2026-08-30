@@ -20903,8 +20903,15 @@ async function pollTerminal() {
       ? data.ran_for < 2
         ? // "Running for no time at all" is what humanSpan says about zero, and
           // it is a strange thing to read about something that has just begun.
-          'Just started…'
-        : `Running for ${humanSpan(data.ran_for, true)} — ${humanBytes(data.size)} so far.`
+          ZogographI18n.t('terminal.just_started', {}, 'Just started…')
+        : ZogographI18n.t(
+            'terminal.running_for_so_far',
+            {
+              duration: humanSpan(data.ran_for, true),
+              size: humanBytes(data.size),
+            },
+            'Running for {{duration}} — {{size}} so far.',
+          )
       : terminalVerdict(data);
   }
 
@@ -20915,10 +20922,22 @@ async function pollTerminal() {
     strip.hidden = !data.running;
     const line = $('terminalRunningSaid');
     if (line) {
-      line.textContent = data.running
-        ? `Running${data.ran_for >= 2 ? ` for ${humanSpan(data.ran_for, true)}` : ''} — ` +
-          `${humanBytes(data.size)} so far.`
-        : '';
+      line.textContent = !data.running
+        ? ''
+        : data.ran_for >= 2
+          ? ZogographI18n.t(
+              'terminal.running_for_so_far',
+              {
+                duration: humanSpan(data.ran_for, true),
+                size: humanBytes(data.size),
+              },
+              'Running for {{duration}} — {{size}} so far.',
+            )
+          : ZogographI18n.t(
+              'terminal.running_so_far',
+              { size: humanBytes(data.size) },
+              'Running — {{size}} so far.',
+            );
     }
   }
 
@@ -20966,14 +20985,27 @@ async function pollTerminal() {
 /** How a finished command is described. */
 function terminalVerdict(data) {
   const how = data.timed_out
-    ? 'Stopped at the time limit'
+    ? ZogographI18n.t(
+        'terminal.verdict_timed_out',
+        {},
+        'Stopped at the time limit',
+      )
     : data.stopped_by
-      ? `Stopped by ${data.stopped_by}`
-      : 'Finished';
+      ? ZogographI18n.t(
+          'terminal.verdict_stopped_by',
+          { actor: data.stopped_by },
+          'Stopped by {{actor}}',
+        )
+      : ZogographI18n.t('terminal.verdict_finished', {}, 'Finished');
 
-  return (
-    `${how} after ${humanSpan(data.ran_for, true)}, ` +
-    `${humanBytes(data.size)} of output.`
+  return ZogographI18n.t(
+    'terminal.verdict_summary',
+    {
+      state: how,
+      duration: humanSpan(data.ran_for, true),
+      size: humanBytes(data.size),
+    },
+    '{{state}} after {{duration}}, {{size}} of output.',
   );
 }
 
@@ -20993,7 +21025,11 @@ function renderTerminalActions() {
     { assistant: termState.data?.who?.name ?? 'the assistant' },
     'Send this output to {{assistant}}',
   );
-  send.title = 'It goes into the conversation as a message from you.';
+  send.title = ZogographI18n.t(
+    'terminal.send_output_help',
+    {},
+    'It goes into the conversation as a message from you.',
+  );
   send.addEventListener('click', () => {
     sendOutputToChat(data).catch((error) =>
       notice(String(error.message || error)),
@@ -21020,7 +21056,13 @@ function renderTerminalActions() {
         );
       }, 1400);
     } catch {
-      notice('This browser would not copy it.');
+      notice(
+        ZogographI18n.t(
+          'terminal.copy_refused',
+          {},
+          'This browser would not let the page write to the clipboard.',
+        ),
+      );
     }
   });
   actions.appendChild(copy);

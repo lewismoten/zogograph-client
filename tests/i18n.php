@@ -1364,6 +1364,14 @@ i18nExpect(
             $english['editor.not_regular_file'],
             $english['editor.browser_more'],
             $english['editor.browser_help'],
+            $english['terminal.just_started'],
+            $english['terminal.running_for_so_far'],
+            $english['terminal.running_so_far'],
+            $english['terminal.verdict_timed_out'],
+            $english['terminal.verdict_stopped_by'],
+            $english['terminal.verdict_finished'],
+            $english['terminal.verdict_summary'],
+            $english['terminal.send_output_help'],
         ),
     'English fallback catalog is incomplete',
 );
@@ -1449,6 +1457,13 @@ i18nExpect(
         str_contains($script, 'editor.file_access') &&
         str_contains($script, 'editor.browser_help'),
     'terminal editor browser is not localized',
+);
+i18nExpect(
+    $script !== false &&
+        str_contains($script, 'terminal.running_for_so_far') &&
+        str_contains($script, 'terminal.verdict_summary') &&
+        str_contains($script, 'terminal.send_output_help'),
+    'terminal live output and send feedback are not localized',
 );
 i18nExpect(
     str_contains($runtime, 'data-i18n-rich') &&

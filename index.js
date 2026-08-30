@@ -13052,7 +13052,7 @@ function renderRdns(data) {
       data.waiting,
       [
         {
-          label: 'Address',
+          label: ZogographI18n.t('network.address', {}, 'Address'),
           className: 'name',
           render: (row) => row.address,
         },
@@ -13122,7 +13122,11 @@ function renderRdns(data) {
       'rdnsKnown',
       data.known,
       [
-        { label: 'Address', className: 'name', render: (row) => row.address },
+        {
+          label: ZogographI18n.t('network.address', {}, 'Address'),
+          className: 'name',
+          render: (row) => row.address,
+        },
         {
           label: ZogographI18n.t('network.rdns_called'),
           className: 'name',

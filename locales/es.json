@@ -112,6 +112,7 @@
   "account.root": "root",
   "account.root_unmanaged": "root. Este panel no puede detener ni cambiar estos procesos.",
   "descriptions.sign_in_to_write": "Inicie sesión para escribir las suyas.",
+  "descriptions.kind": "Tipo", "descriptions.slab_cache": "Caché slab", "descriptions.process": "Proceso", "descriptions.what": "Qué es", "descriptions.link": "Enlace", "descriptions.written": "Escrito",
   "action.see": "Ver",
   "url.method_get": "GET — obtener la página",
   "url.method_head": "HEAD — solo cabeceras, sin cuerpo",

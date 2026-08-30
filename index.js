@@ -27105,11 +27105,11 @@ function renderDescriptions() {
   body.replaceChildren(holder);
 
   renderTable("descriptionsTable", WHAT_IS.mine, [
-    { label: "Kind", render: row => (row.kind === "slab" ? "Slab cache" : "Process") },
-    { label: "Name", className: "cmd", render: row => row.name },
-    { label: "What it is", render: row => row.what },
+    { label: ZogographI18n.t("descriptions.kind", {}, "Kind"), render: row => (row.kind === "slab" ? ZogographI18n.t("descriptions.slab_cache", {}, "Slab cache") : ZogographI18n.t("descriptions.process", {}, "Process")) },
+    { label: ZogographI18n.t("table.name", {}, "Name"), className: "cmd", render: row => row.name },
+    { label: ZogographI18n.t("descriptions.what", {}, "What it is"), render: row => row.what },
     {
-      label: "Link",
+      label: ZogographI18n.t("descriptions.link", {}, "Link"),
       render: row => {
         if (!row.link) return "";
         const link = document.createElement("a");
@@ -27120,7 +27120,7 @@ function renderDescriptions() {
         return link;
       },
     },
-    { label: "Written", render: row => whenSpan(row.added_at) },
+    { label: ZogographI18n.t("descriptions.written", {}, "Written"), render: row => whenSpan(row.added_at) },
     {
       label: "",
       render: row => {

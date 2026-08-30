@@ -112,6 +112,7 @@
   "account.root": "root",
   "account.root_unmanaged": "root. لا تستطيع لوحة المعلومات هذه إيقاف هذه العناصر أو تغييرها.",
   "descriptions.sign_in_to_write": "سجّل الدخول لكتابة وصفك الخاص.",
+  "descriptions.kind": "النوع", "descriptions.slab_cache": "ذاكرة slab المخبأة", "descriptions.process": "عملية", "descriptions.what": "ما هو", "descriptions.link": "رابط", "descriptions.written": "كُتب",
   "action.see": "عرض",
   "url.method_get": "GET — اجلب الصفحة",
   "url.method_head": "HEAD — الترويسات فقط، بلا متن",

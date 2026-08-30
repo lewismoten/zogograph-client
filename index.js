@@ -10684,7 +10684,14 @@ function markCharts() {
           mark.textContent = 'ⓘ';
         }, 1200);
       } catch {
-        notice(`This chart is called ${canvas.id}.`, true);
+        notice(
+          ZogographI18n.t(
+            'charts.identity_copy_failed',
+            { id: canvas.id },
+            'This chart is called {{id}}.',
+          ),
+          true,
+        );
       }
     });
 
@@ -10986,7 +10993,13 @@ function chatPollDelay(state) {
 
 function openChat() {
   if (!state.signedIn) {
-    notice(`Sign in to ask ${chatState.who.name}.`);
+    notice(
+      ZogographI18n.t(
+        'assistant.sign_in_to_ask',
+        { assistant: chatState.who.name },
+        'Sign in to ask {{assistant}}.',
+      ),
+    );
     return;
   }
 
@@ -12346,7 +12359,14 @@ function highlightOnPage(args) {
   target.scrollIntoView({ block: 'center', behavior: 'smooth' });
 
   if (args.why) {
-    notice(`${chatState.who.name}: ${args.why}`, true);
+    notice(
+      ZogographI18n.t(
+        'assistant.highlight_reason',
+        { assistant: chatState.who.name, reason: args.why },
+        '{{assistant}}: {{reason}}',
+      ),
+      true,
+    );
   }
 
   setTimeout(() => target.classList.remove('pointed-at'), 6000);
@@ -46801,17 +46821,26 @@ $('hostMetric').addEventListener('change', () => {
 $('problemClear').addEventListener('click', async () => {
   if (
     !(await confirmDialog(
-      'Clear the problem log?\n\nThe entries are removed for good. Anything ' +
-        'still broken will write a fresh one on its next failure, which is the point: ' +
-        'what is left afterwards is what is still wrong.',
-      'Clear log',
+      ZogographI18n.t(
+        'problems.clear_confirm',
+        {},
+        'Clear the problem log?\n\nThe entries are removed for good. Anything still broken will write a fresh one on its next failure, which is the point: what is left afterwards is what is still wrong.',
+      ),
+      ZogographI18n.t('problems.clear_log', {}, 'Clear log'),
     ))
   )
     return;
 
   try {
     const result = await post('clear-problems');
-    notice(`Cleared ${count(result.removed, 'entry', 'entries')}.`, true);
+    notice(
+      ZogographI18n.t(
+        'problems.clear_result',
+        { entries: count(result.removed, 'entry', 'entries') },
+        'Cleared {{entries}}.',
+      ),
+      true,
+    );
   } catch (error) {
     notice(String(error.message || error));
   }
@@ -46847,7 +46876,13 @@ $('noteButton').addEventListener('click', (event) => {
   event.stopPropagation();
 
   if (!state.signedIn) {
-    notice(`Sign in to write a note or ask ${chatState.who.name}.`);
+    notice(
+      ZogographI18n.t(
+        'assistant.sign_in_to_note_or_ask',
+        { assistant: chatState.who.name },
+        'Sign in to write a note or ask {{assistant}}.',
+      ),
+    );
     return;
   }
 

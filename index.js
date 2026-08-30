@@ -36495,16 +36495,32 @@ function renderUrlHistory(data) {
         at: Number(r.at),
         value: r.value === null ? null : Number(r.value),
       })),
-      [{ key: 'value', label: check.check_value || 'extracted value' }],
+      [
+        {
+          key: 'value',
+          label:
+            check.check_value ||
+            ZogographI18n.t('url.extracted_value', {}, 'extracted value'),
+        },
+      ],
       // Whatever was extracted is a number in somebody else's unit; this chart
       // has no business claiming it is bytes.
-      { xKey: 'at', axis: plainAxis, empty: 'Nothing extracted yet' },
+      {
+        xKey: 'at',
+        axis: plainAxis,
+        empty: ZogographI18n.t(
+          'url.nothing_extracted',
+          {},
+          'Nothing extracted yet',
+        ),
+      },
     );
 
-    $('urlValueNote').textContent =
-      `Taken from the response by the ${check.check_kind} rule. ` +
-      'This is the check that catches a page returning 200 with the wrong content, which ' +
-      'nothing else here can see.';
+    $('urlValueNote').textContent = ZogographI18n.t(
+      'url.value_note',
+      { rule: check.check_kind },
+      'Taken from the response by the {{rule}} rule. This is the check that catches a page returning 200 with the wrong content, which nothing else here can see.',
+    );
   } else {
     valueChart.hidden = true;
     $('urlValueNote').textContent = '';

@@ -14008,11 +14008,12 @@ function terminalCopyRow() {
 /** One entry as plain text, the way a transcript reads. */
 function entryAsText(entry) {
   const verdict = entry.running
-    ? "(running)"
+    ? `(${ZogographI18n.t("terminal.status_running", {}, "running")})`
     : [
       entry.took === null || entry.took === undefined ? "" : humanSpan(entry.took),
-      entry.stopped_by ? "stopped" : "",
-      entry.exit_code === null || entry.exit_code === undefined ? "" : `exit ${entry.exit_code}`,
+      entry.stopped_by ? ZogographI18n.t("terminal.status_stopped", {}, "stopped") : "",
+      entry.exit_code === null || entry.exit_code === undefined ? ""
+        : ZogographI18n.t("terminal.status_exit", { code: entry.exit_code }, "exit {{code}}"),
     ].filter(Boolean).join(" · ");
 
   // The escape codes come out, because a transcript pasted into a ticket with

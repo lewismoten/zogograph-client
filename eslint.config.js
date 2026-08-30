@@ -50,6 +50,7 @@ export default [
         ZogographTypeGrowthCard: 'readonly',
         ZogographTypePieCard: 'readonly',
         ZogographUptimeCard: 'readonly',
+        ZogographUptimeEventsCard: 'readonly',
       },
     },
   },

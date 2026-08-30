@@ -29032,6 +29032,23 @@ function renderUptime() {
     })),
   ].sort((x, y) => y.from - x.from);
 
+  if (window.ZogographUptimeEventsCard) {
+    renderCoreCardPackage(
+      ZogographUptimeEventsCard,
+      'core-uptime-events',
+      bands,
+      {
+        target: $('uptimeBody'),
+        renderTable,
+        whenSpan,
+        humanDuration,
+        i18n: ZogographI18n,
+      },
+    );
+    renderBootHistory(data.history);
+    return;
+  }
+
   if (!bands.length) {
     $('uptimeBody').replaceChildren(
       Object.assign(document.createElement('p'), {

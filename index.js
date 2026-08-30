@@ -28085,13 +28085,25 @@ function renderServices(rows, series, charted, metrics, metric) {
       label: ZogographI18n.t('host.io_reading', {}, 'Reading'),
       className: 'size',
       render: (r) =>
-        r.read_rate == null ? '—' : `${humanBytes(r.read_rate)}/s`,
+        r.read_rate == null
+          ? '—'
+          : ZogographI18n.t(
+              'host.io_rate_per_second',
+              { amount: humanBytes(r.read_rate) },
+              '{{amount}}/s',
+            ),
     },
     {
       label: ZogographI18n.t('host.io_writing', {}, 'Writing'),
       className: 'size',
       render: (r) =>
-        r.write_rate == null ? '—' : `${humanBytes(r.write_rate)}/s`,
+        r.write_rate == null
+          ? '—'
+          : ZogographI18n.t(
+              'host.io_rate_per_second',
+              { amount: humanBytes(r.write_rate) },
+              '{{amount}}/s',
+            ),
     },
   ]);
 

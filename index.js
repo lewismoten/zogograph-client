@@ -26811,9 +26811,15 @@ function renderHostFiles(rows, totals) {
            * many exist anywhere on the filesystem. When links is higher, deleting
            * every path shown here still would not free the space.
            */
-          return group.length === links
-            ? `${group.length} paths, 1 file`
-            : `${group.length} here of ${links}, 1 file`;
+          return ZogographI18n.t(
+            group.length === links
+              ? 'host.files_names_all'
+              : 'host.files_names_some',
+            { shown: humanCount(group.length), total: humanCount(links) },
+            group.length === links
+              ? `${humanCount(group.length)} paths, 1 file`
+              : `${humanCount(group.length)} here of ${humanCount(links)}, 1 file`,
+          );
         },
       },
       {
@@ -26850,7 +26856,14 @@ function renderHostFiles(rows, totals) {
           `${totals.linked === 1 ? 'path is a hard link' : 'paths are hard links'} ` +
           `to a file already counted, so ${totals.linked === 1 ? 'it costs' : 'they cost'} ` +
           `no additional disk.`
-        : `${humanBytes(totals.bytes)} across ${count(totals.files, 'file')}.`;
+        : ZogographI18n.t(
+            'host.files_total',
+            {
+              bytes: humanBytes(totals.bytes),
+              files: humanCount(totals.files),
+            },
+            `${humanBytes(totals.bytes)} across ${humanCount(totals.files)} files.`,
+          );
 
     const box = $('hostFilesTotal');
     // Only touched when it actually changes, so it cannot flicker either.

@@ -1300,6 +1300,9 @@ function aiSessionView(array $config, PDO $ai, int $id, array $views): array
             fn(array $run): array => [
                 'id' => (int) $run['id'],
                 'tool' => (string) $run['tool'],
+                'package' => (string) ($all[$run['tool']]['package'] ?? ''),
+                'locale_namespace' =>
+                    (string) ($all[$run['tool']]['locale_namespace'] ?? ''),
                 'summary' => $all[$run['tool']]['summary'] ?? '',
                 'state' => (string) $run['state'],
                 'ms' => (int) $run['ms'],
@@ -1377,6 +1380,9 @@ function aiToolRunForBrowser(array $run, array $catalogue): array
     return [
         'id' => (int) $run['id'],
         'tool' => (string) $run['tool'],
+        'package' => (string) ($catalogue[$run['tool']]['package'] ?? ''),
+        'locale_namespace' =>
+            (string) ($catalogue[$run['tool']]['locale_namespace'] ?? ''),
         'summary' => $catalogue[$run['tool']]['summary'] ?? '',
         'arguments' => $arguments,
         'why' => (string) ($arguments['why'] ?? ''),

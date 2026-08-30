@@ -46954,13 +46954,19 @@ $('reportNow').addEventListener('click', async () => {
   );
   if (!which) return;
 
-  notice('Writing it — this asks the model, so it takes a few seconds.');
+  notice(
+    ZogographI18n.t(
+      'ai.report_writing',
+      {},
+      'Writing it — this asks the model, so it takes a few seconds.',
+    ),
+  );
 
   try {
     renderReports(
       await post('ai-report-now', { period: which.trim().toLowerCase() }),
     );
-    notice('Written.', true);
+    notice(ZogographI18n.t('ai.report_written', {}, 'Written.'), true);
   } catch (error) {
     notice(String(error.message || error));
   }
@@ -46968,7 +46974,13 @@ $('reportNow').addEventListener('click', async () => {
 
 $('aiPriceAdd').addEventListener('click', () => {
   if (!aiSetState.data) {
-    notice('Open the Model page first so this knows what providers there are.');
+    notice(
+      ZogographI18n.t(
+        'ai.prices_open_model',
+        {},
+        'Open the Model page first so this knows what providers there are.',
+      ),
+    );
     return;
   }
   showPriceDialog(null);
@@ -47097,7 +47109,14 @@ $('pastChatResume').addEventListener('click', async () => {
   try {
     const fresh = await post('ai-resume', { session: pastChats.open });
     chatState.session = fresh.session;
-    notice('Picked up. It is the open conversation now.', true);
+    notice(
+      ZogographI18n.t(
+        'ai.conversation_resumed',
+        {},
+        'Picked up. It is the open conversation now.',
+      ),
+      true,
+    );
     showView('sys-ai');
   } catch (error) {
     notice(String(error.message || error));
@@ -47135,7 +47154,7 @@ $('sessionName').addEventListener('click', async () => {
     renderSessionList();
     if (sessionState.log?.session) sessionState.log.session.topic = topic;
     renderSessionLog();
-    notice('Named.', true);
+    notice(ZogographI18n.t('ai.session_named', {}, 'Named.'), true);
   } catch (error) {
     notice(String(error.message || error));
   }
@@ -47143,7 +47162,9 @@ $('sessionName').addEventListener('click', async () => {
 
 $('memoryAdd').addEventListener('click', () => {
   if (!memoryState.data) {
-    notice('Open this page first.');
+    notice(
+      ZogographI18n.t('ai.memory_open_first', {}, 'Open this page first.'),
+    );
     return;
   }
   showMemoryDialog(null);

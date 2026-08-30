@@ -12359,7 +12359,7 @@ function renderPeers(data) {
           edit.addEventListener("click", () => showPeerDialog(row));
           const rotate = document.createElement("button");
           rotate.className = "link";
-          rotate.textContent = "Rotate delivery key";
+          rotate.textContent = ZogographI18n.t("action.rotate_delivery_key", {}, "Rotate delivery key");
           rotate.addEventListener("click", async () => {
             if (!(await confirmDialog(
               `Rotate ${row.label}’s remote-delivery credential?\n\nThe remote stops delivering until its configuration uses the new key.`,

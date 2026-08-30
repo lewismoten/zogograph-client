@@ -22,6 +22,7 @@
   "action.put_in_command_box": "इसे कमांड बॉक्स में रखें",
   "action.syntax_preview": "सिंटैक्स पूर्वावलोकन",
   "action.review_changes": "बदलावों की समीक्षा करें",
+  "action.rotate_delivery_key": "डिलीवरी कुंजी घुमाएँ",
   "action.copied": "कॉपी हो गया",
   "action.copy_value": "इसे कॉपी करें",
   "action.copy_line": "लाइन कॉपी करें",

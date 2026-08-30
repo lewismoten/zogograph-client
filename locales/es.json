@@ -22,6 +22,7 @@
   "action.put_in_command_box": "Ponerlo en la caja de comandos",
   "action.syntax_preview": "Vista previa de sintaxis",
   "action.review_changes": "Revisar cambios",
+  "action.rotate_delivery_key": "Rotar clave de entrega",
   "action.copied": "Copiado",
   "action.copy_value": "Copiarlo",
   "action.copy_line": "Copiar la línea",

@@ -44207,7 +44207,16 @@ async function refreshBackups() {
       ),
     );
 
-    body.appendChild(section(`Inside ${root.path}`, wrap));
+    body.appendChild(
+      section(
+        ZogographI18n.t(
+          'backup.inside_path',
+          { path: root.path },
+          'Inside {{path}}',
+        ),
+        wrap,
+      ),
+    );
   }
 
   if (data.other.length) {

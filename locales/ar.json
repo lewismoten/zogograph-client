@@ -2283,6 +2283,7 @@
   "tree.measuring": "جارٍ القياس…",
   "tree.measuring_directory": "جارٍ قياس هذا المجلد…",
   "backup.storage_title": "تخزين النسخ الاحتياطية",
+  "backup.inside_path": "داخل {{path}}",
   "backup.storage_help": "النسخ الاحتياطية غالبًا أكبر ما في الخادم وآخر ما يفحصه الناس لأنها ليست في /home. يجيب هذا القسم عن أربعة أسئلة: كم من المساحة، ولمن، وكم عمرها، وما الإجراء الآمن بشأنها.",
   "backup.jetbackup_empty": "أجاب JetBackup، لكنه لم يسرد أي نسخ احتياطية أو وجهات.",
   "backup.actions_title": "ما الذي يمكن فعله",

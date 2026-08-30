@@ -18747,72 +18747,18 @@ async function refreshSessions() {
 }
 
 function renderSessionList() {
-  const body = $('sessionsBody');
-
-  if (!sessionState.list.length) {
-    body.replaceChildren(
-      note(
-        ZogographI18n.t(
-          'terminal.sessions_empty',
-          {},
-          'Nothing yet. A session starts the first time a command is run and stays open ' +
-            'until an hour goes by without one.',
-        ),
-      ),
-    );
-    return;
-  }
-
-  const holder = document.createElement('div');
-  holder.id = 'sessionsTable';
-  body.replaceChildren(holder);
-
-  renderTable(
-    'sessionsTable',
+  renderCoreCardPackage(
+    ZogographTerminalSessionsCard,
+    'core-terminal-sessions',
     sessionState.list,
-    [
-      {
-        label: ZogographI18n.t('terminal.sessions_topic', {}, 'Topic'),
-        className: 'name',
-        render: (row) => {
-          if (row.topic) return row.topic;
-          // Unnamed sessions say so rather than showing a blank cell, and say it
-          // in a way that reads as an invitation rather than as missing data.
-          const said = document.createElement('span');
-          said.className = 'muted';
-          said.textContent = ZogographI18n.t(
-            'terminal.sessions_no_topic',
-            {},
-            'no topic yet',
-          );
-          return said;
-        },
-      },
-      {
-        label: ZogographI18n.t('terminal.sessions_started', {}, 'Started'),
-        render: (row) => whenSpan(row.started_at),
-      },
-      {
-        label: ZogographI18n.t(
-          'terminal.sessions_last_command',
-          {},
-          'Last command',
-        ),
-        render: (row) => whenSpan(row.last_at),
-      },
-      {
-        label: ZogographI18n.t('terminal.sessions_commands', {}, 'Commands'),
-        className: 'size',
-        render: (row) => row.commands,
-      },
-      {
-        label: ZogographI18n.t('terminal.sessions_who', {}, 'Who'),
-        render: (row) => row.who || '',
-      },
-    ],
-    (row) => openSession(row.id),
-    null,
-    (row) => row.id,
+    {
+      target: $('sessionsBody'),
+      note,
+      renderTable,
+      whenSpan,
+      open: (row) => openSession(row.id),
+      i18n: ZogographI18n,
+    },
   );
 }
 

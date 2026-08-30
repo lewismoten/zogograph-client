@@ -9755,13 +9755,12 @@ function renderChatIdentity() {
     );
 
   const box = $('chatText');
-  if (box && box.value === '') {
-    box.placeholder = ZogographI18n.t(
-      'ai.problem_placeholder',
-      {},
-      'What is going wrong?',
-    );
-  }
+  renderCoreCardPackage(
+    ZogographChatPlaceholderCard,
+    'core-chat-placeholder',
+    { box },
+    { i18n: ZogographI18n },
+  );
 }
 
 function renderChat() {

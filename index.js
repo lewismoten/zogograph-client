@@ -37061,6 +37061,23 @@ function renderUpcoming(data) {
  * own find - is exactly what makes this usable.
  */
 function renderMonths(data) {
+  if (window.ZogographCalendarGridCard) {
+    return renderCoreCardPackage(
+      ZogographCalendarGridCard,
+      'core-calendar-grid',
+      {
+        from: data.from,
+        back_months: data.back_months,
+        forward_months: data.forward_months,
+        days: data.days || {},
+      },
+      {
+        target: $('calendarGrid'),
+        openDay: openCalendarDay,
+        i18n: ZogographI18n,
+      },
+    );
+  }
   const grid = $('calendarGrid');
   const frag = document.createDocumentFragment();
 

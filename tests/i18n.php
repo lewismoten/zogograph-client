@@ -70,6 +70,9 @@ $hostLogsCard = i18nCardSource(
 $calendarUpcomingCard = i18nCardSource(
     file_get_contents($root . '/cards/calendar-upcoming.js'),
 );
+$calendarGridCard = i18nCardSource(
+    file_get_contents($root . '/cards/calendar-grid.js'),
+);
 $networkPeersCard = i18nCardSource(
     file_get_contents($root . '/cards/network-peers.js'),
 );
@@ -338,6 +341,21 @@ i18nExpect(
             'helpers.i18n.registerCatalog(locale, catalog, false, id)',
         ),
     'core card package catalogs are not namespace-registered before their first render',
+);
+i18nExpect(
+    $page !== false &&
+        str_contains($page, 'src="cards/calendar-grid.js"') &&
+        $calendarGridCard !== false &&
+        str_contains($calendarGridCard, 'window.ZogographCalendarGridCard') &&
+        str_contains($calendarGridCard, 'id: "core-calendar-grid"') &&
+        str_contains($calendarGridCard, 'locales: ["core-calendar-grid."]') &&
+        str_contains($calendarGridCard, 'catalogs: Object.freeze({') &&
+        $script !== false &&
+        str_contains(
+            $script,
+            'renderCoreCardPackage(ZogographCalendarGridCard, "core-calendar-grid",',
+        ),
+    'calendar grid is not isolated behind its core card-module boundary',
 );
 i18nExpect(
     $page !== false &&

@@ -1,3 +1,4 @@
 {
-  "core-ai-get-repeated-log-lines.summary": "Qué mensajes de registro siguen repitiéndose."
+  "core-ai-get-repeated-log-lines.summary": "Qué mensajes de registro siguen repitiéndose.",
+  "core-ai-get-repeated-log-lines.activity": "Buscó mensajes de registro repetidos"
 }

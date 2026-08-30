@@ -1,3 +1,4 @@
 {
-  "core-ai-get-recent-log-lines.summary": "सर्वर और एप्लिकेशन लॉग की हाल की पंक्तियाँ।"
+  "core-ai-get-recent-log-lines.summary": "सर्वर और एप्लिकेशन लॉग की हाल की पंक्तियाँ।",
+  "core-ai-get-recent-log-lines.activity": "हाल की लॉग पंक्तियाँ पढ़ीं"
 }

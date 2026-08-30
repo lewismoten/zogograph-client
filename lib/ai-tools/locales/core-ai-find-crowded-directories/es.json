@@ -1,3 +1,4 @@
 {
-  "core-ai-find-crowded-directories.summary": "Directorios que contienen la mayor cantidad de archivos."
+  "core-ai-find-crowded-directories.summary": "Directorios que contienen la mayor cantidad de archivos.",
+  "core-ai-find-crowded-directories.activity": "Buscó los directorios con más archivos"
 }

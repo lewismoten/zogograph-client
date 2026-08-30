@@ -1,3 +1,4 @@
 {
-  "core-ai-get-repeated-log-lines.summary": "Which log messages keep coming back."
+  "core-ai-get-repeated-log-lines.summary": "Which log messages keep coming back.",
+  "core-ai-get-repeated-log-lines.activity": "Looked for repeated log messages"
 }

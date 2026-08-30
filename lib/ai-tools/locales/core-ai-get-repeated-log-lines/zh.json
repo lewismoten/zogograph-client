@@ -1,3 +1,4 @@
 {
-  "core-ai-get-repeated-log-lines.summary": "哪些日志消息不断重复出现。"
+  "core-ai-get-repeated-log-lines.summary": "哪些日志消息不断重复出现。",
+  "core-ai-get-repeated-log-lines.activity": "查找了重复的日志消息"
 }

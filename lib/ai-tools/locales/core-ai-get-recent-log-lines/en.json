@@ -1,3 +1,4 @@
 {
-  "core-ai-get-recent-log-lines.summary": "Recent lines from the server and application logs."
+  "core-ai-get-recent-log-lines.summary": "Recent lines from the server and application logs.",
+  "core-ai-get-recent-log-lines.activity": "Read the recent log lines"
 }

@@ -1,3 +1,4 @@
 {
-  "core-ai-find-crowded-directories.summary": "Directories holding the most files."
+  "core-ai-find-crowded-directories.summary": "Directories holding the most files.",
+  "core-ai-find-crowded-directories.activity": "Looked for directories with the most files"
 }

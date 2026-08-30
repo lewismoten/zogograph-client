@@ -1,3 +1,4 @@
 {
-  "core-ai-find-crowded-directories.summary": "包含最多文件的目录。"
+  "core-ai-find-crowded-directories.summary": "包含最多文件的目录。",
+  "core-ai-find-crowded-directories.activity": "查找了文件最多的目录"
 }

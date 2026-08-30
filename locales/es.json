@@ -2288,6 +2288,7 @@
   "storage.directory": "directorio",
   "storage.size": "Tamaño",
   "storage.files_right": "Archivos (derecha)",
+  "storage.link": "Enlace",
   "storage.history_one_scan": "Esta ruta solo se ha visto en un análisis hasta ahora",
   "storage.on_disk": "En disco",
   "storage.type": "Tipo",

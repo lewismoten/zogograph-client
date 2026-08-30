@@ -25516,7 +25516,7 @@ async function sweepLinks(pattern, confirmed = false) {
       failed.slice(0, 100),
       [
         {
-          label: 'Link',
+          label: ZogographI18n.t('storage.link', {}, 'Link'),
           className: 'name',
           render: (row) => dimmedPath(row.path, root),
         },
@@ -25538,7 +25538,7 @@ async function sweepLinks(pattern, confirmed = false) {
       result.deleted.slice(0, 200),
       [
         {
-          label: 'Link',
+          label: ZogographI18n.t('storage.link', {}, 'Link'),
           className: 'name',
           render: (row) => dimmedPath(row.path, root),
         },

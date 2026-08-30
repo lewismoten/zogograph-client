@@ -1740,6 +1740,7 @@
   "host.io_disks_needs_readings": "يلزم قراءتان للمضيف قبل احتساب المعدل — يوجد {{readings, number}} حتى الآن.",
   "host.io_disks_empty": "لم تُسجَّل أجهزة في أحدث قراءة.",
   "host.io_device_read": "قراءة الجهاز",
+  "host.io_device_written": "كتابة الجهاز",
   "host.io_device": "الجهاز",
   "host.io_stacked": " · مكدس",
   "host.io_stacked_tip": "وحدة تخزين معيّنة فوق جهاز آخر. حركتها محسوبة هناك بالفعل، لذا لا تضاف إلى أي إجمالي.",

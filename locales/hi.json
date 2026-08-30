@@ -1754,6 +1754,7 @@
   "host.io_disks_needs_readings": "दर निकालने से पहले दो होस्ट रीडिंग चाहिए — अभी {{readings, number}} हैं।",
   "host.io_disks_empty": "नवीनतम रीडिंग में कोई डिवाइस दर्ज नहीं हुआ।",
   "host.io_device_read": "डिवाइस पढ़ना",
+  "host.io_device_written": "डिवाइस लिखना",
   "host.io_device": "डिवाइस",
   "host.io_stacked": " · स्टैक्ड",
   "host.io_stacked_tip": "दूसरे डिवाइस पर मैप किया गया वॉल्यूम। इसका ट्रैफ़िक वहाँ पहले ही गिना जाता है, इसलिए इसे किसी कुल में नहीं जोड़ा जाता।",

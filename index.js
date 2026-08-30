@@ -18341,12 +18341,22 @@ function databaseCard(file, projection) {
   if (String(file.journal).toLowerCase() === 'wal') {
     const journal = document.createElement('p');
     journal.className = 'muted small';
-    journal.append('Journal mode: write-ahead logging. ');
+    journal.append(
+      ZogographI18n.t(
+        'database.wal_mode',
+        {},
+        'Journal mode: write-ahead logging. ',
+      ),
+    );
     const link = document.createElement('a');
     link.href = 'https://www.sqlite.org/wal.html';
     link.target = '_blank';
     link.rel = 'noopener noreferrer';
-    link.textContent = 'How SQLite WAL works ↗';
+    link.textContent = ZogographI18n.t(
+      'database.wal_link',
+      {},
+      'How SQLite WAL works ↗',
+    );
     journal.appendChild(link);
     wrap.appendChild(journal);
   }
@@ -18359,9 +18369,13 @@ function databaseCard(file, projection) {
   if (file.wal_bytes > file.bytes) {
     wrap.appendChild(
       note(
-        'The write-ahead log is larger than the database itself, which means it has not been ' +
-          'checkpointed for a while. It is not lost data — it is the database — but it is worth ' +
-          'knowing when comparing this page against what ls says.',
+        ZogographI18n.t(
+          'database.wal_larger_warning',
+          {},
+          'The write-ahead log is larger than the database itself, which means it has not been ' +
+            'checkpointed for a while. It is not lost data — it is the database — but it is worth ' +
+            'knowing when comparing this page against what ls says.',
+        ),
       ),
     );
   }

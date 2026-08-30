@@ -40947,92 +40947,37 @@ function showExposeDialog(row) {
 
   const body = $('listDialogBody');
   body.className = '';
-
-  const frag = document.createDocumentFragment();
-
-  const intro = document.createElement('p');
-  intro.className = 'muted small';
-  intro.textContent =
-    `${row.name} is installed at ${row.host_path} and is not visible inside ` +
-    'this account. Run these as root on the host. They write a CageFS config fragment and ' +
-    'rebuild the skeleton — which changes what every caged account can run, so nothing here ' +
-    'does it for you.';
-  frag.appendChild(intro);
-
-  const pre = document.createElement('pre');
-  pre.className = 'commands';
-  pre.textContent = row.expose.commands.join('\n');
-  frag.appendChild(pre);
-
-  const buttons = document.createElement('p');
-
-  const copy = document.createElement('button');
-  copy.textContent = copyButtonLabel('copy');
-  copy.addEventListener('click', async () => {
-    try {
-      await navigator.clipboard.writeText(row.expose.commands.join('\n'));
-      copy.textContent = copyButtonLabel('copied');
-      setTimeout(() => {
-        copy.textContent = copyButtonLabel('copy');
-      }, 1500);
-    } catch {
-      /*
-       * Clipboard access is refused outside a secure context, which is
-       * exactly where a self-hosted panel often lives. Selecting the text is
-       * the fallback, and saying so beats a button that silently does nothing.
-       */
-      copy.textContent = copyButtonLabel('select_to_copy');
-      const range = document.createRange();
-      range.selectNodeContents(pre);
-      const selection = window.getSelection();
-      selection.removeAllRanges();
-      selection.addRange(range);
-    }
-  });
-  buttons.appendChild(copy);
-
-  const queue = document.createElement('button');
-  queue.className = 'link';
-  queue.style.marginLeft = '10px';
-  queue.textContent = ZogographI18n.t(
-    'capabilities.queue_check',
-    {},
-    'Ask the collector to check afterwards',
+  body.replaceChildren(
+    renderCoreCardPackage(
+      ZogographCapabilityExposeDialogCard,
+      'core-capability-expose-dialog',
+      row,
+      {
+        copyButtonLabel,
+        queue: async (button, capability) => {
+          button.disabled = true;
+          try {
+            await post('request-host-task', {
+              task: 'expose',
+              program: capability.name,
+            });
+            notice(
+              ZogographI18n.t(
+                'capabilities.queued_confirmation',
+                { program: capability.name },
+                'Queued. The host collector will confirm {{program}} on its next run.',
+              ),
+            );
+            await refreshCapabilities();
+          } catch (error) {
+            notice(String(error.message || error));
+            button.disabled = false;
+          }
+        },
+        i18n: ZogographI18n,
+      },
+    ),
   );
-  queue.title = ZogographI18n.t(
-    'capabilities.queue_check_help',
-    {},
-    'Queues a capability sweep so the next host run confirms whether it worked.',
-  );
-  queue.addEventListener('click', async () => {
-    queue.disabled = true;
-    try {
-      await post('request-host-task', { task: 'expose', program: row.name });
-      notice(
-        ZogographI18n.t(
-          'capabilities.queued_confirmation',
-          { program: row.name },
-          'Queued. The host collector will confirm {{program}} on its next run.',
-        ),
-      );
-      await refreshCapabilities();
-    } catch (error) {
-      notice(String(error.message || error));
-      queue.disabled = false;
-    }
-  });
-  buttons.appendChild(queue);
-
-  frag.appendChild(buttons);
-
-  const note = document.createElement('p');
-  note.className = 'muted small';
-  note.textContent =
-    'These files are INI. A bare path without the [section] header makes ' +
-    'cagefsctl refuse to run at all until the file is removed.';
-  frag.appendChild(note);
-
-  body.replaceChildren(frag);
   $('listDialog').showModal();
 }
 

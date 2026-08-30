@@ -10569,7 +10569,7 @@ function renderRdns(data) {
         : "")
     ));
   } else {
-    parts.push(note("Nothing waiting."));
+    parts.push(note(ZogographI18n.t("rdns.nothing_waiting", {}, "Nothing was waiting.")));
   }
 
   if (data.known?.length) {

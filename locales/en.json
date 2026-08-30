@@ -2953,7 +2953,7 @@
   "host.kernel_slab_title": "Kernel slab caches",
   "host.kernel_slab_help": "Memory the kernel holds for itself. It belongs to no process and no account, and it is the first place to look when the numbers do not add up — a quarter of a gigabyte of xfs_inode appears in nothing else on this site.",
   "host.services_alive_title": "Are the services alive?",
-  "host.services_alive_help": "The one question the rest of this page cannot answer. A daemon that has died uses no memory, no CPU and no disk, so it vanishes from every chart above rather than standing out in one. Not installed is shown apart from stopped on purpose — a service this machine never ran is not a fault, and colouring it red would make the panel permanently alarming and therefore ignored.",
+  "host.services_alive_help": "The one question the rest of this page cannot answer. A daemon that has died uses no memory, no CPU and no disk, so it vanishes from every chart above rather than standing out in one. {{not_installed}} is shown apart from {{stopped}} on purpose — a service this machine never ran is not a fault, and colouring it red would make the panel permanently alarming and therefore ignored.",
   "host.big_directories_title": "Biggest directories on the machine",
   "host.big_directories_help": "From root's walk of the whole disk, so this reaches the places the account cannot: other accounts' homes, /var, /backup, and anything mounted somewhere unexpected.",
   "host.disk_processes_title": "Processes touching the disk",

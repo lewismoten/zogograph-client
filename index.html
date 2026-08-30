@@ -1159,11 +1159,11 @@
   <div id="hostDaemonBody"></div>
   <div id="hostDaemonContent" hidden>
     <h3 class="sub-head" data-i18n="host.services_alive_title">Are the services alive?</h3>
-    <p class="muted small sub-note" data-i18n="host.services_alive_help">
+    <p class="muted small sub-note" data-i18n-rich="host.services_alive_help">
       The one question the rest of this page cannot answer. A daemon that has
       died uses no memory, no CPU and no disk, so it vanishes from every chart
-      above rather than standing out in one. <strong>Not installed</strong> is
-      shown apart from <strong>stopped</strong> on purpose — a service this
+      above rather than standing out in one. <strong data-i18n-tag="not_installed">Not installed</strong> is
+      shown apart from <strong data-i18n-tag="stopped">stopped</strong> on purpose — a service this
       machine never ran is not a fault, and colouring it red would make the
       panel permanently alarming and therefore ignored.
     </p>

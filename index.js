@@ -17427,7 +17427,7 @@ async function checkSymlinks() {
     holder.replaceChildren(note(String(error.message || error)));
   } finally {
     button.disabled = false;
-    button.textContent = "Check again";
+    button.textContent = ZogographI18n.t("storage.check_again", {}, "Check again");
   }
 }
 

@@ -71,6 +71,9 @@ $hostDisksCard = i18nCardSource(
 $hostIoProcessesCard = i18nCardSource(
     file_get_contents($root . '/cards/host-io-processes.js'),
 );
+$hostFilesCard = i18nCardSource(
+    file_get_contents($root . '/cards/host-files.js'),
+);
 $uptimeCard = i18nCardSource(file_get_contents($root . '/cards/uptime.js'));
 $onboardingCard = i18nCardSource(
     file_get_contents($root . '/cards/onboarding.js'),
@@ -770,6 +773,21 @@ i18nExpect(
             'renderCoreCardPackage(ZogographHostIoProcessesCard, "core-host-io-processes",',
         ),
     'host I/O processes are not isolated behind their core card-module boundary',
+);
+i18nExpect(
+    $page !== false &&
+        str_contains($page, 'src="cards/host-files.js"') &&
+        $hostFilesCard !== false &&
+        str_contains($hostFilesCard, 'window.ZogographHostFilesCard') &&
+        str_contains($hostFilesCard, 'id: "core-host-files"') &&
+        str_contains($hostFilesCard, 'locales: ["core-host-files."]') &&
+        str_contains($hostFilesCard, '"core-host-files.linked_total"') &&
+        $script !== false &&
+        str_contains(
+            $script,
+            'renderCoreCardPackage(ZogographHostFilesCard, "core-host-files",',
+        ),
+    'watched files are not isolated behind their core card-module boundary',
 );
 i18nExpect(
     $page !== false &&

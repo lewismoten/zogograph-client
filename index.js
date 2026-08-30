@@ -20711,7 +20711,11 @@ async function browseTerminalEditor(path = '') {
     const up = document.createElement('button');
     up.type = 'button';
     up.className = 'link';
-    up.textContent = '↑ Parent directory';
+    up.textContent = ZogographI18n.t(
+      'editor.parent_directory',
+      {},
+      '↑ Parent directory',
+    );
     up.addEventListener('click', () =>
       browseTerminalEditor(data.parent).catch((error) =>
         notice(String(error.message || error)),
@@ -20750,14 +20754,41 @@ async function browseTerminalEditor(path = '') {
     facts.className = 'muted small';
     facts.textContent =
       row.kind === 'link'
-        ? 'symbolic link — not followed'
+        ? ZogographI18n.t(
+            'editor.symbolic_link_unfollowed',
+            {},
+            'symbolic link — not followed',
+          )
         : row.kind === 'directory'
           ? row.writable
-            ? 'directory · writable'
-            : 'directory · read-only'
+            ? ZogographI18n.t(
+                'editor.directory_writable',
+                {},
+                'directory · writable',
+              )
+            : ZogographI18n.t(
+                'editor.directory_read_only',
+                {},
+                'directory · read-only',
+              )
           : row.kind === 'file'
-            ? `${humanBytes(row.bytes || 0)} · ${row.writable ? 'writable' : 'read-only'}`
-            : 'not a regular file';
+            ? ZogographI18n.t(
+                'editor.file_access',
+                {
+                  size: humanBytes(row.bytes || 0),
+                  access: ZogographI18n.t(
+                    row.writable ? 'editor.writable' : 'editor.read_only',
+                    {},
+                    row.writable ? 'writable' : 'read-only',
+                  ),
+                },
+                '{{size}} · {{access}}',
+              )
+            : ZogographI18n.t(
+                'editor.not_regular_file',
+                {},
+                'not a regular file',
+              );
     entry.appendChild(facts);
     list.appendChild(entry);
   }
@@ -20765,13 +20796,21 @@ async function browseTerminalEditor(path = '') {
   if (data.more)
     nodes.push(
       note(
-        `${count(data.more, 'additional entry')} not shown. Open a narrower directory to keep browsing responsive.`,
+        ZogographI18n.t(
+          'editor.browser_more',
+          { count: humanCount(data.more) },
+          '{{count}} additional entries not shown. Open a narrower directory to keep browsing responsive.',
+        ),
       ),
     );
   showListDialog(
-    'Browse watched files',
+    ZogographI18n.t('terminal.browse_watched', {}, 'Browse watched files'),
     nodes,
-    'Only direct children are shown. Symbolic links are never followed here, and opening a file repeats its path and access checks.',
+    ZogographI18n.t(
+      'editor.browser_help',
+      {},
+      'Only direct children are shown. Symbolic links are never followed here, and opening a file repeats its path and access checks.',
+    ),
   );
 }
 

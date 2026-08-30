@@ -6774,7 +6774,6 @@ function personaFields(data) {
     { data },
     {
       fieldRow,
-      aiSettingsText,
       renderCard: renderCoreCardPackage,
       identityFieldsCard: ZogographAiIdentityFieldsCard,
       personalityPickerCard: ZogographAiPersonalityPickerCard,

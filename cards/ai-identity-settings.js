@@ -5,7 +5,6 @@ window.ZogographAiIdentitySettingsCard = {
     locales: ['core-ai-identity-settings.'],
     helpers: [
       'fieldRow',
-      'aiSettingsText',
       'renderCard',
       'identityFieldsCard',
       'personalityPickerCard',
@@ -46,7 +45,6 @@ window.ZogographAiIdentitySettingsCard = {
     const { data } = input;
     const {
       fieldRow,
-      aiSettingsText,
       renderCard,
       identityFieldsCard,
       personalityPickerCard,
@@ -88,7 +86,6 @@ window.ZogographAiIdentitySettingsCard = {
           { who },
           {
             fieldRow,
-            aiSettingsText,
             ago,
             askFirst,
             post,

@@ -523,7 +523,6 @@
   "storage.ldconfig_previous_finished": "The last rebuild was {{time}} and finished.",
   "storage.ldconfig_previous_failed": "The last rebuild was {{time}} and failed: {{reason}}.",
   "storage.ldconfig_no_reason": "no reason given",
-  "ai.try_browser_shown": "What you would have seen",
   "ai.try_arguments": "What it was given",
   "ai.try_browser_result": "What the model gets back",
   "ai.try_browser_help": "This ran in this window, which is where it runs in a conversation too. The only difference is that the result is shown here instead of being handed back to the model.",

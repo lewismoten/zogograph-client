@@ -21205,7 +21205,7 @@ async function runAiTry(tool) {
         parts.push(
           section(
             ZogographI18n.t(
-              'ai.try_browser_shown',
+              'core-ai-tool-try.browser_shown',
               {},
               'What you would have seen',
             ),

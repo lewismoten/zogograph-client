@@ -21,6 +21,7 @@ window.ZogographAiToolTryCard = {
           ' It asks your permission first, and so does this.',
         'core-ai-tool-try.unknown_tool':
           'This page does not know how to try {{tool}}.',
+        'core-ai-tool-try.browser_shown': 'What you would have seen',
       }),
       es: Object.freeze({
         'core-ai-tool-try.empty': 'No hay herramientas.',
@@ -37,6 +38,7 @@ window.ZogographAiToolTryCard = {
           ' También pide su permiso primero.',
         'core-ai-tool-try.unknown_tool':
           'Esta página no sabe cómo probar {{tool}}.',
+        'core-ai-tool-try.browser_shown': 'Lo que habría visto',
       }),
       hi: Object.freeze({
         'core-ai-tool-try.empty': 'कोई टूल नहीं हैं।',
@@ -52,6 +54,7 @@ window.ZogographAiToolTryCard = {
         'core-ai-tool-try.browser_permission': ' यह पहले अनुमति भी माँगता है।',
         'core-ai-tool-try.unknown_tool':
           'यह पृष्ठ नहीं जानता कि {{tool}} को कैसे आज़माया जाए।',
+        'core-ai-tool-try.browser_shown': 'जो आप देखते',
       }),
       ar: Object.freeze({
         'core-ai-tool-try.empty': 'لا توجد أدوات.',
@@ -67,6 +70,7 @@ window.ZogographAiToolTryCard = {
         'core-ai-tool-try.browser_permission': ' وتطلب إذنك أولًا.',
         'core-ai-tool-try.unknown_tool':
           'لا تعرف هذه الصفحة كيفية تجربة {{tool}}.',
+        'core-ai-tool-try.browser_shown': 'ما كنت ستراه',
       }),
       zh: Object.freeze({
         'core-ai-tool-try.empty': '没有工具。',
@@ -80,6 +84,7 @@ window.ZogographAiToolTryCard = {
         'core-ai-tool-try.browser_warning': '此工具会在当前窗口中实际运行。',
         'core-ai-tool-try.browser_permission': ' 它也会先请求您的许可。',
         'core-ai-tool-try.unknown_tool': '此页面不知道如何试用 {{tool}}。',
+        'core-ai-tool-try.browser_shown': '您本会看到的内容',
       }),
     }),
   }),

@@ -2538,7 +2538,6 @@ i18nExpect(
             $english['process.still_running_count'],
             $english['process.protected_count'],
             $english['process.failed_count'],
-            $english['ai.try_browser_shown'],
             $english['ai.try_arguments'],
             $english['ai.try_browser_result'],
             $english['ai.try_browser_help'],
@@ -2748,10 +2747,17 @@ foreach (array_unique($dynamicDashboardKeys[1] ?? []) as $key) {
     i18nExpect(
         isset($english[$key]) ||
             isset($toolEnglish[$key]) ||
-            ($key === 'core-ai-tool-try.unknown_tool' &&
+            (in_array(
+                $key,
+                [
+                    'core-ai-tool-try.unknown_tool',
+                    'core-ai-tool-try.browser_shown',
+                ],
+                true,
+            ) &&
                 str_contains(
                     (string) file_get_contents($root . '/cards/ai-tool-try.js'),
-                    "'core-ai-tool-try.unknown_tool'",
+                    "'" . $key . "'",
                 )),
         "dashboard dynamic i18n key $key has no English fallback",
     );
@@ -2872,7 +2878,7 @@ i18nExpect(
 );
 i18nExpect(
     $script !== false &&
-        str_contains($script, 'ai.try_browser_shown') &&
+        str_contains($script, 'core-ai-tool-try.browser_shown') &&
         str_contains($script, 'ai.try_server_timing') &&
         str_contains($script, 'ai.try_result_help'),
     'AI tool test panel retains direct user-visible text',
@@ -3265,8 +3271,14 @@ foreach (['en-US', 'en-GB', 'es', 'hi', 'zh', 'ar'] as $locale) {
             array_diff(
                 array_filter(
                     array_unique($dynamicDashboardKeys[1] ?? []),
-                    static fn(string $key): bool => $key !==
-                        'core-ai-tool-try.unknown_tool',
+                    static fn(string $key): bool => !in_array(
+                        $key,
+                        [
+                            'core-ai-tool-try.unknown_tool',
+                            'core-ai-tool-try.browser_shown',
+                        ],
+                        true,
+                    ),
                 ),
                 array_keys(
                     array_replace($catalog, $toolCatalogs[$locale] ?? []),

@@ -47933,8 +47933,12 @@ $('navSearch')?.addEventListener('input', syncNavigationSearch);
 $('actionClear')?.addEventListener('click', async () => {
   if (
     !(await confirmDialog(
-      'Clear every earlier audit entry?\n\nThis action stays as the first new audit entry.',
-      'Clear audit',
+      ZogographI18n.t(
+        'audit.clear_confirm',
+        {},
+        'Clear every earlier audit entry?\n\nThis action stays as the first new audit entry.',
+      ),
+      ZogographI18n.t('audit.clear', {}, 'Clear audit'),
     ))
   )
     return;
@@ -47945,7 +47949,11 @@ $('actionClear')?.addEventListener('click', async () => {
     actionState.result = '';
     await refreshActionLog();
     notice(
-      `Cleared ${count(result.removed, 'earlier audit entry')}. The reset is recorded.`,
+      ZogographI18n.t(
+        'audit.clear_result',
+        { entries: count(result.removed, 'earlier audit entry') },
+        'Cleared {{entries}}. The reset is recorded.',
+      ),
       true,
     );
   } catch (error) {
@@ -47956,7 +47964,11 @@ $('actionClear')?.addEventListener('click', async () => {
 $('actionExport')?.addEventListener('click', async () => {
   if (
     !(await confirmDialog(
-      'Download the full audit history as CSV?\n\nIt can contain private paths and client addresses. Store the file securely.',
+      ZogographI18n.t(
+        'audit.export_confirm',
+        {},
+        'Download the full audit history as CSV?\n\nIt can contain private paths and client addresses. Store the file securely.',
+      ),
     ))
   )
     return;
@@ -48403,7 +48415,9 @@ $('busyExpand').addEventListener('click', () => {
   // Set .open and let the toggle listener record it, so the remembered set and
   // what is on screen cannot drift apart.
   for (const d of all) d.open = opening;
-  $('busyExpand').textContent = opening ? 'Close all' : 'Open all';
+  $('busyExpand').textContent = opening
+    ? ZogographI18n.t('action.close_all', {}, 'Close all')
+    : ZogographI18n.t('action.open_all', {}, 'Open all');
 });
 
 for (const id of ['pieShowCategories', 'typeGrowthMode']) {

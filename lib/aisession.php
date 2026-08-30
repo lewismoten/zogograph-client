@@ -1234,6 +1234,17 @@ function aiSessionView(array $config, PDO $ai, int $id, array $views): array
     );
 
     $all = aiTools($views);
+    foreach ($shown as &$message) {
+        if (($message['role'] ?? '') !== 'tool_call') {
+            continue;
+        }
+        $tool = (string) ($message['tool'] ?? '');
+        $message['package'] = (string) ($all[$tool]['package'] ?? '');
+        $message['locale_namespace'] =
+            (string) ($all[$tool]['locale_namespace'] ?? '');
+        $message['summary'] = (string) ($all[$tool]['summary'] ?? '');
+    }
+    unset($message);
 
     return [
         'exists' => true,

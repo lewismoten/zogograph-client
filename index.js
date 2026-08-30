@@ -37330,6 +37330,25 @@ function openCalendarDay(key, entries) {
 }
 
 function renderEventList(data) {
+  if (window.ZogographCalendarEventListCard) {
+    return renderCoreCardPackage(
+      ZogographCalendarEventListCard,
+      'core-calendar-event-list',
+      data,
+      {
+        target: $('eventList'),
+        note,
+        renderTable,
+        humanTime,
+        openForm: openEventForm,
+        confirmDialog,
+        post,
+        renderCalendar,
+        notice,
+        i18n: ZogographI18n,
+      },
+    );
+  }
   const holder = $('eventList');
 
   if (!data.events.length) {

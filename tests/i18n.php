@@ -73,6 +73,9 @@ $calendarUpcomingCard = i18nCardSource(
 $calendarGridCard = i18nCardSource(
     file_get_contents($root . '/cards/calendar-grid.js'),
 );
+$calendarEventListCard = i18nCardSource(
+    file_get_contents($root . '/cards/calendar-event-list.js'),
+);
 $networkPeersCard = i18nCardSource(
     file_get_contents($root . '/cards/network-peers.js'),
 );
@@ -397,6 +400,34 @@ i18nExpect(
             'renderCoreCardPackage(ZogographCalendarUpcomingCard, "core-calendar-upcoming",',
         ),
     'calendar upcoming list is not isolated behind its core card-module boundary',
+);
+i18nExpect(
+    $page !== false &&
+        str_contains($page, 'src="cards/calendar-event-list.js"') &&
+        $calendarEventListCard !== false &&
+        str_contains(
+            $calendarEventListCard,
+            'window.ZogographCalendarEventListCard',
+        ) &&
+        str_contains(
+            $calendarEventListCard,
+            'id: "core-calendar-event-list"',
+        ) &&
+        str_contains(
+            $calendarEventListCard,
+            'locales: ["core-calendar-event-list."]',
+        ) &&
+        str_contains($calendarEventListCard, 'catalogs: Object.freeze({') &&
+        str_contains(
+            $calendarEventListCard,
+            '"core-calendar-event-list.empty"',
+        ) &&
+        $script !== false &&
+        str_contains(
+            $script,
+            'renderCoreCardPackage(ZogographCalendarEventListCard, "core-calendar-event-list",',
+        ),
+    'calendar event list is not isolated behind its core card-module boundary',
 );
 i18nExpect(
     $page !== false &&

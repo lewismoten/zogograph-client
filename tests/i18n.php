@@ -142,6 +142,9 @@ $reportsNotReadyCard = i18nCardSource(
 $reportsAuthorshipCard = i18nCardSource(
     file_get_contents($root . '/cards/reports-authorship.js'),
 );
+$reportRowCard = i18nCardSource(
+    file_get_contents($root . '/cards/report-row.js'),
+);
 $fetchHeadersCard = i18nCardSource(
     file_get_contents($root . '/cards/fetch-headers.js'),
 );
@@ -917,10 +920,12 @@ i18nExpect(
         str_contains($page, 'src="cards/reports-empty.js"') &&
         str_contains($page, 'src="cards/reports-not-ready.js"') &&
         str_contains($page, 'src="cards/reports-authorship.js"') &&
+        str_contains($page, 'src="cards/report-row.js"') &&
         str_contains($reportsStatusCard, 'core-reports-status.on') &&
         str_contains($reportsEmptyCard, 'core-reports-empty.text') &&
         str_contains($reportsNotReadyCard, 'core-reports-not-ready.text') &&
         str_contains($reportsAuthorshipCard, 'core-reports-authorship.text') &&
+        str_contains($reportRowCard, 'core-report-row.period_summary') &&
         str_contains(
             $script,
             'renderCoreCardPackage(ZogographReportsStatusCard',
@@ -936,7 +941,8 @@ i18nExpect(
         str_contains(
             $script,
             'renderCoreCardPackage(ZogographReportsAuthorshipCard',
-        ),
+        ) &&
+        str_contains($script, 'ZogographReportRowCard,'),
     'report page cards are not isolated behind core card-module boundaries',
 );
 i18nExpect(

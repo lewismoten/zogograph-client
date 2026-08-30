@@ -20671,69 +20671,30 @@ function renderReports(data) {
   }
 
   for (const report of data.reports) {
-    const card = document.createElement('div');
-    card.className = 'report';
-
-    const head = document.createElement('div');
-    head.className = 'report-head';
-
-    const title = document.createElement('strong');
-    title.textContent = ZogographI18n.t('reports.period_summary', {
-      period: data.periods[report.period]?.label ?? report.period,
-    });
-    head.appendChild(title);
-
-    const covers = document.createElement('span');
-    covers.className = 'muted small';
-    covers.textContent = whenRange(report.covers_from, report.covers_to);
-    covers.title = `${whenTitle(report.covers_from)}\n\nto\n\n${whenTitle(report.covers_to)}`;
-    head.appendChild(covers);
-
-    const sent = document.createElement('span');
-    sent.className = 'muted small';
-    sent.textContent = report.emailed_at
-      ? ZogographI18n.t('reports.emailed', {
-          when: whenLabel(report.emailed_at),
-        })
-      : ZogographI18n.t('reports.not_emailed');
-    if (report.emailed_at) sent.title = whenTitle(report.emailed_at);
-    head.appendChild(sent);
-
-    if (report.cost && report.cost !== '—') {
-      const cost = document.createElement('span');
-      cost.className = 'muted small';
-      cost.textContent = report.cost;
-      cost.title = ZogographI18n.t('reports.cost_tip');
-      head.appendChild(cost);
-    }
-
-    const drop = document.createElement('button');
-    drop.className = 'link danger small';
-    drop.textContent = ZogographI18n.t('action.delete', {}, 'Delete');
-    drop.addEventListener('click', async () => {
-      if (
-        !(await confirmDialog(
-          ZogographI18n.t('reports.delete_confirm'),
-          ZogographI18n.t('reports.delete_title'),
-        ))
-      )
-        return;
-      try {
-        renderReports(await post('ai-report-forget', { id: report.id }));
-      } catch (error) {
-        notice(String(error.message || error));
-      }
-    });
-    head.appendChild(drop);
-
-    card.appendChild(head);
-
-    const text = document.createElement('div');
-    text.className = 'report-body';
-    text.appendChild(renderMarkdown(report.body));
-    card.appendChild(text);
-
-    parts.push(card);
+    parts.push(
+      renderCoreCardPackage(
+        ZogographReportRowCard,
+        'core-report-row',
+        { report, periods: data.periods },
+        {
+          whenRange,
+          whenTitle,
+          whenLabel,
+          renderMarkdown,
+          remove: async (selected, message, title) => {
+            if (!(await confirmDialog(message, title))) return;
+            try {
+              renderReports(
+                await post('ai-report-forget', { id: selected.id }),
+              );
+            } catch (error) {
+              notice(String(error.message || error));
+            }
+          },
+          i18n: ZogographI18n,
+        },
+      ),
+    );
   }
 
   parts.push(

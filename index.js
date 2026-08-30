@@ -26830,7 +26830,10 @@ function processAge(row) {
  * "2 filees" for the next one.
  */
 function count(n, singular, plural = `${singular}s`) {
-  return `${n} ${n === 1 ? singular : plural}`;
+  const value = Number(n) || 0;
+  return `${new Intl.NumberFormat(
+    document.documentElement.lang || undefined,
+  ).format(value)} ${value === 1 ? singular : plural}`;
 }
 
 /**

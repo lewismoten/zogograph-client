@@ -74,6 +74,9 @@ $hostIoProcessesCard = i18nCardSource(
 $hostFilesCard = i18nCardSource(
     file_get_contents($root . '/cards/host-files.js'),
 );
+$hostDaemonsCard = i18nCardSource(
+    file_get_contents($root . '/cards/host-daemons.js'),
+);
 $uptimeCard = i18nCardSource(file_get_contents($root . '/cards/uptime.js'));
 $onboardingCard = i18nCardSource(
     file_get_contents($root . '/cards/onboarding.js'),
@@ -788,6 +791,22 @@ i18nExpect(
             'renderCoreCardPackage(ZogographHostFilesCard, "core-host-files",',
         ),
     'watched files are not isolated behind their core card-module boundary',
+);
+i18nExpect(
+    $page !== false &&
+        str_contains($page, 'src="cards/host-daemons.js"') &&
+        $hostDaemonsCard !== false &&
+        str_contains($hostDaemonsCard, 'window.ZogographHostDaemonsCard') &&
+        str_contains($hostDaemonsCard, 'id: "core-host-daemons"') &&
+        str_contains($hostDaemonsCard, 'locales: ["core-host-daemons."]') &&
+        str_contains($hostDaemonsCard, '"core-host-daemons.empty"') &&
+        str_contains($hostDaemonsCard, '"watch"') &&
+        $script !== false &&
+        str_contains(
+            $script,
+            'renderCoreCardPackage(ZogographHostDaemonsCard, "core-host-daemons",',
+        ),
+    'host daemons are not isolated behind their core card-module boundary',
 );
 i18nExpect(
     $page !== false &&

@@ -18017,7 +18017,11 @@ function renderAccountData(data) {
 
   parts.push(
     section(
-      "This account's database",
+      ZogographI18n.t(
+        'database.account_database',
+        {},
+        "This account's database",
+      ),
       databaseCard(account.file, {
         projected: account.projected_total,
         known: account.projected_known,
@@ -18059,9 +18063,15 @@ function renderAccountData(data) {
 
     parts.push(
       section(
-        'Where the space goes',
+        ZogographI18n.t('database.space_breakdown', {}, 'Where the space goes'),
         simpleTable(
-          ['Table', 'Rows', 'Data', 'Indexes', 'Total'],
+          [
+            ZogographI18n.t('database.table', {}, 'Table'),
+            ZogographI18n.t('database.rows', {}, 'Rows'),
+            ZogographI18n.t('database.data', {}, 'Data'),
+            ZogographI18n.t('database.indexes', {}, 'Indexes'),
+            ZogographI18n.t('database.total', {}, 'Total'),
+          ],
           table
             .sort((a, b) => b.total_bytes - a.total_bytes)
             .map((row) => [
@@ -18078,9 +18088,11 @@ function renderAccountData(data) {
 
     parts.push(
       note(
-        'Indexes are counted against the table they belong to. On a busy table an index can be ' +
-          'close to half the total, and listing them separately makes every table look cheaper ' +
-          'than it is.',
+        ZogographI18n.t(
+          'database.indexes_note',
+          {},
+          'Indexes are counted against the table they belong to. On a busy table an index can be close to half the total, and listing them separately makes every table look cheaper than it is.',
+        ),
       ),
     );
   }
@@ -18098,13 +18110,22 @@ function renderHostData(data) {
     body.replaceChildren(
       note(
         data.host_why ||
-          'There is no host database here, or this account cannot open it.',
+          ZogographI18n.t(
+            'database.host_unreadable',
+            {},
+            'Present but not readable by this account, or not there at all.',
+          ),
       ),
     );
     return;
   }
 
-  const parts = [section('The file', databaseCard(data.host.file, null))];
+  const parts = [
+    section(
+      ZogographI18n.t('database.file', {}, 'The file'),
+      databaseCard(data.host.file, null),
+    ),
+  ];
 
   if (!data.host.measured) {
     parts.push(note(data.host.why));
@@ -18115,9 +18136,15 @@ function renderHostData(data) {
 
     parts.push(
       section(
-        'Where the space goes',
+        ZogographI18n.t('database.space_breakdown', {}, 'Where the space goes'),
         simpleTable(
-          ['Table', 'Rows', 'Data', 'Indexes', 'Total'],
+          [
+            ZogographI18n.t('database.table', {}, 'Table'),
+            ZogographI18n.t('database.rows', {}, 'Rows'),
+            ZogographI18n.t('database.data', {}, 'Data'),
+            ZogographI18n.t('database.indexes', {}, 'Indexes'),
+            ZogographI18n.t('database.total', {}, 'Total'),
+          ],
           tables.map((row) => [
             databaseTableName(row.table, true),
             humanCount(row.rows ?? 0),
@@ -18133,9 +18160,11 @@ function renderHostData(data) {
 
   parts.push(
     note(
-      'Nothing here can be changed from this account. The host collector owns this file and ' +
-        "its retention is set in the host's own configuration \u2014 a rewrite started here " +
-        'would leave a file owned by the web user that the collector could no longer write.',
+      ZogographI18n.t(
+        'storage.host_help',
+        {},
+        'Written by root’s collector, and read-only from here. This account can usually open it to read and should never be the thing that rewrites it — a rewrite started from here would leave a file the collector could no longer write. Where it cannot be opened at all, that is said rather than shown as zeros.',
+      ),
     ),
   );
 

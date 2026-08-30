@@ -61,7 +61,8 @@ Each run:
 1. creates a release staging directory, excluding `data/`, `lib/config.php`,
    tests, deployment examples, and documentation;
 2. writes a public `build.json` containing the commit, ref, run ID/number,
-   creation time, version, repository, application, and part;
+   creation time, Git-derived version, `packageVersion` from `package.json`,
+   repository, application, and part;
 3. takes a remote snapshot before altering the site;
 4. uses `rsync --delete` for application files while explicitly preserving
    `data/`, `lib/config.php`, and `.well-known/` on the server; and

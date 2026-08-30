@@ -25952,14 +25952,14 @@ function openUrlForm(row = null) {
   field("urlInterval", ZogographI18n.t("url.interval", {}, "How often"), interval, "");
 
   const method = document.createElement("select");
-  for (const [value, text] of [
-    ["GET", "GET \u2014 fetch the page"],
-    ["HEAD", "HEAD \u2014 headers only, no body"],
-    ["OPTIONS", "OPTIONS \u2014 what the server allows"],
+  for (const [value, key, fallback] of [
+    ["GET", "method_get", "GET \u2014 fetch the page"],
+    ["HEAD", "method_head", "HEAD \u2014 headers only, no body"],
+    ["OPTIONS", "method_options", "OPTIONS \u2014 what the server allows"],
   ]) {
     const option = document.createElement("option");
     option.value = value;
-    option.textContent = text;
+    option.textContent = ZogographI18n.t(`url.${key}`, {}, fallback);
     option.selected = (row?.method ?? "GET") === value;
     method.appendChild(option);
   }

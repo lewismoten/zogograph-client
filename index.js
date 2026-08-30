@@ -12441,10 +12441,13 @@ function chatPermissionPrompt(run) {
 
     const left = Math.max(0, Math.round((deadline - Date.now()) / 1000));
 
-    clock.textContent =
+    clock.textContent = ZogographI18n.t(
+      left > 0 ? 'ai.permission_countdown' : 'ai.permission_timed_out',
+      { duration: humanSpan(left) },
       left > 0
-        ? `Treated as no in ${humanSpan(left)}`
-        : 'No answer — carrying on without it';
+        ? 'Treated as no in {{duration}}'
+        : 'No answer — carrying on without it',
+    );
     clock.classList.toggle('soon', left <= 15);
 
     if (left <= 0) {
@@ -12456,8 +12459,11 @@ function chatPermissionPrompt(run) {
           await post('ai-permit', { run: run.id, allow: '0' })
         ).session;
         notice(
-          `Nobody answered, so ${chatState.who.name} was told no. It carries on ` +
-            'without whatever that would have told it.',
+          ZogographI18n.t(
+            'ai.permission_timeout_notice',
+            { assistant: chatState.who.name },
+            'Nobody answered, so {{assistant}} was told no. It carries on without whatever that would have told it.',
+          ),
           true,
         );
         renderChat();

@@ -513,7 +513,9 @@ try {
         $failedStatus = encryptionStatus($live, $retentionConfig, $web);
         encryptionExpect(str_contains(implode(' ', $failedStatus['warnings']), 'failed their last verification'),
             'failed encrypted artifact was not visible in protection status');
-        try { encryptionRotateConfiguredArtifacts($config, $live, $web, $replacementKeyPath, fn(array $updated): null => null); throw new RuntimeException('rotation skipped selected store without verified coverage'); }
+        // Do not use standalone `null` here: PHP 8.1, common on supported
+        // hosts and the CI image, only permits null as part of a union type.
+        try { encryptionRotateConfiguredArtifacts($config, $live, $web, $replacementKeyPath, fn(array $updated) => null); throw new RuntimeException('rotation skipped selected store without verified coverage'); }
         catch (RuntimeException $error) { encryptionExpect($error->getMessage() !== 'rotation skipped selected store without verified coverage', $error->getMessage()); }
         $rotationConfig = $config; $rotationConfig['encryption']['stores'] = ['account']; $rotationSaved = false;
         $rotatedConfigured = encryptionRotateConfiguredArtifacts($rotationConfig, $live, $web, $replacementKeyPath,

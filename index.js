@@ -17964,7 +17964,10 @@ async function refreshStore() {
 
   // Only the page being looked at gets a spinner; the other two are hidden.
   if (!storeState.data) {
-    for (const body of bodies) body.replaceChildren(spinner('Measuring\u2026'));
+    for (const body of bodies)
+      body.replaceChildren(
+        spinner(ZogographI18n.t('storage.measuring', {}, 'Measuring…')),
+      );
   }
 
   try {

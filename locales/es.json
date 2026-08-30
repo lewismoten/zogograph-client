@@ -3610,5 +3610,6 @@
   "diagnosis.warning_attention": "{{count}} merece atención.",
   "diagnosis.nothing_urgent": "Nada urgente.",
   "diagnosis.ignored_title": "Hallazgos ignorados",
-  "diagnosis.ignored_help": "Son excepciones intencionales. Restaure uno para incluirlo en comprobaciones posteriores."
+  "diagnosis.ignored_help": "Son excepciones intencionales. Restaure uno para incluirlo en comprobaciones posteriores.",
+  "storage.measuring": "Midiendo…"
 }

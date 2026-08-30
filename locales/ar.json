@@ -3596,5 +3596,6 @@
   "diagnosis.warning_attention": "{{count}} يستحق النظر إليه.",
   "diagnosis.nothing_urgent": "لا شيء عاجل.",
   "diagnosis.ignored_title": "نتائج متجاهلة",
-  "diagnosis.ignored_help": "هذه استثناءات مقصودة. استعد واحدة لإدراجها في الفحوصات اللاحقة."
+  "diagnosis.ignored_help": "هذه استثناءات مقصودة. استعد واحدة لإدراجها في الفحوصات اللاحقة.",
+  "storage.measuring": "جارٍ القياس…"
 }

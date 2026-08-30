@@ -2783,6 +2783,7 @@ $translatedSecurityMessages = [
     'diagnosis.nothing_urgent',
     'diagnosis.ignored_title',
     'diagnosis.ignored_help',
+    'storage.measuring',
 ];
 $translatedEncryptionRecoveryActions = [
     'encryption.create_verified_copies',

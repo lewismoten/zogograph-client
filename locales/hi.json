@@ -3610,5 +3610,6 @@
   "diagnosis.warning_attention": "{{count}} पर ध्यान देना उचित है।",
   "diagnosis.nothing_urgent": "कुछ भी तत्काल नहीं है।",
   "diagnosis.ignored_title": "अनदेखे निष्कर्ष",
-  "diagnosis.ignored_help": "ये जानबूझकर किए गए अपवाद हैं। बाद की जाँचों में शामिल करने के लिए एक को पुनर्स्थापित करें।"
+  "diagnosis.ignored_help": "ये जानबूझकर किए गए अपवाद हैं। बाद की जाँचों में शामिल करने के लिए एक को पुनर्स्थापित करें।",
+  "storage.measuring": "मापा जा रहा है…"
 }

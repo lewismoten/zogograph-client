@@ -3699,5 +3699,6 @@
   "diagnosis.warning_attention": "{{count}} worth looking at.",
   "diagnosis.nothing_urgent": "Nothing urgent.",
   "diagnosis.ignored_title": "Ignored findings",
-  "diagnosis.ignored_help": "These are intentional exceptions. Restore one to include it in later checks."
+  "diagnosis.ignored_help": "These are intentional exceptions. Restore one to include it in later checks.",
+  "storage.measuring": "Measuring…"
 }

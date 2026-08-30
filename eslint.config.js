@@ -84,6 +84,7 @@ export default [
         ZogographAiForgetFormCard: 'readonly',
         ZogographAiToolParametersCard: 'readonly',
         ZogographAiToolsToolbarCard: 'readonly',
+        ZogographAiToolDescriptionCard: 'readonly',
         ZogographNetworkCaptureRequestCard: 'readonly',
         ZogographNetworkCaptureHistoryCard: 'readonly',
         ZogographNetworkCaptureCard: 'readonly',

@@ -8500,15 +8500,19 @@ function pictureFields(data) {
   searchRate.value = String(pictures.searches_per_hour);
   form.appendChild(
     fieldRow(
-      'Searches per hour',
+      ZogographI18n.t('ai.images_searches_per_hour', {}, 'Searches per hour'),
       searchRate,
-      'Separate from the picture limit above, because the two cost different things: a ' +
-        "search is a free read against somebody else's quota, a picture is a bill. A " +
-        'hundred is what these services publish as their free allowance and is the most ' +
-        'this will do — going past it gets the key throttled, which breaks the feature for ' +
-        'everyone rather than costing money. Set it lower if you share the key.' +
+      ZogographI18n.t(
+        'ai.images_searches_help',
+        {},
+        "Separate from the picture limit above, because the two cost different things: a search is a free read against somebody else's quota, a picture is a bill. A hundred is what these services publish as their free allowance and is the most this will do — going past it gets the key throttled, which breaks the feature for everyone rather than costing money. Set it lower if you share the key.",
+      ) +
         (pictures.searches
-          ? ` ${pictures.searches.used} in the last hour.`
+          ? ` ${ZogographI18n.t(
+              'ai.images_searches_used',
+              { count: pictures.searches.used },
+              '{{count, number}} in the last hour.',
+            )}`
           : ''),
     ),
   );

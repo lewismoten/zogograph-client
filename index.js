@@ -33263,7 +33263,11 @@ function renderPending(rows) {
     head.className = 'pending-head';
 
     const what = document.createElement('strong');
-    what.textContent = `Waiting on root for ${row.label}`;
+    what.textContent = ZogographI18n.t(
+      'pending.waiting_on_root',
+      { label: row.label },
+      'Waiting on root for {{label}}',
+    );
     head.appendChild(what);
 
     const when = document.createElement('span');
@@ -33325,9 +33329,11 @@ function tickPending() {
      * on every render would never reach the end.
      */
     if (!hostClock.lastAt || !hostClock.interval) {
-      when.textContent =
-        "the collector's schedule is not known yet, so there is no " +
-        'countdown to give';
+      when.textContent = ZogographI18n.t(
+        'pending.schedule_unknown',
+        {},
+        "The collector's schedule is not known yet, so there is no countdown to give.",
+      );
       fill.style.width = '0%';
       continue;
     }
@@ -33345,10 +33351,14 @@ function tickPending() {
     if (overdue > hostClock.interval) {
       fill.classList.add('late');
       fill.style.width = '100%';
-      when.textContent =
-        `the collector last ran ${humanDuration(now - hostClock.lastAt)} ago ` +
-        `and runs every ${humanDuration(hostClock.interval)} \u2014 this will not arrive ` +
-        'until it runs again';
+      when.textContent = ZogographI18n.t(
+        'pending.collector_overdue',
+        {
+          age: humanDuration(now - hostClock.lastAt),
+          interval: humanDuration(hostClock.interval),
+        },
+        'The collector last ran {{age}} ago and runs every {{interval}} — this will not arrive until it runs again.',
+      );
       animate = true;
       continue;
     }
@@ -33363,7 +33373,11 @@ function tickPending() {
       animate = true;
       fill.classList.remove('late');
       fill.style.width = `${Math.max(0, Math.min(100, (1 - left / total) * 100))}%`;
-      when.textContent = `expected in ${humanDuration(left)}`;
+      when.textContent = ZogographI18n.t(
+        'pending.expected_in',
+        { duration: humanDuration(left) },
+        'Expected in {{duration}}',
+      );
     } else {
       /*
        * Past due: stop pretending to be a progress bar.
@@ -33376,8 +33390,12 @@ function tickPending() {
       fill.style.width = '100%';
       when.textContent =
         -left < hostClock.interval
-          ? 'due now'
-          : `${humanDuration(-left)} past due \u2014 the collector may not be running`;
+          ? ZogographI18n.t('pending.due_now', {}, 'Due now')
+          : ZogographI18n.t(
+              'pending.past_due',
+              { duration: humanDuration(-left) },
+              '{{duration}} past due — the collector may not be running',
+            );
       animate = true;
     }
   }
@@ -33411,7 +33429,14 @@ function noticeHostArrival() {
   }
 
   for (const row of settled) {
-    toast(`${row.label} is ready.`, row.view);
+    toast(
+      ZogographI18n.t(
+        'pending.ready',
+        { label: row.label },
+        '{{label}} is ready.',
+      ),
+      row.view,
+    );
 
     /*
      * Marked on the navigation until it has been looked at.
@@ -33437,9 +33462,9 @@ function markUnseen(view, unseen) {
 
   if (unseen) {
     badge.hidden = false;
-    badge.textContent = 'new';
+    badge.textContent = ZogographI18n.t('pending.new', {}, 'new');
     badge.className = 'nav-badge badge-new';
-  } else if (badge.textContent === 'new') {
+  } else if (badge.textContent === ZogographI18n.t('pending.new', {}, 'new')) {
     badge.hidden = true;
     badge.textContent = '';
   }
@@ -33460,7 +33485,11 @@ function toast(text, view = '') {
   if (view && VIEWS[view]) {
     const go = document.createElement('button');
     go.className = 'link';
-    go.textContent = `Open ${VIEWS[view].label}`;
+    go.textContent = ZogographI18n.t(
+      'notes.open_view',
+      { view: VIEWS[view].label },
+      'Open {{view}}',
+    );
     go.addEventListener('click', () => {
       showView(view);
       box.remove();

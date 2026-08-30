@@ -1386,6 +1386,14 @@ i18nExpect(
             $english['ai.permission_wants'],
             $english['ai.permission_allow'],
             $english['ai.permission_decline'],
+            $english['pending.waiting_on_root'],
+            $english['pending.schedule_unknown'],
+            $english['pending.collector_overdue'],
+            $english['pending.expected_in'],
+            $english['pending.due_now'],
+            $english['pending.past_due'],
+            $english['pending.ready'],
+            $english['pending.new'],
         ),
     'English fallback catalog is incomplete',
 );
@@ -1506,6 +1514,13 @@ i18nExpect(
         str_contains($script, 'ai.permission_allow') &&
         str_contains($script, 'ai.permission_decline'),
     'assistant permission card retains direct user-visible text',
+);
+i18nExpect(
+    $script !== false &&
+        str_contains($script, 'pending.waiting_on_root') &&
+        str_contains($script, 'pending.collector_overdue') &&
+        str_contains($script, 'pending.ready'),
+    'host request status retains direct user-visible text',
 );
 i18nExpect(
     str_contains($runtime, 'data-i18n-rich') &&

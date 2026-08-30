@@ -1510,6 +1510,13 @@ i18nExpect(
             $english['process.busy_empty'],
             $english['process.busy_alert_help'],
             $english['process.busy_table_what'],
+            $english['process.busy_level'],
+            $english['process.busy_level_with_trigger'],
+            $english['process.busy_top_more'],
+            $english['process.busy_top_none'],
+            $english['process.busy_cpu_explained'],
+            $english['process.busy_cpu_burst'],
+            $english['process.busy_row_processes'],
             $english['process.unavailable'],
             $english['process.no_matches'],
             $english['process.matches_summary'],
@@ -1821,6 +1828,13 @@ i18nExpect(
         str_contains($script, 'process.busy_alert_help') &&
         str_contains($script, 'process.busy_table_what'),
     'busy process history retains direct user-visible text',
+);
+i18nExpect(
+    $script !== false &&
+        str_contains($script, 'process.busy_level_with_trigger') &&
+        str_contains($script, 'process.busy_cpu_burst') &&
+        str_contains($script, 'process.busy_row_processes'),
+    'busy process event details retain direct user-visible text',
 );
 i18nExpect(
     $script !== false &&

@@ -25993,16 +25993,26 @@ function renderBusyMoments(moments) {
       level.className = 'busy-level';
       // "high cpu 72%" - the reading is the whole reason the moment was kept, so
       // it belongs in the line you decide from rather than inside the fold.
-      level.textContent = trigger
-        ? `high ${moment.reason} ${trigger.toFixed(0)}%`
-        : `high ${moment.reason}`;
+      level.textContent = ZogographI18n.t(
+        trigger ? 'process.busy_level_with_trigger' : 'process.busy_level',
+        { reason: moment.reason, value: trigger.toFixed(0) },
+        trigger
+          ? `high ${moment.reason} ${trigger.toFixed(0)}%`
+          : `high ${moment.reason}`,
+      );
       summary.appendChild(level);
 
       const top = document.createElement('span');
       top.className = 'busy-top muted';
       top.textContent = first.name
-        ? `${first.name}${moment.rows.length > 1 ? ` and ${count(moment.rows.length - 1, 'other')}` : ''}`
-        : 'nothing measurable';
+        ? moment.rows.length > 1
+          ? ZogographI18n.t(
+              'process.busy_top_more',
+              { name: first.name, count: humanCount(moment.rows.length - 1) },
+              `${first.name} and ${humanCount(moment.rows.length - 1)} other`,
+            )
+          : first.name
+        : ZogographI18n.t('process.busy_top_none', {}, 'nothing measurable');
       summary.appendChild(top);
 
       for (const alert of moment.alerts || []) {
@@ -26039,14 +26049,15 @@ function renderBusyMoments(moments) {
         const busiest = Number(first.cpu_percent ?? 0);
         const note = document.createElement('p');
         note.className = 'muted small';
-        note.textContent =
+        note.textContent = ZogographI18n.t(
           busiest >= 2
-            ? `The reading was ${trigger.toFixed(0)}%. These were the busiest processes ` +
-              `at that moment — ps reports a lifetime average per core, so they will ` +
-              `not add up to it.`
-            : `The reading was ${trigger.toFixed(0)}%, but nothing in the list was using ` +
-              `measurable CPU: whatever caused it had already finished when the process ` +
-              `list was taken. A burst rather than steady load.`;
+            ? 'process.busy_cpu_explained'
+            : 'process.busy_cpu_burst',
+          { value: trigger.toFixed(0) },
+          busiest >= 2
+            ? `The reading was ${trigger.toFixed(0)}%. These were the busiest processes at that moment — ps reports a lifetime average per core, so they will not add up to it.`
+            : `The reading was ${trigger.toFixed(0)}%, but nothing in the list was using measurable CPU: whatever caused it had already finished when the process list was taken. A burst rather than steady load.`,
+        );
         section.appendChild(note);
       }
 
@@ -26068,7 +26079,13 @@ function renderBusyMoments(moments) {
       for (const row of moment.rows) {
         const tr = body.insertRow();
         tr.insertCell().textContent =
-          row.name + (row.procs > 1 ? ` (${row.procs} processes)` : '');
+          row.procs > 1
+            ? ZogographI18n.t(
+                'process.busy_row_processes',
+                { name: row.name, count: humanCount(row.procs) },
+                `${row.name} (${humanCount(row.procs)} processes)`,
+              )
+            : row.name;
         const cpu = tr.insertCell();
         cpu.className = 'size';
         cpu.textContent = `${Number(row.cpu_percent).toFixed(1)}%`;

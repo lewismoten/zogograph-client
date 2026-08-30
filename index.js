@@ -28285,6 +28285,21 @@ async function refreshServiceChart() {
  * all - not merely the ones below the threshold that were.
  */
 function renderMemoryPie(services, sample) {
+  if (window.ZogographHostMemoryPieCard) {
+    return renderCoreCardPackage(
+      ZogographHostMemoryPieCard,
+      'core-host-memory-pie',
+      { services, sample },
+      {
+        chart: $('hostPie'),
+        note: $('hostPieNote'),
+        memorySlices,
+        drawPieChart,
+        humanBytes,
+        i18n: ZogographI18n,
+      },
+    );
+  }
   const measured = Number(sample?.pss_sum_bytes) || 0;
   const slices = memorySlices(services, measured);
 

@@ -8830,10 +8830,22 @@ function styleFinder(pictures) {
 
     const chosen = rows.filter((row) => row.box.checked).length;
     said.textContent =
-      `${count(chosen, 'style')} ticked · ` +
+      ZogographI18n.t(
+        'ai.style_ticked',
+        { count: chosen },
+        '{{count, number}} styles ticked · ',
+      ) +
       (wanted === ''
-        ? `${humanCount(rows.length)} to choose from`
-        : `${humanCount(shown)} of ${humanCount(rows.length)} match`);
+        ? ZogographI18n.t(
+            'ai.style_choose_from',
+            { count: rows.length },
+            '{{count, number}} to choose from',
+          )
+        : ZogographI18n.t(
+            'ai.style_matches',
+            { shown, total: rows.length },
+            '{{shown, number}} of {{total, number}} match',
+          ));
   };
 
   search.addEventListener('input', sync);

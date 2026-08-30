@@ -21244,7 +21244,7 @@ async function runAiTry(tool) {
       );
 
       said.textContent = ZogographI18n.t(
-        'ai.try_browser_timing',
+        'core-ai-tool-try.browser_timing',
         { ms: Math.round(performance.now() - began) },
         '{{ms}} ms, in this window',
       );

@@ -26,6 +26,7 @@ window.ZogographAiToolTryCard = {
         'core-ai-tool-try.browser_result': 'What the model gets back',
         'core-ai-tool-try.browser_help':
           'This ran in this window, which is where it runs in a conversation too. The only difference is that the result is shown here instead of being handed back to the model.',
+        'core-ai-tool-try.browser_timing': '{{ms}} ms, in this window',
       }),
       es: Object.freeze({
         'core-ai-tool-try.empty': 'No hay herramientas.',
@@ -47,6 +48,7 @@ window.ZogographAiToolTryCard = {
         'core-ai-tool-try.browser_result': 'Lo que recibe el modelo',
         'core-ai-tool-try.browser_help':
           'Esto se ejecutó en esta ventana, que es donde también se ejecuta en una conversación. La única diferencia es que el resultado se muestra aquí en vez de entregarse al modelo.',
+        'core-ai-tool-try.browser_timing': '{{ms}} ms, en esta ventana',
       }),
       hi: Object.freeze({
         'core-ai-tool-try.empty': 'कोई टूल नहीं हैं।',
@@ -67,6 +69,7 @@ window.ZogographAiToolTryCard = {
         'core-ai-tool-try.browser_result': 'जो मॉडल को वापस मिलता है',
         'core-ai-tool-try.browser_help':
           'यह इसी विंडो में चला, जहाँ यह बातचीत में भी चलता है। अंतर केवल इतना है कि परिणाम यहाँ दिखता है, मॉडल को वापस नहीं दिया जाता।',
+        'core-ai-tool-try.browser_timing': '{{ms}} ms, इस विंडो में',
       }),
       ar: Object.freeze({
         'core-ai-tool-try.empty': 'لا توجد أدوات.',
@@ -87,6 +90,7 @@ window.ZogographAiToolTryCard = {
         'core-ai-tool-try.browser_result': 'ما يعود إلى النموذج',
         'core-ai-tool-try.browser_help':
           'شُغّل هذا في هذه النافذة، وهي المكان الذي يُشغّل فيه في المحادثة أيضًا. الفرق الوحيد هو أن النتيجة تُعرض هنا بدل أن تُسلّم إلى النموذج.',
+        'core-ai-tool-try.browser_timing': '{{ms}} مللي ثانية، في هذه النافذة',
       }),
       zh: Object.freeze({
         'core-ai-tool-try.empty': '没有工具。',
@@ -105,6 +109,7 @@ window.ZogographAiToolTryCard = {
         'core-ai-tool-try.browser_result': '模型收到的返回内容',
         'core-ai-tool-try.browser_help':
           '这在此窗口中运行，而它在对话中也是在这里运行。唯一的区别是结果显示在这里，而不是交给模型。',
+        'core-ai-tool-try.browser_timing': '{{ms}} 毫秒，在此窗口中',
       }),
     }),
   }),

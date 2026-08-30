@@ -82,6 +82,7 @@ while IFS= read -r -d '' candidate; do
 done < <(find "$snapshots" -mindepth 1 -maxdepth 1 -type d ! -name '.*' -print0)
 
 rsync_args=(-a --delete
+  --exclude='node_modules/'
   --exclude='*.db' --exclude='*.db-*'
   --exclude='*.sqlite' --exclude='*.sqlite-*'
   --exclude='*.sqlite3' --exclude='*.sqlite3-*')

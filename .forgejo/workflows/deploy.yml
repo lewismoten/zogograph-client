@@ -95,6 +95,7 @@ jobs:
           timeout 1m rsync -a --delete \
             --exclude='.git/' \
             --exclude='zogograph-release/' \
+            --exclude='node_modules/' \
             --exclude='dist/' \
             --exclude='data/***' \
             --exclude='lib/config.php' \

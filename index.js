@@ -557,9 +557,14 @@ function whenBubble(epoch) {
   table.dataset.helpKey = `when:${epoch}`;
 
   const rows = [
-    [epoch > now ? 'From now' : 'Ago', humanSpan(Math.abs(now - epoch))],
-    ['Local', at.toLocaleString()],
     [
+      epoch > now ? 'time.from_now' : 'time.ago_label',
+      epoch > now ? 'From now' : 'Ago',
+      humanSpan(Math.abs(now - epoch)),
+    ],
+    ['time.local', 'Local', at.toLocaleString()],
+    [
+      'time.date',
       'Date',
       at.toLocaleDateString(undefined, {
         weekday: 'long',
@@ -568,23 +573,23 @@ function whenBubble(epoch) {
         year: 'numeric',
       }),
     ],
-    ['Time', at.toLocaleTimeString()],
-    ['ISO', at.toISOString()],
-    ['Unix', String(epoch)],
+    ['time.time', 'Time', at.toLocaleTimeString()],
+    ['time.iso', 'ISO', at.toISOString()],
+    ['time.unix', 'Unix', String(epoch)],
   ];
 
   const body = table.createTBody();
-  for (const [name, value] of rows) {
+  for (const [key, fallback, value] of rows) {
     const row = body.insertRow();
 
     const label = row.insertCell();
     label.className = 'when-name';
-    label.textContent = name;
+    label.textContent = ZogographI18n.t(key, {}, fallback);
 
     const said = row.insertCell();
     // Monospace for the two that get copied into something else, so a digit
     // can be counted rather than guessed at.
-    said.className = ['ISO', 'Unix'].includes(name)
+    said.className = ['time.iso', 'time.unix'].includes(key)
       ? 'when-value cmd'
       : 'when-value';
     said.textContent = value;

@@ -13930,10 +13930,22 @@ async function showNoteDialog(preset = {}) {
   const link = document.createElement('input');
   link.type = 'text';
   link.className = 'wide';
-  link.placeholder = 'https://your-tracker/issue/412';
+  link.placeholder = ZogographI18n.t(
+    'notes.link_placeholder',
+    {},
+    'https://your-tracker/issue/412',
+  );
   link.value = preset.link ?? '';
   parts.push(
-    fieldRow('Link', link, 'Optional. A ticket, a changelog, a pull request.'),
+    fieldRow(
+      ZogographI18n.t('notes.link_label', {}, 'Link'),
+      link,
+      ZogographI18n.t(
+        'notes.link_help',
+        {},
+        'Optional. A ticket, a changelog, a pull request.',
+      ),
+    ),
   );
 
   /*

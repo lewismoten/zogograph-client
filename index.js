@@ -4368,6 +4368,29 @@ const CATEGORY_COLORS = {
 const typeColor = (type) => TYPE_COLORS[type] || '#6f7d8c';
 
 function renderFileTypes(scans) {
+  const rendered = renderCoreCardPackage(
+    window.ZogographFileTypesCard,
+    'core-file-types',
+    scans,
+    {
+      cards: $('typeCards'),
+      pieSection: $('typePieSection'),
+      typeWhen: $('typeWhen'),
+      pieNote: $('pieNote'),
+      typeColor,
+      humanBytes,
+      humanCount,
+      humanTime,
+      count,
+      renderTypePie,
+      renderOtherExtensions,
+      i18n: ZogographI18n,
+    },
+  );
+  return rendered || legacyRenderFileTypes(scans);
+}
+
+function legacyRenderFileTypes(scans) {
   const types = scans.file_types ?? [];
   const cards = $('typeCards');
 

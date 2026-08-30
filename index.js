@@ -6009,68 +6009,12 @@ function renderAiSettings(data) {
 
   /* ---- money ---- */
 
-  const money = document.createElement('div');
-  money.className = 'settings';
-
-  for (const [id, labelKey, label, value, hintKey, hint] of [
-    [
-      'aiPriceIn',
-      'price_input_label',
-      'Input, per million',
-      data.price_in,
-      'price_input_help',
-      "In cents. From the provider's pricing page.",
-    ],
-    [
-      'aiPriceOut',
-      'price_output_label',
-      'Output, per million',
-      data.price_out,
-      'price_output_help',
-      'In cents. Usually several times the input price.',
-    ],
-    [
-      'aiPriceCached',
-      'price_cached_label',
-      'Cached input, per million',
-      data.price_cached,
-      'price_cached_help',
-      'In cents. Usually about a tenth of the input price. On a conversation that ' +
-        're-sends a long prompt every turn this is most of the bill, so leaving it at ' +
-        'the input price overstates the cost considerably.',
-    ],
-  ]) {
-    const input = document.createElement('input');
-    input.type = 'number';
-    input.id = id;
-    input.min = '0';
-    input.step = '0.01';
-    input.className = 'days';
-    input.value = String(value || 0);
-    money.appendChild(
-      fieldRow(
-        aiSettingsText(labelKey, label),
-        input,
-        aiSettingsText(hintKey, hint),
-      ),
-    );
-  }
-
   pages.model.push(
-    section(
-      aiSettingsText('prices_title', 'Prices, if you want a cost'),
-      money,
-    ),
-  );
-  pages.model.push(
-    note(
-      aiSettingsText(
-        'prices_help',
-        'Leave these at zero and sessions report token counts and no money. That is the ' +
-          'honest default — a wrong price is worse than no price, so nothing is guessed ' +
-          'from the model name. Prices you set here are remembered against this provider and ' +
-          'model, so changing the model and changing back does not lose them.',
-      ),
+    ...renderCoreCardPackage(
+      ZogographAiPriceEntryCard,
+      'core-ai-price-entry',
+      data,
+      { fieldRow, section, note, i18n: ZogographI18n },
     ),
   );
 

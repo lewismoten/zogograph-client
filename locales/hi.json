@@ -523,7 +523,6 @@
   "storage.ldconfig_previous_finished": "पिछला पुनर्निर्माण {{time}} था और पूरा हुआ।",
   "storage.ldconfig_previous_failed": "पिछला पुनर्निर्माण {{time}} था और विफल हुआ: {{reason}}।",
   "storage.ldconfig_no_reason": "कोई कारण नहीं दिया गया",
-  "ai.try_browser_result": "जो मॉडल को वापस मिलता है",
   "ai.try_browser_help": "यह इसी विंडो में चला, जहाँ यह बातचीत में भी चलता है। अंतर केवल इतना है कि परिणाम यहाँ दिखता है, मॉडल को वापस नहीं दिया जाता।",
   "ai.try_browser_timing": "{{ms}} ms, इस विंडो में",
   "ai.try_refused": "चलने से पहले अस्वीकार किया गया: {{reason}}\n\n{{note}}",

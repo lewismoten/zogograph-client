@@ -21226,7 +21226,7 @@ async function runAiTry(tool) {
       parts.push(
         section(
           ZogographI18n.t(
-            'ai.try_browser_result',
+            'core-ai-tool-try.browser_result',
             {},
             'What the model gets back',
           ),

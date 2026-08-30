@@ -2538,7 +2538,6 @@ i18nExpect(
             $english['process.still_running_count'],
             $english['process.protected_count'],
             $english['process.failed_count'],
-            $english['ai.try_browser_result'],
             $english['ai.try_browser_help'],
             $english['ai.try_browser_timing'],
             $english['ai.try_refused'],
@@ -2752,6 +2751,7 @@ foreach (array_unique($dynamicDashboardKeys[1] ?? []) as $key) {
                     'core-ai-tool-try.unknown_tool',
                     'core-ai-tool-try.browser_shown',
                     'core-ai-tool-try.arguments',
+                    'core-ai-tool-try.browser_result',
                 ],
                 true,
             ) &&
@@ -3277,6 +3277,7 @@ foreach (['en-US', 'en-GB', 'es', 'hi', 'zh', 'ar'] as $locale) {
                             'core-ai-tool-try.unknown_tool',
                             'core-ai-tool-try.browser_shown',
                             'core-ai-tool-try.arguments',
+                            'core-ai-tool-try.browser_result',
                         ],
                         true,
                     ),

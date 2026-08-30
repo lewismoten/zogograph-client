@@ -3413,6 +3413,7 @@
   "assistant.listening": "सुन रहा है…",
   "assistant.stop_listening": "सुनना बंद करें",
   "assistant.microphone_stopped": "माइक्रोफ़ोन से सुनना बंद हो गया: {{reason}}।",
+  "assistant.microphone_unavailable": "इस ब्राउज़र में वाक् पहचान उपलब्ध नहीं है।",
   "host.open_setup": "होस्ट सेटअप खोलें",
   "host_setup.what_has_to_happen": "क्या होना है",
   "host_setup.line_to_paste_as_root": "root के रूप में पेस्ट करने वाली लाइन",

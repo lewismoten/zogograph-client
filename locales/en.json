@@ -3503,6 +3503,7 @@
   "assistant.listening": "Listening…",
   "assistant.stop_listening": "Stop listening",
   "assistant.microphone_stopped": "Microphone listening stopped: {{reason}}.",
+  "assistant.microphone_unavailable": "Speech recognition is not available in this browser.",
   "host.open_setup": "Open Host setup",
   "host_setup.what_has_to_happen": "What has to happen",
   "host_setup.line_to_paste_as_root": "The line to paste, as root",

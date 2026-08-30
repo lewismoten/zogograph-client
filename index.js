@@ -10729,7 +10729,13 @@ function toggleRecognition() {
   const Recognition =
     window.SpeechRecognition || window.webkitSpeechRecognition;
   if (!Recognition)
-    throw new Error('speech recognition is not available in this browser');
+    throw new Error(
+      ZogographI18n.t(
+        'assistant.microphone_unavailable',
+        {},
+        'Speech recognition is not available in this browser.',
+      ),
+    );
   if (voiceState.listen) {
     voiceState.listen = false;
     voiceState.recognition?.stop();

@@ -8525,7 +8525,11 @@ function styleFinder(pictures) {
   const search = document.createElement('input');
   search.type = 'search';
   search.className = 'wide-field';
-  search.placeholder = 'type to narrow — cyberpunk, watercolour, pixel…';
+  search.placeholder = ZogographI18n.t(
+    'ai.style_search_placeholder',
+    {},
+    'type to narrow — cyberpunk, watercolour, pixel…',
+  );
   search.spellcheck = false;
   wrap.appendChild(search);
 

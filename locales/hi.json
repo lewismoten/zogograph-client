@@ -1811,6 +1811,7 @@
   "marketplace.none_found": "कोई मान्य स्थानीय पैकेज मैनिफ़ेस्ट नहीं मिला।",
   "marketplace.search_placeholder": "पैकेज, प्रकाशक या क्षमताएँ खोजें",
   "log.search_placeholder": "खोजने के लिए पाठ",
+  "ai.style_search_placeholder": "संकीर्ण करने के लिए लिखें — साइबरपंक, वॉटरकलर, पिक्सेल…",
   "assistant.prompt_placeholder": "क्या गलत हो रहा है?",
   "network.dns_name_placeholder": "git.example.com",
   "network.dns_server_placeholder": "सर्वर (वैकल्पिक)",

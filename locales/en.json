@@ -1926,6 +1926,7 @@
   "marketplace.none_found": "No valid local package manifests were found.",
   "marketplace.search_placeholder": "Search packages, publishers, or capabilities",
   "log.search_placeholder": "text to find",
+  "ai.style_search_placeholder": "type to narrow — cyberpunk, watercolour, pixel…",
   "assistant.prompt_placeholder": "What is going wrong?",
   "network.dns_name_placeholder": "git.example.com",
   "network.dns_server_placeholder": "server (optional)",

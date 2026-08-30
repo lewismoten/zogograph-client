@@ -1797,6 +1797,7 @@
   "marketplace.none_found": "لم يُعثر على بيانات حزم محلية صالحة.",
   "marketplace.search_placeholder": "ابحث عن الحزم أو الناشرين أو القدرات",
   "log.search_placeholder": "النص المطلوب العثور عليه",
+  "ai.style_search_placeholder": "اكتب للتضييق — سايبر بانك، ألوان مائية، بكسل…",
   "assistant.prompt_placeholder": "ما الذي يحدث بشكل خاطئ؟",
   "network.dns_name_placeholder": "git.example.com",
   "network.dns_server_placeholder": "الخادم (اختياري)",

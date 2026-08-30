@@ -1797,6 +1797,7 @@
   "marketplace.none_found": "未找到有效的本地软件包清单。",
   "marketplace.search_placeholder": "搜索软件包、发布者或功能",
   "log.search_placeholder": "要查找的文本",
+  "ai.style_search_placeholder": "输入以缩小范围：赛博朋克、水彩、像素…",
   "assistant.prompt_placeholder": "出了什么问题？",
   "network.dns_name_placeholder": "git.example.com",
   "network.dns_server_placeholder": "服务器（可选）",

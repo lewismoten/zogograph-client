@@ -287,13 +287,26 @@ i18nExpect(
     'type composition pie text belongs to its card package',
 );
 require_once $root . '/lib/configure.php';
+require_once $root . '/lib/aitools.php';
 $schemaFields = configFields(require $root . '/lib/config.sample.php');
 $toolLocaleRoot = $root . '/lib/ai-tools/locales';
 $toolLocaleDirectories =
     glob($toolLocaleRoot . '/core-ai-*', GLOB_ONLYDIR) ?: [];
+$toolPackages = array_values(
+    array_filter(
+        array_map(
+            static fn(array $tool): string => (string) ($tool['package'] ?? ''),
+            aiToolCatalogue(),
+        ),
+        static fn(string $package): bool => $package !== '',
+    ),
+);
+$toolLocalePackages = array_map('basename', $toolLocaleDirectories);
+sort($toolPackages);
+sort($toolLocalePackages);
 i18nExpect(
-    count($toolLocaleDirectories) >= 1,
-    'core AI tools have no package-local locale directories',
+    count($toolPackages) >= 1 && $toolPackages === $toolLocalePackages,
+    'core AI tools and package-local locale directories do not match one-to-one',
 );
 foreach ($toolLocaleDirectories as $directory) {
     $package = basename($directory);

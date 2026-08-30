@@ -1,4 +1,5 @@
 {
   "core-ai-request-tool-group.summary": "Ask to enable a subject-specific set of tools.",
-  "core-ai-request-tool-group.activity": "Requested {{group}} tools"
+  "core-ai-request-tool-group.activity": "Requested {{group}} tools",
+  "core-ai-request-tool-group.try_request_shown": "In a conversation this asks for permission, then opens the Tools settings page. The operator decides whether to enable {{group}} tools and must save the choice."
 }

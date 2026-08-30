@@ -3183,7 +3183,6 @@
   "ai.try_catalogue_count": "目录中有 {{count, number}} 个。",
   "ai.try_cannot_run": "（无法在此运行）",
   "ai.try_run_costs": "运行（会产生费用）",
-  "ai.try_group_request_shown": "在对话中，这会请求权限，然后打开“工具”设置页面。操作员决定是否启用 {{group}} 工具，并且必须保存选择。",
   "ai.try_screenshot_declined": "用户决定不发送截图。",
   "ai.try_screenshot_preview": "这正是图像发送时的样子——按您的选择裁剪，涂黑内容直接绘制在图像中而非覆盖在其上。这里显示为黑色的部分在文件中也是黑色。",
   "ai.try_unknown_tool": "此页面不知道如何试用 {{tool}}。",

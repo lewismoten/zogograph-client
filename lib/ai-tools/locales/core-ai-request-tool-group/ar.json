@@ -1,4 +1,5 @@
 {
   "core-ai-request-tool-group.summary": "اطلب تمكين مجموعة أدوات خاصة بموضوع معين.",
-  "core-ai-request-tool-group.activity": "طلب أدوات {{group}}"
+  "core-ai-request-tool-group.activity": "طلب أدوات {{group}}",
+  "core-ai-request-tool-group.try_request_shown": "في محادثة يطلب هذا الإذن ثم يفتح صفحة إعدادات الأدوات. يقرر المشغّل ما إذا كان سيمكّن أدوات {{group}} ويجب عليه حفظ الاختيار."
 }

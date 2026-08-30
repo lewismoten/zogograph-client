@@ -3286,7 +3286,6 @@
   "ai.try_catalogue_count": "{{count, number}} in the catalogue.",
   "ai.try_cannot_run": " (cannot be run here)",
   "ai.try_run_costs": "Run it (this costs)",
-  "ai.try_group_request_shown": "In a conversation this asks for permission, then opens the Tools settings page. The operator decides whether to enable {{group}} tools and must save the choice.",
   "ai.try_screenshot_declined": "The user decided not to send a screenshot.",
   "ai.try_screenshot_preview": "This is the image exactly as it would be sent — cropped as you chose, with the redactions painted in rather than drawn over. What is black here is black in the file.",
   "ai.try_unknown_tool": "This page does not know how to try {{tool}}.",

@@ -3197,7 +3197,6 @@
   "ai.try_catalogue_count": "{{count, number}} en el catálogo.",
   "ai.try_cannot_run": " (no se puede ejecutar aquí)",
   "ai.try_run_costs": "Ejecutar (esto cuesta)",
-  "ai.try_group_request_shown": "En una conversación esto pide permiso y luego abre la página de configuración de Herramientas. El operador decide si habilita las herramientas de {{group}} y debe guardar la elección.",
   "ai.try_screenshot_declined": "El usuario decidió no enviar una captura de pantalla.",
   "ai.try_screenshot_preview": "Esta es la imagen exactamente como se enviaría: recortada como eligió, con las redacciones pintadas en lugar de dibujadas encima. Lo que aquí es negro es negro en el archivo.",
   "ai.try_unknown_tool": "Esta página no sabe cómo probar {{tool}}.",

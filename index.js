@@ -21034,7 +21034,7 @@ async function tryBrowserTool(tool, args) {
     const shown = document.createElement('div');
     shown.className = 'try-shown';
     shown.textContent = ZogographI18n.t(
-      'ai.try_group_request_shown',
+      'core-ai-request-tool-group.try_request_shown',
       { group: toolGroupLabel(subject) },
       'In a conversation this asks for permission, then opens the Tools settings page. The operator decides whether to enable {{group}} tools and must save the choice.',
     );

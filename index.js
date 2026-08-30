@@ -4191,7 +4191,7 @@ function renderIoChart(rows) {
   const series = [];
   if (has("own_read_rate")) series.push({ key: "own_read_rate", label: "This account, read" });
   if (has("own_write_rate")) series.push({ key: "own_write_rate", label: "This account, written" });
-  if (has("io_read_rate")) series.push({ key: "io_read_rate", label: "Device read" });
+  if (has("io_read_rate")) series.push({ key: "io_read_rate", label: ZogographI18n.t("host.io_device_read", {}, "Device read") });
   if (has("io_write_rate")) series.push({ key: "io_write_rate", label: "Device written" });
   if (has("io_util_percent")) {
     series.push({ key: "io_util_percent", label: "Device busy % (right)", axis: "right" });

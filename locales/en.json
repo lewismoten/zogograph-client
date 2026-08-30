@@ -1840,6 +1840,7 @@
   "host.io_disks_unreadable": "The host collector ran but could not read /proc/diskstats, even as root.",
   "host.io_disks_needs_readings": "Needs two host readings before a rate can be worked out — there {{readings, number}} so far.",
   "host.io_disks_empty": "No devices were recorded in the latest reading.",
+  "host.io_device_read": "Device read",
   "host.io_device": "Device",
   "host.io_stacked": " · stacked",
   "host.io_stacked_tip": "A volume mapped onto another device. Its traffic is already counted there, so it is not added into any total.",

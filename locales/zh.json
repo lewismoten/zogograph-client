@@ -1739,6 +1739,7 @@
   "host.io_disks_unreadable": "主机采集器已运行，但即使以 root 身份也无法读取 /proc/diskstats。",
   "host.io_disks_needs_readings": "需要两次主机读数才能计算速率——目前有 {{readings, number}} 次。",
   "host.io_disks_empty": "最新读数中没有记录设备。",
+  "host.io_device_read": "设备读取",
   "host.io_device": "设备",
   "host.io_stacked": " · 堆叠",
   "host.io_stacked_tip": "映射到另一设备的卷。其流量已在该设备中统计，因此不会加入任何总计。",

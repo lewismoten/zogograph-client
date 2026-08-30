@@ -1757,6 +1757,7 @@
   "host.io_disks_unreadable": "El recopilador del host se ejecutó, pero no pudo leer /proc/diskstats, ni siquiera como root.",
   "host.io_disks_needs_readings": "Se necesitan dos lecturas del host para calcular una tasa; hay {{readings, number}} hasta ahora.",
   "host.io_disks_empty": "No se registraron dispositivos en la lectura más reciente.",
+  "host.io_device_read": "Lectura del dispositivo",
   "host.io_device": "Dispositivo",
   "host.io_stacked": " · apilado",
   "host.io_stacked_tip": "Un volumen asignado sobre otro dispositivo. Su tráfico ya se cuenta allí, por lo que no se añade a ningún total.",

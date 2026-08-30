@@ -1466,6 +1466,16 @@ i18nExpect(
             $english['process.table_running_for'],
             $english['process.table_cpu'],
             $english['process.table_command'],
+            $english['process.table_process'],
+            $english['process.table_how_many'],
+            $english['process.table_memory'],
+            $english['process.table_of_ram'],
+            $english['process.table_biggest_pid'],
+            $english['process.table_stop'],
+            $english['process.metric_memory'],
+            $english['process.trend_summary'],
+            $english['process.trend_empty_help'],
+            $english['process.trend_empty'],
             $english['process.unavailable'],
             $english['process.no_matches'],
             $english['process.matches_summary'],
@@ -1749,6 +1759,13 @@ i18nExpect(
         str_contains($script, 'process.table_running_for') &&
         str_contains($script, 'process.table_command'),
     'process preview table retains direct user-visible text',
+);
+i18nExpect(
+    $script !== false &&
+        str_contains($script, 'process.table_process') &&
+        str_contains($script, 'process.table_biggest_pid') &&
+        str_contains($script, 'process.trend_summary'),
+    'live process table and trend retain direct user-visible text',
 );
 i18nExpect(
     $script !== false &&

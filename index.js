@@ -25111,19 +25111,30 @@ async function refreshProcesses() {
 
   if (!data.available) {
     $('processBody').textContent =
-      data.reason || 'Cannot read the process list here.';
+      data.reason ||
+      ZogographI18n.t(
+        'process.unavailable',
+        {},
+        'Cannot read the process list here.',
+      );
   } else {
     const grouped = data.grouped;
     const columns = [
-      { label: 'Process', render: (row) => namedThing('process', row.name) },
       {
-        label: 'How many',
+        label: ZogographI18n.t('process.table_process', {}, 'Process'),
+        render: (row) => namedThing('process', row.name),
+      },
+      {
+        label: ZogographI18n.t('process.table_how_many', {}, 'How many'),
         className: 'size',
         render: (row) => (row.procs > 1 ? row.procs : ''),
       },
-      { label: 'User', render: (row) => userCell(row.user) },
       {
-        label: 'CPU',
+        label: ZogographI18n.t('process.table_user', {}, 'User'),
+        render: (row) => userCell(row.user),
+      },
+      {
+        label: ZogographI18n.t('process.table_cpu', {}, 'CPU'),
         className: 'size',
         /*
          * A share of one core, which is what `ps` measures and what `top`
@@ -25137,32 +25148,40 @@ async function refreshProcesses() {
         render: (row) => processCpuCell(row.cpu_percent, data.cores),
       },
       {
-        label: 'Memory',
+        label: ZogographI18n.t('process.table_memory', {}, 'Memory'),
         className: 'size',
         render: (row) => humanBytes(row.rss_bytes),
       },
       {
-        label: 'Of RAM',
+        label: ZogographI18n.t('process.table_of_ram', {}, 'Of RAM'),
         className: 'size',
         render: (row) => `${row.mem_percent.toFixed(1)}%`,
       },
       {
-        label: 'Running for',
+        label: ZogographI18n.t('process.table_running_for', {}, 'Running for'),
         className: 'size',
         render: (row) => processAge(row),
       },
       // The heaviest of the group, which is the one worth going to look at.
       {
-        label: grouped ? 'Biggest PID' : 'PID',
+        label: ZogographI18n.t(
+          grouped ? 'process.table_biggest_pid' : 'process.table_pid',
+          {},
+          grouped ? 'Biggest PID' : 'PID',
+        ),
         className: 'size',
         render: (row) => row.pid,
       },
-      { label: 'Command', className: 'cmd', render: (row) => row.command },
+      {
+        label: ZogographI18n.t('process.table_command', {}, 'Command'),
+        className: 'cmd',
+        render: (row) => row.command,
+      },
     ];
 
     if (data.can_stop) {
       columns.push({
-        label: 'Stop',
+        label: ZogographI18n.t('process.table_stop', {}, 'Stop'),
         className: 'stop-cell',
         render: (row) => stopButtons(row, grouped),
       });
@@ -25184,10 +25203,23 @@ function renderProcessTrend(trend) {
   const memory = trend.metric === 'memory';
   const names = Array.isArray(trend.names) ? trend.names.slice(0, 10) : [];
   note.textContent = names.length
-    ? `Top ${names.length} recorded process groups for the selected range. Recent reporters lead; ` +
-      `peak ${memory ? 'memory' : 'CPU'} users fill the remaining slots, so a resolved ` +
-      `problem remains visible. Names join replacement PIDs into one line.`
-    : 'No busy process snapshots fall inside this range. Process history is recorded only when the configured CPU or memory threshold is crossed.';
+    ? ZogographI18n.t(
+        'process.trend_summary',
+        {
+          count: humanCount(names.length),
+          metric: ZogographI18n.t(
+            memory ? 'process.metric_memory' : 'process.table_cpu',
+            {},
+            memory ? 'memory' : 'CPU',
+          ),
+        },
+        `Top ${humanCount(names.length)} recorded process groups for the selected range. Recent reporters lead; peak ${memory ? 'memory' : 'CPU'} users fill the remaining slots, so a resolved problem remains visible. Names join replacement PIDs into one line.`,
+      )
+    : ZogographI18n.t(
+        'process.trend_empty_help',
+        {},
+        'No busy process snapshots fall inside this range. Process history is recorded only when the configured CPU or memory threshold is crossed.',
+      );
 
   drawLineChart(
     chart,
@@ -25199,7 +25231,11 @@ function renderProcessTrend(trend) {
     {
       axis: memory ? bytesAxis : percentAxis,
       zeroBased: true,
-      empty: 'No recorded process load in this range',
+      empty: ZogographI18n.t(
+        'process.trend_empty',
+        {},
+        'No recorded process load in this range',
+      ),
     },
   );
 }

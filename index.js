@@ -26348,14 +26348,17 @@ function openCalendarDay(key, entries) {
 
     const kind = document.createElement("span");
     kind.className = "muted small";
-    kind.textContent = {
-      domain: "domain expiry",
-      certificate: "HTTPS certificate expiry",
-      event: entry.repeats && entry.repeats !== "once" ? `repeats ${entry.repeats}` : "a date you keep",
-      projection: "projected from the trend",
-      alert: "an alert that fired",
-      reset: "the host restarted",
-    }[entry.kind] || entry.kind;
+    const kinds = {
+      domain: ZogographI18n.t("calendar.kind_domain", {}, "domain expiry"),
+      certificate: ZogographI18n.t("calendar.kind_certificate", {}, "HTTPS certificate expiry"),
+      event: entry.repeats && entry.repeats !== "once"
+        ? ZogographI18n.t("calendar.kind_repeats", { repeats: entry.repeats }, "repeats {{repeats}}")
+        : ZogographI18n.t("calendar.kind_event", {}, "a date you keep"),
+      projection: ZogographI18n.t("calendar.kind_projection", {}, "projected from the trend"),
+      alert: ZogographI18n.t("calendar.kind_alert", {}, "an alert that fired"),
+      reset: ZogographI18n.t("calendar.kind_reset", {}, "the host restarted"),
+    };
+    kind.textContent = kinds[entry.kind] || entry.kind;
     row.appendChild(kind);
 
     if (entry.note) {
@@ -26472,7 +26475,10 @@ function renderEventList(data) {
         remove.className = "link danger";
         remove.textContent = ZogographI18n.t("action.remove", {}, "Remove");
         remove.addEventListener("click", async () => {
-          if (!(await confirmDialog(`Remove "${row.title}"?`, "Remove event"))) return;
+          if (!(await confirmDialog(
+            ZogographI18n.t("calendar.remove_confirm", { title: row.title }, "Remove \"{{title}}\"?"),
+            ZogographI18n.t("calendar.remove_title", {}, "Remove event")
+          ))) return;
           try {
             renderCalendar(await post("event-delete", { id: row.id }));
           } catch (error) {

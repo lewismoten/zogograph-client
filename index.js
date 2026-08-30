@@ -25492,6 +25492,22 @@ async function refreshProcesses() {
 
 /** The top recorded process groups across the selected time range. */
 function renderProcessTrend(trend) {
+  if (window.ZogographProcessTrendCard) {
+    return renderCoreCardPackage(
+      ZogographProcessTrendCard,
+      'core-process-trend',
+      trend,
+      {
+        chart: $('processTrendChart'),
+        note: $('processTrendNote'),
+        drawLineChart,
+        humanCount,
+        bytesAxis,
+        percentAxis,
+        i18n: ZogographI18n,
+      },
+    );
+  }
   const chart = $('processTrendChart');
   const note = $('processTrendNote');
   if (!chart || !note) return;

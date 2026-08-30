@@ -58,6 +58,9 @@ $networkCaptureRequestCard = i18nCardSource(
 $networkCaptureHistoryCard = i18nCardSource(
     file_get_contents($root . '/cards/network-capture-history.js'),
 );
+$processTrendCard = i18nCardSource(
+    file_get_contents($root . '/cards/process-trend.js'),
+);
 $networkPeersCard = i18nCardSource(
     file_get_contents($root . '/cards/network-peers.js'),
 );
@@ -326,6 +329,22 @@ i18nExpect(
             'helpers.i18n.registerCatalog(locale, catalog, false, id)',
         ),
     'core card package catalogs are not namespace-registered before their first render',
+);
+i18nExpect(
+    $page !== false &&
+        str_contains($page, 'src="cards/process-trend.js"') &&
+        $processTrendCard !== false &&
+        str_contains($processTrendCard, 'window.ZogographProcessTrendCard') &&
+        str_contains($processTrendCard, 'id: "core-process-trend"') &&
+        str_contains($processTrendCard, 'locales: ["core-process-trend."]') &&
+        str_contains($processTrendCard, 'catalogs: Object.freeze({') &&
+        str_contains($processTrendCard, '"core-process-trend.summary"') &&
+        $script !== false &&
+        str_contains(
+            $script,
+            'renderCoreCardPackage(ZogographProcessTrendCard, "core-process-trend",',
+        ),
+    'process trend is not isolated behind its core card-module boundary',
 );
 i18nExpect(
     $page !== false &&

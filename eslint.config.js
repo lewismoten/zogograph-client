@@ -46,6 +46,7 @@ export default [
         ZogographNetworkInterfacesCard: 'readonly',
         ZogographNetworkPortsCard: 'readonly',
         ZogographNetworkPeersCard: 'readonly',
+        ZogographProcessTrendCard: 'readonly',
         ZogographNetworkCaptureRequestCard: 'readonly',
         ZogographNetworkCaptureHistoryCard: 'readonly',
         ZogographOtherExtensionsCard: 'readonly',

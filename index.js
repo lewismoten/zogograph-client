@@ -31977,13 +31977,23 @@ async function showIncident(id) {
   const procs = evidence.processes;
   if (procs && procs.available) {
     body.appendChild(
-      section(`Top processes, of ${procs.count} running`, processTables(procs)),
+      section(
+        ZogographI18n.t(
+          'incident.top_processes_running',
+          { count: procs.count },
+          'Top processes, of {{count, number}} running',
+        ),
+        processTables(procs),
+      ),
     );
   } else if (procs) {
     body.appendChild(
       section(
-        'Top processes',
-        note(procs.missing?.processes || 'Not available.'),
+        ZogographI18n.t('incident.top_processes', {}, 'Top processes'),
+        note(
+          procs.missing?.processes ||
+            ZogographI18n.t('incident.not_available', {}, 'Not available.'),
+        ),
       ),
     );
   }
@@ -32001,9 +32011,23 @@ async function showIncident(id) {
   if (host && host.available && host.services?.length) {
     body.appendChild(
       section(
-        'Memory by service (PSS, from the host collector)',
+        ZogographI18n.t(
+          'incident.memory_by_service',
+          {},
+          'Memory by service (PSS, from the host collector)',
+        ),
         simpleTable(
-          ['Service', 'Proportional (PSS)', 'Resident', 'Processes', 'Oldest'],
+          [
+            ZogographI18n.t('incident.service', {}, 'Service'),
+            ZogographI18n.t(
+              'incident.proportional_pss',
+              {},
+              'Proportional (PSS)',
+            ),
+            ZogographI18n.t('incident.resident', {}, 'Resident'),
+            ZogographI18n.t('incident.processes', {}, 'Processes'),
+            ZogographI18n.t('incident.oldest', {}, 'Oldest'),
+          ],
           host.services.map((s) => [
             s.name,
             humanBytes(s.pss_bytes),

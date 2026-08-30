@@ -1244,33 +1244,29 @@ function collectorInstructions(holder, data) {
 function renderCpuTime(data) {
   const now = data.now;
   const states = data.states ?? {};
-  const holder = $('cpuTimeCards');
-  if (!holder) return;
-  holder.replaceChildren();
-
-  if (!now) {
-    $('cpuTimeNote').textContent = cpuEmptyWhy(data) + '.';
-  } else {
-    renderCoreCardPackage(
-      ZogographCpuTimeCard,
-      'core-cpu-time',
-      {
-        now,
-        states,
-        series: data.series ?? [],
-        cores: Number(data.sample?.cpu_cores) || 0,
-      },
-      {
-        setCard: (label, value, sub, level = '') =>
-          setHostCard(label, value, sub, level, '', 'cpuTimeCards'),
-        note: $('cpuTimeNote'),
-        bandOf,
-        cpuStateLabel,
-        verdict: cpuTimeVerdict,
-        i18n: ZogographI18n,
-      },
-    );
-  }
+  renderCoreCardPackage(
+    ZogographCpuTimeCard,
+    'core-cpu-time',
+    {
+      now,
+      states,
+      series: data.series ?? [],
+      cores: Number(data.sample?.cpu_cores) || 0,
+    },
+    {
+      setCard: (label, value, sub, level = '') =>
+        setHostCard(label, value, sub, level, '', 'cpuTimeCards'),
+      note: $('cpuTimeNote'),
+      tableTarget: $('cpuStateTable'),
+      renderTable,
+      bandOf,
+      cpuStateLabel,
+      cpuStateMeaning,
+      verdict: cpuTimeVerdict,
+      emptyMessage: cpuEmptyWhy(data) + '.',
+      i18n: ZogographI18n,
+    },
+  );
 
   drawLineChart(
     $('cpuStateChart'),
@@ -1282,39 +1278,6 @@ function renderCpuTime(data) {
       .filter(([key]) => key !== 'idle')
       .map(([key, meta]) => ({ key, label: cpuStateLabel(meta) })),
     { axis: percentAxis, zeroBased: true, empty: cpuEmptyWhy(data) },
-  );
-
-  renderTable(
-    'cpuStateTable',
-    Object.entries(states).map(([key, meta]) => ({
-      key,
-      label: cpuStateLabel(meta),
-      now: now ? Number(now[key]) : null,
-      what: cpuStateMeaning(meta),
-    })),
-    [
-      {
-        label: ZogographI18n.t('cpu.state', {}, 'State'),
-        render: (r) => r.label,
-      },
-      {
-        label: ZogographI18n.t('cpu.in_proc_stat', {}, 'In /proc/stat'),
-        className: 'cmd',
-        render: (r) => r.key,
-      },
-      {
-        label: ZogographI18n.t('cpu.now', {}, 'Now'),
-        className: 'size',
-        render: (r) =>
-          r.now == null || !Number.isFinite(r.now)
-            ? '—'
-            : `${r.now.toFixed(1)}%`,
-      },
-      {
-        label: ZogographI18n.t('cpu.what_it_means', {}, 'What it means'),
-        render: (r) => r.what,
-      },
-    ],
   );
 }
 

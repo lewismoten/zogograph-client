@@ -22824,7 +22824,13 @@ async function tryBrowserTool(tool, args) {
     if (edited === null) {
       return {
         result: { error: 'the user decided not to send a screenshot' },
-        shown: note('Cancelled, and nothing left this window.'),
+        shown: note(
+          ZogographI18n.t(
+            'ai.preview_cancelled',
+            {},
+            'Cancelled, and nothing left this window.',
+          ),
+        ),
       };
     }
 
@@ -22888,7 +22894,15 @@ function tryFields(tool) {
 
   const entries = Object.entries(tool.parameters || {});
   if (!entries.length) {
-    return [note('This one takes no parameters.')];
+    return [
+      note(
+        ZogographI18n.t(
+          'ai.preview_no_parameters',
+          {},
+          'This one takes no parameters.',
+        ),
+      ),
+    ];
   }
 
   return entries.map(([name, spec]) => {
@@ -22906,7 +22920,11 @@ function tryFields(tool) {
       if (!spec.required) {
         const blank = document.createElement('option');
         blank.value = '';
-        blank.textContent = '— leave it out —';
+        blank.textContent = ZogographI18n.t(
+          'ai.preview_leave_out',
+          {},
+          '— leave it out —',
+        );
         input.appendChild(blank);
       }
       for (const value of spec.enum.filter((v) => v !== null)) {

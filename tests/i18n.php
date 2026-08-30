@@ -1376,6 +1376,9 @@ i18nExpect(
             $english['url.add_check'],
             $english['url.address_placeholder'],
             $english['url.notify_change_help'],
+            $english['regex.group'],
+            $english['regex.took'],
+            $english['regex.group_absence_help'],
         ),
     'English fallback catalog is incomplete',
 );
@@ -1475,6 +1478,13 @@ i18nExpect(
         str_contains($script, 'url.address_placeholder') &&
         str_contains($script, 'url.notify_change_help'),
     'URL check editor retains direct user-visible text',
+);
+i18nExpect(
+    $script !== false &&
+        str_contains($script, 'regex.group') &&
+        str_contains($script, 'regex.took') &&
+        str_contains($script, 'regex.group_absence_help'),
+    'URL check regex tester retains direct user-visible text',
 );
 i18nExpect(
     str_contains($runtime, 'data-i18n-rich') &&

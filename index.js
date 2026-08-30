@@ -35289,13 +35289,24 @@ function renderRegexResult(out, groupInput) {
   });
 
   parts.push(
-    simpleTable(['Group', 'Took', ''], rows, ['name', 'cmd', 'row-actions']),
+    simpleTable(
+      [
+        ZogographI18n.t('regex.group', {}, 'Group'),
+        ZogographI18n.t('regex.took', {}, 'Took'),
+        '',
+      ],
+      rows,
+      ['name', 'cmd', 'row-actions'],
+    ),
   );
 
   parts.push(
     note(
-      'A group that did not take part is not the same as one that matched nothing — an ' +
-        'optional group is simply absent, and the check would record nothing on that run.',
+      ZogographI18n.t(
+        'regex.group_absence_help',
+        {},
+        'A group that did not take part is not the same as one that matched nothing — an optional group is simply absent, and the check would record nothing on that run.',
+      ),
     ),
   );
 

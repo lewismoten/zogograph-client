@@ -2283,6 +2283,7 @@
   "tree.measuring": "正在测量…",
   "tree.measuring_directory": "正在测量此目录…",
   "backup.storage_title": "备份存储",
+  "backup.no_suggestions": "此读数没有可提供的建议。",
   "backup.matched": "匹配",
   "backup.inside_path": "{{path}} 内",
   "backup.storage_help": "备份通常是服务器上最大的内容，也是最后才被查看的内容，因为它们不在 /home 中。此处回答四个问题：占用多少空间、属于谁、有多旧，以及可以安全采取什么操作。",

@@ -44258,7 +44258,13 @@ async function refreshBackups() {
     actionsBody.replaceChildren(
       data.actions
         ? backupActionList(data)
-        : note('Nothing to suggest from this reading.'),
+        : note(
+            ZogographI18n.t(
+              'backup.no_suggestions',
+              {},
+              'Nothing to suggest from this reading.',
+            ),
+          ),
     );
   }
 

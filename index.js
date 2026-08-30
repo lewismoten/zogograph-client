@@ -19305,61 +19305,22 @@ const TERM_ENTRY_BYTES = 128 * 1024;
 function renderTerminalBuffer() {
   const out = $('terminalOut');
   if (!out) return;
-
-  const entries = termState.buffer.slice(-TERM_BUFFER_ENTRIES);
-  const dropped = termState.buffer.length - entries.length;
-
-  const frag = document.createDocumentFragment();
-
-  if (dropped > 0) {
-    const said = document.createElement('div');
-    said.className = 'term-folded';
-    said.textContent =
-      `${count(dropped, 'earlier command')} not drawn. ` +
-      'They are still in this session — open it under Sessions to read them.';
-    frag.appendChild(said);
-  }
-
-  for (const entry of entries) {
-    frag.appendChild(terminalEntry(entry));
-  }
-
-  /*
-   * Whether the reader was at the bottom has to be asked BEFORE the rebuild.
-   *
-   * replaceChildren empties the box, which puts scrollTop back to zero, so
-   * anything asking "are we at the end" afterwards is asking about a box that
-   * has just been scrolled to the top by the act of redrawing it. The answer
-   * was always no, so the view was never pinned back - which is why every
-   * command jumped the transcript to the top.
-   *
-   * A first draw counts as pinned: a terminal opens at its prompt.
-   */
-  const hadContent = out.childElementCount > 0;
-  const wasPinned =
-    hadContent && out.scrollHeight - out.scrollTop - out.clientHeight < 40;
-  const wasAt = out.scrollTop;
-
-  out.replaceChildren(frag);
-
-  if (wasPinned || termState.pin) {
-    out.scrollTop = out.scrollHeight;
-  } else if (hadContent) {
-    out.scrollTop = wasAt;
-  } else if (termState.scrollTop !== null) {
-    /*
-     * A box that was rebuilt with the rest of the page.
-     *
-     * It arrives empty, which looks exactly like a first draw and was being
-     * treated as one - so every command that finished scrolled the transcript
-     * back to the top, or to the bottom, depending on which rule won. Where the
-     * reader was is remembered by renderTerminal across the rebuild.
-     */
-    out.scrollTop = termState.scrollTop;
-  } else {
-    // Genuinely the first draw. A terminal opens at its prompt.
-    out.scrollTop = out.scrollHeight;
-  }
+  renderCoreCardPackage(
+    ZogographTerminalBufferCard,
+    'core-terminal-buffer',
+    {
+      entries: termState.buffer.slice(-TERM_BUFFER_ENTRIES),
+      dropped: Math.max(0, termState.buffer.length - TERM_BUFFER_ENTRIES),
+      pinned: termState.pin,
+      savedScrollTop: termState.scrollTop,
+    },
+    {
+      target: out,
+      count,
+      terminalEntry,
+      i18n: ZogographI18n,
+    },
+  );
 
   termState.pin = false;
   termState.scrollTop = null;

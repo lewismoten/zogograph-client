@@ -22448,131 +22448,14 @@ async function tryBrowserTool(tool, args) {
  * with each field named makes the shape obvious and is quicker to edit than to
  * write.
  */
-function tryArrayExample(spec) {
-  const fields = spec.items || {};
-  if (!Object.keys(fields).length) return [];
-
-  const row = {};
-  for (const [name, about] of Object.entries(fields)) {
-    row[name] = about.description
-      ? String(about.description).split('.')[0].slice(0, 40)
-      : '';
-  }
-
-  return [row, { ...row }];
-}
-
 /** One input per declared parameter, typed the way the parameter is. */
 function tryFields(tool) {
-  if (!tool) return [];
-  if (tool.why_not) return [];
-
-  const entries = Object.entries(tool.parameters || {});
-  if (!entries.length) {
-    return [
-      note(
-        ZogographI18n.t(
-          'ai.preview_no_parameters',
-          {},
-          'This one takes no parameters.',
-        ),
-      ),
-    ];
-  }
-
-  return entries.map(([name, spec]) => {
-    let input;
-
-    if (spec.enum) {
-      input = document.createElement('select');
-      /*
-       * An optional parameter gets an explicit "leave it out" entry.
-       *
-       * A blank first option would be indistinguishable from a value the tool
-       * happens to accept, and "unset" and "empty" are different things to
-       * every tool here.
-       */
-      if (!spec.required) {
-        const blank = document.createElement('option');
-        blank.value = '';
-        blank.textContent = ZogographI18n.t(
-          'ai.preview_leave_out',
-          {},
-          '— leave it out —',
-        );
-        input.appendChild(blank);
-      }
-      for (const value of spec.enum.filter((v) => v !== null)) {
-        const option = document.createElement('option');
-        option.value = String(value);
-        option.textContent = String(value);
-        option.selected =
-          spec.default !== null && String(spec.default) === String(value);
-        input.appendChild(option);
-      }
-    } else if (spec.type === 'array') {
-      /*
-       * A list of objects, as JSON.
-       *
-       * There is no honest small control for "two to five choices, each with a
-       * key, a label and a line about what happens" - a form that built that
-       * would be a form builder. The model sends JSON, so this page sends JSON
-       * too, and what gets tested is the shape the tool actually receives.
-       */
-      input = document.createElement('textarea');
-      // JSON is the only parameter shape where a single-line control turns a
-      // test into horizontal scrolling. Give it the full form width and twice
-      // the normal editing height so an example is readable before sending.
-      input.rows = 10;
-      input.className = 'wide-field try-textarea';
-      input.spellcheck = false;
-      input.value = JSON.stringify(tryArrayExample(spec), null, 2);
-    } else if (spec.type === 'boolean') {
-      input = document.createElement('input');
-      input.type = 'checkbox';
-      input.checked = spec.default === true;
-    } else if (spec.type === 'integer' || spec.type === 'number') {
-      input = document.createElement('input');
-      input.type = 'number';
-      input.className = 'days';
-      if (spec.minimum !== null) input.min = String(spec.minimum);
-      if (spec.maximum !== null) input.max = String(spec.maximum);
-      if (spec.type === 'integer') input.step = '1';
-      const fallback = name === 'hours' ? 24 : (spec.minimum ?? 1);
-      input.value = String(spec.default ?? fallback);
-    } else {
-      input = document.createElement('input');
-      input.type = 'text';
-      input.className = 'wide-field';
-      if (spec.maxLength) input.maxLength = spec.maxLength;
-      input.value = String(spec.default ?? tryTextDefault(name));
-    }
-
-    input.dataset.param = name;
-    input.dataset.kind = spec.type;
-    input.dataset.required = spec.required ? '1' : '';
-
-    const bounds = [
-      spec.required ? 'required' : 'optional',
-      spec.minimum !== null && spec.maximum !== null
-        ? `${spec.minimum} to ${spec.maximum}`
-        : '',
-      spec.maxLength ? `up to ${spec.maxLength} characters` : '',
-    ]
-      .filter(Boolean)
-      .join(', ');
-
-    return fieldRow(name, input, `${spec.description} (${bounds})`);
-  });
-}
-
-function tryTextDefault(name) {
-  if (name === 'why' || name === 'caption')
-    return 'Review this chart for notable changes.';
-  if (name === 'view') return 'overview';
-  if (name === 'query' || name === 'needle' || name === 'contains') return '';
-  if (name === 'path') return '.';
-  return '';
+  return renderCoreCardPackage(
+    ZogographAiToolParametersCard,
+    'core-ai-tool-parameters',
+    { tool },
+    { note, fieldRow, i18n: ZogographI18n },
+  );
 }
 
 /**

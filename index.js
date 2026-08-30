@@ -20632,11 +20632,11 @@ function renderReports(data) {
 
   if (!data.ready) {
     parts.push(
-      note(
-        ZogographI18n.t('reports.not_ready', {
-          assistant: data.who.name,
-          why: data.why,
-        }),
+      renderCoreCardPackage(
+        ZogographReportsNotReadyCard,
+        'core-reports-not-ready',
+        data,
+        { note, i18n: ZogographI18n },
       ),
     );
   }

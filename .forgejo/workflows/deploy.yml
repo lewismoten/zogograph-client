@@ -32,31 +32,31 @@ jobs:
 
       - name: Install formatting tools
         shell: bash
-        run: npm ci
+        run: timeout 1m npm ci
 
       - name: Install PHP test runtime
         shell: bash
         run: |
           set -euo pipefail
-          command -v php >/dev/null || { apt-get update; apt-get install -y php-cli php-sqlite3 php-mbstring; }
-          php -r 'exit(extension_loaded("zip") ? 0 : 1);' || { apt-get update; apt-get install -y php-zip; }
+          command -v php >/dev/null || { timeout 1m apt-get update; timeout 1m apt-get install -y php-cli php-sqlite3 php-mbstring; }
+          php -r 'exit(extension_loaded("zip") ? 0 : 1);' || { timeout 1m apt-get update; timeout 1m apt-get install -y php-zip; }
 
       - name: Test PHP
         shell: bash
-        run: npm test
+        run: timeout 1m npm test
 
       - name: Build
         shell: bash
-        run: npm run build
+        run: timeout 1m npm run build
 
       - name: Assemble release
         shell: bash
         run: |
           set -euo pipefail
-          command -v rsync >/dev/null || { apt-get update; apt-get install -y rsync; }
+          command -v rsync >/dev/null || { timeout 1m apt-get update; timeout 1m apt-get install -y rsync; }
           release=.release
           mkdir -p "$release"
-          rsync -a --delete \
+          timeout 1m rsync -a --delete \
             --exclude='.git/' \
             --exclude='.release/' \
             --exclude='dist/' \
@@ -177,7 +177,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          command -v rsync >/dev/null || { apt-get update; apt-get install -y rsync; }
+          command -v rsync >/dev/null || { timeout 1m apt-get update; timeout 1m apt-get install -y rsync; }
 
       - name: Snapshot the live site and SQLite databases
         id: snapshot
@@ -187,14 +187,14 @@ jobs:
           snapshot_id="${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT:-1}"
           printf 'id=%s\n' "$snapshot_id" >> "$GITHUB_OUTPUT"
           remote_script=".zogograph-snapshot-${GITHUB_RUN_ID}-${DEPLOY_TARGET}.sh"
-          ssh -i "$HOME/.ssh/zogograph_deploy_key" -p "${DEPLOY_PORT:-22}" \
+          timeout 1m ssh -i "$HOME/.ssh/zogograph_deploy_key" -p "${DEPLOY_PORT:-22}" \
             -o BatchMode=yes -o IdentitiesOnly=yes -o ConnectTimeout=15 \
             "${DEPLOY_USER}@${DEPLOY_HOST}" "mkdir -p '$SNAPSHOT_DIRECTORY'"
-          rsync -az \
+          timeout 1m rsync -az \
             -e "ssh -i $HOME/.ssh/zogograph_deploy_key -p ${DEPLOY_PORT:-22} -o BatchMode=yes -o IdentitiesOnly=yes" \
             .forgejo/scripts/zogograph-snapshot.sh \
             "${DEPLOY_USER}@${DEPLOY_HOST}:${remote_script}"
-          ssh -i "$HOME/.ssh/zogograph_deploy_key" -p "${DEPLOY_PORT:-22}" \
+          timeout 1m ssh -i "$HOME/.ssh/zogograph_deploy_key" -p "${DEPLOY_PORT:-22}" \
             -o BatchMode=yes -o IdentitiesOnly=yes -o ConnectTimeout=15 \
             "${DEPLOY_USER}@${DEPLOY_HOST}" \
             "bash '$remote_script' '$DEPLOY_PATH' '$SNAPSHOT_DIRECTORY' '$snapshot_id' && rm -f '$remote_script'"
@@ -203,7 +203,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          rsync -az --delete \
+          timeout 1m rsync -az --delete \
             --exclude='data/***' \
             --exclude='lib/config.php' \
             --exclude='.well-known/' \

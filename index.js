@@ -20465,15 +20465,31 @@ async function openTerminalEditor(path) {
     const restore = document.createElement('button');
     restore.type = 'button';
     restore.className = 'link danger';
-    restore.textContent = 'Restore selected recovery copy';
+    restore.textContent = ZogographI18n.t(
+      'terminal.recovery_restore_selected',
+      {},
+      'Restore selected recovery copy',
+    );
     restore.addEventListener('click', async () => {
       if (
         !(await askFirst(
-          'Restore this recovery copy?',
+          ZogographI18n.t(
+            'terminal.recovery_restore_title',
+            {},
+            'Restore this recovery copy?',
+          ),
           [
-            'Your current file is copied privately before the restore. Any unsaved text in this dialog will be discarded.',
+            ZogographI18n.t(
+              'terminal.recovery_restore_consequence',
+              {},
+              'Your current file is copied privately before the restore. Any unsaved text in this dialog will be discarded.',
+            ),
           ],
-          'Restore copy',
+          ZogographI18n.t(
+            'terminal.recovery_restore_action',
+            {},
+            'Restore copy',
+          ),
           true,
         ))
       )
@@ -20486,7 +20502,11 @@ async function openTerminalEditor(path) {
         });
         $('noteDialog').close();
         notice(
-          `Restored ${saved.path}; the prior version was copied for recovery.`,
+          ZogographI18n.t(
+            'terminal.recovery_restored',
+            { path: saved.path },
+            'Restored {{path}}; the prior version was copied for recovery.',
+          ),
           true,
         );
       } catch (error) {
@@ -20495,9 +20515,13 @@ async function openTerminalEditor(path) {
     });
     parts.push(
       fieldRow(
-        'Recovery copy',
+        ZogographI18n.t('terminal.recovery_label', {}, 'Recovery copy'),
         backup,
-        'Private pre-save copy. Restoring creates a new copy of the current version.',
+        ZogographI18n.t(
+          'terminal.recovery_help',
+          {},
+          'Private pre-save copy. Restoring creates a new copy of the current version.',
+        ),
       ),
       restore,
     );
@@ -20521,9 +20545,17 @@ async function openTerminalEditor(path) {
       const preview = terminalEditorSyntaxPreview(data.path, text.value);
       if (preview === null) return;
       showListDialog(
-        `Syntax preview · ${data.path.split('/').pop()}`,
+        ZogographI18n.t(
+          'terminal.syntax_preview_dialog_title',
+          { name: data.path.split('/').pop() },
+          'Syntax preview · {{name}}',
+        ),
         [preview],
-        'This local, read-only preview never executes or sends file contents. The native editor remains the place to edit and save.',
+        ZogographI18n.t(
+          'terminal.syntax_preview_help',
+          {},
+          'This local, read-only preview never executes or sends file contents. The native editor remains the place to edit and save.',
+        ),
       );
     });
     parts.push(syntaxButton);

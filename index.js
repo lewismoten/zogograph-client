@@ -18724,12 +18724,16 @@ function purgeButton(entry) {
   button.type = 'button';
   button.className = 'link danger';
   button.textContent = ZogographI18n.t('action.clear', {}, 'Clear');
-  button.title = `Delete ${entry.label.toLowerCase()} older than a given age`;
+  button.title = ZogographI18n.t(
+    'storage.purge_button_title',
+    { label: entry.label.toLowerCase() },
+    'Delete {{label}} older than a given age',
+  );
 
   button.addEventListener('click', async () => {
     const asked = await askTextDialog(
-      'Clear old records',
-      'Age in days',
+      ZogographI18n.t('storage.purge_title', {}, 'Clear old records'),
+      ZogographI18n.t('storage.purge_age_in_days', {}, 'Age in days'),
       String(entry.days || 30),
       `0 deletes all ${entry.label.toLowerCase()}.` +
         (entry.table === 'vitals'
@@ -18740,7 +18744,13 @@ function purgeButton(entry) {
 
     const days = Number(asked);
     if (!Number.isInteger(days) || days < 0) {
-      notice('That is not a number of days.');
+      notice(
+        ZogographI18n.t(
+          'storage.purge_invalid_days',
+          {},
+          'That is not a number of days.',
+        ),
+      );
       return;
     }
 

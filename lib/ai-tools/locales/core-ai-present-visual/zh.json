@@ -1,3 +1,4 @@
 {
-  "core-ai-present-visual.summary": "将提供的数据呈现为折线图、饼图或仪表。"
+  "core-ai-present-visual.summary": "将提供的数据呈现为折线图、饼图或仪表。",
+  "core-ai-present-visual.activity": "展示了 {{title}}"
 }

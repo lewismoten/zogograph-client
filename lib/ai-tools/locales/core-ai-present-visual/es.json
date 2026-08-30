@@ -1,3 +1,4 @@
 {
-  "core-ai-present-visual.summary": "Presente los datos proporcionados como gráfico de líneas, circular o indicador."
+  "core-ai-present-visual.summary": "Presente los datos proporcionados como gráfico de líneas, circular o indicador.",
+  "core-ai-present-visual.activity": "Presentó {{title}}"
 }

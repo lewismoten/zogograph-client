@@ -40632,60 +40632,12 @@ function renderCapSummary(data) {
  * So: one line, and it says which case this is.
  */
 function pendingHostNote(data) {
-  const waiting = (data.tasks || []).filter((task) => task.pending);
-  if (!waiting.length) return document.createDocumentFragment();
-
-  const oldest = Math.min(...waiting.map((task) => task.requested_at));
-  const lastRun = Number(data.host_last_run) || 0;
-  const wrap = document.createElement('div');
-
-  /*
-   * The collector has run since the oldest request, and the request is still
-   * pending. So it is running and simply has not got to this one - which is
-   * ordinary for a request made a moment ago and odd for one made yesterday.
-   */
-  const ranSince = lastRun > oldest;
-  const stale = !lastRun || Date.now() / 1000 - lastRun > 3600;
-
-  const said = document.createElement('div');
-  said.className = stale ? 'band-warn' : 'muted small';
-
-  if (!lastRun) {
-    said.textContent =
-      `${count(waiting.length, 'request')} waiting, the oldest asked ` +
-      `${ago(oldest)} — but root's collector has never run here, so nothing is going to ` +
-      "answer them. It has to be installed in root's crontab; this account cannot do it.";
-  } else if (stale) {
-    said.textContent =
-      `${count(waiting.length, 'request')} waiting, the oldest asked ` +
-      `${ago(oldest)}. Root's collector last ran ${ago(lastRun)}, so it is not running on ` +
-      'a schedule — these will sit here until it does.';
-  } else if (ranSince) {
-    said.textContent =
-      `${count(waiting.length, 'request')} waiting. The collector has run ` +
-      `since they were asked for (${ago(lastRun)}) without answering them, which usually ` +
-      'means it cannot do what was asked rather than that it has not got to it yet.';
-  } else {
-    said.textContent =
-      `${count(waiting.length, 'request')} waiting for root's collector, ` +
-      `which last ran ${ago(lastRun)}. The countdown is at the top of the page.`;
-  }
-  wrap.appendChild(said);
-
-  // Which ones, without a paragraph each.
-  const which = document.createElement('div');
-  which.className = 'muted small';
-  which.textContent = waiting.map((task) => task.task).join(', ');
-  wrap.appendChild(which);
-
-  if (!lastRun && data.host_cron_line) {
-    const how = document.createElement('pre');
-    how.className = 'paste';
-    how.textContent = data.host_cron_line;
-    wrap.appendChild(how);
-  }
-
-  return wrap;
+  return renderCoreCardPackage(
+    ZogographPendingHostTasksCard,
+    'core-pending-host-tasks',
+    data,
+    { count, ago, i18n: ZogographI18n },
+  );
 }
 
 function renderCapList(data) {

@@ -22491,9 +22491,21 @@ function openDisplayPreferences() {
         voice,
         'Available voices come from this browser and device.',
       ),
-      fieldRow('Speed', rate, '0.5× to 2×.'),
-      fieldRow('Pitch', pitch, '0 to 2.'),
-      fieldRow('Volume', volume, '0 to 100%.'),
+      fieldRow(
+        ZogographI18n.t('display.voice_speed', {}, 'Speed'),
+        rate,
+        ZogographI18n.t('display.voice_speed_help', {}, '0.5× to 2×.'),
+      ),
+      fieldRow(
+        ZogographI18n.t('display.voice_pitch', {}, 'Pitch'),
+        pitch,
+        ZogographI18n.t('display.voice_pitch_help', {}, '0 to 2.'),
+      ),
+      fieldRow(
+        ZogographI18n.t('display.voice_volume', {}, 'Volume'),
+        volume,
+        ZogographI18n.t('display.voice_volume_help', {}, '0 to 100%.'),
+      ),
       test,
       fieldRow(
         'Listening',

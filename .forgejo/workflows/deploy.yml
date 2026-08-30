@@ -13,58 +13,25 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  deploy:
+  build:
+    name: Test & Build
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        include:
-          - environment: test
-            deploy_path: ${{ vars.TEST_PATH }}
-            deploy_url: ${{ vars.TEST_URL }}
-
-          - environment:  client
-            deploy_path: ${{ vars.DEPLOY_PATH }}
-            deploy_url: ${{ vars.DEPLOY_URL }}
 
     env:
-      DEPLOY_HOST: ${{ vars.DEPLOY_HOST }}
-      DEPLOY_PORT: ${{ vars.DEPLOY_PORT }}
-      DEPLOY_USER: ${{ vars.DEPLOY_USER }}
-      DEPLOY_PATH: ${{ matrix.deploy_path }}
-      DEPLOY_URL: ${{ matrix.deploy_url }}
-      DEPLOY_TARGET: ${{ matrix.environment }}
-      DEPLOY_KNOWN_HOSTS: ${{ vars.DEPLOY_KNOWN_HOSTS }}
-      SNAPSHOT_PATH: ${{ format('{0}/{1}', vars.SNAPSHOT_PATH, matrix.environment) }}
-      SNAPSHOT_RETENTION: ${{ vars.SNAPSHOT_RETENTION }}
       BROWSER_REFRESH_REQUIRED: ${{ vars.BROWSER_REFRESH_REQUIRED }}
-      DEPLOY_SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Validate deployment settings
-        shell: bash
-        run: |
-          set -euo pipefail
-          for setting in DEPLOY_HOST DEPLOY_USER DEPLOY_PATH DEPLOY_URL DEPLOY_KNOWN_HOSTS SNAPSHOT_PATH DEPLOY_SSH_PRIVATE_KEY; do
-            test -n "${!setting}" || { echo "Missing required deployment setting: $setting"; exit 1; }
-          done
-          for setting in DEPLOY_PATH SNAPSHOT_PATH; do
-            case "${!setting}" in /*) ;; *) echo "$setting must be an absolute path." >&2; exit 1;; esac
-            case "${!setting}" in *[!A-Za-z0-9._/-]*) echo "$setting contains an unsafe character." >&2; exit 1;; esac
-          done
-          case "${SNAPSHOT_RETENTION:-3}" in *[!0-9]*|'') echo 'SNAPSHOT_RETENTION must be a whole number.' >&2; exit 1;; esac
-          [ "${SNAPSHOT_RETENTION:-3}" -ge 1 ] && [ "${SNAPSHOT_RETENTION:-3}" -le 50 ] || { echo 'SNAPSHOT_RETENTION must be between 1 and 50.' >&2; exit 1; }
-          test -f package.json
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
 
-      - name: Resolve repository snapshot directory
+      - name: Install formatting tools
         shell: bash
-        run: |
-          set -euo pipefail
-          snapshot_repository="${GITHUB_REPOSITORY##*/}"
-          case "$snapshot_repository" in ''|*[!A-Za-z0-9._-]*) echo 'Repository name is unsafe for the snapshot path.' >&2; exit 1;; esac
-          printf 'SNAPSHOT_DIRECTORY=%s/%s\n' "${SNAPSHOT_PATH%/}" "$snapshot_repository" >> "$GITHUB_ENV"
+        run: npm ci
 
       - name: Install PHP test runtime
         shell: bash
@@ -73,9 +40,13 @@ jobs:
           command -v php >/dev/null || { apt-get update; apt-get install -y php-cli php-sqlite3 php-mbstring; }
           php -r 'exit(extension_loaded("zip") ? 0 : 1);' || { apt-get update; apt-get install -y php-zip; }
 
-      - name: Validate, test, and build
+      - name: Test PHP
         shell: bash
-        run: npm ci && npm test && npm run build
+        run: npm test
+
+      - name: Build
+        shell: bash
+        run: npm run build
 
       - name: Assemble release
         shell: bash
@@ -118,6 +89,77 @@ jobs:
           }
           EOF
           cat "$release/build.json"
+
+      - name: Upload deployment build
+        uses: actions/upload-artifact@v3
+        with:
+          name: deployment-build
+          path: .release/
+          retention-days: 1
+
+  deploy:
+    name: Deploy to ${{ matrix.deploy_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        include:
+          - environment: test
+            deploy_path: ${{ vars.TEST_PATH }}
+            deploy_url: ${{ vars.TEST_URL }}
+
+          - environment:  client
+            deploy_path: ${{ vars.DEPLOY_PATH }}
+            deploy_url: ${{ vars.DEPLOY_URL }}
+
+    env:
+      DEPLOY_HOST: ${{ vars.DEPLOY_HOST }}
+      DEPLOY_PORT: ${{ vars.DEPLOY_PORT }}
+      DEPLOY_USER: ${{ vars.DEPLOY_USER }}
+      DEPLOY_PATH: ${{ matrix.deploy_path }}
+      DEPLOY_URL: ${{ matrix.deploy_url }}
+      DEPLOY_TARGET: ${{ matrix.environment }}
+      DEPLOY_KNOWN_HOSTS: ${{ vars.DEPLOY_KNOWN_HOSTS }}
+      SNAPSHOT_PATH: ${{ format('{0}/{1}', vars.SNAPSHOT_PATH, matrix.environment) }}
+      SNAPSHOT_RETENTION: ${{ vars.SNAPSHOT_RETENTION }}
+      DEPLOY_SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
+
+    steps:
+      # Deployment scripts are checked out separately from the application
+      # artifact so this job never rebuilds the release.
+      - name: Checkout deployment scripts
+        uses: actions/checkout@v4
+
+      - name: Download deployment build
+        uses: actions/download-artifact@v3
+        with:
+          name: deployment-build
+          path: .release/
+
+      - name: Validate deployment settings
+        shell: bash
+        run: |
+          set -euo pipefail
+          for setting in DEPLOY_HOST DEPLOY_USER DEPLOY_PATH DEPLOY_URL DEPLOY_KNOWN_HOSTS SNAPSHOT_PATH DEPLOY_SSH_PRIVATE_KEY; do
+            test -n "${!setting}" || { echo "Missing required deployment setting: $setting"; exit 1; }
+          done
+          for setting in DEPLOY_PATH SNAPSHOT_PATH; do
+            case "${!setting}" in /*) ;; *) echo "$setting must be an absolute path." >&2; exit 1;; esac
+            case "${!setting}" in *[!A-Za-z0-9._/-]*) echo "$setting contains an unsafe character." >&2; exit 1;; esac
+          done
+          case "${SNAPSHOT_RETENTION:-3}" in *[!0-9]*|'') echo 'SNAPSHOT_RETENTION must be a whole number.' >&2; exit 1;; esac
+          [ "${SNAPSHOT_RETENTION:-3}" -ge 1 ] && [ "${SNAPSHOT_RETENTION:-3}" -le 50 ] || { echo 'SNAPSHOT_RETENTION must be between 1 and 50.' >&2; exit 1; }
+          test -f package.json
+
+      - name: Resolve repository snapshot directory
+        shell: bash
+        run: |
+          set -euo pipefail
+          snapshot_repository="${GITHUB_REPOSITORY##*/}"
+          case "$snapshot_repository" in ''|*[!A-Za-z0-9._-]*) echo 'Repository name is unsafe for the snapshot path.' >&2; exit 1;; esac
+          printf 'SNAPSHOT_DIRECTORY=%s/%s\n' "${SNAPSHOT_PATH%/}" "$snapshot_repository" >> "$GITHUB_ENV"
 
       - name: Install SSH key
         shell: bash

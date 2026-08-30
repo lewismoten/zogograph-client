@@ -6987,37 +6987,14 @@ function renderAiTools(data) {
      * of tick boxes reads as an oversight, and the whole point of listing every
      * tool on this page is that nothing looks missing.
      */
-    if (tool.asks_by_design) {
-      const said = document.createElement('span');
-      said.className = 'muted small';
-      said.textContent = ZogographI18n.t(
-        'ai.tool_asks_anyway',
-        {},
-        'it asks you anyway',
-      );
-      said.title = ZogographI18n.t(
-        'ai.tool_asks_anyway_title',
-        {},
-        'This tool exists to put a question to you. There is nothing it could do that you would want warning of.',
-      );
-      gate.appendChild(said);
-    } else {
-      const ask = document.createElement('input');
-      ask.type = 'checkbox';
-      ask.className = 'tool-ask';
-      ask.dataset.tool = tool.name;
-      ask.checked = tool.permission;
-      ask.disabled = !data.writable;
-      gate.appendChild(ask);
-
-      if (tool.recommends_permission) {
-        const said = document.createElement('span');
-        said.className = 'muted small';
-        said.textContent =
-          ' ' + ZogographI18n.t('ai.recommended', {}, 'recommended');
-        gate.appendChild(said);
-      }
-    }
+    gate.appendChild(
+      renderCoreCardPackage(
+        ZogographAiToolPermissionCard,
+        'core-ai-tool-permission',
+        { tool, writable: data.writable },
+        { i18n: ZogographI18n },
+      ),
+    );
 
     const detail = row.insertCell();
     detail.appendChild(

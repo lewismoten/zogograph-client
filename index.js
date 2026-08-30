@@ -2094,7 +2094,7 @@ function renderCoreCardPackage(cardPackage, id, input, helpers) {
       }
     }
   }
-  cardPackage.render(input, helpers);
+  return cardPackage.render(input, helpers);
 }
 
 function renderCards(overview) {
@@ -18521,7 +18521,7 @@ function renderAccountData(data) {
         {},
         "This account's database",
       ),
-      databaseCard(account.file, {
+      databaseStorageCard(account.file, {
         projected: account.projected_total,
         known: account.projected_known,
         growth: account.growth_per_year,
@@ -18628,7 +18628,7 @@ function renderHostData(data) {
   const parts = [
     section(
       ZogographI18n.t('database.file', {}, 'The file'),
-      databaseCard(data.host.file, null),
+      databaseStorageCard(data.host.file, null),
     ),
   ];
 
@@ -18890,7 +18890,28 @@ function databaseTableName(name, host) {
   return label;
 }
 
-function databaseCard(file, projection) {
+function databaseStorageCard(file, projection) {
+  const rendered = renderCoreCardPackage(
+    window.ZogographDatabaseStorageCard,
+    'core-database-storage',
+    { file, projection },
+    {
+      bandOf,
+      humanBytes,
+      humanCount,
+      count,
+      ago,
+      note,
+      factGrid,
+      i18n: ZogographI18n,
+    },
+  );
+  // Preserve this diagnostics page if a stale cached shell has not loaded the
+  // independently cacheable card package yet.
+  return rendered || legacyDatabaseCard(file, projection);
+}
+
+function legacyDatabaseCard(file, projection) {
   const meters = document.createElement('div');
   meters.className = 'database-gauges';
   meters.appendChild(
@@ -24505,7 +24526,7 @@ function renderAiStore(data) {
   parts.push(
     section(
       ZogographI18n.t('ai.store_file', {}, 'The file'),
-      databaseCard(data.file, null),
+      databaseStorageCard(data.file, null),
     ),
   );
 

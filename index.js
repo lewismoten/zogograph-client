@@ -7067,98 +7067,15 @@ async function refreshAiSessions() {
 
   try {
     const data = await api('ai-sessions');
-
-    if (!data.sessions.length) {
-      body.replaceChildren(
-        note(aiSettingsText('sessions_empty', 'No conversations yet.')),
-      );
-      return;
-    }
-
-    const parts = [];
-    const totals = data.totals;
-
-    parts.push(
-      factGrid([
-        [
-          aiSettingsText('sessions_conversations', 'Conversations'),
-          humanCount(totals.sessions),
-        ],
-        [aiSettingsText('sessions_turns', 'Turns'), humanCount(totals.turns)],
-        [
-          aiSettingsText('sessions_tokens', 'Tokens'),
-          aiSettingsText(
-            'sessions_tokens_summary',
-            '{{input}} in, {{output}} out',
-            {
-              input: humanCount(totals.tokens_in),
-              output: humanCount(totals.tokens_out),
-            },
-          ) +
-            (totals.tokens_cached
-              ? aiSettingsText(
-                  'sessions_tokens_cached',
-                  ', {{tokens}} cached',
-                  { tokens: humanCount(totals.tokens_cached) },
-                )
-              : ''),
-        ],
-        [aiSettingsText('sessions_spent', 'Spent'), totals.spent],
-      ]),
-    );
-
-    const holder = document.createElement('div');
-    holder.id = 'aiSessionTable';
-    parts.push(holder);
-    body.replaceChildren(...parts);
-
-    renderTable(
-      'aiSessionTable',
-      data.sessions,
-      [
-        {
-          label: aiSettingsText('sessions_started', 'Started'),
-          render: (row) => whenSpan(row.started_at),
-        },
-        {
-          label: aiSettingsText('sessions_ran_for', 'Ran for'),
-          render: (row) => row.ran_for,
-        },
-        {
-          label: aiSettingsText('sessions_ended', 'How it ended'),
-          render: (row) => {
-            const span = document.createElement('span');
-            span.textContent = row.state;
-            if (row.why_stopped) span.title = row.why_stopped;
-            if (row.state === 'failed') span.className = 'band-crit';
-            return span;
-          },
-        },
-        {
-          label: aiSettingsText('sessions_model', 'Model'),
-          className: 'cmd',
-          render: (row) => row.model,
-        },
-        {
-          label: aiSettingsText('sessions_turns', 'Turns'),
-          className: 'size',
-          render: (row) => String(row.turns),
-        },
-        {
-          label: aiSettingsText('sessions_tokens', 'Tokens'),
-          className: 'size',
-          render: (row) => humanCount(row.tokens),
-        },
-        {
-          label: aiSettingsText('sessions_cost', 'Cost'),
-          className: 'size',
-          render: (row) => row.spent,
-        },
-      ],
-      null,
-      null,
-      (row) => String(row.id),
-    );
+    renderCoreCardPackage(ZogographAiSessionsCard, 'core-ai-sessions', data, {
+      target: body,
+      note,
+      factGrid,
+      humanCount,
+      renderTable,
+      whenSpan,
+      i18n: ZogographI18n,
+    });
   } catch (error) {
     body.replaceChildren(note(String(error.message || error)));
   }

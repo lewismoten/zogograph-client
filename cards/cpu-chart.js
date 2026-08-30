@@ -55,7 +55,7 @@ window.ZogographCpuChart = {
     const series = [
       {
         key: 'cpu_percent',
-        label: ZogographI18n.t('vitals.cpu_percent', {}, 'CPU %'),
+        label: ZogographI18n.t('core-cpu-chart.cpu_percent', {}, 'CPU %'),
       },
     ];
     series.push(
@@ -63,7 +63,7 @@ window.ZogographCpuChart = {
         ? {
             key: 'mem_used_bytes',
             label: ZogographI18n.t(
-              'vitals.memory_used_right',
+              'core-cpu-chart.memory_used_right',
               {},
               'Memory used (right)',
             ),
@@ -71,7 +71,11 @@ window.ZogographCpuChart = {
           }
         : {
             key: 'mem_used_percent',
-            label: ZogographI18n.t('vitals.memory_percent', {}, 'Memory %'),
+            label: ZogographI18n.t(
+              'core-cpu-chart.memory_percent',
+              {},
+              'Memory %',
+            ),
           },
     );
 
@@ -101,7 +105,7 @@ window.ZogographCpuChart = {
      */
     const cap = limitsAvailable
       ? ZogographI18n.t(
-          'vitals.host_allows_above',
+          'core-cpu-chart.host_allows_above',
           {},
           ' See what the host allows, above.',
         )
@@ -109,12 +113,12 @@ window.ZogographCpuChart = {
     noteTarget.textContent =
       absolute && latest
         ? ZogographI18n.t(
-            'vitals.cpu_note_absolute',
+            'core-cpu-chart.cpu_note_absolute',
             { total: humanBytes(latest.mem_total_bytes), hostNote: cap },
             'Share of what this account may use, since the previous reading. Memory is bytes consumed on the right, out of {{total}} available to this account.{{hostNote}}',
           )
         : ZogographI18n.t(
-            'vitals.cpu_note_relative',
+            'core-cpu-chart.cpu_note_relative',
             { hostNote: cap },
             'Share of what this account may use, since the previous reading.{{hostNote}}',
           );

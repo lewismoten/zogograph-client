@@ -1,3 +1,4 @@
 {
-  "core-ai-get-measurement-history.summary": "一项测量值随时间的变化情况。"
+  "core-ai-get-measurement-history.summary": "一项测量值随时间的变化情况。",
+  "core-ai-get-measurement-history.activity": "查看了 {{measurement}} 在 {{hours}} 小时内的情况"
 }

@@ -1,3 +1,4 @@
 {
-  "core-ai-get-measurement-history.summary": "Cómo ha cambiado una medición con el tiempo."
+  "core-ai-get-measurement-history.summary": "Cómo ha cambiado una medición con el tiempo.",
+  "core-ai-get-measurement-history.activity": "Revisó {{measurement}} durante {{hours}} horas"
 }

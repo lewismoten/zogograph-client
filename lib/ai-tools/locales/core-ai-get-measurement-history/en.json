@@ -1,3 +1,4 @@
 {
-  "core-ai-get-measurement-history.summary": "How one measurement has moved over time."
+  "core-ai-get-measurement-history.summary": "How one measurement has moved over time.",
+  "core-ai-get-measurement-history.activity": "Looked at {{measurement}} over {{hours}} hours"
 }

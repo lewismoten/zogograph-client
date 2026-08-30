@@ -1,3 +1,4 @@
 {
-  "core-ai-get-measurement-history.summary": "समय के साथ एक माप कैसे बदला है।"
+  "core-ai-get-measurement-history.summary": "समय के साथ एक माप कैसे बदला है।",
+  "core-ai-get-measurement-history.activity": "{{hours}} घंटों में {{measurement}} देखा"
 }

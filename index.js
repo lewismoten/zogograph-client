@@ -11261,7 +11261,11 @@ function chatToolPhrase({ tool, arguments: args, localeNamespace = '' }) {
   }[tool];
 
   if (localeNamespace) {
-    return ZogographI18n.t(`${localeNamespace}activity`, {}, said ?? tool);
+    const values =
+      tool === 'get_measurement_history'
+        ? { measurement: args.measurement, hours: args.hours }
+        : {};
+    return ZogographI18n.t(`${localeNamespace}activity`, values, said ?? tool);
   }
   return said ?? tool;
 }

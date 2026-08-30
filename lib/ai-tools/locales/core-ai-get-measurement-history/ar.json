@@ -1,3 +1,4 @@
 {
-  "core-ai-get-measurement-history.summary": "كيف تغيّر قياس واحد مع الوقت."
+  "core-ai-get-measurement-history.summary": "كيف تغيّر قياس واحد مع الوقت.",
+  "core-ai-get-measurement-history.activity": "راجع {{measurement}} على مدى {{hours}} ساعة"
 }

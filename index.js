@@ -18975,9 +18975,11 @@ function renderRetention(data) {
         ? '—'
         : `${humanCount(entry.rows)}${entry.bytes === null ? '' : ` · ${humanBytes(entry.bytes)}`}`;
     if (entry.shares_table) {
-      holding.title =
-        'These tiers share one table, so their sizes are parts of it rather ' +
-        'than separate files.';
+      holding.title = ZogographI18n.t(
+        'storage.retention_shared_table_help',
+        {},
+        'These tiers share one table, so their sizes are parts of it rather than separate files.',
+      );
     }
 
     const covers = row.insertCell();
@@ -19052,7 +19054,11 @@ function renderRetention(data) {
           );
       if (!entry.at_rest) settles.className = 'size grew';
     } else if (entry.per_year) {
-      settles.textContent = `+${humanBytes(entry.per_year)}/yr`;
+      settles.textContent = ZogographI18n.t(
+        'storage.retention_yearly_growth',
+        { amount: humanBytes(entry.per_year) },
+        '+{{amount}}/yr',
+      );
       settles.title = ZogographI18n.t(
         'storage.retention_forever_growth',
         {},

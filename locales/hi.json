@@ -3511,6 +3511,8 @@
   "storage.retention_no_history": "दर मापने के लिए अभी पर्याप्त इतिहास नहीं है।",
   "storage.retention_total_settles": "जैसा है वैसा छोड़ने पर डेटाबेस लगभग {{amount}} पर स्थिर होता है।",
   "storage.retention_total_grows": "जैसा है वैसा छोड़ने पर डेटाबेस लगभग {{amount}} पर स्थिर होता है, साथ ही हमेशा के लिए रखी चीज़ों से साल में लगभग {{growth}} और बढ़ता है।",
+  "storage.retention_shared_table_help": "ये स्तर एक ही तालिका साझा करते हैं, इसलिए इनके आकार अलग फ़ाइलों के बजाय उसी के भाग हैं।",
+  "storage.retention_yearly_growth": "+{{amount}}/वर्ष",
   "storage.purge_button_title": "दिए गए समय से पुराने {{label}} हटाएँ",
   "storage.purge_title": "पुराने रिकॉर्ड साफ़ करें",
   "storage.purge_age_in_days": "दिनों में आयु",

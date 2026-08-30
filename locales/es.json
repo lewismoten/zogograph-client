@@ -3515,6 +3515,8 @@
   "storage.retention_no_history": "Todavía no hay suficiente historial para medir una tasa.",
   "storage.retention_total_settles": "Si se deja como está, la base de datos se estabiliza cerca de {{amount}}.",
   "storage.retention_total_grows": "Si se deja como está, la base de datos se estabiliza cerca de {{amount}}, más unos {{growth}} al año por los elementos configurados para conservarse para siempre.",
+  "storage.retention_shared_table_help": "Estos niveles comparten una tabla, por lo que sus tamaños son partes de ella y no archivos separados.",
+  "storage.retention_yearly_growth": "+{{amount}}/año",
   "storage.purge_button_title": "Eliminar {{label}} anterior a una edad determinada",
   "storage.purge_title": "Borrar registros antiguos",
   "storage.purge_age_in_days": "Antigüedad en días",

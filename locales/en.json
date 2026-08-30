@@ -3600,6 +3600,8 @@
   "storage.retention_no_history": "Not enough history yet to measure a rate.",
   "storage.retention_total_settles": "Left as it is, the database settles near {{amount}}.",
   "storage.retention_total_grows": "Left as it is, the database settles near {{amount}} plus about {{growth}} a year from the things set to be kept for ever.",
+  "storage.retention_shared_table_help": "These tiers share one table, so their sizes are parts of it rather than separate files.",
+  "storage.retention_yearly_growth": "+{{amount}}/yr",
   "storage.purge_button_title": "Delete {{label}} older than a given age",
   "storage.purge_title": "Clear old records",
   "storage.purge_age_in_days": "Age in days",

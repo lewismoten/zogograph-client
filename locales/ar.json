@@ -3497,6 +3497,8 @@
   "storage.retention_no_history": "لا يوجد تاريخ كافٍ بعد لقياس معدل.",
   "storage.retention_total_settles": "إذا تُرك كما هو، تستقر قاعدة البيانات قرب {{amount}}.",
   "storage.retention_total_grows": "إذا تُرك كما هو، تستقر قاعدة البيانات قرب {{amount}} مع نحو {{growth}} سنويًا من الأشياء المضبوطة للاحتفاظ بها إلى الأبد.",
+  "storage.retention_shared_table_help": "تشترك هذه الطبقات في جدول واحد، لذا فأحجامها أجزاء منه وليست ملفات منفصلة.",
+  "storage.retention_yearly_growth": "+{{amount}}/سنة",
   "storage.purge_button_title": "احذف {{label}} الأقدم من عمر محدد",
   "storage.purge_title": "امسح السجلات القديمة",
   "storage.purge_age_in_days": "العمر بالأيام",

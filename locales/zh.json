@@ -3497,6 +3497,8 @@
   "storage.retention_no_history": "尚无足够的历史记录来衡量速率。",
   "storage.retention_total_settles": "保持现状，数据库将稳定在约 {{amount}}。",
   "storage.retention_total_grows": "保持现状，数据库将稳定在约 {{amount}}，再加上永久保留内容每年约 {{growth}} 的增长。",
+  "storage.retention_shared_table_help": "这些层级共用一张表，因此它们的大小是其中的部分，而不是单独的文件。",
+  "storage.retention_yearly_growth": "+{{amount}}/年",
   "storage.purge_button_title": "删除早于指定期限的 {{label}}",
   "storage.purge_title": "清除旧记录",
   "storage.purge_age_in_days": "天数",

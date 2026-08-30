@@ -34,6 +34,7 @@ export default [
         ZogographEmptyCategoriesCard: 'readonly',
         ZogographHostMemoryCard: 'readonly',
         ZogographHostDisksCard: 'readonly',
+        ZogographHostIoProcessesCard: 'readonly',
         ZogographHostMemoryGaugesCard: 'readonly',
         ZogographNetworkGaugesCard: 'readonly',
         ZogographOtherExtensionsCard: 'readonly',

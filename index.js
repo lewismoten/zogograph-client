@@ -27968,109 +27968,16 @@ async function refreshHostIoChart() {
  * same number would be the more comfortable choice and the wrong one.
  */
 function renderHostIoProcs(io) {
-  const holder = $('hostIoProcs');
-  if (!holder) return;
-
-  if (!io || !io.available || !io.rows?.length) {
-    holder.replaceChildren(
-      Object.assign(document.createElement('p'), {
-        className: 'muted',
-        textContent:
-          io?.reason ||
-          ZogographI18n.t(
-            'host.io_processes_empty',
-            {},
-            'No per-process disk I/O recorded yet. It needs the host collector, running as root.',
-          ),
-      }),
-    );
-    return;
-  }
-
-  const rate = (value) =>
-    value == null
-      ? '—'
-      : ZogographI18n.t(
-          'host.io_rate_per_second',
-          { amount: humanBytes(value) },
-          '{{amount}}/s',
-        );
-
-  renderTable(
-    'hostIoProcs',
-    io.rows,
-    [
-      {
-        label: ZogographI18n.t('host.io_process', {}, 'Process'),
-        className: 'name',
-        render: (row) => {
-          const box = document.createElement('span');
-          box.appendChild(document.createTextNode(row.name));
-          const note = document.createElement('span');
-          note.className = 'muted small';
-          note.textContent = ZogographI18n.t(
-            'host.io_process_meta',
-            { pid: row.pid, user: row.user },
-            ' · pid {{pid}} · {{user}}',
-          );
-          box.appendChild(note);
-          box.title = row.command;
-          return box;
-        },
-      },
-      {
-        label: ZogographI18n.t('host.io_reading', {}, 'Reading'),
-        className: 'size',
-        render: (row) => rate(row.read_rate),
-      },
-      {
-        label: ZogographI18n.t('host.io_writing', {}, 'Writing'),
-        className: 'size',
-        render: (row) => rate(row.write_rate),
-      },
-      {
-        label: ZogographI18n.t('host.io_since_started', {}, 'Since it started'),
-        className: 'size',
-        render: (row) => `${humanBytes(row.read_bytes + row.write_bytes)}`,
-      },
-      {
-        label: ZogographI18n.t('host.io_rate_is', {}, 'Rate is'),
-        render: (row) => {
-          const span = document.createElement('span');
-          if (row.basis === 'current') {
-            span.textContent = ZogographI18n.t(
-              'host.io_rate_now',
-              { seconds: io.seconds },
-              'now (over {{seconds, number}}s)',
-            );
-            span.title = ZogographI18n.t(
-              'host.io_rate_now_tip',
-              {},
-              'Measured between the last two host readings.',
-            );
-          } else if (row.basis === 'average') {
-            span.textContent = ZogographI18n.t(
-              'host.io_rate_lifetime',
-              {},
-              'lifetime average',
-            );
-            span.className = 'muted';
-            span.title = ZogographI18n.t(
-              'host.io_rate_lifetime_tip',
-              {},
-              'This process has only been seen once, so its total I/O is spread over how long it has been running. Accurate for a job that just started, much less so for a long-running daemon.',
-            );
-          } else {
-            span.textContent = '—';
-            span.className = 'muted';
-          }
-          return span;
-        },
-      },
-    ],
-    null,
-    null,
-    (row) => String(row.pid),
+  return renderCoreCardPackage(
+    ZogographHostIoProcessesCard,
+    'core-host-io-processes',
+    io,
+    {
+      target: $('hostIoProcs'),
+      renderTable,
+      humanBytes,
+      i18n: ZogographI18n,
+    },
   );
 }
 

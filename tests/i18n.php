@@ -68,6 +68,9 @@ $hostMemoryCard = i18nCardSource(
 $hostDisksCard = i18nCardSource(
     file_get_contents($root . '/cards/host-disks.js'),
 );
+$hostIoProcessesCard = i18nCardSource(
+    file_get_contents($root . '/cards/host-io-processes.js'),
+);
 $uptimeCard = i18nCardSource(file_get_contents($root . '/cards/uptime.js'));
 $onboardingCard = i18nCardSource(
     file_get_contents($root . '/cards/onboarding.js'),
@@ -739,6 +742,34 @@ i18nExpect(
             'renderCoreCardPackage(ZogographHostDisksCard, "core-host-disks",',
         ),
     'host disks are not isolated behind their core card-module boundary',
+);
+i18nExpect(
+    $page !== false &&
+        str_contains($page, 'src="cards/host-io-processes.js"') &&
+        $hostIoProcessesCard !== false &&
+        str_contains(
+            $hostIoProcessesCard,
+            'window.ZogographHostIoProcessesCard',
+        ) &&
+        str_contains($hostIoProcessesCard, 'id: "core-host-io-processes"') &&
+        str_contains(
+            $hostIoProcessesCard,
+            'locales: ["core-host-io-processes."]',
+        ) &&
+        str_contains(
+            $hostIoProcessesCard,
+            'helpers: ["target", "renderTable", "humanBytes", "i18n"]',
+        ) &&
+        str_contains($hostIoProcessesCard, 'catalogs: Object.freeze({') &&
+        str_contains($hostIoProcessesCard, '"core-host-io-processes.empty"') &&
+        is_array($english) &&
+        !isset($english['host.io_processes_empty']) &&
+        $script !== false &&
+        str_contains(
+            $script,
+            'renderCoreCardPackage(ZogographHostIoProcessesCard, "core-host-io-processes",',
+        ),
+    'host I/O processes are not isolated behind their core card-module boundary',
 );
 i18nExpect(
     $page !== false &&
@@ -2412,10 +2443,10 @@ i18nExpect(
     'AI tool-group labels are not localized through their shared helper',
 );
 i18nExpect(
-    $script !== false &&
-        str_contains($script, "'host.io_rate_per_second'") &&
-        $hostDisksCard !== false &&
+    $hostDisksCard !== false &&
         str_contains($hostDisksCard, '"host.io_rate_per_second"') &&
+        $hostIoProcessesCard !== false &&
+        str_contains($hostIoProcessesCard, '"host.io_rate_per_second"') &&
         is_array($english) &&
         isset($english['host.io_rate_per_second']),
     'host I/O views do not share a localized per-second rate formatter',

@@ -1526,6 +1526,8 @@
   "table.show_more": "{{count, number}} और दिखाएँ",
   "chart.your_notes": "आपके नोट",
   "chart.everything_else": "बाकी सब",
+  "chart.nothing_collected_range": "इस अवधि के लिए अभी तक कोई डेटा एकत्र नहीं किया गया है",
+  "chart.nothing_to_show_yet": "अभी दिखाने के लिए कुछ नहीं है",
   "onboarding.intro": "Zogograph कॉन्फ़िगर है, लेकिन पूरा डैशबोर्ड दिखाने के लिए अभी पर्याप्त स्थानीय डेटा नहीं है।",
   "onboarding.vitals_missing": "पहली महत्वपूर्ण रीडिंग के लिए खाता कलेक्टर सेट करें या चलाएँ।",
   "onboarding.open_schedule": "Setup शेड्यूल खोलें",

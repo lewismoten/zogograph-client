@@ -2308,7 +2308,7 @@ function drawLineChart(canvas, rows, series, options = {}) {
      * message; removing it again on the next draw is what puts it back.
      */
     canvas.classList.add("chart-empty");
-    ctx.fillText(options.empty || "Nothing collected for this range yet", pad.left, pad.top + 20);
+    ctx.fillText(options.empty || ZogographI18n.t("chart.nothing_collected_range", {}, "Nothing collected for this range yet"), pad.left, pad.top + 20);
     return;
   }
 
@@ -2429,7 +2429,7 @@ function drawLineChart(canvas, rows, series, options = {}) {
   if (!scales.left && !scales.right) {
     // Shrunk to the message; see the note in drawLineChart.
     canvas.classList.add("chart-empty");
-    ctx.fillText(options.empty || "Nothing collected for this range yet", pad.left, pad.top + 20);
+    ctx.fillText(options.empty || ZogographI18n.t("chart.nothing_collected_range", {}, "Nothing collected for this range yet"), pad.left, pad.top + 20);
     return;
   }
 
@@ -2823,7 +2823,7 @@ function drawPieChart(canvas, slices, options = {}) {
   const total = slices.reduce((sum, s) => sum + Math.max(0, s.value), 0);
   if (!slices.length || total <= 0) {
     ctx.fillStyle = "#9a9a9a";
-    ctx.fillText(options.empty || "Nothing to show yet", 12, 24);
+    ctx.fillText(options.empty || ZogographI18n.t("chart.nothing_to_show_yet", {}, "Nothing to show yet"), 12, 24);
     drawLegend(canvas, []);
     return;
   }

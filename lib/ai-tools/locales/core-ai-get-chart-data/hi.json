@@ -1,3 +1,4 @@
 {
-  "core-ai-get-chart-data.summary": "एक नामित चार्ट के पीछे के आंकड़े।"
+  "core-ai-get-chart-data.summary": "एक नामित चार्ट के पीछे के आंकड़े।",
+  "core-ai-get-chart-data.activity": "{{chart}} के आँकड़े पढ़े"
 }

@@ -11298,9 +11298,15 @@ function chatToolPhrase({ tool, arguments: args, localeNamespace = '' }) {
                           chart:
                             chartNames.known?.[args.chart]?.name ?? args.chart,
                         }
-                      : tool === 'request_tool_group'
-                        ? { group: toolGroupLabel(args.subject) }
-                        : {};
+                      : tool === 'get_chart_data'
+                        ? {
+                            chart:
+                              chartNames.known?.[args.chart]?.name ??
+                              args.chart,
+                          }
+                        : tool === 'request_tool_group'
+                          ? { group: toolGroupLabel(args.subject) }
+                          : {};
     return ZogographI18n.t(activityKey, values, said ?? tool);
   }
   return said ?? tool;

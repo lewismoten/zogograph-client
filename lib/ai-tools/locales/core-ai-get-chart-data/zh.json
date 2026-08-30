@@ -1,3 +1,4 @@
 {
-  "core-ai-get-chart-data.summary": "一个指定图表背后的数据。"
+  "core-ai-get-chart-data.summary": "一个指定图表背后的数据。",
+  "core-ai-get-chart-data.activity": "读取了 {{chart}} 背后的数据"
 }

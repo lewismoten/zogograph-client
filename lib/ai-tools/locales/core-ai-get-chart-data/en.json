@@ -1,3 +1,4 @@
 {
-  "core-ai-get-chart-data.summary": "The numbers behind one named chart."
+  "core-ai-get-chart-data.summary": "The numbers behind one named chart.",
+  "core-ai-get-chart-data.activity": "Read the numbers behind {{chart}}"
 }

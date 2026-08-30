@@ -1,3 +1,4 @@
 {
-  "core-ai-get-chart-data.summary": "Los números detrás de un gráfico con nombre."
+  "core-ai-get-chart-data.summary": "Los números detrás de un gráfico con nombre.",
+  "core-ai-get-chart-data.activity": "Leyó los números de {{chart}}"
 }

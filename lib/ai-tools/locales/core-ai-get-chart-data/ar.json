@@ -1,3 +1,4 @@
 {
-  "core-ai-get-chart-data.summary": "الأرقام الكامنة وراء مخطط مُسمّى واحد."
+  "core-ai-get-chart-data.summary": "الأرقام الكامنة وراء مخطط مُسمّى واحد.",
+  "core-ai-get-chart-data.activity": "قرأ الأرقام وراء {{chart}}"
 }

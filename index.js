@@ -22279,6 +22279,23 @@ function renderReports(data) {
  * is where somebody already is.
  */
 function renderLatestReport(report) {
+  if (window.ZogographLatestReportCard) {
+    return renderCoreCardPackage(
+      ZogographLatestReportCard,
+      'core-latest-report',
+      { report, assistant: chatState.who.name },
+      {
+        target: $('overviewReport'),
+        whenLabel,
+        whenTitle,
+        renderMarkdown,
+        openAll: () => {
+          location.hash = '#/sys-reports';
+        },
+        i18n: ZogographI18n,
+      },
+    );
+  }
   const spot = $('overviewReport');
   if (!spot) return;
 

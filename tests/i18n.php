@@ -97,6 +97,9 @@ $alertBannerCard = i18nCardSource(
 $broadcastBannerCard = i18nCardSource(
     file_get_contents($root . '/cards/broadcast-banner.js'),
 );
+$latestReportCard = i18nCardSource(
+    file_get_contents($root . '/cards/latest-report.js'),
+);
 $networkPeersCard = i18nCardSource(
     file_get_contents($root . '/cards/network-peers.js'),
 );
@@ -368,6 +371,22 @@ i18nExpect(
             'helpers.i18n.registerCatalog(locale, catalog, false, id)',
         ),
     'core card package catalogs are not namespace-registered before their first render',
+);
+i18nExpect(
+    $page !== false &&
+        str_contains($page, 'src="cards/latest-report.js"') &&
+        $latestReportCard !== false &&
+        str_contains($latestReportCard, 'window.ZogographLatestReportCard') &&
+        str_contains($latestReportCard, 'id: "core-latest-report"') &&
+        str_contains($latestReportCard, 'locales: ["core-latest-report."]') &&
+        str_contains($latestReportCard, 'catalogs: Object.freeze({') &&
+        str_contains($latestReportCard, '"core-latest-report.latest"') &&
+        $script !== false &&
+        str_contains(
+            $script,
+            'renderCoreCardPackage(ZogographLatestReportCard, "core-latest-report",',
+        ),
+    'latest report is not isolated behind its core card-module boundary',
 );
 i18nExpect(
     $page !== false &&

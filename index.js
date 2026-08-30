@@ -47800,7 +47800,14 @@ $('revokeSessions').addEventListener('click', async () => {
   state.signedIn = false;
   state.csrf = null;
   applySignedInChrome();
-  notice('Every signed-in session has been ended.', true);
+  notice(
+    ZogographI18n.t(
+      'auth.sessions_ended',
+      {},
+      'Every signed-in session has been ended.',
+    ),
+    true,
+  );
   refreshShared().catch(() => {});
 });
 
@@ -47825,7 +47832,14 @@ $('totpRecoveryCodes').addEventListener('click', async () => {
       [list],
       'Each code works once in place of the authenticator code. This is the only time Zogograph can display them; store them offline and do not put them in a password manager shared with your sign-in password.',
     );
-    notice('Eight new one-time recovery codes are ready to save.', true);
+    notice(
+      ZogographI18n.t(
+        'auth.recovery_codes_ready',
+        {},
+        'Eight new one-time recovery codes are ready to save.',
+      ),
+      true,
+    );
   } catch (error) {
     notice(String(error.message || error));
   }
@@ -47946,7 +47960,14 @@ $('actionExport')?.addEventListener('click', async () => {
   document.body.appendChild(form);
   form.submit();
   form.remove();
-  notice('Preparing the full audit CSV…', true);
+  notice(
+    ZogographI18n.t(
+      'audit.export_preparing',
+      {},
+      'Preparing the full audit CSV…',
+    ),
+    true,
+  );
 });
 
 $('navToggle').addEventListener('click', () => {
@@ -48224,7 +48245,14 @@ $('labelForm').addEventListener('submit', async (event) => {
     $('labelNote').value = '';
     renderLabels(result);
     if (networkState.data) await refreshNetwork();
-    notice('Saved. It will show wherever that address or port appears.', true);
+    notice(
+      ZogographI18n.t(
+        'network.label_saved',
+        {},
+        'Saved. It will show wherever that address or port appears.',
+      ),
+      true,
+    );
   } catch (error) {
     notice(String(error.message || error));
   }
@@ -48338,7 +48366,14 @@ $('selfDiagnosticExport')?.addEventListener('click', async () => {
   document.body.appendChild(form);
   form.submit();
   form.remove();
-  notice('Preparing the sanitized diagnostic snapshot…', true);
+  notice(
+    ZogographI18n.t(
+      'diagnostic.export_preparing',
+      {},
+      'Preparing the sanitized diagnostic snapshot…',
+    ),
+    true,
+  );
 });
 
 $('cagefsRefresh').addEventListener('click', () =>

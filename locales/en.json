@@ -197,7 +197,6 @@
   "fetch.tab_meta": "Title & meta",
   "fetch.tab_structured": "Structured data",
   "fetch.tab_raw": "Raw body",
-  "fetch.no_body": "(no body)",
   "account.this_account": "This account — the one this dashboard runs as.",
   "account.root": "root",
   "account.root_unmanaged": "root. This dashboard cannot stop or change these.",

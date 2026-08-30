@@ -197,7 +197,6 @@
   "fetch.tab_meta": "Título y metadatos",
   "fetch.tab_structured": "Datos estructurados",
   "fetch.tab_raw": "Cuerpo sin procesar",
-  "fetch.no_body": "(sin cuerpo)",
   "account.this_account": "Esta cuenta — con la que se ejecuta este panel.",
   "account.root": "root",
   "account.root_unmanaged": "root. Este panel no puede detener ni cambiar estos procesos.",

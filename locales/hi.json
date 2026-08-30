@@ -197,7 +197,6 @@
   "fetch.tab_meta": "शीर्षक और मेटा",
   "fetch.tab_structured": "संरचित डेटा",
   "fetch.tab_raw": "कच्चा मुख्य भाग",
-  "fetch.no_body": "(कोई मुख्य भाग नहीं)",
   "account.this_account": "यह खाता — जिससे यह डैशबोर्ड चलता है।",
   "account.root": "root",
   "account.root_unmanaged": "root. यह डैशबोर्ड इन्हें रोक या बदल नहीं सकता।",

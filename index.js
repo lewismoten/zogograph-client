@@ -35651,15 +35651,10 @@ function renderFetch(data) {
     meta: () => renderFetchMeta(data),
     ld: () => renderFetchLinkedData(data),
     json: () => renderFetchJson(data),
-    raw: () => {
-      const pre = document.createElement('pre');
-      pre.className = 'paste raw-body';
-      // textContent, never innerHTML: this is somebody else's page and putting
-      // it into this document as markup would hand it the dashboard's session.
-      pre.textContent =
-        data.body || ZogographI18n.t('fetch.no_body', {}, '(no body)');
-      return pre;
-    },
+    raw: () =>
+      renderCoreCardPackage(ZogographFetchRawCard, 'core-fetch-raw', data, {
+        i18n: ZogographI18n,
+      }),
   }[fetchState.showing];
 
   parts.push(panel());

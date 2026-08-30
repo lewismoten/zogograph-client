@@ -197,7 +197,6 @@
   "fetch.tab_meta": "العنوان وmeta",
   "fetch.tab_structured": "بيانات منظَّمة",
   "fetch.tab_raw": "المتن الخام",
-  "fetch.no_body": "(لا متن)",
   "account.this_account": "هذا الحساب — الذي تعمل لوحة المعلومات باسمه.",
   "account.root": "root",
   "account.root_unmanaged": "root. لا تستطيع لوحة المعلومات هذه إيقاف هذه العناصر أو تغييرها.",

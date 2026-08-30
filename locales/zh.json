@@ -197,7 +197,6 @@
   "fetch.tab_meta": "标题和元数据",
   "fetch.tab_structured": "结构化数据",
   "fetch.tab_raw": "原始正文",
-  "fetch.no_body": "（无正文）",
   "account.this_account": "此帐户——运行此仪表板的帐户。",
   "account.root": "root",
   "account.root_unmanaged": "root。此仪表板无法停止或更改这些项目。",

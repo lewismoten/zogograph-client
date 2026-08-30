@@ -23173,94 +23173,20 @@ async function loadAiAssets() {
  * will reasonably conclude nothing happened.
  */
 function aiForgetForm(who) {
-  const wrap = document.createElement('div');
-
-  const said = document.createElement('p');
-  said.className = 'muted small';
-  said.textContent = ZogographI18n.t(
-    'ai.store_forget_help',
+  return renderCoreCardPackage(
+    ZogographAiForgetFormCard,
+    'core-ai-forget-form',
     { assistant: who },
-    'Removes whole conversations that have been finished longer than this, with their messages, their tool runs and their cost records. The running totals on the {{assistant}} settings page are added up from those records, so they will drop too — this is deleting history, not tidying it.',
+    {
+      confirmDialog,
+      post,
+      notice,
+      count,
+      humanBytes,
+      renderAiStore,
+      i18n: ZogographI18n,
+    },
   );
-  wrap.appendChild(said);
-
-  const row = document.createElement('div');
-  row.className = 'pattern-row';
-
-  const days = document.createElement('select');
-  for (const [value, label] of [
-    [7, ZogographI18n.t('ai.store_forget_week', {}, 'older than a week')],
-    [30, ZogographI18n.t('ai.store_forget_month', {}, 'older than a month')],
-    [
-      90,
-      ZogographI18n.t(
-        'ai.store_forget_three_months',
-        {},
-        'older than three months',
-      ),
-    ],
-    [365, ZogographI18n.t('ai.store_forget_year', {}, 'older than a year')],
-    [
-      0,
-      ZogographI18n.t('ai.store_forget_all', {}, 'every finished conversation'),
-    ],
-  ]) {
-    const option = document.createElement('option');
-    option.value = String(value);
-    option.textContent = label;
-    option.selected = value === 90;
-    days.appendChild(option);
-  }
-  row.appendChild(days);
-
-  const go = document.createElement('button');
-  go.type = 'button';
-  go.className = 'danger';
-  go.textContent = ZogographI18n.t('ai.store_forget_action', {}, 'Forget them');
-  go.addEventListener('click', async () => {
-    const chose = days.options[days.selectedIndex].textContent;
-    if (
-      !(await confirmDialog(
-        ZogographI18n.t(
-          'ai.store_forget_confirm',
-          { choice: chose },
-          'Delete {{choice}}?\n\nThe transcripts, the tool results and what each one cost all go. This cannot be undone from here.',
-        ),
-      ))
-    )
-      return;
-
-    go.disabled = true;
-    try {
-      const result = await post('ai-forget', { days: days.value });
-      notice(
-        result.sessions
-          ? ZogographI18n.t(
-              'ai.store_forget_result',
-              {
-                conversations: count(result.sessions, 'conversation'),
-                bytes: humanBytes(result.reclaimed),
-              },
-              '{{conversations}} forgotten, {{bytes}} reclaimed.',
-            )
-          : ZogographI18n.t(
-              'ai.store_forget_nothing',
-              {},
-              'There was nothing that old to forget.',
-            ),
-        true,
-      );
-      renderAiStore(result);
-    } catch (error) {
-      notice(String(error.message || error));
-    } finally {
-      go.disabled = false;
-    }
-  });
-  row.appendChild(go);
-
-  wrap.appendChild(row);
-  return wrap;
 }
 
 /* --------------------------------------------------------------- markdown -- */

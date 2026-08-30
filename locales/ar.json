@@ -606,6 +606,7 @@
   "dialog.please_confirm": "يرجى التأكيد",
   "display.preferences": "تفضيلات العرض",
   "display.apply": "طبّق خيارات العرض",
+  "peers.admin_only": "لا يمكن إدارة الخوادم الموثوقة إلا للمسؤولين.",
   "ai.start_new": "ابدأ محادثة جديدة",
   "terminal.copy_output": "نسخ المخرجات",
   "terminal.suggestion_expectation": "ما الذي تبحث عنه: {{expectation}}",

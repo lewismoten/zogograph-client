@@ -14240,7 +14240,13 @@ async function refreshPeers() {
   if (!body) return;
   if (!state.signedIn || !state.access?.write) {
     body.replaceChildren(
-      note('Only administrators can manage trusted servers.'),
+      note(
+        ZogographI18n.t(
+          'peers.admin_only',
+          {},
+          'Only administrators can manage trusted servers.',
+        ),
+      ),
     );
     return;
   }

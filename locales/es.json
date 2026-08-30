@@ -620,6 +620,7 @@
   "dialog.please_confirm": "Confirme, por favor",
   "display.preferences": "Preferencias de visualización",
   "display.apply": "Aplicar opciones de visualización",
+  "peers.admin_only": "Solo los administradores pueden administrar servidores de confianza.",
   "ai.start_new": "Iniciar una nueva",
   "terminal.copy_output": "Copiar la salida",
   "terminal.suggestion_expectation": "Qué buscar: {{expectation}}",

@@ -47370,8 +47370,16 @@ $('chatInterrupt').addEventListener('click', async () => {
     }
     notice(
       result.runs
-        ? `Stopped. ${count(result.runs, 'thing')} it had started was dropped.`
-        : 'Stopped. Tell it what you want it to do instead.',
+        ? ZogographI18n.t(
+            'ai.interrupted_with_runs',
+            { runs: count(result.runs, 'thing') },
+            'Stopped. {{runs}} it had started was dropped.',
+          )
+        : ZogographI18n.t(
+            'ai.interrupted',
+            {},
+            'Stopped. Tell it what you want it to do instead.',
+          ),
       true,
     );
   } catch (error) {

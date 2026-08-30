@@ -936,6 +936,8 @@
   "peers.admin_only": "Only administrators can manage trusted servers.",
   "ai.start_new": "Start a new one",
   "ai.nothing_chosen": "Nothing chosen yet.",
+  "ai.interrupted_with_runs": "Stopped. {{runs}} it had started was dropped.",
+  "ai.interrupted": "Stopped. Tell it what you want it to do instead.",
   "scan.started": "Scan started. It runs in the background — the tables update when it finishes.",
   "alerts.delete_confirm": "Delete {{alerts}}? The history goes with them.",
   "alerts.delete_many": "Delete alerts",

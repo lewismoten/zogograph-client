@@ -866,6 +866,8 @@
   "peers.admin_only": "Solo los administradores pueden administrar servidores de confianza.",
   "ai.start_new": "Iniciar una nueva",
   "ai.nothing_chosen": "Aún no se ha elegido nada.",
+  "ai.interrupted_with_runs": "Detenido. Se descartó {{runs}} que había iniciado.",
+  "ai.interrupted": "Detenido. Dígale qué quiere que haga en su lugar.",
   "scan.started": "El análisis se ha iniciado. Se ejecuta en segundo plano; las tablas se actualizan al terminar.",
   "alerts.delete_confirm": "¿Eliminar {{alerts}}? Su historial se irá con ellas.",
   "alerts.delete_many": "Eliminar alertas",

@@ -187,6 +187,7 @@
   "calendar.title_placeholder": "VPS 续订",
   "calendar.repeats_help": "每月设为 31 日的日期会落在较短月份的最后一天，而不是下个月的 3 日。",
   "calendar.link": "链接",
+  "calendar.link_placeholder": "https://billing.example.com/",
   "calendar.link_help": "可选。用于处理此事的链接。",
   "calendar.important_until_dealt": "随着日期临近，它会显示在仪表板和警报电子邮件中，直到被标记为已处理。",
   "calendar.saved": "已保存。",

@@ -38219,7 +38219,11 @@ function openEventForm(row = null) {
   link.type = 'url';
   link.size = 40;
   link.value = row?.link ?? '';
-  link.placeholder = 'https://billing.example.com/';
+  link.placeholder = ZogographI18n.t(
+    'calendar.link_placeholder',
+    {},
+    'https://billing.example.com/',
+  );
   field(
     'eventLink',
     ZogographI18n.t('calendar.link', {}, 'Link'),

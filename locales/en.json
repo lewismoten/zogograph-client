@@ -187,6 +187,7 @@
   "calendar.title_placeholder": "VPS renews",
   "calendar.repeats_help": "A monthly date set for the 31st falls on the last day of shorter months, not the 3rd of the next one.",
   "calendar.link": "Link",
+  "calendar.link_placeholder": "https://billing.example.com/",
   "calendar.link_help": "Optional. Where you go to deal with it.",
   "calendar.important_until_dealt": "Appears on the dashboard and in the alert emails as it approaches, until it is marked dealt with.",
   "calendar.saved": "Saved.",

@@ -187,6 +187,7 @@
   "calendar.title_placeholder": "تجديد الخادم الافتراضي",
   "calendar.repeats_help": "التاريخ الشهري المحدد في اليوم 31 يقع في آخر يوم من الأشهر الأقصر، لا في اليوم الثالث من الشهر التالي.",
   "calendar.link": "رابط",
+  "calendar.link_placeholder": "https://billing.example.com/",
   "calendar.link_help": "اختياري. المكان الذي تذهب إليه لمعالجته.",
   "calendar.important_until_dealt": "يظهر في لوحة المعلومات ورسائل التنبيه الإلكترونية مع اقترابه، حتى يتم وضع علامة تمت معالجته.",
   "calendar.saved": "تم الحفظ.",

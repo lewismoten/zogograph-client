@@ -187,6 +187,7 @@
   "calendar.title_placeholder": "VPS नवीनीकृत होता है",
   "calendar.repeats_help": "महीने की 31 तारीख पर रखी गई तारीख छोटे महीनों के अंतिम दिन पर होगी, अगले महीने की 3 तारीख पर नहीं।",
   "calendar.link": "लिंक",
+  "calendar.link_placeholder": "https://billing.example.com/",
   "calendar.link_help": "वैकल्पिक। इसे निपटाने के लिए जहाँ जाते हैं।",
   "calendar.important_until_dealt": "यह निकट आने पर डैशबोर्ड और अलर्ट ईमेल में दिखाई देता है, जब तक इसे निपटाया हुआ चिह्नित न कर दिया जाए।",
   "calendar.saved": "सहेजा गया।",

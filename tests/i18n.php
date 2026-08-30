@@ -817,6 +817,19 @@ i18nExpect(
     'file-type card text must remain package-local rather than returning to shared catalogs',
 );
 i18nExpect(
+    is_array($english) &&
+        !isset(
+            $english['onboarding.intro'],
+            $english['onboarding.vitals_missing'],
+            $english['onboarding.open_schedule'],
+            $english['onboarding.scan_ready'],
+            $english['cpu.limit_unavailable'],
+            $english['cpu.limit_host_reading'],
+            $english['cpu.limit_not_measured'],
+        ),
+    'onboarding and limits card text must remain package-local',
+);
+i18nExpect(
     $script !== false &&
         str_contains($script, 'ZogographI18n.t("filter.all"') &&
         $page !== false &&

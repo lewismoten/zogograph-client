@@ -8523,24 +8523,26 @@ function pictureFields(data) {
 
   const rating = document.createElement('select');
   rating.id = 'aiRating';
-  for (const [value, label] of [
-    ['g', 'G only'],
-    ['pg', 'PG and under'],
-    ['pg-13', 'PG-13 and under'],
+  for (const [value, labelKey, fallback] of [
+    ['g', 'ai.images_rating_g', 'G only'],
+    ['pg', 'ai.images_rating_pg', 'PG and under'],
+    ['pg-13', 'ai.images_rating_pg13', 'PG-13 and under'],
   ]) {
     const option = document.createElement('option');
     option.value = value;
-    option.textContent = label;
+    option.textContent = ZogographI18n.t(labelKey, {}, fallback);
     option.selected = pictures.rating === value;
     rating.appendChild(option);
   }
   form.appendChild(
     fieldRow(
-      'Rating',
+      ZogographI18n.t('ai.images_rating', {}, 'Rating'),
       rating,
-      'This appears unannounced in a browser, possibly at work, chosen by a language model ' +
-        'from a search term it invented. G is the sensible default and there is no good ' +
-        'argument against it.',
+      ZogographI18n.t(
+        'ai.images_rating_help',
+        {},
+        'This appears unannounced in a browser, possibly at work, chosen by a language model from a search term it invented. G is the sensible default and there is no good argument against it.',
+      ),
     ),
   );
 

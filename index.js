@@ -24513,11 +24513,11 @@ function ldconfigOffer() {
   wrap.className = 'sub-note muted small';
 
   const said = document.createElement('p');
-  said.textContent =
-    'Repaired a link under a library directory and programs still cannot start? ' +
-    'The dynamic linker reads a cache, not the directories, so it stays stale until ' +
-    'something rebuilds it — and only root can. This asks the host collector to run ' +
-    'ldconfig on its next pass.';
+  said.textContent = ZogographI18n.t(
+    'storage.ldconfig_intro',
+    {},
+    'Repaired a link under a library directory and programs still cannot start? The dynamic linker reads a cache, not the directories, so it stays stale until something rebuilds it — and only root can. This asks the host collector to run ldconfig on its next pass.',
+  );
   wrap.appendChild(said);
 
   const actions = document.createElement('div');
@@ -24525,15 +24525,19 @@ function ldconfigOffer() {
 
   const ask = document.createElement('button');
   ask.className = 'link';
-  ask.textContent = 'Ask the host to rebuild the library cache';
+  ask.textContent = ZogographI18n.t(
+    'storage.ldconfig_ask',
+    {},
+    'Ask the host to rebuild the library cache',
+  );
   ask.addEventListener('click', async () => {
     if (
       !(await confirmDialog(
-        "Ask root's collector to run ldconfig?\n\n" +
-          'Unlike everything else here, this changes something: it rewrites ' +
-          '/etc/ld.so.cache from what is on disk. It is safe to repeat and cannot make ' +
-          'the cache worse than the directories it is built from.\n\n' +
-          "It runs on the collector's next pass, not now.",
+        ZogographI18n.t(
+          'storage.ldconfig_confirm',
+          {},
+          "Ask root's collector to run ldconfig?\n\nUnlike everything else here, this changes something: it rewrites /etc/ld.so.cache from what is on disk. It is safe to repeat and cannot make the cache worse than the directories it is built from.\n\nIt runs on the collector's next pass, not now.",
+        ),
       ))
     )
       return;
@@ -24541,7 +24545,14 @@ function ldconfigOffer() {
     ask.disabled = true;
     try {
       const result = await post('ldconfig');
-      notice("Queued. It runs on the host collector's next pass.", true);
+      notice(
+        ZogographI18n.t(
+          'storage.ldconfig_queued',
+          {},
+          "Queued. It runs on the host collector's next pass.",
+        ),
+        true,
+      );
       wrap.appendChild(ldconfigPrevious(result.previous, true));
       await refreshShared();
     } catch (error) {
@@ -24561,7 +24572,11 @@ function ldconfigPrevious(previous, justAsked = false) {
   if (!previous || !previous.at) {
     return note(
       justAsked
-        ? 'Nothing has run yet, so there is nothing to compare against.'
+        ? ZogographI18n.t(
+            'storage.ldconfig_nothing_yet',
+            {},
+            'Nothing has run yet, so there is nothing to compare against.',
+          )
         : '',
     );
   }
@@ -24569,10 +24584,24 @@ function ldconfigPrevious(previous, justAsked = false) {
   const wrap = document.createDocumentFragment();
   wrap.appendChild(
     note(
-      `The last rebuild was ${ago(previous.at)} and ` +
-        (previous.ok
-          ? 'finished.'
-          : `failed: ${previous.error || 'no reason given'}.`),
+      ZogographI18n.t(
+        previous.ok
+          ? 'storage.ldconfig_previous_finished'
+          : 'storage.ldconfig_previous_failed',
+        {
+          time: ago(previous.at),
+          reason:
+            previous.error ||
+            ZogographI18n.t(
+              'storage.ldconfig_no_reason',
+              {},
+              'no reason given',
+            ),
+        },
+        previous.ok
+          ? `The last rebuild was ${ago(previous.at)} and finished.`
+          : `The last rebuild was ${ago(previous.at)} and failed: ${previous.error || 'no reason given'}.`,
+      ),
     ),
   );
 

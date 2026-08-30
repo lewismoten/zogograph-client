@@ -13241,6 +13241,21 @@ function drawChangedChart(data) {
 }
 
 function renderChangedList(data) {
+  if (window.ZogographChangeHistoryCard) {
+    return renderCoreCardPackage(
+      ZogographChangeHistoryCard,
+      'core-change-history',
+      data,
+      {
+        target: $('changedBody'),
+        note,
+        renderTable,
+        whenSpan,
+        ago,
+        i18n: ZogographI18n,
+      },
+    );
+  }
   const body = $('changedBody');
 
   if (!data.events.length) {

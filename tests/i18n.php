@@ -82,6 +82,9 @@ $calendarGridCard = i18nCardSource(
 $calendarEventListCard = i18nCardSource(
     file_get_contents($root . '/cards/calendar-event-list.js'),
 );
+$changeHistoryCard = i18nCardSource(
+    file_get_contents($root . '/cards/change-history.js'),
+);
 $networkPeersCard = i18nCardSource(
     file_get_contents($root . '/cards/network-peers.js'),
 );
@@ -353,6 +356,25 @@ i18nExpect(
             'helpers.i18n.registerCatalog(locale, catalog, false, id)',
         ),
     'core card package catalogs are not namespace-registered before their first render',
+);
+i18nExpect(
+    $page !== false &&
+        str_contains($page, 'src="cards/change-history.js"') &&
+        $changeHistoryCard !== false &&
+        str_contains($changeHistoryCard, 'window.ZogographChangeHistoryCard') &&
+        str_contains($changeHistoryCard, 'id: "core-change-history"') &&
+        str_contains($changeHistoryCard, 'locales: ["core-change-history."]') &&
+        str_contains($changeHistoryCard, 'catalogs: Object.freeze({') &&
+        str_contains(
+            $changeHistoryCard,
+            '"core-change-history.empty_checked"',
+        ) &&
+        $script !== false &&
+        str_contains(
+            $script,
+            'renderCoreCardPackage(ZogographChangeHistoryCard, "core-change-history",',
+        ),
+    'change history is not isolated behind its core card-module boundary',
 );
 i18nExpect(
     $page !== false &&

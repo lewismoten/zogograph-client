@@ -30,6 +30,13 @@ window.ZogographAiToolTryCard = {
         'core-ai-tool-try.refused':
           'Refused before it ran: {{reason}}\n\n{{note}}',
         'core-ai-tool-try.server_timing': '{{ms}} ms, {{size}} back',
+        'core-ai-tool-try.generated_picture': 'Generated picture',
+        'core-ai-tool-try.picture_note':
+          'Style: {{style}}. This is the image the tool just made.',
+        'core-ai-tool-try.not_reported': 'not reported',
+        'core-ai-tool-try.result': 'What came back',
+        'core-ai-tool-try.result_help':
+          'This is exactly what the model would receive, in the same shape. If an answer looked wrong, this is what it was based on. The line numbers are drawn rather than written, so copying this gives you the JSON and nothing else.',
       }),
       es: Object.freeze({
         'core-ai-tool-try.empty': 'No hay herramientas.',
@@ -55,6 +62,13 @@ window.ZogographAiToolTryCard = {
         'core-ai-tool-try.refused':
           'Se rechazó antes de ejecutarse: {{reason}}\n\n{{note}}',
         'core-ai-tool-try.server_timing': '{{ms}} ms, {{size}} de vuelta',
+        'core-ai-tool-try.generated_picture': 'Imagen generada',
+        'core-ai-tool-try.picture_note':
+          'Estilo: {{style}}. Esta es la imagen que acaba de crear la herramienta.',
+        'core-ai-tool-try.not_reported': 'no informado',
+        'core-ai-tool-try.result': 'Lo que volvió',
+        'core-ai-tool-try.result_help':
+          'Esto es exactamente lo que recibiría el modelo, con la misma forma. Si una respuesta parecía incorrecta, esto es en lo que se basó. Los números de línea se dibujan en lugar de escribirse, por lo que al copiar obtiene el JSON y nada más.',
       }),
       hi: Object.freeze({
         'core-ai-tool-try.empty': 'कोई टूल नहीं हैं।',
@@ -79,6 +93,13 @@ window.ZogographAiToolTryCard = {
         'core-ai-tool-try.refused':
           'चलने से पहले अस्वीकार किया गया: {{reason}}\n\n{{note}}',
         'core-ai-tool-try.server_timing': '{{ms}} ms, {{size}} वापस',
+        'core-ai-tool-try.generated_picture': 'बनाया गया चित्र',
+        'core-ai-tool-try.picture_note':
+          'शैली: {{style}}। यह वह चित्र है जो टूल ने अभी बनाया है।',
+        'core-ai-tool-try.not_reported': 'रिपोर्ट नहीं किया गया',
+        'core-ai-tool-try.result': 'जो वापस आया',
+        'core-ai-tool-try.result_help':
+          'यह ठीक वही है जो मॉडल को उसी रूप में मिलेगा। यदि कोई उत्तर गलत लगा, तो यह उसका आधार है। पंक्ति संख्याएँ लिखी नहीं बल्कि बनाई जाती हैं, इसलिए इसे कॉपी करने पर केवल JSON मिलता है।',
       }),
       ar: Object.freeze({
         'core-ai-tool-try.empty': 'لا توجد أدوات.',
@@ -102,6 +123,13 @@ window.ZogographAiToolTryCard = {
         'core-ai-tool-try.browser_timing': '{{ms}} مللي ثانية، في هذه النافذة',
         'core-ai-tool-try.refused': 'رُفض قبل أن يعمل: {{reason}}\n\n{{note}}',
         'core-ai-tool-try.server_timing': '{{ms}} مللي ثانية، {{size}} عادت',
+        'core-ai-tool-try.generated_picture': 'صورة مولدة',
+        'core-ai-tool-try.picture_note':
+          'الأسلوب: {{style}}. هذه هي الصورة التي أنشأتها الأداة للتو.',
+        'core-ai-tool-try.not_reported': 'لم يُبلّغ عنه',
+        'core-ai-tool-try.result': 'ما عاد',
+        'core-ai-tool-try.result_help':
+          'هذا بالضبط ما سيتلقاه النموذج، بالشكل نفسه. إذا بدا جواب خاطئًا، فهذا ما استند إليه. تُرسم أرقام السطور ولا تُكتب، لذلك يمنحك النسخ JSON فقط ولا شيء غيره.',
       }),
       zh: Object.freeze({
         'core-ai-tool-try.empty': '没有工具。',
@@ -123,6 +151,13 @@ window.ZogographAiToolTryCard = {
         'core-ai-tool-try.browser_timing': '{{ms}} 毫秒，在此窗口中',
         'core-ai-tool-try.refused': '运行前被拒绝：{{reason}}\n\n{{note}}',
         'core-ai-tool-try.server_timing': '{{ms}} 毫秒，返回 {{size}}',
+        'core-ai-tool-try.generated_picture': '生成的图片',
+        'core-ai-tool-try.picture_note':
+          '样式：{{style}}。这是该工具刚刚生成的图片。',
+        'core-ai-tool-try.not_reported': '未报告',
+        'core-ai-tool-try.result': '返回的内容',
+        'core-ai-tool-try.result_help':
+          '这正是模型会以相同形状收到的内容。如果答案看起来有误，这就是其依据。行号是绘制的而不是写入的，因此复制时只会得到 JSON。',
       }),
     }),
   }),

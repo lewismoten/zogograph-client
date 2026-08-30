@@ -21296,18 +21296,26 @@ async function runAiTry(tool) {
       picture.loading = 'lazy';
       parts.push(
         section(
-          ZogographI18n.t('ai.try_generated_picture', {}, 'Generated picture'),
+          ZogographI18n.t(
+            'core-ai-tool-try.generated_picture',
+            {},
+            'Generated picture',
+          ),
           picture,
         ),
       );
       parts.push(
         note(
           ZogographI18n.t(
-            'ai.try_picture_note',
+            'core-ai-tool-try.picture_note',
             {
               style:
                 result.picture.style ||
-                ZogographI18n.t('ai.try_not_reported', {}, 'not reported'),
+                ZogographI18n.t(
+                  'core-ai-tool-try.not_reported',
+                  {},
+                  'not reported',
+                ),
             },
             'Style: {{style}}. This is the image the tool just made.',
           ),
@@ -21338,7 +21346,7 @@ async function runAiTry(tool) {
     );
     parts.push(
       section(
-        ZogographI18n.t('ai.try_result', {}, 'What came back'),
+        ZogographI18n.t('core-ai-tool-try.result', {}, 'What came back'),
         jsonBlock(JSON.stringify(result.result, null, 2)),
       ),
     );
@@ -21348,7 +21356,7 @@ async function runAiTry(tool) {
     parts.push(
       note(
         ZogographI18n.t(
-          'ai.try_result_help',
+          'core-ai-tool-try.result_help',
           {},
           'This is exactly what the model would receive, in the same shape. If an answer looked wrong, this is what it was based on. The line numbers are drawn rather than written, so copying this gives you the JSON and nothing else.',
         ),

@@ -26368,7 +26368,7 @@ function openCalendarDay(key, entries) {
     if (entry.resolved) {
       const done = document.createElement("div");
       done.className = "band-ok small";
-      done.textContent = "marked dealt with";
+      done.textContent = ZogographI18n.t("calendar.marked_dealt", {}, "marked dealt with");
       row.appendChild(done);
     }
 
@@ -26381,13 +26381,13 @@ function openCalendarDay(key, entries) {
       go.target = "_blank";
       go.rel = "noopener noreferrer";
       go.className = "link";
-      go.textContent = "Open the link";
+      go.textContent = ZogographI18n.t("calendar.open_link", {}, "Open the link");
       actions.appendChild(go);
     }
     if (entry.view && VIEWS[entry.view]) {
       const go = document.createElement("button");
       go.className = "link";
-      go.textContent = `Go to ${VIEWS[entry.view].label}`;
+      go.textContent = ZogographI18n.t("calendar.go_to", { page: VIEWS[entry.view].label }, "Go to {{page}}");
       go.addEventListener("click", () => {
         dialog.close();
         showView(entry.view);
@@ -26397,7 +26397,9 @@ function openCalendarDay(key, entries) {
     if (entry.kind === "event") {
       const mark = document.createElement("button");
       mark.className = "link";
-      mark.textContent = entry.resolved ? "Reopen it" : "Mark it dealt with";
+      mark.textContent = entry.resolved
+        ? ZogographI18n.t("calendar.reopen", {}, "Reopen it")
+        : ZogographI18n.t("calendar.mark_dealt", {}, "Mark it dealt with");
       mark.addEventListener("click", async () => {
         try {
           const result = await post("event-resolve", {

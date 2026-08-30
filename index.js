@@ -18991,7 +18991,11 @@ function ansiToNodes(text) {
       const bell = document.createElement('span');
       bell.className = 'term-bell';
       bell.textContent = '\u{1F514}';
-      bell.title = 'The command rang the terminal bell';
+      bell.title = ZogographI18n.t(
+        'terminal.bell_title',
+        {},
+        'The command rang the terminal bell',
+      );
       line.appendChild(bell);
       continue;
     }
@@ -20173,7 +20177,13 @@ function suggestionList(suggestions) {
           copy.textContent = ZogographI18n.t('action.copy', {}, 'Copy');
         }, 1400);
       } catch {
-        notice('Select the command and copy it — this browser would not.');
+        notice(
+          ZogographI18n.t(
+            'terminal.copy_manually',
+            {},
+            'Select the command and copy it — this browser would not.',
+          ),
+        );
       }
     });
     actions.appendChild(copy);
@@ -20181,7 +20191,11 @@ function suggestionList(suggestions) {
     if (one.reading) {
       const link = externalLink(one.reading);
       link.className = 'link small';
-      link.textContent = 'What this command does';
+      link.textContent = ZogographI18n.t(
+        'terminal.command_reading',
+        {},
+        'What this command does',
+      );
       actions.appendChild(link);
     }
 

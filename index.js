@@ -44236,9 +44236,11 @@ async function refreshBackups() {
        */
       wrap.appendChild(
         note(
-          `${count(missed, 'entry', 'entries')} here could not be measured ` +
-            'before the walk ran out of time. They are listed with no size rather than omitted. ' +
-            'Raise host.walk_seconds and run it again for a complete figure.',
+          ZogographI18n.t(
+            'backup.unmeasured_entries_help',
+            { count: missed },
+            '{{count}} entries here could not be measured before the walk ran out of time. They are listed with no size rather than omitted. Raise host.walk_seconds and run it again for a complete figure.',
+          ),
         ),
       );
     }
@@ -44263,8 +44265,12 @@ async function refreshBackups() {
           c.measured
             ? humanBytes(c.bytes)
             : c.bytes > 0
-              ? `at least ${humanBytes(c.bytes)}`
-              : 'not measured',
+              ? ZogographI18n.t(
+                  'backup.at_least',
+                  { size: humanBytes(c.bytes) },
+                  'at least {{size}}',
+                )
+              : ZogographI18n.t('backup.not_measured', {}, 'not measured'),
           c.measured
             ? humanCount(c.files)
             : c.files > 0
@@ -44291,9 +44297,11 @@ async function refreshBackups() {
     const wrap = document.createDocumentFragment();
     wrap.appendChild(
       note(
-        'These are outside the backup system, so no retention policy will ' +
-          'ever remove them. Matched on their names, which is evidence rather than proof — a ' +
-          'directory called \\u201carchive\\u201d might be a live dataset.',
+        ZogographI18n.t(
+          'backup.other_help',
+          {},
+          'These are outside the backup system, so no retention policy will ever remove them. Matched on their names, which is evidence rather than proof — a directory called “archive” might be a live dataset.',
+        ),
       ),
     );
     wrap.appendChild(

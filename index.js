@@ -35670,8 +35670,20 @@ function renderCapture(capture, target = 'captureBody') {
 
     parts.push(
       section(
-        'What it was asking them for',
-        simpleTable(['How', 'What', 'Packets'], rows, ['size', 'name', 'size']),
+        ZogographI18n.t(
+          'network.requested_from_peers',
+          {},
+          'What it was asking them for',
+        ),
+        simpleTable(
+          [
+            ZogographI18n.t('network.how', {}, 'How'),
+            ZogographI18n.t('network.what', {}, 'What'),
+            ZogographI18n.t('network.packets', {}, 'Packets'),
+          ],
+          rows,
+          ['size', 'name', 'size'],
+        ),
       ),
     );
 

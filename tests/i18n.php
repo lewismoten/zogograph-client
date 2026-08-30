@@ -1379,6 +1379,10 @@ i18nExpect(
             $english['regex.group'],
             $english['regex.took'],
             $english['regex.group_absence_help'],
+            $english['image.portrait_title'],
+            $english['ai.ask_assistant'],
+            $english['ai.data_page'],
+            $english['ai.problem_placeholder'],
         ),
     'English fallback catalog is incomplete',
 );
@@ -1485,6 +1489,13 @@ i18nExpect(
         str_contains($script, 'regex.took') &&
         str_contains($script, 'regex.group_absence_help'),
     'URL check regex tester retains direct user-visible text',
+);
+i18nExpect(
+    $script !== false &&
+        str_contains($script, 'image.portrait_title') &&
+        str_contains($script, 'ai.ask_assistant') &&
+        str_contains($script, 'ai.problem_placeholder'),
+    'assistant chat identity retains direct user-visible text',
 );
 i18nExpect(
     str_contains($runtime, 'data-i18n-rich') &&

@@ -11266,7 +11266,11 @@ function renderChatIdentity() {
       face.className = 'chat-face';
       face.src = who.portrait.url;
       face.alt = '';
-      face.title = `${who.name}, as it describes itself: "${who.portrait.as}"`;
+      face.title = ZogographI18n.t(
+        'image.portrait_title',
+        { name: who.name, description: who.portrait.as },
+        '{{name}}, as it describes itself: "{{description}}"',
+      );
       title.appendChild(face);
     } else {
       const mark = document.createElement('span');
@@ -11293,7 +11297,12 @@ function renderChatIdentity() {
   if (nav) nav.textContent = who.name;
 
   const ask = $('cornerChat');
-  if (ask) ask.textContent = `${who.emoji} Ask ${who.name}`;
+  if (ask)
+    ask.textContent = ZogographI18n.t(
+      'ai.ask_assistant',
+      { emoji: who.emoji, assistant: who.name },
+      '{{emoji}} Ask {{assistant}}',
+    );
 
   /*
    * The name written into the page's own prose.
@@ -11313,11 +11322,20 @@ function renderChatIdentity() {
    * told "This page is Lookout" long after it had been renamed.
    */
   if (VIEWS['sys-ai']) VIEWS['sys-ai'].label = who.name;
-  if (VIEWS['sys-ai-data']) VIEWS['sys-ai-data'].label = 'Assistant data';
+  if (VIEWS['sys-ai-data'])
+    VIEWS['sys-ai-data'].label = ZogographI18n.t(
+      'ai.data_page',
+      {},
+      'Assistant data',
+    );
 
   const box = $('chatText');
   if (box && box.value === '') {
-    box.placeholder = `What is going wrong?`;
+    box.placeholder = ZogographI18n.t(
+      'ai.problem_placeholder',
+      {},
+      'What is going wrong?',
+    );
   }
 }
 

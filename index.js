@@ -19331,67 +19331,12 @@ const SIGNAL_NAMES = {
  * somebody who asked what happened.
  */
 function terminalCopyRow() {
-  const row = document.createElement('div');
-  row.className = 'term-copy';
-
-  const copies = [
-    [
-      ZogographI18n.t('terminal.copy_last_output', {}, 'Copy the last output'),
-      () => termState.buffer.at(-1)?.text ?? '',
-    ],
-    [
-      ZogographI18n.t('terminal.copy_everything', {}, 'Copy everything'),
-      () => termState.buffer.map(entryAsText).join('\n'),
-    ],
-    [
-      ZogographI18n.t('terminal.copy_commands', {}, 'Copy just the commands'),
-      () => termState.buffer.map((e) => e.command).join('\n'),
-    ],
-  ];
-
-  for (const [label, take] of copies) {
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.className = 'link';
-    button.textContent = label;
-    button.addEventListener('click', async () => {
-      const text = take();
-      if (!text.trim()) {
-        notice(
-          ZogographI18n.t(
-            'terminal.copy_nothing',
-            {},
-            'There is nothing to copy yet.',
-          ),
-        );
-        return;
-      }
-      try {
-        await navigator.clipboard.writeText(text);
-        notice(
-          ZogographI18n.t(
-            'terminal.copy_done',
-            { amount: humanBytes(text.length) },
-            'Copied {{amount}}.',
-          ),
-          true,
-        );
-      } catch {
-        // Refused by the browser, usually because the page is not on https.
-        // Falling back to selecting it is worse than saying so.
-        notice(
-          ZogographI18n.t(
-            'terminal.copy_refused',
-            {},
-            'This browser would not let the page write to the clipboard.',
-          ),
-        );
-      }
-    });
-    row.appendChild(button);
-  }
-
-  return row;
+  return renderCoreCardPackage(
+    ZogographTerminalCopyControlsCard,
+    'core-terminal-copy-controls',
+    termState.buffer,
+    { entryAsText, copyText, i18n: ZogographI18n },
+  );
 }
 
 /** One entry as plain text, the way a transcript reads. */

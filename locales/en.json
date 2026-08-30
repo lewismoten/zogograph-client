@@ -3430,7 +3430,6 @@
   "reports.cost_tip": "What writing it cost.",
   "reports.delete_confirm": "Delete this summary?",
   "reports.delete_title": "Delete summary",
-  "reports.authorship_note": "Written by {{assistant}}, which is a language model reading the figures. The figures themselves are on the dashboard, and are what to check if a summary says something surprising.",
   "reports.latest": "{{assistant}}'s latest summary",
   "reports.all": "All of them",
   "terminal.title": "Terminal",

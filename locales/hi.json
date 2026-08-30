@@ -3341,7 +3341,6 @@
   "reports.cost_tip": "इसे लिखने की लागत।",
   "reports.delete_confirm": "क्या यह सारांश हटाना है?",
   "reports.delete_title": "सारांश हटाएँ",
-  "reports.authorship_note": "{{assistant}} द्वारा लिखा गया, जो आंकड़ों को पढ़ने वाला भाषा मॉडल है। आंकड़े डैशबोर्ड पर हैं और यदि सारांश कुछ आश्चर्यजनक कहे तो उन्हीं की जाँच करनी है।",
   "reports.latest": "{{assistant}} का नवीनतम सारांश",
   "reports.all": "सभी",
   "terminal.title": "टर्मिनल",

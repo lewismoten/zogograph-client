@@ -3327,7 +3327,6 @@
   "reports.cost_tip": "撰写此摘要的成本。",
   "reports.delete_confirm": "删除此摘要？",
   "reports.delete_title": "删除摘要",
-  "reports.authorship_note": "由 {{assistant}} 撰写，它是读取数据的语言模型。数据本身在仪表板中；若摘要出现意外内容，应检查这些数据。",
   "reports.latest": "{{assistant}} 的最新摘要",
   "reports.all": "全部",
   "terminal.title": "终端",

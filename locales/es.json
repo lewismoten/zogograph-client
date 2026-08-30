@@ -3341,7 +3341,6 @@
   "reports.cost_tip": "Lo que costó escribirlo.",
   "reports.delete_confirm": "¿Eliminar este resumen?",
   "reports.delete_title": "Eliminar resumen",
-  "reports.authorship_note": "Escrito por {{assistant}}, un modelo de lenguaje que lee las cifras. Las cifras están en el panel y son lo que debe comprobar si un resumen dice algo sorprendente.",
   "reports.latest": "Último resumen de {{assistant}}",
   "reports.all": "Todos",
   "terminal.title": "Terminal",

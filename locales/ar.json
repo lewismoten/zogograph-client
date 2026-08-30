@@ -3327,7 +3327,6 @@
   "reports.cost_tip": "ما كلفته كتابته.",
   "reports.delete_confirm": "هل تريد حذف هذا الملخص؟",
   "reports.delete_title": "حذف الملخص",
-  "reports.authorship_note": "كتبه {{assistant}}، وهو نموذج لغوي يقرأ الأرقام. الأرقام نفسها موجودة في لوحة المعلومات، وهي ما ينبغي التحقق منه إن قال الملخص شيئًا مفاجئًا.",
   "reports.latest": "أحدث ملخص لـ {{assistant}}",
   "reports.all": "كلها",
   "terminal.title": "الطرفية",

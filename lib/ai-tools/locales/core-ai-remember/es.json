@@ -1,3 +1,4 @@
 {
-  "core-ai-remember.summary": "Anote algo para conversaciones futuras."
+  "core-ai-remember.summary": "Anote algo para conversaciones futuras.",
+  "core-ai-remember.activity": "Anotó lo que concluyó sobre {{subject}}"
 }

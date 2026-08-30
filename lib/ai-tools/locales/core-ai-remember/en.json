@@ -1,3 +1,4 @@
 {
-  "core-ai-remember.summary": "Write something down for future conversations."
+  "core-ai-remember.summary": "Write something down for future conversations.",
+  "core-ai-remember.activity": "Wrote down what it worked out about {{subject}}"
 }

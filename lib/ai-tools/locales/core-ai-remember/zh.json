@@ -1,3 +1,4 @@
 {
-  "core-ai-remember.summary": "为未来的对话记下一些内容。"
+  "core-ai-remember.summary": "为未来的对话记下一些内容。",
+  "core-ai-remember.activity": "记录了有关 {{subject}} 的结论"
 }

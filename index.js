@@ -41824,9 +41824,27 @@ async function refreshHostSchedule() {
 
     list.appendChild(li);
   }
-  parts.push(section('What has to happen', list));
+  parts.push(
+    section(
+      ZogographI18n.t(
+        'host_setup.what_has_to_happen',
+        {},
+        'What has to happen',
+      ),
+      list,
+    ),
+  );
 
-  parts.push(section('The line to paste, as root', paste(data.cron_line)));
+  parts.push(
+    section(
+      ZogographI18n.t(
+        'host_setup.line_to_paste_as_root',
+        {},
+        'The line to paste, as root',
+      ),
+      paste(data.cron_line),
+    ),
+  );
 
   /*
    * The no-root path, said plainly rather than left out.
@@ -41845,14 +41863,35 @@ async function refreshHostSchedule() {
 
   const compare = document.createElement('div');
   compare.className = 'compare';
-  compare.appendChild(compareColumn('Only as root', data.as_root));
   compare.appendChild(
-    compareColumn('Also as your own account', data.as_account),
+    compareColumn(
+      ZogographI18n.t('host_setup.only_as_root', {}, 'Only as root'),
+      data.as_root,
+    ),
+  );
+  compare.appendChild(
+    compareColumn(
+      ZogographI18n.t(
+        'host_setup.also_as_account',
+        {},
+        'Also as your own account',
+      ),
+      data.as_account,
+    ),
   );
   without.appendChild(compare);
 
   without.appendChild(paste(data.account_cron_line));
-  parts.push(section('If you do not have a host account', without));
+  parts.push(
+    section(
+      ZogographI18n.t(
+        'host_setup.no_host_account',
+        {},
+        'If you do not have a host account',
+      ),
+      without,
+    ),
+  );
 
   body.replaceChildren(...parts);
 }

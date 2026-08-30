@@ -1,3 +1,4 @@
 {
-  "core-ai-get-collection-schedule.summary": "查看每个收集器的运行频率及其上次运行时间。"
+  "core-ai-get-collection-schedule.summary": "查看每个收集器的运行频率及其上次运行时间。",
+  "core-ai-get-collection-schedule.activity": "检查了收集器的运行时间"
 }

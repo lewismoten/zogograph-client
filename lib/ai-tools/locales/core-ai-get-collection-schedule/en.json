@@ -1,3 +1,4 @@
 {
-  "core-ai-get-collection-schedule.summary": "See how often each collector runs and when it last did."
+  "core-ai-get-collection-schedule.summary": "See how often each collector runs and when it last did.",
+  "core-ai-get-collection-schedule.activity": "Checked when the collectors run"
 }

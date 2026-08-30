@@ -1,3 +1,4 @@
 {
-  "core-ai-what-the-terminal-can-run.summary": "List the commands the operator could actually run."
+  "core-ai-what-the-terminal-can-run.summary": "List the commands the operator could actually run.",
+  "core-ai-what-the-terminal-can-run.activity": "Checked which commands exist here"
 }

@@ -1,3 +1,4 @@
 {
-  "core-ai-get-collection-schedule.summary": "اعرف عدد مرات تشغيل كل جامع ووقت تشغيله الأخير."
+  "core-ai-get-collection-schedule.summary": "اعرف عدد مرات تشغيل كل جامع ووقت تشغيله الأخير.",
+  "core-ai-get-collection-schedule.activity": "تحقق من مواعيد تشغيل أدوات الجمع"
 }

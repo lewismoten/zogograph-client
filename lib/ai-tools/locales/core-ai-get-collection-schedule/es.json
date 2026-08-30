@@ -1,3 +1,4 @@
 {
-  "core-ai-get-collection-schedule.summary": "Vea con qué frecuencia se ejecuta cada recolector y cuándo lo hizo por última vez."
+  "core-ai-get-collection-schedule.summary": "Vea con qué frecuencia se ejecuta cada recolector y cuándo lo hizo por última vez.",
+  "core-ai-get-collection-schedule.activity": "Comprobó cuándo se ejecutan los recolectores"
 }

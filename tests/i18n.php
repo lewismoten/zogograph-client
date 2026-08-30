@@ -1461,6 +1461,11 @@ i18nExpect(
             $english['alerts.mute_duration_4h'],
             $english['alerts.mute_duration_1d'],
             $english['alerts.mute_duration_7d'],
+            $english['process.table_pid'],
+            $english['process.table_user'],
+            $english['process.table_running_for'],
+            $english['process.table_cpu'],
+            $english['process.table_command'],
         ),
     'English fallback catalog is incomplete',
 );
@@ -1664,6 +1669,13 @@ i18nExpect(
         str_contains($script, 'alerts.mute_duration_4h') &&
         str_contains($script, 'alerts.mute_duration_7d'),
     'alert mute duration choices retain direct user-visible text',
+);
+i18nExpect(
+    $script !== false &&
+        str_contains($script, 'process.table_pid') &&
+        str_contains($script, 'process.table_running_for') &&
+        str_contains($script, 'process.table_command'),
+    'process preview table retains direct user-visible text',
 );
 i18nExpect(
     str_contains($runtime, 'data-i18n-rich') &&

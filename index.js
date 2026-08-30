@@ -25336,10 +25336,16 @@ async function previewPattern() {
 
   const table = document.createElement('table');
   const head = table.createTHead().insertRow();
-  for (const label of ['PID', 'User', 'Running for', 'CPU', 'Command']) {
+  for (const [key, fallback, size] of [
+    ['process.table_pid', 'PID', true],
+    ['process.table_user', 'User', false],
+    ['process.table_running_for', 'Running for', true],
+    ['process.table_cpu', 'CPU', true],
+    ['process.table_command', 'Command', false],
+  ]) {
     const th = document.createElement('th');
-    th.textContent = label;
-    if (label !== 'Command' && label !== 'User') th.className = 'size';
+    th.textContent = ZogographI18n.t(key, {}, fallback);
+    if (size) th.className = 'size';
     head.appendChild(th);
   }
 

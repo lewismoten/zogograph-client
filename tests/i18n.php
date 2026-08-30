@@ -13,6 +13,7 @@ function i18nCardSource(string|false $source): string|false
 $cardFiles = glob(dirname(__DIR__) . '/cards/*.js') ?: [];
 foreach ($cardFiles as $cardFile) {
     $cardSource = file_get_contents($cardFile);
+    preg_match("/id:\\s*'([^']+)'/", (string) $cardSource, $cardId);
     i18nExpect(
         $cardSource !== false &&
             str_contains($cardSource, 'catalogs: Object.freeze({') &&
@@ -24,6 +25,10 @@ foreach ($cardFiles as $cardFile) {
             str_contains($cardSource, 'zh: Object.freeze({'),
         basename($cardFile) .
             ' must provide catalogs for every supported core locale',
+    );
+    i18nExpect(
+        isset($cardId[1]) && str_contains($cardSource, "'" . $cardId[1] . '.'),
+        basename($cardFile) . ' must expose a package-owned locale key',
     );
 }
 $root = dirname(__DIR__);

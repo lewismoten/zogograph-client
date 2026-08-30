@@ -43024,19 +43024,23 @@ async function refreshHostLogs() {
   panel.hidden = false;
 
   renderTable('hostLogs', data.rows, [
-    { label: 'Log', className: 'name', render: (row) => row.path },
     {
-      label: 'Size',
+      label: ZogographI18n.t('host_log.log', {}, 'Log'),
+      className: 'name',
+      render: (row) => row.path,
+    },
+    {
+      label: ZogographI18n.t('host_log.size', {}, 'Size'),
       className: 'size',
       render: (row) => (row.exists ? humanBytes(row.bytes) : '\u2014'),
     },
     {
-      label: 'Last written',
+      label: ZogographI18n.t('host_log.last_written', {}, 'Last written'),
       render: (row) =>
         row.modified_at ? humanTime(row.modified_at) : '\u2014',
     },
     {
-      label: 'State',
+      label: ZogographI18n.t('host_log.state', {}, 'State'),
       render: (row) => {
         const span = document.createElement('span');
         if (!row.exists) {

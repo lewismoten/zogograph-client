@@ -34908,6 +34908,27 @@ function renderNetworkPeers(data) {
  * happening now would be a lie about that.
  */
 function renderCaptureRequest(data) {
+  if (window.ZogographNetworkCaptureRequestCard) {
+    return renderCoreCardPackage(
+      ZogographNetworkCaptureRequestCard,
+      'core-network-capture-request',
+      {
+        interfaces: data.interfaces || [],
+        filters: data.filters || [],
+        pending: data.pending || [],
+        signedIn: state.signedIn,
+      },
+      {
+        target: $('captureRequest'),
+        note,
+        post,
+        notice,
+        refreshNetwork,
+        ago,
+        i18n: ZogographI18n,
+      },
+    );
+  }
   const holder = $('captureRequest');
   if (!holder) return;
 

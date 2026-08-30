@@ -63,6 +63,7 @@ export default [
         ZogographEmailRecipientStatusCard: 'readonly',
         ZogographEmailDeliveryHistoryCard: 'readonly',
         ZogographEmailSaveControlsCard: 'readonly',
+        ZogographEmailRuleIntroCard: 'readonly',
         ZogographDatabaseSnapshotsCard: 'readonly',
         ZogographHostDatabaseStorageCard: 'readonly',
         ZogographAccountDatabaseStorageCard: 'readonly',

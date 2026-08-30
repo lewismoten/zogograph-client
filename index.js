@@ -39708,10 +39708,11 @@ function ruleSettings(data) {
   const wrap = document.createDocumentFragment();
 
   wrap.appendChild(
-    note(
-      'A cooldown of “every time” is a real answer for a site that has stopped ' +
-        'answering. The recommendation is beside each one, so a deliberate choice is ' +
-        'distinguishable from a default nobody looked at.',
+    renderCoreCardPackage(
+      ZogographEmailRuleIntroCard,
+      'core-email-rule-intro',
+      data,
+      { note, i18n: ZogographI18n },
     ),
   );
 

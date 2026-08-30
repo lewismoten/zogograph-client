@@ -26492,7 +26492,9 @@ function openEventForm(row = null) {
   if (!data) return;
 
   $("eventFormPanel").hidden = false;
-  $("eventFormTitle").textContent = row ? `Editing ${row.title}` : "Add a date";
+  $("eventFormTitle").textContent = row
+    ? ZogographI18n.t("calendar.editing", { title: row.title }, "Editing {{title}}")
+    : ZogographI18n.t("calendar.add_date", {}, "Add a date");
 
   const parts = [];
   const field = (id, label, control, hint) => {
@@ -26505,13 +26507,13 @@ function openEventForm(row = null) {
   title.type = "text";
   title.size = 40;
   title.value = row?.title ?? "";
-  title.placeholder = "VPS renews";
-  field("eventTitle", "What", title, "");
+  title.placeholder = ZogographI18n.t("calendar.title_placeholder", {}, "VPS renews");
+  field("eventTitle", ZogographI18n.t("calendar.what", {}, "What"), title, "");
 
   const when = document.createElement("input");
   when.type = "date";
   when.value = row ? new Date(row.at * 1000).toISOString().slice(0, 10) : "";
-  field("eventAt", "When", when, "");
+  field("eventAt", ZogographI18n.t("calendar.when", {}, "When"), when, "");
 
   const repeats = document.createElement("select");
   for (const [key, text] of Object.entries(data.repeats)) {
@@ -26521,34 +26523,39 @@ function openEventForm(row = null) {
     option.selected = (row?.repeats ?? "once") === key;
     repeats.appendChild(option);
   }
-  field("eventRepeats", "Repeats", repeats,
-    "A monthly date set for the 31st falls on the last day of shorter months, not the 3rd "
-    + "of the next one.");
+  field("eventRepeats", ZogographI18n.t("calendar.repeats", {}, "Repeats"), repeats,
+    ZogographI18n.t("calendar.repeats_help", {},
+      "A monthly date set for the 31st falls on the last day of shorter months, not the 3rd "
+      + "of the next one."));
 
   const link = document.createElement("input");
   link.type = "url";
   link.size = 40;
   link.value = row?.link ?? "";
   link.placeholder = "https://billing.example.com/";
-  field("eventLink", "Link", link, "Optional. Where you go to deal with it.");
+  field("eventLink", ZogographI18n.t("calendar.link", {}, "Link"), link,
+    ZogographI18n.t("calendar.link_help", {}, "Optional. Where you go to deal with it."));
 
   const note_ = document.createElement("input");
   note_.type = "text";
   note_.size = 40;
   note_.value = row?.note ?? "";
-  field("eventNote", "Note", note_, "");
+  field("eventNote", ZogographI18n.t("calendar.note", {}, "Note"), note_, "");
 
   const priority = document.createElement("input");
   priority.type = "checkbox";
   priority.checked = row ? Boolean(Number(row.priority)) : false;
-  field("eventPriority", "Important", priority,
-    "Appears on the dashboard and in the alert emails as it approaches, until it is marked "
-    + "dealt with.");
+  field("eventPriority", ZogographI18n.t("calendar.important", {}, "Important"), priority,
+    ZogographI18n.t("calendar.important_until_dealt", {},
+      "Appears on the dashboard and in the alert emails as it approaches, until it is marked "
+      + "dealt with."));
 
   const actions = document.createElement("div");
   actions.className = "inspect-actions";
   const save = document.createElement("button");
-  save.textContent = row ? "Save it" : "Add it";
+  save.textContent = row
+    ? ZogographI18n.t("action.save", {}, "Save it")
+    : ZogographI18n.t("action.add", {}, "Add it");
   save.addEventListener("click", async () => {
     save.disabled = true;
     try {
@@ -26563,7 +26570,7 @@ function openEventForm(row = null) {
       });
       $("eventFormPanel").hidden = true;
       renderCalendar(result);
-      notice("Saved.", true);
+      notice(ZogographI18n.t("calendar.saved", {}, "Saved."), true);
     } catch (error) {
       notice(String(error.message || error));
       save.disabled = false;

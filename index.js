@@ -35308,7 +35308,9 @@ function openUrlForm(row = null) {
 
   urlState.editing = row;
   $('urlFormPanel').hidden = false;
-  $('urlFormTitle').textContent = row ? `Editing ${row.label}` : 'Add a check';
+  $('urlFormTitle').textContent = row
+    ? ZogographI18n.t('url.editing', { label: row.label }, 'Editing {{label}}')
+    : ZogographI18n.t('url.add_check', {}, 'Add a check');
 
   const form = $('urlForm');
   const parts = [];
@@ -35322,7 +35324,11 @@ function openUrlForm(row = null) {
   const url = document.createElement('input');
   url.type = 'url';
   url.size = 46;
-  url.placeholder = 'https://example.com/';
+  url.placeholder = ZogographI18n.t(
+    'url.address_placeholder',
+    {},
+    'https://example.com/',
+  );
   url.value = row?.url ?? '';
   field(
     'urlUrl',
@@ -35500,10 +35506,11 @@ function openUrlForm(row = null) {
     'urlNotify',
     ZogographI18n.t('url.notify_change', {}, 'Tell me when it changes'),
     notify,
-    'Raises an alert the moment the captured text is different from last time. This is how ' +
-      'you watch a version string: what matters is not its value but when it moved. The ' +
-      'alert obeys the usual cooldown, so a value that flaps does not flood \u2014 but every ' +
-      'change is marked on the chart and listed under it either way.',
+    ZogographI18n.t(
+      'url.notify_change_help',
+      {},
+      'Raises an alert the moment the captured text is different from last time. This is how you watch a version string: what matters is not its value but when it moved. The alert obeys the usual cooldown, so a value that flaps does not flood — but every change is marked on the chart and listed under it either way.',
+    ),
   );
 
   const enabled = document.createElement('input');

@@ -1372,6 +1372,10 @@ i18nExpect(
             $english['terminal.verdict_finished'],
             $english['terminal.verdict_summary'],
             $english['terminal.send_output_help'],
+            $english['url.editing'],
+            $english['url.add_check'],
+            $english['url.address_placeholder'],
+            $english['url.notify_change_help'],
         ),
     'English fallback catalog is incomplete',
 );
@@ -1464,6 +1468,13 @@ i18nExpect(
         str_contains($script, 'terminal.verdict_summary') &&
         str_contains($script, 'terminal.send_output_help'),
     'terminal live output and send feedback are not localized',
+);
+i18nExpect(
+    $script !== false &&
+        str_contains($script, 'url.editing') &&
+        str_contains($script, 'url.address_placeholder') &&
+        str_contains($script, 'url.notify_change_help'),
+    'URL check editor retains direct user-visible text',
 );
 i18nExpect(
     str_contains($runtime, 'data-i18n-rich') &&

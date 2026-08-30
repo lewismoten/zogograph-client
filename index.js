@@ -20648,15 +20648,14 @@ function renderReports(data) {
    * and "none of the three are switched on" is the answer far more often than
    * anything else.
    */
-  const on = Object.entries(data.on)
-    .filter(([, yes]) => yes)
-    .map(([key]) => key);
-  const said = document.createElement('p');
-  said.className = 'muted small';
-  said.textContent = on.length
-    ? ZogographI18n.t('reports.schedules_on', { schedules: on.join(', ') })
-    : ZogographI18n.t('reports.schedules_off');
-  parts.push(said);
+  parts.push(
+    renderCoreCardPackage(
+      ZogographReportsStatusCard,
+      'core-reports-status',
+      data,
+      { i18n: ZogographI18n },
+    ),
+  );
 
   if (!data.reports.length) {
     parts.push(note(ZogographI18n.t('reports.empty')));

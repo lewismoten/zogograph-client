@@ -19,7 +19,8 @@ $workflow = file_get_contents($root . '/.forgejo/workflows/deploy.yml');
 $restoreWorkflow = file_get_contents($root . '/.forgejo/workflows/restore.yml');
 releaseExpect(is_string($workflow) && str_contains($workflow, 'Create build manifest')
     && str_contains($workflow, '"commit": "${GITHUB_SHA}"') && str_contains($workflow, '"runId": "${GITHUB_RUN_ID}"')
-    && str_contains($workflow, '"createdAt": "${created_at}"') && str_contains($workflow, '"browserRefreshRequired": ${browser_refresh_required}')
+    && str_contains($workflow, '"createdAt": "${created_at}"') && str_contains($workflow, 'package_version="$(node -e \'process.stdout.write(require("./package.json").version)\')"')
+    && str_contains($workflow, '"packageVersion": "${package_version}"') && str_contains($workflow, '"browserRefreshRequired": ${browser_refresh_required}')
     && str_contains($workflow, 'environment: test') && str_contains($workflow, 'environment:  client')
     && str_contains($workflow, 'deploy_path: ${{ vars.TEST_PATH }}') && str_contains($workflow, 'deploy_url: ${{ vars.TEST_URL }}')
     && str_contains($workflow, 'deploy_path: ${{ vars.DEPLOY_PATH }}') && str_contains($workflow, 'deploy_url: ${{ vars.DEPLOY_URL }}')

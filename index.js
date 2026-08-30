@@ -16460,11 +16460,31 @@ function renderEncryptionStatus(data) {
   if (data.setup_configuration?.state !== 'ok')
     parts.push(
       note(
-        `Setup configuration: ${data.setup_configuration?.detail || 'status unavailable'}`,
+        ZogographI18n.t(
+          'encryption.setup_configuration_status',
+          {
+            detail:
+              data.setup_configuration?.detail ||
+              ZogographI18n.t(
+                'encryption.status_unavailable',
+                {},
+                'status unavailable',
+              ),
+          },
+          'Setup configuration: {{detail}}',
+        ),
       ),
     );
   if (data.sqlcipher)
-    parts.push(note(`Live SQLCipher option: ${data.sqlcipher.detail}`));
+    parts.push(
+      note(
+        ZogographI18n.t(
+          'encryption.live_sqlcipher_status',
+          { detail: data.sqlcipher.detail },
+          'Live SQLCipher option: {{detail}}',
+        ),
+      ),
+    );
   if (data.mode === 'none') {
     parts.push(
       note(

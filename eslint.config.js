@@ -43,6 +43,7 @@ export default [
         ZogographHostIoProcessesCard: 'readonly',
         ZogographHostMemoryGaugesCard: 'readonly',
         ZogographNetworkGaugesCard: 'readonly',
+        ZogographNetworkPeersCard: 'readonly',
         ZogographOtherExtensionsCard: 'readonly',
         ZogographOverviewGaugesCard: 'readonly',
         ZogographOverviewVitalsCards: 'readonly',

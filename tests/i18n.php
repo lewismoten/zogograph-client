@@ -46,6 +46,9 @@ $cpuGaugesCard = i18nCardSource(
 $networkGaugesCard = i18nCardSource(
     file_get_contents($root . '/cards/network-gauges.js'),
 );
+$networkPeersCard = i18nCardSource(
+    file_get_contents($root . '/cards/network-peers.js'),
+);
 $hostMemoryGaugesCard = i18nCardSource(
     file_get_contents($root . '/cards/host-memory-gauges.js'),
 );
@@ -726,6 +729,22 @@ i18nExpect(
             '"core-host-memory.monitoring_footprint"',
         ),
     'host memory card does not own a package locale catalog',
+);
+i18nExpect(
+    $page !== false &&
+        str_contains($page, 'src="cards/network-peers.js"') &&
+        $networkPeersCard !== false &&
+        str_contains($networkPeersCard, 'window.ZogographNetworkPeersCard') &&
+        str_contains($networkPeersCard, 'id: "core-network-peers"') &&
+        str_contains($networkPeersCard, 'locales: ["core-network-peers."]') &&
+        str_contains($networkPeersCard, 'catalogs: Object.freeze({') &&
+        str_contains($networkPeersCard, '"core-network-peers.empty"') &&
+        $script !== false &&
+        str_contains(
+            $script,
+            'renderCoreCardPackage(ZogographNetworkPeersCard, "core-network-peers",',
+        ),
+    'network peers are not isolated behind their core card-module boundary',
 );
 i18nExpect(
     $page !== false &&

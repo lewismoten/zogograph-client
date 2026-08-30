@@ -34785,6 +34785,27 @@ function renderPorts(data) {
 }
 
 function renderNetworkPeers(data) {
+  if (window.ZogographNetworkPeersCard) {
+    return renderCoreCardPackage(
+      ZogographNetworkPeersCard,
+      'core-network-peers',
+      {
+        peers: data.peers || [],
+        reason: data.reason,
+        taken_at: data.taken_at,
+        peerCount: count((data.peers || []).length, 'peer'),
+      },
+      {
+        target: $('peersBody'),
+        note,
+        renderTable,
+        humanCount,
+        humanTime,
+        labelled,
+        i18n: ZogographI18n,
+      },
+    );
+  }
   const rows = data.peers || [];
   if (!rows.length) {
     $('peersBody').replaceChildren(

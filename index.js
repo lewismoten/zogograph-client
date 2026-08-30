@@ -19190,74 +19190,12 @@ function terminalEntry(entry) {
 
 /** How it ended, as a small chip beside the command. */
 function terminalVerdictChip(entry) {
-  const chip = document.createElement('span');
-  chip.className = 'term-chip';
-
-  if (entry.running) {
-    chip.classList.add('live');
-    chip.textContent = ZogographI18n.t(
-      'terminal.status_running',
-      {},
-      'running',
-    );
-    return chip;
-  }
-
-  const bits = [];
-  if (entry.took !== null && entry.took !== undefined)
-    bits.push(humanSpan(entry.took));
-
-  if (entry.stopped_by) {
-    chip.classList.add('bad');
-    bits.push(ZogographI18n.t('terminal.status_stopped', {}, 'stopped'));
-  } else if (entry.timed_out) {
-    chip.classList.add('bad');
-    bits.push(ZogographI18n.t('terminal.status_timed_out', {}, 'timed out'));
-  } else if (entry.capped) {
-    chip.classList.add('bad');
-    bits.push(
-      ZogographI18n.t(
-        'terminal.status_output_ceiling',
-        {},
-        'hit the output ceiling',
-      ),
-    );
-  } else if (entry.exit_code === 0) {
-    bits.push(ZogographI18n.t('terminal.status_ok', {}, 'ok'));
-  } else if (entry.exit_code !== null && entry.exit_code !== undefined) {
-    chip.classList.add('bad');
-    /*
-     * The number, and what killed it where a signal did.
-     *
-     * A shell reports a signal as 128 plus the signal number, which is a fact
-     * nobody should have to remember - "killed (SIGKILL)" is the same
-     * information without the arithmetic.
-     */
-    bits.push(
-      entry.exit_code > 128
-        ? ZogographI18n.t(
-            'terminal.status_killed',
-            {
-              signal:
-                SIGNAL_NAMES[entry.exit_code - 128] ??
-                ZogographI18n.t(
-                  'terminal.status_signal',
-                  { number: entry.exit_code - 128 },
-                  `signal ${entry.exit_code - 128}`,
-                ),
-            },
-            'killed ({{signal}})',
-          )
-        : ZogographI18n.t(
-            'terminal.status_exit',
-            { code: entry.exit_code },
-            'exit {{code}}',
-          ),
-    );
-  }
-
-  chip.textContent = bits.join(' · ');
-  return chip;
+  return renderCoreCardPackage(
+    ZogographTerminalVerdictCard,
+    'core-terminal-verdict',
+    entry,
+    { humanSpan, signalNames: SIGNAL_NAMES, i18n: ZogographI18n },
+  );
 }
 
 /** The signals a command is likely to die of, by number. */

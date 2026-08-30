@@ -71,6 +71,7 @@ export default [
         ZogographTerminalSessionLogCard: 'readonly',
         ZogographTerminalCopyControlsCard: 'readonly',
         ZogographTerminalEntryCard: 'readonly',
+        ZogographTerminalVerdictCard: 'readonly',
         ZogographNetworkCaptureRequestCard: 'readonly',
         ZogographNetworkCaptureHistoryCard: 'readonly',
         ZogographNetworkCaptureCard: 'readonly',

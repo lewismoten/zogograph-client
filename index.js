@@ -26596,17 +26596,17 @@ const fetchState = { data: null, showing: "headers", images: false };
 async function refreshFetch(params = null) {
   const body = $("fetchBody");
   if (!state.signedIn) {
-    body.replaceChildren(note("Sign in to make a request."));
+    body.replaceChildren(note(ZogographI18n.t("fetch.sign_in_request", {}, "Sign in to make a request.")));
     return;
   }
 
   if (params === null) {
-    if (!fetchState.data) body.replaceChildren(note("Type an address above."));
+    if (!fetchState.data) body.replaceChildren(note(ZogographI18n.t("fetch.type_address", {}, "Type an address above.")));
     else renderFetch(fetchState.data);
     return;
   }
 
-  body.replaceChildren(spinner("Asking\u2026"));
+  body.replaceChildren(spinner(ZogographI18n.t("fetch.asking", {}, "Asking\u2026")));
 
   let data;
   try {
@@ -26624,27 +26624,31 @@ function renderFetch(data) {
   const body = $("fetchBody");
 
   if (!data.asked) {
-    body.replaceChildren(note("Type an address above."));
+    body.replaceChildren(note(ZogographI18n.t("fetch.type_address", {}, "Type an address above.")));
     return;
   }
 
   if (!data.ok) {
-    body.replaceChildren(note(`Nothing came back after ${data.ms} ms: ${data.error}`));
+    body.replaceChildren(note(ZogographI18n.t("fetch.no_response", {
+      ms: data.ms, error: data.error,
+    }, "Nothing came back after {{ms, number}} ms: {{error}}")));
     return;
   }
 
   const parts = [];
 
   const facts = [
-    ["Status", String(data.status)],
-    ["Took", `${data.ms} ms`],
-    ["Method", data.method],
-    ["Body", `${humanBytes(data.bytes)}${data.content_type ? " \u00b7 " + data.content_type : ""}`],
+    [ZogographI18n.t("fetch.status", {}, "Status"), String(data.status)],
+    [ZogographI18n.t("fetch.took", {}, "Took"), ZogographI18n.t("fetch.took_ms", { ms: data.ms }, "{{ms, number}} ms")],
+    [ZogographI18n.t("fetch.method", {}, "Method"), data.method],
+    [ZogographI18n.t("fetch.body", {}, "Body"), `${humanBytes(data.bytes)}${data.content_type ? " \u00b7 " + data.content_type : ""}`],
   ];
   if (data.hops > 0) {
-    facts.push(["Redirects", `${count(data.hops, "hop")} \u2014 ended at ${data.landed}`]);
+    facts.push([ZogographI18n.t("fetch.redirects", {}, "Redirects"),
+      ZogographI18n.t("fetch.redirected_to", { count: data.hops, landed: data.landed },
+        "{{count, number}} redirects \u2014 ended at {{landed}}")]);
   }
-  parts.push(section("The response", factGrid(facts)));
+  parts.push(section(ZogographI18n.t("fetch.response", {}, "The response"), factGrid(facts)));
 
   /*
    * A link out, opened deliberately in a new window.

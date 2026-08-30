@@ -1497,6 +1497,13 @@ i18nExpect(
             $english['storage.link_repointed_missing'],
             $english['storage.link_made_directory'],
             $english['storage.link_removed'],
+            $english['storage.link_sweep_failed_reason'],
+            $english['storage.link_sweep_capped'],
+            $english['storage.link_sweep_showing_first'],
+            $english['storage.link_sweep_remove_broken'],
+            $english['storage.link_sweep_remove_confirm'],
+            $english['storage.link_sweep_why_not'],
+            $english['storage.link_sweep_pointed_at'],
         ),
     'English fallback catalog is incomplete',
 );
@@ -1732,6 +1739,13 @@ i18nExpect(
         str_contains($script, 'storage.link_remove_confirm') &&
         str_contains($script, 'storage.link_repointed_missing'),
     'broken-link remediation controls retain direct user-visible text',
+);
+i18nExpect(
+    $script !== false &&
+        str_contains($script, 'storage.link_sweep_capped') &&
+        str_contains($script, 'storage.link_sweep_remove_confirm') &&
+        str_contains($script, 'storage.link_sweep_pointed_at'),
+    'broken-link sweep limits and result table retain direct user-visible text',
 );
 i18nExpect(
     str_contains($runtime, 'data-i18n-rich') &&

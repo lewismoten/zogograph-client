@@ -24773,7 +24773,13 @@ async function sweepLinks(pattern, confirmed = false) {
 
     for (const [reason, howMany] of why) {
       parts.push(
-        note(`${count(howMany, 'link')} could not be removed: ${reason}.`),
+        note(
+          ZogographI18n.t(
+            'storage.link_sweep_failed_reason',
+            { count: humanCount(howMany), reason },
+            `${humanCount(howMany)} links could not be removed: ${reason}.`,
+          ),
+        ),
       );
     }
 
@@ -24797,8 +24803,14 @@ async function sweepLinks(pattern, confirmed = false) {
   if (result.remaining > 0) {
     parts.push(
       note(
-        `Capped at ${count(result.deleted.length, 'link')} in one go. ` +
-          `${count(result.remaining, 'more')} would be left — run it again.`,
+        ZogographI18n.t(
+          'storage.link_sweep_capped',
+          {
+            deleted: humanCount(result.deleted.length),
+            remaining: humanCount(result.remaining),
+          },
+          `Capped at ${humanCount(result.deleted.length)} links in one go. ${humanCount(result.remaining)} more would be left — run it again.`,
+        ),
       ),
     );
   }
@@ -24815,7 +24827,15 @@ async function sweepLinks(pattern, confirmed = false) {
     parts.push(shown);
 
     if (result.deleted.length > 200) {
-      parts.push(note(`Showing the first 200 of ${result.deleted.length}.`));
+      parts.push(
+        note(
+          ZogographI18n.t(
+            'storage.link_sweep_showing_first',
+            { count: humanCount(result.deleted.length) },
+            `Showing the first 200 of ${humanCount(result.deleted.length)}.`,
+          ),
+        ),
+      );
     }
   }
 
@@ -24825,13 +24845,19 @@ async function sweepLinks(pattern, confirmed = false) {
 
     const go = document.createElement('button');
     go.className = 'danger';
-    go.textContent = `Remove ${count(result.deleted.length, 'broken link')}`;
+    go.textContent = ZogographI18n.t(
+      'storage.link_sweep_remove_broken',
+      { count: humanCount(result.deleted.length) },
+      `Remove ${humanCount(result.deleted.length)} broken links`,
+    );
     go.addEventListener('click', async () => {
       if (
         !(await confirmDialog(
-          `Delete ${result.deleted.length} broken symlinks?\n\n` +
-            'Only the links are removed. Nothing they point at is touched — they point at ' +
-            'nothing, which is why they are on this list.',
+          ZogographI18n.t(
+            'storage.link_sweep_remove_confirm',
+            { count: humanCount(result.deleted.length) },
+            `Delete ${humanCount(result.deleted.length)} broken symlinks?\n\nOnly the links are removed. Nothing they point at is touched — they point at nothing, which is why they are on this list.`,
+          ),
         ))
       )
         return;
@@ -24855,7 +24881,11 @@ async function sweepLinks(pattern, confirmed = false) {
           className: 'name',
           render: (row) => dimmedPath(row.path, root),
         },
-        { label: 'Why not', className: 'muted', render: (row) => row.why },
+        {
+          label: ZogographI18n.t('storage.link_sweep_why_not', {}, 'Why not'),
+          className: 'muted',
+          render: (row) => row.why,
+        },
       ],
       null,
       () => 'row-bad',
@@ -24874,7 +24904,11 @@ async function sweepLinks(pattern, confirmed = false) {
           render: (row) => dimmedPath(row.path, root),
         },
         {
-          label: 'Pointed at',
+          label: ZogographI18n.t(
+            'storage.link_sweep_pointed_at',
+            {},
+            'Pointed at',
+          ),
           className: 'name',
           render: (row) => targetPath(row),
         },

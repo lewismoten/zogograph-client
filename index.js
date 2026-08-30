@@ -17264,7 +17264,11 @@ function renderNotes(data) {
             pick.checked = noteState.selected.has(row.id);
             pick.setAttribute(
               'aria-label',
-              `Select note from ${whenSpan(row.at)}`,
+              ZogographI18n.t(
+                'notes.select_from',
+                { when: whenSpan(row.at) },
+                'Select note from {{when}}',
+              ),
             );
             pick.addEventListener('click', (event) => event.stopPropagation());
             pick.addEventListener('change', () => {
@@ -17276,9 +17280,12 @@ function renderNotes(data) {
             return pick;
           },
         },
-        { label: 'Time', render: (row) => whenSpan(row.at) },
         {
-          label: 'Icons',
+          label: ZogographI18n.t('notes.table_time', {}, 'Time'),
+          render: (row) => whenSpan(row.at),
+        },
+        {
+          label: ZogographI18n.t('notes.table_icons', {}, 'Icons'),
           render: (row) => {
             const span = document.createElement('span');
             span.textContent = row.broadcast
@@ -17290,19 +17297,31 @@ function renderNotes(data) {
                 ] || '';
             span.title = row.broadcast
               ? row.cleared_at
-                ? `Was shown to everyone; cleared by ${row.cleared_by || 'somebody'}.`
-                : 'Shown to everyone until it is cleared.'
+                ? ZogographI18n.t(
+                    'notes.broadcast_cleared',
+                    {
+                      actor:
+                        row.cleared_by ||
+                        ZogographI18n.t('notes.somebody', {}, 'somebody'),
+                    },
+                    'Was shown to everyone; cleared by {{actor}}.',
+                  )
+                : ZogographI18n.t(
+                    'notes.broadcast_active',
+                    {},
+                    'Shown to everyone until it is cleared.',
+                  )
               : (data.scopes[row.scope]?.label ?? row.scope);
             return span;
           },
         },
         {
-          label: 'Note',
+          label: ZogographI18n.t('notes.table_note', {}, 'Note'),
           className: 'note-preview',
           render: (row) => notePreview(row),
         },
         {
-          label: 'Size',
+          label: ZogographI18n.t('notes.table_size', {}, 'Size'),
           className: 'size',
           render: (row) => {
             if (!row.snapshots) return '—';

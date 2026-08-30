@@ -1400,6 +1400,14 @@ i18nExpect(
             $english['notes.selected'],
             $english['notes.select_to_act'],
             $english['notes.dismiss_selected_help'],
+            $english['notes.select_from'],
+            $english['notes.table_time'],
+            $english['notes.table_icons'],
+            $english['notes.broadcast_cleared'],
+            $english['notes.broadcast_active'],
+            $english['notes.somebody'],
+            $english['notes.table_note'],
+            $english['notes.table_size'],
         ),
     'English fallback catalog is incomplete',
 );
@@ -1540,6 +1548,13 @@ i18nExpect(
         str_contains($script, 'notes.selected') &&
         str_contains($script, 'notes.dismiss_selected_help'),
     'note selection controls retain direct user-visible text',
+);
+i18nExpect(
+    $script !== false &&
+        str_contains($script, 'notes.select_from') &&
+        str_contains($script, 'notes.broadcast_cleared') &&
+        str_contains($script, 'notes.table_size'),
+    'note table retains direct user-visible text',
 );
 i18nExpect(
     str_contains($runtime, 'data-i18n-rich') &&

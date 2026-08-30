@@ -40698,12 +40698,11 @@ function renderCapList(data) {
 
   const body = $('capBody');
   if (!rows.length) {
-    body.replaceChildren(
-      note(
-        filter === 'gap'
-          ? 'Everything in the catalogue is available here.'
-          : 'Nothing matches.',
-      ),
+    renderCoreCardPackage(
+      ZogographCapabilityListEmptyCard,
+      'core-capability-list-empty',
+      { filter },
+      { target: body, note, i18n: ZogographI18n },
     );
     return;
   }

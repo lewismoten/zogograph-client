@@ -852,6 +852,8 @@
   "peers.admin_only": "只有管理员可以管理受信任的服务器。",
   "ai.start_new": "开始新对话",
   "ai.nothing_chosen": "尚未选择任何内容。",
+  "ai.settings.not_ready": "尚未就绪：{{reason}}",
+  "network.nothing_recorded": "没有已记录的内容。",
   "scan.host_collector_disabled": "主机收集器未启用，因此这些任务都不会运行。 ",
   "scan.dashboard_browsing": "目前有人打开了仪表板（最后一次看到是在 {{when}}），因此设置为浏览时加快的所有项目当前都在较短间隔运行。",
   "time.duration_ago_with_date": "{{duration}}前 — {{date}}",

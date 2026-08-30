@@ -6617,7 +6617,13 @@ function renderAiSettings(data) {
   }
 
   if (data.enabled && !data.ready) {
-    parts.push(note(`Not ready: ${data.why}`));
+    parts.push(
+      note(
+        aiSettingsText('not_ready', 'Not ready: {{reason}}', {
+          reason: data.why,
+        }),
+      ),
+    );
   }
 
   const form = document.createElement('div');
@@ -35524,7 +35530,17 @@ async function refreshNetwork() {
   if (!data.available) {
     for (const id of bodies) {
       const el = $(id);
-      if (el) el.replaceChildren(note(data.reason || 'Nothing recorded.'));
+      if (el)
+        el.replaceChildren(
+          note(
+            data.reason ||
+              ZogographI18n.t(
+                'network.nothing_recorded',
+                {},
+                'Nothing recorded.',
+              ),
+          ),
+        );
     }
     $('networkContent').hidden = true;
     renderCaptureRequest(data);

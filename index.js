@@ -7434,50 +7434,12 @@ function pictureFields(data) {
   const form = document.createElement('div');
   form.className = 'settings';
 
-  const on = document.createElement('input');
-  on.type = 'checkbox';
-  on.id = 'aiPicturesOn';
-  on.checked = pictures.enabled;
-  form.appendChild(
-    fieldRow(
-      ZogographI18n.t('ai.images_enabled', {}, 'Let it make pictures'),
-      on,
-      ZogographI18n.t(
-        'ai.images_enabled_help',
-        {},
-        'Off means the picture tools are not offered at all. Each one costs money per call ' +
-          'and asks your permission every time.',
-      ),
-    ),
-  );
-
-  const key = document.createElement('input');
-  key.type = 'password';
-  key.id = 'aiPictureKey';
-  key.className = 'wide-field';
-  key.autocomplete = 'off';
-  key.placeholder = pictures.has_key
-    ? ZogographI18n.t(
-        'ai.images_key_unchanged',
-        { mask: '•'.repeat(20) },
-        '{{mask}} (unchanged)',
-      )
-    : ZogographI18n.t('ai.images_key_placeholder', {}, 'your DeepAI key');
-  form.appendChild(
-    fieldRow(
-      ZogographI18n.t('ai.images_key', {}, 'DeepAI key'),
-      key,
-      pictures.has_key
-        ? ZogographI18n.t(
-            'ai.images_key_kept',
-            {},
-            'A key is set. Leaving this blank keeps it.',
-          )
-        : ZogographI18n.t(
-            'ai.images_key_required',
-            {},
-            'From deepai.org. Without one the picture tools stay hidden.',
-          ),
+  form.append(
+    ...renderCoreCardPackage(
+      ZogographAiImageProviderCard,
+      'core-ai-image-provider',
+      { pictures },
+      { fieldRow, i18n: ZogographI18n },
     ),
   );
 

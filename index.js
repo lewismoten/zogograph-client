@@ -17268,14 +17268,25 @@ function showPeerDialog(row = null) {
       });
       renderPeers(result);
       if (result.transport_secret) {
-        showListDialog(`Pair ${label.value || name.value}`, [
-          note(peerText('pairing_fragment_help')),
-          paste(result.transport_enrollment),
-        ]);
+        showListDialog(
+          peerText(
+            'pairing_title',
+            { name: label.value || name.value },
+            'Pair {{name}}',
+          ),
+          [
+            note(peerText('pairing_fragment_help')),
+            paste(result.transport_enrollment),
+          ],
+        );
       }
       notice(
         result.rows.find((item) => item.name === name.value)?.has_oidc
-          ? 'Trusted server saved. Test OIDC discovery before using the read connection.'
+          ? peerText(
+              'oidc_peer_saved',
+              {},
+              'Trusted server saved. Test OIDC discovery before using the read connection.',
+            )
           : peerText('delivery_peer_saved'),
         true,
       );

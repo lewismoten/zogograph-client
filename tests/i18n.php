@@ -2809,6 +2809,8 @@ $translatedSecurityMessages = [
     'diagnosis.reading_everything',
     'host.collector_loading',
     'peer.field_secret',
+    'peer.pairing_title',
+    'peer.oidc_peer_saved',
 ];
 i18nExpect(
     $script !== false &&

@@ -12071,10 +12071,28 @@ function highlightOnPage(args) {
   const find = String(args.find || '')
     .trim()
     .toLowerCase();
-  if (!find) return { found: false, note: 'nothing to look for' };
+  if (!find) {
+    return {
+      found: false,
+      note: ZogographI18n.t(
+        'assistant.highlight_no_query',
+        {},
+        'Nothing to look for.',
+      ),
+    };
+  }
 
   const view = document.querySelector('.view:not([hidden])');
-  if (!view) return { found: false, note: 'no page is open' };
+  if (!view) {
+    return {
+      found: false,
+      note: ZogographI18n.t(
+        'assistant.highlight_no_page',
+        {},
+        'No page is open.',
+      ),
+    };
+  }
 
   const walker = document.createTreeWalker(view, NodeFilter.SHOW_TEXT, {
     acceptNode: (node) =>
@@ -12090,11 +12108,11 @@ function highlightOnPage(args) {
     return {
       found: false,
       page: state.view,
-      note:
-        `Nothing on the ${VIEWS[state.view]?.label ?? state.view} page contains that ` +
-        'text, so nothing was highlighted. The user may be on a different page — ' +
-        'open_page first — or it may not be shown there at all. Do not describe a ' +
-        'highlight that did not happen.',
+      note: ZogographI18n.t(
+        'assistant.highlight_not_found',
+        { page: VIEWS[state.view]?.label ?? state.view },
+        'Nothing on the {{page}} page contains that text, so nothing was highlighted. The user may be on a different page — open_page first — or it may not be shown there at all. Do not describe a highlight that did not happen.',
+      ),
     };
   }
 
@@ -12130,9 +12148,11 @@ function highlightOnPage(args) {
       .replace(/\s+/g, ' ')
       .trim()
       .slice(0, 160),
-    note:
-      'It is outlined and pulsing for a few seconds. Say what you are pointing at in ' +
-      'the same message; a highlight with no sentence is a poke.',
+    note: ZogographI18n.t(
+      'assistant.highlight_shown',
+      {},
+      'It is outlined and pulsing for a few seconds. Say what you are pointing at in the same message; a highlight with no sentence is a poke.',
+    ),
   };
 }
 

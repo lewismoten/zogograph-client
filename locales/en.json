@@ -3552,6 +3552,10 @@
   "collector.next_in": "Next one in about {{duration}}.",
   "assistant.waiting_collector": "Waiting for the {{collector}} collector…",
   "assistant.waiting_collector_for": "{{assistant}} is waiting for the {{collector}} collector — up to {{duration}} more.",
+  "assistant.highlight_no_query": "Nothing to look for.",
+  "assistant.highlight_no_page": "No page is open.",
+  "assistant.highlight_not_found": "Nothing on the {{page}} page contains that text, so nothing was highlighted. The user may be on a different page — open_page first — or it may not be shown there at all. Do not describe a highlight that did not happen.",
+  "assistant.highlight_shown": "It is outlined and pulsing for a few seconds. Say what you are pointing at in the same message; a highlight with no sentence is a poke.",
   "ai.unpin": "Unpin it",
   "ai.skip_question_help": "Carry on without answering — the same as letting the clock run out",
   "ai.pinned_never_dropped": "Pinned — never dropped"

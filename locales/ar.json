@@ -3448,6 +3448,10 @@
   "collector.next_in": "التشغيل التالي بعد نحو {{duration}}.",
   "assistant.waiting_collector": "بانتظار جامع {{collector}}…",
   "assistant.waiting_collector_for": "ينتظر {{assistant}} جامع {{collector}} — حتى {{duration}} إضافية.",
+  "assistant.highlight_no_query": "لا شيء للبحث عنه.",
+  "assistant.highlight_no_page": "لا توجد صفحة مفتوحة.",
+  "assistant.highlight_not_found": "لا يحتوي شيء في صفحة {{page}} على ذلك النص، لذلك لم يُبرز شيء. قد يكون المستخدم في صفحة أخرى — افتح open_page أولاً — أو قد لا يظهر هناك أصلًا. لا تصف إبرازًا لم يحدث.",
+  "assistant.highlight_shown": "يظهر محددًا ونابضًا لبضع ثوانٍ. وضّح ما تشير إليه في الرسالة نفسها؛ فالإبراز بلا جملة مجرد نكزة.",
   "ai.unpin": "إزالة التثبيت",
   "ai.skip_question_help": "تابع دون إجابة — وهو نفس ترك الوقت ينقضي",
   "ai.pinned_never_dropped": "مثبّت — لن يُسقط أبدًا"

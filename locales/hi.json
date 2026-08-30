@@ -3462,6 +3462,10 @@
   "collector.next_in": "अगला लगभग {{duration}} में है।",
   "assistant.waiting_collector": "{{collector}} कलेक्टर की प्रतीक्षा है…",
   "assistant.waiting_collector_for": "{{assistant}} {{collector}} कलेक्टर की प्रतीक्षा कर रहा है — अधिकतम {{duration}} और।",
+  "assistant.highlight_no_query": "खोजने के लिए कुछ नहीं है।",
+  "assistant.highlight_no_page": "कोई पृष्ठ खुला नहीं है।",
+  "assistant.highlight_not_found": "{{page}} पृष्ठ पर उस पाठ वाला कुछ नहीं है, इसलिए कुछ भी हाइलाइट नहीं किया गया। उपयोगकर्ता किसी दूसरे पृष्ठ पर हो सकता है — पहले open_page खोलें — या वह वहाँ बिल्कुल नहीं दिखता होगा। ऐसे हाइलाइट का वर्णन न करें जो हुआ ही नहीं।",
+  "assistant.highlight_shown": "यह कुछ सेकंड के लिए रूपरेखा में और धड़कता हुआ है। उसी संदेश में बताएं कि आप किस ओर इशारा कर रहे हैं; वाक्य के बिना हाइलाइट केवल एक इशारा है।",
   "ai.unpin": "पिन हटाएँ",
   "ai.skip_question_help": "जवाब दिए बिना आगे बढ़ें — यह समय समाप्त होने देने जैसा ही है",
   "ai.pinned_never_dropped": "पिन किया गया — कभी नहीं हटाया जाएगा"

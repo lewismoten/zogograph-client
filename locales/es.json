@@ -3466,6 +3466,10 @@
   "collector.next_in": "La siguiente será dentro de unos {{duration}}.",
   "assistant.waiting_collector": "Esperando al recolector {{collector}}…",
   "assistant.waiting_collector_for": "{{assistant}} está esperando al recolector {{collector}} — hasta {{duration}} más.",
+  "assistant.highlight_no_query": "No hay nada que buscar.",
+  "assistant.highlight_no_page": "No hay ninguna página abierta.",
+  "assistant.highlight_not_found": "Nada en la página {{page}} contiene ese texto, por lo que no se resaltó nada. El usuario podría estar en otra página — abra open_page primero — o quizá no se muestre allí. No describa un resaltado que no ocurrió.",
+  "assistant.highlight_shown": "Está delineado y pulsando durante unos segundos. Diga a qué apunta en el mismo mensaje; un resaltado sin una oración es un toque.",
   "ai.unpin": "Desfijar",
   "ai.skip_question_help": "Continúa sin responder; es igual que dejar que el tiempo se agote",
   "ai.pinned_never_dropped": "Fijado: nunca se descarta"

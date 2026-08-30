@@ -13901,11 +13901,13 @@ async function showNoteDialog(preset = {}) {
   broadcast.checked = preset.broadcast === true;
   parts.push(
     fieldRow(
-      'Tell everyone',
+      ZogographI18n.t('notes.broadcast_label', {}, 'Tell everyone'),
       broadcast,
-      'Shows this at the top of every page for anyone who opens the dashboard, until ' +
-        'somebody clears it. This is the difference between one person knowing about the ' +
-        'disk and three people finding out separately at two in the morning.',
+      ZogographI18n.t(
+        'notes.broadcast_help',
+        {},
+        'Shows this at the top of every page for anyone who opens the dashboard, until somebody clears it. This is the difference between one person knowing about the disk and three people finding out separately at two in the morning.',
+      ),
     ),
   );
 
@@ -13920,10 +13922,13 @@ async function showNoteDialog(preset = {}) {
   );
   parts.push(
     fieldRow(
-      'Visible to groups',
+      ZogographI18n.t('notes.audience_label', {}, 'Visible to groups'),
       audience.node,
-      'Leave every group unticked to share with everyone who may read notes. Ticking one or ' +
-        'more groups limits both this note and any broadcast made from it.',
+      ZogographI18n.t(
+        'notes.audience_help',
+        {},
+        'Leave every group unticked to share with everyone who may read notes. Ticking one or more groups limits both this note and any broadcast made from it.',
+      ),
     ),
   );
 

@@ -80,6 +80,7 @@ export default [
         ZogographAiPriceTableCard: 'readonly',
         ZogographAiToolTryCard: 'readonly',
         ZogographAiConnectionTestCard: 'readonly',
+        ZogographAiSettingsStatusCard: 'readonly',
         ZogographAiStoreCard: 'readonly',
         ZogographAiAssetGalleryCard: 'readonly',
         ZogographAiForgetFormCard: 'readonly',

@@ -5883,37 +5883,12 @@ async function refreshAiSettings() {
 function renderAiSettings(data) {
   aiSetState.data = data;
 
-  const parts = [];
-
-  if (!data.writable) {
-    parts.push(
-      note(
-        aiSettingsText(
-          'config_read_only',
-          'lib/config.php is not writable by the web server, so this page can show the settings but not change them.',
-        ),
-      ),
-    );
-  } else if (!data.can_change) {
-    parts.push(
-      note(
-        aiSettingsText(
-          'role_read_only',
-          'Your signed-in role can use the assistant but cannot change its configuration. Sign in with an administrator account to save provider credentials or model settings.',
-        ),
-      ),
-    );
-  }
-
-  if (data.enabled && !data.ready) {
-    parts.push(
-      note(
-        aiSettingsText('not_ready', 'Not ready: {{reason}}', {
-          reason: data.why,
-        }),
-      ),
-    );
-  }
+  const parts = renderCoreCardPackage(
+    ZogographAiSettingsStatusCard,
+    'core-ai-settings-status',
+    data,
+    { note, i18n: ZogographI18n },
+  );
 
   const form = document.createElement('div');
   form.className = 'settings';

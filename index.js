@@ -41515,7 +41515,13 @@ async function refreshSelf() {
 
     const value = document.createElement('div');
     value.className = 'value';
-    value.textContent = c.last_at ? `${humanDuration(c.age)} ago` : 'never';
+    value.textContent = c.last_at
+      ? ZogographI18n.t(
+          'monitor.ago',
+          { duration: humanDuration(c.age) },
+          '{{duration}} ago',
+        )
+      : ZogographI18n.t('monitor.never', {}, 'never');
     if (c.last_at) value.dataset.agoFrom = String(c.last_at);
     card.appendChild(value);
 
@@ -41523,8 +41529,14 @@ async function refreshSelf() {
     sub.className = 'sub muted';
     sub.textContent = c.last_at
       ? humanTime(c.last_at) +
-        (c.interval ? ` \u00b7 usually every ${humanDuration(c.interval)}` : '')
-      : 'has not run';
+        (c.interval
+          ? ZogographI18n.t(
+              'monitor.usually_every',
+              { duration: humanDuration(c.interval) },
+              ' · usually every {{duration}}',
+            )
+          : '')
+      : ZogographI18n.t('monitor.has_not_run', {}, 'has not run');
     card.appendChild(sub);
 
     /*
@@ -41540,15 +41552,28 @@ async function refreshSelf() {
         'sub ' + (c.state === 'stopped' ? 'band-crit' : 'band-warn');
       said.textContent =
         c.state === 'stopped'
-          ? 'not running \u2014 check the crontab'
-          : 'later than usual';
+          ? ZogographI18n.t(
+              'monitor.not_running_check_crontab',
+              {},
+              'not running — check the crontab',
+            )
+          : ZogographI18n.t('monitor.later_than_usual', {}, 'later than usual');
       card.appendChild(said);
     }
 
     card.title = `${c.what}\nRun by ${c.who}.`;
     cards.appendChild(card);
   }
-  parts.push(section('Is it still collecting?', cards));
+  parts.push(
+    section(
+      ZogographI18n.t(
+        'monitor.is_still_collecting',
+        {},
+        'Is it still collecting?',
+      ),
+      cards,
+    ),
+  );
   parts.push(
     note(
       'The ring fills as the next run approaches. A ring that has filled and is pulsing means ' +
@@ -41558,7 +41583,12 @@ async function refreshSelf() {
     ),
   );
 
-  parts.push(section('What it is using', databaseFacts(data)));
+  parts.push(
+    section(
+      ZogographI18n.t('monitor.what_it_is_using', {}, 'What it is using'),
+      databaseFacts(data),
+    ),
+  );
 
   if (data.retention) {
     const r = data.retention;

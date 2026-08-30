@@ -1,3 +1,4 @@
 {
-  "core-ai-get-network-summary.summary": "Puertos, conexiones y tráfico reciente."
+  "core-ai-get-network-summary.summary": "Puertos, conexiones y tráfico reciente.",
+  "core-ai-get-network-summary.activity": "Revisó los puertos y las conexiones"
 }

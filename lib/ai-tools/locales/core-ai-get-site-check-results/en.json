@@ -1,3 +1,4 @@
 {
-  "core-ai-get-site-check-results.summary": "Whether the watched addresses are answering."
+  "core-ai-get-site-check-results.summary": "Whether the watched addresses are answering.",
+  "core-ai-get-site-check-results.activity": "Checked whether the site is answering"
 }

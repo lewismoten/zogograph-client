@@ -1,3 +1,4 @@
 {
-  "core-ai-get-network-summary.summary": "端口、连接和最近的流量。"
+  "core-ai-get-network-summary.summary": "端口、连接和最近的流量。",
+  "core-ai-get-network-summary.activity": "查看了端口和连接"
 }

@@ -1,3 +1,4 @@
 {
-  "core-ai-get-network-summary.summary": "Ports, connections and recent traffic."
+  "core-ai-get-network-summary.summary": "Ports, connections and recent traffic.",
+  "core-ai-get-network-summary.activity": "Looked at ports and connections"
 }

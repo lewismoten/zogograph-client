@@ -28,6 +28,10 @@ releaseExpect(is_string($workflow) && str_contains($workflow, 'Create build mani
     && str_contains($workflow, 'runner-image:php-${{ matrix.php }}')
     && str_contains($workflow, 'runner-image:php-8.5'),
     'release workflow no longer creates and verifies the public build metadata required for update notices');
+releaseExpect(is_string($workflow) && str_contains($workflow, 'release=zogograph-release')
+    && str_contains($workflow, 'path: zogograph-release/')
+    && str_contains($workflow, 'test -s zogograph-release/build.json'),
+    'release workflow no longer stages a visible, verified deployment artifact');
 releaseExpect(is_string($workflow) && is_string($restoreWorkflow)
     && str_contains($workflow, 'snapshot_repository="${GITHUB_REPOSITORY##*/}"')
     && str_contains($restoreWorkflow, 'snapshot_repository="${GITHUB_REPOSITORY##*/}"')

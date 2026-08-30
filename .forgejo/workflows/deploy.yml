@@ -90,11 +90,11 @@ jobs:
         run: |
           set -euo pipefail
           command -v rsync >/dev/null || { timeout 1m apt-get update; timeout 1m apt-get install -y rsync; }
-          release=.release
+          release=zogograph-release
           mkdir -p "$release"
           timeout 1m rsync -a --delete \
             --exclude='.git/' \
-            --exclude='.release/' \
+            --exclude='zogograph-release/' \
             --exclude='dist/' \
             --exclude='data/***' \
             --exclude='lib/config.php' \
@@ -107,7 +107,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          release=.release
+          release=zogograph-release
           created_at="$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
           version="$(git describe --tags --always)"
           case "${BROWSER_REFRESH_REQUIRED:-}" in ''|false) browser_refresh_required=false;; true) browser_refresh_required=true;; *) echo 'BROWSER_REFRESH_REQUIRED must be true or false.' >&2; exit 1;; esac
@@ -128,10 +128,17 @@ jobs:
           cat "$release/build.json"
 
       - name: Upload deployment build
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s zogograph-release/build.json
+          test -n "$(find zogograph-release -type f -print -quit)"
+
+      - name: Upload deployment build artifact
         uses: https://code.forgejo.org/actions/upload-artifact@v3
         with:
           name: deployment-build
-          path: .release/
+          path: zogograph-release/
           retention-days: 1
 
   deploy:
@@ -180,7 +187,7 @@ jobs:
         uses: https://code.forgejo.org/actions/download-artifact@v3
         with:
           name: deployment-build
-          path: .release/
+          path: zogograph-release/
 
       - name: Validate deployment settings
         shell: bash
@@ -249,7 +256,7 @@ jobs:
             --exclude='lib/config.php' \
             --exclude='.well-known/' \
             -e "ssh -i $HOME/.ssh/zogograph_deploy_key -p ${DEPLOY_PORT:-22} -o BatchMode=yes -o IdentitiesOnly=yes" \
-            .release/ \
+            zogograph-release/ \
             "${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}/"
 
       - name: Verify deployed build

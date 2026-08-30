@@ -47,6 +47,11 @@ foreach ($cardFiles as $cardFile) {
         $page !== false && str_contains($page, 'src="cards/' . $cardName . '"'),
         $cardName . ' is not registered by index.html',
     );
+    i18nExpect(
+        $page !== false &&
+            substr_count($page, 'src="cards/' . $cardName . '"') === 1,
+        $cardName . ' must be registered exactly once by index.html',
+    );
 }
 if ($script !== false) {
     // Keep source-level contracts independent from the formatter's line wraps

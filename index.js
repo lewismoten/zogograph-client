@@ -44181,7 +44181,11 @@ async function refreshBackups() {
 
     wrap.appendChild(
       simpleTable(
-        ['Path', 'Size', 'Files'],
+        [
+          ZogographI18n.t('storage.path', {}, 'Path'),
+          ZogographI18n.t('storage.size', {}, 'Size'),
+          ZogographI18n.t('storage.files', {}, 'Files'),
+        ],
         root.children.map((c) => [
           c.name,
           /*

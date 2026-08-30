@@ -33879,7 +33879,7 @@ function inspectImage(data) {
     : `${data.image.format.toUpperCase()}, ${humanBytes(data.facts.size_bytes)}.`;
   wrap.appendChild(note(said));
 
-  return section('Preview', wrap);
+  return section(ZogographI18n.t('storage.preview', {}, 'Preview'), wrap);
 }
 
 function inspectHistory(data) {
@@ -33887,7 +33887,7 @@ function inspectHistory(data) {
 
   if (!history.recorded || history.rows.length < 2) {
     return section(
-      'Size over time',
+      ZogographI18n.t('storage.size_over_time', {}, 'Size over time'),
       note(
         history.recorded
           ? 'Recorded, but only once so far \u2014 there is no change to draw yet.'
@@ -33915,7 +33915,10 @@ function inspectHistory(data) {
     ),
   );
 
-  const wrap = section('Size over time', holder);
+  const wrap = section(
+    ZogographI18n.t('storage.size_over_time', {}, 'Size over time'),
+    holder,
+  );
 
   // Drawn after it is in the document, or the canvas has no width to size to.
   requestAnimationFrame(() =>
@@ -33923,7 +33926,7 @@ function inspectHistory(data) {
       xKey: 'started_at',
       axis: bytesAxis,
       zeroBased: true,
-      empty: 'No history',
+      empty: ZogographI18n.t('storage.no_history', {}, 'No history'),
     }),
   );
 

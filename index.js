@@ -19494,7 +19494,9 @@ function sessionEntryText(command) {
 /** One place that talks to the clipboard, so one place says when it cannot. */
 async function copyText(text) {
   if (!text || !text.trim()) {
-    notice('There is nothing to copy.');
+    notice(
+      ZogographI18n.t('terminal.copy_empty', {}, 'There is nothing to copy.'),
+    );
     return;
   }
 

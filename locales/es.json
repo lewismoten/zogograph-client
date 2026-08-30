@@ -895,6 +895,7 @@
   "terminal.copy_nothing": "Aún no hay nada que copiar.",
   "terminal.copy_done": "Se copiaron {{amount}}.",
   "terminal.copy_refused": "Este navegador no permitió que la página escribiera en el portapapeles.",
+  "terminal.copy_empty": "No hay nada que copiar.",
   "terminal.copy_manually": "Seleccione el comando y cópielo; este navegador no lo permitió.",
   "terminal.command_reading": "Qué hace este comando",
   "terminal.bell_title": "El comando hizo sonar la campana del terminal",

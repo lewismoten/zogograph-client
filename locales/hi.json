@@ -895,6 +895,7 @@
   "terminal.copy_nothing": "कॉपी करने के लिए अभी कुछ नहीं है।",
   "terminal.copy_done": "{{amount}} कॉपी किया गया।",
   "terminal.copy_refused": "इस ब्राउज़र ने पृष्ठ को क्लिपबोर्ड में लिखने नहीं दिया।",
+  "terminal.copy_empty": "कॉपी करने के लिए कुछ नहीं है।",
   "terminal.copy_manually": "कमांड चुनें और कॉपी करें — इस ब्राउज़र ने इसे नहीं करने दिया।",
   "terminal.command_reading": "यह कमांड क्या करता है",
   "terminal.bell_title": "कमांड ने टर्मिनल की घंटी बजाई",

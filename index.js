@@ -20737,8 +20737,11 @@ function renderReports(data) {
   }
 
   parts.push(
-    note(
-      ZogographI18n.t('reports.authorship_note', { assistant: data.who.name }),
+    renderCoreCardPackage(
+      ZogographReportsAuthorshipCard,
+      'core-reports-authorship',
+      data,
+      { note, i18n: ZogographI18n },
     ),
   );
 

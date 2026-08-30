@@ -41,6 +41,7 @@ export default [
         ZogographReportsStatusCard: 'readonly',
         ZogographReportsEmptyCard: 'readonly',
         ZogographReportsNotReadyCard: 'readonly',
+        ZogographReportsAuthorshipCard: 'readonly',
         ZogographDatabaseSnapshotsCard: 'readonly',
         ZogographHostDatabaseStorageCard: 'readonly',
         ZogographAccountDatabaseStorageCard: 'readonly',

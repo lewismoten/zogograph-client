@@ -7183,80 +7183,37 @@ function personaFields(data) {
   wrap.appendChild(personalityPicker(data, { name, emoji, personality }));
 
   if (who.portrait) {
-    const face = document.createElement('div');
-    face.className = 'portrait-block';
-
-    const image = document.createElement('img');
-    image.className = 'portrait';
-    image.src = who.portrait.url;
-    image.alt = ZogographI18n.t(
-      'image.portrait_alt',
-      { name: who.name },
-      `${who.name}, as it describes itself`,
-    );
-    face.appendChild(image);
-
-    const said = document.createElement('div');
-    said.className = 'muted small';
-    said.textContent = ZogographI18n.t(
-      'image.portrait_caption',
-      { elapsed: ago(who.portrait.at), description: who.portrait.as },
-      `Drawn ${ago(who.portrait.at)}, from: "${who.portrait.as}"`,
-    );
-    face.appendChild(said);
-
-    const clear = document.createElement('button');
-    clear.type = 'button';
-    clear.className = 'link danger';
-    clear.textContent = ZogographI18n.t(
-      'ai.clear_portrait',
-      {},
-      'Clear this portrait',
-    );
-    clear.addEventListener('click', async () => {
-      const yes = await askFirst(
-        ZogographI18n.t('ai.clear_portrait_title', {}, 'Clear the portrait?'),
-        [
-          ZogographI18n.t(
-            'ai.clear_portrait_hide',
-            {},
-            'The picture stops being shown and the emoji takes its place until it draws another one.',
-          ),
-          ZogographI18n.t(
-            'ai.clear_portrait_retention',
-            {},
-            'The record of it stays in the image log — it was generated and it cost something, and that is worth keeping whether or not the picture is shown.',
-          ),
-        ],
-        ZogographI18n.t('notes.clear', {}, 'Clear it'),
-        true,
-      );
-      if (!yes) return;
-
-      try {
-        renderAiSettings(await post('ai-portrait-clear', {}));
-        notice(ZogographI18n.t('ai.portrait_cleared', {}, 'Cleared.'), true);
-      } catch (error) {
-        notice(String(error.message || error));
-      }
-    });
-    face.appendChild(clear);
-
     form.appendChild(
-      fieldRow(
-        aiSettingsText('identity_portrait_label', 'Portrait'),
-        face,
-        aiSettingsText(
-          'identity_portrait_help',
-          'It drew this itself, the last time it was asked to. Turning off self-portraits ' +
-            'below stops it drawing another; this one stays until it does.',
-        ),
+      renderCoreCardPackage(
+        ZogographAiPortraitCard,
+        'core-ai-portrait',
+        { who },
+        {
+          fieldRow,
+          aiSettingsText,
+          ago,
+          askFirst,
+          post,
+          renderAiSettings,
+          notice,
+          aiPortraitAlt,
+          i18n: ZogographI18n,
+        },
       ),
     );
   }
 
   wrap.appendChild(form);
   return wrap;
+}
+
+/* Shared image description kept in the shell for image-accessibility tooling. */
+function aiPortraitAlt(name) {
+  return ZogographI18n.t(
+    'image.portrait_alt',
+    { name },
+    `${name}, as it describes itself`,
+  );
 }
 
 /**

@@ -2014,6 +2014,7 @@
   "gauge.load_cores_unknown": "{{load}}, núcleos desconocidos",
   "gauge.no_ceiling": "sin límite con el que comparar",
   "gauge.not_measured": "sin medir",
+  "gauge.monitoring": "Supervisión: {{value}}",
   "encryption.create_verified_copies": "Crear copias cifradas verificadas",
   "encryption.run_recovery_drill": "Ejecutar prueba de recuperación no destructiva",
   "encryption.recovery_drill_unavailable": "Cree copias cifradas verificadas antes de ejecutar una prueba de recuperación.",

@@ -1996,6 +1996,7 @@
   "gauge.load_cores_unknown": "{{load}}，核心数未知",
   "gauge.no_ceiling": "没有可供比较的上限",
   "gauge.not_measured": "尚未测量",
+  "gauge.monitoring": "监控：{{value}}",
   "encryption.create_verified_copies": "创建已验证的加密副本",
   "encryption.run_recovery_drill": "运行非破坏性恢复演练",
   "encryption.recovery_drill_unavailable": "请先创建经过验证的加密副本，再运行恢复演练。",

@@ -1996,6 +1996,7 @@
   "gauge.load_cores_unknown": "{{load}}، عدد الأنوية غير معروف",
   "gauge.no_ceiling": "لا يوجد حد للمقارنة",
   "gauge.not_measured": "لم يُقَس بعد",
+  "gauge.monitoring": "المراقبة: {{value}}",
   "encryption.create_verified_copies": "أنشئ نُسخًا مشفرة متحققًا منها",
   "encryption.run_recovery_drill": "شغّل تمرين استرداد غير هدّام",
   "encryption.recovery_drill_unavailable": "أنشئ نسخاً مشفرة متحققاً منها قبل تشغيل تمرين استرداد.",

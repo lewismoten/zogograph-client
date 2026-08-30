@@ -2010,6 +2010,7 @@
   "gauge.load_cores_unknown": "{{load}}, कोर अज्ञात",
   "gauge.no_ceiling": "मापने के लिए कोई सीमा नहीं",
   "gauge.not_measured": "अभी नहीं मापा गया",
+  "gauge.monitoring": "निगरानी: {{value}}",
   "encryption.create_verified_copies": "सत्यापित एन्क्रिप्टेड प्रतियाँ बनाएँ",
   "encryption.run_recovery_drill": "बिना नुकसान वाली पुनर्प्राप्ति जाँच चलाएँ",
   "encryption.recovery_drill_unavailable": "रिकवरी जाँच चलाने से पहले सत्यापित एन्क्रिप्टेड प्रतियां बनाएँ।",

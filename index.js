@@ -1733,7 +1733,13 @@ function buildGauge(dial) {
   if (dial.overlay != null && Number.isFinite(dial.overlay)) {
     const detail = document.createElement('div');
     detail.className = 'gauge-sub muted';
-    detail.textContent = dial.overlayLabel || `Monitoring: ${dial.overlay}`;
+    detail.textContent =
+      dial.overlayLabel ||
+      ZogographI18n.t(
+        'gauge.monitoring',
+        { value: dial.overlay },
+        'Monitoring: {{value}}',
+      );
     box.appendChild(detail);
   }
 

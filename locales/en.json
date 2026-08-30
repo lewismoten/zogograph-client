@@ -2125,6 +2125,7 @@
   "gauge.load_cores_unknown": "{{load}}, cores unknown",
   "gauge.no_ceiling": "no ceiling to measure against",
   "gauge.not_measured": "not measured",
+  "gauge.monitoring": "Monitoring: {{value}}",
   "encryption.create_verified_copies": "Create verified encrypted copies",
   "encryption.run_recovery_drill": "Run non-destructive recovery drill",
   "encryption.recovery_drill_unavailable": "Create verified encrypted copies before running a recovery drill.",

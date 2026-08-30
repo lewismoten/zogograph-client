@@ -23128,158 +23128,21 @@ async function refreshAiStore() {
 function renderAiStore(data) {
   aiStoreState.data = data;
   const body = $('aiDataBody');
-  const parts = [];
-  const who = data.who?.name ?? chatState.who.name;
-
-  if (!data.file.exists) {
-    body.replaceChildren(
-      note(
-        ZogographI18n.t(
-          'ai.store_empty',
-          { assistant: who },
-          "Nothing has been asked yet, so {{assistant}} has no database. One is made the first time a conversation starts, next to the account's own.",
-        ),
-      ),
-    );
-    $('aiCompact').hidden = true;
-    return;
-  }
-
-  $('aiCompact').hidden = false;
-  parts.push(
-    section(
-      ZogographI18n.t('ai.store_file', {}, 'The file'),
-      databaseStorageCard(data.file, null),
-    ),
-  );
-
-  if (data.why) parts.push(note(data.why));
-
-  /*
-   * What it holds, in the terms somebody deciding what to delete would use.
-   *
-   * Table names are in the section below this one. Nobody chooses to keep or
-   * discard six months of history by reading the words "ai_tool_runs".
-   */
-  const holds = document.createElement('div');
-  holds.id = 'aiHoldsTable';
-  parts.push(
-    section(
-      ZogographI18n.t(
-        'ai.store_holds',
-        { assistant: who },
-        'What {{assistant}} is keeping',
-      ),
-      holds,
-    ),
-  );
-
-  if (data.measured) {
-    const tables = document.createElement('div');
-    tables.id = 'aiTablesTable';
-    parts.push(
-      section(
-        ZogographI18n.t('ai.store_space', {}, 'Where the space goes'),
-        tables,
-      ),
-    );
-  } else if (data.table_why) {
-    parts.push(note(data.table_why));
-  }
-
-  const gallery = document.createElement('div');
-  gallery.id = 'aiAssets';
-  parts.push(
-    section(
-      ZogographI18n.t('ai.store_pictures', {}, 'Pictures it has made'),
-      gallery,
-    ),
-  );
-
-  parts.push(
-    section(
-      ZogographI18n.t('ai.store_forget_title', {}, 'Forget old conversations'),
-      aiForgetForm(who),
-    ),
-  );
-
-  body.replaceChildren(...parts);
-
-  loadAiAssets().catch(() => {});
-
-  renderTable(
-    'aiHoldsTable',
-    data.holds,
-    [
-      { label: '', render: (row) => row.label },
-      {
-        label: ZogographI18n.t('ai.store_rows', {}, 'Rows'),
-        className: 'size',
-        render: (row) => humanCount(row.rows),
-      },
-      {
-        label: ZogographI18n.t('ai.store_oldest', {}, 'Oldest'),
-        render: (row) => (row.oldest ? ago(row.oldest) : '—'),
-      },
-      {
-        label: ZogographI18n.t('ai.store_newest', {}, 'Newest'),
-        render: (row) => (row.newest ? ago(row.newest) : '—'),
-      },
-      {
-        label: ZogographI18n.t('ai.store_what', {}, 'What it is'),
-        className: 'muted',
-        render: (row) => row.note,
-      },
-    ],
-    null,
-    null,
-    (row) => row.key,
-  );
-
-  if (data.measured) {
-    /*
-     * storeTables keys its answer by table name, so this arrives as an object
-     * rather than a list - the same shape the account page reshapes for itself.
-     */
-    const tableRows = Object.entries(data.tables)
-      .map(([table, facts]) => ({ table, ...facts }))
-      .sort((a, b) => b.total_bytes - a.total_bytes);
-
-    renderTable(
-      'aiTablesTable',
-      tableRows,
-      [
-        {
-          label: ZogographI18n.t('ai.store_table', {}, 'Table'),
-          className: 'name',
-          render: (row) => row.table,
-        },
-        {
-          label: ZogographI18n.t('ai.store_rows', {}, 'Rows'),
-          className: 'size',
-          render: (row) => humanCount(row.rows),
-        },
-        {
-          label: ZogographI18n.t('ai.store_data', {}, 'Data'),
-          className: 'size',
-          render: (row) => humanBytes(row.bytes),
-        },
-        {
-          label: ZogographI18n.t('ai.store_indexes', {}, 'Indexes'),
-          className: 'size',
-          render: (row) => humanBytes(row.index_bytes),
-        },
-        {
-          label: ZogographI18n.t('ai.store_total', {}, 'Total'),
-          className: 'size',
-          render: (row) => humanBytes(row.total_bytes),
-        },
-      ],
-      null,
-      null,
-      (row) => row.table,
-    );
-  }
+  renderCoreCardPackage(ZogographAiStoreCard, 'core-ai-store', data, {
+    body,
+    assistant: chatState.who.name,
+    compactButton: $('aiCompact'),
+    note,
+    section,
+    databaseStorageCard,
+    aiForgetForm,
+    loadAiAssets,
+    renderTable,
+    humanCount,
+    humanBytes,
+    ago,
+    i18n: ZogographI18n,
+  });
 }
 
 /**

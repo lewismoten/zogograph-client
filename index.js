@@ -20092,17 +20092,27 @@ function renderTerminal(data) {
       'terminalHistory',
       data.history,
       [
-        { label: 'Command', className: 'cmd', render: (row) => row.command },
-        { label: 'When', render: (row) => ago(row.started_at) },
         {
-          label: 'Output',
+          label: ZogographI18n.t('terminal.command', {}, 'Command'),
+          className: 'cmd',
+          render: (row) => row.command,
+        },
+        {
+          label: ZogographI18n.t('terminal.when', {}, 'When'),
+          render: (row) => ago(row.started_at),
+        },
+        {
+          label: ZogographI18n.t('terminal.output', {}, 'Output'),
           className: 'size',
           // "0 B" is a size; "nothing" is what actually happened, and the two
           // read differently when you are scanning a column for the odd one out.
-          render: (row) => (row.bytes > 0 ? humanBytes(row.bytes) : 'nothing'),
+          render: (row) =>
+            row.bytes > 0
+              ? humanBytes(row.bytes)
+              : ZogographI18n.t('terminal.nothing', {}, 'nothing'),
         },
         {
-          label: 'Took',
+          label: ZogographI18n.t('terminal.took', {}, 'Took'),
           className: 'size',
           render: (row) =>
             row.took === null || row.took === undefined
@@ -20110,7 +20120,7 @@ function renderTerminal(data) {
               : humanSpan(row.took),
         },
         {
-          label: 'How it ended',
+          label: ZogographI18n.t('terminal.how_it_ended', {}, 'How it ended'),
           render: (row) =>
             terminalVerdictChip({
               running: row.running,

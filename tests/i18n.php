@@ -65,6 +65,9 @@ $cpuTimeCard = i18nCardSource(file_get_contents($root . '/cards/cpu-time.js'));
 $hostMemoryCard = i18nCardSource(
     file_get_contents($root . '/cards/host-memory.js'),
 );
+$hostDisksCard = i18nCardSource(
+    file_get_contents($root . '/cards/host-disks.js'),
+);
 $uptimeCard = i18nCardSource(file_get_contents($root . '/cards/uptime.js'));
 $onboardingCard = i18nCardSource(
     file_get_contents($root . '/cards/onboarding.js'),
@@ -714,6 +717,28 @@ i18nExpect(
             '"core-host-memory.monitoring_footprint"',
         ),
     'host memory card does not own a package locale catalog',
+);
+i18nExpect(
+    $page !== false &&
+        str_contains($page, 'src="cards/host-disks.js"') &&
+        $hostDisksCard !== false &&
+        str_contains($hostDisksCard, 'window.ZogographHostDisksCard') &&
+        str_contains($hostDisksCard, 'id: "core-host-disks"') &&
+        str_contains($hostDisksCard, 'locales: ["core-host-disks."]') &&
+        str_contains(
+            $hostDisksCard,
+            'helpers: ["target", "renderTable", "humanBytes", "i18n"]',
+        ) &&
+        str_contains($hostDisksCard, 'catalogs: Object.freeze({') &&
+        str_contains($hostDisksCard, '"core-host-disks.old_collector"') &&
+        is_array($english) &&
+        !isset($english['host.io_disks_old_collector']) &&
+        $script !== false &&
+        str_contains(
+            $script,
+            'renderCoreCardPackage(ZogographHostDisksCard, "core-host-disks",',
+        ),
+    'host disks are not isolated behind their core card-module boundary',
 );
 i18nExpect(
     $page !== false &&
@@ -2388,7 +2413,9 @@ i18nExpect(
 );
 i18nExpect(
     $script !== false &&
-        substr_count($script, "'host.io_rate_per_second'") >= 2 &&
+        str_contains($script, "'host.io_rate_per_second'") &&
+        $hostDisksCard !== false &&
+        str_contains($hostDisksCard, '"host.io_rate_per_second"') &&
         is_array($english) &&
         isset($english['host.io_rate_per_second']),
     'host I/O views do not share a localized per-second rate formatter',

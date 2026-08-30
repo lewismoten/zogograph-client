@@ -33,6 +33,7 @@ export default [
         ZogographLoadNetworkCharts: 'readonly',
         ZogographEmptyCategoriesCard: 'readonly',
         ZogographHostMemoryCard: 'readonly',
+        ZogographHostDisksCard: 'readonly',
         ZogographHostMemoryGaugesCard: 'readonly',
         ZogographNetworkGaugesCard: 'readonly',
         ZogographOtherExtensionsCard: 'readonly',

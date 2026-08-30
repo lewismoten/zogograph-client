@@ -28075,122 +28075,17 @@ function renderHostIoProcs(io) {
 }
 
 function renderHostDisks(rows, sample, sampleCount) {
-  const holder = $('hostDisks');
-  if (!holder) return;
-
-  if (!rows.length) {
-    /*
-     * Why it is empty, not just that it is.
-     *
-     * Three different reasons land here and need three different responses:
-     * the collector has not run twice yet, it ran but could not read the
-     * device counters, or it is an older build that does not collect them.
-     * "Needs two readings" was printed for all three, which is wrong twice.
-     */
-    let why;
-    /*
-     * "Not recorded" is tested before "recorded as zero", because Number(null)
-     * is 0 and the looser test swallows the other case entirely — reporting a
-     * stale deployment as a kernel that will not answer, which sends the reader
-     * to the wrong machine.
-     */
-    if (sample && sample.diskstats_available == null) {
-      why = ZogographI18n.t(
-        'host.io_disks_old_collector',
-        {},
-        'The reading was written by an older build of the collector that did not record disk counters. Upload host-cron.php and lib/, then let it run twice.',
-      );
-    } else if (sample && Number(sample.diskstats_available) === 0) {
-      why = ZogographI18n.t(
-        'host.io_disks_unreadable',
-        {},
-        'The host collector ran but could not read /proc/diskstats, even as root.',
-      );
-    } else if (sampleCount < 2) {
-      why = ZogographI18n.t(
-        'host.io_disks_needs_readings',
-        { readings: sampleCount },
-        'Needs two host readings before a rate can be worked out — there {{readings, number}} so far.',
-      );
-    } else {
-      why = ZogographI18n.t(
-        'host.io_disks_empty',
-        {},
-        'No devices were recorded in the latest reading.',
-      );
-    }
-
-    holder.replaceChildren(
-      Object.assign(document.createElement('p'), {
-        className: 'muted',
-        textContent: why,
-      }),
-    );
-    return;
-  }
-
-  const rate = (value) =>
-    value == null
-      ? '—'
-      : ZogographI18n.t(
-          'host.io_rate_per_second',
-          { amount: humanBytes(value) },
-          '{{amount}}/s',
-        );
-
-  renderTable('hostDisks', rows, [
+  return renderCoreCardPackage(
+    ZogographHostDisksCard,
+    'core-host-disks',
+    { rows, sample, sampleCount },
     {
-      label: ZogographI18n.t('host.io_device', {}, 'Device'),
-      render: (row) => {
-        if (!row.stacked) return row.name;
-        const box = document.createElement('span');
-        box.appendChild(document.createTextNode(row.name));
-        const note = document.createElement('span');
-        note.className = 'muted small';
-        note.textContent = ZogographI18n.t('host.io_stacked', {}, ' · stacked');
-        note.title = ZogographI18n.t(
-          'host.io_stacked_tip',
-          {},
-          'A volume mapped onto another device. Its traffic is already counted there, so it is not added into any total.',
-        );
-        box.appendChild(note);
-        return box;
-      },
+      target: $('hostDisks'),
+      renderTable,
+      humanBytes,
+      i18n: ZogographI18n,
     },
-    {
-      label: ZogographI18n.t('host.io_read', {}, 'Read'),
-      className: 'size',
-      render: (row) => rate(row.read_rate),
-    },
-    {
-      label: ZogographI18n.t('host.io_written', {}, 'Written'),
-      className: 'size',
-      render: (row) => rate(row.write_rate),
-    },
-    {
-      label: ZogographI18n.t('host.io_busy', {}, 'Busy'),
-      className: 'size',
-      render: (row) => {
-        if (row.util_percent == null) return '—';
-        const span = document.createElement('span');
-        span.textContent = `${Number(row.util_percent).toFixed(0)}%`;
-        // Saturated is worth a colour; merely busy is not.
-        if (row.util_percent >= 90) span.className = 'grew';
-        return span;
-      },
-    },
-    {
-      label: ZogographI18n.t('host.io_queue', {}, 'Queue'),
-      className: 'size',
-      render: (row) =>
-        row.queue_depth == null ? '—' : Number(row.queue_depth).toFixed(2),
-    },
-    {
-      label: ZogographI18n.t('host.io_in_flight', {}, 'In flight'),
-      className: 'size',
-      render: (row) => row.in_flight,
-    },
-  ]);
+  );
 }
 
 /**

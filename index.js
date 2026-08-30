@@ -18779,124 +18779,24 @@ async function openSession(id) {
 }
 
 function renderSessionLog() {
-  const panel = $('sessionLogPanel');
-  const data = sessionState.log;
-  if (!data) {
-    panel.hidden = true;
-    return;
-  }
-
-  panel.hidden = false;
-
-  const session = data.session;
-  $('sessionLogTitle').textContent =
-    session?.topic || `Session of ${whenLabel(session?.started_at ?? 0)}`;
-
-  /*
-   * The four things worth taking away, which are four different jobs.
-   *
-   * Just the commands is what goes in a runbook or a ticket. One command with
-   * its output is what you send somebody who asked about that one. The whole
-   * log is the record of the sitting. And the last output is what goes into a
-   * search box.
-   */
-  const copies = [
-    [
-      'Copy just the commands',
-      () => data.commands.map((c) => c.command).join('\n'),
-    ],
-    [
-      'Copy the whole log',
-      () => data.commands.map(sessionEntryText).join('\n\n'),
-    ],
-    ['Copy the last output', () => stripAnsi(data.commands.at(-1)?.text || '')],
-  ];
-
-  const row = $('sessionLogCopy');
-  row.replaceChildren();
-  for (const [label, take] of copies) {
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.className = 'link';
-    button.textContent = label;
-    button.addEventListener('click', () => copyText(take()));
-    row.appendChild(button);
-  }
-
-  const body = $('sessionLogBody');
-  if (!data.commands.length) {
-    body.replaceChildren(
-      note(
-        ZogographI18n.t(
-          'terminal.session_empty',
-          {},
-          'Nothing was run in this one, or it has been swept.',
-        ),
-      ),
-    );
-    return;
-  }
-
-  const frag = document.createDocumentFragment();
-
-  for (const command of data.commands) {
-    const entry = terminalEntry({
-      command: command.command,
-      text: command.text || '',
-      running: command.running,
-      took: command.took,
-      exit_code: command.exit_code,
-      timed_out: command.timed_out,
-      stopped_by: command.stopped_by,
-    });
-
-    // Which command this was, so one of them can be copied on its own.
-    const tools = document.createElement('div');
-    tools.className = 'term-copy';
-
-    const one = document.createElement('button');
-    one.type = 'button';
-    one.className = 'link';
-    one.textContent = ZogographI18n.t(
-      'terminal.copy_entry',
-      {},
-      'Copy this one',
-    );
-    one.addEventListener('click', () => copyText(sessionEntryText(command)));
-    tools.appendChild(one);
-
-    if (command.text) {
-      const just = document.createElement('button');
-      just.type = 'button';
-      just.className = 'link';
-      just.textContent = ZogographI18n.t(
-        'terminal.copy_entry_output',
-        {},
-        'Copy only its output',
-      );
-      just.addEventListener('click', () => copyText(stripAnsi(command.text)));
-      tools.appendChild(just);
-    }
-
-    if (command.text_from_end) {
-      const said = document.createElement('span');
-      said.className = 'muted small';
-      said.textContent = ZogographI18n.t(
-        'terminal.output_tail',
-        {},
-        'the end of a longer output',
-      );
-      tools.appendChild(said);
-    }
-
-    entry.appendChild(tools);
-    frag.appendChild(entry);
-  }
-
-  const wrap = document.createElement('div');
-  wrap.className = 'term-out session-log';
-  wrap.appendChild(frag);
-  body.replaceChildren(wrap);
+  renderCoreCardPackage(
+    ZogographTerminalSessionLogCard,
+    'core-terminal-session-log',
+    sessionState.log,
+    {
+      panel: $('sessionLogPanel'),
+      title: $('sessionLogTitle'),
+      copies: $('sessionLogCopy'),
+      body: $('sessionLogBody'),
+      whenLabel,
+      sessionEntryText,
+      stripAnsi,
+      copyText,
+      note,
+      terminalEntry,
+      i18n: ZogographI18n,
+    },
+  );
 }
 
 /** One command as it reads in a copied log. */

@@ -217,7 +217,6 @@
   "action.see": "देखें",
   "url.method_get": "GET — पेज प्राप्त करें",
   "url.sign_in_to_watch": "URL देखने के लिए साइन इन करें।",
-  "url.nothing_watched": "कुछ भी नहीं देखा जा रहा है। वह पता जोड़ें जिसे कोई वास्तव में लिखेगा — मुखपृष्ठ, या डेटाबेस को छूने वाला स्वास्थ्य एंडपॉइंट।",
   "url.switched_off": "बंद है।",
   "url.not_checked_yet": "अभी जाँचा नहीं गया।",
   "url.answered_expected": "अपेक्षा के अनुसार {{status, number}} उत्तर दिया।",

@@ -33580,17 +33580,14 @@ function renderUrls(data) {
   const body = $('urlBody');
 
   if (!data.rows.length) {
-    body.replaceChildren(
-      note(
-        ZogographI18n.t(
-          'url.nothing_watched',
-          {},
-          'Nothing is being watched. Add the address somebody would actually type — the ' +
-            'home page, or a health endpoint that touches the database.',
-        ),
-      ),
-    );
-    $('urlHistoryPanel').hidden = true;
+    renderCoreCardPackage(ZogographUrlsEmptyCard, 'core-urls-empty', data, {
+      target: body,
+      hideHistory: () => {
+        $('urlHistoryPanel').hidden = true;
+      },
+      note,
+      i18n: ZogographI18n,
+    });
     return;
   }
 

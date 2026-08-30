@@ -217,7 +217,6 @@
   "action.see": "عرض",
   "url.method_get": "GET — اجلب الصفحة",
   "url.sign_in_to_watch": "سجّل الدخول لمراقبة عنوان URL.",
-  "url.nothing_watched": "لا يجري مراقبة شيء. أضف العنوان الذي سيكتبه شخص فعليًا — الصفحة الرئيسية أو نقطة فحص حالة تصل إلى قاعدة البيانات.",
   "url.switched_off": "موقوف.",
   "url.not_checked_yet": "لم يُفحص بعد.",
   "url.answered_expected": "أجاب بـ {{status, number}} كما هو متوقع.",

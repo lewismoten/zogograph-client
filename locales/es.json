@@ -217,7 +217,6 @@
   "action.see": "Ver",
   "url.method_get": "GET — obtener la página",
   "url.sign_in_to_watch": "Inicie sesión para vigilar una URL.",
-  "url.nothing_watched": "No se vigila nada. Añada la dirección que alguien escribiría realmente: la página de inicio o un punto de comprobación de estado que consulte la base de datos.",
   "url.switched_off": "Desactivado.",
   "url.not_checked_yet": "Aún no se ha comprobado.",
   "url.answered_expected": "Respondió {{status, number}} como se esperaba.",

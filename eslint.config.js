@@ -58,6 +58,7 @@ export default [
         ZogographLabelsEmptyCard: 'readonly',
         ZogographDnsEmptyCard: 'readonly',
         ZogographNotesEmptyCard: 'readonly',
+        ZogographUrlsEmptyCard: 'readonly',
         ZogographCagefsMountsCard: 'readonly',
         ZogographLogRepeatsCard: 'readonly',
         ZogographLogStreamSummaryCard: 'readonly',

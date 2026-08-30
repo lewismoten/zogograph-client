@@ -10761,7 +10761,11 @@ async function runBrowserTool(run) {
       const subject = String(run.arguments.subject || '');
       const label = TOOL_GROUP_NAMES[subject] ?? subject;
       notice(
-        `${chatState.who.name} requested ${label} tools — review and save the choice.`,
+        ZogographI18n.t(
+          'ai.tool_group_requested',
+          { assistant: chatState.who.name, group: label },
+          '{{assistant}} requested {{group}} tools — review and save the choice.',
+        ),
         true,
       );
       location.hash = '#/sys-ai-tools';

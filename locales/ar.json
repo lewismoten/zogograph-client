@@ -755,6 +755,7 @@
   "ai.tool_description_title": "الوصف الدقيق الذي يُعطى للنموذج لهذه الأداة",
   "ai.tool_description_help": "هذا ما يقرؤه النموذج قبل أن يقرر استخدامها. فقرة «لا تستخدم هذا عندما…» تمنع قرارًا خاطئًا بثقة.",
   "ai.tool_subject_intro": "يبدأ {{assistant}} بأدوات التشخيص. فعّل أدوات {{group}} إذا احتاجت هذه المحادثة إلى ذلك الموضوع.",
+  "ai.tool_group_requested": "طلب {{assistant}} أدوات {{group}} — راجع الاختيار واحفظه.",
   "ai.tool_subject_all_enabled": "كل أدوات {{group}} مفعلة لـ {{assistant}}.",
   "ai.enable_subject": "فعّل هذا الموضوع ({{count}})",
   "ai.subject_enabled_save": "تم تفعيل الموضوع — احفظ الإعدادات",

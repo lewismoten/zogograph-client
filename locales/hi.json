@@ -769,6 +769,7 @@
   "ai.tool_description_title": "इस टूल के लिए मॉडल को दिया गया सटीक वर्णन",
   "ai.tool_description_help": "यह वही है जो मॉडल इसका उपयोग करने से पहले पढ़ता है। “इसका उपयोग तब न करें जब…” वाला भाग आत्मविश्वास से लिया गया गलत निर्णय रोकता है।",
   "ai.tool_subject_intro": "{{assistant}} निदान टूल से शुरू होता है। यदि इस बातचीत को उस विषय की जरूरत है तो {{group}} टूल सक्षम करें।",
+  "ai.tool_group_requested": "{{assistant}} ने {{group}} टूल का अनुरोध किया — विकल्प की समीक्षा कर सहेजें।",
   "ai.tool_subject_all_enabled": "{{assistant}} के लिए सभी {{group}} टूल सक्षम हैं।",
   "ai.enable_subject": "यह विषय सक्षम करें ({{count}})",
   "ai.subject_enabled_save": "विषय सक्षम हुआ — सेटिंग सहेजें",

@@ -755,6 +755,7 @@
   "ai.tool_description_title": "为此工具提供给模型的准确描述",
   "ai.tool_description_help": "这是模型决定是否使用它之前会阅读的内容。“不要在……时使用此工具”这一部分可避免自信但错误的调用。",
   "ai.tool_subject_intro": "{{assistant}} 从诊断工具开始。如果此对话需要该主题，请启用 {{group}} 工具。",
+  "ai.tool_group_requested": "{{assistant}} 请求使用 {{group}} 工具；请检查并保存此选择。",
   "ai.tool_subject_all_enabled": "已为 {{assistant}} 启用所有 {{group}} 工具。",
   "ai.enable_subject": "启用此主题 ({{count}})",
   "ai.subject_enabled_save": "主题已启用，请保存设置",

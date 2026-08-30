@@ -31,11 +31,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
+      # Node and npm are baked into the zogograph-ci image.  Avoid setup-node:
+      # it downloads a toolchain during every job and can starve the DIND API.
+      - name: Verify bundled Node runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --version
+          npm --version
 
       - name: Install formatting tools
         shell: bash

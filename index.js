@@ -32755,37 +32755,12 @@ function fileTypeOfName(name) {
 
 /* What the current colouring means, said in words under the map. */
 function renderTreeLegend() {
-  const legend = $('treeLegend');
-  const entries =
-    treeState.colourBy === 'type'
-      ? [
-          ...Object.keys(TYPE_EXTENSIONS).map((type) => [
-            type,
-            typeColor(type),
-          ]),
-          ['other', typeColor('other')],
-          ['directory', '#2f6f8f'],
-        ]
-      : [
-          ['touched today', '#c9603f'],
-          ['this week', '#b08040'],
-          ['this quarter', '#6b7f3a'],
-          ['older', '#41603f'],
-          ['directory', '#2f6f8f'],
-        ];
-
-  const frag = document.createDocumentFragment();
-  for (const [label, colour] of [
-    ...entries,
-    ['symlink', '#4a4a4a'],
-    ['pooled', '#3a3a3a'],
-  ]) {
-    const span = document.createElement('span');
-    span.style.setProperty('--dot', colour);
-    span.textContent = label;
-    frag.appendChild(span);
-  }
-  legend.replaceChildren(frag);
+  renderCoreCardPackage(
+    ZogographTreemapLegendCard,
+    'core-treemap-legend',
+    { colourBy: treeState.colourBy, types: Object.keys(TYPE_EXTENSIONS) },
+    { target: $('treeLegend'), typeColor, i18n: ZogographI18n },
+  );
 }
 
 function drawTreemap() {

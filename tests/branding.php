@@ -16,6 +16,7 @@ brandingExpect(brandName(['branding' => ['name' => "bad\nname"]]) === 'Zogograph
 $setup = file_get_contents(__DIR__ . '/../setup.php');
 $openid = file_get_contents(__DIR__ . '/../openid.php');
 $peerConnect = file_get_contents(__DIR__ . '/../peer-connect.php');
+$health = file_get_contents(__DIR__ . '/../health.php');
 brandingExpect($setup !== false && str_contains($setup, '$issuer = rawurlencode($brand)'),
     'authenticator issuer does not use the configured product brand');
 brandingExpect($setup !== false && str_contains($setup, '$brand = brandName($existing ?? [])')
@@ -29,5 +30,9 @@ brandingExpect($peerConnect !== false && str_contains($peerConnect, '$brand = br
     && str_contains($peerConnect, 'htmlspecialchars($brand, ENT_QUOTES)')
     && str_contains($peerConnect, 'Peer connection</title>'),
     'peer-connect page does not use the shared configured brand');
+brandingExpect($health !== false && str_contains($health, "require_once \$root . '/lib/branding.php';")
+    && str_contains($health, '$brand = brandName([]);')
+    && str_contains($health, '<?= esc($brand) ?> — health'),
+    'health page does not use the central fallback brand without loading configuration');
 
 echo "branding checks passed\n";

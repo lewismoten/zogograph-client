@@ -24,6 +24,8 @@ header('Cache-Control: no-store');
 header('X-Content-Type-Options: nosniff');
 
 $root = __DIR__;
+require_once $root . '/lib/branding.php';
+$brand = brandName([]);
 
 /** Each file the app needs, and whether PHP can actually parse it. */
 $required = [
@@ -289,7 +291,7 @@ function esc(string $text): string
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Zogograph — health</title>
+<title><?= esc($brand) ?> — health</title>
 <style>
 :root { color-scheme: dark; }
 body {
@@ -310,7 +312,7 @@ code { background: #000; padding: 1px 5px; border-radius: 4px; }
 </head>
 <body>
 
-<h1>Zogograph — health</h1>
+<h1><?= esc($brand) ?> — health</h1>
 
 <p class="verdict <?= $missing === 0 && $broken === 0 ? 'ok' : '' ?>"><?= esc($verdict) ?></p>
 

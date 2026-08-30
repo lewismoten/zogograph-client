@@ -174,10 +174,13 @@ i18nExpect($hostMemoryGaugesCard !== false && str_contains($hostMemoryGaugesCard
     'host memory gauges do not own a package locale catalog');
 i18nExpect($page !== false && str_contains($page, 'src="cards/overview-gauges.js"')
     && $overviewGaugesCard !== false && str_contains($overviewGaugesCard, 'window.ZogographOverviewGaugesCard')
-    && str_contains($overviewGaugesCard, 'id: "core-overview-gauges"') && str_contains($overviewGaugesCard, 'locales: ["gauge."]')
+    && str_contains($overviewGaugesCard, 'id: "core-overview-gauges"') && str_contains($overviewGaugesCard, 'locales: ["core-overview-gauges."]')
     && str_contains($overviewGaugesCard, 'helpers: ["target", "buildGauge", "gaugeSeries", "humanBytes", "i18n"]')
     && str_contains($script, 'renderCoreCardPackage(ZogographOverviewGaugesCard, "core-overview-gauges",'),
     'overview gauges are not isolated behind their core card-module boundary');
+i18nExpect($overviewGaugesCard !== false && str_contains($overviewGaugesCard, 'catalogs: Object.freeze({')
+    && str_contains($overviewGaugesCard, '"core-overview-gauges.nothing_collected"'),
+    'overview gauges do not own a package locale catalog');
 i18nExpect($page !== false && str_contains($page, 'src="cards/action-summary.js"')
     && $actionSummaryCard !== false && str_contains($actionSummaryCard, 'window.ZogographActionSummaryCard')
     && str_contains($actionSummaryCard, 'id: "core-action-summary"') && str_contains($actionSummaryCard, 'locales: ["core-action-summary."]')

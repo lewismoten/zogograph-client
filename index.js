@@ -22696,26 +22696,49 @@ async function runAiTry(tool) {
       const { result, shown } = await tryBrowserTool(tool, args);
       const parts = [];
 
-      if (shown) parts.push(section('What you would have seen', shown));
+      if (shown)
+        parts.push(
+          section(
+            ZogographI18n.t(
+              'ai.try_browser_shown',
+              {},
+              'What you would have seen',
+            ),
+            shown,
+          ),
+        );
 
       parts.push(
-        section('What it was given', jsonBlock(JSON.stringify(args, null, 2))),
+        section(
+          ZogographI18n.t('ai.try_arguments', {}, 'What it was given'),
+          jsonBlock(JSON.stringify(args, null, 2)),
+        ),
       );
       parts.push(
         section(
-          'What the model gets back',
+          ZogographI18n.t(
+            'ai.try_browser_result',
+            {},
+            'What the model gets back',
+          ),
           jsonBlock(JSON.stringify(result, null, 2)),
         ),
       );
       parts.push(
         note(
-          'This ran in this window, which is where it runs in a conversation too. The ' +
-            'only difference is that the result is shown here instead of being handed ' +
-            'back to the model.',
+          ZogographI18n.t(
+            'ai.try_browser_help',
+            {},
+            'This ran in this window, which is where it runs in a conversation too. The only difference is that the result is shown here instead of being handed back to the model.',
+          ),
         ),
       );
 
-      said.textContent = `${Math.round(performance.now() - began)}ms, in this window`;
+      said.textContent = ZogographI18n.t(
+        'ai.try_browser_timing',
+        { ms: Math.round(performance.now() - began) },
+        '{{ms}} ms, in this window',
+      );
       showTryResult(parts);
     } catch (error) {
       said.textContent = '';
@@ -22735,12 +22758,22 @@ async function runAiTry(tool) {
     if (!result.ok) {
       said.textContent = '';
       showTryResult([
-        note(`Refused before it ran: ${result.refused}\n\n${result.note}`),
+        note(
+          ZogographI18n.t(
+            'ai.try_refused',
+            { reason: result.refused, note: result.note },
+            'Refused before it ran: {{reason}}\n\n{{note}}',
+          ),
+        ),
       ]);
       return;
     }
 
-    said.textContent = `${result.ms}ms, ${humanBytes(result.bytes)} back`;
+    said.textContent = ZogographI18n.t(
+      'ai.try_server_timing',
+      { ms: result.ms, size: humanBytes(result.bytes) },
+      '{{ms}} ms, {{size}} back',
+    );
 
     const parts = [];
 
@@ -22752,10 +22785,23 @@ async function runAiTry(tool) {
         result.picture.prompt ||
         ZogographI18n.t('image.generated', {}, 'A generated picture');
       picture.loading = 'lazy';
-      parts.push(section('Generated picture', picture));
+      parts.push(
+        section(
+          ZogographI18n.t('ai.try_generated_picture', {}, 'Generated picture'),
+          picture,
+        ),
+      );
       parts.push(
         note(
-          `Style: ${result.picture.style || 'not reported'}. This is the image the tool just made.`,
+          ZogographI18n.t(
+            'ai.try_picture_note',
+            {
+              style:
+                result.picture.style ||
+                ZogographI18n.t('ai.try_not_reported', {}, 'not reported'),
+            },
+            'Style: {{style}}. This is the image the tool just made.',
+          ),
         ),
       );
     }
@@ -22777,13 +22823,13 @@ async function runAiTry(tool) {
      */
     parts.push(
       section(
-        'What it was given',
+        ZogographI18n.t('ai.try_arguments', {}, 'What it was given'),
         jsonBlock(JSON.stringify(result.arguments, null, 2)),
       ),
     );
     parts.push(
       section(
-        'What came back',
+        ZogographI18n.t('ai.try_result', {}, 'What came back'),
         jsonBlock(JSON.stringify(result.result, null, 2)),
       ),
     );
@@ -22792,9 +22838,11 @@ async function runAiTry(tool) {
 
     parts.push(
       note(
-        'This is exactly what the model would receive, in the same shape. If an answer ' +
-          'looked wrong, this is what it was based on. The line numbers are drawn rather ' +
-          'than written, so copying this gives you the JSON and nothing else.',
+        ZogographI18n.t(
+          'ai.try_result_help',
+          {},
+          'This is exactly what the model would receive, in the same shape. If an answer looked wrong, this is what it was based on. The line numbers are drawn rather than written, so copying this gives you the JSON and nothing else.',
+        ),
       ),
     );
 

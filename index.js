@@ -40678,7 +40678,11 @@ function renderLogStream(data) {
       const frames = document.createElement('span');
       frames.className = 'stream-frames muted';
       frames.textContent = `+${row.trace.length}`;
-      frames.title = `${count(row.trace.length, 'stack-trace line')} folded in. Click to read.`;
+      frames.title = ZogographI18n.t(
+        'log.stack_trace_folded',
+        { count: humanCount(row.trace.length) },
+        `${humanCount(row.trace.length)} stack-trace lines folded in. Click to read.`,
+      );
       line.appendChild(frames);
     }
 

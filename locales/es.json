@@ -289,6 +289,7 @@
   "process.busy_cpu_explained": "La lectura fue {{value}} %. Estos eran los procesos más ocupados en ese momento; ps informa un promedio de vida por núcleo, por lo que no sumarán esa cifra.",
   "process.busy_cpu_burst": "La lectura fue {{value}} %, pero nada de la lista usaba CPU medible: lo que la causó ya había terminado al tomar la lista de procesos. Una ráfaga, no carga constante.",
   "process.busy_row_processes": "{{name}} ({{count}} procesos)",
+  "log.stack_trace_folded": "{{count}} líneas de seguimiento de pila ocultas. Haga clic para leer.",
   "process.unavailable": "No se puede leer aquí la lista de procesos.",
   "process.no_matches": "Nada entre los {{scanned}} procesos en ejecución coincide con eso.",
   "process.matches_summary": "Coinciden {{matched}} de los {{scanned}} procesos en ejecución.",

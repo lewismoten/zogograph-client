@@ -289,6 +289,7 @@
   "process.busy_cpu_explained": "The reading was {{value}}%. These were the busiest processes at that moment — ps reports a lifetime average per core, so they will not add up to it.",
   "process.busy_cpu_burst": "The reading was {{value}}%, but nothing in the list was using measurable CPU: whatever caused it had already finished when the process list was taken. A burst rather than steady load.",
   "process.busy_row_processes": "{{name}} ({{count}} processes)",
+  "log.stack_trace_folded": "{{count}} stack-trace lines folded in. Click to read.",
   "process.unavailable": "Cannot read the process list here.",
   "process.no_matches": "Nothing among the {{scanned}} running processes matches that.",
   "process.matches_summary": "Matches {{matched}} of the {{scanned}} running processes.",

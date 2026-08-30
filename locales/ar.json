@@ -289,6 +289,7 @@
   "process.busy_cpu_explained": "كانت القراءة {{value}}٪. كانت هذه أكثر العمليات انشغالًا في تلك اللحظة — يبلغ ps عن متوسط طوال العمر لكل نواة، لذا لن تجمع إليها.",
   "process.busy_cpu_burst": "كانت القراءة {{value}}٪، لكن لا شيء في القائمة كان يستخدم CPU قابلًا للقياس: كان ما تسبب فيها قد انتهى عند أخذ قائمة العمليات. دفعة لا حمل ثابت.",
   "process.busy_row_processes": "{{name}} ({{count}} عمليات)",
+  "log.stack_trace_folded": "{{count}} سطور تتبع مكدس مطوية. انقر للقراءة.",
   "process.unavailable": "تعذر قراءة قائمة العمليات هنا.",
   "process.no_matches": "لا شيء بين عمليات التشغيل {{scanned}} يطابق ذلك.",
   "process.matches_summary": "تطابق {{matched}} من عمليات التشغيل {{scanned}}.",

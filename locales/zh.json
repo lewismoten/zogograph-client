@@ -289,6 +289,7 @@
   "process.busy_cpu_explained": "读数为 {{value}}%。这些是当时最忙的进程——ps 按每个核心报告生命周期平均值，因此它们不会相加等于该读数。",
   "process.busy_cpu_burst": "读数为 {{value}}%，但列表中没有内容使用可测量的 CPU：导致该读数的内容在获取进程列表时已结束。这是突发而非持续负载。",
   "process.busy_row_processes": "{{name}}（{{count}} 个进程）",
+  "log.stack_trace_folded": "已折叠 {{count}} 行堆栈跟踪。点击阅读。",
   "process.unavailable": "无法在此读取进程列表。",
   "process.no_matches": "{{scanned}} 个运行中的进程没有任何匹配项。",
   "process.matches_summary": "{{scanned}} 个运行中的进程中有 {{matched}} 个匹配。",

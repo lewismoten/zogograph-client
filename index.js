@@ -33692,15 +33692,37 @@ function renderInspect(data) {
  */
 function modeInWords(mode, isDir) {
   const digits = String(mode).padStart(4, '0').slice(-3);
-  const who = ['owner', 'group', 'everyone else'];
+  const who = [
+    ZogographI18n.t('storage.permission_owner', {}, 'owner'),
+    ZogographI18n.t('storage.permission_group', {}, 'group'),
+    ZogographI18n.t('storage.permission_everyone_else', {}, 'everyone else'),
+  ];
 
   const said = [...digits].map((d, i) => {
     const bits = Number(d);
     const can = [];
-    if (bits & 4) can.push('read');
-    if (bits & 2) can.push('write');
-    if (bits & 1) can.push(isDir ? 'enter' : 'run');
-    return `${who[i]}: ${can.length ? can.join(' and ') : 'nothing'}`;
+    if (bits & 4)
+      can.push(ZogographI18n.t('storage.permission_read', {}, 'read'));
+    if (bits & 2)
+      can.push(ZogographI18n.t('storage.permission_write', {}, 'write'));
+    if (bits & 1)
+      can.push(
+        ZogographI18n.t(
+          isDir ? 'storage.permission_enter' : 'storage.permission_run',
+          {},
+          isDir ? 'enter' : 'run',
+        ),
+      );
+    return ZogographI18n.t(
+      'storage.permission_detail',
+      {
+        who: who[i],
+        permissions: can.length
+          ? can.join(ZogographI18n.t('storage.permission_and', {}, ' and '))
+          : ZogographI18n.t('storage.permission_nothing', {}, 'nothing'),
+      },
+      '{{who}}: {{permissions}}',
+    );
   });
 
   return said.join(', ');

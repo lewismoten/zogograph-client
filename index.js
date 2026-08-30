@@ -34303,6 +34303,20 @@ async function refreshDiagnosis() {
   }
 
   if (!data.findings.length) {
+    if (window.ZogographDiagnosisResultsCard) {
+      return renderCoreCardPackage(
+        ZogographDiagnosisResultsCard,
+        'core-diagnosis-results',
+        { findings: [], ignored: [], can_restore: false },
+        {
+          target: body,
+          section,
+          findingRow,
+          restore: () => {},
+          i18n: ZogographI18n,
+        },
+      );
+    }
     body.replaceChildren(
       Object.assign(document.createElement('p'), {
         className: 'band-ok',
@@ -34317,6 +34331,40 @@ async function refreshDiagnosis() {
   }
 
   const wrap = document.createDocumentFragment();
+
+  if (window.ZogographDiagnosisResultsCard) {
+    return renderCoreCardPackage(
+      ZogographDiagnosisResultsCard,
+      'core-diagnosis-results',
+      {
+        findings: data.findings,
+        ignored: data.ignored || [],
+        can_restore: Boolean(state.access?.write),
+      },
+      {
+        target: body,
+        section,
+        findingRow,
+        restore: async (finding) => {
+          try {
+            await post('diagnosis-unignore', { key: finding.key });
+            await refreshDiagnosis();
+            notice(
+              ZogographI18n.t(
+                'alert.finding_recheck_queued',
+                {},
+                'The finding will be checked again.',
+              ),
+              true,
+            );
+          } catch (error) {
+            notice(String(error.message || error));
+          }
+        },
+        i18n: ZogographI18n,
+      },
+    );
+  }
 
   const worst = data.findings[0].level;
   const headline = document.createElement('p');

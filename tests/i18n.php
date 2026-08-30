@@ -109,6 +109,9 @@ $hostDatabaseStorageCard = i18nCardSource(
 $accountDatabaseStorageCard = i18nCardSource(
     file_get_contents($root . '/cards/account-database-storage.js'),
 );
+$diagnosisResultsCard = i18nCardSource(
+    file_get_contents($root . '/cards/diagnosis-results.js'),
+);
 $networkPeersCard = i18nCardSource(
     file_get_contents($root . '/cards/network-peers.js'),
 );
@@ -380,6 +383,28 @@ i18nExpect(
             'helpers.i18n.registerCatalog(locale, catalog, false, id)',
         ),
     'core card package catalogs are not namespace-registered before their first render',
+);
+i18nExpect(
+    $page !== false &&
+        str_contains($page, 'src="cards/diagnosis-results.js"') &&
+        $diagnosisResultsCard !== false &&
+        str_contains(
+            $diagnosisResultsCard,
+            'window.ZogographDiagnosisResultsCard',
+        ) &&
+        str_contains($diagnosisResultsCard, 'id: "core-diagnosis-results"') &&
+        str_contains(
+            $diagnosisResultsCard,
+            'locales: ["core-diagnosis-results."]',
+        ) &&
+        str_contains($diagnosisResultsCard, 'catalogs: Object.freeze({') &&
+        str_contains($diagnosisResultsCard, '"core-diagnosis-results.none"') &&
+        $script !== false &&
+        str_contains(
+            $script,
+            'renderCoreCardPackage(ZogographDiagnosisResultsCard, "core-diagnosis-results",',
+        ),
+    'diagnosis results are not isolated behind their core card-module boundary',
 );
 i18nExpect(
     $page !== false &&

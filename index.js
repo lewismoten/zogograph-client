@@ -24609,7 +24609,7 @@ async function refreshNetwork() {
   });
   renderInterfaces(data.interfaces || []);
   renderPorts(data);
-  renderPeers(data);
+  renderNetworkPeers(data);
   renderCaptureRequest(data);
   renderCapture(data.capture);
 }
@@ -24746,7 +24746,7 @@ function renderPorts(data) {
   ], null, null, row => `${row.protocol}:${row.port}`);
 }
 
-function renderPeers(data) {
+function renderNetworkPeers(data) {
   const rows = data.peers || [];
   if (!rows.length) {
     $("peersBody").replaceChildren(note(

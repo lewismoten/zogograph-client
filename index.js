@@ -25666,10 +25666,10 @@ function renderUrlHistory(data) {
     holder.id = "urlFailureTable";
     $("urlFailures").replaceChildren(holder);
     renderTable("urlFailureTable", failures.slice(-40).reverse(), [
-      { label: "When", render: row => whenSpan(row.at) },
-      { label: "Status", className: "size", render: row => row.status || "no answer" },
-      { label: "Took", className: "size", render: row => `${row.ms} ms` },
-      { label: "Why", className: "cmd", render: row => row.error || "" },
+      { label: ZogographI18n.t("url.when", {}, "When"), render: row => whenSpan(row.at) },
+      { label: ZogographI18n.t("url.status_label", {}, "Status"), className: "size", render: row => row.status || ZogographI18n.t("url.no_answer", {}, "no answer") },
+      { label: ZogographI18n.t("url.took", {}, "Took"), className: "size", render: row => ZogographI18n.t("url.took_ms", { ms: row.ms }, "{{ms}} ms") },
+      { label: ZogographI18n.t("url.why", {}, "Why"), className: "cmd", render: row => row.error || "" },
     ], null, null, row => String(row.at));
   } else {
     $("urlFailures").replaceChildren();

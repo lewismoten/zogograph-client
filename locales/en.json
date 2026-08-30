@@ -2975,6 +2975,8 @@
   "notes.saving_and_capturing": "Saving and capturing…",
   "dialog.details": "Details",
   "dialog.page_help": "Page help",
+  "dialog.this_page": "This page",
+  "dialog.view_help": "{{view}} help",
   "dialog.are_you_sure": "Are you sure?",
   "action.cancel": "Cancel",
   "action.yes": "Yes",

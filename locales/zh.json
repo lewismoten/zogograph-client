@@ -2872,6 +2872,8 @@
   "notes.saving_and_capturing": "正在保存并捕获…",
   "dialog.details": "详细信息",
   "dialog.page_help": "页面帮助",
+  "dialog.this_page": "此页面",
+  "dialog.view_help": "{{view}} 帮助",
   "dialog.are_you_sure": "确定吗？",
   "action.cancel": "取消",
   "action.yes": "是",

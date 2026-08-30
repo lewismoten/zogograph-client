@@ -2890,6 +2890,8 @@
   "notes.saving_and_capturing": "Guardando y capturando…",
   "dialog.details": "Detalles",
   "dialog.page_help": "Ayuda de la página",
+  "dialog.this_page": "Esta página",
+  "dialog.view_help": "Ayuda de {{view}}",
   "dialog.are_you_sure": "¿Está seguro?",
   "action.cancel": "Cancelar",
   "action.yes": "Sí",

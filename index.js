@@ -44182,7 +44182,14 @@ function showPageHelp() {
   const title = $('pageHelpTitle');
   const body = $('pageHelpBody');
   if (!dialog || !title || !body) return;
-  title.textContent = `${VIEWS[state.view]?.label ?? 'This page'} help`;
+  const view =
+    VIEWS[state.view]?.label ??
+    ZogographI18n.t('dialog.this_page', {}, 'This page');
+  title.textContent = ZogographI18n.t(
+    'dialog.view_help',
+    { view },
+    '{{view}} help',
+  );
   body.replaceChildren(buildPageHelp(state.view));
   dialog.showModal();
 }

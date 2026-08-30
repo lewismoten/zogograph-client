@@ -1682,6 +1682,7 @@
   "action.testing": "Probando…",
   "action.test_connection": "Probar la conexión",
   "guide.sign_in_help": "Inicie sesión para ver mediciones y controles protegidos. Esta guía sigue disponible para que la página nunca sea un estado vacío sin explicación.",
+  "guide.access_page": "Guía de acceso y página",
   "guide.read_help": "Leer la ayuda de la página",
   "unit.percent": "%",
   "unit.fraction": "% de lecturas",

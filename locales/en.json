@@ -1754,6 +1754,7 @@
   "action.testing": "Testing…",
   "action.test_connection": "Test the connection",
   "guide.sign_in_help": "Sign in to see protected measurements and controls. This guide remains available so the page is never an unexplained empty state.",
+  "guide.access_page": "Access and page guide",
   "guide.read_help": "Read page help",
   "unit.percent": "%",
   "unit.fraction": "% of readings",

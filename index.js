@@ -45003,7 +45003,10 @@ function renderViewGuide(view) {
   const profile = helpProfileFor(view);
   const guide = document.createElement('section');
   guide.className = 'view-guide';
-  guide.setAttribute('aria-label', 'Access and page guide');
+  guide.setAttribute(
+    'aria-label',
+    ZogographI18n.t('guide.access_page', {}, 'Access and page guide'),
+  );
 
   const heading = document.createElement('h2');
   heading.textContent = VIEWS[view]?.label ?? 'This page';

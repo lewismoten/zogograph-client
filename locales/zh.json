@@ -1666,6 +1666,7 @@
   "action.testing": "正在测试…",
   "action.test_connection": "测试连接",
   "guide.sign_in_help": "请登录以查看受保护的测量值和控件。此指南仍可用，因此页面不会成为毫无解释的空白状态。",
+  "guide.access_page": "访问和页面指南",
   "guide.read_help": "阅读页面帮助",
   "unit.percent": "%",
   "unit.fraction": "% 的读数",

@@ -35609,13 +35609,13 @@ function renderCapture(capture, target = 'captureBody') {
     const total = capture.ports.reduce((sum, p) => sum + Number(p.packets), 0);
     parts.push(
       section(
-        'Which service',
+        ZogographI18n.t('network.which_service', {}, 'Which service'),
         simpleTable(
           [
             ZogographI18n.t('network.port', {}, 'Port'),
             ZogographI18n.t('network.packets', {}, 'Packets'),
             ZogographI18n.t('network.share', {}, 'Share'),
-            'Bytes',
+            ZogographI18n.t('network.bytes', {}, 'Bytes'),
             ZogographI18n.t('network.usually', {}, 'Usually'),
           ],
           capture.ports

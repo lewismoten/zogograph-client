@@ -14353,7 +14353,11 @@ function renderPathHygiene(data) {
   if (!data.enabled) {
     body.replaceChildren(
       note(
-        'Install and enable Path-name hygiene in the Marketplace to use this check.',
+        ZogographI18n.t(
+          'path_hygiene.install_enable',
+          {},
+          'Install and enable Path-name hygiene in the Marketplace to use this check.',
+        ),
       ),
     );
     return;
@@ -14362,7 +14366,11 @@ function renderPathHygiene(data) {
   if (!last) {
     body.replaceChildren(
       note(
-        'Enabled, but no completed account disk scan has recorded path names yet.',
+        ZogographI18n.t(
+          'path_hygiene.no_completed_scan',
+          {},
+          'Enabled, but no completed account disk scan has recorded path names yet.',
+        ),
       ),
     );
     return;
@@ -14376,7 +14384,13 @@ function renderPathHygiene(data) {
   ];
   if (!last.findings.length)
     parts.push(
-      note('No shell-confusing path names were found in the latest scan.'),
+      note(
+        ZogographI18n.t(
+          'path_hygiene.none_found',
+          {},
+          'No shell-confusing path names were found in the latest scan.',
+        ),
+      ),
     );
   else {
     const holder = document.createElement('div');

@@ -26795,11 +26795,10 @@ function renderFetchHeaders(data) {
   table.appendChild(tbody);
   wrap.appendChild(table);
 
-  wrap.appendChild(note(
-    "Point at or click a \u2753 for what a header is for. You can write your own meanings for "
-    + "headers under Settings \u2192 Your own names, which is where the house ones "
-    + "nobody documents belong."
-  ));
+  wrap.appendChild(note(ZogographI18n.t("fetch.headers_help", {},
+    "Point at or click a ❓ for what a header is for. You can write your own meanings for "
+    + "headers under Settings → Your own names, which is where the house ones "
+    + "nobody documents belong.")));
 
   return wrap;
 }

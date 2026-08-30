@@ -45107,7 +45107,8 @@ function renderViewGuide(view) {
   );
 
   const heading = document.createElement('h2');
-  heading.textContent = VIEWS[view]?.label ?? 'This page';
+  heading.textContent =
+    VIEWS[view]?.label ?? ZogographI18n.t('dialog.this_page', {}, 'This page');
   const purpose = document.createElement('p');
   purpose.textContent = profile.purpose;
   const access = document.createElement('p');

@@ -4925,11 +4925,27 @@ function renderCpuChart(rows) {
       }))
     : rows;
 
-  const series = [{ key: 'cpu_percent', label: 'CPU %' }];
+  const series = [
+    {
+      key: 'cpu_percent',
+      label: ZogographI18n.t('vitals.cpu_percent', {}, 'CPU %'),
+    },
+  ];
   series.push(
     absolute
-      ? { key: 'mem_used_bytes', label: 'Memory used (right)', axis: 'right' }
-      : { key: 'mem_used_percent', label: 'Memory %' },
+      ? {
+          key: 'mem_used_bytes',
+          label: ZogographI18n.t(
+            'vitals.memory_used_right',
+            {},
+            'Memory used (right)',
+          ),
+          axis: 'right',
+        }
+      : {
+          key: 'mem_used_percent',
+          label: ZogographI18n.t('vitals.memory_percent', {}, 'Memory %'),
+        },
   );
 
   drawLineChart($('cpuChart'), prepared, series, {
@@ -4986,9 +5002,19 @@ function renderIoChart(rows) {
 
   const series = [];
   if (has('own_read_rate'))
-    series.push({ key: 'own_read_rate', label: 'This account, read' });
+    series.push({
+      key: 'own_read_rate',
+      label: ZogographI18n.t('vitals.account_read', {}, 'This account, read'),
+    });
   if (has('own_write_rate'))
-    series.push({ key: 'own_write_rate', label: 'This account, written' });
+    series.push({
+      key: 'own_write_rate',
+      label: ZogographI18n.t(
+        'vitals.account_written',
+        {},
+        'This account, written',
+      ),
+    });
   if (has('io_read_rate'))
     series.push({
       key: 'io_read_rate',
@@ -5002,7 +5028,11 @@ function renderIoChart(rows) {
   if (has('io_util_percent')) {
     series.push({
       key: 'io_util_percent',
-      label: 'Device busy % (right)',
+      label: ZogographI18n.t(
+        'vitals.device_busy_right',
+        {},
+        'Device busy % (right)',
+      ),
       axis: 'right',
     });
   }

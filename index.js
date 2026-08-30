@@ -18194,8 +18194,15 @@ function noteActions(row) {
   remove.addEventListener('click', async () => {
     if (
       !(await confirmDialog(
-        'Delete this note?' +
-          (row.snapshots ? '\n\nWhatever it captured goes with it.' : ''),
+        ZogographI18n.t(
+          row.snapshots
+            ? 'notes.delete_with_captures_confirm'
+            : 'notes.delete_confirm',
+          {},
+          row.snapshots
+            ? 'Delete this note?\n\nWhatever it captured goes with it.'
+            : 'Delete this note?',
+        ),
       ))
     )
       return;

@@ -15,7 +15,7 @@ concurrency:
 jobs:
   build:
     name: Test & Build
-    runs-on: ubuntu-latest
+    runs-on: zogograph-ci
     timeout-minutes: 1
 
     env:
@@ -100,7 +100,7 @@ jobs:
 
   deploy:
     name: Deploy to ${{ matrix.deploy_url }}
-    runs-on: ubuntu-latest
+    runs-on: zogograph-ci
     # Prevent a stalled network operation from monopolizing a runner.
     timeout-minutes: 2
     needs: build

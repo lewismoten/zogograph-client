@@ -80,6 +80,7 @@
   "action_log.changed_service_watch": "غيّر الخدمات التي تُراقب",
   "action_log.requested_host_walk": "طلب من المضيف فحص القرص",
   "action_log.checked_capabilities": "تحقق من البرامج المتاحة",
+  "action_log.address_identity_note": "توجد كلمة مرور واحدة، لذا توجد هوية واحدة. العنوان الذي جاء منه التغيير هو الشيء الوحيد الذي يميّز استخدامين لها — إنه مكان وليس شخصًا.",
   "vitals.cpu_percent": "CPU ٪",
   "vitals.memory_used_right": "الذاكرة المستخدمة (يمين)",
   "vitals.memory_percent": "الذاكرة ٪",

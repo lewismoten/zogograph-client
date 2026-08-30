@@ -80,6 +80,7 @@
   "action_log.changed_service_watch": "更改了被监控的服务",
   "action_log.requested_host_walk": "请求主机扫描磁盘",
   "action_log.checked_capabilities": "检查了可用程序",
+  "action_log.address_identity_note": "只有一个密码，因此只有一个身份。一次更改来自哪个地址，是区分两次使用的唯一信息——它是一个位置，而不是一个人。",
   "vitals.cpu_percent": "CPU %",
   "vitals.memory_used_right": "已用内存（右侧）",
   "vitals.memory_percent": "内存 %",

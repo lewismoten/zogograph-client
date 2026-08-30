@@ -80,6 +80,7 @@
   "action_log.changed_service_watch": "cambió los servicios vigilados",
   "action_log.requested_host_walk": "pidió al host recorrer el disco",
   "action_log.checked_capabilities": "comprobó qué programas están disponibles",
+  "action_log.address_identity_note": "Hay una contraseña, por lo que hay una identidad. La dirección desde la que llegó un cambio es lo único que distingue dos usos de ella: es un lugar, no una persona.",
   "vitals.cpu_percent": "CPU %",
   "vitals.memory_used_right": "Memoria usada (derecha)",
   "vitals.memory_percent": "Memoria %",

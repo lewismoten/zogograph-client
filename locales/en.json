@@ -80,6 +80,7 @@
   "action_log.changed_service_watch": "changed which services are watched",
   "action_log.requested_host_walk": "asked the host to walk the disk",
   "action_log.checked_capabilities": "checked which programs are available",
+  "action_log.address_identity_note": "There is one password, so there is one identity. The address a change came from is the only thing that tells two uses of it apart — it is a place, not a person.",
   "vitals.cpu_percent": "CPU %",
   "vitals.memory_used_right": "Memory used (right)",
   "vitals.memory_percent": "Memory %",

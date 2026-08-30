@@ -80,6 +80,7 @@
   "action_log.changed_service_watch": "निगरानी की जाने वाली सेवाएं बदलीं",
   "action_log.requested_host_walk": "होस्ट से डिस्क स्कैन कराने को कहा",
   "action_log.checked_capabilities": "उपलब्ध प्रोग्राम जांचे",
+  "action_log.address_identity_note": "एक पासवर्ड है, इसलिए एक पहचान है। परिवर्तन जिस पते से आया, वही उसके दो उपयोगों में अंतर बताता है — वह स्थान है, व्यक्ति नहीं।",
   "vitals.cpu_percent": "CPU %",
   "vitals.memory_used_right": "उपयोग की गई मेमोरी (दायां)",
   "vitals.memory_percent": "मेमोरी %",

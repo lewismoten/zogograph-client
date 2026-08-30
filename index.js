@@ -13919,7 +13919,7 @@ function terminalVerdictChip(entry) {
 
   if (entry.running) {
     chip.classList.add("live");
-    chip.textContent = "running";
+    chip.textContent = ZogographI18n.t("terminal.status_running", {}, "running");
     return chip;
   }
 
@@ -13928,15 +13928,15 @@ function terminalVerdictChip(entry) {
 
   if (entry.stopped_by) {
     chip.classList.add("bad");
-    bits.push("stopped");
+    bits.push(ZogographI18n.t("terminal.status_stopped", {}, "stopped"));
   } else if (entry.timed_out) {
     chip.classList.add("bad");
-    bits.push("timed out");
+    bits.push(ZogographI18n.t("terminal.status_timed_out", {}, "timed out"));
   } else if (entry.capped) {
     chip.classList.add("bad");
-    bits.push("hit the output ceiling");
+    bits.push(ZogographI18n.t("terminal.status_output_ceiling", {}, "hit the output ceiling"));
   } else if (entry.exit_code === 0) {
-    bits.push("ok");
+    bits.push(ZogographI18n.t("terminal.status_ok", {}, "ok"));
   } else if (entry.exit_code !== null && entry.exit_code !== undefined) {
     chip.classList.add("bad");
     /*
@@ -13947,8 +13947,9 @@ function terminalVerdictChip(entry) {
      * information without the arithmetic.
      */
     bits.push(entry.exit_code > 128
-      ? `killed (${SIGNAL_NAMES[entry.exit_code - 128] ?? `signal ${entry.exit_code - 128}`})`
-      : `exit ${entry.exit_code}`);
+      ? ZogographI18n.t("terminal.status_killed", { signal: SIGNAL_NAMES[entry.exit_code - 128]
+        ?? ZogographI18n.t("terminal.status_signal", { number: entry.exit_code - 128 }, `signal ${entry.exit_code - 128}`) }, "killed ({{signal}})")
+      : ZogographI18n.t("terminal.status_exit", { code: entry.exit_code }, "exit {{code}}"));
   }
 
   chip.textContent = bits.join(" · ");

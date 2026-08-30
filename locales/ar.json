@@ -731,7 +731,6 @@
   "ai.portrait_cleared": "مُسحت.",
   "ai.ask_assistant": "{{emoji}} اسأل {{assistant}}",
   "ai.data_page": "بيانات المساعد",
-  "ai.problem_placeholder": "ما الذي يحدث على نحو خاطئ؟",
   "ai.permission_wants": "يريد {{action}}.",
   "ai.permission_allow": "اسمح",
   "ai.permission_decline": "ليس هذه المرة",

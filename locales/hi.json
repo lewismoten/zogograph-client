@@ -745,7 +745,6 @@
   "ai.portrait_cleared": "हटा दिया गया।",
   "ai.ask_assistant": "{{emoji}} {{assistant}} से पूछें",
   "ai.data_page": "सहायक डेटा",
-  "ai.problem_placeholder": "क्या गलत हो रहा है?",
   "ai.permission_wants": "यह {{action}} चाहता है।",
   "ai.permission_allow": "अनुमति दें",
   "ai.permission_decline": "इस बार नहीं",

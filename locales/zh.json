@@ -731,7 +731,6 @@
   "ai.portrait_cleared": "已清除。",
   "ai.ask_assistant": "{{emoji}} 询问 {{assistant}}",
   "ai.data_page": "助手数据",
-  "ai.problem_placeholder": "出了什么问题？",
   "ai.permission_wants": "它想要{{action}}。",
   "ai.permission_allow": "允许",
   "ai.permission_decline": "这次不要",

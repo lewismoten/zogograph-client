@@ -815,7 +815,6 @@
   "ai.portrait_cleared": "Cleared.",
   "ai.ask_assistant": "{{emoji}} Ask {{assistant}}",
   "ai.data_page": "Assistant data",
-  "ai.problem_placeholder": "What is going wrong?",
   "ai.permission_wants": "It wants to {{action}}.",
   "ai.permission_allow": "Allow",
   "ai.permission_decline": "Not this time",

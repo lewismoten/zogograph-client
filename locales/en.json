@@ -838,7 +838,6 @@
   "ai.tool_description_help": "This is what the model reads before deciding whether to use it. The “do not use this when…” half is what stops a confident wrong call.",
   "ai.tool_subject_intro": "{{assistant}} starts with diagnostic tools. Enable {{group}} tools if this conversation needs that subject.",
   "ai.tool_group_requested": "{{assistant}} requested {{group}} tools — review and save the choice.",
-  "ai.tool_group_activity": "Requested {{group}} tools",
   "ai.permission_countdown": "Treated as no in {{duration}}",
   "ai.permission_timed_out": "No answer — carrying on without it",
   "ai.permission_timeout_notice": "Nobody answered, so {{assistant}} was told no. It carries on without whatever that would have told it.",

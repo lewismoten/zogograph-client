@@ -754,7 +754,6 @@
   "ai.tool_description_help": "هذا ما يقرؤه النموذج قبل أن يقرر استخدامها. فقرة «لا تستخدم هذا عندما…» تمنع قرارًا خاطئًا بثقة.",
   "ai.tool_subject_intro": "يبدأ {{assistant}} بأدوات التشخيص. فعّل أدوات {{group}} إذا احتاجت هذه المحادثة إلى ذلك الموضوع.",
   "ai.tool_group_requested": "طلب {{assistant}} أدوات {{group}} — راجع الاختيار واحفظه.",
-  "ai.tool_group_activity": "طلب أدوات {{group}}",
   "ai.permission_countdown": "سيُعامل كرفض خلال {{duration}}",
   "ai.permission_timed_out": "لا إجابة — يستمر بدونه",
   "ai.permission_timeout_notice": "لم يُجب أحد، لذا أُبلغ {{assistant}} بالرفض. ويستمر دون ما كان سيخبره به ذلك.",

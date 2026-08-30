@@ -754,7 +754,6 @@
   "ai.tool_description_help": "这是模型决定是否使用它之前会阅读的内容。“不要在……时使用此工具”这一部分可避免自信但错误的调用。",
   "ai.tool_subject_intro": "{{assistant}} 从诊断工具开始。如果此对话需要该主题，请启用 {{group}} 工具。",
   "ai.tool_group_requested": "{{assistant}} 请求使用 {{group}} 工具；请检查并保存此选择。",
-  "ai.tool_group_activity": "请求使用 {{group}} 工具",
   "ai.permission_countdown": "将在 {{duration}} 后视为拒绝",
   "ai.permission_timed_out": "未收到答复——将在没有它的情况下继续",
   "ai.permission_timeout_notice": "无人答复，因此已告知 {{assistant}} 不允许。它将在没有该信息的情况下继续。",

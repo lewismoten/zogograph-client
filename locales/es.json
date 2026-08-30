@@ -768,7 +768,6 @@
   "ai.tool_description_help": "Esto es lo que lee el modelo antes de decidir si la usa. La parte «no usar esto cuando…» es lo que evita una decisión equivocada pero segura de sí misma.",
   "ai.tool_subject_intro": "{{assistant}} comienza con herramientas de diagnóstico. Active las herramientas de {{group}} si esta conversación necesita ese tema.",
   "ai.tool_group_requested": "{{assistant}} solicitó herramientas de {{group}}; revise y guarde la elección.",
-  "ai.tool_group_activity": "Solicitó herramientas de {{group}}",
   "ai.permission_countdown": "Se tratará como no en {{duration}}",
   "ai.permission_timed_out": "Sin respuesta; se continúa sin ello",
   "ai.permission_timeout_notice": "Nadie respondió, así que se le indicó que no a {{assistant}}. Continúa sin lo que eso le hubiera dicho.",

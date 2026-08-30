@@ -23543,7 +23543,10 @@ function renderPriceTable(target, rows, sort) {
             [warning],
             async () => {
               renderAiPrices(await post('ai-price-forget', { key: row.key }));
-              notice('Removed.', true);
+              notice(
+                ZogographI18n.t('ai.pricing_removed', {}, 'Removed.'),
+                true,
+              );
             },
             ZogographI18n.t('ai.pricing_remove_action', {}, 'Remove record'),
           );

@@ -2445,6 +2445,7 @@
   "ai.memory_remember_help": "Written for somebody with none of the conversation it came from — no “as we discussed”, and say what it was based on.",
   "ai.memory_edit_title": "Edit a memory",
   "ai.memory_write_title": "Write a memory",
+  "ai.pricing_removed": "Removed.",
   "backup.growth": "Growth",
   "backup.by_account": "By account",
   "backup.no_suggestions": "Nothing to suggest from this reading.",

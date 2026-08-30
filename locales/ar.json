@@ -2342,6 +2342,7 @@
   "ai.memory_remember_help": "اكتبها لشخص لا يعرف شيئًا عن المحادثة التي جاءت منها — لا تقل «كما ناقشنا»، واذكر ما استندت إليه.",
   "ai.memory_edit_title": "تحرير ذاكرة",
   "ai.memory_write_title": "كتابة ذاكرة",
+  "ai.pricing_removed": "أُزيل.",
   "backup.growth": "النمو",
   "backup.by_account": "حسب الحساب",
   "backup.no_suggestions": "لا يوجد ما يُقترح من هذه القراءة.",

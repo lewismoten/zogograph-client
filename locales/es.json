@@ -2360,6 +2360,7 @@
   "ai.memory_remember_help": "Escrito para alguien que no conoce la conversación de la que proviene: no diga «como comentamos» e indique en qué se basó.",
   "ai.memory_edit_title": "Editar una memoria",
   "ai.memory_write_title": "Escribir una memoria",
+  "ai.pricing_removed": "Eliminado.",
   "backup.growth": "Crecimiento",
   "backup.by_account": "Por cuenta",
   "backup.no_suggestions": "No hay nada que sugerir a partir de esta lectura.",

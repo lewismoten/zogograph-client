@@ -1519,7 +1519,6 @@
   "dns.sign_in_lookup": "नाम लुकअप चलाने के लिए साइन इन करें।",
   "dns.query_wait": "पूछा जा रहा है… जो सर्वर जवाब नहीं देता उसे छोड़ने में तीन सेकंड लगते हैं, इसलिए इसमें कुछ समय लग सकता है।",
   "dns.every_type": "सभी प्रकार",
-  "dns.nothing_lookup": "देखने के लिए कुछ नहीं है।",
   "dns.asked_for": "{{name}} {{type}} के लिए पूछा गया",
   "dns.asked_for_server": "{{server}} पर {{name}} {{type}} के लिए पूछा गया",
   "dns.default_checks": "डिफ़ॉल्ट जाँचें",

@@ -1572,7 +1572,6 @@
   "dns.sign_in_lookup": "Sign in to run name lookups.",
   "dns.query_wait": "Asking… a server that does not reply takes three seconds to give up on, so this can take a few.",
   "dns.every_type": "Every type",
-  "dns.nothing_lookup": "Nothing to look up.",
   "dns.asked_for": "Asked for {{name}} {{type}}",
   "dns.asked_for_server": "Asked for {{name}} {{type}} at {{server}}",
   "dns.default_checks": "The default checks",

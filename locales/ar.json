@@ -1505,7 +1505,6 @@
   "dns.sign_in_lookup": "سجّل الدخول لإجراء عمليات بحث عن الأسماء.",
   "dns.query_wait": "يجري السؤال… يستغرق التخلي عن خادم لا يرد ثلاث ثوانٍ، لذا قد يستغرق هذا بضعًا منها.",
   "dns.every_type": "كل الأنواع",
-  "dns.nothing_lookup": "لا يوجد شيء للبحث عنه.",
   "dns.asked_for": "طُلب {{name}} {{type}}",
   "dns.asked_for_server": "طُلب {{name}} {{type}} من {{server}}",
   "dns.default_checks": "الفحوصات الافتراضية",

@@ -1521,7 +1521,6 @@
   "dns.sign_in_lookup": "Inicie sesión para ejecutar consultas de nombres.",
   "dns.query_wait": "Consultando… un servidor que no responde tarda tres segundos en abandonarse, así que esto puede tardar unos segundos.",
   "dns.every_type": "Todos los tipos",
-  "dns.nothing_lookup": "No hay nada que consultar.",
   "dns.asked_for": "Consulta de {{name}} {{type}}",
   "dns.asked_for_server": "Consulta de {{name}} {{type}} en {{server}}",
   "dns.default_checks": "Las comprobaciones predeterminadas",

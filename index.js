@@ -37904,9 +37904,11 @@ async function refreshDns(params = {}) {
   }
 
   if (!data.rows.length) {
-    body.replaceChildren(
-      note(ZogographI18n.t('dns.nothing_lookup', {}, 'Nothing to look up.')),
-    );
+    renderCoreCardPackage(ZogographDnsEmptyCard, 'core-dns-empty', data, {
+      target: body,
+      note,
+      i18n: ZogographI18n,
+    });
     return;
   }
 

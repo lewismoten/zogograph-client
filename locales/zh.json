@@ -1505,7 +1505,6 @@
   "dns.sign_in_lookup": "登录以运行名称查询。",
   "dns.query_wait": "正在查询…放弃无响应的服务器需要三秒钟，因此可能需要一些时间。",
   "dns.every_type": "所有类型",
-  "dns.nothing_lookup": "没有可查询的内容。",
   "dns.asked_for": "查询 {{name}} {{type}}",
   "dns.asked_for_server": "在 {{server}} 查询 {{name}} {{type}}",
   "dns.default_checks": "默认检查",

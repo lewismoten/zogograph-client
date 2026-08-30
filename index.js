@@ -42240,40 +42240,15 @@ function renderViewGuide(view) {
   if (state.signedIn) return;
 
   const profile = helpProfileFor(view);
-  const guide = document.createElement('section');
-  guide.className = 'view-guide';
-  guide.setAttribute(
-    'aria-label',
-    ZogographI18n.t('guide.access_page', {}, 'Access and page guide'),
-  );
-
-  const heading = document.createElement('h2');
-  heading.textContent =
-    VIEWS[view]?.label ?? ZogographI18n.t('dialog.this_page', {}, 'This page');
-  const purpose = document.createElement('p');
-  purpose.textContent = profile.purpose;
-  const access = document.createElement('p');
-  access.className = 'view-guide-auth';
-  access.textContent = ZogographI18n.t(
-    'guide.sign_in_help',
-    {},
-    'Sign in to see protected measurements and controls. This guide remains available so the page is never an unexplained empty state.',
-  );
-  const actions = document.createElement('div');
-  actions.className = 'view-guide-actions';
-  const signIn = document.createElement('button');
-  signIn.type = 'button';
-  signIn.className = 'primary';
-  signIn.textContent = ZogographI18n.t('auth.sign_in', {}, 'Sign in');
-  signIn.addEventListener('click', () => $('signInOut')?.click());
-  const help = document.createElement('button');
-  help.type = 'button';
-  help.className = 'link';
-  help.textContent = ZogographI18n.t('guide.read_help', {}, 'Read page help');
-  help.addEventListener('click', showPageHelp);
-  actions.append(signIn, help);
-  guide.append(heading, purpose, access, actions);
-  section.prepend(guide);
+  renderCoreCardPackage(ZogographViewGuideCard, 'core-view-guide', profile, {
+    target: section,
+    heading:
+      VIEWS[view]?.label ??
+      ZogographI18n.t('dialog.this_page', {}, 'This page'),
+    onSignIn: () => $('signInOut')?.click(),
+    onHelp: showPageHelp,
+    i18n: ZogographI18n,
+  });
 }
 
 /*

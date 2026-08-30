@@ -175,6 +175,9 @@ $jetBackupCard = i18nCardSource(
 $cagefsExplainerCard = i18nCardSource(
     file_get_contents($root . '/cards/cagefs-explainer.js'),
 );
+$viewGuideCard = i18nCardSource(
+    file_get_contents($root . '/cards/view-guide.js'),
+);
 $notesEmptyCard = i18nCardSource(
     file_get_contents($root . '/cards/notes-empty.js'),
 );
@@ -1078,6 +1081,18 @@ i18nExpect(
         ) &&
         str_contains($script, 'ZogographCapabilityChangeNoteCard,'),
     'capability change note is not isolated behind its core card-module boundary',
+);
+i18nExpect(
+    $page !== false &&
+        $script !== false &&
+        str_contains($page, 'src="cards/view-guide.js"') &&
+        str_contains($viewGuideCard, 'window.ZogographViewGuideCard') &&
+        str_contains($viewGuideCard, 'id: "core-view-guide"') &&
+        str_contains($viewGuideCard, 'locales: ["core-view-guide."]') &&
+        str_contains($viewGuideCard, 'catalogs: Object.freeze({') &&
+        str_contains($viewGuideCard, '"core-view-guide.sign_in_help"') &&
+        str_contains($script, 'ZogographViewGuideCard,'),
+    'view access guide is not isolated behind its core card-module boundary',
 );
 i18nExpect(
     $page !== false &&

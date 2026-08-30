@@ -38201,7 +38201,11 @@ function renderFetchPreview(data) {
   if (!data.preview_token) {
     wrap.appendChild(
       note(
-        'That body is too large to preview. The raw view still has all of it.',
+        ZogographI18n.t(
+          'fetch.preview_too_large',
+          {},
+          'That body is too large to preview. The raw view still has all of it.',
+        ),
       ),
     );
     return wrap;
@@ -38213,11 +38217,23 @@ function renderFetchPreview(data) {
   const toggle = document.createElement('button');
   toggle.className = 'link';
   toggle.textContent = fetchState.images
-    ? 'Strip it back to placeholders'
-    : "Load the site's own pictures and styling";
+    ? ZogographI18n.t('fetch.strip_assets', {}, 'Strip it back to placeholders')
+    : ZogographI18n.t(
+        'fetch.load_assets',
+        {},
+        "Load the site's own pictures and styling",
+      );
   toggle.title = fetchState.images
-    ? 'Show it with no pictures and no stylesheets, the way a reader without them meets it'
-    : 'Fetch the images and stylesheets from the site \u2014 which tells it you are looking';
+    ? ZogographI18n.t(
+        'fetch.strip_assets_title',
+        {},
+        'Show it with no pictures and no stylesheets, the way a reader without them meets it',
+      )
+    : ZogographI18n.t(
+        'fetch.load_assets_title',
+        {},
+        'Fetch the images and stylesheets from the site — which tells it you are looking',
+      );
   toggle.addEventListener('click', () => {
     fetchState.images = !fetchState.images;
     renderFetch(data);
@@ -38250,19 +38266,25 @@ function renderFetchPreview(data) {
   wrap.appendChild(
     note(
       fetchState.images
-        ? 'Pictures and stylesheets are being fetched from the site itself, so it can see ' +
-            'that somebody is looking. Scripts stay blocked.'
-        : 'Nothing is being fetched from the site: pictures are replaced with placeholders ' +
-            'carrying their alt text and the stylesheets are not loaded, so this is roughly ' +
-            'what a reader without either would get. It also means the site is not told that ' +
-            'you are looking at it.',
+        ? ZogographI18n.t(
+            'fetch.assets_external_notice',
+            {},
+            'Pictures and stylesheets are being fetched from the site itself, so it can see that somebody is looking. Scripts stay blocked.',
+          )
+        : ZogographI18n.t(
+            'fetch.assets_local_notice',
+            {},
+            'Nothing is being fetched from the site: pictures are replaced with placeholders carrying their alt text and the stylesheets are not loaded, so this is roughly what a reader without either would get. It also means the site is not told that you are looking at it.',
+          ),
     ),
   );
   wrap.appendChild(
     note(
-      'Rendered in a sandbox with no scripts, no forms and no access to this page, so it ' +
-        'will not look exactly as it does in a browser \u2014 anything the page draws with ' +
-        'JavaScript will be missing.',
+      ZogographI18n.t(
+        'fetch.sandbox_notice',
+        {},
+        'Rendered in a sandbox with no scripts, no forms and no access to this page, so it will not look exactly as it does in a browser — anything the page draws with JavaScript will be missing.',
+      ),
     ),
   );
 

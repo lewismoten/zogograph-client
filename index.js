@@ -41326,7 +41326,11 @@ function renderRepeats(data) {
   const repeats = data.repeats;
 
   if (!repeats || !repeats.groups.length) {
-    body.replaceChildren(note('Nothing to group yet.'));
+    body.replaceChildren(
+      note(
+        ZogographI18n.t('log.nothing_to_group', {}, 'Nothing to group yet.'),
+      ),
+    );
     return;
   }
 
@@ -41348,12 +41352,12 @@ function renderRepeats(data) {
     repeats.groups,
     [
       {
-        label: 'Times',
+        label: ZogographI18n.t('log.repeat_times', {}, 'Times'),
         className: 'size',
         render: (row) => humanCount(row.count),
       },
       {
-        label: 'Rate',
+        label: ZogographI18n.t('log.repeat_rate', {}, 'Rate'),
         className: 'size',
         render: (row) => {
           if (row.per_minute == null) return '\u2014';
@@ -41365,13 +41369,16 @@ function renderRepeats(data) {
           return span;
         },
       },
-      { label: 'In', render: (row) => (row.files || []).join(', ') },
       {
-        label: 'Last one',
+        label: ZogographI18n.t('log.repeat_in', {}, 'In'),
+        render: (row) => (row.files || []).join(', '),
+      },
+      {
+        label: ZogographI18n.t('log.repeat_last_one', {}, 'Last one'),
         render: (row) => (row.last_at ? whenSpan(row.last_at) : '—'),
       },
       {
-        label: 'What it says',
+        label: ZogographI18n.t('log.repeat_what_it_says', {}, 'What it says'),
         className: 'cmd',
         render: (row) => {
           const wrap = document.createDocumentFragment();

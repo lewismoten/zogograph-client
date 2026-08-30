@@ -35182,6 +35182,26 @@ function labelled(value, label, row = null) {
  * a fixed id.
  */
 function renderCapture(capture, target = 'captureBody') {
+  if (window.ZogographNetworkCaptureCard) {
+    return renderCoreCardPackage(
+      ZogographNetworkCaptureCard,
+      'core-network-capture',
+      capture,
+      {
+        target: typeof target === 'string' ? $(target) : target,
+        note,
+        humanTime,
+        ago,
+        humanCount,
+        humanBytes,
+        section,
+        factGrid,
+        simpleTable,
+        labelled,
+        i18n: ZogographI18n,
+      },
+    );
+  }
   const body = typeof target === 'string' ? $(target) : target;
   if (!body) return;
 

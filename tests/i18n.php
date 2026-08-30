@@ -58,6 +58,9 @@ $networkCaptureRequestCard = i18nCardSource(
 $networkCaptureHistoryCard = i18nCardSource(
     file_get_contents($root . '/cards/network-capture-history.js'),
 );
+$networkCaptureCard = i18nCardSource(
+    file_get_contents($root . '/cards/network-capture.js'),
+);
 $processTrendCard = i18nCardSource(
     file_get_contents($root . '/cards/process-trend.js'),
 );
@@ -347,6 +350,28 @@ i18nExpect(
             'helpers.i18n.registerCatalog(locale, catalog, false, id)',
         ),
     'core card package catalogs are not namespace-registered before their first render',
+);
+i18nExpect(
+    $page !== false &&
+        str_contains($page, 'src="cards/network-capture.js"') &&
+        $networkCaptureCard !== false &&
+        str_contains(
+            $networkCaptureCard,
+            'window.ZogographNetworkCaptureCard',
+        ) &&
+        str_contains($networkCaptureCard, 'id: "core-network-capture"') &&
+        str_contains(
+            $networkCaptureCard,
+            'locales: ["core-network-capture."]',
+        ) &&
+        str_contains($networkCaptureCard, 'catalogs: Object.freeze({') &&
+        str_contains($networkCaptureCard, '"core-network-capture.flags_new"') &&
+        $script !== false &&
+        str_contains(
+            $script,
+            'renderCoreCardPackage(ZogographNetworkCaptureCard, "core-network-capture",',
+        ),
+    'network capture report is not isolated behind its core card-module boundary',
 );
 i18nExpect(
     $page !== false &&

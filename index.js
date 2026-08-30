@@ -16398,7 +16398,7 @@ async function runAiTry(tool) {
       : raw;
   }
 
-  said.textContent = "Running…";
+  said.textContent = ZogographI18n.t("action.running", {}, "Running…");
   showTryResult([]);
 
   /*

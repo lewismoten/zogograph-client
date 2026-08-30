@@ -31,6 +31,7 @@
   "action.skip": "Skip",
   "action.ask_again": "Ask again",
   "action.run": "Run it",
+  "action.running": "Running…",
   "action.stop": "Stop it",
   "action.show": "Show it",
   "action.rename": "Rename",

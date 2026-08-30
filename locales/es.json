@@ -31,6 +31,7 @@
   "action.skip": "Omitir",
   "action.ask_again": "Preguntar de nuevo",
   "action.run": "Ejecutarlo",
+  "action.running": "En ejecución…",
   "action.stop": "Detenerlo",
   "action.show": "Mostrarlo",
   "action.rename": "Cambiar nombre",

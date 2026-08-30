@@ -31,6 +31,7 @@
   "action.skip": "تخطَّ",
   "action.ask_again": "اطلب مرة أخرى",
   "action.run": "شغّله",
+  "action.running": "جارٍ التشغيل…",
   "action.stop": "أوقفه",
   "action.show": "اعرضه",
   "action.rename": "أعِد التسمية",

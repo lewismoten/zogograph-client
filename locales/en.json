@@ -813,7 +813,6 @@
   "ai.clear_portrait_hide": "The picture stops being shown and the emoji takes its place until it draws another one.",
   "ai.clear_portrait_retention": "The record of it stays in the image log — it was generated and it cost something, and that is worth keeping whether or not the picture is shown.",
   "ai.portrait_cleared": "Cleared.",
-  "image.portrait_title": "{{name}}, as it describes itself: \"{{description}}\"",
   "ai.ask_assistant": "{{emoji}} Ask {{assistant}}",
   "ai.data_page": "Assistant data",
   "ai.problem_placeholder": "What is going wrong?",

@@ -729,7 +729,6 @@
   "ai.clear_portrait_hide": "تتوقف الصورة عن الظهور ويأخذ الرمز التعبيري مكانها إلى أن يرسم صورة أخرى.",
   "ai.clear_portrait_retention": "يبقى سجلها في سجل الصور—فقد أُنشئت وكلفت شيئًا، ومن المفيد الاحتفاظ بذلك سواء ظهرت الصورة أم لا.",
   "ai.portrait_cleared": "مُسحت.",
-  "image.portrait_title": "{{name}}، كما يصف نفسه: \"{{description}}\"",
   "ai.ask_assistant": "{{emoji}} اسأل {{assistant}}",
   "ai.data_page": "بيانات المساعد",
   "ai.problem_placeholder": "ما الذي يحدث على نحو خاطئ؟",

@@ -32,8 +32,9 @@ foreach (glob($root . '/cards/*.js') ?: [] as $cardFile) {
     i18nExpect($card !== false && str_contains((string)$page, 'src="cards/' . $name . '"'),
         "core card package $name is not loaded by the dashboard");
     i18nExpect(preg_match('/manifest:\\s*Object\\.freeze\\(\\{\\s*id:\\s*"core-[a-z0-9-]+"\\s*,\\s*locales:\\s*\\[\\s*"[a-z][\\w-]*\\."/s', $card) === 1
-        && preg_match('/helpers:\\s*\\[\\s*"[a-zA-Z][\\w]*"/', $card) === 1,
-        "core card package $name lacks an ID, localization namespace, or helper contract");
+        && preg_match('/helpers:\\s*\\[\\s*"[a-zA-Z][\\w]*"/', $card) === 1
+        && str_contains($card, 'catalogs: Object.freeze({'),
+        "core card package $name lacks an ID, localization namespace, helper contract, or package catalog");
 }
 i18nExpect($runtime !== false && str_contains($runtime, 'Intl.NumberFormat') && str_contains($runtime, 'I18N_RTL')
     && str_contains($runtime, 'zogograph.locale') && str_contains($runtime, 'data-i18n') && str_contains($runtime, 'registerCatalog')

@@ -1530,6 +1530,7 @@
   "table.show_more": "Mostrar {{count, number}} más",
   "chart.your_notes": "Tus notas",
   "chart.everything_else": "todo lo demás",
+  "chart.everything_else_count": "Todo lo demás ({{count, number}} servicios)",
   "chart.nothing_collected_range": "Aún no se recopilaron datos para este intervalo",
   "chart.nothing_to_show_yet": "Aún no hay nada que mostrar",
   "onboarding.intro": "Zogograph está configurado, pero aún no tiene suficientes datos locales para mostrar el panel completo.",

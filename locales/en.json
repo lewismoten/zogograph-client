@@ -1627,6 +1627,7 @@
   "table.show_more": "Show {{count, number}} more",
   "chart.your_notes": "Your notes",
   "chart.everything_else": "everything else",
+  "chart.everything_else_count": "Everything else ({{count, number}} services)",
   "chart.nothing_collected_range": "Nothing collected for this range yet",
   "chart.nothing_to_show_yet": "Nothing to show yet",
   "onboarding.intro": "Zogograph is configured but does not yet have enough local evidence to show its full dashboard.",

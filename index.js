@@ -3077,7 +3077,9 @@ function memorySlices(services, measuredTotal, options = {}) {
   if (rest > 0) {
     const hidden = rows.length - big.length;
     slices.push({
-      label: hidden > 0 ? `Everything else (${count(hidden, "service")})` : "Everything else",
+      label: hidden > 0
+        ? ZogographI18n.t("chart.everything_else_count", { count: hidden }, "Everything else ({{count, number}} services)")
+        : ZogographI18n.t("chart.everything_else", {}, "Everything else"),
       value: rest,
       // Deliberately grey: it is the part with no answer in it, and colouring
       // it like a service invites reading it as one.

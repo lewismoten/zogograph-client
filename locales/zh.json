@@ -1512,6 +1512,7 @@
   "table.show_more": "再显示 {{count, number}} 行",
   "chart.your_notes": "你的笔记",
   "chart.everything_else": "其余所有内容",
+  "chart.everything_else_count": "其余内容（{{count, number}} 个服务）",
   "chart.nothing_collected_range": "此时间范围尚未收集到数据",
   "chart.nothing_to_show_yet": "目前没有可显示的内容",
   "onboarding.intro": "Zogograph 已配置完成，但尚无足够的本地数据来显示完整仪表板。",

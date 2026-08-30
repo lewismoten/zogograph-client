@@ -1705,6 +1705,7 @@
   "email.recommended": "الموصى به: {{value}}",
   "email.every_time": "كل مرة",
   "email.as_recommended": "كما هو موصى به",
+  "email.open_view": "افتح {{view}}",
   "email.save_settings": "احفظ هذه الإعدادات",
   "alerts.why_fired": "لماذا اشتعل هذا التنبيه؟",
   "common.loading": "جارٍ التحميل…",

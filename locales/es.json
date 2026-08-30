@@ -1721,6 +1721,7 @@
   "email.recommended": "recomendado: {{value}}",
   "email.every_time": "cada vez",
   "email.as_recommended": "como se recomienda",
+  "email.open_view": "Abrir {{view}}",
   "email.save_settings": "Guardar estos ajustes",
   "alerts.why_fired": "¿Por qué se activó esto?",
   "common.loading": "Cargando…",

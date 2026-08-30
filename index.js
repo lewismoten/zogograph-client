@@ -42110,7 +42110,13 @@ function ruleSettings(data) {
     go.type = 'button';
     go.className = 'link';
     go.textContent = ZogographI18n.t('email.show_me', {}, 'Show me');
-    go.title = VIEWS[rule.view] ? `Open ${VIEWS[rule.view].label}` : rule.view;
+    go.title = VIEWS[rule.view]
+      ? ZogographI18n.t(
+          'email.open_view',
+          { view: VIEWS[rule.view].label },
+          'Open {{view}}',
+        )
+      : rule.view;
     go.addEventListener('click', () => {
       location.hash = `#/${rule.view}?range=${state.range}`;
     });

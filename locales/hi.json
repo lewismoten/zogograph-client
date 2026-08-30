@@ -1719,6 +1719,7 @@
   "email.recommended": "अनुशंसित: {{value}}",
   "email.every_time": "हर बार",
   "email.as_recommended": "अनुशंसित के रूप में",
+  "email.open_view": "{{view}} खोलें",
   "email.save_settings": "ये सेटिंग सहेजें",
   "alerts.why_fired": "यह क्यों हुआ?",
   "common.loading": "लोड हो रहा है…",

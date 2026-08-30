@@ -27610,6 +27610,46 @@ function walkButton(data) {
  */
 function renderHostDaemons(daemons) {
   const holder = $('hostDaemons');
+  if (window.ZogographHostDaemonsCard) {
+    return renderCoreCardPackage(
+      ZogographHostDaemonsCard,
+      'core-host-daemons',
+      daemons,
+      {
+        target: holder,
+        renderTable,
+        humanDuration,
+        whenSpan,
+        watch: async (row, button) => {
+          button.disabled = true;
+          try {
+            await post('daemon-watch', {
+              name: row.name,
+              watched: row.watched ? '0' : '1',
+            });
+            notice(
+              row.watched
+                ? ZogographI18n.t(
+                    'host.daemon_stop_watching_notice',
+                    { service: row.label },
+                    '{{service}} will stop being recorded at the next host reading.',
+                  )
+                : ZogographI18n.t(
+                    'host.daemon_watch_notice',
+                    { service: row.label },
+                    '{{service}} will be recorded again at the next host reading.',
+                  ),
+            );
+            await refreshHost();
+          } catch (error) {
+            notice(String(error.message || error));
+            button.disabled = false;
+          }
+        },
+        i18n: ZogographI18n,
+      },
+    );
+  }
   if (!holder) return;
 
   if (!daemons || !daemons.available || !daemons.rows?.length) {

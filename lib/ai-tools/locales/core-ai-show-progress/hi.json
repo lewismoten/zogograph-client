@@ -1,3 +1,4 @@
 {
-  "core-ai-show-progress.summary": "चल रही किसी चीज़ की प्रगति दिखाएँ।"
+  "core-ai-show-progress.summary": "चल रही किसी चीज़ की प्रगति दिखाएँ।",
+  "core-ai-show-progress.activity": "{{what}} की प्रगति दिखाई"
 }

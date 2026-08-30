@@ -11279,7 +11279,9 @@ function chatToolPhrase({ tool, arguments: args, localeNamespace = '' }) {
         ? { measurement: args.measurement, hours: args.hours }
         : tool === 'present_visual'
           ? { title: args.title || 'a visual' }
-          : {};
+          : tool === 'show_progress'
+            ? { what: args.what ?? 'something' }
+            : {};
     return ZogographI18n.t(activityKey, values, said ?? tool);
   }
   return said ?? tool;

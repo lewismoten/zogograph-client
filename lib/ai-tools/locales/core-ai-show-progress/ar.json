@@ -1,3 +1,4 @@
 {
-  "core-ai-show-progress.summary": "أظهر تقدم شيء قيد التشغيل."
+  "core-ai-show-progress.summary": "أظهر تقدم شيء قيد التشغيل.",
+  "core-ai-show-progress.activity": "عرض تقدم {{what}}"
 }

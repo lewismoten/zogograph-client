@@ -1,3 +1,4 @@
 {
-  "core-ai-show-progress.summary": "显示正在运行的事项的进度。"
+  "core-ai-show-progress.summary": "显示正在运行的事项的进度。",
+  "core-ai-show-progress.activity": "显示了 {{what}} 的进度"
 }

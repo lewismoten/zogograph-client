@@ -1,3 +1,4 @@
 {
-  "core-ai-show-progress.summary": "Muestre el progreso de algo que se está ejecutando."
+  "core-ai-show-progress.summary": "Muestre el progreso de algo que se está ejecutando.",
+  "core-ai-show-progress.activity": "Mostró el progreso de {{what}}"
 }

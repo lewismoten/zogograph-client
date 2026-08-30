@@ -31879,21 +31879,39 @@ async function showIncident(id) {
   $('incidentTitle').textContent =
     data.alerts.length === 1
       ? data.alerts[0].subject
-      : `${data.alerts.length} alerts fired together`;
-  $('incidentWhen').textContent =
-    `Captured ${humanTime(data.captured_at)} — the machine as it stood at that moment.`;
+      : ZogographI18n.t(
+          'incident.alerts_fired_together',
+          { count: data.alerts.length },
+          '{{count, number}} alerts fired together',
+        );
+  $('incidentWhen').textContent = ZogographI18n.t(
+    'incident.captured_at',
+    { time: humanTime(data.captured_at) },
+    'Captured {{time}} — the machine as it stood at that moment.',
+  );
 
   const body = document.createDocumentFragment();
 
   if (!evidence) {
-    body.appendChild(note('This record could not be read back.'));
+    body.appendChild(
+      note(
+        ZogographI18n.t(
+          'incident.unreadable',
+          {},
+          'This record could not be read back.',
+        ),
+      ),
+    );
     $('incidentBody').replaceChildren(body);
     return;
   }
 
   if (data.alerts.length > 1) {
     body.appendChild(
-      section('What fired', listOf(data.alerts.map((a) => a.subject))),
+      section(
+        ZogographI18n.t('incident.what_fired', {}, 'What fired'),
+        listOf(data.alerts.map((a) => a.subject)),
+      ),
     );
   }
 
@@ -31901,7 +31919,7 @@ async function showIncident(id) {
   if (vitals) {
     body.appendChild(
       section(
-        'At that moment',
+        ZogographI18n.t('incident.at_that_moment', {}, 'At that moment'),
         factGrid([
           [
             'Load',
@@ -31965,7 +31983,10 @@ async function showIncident(id) {
 
   if (evidence.tree && evidence.tree.length) {
     body.appendChild(
-      section('How they were started', processTree(evidence.tree)),
+      section(
+        ZogographI18n.t('incident.how_started', {}, 'How they were started'),
+        processTree(evidence.tree),
+      ),
     );
   }
 
@@ -32056,7 +32077,14 @@ async function showIncident(id) {
      * disk I/O inside CageFS would be flatly untrue.
      */
     body.appendChild(
-      section('What could not be seen', listOf(missing.map(([, why]) => why))),
+      section(
+        ZogographI18n.t(
+          'incident.what_could_not_be_seen',
+          {},
+          'What could not be seen',
+        ),
+        listOf(missing.map(([, why]) => why)),
+      ),
     );
   }
 

@@ -3700,5 +3700,7 @@
   "diagnosis.nothing_urgent": "Nothing urgent.",
   "diagnosis.ignored_title": "Ignored findings",
   "diagnosis.ignored_help": "These are intentional exceptions. Restore one to include it in later checks.",
-  "storage.measuring": "Measuring…"
+  "storage.measuring": "Measuring…",
+  "diagnosis.reading_everything": "Reading everything…",
+  "host.collector_loading": "Reading the host collector…"
 }

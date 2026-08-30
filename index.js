@@ -23810,7 +23810,10 @@ async function refreshAiStore() {
     return;
   }
 
-  if (!aiStoreState.data) body.replaceChildren(spinner('Measuring…'));
+  if (!aiStoreState.data)
+    body.replaceChildren(
+      spinner(ZogographI18n.t('storage.measuring', {}, 'Measuring…')),
+    );
 
   try {
     renderAiStore(await api('ai-store'));
@@ -34311,7 +34314,15 @@ async function refreshDiagnosis() {
   }
 
   if (!body.childElementCount)
-    body.replaceChildren(spinner('Reading everything\u2026'));
+    body.replaceChildren(
+      spinner(
+        ZogographI18n.t(
+          'diagnosis.reading_everything',
+          {},
+          'Reading everything…',
+        ),
+      ),
+    );
 
   let data;
   try {
@@ -34827,7 +34838,15 @@ async function refreshNetwork() {
   for (const id of bodies) {
     const el = $(id);
     if (el && !el.childElementCount)
-      el.replaceChildren(spinner('Reading the host collector\u2026'));
+      el.replaceChildren(
+        spinner(
+          ZogographI18n.t(
+            'host.collector_loading',
+            {},
+            'Reading the host collector…',
+          ),
+        ),
+      );
   }
 
   if (!state.signedIn) {

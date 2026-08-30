@@ -3597,5 +3597,7 @@
   "diagnosis.nothing_urgent": "没有紧急事项。",
   "diagnosis.ignored_title": "已忽略的发现",
   "diagnosis.ignored_help": "这些是有意设定的例外。恢复其中一项即可将其纳入后续检查。",
-  "storage.measuring": "正在测量…"
+  "storage.measuring": "正在测量…",
+  "diagnosis.reading_everything": "正在读取全部内容…",
+  "host.collector_loading": "正在读取主机采集器…"
 }

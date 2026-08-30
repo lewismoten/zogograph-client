@@ -1334,6 +1334,16 @@ i18nExpect(
             $english['terminal.recovery_help'],
             $english['terminal.syntax_preview_dialog_title'],
             $english['terminal.syntax_preview_help'],
+            $english['editor.contents_of'],
+            $english['editor.shortcuts_editable'],
+            $english['editor.shortcuts_read_only'],
+            $english['editor.writable_note'],
+            $english['editor.read_only_note'],
+            $english['editor.unknown'],
+            $english['editor.encoding'],
+            $english['editor.line_endings'],
+            $english['editor.modified'],
+            $english['editor.permissions'],
         ),
     'English fallback catalog is incomplete',
 );
@@ -1397,6 +1407,14 @@ i18nExpect(
         str_contains($script, 'terminal.recovery_restored') &&
         str_contains($script, 'terminal.syntax_preview_dialog_title'),
     'terminal editor recovery and preview dialog are not localized',
+);
+i18nExpect(
+    $script !== false &&
+        str_contains($script, 'editor.contents_of') &&
+        str_contains($script, 'editor.shortcuts_editable') &&
+        str_contains($script, 'editor.writable_note') &&
+        str_contains($script, 'editor.permissions'),
+    'terminal editor metadata and accessibility text are not localized',
 );
 i18nExpect(
     str_contains($runtime, 'data-i18n-rich') &&

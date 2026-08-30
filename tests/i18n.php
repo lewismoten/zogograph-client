@@ -33,6 +33,12 @@ foreach ($cardFiles as $cardFile) {
     );
     i18nExpect(
         isset($cardId[1]) &&
+            substr_count($cardSource, "'" . $cardId[1] . '.') >= 6,
+        basename($cardFile) .
+            ' must include package-owned copy in every locale catalog',
+    );
+    i18nExpect(
+        isset($cardId[1]) &&
             str_contains($cardSource, "locales: ['" . $cardId[1] . ".']"),
         basename($cardFile) . ' must declare its own locale namespace',
     );

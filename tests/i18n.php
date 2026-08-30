@@ -2386,4 +2386,11 @@ i18nExpect(
         isset($english['ai.tool_group_tab']),
     'AI tool-group labels are not localized through their shared helper',
 );
+i18nExpect(
+    $script !== false &&
+        substr_count($script, "'host.io_rate_per_second'") >= 2 &&
+        is_array($english) &&
+        isset($english['host.io_rate_per_second']),
+    'host I/O views do not share a localized per-second rate formatter',
+);
 echo "i18n checks passed\n";

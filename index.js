@@ -25408,7 +25408,7 @@ function renderUrls(data) {
       },
     },
     {
-      label: "What",
+      label: ZogographI18n.t("url.what", {}, "What"),
       className: "name",
       render: row => {
         const span = document.createElement("span");
@@ -25433,18 +25433,19 @@ function renderUrls(data) {
         return span;
       },
     },
-    { label: "How often", render: row => row.interval_label },
+    { label: ZogographI18n.t("url.how_often", {}, "How often"), render: row => row.interval_label },
     {
-      label: "Last checked",
+      label: ZogographI18n.t("url.last_checked_label", {}, "Last checked"),
       render: row => {
-        if (!row.last_at) return "never";
+        if (!row.last_at) return ZogographI18n.t("url.never", {}, "never");
         const span = document.createElement("span");
         span.textContent = ago(row.last_at);
         // Overdue means the cron is not running, which is a different failure
         // from the site being down and must not look like one.
         if (row.overdue) {
           span.className = "band-warn";
-          span.title = "Due before now. The account's cron may not be running.";
+          span.title = ZogographI18n.t("url.overdue_cron", {},
+            "Due before now. The account's cron may not be running.");
         }
         return span;
       },

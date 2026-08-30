@@ -2281,6 +2281,7 @@
   "storage.link": "链接",
   "storage.history_one_scan": "此路径目前只在一次扫描中出现过",
   "storage.no_scan_finished_range": "此范围内尚未完成任何扫描",
+  "storage.nothing_changed_range": "此范围内没有任何变化。",
   "storage.on_disk": "在磁盘上",
   "storage.type": "类型",
   "storage.watched_as": "监控为",

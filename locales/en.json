@@ -2384,6 +2384,7 @@
   "storage.link": "Link",
   "storage.history_one_scan": "This path has only been seen in one scan so far",
   "storage.no_scan_finished_range": "No scan has finished in this range yet",
+  "storage.nothing_changed_range": "Nothing changed in this range.",
   "storage.on_disk": "On disk",
   "storage.type": "Type",
   "storage.watched_as": "Watched as",

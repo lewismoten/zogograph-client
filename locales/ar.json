@@ -2281,6 +2281,7 @@
   "storage.link": "الرابط",
   "storage.history_one_scan": "لم يظهر هذا المسار إلا في فحص واحد حتى الآن",
   "storage.no_scan_finished_range": "لم ينته أي فحص في هذه المدة بعد",
+  "storage.nothing_changed_range": "لم يتغير شيء في هذه المدة.",
   "storage.on_disk": "على القرص",
   "storage.type": "النوع",
   "storage.watched_as": "مراقب بوصفه",

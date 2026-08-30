@@ -13444,7 +13444,15 @@ function drawChangedChart(data) {
   if (!events.length) {
     ctx.fillStyle = '#66717f';
     ctx.textAlign = 'left';
-    ctx.fillText('Nothing changed in this range.', pad.left + 8, pad.top + 20);
+    ctx.fillText(
+      ZogographI18n.t(
+        'storage.nothing_changed_range',
+        {},
+        'Nothing changed in this range.',
+      ),
+      pad.left + 8,
+      pad.top + 20,
+    );
     $('changedChartNote').textContent = '';
     return;
   }

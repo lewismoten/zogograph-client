@@ -26438,9 +26438,9 @@ function renderEventList(data) {
   holder.replaceChildren(box);
 
   renderTable("eventTable", data.events, [
-    { label: "What", className: "name", render: row => row.title },
-    { label: "When", render: row => humanTime(row.at).split(",")[0] },
-    { label: "Repeats", render: row => data.repeats[row.repeats] || row.repeats },
+    { label: ZogographI18n.t("calendar.what", {}, "What"), className: "name", render: row => row.title },
+    { label: ZogographI18n.t("calendar.when", {}, "When"), render: row => humanTime(row.at).split(",")[0] },
+    { label: ZogographI18n.t("calendar.repeats", {}, "Repeats"), render: row => data.repeats[row.repeats] || row.repeats },
     {
       label: "",
       render: row => {
@@ -26456,7 +26456,7 @@ function renderEventList(data) {
       label: ZogographI18n.t("calendar.dealt_with", {}, "Dealt with"),
       render: row => (row.resolved_at ? humanTime(row.resolved_at).split(",")[0] : "\u2014"),
     },
-    { label: "Note", className: "cmd", render: row => row.note || "" },
+    { label: ZogographI18n.t("calendar.note", {}, "Note"), className: "cmd", render: row => row.note || "" },
     {
       label: "",
       render: row => {

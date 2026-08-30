@@ -49,6 +49,9 @@ $networkGaugesCard = i18nCardSource(
 $networkInterfacesCard = i18nCardSource(
     file_get_contents($root . '/cards/network-interfaces.js'),
 );
+$networkPortsCard = i18nCardSource(
+    file_get_contents($root . '/cards/network-ports.js'),
+);
 $networkPeersCard = i18nCardSource(
     file_get_contents($root . '/cards/network-peers.js'),
 );
@@ -317,6 +320,22 @@ i18nExpect(
             'helpers.i18n.registerCatalog(locale, catalog, false, id)',
         ),
     'core card package catalogs are not namespace-registered before their first render',
+);
+i18nExpect(
+    $page !== false &&
+        str_contains($page, 'src="cards/network-ports.js"') &&
+        $networkPortsCard !== false &&
+        str_contains($networkPortsCard, 'window.ZogographNetworkPortsCard') &&
+        str_contains($networkPortsCard, 'id: "core-network-ports"') &&
+        str_contains($networkPortsCard, 'locales: ["core-network-ports."]') &&
+        str_contains($networkPortsCard, 'catalogs: Object.freeze({') &&
+        str_contains($networkPortsCard, '"core-network-ports.public_empty"') &&
+        $script !== false &&
+        str_contains(
+            $script,
+            'renderCoreCardPackage(ZogographNetworkPortsCard, "core-network-ports",',
+        ),
+    'network ports are not isolated behind their core card-module boundary',
 );
 i18nExpect(
     $page !== false &&

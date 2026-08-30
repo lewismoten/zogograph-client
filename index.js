@@ -34718,6 +34718,20 @@ function renderInterfaces(rows) {
 }
 
 function renderPorts(data) {
+  if (window.ZogographNetworkPortsCard) {
+    return renderCoreCardPackage(
+      ZogographNetworkPortsCard,
+      'core-network-ports',
+      { ports: data.ports || [], publicOnly: networkState.publicOnly },
+      {
+        target: $('portsBody'),
+        note,
+        renderTable,
+        labelled,
+        i18n: ZogographI18n,
+      },
+    );
+  }
   const rows = (data.ports || []).filter(
     (p) => !networkState.publicOnly || p.public,
   );

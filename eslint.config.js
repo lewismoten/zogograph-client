@@ -44,6 +44,7 @@ export default [
         ZogographHostMemoryGaugesCard: 'readonly',
         ZogographNetworkGaugesCard: 'readonly',
         ZogographNetworkInterfacesCard: 'readonly',
+        ZogographNetworkPortsCard: 'readonly',
         ZogographNetworkPeersCard: 'readonly',
         ZogographOtherExtensionsCard: 'readonly',
         ZogographOverviewGaugesCard: 'readonly',

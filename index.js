@@ -25976,7 +25976,7 @@ function openUrlForm(row = null) {
   const etag = document.createElement("input");
   etag.type = "checkbox";
   etag.checked = row ? Boolean(Number(row.send_etag)) : false;
-  field("urlEtag", "Ask if it changed", etag,
+  field("urlEtag", ZogographI18n.t("url.ask_if_changed", {}, "Ask if it changed"), etag,
     "Sends the last ETag, so an unchanged page answers 304 with no body. A 304 counts as "
     + "healthy and skips the content check, because there is no body to check.");
 
@@ -26003,7 +26003,7 @@ function openUrlForm(row = null) {
   value.type = "text";
   value.size = 46;
   value.value = row?.check_value ?? "";
-  const valueRow = field("urlValue", "Looking for", value, "");
+  const valueRow = field("urlValue", ZogographI18n.t("url.looking_for", {}, "Looking for"), value, "");
 
   /*
    * A pattern is easy to get subtly wrong and impossible to check by reading.
@@ -26025,14 +26025,14 @@ function openUrlForm(row = null) {
   group.max = "20";
   group.value = String(row?.capture_group ?? 1);
   group.className = "days";
-  const groupRow = field("urlGroup", "Keep group", group,
+  const groupRow = field("urlGroup", ZogographI18n.t("url.keep_group", {}, "Keep group"), group,
     "Which bracketed part of the pattern to record. Nearly always 1 \u2014 a pattern needs "
     + "context around the part that matters. 0 keeps the whole match.");
 
   const notify = document.createElement("input");
   notify.type = "checkbox";
   notify.checked = row ? Boolean(Number(row.notify_change)) : false;
-  const notifyRow = field("urlNotify", "Tell me when it changes", notify,
+  const notifyRow = field("urlNotify", ZogographI18n.t("url.notify_change", {}, "Tell me when it changes"), notify,
     "Raises an alert the moment the captured text is different from last time. This is how "
     + "you watch a version string: what matters is not its value but when it moved. The "
     + "alert obeys the usual cooldown, so a value that flaps does not flood \u2014 but every "
@@ -26041,7 +26041,7 @@ function openUrlForm(row = null) {
   const enabled = document.createElement("input");
   enabled.type = "checkbox";
   enabled.checked = row ? Boolean(row.enabled) : true;
-  field("urlEnabled", "Run it", enabled, "");
+  field("urlEnabled", ZogographI18n.t("url.enabled", {}, "Run it"), enabled, "");
 
   form.replaceChildren(...parts);
 

@@ -7351,6 +7351,7 @@ function pictureFields(data) {
       styleFinder,
       renderCard: renderCoreCardPackage,
       providerCard: ZogographAiImageProviderCard,
+      stylesCard: ZogographAiImageStylesCard,
       renderOptionsCard: ZogographAiImageRenderOptionsCard,
       limitsCard: ZogographAiImageLimitsCard,
       searchCard: ZogographAiImageSearchCard,

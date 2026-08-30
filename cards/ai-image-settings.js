@@ -10,6 +10,7 @@ window.ZogographAiImageSettingsCard = {
       'styleFinder',
       'renderCard',
       'providerCard',
+      'stylesCard',
       'renderOptionsCard',
       'limitsCard',
       'searchCard',
@@ -54,6 +55,7 @@ window.ZogographAiImageSettingsCard = {
       styleFinder,
       renderCard,
       providerCard,
+      stylesCard,
       renderOptionsCard,
       limitsCard,
       searchCard,
@@ -67,15 +69,7 @@ window.ZogographAiImageSettingsCard = {
     form.className = 'settings';
     form.append(...call(providerCard, 'core-ai-image-provider', { pictures }));
     form.appendChild(
-      fieldRow(
-        i18n.t('core-ai-image-settings.styles', {}, 'Styles it may use'),
-        styleFinder(pictures),
-        i18n.t(
-          'core-ai-image-settings.styles_help',
-          {},
-          'Tick the ones it may choose from. There are over a hundred, and a model offered twelve will use twelve — most of them are wrong for a monitoring dashboard, so two or three is plenty. Type to narrow the list; the ones you have ticked stay at the top whatever you search for.',
-        ),
-      ),
+      call(stylesCard, 'core-ai-image-styles', { pictures }, { styleFinder }),
     );
     form.append(
       ...call(renderOptionsCard, 'core-ai-image-render-options', { pictures }),

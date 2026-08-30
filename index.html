@@ -1069,7 +1069,7 @@
     <h2 data-i18n="host.memory_breakdown_title">Where the memory goes</h2>
     <button id="memGoesRefresh" class="link" data-i18n="action.refresh">Refresh</button>
   </div>
-  <p class="muted small sub-note" data-i18n="host.memory_breakdown_help">The share of measured process memory each service holds, drawn from PSS rather than RSS — a pie claims its slices make a whole, and resident memory cannot: a page shared by ten processes would be counted ten times.</p>
+  <p class="muted small sub-note" data-i18n-rich="host.memory_breakdown_help">The share of measured process memory each service holds, drawn from <strong data-i18n-tag="pss">PSS</strong> rather than <strong data-i18n-tag="rss">RSS</strong> — a pie claims its slices make a whole, and resident memory cannot: a page shared by ten processes would be counted ten times.</p>
   <div id="memGoesBody"></div>
   <div id="memGoesContent" hidden>
     <p class="muted small sub-note" id="hostPieNote">

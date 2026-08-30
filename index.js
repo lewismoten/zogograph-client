@@ -22963,7 +22963,13 @@ async function tryBrowserTool(tool, args) {
     const page = String(args.page || '');
     if (!VIEWS[page]) {
       return {
-        result: { error: `there is no page called ${page}` },
+        result: {
+          error: ZogographI18n.t(
+            'ai.try_page_unknown',
+            { page },
+            'There is no page called {{page}}.',
+          ),
+        },
         shown: null,
       };
     }
@@ -22985,9 +22991,11 @@ async function tryBrowserTool(tool, args) {
     shown.className = 'try-shown';
 
     const said = document.createElement('div');
-    said.textContent =
-      'In a conversation this moves you straight there. Here it is a ' +
-      'link, so you do not lose these results:';
+    said.textContent = ZogographI18n.t(
+      'ai.try_page_shown',
+      {},
+      'In a conversation this moves you straight there. Here it is a link, so you do not lose these results:',
+    );
     shown.appendChild(said);
 
     const link = document.createElement('a');
@@ -23002,9 +23010,11 @@ async function tryBrowserTool(tool, args) {
     const subject = String(args.subject || '');
     const shown = document.createElement('div');
     shown.className = 'try-shown';
-    shown.textContent =
-      'In a conversation this asks for permission, then opens the Tools settings page. ' +
-      `The operator decides whether to enable ${TOOL_GROUP_NAMES[subject] ?? subject} tools and must save the choice.`;
+    shown.textContent = ZogographI18n.t(
+      'ai.try_group_request_shown',
+      { group: TOOL_GROUP_NAMES[subject] ?? subject },
+      'In a conversation this asks for permission, then opens the Tools settings page. The operator decides whether to enable {{group}} tools and must save the choice.',
+    );
     return { result: { requested: subject }, shown };
   }
 

@@ -18393,7 +18393,11 @@ function databaseGauge(label, value, warn, crit, sub, tick) {
     const marker = document.createElement('span');
     marker.className = 'database-gauge-tick';
     marker.style.setProperty('--tick', `${tick / 1.5}%`);
-    marker.title = 'Expected settled size';
+    marker.title = ZogographI18n.t(
+      'database.expected_settled_size',
+      {},
+      'Expected settled size',
+    );
     track.appendChild(marker);
   }
   const said = document.createElement('div');

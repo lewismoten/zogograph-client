@@ -2919,6 +2919,7 @@
   "system.snapshot_size": "Size",
   "system.snapshot_delete_confirm": "Delete {{name}}?\n\nIt is {{size}} and nothing else has a copy.",
   "system.snapshot_removed": "Removed.",
+  "database.expected_settled_size": "Expected settled size",
   "system.peers_title": "Trusted Zogograph servers",
   "system.peers_help": "A trusted server is explicitly configured here and checked through HTTPS OpenID Connect discovery. Saving it does not share data or sign anyone in; those authorization-code steps are deliberately separate.",
   "system.marketplace_title": "Marketplace",

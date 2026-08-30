@@ -2830,6 +2830,7 @@
   "system.snapshot_size": "आकार",
   "system.snapshot_delete_confirm": "{{name}} हटाएँ?\n\nयह {{size}} है और इसकी कोई दूसरी प्रति नहीं है।",
   "system.snapshot_removed": "हटा दिया गया।",
+  "database.expected_settled_size": "अपेक्षित स्थिर आकार",
   "system.peers_title": "विश्वसनीय Zogograph सर्वर",
   "system.peers_help": "विश्वसनीय सर्वर यहाँ स्पष्ट रूप से कॉन्फ़िगर होता है और HTTPS OpenID Connect डिस्कवरी से जाँचा जाता है। इसे सहेजने से डेटा साझा नहीं होता और न किसी का साइन-इन होता है; वे authorization-code चरण जानबूझकर अलग हैं।",
   "system.marketplace_title": "मार्केटप्लेस",

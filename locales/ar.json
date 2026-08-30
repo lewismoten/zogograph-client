@@ -2816,6 +2816,7 @@
   "system.snapshot_size": "الحجم",
   "system.snapshot_delete_confirm": "حذف {{name}}؟\n\nحجمه {{size}} ولا توجد له نسخة أخرى.",
   "system.snapshot_removed": "أُزيلت.",
+  "database.expected_settled_size": "الحجم المستقر المتوقع",
   "system.peers_title": "خوادم Zogograph الموثوقة",
   "system.peers_help": "يُضبط خادم موثوق صراحة هنا ويُفحص عبر اكتشاف HTTPS OpenID Connect. حفظه لا يشارك بيانات ولا يسجل دخول أحد؛ خطوات رمز التفويض تلك منفصلة عمدًا.",
   "system.marketplace_title": "السوق",

@@ -22461,19 +22461,27 @@ function openDisplayPreferences() {
   showFormDialog(
     ZogographI18n.t('display.preferences', {}, 'Display preferences'),
     [
-      fieldRow('Text size', textSize, 'Applies to this browser only.'),
       fieldRow(
-        'Motion',
+        ZogographI18n.t('display.text_size', {}, 'Text size'),
+        textSize,
+        ZogographI18n.t(
+          'display.text_size_help',
+          {},
+          'Applies to this browser only.',
+        ),
+      ),
+      fieldRow(
+        ZogographI18n.t('display.motion', {}, 'Motion'),
         motion,
         'Reduce motion disables decorative animation and transitions in this browser.',
       ),
       fieldRow(
-        'Editor typeface',
+        ZogographI18n.t('display.editor_typeface', {}, 'Editor typeface'),
         editorFont,
         'Changes only local code, diff, and syntax readers. No file content leaves this browser.',
       ),
       fieldRow(
-        'Colour vision',
+        ZogographI18n.t('display.colour_vision', {}, 'Colour vision'),
         colorVision,
         'High distinction uses a blue, orange, and violet status palette. Status words and symbols remain visible in every mode.',
       ),
@@ -22482,12 +22490,12 @@ function openDisplayPreferences() {
         document.createElement('div'),
       ),
       fieldRow(
-        'Speaking',
+        ZogographI18n.t('display.speaking', {}, 'Speaking'),
         speaking,
         'Browser speech synthesis; replies are read aloud only when enabled.',
       ),
       fieldRow(
-        'Voice',
+        ZogographI18n.t('display.voice', {}, 'Voice'),
         voice,
         'Available voices come from this browser and device.',
       ),
@@ -22508,7 +22516,7 @@ function openDisplayPreferences() {
       ),
       test,
       fieldRow(
-        'Listening',
+        ZogographI18n.t('display.listening', {}, 'Listening'),
         listening,
         'After applying, click Start listening to grant microphone permission. Push to talk requires holding the Listen button; Always on restarts recognition until stopped.',
       ),

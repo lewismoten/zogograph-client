@@ -1,4 +1,6 @@
 {
   "core-ai-show-reaction.summary": "एक छोटी प्रतिक्रिया छवि दिखाएँ।",
-  "core-ai-show-reaction.activity": "प्रतिक्रिया दी"
+  "core-ai-show-reaction.activity": "प्रतिक्रिया दी",
+  "core-ai-show-reaction.try_missing_picture": "कोई चित्र वापस नहीं आया: {{error}}। बातचीत में यह विफलता नहीं है — बस यह अलग प्रतिक्रिया नहीं होती और वार्तालाप चलता रहता है।",
+  "core-ai-show-reaction.try_search_empty": "खोज में कुछ नहीं मिला"
 }

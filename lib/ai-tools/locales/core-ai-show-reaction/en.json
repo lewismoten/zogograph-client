@@ -1,4 +1,6 @@
 {
   "core-ai-show-reaction.summary": "Show a small reaction image.",
-  "core-ai-show-reaction.activity": "Reacted"
+  "core-ai-show-reaction.activity": "Reacted",
+  "core-ai-show-reaction.try_missing_picture": "No picture came back: {{error}}. In a conversation this is not a failure — the aside simply does not happen and the turn carries on.",
+  "core-ai-show-reaction.try_search_empty": "the search found nothing"
 }

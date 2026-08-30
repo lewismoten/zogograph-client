@@ -1,4 +1,6 @@
 {
   "core-ai-show-reaction.summary": "Muestre una pequeña imagen de reacción.",
-  "core-ai-show-reaction.activity": "Reaccionó"
+  "core-ai-show-reaction.activity": "Reaccionó",
+  "core-ai-show-reaction.try_missing_picture": "No llegó ninguna imagen: {{error}}. En una conversación esto no es un fallo; el aparte simplemente no ocurre y el turno continúa.",
+  "core-ai-show-reaction.try_search_empty": "la búsqueda no encontró nada"
 }

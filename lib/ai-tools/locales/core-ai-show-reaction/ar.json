@@ -1,4 +1,6 @@
 {
   "core-ai-show-reaction.summary": "أظهر صورة تفاعل صغيرة.",
-  "core-ai-show-reaction.activity": "أبدى تفاعلاً"
+  "core-ai-show-reaction.activity": "أبدى تفاعلاً",
+  "core-ai-show-reaction.try_missing_picture": "لم تعد أي صورة: {{error}}. في محادثة لا يعد هذا فشلاً؛ ببساطة لا يحدث التفاعل الجانبي وتستمر الجولة.",
+  "core-ai-show-reaction.try_search_empty": "لم يعثر البحث على شيء"
 }

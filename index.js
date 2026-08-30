@@ -20835,9 +20835,19 @@ async function tryBrowserTool(tool, args) {
       return {
         result: {},
         shown: note(
-          `No picture came back: ${found.error || 'the search found nothing'}. In a ` +
-            'conversation this is not a failure — the aside simply does not happen and ' +
-            'the turn carries on.',
+          ZogographI18n.t(
+            'core-ai-show-reaction.try_missing_picture',
+            {
+              error:
+                found.error ||
+                ZogographI18n.t(
+                  'core-ai-show-reaction.try_search_empty',
+                  {},
+                  'the search found nothing',
+                ),
+            },
+            'No picture came back: {{error}}. In a conversation this is not a failure.',
+          ),
         ),
       };
     }

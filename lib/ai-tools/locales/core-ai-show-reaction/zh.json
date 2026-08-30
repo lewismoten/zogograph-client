@@ -1,4 +1,6 @@
 {
   "core-ai-show-reaction.summary": "显示一个小型反应图像。",
-  "core-ai-show-reaction.activity": "作出了反应"
+  "core-ai-show-reaction.activity": "作出了反应",
+  "core-ai-show-reaction.try_missing_picture": "没有返回图像：{{error}}。在对话中这不是失败——旁白不会出现，而该轮会继续进行。",
+  "core-ai-show-reaction.try_search_empty": "搜索未找到任何内容"
 }

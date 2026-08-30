@@ -44033,7 +44033,15 @@ async function refreshBackups() {
     const el = $(id);
     // Something has to be on screen while a walk of /backup is being read.
     if (el && !el.childElementCount)
-      el.replaceChildren(spinner('Reading the last walk\u2026'));
+      el.replaceChildren(
+        spinner(
+          ZogographI18n.t(
+            'backup.reading_last_walk',
+            {},
+            'Reading the last walk…',
+          ),
+        ),
+      );
   }
 
   let data;
@@ -44045,7 +44053,10 @@ async function refreshBackups() {
   }
 
   if (!data.available) {
-    everywhere(data.reason || 'Nothing recorded.');
+    everywhere(
+      data.reason ||
+        ZogographI18n.t('backup.nothing_recorded', {}, 'Nothing recorded.'),
+    );
     return;
   }
 
@@ -44060,18 +44071,38 @@ async function refreshBackups() {
   sub.className = 'headline-sub';
   sub.textContent =
     data.share_percent != null
-      ? `${data.share_percent}% of the used space on ${data.mount || 'this filesystem'}`
-      : 'share of the disk unknown — no filesystem reading recorded';
+      ? ZogographI18n.t(
+          'backup.used_space_on',
+          {
+            percent: data.share_percent,
+            filesystem:
+              data.mount ||
+              ZogographI18n.t('backup.this_filesystem', {}, 'this filesystem'),
+          },
+          '{{percent}}% of the used space on {{filesystem}}',
+        )
+      : ZogographI18n.t(
+          'backup.share_unknown',
+          {},
+          'Share of the disk unknown — no filesystem reading recorded.',
+        );
   body.appendChild(sub);
 
   if (!data.complete || data.unmeasured) {
     body.appendChild(
       note(
-        'The disk walk ran out of time, so this total is a lower bound' +
+        ZogographI18n.t(
+          'backup.walk_incomplete',
+          {},
+          'The disk walk ran out of time, so this total is a lower bound.',
+        ) +
           (data.unmeasured
-            ? ` — ${count(data.unmeasured, 'directory', 'directories')} under the backup roots ` +
-              'were never opened.'
-            : '.'),
+            ? ` — ${ZogographI18n.t(
+                'backup.directories_not_opened',
+                { count: data.unmeasured },
+                '{{count}} directories under the backup roots were never opened.',
+              )}`
+            : ''),
       ),
     );
   }

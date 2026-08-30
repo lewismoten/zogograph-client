@@ -1,3 +1,5 @@
 {
-  "core-ai-find-largest-paths.summary": "सबसे बड़ी और सबसे तेज़ी से बढ़ने वाली फ़ाइलें और निर्देशिकाएँ।"
+  "core-ai-find-largest-paths.summary": "सबसे बड़ी और सबसे तेज़ी से बढ़ने वाली फ़ाइलें और निर्देशिकाएँ।",
+  "core-ai-find-largest-paths.activity_largest": "सबसे बड़ी फ़ाइलें खोजीं",
+  "core-ai-find-largest-paths.activity_growth": "सबसे तेज़ी से बढ़ने वाली फ़ाइलें खोजीं"
 }

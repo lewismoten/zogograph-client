@@ -1,3 +1,5 @@
 {
-  "core-ai-find-largest-paths.summary": "最大的和增长最快的文件与目录。"
+  "core-ai-find-largest-paths.summary": "最大的和增长最快的文件与目录。",
+  "core-ai-find-largest-paths.activity_largest": "查找了最大的文件",
+  "core-ai-find-largest-paths.activity_growth": "查找了增长最快的文件"
 }

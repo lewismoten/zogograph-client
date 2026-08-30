@@ -11261,11 +11261,17 @@ function chatToolPhrase({ tool, arguments: args, localeNamespace = '' }) {
   }[tool];
 
   if (localeNamespace) {
+    const activityKey =
+      tool === 'find_largest_paths'
+        ? `${localeNamespace}activity_${
+            args.sort_by === 'growth' ? 'growth' : 'largest'
+          }`
+        : `${localeNamespace}activity`;
     const values =
       tool === 'get_measurement_history'
         ? { measurement: args.measurement, hours: args.hours }
         : {};
-    return ZogographI18n.t(`${localeNamespace}activity`, values, said ?? tool);
+    return ZogographI18n.t(activityKey, values, said ?? tool);
   }
   return said ?? tool;
 }

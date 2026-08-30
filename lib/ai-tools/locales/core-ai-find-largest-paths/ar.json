@@ -1,3 +1,5 @@
 {
-  "core-ai-find-largest-paths.summary": "أكبر الملفات والأدلة والأسرع نمواً."
+  "core-ai-find-largest-paths.summary": "أكبر الملفات والأدلة والأسرع نمواً.",
+  "core-ai-find-largest-paths.activity_largest": "بحث عن أكبر الملفات",
+  "core-ai-find-largest-paths.activity_growth": "بحث عن الملفات الأسرع نمواً"
 }

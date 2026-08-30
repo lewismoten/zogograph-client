@@ -1,3 +1,5 @@
 {
-  "core-ai-find-largest-paths.summary": "The largest and fastest-growing files and directories."
+  "core-ai-find-largest-paths.summary": "The largest and fastest-growing files and directories.",
+  "core-ai-find-largest-paths.activity_largest": "Looked for the largest files",
+  "core-ai-find-largest-paths.activity_growth": "Looked for the fastest-growing files"
 }

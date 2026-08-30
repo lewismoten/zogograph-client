@@ -1,3 +1,4 @@
 {
-  "core-ai-get-pending-host-requests.summary": "Vea qué se le ha pedido al host y si se ejecutó."
+  "core-ai-get-pending-host-requests.summary": "Vea qué se le ha pedido al host y si se ejecutó.",
+  "core-ai-get-pending-host-requests.activity": "Comprobó lo que el host ya tiene en cola"
 }

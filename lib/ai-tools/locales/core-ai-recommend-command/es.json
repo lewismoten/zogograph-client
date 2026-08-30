@@ -1,3 +1,4 @@
 {
-  "core-ai-recommend-command.summary": "Ponga un comando en la terminal para que lo ejecute el operador."
+  "core-ai-recommend-command.summary": "Ponga un comando en la terminal para que lo ejecute el operador.",
+  "core-ai-recommend-command.activity": "Puso un comando en la página de terminal"
 }

@@ -1,3 +1,4 @@
 {
-  "core-ai-get-pending-host-requests.summary": "देखें कि होस्ट से क्या मांगा गया है और क्या वह चला।"
+  "core-ai-get-pending-host-requests.summary": "देखें कि होस्ट से क्या मांगा गया है और क्या वह चला।",
+  "core-ai-get-pending-host-requests.activity": "जाँचा कि होस्ट के पास पहले से क्या कतार में है"
 }

@@ -1,3 +1,4 @@
 {
-  "core-ai-get-pending-host-requests.summary": "查看向主机请求了什么，以及是否已运行。"
+  "core-ai-get-pending-host-requests.summary": "查看向主机请求了什么，以及是否已运行。",
+  "core-ai-get-pending-host-requests.activity": "检查了主机已排队的内容"
 }

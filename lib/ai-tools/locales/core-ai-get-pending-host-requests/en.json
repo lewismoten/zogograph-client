@@ -1,3 +1,4 @@
 {
-  "core-ai-get-pending-host-requests.summary": "See what the host has been asked for, and whether it ran."
+  "core-ai-get-pending-host-requests.summary": "See what the host has been asked for, and whether it ran.",
+  "core-ai-get-pending-host-requests.activity": "Checked what the host already has queued"
 }

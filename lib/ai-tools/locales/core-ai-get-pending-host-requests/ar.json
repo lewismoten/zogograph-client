@@ -1,3 +1,4 @@
 {
-  "core-ai-get-pending-host-requests.summary": "اطّلع على ما طُلب من المضيف وما إذا كان قد شُغّل."
+  "core-ai-get-pending-host-requests.summary": "اطّلع على ما طُلب من المضيف وما إذا كان قد شُغّل.",
+  "core-ai-get-pending-host-requests.activity": "تحقق مما لدى المضيف في قائمة الانتظار"
 }

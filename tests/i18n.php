@@ -163,6 +163,9 @@ $fetchRawCard = i18nCardSource(
 $fetchTabsCard = i18nCardSource(
     file_get_contents($root . '/cards/fetch-tabs.js'),
 );
+$capabilityChangeNoteCard = i18nCardSource(
+    file_get_contents($root . '/cards/capability-change-note.js'),
+);
 $changeHistoryCard = i18nCardSource(
     file_get_contents($root . '/cards/change-history.js'),
 );
@@ -1006,6 +1009,30 @@ i18nExpect(
         str_contains($fetchTabsCard, '"core-fetch-tabs.visit_title"') &&
         str_contains($script, 'ZogographFetchTabsCard,'),
     'fetch view tabs are not isolated behind their core card-module boundary',
+);
+i18nExpect(
+    $page !== false &&
+        $script !== false &&
+        str_contains($page, 'src="cards/capability-change-note.js"') &&
+        str_contains(
+            $capabilityChangeNoteCard,
+            'window.ZogographCapabilityChangeNoteCard',
+        ) &&
+        str_contains(
+            $capabilityChangeNoteCard,
+            'id: "core-capability-change-note"',
+        ) &&
+        str_contains(
+            $capabilityChangeNoteCard,
+            'locales: ["core-capability-change-note."]',
+        ) &&
+        str_contains($capabilityChangeNoteCard, 'catalogs: Object.freeze({') &&
+        str_contains(
+            $capabilityChangeNoteCard,
+            '"core-capability-change-note.truncated"',
+        ) &&
+        str_contains($script, 'ZogographCapabilityChangeNoteCard,'),
+    'capability change note is not isolated behind its core card-module boundary',
 );
 i18nExpect(
     $page !== false &&

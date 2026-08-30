@@ -41436,17 +41436,12 @@ function renderChangeNote() {
   const data = changeState.data;
   const note = $('capChangeNote');
   if (!data) return;
-
-  const parts = [
-    `${count(data.total, 'change')} in this period, one bar per ${data.bucket_unit}.`,
-  ];
-  if (data.truncated) {
-    parts.push(
-      `Only the most recent ${data.changes.length} are listed when a bar is clicked.`,
-    );
-  }
-  if (data.total) parts.push('Click a bar for the detail.');
-  note.textContent = parts.join(' ');
+  renderCoreCardPackage(
+    ZogographCapabilityChangeNoteCard,
+    'core-capability-change-note',
+    data,
+    { target: note, count, i18n: ZogographI18n },
+  );
 }
 
 function barAt(x) {

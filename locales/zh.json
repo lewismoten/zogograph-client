@@ -643,6 +643,7 @@
   "path_hygiene.dash_not_allowed": "名称不能以短横线开头。",
   "path_hygiene.shell_wildcards_not_allowed": "名称不能包含 shell 或通配符字符。",
   "path_hygiene.safe_to_rename": "此名称可以安全重命名。",
+  "path_hygiene.scan_truncated": "扫描找到的名称多于此页面保留的数量。请重命名这些名称，然后再次运行磁盘扫描。",
   "ai.save_all_pages": "保存这些页面上的所有内容。",
   "ai.save_assistant_pages": "保存 {{assistant}} 所有页面上的内容，包括其他选项卡中的工具。",
   "ai.save_as_toolset": "另存为工具集",

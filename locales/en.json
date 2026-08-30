@@ -645,6 +645,7 @@
   "path_hygiene.dash_not_allowed": "Names cannot start with a dash.",
   "path_hygiene.shell_wildcards_not_allowed": "Names cannot contain shell or wildcard characters.",
   "path_hygiene.safe_to_rename": "This name is safe to rename.",
+  "path_hygiene.scan_truncated": "The scan found more names than this page retains. Rename these, then run another disk scan.",
   "ai.settings.provider_label": "Provider",
   "ai.settings.address_label": "Address",
   "ai.settings.address_help": "Leave blank for the provider's own. Point it elsewhere for a gateway, a proxy, or a model running on this machine.",

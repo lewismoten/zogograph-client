@@ -14436,7 +14436,11 @@ function renderPathHygiene(data) {
     if (last.truncated)
       parts.push(
         note(
-          'The scan found more names than this page retains. Rename these, then run another disk scan.',
+          ZogographI18n.t(
+            'path_hygiene.scan_truncated',
+            {},
+            'The scan found more names than this page retains. Rename these, then run another disk scan.',
+          ),
         ),
       );
   }

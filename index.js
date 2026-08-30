@@ -4591,66 +4591,20 @@ function renderIoChart(rows) {
 function renderVitalCharts(rows, uptime) {
   renderRoomChart(rows);
   renderCpuChart(rows);
-
   renderIoChart(rows);
-
-  /*
-   * Load average is not a percentage, which is the single most common thing to
-   * get wrong about it, so the chart says what it is in the panel subtitle and
-   * draws a line at one-per-core - the level above which work is queueing.
-   */
-  const bands = outageBands({ analysis: uptime });
-
-  drawLineChart(
-    $('loadChart'),
+  return renderCoreCardPackage(
+    ZogographLoadNetworkCharts,
+    'core-load-network-charts',
     rows,
-    [
-      {
-        key: 'load1',
-        label: ZogographI18n.t('vitals.load_one_minute', {}, '1 min'),
-      },
-      {
-        key: 'load5',
-        label: ZogographI18n.t('vitals.load_five_minutes', {}, '5 min'),
-      },
-      {
-        key: 'load15',
-        label: ZogographI18n.t('vitals.load_fifteen_minutes', {}, '15 min'),
-      },
-    ],
     {
-      axis: (step) => ({
-        scale: 1,
-        unit: '',
-        format: (v) => v.toFixed(tickPrecision(step)),
-      }),
-      zeroBased: true,
-      outages: bands,
-    },
-  );
-
-  drawLineChart(
-    $('netChart'),
-    rows,
-    [
-      {
-        key: 'net_rx_rate',
-        label: ZogographI18n.t('vitals.network_in', {}, 'In'),
-      },
-      {
-        key: 'net_tx_rate',
-        label: ZogographI18n.t('vitals.network_out', {}, 'Out'),
-      },
-    ],
-    {
-      axis: rateAxis,
-      zeroBased: true,
-      outages: bands,
-      empty: ZogographI18n.t(
-        'vitals.network_unreadable',
-        {},
-        'No network counters here — /proc/net/dev is not readable',
-      ),
+      loadCanvas: $('loadChart'),
+      networkCanvas: $('netChart'),
+      uptime,
+      drawLineChart,
+      outageBands,
+      tickPrecision,
+      rateAxis,
+      i18n: ZogographI18n,
     },
   );
 }

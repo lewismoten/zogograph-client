@@ -936,6 +936,8 @@
   "peers.admin_only": "Only administrators can manage trusted servers.",
   "ai.start_new": "Start a new one",
   "ai.nothing_chosen": "Nothing chosen yet.",
+  "database.empty_space_amount": "{{bytes}} ({{percent, number}}% of it)",
+  "database.pages_of_size": "{{pages}} of {{pageSize}}",
   "database.all_reading_tiers": "all reading tiers",
   "database.projected_with_growth": "{{projected}}, plus about {{growth}} a year that nothing expires",
   "database.write_ahead_log_bytes": " + {{bytes}} write-ahead log",

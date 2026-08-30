@@ -18926,7 +18926,14 @@ function databaseCard(file, projection) {
         {},
         'Empty space inside it',
       ),
-      `${humanBytes(file.free_bytes)} (${Math.round(file.free_share * 100)}% of it)`,
+      ZogographI18n.t(
+        'database.empty_space_amount',
+        {
+          bytes: humanBytes(file.free_bytes),
+          percent: Math.round(file.free_share * 100),
+        },
+        '{{bytes}} ({{percent, number}}% of it)',
+      ),
     ],
     [
       ZogographI18n.t('database.integrity', {}, 'Integrity'),
@@ -18968,7 +18975,14 @@ function databaseCard(file, projection) {
     ],
     [
       ZogographI18n.t('database.pages', {}, 'Pages'),
-      `${humanCount(file.pages)} of ${humanBytes(file.page_size)}`,
+      ZogographI18n.t(
+        'database.pages_of_size',
+        {
+          pages: humanCount(file.pages),
+          pageSize: humanBytes(file.page_size),
+        },
+        '{{pages}} of {{pageSize}}',
+      ),
     ],
     [ZogographI18n.t('database.journal', {}, 'Journal'), file.journal],
   ];

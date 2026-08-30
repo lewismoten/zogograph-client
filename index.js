@@ -33625,27 +33625,53 @@ function renderInspect(data) {
    */
   if (data.kind === 'file' && f.links > 1) {
     facts.push([
-      'Hard links',
-      `${f.links} \u2014 the same bytes are reachable by ${f.links} paths, ` +
-        'and removing this one frees nothing until the last goes',
+      ZogographI18n.t('storage.hard_links', {}, 'Hard links'),
+      ZogographI18n.t(
+        'storage.hard_links_detail',
+        { count: f.links },
+        '{{count, number}} — the same bytes are reachable by {{count, number}} paths, and removing this one frees nothing until the last goes',
+      ),
     ]);
   } else if (data.kind === 'dir' && f.links > 2) {
     facts.push([
-      'Subdirectories',
-      `${f.links - 2}, counted from the link count`,
+      ZogographI18n.t('storage.subdirectories', {}, 'Subdirectories'),
+      ZogographI18n.t(
+        'storage.subdirectories_detail',
+        { count: f.links - 2 },
+        '{{count, number}}, counted from the link count',
+      ),
     ]);
   }
-  if (data.inode) facts.push(['Inode', String(data.inode)]);
+  if (data.inode)
+    facts.push([
+      ZogographI18n.t('storage.inode', {}, 'Inode'),
+      String(data.inode),
+    ]);
 
   if (data.kind === 'link') {
-    facts.push(['Points at', data.link_target ?? 'unreadable']);
     facts.push([
-      'Target exists',
-      data.link_resolves ? 'yes' : 'no \u2014 this link is broken',
+      ZogographI18n.t('storage.points_at', {}, 'Points at'),
+      data.link_target ??
+        ZogographI18n.t('storage.unreadable', {}, 'unreadable'),
+    ]);
+    facts.push([
+      ZogographI18n.t('storage.target_exists', {}, 'Target exists'),
+      data.link_resolves
+        ? ZogographI18n.t('storage.yes', {}, 'yes')
+        : ZogographI18n.t(
+            'storage.no_link_broken',
+            {},
+            'no — this link is broken',
+          ),
     ]);
   }
 
-  parts.push(section('What it is', factGrid(facts)));
+  parts.push(
+    section(
+      ZogographI18n.t('storage.what_it_is', {}, 'What it is'),
+      factGrid(facts),
+    ),
+  );
 
   if (data.kind === 'dir') parts.push(...inspectDirectory(data));
   if (data.image?.is_image) parts.push(inspectImage(data));

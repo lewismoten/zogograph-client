@@ -1587,7 +1587,6 @@
   "host_log.refused": "होस्ट ने पहुँच अस्वीकार की",
   "domain.watch": "इस डोमेन की निगरानी करें",
   "domain.now_watching": "अब {{domain}} की निगरानी हो रही है।",
-  "cagefs.what_is": "CageFS क्या है",
   "terminal.running_in": "इसमें चल रहा है ",
   "terminal.return_home": "शीर्ष पर वापस जाएँ",
   "terminal.return_home_title": "{{home}} पर लौटें",

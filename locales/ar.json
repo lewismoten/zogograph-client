@@ -1573,7 +1573,6 @@
   "host_log.refused": "رفض المضيف الوصول",
   "domain.watch": "راقب هذا النطاق",
   "domain.now_watching": "تجري الآن مراقبة {{domain}}.",
-  "cagefs.what_is": "ما هو CageFS",
   "terminal.running_in": "يعمل في ",
   "terminal.return_home": "العودة إلى الأعلى",
   "terminal.return_home_title": "العودة إلى {{home}}",

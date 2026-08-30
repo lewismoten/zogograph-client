@@ -1640,7 +1640,6 @@
   "host_log.refused": "refused by the host",
   "domain.watch": "Watch this domain",
   "domain.now_watching": "Now watching {{domain}}.",
-  "cagefs.what_is": "What CageFS is",
   "terminal.running_in": "Running in ",
   "terminal.return_home": "back to the top",
   "terminal.return_home_title": "Return to {{home}}",

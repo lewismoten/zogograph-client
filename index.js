@@ -40957,62 +40957,12 @@ function renderCapList(data) {
 function renderCagefsExplainer(mounts, capabilities) {
   const holder = $('cagefsExplainer');
   if (!holder) return;
-
-  const cage = mounts?.cagefs;
-  const installed = capabilities?.cagefs?.installed || cage?.present;
-
-  if (!installed) {
-    /*
-     * Its own page now, so an empty one has to say why it is empty.
-     *
-     * Inside the explainer this was a legitimate no-op - nothing to add to a
-     * page about mounts. On a page called "The CageFS skeleton" a blank panel
-     * reads as a fault, and the distinction it is drawing (absent, versus
-     * invisible from in here) is the whole point of the page.
-     */
-    holder.replaceChildren(
-      note(
-        'Nothing here says CageFS is installed. From inside a cage that is expected: ' +
-          "the skeleton's mounts live in the host's namespace and cannot be seen from " +
-          'an account. Run the host collector as root and this fills in — or it ' +
-          'confirms the machine genuinely does not use CageFS.',
-      ),
-    );
-    return;
-  }
-
-  const box = document.createElement('div');
-  box.className = 'explainer';
-
-  const head = document.createElement('h3');
-  head.textContent = ZogographI18n.t('cagefs.what_is', {}, 'What CageFS is');
-  box.appendChild(head);
-
-  const paragraphs = [
-    'CageFS gives every account its own private view of the filesystem. Instead of the ' +
-      "machine's real /usr and /bin, an account sees a small curated copy built from a " +
-      'skeleton at /usr/share/cagefs-skeleton — enough to run a website and nothing else.',
-
-    'So a program the host has in /usr/sbin is not hidden from you by permissions. It is ' +
-      'simply not present in the filesystem you are looking at. When the account says a ' +
-      'program is not found, it is telling the truth about a world where that program does ' +
-      'not exist — which is why “installed” and “available here” are different questions on ' +
-      'this machine, and why this page answers both.',
-
-    'Adding a program for accounts means listing its path in /etc/cagefs/conf.d and running ' +
-      'cagefsctl --force-update as root. That changes what every caged account can run, so ' +
-      'this tool reports the exact commands rather than running them for you.',
-  ];
-
-  if (capabilities?.cagefs?.note) paragraphs.push(capabilities.cagefs.note);
-
-  for (const text of paragraphs) {
-    const p = document.createElement('p');
-    p.textContent = text;
-    box.appendChild(p);
-  }
-
-  holder.replaceChildren(box);
+  renderCoreCardPackage(
+    ZogographCagefsExplainerCard,
+    'core-cagefs-explainer',
+    { mounts, capabilities },
+    { target: holder, note, i18n: ZogographI18n },
+  );
 }
 
 async function refreshMounts() {

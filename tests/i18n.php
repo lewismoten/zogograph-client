@@ -169,6 +169,9 @@ $capabilityChangeNoteCard = i18nCardSource(
 $jetBackupCard = i18nCardSource(
     file_get_contents($root . '/cards/jetbackup.js'),
 );
+$cagefsExplainerCard = i18nCardSource(
+    file_get_contents($root . '/cards/cagefs-explainer.js'),
+);
 $changeHistoryCard = i18nCardSource(
     file_get_contents($root . '/cards/change-history.js'),
 );
@@ -1048,6 +1051,27 @@ i18nExpect(
         str_contains($jetBackupCard, '"core-jetbackup.known"') &&
         str_contains($script, 'ZogographJetBackupCard,'),
     'JetBackup is not isolated behind its core card-module boundary',
+);
+i18nExpect(
+    $page !== false &&
+        $script !== false &&
+        str_contains($page, 'src="cards/cagefs-explainer.js"') &&
+        str_contains(
+            $cagefsExplainerCard,
+            'window.ZogographCagefsExplainerCard',
+        ) &&
+        str_contains($cagefsExplainerCard, 'id: "core-cagefs-explainer"') &&
+        str_contains(
+            $cagefsExplainerCard,
+            'locales: ["core-cagefs-explainer."]',
+        ) &&
+        str_contains($cagefsExplainerCard, 'catalogs: Object.freeze({') &&
+        str_contains(
+            $cagefsExplainerCard,
+            '"core-cagefs-explainer.private_view"',
+        ) &&
+        str_contains($script, 'ZogographCagefsExplainerCard,'),
+    'CageFS explainer is not isolated behind its core card-module boundary',
 );
 i18nExpect(
     $page !== false &&

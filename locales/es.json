@@ -1589,7 +1589,6 @@
   "host_log.refused": "el host denegó el acceso",
   "domain.watch": "Vigilar este dominio",
   "domain.now_watching": "Ahora se vigila {{domain}}.",
-  "cagefs.what_is": "Qué es CageFS",
   "terminal.running_in": "Ejecutando en ",
   "terminal.return_home": "volver al inicio",
   "terminal.return_home_title": "Volver a {{home}}",

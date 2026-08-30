@@ -1573,7 +1573,6 @@
   "host_log.refused": "主机拒绝访问",
   "domain.watch": "监控此域名",
   "domain.now_watching": "现已监控 {{domain}}。",
-  "cagefs.what_is": "什么是 CageFS",
   "terminal.running_in": "正在运行于 ",
   "terminal.return_home": "返回顶部",
   "terminal.return_home_title": "返回 {{home}}",

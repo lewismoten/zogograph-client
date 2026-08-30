@@ -175,6 +175,9 @@ $jetBackupCard = i18nCardSource(
 $cagefsExplainerCard = i18nCardSource(
     file_get_contents($root . '/cards/cagefs-explainer.js'),
 );
+$notesEmptyCard = i18nCardSource(
+    file_get_contents($root . '/cards/notes-empty.js'),
+);
 $changeHistoryCard = i18nCardSource(
     file_get_contents($root . '/cards/change-history.js'),
 );
@@ -2507,7 +2510,6 @@ i18nExpect(
             $english['pending.new'],
             $english['notes.capture_size'],
             $english['notes.pictures_kept'],
-            $english['notes.empty'],
             $english['notes.selected'],
             $english['notes.select_to_act'],
             $english['notes.dismiss_selected_help'],
@@ -2836,7 +2838,7 @@ i18nExpect(
 );
 i18nExpect(
     $script !== false &&
-        str_contains($script, 'notes.empty') &&
+        str_contains($notesEmptyCard, 'core-notes-empty.message') &&
         str_contains($script, 'notes.selected') &&
         str_contains($script, 'notes.dismiss_selected_help'),
     'note selection controls retain direct user-visible text',

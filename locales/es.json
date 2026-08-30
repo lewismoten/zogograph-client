@@ -258,7 +258,6 @@
   "pending.new": "nuevo",
   "notes.capture_size": "{{captures}} capturas · {{size}}",
   "notes.pictures_kept": "{{count}} imágenes guardadas con esta nota",
-  "notes.empty": "Aún no hay nada escrito. El botón de la esquina inferior escribe una nota sobre la página en la que está.",
   "notes.selected": "{{count}} seleccionadas",
   "notes.select_to_act": "Seleccione notas para descartarlas o eliminarlas",
   "notes.link_label": "Enlace",

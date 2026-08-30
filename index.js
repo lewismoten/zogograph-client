@@ -16025,15 +16025,11 @@ function renderNotes(data) {
   const body = $('notesBody');
 
   if (!data.rows.length) {
-    body.replaceChildren(
-      note(
-        ZogographI18n.t(
-          'notes.empty',
-          {},
-          'Nothing written down yet. The button in the bottom corner writes one about whatever page you are on.',
-        ),
-      ),
-    );
+    renderCoreCardPackage(ZogographNotesEmptyCard, 'core-notes-empty', data, {
+      target: body,
+      note,
+      i18n: ZogographI18n,
+    });
   } else {
     const controls = document.createElement('div');
     controls.className = 'table-tools note-batch-tools';

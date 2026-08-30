@@ -258,7 +258,6 @@
   "pending.new": "جديد",
   "notes.capture_size": "{{captures}} لقطات · {{size}}",
   "notes.pictures_kept": "{{count}} صور محفوظة مع هذه الملاحظة",
-  "notes.empty": "لا شيء مكتوب بعد. يكتب الزر في الزاوية السفلية ملاحظة عن الصفحة التي أنت فيها.",
   "notes.selected": "{{count}} محددة",
   "notes.select_to_act": "حدد ملاحظات لمسحها أو حذفها",
   "notes.link_label": "رابط",

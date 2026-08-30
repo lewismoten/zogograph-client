@@ -258,7 +258,6 @@
   "pending.new": "नया",
   "notes.capture_size": "{{captures}} कैप्चर · {{size}}",
   "notes.pictures_kept": "इस नोट के साथ {{count}} चित्र रखे गए",
-  "notes.empty": "अभी कुछ लिखा नहीं गया है। निचले कोने का बटन जिस पृष्ठ पर आप हैं उसके बारे में एक नोट लिखता है।",
   "notes.selected": "{{count}} चुनी गईं",
   "notes.select_to_act": "खारिज या हटाने के लिए नोट चुनें",
   "notes.link_label": "लिंक",

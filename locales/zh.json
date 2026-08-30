@@ -258,7 +258,6 @@
   "pending.new": "新",
   "notes.capture_size": "{{captures}} 个捕获 · {{size}}",
   "notes.pictures_kept": "此注释保留了 {{count}} 张图片",
-  "notes.empty": "还没有写下任何内容。右下角的按钮会写一条关于当前页面的注释。",
   "notes.selected": "已选 {{count}} 项",
   "notes.select_to_act": "选择要关闭或删除的注释",
   "notes.link_label": "链接",

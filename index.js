@@ -47882,8 +47882,12 @@ $('revokeSessions').addEventListener('click', async () => {
   if (!state.signedIn || !state.access?.write) return;
   if (
     !(await confirmDialog(
-      'End every signed-in session? This immediately signs out every browser, including this one. Use it if a device is lost or access may be compromised.',
-      'End all sessions',
+      ZogographI18n.t(
+        'auth.end_sessions_confirm',
+        {},
+        'End every signed-in session? This immediately signs out every browser, including this one. Use it if a device is lost or access may be compromised.',
+      ),
+      ZogographI18n.t('auth.end_sessions', {}, 'End all sessions'),
     ))
   )
     return;
@@ -47907,10 +47911,22 @@ $('displayPreferences').addEventListener('click', openDisplayPreferences);
 $('totpRecoveryCodes').addEventListener('click', async () => {
   if (!state.signedIn || !state.access?.write) return;
   const code = await askTextDialog(
-    'Create recovery codes',
-    'Current verification code',
+    ZogographI18n.t(
+      'auth.recovery_codes_create_title',
+      {},
+      'Create recovery codes',
+    ),
+    ZogographI18n.t(
+      'auth.current_verification_code',
+      {},
+      'Current verification code',
+    ),
     '',
-    'This replaces every previous recovery code. Store the new one-time codes offline; Zogograph will show them only once.',
+    ZogographI18n.t(
+      'auth.recovery_codes_create_help',
+      {},
+      'This replaces every previous recovery code. Store the new one-time codes offline; Zogograph will show them only once.',
+    ),
   );
   if (code === null) return;
   try {
@@ -47919,9 +47935,17 @@ $('totpRecoveryCodes').addEventListener('click', async () => {
     list.className = 'terminal-editor-diff';
     list.textContent = result.codes.join('\n');
     showListDialog(
-      'Save these recovery codes',
+      ZogographI18n.t(
+        'auth.recovery_codes_save_title',
+        {},
+        'Save these recovery codes',
+      ),
       [list],
-      'Each code works once in place of the authenticator code. This is the only time Zogograph can display them; store them offline and do not put them in a password manager shared with your sign-in password.',
+      ZogographI18n.t(
+        'auth.recovery_codes_save_help',
+        {},
+        'Each code works once in place of the authenticator code. This is the only time Zogograph can display them; store them offline and do not put them in a password manager shared with your sign-in password.',
+      ),
     );
     notice(
       ZogographI18n.t(

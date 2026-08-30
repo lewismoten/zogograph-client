@@ -43121,27 +43121,43 @@ function renderEmail(data) {
         input.type = 'text';
         input.id = 'emailTo';
         input.value = data.to;
-        input.placeholder = 'you@example.com; oncall@example.com';
+        input.placeholder = ZogographI18n.t(
+          'email.send_to_placeholder',
+          {},
+          'you@example.com; oncall@example.com',
+        );
         input.size = 44;
         return input;
       })(),
-      'Several addresses, separated by semicolons. Each gets its own message rather than ' +
-        'one with everybody in the To \u2014 a single send fails as a unit, so one bad ' +
-        'mailbox would mean nobody hears.',
+      ZogographI18n.t(
+        'email.send_to_help',
+        {},
+        'Several addresses, separated by semicolons. Each gets its own message rather than one with everybody in the To — a single send fails as a unit, so one bad mailbox would mean nobody hears.',
+      ),
     ),
   );
 
   if (data.bad_recipients?.length) {
     form.appendChild(
       note(
-        `${count(data.bad_recipients.length, 'address', 'addresses')} in that list will never receive ` +
-          `anything: ${data.bad_recipients.join(', ')}.`,
+        ZogographI18n.t(
+          'email.bad_recipients',
+          {
+            count: data.bad_recipients.length,
+            addresses: data.bad_recipients.join(', '),
+          },
+          '{{count, number}} in that list will never receive anything: {{addresses}}.',
+        ),
       ),
     );
   } else if (data.recipients?.length > 1) {
     form.appendChild(
       note(
-        `${count(data.recipients.length, 'address', 'addresses')} will be told.`,
+        ZogographI18n.t(
+          'email.recipients_count',
+          { count: data.recipients.length },
+          '{{count, number}} will be told.',
+        ),
       ),
     );
   }
@@ -43154,12 +43170,19 @@ function renderEmail(data) {
         input.type = 'email';
         input.id = 'emailFrom';
         input.value = data.from;
-        input.placeholder = 'monitor@example.com';
+        input.placeholder = ZogographI18n.t(
+          'email.send_from_placeholder',
+          {},
+          'monitor@example.com',
+        );
         input.size = 34;
         return input;
       })(),
-      'Optional. Some hosts reject mail with no From header; others rewrite it ' +
-        'whatever you put here.',
+      ZogographI18n.t(
+        'email.send_from_help',
+        {},
+        'Optional. Some hosts reject mail with no From header; others rewrite it whatever you put here.',
+      ),
     ),
   );
 
@@ -43175,14 +43198,19 @@ function renderEmail(data) {
         input.type = 'text';
         input.id = 'emailSite';
         input.value = data.site_url || '';
-        input.placeholder = 'https://stats.example.com';
+        input.placeholder = ZogographI18n.t(
+          'email.dashboard_address_placeholder',
+          {},
+          'https://stats.example.com',
+        );
         input.size = 44;
         return input;
       })(),
-      'So the messages can link to the page that answers the question. The cron that sends ' +
-        'them has no request to work this out from, so it has to be written down \u2014 ' +
-        'otherwise a message says what is wrong and leaves you to find the page at two in ' +
-        'the morning.',
+      ZogographI18n.t(
+        'email.dashboard_address_help',
+        {},
+        'So the messages can link to the page that answers the question. The cron that sends them has no request to work this out from, so it has to be written down — otherwise a message says what is wrong and leaves you to find the page at two in the morning.',
+      ),
     ),
   );
 

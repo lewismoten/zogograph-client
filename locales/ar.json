@@ -756,6 +756,7 @@
   "ai.tool_description_help": "هذا ما يقرؤه النموذج قبل أن يقرر استخدامها. فقرة «لا تستخدم هذا عندما…» تمنع قرارًا خاطئًا بثقة.",
   "ai.tool_subject_intro": "يبدأ {{assistant}} بأدوات التشخيص. فعّل أدوات {{group}} إذا احتاجت هذه المحادثة إلى ذلك الموضوع.",
   "ai.tool_group_requested": "طلب {{assistant}} أدوات {{group}} — راجع الاختيار واحفظه.",
+  "ai.tool_group_activity": "طلب أدوات {{group}}",
   "ai.tool_group.diagnostic": "التشخيص",
   "ai.tool_group_tab": "{{group}} ({{count, number}})",
   "ai.tool_group_all_enabled": "كلها مفعلة.",

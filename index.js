@@ -12505,7 +12505,11 @@ function chatToolPhrase(tool, args) {
     get_chart_data: `Read the numbers behind ${chartNames.known?.[args.chart]?.name ?? args.chart}`,
     get_chart_image: `Looked at ${chartNames.known?.[args.chart]?.name ?? args.chart}`,
     open_page: `Opened ${VIEWS[args.page]?.label ?? args.page}`,
-    request_tool_group: `Requested ${TOOL_GROUP_NAMES[args.subject] ?? args.subject} tools`,
+    request_tool_group: ZogographI18n.t(
+      'ai.tool_group_activity',
+      { group: toolGroupLabel(args.subject) },
+      'Requested {{group}} tools',
+    ),
     take_screenshot: 'Took a screenshot',
     inspect_current_page_html: 'Reviewed the current page structure',
     present_visual: `Presented ${args.title || 'a visual'}`,

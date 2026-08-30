@@ -40029,28 +40029,14 @@ function renderEmail(data) {
   }
   parts.push(save);
 
-  if (data.recent.length) {
-    parts.push(
-      section(
-        ZogographI18n.t('email.recently_sent', {}, 'Recently sent'),
-        simpleTable(
-          [
-            ZogographI18n.t('email.when', {}, 'When'),
-            ZogographI18n.t('email.to', {}, 'To'),
-            ZogographI18n.t('email.result', {}, 'Result'),
-            ZogographI18n.t('email.about', {}, 'About'),
-          ],
-          data.recent.map((r) => [
-            humanTime(r.at),
-            r.target || '\u2014',
-            r.outcome,
-            r.detail || '\u2014',
-          ]),
-          [null, 'name', null, null],
-        ),
-      ),
-    );
-  }
+  parts.push(
+    renderCoreCardPackage(
+      ZogographEmailDeliveryHistoryCard,
+      'core-email-delivery-history',
+      data,
+      { section, simpleTable, humanTime, i18n: ZogographI18n },
+    ),
+  );
 
   body.replaceChildren(...parts);
   button.addEventListener('click', saveEmailSettings);

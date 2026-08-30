@@ -47156,17 +47156,25 @@ $('pastChatResume').addEventListener('click', async () => {
   if (!pastChats.open) return;
 
   const yes = await askFirst(
-    'Pick this conversation up?',
+    ZogographI18n.t('ai.resume_dialog_title', {}, 'Pick this conversation up?'),
     [
-      'A new conversation starts, carrying what was said in this one as background.',
-      'It is carried as history rather than replayed, and the assistant is told so: ' +
-        'anything about the state of the machine has to be measured again before it is ' +
-        'relied on. A tool result from last week read as a reading from now is the one ' +
-        'thing it is told never to do.',
-      'The limits that ended the old one - turns, spend, time - do not come with it. ' +
-        'A conversation still open will be stopped.',
+      ZogographI18n.t(
+        'ai.resume_dialog_background',
+        {},
+        'A new conversation starts, carrying what was said in this one as background.',
+      ),
+      ZogographI18n.t(
+        'ai.resume_dialog_history',
+        {},
+        'It is carried as history rather than replayed, and the assistant is told so: anything about the state of the machine has to be measured again before it is relied on. A tool result from last week read as a reading from now is the one thing it is told never to do.',
+      ),
+      ZogographI18n.t(
+        'ai.resume_dialog_limits',
+        {},
+        'The limits that ended the old one - turns, spend, time - do not come with it. A conversation still open will be stopped.',
+      ),
     ],
-    'Pick it up',
+    ZogographI18n.t('ai.resume', {}, 'Pick it up'),
   );
 
   if (!yes) return;
@@ -47203,10 +47211,18 @@ $('sessionName').addEventListener('click', async () => {
   if (!sessionState.open) return;
 
   const topic = await askTextDialog(
-    'Name session',
-    'What was this session about?',
+    ZogographI18n.t('ai.session_name_title', {}, 'Name session'),
+    ZogographI18n.t(
+      'ai.session_name_label',
+      {},
+      'What was this session about?',
+    ),
     sessionState.log?.session?.topic || '',
-    'Name the path, service, or symptom specifically.',
+    ZogographI18n.t(
+      'ai.session_name_help',
+      {},
+      'Name the path, service, or symptom specifically.',
+    ),
   );
   if (topic === null) return;
 

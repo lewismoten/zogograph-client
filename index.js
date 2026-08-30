@@ -12660,6 +12660,25 @@ function renderRdns(data) {
       .filter((row) => row.name)
       .map((row) => [row.address, row.name]),
   );
+  if (window.ZogographNetworkRdnsCard) {
+    return renderCoreCardPackage(
+      ZogographNetworkRdnsCard,
+      'core-network-rdns',
+      data,
+      {
+        target: $('rdnsBody'),
+        note,
+        section,
+        renderTable,
+        humanSpan,
+        ago,
+        post,
+        render: renderRdns,
+        notice,
+        i18n: ZogographI18n,
+      },
+    );
+  }
 
   const body = $('rdnsBody');
   const parts = [];

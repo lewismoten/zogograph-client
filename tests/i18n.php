@@ -61,6 +61,9 @@ $networkCaptureHistoryCard = i18nCardSource(
 $networkCaptureCard = i18nCardSource(
     file_get_contents($root . '/cards/network-capture.js'),
 );
+$networkRdnsCard = i18nCardSource(
+    file_get_contents($root . '/cards/network-rdns.js'),
+);
 $processTrendCard = i18nCardSource(
     file_get_contents($root . '/cards/process-trend.js'),
 );
@@ -350,6 +353,22 @@ i18nExpect(
             'helpers.i18n.registerCatalog(locale, catalog, false, id)',
         ),
     'core card package catalogs are not namespace-registered before their first render',
+);
+i18nExpect(
+    $page !== false &&
+        str_contains($page, 'src="cards/network-rdns.js"') &&
+        $networkRdnsCard !== false &&
+        str_contains($networkRdnsCard, 'window.ZogographNetworkRdnsCard') &&
+        str_contains($networkRdnsCard, 'id: "core-network-rdns"') &&
+        str_contains($networkRdnsCard, 'locales: ["core-network-rdns."]') &&
+        str_contains($networkRdnsCard, 'catalogs: Object.freeze({') &&
+        str_contains($networkRdnsCard, '"core-network-rdns.released"') &&
+        $script !== false &&
+        str_contains(
+            $script,
+            'renderCoreCardPackage(ZogographNetworkRdnsCard, "core-network-rdns",',
+        ),
+    'network reverse-DNS panel is not isolated behind its core card-module boundary',
 );
 i18nExpect(
     $page !== false &&

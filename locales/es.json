@@ -2888,6 +2888,7 @@
   "processes.show_matches": "Mostrar coincidencias",
   "host.last_busy_title": "Cuándo estuvo ocupado por última vez",
   "host.last_busy_help": "Se registra automáticamente cuando una lectura supera el umbral de CPU o memoria, de modo que un pico nocturno aún tiene una respuesta por la mañana. Se omiten el recopilador y el {{ps}} que ejecuta: un registro de actividad que enumera la herramienta que mira los procesos es ruido por construcción.",
+  "host.last_busy_allowance_help": "{{allowance}} Dentro de CageFS, {{proc_stat}} está virtualizado según la asignación de CPU de esta cuenta, por lo que una solicitud PHP trabajando mucho puede superar el 70 % mientras el servidor completo está inactivo. Aumente {{threshold}} si son demasiado frecuentes para resultar interesantes; {{whole_machine}} es donde vive la carga propia del servidor.",
   "action.open_all": "Abrir todo",
   "network.intro": "Todas las demás páginas miden algo que se está agotando — disco, memoria, CPU — y ninguna puede decir por qué. Una máquina al 100 % porque responde cuatro mil consultas DNS por segundo parece exactamente igual que una máquina al 100 % por cualquier otra razón; la diferencia solo se ve en la red.",
   "network.interfaces": "Interfaces",

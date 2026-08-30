@@ -2874,6 +2874,7 @@
   "processes.show_matches": "显示匹配项",
   "host.last_busy_title": "上次繁忙是什么时候",
   "host.last_busy_help": "每当读数超过 CPU 或内存阈值时都会自动记录，因此夜间峰值在早晨仍有答案。采集器及其运行的 {{ps}} 会被排除：一份繁忙时刻的记录若把查看进程的工具本身列出来，按定义就是噪声。",
+  "host.last_busy_allowance_help": "{{allowance}} 在 CageFS 内，{{proc_stat}} 会按此帐户自己的 CPU 配额虚拟化，因此单个高负载 PHP 请求可以超过 70%，而整个服务器仍处于空闲状态。如果这些记录太频繁而不再有意义，请提高 {{threshold}}；{{whole_machine}} 显示服务器自身的负载。",
   "action.open_all": "全部展开",
   "network.intro": "这里的其他页面都在测量某种正在消耗的资源——磁盘、内存、CPU——但没有一个能说明原因。因每秒响应四千个 DNS 查询而占满 100% 的机器，看起来和因任何其他原因占满 100% 的机器完全一样；区别只能在线路上看到。",
   "network.interfaces": "接口",

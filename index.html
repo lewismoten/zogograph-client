@@ -1345,13 +1345,13 @@
     collector and the <code data-i18n-tag="ps">ps</code> it runs are left out: a record of a busy
     moment listing the thing that looks at processes is noise by construction.
   </p>
-  <p class="muted small sub-note">
-    <strong>The percentage is of what this account may use, not of the
-    machine.</strong> Inside CageFS <code>/proc/stat</code> is virtualised to the
+  <p class="muted small sub-note" data-i18n-rich="host.last_busy_allowance_help">
+    <strong data-i18n-tag="allowance">The percentage is of what this account may use, not of the
+    machine.</strong> Inside CageFS <code data-i18n-tag="proc_stat">/proc/stat</code> is virtualised to the
     account's own CPU allowance, so one PHP request working hard can cross 70%
     while the server as a whole is idle. Raise
-    <code>processes.record_when_cpu_above</code> if these are too frequent to be
-    interesting; <a href="#/host">Whole machine</a> is where the server's own
+    <code data-i18n-tag="threshold">processes.record_when_cpu_above</code> if these are too frequent to be
+    interesting; <a href="#/host" data-i18n-tag="whole_machine">Whole machine</a> is where the server's own
     load lives.
   </p>
   <div id="processHistory"></div>

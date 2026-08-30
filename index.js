@@ -11214,9 +11214,9 @@ async function showNoteDialog(preset = {}) {
   let shots = null;
   if (charts.length) {
     shots = tickList("noteShot", charts.map(([id, label]) => [id, label, false]), []);
-    parts.push(fieldRow("Keep pictures of", shots.node,
-      "Saved with the note exactly as they are drawn now, so the picture still shows "
-      + "what you saw after retention has rolled the readings up underneath it."));
+    parts.push(fieldRow(ZogographI18n.t("notes.keep_pictures", {}, "Keep pictures of"), shots.node,
+      ZogographI18n.t("notes.keep_pictures_help", {}, "Saved with the note exactly as they are drawn now, so the picture still shows "
+      + "what you saw after retention has rolled the readings up underneath it.")));
   } else {
     /*
      * Said out loud rather than left as an empty list.
@@ -11225,13 +11225,13 @@ async function showNoteDialog(preset = {}) {
      * looking at it cannot tell the difference between "this page has no
      * charts" and "the charts have not arrived yet".
      */
-    parts.push(fieldRow("Keep pictures of", (() => {
+    parts.push(fieldRow(ZogographI18n.t("notes.keep_pictures", {}, "Keep pictures of"), (() => {
       const said = document.createElement("div");
       said.className = "muted";
-      said.textContent = "There are no charts on this page.";
+      said.textContent = ZogographI18n.t("notes.no_page_charts", {}, "There are no charts on this page.");
       return said;
-    })(), "The note itself is saved either way, and a mark on this page will show on "
-      + "any chart added here later."));
+    })(), ZogographI18n.t("notes.no_page_charts_help", {}, "The note itself is saved either way, and a mark on this page will show on "
+      + "any chart added here later.")));
   }
 
   /*

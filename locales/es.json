@@ -778,6 +778,7 @@
   "terminal.switch_off_retention": "No se pierde nada: la transcripción de lo ejecutado permanece en el registro de acciones y puede volver a activarla cuando quiera.",
   "terminal.switch_off_action": "Desactivarla",
   "terminal.switched_off": "La terminal está desactivada.",
+  "terminal.earlier_commands": "Comandos anteriores",
   "terminal.switch_on": "Activarlo",
   "terminal.unlock": "Desbloquearlo",
   "terminal.extend": "Ampliar el tiempo",

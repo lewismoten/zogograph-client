@@ -764,6 +764,7 @@
   "terminal.switch_off_retention": "لا يضيع شيء—يبقى نص ما جرى تشغيله في سجل الإجراءات ويمكنك تشغيلها مجددًا متى شئت.",
   "terminal.switch_off_action": "أوقفها",
   "terminal.switched_off": "المحطة متوقفة.",
+  "terminal.earlier_commands": "الأوامر السابقة",
   "terminal.switch_on": "شغّله",
   "terminal.unlock": "افتح قفله",
   "terminal.extend": "امنحه وقتًا أطول",

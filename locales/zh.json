@@ -764,6 +764,7 @@
   "terminal.switch_off_retention": "不会丢失任何内容——已运行内容的记录会保留在操作日志中，您随时可以再次启用它。",
   "terminal.switch_off_action": "关闭它",
   "terminal.switched_off": "终端已关闭。",
+  "terminal.earlier_commands": "较早的命令",
   "terminal.switch_on": "启用它",
   "terminal.unlock": "解锁它",
   "terminal.extend": "延长时间",

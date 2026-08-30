@@ -20041,7 +20041,12 @@ function renderTerminal(data) {
   if (data.history.length) {
     const holder = document.createElement('div');
     holder.id = 'terminalHistory';
-    parts.push(section('Earlier commands', holder));
+    parts.push(
+      section(
+        ZogographI18n.t('terminal.earlier_commands', {}, 'Earlier commands'),
+        holder,
+      ),
+    );
   }
   /*
    * What was being typed, and where the cursor was, survive the rebuild.

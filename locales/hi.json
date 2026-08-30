@@ -778,6 +778,7 @@
   "terminal.switch_off_retention": "कुछ भी नहीं खोता—चलाए गए कार्यों का प्रतिलेख कार्रवाई लॉग में रहता है और आप जब चाहें इसे फिर चालू कर सकते हैं।",
   "terminal.switch_off_action": "इसे बंद करें",
   "terminal.switched_off": "टर्मिनल बंद है।",
+  "terminal.earlier_commands": "पिछले कमांड",
   "terminal.switch_on": "इसे चालू करें",
   "terminal.unlock": "इसे अनलॉक करें",
   "terminal.extend": "ज़्यादा समय दें",

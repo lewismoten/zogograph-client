@@ -848,6 +848,7 @@
   "terminal.switch_off_retention": "Nothing is lost - the transcript of what has been run stays in the action log, and you can switch it on again whenever you want it.",
   "terminal.switch_off_action": "Switch it off",
   "terminal.switched_off": "The terminal is switched off.",
+  "terminal.earlier_commands": "Earlier commands",
   "terminal.switch_on": "Switch it on",
   "terminal.unlock": "Unlock it",
   "terminal.extend": "Give it longer",

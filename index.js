@@ -12248,7 +12248,11 @@ async function runWaitForReadings(args) {
     return {
       arrived: false,
       which,
-      note: 'Collector waiting is unavailable while the System health feature is disabled.',
+      note: ZogographI18n.t(
+        'assistant.waiting_unavailable',
+        {},
+        'Collector waiting is unavailable while the System health feature is disabled.',
+      ),
     };
   }
 
@@ -12307,9 +12311,11 @@ async function runWaitForReadings(args) {
           arrived: true,
           which,
           waited: humanSpan(Math.round(seconds - (until - Date.now()) / 1000)),
-          note:
-            'New readings have landed. Anything you read before this is from before ' +
-            'them — call the tools again rather than reasoning from the old answers.',
+          note: ZogographI18n.t(
+            'assistant.waiting_arrived',
+            {},
+            'New readings have landed. Anything you read before this is from before them — call the tools again rather than reasoning from the old answers.',
+          ),
         };
       }
     }
@@ -12318,10 +12324,11 @@ async function runWaitForReadings(args) {
       arrived: false,
       which,
       waited: humanSpan(seconds),
-      note:
-        `Nothing new arrived from the ${which} collector in that time. That is a ` +
-        'finding: it is not running as often as it should, or at all. Say so rather ' +
-        'than waiting again.',
+      note: ZogographI18n.t(
+        'assistant.waiting_timed_out',
+        { collector: which },
+        'Nothing new arrived from the {{collector}} collector in that time. That is a finding: it is not running as often as it should, or at all. Say so rather than waiting again.',
+      ),
     };
   } finally {
     chatState.prompt = null;

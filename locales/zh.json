@@ -3319,7 +3319,6 @@
   "reports.title": "摘要",
   "reports.write_now": "立即写一份",
   "reports.help": "{{assistant}} 按计划从该时段的一组固定数据中写出摘要——每次提出相同的问题，因此两个摘要可以比较。不同之处在于它如何理解这些数据。每份摘要写成时都会通过电子邮件发送；它们保存在这里。",
-  "reports.not_ready": "{{assistant}} 尚未设置，因此无法写出摘要：{{why}}",
   "reports.schedules_on": "正在撰写 {{schedules}}。每份写成后都会通过电子邮件发送。",
   "reports.schedules_off": "三个计划均未开启，因此不会自动写出摘要。请在“阈值”中开启它们，或现在写一份以查看效果。",
   "reports.period_summary": "{{period}}摘要",

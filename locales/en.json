@@ -3422,7 +3422,6 @@
   "reports.title": "Summaries",
   "reports.write_now": "Write one now",
   "reports.help": "Written on a schedule by {{assistant}} from a fixed set of figures for the period — the same questions every time, so two summaries can be compared. What varies is what it makes of them. Each one is emailed when it is written; this is where they are kept.",
-  "reports.not_ready": "{{assistant}} is not set up, so nothing can be written: {{why}}",
   "reports.schedules_on": "Writing {{schedules}}. Each one is emailed when it is written.",
   "reports.schedules_off": "None of the three schedules are switched on, so none are written automatically. Turn them on under Thresholds, or write one now to see what they look like.",
   "reports.period_summary": "{{period}} summary",

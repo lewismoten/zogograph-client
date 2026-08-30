@@ -2181,6 +2181,8 @@
   "storage.no_history": "कोई इतिहास नहीं",
   "storage.history_recorded_once": "रिकॉर्ड किया गया, लेकिन अभी तक केवल एक बार — खींचने के लिए अभी कोई बदलाव नहीं है।",
   "storage.history_not_recorded": "यह पथ स्कैन के बीच रखे जाने वाले पथों में से नहीं है। हर बार केवल सबसे बड़ी फ़ाइलें और निर्देशिकाएँ, और हर श्रेणी की सबसे बड़ी वस्तु रिकॉर्ड की जाती है; बाकी सब मापा जाता है और संग्रहीत नहीं होता।",
+  "storage.image_preview_dimensions": "{{format}}, {{width, number}}×{{height, number}} पिक्सेल, {{size}} पूरा भेजा गया और यहाँ स्केल किया गया।",
+  "storage.image_preview_size": "{{format}}, {{size}}।",
   "storage.directory": "डायरेक्टरी",
   "storage.file": "फ़ाइल",
   "storage.category": "श्रेणी",

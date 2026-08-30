@@ -33874,9 +33874,24 @@ function inspectImage(data) {
   wrap.appendChild(img);
 
   const said = data.image.width
-    ? `${data.image.format.toUpperCase()}, ${data.image.width}\u00d7${data.image.height} pixels, ` +
-      `${humanBytes(data.facts.size_bytes)} sent in full and scaled here.`
-    : `${data.image.format.toUpperCase()}, ${humanBytes(data.facts.size_bytes)}.`;
+    ? ZogographI18n.t(
+        'storage.image_preview_dimensions',
+        {
+          format: data.image.format.toUpperCase(),
+          width: data.image.width,
+          height: data.image.height,
+          size: humanBytes(data.facts.size_bytes),
+        },
+        '{{format}}, {{width, number}}×{{height, number}} pixels, {{size}} sent in full and scaled here.',
+      )
+    : ZogographI18n.t(
+        'storage.image_preview_size',
+        {
+          format: data.image.format.toUpperCase(),
+          size: humanBytes(data.facts.size_bytes),
+        },
+        '{{format}}, {{size}}.',
+      );
   wrap.appendChild(note(said));
 
   return section(ZogographI18n.t('storage.preview', {}, 'Preview'), wrap);

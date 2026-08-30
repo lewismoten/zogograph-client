@@ -744,6 +744,7 @@
   "ai.settings.address_label": "पता",
   "ai.settings.address_help": "प्रदाता के अपने पते के लिए इसे खाली छोड़ें। गेटवे, प्रॉक्सी या इस मशीन पर चल रहे मॉडल के लिए दूसरा पता दें।",
   "ai.settings.api_key_label": "API कुंजी",
+  "ai.settings.api_key_unchanged": "{{mask}} (अपरिवर्तित)",
   "ai.settings.api_key_set_help": "एक कुंजी सेट है। इसे इस पृष्ठ पर कभी वापस नहीं भेजा जाता; मौजूदा कुंजी रखने के लिए खाली छोड़ें या बदलने के लिए नई कुंजी लिखें।",
   "ai.settings.api_key_empty_help": "यह वेब रूट के बाहर lib/config.php में संग्रहीत है। स्थानीय मॉडल को इसकी आवश्यकता नहीं होती।",
   "ai.settings.selected_provider_help": "जिस प्रदाता के मॉडल दिखाने हैं उसे चुनें।",

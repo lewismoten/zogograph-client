@@ -744,6 +744,7 @@
   "ai.settings.address_label": "Dirección",
   "ai.settings.address_help": "Déjela vacía para usar la propia del proveedor. Indique otra para una puerta de enlace, un proxy o un modelo que se ejecute en esta máquina.",
   "ai.settings.api_key_label": "Clave de API",
+  "ai.settings.api_key_unchanged": "{{mask}} (sin cambios)",
   "ai.settings.api_key_set_help": "Hay una clave configurada. Nunca se devuelve a esta página; déjela vacía para conservarla o escriba una nueva para reemplazarla.",
   "ai.settings.api_key_empty_help": "Se guarda en lib/config.php, fuera de la raíz web. Un modelo local no necesita ninguna.",
   "ai.settings.selected_provider_help": "Elija el proveedor cuyos modelos desea mostrar.",

@@ -6679,7 +6679,11 @@ function renderAiSettings(data) {
   key.id = 'aiKey';
   key.className = 'wide-field';
   key.autocomplete = 'off';
-  key.placeholder = data.has_key ? '•'.repeat(24) + ' (unchanged)' : '';
+  key.placeholder = data.has_key
+    ? aiSettingsText('api_key_unchanged', '{{mask}} (unchanged)', {
+        mask: '•'.repeat(24),
+      })
+    : '';
   form.appendChild(
     fieldRow(
       aiSettingsText('api_key_label', 'API key'),

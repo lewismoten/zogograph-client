@@ -12752,7 +12752,7 @@ async function showNoteSnapshots(row) {
       open.href = `api.php?action=note-snapshot&id=${encodeURIComponent(snapshot.id)}`;
       open.target = "_blank";
       open.rel = "noopener";
-      open.textContent = "Open it";
+      open.textContent = ZogographI18n.t("action.open", {}, "Open");
       open.title = "The captured data, exactly as it arrived";
       actions.appendChild(open);
     }

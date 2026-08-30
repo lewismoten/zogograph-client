@@ -3197,8 +3197,6 @@
   "ai.try_catalogue_count": "{{count, number}} en el catálogo.",
   "ai.try_cannot_run": " (no se puede ejecutar aquí)",
   "ai.try_run_costs": "Ejecutar (esto cuesta)",
-  "ai.try_screenshot_declined": "El usuario decidió no enviar una captura de pantalla.",
-  "ai.try_screenshot_preview": "Esta es la imagen exactamente como se enviaría: recortada como eligió, con las redacciones pintadas en lugar de dibujadas encima. Lo que aquí es negro es negro en el archivo.",
   "ai.try_unknown_tool": "Esta página no sabe cómo probar {{tool}}.",
   "ai.try_help": "Ejecuta una herramienta con los parámetros que elija y muestra exactamente lo que vuelve, lo mismo que recibiría el modelo y con la misma forma. Sirve para dos cosas: comprobar que una herramienta funciona en esta instalación antes de activarla y leer lo que se le comunica al modelo cuando su respuesta parece incorrecta. Nada aquí implica al modelo y nada sale de la máquina.",
   "ai.billing_title": "Facturación",

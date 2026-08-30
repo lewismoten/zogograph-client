@@ -3183,8 +3183,6 @@
   "ai.try_catalogue_count": "目录中有 {{count, number}} 个。",
   "ai.try_cannot_run": "（无法在此运行）",
   "ai.try_run_costs": "运行（会产生费用）",
-  "ai.try_screenshot_declined": "用户决定不发送截图。",
-  "ai.try_screenshot_preview": "这正是图像发送时的样子——按您的选择裁剪，涂黑内容直接绘制在图像中而非覆盖在其上。这里显示为黑色的部分在文件中也是黑色。",
   "ai.try_unknown_tool": "此页面不知道如何试用 {{tool}}。",
   "ai.try_help": "使用您选择的参数运行一个工具，并准确显示返回的内容——模型会以相同形式收到同样的内容。它可用于两件事：在启用前确认工具在此安装上确实可用；以及当模型回答看似错误时，读取模型得到的信息。这里不会涉及模型，任何内容都不会离开机器。",
   "ai.billing_title": "费用",

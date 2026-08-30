@@ -3286,8 +3286,6 @@
   "ai.try_catalogue_count": "{{count, number}} in the catalogue.",
   "ai.try_cannot_run": " (cannot be run here)",
   "ai.try_run_costs": "Run it (this costs)",
-  "ai.try_screenshot_declined": "The user decided not to send a screenshot.",
-  "ai.try_screenshot_preview": "This is the image exactly as it would be sent — cropped as you chose, with the redactions painted in rather than drawn over. What is black here is black in the file.",
   "ai.try_unknown_tool": "This page does not know how to try {{tool}}.",
   "ai.try_help": "Runs one tool with parameters you choose and shows exactly what comes back — the same thing the model would receive, in the same shape. Useful for two things: seeing whether a tool actually works on this install before switching it on, and reading what the model is being told when its answer looks wrong. Nothing here involves the model and nothing leaves the machine.",
   "ai.billing_title": "Billing",

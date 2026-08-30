@@ -1,4 +1,6 @@
 {
   "core-ai-take-screenshot.summary": "拍摄您能看到内容的图像。",
-  "core-ai-take-screenshot.activity": "截取了屏幕截图"
+  "core-ai-take-screenshot.activity": "截取了屏幕截图",
+  "core-ai-take-screenshot.try_declined": "用户决定不发送截图。",
+  "core-ai-take-screenshot.try_preview": "这正是图像发送时的样子——按您的选择裁剪，涂黑内容直接绘制在图像中而非覆盖在其上。这里显示为黑色的部分在文件中也是黑色。"
 }

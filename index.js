@@ -21049,7 +21049,7 @@ async function tryBrowserTool(tool, args) {
       return {
         result: {
           error: ZogographI18n.t(
-            'ai.try_screenshot_declined',
+            'core-ai-take-screenshot.try_declined',
             {},
             'The user decided not to send a screenshot.',
           ),
@@ -21069,7 +21069,7 @@ async function tryBrowserTool(tool, args) {
     const said = document.createElement('div');
     said.className = 'muted small';
     said.textContent = ZogographI18n.t(
-      'ai.try_screenshot_preview',
+      'core-ai-take-screenshot.try_preview',
       {},
       'This is the image exactly as it would be sent — cropped as you chose, with the redactions painted in rather than drawn over. What is black here is black in the file.',
     );

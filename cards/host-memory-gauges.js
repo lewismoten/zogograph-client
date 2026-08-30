@@ -6,6 +6,11 @@ window.ZogographHostMemoryGaugesCard = {
     helpers: ['target', 'buildGauge', 'humanBytes', 'i18n'],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-host-memory-gauges.memory_committed': 'Memory committed',
+        'core-host-memory-gauges.swap_used': 'Swap used',
+        'core-host-memory-gauges.account_memory_share': "This account's share",
+        'core-host-memory-gauges.account_memory_share_sub':
+          "may use {{amount}} of the machine's {{total}}",
         'core-host-memory-gauges.collector_arc':
           'dark arc: collector tree {{amount}} PSS',
         'core-host-memory-gauges.committed_sub':
@@ -21,6 +26,11 @@ window.ZogographHostMemoryGaugesCard = {
           'no swap configured on this machine',
       }),
       es: Object.freeze({
+        'core-host-memory-gauges.memory_committed': 'Memoria comprometida',
+        'core-host-memory-gauges.swap_used': 'Intercambio usado',
+        'core-host-memory-gauges.account_memory_share': 'Parte de esta cuenta',
+        'core-host-memory-gauges.account_memory_share_sub':
+          'puede usar {{amount}} de los {{total}} de la máquina',
         'core-host-memory-gauges.collector_arc':
           'arco oscuro: árbol del recopilador {{amount}} PSS',
         'core-host-memory-gauges.committed_sub':
@@ -36,6 +46,11 @@ window.ZogographHostMemoryGaugesCard = {
           'no hay intercambio configurado en esta máquina',
       }),
       hi: Object.freeze({
+        'core-host-memory-gauges.memory_committed': 'प्रतिबद्ध मेमोरी',
+        'core-host-memory-gauges.swap_used': 'उपयोग किया गया स्वैप',
+        'core-host-memory-gauges.account_memory_share': 'इस खाते का हिस्सा',
+        'core-host-memory-gauges.account_memory_share_sub':
+          'मशीन के {{total}} में से {{amount}} उपयोग कर सकता है',
         'core-host-memory-gauges.collector_arc':
           'गहरा चाप: कलेक्टर ट्री {{amount}} PSS',
         'core-host-memory-gauges.committed_sub':
@@ -51,6 +66,11 @@ window.ZogographHostMemoryGaugesCard = {
           'इस मशीन पर कोई स्वैप कॉन्फ़िगर नहीं है',
       }),
       ar: Object.freeze({
+        'core-host-memory-gauges.memory_committed': 'الذاكرة الملتزم بها',
+        'core-host-memory-gauges.swap_used': 'التبديل المستخدم',
+        'core-host-memory-gauges.account_memory_share': 'حصة هذا الحساب',
+        'core-host-memory-gauges.account_memory_share_sub':
+          'يمكنه استخدام {{amount}} من {{total}} للجهاز',
         'core-host-memory-gauges.collector_arc':
           'قوس داكن: شجرة الجامع {{amount}} PSS',
         'core-host-memory-gauges.committed_sub':
@@ -66,6 +86,11 @@ window.ZogographHostMemoryGaugesCard = {
           'لا توجد مساحة تبديل مهيأة على هذا الجهاز',
       }),
       zh: Object.freeze({
+        'core-host-memory-gauges.memory_committed': '已提交内存',
+        'core-host-memory-gauges.swap_used': '已用交换空间',
+        'core-host-memory-gauges.account_memory_share': '此账户的份额',
+        'core-host-memory-gauges.account_memory_share_sub':
+          '可使用机器 {{total}} 中的 {{amount}}',
         'core-host-memory-gauges.collector_arc':
           '深色弧：采集器树 {{amount}} PSS',
         'core-host-memory-gauges.committed_sub':
@@ -101,7 +126,7 @@ window.ZogographHostMemoryGaugesCard = {
       const workloadCommitted =
         monitoringPss == null ? null : Math.max(0, committed - monitoringPss);
       dials.push({
-        label: i18n.t('host.memory_committed'),
+        label: t('memory_committed'),
         value: (committed / total) * 100,
         warn: 80,
         crit: 92,
@@ -129,7 +154,7 @@ window.ZogographHostMemoryGaugesCard = {
 
     if (swapTotal > 0) {
       dials.push({
-        label: i18n.t('host.swap_used'),
+        label: t('swap_used'),
         value: (swapUsed / swapTotal) * 100,
         warn: swap?.state === 'pressure' ? 1 : 60,
         crit: swap?.state === 'pressure' ? 25 : 90,
@@ -144,7 +169,7 @@ window.ZogographHostMemoryGaugesCard = {
       });
     } else {
       dials.push({
-        label: i18n.t('host.swap_used'),
+        label: t('swap_used'),
         value: null,
         warn: 60,
         crit: 90,
@@ -155,11 +180,11 @@ window.ZogographHostMemoryGaugesCard = {
     const mine = Number(accountVitals.mem_total_bytes) || 0;
     if (total > 0 && mine > 0 && mine < total) {
       dials.push({
-        label: i18n.t('host.account_memory_share'),
+        label: t('account_memory_share'),
         value: (mine / total) * 100,
         warn: 60,
         crit: 85,
-        sub: i18n.t('host.account_memory_share_sub', {
+        sub: t('account_memory_share_sub', {
           amount: humanBytes(mine),
           total: humanBytes(total),
         }),

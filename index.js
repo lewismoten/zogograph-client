@@ -47060,7 +47060,16 @@ async function stopTerminal() {
   if (!termState.running) return;
   try {
     const result = await post('terminal-stop', { id: termState.running });
-    notice(result.killed ? 'Stopped.' : 'It had already finished.', true);
+    notice(
+      result.killed
+        ? ZogographI18n.t('terminal.stopped', {}, 'Stopped.')
+        : ZogographI18n.t(
+            'terminal.already_finished',
+            {},
+            'It had already finished.',
+          ),
+      true,
+    );
     await pollTerminal();
   } catch (error) {
     notice(String(error.message || error));
@@ -47091,8 +47100,16 @@ $('pastChatPin').addEventListener('click', async () => {
     renderPastChat();
     notice(
       pinned
-        ? 'Pinned. Retention will leave this one alone.'
-        : 'Unpinned. It is subject to the retention rule again.',
+        ? ZogographI18n.t(
+            'ai.conversation_pinned',
+            {},
+            'Pinned. Retention will leave this one alone.',
+          )
+        : ZogographI18n.t(
+            'ai.conversation_unpinned',
+            {},
+            'Unpinned. It is subject to the retention rule again.',
+          ),
       true,
     );
   } catch (error) {
@@ -47186,15 +47203,25 @@ $('memoryAdd').addEventListener('click', () => {
 $('memoryClear').addEventListener('click', async () => {
   if (
     !(await confirmDialog(
-      'Forget everything it has remembered?\n\n' +
-        'Every conversation starts from nothing again. This cannot be undone from here.',
+      ZogographI18n.t(
+        'ai.memory_clear_confirm',
+        {},
+        'Forget everything it has remembered?\n\nEvery conversation starts from nothing again. This cannot be undone from here.',
+      ),
     ))
   )
     return;
 
   try {
     const result = await post('ai-memory-clear');
-    notice(`${count(result.forgotten, 'memory', 'memories')} forgotten.`, true);
+    notice(
+      ZogographI18n.t(
+        'ai.memory_clear_result',
+        { memories: count(result.forgotten, 'memory', 'memories') },
+        '{{memories}} forgotten.',
+      ),
+      true,
+    );
     renderMemories(result);
   } catch (error) {
     notice(String(error.message || error));

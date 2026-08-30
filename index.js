@@ -31922,44 +31922,51 @@ async function showIncident(id) {
         ZogographI18n.t('incident.at_that_moment', {}, 'At that moment'),
         factGrid([
           [
-            'Load',
+            ZogographI18n.t('incident.load', {}, 'Load'),
             vitals.load['1'] === null
-              ? 'not reported'
+              ? ZogographI18n.t('incident.not_reported', {}, 'not reported')
               : `${vitals.load['1'].toFixed(2)}${vitals.load.cores ? ` on ${count(vitals.load.cores, 'core')}` : ''}`,
           ],
           [
-            'Load per core',
+            ZogographI18n.t('incident.load_per_core', {}, 'Load per core'),
             vitals.load.per_core === null
               ? '—'
               : vitals.load.per_core.toFixed(2),
           ],
           [
-            'CPU',
+            ZogographI18n.t('incident.cpu', {}, 'CPU'),
             vitals.cpu_percent === null
-              ? 'not reported'
+              ? ZogographI18n.t('incident.not_reported', {}, 'not reported')
               : `${vitals.cpu_percent.toFixed(1)}%`,
           ],
-          ['Memory available', humanBytes(vitals.memory.available_bytes)],
           [
-            'Memory used',
+            ZogographI18n.t(
+              'incident.memory_available',
+              {},
+              'Memory available',
+            ),
+            humanBytes(vitals.memory.available_bytes),
+          ],
+          [
+            ZogographI18n.t('incident.memory_used', {}, 'Memory used'),
             vitals.memory.used_percent === null
               ? '—'
               : `${vitals.memory.used_percent.toFixed(1)}%`,
           ],
           [
-            'Swap used',
+            ZogographI18n.t('incident.swap_used', {}, 'Swap used'),
             `${humanBytes(vitals.memory.swap_used_bytes)} of ${humanBytes(vitals.memory.swap_total_bytes)}`,
           ],
           [
-            'Reading own I/O',
+            ZogographI18n.t('incident.reading_own_io', {}, 'Reading own I/O'),
             vitals.io.own_read_rate === null
-              ? 'not reported'
+              ? ZogographI18n.t('incident.not_reported', {}, 'not reported')
               : `${humanBytes(vitals.io.own_read_rate)}/s`,
           ],
           [
-            'Writing own I/O',
+            ZogographI18n.t('incident.writing_own_io', {}, 'Writing own I/O'),
             vitals.io.own_write_rate === null
-              ? 'not reported'
+              ? ZogographI18n.t('incident.not_reported', {}, 'not reported')
               : `${humanBytes(vitals.io.own_write_rate)}/s`,
           ],
         ]),

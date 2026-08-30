@@ -68,9 +68,8 @@ function alertWorkingHoursDecision(
     }
     $zone = (string) ($delivery['timezone'] ?? 'UTC');
     try {
-        $time = new DateTimeImmutable('@' . $at)->setTimezone(
-            new DateTimeZone($zone),
-        );
+        $instant = new DateTimeImmutable('@' . $at);
+        $time = $instant->setTimezone(new DateTimeZone($zone));
     } catch (Throwable) {
         return ['disposition' => 'immediate', 'reason' => null];
     }

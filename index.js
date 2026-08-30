@@ -17652,14 +17652,18 @@ function noteActions(row) {
 
 /** What one note captured, and a way to take it away. */
 async function showNoteSnapshots(row) {
-  showListDialog('What it captured', [spinner('Looking\u2026')], '');
+  showListDialog(
+    ZogographI18n.t('notes.what_captured', {}, 'What it captured'),
+    [spinner(ZogographI18n.t('notes.capture_loading', {}, 'Looking…'))],
+    '',
+  );
 
   let data;
   try {
     data = await api('note-snapshots', { id: row.id });
   } catch (error) {
     showListDialog(
-      'What it captured',
+      ZogographI18n.t('notes.what_captured', {}, 'What it captured'),
       [note(String(error.message || error))],
       '',
     );
@@ -17669,8 +17673,20 @@ async function showNoteSnapshots(row) {
   const nodes = [note(row.body)];
 
   if (!data.rows.length) {
-    nodes.push(note('Nothing was captured with this one.'));
-    showListDialog('What it captured', nodes, '');
+    nodes.push(
+      note(
+        ZogographI18n.t(
+          'notes.capture_empty',
+          {},
+          'Nothing was captured with this one.',
+        ),
+      ),
+    );
+    showListDialog(
+      ZogographI18n.t('notes.what_captured', {}, 'What it captured'),
+      nodes,
+      '',
+    );
     return;
   }
 
@@ -17681,10 +17697,22 @@ async function showNoteSnapshots(row) {
     const title = document.createElement('strong');
     title.textContent =
       {
-        page: 'The data behind one page',
-        site: 'The data behind every page',
-        databases: 'A copy of both databases',
-        image: 'A picture',
+        page: ZogographI18n.t(
+          'notes.capture_page',
+          {},
+          'The data behind one page',
+        ),
+        site: ZogographI18n.t(
+          'notes.capture_site',
+          {},
+          'The data behind every page',
+        ),
+        databases: ZogographI18n.t(
+          'notes.capture_databases',
+          {},
+          'A copy of both databases',
+        ),
+        image: ZogographI18n.t('notes.capture_image', {}, 'A picture'),
       }[snapshot.kind] || snapshot.kind;
     item.appendChild(title);
 
@@ -17708,8 +17736,11 @@ async function showNoteSnapshots(row) {
        */
       const where = document.createElement('span');
       where.className = 'muted small';
-      where.textContent =
-        'Written beside the databases. Listed under Database copies below.';
+      where.textContent = ZogographI18n.t(
+        'notes.capture_databases_location',
+        {},
+        'Written beside the databases. Listed under Database copies below.',
+      );
       actions.appendChild(where);
     } else if (snapshot.kind === 'image') {
       /*
@@ -17749,7 +17780,11 @@ async function showNoteSnapshots(row) {
       open.target = '_blank';
       open.rel = 'noopener';
       open.textContent = ZogographI18n.t('action.open', {}, 'Open');
-      open.title = 'The captured data, exactly as it arrived';
+      open.title = ZogographI18n.t(
+        'notes.capture_open_title',
+        {},
+        'The captured data, exactly as it arrived',
+      );
       actions.appendChild(open);
     }
 
@@ -17758,10 +17793,14 @@ async function showNoteSnapshots(row) {
   }
 
   showListDialog(
-    'What it captured',
+    ZogographI18n.t('notes.what_captured', {}, 'What it captured'),
     nodes,
-    'Captures are held outside every retention rule, which is the point of one \u2014 and ' +
-      'also means nothing expires them.',
+    ZogographI18n.t(
+      'notes.capture_retention_help',
+      {},
+      'Captures are held outside every retention rule, which is the point of one — and ' +
+        'also means nothing expires them.',
+    ),
   );
 }
 

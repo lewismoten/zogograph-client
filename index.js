@@ -12820,7 +12820,7 @@ function chatAsk({
       // A question with nothing filled in is not an answer; the countdown
       // carries on rather than sending an empty one as if it were.
       if (value === null || value === undefined || value === '') {
-        notice('Nothing chosen yet.');
+        notice(ZogographI18n.t('ai.nothing_chosen', {}, 'Nothing chosen yet.'));
         return;
       }
       finish({ answered: true, value });

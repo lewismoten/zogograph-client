@@ -850,6 +850,7 @@
   "display.apply": "طبّق خيارات العرض",
   "peers.admin_only": "لا يمكن إدارة الخوادم الموثوقة إلا للمسؤولين.",
   "ai.start_new": "ابدأ محادثة جديدة",
+  "ai.nothing_chosen": "لم يُختر شيء بعد.",
   "terminal.copy_output": "نسخ المخرجات",
   "terminal.suggestion_expectation": "ما الذي تبحث عنه: {{expectation}}",
   "terminal.syntax_preview_title": "اقرأ نص {{syntax}} الحالي بألوان صياغة محلية",

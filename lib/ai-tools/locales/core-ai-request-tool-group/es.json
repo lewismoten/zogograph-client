@@ -1,3 +1,4 @@
 {
-  "core-ai-request-tool-group.summary": "Pida habilitar un conjunto de herramientas específico de un tema."
+  "core-ai-request-tool-group.summary": "Pida habilitar un conjunto de herramientas específico de un tema.",
+  "core-ai-request-tool-group.activity": "Solicitó herramientas de {{group}}"
 }

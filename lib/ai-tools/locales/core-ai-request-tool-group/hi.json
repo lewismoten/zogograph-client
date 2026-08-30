@@ -1,3 +1,4 @@
 {
-  "core-ai-request-tool-group.summary": "विषय-विशिष्ट उपकरणों के समूह को सक्षम करने के लिए कहें।"
+  "core-ai-request-tool-group.summary": "विषय-विशिष्ट उपकरणों के समूह को सक्षम करने के लिए कहें।",
+  "core-ai-request-tool-group.activity": "{{group}} टूल का अनुरोध किया"
 }

@@ -11234,11 +11234,7 @@ function chatToolPhrase({ tool, arguments: args, localeNamespace = '' }) {
     get_chart_data: `Read the numbers behind ${chartNames.known?.[args.chart]?.name ?? args.chart}`,
     get_chart_image: `Looked at ${chartNames.known?.[args.chart]?.name ?? args.chart}`,
     open_page: `Opened ${VIEWS[args.page]?.label ?? args.page}`,
-    request_tool_group: ZogographI18n.t(
-      'ai.tool_group_activity',
-      { group: toolGroupLabel(args.subject) },
-      'Requested {{group}} tools',
-    ),
+    request_tool_group: `Requested ${toolGroupLabel(args.subject)} tools`,
     take_screenshot: 'Took a screenshot',
     inspect_current_page_html: 'Reviewed the current page structure',
     present_visual: `Presented ${args.title || 'a visual'}`,
@@ -11295,7 +11291,9 @@ function chatToolPhrase({ tool, arguments: args, localeNamespace = '' }) {
                 ? { about: args.about }
                 : tool === 'set_time_range'
                   ? { range: args.range ?? '?' }
-                  : {};
+                  : tool === 'request_tool_group'
+                    ? { group: toolGroupLabel(args.subject) }
+                    : {};
     return ZogographI18n.t(activityKey, values, said ?? tool);
   }
   return said ?? tool;

@@ -1,3 +1,4 @@
 {
-  "core-ai-request-tool-group.summary": "请求启用一组特定主题的工具。"
+  "core-ai-request-tool-group.summary": "请求启用一组特定主题的工具。",
+  "core-ai-request-tool-group.activity": "请求使用 {{group}} 工具"
 }

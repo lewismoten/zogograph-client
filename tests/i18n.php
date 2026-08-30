@@ -1344,6 +1344,16 @@ i18nExpect(
             $english['editor.line_endings'],
             $english['editor.modified'],
             $english['editor.permissions'],
+            $english['editor.review_title'],
+            $english['editor.review_no_changes'],
+            $english['editor.review_dialog_title'],
+            $english['editor.review_help'],
+            $english['editor.view_dialog_title'],
+            $english['editor.view_help'],
+            $english['editor.edit_dialog_title'],
+            $english['editor.saved_with_recovery'],
+            $english['editor.saved'],
+            $english['editor.save'],
         ),
     'English fallback catalog is incomplete',
 );
@@ -1415,6 +1425,13 @@ i18nExpect(
         str_contains($script, 'editor.writable_note') &&
         str_contains($script, 'editor.permissions'),
     'terminal editor metadata and accessibility text are not localized',
+);
+i18nExpect(
+    $script !== false &&
+        str_contains($script, 'editor.review_title') &&
+        str_contains($script, 'editor.view_dialog_title') &&
+        str_contains($script, 'editor.saved_with_recovery'),
+    'terminal editor review and save dialogs are not localized',
 );
 i18nExpect(
     str_contains($runtime, 'data-i18n-rich') &&

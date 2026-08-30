@@ -20600,23 +20600,43 @@ async function openTerminalEditor(path) {
       {},
       'Review changes',
     );
-    review.title =
-      'Show a bounded line-by-line preview before saving (Ctrl/Cmd+Shift+D)';
+    review.title = ZogographI18n.t(
+      'editor.review_title',
+      {},
+      'Show a bounded line-by-line preview before saving (Ctrl/Cmd+Shift+D)',
+    );
     const preview = () => {
       const diff = terminalEditorDiff(data.text, text.value);
       if (!diff) {
-        showListDialog('Review changes', [
-          note('No changes since this file was opened.'),
-        ]);
+        showListDialog(
+          ZogographI18n.t('action.review_changes', {}, 'Review changes'),
+          [
+            note(
+              ZogographI18n.t(
+                'editor.review_no_changes',
+                {},
+                'No changes since this file was opened.',
+              ),
+            ),
+          ],
+        );
         return;
       }
       const output = document.createElement('pre');
       output.className = 'terminal-editor-diff';
       output.textContent = diff;
       showListDialog(
-        `Review changes · ${data.path.split('/').pop()}`,
+        ZogographI18n.t(
+          'editor.review_dialog_title',
+          { name: data.path.split('/').pop() },
+          'Review changes · {{name}}',
+        ),
         [output],
-        'Removed lines start with − and added lines start with +. This is a review only; saving still uses the protected atomic write.',
+        ZogographI18n.t(
+          'editor.review_help',
+          {},
+          'Removed lines start with − and added lines start with +. This is a review only; saving still uses the protected atomic write.',
+        ),
       );
     };
     review.addEventListener('click', preview);
@@ -20635,14 +20655,26 @@ async function openTerminalEditor(path) {
   parts.push(editor);
   if (!editable) {
     showListDialog(
-      `View ${data.path.split('/').pop()}`,
+      ZogographI18n.t(
+        'editor.view_dialog_title',
+        { name: data.path.split('/').pop() },
+        'View {{name}}',
+      ),
       parts,
-      'This file is shown for review only. Find works locally; no text is sent back to the server.',
+      ZogographI18n.t(
+        'editor.view_help',
+        {},
+        'This file is shown for review only. Find works locally; no text is sent back to the server.',
+      ),
     );
     return;
   }
   showFormDialog(
-    `Edit ${data.path.split('/').pop()}`,
+    ZogographI18n.t(
+      'editor.edit_dialog_title',
+      { name: data.path.split('/').pop() },
+      'Edit {{name}}',
+    ),
     parts,
     async () => {
       const saved = await post('terminal-editor-save', {
@@ -20652,11 +20684,17 @@ async function openTerminalEditor(path) {
         line_ending: data.line_ending,
       });
       notice(
-        `Saved ${saved.path} (${humanBytes(saved.bytes)})${saved.backup ? '; recovery copy made.' : '.'}`,
+        ZogographI18n.t(
+          saved.backup ? 'editor.saved_with_recovery' : 'editor.saved',
+          { path: saved.path, size: humanBytes(saved.bytes) },
+          saved.backup
+            ? 'Saved {{path}} ({{size}}); recovery copy made.'
+            : 'Saved {{path}} ({{size}}).',
+        ),
         true,
       );
     },
-    'Save it',
+    ZogographI18n.t('editor.save', {}, 'Save it'),
     () => text.value !== openedText,
   );
 }

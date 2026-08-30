@@ -41593,10 +41593,24 @@ async function refreshSelf() {
   if (data.retention) {
     const r = data.retention;
     const forever = (days) =>
-      Number(days) > 0 ? `${days} days` : 'kept indefinitely';
+      Number(days) > 0
+        ? ZogographI18n.t(
+            'monitor.retention_days',
+            { days: Number(days) },
+            '{{days, number}} days',
+          )
+        : ZogographI18n.t(
+            'monitor.retention_indefinitely',
+            {},
+            'kept indefinitely',
+          );
     parts.push(
       section(
-        'How long it keeps things',
+        ZogographI18n.t(
+          'monitor.retention_title',
+          {},
+          'How long it keeps things',
+        ),
         factGrid([
           ['Readings, full detail', forever(r.raw_days)],
           ['Rolled up to 5 minutes', forever(r.five_minute_days)],

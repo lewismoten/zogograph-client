@@ -18905,7 +18905,13 @@ function databaseCard(file, projection) {
     [
       ZogographI18n.t('database.file', {}, 'File'),
       `${humanBytes(file.bytes)}${
-        file.wal_bytes ? ` + ${humanBytes(file.wal_bytes)} write-ahead log` : ''
+        file.wal_bytes
+          ? ZogographI18n.t(
+              'database.write_ahead_log_bytes',
+              { bytes: humanBytes(file.wal_bytes) },
+              ' + {{bytes}} write-ahead log',
+            )
+          : ''
       }`,
     ],
     [
@@ -18919,14 +18925,40 @@ function databaseCard(file, projection) {
     [
       ZogographI18n.t('database.integrity', {}, 'Integrity'),
       file.integrity?.ok
-        ? '✓ Quick check passed'
-        : `⚠ ${file.integrity?.message || 'not checked'}`,
+        ? ZogographI18n.t(
+            'database.quick_check_passed',
+            {},
+            '✓ Quick check passed',
+          )
+        : ZogographI18n.t(
+            'database.integrity_not_checked',
+            {
+              message:
+                file.integrity?.message ||
+                ZogographI18n.t('database.not_checked', {}, 'not checked'),
+            },
+            '⚠ {{message}}',
+          ),
     ],
     [
       ZogographI18n.t('database.migration_recovery', {}, 'Migration recovery'),
       file.integrity?.migration_backups
-        ? `${count(file.integrity.migration_backups, 'private snapshot')} · newest ${ago(file.integrity.newest_backup_at)}`
-        : 'No migration snapshot needed yet',
+        ? ZogographI18n.t(
+            'database.migration_snapshots',
+            {
+              snapshots: count(
+                file.integrity.migration_backups,
+                'private snapshot',
+              ),
+              newest: ago(file.integrity.newest_backup_at),
+            },
+            '{{snapshots}} · newest {{newest}}',
+          )
+        : ZogographI18n.t(
+            'database.no_migration_snapshot',
+            {},
+            'No migration snapshot needed yet',
+          ),
     ],
     [
       ZogographI18n.t('database.pages', {}, 'Pages'),

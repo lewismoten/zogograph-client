@@ -41315,13 +41315,29 @@ function databaseFacts(data) {
   const wrap = document.createDocumentFragment();
 
   for (const [title, db, extra] of [
-    ["This account's database", data.account_db, null],
     [
-      "The host collector's database",
+      ZogographI18n.t(
+        'database.account_database',
+        {},
+        "This account's database",
+      ),
+      data.account_db,
+      null,
+    ],
+    [
+      ZogographI18n.t(
+        'database.host_collector_database',
+        {},
+        "The host collector's database",
+      ),
       data.host_db,
       data.host_readable
         ? null
-        : 'Present but not readable by this account, or not there at all.',
+        : ZogographI18n.t(
+            'database.host_unreadable',
+            {},
+            'Present but not readable by this account, or not there at all.',
+          ),
     ],
   ]) {
     const box = document.createElement('div');
@@ -41332,7 +41348,11 @@ function databaseFacts(data) {
     box.appendChild(heading);
 
     if (!db.size.exists) {
-      box.appendChild(note(extra || 'Not on disk.'));
+      box.appendChild(
+        note(
+          extra || ZogographI18n.t('database.not_on_disk', {}, 'Not on disk.'),
+        ),
+      );
       wrap.appendChild(box);
       continue;
     }
@@ -41356,7 +41376,10 @@ function databaseFacts(data) {
     if (db.tables.length) {
       box.appendChild(
         simpleTable(
-          ['Table', 'Rows'],
+          [
+            ZogographI18n.t('database.table', {}, 'Table'),
+            ZogographI18n.t('database.rows', {}, 'Rows'),
+          ],
           db.tables.map((t) => [t.table, humanCount(t.rows)]),
           ['name', 'size'],
         ),

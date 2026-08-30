@@ -43037,12 +43037,19 @@ const CAP_MARKS = {
 
 const CAP_SHORT = {
   available: '',
-  alternate: 'alternate path',
-  host_only: 'host-only',
-  unusable: 'not executable',
-  missing: 'not installed',
-  unknown_host: 'not here',
+  alternate: ['capabilities.short_alternate', 'alternate path'],
+  host_only: ['capabilities.short_host_only', 'host-only'],
+  unusable: ['capabilities.short_unusable', 'not executable'],
+  missing: ['capabilities.short_missing', 'not installed'],
+  unknown_host: ['capabilities.short_unknown_host', 'not here'],
 };
+
+function capabilityShortState(state) {
+  const label = CAP_SHORT[state];
+  return Array.isArray(label)
+    ? ZogographI18n.t(label[0], {}, label[1])
+    : label || '';
+}
 
 async function refreshCapabilities() {
   const body = $('capBody');
@@ -43265,7 +43272,7 @@ function renderCapList(data) {
         prog.appendChild(version);
       }
 
-      const label = CAP_SHORT[row.state];
+      const label = capabilityShortState(row.state);
       if (label) {
         const tag = document.createElement('span');
         tag.className = 'cap-tag';

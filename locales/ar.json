@@ -3576,6 +3576,7 @@
   "host_setup.collector_never_run": "لم يعمل الجامع قط. لن يحتوي أي شيء في هذا الموقع يصف الجهاز كله على بيانات حتى يعمل.",
   "action.view": "عرض",
   "storage.empty": "إفراغ",
+  "storage.empty_category_confirm": "هل تريد حذف كل ملف محسوب ضمن {{category}}؟ ‏{{size}} عبر {{files}}، وفق آخر فحص. لا يمكن التراجع عن ذلك.",
   "storage.delete_permanently": "حذف {{count, number}} نهائيًا؟",
   "storage.delete_more": "…و{{count, number}} أخرى",
   "storage.delete_size": "حجم ذلك {{bytes}}",

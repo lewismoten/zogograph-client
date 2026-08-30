@@ -3679,6 +3679,7 @@
   "host_setup.collector_never_run": "The collector has never run. Nothing on this site that describes the whole machine will have anything in it until it does.",
   "action.view": "View",
   "storage.empty": "Empty",
+  "storage.empty_category_confirm": "Delete every file counted as {{category}}? {{size}} across {{files}}, as of the last scan. This cannot be undone.",
   "storage.delete_permanently": "Delete {{count, number}} permanently?",
   "storage.delete_more": "…and {{count, number}} more",
   "storage.delete_size": "That is {{bytes}}",

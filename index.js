@@ -5798,9 +5798,15 @@ function renderEmptyButtons() {
       button.addEventListener('click', async () => {
         if (
           !(await confirmDialog(
-            `Delete every file counted as ${category}?\n\n` +
-              `${humanBytes(totals.bytes)} across ${count(totals.files, 'file')}, ` +
-              `as of the last scan.\n\nThis cannot be undone.`,
+            ZogographI18n.t(
+              'storage.empty_category_confirm',
+              {
+                category,
+                size: humanBytes(totals.bytes),
+                files: count(totals.files, 'file'),
+              },
+              'Delete every file counted as {{category}}? {{size}} across {{files}}, as of the last scan. This cannot be undone.',
+            ),
           ))
         )
           return;

@@ -3590,6 +3590,7 @@
   "host_setup.collector_never_run": "El recopilador nunca se ha ejecutado. Nada de este sitio que describa toda la máquina tendrá información hasta que lo haga.",
   "action.view": "Ver",
   "storage.empty": "Vaciar",
+  "storage.empty_category_confirm": "¿Eliminar todos los archivos contados como {{category}}? {{size}} en {{files}}, según el último análisis. Esto no se puede deshacer.",
   "storage.delete_permanently": "¿Eliminar {{count, number}} permanentemente?",
   "storage.delete_more": "…y {{count, number}} más",
   "storage.delete_size": "Ocupan {{bytes}}",

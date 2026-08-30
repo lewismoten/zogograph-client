@@ -18850,18 +18850,40 @@ function databaseTableName(name, host) {
     ],
   };
   const [what, where, collected] = known[name] || [
-    `A ${host ? 'root collector' : 'dashboard'} SQLite table retained for this installation.`,
-    host ? 'Host collector data' : 'Database and forensic views',
+    ZogographI18n.t(
+      'database.unknown_table_what',
+      { collector: host ? 'root collector' : 'dashboard' },
+      'A {{collector}} SQLite table retained for this installation.',
+    ),
+    host
+      ? ZogographI18n.t(
+          'database.host_collector_data',
+          {},
+          'Host collector data',
+        )
+      : ZogographI18n.t(
+          'database.forensic_views',
+          {},
+          'Database and forensic views',
+        ),
     host
       ? 'php host-cron.php --collect'
-      : 'maintained by the dashboard collector',
+      : ZogographI18n.t(
+          'database.dashboard_collector',
+          {},
+          'maintained by the dashboard collector',
+        ),
   ];
   const label = document.createElement('span');
   label.append(
     document.createTextNode(name),
     helpIcon({
       title: what,
-      note: `Used by: ${where}. Collected by: ${collected}. Inspect: sqlite3 <database> "SELECT COUNT(*) FROM ${name};"`,
+      note: ZogographI18n.t(
+        'database.table_metadata',
+        { where, collected, name },
+        'Used by: {{where}}. Collected by: {{collected}}. Inspect: sqlite3 <database> "SELECT COUNT(*) FROM {{name}};"',
+      ),
       mine: false,
     }),
   );

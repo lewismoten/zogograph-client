@@ -35510,7 +35510,12 @@ function renderCapture(capture, target = 'captureBody') {
     const wrap = document.createDocumentFragment();
     wrap.appendChild(
       simpleTable(
-        ['Flag', 'Packets', 'Share', 'What it is'],
+        [
+          ZogographI18n.t('network.flag', {}, 'Flag'),
+          ZogographI18n.t('network.packets', {}, 'Packets'),
+          ZogographI18n.t('network.share', {}, 'Share'),
+          ZogographI18n.t('network.what_it_is', {}, 'What it is'),
+        ],
         capture.flags.map((f) => [
           f.label,
           humanCount(f.packets),

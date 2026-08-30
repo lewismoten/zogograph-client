@@ -11,6 +11,8 @@
   "common.sign_in_to_see": "Sign in to see this.",
   "reports.sign_in": "Sign in to read the summaries.",
   "network.sign_in": "Sign in to see the network.",
+  "network.flag": "Flag",
+  "network.what_it_is": "What it is",
   "network.traffic_kind": "What kind of traffic",
   "network.peer_endpoints": "Who is on the other end",
   "diagnosis.sign_in": "Sign in to see the diagnosis.",

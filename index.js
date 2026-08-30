@@ -41612,14 +41612,58 @@ async function refreshSelf() {
           'How long it keeps things',
         ),
         factGrid([
-          ['Readings, full detail', forever(r.raw_days)],
-          ['Rolled up to 5 minutes', forever(r.five_minute_days)],
-          ['Rolled up to an hour', forever(r.hourly_days)],
-          ['Rolled up to a day', forever(r.daily_days)],
-          ['Alerts', forever(r.alert_days)],
-          ['The action log', forever(r.action_days)],
-          ['Incident evidence', forever(r.incident_days)],
-          ['Scans', forever(r.scan_days)],
+          [
+            ZogographI18n.t(
+              'monitor.retention_readings',
+              {},
+              'Readings, full detail',
+            ),
+            forever(r.raw_days),
+          ],
+          [
+            ZogographI18n.t(
+              'monitor.retention_five_minutes',
+              {},
+              'Rolled up to 5 minutes',
+            ),
+            forever(r.five_minute_days),
+          ],
+          [
+            ZogographI18n.t(
+              'monitor.retention_hour',
+              {},
+              'Rolled up to an hour',
+            ),
+            forever(r.hourly_days),
+          ],
+          [
+            ZogographI18n.t('monitor.retention_day', {}, 'Rolled up to a day'),
+            forever(r.daily_days),
+          ],
+          [
+            ZogographI18n.t('monitor.retention_alerts', {}, 'Alerts'),
+            forever(r.alert_days),
+          ],
+          [
+            ZogographI18n.t(
+              'monitor.retention_action_log',
+              {},
+              'The action log',
+            ),
+            forever(r.action_days),
+          ],
+          [
+            ZogographI18n.t(
+              'monitor.retention_incident_evidence',
+              {},
+              'Incident evidence',
+            ),
+            forever(r.incident_days),
+          ],
+          [
+            ZogographI18n.t('monitor.retention_scans', {}, 'Scans'),
+            forever(r.scan_days),
+          ],
         ]),
       ),
     );

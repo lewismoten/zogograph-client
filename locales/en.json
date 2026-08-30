@@ -2869,6 +2869,7 @@
   "host.files_names_all": "{{shown}} paths, 1 file",
   "host.files_names_some": "{{shown}} here of {{total}}, 1 file",
   "host.files_total": "{{bytes}} across {{files}} files.",
+  "host.files_linked_total": "{{bytes}} across {{files}} files, reached by {{paths}} paths. {{linked}} extra paths are hard links to files already counted, so they use no additional disk.",
   "host.add_root_collector_cron": "As root — SSH in or use WHM's Terminal — add this to root's crontab with crontab -e:",
   "host.run_collector_once": "Then run it once by hand to see what it finds: {{command}}",
   "action.refresh": "Refresh",

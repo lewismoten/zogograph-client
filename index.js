@@ -26953,11 +26953,16 @@ function renderHostFiles(rows, totals) {
   if (totals) {
     const line =
       totals.linked > 0
-        ? `${humanBytes(totals.bytes)} across ${count(totals.files, 'file')}, ` +
-          `reached by ${totals.paths} paths. The ${totals.linked} extra ` +
-          `${totals.linked === 1 ? 'path is a hard link' : 'paths are hard links'} ` +
-          `to a file already counted, so ${totals.linked === 1 ? 'it costs' : 'they cost'} ` +
-          `no additional disk.`
+        ? ZogographI18n.t(
+            'host.files_linked_total',
+            {
+              bytes: humanBytes(totals.bytes),
+              files: humanCount(totals.files),
+              paths: humanCount(totals.paths),
+              linked: humanCount(totals.linked),
+            },
+            '{{bytes}} across {{files}} files, reached by {{paths}} paths. {{linked}} extra paths are hard links to files already counted, so they use no additional disk.',
+          )
         : ZogographI18n.t(
             'host.files_total',
             {

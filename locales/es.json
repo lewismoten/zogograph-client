@@ -2780,6 +2780,7 @@
   "host.files_names_all": "{{shown}} rutas, 1 archivo",
   "host.files_names_some": "{{shown}} aquí de {{total}}, 1 archivo",
   "host.files_total": "{{bytes}} entre {{files}} archivos.",
+  "host.files_linked_total": "{{bytes}} entre {{files}} archivos, alcanzados por {{paths}} rutas. {{linked}} rutas adicionales son enlaces duros a archivos ya contados, así que no usan disco adicional.",
   "host.add_root_collector_cron": "Como root — conéctese por SSH o use la Terminal de WHM — añada esto al crontab de root con crontab -e:",
   "host.run_collector_once": "Después ejecútelo una vez a mano para ver lo que encuentra: {{command}}",
   "action.refresh": "Actualizar",

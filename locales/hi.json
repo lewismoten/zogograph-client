@@ -2780,6 +2780,7 @@
   "host.files_names_all": "{{shown}} पथ, 1 फ़ाइल",
   "host.files_names_some": "{{total}} में से {{shown}} यहाँ, 1 फ़ाइल",
   "host.files_total": "{{files}} फ़ाइलों में {{bytes}}।",
+  "host.files_linked_total": "{{files}} फ़ाइलों में {{bytes}}, जिन तक {{paths}} पथों से पहुँचा गया। {{linked}} अतिरिक्त पथ पहले से गिनी गई फ़ाइलों के हार्ड लिंक हैं, इसलिए वे अतिरिक्त डिस्क नहीं लेते।",
   "host.add_root_collector_cron": "root के रूप में — SSH से साइन इन करें या WHM का Terminal इस्तेमाल करें — इसे crontab -e से root के crontab में जोड़ें:",
   "host.run_collector_once": "फिर यह क्या ढूँढता है, देखने के लिए इसे एक बार हाथ से चलाएँ: {{command}}",
   "action.refresh": "रीफ़्रेश करें",

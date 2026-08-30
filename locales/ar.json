@@ -2766,6 +2766,7 @@
   "host.files_names_all": "{{shown}} مسارات، ملف واحد",
   "host.files_names_some": "{{shown}} هنا من {{total}}، ملف واحد",
   "host.files_total": "{{bytes}} عبر {{files}} ملفات.",
+  "host.files_linked_total": "{{bytes}} عبر {{files}} ملفات، يمكن الوصول إليها من {{paths}} مسارات. {{linked}} مسارات إضافية هي روابط صلبة لملفات محسوبة بالفعل، لذا لا تستخدم مساحة قرص إضافية.",
   "host.add_root_collector_cron": "بصفة root — سجّل الدخول عبر SSH أو استخدم Terminal في WHM — أضف هذا إلى crontab الخاص بـ root باستخدام crontab -e:",
   "host.run_collector_once": "ثم شغّله يدويًا مرة واحدة لترى ما يجده: {{command}}",
   "action.refresh": "تحديث",

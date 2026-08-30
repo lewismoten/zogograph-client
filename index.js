@@ -36429,11 +36429,19 @@ function renderUrlHistory(data) {
   );
 
   $('urlChartNote').textContent = history.checks
-    ? 'Every check in this range. A gap is the cron not running rather than the site ' +
-      'being down \u2014 the two look identical on a chart and are opposite problems.' +
-      (changes.length
-        ? ' Blue marks are where what this check records changed.'
-        : '')
+    ? ZogographI18n.t(
+        'url.chart_note',
+        {
+          changes: changes.length
+            ? ZogographI18n.t(
+                'url.chart_note_changes',
+                {},
+                ' Blue marks are where what this check records changed.',
+              )
+            : '',
+        },
+        'Every check in this range. A gap is the cron not running rather than the site being down — the two look identical on a chart and are opposite problems.{{changes}}',
+      )
     : '';
 
   /*
@@ -36498,9 +36506,11 @@ function renderUrlHistory(data) {
               ? ZogographI18n.t('url.first_seen', {}, 'first seen')
               : ZogographI18n.t('url.changed', {}, 'changed');
             if (row.first) {
-              span.title =
-                'The earliest reading in this range, not something that ' +
-                'happened — it may have been saying this for far longer.';
+              span.title = ZogographI18n.t(
+                'url.first_seen_tip',
+                {},
+                'The earliest reading in this range, not something that happened — it may have been saying this for far longer.',
+              );
             }
             return span;
           },

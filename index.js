@@ -14377,9 +14377,15 @@ function renderPathHygiene(data) {
   }
   const parts = [
     factGrid([
-      ['Last scan', humanTime(last.checked_at)],
-      ['Found', String(last.total)],
-      ['Stored', String(last.findings.length)],
+      [
+        ZogographI18n.t('path_hygiene.last_scan', {}, 'Last scan'),
+        humanTime(last.checked_at),
+      ],
+      [ZogographI18n.t('path_hygiene.found', {}, 'Found'), String(last.total)],
+      [
+        ZogographI18n.t('path_hygiene.stored', {}, 'Stored'),
+        String(last.findings.length),
+      ],
     ]),
   ];
   if (!last.findings.length)
@@ -14399,7 +14405,7 @@ function renderPathHygiene(data) {
     body.replaceChildren(...parts);
     renderTable('pathHygieneTable', last.findings, [
       {
-        label: 'Exact path',
+        label: ZogographI18n.t('path_hygiene.exact_path', {}, 'Exact path'),
         className: 'name',
         render: (row) => {
           const code = document.createElement('code');
@@ -14408,7 +14414,10 @@ function renderPathHygiene(data) {
           return code;
         },
       },
-      { label: 'Why', render: (row) => row.reason },
+      {
+        label: ZogographI18n.t('path_hygiene.why', {}, 'Why'),
+        render: (row) => row.reason,
+      },
       {
         label: '',
         className: 'row-actions',

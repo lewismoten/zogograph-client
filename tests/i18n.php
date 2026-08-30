@@ -29,6 +29,13 @@ $root = dirname(__DIR__);
 $runtime = file_get_contents($root . '/i18n.js');
 $page = file_get_contents($root . '/index.html');
 $script = file_get_contents($root . '/index.js');
+foreach ($cardFiles as $cardFile) {
+    $cardName = basename($cardFile);
+    i18nExpect(
+        $page !== false && str_contains($page, 'src="cards/' . $cardName . '"'),
+        $cardName . ' is not registered by index.html',
+    );
+}
 if ($script !== false) {
     // Keep source-level contracts independent from the formatter's line wraps
     // and quote preference while retaining the original source for text checks.

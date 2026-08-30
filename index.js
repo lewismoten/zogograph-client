@@ -11035,11 +11035,12 @@ function chatMessageNode(message, session) {
     // The image arrives as its own message; the call itself says nothing.
     if (message.tool === 'show_reaction') return null;
 
-    const line = document.createElement('div');
-    line.className = 'chat-tool';
-    line.textContent = `⚙ ${chatToolPhrase(message.tool, message.arguments)}`;
-    line.title = JSON.stringify(message.arguments, null, 2);
-    return line;
+    return renderCoreCardPackage(
+      ZogographChatToolCallCard,
+      'core-chat-tool-call',
+      { tool: message.tool, arguments: message.arguments },
+      { toolPhrase: chatToolPhrase, i18n: ZogographI18n },
+    );
   }
 
   const bubble = document.createElement('div');

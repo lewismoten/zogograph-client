@@ -13502,12 +13502,26 @@ function drawChangedChart(data) {
 
   const hidden = new Set(events.map((event) => event.name)).size - lanes.length;
   $('changedChartNote').textContent =
-    `${count(events.length, 'change')} across ${count(lanes.length, 'thing')}.` +
+    ZogographI18n.t(
+      'storage.changed_summary',
+      {
+        changes: count(events.length, 'change'),
+        things: count(lanes.length, 'thing'),
+      },
+      '{{changes}} across {{things}}.',
+    ) +
     (hidden > 0
-      ? ` ${count(hidden, 'other')} not shown — use the filter.`
+      ? ` ${ZogographI18n.t(
+          'storage.changed_hidden',
+          { count: count(hidden, 'other') },
+          '{{count}} not shown — use the filter.',
+        )}`
       : '') +
-    ' Blue is the system software, green a program this tool watches, and a hollow' +
-    ' ring means the change was noticed by fingerprint rather than by version.';
+    ` ${ZogographI18n.t(
+      'storage.changed_chart_legend',
+      {},
+      'Blue is the system software, green a program this tool watches, and a hollow ring means the change was noticed by fingerprint rather than by version.',
+    )}`;
 }
 
 function renderChangedList(data) {

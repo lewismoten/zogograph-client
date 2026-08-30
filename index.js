@@ -25273,7 +25273,15 @@ async function sweepLinks(pattern, confirmed = false) {
 
 async function refreshLinks() {
   if (!state.signedIn) {
-    $('symlinkBody').replaceChildren(note('Sign in to check symlinks.'));
+    $('symlinkBody').replaceChildren(
+      note(
+        ZogographI18n.t(
+          'storage.links_sign_in',
+          {},
+          'Sign in to check symlinks.',
+        ),
+      ),
+    );
     $('linkSweepPanel').hidden = true;
     return;
   }
@@ -42034,7 +42042,15 @@ function paste(text) {
 async function refreshEmail() {
   const body = $('emailBody');
   if (!state.signedIn) {
-    body.replaceChildren(note('Sign in to change the email settings.'));
+    body.replaceChildren(
+      note(
+        ZogographI18n.t(
+          'email.settings_sign_in',
+          {},
+          'Sign in to change the email settings.',
+        ),
+      ),
+    );
     return;
   }
 

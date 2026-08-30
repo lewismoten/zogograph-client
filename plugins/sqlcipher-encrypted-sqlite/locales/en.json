@@ -1,0 +1,5 @@
+{
+  "sqlcipher-encrypted-sqlite.settings_title": "SQLCipher encrypted SQLite",
+  "sqlcipher-encrypted-sqlite.summary": "Provides live encrypted SQLite storage when a verified SQLCipher-compatible PDO driver is installed.",
+  "sqlcipher-encrypted-sqlite.status": "Encrypted SQLite storage capability"
+}

@@ -18,6 +18,13 @@
     "minimum_api": "1.0"
   },
   "settings_schema": "settings.schema.json",
+  "locales": {
+    "ar": "locales/ar.json",
+    "en": "locales/en.json",
+    "es": "locales/es.json",
+    "hi": "locales/hi.json",
+    "zh": "locales/zh.json"
+  },
   "data": {
     "directory": "data",
     "migration_namespace": "sqlcipher_encrypted_sqlite"
@@ -34,6 +41,11 @@
     "algorithm": "sha256",
     "files": {
       "README.md": "7774e079952a5584af7bd4cea08e1e773107729efc20b95324ddea9f213662ca",
+      "locales/ar.json": "19300b13058b0bcc263f064f97f63d6b2cb506c5f4d3c5cb1f14cc17bb07ccf4",
+      "locales/en.json": "dcd3a45631e33df19b167e37878df58fe64298cf00f24dcd53c1a96cdc8746e9",
+      "locales/es.json": "19627015051fb424305b7a6515c4a1db59ac0baac32c5c2fe0fa5c7d1e37c3c5",
+      "locales/hi.json": "f0efbad303beacb995e1788cb2f3d1a2bf2493647679c7769a6ab69a7fb5ed65",
+      "locales/zh.json": "05b5edb35c0f43973ce65345f5aa497cf8622d57ae3b3decceb5cc06de2bee80",
       "settings.schema.json": "57f9b194e2a9673e2546d435074d6930942be67b43066603ad34d40331547f84",
       "src/SqlcipherStorageProvider.php": "0c05483c655e73bdce05bd10698a73f0df875dad08d197f428167f46048fc402"
     }

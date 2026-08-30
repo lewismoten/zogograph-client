@@ -1,0 +1,5 @@
+{
+  "zogograph-replica-relay.settings_title": "密文副本中继",
+  "zogograph-replica-relay.summary": "用于租户隔离、仅传输密文副本中继的可选签名客户端。",
+  "zogograph-replica-relay.status": "密文副本中继能力"
+}

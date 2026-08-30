@@ -1,0 +1,5 @@
+{
+  "sqlcipher-encrypted-sqlite.settings_title": "SQLCipher एन्क्रिप्टेड SQLite",
+  "sqlcipher-encrypted-sqlite.summary": "सत्यापित SQLCipher-संगत PDO ड्राइवर स्थापित होने पर लाइव एन्क्रिप्टेड SQLite संग्रहण प्रदान करता है।",
+  "sqlcipher-encrypted-sqlite.status": "एन्क्रिप्टेड SQLite संग्रहण क्षमता"
+}

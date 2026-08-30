@@ -1,0 +1,5 @@
+{
+  "sqlcipher-encrypted-sqlite.settings_title": "SQLCipher 加密 SQLite",
+  "sqlcipher-encrypted-sqlite.summary": "安装经过验证的 SQLCipher 兼容 PDO 驱动程序后，提供实时加密 SQLite 存储。",
+  "sqlcipher-encrypted-sqlite.status": "加密 SQLite 存储能力"
+}

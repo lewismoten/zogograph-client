@@ -1,0 +1,5 @@
+{
+  "sqlcipher-encrypted-sqlite.settings_title": "SQLite مشفر بواسطة SQLCipher",
+  "sqlcipher-encrypted-sqlite.summary": "يوفر تخزين SQLite مشفرًا مباشرًا عند تثبيت برنامج تشغيل PDO متوافق مع SQLCipher ومتحقق منه.",
+  "sqlcipher-encrypted-sqlite.status": "قدرة تخزين SQLite المشفر"
+}

@@ -1,0 +1,5 @@
+{
+  "zogograph-replica-relay.settings_title": "Relé de réplicas cifradas",
+  "zogograph-replica-relay.summary": "Cliente firmado opcional para un relé de réplicas solo de texto cifrado, aislado por inquilino.",
+  "zogograph-replica-relay.status": "Capacidad de relé de réplicas cifradas"
+}

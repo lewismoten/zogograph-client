@@ -117,6 +117,38 @@ foreach ($toolLocaleDirectories as $directory) {
         }
     }
 }
+$pluginManifests = glob($root . '/plugins/*/manifest.json') ?: [];
+foreach ($pluginManifests as $manifestFile) {
+    $manifest = json_decode((string) file_get_contents($manifestFile), true);
+    $package = is_array($manifest) ? (string) ($manifest['id'] ?? '') : '';
+    i18nExpect(
+        $package !== '',
+        "plugin manifest $manifestFile has no package ID",
+    );
+    $localeDirectory = dirname($manifestFile) . '/locales';
+    foreach (['en', 'es', 'hi', 'ar', 'zh'] as $locale) {
+        $file = $localeDirectory . '/' . $locale . '.json';
+        i18nExpect(
+            is_file($file),
+            "plugin package $package lacks its $locale locale catalog",
+        );
+        $catalog = json_decode((string) file_get_contents($file), true);
+        i18nExpect(
+            is_array($catalog) &&
+                !array_is_list($catalog) &&
+                count($catalog) >= 1,
+            "plugin package $package has an invalid $locale locale catalog",
+        );
+        foreach ($catalog as $key => $value) {
+            i18nExpect(
+                is_string($key) &&
+                    str_starts_with($key, $package . '.') &&
+                    is_string($value),
+                "plugin package $package owns an invalid $locale locale key",
+            );
+        }
+    }
+}
 foreach (glob($root . '/cards/*.js') ?: [] as $cardFile) {
     $card = file_get_contents($cardFile);
     $name = basename($cardFile);

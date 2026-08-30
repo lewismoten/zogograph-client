@@ -18,6 +18,13 @@
     "minimum_api": "1.0"
   },
   "settings_schema": "settings.schema.json",
+  "locales": {
+    "ar": "locales/ar.json",
+    "en": "locales/en.json",
+    "es": "locales/es.json",
+    "hi": "locales/hi.json",
+    "zh": "locales/zh.json"
+  },
   "data": {
     "directory": "data",
     "migration_namespace": "zogograph_replica_relay"
@@ -31,6 +38,11 @@
     "algorithm": "sha256",
     "files": {
       "README.md": "74eb17c4c34de74b8ef61d7507caf365e57eca406c969d75a75de1ef34d771dd",
+      "locales/ar.json": "819f34e9daf3fe58e809e0b4171c07ebf0fb85961350ab09ffb31f09e0712ce7",
+      "locales/en.json": "105b261806f0c4e45c0a6ab120e03a2e596ee2e849ef6e658c8e1b960022fe67",
+      "locales/es.json": "a90a3d661eb9fcca29a73d34a36fab2e4f12e9606295cfd9a982475e025a4098",
+      "locales/hi.json": "733a1af5f64d05b741415868f26b8eb01b99e4f3cf9351f257e62af4c72598bb",
+      "locales/zh.json": "486782f248f9a423f6a81403fe424b2220aa1c01a5e459b6238fdf3fd28bf8bf",
       "settings.schema.json": "82d2993875e48813c1b9c2e86ab9152a3d5616f6e2fc621abc44aaf6f60bb126",
       "src/ReplicaRelayProvider.php": "d696ed69b3c85542254822fd79510676604b5ae9e12f8e62e55ceaf1598193ca",
       "src/ReplicaRelayHttpClient.php": "117a8147d4c0f3d34c5cb91e0ad4164e87389156403804f3020cd4f046882d4e"

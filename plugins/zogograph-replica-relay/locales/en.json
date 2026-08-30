@@ -1,0 +1,5 @@
+{
+  "zogograph-replica-relay.settings_title": "Ciphertext replica relay",
+  "zogograph-replica-relay.summary": "Optional signed client for a tenant-isolated ciphertext-only replica relay.",
+  "zogograph-replica-relay.status": "Ciphertext replica relay capability"
+}

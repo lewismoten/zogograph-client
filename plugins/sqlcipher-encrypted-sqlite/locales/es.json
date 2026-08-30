@@ -1,0 +1,5 @@
+{
+  "sqlcipher-encrypted-sqlite.settings_title": "SQLite cifrado con SQLCipher",
+  "sqlcipher-encrypted-sqlite.summary": "Proporciona almacenamiento SQLite cifrado activo cuando está instalado un controlador PDO compatible con SQLCipher y verificado.",
+  "sqlcipher-encrypted-sqlite.status": "Capacidad de almacenamiento SQLite cifrado"
+}

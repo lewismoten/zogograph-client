@@ -42282,9 +42282,17 @@ function renderCapList(data) {
         open.textContent = '🔑';
         open.setAttribute(
           'aria-label',
+          ZogographI18n.t(
+            'capability.expose_help',
+            { name: row.name },
+            `How to expose ${row.name} to this account`,
+          ),
+        );
+        open.title = ZogographI18n.t(
+          'capability.expose_help',
+          { name: row.name },
           `How to expose ${row.name} to this account`,
         );
-        open.title = `How to expose ${row.name} to this account`;
         open.addEventListener('click', () => showExposeDialog(row));
         prog.appendChild(open);
       }
@@ -42303,8 +42311,13 @@ function renderCapList(data) {
         help.target = '_blank';
         help.rel = 'noopener noreferrer';
         help.textContent = '?';
-        help.setAttribute('aria-label', `Documentation for ${row.name}`);
-        help.title = `Documentation for ${row.name}`;
+        const title = ZogographI18n.t(
+          'capability.documentation',
+          { name: row.name },
+          `Documentation for ${row.name}`,
+        );
+        help.setAttribute('aria-label', title);
+        help.title = title;
         prog.appendChild(help);
       }
 

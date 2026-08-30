@@ -290,6 +290,8 @@
   "process.busy_cpu_burst": "The reading was {{value}}%, but nothing in the list was using measurable CPU: whatever caused it had already finished when the process list was taken. A burst rather than steady load.",
   "process.busy_row_processes": "{{name}} ({{count}} processes)",
   "log.stack_trace_folded": "{{count}} stack-trace lines folded in. Click to read.",
+  "capability.expose_help": "How to expose {{name}} to this account",
+  "capability.documentation": "Documentation for {{name}}",
   "process.unavailable": "Cannot read the process list here.",
   "process.no_matches": "Nothing among the {{scanned}} running processes matches that.",
   "process.matches_summary": "Matches {{matched}} of the {{scanned}} running processes.",

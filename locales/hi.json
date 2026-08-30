@@ -290,6 +290,8 @@
   "process.busy_cpu_burst": "रीडिंग {{value}}% थी, लेकिन सूची में कुछ भी मापने योग्य CPU उपयोग नहीं कर रहा था: प्रक्रिया सूची लेते समय कारण पहले ही समाप्त हो चुका था। स्थिर लोड के बजाय एक बर्स्ट।",
   "process.busy_row_processes": "{{name}} ({{count}} प्रक्रियाएँ)",
   "log.stack_trace_folded": "{{count}} स्टैक-ट्रेस पंक्तियाँ छिपी हैं। पढ़ने के लिए क्लिक करें।",
+  "capability.expose_help": "इस खाते में {{name}} को कैसे उपलब्ध करें",
+  "capability.documentation": "{{name}} के लिए दस्तावेज़",
   "process.unavailable": "यहाँ प्रक्रिया सूची नहीं पढ़ी जा सकती।",
   "process.no_matches": "{{scanned}} चल रही प्रक्रियाओं में कुछ भी उससे मेल नहीं खाता।",
   "process.matches_summary": "{{scanned}} चल रही प्रक्रियाओं में से {{matched}} मेल खाती हैं।",

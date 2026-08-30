@@ -807,6 +807,16 @@ i18nExpect(
     'first-run dashboard guidance does not use the locale catalog',
 );
 i18nExpect(
+    is_array($english) &&
+        !isset(
+            $english['storage.types_not_measured'],
+            $english['storage.no_scan_in_range'],
+            $english['storage.types_measured'],
+            $english['storage.types_total'],
+        ),
+    'file-type card text must remain package-local rather than returning to shared catalogs',
+);
+i18nExpect(
     $script !== false &&
         str_contains($script, 'ZogographI18n.t("filter.all"') &&
         $page !== false &&

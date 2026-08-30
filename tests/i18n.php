@@ -103,6 +103,9 @@ $latestReportCard = i18nCardSource(
 $databaseSnapshotsCard = i18nCardSource(
     file_get_contents($root . '/cards/database-snapshots.js'),
 );
+$hostDatabaseStorageCard = i18nCardSource(
+    file_get_contents($root . '/cards/host-database-storage.js'),
+);
 $networkPeersCard = i18nCardSource(
     file_get_contents($root . '/cards/network-peers.js'),
 );
@@ -374,6 +377,34 @@ i18nExpect(
             'helpers.i18n.registerCatalog(locale, catalog, false, id)',
         ),
     'core card package catalogs are not namespace-registered before their first render',
+);
+i18nExpect(
+    $page !== false &&
+        str_contains($page, 'src="cards/host-database-storage.js"') &&
+        $hostDatabaseStorageCard !== false &&
+        str_contains(
+            $hostDatabaseStorageCard,
+            'window.ZogographHostDatabaseStorageCard',
+        ) &&
+        str_contains(
+            $hostDatabaseStorageCard,
+            'id: "core-host-database-storage"',
+        ) &&
+        str_contains(
+            $hostDatabaseStorageCard,
+            'locales: ["core-host-database-storage."]',
+        ) &&
+        str_contains($hostDatabaseStorageCard, 'catalogs: Object.freeze({') &&
+        str_contains(
+            $hostDatabaseStorageCard,
+            '"core-host-database-storage.unreadable"',
+        ) &&
+        $script !== false &&
+        str_contains(
+            $script,
+            'renderCoreCardPackage(ZogographHostDatabaseStorageCard, "core-host-database-storage",',
+        ),
+    'host database storage is not isolated behind its core card-module boundary',
 );
 i18nExpect(
     $page !== false &&

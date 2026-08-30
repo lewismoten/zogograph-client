@@ -18081,6 +18081,24 @@ function renderAccountData(data) {
 
 /** The host collector's database, which this account reads and never writes. */
 function renderHostData(data) {
+  if (window.ZogographHostDatabaseStorageCard) {
+    return renderCoreCardPackage(
+      ZogographHostDatabaseStorageCard,
+      'core-host-database-storage',
+      data,
+      {
+        target: $('hostDataBody'),
+        note,
+        section,
+        databaseStorageCard,
+        simpleTable,
+        databaseTableName,
+        humanCount,
+        humanBytes,
+        i18n: ZogographI18n,
+      },
+    );
+  }
   const body = $('hostDataBody');
   if (!body) return;
 

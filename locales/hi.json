@@ -2472,6 +2472,8 @@
   "tree.sign_in": "डिस्क देखने के लिए साइन इन करें।",
   "tree.measuring": "मापा जा रहा है…",
   "tree.measuring_directory": "इस डायरेक्टरी को मापा जा रहा है…",
+  "tree.empty": "अभी कुछ नहीं मापा गया है",
+  "tree.directory_empty": "इस डायरेक्टरी में दिखाने के लिए कुछ नहीं है",
   "backup.storage_title": "बैकअप स्टोरेज",
   "backup.account": "खाता",
   "backup.live_data": "लाइव डेटा",

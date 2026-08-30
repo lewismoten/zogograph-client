@@ -32703,7 +32703,11 @@ function drawTreemap() {
     ctx.font = '13px system-ui, sans-serif';
     ctx.textAlign = 'center';
     ctx.fillText(
-      level ? 'Nothing to show in this directory' : 'Nothing measured yet',
+      ZogographI18n.t(
+        level ? 'tree.directory_empty' : 'tree.empty',
+        {},
+        level ? 'Nothing to show in this directory' : 'Nothing measured yet',
+      ),
       width / 2,
       height / 2,
     );

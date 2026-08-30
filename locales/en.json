@@ -2561,6 +2561,8 @@
   "tree.sign_in": "Sign in to explore the disk.",
   "tree.measuring": "Measuring…",
   "tree.measuring_directory": "Measuring this directory…",
+  "tree.empty": "Nothing measured yet",
+  "tree.directory_empty": "Nothing to show in this directory",
   "backup.storage_title": "Backup storage",
   "backup.account": "Account",
   "backup.live_data": "Live data",

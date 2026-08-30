@@ -2472,6 +2472,8 @@
   "tree.sign_in": "Inicie sesión para explorar el disco.",
   "tree.measuring": "Midiendo…",
   "tree.measuring_directory": "Midiendo este directorio…",
+  "tree.empty": "Aún no se ha medido nada",
+  "tree.directory_empty": "No hay nada que mostrar en este directorio",
   "backup.storage_title": "Almacenamiento de copias de seguridad",
   "backup.account": "Cuenta",
   "backup.live_data": "Datos activos",

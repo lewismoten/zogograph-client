@@ -2458,6 +2458,8 @@
   "tree.sign_in": "سجّل الدخول لاستكشاف القرص.",
   "tree.measuring": "جارٍ القياس…",
   "tree.measuring_directory": "جارٍ قياس هذا المجلد…",
+  "tree.empty": "لم يُقَس شيء بعد",
+  "tree.directory_empty": "لا شيء لعرضه في هذا المجلد",
   "backup.storage_title": "تخزين النسخ الاحتياطية",
   "backup.account": "الحساب",
   "backup.live_data": "البيانات الحية",

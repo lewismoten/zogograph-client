@@ -2458,6 +2458,8 @@
   "tree.sign_in": "请登录以浏览磁盘。",
   "tree.measuring": "正在测量…",
   "tree.measuring_directory": "正在测量此目录…",
+  "tree.empty": "尚未测量任何内容",
+  "tree.directory_empty": "此目录中没有可显示的内容",
   "backup.storage_title": "备份存储",
   "backup.account": "账户",
   "backup.live_data": "实时数据",

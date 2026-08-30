@@ -43085,7 +43085,16 @@ async function refreshCapabilities() {
 
   if (!data.available) {
     $('capSummary').replaceChildren();
-    body.replaceChildren(note(data.reason || 'Nothing checked yet.'));
+    body.replaceChildren(
+      note(
+        data.reason ||
+          ZogographI18n.t(
+            'capabilities.nothing_checked_yet',
+            {},
+            'Nothing checked yet.',
+          ),
+      ),
+    );
     return;
   }
 

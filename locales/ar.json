@@ -2989,6 +2989,7 @@
   "capabilities.check_now": "تحقق الآن",
   "capabilities.ask_host": "اسأل المضيف",
   "capabilities.help": "ما يمكن لهذا الحساب تشغيله فعلًا، وما لدى الآلة مما لا يستطيع الوصول إليه. هذان السؤالان واحد في الاستضافة العادية ومختلفان هنا — انظر أدناه.",
+  "capabilities.nothing_checked_yet": "لم يُفحص شيء بعد.",
   "capabilities.short_alternate": "مسار بديل",
   "capabilities.short_host_only": "المضيف فقط",
   "capabilities.short_unusable": "غير قابل للتنفيذ",

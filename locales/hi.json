@@ -3003,6 +3003,7 @@
   "capabilities.check_now": "अभी जाँचें",
   "capabilities.ask_host": "होस्ट से पूछें",
   "capabilities.help": "यह खाता वास्तव में क्या चला सकता है और मशीन में ऐसा क्या है जिस तक यह पहुँच नहीं सकता। सामान्य होस्टिंग पर ये एक ही प्रश्न हैं, यहाँ अलग—नीचे देखें।",
+  "capabilities.nothing_checked_yet": "अभी तक कुछ नहीं जांचा गया है।",
   "capabilities.short_alternate": "वैकल्पिक पथ",
   "capabilities.short_host_only": "केवल होस्ट",
   "capabilities.short_unusable": "निष्पादित नहीं हो सकता",

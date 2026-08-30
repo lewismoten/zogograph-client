@@ -2989,6 +2989,7 @@
   "capabilities.check_now": "立即检查",
   "capabilities.ask_host": "询问主机",
   "capabilities.help": "此账户实际上能运行什么，以及机器具备但它无法访问什么。在普通主机上这是同一个问题，在这里则是两个问题——请看下方。",
+  "capabilities.nothing_checked_yet": "尚未检查任何内容。",
   "capabilities.short_alternate": "替代路径",
   "capabilities.short_host_only": "仅主机",
   "capabilities.short_unusable": "不可执行",

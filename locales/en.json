@@ -3092,6 +3092,7 @@
   "capabilities.check_now": "Check now",
   "capabilities.ask_host": "Ask the host",
   "capabilities.help": "What this account can actually run, and what the machine has that it cannot reach. Those are the same question on ordinary hosting and different ones here — see below.",
+  "capabilities.nothing_checked_yet": "Nothing checked yet.",
   "capabilities.short_alternate": "alternate path",
   "capabilities.short_host_only": "host-only",
   "capabilities.short_unusable": "not executable",

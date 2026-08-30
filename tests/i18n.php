@@ -2758,4 +2758,20 @@ i18nExpect(
         isset($english['capabilities.nothing_checked_yet']),
     'capability states and empty fallback are not localized',
 );
+i18nExpect(
+    $page !== false &&
+        str_contains($page, 'data-i18n-rich="host.services_alive_help"') &&
+        str_contains($page, 'data-i18n-tag="not_installed"') &&
+        str_contains($page, 'data-i18n-tag="stopped"') &&
+        is_array($english) &&
+        str_contains(
+            (string) ($english['host.services_alive_help'] ?? ''),
+            '{{not_installed}}',
+        ) &&
+        str_contains(
+            (string) ($english['host.services_alive_help'] ?? ''),
+            '{{stopped}}',
+        ),
+    'service-status guidance does not preserve translated emphasis',
+);
 echo "i18n checks passed\n";

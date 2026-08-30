@@ -7428,101 +7428,25 @@ function personalityPicker(data, boxes) {
  * all of it and the page says what has been used.
  */
 function pictureFields(data) {
-  const wrap = document.createDocumentFragment();
-  const pictures = data.pictures;
-
-  const form = document.createElement('div');
-  form.className = 'settings';
-
-  form.append(
-    ...renderCoreCardPackage(
-      ZogographAiImageProviderCard,
-      'core-ai-image-provider',
-      { pictures },
-      { fieldRow, i18n: ZogographI18n },
-    ),
+  return renderCoreCardPackage(
+    ZogographAiImageSettingsCard,
+    'core-ai-image-settings',
+    { pictures: data.pictures },
+    {
+      fieldRow,
+      section,
+      note,
+      styleFinder,
+      renderCard: renderCoreCardPackage,
+      providerCard: ZogographAiImageProviderCard,
+      renderOptionsCard: ZogographAiImageRenderOptionsCard,
+      limitsCard: ZogographAiImageLimitsCard,
+      searchCard: ZogographAiImageSearchCard,
+      ratingCard: ZogographAiImageRatingCard,
+      costsCard: ZogographAiImageCostsCard,
+      i18n: ZogographI18n,
+    },
   );
-
-  form.appendChild(
-    fieldRow(
-      ZogographI18n.t('ai.images_styles', {}, 'Styles it may use'),
-      styleFinder(pictures),
-      ZogographI18n.t(
-        'ai.images_styles_help',
-        {},
-        'Tick the ones it may choose from. There are over a hundred, and a model offered ' +
-          'twelve will use twelve — most of them are wrong for a monitoring dashboard, so ' +
-          'two or three is plenty. Type to narrow the list; the ones you have ticked stay ' +
-          'at the top whatever you search for.',
-      ),
-    ),
-  );
-
-  form.append(
-    ...renderCoreCardPackage(
-      ZogographAiImageRenderOptionsCard,
-      'core-ai-image-render-options',
-      { pictures },
-      { fieldRow, i18n: ZogographI18n },
-    ),
-  );
-
-  form.append(
-    ...renderCoreCardPackage(
-      ZogographAiImageLimitsCard,
-      'core-ai-image-limits',
-      { pictures },
-      { fieldRow, i18n: ZogographI18n },
-    ),
-  );
-
-  /*
-   * Which search service, as a choice rather than a brand baked into the code.
-   *
-   * There are three with the same shape and different terms, and which one an
-   * install may use is not something this code can know - one of them may be
-   * the only one an employer will approve. The endpoint is a field too, for the
-   * same reason.
-   */
-  form.append(
-    ...renderCoreCardPackage(
-      ZogographAiImageSearchCard,
-      'core-ai-image-search',
-      { pictures },
-      { fieldRow, i18n: ZogographI18n },
-    ),
-  );
-
-  form.appendChild(
-    renderCoreCardPackage(
-      ZogographAiImageRatingCard,
-      'core-ai-image-rating',
-      { rating: pictures.rating },
-      { fieldRow, i18n: ZogographI18n },
-    ),
-  );
-
-  /*
-   * What the pictures cost, which is not one number.
-   *
-   * The plan is a monthly fee with an allowance and then credits, so a
-   * per-image price is only true once the allowance is gone. Both are asked for
-   * and the arithmetic is shown rather than hidden: inside the allowance a
-   * picture adds nothing to the session total, after it the per-image price
-   * applies, and the monthly fee is reported as a monthly fee rather than
-   * smeared across whatever happened to be generated.
-   */
-  form.append(
-    ...renderCoreCardPackage(
-      ZogographAiImageCostsCard,
-      'core-ai-image-costs',
-      { pictures },
-      { fieldRow, section, note, i18n: ZogographI18n },
-    ),
-  );
-
-  wrap.appendChild(form);
-  return wrap;
 }
 
 /**

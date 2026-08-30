@@ -2283,6 +2283,8 @@
   "tree.measuring": "正在测量…",
   "tree.measuring_directory": "正在测量此目录…",
   "backup.storage_title": "备份存储",
+  "backup.growth": "增长",
+  "backup.by_account": "按账户",
   "backup.no_suggestions": "此读数没有可提供的建议。",
   "backup.matched": "匹配",
   "backup.inside_path": "{{path}} 内",

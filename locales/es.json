@@ -2301,6 +2301,8 @@
   "tree.measuring": "Midiendo…",
   "tree.measuring_directory": "Midiendo este directorio…",
   "backup.storage_title": "Almacenamiento de copias de seguridad",
+  "backup.growth": "Crecimiento",
+  "backup.by_account": "Por cuenta",
   "backup.no_suggestions": "No hay nada que sugerir a partir de esta lectura.",
   "backup.matched": "Coincidente",
   "backup.inside_path": "Dentro de {{path}}",

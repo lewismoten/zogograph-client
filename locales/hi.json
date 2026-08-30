@@ -2297,6 +2297,8 @@
   "tree.measuring": "मापा जा रहा है…",
   "tree.measuring_directory": "इस डायरेक्टरी को मापा जा रहा है…",
   "backup.storage_title": "बैकअप स्टोरेज",
+  "backup.growth": "वृद्धि",
+  "backup.by_account": "खाते के अनुसार",
   "backup.no_suggestions": "इस रीडिंग से सुझाव देने के लिए कुछ नहीं है।",
   "backup.matched": "मेल खाता है",
   "backup.inside_path": "{{path}} के अंदर",

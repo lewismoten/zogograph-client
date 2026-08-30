@@ -2386,6 +2386,8 @@
   "tree.measuring": "Measuring…",
   "tree.measuring_directory": "Measuring this directory…",
   "backup.storage_title": "Backup storage",
+  "backup.growth": "Growth",
+  "backup.by_account": "By account",
   "backup.no_suggestions": "Nothing to suggest from this reading.",
   "backup.matched": "Matched",
   "backup.inside_path": "Inside {{path}}",

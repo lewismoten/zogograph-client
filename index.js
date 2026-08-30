@@ -44083,7 +44083,10 @@ async function refreshBackups() {
           `${humanBytes(point.grew)} over ${humanDuration(point.span)}`,
       ]);
     }
-    if (rows.length) body.appendChild(section('Growth', factGrid(rows)));
+    if (rows.length)
+      body.appendChild(
+        section(ZogographI18n.t('backup.growth', {}, 'Growth'), factGrid(rows)),
+      );
   }
 
   if (data.accounts.length) {
@@ -44143,7 +44146,9 @@ async function refreshBackups() {
       wrap.appendChild(verdict);
     }
 
-    body.appendChild(section('By account', wrap));
+    body.appendChild(
+      section(ZogographI18n.t('backup.by_account', {}, 'By account'), wrap),
+    );
   }
 
   // What JetBackup itself says, or plainly that it did not say - on its own

@@ -2283,6 +2283,8 @@
   "tree.measuring": "جارٍ القياس…",
   "tree.measuring_directory": "جارٍ قياس هذا المجلد…",
   "backup.storage_title": "تخزين النسخ الاحتياطية",
+  "backup.growth": "النمو",
+  "backup.by_account": "حسب الحساب",
   "backup.no_suggestions": "لا يوجد ما يُقترح من هذه القراءة.",
   "backup.matched": "متطابق",
   "backup.inside_path": "داخل {{path}}",

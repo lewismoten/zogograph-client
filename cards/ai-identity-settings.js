@@ -6,11 +6,12 @@ window.ZogographAiIdentitySettingsCard = {
     helpers: [
       'fieldRow',
       'aiSettingsText',
-      'personalityPicker',
       'renderCard',
       'identityFieldsCard',
+      'personalityPickerCard',
       'portraitCard',
       'ago',
+      'askTextDialog',
       'askFirst',
       'post',
       'renderAiSettings',
@@ -46,11 +47,12 @@ window.ZogographAiIdentitySettingsCard = {
     const {
       fieldRow,
       aiSettingsText,
-      personalityPicker,
       renderCard,
       identityFieldsCard,
+      personalityPickerCard,
       portraitCard,
       ago,
+      askTextDialog,
       askFirst,
       post,
       renderAiSettings,
@@ -67,7 +69,17 @@ window.ZogographAiIdentitySettingsCard = {
     );
     const { form, name, emoji, personality } = identity;
     const wrap = document.createDocumentFragment();
-    wrap.appendChild(personalityPicker(data, { name, emoji, personality }));
+    wrap.appendChild(
+      renderCard(
+        personalityPickerCard,
+        'core-ai-personality-picker',
+        {
+          personalities: data.personalities ?? [],
+          boxes: { name, emoji, personality },
+        },
+        { askTextDialog, askFirst, post, renderAiSettings, notice, i18n },
+      ),
+    );
     if (who.portrait) {
       form.appendChild(
         renderCard(

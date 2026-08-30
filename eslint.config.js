@@ -102,6 +102,7 @@ export default [
         ZogographAiImageSettingsCard: 'readonly',
         ZogographAiImageStylesCard: 'readonly',
         ZogographAiIdentityFieldsCard: 'readonly',
+        ZogographAiPersonalityPickerCard: 'readonly',
         ZogographAiIdentitySettingsCard: 'readonly',
         ZogographNetworkCaptureRequestCard: 'readonly',
         ZogographNetworkCaptureHistoryCard: 'readonly',

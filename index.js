@@ -33734,35 +33734,43 @@ function inspectDirectory(data) {
 
   const facts = [
     [
-      'Directly inside',
+      ZogographI18n.t('storage.directly_inside', {}, 'Directly inside'),
       `${count(c.entries.files, 'file')}, ` +
         `${count(c.entries.dirs, 'directory', 'directories')}, ` +
         `${count(c.entries.links, 'symlink')}`,
     ],
     [
-      'Files below here',
+      ZogographI18n.t('storage.files_below_here', {}, 'Files below here'),
       `${humanCount(c.files)}${c.complete ? '' : ' so far'}`,
     ],
   ];
   if (!c.complete) {
     facts.push([
-      'Measurement',
+      ZogographI18n.t('storage.measurement', {}, 'Measurement'),
       'The walk ran out of time. The size above is a lower ' +
         'bound \u2014 at least that much, not exactly that much.',
     ]);
   }
   if (data.site?.is_site) {
     facts.push([
-      'Serves',
+      ZogographI18n.t('storage.serves', {}, 'Serves'),
       data.site.domains.length
         ? `\u{1F310} ${data.site.domains.join(', ')}`
         : '\u{1F310} a website, domain unknown',
     ]);
     // Whether this is read from cPanel's own record or inferred from the name,
     // because those are very different levels of certainty.
-    facts.push(['How that is known', data.site.why]);
+    facts.push([
+      ZogographI18n.t('storage.how_known', {}, 'How that is known'),
+      data.site.why,
+    ]);
   }
-  out.push(section('What is in it', factGrid(facts)));
+  out.push(
+    section(
+      ZogographI18n.t('storage.what_is_in_it', {}, 'What is in it'),
+      factGrid(facts),
+    ),
+  );
 
   /*
    * Two questions, two pies, side by side.
@@ -33802,7 +33810,13 @@ function inspectDirectory(data) {
     );
   }
 
-  if (pair.children.length) out.push(section('What it is made of', pair));
+  if (pair.children.length)
+    out.push(
+      section(
+        ZogographI18n.t('storage.what_it_is_made_of', {}, 'What it is made of'),
+        pair,
+      ),
+    );
 
   return out;
 }
@@ -33822,7 +33836,9 @@ function inspectPie(title, slices, note_) {
   box.appendChild(note(note_));
 
   requestAnimationFrame(() =>
-    drawPieChart(canvas, slices, { empty: 'Nothing to show' }),
+    drawPieChart(canvas, slices, {
+      empty: ZogographI18n.t('storage.nothing_to_show', {}, 'Nothing to show'),
+    }),
   );
   return box;
 }

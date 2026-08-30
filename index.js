@@ -5054,14 +5054,22 @@ function renderIoChart(rows) {
     zeroBased: true,
     empty: series.length
       ? 'Nothing collected for this range yet'
-      : 'No disk I/O readings — neither /proc/diskstats nor /proc/<pid>/io could be read',
+      : ZogographI18n.t(
+          'vitals.io_empty_unreadable',
+          {},
+          'No disk I/O readings — neither /proc/diskstats nor /proc/<pid>/io could be read',
+        ),
   });
 
   const latest = [...rows]
     .reverse()
     .find((r) => r.io_util_percent != null || r.own_read_rate != null);
   const parts = [
-    'Bytes actually reaching a disk, not bytes served from cache.',
+    ZogographI18n.t(
+      'vitals.io_bytes_to_disk',
+      {},
+      'Bytes actually reaching a disk, not bytes served from cache.',
+    ),
   ];
 
   /*
@@ -5074,14 +5082,20 @@ function renderIoChart(rows) {
    */
   if (!has('io_read_rate')) {
     parts.push(
-      'The device lines are missing because /proc/diskstats is not readable ' +
-        'from this account — see the host panel, which reads it as root.',
+      ZogographI18n.t(
+        'vitals.io_device_missing',
+        {},
+        'The device lines are missing because /proc/diskstats is not readable from this account — see the host panel, which reads it as root.',
+      ),
     );
   }
   if (!has('own_read_rate')) {
     parts.push(
-      "This account's own traffic is missing too: /proc/<pid>/io could not be " +
-        'read for any process here.',
+      ZogographI18n.t(
+        'vitals.io_account_missing',
+        {},
+        'This account’s own traffic is missing too: /proc/<pid>/io could not be read for any process here.',
+      ),
     );
   }
   // Only worth saying when those lines are actually on the chart. Explaining

@@ -44114,8 +44114,8 @@ async function refreshBackups() {
   } else if (growth) {
     const rows = [];
     for (const [label, point] of [
-      ['24 hours ago', growth.day],
-      ['7 days ago', growth.week],
+      [ZogographI18n.t('backup.day_ago', {}, '24 hours ago'), growth.day],
+      [ZogographI18n.t('backup.week_ago', {}, '7 days ago'), growth.week],
     ]) {
       if (!point) continue;
       /*
@@ -44127,7 +44127,14 @@ async function refreshBackups() {
       rows.push([
         label,
         `${humanBytes(point.bytes)} — ${point.grew >= 0 ? '+' : ''}` +
-          `${humanBytes(point.grew)} over ${humanDuration(point.span)}`,
+          ZogographI18n.t(
+            'backup.grew_over',
+            {
+              bytes: humanBytes(point.grew),
+              duration: humanDuration(point.span),
+            },
+            '{{bytes}} over {{duration}}',
+          ),
       ]);
     }
     if (rows.length)
@@ -44173,7 +44180,9 @@ async function refreshBackups() {
         data.accounts.map((row) => [
           // The unattributed remainder has no account, and an empty cell reads
           // as a missing value rather than as the deliberate refusal it is.
-          row.unattributed ? 'not attributed' : row.account,
+          row.unattributed
+            ? ZogographI18n.t('backup.not_attributed', {}, 'not attributed')
+            : row.account,
           row.live_bytes == null ? '—' : humanBytes(row.live_bytes),
           humanBytes(row.backup_bytes),
           row.ratio == null ? '—' : `${row.ratio}×`,

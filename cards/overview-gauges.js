@@ -6,6 +6,9 @@ window.ZogographOverviewGaugesCard = {
     helpers: ['target', 'buildGauge', 'gaugeSeries', 'humanBytes', 'i18n'],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-overview-gauges.not_reported': 'not reported',
+        'core-overview-gauges.free': '{{count, number}} free',
+        'core-overview-gauges.load': 'Load',
         'core-overview-gauges.nothing_collected': 'Nothing collected yet.',
         'core-overview-gauges.disk_used': 'Disk used',
         'core-overview-gauges.free_of_total': '{{free}} free of {{total}}',
@@ -23,6 +26,9 @@ window.ZogographOverviewGaugesCard = {
         'core-overview-gauges.load_cores_unknown': '{{load}}, cores unknown',
       }),
       es: Object.freeze({
+        'core-overview-gauges.not_reported': 'sin informar',
+        'core-overview-gauges.free': '{{count, number}} libres',
+        'core-overview-gauges.load': 'Carga',
         'core-overview-gauges.nothing_collected': 'Aún no se recopiló nada.',
         'core-overview-gauges.disk_used': 'Disco usado',
         'core-overview-gauges.free_of_total': '{{free}} libres de {{total}}',
@@ -40,6 +46,9 @@ window.ZogographOverviewGaugesCard = {
           '{{load}}, núcleos desconocidos',
       }),
       hi: Object.freeze({
+        'core-overview-gauges.not_reported': 'रिपोर्ट नहीं किया गया',
+        'core-overview-gauges.free': '{{count, number}} खाली',
+        'core-overview-gauges.load': 'लोड',
         'core-overview-gauges.nothing_collected': 'अभी तक कुछ एकत्र नहीं हुआ।',
         'core-overview-gauges.disk_used': 'प्रयुक्त डिस्क',
         'core-overview-gauges.free_of_total': '{{total}} में से {{free}} खाली',
@@ -57,6 +66,9 @@ window.ZogographOverviewGaugesCard = {
         'core-overview-gauges.load_cores_unknown': '{{load}}, कोर अज्ञात',
       }),
       ar: Object.freeze({
+        'core-overview-gauges.not_reported': 'غير مُبلّغ عنه',
+        'core-overview-gauges.free': '{{count, number}} متاح',
+        'core-overview-gauges.load': 'الحمل',
         'core-overview-gauges.nothing_collected': 'لم تُجمع أي بيانات بعد.',
         'core-overview-gauges.disk_used': 'المساحة المستخدمة',
         'core-overview-gauges.free_of_total': '{{free}} متاح من {{total}}',
@@ -74,6 +86,9 @@ window.ZogographOverviewGaugesCard = {
           '{{load}}، عدد الأنوية غير معروف',
       }),
       zh: Object.freeze({
+        'core-overview-gauges.not_reported': '未报告',
+        'core-overview-gauges.free': '剩余 {{count, number}}',
+        'core-overview-gauges.load': '负载',
         'core-overview-gauges.nothing_collected': '尚未收集任何数据。',
         'core-overview-gauges.disk_used': '已用磁盘',
         'core-overview-gauges.free_of_total': '共 {{total}}，剩余 {{free}}',
@@ -138,7 +153,7 @@ window.ZogographOverviewGaugesCard = {
               free: humanBytes(vitals.disk_free_bytes),
               total: humanBytes(vitals.disk_total_bytes),
             })
-          : i18n.t('gauge.not_reported'),
+          : t('not_reported'),
       },
       {
         label: t('inodes_used'),
@@ -149,8 +164,8 @@ window.ZogographOverviewGaugesCard = {
           row.inodes_total ? (row.inodes_used / row.inodes_total) * 100 : null,
         ),
         sub: vitals.inodes_total
-          ? i18n.t('gauge.free', { count: vitals.inodes_free })
-          : i18n.t('gauge.not_reported'),
+          ? t('free', { count: vitals.inodes_free })
+          : t('not_reported'),
       },
       {
         label: t('cpu'),
@@ -179,10 +194,10 @@ window.ZogographOverviewGaugesCard = {
               available: humanBytes(vitals.mem_available_bytes),
               total: humanBytes(vitals.mem_total_bytes),
             })
-          : i18n.t('gauge.not_reported'),
+          : t('not_reported'),
       },
       {
-        label: i18n.t('gauge.load'),
+        label: t('load'),
         value: perCore,
         warn: 100,
         crit: 150,
@@ -194,7 +209,7 @@ window.ZogographOverviewGaugesCard = {
         ),
         sub:
           vitals.load1 == null
-            ? i18n.t('gauge.not_reported')
+            ? t('not_reported')
             : cores
               ? t('load_over_cores', {
                   load: Number(vitals.load1).toFixed(2),

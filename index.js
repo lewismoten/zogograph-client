@@ -43033,6 +43033,21 @@ async function refreshCapabilities() {
 }
 
 function renderCapSummary(data) {
+  if (window.ZogographCapabilitySummaryCard) {
+    return renderCoreCardPackage(
+      ZogographCapabilitySummaryCard,
+      'core-capability-summary',
+      data,
+      {
+        target: $('capSummary'),
+        factGrid,
+        note,
+        ago,
+        pendingHostNote,
+        i18n: ZogographI18n,
+      },
+    );
+  }
   const s = data.summary;
   const facts = [
     ['Worth having', `${s.key_available} of ${s.key_total} available here`],

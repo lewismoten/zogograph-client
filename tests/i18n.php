@@ -61,6 +61,9 @@ $networkCaptureHistoryCard = i18nCardSource(
 $processTrendCard = i18nCardSource(
     file_get_contents($root . '/cards/process-trend.js'),
 );
+$capabilitySummaryCard = i18nCardSource(
+    file_get_contents($root . '/cards/capability-summary.js'),
+);
 $networkPeersCard = i18nCardSource(
     file_get_contents($root . '/cards/network-peers.js'),
 );
@@ -329,6 +332,31 @@ i18nExpect(
             'helpers.i18n.registerCatalog(locale, catalog, false, id)',
         ),
     'core card package catalogs are not namespace-registered before their first render',
+);
+i18nExpect(
+    $page !== false &&
+        str_contains($page, 'src="cards/capability-summary.js"') &&
+        $capabilitySummaryCard !== false &&
+        str_contains(
+            $capabilitySummaryCard,
+            'window.ZogographCapabilitySummaryCard',
+        ) &&
+        str_contains($capabilitySummaryCard, 'id: "core-capability-summary"') &&
+        str_contains(
+            $capabilitySummaryCard,
+            'locales: ["core-capability-summary."]',
+        ) &&
+        str_contains($capabilitySummaryCard, 'catalogs: Object.freeze({') &&
+        str_contains(
+            $capabilitySummaryCard,
+            '"core-capability-summary.worth_having"',
+        ) &&
+        $script !== false &&
+        str_contains(
+            $script,
+            'renderCoreCardPackage(ZogographCapabilitySummaryCard, "core-capability-summary",',
+        ),
+    'capability summary is not isolated behind its core card-module boundary',
 );
 i18nExpect(
     $page !== false &&

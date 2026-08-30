@@ -154,6 +154,7 @@
   "url.value_note": "Taken from the response by the {{rule}} rule. This is the check that catches a page returning 200 with the wrong content, which nothing else here can see.",
   "url.nothing_recorded_range": "Nothing recorded in this range yet.",
   "url.history_summary": "{{checks}} checks · {{uptime}}% as expected · {{average}} ms typical, {{slowest}} ms slowest",
+  "url.collector_interval_limit": "The account’s cron runs about every {{interval}}, so a check set to run more often than that will run at that rate instead.",
   "url.status_label": "Status",
   "url.no_answer": "no answer",
   "url.took": "Took",

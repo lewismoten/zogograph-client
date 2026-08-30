@@ -2515,7 +2515,6 @@ i18nExpect(
 );
 i18nExpect(
     $script !== false &&
-        str_contains($script, 'ai.ask_assistant') &&
         str_contains(
             (string) file_get_contents($root . '/cards/chat-title.js'),
             'core-chat-title.portrait_title',
@@ -2523,6 +2522,10 @@ i18nExpect(
         str_contains(
             (string) file_get_contents($root . '/cards/chat-placeholder.js'),
             'core-chat-placeholder.prompt',
+        ) &&
+        str_contains(
+            (string) file_get_contents($root . '/cards/chat-corner-label.js'),
+            'core-chat-corner-label.text',
         ),
     'assistant chat identity retains direct user-visible text',
 );

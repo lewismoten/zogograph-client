@@ -9722,12 +9722,12 @@ function renderChatIdentity() {
   if (nav) nav.textContent = who.name;
 
   const ask = $('cornerChat');
-  if (ask)
-    ask.textContent = ZogographI18n.t(
-      'ai.ask_assistant',
-      { emoji: who.emoji, assistant: who.name },
-      '{{emoji}} Ask {{assistant}}',
-    );
+  renderCoreCardPackage(
+    ZogographChatCornerLabelCard,
+    'core-chat-corner-label',
+    { button: ask, who: { emoji: who.emoji, assistant: who.name } },
+    { i18n: ZogographI18n },
+  );
 
   /*
    * The name written into the page's own prose.

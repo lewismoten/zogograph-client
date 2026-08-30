@@ -3322,7 +3322,6 @@
   "reports.not_ready": "لم يُعَد {{assistant}}، لذا لا يمكن كتابة شيء: {{why}}",
   "reports.schedules_on": "تجري كتابة {{schedules}}. يُرسل كل واحد بالبريد عند كتابته.",
   "reports.schedules_off": "لا يوجد أي من الجداول الثلاثة قيد التشغيل، لذا لا يُكتب شيء تلقائيًا. شغّلها ضمن الحدود، أو اكتب واحدًا الآن لترى شكله.",
-  "reports.empty": "لم يُكتب شيء بعد.",
   "reports.period_summary": "ملخص {{period}}",
   "reports.emailed": "أُرسل بالبريد {{when}}",
   "reports.not_emailed": "لم يُرسل بالبريد",

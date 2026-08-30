@@ -3425,7 +3425,6 @@
   "reports.not_ready": "{{assistant}} is not set up, so nothing can be written: {{why}}",
   "reports.schedules_on": "Writing {{schedules}}. Each one is emailed when it is written.",
   "reports.schedules_off": "None of the three schedules are switched on, so none are written automatically. Turn them on under Thresholds, or write one now to see what they look like.",
-  "reports.empty": "Nothing written yet.",
   "reports.period_summary": "{{period}} summary",
   "reports.emailed": "emailed {{when}}",
   "reports.not_emailed": "not emailed",

@@ -3336,7 +3336,6 @@
   "reports.not_ready": "{{assistant}} no está configurado, por lo que no se puede escribir nada: {{why}}",
   "reports.schedules_on": "Escribiendo {{schedules}}. Cada uno se envía por correo cuando se escribe.",
   "reports.schedules_off": "Ninguno de los tres horarios está activado, por lo que no se escribe nada automáticamente. Actívelos en Umbrales o escriba uno ahora para ver cómo son.",
-  "reports.empty": "Aún no se ha escrito nada.",
   "reports.period_summary": "Resumen de {{period}}",
   "reports.emailed": "enviado por correo {{when}}",
   "reports.not_emailed": "no enviado por correo",

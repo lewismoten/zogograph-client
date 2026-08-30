@@ -523,7 +523,6 @@
   "storage.ldconfig_previous_finished": "The last rebuild was {{time}} and finished.",
   "storage.ldconfig_previous_failed": "The last rebuild was {{time}} and failed: {{reason}}.",
   "storage.ldconfig_no_reason": "no reason given",
-  "ai.try_refused": "Refused before it ran: {{reason}}\n\n{{note}}",
   "ai.try_server_timing": "{{ms}} ms, {{size}} back",
   "ai.try_generated_picture": "Generated picture",
   "ai.try_picture_note": "Style: {{style}}. This is the image the tool just made.",

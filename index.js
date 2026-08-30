@@ -21269,7 +21269,7 @@ async function runAiTry(tool) {
       showTryResult([
         note(
           ZogographI18n.t(
-            'ai.try_refused',
+            'core-ai-tool-try.refused',
             { reason: result.refused, note: result.note },
             'Refused before it ran: {{reason}}\n\n{{note}}',
           ),

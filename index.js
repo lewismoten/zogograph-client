@@ -21566,9 +21566,11 @@ function renderMemories(data) {
   if (!data.memories.length) {
     parts.push(
       note(
-        `${data.who.name} has not written anything down yet. It does that on its own when it ` +
-          'works something out that will still be true next month — and you can add one ' +
-          'yourself with the button above.',
+        ZogographI18n.t(
+          'ai.memory_empty',
+          { name: data.who.name },
+          '{{name}} has not written anything down yet. It does that on its own when it works something out that will still be true next month — and you can add one yourself with the button above.',
+        ),
       ),
     );
     body.replaceChildren(...parts);
@@ -21577,10 +21579,11 @@ function renderMemories(data) {
 
   const said = document.createElement('p');
   said.className = 'muted small';
-  said.textContent =
-    `${count(data.memories.length, 'memory', 'memories')} of a possible ` +
-    `${humanCount(data.max)}. Past that the least useful are dropped — pinning one keeps ` +
-    'it whatever happens.';
+  said.textContent = ZogographI18n.t(
+    'ai.memory_capacity',
+    { count: data.memories.length, maximum: humanCount(data.max) },
+    '{{count}} memories out of a possible {{maximum}}. Past that, the least useful are dropped — pinning one keeps it whatever happens.',
+  );
   parts.push(said);
 
   const holder = document.createElement('div');
@@ -21725,7 +21728,7 @@ function showMemoryDialog(row) {
   }
   const kindNote = document.createElement('div');
   kindNote.className = 'muted small';
-  parts.push(fieldRow('Kind', kind, ''));
+  parts.push(fieldRow(ZogographI18n.t('ai.memory_kind', {}, 'Kind'), kind, ''));
   parts.push(kindNote);
 
   const subject = document.createElement('input');
@@ -21733,15 +21736,26 @@ function showMemoryDialog(row) {
   subject.className = 'wide';
   subject.value = row?.subject ?? '';
   subject.disabled = Boolean(row);
-  subject.placeholder = 'the nightly io spike';
+  subject.placeholder = ZogographI18n.t(
+    'ai.memory_subject_placeholder',
+    {},
+    'the nightly I/O spike',
+  );
   parts.push(
     fieldRow(
-      'About',
+      ZogographI18n.t('ai.memory_about', {}, 'About'),
       subject,
       row
-        ? 'The subject is the key, so it cannot be changed — forget this one and write a new ' +
-            'one if it is wrong.'
-        : 'A short phrase. Writing the same subject again replaces what is stored under it.',
+        ? ZogographI18n.t(
+            'ai.memory_subject_edit_help',
+            {},
+            'The subject is the key, so it cannot be changed — forget this one and write a new one if it is wrong.',
+          )
+        : ZogographI18n.t(
+            'ai.memory_subject_help',
+            {},
+            'A short phrase. Writing the same subject again replaces what is stored under it.',
+          ),
     ),
   );
 
@@ -21751,10 +21765,13 @@ function showMemoryDialog(row) {
   body.value = row?.body ?? '';
   parts.push(
     fieldRow(
-      'What to remember',
+      ZogographI18n.t('ai.memory_remembers', {}, 'What it remembers'),
       body,
-      'Written for somebody with none of the conversation it came from — no “as we ' +
-        'discussed”, and say what it was based on.',
+      ZogographI18n.t(
+        'ai.memory_remember_help',
+        {},
+        'Written for somebody with none of the conversation it came from — no “as we discussed”, and say what it was based on.',
+      ),
     ),
   );
 
@@ -21764,16 +21781,22 @@ function showMemoryDialog(row) {
   kind.addEventListener('change', sync);
   sync();
 
-  showFormDialog(row ? 'Edit a memory' : 'Write a memory', parts, async () => {
-    renderMemories(
-      await post('ai-memory-save', {
-        id: row ? String(row.id) : '0',
-        kind: kind.value,
-        subject: subject.value,
-        body: body.value,
-      }),
-    );
-  });
+  showFormDialog(
+    row
+      ? ZogographI18n.t('ai.memory_edit_title', {}, 'Edit a memory')
+      : ZogographI18n.t('ai.memory_write_title', {}, 'Write a memory'),
+    parts,
+    async () => {
+      renderMemories(
+        await post('ai-memory-save', {
+          id: row ? String(row.id) : '0',
+          kind: kind.value,
+          subject: subject.value,
+          body: body.value,
+        }),
+      );
+    },
+  );
 }
 
 /**

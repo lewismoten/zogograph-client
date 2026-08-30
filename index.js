@@ -8427,10 +8427,13 @@ function pictureFields(data) {
   self.checked = pictures.self_portrait;
   form.appendChild(
     fieldRow(
-      'Let it redraw itself',
+      ZogographI18n.t('ai.images_self_portrait', {}, 'Let it redraw itself'),
       self,
-      'A novelty: it can generate its own portrait, squared off and shrunk to a thumbnail. ' +
-        'Shares the hourly limit and asks permission each time.',
+      ZogographI18n.t(
+        'ai.images_self_portrait_help',
+        {},
+        'A novelty: it can generate its own portrait, squared off and shrunk to a thumbnail. Shares the hourly limit and asks permission each time.',
+      ),
     ),
   );
 
@@ -8440,11 +8443,13 @@ function pictureFields(data) {
   reactions.checked = pictures.reactions;
   form.appendChild(
     fieldRow(
-      'Let it react',
+      ZogographI18n.t('ai.images_reactions', {}, 'Let it react'),
       reactions,
-      'Short animated images, searched rather than generated, for the occasional aside. It ' +
-        'chooses a mood, not an image — what comes back is whatever the catalogue ' +
-        'returns.',
+      ZogographI18n.t(
+        'ai.images_reactions_help',
+        {},
+        'Short animated images, searched rather than generated, for the occasional aside. It chooses a mood, not an image — what comes back is whatever the catalogue returns.',
+      ),
     ),
   );
 

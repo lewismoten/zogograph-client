@@ -1063,45 +1063,63 @@ async function refreshCpu() {
       i18n: ZogographI18n,
     },
   );
-  drawLineChart(
-    $('cpuBusyChart'),
-    data.series ?? [],
-    [
-      { key: 'busy', label: ZogographI18n.t('cpu.busy', {}, 'Busy') },
+  if (window.ZogographCpuBusyChartCard) {
+    renderCoreCardPackage(
+      ZogographCpuBusyChartCard,
+      'core-cpu-busy-chart',
+      { series: data.series ?? [] },
       {
-        key: 'monitoring_cpu_percent',
-        label: ZogographI18n.t('cpu.monitoring_tree', {}, 'Monitoring tree'),
+        chart: $('cpuBusyChart'),
+        drawLineChart,
+        percentAxis,
+        empty: cpuEmptyWhy,
+        i18n: ZogographI18n,
       },
+    );
+  } else
+    drawLineChart(
+      $('cpuBusyChart'),
+      data.series ?? [],
+      [
+        { key: 'busy', label: ZogographI18n.t('cpu.busy', {}, 'Busy') },
+        {
+          key: 'monitoring_cpu_percent',
+          label: ZogographI18n.t('cpu.monitoring_tree', {}, 'Monitoring tree'),
+        },
+        {
+          key: 'workload_cpu_percent',
+          label: ZogographI18n.t(
+            'cpu.workload_excluding_monitor',
+            {},
+            'Workload (excl. monitor)',
+          ),
+        },
+        { key: 'user', label: ZogographI18n.t('cpu.userland', {}, 'Userland') },
+        { key: 'system', label: ZogographI18n.t('cpu.kernel', {}, 'Kernel') },
+        {
+          key: 'iowait',
+          label: ZogographI18n.t(
+            'cpu.waiting_for_storage',
+            {},
+            'Waiting for storage',
+          ),
+        },
+        {
+          key: 'steal',
+          label: ZogographI18n.t(
+            'cpu.stolen_by_host',
+            {},
+            'Stolen by the host',
+          ),
+        },
+      ],
       {
-        key: 'workload_cpu_percent',
-        label: ZogographI18n.t(
-          'cpu.workload_excluding_monitor',
-          {},
-          'Workload (excl. monitor)',
-        ),
+        axis: percentAxis,
+        zeroBased: true,
+        max: 100,
+        empty: cpuEmptyWhy(data),
       },
-      { key: 'user', label: ZogographI18n.t('cpu.userland', {}, 'Userland') },
-      { key: 'system', label: ZogographI18n.t('cpu.kernel', {}, 'Kernel') },
-      {
-        key: 'iowait',
-        label: ZogographI18n.t(
-          'cpu.waiting_for_storage',
-          {},
-          'Waiting for storage',
-        ),
-      },
-      {
-        key: 'steal',
-        label: ZogographI18n.t('cpu.stolen_by_host', {}, 'Stolen by the host'),
-      },
-    ],
-    {
-      axis: percentAxis,
-      zeroBased: true,
-      max: 100,
-      empty: cpuEmptyWhy(data),
-    },
-  );
+    );
 
   renderCpuTime(data);
   renderCpuCores(data);

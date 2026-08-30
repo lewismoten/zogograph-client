@@ -25312,7 +25312,13 @@ async function previewPattern() {
   }
 
   if (!data.available) {
-    holder.textContent = data.reason || 'Cannot read the process list here.';
+    holder.textContent =
+      data.reason ||
+      ZogographI18n.t(
+        'process.unavailable',
+        {},
+        'Cannot read the process list here.',
+      );
     return;
   }
 
@@ -25323,13 +25329,39 @@ async function previewPattern() {
 
   const summary = document.createElement('p');
   summary.className = data.matched.length ? 'small' : 'muted small';
-  summary.textContent = data.matched.length
-    ? `Matches ${data.matched.length} of the ${data.scanned} running processes` +
-      (blocked.length
-        ? `, ${blocked.length === data.matched.length ? 'all' : blocked.length} of which ` +
-          `${blocked.length === 1 ? 'is' : 'are'} protected.`
-        : '.')
-    : `Nothing among the ${data.scanned} running processes matches that.`;
+  summary.textContent = !data.matched.length
+    ? ZogographI18n.t(
+        'process.no_matches',
+        { scanned: humanCount(data.scanned) },
+        'Nothing among the {{scanned}} running processes matches that.',
+      )
+    : !blocked.length
+      ? ZogographI18n.t(
+          'process.matches_summary',
+          {
+            matched: humanCount(data.matched.length),
+            scanned: humanCount(data.scanned),
+          },
+          'Matches {{matched}} of the {{scanned}} running processes.',
+        )
+      : blocked.length === data.matched.length
+        ? ZogographI18n.t(
+            'process.matches_all_protected',
+            {
+              matched: humanCount(data.matched.length),
+              scanned: humanCount(data.scanned),
+            },
+            'Matches {{matched}} of the {{scanned}} running processes; all are protected.',
+          )
+        : ZogographI18n.t(
+            'process.matches_some_protected',
+            {
+              matched: humanCount(data.matched.length),
+              scanned: humanCount(data.scanned),
+              blocked: humanCount(blocked.length),
+            },
+            'Matches {{matched}} of the {{scanned}} running processes; {{blocked}} are protected.',
+          );
   holder.appendChild(summary);
 
   if (!data.matched.length) return;
@@ -25379,8 +25411,11 @@ async function previewPattern() {
     holder.appendChild(
       Object.assign(document.createElement('p'), {
         className: 'muted small',
-        textContent:
+        textContent: ZogographI18n.t(
+          'process.all_matches_protected',
+          {},
           'Every match is protected, so there is nothing here to stop.',
+        ),
       }),
     );
     return;

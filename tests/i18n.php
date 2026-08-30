@@ -1466,6 +1466,12 @@ i18nExpect(
             $english['process.table_running_for'],
             $english['process.table_cpu'],
             $english['process.table_command'],
+            $english['process.unavailable'],
+            $english['process.no_matches'],
+            $english['process.matches_summary'],
+            $english['process.matches_all_protected'],
+            $english['process.matches_some_protected'],
+            $english['process.all_matches_protected'],
         ),
     'English fallback catalog is incomplete',
 );
@@ -1676,6 +1682,13 @@ i18nExpect(
         str_contains($script, 'process.table_running_for') &&
         str_contains($script, 'process.table_command'),
     'process preview table retains direct user-visible text',
+);
+i18nExpect(
+    $script !== false &&
+        str_contains($script, 'process.unavailable') &&
+        str_contains($script, 'process.matches_all_protected') &&
+        str_contains($script, 'process.all_matches_protected'),
+    'process preview status retains direct user-visible text',
 );
 i18nExpect(
     str_contains($runtime, 'data-i18n-rich') &&

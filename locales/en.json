@@ -2386,6 +2386,7 @@
   "peer.field_issuer_help": "Optional HTTPS issuer whose discovery document will be checked.",
   "peer.field_client": "Client ID",
   "peer.field_client_help": "Optional OIDC client ID; needs every OIDC field.",
+  "peer.field_secret": "Client secret",
   "peer.field_secret_existing": "Leave blank to keep the existing secret.",
   "peer.field_secret_help": "Optional; kept only in local config.php. Supply it only with every OIDC field.",
   "peer.edit_trusted_server": "Edit trusted server",

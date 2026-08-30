@@ -17229,7 +17229,7 @@ function showPeerDialog(row = null) {
     ),
   );
   const secret = input(
-    'Client secret',
+    peerText('field_secret', {}, 'Client secret'),
     '',
     row?.has_secret
       ? peerText(

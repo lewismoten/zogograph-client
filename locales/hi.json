@@ -2271,6 +2271,7 @@
   "peer.field_issuer_help": "वैकल्पिक HTTPS जारीकर्ता जिसके डिस्कवरी दस्तावेज़ की जाँच होगी।",
   "peer.field_client": "क्लाइंट ID",
   "peer.field_client_help": "वैकल्पिक OIDC क्लाइंट ID; हर OIDC फ़ील्ड आवश्यक है।",
+  "peer.field_secret": "क्लाइंट सीक्रेट",
   "peer.field_secret_existing": "मौजूदा गुप्त रखने के लिए खाली छोड़ें।",
   "peer.field_secret_help": "वैकल्पिक; केवल स्थानीय config.php में रखा जाता है। इसे सभी OIDC फ़ील्ड के साथ ही दें।",
   "peer.edit_trusted_server": "विश्वसनीय सर्वर संपादित करें",

@@ -2257,6 +2257,7 @@
   "peer.field_issuer_help": "将检查其发现文档的可选 HTTPS 颁发者。",
   "peer.field_client": "客户端 ID",
   "peer.field_client_help": "可选的 OIDC 客户端 ID；需要填写所有 OIDC 字段。",
+  "peer.field_secret": "客户端密钥",
   "peer.field_secret_existing": "留空以保留现有密钥。",
   "peer.field_secret_help": "可选；只保存在本地 config.php 中。仅在填写所有 OIDC 字段时提供。",
   "peer.edit_trusted_server": "编辑受信任服务器",

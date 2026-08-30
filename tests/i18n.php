@@ -2808,6 +2808,7 @@ $translatedSecurityMessages = [
     'storage.measuring',
     'diagnosis.reading_everything',
     'host.collector_loading',
+    'peer.field_secret',
 ];
 i18nExpect(
     $script !== false &&

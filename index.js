@@ -6841,15 +6841,24 @@ function renderAiTools(data) {
     const tab = document.createElement('button');
     tab.type = 'button';
     tab.className = group === toolTab ? 'seg on' : 'seg';
-    tab.textContent = `${toolGroupLabel(group)} (${list.length})`;
+    tab.textContent = ZogographI18n.t(
+      'ai.tool_group_tab',
+      { group: toolGroupLabel(group), count: list.length },
+      '{{group}} ({{count, number}})',
+    );
 
     // How many of this group are switched on, so a group that is entirely off
     // says so from the tab rather than only once it is opened.
     const on = list.filter((t) => t.enabled).length;
-    tab.title =
+    tab.title = ZogographI18n.t(
+      on === list.length
+        ? 'ai.tool_group_all_enabled'
+        : 'ai.tool_group_some_enabled',
+      { enabled: on, count: list.length },
       on === list.length
         ? 'All of these are switched on.'
-        : `${on} of ${list.length} switched on.`;
+        : '{{enabled, number}} of {{count, number}} switched on.',
+    );
 
     tab.addEventListener('click', () => {
       toolTab = group;

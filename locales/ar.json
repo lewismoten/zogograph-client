@@ -912,7 +912,6 @@
   "ai.conversation_resumed": "تمت المتابعة. هذه هي المحادثة المفتوحة الآن.",
   "ai.session_named": "تمت التسمية.",
   "ai.memory_open_first": "افتح هذه الصفحة أولاً.",
-  "ai.extend_limit_help": "يضاعف ذلك الحد لهذه المحادثة فقط. لا تُمس إعدادات أي محادثة مستقبلية.",
   "ai.limit_raised": "رُفع لهذه المحادثة. تابع.",
   "ai.context_added": "أُضيف. سيقرأ ذلك في دوره التالي.",
   "terminal.copy_output": "نسخ المخرجات",

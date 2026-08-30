@@ -996,7 +996,6 @@
   "ai.conversation_resumed": "Picked up. It is the open conversation now.",
   "ai.session_named": "Named.",
   "ai.memory_open_first": "Open this page first.",
-  "ai.extend_limit_help": "Doubles that one limit for THIS conversation only. The settings for every future conversation are not touched.",
   "ai.limit_raised": "Raised, for this conversation. Carry on.",
   "ai.context_added": "Added. It will read that on its next turn.",
   "terminal.copy_output": "Copy the output",

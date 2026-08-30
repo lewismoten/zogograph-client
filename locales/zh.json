@@ -912,7 +912,6 @@
   "ai.conversation_resumed": "已继续。它现在是当前对话。",
   "ai.session_named": "已命名。",
   "ai.memory_open_first": "请先打开此页面。",
-  "ai.extend_limit_help": "仅将此对话的该限制翻倍。不会改动任何未来对话的设置。",
   "ai.limit_raised": "已为此对话提高限制。请继续。",
   "ai.context_added": "已添加。它会在下一轮阅读它。",
   "terminal.copy_output": "复制输出",

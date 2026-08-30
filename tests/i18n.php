@@ -2207,7 +2207,6 @@ i18nExpect(
             $english['regex.group'],
             $english['regex.took'],
             $english['regex.group_absence_help'],
-            $english['ai.ask_assistant'],
             $english['ai.data_page'],
             $english['ai.permission_wants'],
             $english['ai.permission_allow'],

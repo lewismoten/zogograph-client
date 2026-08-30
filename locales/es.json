@@ -866,6 +866,8 @@
   "peers.admin_only": "Solo los administradores pueden administrar servidores de confianza.",
   "ai.start_new": "Iniciar una nueva",
   "ai.nothing_chosen": "Aún no se ha elegido nada.",
+  "alerts.delete_confirm": "¿Eliminar {{alerts}}? Su historial se irá con ellas.",
+  "alerts.delete_many": "Eliminar alertas",
   "auth.end_sessions_confirm": "¿Finalizar todas las sesiones iniciadas? Esto cierra inmediatamente la sesión de todos los navegadores, incluido este. Úselo si se pierde un dispositivo o puede haberse comprometido el acceso.",
   "auth.end_sessions": "Finalizar todas las sesiones",
   "auth.recovery_codes_create_title": "Crear códigos de recuperación",

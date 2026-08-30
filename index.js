@@ -48551,8 +48551,12 @@ $('alertDeleteSome').addEventListener('click', async () => {
   // Deleting is the one thing here that cannot be undone from the interface.
   if (
     !(await confirmDialog(
-      `Delete ${count(ids.length, 'alert')}? The history goes with them.`,
-      'Delete alerts',
+      ZogographI18n.t(
+        'alerts.delete_confirm',
+        { alerts: count(ids.length, 'alert') },
+        'Delete {{alerts}}? The history goes with them.',
+      ),
+      ZogographI18n.t('alerts.delete_many', {}, 'Delete alerts'),
     ))
   )
     return;

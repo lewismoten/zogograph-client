@@ -278,6 +278,35 @@ foreach ($toolLocaleDirectories as $directory) {
         }
     }
 }
+i18nExpect(
+    isset(
+        json_decode(
+            (string) file_get_contents(
+                $toolLocaleRoot . '/core-ai-get-current-status/en.json',
+            ),
+            true,
+        )['core-ai-get-current-status.activity'],
+        json_decode(
+            (string) file_get_contents(
+                $toolLocaleRoot . '/core-ai-get-measurement-history/en.json',
+            ),
+            true,
+        )['core-ai-get-measurement-history.activity'],
+        json_decode(
+            (string) file_get_contents(
+                $toolLocaleRoot . '/core-ai-open-page/en.json',
+            ),
+            true,
+        )['core-ai-open-page.activity'],
+        json_decode(
+            (string) file_get_contents(
+                $toolLocaleRoot . '/core-ai-request-tool-group/en.json',
+            ),
+            true,
+        )['core-ai-request-tool-group.activity'],
+    ),
+    'chat tool activity remains owned by core AI tool packages',
+);
 $pluginManifests = glob($root . '/plugins/*/manifest.json') ?: [];
 foreach ($pluginManifests as $manifestFile) {
     $manifest = json_decode((string) file_get_contents($manifestFile), true);

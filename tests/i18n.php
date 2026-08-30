@@ -17,6 +17,7 @@ foreach ($cardFiles as $cardFile) {
     i18nExpect(
         $cardSource !== false &&
             str_contains($cardSource, 'catalogs: Object.freeze({') &&
+            str_contains($cardSource, 'render(') &&
             str_contains($cardSource, "'i18n'") &&
             str_contains($cardSource, 'en: Object.freeze({') &&
             str_contains($cardSource, 'es: Object.freeze({') &&
@@ -24,7 +25,7 @@ foreach ($cardFiles as $cardFile) {
             str_contains($cardSource, 'ar: Object.freeze({') &&
             str_contains($cardSource, 'zh: Object.freeze({'),
         basename($cardFile) .
-            ' must provide catalogs for every supported core locale',
+            ' must provide a render function and catalogs for every supported core locale',
     );
     i18nExpect(
         isset($cardId[1]) && str_contains($cardSource, "'" . $cardId[1] . '.'),

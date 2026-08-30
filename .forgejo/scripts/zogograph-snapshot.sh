@@ -63,11 +63,35 @@ cleanup() { rm -rf -- "$stage"; }
 trap cleanup EXIT
 mkdir -p "$stage/site" "$stage/databases"
 
-rsync -a --delete \
-  --exclude='*.db' --exclude='*.db-*' \
-  --exclude='*.sqlite' --exclude='*.sqlite-*' \
-  --exclude='*.sqlite3' --exclude='*.sqlite3-*' \
-  "$site/" "$stage/site/"
+previous_snapshot=''
+previous_mtime=0
+while IFS= read -r -d '' candidate; do
+  name=${candidate##*/}
+  valid_id "$name" || continue
+  test ! -L "$candidate" || continue
+  resolved=$(resolve_path "$candidate") || continue
+  [ "$resolved" = "$candidate" ] || continue
+  test -d "$candidate/site" && test -f "$candidate/SNAPSHOT_ID" || continue
+  test "$(cat "$candidate/SNAPSHOT_ID")" = "$name" || continue
+  candidate_mtime=$(stat -c '%Y' -- "$candidate" 2>/dev/null || stat -f '%m' "$candidate") || continue
+  case "$candidate_mtime" in *[!0-9]*|'') continue;; esac
+  if [ "$candidate_mtime" -gt "$previous_mtime" ]; then
+    previous_snapshot=$candidate
+    previous_mtime=$candidate_mtime
+  fi
+done < <(find "$snapshots" -mindepth 1 -maxdepth 1 -type d ! -name '.*' -print0)
+
+rsync_args=(-a --delete
+  --exclude='*.db' --exclude='*.db-*'
+  --exclude='*.sqlite' --exclude='*.sqlite-*'
+  --exclude='*.sqlite3' --exclude='*.sqlite3-*')
+if [ -n "$previous_snapshot" ]; then
+  rsync_args+=("--link-dest=$previous_snapshot/site")
+  echo "Snapshot baseline: ${previous_snapshot##*/}"
+else
+  echo 'Snapshot baseline: none (first full snapshot)'
+fi
+rsync "${rsync_args[@]}" "$site/" "$stage/site/"
 if [ -d "$site/data" ]; then
   find "$site/data" \
     -path "$site/data/migration-backups" -prune -o \

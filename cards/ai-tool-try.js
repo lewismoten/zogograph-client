@@ -24,6 +24,8 @@ window.ZogographAiToolTryCard = {
         'core-ai-tool-try.browser_shown': 'What you would have seen',
         'core-ai-tool-try.arguments': 'What it was given',
         'core-ai-tool-try.browser_result': 'What the model gets back',
+        'core-ai-tool-try.browser_help':
+          'This ran in this window, which is where it runs in a conversation too. The only difference is that the result is shown here instead of being handed back to the model.',
       }),
       es: Object.freeze({
         'core-ai-tool-try.empty': 'No hay herramientas.',
@@ -43,6 +45,8 @@ window.ZogographAiToolTryCard = {
         'core-ai-tool-try.browser_shown': 'Lo que habría visto',
         'core-ai-tool-try.arguments': 'Lo que se le dio',
         'core-ai-tool-try.browser_result': 'Lo que recibe el modelo',
+        'core-ai-tool-try.browser_help':
+          'Esto se ejecutó en esta ventana, que es donde también se ejecuta en una conversación. La única diferencia es que el resultado se muestra aquí en vez de entregarse al modelo.',
       }),
       hi: Object.freeze({
         'core-ai-tool-try.empty': 'कोई टूल नहीं हैं।',
@@ -61,6 +65,8 @@ window.ZogographAiToolTryCard = {
         'core-ai-tool-try.browser_shown': 'जो आप देखते',
         'core-ai-tool-try.arguments': 'जिसे इसे दिया गया',
         'core-ai-tool-try.browser_result': 'जो मॉडल को वापस मिलता है',
+        'core-ai-tool-try.browser_help':
+          'यह इसी विंडो में चला, जहाँ यह बातचीत में भी चलता है। अंतर केवल इतना है कि परिणाम यहाँ दिखता है, मॉडल को वापस नहीं दिया जाता।',
       }),
       ar: Object.freeze({
         'core-ai-tool-try.empty': 'لا توجد أدوات.',
@@ -79,6 +85,8 @@ window.ZogographAiToolTryCard = {
         'core-ai-tool-try.browser_shown': 'ما كنت ستراه',
         'core-ai-tool-try.arguments': 'ما أُعطي له',
         'core-ai-tool-try.browser_result': 'ما يعود إلى النموذج',
+        'core-ai-tool-try.browser_help':
+          'شُغّل هذا في هذه النافذة، وهي المكان الذي يُشغّل فيه في المحادثة أيضًا. الفرق الوحيد هو أن النتيجة تُعرض هنا بدل أن تُسلّم إلى النموذج.',
       }),
       zh: Object.freeze({
         'core-ai-tool-try.empty': '没有工具。',
@@ -95,6 +103,8 @@ window.ZogographAiToolTryCard = {
         'core-ai-tool-try.browser_shown': '您本会看到的内容',
         'core-ai-tool-try.arguments': '提供给它的内容',
         'core-ai-tool-try.browser_result': '模型收到的返回内容',
+        'core-ai-tool-try.browser_help':
+          '这在此窗口中运行，而它在对话中也是在这里运行。唯一的区别是结果显示在这里，而不是交给模型。',
       }),
     }),
   }),

@@ -21236,7 +21236,7 @@ async function runAiTry(tool) {
       parts.push(
         note(
           ZogographI18n.t(
-            'ai.try_browser_help',
+            'core-ai-tool-try.browser_help',
             {},
             'This ran in this window, which is where it runs in a conversation too. The only difference is that the result is shown here instead of being handed back to the model.',
           ),

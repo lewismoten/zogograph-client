@@ -523,7 +523,6 @@
   "storage.ldconfig_previous_finished": "La última reconstrucción fue {{time}} y terminó.",
   "storage.ldconfig_previous_failed": "La última reconstrucción fue {{time}} y falló: {{reason}}.",
   "storage.ldconfig_no_reason": "sin motivo indicado",
-  "ai.try_browser_help": "Esto se ejecutó en esta ventana, que es donde también se ejecuta en una conversación. La única diferencia es que el resultado se muestra aquí en vez de entregarse al modelo.",
   "ai.try_browser_timing": "{{ms}} ms, en esta ventana",
   "ai.try_refused": "Se rechazó antes de ejecutarse: {{reason}}\n\n{{note}}",
   "ai.try_server_timing": "{{ms}} ms, {{size}} de vuelta",

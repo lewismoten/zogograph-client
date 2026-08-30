@@ -35611,7 +35611,13 @@ function renderCapture(capture, target = 'captureBody') {
       section(
         'Which service',
         simpleTable(
-          ['Port', 'Packets', 'Share', 'Bytes', 'Usually'],
+          [
+            ZogographI18n.t('network.port', {}, 'Port'),
+            ZogographI18n.t('network.packets', {}, 'Packets'),
+            ZogographI18n.t('network.share', {}, 'Share'),
+            'Bytes',
+            ZogographI18n.t('network.usually', {}, 'Usually'),
+          ],
           capture.ports
             .slice(0, 20)
             .map((p) => [

@@ -12198,7 +12198,11 @@ async function runRequestFromHost(args) {
   if (!job)
     return {
       queued: false,
-      error: `there is no host job called "${args.job}"`,
+      error: ZogographI18n.t(
+        'assistant.host_request_unknown',
+        { job: args.job },
+        'There is no host job called “{{job}}”.',
+      ),
     };
 
   const answer = await chatAsk({
@@ -12246,10 +12250,11 @@ async function runRequestFromHost(args) {
   if (!answer.answered) {
     return {
       queued: false,
-      note:
-        'Not approved — either declined or nobody answered. Treat it as a no, carry ' +
-        'on with what you can see from this account, and say what you cannot answer ' +
-        'because of it.',
+      note: ZogographI18n.t(
+        'assistant.host_request_not_approved',
+        {},
+        'Not approved — either declined or nobody answered. Treat it as a no, carry on with what you can see from this account, and say what you cannot answer because of it.',
+      ),
     };
   }
 
@@ -12263,9 +12268,11 @@ async function runRequestFromHost(args) {
       job: job.task,
       note:
         queued.note ||
-        "Queued. It runs on the collector's next pass — use get_pending_host_requests " +
-          'to see whether it has landed, or wait_for_new_readings to wait for it. Do ' +
-          'not assume the answer is available yet.',
+        ZogographI18n.t(
+          'assistant.host_request_queued',
+          {},
+          "Queued. It runs on the collector's next pass — use get_pending_host_requests to see whether it has landed, or wait_for_new_readings to wait for it. Do not assume the answer is available yet.",
+        ),
     };
   } catch (error) {
     return { queued: false, error: String(error.message || error) };

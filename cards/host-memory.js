@@ -3,9 +3,28 @@ window.ZogographHostMemoryCard = {
   manifest: Object.freeze({
     id: 'core-host-memory',
     locales: ['core-host-memory.'],
-    helpers: ['setCard', 'humanBytes', 'i18n'],
+    helpers: [
+      'setCard',
+      'note',
+      'humanBytes',
+      'humanCount',
+      'count',
+      'num',
+      'i18n',
+    ],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-host-memory.summary_counts':
+          '{{processes}} processes {{users}} {{threads}}.',
+        'core-host-memory.summary_counts_missing':
+          'This reading did not record how many processes or threads were running.',
+        'core-host-memory.summary_rss_over':
+          'Their resident sizes add up to {{resident}}, more than the {{used}} actually in use — a page shared by ten processes is counted ten times, so that total is an overcount and the difference is not missing memory.',
+        'core-host-memory.summary_rss':
+          'Their resident sizes add up to {{resident}}. Resident size counts shared pages once per process, so it is an upper bound rather than a total.',
+        'core-host-memory.summary_pss':
+          'Proportional set size — private memory in full plus a share of whatever is shared — comes to {{amount}} across {{processes}} processes{{suffix}}.',
+        'core-host-memory.summary_pss_largest': ' biggest',
         'core-host-memory.of_total': 'of {{total}}',
         'core-host-memory.monitoring_footprint': 'Monitoring footprint',
         'core-host-memory.collector_processes':
@@ -25,6 +44,17 @@ window.ZogographHostMemoryCard = {
           'not represented by the categories above',
       }),
       es: Object.freeze({
+        'core-host-memory.summary_counts':
+          '{{processes}} procesos {{users}} {{threads}}.',
+        'core-host-memory.summary_counts_missing':
+          'Esta lectura no registró cuántos procesos o hilos estaban en ejecución.',
+        'core-host-memory.summary_rss_over':
+          'Sus tamaños residentes suman {{resident}}, más que los {{used}} realmente en uso; una página compartida por diez procesos se cuenta diez veces, por lo que el total es excesivo y la diferencia no es memoria ausente.',
+        'core-host-memory.summary_rss':
+          'Sus tamaños residentes suman {{resident}}. El tamaño residente cuenta las páginas compartidas una vez por proceso, por lo que es un límite superior y no un total.',
+        'core-host-memory.summary_pss':
+          'El tamaño proporcional de conjunto —memoria privada completa más una parte de la compartida— suma {{amount}} en {{processes}} procesos{{suffix}}.',
+        'core-host-memory.summary_pss_largest': ' más grandes',
         'core-host-memory.of_total': 'de {{total}}',
         'core-host-memory.monitoring_footprint': 'Huella de monitorización',
         'core-host-memory.collector_processes':
@@ -45,6 +75,17 @@ window.ZogographHostMemoryCard = {
           'no representada por las categorías anteriores',
       }),
       hi: Object.freeze({
+        'core-host-memory.summary_counts':
+          '{{processes}} प्रोसेस {{users}} {{threads}}।',
+        'core-host-memory.summary_counts_missing':
+          'इस रीडिंग ने चल रहे प्रोसेस या थ्रेड की संख्या दर्ज नहीं की।',
+        'core-host-memory.summary_rss_over':
+          'उनके रेज़िडेंट आकार {{resident}} हैं, जो वास्तविक उपयोग के {{used}} से अधिक हैं; दस प्रोसेस की साझा पेज दस बार गिनी जाती है।',
+        'core-host-memory.summary_rss':
+          'उनके रेज़िडेंट आकार {{resident}} हैं। रेज़िडेंट आकार साझा पेज को हर प्रोसेस के लिए गिनता है, इसलिए यह ऊपरी सीमा है।',
+        'core-host-memory.summary_pss':
+          'आनुपातिक सेट आकार {{amount}} है, {{processes}} प्रोसेसों में{{suffix}}।',
+        'core-host-memory.summary_pss_largest': ' सबसे बड़े',
         'core-host-memory.of_total': '{{total}} में से',
         'core-host-memory.monitoring_footprint': 'निगरानी पदचिह्न',
         'core-host-memory.collector_processes':
@@ -64,6 +105,17 @@ window.ZogographHostMemoryCard = {
           'ऊपर की श्रेणियों में प्रदर्शित नहीं',
       }),
       ar: Object.freeze({
+        'core-host-memory.summary_counts':
+          '{{processes}} عملية {{users}} {{threads}}.',
+        'core-host-memory.summary_counts_missing':
+          'لم تسجل هذه القراءة عدد العمليات أو الخيوط العاملة.',
+        'core-host-memory.summary_rss_over':
+          'مجموع الأحجام المقيمة {{resident}}، أكثر من {{used}} المستخدم فعلياً؛ الصفحة المشتركة بين عشر عمليات تُحسب عشر مرات.',
+        'core-host-memory.summary_rss':
+          'مجموع الأحجام المقيمة {{resident}}. يُحسب الحجم المقيم للصفحات المشتركة مرة لكل عملية، لذا فهو حد أعلى لا إجمالي.',
+        'core-host-memory.summary_pss':
+          'حجم المجموعة التناسبي هو {{amount}} عبر {{processes}} عملية{{suffix}}.',
+        'core-host-memory.summary_pss_largest': ' الأكبر',
         'core-host-memory.of_total': 'من {{total}}',
         'core-host-memory.monitoring_footprint': 'بصمة المراقبة',
         'core-host-memory.collector_processes':
@@ -81,6 +133,17 @@ window.ZogographHostMemoryCard = {
         'core-host-memory.other_kernel_help': 'غير ممثلة بالفئات أعلاه',
       }),
       zh: Object.freeze({
+        'core-host-memory.summary_counts':
+          '{{processes}} 个进程 {{users}} {{threads}}。',
+        'core-host-memory.summary_counts_missing':
+          '此读数未记录正在运行的进程或线程数量。',
+        'core-host-memory.summary_rss_over':
+          '它们的常驻大小合计为 {{resident}}，超过实际使用的 {{used}}；十个进程共享的一页会被计数十次。',
+        'core-host-memory.summary_rss':
+          '它们的常驻大小合计为 {{resident}}。常驻大小会为每个进程计数一次共享页，因此它是上限而非总计。',
+        'core-host-memory.summary_pss':
+          '按比例集合大小为 {{amount}}，分布在 {{processes}} 个进程中{{suffix}}。',
+        'core-host-memory.summary_pss_largest': ' 个最大的',
         'core-host-memory.of_total': '共 {{total}}',
         'core-host-memory.monitoring_footprint': '监控占用量',
         'core-host-memory.collector_processes':
@@ -100,8 +163,8 @@ window.ZogographHostMemoryCard = {
     }),
   }),
   render(input, helpers) {
-    const { sample, swap, swapUsed, swapPercent } = input;
-    const { setCard, humanBytes, i18n } = helpers;
+    const { sample, swap, swapUsed, swapPercent, users = [] } = input;
+    const { setCard, note, humanBytes, humanCount, count, num, i18n } = helpers;
     const t = (key, values, fallback) =>
       i18n.t(`core-host-memory.${key}`, values, fallback);
     setCard(
@@ -172,5 +235,66 @@ window.ZogographHostMemoryCard = {
       humanBytes(sample.unaccounted),
       t('other_kernel_help', {}, 'not represented by the categories above'),
     );
+    if (!note) return;
+    const parts = [];
+    if (sample.proc_count != null || sample.thread_count != null) {
+      parts.push(
+        t(
+          'summary_counts',
+          {
+            processes:
+              sample.proc_count == null ? '' : humanCount(sample.proc_count),
+            users: users.length ? count(users.length, 'user') : '',
+            threads:
+              sample.thread_count == null
+                ? ''
+                : humanCount(sample.thread_count),
+          },
+          '{{processes}} processes {{users}} {{threads}}.',
+        )
+          .replace(/\s+/g, ' ')
+          .trim(),
+      );
+    } else {
+      parts.push(
+        t(
+          'summary_counts_missing',
+          {},
+          'This reading did not record how many processes or threads were running.',
+        ),
+      );
+    }
+    const rssSum = num(sample.rss_sum_bytes);
+    const inUse = num(sample.used_bytes);
+    if (rssSum > 0)
+      parts.push(
+        rssSum > inUse
+          ? t(
+              'summary_rss_over',
+              { resident: humanBytes(rssSum), used: humanBytes(inUse) },
+              'Their resident sizes add up to {{resident}}, more than the {{used}} actually in use — a page shared by ten processes is counted ten times, so that total is an overcount and the difference is not missing memory.',
+            )
+          : t(
+              'summary_rss',
+              { resident: humanBytes(rssSum) },
+              'Their resident sizes add up to {{resident}}. Resident size counts shared pages once per process, so it is an upper bound rather than a total.',
+            ),
+      );
+    if (num(sample.pss_procs) > 0)
+      parts.push(
+        t(
+          'summary_pss',
+          {
+            amount: humanBytes(sample.pss_sum_bytes),
+            processes: sample.pss_procs,
+            suffix:
+              num(sample.pss_procs) < num(sample.proc_count)
+                ? t('summary_pss_largest', {}, ' biggest')
+                : '',
+          },
+          'Proportional set size — private memory in full plus a share of whatever is shared — comes to {{amount}} across {{processes}} processes{{suffix}}.',
+        ),
+      );
+    note.textContent = parts.join(' ');
   },
 };

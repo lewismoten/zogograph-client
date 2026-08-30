@@ -26449,7 +26449,11 @@ async function refreshHost() {
     {
       setCard: (label, value, sub, level = '', valueClass = '') =>
         setHostCard(label, value, sub, level, valueClass),
+      note: $('hostMemNote'),
       humanBytes,
+      humanCount,
+      count,
+      num,
       i18n: ZogographI18n,
     },
   );
@@ -26477,71 +26481,6 @@ async function refreshHost() {
    * the interface reporting the shape of its own data rather than the state of
    * the machine.
    */
-  const parts = [];
-  if (s.proc_count != null || s.thread_count != null) {
-    parts.push(
-      ZogographI18n.t(
-        'host.memory_summary_counts',
-        {
-          processes: s.proc_count == null ? '' : humanCount(s.proc_count),
-          users: data.users.length ? count(data.users.length, 'user') : '',
-          threads: s.thread_count == null ? '' : humanCount(s.thread_count),
-        },
-        '{{processes}} processes {{users}} {{threads}}.',
-      )
-        .replace(/\s+/g, ' ')
-        .trim(),
-    );
-  } else {
-    parts.push(
-      ZogographI18n.t(
-        'host.memory_summary_counts_missing',
-        {},
-        'This reading did not record how many processes or threads were running.',
-      ),
-    );
-  }
-
-  const rssSum = num(s.rss_sum_bytes);
-  const inUse = num(s.used_bytes);
-  if (rssSum > 0)
-    parts.push(
-      rssSum > inUse
-        ? ZogographI18n.t(
-            'host.memory_summary_rss_over',
-            { resident: humanBytes(rssSum), used: humanBytes(inUse) },
-            'Their resident sizes add up to {{resident}}, more than the {{used}} actually in use — a page shared by ten processes is counted ten times, so that total is an overcount and the difference is not missing memory.',
-          )
-        : ZogographI18n.t(
-            'host.memory_summary_rss',
-            { resident: humanBytes(rssSum) },
-            'Their resident sizes add up to {{resident}}. Resident size counts shared pages once per process, so it is an upper bound rather than a total.',
-          ),
-    );
-
-  if (num(s.pss_procs) > 0) {
-    parts.push(
-      ZogographI18n.t(
-        'host.memory_summary_pss',
-        {
-          amount: humanBytes(s.pss_sum_bytes),
-          processes: s.pss_procs,
-          suffix:
-            num(s.pss_procs) < num(s.proc_count)
-              ? ZogographI18n.t(
-                  'host.memory_summary_pss_largest',
-                  {},
-                  ' biggest',
-                )
-              : '',
-        },
-        'Proportional set size — private memory in full plus a share of whatever is shared — comes to {{amount}} across {{processes}} processes{{suffix}}.',
-      ),
-    );
-  }
-
-  $('hostMemNote').textContent = parts.join(' ');
-
   drawLineChart(
     $('hostChart'),
     data.rows,

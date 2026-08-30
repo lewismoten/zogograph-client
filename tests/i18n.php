@@ -688,14 +688,16 @@ i18nExpect(
         str_contains($hostMemoryCard, 'window.ZogographHostMemoryCard') &&
         str_contains($hostMemoryCard, 'id: "core-host-memory"') &&
         str_contains($hostMemoryCard, 'locales: ["core-host-memory."]') &&
-        str_contains(
-            $hostMemoryCard,
-            'helpers: ["setCard", "humanBytes", "i18n"]',
-        ) &&
+        str_contains($hostMemoryCard, '"note"') &&
+        str_contains($hostMemoryCard, '"humanCount"') &&
+        str_contains($hostMemoryCard, '"count"') &&
+        str_contains($hostMemoryCard, '"num"') &&
         str_contains($hostMemoryCard, 'i18n.t(`core-host-memory.${key}`') &&
         str_contains($hostMemoryCard, 'i18n.t("host.memory_card_in_use"') &&
         is_array($english) &&
         isset($english['host.memory_card_in_use']) &&
+        !isset($english['host.memory_summary_counts']) &&
+        str_contains($hostMemoryCard, '"core-host-memory.summary_counts"') &&
         str_contains($hostMemoryCard, 'render(input, helpers)') &&
         $script !== false &&
         str_contains(

@@ -16,6 +16,7 @@ jobs:
   build:
     name: Test & Build
     runs-on: ubuntu-latest
+    timeout-minutes: 1
 
     env:
       BROWSER_REFRESH_REQUIRED: ${{ vars.BROWSER_REFRESH_REQUIRED }}
@@ -101,7 +102,7 @@ jobs:
     name: Deploy to ${{ matrix.deploy_url }}
     runs-on: ubuntu-latest
     # Prevent a stalled network operation from monopolizing a runner.
-    timeout-minutes: 30
+    timeout-minutes: 2
     needs: build
     strategy:
       fail-fast: false
@@ -228,11 +229,11 @@ jobs:
         run: |
           set -euo pipefail
           remote_script=".zogograph-snapshot-prune-${GITHUB_RUN_ID}-${DEPLOY_TARGET}.sh"
-          timeout 5m rsync -az \
+          timeout 1m rsync -az \
             -e "ssh -i $HOME/.ssh/zogograph_deploy_key -p ${DEPLOY_PORT:-22} -o BatchMode=yes -o IdentitiesOnly=yes" \
             .forgejo/scripts/zogograph-snapshot-prune.sh \
             "${DEPLOY_USER}@${DEPLOY_HOST}:${remote_script}"
-          timeout 5m ssh -i "$HOME/.ssh/zogograph_deploy_key" -p "${DEPLOY_PORT:-22}" \
+          timeout 1m ssh -i "$HOME/.ssh/zogograph_deploy_key" -p "${DEPLOY_PORT:-22}" \
             -o BatchMode=yes -o IdentitiesOnly=yes -o ConnectTimeout=15 \
             "${DEPLOY_USER}@${DEPLOY_HOST}" \
             "bash '$remote_script' '$SNAPSHOT_DIRECTORY' '${SNAPSHOT_RETENTION:-3}' && rm -f '$remote_script'"

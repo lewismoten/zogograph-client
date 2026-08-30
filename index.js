@@ -23156,72 +23156,12 @@ function renderAiStore(data) {
 async function loadAiAssets() {
   const holder = $('aiAssets');
   if (!holder) return;
-
-  let data;
-  try {
-    data = await api('ai-asset');
-  } catch {
-    holder.replaceChildren(
-      note(
-        ZogographI18n.t(
-          'ai.store_pictures_unreadable',
-          {},
-          'The picture store could not be read.',
-        ),
-      ),
-    );
-    return;
-  }
-
-  if (!data.assets.length) {
-    holder.replaceChildren(
-      note(
-        ZogographI18n.t(
-          'ai.store_pictures_empty',
-          {},
-          "None yet. Anything generated is kept here at full size — the provider's own link expires within days, so a picture that was paid for would otherwise be a dead link by the time anybody looked.",
-        ),
-      ),
-    );
-    return;
-  }
-
-  const grid = document.createElement('div');
-  grid.className = 'asset-grid';
-
-  for (const asset of data.assets) {
-    const card = document.createElement('figure');
-    card.className = 'asset';
-
-    const link = document.createElement('a');
-    link.href = `aiasset.php?id=${encodeURIComponent(asset.id)}`;
-    link.target = '_blank';
-    link.rel = 'noopener';
-    link.title = ZogographI18n.t(
-      'ai.store_open_full',
-      {},
-      'Open it at full size',
-    );
-
-    const image = document.createElement('img');
-    image.src = link.href;
-    image.alt = asset.prompt;
-    image.loading = 'lazy';
-    link.appendChild(image);
-    card.appendChild(link);
-
-    const caption = document.createElement('figcaption');
-    caption.className = 'muted small';
-    caption.textContent = asset.prompt;
-    caption.title =
-      `${asset.width}×${asset.height}, ${humanBytes(asset.bytes)}, ` +
-      `${asset.style}${asset.cost ? `, ${asset.cost}` : ''} — ${humanTime(asset.at)}`;
-    card.appendChild(caption);
-
-    grid.appendChild(card);
-  }
-
-  holder.replaceChildren(grid);
+  return renderCoreCardPackage(
+    ZogographAiAssetGalleryCard,
+    'core-ai-asset-gallery',
+    {},
+    { holder, api, note, humanBytes, humanTime, i18n: ZogographI18n },
+  );
 }
 
 /**

@@ -5645,9 +5645,20 @@ function deleteButton(row) {
   button.addEventListener('click', async () => {
     const directory = row.kind === 'dir';
     const question = directory
-      ? `Delete this directory and everything inside it?\n\n${row.display}\n` +
-        `${humanBytes(row.bytes)} in ${count(row.files || 0, 'file')}\n\nThis cannot be undone.`
-      : `Delete this file permanently?\n\n${row.display}\n${humanBytes(row.bytes)}`;
+      ? ZogographI18n.t(
+          'storage.delete_directory_confirm',
+          {
+            path: row.display,
+            size: humanBytes(row.bytes),
+            files: count(row.files || 0, 'file'),
+          },
+          'Delete {{path}} and everything inside it? That is {{size}} in {{files}} files, and it cannot be undone.',
+        )
+      : ZogographI18n.t(
+          'storage.delete_file_confirm',
+          { path: row.display, size: humanBytes(row.bytes) },
+          'Delete {{path}}? That is {{size}}, and it cannot be undone.',
+        );
     if (!(await confirmDialog(question, 'Delete'))) return;
     button.disabled = true;
     try {
@@ -5659,10 +5670,24 @@ function deleteButton(row) {
 
       if (directory) {
         notice(
-          `Removed ${humanBytes(result.bytes)} in ${count(result.files, 'file')}` +
-            (result.skipped?.length
-              ? `. ${count(result.skipped.length, 'path')} could not be removed.`
-              : '.'),
+          result.skipped?.length
+            ? ZogographI18n.t(
+                'storage.removed_directory_with_skipped',
+                {
+                  size: humanBytes(result.bytes),
+                  files: count(result.files, 'file'),
+                  skipped: count(result.skipped.length, 'path'),
+                },
+                'Removed {{size}} in {{files}}. {{skipped}} could not be removed.',
+              )
+            : ZogographI18n.t(
+                'storage.removed_directory',
+                {
+                  size: humanBytes(result.bytes),
+                  files: count(result.files, 'file'),
+                },
+                'Removed {{size}} in {{files}}.',
+              ),
           !result.skipped?.length,
         );
         await refreshAll();
@@ -5670,7 +5695,11 @@ function deleteButton(row) {
       }
       notice(
         result.bytes_freed > 0
-          ? `Deleted ${humanBytes(result.bytes_freed)}.`
+          ? ZogographI18n.t(
+              'storage.removed_file',
+              { size: humanBytes(result.bytes_freed) },
+              'Removed {{size}}.',
+            )
           : `Deleted, but nothing was freed: ${count(result.links, 'other name')} still ` +
               `point at those ${humanBytes(result.bytes)}.`,
         true,

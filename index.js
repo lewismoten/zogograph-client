@@ -25977,8 +25977,8 @@ function openUrlForm(row = null) {
   etag.type = "checkbox";
   etag.checked = row ? Boolean(Number(row.send_etag)) : false;
   field("urlEtag", ZogographI18n.t("url.ask_if_changed", {}, "Ask if it changed"), etag,
-    "Sends the last ETag, so an unchanged page answers 304 with no body. A 304 counts as "
-    + "healthy and skips the content check, because there is no body to check.");
+    ZogographI18n.t("url.ask_if_changed_help", {}, "Sends the last ETag, so an unchanged page answers 304 with no body. A 304 counts as "
+    + "healthy and skips the content check, because there is no body to check."));
 
   const expect = document.createElement("input");
   expect.type = "number";
@@ -25986,8 +25986,8 @@ function openUrlForm(row = null) {
   expect.max = "599";
   expect.value = String(row?.expect_status ?? 200);
   field("urlExpect", ZogographI18n.t("url.expected_status", {}, "Expected status"), expect,
-    "0 accepts anything from 200 to 399. A URL that should redirect, or an endpoint that "
-    + "correctly answers 401, is working \u2014 insisting on 200 would report it broken for ever.");
+    ZogographI18n.t("url.expected_status_help", {}, "0 accepts anything from 200 to 399. A URL that should redirect, or an endpoint that "
+    + "correctly answers 401, is working \u2014 insisting on 200 would report it broken for ever."));
 
   const kind = document.createElement("select");
   for (const [key, meta] of Object.entries(data.checks)) {

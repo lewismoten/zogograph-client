@@ -41,6 +41,8 @@
   "url.also_check": "Also check",
   "url.method_help": "HEAD is cheaper and has no body, so it cannot be combined with a content check.",
   "url.follow_redirects_help": "Each redirect is checked as a new destination. A redirect into an unapproved private host is refused rather than followed.",
+  "url.ask_if_changed_help": "Sends the last ETag, so an unchanged page answers 304 with no body. A 304 counts as healthy and skips the content check, because there is no body to check.",
+  "url.expected_status_help": "0 accepts anything from 200 to 399. A URL that should redirect, or an endpoint that correctly answers 401, is working — insisting on 200 would report it broken for ever.",
   "url.method_get": "GET — fetch the page",
   "url.method_head": "HEAD — headers only, no body",
   "url.method_options": "OPTIONS — what the server allows",

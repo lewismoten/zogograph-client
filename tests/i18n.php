@@ -2775,4 +2775,20 @@ i18nExpect(
         ),
     'service-status guidance does not preserve translated emphasis',
 );
+i18nExpect(
+    $page !== false &&
+        str_contains($page, 'data-i18n-rich="host.memory_breakdown_help"') &&
+        str_contains($page, 'data-i18n-tag="pss"') &&
+        str_contains($page, 'data-i18n-tag="rss"') &&
+        is_array($english) &&
+        str_contains(
+            (string) ($english['host.memory_breakdown_help'] ?? ''),
+            '{{pss}}',
+        ) &&
+        str_contains(
+            (string) ($english['host.memory_breakdown_help'] ?? ''),
+            '{{rss}}',
+        ),
+    'service-memory guidance does not preserve translated metric emphasis',
+);
 echo "i18n checks passed\n";

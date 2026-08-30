@@ -106,6 +106,9 @@ $databaseSnapshotsCard = i18nCardSource(
 $hostDatabaseStorageCard = i18nCardSource(
     file_get_contents($root . '/cards/host-database-storage.js'),
 );
+$accountDatabaseStorageCard = i18nCardSource(
+    file_get_contents($root . '/cards/account-database-storage.js'),
+);
 $networkPeersCard = i18nCardSource(
     file_get_contents($root . '/cards/network-peers.js'),
 );
@@ -377,6 +380,37 @@ i18nExpect(
             'helpers.i18n.registerCatalog(locale, catalog, false, id)',
         ),
     'core card package catalogs are not namespace-registered before their first render',
+);
+i18nExpect(
+    $page !== false &&
+        str_contains($page, 'src="cards/account-database-storage.js"') &&
+        $accountDatabaseStorageCard !== false &&
+        str_contains(
+            $accountDatabaseStorageCard,
+            'window.ZogographAccountDatabaseStorageCard',
+        ) &&
+        str_contains(
+            $accountDatabaseStorageCard,
+            'id: "core-account-database-storage"',
+        ) &&
+        str_contains(
+            $accountDatabaseStorageCard,
+            'locales: ["core-account-database-storage."]',
+        ) &&
+        str_contains(
+            $accountDatabaseStorageCard,
+            'catalogs: Object.freeze({',
+        ) &&
+        str_contains(
+            $accountDatabaseStorageCard,
+            '"core-account-database-storage.title"',
+        ) &&
+        $script !== false &&
+        str_contains(
+            $script,
+            'renderCoreCardPackage(ZogographAccountDatabaseStorageCard, "core-account-database-storage",',
+        ),
+    'account database storage is not isolated behind its core card-module boundary',
 );
 i18nExpect(
     $page !== false &&

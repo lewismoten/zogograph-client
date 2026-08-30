@@ -17984,6 +17984,25 @@ function renderStore(data) {
  * together can answer that.
  */
 function renderAccountData(data) {
+  if (window.ZogographAccountDatabaseStorageCard) {
+    return renderCoreCardPackage(
+      ZogographAccountDatabaseStorageCard,
+      'core-account-database-storage',
+      data,
+      {
+        target: $('accountDataBody'),
+        note,
+        section,
+        databaseStorageCard,
+        simpleTable,
+        databaseTableName,
+        tableFactsFor,
+        humanCount,
+        humanBytes,
+        i18n: ZogographI18n,
+      },
+    );
+  }
   const parts = [];
   const account = data.account;
 

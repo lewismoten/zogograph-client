@@ -9318,24 +9318,19 @@ async function refreshChat() {
 function renderChatUnavailable(why) {
   const log = $('chatLog');
   log.replaceChildren(
-    note(
-      why +
-        ' ' +
-        ZogographI18n.t(
-          'ai.unavailable_setup',
-          { assistant: chatState.who.name },
-          'It is set up under System → {{assistant}}.',
-        ),
+    renderCoreCardPackage(
+      ZogographChatUnavailableCard,
+      'core-chat-unavailable',
+      { why, assistant: chatState.who.name },
+      {
+        note,
+        openSetup: () => {
+          location.hash = '#/sys-ai?range=' + state.range;
+        },
+        i18n: ZogographI18n,
+      },
     ),
   );
-
-  const go = document.createElement('button');
-  go.className = 'link';
-  go.textContent = ZogographI18n.t('ai.set_up', {}, 'Set it up');
-  go.addEventListener('click', () => {
-    location.hash = '#/sys-ai?range=' + state.range;
-  });
-  log.appendChild(go);
 
   $('chatStatus').textContent = '';
   $('chatSend').disabled = true;

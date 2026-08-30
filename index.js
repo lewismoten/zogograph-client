@@ -29044,86 +29044,25 @@ function renderUptime() {
   const to =
     state.uptimeWindow?.to || state.frozenAt || Math.floor(Date.now() / 1000);
   const from = state.uptimeWindow?.from || to - state.range;
-
   const a = data.analysis || {};
 
   renderCoreCardPackage(
     ZogographUptimeCard,
     'core-uptime',
-    { upFor: data.up_for, bootAt: data.boot_at },
+    { upFor: data.up_for, bootAt: data.boot_at, analysis: data.analysis || {} },
     {
       setCard: (value, sub, level = '') =>
         setCard('cardUptime', value, sub, level),
+      summary: $('uptimeSummary'),
       humanDuration,
       humanTime,
+      trimPercent,
       i18n: ZogographI18n,
     },
   );
 
   const panel = $('uptimePanel');
   panel.hidden = false;
-
-  const parts = [];
-  if (a.uptime_percent != null) {
-    parts.push(
-      ZogographI18n.t(
-        'uptime.measured_window_up',
-        { percent: trimPercent(a.uptime_percent) },
-        'Up {{percent}}% of the measured window',
-      ),
-    );
-  }
-  if (a.coverage_percent != null && a.coverage_percent < 100) {
-    parts.push(
-      ZogographI18n.t(
-        'uptime.window_recorded',
-        { percent: trimPercent(a.coverage_percent) },
-        '{{percent}}% of it was actually recorded',
-      ),
-    );
-  }
-  if (a.uptime_percent === 100 && a.unmonitored > 0 && !a.boots) {
-    // Worth stating outright: the holes below are gaps in the record, and the
-    // machine is not known to have been off at any point.
-    parts.push(
-      ZogographI18n.t('uptime.no_downtime', {}, 'no downtime detected'),
-    );
-  }
-  if (a.boots) {
-    parts.push(
-      ZogographI18n.t(
-        'uptime.restarts_window',
-        { count: a.boots },
-        '{{count, number}} restarts in this window',
-      ),
-    );
-  }
-  if (a.downtime) {
-    parts.push(
-      ZogographI18n.t(
-        'uptime.down_at_most',
-        { duration: humanDuration(a.downtime) },
-        'at most {{duration}} down',
-      ),
-    );
-  }
-  if (a.unmonitored) {
-    parts.push(
-      ZogographI18n.t(
-        'uptime.not_recorded',
-        { duration: humanDuration(a.unmonitored) },
-        '{{duration}} not recorded',
-      ),
-    );
-  }
-
-  $('uptimeSummary').textContent = parts.length
-    ? parts.join(' · ') + '.'
-    : ZogographI18n.t(
-        'uptime.no_readings_window',
-        {},
-        'No readings in this window.',
-      );
 
   renderTrackSummary(data.tracks || [], to);
   drawUptimeChart(from, to);

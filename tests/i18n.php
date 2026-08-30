@@ -721,12 +721,12 @@ i18nExpect(
         str_contains($uptimeCard, 'locales: ["core-uptime."]') &&
         str_contains($uptimeCard, 'catalogs: Object.freeze({') &&
         str_contains($uptimeCard, '"core-uptime.no_boot_time"') &&
+        str_contains($uptimeCard, '"core-uptime.measured_window_up"') &&
         is_array($english) &&
         !isset($english['uptime.no_boot_time']) &&
-        str_contains(
-            $uptimeCard,
-            'helpers: ["setCard", "humanDuration", "humanTime", "i18n"]',
-        ) &&
+        !isset($english['uptime.measured_window_up']) &&
+        str_contains($uptimeCard, '"summary"') &&
+        str_contains($uptimeCard, '"trimPercent"') &&
         $script !== false &&
         str_contains(
             $script,

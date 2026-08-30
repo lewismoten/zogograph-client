@@ -2874,6 +2874,7 @@
   "dialog.page_help": "مساعدة الصفحة",
   "dialog.this_page": "هذه الصفحة",
   "dialog.view_help": "مساعدة {{view}}",
+  "host_request.where_it_will_appear": "مكان ظهوره: {{view}}",
   "dialog.are_you_sure": "هل أنت متأكد؟",
   "action.cancel": "إلغاء",
   "action.yes": "نعم",

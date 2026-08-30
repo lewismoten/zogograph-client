@@ -2874,6 +2874,7 @@
   "dialog.page_help": "页面帮助",
   "dialog.this_page": "此页面",
   "dialog.view_help": "{{view}} 帮助",
+  "host_request.where_it_will_appear": "将在此处显示：{{view}}",
   "dialog.are_you_sure": "确定吗？",
   "action.cancel": "取消",
   "action.yes": "是",

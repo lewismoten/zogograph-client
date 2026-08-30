@@ -2892,6 +2892,7 @@
   "dialog.page_help": "Ayuda de la página",
   "dialog.this_page": "Esta página",
   "dialog.view_help": "Ayuda de {{view}}",
+  "host_request.where_it_will_appear": "Dónde aparecerá: {{view}}",
   "dialog.are_you_sure": "¿Está seguro?",
   "action.cancel": "Cancelar",
   "action.yes": "Sí",

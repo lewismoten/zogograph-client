@@ -46135,7 +46135,11 @@ function showPendingDialog() {
     if (row.view && VIEWS[row.view]) {
       const go = document.createElement('button');
       go.className = 'link';
-      go.textContent = `Where it will appear: ${VIEWS[row.view].label}`;
+      go.textContent = ZogographI18n.t(
+        'host_request.where_it_will_appear',
+        { view: VIEWS[row.view].label },
+        `Where it will appear: ${VIEWS[row.view].label}`,
+      );
       go.addEventListener('click', () => {
         $('listDialog').close();
         showView(row.view);

@@ -2977,6 +2977,7 @@
   "dialog.page_help": "Page help",
   "dialog.this_page": "This page",
   "dialog.view_help": "{{view}} help",
+  "host_request.where_it_will_appear": "Where it will appear: {{view}}",
   "dialog.are_you_sure": "Are you sure?",
   "action.cancel": "Cancel",
   "action.yes": "Yes",

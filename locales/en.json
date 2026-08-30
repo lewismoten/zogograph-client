@@ -2345,6 +2345,8 @@
   "storage.kind": "Kind",
   "storage.directory": "directory",
   "storage.size": "Size",
+  "storage.files_right": "Files (right)",
+  "storage.history_one_scan": "This path has only been seen in one scan so far",
   "storage.on_disk": "On disk",
   "storage.type": "Type",
   "storage.watched_as": "Watched as",

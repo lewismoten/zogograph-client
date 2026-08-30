@@ -2242,6 +2242,8 @@
   "storage.kind": "类型",
   "storage.directory": "目录",
   "storage.size": "大小",
+  "storage.files_right": "文件（右侧）",
+  "storage.history_one_scan": "此路径目前只在一次扫描中出现过",
   "storage.on_disk": "在磁盘上",
   "storage.type": "类型",
   "storage.watched_as": "监控为",

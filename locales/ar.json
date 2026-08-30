@@ -2242,6 +2242,8 @@
   "storage.kind": "النوع",
   "storage.directory": "دليل",
   "storage.size": "الحجم",
+  "storage.files_right": "الملفات (يمين)",
+  "storage.history_one_scan": "لم يظهر هذا المسار إلا في فحص واحد حتى الآن",
   "storage.on_disk": "على القرص",
   "storage.type": "النوع",
   "storage.watched_as": "مراقب بوصفه",

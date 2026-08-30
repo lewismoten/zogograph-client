@@ -5981,15 +5981,26 @@ async function showHistory(pathId, quiet = false) {
     $('historyChart'),
     data.rows,
     [
-      { key: 'bytes', label: 'Size' },
-      { key: 'files', label: 'Files (right)', axis: 'right' },
+      {
+        key: 'bytes',
+        label: ZogographI18n.t('storage.size', {}, 'Size'),
+      },
+      {
+        key: 'files',
+        label: ZogographI18n.t('storage.files_right', {}, 'Files (right)'),
+        axis: 'right',
+      },
     ],
     {
       xKey: 'started_at',
       axis: bytesAxis,
       rightAxis: countAxis,
       zeroBased: true,
-      empty: 'This path has only been seen in one scan so far',
+      empty: ZogographI18n.t(
+        'storage.history_one_scan',
+        {},
+        'This path has only been seen in one scan so far',
+      ),
     },
   );
 

@@ -2256,6 +2256,8 @@
   "storage.kind": "प्रकार",
   "storage.directory": "निर्देशिका",
   "storage.size": "आकार",
+  "storage.files_right": "फ़ाइलें (दायां)",
+  "storage.history_one_scan": "यह पथ अभी तक केवल एक स्कैन में देखा गया है",
   "storage.on_disk": "डिस्क पर",
   "storage.type": "प्रकार",
   "storage.watched_as": "के रूप में निगरानी",

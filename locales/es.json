@@ -3154,6 +3154,8 @@
   "ai.limits_help": "Qué detiene una conversación y cuánto puede mantener el modelo a la vez. Cada límite se comprueba antes de una solicitud, no después, por lo que detiene la siguiente llamada en vez de descubrirse cuando ya no queda dinero.",
   "ai.images_title": "Imágenes",
   "ai.images_help": "Es totalmente opcional y permanece apagado hasta configurarlo. Generar una imagen cuesta dinero; buscar una animación es una lectura gratuita contra la cuota de otra persona. Por eso se limitan por separado.",
+  "ai.images_costs_title": "Lo que cuestan",
+  "ai.images_costs_help": "Una imagen dentro de la asignación no tiene coste marginal: la tarifa se pagó exactamente para esto; por eso una conversación informa la tarifa dividida por la asignación. Es lo que le costó esa imagen, no lo que costaría una más, y como ambos niveles dividen la misma tarifa, un mes completo de ambos sumaría más que la tarifa. Pasada la asignación se aplica el precio de crédito y es un coste marginal real.",
   "ai.tools_title": "Qué puede hacer",
   "ai.tools_help": "Una herramienta desactivada no se describe al modelo en absoluto, en lugar de describirla y rechazarla: un modelo al que se le cuenta una herramienta que no puede usar sigue intentándolo y le explica su ausencia como un fallo. Cualquier cosa que pide permiso lo pide siempre, y una negativa se comunica al modelo para que la resuelva en lugar de reintentarlo.",
   "ai.try_title": "Probar una herramienta",

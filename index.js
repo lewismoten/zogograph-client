@@ -8613,7 +8613,12 @@ function pictureFields(data) {
     money.appendChild(fieldRow(label, box, hint));
   }
 
-  form.appendChild(section('What they cost', money));
+  form.appendChild(
+    section(
+      ZogographI18n.t('ai.images_costs_title', {}, 'What they cost'),
+      money,
+    ),
+  );
 
   /*
    * What the number means, said out loud.
@@ -8627,11 +8632,11 @@ function pictureFields(data) {
    */
   form.appendChild(
     note(
-      'A picture inside the allowance has no marginal cost — the fee was paid for exactly ' +
-        'this — so what a conversation reports is the fee divided by the allowance. It is ' +
-        'what that picture cost you, not what one more would cost, and because both tiers ' +
-        'divide the same fee a full month of both would add up to more than the fee. Past ' +
-        'the allowance the credit price applies and is a real marginal cost.',
+      ZogographI18n.t(
+        'ai.images_costs_help',
+        {},
+        'A picture inside the allowance has no marginal cost — the fee was paid for exactly this — so what a conversation reports is the fee divided by the allowance. It is what that picture cost you, not what one more would cost, and because both tiers divide the same fee a full month of both would add up to more than the fee. Past the allowance the credit price applies and is a real marginal cost.',
+      ),
     ),
   );
 

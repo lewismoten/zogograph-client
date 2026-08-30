@@ -43948,14 +43948,26 @@ function renderJetBackup(jet) {
   if (jet.backups?.length) {
     out.appendChild(
       section(
-        `${count(jet.backups.length, 'backup')} JetBackup knows about`,
+        ZogographI18n.t(
+          'backup.jetbackup_known',
+          { count: jet.backups.length },
+          '{{count}} backups known to JetBackup',
+        ),
         simpleTable(
-          ['Account', 'When', 'Type', 'Size', 'Destination'],
+          [
+            ZogographI18n.t('backup.account', {}, 'Account'),
+            ZogographI18n.t('backup.when', {}, 'When'),
+            ZogographI18n.t('backup.type', {}, 'Type'),
+            ZogographI18n.t('storage.size', {}, 'Size'),
+            ZogographI18n.t('backup.destination', {}, 'Destination'),
+          ],
           jet.backups.map((b) => [
             b.account ?? '\u2014',
             b.created_at ? humanTime(b.created_at) : '\u2014',
             b.type ?? '\u2014',
-            b.bytes ? humanBytes(b.bytes) : 'not reported',
+            b.bytes
+              ? humanBytes(b.bytes)
+              : ZogographI18n.t('backup.not_reported', {}, 'not reported'),
             b.destination ?? '\u2014',
           ]),
           ['name', null, null, 'size', null],
@@ -43967,9 +43979,13 @@ function renderJetBackup(jet) {
   if (jet.destinations?.length) {
     out.appendChild(
       section(
-        'Destinations',
+        ZogographI18n.t('backup.destinations', {}, 'Destinations'),
         simpleTable(
-          ['Name', 'Type', 'Path'],
+          [
+            ZogographI18n.t('backup.name', {}, 'Name'),
+            ZogographI18n.t('backup.type', {}, 'Type'),
+            ZogographI18n.t('storage.path', {}, 'Path'),
+          ],
           jet.destinations.map((d) => [
             d.name ?? '\u2014',
             d.type ?? '\u2014',

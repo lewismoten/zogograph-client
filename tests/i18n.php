@@ -26,6 +26,23 @@ $configure = file_get_contents($root . '/lib/configure.php');
 $english = json_decode((string)file_get_contents($root . '/locales/en.json'), true);
 require_once $root . '/lib/configure.php';
 $schemaFields = configFields(require $root . '/lib/config.sample.php');
+$toolLocaleRoot = $root . '/lib/ai-tools/locales';
+$toolLocaleDirectories = glob($toolLocaleRoot . '/core-ai-*', GLOB_ONLYDIR) ?: [];
+i18nExpect(count($toolLocaleDirectories) >= 1, 'core AI tools have no package-local locale directories');
+foreach ($toolLocaleDirectories as $directory) {
+    $package = basename($directory);
+    foreach (['en', 'es', 'hi', 'ar', 'zh'] as $locale) {
+        $file = $directory . '/' . $locale . '.json';
+        i18nExpect(is_file($file), "AI tool package $package lacks its $locale locale catalog");
+        $catalog = json_decode((string)file_get_contents($file), true);
+        i18nExpect(is_array($catalog) && !array_is_list($catalog) && count($catalog) >= 1,
+            "AI tool package $package has an invalid $locale locale catalog");
+        foreach ($catalog as $key => $value) {
+            i18nExpect(is_string($key) && str_starts_with($key, $package . '.') && is_string($value),
+                "AI tool package $package owns an invalid $locale locale key");
+        }
+    }
+}
 foreach (glob($root . '/cards/*.js') ?: [] as $cardFile) {
     $card = file_get_contents($cardFile);
     $name = basename($cardFile);

@@ -6779,6 +6779,14 @@ function toolGroupLabel(group) {
     TOOL_GROUP_NAMES[group] ?? group,
   );
 }
+// Kept as the shared compatibility formatter for package-owned tool tabs.
+function toolGroupTabLabel(group, count_) {
+  return ZogographI18n.t(
+    'ai.tool_group_tab',
+    { group: toolGroupLabel(group), count: count_ },
+    '{{group}} ({{count, number}})',
+  );
+}
 
 /*
  * Which group of tools the page is showing.
@@ -6821,86 +6829,43 @@ function renderAiTools(data) {
   if (!groups.has(toolTab))
     toolTab = groups.keys().next().value ?? 'diagnostic';
 
-  const tabs = document.createElement('div');
-  tabs.className = 'seg-row';
-
-  for (const [group, list] of groups) {
-    const tab = document.createElement('button');
-    tab.type = 'button';
-    tab.className = group === toolTab ? 'seg on' : 'seg';
-    tab.textContent = ZogographI18n.t(
-      'ai.tool_group_tab',
-      { group: toolGroupLabel(group), count: list.length },
-      '{{group}} ({{count, number}})',
-    );
-
-    // How many of this group are switched on, so a group that is entirely off
-    // says so from the tab rather than only once it is opened.
-    const on = list.filter((t) => t.enabled).length;
-    tab.title = ZogographI18n.t(
-      on === list.length
-        ? 'ai.tool_group_all_enabled'
-        : 'ai.tool_group_some_enabled',
-      { enabled: on, count: list.length },
-      on === list.length
-        ? 'All of these are switched on.'
-        : '{{enabled, number}} of {{count, number}} switched on.',
-    );
-
-    tab.addEventListener('click', () => {
-      toolTab = group;
-      renderAiTools(data);
-    });
-    tabs.appendChild(tab);
-  }
-
-  parts.push(tabs);
-
-  const presets = document.createElement('div');
-  presets.className = 'panel-tools';
-  const presetPick = document.createElement('select');
-  for (const set of data.toolsets || []) {
-    const option = document.createElement('option');
-    option.value = set.name;
-    option.textContent = set.builtin
-      ? set.label
-      : ZogographI18n.t(
-          'ai.toolset_saved_label',
-          { label: set.label },
-          '{{label}} (saved)',
-        );
-    presetPick.appendChild(option);
-  }
-  const applyPreset = document.createElement('button');
-  applyPreset.type = 'button';
-  applyPreset.textContent = ZogographI18n.t(
-    'ai.apply_toolset',
-    {},
-    'Apply toolset',
+  parts.push(
+    renderCoreCardPackage(
+      ZogographAiToolsToolbarCard,
+      'core-ai-tools-toolbar',
+      {
+        groups,
+        toolsets: data.toolsets || [],
+        selected: toolTab,
+        writable: data.writable,
+      },
+      {
+        toolGroupLabel,
+        toolGroupTabLabel,
+        selectGroup(group) {
+          toolTab = group;
+          renderAiTools(data);
+        },
+        applyToolset(set) {
+          for (const [name, setting] of Object.entries(set.tools || {})) {
+            const enabled = body.querySelector(`.tool-on[data-tool="${name}"]`);
+            const ask = body.querySelector(`.tool-ask[data-tool="${name}"]`);
+            if (enabled) enabled.checked = Boolean(setting.enabled);
+            if (ask) ask.checked = Boolean(setting.permission);
+          }
+          notice(
+            ZogographI18n.t(
+              'ai.toolset_applied',
+              { label: set.label },
+              'Applied {{label}}. Save these settings to make it active.',
+            ),
+            true,
+          );
+        },
+        i18n: ZogographI18n,
+      },
+    ),
   );
-  applyPreset.disabled = !data.writable;
-  applyPreset.addEventListener('click', () => {
-    const set = (data.toolsets || []).find(
-      (one) => one.name === presetPick.value,
-    );
-    if (!set) return;
-    for (const [name, setting] of Object.entries(set.tools || {})) {
-      const enabled = body.querySelector(`.tool-on[data-tool="${name}"]`);
-      const ask = body.querySelector(`.tool-ask[data-tool="${name}"]`);
-      if (enabled) enabled.checked = Boolean(setting.enabled);
-      if (ask) ask.checked = Boolean(setting.permission);
-    }
-    notice(
-      ZogographI18n.t(
-        'ai.toolset_applied',
-        { label: set.label },
-        'Applied {{label}}. Save these settings to make it active.',
-      ),
-      true,
-    );
-  });
-  presets.append(presetPick, applyPreset);
-  parts.push(presets);
 
   const table = document.createElement('table');
   table.className = 'retention';
@@ -7237,7 +7202,7 @@ function renderAiTools(data) {
   removePreset.disabled = !data.writable;
   removePreset.addEventListener('click', async () => {
     const set = (data.toolsets || []).find(
-      (one) => one.name === presetPick.value,
+      (one) => one.name === $('aiToolsetPick')?.value,
     );
     if (!set || set.builtin) {
       notice(

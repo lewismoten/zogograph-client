@@ -852,6 +852,7 @@
   "peers.admin_only": "لا يمكن إدارة الخوادم الموثوقة إلا للمسؤولين.",
   "ai.start_new": "ابدأ محادثة جديدة",
   "ai.nothing_chosen": "لم يُختر شيء بعد.",
+  "database.percent": "{{percent, number}}%",
   "database.empty_space_amount": "{{bytes}} ({{percent, number}}% منه)",
   "database.pages_of_size": "{{pages}} من {{pageSize}}",
   "database.all_reading_tiers": "كل طبقات القراءات",

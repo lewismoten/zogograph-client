@@ -19062,7 +19062,11 @@ function databaseGauge(label, value, warn, crit, sub, tick) {
   const name = document.createElement('strong');
   name.textContent = label;
   const number = document.createElement('span');
-  number.textContent = `${Math.round(value)}%`;
+  number.textContent = ZogographI18n.t(
+    'database.percent',
+    { percent: Math.round(value) },
+    '{{percent, number}}%',
+  );
   head.append(name, number);
   const track = document.createElement('div');
   track.className = 'database-gauge-track';

@@ -866,6 +866,7 @@
   "peers.admin_only": "Solo los administradores pueden administrar servidores de confianza.",
   "ai.start_new": "Iniciar una nueva",
   "ai.nothing_chosen": "Aún no se ha elegido nada.",
+  "database.percent": "{{percent, number}}%",
   "database.empty_space_amount": "{{bytes}} ({{percent, number}}% del total)",
   "database.pages_of_size": "{{pages}} de {{pageSize}}",
   "database.all_reading_tiers": "todos los niveles de lecturas",

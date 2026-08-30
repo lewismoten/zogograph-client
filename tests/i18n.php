@@ -163,8 +163,9 @@ i18nExpect($page !== false && str_contains($page, 'src="cards/network-gauges.js"
     && str_contains($script, 'renderCoreCardPackage(ZogographNetworkGaugesCard, "core-network-gauges", data,'),
     'network gauges are not isolated behind their core card-module boundary');
 i18nExpect($networkGaugesCard !== false && str_contains($networkGaugesCard, 'catalogs: Object.freeze({')
-    && str_contains($networkGaugesCard, '"core-network-gauges.rate_on_interface"'),
-    'network gauges do not own a package locale catalog');
+    && str_contains($networkGaugesCard, '"core-network-gauges.rate_on_interface"')
+    && is_array($english) && !isset($english['network.rate_on_interface']),
+    'network gauges do not own their locale catalog exclusively');
 i18nExpect($page !== false && str_contains($page, 'src="cards/host-memory-gauges.js"')
     && $hostMemoryGaugesCard !== false && str_contains($hostMemoryGaugesCard, 'window.ZogographHostMemoryGaugesCard')
     && str_contains($hostMemoryGaugesCard, 'id: "core-host-memory-gauges"') && str_contains($hostMemoryGaugesCard, 'locales: ["core-host-memory-gauges."]')

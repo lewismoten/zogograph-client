@@ -9702,29 +9702,11 @@ function renderChatIdentity() {
 
   const title = $('chatTitle');
   if (title) {
-    title.replaceChildren();
-
-    if (who.portrait) {
-      const face = document.createElement('img');
-      face.className = 'chat-face';
-      face.src = who.portrait.url;
-      face.alt = '';
-      face.title = ZogographI18n.t(
-        'image.portrait_title',
-        { name: who.name, description: who.portrait.as },
-        '{{name}}, as it describes itself: "{{description}}"',
-      );
-      title.appendChild(face);
-    } else {
-      const mark = document.createElement('span');
-      mark.className = 'chat-emoji';
-      mark.textContent = who.emoji;
-      title.appendChild(mark);
-    }
-
-    const name = document.createElement('span');
-    name.textContent = ` ${who.name}`;
-    title.appendChild(name);
+    title.replaceChildren(
+      renderCoreCardPackage(ZogographChatTitleCard, 'core-chat-title', who, {
+        i18n: ZogographI18n,
+      }),
+    );
   }
 
   /*

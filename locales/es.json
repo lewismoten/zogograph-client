@@ -32,6 +32,7 @@
   "action.ask_again": "Preguntar de nuevo",
   "action.run": "Ejecutarlo",
   "action.running": "En ejecución…",
+  "url.try_text": "Probarlo con texto",
   "action.stop": "Detenerlo",
   "action.show": "Mostrarlo",
   "action.rename": "Cambiar nombre",

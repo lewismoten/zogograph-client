@@ -32,6 +32,7 @@
   "action.ask_again": "再次请求",
   "action.run": "运行它",
   "action.running": "正在运行…",
+  "url.try_text": "用一些文本试用",
   "action.stop": "停止它",
   "action.show": "显示它",
   "action.rename": "重命名",

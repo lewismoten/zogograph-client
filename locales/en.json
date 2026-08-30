@@ -32,6 +32,7 @@
   "action.ask_again": "Ask again",
   "action.run": "Run it",
   "action.running": "Running…",
+  "url.try_text": "Try it against some text",
   "action.stop": "Stop it",
   "action.show": "Show it",
   "action.rename": "Rename",

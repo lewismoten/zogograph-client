@@ -26015,7 +26015,7 @@ function openUrlForm(row = null) {
   const tryIt = document.createElement("button");
   tryIt.type = "button";
   tryIt.className = "link";
-  tryIt.textContent = "Try it against some text";
+  tryIt.textContent = ZogographI18n.t("url.try_text", {}, "Try it against some text");
   tryIt.addEventListener("click", () => showRegexTester(value, group));
   const tryRow = field("urlTry", "", tryIt, "");
 

@@ -2727,4 +2727,17 @@ i18nExpect(
         isset($english['host.io_rate_per_second']),
     'host I/O views do not share a localized per-second rate formatter',
 );
+i18nExpect(
+    $script !== false &&
+        str_contains($script, 'function capabilityShortState') &&
+        str_contains($script, "'capabilities.nothing_checked_yet'") &&
+        is_array($english) &&
+        isset($english['capabilities.short_alternate']) &&
+        isset($english['capabilities.short_host_only']) &&
+        isset($english['capabilities.short_unusable']) &&
+        isset($english['capabilities.short_missing']) &&
+        isset($english['capabilities.short_unknown_host']) &&
+        isset($english['capabilities.nothing_checked_yet']),
+    'capability states and empty fallback are not localized',
+);
 echo "i18n checks passed\n";

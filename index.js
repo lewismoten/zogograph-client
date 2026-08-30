@@ -6867,150 +6867,27 @@ function renderAiTools(data) {
     ),
   );
 
-  const table = document.createElement('table');
-  table.className = 'retention';
-
-  const head = table.createTHead().insertRow();
-  for (const [key, fallback] of [
-    ['ai.tool_column', 'Tool'],
-    ['ai.runs_column', 'Runs'],
-    ['ai.may_use_column', 'May use it'],
-    ['ai.ask_first_column', 'Ask me first'],
-    ['', ''],
-  ]) {
-    const th = document.createElement('th');
-    th.textContent = key ? ZogographI18n.t(key, {}, fallback) : fallback;
-    head.appendChild(th);
-  }
-
-  const tbody = table.createTBody();
-
   /*
-   * Every tool is in the table; the tabs only hide rows.
-   *
-   * Rendering just the chosen group looked identical and was not: the save
-   * reads the tick boxes out of the page, so a table holding one group's rows
-   * would have saved that group and switched off all thirty-odd others. The
-   * style list on the Images page carries the same warning for the same reason,
-   * and I walked into it anyway two pages later.
-   *
-   * Hidden rather than filtered out, so nothing about what is saved depends on
-   * which tab happens to be open.
+   * The complete table remains mounted while tabs hide rows. Saving reads the
+   * checkboxes from the DOM, so rendering only the selected group would switch
+   * every invisible tool off.
    */
-  for (const tool of data.tools) {
-    const row = tbody.insertRow();
-    row.hidden = tool.group !== toolTab;
-
-    const what = row.insertCell();
-    what.className = 'name';
-    what.appendChild(
-      document.createTextNode(
-        aiToolText(tool, 'summary', tool.summary).replace(/\.$/, ''),
-      ),
-    );
-
-    const name = document.createElement('div');
-    name.className = 'muted small';
-    name.textContent = tool.name;
-    what.appendChild(name);
-
-    const where = row.insertCell();
-    where.className = 'muted small';
-    where.textContent =
+  parts.push(
+    renderCoreCardPackage(
+      ZogographAiToolsTableCard,
+      'core-ai-tools-table',
+      { tools: data.tools, selected: toolTab, writable: data.writable },
       {
-        server: ZogographI18n.t('ai.tool_where_server', {}, 'here'),
-        browser: ZogographI18n.t(
-          'ai.tool_where_browser',
-          {},
-          'in your browser',
-        ),
-        ask: ZogographI18n.t('ai.tool_where_acts', {}, 'changes something'),
-      }[tool.where] ?? tool.where;
-    where.title =
-      {
-        server: ZogographI18n.t(
-          'ai.tool_where_server_title',
-          {},
-          'Answered from the databases on this server. Read-only.',
-        ),
-        browser: ZogographI18n.t(
-          'ai.tool_where_browser_title',
-          {},
-          'Only your browser can do it — moving you to a page, or capturing what you can see.',
-        ),
-        ask: ZogographI18n.t(
-          'ai.tool_where_acts_title',
-          {},
-          'This one acts rather than reads.',
-        ),
-      }[tool.where] ?? '';
-
-    const on = row.insertCell();
-    const enabled = document.createElement('input');
-    enabled.type = 'checkbox';
-    enabled.className = 'tool-on';
-    enabled.dataset.tool = tool.name;
-    enabled.checked = tool.enabled;
-    enabled.disabled = !data.writable;
-    on.appendChild(enabled);
-
-    /*
-     * A tick that is not reaching the model says so.
-     *
-     * The picture tools need a key, reactions need a search key, and both of
-     * those live on another page - so a tool could be ticked here and still be
-     * one the assistant had never heard of. It then says it has no such tool,
-     * which reads as a fault in the assistant rather than a setting somewhere
-     * else.
-     */
-    if (tool.enabled && tool.offered === false) {
-      on.appendChild(
-        renderCoreCardPackage(
-          ZogographAiToolAvailabilityCard,
-          'core-ai-tool-availability',
-          { reason: tool.not_offered_because ?? '' },
-          { i18n: ZogographI18n },
-        ),
-      );
-    }
-
-    const gate = row.insertCell();
-
-    /*
-     * A tool whose whole job is asking has nothing to ask permission for.
-     *
-     * offer_choices and ask_the_user do not read anything, change anything or
-     * send anything anywhere - they put a question on the screen and wait. A
-     * tick box called "ask me first" beside them offers to interrupt somebody
-     * to find out whether they may be asked something, which is a question
-     * about a question. Worse, ticking it would produce two prompts in a row
-     * for one interaction.
-     *
-     * Marked as not applicable rather than hidden: an empty cell in a column
-     * of tick boxes reads as an oversight, and the whole point of listing every
-     * tool on this page is that nothing looks missing.
-     */
-    gate.appendChild(
-      renderCoreCardPackage(
-        ZogographAiToolPermissionCard,
-        'core-ai-tool-permission',
-        { tool, writable: data.writable },
-        { i18n: ZogographI18n },
-      ),
-    );
-
-    const detail = row.insertCell();
-    detail.appendChild(
-      renderCoreCardPackage(
-        ZogographAiToolDescriptionCard,
-        'core-ai-tool-description',
-        { tool },
-        { showListDialog, i18n: ZogographI18n },
-      ),
-    );
-  }
-
-  parts.push(table);
+        aiToolText,
+        renderCard: renderCoreCardPackage,
+        availabilityCard: ZogographAiToolAvailabilityCard,
+        permissionCard: ZogographAiToolPermissionCard,
+        descriptionCard: ZogographAiToolDescriptionCard,
+        showListDialog,
+        i18n: ZogographI18n,
+      },
+    ),
+  );
 
   /*
    * A conversation should begin with a small diagnostic surface. When it has

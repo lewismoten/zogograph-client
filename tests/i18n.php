@@ -1439,6 +1439,13 @@ i18nExpect(
             $english['alerts.unknown'],
             $english['alerts.no_reason_recorded'],
             $english['alerts.mute_detail_help'],
+            $english['alerts.mail_sent'],
+            $english['alerts.mail_not_sent'],
+            $english['alerts.mail_to'],
+            $english['alerts.mail_nobody'],
+            $english['alerts.mail_subject'],
+            $english['alerts.mail_error'],
+            $english['alerts.mail_not_delivered_help'],
         ),
     'English fallback catalog is incomplete',
 );
@@ -1614,6 +1621,13 @@ i18nExpect(
         str_contains($script, 'alerts.held_by_operator_mute') &&
         str_contains($script, 'alerts.mute_detail_help'),
     'alert mute detail dialog retains direct user-visible text',
+);
+i18nExpect(
+    $script !== false &&
+        str_contains($script, 'alerts.mail_sent') &&
+        str_contains($script, 'alerts.mail_error') &&
+        str_contains($script, 'alerts.mail_not_delivered_help'),
+    'alert email facts retain direct user-visible text',
 );
 i18nExpect(
     str_contains($runtime, 'data-i18n-rich') &&

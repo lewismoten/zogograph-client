@@ -30483,19 +30483,33 @@ async function showAlertEmail(row) {
   const nodes = [];
 
   const facts = [
-    ['Sent', mail.sent ? whenLabel(mail.at) : 'it was not'],
-    ['To', mail.recipients || 'nobody'],
-    ['Subject', mail.subject],
+    [
+      ZogographI18n.t('alerts.mail_sent', {}, 'Sent'),
+      mail.sent
+        ? whenLabel(mail.at)
+        : ZogographI18n.t('alerts.mail_not_sent', {}, 'it was not'),
+    ],
+    [
+      ZogographI18n.t('alerts.mail_to', {}, 'To'),
+      mail.recipients || ZogographI18n.t('alerts.mail_nobody', {}, 'nobody'),
+    ],
+    [ZogographI18n.t('alerts.mail_subject', {}, 'Subject'), mail.subject],
   ];
-  if (mail.error) facts.push(['What went wrong', mail.error]);
+  if (mail.error)
+    facts.push([
+      ZogographI18n.t('alerts.mail_error', {}, 'What went wrong'),
+      mail.error,
+    ]);
   nodes.push(factGrid(facts));
 
   if (!mail.sent) {
     nodes.push(
       note(
-        'This message was written and not delivered. It is kept anyway: “the email ' +
-          'failed” is a fact about the mail system, and the thing worth having next ' +
-          'is what it would have said.',
+        ZogographI18n.t(
+          'alerts.mail_not_delivered_help',
+          {},
+          'This message was written and not delivered. It is kept anyway: “the email failed” is a fact about the mail system, and the thing worth having next is what it would have said.',
+        ),
       ),
     );
   }

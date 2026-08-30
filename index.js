@@ -40645,9 +40645,18 @@ function renderDomains(data) {
           span.textContent = humanWhen(row.seconds_left);
           // The exact date is what somebody reaches for once the span has told
           // them to care, and it is one hover away rather than a sixth column.
-          span.title =
-            `${humanSpan(row.seconds_left, true)}` +
-            `${row.seconds_left < 0 ? ' ago' : ' from now'} \u2014 ${humanTime(row.expires_at)}`;
+          span.title = ZogographI18n.t(
+            row.seconds_left < 0
+              ? 'time.duration_ago_with_date'
+              : 'time.duration_from_now_with_date',
+            {
+              duration: humanSpan(row.seconds_left, true),
+              date: humanTime(row.expires_at),
+            },
+            row.seconds_left < 0
+              ? '{{duration}} ago — {{date}}'
+              : '{{duration}} from now — {{date}}',
+          );
           if (row.state === 'expired' || row.state === 'urgent')
             span.className = 'band-crit';
           else if (row.state === 'soon') span.className = 'band-warn';
@@ -41029,10 +41038,18 @@ async function refreshWhois(name = '') {
       const days = Math.floor((p.expires_at - Date.now() / 1000) / 86400);
       facts.push([
         ZogographI18n.t('domain.expires', {}, 'Expires'),
-        `${humanTime(p.expires_at).split(',')[0]} \u2014 ` +
-          (days < 0
-            ? `${Math.abs(days)} days ago`
-            : count(days, 'day') + ' from now'),
+        ZogographI18n.t(
+          days < 0
+            ? 'time.duration_ago_with_date'
+            : 'time.duration_from_now_with_date',
+          {
+            date: humanTime(p.expires_at).split(',')[0],
+            duration: humanDuration(Math.abs(days) * SPAN_DAY),
+          },
+          days < 0
+            ? '{{duration}} ago — {{date}}'
+            : '{{duration}} from now — {{date}}',
+        ),
       ]);
     } else {
       facts.push([
@@ -41052,8 +41069,14 @@ async function refreshWhois(name = '') {
     if (p.updated_at) {
       facts.push([
         ZogographI18n.t('whois.record_last_changed', {}, 'Record last changed'),
-        `${humanTime(p.updated_at).split(',')[0]} \u2014 ` +
-          `${humanDuration(Date.now() / 1000 - p.updated_at)} ago`,
+        ZogographI18n.t(
+          'time.date_with_duration_ago',
+          {
+            date: humanTime(p.updated_at).split(',')[0],
+            duration: humanDuration(Date.now() / 1000 - p.updated_at),
+          },
+          '{{date}} — {{duration}} ago',
+        ),
       ]);
     }
     if (p.registrar)

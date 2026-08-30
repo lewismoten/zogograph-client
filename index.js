@@ -9810,18 +9810,39 @@ function editScreenshot(source, why) {
       $('shotHint').textContent =
         shot.mode === 'redact'
           ? shot.chosen >= 0
-            ? 'Drag it to move, drag a corner to resize, or press Delete to remove it.'
-            : 'Drag a box over anything that should not be sent. You can move, resize or ' +
-              'remove it afterwards — nothing is fixed until you send.'
-          : 'Drag a box around the part worth sending. Everything outside it is left out, ' +
-            'and you can undo it.';
+            ? ZogographI18n.t(
+                'screenshot.drag_selected',
+                {},
+                'Drag it to move, drag a corner to resize, or press Delete to remove it.',
+              )
+            : ZogographI18n.t(
+                'screenshot.drag_redact',
+                {},
+                'Drag a box over anything that should not be sent. You can move, resize or remove it afterwards — nothing is fixed until you send.',
+              )
+          : ZogographI18n.t(
+              'screenshot.drag_crop',
+              {},
+              'Drag a box around the part worth sending. Everything outside it is left out, and you can undo it.',
+            );
 
       $('shotCount').textContent = [
         shot.boxes.length
-          ? `${count(shot.boxes.length, 'area')} blacked out`
+          ? ZogographI18n.t(
+              'screenshot.areas_redacted',
+              { count: shot.boxes.length },
+              '{{count, number}} area blacked out',
+            )
           : '',
         cropped
-          ? `cropped to ${Math.round(shot.crop.w)}×${Math.round(shot.crop.h)}`
+          ? ZogographI18n.t(
+              'screenshot.cropped_dimensions',
+              {
+                width: Math.round(shot.crop.w),
+                height: Math.round(shot.crop.h),
+              },
+              'cropped to {{width, number}}×{{height, number}}',
+            )
           : '',
       ]
         .filter(Boolean)
@@ -9971,7 +9992,7 @@ function paintRedaction(ctx, box) {
   // Only where it fits; a label spilling out of its box is worse than none.
   const size = Math.min(16, Math.max(9, box.h * 0.4));
   ctx.font = `${size}px system-ui, sans-serif`;
-  const label = 'Redacted';
+  const label = ZogographI18n.t('screenshot.redacted', {}, 'Redacted');
 
   if (ctx.measureText(label).width + 10 < box.w && box.h > size + 4) {
     ctx.fillStyle = '#f2616b';

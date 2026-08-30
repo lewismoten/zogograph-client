@@ -7100,78 +7100,13 @@ function personaFields(data) {
   const wrap = document.createDocumentFragment();
   const who = data.who;
 
-  const form = document.createElement('div');
-  form.className = 'settings';
-
-  /*
-   * The name first, then the emoji.
-   *
-   * The name is what everything else here is named after and what appears in
-   * the menu; the emoji is a decoration on it. Asking for the decoration first
-   * put the more important field second, which is not what the eye does with a
-   * form.
-   */
-  const name = document.createElement('input');
-  name.type = 'text';
-  name.id = 'aiName';
-  name.value = who.name;
-  name.size = 24;
-  name.maxLength = 40;
-  form.appendChild(
-    fieldRow(
-      aiSettingsText('identity_name_label', 'Name'),
-      name,
-      aiSettingsText(
-        'identity_name_help',
-        'What it calls itself, and what this page and the menu call it.',
-      ),
-    ),
+  const identity = renderCoreCardPackage(
+    ZogographAiIdentityFieldsCard,
+    'core-ai-identity-fields',
+    { who },
+    { fieldRow, aiSettingsText, i18n: ZogographI18n },
   );
-
-  const emoji = document.createElement('input');
-  emoji.type = 'text';
-  emoji.id = 'aiEmoji';
-  emoji.value = who.emoji;
-  emoji.size = 4;
-  emoji.maxLength = 8;
-  form.appendChild(
-    fieldRow(
-      aiSettingsText('identity_emoji_label', 'Emoji'),
-      emoji,
-      aiSettingsText(
-        'identity_emoji_help',
-        'Shown beside the name everywhere it appears, including in the menu.',
-      ),
-    ),
-  );
-
-  const personality = document.createElement('textarea');
-  personality.id = 'aiPersonality';
-  personality.rows = 24;
-  personality.className = 'wide-field persona-box';
-  personality.spellcheck = false;
-  personality.value = who.personality;
-
-  /*
-   * The character box gets the room the character needs.
-   *
-   * It holds a page of instructions and was a four-line slot, so editing it
-   * meant scrolling a box to read a paragraph. Everything else on this page is
-   * one line; this is the one field that is a document.
-   */
-  form.appendChild(
-    fieldRow(
-      aiSettingsText('identity_character_label', 'Character'),
-      personality,
-      aiSettingsText(
-        'identity_character_help',
-        'Sent with every single request, so length here is a cost on every turn. It cannot ' +
-          'override the rules that keep the answers honest — never state a cause you have ' +
-          'not measured, say when a tool returned nothing — which are added after it and ' +
-          'say so.',
-      ),
-    ),
-  );
+  const { form, name, emoji, personality } = identity;
 
   /*
    * The picker is built after the boxes because it writes into them.

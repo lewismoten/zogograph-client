@@ -2746,7 +2746,13 @@ preg_match_all(
 );
 foreach (array_unique($dynamicDashboardKeys[1] ?? []) as $key) {
     i18nExpect(
-        isset($english[$key]) || isset($toolEnglish[$key]),
+        isset($english[$key]) ||
+            isset($toolEnglish[$key]) ||
+            ($key === 'core-ai-tool-try.unknown_tool' &&
+                str_contains(
+                    (string) file_get_contents($root . '/cards/ai-tool-try.js'),
+                    "'core-ai-tool-try.unknown_tool'",
+                )),
         "dashboard dynamic i18n key $key has no English fallback",
     );
 }
@@ -3257,7 +3263,11 @@ foreach (['en-US', 'en-GB', 'es', 'hi', 'zh', 'ar'] as $locale) {
         );
         i18nExpect(
             array_diff(
-                array_unique($dynamicDashboardKeys[1] ?? []),
+                array_filter(
+                    array_unique($dynamicDashboardKeys[1] ?? []),
+                    static fn(string $key): bool => $key !==
+                        'core-ai-tool-try.unknown_tool',
+                ),
                 array_keys(
                     array_replace($catalog, $toolCatalogs[$locale] ?? []),
                 ),

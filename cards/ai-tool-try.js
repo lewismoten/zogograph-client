@@ -19,6 +19,8 @@ window.ZogographAiToolTryCard = {
           'This one does its work in this window, so it runs here for real — it will draw, or change the range, or ask for a screenshot, exactly as it would mid-conversation.',
         'core-ai-tool-try.browser_permission':
           ' It asks your permission first, and so does this.',
+        'core-ai-tool-try.unknown_tool':
+          'This page does not know how to try {{tool}}.',
       }),
       es: Object.freeze({
         'core-ai-tool-try.empty': 'No hay herramientas.',
@@ -33,6 +35,8 @@ window.ZogographAiToolTryCard = {
           'Esta herramienta actúa realmente en esta ventana, igual que en una conversación.',
         'core-ai-tool-try.browser_permission':
           ' También pide su permiso primero.',
+        'core-ai-tool-try.unknown_tool':
+          'Esta página no sabe cómo probar {{tool}}.',
       }),
       hi: Object.freeze({
         'core-ai-tool-try.empty': 'कोई टूल नहीं हैं।',
@@ -46,6 +50,8 @@ window.ZogographAiToolTryCard = {
         'core-ai-tool-try.browser_warning':
           'यह टूल इसी विंडो में वास्तविक रूप से काम करता है।',
         'core-ai-tool-try.browser_permission': ' यह पहले अनुमति भी माँगता है।',
+        'core-ai-tool-try.unknown_tool':
+          'यह पृष्ठ नहीं जानता कि {{tool}} को कैसे आज़माया जाए।',
       }),
       ar: Object.freeze({
         'core-ai-tool-try.empty': 'لا توجد أدوات.',
@@ -59,6 +65,8 @@ window.ZogographAiToolTryCard = {
         'core-ai-tool-try.browser_warning':
           'تعمل هذه الأداة فعليًا في هذه النافذة.',
         'core-ai-tool-try.browser_permission': ' وتطلب إذنك أولًا.',
+        'core-ai-tool-try.unknown_tool':
+          'لا تعرف هذه الصفحة كيفية تجربة {{tool}}.',
       }),
       zh: Object.freeze({
         'core-ai-tool-try.empty': '没有工具。',
@@ -71,6 +79,7 @@ window.ZogographAiToolTryCard = {
           '这会真正生成图像，并计入每小时限额。',
         'core-ai-tool-try.browser_warning': '此工具会在当前窗口中实际运行。',
         'core-ai-tool-try.browser_permission': ' 它也会先请求您的许可。',
+        'core-ai-tool-try.unknown_tool': '此页面不知道如何试用 {{tool}}。',
       }),
     }),
   }),

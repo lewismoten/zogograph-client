@@ -21110,7 +21110,7 @@ async function tryBrowserTool(tool, args) {
 
   throw new Error(
     ZogographI18n.t(
-      'ai.try_unknown_tool',
+      'core-ai-tool-try.unknown_tool',
       { tool: name },
       'This page does not know how to try {{tool}}.',
     ),

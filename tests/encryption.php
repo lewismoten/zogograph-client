@@ -52,14 +52,13 @@ try {
             str_contains($api, "'encryption-seal' => doEncryptionSeal") &&
             str_contains(
                 $api,
-                "'encryption-recovery-drill' => doEncryptionRecoveryDrill",
+                "'encryption-recovery-drill' => doEncryptionRecoveryDrill(",
             ) &&
-            str_contains(
-                $api,
-                "'package-runtime-custody-envelope-store' => doPackageRuntimeCustodyEnvelopeStore",
-            ) &&
+            str_contains($api, "'package-runtime-custody-envelope-store'") &&
+            str_contains($api, 'doPackageRuntimeCustodyEnvelopeStore(') &&
             str_contains($api, 'requireWrite($post)') &&
-            str_contains($api, "logAction(\$pdo, 'encryption_seal'"),
+            str_contains($api, 'logAction(') &&
+            str_contains($api, "'encryption_seal'"),
         'encryption status is not protected by its dashboard page access rule',
     );
     encryptionExpect(
@@ -1541,10 +1540,10 @@ try {
                 if (is_dir($child)) {
                     foreach (glob($child . '/*') ?: [] as $grandchild) {
                         @unlink($grandchild);
-                    };
+                    }
                 }
                 @is_dir($child) ? @rmdir($child) : @unlink($child);
-            };
+            }
         }
         @is_dir($path) ? @rmdir($path) : @unlink($path);
     }

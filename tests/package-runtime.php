@@ -96,14 +96,14 @@ try {
         $dashboard !== false &&
             str_contains(
                 $dashboard,
-                'const available = new Set(pages.map(page => page.route))',
+                'const available = new Set(pages.map((page) => page.route))',
             ) &&
             str_contains(
                 $dashboard,
                 'function removeUnavailablePackageDashboardPages(available)',
             ) &&
             str_contains($dashboard, 'ZogographI18n.clearPackageCatalogs()') &&
-            str_contains($dashboard, 'currentRoute.startsWith("package-")') &&
+            str_contains($dashboard, "currentRoute.startsWith('package-')") &&
             substr_count(
                 $dashboard,
                 'ZogographI18n.loadPackageCatalogs(true)',

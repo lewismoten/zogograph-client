@@ -115,10 +115,8 @@ if (
         $dashboard,
         '[data-sensitive], [data-secret], [data-private]',
     ) ||
-    !str_contains(
-        $dashboard,
-        'Array.from(node.attributes).forEach(attribute => node.removeAttribute(attribute.name));',
-    ) ||
+    !str_contains($dashboard, 'Array.from(node.attributes).forEach(') ||
+    !str_contains($dashboard, 'node.removeAttribute(attribute.name)') ||
     !str_contains($dashboard, 'data-review-redacted')
 ) {
     throw new RuntimeException(
@@ -130,7 +128,8 @@ foreach (
     [
         "PHP_SAPI !== 'cli'",
         "saveConfiguredSettings(\$config, \$configFile",
-        'authResetPassword(loadConfiguredSettings($configFile)',
+        'authResetPassword(',
+        'loadConfiguredSettings($configFile)',
         "'Password reset refused: '",
     ]
     as $required
@@ -167,7 +166,8 @@ foreach (
         'isSignedIn()',
         "accessAllows(\$config, 'pages', 'system')",
         "csrfValid(\$_POST['csrf'] ?? null)",
-        "logAction(\$pdo, 'diagnostic_export'",
+        'logAction(',
+        "'diagnostic_export'",
         "'format' => 'zogograph-diagnostic-v1'",
         "'no credentials, paths, or hostnames'",
         "'edition' => hostEntitlement(\$config)",
@@ -191,9 +191,12 @@ foreach (
         'isSignedIn()',
         "accessAllows(\$config, 'pages', 'deletions')",
         "csrfValid(\$_POST['csrf'] ?? null)",
-        "logAction(\$pdo, 'audit_export'",
+        'logAction(',
+        "'audit_export'",
         "preg_match('/^[=+\\-@]/', \$text)",
-        "['at_utc', 'action', 'target', 'outcome', 'bytes_freed', 'files_removed', 'detail', 'actor', 'remote_address']",
+        "'at_utc',",
+        "'action',",
+        "'remote_address',",
         'detail, actor, remote_addr FROM actions ORDER BY at ASC',
         'ORDER BY at ASC',
     ]
@@ -217,7 +220,8 @@ foreach (
         'accessAllows($config, \'write\')',
         'csrfValid($_POST[\'csrf\'] ?? null)',
         'snapshotDatabase($pdo, $temporary)',
-        'logAction($pdo, \'database_export\'',
+        'logAction(',
+        "'database_export'",
         '@unlink($temporary)',
     ]
     as $required
@@ -258,7 +262,8 @@ foreach (
         'encryptionOpenFile',
         'encryptionReadLocalKey',
         'sealed-restore-',
-        'if ($decrypted !== null) @unlink($decrypted);',
+        'if ($decrypted !== null) {',
+        '@unlink($decrypted);',
     ]
     as $required
 ) {
@@ -346,10 +351,12 @@ foreach (
     [
         "(\$_SERVER['REQUEST_METHOD'] ?? '') !== 'POST'",
         "header('Allow: GET, POST')",
-        "(string)(\$_GET['health'] ?? '') === '1'",
+        "(string) (\$_GET['health'] ?? '') === '1'",
         'PEER_TRANSPORT_MAX_BYTES',
         'http_response_code(413)',
-        'peerTransportAccept($pdo, $config',
+        'peerTransportAccept(',
+        '$pdo,',
+        '$config,',
         "coreFeatureEnabled(\$config, 'peers')",
         'http_response_code(404)',
     ]

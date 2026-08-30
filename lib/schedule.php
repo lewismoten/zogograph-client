@@ -660,7 +660,7 @@ function cronEditorInstalledJobLines(array $lines): array
             if (str_ends_with(trim((string) $line), implode(' ', $flags))) {
                 $out[$job] = (string) $line;
             }
-        };
+        }
     }
     return $out;
 }

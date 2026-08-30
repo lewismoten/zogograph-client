@@ -61,11 +61,11 @@ function loadLabels(PDO $pdo): array
      * the specific one should win, which is how routing tables have always
      * worked and what anybody writing these will expect.
      */
-    $specificity = fn(
-        array $entry,
-    ): int => // An exact address is the most specific thing there is, so it sorts
-    // above every range - including a /32, which means the same thing.
-    $entry['bits'] === null ? 129 : (int) $entry['bits'];
+    // An exact address is the most specific thing there is, so it sorts above
+    // every range — including a /32, which means the same thing.
+    $specificity = fn(array $entry): int => $entry['bits'] === null
+        ? 129
+        : (int) $entry['bits'];
 
     usort(
         $addresses,

@@ -41,10 +41,9 @@ brandingExpect(
 brandingExpect(
     $openid !== false &&
         str_contains($openid, "require_once __DIR__ . '/lib/branding.php';") &&
-        str_contains(
-            $openid,
-            "brandName(\$config) . ' before authorizing a trusted client'",
-        ),
+        str_contains($openid, "'sign in to ' .") &&
+        str_contains($openid, 'brandName($config)') &&
+        str_contains($openid, "' before authorizing a trusted client'"),
     'OpenID authorization does not use the configured product brand',
 );
 brandingExpect(

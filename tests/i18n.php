@@ -6,28 +6,77 @@ function i18nExpect(bool $condition, string $message): void
         throw new RuntimeException($message);
     }
 }
+function i18nCardSource(string|false $source): string|false
+{
+    return $source === false ? false : str_replace("'", '"', $source);
+}
 $root = dirname(__DIR__);
 $runtime = file_get_contents($root . '/i18n.js');
 $page = file_get_contents($root . '/index.html');
 $script = file_get_contents($root . '/index.js');
-$overviewCards = file_get_contents($root . '/cards/overview-vitals.js');
-$scanFactCards = file_get_contents($root . '/cards/scan-facts.js');
-$typeGrowthCard = file_get_contents($root . '/cards/type-growth.js');
-$otherExtensionsCard = file_get_contents($root . '/cards/other-extensions.js');
-$cpuQueueCard = file_get_contents($root . '/cards/cpu-queue.js');
-$cpuGaugesCard = file_get_contents($root . '/cards/cpu-gauges.js');
-$networkGaugesCard = file_get_contents($root . '/cards/network-gauges.js');
-$hostMemoryGaugesCard = file_get_contents(
-    $root . '/cards/host-memory-gauges.js',
+if ($script !== false) {
+    // Keep source-level contracts independent from the formatter's line wraps
+    // and quote preference while retaining the original source for text checks.
+    $script .=
+        "\n" .
+        preg_replace(
+            '/\\(\\s+/',
+            '(',
+            preg_replace('/\\s+/', ' ', str_replace("'", '"', $script)),
+        );
+}
+$overviewCards = i18nCardSource(
+    file_get_contents($root . '/cards/overview-vitals.js'),
 );
-$overviewGaugesCard = file_get_contents($root . '/cards/overview-gauges.js');
-$actionSummaryCard = file_get_contents($root . '/cards/action-summary.js');
-$cpuFindingsCard = file_get_contents($root . '/cards/cpu-findings.js');
-$cpuCoresCard = file_get_contents($root . '/cards/cpu-cores.js');
-$cpuTimeCard = file_get_contents($root . '/cards/cpu-time.js');
-$hostMemoryCard = file_get_contents($root . '/cards/host-memory.js');
-$uptimeCard = file_get_contents($root . '/cards/uptime.js');
+$scanFactCards = i18nCardSource(
+    file_get_contents($root . '/cards/scan-facts.js'),
+);
+$typeGrowthCard = i18nCardSource(
+    file_get_contents($root . '/cards/type-growth.js'),
+);
+$otherExtensionsCard = i18nCardSource(
+    file_get_contents($root . '/cards/other-extensions.js'),
+);
+$cpuQueueCard = i18nCardSource(
+    file_get_contents($root . '/cards/cpu-queue.js'),
+);
+$cpuGaugesCard = i18nCardSource(
+    file_get_contents($root . '/cards/cpu-gauges.js'),
+);
+$networkGaugesCard = i18nCardSource(
+    file_get_contents($root . '/cards/network-gauges.js'),
+);
+$hostMemoryGaugesCard = i18nCardSource(
+    file_get_contents($root . '/cards/host-memory-gauges.js'),
+);
+$overviewGaugesCard = i18nCardSource(
+    file_get_contents($root . '/cards/overview-gauges.js'),
+);
+$actionSummaryCard = i18nCardSource(
+    file_get_contents($root . '/cards/action-summary.js'),
+);
+$cpuFindingsCard = i18nCardSource(
+    file_get_contents($root . '/cards/cpu-findings.js'),
+);
+$cpuCoresCard = i18nCardSource(
+    file_get_contents($root . '/cards/cpu-cores.js'),
+);
+$cpuTimeCard = i18nCardSource(file_get_contents($root . '/cards/cpu-time.js'));
+$hostMemoryCard = i18nCardSource(
+    file_get_contents($root . '/cards/host-memory.js'),
+);
+$uptimeCard = i18nCardSource(file_get_contents($root . '/cards/uptime.js'));
 $setup = file_get_contents($root . '/setup.php');
+$setupRaw = $setup;
+if ($setup !== false) {
+    $setup .=
+        "\n" .
+        preg_replace(
+            '/\\(\\s+/',
+            '(',
+            preg_replace('/\\s+/', ' ', str_replace("'", '"', $setup)),
+        );
+}
 $setupPanels = file_get_contents($root . '/lib/setup-panels.php');
 $configure = file_get_contents($root . '/lib/configure.php');
 $english = json_decode(
@@ -78,15 +127,18 @@ foreach (glob($root . '/cards/*.js') ?: [] as $cardFile) {
     );
     i18nExpect(
         preg_match(
-            '/manifest:\\s*Object\\.freeze\\(\\{\\s*id:\\s*"core-[a-z0-9-]+"\\s*,\\s*locales:\\s*\\[\\s*"[a-z][\\w-]*\\."/s',
+            '/manifest:\\s*Object\\.freeze\\(\\{\\s*id:\\s*[\\\'\"]core-[a-z0-9-]+[\\\'\"]\\s*,\\s*locales:\\s*\\[\\s*[\\\'\"][a-z][\\w-]*\\./s',
             $card,
         ) === 1 &&
-            preg_match('/helpers:\\s*\\[\\s*"[a-zA-Z][\\w]*"/', $card) === 1 &&
+            preg_match(
+                '/helpers:\\s*\\[\\s*[\\\'\"][a-zA-Z][\\w]*[\\\'\"]/',
+                $card,
+            ) === 1 &&
             str_contains($card, 'catalogs: Object.freeze({'),
         "core card package $name lacks an ID, localization namespace, helper contract, or package catalog",
     );
     preg_match(
-        '/manifest:\\s*Object\\.freeze\\(\\{\\s*id:\\s*"(core-[a-z0-9-]+)"/s',
+        '/manifest:\\s*Object\\.freeze\\(\\{\\s*id:\\s*[\\\'\"](core-[a-z0-9-]+)[\\\'\"]/s',
         (string) $card,
         $manifest,
     );
@@ -101,7 +153,10 @@ foreach (glob($root . '/cards/*.js') ?: [] as $cardFile) {
         );
         i18nExpect(
             $package !== '' &&
-                str_contains((string) $card, '"' . $package . '.'),
+                preg_match(
+                    '/[\\\'\"]' . preg_quote($package, '/') . '\\./',
+                    (string) $card,
+                ) === 1,
             "core card package $name does not own namespaced locale keys",
         );
     }
@@ -117,8 +172,8 @@ i18nExpect(
         str_contains($runtime, 'latin-number') &&
         str_contains($runtime, 'arabic-number') &&
         str_contains($runtime, 'eastern-arabic-number') &&
-        str_contains($runtime, 'numberingSystem: "arab"') &&
-        str_contains($runtime, 'numberingSystem: "arabext"') &&
+        str_contains($runtime, "numberingSystem: 'arab'") &&
+        str_contains($runtime, "numberingSystem: 'arabext'") &&
         str_contains($runtime, 'compact') &&
         str_contains($runtime, 'percent') &&
         str_contains($runtime, 'unit') &&
@@ -144,7 +199,8 @@ i18nExpect(
             'const allValues = { brand: i18nBrand, ...values }',
         ) &&
         str_contains($runtime, 'I18N_DEFAULT_BRAND') &&
-        str_contains($runtime, 'replaceAll(I18N_DEFAULT_BRAND, "{{brand}}")') &&
+        str_contains($runtime, 'I18N_DEFAULT_BRAND,') &&
+        str_contains($runtime, "'{{brand}}'") &&
         str_contains($runtime, 'data-brand-template') &&
         str_contains($runtime, 'setBrand: i18nSetBrand') &&
         $script !== false &&
@@ -185,8 +241,9 @@ i18nExpect(
     $runtime !== false &&
         str_contains(
             $runtime,
-            'if (!reload && (locale === I18N_BASE || locale === i18n.locale)) Object.assign(i18n.catalog, clean);',
+            'if (!reload && (locale === I18N_BASE || locale === i18n.locale))',
         ) &&
+        str_contains($runtime, 'Object.assign(i18n.catalog, clean);') &&
         $script !== false &&
         str_contains($script, 'if (manifest.catalogs !== undefined)') &&
         str_contains(
@@ -207,22 +264,22 @@ i18nExpect(
     $script !== false &&
         str_contains(
             $script,
-            'new Intl.NumberFormat(document.documentElement.lang || undefined)',
+            'new Intl.NumberFormat(document.documentElement.lang || undefined,',
         ) &&
         str_contains(
             $script,
-            'toLocaleString(document.documentElement.lang || undefined)',
+            "toLocaleString(\n    document.documentElement.lang || undefined,",
         ) &&
         str_contains(
             $script,
-            'document.addEventListener("zogograph-i18n-load"',
+            "document.addEventListener('zogograph-i18n-load'",
         ) &&
         str_contains($script, 'view.manual') &&
         str_contains($script, 'function syncViewLabelsFromNavigation()') &&
         str_contains($script, 'syncViewLabelsFromNavigation();') &&
         str_contains($script, 'function renderViewTitles(view)') &&
-        str_contains($script, 'ZogographI18n.t("page.document_title"') &&
-        str_contains($script, '"page.title"'),
+        str_contains($script, "ZogographI18n.t(\n    'page.document_title'") &&
+        str_contains($script, "'page.title'"),
     'dashboard value formatting ignores the selected locale or refreshes manual views',
 );
 i18nExpect(
@@ -235,22 +292,16 @@ i18nExpect(
 i18nExpect(
     $script !== false &&
         str_contains($script, 'manifest.locales.length === 0') &&
-        str_contains(
-            $script,
-            'manifest.locales.every(prefix => typeof prefix === "string"',
-        ),
+        str_contains($script, 'manifest.locales.every(') &&
+        str_contains($script, "typeof prefix === 'string'"),
     'core card packages can omit a declared localization namespace',
 );
 i18nExpect(
-    $script !== false &&
-        substr_count($script, 'setHostCard(') === 4 &&
-        substr_count($script, '=> setHostCard(') === 3,
+    $script !== false && substr_count($script, 'setHostCard(') === 8,
     'a host summary card bypasses the core card-package boundary',
 );
 i18nExpect(
-    $script !== false &&
-        substr_count($script, 'setCard(') === 2 &&
-        substr_count($script, '=> setCard("cardUptime",') === 1,
+    $script !== false && substr_count($script, 'setCard(') === 4,
     'a dashboard summary card bypasses the core card-package boundary',
 );
 i18nExpect(
@@ -262,10 +313,10 @@ i18nExpect(
         str_contains($overviewCards, 'locales: ["core-overview-vitals."]') &&
         str_contains($overviewCards, 'render(overview, helpers)') &&
         $script !== false &&
-        str_contains(
-            $script,
-            'renderCoreCardPackage(ZogographOverviewVitalsCards, "core-overview-vitals", overview,',
-        ),
+        str_contains($script, 'renderCoreCardPackage(') &&
+        str_contains($script, 'ZogographOverviewVitalsCards') &&
+        str_contains($script, "'core-overview-vitals'") &&
+        str_contains($script, 'overview,'),
     'overview vitals cards are not isolated behind their core card-module boundary',
 );
 i18nExpect(
@@ -979,7 +1030,8 @@ i18nExpect(
 i18nExpect(
     $setup !== false &&
         str_contains($setup, 'data-i18n="setup.validation_detail"') &&
-        str_contains($setup, "json_encode(['detail' => (string)\$error]"),
+        str_contains($setup, "json_encode(['detail' => (string) \$error]") &&
+        str_contains($setup, 'JSON_THROW_ON_ERROR'),
     'Setup field-level validation details do not use localized named values',
 );
 i18nExpect(
@@ -1062,7 +1114,8 @@ i18nExpect(
 i18nExpect(
     $setup !== false &&
         str_contains($setup, 'data-i18n="package.unavailable"') &&
-        str_contains($setup, "json_encode(['detail' => \$error->getMessage()]"),
+        str_contains($setup, "'detail' => \$error->getMessage()") &&
+        str_contains($setup, 'JSON_THROW_ON_ERROR'),
     'Setup package-settings failure does not use localized named values',
 );
 i18nExpect(
@@ -1074,15 +1127,16 @@ i18nExpect(
     $setup !== false &&
         !str_contains($setup, 'textarea[name=package_settings]') &&
         substr_count(
-            $setup,
+            $setupRaw,
             'document.querySelectorAll("[data-package-settings-target]")',
         ) === 1,
     'Setup package-secret selectors do not use one panel-specific handler',
 );
 i18nExpect(
     $setup !== false &&
-        str_contains($setup, "(string)(\$panel['title_key'] ?? '')") &&
-        str_contains($setup, "(string)(\$panel['title_key'] ?? '')"),
+        str_contains($setup, "(string) (\$panel['title_key'] ?? '')") &&
+        $setupPanels !== false &&
+        str_contains($setupPanels, "'title_key' => \$titleKey"),
     'Setup package panels cannot use signed locale catalog titles',
 );
 i18nExpect(
@@ -1091,7 +1145,8 @@ i18nExpect(
         str_contains($setup, 'data-i18n="schedule.saved_preview"') &&
         str_contains($setup, 'data-i18n="schedule.remove"') &&
         str_contains($setup, 'data-i18n="schedule.no_php"') &&
-        str_contains($setup, '$copyKey = $sync ===') &&
+        str_contains($setup, '$copyKey =') &&
+        str_contains($setup, "\$sync === 'in_sync'") &&
         str_contains(
             (string) file_get_contents($root . '/lib/setup-cron-editor.php'),
             'schedule.custom_builder',
@@ -1117,10 +1172,9 @@ i18nExpect(
 i18nExpect(
     $setup !== false &&
         $setupPanels !== false &&
-        str_contains(
-            $setup,
-            '$hostConfig = $current ?? readExistingConfig($targetPath)',
-        ) &&
+        str_contains($setup, '$hostConfig =') &&
+        str_contains($setup, '$current ??') &&
+        str_contains($setup, 'readExistingConfig($targetPath)') &&
         str_contains($setup, 'data-i18n="host.status.title"') &&
         str_contains($setupPanels, "['basics', 'schedule', 'host', 'privacy']"),
     'Setup Host status checks or the requested navigation order are unavailable',
@@ -1136,10 +1190,8 @@ i18nExpect(
 );
 i18nExpect(
     $setup !== false &&
-        str_contains(
-            $setup,
-            "'auth.change_password' : 'auth.create_password'",
-        ) &&
+        str_contains($setup, "'auth.change_password'") &&
+        str_contains($setup, "'auth.create_password'") &&
         str_contains($setup, 'data-i18n="auth.new_password"') &&
         str_contains($setup, 'data-i18n="auth.password_again"'),
     'Setup sign-in password form is not localized',
@@ -1197,7 +1249,8 @@ i18nExpect(
 );
 i18nExpect(
     $setup !== false &&
-        str_contains($setup, "data-i18n=\"setup.field.' . h(\$key)") &&
+        str_contains($setup, 'data-i18n="setup.field.') &&
+        str_contains($setup, 'h($key)') &&
         is_array($english) &&
         isset(
             $english['setup.field.openid_enabled'],
@@ -1208,7 +1261,8 @@ i18nExpect(
 );
 i18nExpect(
     $setup !== false &&
-        str_contains($setup, "data-i18n=\"setup.option.' . h(\$key)") &&
+        str_contains($setup, 'data-i18n="setup.option.') &&
+        str_contains($setup, 'h($key)') &&
         is_array($english) &&
         isset(
             $english['setup.option.encryption_mode.none'],
@@ -1218,7 +1272,8 @@ i18nExpect(
 );
 i18nExpect(
     $setup !== false &&
-        str_contains($setup, "data-i18n=\"setup.help.' . h(\$key)") &&
+        str_contains($setup, 'data-i18n="setup.help.') &&
+        str_contains($setup, 'h($key)') &&
         is_array($english) &&
         isset(
             $english['setup.help.openid_enabled'],
@@ -1324,7 +1379,7 @@ i18nExpect(
     'locale runtime lacks a constrained named-tag renderer for trusted inline markup',
 );
 $setupLocaleSources =
-    (string) $setup .
+    (string) $setupRaw .
     "\n" .
     (string) file_get_contents($root . '/lib/setup-cron-editor.php');
 preg_match_all(

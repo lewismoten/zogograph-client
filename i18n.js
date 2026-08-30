@@ -20,6 +20,7 @@ let i18nBrand = String(
 
 function i18nSetBrand(name) {
   const candidate = String(name || '').trim();
+  // eslint-disable-next-line no-control-regex -- rejects unprintable brand names.
   if (!candidate || candidate.length > 80 || /[\x00-\x1f\x7f]/.test(candidate))
     return;
   i18nBrand = candidate;

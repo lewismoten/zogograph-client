@@ -358,13 +358,13 @@ coreFeatureExpect(
             'applyCoreFeatureVisibility(overview.core_features)',
         ) &&
         str_contains($dashboard, 'disabledCoreRoutes.has(view)') &&
-        str_contains($dashboard, 'disabledCoreRoutes.has("sys-notes")') &&
-        str_contains($dashboard, 'disabledCoreRoutes.has("sys-problems")') &&
-        str_contains($dashboard, 'disabledCoreRoutes.has("alerts")') &&
-        str_contains($dashboard, 'disabledCoreRoutes.has("sys-packages")') &&
+        str_contains($dashboard, "disabledCoreRoutes.has('sys-notes')") &&
+        str_contains($dashboard, "disabledCoreRoutes.has('sys-problems')") &&
+        str_contains($dashboard, "disabledCoreRoutes.has('alerts')") &&
+        str_contains($dashboard, "disabledCoreRoutes.has('sys-packages')") &&
         str_contains($dashboard, 'ZogographI18n.clearPackageCatalogs()') &&
-        str_contains($dashboard, 'disabledCoreRoutes.has("charts")') &&
-        str_contains($dashboard, 'disabledCoreRoutes.has("system")'),
+        str_contains($dashboard, "disabledCoreRoutes.has('charts')") &&
+        str_contains($dashboard, "disabledCoreRoutes.has('system')"),
     'core feature boundary does not suppress disabled dashboard routes',
 );
 coreFeatureExpect(
@@ -428,7 +428,9 @@ coreFeatureExpect(
 coreFeatureExpect(
     is_string($api) &&
         str_contains($api, "coreFeatureEnabled(\$config, 'notes')") &&
-        str_contains($api, "'broadcasts' => \$signedIn"),
+        str_contains($api, "'broadcasts' =>") &&
+        str_contains($api, '            $signedIn &&') &&
+        str_contains($api, '            accessAllows($config, \'notes\')'),
     'disabled notes feature leaves shared broadcasts active',
 );
 echo "core feature checks passed\n";

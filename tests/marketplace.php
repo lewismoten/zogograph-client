@@ -7,6 +7,15 @@ function marketplaceExpect(bool $ok, string $message): void
         throw new RuntimeException($message);
     }
 }
+function marketplaceWriteGuard(string $source, string $function): bool
+{
+    return preg_match(
+        '/function\\s+' .
+            preg_quote($function, '/') .
+            '\\s*\\([^)]*\\)\\s*:\\s*array\\s*\\{.*?requireWrite\\(\\$post\\);/s',
+        $source,
+    ) === 1;
+}
 $root =
     sys_get_temp_dir() . '/zogograph-marketplace-' . bin2hex(random_bytes(4));
 mkdir($root, 0700);
@@ -317,26 +326,11 @@ marketplaceExpect(
         str_contains($api, "'marketplace-enable' => doMarketplaceEnable") &&
         str_contains($api, "'marketplace-install' => doMarketplaceInstall") &&
         str_contains($api, "'marketplace-rollback' => doMarketplaceRollback") &&
-        str_contains(
-            $api,
-            "function doMarketplaceEnable(array \$config, PDO \$pdo, bool \$post): array\n{\n    requireWrite(\$post);",
-        ) &&
-        str_contains(
-            $api,
-            "function doMarketplaceInstall(array \$config, PDO \$pdo, bool \$post): array\n{\n    requireWrite(\$post);",
-        ) &&
-        str_contains(
-            $api,
-            "function doMarketplaceInstallPathHygiene(array \$config, PDO \$pdo, bool \$post): array\n{\n    requireWrite(\$post);",
-        ) &&
-        str_contains(
-            $api,
-            "function marketplaceHistoryView(array \$config, bool \$post): array\n{\n    requireWrite(\$post);",
-        ) &&
-        str_contains(
-            $api,
-            "function doMarketplaceRollback(array \$config, PDO \$pdo, bool \$post): array\n{\n    requireWrite(\$post);",
-        ),
+        marketplaceWriteGuard($api, 'doMarketplaceEnable') &&
+        marketplaceWriteGuard($api, 'doMarketplaceInstall') &&
+        marketplaceWriteGuard($api, 'doMarketplaceInstallPathHygiene') &&
+        marketplaceWriteGuard($api, 'marketplaceHistoryView') &&
+        marketplaceWriteGuard($api, 'doMarketplaceRollback'),
     'marketplace administration route is missing its write authorization',
 );
 marketplaceExpect(

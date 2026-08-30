@@ -260,7 +260,7 @@ try {
                 "migration changed supplied historical fixture $name",
             );
             unlink($clone);
-        };
+        }
     }
 
     unlink($snapshot);

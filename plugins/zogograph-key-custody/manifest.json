@@ -49,9 +49,9 @@
       "locales/es.json": "c9931b4a08cb8d33cc0ebbd7a907527c2fc90cf9598ecc1ffbd5d2350f35dadf",
       "locales/hi.json": "bdbf47b847f445677575a2164478408df030bd5dcdc60887c77f53d1dbd90f02",
       "locales/zh.json": "b4f6176be00245f9329a9e20cceb6dfd99ba60495e226e3f038dd31780a83be1",
-      "settings.schema.json": "93184f8057c1bde0d8ddcad65923615365fa6d60d9231117214aed0f87f7c37b",
-      "src/KeyCustodyProvider.php": "4b0d54e927f40e011295ca7bbb46dce7017ee0febb25cec5a4e453cfd417340a",
-      "src/KeyCustodyHttpClient.php": "89aa16ac8292571ef7c18ae95997f33c4921074f4a67def23b118df16caf9db6"
+      "settings.schema.json": "24826d3bd3ae7437affe957ec4d851302f7f1c9ce32221557207834265d6760c",
+      "src/KeyCustodyProvider.php": "a7ec3dcf944b4834fb2420a1419fa433c976c501c54765baa677a5e55440b223",
+      "src/KeyCustodyHttpClient.php": "bfd7e7af78816ddc13508baca3aeffdcc5a4dea20fff4c3702d37171019c2195"
     }
   },
   "state": "design-preview"

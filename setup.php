@@ -3039,7 +3039,7 @@ function setupHostStatus(array $config): array
             );
         } catch (Throwable) {
             $readable = false;
-        };
+        }
     }
     $gaps = [];
     for ($i = 0; $i + 1 < count($times); $i++) {

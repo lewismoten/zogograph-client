@@ -698,11 +698,9 @@ async function postForm(action, form) {
     body: form,
     credentials: 'same-origin',
   });
-  const parsed = await response
-    .json()
-    .catch(() => ({
-      error: `The server returned ${response.status} with something that is not JSON.`,
-    }));
+  const parsed = await response.json().catch(() => ({
+    error: `The server returned ${response.status} with something that is not JSON.`,
+  }));
   if (!response.ok) throw new Error(withReference(parsed, response.status));
   return parsed;
 }
@@ -2084,7 +2082,7 @@ function renderCoreCardPackage(cardPackage, id, input, helpers) {
   cardPackage.render(input, helpers);
 }
 
-function renderCards(overview, vitalRows) {
+function renderCards(overview) {
   renderCoreCardPackage(
     ZogographOverviewVitalsCards,
     'core-overview-vitals',
@@ -2283,7 +2281,7 @@ function msAxis(step, magnitude = step) {
 }
 
 /** A bare number, for anything whose unit is whatever the page says it is. */
-function plainAxis(step, magnitude = step) {
+function plainAxis() {
   return {
     scale: 1,
     unit: '',
@@ -4388,7 +4386,7 @@ async function refreshVitals() {
     },
   );
   renderLimits(overview.limits);
-  renderCards(overview, vitals.rows);
+  renderCards(overview);
 
   state.uptime = uptime;
   // The analysis from the vitals payload covers exactly the rows returned, so
@@ -4549,7 +4547,7 @@ function renderFileTypes(scans) {
   }
   cards.replaceChildren(frag);
 
-  renderTypePie(scans, total);
+  renderTypePie(scans);
   renderOtherExtensions(scans.other_extensions ?? []);
 
   const scan = (scans.rows ?? []).find(
@@ -4586,7 +4584,7 @@ function renderFileTypes(scans) {
  * note says plainly that they are a second view of the same bytes rather than
  * extra ones.
  */
-function renderTypePie(scans, total) {
+function renderTypePie(scans) {
   const withCategories = $('pieShowCategories').checked;
   const types = scans.file_types ?? [];
 
@@ -8651,7 +8649,7 @@ async function saveAiSettings(extra = {}) {
       search_base: $('aiSearchBase').value.trim(),
       searches_per_hour: $('aiSearchRate').value,
       rating: $('aiRating').value,
-      monthly_cents: $('aiMonthlyCents').value,
+      image_monthly_cents: $('aiMonthlyCents').value,
       included_standard: $('aiIncludedStandard').value,
       included_genius: $('aiIncludedGenius').value,
       price_standard: $('aiPriceStandard').value,
@@ -8961,7 +8959,7 @@ function chatSummaryCard(message, session) {
 }
 
 /** The summary itself, and what it stands in for. */
-function showCompaction(message, session) {
+function showCompaction(message) {
   const covers = message.covers ?? {};
   const nodes = [];
 
@@ -10280,6 +10278,8 @@ function renderThrottles(data) {
  * page's half against a config the other page had already changed would
  * silently revert it.
  */
+// Retained for package-provided scan controls that use the core save path.
+// eslint-disable-next-line no-unused-vars
 async function saveScans() {
   const values = {};
 
@@ -10996,7 +10996,7 @@ async function driveChat() {
  * usefully move somebody around.
  */
 async function runBrowserTool(run) {
-  let result = {};
+  let result;
 
   try {
     if (run.tool === 'set_time_range') {
@@ -13090,6 +13090,9 @@ function renderRdns(data) {
  * a note about a fact, never a replacement for it, and that goes double for a
  * name that came from a PTR record somebody else controls.
  */
+// Retained for package-provided network tables, which receive this helper by
+// name rather than through a direct core call.
+// eslint-disable-next-line no-unused-vars
 function withAddressName(address) {
   const name = state.rdnsNames?.[address];
   const mine = state.labelNames?.[address];
@@ -14378,6 +14381,7 @@ function showPathHygieneRename(row) {
       value.includes('\0')
     )
       why = 'Enter one file or directory name, without a slash.';
+    // eslint-disable-next-line no-control-regex -- names cannot contain unprintable characters.
     else if (/[\u0000-\u001f\u007f]/.test(value))
       why = 'Control characters are not allowed.';
     else if (/^\s|\s$/u.test(value))
@@ -14635,7 +14639,6 @@ function showPackageRuntimeUpload() {
   );
 }
 
-let packageDashboardPagesLoaded = false;
 let packageDashboardCards = [];
 function removeUnavailablePackageDashboardPages(available) {
   for (const [route, view] of Object.entries(VIEWS)) {
@@ -14718,7 +14721,6 @@ async function loadPackageDashboardPages() {
     const available = new Set(pages.map((page) => page.route));
     removeUnavailablePackageDashboardPages(available);
     for (const page of pages) addPackageDashboardPage(page);
-    packageDashboardPagesLoaded = true;
     const route = readRoute().view;
     if (location.hash && VIEWS[route]?.packagePage) applyRoute();
     else if (location.hash && route.startsWith('package-'))
@@ -17408,6 +17410,8 @@ function showNoteDetails(row) {
   );
 }
 
+// Kept as a package-table helper. Package renderers may request it by name.
+// eslint-disable-next-line no-unused-vars
 function noteBody(row) {
   const wrap = document.createDocumentFragment();
 
@@ -17424,6 +17428,8 @@ function noteBody(row) {
   return wrap;
 }
 
+// Kept as a package-table helper. Package renderers may request it by name.
+// eslint-disable-next-line no-unused-vars
 function noteActions(row) {
   const wrap = document.createDocumentFragment();
 
@@ -18053,7 +18059,7 @@ function databaseTableName(name, host) {
     document.createTextNode(name),
     helpIcon({
       title: what,
-      note: `Used by: ${where}. Collected by: ${collected}. Inspect: sqlite3 <database> \"SELECT COUNT(*) FROM ${name};\"`,
+      note: `Used by: ${where}. Collected by: ${collected}. Inspect: sqlite3 <database> "SELECT COUNT(*) FROM ${name};"`,
       mine: false,
     }),
   );
@@ -21255,7 +21261,7 @@ function displayPreferences() {
         ),
       ),
     };
-  } catch (_) {
+  } catch {
     return {
       textSize: 'default',
       motion: 'system',
@@ -21285,7 +21291,9 @@ function applyDisplayPreferences(preferences, remember = true) {
   if (!remember) return;
   try {
     localStorage.setItem(DISPLAY_PREFERENCES_KEY, JSON.stringify(preferences));
-  } catch (_) {}
+  } catch {
+    // Display preferences are optional when browser storage is unavailable.
+  }
 }
 
 function openDisplayPreferences() {
@@ -22377,7 +22385,6 @@ function showTryResult(parts) {
 /** Collects the form, sends it, and shows what came back. */
 async function runAiTry(tool) {
   const said = $('aiTrySaid');
-  const out = $('aiTryResult');
   const args = {};
 
   for (const input of $('aiTryFields').querySelectorAll('[data-param]')) {
@@ -22653,6 +22660,7 @@ function renderAiPrices(data) {
 }
 
 function renderPriceTable(target, rows, sort) {
+  const today = new Date().toISOString().slice(0, 10);
   const columns = [
     {
       label: ZogographI18n.t('ai.pricing_provider', {}, 'Provider'),
@@ -24712,7 +24720,7 @@ function stopButtons(row, grouped) {
 
         notice(describeStop(result, row, many), true);
 
-        const gone = await waitForProcessToGo(row, many, force);
+        const gone = await waitForProcessToGo(row, many);
 
         if (gone === false) {
           notice(
@@ -24753,7 +24761,7 @@ function stopButtons(row, grouped) {
  * could not be read - which is not the same as "still running" and must not be
  * reported as it.
  */
-async function waitForProcessToGo(row, many, force) {
+async function waitForProcessToGo(row, many) {
   // Half a second, then a second, then longer: about twelve seconds in all,
   // which is longer than anything well-behaved takes and shorter than a person
   // will sit watching a button.
@@ -25365,7 +25373,6 @@ async function refreshHost() {
       );
   }
 
-  const panel = $('hostPanel');
   if (!state.signedIn) {
     for (const id of HOST_PANELS) {
       const el = $(id);
@@ -29078,7 +29085,6 @@ function updateSchedulePreview() {
     hour: { used: false, max: 23 },
   };
   for (const [job, pick] of jobs) {
-    const jobLabel = ZogographI18n.t(`schedule.job.${job}`, {}, job);
     const preset = data.presets[job]?.[pick];
     if (!preset || preset.minute_step == null) continue;
     if (preset.minute_step > 1) limit.minute.used = true;
@@ -29353,6 +29359,7 @@ function describeTimes(jobs, data, minute, hour) {
   const said = [];
 
   for (const [job, pick] of jobs) {
+    const jobLabel = ZogographI18n.t(`schedule.job.${job}`, {}, job);
     const preset = data.presets[job]?.[pick];
     if (!preset || preset.minute_step == null) continue;
 
@@ -31303,6 +31310,8 @@ function fillFilter(select, values, current, label = (v) => v) {
   select.value = current;
 }
 
+// Retained for package renderers that require the core escaping helper.
+// eslint-disable-next-line no-unused-vars
 function escapeHtml(text) {
   const div = document.createElement('div');
   div.textContent = String(text ?? '');
@@ -35247,7 +35256,7 @@ function openUrlForm(row = null) {
   value.type = 'text';
   value.size = 46;
   value.value = row?.check_value ?? '';
-  const valueRow = field(
+  field(
     'urlValue',
     ZogographI18n.t('url.looking_for', {}, 'Looking for'),
     value,
@@ -37031,14 +37040,12 @@ function externalLink(target) {
    * script execution in this document, and there is no reason a response
    * header should ever produce one.
    */
-  let safe = false;
   try {
-    safe = ['http:', 'https:'].includes(new URL(href).protocol);
+    if (!['http:', 'https:'].includes(new URL(href).protocol))
+      return document.createTextNode(target);
   } catch {
-    safe = false;
+    return document.createTextNode(target);
   }
-
-  if (!safe) return document.createTextNode(target);
 
   const link = document.createElement('a');
   link.href = href;
@@ -39647,7 +39654,7 @@ function renderLogStream(data) {
     line.className = 'stream-line' + (parsed.kind ? ` is-${parsed.kind}` : '');
     line.addEventListener('click', () => showLogLine(row, index, data.rows));
 
-    const [icon, meaning, tone] = LOG_MARKS[parsed.kind] || [
+    const [icon, meaning] = LOG_MARKS[parsed.kind] || [
       '▫️',
       'No level stated',
       'muted',
@@ -40155,6 +40162,8 @@ function databaseFacts(data) {
  * failure this replaces is a panel that says "no host readings" and leaves the
  * reader to work out which of five things is missing.
  */
+// Retained for package setup panels that may request the host-schedule helper.
+// eslint-disable-next-line no-unused-vars
 async function refreshHostSchedule() {
   const body = $('hostScheduleBody');
   if (!state.signedIn) {
@@ -41843,7 +41852,7 @@ function renderChangeNote() {
   note.textContent = parts.join(' ');
 }
 
-function barAt(x, y) {
+function barAt(x) {
   for (const bar of changeState.bars) {
     // Generous vertically: a bar one change tall is three pixels, and nobody
     // can be asked to hit that.
@@ -41854,7 +41863,7 @@ function barAt(x, y) {
 
 $('capChanges').addEventListener('mousemove', (event) => {
   const rect = event.currentTarget.getBoundingClientRect();
-  const bar = barAt(event.clientX - rect.left, event.clientY - rect.top);
+  const bar = barAt(event.clientX - rect.left);
   const at = bar ? bar.at : null;
   if (at !== changeState.hover) {
     changeState.hover = at;
@@ -41870,7 +41879,7 @@ $('capChanges').addEventListener('mouseleave', () => {
 
 $('capChanges').addEventListener('click', (event) => {
   const rect = event.currentTarget.getBoundingClientRect();
-  const bar = barAt(event.clientX - rect.left, event.clientY - rect.top);
+  const bar = barAt(event.clientX - rect.left);
   if (bar) showChangesIn(bar);
 });
 

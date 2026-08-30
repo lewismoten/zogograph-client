@@ -48,7 +48,7 @@ releaseExpect(
             '"browserRefreshRequired": ${browser_refresh_required}',
         ) &&
         str_contains($workflow, 'environment: test') &&
-        str_contains($workflow, 'environment:  client') &&
+        str_contains($workflow, 'environment: client') &&
         str_contains($workflow, 'deploy_path: ${{ vars.TEST_PATH }}') &&
         str_contains($workflow, 'deploy_url: ${{ vars.TEST_URL }}') &&
         str_contains($workflow, 'deploy_path: ${{ vars.DEPLOY_PATH }}') &&

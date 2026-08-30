@@ -55,7 +55,7 @@ editorExpect(
     is_string($editorUi) &&
         str_contains($editorUi, 'terminal-editor-lines') &&
         str_contains($editorUi, 'aria-hidden') &&
-        str_contains($editorUi, 'text.addEventListener("scroll"') &&
+        str_contains($editorUi, "text.addEventListener('scroll'") &&
         str_contains($editorUi, 'terminalEditorDiff') &&
         str_contains($editorUi, 'terminalEditorSyntaxPreview') &&
         str_contains($editorUi, 'Syntax preview') &&

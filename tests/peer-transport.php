@@ -8,7 +8,7 @@ $ingress = file_get_contents(__DIR__ . '/../peer-push.php');
 if (
     $ingress === false ||
     !str_contains($ingress, "'service' => 'zogograph-peer-transport'") ||
-    !str_contains($ingress, "(string)(\$_GET['health'] ?? '') === '1'")
+    !str_contains($ingress, "(string) (\$_GET['health'] ?? '') === '1'")
 ) {
     throw new RuntimeException(
         'peer ingress does not expose the bounded protocol-health response',

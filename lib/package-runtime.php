@@ -575,7 +575,7 @@ function packageRuntimeManifestCompatibility(array $compatibility): array
                     'package compatibility requirement is invalid',
                 );
             }
-        };
+        }
     }
     sort($extensions, SORT_STRING);
     sort($runtime, SORT_STRING);
@@ -1131,7 +1131,7 @@ function packageRuntimeDashboardPages(PDO $pdo): array
                     'route' => 'package-' . $package['id'] . '-' . $page['id'],
                     'package_id' => $package['id'],
                 ] + $page;
-        };
+        }
     }
     return $out;
 }
@@ -1146,7 +1146,7 @@ function packageRuntimeDashboardCards(PDO $pdo): array
             as $card
         ) {
             $out[] = ['package_id' => $package['id']] + $card;
-        };
+        }
     }
     return $out;
 }
@@ -2118,7 +2118,7 @@ function packageRuntimeValidateSchemaValue(
                         $name . '.' . $key . ' is not allowed',
                     );
                 }
-            };
+            }
         }
         foreach ($value as $key => $child) {
             if (isset($properties[$key])) {

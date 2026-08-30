@@ -11229,7 +11229,7 @@ function aiSettingsView(array $config, PDO $pdo, bool $signedIn): array
                     'items' => $spec['items'] ?? null,
                     'maxItems' => $spec['maxItems'] ?? null,
                 ],
-                $live[$name]['parameters'] ?? $tool['parameters'] ?? [],
+                $live[$name]['parameters'] ?? ($tool['parameters'] ?? []),
             ),
             /*
              * Why a tool cannot be tried, when it cannot.
@@ -12095,7 +12095,10 @@ function doAiSettingsSave(array $config, PDO $pdo, bool $post): array
         )
             ? (string) $_POST['rating']
             : 'g',
-        'monthly_cents' => max(0.0, (float) ($_POST['monthly_cents'] ?? 0)),
+        'monthly_cents' => max(
+            0.0,
+            (float) ($_POST['image_monthly_cents'] ?? 0),
+        ),
         'included_standard' => clampInt(
             $_POST['included_standard'] ?? 0,
             0,

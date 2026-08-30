@@ -18903,34 +18903,41 @@ function databaseCard(file, projection) {
 
   const facts = [
     [
-      'File',
+      ZogographI18n.t('database.file', {}, 'File'),
       `${humanBytes(file.bytes)}${
         file.wal_bytes ? ` + ${humanBytes(file.wal_bytes)} write-ahead log` : ''
       }`,
     ],
     [
-      'Empty space inside it',
+      ZogographI18n.t(
+        'database.empty_space_inside',
+        {},
+        'Empty space inside it',
+      ),
       `${humanBytes(file.free_bytes)} (${Math.round(file.free_share * 100)}% of it)`,
     ],
     [
-      'Integrity',
+      ZogographI18n.t('database.integrity', {}, 'Integrity'),
       file.integrity?.ok
         ? '✓ Quick check passed'
         : `⚠ ${file.integrity?.message || 'not checked'}`,
     ],
     [
-      'Migration recovery',
+      ZogographI18n.t('database.migration_recovery', {}, 'Migration recovery'),
       file.integrity?.migration_backups
         ? `${count(file.integrity.migration_backups, 'private snapshot')} · newest ${ago(file.integrity.newest_backup_at)}`
         : 'No migration snapshot needed yet',
     ],
-    ['Pages', `${humanCount(file.pages)} of ${humanBytes(file.page_size)}`],
-    ['Journal', file.journal],
+    [
+      ZogographI18n.t('database.pages', {}, 'Pages'),
+      `${humanCount(file.pages)} of ${humanBytes(file.page_size)}`,
+    ],
+    [ZogographI18n.t('database.journal', {}, 'Journal'), file.journal],
   ];
 
   if (projection) {
     facts.push([
-      'Settles near',
+      ZogographI18n.t('database.settles_near', {}, 'Settles near'),
       projection.known
         ? humanBytes(projection.projected)
         : `${humanBytes(projection.projected)}, plus about ${humanBytes(projection.growth)} ` +

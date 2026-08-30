@@ -11,6 +11,8 @@
   "common.sign_in_to_see": "登录后可查看此内容。",
   "reports.sign_in": "登录后可阅读摘要。",
   "network.sign_in": "登录后可查看网络。",
+  "network.traffic_kind": "流量类型",
+  "network.peer_endpoints": "另一端是谁",
   "diagnosis.sign_in": "登录后可查看诊断结果。",
   "network.captures_sign_in": "登录后可查看捕获记录。",
   "monitor.sign_in": "登录后可查看监控器自身状态。",

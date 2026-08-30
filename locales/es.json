@@ -11,6 +11,8 @@
   "common.sign_in_to_see": "Inicie sesión para ver esto.",
   "reports.sign_in": "Inicie sesión para leer los resúmenes.",
   "network.sign_in": "Inicie sesión para ver la red.",
+  "network.traffic_kind": "Qué tipo de tráfico",
+  "network.peer_endpoints": "Quién está al otro lado",
   "diagnosis.sign_in": "Inicie sesión para ver el diagnóstico.",
   "network.captures_sign_in": "Inicie sesión para ver las capturas.",
   "monitor.sign_in": "Inicie sesión para ver el estado del propio monitor.",

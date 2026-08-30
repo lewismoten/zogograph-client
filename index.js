@@ -35533,7 +35533,12 @@ function renderCapture(capture, target = 'captureBody') {
         ),
       );
     }
-    parts.push(section('What kind of traffic', wrap));
+    parts.push(
+      section(
+        ZogographI18n.t('network.traffic_kind', {}, 'What kind of traffic'),
+        wrap,
+      ),
+    );
   }
 
   /*
@@ -35577,7 +35582,16 @@ function renderCapture(capture, target = 'captureBody') {
       ),
     );
 
-    parts.push(section('Who is on the other end', wrap));
+    parts.push(
+      section(
+        ZogographI18n.t(
+          'network.peer_endpoints',
+          {},
+          'Who is on the other end',
+        ),
+        wrap,
+      ),
+    );
   }
 
   if ((capture.ports || []).length) {

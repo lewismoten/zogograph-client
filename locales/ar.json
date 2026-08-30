@@ -11,6 +11,8 @@
   "common.sign_in_to_see": "سجّل الدخول لرؤية هذا.",
   "reports.sign_in": "سجّل الدخول لقراءة الملخصات.",
   "network.sign_in": "سجّل الدخول لرؤية الشبكة.",
+  "network.traffic_kind": "ما نوع حركة المرور",
+  "network.peer_endpoints": "من على الطرف الآخر",
   "diagnosis.sign_in": "سجّل الدخول لرؤية التشخيص.",
   "network.captures_sign_in": "سجّل الدخول لرؤية اللقطات.",
   "monitor.sign_in": "سجّل الدخول لرؤية حالة المراقب نفسه.",

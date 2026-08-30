@@ -11,6 +11,8 @@
   "common.sign_in_to_see": "इसे देखने के लिए साइन इन करें।",
   "reports.sign_in": "सारांश पढ़ने के लिए साइन इन करें।",
   "network.sign_in": "नेटवर्क देखने के लिए साइन इन करें।",
+  "network.traffic_kind": "किस तरह का ट्रैफ़िक",
+  "network.peer_endpoints": "दूसरे छोर पर कौन है",
   "diagnosis.sign_in": "निदान देखने के लिए साइन इन करें।",
   "network.captures_sign_in": "कैप्चर देखने के लिए साइन इन करें।",
   "monitor.sign_in": "मॉनिटर की अपनी स्थिति देखने के लिए साइन इन करें।",

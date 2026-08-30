@@ -113,6 +113,7 @@
   "account.root_unmanaged": "root。此仪表板无法停止或更改这些项目。",
   "descriptions.sign_in_to_write": "请登录以编写自己的说明。",
   "descriptions.kind": "类型", "descriptions.slab_cache": "Slab 缓存", "descriptions.process": "进程", "descriptions.what": "是什么", "descriptions.link": "链接", "descriptions.written": "已编写",
+  "descriptions.empty": "尚未编写任何说明。内置列表涵盖 {{processes, number}} 个进程和 {{slabs, number}} 个 Slab 缓存；此机器不认识的名称旁不会显示标记，因此可据此找到值得说明的名称。",
   "action.see": "查看",
   "url.method_get": "GET — 获取页面",
   "url.method_head": "HEAD — 仅标头，无正文",

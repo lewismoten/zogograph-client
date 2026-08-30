@@ -113,6 +113,7 @@
   "account.root_unmanaged": "root. This dashboard cannot stop or change these.",
   "descriptions.sign_in_to_write": "Sign in to write your own.",
   "descriptions.kind": "Kind", "descriptions.slab_cache": "Slab cache", "descriptions.process": "Process", "descriptions.what": "What it is", "descriptions.link": "Link", "descriptions.written": "Written",
+  "descriptions.empty": "Nothing written yet. The built-in list covers {{processes, number}} processes and {{slabs, number}} slab caches; anything on this machine it does not know about shows its name with no mark beside it, which is how to find the ones worth writing down.",
   "action.see": "See",
   "url.method_get": "GET — fetch the page",
   "url.method_head": "HEAD — headers only, no body",

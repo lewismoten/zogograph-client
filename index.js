@@ -27090,13 +27090,11 @@ function renderDescriptions() {
   }
 
   if (!WHAT_IS.mine.length) {
-    body.replaceChildren(note(
-      "Nothing written yet. The built-in list covers "
-      + `${count(Object.keys(WHAT_IS.process).length, "process", "processes")} and `
-      + `${count(Object.keys(WHAT_IS.slab).length, "slab cache")}; `
-      + "anything on this machine it does not know about shows its name with no "
-      + "mark beside it, which is how to find the ones worth writing down."
-    ));
+    body.replaceChildren(note(ZogographI18n.t("descriptions.empty", {
+      processes: Object.keys(WHAT_IS.process).length, slabs: Object.keys(WHAT_IS.slab).length,
+    }, "Nothing written yet. The built-in list covers {{processes, number}} processes and "
+      + "{{slabs, number}} slab caches; anything on this machine it does not know about shows "
+      + "its name with no mark beside it, which is how to find the ones worth writing down.")));
     return;
   }
 

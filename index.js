@@ -26445,13 +26445,13 @@ function renderEventList(data) {
         if (!Number(row.priority)) return "";
         const span = document.createElement("span");
         span.className = "band-warn small";
-        span.textContent = "important";
-        span.title = "Appears on the dashboard and in the alert emails as it approaches.";
+        span.textContent = ZogographI18n.t("calendar.important", {}, "important");
+        span.title = ZogographI18n.t("calendar.important_help", {}, "Appears on the dashboard and in the alert emails as it approaches.");
         return span;
       },
     },
     {
-      label: "Dealt with",
+      label: ZogographI18n.t("calendar.dealt_with", {}, "Dealt with"),
       render: row => (row.resolved_at ? humanTime(row.resolved_at).split(",")[0] : "\u2014"),
     },
     { label: "Note", className: "cmd", render: row => row.note || "" },

@@ -1743,8 +1743,6 @@
   "email.enabled_help": "Nothing is sent while this is off, however bad things get.",
   "email.send_to_placeholder": "you@example.com; oncall@example.com",
   "email.send_to_help": "Several addresses, separated by semicolons. Each gets its own message rather than one with everybody in the To — a single send fails as a unit, so one bad mailbox would mean nobody hears.",
-  "email.bad_recipients": "{{count, number}} in that list will never receive anything: {{addresses}}.",
-  "email.recipients_count": "{{count, number}} will be told.",
   "email.send_from_placeholder": "monitor@example.com",
   "email.send_from_help": "Optional. Some hosts reject mail with no From header; others rewrite it whatever you put here.",
   "email.dashboard_address_placeholder": "https://stats.example.com",

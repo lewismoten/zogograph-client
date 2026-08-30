@@ -1669,8 +1669,6 @@
   "email.enabled_help": "यह बंद रहने पर, समस्याएँ कितनी भी खराब हों, कुछ नहीं भेजा जाता।",
   "email.send_to_placeholder": "you@example.com; oncall@example.com",
   "email.send_to_help": "सेमीकोलन से अलग कई पते। हर एक को अपना संदेश मिलता है; एक भेजना एक इकाई के रूप में विफल होता है, इसलिए एक खराब मेलबॉक्स का अर्थ होगा कि किसी को नहीं सुनाई देगा।",
-  "email.bad_recipients": "उस सूची के {{count, number}} को कभी कुछ नहीं मिलेगा: {{addresses}}।",
-  "email.recipients_count": "{{count, number}} को बताया जाएगा।",
   "email.send_from_placeholder": "monitor@example.com",
   "email.send_from_help": "वैकल्पिक। कुछ होस्ट From हेडर के बिना मेल अस्वीकार करते हैं; दूसरे आप यहाँ जो भी डालें उसे फिर से लिखते हैं।",
   "email.dashboard_address_placeholder": "https://stats.example.com",

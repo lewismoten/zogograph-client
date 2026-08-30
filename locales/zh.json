@@ -1655,8 +1655,6 @@
   "email.enabled_help": "关闭此选项时，无论问题多么严重都不会发送任何内容。",
   "email.send_to_placeholder": "you@example.com; oncall@example.com",
   "email.send_to_help": "多个地址以分号分隔。每个地址都会收到自己的邮件；一次发送会作为整体失败，因此一个坏邮箱会导致所有人都收不到通知。",
-  "email.bad_recipients": "该列表中的 {{count, number}} 个永远收不到任何内容：{{addresses}}。",
-  "email.recipients_count": "将通知 {{count, number}} 个地址。",
   "email.send_from_placeholder": "monitor@example.com",
   "email.send_from_help": "可选。有些主机会拒绝没有 From 标头的邮件；另一些则会重写您在此填写的任何内容。",
   "email.dashboard_address_placeholder": "https://stats.example.com",

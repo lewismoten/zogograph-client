@@ -1671,8 +1671,6 @@
   "email.enabled_help": "No se envía nada mientras esté desactivado, por graves que sean los problemas.",
   "email.send_to_placeholder": "usted@ejemplo.com; guardia@ejemplo.com",
   "email.send_to_help": "Varias direcciones separadas por punto y coma. Cada una recibe su propio mensaje; un envío con todas falla como unidad, así que un buzón malo impediría que todos reciban avisos.",
-  "email.bad_recipients": "{{count, number}} de esa lista nunca recibirán nada: {{addresses}}.",
-  "email.recipients_count": "Se avisará a {{count, number}}.",
   "email.send_from_placeholder": "monitor@ejemplo.com",
   "email.send_from_help": "Opcional. Algunos alojamientos rechazan correo sin cabecera From; otros la reescriben sin importar lo que ponga aquí.",
   "email.dashboard_address_placeholder": "https://stats.ejemplo.com",

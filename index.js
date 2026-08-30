@@ -39922,30 +39922,14 @@ function renderEmail(data) {
     ),
   );
 
-  if (data.bad_recipients?.length) {
-    form.appendChild(
-      note(
-        ZogographI18n.t(
-          'email.bad_recipients',
-          {
-            count: data.bad_recipients.length,
-            addresses: data.bad_recipients.join(', '),
-          },
-          '{{count, number}} in that list will never receive anything: {{addresses}}.',
-        ),
-      ),
-    );
-  } else if (data.recipients?.length > 1) {
-    form.appendChild(
-      note(
-        ZogographI18n.t(
-          'email.recipients_count',
-          { count: data.recipients.length },
-          '{{count, number}} will be told.',
-        ),
-      ),
-    );
-  }
+  form.appendChild(
+    renderCoreCardPackage(
+      ZogographEmailRecipientStatusCard,
+      'core-email-recipient-status',
+      data,
+      { note, i18n: ZogographI18n },
+    ),
+  );
 
   form.appendChild(
     fieldRow(

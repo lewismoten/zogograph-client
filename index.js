@@ -9786,11 +9786,11 @@ function renderChat() {
 
   if (!session?.exists) {
     log.replaceChildren(
-      note(
-        `Describe what is going wrong and ${chatState.who.name} will look into it. ` +
-          'It can read ' +
-          "this machine's measurements and logs, and can take you to the page that shows " +
-          'what it found.',
+      renderCoreCardPackage(
+        ZogographChatEmptyCard,
+        'core-chat-empty',
+        { assistant: chatState.who.name },
+        { note, i18n: ZogographI18n },
       ),
     );
     $('chatStatus').textContent = '';

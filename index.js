@@ -18632,9 +18632,11 @@ function renderRetention(data) {
      */
     if (entry.never_recommended) {
       suggested.className = 'band-ok';
-      suggested.title =
-        'Keeping this for ever is the recommendation, not an oversight. ' +
-        entry.why;
+      suggested.title = ZogographI18n.t(
+        'storage.retention_forever_recommended_help',
+        { why: entry.why },
+        'Keeping this for ever is the recommendation, not an oversight. {{why}}',
+      );
     }
     if (entry.days !== entry.recommended) {
       suggested.textContent +=
@@ -18651,16 +18653,31 @@ function renderRetention(data) {
     if (entry.projected !== null) {
       settles.textContent = humanBytes(entry.projected);
       settles.title = entry.at_rest
-        ? 'Already holding its full window, so this is roughly what it is now.'
-        : 'Not full yet. This is what it grows to once it has been collecting long enough.';
+        ? ZogographI18n.t(
+            'storage.retention_settled_now',
+            {},
+            'Already holding its full window, so this is roughly what it is now.',
+          )
+        : ZogographI18n.t(
+            'storage.retention_grows_to',
+            {},
+            'Not full yet. This is what it grows to once it has been collecting long enough.',
+          );
       if (!entry.at_rest) settles.className = 'size grew';
     } else if (entry.per_year) {
       settles.textContent = `+${humanBytes(entry.per_year)}/yr`;
-      settles.title =
-        'Kept for ever, so it does not settle. This is what a year of it costs.';
+      settles.title = ZogographI18n.t(
+        'storage.retention_forever_growth',
+        {},
+        'Kept for ever, so it does not settle. This is what a year of it costs.',
+      );
     } else {
       settles.textContent = '—';
-      settles.title = 'Not enough history yet to measure a rate.';
+      settles.title = ZogographI18n.t(
+        'storage.retention_no_history',
+        {},
+        'Not enough history yet to measure a rate.',
+      );
     }
 
     const clear = row.insertCell();
@@ -18673,10 +18690,19 @@ function renderRetention(data) {
   const total = document.createElement('p');
   total.className = 'muted small';
   total.textContent = account.projected_known
-    ? `Left as it is, the database settles near ${humanBytes(account.projected_total)}.`
-    : `Left as it is, the database settles near ${humanBytes(account.projected_total)} ` +
-      `plus about ${humanBytes(account.growth_per_year)} a year from the things set to be ` +
-      'kept for ever.';
+    ? ZogographI18n.t(
+        'storage.retention_total_settles',
+        { amount: humanBytes(account.projected_total) },
+        'Left as it is, the database settles near {{amount}}.',
+      )
+    : ZogographI18n.t(
+        'storage.retention_total_grows',
+        {
+          amount: humanBytes(account.projected_total),
+          growth: humanBytes(account.growth_per_year),
+        },
+        'Left as it is, the database settles near {{amount}} plus about {{growth}} a year from the things set to be kept for ever.',
+      );
   parts.push(total);
 
   const actions = document.createElement('div');

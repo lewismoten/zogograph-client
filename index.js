@@ -37098,7 +37098,9 @@ function renderUpcoming(data) {
     list.appendChild(row);
   }
 
-  holder.replaceChildren(section('Next', list));
+  holder.replaceChildren(
+    section(ZogographI18n.t('calendar.next', {}, 'Next'), list),
+  );
 }
 
 /*

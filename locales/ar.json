@@ -80,6 +80,7 @@
   "calendar.tomorrow": "غدًا",
   "calendar.in_days": "خلال {{count, number}} أيام",
   "calendar.no_tracked_events": "لا يوجد شيء محفوظ بعد. تجديدات وفواتير وشراء شهادات — أي شيء له تاريخ لا يمكن لهذا الجهاز معرفته بنفسه.",
+  "calendar.next": "التالي",
   "calendar.important": "مهم",
   "calendar.important_help": "يظهر في لوحة المعلومات ورسائل التنبيه الإلكترونية مع اقترابه.",
   "calendar.dealt_with": "تمت معالجته",

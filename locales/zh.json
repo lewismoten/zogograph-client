@@ -80,6 +80,7 @@
   "calendar.tomorrow": "明天",
   "calendar.in_days": "{{count, number}} 天后",
   "calendar.no_tracked_events": "尚未保存任何内容。续订、发票、证书购买——任何带有日期但这台机器无法自行推断的事项。",
+  "calendar.next": "下一步",
   "calendar.important": "重要",
   "calendar.important_help": "随着日期临近，它会显示在仪表板和警报电子邮件中。",
   "calendar.dealt_with": "已处理",

@@ -80,6 +80,7 @@
   "calendar.tomorrow": "tomorrow",
   "calendar.in_days": "in {{count, number}} days",
   "calendar.no_tracked_events": "Nothing kept yet. Renewals, invoices, certificate purchases — anything with a date that this machine could not work out for itself.",
+  "calendar.next": "Next",
   "calendar.important": "important",
   "calendar.important_help": "Appears on the dashboard and in the alert emails as it approaches.",
   "calendar.dealt_with": "Dealt with",

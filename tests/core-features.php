@@ -344,6 +344,7 @@ try {
 requireCoreFeatureAccess($legacy, 'ai-start');
 $api = file_get_contents(__DIR__ . '/../api.php');
 $dashboard = file_get_contents(__DIR__ . '/../index.js');
+$onboardingCard = file_get_contents(__DIR__ . '/../cards/onboarding.js');
 coreFeatureExpect(
     is_string($api) &&
         str_contains($api, "requireCoreFeatureAccess(\$config, \$action)") &&
@@ -370,12 +371,13 @@ coreFeatureExpect(
 coreFeatureExpect(
     is_string($dashboardPage) &&
         is_string($dashboard) &&
+        is_string($onboardingCard) &&
         !str_contains($dashboardPage, 'data-view="scans-account"') &&
         !str_contains($dashboardPage, 'data-view="scans-host"') &&
         !str_contains($dashboardPage, 'data-view="schedule"') &&
         !str_contains($dashboard, '"scans-account":') &&
         !str_contains($dashboard, '"scans-host":') &&
-        str_contains($dashboard, './setup.php?section=schedule'),
+        str_contains($onboardingCard, './setup.php?section=schedule'),
     'legacy dashboard scheduling remains reachable instead of using protected Setup',
 );
 coreFeatureExpect(

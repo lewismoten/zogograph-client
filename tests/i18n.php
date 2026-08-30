@@ -66,6 +66,9 @@ $hostMemoryCard = i18nCardSource(
     file_get_contents($root . '/cards/host-memory.js'),
 );
 $uptimeCard = i18nCardSource(file_get_contents($root . '/cards/uptime.js'));
+$onboardingCard = i18nCardSource(
+    file_get_contents($root . '/cards/onboarding.js'),
+);
 $setup = file_get_contents($root . '/setup.php');
 $setupRaw = $setup;
 if ($setup !== false) {
@@ -797,10 +800,10 @@ i18nExpect(
     'shared dashboard table controls or chart-note labels do not use the locale catalog',
 );
 i18nExpect(
-    $script !== false &&
-        str_contains($script, 'ZogographI18n.t("onboarding.intro"') &&
-        str_contains($script, 'ZogographI18n.t("onboarding.vitals_missing"') &&
-        str_contains($script, 'ZogographI18n.t("onboarding.scan_ready"') &&
+    $onboardingCard !== false &&
+        str_contains($onboardingCard, 'core-onboarding.intro') &&
+        str_contains($onboardingCard, 'core-onboarding.vitals_missing') &&
+        str_contains($onboardingCard, 'core-onboarding.scan_ready') &&
         is_array($english) &&
         isset(
             $english['onboarding.intro'],

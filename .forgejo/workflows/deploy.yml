@@ -16,6 +16,13 @@ jobs:
   build:
     name: Test & Build
     runs-on: zogograph-ci
+    # Forgejo Runner v13 requires credentials to be declared explicitly for
+    # private job images; the runner pulls this image before any step runs.
+    container:
+      image: git.lewismoten.com/zogograph/runner-image:latest
+      credentials:
+        username: ${{ secrets.REGISTRY_USER }}
+        password: ${{ secrets.REGISTRY_TOKEN }}
     timeout-minutes: 1
 
     env:
@@ -101,6 +108,11 @@ jobs:
   deploy:
     name: Deploy to ${{ matrix.deploy_url }}
     runs-on: zogograph-ci
+    container:
+      image: git.lewismoten.com/zogograph/runner-image:latest
+      credentials:
+        username: ${{ secrets.REGISTRY_USER }}
+        password: ${{ secrets.REGISTRY_TOKEN }}
     # Prevent a stalled network operation from monopolizing a runner.
     timeout-minutes: 2
     needs: build

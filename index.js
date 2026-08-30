@@ -40917,38 +40917,81 @@ function showLogLine(row, index, rows) {
    * been corrected - all real, and ago() renders every one of them as a dash.
    */
   facts.push([
-    'When',
+    ZogographI18n.t('log.detail_when', {}, 'When'),
     row.at
       ? `${humanTime(row.at)} (${humanWhen(row.at - Math.floor(Date.now() / 1000))})`
-      : 'not stated on the line — placed by when the file was last written',
+      : ZogographI18n.t(
+          'log.detail_timestamp_missing',
+          {},
+          'not stated on the line — placed by when the file was last written',
+        ),
   ]);
-  facts.push(['From', row.path || row.label]);
-  if (row.n) facts.push(['Line', String(row.n)]);
+  facts.push([
+    ZogographI18n.t('log.detail_from', {}, 'From'),
+    row.path || row.label,
+  ]);
+  if (row.n)
+    facts.push([ZogographI18n.t('log.detail_line', {}, 'Line'), String(row.n)]);
   if (parsed.kind) {
     const [icon, meaning] = LOG_MARKS[parsed.kind] || ['', ''];
-    facts.push(['Level', `${icon} ${meaning}`]);
+    facts.push([
+      ZogographI18n.t('log.detail_level', {}, 'Level'),
+      `${icon} ${meaning}`,
+    ]);
   }
-  if (parsed.where) facts.push(['Written by', parsed.where]);
-  if (parsed.file) facts.push(['In', `${parsed.file}, line ${parsed.line}`]);
+  if (parsed.where)
+    facts.push([
+      ZogographI18n.t('log.detail_written_by', {}, 'Written by'),
+      parsed.where,
+    ]);
+  if (parsed.file)
+    facts.push([
+      ZogographI18n.t('log.detail_in', {}, 'In'),
+      ZogographI18n.t(
+        'log.detail_file_line',
+        { file: parsed.file, line: parsed.line },
+        '{{file}}, line {{line, number}}',
+      ),
+    ]);
 
-  nodes.push(section('What it is', factGrid(facts)));
+  nodes.push(
+    section(
+      ZogographI18n.t('log.detail_what_it_is', {}, 'What it is'),
+      factGrid(facts),
+    ),
+  );
 
   const message = document.createElement('pre');
   message.className = 'paste log-message';
   message.textContent = parsed.message || row.text;
-  nodes.push(section('What it says', message));
+  nodes.push(
+    section(
+      ZogographI18n.t('log.detail_what_it_says', {}, 'What it says'),
+      message,
+    ),
+  );
 
   if (row.trace?.length) {
     const trace = document.createElement('pre');
     trace.className = 'paste log-trace';
     trace.textContent = row.trace.join('\n');
     nodes.push(
-      section(`Stack trace (${count(row.trace.length, 'line')})`, trace),
+      section(
+        ZogographI18n.t(
+          'log.detail_stack_trace',
+          { count: row.trace.length },
+          'Stack trace ({{count, number}} lines)',
+        ),
+        trace,
+      ),
     );
     nodes.push(
       note(
-        'Read from the top: the first frame is where it failed, and each one below is what ' +
-          'called it. The bottom is usually where the request came in.',
+        ZogographI18n.t(
+          'log.detail_trace_help',
+          {},
+          'Read from the top: the first frame is where it failed, and each one below is what called it. The bottom is usually where the request came in.',
+        ),
       ),
     );
   }
@@ -40963,7 +41006,12 @@ function showLogLine(row, index, rows) {
   const raw = document.createElement('pre');
   raw.className = 'paste log-raw';
   raw.textContent = row.text;
-  nodes.push(section('As it was written', raw));
+  nodes.push(
+    section(
+      ZogographI18n.t('log.detail_as_written', {}, 'As it was written'),
+      raw,
+    ),
+  );
 
   const tools = document.createElement('div');
   tools.className = 'inspect-actions';
@@ -41015,8 +41063,8 @@ function showLogLine(row, index, rows) {
 
   // Stepping between entries without closing and re-opening.
   for (const [text, step] of [
-    ['‹ Newer', -1],
-    ['Older ›', 1],
+    [ZogographI18n.t('log.newer_button', {}, '‹ Newer'), -1],
+    [ZogographI18n.t('log.older_button', {}, 'Older ›'), 1],
   ]) {
     const button = document.createElement('button');
     button.className = 'link';
@@ -41033,9 +41081,13 @@ function showLogLine(row, index, rows) {
   showListDialog(
     parsed.kind
       ? `${(LOG_MARKS[parsed.kind] || [])[0] ?? ''} ${parsed.where || parsed.kind}`
-      : 'A log line',
+      : ZogographI18n.t('log.detail_title', {}, 'A log line'),
     nodes,
-    `${row.label} · entry ${index + 1} of ${rows.length}`,
+    ZogographI18n.t(
+      'log.detail_entry_of',
+      { label: row.label, current: index + 1, total: rows.length },
+      '{{label}} · entry {{current, number}} of {{total, number}}',
+    ),
   );
 }
 

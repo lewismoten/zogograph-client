@@ -50,7 +50,7 @@
       "locales/hi.json": "e5dcad07e9eee1dffd89513a9183ec3d872fffa4710c04dcb9e90929a8dd0eae",
       "locales/zh.json": "db7be95f488d383e95d024c99e2306de8c63a0ebf488599bacc473fc4f57f59c",
       "settings.schema.json": "24826d3bd3ae7437affe957ec4d851302f7f1c9ce32221557207834265d6760c",
-      "src/KeyCustodyProvider.php": "b8f2eab2c52c76db4d4961967374b51f29b025630f87ef5b07a60a38634a878c",
+      "src/KeyCustodyProvider.php": "f7de558b36242ba2d7a8c59bc2f77028afcdc06c248c9226a5a2d8ef85ddd58d",
       "src/KeyCustodyHttpClient.php": "bfd7e7af78816ddc13508baca3aeffdcc5a4dea20fff4c3702d37171019c2195"
     }
   },

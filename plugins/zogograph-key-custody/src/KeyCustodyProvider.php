@@ -46,6 +46,7 @@ final class KeyCustodyProvider
         string $clientSigningKey,
         ?string $tlsSpkiPin = null,
     ): array {
+        // prettier-ignore
         $client = new KeyCustodyHttpClient(
             $serviceBaseUrl,
             $clientCredential,
@@ -88,12 +89,14 @@ final class KeyCustodyProvider
                 'custody envelope storage input is invalid',
             );
         }
+        // prettier-ignore
         $client = new KeyCustodyHttpClient(
             $serviceBaseUrl,
             $clientCredential,
             $clientSigningKey,
             $tlsSpkiPin
         );
+        // prettier-ignore
         $envelope = KeyCustodyHttpClient::sealDataKey(
             $dataKey,
             $client->wrappingPublicKey($keyId)
@@ -128,6 +131,7 @@ final class KeyCustodyProvider
                 'custody recovery input is invalid',
             );
         }
+        // prettier-ignore
         $client = new KeyCustodyHttpClient(
             $serviceBaseUrl,
             $clientCredential,

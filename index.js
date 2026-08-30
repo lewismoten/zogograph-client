@@ -13974,9 +13974,9 @@ function terminalCopyRow() {
   row.className = "term-copy";
 
   const copies = [
-    ["Copy the last output", () => (termState.buffer.at(-1)?.text ?? "")],
-    ["Copy everything", () => termState.buffer.map(entryAsText).join("\n")],
-    ["Copy just the commands", () => termState.buffer.map(e => e.command).join("\n")],
+    [ZogographI18n.t("terminal.copy_last_output", {}, "Copy the last output"), () => (termState.buffer.at(-1)?.text ?? "")],
+    [ZogographI18n.t("terminal.copy_everything", {}, "Copy everything"), () => termState.buffer.map(entryAsText).join("\n")],
+    [ZogographI18n.t("terminal.copy_commands", {}, "Copy just the commands"), () => termState.buffer.map(e => e.command).join("\n")],
   ];
 
   for (const [label, take] of copies) {
@@ -13987,16 +13987,16 @@ function terminalCopyRow() {
     button.addEventListener("click", async () => {
       const text = take();
       if (!text.trim()) {
-        notice("There is nothing to copy yet.");
+        notice(ZogographI18n.t("terminal.copy_nothing", {}, "There is nothing to copy yet."));
         return;
       }
       try {
         await navigator.clipboard.writeText(text);
-        notice(`Copied ${humanBytes(text.length)}.`, true);
+        notice(ZogographI18n.t("terminal.copy_done", { amount: humanBytes(text.length) }, "Copied {{amount}}."), true);
       } catch {
         // Refused by the browser, usually because the page is not on https.
         // Falling back to selecting it is worse than saying so.
-        notice("This browser would not let the page write to the clipboard.");
+        notice(ZogographI18n.t("terminal.copy_refused", {}, "This browser would not let the page write to the clipboard."));
       }
     });
     row.appendChild(button);

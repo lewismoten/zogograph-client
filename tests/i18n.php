@@ -224,6 +224,13 @@ i18nExpect(
 );
 i18nExpect(
     !isset(
+        $english['ai.test_connection'],
+        $english['ai.test_connection_title'],
+    ),
+    'connection-test controls belong to their card package',
+);
+i18nExpect(
+    !isset(
         $english['storage.not_measured_yet'],
         $english['storage.watched_category'],
         $english['storage.types_categories_help'],

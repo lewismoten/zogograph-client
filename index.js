@@ -22490,17 +22490,29 @@ function openDisplayPreferences() {
       fieldRow(
         ZogographI18n.t('display.motion', {}, 'Motion'),
         motion,
-        'Reduce motion disables decorative animation and transitions in this browser.',
+        ZogographI18n.t(
+          'display.motion_help',
+          {},
+          'Reduce motion disables decorative animation and transitions in this browser.',
+        ),
       ),
       fieldRow(
         ZogographI18n.t('display.editor_typeface', {}, 'Editor typeface'),
         editorFont,
-        'Changes only local code, diff, and syntax readers. No file content leaves this browser.',
+        ZogographI18n.t(
+          'display.editor_typeface_help',
+          {},
+          'Changes only local code, diff, and syntax readers. No file content leaves this browser.',
+        ),
       ),
       fieldRow(
         ZogographI18n.t('display.colour_vision', {}, 'Colour vision'),
         colorVision,
-        'High distinction uses a blue, orange, and violet status palette. Status words and symbols remain visible in every mode.',
+        ZogographI18n.t(
+          'display.colour_vision_help',
+          {},
+          'High distinction uses a blue, orange, and violet status palette. Status words and symbols remain visible in every mode.',
+        ),
       ),
       section(
         ZogographI18n.t('display.voice_section', {}, 'Voice'),
@@ -22509,12 +22521,20 @@ function openDisplayPreferences() {
       fieldRow(
         ZogographI18n.t('display.speaking', {}, 'Speaking'),
         speaking,
-        'Browser speech synthesis; replies are read aloud only when enabled.',
+        ZogographI18n.t(
+          'display.speaking_help',
+          {},
+          'Browser speech synthesis; replies are read aloud only when enabled.',
+        ),
       ),
       fieldRow(
         ZogographI18n.t('display.voice', {}, 'Voice'),
         voice,
-        'Available voices come from this browser and device.',
+        ZogographI18n.t(
+          'display.voice_help',
+          {},
+          'Available voices come from this browser and device.',
+        ),
       ),
       fieldRow(
         ZogographI18n.t('display.voice_speed', {}, 'Speed'),
@@ -22535,7 +22555,11 @@ function openDisplayPreferences() {
       fieldRow(
         ZogographI18n.t('display.listening', {}, 'Listening'),
         listening,
-        'After applying, click Start listening to grant microphone permission. Push to talk requires holding the Listen button; Always on restarts recognition until stopped.',
+        ZogographI18n.t(
+          'display.listening_help',
+          {},
+          'After applying, click Start listening to grant microphone permission. Push to talk requires holding the Listen button; Always on restarts recognition until stopped.',
+        ),
       ),
     ],
     async () => {

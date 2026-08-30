@@ -36358,9 +36358,21 @@ function renderUrlHistory(data) {
   $('urlHistoryTitle').textContent = check.label;
   $('urlHistorySummary').textContent =
     history.checks === 0
-      ? 'Nothing recorded in this range yet.'
-      : `${humanCount(history.checks)} checks \u00b7 ${history.uptime_percent}% as expected ` +
-        `\u00b7 ${history.average_ms} ms typical, ${history.slowest_ms} ms slowest`;
+      ? ZogographI18n.t(
+          'url.nothing_recorded_range',
+          {},
+          'Nothing recorded in this range yet.',
+        )
+      : ZogographI18n.t(
+          'url.history_summary',
+          {
+            checks: humanCount(history.checks),
+            uptime: history.uptime_percent,
+            average: history.average_ms,
+            slowest: history.slowest_ms,
+          },
+          '{{checks}} checks · {{uptime}}% as expected · {{average}} ms typical, {{slowest}} ms slowest',
+        );
 
   /*
    * Response time and status on one chart, with failures marked.

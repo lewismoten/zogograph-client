@@ -152,6 +152,8 @@
   "url.extracted_value": "valor extraído",
   "url.nothing_extracted": "Aún no se ha extraído nada",
   "url.value_note": "Se obtuvo de la respuesta mediante la regla {{rule}}. Esta es la comprobación que detecta una página que devuelve 200 con contenido incorrecto, algo que nada más aquí puede ver.",
+  "url.nothing_recorded_range": "Aún no hay nada registrado en este intervalo.",
+  "url.history_summary": "{{checks}} comprobaciones · {{uptime}} % según lo esperado · {{average}} ms habitual, {{slowest}} ms el más lento",
   "url.status_label": "Estado",
   "url.no_answer": "sin respuesta",
   "url.took": "Tardó",

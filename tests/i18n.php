@@ -2787,6 +2787,12 @@ $translatedSecurityMessages = [
     'diagnosis.reading_everything',
     'host.collector_loading',
 ];
+i18nExpect(
+    $script !== false &&
+        !str_contains($script, "spinner('") &&
+        !str_contains($script, 'spinner("'),
+    'visible loading messages must use i18n keys rather than literal spinner text',
+);
 $translatedEncryptionRecoveryActions = [
     'encryption.create_verified_copies',
     'encryption.run_recovery_drill',

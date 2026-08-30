@@ -30368,7 +30368,11 @@ function alertEmailed(row, interactive = state.signedIn) {
       const open = document.createElement('button');
       open.className = 'link';
       open.textContent = ZogographI18n.t('alerts.yes', {}, 'yes');
-      open.title = `Sent ${whenTitle(row.emailed_at)}. Click to read it.`;
+      open.title = ZogographI18n.t(
+        'alerts.sent_open_title',
+        { when: whenTitle(row.emailed_at) },
+        'Sent {{when}}. Click to read it.',
+      );
       open.addEventListener('click', () => showAlertEmail(row));
       return open;
     }
@@ -30376,9 +30380,11 @@ function alertEmailed(row, interactive = state.signedIn) {
     const span = document.createElement('span');
     span.textContent = ZogographI18n.t('alerts.yes', {}, 'yes');
     span.className = 'when';
-    span.title =
-      `Sent ${whenTitle(row.emailed_at)}. ` +
-      'This one went out before messages were kept, so there is nothing to open.';
+    span.title = ZogographI18n.t(
+      'alerts.sent_legacy_title',
+      { when: whenTitle(row.emailed_at) },
+      'Sent {{when}}. This one went out before messages were kept, so there is nothing to open.',
+    );
     return span;
   }
 
@@ -30387,8 +30393,11 @@ function alertEmailed(row, interactive = state.signedIn) {
     const muted = document.createElement('button');
     muted.className = 'link small';
     muted.textContent = ZogographI18n.t('alerts.muted', {}, 'muted');
-    muted.title =
-      'Delivery was held by a temporary operator mute. Click for details.';
+    muted.title = ZogographI18n.t(
+      'alerts.muted_title',
+      {},
+      'Delivery was held by a temporary operator mute. Click for details.',
+    );
     muted.addEventListener('click', () => showAlertMuteReason(row));
     wrap.appendChild(muted);
     return wrap;

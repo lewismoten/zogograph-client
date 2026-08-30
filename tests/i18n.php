@@ -1430,6 +1430,9 @@ i18nExpect(
             $english['ai.try_not_reported'],
             $english['ai.try_result'],
             $english['ai.try_result_help'],
+            $english['alerts.sent_open_title'],
+            $english['alerts.sent_legacy_title'],
+            $english['alerts.muted_title'],
         ),
     'English fallback catalog is incomplete',
 );
@@ -1591,6 +1594,13 @@ i18nExpect(
         str_contains($script, 'ai.try_server_timing') &&
         str_contains($script, 'ai.try_result_help'),
     'AI tool test panel retains direct user-visible text',
+);
+i18nExpect(
+    $script !== false &&
+        str_contains($script, 'alerts.sent_open_title') &&
+        str_contains($script, 'alerts.sent_legacy_title') &&
+        str_contains($script, 'alerts.muted_title'),
+    'alert delivery row retains direct user-visible text',
 );
 i18nExpect(
     str_contains($runtime, 'data-i18n-rich') &&

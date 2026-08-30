@@ -14451,13 +14451,17 @@ function showPathHygieneRename(row) {
   const feedback = document.createElement('div');
   feedback.className = 'small';
   const rowField = fieldRow(
-    'New name',
+    ZogographI18n.t('path_hygiene.new_name', {}, 'New name'),
     name,
-    `Current: ${visiblePathName(row.path)}`,
+    ZogographI18n.t(
+      'path_hygiene.current_name',
+      { name: visiblePathName(row.path) },
+      'Current: {{name}}',
+    ),
   );
   rowField.lastElementChild.appendChild(feedback);
   showFormDialog(
-    'Rename path',
+    ZogographI18n.t('path_hygiene.rename_path', {}, 'Rename path'),
     [rowField],
     async () => {
       const result = await post('path-hygiene-rename', {
@@ -14466,9 +14470,16 @@ function showPathHygieneRename(row) {
       });
       $('noteDialog').close();
       renderPathHygiene({ enabled: true, last: result.last, can_change: true });
-      notice(`Renamed to ${result.result.to}.`, true);
+      notice(
+        ZogographI18n.t(
+          'path_hygiene.renamed_to',
+          { path: result.result.to },
+          'Renamed to {{path}}.',
+        ),
+        true,
+      );
     },
-    'Rename',
+    ZogographI18n.t('action.rename', {}, 'Rename'),
   );
   const button = $('noteForm').querySelector('button[type=submit]');
   const validate = () => {

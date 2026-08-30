@@ -30,6 +30,11 @@ foreach ($cardFiles as $cardFile) {
         isset($cardId[1]) && str_contains($cardSource, "'" . $cardId[1] . '.'),
         basename($cardFile) . ' must expose a package-owned locale key',
     );
+    i18nExpect(
+        isset($cardId[1]) &&
+            str_contains($cardSource, "locales: ['" . $cardId[1] . ".']"),
+        basename($cardFile) . ' must declare its own locale namespace',
+    );
 }
 $root = dirname(__DIR__);
 $runtime = file_get_contents($root . '/i18n.js');

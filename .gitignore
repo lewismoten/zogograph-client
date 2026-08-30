@@ -7,4 +7,5 @@ data/*
 dist/
 .release/
 .DS_Store
-scratch/*
+scratch/
+node_modules/

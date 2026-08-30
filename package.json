@@ -1,12 +1,42 @@
 {
-  "name": "zogograph-client",
+  "name": "@zogograph/client",
   "version": "0.1.0",
   "private": true,
   "description": "Zogograph self-hosted client and host-observation dashboard.",
+  "keywords": [
+    "metrics"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://git.lewismoten.com/zogograph/client.git"
+  },
+  "license": "UNLICENSED",
+  "author": "Lewis Moten",
+  "type": "module",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "tests"
+  },
   "scripts": {
     "build": "sh build.sh",
     "test": "sh test.sh",
     "start": "php -S 127.0.0.1:4173",
-    "smoke": "php health.php >/dev/null"
+    "smoke": "php health.php >/dev/null",
+    "lint:check": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format:fix": "prettier --write \"**/*.{php,js,css,json,yml,yaml,md}\"",
+    "format:check": "prettier --check \"**/*.{php,js,css,json,yml,yaml,md}\"",
+    "format:diff": "./format-diff.sh",
+    "check": "npm run lint:check && npm run format:check",
+    "fix": "npm run lint:fix && npm run format:fix"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@prettier/plugin-php": "^0.25.0",
+    "eslint": "^10.9.1",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^17.11.0",
+    "prettier": "^3.9.6"
   }
 }

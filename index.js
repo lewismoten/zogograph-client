@@ -16508,12 +16508,20 @@ function renderEncryptionStatus(data) {
   } else if (data.mode === 'sealed_copies_local') {
     parts.push(
       note(
-        'Verified encrypted copies protect backup artifacts, not the running SQLite database. Run `php cron.php --seal` and then `php cron.php --recovery-drill` from the server after setup. The drill decrypts and validates current copies without touching live data; schedule seals separately. Recovery requires the private key outside the web root and an explicit CLI restore.',
+        ZogographI18n.t(
+          'encryption.sealed_copies_notice',
+          {},
+          'Verified encrypted copies protect backup artifacts, not the running SQLite database. Run `php cron.php --seal` and then `php cron.php --recovery-drill` from the server after setup. The drill decrypts and validates current copies without touching live data; schedule seals separately. Recovery requires the private key outside the web root and an explicit CLI restore.',
+        ),
       ),
     );
     parts.push(
       note(
-        'Bootstrap configuration recovery is deliberately CLI-only: `scripts/restore-config.php` authenticates and parses the sealed PHP without executing it, atomically replaces `lib/config.php`, and leaves the prior configuration as a sealed rollback artifact. Test the recovered settings before deleting that artifact.',
+        ZogographI18n.t(
+          'encryption.bootstrap_recovery_notice',
+          {},
+          'Bootstrap configuration recovery is deliberately CLI-only: `scripts/restore-config.php` authenticates and parses the sealed PHP without executing it, atomically replaces `lib/config.php`, and leaves the prior configuration as a sealed rollback artifact. Test the recovered settings before deleting that artifact.',
+        ),
       ),
     );
     parts.push(
@@ -16528,7 +16536,11 @@ function renderEncryptionStatus(data) {
     if (superseded)
       parts.push(
         note(
-          'Superseded copies remain encrypted with an earlier local key after rotation. Keep that key until you have completed a replacement-key recovery drill; they are not deleted automatically.',
+          ZogographI18n.t(
+            'encryption.superseded_copies_notice',
+            {},
+            'Superseded copies remain encrypted with an earlier local key after rotation. Keep that key until you have completed a replacement-key recovery drill; they are not deleted automatically.',
+          ),
         ),
       );
     if (data.can_change) {

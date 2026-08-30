@@ -2893,6 +2893,8 @@
   "dialog.this_page": "Esta página",
   "dialog.view_help": "Ayuda de {{view}}",
   "host_request.where_it_will_appear": "Dónde aparecerá: {{view}}",
+  "host_request.asked_with_cadence": "Se solicitó {{time}}. El recolector se ejecuta aproximadamente cada {{cadence}}.",
+  "host_request.asked_unknown_cadence": "Se solicitó {{time}}. Aún no se conoce la programación del recolector.",
   "dialog.are_you_sure": "¿Está seguro?",
   "action.cancel": "Cancelar",
   "action.yes": "Sí",

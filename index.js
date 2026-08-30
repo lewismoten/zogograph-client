@@ -46122,11 +46122,18 @@ function showPendingDialog() {
 
     const when = document.createElement('div');
     when.className = 'muted small';
-    when.textContent =
-      `Asked ${ago(row.requested_at)}.` +
-      (hostClock.lastAt && hostClock.interval
-        ? ` The collector runs about every ${humanDuration(hostClock.interval)}.`
-        : " The collector's schedule is not known yet.");
+    when.textContent = ZogographI18n.t(
+      hostClock.lastAt && hostClock.interval
+        ? 'host_request.asked_with_cadence'
+        : 'host_request.asked_unknown_cadence',
+      {
+        time: ago(row.requested_at),
+        cadence: humanDuration(hostClock.interval),
+      },
+      hostClock.lastAt && hostClock.interval
+        ? `Asked ${ago(row.requested_at)}. The collector runs about every ${humanDuration(hostClock.interval)}.`
+        : `Asked ${ago(row.requested_at)}. The collector's schedule is not known yet.`,
+    );
     item.appendChild(when);
 
     const actions = document.createElement('div');

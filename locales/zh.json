@@ -2875,6 +2875,8 @@
   "dialog.this_page": "此页面",
   "dialog.view_help": "{{view}} 帮助",
   "host_request.where_it_will_appear": "将在此处显示：{{view}}",
+  "host_request.asked_with_cadence": "请求于 {{time}} 提出。收集器大约每 {{cadence}} 运行一次。",
+  "host_request.asked_unknown_cadence": "请求于 {{time}} 提出。尚不清楚收集器的计划。",
   "dialog.are_you_sure": "确定吗？",
   "action.cancel": "取消",
   "action.yes": "是",

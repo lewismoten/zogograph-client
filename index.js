@@ -23024,7 +23024,13 @@ async function tryBrowserTool(tool, args) {
 
     if (edited === null) {
       return {
-        result: { error: 'the user decided not to send a screenshot' },
+        result: {
+          error: ZogographI18n.t(
+            'ai.try_screenshot_declined',
+            {},
+            'The user decided not to send a screenshot.',
+          ),
+        },
         shown: note(
           ZogographI18n.t(
             'ai.preview_cancelled',
@@ -23039,10 +23045,11 @@ async function tryBrowserTool(tool, args) {
 
     const said = document.createElement('div');
     said.className = 'muted small';
-    said.textContent =
-      'This is the image exactly as it would be sent — cropped as you ' +
-      'chose, with the redactions painted in rather than drawn over. What is black ' +
-      'here is black in the file.';
+    said.textContent = ZogographI18n.t(
+      'ai.try_screenshot_preview',
+      {},
+      'This is the image exactly as it would be sent — cropped as you chose, with the redactions painted in rather than drawn over. What is black here is black in the file.',
+    );
     wrap.appendChild(said);
 
     const image = document.createElement('img');
@@ -23063,7 +23070,13 @@ async function tryBrowserTool(tool, args) {
     };
   }
 
-  throw new Error(`this page does not know how to try ${name}`);
+  throw new Error(
+    ZogographI18n.t(
+      'ai.try_unknown_tool',
+      { tool: name },
+      'This page does not know how to try {{tool}}.',
+    ),
+  );
 }
 
 /**

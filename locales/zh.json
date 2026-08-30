@@ -2132,6 +2132,7 @@
   "storage.inode_last_changed": "inode 最后更改",
   "storage.owner": "所有者",
   "storage.unknown": "未知",
+  "storage.permissions": "权限",
   "storage.directory": "目录",
   "storage.file": "文件",
   "storage.category": "类别",

@@ -2132,6 +2132,7 @@
   "storage.inode_last_changed": "آخر تغيير للعقدة",
   "storage.owner": "المالك",
   "storage.unknown": "غير معروف",
+  "storage.permissions": "الأذونات",
   "storage.directory": "مجلد",
   "storage.file": "ملف",
   "storage.category": "الفئة",

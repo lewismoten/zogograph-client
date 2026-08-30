@@ -2235,6 +2235,7 @@
   "storage.inode_last_changed": "Inode last changed",
   "storage.owner": "Owner",
   "storage.unknown": "unknown",
+  "storage.permissions": "Permissions",
   "storage.directory": "directory",
   "storage.file": "file",
   "storage.category": "Category",

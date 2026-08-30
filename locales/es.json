@@ -2150,6 +2150,7 @@
   "storage.inode_last_changed": "Último cambio de inodo",
   "storage.owner": "Propietario",
   "storage.unknown": "desconocido",
+  "storage.permissions": "Permisos",
   "storage.directory": "directorio",
   "storage.file": "archivo",
   "storage.category": "Categoría",

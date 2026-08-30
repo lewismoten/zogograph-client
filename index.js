@@ -33609,10 +33609,10 @@ function renderInspect(data) {
       f.owner ?? ZogographI18n.t('storage.unknown', {}, 'unknown'),
     ],
     [
-      'Permissions',
+      ZogographI18n.t('storage.permissions', {}, 'Permissions'),
       f.mode
         ? `${f.mode} \u2014 ${modeInWords(f.mode, data.kind === 'dir')}`
-        : 'unknown',
+        : ZogographI18n.t('storage.unknown', {}, 'unknown'),
     ],
   );
 

@@ -2146,6 +2146,7 @@
   "storage.inode_last_changed": "इनोड अंतिम बार बदला",
   "storage.owner": "स्वामी",
   "storage.unknown": "अज्ञात",
+  "storage.permissions": "अनुमतियाँ",
   "storage.directory": "डायरेक्टरी",
   "storage.file": "फ़ाइल",
   "storage.category": "श्रेणी",

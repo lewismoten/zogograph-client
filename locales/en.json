@@ -1760,7 +1760,6 @@
   "email.every_time": "every time",
   "email.as_recommended": "as recommended",
   "email.open_view": "Open {{view}}",
-  "email.save_settings": "Save these settings",
   "alerts.why_fired": "Why did this fire?",
   "common.loading": "Loading…",
   "alerts.timeline_level": "{{level}} ({{total, number}})",

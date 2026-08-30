@@ -40005,17 +40005,12 @@ function renderEmail(data) {
     ),
   );
 
-  const save = document.createElement('div');
-  save.className = 'inspect-actions';
-  const button = document.createElement('button');
-  button.id = 'emailSave';
-  button.textContent = ZogographI18n.t(
-    'email.save_settings',
-    {},
-    'Save these settings',
+  const save = renderCoreCardPackage(
+    ZogographEmailSaveControlsCard,
+    'core-email-save-controls',
+    data,
+    { save: saveEmailSettings, i18n: ZogographI18n },
   );
-  button.disabled = !data.writable;
-  save.appendChild(button);
 
   if (!data.writable) {
     save.appendChild(
@@ -40039,7 +40034,6 @@ function renderEmail(data) {
   );
 
   body.replaceChildren(...parts);
-  button.addEventListener('click', saveEmailSettings);
 }
 
 /*

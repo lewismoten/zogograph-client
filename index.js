@@ -12167,13 +12167,29 @@ function highlightOnPage(args) {
 async function runRequestFromHost(args) {
   const jobs = {
     capabilities: {
-      label: 'Re-check what is installed on the host',
-      cost: 'Quick. Runs a handful of version checks.',
+      label: ZogographI18n.t(
+        'assistant.host_job_capabilities',
+        {},
+        'Re-check what is installed on the host',
+      ),
+      cost: ZogographI18n.t(
+        'assistant.host_job_capabilities_cost',
+        {},
+        'Quick. Runs a handful of version checks.',
+      ),
       task: 'capabilities',
     },
     'disk-walk': {
-      label: 'Walk the whole filesystem as root',
-      cost: 'Expensive — minutes on a large disk, and it reads the whole time.',
+      label: ZogographI18n.t(
+        'assistant.host_job_disk_walk',
+        {},
+        'Walk the whole filesystem as root',
+      ),
+      cost: ZogographI18n.t(
+        'assistant.host_job_disk_walk_cost',
+        {},
+        'Expensive — minutes on a large disk, and it reads the whole time.',
+      ),
       task: 'disk-walk',
     },
   };
@@ -12186,19 +12202,41 @@ async function runRequestFromHost(args) {
     };
 
   const answer = await chatAsk({
-    title: `${chatState.who.name} wants to ask root's collector: ${job.label}`,
-    why:
-      `${args.why ? `“${args.why}” — ` : ''}${job.cost} It runs on the collector's next ` +
-      'pass, not now.',
+    title: ZogographI18n.t(
+      'assistant.host_request_title',
+      { assistant: chatState.who.name, job: job.label },
+      "{{assistant}} wants to ask root's collector: {{job}}",
+    ),
+    why: args.why
+      ? ZogographI18n.t(
+          'assistant.host_request_why_reason',
+          { reason: args.why, cost: job.cost },
+          "“{{reason}}” — {{cost}} It runs on the collector's next pass, not now.",
+        )
+      : ZogographI18n.t(
+          'assistant.host_request_why',
+          { cost: job.cost },
+          "{{cost}} It runs on the collector's next pass, not now.",
+        ),
     seconds: args.seconds ?? 120,
-    defaultLabel: 'Treated as no',
-    confirmLabel: 'Ask the host',
+    defaultLabel: ZogographI18n.t(
+      'assistant.host_request_decline',
+      {},
+      'Treated as no',
+    ),
+    confirmLabel: ZogographI18n.t(
+      'assistant.host_request_confirm',
+      {},
+      'Ask the host',
+    ),
     build: (holder) => {
       const said = document.createElement('div');
       said.className = 'muted small';
-      said.textContent =
-        'This queues a job for the process running as root. Nothing runs ' +
-        'in this window and nothing runs now.';
+      said.textContent = ZogographI18n.t(
+        'assistant.host_request_explainer',
+        {},
+        'This queues a job for the process running as root. Nothing runs in this window and nothing runs now.',
+      );
       holder.appendChild(said);
       // Nothing to fill in: pressing the button is the answer.
       return () => 'yes';

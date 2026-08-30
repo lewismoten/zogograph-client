@@ -130,6 +130,7 @@
   "action.see": "عرض",
   "url.method_get": "GET — اجلب الصفحة",
   "url.sign_in_to_watch": "سجّل الدخول لمراقبة عنوان URL.",
+  "url.nothing_watched": "لا يجري مراقبة شيء. أضف العنوان الذي سيكتبه شخص فعليًا — الصفحة الرئيسية أو نقطة فحص حالة تصل إلى قاعدة البيانات.",
   "url.method_head": "HEAD — الترويسات فقط، بلا متن",
   "url.method_options": "OPTIONS — ما يسمح به الخادم",
   "url.ask_if_changed": "اسأل إن كان قد تغير",

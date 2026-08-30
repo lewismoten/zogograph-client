@@ -130,6 +130,7 @@
   "action.see": "See",
   "url.method_get": "GET — fetch the page",
   "url.sign_in_to_watch": "Sign in to watch a URL.",
+  "url.nothing_watched": "Nothing is being watched. Add the address somebody would actually type — the home page, or a health endpoint that touches the database.",
   "url.method_head": "HEAD — headers only, no body",
   "url.method_options": "OPTIONS — what the server allows",
   "url.ask_if_changed": "Ask if it changed",

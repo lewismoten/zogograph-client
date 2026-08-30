@@ -130,6 +130,7 @@
   "action.see": "Ver",
   "url.method_get": "GET — obtener la página",
   "url.sign_in_to_watch": "Inicie sesión para vigilar una URL.",
+  "url.nothing_watched": "No se vigila nada. Añada la dirección que alguien escribiría realmente: la página de inicio o un punto de comprobación de estado que consulte la base de datos.",
   "url.method_head": "HEAD — solo cabeceras, sin cuerpo",
   "url.method_options": "OPTIONS — lo que permite el servidor",
   "url.ask_if_changed": "Preguntar si cambió",

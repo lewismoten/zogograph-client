@@ -25355,10 +25355,9 @@ function renderUrls(data) {
   const body = $("urlBody");
 
   if (!data.rows.length) {
-    body.replaceChildren(note(
-      "Nothing is being watched. Add the address somebody would actually type \u2014 the "
-      + "home page, or a health endpoint that touches the database."
-    ));
+    body.replaceChildren(note(ZogographI18n.t("url.nothing_watched", {},
+      "Nothing is being watched. Add the address somebody would actually type — the "
+      + "home page, or a health endpoint that touches the database.")));
     $("urlHistoryPanel").hidden = true;
     return;
   }

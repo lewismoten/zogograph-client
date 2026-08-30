@@ -30426,20 +30426,39 @@ function alertEmailed(row, interactive = state.signedIn) {
 
 function showAlertMuteReason(row) {
   showListDialog(
-    'Notification held',
+    ZogographI18n.t('alerts.notification_held', {}, 'Notification held'),
     [
       factGrid([
-        ['Delivery', 'Held by a temporary operator mute'],
         [
-          'Until',
+          ZogographI18n.t('alerts.delivery', {}, 'Delivery'),
+          ZogographI18n.t(
+            'alerts.held_by_operator_mute',
+            {},
+            'Held by a temporary operator mute',
+          ),
+        ],
+        [
+          ZogographI18n.t('alerts.until', {}, 'Until'),
           row.notification_muted_until
             ? whenLabel(row.notification_muted_until)
-            : 'unknown',
+            : ZogographI18n.t('alerts.unknown', {}, 'unknown'),
         ],
-        ['Reason', row.notification_reason || 'No reason recorded'],
+        [
+          ZogographI18n.t('alerts.mute_reason', {}, 'Reason'),
+          row.notification_reason ||
+            ZogographI18n.t(
+              'alerts.no_reason_recorded',
+              {},
+              'No reason recorded',
+            ),
+        ],
       ]),
     ],
-    'The event and its evidence were recorded normally. Error and Critical alerts bypass temporary mutes.',
+    ZogographI18n.t(
+      'alerts.mute_detail_help',
+      {},
+      'The event and its evidence were recorded normally. Error and Critical alerts bypass temporary mutes.',
+    ),
   );
 }
 

@@ -7522,107 +7522,14 @@ function pictureFields(data) {
    * the only one an employer will approve. The endpoint is a field too, for the
    * same reason.
    */
-  const service = document.createElement('select');
-  service.id = 'aiSearchService';
-  for (const [key_, meta] of Object.entries(pictures.services)) {
-    const option = document.createElement('option');
-    option.value = key_;
-    option.textContent = meta.label;
-    option.selected = pictures.search_service === key_;
-    service.appendChild(option);
-  }
-  const serviceNote = document.createElement('div');
-  serviceNote.className = 'muted small';
-  form.appendChild(
-    fieldRow(
-      ZogographI18n.t('ai.images_search_service', {}, 'Search service'),
-      service,
-      '',
+  form.append(
+    ...renderCoreCardPackage(
+      ZogographAiImageSearchCard,
+      'core-ai-image-search',
+      { pictures },
+      { fieldRow, i18n: ZogographI18n },
     ),
   );
-  form.appendChild(serviceNote);
-
-  const searchKey = document.createElement('input');
-  searchKey.type = 'password';
-  searchKey.id = 'aiSearchKey';
-  searchKey.className = 'wide-field';
-  searchKey.autocomplete = 'off';
-  searchKey.placeholder = pictures.has_search_key
-    ? ZogographI18n.t(
-        'ai.images_search_key_unchanged',
-        { mask: '•'.repeat(20) },
-        '{{mask}} (unchanged)',
-      )
-    : ZogographI18n.t(
-        'ai.images_search_key_placeholder',
-        {},
-        'the key for that service',
-      );
-  form.appendChild(
-    fieldRow(
-      ZogographI18n.t('ai.images_search_key', {}, 'Search key'),
-      searchKey,
-      pictures.has_search_key
-        ? ZogographI18n.t(
-            'ai.images_search_key_kept',
-            {},
-            'A key is set. Leaving this blank keeps it.',
-          )
-        : ZogographI18n.t(
-            'ai.images_search_key_required',
-            {},
-            'Without one, reactions stay off.',
-          ),
-    ),
-  );
-
-  const searchBase = document.createElement('input');
-  searchBase.type = 'text';
-  searchBase.id = 'aiSearchBase';
-  searchBase.className = 'wide-field';
-  searchBase.spellcheck = false;
-  searchBase.value = pictures.search_base || '';
-  form.appendChild(
-    fieldRow(
-      ZogographI18n.t('ai.images_endpoint', {}, 'Endpoint'),
-      searchBase,
-      '',
-    ),
-  );
-
-  const searchRate = document.createElement('input');
-  searchRate.type = 'number';
-  searchRate.id = 'aiSearchRate';
-  searchRate.min = '0';
-  searchRate.max = '100';
-  searchRate.className = 'days';
-  searchRate.value = String(pictures.searches_per_hour);
-  form.appendChild(
-    fieldRow(
-      ZogographI18n.t('ai.images_searches_per_hour', {}, 'Searches per hour'),
-      searchRate,
-      ZogographI18n.t(
-        'ai.images_searches_help',
-        {},
-        "Separate from the picture limit above, because the two cost different things: a search is a free read against somebody else's quota, a picture is a bill. A hundred is what these services publish as their free allowance and is the most this will do — going past it gets the key throttled, which breaks the feature for everyone rather than costing money. Set it lower if you share the key.",
-      ) +
-        (pictures.searches
-          ? ` ${ZogographI18n.t(
-              'ai.images_searches_used',
-              { count: pictures.searches.used },
-              '{{count, number}} in the last hour.',
-            )}`
-          : ''),
-    ),
-  );
-
-  const syncService = () => {
-    const meta = pictures.services[service.value];
-    serviceNote.textContent = meta?.note ?? '';
-    searchBase.placeholder = meta?.base ?? '';
-  };
-  service.addEventListener('change', syncService);
-  syncService();
 
   const rating = document.createElement('select');
   rating.id = 'aiRating';

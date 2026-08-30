@@ -50,7 +50,7 @@ final class KeyCustodyProvider
             $serviceBaseUrl,
             $clientCredential,
             $clientSigningKey,
-            $tlsSpkiPin,
+            $tlsSpkiPin
         );
         $entitlement = $client->envelopeEntitlement();
         return [
@@ -92,11 +92,11 @@ final class KeyCustodyProvider
             $serviceBaseUrl,
             $clientCredential,
             $clientSigningKey,
-            $tlsSpkiPin,
+            $tlsSpkiPin
         );
         $envelope = KeyCustodyHttpClient::sealDataKey(
             $dataKey,
-            $client->wrappingPublicKey($keyId),
+            $client->wrappingPublicKey($keyId)
         );
         $client->storeEnvelope($keyId, $artifactId, $envelope);
         return [
@@ -132,7 +132,7 @@ final class KeyCustodyProvider
             $serviceBaseUrl,
             $clientCredential,
             $clientSigningKey,
-            $tlsSpkiPin,
+            $tlsSpkiPin
         );
         $key = $client->unwrap($keyId, $artifactId, 0);
         return [

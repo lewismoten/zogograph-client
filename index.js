@@ -7856,106 +7856,12 @@ function pictureFields(data) {
  * silently changes settings.
  */
 function styleFinder(pictures) {
-  const wrap = document.createElement('div');
-  wrap.className = 'style-finder';
-
-  const search = document.createElement('input');
-  search.type = 'search';
-  search.className = 'wide-field';
-  search.placeholder = ZogographI18n.t(
-    'ai.style_search_placeholder',
-    {},
-    'type to narrow — cyberpunk, watercolour, pixel…',
+  return renderCoreCardPackage(
+    ZogographAiStyleFinderCard,
+    'core-ai-style-finder',
+    { pictures },
+    { i18n: ZogographI18n },
   );
-  search.spellcheck = false;
-  wrap.appendChild(search);
-
-  const said = document.createElement('div');
-  said.className = 'muted small';
-  wrap.appendChild(said);
-
-  const list = document.createElement('div');
-  list.className = 'style-list';
-  wrap.appendChild(list);
-
-  const entries = Object.entries(pictures.all_styles ?? {});
-  const rows = [];
-
-  /*
-   * Chosen first, then everything else alphabetically by its shown name.
-   *
-   * Sorted once, at build time: re-sorting as somebody ticks would move the row
-   * out from under the pointer they just clicked with.
-   */
-  entries.sort(([aKey, aName], [bKey, bName]) => {
-    const aOn = pictures.styles.includes(aKey);
-    const bOn = pictures.styles.includes(bKey);
-    if (aOn !== bOn) return aOn ? -1 : 1;
-    return String(aName).localeCompare(String(bName));
-  });
-
-  for (const [key, name] of entries) {
-    const line = document.createElement('label');
-    line.className = 'scan-toggle style-row';
-
-    const box = document.createElement('input');
-    box.type = 'checkbox';
-    box.className = 'picture-style';
-    box.dataset.style = key;
-    box.checked = pictures.styles.includes(key);
-    line.appendChild(box);
-
-    const label = document.createElement('span');
-    label.textContent = ` ${name}`;
-    line.appendChild(label);
-
-    const id = document.createElement('span');
-    id.className = 'muted small';
-    id.textContent = ` ${key}`;
-    line.appendChild(id);
-
-    list.appendChild(line);
-    rows.push({ line, box, haystack: `${name} ${key}`.toLowerCase() });
-  }
-
-  const sync = () => {
-    const wanted = search.value.trim().toLowerCase();
-    let shown = 0;
-
-    for (const row of rows) {
-      // A ticked style is never hidden: it is a setting in force, and a setting
-      // you cannot see is one you cannot turn off.
-      const keep =
-        row.box.checked || wanted === '' || row.haystack.includes(wanted);
-      row.line.hidden = !keep;
-      if (keep) shown++;
-    }
-
-    const chosen = rows.filter((row) => row.box.checked).length;
-    said.textContent =
-      ZogographI18n.t(
-        'ai.style_ticked',
-        { count: chosen },
-        '{{count, number}} styles ticked · ',
-      ) +
-      (wanted === ''
-        ? ZogographI18n.t(
-            'ai.style_choose_from',
-            { count: rows.length },
-            '{{count, number}} to choose from',
-          )
-        : ZogographI18n.t(
-            'ai.style_matches',
-            { shown, total: rows.length },
-            '{{shown, number}} of {{total, number}} match',
-          ));
-  };
-
-  search.addEventListener('input', sync);
-  list.addEventListener('change', sync);
-  sync();
-
-  return wrap;
 }
 
 async function saveAiSettings(extra = {}) {

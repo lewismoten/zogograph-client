@@ -24112,7 +24112,7 @@ function inspectActions(data) {
 
   if (p.view) {
     const view = document.createElement("button");
-    view.textContent = "Read this log";
+    view.textContent = ZogographI18n.t("action.view", {}, "View");
     view.addEventListener("click", () => {
       showView("storage-files");
       showLogPath(data.path);

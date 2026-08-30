@@ -8364,12 +8364,16 @@ function pictureFields(data) {
 
   form.appendChild(
     fieldRow(
-      'Styles it may use',
+      ZogographI18n.t('ai.images_styles', {}, 'Styles it may use'),
       styleFinder(pictures),
-      'Tick the ones it may choose from. There are over a hundred, and a model offered ' +
-        'twelve will use twelve — most of them are wrong for a monitoring dashboard, so ' +
-        'two or three is plenty. Type to narrow the list; the ones you have ticked stay ' +
-        'at the top whatever you search for.',
+      ZogographI18n.t(
+        'ai.images_styles_help',
+        {},
+        'Tick the ones it may choose from. There are over a hundred, and a model offered ' +
+          'twelve will use twelve — most of them are wrong for a monitoring dashboard, so ' +
+          'two or three is plenty. Type to narrow the list; the ones you have ticked stay ' +
+          'at the top whatever you search for.',
+      ),
     ),
   );
 
@@ -8382,7 +8386,9 @@ function pictureFields(data) {
     option.selected = pictures.quality === key_;
     quality.appendChild(option);
   }
-  form.appendChild(fieldRow('Quality', quality, ''));
+  form.appendChild(
+    fieldRow(ZogographI18n.t('ai.images_quality', {}, 'Quality'), quality, ''),
+  );
 
   const shape = document.createElement('select');
   shape.id = 'aiShape';
@@ -8393,7 +8399,9 @@ function pictureFields(data) {
     option.selected = pictures.shape === key_;
     shape.appendChild(option);
   }
-  form.appendChild(fieldRow('Shape', shape, ''));
+  form.appendChild(
+    fieldRow(ZogographI18n.t('ai.images_shape', {}, 'Shape'), shape, ''),
+  );
 
   const perHour = document.createElement('input');
   perHour.type = 'number';

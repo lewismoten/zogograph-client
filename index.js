@@ -26663,8 +26663,8 @@ function renderFetch(data) {
   visit.href = data.landed || data.url;
   visit.target = "_blank";
   visit.rel = "noopener noreferrer";
-  visit.textContent = "Visit it \u2197";
-  visit.title = "Open this address in a new window";
+  visit.textContent = ZogographI18n.t("fetch.visit", {}, "Visit it \u2197");
+  visit.title = ZogographI18n.t("fetch.visit_title", {}, "Open this address in a new window");
 
   /*
    * Several ways to look at one answer, because they are several questions.
@@ -26678,12 +26678,12 @@ function renderFetch(data) {
   tabs.className = "panel-tools";
 
   const views = [
-    ["headers", "Headers", true],
-    ["preview", "Preview", data.previewable],
-    ["meta", "Title & meta", data.looks_html],
-    ["ld", "Structured data", data.looks_html],
+    ["headers", ZogographI18n.t("fetch.tab_headers", {}, "Headers"), true],
+    ["preview", ZogographI18n.t("fetch.tab_preview", {}, "Preview"), data.previewable],
+    ["meta", ZogographI18n.t("fetch.tab_meta", {}, "Title & meta"), data.looks_html],
+    ["ld", ZogographI18n.t("fetch.tab_structured", {}, "Structured data"), data.looks_html],
     ["json", "JSON", data.looks_json],
-    ["raw", "Raw body", true],
+    ["raw", ZogographI18n.t("fetch.tab_raw", {}, "Raw body"), true],
   ].filter(([, , show]) => show);
 
   // A tab that no longer exists for this response - JSON, after asking for a
@@ -26715,7 +26715,7 @@ function renderFetch(data) {
       pre.className = "paste raw-body";
       // textContent, never innerHTML: this is somebody else's page and putting
       // it into this document as markup would hand it the dashboard's session.
-      pre.textContent = data.body || "(no body)";
+      pre.textContent = data.body || ZogographI18n.t("fetch.no_body", {}, "(no body)");
       return pre;
     },
   }[fetchState.showing];
@@ -26737,7 +26737,7 @@ function renderFetchHeaders(data) {
   const wrap = document.createDocumentFragment();
 
   if (!data.headers.length) {
-    wrap.appendChild(note("No headers were captured."));
+    wrap.appendChild(note(ZogographI18n.t("fetch.no_headers", {}, "No headers were captured.")));
     return wrap;
   }
 

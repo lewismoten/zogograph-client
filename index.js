@@ -8404,14 +8404,19 @@ function pictureFields(data) {
   perHour.value = String(pictures.per_hour);
   form.appendChild(
     fieldRow(
-      'At most, per hour',
+      ZogographI18n.t('ai.images_per_hour', {}, 'At most, per hour'),
       perHour,
-      'Across everything on this panel. A model that finds something amusing will keep ' +
-        'doing it, and each one is billed — this is what stops a loop running up a bill ' +
-        'before anybody notices. Zero switches picture-making off without losing the rest ' +
-        'of these settings.' +
+      ZogographI18n.t(
+        'ai.images_per_hour_help',
+        {},
+        'Across everything on this panel. A model that finds something amusing will keep doing it, and each one is billed — this is what stops a loop running up a bill before anybody notices. Zero switches picture-making off without losing the rest of these settings.',
+      ) +
         (pictures.budget
-          ? ` ${pictures.budget.used} made in the last hour.`
+          ? ` ${ZogographI18n.t(
+              'ai.images_per_hour_used',
+              { count: pictures.budget.used },
+              '{{count, number}} made in the last hour.',
+            )}`
           : ''),
     ),
   );

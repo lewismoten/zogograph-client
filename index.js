@@ -27049,16 +27049,19 @@ function showWhatIsDialog(kind, name, entry) {
   const whose = document.createElement("p");
   whose.className = "muted small";
   whose.textContent = entry.mine
-    ? "Written on this machine, about this machine."
-    : "From the built-in list, which is guessing from the name. If you know better "
-      + "for this machine, write your own — it will replace this everywhere.";
+    ? ZogographI18n.t("descriptions.owned_here", {}, "Written on this machine, about this machine.")
+    : ZogographI18n.t("descriptions.built_in_help", {},
+      "From the built-in list, which is guessing from the name. If you know better "
+      + "for this machine, write your own — it will replace this everywhere.");
   parts.push(whose);
 
   if (WHAT_IS.writable) {
     const edit = document.createElement("button");
     edit.type = "button";
     edit.className = "link";
-    edit.textContent = entry.mine ? "Edit this note" : "Write your own";
+    edit.textContent = entry.mine
+      ? ZogographI18n.t("descriptions.edit_note", {}, "Edit this note")
+      : ZogographI18n.t("descriptions.write_own", {}, "Write your own");
     edit.addEventListener("click", () => {
       $("listDialog").close();
       showView("sys-descriptions");
@@ -27069,8 +27072,9 @@ function showWhatIsDialog(kind, name, entry) {
   }
 
   showListDialog(name, parts, kind === "slab"
-    ? "A kernel slab cache — memory the kernel itself is holding."
-    : "A process running on this machine.");
+    ? ZogographI18n.t("descriptions.slab_help", {},
+      "A kernel slab cache — memory the kernel itself is holding.")
+    : ZogographI18n.t("descriptions.process_help", {}, "A process running on this machine."));
 }
 
 /* ------------------------------------------------- your own descriptions -- */

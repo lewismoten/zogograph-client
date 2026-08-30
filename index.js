@@ -11291,9 +11291,11 @@ function chatToolPhrase({ tool, arguments: args, localeNamespace = '' }) {
                 ? { about: args.about }
                 : tool === 'set_time_range'
                   ? { range: args.range ?? '?' }
-                  : tool === 'request_tool_group'
-                    ? { group: toolGroupLabel(args.subject) }
-                    : {};
+                  : tool === 'open_page'
+                    ? { page: VIEWS[args.page]?.label ?? args.page }
+                    : tool === 'request_tool_group'
+                      ? { group: toolGroupLabel(args.subject) }
+                      : {};
     return ZogographI18n.t(activityKey, values, said ?? tool);
   }
   return said ?? tool;

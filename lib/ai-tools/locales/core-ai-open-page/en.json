@@ -1,3 +1,4 @@
 {
-  "core-ai-open-page.summary": "Move you to a page of this dashboard."
+  "core-ai-open-page.summary": "Move you to a page of this dashboard.",
+  "core-ai-open-page.activity": "Opened {{page}}"
 }

@@ -1,3 +1,4 @@
 {
-  "core-ai-open-page.summary": "Llévelo a una página de este panel."
+  "core-ai-open-page.summary": "Llévelo a una página de este panel.",
+  "core-ai-open-page.activity": "Abrió {{page}}"
 }

@@ -57,6 +57,7 @@
   "calendar.today": "اليوم",
   "calendar.tomorrow": "غدًا",
   "calendar.in_days": "خلال {{count, number}} أيام",
+  "calendar.no_tracked_events": "لا يوجد شيء محفوظ بعد. تجديدات وفواتير وشراء شهادات — أي شيء له تاريخ لا يمكن لهذا الجهاز معرفته بنفسه.",
   "action.see": "عرض",
   "url.method_get": "GET — اجلب الصفحة",
   "url.method_head": "HEAD — الترويسات فقط، بلا متن",

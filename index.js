@@ -26426,8 +26426,8 @@ function renderEventList(data) {
   const holder = $("eventList");
 
   if (!data.events.length) {
-    holder.replaceChildren(note("Nothing kept yet. Renewals, invoices, certificate purchases "
-      + "\u2014 anything with a date that this machine could not work out for itself."));
+    holder.replaceChildren(note(ZogographI18n.t("calendar.no_tracked_events", {}, "Nothing kept yet. Renewals, invoices, certificate purchases "
+      + "\u2014 anything with a date that this machine could not work out for itself.")));
     return;
   }
 

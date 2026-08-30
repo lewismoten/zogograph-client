@@ -57,6 +57,7 @@
   "calendar.today": "today",
   "calendar.tomorrow": "tomorrow",
   "calendar.in_days": "in {{count, number}} days",
+  "calendar.no_tracked_events": "Nothing kept yet. Renewals, invoices, certificate purchases — anything with a date that this machine could not work out for itself.",
   "action.see": "See",
   "url.method_get": "GET — fetch the page",
   "url.method_head": "HEAD — headers only, no body",

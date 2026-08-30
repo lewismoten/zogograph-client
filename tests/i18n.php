@@ -86,6 +86,15 @@ $english = json_decode(
     (string) file_get_contents($root . '/locales/en.json'),
     true,
 );
+i18nExpect(
+    !isset(
+        $english['storage.not_measured_yet'],
+        $english['storage.watched_category'],
+        $english['storage.types_categories_help'],
+        $english['storage.types_help'],
+    ),
+    'type composition pie text belongs to its card package',
+);
 require_once $root . '/lib/configure.php';
 $schemaFields = configFields(require $root . '/lib/config.sample.php');
 $toolLocaleRoot = $root . '/lib/ai-tools/locales';

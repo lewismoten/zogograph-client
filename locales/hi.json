@@ -732,6 +732,7 @@
   "ai.toolset_label": "लेबल",
   "ai.toolset_label_hint": "यह वह नाम है जो लोग सूची में देखेंगे।",
   "ai.toolset_saved": "टूलसेट सहेजा गया।",
+  "ai.toolset_saved_label": "{{label}} (सहेजा गया)",
   "ai.delete_toolset": "सहेजा हुआ टूलसेट हटाएँ",
   "ai.builtin_toolset": "अंतर्निहित टूलसेट हटाए नहीं जा सकते।",
   "ai.delete_toolset_confirm": "टूलसेट “{{label}}” हटाएँ?",

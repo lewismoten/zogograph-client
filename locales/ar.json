@@ -718,6 +718,7 @@
   "ai.toolset_label": "التسمية",
   "ai.toolset_label_hint": "هذا هو الاسم الذي يراه الناس في القائمة.",
   "ai.toolset_saved": "حُفظت مجموعة الأدوات.",
+  "ai.toolset_saved_label": "{{label}} (محفوظة)",
   "ai.delete_toolset": "احذف مجموعة الأدوات المحفوظة",
   "ai.builtin_toolset": "لا يمكن حذف مجموعات الأدوات المضمنة.",
   "ai.delete_toolset_confirm": "هل تريد حذف مجموعة الأدوات “{{label}}”؟",

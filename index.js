@@ -6875,7 +6875,13 @@ function renderAiTools(data) {
   for (const set of data.toolsets || []) {
     const option = document.createElement('option');
     option.value = set.name;
-    option.textContent = set.label + (set.builtin ? '' : ' (saved)');
+    option.textContent = set.builtin
+      ? set.label
+      : ZogographI18n.t(
+          'ai.toolset_saved_label',
+          { label: set.label },
+          '{{label}} (saved)',
+        );
     presetPick.appendChild(option);
   }
   const applyPreset = document.createElement('button');

@@ -732,6 +732,7 @@
   "ai.toolset_label": "Etiqueta",
   "ai.toolset_label_hint": "Es el nombre que las personas verán en la lista.",
   "ai.toolset_saved": "Conjunto de herramientas guardado.",
+  "ai.toolset_saved_label": "{{label}} (guardado)",
   "ai.delete_toolset": "Eliminar conjunto de herramientas guardado",
   "ai.builtin_toolset": "Los conjuntos de herramientas integrados no se pueden eliminar.",
   "ai.delete_toolset_confirm": "¿Eliminar el conjunto de herramientas “{{label}}”?",

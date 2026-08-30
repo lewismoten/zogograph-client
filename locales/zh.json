@@ -718,6 +718,7 @@
   "ai.toolset_label": "标签",
   "ai.toolset_label_hint": "这是人们会在列表中看到的名称。",
   "ai.toolset_saved": "工具集已保存。",
+  "ai.toolset_saved_label": "{{label}}（已保存）",
   "ai.delete_toolset": "删除已保存的工具集",
   "ai.builtin_toolset": "无法删除内置工具集。",
   "ai.delete_toolset_confirm": "删除工具集“{{label}}”？",

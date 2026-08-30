@@ -802,6 +802,7 @@
   "ai.toolset_label": "Label",
   "ai.toolset_label_hint": "This is the name people see in the list.",
   "ai.toolset_saved": "Toolset saved.",
+  "ai.toolset_saved_label": "{{label}} (saved)",
   "ai.delete_toolset": "Delete saved toolset",
   "ai.builtin_toolset": "Built-in toolsets cannot be deleted.",
   "ai.delete_toolset_confirm": "Delete toolset “{{label}}”?",

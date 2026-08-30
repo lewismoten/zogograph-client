@@ -105,12 +105,12 @@ try {
      * evidence locally while keeping CI and release archives data-free. */
     $fixtureRoot = realpath(__DIR__ . '/../scratch');
     $fixtureMigrations = [
-        'old-stats.db' => static fn(PDO $copy): null => migrate($copy),
-        'old-host.db' => static fn(PDO $copy): null => hostMigrate($copy),
-        'old-ai.db' => static fn(PDO $copy): null => aiMigrate($copy),
+        'old-stats.db' => static fn(PDO $copy) => migrate($copy),
+        'old-host.db' => static fn(PDO $copy) => hostMigrate($copy),
+        'old-ai.db' => static fn(PDO $copy) => aiMigrate($copy),
         // setup.db has no versioned migration ledger; its integrity and safe
         // clone are still meaningful compatibility evidence.
-        'old-setup.db' => static fn(PDO $copy): null => null,
+        'old-setup.db' => static fn(PDO $copy) => null,
     ];
     if ($fixtureRoot !== false) foreach ($fixtureMigrations as $name => $upgradeFixture) {
         $fixture = $fixtureRoot . '/' . $name;

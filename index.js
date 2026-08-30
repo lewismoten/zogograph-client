@@ -41592,73 +41592,14 @@ function showChangesIn(bar) {
  * it is still current. Only JetBackup knows that, and only when it can be run.
  */
 function renderJetBackup(jet) {
-  const out = document.createDocumentFragment();
-
-  if (jet.backups?.length) {
-    out.appendChild(
-      section(
-        ZogographI18n.t(
-          'backup.jetbackup_known',
-          { count: jet.backups.length },
-          '{{count}} backups known to JetBackup',
-        ),
-        simpleTable(
-          [
-            ZogographI18n.t('backup.account', {}, 'Account'),
-            ZogographI18n.t('backup.when', {}, 'When'),
-            ZogographI18n.t('backup.type', {}, 'Type'),
-            ZogographI18n.t('storage.size', {}, 'Size'),
-            ZogographI18n.t('backup.destination', {}, 'Destination'),
-          ],
-          jet.backups.map((b) => [
-            b.account ?? '\u2014',
-            b.created_at ? humanTime(b.created_at) : '\u2014',
-            b.type ?? '\u2014',
-            b.bytes
-              ? humanBytes(b.bytes)
-              : ZogographI18n.t('backup.not_reported', {}, 'not reported'),
-            b.destination ?? '\u2014',
-          ]),
-          ['name', null, null, 'size', null],
-        ),
-      ),
-    );
-  }
-
-  if (jet.destinations?.length) {
-    out.appendChild(
-      section(
-        ZogographI18n.t('backup.destinations', {}, 'Destinations'),
-        simpleTable(
-          [
-            ZogographI18n.t('backup.name', {}, 'Name'),
-            ZogographI18n.t('backup.type', {}, 'Type'),
-            ZogographI18n.t('storage.path', {}, 'Path'),
-          ],
-          jet.destinations.map((d) => [
-            d.name ?? '\u2014',
-            d.type ?? '\u2014',
-            d.path ?? '\u2014',
-          ]),
-          ['name', null, 'name'],
-        ),
-      ),
-    );
-  }
-
-  if (!out.childElementCount) {
-    out.appendChild(
-      note(
-        ZogographI18n.t(
-          'backup.jetbackup_empty',
-          {},
-          'JetBackup answered, but listed no backups and no destinations.',
-        ),
-      ),
-    );
-  }
-
-  return out;
+  return renderCoreCardPackage(ZogographJetBackupCard, 'core-jetbackup', jet, {
+    note,
+    section,
+    simpleTable,
+    humanTime,
+    humanBytes,
+    i18n: ZogographI18n,
+  });
 }
 
 async function refreshBackups() {

@@ -166,6 +166,9 @@ $fetchTabsCard = i18nCardSource(
 $capabilityChangeNoteCard = i18nCardSource(
     file_get_contents($root . '/cards/capability-change-note.js'),
 );
+$jetBackupCard = i18nCardSource(
+    file_get_contents($root . '/cards/jetbackup.js'),
+);
 $changeHistoryCard = i18nCardSource(
     file_get_contents($root . '/cards/change-history.js'),
 );
@@ -1033,6 +1036,18 @@ i18nExpect(
         ) &&
         str_contains($script, 'ZogographCapabilityChangeNoteCard,'),
     'capability change note is not isolated behind its core card-module boundary',
+);
+i18nExpect(
+    $page !== false &&
+        $script !== false &&
+        str_contains($page, 'src="cards/jetbackup.js"') &&
+        str_contains($jetBackupCard, 'window.ZogographJetBackupCard') &&
+        str_contains($jetBackupCard, 'id: "core-jetbackup"') &&
+        str_contains($jetBackupCard, 'locales: ["core-jetbackup."]') &&
+        str_contains($jetBackupCard, 'catalogs: Object.freeze({') &&
+        str_contains($jetBackupCard, '"core-jetbackup.known"') &&
+        str_contains($script, 'ZogographJetBackupCard,'),
+    'JetBackup is not isolated behind its core card-module boundary',
 );
 i18nExpect(
     $page !== false &&

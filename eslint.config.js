@@ -50,6 +50,7 @@ export default [
         ZogographFetchRawCard: 'readonly',
         ZogographFetchTabsCard: 'readonly',
         ZogographCapabilityChangeNoteCard: 'readonly',
+        ZogographJetBackupCard: 'readonly',
         ZogographDatabaseSnapshotsCard: 'readonly',
         ZogographHostDatabaseStorageCard: 'readonly',
         ZogographAccountDatabaseStorageCard: 'readonly',

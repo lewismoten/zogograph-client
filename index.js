@@ -32488,52 +32488,18 @@ function renderTreeNote() {
 }
 
 function renderCrumbs() {
-  const holder = $('treeCrumbs');
   const level = treeState.level;
-  if (!level) {
-    holder.replaceChildren();
-    return;
-  }
-
-  const root = level.root || '/';
-  const rest = level.path.startsWith(root)
-    ? level.path.slice(root.length)
-    : level.path;
-  const names = rest.split('/').filter(Boolean);
-
-  const frag = document.createDocumentFragment();
-  const add = (label, target, current) => {
-    if (current) {
-      const span = document.createElement('span');
-      span.textContent = label;
-      frag.appendChild(span);
-      return;
-    }
-    const button = document.createElement('button');
-    button.className = 'link';
-    button.textContent = label;
-    button.addEventListener('click', () => refreshTreemap(target));
-    frag.appendChild(button);
-  };
-
-  add(
-    treeState.source === 'host' ? '/' : 'watched directory',
-    root,
-    names.length === 0,
+  renderCoreCardPackage(
+    ZogographTreemapCrumbsCard,
+    'core-treemap-crumbs',
+    { level, source: treeState.source },
+    {
+      target: $('treeCrumbs'),
+      up: $('treeUp'),
+      open: refreshTreemap,
+      i18n: ZogographI18n,
+    },
   );
-
-  let walk = root;
-  names.forEach((name, i) => {
-    walk = walk.replace(/\/$/, '') + '/' + name;
-    const sep = document.createElement('span');
-    sep.className = 'sep';
-    sep.textContent = '/';
-    frag.appendChild(sep);
-    add(name, walk, i === names.length - 1);
-  });
-
-  holder.replaceChildren(frag);
-  $('treeUp').disabled = !level.parent;
 }
 
 /*

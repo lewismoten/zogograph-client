@@ -74,6 +74,7 @@ export default [
         ZogographTerminalVerdictCard: 'readonly',
         ZogographTreemapLegendCard: 'readonly',
         ZogographTreemapNoteCard: 'readonly',
+        ZogographTreemapCrumbsCard: 'readonly',
         ZogographNetworkCaptureRequestCard: 'readonly',
         ZogographNetworkCaptureHistoryCard: 'readonly',
         ZogographNetworkCaptureCard: 'readonly',

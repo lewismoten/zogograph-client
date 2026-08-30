@@ -13517,8 +13517,16 @@ function renderChangedList(data) {
     body.replaceChildren(
       note(
         data.last_checked
-          ? `Nothing has changed in this range. Last checked ${ago(data.last_checked)}.`
-          : 'Nothing has been checked yet. Press Check now, or open What the host allows.',
+          ? ZogographI18n.t(
+              'storage.nothing_changed_last_checked',
+              { when: ago(data.last_checked) },
+              'Nothing has changed in this range. Last checked {{when}}.',
+            )
+          : ZogographI18n.t(
+              'storage.nothing_checked_yet',
+              {},
+              'Nothing has been checked yet. Press Check now, or open What the host allows.',
+            ),
       ),
     );
     return;

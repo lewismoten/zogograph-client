@@ -2300,6 +2300,8 @@
   "storage.history_one_scan": "Esta ruta solo se ha visto en un análisis hasta ahora",
   "storage.no_scan_finished_range": "Aún no ha terminado ningún análisis en este intervalo",
   "storage.nothing_changed_range": "No cambió nada en este intervalo.",
+  "storage.nothing_changed_last_checked": "No ha cambiado nada en este intervalo. Última comprobación: {{when}}.",
+  "storage.nothing_checked_yet": "Aún no se ha comprobado nada. Pulse Comprobar ahora o abra Qué permite el host.",
   "storage.on_disk": "En disco",
   "storage.type": "Tipo",
   "storage.watched_as": "Vigilado como",

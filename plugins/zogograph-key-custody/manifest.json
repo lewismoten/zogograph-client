@@ -44,11 +44,11 @@
     "algorithm": "sha256",
     "files": {
       "README.md": "d423ab75d3a925840b77a36d36490044d4cd44700e23a8f1d85ebf40b5ab45cd",
-      "locales/ar.json": "d913f5436b36389fc032fbca801656eec7dafdcc82eeb850fd70cce5782d1926",
-      "locales/en.json": "0832254ae98e54e59816bc12d3fce314ac55ba4cfe9e9f3886d2c7c0a43102c5",
-      "locales/es.json": "c9931b4a08cb8d33cc0ebbd7a907527c2fc90cf9598ecc1ffbd5d2350f35dadf",
-      "locales/hi.json": "bdbf47b847f445677575a2164478408df030bd5dcdc60887c77f53d1dbd90f02",
-      "locales/zh.json": "b4f6176be00245f9329a9e20cceb6dfd99ba60495e226e3f038dd31780a83be1",
+      "locales/ar.json": "54116b683bfbed3e6825d8df2c5f93759fa1c5a159e9787e000018dab4a72ef2",
+      "locales/en.json": "97532baf6c58680835146d786df7e618fe437688946e5a5abdc48246687a9c5e",
+      "locales/es.json": "04ac706f9d384e3766d7392eb228702cdeeb6847f08126f9919f1140a9f14e28",
+      "locales/hi.json": "e5dcad07e9eee1dffd89513a9183ec3d872fffa4710c04dcb9e90929a8dd0eae",
+      "locales/zh.json": "db7be95f488d383e95d024c99e2306de8c63a0ebf488599bacc473fc4f57f59c",
       "settings.schema.json": "24826d3bd3ae7437affe957ec4d851302f7f1c9ce32221557207834265d6760c",
       "src/KeyCustodyProvider.php": "a7ec3dcf944b4834fb2420a1419fa433c976c501c54765baa677a5e55440b223",
       "src/KeyCustodyHttpClient.php": "bfd7e7af78816ddc13508baca3aeffdcc5a4dea20fff4c3702d37171019c2195"

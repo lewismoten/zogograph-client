@@ -15290,22 +15290,38 @@ function showCustodyPackageSettings(row, saved) {
   const base = document.createElement('input');
   base.type = 'url';
   base.className = 'wide-field';
-  base.placeholder = 'https://custody.example/services/key-custody';
+  base.placeholder = packageText(
+    'zogograph-key-custody.service_url_placeholder',
+    {},
+    'https://custody.example/services/key-custody',
+  );
   base.value = saved.service_base_url || '';
   const tenant = document.createElement('input');
   tenant.type = 'text';
   tenant.className = 'wide-field';
-  tenant.placeholder = 'ten_…';
+  tenant.placeholder = packageText(
+    'zogograph-key-custody.tenant_id_placeholder',
+    {},
+    'ten_…',
+  );
   tenant.value = saved.tenant_id || '';
   const key = document.createElement('input');
   key.type = 'text';
   key.className = 'wide-field';
-  key.placeholder = 'key_…';
+  key.placeholder = packageText(
+    'zogograph-key-custody.key_id_placeholder',
+    {},
+    'key_…',
+  );
   key.value = saved.custody_key_id || '';
   const pin = document.createElement('input');
   pin.type = 'text';
   pin.className = 'wide-field';
-  pin.placeholder = 'sha256//… (optional)';
+  pin.placeholder = packageText(
+    'zogograph-key-custody.tls_pin_placeholder',
+    {},
+    'sha256//… (optional)',
+  );
   pin.value = saved.tls_spki_pin || '';
   const cache = document.createElement('input');
   cache.type = 'number';
@@ -15317,12 +15333,20 @@ function showCustodyPackageSettings(row, saved) {
   const credential = document.createElement('input');
   credential.type = 'text';
   credential.className = 'wide-field';
-  credential.placeholder = 'secret_ref:zogograph-key-custody:…';
+  credential.placeholder = packageText(
+    'zogograph-key-custody.credential_reference_placeholder',
+    {},
+    'secret_ref:zogograph-key-custody:…',
+  );
   credential.value = saved.client_credential_secret || '';
   const signing = document.createElement('input');
   signing.type = 'text';
   signing.className = 'wide-field';
-  signing.placeholder = 'secret_ref:zogograph-key-custody:…';
+  signing.placeholder = packageText(
+    'zogograph-key-custody.signing_reference_placeholder',
+    {},
+    'secret_ref:zogograph-key-custody:…',
+  );
   signing.value = saved.client_signing_secret || '';
   showFormDialog(
     packageText(

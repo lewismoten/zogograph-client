@@ -259,7 +259,15 @@ try {
         ($custodyManifest['locales']['en'] ?? null) === 'locales/en.json' &&
             is_array($custodyLocale) &&
             isset($custodyLocale['zogograph-key-custody.settings_title']) &&
-            isset($custodyLocale['zogograph-key-custody.save_action']),
+            isset($custodyLocale['zogograph-key-custody.save_action']) &&
+            isset(
+                $custodyLocale['zogograph-key-custody.service_url_placeholder'],
+            ) &&
+            isset(
+                $custodyLocale[
+                    'zogograph-key-custody.credential_reference_placeholder'
+                ],
+            ),
         'key custody package does not own its declared localization catalog',
     );
     $custodyLocaleKeys = array_keys($custodyLocale);
@@ -285,6 +293,14 @@ try {
             str_contains(
                 $dashboardSource,
                 'zogograph-key-custody.remote_recovery_dialog',
+            ) &&
+            str_contains(
+                $dashboardSource,
+                'zogograph-key-custody.service_url_placeholder',
+            ) &&
+            str_contains(
+                $dashboardSource,
+                'zogograph-key-custody.credential_reference_placeholder',
             ) &&
             isset(
                 $custodyLocale['zogograph-key-custody.store_envelope_confirm'],

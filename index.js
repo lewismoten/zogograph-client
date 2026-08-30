@@ -41081,45 +41081,13 @@ async function refreshMounts() {
 function renderCagefsMounts(data) {
   const holder = $('cagefsMounts');
   if (!holder) return;
-
-  const cage = data?.cagefs;
-  if (!cage) {
-    holder.replaceChildren();
-    return;
-  }
-
-  const frag = document.createDocumentFragment();
-
-  /*
-   * Nothing, when there is no skeleton.
-   *
-   * The explainer above this already says whether CageFS is here and why an
-   * empty answer is not proof of absence. Repeating it as a second panel would
-   * be the same sentence twice on one short page.
-   */
-  if (!cage.present) {
-    holder.replaceChildren();
-    return;
-  }
-
-  frag.appendChild(
-    section(
-      `The skeleton — ${count(cage.count, 'mount')}`,
-      simpleTable(
-        ['Path inside the skeleton', 'Type', 'From', 'Bind', 'Read-only'],
-        cage.mounts.map((m) => [
-          m.relative,
-          m.fs_type,
-          m.fs_root === '/' ? m.source : m.fs_root,
-          m.bind ? 'yes' : 'no',
-          m.read_only ? 'yes' : 'no',
-        ]),
-        ['name', null, 'name', null, null],
-      ),
-    ),
-  );
-
-  holder.replaceChildren(frag);
+  renderCoreCardPackage(ZogographCagefsMountsCard, 'core-cagefs-mounts', data, {
+    target: holder,
+    section,
+    simpleTable,
+    count,
+    i18n: ZogographI18n,
+  });
 }
 
 /*

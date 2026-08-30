@@ -52,6 +52,7 @@ export default [
         ZogographCapabilityChangeNoteCard: 'readonly',
         ZogographJetBackupCard: 'readonly',
         ZogographCagefsExplainerCard: 'readonly',
+        ZogographCagefsMountsCard: 'readonly',
         ZogographDatabaseSnapshotsCard: 'readonly',
         ZogographHostDatabaseStorageCard: 'readonly',
         ZogographAccountDatabaseStorageCard: 'readonly',

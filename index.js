@@ -26176,7 +26176,7 @@ function renderUpcoming(data) {
   const holder = $("calendarUpcoming");
 
   if (!data.upcoming.length) {
-    holder.replaceChildren(note("Nothing dated is coming up."));
+    holder.replaceChildren(note(ZogographI18n.t("calendar.nothing_upcoming", {}, "Nothing dated is coming up.")));
     return;
   }
 
@@ -26191,7 +26191,11 @@ function renderUpcoming(data) {
 
     const when = document.createElement("span");
     when.className = "upcoming-when";
-    when.textContent = days === 0 ? "today" : (days === 1 ? "tomorrow" : `in ${days} days`);
+    when.textContent = days === 0
+      ? ZogographI18n.t("calendar.today", {}, "today")
+      : (days === 1
+        ? ZogographI18n.t("calendar.tomorrow", {}, "tomorrow")
+        : ZogographI18n.t("calendar.in_days", { count: days }, "in {{count, number}} days"));
     row.appendChild(when);
 
     const what = document.createElement("span");
@@ -26210,13 +26214,13 @@ function renderUpcoming(data) {
       go.target = "_blank";
       go.rel = "noopener noreferrer";
       go.className = "link";
-      go.textContent = "open";
+      go.textContent = ZogographI18n.t("action.open", {}, "Open");
       row.appendChild(go);
     }
     if (entry.view) {
       const go = document.createElement("button");
       go.className = "link";
-      go.textContent = VIEWS[entry.view] ? VIEWS[entry.view].label : "see";
+      go.textContent = VIEWS[entry.view] ? VIEWS[entry.view].label : ZogographI18n.t("action.see", {}, "See");
       go.addEventListener("click", () => showView(entry.view));
       row.appendChild(go);
     }

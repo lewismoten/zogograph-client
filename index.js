@@ -25338,18 +25338,33 @@ async function previewPattern() {
   for (const force of [false, true]) {
     const button = document.createElement('button');
     button.className = force ? 'danger' : '';
-    button.textContent = `${force ? 'Force' : 'Ask'} ${count(eligible.length, 'process', 'processes')} to stop`;
+    button.textContent = ZogographI18n.t(
+      force ? 'process.force_stop' : 'process.ask_stop',
+      { count: humanCount(eligible.length) },
+      force
+        ? 'Force {{count}} processes to stop'
+        : 'Ask {{count}} processes to stop',
+    );
 
     button.addEventListener('click', async () => {
-      const verb = force ? 'Force' : 'Ask';
+      const verb = ZogographI18n.t(
+        force ? 'process.force' : 'process.ask',
+        {},
+        force ? 'Force' : 'Ask',
+      );
       if (
         !(await confirmDialog(
-          `${verb} ${count(eligible.length, 'process', 'processes')} to stop?\n\n` +
-            `Pattern: ${pattern}\n\n` +
-            (force
-              ? 'SIGKILL cannot be caught or ignored. Anything part-way through ' +
-                'being written stays part-way written.'
-              : 'SIGTERM lets each one close its files and exit cleanly.'),
+          ZogographI18n.t(
+            force ? 'process.force_confirmation' : 'process.ask_confirmation',
+            {
+              action: verb,
+              count: humanCount(eligible.length),
+              pattern,
+            },
+            force
+              ? '{{action}} {{count}} processes to stop?\n\nPattern: {{pattern}}\n\nSIGKILL cannot be caught or ignored. Anything part-way through being written stays part-way written.'
+              : '{{action}} {{count}} processes to stop?\n\nPattern: {{pattern}}\n\nSIGTERM lets each one close its files and exit cleanly.',
+          ),
         ))
       )
         return;
@@ -25360,10 +25375,37 @@ async function previewPattern() {
           pattern,
           force: force ? '1' : '0',
         });
-        const parts = [`${result.stopped} stopped`];
-        if (result.remaining) parts.push(`${result.remaining} still running`);
-        if (result.refused) parts.push(`${result.refused} protected`);
-        if (result.failed) parts.push(`${result.failed} failed`);
+        const parts = [
+          ZogographI18n.t(
+            'process.stopped_count',
+            { count: humanCount(result.stopped) },
+            '{{count}} stopped',
+          ),
+        ];
+        if (result.remaining)
+          parts.push(
+            ZogographI18n.t(
+              'process.still_running_count',
+              { count: humanCount(result.remaining) },
+              '{{count}} still running',
+            ),
+          );
+        if (result.refused)
+          parts.push(
+            ZogographI18n.t(
+              'process.protected_count',
+              { count: humanCount(result.refused) },
+              '{{count}} protected',
+            ),
+          );
+        if (result.failed)
+          parts.push(
+            ZogographI18n.t(
+              'process.failed_count',
+              { count: humanCount(result.failed) },
+              '{{count}} failed',
+            ),
+          );
         notice(parts.join(', ') + '.', true);
       } catch (error) {
         notice(String(error.message || error));

@@ -1408,6 +1408,16 @@ i18nExpect(
             $english['notes.somebody'],
             $english['notes.table_note'],
             $english['notes.table_size'],
+            $english['process.ask'],
+            $english['process.force'],
+            $english['process.ask_stop'],
+            $english['process.force_stop'],
+            $english['process.ask_confirmation'],
+            $english['process.force_confirmation'],
+            $english['process.stopped_count'],
+            $english['process.still_running_count'],
+            $english['process.protected_count'],
+            $english['process.failed_count'],
         ),
     'English fallback catalog is incomplete',
 );
@@ -1555,6 +1565,13 @@ i18nExpect(
         str_contains($script, 'notes.broadcast_cleared') &&
         str_contains($script, 'notes.table_size'),
     'note table retains direct user-visible text',
+);
+i18nExpect(
+    $script !== false &&
+        str_contains($script, 'process.ask_stop') &&
+        str_contains($script, 'process.force_confirmation') &&
+        str_contains($script, 'process.still_running_count'),
+    'process-stop controls retain direct user-visible text',
 );
 i18nExpect(
     str_contains($runtime, 'data-i18n-rich') &&

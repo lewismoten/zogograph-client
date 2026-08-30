@@ -1665,7 +1665,6 @@
   "email.send_to": "发送给",
   "email.send_from": "发件人",
   "email.dashboard_address": "此仪表板的地址",
-  "email.readonly_help": "Web 服务器无法写入 lib/config.php，因此此页面可以显示设置但无法更改它们。请使用 setup.php 或编辑该文件。",
   "email.recently_sent": "最近发送",
   "email.when": "时间",
   "email.to": "收件人",

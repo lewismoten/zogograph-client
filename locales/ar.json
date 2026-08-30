@@ -1665,7 +1665,6 @@
   "email.send_to": "أرسل إلى",
   "email.send_from": "أرسل من",
   "email.dashboard_address": "عنوان هذه اللوحة",
-  "email.readonly_help": "لا يمكن لخادم الويب الكتابة إلى lib/config.php، لذا يمكن لهذه الصفحة عرض الإعدادات دون تغييرها. استخدم setup.php أو حرر الملف.",
   "email.recently_sent": "أُرسل مؤخرًا",
   "email.when": "متى",
   "email.to": "إلى",

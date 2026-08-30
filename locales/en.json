@@ -1753,7 +1753,6 @@
   "email.send_to": "Send to",
   "email.send_from": "Send from",
   "email.dashboard_address": "This dashboard's address",
-  "email.readonly_help": "lib/config.php is not writable by the web server, so this page can show the settings but not change them. Use setup.php, or edit the file.",
   "email.recently_sent": "Recently sent",
   "email.when": "When",
   "email.to": "To",

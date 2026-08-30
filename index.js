@@ -40035,12 +40035,11 @@ function renderEmail(data) {
 
   if (!data.writable) {
     save.appendChild(
-      note(
-        ZogographI18n.t(
-          'email.readonly_help',
-          {},
-          'lib/config.php is not writable by the web server, so this page can show the settings but not change them. Use setup.php, or edit the file.',
-        ),
+      renderCoreCardPackage(
+        ZogographEmailWriteAccessCard,
+        'core-email-write-access',
+        data,
+        { note, i18n: ZogographI18n },
       ),
     );
   }

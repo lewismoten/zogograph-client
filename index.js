@@ -25332,7 +25332,7 @@ const urlState = { data: null, selected: null, editing: null };
 async function refreshUrls() {
   const body = $("urlBody");
   if (!state.signedIn) {
-    body.replaceChildren(note("Sign in to watch a URL."));
+    body.replaceChildren(note(ZogographI18n.t("url.sign_in_to_watch", {}, "Sign in to watch a URL.")));
     return;
   }
 

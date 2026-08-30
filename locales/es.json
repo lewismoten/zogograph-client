@@ -129,6 +129,7 @@
   "descriptions.saved": "Guardado. A partir de ahora se muestra junto a ese nombre.",
   "action.see": "Ver",
   "url.method_get": "GET — obtener la página",
+  "url.sign_in_to_watch": "Inicie sesión para vigilar una URL.",
   "url.method_head": "HEAD — solo cabeceras, sin cuerpo",
   "url.method_options": "OPTIONS — lo que permite el servidor",
   "url.ask_if_changed": "Preguntar si cambió",

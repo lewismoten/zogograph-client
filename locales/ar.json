@@ -129,6 +129,7 @@
   "descriptions.saved": "تم الحفظ. سيظهر بجانب ذلك الاسم من الآن فصاعدًا.",
   "action.see": "عرض",
   "url.method_get": "GET — اجلب الصفحة",
+  "url.sign_in_to_watch": "سجّل الدخول لمراقبة عنوان URL.",
   "url.method_head": "HEAD — الترويسات فقط، بلا متن",
   "url.method_options": "OPTIONS — ما يسمح به الخادم",
   "url.ask_if_changed": "اسأل إن كان قد تغير",

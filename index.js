@@ -34589,6 +34589,21 @@ async function refreshNetwork() {
  * known it is used and said; where it is not, the rate is a card and not a dial.
  */
 function renderInterfaces(rows) {
+  if (window.ZogographNetworkInterfacesCard) {
+    return renderCoreCardPackage(
+      ZogographNetworkInterfacesCard,
+      'core-network-interfaces',
+      rows,
+      {
+        target: $('networkInterfaces'),
+        note,
+        renderTable,
+        humanBytes,
+        humanCount,
+        i18n: ZogographI18n,
+      },
+    );
+  }
   if (!rows.length) {
     $('networkInterfaces').replaceChildren(
       note(ZogographI18n.t('network.interfaces_empty')),

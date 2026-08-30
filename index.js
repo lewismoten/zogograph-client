@@ -28996,10 +28996,11 @@ function renderUptime() {
       from: o.from,
       to: o.to,
       seconds: o.seconds_at_most,
-      note:
-        'Boot time moved, so the machine did restart. It came back at ' +
-        `${humanTime(o.booted_at)}; it went down at some point after the last ` +
-        'reading, so this is an upper bound rather than a measurement.',
+      note: ZogographI18n.t(
+        'uptime.restart_explanation',
+        { booted: humanTime(o.booted_at) },
+        'Boot time moved, so the machine did restart. It came back at {{booted}}; it went down at some point after the last reading, so this is an upper bound rather than a measurement.',
+      ),
     })),
     /*
      * All three are called a reading gap, not an outage.
@@ -29015,16 +29016,19 @@ function renderUptime() {
       from: g.from,
       to: g.to,
       seconds: g.seconds,
-      note:
+      note: ZogographI18n.t(
         g.kind === 'not_recorded'
-          ? 'Boot time was unchanged either side, so the machine ran straight ' +
-            'through this — it was up, and the collector was not running.'
+          ? 'uptime.gap_collector_not_running'
           : g.kind === 'before_tracking'
-            ? 'These readings predate boot-time recording, so whether the machine ' +
-              'restarted here cannot be told. Not an outage — just a stretch that ' +
-              'cannot be classified. Gaps from now on will say which.'
-            : 'No boot time either side to compare, so whether the machine stayed ' +
-              'up through this cannot be told from these readings.',
+            ? 'uptime.gap_before_tracking'
+            : 'uptime.gap_unknown',
+        {},
+        g.kind === 'not_recorded'
+          ? 'Boot time was unchanged either side, so the machine ran straight through this — it was up, and the collector was not running.'
+          : g.kind === 'before_tracking'
+            ? 'These readings predate boot-time recording, so whether the machine restarted here cannot be told. Not an outage — just a stretch that cannot be classified. Gaps from now on will say which.'
+            : 'No boot time either side to compare, so whether the machine stayed up through this cannot be told from these readings.',
+      ),
     })),
   ].sort((x, y) => y.from - x.from);
 

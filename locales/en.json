@@ -20,6 +20,8 @@
   "action.open": "Open",
   "action.request_capture": "Ask for a capture",
   "action.put_in_command_box": "Put it in the command box",
+  "action.syntax_preview": "Syntax preview",
+  "action.review_changes": "Review changes",
   "action.copied": "Copied",
   "action.copy_value": "Copy it",
   "action.copy_line": "Copy the line",

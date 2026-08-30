@@ -14917,7 +14917,7 @@ async function openTerminalEditor(path) {
     const syntaxButton = document.createElement("button");
     syntaxButton.type = "button";
     syntaxButton.className = "link";
-    syntaxButton.textContent = "Syntax preview";
+    syntaxButton.textContent = ZogographI18n.t("action.syntax_preview", {}, "Syntax preview");
     syntaxButton.title = `Read the current ${syntax.toUpperCase()} text with local syntax colors`;
     syntaxButton.addEventListener("click", () => {
       const preview = terminalEditorSyntaxPreview(data.path, text.value);
@@ -14931,7 +14931,7 @@ async function openTerminalEditor(path) {
     const review = document.createElement("button");
     review.type = "button";
     review.className = "link";
-    review.textContent = "Review changes";
+    review.textContent = ZogographI18n.t("action.review_changes", {}, "Review changes");
     review.title = "Show a bounded line-by-line preview before saving (Ctrl/Cmd+Shift+D)";
     const preview = () => {
       const diff = terminalEditorDiff(data.text, text.value);

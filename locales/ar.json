@@ -20,6 +20,8 @@
   "action.open": "فتح",
   "action.request_capture": "اطلب التقاطًا",
   "action.put_in_command_box": "ضعه في مربع الأوامر",
+  "action.syntax_preview": "معاينة الصياغة",
+  "action.review_changes": "راجع التغييرات",
   "action.copied": "تم النسخ",
   "action.copy_value": "انسخه",
   "action.copy_line": "انسخ السطر",

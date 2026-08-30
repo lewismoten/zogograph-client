@@ -20,6 +20,8 @@
   "action.open": "打开",
   "action.request_capture": "请求抓包",
   "action.put_in_command_box": "放入命令框",
+  "action.syntax_preview": "语法预览",
+  "action.review_changes": "审阅更改",
   "action.copied": "已复制",
   "action.copy_value": "复制它",
   "action.copy_line": "复制该行",

@@ -5379,14 +5379,29 @@ function renderEmptyButtons() {
         try {
           const result = await post('empty', { category });
           notice(
-            `Emptied ${category}: ${humanCount(result.files_removed)} files, ` +
-              `${humanBytes(result.bytes_freed)} freed` +
-              (result.still_linked
-                ? `. ${count(result.still_linked, 'file')} had another name, so freed nothing`
-                : '') +
-              (result.failed
-                ? `, ${result.failed} could not be removed.`
-                : '.'),
+            ZogographI18n.t(
+              'storage.empty_result',
+              {
+                category,
+                files: humanCount(result.files_removed),
+                size: humanBytes(result.bytes_freed),
+                linked: result.still_linked
+                  ? ZogographI18n.t(
+                      'storage.empty_result_linked',
+                      { files: count(result.still_linked, 'file') },
+                      ' {{files}} had another name, so freed nothing.',
+                    )
+                  : '',
+                failed: result.failed
+                  ? ZogographI18n.t(
+                      'storage.empty_result_failed',
+                      { files: result.failed },
+                      ' {{files}} could not be removed.',
+                    )
+                  : '',
+              },
+              'Emptied {{category}}: {{files}}, {{size}} freed.{{linked}}{{failed}}',
+            ),
             true,
           );
           await refreshAll();

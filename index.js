@@ -5219,7 +5219,11 @@ function renderCategoryChart(rows, categories) {
     xKey: 'started_at',
     axis: bytesAxis,
     zeroBased: true,
-    empty: 'No scan has finished in this range yet',
+    empty: ZogographI18n.t(
+      'storage.no_scan_finished_range',
+      {},
+      'No scan has finished in this range yet',
+    ),
   });
 }
 

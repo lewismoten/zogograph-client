@@ -2294,6 +2294,7 @@
   "storage.files_right": "फ़ाइलें (दायां)",
   "storage.link": "लिंक",
   "storage.history_one_scan": "यह पथ अभी तक केवल एक स्कैन में देखा गया है",
+  "storage.no_scan_finished_range": "इस सीमा में अभी कोई स्कैन पूरा नहीं हुआ है",
   "storage.on_disk": "डिस्क पर",
   "storage.type": "प्रकार",
   "storage.watched_as": "के रूप में निगरानी",

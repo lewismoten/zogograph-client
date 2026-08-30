@@ -25932,12 +25932,13 @@ function openUrlForm(row = null) {
   url.size = 46;
   url.placeholder = "https://example.com/";
   url.value = row?.url ?? "";
-  field("urlUrl", "Address", url, "The address somebody would actually type.");
+  field("urlUrl", ZogographI18n.t("url.address", {}, "Address"), url,
+    ZogographI18n.t("url.address_help", {}, "The address somebody would actually type."));
 
   const label = document.createElement("input");
   label.type = "text";
   label.size = 30;
-  label.placeholder = "left blank, the host is used";
+  label.placeholder = ZogographI18n.t("url.label_placeholder", {}, "left blank, the host is used");
   label.value = row?.label ?? "";
   field("urlLabel", ZogographI18n.t("url.label", {}, "Called"), label, "");
 

@@ -18526,6 +18526,14 @@ function renderRetention(data) {
   const body = $('retentionBody');
   const account = data.account;
   const parts = [];
+  const retentionDuration = (days) =>
+    Number(days) === 0
+      ? ZogographI18n.t('storage.retention_for_ever', {}, 'for ever')
+      : ZogographI18n.t(
+          'storage.retention_days_value',
+          { days },
+          '{{days}} days',
+        );
 
   if (!data.writable) {
     parts.push(
@@ -18597,21 +18605,24 @@ function renderRetention(data) {
     input.name = entry.key;
     input.value = String(entry.days);
     input.disabled = !data.writable;
-    input.title = 'Days. 0 means keep for ever.';
+    input.title = ZogographI18n.t(
+      'storage.retention_days_hint',
+      {},
+      'Days. 0 means keep for ever.',
+    );
     keep.appendChild(input);
 
     const forever = document.createElement('span');
     forever.className = 'muted small';
-    forever.textContent = entry.days === 0 ? ' for ever' : ' days';
+    forever.textContent = ` ${retentionDuration(entry.days)}`;
     keep.appendChild(forever);
     input.addEventListener('input', () => {
-      forever.textContent = Number(input.value) === 0 ? ' for ever' : ' days';
+      forever.textContent = ` ${retentionDuration(input.value)}`;
     });
 
     const suggested = row.insertCell();
     suggested.className = 'muted';
-    suggested.textContent =
-      entry.recommended === 0 ? 'for ever' : `${entry.recommended} days`;
+    suggested.textContent = retentionDuration(entry.recommended);
     /*
      * The ones where "for ever" is the recommendation get it marked.
      *
@@ -18626,7 +18637,13 @@ function renderRetention(data) {
         entry.why;
     }
     if (entry.days !== entry.recommended) {
-      suggested.textContent += ' (recommended)';
+      suggested.textContent +=
+        ' ' +
+        ZogographI18n.t(
+          'storage.retention_recommended_marker',
+          {},
+          '(recommended)',
+        );
     }
 
     const settles = row.insertCell();

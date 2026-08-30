@@ -5902,94 +5902,24 @@ function renderAiSettings(data) {
     ),
   );
 
-  const provider = document.createElement('select');
-  provider.id = 'aiProvider';
-  const providerNote = document.createElement('div');
-  providerNote.className = 'muted small';
-
-  for (const [key, meta] of Object.entries(data.providers)) {
-    const option = document.createElement('option');
-    option.value = key;
-    option.textContent = meta.label;
-    option.selected = data.provider === key;
-    provider.appendChild(option);
-  }
-  form.appendChild(
-    fieldRow(aiSettingsText('provider_label', 'Provider'), provider, ''),
+  const connection = renderCoreCardPackage(
+    ZogographAiProviderConnectionCard,
+    'core-ai-provider-connection',
+    data,
+    { fieldRow, i18n: ZogographI18n },
   );
-  form.appendChild(providerNote);
-
-  const base = document.createElement('input');
-  base.type = 'text';
-  base.id = 'aiBase';
-  base.className = 'wide-field';
-  base.value = data.base_url || '';
-  form.appendChild(
-    fieldRow(
-      aiSettingsText('address_label', 'Address'),
-      base,
-      aiSettingsText(
-        'address_help',
-        "Leave blank for the provider's own. Point it elsewhere for a gateway, a proxy, or a model running on this machine.",
-      ),
-    ),
-  );
-
-  const model = document.createElement('select');
-  model.id = 'aiModel';
-  model.className = 'wide-field';
-  model.value = data.model || '';
-
-  const key = document.createElement('input');
-  key.type = 'password';
-  key.id = 'aiKey';
-  key.className = 'wide-field';
-  key.autocomplete = 'off';
-  key.placeholder = data.has_key
-    ? aiSettingsText('api_key_unchanged', '{{mask}} (unchanged)', {
-        mask: '•'.repeat(24),
-      })
-    : '';
-  form.appendChild(
-    fieldRow(
-      aiSettingsText('api_key_label', 'API key'),
-      key,
-      data.has_key
-        ? aiSettingsText(
-            'api_key_set_help',
-            'A key is set. It is never sent back to this page, so leaving this blank keeps the existing one — type a new one to replace it.',
-          )
-        : aiSettingsText(
-            'api_key_empty_help',
-            'Stored in lib/config.php, which is outside the web root. A local model needs none.',
-          ),
-    ),
-  );
-
-  const selected = document.createElement('div');
-  selected.className = 'settings';
-  const selectedProvider = provider.cloneNode(true);
-  selectedProvider.id = 'aiSelectedProvider';
-  selected.appendChild(
-    fieldRow(
-      aiSettingsText('provider_label', 'Provider'),
-      selectedProvider,
-      aiSettingsText(
-        'selected_provider_help',
-        "Choose which provider's models to show.",
-      ),
-    ),
-  );
-  selected.appendChild(
-    fieldRow(
-      aiSettingsText('available_model_label', 'Available model'),
-      model,
-      aiSettingsText(
-        'available_model_help',
-        'Models supplied by the provider or added on Available Models.',
-      ),
-    ),
-  );
+  const {
+    form: connectionForm,
+    selected,
+    provider,
+    providerNote,
+    base,
+    model,
+    key,
+    selectedProvider,
+    t: providerText,
+  } = connection;
+  form.appendChild(connectionForm);
 
   /*
    * How hard a reasoning model should think, where the endpoint takes one.
@@ -6648,8 +6578,9 @@ function renderAiSettings(data) {
     if (!model.options.length) {
       const option = document.createElement('option');
       option.value = '';
-      option.textContent = aiSettingsText(
+      option.textContent = providerText(
         'no_available_models',
+        {},
         'No available models yet — add one on Available Models',
       );
       model.appendChild(option);
@@ -6664,11 +6595,14 @@ function renderAiSettings(data) {
     const hasKey =
       saved.has_key || (provider.value === data.provider && data.has_key);
     key.placeholder = hasKey
-      ? aiSettingsText('api_key_unchanged', '{{mask}} (unchanged)', {
-          mask: '•'.repeat(24),
-        })
-      : aiSettingsText(
+      ? providerText(
+          'api_key_unchanged',
+          { mask: '•'.repeat(24) },
+          '{{mask}} (unchanged)',
+        )
+      : providerText(
           'compatible_keyless_save_help',
+          {},
           'An Ollama or OpenAI-compatible connection can be saved without an API key.',
         );
   };

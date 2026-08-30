@@ -8337,10 +8337,14 @@ function pictureFields(data) {
   on.checked = pictures.enabled;
   form.appendChild(
     fieldRow(
-      'Let it make pictures',
+      ZogographI18n.t('ai.images_enabled', {}, 'Let it make pictures'),
       on,
-      'Off means the picture tools are not offered at all. Each one costs money per call ' +
-        'and asks your permission every time.',
+      ZogographI18n.t(
+        'ai.images_enabled_help',
+        {},
+        'Off means the picture tools are not offered at all. Each one costs money per call ' +
+          'and asks your permission every time.',
+      ),
     ),
   );
 
@@ -8350,15 +8354,27 @@ function pictureFields(data) {
   key.className = 'wide-field';
   key.autocomplete = 'off';
   key.placeholder = pictures.has_key
-    ? '•'.repeat(20) + ' (unchanged)'
-    : 'your DeepAI key';
+    ? ZogographI18n.t(
+        'ai.images_key_unchanged',
+        { mask: '•'.repeat(20) },
+        '{{mask}} (unchanged)',
+      )
+    : ZogographI18n.t('ai.images_key_placeholder', {}, 'your DeepAI key');
   form.appendChild(
     fieldRow(
-      'DeepAI key',
+      ZogographI18n.t('ai.images_key', {}, 'DeepAI key'),
       key,
       pictures.has_key
-        ? 'A key is set. Leaving this blank keeps it.'
-        : 'From deepai.org. Without one the picture tools stay hidden.',
+        ? ZogographI18n.t(
+            'ai.images_key_kept',
+            {},
+            'A key is set. Leaving this blank keeps it.',
+          )
+        : ZogographI18n.t(
+            'ai.images_key_required',
+            {},
+            'From deepai.org. Without one the picture tools stay hidden.',
+          ),
     ),
   );
 

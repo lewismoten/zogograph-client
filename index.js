@@ -10164,17 +10164,22 @@ function renderChatStatus(session) {
 
   if (session.permission || chatState.prompt) return;
 
+  const activity = renderCoreCardPackage(
+    ZogographChatActivityCard,
+    'core-chat-activity',
+    { state: session.state },
+    { i18n: ZogographI18n },
+  );
+  if (activity) status.appendChild(activity);
   const said =
     {
       idle: '',
-      thinking: 'Thinking…',
-      waiting_browser: 'Doing something in this window…',
       stopped: `Stopped — ${session.stop_reason || 'by you'}.`,
       ended: `Finished — ${session.stop_reason || 'a limit was reached'}.`,
       failed: `Gave up — ${session.stop_reason || 'the model could not be reached'}.`,
     }[session.state] ?? '';
 
-  if (said) {
+  if (said && !activity) {
     const line = document.createElement('span');
     line.className = ['stopped', 'ended', 'failed'].includes(session.state)
       ? 'muted'

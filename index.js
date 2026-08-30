@@ -1220,19 +1220,21 @@ function renderCpuTime(data) {
     renderCoreCardPackage(
       ZogographCpuTimeCard,
       'core-cpu-time',
-      { now, states, series: data.series ?? [] },
+      {
+        now,
+        states,
+        series: data.series ?? [],
+        cores: Number(data.sample?.cpu_cores) || 0,
+      },
       {
         setCard: (label, value, sub, level = '') =>
           setHostCard(label, value, sub, level, '', 'cpuTimeCards'),
+        note: $('cpuTimeNote'),
         bandOf,
         cpuStateLabel,
+        verdict: cpuTimeVerdict,
         i18n: ZogographI18n,
       },
-    );
-
-    $('cpuTimeNote').textContent = cpuTimeVerdict(
-      now,
-      Number(data.sample?.cpu_cores) || 0,
     );
   }
 

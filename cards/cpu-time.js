@@ -3,7 +3,7 @@ window.ZogographCpuTimeCard = {
   manifest: Object.freeze({
     id: 'core-cpu-time',
     locales: ['core-cpu-time.'],
-    helpers: ['setCard', 'bandOf', 'cpuStateLabel', 'i18n'],
+    helpers: ['setCard', 'note', 'bandOf', 'cpuStateLabel', 'verdict', 'i18n'],
     catalogs: Object.freeze({
       en: Object.freeze({
         'core-cpu-time.average_over_range':
@@ -26,8 +26,8 @@ window.ZogographCpuTimeCard = {
     }),
   }),
   render(input, helpers) {
-    const { now, states, series } = input;
-    const { setCard, bandOf, cpuStateLabel, i18n } = helpers;
+    const { now, states, series, cores } = input;
+    const { setCard, note, bandOf, cpuStateLabel, verdict, i18n } = helpers;
     const bands = {
       steal: [5, 20],
       iowait: [15, 35],
@@ -58,5 +58,6 @@ window.ZogographCpuTimeCard = {
         band === 'crit' ? 'crit' : band === 'warn' ? 'warn' : '',
       );
     }
+    if (note) note.textContent = verdict(now, cores);
   },
 };

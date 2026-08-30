@@ -5998,30 +5998,23 @@ function renderAiSettings(data) {
    * refuse function tools whenever this is set to anything but none, which is
    * the error that led to that endpoint being spoken at all.
    */
-  const effort = document.createElement('select');
-  effort.id = 'aiEffort';
-  for (const [value, label] of [
-    ['', aiSettingsText('effort_default', "the provider's default")],
-    ['minimal', aiSettingsText('effort_minimal', 'minimal')],
-    ['low', aiSettingsText('effort_low', 'low')],
-    ['medium', aiSettingsText('effort_medium', 'medium')],
-    ['high', aiSettingsText('effort_high', 'high')],
-  ]) {
-    const option = document.createElement('option');
-    option.value = value;
-    option.textContent = label;
-    option.selected = (data.reasoning_effort || '') === value;
-    effort.appendChild(option);
-  }
-  const effortRow = fieldRow(
-    aiSettingsText('reasoning_label', 'How hard to think'),
-    effort,
-    aiSettingsText(
-      'reasoning_help',
-      'Reasoning models charge for the thinking as output tokens, so this is the setting that moves the bill most. Higher is worth it for a knotty problem and wasted on “is the disk full?”.',
+  form.appendChild(
+    renderCoreCardPackage(
+      ZogographAiReasoningEffortCard,
+      'core-ai-reasoning-effort',
+      {
+        value: data.reasoning_effort,
+        options: [
+          ['', aiSettingsText('effort_default', "the provider's default")],
+          ['minimal', aiSettingsText('effort_minimal', 'minimal')],
+          ['low', aiSettingsText('effort_low', 'low')],
+          ['medium', aiSettingsText('effort_medium', 'medium')],
+          ['high', aiSettingsText('effort_high', 'high')],
+        ],
+      },
+      { fieldRow, i18n: ZogographI18n },
     ),
   );
-  form.appendChild(effortRow);
 
   if (data.has_key) {
     const forget = document.createElement('button');
@@ -6635,7 +6628,8 @@ function renderAiSettings(data) {
 
     // Only one endpoint takes it, and offering it elsewhere would suggest it
     // does something.
-    effortRow.hidden = provider.value !== 'openai-responses';
+    const effortRow = $('aiEffort')?.closest('.settings-row');
+    if (effortRow) effortRow.hidden = provider.value !== 'openai-responses';
     const wantedModel =
       model.value || (provider.value === data.provider ? data.model : '');
     const available = new Set(meta?.models ?? []);

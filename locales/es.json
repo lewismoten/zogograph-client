@@ -111,6 +111,7 @@
   "account.this_account": "Esta cuenta — con la que se ejecuta este panel.",
   "account.root": "root",
   "account.root_unmanaged": "root. Este panel no puede detener ni cambiar estos procesos.",
+  "descriptions.sign_in_to_write": "Inicie sesión para escribir las suyas.",
   "action.see": "Ver",
   "url.method_get": "GET — obtener la página",
   "url.method_head": "HEAD — solo cabeceras, sin cuerpo",

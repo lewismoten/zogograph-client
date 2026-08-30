@@ -111,6 +111,7 @@
   "account.this_account": "यह खाता — जिससे यह डैशबोर्ड चलता है।",
   "account.root": "root",
   "account.root_unmanaged": "root. यह डैशबोर्ड इन्हें रोक या बदल नहीं सकता।",
+  "descriptions.sign_in_to_write": "अपने विवरण लिखने के लिए साइन इन करें।",
   "action.see": "देखें",
   "url.method_get": "GET — पेज प्राप्त करें",
   "url.method_head": "HEAD — केवल हेडर, कोई बॉडी नहीं",

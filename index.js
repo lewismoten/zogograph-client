@@ -27085,7 +27085,7 @@ function renderDescriptions() {
 
   form.hidden = !WHAT_IS.writable;
   if (!WHAT_IS.writable) {
-    body.replaceChildren(note("Sign in to write your own."));
+    body.replaceChildren(note(ZogographI18n.t("descriptions.sign_in_to_write", {}, "Sign in to write your own.")));
     return;
   }
 

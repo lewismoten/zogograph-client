@@ -111,6 +111,7 @@
   "account.this_account": "This account — the one this dashboard runs as.",
   "account.root": "root",
   "account.root_unmanaged": "root. This dashboard cannot stop or change these.",
+  "descriptions.sign_in_to_write": "Sign in to write your own.",
   "action.see": "See",
   "url.method_get": "GET — fetch the page",
   "url.method_head": "HEAD — headers only, no body",

@@ -1396,6 +1396,10 @@ i18nExpect(
             $english['pending.new'],
             $english['notes.capture_size'],
             $english['notes.pictures_kept'],
+            $english['notes.empty'],
+            $english['notes.selected'],
+            $english['notes.select_to_act'],
+            $english['notes.dismiss_selected_help'],
         ),
     'English fallback catalog is incomplete',
 );
@@ -1529,6 +1533,13 @@ i18nExpect(
         str_contains($script, 'notes.capture_size') &&
         str_contains($script, 'notes.pictures_kept'),
     'note attachment summary retains direct user-visible text',
+);
+i18nExpect(
+    $script !== false &&
+        str_contains($script, 'notes.empty') &&
+        str_contains($script, 'notes.selected') &&
+        str_contains($script, 'notes.dismiss_selected_help'),
+    'note selection controls retain direct user-visible text',
 );
 i18nExpect(
     str_contains($runtime, 'data-i18n-rich') &&

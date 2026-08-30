@@ -17201,8 +17201,11 @@ function renderNotes(data) {
   if (!data.rows.length) {
     body.replaceChildren(
       note(
-        'Nothing written down yet. The button in the bottom corner writes one about whatever ' +
-          'page you are on.',
+        ZogographI18n.t(
+          'notes.empty',
+          {},
+          'Nothing written down yet. The button in the bottom corner writes one about whatever page you are on.',
+        ),
       ),
     );
   } else {
@@ -17210,8 +17213,16 @@ function renderNotes(data) {
     controls.className = 'table-tools note-batch-tools';
     const selected = document.createElement('span');
     selected.textContent = noteState.selected.size
-      ? `${count(noteState.selected.size, 'note')} selected`
-      : 'Select notes to dismiss or delete';
+      ? ZogographI18n.t(
+          'notes.selected',
+          { count: humanCount(noteState.selected.size) },
+          '{{count}} selected',
+        )
+      : ZogographI18n.t(
+          'notes.select_to_act',
+          {},
+          'Select notes to dismiss or delete',
+        );
     controls.appendChild(selected);
     const clear = document.createElement('button');
     clear.className = 'link';
@@ -17221,8 +17232,11 @@ function renderNotes(data) {
       'Dismiss selected',
     );
     clear.disabled = !state.access?.write || !noteState.selected.size;
-    clear.title =
-      'Clears selected broadcast notes; ordinary notes are left alone.';
+    clear.title = ZogographI18n.t(
+      'notes.dismiss_selected_help',
+      {},
+      'Clears selected broadcast notes; ordinary notes are left alone.',
+    );
     clear.addEventListener('click', () => batchNotes('clear'));
     const remove = document.createElement('button');
     remove.className = 'link danger';

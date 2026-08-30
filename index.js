@@ -39173,103 +39173,16 @@ function showLogLine(row, index, rows) {
 }
 
 function renderRepeats(data) {
-  const body = $('repeatBody');
-  const repeats = data.repeats;
-
-  if (!repeats || !repeats.groups.length) {
-    body.replaceChildren(
-      note(
-        ZogographI18n.t('log.nothing_to_group', {}, 'Nothing to group yet.'),
-      ),
-    );
-    return;
-  }
-
-  const wrap = document.createDocumentFragment();
-  wrap.appendChild(
-    note(
-      `${humanCount(repeats.lines)} recent lines across every log fall into ` +
-        `${count(repeats.distinct, 'distinct shape')}.`,
-    ),
-  );
-
-  const holder = document.createElement('div');
-  holder.id = 'repeatTable';
-  wrap.appendChild(holder);
-  body.replaceChildren(wrap);
-
-  renderTable(
-    'repeatTable',
-    repeats.groups,
-    [
-      {
-        label: ZogographI18n.t('log.repeat_times', {}, 'Times'),
-        className: 'size',
-        render: (row) => humanCount(row.count),
-      },
-      {
-        label: ZogographI18n.t('log.repeat_rate', {}, 'Rate'),
-        className: 'size',
-        render: (row) => {
-          if (row.per_minute == null) return '\u2014';
-          const span = document.createElement('span');
-          span.textContent = `${row.per_minute}/min`;
-          // A count is a finding; a rate is an emergency, and the difference is
-          // not visible in the count.
-          if (row.per_minute >= 60) span.className = 'grew';
-          return span;
-        },
-      },
-      {
-        label: ZogographI18n.t('log.repeat_in', {}, 'In'),
-        render: (row) => (row.files || []).join(', '),
-      },
-      {
-        label: ZogographI18n.t('log.repeat_last_one', {}, 'Last one'),
-        render: (row) => (row.last_at ? whenSpan(row.last_at) : '—'),
-      },
-      {
-        label: ZogographI18n.t('log.repeat_what_it_says', {}, 'What it says'),
-        className: 'cmd',
-        render: (row) => {
-          const wrap = document.createDocumentFragment();
-
-          /*
-           * The level and the source, as their own small marks.
-           *
-           * They were part of the text being truncated, which meant a column of
-           * "[25-Aug-2026 11:40:20 Am" and nothing else. They are short, they
-           * are worth having, and they are not the message.
-           */
-          if (row.kind) {
-            const [icon, meaning] = LOG_MARKS[row.kind] || ['▫️', ''];
-            const mark = document.createElement('span');
-            mark.textContent = `${icon} `;
-            mark.title = meaning;
-            wrap.appendChild(mark);
-          }
-
-          if (row.where) {
-            const who = document.createElement('span');
-            who.className = 'muted';
-            who.textContent = `${row.where}: `;
-            wrap.appendChild(who);
-          }
-
-          const span = document.createElement('span');
-          span.className = 'repeat-line';
-          span.textContent = row.message || row.example;
-          span.title = `${row.example}\n\nGrouped as: ${row.shape}`;
-          wrap.appendChild(span);
-
-          return wrap;
-        },
-      },
-    ],
-    null,
-    null,
-    (row) => row.shape,
-  );
+  renderCoreCardPackage(ZogographLogRepeatsCard, 'core-log-repeats', data, {
+    target: $('repeatBody'),
+    note,
+    humanCount,
+    count,
+    renderTable,
+    whenSpan,
+    logMarks: LOG_MARKS,
+    i18n: ZogographI18n,
+  });
 }
 
 /*

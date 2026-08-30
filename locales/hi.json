@@ -523,7 +523,6 @@
   "storage.ldconfig_previous_finished": "पिछला पुनर्निर्माण {{time}} था और पूरा हुआ।",
   "storage.ldconfig_previous_failed": "पिछला पुनर्निर्माण {{time}} था और विफल हुआ: {{reason}}।",
   "storage.ldconfig_no_reason": "कोई कारण नहीं दिया गया",
-  "ai.try_server_timing": "{{ms}} ms, {{size}} वापस",
   "ai.try_generated_picture": "बनाया गया चित्र",
   "ai.try_picture_note": "शैली: {{style}}। यह वह चित्र है जो टूल ने अभी बनाया है।",
   "ai.try_not_reported": "रिपोर्ट नहीं किया गया",

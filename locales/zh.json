@@ -523,7 +523,6 @@
   "storage.ldconfig_previous_finished": "上一次重建是在 {{time}}，且已完成。",
   "storage.ldconfig_previous_failed": "上一次重建是在 {{time}}，且失败：{{reason}}。",
   "storage.ldconfig_no_reason": "未提供原因",
-  "ai.try_server_timing": "{{ms}} 毫秒，返回 {{size}}",
   "ai.try_generated_picture": "生成的图片",
   "ai.try_picture_note": "样式：{{style}}。这是该工具刚刚生成的图片。",
   "ai.try_not_reported": "未报告",

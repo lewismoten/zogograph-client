@@ -29,6 +29,7 @@ window.ZogographAiToolTryCard = {
         'core-ai-tool-try.browser_timing': '{{ms}} ms, in this window',
         'core-ai-tool-try.refused':
           'Refused before it ran: {{reason}}\n\n{{note}}',
+        'core-ai-tool-try.server_timing': '{{ms}} ms, {{size}} back',
       }),
       es: Object.freeze({
         'core-ai-tool-try.empty': 'No hay herramientas.',
@@ -53,6 +54,7 @@ window.ZogographAiToolTryCard = {
         'core-ai-tool-try.browser_timing': '{{ms}} ms, en esta ventana',
         'core-ai-tool-try.refused':
           'Se rechazó antes de ejecutarse: {{reason}}\n\n{{note}}',
+        'core-ai-tool-try.server_timing': '{{ms}} ms, {{size}} de vuelta',
       }),
       hi: Object.freeze({
         'core-ai-tool-try.empty': 'कोई टूल नहीं हैं।',
@@ -76,6 +78,7 @@ window.ZogographAiToolTryCard = {
         'core-ai-tool-try.browser_timing': '{{ms}} ms, इस विंडो में',
         'core-ai-tool-try.refused':
           'चलने से पहले अस्वीकार किया गया: {{reason}}\n\n{{note}}',
+        'core-ai-tool-try.server_timing': '{{ms}} ms, {{size}} वापस',
       }),
       ar: Object.freeze({
         'core-ai-tool-try.empty': 'لا توجد أدوات.',
@@ -98,6 +101,7 @@ window.ZogographAiToolTryCard = {
           'شُغّل هذا في هذه النافذة، وهي المكان الذي يُشغّل فيه في المحادثة أيضًا. الفرق الوحيد هو أن النتيجة تُعرض هنا بدل أن تُسلّم إلى النموذج.',
         'core-ai-tool-try.browser_timing': '{{ms}} مللي ثانية، في هذه النافذة',
         'core-ai-tool-try.refused': 'رُفض قبل أن يعمل: {{reason}}\n\n{{note}}',
+        'core-ai-tool-try.server_timing': '{{ms}} مللي ثانية، {{size}} عادت',
       }),
       zh: Object.freeze({
         'core-ai-tool-try.empty': '没有工具。',
@@ -118,6 +122,7 @@ window.ZogographAiToolTryCard = {
           '这在此窗口中运行，而它在对话中也是在这里运行。唯一的区别是结果显示在这里，而不是交给模型。',
         'core-ai-tool-try.browser_timing': '{{ms}} 毫秒，在此窗口中',
         'core-ai-tool-try.refused': '运行前被拒绝：{{reason}}\n\n{{note}}',
+        'core-ai-tool-try.server_timing': '{{ms}} 毫秒，返回 {{size}}',
       }),
     }),
   }),

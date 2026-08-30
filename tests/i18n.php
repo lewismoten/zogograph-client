@@ -2538,7 +2538,6 @@ i18nExpect(
             $english['process.still_running_count'],
             $english['process.protected_count'],
             $english['process.failed_count'],
-            $english['ai.try_server_timing'],
             $english['ai.try_generated_picture'],
             $english['ai.try_picture_note'],
             $english['ai.try_not_reported'],
@@ -2752,6 +2751,7 @@ foreach (array_unique($dynamicDashboardKeys[1] ?? []) as $key) {
                     'core-ai-tool-try.browser_help',
                     'core-ai-tool-try.browser_timing',
                     'core-ai-tool-try.refused',
+                    'core-ai-tool-try.server_timing',
                 ],
                 true,
             ) &&
@@ -2880,7 +2880,7 @@ i18nExpect(
     $script !== false &&
         str_contains($script, 'core-ai-tool-try.browser_shown') &&
         str_contains($script, 'core-ai-tool-try.browser_timing') &&
-        str_contains($script, 'ai.try_server_timing') &&
+        str_contains($script, 'core-ai-tool-try.server_timing') &&
         str_contains($script, 'ai.try_result_help'),
     'AI tool test panel retains direct user-visible text',
 );
@@ -3282,6 +3282,7 @@ foreach (['en-US', 'en-GB', 'es', 'hi', 'zh', 'ar'] as $locale) {
                             'core-ai-tool-try.browser_help',
                             'core-ai-tool-try.browser_timing',
                             'core-ai-tool-try.refused',
+                            'core-ai-tool-try.server_timing',
                         ],
                         true,
                     ),

@@ -21279,7 +21279,7 @@ async function runAiTry(tool) {
     }
 
     said.textContent = ZogographI18n.t(
-      'ai.try_server_timing',
+      'core-ai-tool-try.server_timing',
       { ms: result.ms, size: humanBytes(result.bytes) },
       '{{ms}} ms, {{size}} back',
     );

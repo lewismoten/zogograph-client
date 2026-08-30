@@ -18735,10 +18735,21 @@ function purgeButton(entry) {
       ZogographI18n.t('storage.purge_title', {}, 'Clear old records'),
       ZogographI18n.t('storage.purge_age_in_days', {}, 'Age in days'),
       String(entry.days || 30),
-      `0 deletes all ${entry.label.toLowerCase()}.` +
-        (entry.table === 'vitals'
-          ? ' Readings near an alert are always kept.'
-          : ''),
+      ZogographI18n.t(
+        'storage.purge_zero_help',
+        {
+          label: entry.label.toLowerCase(),
+          protected:
+            entry.table === 'vitals'
+              ? ZogographI18n.t(
+                  'storage.purge_protected_help',
+                  {},
+                  ' Readings near an alert are always kept.',
+                )
+              : '',
+        },
+        '0 deletes all {{label}}.{{protected}}',
+      ),
     );
     if (asked === null) return;
 
@@ -18757,8 +18768,11 @@ function purgeButton(entry) {
     if (
       days === 0 &&
       !(await confirmDialog(
-        `Delete every one of ${entry.label.toLowerCase()}?\n\n${entry.why}\n\n` +
-          'This cannot be undone.',
+        ZogographI18n.t(
+          'storage.purge_confirm',
+          { label: entry.label.toLowerCase(), why: entry.why },
+          'Delete every one of {{label}}?\n\n{{why}}\n\nThis cannot be undone.',
+        ),
       ))
     )
       return;
@@ -18767,10 +18781,21 @@ function purgeButton(entry) {
     try {
       const result = await post('store-purge', { key: entry.key, days });
       notice(
-        `${humanCount(result.result.removed)} removed from ${result.result.label}.` +
-          (result.result.protected
-            ? ` ${humanCount(result.result.protected)} kept because they sit beside an alert.`
-            : ''),
+        ZogographI18n.t(
+          'storage.purge_removed',
+          {
+            count: humanCount(result.result.removed),
+            label: result.result.label,
+            protected: result.result.protected
+              ? ZogographI18n.t(
+                  'storage.purge_protected',
+                  { count: humanCount(result.result.protected) },
+                  ' {{count}} kept because they sit beside an alert.',
+                )
+              : '',
+          },
+          '{{count}} removed from {{label}}.{{protected}}',
+        ),
         true,
       );
       renderStore(result);

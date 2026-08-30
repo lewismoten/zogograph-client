@@ -2326,6 +2326,8 @@
   "backup.week_ago": "hace 7 días",
   "backup.grew_over": "{{bytes}} durante {{duration}}",
   "backup.not_attributed": "sin atribuir",
+  "backup.unattributed_help": "Parte de esto no se pudo vincular a una cuenta. Nada bajo la raíz de las copias de seguridad tenía un nombre que coincidiera con un directorio en /home, y los propios registros de JetBackup no se podían leer; por eso se informa como sin atribuir, en vez de asignarlo a la única cuenta de la máquina, lo cual sería una suposición.",
+  "backup.inferred_accounts_help": "Cuentas inferidas de los nombres de directorios bajo la raíz de las copias de seguridad: los metadatos de JetBackup no se podían leer, por lo que son una suposición razonable y no sus registros.",
   "backup.growth": "Crecimiento",
   "backup.by_account": "Por cuenta",
   "backup.no_suggestions": "No hay nada que sugerir a partir de esta lectura.",

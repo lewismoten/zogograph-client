@@ -2308,6 +2308,8 @@
   "backup.week_ago": "7 天前",
   "backup.grew_over": "{{duration}} 内 {{bytes}}",
   "backup.not_attributed": "未归属",
+  "backup.unattributed_help": "其中一部分无法关联到某个账户。备份根目录下没有名称与 /home 中目录相匹配的内容，JetBackup 自己的记录也无法读取；因此它被报告为未归属，而不是归给机器上的唯一账户，因为那会是猜测。",
+  "backup.inferred_accounts_help": "根据备份根目录下的目录名称推断账户——JetBackup 自己的元数据无法读取，因此这些是合理的推断，而不是它的记录。",
   "backup.growth": "增长",
   "backup.by_account": "按账户",
   "backup.no_suggestions": "此读数没有可提供的建议。",

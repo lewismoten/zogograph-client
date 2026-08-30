@@ -44148,10 +44148,11 @@ async function refreshBackups() {
     if (data.accounts.some((r) => r.unattributed)) {
       wrap.appendChild(
         note(
-          'Some of this could not be tied to an account. Nothing under the ' +
-            "backup root carried a name matching a directory in /home, and JetBackup's own " +
-            'records were not readable — so it is reported as unattributed rather than assigned ' +
-            'to the only account on the machine, which would be a guess.',
+          ZogographI18n.t(
+            'backup.unattributed_help',
+            {},
+            "Some of this could not be tied to an account. Nothing under the backup root carried a name matching a directory in /home, and JetBackup's own records were not readable — so it is reported as unattributed rather than assigned to the only account on the machine, which would be a guess.",
+          ),
         ),
       );
     }
@@ -44159,9 +44160,11 @@ async function refreshBackups() {
     if (data.accounts[0].inferred) {
       wrap.appendChild(
         note(
-          'Accounts inferred from directory names under the backup root — ' +
-            "JetBackup's own metadata was not readable, so these are a reasonable guess rather " +
-            'than its records.',
+          ZogographI18n.t(
+            'backup.inferred_accounts_help',
+            {},
+            "Accounts inferred from directory names under the backup root — JetBackup's own metadata was not readable, so these are a reasonable guess rather than its records.",
+          ),
         ),
       );
     }

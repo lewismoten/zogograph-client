@@ -2973,6 +2973,7 @@
   "processes.memory": "Memory",
   "processes.group_by_name": "Group by name",
   "processes.trend_title": "Reported process load over this range",
+  "processes.trend_initial_help": "The newest reported processes lead this list, with high peaks retained so a process that has settled down is still visible. Names group replacement workers together; PIDs are intentionally not a chart identity.",
   "processes.stop_title": "Stop by command line",
   "processes.stop_help": "For when the name is not specific enough to aim with — twelve {{webalizer}} processes where one of them is chewing through one particular log. This is {{pkill}}, with the two differences that matter: the pattern is matched here rather than handed to a shell, and it shows you what it would hit before it hits anything.",
   "processes.show_matches": "Show matches",

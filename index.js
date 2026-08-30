@@ -36542,51 +36542,12 @@ function renderFetchMeta(data) {
 
 /** Anything the page publishes as application/ld+json. */
 function renderFetchLinkedData(data) {
-  const wrap = document.createDocumentFragment();
-  const found = data.linked_data || { blocks: [] };
-
-  if (found.error) {
-    wrap.appendChild(note(found.error));
-    return wrap;
-  }
-
-  if (!found.blocks.length) {
-    wrap.appendChild(
-      note(
-        ZogographI18n.t(
-          'fetch.structured_data.none',
-          {},
-          'This page publishes no structured data. Sites use application/ld+json to tell search engines what a page is about in machine-readable form — an article, a product, an organisation — and plenty of sites simply have none.',
-        ),
-      ),
-    );
-    return wrap;
-  }
-
-  for (const block of found.blocks) {
-    const heading =
-      [block.type, block.name].filter(Boolean).join(' \u00b7 ') ||
-      ZogographI18n.t(
-        'fetch.structured_data.untyped_entity',
-        {},
-        'Untyped entity',
-      );
-
-    if (block.error) {
-      const bad = document.createDocumentFragment();
-      bad.appendChild(note(block.error));
-      const pre = document.createElement('pre');
-      pre.className = 'paste';
-      pre.textContent = block.json;
-      bad.appendChild(pre);
-      wrap.appendChild(section(heading, bad));
-      continue;
-    }
-
-    wrap.appendChild(section(heading, jsonBlock(block.json)));
-  }
-
-  return wrap;
+  return renderCoreCardPackage(
+    ZogographFetchLinkedDataCard,
+    'core-fetch-linked-data',
+    data,
+    { note, section, jsonBlock, i18n: ZogographI18n },
+  );
 }
 
 /** A JSON response, formatted, numbered and coloured. */

@@ -1418,8 +1418,6 @@
   "schedule.installed": "वर्तमान में स्थापित",
   "support.provider_message": "अपने होस्टिंग प्रदाता के लिए संदेश",
   "support.provider_message_help": "यह बताता है कि क्या मापा गया था और केवल सुरक्षित कार्रवाई का अनुरोध करता है। इसमें जानबूझकर किसी से बैकअप निर्देशिका से कुछ भी हटाने के लिए नहीं कहा गया है।",
-  "fetch.structured_data.none": "यह पृष्ठ कोई संरचित डेटा प्रकाशित नहीं करता। साइटें application/ld+json का उपयोग खोज इंजनों को मशीन-पठनीय रूप में यह बताने के लिए करती हैं कि पृष्ठ किस बारे में है — लेख, उत्पाद या संगठन — और बहुत-सी साइटों में ऐसा कुछ नहीं होता।",
-  "fetch.structured_data.untyped_entity": "बिना प्रकार की इकाई",
   "capabilities.this_account": "इस खाते",
   "capabilities.this_account_or_host": "इस खाते या होस्ट",
   "capabilities.command_unavailable": "{{command}}, {{where}} के लिए उपलब्ध नहीं है। root के रूप में:",

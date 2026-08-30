@@ -1420,8 +1420,6 @@
   "schedule.installed": "Instalado actualmente",
   "support.provider_message": "Mensaje para su proveedor de alojamiento",
   "support.provider_message_help": "Explica qué se midió y solicita únicamente acciones seguras. Deliberadamente no pide a nadie que elimine nada del directorio de copias de seguridad.",
-  "fetch.structured_data.none": "Esta página no publica datos estructurados. Los sitios usan application/ld+json para explicar a los motores de búsqueda de qué trata una página en formato legible por máquinas —un artículo, un producto, una organización— y muchos sitios simplemente no tienen ninguno.",
-  "fetch.structured_data.untyped_entity": "Entidad sin tipo",
   "capabilities.this_account": "esta cuenta",
   "capabilities.this_account_or_host": "esta cuenta o el host",
   "capabilities.command_unavailable": "{{command}} no está disponible para {{where}}. Como root:",

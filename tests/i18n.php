@@ -151,6 +151,9 @@ $fetchMetadataCard = i18nCardSource(
 $fetchJsonCard = i18nCardSource(
     file_get_contents($root . '/cards/fetch-json.js'),
 );
+$fetchLinkedDataCard = i18nCardSource(
+    file_get_contents($root . '/cards/fetch-linked-data.js'),
+);
 $changeHistoryCard = i18nCardSource(
     file_get_contents($root . '/cards/change-history.js'),
 );
@@ -934,6 +937,27 @@ i18nExpect(
         str_contains($fetchJsonCard, '"core-fetch-json.truncated"') &&
         str_contains($script, 'ZogographFetchJsonCard,'),
     'fetch JSON is not isolated behind its core card-module boundary',
+);
+i18nExpect(
+    $page !== false &&
+        $script !== false &&
+        str_contains($page, 'src="cards/fetch-linked-data.js"') &&
+        str_contains(
+            $fetchLinkedDataCard,
+            'window.ZogographFetchLinkedDataCard',
+        ) &&
+        str_contains($fetchLinkedDataCard, 'id: "core-fetch-linked-data"') &&
+        str_contains(
+            $fetchLinkedDataCard,
+            'locales: ["core-fetch-linked-data."]',
+        ) &&
+        str_contains($fetchLinkedDataCard, 'catalogs: Object.freeze({') &&
+        str_contains(
+            $fetchLinkedDataCard,
+            '"core-fetch-linked-data.untyped_entity"',
+        ) &&
+        str_contains($script, 'ZogographFetchLinkedDataCard,'),
+    'fetch structured data are not isolated behind their core card-module boundary',
 );
 i18nExpect(
     $page !== false &&

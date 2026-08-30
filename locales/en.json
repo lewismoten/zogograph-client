@@ -1471,8 +1471,6 @@
   "schedule.installed": "Currently installed",
   "support.provider_message": "Message for your hosting provider",
   "support.provider_message_help": "Explains what was measured and requests only safe actions. It deliberately does not ask anyone to delete anything in the backup directory.",
-  "fetch.structured_data.none": "This page publishes no structured data. Sites use application/ld+json to tell search engines what a page is about in machine-readable form — an article, a product, an organisation — and plenty of sites simply have none.",
-  "fetch.structured_data.untyped_entity": "Untyped entity",
   "capabilities.this_account": "this account",
   "capabilities.this_account_or_host": "this account or the host",
   "capabilities.command_unavailable": "{{command}} is not available to {{where}}. As root:",

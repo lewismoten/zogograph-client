@@ -42915,6 +42915,22 @@ async function refreshHostLogs() {
   }
   panel.hidden = false;
 
+  if (window.ZogographHostLogsCard) {
+    return renderCoreCardPackage(
+      ZogographHostLogsCard,
+      'core-host-logs',
+      data.rows,
+      {
+        target: $('hostLogs'),
+        renderTable,
+        humanBytes,
+        humanTime,
+        view: showLogPath,
+        i18n: ZogographI18n,
+      },
+    );
+  }
+
   renderTable('hostLogs', data.rows, [
     {
       label: ZogographI18n.t('host_log.log', {}, 'Log'),

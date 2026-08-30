@@ -40,6 +40,7 @@ export default [
         ZogographHostDisksCard: 'readonly',
         ZogographHostDaemonsCard: 'readonly',
         ZogographHostFilesCard: 'readonly',
+        ZogographHostLogsCard: 'readonly',
         ZogographHostWalkControl: 'readonly',
         ZogographHostIoProcessesCard: 'readonly',
         ZogographHostMemoryGaugesCard: 'readonly',

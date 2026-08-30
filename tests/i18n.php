@@ -64,6 +64,9 @@ $processTrendCard = i18nCardSource(
 $capabilitySummaryCard = i18nCardSource(
     file_get_contents($root . '/cards/capability-summary.js'),
 );
+$hostLogsCard = i18nCardSource(
+    file_get_contents($root . '/cards/host-logs.js'),
+);
 $networkPeersCard = i18nCardSource(
     file_get_contents($root . '/cards/network-peers.js'),
 );
@@ -332,6 +335,22 @@ i18nExpect(
             'helpers.i18n.registerCatalog(locale, catalog, false, id)',
         ),
     'core card package catalogs are not namespace-registered before their first render',
+);
+i18nExpect(
+    $page !== false &&
+        str_contains($page, 'src="cards/host-logs.js"') &&
+        $hostLogsCard !== false &&
+        str_contains($hostLogsCard, 'window.ZogographHostLogsCard') &&
+        str_contains($hostLogsCard, 'id: "core-host-logs"') &&
+        str_contains($hostLogsCard, 'locales: ["core-host-logs."]') &&
+        str_contains($hostLogsCard, 'catalogs: Object.freeze({') &&
+        str_contains($hostLogsCard, '"core-host-logs.refused_help"') &&
+        $script !== false &&
+        str_contains(
+            $script,
+            'renderCoreCardPackage(ZogographHostLogsCard, "core-host-logs",',
+        ),
+    'host logs are not isolated behind their core card-module boundary',
 );
 i18nExpect(
     $page !== false &&

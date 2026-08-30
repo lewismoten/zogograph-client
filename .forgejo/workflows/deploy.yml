@@ -92,7 +92,7 @@ jobs:
           cat "$release/build.json"
 
       - name: Upload deployment build
-        uses: actions/upload-artifact@v3
+        uses: https://code.forgejo.org/actions/upload-artifact@v3
         with:
           name: deployment-build
           path: .release/
@@ -136,7 +136,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Download deployment build
-        uses: actions/download-artifact@v3
+        uses: https://code.forgejo.org/actions/download-artifact@v3
         with:
           name: deployment-build
           path: .release/

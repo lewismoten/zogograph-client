@@ -852,6 +852,8 @@
   "peers.admin_only": "لا يمكن إدارة الخوادم الموثوقة إلا للمسؤولين.",
   "ai.start_new": "ابدأ محادثة جديدة",
   "ai.nothing_chosen": "لم يُختر شيء بعد.",
+  "scan.host_collector_disabled": "جامع المضيف غير مفعّل، لذا لا يعمل أي من هذه. ",
+  "scan.dashboard_browsing": "هناك من فتح لوحة المعلومات الآن (شوهد آخر مرة {{when}})، لذا فإن كل ما يسرع أثناء التصفح يعمل حاليًا بفاصل أقصر.",
   "time.duration_ago_with_date": "منذ {{duration}} — {{date}}",
   "time.duration_from_now_with_date": "بعد {{duration}} — {{date}}",
   "time.date_with_duration_ago": "{{date}} — منذ {{duration}}",

@@ -866,6 +866,8 @@
   "peers.admin_only": "Solo los administradores pueden administrar servidores de confianza.",
   "ai.start_new": "Iniciar una nueva",
   "ai.nothing_chosen": "Aún no se ha elegido nada.",
+  "scan.host_collector_disabled": "El recopilador del host no está activado, así que ninguna de estas tareas se ejecuta. ",
+  "scan.dashboard_browsing": "Alguien tiene abierto el panel ahora mismo (visto por última vez {{when}}), así que todo lo configurado para acelerarse al navegar usa actualmente su intervalo más corto.",
   "time.duration_ago_with_date": "hace {{duration}} — {{date}}",
   "time.duration_from_now_with_date": "dentro de {{duration}} — {{date}}",
   "time.date_with_duration_ago": "{{date}} — hace {{duration}}",

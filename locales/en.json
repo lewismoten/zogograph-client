@@ -936,6 +936,8 @@
   "peers.admin_only": "Only administrators can manage trusted servers.",
   "ai.start_new": "Start a new one",
   "ai.nothing_chosen": "Nothing chosen yet.",
+  "scan.host_collector_disabled": "The host collector is not enabled, so none of these run. ",
+  "scan.dashboard_browsing": "Somebody has the dashboard open right now (last seen {{when}}), so anything set to speed up while browsing is currently on its shorter interval.",
   "time.duration_ago_with_date": "{{duration}} ago — {{date}}",
   "time.duration_from_now_with_date": "{{duration}} from now — {{date}}",
   "time.date_with_duration_ago": "{{date}} — {{duration}} ago",

@@ -10228,7 +10228,11 @@ function renderScans(data) {
 
     if (side === 'host' && !data.host_enabled) {
       const warning = note(
-        'The host collector is not enabled, so none of these run. ',
+        ZogographI18n.t(
+          'scan.host_collector_disabled',
+          {},
+          'The host collector is not enabled, so none of these run. ',
+        ),
       );
       const link = document.createElement('a');
       link.href = './setup.php?section=host';
@@ -10244,8 +10248,11 @@ function renderScans(data) {
     if (side === 'account' && data.browsing) {
       parts.push(
         note(
-          `Somebody has the dashboard open right now (last seen ${ago(data.last_browsed_at)}), ` +
-            'so anything set to speed up while browsing is currently on its shorter interval.',
+          ZogographI18n.t(
+            'scan.dashboard_browsing',
+            { when: ago(data.last_browsed_at) },
+            'Somebody has the dashboard open right now (last seen {{when}}), so anything set to speed up while browsing is currently on its shorter interval.',
+          ),
         ),
       );
     }

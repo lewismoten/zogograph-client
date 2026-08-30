@@ -34306,9 +34306,11 @@ async function refreshDiagnosis() {
     body.replaceChildren(
       Object.assign(document.createElement('p'), {
         className: 'band-ok',
-        textContent:
-          'Nothing to report. Every check ran and none of them found anything \u2014 ' +
-          'which is a different statement from nothing having been measured.',
+        textContent: ZogographI18n.t(
+          'diagnosis.nothing_to_report',
+          {},
+          'Nothing to report. Every check ran and none of them found anything — which is a different statement from nothing having been measured.',
+        ),
       }),
     );
     return;
@@ -34328,11 +34330,24 @@ async function refreshDiagnosis() {
           const urgent = data.findings.filter(
             (f) => f.level === 'critical',
           ).length;
-          return `${count(urgent, 'thing')} ${urgent === 1 ? 'needs' : 'need'} attention now.`;
+          return ZogographI18n.t(
+            'diagnosis.critical_attention',
+            { count: count(urgent, 'thing') },
+            'Attention needed now: {{count}}.',
+          );
         })()
       : worst === 'warning'
-        ? `${count(data.findings.filter((f) => f.level === 'warning').length, 'thing')} worth looking at.`
-        : 'Nothing urgent.';
+        ? ZogographI18n.t(
+            'diagnosis.warning_attention',
+            {
+              count: count(
+                data.findings.filter((f) => f.level === 'warning').length,
+                'thing',
+              ),
+            },
+            '{{count}} worth looking at.',
+          )
+        : ZogographI18n.t('diagnosis.nothing_urgent', {}, 'Nothing urgent.');
   wrap.appendChild(headline);
 
   for (const f of data.findings) wrap.appendChild(findingRow(f));
@@ -34367,9 +34382,13 @@ async function refreshDiagnosis() {
     }
     wrap.appendChild(
       section(
-        'Ignored findings',
+        ZogographI18n.t('diagnosis.ignored_title', {}, 'Ignored findings'),
         list,
-        'These are intentional exceptions. Restore one to include it in later checks.',
+        ZogographI18n.t(
+          'diagnosis.ignored_help',
+          {},
+          'These are intentional exceptions. Restore one to include it in later checks.',
+        ),
       ),
     );
   }

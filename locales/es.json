@@ -3604,5 +3604,11 @@
   "assistant.highlight_shown": "Está delineado y pulsando durante unos segundos. Diga a qué apunta en el mismo mensaje; un resaltado sin una oración es un toque.",
   "ai.unpin": "Desfijar",
   "ai.skip_question_help": "Continúa sin responder; es igual que dejar que el tiempo se agote",
-  "ai.pinned_never_dropped": "Fijado: nunca se descarta"
+  "ai.pinned_never_dropped": "Fijado: nunca se descarta",
+  "diagnosis.nothing_to_report": "No hay nada que informar. Se ejecutaron todas las comprobaciones y ninguna encontró nada; eso es distinto de no haber medido nada.",
+  "diagnosis.critical_attention": "Se necesita atención ahora: {{count}}.",
+  "diagnosis.warning_attention": "{{count}} merece atención.",
+  "diagnosis.nothing_urgent": "Nada urgente.",
+  "diagnosis.ignored_title": "Hallazgos ignorados",
+  "diagnosis.ignored_help": "Son excepciones intencionales. Restaure uno para incluirlo en comprobaciones posteriores."
 }

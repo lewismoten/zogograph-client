@@ -2714,6 +2714,12 @@ $translatedSecurityMessages = [
     'diagnosis.ignore_title',
     'diagnosis.ignore_confirm',
     'diagnosis.ignore_success',
+    'diagnosis.nothing_to_report',
+    'diagnosis.critical_attention',
+    'diagnosis.warning_attention',
+    'diagnosis.nothing_urgent',
+    'diagnosis.ignored_title',
+    'diagnosis.ignored_help',
 ];
 $translatedEncryptionRecoveryActions = [
     'encryption.create_verified_copies',

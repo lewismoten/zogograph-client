@@ -3693,5 +3693,11 @@
   "assistant.highlight_shown": "It is outlined and pulsing for a few seconds. Say what you are pointing at in the same message; a highlight with no sentence is a poke.",
   "ai.unpin": "Unpin it",
   "ai.skip_question_help": "Carry on without answering — the same as letting the clock run out",
-  "ai.pinned_never_dropped": "Pinned — never dropped"
+  "ai.pinned_never_dropped": "Pinned — never dropped",
+  "diagnosis.nothing_to_report": "Nothing to report. Every check ran and none of them found anything — which is a different statement from nothing having been measured.",
+  "diagnosis.critical_attention": "Attention needed now: {{count}}.",
+  "diagnosis.warning_attention": "{{count}} worth looking at.",
+  "diagnosis.nothing_urgent": "Nothing urgent.",
+  "diagnosis.ignored_title": "Ignored findings",
+  "diagnosis.ignored_help": "These are intentional exceptions. Restore one to include it in later checks."
 }

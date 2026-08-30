@@ -2,5 +2,6 @@
   "core-ai-take-screenshot.summary": "Take a picture of what you can see.",
   "core-ai-take-screenshot.activity": "Took a screenshot",
   "core-ai-take-screenshot.try_declined": "The user decided not to send a screenshot.",
-  "core-ai-take-screenshot.try_preview": "This is the image exactly as it would be sent — cropped as you chose, with the redactions painted in rather than drawn over. What is black here is black in the file."
+  "core-ai-take-screenshot.try_preview": "This is the image exactly as it would be sent — cropped as you chose, with the redactions painted in rather than drawn over. What is black here is black in the file.",
+  "core-ai-take-screenshot.try_cancelled": "Cancelled, and nothing left this window."
 }

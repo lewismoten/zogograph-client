@@ -661,7 +661,6 @@
   "ai.settings.identity_portrait_label": "चित्र",
   "ai.settings.identity_portrait_help": "पिछली बार कहने पर इसने इसे स्वयं बनाया था। नीचे स्वयं-चित्र बंद करने से यह दूसरा नहीं बनाएगा; यह तब तक रहेगा।",
   "ai.settings.sign_in_required": "इन सेटिंग्स को देखने के लिए साइन इन करें।",
-  "ai.preview_cancelled": "रद्द किया गया, और इस विंडो में कुछ नहीं बचा।",
   "ai.preview_no_parameters": "इसमें कोई पैरामीटर नहीं है।",
   "ai.preview_leave_out": "— इसे छोड़ दें —",
   "ai.settings.no_available_models": "अभी कोई उपलब्ध मॉडल नहीं है — उपलब्ध मॉडल में एक जोड़ें",

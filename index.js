@@ -21071,7 +21071,7 @@ async function tryBrowserTool(tool, args) {
         },
         shown: note(
           ZogographI18n.t(
-            'ai.preview_cancelled',
+            'core-ai-take-screenshot.try_cancelled',
             {},
             'Cancelled, and nothing left this window.',
           ),

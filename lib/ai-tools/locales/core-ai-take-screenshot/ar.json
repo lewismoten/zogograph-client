@@ -2,5 +2,6 @@
   "core-ai-take-screenshot.summary": "التقط صورة لما تستطيع رؤيته.",
   "core-ai-take-screenshot.activity": "التقط لقطة شاشة",
   "core-ai-take-screenshot.try_declined": "قرر المستخدم عدم إرسال لقطة شاشة.",
-  "core-ai-take-screenshot.try_preview": "هذه هي الصورة تمامًا كما ستُرسل — اقتصّت كما اخترت، ورُسمت التنقيحات فيها بدلاً من رسمها فوقها. ما هو أسود هنا أسود في الملف."
+  "core-ai-take-screenshot.try_preview": "هذه هي الصورة تمامًا كما ستُرسل — اقتصّت كما اخترت، ورُسمت التنقيحات فيها بدلاً من رسمها فوقها. ما هو أسود هنا أسود في الملف.",
+  "core-ai-take-screenshot.try_cancelled": "أُلغي الأمر، ولم يبق شيء في هذه النافذة."
 }

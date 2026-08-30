@@ -2,5 +2,6 @@
   "core-ai-take-screenshot.summary": "Tome una imagen de lo que puede ver.",
   "core-ai-take-screenshot.activity": "Tomó una captura de pantalla",
   "core-ai-take-screenshot.try_declined": "El usuario decidió no enviar una captura de pantalla.",
-  "core-ai-take-screenshot.try_preview": "Esta es la imagen exactamente como se enviaría: recortada como eligió, con las redacciones pintadas en lugar de dibujadas encima. Lo que aquí es negro es negro en el archivo."
+  "core-ai-take-screenshot.try_preview": "Esta es la imagen exactamente como se enviaría: recortada como eligió, con las redacciones pintadas en lugar de dibujadas encima. Lo que aquí es negro es negro en el archivo.",
+  "core-ai-take-screenshot.try_cancelled": "Cancelado, y no queda nada en esta ventana."
 }

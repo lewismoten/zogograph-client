@@ -14492,19 +14492,46 @@ function showPathHygieneRename(row) {
       value.includes('/') ||
       value.includes('\0')
     )
-      why = 'Enter one file or directory name, without a slash.';
+      why = ZogographI18n.t(
+        'path_hygiene.invalid_name',
+        {},
+        'Enter one file or directory name, without a slash.',
+      );
     // eslint-disable-next-line no-control-regex -- names cannot contain unprintable characters.
     else if (/[\u0000-\u001f\u007f]/.test(value))
-      why = 'Control characters are not allowed.';
+      why = ZogographI18n.t(
+        'path_hygiene.control_characters_not_allowed',
+        {},
+        'Control characters are not allowed.',
+      );
     else if (/^\s|\s$/u.test(value))
-      why = 'Names cannot start or end with whitespace.';
-    else if (value.startsWith('-')) why = 'Names cannot start with a dash.';
+      why = ZogographI18n.t(
+        'path_hygiene.whitespace_edge_not_allowed',
+        {},
+        'Names cannot start or end with whitespace.',
+      );
+    else if (value.startsWith('-'))
+      why = ZogographI18n.t(
+        'path_hygiene.dash_not_allowed',
+        {},
+        'Names cannot start with a dash.',
+      );
     else if (/[?*[\]{}~$&;|<>()`'"!\\\\]/.test(value))
-      why = 'Names cannot contain shell or wildcard characters.';
+      why = ZogographI18n.t(
+        'path_hygiene.shell_wildcards_not_allowed',
+        {},
+        'Names cannot contain shell or wildcard characters.',
+      );
     name.setCustomValidity(why);
     name.classList.toggle('field-invalid', Boolean(why));
     feedback.className = why ? 'small error' : 'small muted';
-    feedback.textContent = why || 'This name is safe to rename.';
+    feedback.textContent =
+      why ||
+      ZogographI18n.t(
+        'path_hygiene.safe_to_rename',
+        {},
+        'This name is safe to rename.',
+      );
     button.disabled = Boolean(why);
   };
   name.addEventListener('input', validate);

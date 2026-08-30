@@ -20658,7 +20658,14 @@ function renderReports(data) {
   );
 
   if (!data.reports.length) {
-    parts.push(note(ZogographI18n.t('reports.empty')));
+    parts.push(
+      renderCoreCardPackage(
+        ZogographReportsEmptyCard,
+        'core-reports-empty',
+        data,
+        { note, i18n: ZogographI18n },
+      ),
+    );
     body.replaceChildren(...parts);
     return;
   }

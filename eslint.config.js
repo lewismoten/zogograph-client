@@ -39,6 +39,7 @@ export default [
         ZogographBroadcastBannerCard: 'readonly',
         ZogographLatestReportCard: 'readonly',
         ZogographReportsStatusCard: 'readonly',
+        ZogographReportsEmptyCard: 'readonly',
         ZogographDatabaseSnapshotsCard: 'readonly',
         ZogographHostDatabaseStorageCard: 'readonly',
         ZogographAccountDatabaseStorageCard: 'readonly',

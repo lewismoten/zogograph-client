@@ -16,7 +16,7 @@ final class KeyCustodyProvider
         ];
     }
 
-    public function activate(): never
+    public function activate(): void
     {
         throw new \RuntimeException($this->capability()['reason']);
     }

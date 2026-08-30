@@ -3572,8 +3572,6 @@
   "setup.config_not_writable": "lib/config.php no permite escritura, por lo que no se pueden cambiar estos valores.",
   "action.clear": "Limpiar",
   "ai.forget_key": "Olvidar la clave",
-  "ai.test_connection": "Probar la conexión",
-  "ai.test_connection_title": "Una solicitud real, con una herramienta adjunta, usando lo que haya en los campos de arriba, incluida una clave que haya escrito pero aún no guardado",
   "terminal.locked_again": "Se ha bloqueado de nuevo.",
   "terminal.open_for": "Abierto durante {{duration}} más.",
   "ai.unavailable_setup": "Se configura en Sistema → {{assistant}}.",

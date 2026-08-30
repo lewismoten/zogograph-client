@@ -3558,8 +3558,6 @@
   "setup.config_not_writable": "لا يمكن الكتابة إلى lib/config.php، لذا لا يمكن تغيير هذه الإعدادات.",
   "action.clear": "مسح",
   "ai.forget_key": "انسَ المفتاح",
-  "ai.test_connection": "اختبر الاتصال",
-  "ai.test_connection_title": "طلب حقيقي واحد مع أداة مرفقة، باستخدام كل ما في الحقول أعلاه، بما في ذلك مفتاح كتبته ولم تحفظه بعد",
   "terminal.locked_again": "لقد قفل نفسه مجددًا.",
   "terminal.open_for": "مفتوح لمدة {{duration}} أخرى.",
   "ai.unavailable_setup": "يُعَدّ من النظام ← {{assistant}}.",

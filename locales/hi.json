@@ -3572,8 +3572,6 @@
   "setup.config_not_writable": "lib/config.php लिखने योग्य नहीं है, इसलिए इन्हें बदला नहीं जा सकता।",
   "action.clear": "साफ़ करें",
   "ai.forget_key": "कुंजी हटाएँ",
-  "ai.test_connection": "कनेक्शन जाँचें",
-  "ai.test_connection_title": "ऊपर के बॉक्सों में मौजूद जानकारी का उपयोग कर, टूल संलग्न करके, एक वास्तविक अनुरोध भेजें — इसमें वह कुंजी भी शामिल है जिसे आपने टाइप किया है पर अभी सहेजा नहीं है",
   "terminal.locked_again": "यह फिर से लॉक हो गया है।",
   "terminal.open_for": "और {{duration}} के लिए खुला है।",
   "ai.unavailable_setup": "इसे सिस्टम → {{assistant}} में सेट किया जाता है।",

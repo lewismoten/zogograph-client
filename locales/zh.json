@@ -3558,8 +3558,6 @@
   "setup.config_not_writable": "lib/config.php 不可写，因此无法更改这些设置。",
   "action.clear": "清除",
   "ai.forget_key": "忘记此密钥",
-  "ai.test_connection": "测试连接",
-  "ai.test_connection_title": "使用上方输入框中的内容发送一个附带工具的真实请求，包括您已输入但尚未保存的密钥",
   "terminal.locked_again": "它已再次锁定。",
   "terminal.open_for": "还可打开 {{duration}}。",
   "ai.unavailable_setup": "请在系统 → {{assistant}} 中进行设置。",

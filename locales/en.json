@@ -3661,8 +3661,6 @@
   "setup.config_not_writable": "lib/config.php is not writable, so these cannot change.",
   "action.clear": "Clear",
   "ai.forget_key": "Forget the key",
-  "ai.test_connection": "Test the connection",
-  "ai.test_connection_title": "One real request, with a tool attached, using whatever is in the boxes above — including a key you have typed but not saved",
   "terminal.locked_again": "It has locked itself again.",
   "terminal.open_for": "Open for another {{duration}}.",
   "ai.unavailable_setup": "It is set up under System → {{assistant}}.",

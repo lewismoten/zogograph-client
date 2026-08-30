@@ -2349,5 +2349,16 @@
   "terminal.locked_again": "यह फिर से लॉक हो गया है।",
   "terminal.open_for": "और {{duration}} के लिए खुला है।",
   "ai.unavailable_setup": "इसे सिस्टम → {{assistant}} में सेट किया जाता है।",
-  "ai.set_up": "इसे सेट करें"
+  "ai.set_up": "इसे सेट करें",
+  "log.no_matching_lines": "यहाँ कोई मिलती हुई पंक्ति नहीं है।",
+  "collector.insufficient_runs": "यह कितनी बार होना चाहिए, यह जानने के लिए अभी पर्याप्त रन नहीं हुए हैं।",
+  "collector.never_run": "यह कभी नहीं चला है।",
+  "collector.stopped": "{{age}} से कुछ नहीं हुआ, जबकि यह आम तौर पर हर {{interval}} में चलता है।",
+  "collector.due_now": "अब होना चाहिए — {{age}} से कुछ नहीं हुआ है।",
+  "collector.next_in": "अगला लगभग {{duration}} में है।",
+  "assistant.waiting_collector": "{{collector}} कलेक्टर की प्रतीक्षा है…",
+  "assistant.waiting_collector_for": "{{assistant}} {{collector}} कलेक्टर की प्रतीक्षा कर रहा है — अधिकतम {{duration}} और।",
+  "ai.unpin": "पिन हटाएँ",
+  "ai.skip_question_help": "जवाब दिए बिना आगे बढ़ें — यह समय समाप्त होने देने जैसा ही है",
+  "ai.pinned_never_dropped": "पिन किया गया — कभी नहीं हटाया जाएगा"
 }

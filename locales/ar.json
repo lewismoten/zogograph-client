@@ -2335,5 +2335,16 @@
   "terminal.locked_again": "لقد قفل نفسه مجددًا.",
   "terminal.open_for": "مفتوح لمدة {{duration}} أخرى.",
   "ai.unavailable_setup": "يُعَدّ من النظام ← {{assistant}}.",
-  "ai.set_up": "أعِدّه"
+  "ai.set_up": "أعِدّه",
+  "log.no_matching_lines": "لا توجد أسطر مطابقة هنا.",
+  "collector.insufficient_runs": "لا توجد عمليات تشغيل كافية بعد لمعرفة عدد مرات حدوث ذلك.",
+  "collector.never_run": "لم يُشغَّل هذا من قبل.",
+  "collector.stopped": "لا شيء منذ {{age}}، رغم أنه يعمل عادةً كل {{interval}}.",
+  "collector.due_now": "موعده الآن — لا شيء منذ {{age}}.",
+  "collector.next_in": "التشغيل التالي بعد نحو {{duration}}.",
+  "assistant.waiting_collector": "بانتظار جامع {{collector}}…",
+  "assistant.waiting_collector_for": "ينتظر {{assistant}} جامع {{collector}} — حتى {{duration}} إضافية.",
+  "ai.unpin": "إزالة التثبيت",
+  "ai.skip_question_help": "تابع دون إجابة — وهو نفس ترك الوقت ينقضي",
+  "ai.pinned_never_dropped": "مثبّت — لن يُسقط أبدًا"
 }

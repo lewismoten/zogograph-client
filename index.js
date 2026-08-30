@@ -4930,7 +4930,9 @@ async function showLog(pathId, quiet = false) {
   }));
 
   if (!shown) {
-    body.textContent = state.log.needle ? "No matching lines here." : "Nothing to show.";
+    body.textContent = state.log.needle
+      ? ZogographI18n.t("log.no_matching_lines", {}, "No matching lines here.")
+      : ZogographI18n.t("table.nothing_to_show", {}, "Nothing to show.");
   }
 
   $("logNewer").disabled = state.log.page === 0;
@@ -5077,8 +5079,8 @@ function paintDial(svg) {
     progress.setAttribute("stroke-dasharray", "4 5");
     progress.removeAttribute("stroke-dashoffset");
     said.textContent = at
-      ? "Not enough runs yet to know how often this should happen."
-      : "This has never run.";
+      ? ZogographI18n.t("collector.insufficient_runs", {}, "Not enough runs yet to know how often this should happen.")
+      : ZogographI18n.t("collector.never_run", {}, "This has never run.");
     return;
   }
 
@@ -5093,8 +5095,8 @@ function paintDial(svg) {
     progress.setAttribute("class", "dial-value dial-dead");
     progress.setAttribute("stroke-dasharray", "4 5");
     progress.removeAttribute("stroke-dashoffset");
-    said.textContent = `Nothing for ${humanSpan(age)}, on something that usually runs `
-      + `every ${humanSpan(interval)}.`;
+    said.textContent = ZogographI18n.t("collector.stopped", { age: humanSpan(age), interval: humanSpan(interval) },
+      "Nothing for {{age}}, on something that usually runs every {{interval}}.");
     return;
   }
 
@@ -5105,8 +5107,8 @@ function paintDial(svg) {
     String(circumference * (1 - Math.min(1, age / interval)))
   );
   said.textContent = due
-    ? `Due now — nothing for ${humanSpan(age)}.`
-    : `Next one in about ${humanSpan(interval - age)}.`;
+    ? ZogographI18n.t("collector.due_now", { age: humanSpan(age) }, "Due now — nothing for {{age}}.")
+    : ZogographI18n.t("collector.next_in", { duration: humanSpan(interval - age) }, "Next one in about {{duration}}.");
 }
 
 /* ------------------------------------------------------- forms being used -- */
@@ -9792,7 +9794,7 @@ async function runWaitForReadings(args) {
 
   const waiting = document.createElement("div");
   waiting.className = "chat-question";
-  waiting.textContent = `Waiting for the ${which} collector…`;
+  waiting.textContent = ZogographI18n.t("assistant.waiting_collector", { collector: which }, "Waiting for the {{collector}} collector…");
   chatState.prompt = waiting;
   $("chatAsk").replaceChildren(waiting);
   $("chatAsk").hidden = false;
@@ -9800,8 +9802,9 @@ async function runWaitForReadings(args) {
   try {
     while (Date.now() < until) {
       const left = Math.round((until - Date.now()) / 1000);
-      waiting.textContent = `${chatState.who.name} is waiting for the ${which} collector `
-        + `— up to ${humanSpan(left)} more.`;
+      waiting.textContent = ZogographI18n.t("assistant.waiting_collector_for", {
+        assistant: chatState.who.name, collector: which, duration: humanSpan(left),
+      }, "{{assistant}} is waiting for the {{collector}} collector — up to {{duration}} more.");
 
       await new Promise(resolve => setTimeout(resolve, 5000));
 
@@ -9931,7 +9934,9 @@ function renderPastChat() {
   $("pastChatTitle").textContent = row?.title
     || `Conversation of ${whenLabel(session.started_at ?? row?.started_at ?? 0)}`;
 
-  $("pastChatPin").textContent = row?.pinned ? "Unpin it" : "Pin it";
+  $("pastChatPin").textContent = row?.pinned
+    ? ZogographI18n.t("ai.unpin", {}, "Unpin it")
+    : ZogographI18n.t("ai.pin", {}, "Pin it");
   $("pastChatResume").hidden = row ? !row.can_continue : false;
 
   /*
@@ -10039,7 +10044,7 @@ function chatAsk({ title, why, seconds, defaultLabel, build, confirmLabel = "Sen
     skip.type = "button";
     skip.className = "link";
     skip.textContent = ZogographI18n.t("action.skip", {}, "Skip");
-    skip.title = "Carry on without answering — the same as letting the clock run out";
+    skip.title = ZogographI18n.t("ai.skip_question_help", {}, "Carry on without answering — the same as letting the clock run out");
     skip.addEventListener("click", () => finish({ answered: false, value: null }));
     actions.insertBefore(skip, clock);
 
@@ -10591,7 +10596,7 @@ function withAddressName(address) {
     const yours = document.createElement("span");
     yours.className = "own-name";
     yours.textContent = ` (${mine})`;
-    yours.title = "A name you gave this address, under Settings → Your own names.";
+    yours.title = ZogographI18n.t("network.own_label_tip", {}, "A name you gave this, under Settings → Your own names.");
     span.appendChild(yours);
   }
 
@@ -10599,8 +10604,7 @@ function withAddressName(address) {
     const theirs = document.createElement("span");
     theirs.className = "muted small";
     theirs.textContent = ` ${name}`;
-    theirs.title = "What the internet says this address is called — a PTR record, which "
-      + "its owner controls and can say anything.";
+    theirs.title = ZogographI18n.t("network.rdns_name_tip", {}, "What the internet says this address is called — a PTR record, which its owner controls and can set to anything.");
     span.appendChild(theirs);
   }
 
@@ -15193,7 +15197,9 @@ function renderMemories(data) {
         const pin = document.createElement("button");
         pin.className = "link";
         pin.textContent = row.pinned ? "📌" : "○";
-        pin.title = row.pinned ? "Pinned — never dropped" : "Pin it";
+        pin.title = row.pinned
+          ? ZogographI18n.t("ai.pinned_never_dropped", {}, "Pinned — never dropped")
+          : ZogographI18n.t("ai.pin", {}, "Pin it");
         pin.addEventListener("click", async () => {
           try {
             renderMemories(await post("ai-memory-pin", {

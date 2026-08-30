@@ -2353,5 +2353,16 @@
   "terminal.locked_again": "Se ha bloqueado de nuevo.",
   "terminal.open_for": "Abierto durante {{duration}} más.",
   "ai.unavailable_setup": "Se configura en Sistema → {{assistant}}.",
-  "ai.set_up": "Configúralo"
+  "ai.set_up": "Configúralo",
+  "log.no_matching_lines": "No hay líneas coincidentes aquí.",
+  "collector.insufficient_runs": "Todavía no hay suficientes ejecuciones para saber con qué frecuencia debe ocurrir.",
+  "collector.never_run": "Esto no se ha ejecutado nunca.",
+  "collector.stopped": "Nada desde hace {{age}}, en algo que normalmente se ejecuta cada {{interval}}.",
+  "collector.due_now": "Toca ahora; no ha habido nada desde hace {{age}}.",
+  "collector.next_in": "La siguiente será dentro de unos {{duration}}.",
+  "assistant.waiting_collector": "Esperando al recolector {{collector}}…",
+  "assistant.waiting_collector_for": "{{assistant}} está esperando al recolector {{collector}} — hasta {{duration}} más.",
+  "ai.unpin": "Desfijar",
+  "ai.skip_question_help": "Continúa sin responder; es igual que dejar que el tiempo se agote",
+  "ai.pinned_never_dropped": "Fijado: nunca se descarta"
 }

@@ -2335,5 +2335,16 @@
   "terminal.locked_again": "它已再次锁定。",
   "terminal.open_for": "还可打开 {{duration}}。",
   "ai.unavailable_setup": "请在系统 → {{assistant}} 中进行设置。",
-  "ai.set_up": "进行设置"
+  "ai.set_up": "进行设置",
+  "log.no_matching_lines": "这里没有匹配的行。",
+  "collector.insufficient_runs": "运行次数还不足，无法判断这应多久发生一次。",
+  "collector.never_run": "这从未运行过。",
+  "collector.stopped": "已有 {{age}} 没有运行，而它通常每 {{interval}} 运行一次。",
+  "collector.due_now": "现在该运行了——已有 {{age}} 没有运行。",
+  "collector.next_in": "下一次大约在 {{duration}} 后。",
+  "assistant.waiting_collector": "正在等待 {{collector}} 收集器…",
+  "assistant.waiting_collector_for": "{{assistant}} 正在等待 {{collector}} 收集器，最多再等 {{duration}}。",
+  "ai.unpin": "取消固定",
+  "ai.skip_question_help": "不回答而继续——这与让计时结束相同",
+  "ai.pinned_never_dropped": "已固定——永不丢弃"
 }

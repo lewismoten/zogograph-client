@@ -2469,5 +2469,16 @@
   "terminal.locked_again": "It has locked itself again.",
   "terminal.open_for": "Open for another {{duration}}.",
   "ai.unavailable_setup": "It is set up under System → {{assistant}}.",
-  "ai.set_up": "Set it up"
+  "ai.set_up": "Set it up",
+  "log.no_matching_lines": "No matching lines here.",
+  "collector.insufficient_runs": "Not enough runs yet to know how often this should happen.",
+  "collector.never_run": "This has never run.",
+  "collector.stopped": "Nothing for {{age}}, on something that usually runs every {{interval}}.",
+  "collector.due_now": "Due now — nothing for {{age}}.",
+  "collector.next_in": "Next one in about {{duration}}.",
+  "assistant.waiting_collector": "Waiting for the {{collector}} collector…",
+  "assistant.waiting_collector_for": "{{assistant}} is waiting for the {{collector}} collector — up to {{duration}} more.",
+  "ai.unpin": "Unpin it",
+  "ai.skip_question_help": "Carry on without answering — the same as letting the clock run out",
+  "ai.pinned_never_dropped": "Pinned — never dropped"
 }

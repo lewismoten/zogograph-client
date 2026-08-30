@@ -6112,44 +6112,12 @@ function renderAiSettings(data) {
     section(aiSettingsText('which_model', 'Which model'), selected),
   );
 
-  /*
-   * A test before any of it is used in anger.
-   *
-   * Half the ways this can be misconfigured only show up once tools are
-   * involved - a reasoning model on the wrong endpoint answers ordinary
-   * messages perfectly and refuses the moment a function is offered - so the
-   * test sends one, and says so.
-   */
-  const testing = document.createElement('div');
-  testing.className = 'inspect-actions';
-
-  const test = document.createElement('button');
-  test.type = 'button';
-  test.id = 'aiTest';
-  test.textContent = ZogographI18n.t(
-    'ai.test_connection',
-    {},
-    'Test the connection',
-  );
-  test.title = ZogographI18n.t(
-    'ai.test_connection_title',
-    {},
-    'One real request, with a tool attached, using whatever is in the boxes above — including a key you have typed but not saved',
-  );
-  testing.appendChild(test);
-
-  const testResult = document.createElement('span');
-  testResult.id = 'aiTestResult';
-  testResult.className = 'muted small';
-  testing.appendChild(testResult);
-
-  pages.model.push(testing);
   pages.model.push(
-    note(
-      aiSettingsText(
-        'test_help',
-        'The test asks the model one trivial question with one tool attached. It costs a few hundred tokens and tells you four things at once: the address answers, the key is accepted, the model exists, and it will take tools.',
-      ),
+    renderCoreCardPackage(
+      ZogographAiConnectionTestCard,
+      'core-ai-connection-test',
+      {},
+      { note, i18n: ZogographI18n },
     ),
   );
 

@@ -36935,64 +36935,13 @@ function showRecordDialog(row) {
 }
 
 function renderDnsChanges(data) {
-  const body = $('dnsChangeBody');
-
-  if (!data.changes.length) {
-    body.replaceChildren(
-      note(
-        ZogographI18n.t(
-          'dns.no_changes',
-          {},
-          'Nothing has changed since this started watching.',
-        ),
-      ),
-    );
-    return;
-  }
-
-  const holder = document.createElement('div');
-  holder.id = 'dnsChangeTable';
-  body.replaceChildren(holder);
-
-  renderTable(
-    'dnsChangeTable',
-    data.changes,
-    [
-      {
-        label: ZogographI18n.t('table.when', {}, 'When'),
-        render: (row) => whenSpan(row.at),
-      },
-      {
-        label: ZogographI18n.t('table.what', {}, 'What'),
-        render: (row) => {
-          const span = document.createElement('span');
-          span.textContent =
-            row.change === 'added'
-              ? ZogographI18n.t('dns.change.appeared', {}, 'Appeared')
-              : ZogographI18n.t('dns.change.disappeared', {}, 'Disappeared');
-          span.className = row.change === 'added' ? 'band-ok' : 'band-warn';
-          return span;
-        },
-      },
-      {
-        label: ZogographI18n.t('table.name', {}, 'Name'),
-        className: 'name',
-        render: (row) => row.name,
-      },
-      {
-        label: ZogographI18n.t('table.type', {}, 'Type'),
-        render: (row) => row.type,
-      },
-      {
-        label: ZogographI18n.t('table.value', {}, 'Value'),
-        className: 'cmd',
-        render: (row) => row.value,
-      },
-    ],
-    null,
-    null,
-    (row) => String(row.id),
-  );
+  renderCoreCardPackage(ZogographDnsChangesCard, 'core-dns-changes', data, {
+    target: $('dnsChangeBody'),
+    note,
+    renderTable,
+    whenSpan,
+    i18n: ZogographI18n,
+  });
 }
 
 /* -------------------------------------------------------------- who am I -- */

@@ -643,7 +643,11 @@ function withWhenBubble(element, epoch) {
 
 function ago(epoch) {
   if (!epoch) return '';
-  return `${humanDuration(Date.now() / 1000 - epoch)} ago`;
+  return ZogographI18n.t(
+    'time.ago',
+    { duration: humanDuration(Date.now() / 1000 - epoch) },
+    '{{duration}} ago',
+  );
 }
 
 /* -------------------------------------------------------------------- api -- */
@@ -6525,17 +6529,7 @@ function startDialTicker() {
     for (const spot of document.querySelectorAll('[data-ago-from]')) {
       if (spot.offsetParent === null) continue;
       const at = Number(spot.dataset.agoFrom || 0);
-      if (at > 0) {
-        spot.textContent = ZogographI18n.t(
-          'time.ago',
-          {
-            duration: humanDuration(
-              Math.max(0, Math.floor(Date.now() / 1000) - at),
-            ),
-          },
-          '{{duration}} ago',
-        );
-      }
+      if (at > 0) spot.textContent = ago(at);
     }
   }, 1000);
 }

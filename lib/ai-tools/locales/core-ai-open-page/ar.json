@@ -1,4 +1,6 @@
 {
   "core-ai-open-page.summary": "انقلك إلى صفحة من لوحة المعلومات هذه.",
-  "core-ai-open-page.activity": "فتح {{page}}"
+  "core-ai-open-page.activity": "فتح {{page}}",
+  "core-ai-open-page.try_page_unknown": "لا توجد صفحة باسم {{page}}.",
+  "core-ai-open-page.try_page_shown": "في محادثة سينقلك هذا إليها مباشرةً. هنا هو رابط لكيلا تفقد هذه النتائج:"
 }

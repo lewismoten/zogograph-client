@@ -1,4 +1,6 @@
 {
   "core-ai-open-page.summary": "आपको इस डैशबोर्ड के एक पृष्ठ पर ले जाएँ।",
-  "core-ai-open-page.activity": "{{page}} खोला"
+  "core-ai-open-page.activity": "{{page}} खोला",
+  "core-ai-open-page.try_page_unknown": "{{page}} नाम का कोई पृष्ठ नहीं है।",
+  "core-ai-open-page.try_page_shown": "बातचीत में यह आपको सीधे वहाँ ले जाता है। यहाँ यह एक लिंक है, ताकि आप ये परिणाम न खोएँ:"
 }

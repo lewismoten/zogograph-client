@@ -1,4 +1,6 @@
 {
   "core-ai-open-page.summary": "Llévelo a una página de este panel.",
-  "core-ai-open-page.activity": "Abrió {{page}}"
+  "core-ai-open-page.activity": "Abrió {{page}}",
+  "core-ai-open-page.try_page_unknown": "No existe una página llamada {{page}}.",
+  "core-ai-open-page.try_page_shown": "En una conversación esto le lleva directamente allí. Aquí es un enlace para que no pierda estos resultados:"
 }

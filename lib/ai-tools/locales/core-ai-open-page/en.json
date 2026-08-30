@@ -1,4 +1,6 @@
 {
   "core-ai-open-page.summary": "Move you to a page of this dashboard.",
-  "core-ai-open-page.activity": "Opened {{page}}"
+  "core-ai-open-page.activity": "Opened {{page}}",
+  "core-ai-open-page.try_page_unknown": "There is no page called {{page}}.",
+  "core-ai-open-page.try_page_shown": "In a conversation this moves you straight there. Here it is a link, so you do not lose these results:"
 }

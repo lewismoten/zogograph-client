@@ -20988,7 +20988,7 @@ async function tryBrowserTool(tool, args) {
       return {
         result: {
           error: ZogographI18n.t(
-            'ai.try_page_unknown',
+            'core-ai-open-page.try_page_unknown',
             { page },
             'There is no page called {{page}}.',
           ),
@@ -21015,7 +21015,7 @@ async function tryBrowserTool(tool, args) {
 
     const said = document.createElement('div');
     said.textContent = ZogographI18n.t(
-      'ai.try_page_shown',
+      'core-ai-open-page.try_page_shown',
       {},
       'In a conversation this moves you straight there. Here it is a link, so you do not lose these results:',
     );

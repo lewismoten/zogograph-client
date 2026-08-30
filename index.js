@@ -41023,11 +41023,42 @@ function renderLogStream(data) {
   const head = document.createElement('div');
   head.className = 'stream-line stream-head';
   for (const [label, hint] of [
-    ['', 'How bad the line says it is'],
-    ['When', 'When the line says it happened'],
-    ['Log', 'Which file it came from'],
-    ['Wrote it', 'Whatever the line names as its source'],
-    ['Message', 'The line itself, cut to fit — click any row for all of it'],
+    [
+      '',
+      ZogographI18n.t(
+        'log.stream_severity_hint',
+        {},
+        'How bad the line says it is',
+      ),
+    ],
+    [
+      ZogographI18n.t('log.stream_when', {}, 'When'),
+      ZogographI18n.t(
+        'log.stream_when_hint',
+        {},
+        'When the line says it happened',
+      ),
+    ],
+    [
+      ZogographI18n.t('log.stream_log', {}, 'Log'),
+      ZogographI18n.t('log.stream_log_hint', {}, 'Which file it came from'),
+    ],
+    [
+      ZogographI18n.t('log.stream_wrote_it', {}, 'Wrote it'),
+      ZogographI18n.t(
+        'log.stream_wrote_it_hint',
+        {},
+        'Whatever the line names as its source',
+      ),
+    ],
+    [
+      ZogographI18n.t('log.stream_message', {}, 'Message'),
+      ZogographI18n.t(
+        'log.stream_message_hint',
+        {},
+        'The line itself, cut to fit — click any row for all of it',
+      ),
+    ],
     ['', ''],
   ]) {
     const cell = document.createElement('span');

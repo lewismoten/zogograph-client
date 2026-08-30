@@ -34083,26 +34083,46 @@ function inspectActions(data) {
     remove.className = 'danger';
     remove.textContent =
       data.kind === 'dir'
-        ? 'Delete this directory and everything in it'
-        : 'Delete this file';
+        ? ZogographI18n.t(
+            'storage.delete_directory',
+            {},
+            'Delete this directory and everything in it',
+          )
+        : ZogographI18n.t('storage.delete_file', {}, 'Delete this file');
     remove.addEventListener('click', () => deleteFromInspect(data));
     wrap.appendChild(remove);
   } else if (p.delete_reason) {
     wrap.appendChild(note(p.delete_reason));
   }
 
-  return section('What you can do with it', wrap);
+  return section(
+    ZogographI18n.t('storage.what_you_can_do', {}, 'What you can do with it'),
+    wrap,
+  );
 }
 
 async function deleteFromInspect(data) {
   const what =
     data.kind === 'dir'
-      ? `Delete ${data.path} and everything inside it? ` +
-        `That is ${humanBytes(data.contents.bytes)} in ${humanCount(data.contents.files)} files, ` +
-        'and it cannot be undone.'
-      : `Delete ${data.path}? That is ${humanBytes(data.facts.size_bytes)}, and it cannot be undone.`;
+      ? ZogographI18n.t(
+          'storage.delete_directory_confirm',
+          {
+            path: data.path,
+            size: humanBytes(data.contents.bytes),
+            files: humanCount(data.contents.files),
+          },
+          'Delete {{path}} and everything inside it? That is {{size}} in {{files}} files, and it cannot be undone.',
+        )
+      : ZogographI18n.t(
+          'storage.delete_file_confirm',
+          { path: data.path, size: humanBytes(data.facts.size_bytes) },
+          'Delete {{path}}? That is {{size}}, and it cannot be undone.',
+        );
 
-  if (!(await confirmDialog(what, 'Delete'))) return;
+  if (
+    !(await confirmDialog(what, ZogographI18n.t('action.delete', {}, 'Delete')))
+  )
+    return;
 
   try {
     const result =
@@ -34112,15 +34132,28 @@ async function deleteFromInspect(data) {
 
     if (data.kind === 'dir') {
       notice(
-        `Removed ${humanBytes(result.bytes)} in ${count(result.files, 'file')}` +
-          (result.skipped?.length
-            ? `. ${count(result.skipped.length, 'path')} could not be removed.`
-            : '.'),
+        ZogographI18n.t(
+          result.skipped?.length
+            ? 'storage.removed_directory_with_skipped'
+            : 'storage.removed_directory',
+          {
+            size: humanBytes(result.bytes),
+            files: count(result.files, 'file'),
+            skipped: count(result.skipped?.length || 0, 'path'),
+          },
+          result.skipped?.length
+            ? 'Removed {{size}} in {{files}}. {{skipped}} could not be removed.'
+            : 'Removed {{size}} in {{files}}.',
+        ),
         !result.skipped?.length,
       );
     } else {
       notice(
-        `Removed ${humanBytes(result.bytes_freed ?? data.facts.size_bytes)}.`,
+        ZogographI18n.t(
+          'storage.removed_file',
+          { size: humanBytes(result.bytes_freed ?? data.facts.size_bytes) },
+          'Removed {{size}}.',
+        ),
         true,
       );
     }

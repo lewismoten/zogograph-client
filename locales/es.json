@@ -3333,8 +3333,6 @@
   "reports.title": "Resúmenes",
   "reports.write_now": "Escribir uno ahora",
   "reports.help": "{{assistant}} los escribe según un calendario a partir de un conjunto fijo de cifras del periodo: las mismas preguntas cada vez, para poder comparar dos resúmenes. Lo que varía es la interpretación que hace de ellas. Cada uno se envía por correo al escribirse; aquí es donde se conservan.",
-  "reports.schedules_on": "Escribiendo {{schedules}}. Cada uno se envía por correo cuando se escribe.",
-  "reports.schedules_off": "Ninguno de los tres horarios está activado, por lo que no se escribe nada automáticamente. Actívelos en Umbrales o escriba uno ahora para ver cómo son.",
   "reports.period_summary": "Resumen de {{period}}",
   "reports.emailed": "enviado por correo {{when}}",
   "reports.not_emailed": "no enviado por correo",

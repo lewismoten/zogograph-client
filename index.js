@@ -5932,16 +5932,7 @@ function renderAiSettings(data) {
     renderCoreCardPackage(
       ZogographAiReasoningEffortCard,
       'core-ai-reasoning-effort',
-      {
-        value: data.reasoning_effort,
-        options: [
-          ['', aiSettingsText('effort_default', "the provider's default")],
-          ['minimal', aiSettingsText('effort_minimal', 'minimal')],
-          ['low', aiSettingsText('effort_low', 'low')],
-          ['medium', aiSettingsText('effort_medium', 'medium')],
-          ['high', aiSettingsText('effort_high', 'high')],
-        ],
-      },
+      { value: data.reasoning_effort },
       { fieldRow, i18n: ZogographI18n },
     ),
   );

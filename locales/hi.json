@@ -671,7 +671,6 @@
   "path_hygiene.shell_wildcards_not_allowed": "नाम में shell या wildcard वर्ण नहीं हो सकते।",
   "path_hygiene.safe_to_rename": "इस नाम का नाम बदलना सुरक्षित है।",
   "path_hygiene.scan_truncated": "स्कैन ने इस पेज में रखे जाने वाले नामों से अधिक नाम पाए। इनके नाम बदलें, फिर दूसरा डिस्क स्कैन चलाएँ।",
-  "ai.settings.reasoning_label": "सोचने का प्रयास",
   "ai.settings.provider_connection": "प्रदाता कनेक्शन",
   "ai.settings.which_model": "कौन सा मॉडल",
   "ai.save_all_pages": "इन सभी पृष्ठों की हर चीज़ सहेजता है।",

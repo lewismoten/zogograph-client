@@ -671,7 +671,6 @@
   "path_hygiene.shell_wildcards_not_allowed": "Los nombres no pueden contener caracteres de shell o comodines.",
   "path_hygiene.safe_to_rename": "Este nombre es seguro para cambiarlo.",
   "path_hygiene.scan_truncated": "El análisis encontró más nombres de los que conserva esta página. Cambie el nombre de estos y ejecute otro análisis de disco.",
-  "ai.settings.reasoning_label": "Esfuerzo de razonamiento",
   "ai.settings.provider_connection": "Conexión del proveedor",
   "ai.settings.which_model": "Qué modelo",
   "ai.save_all_pages": "Guarda todo lo incluido en estas páginas.",

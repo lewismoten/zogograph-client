@@ -1472,6 +1472,9 @@ i18nExpect(
             $english['process.matches_all_protected'],
             $english['process.matches_some_protected'],
             $english['process.all_matches_protected'],
+            $english['storage.link_sweep_no_match'],
+            $english['storage.link_sweep_working_safe'],
+            $english['storage.link_sweep_incomplete'],
         ),
     'English fallback catalog is incomplete',
 );
@@ -1689,6 +1692,13 @@ i18nExpect(
         str_contains($script, 'process.matches_all_protected') &&
         str_contains($script, 'process.all_matches_protected'),
     'process preview status retains direct user-visible text',
+);
+i18nExpect(
+    $script !== false &&
+        str_contains($script, 'storage.link_sweep_no_match') &&
+        str_contains($script, 'storage.link_sweep_working_safe') &&
+        str_contains($script, 'storage.link_sweep_incomplete'),
+    'broken-link sweep safety explanations retain direct user-visible text',
 );
 i18nExpect(
     str_contains($runtime, 'data-i18n-rich') &&

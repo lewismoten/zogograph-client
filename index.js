@@ -24617,10 +24617,11 @@ async function sweepLinks(pattern, confirmed = false) {
   if (!result.matched) {
     parts.push(
       note(
-        'No link with a problem is under that path. Everything below what you type is ' +
-          'included, however deep, so there is no need to add \u2014 or count \u2014 any ' +
-          'stars. Healthy links are never matched, so a path over a directory of working ' +
-          'links finds nothing here by design.',
+        ZogographI18n.t(
+          'storage.link_sweep_no_match',
+          {},
+          'No link with a problem is under that path. Everything below what you type is included, however deep, so there is no need to add — or count — any stars. Healthy links are never matched, so a path over a directory of working links finds nothing here by design.',
+        ),
       ),
     );
     body.replaceChildren(...parts);
@@ -24660,8 +24661,11 @@ async function sweepLinks(pattern, confirmed = false) {
   if (!confirmed) {
     parts.push(
       note(
-        'Working links are not considered at all, whatever the pattern says. Only links this ' +
-          'check found dangling can be removed here.',
+        ZogographI18n.t(
+          'storage.link_sweep_working_safe',
+          {},
+          'Working links are not considered at all, whatever the pattern says. Only links this check found dangling can be removed here.',
+        ),
       ),
     );
   }
@@ -24694,8 +24698,11 @@ async function sweepLinks(pattern, confirmed = false) {
   if (!result.complete) {
     parts.push(
       note(
-        'The walk ran out of time before reaching the end of the tree, so there may be more ' +
-          'matching links it never saw. Run it again afterwards.',
+        ZogographI18n.t(
+          'storage.link_sweep_incomplete',
+          {},
+          'The walk ran out of time before reaching the end of the tree, so there may be more matching links it never saw. Run it again afterwards.',
+        ),
       ),
     );
   }

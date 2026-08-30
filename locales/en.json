@@ -19,6 +19,7 @@
   "terminal.use_sign_in": "Sign in to use the terminal.",
   "action.open": "Open",
   "action.request_capture": "Ask for a capture",
+  "action.put_in_command_box": "Put it in the command box",
   "action.copied": "Copied",
   "action.copy_value": "Copy it",
   "action.copy_line": "Copy the line",

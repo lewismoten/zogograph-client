@@ -14606,7 +14606,7 @@ function suggestionList(suggestions) {
      */
     const fill = document.createElement("button");
     fill.className = "link";
-    fill.textContent = "Put it in the box";
+    fill.textContent = ZogographI18n.t("action.put_in_command_box", {}, "Put it in the command box");
     fill.addEventListener("click", () => {
       const box = $("terminalInput");
       box.value = one.command;

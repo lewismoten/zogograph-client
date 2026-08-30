@@ -19,6 +19,7 @@
   "terminal.use_sign_in": "سجّل الدخول لاستخدام الطرفية.",
   "action.open": "فتح",
   "action.request_capture": "اطلب التقاطًا",
+  "action.put_in_command_box": "ضعه في مربع الأوامر",
   "action.copied": "تم النسخ",
   "action.copy_value": "انسخه",
   "action.copy_line": "انسخ السطر",

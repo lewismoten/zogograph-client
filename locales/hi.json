@@ -19,6 +19,7 @@
   "terminal.use_sign_in": "टर्मिनल का उपयोग करने के लिए साइन इन करें।",
   "action.open": "खोलें",
   "action.request_capture": "कैप्चर का अनुरोध करें",
+  "action.put_in_command_box": "इसे कमांड बॉक्स में रखें",
   "action.copied": "कॉपी हो गया",
   "action.copy_value": "इसे कॉपी करें",
   "action.copy_line": "लाइन कॉपी करें",

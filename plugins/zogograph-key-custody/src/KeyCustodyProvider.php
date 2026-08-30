@@ -22,9 +22,10 @@ final class KeyCustodyProvider
     }
 
     /** Credential-free endpoint identity probe for the isolated setup flow. */
+    // prettier-ignore
     public function preflight(
         string $serviceBaseUrl,
-        ?string $tlsSpkiPin = null,
+        ?string $tlsSpkiPin = null
     ): array {
         KeyCustodyHttpClient::healthEndpoint($serviceBaseUrl, $tlsSpkiPin);
         return [
@@ -40,11 +41,12 @@ final class KeyCustodyProvider
      * entitlement. It never creates a key/envelope or requests key material.
      * Credentials are supplied for this one short-lived sandbox invocation.
      */
+    // prettier-ignore
     public function enrollmentCheck(
         string $serviceBaseUrl,
         string $clientCredential,
         string $clientSigningKey,
-        ?string $tlsSpkiPin = null,
+        ?string $tlsSpkiPin = null
     ): array {
         // prettier-ignore
         $client = new KeyCustodyHttpClient(
@@ -69,6 +71,7 @@ final class KeyCustodyProvider
      * excludes the envelope and data key.
      * @return array{id:string,state:string,reason:string,envelope_sha256:string}
      */
+    // prettier-ignore
     public function storeEnvelope(
         string $serviceBaseUrl,
         string $clientCredential,
@@ -76,7 +79,7 @@ final class KeyCustodyProvider
         string $keyId,
         string $artifactId,
         string $dataKey,
-        ?string $tlsSpkiPin = null,
+        ?string $tlsSpkiPin = null
     ): array {
         if (
             !preg_match('/^key_[a-f0-9]{32}$/', $keyId) ||
@@ -113,13 +116,14 @@ final class KeyCustodyProvider
 
     /** Returns one named artifact DEK only to the core process through the
      * one-shot worker pipe. Callers must use it immediately and never persist it. */
+    // prettier-ignore
     public function unwrapArtifact(
         string $serviceBaseUrl,
         string $clientCredential,
         string $clientSigningKey,
         string $keyId,
         string $artifactId,
-        ?string $tlsSpkiPin = null,
+        ?string $tlsSpkiPin = null
     ): array {
         if (
             !preg_match('/^key_[a-f0-9]{32}$/', $keyId) ||

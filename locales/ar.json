@@ -992,6 +992,8 @@
   "rdns.queue_progress": "، {{count, number}} قيد التنفيذ",
   "rdns.queue_drain": "بمعدل {{perRun, number}} لكل تشغيل للجامع، تفرغ القائمة في نحو {{duration}}.{{both}}",
   "rdns.queue_both_collectors": " يأخذ الجامعان واحدًا لكل منهما، لذا قد يكون أسرع من ذلك.",
+  "rdns.released_requests": "أخذ جامع لم يعد {{count, number}} من الطلبات — تشغيل قُتل أثناء البحث — وأُعيدت إلى قائمة الانتظار.",
+  "rdns.looked_up": "{{count, number}} عنوانًا تم البحث عنها",
   "domain.watching": "تجري مراقبته الآن. جرى البحث عن تاريخ الانتهاء فورًا.",
   "action.looking": "جارٍ البحث…",
   "rdns.resolve_next": "حلّ التالي الآن",

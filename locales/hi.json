@@ -1006,6 +1006,8 @@
   "rdns.queue_progress": ", {{count, number}} प्रगति पर",
   "rdns.queue_drain": "हर कलेक्टर रन में {{perRun, number}} पर, कतार लगभग {{duration}} में खाली हो जाएगी।{{both}}",
   "rdns.queue_both_collectors": " दोनों कलेक्टर एक लेते हैं, इसलिए यह इससे तेज़ हो सकता है।",
+  "rdns.released_requests": "{{count, number}} अनुरोध एक ऐसे कलेक्टर ने ले लिए थे जो वापस नहीं आया —लुकअप के बीच में रोका गया रन— और उन्हें फिर से कतार में रखा गया है।",
+  "rdns.looked_up": "{{count, number}} पते देखे गए",
   "domain.watching": "अब इसकी निगरानी हो रही है। समाप्ति तिथि तुरंत देख ली गई।",
   "action.looking": "खोजा जा रहा है…",
   "rdns.resolve_next": "अगला अभी रिज़ॉल्व करें",

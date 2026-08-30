@@ -10543,10 +10543,9 @@ function renderRdns(data) {
   const parts = [];
 
   if (data.released > 0) {
-    parts.push(note(
-      `${count(data.released, "request")} had been taken by a collector that never came `
-      + "back — a run killed mid-lookup — and have been put back in the queue."
-    ));
+    parts.push(note(ZogographI18n.t("rdns.released_requests", { count: data.released },
+      "{{count, number}} requests had been taken by a collector that never came back — a run "
+      + "killed mid-lookup — and have been put back in the queue.")));
   }
 
   const waiting = (data.waiting || []).filter(row => !row.taken);
@@ -10577,7 +10576,8 @@ function renderRdns(data) {
   if (data.known?.length) {
     const holder = document.createElement("div");
     holder.id = "rdnsKnown";
-    parts.push(section(`${count(data.known.length, "address", "addresses")} looked up`, holder));
+    parts.push(section(ZogographI18n.t("rdns.looked_up", { count: data.known.length },
+      "{{count, number}} addresses looked up"), holder));
   }
 
   body.replaceChildren(...parts);

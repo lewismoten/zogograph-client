@@ -1008,6 +1008,8 @@
   "rdns.queue_progress": ", {{count, number}} en curso",
   "rdns.queue_drain": "A {{perRun, number}} por ejecución del recopilador, la cola se vacía en unos {{duration}}.{{both}}",
   "rdns.queue_both_collectors": " Ambos recopiladores toman una, así que puede ser más rápido.",
+  "rdns.released_requests": "{{count, number}} solicitudes las tomó un recopilador que nunca volvió —una ejecución terminada durante la consulta— y se han devuelto a la cola.",
+  "rdns.looked_up": "{{count, number}} direcciones consultadas",
   "domain.watching": "Ahora se vigila. La caducidad se consultó de inmediato.",
   "action.looking": "Buscando…",
   "rdns.resolve_next": "Resolver ahora el siguiente",

@@ -22041,149 +22041,19 @@ const tryState = { tool: null, last: null, shown: null };
 function renderAiTry(data) {
   const body = $('aiTryBody');
   if (!body) return;
-
-  /*
-   * Every tool, including the ones that cannot be run from here.
-   *
-   * Offering only the runnable ones made the list look like the whole set,
-   * which invited the reasonable conclusion that the missing ones did not
-   * exist. They are all here; the ones that cannot be tried say why.
-   */
-  const tools = data.tools || [];
-  const parts = [];
-
-  if (!tools.length) {
-    body.replaceChildren(
-      note(ZogographI18n.t('ai.try_empty', {}, 'There are no tools.')),
-    );
-    return;
-  }
-
-  const pick = document.createElement('select');
-  pick.id = 'aiTryTool';
-
-  const byGroup = new Map();
-  for (const tool of tools) {
-    if (!byGroup.has(tool.group)) byGroup.set(tool.group, []);
-    byGroup.get(tool.group).push(tool);
-  }
-
-  for (const [group, list] of byGroup) {
-    const holder = document.createElement('optgroup');
-    holder.label = group;
-    for (const tool of list) {
-      const option = document.createElement('option');
-      option.value = tool.name;
-      option.textContent =
-        tool.name +
-        (tool.why_not
-          ? ZogographI18n.t('ai.try_cannot_run', {}, ' (cannot be run here)')
-          : '');
-      option.selected = tryState.tool === tool.name;
-      holder.appendChild(option);
-    }
-    pick.appendChild(holder);
-  }
-
-  parts.push(
-    fieldRow(
-      ZogographI18n.t('ai.try_tool', {}, 'Tool'),
-      pick,
-      ZogographI18n.t(
-        'ai.try_catalogue_count',
-        { count: tools.length },
-        '{{count, number}} in the catalogue.',
-      ),
-    ),
+  renderCoreCardPackage(
+    ZogographAiToolTryCard,
+    'core-ai-tool-try',
+    { tools: data.tools || [], state: tryState },
+    {
+      body,
+      fieldRow,
+      note,
+      tryFields,
+      runAiTry,
+      i18n: ZogographI18n,
+    },
   );
-
-  const what = document.createElement('p');
-  what.className = 'muted small';
-  what.id = 'aiTryWhat';
-  parts.push(what);
-
-  const fields = document.createElement('div');
-  fields.className = 'settings';
-  fields.id = 'aiTryFields';
-  parts.push(fields);
-
-  const actions = document.createElement('div');
-  actions.className = 'inspect-actions';
-
-  const go = document.createElement('button');
-  go.type = 'button';
-  go.id = 'aiTryRun';
-  go.textContent = ZogographI18n.t('action.run', {}, 'Run it');
-  actions.appendChild(go);
-
-  const said = document.createElement('span');
-  said.className = 'muted small';
-  said.id = 'aiTrySaid';
-  actions.appendChild(said);
-
-  parts.push(actions);
-
-  const out = document.createElement('div');
-  out.id = 'aiTryResult';
-  /*
-   * The last result is put back, not thrown away.
-   *
-   * This page re-renders on every poll, and set_time_range re-renders it
-   * immediately by design - it changes the range, which refreshes the view the
-   * results are sitting in. So the one tool whose whole job is to change the
-   * dashboard was the one tool that appeared to do nothing.
-   */
-  if (tryState.shown) out.replaceChildren(...tryState.shown);
-  parts.push(out);
-
-  body.replaceChildren(...parts);
-
-  const sync = () => {
-    const tool = tools.find((t) => t.name === pick.value);
-    tryState.tool = pick.value;
-
-    what.replaceChildren();
-    if (tool) {
-      const summary = document.createElement('div');
-      summary.textContent = tool.description.split('\n\n')[0];
-      what.appendChild(summary);
-
-      if (tool.why_not) {
-        what.appendChild(note(tool.why_not));
-      } else if (tool.group === 'pictures') {
-        what.appendChild(
-          note(
-            'This one really generates a picture, which really costs whatever one costs ' +
-              'and counts against the hourly limit. It is not a dry run.',
-          ),
-        );
-      } else if (tool.where === 'browser') {
-        what.appendChild(
-          note(
-            'This one does its work in this window, so it runs here for real — it will ' +
-              'draw, or change the range, or ask for a screenshot, exactly as it would ' +
-              'mid-conversation.' +
-              (tool.permission
-                ? ' It asks your permission first, and so does this.'
-                : ''),
-          ),
-        );
-      }
-    }
-
-    fields.replaceChildren(...tryFields(tool));
-    $('aiTryRun').disabled = Boolean(tool?.why_not);
-    $('aiTryRun').textContent =
-      tool?.group === 'pictures'
-        ? ZogographI18n.t('ai.try_run_costs', {}, 'Run it (this costs)')
-        : ZogographI18n.t('action.run', {}, 'Run it');
-  };
-
-  pick.addEventListener('change', sync);
-  go.addEventListener('click', () =>
-    runAiTry(tools.find((t) => t.name === pick.value)),
-  );
-  sync();
 }
 
 /* ------------------------------------------------- trying a browser tool -- */

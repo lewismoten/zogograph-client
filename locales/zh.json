@@ -833,7 +833,6 @@
   "display.preferences": "显示首选项",
   "display.apply": "应用显示选项",
   "peers.admin_only": "只有管理员可以管理受信任的服务器。",
-  "ai.start_new": "开始新对话",
   "ai.nothing_chosen": "尚未选择任何内容。",
   "database.unknown_table_what": "为此安装保留的 {{collector}} SQLite 表。",
   "database.host_collector_data": "主机收集器数据",

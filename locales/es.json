@@ -847,7 +847,6 @@
   "display.preferences": "Preferencias de visualización",
   "display.apply": "Aplicar opciones de visualización",
   "peers.admin_only": "Solo los administradores pueden administrar servidores de confianza.",
-  "ai.start_new": "Iniciar una nueva",
   "ai.nothing_chosen": "Aún no se ha elegido nada.",
   "database.unknown_table_what": "Una tabla SQLite de {{collector}} conservada para esta instalación.",
   "database.host_collector_data": "Datos del recopilador del host",

@@ -917,7 +917,6 @@
   "display.preferences": "Display preferences",
   "display.apply": "Apply display choices",
   "peers.admin_only": "Only administrators can manage trusted servers.",
-  "ai.start_new": "Start a new one",
   "ai.nothing_chosen": "Nothing chosen yet.",
   "database.unknown_table_what": "A {{collector}} SQLite table retained for this installation.",
   "database.host_collector_data": "Host collector data",

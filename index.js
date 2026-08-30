@@ -25384,21 +25384,24 @@ function renderUrls(data) {
 
         if (!row.enabled) {
           span.textContent = "\u23f8\ufe0f";
-          parts.push("Switched off.");
+          parts.push(ZogographI18n.t("url.switched_off", {}, "Switched off."));
         } else if (row.last_ok === null) {
           span.textContent = "\u2b1c";
-          parts.push("Not checked yet.");
+          parts.push(ZogographI18n.t("url.not_checked_yet", {}, "Not checked yet."));
         } else if (Number(row.last_ok) === 1) {
           span.textContent = "\u2705";
-          parts.push(`Answered ${row.last_status} as expected.`);
+          parts.push(ZogographI18n.t("url.answered_expected", { status: row.last_status },
+            "Answered {{status, number}} as expected."));
         } else {
           span.textContent = "\u274c";
-          parts.push(row.last_error || `Answered ${row.last_status}.`);
+          parts.push(row.last_error || ZogographI18n.t("url.answered", { status: row.last_status },
+            "Answered {{status, number}}."));
         }
 
         parts.push(`${row.method || "GET"}${Number(row.follow_redirects) ? "" : ", no redirects"}`
           + `${Number(row.send_etag) ? ", conditional" : ""}.`);
-        if (row.last_at) parts.push(`Last checked ${ago(row.last_at)}.`);
+        if (row.last_at) parts.push(ZogographI18n.t("url.last_checked", { ago: ago(row.last_at) },
+          "Last checked {{ago}}."));
 
         span.title = parts.join(" ");
         return span;

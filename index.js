@@ -5700,8 +5700,14 @@ function deleteButton(row) {
               { size: humanBytes(result.bytes_freed) },
               'Removed {{size}}.',
             )
-          : `Deleted, but nothing was freed: ${count(result.links, 'other name')} still ` +
-              `point at those ${humanBytes(result.bytes)}.`,
+          : ZogographI18n.t(
+              'storage.deleted_not_freed',
+              {
+                links: count(result.links, 'other name'),
+                size: humanBytes(result.bytes),
+              },
+              'Deleted, but nothing was freed: {{links}} still point at those {{size}}.',
+            ),
         true,
       );
       await refreshAll();

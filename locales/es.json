@@ -1602,6 +1602,7 @@
   "storage.gone": "Desaparecido",
   "storage.gone_help": "Ya no está en disco y este panel no lo eliminó; lo quitó otra cosa: rotación de registros, una tarea cron o una persona.",
   "storage.deleted": "eliminado",
+  "storage.deleted_not_freed": "Se eliminó, pero no se liberó espacio: {{links}} aún apuntan a esos {{size}}.",
   "storage.deleted_row_help": "Se eliminó {{at}}. Aún aparece porque lo encontró el último análisis; el siguiente lo quitará.",
   "storage.first_seen": "Visto por primera vez",
   "storage.new": "Nuevo",

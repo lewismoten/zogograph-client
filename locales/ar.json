@@ -1586,6 +1586,7 @@
   "storage.gone": "اختفى",
   "storage.gone_help": "لم يعد على القرص ولم تحذفه لوحة المعلومات هذه؛ أزاله شيء آخر: تدوير سجل أو مهمة cron أو شخص.",
   "storage.deleted": "محذوف",
+  "storage.deleted_not_freed": "حُذف، لكن لم تُفرغ مساحة: ما زال {{links}} يشير إلى {{size}}.",
   "storage.deleted_row_help": "حُذف {{at}}. ما زال مُدرجًا لأن آخر فحص وجده؛ وسيزيله الفحص التالي.",
   "storage.first_seen": "أول ظهور",
   "storage.new": "جديد",

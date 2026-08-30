@@ -1586,6 +1586,7 @@
   "storage.gone": "已消失",
   "storage.gone_help": "它已不在磁盘上，也不是由此仪表板删除；其他内容移除了它：日志轮换、cron 任务或人员。",
   "storage.deleted": "已删除",
+  "storage.deleted_not_freed": "已删除，但未释放空间：{{links}} 仍指向这 {{size}}。",
   "storage.deleted_row_help": "已于 {{at}} 删除。它仍在列表中，因为上次扫描找到了它；下次扫描会将其移除。",
   "storage.first_seen": "首次发现",
   "storage.new": "新建",

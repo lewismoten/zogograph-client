@@ -26084,7 +26084,9 @@ function openUrlForm(row = null) {
   actions.className = "inspect-actions";
 
   const save = document.createElement("button");
-  save.textContent = row ? "Save it" : "Add it";
+  save.textContent = row
+    ? ZogographI18n.t("url.save", {}, "Save it")
+    : ZogographI18n.t("url.add", {}, "Add it");
   save.addEventListener("click", async () => {
     save.disabled = true;
     try {
@@ -26114,9 +26116,9 @@ function openUrlForm(row = null) {
       const first = result.first;
       notice(first
         ? (first.ok
-          ? `Saved, and it answered ${first.status} in ${first.ms} ms.`
-          : `Saved, but the first check failed: ${first.error || "status " + first.status}.`)
-        : "Saved.", !first || first.ok);
+          ? ZogographI18n.t("url.saved_answered", { status: first.status, ms: first.ms }, "Saved, and it answered {{status}} in {{ms}} ms.")
+          : ZogographI18n.t("url.saved_failed", { detail: first.error || ZogographI18n.t("url.status", { status: first.status }, "status {{status}}") }, "Saved, but the first check failed: {{detail}}."))
+        : ZogographI18n.t("url.saved", {}, "Saved."), !first || first.ok);
 
       $("urlFormPanel").hidden = true;
       urlState.selected = result.id;

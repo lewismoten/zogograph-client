@@ -100,6 +100,9 @@ $broadcastBannerCard = i18nCardSource(
 $latestReportCard = i18nCardSource(
     file_get_contents($root . '/cards/latest-report.js'),
 );
+$databaseSnapshotsCard = i18nCardSource(
+    file_get_contents($root . '/cards/database-snapshots.js'),
+);
 $networkPeersCard = i18nCardSource(
     file_get_contents($root . '/cards/network-peers.js'),
 );
@@ -371,6 +374,31 @@ i18nExpect(
             'helpers.i18n.registerCatalog(locale, catalog, false, id)',
         ),
     'core card package catalogs are not namespace-registered before their first render',
+);
+i18nExpect(
+    $page !== false &&
+        str_contains($page, 'src="cards/database-snapshots.js"') &&
+        $databaseSnapshotsCard !== false &&
+        str_contains(
+            $databaseSnapshotsCard,
+            'window.ZogographDatabaseSnapshotsCard',
+        ) &&
+        str_contains($databaseSnapshotsCard, 'id: "core-database-snapshots"') &&
+        str_contains(
+            $databaseSnapshotsCard,
+            'locales: ["core-database-snapshots."]',
+        ) &&
+        str_contains($databaseSnapshotsCard, 'catalogs: Object.freeze({') &&
+        str_contains(
+            $databaseSnapshotsCard,
+            '"core-database-snapshots.empty"',
+        ) &&
+        $script !== false &&
+        str_contains(
+            $script,
+            'renderCoreCardPackage(ZogographDatabaseSnapshotsCard, "core-database-snapshots",',
+        ),
+    'database snapshots are not isolated behind their core card-module boundary',
 );
 i18nExpect(
     $page !== false &&

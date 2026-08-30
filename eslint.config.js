@@ -38,6 +38,7 @@ export default [
         ZogographAlertBannerCard: 'readonly',
         ZogographBroadcastBannerCard: 'readonly',
         ZogographLatestReportCard: 'readonly',
+        ZogographDatabaseSnapshotsCard: 'readonly',
         ZogographRoomChart: 'readonly',
         ZogographIoChart: 'readonly',
         ZogographCpuChart: 'readonly',

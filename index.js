@@ -17813,6 +17813,42 @@ async function showNoteSnapshots(row) {
 
 /** The database copies on disk. */
 function renderSnapshotFiles(data) {
+  if (window.ZogographDatabaseSnapshotsCard) {
+    return renderCoreCardPackage(
+      ZogographDatabaseSnapshotsCard,
+      'core-database-snapshots',
+      { files: data.files || [], can_change: Boolean(state.access?.write) },
+      {
+        target: $('snapshotBody'),
+        note,
+        renderTable,
+        whenSpan,
+        humanBytes,
+        remove: async (row) => {
+          if (
+            !(await confirmDialog(
+              ZogographI18n.t(
+                'system.snapshot_delete_confirm',
+                { name: row.name, size: humanBytes(row.bytes) },
+                'Delete {{name}}?\n\nIt is {{size}} and nothing else has a copy.',
+              ),
+            ))
+          )
+            return;
+          try {
+            renderNotes(await post('snapshot-delete', { name: row.name }));
+            notice(
+              ZogographI18n.t('system.snapshot_removed', {}, 'Removed.'),
+              true,
+            );
+          } catch (error) {
+            notice(String(error.message || error));
+          }
+        },
+        i18n: ZogographI18n,
+      },
+    );
+  }
   const body = $('snapshotBody');
   const files = data.files || [];
 

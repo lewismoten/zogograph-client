@@ -1446,6 +1446,11 @@ i18nExpect(
             $english['alerts.mail_subject'],
             $english['alerts.mail_error'],
             $english['alerts.mail_not_delivered_help'],
+            $english['alerts.mail_covered'],
+            $english['alerts.mail_message'],
+            $english['alerts.mail_headers'],
+            $english['alerts.mail_dialog_title'],
+            $english['alerts.mail_dialog_help'],
         ),
     'English fallback catalog is incomplete',
 );
@@ -1628,6 +1633,13 @@ i18nExpect(
         str_contains($script, 'alerts.mail_error') &&
         str_contains($script, 'alerts.mail_not_delivered_help'),
     'alert email facts retain direct user-visible text',
+);
+i18nExpect(
+    $script !== false &&
+        str_contains($script, 'alerts.mail_covered') &&
+        str_contains($script, 'alerts.mail_dialog_title') &&
+        str_contains($script, 'alerts.mail_dialog_help'),
+    'alert email dialog retains direct user-visible text',
 );
 i18nExpect(
     str_contains($runtime, 'data-i18n-rich') &&

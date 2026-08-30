@@ -30524,28 +30524,41 @@ async function showAlertEmail(row) {
     const holder = document.createElement('div');
     holder.id = 'alertEmailCovers';
     nodes.push(
-      section(`${count(mail.covered.length, 'alert')} went out in it`, holder),
+      section(
+        ZogographI18n.t(
+          'alerts.mail_covered',
+          { count: humanCount(mail.covered.length) },
+          '{{count}} alerts went out in it',
+        ),
+        holder,
+      ),
     );
   }
 
   const body = document.createElement('pre');
   body.className = 'sent-mail';
   body.textContent = mail.body;
-  nodes.push(section('The message', body));
+  nodes.push(
+    section(ZogographI18n.t('alerts.mail_message', {}, 'The message'), body),
+  );
 
   if (mail.headers) {
     const headers = document.createElement('pre');
     headers.className = 'sent-mail muted';
     headers.textContent = mail.headers;
-    nodes.push(section('Headers', headers));
+    nodes.push(
+      section(ZogographI18n.t('alerts.mail_headers', {}, 'Headers'), headers),
+    );
   }
 
   showListDialog(
-    'What was sent',
+    ZogographI18n.t('alerts.mail_dialog_title', {}, 'What was sent'),
     nodes,
-    'Kept as it was sent. The wording depends on what else fired in the same minute and ' +
-      'on the settings at the time, so it cannot be worked out again afterwards — ' +
-      'which is why it is stored rather than rebuilt.',
+    ZogographI18n.t(
+      'alerts.mail_dialog_help',
+      {},
+      'Kept as it was sent. The wording depends on what else fired in the same minute and on the settings at the time, so it cannot be worked out again afterwards — which is why it is stored rather than rebuilt.',
+    ),
   );
 
   if (mail.covered.length > 1) {

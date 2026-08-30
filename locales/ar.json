@@ -2387,7 +2387,6 @@
   "storage.files_right": "الملفات (يمين)",
   "storage.link": "الرابط",
   "storage.history_one_scan": "لم يظهر هذا المسار إلا في فحص واحد حتى الآن",
-  "storage.no_scan_finished_range": "لم ينته أي فحص في هذه المدة بعد",
   "storage.scan_finished": "اكتمل الفحص.",
   "storage.nothing_changed_range": "لم يتغير شيء في هذه المدة.",
   "storage.nothing_changed_last_checked": "لم يتغير شيء في هذه المدة. آخر فحص {{when}}.",

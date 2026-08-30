@@ -2401,7 +2401,6 @@
   "storage.files_right": "Archivos (derecha)",
   "storage.link": "Enlace",
   "storage.history_one_scan": "Esta ruta solo se ha visto en un análisis hasta ahora",
-  "storage.no_scan_finished_range": "Aún no ha terminado ningún análisis en este intervalo",
   "storage.scan_finished": "Análisis terminado.",
   "storage.nothing_changed_range": "No cambió nada en este intervalo.",
   "storage.nothing_changed_last_checked": "No ha cambiado nada en este intervalo. Última comprobación: {{when}}.",

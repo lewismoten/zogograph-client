@@ -87,6 +87,10 @@ $english = json_decode(
     true,
 );
 i18nExpect(
+    !isset($english['storage.no_scan_finished_range']),
+    'category chart empty state belongs to its card package',
+);
+i18nExpect(
     !isset(
         $english['storage.not_measured_yet'],
         $english['storage.watched_category'],

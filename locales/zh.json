@@ -2387,7 +2387,6 @@
   "storage.files_right": "文件（右侧）",
   "storage.link": "链接",
   "storage.history_one_scan": "此路径目前只在一次扫描中出现过",
-  "storage.no_scan_finished_range": "此范围内尚未完成任何扫描",
   "storage.scan_finished": "扫描已完成。",
   "storage.nothing_changed_range": "此范围内没有任何变化。",
   "storage.nothing_changed_last_checked": "此范围内没有任何变化。上次检查时间：{{when}}。",

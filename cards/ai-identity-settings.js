@@ -65,7 +65,7 @@ window.ZogographAiIdentitySettingsCard = {
       identityFieldsCard,
       'core-ai-identity-fields',
       { who },
-      { fieldRow, aiSettingsText, i18n },
+      { fieldRow, i18n },
     );
     const { form, name, emoji, personality } = identity;
     const wrap = document.createDocumentFragment();

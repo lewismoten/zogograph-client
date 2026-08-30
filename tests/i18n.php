@@ -310,6 +310,7 @@ i18nExpect(
 );
 foreach ($toolLocaleDirectories as $directory) {
     $package = basename($directory);
+    $englishCatalog = null;
     foreach (['en', 'es', 'hi', 'ar', 'zh'] as $locale) {
         $file = $directory . '/' . $locale . '.json';
         i18nExpect(
@@ -331,6 +332,15 @@ foreach ($toolLocaleDirectories as $directory) {
                 "AI tool package $package owns an invalid $locale locale key",
             );
         }
+        if ($locale === 'en') {
+            $englishCatalog = $catalog;
+            continue;
+        }
+        i18nExpect(
+            is_array($englishCatalog) &&
+                array_keys($catalog) === array_keys($englishCatalog),
+            "AI tool package $package has a $locale catalog that differs from English",
+        );
     }
 }
 i18nExpect(

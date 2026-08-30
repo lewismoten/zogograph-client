@@ -32702,22 +32702,45 @@ const actionState = { kind: '', who: '', result: '' };
  * `empty` into "emptied a directory" in their head.
  */
 const ACTION_WORDS = {
-  delete_file: 'deleted a file',
-  empty: 'emptied a directory',
-  scan_now: 'ran a scan',
-  schedule_save: 'changed the schedule',
-  updates_policy: 'changed the system update policy',
-  test_email: 'sent a test email',
-  clear_problems: 'cleared the problem log',
-  diagnosis_ignore: 'ignored a diagnostic finding',
-  diagnosis_unignore: 'restored a diagnostic finding',
-  audit_cleared: 'cleared the audit trail',
-  ack_alerts: 'marked alerts read',
-  delete_alerts: 'deleted alerts',
-  daemon_watch: 'changed which services are watched',
-  request_host_walk: 'asked the host to walk the disk',
-  check_capabilities: 'checked which programs are available',
+  delete_file: ['action_log.deleted_file', 'deleted a file'],
+  empty: ['action_log.emptied_directory', 'emptied a directory'],
+  scan_now: ['action_log.ran_scan', 'ran a scan'],
+  schedule_save: ['action_log.changed_schedule', 'changed the schedule'],
+  updates_policy: [
+    'action_log.changed_update_policy',
+    'changed the system update policy',
+  ],
+  test_email: ['action_log.sent_test_email', 'sent a test email'],
+  clear_problems: ['action_log.cleared_problem_log', 'cleared the problem log'],
+  diagnosis_ignore: [
+    'action_log.ignored_diagnostic',
+    'ignored a diagnostic finding',
+  ],
+  diagnosis_unignore: [
+    'action_log.restored_diagnostic',
+    'restored a diagnostic finding',
+  ],
+  audit_cleared: ['action_log.cleared_audit', 'cleared the audit trail'],
+  ack_alerts: ['action_log.marked_alerts_read', 'marked alerts read'],
+  delete_alerts: ['action_log.deleted_alerts', 'deleted alerts'],
+  daemon_watch: [
+    'action_log.changed_service_watch',
+    'changed which services are watched',
+  ],
+  request_host_walk: [
+    'action_log.requested_host_walk',
+    'asked the host to walk the disk',
+  ],
+  check_capabilities: [
+    'action_log.checked_capabilities',
+    'checked which programs are available',
+  ],
 };
+
+function actionWord(value) {
+  const word = ACTION_WORDS[value];
+  return word ? ZogographI18n.t(word[0], {}, word[1]) : value;
+}
 
 async function refreshActionLog() {
   const panel = $('actionPanel');
@@ -32728,12 +32751,7 @@ async function refreshActionLog() {
   panel.hidden = false;
 
   const data = await api('actions');
-  fillFilter(
-    $('actionKind'),
-    data.kinds,
-    actionState.kind,
-    (value) => ACTION_WORDS[value] || value,
-  );
+  fillFilter($('actionKind'), data.kinds, actionState.kind, actionWord);
   fillFilter($('actionWho'), data.who, actionState.who);
 
   // Older rows lack the structured actor added after initial releases. Keep
@@ -32777,7 +32795,7 @@ async function refreshActionLog() {
       },
       {
         label: ZogographI18n.t('action_log.what', {}, 'What'),
-        render: (row) => ACTION_WORDS[row.action] || row.action,
+        render: (row) => actionWord(row.action),
       },
       {
         label: ZogographI18n.t('action_log.target', {}, 'Target'),

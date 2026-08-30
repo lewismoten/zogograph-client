@@ -1496,8 +1496,6 @@
   "domain.stop_watching_title": "Dejar de vigilar este dominio",
   "domain.stop_watching_confirm": "¿Dejar de vigilar {{name}}?",
   "domain.stop_watching": "Dejar de vigilar",
-  "whois.terms_accept": "Entendido — buscarlo",
-  "whois.terms_title": "Antes de buscar un nombre",
   "whois.sign_in_lookup": "Inicie sesión para realizar una consulta.",
   "whois.type_name": "Escriba un nombre arriba.",
   "whois.asking_registry": "Consultando al registro… puede tardar unos segundos.",

@@ -1494,8 +1494,6 @@
   "domain.stop_watching_title": "इस डोमेन को देखना बंद करें",
   "domain.stop_watching_confirm": "{{name}} को देखना बंद करें?",
   "domain.stop_watching": "देखना बंद करें",
-  "whois.terms_accept": "समझ गया — इसे देखें",
-  "whois.terms_title": "नाम देखने से पहले",
   "whois.sign_in_lookup": "लुकअप चलाने के लिए साइन इन करें।",
   "whois.type_name": "ऊपर एक नाम लिखें।",
   "whois.asking_registry": "रजिस्ट्री से पूछा जा रहा है… इसमें कुछ सेकंड लग सकते हैं।",

@@ -1480,8 +1480,6 @@
   "domain.stop_watching_title": "أوقف مراقبة هذا النطاق",
   "domain.stop_watching_confirm": "أوقف مراقبة {{name}}؟",
   "domain.stop_watching": "أوقف المراقبة",
-  "whois.terms_accept": "فهمت — ابحث عنه",
-  "whois.terms_title": "قبل البحث عن اسم",
   "whois.sign_in_lookup": "سجّل الدخول لإجراء بحث.",
   "whois.type_name": "اكتب اسمًا أعلاه.",
   "whois.asking_registry": "يجري سؤال السجل… قد يستغرق ذلك بضع ثوانٍ.",

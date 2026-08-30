@@ -37465,42 +37465,21 @@ function whoisTermsAccepted() {
  * that gets clicked through without being read.
  */
 function renderWhoisTerms(terms, onAccept) {
-  const wrap = document.createDocumentFragment();
-
-  wrap.appendChild(note(terms.summary));
-
-  const list = document.createElement('ul');
-  list.className = 'evidence-list';
-  for (const point of terms.points) {
-    const li = document.createElement('li');
-    li.textContent = point;
-    list.appendChild(li);
-  }
-  wrap.appendChild(list);
-
-  const actions = document.createElement('div');
-  actions.className = 'inspect-actions';
-
-  const agree = document.createElement('button');
-  agree.textContent = ZogographI18n.t(
-    'whois.terms_accept',
-    {},
-    'Understood — look it up',
-  );
-  agree.addEventListener('click', () => {
-    try {
-      localStorage.setItem(WHOIS_TERMS_KEY, '1');
-    } catch {
-      // Not fatal: the lookup proceeds and the terms show again next time.
-    }
-    onAccept();
-  });
-  actions.appendChild(agree);
-  wrap.appendChild(actions);
-
-  return section(
-    ZogographI18n.t('whois.terms_title', {}, 'Before looking a name up'),
-    wrap,
+  return renderCoreCardPackage(
+    ZogographWhoisTermsCard,
+    'core-whois-terms',
+    {
+      terms,
+      onAccept: () => {
+        try {
+          localStorage.setItem(WHOIS_TERMS_KEY, '1');
+        } catch {
+          // Not fatal: the lookup proceeds and the terms show again next time.
+        }
+        onAccept();
+      },
+    },
+    { note, section, i18n: ZogographI18n },
   );
 }
 

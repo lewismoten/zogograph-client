@@ -1480,8 +1480,6 @@
   "domain.stop_watching_title": "停止监测此域名",
   "domain.stop_watching_confirm": "停止监测 {{name}}？",
   "domain.stop_watching": "停止监测",
-  "whois.terms_accept": "已了解 — 立即查询",
-  "whois.terms_title": "查询名称之前",
   "whois.sign_in_lookup": "登录以运行查询。",
   "whois.type_name": "请在上方输入名称。",
   "whois.asking_registry": "正在询问注册机构…可能需要几秒钟。",

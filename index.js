@@ -37109,62 +37109,14 @@ function renderDomains(data) {
   const body = $('domainBody');
   const parts = [];
 
-  if (!data.have_whois) {
-    const availability = document.createElement('button');
-    availability.className = 'link domain-capability';
-    availability.textContent = ZogographI18n.t(
-      'domain.whois_availability',
-      {},
-      '⚠ WHOIS availability',
-    );
-    availability.title = ZogographI18n.t(
-      'domain.whois_availability_help',
-      {},
-      'Explain how domain expiry lookups run',
-    );
-    availability.addEventListener('click', () => {
-      const detail = [
-        note(
-          data.host_has_whois
-            ? ZogographI18n.t(
-                'domain.whois_host_only',
-                {},
-                'The root collector can run WHOIS. This web account cannot, so the collector fetches expiry details on its normal run.',
-              )
-            : ZogographI18n.t(
-                'domain.whois_unavailable',
-                {},
-                'This web account and the latest host capability sweep do not show WHOIS as available.',
-              ),
-        ),
-      ];
-      if (data.missing)
-        detail.push(
-          missingCommandNote(
-            data.missing,
-            ZogographI18n.t(
-              'capabilities.this_account_or_host',
-              {},
-              'this account or the host',
-            ),
-          ),
-        );
-      showListDialog(
-        ZogographI18n.t(
-          'domain.whois_availability_title',
-          {},
-          'WHOIS availability',
-        ),
-        detail,
-        ZogographI18n.t(
-          'domain.whois_availability_note',
-          {},
-          "The dashboard separates the web account's permissions from the host collector's tools.",
-        ),
-      );
-    });
-    parts.push(availability);
-  }
+  parts.push(
+    renderCoreCardPackage(
+      ZogographDomainWhoisAvailabilityCard,
+      'core-domain-whois-availability',
+      data,
+      { note, missingCommandNote, showListDialog, i18n: ZogographI18n },
+    ),
+  );
 
   /* A patient queue looks broken without an explanation of its rate limit. */
   parts.push(

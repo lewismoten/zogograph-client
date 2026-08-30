@@ -1553,6 +1553,16 @@ i18nExpect(
             $english['process.age_started_hour'],
             $english['process.age_started_today'],
             $english['process.age_long_running'],
+            $english['process.busy_empty'],
+            $english['process.busy_alert_help'],
+            $english['process.busy_table_what'],
+            $english['process.busy_level'],
+            $english['process.busy_level_with_trigger'],
+            $english['process.busy_top_more'],
+            $english['process.busy_top_none'],
+            $english['process.busy_cpu_explained'],
+            $english['process.busy_cpu_burst'],
+            $english['process.busy_row_processes'],
             $english['process.unavailable'],
             $english['process.no_matches'],
             $english['process.matches_summary'],
@@ -1859,31 +1869,18 @@ i18nExpect(
     'process row explanations retain direct user-visible text',
 );
 i18nExpect(
-    str_contains($page, 'src="cards/busy-moments.js"') &&
-        !isset(
-            $english['process.busy_empty'],
-            $english['process.busy_alert_help'],
-            $english['process.busy_table_what'],
-            $english['process.busy_level'],
-            $english['process.busy_level_with_trigger'],
-            $english['process.busy_top_more'],
-            $english['process.busy_top_none'],
-            $english['process.busy_cpu_explained'],
-            $english['process.busy_cpu_burst'],
-            $english['process.busy_row_processes'],
-        ),
-    'busy process history belongs to its card package',
+    $script !== false &&
+        str_contains($script, 'process.busy_empty') &&
+        str_contains($script, 'process.busy_alert_help') &&
+        str_contains($script, 'process.busy_table_what'),
+    'busy process history retains direct user-visible text',
 );
 i18nExpect(
-    ($busyMomentsCard = file_get_contents($root . '/cards/busy-moments.js')) !==
-        false &&
-        str_contains(
-            $busyMomentsCard,
-            'core-busy-moments.level_with_trigger',
-        ) &&
-        str_contains($busyMomentsCard, 'core-busy-moments.cpu_burst') &&
-        str_contains($busyMomentsCard, 'core-busy-moments.row_processes'),
-    'busy process event details belong to its card package',
+    $script !== false &&
+        str_contains($script, 'process.busy_level_with_trigger') &&
+        str_contains($script, 'process.busy_cpu_burst') &&
+        str_contains($script, 'process.busy_row_processes'),
+    'busy process event details retain direct user-visible text',
 );
 i18nExpect(
     $script !== false &&

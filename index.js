@@ -26728,21 +26728,154 @@ async function refreshBusy() {
 const busyOpen = new Set();
 
 function renderBusyMoments(moments) {
-  return renderCoreCardPackage(
-    ZogographBusyMomentsCard,
-    'core-busy-moments',
-    moments,
-    {
-      holder: $('processHistory'),
-      busyOpen,
-      humanTime,
-      humanCount,
-      humanBytes,
-      processAge,
-      severityIcon,
-      showView,
-      i18n: ZogographI18n,
-    },
+  const holder = $('processHistory');
+
+  if (!moments.length) {
+    holder.replaceChildren(
+      Object.assign(document.createElement('p'), {
+        className: 'muted',
+        textContent: ZogographI18n.t(
+          'process.busy_empty',
+          {},
+          'Nothing recorded — the machine has not been busy enough to bother.',
+        ),
+      }),
+    );
+    return;
+  }
+
+  holder.replaceChildren(
+    ...moments.map((moment) => {
+      const section = document.createElement('details');
+      section.className = 'busy-moment';
+      section.open = busyOpen.has(moment.taken_at);
+      section.addEventListener('toggle', () => {
+        section.open
+          ? busyOpen.add(moment.taken_at)
+          : busyOpen.delete(moment.taken_at);
+      });
+
+      const summary = document.createElement('summary');
+
+      const when = document.createElement('span');
+      when.className = 'busy-when';
+      when.textContent = humanTime(moment.taken_at);
+      summary.appendChild(when);
+
+      const first = moment.rows[0] || {};
+      const trigger = Number(first.trigger_percent ?? 0);
+
+      const level = document.createElement('span');
+      level.className = 'busy-level';
+      // "high cpu 72%" - the reading is the whole reason the moment was kept, so
+      // it belongs in the line you decide from rather than inside the fold.
+      level.textContent = ZogographI18n.t(
+        trigger ? 'process.busy_level_with_trigger' : 'process.busy_level',
+        { reason: moment.reason, value: trigger.toFixed(0) },
+        trigger
+          ? `high ${moment.reason} ${trigger.toFixed(0)}%`
+          : `high ${moment.reason}`,
+      );
+      summary.appendChild(level);
+
+      const top = document.createElement('span');
+      top.className = 'busy-top muted';
+      top.textContent = first.name
+        ? moment.rows.length > 1
+          ? ZogographI18n.t(
+              'process.busy_top_more',
+              { name: first.name, count: humanCount(moment.rows.length - 1) },
+              `${first.name} and ${humanCount(moment.rows.length - 1)} other`,
+            )
+          : first.name
+        : ZogographI18n.t('process.busy_top_none', {}, 'nothing measurable');
+      summary.appendChild(top);
+
+      for (const alert of moment.alerts || []) {
+        const link = document.createElement('button');
+        link.className = 'link busy-alert';
+        link.textContent = `${severityIcon(alert.severity)} ${alert.subject}`;
+        link.title = ZogographI18n.t(
+          'process.busy_alert_help',
+          {},
+          'An alert fired within two minutes of this — open the alerts page',
+        );
+        link.addEventListener('click', (event) => {
+          // Inside a summary, so the click would otherwise fold the thing open.
+          event.preventDefault();
+          event.stopPropagation();
+          showView('alerts');
+        });
+        summary.appendChild(link);
+      }
+
+      section.appendChild(summary);
+
+      /*
+       * What set it off, and whether anything visible was doing it.
+       *
+       * Deliberately not expressed as a fraction of the trigger. `ps` reports a
+       * lifetime average per core, so a busy multi-core machine sums well past
+       * 100 and the arithmetic would claim the processes account for more than
+       * the whole reading. The useful distinction is coarser and survives the
+       * mismatch: either something in the list was working, or nothing was and
+       * the cause had already exited.
+       */
+      if (moment.reason === 'cpu' && first.trigger_percent != null) {
+        const busiest = Number(first.cpu_percent ?? 0);
+        const note = document.createElement('p');
+        note.className = 'muted small';
+        note.textContent = ZogographI18n.t(
+          busiest >= 2
+            ? 'process.busy_cpu_explained'
+            : 'process.busy_cpu_burst',
+          { value: trigger.toFixed(0) },
+          busiest >= 2
+            ? `The reading was ${trigger.toFixed(0)}%. These were the busiest processes at that moment — ps reports a lifetime average per core, so they will not add up to it.`
+            : `The reading was ${trigger.toFixed(0)}%, but nothing in the list was using measurable CPU: whatever caused it had already finished when the process list was taken. A burst rather than steady load.`,
+        );
+        section.appendChild(note);
+      }
+
+      const table = document.createElement('table');
+      const head = table.createTHead().insertRow();
+      for (const [key, fallback, cls] of [
+        ['process.busy_table_what', 'What', ''],
+        ['process.table_cpu', 'CPU', 'size'],
+        ['process.table_memory', 'Memory', 'size'],
+        ['process.table_running_for', 'Running for', 'size'],
+      ]) {
+        const th = document.createElement('th');
+        th.textContent = ZogographI18n.t(key, {}, fallback);
+        if (cls) th.className = cls;
+        head.appendChild(th);
+      }
+
+      const body = table.createTBody();
+      for (const row of moment.rows) {
+        const tr = body.insertRow();
+        tr.insertCell().textContent =
+          row.procs > 1
+            ? ZogographI18n.t(
+                'process.busy_row_processes',
+                { name: row.name, count: humanCount(row.procs) },
+                `${row.name} (${humanCount(row.procs)} processes)`,
+              )
+            : row.name;
+        const cpu = tr.insertCell();
+        cpu.className = 'size';
+        cpu.textContent = `${Number(row.cpu_percent).toFixed(1)}%`;
+        const rss = tr.insertCell();
+        rss.className = 'size';
+        rss.textContent = humanBytes(row.rss_bytes);
+        const age = tr.insertCell();
+        age.className = 'size muted';
+        age.textContent = processAge(row);
+      }
+      section.appendChild(table);
+
+      return section;
+    }),
   );
 }
 

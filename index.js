@@ -25258,7 +25258,11 @@ function stopButtons(row, grouped) {
   for (const force of [false, true]) {
     const button = document.createElement('button');
     button.className = force ? 'danger small' : 'small';
-    button.textContent = force ? 'Force' : 'Ask';
+    button.textContent = ZogographI18n.t(
+      force ? 'process.stop_force' : 'process.stop_ask',
+      {},
+      force ? 'Force' : 'Ask',
+    );
 
     /*
      * Root's processes, and the account's own plumbing, are dead buttons
@@ -25267,15 +25271,34 @@ function stopButtons(row, grouped) {
      */
     if (row.eligible === false) {
       button.disabled = true;
-      button.title = row.reason || 'This one cannot be stopped from here.';
+      button.title =
+        row.reason ||
+        ZogographI18n.t(
+          'process.stop_unavailable',
+          {},
+          'This one cannot be stopped from here.',
+        );
       holder.appendChild(button);
       continue;
     }
 
-    button.title = force
-      ? `SIGKILL — ${many ? 'all ' + row.procs + ' are' : 'it is'} killed outright, ` +
-        'with no chance to finish writing anything'
-      : `SIGTERM — ${many ? 'each is' : 'it is'} asked to exit and can tidy up first`;
+    button.title = ZogographI18n.t(
+      force
+        ? many
+          ? 'process.stop_force_many_help'
+          : 'process.stop_force_one_help'
+        : many
+          ? 'process.stop_ask_many_help'
+          : 'process.stop_ask_one_help',
+      { count: humanCount(row.procs) },
+      force
+        ? many
+          ? `SIGKILL — all ${humanCount(row.procs)} are killed outright, with no chance to finish writing anything`
+          : 'SIGKILL — it is killed outright, with no chance to finish writing anything'
+        : many
+          ? 'SIGTERM — each is asked to exit and can tidy up first'
+          : 'SIGTERM — it is asked to exit and can tidy up first',
+    );
 
     button.addEventListener('click', async () => {
       if (!(await confirmStop(row, grouped, force))) return;
@@ -25292,7 +25315,11 @@ function stopButtons(row, grouped) {
       const was = button.textContent;
       button.disabled = true;
       button.classList.add('working');
-      button.textContent = force ? 'Killing…' : 'Asking…';
+      button.textContent = ZogographI18n.t(
+        force ? 'process.stop_killing' : 'process.stop_asking',
+        {},
+        force ? 'Killing…' : 'Asking…',
+      );
 
       try {
         const result = many
@@ -25317,12 +25344,13 @@ function stopButtons(row, grouped) {
 
         if (gone === false) {
           notice(
-            force
-              ? `${row.name} is still in the process list after SIGKILL. That normally ` +
-                  'means it is stuck in the kernel — waiting on a disk or a network mount — ' +
-                  'where no signal can reach it until whatever it is waiting for returns.'
-              : `${row.name} was asked to stop and has not. It is entitled to ignore ` +
-                  'SIGTERM; Force sends a signal it cannot ignore.',
+            ZogographI18n.t(
+              force ? 'process.stop_force_waiting' : 'process.stop_ask_waiting',
+              { name: row.name },
+              force
+                ? `${row.name} is still in the process list after SIGKILL. That normally means it is stuck in the kernel — waiting on a disk or a network mount — where no signal can reach it until whatever it is waiting for returns.`
+                : `${row.name} was asked to stop and has not. It is entitled to ignore SIGTERM; Force sends a signal it cannot ignore.`,
+            ),
           );
         }
       } catch (error) {
@@ -25404,28 +25432,75 @@ async function waitForProcessToGo(row, many) {
 async function confirmStop(row, grouped, force) {
   const many = grouped && row.procs > 1;
   const what = many
-    ? `all ${count(row.procs, 'process', 'processes')} named “${row.name}”`
-    : `“${row.name}” (pid ${row.pid})`;
+    ? ZogographI18n.t(
+        'process.stop_subject_many',
+        { count: humanCount(row.procs), name: row.name },
+        `all ${humanCount(row.procs)} processes named “${row.name}”`,
+      )
+    : ZogographI18n.t(
+        'process.stop_subject_one',
+        { name: row.name, pid: row.pid },
+        `“${row.name}” (pid ${row.pid})`,
+      );
 
   return confirmDialog(
-    force
-      ? `Force ${what} to stop?\n\nSIGKILL cannot be caught or ignored. ` +
-          `Anything part-way through being written stays part-way written.`
-      : `Ask ${what} to stop?\n\nSIGTERM lets it close its files and exit cleanly. ` +
-          `It can also ignore this.`,
+    ZogographI18n.t(
+      force ? 'process.stop_force_confirm' : 'process.stop_ask_confirm',
+      { what },
+      force
+        ? `Force ${what} to stop?\n\nSIGKILL cannot be caught or ignored. Anything part-way through being written stays part-way written.`
+        : `Ask ${what} to stop?\n\nSIGTERM lets it close its files and exit cleanly. It can also ignore this.`,
+    ),
   );
 }
 
 /** What came back, in the terms somebody watching a process cares about. */
 function describeStop(result, row, many) {
   if (!many) {
-    return result.note || (result.stopped ? 'Stopped.' : 'Signalled.');
+    return (
+      result.note ||
+      ZogographI18n.t(
+        result.stopped ? 'process.stop_stopped' : 'process.stop_signalled',
+        {},
+        result.stopped ? 'Stopped.' : 'Signalled.',
+      )
+    );
   }
 
-  const parts = [`${result.stopped} of ${row.procs} stopped`];
-  if (result.remaining) parts.push(`${result.remaining} still running`);
-  if (result.refused) parts.push(`${result.refused} refused`);
-  if (result.failed) parts.push(`${result.failed} failed`);
+  const parts = [
+    ZogographI18n.t(
+      'process.stop_group_stopped',
+      { stopped: humanCount(result.stopped), total: humanCount(row.procs) },
+      `${humanCount(result.stopped)} of ${humanCount(row.procs)} stopped`,
+    ),
+  ];
+  if (result.remaining) {
+    parts.push(
+      ZogographI18n.t(
+        'process.stop_group_remaining',
+        { count: humanCount(result.remaining) },
+        `${humanCount(result.remaining)} still running`,
+      ),
+    );
+  }
+  if (result.refused) {
+    parts.push(
+      ZogographI18n.t(
+        'process.stop_group_refused',
+        { count: humanCount(result.refused) },
+        `${humanCount(result.refused)} refused`,
+      ),
+    );
+  }
+  if (result.failed) {
+    parts.push(
+      ZogographI18n.t(
+        'process.stop_group_failed',
+        { count: humanCount(result.failed) },
+        `${humanCount(result.failed)} failed`,
+      ),
+    );
+  }
   return parts.join(', ') + '.';
 }
 

@@ -1476,6 +1476,27 @@ i18nExpect(
             $english['process.trend_summary'],
             $english['process.trend_empty_help'],
             $english['process.trend_empty'],
+            $english['process.stop_force'],
+            $english['process.stop_ask'],
+            $english['process.stop_unavailable'],
+            $english['process.stop_force_one_help'],
+            $english['process.stop_force_many_help'],
+            $english['process.stop_ask_one_help'],
+            $english['process.stop_ask_many_help'],
+            $english['process.stop_killing'],
+            $english['process.stop_asking'],
+            $english['process.stop_force_waiting'],
+            $english['process.stop_ask_waiting'],
+            $english['process.stop_subject_many'],
+            $english['process.stop_subject_one'],
+            $english['process.stop_force_confirm'],
+            $english['process.stop_ask_confirm'],
+            $english['process.stop_stopped'],
+            $english['process.stop_signalled'],
+            $english['process.stop_group_stopped'],
+            $english['process.stop_group_remaining'],
+            $english['process.stop_group_refused'],
+            $english['process.stop_group_failed'],
             $english['process.unavailable'],
             $english['process.no_matches'],
             $english['process.matches_summary'],
@@ -1766,6 +1787,13 @@ i18nExpect(
         str_contains($script, 'process.table_biggest_pid') &&
         str_contains($script, 'process.trend_summary'),
     'live process table and trend retain direct user-visible text',
+);
+i18nExpect(
+    $script !== false &&
+        str_contains($script, 'process.stop_force_many_help') &&
+        str_contains($script, 'process.stop_force_confirm') &&
+        str_contains($script, 'process.stop_group_failed'),
+    'process stop controls retain direct user-visible text',
 );
 i18nExpect(
     $script !== false &&

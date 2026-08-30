@@ -1507,6 +1507,9 @@ i18nExpect(
             $english['process.age_started_hour'],
             $english['process.age_started_today'],
             $english['process.age_long_running'],
+            $english['process.busy_empty'],
+            $english['process.busy_alert_help'],
+            $english['process.busy_table_what'],
             $english['process.unavailable'],
             $english['process.no_matches'],
             $english['process.matches_summary'],
@@ -1811,6 +1814,13 @@ i18nExpect(
         str_contains($script, 'process.age_with_newest') &&
         str_contains($script, 'process.rank_second_largest'),
     'process row explanations retain direct user-visible text',
+);
+i18nExpect(
+    $script !== false &&
+        str_contains($script, 'process.busy_empty') &&
+        str_contains($script, 'process.busy_alert_help') &&
+        str_contains($script, 'process.busy_table_what'),
+    'busy process history retains direct user-visible text',
 );
 i18nExpect(
     $script !== false &&

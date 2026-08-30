@@ -25958,8 +25958,11 @@ function renderBusyMoments(moments) {
     holder.replaceChildren(
       Object.assign(document.createElement('p'), {
         className: 'muted',
-        textContent:
+        textContent: ZogographI18n.t(
+          'process.busy_empty',
+          {},
           'Nothing recorded — the machine has not been busy enough to bother.',
+        ),
       }),
     );
     return;
@@ -26006,8 +26009,11 @@ function renderBusyMoments(moments) {
         const link = document.createElement('button');
         link.className = 'link busy-alert';
         link.textContent = `${severityIcon(alert.severity)} ${alert.subject}`;
-        link.title =
-          'An alert fired within two minutes of this — open the alerts page';
+        link.title = ZogographI18n.t(
+          'process.busy_alert_help',
+          {},
+          'An alert fired within two minutes of this — open the alerts page',
+        );
         link.addEventListener('click', (event) => {
           // Inside a summary, so the click would otherwise fold the thing open.
           event.preventDefault();
@@ -26046,14 +26052,14 @@ function renderBusyMoments(moments) {
 
       const table = document.createElement('table');
       const head = table.createTHead().insertRow();
-      for (const [label, cls] of [
-        ['What', ''],
-        ['CPU', 'size'],
-        ['Memory', 'size'],
-        ['Running for', 'size'],
+      for (const [key, fallback, cls] of [
+        ['process.busy_table_what', 'What', ''],
+        ['process.table_cpu', 'CPU', 'size'],
+        ['process.table_memory', 'Memory', 'size'],
+        ['process.table_running_for', 'Running for', 'size'],
       ]) {
         const th = document.createElement('th');
-        th.textContent = label;
+        th.textContent = ZogographI18n.t(key, {}, fallback);
         if (cls) th.className = cls;
         head.appendChild(th);
       }

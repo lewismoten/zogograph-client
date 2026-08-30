@@ -7038,54 +7038,32 @@ function renderAiTools(data) {
    * the operator one deliberate step to extend that subject rather than asking
    * them to recognise and tick every individual capability.
    */
-  const extension = document.createElement('div');
-  extension.className = 'tool-extension';
-  const extensionText = document.createElement('span');
-  extensionText.className = 'muted small';
   const inactive =
     groups.get(toolTab)?.filter((tool) => !tool.enabled).length ?? 0;
-  const groupLabel = toolGroupLabel(toolTab);
-  extensionText.textContent = inactive
-    ? ZogographI18n.t(
-        'ai.tool_subject_intro',
-        { assistant: chatState.who.name, group: groupLabel },
-        '{{assistant}} starts with diagnostic tools. Enable {{group}} tools if this conversation needs that subject.',
-      )
-    : ZogographI18n.t(
-        'ai.tool_subject_all_enabled',
-        { assistant: chatState.who.name, group: groupLabel },
-        'All {{group}} tools are enabled for {{assistant}}.',
-      );
-  extension.appendChild(extensionText);
-  if (inactive && data.writable) {
-    const enableGroup = document.createElement('button');
-    enableGroup.type = 'button';
-    enableGroup.className = 'link';
-    enableGroup.textContent = ZogographI18n.t(
-      'ai.enable_subject',
-      { count: inactive },
-      'Enable this subject ({{count}})',
-    );
-    enableGroup.addEventListener('click', () => {
-      for (const tool of groups.get(toolTab) ?? []) {
-        const toggle = body.querySelector(`.tool-on[data-tool="${tool.name}"]`);
-        if (toggle) toggle.checked = true;
-      }
-      enableGroup.disabled = true;
-      enableGroup.textContent = ZogographI18n.t(
-        'ai.subject_enabled_save',
-        {},
-        'Subject enabled — save settings',
-      );
-      extensionText.textContent = ZogographI18n.t(
-        'ai.tool_subject_available_after_save',
-        { group: groupLabel },
-        '{{group}} tools will be available after you save these settings.',
-      );
-    });
-    extension.appendChild(enableGroup);
-  }
-  parts.push(extension);
+  parts.push(
+    renderCoreCardPackage(
+      ZogographAiToolExtensionCard,
+      'core-ai-tool-extension',
+      {
+        inactive,
+        group: toolTab,
+        writable: data.writable,
+        assistant: chatState.who.name,
+      },
+      {
+        toolGroupLabel,
+        enableGroup() {
+          for (const tool of groups.get(toolTab) ?? []) {
+            const toggle = body.querySelector(
+              `.tool-on[data-tool="${tool.name}"]`,
+            );
+            if (toggle) toggle.checked = true;
+          }
+        },
+        i18n: ZogographI18n,
+      },
+    ),
+  );
 
   /*
    * A Save, on the page the ticks are on.

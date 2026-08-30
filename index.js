@@ -4249,7 +4249,10 @@ async function refreshShared() {
   renderPending(showHostClock ? clock.pending || [] : []);
 
   if (wasScanning && !state.scanRunning) {
-    notice('Scan finished.', true);
+    notice(
+      ZogographI18n.t('storage.scan_finished', {}, 'Scan finished.'),
+      true,
+    );
     // A finished scan changes what Storage shows, wherever you are standing.
     state.rendered.delete('storage');
     if (state.view === 'storage') await VIEWS.storage.refresh();

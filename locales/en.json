@@ -2440,6 +2440,7 @@
   "storage.link": "Link",
   "storage.history_one_scan": "This path has only been seen in one scan so far",
   "storage.no_scan_finished_range": "No scan has finished in this range yet",
+  "storage.scan_finished": "Scan finished.",
   "storage.nothing_changed_range": "Nothing changed in this range.",
   "storage.nothing_changed_last_checked": "Nothing has changed in this range. Last checked {{when}}.",
   "storage.nothing_checked_yet": "Nothing has been checked yet. Press Check now, or open What the host allows.",

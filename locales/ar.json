@@ -523,7 +523,6 @@
   "storage.ldconfig_previous_finished": "كانت آخر إعادة بناء {{time}} وانتهت.",
   "storage.ldconfig_previous_failed": "كانت آخر إعادة بناء {{time}} وفشلت: {{reason}}.",
   "storage.ldconfig_no_reason": "لم يُذكر سبب",
-  "ai.try_arguments": "ما أُعطي له",
   "ai.try_browser_result": "ما يعود إلى النموذج",
   "ai.try_browser_help": "شُغّل هذا في هذه النافذة، وهي المكان الذي يُشغّل فيه في المحادثة أيضًا. الفرق الوحيد هو أن النتيجة تُعرض هنا بدل أن تُسلّم إلى النموذج.",
   "ai.try_browser_timing": "{{ms}} مللي ثانية، في هذه النافذة",

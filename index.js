@@ -21215,7 +21215,11 @@ async function runAiTry(tool) {
 
       parts.push(
         section(
-          ZogographI18n.t('ai.try_arguments', {}, 'What it was given'),
+          ZogographI18n.t(
+            'core-ai-tool-try.arguments',
+            {},
+            'What it was given',
+          ),
           jsonBlock(JSON.stringify(args, null, 2)),
         ),
       );
@@ -21328,7 +21332,7 @@ async function runAiTry(tool) {
      */
     parts.push(
       section(
-        ZogographI18n.t('ai.try_arguments', {}, 'What it was given'),
+        ZogographI18n.t('core-ai-tool-try.arguments', {}, 'What it was given'),
         jsonBlock(JSON.stringify(result.arguments, null, 2)),
       ),
     );

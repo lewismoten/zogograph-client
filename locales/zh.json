@@ -523,7 +523,6 @@
   "storage.ldconfig_previous_finished": "上一次重建是在 {{time}}，且已完成。",
   "storage.ldconfig_previous_failed": "上一次重建是在 {{time}}，且失败：{{reason}}。",
   "storage.ldconfig_no_reason": "未提供原因",
-  "ai.try_arguments": "提供给它的内容",
   "ai.try_browser_result": "模型收到的返回内容",
   "ai.try_browser_help": "这在此窗口中运行，而它在对话中也是在这里运行。唯一的区别是结果显示在这里，而不是交给模型。",
   "ai.try_browser_timing": "{{ms}} 毫秒，在此窗口中",

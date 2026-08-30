@@ -64,6 +64,7 @@
   "services.systemd_says": "systemd कहता है",
   "services.what_it_is": "यह क्या है",
   "services.other": "अन्य",
+  "email.settings_saved": "सहेजा गया। नई सेटिंग अगले अलर्टिंग रन से लागू होंगी।",
   "vitals.cpu_percent": "CPU %",
   "vitals.memory_used_right": "उपयोग की गई मेमोरी (दायां)",
   "vitals.memory_percent": "मेमोरी %",

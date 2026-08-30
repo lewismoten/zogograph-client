@@ -64,6 +64,7 @@
   "services.systemd_says": "يقول systemd",
   "services.what_it_is": "ما هي",
   "services.other": "أخرى",
+  "email.settings_saved": "حُفظت. ستُطبّق الإعدادات الجديدة بدءًا من تشغيل التنبيهات التالي.",
   "vitals.cpu_percent": "CPU ٪",
   "vitals.memory_used_right": "الذاكرة المستخدمة (يمين)",
   "vitals.memory_percent": "الذاكرة ٪",

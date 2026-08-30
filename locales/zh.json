@@ -64,6 +64,7 @@
   "services.systemd_says": "systemd 显示",
   "services.what_it_is": "说明",
   "services.other": "其他",
+  "email.settings_saved": "已保存。新设置将从下一次告警运行开始生效。",
   "vitals.cpu_percent": "CPU %",
   "vitals.memory_used_right": "已用内存（右侧）",
   "vitals.memory_percent": "内存 %",

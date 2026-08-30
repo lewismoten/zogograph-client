@@ -43116,7 +43116,14 @@ async function saveEmailSettings() {
       site_url: $('emailSite').value.trim(),
       conditions,
     });
-    notice('Saved. New settings apply from the next alerting run.', true);
+    notice(
+      ZogographI18n.t(
+        'email.settings_saved',
+        {},
+        'Saved. New settings apply from the next alerting run.',
+      ),
+      true,
+    );
     // Rendered from what the save wrote, not from a fresh read - see the note
     // on clearstatcache in doEmailSave.
     if (result.settings) renderEmail(result.settings);

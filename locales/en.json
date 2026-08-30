@@ -64,6 +64,7 @@
   "services.systemd_says": "systemd says",
   "services.what_it_is": "What it is",
   "services.other": "other",
+  "email.settings_saved": "Saved. New settings apply from the next alerting run.",
   "vitals.cpu_percent": "CPU %",
   "vitals.memory_used_right": "Memory used (right)",
   "vitals.memory_percent": "Memory %",

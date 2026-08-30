@@ -36532,78 +36532,12 @@ function renderFetchPreview(data) {
 
 /** What the page says it is: its title and every meta tag, grouped. */
 function renderFetchMeta(data) {
-  const wrap = document.createDocumentFragment();
-  const meta = data.meta || { tags: [] };
-
-  if (meta.error) {
-    wrap.appendChild(note(meta.error));
-    return wrap;
-  }
-
-  wrap.appendChild(
-    section(
-      ZogographI18n.t('fetch.metadata.title', {}, 'Title'),
-      (() => {
-        const p = document.createElement('p');
-        p.className = 'page-title';
-        p.textContent = meta.title || '';
-        if (!meta.title) {
-          p.className = 'page-title muted';
-          p.textContent = ZogographI18n.t(
-            'fetch.metadata.missing_title',
-            {},
-            'This page has no title, which is a real problem for anyone finding it or bookmarking it.',
-          );
-        }
-        return p;
-      })(),
-    ),
+  return renderCoreCardPackage(
+    ZogographFetchMetadataCard,
+    'core-fetch-metadata',
+    data,
+    { note, section, simpleTable, linkifyText, i18n: ZogographI18n },
   );
-
-  if (!meta.tags.length) {
-    wrap.appendChild(
-      note(
-        ZogographI18n.t(
-          'fetch.metadata.none',
-          {},
-          'There are no meta tags at all.',
-        ),
-      ),
-    );
-    return wrap;
-  }
-
-  let group = null;
-  let rows = [];
-  const flush = () => {
-    if (!rows.length) return;
-    wrap.appendChild(
-      section(
-        group,
-        simpleTable(
-          [
-            ZogographI18n.t('table.name', {}, 'Name'),
-            ZogographI18n.t('table.value', {}, 'Value'),
-            ZogographI18n.t('fetch.metadata.what_it_does', {}, 'What it does'),
-          ],
-          rows,
-          ['name', '', 'muted'],
-        ),
-      ),
-    );
-    rows = [];
-  };
-
-  for (const tag of meta.tags) {
-    if (tag.group !== group) {
-      flush();
-      group = tag.group;
-    }
-    rows.push([tag.key, linkifyText(tag.value), tag.note || '']);
-  }
-  flush();
-
-  return wrap;
 }
 
 /** Anything the page publishes as application/ld+json. */

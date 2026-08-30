@@ -10,6 +10,21 @@ function i18nCardSource(string|false $source): string|false
 {
     return $source === false ? false : str_replace("'", '"', $source);
 }
+$cardFiles = glob(dirname(__DIR__) . '/cards/*.js') ?: [];
+foreach ($cardFiles as $cardFile) {
+    $cardSource = file_get_contents($cardFile);
+    i18nExpect(
+        $cardSource !== false &&
+            str_contains($cardSource, 'catalogs: Object.freeze({') &&
+            str_contains($cardSource, 'en: Object.freeze({') &&
+            str_contains($cardSource, 'es: Object.freeze({') &&
+            str_contains($cardSource, 'hi: Object.freeze({') &&
+            str_contains($cardSource, 'ar: Object.freeze({') &&
+            str_contains($cardSource, 'zh: Object.freeze({'),
+        basename($cardFile) .
+            ' must provide catalogs for every supported core locale',
+    );
+}
 $root = dirname(__DIR__);
 $runtime = file_get_contents($root . '/i18n.js');
 $page = file_get_contents($root . '/index.html');

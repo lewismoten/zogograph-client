@@ -89,6 +89,7 @@ export default [
         ZogographAiToolPermissionCard: 'readonly',
         ZogographAiToolAvailabilityCard: 'readonly',
         ZogographAiToolsSaveCard: 'readonly',
+        ZogographAiToolsetActionsCard: 'readonly',
         ZogographNetworkCaptureRequestCard: 'readonly',
         ZogographNetworkCaptureHistoryCard: 'readonly',
         ZogographNetworkCaptureCard: 'readonly',

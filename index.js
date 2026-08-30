@@ -30748,16 +30748,16 @@ function alertRowActions(row) {
 
 function openAlertMute(row) {
   const duration = document.createElement('select');
-  for (const [seconds, label] of [
-    [900, '15 minutes'],
-    [3600, '1 hour'],
-    [14400, '4 hours'],
-    [86400, '1 day'],
-    [604800, '7 days'],
+  for (const [seconds, key, fallback] of [
+    [900, 'alerts.mute_duration_15m', '15 minutes'],
+    [3600, 'alerts.mute_duration_1h', '1 hour'],
+    [14400, 'alerts.mute_duration_4h', '4 hours'],
+    [86400, 'alerts.mute_duration_1d', '1 day'],
+    [604800, 'alerts.mute_duration_7d', '7 days'],
   ]) {
     const option = document.createElement('option');
     option.value = String(seconds);
-    option.textContent = label;
+    option.textContent = ZogographI18n.t(key, {}, fallback);
     option.selected = seconds === 3600;
     duration.appendChild(option);
   }

@@ -1456,6 +1456,11 @@ i18nExpect(
             $english['alert.held_back_title'],
             $english['alert.verdict_dialog_title'],
             $english['alert.verdict_dialog_help'],
+            $english['alerts.mute_duration_15m'],
+            $english['alerts.mute_duration_1h'],
+            $english['alerts.mute_duration_4h'],
+            $english['alerts.mute_duration_1d'],
+            $english['alerts.mute_duration_7d'],
         ),
     'English fallback catalog is incomplete',
 );
@@ -1652,6 +1657,13 @@ i18nExpect(
         str_contains($script, 'alert.held_back_title') &&
         str_contains($script, 'alert.verdict_dialog_help'),
     'alert verdict dialog retains direct user-visible text',
+);
+i18nExpect(
+    $script !== false &&
+        str_contains($script, 'alerts.mute_duration_15m') &&
+        str_contains($script, 'alerts.mute_duration_4h') &&
+        str_contains($script, 'alerts.mute_duration_7d'),
+    'alert mute duration choices retain direct user-visible text',
 );
 i18nExpect(
     str_contains($runtime, 'data-i18n-rich') &&

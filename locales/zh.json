@@ -377,6 +377,7 @@
   "log.stream_wrote_it_hint": "该行所称的来源",
   "log.stream_message": "消息",
   "log.stream_message_hint": "该行本身，已截短以适应显示——点击任意行查看完整内容",
+  "log.timestamp_missing_hint": "该行没有可识别的时间戳。它按其文件最后写入的时间放置。",
   "capability.expose_help": "如何向此账户公开 {{name}}",
   "capability.documentation": "{{name}} 的文档",
   "capability.expose_title": "向此账户公开 {{name}}",

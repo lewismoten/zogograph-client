@@ -41115,9 +41115,11 @@ function renderLogStream(data) {
      * not close enough to present as when it happened.
      */
     if (!row.at)
-      when.title =
-        'This line carries no timestamp this recognises. It is placed ' +
-        'by when its file was last written.';
+      when.title = ZogographI18n.t(
+        'log.timestamp_missing_hint',
+        {},
+        'This line carries no timestamp this recognises. It is placed by when its file was last written.',
+      );
     line.appendChild(when);
 
     const from = document.createElement('span');

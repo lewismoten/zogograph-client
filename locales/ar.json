@@ -377,6 +377,7 @@
   "log.stream_wrote_it_hint": "ما يسميه السطر مصدره",
   "log.stream_message": "الرسالة",
   "log.stream_message_hint": "السطر نفسه، مقتطع ليتسع — انقر أي صف لرؤيته كاملًا",
+  "log.timestamp_missing_hint": "لا يحمل هذا السطر طابعًا زمنيًا يمكن التعرف عليه. وُضع حسب وقت آخر كتابة لملفه.",
   "capability.expose_help": "كيفية إتاحة {{name}} لهذا الحساب",
   "capability.documentation": "توثيق {{name}}",
   "capability.expose_title": "إتاحة {{name}} لهذا الحساب",

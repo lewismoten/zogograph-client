@@ -377,6 +377,7 @@
   "log.stream_wrote_it_hint": "Lo que la línea nombra como su origen",
   "log.stream_message": "Mensaje",
   "log.stream_message_hint": "La línea misma, recortada para caber; haz clic en cualquier fila para verla completa",
+  "log.timestamp_missing_hint": "Esta línea no contiene una marca de tiempo que se reconozca. Se coloca según cuándo se escribió por última vez su archivo.",
   "capability.expose_help": "Cómo exponer {{name}} a esta cuenta",
   "capability.documentation": "Documentación de {{name}}",
   "capability.expose_title": "Exponer {{name}} a esta cuenta",

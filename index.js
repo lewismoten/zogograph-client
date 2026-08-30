@@ -4770,9 +4770,11 @@ function renderRoomChart(rows) {
         },
       ],
       options: { axis: bytesAxis, rightAxis: countAxis },
-      note:
-        'Disk space and inodes. Either can run out on its own \u2014 a disk with ' +
-        'free gigabytes and no inodes still refuses to create a file.',
+      note: ZogographI18n.t(
+        'storage.room_note_bytes',
+        {},
+        'Disk space and inodes. Either can run out on its own — a disk with free gigabytes and no inodes still refuses to create a file.',
+      ),
     },
     percent: {
       series: [
@@ -4786,9 +4788,11 @@ function renderRoomChart(rows) {
         },
       ],
       options: { axis: percentAxis, zeroBased: true, max: 100 },
-      note:
-        'How close to the edge each one is. Both on one scale, so they can be ' +
-        'read against each other.',
+      note: ZogographI18n.t(
+        'storage.room_note_percent',
+        {},
+        'How close to the edge each one is. Both on one scale, so they can be read against each other.',
+      ),
     },
     delta: {
       series: [
@@ -4808,10 +4812,11 @@ function renderRoomChart(rows) {
         zeroLine: true,
         trim: 0.02,
       },
-      note:
-        'What changed between one reading and the next. Below the line is space ' +
-        'being consumed, above it is space coming back \u2014 small, steady losses are ' +
-        'what a leak looks like, and one deep spike is a file being written.',
+      note: ZogographI18n.t(
+        'storage.room_note_delta',
+        {},
+        'What changed between one reading and the next. Below the line is space being consumed, above it is space coming back — small, steady losses are what a leak looks like, and one deep spike is a file being written.',
+      ),
     },
   };
 
@@ -4822,18 +4827,35 @@ function renderRoomChart(rows) {
   if (mode === 'delta' && bucket > 0) {
     const per =
       bucket === 86400
-        ? 'day'
+        ? ZogographI18n.t('storage.bucket_day', {}, 'day')
         : bucket === 3600
-          ? 'hour'
-          : `${Math.round(bucket / 3600)} hours`;
+          ? ZogographI18n.t('storage.bucket_hour', {}, 'hour')
+          : ZogographI18n.t(
+              'storage.bucket_hours',
+              { count: Math.round(bucket / 3600) },
+              '{{count, number}} hours',
+            );
 
     shape.series = shape.series.map((entry) => ({
       ...entry,
-      label: entry.label.replace('change', `change per ${per}`),
+      label:
+        entry.key === 'disk_delta'
+          ? ZogographI18n.t(
+              'storage.chart_disk_change_per',
+              { period: per },
+              'Disk change per {{period}}',
+            )
+          : ZogographI18n.t(
+              'storage.chart_inode_change_per',
+              { period: per },
+              'Inode change per {{period}} (right)',
+            ),
     }));
-    note +=
-      ` Totalled per ${per} over this range, because a reading a minute is` +
-      ' more points than there are pixels to draw them in.';
+    note += ` ${ZogographI18n.t(
+      'storage.room_note_bucket',
+      { period: per },
+      'Totalled per {{period}} over this range, because a reading a minute is more points than there are pixels to draw them in.',
+    )}`;
   }
 
   if (mode === 'delta') {
@@ -4842,7 +4864,11 @@ function renderRoomChart(rows) {
       return Number.isFinite(v) && Math.abs(v) > Math.abs(worst) ? v : worst;
     }, 0);
     if (biggest) {
-      note += ` Largest single change: ${humanBytes(biggest)}.`;
+      note += ` ${ZogographI18n.t(
+        'storage.room_note_largest_change',
+        { size: humanBytes(biggest) },
+        'Largest single change: {{size}}.',
+      )}`;
     }
   }
 

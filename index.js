@@ -35053,7 +35053,14 @@ async function refreshDiagnosis() {
         try {
           await post('diagnosis-unignore', { key: finding.key });
           await refreshDiagnosis();
-          notice('The finding will be checked again.', true);
+          notice(
+            ZogographI18n.t(
+              'alert.finding_recheck_queued',
+              {},
+              'The finding will be checked again.',
+            ),
+            true,
+          );
         } catch (error) {
           notice(String(error.message || error));
         }

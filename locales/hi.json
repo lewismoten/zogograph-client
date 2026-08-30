@@ -351,6 +351,7 @@
   "alerts.mail_dialog_title": "क्या भेजा गया था",
   "alerts.mail_dialog_help": "इसे भेजे गए रूप में रखा जाता है। शब्दावली इस पर निर्भर करती है कि उसी मिनट और क्या ट्रिगर हुआ तथा उस समय कौन सी सेटिंग थी, इसलिए बाद में इसे फिर से निकाला नहीं जा सकता — इसी कारण इसे दोबारा बनाने के बजाय संग्रहीत किया जाता है।",
   "alert.verdict_timing": "नियम ने इसे {{severity}} कहा और {{raised}} पर उठाया। {{assistant}}",
+  "alert.finding_recheck_queued": "निष्कर्ष की फिर से जाँच की जाएगी।",
   "incident.alerts_fired_together": "{{count, number}} अलर्ट एक साथ सक्रिय हुए",
   "incident.captured_at": "{{time}} पर कैप्चर किया गया — उस क्षण मशीन जैसी थी।",
   "incident.unreadable": "यह रिकॉर्ड फिर से पढ़ा नहीं जा सका।",

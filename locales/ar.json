@@ -351,6 +351,7 @@
   "alerts.mail_dialog_title": "ما أُرسل",
   "alerts.mail_dialog_help": "تُحفظ كما أُرسلت. تعتمد الصياغة على ما أُطلق أيضًا في الدقيقة نفسها وعلى الإعدادات في ذلك الوقت، لذلك لا يمكن استنتاجها مرة أخرى لاحقًا — ولهذا تُخزّن بدل أن يُعاد بناؤها.",
   "alert.verdict_timing": "صنّفت القاعدة هذا على أنه {{severity}} ورفعته {{raised}}. {{assistant}}",
+  "alert.finding_recheck_queued": "سيُفحص الاكتشاف مرة أخرى.",
   "incident.alerts_fired_together": "تم تشغيل {{count, number}} من التنبيهات معًا",
   "incident.captured_at": "التُقطت في {{time}} — حالة الجهاز في تلك اللحظة.",
   "incident.unreadable": "تعذرت قراءة هذا السجل مرة أخرى.",

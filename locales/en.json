@@ -351,6 +351,7 @@
   "alerts.mail_dialog_title": "What was sent",
   "alerts.mail_dialog_help": "Kept as it was sent. The wording depends on what else fired in the same minute and on the settings at the time, so it cannot be worked out again afterwards — which is why it is stored rather than rebuilt.",
   "alert.verdict_timing": "The rule called this {{severity}} and raised it {{raised}}. {{assistant}}",
+  "alert.finding_recheck_queued": "The finding will be checked again.",
   "incident.alerts_fired_together": "{{count, number}} alerts fired together",
   "incident.captured_at": "Captured {{time}} — the machine as it stood at that moment.",
   "incident.unreadable": "This record could not be read back.",

@@ -11406,7 +11406,9 @@ function redactReviewedPageHtml(root) {
       Array.from(node.attributes).forEach((attribute) =>
         node.removeAttribute(attribute.name),
       );
-      node.replaceChildren('[redacted]');
+      node.replaceChildren(
+        ZogographI18n.t('ai.review_redacted', {}, '[redacted]'),
+      );
       node.setAttribute('data-review-redacted', 'sensitive-content');
     });
 }

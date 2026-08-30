@@ -3483,6 +3483,7 @@
   "screenshot.areas_redacted": "{{count, number}} क्षेत्र काला किया गया",
   "screenshot.cropped_dimensions": "{{width, number}}×{{height, number}} तक काटा गया",
   "screenshot.redacted": "गोपित",
+  "ai.review_redacted": "[गोपित]",
   "notes.write_title": "नोट लिखें",
   "notes.saving": "सहेजा जा रहा है…",
   "notes.saving_and_capturing": "सहेजा और कैप्चर किया जा रहा है…",

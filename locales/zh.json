@@ -3469,6 +3469,7 @@
   "screenshot.areas_redacted": "已涂黑 {{count, number}} 个区域",
   "screenshot.cropped_dimensions": "已裁剪为 {{width, number}}×{{height, number}}",
   "screenshot.redacted": "已涂黑",
+  "ai.review_redacted": "[已涂黑]",
   "notes.write_title": "写一条备注",
   "notes.saving": "正在保存…",
   "notes.saving_and_capturing": "正在保存并捕获…",

@@ -3469,6 +3469,7 @@
   "screenshot.areas_redacted": "مُنعت {{count, number}} منطقة",
   "screenshot.cropped_dimensions": "اقتصّت إلى {{width, number}}×{{height, number}}",
   "screenshot.redacted": "منقح",
+  "ai.review_redacted": "[منقح]",
   "notes.write_title": "اكتب ملاحظة",
   "notes.saving": "يجري الحفظ…",
   "notes.saving_and_capturing": "يجري الحفظ والالتقاط…",

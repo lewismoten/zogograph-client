@@ -3483,6 +3483,7 @@
   "screenshot.areas_redacted": "{{count, number}} área oculta",
   "screenshot.cropped_dimensions": "recortado a {{width, number}}×{{height, number}}",
   "screenshot.redacted": "Censurado",
+  "ai.review_redacted": "[censurado]",
   "notes.write_title": "Escribir una nota",
   "notes.saving": "Guardando…",
   "notes.saving_and_capturing": "Guardando y capturando…",

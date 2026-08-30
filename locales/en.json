@@ -3572,6 +3572,7 @@
   "screenshot.areas_redacted": "{{count, number}} area blacked out",
   "screenshot.cropped_dimensions": "cropped to {{width, number}}×{{height, number}}",
   "screenshot.redacted": "Redacted",
+  "ai.review_redacted": "[redacted]",
   "notes.write_title": "Write a note",
   "notes.saving": "Saving…",
   "notes.saving_and_capturing": "Saving and capturing…",

@@ -2768,6 +2768,7 @@
   "host.one_reading": "अभी केवल एक होस्ट रीडिंग है",
   "host.files_empty": "आकार सीमा से ऊपर कुछ नहीं है।",
   "host.files_path": "पथ",
+  "host.files_also_at": "{{path}} पर भी",
   "host.files_size": "आकार",
   "host.files_names": "नाम",
   "host.files_owner": "स्वामी",

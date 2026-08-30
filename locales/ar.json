@@ -2754,6 +2754,7 @@
   "host.one_reading": "توجد قراءة مضيف واحدة فقط حتى الآن",
   "host.files_empty": "لا شيء يتجاوز حد الحجم.",
   "host.files_path": "المسار",
+  "host.files_also_at": "أيضًا في {{path}}",
   "host.files_size": "الحجم",
   "host.files_names": "الأسماء",
   "host.files_owner": "المالك",

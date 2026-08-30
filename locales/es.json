@@ -2768,6 +2768,7 @@
   "host.one_reading": "Solo hay una lectura del host hasta ahora",
   "host.files_empty": "No hay nada por encima del umbral de tamaño.",
   "host.files_path": "Ruta",
+  "host.files_also_at": "también en {{path}}",
   "host.files_size": "Tamaño",
   "host.files_names": "Nombres",
   "host.files_owner": "Propietario",

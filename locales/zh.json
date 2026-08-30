@@ -2754,6 +2754,7 @@
   "host.one_reading": "目前只有一个主机读数",
   "host.files_empty": "没有内容超过大小阈值。",
   "host.files_path": "路径",
+  "host.files_also_at": "也位于 {{path}}",
   "host.files_size": "大小",
   "host.files_names": "名称",
   "host.files_owner": "所有者",

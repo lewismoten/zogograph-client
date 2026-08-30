@@ -26849,7 +26849,11 @@ function renderHostFiles(rows, totals) {
             box.appendChild(
               Object.assign(document.createElement('div'), {
                 className: 'muted small',
-                textContent: `also at ${other.path}`,
+                textContent: ZogographI18n.t(
+                  'host.files_also_at',
+                  { path: other.path },
+                  'also at {{path}}',
+                ),
               }),
             );
           }

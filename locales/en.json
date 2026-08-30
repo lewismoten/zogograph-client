@@ -2857,6 +2857,7 @@
   "host.one_reading": "Only one host reading so far",
   "host.files_empty": "Nothing over the size threshold.",
   "host.files_path": "Path",
+  "host.files_also_at": "also at {{path}}",
   "host.files_size": "Size",
   "host.files_names": "Names",
   "host.files_owner": "Owner",

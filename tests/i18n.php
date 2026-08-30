@@ -85,6 +85,9 @@ $calendarEventListCard = i18nCardSource(
 $changeHistoryCard = i18nCardSource(
     file_get_contents($root . '/cards/change-history.js'),
 );
+$installedSoftwareCard = i18nCardSource(
+    file_get_contents($root . '/cards/installed-software.js'),
+);
 $networkPeersCard = i18nCardSource(
     file_get_contents($root . '/cards/network-peers.js'),
 );
@@ -356,6 +359,31 @@ i18nExpect(
             'helpers.i18n.registerCatalog(locale, catalog, false, id)',
         ),
     'core card package catalogs are not namespace-registered before their first render',
+);
+i18nExpect(
+    $page !== false &&
+        str_contains($page, 'src="cards/installed-software.js"') &&
+        $installedSoftwareCard !== false &&
+        str_contains(
+            $installedSoftwareCard,
+            'window.ZogographInstalledSoftwareCard',
+        ) &&
+        str_contains($installedSoftwareCard, 'id: "core-installed-software"') &&
+        str_contains(
+            $installedSoftwareCard,
+            'locales: ["core-installed-software."]',
+        ) &&
+        str_contains($installedSoftwareCard, 'catalogs: Object.freeze({') &&
+        str_contains(
+            $installedSoftwareCard,
+            '"core-installed-software.system"',
+        ) &&
+        $script !== false &&
+        str_contains(
+            $script,
+            'renderCoreCardPackage(ZogographInstalledSoftwareCard, "core-installed-software",',
+        ),
+    'installed software is not isolated behind its core card-module boundary',
 );
 i18nExpect(
     $page !== false &&

@@ -33,6 +33,7 @@ export default [
         ZogographCalendarGridCard: 'readonly',
         ZogographCalendarEventListCard: 'readonly',
         ZogographChangeHistoryCard: 'readonly',
+        ZogographInstalledSoftwareCard: 'readonly',
         ZogographRoomChart: 'readonly',
         ZogographIoChart: 'readonly',
         ZogographCpuChart: 'readonly',

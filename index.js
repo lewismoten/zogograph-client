@@ -13347,6 +13347,22 @@ function renderChangedList(data) {
 
 /** What everything is at right now, and how long it has been that way. */
 function renderInstalled(data) {
+  if (window.ZogographInstalledSoftwareCard) {
+    return renderCoreCardPackage(
+      ZogographInstalledSoftwareCard,
+      'core-installed-software',
+      data,
+      {
+        target: $('installedBody'),
+        note,
+        section,
+        simpleTable,
+        humanSpan,
+        ago,
+        i18n: ZogographI18n,
+      },
+    );
+  }
   const body = $('installedBody');
   const parts = [];
 

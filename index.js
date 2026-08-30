@@ -8604,46 +8604,70 @@ function pictureFields(data) {
   const tiers = pictures.allowance?.tiers ?? {};
   const each = (tier) =>
     tiers[tier]?.each
-      ? ` Currently ${(tiers[tier].each / 100).toFixed(6).replace(/0+$/, '')} ` +
-        `per picture — ${tiers[tier].used} of ${tiers[tier].allowance} used this month.`
+      ? ZogographI18n.t(
+          'ai.images_allowance_each',
+          {
+            cost: (tiers[tier].each / 100).toFixed(6).replace(/0+$/, ''),
+            used: tiers[tier].used,
+            allowance: tiers[tier].allowance,
+          },
+          ' Currently {{cost}} per picture — {{used}} of {{allowance}} used this month.',
+        )
       : '';
 
-  for (const [id, label, value, hint] of [
+  for (const [id, labelKey, labelFallback, value, hintKey, hintFallback] of [
     [
       'aiMonthlyCents',
+      'ai.images_plan_month',
       'The plan, per month',
       pictures.monthly_cents,
+      'ai.images_plan_month_help',
       'In cents. 495 for a $4.95 plan. This is divided by the allowances below to work ' +
         'out what one picture costs.',
     ],
     [
       'aiIncludedStandard',
+      'ai.images_standard_included',
       'Standard images included',
       pictures.included_standard,
+      'ai.images_standard_included_help',
       'How many the plan covers each month at the standard quality. The plan cost divided ' +
         'by this is what one is reported as costing.' +
         each('standard'),
     ],
     [
       'aiIncludedGenius',
+      'ai.images_top_quality_included',
       'Top-quality images included',
       pictures.included_genius,
+      'ai.images_top_quality_included_help',
       'The separate allowance for the expensive tier, counted apart from the standard one ' +
         'so that using one does not run the other out.' +
         each('genius'),
     ],
     [
       'aiPriceStandard',
+      'ai.images_standard_extra',
       'Each standard one past that',
       pictures.price_standard,
+      'ai.images_standard_extra_help',
       'In cents. Once the allowance is gone the plan charges for credits, and this is a ' +
         'real cost rather than a share of the fee.',
     ],
-    ['aiPriceHd', '…at HD', pictures.price_hd, 'In cents.'],
+    [
+      'aiPriceHd',
+      'ai.images_hd_extra',
+      '…at HD',
+      pictures.price_hd,
+      'ai.images_cents_help',
+      'In cents.',
+    ],
     [
       'aiPriceGenius',
+      'ai.images_top_quality_extra',
       '…at the top quality',
       pictures.price_genius,
+      'ai.images_cents_help',
       'In cents.',
     ],
   ]) {
@@ -8654,7 +8678,13 @@ function pictureFields(data) {
     box.step = '0.01';
     box.className = 'days';
     box.value = String(value ?? 0);
-    money.appendChild(fieldRow(label, box, hint));
+    money.appendChild(
+      fieldRow(
+        ZogographI18n.t(labelKey, {}, labelFallback),
+        box,
+        ZogographI18n.t(hintKey, {}, hintFallback),
+      ),
+    );
   }
 
   form.appendChild(

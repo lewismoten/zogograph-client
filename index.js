@@ -46786,7 +46786,11 @@ $('scanNow').addEventListener('click', async () => {
   try {
     await post('scan-now');
     notice(
-      'Scan started. It runs in the background — the tables update when it finishes.',
+      ZogographI18n.t(
+        'scan.started',
+        {},
+        'Scan started. It runs in the background — the tables update when it finishes.',
+      ),
       true,
     );
     /*

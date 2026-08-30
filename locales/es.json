@@ -866,6 +866,7 @@
   "peers.admin_only": "Solo los administradores pueden administrar servidores de confianza.",
   "ai.start_new": "Iniciar una nueva",
   "ai.nothing_chosen": "Aún no se ha elegido nada.",
+  "scan.started": "El análisis se ha iniciado. Se ejecuta en segundo plano; las tablas se actualizan al terminar.",
   "alerts.delete_confirm": "¿Eliminar {{alerts}}? Su historial se irá con ellas.",
   "alerts.delete_many": "Eliminar alertas",
   "auth.end_sessions_confirm": "¿Finalizar todas las sesiones iniciadas? Esto cierra inmediatamente la sesión de todos los navegadores, incluido este. Úselo si se pierde un dispositivo o puede haberse comprometido el acceso.",

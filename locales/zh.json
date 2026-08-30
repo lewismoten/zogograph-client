@@ -852,6 +852,7 @@
   "peers.admin_only": "只有管理员可以管理受信任的服务器。",
   "ai.start_new": "开始新对话",
   "ai.nothing_chosen": "尚未选择任何内容。",
+  "scan.started": "扫描已开始。它会在后台运行，完成后表格将更新。",
   "alerts.delete_confirm": "删除 {{alerts}}？其历史记录也会一并删除。",
   "alerts.delete_many": "删除警报",
   "auth.end_sessions_confirm": "结束所有已登录会话？这会立即让所有浏览器（包括当前浏览器）退出登录。设备丢失或访问可能泄露时可使用此操作。",

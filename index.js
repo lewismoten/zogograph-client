@@ -25939,7 +25939,7 @@ function openUrlForm(row = null) {
   label.size = 30;
   label.placeholder = "left blank, the host is used";
   label.value = row?.label ?? "";
-  field("urlLabel", "Called", label, "");
+  field("urlLabel", ZogographI18n.t("url.label", {}, "Called"), label, "");
 
   const interval = document.createElement("select");
   for (const [seconds, text] of Object.entries(data.intervals)) {
@@ -25949,7 +25949,7 @@ function openUrlForm(row = null) {
     option.selected = Number(row?.interval_seconds ?? 300) === Number(seconds);
     interval.appendChild(option);
   }
-  field("urlInterval", "How often", interval, "");
+  field("urlInterval", ZogographI18n.t("url.interval", {}, "How often"), interval, "");
 
   const method = document.createElement("select");
   for (const [value, text] of [
@@ -25963,13 +25963,13 @@ function openUrlForm(row = null) {
     option.selected = (row?.method ?? "GET") === value;
     method.appendChild(option);
   }
-  field("urlMethod", "Method", method,
+  field("urlMethod", ZogographI18n.t("url.method", {}, "Method"), method,
     "HEAD is cheaper and has no body, so it cannot be combined with a content check.");
 
   const follow = document.createElement("input");
   follow.type = "checkbox";
   follow.checked = row ? Boolean(Number(row.follow_redirects)) : true;
-  field("urlFollow", "Follow redirects", follow,
+  field("urlFollow", ZogographI18n.t("url.follow_redirects", {}, "Follow redirects"), follow,
     "Each redirect is checked as a new destination. A redirect into an unapproved private "
     + "host is refused rather than followed.");
 
@@ -25985,7 +25985,7 @@ function openUrlForm(row = null) {
   expect.min = "0";
   expect.max = "599";
   expect.value = String(row?.expect_status ?? 200);
-  field("urlExpect", "Expected status", expect,
+  field("urlExpect", ZogographI18n.t("url.expected_status", {}, "Expected status"), expect,
     "0 accepts anything from 200 to 399. A URL that should redirect, or an endpoint that "
     + "correctly answers 401, is working \u2014 insisting on 200 would report it broken for ever.");
 
@@ -25997,7 +25997,7 @@ function openUrlForm(row = null) {
     option.selected = (row?.check_kind ?? "none") === key;
     kind.appendChild(option);
   }
-  field("urlKind", "Also check", kind, "");
+  field("urlKind", ZogographI18n.t("url.also_check", {}, "Also check"), kind, "");
 
   const value = document.createElement("input");
   value.type = "text";

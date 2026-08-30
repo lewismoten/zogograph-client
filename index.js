@@ -17818,8 +17818,12 @@ function renderSnapshotFiles(data) {
   if (!files.length) {
     body.replaceChildren(
       note(
-        'No copies have been made. One is written when a note asks for it — a consistent copy ' +
-          'of both databases, for looking at after the readings it is about have been rolled up.',
+        ZogographI18n.t(
+          'system.snapshot_empty',
+          {},
+          'No copies have been made. One is written when a note asks for it — a consistent copy ' +
+            'of both databases, for looking at after the readings it is about have been rolled up.',
+        ),
       ),
     );
     return;
@@ -17833,10 +17837,17 @@ function renderSnapshotFiles(data) {
     'snapshotTable',
     files,
     [
-      { label: 'File', className: 'name', render: (row) => row.name },
-      { label: 'Made', render: (row) => whenSpan(row.at) },
       {
-        label: 'Size',
+        label: ZogographI18n.t('system.snapshot_file', {}, 'File'),
+        className: 'name',
+        render: (row) => row.name,
+      },
+      {
+        label: ZogographI18n.t('system.snapshot_made', {}, 'Made'),
+        render: (row) => whenSpan(row.at),
+      },
+      {
+        label: ZogographI18n.t('system.snapshot_size', {}, 'Size'),
         className: 'size',
         render: (row) => humanBytes(row.bytes),
       },
@@ -17851,13 +17862,20 @@ function renderSnapshotFiles(data) {
           remove.addEventListener('click', async () => {
             if (
               !(await confirmDialog(
-                `Delete ${row.name}?\n\nIt is ${humanBytes(row.bytes)} and nothing else has a copy.`,
+                ZogographI18n.t(
+                  'system.snapshot_delete_confirm',
+                  { name: row.name, size: humanBytes(row.bytes) },
+                  'Delete {{name}}?\n\nIt is {{size}} and nothing else has a copy.',
+                ),
               ))
             )
               return;
             try {
               renderNotes(await post('snapshot-delete', { name: row.name }));
-              notice('Removed.', true);
+              notice(
+                ZogographI18n.t('system.snapshot_removed', {}, 'Removed.'),
+                true,
+              );
             } catch (error) {
               notice(String(error.message || error));
             }

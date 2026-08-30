@@ -7725,119 +7725,12 @@ function pictureFields(data) {
    * applies, and the monthly fee is reported as a monthly fee rather than
    * smeared across whatever happened to be generated.
    */
-  const money = document.createElement('div');
-  money.className = 'settings';
-
-  const tiers = pictures.allowance?.tiers ?? {};
-  const each = (tier) =>
-    tiers[tier]?.each
-      ? ZogographI18n.t(
-          'ai.images_allowance_each',
-          {
-            cost: (tiers[tier].each / 100).toFixed(6).replace(/0+$/, ''),
-            used: tiers[tier].used,
-            allowance: tiers[tier].allowance,
-          },
-          ' Currently {{cost}} per picture — {{used}} of {{allowance}} used this month.',
-        )
-      : '';
-
-  for (const [id, labelKey, labelFallback, value, hintKey, hintFallback] of [
-    [
-      'aiMonthlyCents',
-      'ai.images_plan_month',
-      'The plan, per month',
-      pictures.monthly_cents,
-      'ai.images_plan_month_help',
-      'In cents. 495 for a $4.95 plan. This is divided by the allowances below to work ' +
-        'out what one picture costs.',
-    ],
-    [
-      'aiIncludedStandard',
-      'ai.images_standard_included',
-      'Standard images included',
-      pictures.included_standard,
-      'ai.images_standard_included_help',
-      'How many the plan covers each month at the standard quality. The plan cost divided ' +
-        'by this is what one is reported as costing.' +
-        each('standard'),
-    ],
-    [
-      'aiIncludedGenius',
-      'ai.images_top_quality_included',
-      'Top-quality images included',
-      pictures.included_genius,
-      'ai.images_top_quality_included_help',
-      'The separate allowance for the expensive tier, counted apart from the standard one ' +
-        'so that using one does not run the other out.' +
-        each('genius'),
-    ],
-    [
-      'aiPriceStandard',
-      'ai.images_standard_extra',
-      'Each standard one past that',
-      pictures.price_standard,
-      'ai.images_standard_extra_help',
-      'In cents. Once the allowance is gone the plan charges for credits, and this is a ' +
-        'real cost rather than a share of the fee.',
-    ],
-    [
-      'aiPriceHd',
-      'ai.images_hd_extra',
-      '…at HD',
-      pictures.price_hd,
-      'ai.images_cents_help',
-      'In cents.',
-    ],
-    [
-      'aiPriceGenius',
-      'ai.images_top_quality_extra',
-      '…at the top quality',
-      pictures.price_genius,
-      'ai.images_cents_help',
-      'In cents.',
-    ],
-  ]) {
-    const box = document.createElement('input');
-    box.type = 'number';
-    box.id = id;
-    box.min = '0';
-    box.step = '0.01';
-    box.className = 'days';
-    box.value = String(value ?? 0);
-    money.appendChild(
-      fieldRow(
-        ZogographI18n.t(labelKey, {}, labelFallback),
-        box,
-        ZogographI18n.t(hintKey, {}, hintFallback),
-      ),
-    );
-  }
-
-  form.appendChild(
-    section(
-      ZogographI18n.t('ai.images_costs_title', {}, 'What they cost'),
-      money,
-    ),
-  );
-
-  /*
-   * What the number means, said out loud.
-   *
-   * Dividing a fixed monthly fee among the pictures it covers is the right
-   * figure for "what did this conversation cost" and the wrong one for "what
-   * will one more cost" - nothing is saved by generating one fewer. Both tiers
-   * divide the same fee, so a full month of both adds up to more than the fee.
-   * That is a real limitation of attributing a fixed cost and is better said
-   * than discovered.
-   */
-  form.appendChild(
-    note(
-      ZogographI18n.t(
-        'ai.images_costs_help',
-        {},
-        'A picture inside the allowance has no marginal cost — the fee was paid for exactly this — so what a conversation reports is the fee divided by the allowance. It is what that picture cost you, not what one more would cost, and because both tiers divide the same fee a full month of both would add up to more than the fee. Past the allowance the credit price applies and is a real marginal cost.',
-      ),
+  form.append(
+    ...renderCoreCardPackage(
+      ZogographAiImageCostsCard,
+      'core-ai-image-costs',
+      { pictures },
+      { fieldRow, section, note, i18n: ZogographI18n },
     ),
   );
 

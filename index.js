@@ -41799,12 +41799,22 @@ async function refreshHostSchedule() {
   const state_ = document.createElement('p');
   state_.className = data.database_readable ? 'ok' : 'muted';
   state_.textContent = data.database_readable
-    ? `Working. The collector's database is at ${data.database} and this account can read it.`
+    ? ZogographI18n.t(
+        'host_setup.database_readable',
+        { database: data.database },
+        "Working. The collector's database is at {{database}} and this account can read it.",
+      )
     : data.database_exists
-      ? `The database exists at ${data.database} but this account cannot read it — ` +
-        'which is the ownership step below.'
-      : 'The collector has never run. Nothing on this site that describes the whole ' +
-        'machine will have anything in it until it does.';
+      ? ZogographI18n.t(
+          'host_setup.database_unreadable',
+          { database: data.database },
+          'The database exists at {{database}} but this account cannot read it — which is the ownership step below.',
+        )
+      : ZogographI18n.t(
+          'host_setup.collector_never_run',
+          {},
+          'The collector has never run. Nothing on this site that describes the whole machine will have anything in it until it does.',
+        );
   parts.push(state_);
 
   const list = document.createElement('ol');

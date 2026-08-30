@@ -6785,6 +6785,13 @@ const TOOL_GROUP_NAMES = {
   memory: 'Memory',
   pictures: 'Pictures',
 };
+function toolGroupLabel(group) {
+  return ZogographI18n.t(
+    `ai.tool_group.${group}`,
+    {},
+    TOOL_GROUP_NAMES[group] ?? group,
+  );
+}
 
 /*
  * Which group of tools the page is showing.
@@ -6834,7 +6841,7 @@ function renderAiTools(data) {
     const tab = document.createElement('button');
     tab.type = 'button';
     tab.className = group === toolTab ? 'seg on' : 'seg';
-    tab.textContent = `${TOOL_GROUP_NAMES[group] ?? group} (${list.length})`;
+    tab.textContent = `${toolGroupLabel(group)} (${list.length})`;
 
     // How many of this group are switched on, so a group that is entirely off
     // says so from the tab rather than only once it is opened.
@@ -7090,7 +7097,7 @@ function renderAiTools(data) {
   extensionText.className = 'muted small';
   const inactive =
     groups.get(toolTab)?.filter((tool) => !tool.enabled).length ?? 0;
-  const groupLabel = TOOL_GROUP_NAMES[toolTab] ?? toolTab;
+  const groupLabel = toolGroupLabel(toolTab);
   extensionText.textContent = inactive
     ? ZogographI18n.t(
         'ai.tool_subject_intro',
@@ -10759,7 +10766,7 @@ async function runBrowserTool(run) {
       result = {};
     } else if (run.tool === 'request_tool_group') {
       const subject = String(run.arguments.subject || '');
-      const label = TOOL_GROUP_NAMES[subject] ?? subject;
+      const label = toolGroupLabel(subject);
       notice(
         ZogographI18n.t(
           'ai.tool_group_requested',
@@ -22674,7 +22681,7 @@ async function tryBrowserTool(tool, args) {
     shown.className = 'try-shown';
     shown.textContent = ZogographI18n.t(
       'ai.try_group_request_shown',
-      { group: TOOL_GROUP_NAMES[subject] ?? subject },
+      { group: toolGroupLabel(subject) },
       'In a conversation this asks for permission, then opens the Tools settings page. The operator decides whether to enable {{group}} tools and must save the choice.',
     );
     return { result: { requested: subject }, shown };

@@ -206,6 +206,7 @@
   "terminal.copy_nothing": "لا شيء لنسخه بعد.",
   "terminal.copy_done": "تم نسخ {{amount}}.",
   "terminal.copy_refused": "لم يسمح هذا المتصفح للصفحة بالكتابة إلى الحافظة.",
+  "terminal.output_truncated": "لا يظهر {{amount}} في بداية هذا الأمر. انسخه للحصول على كله.",
   "terminal.output_tail": "نهاية مخرجات أطول",
   "terminal.session_empty": "لم يُشغّل شيء في هذه الجلسة، أو جرى مسحها.",
   "terminal.stopped": "تم الإيقاف.",

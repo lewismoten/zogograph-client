@@ -13900,8 +13900,9 @@ function terminalEntry(entry) {
     if (text !== entry.text) {
       const said = document.createElement("div");
       said.className = "term-folded";
-      said.textContent = `${humanBytes(entry.text.length - text.length)} earlier in this `
-        + "command is not drawn. Copy it to get all of it.";
+      said.textContent = ZogographI18n.t("terminal.output_truncated", {
+        amount: humanBytes(entry.text.length - text.length),
+      }, "{{amount}} earlier in this command is not drawn. Copy it to get all of it.");
       body.appendChild(said);
     }
 

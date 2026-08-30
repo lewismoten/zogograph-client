@@ -10059,35 +10059,12 @@ function renderChatRoom(session) {
 function renderChatEffort(session) {
   const picker = $('chatEffort');
   if (!picker) return;
-
-  const ceiling = session.effort_ceiling ?? '';
-  const levels = session.effort_levels ?? [];
-
-  if (ceiling === '' || !levels.length) {
-    // Nothing configured means the provider's own default and no choice worth
-    // offering; a control that changes nothing is worse than no control.
-    picker.hidden = true;
-    return;
-  }
-
-  picker.hidden = false;
-  const upTo = levels.slice(0, levels.indexOf(ceiling) + 1);
-
-  if (picker.dataset.built !== upTo.join(',')) {
-    picker.replaceChildren();
-    for (const level of upTo) {
-      const option = document.createElement('option');
-      option.value = level;
-      option.textContent = level;
-      picker.appendChild(option);
-    }
-    picker.dataset.built = upTo.join(',');
-  }
-
-  picker.value = session.effort || ceiling;
-  picker.title =
-    `Thinking: ${picker.value}. The setting allows up to ${ceiling}; ` +
-    'this turns it down for this conversation only.';
+  renderCoreCardPackage(
+    ZogographChatEffortCard,
+    'core-chat-effort',
+    { picker, session },
+    { i18n: ZogographI18n },
+  );
 }
 
 /**

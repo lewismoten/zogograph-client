@@ -6757,8 +6757,13 @@ function renderAiSettings(data) {
     const hasKey =
       saved.has_key || (provider.value === data.provider && data.has_key);
     key.placeholder = hasKey
-      ? '•'.repeat(24) + ' (unchanged)'
-      : 'No key required for Ollama';
+      ? aiSettingsText('api_key_unchanged', '{{mask}} (unchanged)', {
+          mask: '•'.repeat(24),
+        })
+      : aiSettingsText(
+          'compatible_keyless_save_help',
+          'An Ollama or OpenAI-compatible connection can be saved without an API key.',
+        );
   };
   provider.addEventListener('change', syncProvider);
   selectedProvider.addEventListener('change', () => {

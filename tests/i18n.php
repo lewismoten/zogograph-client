@@ -95,6 +95,9 @@ $networkRdnsCard = i18nCardSource(
 $processTrendCard = i18nCardSource(
     file_get_contents($root . '/cards/process-trend.js'),
 );
+$processListCard = i18nCardSource(
+    file_get_contents($root . '/cards/process-list.js'),
+);
 $capabilitySummaryCard = i18nCardSource(
     file_get_contents($root . '/cards/capability-summary.js'),
 );
@@ -2594,8 +2597,9 @@ i18nExpect(
 );
 i18nExpect(
     $script !== false &&
-        str_contains($script, 'process.table_process') &&
-        str_contains($script, 'process.table_biggest_pid') &&
+        $processListCard !== false &&
+        str_contains($processListCard, '"core-process-list.process"') &&
+        str_contains($processListCard, '"core-process-list.biggest_pid"') &&
         str_contains($script, 'process.trend_summary'),
     'live process table and trend retain direct user-visible text',
 );

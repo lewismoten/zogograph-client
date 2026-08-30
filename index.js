@@ -25585,77 +25585,18 @@ async function refreshProcesses() {
         'Cannot read the process list here.',
       );
   } else {
-    const grouped = data.grouped;
-    const columns = [
-      {
-        label: ZogographI18n.t('process.table_process', {}, 'Process'),
-        render: (row) => namedThing('process', row.name),
-      },
-      {
-        label: ZogographI18n.t('process.table_how_many', {}, 'How many'),
-        className: 'size',
-        render: (row) => (row.procs > 1 ? row.procs : ''),
-      },
-      {
-        label: ZogographI18n.t('process.table_user', {}, 'User'),
-        render: (row) => userCell(row.user),
-      },
-      {
-        label: ZogographI18n.t('process.table_cpu', {}, 'CPU'),
-        className: 'size',
-        /*
-         * A share of one core, which is what `ps` measures and what `top`
-         * shows - so a threaded program reads 400% and is not wrong.
-         *
-         * The trouble is the machine-wide CPU figure elsewhere on this
-         * dashboard is a share of ALL cores and is clamped to 100, so the two
-         * numbers were written identically and meant different things. Past one
-         * core, this says how many cores that actually is.
-         */
-        render: (row) => processCpuCell(row.cpu_percent, data.cores),
-      },
-      {
-        label: ZogographI18n.t('process.table_memory', {}, 'Memory'),
-        className: 'size',
-        render: (row) => humanBytes(row.rss_bytes),
-      },
-      {
-        label: ZogographI18n.t('process.table_of_ram', {}, 'Of RAM'),
-        className: 'size',
-        render: (row) => `${row.mem_percent.toFixed(1)}%`,
-      },
-      {
-        label: ZogographI18n.t('process.table_running_for', {}, 'Running for'),
-        className: 'size',
-        render: (row) => processAge(row),
-      },
-      // The heaviest of the group, which is the one worth going to look at.
-      {
-        label: ZogographI18n.t(
-          grouped ? 'process.table_biggest_pid' : 'process.table_pid',
-          {},
-          grouped ? 'Biggest PID' : 'PID',
-        ),
-        className: 'size',
-        render: (row) => row.pid,
-      },
-      {
-        label: ZogographI18n.t('process.table_command', {}, 'Command'),
-        className: 'cmd',
-        render: (row) => row.command,
-      },
-    ];
-
-    if (data.can_stop) {
-      columns.push({
-        label: ZogographI18n.t('process.table_stop', {}, 'Stop'),
-        className: 'stop-cell',
-        render: (row) => stopButtons(row, grouped),
-      });
-    }
-
-    renderTable('processBody', data.rows, columns);
-    $('procStopNote').textContent = data.can_stop ? '' : data.stop_reason || '';
+    renderCoreCardPackage(ZogographProcessListCard, 'core-process-list', data, {
+      target: $('processBody'),
+      stopNote: $('procStopNote'),
+      renderTable,
+      namedThing,
+      userCell,
+      processCpuCell,
+      humanBytes,
+      processAge,
+      stopButtons,
+      i18n: ZogographI18n,
+    });
   }
 
   renderProcessTrend(data.trend || { metric: data.by, names: [], rows: [] });

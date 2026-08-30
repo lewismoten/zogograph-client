@@ -18530,8 +18530,11 @@ function renderRetention(data) {
   if (!data.writable) {
     parts.push(
       note(
-        'lib/config.php is not writable by the web server, so these cannot be changed from ' +
-          'here. Edit the file directly, or change it in setup.php.',
+        ZogographI18n.t(
+          'storage.retention_not_writable',
+          {},
+          'lib/config.php is not writable by the web server, so these cannot be changed from here. Edit the file directly, or change it in setup.php.',
+        ),
       ),
     );
   }
@@ -18541,12 +18544,12 @@ function renderRetention(data) {
 
   const head = table.createTHead().insertRow();
   for (const label of [
-    'What',
-    'Holding now',
-    'Covers',
-    'Keep for',
-    'Recommended',
-    'Settles at',
+    ZogographI18n.t('storage.retention_what', {}, 'What'),
+    ZogographI18n.t('storage.retention_holding_now', {}, 'Holding now'),
+    ZogographI18n.t('storage.retention_covers', {}, 'Covers'),
+    ZogographI18n.t('storage.retention_keep_for', {}, 'Keep for'),
+    ZogographI18n.t('storage.retention_recommended', {}, 'Recommended'),
+    ZogographI18n.t('storage.retention_settles_at', {}, 'Settles at'),
     '',
   ]) {
     const th = document.createElement('th');

@@ -198,8 +198,6 @@
   "fetch.tab_structured": "Datos estructurados",
   "fetch.tab_raw": "Cuerpo sin procesar",
   "fetch.no_body": "(sin cuerpo)",
-  "fetch.no_headers": "No se capturaron cabeceras.",
-  "fetch.headers_help": "Apunte o haga clic en un ❓ para saber para qué sirve una cabecera. Puede escribir sus propios significados para las cabeceras en Configuración → Sus propios nombres, donde corresponden las que nadie documenta.",
   "account.this_account": "Esta cuenta — con la que se ejecuta este panel.",
   "account.root": "root",
   "account.root_unmanaged": "root. Este panel no puede detener ni cambiar estos procesos.",

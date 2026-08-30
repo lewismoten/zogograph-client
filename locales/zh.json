@@ -198,8 +198,6 @@
   "fetch.tab_structured": "结构化数据",
   "fetch.tab_raw": "原始正文",
   "fetch.no_body": "（无正文）",
-  "fetch.no_headers": "未捕获标头。",
-  "fetch.headers_help": "将鼠标悬停在 ❓ 上或点击它即可了解标头的用途。您可以在“设置 → 自己的名称”中为标头编写自己的含义；那些无人记录的内部标头就该放在那里。",
   "account.this_account": "此帐户——运行此仪表板的帐户。",
   "account.root": "root",
   "account.root_unmanaged": "root。此仪表板无法停止或更改这些项目。",

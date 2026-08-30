@@ -142,6 +142,9 @@ $reportsNotReadyCard = i18nCardSource(
 $reportsAuthorshipCard = i18nCardSource(
     file_get_contents($root . '/cards/reports-authorship.js'),
 );
+$fetchHeadersCard = i18nCardSource(
+    file_get_contents($root . '/cards/fetch-headers.js'),
+);
 $changeHistoryCard = i18nCardSource(
     file_get_contents($root . '/cards/change-history.js'),
 );
@@ -885,6 +888,19 @@ i18nExpect(
             'renderCoreCardPackage(ZogographReportsAuthorshipCard',
         ),
     'report page cards are not isolated behind core card-module boundaries',
+);
+i18nExpect(
+    $page !== false &&
+        $script !== false &&
+        str_contains($page, 'src="cards/fetch-headers.js"') &&
+        str_contains($fetchHeadersCard, 'window.ZogographFetchHeadersCard') &&
+        str_contains($fetchHeadersCard, 'id: "core-fetch-headers"') &&
+        str_contains($fetchHeadersCard, 'locales: ["core-fetch-headers."]') &&
+        str_contains($fetchHeadersCard, 'catalogs: Object.freeze({') &&
+        str_contains($fetchHeadersCard, '"core-fetch-headers.help"') &&
+        str_contains($script, 'renderCoreCardPackage(') &&
+        str_contains($script, 'ZogographFetchHeadersCard,'),
+    'fetch headers are not isolated behind their core card-module boundary',
 );
 i18nExpect(
     $page !== false &&

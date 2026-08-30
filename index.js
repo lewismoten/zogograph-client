@@ -35676,86 +35676,12 @@ function renderFetch(data) {
  * there.
  */
 function renderFetchHeaders(data) {
-  const wrap = document.createDocumentFragment();
-
-  if (!data.headers.length) {
-    wrap.appendChild(
-      note(
-        ZogographI18n.t('fetch.no_headers', {}, 'No headers were captured.'),
-      ),
-    );
-    return wrap;
-  }
-
-  const table = document.createElement('table');
-  table.className = 'headers';
-  const tbody = document.createElement('tbody');
-
-  for (const header of data.headers) {
-    if (!header.name) {
-      // The status line of an earlier response in a redirect chain.
-      const row = document.createElement('tr');
-      row.className = 'header-break';
-      const cell = document.createElement('td');
-      cell.colSpan = 2;
-      cell.textContent = header.value;
-      row.appendChild(cell);
-      tbody.appendChild(row);
-      continue;
-    }
-
-    const row = document.createElement('tr');
-
-    const name = document.createElement('td');
-    name.className = 'name';
-    name.appendChild(document.createTextNode(header.name));
-    if (header.title || header.note) name.appendChild(helpIcon(header));
-    row.appendChild(name);
-
-    const value = document.createElement('td');
-    value.appendChild(linkifyText(header.value));
-
-    /*
-     * A date or a duration is one part, and that part is the whole value.
-     *
-     * Repeating it under itself to hang a note off looks like a parsing
-     * failure. The note goes beside the value instead.
-     */
-    const parts = header.parts || [];
-    const restating =
-      parts.length === 1 &&
-      !parts[0].name &&
-      String(parts[0].value) === String(header.value);
-
-    if (restating) {
-      const said = document.createElement('span');
-      said.className = 'muted said';
-      said.textContent = parts[0].note;
-      value.appendChild(said);
-    } else if (parts.length) {
-      value.appendChild(headerParts(header));
-    }
-
-    row.appendChild(value);
-    tbody.appendChild(row);
-  }
-
-  table.appendChild(tbody);
-  wrap.appendChild(table);
-
-  wrap.appendChild(
-    note(
-      ZogographI18n.t(
-        'fetch.headers_help',
-        {},
-        'Point at or click a ❓ for what a header is for. You can write your own meanings for ' +
-          'headers under Settings → Your own names, which is where the house ones ' +
-          'nobody documents belong.',
-      ),
-    ),
+  return renderCoreCardPackage(
+    ZogographFetchHeadersCard,
+    'core-fetch-headers',
+    data,
+    { note, helpIcon, linkifyText, headerParts, i18n: ZogographI18n },
   );
-
-  return wrap;
 }
 
 /* ------------------------------------------------------ tables that fit -- */

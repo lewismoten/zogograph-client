@@ -28226,6 +28226,22 @@ function syncMetricOptions(metrics) {
  * label at all.
  */
 function drawServiceChart(series, charted, metric) {
+  if (window.ZogographHostServiceChart) {
+    return renderCoreCardPackage(
+      ZogographHostServiceChart,
+      'core-host-service-chart',
+      { series, charted, metric },
+      {
+        chart: $('hostServiceChart'),
+        note: $('hostMetricNote'),
+        drawLineChart,
+        bytesAxis,
+        countAxis,
+        rateAxis,
+        i18n: ZogographI18n,
+      },
+    );
+  }
   const axis =
     metric === 'procs' || metric === 'threads'
       ? countAxis

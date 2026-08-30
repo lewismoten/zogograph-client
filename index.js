@@ -34196,7 +34196,10 @@ function toast(text, view = '') {
 
   const close = document.createElement('button');
   close.className = 'toast-close';
-  close.setAttribute('aria-label', 'Dismiss');
+  close.setAttribute(
+    'aria-label',
+    ZogographI18n.t('alerts.dismiss', {}, 'Dismiss'),
+  );
   close.textContent = '\u00d7';
   close.addEventListener('click', () => box.remove());
   box.appendChild(close);

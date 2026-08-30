@@ -189,6 +189,8 @@
   "notes.broadcast_help": "Shows this at the top of every page for anyone who opens the dashboard, until somebody clears it.",
   "notes.audience_label": "Visible to groups",
   "notes.audience_help": "Leave every group unticked to share with everyone who may read notes. Ticking groups limits this note and any broadcast made from it.",
+  "notes.page_label": "Page",
+  "notes.page_help": "Where the mark will be drawn.",
   "notes.dismiss_selected_help": "Clears selected broadcast notes; ordinary notes are left alone.",
   "notes.select_from": "Select note from {{when}}",
   "notes.table_time": "Time",

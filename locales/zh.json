@@ -189,6 +189,8 @@
   "notes.broadcast_help": "这会显示在每个打开仪表板的人的每个页面顶部，直到有人将其清除。",
   "notes.audience_label": "对群组可见",
   "notes.audience_help": "不选择任何群组即可与所有能阅读注释的人共享。选择群组会限制此注释以及由它创建的任何广播。",
+  "notes.page_label": "页面",
+  "notes.page_help": "标记将绘制在此处。",
   "notes.dismiss_selected_help": "清除选定的广播注释；普通注释保持不变。",
   "notes.select_from": "选择 {{when}} 的注释",
   "notes.table_time": "时间",

@@ -3579,6 +3579,7 @@
   "collector.stopped": "{{age}} से कुछ नहीं हुआ, जबकि यह आम तौर पर हर {{interval}} में चलता है।",
   "collector.due_now": "अब होना चाहिए — {{age}} से कुछ नहीं हुआ है।",
   "collector.next_in": "अगला लगभग {{duration}} में है।",
+  "collector.settings_saved": "सहेजा गया। अगला कलेक्टर रन इनका उपयोग करेगा।",
   "assistant.waiting_collector": "{{collector}} कलेक्टर की प्रतीक्षा है…",
   "assistant.waiting_collector_for": "{{assistant}} {{collector}} कलेक्टर की प्रतीक्षा कर रहा है — अधिकतम {{duration}} और।",
   "assistant.waiting_unavailable": "जब सिस्टम स्वास्थ्य सुविधा अक्षम है तब कलेक्टर की प्रतीक्षा उपलब्ध नहीं है।",

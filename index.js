@@ -10583,7 +10583,14 @@ async function saveScans() {
 
   try {
     renderScans(await post('scan-schedule-save', values));
-    notice('Saved. The next collector run will use these.', true);
+    notice(
+      ZogographI18n.t(
+        'collector.settings_saved',
+        {},
+        'Saved. The next collector run will use these.',
+      ),
+      true,
+    );
   } catch (error) {
     notice(String(error.message || error));
   }
@@ -47385,7 +47392,14 @@ $('retentionForm').addEventListener('submit', async (event) => {
 
   try {
     const result = await post('store-save', values);
-    notice('Saved. The next collector run will use these.', true);
+    notice(
+      ZogographI18n.t(
+        'collector.settings_saved',
+        {},
+        'Saved. The next collector run will use these.',
+      ),
+      true,
+    );
     renderStore(result);
   } catch (error) {
     notice(String(error.message || error));

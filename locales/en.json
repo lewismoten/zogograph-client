@@ -3669,6 +3669,7 @@
   "collector.stopped": "Nothing for {{age}}, on something that usually runs every {{interval}}.",
   "collector.due_now": "Due now — nothing for {{age}}.",
   "collector.next_in": "Next one in about {{duration}}.",
+  "collector.settings_saved": "Saved. The next collector run will use these.",
   "assistant.waiting_collector": "Waiting for the {{collector}} collector…",
   "assistant.waiting_collector_for": "{{assistant}} is waiting for the {{collector}} collector — up to {{duration}} more.",
   "assistant.waiting_unavailable": "Collector waiting is unavailable while the System health feature is disabled.",

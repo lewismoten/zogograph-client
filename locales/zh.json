@@ -3565,6 +3565,7 @@
   "collector.stopped": "已有 {{age}} 没有运行，而它通常每 {{interval}} 运行一次。",
   "collector.due_now": "现在该运行了——已有 {{age}} 没有运行。",
   "collector.next_in": "下一次大约在 {{duration}} 后。",
+  "collector.settings_saved": "已保存。下一次采集器运行将使用这些设置。",
   "assistant.waiting_collector": "正在等待 {{collector}} 收集器…",
   "assistant.waiting_collector_for": "{{assistant}} 正在等待 {{collector}} 收集器，最多再等 {{duration}}。",
   "assistant.waiting_unavailable": "系统健康功能被禁用时，无法等待收集器。",

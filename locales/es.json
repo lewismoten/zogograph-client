@@ -3583,6 +3583,7 @@
   "collector.stopped": "Nada desde hace {{age}}, en algo que normalmente se ejecuta cada {{interval}}.",
   "collector.due_now": "Toca ahora; no ha habido nada desde hace {{age}}.",
   "collector.next_in": "La siguiente será dentro de unos {{duration}}.",
+  "collector.settings_saved": "Guardado. La siguiente ejecución del recopilador usará estos valores.",
   "assistant.waiting_collector": "Esperando al recolector {{collector}}…",
   "assistant.waiting_collector_for": "{{assistant}} está esperando al recolector {{collector}} — hasta {{duration}} más.",
   "assistant.waiting_unavailable": "La espera del recolector no está disponible mientras la función de salud del sistema esté deshabilitada.",

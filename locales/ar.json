@@ -3565,6 +3565,7 @@
   "collector.stopped": "لا شيء منذ {{age}}، رغم أنه يعمل عادةً كل {{interval}}.",
   "collector.due_now": "موعده الآن — لا شيء منذ {{age}}.",
   "collector.next_in": "التشغيل التالي بعد نحو {{duration}}.",
+  "collector.settings_saved": "حُفظت. سيستخدمها تشغيل الجامع التالي.",
   "assistant.waiting_collector": "بانتظار جامع {{collector}}…",
   "assistant.waiting_collector_for": "ينتظر {{assistant}} جامع {{collector}} — حتى {{duration}} إضافية.",
   "assistant.waiting_unavailable": "انتظار الجامع غير متاح بينما تكون ميزة صحة النظام معطلة.",

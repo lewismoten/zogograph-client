@@ -35574,76 +35574,26 @@ function renderFetch(data) {
     ),
   );
 
-  /*
-   * A link out, opened deliberately in a new window.
-   *
-   * `noopener` is not optional: without it the page being opened gets a handle
-   * on this one through window.opener and can navigate it somewhere else. On a
-   * tool whose whole job is to fetch addresses somebody is suspicious of, that
-   * is not a theoretical concern.
-   */
-  const visit = document.createElement('a');
-  visit.className = 'link';
-  visit.href = data.landed || data.url;
-  visit.target = '_blank';
-  visit.rel = 'noopener noreferrer';
-  visit.textContent = ZogographI18n.t('fetch.visit', {}, 'Visit it \u2197');
-  visit.title = ZogographI18n.t(
-    'fetch.visit_title',
-    {},
-    'Open this address in a new window',
-  );
-
-  /*
-   * Several ways to look at one answer, because they are several questions.
-   *
-   * Headers answer "what is the server claiming", raw answers "what did it
-   * literally send", the preview answers "does it look right", and the parsed
-   * views answer "what does it say about itself". Only the raw body is ever
-   * the whole truth, which is why it is always offered.
-   */
-  const tabs = document.createElement('div');
-  tabs.className = 'panel-tools';
-
-  const views = [
-    ['headers', ZogographI18n.t('fetch.tab_headers', {}, 'Headers'), true],
-    [
-      'preview',
-      ZogographI18n.t('fetch.tab_preview', {}, 'Preview'),
-      data.previewable,
-    ],
-    [
-      'meta',
-      ZogographI18n.t('fetch.tab_meta', {}, 'Title & meta'),
-      data.looks_html,
-    ],
-    [
-      'ld',
-      ZogographI18n.t('fetch.tab_structured', {}, 'Structured data'),
-      data.looks_html,
-    ],
-    ['json', 'JSON', data.looks_json],
-    ['raw', ZogographI18n.t('fetch.tab_raw', {}, 'Raw body'), true],
-  ].filter(([, , show]) => show);
-
-  // A tab that no longer exists for this response - JSON, after asking for a
-  // page - would otherwise leave the panel blank with no way back.
-  if (!views.some(([key]) => key === fetchState.showing))
+  const availableViews = ['headers', 'raw'];
+  if (data.previewable) availableViews.push('preview');
+  if (data.looks_html) availableViews.push('meta', 'ld');
+  if (data.looks_json) availableViews.push('json');
+  if (!availableViews.includes(fetchState.showing))
     fetchState.showing = 'headers';
-
-  for (const [key, label] of views) {
-    const button = document.createElement('button');
-    button.className = 'link';
-    button.textContent = label;
-    button.disabled = fetchState.showing === key;
-    button.addEventListener('click', () => {
-      fetchState.showing = key;
-      renderFetch(data);
-    });
-    tabs.appendChild(button);
-  }
-  tabs.appendChild(visit);
-  parts.push(tabs);
+  parts.push(
+    renderCoreCardPackage(
+      ZogographFetchTabsCard,
+      'core-fetch-tabs',
+      { ...data, showing: fetchState.showing },
+      {
+        selectView: (key) => {
+          fetchState.showing = key;
+          renderFetch(data);
+        },
+        i18n: ZogographI18n,
+      },
+    ),
+  );
 
   const panel = {
     headers: () => renderFetchHeaders(data),

@@ -32472,53 +32472,19 @@ async function refreshTreemap(path = treeState.path) {
 }
 
 function renderTreeNote() {
-  const level = treeState.level;
-  if (!level) return;
-
-  const parts = [
-    `${humanBytes(level.bytes)} in ${count(level.files, 'file')}` +
-      (level.children.length
-        ? ` across ${count(level.children.length, 'entry', 'entries')}`
-        : '') +
-      '.',
-  ];
-
-  if (level.reason) parts.push(level.reason);
-
-  /*
-   * An incomplete measurement is said out loud, every time.
-   *
-   * A directory whose walk ran out of time reports a lower bound, and a lower
-   * bound that looks like a measurement is how somebody dismisses the 12 GB
-   * they were looking for as 400 MB.
-   */
-  if (!level.complete && !level.reason) {
-    parts.push(
-      'Some directories were still being measured when the time budget ran out — ' +
-        'those are marked and their sizes are at least what is shown, not exactly.',
-    );
-  }
-  if (level.pooled) {
-    parts.push(
-      `${count(level.pooled, 'small entry', 'small entries')} are pooled into one ` +
-        'rectangle; its area is still their true total.',
-    );
-  }
-  if (level.seconds) parts.push(`Measured in ${level.seconds}s.`);
-
-  if (treeState.typeFilter) {
-    const shown = treeState.boxes.reduce(
-      (sum, b) => sum + Number(b.bytes || 0),
-      0,
-    );
-    parts.push(
-      `Showing only ${treeState.typeFilter}: ${humanBytes(shown)} of the ` +
-        `${humanBytes(level.bytes)} here. Directories are sized by how much ` +
-        `${treeState.typeFilter} is inside them, not by their whole contents.`,
-    );
-  }
-
-  $('treeNote').textContent = parts.join(' ');
+  renderCoreCardPackage(
+    ZogographTreemapNoteCard,
+    'core-treemap-note',
+    {
+      level: treeState.level,
+      typeFilter: treeState.typeFilter,
+      shown: treeState.boxes.reduce(
+        (sum, box) => sum + Number(box.bytes || 0),
+        0,
+      ),
+    },
+    { target: $('treeNote'), humanBytes, count, i18n: ZogographI18n },
+  );
 }
 
 function renderCrumbs() {

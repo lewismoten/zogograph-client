@@ -7057,24 +7057,14 @@ function renderAiTools(data) {
   const actions = document.createElement('div');
   actions.className = 'inspect-actions';
 
-  const save = document.createElement('button');
-  save.type = 'submit';
-  save.textContent = ZogographI18n.t(
-    'ai.save_settings',
-    {},
-    'Save these settings',
+  actions.append(
+    ...renderCoreCardPackage(
+      ZogographAiToolsSaveCard,
+      'core-ai-tools-save',
+      { writable: data.writable, assistant: data.who?.name ?? 'the assistant' },
+      { i18n: ZogographI18n },
+    ),
   );
-  save.disabled = !data.writable;
-  actions.appendChild(save);
-
-  const said = document.createElement('span');
-  said.className = 'muted small';
-  said.textContent = ZogographI18n.t(
-    'ai.save_assistant_pages',
-    { assistant: data.who?.name ?? 'the assistant' },
-    "Saves everything on all of {{assistant}}'s pages, including the tools on the other tabs.",
-  );
-  actions.appendChild(said);
 
   const savePreset = document.createElement('button');
   savePreset.type = 'button';

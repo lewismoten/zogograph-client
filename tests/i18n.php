@@ -2429,9 +2429,11 @@ foreach (
 i18nExpect(
     $script !== false &&
         str_contains($script, "'host.files_also_at'") &&
+        str_contains($script, "'host.files_linked_total'") &&
         is_array($english) &&
-        isset($english['host.files_also_at']),
-    'host file hard-link labels are not localized',
+        isset($english['host.files_also_at']) &&
+        isset($english['host.files_linked_total']),
+    'host file hard-link labels and summary are not localized',
 );
 i18nExpect(
     $script !== false &&

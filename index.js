@@ -4973,14 +4973,24 @@ function renderCpuChart(rows) {
    * comparison; the note only has to stop claiming the wrong denominator.
    */
   const cap = state.limits?.available
-    ? ' See what the host allows, above.'
+    ? ZogographI18n.t(
+        'vitals.host_allows_above',
+        {},
+        ' See what the host allows, above.',
+      )
     : '';
   $('cpuNote').textContent =
     absolute && latest
-      ? `Share of what this account may use, since the previous reading. Memory is ` +
-        `bytes consumed on the right, out of ${humanBytes(latest.mem_total_bytes)} ` +
-        `available to this account.${cap}`
-      : `Share of what this account may use, since the previous reading.${cap}`;
+      ? ZogographI18n.t(
+          'vitals.cpu_note_absolute',
+          { total: humanBytes(latest.mem_total_bytes), hostNote: cap },
+          'Share of what this account may use, since the previous reading. Memory is bytes consumed on the right, out of {{total}} available to this account.{{hostNote}}',
+        )
+      : ZogographI18n.t(
+          'vitals.cpu_note_relative',
+          { hostNote: cap },
+          'Share of what this account may use, since the previous reading.{{hostNote}}',
+        );
 }
 
 /**

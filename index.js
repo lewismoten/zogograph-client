@@ -12744,7 +12744,7 @@ async function showNoteSnapshots(row) {
       full.href = picture.src;
       full.target = "_blank";
       full.rel = "noopener";
-      full.textContent = "Full size";
+      full.textContent = ZogographI18n.t("ai.store_open_full", {}, "Open it at full size");
       actions.appendChild(full);
     } else {
       const open = document.createElement("a");

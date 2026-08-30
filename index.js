@@ -41856,8 +41856,11 @@ async function refreshHostSchedule() {
   const without = document.createDocumentFragment();
   without.appendChild(
     note(
-      'No root? The collector runs as an ordinary account too. It ' +
-        'collects less, and here is exactly what less means.',
+      ZogographI18n.t(
+        'host_setup.no_root_help',
+        {},
+        'No root? The collector runs as an ordinary account too. It collects less, and here is exactly what less means.',
+      ),
     ),
   );
 

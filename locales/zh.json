@@ -3158,6 +3158,7 @@
   "host_setup.only_as_root": "仅以 root 身份",
   "host_setup.also_as_account": "也以你自己的账户身份",
   "host_setup.no_host_account": "如果你没有主机账户",
+  "host_setup.no_root_help": "没有 root 权限？采集器也可以作为普通账户运行。它采集得更少，这里准确说明了“更少”的含义。",
   "action.view": "查看",
   "storage.empty": "清空",
   "storage.delete_permanently": "要永久删除 {{count, number}} 吗？",

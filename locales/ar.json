@@ -3158,6 +3158,7 @@
   "host_setup.only_as_root": "بصفتك root فقط",
   "host_setup.also_as_account": "وأيضًا بصفتك حسابك الخاص",
   "host_setup.no_host_account": "إذا لم يكن لديك حساب مضيف",
+  "host_setup.no_root_help": "لا تملك root؟ يعمل الجامع كحساب عادي أيضًا. يجمع أقل، وهنا ما يعنيه ذلك بالضبط.",
   "action.view": "عرض",
   "storage.empty": "إفراغ",
   "storage.delete_permanently": "حذف {{count, number}} نهائيًا؟",

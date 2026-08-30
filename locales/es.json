@@ -3176,6 +3176,7 @@
   "host_setup.only_as_root": "Solo como root",
   "host_setup.also_as_account": "También como tu propia cuenta",
   "host_setup.no_host_account": "Si no tienes una cuenta de host",
+  "host_setup.no_root_help": "¿Sin root? El recopilador también se ejecuta como una cuenta normal. Recopila menos, y esto explica exactamente qué significa menos.",
   "action.view": "Ver",
   "storage.empty": "Vaciar",
   "storage.delete_permanently": "¿Eliminar {{count, number}} permanentemente?",

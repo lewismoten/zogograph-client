@@ -35555,6 +35555,30 @@ async function refreshCaptures() {
     return;
   }
 
+  if (window.ZogographNetworkCaptureHistoryCard) {
+    return renderCoreCardPackage(
+      ZogographNetworkCaptureHistoryCard,
+      'core-network-capture-history',
+      { rows: data.rows, capture: data.capture },
+      {
+        target: body,
+        note,
+        renderTable,
+        whenSpan,
+        humanCount,
+        humanBytes,
+        open: (id) => {
+          captureHistoryState.showing = id;
+          refreshCaptures().catch((error) =>
+            notice(String(error.message || error)),
+          );
+        },
+        renderCapture,
+        i18n: ZogographI18n,
+      },
+    );
+  }
+
   const wrap = document.createDocumentFragment();
   const holder = document.createElement('div');
   holder.id = 'captureList';

@@ -55,6 +55,9 @@ $networkPortsCard = i18nCardSource(
 $networkCaptureRequestCard = i18nCardSource(
     file_get_contents($root . '/cards/network-capture-request.js'),
 );
+$networkCaptureHistoryCard = i18nCardSource(
+    file_get_contents($root . '/cards/network-capture-history.js'),
+);
 $networkPeersCard = i18nCardSource(
     file_get_contents($root . '/cards/network-peers.js'),
 );
@@ -323,6 +326,34 @@ i18nExpect(
             'helpers.i18n.registerCatalog(locale, catalog, false, id)',
         ),
     'core card package catalogs are not namespace-registered before their first render',
+);
+i18nExpect(
+    $page !== false &&
+        str_contains($page, 'src="cards/network-capture-history.js"') &&
+        $networkCaptureHistoryCard !== false &&
+        str_contains(
+            $networkCaptureHistoryCard,
+            'window.ZogographNetworkCaptureHistoryCard',
+        ) &&
+        str_contains(
+            $networkCaptureHistoryCard,
+            'id: "core-network-capture-history"',
+        ) &&
+        str_contains(
+            $networkCaptureHistoryCard,
+            'locales: ["core-network-capture-history."]',
+        ) &&
+        str_contains($networkCaptureHistoryCard, 'catalogs: Object.freeze({') &&
+        str_contains(
+            $networkCaptureHistoryCard,
+            '"core-network-capture-history.empty"',
+        ) &&
+        $script !== false &&
+        str_contains(
+            $script,
+            'renderCoreCardPackage(ZogographNetworkCaptureHistoryCard, "core-network-capture-history",',
+        ),
+    'network capture history is not isolated behind its core card-module boundary',
 );
 i18nExpect(
     $page !== false &&

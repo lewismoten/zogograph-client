@@ -10171,22 +10171,13 @@ function renderChatStatus(session) {
     { i18n: ZogographI18n },
   );
   if (activity) status.appendChild(activity);
-  const said =
-    {
-      idle: '',
-      stopped: `Stopped — ${session.stop_reason || 'by you'}.`,
-      ended: `Finished — ${session.stop_reason || 'a limit was reached'}.`,
-      failed: `Gave up — ${session.stop_reason || 'the model could not be reached'}.`,
-    }[session.state] ?? '';
-
-  if (said && !activity) {
-    const line = document.createElement('span');
-    line.className = ['stopped', 'ended', 'failed'].includes(session.state)
-      ? 'muted'
-      : 'chat-thinking';
-    line.textContent = said;
-    status.appendChild(line);
-  }
+  const terminal = renderCoreCardPackage(
+    ZogographChatTerminalStateCard,
+    'core-chat-terminal-state',
+    { state: session.state, reason: session.stop_reason },
+    { i18n: ZogographI18n },
+  );
+  if (terminal) status.appendChild(terminal);
 
   /*
    * The way out that keeps the conversation.

@@ -40,13 +40,17 @@ window.ZogographIoChart = {
     if (has('own_read_rate'))
       series.push({
         key: 'own_read_rate',
-        label: ZogographI18n.t('vitals.account_read', {}, 'This account, read'),
+        label: ZogographI18n.t(
+          'core-io-chart.account_read',
+          {},
+          'This account, read',
+        ),
       });
     if (has('own_write_rate'))
       series.push({
         key: 'own_write_rate',
         label: ZogographI18n.t(
-          'vitals.account_written',
+          'core-io-chart.account_written',
           {},
           'This account, written',
         ),
@@ -54,18 +58,26 @@ window.ZogographIoChart = {
     if (has('io_read_rate'))
       series.push({
         key: 'io_read_rate',
-        label: ZogographI18n.t('host.io_device_read', {}, 'Device read'),
+        label: ZogographI18n.t(
+          'core-io-chart.io_device_read',
+          {},
+          'Device read',
+        ),
       });
     if (has('io_write_rate'))
       series.push({
         key: 'io_write_rate',
-        label: ZogographI18n.t('host.io_device_written', {}, 'Device written'),
+        label: ZogographI18n.t(
+          'core-io-chart.io_device_written',
+          {},
+          'Device written',
+        ),
       });
     if (has('io_util_percent')) {
       series.push({
         key: 'io_util_percent',
         label: ZogographI18n.t(
-          'vitals.device_busy_right',
+          'core-io-chart.device_busy_right',
           {},
           'Device busy % (right)',
         ),
@@ -80,12 +92,12 @@ window.ZogographIoChart = {
       zeroBased: true,
       empty: series.length
         ? ZogographI18n.t(
-            'chart.nothing_collected_range',
+            'core-io-chart.nothing_collected_range',
             {},
             'Nothing collected for this range yet',
           )
         : ZogographI18n.t(
-            'vitals.io_empty_unreadable',
+            'core-io-chart.io_empty_unreadable',
             {},
             'No disk I/O readings — neither /proc/diskstats nor /proc/<pid>/io could be read',
           ),
@@ -96,7 +108,7 @@ window.ZogographIoChart = {
       .find((r) => r.io_util_percent != null || r.own_read_rate != null);
     const parts = [
       ZogographI18n.t(
-        'vitals.io_bytes_to_disk',
+        'core-io-chart.io_bytes_to_disk',
         {},
         'Bytes actually reaching a disk, not bytes served from cache.',
       ),
@@ -113,7 +125,7 @@ window.ZogographIoChart = {
     if (!has('io_read_rate')) {
       parts.push(
         ZogographI18n.t(
-          'vitals.io_device_missing',
+          'core-io-chart.io_device_missing',
           {},
           'The device lines are missing because /proc/diskstats is not readable from this account — see the host panel, which reads it as root.',
         ),
@@ -122,7 +134,7 @@ window.ZogographIoChart = {
     if (!has('own_read_rate')) {
       parts.push(
         ZogographI18n.t(
-          'vitals.io_account_missing',
+          'core-io-chart.io_account_missing',
           {},
           'This account’s own traffic is missing too: /proc/<pid>/io could not be read for any process here.',
         ),
@@ -134,7 +146,7 @@ window.ZogographIoChart = {
     if (has('io_read_rate') && has('own_read_rate')) {
       parts.push(
         ZogographI18n.t(
-          'vitals.io_scope',
+          'core-io-chart.io_scope',
           {},
           'The device lines cover every account on the machine; only the “this account” lines are yours.',
         ),
@@ -144,7 +156,7 @@ window.ZogographIoChart = {
     if (latest && latest.io_util_percent != null) {
       parts.push(
         ZogographI18n.t(
-          'vitals.io_busy',
+          'core-io-chart.io_busy',
           { percent: Number(latest.io_util_percent).toFixed(0) },
           'The device was busy {{percent}}% of the last interval.',
         ),
@@ -158,7 +170,7 @@ window.ZogographIoChart = {
        */
       parts.push(
         ZogographI18n.t(
-          'vitals.io_stalled',
+          'core-io-chart.io_stalled',
           {
             some: Number(latest.io_pressure_some).toFixed(1),
             full: Number(latest.io_pressure_full).toFixed(1),

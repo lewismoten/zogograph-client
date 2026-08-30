@@ -36368,14 +36368,21 @@ function renderUrlHistory(data) {
     $('urlChart'),
     rows,
     [
-      { key: 'ms', label: 'Response time' },
-      { key: 'failed', label: 'Failed' },
+      {
+        key: 'ms',
+        label: ZogographI18n.t('url.response_time', {}, 'Response time'),
+      },
+      { key: 'failed', label: ZogographI18n.t('url.failed', {}, 'Failed') },
     ],
     {
       xKey: 'at',
       axis: msAxis,
       zeroBased: true,
-      empty: 'No checks in this range yet',
+      empty: ZogographI18n.t(
+        'url.no_checks',
+        {},
+        'No checks in this range yet',
+      ),
       // Blue marks are the moments the watched value changed, which is usually
       // the explanation for whatever the response time does next.
       notes: marks,
@@ -36439,13 +36446,18 @@ function renderUrlHistory(data) {
       'urlChangeTable',
       [...rows].reverse().slice(0, 60),
       [
-        { label: 'When', render: (row) => whenSpan(row.at) },
+        {
+          label: ZogographI18n.t('url.when', {}, 'When'),
+          render: (row) => whenSpan(row.at),
+        },
         {
           label: '',
           render: (row) => {
             const span = document.createElement('span');
             span.className = 'muted small';
-            span.textContent = row.first ? 'first seen' : 'changed';
+            span.textContent = row.first
+              ? ZogographI18n.t('url.first_seen', {}, 'first seen')
+              : ZogographI18n.t('url.changed', {}, 'changed');
             if (row.first) {
               span.title =
                 'The earliest reading in this range, not something that ' +
@@ -36454,8 +36466,16 @@ function renderUrlHistory(data) {
             return span;
           },
         },
-        { label: 'Was', className: 'cmd', render: (row) => row.from ?? '—' },
-        { label: 'Became', className: 'cmd', render: (row) => row.to },
+        {
+          label: ZogographI18n.t('url.was', {}, 'Was'),
+          className: 'cmd',
+          render: (row) => row.from ?? '—',
+        },
+        {
+          label: ZogographI18n.t('url.became', {}, 'Became'),
+          className: 'cmd',
+          render: (row) => row.to,
+        },
       ],
       null,
       (row) => (row.first ? 'muted-row' : ''),

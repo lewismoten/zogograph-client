@@ -712,6 +712,7 @@
   "ai.personality_deleted": "已删除。",
   "display.test_voice": "测试语音",
   "display.voice_ready": "Zogograph 语音设置已就绪。",
+  "display.voice_section": "语音",
   "action.continue": "继续",
   "dialog.please_confirm": "请确认",
   "display.preferences": "显示首选项",

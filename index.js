@@ -22042,7 +22042,10 @@ function openDisplayPreferences() {
         colorVision,
         'High distinction uses a blue, orange, and violet status palette. Status words and symbols remain visible in every mode.',
       ),
-      section('Voice', document.createElement('div')),
+      section(
+        ZogographI18n.t('display.voice_section', {}, 'Voice'),
+        document.createElement('div'),
+      ),
       fieldRow(
         'Speaking',
         speaking,

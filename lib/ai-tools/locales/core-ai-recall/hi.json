@@ -1,3 +1,5 @@
 {
-  "core-ai-recall.summary": "पहले की बातचीतों से याद की गई बात खोजें।"
+  "core-ai-recall.summary": "पहले की बातचीतों से याद की गई बात खोजें।",
+  "core-ai-recall.activity_all": "जो याद था उसे देखा",
+  "core-ai-recall.activity_about": "{{about}} के बारे में जो याद था उसे खोजा"
 }

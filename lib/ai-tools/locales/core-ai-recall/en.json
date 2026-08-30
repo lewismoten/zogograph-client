@@ -1,3 +1,5 @@
 {
-  "core-ai-recall.summary": "Look up what was remembered from earlier conversations."
+  "core-ai-recall.summary": "Look up what was remembered from earlier conversations.",
+  "core-ai-recall.activity_all": "Looked at what it remembered",
+  "core-ai-recall.activity_about": "Looked up what it remembered about {{about}}"
 }

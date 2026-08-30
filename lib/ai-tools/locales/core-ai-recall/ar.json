@@ -1,3 +1,5 @@
 {
-  "core-ai-recall.summary": "ابحث عما تم تذكره من محادثات سابقة."
+  "core-ai-recall.summary": "ابحث عما تم تذكره من محادثات سابقة.",
+  "core-ai-recall.activity_all": "اطلع على ما يتذكره",
+  "core-ai-recall.activity_about": "بحث عما يتذكره بشأن {{about}}"
 }

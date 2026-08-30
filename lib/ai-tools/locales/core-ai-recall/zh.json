@@ -1,3 +1,5 @@
 {
-  "core-ai-recall.summary": "查找从早期对话中记住的内容。"
+  "core-ai-recall.summary": "查找从早期对话中记住的内容。",
+  "core-ai-recall.activity_all": "查看了记住的内容",
+  "core-ai-recall.activity_about": "查找了有关 {{about}} 的记忆"
 }

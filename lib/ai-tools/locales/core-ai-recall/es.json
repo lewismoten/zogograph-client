@@ -1,3 +1,5 @@
 {
-  "core-ai-recall.summary": "Busque lo que se recordó de conversaciones anteriores."
+  "core-ai-recall.summary": "Busque lo que se recordó de conversaciones anteriores.",
+  "core-ai-recall.activity_all": "Revisó lo que recordaba",
+  "core-ai-recall.activity_about": "Buscó lo que recordaba sobre {{about}}"
 }

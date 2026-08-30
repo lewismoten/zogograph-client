@@ -205,12 +205,17 @@ i18nExpect($cpuCoresCard !== false && str_contains($cpuCoresCard, 'catalogs: Obj
     'CPU core card does not own its locale catalog');
 i18nExpect($page !== false && str_contains($page, 'src="cards/host-memory.js"')
     && $hostMemoryCard !== false && str_contains($hostMemoryCard, 'window.ZogographHostMemoryCard')
-    && str_contains($hostMemoryCard, 'id: "core-host-memory"') && str_contains($hostMemoryCard, 'locales: ["host."]')
+    && str_contains($hostMemoryCard, 'id: "core-host-memory"') && str_contains($hostMemoryCard, 'locales: ["core-host-memory."]')
     && str_contains($hostMemoryCard, 'helpers: ["setCard", "humanBytes", "i18n"]')
-    && str_contains($hostMemoryCard, 'i18n.t(`host.memory_card_${key}`') && is_array($english) && isset($english['host.memory_card_in_use'])
+    && str_contains($hostMemoryCard, 'i18n.t(`core-host-memory.${key}`')
+    && str_contains($hostMemoryCard, 'i18n.t("host.memory_card_in_use"')
+    && is_array($english) && isset($english['host.memory_card_in_use'])
     && str_contains($hostMemoryCard, 'render(input, helpers)')
     && $script !== false && str_contains($script, 'renderCoreCardPackage(ZogographHostMemoryCard, "core-host-memory", {'),
     'host memory cards are not isolated behind their core card-module boundary');
+i18nExpect($hostMemoryCard !== false && str_contains($hostMemoryCard, 'catalogs: Object.freeze({')
+    && str_contains($hostMemoryCard, '"core-host-memory.monitoring_footprint"'),
+    'host memory card does not own a package locale catalog');
 i18nExpect($page !== false && str_contains($page, 'src="cards/uptime.js"')
     && $uptimeCard !== false && str_contains($uptimeCard, 'id: "core-uptime"')
     && str_contains($uptimeCard, 'locales: ["core-uptime."]')

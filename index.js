@@ -8462,7 +8462,13 @@ function pictureFields(data) {
   }
   const serviceNote = document.createElement('div');
   serviceNote.className = 'muted small';
-  form.appendChild(fieldRow('Search service', service, ''));
+  form.appendChild(
+    fieldRow(
+      ZogographI18n.t('ai.images_search_service', {}, 'Search service'),
+      service,
+      '',
+    ),
+  );
   form.appendChild(serviceNote);
 
   const searchKey = document.createElement('input');
@@ -8471,15 +8477,31 @@ function pictureFields(data) {
   searchKey.className = 'wide-field';
   searchKey.autocomplete = 'off';
   searchKey.placeholder = pictures.has_search_key
-    ? '•'.repeat(20) + ' (unchanged)'
-    : 'the key for that service';
+    ? ZogographI18n.t(
+        'ai.images_search_key_unchanged',
+        { mask: '•'.repeat(20) },
+        '{{mask}} (unchanged)',
+      )
+    : ZogographI18n.t(
+        'ai.images_search_key_placeholder',
+        {},
+        'the key for that service',
+      );
   form.appendChild(
     fieldRow(
-      'Search key',
+      ZogographI18n.t('ai.images_search_key', {}, 'Search key'),
       searchKey,
       pictures.has_search_key
-        ? 'A key is set. Leaving this blank keeps it.'
-        : 'Without one, reactions stay off.',
+        ? ZogographI18n.t(
+            'ai.images_search_key_kept',
+            {},
+            'A key is set. Leaving this blank keeps it.',
+          )
+        : ZogographI18n.t(
+            'ai.images_search_key_required',
+            {},
+            'Without one, reactions stay off.',
+          ),
     ),
   );
 
@@ -8489,7 +8511,13 @@ function pictureFields(data) {
   searchBase.className = 'wide-field';
   searchBase.spellcheck = false;
   searchBase.value = pictures.search_base || '';
-  form.appendChild(fieldRow('Endpoint', searchBase, ''));
+  form.appendChild(
+    fieldRow(
+      ZogographI18n.t('ai.images_endpoint', {}, 'Endpoint'),
+      searchBase,
+      '',
+    ),
+  );
 
   const searchRate = document.createElement('input');
   searchRate.type = 'number';

@@ -36435,99 +36435,19 @@ function externalLink(target) {
  * the violations that are genuinely ours. A real src gets its own policy.
  */
 function renderFetchPreview(data) {
-  const wrap = document.createDocumentFragment();
-
-  if (!data.preview_token) {
-    wrap.appendChild(
-      note(
-        ZogographI18n.t(
-          'fetch.preview_too_large',
-          {},
-          'That body is too large to preview. The raw view still has all of it.',
-        ),
-      ),
-    );
-    return wrap;
-  }
-
-  const tools = document.createElement('div');
-  tools.className = 'panel-tools';
-
-  const toggle = document.createElement('button');
-  toggle.className = 'link';
-  toggle.textContent = fetchState.images
-    ? ZogographI18n.t('fetch.strip_assets', {}, 'Strip it back to placeholders')
-    : ZogographI18n.t(
-        'fetch.load_assets',
-        {},
-        "Load the site's own pictures and styling",
-      );
-  toggle.title = fetchState.images
-    ? ZogographI18n.t(
-        'fetch.strip_assets_title',
-        {},
-        'Show it with no pictures and no stylesheets, the way a reader without them meets it',
-      )
-    : ZogographI18n.t(
-        'fetch.load_assets_title',
-        {},
-        'Fetch the images and stylesheets from the site — which tells it you are looking',
-      );
-  toggle.addEventListener('click', () => {
-    fetchState.images = !fetchState.images;
-    renderFetch(data);
-  });
-  tools.appendChild(toggle);
-  wrap.appendChild(tools);
-
-  const frame = document.createElement('iframe');
-  frame.className = 'preview-frame';
-  /*
-   * Sandboxed here as well as in the response's own header.
-   *
-   * Two independent statements of the same rule: the attribute holds even if
-   * the response were somehow served without its header, and the header holds
-   * even if the frame were reached another way. Neither grants
-   * allow-same-origin, so the page sits in an origin of its own and can
-   * neither read this document nor act as the signed-in user.
-   */
-  frame.setAttribute('sandbox', '');
-  frame.title = ZogographI18n.t(
-    'fetch.preview_title',
-    {},
-    'Preview of the response',
+  return renderCoreCardPackage(
+    ZogographFetchPreviewCard,
+    'core-fetch-preview',
+    { ...data, images: fetchState.images },
+    {
+      note,
+      toggleImages: () => {
+        fetchState.images = !fetchState.images;
+        renderFetch(data);
+      },
+      i18n: ZogographI18n,
+    },
   );
-  frame.src =
-    `preview.php?token=${encodeURIComponent(data.preview_token)}` +
-    `&images=${fetchState.images ? '1' : '0'}`;
-  wrap.appendChild(frame);
-
-  wrap.appendChild(
-    note(
-      fetchState.images
-        ? ZogographI18n.t(
-            'fetch.assets_external_notice',
-            {},
-            'Pictures and stylesheets are being fetched from the site itself, so it can see that somebody is looking. Scripts stay blocked.',
-          )
-        : ZogographI18n.t(
-            'fetch.assets_local_notice',
-            {},
-            'Nothing is being fetched from the site: pictures are replaced with placeholders carrying their alt text and the stylesheets are not loaded, so this is roughly what a reader without either would get. It also means the site is not told that you are looking at it.',
-          ),
-    ),
-  );
-  wrap.appendChild(
-    note(
-      ZogographI18n.t(
-        'fetch.sandbox_notice',
-        {},
-        'Rendered in a sandbox with no scripts, no forms and no access to this page, so it will not look exactly as it does in a browser — anything the page draws with JavaScript will be missing.',
-      ),
-    ),
-  );
-
-  return wrap;
 }
 
 /** What the page says it is: its title and every meta tag, grouped. */

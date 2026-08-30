@@ -46,6 +46,7 @@ export default [
         ZogographFetchMetadataCard: 'readonly',
         ZogographFetchJsonCard: 'readonly',
         ZogographFetchLinkedDataCard: 'readonly',
+        ZogographFetchPreviewCard: 'readonly',
         ZogographDatabaseSnapshotsCard: 'readonly',
         ZogographHostDatabaseStorageCard: 'readonly',
         ZogographAccountDatabaseStorageCard: 'readonly',

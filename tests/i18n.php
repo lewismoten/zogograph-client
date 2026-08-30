@@ -154,6 +154,9 @@ $fetchJsonCard = i18nCardSource(
 $fetchLinkedDataCard = i18nCardSource(
     file_get_contents($root . '/cards/fetch-linked-data.js'),
 );
+$fetchPreviewCard = i18nCardSource(
+    file_get_contents($root . '/cards/fetch-preview.js'),
+);
 $changeHistoryCard = i18nCardSource(
     file_get_contents($root . '/cards/change-history.js'),
 );
@@ -958,6 +961,21 @@ i18nExpect(
         ) &&
         str_contains($script, 'ZogographFetchLinkedDataCard,'),
     'fetch structured data are not isolated behind their core card-module boundary',
+);
+i18nExpect(
+    $page !== false &&
+        $script !== false &&
+        str_contains($page, 'src="cards/fetch-preview.js"') &&
+        str_contains($fetchPreviewCard, 'window.ZogographFetchPreviewCard') &&
+        str_contains($fetchPreviewCard, 'id: "core-fetch-preview"') &&
+        str_contains($fetchPreviewCard, 'locales: ["core-fetch-preview."]') &&
+        str_contains($fetchPreviewCard, 'catalogs: Object.freeze({') &&
+        str_contains(
+            $fetchPreviewCard,
+            '"core-fetch-preview.sandbox_notice"',
+        ) &&
+        str_contains($script, 'ZogographFetchPreviewCard,'),
+    'fetch preview is not isolated behind its core card-module boundary',
 );
 i18nExpect(
     $page !== false &&

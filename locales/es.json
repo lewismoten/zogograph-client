@@ -2838,6 +2838,7 @@
   "database.wal_mode": "Modo de diario: registro de escritura anticipada. ",
   "database.wal_link": "Cómo funciona SQLite WAL ↗",
   "database.wal_larger_warning": "El registro de escritura anticipada es mayor que la propia base de datos, lo que significa que no se ha realizado un punto de control desde hace un tiempo. No son datos perdidos: es la base de datos, pero conviene saberlo al comparar esta página con lo que dice ls.",
+  "fetch.preview_title": "Vista previa de la respuesta",
   "system.peers_title": "Servidores Zogograph de confianza",
   "system.peers_help": "Un servidor de confianza se configura explícitamente aquí y se comprueba mediante descubrimiento HTTPS de OpenID Connect. Guardarlo no comparte datos ni inicia sesión a nadie; esos pasos de código de autorización son deliberadamente independientes.",
   "system.marketplace_title": "Mercado",

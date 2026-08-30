@@ -38237,7 +38237,11 @@ function renderFetchPreview(data) {
    * neither read this document nor act as the signed-in user.
    */
   frame.setAttribute('sandbox', '');
-  frame.title = 'Preview of the response';
+  frame.title = ZogographI18n.t(
+    'fetch.preview_title',
+    {},
+    'Preview of the response',
+  );
   frame.src =
     `preview.php?token=${encodeURIComponent(data.preview_token)}` +
     `&images=${fetchState.images ? '1' : '0'}`;

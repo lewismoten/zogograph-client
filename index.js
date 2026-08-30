@@ -43087,7 +43087,6 @@ function renderCapSummary(data) {
         factGrid,
         note,
         ago,
-        pendingHostNote,
         i18n: ZogographI18n,
       },
     );

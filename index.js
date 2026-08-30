@@ -18867,11 +18867,15 @@ function databaseCard(file, projection) {
   meters.className = 'database-gauges';
   meters.appendChild(
     databaseGauge(
-      'Empty space',
+      ZogographI18n.t('database.empty_space', {}, 'Empty space'),
       Number(file.free_share || 0) * 100,
       25,
       50,
-      `${humanBytes(file.free_bytes)} can be reused before the file grows`,
+      ZogographI18n.t(
+        'database.empty_space_help',
+        { bytes: humanBytes(file.free_bytes) },
+        '{{bytes}} can be reused before the file grows',
+      ),
       null,
     ),
   );
@@ -18880,11 +18884,18 @@ function databaseCard(file, projection) {
       (Number(file.bytes || 0) / Number(projection.projected)) * 100;
     meters.appendChild(
       databaseGauge(
-        'File versus settles',
+        ZogographI18n.t('database.file_vs_settles', {}, 'File versus settles'),
         ratio,
         105,
         125,
-        `${humanBytes(file.bytes)} now · settles near ${humanBytes(projection.projected)}`,
+        ZogographI18n.t(
+          'database.file_vs_settles_help',
+          {
+            current: humanBytes(file.bytes),
+            projected: humanBytes(projection.projected),
+          },
+          '{{current}} now · settles near {{projected}}',
+        ),
         100,
       ),
     );

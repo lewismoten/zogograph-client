@@ -1,3 +1,4 @@
 {
-  "core-ai-inspect-current-page-html.summary": "Read a reviewed copy of the current page structure."
+  "core-ai-inspect-current-page-html.summary": "Read a reviewed copy of the current page structure.",
+  "core-ai-inspect-current-page-html.activity": "Reviewed the current page structure"
 }

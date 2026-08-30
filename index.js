@@ -4994,23 +4994,17 @@ function renderVitalCharts(rows, uptime) {
 }
 
 function renderCategoryChart(rows, categories) {
-  // Built from the categories the server actually has rules for, so adding one
-  // to the config puts it on the chart rather than collecting it invisibly.
-  const series = (categories ?? []).map((name) => ({
-    key: `${name}_bytes`,
-    label: name.charAt(0).toUpperCase() + name.slice(1),
-  }));
-
-  drawLineChart($('categoryChart'), rows, series, {
-    xKey: 'started_at',
-    axis: bytesAxis,
-    zeroBased: true,
-    empty: ZogographI18n.t(
-      'storage.no_scan_finished_range',
-      {},
-      'No scan has finished in this range yet',
-    ),
-  });
+  return renderCoreCardPackage(
+    ZogographCategoryChart,
+    'core-category-chart',
+    { rows, categories },
+    {
+      canvas: $('categoryChart'),
+      drawLineChart,
+      bytesAxis,
+      i18n: ZogographI18n,
+    },
+  );
 }
 
 async function refreshOffenders() {

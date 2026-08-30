@@ -29063,6 +29063,20 @@ function trimPercent(value) {
 /** Why the machine restarted, where root could find out. */
 function renderBootHistory(history) {
   const wrap = $('bootHistoryWrap');
+  if (window.ZogographBootHistoryCard) {
+    return renderCoreCardPackage(
+      ZogographBootHistoryCard,
+      'core-boot-history',
+      history,
+      {
+        wrap,
+        target: $('bootHistory'),
+        renderTable,
+        whenSpan,
+        i18n: ZogographI18n,
+      },
+    );
+  }
   if (!history) {
     wrap.hidden = true;
     return;

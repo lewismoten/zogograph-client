@@ -25545,10 +25545,18 @@ function rankedCell(text, rank, row) {
 
   if (rank?.first === row) {
     span.className = 'rank-first';
-    span.title = 'The largest in this column.';
+    span.title = ZogographI18n.t(
+      'process.rank_largest',
+      {},
+      'The largest in this column.',
+    );
   } else if (rank?.second === row) {
     span.className = 'rank-second';
-    span.title = 'The second largest in this column.';
+    span.title = ZogographI18n.t(
+      'process.rank_second_largest',
+      {},
+      'The second largest in this column.',
+    );
   }
 
   return span;
@@ -25573,13 +25581,21 @@ function processCpuCell(percent, cores) {
 
     const of = document.createElement('div');
     of.className = 'muted small';
-    of.textContent = cores
-      ? `${(percent / 100).toFixed(1)} of ${count(cores, 'core')}`
-      : `${(percent / 100).toFixed(1)} cores' worth`;
-    of.title =
-      'ps measures each process against one core, so anything threaded can ' +
-      'pass 100%. The CPU figure on the overview is a share of the whole machine ' +
-      'and is a different measurement.';
+    of.textContent = ZogographI18n.t(
+      cores ? 'process.cpu_cores' : 'process.cpu_cores_worth',
+      {
+        share: (percent / 100).toFixed(1),
+        cores: humanCount(cores),
+      },
+      cores
+        ? `${(percent / 100).toFixed(1)} of ${humanCount(cores)} cores`
+        : `${(percent / 100).toFixed(1)} cores' worth`,
+    );
+    of.title = ZogographI18n.t(
+      'process.cpu_help',
+      {},
+      'ps measures each process against one core, so anything threaded can pass 100%. The CPU figure on the overview is a share of the whole machine and is a different measurement.',
+    );
     wrap.appendChild(of);
   }
 
@@ -25598,7 +25614,11 @@ function processAge(row) {
   const said = document.createElement('span');
   said.textContent =
     row.procs > 1 && newest != null && newest * 8 < oldest && oldest > 600
-      ? `${age} · newest ${humanDuration(newest)}`
+      ? ZogographI18n.t(
+          'process.age_with_newest',
+          { age, newest: humanDuration(newest) },
+          `${age} · newest ${humanDuration(newest)}`,
+        )
       : age;
 
   /*
@@ -25613,15 +25633,35 @@ function processAge(row) {
    */
   const [band, why] =
     oldest < 5
-      ? ['age-new', 'Started just now.']
+      ? [
+          'age-new',
+          ZogographI18n.t('process.age_started_now', {}, 'Started just now.'),
+        ]
       : oldest < 3600
-        ? ['age-recent', 'Started within the hour.']
+        ? [
+            'age-recent',
+            ZogographI18n.t(
+              'process.age_started_hour',
+              {},
+              'Started within the hour.',
+            ),
+          ]
         : oldest < 86400
-          ? ['', 'Started today.']
+          ? [
+              '',
+              ZogographI18n.t(
+                'process.age_started_today',
+                {},
+                'Started today.',
+              ),
+            ]
           : [
               'age-old',
-              'Running for more than a day - a daemon, or something that never ' +
-                'finished.',
+              ZogographI18n.t(
+                'process.age_long_running',
+                {},
+                'Running for more than a day - a daemon, or something that never finished.',
+              ),
             ];
 
   if (band) said.className = band;

@@ -1406,8 +1406,6 @@
   "support.provider_message_help": "说明了已测量的内容，并且只请求安全的操作。它特意不会要求任何人删除备份目录中的任何内容。",
   "fetch.structured_data.none": "此页面未发布结构化数据。网站使用 application/ld+json 以机器可读的形式告诉搜索引擎页面的内容——文章、产品或组织——而许多网站根本没有这些数据。",
   "fetch.structured_data.untyped_entity": "未分类实体",
-  "fetch.json.invalid": "服务器将其称为 JSON，但它无法解析：{{error}}。原始视图中包含完全相同的收到内容。",
-  "fetch.json.truncated": "显示前 {{shown, number}} 行，共 {{total, number}} 行。原始视图中包含全部内容。",
   "capabilities.this_account": "此账户",
   "capabilities.this_account_or_host": "此账户或主机",
   "capabilities.command_unavailable": "{{command}} 不可供{{where}}使用。请以 root 身份执行：",

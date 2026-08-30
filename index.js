@@ -36591,36 +36591,12 @@ function renderFetchLinkedData(data) {
 
 /** A JSON response, formatted, numbered and coloured. */
 function renderFetchJson(data) {
-  const wrap = document.createDocumentFragment();
-  const parsed = data.json || {};
-
-  if (!parsed.ok) {
-    wrap.appendChild(
-      note(
-        ZogographI18n.t(
-          'fetch.json.invalid',
-          { error: parsed.error },
-          'The server called this JSON, but it does not parse: {{error}}. The raw view has exactly what arrived.',
-        ),
-      ),
-    );
-    return wrap;
-  }
-
-  if (parsed.truncated) {
-    wrap.appendChild(
-      note(
-        ZogographI18n.t(
-          'fetch.json.truncated',
-          { shown: parsed.lines.length, total: parsed.total },
-          'Showing the first {{shown, number}} of {{total, number}} lines. The raw view has all of it.',
-        ),
-      ),
-    );
-  }
-
-  wrap.appendChild(jsonBlock(parsed.lines));
-  return wrap;
+  return renderCoreCardPackage(
+    ZogographFetchJsonCard,
+    'core-fetch-json',
+    data,
+    { note, jsonBlock, i18n: ZogographI18n },
+  );
 }
 
 /**

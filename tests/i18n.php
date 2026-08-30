@@ -148,6 +148,9 @@ $fetchHeadersCard = i18nCardSource(
 $fetchMetadataCard = i18nCardSource(
     file_get_contents($root . '/cards/fetch-metadata.js'),
 );
+$fetchJsonCard = i18nCardSource(
+    file_get_contents($root . '/cards/fetch-json.js'),
+);
 $changeHistoryCard = i18nCardSource(
     file_get_contents($root . '/cards/change-history.js'),
 );
@@ -919,6 +922,18 @@ i18nExpect(
         ) &&
         str_contains($script, 'ZogographFetchMetadataCard,'),
     'fetch metadata are not isolated behind their core card-module boundary',
+);
+i18nExpect(
+    $page !== false &&
+        $script !== false &&
+        str_contains($page, 'src="cards/fetch-json.js"') &&
+        str_contains($fetchJsonCard, 'window.ZogographFetchJsonCard') &&
+        str_contains($fetchJsonCard, 'id: "core-fetch-json"') &&
+        str_contains($fetchJsonCard, 'locales: ["core-fetch-json."]') &&
+        str_contains($fetchJsonCard, 'catalogs: Object.freeze({') &&
+        str_contains($fetchJsonCard, '"core-fetch-json.truncated"') &&
+        str_contains($script, 'ZogographFetchJsonCard,'),
+    'fetch JSON is not isolated behind its core card-module boundary',
 );
 i18nExpect(
     $page !== false &&

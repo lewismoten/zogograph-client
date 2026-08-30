@@ -1,3 +1,5 @@
 {
-  "core-ai-get-busiest-processes.summary": "ما الذي يعمل وما الذي يستهلكه من موارد."
+  "core-ai-get-busiest-processes.summary": "ما الذي يعمل وما الذي يستهلكه من موارد.",
+  "core-ai-get-busiest-processes.activity_cpu": "اطلع على العمليات العاملة حسب استخدام المعالج",
+  "core-ai-get-busiest-processes.activity_memory": "اطلع على العمليات العاملة حسب استخدام الذاكرة"
 }

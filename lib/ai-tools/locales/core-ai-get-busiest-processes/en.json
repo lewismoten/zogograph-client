@@ -1,3 +1,5 @@
 {
-  "core-ai-get-busiest-processes.summary": "What is running and what it is using."
+  "core-ai-get-busiest-processes.summary": "What is running and what it is using.",
+  "core-ai-get-busiest-processes.activity_cpu": "Looked at what is running, by CPU use",
+  "core-ai-get-busiest-processes.activity_memory": "Looked at what is running, by memory use"
 }

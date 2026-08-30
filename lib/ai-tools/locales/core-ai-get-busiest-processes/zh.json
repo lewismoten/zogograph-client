@@ -1,3 +1,5 @@
 {
-  "core-ai-get-busiest-processes.summary": "正在运行什么，以及它使用了哪些资源。"
+  "core-ai-get-busiest-processes.summary": "正在运行什么，以及它使用了哪些资源。",
+  "core-ai-get-busiest-processes.activity_cpu": "按 CPU 使用情况查看了正在运行的进程",
+  "core-ai-get-busiest-processes.activity_memory": "按内存使用情况查看了正在运行的进程"
 }

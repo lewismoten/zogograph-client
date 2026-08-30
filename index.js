@@ -11261,12 +11261,19 @@ function chatToolPhrase({ tool, arguments: args, localeNamespace = '' }) {
   }[tool];
 
   if (localeNamespace) {
-    const activityKey =
+    const activityVariant =
       tool === 'find_largest_paths'
-        ? `${localeNamespace}activity_${
-            args.sort_by === 'growth' ? 'growth' : 'largest'
-          }`
-        : `${localeNamespace}activity`;
+        ? args.sort_by === 'growth'
+          ? 'growth'
+          : 'largest'
+        : tool === 'get_busiest_processes'
+          ? args.sort_by === 'memory'
+            ? 'memory'
+            : 'cpu'
+          : '';
+    const activityKey = activityVariant
+      ? `${localeNamespace}activity_${activityVariant}`
+      : `${localeNamespace}activity`;
     const values =
       tool === 'get_measurement_history'
         ? { measurement: args.measurement, hours: args.hours }

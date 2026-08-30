@@ -1,3 +1,5 @@
 {
-  "core-ai-get-busiest-processes.summary": "Qué se está ejecutando y qué recursos está usando."
+  "core-ai-get-busiest-processes.summary": "Qué se está ejecutando y qué recursos está usando.",
+  "core-ai-get-busiest-processes.activity_cpu": "Revisó lo que se está ejecutando, por uso de CPU",
+  "core-ai-get-busiest-processes.activity_memory": "Revisó lo que se está ejecutando, por uso de memoria"
 }

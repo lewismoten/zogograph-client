@@ -1,3 +1,5 @@
 {
-  "core-ai-get-busiest-processes.summary": "क्या चल रहा है और वह किन संसाधनों का उपयोग कर रहा है।"
+  "core-ai-get-busiest-processes.summary": "क्या चल रहा है और वह किन संसाधनों का उपयोग कर रहा है।",
+  "core-ai-get-busiest-processes.activity_cpu": "CPU उपयोग के अनुसार चल रही प्रक्रियाएँ देखीं",
+  "core-ai-get-busiest-processes.activity_memory": "मेमोरी उपयोग के अनुसार चल रही प्रक्रियाएँ देखीं"
 }

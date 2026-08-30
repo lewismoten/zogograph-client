@@ -24834,7 +24834,7 @@ function renderCaptureRequest(data) {
   form.appendChild(filter);
 
   const go = document.createElement("button");
-  go.textContent = "Ask for a capture";
+  go.textContent = ZogographI18n.t("action.request_capture", {}, "Ask for a capture");
   go.addEventListener("click", async () => {
     go.disabled = true;
     try {

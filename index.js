@@ -33890,10 +33890,16 @@ function inspectHistory(data) {
       ZogographI18n.t('storage.size_over_time', {}, 'Size over time'),
       note(
         history.recorded
-          ? 'Recorded, but only once so far \u2014 there is no change to draw yet.'
-          : 'This path is not one of the ones kept between scans. Only the biggest files ' +
-              'and directories, and the biggest of each category, are recorded each time; ' +
-              'everything else is measured and not stored.',
+          ? ZogographI18n.t(
+              'storage.history_recorded_once',
+              {},
+              'Recorded, but only once so far — there is no change to draw yet.',
+            )
+          : ZogographI18n.t(
+              'storage.history_not_recorded',
+              {},
+              'This path is not one of the ones kept between scans. Only the biggest files and directories, and the biggest of each category, are recorded each time; everything else is measured and not stored.',
+            ),
       ),
     );
   }

@@ -2165,6 +2165,8 @@
   "storage.preview": "معاينة",
   "storage.size_over_time": "الحجم بمرور الوقت",
   "storage.no_history": "لا سجل",
+  "storage.history_recorded_once": "سُجلت، لكن مرة واحدة فقط حتى الآن — لا تغيير لرسمه بعد.",
+  "storage.history_not_recorded": "هذا المسار ليس من المسارات المحفوظة بين الفحوصات. لا يُسجل في كل مرة إلا أكبر الملفات والأدلة، وأكبر عنصر من كل فئة؛ أما كل شيء آخر فيُقاس ولا يُخزن.",
   "storage.directory": "مجلد",
   "storage.file": "ملف",
   "storage.category": "الفئة",

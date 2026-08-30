@@ -2165,6 +2165,8 @@
   "storage.preview": "预览",
   "storage.size_over_time": "随时间变化的大小",
   "storage.no_history": "没有历史记录",
+  "storage.history_recorded_once": "已记录，但目前仅记录过一次——还没有可绘制的变化。",
+  "storage.history_not_recorded": "此路径不属于扫描之间保留的路径。每次只记录最大的文件和目录，以及每个类别中最大的项；其他所有内容都会测量但不存储。",
   "storage.directory": "目录",
   "storage.file": "文件",
   "storage.category": "类别",

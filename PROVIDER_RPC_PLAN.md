@@ -7,14 +7,14 @@ at runtime; the manifest and core both have to recognize it.
 
 ## Version 1 operation set
 
-| Operation | Signed capability | Data the worker may receive | Data it must not receive |
-| --- | --- | --- | --- |
-| `capability` | none | package id and an invocation id | settings, secrets, database paths, core handles |
-| `seal_envelope` | `key_provider` | fresh per-artifact data key and provider public information | local KEK, management/billing credential, other package data |
-| `store_ciphertext` | `ciphertext_replica` + `network_client` | already-sealed artifact bytes/digest and scoped client credential | plaintext store, artifact data key, recovery key |
-| `sqlcipher_preflight` | `live_database_encryption` + `storage_backend` | a disposable, core-created test database path in the package mount | selected live database, setup database, production key |
-| `custody_enrollment_check` | `key_provider` + `network_client` | enrolled-client bearer/signing key, configured endpoint, and optional public TLS pin | management/billing credential, artifact ID, any database path, envelope, or data key |
-| `custody_store_envelope` | `key_provider` + `network_client` | one 32-byte in-memory artifact DEK, configured custody-key and artifact IDs, enrolled-client pair | local KEK, plaintext, database path, management/billing credential, or returned envelope body |
+| Operation                  | Signed capability                              | Data the worker may receive                                                                       | Data it must not receive                                                                      |
+| -------------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `capability`               | none                                           | package id and an invocation id                                                                   | settings, secrets, database paths, core handles                                               |
+| `seal_envelope`            | `key_provider`                                 | fresh per-artifact data key and provider public information                                       | local KEK, management/billing credential, other package data                                  |
+| `store_ciphertext`         | `ciphertext_replica` + `network_client`        | already-sealed artifact bytes/digest and scoped client credential                                 | plaintext store, artifact data key, recovery key                                              |
+| `sqlcipher_preflight`      | `live_database_encryption` + `storage_backend` | a disposable, core-created test database path in the package mount                                | selected live database, setup database, production key                                        |
+| `custody_enrollment_check` | `key_provider` + `network_client`              | enrolled-client bearer/signing key, configured endpoint, and optional public TLS pin              | management/billing credential, artifact ID, any database path, envelope, or data key          |
+| `custody_store_envelope`   | `key_provider` + `network_client`              | one 32-byte in-memory artifact DEK, configured custody-key and artifact IDs, enrolled-client pair | local KEK, plaintext, database path, management/billing credential, or returned envelope body |
 
 `capability`, the SQLCipher-only `sqlcipher_preflight`, and the custody
 credential-only `custody_enrollment_check`, and the separately launcher-gated

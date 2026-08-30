@@ -42,7 +42,7 @@ function eventRepeats(): array
 
 function eventSave(PDO $pdo, array $input): int
 {
-    $title = trim((string)($input['title'] ?? ''));
+    $title = trim((string) ($input['title'] ?? ''));
     if ($title === '') {
         throw new ActionRefused('an event needs a title');
     }
@@ -50,49 +50,52 @@ function eventSave(PDO $pdo, array $input): int
         throw new ActionRefused('that title is too long');
     }
 
-    $when = trim((string)($input['at'] ?? ''));
+    $when = trim((string) ($input['at'] ?? ''));
     $at = strtotime($when);
     if ($at === false) {
         throw new ActionRefused('that is not a date this understands');
     }
 
-    $repeats = (string)($input['repeats'] ?? 'once');
+    $repeats = (string) ($input['repeats'] ?? 'once');
     if (!isset(eventRepeats()[$repeats])) {
         throw new ActionRefused('that is not one of the repeat options');
     }
 
-    $link = trim((string)($input['link'] ?? ''));
+    $link = trim((string) ($input['link'] ?? ''));
     if ($link !== '') {
         $parts = parse_url($link);
-        if ($parts === false || !in_array($parts['scheme'] ?? '', ['http', 'https'], true)) {
+        if (
+            $parts === false ||
+            !in_array($parts['scheme'] ?? '', ['http', 'https'], true)
+        ) {
             throw new ActionRefused('a link has to be an http or https URL');
         }
     }
 
-    $id = (int)($input['id'] ?? 0);
+    $id = (int) ($input['id'] ?? 0);
     $fields = [
         $title,
         $at,
         $repeats,
         $link === '' ? null : $link,
-        trim((string)($input['note'] ?? '')) ?: null,
+        trim((string) ($input['note'] ?? '')) ?: null,
         empty($input['priority']) ? 0 : 1,
     ];
 
     if ($id > 0) {
         $pdo->prepare(
             'UPDATE events SET title = ?, at = ?, repeats = ?, link = ?, note = ?, priority = ?
-              WHERE id = ?'
+              WHERE id = ?',
         )->execute([...$fields, $id]);
         return $id;
     }
 
     $pdo->prepare(
         'INSERT INTO events (title, at, repeats, link, note, priority, added_at)
-         VALUES (?, ?, ?, ?, ?, ?, ?)'
+         VALUES (?, ?, ?, ?, ?, ?, ?)',
     )->execute([...$fields, time()]);
 
-    return (int)$pdo->lastInsertId();
+    return (int) $pdo->lastInsertId();
 }
 
 /**
@@ -116,8 +119,8 @@ function eventOccurrences(PDO $pdo, int $from, int $to): array
     $out = [];
 
     foreach ($rows as $row) {
-        $at = (int)$row['at'];
-        $repeats = (string)$row['repeats'];
+        $at = (int) $row['at'];
+        $repeats = (string) $row['repeats'];
 
         if ($repeats === 'once') {
             if ($at >= $from && $at <= $to) {
@@ -170,35 +173,35 @@ function addMonths(int $at, int $months): int
         return $at;
     }
 
-    $day = (int)date('j', $at);
-    $target = (int)strtotime(sprintf('first day of %+d months', $months), $at);
+    $day = (int) date('j', $at);
+    $target = (int) strtotime(sprintf('first day of %+d months', $months), $at);
 
-    $lastDay = (int)date('t', $target);
+    $lastDay = (int) date('t', $target);
     $useDay = min($day, $lastDay);
 
-    return (int)mktime(
-        (int)date('G', $at),
-        (int)date('i', $at),
-        (int)date('s', $at),
-        (int)date('n', $target),
+    return (int) mktime(
+        (int) date('G', $at),
+        (int) date('i', $at),
+        (int) date('s', $at),
+        (int) date('n', $target),
         $useDay,
-        (int)date('Y', $target)
+        (int) date('Y', $target),
     );
 }
 
 function eventOccurrence(array $row, int $at): array
 {
-    $resolved = (int)($row['resolved_at'] ?? 0);
+    $resolved = (int) ($row['resolved_at'] ?? 0);
 
     return [
-        'id' => (int)$row['id'],
+        'id' => (int) $row['id'],
         'kind' => 'event',
-        'title' => (string)$row['title'],
+        'title' => (string) $row['title'],
         'at' => $at,
-        'repeats' => (string)$row['repeats'],
+        'repeats' => (string) $row['repeats'],
         'link' => $row['link'],
         'note' => $row['note'],
-        'priority' => (bool)$row['priority'],
+        'priority' => (bool) $row['priority'],
         /*
          * A resolution only covers occurrences it could have been about.
          *
@@ -219,14 +222,22 @@ function eventOccurrence(array $row, int $at): array
 function calendarEntries(array $config, PDO $pdo): array
 {
     $now = time();
-    $from = (int)strtotime(CALENDAR_BACK_MONTHS . ' months ago midnight');
-    $to = (int)strtotime('+' . CALENDAR_FORWARD_MONTHS . ' months last day of this month 23:59:59');
+    $from = (int) strtotime(CALENDAR_BACK_MONTHS . ' months ago midnight');
+    $to = (int) strtotime(
+        '+' .
+            CALENDAR_FORWARD_MONTHS .
+            ' months last day of this month 23:59:59',
+    );
 
     $entries = [];
 
     foreach (eventOccurrences($pdo, $from, $to) as $event) {
         $entries[] = $event + [
-            'level' => $event['resolved'] ? 'done' : ($event['priority'] ? 'warn' : 'info'),
+            'level' => $event['resolved']
+                ? 'done'
+                : ($event['priority']
+                    ? 'warn'
+                    : 'info'),
         ];
     }
 
@@ -235,16 +246,25 @@ function calendarEntries(array $config, PDO $pdo): array
         // have no readable WHOIS expiry (or one far outside this window) while
         // its HTTPS certificate needs renewal this week.
         $certificate = $domain['certificate_expires_at'] ?? null;
-        if ($certificate !== null && (int)$certificate >= $from && (int)$certificate <= $to) {
-            $left = (int)$certificate - $now;
+        if (
+            $certificate !== null &&
+            (int) $certificate >= $from &&
+            (int) $certificate <= $to
+        ) {
+            $left = (int) $certificate - $now;
             $entries[] = [
                 'kind' => 'certificate',
-                'id' => (int)$domain['id'],
+                'id' => (int) $domain['id'],
                 'title' => $domain['name'] . ' HTTPS certificate expires',
-                'at' => (int)$certificate,
-                'level' => $left < 0 || $left <= 7 * 86400 ? 'error'
-                    : ($left <= 30 * 86400 ? 'warn' : 'info'),
-                'note' => 'Read from the HTTPS endpoint on the last domain check.',
+                'at' => (int) $certificate,
+                'level' =>
+                    $left < 0 || $left <= 7 * 86400
+                        ? 'error'
+                        : ($left <= 30 * 86400
+                            ? 'warn'
+                            : 'info'),
+                'note' =>
+                    'Read from the HTTPS endpoint on the last domain check.',
                 'link' => null,
                 'priority' => $left <= 30 * 86400,
                 'resolved' => false,
@@ -252,29 +272,37 @@ function calendarEntries(array $config, PDO $pdo): array
             ];
         }
 
-        if ($domain['expires_at'] === null
-            || $domain['expires_at'] < $from || $domain['expires_at'] > $to) {
+        if (
+            $domain['expires_at'] === null ||
+            $domain['expires_at'] < $from ||
+            $domain['expires_at'] > $to
+        ) {
             continue;
         }
 
         $entries[] = [
             'kind' => 'domain',
-            'id' => (int)$domain['id'],
+            'id' => (int) $domain['id'],
             'title' => $domain['name'] . ' expires',
-            'at' => (int)$domain['expires_at'],
+            'at' => (int) $domain['expires_at'],
             'level' => match ($domain['state']) {
                 'expired' => 'error',
                 'urgent' => 'error',
                 'soon' => 'warn',
                 default => 'info',
             },
-            'note' => $domain['registrar'] ? 'Registered through ' . $domain['registrar'] : null,
+            'note' => $domain['registrar']
+                ? 'Registered through ' . $domain['registrar']
+                : null,
             'link' => null,
-            'priority' => in_array($domain['state'], ['expired', 'urgent'], true),
+            'priority' => in_array(
+                $domain['state'],
+                ['expired', 'urgent'],
+                true,
+            ),
             'resolved' => false,
             'view' => 'domains',
         ];
-
     }
 
     /*
@@ -292,8 +320,9 @@ function calendarEntries(array $config, PDO $pdo): array
             'title' => 'Disk projected to be full',
             'at' => $projection,
             'level' => $projection < time() + 14 * 86400 ? 'error' : 'warn',
-            'note' => 'From the trend over the last day. It moves as the trend does, and a '
-                . 'single large delete will push it out again.',
+            'note' =>
+                'From the trend over the last day. It moves as the trend does, and a ' .
+                'single large delete will push it out again.',
             'link' => null,
             'priority' => true,
             'resolved' => false,
@@ -312,15 +341,15 @@ function calendarEntries(array $config, PDO $pdo): array
         $stmt = $pdo->prepare(
             "SELECT id, raised_at, severity, subject FROM alerts
               WHERE raised_at BETWEEN ? AND ? AND severity = 'critical'
-              ORDER BY raised_at DESC LIMIT 200"
+              ORDER BY raised_at DESC LIMIT 200",
         );
         $stmt->execute([$from, time()]);
         foreach ($stmt->fetchAll() as $alert) {
             $entries[] = [
                 'kind' => 'alert',
-                'id' => (int)$alert['id'],
-                'title' => (string)$alert['subject'],
-                'at' => (int)$alert['raised_at'],
+                'id' => (int) $alert['id'],
+                'title' => (string) $alert['subject'],
+                'at' => (int) $alert['raised_at'],
                 'level' => 'past',
                 'note' => null,
                 'link' => null,
@@ -344,19 +373,20 @@ function calendarEntries(array $config, PDO $pdo): array
         if ($host !== null) {
             $boots = $host->prepare(
                 'SELECT booted_at, kernel, ended FROM host_boots
-                  WHERE booted_at BETWEEN ? AND ? ORDER BY booted_at DESC LIMIT 100'
+                  WHERE booted_at BETWEEN ? AND ? ORDER BY booted_at DESC LIMIT 100',
             );
             $boots->execute([$from, time()]);
             foreach ($boots->fetchAll() as $boot) {
                 $entries[] = [
                     'kind' => 'reset',
-                    'id' => (int)$boot['booted_at'],
+                    'id' => (int) $boot['booted_at'],
                     'title' => 'Host restarted',
-                    'at' => (int)$boot['booted_at'],
+                    'at' => (int) $boot['booted_at'],
                     'level' => 'past',
-                    'note' => trim((string)($boot['ended'] ?? '')) ?: (
-                        trim((string)($boot['kernel'] ?? '')) ?: null
-                    ),
+                    'note' =>
+                        trim((string) ($boot['ended'] ?? '')) ?:
+                        (trim((string) ($boot['kernel'] ?? '')) ?:
+                        null),
                     'link' => null,
                     'priority' => false,
                     'resolved' => false,
@@ -375,10 +405,14 @@ function calendarEntries(array $config, PDO $pdo): array
     }
 
     $now = time();
-    $upcoming = array_values(array_filter(
-        $entries,
-        fn(array $e): bool => $e['at'] >= $now && $e['level'] !== 'past' && !$e['resolved']
-    ));
+    $upcoming = array_values(
+        array_filter(
+            $entries,
+            fn(array $e): bool => $e['at'] >= $now &&
+                $e['level'] !== 'past' &&
+                !$e['resolved'],
+        ),
+    );
     usort($upcoming, fn(array $a, array $b): int => $a['at'] <=> $b['at']);
 
     /*
@@ -390,14 +424,16 @@ function calendarEntries(array $config, PDO $pdo): array
      * every occurrence; this shows the next one of each.
      */
     $seen = [];
-    $upcoming = array_values(array_filter($upcoming, function (array $e) use (&$seen): bool {
-        $key = $e['kind'] . ':' . $e['id'];
-        if (isset($seen[$key])) {
-            return false;
-        }
-        $seen[$key] = true;
-        return true;
-    }));
+    $upcoming = array_values(
+        array_filter($upcoming, function (array $e) use (&$seen): bool {
+            $key = $e['kind'] . ':' . $e['id'];
+            if (isset($seen[$key])) {
+                return false;
+            }
+            $seen[$key] = true;
+            return true;
+        }),
+    );
 
     return [
         'from' => $from,
@@ -420,7 +456,7 @@ function diskProjection(PDO $pdo): ?int
     try {
         $rows = $pdo->prepare(
             'SELECT taken_at, disk_free_bytes FROM vitals
-              WHERE taken_at >= ? AND disk_free_bytes IS NOT NULL ORDER BY taken_at'
+              WHERE taken_at >= ? AND disk_free_bytes IS NOT NULL ORDER BY taken_at',
         );
         $rows->execute([time() - 86400]);
         $trend = seriesTrend($rows->fetchAll(), 'disk_free_bytes');
@@ -428,11 +464,15 @@ function diskProjection(PDO $pdo): ?int
         return null;
     }
 
-    if ($trend === null || empty($trend['sustained']) || ($trend['seconds_left'] ?? null) === null) {
+    if (
+        $trend === null ||
+        empty($trend['sustained']) ||
+        ($trend['seconds_left'] ?? null) === null
+    ) {
         return null;
     }
 
-    return time() + (int)$trend['seconds_left'];
+    return time() + (int) $trend['seconds_left'];
 }
 
 /**
@@ -463,10 +503,14 @@ function pressingEvents(array $config, PDO $pdo, int $withinDays = 14): array
         }
         $out[] = [
             'kind' => 'domain',
-            'title' => $domain['state'] === 'expired'
-                ? $domain['name'] . ' has expired'
-                : $domain['name'] . ' expires in ' . $domain['days_left'] . ' days',
-            'at' => (int)$domain['expires_at'],
+            'title' =>
+                $domain['state'] === 'expired'
+                    ? $domain['name'] . ' has expired'
+                    : $domain['name'] .
+                        ' expires in ' .
+                        $domain['days_left'] .
+                        ' days',
+            'at' => (int) $domain['expires_at'],
             'priority' => true,
             'resolved' => false,
             'note' => $domain['registrar'],

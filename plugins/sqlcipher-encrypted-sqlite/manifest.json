@@ -25,7 +25,10 @@
   "compatibility": {
     "min_php": "8.1.0",
     "requires_extensions": ["pdo", "pdo_sqlite"],
-    "requires_runtime_capability": ["encrypted_sqlite_driver", "isolated_package_runtime"]
+    "requires_runtime_capability": [
+      "encrypted_sqlite_driver",
+      "isolated_package_runtime"
+    ]
   },
   "integrity": {
     "algorithm": "sha256",

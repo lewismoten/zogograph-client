@@ -33,11 +33,11 @@ require_once __DIR__ . '/db.php';
 /** Where it lives: beside the other two, which .htaccess already denies. */
 function aiDatabasePath(array $config): string
 {
-    $configured = (string)($config['ai']['database'] ?? '');
+    $configured = (string) ($config['ai']['database'] ?? '');
     if ($configured !== '') {
         return $configured;
     }
-    return dirname((string)$config['database']) . '/ai.db';
+    return dirname((string) $config['database']) . '/ai.db';
 }
 
 /**
@@ -69,29 +69,31 @@ function aiDb(array $config, bool $forWriting = true): ?PDO
         $fresh = !is_file($path);
         $previousUmask = umask(0077);
         try {
-        $pdo = new PDO('sqlite:' . $path, null, null, [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        ]);
+            $pdo = new PDO('sqlite:' . $path, null, null, [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            ]);
 
-        $pdo->exec('PRAGMA journal_mode = WAL');
-        $pdo->exec('PRAGMA foreign_keys = ON');
-        /*
-         * A short busy timeout, because this is polled hard.
-         *
-         * Several requests a second read this file while a conversation is
-         * running. Without a timeout a reader that meets a writer fails
-         * immediately, and the chat window shows an error for something that
-         * would have succeeded a millisecond later.
-         */
-        $pdo->exec('PRAGMA busy_timeout = 3000');
+            $pdo->exec('PRAGMA journal_mode = WAL');
+            $pdo->exec('PRAGMA foreign_keys = ON');
+            /*
+             * A short busy timeout, because this is polled hard.
+             *
+             * Several requests a second read this file while a conversation is
+             * running. Without a timeout a reader that meets a writer fails
+             * immediately, and the chat window shows an error for something that
+             * would have succeeded a millisecond later.
+             */
+            $pdo->exec('PRAGMA busy_timeout = 3000');
 
-        aiMigrate($pdo, $fresh);
-        aiPrivateSqliteFiles($path);
+            aiMigrate($pdo, $fresh);
+            aiPrivateSqliteFiles($path);
 
-        $handle = $pdo;
-        return $handle;
-        } finally { umask($previousUmask); }
+            $handle = $pdo;
+            return $handle;
+        } finally {
+            umask($previousUmask);
+        }
     } catch (Throwable) {
         return null;
     }
@@ -100,16 +102,23 @@ function aiDb(array $config, bool $forWriting = true): ?PDO
 /** Assistant transcripts and journals remain private to the web account. */
 function aiPrivateSqliteFiles(string $path): void
 {
-    foreach ([$path, $path . '-wal', $path . '-shm'] as $file) if (is_file($file) && !is_link($file)) @chmod($file, 0600);
+    foreach ([$path, $path . '-wal', $path . '-shm'] as $file) {
+        if (is_file($file) && !is_link($file)) {
+            @chmod($file, 0600);
+        }
+    }
 }
 
 function aiMigrate(PDO $pdo, bool $fresh = false): void
 {
-    $at = (int)$pdo->query('PRAGMA user_version')->fetchColumn();
+    $at = (int) $pdo->query('PRAGMA user_version')->fetchColumn();
 
     $steps = aiMigrations();
     ksort($steps);
-    $pending = array_filter(array_keys($steps), fn(int $version): bool => $version > $at);
+    $pending = array_filter(
+        array_keys($steps),
+        fn(int $version): bool => $version > $at,
+    );
     if (!$fresh && $pending !== []) {
         migrationBackup($pdo, $at, min($pending));
     }
@@ -123,7 +132,7 @@ function aiMigrate(PDO $pdo, bool $fresh = false): void
             foreach ($statements as $sql) {
                 $pdo->exec($sql);
             }
-            $pdo->exec('PRAGMA user_version = ' . (int)$version);
+            $pdo->exec('PRAGMA user_version = ' . (int) $version);
             $pdo->commit();
         } catch (Throwable $e) {
             $pdo->rollBack();
@@ -283,7 +292,7 @@ function aiMigrations(): array
              * screen it cannot see, and "check the Disk I/O page" is wasted
              * breath when they are already on it.
              */
-            "ALTER TABLE ai_sessions ADD COLUMN viewing TEXT",
+            'ALTER TABLE ai_sessions ADD COLUMN viewing TEXT',
 
             /*
              * How hard to think, per conversation.
@@ -292,7 +301,7 @@ function aiMigrations(): array
              * one. Most questions do not need the expensive setting and the
              * person asking usually knows which theirs is.
              */
-            "ALTER TABLE ai_sessions ADD COLUMN effort TEXT",
+            'ALTER TABLE ai_sessions ADD COLUMN effort TEXT',
         ],
 
         4 => [
@@ -332,7 +341,7 @@ function aiMigrations(): array
              * actually sent - so the transcript builder needs to know which
              * ones to skip and what to put in their place.
              */
-            "ALTER TABLE ai_sessions ADD COLUMN compacted_to INTEGER NOT NULL DEFAULT 0",
+            'ALTER TABLE ai_sessions ADD COLUMN compacted_to INTEGER NOT NULL DEFAULT 0',
         ],
 
         5 => [
@@ -359,7 +368,7 @@ function aiMigrations(): array
             'CREATE INDEX ai_assets_image ON ai_assets (image_id)',
 
             // What one image cost, so a session total can include it.
-            "ALTER TABLE ai_images ADD COLUMN millicents INTEGER NOT NULL DEFAULT 0",
+            'ALTER TABLE ai_images ADD COLUMN millicents INTEGER NOT NULL DEFAULT 0',
         ],
 
         6 => [
@@ -394,7 +403,7 @@ function aiMigrations(): array
              * A column rather than a convention, because "is this title mine"
              * cannot be answered by looking at the text.
              */
-            "ALTER TABLE ai_sessions ADD COLUMN title_by TEXT",
+            'ALTER TABLE ai_sessions ADD COLUMN title_by TEXT',
         ],
 
         8 => [
@@ -441,8 +450,10 @@ function aiDatabaseFacts(array $config): array
     return [
         'path' => $path,
         'exists' => is_file($path),
-        'bytes' => is_file($path) ? (int)filesize($path) : 0,
-        'wal_bytes' => is_file($path . '-wal') ? (int)filesize($path . '-wal') : 0,
+        'bytes' => is_file($path) ? (int) filesize($path) : 0,
+        'wal_bytes' => is_file($path . '-wal')
+            ? (int) filesize($path . '-wal')
+            : 0,
         'writable' => is_writable(is_file($path) ? $path : dirname($path)),
     ];
 }
@@ -470,7 +481,8 @@ function aiStoreReport(array $config): array
     ];
 
     if (!$facts['exists']) {
-        $out['why'] = 'Nothing has been asked yet, so there is no database to look at.';
+        $out['why'] =
+            'Nothing has been asked yet, so there is no database to look at.';
         return $out;
     }
 
@@ -489,7 +501,9 @@ function aiStoreReport(array $config): array
      * whole report on that one key, and losing it made a database with a
      * conversation in it render as "nothing has been asked yet".
      */
-    $out['file'] = databaseFacts($pdo, $config, $facts['path']) + ['exists' => true];
+    $out['file'] = databaseFacts($pdo, $config, $facts['path']) + [
+        'exists' => true,
+    ];
     $store = storeTables($pdo);
     $out['tables'] = $store['tables'];
     $out['measured'] = $store['measured'];
@@ -522,36 +536,41 @@ function aiStoreKinds(): array
             'table' => 'ai_sessions',
             'when' => 'started_at',
             'label' => 'Conversations',
-            'note' => 'One per conversation, with what it cost. Deleting one takes its '
-                . 'messages and tool runs with it.',
+            'note' =>
+                'One per conversation, with what it cost. Deleting one takes its ' .
+                'messages and tool runs with it.',
         ],
         'messages' => [
             'table' => 'ai_messages',
             'when' => 'at',
             'label' => 'Messages',
-            'note' => 'Every turn in both directions, including the tool results that '
-                . 'went back to the model. This is the record of what left the machine.',
+            'note' =>
+                'Every turn in both directions, including the tool results that ' .
+                'went back to the model. This is the record of what left the machine.',
         ],
         'calls' => [
             'table' => 'ai_calls',
             'when' => 'at',
             'label' => 'Requests to the provider',
-            'note' => 'One per round trip, with the token counts each one was billed '
-                . 'for. What the cost figures are added up from.',
+            'note' =>
+                'One per round trip, with the token counts each one was billed ' .
+                'for. What the cost figures are added up from.',
         ],
         'tool_runs' => [
             'table' => 'ai_tool_runs',
             'when' => 'at',
             'label' => 'Tool runs',
-            'note' => 'Every tool the model asked for, what it was given, and what came '
-                . 'back. Kept so an answer can be checked against what it was based on.',
+            'note' =>
+                'Every tool the model asked for, what it was given, and what came ' .
+                'back. Kept so an answer can be checked against what it was based on.',
         ],
         'images' => [
             'table' => 'ai_images',
             'when' => 'at',
             'label' => 'Pictures',
-            'note' => 'What was asked for and where the result was put. The pictures '
-                . 'themselves live at the provider, not here.',
+            'note' =>
+                'What was asked for and where the result was put. The pictures ' .
+                'themselves live at the provider, not here.',
         ],
     ];
 }
@@ -565,20 +584,24 @@ function aiStoreCount(PDO $pdo, string $table, string $column): array
      * only safe source for them is code.
      */
     try {
-        $row = $pdo->query(sprintf(
-            'SELECT COUNT(*) AS n, MIN(%s) AS oldest, MAX(%s) AS newest FROM %s',
-            $column,
-            $column,
-            $table
-        ))->fetch();
+        $row = $pdo
+            ->query(
+                sprintf(
+                    'SELECT COUNT(*) AS n, MIN(%s) AS oldest, MAX(%s) AS newest FROM %s',
+                    $column,
+                    $column,
+                    $table,
+                ),
+            )
+            ->fetch();
     } catch (Throwable) {
         return ['rows' => 0, 'oldest' => null, 'newest' => null];
     }
 
     return [
-        'rows' => (int)($row['n'] ?? 0),
-        'oldest' => $row['oldest'] === null ? null : (int)$row['oldest'],
-        'newest' => $row['newest'] === null ? null : (int)$row['newest'],
+        'rows' => (int) ($row['n'] ?? 0),
+        'oldest' => $row['oldest'] === null ? null : (int) $row['oldest'],
+        'newest' => $row['newest'] === null ? null : (int) $row['newest'],
     ];
 }
 
@@ -598,7 +621,7 @@ function aiForget(PDO $pdo, int $olderThanDays): array
         throw new ActionRefused('that is not a number of days');
     }
 
-    $before = time() - ($olderThanDays * 86400);
+    $before = time() - $olderThanDays * 86400;
 
     /*
      * Pinned conversations are never swept.
@@ -608,7 +631,7 @@ function aiForget(PDO $pdo, int $olderThanDays): array
      * all: somebody would rely on it and lose the thing anyway.
      */
     $stmt = $pdo->prepare(
-        'SELECT id FROM ai_sessions WHERE last_at < ? AND COALESCE(pinned, 0) = 0'
+        'SELECT id FROM ai_sessions WHERE last_at < ? AND COALESCE(pinned, 0) = 0',
     );
     $stmt->execute([$before]);
     $ids = $stmt->fetchAll(PDO::FETCH_COLUMN);
@@ -626,16 +649,22 @@ function aiForget(PDO $pdo, int $olderThanDays): array
      */
     $marks = implode(',', array_fill(0, count($ids), '?'));
 
-    foreach (['ai_messages', 'ai_calls', 'ai_tool_runs', 'ai_images'] as $table) {
+    foreach (
+        ['ai_messages', 'ai_calls', 'ai_tool_runs', 'ai_images']
+        as $table
+    ) {
         try {
-            $pdo->prepare("DELETE FROM {$table} WHERE session_id IN ({$marks})")
-                ->execute($ids);
+            $pdo->prepare(
+                "DELETE FROM {$table} WHERE session_id IN ({$marks})",
+            )->execute($ids);
         } catch (Throwable) {
             // A table that is not there yet has nothing to remove from it.
         }
     }
 
-    $pdo->prepare("DELETE FROM ai_sessions WHERE id IN ({$marks})")->execute($ids);
+    $pdo->prepare("DELETE FROM ai_sessions WHERE id IN ({$marks})")->execute(
+        $ids,
+    );
 
     return ['sessions' => count($ids), 'before' => $before];
 }

@@ -67,11 +67,33 @@ const SIGNAL_GROUP_MAX = 40;
  * else thought was infrastructure.
  */
 const PROTECTED_NAMES_DEFAULT = [
-    'init', 'systemd', 'launchd', 'kthreadd',
-    'sshd', 'bash', 'sh', 'zsh', 'dash', 'login', 'tmux', 'screen',
-    'cron', 'crond', 'cpsrvd', 'cpanel',
-    'httpd', 'nginx', 'apache2', 'php-fpm', 'lsphp', 'litespeed',
-    'mysqld', 'mariadbd', 'exim', 'dovecot', 'named',
+    'init',
+    'systemd',
+    'launchd',
+    'kthreadd',
+    'sshd',
+    'bash',
+    'sh',
+    'zsh',
+    'dash',
+    'login',
+    'tmux',
+    'screen',
+    'cron',
+    'crond',
+    'cpsrvd',
+    'cpanel',
+    'httpd',
+    'nginx',
+    'apache2',
+    'php-fpm',
+    'lsphp',
+    'litespeed',
+    'mysqld',
+    'mariadbd',
+    'exim',
+    'dovecot',
+    'named',
 ];
 
 /**
@@ -100,7 +122,8 @@ function signalsAvailable(array $config): array
 
     return [
         'available' => false,
-        'reason' => 'This host allows neither the posix extension nor shell commands from PHP.',
+        'reason' =>
+            'This host allows neither the posix extension nor shell commands from PHP.',
         'how' => null,
     ];
 }
@@ -120,25 +143,30 @@ function processFacts(int $pid): ?array
     }
 
     // `state` is spelled the same on procps and BSD, unlike most of `ps`.
-    $out = shellRead(sprintf('ps -p %d -o pid=,ppid=,user=,etime=,state=,args= 2>/dev/null', $pid));
+    $out = shellRead(
+        sprintf(
+            'ps -p %d -o pid=,ppid=,user=,etime=,state=,args= 2>/dev/null',
+            $pid,
+        ),
+    );
     if ($out === null || trim($out) === '') {
         return null;
     }
 
-    $line = trim((string)strtok(trim($out), "\n"));
+    $line = trim((string) strtok(trim($out), "\n"));
     $parts = preg_split('/\s+/', $line, 6);
     if (!$parts || count($parts) < 6) {
         return null;
     }
 
     [$got, $ppid, $user, $etime, $state, $args] = $parts;
-    if ((int)$got !== $pid) {
+    if ((int) $got !== $pid) {
         return null;
     }
 
     return [
         'pid' => $pid,
-        'ppid' => (int)$ppid,
+        'ppid' => (int) $ppid,
         'user' => $user,
         'elapsed' => parseElapsed($etime),
         'state' => $state,
@@ -169,7 +197,11 @@ function ownAncestry(): array
     while ($pid > 1 && $hops++ < 40) {
         $chain[$pid] = true;
         $facts = processFacts($pid);
-        if ($facts === null || $facts['ppid'] < 1 || isset($chain[$facts['ppid']])) {
+        if (
+            $facts === null ||
+            $facts['ppid'] < 1 ||
+            isset($chain[$facts['ppid']])
+        ) {
             break;
         }
         $pid = $facts['ppid'];
@@ -184,7 +216,7 @@ function currentUser(): ?string
     if (function_exists('posix_geteuid') && function_exists('posix_getpwuid')) {
         $info = @posix_getpwuid(posix_geteuid());
         if (is_array($info) && isset($info['name'])) {
-            return (string)$info['name'];
+            return (string) $info['name'];
         }
     }
 
@@ -200,37 +232,48 @@ function currentUser(): ?string
  * The order runs cheapest and most absolute first, so that "you may not signal
  * pid 1" never depends on being able to read a process table.
  */
-function guardSignal(array $config, array $facts, array $ancestry, ?string $me): void
-{
+function guardSignal(
+    array $config,
+    array $facts,
+    array $ancestry,
+    ?string $me,
+): void {
     // Only pid, name and user are read, so a partial row from a process listing
     // is as good as a full one from processFacts().
-    $pid = (int)$facts['pid'];
+    $pid = (int) $facts['pid'];
 
     if ($pid <= 1) {
         throw new ActionRefused('pid 1 is the machine itself.');
     }
     if (isset($ancestry[$pid])) {
         throw new ActionRefused(
-            'that process is this dashboard, or something it is running inside. '
-            . 'Stopping it would kill the request answering you.'
+            'that process is this dashboard, or something it is running inside. ' .
+                'Stopping it would kill the request answering you.',
         );
     }
 
     $protected = $config['processes']['protect'] ?? PROTECTED_NAMES_DEFAULT;
     // The bare executable, so that `php cron.php` is matched by `php` only if
     // somebody actually protected `php` - and `sshd: user@pts/0` by `sshd`.
-    $bare = strtolower((string)preg_split('/[\s:]/', $facts['name'])[0]);
+    $bare = strtolower((string) preg_split('/[\s:]/', $facts['name'])[0]);
     foreach ($protected as $name) {
-        if ($bare === strtolower(trim((string)$name))) {
+        if ($bare === strtolower(trim((string) $name))) {
             throw new ActionRefused(
-                sprintf('“%s” is on the protected list in the config.', $facts['name'])
+                sprintf(
+                    '“%s” is on the protected list in the config.',
+                    $facts['name'],
+                ),
             );
         }
     }
 
     if ($me !== null && $facts['user'] !== $me) {
         throw new ActionRefused(
-            sprintf('that process belongs to %s, and this runs as %s.', $facts['user'], $me)
+            sprintf(
+                'that process belongs to %s, and this runs as %s.',
+                $facts['user'],
+                $me,
+            ),
         );
     }
 }
@@ -244,25 +287,36 @@ function guardSignal(array $config, array $facts, array $ancestry, ?string $me):
  * age lower than the one on screen is proof the number was handed on, even when
  * the name happens to match.
  */
-function guardIdentity(array $facts, string $expectName, ?int $expectElapsed): void
-{
+function guardIdentity(
+    array $facts,
+    string $expectName,
+    ?int $expectElapsed,
+): void {
     if ($expectName !== '' && $facts['name'] !== $expectName) {
-        throw new ActionRefused(sprintf(
-            'pid %d is now “%s”, not “%s”. The number was reused; refresh and look again.',
-            $facts['pid'],
-            $facts['name'],
-            $expectName
-        ));
+        throw new ActionRefused(
+            sprintf(
+                'pid %d is now “%s”, not “%s”. The number was reused; refresh and look again.',
+                $facts['pid'],
+                $facts['name'],
+                $expectName,
+            ),
+        );
     }
 
-    if ($expectElapsed !== null && $facts['elapsed'] !== null && $facts['elapsed'] < $expectElapsed) {
-        throw new ActionRefused(sprintf(
-            'pid %d has only been running %s, less than the %s on screen. '
-            . 'The number was reused; refresh and look again.',
-            $facts['pid'],
-            humanDuration($facts['elapsed']),
-            humanDuration($expectElapsed)
-        ));
+    if (
+        $expectElapsed !== null &&
+        $facts['elapsed'] !== null &&
+        $facts['elapsed'] < $expectElapsed
+    ) {
+        throw new ActionRefused(
+            sprintf(
+                'pid %d has only been running %s, less than the %s on screen. ' .
+                    'The number was reused; refresh and look again.',
+                $facts['pid'],
+                humanDuration($facts['elapsed']),
+                humanDuration($expectElapsed),
+            ),
+        );
     }
 }
 
@@ -325,16 +379,27 @@ function stopProcess(
     int $pid,
     string $expectName = '',
     ?int $expectElapsed = null,
-    bool $force = false
+    bool $force = false,
 ): array {
     $signal = $force ? SIGNAL_KILL : SIGNAL_TERM;
     $label = $force ? 'force' : 'graceful';
-    $target = $expectName !== '' ? sprintf('%s (pid %d)', $expectName, $pid) : "pid $pid";
+    $target =
+        $expectName !== ''
+            ? sprintf('%s (pid %d)', $expectName, $pid)
+            : "pid $pid";
 
     $ready = signalsAvailable($config);
     if (!$ready['available']) {
-        logAction($pdo, 'stop_process', $target, 'refused', 0, 0, $ready['reason']);
-        throw new ActionRefused((string)$ready['reason']);
+        logAction(
+            $pdo,
+            'stop_process',
+            $target,
+            'refused',
+            0,
+            0,
+            $ready['reason'],
+        );
+        throw new ActionRefused((string) $ready['reason']);
     }
 
     try {
@@ -345,12 +410,28 @@ function stopProcess(
         guardIdentity($facts, $expectName, $expectElapsed);
         guardSignal($config, $facts, ownAncestry(), currentUser());
     } catch (ActionRefused $e) {
-        logAction($pdo, 'stop_process', $target, 'refused', 0, 0, $label . ': ' . $e->getMessage());
+        logAction(
+            $pdo,
+            'stop_process',
+            $target,
+            'refused',
+            0,
+            0,
+            $label . ': ' . $e->getMessage(),
+        );
         throw $e;
     }
 
     if (!sendSignal($pid, $signal)) {
-        logAction($pdo, 'stop_process', $target, 'failed', 0, 0, $label . ': signal rejected');
+        logAction(
+            $pdo,
+            'stop_process',
+            $target,
+            'failed',
+            0,
+            0,
+            $label . ': signal rejected',
+        );
         throw new ActionRefused('the system refused the signal.');
     }
 
@@ -362,7 +443,7 @@ function stopProcess(
         $stopped ? 'ok' : 'partial',
         0,
         $stopped ? 1 : 0,
-        $label . ($stopped ? ': stopped' : ': signalled, still running')
+        $label . ($stopped ? ': stopped' : ': signalled, still running'),
     );
 
     return [
@@ -373,10 +454,10 @@ function stopProcess(
         'note' => $stopped
             ? 'Stopped.'
             : ($force
-                ? 'Signalled, but it is still there. It is probably stuck in the kernel — '
-                    . 'a process blocked on disk or network IO cannot be killed until it unblocks.'
-                : 'Asked it to exit, but it is still running. It may be finishing up, '
-                    . 'or it may be ignoring the request — force it if it does not go.'),
+                ? 'Signalled, but it is still there. It is probably stuck in the kernel — ' .
+                    'a process blocked on disk or network IO cannot be killed until it unblocks.'
+                : 'Asked it to exit, but it is still running. It may be finishing up, ' .
+                    'or it may be ignoring the request — force it if it does not go.'),
     ];
 }
 
@@ -395,15 +476,19 @@ function stopProcess(
  * @return array{name:string, signal:string, stopped:int, failed:int, refused:int,
  *               remaining:int, results:list<array>}
  */
-function stopGroup(array $config, PDO $pdo, string $name, bool $force = false): array
-{
+function stopGroup(
+    array $config,
+    PDO $pdo,
+    string $name,
+    bool $force = false,
+): array {
     $signal = $force ? SIGNAL_KILL : SIGNAL_TERM;
     $label = $force ? 'force' : 'graceful';
 
     $ready = signalsAvailable($config);
     if (!$ready['available']) {
         logAction($pdo, 'stop_group', $name, 'refused', 0, 0, $ready['reason']);
-        throw new ActionRefused((string)$ready['reason']);
+        throw new ActionRefused((string) $ready['reason']);
     }
     if (trim($name) === '') {
         throw new ActionRefused('no process name was given.');
@@ -414,29 +499,55 @@ function stopGroup(array $config, PDO $pdo, string $name, bool $force = false): 
         throw new ActionRefused('the process list cannot be read here.');
     }
 
-    $members = array_values(array_filter(
-        $snapshot['rows'],
-        fn(array $row): bool => $row['name'] === $name
-    ));
+    $members = array_values(
+        array_filter(
+            $snapshot['rows'],
+            fn(array $row): bool => $row['name'] === $name,
+        ),
+    );
     if (!$members) {
-        logAction($pdo, 'stop_group', $name, 'refused', 0, 0, $label . ': nothing by that name');
-        throw new ActionRefused(sprintf('nothing called “%s” is running any more.', $name));
+        logAction(
+            $pdo,
+            'stop_group',
+            $name,
+            'refused',
+            0,
+            0,
+            $label . ': nothing by that name',
+        );
+        throw new ActionRefused(
+            sprintf('nothing called “%s” is running any more.', $name),
+        );
     }
 
-    $max = max(1, (int)($config['processes']['max_group'] ?? SIGNAL_GROUP_MAX));
+    $max = max(
+        1,
+        (int) ($config['processes']['max_group'] ?? SIGNAL_GROUP_MAX),
+    );
     if (count($members) > $max) {
-        logAction($pdo, 'stop_group', $name, 'refused', 0, 0, $label . ': group too large');
-        throw new ActionRefused(sprintf(
-            'that is %d processes and the limit is %d. Raise processes.max_group '
-            . 'in the config if you mean it.',
-            count($members),
-            $max
-        ));
+        logAction(
+            $pdo,
+            'stop_group',
+            $name,
+            'refused',
+            0,
+            0,
+            $label . ': group too large',
+        );
+        throw new ActionRefused(
+            sprintf(
+                'that is %d processes and the limit is %d. Raise processes.max_group ' .
+                    'in the config if you mean it.',
+                count($members),
+                $max,
+            ),
+        );
     }
 
     usort(
         $members,
-        fn(array $a, array $b): int => ($b['elapsed_seconds'] ?? 0) <=> ($a['elapsed_seconds'] ?? 0)
+        fn(array $a, array $b): int => ($b['elapsed_seconds'] ?? 0) <=>
+            ($a['elapsed_seconds'] ?? 0),
     );
 
     $ancestry = ownAncestry();
@@ -445,27 +556,39 @@ function stopGroup(array $config, PDO $pdo, string $name, bool $force = false): 
     $stopped = $failed = $refused = 0;
 
     foreach ($members as $member) {
-        $pid = (int)$member['pid'];
+        $pid = (int) $member['pid'];
 
         try {
             // Re-read rather than trust the snapshot: signalling the earlier
             // members of a group takes time, and the list aged while it ran.
             $facts = processFacts($pid);
             if ($facts === null) {
-                $results[] = ['pid' => $pid, 'outcome' => 'gone', 'note' => 'Already exited.'];
+                $results[] = [
+                    'pid' => $pid,
+                    'outcome' => 'gone',
+                    'note' => 'Already exited.',
+                ];
                 $stopped++;
                 continue;
             }
             guardIdentity($facts, $name, $member['elapsed_seconds']);
             guardSignal($config, $facts, $ancestry, $me);
         } catch (ActionRefused $e) {
-            $results[] = ['pid' => $pid, 'outcome' => 'refused', 'note' => $e->getMessage()];
+            $results[] = [
+                'pid' => $pid,
+                'outcome' => 'refused',
+                'note' => $e->getMessage(),
+            ];
             $refused++;
             continue;
         }
 
         if (!sendSignal($pid, $signal)) {
-            $results[] = ['pid' => $pid, 'outcome' => 'failed', 'note' => 'The system refused the signal.'];
+            $results[] = [
+                'pid' => $pid,
+                'outcome' => 'failed',
+                'note' => 'The system refused the signal.',
+            ];
             $failed++;
             continue;
         }
@@ -489,12 +612,19 @@ function stopGroup(array $config, PDO $pdo, string $name, bool $force = false): 
             $stopped++;
         } else {
             $result['outcome'] = 'running';
-            $result['note'] = $force ? 'Still there — probably stuck in IO.' : 'Ignored the request.';
+            $result['note'] = $force
+                ? 'Still there — probably stuck in IO.'
+                : 'Ignored the request.';
         }
     }
     unset($result);
 
-    $remaining = count(array_filter($results, fn(array $r): bool => $r['outcome'] === 'running'));
+    $remaining = count(
+        array_filter(
+            $results,
+            fn(array $r): bool => $r['outcome'] === 'running',
+        ),
+    );
 
     logAction(
         $pdo,
@@ -509,8 +639,8 @@ function stopGroup(array $config, PDO $pdo, string $name, bool $force = false): 
             $stopped,
             $remaining,
             $refused,
-            $failed
-        )
+            $failed,
+        ),
     );
 
     return [
@@ -599,13 +729,17 @@ function compilePattern(string $pattern): string
     $pattern = trim($pattern);
 
     if (strlen($pattern) < SIGNAL_PATTERN_MIN) {
-        throw new ActionRefused(sprintf(
-            'that pattern is too short to aim with — %d characters at least.',
-            SIGNAL_PATTERN_MIN
-        ));
+        throw new ActionRefused(
+            sprintf(
+                'that pattern is too short to aim with — %d characters at least.',
+                SIGNAL_PATTERN_MIN,
+            ),
+        );
     }
     if (str_contains($pattern, "\x01") || str_contains($pattern, "\0")) {
-        throw new ActionRefused('that pattern contains characters a command line cannot.');
+        throw new ActionRefused(
+            'that pattern contains characters a command line cannot.',
+        );
     }
 
     $compiled = "\x01" . $pattern . "\x01";
@@ -670,12 +804,12 @@ function matchProcesses(array $config, string $pattern): array
         }
 
         $row = [
-            'pid' => (int)$pid,
+            'pid' => (int) $pid,
             'user' => $user,
             'name' => processName($args),
-            'cpu_percent' => (float)$cpu,
-            'mem_percent' => (float)$mem,
-            'rss_bytes' => (int)$rss * 1024,
+            'cpu_percent' => (float) $cpu,
+            'mem_percent' => (float) $mem,
+            'rss_bytes' => (int) $rss * 1024,
             'elapsed_seconds' => parseElapsed($etime),
             'command' => redactSecrets($args),
             'eligible' => true,
@@ -691,9 +825,9 @@ function matchProcesses(array $config, string $pattern): array
         try {
             guardSignal(
                 $config,
-                ['pid' => (int)$pid, 'user' => $user, 'name' => $row['name']],
+                ['pid' => (int) $pid, 'user' => $user, 'name' => $row['name']],
                 $ancestry,
-                $me
+                $me,
             );
         } catch (ActionRefused $e) {
             $row['eligible'] = false;
@@ -705,10 +839,16 @@ function matchProcesses(array $config, string $pattern): array
 
     usort(
         $matched,
-        fn(array $a, array $b): int => ($b['elapsed_seconds'] ?? 0) <=> ($a['elapsed_seconds'] ?? 0)
+        fn(array $a, array $b): int => ($b['elapsed_seconds'] ?? 0) <=>
+            ($a['elapsed_seconds'] ?? 0),
     );
 
-    return ['available' => true, 'reason' => null, 'matched' => $matched, 'scanned' => $scanned];
+    return [
+        'available' => true,
+        'reason' => null,
+        'matched' => $matched,
+        'scanned' => $scanned,
+    ];
 }
 
 /**
@@ -721,46 +861,91 @@ function matchProcesses(array $config, string $pattern): array
  * @return array{pattern:string, signal:string, stopped:int, failed:int, refused:int,
  *               remaining:int, scanned:int, results:list<array>}
  */
-function stopMatching(array $config, PDO $pdo, string $pattern, bool $force = false): array
-{
+function stopMatching(
+    array $config,
+    PDO $pdo,
+    string $pattern,
+    bool $force = false,
+): array {
     $signal = $force ? SIGNAL_KILL : SIGNAL_TERM;
     $label = $force ? 'force' : 'graceful';
     $target = 'pattern ' . $pattern;
 
     $ready = signalsAvailable($config);
     if (!$ready['available']) {
-        logAction($pdo, 'stop_matching', $target, 'refused', 0, 0, $ready['reason']);
-        throw new ActionRefused((string)$ready['reason']);
+        logAction(
+            $pdo,
+            'stop_matching',
+            $target,
+            'refused',
+            0,
+            0,
+            $ready['reason'],
+        );
+        throw new ActionRefused((string) $ready['reason']);
     }
 
     try {
         $found = matchProcesses($config, $pattern);
     } catch (ActionRefused $e) {
-        logAction($pdo, 'stop_matching', $target, 'refused', 0, 0, $label . ': ' . $e->getMessage());
+        logAction(
+            $pdo,
+            'stop_matching',
+            $target,
+            'refused',
+            0,
+            0,
+            $label . ': ' . $e->getMessage(),
+        );
         throw $e;
     }
 
     if (!$found['available']) {
-        throw new ActionRefused((string)$found['reason']);
+        throw new ActionRefused((string) $found['reason']);
     }
 
-    $eligible = array_values(array_filter($found['matched'], fn(array $r): bool => $r['eligible']));
-    $blocked = array_values(array_filter($found['matched'], fn(array $r): bool => !$r['eligible']));
+    $eligible = array_values(
+        array_filter($found['matched'], fn(array $r): bool => $r['eligible']),
+    );
+    $blocked = array_values(
+        array_filter($found['matched'], fn(array $r): bool => !$r['eligible']),
+    );
 
     if (!$found['matched']) {
-        logAction($pdo, 'stop_matching', $target, 'refused', 0, 0, $label . ': matched nothing');
+        logAction(
+            $pdo,
+            'stop_matching',
+            $target,
+            'refused',
+            0,
+            0,
+            $label . ': matched nothing',
+        );
         throw new ActionRefused('nothing running matches that pattern.');
     }
 
-    $max = max(1, (int)($config['processes']['max_group'] ?? SIGNAL_GROUP_MAX));
+    $max = max(
+        1,
+        (int) ($config['processes']['max_group'] ?? SIGNAL_GROUP_MAX),
+    );
     if (count($eligible) > $max) {
-        logAction($pdo, 'stop_matching', $target, 'refused', 0, 0, $label . ': too many matches');
-        throw new ActionRefused(sprintf(
-            'that pattern matches %d processes and the limit is %d. Narrow it, '
-            . 'or raise processes.max_group if you mean it.',
-            count($eligible),
-            $max
-        ));
+        logAction(
+            $pdo,
+            'stop_matching',
+            $target,
+            'refused',
+            0,
+            0,
+            $label . ': too many matches',
+        );
+        throw new ActionRefused(
+            sprintf(
+                'that pattern matches %d processes and the limit is %d. Narrow it, ' .
+                    'or raise processes.max_group if you mean it.',
+                count($eligible),
+                $max,
+            ),
+        );
     }
 
     /*
@@ -769,14 +954,27 @@ function stopMatching(array $config, PDO $pdo, string $pattern, bool $force = fa
      * Under the limit only because the machine is quiet: the same pattern at a
      * busy moment is the whole account. The proportion is what gives it away.
      */
-    if ($found['scanned'] > 20 && count($found['matched']) > $found['scanned'] * 0.5) {
-        logAction($pdo, 'stop_matching', $target, 'refused', 0, 0, $label . ': pattern too broad');
-        throw new ActionRefused(sprintf(
-            'that pattern matches %d of the %d processes running. That is almost '
-            . 'everything — narrow it before running it.',
-            count($found['matched']),
-            $found['scanned']
-        ));
+    if (
+        $found['scanned'] > 20 &&
+        count($found['matched']) > $found['scanned'] * 0.5
+    ) {
+        logAction(
+            $pdo,
+            'stop_matching',
+            $target,
+            'refused',
+            0,
+            0,
+            $label . ': pattern too broad',
+        );
+        throw new ActionRefused(
+            sprintf(
+                'that pattern matches %d of the %d processes running. That is almost ' .
+                    'everything — narrow it before running it.',
+                count($found['matched']),
+                $found['scanned'],
+            ),
+        );
     }
 
     $ancestry = ownAncestry();
@@ -790,7 +988,7 @@ function stopMatching(array $config, PDO $pdo, string $pattern, bool $force = fa
             'pid' => $row['pid'],
             'name' => $row['name'],
             'outcome' => 'refused',
-            'note' => (string)$row['reason'],
+            'note' => (string) $row['reason'],
         ];
     }
 
@@ -801,8 +999,10 @@ function stopMatching(array $config, PDO $pdo, string $pattern, bool $force = fa
             $facts = processFacts($pid);
             if ($facts === null) {
                 $results[] = [
-                    'pid' => $pid, 'name' => $row['name'],
-                    'outcome' => 'gone', 'note' => 'Already exited.',
+                    'pid' => $pid,
+                    'name' => $row['name'],
+                    'outcome' => 'gone',
+                    'note' => 'Already exited.',
                 ];
                 $stopped++;
                 continue;
@@ -811,8 +1011,10 @@ function stopMatching(array $config, PDO $pdo, string $pattern, bool $force = fa
             guardSignal($config, $facts, $ancestry, $me);
         } catch (ActionRefused $e) {
             $results[] = [
-                'pid' => $pid, 'name' => $row['name'],
-                'outcome' => 'refused', 'note' => $e->getMessage(),
+                'pid' => $pid,
+                'name' => $row['name'],
+                'outcome' => 'refused',
+                'note' => $e->getMessage(),
             ];
             $refused++;
             continue;
@@ -820,14 +1022,21 @@ function stopMatching(array $config, PDO $pdo, string $pattern, bool $force = fa
 
         if (!sendSignal($pid, $signal)) {
             $results[] = [
-                'pid' => $pid, 'name' => $row['name'],
-                'outcome' => 'failed', 'note' => 'The system refused the signal.',
+                'pid' => $pid,
+                'name' => $row['name'],
+                'outcome' => 'failed',
+                'note' => 'The system refused the signal.',
             ];
             $failed++;
             continue;
         }
 
-        $results[] = ['pid' => $pid, 'name' => $row['name'], 'outcome' => 'signalled', 'note' => ''];
+        $results[] = [
+            'pid' => $pid,
+            'name' => $row['name'],
+            'outcome' => 'signalled',
+            'note' => '',
+        ];
     }
 
     foreach ($results as &$result) {
@@ -840,12 +1049,19 @@ function stopMatching(array $config, PDO $pdo, string $pattern, bool $force = fa
             $stopped++;
         } else {
             $result['outcome'] = 'running';
-            $result['note'] = $force ? 'Still there — probably stuck in IO.' : 'Ignored the request.';
+            $result['note'] = $force
+                ? 'Still there — probably stuck in IO.'
+                : 'Ignored the request.';
         }
     }
     unset($result);
 
-    $remaining = count(array_filter($results, fn(array $r): bool => $r['outcome'] === 'running'));
+    $remaining = count(
+        array_filter(
+            $results,
+            fn(array $r): bool => $r['outcome'] === 'running',
+        ),
+    );
 
     logAction(
         $pdo,
@@ -860,8 +1076,8 @@ function stopMatching(array $config, PDO $pdo, string $pattern, bool $force = fa
             $stopped,
             $remaining,
             $refused,
-            $failed
-        )
+            $failed,
+        ),
     );
 
     return [

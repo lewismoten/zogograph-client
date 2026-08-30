@@ -17,35 +17,35 @@ the product is complete.
 ## Current baseline (2026-08-26)
 
 - [x] PHP/SQLite application with versioned migrations, WAL, busy timeout, and
-  request error boundary.
+      request error boundary.
 - [x] Local session authentication, CSRF checks for administrative writes,
-  group-based access checks, route access checks, and masked unauthenticated
-  path data.
+      group-based access checks, route access checks, and masked unauthenticated
+      path data.
 - [x] Existing assistant, alerts, email, Telegram, host collector, and
-  dashboard features; these need requirement-by-requirement verification rather
-  than replacement.
+      dashboard features; these need requirement-by-requirement verification rather
+      than replacement.
 - [x] Verified pre-migration SQLite snapshots and documented restore/recovery
-  procedure for primary, host, and assistant databases.
+      procedure for primary, host, and assistant databases.
 - [x] Reproducible install and degraded-capability tests.
 - [x] Reproducible migration-recovery snapshot test for the common SQLite
-  snapshot primitive used by account, host, and assistant databases.
+      snapshot primitive used by account, host, and assistant databases.
 - [x] Reproducible SQLite writer-contention test, including recovery after the
-  writer lock is released.
+      writer lock is released.
 - [x] Dependency-free policy checks covering remote-host limits, outbound AI,
-  URL-watch private-target controls, and trusted-peer origin pinning.
+      URL-watch private-target controls, and trusted-peer origin pinning.
 - [x] Static HTTP policy check covering content policy, anti-framing, browser
-  capability restrictions, and direct-file denial rules.
+      capability restrictions, and direct-file denial rules.
 - [ ] Full per-host enrollment, signed/replay-protected remote transport, fleet
-  lifecycle, and commercial entitlement verification.
+      lifecycle, and commercial entitlement verification.
 - [ ] Optional at-rest encryption packages, self-managed key custody,
-  encrypted fleet replicas, and key-expiry/rotation recovery. The current
-  core has opt-in local sealed-copy primitives and setup choices, but the
-  executable package runtime, restore/retention workflow, fleet custody, and
-  live encrypted SQLite support remain incomplete. See
-  `ENCRYPTION_AND_FLEET_PLAN.md` and `ENCRYPTION_REVIEW.md`.
+      encrypted fleet replicas, and key-expiry/rotation recovery. The current
+      core has opt-in local sealed-copy primitives and setup choices, but the
+      executable package runtime, restore/retention workflow, fleet custody, and
+      live encrypted SQLite support remain incomplete. See
+      `ENCRYPTION_AND_FLEET_PLAN.md` and `ENCRYPTION_REVIEW.md`.
 - [ ] Complete browser editor safety/recovery workflow.
 - [ ] Authentication recovery, MFA, OIDC verification, commercial entitlement,
-  hosted-service boundary, and release/update workflow verification.
+      hosted-service boundary, and release/update workflow verification.
 
 ## Delivery sequence
 
@@ -69,20 +69,20 @@ the product is complete.
 
 - [x] Show a deployment-update reload notice in both the dashboard and Setup.
 - [x] Core Setup cron editor with per-job profiles, offsets, previews, and
-  independently applied managed jobs.
+      independently applied managed jobs.
 - [x] Inert signed package panels, schema-validated package settings, audit,
-  and opaque secret-reference selection in Setup.
+      and opaque secret-reference selection in Setup.
 - [x] Explain and provision the existing OpenID Connect provider in Setup.
-  Setup validates the HTTPS issuer, generates a dedicated 3072-bit signing
-  key inside a protected session, and manages exact-redirect trusted clients
-  with one-time confidential-client secrets.
+      Setup validates the HTTPS issuer, generates a dedicated 3072-bit signing
+      key inside a protected session, and manages exact-redirect trusted clients
+      with one-time confidential-client secrets.
 - [x] Guided TOTP enrollment: Setup generates a Base32 secret, offers a local
-  QR presentation when the host provides `qrencode`, requires a successful
-  verification code before saving, and displays one-time backup codes once
-  after acknowledgement.
+      QR presentation when the host provides `qrencode`, requires a successful
+      verification code before saving, and displays one-time backup codes once
+      after acknowledgement.
 - [x] Replace raw dotted generated labels with authored Setup questions. The
-  current configuration inventory has no generated fallback fields, and the
-  retained fallback never exposes a dotted internal path.
+      current configuration inventory has no generated fallback fields, and the
+      retained fallback never exposes a dotted internal path.
 - [~] Build locale catalogs, locale preference/detection, named formatting,
   RTL support, key-inspection mode, and package language catalog merge rules.
   The dashboard shell and signed package catalogs are covered; feature-panel

@@ -71,7 +71,10 @@ function captureIncident(array $config, PDO $pdo, array $alerts): ?int
     }
 
     $evidence = gatherEvidence($config, $pdo, $alerts);
-    $json = json_encode($evidence, JSON_UNESCAPED_SLASHES | JSON_INVALID_UTF8_SUBSTITUTE);
+    $json = json_encode(
+        $evidence,
+        JSON_UNESCAPED_SLASHES | JSON_INVALID_UTF8_SUBSTITUTE,
+    );
 
     /*
      * A snapshot that will not encode must not take the alert down with it.
@@ -83,21 +86,22 @@ function captureIncident(array $config, PDO $pdo, array $alerts): ?int
     if ($json === false) {
         $json = json_encode([
             'at' => time(),
-            'incomplete' => 'The evidence could not be encoded: ' . json_last_error_msg(),
+            'incomplete' =>
+                'The evidence could not be encoded: ' . json_last_error_msg(),
         ]);
     }
 
     $stmt = $pdo->prepare(
-        'INSERT INTO incidents (captured_at, triggered_by, evidence, bytes) VALUES (?, ?, ?, ?)'
+        'INSERT INTO incidents (captured_at, triggered_by, evidence, bytes) VALUES (?, ?, ?, ?)',
     );
     $stmt->execute([
         time(),
         implode(', ', array_column($alerts, 'rule')),
         $json,
-        strlen((string)$json),
+        strlen((string) $json),
     ]);
 
-    return (int)$pdo->lastInsertId();
+    return (int) $pdo->lastInsertId();
 }
 
 /**
@@ -117,11 +121,11 @@ function gatherEvidence(array $config, PDO $pdo, array $alerts): array
         'at' => time(),
         'triggered_by' => array_map(
             fn(array $a): array => [
-                'rule' => (string)$a['rule'],
-                'severity' => (string)($a['severity'] ?? 'warning'),
-                'subject' => (string)($a['subject'] ?? ''),
+                'rule' => (string) $a['rule'],
+                'severity' => (string) ($a['severity'] ?? 'warning'),
+                'subject' => (string) ($a['subject'] ?? ''),
             ],
-            $alerts
+            $alerts,
         ),
     ];
 
@@ -156,7 +160,11 @@ function gatherEvidence(array $config, PDO $pdo, array $alerts): array
     }
 
     foreach ($evidence as $section) {
-        if (is_array($section) && isset($section['missing']) && is_array($section['missing'])) {
+        if (
+            is_array($section) &&
+            isset($section['missing']) &&
+            is_array($section['missing'])
+        ) {
             $missing += $section['missing'];
         }
     }
@@ -175,42 +183,71 @@ function gatherEvidence(array $config, PDO $pdo, array $alerts): array
  */
 function incidentVitals(PDO $pdo): array
 {
-    $row = $pdo->query('SELECT * FROM vitals ORDER BY taken_at DESC LIMIT 1')->fetch();
+    $row = $pdo
+        ->query('SELECT * FROM vitals ORDER BY taken_at DESC LIMIT 1')
+        ->fetch();
     if (!$row) {
-        return ['missing' => ['vitals' => 'No readings have been recorded yet.']];
+        return [
+            'missing' => ['vitals' => 'No readings have been recorded yet.'],
+        ];
     }
 
-    $cores = (int)($row['cpu_cores'] ?? 0);
-    $load1 = $row['load1'] === null ? null : (float)$row['load1'];
+    $cores = (int) ($row['cpu_cores'] ?? 0);
+    $load1 = $row['load1'] === null ? null : (float) $row['load1'];
 
     return [
-        'taken_at' => (int)$row['taken_at'],
+        'taken_at' => (int) $row['taken_at'],
         'load' => [
             '1' => $load1,
-            '5' => $row['load5'] === null ? null : (float)$row['load5'],
-            '15' => $row['load15'] === null ? null : (float)$row['load15'],
+            '5' => $row['load5'] === null ? null : (float) $row['load5'],
+            '15' => $row['load15'] === null ? null : (float) $row['load15'],
             'cores' => $cores ?: null,
             // Load per core is the figure that means the same thing on every
             // machine: above 1.0, work is queuing for a processor.
-            'per_core' => ($cores > 0 && $load1 !== null) ? round($load1 / $cores, 2) : null,
+            'per_core' =>
+                $cores > 0 && $load1 !== null
+                    ? round($load1 / $cores, 2)
+                    : null,
         ],
-        'cpu_percent' => $row['cpu_percent'] === null ? null : (float)$row['cpu_percent'],
+        'cpu_percent' =>
+            $row['cpu_percent'] === null ? null : (float) $row['cpu_percent'],
         'memory' => [
-            'total_bytes' => (int)$row['mem_total_bytes'],
-            'available_bytes' => (int)$row['mem_available_bytes'],
-            'used_percent' => $row['mem_used_percent'] === null ? null : (float)$row['mem_used_percent'],
-            'swap_total_bytes' => (int)$row['swap_total_bytes'],
-            'swap_used_bytes' => (int)$row['swap_used_bytes'],
+            'total_bytes' => (int) $row['mem_total_bytes'],
+            'available_bytes' => (int) $row['mem_available_bytes'],
+            'used_percent' =>
+                $row['mem_used_percent'] === null
+                    ? null
+                    : (float) $row['mem_used_percent'],
+            'swap_total_bytes' => (int) $row['swap_total_bytes'],
+            'swap_used_bytes' => (int) $row['swap_used_bytes'],
         ],
         'io' => [
-            'read_rate' => $row['io_read_rate'] === null ? null : (float)$row['io_read_rate'],
-            'write_rate' => $row['io_write_rate'] === null ? null : (float)$row['io_write_rate'],
-            'util_percent' => $row['io_util_percent'] === null ? null : (float)$row['io_util_percent'],
-            'own_read_rate' => $row['own_read_rate'] === null ? null : (float)$row['own_read_rate'],
-            'own_write_rate' => $row['own_write_rate'] === null ? null : (float)$row['own_write_rate'],
-            'pressure_some' => $row['io_pressure_some'] === null ? null : (float)$row['io_pressure_some'],
+            'read_rate' =>
+                $row['io_read_rate'] === null
+                    ? null
+                    : (float) $row['io_read_rate'],
+            'write_rate' =>
+                $row['io_write_rate'] === null
+                    ? null
+                    : (float) $row['io_write_rate'],
+            'util_percent' =>
+                $row['io_util_percent'] === null
+                    ? null
+                    : (float) $row['io_util_percent'],
+            'own_read_rate' =>
+                $row['own_read_rate'] === null
+                    ? null
+                    : (float) $row['own_read_rate'],
+            'own_write_rate' =>
+                $row['own_write_rate'] === null
+                    ? null
+                    : (float) $row['own_write_rate'],
+            'pressure_some' =>
+                $row['io_pressure_some'] === null
+                    ? null
+                    : (float) $row['io_pressure_some'],
         ],
-        'source' => (string)($row['source'] ?? ''),
+        'source' => (string) ($row['source'] ?? ''),
         /*
          * Asked, rather than assumed.
          *
@@ -221,10 +258,15 @@ function incidentVitals(PDO $pdo): array
          * /proc/diskstats can also be missing because /proc is not readable at
          * all. diskstatsDiagnosis() goes and looks.
          */
-        'missing' => $row['io_read_rate'] === null
-            ? ['disk_io' => 'Whole-disk I/O was not recorded. '
-                . (diskstatsDiagnosis() ?: 'The reading predates I/O collection.')]
-            : [],
+        'missing' =>
+            $row['io_read_rate'] === null
+                ? [
+                    'disk_io' =>
+                        'Whole-disk I/O was not recorded. ' .
+                        (diskstatsDiagnosis() ?:
+                            'The reading predates I/O collection.'),
+                ]
+                : [],
     ];
 }
 
@@ -243,16 +285,25 @@ function incidentProcesses(): array
     if (!($list['available'] ?? false)) {
         return [
             'available' => false,
-            'missing' => ['processes' => (string)($list['reason'] ?? 'ps could not be run.')],
+            'missing' => [
+                'processes' =>
+                    (string) ($list['reason'] ?? 'ps could not be run.'),
+            ],
         ];
     }
 
     $rows = excludeOwnTree($list['rows']);
 
     $byCpu = $rows;
-    usort($byCpu, fn(array $a, array $b): int => $b['cpu_percent'] <=> $a['cpu_percent']);
+    usort(
+        $byCpu,
+        fn(array $a, array $b): int => $b['cpu_percent'] <=> $a['cpu_percent'],
+    );
     $byMemory = $rows;
-    usort($byMemory, fn(array $a, array $b): int => $b['rss_bytes'] <=> $a['rss_bytes']);
+    usort(
+        $byMemory,
+        fn(array $a, array $b): int => $b['rss_bytes'] <=> $a['rss_bytes'],
+    );
 
     /*
      * The oldest processes, which is the ranking that catches a stuck job.
@@ -261,8 +312,17 @@ function incidentProcesses(): array
      * being stuck means - so it appears nowhere in either list above. It is
      * only unusual in one dimension: it is still there.
      */
-    $byAge = array_values(array_filter($rows, fn(array $r): bool => $r['elapsed_seconds'] !== null));
-    usort($byAge, fn(array $a, array $b): int => $b['elapsed_seconds'] <=> $a['elapsed_seconds']);
+    $byAge = array_values(
+        array_filter(
+            $rows,
+            fn(array $r): bool => $r['elapsed_seconds'] !== null,
+        ),
+    );
+    usort(
+        $byAge,
+        fn(array $a, array $b): int => $b['elapsed_seconds'] <=>
+            $a['elapsed_seconds'],
+    );
 
     return [
         'available' => true,
@@ -294,16 +354,19 @@ function incidentTree(array $rows): array
 {
     $byPid = [];
     foreach ($rows as $row) {
-        $byPid[(int)$row['pid']] = $row;
+        $byPid[(int) $row['pid']] = $row;
     }
 
     // The ones worth explaining: heaviest on CPU, heaviest on memory, oldest.
     $interesting = [];
     foreach (['cpu_percent', 'rss_bytes', 'elapsed_seconds'] as $key) {
         $sorted = $rows;
-        usort($sorted, fn(array $a, array $b): int => ($b[$key] ?? 0) <=> ($a[$key] ?? 0));
+        usort(
+            $sorted,
+            fn(array $a, array $b): int => ($b[$key] ?? 0) <=> ($a[$key] ?? 0),
+        );
         foreach (array_slice($sorted, 0, 8) as $row) {
-            $interesting[(int)$row['pid']] = true;
+            $interesting[(int) $row['pid']] = true;
         }
     }
 
@@ -318,17 +381,17 @@ function incidentTree(array $rows): array
     $keep = [];
     foreach (array_keys($interesting) as $pid) {
         $seen = [];
-        $walk = (int)$pid;
+        $walk = (int) $pid;
         while ($walk > 0 && isset($byPid[$walk]) && !isset($seen[$walk])) {
             $seen[$walk] = true;
             $keep[$walk] = true;
-            $walk = (int)$byPid[$walk]['ppid'];
+            $walk = (int) $byPid[$walk]['ppid'];
         }
     }
 
     $children = [];
     foreach ($keep as $pid => $_) {
-        $children[(int)$byPid[$pid]['ppid']][] = (int)$pid;
+        $children[(int) $byPid[$pid]['ppid']][] = (int) $pid;
     }
     foreach ($children as &$list) {
         sort($list);
@@ -338,14 +401,20 @@ function incidentTree(array $rows): array
     // Roots are the kept processes whose parent was not itself kept.
     $roots = [];
     foreach (array_keys($keep) as $pid) {
-        if (!isset($keep[(int)$byPid[$pid]['ppid']])) {
-            $roots[] = (int)$pid;
+        if (!isset($keep[(int) $byPid[$pid]['ppid']])) {
+            $roots[] = (int) $pid;
         }
     }
     sort($roots);
 
     $out = [];
-    $emit = function (int $pid, int $depth) use (&$emit, &$out, $byPid, $children, $interesting): void {
+    $emit = function (int $pid, int $depth) use (
+        &$emit,
+        &$out,
+        $byPid,
+        $children,
+        $interesting,
+    ): void {
         if (count($out) >= INCIDENT_MAX_TREE) {
             return;
         }
@@ -353,13 +422,13 @@ function incidentTree(array $rows): array
         $row = $byPid[$pid];
         $out[] = [
             'pid' => $pid,
-            'ppid' => (int)$row['ppid'],
+            'ppid' => (int) $row['ppid'],
             'depth' => $depth,
-            'user' => (string)$row['user'],
-            'name' => (string)$row['name'],
-            'command' => (string)$row['command'],
-            'cpu_percent' => (float)$row['cpu_percent'],
-            'rss_bytes' => (int)$row['rss_bytes'],
+            'user' => (string) $row['user'],
+            'name' => (string) $row['name'],
+            'command' => (string) $row['command'],
+            'cpu_percent' => (float) $row['cpu_percent'],
+            'rss_bytes' => (int) $row['rss_bytes'],
             'elapsed_seconds' => $row['elapsed_seconds'],
             // Marks the process that got it listed, as against an ancestor
             // that is only here to explain where it came from.
@@ -387,71 +456,90 @@ function incidentTree(array $rows): array
  */
 function incidentDisk(PDO $pdo): array
 {
-    $now = $pdo->query(
-        'SELECT taken_at, disk_total_bytes, disk_used_bytes, disk_free_bytes,
+    $now = $pdo
+        ->query(
+            'SELECT taken_at, disk_total_bytes, disk_used_bytes, disk_free_bytes,
                 disk_used_percent, inodes_used, inodes_free, inodes_used_percent
-         FROM vitals ORDER BY taken_at DESC LIMIT 1'
-    )->fetch();
+         FROM vitals ORDER BY taken_at DESC LIMIT 1',
+        )
+        ->fetch();
 
     if (!$now) {
         return ['missing' => ['disk' => 'No readings have been recorded yet.']];
     }
 
     $growth = [];
-    foreach (['1 hour' => 3600, '24 hours' => 86400, '7 days' => 604800] as $label => $span) {
+    foreach (
+        ['1 hour' => 3600, '24 hours' => 86400, '7 days' => 604800]
+        as $label => $span
+    ) {
         $then = $pdo->prepare(
             'SELECT disk_used_bytes, taken_at FROM vitals
-             WHERE taken_at <= ? ORDER BY taken_at DESC LIMIT 1'
+             WHERE taken_at <= ? ORDER BY taken_at DESC LIMIT 1',
         );
-        $then->execute([(int)$now['taken_at'] - $span]);
+        $then->execute([(int) $now['taken_at'] - $span]);
         $row = $then->fetch();
 
         // Absent rather than zero when the history does not reach back that
         // far: zero would read as "it has not grown", which is a claim.
         $growth[$label] = $row
-            ? (int)$now['disk_used_bytes'] - (int)$row['disk_used_bytes']
+            ? (int) $now['disk_used_bytes'] - (int) $row['disk_used_bytes']
             : null;
     }
 
     // Which categories moved between the last two completed scans.
-    $scans = $pdo->query(
-        'SELECT id FROM scans WHERE finished_at IS NOT NULL ORDER BY id DESC LIMIT 2'
-    )->fetchAll(PDO::FETCH_COLUMN);
+    $scans = $pdo
+        ->query(
+            'SELECT id FROM scans WHERE finished_at IS NOT NULL ORDER BY id DESC LIMIT 2',
+        )
+        ->fetchAll(PDO::FETCH_COLUMN);
 
     $categories = [];
     if (count($scans) === 2) {
-        $stmt = $pdo->prepare('SELECT category, bytes, files FROM scan_totals WHERE scan_id = ?');
+        $stmt = $pdo->prepare(
+            'SELECT category, bytes, files FROM scan_totals WHERE scan_id = ?',
+        );
         $stmt->execute([$scans[0]]);
         $latest = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $stmt->execute([$scans[1]]);
         $before = [];
         foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
-            $before[(string)$row['category']] = $row;
+            $before[(string) $row['category']] = $row;
         }
 
         foreach ($latest as $row) {
-            $was = $before[(string)$row['category']] ?? null;
+            $was = $before[(string) $row['category']] ?? null;
             $categories[] = [
-                'category' => (string)$row['category'],
-                'bytes' => (int)$row['bytes'],
-                'files' => (int)$row['files'],
-                'grew_bytes' => $was ? (int)$row['bytes'] - (int)$was['bytes'] : null,
-                'grew_files' => $was ? (int)$row['files'] - (int)$was['files'] : null,
+                'category' => (string) $row['category'],
+                'bytes' => (int) $row['bytes'],
+                'files' => (int) $row['files'],
+                'grew_bytes' => $was
+                    ? (int) $row['bytes'] - (int) $was['bytes']
+                    : null,
+                'grew_files' => $was
+                    ? (int) $row['files'] - (int) $was['files']
+                    : null,
             ];
         }
 
-        usort($categories, fn(array $a, array $b): int => ($b['grew_bytes'] ?? 0) <=> ($a['grew_bytes'] ?? 0));
+        usort(
+            $categories,
+            fn(array $a, array $b): int => ($b['grew_bytes'] ?? 0) <=>
+                ($a['grew_bytes'] ?? 0),
+        );
     }
 
     return [
-        'total_bytes' => (int)$now['disk_total_bytes'],
-        'used_bytes' => (int)$now['disk_used_bytes'],
-        'free_bytes' => (int)$now['disk_free_bytes'],
-        'used_percent' => (float)$now['disk_used_percent'],
-        'inodes_used' => (int)$now['inodes_used'],
-        'inodes_free' => (int)$now['inodes_free'],
-        'inodes_used_percent' => $now['inodes_used_percent'] === null
-            ? null : (float)$now['inodes_used_percent'],
+        'total_bytes' => (int) $now['disk_total_bytes'],
+        'used_bytes' => (int) $now['disk_used_bytes'],
+        'free_bytes' => (int) $now['disk_free_bytes'],
+        'used_percent' => (float) $now['disk_used_percent'],
+        'inodes_used' => (int) $now['inodes_used'],
+        'inodes_free' => (int) $now['inodes_free'],
+        'inodes_used_percent' =>
+            $now['inodes_used_percent'] === null
+                ? null
+                : (float) $now['inodes_used_percent'],
         'growth_bytes' => $growth,
         'categories' => $categories,
     ];
@@ -466,12 +554,19 @@ function incidentDisk(PDO $pdo): array
  */
 function incidentFiles(PDO $pdo): array
 {
-    $scans = $pdo->query(
-        'SELECT id, finished_at FROM scans WHERE finished_at IS NOT NULL ORDER BY id DESC LIMIT 2'
-    )->fetchAll(PDO::FETCH_ASSOC);
+    $scans = $pdo
+        ->query(
+            'SELECT id, finished_at FROM scans WHERE finished_at IS NOT NULL ORDER BY id DESC LIMIT 2',
+        )
+        ->fetchAll(PDO::FETCH_ASSOC);
 
     if (count($scans) < 2) {
-        return ['missing' => ['files' => 'Two completed scans are needed before growth can be compared.']];
+        return [
+            'missing' => [
+                'files' =>
+                    'Two completed scans are needed before growth can be compared.',
+            ],
+        ];
     }
 
     $stmt = $pdo->prepare(
@@ -482,16 +577,16 @@ function incidentFiles(PDO $pdo): array
          JOIN path_sizes was ON was.path_id = now.path_id AND was.scan_id = :was
          JOIN paths p ON p.id = now.path_id
          WHERE now.scan_id = :now AND now.bytes - was.bytes > 0
-         ORDER BY grew_bytes DESC LIMIT :limit'
+         ORDER BY grew_bytes DESC LIMIT :limit',
     );
-    $stmt->bindValue(':was', (int)$scans[1]['id'], PDO::PARAM_INT);
-    $stmt->bindValue(':now', (int)$scans[0]['id'], PDO::PARAM_INT);
+    $stmt->bindValue(':was', (int) $scans[1]['id'], PDO::PARAM_INT);
+    $stmt->bindValue(':now', (int) $scans[0]['id'], PDO::PARAM_INT);
     $stmt->bindValue(':limit', INCIDENT_KEEP_FILES, PDO::PARAM_INT);
     $stmt->execute();
 
     return [
-        'since' => (int)$scans[1]['finished_at'],
-        'until' => (int)$scans[0]['finished_at'],
+        'since' => (int) $scans[1]['finished_at'],
+        'until' => (int) $scans[0]['finished_at'],
         'rows' => $stmt->fetchAll(PDO::FETCH_ASSOC),
     ];
 }
@@ -509,33 +604,46 @@ function incidentHost(array $config): array
     try {
         $host = hostDb($config, false);
     } catch (Throwable $e) {
-        return ['available' => false, 'missing' => ['host' => 'Host database: ' . $e->getMessage()]];
+        return [
+            'available' => false,
+            'missing' => ['host' => 'Host database: ' . $e->getMessage()],
+        ];
     }
 
     if ($host === null) {
         return [
             'available' => false,
-            'missing' => ['host' => 'The host collector is not installed, so this record '
-                . 'shows only what the account can see. Proportional memory (PSS), '
-                . 'whole-disk I/O and other accounts\' processes are not included.'],
+            'missing' => [
+                'host' =>
+                    'The host collector is not installed, so this record ' .
+                    'shows only what the account can see. Proportional memory (PSS), ' .
+                    'whole-disk I/O and other accounts\' processes are not included.',
+            ],
         ];
     }
 
-    $latest = (int)$host->query('SELECT MAX(taken_at) FROM host_services')->fetchColumn();
+    $latest = (int) $host
+        ->query('SELECT MAX(taken_at) FROM host_services')
+        ->fetchColumn();
     if ($latest <= 0) {
-        return ['available' => false, 'missing' => ['host' => 'The host collector has not run yet.']];
+        return [
+            'available' => false,
+            'missing' => ['host' => 'The host collector has not run yet.'],
+        ];
     }
 
     $services = $host->prepare(
         'SELECT name, procs, threads, rss_bytes, pss_bytes, swap_bytes,
                 read_bytes, write_bytes, oldest_seconds
-         FROM host_services WHERE taken_at = ? ORDER BY pss_bytes DESC LIMIT ?'
+         FROM host_services WHERE taken_at = ? ORDER BY pss_bytes DESC LIMIT ?',
     );
     $services->bindValue(1, $latest, PDO::PARAM_INT);
     $services->bindValue(2, INCIDENT_KEEP_PROCS, PDO::PARAM_INT);
     $services->execute();
 
-    $sample = $host->query('SELECT * FROM host_samples ORDER BY id DESC LIMIT 1')->fetch();
+    $sample = $host
+        ->query('SELECT * FROM host_samples ORDER BY id DESC LIMIT 1')
+        ->fetch();
 
     return [
         'available' => true,
@@ -565,15 +673,15 @@ function incidentRead(PDO $pdo, int $id): ?array
         return null;
     }
 
-    $evidence = json_decode((string)$row['evidence'], true);
+    $evidence = json_decode((string) $row['evidence'], true);
 
     return [
-        'id' => (int)$row['id'],
-        'captured_at' => (int)$row['captured_at'],
-        'triggered_by' => (string)$row['triggered_by'],
-        'bytes' => (int)$row['bytes'],
+        'id' => (int) $row['id'],
+        'captured_at' => (int) $row['captured_at'],
+        'triggered_by' => (string) $row['triggered_by'],
+        'bytes' => (int) $row['bytes'],
         'evidence' => is_array($evidence) ? $evidence : null,
-        'alerts' => incidentAlerts($pdo, (int)$row['id']),
+        'alerts' => incidentAlerts($pdo, (int) $row['id']),
     ];
 }
 
@@ -582,7 +690,7 @@ function incidentAlerts(PDO $pdo, int $id): array
 {
     $stmt = $pdo->prepare(
         'SELECT id, raised_at, rule, severity, subject, detail
-         FROM alerts WHERE incident_id = ? ORDER BY id'
+         FROM alerts WHERE incident_id = ? ORDER BY id',
     );
     $stmt->execute([$id]);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -624,15 +732,23 @@ function incidentSummary(array $evidence): array
             $lines[] = sprintf(
                 '  Load %.2f%s%s',
                 $load['1'],
-                $load['cores'] ? sprintf(' on %d core%s', $load['cores'], $load['cores'] === 1 ? '' : 's') : '',
-                $load['per_core'] !== null ? sprintf(' (%.2f per core)', $load['per_core']) : ''
+                $load['cores']
+                    ? sprintf(
+                        ' on %d core%s',
+                        $load['cores'],
+                        $load['cores'] === 1 ? '' : 's',
+                    )
+                    : '',
+                $load['per_core'] !== null
+                    ? sprintf(' (%.2f per core)', $load['per_core'])
+                    : '',
             );
         }
         $lines[] = sprintf(
             '  Memory %s available of %s, swap %s used',
-            humanBytes((int)$vitals['memory']['available_bytes']),
-            humanBytes((int)$vitals['memory']['total_bytes']),
-            humanBytes((int)$vitals['memory']['swap_used_bytes'])
+            humanBytes((int) $vitals['memory']['available_bytes']),
+            humanBytes((int) $vitals['memory']['total_bytes']),
+            humanBytes((int) $vitals['memory']['swap_used_bytes']),
         );
     }
 
@@ -642,8 +758,10 @@ function incidentSummary(array $evidence): array
         $lines[] = sprintf(
             '  Disk %.1f%% used, %s free%s',
             $disk['used_percent'],
-            humanBytes((int)$disk['free_bytes']),
-            $hour === null ? '' : sprintf(' (%s in the last hour)', humanBytes((int)$hour))
+            humanBytes((int) $disk['free_bytes']),
+            $hour === null
+                ? ''
+                : sprintf(' (%s in the last hour)', humanBytes((int) $hour)),
         );
     }
 
@@ -658,9 +776,26 @@ function incidentSummary(array $evidence): array
         };
 
         $lines[] = '';
-        $lines[] = '  Most CPU:    ' . $top($procs['by_cpu'], fn(array $r): string => sprintf('%.1f%%', $r['cpu_percent']));
-        $lines[] = '  Most memory: ' . $top($procs['by_memory'], fn(array $r): string => humanBytes((int)$r['rss_bytes']));
-        $lines[] = '  Longest run: ' . $top($procs['by_age'], fn(array $r): string => humanDuration((float)$r['elapsed_seconds']));
+        $lines[] =
+            '  Most CPU:    ' .
+            $top(
+                $procs['by_cpu'],
+                fn(array $r): string => sprintf('%.1f%%', $r['cpu_percent']),
+            );
+        $lines[] =
+            '  Most memory: ' .
+            $top(
+                $procs['by_memory'],
+                fn(array $r): string => humanBytes((int) $r['rss_bytes']),
+            );
+        $lines[] =
+            '  Longest run: ' .
+            $top(
+                $procs['by_age'],
+                fn(array $r): string => humanDuration(
+                    (float) $r['elapsed_seconds'],
+                ),
+            );
     }
 
     $files = $evidence['files']['rows'] ?? [];
@@ -668,7 +803,11 @@ function incidentSummary(array $evidence): array
         $lines[] = '';
         $lines[] = '  Files that grew most:';
         foreach (array_slice($files, 0, 5) as $file) {
-            $lines[] = sprintf('    %s  +%s', $file['path'], humanBytes((int)$file['grew_bytes']));
+            $lines[] = sprintf(
+                '    %s  +%s',
+                $file['path'],
+                humanBytes((int) $file['grew_bytes']),
+            );
         }
     }
 

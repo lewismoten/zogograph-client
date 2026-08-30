@@ -74,22 +74,39 @@ const DNS_TRANSFER_SERVERS = 2;
  *
  * @return array{ok: bool, reason: string, names: int, records: int, changes: list<array>}
  */
-function dnsSweep(array $config, PDO $pdo, string $domain, ?callable $runner = null): array
-{
+function dnsSweep(
+    array $config,
+    PDO $pdo,
+    string $domain,
+    ?callable $runner = null,
+): array {
     $domain = strtolower(trim($domain, " \t."));
 
-    if (!preg_match('/^(?!-)[a-z0-9-]{1,63}(?<!-)(\.(?!-)[a-z0-9-]{1,63}(?<!-))+$/', $domain)) {
-        return ['ok' => false, 'reason' => 'that is not a domain name',
-                'names' => 0, 'records' => 0, 'changes' => []];
+    if (
+        !preg_match(
+            '/^(?!-)[a-z0-9-]{1,63}(?<!-)(\.(?!-)[a-z0-9-]{1,63}(?<!-))+$/',
+            $domain,
+        )
+    ) {
+        return [
+            'ok' => false,
+            'reason' => 'that is not a domain name',
+            'names' => 0,
+            'records' => 0,
+            'changes' => [],
+        ];
     }
 
     $dig = $runner === null ? whichBinary('dig') : 'dig';
     if ($dig === null) {
         return [
             'ok' => false,
-            'reason' => 'dig is not installed here. On Red Hat it is in bind-utils; on '
-                . 'Debian, dnsutils. The host collector can be asked to run it instead.',
-            'names' => 0, 'records' => 0, 'changes' => [],
+            'reason' =>
+                'dig is not installed here. On Red Hat it is in bind-utils; on ' .
+                'Debian, dnsutils. The host collector can be asked to run it instead.',
+            'names' => 0,
+            'records' => 0,
+            'changes' => [],
         ];
     }
 
@@ -179,7 +196,7 @@ function dnsNamesToCheck(
     PDO $pdo,
     string $domain,
     string $dig,
-    ?callable $runner = null
+    ?callable $runner = null,
 ): array {
     $names = [$domain => true];
 
@@ -224,10 +241,12 @@ function dnsNamesToCheck(
     // Whatever was found before, so a name that stops resolving is still asked
     // about - that is precisely the change worth reporting.
     try {
-        $stmt = $pdo->prepare('SELECT DISTINCT name FROM dns_records WHERE domain = ?');
+        $stmt = $pdo->prepare(
+            'SELECT DISTINCT name FROM dns_records WHERE domain = ?',
+        );
         $stmt->execute([$domain]);
         foreach ($stmt->fetchAll(PDO::FETCH_COLUMN) as $known) {
-            $names[strtolower((string)$known)] = true;
+            $names[strtolower((string) $known)] = true;
         }
     } catch (Throwable) {
         // No table yet.
@@ -240,7 +259,19 @@ function dnsNamesToCheck(
      * host creates by default. Anything larger would be scanning somebody's
      * zone, which is slow, rude and mostly returns nothing.
      */
-    foreach (['www', 'mail', 'ftp', 'webmail', 'cpanel', 'autodiscover', 'ns1', 'ns2'] as $common) {
+    foreach (
+        [
+            'www',
+            'mail',
+            'ftp',
+            'webmail',
+            'cpanel',
+            'autodiscover',
+            'ns1',
+            'ns2',
+        ]
+        as $common
+    ) {
         $names[$common . '.' . $domain] = true;
     }
 
@@ -250,11 +281,14 @@ function dnsNamesToCheck(
 }
 
 /** The nameservers a domain says are authoritative for it. */
-function dnsAuthoritative(string $dig, string $domain, ?callable $runner = null): array
-{
+function dnsAuthoritative(
+    string $dig,
+    string $domain,
+    ?callable $runner = null,
+): array {
     $out = [];
     foreach (dnsQueryRecords($dig, $domain, 'NS', $runner) as $record) {
-        $server = strtolower(trim((string)$record['value'], '.'));
+        $server = strtolower(trim((string) $record['value'], '.'));
         if ($server !== '') {
             $out[] = $server;
         }
@@ -271,8 +305,12 @@ function dnsAuthoritative(string $dig, string $domain, ?callable $runner = null)
  *
  * @return list<string>
  */
-function dnsZoneTransfer(string $dig, string $domain, string $server, ?callable $runner = null): array
-{
+function dnsZoneTransfer(
+    string $dig,
+    string $domain,
+    string $server,
+    ?callable $runner = null,
+): array {
     if (!preg_match('/^[a-z0-9.-]{1,253}$/i', $server)) {
         return [];
     }
@@ -287,16 +325,23 @@ function dnsZoneTransfer(string $dig, string $domain, string $server, ?callable 
      */
     $limit = whichBinary('timeout');
     $command = sprintf(
-        '%s%s +noall +answer +tries=1 +time=' . DNS_QUERY_TIME . ' @%s %s AXFR 2>&1',
-        $limit === null ? '' : escapeshellarg($limit) . ' ' . DNS_TRANSFER_TIMEOUT . ' ',
+        '%s%s +noall +answer +tries=1 +time=' .
+            DNS_QUERY_TIME .
+            ' @%s %s AXFR 2>&1',
+        $limit === null
+            ? ''
+            : escapeshellarg($limit) . ' ' . DNS_TRANSFER_TIMEOUT . ' ',
         escapeshellarg($dig),
         escapeshellarg($server),
-        escapeshellarg($domain)
+        escapeshellarg($domain),
     );
 
     $out = $runner === null ? shellRead($command) : $runner($command);
-    if ($out === null || stripos($out, 'transfer failed') !== false
-        || stripos($out, 'communications error') !== false) {
+    if (
+        $out === null ||
+        stripos($out, 'transfer failed') !== false ||
+        stripos($out, 'communications error') !== false
+    ) {
         return [];
     }
 
@@ -307,7 +352,10 @@ function dnsZoneTransfer(string $dig, string $domain, string $server, ?callable 
             continue;
         }
         $name = strtolower(rtrim($parts[0], '.'));
-        if ($name !== '' && ($name === $domain || str_ends_with($name, '.' . $domain))) {
+        if (
+            $name !== '' &&
+            ($name === $domain || str_ends_with($name, '.' . $domain))
+        ) {
             $names[$name] = true;
         }
     }
@@ -327,8 +375,11 @@ function dnsZoneTransfer(string $dig, string $domain, string $server, ?callable 
  * a resolver that timed out has told us nothing, and skipping a name on that
  * basis would silently drop records that are really there.
  */
-function dnsNameExists(string $dig, string $name, ?callable $runner = null): ?bool
-{
+function dnsNameExists(
+    string $dig,
+    string $name,
+    ?callable $runner = null,
+): ?bool {
     if (!preg_match('/^[a-z0-9._-]{1,253}$/i', $name)) {
         return false;
     }
@@ -336,7 +387,7 @@ function dnsNameExists(string $dig, string $name, ?callable $runner = null): ?bo
     $command = sprintf(
         '%s +noall +comments +tries=1 +time=' . DNS_QUERY_TIME . ' %s A 2>&1',
         escapeshellarg($dig),
-        escapeshellarg($name)
+        escapeshellarg($name),
     );
 
     $out = $runner === null ? shellRead($command) : $runner($command);
@@ -359,9 +410,16 @@ function dnsNameExists(string $dig, string $name, ?callable $runner = null): ?bo
  *
  * @return list<array{name: string, type: string, value: string, ttl: int}>
  */
-function dnsQueryRecords(string $dig, string $name, string $type, ?callable $runner = null): array
-{
-    if (!preg_match('/^[a-z0-9._-]{1,253}$/i', $name) || !preg_match('/^[A-Z]{1,10}$/', $type)) {
+function dnsQueryRecords(
+    string $dig,
+    string $name,
+    string $type,
+    ?callable $runner = null,
+): array {
+    if (
+        !preg_match('/^[a-z0-9._-]{1,253}$/i', $name) ||
+        !preg_match('/^[A-Z]{1,10}$/', $type)
+    ) {
         return [];
     }
 
@@ -369,7 +427,7 @@ function dnsQueryRecords(string $dig, string $name, string $type, ?callable $run
         '%s +noall +answer +tries=1 +time=' . DNS_QUERY_TIME . ' %s %s 2>&1',
         escapeshellarg($dig),
         escapeshellarg($name),
-        escapeshellarg($type)
+        escapeshellarg($type),
     );
 
     $out = $runner === null ? shellRead($command) : $runner($command);
@@ -402,7 +460,7 @@ function dnsQueryRecords(string $dig, string $name, string $type, ?callable $run
             'name' => strtolower(rtrim($answerName, '.')),
             'type' => strtoupper($answerType),
             'value' => trim($value),
-            'ttl' => (int)$ttl,
+            'ttl' => (int) $ttl,
         ];
     }
 
@@ -423,18 +481,20 @@ function dnsStore(
     string $domain,
     array $records,
     int $at,
-    bool $complete = true
+    bool $complete = true,
 ): array {
     $changes = [];
 
     $before = [];
     try {
         $stmt = $pdo->prepare(
-            'SELECT name, type, value, ttl FROM dns_records WHERE domain = ? AND gone_at IS NULL'
+            'SELECT name, type, value, ttl FROM dns_records WHERE domain = ? AND gone_at IS NULL',
         );
         $stmt->execute([$domain]);
         foreach ($stmt->fetchAll() as $row) {
-            $before[$row['name'] . '|' . $row['type'] . '|' . $row['value']] = $row;
+            $before[
+                $row['name'] . '|' . $row['type'] . '|' . $row['value']
+            ] = $row;
         }
     } catch (Throwable) {
         return $changes;
@@ -442,26 +502,36 @@ function dnsStore(
 
     $now = [];
     foreach ($records as $record) {
-        $now[$record['name'] . '|' . $record['type'] . '|' . $record['value']] = $record;
+        $now[
+            $record['name'] . '|' . $record['type'] . '|' . $record['value']
+        ] = $record;
     }
 
     $insert = $pdo->prepare(
         'INSERT INTO dns_records (domain, name, type, value, ttl, first_seen, last_seen)
          VALUES (:d, :n, :t, :v, :ttl, :at, :at)
          ON CONFLICT(domain, name, type, value)
-         DO UPDATE SET last_seen = :at, ttl = :ttl, gone_at = NULL'
+         DO UPDATE SET last_seen = :at, ttl = :ttl, gone_at = NULL',
     );
 
     foreach ($now as $key => $record) {
         $insert->execute([
-            ':d' => $domain, ':n' => $record['name'], ':t' => $record['type'],
-            ':v' => $record['value'], ':ttl' => $record['ttl'], ':at' => $at,
+            ':d' => $domain,
+            ':n' => $record['name'],
+            ':t' => $record['type'],
+            ':v' => $record['value'],
+            ':ttl' => $record['ttl'],
+            ':at' => $at,
         ]);
 
         if (!isset($before[$key])) {
             $changes[] = [
-                'change' => 'added', 'name' => $record['name'], 'type' => $record['type'],
-                'value' => $record['value'], 'was' => null, 'at' => $at,
+                'change' => 'added',
+                'name' => $record['name'],
+                'type' => $record['type'],
+                'value' => $record['value'],
+                'was' => null,
+                'at' => $at,
             ];
         }
     }
@@ -475,26 +545,41 @@ function dnsStore(
      */
     $gone = $pdo->prepare(
         'UPDATE dns_records SET gone_at = ?
-          WHERE domain = ? AND name = ? AND type = ? AND value = ? AND gone_at IS NULL'
+          WHERE domain = ? AND name = ? AND type = ? AND value = ? AND gone_at IS NULL',
     );
 
     foreach ($complete ? $before : [] as $key => $row) {
         if (isset($now[$key])) {
             continue;
         }
-        $gone->execute([$at, $domain, $row['name'], $row['type'], $row['value']]);
+        $gone->execute([
+            $at,
+            $domain,
+            $row['name'],
+            $row['type'],
+            $row['value'],
+        ]);
         $changes[] = [
-            'change' => 'gone', 'name' => $row['name'], 'type' => $row['type'],
-            'value' => $row['value'], 'was' => null, 'at' => $at,
+            'change' => 'gone',
+            'name' => $row['name'],
+            'type' => $row['type'],
+            'value' => $row['value'],
+            'was' => null,
+            'at' => $at,
         ];
     }
 
     foreach ($changes as $change) {
         $pdo->prepare(
             'INSERT INTO dns_changes (domain, at, change, name, type, value)
-             VALUES (?, ?, ?, ?, ?, ?)'
+             VALUES (?, ?, ?, ?, ?, ?)',
         )->execute([
-            $domain, $at, $change['change'], $change['name'], $change['type'], $change['value'],
+            $domain,
+            $at,
+            $change['change'],
+            $change['name'],
+            $change['type'],
+            $change['value'],
         ]);
     }
 
@@ -514,7 +599,7 @@ function dnsInventory(PDO $pdo, string $domain): array
 {
     try {
         $stmt = $pdo->prepare(
-            'SELECT * FROM dns_records WHERE domain = ? ORDER BY name, type, value'
+            'SELECT * FROM dns_records WHERE domain = ? ORDER BY name, type, value',
         );
         $stmt->execute([$domain]);
         $rows = $stmt->fetchAll();
@@ -524,10 +609,13 @@ function dnsInventory(PDO $pdo, string $domain): array
 
     $groups = [];
     foreach ($rows as $row) {
-        $group = dnsRecordGroup((string)$row['type'], (string)$row['value']);
+        $group = dnsRecordGroup((string) $row['type'], (string) $row['value']);
         $row['group'] = $group;
         $row['gone'] = $row['gone_at'] !== null;
-        $row['detail'] = recordDetail((string)$row['type'], (string)$row['value']);
+        $row['detail'] = recordDetail(
+            (string) $row['type'],
+            (string) $row['value'],
+        );
         $groups[$group][] = $row;
     }
 
@@ -536,7 +624,7 @@ function dnsInventory(PDO $pdo, string $domain): array
         if ($row['gone_at'] !== null) {
             continue;
         }
-        $names[(string)$row['name']] = true;
+        $names[(string) $row['name']] = true;
     }
 
     return [
@@ -563,11 +651,20 @@ function dnsRecordGroup(string $type, string $value): string
         return 'mail';
     }
     if ($type === 'TXT') {
-        if (str_contains($lower, 'v=spf1') || str_contains($lower, 'v=dmarc1')
-            || str_contains($lower, 'domainkey') || str_contains($lower, 'v=dkim1')) {
+        if (
+            str_contains($lower, 'v=spf1') ||
+            str_contains($lower, 'v=dmarc1') ||
+            str_contains($lower, 'domainkey') ||
+            str_contains($lower, 'v=dkim1')
+        ) {
             return 'mail';
         }
-        if (preg_match('/(verification|site-verification|_acme|challenge)/', $lower)) {
+        if (
+            preg_match(
+                '/(verification|site-verification|_acme|challenge)/',
+                $lower,
+            )
+        ) {
             return 'proof';
         }
         return 'text';
@@ -589,17 +686,22 @@ function dnsRecordGroup(string $type, string $value): string
 function dnsGroupNotes(): array
 {
     return [
-        'addresses' => 'Where the names point. A CNAME is a pointer at another name rather '
-            . 'than an address, which matters the day its target moves.',
-        'mail' => 'Everything that decides whether mail arrives: the servers that accept it, '
-            . 'and the SPF, DKIM and DMARC records that decide whether anyone believes it came '
-            . 'from you. A missing SPF is only obvious next to the MX records it belongs with.',
-        'delegation' => 'Which nameservers are in charge, and the serial that says when the '
-            . 'zone last changed.',
-        'certificates' => 'CAA records name the authorities allowed to issue certificates for '
-            . 'this domain. An unexpected one here is worth asking about.',
-        'proof' => 'Verification tokens - proving to somebody that you control this domain. '
-            . 'Harmless, and they accumulate for ever unless somebody tidies them.',
+        'addresses' =>
+            'Where the names point. A CNAME is a pointer at another name rather ' .
+            'than an address, which matters the day its target moves.',
+        'mail' =>
+            'Everything that decides whether mail arrives: the servers that accept it, ' .
+            'and the SPF, DKIM and DMARC records that decide whether anyone believes it came ' .
+            'from you. A missing SPF is only obvious next to the MX records it belongs with.',
+        'delegation' =>
+            'Which nameservers are in charge, and the serial that says when the ' .
+            'zone last changed.',
+        'certificates' =>
+            'CAA records name the authorities allowed to issue certificates for ' .
+            'this domain. An unexpected one here is worth asking about.',
+        'proof' =>
+            'Verification tokens - proving to somebody that you control this domain. ' .
+            'Harmless, and they accumulate for ever unless somebody tidies them.',
         'text' => 'Other TXT records.',
         'other' => 'Everything else.',
     ];
@@ -615,12 +717,12 @@ function dnsRecentChanges(PDO $pdo, ?string $domain, int $limit = 100): array
     try {
         if ($domain === null) {
             $stmt = $pdo->prepare(
-                'SELECT * FROM dns_changes ORDER BY at DESC, id DESC LIMIT ?'
+                'SELECT * FROM dns_changes ORDER BY at DESC, id DESC LIMIT ?',
             );
             $stmt->execute([$limit]);
         } else {
             $stmt = $pdo->prepare(
-                'SELECT * FROM dns_changes WHERE domain = ? ORDER BY at DESC, id DESC LIMIT ?'
+                'SELECT * FROM dns_changes WHERE domain = ? ORDER BY at DESC, id DESC LIMIT ?',
             );
             $stmt->execute([$domain, $limit]);
         }
@@ -645,28 +747,38 @@ function dnsTypeNotes(): array
 {
     return [
         'A' => 'An address. This is where the name actually points, for IPv4.',
-        'AAAA' => 'The same thing for IPv6. A name can have both, and visitors use whichever '
-            . 'their connection supports.',
-        'CNAME' => 'A pointer at another name rather than at an address. Whatever that name '
-            . 'resolves to is what this resolves to, which is convenient until the target '
-            . 'moves without anybody remembering this exists.',
-        'MX' => 'Where mail for this domain should be delivered. The number is a preference: '
-            . 'lower is tried first.',
-        'NS' => 'Which nameservers are authoritative for this zone — the servers that are '
-            . 'allowed to answer for it.',
-        'SOA' => 'The start of authority: who owns the zone, and the serial number that says '
-            . 'when it last changed. Secondary servers use the serial to notice updates.',
-        'TXT' => 'Free text. In practice almost always a machine-readable setting: mail '
-            . 'policy, or proof to somebody that you control the domain.',
-        'CAA' => 'Which certificate authorities are allowed to issue certificates for this '
-            . 'domain. Anything unexpected here is worth asking about.',
-        'SRV' => 'Where a particular service lives, with a port — used by things like chat '
-            . 'and directory protocols that need more than an address.',
-        'PTR' => 'The reverse: an address pointing back at a name. Mail servers check this.',
+        'AAAA' =>
+            'The same thing for IPv6. A name can have both, and visitors use whichever ' .
+            'their connection supports.',
+        'CNAME' =>
+            'A pointer at another name rather than at an address. Whatever that name ' .
+            'resolves to is what this resolves to, which is convenient until the target ' .
+            'moves without anybody remembering this exists.',
+        'MX' =>
+            'Where mail for this domain should be delivered. The number is a preference: ' .
+            'lower is tried first.',
+        'NS' =>
+            'Which nameservers are authoritative for this zone — the servers that are ' .
+            'allowed to answer for it.',
+        'SOA' =>
+            'The start of authority: who owns the zone, and the serial number that says ' .
+            'when it last changed. Secondary servers use the serial to notice updates.',
+        'TXT' =>
+            'Free text. In practice almost always a machine-readable setting: mail ' .
+            'policy, or proof to somebody that you control the domain.',
+        'CAA' =>
+            'Which certificate authorities are allowed to issue certificates for this ' .
+            'domain. Anything unexpected here is worth asking about.',
+        'SRV' =>
+            'Where a particular service lives, with a port — used by things like chat ' .
+            'and directory protocols that need more than an address.',
+        'PTR' =>
+            'The reverse: an address pointing back at a name. Mail servers check this.',
         'DNSKEY' => 'A DNSSEC signing key.',
         'DS' => 'A pointer to the DNSSEC key, published by the parent zone.',
-        'ANY' => 'Ask for everything. Most resolvers no longer answer this usefully, which is '
-            . 'why this asks for each type in turn instead.',
+        'ANY' =>
+            'Ask for everything. Most resolvers no longer answer this usefully, which is ' .
+            'why this asks for each type in turn instead.',
     ];
 }
 
@@ -677,7 +789,20 @@ function dnsTypeNotes(): array
  */
 function dnsLookupTypes(): array
 {
-    return ['A', 'AAAA', 'CNAME', 'MX', 'NS', 'TXT', 'SOA', 'CAA', 'SRV', 'PTR', 'DS', 'DNSKEY'];
+    return [
+        'A',
+        'AAAA',
+        'CNAME',
+        'MX',
+        'NS',
+        'TXT',
+        'SOA',
+        'CAA',
+        'SRV',
+        'PTR',
+        'DS',
+        'DNSKEY',
+    ];
 }
 
 /**
@@ -699,27 +824,33 @@ function parseTxtRecord(string $value): array
 
     // Long records are split across quoted chunks by the protocol; joining them
     // back is what the reader means by "the record".
-    $text = (string)preg_replace('/"\s+"/', '', $text);
+    $text = (string) preg_replace('/"\s+"/', '', $text);
 
     $kind = 'text';
     $note = '';
 
     if (stripos($text, 'v=spf1') === 0) {
         $kind = 'SPF';
-        $note = 'Says which servers are allowed to send mail claiming to be from this domain. '
-            . 'The last term decides what happens to everything else: ~all is a soft fail, '
-            . '-all a hard one, ?all no opinion at all.';
+        $note =
+            'Says which servers are allowed to send mail claiming to be from this domain. ' .
+            'The last term decides what happens to everything else: ~all is a soft fail, ' .
+            '-all a hard one, ?all no opinion at all.';
     } elseif (stripos($text, 'v=DMARC1') === 0) {
         $kind = 'DMARC';
-        $note = 'Says what a receiving server should do with mail that fails SPF or DKIM, and '
-            . 'where to send reports about it.';
+        $note =
+            'Says what a receiving server should do with mail that fails SPF or DKIM, and ' .
+            'where to send reports about it.';
     } elseif (stripos($text, 'v=DKIM1') === 0) {
         $kind = 'DKIM';
-        $note = 'A public key used to verify signatures on mail from this domain.';
-    } elseif (preg_match('/(verification|site-verification|validation)/i', $text)) {
+        $note =
+            'A public key used to verify signatures on mail from this domain.';
+    } elseif (
+        preg_match('/(verification|site-verification|validation)/i', $text)
+    ) {
         $kind = 'verification';
-        $note = 'Proof to somebody that you control this domain. Harmless, and they accumulate '
-            . 'for ever unless somebody tidies them.';
+        $note =
+            'Proof to somebody that you control this domain. Harmless, and they accumulate ' .
+            'for ever unless somebody tidies them.';
     }
 
     /*
@@ -737,11 +868,17 @@ function parseTxtRecord(string $value): array
      * wrong. Structure means either a known kind, or something that actually
      * looks like `name=value`.
      */
-    $structured = $kind !== 'text'
-        || (bool)preg_match('/(^|[\s;])[A-Za-z][A-Za-z0-9_.-]{0,30}=/', $text);
+    $structured =
+        $kind !== 'text' ||
+        (bool) preg_match('/(^|[\s;])[A-Za-z][A-Za-z0-9_.-]{0,30}=/', $text);
 
     if (!$structured) {
-        return ['kind' => $kind, 'note' => $note, 'pairs' => [], 'text' => $text];
+        return [
+            'kind' => $kind,
+            'note' => $note,
+            'pairs' => [],
+            'text' => $text,
+        ];
     }
 
     $parts = str_contains($text, ';')
@@ -770,10 +907,19 @@ function parseTxtRecord(string $value): array
             continue;
         }
 
-        $pairs[] = ['name' => '', 'value' => $part, 'note' => txtTermNote($kind, $part)];
+        $pairs[] = [
+            'name' => '',
+            'value' => $part,
+            'note' => txtTermNote($kind, $part),
+        ];
     }
 
-    return ['kind' => $kind, 'note' => $note, 'pairs' => $pairs, 'text' => $text];
+    return [
+        'kind' => $kind,
+        'note' => $note,
+        'pairs' => $pairs,
+        'text' => $text,
+    ];
 }
 
 /** What one key inside a TXT record means. */
@@ -787,15 +933,18 @@ function txtKeyNote(string $kind, string $name, string $value): string
             'p' => match (strtolower($value)) {
                 'none' => 'Do nothing to failing mail — monitoring only.',
                 'quarantine' => 'Failing mail goes to spam.',
-                'reject' => 'Failing mail is refused outright. The strictest setting.',
+                'reject'
+                    => 'Failing mail is refused outright. The strictest setting.',
                 default => 'What to do with mail that fails.',
             },
             'sp' => 'The same, for subdomains.',
             'rua' => 'Where to send aggregate reports.',
             'ruf' => 'Where to send reports about individual failures.',
-            'pct' => 'The percentage of failing mail the policy applies to — used to roll '
-                . 'a policy out gradually.',
-            'adkim' => 'How strictly the DKIM domain must match. s is strict, r relaxed.',
+            'pct'
+                => 'The percentage of failing mail the policy applies to — used to roll ' .
+                'a policy out gradually.',
+            'adkim'
+                => 'How strictly the DKIM domain must match. s is strict, r relaxed.',
             'aspf' => 'The same for SPF.',
             default => '',
         };
@@ -806,7 +955,8 @@ function txtKeyNote(string $kind, string $name, string $value): string
             'v' => 'The version.',
             'k' => 'The key type, usually rsa.',
             'p' => 'The public key itself. An empty one revokes the key.',
-            't' => 'Flags. y means testing, so failures should not be enforced.',
+            't'
+                => 'Flags. y means testing, so failures should not be enforced.',
             default => '',
         };
     }
@@ -828,18 +978,24 @@ function txtTermNote(string $kind, string $term): string
     if (preg_match('/^([~+?-])?all$/i', $term, $m)) {
         return match ($m[1] ?? '+') {
             '-' => 'Everything not listed above fails. The strict setting.',
-            '~' => 'Everything not listed above soft-fails — usually treated as suspicious '
-                . 'rather than refused.',
-            '?' => 'No opinion about anything not listed, which is close to having no SPF.',
-            default => 'Everything is allowed, which defeats the point of the record.',
+            '~'
+                => 'Everything not listed above soft-fails — usually treated as suspicious ' .
+                'rather than refused.',
+            '?'
+                => 'No opinion about anything not listed, which is close to having no SPF.',
+            default
+                => 'Everything is allowed, which defeats the point of the record.',
         };
     }
 
     if (str_starts_with(strtolower($term), 'include:')) {
-        return 'Also allow whatever this domain\'s SPF allows — how a mail provider is '
-            . 'authorised.';
+        return 'Also allow whatever this domain\'s SPF allows — how a mail provider is ' .
+            'authorised.';
     }
-    if (str_starts_with(strtolower($term), 'ip4:') || str_starts_with(strtolower($term), 'ip6:')) {
+    if (
+        str_starts_with(strtolower($term), 'ip4:') ||
+        str_starts_with(strtolower($term), 'ip6:')
+    ) {
         return 'This address may send mail for the domain.';
     }
     /*
@@ -859,35 +1015,46 @@ function txtTermNote(string $kind, string $term): string
     $said = match ($qualifier) {
         '-' => ' Prefixed with -, so a match here fails rather than passes.',
         '~' => ' Prefixed with ~, so a match here soft-fails.',
-        '?' => ' Prefixed with ?, so a match here is neither a pass nor a fail.',
+        '?'
+            => ' Prefixed with ?, so a match here is neither a pass nor a fail.',
         default => '',
     };
 
     $lower = strtolower($bare);
 
     if ($lower === 'a' || $lower === 'mx') {
-        return 'Whatever the domain\'s own ' . strtoupper($lower) . ' records point at may send '
-            . 'mail for it.' . $said;
+        return 'Whatever the domain\'s own ' .
+            strtoupper($lower) .
+            ' records point at may send ' .
+            'mail for it.' .
+            $said;
     }
     if (str_starts_with($lower, 'a:')) {
-        return 'Whatever ' . substr($bare, 2) . ' resolves to may send mail for the domain.'
-            . $said;
+        return 'Whatever ' .
+            substr($bare, 2) .
+            ' resolves to may send mail for the domain.' .
+            $said;
     }
     if (str_starts_with($lower, 'mx:')) {
-        return 'Whatever ' . substr($bare, 3) . '\'s MX records point at may send mail for '
-            . 'the domain.' . $said;
+        return 'Whatever ' .
+            substr($bare, 3) .
+            '\'s MX records point at may send mail for ' .
+            'the domain.' .
+            $said;
     }
     if (str_starts_with($lower, 'exists:')) {
-        return 'Passes if that name resolves at all. Used for per-sender rules, and rarely '
-            . 'by hand.' . $said;
+        return 'Passes if that name resolves at all. Used for per-sender rules, and rarely ' .
+            'by hand.' .
+            $said;
     }
     if ($lower === 'ptr' || str_starts_with($lower, 'ptr:')) {
-        return 'Checks the sending address\'s reverse name. Deprecated: it is slow, '
-            . 'unreliable, and receivers are entitled to ignore it.' . $said;
+        return 'Checks the sending address\'s reverse name. Deprecated: it is slow, ' .
+            'unreliable, and receivers are entitled to ignore it.' .
+            $said;
     }
     if (str_starts_with($lower, 'redirect=')) {
-        return 'Use another domain\'s SPF record instead of this one. Only takes effect if '
-            . 'no term matched, and there must be no `all` term for it to be reached.';
+        return 'Use another domain\'s SPF record instead of this one. Only takes effect if ' .
+            'no term matched, and there must be no `all` term for it to be reached.';
     }
     if (str_starts_with($lower, 'exp=')) {
         return 'Names a TXT record holding the message to return when mail is rejected.';
@@ -912,40 +1079,71 @@ function domainStatusPlain(string $status): array
     $key = strtolower(trim($status));
 
     $known = [
-        'clienttransferprohibited' => ['Locked against transfer',
-            'Your registrar will not let the domain be moved elsewhere. This is the normal '
-            . 'protective lock and is a good thing to see.'],
-        'clientupdateprohibited' => ['Locked against changes',
-            'Details cannot be edited without unlocking first. Protective.'],
-        'clientdeleteprohibited' => ['Locked against deletion',
-            'The domain cannot be deleted without unlocking first. Protective.'],
-        'clientrenewprohibited' => ['Renewal blocked by the registrar',
-            'Worth asking about — this can prevent renewing.'],
-        'clienthold' => ['Withdrawn from DNS by the registrar',
-            'The domain is registered but will not resolve. Usually a billing or compliance '
-            . 'problem, and the site is down while it lasts.'],
-        'servertransferprohibited' => ['Locked against transfer by the registry',
-            'A registry-level lock rather than your registrar’s.'],
-        'serverhold' => ['Withdrawn from DNS by the registry',
-            'The domain will not resolve. This is serious and is not something the registrar '
-            . 'set.'],
-        'pendingdelete' => ['About to be deleted',
-            'The registration has lapsed and the registry is releasing it. Act now or lose it.'],
-        'redemptionperiod' => ['Expired, still recoverable',
-            'Recoverable, usually for several times the renewal fee, for a limited time.'],
-        'pendingtransfer' => ['Being transferred', 'A transfer to another registrar is in '
-            . 'progress.'],
-        'autorenewperiod' => ['Just auto-renewed',
-            'The grace period after an automatic renewal.'],
-        'inactive' => ['No nameservers', 'The domain has no nameservers set, so it cannot '
-            . 'resolve.'],
-        'ok' => ['Nothing unusual', 'No locks and nothing pending. Note that this also means '
-            . 'no transfer lock.'],
+        'clienttransferprohibited' => [
+            'Locked against transfer',
+            'Your registrar will not let the domain be moved elsewhere. This is the normal ' .
+            'protective lock and is a good thing to see.',
+        ],
+        'clientupdateprohibited' => [
+            'Locked against changes',
+            'Details cannot be edited without unlocking first. Protective.',
+        ],
+        'clientdeleteprohibited' => [
+            'Locked against deletion',
+            'The domain cannot be deleted without unlocking first. Protective.',
+        ],
+        'clientrenewprohibited' => [
+            'Renewal blocked by the registrar',
+            'Worth asking about — this can prevent renewing.',
+        ],
+        'clienthold' => [
+            'Withdrawn from DNS by the registrar',
+            'The domain is registered but will not resolve. Usually a billing or compliance ' .
+            'problem, and the site is down while it lasts.',
+        ],
+        'servertransferprohibited' => [
+            'Locked against transfer by the registry',
+            'A registry-level lock rather than your registrar’s.',
+        ],
+        'serverhold' => [
+            'Withdrawn from DNS by the registry',
+            'The domain will not resolve. This is serious and is not something the registrar ' .
+            'set.',
+        ],
+        'pendingdelete' => [
+            'About to be deleted',
+            'The registration has lapsed and the registry is releasing it. Act now or lose it.',
+        ],
+        'redemptionperiod' => [
+            'Expired, still recoverable',
+            'Recoverable, usually for several times the renewal fee, for a limited time.',
+        ],
+        'pendingtransfer' => [
+            'Being transferred',
+            'A transfer to another registrar is in ' . 'progress.',
+        ],
+        'autorenewperiod' => [
+            'Just auto-renewed',
+            'The grace period after an automatic renewal.',
+        ],
+        'inactive' => [
+            'No nameservers',
+            'The domain has no nameservers set, so it cannot ' . 'resolve.',
+        ],
+        'ok' => [
+            'Nothing unusual',
+            'No locks and nothing pending. Note that this also means ' .
+            'no transfer lock.',
+        ],
         'active' => ['Active', 'Registered and resolving.'],
     ];
 
     if (isset($known[$key])) {
-        return ['plain' => $known[$key][0], 'note' => $known[$key][1], 'raw' => trim($status)];
+        return [
+            'plain' => $known[$key][0],
+            'note' => $known[$key][1],
+            'raw' => trim($status),
+        ];
     }
 
     return ['plain' => trim($status), 'note' => '', 'raw' => trim($status)];
@@ -980,14 +1178,18 @@ function parseSoaRecord(string $value): array
         [
             'name' => 'Primary nameserver',
             'value' => rtrim($primary, '.'),
-            'note' => 'The server this zone is edited on. The other nameservers copy from it, '
-                . 'so a change made anywhere else is a change that will be overwritten.',
+            'note' =>
+                'The server this zone is edited on. The other nameservers copy from it, ' .
+                'so a change made anywhere else is a change that will be overwritten.',
         ],
         [
             'name' => 'Responsible email',
             'value' => soaMailbox($mailbox),
-            'note' => 'Written as a DNS name, so the first dot stands in for the @ sign. '
-                . 'Sent as ' . rtrim($mailbox, '.') . '.',
+            'note' =>
+                'Written as a DNS name, so the first dot stands in for the @ sign. ' .
+                'Sent as ' .
+                rtrim($mailbox, '.') .
+                '.',
         ],
         [
             'name' => 'Serial',
@@ -997,26 +1199,30 @@ function parseSoaRecord(string $value): array
         [
             'name' => 'Refresh',
             'value' => soaSeconds($refresh),
-            'note' => 'How often the other nameservers check the primary for a new serial.',
+            'note' =>
+                'How often the other nameservers check the primary for a new serial.',
         ],
         [
             'name' => 'Retry',
             'value' => soaSeconds($retry),
-            'note' => 'How long they wait before trying again after a failed check.',
+            'note' =>
+                'How long they wait before trying again after a failed check.',
         ],
         [
             'name' => 'Expire',
             'value' => soaSeconds($expire),
-            'note' => 'How long a secondary keeps answering when it cannot reach the primary '
-                . 'at all. After this it stops answering for the zone, and the domain goes '
-                . 'dark rather than serving stale data.',
+            'note' =>
+                'How long a secondary keeps answering when it cannot reach the primary ' .
+                'at all. After this it stops answering for the zone, and the domain goes ' .
+                'dark rather than serving stale data.',
         ],
         [
             'name' => 'Negative caching',
             'value' => soaSeconds($minimum),
-            'note' => 'How long other resolvers remember that a name here does not exist. A '
-                . 'large value here is why a newly added record can take a while to appear '
-                . 'for people who already looked for it.',
+            'note' =>
+                'How long other resolvers remember that a name here does not exist. A ' .
+                'large value here is why a newly added record can take a while to appear ' .
+                'for people who already looked for it.',
         ],
     ];
 
@@ -1060,22 +1266,33 @@ function soaMailbox(string $name): string
  */
 function soaSerialNote(string $serial): string
 {
-    $plain = 'The version of the zone. It must increase on every edit, or the other '
-        . 'nameservers will not notice the change.';
+    $plain =
+        'The version of the zone. It must increase on every edit, or the other ' .
+        'nameservers will not notice the change.';
 
     if (!preg_match('/^(\d{4})(\d{2})(\d{2})(\d{1,3})$/', $serial, $m)) {
         return $plain;
     }
 
     [, $year, $month, $day, $revision] = $m;
-    if ((int)$year < 1990 || (int)$year > (int)date('Y') + 1
-        || (int)$month < 1 || (int)$month > 12 || (int)$day < 1 || (int)$day > 31) {
+    if (
+        (int) $year < 1990 ||
+        (int) $year > (int) date('Y') + 1 ||
+        (int) $month < 1 ||
+        (int) $month > 12 ||
+        (int) $day < 1 ||
+        (int) $day > 31
+    ) {
         return $plain;
     }
 
     return sprintf(
         'Follows the usual date convention: last edited %s-%s-%s, revision %d that day. %s',
-        $year, $month, $day, (int)$revision, $plain
+        $year,
+        $month,
+        $day,
+        (int) $revision,
+        $plain,
     );
 }
 
@@ -1086,7 +1303,7 @@ function soaSeconds(string $raw): string
         return $raw;
     }
 
-    return $raw . ' (' . headerDuration((int)$raw) . ')';
+    return $raw . ' (' . headerDuration((int) $raw) . ')';
 }
 
 /**
@@ -1106,8 +1323,13 @@ function recordDetail(string $type, string $value): ?array
     if ($type === 'SOA') {
         $soa = parseSoaRecord($value);
         return $soa['ok']
-            ? ['kind' => 'SOA', 'note' => 'The zone\'s own settings: who runs it, and how '
-                . 'long everyone else may believe what it says.', 'fields' => $soa['fields']]
+            ? [
+                'kind' => 'SOA',
+                'note' =>
+                    'The zone\'s own settings: who runs it, and how ' .
+                    'long everyone else may believe what it says.',
+                'fields' => $soa['fields'],
+            ]
             : null;
     }
 
@@ -1120,9 +1342,9 @@ function recordDetail(string $type, string $value): ?array
 
     foreach ($txt['pairs'] as $pair) {
         $fields[] = [
-            'name' => (string)($pair['name'] ?? ''),
-            'value' => (string)($pair['value'] ?? ''),
-            'note' => (string)($pair['note'] ?? ''),
+            'name' => (string) ($pair['name'] ?? ''),
+            'value' => (string) ($pair['value'] ?? ''),
+            'note' => (string) ($pair['note'] ?? ''),
         ];
     }
 
@@ -1130,5 +1352,9 @@ function recordDetail(string $type, string $value): ?array
         return null;
     }
 
-    return ['kind' => $txt['kind'], 'note' => $txt['note'], 'fields' => $fields];
+    return [
+        'kind' => $txt['kind'],
+        'note' => $txt['note'],
+        'fields' => $fields,
+    ];
 }

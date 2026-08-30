@@ -56,9 +56,24 @@ function backupRoots(array $config): array
 function probableBackupPatterns(): array
 {
     return [
-        'backup', 'backups', 'bak', 'snapshot', 'snapshots', 'dump', 'dumps',
-        'archive', 'archives', '.sql.gz', '.sql', '.tar.gz', '.tgz', '.tar',
-        '.zip', '.dump', 'old', 'copy',
+        'backup',
+        'backups',
+        'bak',
+        'snapshot',
+        'snapshots',
+        'dump',
+        'dumps',
+        'archive',
+        'archives',
+        '.sql.gz',
+        '.sql',
+        '.tar.gz',
+        '.tgz',
+        '.tar',
+        '.zip',
+        '.dump',
+        'old',
+        'copy',
     ];
 }
 
@@ -82,7 +97,12 @@ function looksLikeBackup(string $path): ?string
          * point /home/rollback and /var/lib/bakery both contain "bak". A
          * monitor that flags those has taught the reader to skip the section.
          */
-        if (preg_match('#(^|/)' . preg_quote($pattern, '#') . '($|/|[-_.])#', $lower)) {
+        if (
+            preg_match(
+                '#(^|/)' . preg_quote($pattern, '#') . '($|/|[-_.])#',
+                $lower,
+            )
+        ) {
             return $pattern;
         }
     }
@@ -108,18 +128,21 @@ function looksLikeBackup(string $path): ?string
  */
 function jetBackupCli(array $found = []): ?string
 {
-    foreach ([
-        '/usr/local/jetapps/usr/jetbackup5/bin/jetbackup5api',
-        '/usr/local/jetapps/usr/jetbackup/bin/jetbackupapi',
-        '/usr/bin/jetbackup5api',
-    ] as $candidate) {
+    foreach (
+        [
+            '/usr/local/jetapps/usr/jetbackup5/bin/jetbackup5api',
+            '/usr/local/jetapps/usr/jetbackup/bin/jetbackupapi',
+            '/usr/bin/jetbackup5api',
+        ]
+        as $candidate
+    ) {
         if (is_executable($candidate)) {
             return $candidate;
         }
     }
 
     foreach (['jetbackup5api', 'jetbackupapi'] as $name) {
-        $path = trim((string)($found[$name] ?? ''));
+        $path = trim((string) ($found[$name] ?? ''));
         /*
          * This path came from root's capability sweep. Re-checking it with
          * is_executable() as the web account turns an installed, root-only
@@ -149,10 +172,12 @@ function backupToolsFromHost(?PDO $host): array
     }
 
     try {
-        $rows = $host->query(
-            "SELECT name, path, account_path FROM host_capabilities
-              WHERE name IN ('jetbackup5api', 'jetbackupapi')"
-        )->fetchAll();
+        $rows = $host
+            ->query(
+                "SELECT name, path, account_path FROM host_capabilities
+              WHERE name IN ('jetbackup5api', 'jetbackupapi')",
+            )
+            ->fetchAll();
     } catch (Throwable) {
         return [];
     }
@@ -166,9 +191,11 @@ function backupToolsFromHost(?PDO $host): array
          * sees. Running a binary root can see and the account cannot produces
          * "not found" from a shell, which is a confusing way to fail.
          */
-        $path = trim((string)($row['account_path'] ?? '')) ?: trim((string)($row['path'] ?? ''));
+        $path =
+            trim((string) ($row['account_path'] ?? '')) ?:
+            trim((string) ($row['path'] ?? ''));
         if ($path !== '') {
-            $found[(string)$row['name']] = $path;
+            $found[(string) $row['name']] = $path;
         }
     }
 
@@ -186,15 +213,19 @@ function backupToolsFromHost(?PDO $host): array
  *
  * @return list<array>|null
  */
-function jetBackupQuery(string $cli, string $function, array $arguments = []): ?array
-{
+function jetBackupQuery(
+    string $cli,
+    string $function,
+    array $arguments = [],
+): ?array {
     if (!preg_match('/^[A-Za-z]{1,32}$/', $function)) {
         return null;
     }
 
-    $command = escapeshellarg($cli) . ' -F ' . escapeshellarg($function) . ' -O json';
+    $command =
+        escapeshellarg($cli) . ' -F ' . escapeshellarg($function) . ' -O json';
     foreach ($arguments as $key => $value) {
-        if (!preg_match('/^[A-Za-z_]{1,32}$/', (string)$key)) {
+        if (!preg_match('/^[A-Za-z_]{1,32}$/', (string) $key)) {
             continue;
         }
         $command .= ' -D ' . escapeshellarg($key . '=' . $value);
@@ -220,7 +251,9 @@ function jetBackupQuery(string $cli, string $function, array $arguments = []): ?
             $inner = $decoded[$key];
             foreach (['backups', 'items', 'data'] as $nested) {
                 if (isset($inner[$nested]) && is_array($inner[$nested])) {
-                    return array_values(array_filter($inner[$nested], 'is_array'));
+                    return array_values(
+                        array_filter($inner[$nested], 'is_array'),
+                    );
                 }
             }
             return array_values(array_filter($inner, 'is_array'));
@@ -243,15 +276,16 @@ function jetBackupInventory(?PDO $host = null): array
     if ($cli === null) {
         return [
             'available' => false,
-            'reason' => 'JetBackup\'s command line tool was not found, so the directories '
-                . 'under the backup root can be measured but not explained - a name like '
-                . 'files0000000005 says nothing about which account or date it holds.'
-                . ($host === null
-                    ? ' The host collector\'s capability sweep has not been read, so this '
-                      . 'is only what THIS account can see - and inside CageFS it cannot '
-                      . 'see /usr/local/jetapps at all.'
-                    : ' The host\'s own capability sweep did not find it either, so it is '
-                      . 'not installed rather than merely out of reach.'),
+            'reason' =>
+                'JetBackup\'s command line tool was not found, so the directories ' .
+                'under the backup root can be measured but not explained - a name like ' .
+                'files0000000005 says nothing about which account or date it holds.' .
+                ($host === null
+                    ? ' The host collector\'s capability sweep has not been read, so this ' .
+                        'is only what THIS account can see - and inside CageFS it cannot ' .
+                        'see /usr/local/jetapps at all.'
+                    : ' The host\'s own capability sweep did not find it either, so it is ' .
+                        'not installed rather than merely out of reach.'),
             'backups' => [],
             'destinations' => [],
         ];
@@ -263,8 +297,11 @@ function jetBackupInventory(?PDO $host = null): array
     if ($backups === null) {
         return [
             'available' => false,
-            'reason' => 'JetBackup is installed at ' . $cli . ' but did not return readable '
-                . 'metadata. This usually means it needs running as root.',
+            'reason' =>
+                'JetBackup is installed at ' .
+                $cli .
+                ' but did not return readable ' .
+                'metadata. This usually means it needs running as root.',
             'backups' => [],
             'destinations' => $destinations ?? [],
         ];
@@ -275,11 +312,30 @@ function jetBackupInventory(?PDO $host = null): array
         // Field names differ between versions; each is looked for under the
         // names it has had, and left null rather than guessed.
         $rows[] = [
-            'account' => firstOf($entry, ['account', 'owner', 'username', '_account']),
-            'created_at' => jetBackupTimestamp(firstOf($entry, ['created', 'created_on', 'time', 'timestamp', 'date'])),
+            'account' => firstOf($entry, [
+                'account',
+                'owner',
+                'username',
+                '_account',
+            ]),
+            'created_at' => jetBackupTimestamp(
+                firstOf($entry, [
+                    'created',
+                    'created_on',
+                    'time',
+                    'timestamp',
+                    'date',
+                ]),
+            ),
             'type' => firstOf($entry, ['type', 'backup_type', 'schedule_type']),
-            'bytes' => jetBackupBytes(firstOf($entry, ['size', 'total_size', 'used', 'disk_usage'])),
-            'destination' => firstOf($entry, ['destination', 'destination_name', 'dest']),
+            'bytes' => jetBackupBytes(
+                firstOf($entry, ['size', 'total_size', 'used', 'disk_usage']),
+            ),
+            'destination' => firstOf($entry, [
+                'destination',
+                'destination_name',
+                'dest',
+            ]),
             'path' => firstOf($entry, ['path', 'location', 'directory']),
             'id' => firstOf($entry, ['_id', 'id', 'uniq_id']),
         ];
@@ -296,8 +352,8 @@ function jetBackupInventory(?PDO $host = null): array
 function jetBackupTimestamp(mixed $value): ?int
 {
     if (is_numeric($value)) {
-        $time = (int)$value;
-        return $time > 20000000000 ? (int)floor($time / 1000) : $time;
+        $time = (int) $value;
+        return $time > 20000000000 ? (int) floor($time / 1000) : $time;
     }
     $time = is_string($value) ? strtotime($value) : false;
     return $time === false ? null : $time;
@@ -305,16 +361,48 @@ function jetBackupTimestamp(mixed $value): ?int
 
 function jetBackupBytes(mixed $value): ?int
 {
-    if (is_int($value) || is_float($value) || (is_string($value) && ctype_digit($value))) {
-        return max(0, (int)$value);
+    if (
+        is_int($value) ||
+        is_float($value) ||
+        (is_string($value) && ctype_digit($value))
+    ) {
+        return max(0, (int) $value);
     }
-    if (!is_string($value) || !preg_match('/^\s*([0-9]+(?:\.[0-9]+)?)\s*([kmgtpe]?i?b?)?\s*$/i', $value, $m)) {
+    if (
+        !is_string($value) ||
+        !preg_match(
+            '/^\s*([0-9]+(?:\.[0-9]+)?)\s*([kmgtpe]?i?b?)?\s*$/i',
+            $value,
+            $m,
+        )
+    ) {
         return null;
     }
     $unit = strtolower($m[2] ?: 'b');
-    $power = array_search($unit, ['b', 'k', 'kb', 'kib', 'm', 'mb', 'mib', 'g', 'gb', 'gib', 't', 'tb', 'tib', 'p', 'pb', 'pib'], true);
-    $steps = $power === false ? 0 : (int)floor(($power + 2) / 3);
-    return (int)round((float)$m[1] * (1024 ** $steps));
+    $power = array_search(
+        $unit,
+        [
+            'b',
+            'k',
+            'kb',
+            'kib',
+            'm',
+            'mb',
+            'mib',
+            'g',
+            'gb',
+            'gib',
+            't',
+            'tb',
+            'tib',
+            'p',
+            'pb',
+            'pib',
+        ],
+        true,
+    );
+    $steps = $power === false ? 0 : (int) floor(($power + 2) / 3);
+    return (int) round((float) $m[1] * 1024 ** $steps);
 }
 
 /** The first key present, or null. Values are never invented. */
@@ -341,34 +429,36 @@ function firstOf(array $row, array $keys): mixed
  */
 function analyseBackups(PDO $host, array $config): array
 {
-    $walk = $host->query('SELECT * FROM host_walks ORDER BY taken_at DESC LIMIT 1')
+    $walk = $host
+        ->query('SELECT * FROM host_walks ORDER BY taken_at DESC LIMIT 1')
         ->fetch(PDO::FETCH_ASSOC);
 
     if (!$walk) {
         return [
             'available' => false,
-            'reason' => 'No disk walk has been run yet, so there is nothing to analyse. '
-                . 'As root: php host-cron.php --disk',
+            'reason' =>
+                'No disk walk has been run yet, so there is nothing to analyse. ' .
+                'As root: php host-cron.php --disk',
         ];
     }
 
-    $at = (int)$walk['taken_at'];
+    $at = (int) $walk['taken_at'];
 
     $dirs = $host->prepare(
         'SELECT path, bytes, files, COALESCE(measured, 1) AS measured
-         FROM host_dirs WHERE taken_at = ?'
+         FROM host_dirs WHERE taken_at = ?',
     );
     $dirs->execute([$at]);
     $all = $dirs->fetchAll(PDO::FETCH_ASSOC);
 
     $byPath = [];
     foreach ($all as $row) {
-        $byPath[(string)$row['path']] = $row;
+        $byPath[(string) $row['path']] = $row;
     }
 
     // What the filesystem itself says, which is the honest denominator.
     $mount = $host->prepare(
-        'SELECT * FROM host_mounts WHERE taken_at <= ? ORDER BY taken_at DESC, used_bytes DESC LIMIT 1'
+        'SELECT * FROM host_mounts WHERE taken_at <= ? ORDER BY taken_at DESC, used_bytes DESC LIMIT 1',
     );
     $mount->execute([$at]);
     $filesystem = $mount->fetch(PDO::FETCH_ASSOC) ?: null;
@@ -379,11 +469,11 @@ function analyseBackups(PDO $host, array $config): array
         if (!isset($byPath[$root])) {
             continue;
         }
-        $bytes = (int)$byPath[$root]['bytes'];
+        $bytes = (int) $byPath[$root]['bytes'];
         $roots[] = [
             'path' => $root,
             'bytes' => $bytes,
-            'files' => (int)$byPath[$root]['files'],
+            'files' => (int) $byPath[$root]['files'],
             'children' => backupChildren($byPath, $root),
         ];
         $total += $bytes;
@@ -402,8 +492,8 @@ function analyseBackups(PDO $host, array $config): array
      * and the walk is a lower bound whenever it ran out of time. df knows what
      * is used; that is the figure a percentage should be a percentage of.
      */
-    $used = $filesystem ? (int)$filesystem['used_bytes'] : 0;
-    $share = $used > 0 ? round($total / $used * 100, 1) : null;
+    $used = $filesystem ? (int) $filesystem['used_bytes'] : 0;
+    $share = $used > 0 ? round(($total / $used) * 100, 1) : null;
 
     /*
      * How much of the backup area was actually measured.
@@ -424,11 +514,11 @@ function analyseBackups(PDO $host, array $config): array
         'available' => true,
         'reason' => null,
         'taken_at' => $at,
-        'complete' => (bool)$walk['complete'],
+        'complete' => (bool) $walk['complete'],
         'total_bytes' => $total,
         'used_bytes' => $used,
         'share_percent' => $share,
-        'mount' => $filesystem ? (string)$filesystem['mount'] : null,
+        'mount' => $filesystem ? (string) $filesystem['mount'] : null,
         'roots' => $roots,
         'unmeasured' => $unmeasured,
         'accounts' => $accounts,
@@ -454,9 +544,9 @@ function backupChildren(array $byPath, string $root): array
         $children[] = [
             'path' => $path,
             'name' => basename($path),
-            'bytes' => (int)$row['bytes'],
-            'files' => (int)$row['files'],
-            'measured' => (bool)($row['measured'] ?? 1),
+            'bytes' => (int) $row['bytes'],
+            'files' => (int) $row['files'],
+            'measured' => (bool) ($row['measured'] ?? 1),
         ];
     }
 
@@ -484,12 +574,16 @@ function backupChildren(array $byPath, string $root): array
  * - retention of thirty daily incrementals will do that legitimately - but it
  * is the number that decides whether the retention policy is worth reading.
  */
-function backupsByAccount(array $byPath, array $jet, array $roots, int $totalBytes = 0): array
-{
+function backupsByAccount(
+    array $byPath,
+    array $jet,
+    array $roots,
+    int $totalBytes = 0,
+): array {
     $live = [];
     foreach ($byPath as $path => $row) {
-        if (preg_match('#^/home/([^/]+)$#', (string)$path, $m)) {
-            $live[$m[1]] = (int)$row['bytes'];
+        if (preg_match('#^/home/([^/]+)$#', (string) $path, $m)) {
+            $live[$m[1]] = (int) $row['bytes'];
         }
     }
 
@@ -501,16 +595,27 @@ function backupsByAccount(array $byPath, array $jet, array $roots, int $totalByt
         if (!is_string($account) || $account === '') {
             continue;
         }
-        $backedUp[$account] ??= ['bytes' => 0, 'count' => 0, 'oldest' => null, 'newest' => null];
-        $backedUp[$account]['bytes'] += (int)($backup['size'] ?? 0);
+        $backedUp[$account] ??= [
+            'bytes' => 0,
+            'count' => 0,
+            'oldest' => null,
+            'newest' => null,
+        ];
+        $backedUp[$account]['bytes'] += (int) ($backup['size'] ?? 0);
         $backedUp[$account]['count']++;
 
-        $created = is_numeric($backup['created'] ?? null) ? (int)$backup['created'] : null;
+        $created = is_numeric($backup['created'] ?? null)
+            ? (int) $backup['created']
+            : null;
         if ($created !== null) {
-            $backedUp[$account]['oldest'] = $backedUp[$account]['oldest'] === null
-                ? $created : min($backedUp[$account]['oldest'], $created);
-            $backedUp[$account]['newest'] = $backedUp[$account]['newest'] === null
-                ? $created : max($backedUp[$account]['newest'], $created);
+            $backedUp[$account]['oldest'] =
+                $backedUp[$account]['oldest'] === null
+                    ? $created
+                    : min($backedUp[$account]['oldest'], $created);
+            $backedUp[$account]['newest'] =
+                $backedUp[$account]['newest'] === null
+                    ? $created
+                    : max($backedUp[$account]['newest'], $created);
         }
     }
 
@@ -535,7 +640,7 @@ function backupsByAccount(array $byPath, array $jet, array $roots, int $totalByt
          * is everybody's.
          */
         foreach ($byPath as $path => $row) {
-            $path = (string)$path;
+            $path = (string) $path;
 
             $underRoot = false;
             foreach ($roots as $root) {
@@ -564,9 +669,14 @@ function backupsByAccount(array $byPath, array $jet, array $roots, int $totalByt
              * directories under one account adds that account's data ten times.
              */
             $inferred = true;
-            $backedUp[$account] ??= ['bytes' => 0, 'count' => 0, 'oldest' => null,
-                                     'newest' => null, 'paths' => []];
-            $backedUp[$account]['paths'][$path] = (int)$row['bytes'];
+            $backedUp[$account] ??= [
+                'bytes' => 0,
+                'count' => 0,
+                'oldest' => null,
+                'newest' => null,
+                'paths' => [],
+            ];
+            $backedUp[$account]['paths'][$path] = (int) $row['bytes'];
         }
 
         foreach ($backedUp as $account => $row) {
@@ -575,7 +685,10 @@ function backupsByAccount(array $byPath, array $jet, array $roots, int $totalByt
             foreach ($paths as $path => $bytes) {
                 $nested = false;
                 foreach ($paths as $other => $_) {
-                    if ($other !== $path && str_starts_with($path . '/', $other . '/')) {
+                    if (
+                        $other !== $path &&
+                        str_starts_with($path . '/', $other . '/')
+                    ) {
                         $nested = true;
                         break;
                     }
@@ -597,8 +710,10 @@ function backupsByAccount(array $byPath, array $jet, array $roots, int $totalByt
             'account' => $account,
             'backup_bytes' => $row['bytes'],
             'live_bytes' => $liveBytes,
-            'ratio' => ($liveBytes !== null && $liveBytes > 0)
-                ? round($row['bytes'] / $liveBytes, 1) : null,
+            'ratio' =>
+                $liveBytes !== null && $liveBytes > 0
+                    ? round($row['bytes'] / $liveBytes, 1)
+                    : null,
             'copies' => $row['count'] ?: null,
             'oldest' => $row['oldest'],
             'newest' => $row['newest'],
@@ -607,7 +722,11 @@ function backupsByAccount(array $byPath, array $jet, array $roots, int $totalByt
         ];
     }
 
-    usort($out, fn(array $a, array $b): int => $b['backup_bytes'] <=> $a['backup_bytes']);
+    usort(
+        $out,
+        fn(array $a, array $b): int => $b['backup_bytes'] <=>
+            $a['backup_bytes'],
+    );
 
     /*
      * What is left over after everything that could be attributed.
@@ -621,7 +740,10 @@ function backupsByAccount(array $byPath, array $jet, array $roots, int $totalByt
     $attributed = array_sum(array_column($out, 'backup_bytes'));
     $unattributed = max(0, $totalBytes - $attributed);
 
-    if ($unattributed > 0 && ($totalBytes === 0 || $unattributed / max(1, $totalBytes) > 0.02)) {
+    if (
+        $unattributed > 0 &&
+        ($totalBytes === 0 || $unattributed / max(1, $totalBytes) > 0.02)
+    ) {
         $out[] = [
             'account' => null,
             'backup_bytes' => $unattributed,
@@ -650,10 +772,13 @@ function otherProbableBackups(array $byPath, array $roots): array
     $out = [];
 
     foreach ($byPath as $path => $row) {
-        $path = (string)$path;
+        $path = (string) $path;
 
         foreach ($roots as $root) {
-            if ($path === $root || str_starts_with($path, rtrim($root, '/') . '/')) {
+            if (
+                $path === $root ||
+                str_starts_with($path, rtrim($root, '/') . '/')
+            ) {
                 continue 2;
             }
         }
@@ -665,8 +790,8 @@ function otherProbableBackups(array $byPath, array $roots): array
 
         $out[] = [
             'path' => $path,
-            'bytes' => (int)$row['bytes'],
-            'files' => (int)$row['files'],
+            'bytes' => (int) $row['bytes'],
+            'files' => (int) $row['files'],
             'matched' => $why,
         ];
     }
@@ -682,15 +807,19 @@ function otherProbableBackups(array $byPath, array $roots): array
      * The outermost directory is also the unit somebody would act on: nobody
      * moves the log subdirectory of an old backup, they move the backup.
      */
-    $out = array_values(array_filter($out, static function (array $row) use ($out): bool {
-        foreach ($out as $other) {
-            if ($other['path'] !== $row['path']
-                && str_starts_with($row['path'] . '/', $other['path'] . '/')) {
-                return false;
+    $out = array_values(
+        array_filter($out, static function (array $row) use ($out): bool {
+            foreach ($out as $other) {
+                if (
+                    $other['path'] !== $row['path'] &&
+                    str_starts_with($row['path'] . '/', $other['path'] . '/')
+                ) {
+                    return false;
+                }
             }
-        }
-        return true;
-    }));
+            return true;
+        }),
+    );
 
     usort($out, fn(array $a, array $b): int => $b['bytes'] <=> $a['bytes']);
     return array_slice($out, 0, 15);
@@ -713,7 +842,7 @@ function backupGrowth(PDO $host, array $roots): array
     $stmt = $host->prepare(
         "SELECT taken_at, SUM(bytes) AS bytes
          FROM host_dirs WHERE path IN ($placeholders)
-         GROUP BY taken_at ORDER BY taken_at DESC LIMIT 60"
+         GROUP BY taken_at ORDER BY taken_at DESC LIMIT 60",
     );
     $stmt->execute($roots);
     $points = array_reverse($stmt->fetchAll(PDO::FETCH_ASSOC));
@@ -721,20 +850,21 @@ function backupGrowth(PDO $host, array $roots): array
     if (count($points) < 2) {
         return [
             'points' => $points,
-            'reason' => 'Only one disk walk has been recorded, so there is nothing to compare '
-                . 'against yet. Growth appears once a second walk has run.',
+            'reason' =>
+                'Only one disk walk has been recorded, so there is nothing to compare ' .
+                'against yet. Growth appears once a second walk has run.',
         ];
     }
 
     $latest = end($points);
-    $now = (int)$latest['bytes'];
-    $at = (int)$latest['taken_at'];
+    $now = (int) $latest['bytes'];
+    $at = (int) $latest['taken_at'];
 
     $since = static function (int $seconds) use ($points, $at, $now): ?array {
         $target = $at - $seconds;
         $best = null;
         foreach ($points as $point) {
-            if ((int)$point['taken_at'] <= $target) {
+            if ((int) $point['taken_at'] <= $target) {
                 $best = $point;
             }
         }
@@ -743,10 +873,10 @@ function backupGrowth(PDO $host, array $roots): array
         }
 
         return [
-            'bytes' => (int)$best['bytes'],
-            'at' => (int)$best['taken_at'],
-            'grew' => $now - (int)$best['bytes'],
-            'span' => $at - (int)$best['taken_at'],
+            'bytes' => (int) $best['bytes'],
+            'at' => (int) $best['taken_at'],
+            'grew' => $now - (int) $best['bytes'],
+            'span' => $at - (int) $best['taken_at'],
         ];
     };
 
@@ -784,11 +914,14 @@ function backupGrowth(PDO $host, array $roots): array
  */
 function backupActions(array $analysis): array
 {
-    $total = humanBytes((int)($analysis['total_bytes'] ?? 0));
+    $total = humanBytes((int) ($analysis['total_bytes'] ?? 0));
 
     $account = null;
     foreach ($analysis['accounts'] ?? [] as $row) {
-        if (($row['unattributed'] ?? false) === false && is_string($row['account'] ?? null)) {
+        if (
+            ($row['unattributed'] ?? false) === false &&
+            is_string($row['account'] ?? null)
+        ) {
             $account = $row['account'];
             break;
         }
@@ -799,73 +932,81 @@ function backupActions(array $analysis): array
             'level' => 'safe',
             'reach' => 'root',
             'title' => 'Run JetBackup\'s own cleanup',
-            'detail' => 'Removes snapshots that have already passed their retention policy. '
-                . 'This is the tool deleting what it has itself marked as expired, which is '
-                . 'the only kind of backup deletion that needs no judgement.',
+            'detail' =>
+                'Removes snapshots that have already passed their retention policy. ' .
+                'This is the tool deleting what it has itself marked as expired, which is ' .
+                'the only kind of backup deletion that needs no judgement.',
             'command' => 'jetbackup5api -F cleanup',
         ],
         [
             'level' => 'safe',
             'reach' => 'root',
             'title' => 'Clear finished download archives',
-            'detail' => 'JetBackup builds a temporary archive when somebody downloads a '
-                . 'restore and does not always remove it. These are copies of copies and '
-                . 'nothing restores from them.',
+            'detail' =>
+                'JetBackup builds a temporary archive when somebody downloads a ' .
+                'restore and does not always remove it. These are copies of copies and ' .
+                'nothing restores from them.',
             'command' => null,
         ],
         [
             'level' => 'safe',
             'reach' => 'here',
             'title' => 'Review backups outside the backup system',
-            'detail' => 'The "probable backups" list below is manual copies that no retention '
-                . 'policy will ever touch. Nothing removes these but a person, and they are '
-                . 'usually the oldest thing on the disk.',
+            'detail' =>
+                'The "probable backups" list below is manual copies that no retention ' .
+                'policy will ever touch. Nothing removes these but a person, and they are ' .
+                'usually the oldest thing on the disk.',
             'command' => null,
         ],
         [
             'level' => 'review',
             'reach' => 'root',
             'title' => 'Reduce how many copies are retained',
-            'detail' => 'The largest single lever, and a real decision: fewer copies means a '
-                . 'shorter window to restore from. Worth doing deliberately rather than '
-                . 'because a disk filled up.',
+            'detail' =>
+                'The largest single lever, and a real decision: fewer copies means a ' .
+                'shorter window to restore from. Worth doing deliberately rather than ' .
+                'because a disk filled up.',
             'command' => null,
         ],
         [
             'level' => 'review',
             'reach' => 'root',
             'title' => 'Remove one specific snapshot',
-            'detail' => 'Through JetBackup, so its index stays consistent with what is on '
-                . 'disk. Reasonable for a single oversized snapshot; it is still a restore '
-                . 'point that will not exist afterwards.',
+            'detail' =>
+                'Through JetBackup, so its index stays consistent with what is on ' .
+                'disk. Reasonable for a single oversized snapshot; it is still a restore ' .
+                'point that will not exist afterwards.',
             'command' => null,
         ],
         [
             'level' => 'review',
             'reach' => 'provider',
             'title' => 'Move the backup destination off the system disk',
-            'detail' => 'The structural fix. Backups on the same disk as the data they '
-                . 'protect are also the reason the disk fills, and they do not survive the '
-                . 'failure they exist for.',
+            'detail' =>
+                'The structural fix. Backups on the same disk as the data they ' .
+                'protect are also the reason the disk fills, and they do not survive the ' .
+                'failure they exist for.',
             'command' => null,
         ],
         [
             'level' => 'dangerous',
             'reach' => 'root',
             'title' => 'Deleting files directly under the backup root',
-            'detail' => 'Listed so it can be named, not recommended. JetBackup keeps an index '
-                . 'of what it believes it holds; removing files behind its back leaves '
-                . 'restores that fail at the moment somebody needs them, which is the worst '
-                . 'possible time to discover it.',
+            'detail' =>
+                'Listed so it can be named, not recommended. JetBackup keeps an index ' .
+                'of what it believes it holds; removing files behind its back leaves ' .
+                'restores that fail at the moment somebody needs them, which is the worst ' .
+                'possible time to discover it.',
             'command' => null,
         ],
         [
             'level' => 'dangerous',
             'reach' => 'root',
             'title' => 'Removing JetBackup metadata or a whole destination',
-            'detail' => 'This does free the space, and it destroys every restore point on the '
-                . 'machine. There is no version of this that a monitoring dashboard should '
-                . 'suggest doing quickly.',
+            'detail' =>
+                'This does free the space, and it destroys every restore point on the ' .
+                'machine. There is no version of this that a monitoring dashboard should ' .
+                'suggest doing quickly.',
             'command' => null,
         ],
     ];
@@ -884,8 +1025,11 @@ function backupActions(array $analysis): array
  * cannot see it. This says what was measured, what it means, and what to do,
  * and asks for nothing destructive.
  */
-function providerMessage(array $analysis, string $total, ?string $account): string
-{
+function providerMessage(
+    array $analysis,
+    string $total,
+    ?string $account,
+): string {
     $share = $analysis['share_percent'];
     $mount = $analysis['mount'] ?? '/';
 
@@ -893,21 +1037,27 @@ function providerMessage(array $analysis, string $total, ?string $account): stri
     $lines[] = sprintf(
         'Local backup storage is using %s%s on %s.',
         $total,
-        $share !== null ? sprintf(', about %.0f%% of the used space', $share) : '',
-        $mount
+        $share !== null
+            ? sprintf(', about %.0f%% of the used space', $share)
+            : '',
+        $mount,
     );
 
     foreach (array_slice($analysis['accounts'], 0, 3) as $row) {
-        if (($row['unattributed'] ?? false) || $row['ratio'] === null || $row['account'] === null) {
+        if (
+            ($row['unattributed'] ?? false) ||
+            $row['ratio'] === null ||
+            $row['account'] === null
+        ) {
             continue;
         }
         $lines[] = sprintf(
             'Account %s holds %s of live data and %s of backups - %.1f times its own size%s.',
             $row['account'],
-            humanBytes((int)$row['live_bytes']),
-            humanBytes((int)$row['backup_bytes']),
+            humanBytes((int) $row['live_bytes']),
+            humanBytes((int) $row['backup_bytes']),
             $row['ratio'],
-            $row['copies'] ? sprintf(' across %d copies', $row['copies']) : ''
+            $row['copies'] ? sprintf(' across %d copies', $row['copies']) : '',
         );
     }
 
@@ -916,7 +1066,7 @@ function providerMessage(array $analysis, string $total, ?string $account): stri
         $lines[] = sprintf(
             'It has grown by %s over the last %s.',
             humanBytes($growth['week']['grew']),
-            humanDuration((float)$growth['week']['span'])
+            humanDuration((float) $growth['week']['span']),
         );
     }
 
@@ -927,13 +1077,15 @@ function providerMessage(array $analysis, string $total, ?string $account): stri
      * "review the retention policy for " with nothing after it is the sort of
      * sentence that gets a support ticket closed as unclear.
      */
-    $lines[] = 'Could you please review the retention policy'
-        . (is_string($account) && $account !== '' ? ' for ' . $account : '')
-        . ', remove any expired snapshots through JetBackup, and run a destination cleanup '
-        . 'and integrity check afterwards?';
+    $lines[] =
+        'Could you please review the retention policy' .
+        (is_string($account) && $account !== '' ? ' for ' . $account : '') .
+        ', remove any expired snapshots through JetBackup, and run a destination cleanup ' .
+        'and integrity check afterwards?';
     $lines[] = '';
-    $lines[] = 'I would rather not have anything deleted directly from the backup directory - '
-        . 'JetBackup keeps its own index and removing files behind it breaks restores.';
+    $lines[] =
+        'I would rather not have anything deleted directly from the backup directory - ' .
+        'JetBackup keeps its own index and removing files behind it breaks restores.';
 
     return implode("\n", $lines);
 }
@@ -958,17 +1110,17 @@ function backupRatioVerdict(?float $ratio, ?int $copies): ?string
 
     if ($ratio < 12) {
         return sprintf(
-            '%.1f times the live data%s. Normal for a month of daily incrementals; worth '
-            . 'knowing rather than worth acting on.',
+            '%.1f times the live data%s. Normal for a month of daily incrementals; worth ' .
+                'knowing rather than worth acting on.',
             $ratio,
-            $copies ? sprintf(' across %d copies', $copies) : ''
+            $copies ? sprintf(' across %d copies', $copies) : '',
         );
     }
 
     return sprintf(
-        '%.1f times the live data%s. High enough that the retention policy is worth reading - '
-        . 'it does not prove anything is wrong, but this is where the space went.',
+        '%.1f times the live data%s. High enough that the retention policy is worth reading - ' .
+            'it does not prove anything is wrong, but this is where the space went.',
         $ratio,
-        $copies ? sprintf(' across %d copies', $copies) : ''
+        $copies ? sprintf(' across %d copies', $copies) : '',
     );
 }

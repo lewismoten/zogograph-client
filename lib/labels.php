@@ -35,7 +35,9 @@ const LABEL_MAX = 500;
 function loadLabels(PDO $pdo): array
 {
     try {
-        $rows = $pdo->query('SELECT * FROM labels ORDER BY kind, match')->fetchAll();
+        $rows = $pdo
+            ->query('SELECT * FROM labels ORDER BY kind, match')
+            ->fetchAll();
     } catch (Throwable) {
         // An older database without the table. No labels is a valid state.
         return ['addresses' => [], 'ports' => [], 'count' => 0];
@@ -46,10 +48,10 @@ function loadLabels(PDO $pdo): array
 
     foreach ($rows as $row) {
         if ($row['kind'] === 'port') {
-            $ports[(int)$row['match']] = $row;
+            $ports[(int) $row['match']] = $row;
             continue;
         }
-        $addresses[] = $row + parseCidr((string)$row['match']);
+        $addresses[] = $row + parseCidr((string) $row['match']);
     }
 
     /*
@@ -59,14 +61,22 @@ function loadLabels(PDO $pdo): array
      * the specific one should win, which is how routing tables have always
      * worked and what anybody writing these will expect.
      */
-    $specificity = fn(array $entry): int =>
-        // An exact address is the most specific thing there is, so it sorts
-        // above every range - including a /32, which means the same thing.
-        $entry['bits'] === null ? 129 : (int)$entry['bits'];
+    $specificity = fn(
+        array $entry,
+    ): int => // An exact address is the most specific thing there is, so it sorts
+    // above every range - including a /32, which means the same thing.
+    $entry['bits'] === null ? 129 : (int) $entry['bits'];
 
-    usort($addresses, fn(array $a, array $b): int => $specificity($b) <=> $specificity($a));
+    usort(
+        $addresses,
+        fn(array $a, array $b): int => $specificity($b) <=> $specificity($a),
+    );
 
-    return ['addresses' => $addresses, 'ports' => $ports, 'count' => count($rows)];
+    return [
+        'addresses' => $addresses,
+        'ports' => $ports,
+        'count' => count($rows),
+    ];
 }
 
 /**
@@ -88,7 +98,7 @@ function parseCidr(string $match): array
         return ['bits' => null, 'network' => null];
     }
 
-    return ['bits' => (int)$bits, 'network' => $packed];
+    return ['bits' => (int) $bits, 'network' => $packed];
 }
 
 /**
@@ -117,7 +127,7 @@ function labelForAddress(array $labels, string $address): ?array
             // A v4 address against a v6 range, or the reverse.
             continue;
         }
-        if (inSameNetwork($packed, $entry['network'], (int)$entry['bits'])) {
+        if (inSameNetwork($packed, $entry['network'], (int) $entry['bits'])) {
             return $entry;
         }
     }
@@ -141,7 +151,7 @@ function inSameNetwork(string $a, string $b, int $bits): bool
         return true;
     }
 
-    $mask = 0xFF << (8 - $rest) & 0xFF;
+    $mask = (0xff << (8 - $rest)) & 0xff;
     return (ord($a[$whole]) & $mask) === (ord($b[$whole]) & $mask);
 }
 
@@ -156,8 +166,13 @@ function labelForPort(array $labels, int $port): ?array
  * Validated here rather than at the edge, because these are read by every
  * network page and a malformed one would be a rendering problem in six places.
  */
-function saveLabel(PDO $pdo, string $kind, string $match, string $label, string $note = ''): void
-{
+function saveLabel(
+    PDO $pdo,
+    string $kind,
+    string $match,
+    string $label,
+    string $note = '',
+): void {
     $kind = in_array($kind, ['port', 'header'], true) ? $kind : 'address';
     $match = $kind === 'header' ? strtolower(trim($match)) : trim($match);
     $label = trim($label);
@@ -170,7 +185,7 @@ function saveLabel(PDO $pdo, string $kind, string $match, string $label, string 
     }
 
     if ($kind === 'port') {
-        if (!ctype_digit($match) || (int)$match < 1 || (int)$match > 65535) {
+        if (!ctype_digit($match) || (int) $match < 1 || (int) $match > 65535) {
             throw new ActionRefused('that is not a port number');
         }
     } elseif ($kind === 'header') {
@@ -190,28 +205,35 @@ function saveLabel(PDO $pdo, string $kind, string $match, string $label, string 
             throw new ActionRefused('that is not an address or a network');
         }
         if (str_contains($match, '/')) {
-            $bits = (int)explode('/', $match, 2)[1];
+            $bits = (int) explode('/', $match, 2)[1];
             $max = str_contains($bare, ':') ? 128 : 32;
             if ($bits < 0 || $bits > $max) {
-                throw new ActionRefused("a prefix length must be between 0 and {$max}");
+                throw new ActionRefused(
+                    "a prefix length must be between 0 and {$max}",
+                );
             }
         }
     }
 
-    $count = (int)$pdo->query('SELECT COUNT(*) FROM labels')->fetchColumn();
-    $exists = $pdo->prepare('SELECT COUNT(*) FROM labels WHERE kind = ? AND match = ?');
+    $count = (int) $pdo->query('SELECT COUNT(*) FROM labels')->fetchColumn();
+    $exists = $pdo->prepare(
+        'SELECT COUNT(*) FROM labels WHERE kind = ? AND match = ?',
+    );
     $exists->execute([$kind, $match]);
 
-    if ($count >= LABEL_MAX && (int)$exists->fetchColumn() === 0) {
+    if ($count >= LABEL_MAX && (int) $exists->fetchColumn() === 0) {
         throw new ActionRefused('that is as many labels as this will hold');
     }
 
     $pdo->prepare(
         'INSERT INTO labels (kind, match, label, note, added_at) VALUES (:k, :m, :l, :n, :at)
-         ON CONFLICT(kind, match) DO UPDATE SET label = :l, note = :n'
+         ON CONFLICT(kind, match) DO UPDATE SET label = :l, note = :n',
     )->execute([
-        ':k' => $kind, ':m' => $match, ':l' => $label,
-        ':n' => $note === '' ? null : mb_substr($note, 0, 200), ':at' => time(),
+        ':k' => $kind,
+        ':m' => $match,
+        ':l' => $label,
+        ':n' => $note === '' ? null : mb_substr($note, 0, 200),
+        ':at' => time(),
     ]);
 }
 
@@ -229,8 +251,12 @@ function deleteLabel(PDO $pdo, int $id): bool
  * note about a number, and a note that hides the number it annotates would make
  * a typo in the notes indistinguishable from a change on the network.
  */
-function applyLabels(array $labels, array $rows, string $field, string $kind): array
-{
+function applyLabels(
+    array $labels,
+    array $rows,
+    string $field,
+    string $kind,
+): array {
     if ($labels['count'] === 0) {
         return $rows;
     }
@@ -241,9 +267,10 @@ function applyLabels(array $labels, array $rows, string $field, string $kind): a
             continue;
         }
 
-        $found = $kind === 'port'
-            ? labelForPort($labels, (int)$value)
-            : labelForAddress($labels, (string)$value);
+        $found =
+            $kind === 'port'
+                ? labelForPort($labels, (int) $value)
+                : labelForAddress($labels, (string) $value);
 
         if ($found !== null) {
             /*

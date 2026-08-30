@@ -82,46 +82,52 @@ function urlWatchChecks(): array
         ],
         'contains' => [
             'label' => 'The body contains this text',
-            'hint' => 'The simplest guard against a page that returns 200 and is empty, or '
-                . 'has been replaced by a holding page.',
+            'hint' =>
+                'The simplest guard against a page that returns 200 and is empty, or ' .
+                'has been replaced by a holding page.',
             'needs_value' => true,
             'extracts' => false,
         ],
         'missing' => [
             'label' => 'The body does NOT contain this text',
-            'hint' => 'For catching something that should never appear — a stack trace, a '
-                . '"database error", the word "suspended".',
+            'hint' =>
+                'For catching something that should never appear — a stack trace, a ' .
+                '"database error", the word "suspended".',
             'needs_value' => true,
             'extracts' => false,
         ],
         'regex' => [
             'label' => 'A regular expression matches',
-            'hint' => 'Records what one bracketed group matches, every run. The text is '
-                . 'compared against last time so a change can be noticed, and charted as a '
-                . 'number where it is one. Try it against real text first — a pattern '
-                . 'that captures the wrong group draws a chart of a constant, and nothing '
-                . 'about that looks like a mistake.',
+            'hint' =>
+                'Records what one bracketed group matches, every run. The text is ' .
+                'compared against last time so a change can be noticed, and charted as a ' .
+                'number where it is one. Try it against real text first — a pattern ' .
+                'that captures the wrong group draws a chart of a constant, and nothing ' .
+                'about that looks like a mistake.',
             'needs_value' => true,
             'extracts' => true,
         ],
         'json' => [
             'label' => 'A value from JSON',
-            'hint' => 'A dotted path such as data.queue.depth. Array positions '
-                . 'are numbers: items.0.count.',
+            'hint' =>
+                'A dotted path such as data.queue.depth. Array positions ' .
+                'are numbers: items.0.count.',
             'needs_value' => true,
             'extracts' => true,
         ],
         'meta' => [
             'label' => 'An HTML meta tag',
-            'hint' => 'The name of a meta tag; its content is recorded. Useful because a page '
-                . 'can publish a build number or a record count without showing it.',
+            'hint' =>
+                'The name of a meta tag; its content is recorded. Useful because a page ' .
+                'can publish a build number or a record count without showing it.',
             'needs_value' => true,
             'extracts' => true,
         ],
         'xpath' => [
             'label' => 'An XPath expression',
-            'hint' => 'For XML and well-formed HTML. The first matching node\'s text is '
-                . 'recorded.',
+            'hint' =>
+                'For XML and well-formed HTML. The first matching node\'s text is ' .
+                'recorded.',
             'needs_value' => true,
             'extracts' => true,
         ],
@@ -136,19 +142,23 @@ function urlWatchChecks(): array
 function urlWatchList(PDO $pdo): array
 {
     try {
-        $rows = $pdo->query('SELECT * FROM url_checks ORDER BY label, url')->fetchAll();
+        $rows = $pdo
+            ->query('SELECT * FROM url_checks ORDER BY label, url')
+            ->fetchAll();
     } catch (Throwable) {
         return [];
     }
 
     $now = time();
     foreach ($rows as &$row) {
-        $row['enabled'] = (bool)$row['enabled'];
-        $row['interval_label'] = urlWatchIntervals()[(int)$row['interval_seconds']]
-            ?? sprintf('every %d seconds', (int)$row['interval_seconds']);
+        $row['enabled'] = (bool) $row['enabled'];
+        $row['interval_label'] =
+            urlWatchIntervals()[(int) $row['interval_seconds']] ??
+            sprintf('every %d seconds', (int) $row['interval_seconds']);
 
-        $last = (int)($row['last_at'] ?? 0);
-        $row['due_at'] = $last === 0 ? $now : $last + (int)$row['interval_seconds'];
+        $last = (int) ($row['last_at'] ?? 0);
+        $row['due_at'] =
+            $last === 0 ? $now : $last + (int) $row['interval_seconds'];
         $row['overdue'] = $row['enabled'] && $row['due_at'] < $now - 60;
     }
     unset($row);
@@ -169,7 +179,7 @@ function urlWatchRunDue(
     PDO $pdo,
     ?int $only = null,
     ?callable $fetcher = null,
-    array $config = []
+    array $config = [],
 ): array {
     $now = time();
     $ran = 0;
@@ -178,7 +188,7 @@ function urlWatchRunDue(
 
     foreach (urlWatchList($pdo) as $check) {
         if ($only !== null) {
-            if ((int)$check['id'] !== $only) {
+            if ((int) $check['id'] !== $only) {
                 continue;
             }
         } elseif (!$check['enabled'] || $check['due_at'] > $now) {
@@ -195,13 +205,14 @@ function urlWatchRunDue(
          * mechanism rather than a matter of taste.
          */
         urlWatchNoteChange($pdo, $config, $check, $result);
-        urlWatchStore($pdo, (int)$check['id'], $result);
+        urlWatchStore($pdo, (int) $check['id'], $result);
 
         $ran++;
         if (!$result['ok']) {
             $failed++;
         }
-        $rows[] = ['id' => (int)$check['id'], 'label' => $check['label']] + $result;
+        $rows[] =
+            ['id' => (int) $check['id'], 'label' => $check['label']] + $result;
     }
 
     return ['ran' => $ran, 'failed' => $failed, 'rows' => $rows];
@@ -212,29 +223,40 @@ function urlWatchRunDue(
  *
  * @return array<string, mixed>
  */
-function urlWatchRunOne(array $check, ?callable $fetcher = null, array $config = []): array
-{
+function urlWatchRunOne(
+    array $check,
+    ?callable $fetcher = null,
+    array $config = [],
+): array {
     $started = microtime(true);
-    $fetched = $fetcher === null
-        ? urlWatchFetch((string)$check['url'], [
-            'follow_redirects' => (bool)($check['follow_redirects'] ?? true),
-            'method' => (string)($check['method'] ?? 'GET'),
-            // Only when asked, and only with something to send: a conditional
-            // request with no ETag is just an ordinary one with extra words.
-            'etag' => !empty($check['send_etag']) ? ($check['last_etag'] ?? null) : null,
-        ], $config)
-        : $fetcher((string)$check['url']);
+    $fetched =
+        $fetcher === null
+            ? urlWatchFetch(
+                (string) $check['url'],
+                [
+                    'follow_redirects' =>
+                        (bool) ($check['follow_redirects'] ?? true),
+                    'method' => (string) ($check['method'] ?? 'GET'),
+                    // Only when asked, and only with something to send: a conditional
+                    // request with no ETag is just an ordinary one with extra words.
+                    'etag' => !empty($check['send_etag'])
+                        ? $check['last_etag'] ?? null
+                        : null,
+                ],
+                $config,
+            )
+            : $fetcher((string) $check['url']);
 
     $result = [
         'at' => time(),
         'status' => $fetched['status'],
-        'ms' => (int)round((microtime(true) - $started) * 1000),
-        'bytes' => strlen((string)$fetched['body']),
+        'ms' => (int) round((microtime(true) - $started) * 1000),
+        'bytes' => strlen((string) $fetched['body']),
         'value' => null,
         'matched' => null,
         'ok' => false,
         'error' => $fetched['error'],
-        'hops' => (int)($fetched['hops'] ?? 0),
+        'hops' => (int) ($fetched['hops'] ?? 0),
         'landed' => $fetched['landed'] ?? null,
         'etag' => $fetched['etag'] ?? null,
         'headers' => $fetched['headers'] ?? '',
@@ -252,10 +274,11 @@ function urlWatchRunOne(array $check, ?callable $fetcher = null, array $config =
      * that insisted on 200 would report it as broken for ever, which is how a
      * monitor gets ignored.
      */
-    $expect = (int)($check['expect_status'] ?? 200);
-    $statusOk = $expect === 0
-        ? $fetched['status'] >= 200 && $fetched['status'] < 400
-        : $fetched['status'] === $expect;
+    $expect = (int) ($check['expect_status'] ?? 200);
+    $statusOk =
+        $expect === 0
+            ? $fetched['status'] >= 200 && $fetched['status'] < 400
+            : $fetched['status'] === $expect;
 
     /*
      * A 304 has no body, so a body rule cannot be applied to it.
@@ -274,10 +297,10 @@ function urlWatchRunOne(array $check, ?callable $fetcher = null, array $config =
     }
 
     $inspection = urlWatchInspect(
-        (string)($check['check_kind'] ?? 'none'),
-        (string)($check['check_value'] ?? ''),
-        (string)$fetched['body'],
-        max(0, (int)($check['capture_group'] ?? 1))
+        (string) ($check['check_kind'] ?? 'none'),
+        (string) ($check['check_value'] ?? ''),
+        (string) $fetched['body'],
+        max(0, (int) ($check['capture_group'] ?? 1)),
     );
 
     $result['matched'] = $inspection['matched'];
@@ -293,14 +316,15 @@ function urlWatchRunOne(array $check, ?callable $fetcher = null, array $config =
      * intervening blank as a change.
      */
     $was = $check['last_text'] ?? null;
-    $result['changed'] = $result['text'] !== null && $was !== null && $result['text'] !== $was;
+    $result['changed'] =
+        $result['text'] !== null && $was !== null && $result['text'] !== $was;
     $result['was'] = $was;
 
     if (!$statusOk) {
         $result['error'] = sprintf(
             'answered %d, expected %s',
             $fetched['status'],
-            $expect === 0 ? 'any success' : (string)$expect
+            $expect === 0 ? 'any success' : (string) $expect,
         );
     } elseif ($inspection['matched'] === false) {
         $result['error'] = $inspection['why'];
@@ -323,8 +347,12 @@ function urlWatchRunOne(array $check, ?callable $fetcher = null, array $config =
  *
  * @return array{matched: ?bool, value: ?float, text: ?string, why: string}
  */
-function urlWatchInspect(string $kind, string $needle, string $body, int $group = 1): array
-{
+function urlWatchInspect(
+    string $kind,
+    string $needle,
+    string $body,
+    int $group = 1,
+): array {
     $none = ['matched' => null, 'value' => null, 'text' => null, 'why' => ''];
 
     if ($kind === 'none' || $needle === '') {
@@ -334,13 +362,17 @@ function urlWatchInspect(string $kind, string $needle, string $body, int $group 
     switch ($kind) {
         case 'contains':
             $found = str_contains($body, $needle);
-            return ['matched' => $found,
-                    'why' => $found ? '' : 'the body does not contain that text'] + $none;
+            return [
+                'matched' => $found,
+                'why' => $found ? '' : 'the body does not contain that text',
+            ] + $none;
 
         case 'missing':
             $found = str_contains($body, $needle);
-            return ['matched' => !$found,
-                    'why' => $found ? 'the body contains text it should not' : ''] + $none;
+            return [
+                'matched' => !$found,
+                'why' => $found ? 'the body contains text it should not' : '',
+            ] + $none;
 
         case 'regex':
             /*
@@ -355,11 +387,16 @@ function urlWatchInspect(string $kind, string $needle, string $body, int $group 
             $found = @preg_match($pattern, $body, $m);
 
             if ($found === false) {
-                return ['matched' => false,
-                        'why' => 'that is not a valid regular expression'] + $none;
+                return [
+                    'matched' => false,
+                    'why' => 'that is not a valid regular expression',
+                ] + $none;
             }
             if ($found === 0) {
-                return ['matched' => false, 'why' => 'the pattern did not match'] + $none;
+                return [
+                    'matched' => false,
+                    'why' => 'the pattern did not match',
+                ] + $none;
             }
 
             if (!array_key_exists($group, $m)) {
@@ -368,7 +405,7 @@ function urlWatchInspect(string $kind, string $needle, string $body, int $group 
                     'why' => sprintf(
                         'the pattern matched, but it has no group %d - it has %d',
                         $group,
-                        count($m) - 1
+                        count($m) - 1,
                     ),
                 ] + $none;
             }
@@ -381,7 +418,7 @@ function urlWatchInspect(string $kind, string $needle, string $body, int $group 
              * that changed. So the text is what is compared for changes and
              * the number is only for the chart, where it is often nothing.
              */
-            $captured = (string)$m[$group];
+            $captured = (string) $m[$group];
             return [
                 'matched' => true,
                 'value' => urlWatchNumber($captured),
@@ -392,40 +429,54 @@ function urlWatchInspect(string $kind, string $needle, string $body, int $group 
         case 'json':
             $data = json_decode($body, true);
             if (!is_array($data)) {
-                return ['matched' => false,
-                        'why' => 'the response is not JSON'] + $none;
+                return [
+                    'matched' => false,
+                    'why' => 'the response is not JSON',
+                ] + $none;
             }
             $found = urlWatchDig($data, $needle);
             if ($found === null) {
-                return ['matched' => false,
-                        'why' => 'there is nothing at that path'] + $none;
+                return [
+                    'matched' => false,
+                    'why' => 'there is nothing at that path',
+                ] + $none;
             }
             return [
                 'matched' => true,
                 'value' => urlWatchNumber($found),
-                'text' => is_scalar($found) ? (string)$found : json_encode($found),
+                'text' => is_scalar($found)
+                    ? (string) $found
+                    : json_encode($found),
                 'why' => '',
             ];
 
         case 'meta':
             $quoted = preg_quote($needle, '/');
-            if (preg_match(
-                '/<meta[^>]+name\s*=\s*["\']' . $quoted . '["\'][^>]*content\s*=\s*["\']([^"\']*)/i',
-                $body,
-                $m
-            ) || preg_match(
-                '/<meta[^>]+content\s*=\s*["\']([^"\']*)["\'][^>]*name\s*=\s*["\']' . $quoted . '["\']/i',
-                $body,
-                $m
-            )) {
+            if (
+                preg_match(
+                    '/<meta[^>]+name\s*=\s*["\']' .
+                        $quoted .
+                        '["\'][^>]*content\s*=\s*["\']([^"\']*)/i',
+                    $body,
+                    $m,
+                ) ||
+                preg_match(
+                    '/<meta[^>]+content\s*=\s*["\']([^"\']*)["\'][^>]*name\s*=\s*["\']' .
+                        $quoted .
+                        '["\']/i',
+                    $body,
+                    $m,
+                )
+            ) {
                 return [
                     'matched' => true,
                     'value' => urlWatchNumber($m[1]),
-                    'text' => (string)$m[1],
+                    'text' => (string) $m[1],
                     'why' => '',
                 ];
             }
-            return ['matched' => false, 'why' => 'no meta tag by that name'] + $none;
+            return ['matched' => false, 'why' => 'no meta tag by that name'] +
+                $none;
 
         case 'xpath':
             return urlWatchXpath($body, $needle);
@@ -448,8 +499,10 @@ function urlWatchXpath(string $body, string $expression): array
     $none = ['matched' => null, 'value' => null, 'text' => null, 'why' => ''];
 
     if (!class_exists('DOMDocument')) {
-        return ['matched' => false,
-                'why' => 'this PHP has no DOM extension, so XPath cannot be used'] + $none;
+        return [
+            'matched' => false,
+            'why' => 'this PHP has no DOM extension, so XPath cannot be used',
+        ] + $none;
     }
 
     $previous = libxml_use_internal_errors(true);
@@ -463,21 +516,35 @@ function urlWatchXpath(string $body, string $expression): array
     libxml_use_internal_errors($previous);
 
     if (!$loaded) {
-        return ['matched' => false, 'why' => 'the response could not be parsed'] + $none;
+        return [
+            'matched' => false,
+            'why' => 'the response could not be parsed',
+        ] + $none;
     }
 
     $xpath = new DOMXPath($document);
     $nodes = @$xpath->query($expression);
 
     if ($nodes === false) {
-        return ['matched' => false, 'why' => 'that is not a valid XPath expression'] + $none;
+        return [
+            'matched' => false,
+            'why' => 'that is not a valid XPath expression',
+        ] + $none;
     }
     if ($nodes->length === 0) {
-        return ['matched' => false, 'why' => 'nothing matched that expression'] + $none;
+        return [
+            'matched' => false,
+            'why' => 'nothing matched that expression',
+        ] + $none;
     }
 
-    $text = trim((string)$nodes->item(0)?->textContent);
-    return ['matched' => true, 'value' => urlWatchNumber($text), 'text' => $text, 'why' => ''];
+    $text = trim((string) $nodes->item(0)?->textContent);
+    return [
+        'matched' => true,
+        'value' => urlWatchNumber($text),
+        'text' => $text,
+        'why' => '',
+    ];
 }
 
 /**
@@ -512,12 +579,12 @@ function urlWatchNumber(mixed $value): ?float
         return null;
     }
 
-    $text = trim((string)$value);
+    $text = trim((string) $value);
     // Digit grouping and a trailing unit are common in the things worth
     // watching: "1,240 records", "98%".
     $text = str_replace(',', '', $text);
 
-    return preg_match('/-?\d+(?:\.\d+)?/', $text, $m) ? (float)$m[0] : null;
+    return preg_match('/-?\d+(?:\.\d+)?/', $text, $m) ? (float) $m[0] : null;
 }
 
 /**
@@ -530,16 +597,31 @@ function urlWatchFetch(string $url, array $how = [], array $config = []): array
     try {
         $endpoint = urlWatchEndpointPolicy($url, $config);
     } catch (ActionRefused $e) {
-        return ['status' => 0, 'body' => '', 'headers' => '', 'error' => $e->getMessage(),
-            'hops' => 0, 'landed' => null, 'etag' => null, 'method' => 'GET'];
+        return [
+            'status' => 0,
+            'body' => '',
+            'headers' => '',
+            'error' => $e->getMessage(),
+            'hops' => 0,
+            'landed' => null,
+            'etag' => null,
+            'method' => 'GET',
+        ];
     }
     $parts = parse_url($url);
-    if ($parts === false || !in_array($parts['scheme'] ?? '', ['http', 'https'], true)) {
-        return ['status' => 0, 'body' => '', 'error' => 'that is not an http or https URL'];
+    if (
+        $parts === false ||
+        !in_array($parts['scheme'] ?? '', ['http', 'https'], true)
+    ) {
+        return [
+            'status' => 0,
+            'body' => '',
+            'error' => 'that is not an http or https URL',
+        ];
     }
 
-    $follow = (bool)($how['follow_redirects'] ?? true);
-    $method = strtoupper((string)($how['method'] ?? 'GET'));
+    $follow = (bool) ($how['follow_redirects'] ?? true);
+    $method = strtoupper((string) ($how['method'] ?? 'GET'));
     if (!in_array($method, ['GET', 'HEAD', 'OPTIONS'], true)) {
         $method = 'GET';
     }
@@ -549,25 +631,46 @@ function urlWatchFetch(string $url, array $how = [], array $config = []): array
         $hops = 0;
         $requestMethod = $method;
         while (true) {
-            $reply = urlWatchCurlOnce($requested, $endpoint, $requestMethod, $how['etag'] ?? null);
+            $reply = urlWatchCurlOnce(
+                $requested,
+                $endpoint,
+                $requestMethod,
+                $how['etag'] ?? null,
+            );
             $location = urlWatchHeader($reply['headers'], 'location');
-            $redirect = $follow && in_array($reply['status'], [301, 302, 303, 307, 308], true)
-                && $location !== null && $reply['error'] === null;
+            $redirect =
+                $follow &&
+                in_array($reply['status'], [301, 302, 303, 307, 308], true) &&
+                $location !== null &&
+                $reply['error'] === null;
             if (!$redirect) {
-                return $reply + ['hops' => $hops,
+                return $reply + [
+                    'hops' => $hops,
                     'landed' => $requested === $url ? null : $requested,
-                    'etag' => urlWatchHeader($reply['headers'], 'etag'), 'method' => $requestMethod];
+                    'etag' => urlWatchHeader($reply['headers'], 'etag'),
+                    'method' => $requestMethod,
+                ];
             }
             if ($hops >= 5) {
-                return array_replace($reply, ['hops' => $hops, 'landed' => $requested,
-                    'etag' => null, 'method' => $requestMethod, 'error' => 'too many redirects']);
+                return array_replace($reply, [
+                    'hops' => $hops,
+                    'landed' => $requested,
+                    'etag' => null,
+                    'method' => $requestMethod,
+                    'error' => 'too many redirects',
+                ]);
             }
             try {
                 $requested = urlWatchRedirectUrl($requested, $location);
                 $endpoint = urlWatchEndpointPolicy($requested, $config);
             } catch (ActionRefused $e) {
-                return array_replace($reply, ['hops' => $hops, 'landed' => $requested,
-                    'etag' => null, 'method' => $requestMethod, 'error' => $e->getMessage()]);
+                return array_replace($reply, [
+                    'hops' => $hops,
+                    'landed' => $requested,
+                    'etag' => null,
+                    'method' => $requestMethod,
+                    'error' => $e->getMessage(),
+                ]);
             }
             $hops++;
             if ($reply['status'] === 303) {
@@ -576,52 +679,102 @@ function urlWatchFetch(string $url, array $how = [], array $config = []): array
         }
     }
 
-    return ['status' => 0, 'body' => '', 'headers' => '',
-        'error' => 'safe URL checks require PHP cURL on this host', 'hops' => 0,
-        'landed' => null, 'etag' => null, 'method' => $method];
+    return [
+        'status' => 0,
+        'body' => '',
+        'headers' => '',
+        'error' => 'safe URL checks require PHP cURL on this host',
+        'hops' => 0,
+        'landed' => null,
+        'etag' => null,
+        'method' => $method,
+    ];
 }
 
 /** One pinned HTTP request; redirect policy belongs to urlWatchFetch. */
-function urlWatchCurlOnce(string $url, array $endpoint, string $method, ?string $etag): array
-{
+function urlWatchCurlOnce(
+    string $url,
+    array $endpoint,
+    string $method,
+    ?string $etag,
+): array {
     $handle = curl_init($url);
     $options = [
-        CURLOPT_RETURNTRANSFER => true, CURLOPT_TIMEOUT => URLWATCH_TIMEOUT,
-        CURLOPT_CONNECTTIMEOUT => 8, CURLOPT_FOLLOWLOCATION => false,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT => URLWATCH_TIMEOUT,
+        CURLOPT_CONNECTTIMEOUT => 8,
+        CURLOPT_FOLLOWLOCATION => false,
         CURLOPT_PROTOCOLS => CURLPROTO_HTTP | CURLPROTO_HTTPS,
         CURLOPT_REDIR_PROTOCOLS => CURLPROTO_HTTP | CURLPROTO_HTTPS,
-        CURLOPT_RESOLVE => $endpoint['resolve'], CURLOPT_USERAGENT => 'HostScope/1.0 (+uptime check)',
-        CURLOPT_ENCODING => '', CURLOPT_HEADER => true, CURLOPT_SSL_VERIFYPEER => true,
+        CURLOPT_RESOLVE => $endpoint['resolve'],
+        CURLOPT_USERAGENT => 'HostScope/1.0 (+uptime check)',
+        CURLOPT_ENCODING => '',
+        CURLOPT_HEADER => true,
+        CURLOPT_SSL_VERIFYPEER => true,
         CURLOPT_SSL_VERIFYHOST => 2,
     ];
-    if ($method === 'HEAD') $options[CURLOPT_NOBODY] = true;
-    elseif ($method !== 'GET') $options[CURLOPT_CUSTOMREQUEST] = $method;
-    if (is_string($etag) && $etag !== '') $options[CURLOPT_HTTPHEADER] = ['If-None-Match: ' . $etag];
+    if ($method === 'HEAD') {
+        $options[CURLOPT_NOBODY] = true;
+    } elseif ($method !== 'GET') {
+        $options[CURLOPT_CUSTOMREQUEST] = $method;
+    }
+    if (is_string($etag) && $etag !== '') {
+        $options[CURLOPT_HTTPHEADER] = ['If-None-Match: ' . $etag];
+    }
     curl_setopt_array($handle, $options);
     $raw = curl_exec($handle);
-    $status = (int)curl_getinfo($handle, CURLINFO_RESPONSE_CODE);
-    $size = (int)curl_getinfo($handle, CURLINFO_HEADER_SIZE);
+    $status = (int) curl_getinfo($handle, CURLINFO_RESPONSE_CODE);
+    $size = (int) curl_getinfo($handle, CURLINFO_HEADER_SIZE);
     $error = curl_errno($handle) === 0 ? null : curl_error($handle);
     $headers = is_string($raw) ? substr($raw, 0, $size) : '';
-    return ['status' => $status, 'body' => is_string($raw) ? substr($raw, $size, URLWATCH_MAX_BYTES) : '',
-        'headers' => $headers, 'error' => $error];
+    return [
+        'status' => $status,
+        'body' => is_string($raw)
+            ? substr($raw, $size, URLWATCH_MAX_BYTES)
+            : '',
+        'headers' => $headers,
+        'error' => $error,
+    ];
 }
 
 /** Resolves a Location header without accepting credentials or fragments. */
 function urlWatchRedirectUrl(string $from, string $location): string
 {
     $location = trim($location);
-    if ($location === '') throw new ActionRefused('redirect had no destination');
+    if ($location === '') {
+        throw new ActionRefused('redirect had no destination');
+    }
     $target = parse_url($location);
-    if ($target !== false && isset($target['scheme'])) return $location;
+    if ($target !== false && isset($target['scheme'])) {
+        return $location;
+    }
     $base = parse_url($from);
-    if ($base === false || !isset($base['scheme'], $base['host'])) throw new ActionRefused('redirect source was invalid');
-    $origin = $base['scheme'] . '://' . (str_contains((string)$base['host'], ':') ? '[' . $base['host'] . ']' : $base['host'])
-        . (isset($base['port']) ? ':' . $base['port'] : '');
-    if (str_starts_with($location, '//')) return $base['scheme'] . ':' . $location;
-    if (str_starts_with($location, '/')) return $origin . $location;
-    if (str_starts_with($location, '?')) return $origin . ($base['path'] ?? '/') . $location;
-    $path = rtrim(str_replace('\\', '/', dirname((string)($base['path'] ?? '/'))), '/') . '/' . $location;
+    if ($base === false || !isset($base['scheme'], $base['host'])) {
+        throw new ActionRefused('redirect source was invalid');
+    }
+    $origin =
+        $base['scheme'] .
+        '://' .
+        (str_contains((string) $base['host'], ':')
+            ? '[' . $base['host'] . ']'
+            : $base['host']) .
+        (isset($base['port']) ? ':' . $base['port'] : '');
+    if (str_starts_with($location, '//')) {
+        return $base['scheme'] . ':' . $location;
+    }
+    if (str_starts_with($location, '/')) {
+        return $origin . $location;
+    }
+    if (str_starts_with($location, '?')) {
+        return $origin . ($base['path'] ?? '/') . $location;
+    }
+    $path =
+        rtrim(
+            str_replace('\\', '/', dirname((string) ($base['path'] ?? '/'))),
+            '/',
+        ) .
+        '/' .
+        $location;
     return $origin . '/' . ltrim($path, '/');
 }
 
@@ -636,26 +789,48 @@ function urlWatchEndpointPolicy(string $url, array $config = []): array
 {
     $url = trim($url);
     $parts = parse_url($url);
-    if ($url === '' || $parts === false || !in_array(strtolower((string)($parts['scheme'] ?? '')), ['http', 'https'], true)
-        || empty($parts['host']) || isset($parts['user']) || isset($parts['pass']) || isset($parts['fragment'])) {
+    if (
+        $url === '' ||
+        $parts === false ||
+        !in_array(
+            strtolower((string) ($parts['scheme'] ?? '')),
+            ['http', 'https'],
+            true,
+        ) ||
+        empty($parts['host']) ||
+        isset($parts['user']) ||
+        isset($parts['pass']) ||
+        isset($parts['fragment'])
+    ) {
         throw new ActionRefused('that is not a plain http or https URL');
     }
-    $host = strtolower(trim((string)$parts['host'], '[]'));
+    $host = strtolower(trim((string) $parts['host'], '[]'));
     $addresses = outboundHostAddresses($host);
     if ($addresses === []) {
         throw new ActionRefused('that URL host did not resolve');
     }
-    $allowed = array_map(fn(mixed $value): string => strtolower(trim((string)$value)),
-        (array)($config['url_watch']['private_hosts'] ?? []));
-    $private = array_filter($addresses, fn(string $address): bool => !outboundPublicAddress($address));
+    $allowed = array_map(
+        fn(mixed $value): string => strtolower(trim((string) $value)),
+        (array) ($config['url_watch']['private_hosts'] ?? []),
+    );
+    $private = array_filter(
+        $addresses,
+        fn(string $address): bool => !outboundPublicAddress($address),
+    );
     if ($private !== [] && !in_array($host, $allowed, true)) {
-        throw new ActionRefused('private URL targets must be named in url_watch.private_hosts');
+        throw new ActionRefused(
+            'private URL targets must be named in url_watch.private_hosts',
+        );
     }
-    $scheme = strtolower((string)$parts['scheme']);
-    $port = (int)($parts['port'] ?? ($scheme === 'https' ? 443 : 80));
-    return ['url' => $url, 'resolve' => array_map(
-        fn(string $address): string => $host . ':' . $port . ':' . $address, $addresses
-    )];
+    $scheme = strtolower((string) $parts['scheme']);
+    $port = (int) ($parts['port'] ?? ($scheme === 'https' ? 443 : 80));
+    return [
+        'url' => $url,
+        'resolve' => array_map(
+            fn(string $address): string => $host . ':' . $port . ':' . $address,
+            $addresses,
+        ),
+    ];
 }
 
 /** One header out of a raw response head, case-insensitively. */
@@ -671,16 +846,20 @@ function urlWatchStore(PDO $pdo, int $id, array $result): void
         'INSERT INTO url_results
             (check_id, at, status, ms, bytes, value, text_value, matched, ok, error,
              redirected_to, hops)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
     )->execute([
-        $id, $result['at'], $result['status'], $result['ms'], $result['bytes'],
+        $id,
+        $result['at'],
+        $result['status'],
+        $result['ms'],
+        $result['bytes'],
         $result['value'],
         $result['text'] ?? null,
         $result['matched'] === null ? null : ($result['matched'] ? 1 : 0),
         $result['ok'] ? 1 : 0,
         $result['error'],
         $result['landed'] ?? null,
-        (int)($result['hops'] ?? 0),
+        (int) ($result['hops'] ?? 0),
     ]);
 
     /*
@@ -700,10 +879,15 @@ function urlWatchStore(PDO $pdo, int $id, array $result): void
         'UPDATE url_checks SET last_at = ?, last_ok = ?, last_status = ?, last_error = ?,
                 last_etag = COALESCE(?, last_etag),
                 last_text = COALESCE(?, last_text)
-          WHERE id = ?'
+          WHERE id = ?',
     )->execute([
-        $result['at'], $result['ok'] ? 1 : 0, $result['status'], $result['error'],
-        $result['etag'] ?? null, $result['text'] ?? null, $id,
+        $result['at'],
+        $result['ok'] ? 1 : 0,
+        $result['status'],
+        $result['error'],
+        $result['etag'] ?? null,
+        $result['text'] ?? null,
+        $id,
     ]);
 }
 
@@ -716,28 +900,31 @@ function urlWatchStore(PDO $pdo, int $id, array $result): void
  */
 function urlWatchSave(PDO $pdo, array $input, array $config = []): int
 {
-    $url = trim((string)($input['url'] ?? ''));
+    $url = trim((string) ($input['url'] ?? ''));
     $policy = urlWatchEndpointPolicy($url, $config);
     $url = $policy['url'];
     $parts = parse_url($url);
 
-    $interval = (int)($input['interval_seconds'] ?? 300);
+    $interval = (int) ($input['interval_seconds'] ?? 300);
     if (!isset(urlWatchIntervals()[$interval])) {
         throw new ActionRefused('that is not one of the intervals on offer');
     }
 
-    $kind = (string)($input['check_kind'] ?? 'none');
+    $kind = (string) ($input['check_kind'] ?? 'none');
     $kinds = urlWatchChecks();
     if (!isset($kinds[$kind])) {
         throw new ActionRefused('that is not one of the checks on offer');
     }
 
-    $value = trim((string)($input['check_value'] ?? ''));
+    $value = trim((string) ($input['check_value'] ?? ''));
     if ($kinds[$kind]['needs_value'] && $value === '') {
         throw new ActionRefused('that check needs something to look for');
     }
 
-    if ($kind === 'regex' && @preg_match('/' . str_replace('/', '\\/', $value) . '/u', '') === false) {
+    if (
+        $kind === 'regex' &&
+        @preg_match('/' . str_replace('/', '\\/', $value) . '/u', '') === false
+    ) {
         throw new ActionRefused('that regular expression will not compile');
     }
 
@@ -748,20 +935,24 @@ function urlWatchSave(PDO $pdo, array $input, array $config = []): int
      * matters - `index\.css\?v=(\d+\.\d+\.\d+)` only finds the version
      * because of the bits that are not the version. Zero means the whole match.
      */
-    $group = max(0, (int)($input['capture_group'] ?? 1));
+    $group = max(0, (int) ($input['capture_group'] ?? 1));
     if ($group > 20) {
-        throw new ActionRefused('a pattern with more than twenty groups is a pattern to split up');
+        throw new ActionRefused(
+            'a pattern with more than twenty groups is a pattern to split up',
+        );
     }
 
-    $expect = (int)($input['expect_status'] ?? 200);
+    $expect = (int) ($input['expect_status'] ?? 200);
     if ($expect !== 0 && ($expect < 100 || $expect > 599)) {
         throw new ActionRefused('that is not a status code');
     }
 
-    $id = (int)($input['id'] ?? 0);
-    $label = trim((string)($input['label'] ?? '')) ?: ($parts['host'] . ($parts['path'] ?? ''));
+    $id = (int) ($input['id'] ?? 0);
+    $label =
+        trim((string) ($input['label'] ?? '')) ?:
+        $parts['host'] . ($parts['path'] ?? '');
 
-    $method = strtoupper((string)($input['method'] ?? 'GET'));
+    $method = strtoupper((string) ($input['method'] ?? 'GET'));
     if (!in_array($method, ['GET', 'HEAD', 'OPTIONS'], true)) {
         throw new ActionRefused('that is not a method this will send');
     }
@@ -775,8 +966,8 @@ function urlWatchSave(PDO $pdo, array $input, array $config = []): int
      */
     if ($method === 'HEAD' && $kind !== 'none') {
         throw new ActionRefused(
-            'a HEAD request has no body, so there is nothing for a content check to look at. '
-            . 'Use GET, or set the check to "just the status code".'
+            'a HEAD request has no body, so there is nothing for a content check to look at. ' .
+                'Use GET, or set the check to "just the status code".',
         );
     }
 
@@ -788,16 +979,28 @@ function urlWatchSave(PDO $pdo, array $input, array $config = []): int
             'UPDATE url_checks SET url = ?, label = ?, interval_seconds = ?, expect_status = ?,
                     check_kind = ?, check_value = ?, enabled = ?, follow_redirects = ?,
                     method = ?, send_etag = ?, capture_group = ?, notify_change = ?
-              WHERE id = ?'
+              WHERE id = ?',
         )->execute([
-            $url, $label, $interval, $expect, $kind, $value,
-            empty($input['enabled']) ? 0 : 1, $follow, $method, $etag,
-            $group, empty($input['notify_change']) ? 0 : 1, $id,
+            $url,
+            $label,
+            $interval,
+            $expect,
+            $kind,
+            $value,
+            empty($input['enabled']) ? 0 : 1,
+            $follow,
+            $method,
+            $etag,
+            $group,
+            empty($input['notify_change']) ? 0 : 1,
+            $id,
         ]);
         return $id;
     }
 
-    $count = (int)$pdo->query('SELECT COUNT(*) FROM url_checks')->fetchColumn();
+    $count = (int) $pdo
+        ->query('SELECT COUNT(*) FROM url_checks')
+        ->fetchColumn();
     if ($count >= URLWATCH_MAX) {
         throw new ActionRefused('that is as many checks as this will run');
     }
@@ -806,14 +1009,24 @@ function urlWatchSave(PDO $pdo, array $input, array $config = []): int
         'INSERT INTO url_checks
             (url, label, interval_seconds, expect_status, check_kind, check_value, enabled,
              follow_redirects, method, send_etag, capture_group, notify_change, added_at)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
     )->execute([
-        $url, $label, $interval, $expect, $kind, $value,
-        empty($input['enabled']) ? 0 : 1, $follow, $method, $etag,
-        $group, empty($input['notify_change']) ? 0 : 1, time(),
+        $url,
+        $label,
+        $interval,
+        $expect,
+        $kind,
+        $value,
+        empty($input['enabled']) ? 0 : 1,
+        $follow,
+        $method,
+        $etag,
+        $group,
+        empty($input['notify_change']) ? 0 : 1,
+        time(),
     ]);
 
-    return (int)$pdo->lastInsertId();
+    return (int) $pdo->lastInsertId();
 }
 
 /**
@@ -827,7 +1040,7 @@ function urlWatchHistory(PDO $pdo, int $id, int $from, int $to): array
 {
     $stmt = $pdo->prepare(
         'SELECT at, status, ms, value, matched, ok, error FROM url_results
-          WHERE check_id = ? AND at BETWEEN ? AND ? ORDER BY at'
+          WHERE check_id = ? AND at BETWEEN ? AND ? ORDER BY at',
     );
     $stmt->execute([$id, $from, $to]);
     $rows = $stmt->fetchAll();
@@ -836,22 +1049,27 @@ function urlWatchHistory(PDO $pdo, int $id, int $from, int $to): array
     $slowest = 0;
     $total = 0;
     foreach ($rows as $row) {
-        if ((int)$row['ok'] === 1) {
+        if ((int) $row['ok'] === 1) {
             $ok++;
         }
-        $slowest = max($slowest, (int)$row['ms']);
-        $total += (int)$row['ms'];
+        $slowest = max($slowest, (int) $row['ms']);
+        $total += (int) $row['ms'];
     }
 
     return [
         'rows' => $rows,
         'checks' => count($rows),
         'ok' => $ok,
-        'uptime_percent' => $rows === [] ? null : round(($ok / count($rows)) * 100, 2),
-        'average_ms' => $rows === [] ? null : (int)round($total / count($rows)),
+        'uptime_percent' =>
+            $rows === [] ? null : round(($ok / count($rows)) * 100, 2),
+        'average_ms' =>
+            $rows === [] ? null : (int) round($total / count($rows)),
         'slowest_ms' => $slowest,
         // Whether the extracted value is worth charting at all.
-        'has_value' => (bool)array_filter($rows, fn(array $r): bool => $r['value'] !== null),
+        'has_value' => (bool) array_filter(
+            $rows,
+            fn(array $r): bool => $r['value'] !== null,
+        ),
     ];
 }
 
@@ -863,8 +1081,12 @@ function urlWatchHistory(PDO $pdo, int $id, int $from, int $to): array
  * wants three days later when something has been subtly wrong since Tuesday.
  * A number changing is ordinary; this is only for checks that asked.
  */
-function urlWatchNoteChange(PDO $pdo, array $config, array $check, array $result): void
-{
+function urlWatchNoteChange(
+    PDO $pdo,
+    array $config,
+    array $check,
+    array $result,
+): void {
     if (!($check['notify_change'] ?? false) || empty($result['changed'])) {
         return;
     }
@@ -878,15 +1100,17 @@ function urlWatchNoteChange(PDO $pdo, array $config, array $check, array $result
          * check silently suppressing a version change on another for the next
          * six hours. Following the same shape as projected_full:<field>.
          */
-        'rule' => 'url_value_changed:' . (int)$check['id'],
+        'rule' => 'url_value_changed:' . (int) $check['id'],
         'severity' => 'warning',
         'subject' => sprintf('%s changed what it reports', $check['label']),
         'detail' => sprintf(
             'Was %s, now %s. Watched with %s on %s.',
-            $result['was'] === null || $result['was'] === '' ? 'blank' : $result['was'],
+            $result['was'] === null || $result['was'] === ''
+                ? 'blank'
+                : $result['was'],
             $result['text'],
             $check['check_kind'],
-            $check['url']
+            $check['url'],
         ),
         'path_id' => null,
     ]);
@@ -908,7 +1132,7 @@ function urlWatchChanges(PDO $pdo, int $id, int $since, int $limit = 200): array
     $stmt = $pdo->prepare(
         'SELECT at, text_value FROM url_results
           WHERE check_id = ? AND at >= ? AND text_value IS NOT NULL
-          ORDER BY at'
+          ORDER BY at',
     );
     $stmt->execute([$id, $since]);
 
@@ -917,7 +1141,7 @@ function urlWatchChanges(PDO $pdo, int $id, int $since, int $limit = 200): array
     $first = null;
 
     foreach ($stmt->fetchAll() as $row) {
-        $text = (string)$row['text_value'];
+        $text = (string) $row['text_value'];
 
         /*
          * The first value in a window is not a change.
@@ -928,9 +1152,13 @@ function urlWatchChanges(PDO $pdo, int $id, int $since, int $limit = 200): array
          * both halves - so it comes back separately rather than not at all.
          */
         if ($previous === null) {
-            $first = ['at' => (int)$row['at'], 'value' => $text];
+            $first = ['at' => (int) $row['at'], 'value' => $text];
         } elseif ($text !== $previous) {
-            $out[] = ['at' => (int)$row['at'], 'from' => $previous, 'to' => $text];
+            $out[] = [
+                'at' => (int) $row['at'],
+                'from' => $previous,
+                'to' => $text,
+            ];
         }
 
         $previous = $text;
@@ -985,8 +1213,14 @@ function urlWatchTryRegex(string $pattern, string $text, int $limit = 50): array
      * whole point of a tester.
      */
     $complaint = null;
-    set_error_handler(function (int $level, string $message) use (&$complaint): bool {
-        $complaint = (string)preg_replace('/^preg_match_all\\(\\)[^:]*:\\s*/', '', $message);
+    set_error_handler(function (int $level, string $message) use (
+        &$complaint,
+    ): bool {
+        $complaint = (string) preg_replace(
+            '/^preg_match_all\\(\\)[^:]*:\\s*/',
+            '',
+            $message,
+        );
         return true;
     });
     $found = preg_match_all($delimited, $text, $all, $flags);
@@ -995,9 +1229,10 @@ function urlWatchTryRegex(string $pattern, string $text, int $limit = 50): array
     if ($found === false) {
         return [
             'ok' => false,
-            'error' => $complaint === null
-                ? 'that is not a valid regular expression'
-                : 'that is not a valid regular expression: ' . $complaint,
+            'error' =>
+                $complaint === null
+                    ? 'that is not a valid regular expression'
+                    : 'that is not a valid regular expression: ' . $complaint,
             'matches' => [],
         ];
     }
@@ -1013,14 +1248,14 @@ function urlWatchTryRegex(string $pattern, string $text, int $limit = 50): array
             }
             $groups[] = [
                 'n' => $index,
-                'text' => $part[0] === null ? null : (string)$part[0],
-                'at' => (int)$part[1],
+                'text' => $part[0] === null ? null : (string) $part[0],
+                'at' => (int) $part[1],
                 // -1 means the group is in the pattern but took no part in
                 // this match, which is different from matching an empty string.
                 'matched' => $part[0] !== null,
             ];
         }
-        $matches[] = ['groups' => $groups, 'at' => (int)$set[0][1]];
+        $matches[] = ['groups' => $groups, 'at' => (int) $set[0][1]];
     }
 
     return [

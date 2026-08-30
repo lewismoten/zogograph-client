@@ -11,11 +11,15 @@
       "version": "unreleased",
       "description": "Self-hosted PHP and SQLite server diagnostics platform"
     },
-    "tools": [{"vendor": "HostScope", "name": "repository inventory", "version": "1"}]
+    "tools": [
+      { "vendor": "HostScope", "name": "repository inventory", "version": "1" }
+    ]
   },
   "components": [],
-  "properties": [{
-    "name": "zogograph:dependency-inventory",
-    "value": "No Composer, npm, or vendored runtime dependencies are present in this source tree."
-  }]
+  "properties": [
+    {
+      "name": "zogograph:dependency-inventory",
+      "value": "No Composer, npm, or vendored runtime dependencies are present in this source tree."
+    }
+  ]
 }

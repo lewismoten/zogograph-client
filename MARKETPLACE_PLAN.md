@@ -24,17 +24,17 @@ browser.
 1. [x] Manifest schema, strict validation, and bounded local catalog discovery.
 2. [x] Database-backed enablement state, audit records, and capability review.
 3. [x] Administrator catalog UI with search, package detail, enable/disable, and safe
-   unavailable/error states.
+       unavailable/error states.
 4. [x] First data-only package type: alert-rule recommendations.
 5. [x] Signed package verification, compatibility checks, install/rollback,
-   and release provenance before any remote package source.
+       and release provenance before any remote package source.
 6. [ ] Signed isolated executable-package runtime: explicit capability grants,
-   package-private settings/database/migrations, secret references, sandboxed
-   entry points, compatibility checks, audit, rollback, and revocation.
+       package-private settings/database/migrations, secret references, sandboxed
+       entry points, compatibility checks, audit, rollback, and revocation.
 7. [ ] First executable packages: sealed-copy encryption and SQLCipher live
-   SQLite. The SQLCipher scaffold is in `plugins/sqlcipher-encrypted-sqlite/`.
+       SQLite. The SQLCipher scaffold is in `plugins/sqlcipher-encrypted-sqlite/`.
 8. [ ] Publisher workflow, commercial terms, moderation, payments, and hosted
-   marketplace service only after legal and business-owner decisions.
+       marketplace service only after legal and business-owner decisions.
 
 Executable-package releases use a signed file-integrity manifest: SHA-256 for
 every immutable release file and an Ed25519 signature over the complete
@@ -124,7 +124,7 @@ php scripts/marketplace-sign.php sign --manifest /secure/package.json --key-id e
   "summary": "Advice for reviewing unexpected restarts.",
   "license": "License identifier or terms",
   "capabilities": ["alert_recommendations"],
-  "compatibility": {"min_php": "8.1.0", "min_schema": 49},
+  "compatibility": { "min_php": "8.1.0", "min_schema": 49 },
   "recommendations": [
     {
       "rule": "host_uptime",

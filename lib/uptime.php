@@ -48,11 +48,17 @@ function analyseUptime(array $rows, int $from, int $to): array
 {
     $window = max(0, $to - $from);
     $empty = [
-        'outages' => [], 'gaps' => [], 'boots' => 0,
-        'covered' => 0, 'window' => $window, 'expected_interval' => 0,
+        'outages' => [],
+        'gaps' => [],
+        'boots' => 0,
+        'covered' => 0,
+        'window' => $window,
+        'expected_interval' => 0,
         'tracking_from' => null,
-        'downtime' => 0, 'unmonitored' => 0,
-        'uptime_percent' => null, 'coverage_percent' => null,
+        'downtime' => 0,
+        'unmonitored' => 0,
+        'uptime_percent' => null,
+        'coverage_percent' => null,
     ];
 
     $points = [];
@@ -61,13 +67,14 @@ function analyseUptime(array $rows, int $from, int $to): array
             continue;
         }
         $points[] = [
-            'at' => (int)$row['taken_at'],
+            'at' => (int) $row['taken_at'],
             // Null where the reading predates boot-time collection. Those
             // stretches can be measured but not explained, and saying which is
             // better than guessing.
-            'boot' => isset($row['boot_at']) && $row['boot_at'] !== null
-                ? (int)$row['boot_at']
-                : null,
+            'boot' =>
+                isset($row['boot_at']) && $row['boot_at'] !== null
+                    ? (int) $row['boot_at']
+                    : null,
         ];
     }
 
@@ -110,8 +117,11 @@ function analyseUptime(array $rows, int $from, int $to): array
     }
 
     sort($steps);
-    $interval = (int)$steps[intdiv(count($steps), 2)];
-    $threshold = max(UPTIME_MIN_GAP, (int)round($interval * UPTIME_GAP_FACTOR));
+    $interval = (int) $steps[intdiv(count($steps), 2)];
+    $threshold = max(
+        UPTIME_MIN_GAP,
+        (int) round($interval * UPTIME_GAP_FACTOR),
+    );
 
     $outages = [];
     $gaps = [];
@@ -124,9 +134,10 @@ function analyseUptime(array $rows, int $from, int $to): array
         $after = $points[$i];
         $length = $after['at'] - $before['at'];
 
-        $rebooted = $before['boot'] !== null
-            && $after['boot'] !== null
-            && $after['boot'] > $before['boot'];
+        $rebooted =
+            $before['boot'] !== null &&
+            $after['boot'] !== null &&
+            $after['boot'] > $before['boot'];
 
         if ($rebooted) {
             $boots++;
@@ -171,9 +182,10 @@ function analyseUptime(array $rows, int $from, int $to): array
         // reason it cannot be explained is worth distinguishing.
         $unmonitored += $length;
         $gaps[] = [
-            'kind' => $trackingFrom === null || $after['at'] <= $trackingFrom
-                ? 'before_tracking'
-                : 'unknown',
+            'kind' =>
+                $trackingFrom === null || $after['at'] <= $trackingFrom
+                    ? 'before_tracking'
+                    : 'unknown',
             'from' => $before['at'],
             'to' => $after['at'],
             'seconds' => $length,
@@ -202,12 +214,14 @@ function analyseUptime(array $rows, int $from, int $to): array
          * Merging them into one number would let a broken cron job masquerade
          * as a fragile machine.
          */
-        'uptime_percent' => $covered > 0
-            ? round(max(0, 100 - ($downtime / $covered) * 100), 4)
-            : null,
-        'coverage_percent' => $covered > 0
-            ? round(max(0, 100 - ($unmonitored / $covered) * 100), 4)
-            : null,
+        'uptime_percent' =>
+            $covered > 0
+                ? round(max(0, 100 - ($downtime / $covered) * 100), 4)
+                : null,
+        'coverage_percent' =>
+            $covered > 0
+                ? round(max(0, 100 - ($unmonitored / $covered) * 100), 4)
+                : null,
     ];
 }
 
@@ -244,7 +258,9 @@ function bootHistory(?string $output = null): array
          * `--time-format iso` gives 2026-08-24T03:54:16-04:00, and an explicit
          * offset makes the default timezone irrelevant.
          */
-        $output = shellRead('last -x -F --time-format iso reboot shutdown 2>/dev/null');
+        $output = shellRead(
+            'last -x -F --time-format iso reboot shutdown 2>/dev/null',
+        );
 
         // Older util-linux has no --time-format and writes the usage message to
         // stderr, leaving nothing useful on stdout.
@@ -268,7 +284,13 @@ function bootHistory(?string $output = null): array
             continue;
         }
 
-        if (!preg_match('/^(reboot|shutdown)\s+system\s+(boot|down)\s+(\S+)\s+(.*)$/', $line, $m)) {
+        if (
+            !preg_match(
+                '/^(reboot|shutdown)\s+system\s+(boot|down)\s+(\S+)\s+(.*)$/',
+                $line,
+                $m,
+            )
+        ) {
             continue;
         }
 
@@ -332,7 +354,11 @@ function bootHistory(?string $output = null): array
             'still_running' => $event['still_running'],
             // The oldest record has nothing before it, so its predecessor
             // cannot be judged - which is not the same as it having crashed.
-            'ended' => $clean ? 'shutdown' : ($event['at'] === $oldest ? 'unknown' : 'unclean'),
+            'ended' => $clean
+                ? 'shutdown'
+                : ($event['at'] === $oldest
+                    ? 'unknown'
+                    : 'unclean'),
             'shutdown_at' => $clean ? $lastDown : null,
         ];
 
@@ -340,7 +366,10 @@ function bootHistory(?string $output = null): array
     }
 
     // Newest first for display.
-    usort($boots, fn(array $a, array $b): int => $b['booted_at'] <=> $a['booted_at']);
+    usort(
+        $boots,
+        fn(array $a, array $b): int => $b['booted_at'] <=> $a['booted_at'],
+    );
 
     return ['available' => true, 'reason' => null, 'boots' => $boots];
 }
@@ -360,16 +389,24 @@ function bootHistory(?string $output = null): array
  */
 function eventTime(string $rest): ?int
 {
-    if (preg_match('/^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:[+-]\d{2}:?\d{2}|Z))/', $rest, $m)) {
+    if (
+        preg_match(
+            '/^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:[+-]\d{2}:?\d{2}|Z))/',
+            $rest,
+            $m,
+        )
+    ) {
         $at = strtotime($m[1]);
         return $at === false ? null : $at;
     }
 
-    if (!preg_match(
-        '/^[A-Z][a-z]{2}\s+([A-Z][a-z]{2}\s+\d+\s+\d+:\d+:\d+\s+\d{4})/',
-        $rest,
-        $m
-    )) {
+    if (
+        !preg_match(
+            '/^[A-Z][a-z]{2}\s+([A-Z][a-z]{2}\s+\d+\s+\d+:\d+:\d+\s+\d{4})/',
+            $rest,
+            $m,
+        )
+    ) {
         return null;
     }
 
@@ -399,7 +436,9 @@ function systemZone(): ?string
         return $m[1];
     }
 
-    $out = shellRead('timedatectl show --property=Timezone --value 2>/dev/null');
+    $out = shellRead(
+        'timedatectl show --property=Timezone --value 2>/dev/null',
+    );
     if (is_string($out) && trim($out) !== '') {
         return trim($out);
     }
@@ -419,11 +458,14 @@ function systemZone(): ?string
 function bootReason(string $ended): string
 {
     return match ($ended) {
-        'shutdown' => 'The previous session was shut down cleanly — asked to stop, and it did.',
-        'unclean' => 'The previous session stopped without recording a shutdown: a crash, a '
-            . 'power loss, a hard reset, or a host-level restart it was never told about.',
-        default => 'Nothing recorded before this boot, so how the machine came to be off '
-            . 'cannot be told from here.',
+        'shutdown'
+            => 'The previous session was shut down cleanly — asked to stop, and it did.',
+        'unclean'
+            => 'The previous session stopped without recording a shutdown: a crash, a ' .
+            'power loss, a hard reset, or a host-level restart it was never told about.',
+        default
+            => 'Nothing recorded before this boot, so how the machine came to be off ' .
+            'cannot be told from here.',
     };
 }
 
@@ -446,14 +488,22 @@ function bootReason(string $ended): string
  *   interval: ?int, first: ?int, last: ?int, readings: int
  * }
  */
-function reportingTrack(array $times, int $from, int $to, float $slack = 2.5): array
-{
+function reportingTrack(
+    array $times,
+    int $from,
+    int $to,
+    float $slack = 2.5,
+): array {
     $times = array_values(array_unique(array_map('intval', $times)));
     sort($times);
 
     $empty = [
-        'spans' => [], 'gaps' => [], 'interval' => null,
-        'first' => null, 'last' => null, 'readings' => count($times),
+        'spans' => [],
+        'gaps' => [],
+        'interval' => null,
+        'first' => null,
+        'last' => null,
+        'readings' => count($times),
     ];
 
     if (count($times) < 2) {
@@ -485,7 +535,7 @@ function reportingTrack(array $times, int $from, int $to, float $slack = 2.5): a
 
     sort($steps);
     $interval = $steps[intdiv(count($steps), 2)];
-    $tolerated = max(60, (int)round($interval * $slack));
+    $tolerated = max(60, (int) round($interval * $slack));
 
     $spans = [];
     $gaps = [];
@@ -498,7 +548,11 @@ function reportingTrack(array $times, int $from, int $to, float $slack = 2.5): a
         }
 
         $spans[] = ['from' => $spanFrom, 'to' => $times[$i - 1]];
-        $gaps[] = ['from' => $times[$i - 1], 'to' => $times[$i], 'seconds' => $step];
+        $gaps[] = [
+            'from' => $times[$i - 1],
+            'to' => $times[$i],
+            'seconds' => $step,
+        ];
         $spanFrom = $times[$i];
     }
 
@@ -513,7 +567,12 @@ function reportingTrack(array $times, int $from, int $to, float $slack = 2.5): a
      */
     $last = $times[count($times) - 1];
     if ($to - $last > $tolerated) {
-        $gaps[] = ['from' => $last, 'to' => $to, 'seconds' => $to - $last, 'ongoing' => true];
+        $gaps[] = [
+            'from' => $last,
+            'to' => $to,
+            'seconds' => $to - $last,
+            'ongoing' => true,
+        ];
     }
 
     return [

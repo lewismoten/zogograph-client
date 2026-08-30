@@ -55,14 +55,13 @@ function aiImageStyles(): array
      * rather than "a file is missing". One style is enough to keep the feature
      * working and obvious enough to be noticed.
      */
-    $styles = is_array($found) && $found !== []
-        ? array_map('strval', $found)
-        : ['text2img' => 'Plain (the style list could not be read)'];
+    $styles =
+        is_array($found) && $found !== []
+            ? array_map('strval', $found)
+            : ['text2img' => 'Plain (the style list could not be read)'];
 
     return $styles;
 }
-
-
 
 /** How large a picture may be, and the sizes worth asking for. */
 function aiImageShapes(): array
@@ -82,7 +81,6 @@ function aiImageShapes(): array
     ];
 }
 
-
 /** The four generator tiers, and what each is for. */
 function aiImageQualities(): array
 {
@@ -95,23 +93,24 @@ function aiImageQualities(): array
         'hd' => [
             'label' => 'HD',
             'version' => 'hd',
-            'what' => 'More detail, more time, and it counts against the same allowance.',
+            'what' =>
+                'More detail, more time, and it counts against the same allowance.',
         ],
         'genius' => [
             'label' => 'Genius',
             'version' => 'genius',
-            'what' => 'The expensive tier, with its own monthly allowance. Takes a '
-                . 'preference for how it should look.',
+            'what' =>
+                'The expensive tier, with its own monthly allowance. Takes a ' .
+                'preference for how it should look.',
         ],
         'super_genius' => [
             'label' => 'Super genius',
             'version' => 'super_genius',
-            'what' => 'The most expensive, and the only one that will render at 2K or 4K.',
+            'what' =>
+                'The most expensive, and the only one that will render at 2K or 4K.',
         ],
     ];
 }
-
-
 
 /**
  * The image settings in force.
@@ -123,18 +122,21 @@ function aiImageSettings(array $config): array
     $set = $config['ai']['images'] ?? [];
     $styles = aiImageStyles();
 
-    $allowed = array_values(array_filter(
-        (array)($set['styles'] ?? ['text2img']),
-        fn(string $key): bool => isset($styles[$key])
-    ));
+    $allowed = array_values(
+        array_filter(
+            (array) ($set['styles'] ?? ['text2img']),
+            fn(string $key): bool => isset($styles[$key]),
+        ),
+    );
 
     return [
-        'enabled' => (bool)($set['enabled'] ?? false),
+        'enabled' => (bool) ($set['enabled'] ?? false),
         'provider' => 'deepai',
-        'api_key' => (string)($set['api_key'] ?? ''),
+        'api_key' => (string) ($set['api_key'] ?? ''),
         'styles' => $allowed === [] ? ['text2img'] : $allowed,
         'quality' => isset(aiImageQualities()[$set['quality'] ?? ''])
-            ? (string)$set['quality'] : 'standard',
+            ? (string) $set['quality']
+            : 'standard',
 
         /*
          * Three parameters the generator documents and this never sent.
@@ -143,15 +145,21 @@ function aiImageSettings(array $config): array
          * negative_prompt is read by all of them and is the difference between
          * a picture with six fingers and one without.
          */
-        'genius_preference' => isset(aiGeniusPreferences()[$set['genius_preference'] ?? ''])
-            ? (string)($set['genius_preference'] ?? '') : '',
+        'genius_preference' => isset(
+            aiGeniusPreferences()[$set['genius_preference'] ?? ''],
+        )
+            ? (string) ($set['genius_preference'] ?? '')
+            : '',
         'resolution' => isset(aiImageResolutions()[$set['resolution'] ?? ''])
-            ? (string)($set['resolution'] ?? '') : '',
-        'negative_prompt' => (string)($set['negative_prompt']
-            ?? 'bad anatomy, blurry, cropped, deformed, disfigured, extra limbs, text, '
-               . 'watermark'),
+            ? (string) ($set['resolution'] ?? '')
+            : '',
+        'negative_prompt' =>
+            (string) ($set['negative_prompt'] ??
+                'bad anatomy, blurry, cropped, deformed, disfigured, extra limbs, text, ' .
+                    'watermark'),
         'shape' => isset(aiImageShapes()[$set['shape'] ?? ''])
-            ? (string)$set['shape'] : 'square',
+            ? (string) $set['shape']
+            : 'square',
         /*
          * Per hour, across everything in this file.
          *
@@ -159,8 +167,8 @@ function aiImageSettings(array $config): array
          * these costs money. Ten is generous for illustrating a diagnosis and
          * tight enough that a loop cannot run up a bill before anybody notices.
          */
-        'per_hour' => max(0, (int)($set['per_hour'] ?? 10)),
-        'self_portrait' => (bool)($set['self_portrait'] ?? false),
+        'per_hour' => max(0, (int) ($set['per_hour'] ?? 10)),
+        'self_portrait' => (bool) ($set['self_portrait'] ?? false),
 
         /*
          * Searching for an animation, which is a different thing from
@@ -172,20 +180,28 @@ function aiImageSettings(array $config): array
          * setting, and hard-coding a brand into a config key is how an install
          * ends up unable to switch.
          */
-        'reactions' => (bool)($set['reactions'] ?? false),
-        'search_service' => isset(aiReactionServices()[$set['search_service'] ?? ''])
-            ? (string)$set['search_service']
+        'reactions' => (bool) ($set['reactions'] ?? false),
+        'search_service' => isset(
+            aiReactionServices()[$set['search_service'] ?? ''],
+        )
+            ? (string) $set['search_service']
             : 'tenor',
-        'search_key' => (string)($set['search_key'] ?? $set['giphy_key'] ?? ''),
-        'search_base' => (string)($set['search_base'] ?? $set['giphy_base'] ?? ''),
+        'search_key' =>
+            (string) ($set['search_key'] ?? ($set['giphy_key'] ?? '')),
+        'search_base' =>
+            (string) ($set['search_base'] ?? ($set['giphy_base'] ?? '')),
         /*
          * Searches an hour. A hundred is the free allowance these services
          * publish; it can be set lower and not higher, because a ceiling a
          * setting can lift past the provider's own protects nothing.
          */
-        'searches_per_hour' => max(0, min(100, (int)($set['searches_per_hour'] ?? 100))),
+        'searches_per_hour' => max(
+            0,
+            min(100, (int) ($set['searches_per_hour'] ?? 100)),
+        ),
         'rating' => in_array($set['rating'] ?? 'g', ['g', 'pg', 'pg-13'], true)
-            ? (string)($set['rating'] ?? 'g') : 'g',
+            ? (string) ($set['rating'] ?? 'g')
+            : 'g',
 
         /*
          * What generated pictures cost, for the running total.
@@ -197,20 +213,23 @@ function aiImageSettings(array $config): array
          * and after it the per-image price applies. Guessing either would
          * produce a total that looks authoritative and is not.
          */
-        'monthly_cents' => max(0, (float)($set['monthly_cents'] ?? 0)),
-        'included_standard' => max(0, (int)($set['included_standard']
-            ?? $set['included_per_month'] ?? 0)),
-        'included_genius' => max(0, (int)($set['included_genius'] ?? 0)),
-        'price_standard' => max(0, (float)($set['price_standard'] ?? 0)),
-        'price_hd' => max(0, (float)($set['price_hd'] ?? 0)),
-        'price_genius' => max(0, (float)($set['price_genius'] ?? 0)),
+        'monthly_cents' => max(0, (float) ($set['monthly_cents'] ?? 0)),
+        'included_standard' => max(
+            0,
+            (int) ($set['included_standard'] ??
+                ($set['included_per_month'] ?? 0)),
+        ),
+        'included_genius' => max(0, (int) ($set['included_genius'] ?? 0)),
+        'price_standard' => max(0, (float) ($set['price_standard'] ?? 0)),
+        'price_hd' => max(0, (float) ($set['price_hd'] ?? 0)),
+        'price_genius' => max(0, (float) ($set['price_genius'] ?? 0)),
 
         // Overridable so the paths that leave this machine can be exercised
         // against a stub; there is one real address for each in practice.
-        'base' => (string)($set['base'] ?? ''),
+        'base' => (string) ($set['base'] ?? ''),
 
         // Kept so an install configured before the rename still works.
-        'giphy_base' => (string)($set['giphy_base'] ?? ''),
+        'giphy_base' => (string) ($set['giphy_base'] ?? ''),
     ];
 }
 
@@ -224,7 +243,7 @@ function aiImageSettings(array $config): array
  */
 function aiImageBudget(PDO $ai, array $settings): array
 {
-    $allowed = (int)$settings['per_hour'];
+    $allowed = (int) $settings['per_hour'];
 
     /*
      * Generated pictures only.
@@ -236,25 +255,34 @@ function aiImageBudget(PDO $ai, array $settings): array
      */
     try {
         $stmt = $ai->prepare(
-            "SELECT COUNT(*) FROM ai_images WHERE at >= ? AND kind != 'reaction'"
+            "SELECT COUNT(*) FROM ai_images WHERE at >= ? AND kind != 'reaction'",
         );
         $stmt->execute([time() - SPAN_HOUR]);
-        $used = (int)$stmt->fetchColumn();
+        $used = (int) $stmt->fetchColumn();
     } catch (Throwable) {
         $used = 0;
     }
 
     if ($allowed <= 0) {
-        return ['used' => $used, 'allowed' => 0, 'ok' => false,
-                'why' => 'picture-making is switched off'];
+        return [
+            'used' => $used,
+            'allowed' => 0,
+            'ok' => false,
+            'why' => 'picture-making is switched off',
+        ];
     }
 
     if ($used >= $allowed) {
-        return ['used' => $used, 'allowed' => $allowed, 'ok' => false, 'why' => sprintf(
-            'that is %d pictures this hour, which is the limit. It resets as the hour '
-            . 'rolls forward.',
-            $used
-        )];
+        return [
+            'used' => $used,
+            'allowed' => $allowed,
+            'ok' => false,
+            'why' => sprintf(
+                'that is %d pictures this hour, which is the limit. It resets as the hour ' .
+                    'rolls forward.',
+                $used,
+            ),
+        ];
     }
 
     return ['used' => $used, 'allowed' => $allowed, 'ok' => true, 'why' => ''];
@@ -272,29 +300,38 @@ function aiImageBudget(PDO $ai, array $settings): array
  */
 function aiSearchBudget(PDO $ai, array $settings): array
 {
-    $allowed = (int)$settings['searches_per_hour'];
+    $allowed = (int) $settings['searches_per_hour'];
 
     try {
         $stmt = $ai->prepare(
-            "SELECT COUNT(*) FROM ai_images WHERE at >= ? AND kind = 'reaction'"
+            "SELECT COUNT(*) FROM ai_images WHERE at >= ? AND kind = 'reaction'",
         );
         $stmt->execute([time() - SPAN_HOUR]);
-        $used = (int)$stmt->fetchColumn();
+        $used = (int) $stmt->fetchColumn();
     } catch (Throwable) {
         $used = 0;
     }
 
     if ($allowed <= 0) {
-        return ['used' => $used, 'allowed' => 0, 'ok' => false,
-                'why' => 'reaction searches are switched off'];
+        return [
+            'used' => $used,
+            'allowed' => 0,
+            'ok' => false,
+            'why' => 'reaction searches are switched off',
+        ];
     }
 
     if ($used >= $allowed) {
-        return ['used' => $used, 'allowed' => $allowed, 'ok' => false, 'why' => sprintf(
-            'that is %d searches this hour, which is the limit. It resets as the hour '
-            . 'rolls forward.',
-            $used
-        )];
+        return [
+            'used' => $used,
+            'allowed' => $allowed,
+            'ok' => false,
+            'why' => sprintf(
+                'that is %d searches this hour, which is the limit. It resets as the hour ' .
+                    'rolls forward.',
+                $used,
+            ),
+        ];
     }
 
     return ['used' => $used, 'allowed' => $allowed, 'ok' => true, 'why' => ''];
@@ -325,14 +362,14 @@ function aiImageCost(PDO $ai, array $settings, string $quality): int
     $genius = $quality === 'genius';
 
     $allowance = $genius
-        ? (int)$settings['included_genius']
-        : (int)$settings['included_standard'];
+        ? (int) $settings['included_genius']
+        : (int) $settings['included_standard'];
 
     $used = aiImagesThisMonth($ai, $genius);
 
     if ($allowance > 0 && $used < $allowance) {
-        $monthly = (float)$settings['monthly_cents'];
-        return $monthly > 0 ? (int)round(($monthly / $allowance) * 1000) : 0;
+        $monthly = (float) $settings['monthly_cents'];
+        return $monthly > 0 ? (int) round(($monthly / $allowance) * 1000) : 0;
     }
 
     /*
@@ -343,12 +380,12 @@ function aiImageCost(PDO $ai, array $settings, string $quality): int
      * least visible.
      */
     $price = match ($quality) {
-        'hd' => (float)$settings['price_hd'],
-        'genius' => (float)$settings['price_genius'],
-        default => (float)$settings['price_standard'],
+        'hd' => (float) $settings['price_hd'],
+        'genius' => (float) $settings['price_genius'],
+        default => (float) $settings['price_standard'],
     };
 
-    return $price > 0 ? (int)round($price * 1000) : 0;
+    return $price > 0 ? (int) round($price * 1000) : 0;
 }
 
 /**
@@ -360,16 +397,16 @@ function aiImageCost(PDO $ai, array $settings, string $quality): int
  */
 function aiImagesThisMonth(PDO $ai, bool $genius): int
 {
-    $from = (int)mktime(0, 0, 0, (int)date('n'), 1, (int)date('Y'));
+    $from = (int) mktime(0, 0, 0, (int) date('n'), 1, (int) date('Y'));
 
     try {
         $stmt = $ai->prepare(
             "SELECT COUNT(*) FROM ai_images
               WHERE at >= ? AND kind != 'reaction' AND error IS NULL
-                AND (quality = ?) "
+                AND (quality = ?) ",
         );
         $stmt->execute([$from, $genius ? 'genius' : 'standard']);
-        return (int)$stmt->fetchColumn();
+        return (int) $stmt->fetchColumn();
     } catch (Throwable) {
         /*
          * An install from before the quality column existed.
@@ -384,10 +421,10 @@ function aiImagesThisMonth(PDO $ai, bool $genius): int
         try {
             $stmt = $ai->prepare(
                 "SELECT COUNT(*) FROM ai_images
-                  WHERE at >= ? AND kind != 'reaction' AND error IS NULL"
+                  WHERE at >= ? AND kind != 'reaction' AND error IS NULL",
             );
             $stmt->execute([$from]);
-            return (int)$stmt->fetchColumn();
+            return (int) $stmt->fetchColumn();
         } catch (Throwable) {
             return 0;
         }
@@ -405,17 +442,21 @@ function aiImageAllowance(PDO $ai, array $settings): array
 {
     $out = ['monthly_cents' => $settings['monthly_cents'], 'tiers' => []];
 
-    foreach ([['standard', 'included_standard'], ['genius', 'included_genius']] as [$tier, $key]) {
-        $allowance = (int)$settings[$key];
+    foreach (
+        [['standard', 'included_standard'], ['genius', 'included_genius']]
+        as [$tier, $key]
+    ) {
+        $allowance = (int) $settings[$key];
         $used = aiImagesThisMonth($ai, $tier === 'genius');
 
         $out['tiers'][$tier] = [
             'allowance' => $allowance,
             'used' => $used,
             'left' => max(0, $allowance - $used),
-            'each' => $allowance > 0 && $settings['monthly_cents'] > 0
-                ? round($settings['monthly_cents'] / $allowance, 6)
-                : null,
+            'each' =>
+                $allowance > 0 && $settings['monthly_cents'] > 0
+                    ? round($settings['monthly_cents'] / $allowance, 6)
+                    : null,
         ];
     }
 
@@ -435,8 +476,12 @@ function aiImageAllowance(PDO $ai, array $settings): array
  *
  * @return array{ok: bool, bytes?: int, why?: string}
  */
-function aiKeepAsset(PDO $ai, int $imageId, string $url, ?callable $fetch = null): array
-{
+function aiKeepAsset(
+    PDO $ai,
+    int $imageId,
+    string $url,
+    ?callable $fetch = null,
+): array {
     if ($url === '') {
         return ['ok' => false, 'why' => 'there was no picture to keep'];
     }
@@ -454,10 +499,15 @@ function aiKeepAsset(PDO $ai, int $imageId, string $url, ?callable $fetch = null
 
     $ai->prepare(
         'INSERT INTO ai_assets (image_id, at, mime, width, height, bytes, body)
-         VALUES (?, ?, ?, ?, ?, ?, ?)'
+         VALUES (?, ?, ?, ?, ?, ?, ?)',
     )->execute([
-        $imageId, time(), (string)($size['mime'] ?? 'application/octet-stream'),
-        (int)$size[0], (int)$size[1], strlen($got['body']), $got['body'],
+        $imageId,
+        time(),
+        (string) ($size['mime'] ?? 'application/octet-stream'),
+        (int) $size[0],
+        (int) $size[1],
+        strlen($got['body']),
+        $got['body'],
     ]);
 
     return ['ok' => true, 'bytes' => strlen($got['body'])];
@@ -495,12 +545,14 @@ function aiFetchBytes(string $url): array
          * that holds is one that counts the bytes as they arrive.
          */
         CURLOPT_NOPROGRESS => false,
-        CURLOPT_PROGRESSFUNCTION => fn($handle, $expect, $got): int =>
-            $got > AI_ASSET_MAX ? 1 : 0,
+        CURLOPT_PROGRESSFUNCTION => fn($handle, $expect, $got): int => $got >
+        AI_ASSET_MAX
+            ? 1
+            : 0,
     ]);
 
     $body = curl_exec($handle);
-    $status = (int)curl_getinfo($handle, CURLINFO_RESPONSE_CODE);
+    $status = (int) curl_getinfo($handle, CURLINFO_RESPONSE_CODE);
     $error = curl_error($handle);
     /*
      * No curl_close: it has done nothing since PHP 8.0 and is deprecated from
@@ -511,13 +563,19 @@ function aiFetchBytes(string $url): array
      */
 
     if (!is_string($body) || $body === '') {
-        return ['ok' => false, 'why' => $error !== '' ? $error : 'nothing came back'];
+        return [
+            'ok' => false,
+            'why' => $error !== '' ? $error : 'nothing came back',
+        ];
     }
     if ($status >= 400) {
         return ['ok' => false, 'why' => 'the picture host answered ' . $status];
     }
     if (strlen($body) > AI_ASSET_MAX) {
-        return ['ok' => false, 'why' => 'that picture is larger than this keeps'];
+        return [
+            'ok' => false,
+            'why' => 'that picture is larger than this keeps',
+        ];
     }
 
     return ['ok' => true, 'body' => $body];
@@ -537,25 +595,40 @@ function aiFetchBytes(string $url): array
  *
  * @return array<string, mixed>
  */
-function aiMakeImage(array $settings, string $prompt, string $style, ?callable $ask = null): array
-{
+function aiMakeImage(
+    array $settings,
+    string $prompt,
+    string $style,
+    ?callable $ask = null,
+): array {
     $styles = aiImageStyles();
 
-    if (!isset($styles[$style]) || !in_array($style, $settings['styles'], true)) {
-        return ['ok' => false, 'error' => 'that style is not one this install allows'];
+    if (
+        !isset($styles[$style]) ||
+        !in_array($style, $settings['styles'], true)
+    ) {
+        return [
+            'ok' => false,
+            'error' => 'that style is not one this install allows',
+        ];
     }
 
     if ($settings['api_key'] === '') {
-        return ['ok' => false, 'error' => 'no key is set for the image generator'];
+        return [
+            'ok' => false,
+            'error' => 'no key is set for the image generator',
+        ];
     }
 
     $shape = aiImageShapes()[$settings['shape']] ?? aiImageShapes()['square'];
-    $quality = aiImageQualities()[$settings['quality']] ?? aiImageQualities()['standard'];
+    $quality =
+        aiImageQualities()[$settings['quality']] ??
+        aiImageQualities()['standard'];
 
     $fields = [
         'text' => mb_substr($prompt, 0, 1000),
-        'width' => (string)aiImageDimension((int)$shape['width']),
-        'height' => (string)aiImageDimension((int)$shape['height']),
+        'width' => (string) aiImageDimension((int) $shape['width']),
+        'height' => (string) aiImageDimension((int) $shape['height']),
         'image_generator_version' => $quality['version'],
     ];
 
@@ -566,16 +639,26 @@ function aiMakeImage(array $settings, string $prompt, string $style, ?callable $
      * generator, and "rejected" is a failed picture with a message about a
      * parameter nobody chose. Gated on the tier that documents them.
      */
-    if ($quality['version'] === 'genius' && $settings['genius_preference'] !== '') {
+    if (
+        $quality['version'] === 'genius' &&
+        $settings['genius_preference'] !== ''
+    ) {
         $fields['genius_preference'] = $settings['genius_preference'];
     }
 
-    if ($quality['version'] === 'super_genius' && $settings['resolution'] !== '') {
+    if (
+        $quality['version'] === 'super_genius' &&
+        $settings['resolution'] !== ''
+    ) {
         $fields['resolution'] = $settings['resolution'];
     }
 
-    if (trim((string)$settings['negative_prompt']) !== '') {
-        $fields['negative_prompt'] = mb_substr(trim((string)$settings['negative_prompt']), 0, 500);
+    if (trim((string) $settings['negative_prompt']) !== '') {
+        $fields['negative_prompt'] = mb_substr(
+            trim((string) $settings['negative_prompt']),
+            0,
+            500,
+        );
     }
 
     /*
@@ -587,7 +670,10 @@ function aiMakeImage(array $settings, string $prompt, string $style, ?callable $
      * missing URL", which is exactly what it is and gives no hint where it came
      * from. `?:` falls back on empty as well.
      */
-    $base = rtrim(((string)($settings['base'] ?? '')) ?: 'https://api.deepai.org/api', '/');
+    $base = rtrim(
+        ((string) ($settings['base'] ?? '')) ?: 'https://api.deepai.org/api',
+        '/',
+    );
     $url = $base . '/' . $style;
 
     if ($ask !== null) {
@@ -596,8 +682,6 @@ function aiMakeImage(array $settings, string $prompt, string $style, ?callable $
 
     return aiPostForm($url, $fields, ['api-key: ' . $settings['api_key']], 90);
 }
-
-
 
 /**
  * A width or height the generator will actually accept.
@@ -609,11 +693,10 @@ function aiMakeImage(array $settings, string $prompt, string $style, ?callable $
  */
 function aiImageDimension(int $wanted): int
 {
-    $stepped = (int)(round($wanted / AI_IMAGE_STEP) * AI_IMAGE_STEP);
+    $stepped = (int) (round($wanted / AI_IMAGE_STEP) * AI_IMAGE_STEP);
 
     return max(AI_IMAGE_MIN, min(AI_IMAGE_MAX, $stepped));
 }
-
 
 /** What a genius-tier picture should look like. Only that tier reads it. */
 function aiGeniusPreferences(): array
@@ -627,13 +710,11 @@ function aiGeniusPreferences(): array
     ];
 }
 
-
 /** The two resolutions, which only the top tier accepts. */
 function aiImageResolutions(): array
 {
     return ['' => 'whatever the size asks for', '2k' => '2K', '4k' => '4K'];
 }
-
 
 /** Least and most the generator will accept, for anything typed in by hand. */
 const AI_IMAGE_MIN = 128;
@@ -645,8 +726,12 @@ const AI_IMAGE_STEP = 32;
  *
  * @return array<string, mixed>
  */
-function aiPostForm(string $url, array $fields, array $headers, int $timeout = 30): array
-{
+function aiPostForm(
+    string $url,
+    array $fields,
+    array $headers,
+    int $timeout = 30,
+): array {
     if (!function_exists('curl_init')) {
         return ['ok' => false, 'error' => 'this PHP has no curl'];
     }
@@ -674,23 +759,31 @@ function aiPostForm(string $url, array $fields, array $headers, int $timeout = 3
     ]);
 
     $raw = curl_exec($handle);
-    $status = (int)curl_getinfo($handle, CURLINFO_RESPONSE_CODE);
+    $status = (int) curl_getinfo($handle, CURLINFO_RESPONSE_CODE);
     $problem = curl_error($handle);
     // No curl_close; see the note above.
 
     if ($raw === false) {
-        return ['ok' => false, 'error' => $problem !== '' ? $problem : 'the request failed'];
+        return [
+            'ok' => false,
+            'error' => $problem !== '' ? $problem : 'the request failed',
+        ];
     }
 
-    $decoded = json_decode((string)$raw, true);
+    $decoded = json_decode((string) $raw, true);
     if (!is_array($decoded)) {
-        return ['ok' => false, 'error' => 'the service answered with something that is not JSON'];
+        return [
+            'ok' => false,
+            'error' => 'the service answered with something that is not JSON',
+        ];
     }
 
     if ($status < 200 || $status >= 300) {
         return [
             'ok' => false,
-            'error' => (string)($decoded['err'] ?? $decoded['error'] ?? "HTTP {$status}"),
+            'error' =>
+                (string) ($decoded['err'] ??
+                    ($decoded['error'] ?? "HTTP {$status}")),
             'status' => $status,
         ];
     }
@@ -717,8 +810,9 @@ function aiReactionServices(): array
             'label' => 'Tenor',
             'base' => 'https://tenor.googleapis.com/v2',
             'path' => '/search',
-            'note' => 'Google runs it, and both Google and the service it grew out of '
-                . 'support it. A key comes from the Google Cloud console.',
+            'note' =>
+                'Google runs it, and both Google and the service it grew out of ' .
+                'support it. A key comes from the Google Cloud console.',
             'query' => fn(array $set, string $mood): array => [
                 'key' => $set['search_key'],
                 'q' => $mood,
@@ -732,11 +826,14 @@ function aiReactionServices(): array
                     return null;
                 }
                 $media = $first['media_formats'] ?? [];
-                $url = $media['tinygif']['url'] ?? $media['gif']['url'] ?? '';
-                return $url === '' ? null : [
-                    'url' => (string)$url,
-                    'title' => (string)($first['content_description'] ?? ''),
-                ];
+                $url = $media['tinygif']['url'] ?? ($media['gif']['url'] ?? '');
+                return $url === ''
+                    ? null
+                    : [
+                        'url' => (string) $url,
+                        'title' =>
+                            (string) ($first['content_description'] ?? ''),
+                    ];
             },
         ],
 
@@ -751,17 +848,18 @@ function aiReactionServices(): array
                 'content_filter' => $set['rating'],
             ],
             'pick' => function (array $body): ?array {
-                $first = $body['data'][0] ?? $body['result'][0] ?? null;
+                $first = $body['data'][0] ?? ($body['result'][0] ?? null);
                 if (!is_array($first)) {
                     return null;
                 }
-                $url = $first['file']['sm']['gif']['url']
-                    ?? $first['url']
-                    ?? '';
-                return $url === '' ? null : [
-                    'url' => (string)$url,
-                    'title' => (string)($first['title'] ?? ''),
-                ];
+                $url =
+                    $first['file']['sm']['gif']['url'] ?? ($first['url'] ?? '');
+                return $url === ''
+                    ? null
+                    : [
+                        'url' => (string) $url,
+                        'title' => (string) ($first['title'] ?? ''),
+                    ];
             },
         ],
 
@@ -782,13 +880,15 @@ function aiReactionServices(): array
                 if (!is_array($first)) {
                     return null;
                 }
-                $url = $first['images']['downsized']['url']
-                    ?? $first['images']['original']['url']
-                    ?? '';
-                return $url === '' ? null : [
-                    'url' => (string)$url,
-                    'title' => (string)($first['title'] ?? ''),
-                ];
+                $url =
+                    $first['images']['downsized']['url'] ??
+                    ($first['images']['original']['url'] ?? '');
+                return $url === ''
+                    ? null
+                    : [
+                        'url' => (string) $url,
+                        'title' => (string) ($first['title'] ?? ''),
+                    ];
             },
         ],
     ];
@@ -805,8 +905,11 @@ function aiReactionServices(): array
  *
  * @return array{ok: bool, url?: string, title?: string, source?: string, error?: string}
  */
-function aiFindReaction(array $settings, string $mood, ?callable $ask = null): array
-{
+function aiFindReaction(
+    array $settings,
+    string $mood,
+    ?callable $ask = null,
+): array {
     if (!$settings['reactions'] || $settings['search_key'] === '') {
         return ['ok' => false, 'error' => 'reactions are not set up'];
     }
@@ -820,9 +923,11 @@ function aiFindReaction(array $settings, string $mood, ?callable $ask = null): a
 
     $service = $services[$key];
     $base = rtrim($settings['search_base'] ?: $service['base'], '/');
-    $url = $base . $service['path'] . '?' . http_build_query(
-        ($service['query'])($settings, mb_substr($mood, 0, 60))
-    );
+    $url =
+        $base .
+        $service['path'] .
+        '?' .
+        http_build_query($service['query']($settings, mb_substr($mood, 0, 60)));
 
     if ($ask !== null) {
         return $ask($url);
@@ -856,7 +961,7 @@ function aiFindReaction(array $settings, string $mood, ?callable $ask = null): a
         return ['ok' => false, 'error' => 'the search did not answer'];
     }
 
-    $found = ($service['pick'])($decoded);
+    $found = $service['pick']($decoded);
     if ($found === null) {
         return ['ok' => false, 'error' => 'nothing matched that'];
     }
@@ -879,36 +984,47 @@ function aiRecordImage(
     ?string $url,
     ?string $error,
     int $millicents = 0,
-    string $quality = 'standard'
+    string $quality = 'standard',
 ): int {
     $ai->prepare(
         'INSERT INTO ai_images
             (session_id, at, kind, prompt, style, url, error, millicents, quality)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
     )->execute([
-        $session, time(), $kind, mb_substr($prompt, 0, 1000), $style, $url, $error,
-        $millicents, $quality,
+        $session,
+        time(),
+        $kind,
+        mb_substr($prompt, 0, 1000),
+        $style,
+        $url,
+        $error,
+        $millicents,
+        $quality,
     ]);
 
-    return (int)$ai->lastInsertId();
+    return (int) $ai->lastInsertId();
 }
 
 /** The assistant's current portrait, if it has made one. */
 function aiPortrait(PDO $ai): ?array
 {
     try {
-        $row = $ai->query(
-            "SELECT url, prompt, at FROM ai_images
+        $row = $ai
+            ->query(
+                "SELECT url, prompt, at FROM ai_images
               WHERE kind = 'portrait' AND url IS NOT NULL
-              ORDER BY id DESC LIMIT 1"
-        )->fetch();
+              ORDER BY id DESC LIMIT 1",
+            )
+            ->fetch();
     } catch (Throwable) {
         return null;
     }
 
-    return $row === false ? null : [
-        'url' => (string)$row['url'],
-        'as' => (string)$row['prompt'],
-        'at' => (int)$row['at'],
-    ];
+    return $row === false
+        ? null
+        : [
+            'url' => (string) $row['url'],
+            'as' => (string) $row['prompt'],
+            'at' => (int) $row['at'],
+        ];
 }

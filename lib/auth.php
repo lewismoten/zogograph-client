@@ -19,8 +19,9 @@ function startSession(array $config): void
         return;
     }
 
-    $secure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
-        || (($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https');
+    $secure =
+        (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ||
+        ($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https';
 
     session_set_cookie_params([
         'lifetime' => 0,
@@ -41,8 +42,8 @@ function startSession(array $config): void
 
     // Idle timeout, checked on every request rather than left to the cookie, so
     // closing the laptop does not leave an unmasked session open for a week.
-    $lifetime = (int)($config['session_lifetime'] ?? 43200);
-    $last = (int)($_SESSION['seen'] ?? 0);
+    $lifetime = (int) ($config['session_lifetime'] ?? 43200);
+    $last = (int) ($_SESSION['seen'] ?? 0);
     if ($last > 0 && time() - $last > $lifetime) {
         signOut();
         session_start();
@@ -58,31 +59,42 @@ function isSignedIn(): bool
 /** The configured generation of all authenticated browser sessions. */
 function authSessionEpoch(array $config): int
 {
-    $epoch = filter_var($config['auth']['session_epoch'] ?? 0, FILTER_VALIDATE_INT,
-        ['options' => ['min_range' => 0]]);
+    $epoch = filter_var(
+        $config['auth']['session_epoch'] ?? 0,
+        FILTER_VALIDATE_INT,
+        ['options' => ['min_range' => 0]],
+    );
     return $epoch === false ? 0 : $epoch;
 }
 
 /** Whether the current signed-in session belongs to the configured generation. */
 function authSessionCurrent(array $config): bool
 {
-    if (!isSignedIn() || !isset($_SESSION['auth_epoch'])) return false;
-    return hash_equals((string)authSessionEpoch($config), (string)$_SESSION['auth_epoch']);
+    if (!isSignedIn() || !isset($_SESSION['auth_epoch'])) {
+        return false;
+    }
+    return hash_equals(
+        (string) authSessionEpoch($config),
+        (string) $_SESSION['auth_epoch'],
+    );
 }
 
 const SIGNIN_THROTTLE_WINDOW = 900;
 const SIGNIN_THROTTLE_LIMIT = 8;
 
 /** Uses only prior wrong-password rows; rate-limit noise cannot extend a lock. */
-function signInRateLimited(PDO $pdo, ?string $address = null, ?int $now = null): bool
-{
+function signInRateLimited(
+    PDO $pdo,
+    ?string $address = null,
+    ?int $now = null,
+): bool {
     $now ??= time();
-    $address ??= (string)($_SERVER['REMOTE_ADDR'] ?? '');
+    $address ??= (string) ($_SERVER['REMOTE_ADDR'] ?? '');
     $stmt = $pdo->prepare("SELECT COUNT(*) FROM actions
         WHERE action = 'sign_in' AND outcome = 'refused' AND detail = 'wrong password'
           AND COALESCE(remote_addr, '') = ? AND at >= ?");
     $stmt->execute([$address, $now - SIGNIN_THROTTLE_WINDOW]);
-    return (int)$stmt->fetchColumn() >= SIGNIN_THROTTLE_LIMIT;
+    return (int) $stmt->fetchColumn() >= SIGNIN_THROTTLE_LIMIT;
 }
 
 /**
@@ -96,7 +108,9 @@ function signInRateLimited(PDO $pdo, ?string $address = null, ?int $now = null):
 function totpBase32Decode(string $secret): string|false
 {
     $secret = strtoupper(preg_replace('/[\s-]+/', '', $secret) ?? '');
-    if ($secret === '' || !preg_match('/^[A-Z2-7]+=*$/', $secret)) return false;
+    if ($secret === '' || !preg_match('/^[A-Z2-7]+=*$/', $secret)) {
+        return false;
+    }
     $alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
     $bits = 0;
     $buffer = 0;
@@ -115,10 +129,17 @@ function totpBase32Decode(string $secret): string|false
 /** Fresh 160-bit Base32 seed for a TOTP authenticator; never log or reuse it. */
 function totpGenerateSecret(): string
 {
-    $alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567'; $bits = 0; $buffer = 0; $out = '';
+    $alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
+    $bits = 0;
+    $buffer = 0;
+    $out = '';
     foreach (unpack('C*', random_bytes(20)) as $byte) {
-        $buffer = ($buffer << 8) | $byte; $bits += 8;
-        while ($bits >= 5) { $bits -= 5; $out .= $alphabet[($buffer >> $bits) & 31]; }
+        $buffer = ($buffer << 8) | $byte;
+        $bits += 8;
+        while ($bits >= 5) {
+            $bits -= 5;
+            $out .= $alphabet[($buffer >> $bits) & 31];
+        }
     }
     return $out;
 }
@@ -127,15 +148,22 @@ function totpGenerateSecret(): string
 function totpValid(string $secret, string $code, ?int $now = null): bool
 {
     $key = totpBase32Decode($secret);
-    if ($key === false || !preg_match('/^\d{6}$/', trim($code))) return false;
+    if ($key === false || !preg_match('/^\d{6}$/', trim($code))) {
+        return false;
+    }
     $counter = intdiv($now ?? time(), 30);
     for ($step = -1; $step <= 1; $step++) {
         $value = $counter + $step;
         $digest = hash_hmac('sha1', pack('N2', 0, $value), $key, true);
         $offset = ord($digest[19]) & 0x0f;
-        $number = ((ord($digest[$offset]) & 0x7f) << 24) | (ord($digest[$offset + 1]) << 16)
-            | (ord($digest[$offset + 2]) << 8) | ord($digest[$offset + 3]);
-        if (hash_equals(sprintf('%06d', $number % 1000000), trim($code))) return true;
+        $number =
+            ((ord($digest[$offset]) & 0x7f) << 24) |
+            (ord($digest[$offset + 1]) << 16) |
+            (ord($digest[$offset + 2]) << 8) |
+            ord($digest[$offset + 3]);
+        if (hash_equals(sprintf('%06d', $number % 1000000), trim($code))) {
+            return true;
+        }
     }
     return false;
 }
@@ -143,8 +171,11 @@ function totpValid(string $secret, string $code, ?int $now = null): bool
 /** A named user may set their own secret; the legacy administrator uses auth.totp_secret. */
 function signInTotpSecret(array $config, ?array $named): string
 {
-    return trim((string)(is_array($named)
-        ? ($named['totp_secret'] ?? '') : ($config['auth']['totp_secret'] ?? '')));
+    return trim(
+        (string) (is_array($named)
+            ? $named['totp_secret'] ?? ''
+            : $config['auth']['totp_secret'] ?? ''),
+    );
 }
 
 /** Normalizes a recovery code without ever retaining its un-hashed form. */
@@ -161,20 +192,35 @@ function totpRecoveryCodes(PDO $pdo, string $account, ?int $now = null): array
     $codes = [];
     $pdo->beginTransaction();
     try {
-        $pdo->prepare('DELETE FROM totp_recovery_codes WHERE account = ?')->execute([$account]);
-        $insert = $pdo->prepare('INSERT INTO totp_recovery_codes (account, code_hash, created_at) VALUES (?, ?, ?)');
+        $pdo->prepare(
+            'DELETE FROM totp_recovery_codes WHERE account = ?',
+        )->execute([$account]);
+        $insert = $pdo->prepare(
+            'INSERT INTO totp_recovery_codes (account, code_hash, created_at) VALUES (?, ?, ?)',
+        );
         for ($index = 0; $index < 8; $index++) {
             $raw = '';
             for ($position = 0; $position < 12; $position++) {
                 $raw .= $alphabet[random_int(0, strlen($alphabet) - 1)];
             }
-            $code = substr($raw, 0, 4) . '-' . substr($raw, 4, 4) . '-' . substr($raw, 8, 4);
+            $code =
+                substr($raw, 0, 4) .
+                '-' .
+                substr($raw, 4, 4) .
+                '-' .
+                substr($raw, 8, 4);
             $codes[] = $code;
-            $insert->execute([$account, password_hash(totpRecoveryCode($code), PASSWORD_DEFAULT), $now]);
+            $insert->execute([
+                $account,
+                password_hash(totpRecoveryCode($code), PASSWORD_DEFAULT),
+                $now,
+            ]);
         }
         $pdo->commit();
     } catch (Throwable $error) {
-        if ($pdo->inTransaction()) $pdo->rollBack();
+        if ($pdo->inTransaction()) {
+            $pdo->rollBack();
+        }
         throw $error;
     }
     return $codes;
@@ -184,21 +230,35 @@ function totpRecoveryCodes(PDO $pdo, string $account, ?int $now = null): array
 function totpRecoveryConsume(PDO $pdo, string $account, string $code): bool
 {
     $code = totpRecoveryCode($code);
-    if (!preg_match('/^[A-Z2-9]{12}$/', $code)) return false;
-    $stmt = $pdo->prepare('SELECT id, code_hash FROM totp_recovery_codes WHERE account = ? ORDER BY id');
+    if (!preg_match('/^[A-Z2-9]{12}$/', $code)) {
+        return false;
+    }
+    $stmt = $pdo->prepare(
+        'SELECT id, code_hash FROM totp_recovery_codes WHERE account = ? ORDER BY id',
+    );
     $stmt->execute([$account]);
     foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
-        if (!password_verify($code, (string)$row['code_hash'])) continue;
-        $delete = $pdo->prepare('DELETE FROM totp_recovery_codes WHERE id = ? AND account = ?');
-        $delete->execute([(int)$row['id'], $account]);
+        if (!password_verify($code, (string) $row['code_hash'])) {
+            continue;
+        }
+        $delete = $pdo->prepare(
+            'DELETE FROM totp_recovery_codes WHERE id = ? AND account = ?',
+        );
+        $delete->execute([(int) $row['id'], $account]);
         return $delete->rowCount() === 1;
     }
     return false;
 }
 
-function signIn(array $config, string $password, string $username = '', string $totp = '', ?PDO $pdo = null, ?string &$mfaMethod = null): bool
-{
-    $users = (array)($config['access']['users'] ?? []);
+function signIn(
+    array $config,
+    string $password,
+    string $username = '',
+    string $totp = '',
+    ?PDO $pdo = null,
+    ?string &$mfaMethod = null,
+): bool {
+    $users = (array) ($config['access']['users'] ?? []);
     $named = null;
     if ($username !== '') {
         // A named attempt must never fall back to the legacy administrator
@@ -210,8 +270,8 @@ function signIn(array $config, string $password, string $username = '', string $
         $named = $users[$username];
     }
     $hash = is_array($named)
-        ? (string)($named['password_hash'] ?? '')
-        : (string)($config['password_hash'] ?? '');
+        ? (string) ($named['password_hash'] ?? '')
+        : (string) ($config['password_hash'] ?? '');
     if ($hash === '' || $password === '') {
         usleep(random_int(150000, 350000));
         return false;
@@ -225,7 +285,14 @@ function signIn(array $config, string $password, string $username = '', string $
     if ($totpSecret !== '') {
         if (totpValid($totpSecret, $totp)) {
             $mfaMethod = 'authenticator code';
-        } elseif ($pdo !== null && totpRecoveryConsume($pdo, is_array($named) ? $username : 'administrator', $totp)) {
+        } elseif (
+            $pdo !== null &&
+            totpRecoveryConsume(
+                $pdo,
+                is_array($named) ? $username : 'administrator',
+                $totp,
+            )
+        ) {
             $mfaMethod = 'one-time recovery code';
         } else {
             usleep(random_int(150000, 350000));
@@ -257,7 +324,9 @@ function signIn(array $config, string $password, string $username = '', string $
     $_SESSION['username'] = is_array($named) ? $username : 'administrator';
     $_SESSION['auth_named'] = is_array($named);
     $_SESSION['groups'] = is_array($named)
-        ? array_values(array_filter((array)($named['groups'] ?? []), 'is_string'))
+        ? array_values(
+            array_filter((array) ($named['groups'] ?? []), 'is_string'),
+        )
         : ['Administrators'];
     $_SESSION['seen'] = time();
     $_SESSION['auth_epoch'] = authSessionEpoch($config);
@@ -292,12 +361,12 @@ function csrfToken(): string
     if (empty($_SESSION['csrf'])) {
         $_SESSION['csrf'] = bin2hex(random_bytes(32));
     }
-    return (string)$_SESSION['csrf'];
+    return (string) $_SESSION['csrf'];
 }
 
 function csrfValid(?string $token): bool
 {
-    return is_string($token)
-        && !empty($_SESSION['csrf'])
-        && hash_equals((string)$_SESSION['csrf'], $token);
+    return is_string($token) &&
+        !empty($_SESSION['csrf']) &&
+        hash_equals((string) $_SESSION['csrf'], $token);
 }

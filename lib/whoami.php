@@ -33,7 +33,7 @@ require_once __DIR__ . '/labels.php';
 function whoAmI(array $config, PDO $pdo): array
 {
     $labels = loadLabels($pdo);
-    $remote = (string)($_SERVER['REMOTE_ADDR'] ?? '');
+    $remote = (string) ($_SERVER['REMOTE_ADDR'] ?? '');
 
     $out = [
         'you' => [
@@ -41,14 +41,20 @@ function whoAmI(array $config, PDO $pdo): array
             'label' => null,
             'private' => $remote !== '' && addressIsPrivate($remote),
             'reverse' => $remote === '' ? null : reverseName($remote),
-            'agent' => substr((string)($_SERVER['HTTP_USER_AGENT'] ?? ''), 0, 300),
+            'agent' => substr(
+                (string) ($_SERVER['HTTP_USER_AGENT'] ?? ''),
+                0,
+                300,
+            ),
             'secure' => requestIsSecure(),
             'claims' => forwardedClaims(),
         ],
         'server' => serverIdentity($config),
         'session' => [
             'signed_in' => isSignedIn(),
-            'started_at' => isset($_SESSION['signed_in_at']) ? (int)$_SESSION['signed_in_at'] : null,
+            'started_at' => isset($_SESSION['signed_in_at'])
+                ? (int) $_SESSION['signed_in_at']
+                : null,
         ],
     ];
 
@@ -79,18 +85,24 @@ function forwardedClaims(): array
 {
     $out = [];
 
-    foreach ([
-        'HTTP_X_FORWARDED_FOR' => 'X-Forwarded-For',
-        'HTTP_X_REAL_IP' => 'X-Real-IP',
-        'HTTP_CF_CONNECTING_IP' => 'CF-Connecting-IP',
-        'HTTP_TRUE_CLIENT_IP' => 'True-Client-IP',
-        'HTTP_X_FORWARDED_PROTO' => 'X-Forwarded-Proto',
-        'HTTP_X_FORWARDED_HOST' => 'X-Forwarded-Host',
-    ] as $key => $name) {
-        if (!isset($_SERVER[$key]) || trim((string)$_SERVER[$key]) === '') {
+    foreach (
+        [
+            'HTTP_X_FORWARDED_FOR' => 'X-Forwarded-For',
+            'HTTP_X_REAL_IP' => 'X-Real-IP',
+            'HTTP_CF_CONNECTING_IP' => 'CF-Connecting-IP',
+            'HTTP_TRUE_CLIENT_IP' => 'True-Client-IP',
+            'HTTP_X_FORWARDED_PROTO' => 'X-Forwarded-Proto',
+            'HTTP_X_FORWARDED_HOST' => 'X-Forwarded-Host',
+        ]
+        as $key => $name
+    ) {
+        if (!isset($_SERVER[$key]) || trim((string) $_SERVER[$key]) === '') {
             continue;
         }
-        $out[] = ['header' => $name, 'value' => substr((string)$_SERVER[$key], 0, 200)];
+        $out[] = [
+            'header' => $name,
+            'value' => substr((string) $_SERVER[$key], 0, 200),
+        ];
     }
 
     return $out;
@@ -99,15 +111,19 @@ function forwardedClaims(): array
 /** Whether this request arrived over TLS, by any of the ways that can say so. */
 function requestIsSecure(): bool
 {
-    if (($_SERVER['HTTPS'] ?? '') !== '' && strtolower((string)$_SERVER['HTTPS']) !== 'off') {
+    if (
+        ($_SERVER['HTTPS'] ?? '') !== '' &&
+        strtolower((string) $_SERVER['HTTPS']) !== 'off'
+    ) {
         return true;
     }
-    if ((int)($_SERVER['SERVER_PORT'] ?? 0) === 443) {
+    if ((int) ($_SERVER['SERVER_PORT'] ?? 0) === 443) {
         return true;
     }
     // A claim rather than a fact - see forwardedClaims - but the honest answer
     // behind a terminating proxy, where this process never sees the TLS.
-    return strtolower((string)($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '')) === 'https';
+    return strtolower((string) ($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '')) ===
+        'https';
 }
 
 /**
@@ -120,7 +136,7 @@ function requestIsSecure(): bool
 function reverseName(string $address): ?string
 {
     $name = @gethostbyaddr($address);
-    return ($name === false || $name === $address) ? null : $name;
+    return $name === false || $name === $address ? null : $name;
 }
 
 /**
@@ -141,9 +157,9 @@ function serverIdentity(array $config): array
         $file = __DIR__ . '/../index.html';
     }
     $ownerId = is_file($file) ? @fileowner($file) : false;
-    $owner = $ownerId === false ? null : accountNameFor((int)$ownerId);
+    $owner = $ownerId === false ? null : accountNameFor((int) $ownerId);
 
-    $dataDir = dirname((string)($config['database'] ?? ''));
+    $dataDir = dirname((string) ($config['database'] ?? ''));
 
     return [
         'hostname' => php_uname('n'),
@@ -153,14 +169,15 @@ function serverIdentity(array $config): array
         'running_as' => $running,
         'running_uid' => $uid,
         'files_owned_by' => $owner,
-        'same_user' => $running !== null && $owner !== null && $running === $owner,
+        'same_user' =>
+            $running !== null && $owner !== null && $running === $owner,
         'home' => getenv('HOME') ?: null,
-        'scan_root' => (string)($config['scan_root'] ?? ''),
+        'scan_root' => (string) ($config['scan_root'] ?? ''),
         'data_dir' => $dataDir,
         'data_writable' => $dataDir !== '' && is_writable($dataDir),
-        'host_owner' => (string)($config['host']['owner'] ?? ''),
-        'document_root' => (string)($_SERVER['DOCUMENT_ROOT'] ?? ''),
-        'server_software' => (string)($_SERVER['SERVER_SOFTWARE'] ?? ''),
+        'host_owner' => (string) ($config['host']['owner'] ?? ''),
+        'document_root' => (string) ($_SERVER['DOCUMENT_ROOT'] ?? ''),
+        'server_software' => (string) ($_SERVER['SERVER_SOFTWARE'] ?? ''),
         'server_addresses' => localAddresses(),
     ];
 }
@@ -174,7 +191,7 @@ function serverIdentity(array $config): array
  */
 function accountNameFor(int $uid): array
 {
-    $out = ['uid' => $uid, 'name' => (string)$uid, 'display' => null];
+    $out = ['uid' => $uid, 'name' => (string) $uid, 'display' => null];
 
     if (!function_exists('posix_getpwuid')) {
         return $out;
@@ -185,12 +202,12 @@ function accountNameFor(int $uid): array
         return $out;
     }
 
-    $out['name'] = (string)($entry['name'] ?? $uid);
+    $out['name'] = (string) ($entry['name'] ?? $uid);
     $out['shell'] = $entry['shell'] ?? null;
     $out['home'] = $entry['dir'] ?? null;
 
     // GECOS is comma-separated; the first field is the real name.
-    $gecos = trim((string)($entry['gecos'] ?? ''));
+    $gecos = trim((string) ($entry['gecos'] ?? ''));
     $display = trim(explode(',', $gecos)[0]);
 
     if ($display !== '' && strcasecmp($display, $out['name']) !== 0) {

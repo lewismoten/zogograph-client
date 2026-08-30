@@ -51,7 +51,10 @@ const DOMAIN_WARN_DAYS = 45;
 function domainList(PDO $pdo): array
 {
     try {
-        $rows = $pdo->query('SELECT * FROM domains ORDER BY expires_at IS NULL, expires_at, name')
+        $rows = $pdo
+            ->query(
+                'SELECT * FROM domains ORDER BY expires_at IS NULL, expires_at, name',
+            )
             ->fetchAll();
     } catch (Throwable) {
         return [];
@@ -59,20 +62,25 @@ function domainList(PDO $pdo): array
 
     $now = time();
     foreach ($rows as &$row) {
-        $row['days_left'] = $row['expires_at'] === null
-            ? null
-            : (int)floor(((int)$row['expires_at'] - $now) / 86400);
+        $row['days_left'] =
+            $row['expires_at'] === null
+                ? null
+                : (int) floor(((int) $row['expires_at'] - $now) / 86400);
 
         // Seconds as well as days, so the browser can say "9y 4m" rather than
         // "3411 days" without doing the arithmetic back the other way.
-        $row['seconds_left'] = $row['expires_at'] === null
-            ? null
-            : (int)$row['expires_at'] - $now;
+        $row['seconds_left'] =
+            $row['expires_at'] === null
+                ? null
+                : (int) $row['expires_at'] - $now;
 
         $row['state'] = domainState($row);
-        $row['status_plain'] = statusList((string)($row['status'] ?? ''));
-        $row['due_at'] = (int)($row['last_checked_at'] ?? 0) + (int)$row['interval_seconds'];
-        $row['auto_renew'] = $row['auto_renew'] === null ? null : (bool)$row['auto_renew'];
+        $row['status_plain'] = statusList((string) ($row['status'] ?? ''));
+        $row['due_at'] =
+            (int) ($row['last_checked_at'] ?? 0) +
+            (int) $row['interval_seconds'];
+        $row['auto_renew'] =
+            $row['auto_renew'] === null ? null : (bool) $row['auto_renew'];
     }
     unset($row);
 
@@ -93,8 +101,8 @@ function domainState(array $row): string
         return ($row['last_error'] ?? '') !== '' ? 'error' : 'unknown';
     }
 
-    $days = (int)floor(((int)$row['expires_at'] - time()) / 86400);
-    $warn = (int)($row['warn_days'] ?? DOMAIN_WARN_DAYS);
+    $days = (int) floor(((int) $row['expires_at'] - time()) / 86400);
+    $warn = (int) ($row['warn_days'] ?? DOMAIN_WARN_DAYS);
 
     if ($days < 0) {
         return 'expired';
@@ -111,15 +119,18 @@ function domainState(array $row): string
 function domainStateNote(string $state): string
 {
     return match ($state) {
-        'expired' => 'The registration has lapsed. Depending on the registry there is usually '
-            . 'a grace period, then a redemption period that costs several times the renewal '
-            . 'fee, and then it is gone.',
+        'expired'
+            => 'The registration has lapsed. Depending on the registry there is usually ' .
+            'a grace period, then a redemption period that costs several times the renewal ' .
+            'fee, and then it is gone.',
         'urgent' => 'Within a week. Renew it now rather than remembering to.',
         'soon' => 'Inside the warning window. Nothing is wrong yet.',
         'ok' => 'Registered well beyond the warning window.',
-        'unknown' => 'The expiry date could not be read from the whois answer. That is not '
-            . 'the same as being fine — nobody has confirmed this one.',
-        'error' => 'The lookup itself failed, so nothing is known about this domain.',
+        'unknown'
+            => 'The expiry date could not be read from the whois answer. That is not ' .
+            'the same as being fine — nobody has confirmed this one.',
+        'error'
+            => 'The lookup itself failed, so nothing is known about this domain.',
         default => '',
     };
 }
@@ -129,15 +140,20 @@ function domainStateNote(string $state): string
  *
  * @return array<string, mixed>
  */
-function domainCheck(PDO $pdo, array $domain, ?callable $runner = null, array $config = []): array
-{
-    $name = (string)$domain['name'];
+function domainCheck(
+    PDO $pdo,
+    array $domain,
+    ?callable $runner = null,
+    array $config = [],
+): array {
+    $name = (string) $domain['name'];
     $answer = whoisLookup($name, $runner);
     // A caller supplying a WHOIS runner is a deterministic test or import,
     // not a request to open an unrelated live HTTPS connection.
-    $certificate = $runner === null
-        ? domainCertificate($name)
-        : ['expires_at' => null, 'error' => null];
+    $certificate =
+        $runner === null
+            ? domainCertificate($name)
+            : ['expires_at' => null, 'error' => null];
 
     /*
      * When whois is missing here, use whatever root's collector found.
@@ -147,25 +163,38 @@ function domainCheck(PDO $pdo, array $domain, ?callable $runner = null, array $c
      * The request is left by the caller - see domainCheckDue - because leaving
      * one per domain from in here would queue a hundred tasks on a first run.
      */
-    if (!$answer['ok'] && $config !== []
-        && str_contains((string)$answer['error'], 'not installed')) {
+    if (
+        !$answer['ok'] &&
+        $config !== [] &&
+        str_contains((string) $answer['error'], 'not installed')
+    ) {
         $fromHost = domainHostAnswer($config, $name);
         if ($fromHost !== null && $fromHost['ok']) {
-            $answer = ['ok' => true, 'text' => (string)$fromHost['text'], 'error' => null];
+            $answer = [
+                'ok' => true,
+                'text' => (string) $fromHost['text'],
+                'error' => null,
+            ];
         }
     }
 
     $parsed = $answer['ok']
         ? parseWhois($answer['text'])
-        : ['expires_at' => null, 'registrar' => null, 'status' => null,
-           'nameservers' => null, 'created_at' => null, 'updated_at' => null];
+        : [
+            'expires_at' => null,
+            'registrar' => null,
+            'status' => null,
+            'nameservers' => null,
+            'created_at' => null,
+            'updated_at' => null,
+        ];
 
     $pdo->prepare(
         'UPDATE domains SET last_checked_at = ?, expires_at = ?, registrar = ?, status = ?,
                 nameservers = ?, created_at = ?, updated_at = ?, auto_renew = ?,
                 last_error = ?, whois = ?, certificate_expires_at = COALESCE(?, certificate_expires_at), certificate_checked_at = ?,
                 certificate_error = ?
-          WHERE id = ?'
+          WHERE id = ?',
     )->execute([
         time(),
         $parsed['expires_at'],
@@ -180,7 +209,7 @@ function domainCheck(PDO $pdo, array $domain, ?callable $runner = null, array $c
         $certificate['expires_at'],
         time(),
         $certificate['error'],
-        (int)$domain['id'],
+        (int) $domain['id'],
     ]);
 
     return $parsed + [
@@ -202,23 +231,37 @@ function domainCheck(PDO $pdo, array $domain, ?callable $runner = null, array $c
 function domainCertificate(string $name): array
 {
     if (!function_exists('openssl_x509_parse')) {
-        return ['expires_at' => null, 'error' => 'the PHP OpenSSL extension is unavailable'];
+        return [
+            'expires_at' => null,
+            'error' => 'the PHP OpenSSL extension is unavailable',
+        ];
     }
 
-    $context = stream_context_create(['ssl' => [
-        'capture_peer_cert' => true,
-        'peer_name' => $name,
-        'SNI_enabled' => true,
-        'SNI_server_name' => $name,
-        'verify_peer' => false,
-        'verify_peer_name' => false,
-    ]]);
+    $context = stream_context_create([
+        'ssl' => [
+            'capture_peer_cert' => true,
+            'peer_name' => $name,
+            'SNI_enabled' => true,
+            'SNI_server_name' => $name,
+            'verify_peer' => false,
+            'verify_peer_name' => false,
+        ],
+    ]);
     $errno = 0;
     $error = '';
-    $socket = @stream_socket_client('ssl://' . $name . ':443', $errno, $error, 8,
-        STREAM_CLIENT_CONNECT, $context);
+    $socket = @stream_socket_client(
+        'ssl://' . $name . ':443',
+        $errno,
+        $error,
+        8,
+        STREAM_CLIENT_CONNECT,
+        $context,
+    );
     if ($socket === false) {
-        return ['expires_at' => null, 'error' => $error !== '' ? $error : 'HTTPS did not answer'];
+        return [
+            'expires_at' => null,
+            'error' => $error !== '' ? $error : 'HTTPS did not answer',
+        ];
     }
 
     $params = stream_context_get_params($socket);
@@ -227,10 +270,13 @@ function domainCertificate(string $name): array
     $parsed = $cert === null ? false : @openssl_x509_parse($cert);
     $expires = $parsed['validTo_time_t'] ?? null;
     if (!is_int($expires) && !is_numeric($expires)) {
-        return ['expires_at' => null, 'error' => 'the certificate did not contain an expiry date'];
+        return [
+            'expires_at' => null,
+            'error' => 'the certificate did not contain an expiry date',
+        ];
     }
 
-    return ['expires_at' => (int)$expires, 'error' => null];
+    return ['expires_at' => (int) $expires, 'error' => null];
 }
 
 /**
@@ -242,8 +288,12 @@ function domainCertificate(string $name): array
  *
  * @return array{ran: int, failed: int, rows: list<array>}
  */
-function domainCheckDue(PDO $pdo, ?int $only = null, ?callable $runner = null, array $config = []): array
-{
+function domainCheckDue(
+    PDO $pdo,
+    ?int $only = null,
+    ?callable $runner = null,
+    array $config = [],
+): array {
     $now = time();
     $ran = 0;
     $failed = 0;
@@ -262,24 +312,28 @@ function domainCheckDue(PDO $pdo, ?int $only = null, ?callable $runner = null, a
      */
     $budget = $only === null ? externalBudget($config, 'whois') : PHP_INT_MAX;
 
-    $due = array_values(array_filter(
-        domainList($pdo),
-        function (array $domain) use ($only, $now): bool {
+    $due = array_values(
+        array_filter(domainList($pdo), function (array $domain) use (
+            $only,
+            $now,
+        ): bool {
             if ($only !== null) {
-                return (int)$domain['id'] === $only;
+                return (int) $domain['id'] === $only;
             }
             return $domain['due_at'] <= $now;
-        }
-    ));
+        }),
+    );
 
-    usort($due, fn(array $a, array $b): int =>
-        (int)($a['last_checked_at'] ?? 0) <=> (int)($b['last_checked_at'] ?? 0));
+    usort(
+        $due,
+        fn(array $a, array $b): int => (int) ($a['last_checked_at'] ?? 0) <=>
+            (int) ($b['last_checked_at'] ?? 0),
+    );
 
     $waiting = max(0, count($due) - $budget);
     $askedHost = 0;
 
     foreach (array_slice($due, 0, $budget) as $domain) {
-
         if ($ran > 0 && $runner === null) {
             // Politeness, and self-preservation: a burst gets an install
             // blocked, and a blocked install reports every domain as unknown.
@@ -288,9 +342,13 @@ function domainCheckDue(PDO $pdo, ?int $only = null, ?callable $runner = null, a
 
         $result = domainCheck($pdo, $domain, $runner, $config);
 
-        if (!$result['ok'] && $config !== [] && $askedHost < 3
-            && str_contains((string)$result['error'], 'not installed')) {
-            domainAskHost($config, $pdo, (string)$domain['name']);
+        if (
+            !$result['ok'] &&
+            $config !== [] &&
+            $askedHost < 3 &&
+            str_contains((string) $result['error'], 'not installed')
+        ) {
+            domainAskHost($config, $pdo, (string) $domain['name']);
             $askedHost++;
         }
 
@@ -341,12 +399,21 @@ function domainAskHost(array $config, PDO $pdo, string $name): void
  */
 function whoisLookup(string $name, ?callable $runner = null): array
 {
-    if (!preg_match('/^(?!-)[A-Za-z0-9-]{1,63}(?<!-)(\.(?!-)[A-Za-z0-9-]{1,63}(?<!-))+$/', $name)) {
-        return ['ok' => false, 'text' => '', 'error' => 'that is not a domain name'];
+    if (
+        !preg_match(
+            '/^(?!-)[A-Za-z0-9-]{1,63}(?<!-)(\.(?!-)[A-Za-z0-9-]{1,63}(?<!-))+$/',
+            $name,
+        )
+    ) {
+        return [
+            'ok' => false,
+            'text' => '',
+            'error' => 'that is not a domain name',
+        ];
     }
 
     if ($runner !== null) {
-        $text = (string)$runner($name);
+        $text = (string) $runner($name);
         return ['ok' => trim($text) !== '', 'text' => $text, 'error' => null];
     }
 
@@ -355,23 +422,30 @@ function whoisLookup(string $name, ?callable $runner = null): array
         return [
             'ok' => false,
             'text' => '',
-            'error' => 'the whois command is not installed here. On Red Hat it is in the '
-                . '"whois" package; on Debian, "whois". Without it this cannot ask a registry '
-                . 'anything.',
+            'error' =>
+                'the whois command is not installed here. On Red Hat it is in the ' .
+                '"whois" package; on Debian, "whois". Without it this cannot ask a registry ' .
+                'anything.',
         ];
     }
 
     $timeout = whichBinary('timeout');
     $command = sprintf(
         '%s%s %s 2>&1',
-        $timeout === null ? '' : escapeshellarg($timeout) . ' ' . WHOIS_TIMEOUT . ' ',
+        $timeout === null
+            ? ''
+            : escapeshellarg($timeout) . ' ' . WHOIS_TIMEOUT . ' ',
         escapeshellarg($whois),
-        escapeshellarg($name)
+        escapeshellarg($name),
     );
 
     $text = shellRead($command);
     if ($text === null || trim($text) === '') {
-        return ['ok' => false, 'text' => '', 'error' => 'the whois server did not answer'];
+        return [
+            'ok' => false,
+            'text' => '',
+            'error' => 'the whois server did not answer',
+        ];
     }
 
     /*
@@ -382,19 +456,33 @@ function whoisLookup(string $name, ?callable $runner = null): array
      * that produces a domain with no expiry date, which then reads as "could
      * not be determined" rather than "ask again in an hour".
      */
-    foreach (['rate limit', 'exceeded', 'try again later', 'too many requests',
-              'quota exceeded'] as $needle) {
+    foreach (
+        [
+            'rate limit',
+            'exceeded',
+            'try again later',
+            'too many requests',
+            'quota exceeded',
+        ]
+        as $needle
+    ) {
         if (stripos($text, $needle) !== false && strlen($text) < 600) {
             return [
                 'ok' => false,
                 'text' => $text,
-                'error' => 'the whois server is rate-limiting this address. It will be tried '
-                    . 'again on the next run.',
+                'error' =>
+                    'the whois server is rate-limiting this address. It will be tried ' .
+                    'again on the next run.',
             ];
         }
     }
 
-    if (preg_match('/^\s*(no match|not found|no data found|no entries found)/im', $text)) {
+    if (
+        preg_match(
+            '/^\s*(no match|not found|no data found|no entries found)/im',
+            $text,
+        )
+    ) {
         return [
             'ok' => true,
             'text' => $text,
@@ -421,12 +509,22 @@ function whoisLookup(string $name, ?callable $runner = null): array
 function parseWhois(string $text): array
 {
     $out = [
-        'expires_at' => null, 'created_at' => null, 'updated_at' => null,
-        'registrar' => null, 'status' => null, 'nameservers' => null,
-        'auto_renew' => null, 'available' => false,
+        'expires_at' => null,
+        'created_at' => null,
+        'updated_at' => null,
+        'registrar' => null,
+        'status' => null,
+        'nameservers' => null,
+        'auto_renew' => null,
+        'available' => false,
     ];
 
-    if (preg_match('/^\s*(no match|not found|no data found|no entries found)/im', $text)) {
+    if (
+        preg_match(
+            '/^\s*(no match|not found|no data found|no entries found)/im',
+            $text,
+        )
+    ) {
         // The registry has never heard of it, which for somebody checking
         // availability is the answer they wanted rather than a failure.
         $out['available'] = true;
@@ -435,7 +533,8 @@ function parseWhois(string $text): array
 
     $field = function (array $labels) use ($text): ?string {
         foreach ($labels as $label) {
-            $pattern = '/^\s*' . preg_quote($label, '/') . '\s*:\s*(.+?)\s*$/im';
+            $pattern =
+                '/^\s*' . preg_quote($label, '/') . '\s*:\s*(.+?)\s*$/im';
             if (preg_match($pattern, $text, $m) && trim($m[1]) !== '') {
                 return trim($m[1]);
             }
@@ -443,23 +542,49 @@ function parseWhois(string $text): array
         return null;
     };
 
-    $out['expires_at'] = whoisDate($field([
-        'Registry Expiry Date', 'Registrar Registration Expiration Date',
-        'Expiration Date', 'Expiry Date', 'Expiry date', 'expires',
-        'Domain Expiration Date', 'paid-till', 'renewal date', 'Expires On',
-        'Expiration Time', 'validity',
-    ]));
+    $out['expires_at'] = whoisDate(
+        $field([
+            'Registry Expiry Date',
+            'Registrar Registration Expiration Date',
+            'Expiration Date',
+            'Expiry Date',
+            'Expiry date',
+            'expires',
+            'Domain Expiration Date',
+            'paid-till',
+            'renewal date',
+            'Expires On',
+            'Expiration Time',
+            'validity',
+        ]),
+    );
 
-    $out['created_at'] = whoisDate($field([
-        'Creation Date', 'Created On', 'created', 'Domain Registration Date',
-        'Registered on', 'registered',
-    ]));
+    $out['created_at'] = whoisDate(
+        $field([
+            'Creation Date',
+            'Created On',
+            'created',
+            'Domain Registration Date',
+            'Registered on',
+            'registered',
+        ]),
+    );
 
-    $out['updated_at'] = whoisDate($field([
-        'Updated Date', 'Last Modified', 'last-update', 'changed', 'Last Updated On',
-    ]));
+    $out['updated_at'] = whoisDate(
+        $field([
+            'Updated Date',
+            'Last Modified',
+            'last-update',
+            'changed',
+            'Last Updated On',
+        ]),
+    );
 
-    $out['registrar'] = $field(['Registrar', 'Sponsoring Registrar', 'registrar name']);
+    $out['registrar'] = $field([
+        'Registrar',
+        'Sponsoring Registrar',
+        'registrar name',
+    ]);
 
     /*
      * Every status line, not just the first.
@@ -468,26 +593,58 @@ function parseWhois(string $text): array
      * and reassuring, pendingDelete is an emergency - and a domain routinely
      * carries several at once.
      */
-    if (preg_match_all('/^\s*(?:Domain )?Status\s*:\s*(.+?)\s*$/im', $text, $m)) {
-        $statuses = array_values(array_unique(array_map(
-            // The EPP URL after each status is documentation, not information.
-            fn(string $s): string => trim(preg_replace('#https?://\S+#', '', $s) ?? $s),
-            $m[1]
-        )));
+    if (
+        preg_match_all('/^\s*(?:Domain )?Status\s*:\s*(.+?)\s*$/im', $text, $m)
+    ) {
+        $statuses = array_values(
+            array_unique(
+                array_map(
+                    // The EPP URL after each status is documentation, not information.
+                    fn(string $s): string => trim(
+                        preg_replace('#https?://\S+#', '', $s) ?? $s,
+                    ),
+                    $m[1],
+                ),
+            ),
+        );
         $out['status'] = implode(', ', array_filter($statuses));
     }
 
-    if (preg_match_all('/^\s*(?:Name Server|nserver|Nameservers?)\s*:\s*(.+?)\s*$/im', $text, $m)) {
-        $servers = array_values(array_unique(array_map(
-            fn(string $s): string => strtolower(trim(explode(' ', trim($s))[0])),
-            $m[1]
-        )));
+    if (
+        preg_match_all(
+            '/^\s*(?:Name Server|nserver|Nameservers?)\s*:\s*(.+?)\s*$/im',
+            $text,
+            $m,
+        )
+    ) {
+        $servers = array_values(
+            array_unique(
+                array_map(
+                    fn(string $s): string => strtolower(
+                        trim(explode(' ', trim($s))[0]),
+                    ),
+                    $m[1],
+                ),
+            ),
+        );
         sort($servers);
         $out['nameservers'] = implode(' ', $servers);
     }
 
-    if (preg_match('/auto[- ]?renew\s*:?\s*(yes|no|true|false|enabled|disabled)/i', $text, $m)) {
-        $out['auto_renew'] = in_array(strtolower($m[1]), ['yes', 'true', 'enabled'], true) ? 1 : 0;
+    if (
+        preg_match(
+            '/auto[- ]?renew\s*:?\s*(yes|no|true|false|enabled|disabled)/i',
+            $text,
+            $m,
+        )
+    ) {
+        $out['auto_renew'] = in_array(
+            strtolower($m[1]),
+            ['yes', 'true', 'enabled'],
+            true,
+        )
+            ? 1
+            : 0;
     }
 
     return $out;
@@ -510,8 +667,12 @@ function whoisDate(?string $value): ?int
     $value = trim($value);
 
     // Trailing timezone names strtotime chokes on, and trailing notes.
-    $value = (string)preg_replace('/\s*\((.*?)\)\s*$/', '', $value);
-    $value = (string)preg_replace('/\s+(CLST|CLT|MSK|JST|EET|EEST)$/i', '', $value);
+    $value = (string) preg_replace('/\s*\((.*?)\)\s*$/', '', $value);
+    $value = (string) preg_replace(
+        '/\s+(CLST|CLT|MSK|JST|EET|EEST)$/i',
+        '',
+        $value,
+    );
 
     // yyyy.mm.dd, used by a few European registries.
     if (preg_match('/^(\d{4})\.(\d{2})\.(\d{2})/', $value, $m)) {
@@ -553,14 +714,15 @@ function whoisDate(?string $value): ?int
 function whoisTerms(): array
 {
     return [
-        'summary' => 'Registries give this data out for looking up domain registrations, '
-            . 'and nothing else. They do not guarantee it is accurate.',
+        'summary' =>
+            'Registries give this data out for looking up domain registrations, ' .
+            'and nothing else. They do not guarantee it is accurate.',
         'points' => [
             'Do not use it to send bulk or unsolicited mail to the addresses in it.',
-            'Do not use it to run high-volume automated queries against a registry. This '
-                . 'dashboard looks up a small number per collector run for that reason.',
-            'Registries can change these terms, and can refuse to answer anyone who ignores '
-                . 'them.',
+            'Do not use it to run high-volume automated queries against a registry. This ' .
+            'dashboard looks up a small number per collector run for that reason.',
+            'Registries can change these terms, and can refuse to answer anyone who ignores ' .
+            'them.',
         ],
     ];
 }
@@ -569,26 +731,34 @@ function domainSave(PDO $pdo, string $name, int $warnDays, int $interval): int
 {
     $name = strtolower(trim($name));
     // A URL pasted instead of a name is the common slip, and is recoverable.
-    $name = (string)preg_replace('#^https?://#', '', $name);
+    $name = (string) preg_replace('#^https?://#', '', $name);
     $name = explode('/', $name)[0];
 
-    if (!preg_match('/^(?!-)[a-z0-9-]{1,63}(?<!-)(\.(?!-)[a-z0-9-]{1,63}(?<!-))+$/', $name)) {
+    if (
+        !preg_match(
+            '/^(?!-)[a-z0-9-]{1,63}(?<!-)(\.(?!-)[a-z0-9-]{1,63}(?<!-))+$/',
+            $name,
+        )
+    ) {
         throw new ActionRefused('that is not a domain name');
     }
 
     if ($warnDays < 1 || $warnDays > 365) {
-        throw new ActionRefused('the warning window must be between 1 and 365 days');
+        throw new ActionRefused(
+            'the warning window must be between 1 and 365 days',
+        );
     }
 
-    $count = (int)$pdo->query('SELECT COUNT(*) FROM domains')->fetchColumn();
+    $count = (int) $pdo->query('SELECT COUNT(*) FROM domains')->fetchColumn();
     $exists = $pdo->prepare('SELECT id FROM domains WHERE name = ?');
     $exists->execute([$name]);
     $id = $exists->fetchColumn();
 
     if ($id !== false) {
-        $pdo->prepare('UPDATE domains SET warn_days = ?, interval_seconds = ? WHERE id = ?')
-            ->execute([$warnDays, $interval, (int)$id]);
-        return (int)$id;
+        $pdo->prepare(
+            'UPDATE domains SET warn_days = ?, interval_seconds = ? WHERE id = ?',
+        )->execute([$warnDays, $interval, (int) $id]);
+        return (int) $id;
     }
 
     if ($count >= DOMAIN_MAX) {
@@ -596,10 +766,10 @@ function domainSave(PDO $pdo, string $name, int $warnDays, int $interval): int
     }
 
     $pdo->prepare(
-        'INSERT INTO domains (name, warn_days, interval_seconds, added_at) VALUES (?, ?, ?, ?)'
+        'INSERT INTO domains (name, warn_days, interval_seconds, added_at) VALUES (?, ?, ?, ?)',
     )->execute([$name, $warnDays, $interval, time()]);
 
-    return (int)$pdo->lastInsertId();
+    return (int) $pdo->lastInsertId();
 }
 
 /**
@@ -612,10 +782,16 @@ function domainSave(PDO $pdo, string $name, int $warnDays, int $interval): int
  */
 function domainsNeedingAttention(PDO $pdo): array
 {
-    return array_values(array_filter(
-        domainList($pdo),
-        fn(array $row): bool => in_array($row['state'], ['expired', 'urgent', 'soon'], true)
-    ));
+    return array_values(
+        array_filter(
+            domainList($pdo),
+            fn(array $row): bool => in_array(
+                $row['state'],
+                ['expired', 'urgent', 'soon'],
+                true,
+            ),
+        ),
+    );
 }
 
 /**
@@ -650,7 +826,7 @@ function statusList(string $field): array
          * arrives as one field from several registries, and left alone it makes
          * every such code unique and untranslatable.
          */
-        $code = (string)preg_replace('#\s+https?://\S+$#i', '', $code);
+        $code = (string) preg_replace('#\s+https?://\S+$#i', '', $code);
 
         $said = domainStatusPlain($code);
         $key = strtolower($said['plain']);

@@ -29,27 +29,79 @@ $brand = brandName([]);
 
 /** Each file the app needs, and whether PHP can actually parse it. */
 $required = [
-    'api.php', 'cron.php', 'index.html', 'index.css', 'index.js',
-    'lib/boot.php', 'lib/db.php', 'lib/collect.php', 'lib/alerts.php', 'lib/authrecovery.php',
-    'lib/anomalies.php', 'lib/incident.php', 'lib/daemons.php',
-    'lib/growth.php', 'lib/retention.php',
-    'lib/logwatch.php', 'lib/treemap.php',
-    'lib/hostdisk.php', 'lib/capabilities.php', 'lib/backups.php',
+    'api.php',
+    'cron.php',
+    'index.html',
+    'index.css',
+    'index.js',
+    'lib/boot.php',
+    'lib/db.php',
+    'lib/collect.php',
+    'lib/alerts.php',
+    'lib/authrecovery.php',
+    'lib/anomalies.php',
+    'lib/incident.php',
+    'lib/daemons.php',
+    'lib/growth.php',
+    'lib/retention.php',
+    'lib/logwatch.php',
+    'lib/treemap.php',
+    'lib/hostdisk.php',
+    'lib/capabilities.php',
+    'lib/backups.php',
     'lib/mountinfo.php',
-    'lib/auth.php', 'lib/mask.php', 'lib/actions.php', 'lib/logs.php',
-    'lib/schedule.php', 'lib/configure.php', 'lib/processes.php',
-    'lib/symlinks.php', 'lib/signals.php', 'lib/host.php', 'lib/uptime.php',
-    'lib/limits.php', 'lib/inspect.php', 'thumb.php',
-    'lib/network.php', 'lib/logstream.php', 'lib/diagnose.php', 'lib/labels.php',
-    'lib/urlwatch.php', 'lib/domains.php', 'lib/events.php', 'lib/whoami.php', 'lib/dnsrecords.php', 'lib/external.php',
-    'lib/hostdb.php', 'host-cron.php', 'lib/config.sample.php',
-    'lib/headers.php', 'lib/pagebits.php', 'preview.php',
-    'lib/spans.php', 'lib/storekeep.php', 'lib/notes.php', 'lib/software.php',
-    'lib/notify.php', 'lib/rdns.php', 'lib/ai.php', 'lib/aidb.php',
-    'lib/aitools.php', 'lib/airun.php', 'lib/aisession.php', 'lib/aicharts.php',
-    'lib/scans.php', 'lib/aivoice.php', 'lib/aiimages.php',
-    'lib/aimemory.php', 'lib/aicompact.php', 'lib/terminal.php', 'lib/aialerts.php',
-    'lib/whatis.php', 'scripts/reset-password.php', 'scripts/restore-account.php',
+    'lib/auth.php',
+    'lib/mask.php',
+    'lib/actions.php',
+    'lib/logs.php',
+    'lib/schedule.php',
+    'lib/configure.php',
+    'lib/processes.php',
+    'lib/symlinks.php',
+    'lib/signals.php',
+    'lib/host.php',
+    'lib/uptime.php',
+    'lib/limits.php',
+    'lib/inspect.php',
+    'thumb.php',
+    'lib/network.php',
+    'lib/logstream.php',
+    'lib/diagnose.php',
+    'lib/labels.php',
+    'lib/urlwatch.php',
+    'lib/domains.php',
+    'lib/events.php',
+    'lib/whoami.php',
+    'lib/dnsrecords.php',
+    'lib/external.php',
+    'lib/hostdb.php',
+    'host-cron.php',
+    'lib/config.sample.php',
+    'lib/headers.php',
+    'lib/pagebits.php',
+    'preview.php',
+    'lib/spans.php',
+    'lib/storekeep.php',
+    'lib/notes.php',
+    'lib/software.php',
+    'lib/notify.php',
+    'lib/rdns.php',
+    'lib/ai.php',
+    'lib/aidb.php',
+    'lib/aitools.php',
+    'lib/airun.php',
+    'lib/aisession.php',
+    'lib/aicharts.php',
+    'lib/scans.php',
+    'lib/aivoice.php',
+    'lib/aiimages.php',
+    'lib/aimemory.php',
+    'lib/aicompact.php',
+    'lib/terminal.php',
+    'lib/aialerts.php',
+    'lib/whatis.php',
+    'scripts/reset-password.php',
+    'scripts/restore-account.php',
 ];
 
 $files = [];
@@ -75,7 +127,11 @@ $defined = [];
 $called = [];
 $optional = [];
 
-$scan = function (string $source, string $where) use (&$defined, &$called, &$optional): void {
+$scan = function (string $source, string $where) use (
+    &$defined,
+    &$called,
+    &$optional,
+): void {
     try {
         $tokens = token_get_all($source, TOKEN_PARSE);
     } catch (Throwable) {
@@ -85,7 +141,10 @@ $scan = function (string $source, string $where) use (&$defined, &$called, &$opt
     $simple = [];
     foreach ($tokens as $token) {
         // Whitespace and comments never matter to what follows what.
-        if (is_array($token) && in_array($token[0], [T_WHITESPACE, T_COMMENT, T_DOC_COMMENT], true)) {
+        if (
+            is_array($token) &&
+            in_array($token[0], [T_WHITESPACE, T_COMMENT, T_DOC_COMMENT], true)
+        ) {
             continue;
         }
         $simple[] = $token;
@@ -116,11 +175,20 @@ $scan = function (string $source, string $where) use (&$defined, &$called, &$opt
          * constructor - those resolve against a class, not the global function
          * table, and flagging them would bury the real answer in noise.
          */
-        if (is_array($before) && in_array(
-            $before[0],
-            [T_OBJECT_OPERATOR, T_NULLSAFE_OBJECT_OPERATOR, T_DOUBLE_COLON, T_NEW, T_FUNCTION],
-            true
-        )) {
+        if (
+            is_array($before) &&
+            in_array(
+                $before[0],
+                [
+                    T_OBJECT_OPERATOR,
+                    T_NULLSAFE_OBJECT_OPERATOR,
+                    T_DOUBLE_COLON,
+                    T_NEW,
+                    T_FUNCTION,
+                ],
+                true,
+            )
+        ) {
             continue;
         }
 
@@ -134,7 +202,10 @@ $scan = function (string $source, string $where) use (&$defined, &$called, &$opt
          */
         if (strtolower($name) === 'function_exists') {
             $argument = $simple[$i + 2] ?? null;
-            if (is_array($argument) && $argument[0] === T_CONSTANT_ENCAPSED_STRING) {
+            if (
+                is_array($argument) &&
+                $argument[0] === T_CONSTANT_ENCAPSED_STRING
+            ) {
                 $optional[strtolower(trim($argument[1], "'\""))] = true;
             }
             continue;
@@ -191,10 +262,16 @@ foreach ($required as $name) {
  * the ones this code knowingly probes for are excluded by the function_exists
  * rule above.
  */
-$internal = array_flip(array_map('strtolower', get_defined_functions()['internal']));
+$internal = array_flip(
+    array_map('strtolower', get_defined_functions()['internal']),
+);
 $undefined = [];
 foreach ($called as $key => $call) {
-    if (isset($defined[$key]) || isset($internal[$key]) || isset($optional[$key])) {
+    if (
+        isset($defined[$key]) ||
+        isset($internal[$key]) ||
+        isset($optional[$key])
+    ) {
         continue;
     }
     $undefined[$call['name']] = $call['where'];
@@ -231,7 +308,11 @@ if ($apiSource !== '') {
 
 $jsSource = @file_get_contents($root . '/index.js') ?: '';
 if ($jsSource !== '') {
-    preg_match_all('/\b(?:api|post)\(\s*"([a-z0-9][a-z0-9-]*)"/', $jsSource, $found);
+    preg_match_all(
+        '/\b(?:api|post)\(\s*"([a-z0-9][a-z0-9-]*)"/',
+        $jsSource,
+        $found,
+    );
     foreach ($found[1] as $name) {
         $actionsWanted[$name] = true;
     }
@@ -239,7 +320,9 @@ if ($jsSource !== '') {
 
 $actionsMissing = [];
 if ($actionsServed && $actionsWanted) {
-    $actionsMissing = array_keys(array_diff_key($actionsWanted, $actionsServed));
+    $actionsMissing = array_keys(
+        array_diff_key($actionsWanted, $actionsServed),
+    );
     sort($actionsMissing);
 }
 
@@ -254,25 +337,36 @@ $environment = [
     'data directory exists' => is_dir($dataDir),
     'data directory writable' => is_dir($dataDir) && is_writable($dataDir),
     'problem log written' => is_file($dataDir . '/error.log'),
-    'PHP has an error log configured' => (string)ini_get('error_log') !== '',
+    'PHP has an error log configured' => (string) ini_get('error_log') !== '',
     'mail() available' => function_exists('mail'),
-    'shell_exec available' => function_exists('shell_exec')
-        && !in_array('shell_exec', array_map('trim', explode(',', (string)ini_get('disable_functions'))), true),
+    'shell_exec available' =>
+        function_exists('shell_exec') &&
+        !in_array(
+            'shell_exec',
+            array_map(
+                'trim',
+                explode(',', (string) ini_get('disable_functions')),
+            ),
+            true,
+        ),
 ];
 
-$verdict = $missing > 0
-    ? "$missing file(s) missing — the upload is incomplete."
-    : ($broken > 0
-        ? "$broken file(s) present but unreadable or truncated — upload them again."
-        : ($undefined
-        ? count($undefined) . ' function(s) are called but defined nowhere — some '
-            . 'files are older than the ones calling them. Upload the whole set again.'
-        : ($actionsMissing
-        ? count($actionsMissing) . ' action(s) the dashboard calls do not exist in '
-            . 'api.php — index.js is newer than api.php. Upload the whole set again.'
-        : (!$configured
-            ? 'The code is fine. Nothing is configured yet — open setup.php.'
-            : 'Everything this page can check looks right.'))));
+$verdict =
+    $missing > 0
+        ? "$missing file(s) missing — the upload is incomplete."
+        : ($broken > 0
+            ? "$broken file(s) present but unreadable or truncated — upload them again."
+            : ($undefined
+                ? count($undefined) .
+                    ' function(s) are called but defined nowhere — some ' .
+                    'files are older than the ones calling them. Upload the whole set again.'
+                : ($actionsMissing
+                    ? count($actionsMissing) .
+                        ' action(s) the dashboard calls do not exist in ' .
+                        'api.php — index.js is newer than api.php. Upload the whole set again.'
+                    : (!$configured
+                        ? 'The code is fine. Nothing is configured yet — open setup.php.'
+                        : 'Everything this page can check looks right.'))));
 
 function mark(bool $ok): string
 {
@@ -314,7 +408,9 @@ code { background: #000; padding: 1px 5px; border-radius: 4px; }
 
 <h1><?= esc($brand) ?> — health</h1>
 
-<p class="verdict <?= $missing === 0 && $broken === 0 ? 'ok' : '' ?>"><?= esc($verdict) ?></p>
+<p class="verdict <?= $missing === 0 && $broken === 0 ? 'ok' : '' ?>"><?= esc(
+    $verdict,
+) ?></p>
 
 <p class="muted">
   This page loads nothing and reads nothing, so it works even when the rest does
@@ -328,7 +424,7 @@ code { background: #000; padding: 1px 5px; border-radius: 4px; }
   <tr>
     <td><?= is_bool($value) ? mark($value) : '&#183;' ?></td>
     <td><?= esc($label) ?></td>
-    <td class="muted"><?= is_bool($value) ? '' : esc((string)$value) ?></td>
+    <td class="muted"><?= is_bool($value) ? '' : esc((string) $value) ?></td>
   </tr>
 <?php endforeach; ?>
 </table>

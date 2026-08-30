@@ -55,36 +55,77 @@ const TREND_WINDOW_SECONDS = 86400;
  *
  * @return array{disposition:'immediate'|'delayed',reason:?string}
  */
-function alertWorkingHoursDecision(array $delivery, string $severity, int $at): array
-{
-    if (in_array($severity, ['error', 'critical'], true) || empty($delivery['enabled'])) {
+function alertWorkingHoursDecision(
+    array $delivery,
+    string $severity,
+    int $at,
+): array {
+    if (
+        in_array($severity, ['error', 'critical'], true) ||
+        empty($delivery['enabled'])
+    ) {
         return ['disposition' => 'immediate', 'reason' => null];
     }
-    $zone = (string)($delivery['timezone'] ?? 'UTC');
-    try { $time = (new DateTimeImmutable('@' . $at))->setTimezone(new DateTimeZone($zone)); }
-    catch (Throwable) { return ['disposition' => 'immediate', 'reason' => null]; }
-    $days = array_values(array_filter(array_map('intval', (array)($delivery['days'] ?? [1,2,3,4,5])), fn(int $d) => $d >= 1 && $d <= 7));
-    $start = preg_match('/^\d\d:\d\d$/', (string)($delivery['start'] ?? '09:00')) ? (string)$delivery['start'] : '09:00';
-    $end = preg_match('/^\d\d:\d\d$/', (string)($delivery['end'] ?? '17:00')) ? (string)$delivery['end'] : '17:00';
+    $zone = (string) ($delivery['timezone'] ?? 'UTC');
+    try {
+        $time = new DateTimeImmutable('@' . $at)->setTimezone(
+            new DateTimeZone($zone),
+        );
+    } catch (Throwable) {
+        return ['disposition' => 'immediate', 'reason' => null];
+    }
+    $days = array_values(
+        array_filter(
+            array_map('intval', (array) ($delivery['days'] ?? [1, 2, 3, 4, 5])),
+            fn(int $d) => $d >= 1 && $d <= 7,
+        ),
+    );
+    $start = preg_match(
+        '/^\d\d:\d\d$/',
+        (string) ($delivery['start'] ?? '09:00'),
+    )
+        ? (string) $delivery['start']
+        : '09:00';
+    $end = preg_match('/^\d\d:\d\d$/', (string) ($delivery['end'] ?? '17:00'))
+        ? (string) $delivery['end']
+        : '17:00';
     $clock = $time->format('H:i');
-    $inside = in_array((int)$time->format('N'), $days, true)
-        && ($start <= $end ? ($clock >= $start && $clock < $end) : ($clock >= $start || $clock < $end));
-    return $inside ? ['disposition' => 'immediate', 'reason' => null]
-        : ['disposition' => 'delayed', 'reason' => 'Outside configured working hours (' . $time->format('T') . ').'];
+    $inside =
+        in_array((int) $time->format('N'), $days, true) &&
+        ($start <= $end
+            ? $clock >= $start && $clock < $end
+            : $clock >= $start || $clock < $end);
+    return $inside
+        ? ['disposition' => 'immediate', 'reason' => null]
+        : [
+            'disposition' => 'delayed',
+            'reason' =>
+                'Outside configured working hours (' .
+                $time->format('T') .
+                ').',
+        ];
 }
 
 /** Records one deferred alert idempotently; the original alert remains evidence. */
-function queueAlertDelivery(PDO $pdo, int $alertId, int $dueAt, string $reason, ?int $now = null): void
-{
+function queueAlertDelivery(
+    PDO $pdo,
+    int $alertId,
+    int $dueAt,
+    string $reason,
+    ?int $now = null,
+): void {
     $now ??= time();
-    $pdo->prepare('INSERT OR IGNORE INTO alert_delivery_queue (alert_id, queued_at, due_at, reason) VALUES (?, ?, ?, ?)')
-        ->execute([$alertId, $now, max($now, $dueAt), mb_substr($reason, 0, 240)]);
+    $pdo->prepare(
+        'INSERT OR IGNORE INTO alert_delivery_queue (alert_id, queued_at, due_at, reason) VALUES (?, ?, ?, ?)',
+    )->execute([$alertId, $now, max($now, $dueAt), mb_substr($reason, 0, 240)]);
 }
 
 /** @return list<array{alert_id:int,due_at:int,reason:string}> */
 function dueAlertDeliveries(PDO $pdo, ?int $now = null, int $limit = 100): array
 {
-    $stmt = $pdo->prepare('SELECT alert_id, due_at, reason FROM alert_delivery_queue WHERE due_at <= ? ORDER BY due_at, alert_id LIMIT ?');
+    $stmt = $pdo->prepare(
+        'SELECT alert_id, due_at, reason FROM alert_delivery_queue WHERE due_at <= ? ORDER BY due_at, alert_id LIMIT ?',
+    );
     $stmt->bindValue(1, $now ?? time(), PDO::PARAM_INT);
     $stmt->bindValue(2, max(1, min(100, $limit)), PDO::PARAM_INT);
     $stmt->execute();
@@ -102,21 +143,27 @@ function dueAlertDeliveries(PDO $pdo, ?int $now = null, int $limit = 100): array
  */
 function setAlertsAcknowledged(PDO $pdo, array $ids, bool $acknowledged): int
 {
-    $ids = array_values(array_unique(array_filter(
-        array_map('intval', $ids),
-        fn(int $id): bool => $id > 0
-    )));
-    if ($ids === []) return 0;
+    $ids = array_values(
+        array_unique(
+            array_filter(
+                array_map('intval', $ids),
+                fn(int $id): bool => $id > 0,
+            ),
+        ),
+    );
+    if ($ids === []) {
+        return 0;
+    }
 
     $marks = implode(',', array_fill(0, count($ids), '?'));
     if ($acknowledged) {
         $stmt = $pdo->prepare(
-            "UPDATE alerts SET acknowledged_at = ? WHERE acknowledged_at IS NULL AND id IN ($marks)"
+            "UPDATE alerts SET acknowledged_at = ? WHERE acknowledged_at IS NULL AND id IN ($marks)",
         );
         $stmt->execute([time(), ...$ids]);
     } else {
         $stmt = $pdo->prepare(
-            "UPDATE alerts SET acknowledged_at = NULL WHERE acknowledged_at IS NOT NULL AND id IN ($marks)"
+            "UPDATE alerts SET acknowledged_at = NULL WHERE acknowledged_at IS NOT NULL AND id IN ($marks)",
         );
         $stmt->execute($ids);
     }
@@ -125,9 +172,15 @@ function setAlertsAcknowledged(PDO $pdo, array $ids, bool $acknowledged): int
 }
 
 /** An expiring operator mute. Error and Critical alerts are never eligible. */
-function alertActiveMute(PDO $pdo, string $rule, string $severity, ?int $now = null): ?array
-{
-    if (in_array($severity, ['error', 'critical'], true)) return null;
+function alertActiveMute(
+    PDO $pdo,
+    string $rule,
+    string $severity,
+    ?int $now = null,
+): ?array {
+    if (in_array($severity, ['error', 'critical'], true)) {
+        return null;
+    }
     $stmt = $pdo->prepare('SELECT id, rule, expires_at, reason, created_by
         FROM alert_mutes WHERE rule = ? AND expires_at > ? ORDER BY id DESC LIMIT 1');
     $stmt->execute([$rule, $now ?? time()]);
@@ -145,13 +198,27 @@ function applyAlertMutes(PDO $pdo, array $raised): array
     $update = $pdo->prepare("UPDATE alerts SET notification_disposition = 'suppressed',
         notification_reason = ?, notification_muted_until = ? WHERE id = ?");
     foreach ($raised as $i => $alert) {
-        $mute = alertActiveMute($pdo, (string)$alert['rule'], (string)$alert['severity']);
-        if ($mute === null) continue;
-        $reason = 'Muted until ' . gmdate('c', (int)$mute['expires_at']) . ': ' . (string)$mute['reason'];
-        $update->execute([$reason, (int)$mute['expires_at'], (int)$alert['id']]);
+        $mute = alertActiveMute(
+            $pdo,
+            (string) $alert['rule'],
+            (string) $alert['severity'],
+        );
+        if ($mute === null) {
+            continue;
+        }
+        $reason =
+            'Muted until ' .
+            gmdate('c', (int) $mute['expires_at']) .
+            ': ' .
+            (string) $mute['reason'];
+        $update->execute([
+            $reason,
+            (int) $mute['expires_at'],
+            (int) $alert['id'],
+        ]);
         $raised[$i]['notification_disposition'] = 'suppressed';
         $raised[$i]['notification_reason'] = $reason;
-        $raised[$i]['notification_muted_until'] = (int)$mute['expires_at'];
+        $raised[$i]['notification_muted_until'] = (int) $mute['expires_at'];
     }
     return $raised;
 }
@@ -166,15 +233,32 @@ function alertMutes(PDO $pdo, ?int $now = null): array
 }
 
 /** Creates a bounded mute only for a configured rule name. */
-function alertMute(PDO $pdo, string $rule, int $seconds, string $reason, string $who): int
-{
-    if (!isset(alertCatalogue()[$rule])) throw new ActionRefused('that alert rule is not available');
+function alertMute(
+    PDO $pdo,
+    string $rule,
+    int $seconds,
+    string $reason,
+    string $who,
+): int {
+    if (!isset(alertCatalogue()[$rule])) {
+        throw new ActionRefused('that alert rule is not available');
+    }
     $reason = trim(preg_replace('/\s+/', ' ', $reason) ?? '');
-    if ($reason === '') throw new ActionRefused('say why this alert is being muted');
+    if ($reason === '') {
+        throw new ActionRefused('say why this alert is being muted');
+    }
     $seconds = max(900, min(7 * 86400, $seconds));
-    $pdo->prepare('INSERT INTO alert_mutes (rule, created_at, expires_at, reason, created_by)
-        VALUES (?, ?, ?, ?, ?)')->execute([$rule, time(), time() + $seconds, mb_substr($reason, 0, 240), $who]);
-    return (int)$pdo->lastInsertId();
+    $pdo->prepare(
+        'INSERT INTO alert_mutes (rule, created_at, expires_at, reason, created_by)
+        VALUES (?, ?, ?, ?, ?)',
+    )->execute([
+        $rule,
+        time(),
+        time() + $seconds,
+        mb_substr($reason, 0, 240),
+        $who,
+    ]);
+    return (int) $pdo->lastInsertId();
 }
 
 /** Expires a mute rather than deleting its operator evidence. */
@@ -183,8 +267,12 @@ function alertUnmute(PDO $pdo, int $id): ?array
     $stmt = $pdo->prepare('SELECT rule, reason FROM alert_mutes WHERE id = ?');
     $stmt->execute([$id]);
     $mute = $stmt->fetch();
-    if ($mute === false) return null;
-    $pdo->prepare('UPDATE alert_mutes SET expires_at = ? WHERE id = ?')->execute([time(), $id]);
+    if ($mute === false) {
+        return null;
+    }
+    $pdo->prepare(
+        'UPDATE alert_mutes SET expires_at = ? WHERE id = ?',
+    )->execute([time(), $id]);
     return $mute;
 }
 
@@ -197,8 +285,19 @@ function evaluateAlerts(array $config, PDO $pdo): array
 
     $retries = retryAlertEmails($pdo);
     if ($retries['attempted'] > 0) {
-        logAction($pdo, 'alert_email_retry', null, $retries['failed'] === 0 ? 'ok' : 'failed', 0, 0,
-            sprintf('%d retried, %d still refused', $retries['sent'], $retries['failed']));
+        logAction(
+            $pdo,
+            'alert_email_retry',
+            null,
+            $retries['failed'] === 0 ? 'ok' : 'failed',
+            0,
+            0,
+            sprintf(
+                '%d retried, %d still refused',
+                $retries['sent'],
+                $retries['failed'],
+            ),
+        );
     }
 
     $raised = [];
@@ -264,13 +363,16 @@ function evaluateAlerts(array $config, PDO $pdo): array
         if ($incident !== null) {
             $ids = array_map(intval(...), array_column($raised, 'id'));
             $pdo->prepare(
-                'UPDATE alerts SET incident_id = ? WHERE id IN ('
-                . implode(',', array_fill(0, count($ids), '?')) . ')'
+                'UPDATE alerts SET incident_id = ? WHERE id IN (' .
+                    implode(',', array_fill(0, count($ids), '?')) .
+                    ')',
             )->execute([$incident, ...$ids]);
 
             $raised = array_map(
-                fn(array $alert): array => $alert + ['incident_id' => $incident],
-                $raised
+                fn(array $alert): array => $alert + [
+                    'incident_id' => $incident,
+                ],
+                $raised,
             );
         }
 
@@ -290,11 +392,14 @@ function evaluateAlerts(array $config, PDO $pdo): array
 
         $raised = applyAlertMutes($pdo, $raised);
 
-        $worthSending = array_values(array_filter(
-            $raised,
-            fn(array $alert): bool => empty($alert['silenced'])
-                && (($alert['notification_disposition'] ?? 'immediate') !== 'suppressed')
-        ));
+        $worthSending = array_values(
+            array_filter(
+                $raised,
+                fn(array $alert): bool => empty($alert['silenced']) &&
+                    ($alert['notification_disposition'] ?? 'immediate') !==
+                        'suppressed',
+            ),
+        );
 
         if ($worthSending !== []) {
             sendAlertEmail($config, $pdo, $worthSending);
@@ -308,96 +413,218 @@ function evaluateAlerts(array $config, PDO $pdo): array
 /** A configured local key should also protect the sensitive setup record. */
 function setupConfigurationEncryptionAlerts(array $config): array
 {
-    $encryption = (array)($config['encryption'] ?? []);
-    $key = trim((string)($encryption['local_key_file'] ?? ''));
-    if ($key === '') return [];
-    $status = setupStoreConfigurationProtectionForSettings($config, dirname(__DIR__));
-    if ($status['state'] === 'ok') return [];
-    return [['rule' => 'setup_configuration_encryption', 'severity' => $status['state'] === 'error' ? 'error' : 'warning',
-        'subject' => 'Setup configuration encryption needs attention', 'detail' => $status['detail']]];
+    $encryption = (array) ($config['encryption'] ?? []);
+    $key = trim((string) ($encryption['local_key_file'] ?? ''));
+    if ($key === '') {
+        return [];
+    }
+    $status = setupStoreConfigurationProtectionForSettings(
+        $config,
+        dirname(__DIR__),
+    );
+    if ($status['state'] === 'ok') {
+        return [];
+    }
+    return [
+        [
+            'rule' => 'setup_configuration_encryption',
+            'severity' => $status['state'] === 'error' ? 'error' : 'warning',
+            'subject' => 'Setup configuration encryption needs attention',
+            'detail' => $status['detail'],
+        ],
+    ];
 }
 
 /** Emits one evidence-based alert for a configured portable encryption policy.
  * It intentionally says nothing for protection modes Zogograph cannot verify. */
 function encryptionRecoveryAlerts(array $config, PDO $pdo): array
 {
-    $settings = (array)($config['encryption'] ?? []);
-    if (($settings['mode'] ?? 'none') !== 'sealed_copies_local') return [];
+    $settings = (array) ($config['encryption'] ?? []);
+    if (($settings['mode'] ?? 'none') !== 'sealed_copies_local') {
+        return [];
+    }
     $stores = encryptionSelectedStores($settings);
-    if ($stores === []) return [];
+    if ($stores === []) {
+        return [];
+    }
     $paths = encryptionStorePaths($config, dirname(__DIR__));
     try {
-        $rows = $pdo->query("SELECT store, MAX(created_at) AS created_at, MAX(last_recovery_drill_at) AS last_recovery_drill_at
-            FROM encryption_artifacts WHERE state = 'verified' GROUP BY store")->fetchAll();
-        $failed = $pdo->query("SELECT store FROM encryption_artifacts WHERE state = 'verification_failed' GROUP BY store")->fetchAll(PDO::FETCH_COLUMN);
+        $rows = $pdo
+            ->query(
+                "SELECT store, MAX(created_at) AS created_at, MAX(last_recovery_drill_at) AS last_recovery_drill_at
+            FROM encryption_artifacts WHERE state = 'verified' GROUP BY store",
+            )
+            ->fetchAll();
+        $failed = $pdo
+            ->query(
+                "SELECT store FROM encryption_artifacts WHERE state = 'verification_failed' GROUP BY store",
+            )
+            ->fetchAll(PDO::FETCH_COLUMN);
     } catch (Throwable) {
         // An older database has no ledger to assess. Do not turn an upgrade into
         // a false encryption incident; the Protection page still explains it.
         return [];
     }
-    $latest = []; $drilled = [];
+    $latest = [];
+    $drilled = [];
     foreach ($rows as $row) {
-        $latest[(string)$row['store']] = (int)$row['created_at'];
-        $drilled[(string)$row['store']] = (int)$row['last_recovery_drill_at'];
+        $latest[(string) $row['store']] = (int) $row['created_at'];
+        $drilled[(string) $row['store']] = (int) $row['last_recovery_drill_at'];
     }
     $problems = [];
-    try { encryptionReadLocalKey((string)($settings['local_key_file'] ?? ''), dirname(__DIR__)); }
-    catch (Throwable) { $problems[] = 'The private local key is unavailable to Zogograph.'; }
-    foreach ($failed as $store) $problems[] = "A retained encrypted copy for {$store} failed verification.";
-    $maximumAge = encryptionScheduleMaximumAge((string)($settings['backup_schedule'] ?? 'manual'));
+    try {
+        encryptionReadLocalKey(
+            (string) ($settings['local_key_file'] ?? ''),
+            dirname(__DIR__),
+        );
+    } catch (Throwable) {
+        $problems[] = 'The private local key is unavailable to Zogograph.';
+    }
+    foreach ($failed as $store) {
+        $problems[] = "A retained encrypted copy for {$store} failed verification.";
+    }
+    $maximumAge = encryptionScheduleMaximumAge(
+        (string) ($settings['backup_schedule'] ?? 'manual'),
+    );
     foreach ($stores as $store) {
-        if (in_array($store, ['host', 'ai'], true) && !is_file($paths[$store])) continue;
-        if (!isset($latest[$store])) { $problems[] = "No verified encrypted copy exists for {$store}."; continue; }
-        if (($drilled[$store] ?? 0) <= 0) $problems[] = "No successful non-destructive recovery drill has been recorded yet for {$store}.";
-        elseif (($maximumDrillAge = encryptionRecoveryDrillMaximumAge($settings)) !== null && $drilled[$store] < time() - $maximumDrillAge) {
+        if (
+            in_array($store, ['host', 'ai'], true) &&
+            !is_file($paths[$store])
+        ) {
+            continue;
+        }
+        if (!isset($latest[$store])) {
+            $problems[] = "No verified encrypted copy exists for {$store}.";
+            continue;
+        }
+        if (($drilled[$store] ?? 0) <= 0) {
+            $problems[] = "No successful non-destructive recovery drill has been recorded yet for {$store}.";
+        } elseif (
+            ($maximumDrillAge = encryptionRecoveryDrillMaximumAge(
+                $settings,
+            )) !== null &&
+            $drilled[$store] < time() - $maximumDrillAge
+        ) {
             $problems[] = "The latest non-destructive recovery drill for {$store} is older than the selected review period.";
         }
-        if ($maximumAge !== null && $latest[$store] < time() - $maximumAge) $problems[] = "The newest verified encrypted copy for {$store} is older than the selected schedule.";
+        if ($maximumAge !== null && $latest[$store] < time() - $maximumAge) {
+            $problems[] = "The newest verified encrypted copy for {$store} is older than the selected schedule.";
+        }
     }
-    if ($problems === []) return [];
-    $critical = $failed !== [] || str_starts_with($problems[0], 'The private local key');
-    return [['rule' => 'encryption_recovery', 'severity' => $critical ? 'error' : 'warning',
-        'subject' => 'Encrypted-copy recovery needs attention', 'detail' => implode("\n", $problems)]];
+    if ($problems === []) {
+        return [];
+    }
+    $critical =
+        $failed !== [] ||
+        str_starts_with($problems[0], 'The private local key');
+    return [
+        [
+            'rule' => 'encryption_recovery',
+            'severity' => $critical ? 'error' : 'warning',
+            'subject' => 'Encrypted-copy recovery needs attention',
+            'detail' => implode("\n", $problems),
+        ],
+    ];
 }
 
 /** Reports an installed-package hash or manifest mismatch without loading its
  * code. A mismatch can indicate compromise, so this is an error alert. */
 function packageRuntimeIntegrityAlerts(PDO $pdo): array
 {
-    try { $packages = packageRuntimePackages($pdo); }
-    catch (Throwable) { return []; } // Package tables may not exist during an upgrade.
-    $failed = array_values(array_filter($packages, fn(array $package): bool => !$package['integrity']));
-    if ($failed === []) return [];
-    $detail = array_map(fn(array $package): string => $package['id'] . ': ' . $package['integrity_detail'], array_slice($failed, 0, 10));
-    if (count($failed) > 10) $detail[] = (count($failed) - 10) . ' additional installed package(s) failed integrity verification.';
-    return [['rule' => 'package_integrity', 'severity' => 'error',
-        'subject' => 'Installed package integrity needs attention',
-        'detail' => "Zogograph did not execute these packages. Review or remove the altered files before enabling them.\n" . implode("\n", $detail)]];
+    try {
+        $packages = packageRuntimePackages($pdo);
+    } catch (Throwable) {
+        return [];
+    } // Package tables may not exist during an upgrade.
+    $failed = array_values(
+        array_filter(
+            $packages,
+            fn(array $package): bool => !$package['integrity'],
+        ),
+    );
+    if ($failed === []) {
+        return [];
+    }
+    $detail = array_map(
+        fn(array $package): string => $package['id'] .
+            ': ' .
+            $package['integrity_detail'],
+        array_slice($failed, 0, 10),
+    );
+    if (count($failed) > 10) {
+        $detail[] =
+            count($failed) -
+            10 .
+            ' additional installed package(s) failed integrity verification.';
+    }
+    return [
+        [
+            'rule' => 'package_integrity',
+            'severity' => 'error',
+            'subject' => 'Installed package integrity needs attention',
+            'detail' =>
+                "Zogograph did not execute these packages. Review or remove the altered files before enabling them.\n" .
+                implode("\n", $detail),
+        ],
+    ];
 }
 
 /** Latest failed or available-update result from the root-only collector. */
 function updateAlerts(array $config): array
 {
-    if (!in_array('notify', updateStages($config), true)) return [];
+    if (!in_array('notify', updateStages($config), true)) {
+        return [];
+    }
     try {
         $host = hostDb($config, false);
-        if ($host === null) return [];
-        $last = $host->query('SELECT id, started_at, stage, manager, updates, ok, error
-            FROM host_update_runs ORDER BY id DESC LIMIT 1')->fetch();
-        if (!$last) return [];
-        if (!(bool)$last['ok']) {
-            return [['rule' => 'system_updates', 'severity' => 'warning',
-                'subject' => 'System update ' . $last['stage'] . ' failed',
-                'detail' => ($last['manager'] ?: 'package manager') . ': ' . ($last['error'] ?: 'unknown failure')]];
+        if ($host === null) {
+            return [];
+        }
+        $last = $host
+            ->query(
+                'SELECT id, started_at, stage, manager, updates, ok, error
+            FROM host_update_runs ORDER BY id DESC LIMIT 1',
+            )
+            ->fetch();
+        if (!$last) {
+            return [];
+        }
+        if (!(bool) $last['ok']) {
+            return [
+                [
+                    'rule' => 'system_updates',
+                    'severity' => 'warning',
+                    'subject' => 'System update ' . $last['stage'] . ' failed',
+                    'detail' =>
+                        ($last['manager'] ?: 'package manager') .
+                        ': ' .
+                        ($last['error'] ?: 'unknown failure'),
+                ],
+            ];
         }
         // Download and Auto-Update follow Detect, so the latest row is often
         // not the row that says how many packages are waiting.
-        $row = $host->query("SELECT started_at, stage, manager, updates
-            FROM host_update_runs WHERE stage = 'detect' AND ok = 1 ORDER BY id DESC LIMIT 1")->fetch();
-        if ($row && (int)$row['updates'] > 0) {
-            return [['rule' => 'system_updates', 'severity' => 'info',
-                'subject' => (int)$row['updates'] . ' system update(s) available',
-                'detail' => 'Detected by ' . $row['manager'] . ' at ' . date('c', (int)$row['started_at']) . '.']];
+        $row = $host
+            ->query(
+                "SELECT started_at, stage, manager, updates
+            FROM host_update_runs WHERE stage = 'detect' AND ok = 1 ORDER BY id DESC LIMIT 1",
+            )
+            ->fetch();
+        if ($row && (int) $row['updates'] > 0) {
+            return [
+                [
+                    'rule' => 'system_updates',
+                    'severity' => 'info',
+                    'subject' =>
+                        (int) $row['updates'] . ' system update(s) available',
+                    'detail' =>
+                        'Detected by ' .
+                        $row['manager'] .
+                        ' at ' .
+                        date('c', (int) $row['started_at']) .
+                        '.',
+                ],
+            ];
         }
     } catch (Throwable) {
         // The host collector is optional and must not make normal alerting fail.
@@ -417,7 +644,7 @@ function aiTriageAlerts(
     array $config,
     PDO $pdo,
     array $raised,
-    ?callable $ask = null
+    ?callable $ask = null,
 ): array {
     $settings = aiAlertSettings($config);
 
@@ -431,7 +658,7 @@ function aiTriageAlerts(
         if ($looked >= $settings['per_run']) {
             break;
         }
-        if (!aiMayJudge($config, (string)$alert['severity'])) {
+        if (!aiMayJudge($config, (string) $alert['severity'])) {
             continue;
         }
 
@@ -448,7 +675,7 @@ function aiTriageAlerts(
             continue;
         }
 
-        aiSaveVerdict($pdo, (int)$alert['id'], $verdict);
+        aiSaveVerdict($pdo, (int) $alert['id'], $verdict);
 
         $raised[$i]['ai_summary'] = $verdict['summary'];
         $raised[$i]['ai_reason'] = $verdict['reason'];
@@ -461,7 +688,9 @@ function aiTriageAlerts(
 /** The latest vitals row, or null if nothing has been collected yet. */
 function latestVitals(PDO $pdo): ?array
 {
-    $row = $pdo->query('SELECT * FROM vitals ORDER BY taken_at DESC, id DESC LIMIT 1')->fetch();
+    $row = $pdo
+        ->query('SELECT * FROM vitals ORDER BY taken_at DESC, id DESC LIMIT 1')
+        ->fetch();
     return $row ?: null;
 }
 
@@ -490,9 +719,9 @@ const CPU_ALERT_MIN_READINGS = 5;
  */
 function cpuAlerts(PDO $pdo, array $rules): array
 {
-    $threshold = (float)($rules['cpu_percent'] ?? 0);
-    $minutes = (int)($rules['cpu_minutes'] ?? 15);
-    $share = (float)($rules['cpu_share'] ?? 0.9);
+    $threshold = (float) ($rules['cpu_percent'] ?? 0);
+    $minutes = (int) ($rules['cpu_minutes'] ?? 15);
+    $share = (float) ($rules['cpu_share'] ?? 0.9);
 
     // Off by default: a percentage that means different things on a dedicated
     // box and inside a CageFS allowance should be set deliberately.
@@ -504,7 +733,7 @@ function cpuAlerts(PDO $pdo, array $rules): array
 
     $stmt = $pdo->prepare(
         'SELECT taken_at, cpu_percent FROM vitals
-         WHERE taken_at >= ? AND cpu_percent IS NOT NULL ORDER BY taken_at'
+         WHERE taken_at >= ? AND cpu_percent IS NOT NULL ORDER BY taken_at',
     );
     $stmt->execute([time() - $window]);
     $readings = $stmt->fetchAll();
@@ -524,7 +753,9 @@ function cpuAlerts(PDO $pdo, array $rules): array
      */
     $steps = [];
     foreach (range(1, $count - 1) as $i) {
-        $step = (int)$readings[$i]['taken_at'] - (int)$readings[$i - 1]['taken_at'];
+        $step =
+            (int) $readings[$i]['taken_at'] -
+            (int) $readings[$i - 1]['taken_at'];
         if ($step > 0) {
             $steps[] = $step;
         }
@@ -534,14 +765,19 @@ function cpuAlerts(PDO $pdo, array $rules): array
     }
     sort($steps);
     $interval = $steps[intdiv(count($steps), 2)];
-    $expected = max(1, (int)floor($window / $interval));
+    $expected = max(1, (int) floor($window / $interval));
 
     if ($count < $expected * 0.8) {
         return [];
     }
 
-    $values = array_map(fn(array $r): float => (float)$r['cpu_percent'], $readings);
-    $over = count(array_filter($values, fn(float $v): bool => $v >= $threshold));
+    $values = array_map(
+        fn(array $r): float => (float) $r['cpu_percent'],
+        $readings,
+    );
+    $over = count(
+        array_filter($values, fn(float $v): bool => $v >= $threshold),
+    );
 
     if ($over / $count < $share) {
         return [];
@@ -554,27 +790,29 @@ function cpuAlerts(PDO $pdo, array $rules): array
 
     $blame = cpuAlertCulprits($pdo, time() - $window);
 
-    return [[
-        'rule' => 'cpu_sustained',
-        'severity' => 'critical',
-        'subject' => sprintf(
-            'CPU has been at %.0f%% or above for %s',
-            $threshold,
-            humanDuration((float)$window)
-        ),
-        'detail' => sprintf(
-            '%d of the last %d readings were at or above %.0f%% (median %.0f%%, peak %.0f%%, '
-            . 'lowest %.0f%%). This is sustained, not a spike: a burst would not hold across '
-            . 'the whole window.%s',
-            $over,
-            $count,
-            $threshold,
-            $median,
-            $peak,
-            $lowest,
-            $blame === '' ? '' : ' ' . $blame
-        ),
-    ]];
+    return [
+        [
+            'rule' => 'cpu_sustained',
+            'severity' => 'critical',
+            'subject' => sprintf(
+                'CPU has been at %.0f%% or above for %s',
+                $threshold,
+                humanDuration((float) $window),
+            ),
+            'detail' => sprintf(
+                '%d of the last %d readings were at or above %.0f%% (median %.0f%%, peak %.0f%%, ' .
+                    'lowest %.0f%%). This is sustained, not a spike: a burst would not hold across ' .
+                    'the whole window.%s',
+                $over,
+                $count,
+                $threshold,
+                $median,
+                $peak,
+                $lowest,
+                $blame === '' ? '' : ' ' . $blame,
+            ),
+        ],
+    ];
 }
 
 /**
@@ -590,7 +828,7 @@ function cpuAlertCulprits(PDO $pdo, int $since): string
     $stmt = $pdo->prepare(
         'SELECT name, MAX(cpu_percent) AS cpu FROM process_samples
          WHERE taken_at >= ? AND reason = \'cpu\'
-         GROUP BY name ORDER BY cpu DESC LIMIT 3'
+         GROUP BY name ORDER BY cpu DESC LIMIT 3',
     );
     $stmt->execute([$since]);
     $rows = $stmt->fetchAll();
@@ -601,12 +839,13 @@ function cpuAlertCulprits(PDO $pdo, int $since): string
 
     $named = [];
     foreach ($rows as $row) {
-        $named[] = sprintf('%s (%.0f%%)', $row['name'], (float)$row['cpu']);
+        $named[] = sprintf('%s (%.0f%%)', $row['name'], (float) $row['cpu']);
     }
 
-    return 'Busiest processes recorded in that window: ' . implode(', ', $named)
-        . '. Those figures are a per-core lifetime average from ps, so they will not '
-        . 'add up to the reading.';
+    return 'Busiest processes recorded in that window: ' .
+        implode(', ', $named) .
+        '. Those figures are a per-core lifetime average from ps, so they will not ' .
+        'add up to the reading.';
 }
 
 function diskAlerts(PDO $pdo, array $rules): array
@@ -622,31 +861,35 @@ function diskAlerts(PDO $pdo, array $rules): array
     $total = $now['disk_total_bytes'];
     if ($free !== null && $total) {
         $freePercent = ($free / $total) * 100;
-        $floorBytes = (int)($rules['disk_free_bytes'] ?? 0);
-        $floorPercent = (float)($rules['disk_free_percent'] ?? 0);
+        $floorBytes = (int) ($rules['disk_free_bytes'] ?? 0);
+        $floorPercent = (float) ($rules['disk_free_percent'] ?? 0);
 
         if ($floorBytes > 0 && $free < $floorBytes) {
             $out[] = [
                 'rule' => 'disk_free_bytes',
                 'severity' => 'critical',
-                'subject' => 'Disk nearly full: ' . humanBytes((int)$free) . ' left',
+                'subject' =>
+                    'Disk nearly full: ' . humanBytes((int) $free) . ' left',
                 'detail' => sprintf(
                     'Free space is %s, below the %s floor. The filesystem is %.1f%% used.',
-                    humanBytes((int)$free),
+                    humanBytes((int) $free),
                     humanBytes($floorBytes),
-                    (float)$now['disk_used_percent']
+                    (float) $now['disk_used_percent'],
                 ),
             ];
         } elseif ($floorPercent > 0 && $freePercent < $floorPercent) {
             $out[] = [
                 'rule' => 'disk_free_percent',
                 'severity' => 'critical',
-                'subject' => sprintf('Disk nearly full: %.1f%% free', $freePercent),
+                'subject' => sprintf(
+                    'Disk nearly full: %.1f%% free',
+                    $freePercent,
+                ),
                 'detail' => sprintf(
                     'Only %.1f%% of the filesystem is free (%s of %s).',
                     $freePercent,
-                    humanBytes((int)$free),
-                    humanBytes((int)$total)
+                    humanBytes((int) $free),
+                    humanBytes((int) $total),
                 ),
             ];
         }
@@ -656,15 +899,18 @@ function diskAlerts(PDO $pdo, array $rules): array
     $inodesTotal = $now['inodes_total'];
     if ($inodesFree !== null && $inodesTotal) {
         $percent = ($inodesFree / $inodesTotal) * 100;
-        if ($percent < (float)($rules['inodes_free_percent'] ?? 0)) {
+        if ($percent < (float) ($rules['inodes_free_percent'] ?? 0)) {
             $out[] = [
                 'rule' => 'inodes_free_percent',
                 'severity' => 'critical',
-                'subject' => sprintf('Inodes nearly exhausted: %.1f%% free', $percent),
+                'subject' => sprintf(
+                    'Inodes nearly exhausted: %.1f%% free',
+                    $percent,
+                ),
                 'detail' => sprintf(
                     'Only %s inodes free of %s. The disk can have room and still refuse to create a file.',
-                    number_format((float)$inodesFree),
-                    number_format((float)$inodesTotal)
+                    number_format((float) $inodesFree),
+                    number_format((float) $inodesTotal),
                 ),
             ];
         }
@@ -682,24 +928,35 @@ function diskAlerts(PDO $pdo, array $rules): array
  */
 function trendAlerts(PDO $pdo, array $rules): array
 {
-    $hours = (float)($rules['projected_full_hours'] ?? 0);
+    $hours = (float) ($rules['projected_full_hours'] ?? 0);
     if ($hours <= 0) {
         return [];
     }
 
     $rows = $pdo->prepare(
         'SELECT taken_at, disk_free_bytes, inodes_free FROM vitals
-         WHERE taken_at >= ? ORDER BY taken_at'
+         WHERE taken_at >= ? ORDER BY taken_at',
     );
     $rows->execute([time() - TREND_WINDOW_SECONDS]);
     $readings = $rows->fetchAll();
 
     $out = [];
 
-    foreach ([
-        ['disk_free_bytes', 'Disk', fn(float $v): string => humanBytes((int)round($v))],
-        ['inodes_free', 'Inodes', fn(float $v): string => number_format(round($v))],
-    ] as [$field, $label, $format]) {
+    foreach (
+        [
+            [
+                'disk_free_bytes',
+                'Disk',
+                fn(float $v): string => humanBytes((int) round($v)),
+            ],
+            [
+                'inodes_free',
+                'Inodes',
+                fn(float $v): string => number_format(round($v)),
+            ],
+        ]
+        as [$field, $label, $format]
+    ) {
         $trend = seriesTrend($readings, $field);
 
         /*
@@ -709,7 +966,11 @@ function trendAlerts(PDO $pdo, array $rules): array
          * large, predicted catastrophe from a one-off, and taught the reader to
          * ignore it - which costs more than the alert was ever worth.
          */
-        if ($trend === null || !$trend['sustained'] || $trend['seconds_left'] === null) {
+        if (
+            $trend === null ||
+            !$trend['sustained'] ||
+            $trend['seconds_left'] === null
+        ) {
             continue;
         }
         if ($trend['seconds_left'] / 3600 > $hours) {
@@ -722,20 +983,20 @@ function trendAlerts(PDO $pdo, array $rules): array
             'subject' => sprintf(
                 '%s will run out in about %s',
                 $label,
-                humanDuration($trend['seconds_left'])
+                humanDuration($trend['seconds_left']),
             ),
             'detail' => sprintf(
-                "%s has been falling steadily for %s, not in one drop:\n"
-                . "  losing about %s an hour\n"
-                . "  %s left, which runs out in %s\n"
-                . "  falling in both halves of the window (%s an hour, then %s an hour)",
+                "%s has been falling steadily for %s, not in one drop:\n" .
+                    "  losing about %s an hour\n" .
+                    "  %s left, which runs out in %s\n" .
+                    '  falling in both halves of the window (%s an hour, then %s an hour)',
                 $label,
-                humanDuration((float)$trend['span_seconds']),
+                humanDuration((float) $trend['span_seconds']),
                 $format(-$trend['rate'] * 3600),
                 $format($trend['latest']),
                 humanDuration($trend['seconds_left']),
-                $format(-(float)$trend['first_half'] * 3600),
-                $format(-(float)$trend['second_half'] * 3600)
+                $format(-(float) $trend['first_half'] * 3600),
+                $format(-(float) $trend['second_half'] * 3600),
             ),
         ];
     }
@@ -770,7 +1031,7 @@ function seriesTrend(array $rows, string $field): ?array
         if (($row[$field] ?? null) === null) {
             continue;
         }
-        $points[] = [(int)$row['taken_at'], (float)$row[$field]];
+        $points[] = [(int) $row['taken_at'], (float) $row[$field]];
     }
 
     $count = count($points);
@@ -795,7 +1056,7 @@ function seriesTrend(array $rows, string $field): ?array
         return null;
     }
 
-    $middle = (int)floor($count / 2);
+    $middle = (int) floor($count / 2);
     $first = halfRate(array_slice($points, 0, $middle + 1));
     $second = halfRate(array_slice($points, $middle));
 
@@ -805,7 +1066,12 @@ function seriesTrend(array $rows, string $field): ?array
      * This is the whole spike filter. An upload makes one half plummet and
      * leaves the other flat; a log file filling up makes both of them fall.
      */
-    $sustained = $first !== null && $second !== null && $first < 0 && $second < 0 && $overall < 0;
+    $sustained =
+        $first !== null &&
+        $second !== null &&
+        $first < 0 &&
+        $second < 0 &&
+        $overall < 0;
 
     $median = median($steps);
     // The median is the estimate a spike cannot inflate, so it is preferred for
@@ -841,7 +1107,9 @@ function halfRate(array $points): ?float
         return null;
     }
     $seconds = $points[$n - 1][0] - $points[0][0];
-    return $seconds > 0 ? ($points[$n - 1][1] - $points[0][1]) / $seconds : null;
+    return $seconds > 0
+        ? ($points[$n - 1][1] - $points[0][1]) / $seconds
+        : null;
 }
 
 function median(array $values): float
@@ -852,7 +1120,9 @@ function median(array $values): float
         return 0.0;
     }
     $mid = intdiv($n, 2);
-    return $n % 2 === 1 ? $values[$mid] : ($values[$mid - 1] + $values[$mid]) / 2;
+    return $n % 2 === 1
+        ? $values[$mid]
+        : ($values[$mid - 1] + $values[$mid]) / 2;
 }
 
 /** Bytes per second, by least squares. Null if the points are all at once. */
@@ -864,10 +1134,10 @@ function leastSquaresSlope(array $rows, string $xKey, string $yKey): ?float
     }
 
     $sumX = $sumY = $sumXY = $sumXX = 0.0;
-    $x0 = (float)$rows[0][$xKey];
+    $x0 = (float) $rows[0][$xKey];
     foreach ($rows as $row) {
-        $x = (float)$row[$xKey] - $x0;
-        $y = (float)$row[$yKey];
+        $x = (float) $row[$xKey] - $x0;
+        $y = (float) $row[$yKey];
         $sumX += $x;
         $sumY += $y;
         $sumXY += $x * $y;
@@ -884,18 +1154,23 @@ function leastSquaresSlope(array $rows, string $xKey, string $yKey): ?float
 
 function categoryAlerts(PDO $pdo, array $rules): array
 {
-    $jump = (int)($rules['category_jump_bytes'] ?? 0);
+    $jump = (int) ($rules['category_jump_bytes'] ?? 0);
     if ($jump <= 0) {
         return [];
     }
 
-    $scans = $pdo->query('SELECT id FROM scans WHERE finished_at IS NOT NULL ORDER BY id DESC LIMIT 2')
+    $scans = $pdo
+        ->query(
+            'SELECT id FROM scans WHERE finished_at IS NOT NULL ORDER BY id DESC LIMIT 2',
+        )
         ->fetchAll(PDO::FETCH_COLUMN);
     if (count($scans) < 2) {
         return [];
     }
 
-    $stmt = $pdo->prepare('SELECT category, bytes FROM scan_totals WHERE scan_id = ?');
+    $stmt = $pdo->prepare(
+        'SELECT category, bytes FROM scan_totals WHERE scan_id = ?',
+    );
     $stmt->execute([$scans[0]]);
     $now = $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
     $stmt->execute([$scans[1]]);
@@ -903,19 +1178,23 @@ function categoryAlerts(PDO $pdo, array $rules): array
 
     $out = [];
     foreach ($now as $category => $bytes) {
-        $grew = (int)$bytes - (int)($before[$category] ?? 0);
+        $grew = (int) $bytes - (int) ($before[$category] ?? 0);
         if ($grew < $jump) {
             continue;
         }
         $out[] = [
             'rule' => 'category_jump:' . $category,
             'severity' => 'warning',
-            'subject' => sprintf('%s grew by %s', ucfirst((string)$category), humanBytes($grew)),
+            'subject' => sprintf(
+                '%s grew by %s',
+                ucfirst((string) $category),
+                humanBytes($grew),
+            ),
             'detail' => sprintf(
                 '%s is now %s, up %s since the previous scan.',
-                ucfirst((string)$category),
-                humanBytes((int)$bytes),
-                humanBytes($grew)
+                ucfirst((string) $category),
+                humanBytes((int) $bytes),
+                humanBytes($grew),
             ),
         ];
     }
@@ -931,13 +1210,16 @@ function categoryAlerts(PDO $pdo, array $rules): array
  */
 function pathAlerts(PDO $pdo, array $rules): array
 {
-    $jumpBytes = (int)($rules['path_jump_bytes'] ?? 0);
-    $jumpFiles = (int)($rules['path_jump_files'] ?? 0);
+    $jumpBytes = (int) ($rules['path_jump_bytes'] ?? 0);
+    $jumpFiles = (int) ($rules['path_jump_files'] ?? 0);
     if ($jumpBytes <= 0 && $jumpFiles <= 0) {
         return [];
     }
 
-    $scans = $pdo->query('SELECT id FROM scans WHERE finished_at IS NOT NULL ORDER BY id DESC LIMIT 2')
+    $scans = $pdo
+        ->query(
+            'SELECT id FROM scans WHERE finished_at IS NOT NULL ORDER BY id DESC LIMIT 2',
+        )
         ->fetchAll(PDO::FETCH_COLUMN);
     if (count($scans) < 2) {
         return [];
@@ -952,7 +1234,7 @@ function pathAlerts(PDO $pdo, array $rules): array
          WHERE now.scan_id = :now
            AND (now.bytes - before.bytes >= :jumpBytes OR now.files - before.files >= :jumpFiles)
          ORDER BY (now.bytes - before.bytes) DESC
-         LIMIT 20'
+         LIMIT 20',
     );
     /*
      * Bound as integers, deliberately and not for tidiness.
@@ -964,12 +1246,20 @@ function pathAlerts(PDO $pdo, array $rules): array
      * comparison was silently false, so the one alert that names the actual
      * culprit could not fire, and nothing anywhere reported a problem.
      */
-    $rows->bindValue(':now', (int)$scans[0], PDO::PARAM_INT);
-    $rows->bindValue(':before', (int)$scans[1], PDO::PARAM_INT);
+    $rows->bindValue(':now', (int) $scans[0], PDO::PARAM_INT);
+    $rows->bindValue(':before', (int) $scans[1], PDO::PARAM_INT);
     // A disabled rule must never match, so it is set beyond any real value
     // rather than to zero, which every unchanged path would satisfy.
-    $rows->bindValue(':jumpBytes', $jumpBytes > 0 ? $jumpBytes : PHP_INT_MAX, PDO::PARAM_INT);
-    $rows->bindValue(':jumpFiles', $jumpFiles > 0 ? $jumpFiles : PHP_INT_MAX, PDO::PARAM_INT);
+    $rows->bindValue(
+        ':jumpBytes',
+        $jumpBytes > 0 ? $jumpBytes : PHP_INT_MAX,
+        PDO::PARAM_INT,
+    );
+    $rows->bindValue(
+        ':jumpFiles',
+        $jumpFiles > 0 ? $jumpFiles : PHP_INT_MAX,
+        PDO::PARAM_INT,
+    );
     $rows->execute();
 
     /*
@@ -987,15 +1277,16 @@ function pathAlerts(PDO $pdo, array $rules): array
     $candidates = $rows->fetchAll();
     $growth = [];
     foreach ($candidates as $row) {
-        $growth[(string)$row['path']] = (int)$row['bytes'] - (int)$row['was_bytes'];
+        $growth[(string) $row['path']] =
+            (int) $row['bytes'] - (int) $row['was_bytes'];
     }
 
     $out = [];
     foreach ($candidates as $row) {
-        $grewBytes = (int)$row['bytes'] - (int)$row['was_bytes'];
-        $grewFiles = (int)$row['files'] - (int)$row['was_files'];
+        $grewBytes = (int) $row['bytes'] - (int) $row['was_bytes'];
+        $grewFiles = (int) $row['files'] - (int) $row['was_files'];
 
-        if (explainedByChild((string)$row['path'], $grewBytes, $growth)) {
+        if (explainedByChild((string) $row['path'], $grewBytes, $growth)) {
             continue;
         }
 
@@ -1010,14 +1301,18 @@ function pathAlerts(PDO $pdo, array $rules): array
         $out[] = [
             'rule' => 'path_jump',
             'severity' => 'warning',
-            'path_id' => (int)$row['id'],
-            'subject' => sprintf('%s %s', basename((string)$row['path']), implode(', ', $how)),
+            'path_id' => (int) $row['id'],
+            'subject' => sprintf(
+                '%s %s',
+                basename((string) $row['path']),
+                implode(', ', $how),
+            ),
             'detail' => sprintf(
                 "%s\n  now %s in %s files, %s since the previous scan.",
-                (string)$row['path'],
-                humanBytes((int)$row['bytes']),
-                number_format((float)$row['files']),
-                implode(' and ', $how)
+                (string) $row['path'],
+                humanBytes((int) $row['bytes']),
+                number_format((float) $row['files']),
+                implode(' and ', $how),
             ),
         ];
     }
@@ -1072,7 +1367,7 @@ function recordAlert(PDO $pdo, array $rules, array $alert): ?int
      * `$rules` is the alerts section of the config, so it is wrapped back up
      * into the shape alertRule() reads.
      */
-    $settings = alertRule(['alerts' => $rules], (string)$alert['rule']);
+    $settings = alertRule(['alerts' => $rules], (string) $alert['rule']);
     $cooldown = $settings['cooldown'];
 
     // Zero means every time, which is a real answer for a site that is down.
@@ -1085,11 +1380,11 @@ function recordAlert(PDO $pdo, array $rules, array $alert): ?int
     $check = $pdo->prepare(
         'SELECT COUNT(*) FROM alerts
          WHERE rule = ? AND raised_at >= ?
-           AND (path_id IS ? OR path_id = ?)'
+           AND (path_id IS ? OR path_id = ?)',
     );
     $pathId = $alert['path_id'] ?? null;
     $check->execute([$alert['rule'], $since, $pathId, $pathId]);
-    if ((int)$check->fetchColumn() > 0) {
+    if ((int) $check->fetchColumn() > 0) {
         return null;
     }
 
@@ -1110,13 +1405,14 @@ function recordAlert(PDO $pdo, array $rules, array $alert): ?int
  */
 function writeAlert(PDO $pdo, array $alert, string $fallback): int
 {
-    $severity = isset($alert['severity']) && isset(severityLevels()[$alert['severity']])
-        ? (string)$alert['severity']
-        : $fallback;
+    $severity =
+        isset($alert['severity']) && isset(severityLevels()[$alert['severity']])
+            ? (string) $alert['severity']
+            : $fallback;
 
     $pdo->prepare(
         'INSERT INTO alerts (raised_at, rule, severity, subject, detail, path_id)
-         VALUES (?, ?, ?, ?, ?, ?)'
+         VALUES (?, ?, ?, ?, ?, ?)',
     )->execute([
         time(),
         $alert['rule'],
@@ -1126,7 +1422,7 @@ function writeAlert(PDO $pdo, array $alert, string $fallback): int
         $alert['path_id'] ?? null,
     ]);
 
-    return (int)$pdo->lastInsertId();
+    return (int) $pdo->lastInsertId();
 }
 
 /**
@@ -1138,7 +1434,7 @@ function writeAlert(PDO $pdo, array $alert, string $fallback): int
 function sendAlertEmail(array $config, PDO $pdo, array $raised): void
 {
     $rules = $config['alerts'];
-    $recipients = alertRecipients((string)($rules['to'] ?? ''));
+    $recipients = alertRecipients((string) ($rules['to'] ?? ''));
 
     if ($recipients === [] || !function_exists('mail')) {
         return;
@@ -1150,8 +1446,11 @@ function sendAlertEmail(array $config, PDO $pdo, array $raised): void
      * A message whose subject says "info" and whose third paragraph says a
      * domain expired yesterday has buried the only part that mattered.
      */
-    usort($raised, fn(array $a, array $b): int =>
-        severityRank((string)$b['severity']) <=> severityRank((string)$a['severity']));
+    usort(
+        $raised,
+        fn(array $a, array $b): int => severityRank((string) $b['severity']) <=>
+            severityRank((string) $a['severity']),
+    );
 
     $worst = worstSeverity(array_column($raised, 'severity'));
     $host = php_uname('n');
@@ -1162,7 +1461,7 @@ function sendAlertEmail(array $config, PDO $pdo, array $raised): void
         $host,
         count($raised) === 1
             ? $raised[0]['subject']
-            : count($raised) . ' things need looking at'
+            : count($raised) . ' things need looking at',
     );
 
     $lines = ['Zogograph on ' . $host, ''];
@@ -1175,9 +1474,11 @@ function sendAlertEmail(array $config, PDO $pdo, array $raised): void
 
     foreach ($raised as $alert) {
         $level = severityLevels()[$alert['severity']] ?? null;
-        $lines[] = strtoupper($level['label'] ?? (string)$alert['severity'])
-            . ' — ' . $alert['subject'];
-        $lines[] = '  ' . str_replace("\n", "\n  ", (string)$alert['detail']);
+        $lines[] =
+            strtoupper($level['label'] ?? (string) $alert['severity']) .
+            ' — ' .
+            $alert['subject'];
+        $lines[] = '  ' . str_replace("\n", "\n  ", (string) $alert['detail']);
 
         /*
          * A link to the page that answers this particular question.
@@ -1185,7 +1486,7 @@ function sendAlertEmail(array $config, PDO $pdo, array $raised): void
          * Not to the front door: somebody woken by this has to find the right
          * page, and the tool already knows which one it is.
          */
-        $where = alertRule($config, (string)$alert['rule']);
+        $where = alertRule($config, (string) $alert['rule']);
         $page = dashboardLink($config, $where['view'], ['range' => 86400]);
         if ($page !== null) {
             $lines[] = '  ' . $page;
@@ -1199,10 +1500,12 @@ function sendAlertEmail(array $config, PDO $pdo, array $raised): void
          * model. Somebody reading it at three in the morning should not have to
          * work out which is which.
          */
-        if (trim((string)($alert['ai_summary'] ?? '')) !== '') {
+        if (trim((string) ($alert['ai_summary'] ?? '')) !== '') {
             $lines[] = '';
             $lines[] = '  ' . aiPersona($config)['name'] . ' says:';
-            $lines[] = '  ' . str_replace("\n", "\n  ", trim((string)$alert['ai_summary']));
+            $lines[] =
+                '  ' .
+                str_replace("\n", "\n  ", trim((string) $alert['ai_summary']));
         }
 
         $lines[] = '';
@@ -1216,7 +1519,7 @@ function sendAlertEmail(array $config, PDO $pdo, array $raised): void
      */
     $incidentId = $raised[0]['incident_id'] ?? null;
     if ($incidentId !== null) {
-        $incident = incidentRead($pdo, (int)$incidentId);
+        $incident = incidentRead($pdo, (int) $incidentId);
         if ($incident !== null && $incident['evidence'] !== null) {
             foreach (incidentSummary($incident['evidence']) as $line) {
                 $lines[] = $line;
@@ -1242,7 +1545,7 @@ function sendAlertEmail(array $config, PDO $pdo, array $raised): void
         // by priority should not put a thirty-day domain notice at the top.
         'X-Priority: ' . (severityRank($worst) >= 3 ? '1' : '3'),
     ];
-    $from = trim((string)($rules['from'] ?? ''));
+    $from = trim((string) ($rules['from'] ?? ''));
     if ($from !== '') {
         $headers[] = 'From: ' . $from;
     }
@@ -1266,9 +1569,8 @@ function sendAlertEmail(array $config, PDO $pdo, array $raised): void
         }
     }
 
-    $error = $failed === []
-        ? null
-        : 'mail() refused: ' . implode(', ', $failed);
+    $error =
+        $failed === [] ? null : 'mail() refused: ' . implode(', ', $failed);
 
     /*
      * The message is kept, whether or not it was delivered.
@@ -1282,19 +1584,31 @@ function sendAlertEmail(array $config, PDO $pdo, array $raised): void
 
     $pdo->prepare(
         'INSERT INTO alert_emails (at, subject, body, recipients, headers, sent, error, alert_ids, attempts, next_attempt_at)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
     )->execute([
-        time(), $subject, $body, implode('; ', $recipients),
-        implode("\n", $headers), $sentAny ? 1 : 0, $error, implode(',', $ids),
-        0, $sentAny ? null : alertEmailRetryAt(0),
+        time(),
+        $subject,
+        $body,
+        implode('; ', $recipients),
+        implode("\n", $headers),
+        $sentAny ? 1 : 0,
+        $error,
+        implode(',', $ids),
+        0,
+        $sentAny ? null : alertEmailRetryAt(0),
     ]);
-    $emailId = (int)$pdo->lastInsertId();
+    $emailId = (int) $pdo->lastInsertId();
 
     $update = $pdo->prepare(
-        'UPDATE alerts SET emailed_at = ?, email_error = ?, email_id = ? WHERE id = ?'
+        'UPDATE alerts SET emailed_at = ?, email_error = ?, email_id = ? WHERE id = ?',
     );
     foreach ($raised as $alert) {
-        $update->execute([$sentAny ? time() : null, $error, $emailId, $alert['id']]);
+        $update->execute([
+            $sentAny ? time() : null,
+            $error,
+            $emailId,
+            $alert['id'],
+        ]);
     }
 
     logAction(
@@ -1304,10 +1618,14 @@ function sendAlertEmail(array $config, PDO $pdo, array $raised): void
         $sentAny ? 'ok' : 'failed',
         0,
         0,
-        sprintf('%s, %d alert(s)%s',
+        sprintf(
+            '%s, %d alert(s)%s',
             $worst,
             count($raised),
-            $failed === [] ? '' : ', ' . count($failed) . ' address(es) refused')
+            $failed === []
+                ? ''
+                : ', ' . count($failed) . ' address(es) refused',
+        ),
     );
 }
 
@@ -1315,7 +1633,7 @@ function sendAlertEmail(array $config, PDO $pdo, array $raised): void
 function alertEmailRetryAt(int $attempts, ?int $now = null): int
 {
     $now ??= time();
-    return $now + min(3600, 60 * (2 ** min(6, max(0, $attempts))));
+    return $now + min(3600, 60 * 2 ** min(6, max(0, $attempts)));
 }
 
 /**
@@ -1324,33 +1642,76 @@ function alertEmailRetryAt(int $attempts, ?int $now = null): int
  *
  * @return array{attempted: int, sent: int, failed: int}
  */
-function retryAlertEmails(PDO $pdo, int $limit = 3, ?callable $send = null): array
-{
-    if (!function_exists('mail') && $send === null) return ['attempted' => 0, 'sent' => 0, 'failed' => 0];
+function retryAlertEmails(
+    PDO $pdo,
+    int $limit = 3,
+    ?callable $send = null,
+): array {
+    if (!function_exists('mail') && $send === null) {
+        return ['attempted' => 0, 'sent' => 0, 'failed' => 0];
+    }
     $limit = max(1, min(10, $limit));
     $stmt = $pdo->prepare('SELECT id, subject, body, recipients, headers, attempts
         FROM alert_emails WHERE sent = 0 AND next_attempt_at <= ? ORDER BY next_attempt_at, id LIMIT ?');
     $stmt->execute([time(), $limit]);
-    $update = $pdo->prepare('UPDATE alert_emails SET sent = ?, error = ?, attempts = ?, next_attempt_at = ? WHERE id = ?');
-    $alerts = $pdo->prepare('UPDATE alerts SET emailed_at = ?, email_error = ? WHERE email_id = ?');
+    $update = $pdo->prepare(
+        'UPDATE alert_emails SET sent = ?, error = ?, attempts = ?, next_attempt_at = ? WHERE id = ?',
+    );
+    $alerts = $pdo->prepare(
+        'UPDATE alerts SET emailed_at = ?, email_error = ? WHERE email_id = ?',
+    );
     $result = ['attempted' => 0, 'sent' => 0, 'failed' => 0];
     foreach ($stmt->fetchAll() as $row) {
         $result['attempted']++;
         $acceptedAny = false;
         $refused = [];
-        foreach (preg_split('/\s*;\s*/', (string)$row['recipients']) ?: [] as $recipient) {
-            if ($recipient === '') continue;
-            $accepted = $send !== null
-                ? (bool)$send($recipient, (string)$row['subject'], (string)$row['body'], (string)($row['headers'] ?? ''))
-                : @mail($recipient, (string)$row['subject'], (string)$row['body'], (string)($row['headers'] ?? ''));
-            if ($accepted) $acceptedAny = true;
-            else $refused[] = $recipient;
+        foreach (
+            preg_split('/\s*;\s*/', (string) $row['recipients']) ?: []
+            as $recipient
+        ) {
+            if ($recipient === '') {
+                continue;
+            }
+            $accepted =
+                $send !== null
+                    ? (bool) $send(
+                        $recipient,
+                        (string) $row['subject'],
+                        (string) $row['body'],
+                        (string) ($row['headers'] ?? ''),
+                    )
+                    : @mail(
+                        $recipient,
+                        (string) $row['subject'],
+                        (string) $row['body'],
+                        (string) ($row['headers'] ?? ''),
+                    );
+            if ($accepted) {
+                $acceptedAny = true;
+            } else {
+                $refused[] = $recipient;
+            }
         }
-        $attempts = (int)$row['attempts'] + 1;
-        $error = $refused === [] ? null : 'mail() refused retry ' . $attempts . ': ' . implode(', ', $refused);
-        $update->execute([$acceptedAny ? 1 : 0, $error, $attempts,
-            $acceptedAny ? null : alertEmailRetryAt($attempts), (int)$row['id']]);
-        $alerts->execute([$acceptedAny ? time() : null, $error, (int)$row['id']]);
+        $attempts = (int) $row['attempts'] + 1;
+        $error =
+            $refused === []
+                ? null
+                : 'mail() refused retry ' .
+                    $attempts .
+                    ': ' .
+                    implode(', ', $refused);
+        $update->execute([
+            $acceptedAny ? 1 : 0,
+            $error,
+            $attempts,
+            $acceptedAny ? null : alertEmailRetryAt($attempts),
+            (int) $row['id'],
+        ]);
+        $alerts->execute([
+            $acceptedAny ? time() : null,
+            $error,
+            (int) $row['id'],
+        ]);
         $result[$acceptedAny ? 'sent' : 'failed']++;
     }
     return $result;
@@ -1364,16 +1725,34 @@ const TELEGRAM_ALERT_TEXT_LIMIT = 3900;
  */
 function telegramAlertText(array $config, array $raised): string
 {
-    usort($raised, fn(array $a, array $b): int =>
-        severityRank((string)$b['severity']) <=> severityRank((string)$a['severity']));
+    usort(
+        $raised,
+        fn(array $a, array $b): int => severityRank((string) $b['severity']) <=>
+            severityRank((string) $a['severity']),
+    );
     $worst = worstSeverity(array_column($raised, 'severity'));
-    $lines = [sprintf('Zogograph %s on %s', strtoupper($worst), php_uname('n'))];
+    $lines = [
+        sprintf('Zogograph %s on %s', strtoupper($worst), php_uname('n')),
+    ];
     $shown = 0;
     foreach ($raised as $alert) {
-        $subject = preg_replace('/\s+/', ' ', trim((string)($alert['subject'] ?? ''))) ?: 'Untitled alert';
-        $line = strtoupper((string)($alert['severity'] ?? 'info')) . ' — ' . $subject;
+        $subject =
+            preg_replace(
+                '/\s+/',
+                ' ',
+                trim((string) ($alert['subject'] ?? '')),
+            ) ?:
+            'Untitled alert';
+        $line =
+            strtoupper((string) ($alert['severity'] ?? 'info')) .
+            ' — ' .
+            $subject;
         // Leave space for the omitted count and the dashboard link.
-        if ($shown >= 20 || mb_strlen(implode("\n", [...$lines, $line])) > TELEGRAM_ALERT_TEXT_LIMIT - 220) {
+        if (
+            $shown >= 20 ||
+            mb_strlen(implode("\n", [...$lines, $line])) >
+                TELEGRAM_ALERT_TEXT_LIMIT - 220
+        ) {
             break;
         }
         $lines[] = mb_substr($line, 0, 300);
@@ -1381,39 +1760,64 @@ function telegramAlertText(array $config, array $raised): string
     }
     $remaining = count($raised) - $shown;
     if ($remaining > 0) {
-        $lines[] = '… plus ' . $remaining . ' more alert' . ($remaining === 1 ? '' : 's') . '.';
+        $lines[] =
+            '… plus ' .
+            $remaining .
+            ' more alert' .
+            ($remaining === 1 ? '' : 's') .
+            '.';
     }
     $link = dashboardLink($config);
-    if ($link !== null) $lines[] = $link;
+    if ($link !== null) {
+        $lines[] = $link;
+    }
     return mb_substr(implode("\n", $lines), 0, TELEGRAM_ALERT_TEXT_LIMIT);
 }
 
 /** Sends a compact duplicate of an alert batch to the configured Telegram chat. */
 function sendTelegramAlerts(array $config, PDO $pdo, array $raised): void
 {
-    $telegram = (array)($config['alerts']['telegram'] ?? []);
+    $telegram = (array) ($config['alerts']['telegram'] ?? []);
     if (empty($telegram['enabled'])) {
         return;
     }
 
-    $result = sendTelegramMessage($telegram, telegramAlertText($config, $raised));
-    logAction($pdo, 'alert_telegram', (string)($telegram['chat_id'] ?? ''),
-        $result['sent'] ? 'ok' : 'failed', 0, 0, $result['error']);
+    $result = sendTelegramMessage(
+        $telegram,
+        telegramAlertText($config, $raised),
+    );
+    logAction(
+        $pdo,
+        'alert_telegram',
+        (string) ($telegram['chat_id'] ?? ''),
+        $result['sent'] ? 'ok' : 'failed',
+        0,
+        0,
+        $result['error'],
+    );
 }
 
 /** @return array{sent: bool, error: ?string} */
 function sendTelegramMessage(array $telegram, string $text): array
 {
-    $token = trim((string)($telegram['bot_token'] ?? ''));
-    $chat = trim((string)($telegram['chat_id'] ?? ''));
+    $token = trim((string) ($telegram['bot_token'] ?? ''));
+    $chat = trim((string) ($telegram['chat_id'] ?? ''));
     if ($token === '' || $chat === '') {
-        return ['sent' => false, 'error' => 'Telegram needs both a bot token and chat ID.'];
+        return [
+            'sent' => false,
+            'error' => 'Telegram needs both a bot token and chat ID.',
+        ];
     }
     if (!function_exists('curl_init')) {
-        return ['sent' => false, 'error' => 'PHP cURL is not available on this host.'];
+        return [
+            'sent' => false,
+            'error' => 'PHP cURL is not available on this host.',
+        ];
     }
 
-    $curl = curl_init('https://api.telegram.org/bot' . rawurlencode($token) . '/sendMessage');
+    $curl = curl_init(
+        'https://api.telegram.org/bot' . rawurlencode($token) . '/sendMessage',
+    );
     curl_setopt_array($curl, [
         CURLOPT_POST => true,
         CURLOPT_POSTFIELDS => http_build_query([
@@ -1426,11 +1830,17 @@ function sendTelegramMessage(array $telegram, string $text): array
         CURLOPT_CONNECTTIMEOUT => 5,
     ]);
     $body = curl_exec($curl);
-    $status = (int)curl_getinfo($curl, CURLINFO_RESPONSE_CODE);
+    $status = (int) curl_getinfo($curl, CURLINFO_RESPONSE_CODE);
     $error = curl_error($curl);
     curl_close($curl);
     if ($body === false || $status < 200 || $status >= 300) {
-        return ['sent' => false, 'error' => $error !== '' ? $error : 'Telegram returned HTTP ' . $status . '.'];
+        return [
+            'sent' => false,
+            'error' =>
+                $error !== ''
+                    ? $error
+                    : 'Telegram returned HTTP ' . $status . '.',
+        ];
     }
     return ['sent' => true, 'error' => null];
 }
@@ -1438,9 +1848,16 @@ function sendTelegramMessage(array $telegram, string $text): array
 /** @return array{sent: bool, to: string, error: ?string} */
 function sendTestTelegram(array $config): array
 {
-    $telegram = (array)($config['alerts']['telegram'] ?? []);
-    $result = sendTelegramMessage($telegram, 'Zogograph test on ' . php_uname('n') . "\nNothing has tripped.");
-    return ['sent' => $result['sent'], 'to' => (string)($telegram['chat_id'] ?? ''), 'error' => $result['error']];
+    $telegram = (array) ($config['alerts']['telegram'] ?? []);
+    $result = sendTelegramMessage(
+        $telegram,
+        'Zogograph test on ' . php_uname('n') . "\nNothing has tripped.",
+    );
+    return [
+        'sent' => $result['sent'],
+        'to' => (string) ($telegram['chat_id'] ?? ''),
+        'error' => $result['error'],
+    ];
 }
 
 /**
@@ -1460,7 +1877,10 @@ function diagnosisBlock(array $config, PDO $pdo, array $raised): array
     $root = [];
 
     foreach ($raised as $alert) {
-        foreach (diagnosisFor($alert, $config, alertFacts($pdo, $alert)) as $command) {
+        foreach (
+            diagnosisFor($alert, $config, alertFacts($pdo, $alert))
+            as $command
+        ) {
             // The same command from two alerts is one command.
             if (isset($seen[$command['command']])) {
                 continue;
@@ -1485,12 +1905,19 @@ function diagnosisBlock(array $config, PDO $pdo, array $raised): array
         return [];
     }
 
-    $lines = ['', str_repeat('-', 66), '', 'If this dashboard is not reachable - which is '
-        . 'likely, if the disk is the problem - these', 'answer the same questions from a '
-        . 'shell.', ''];
+    $lines = [
+        '',
+        str_repeat('-', 66),
+        '',
+        'If this dashboard is not reachable - which is ' .
+        'likely, if the disk is the problem - these',
+        'answer the same questions from a ' . 'shell.',
+        '',
+    ];
 
     if ($account !== []) {
-        $lines[] = 'As ' . (currentAccountOwner($config) ?: 'the account') . ':';
+        $lines[] =
+            'As ' . (currentAccountOwner($config) ?: 'the account') . ':';
         $lines[] = '';
         foreach ($account as $command) {
             foreach (commandLines($command) as $line) {
@@ -1558,10 +1985,10 @@ function alertFacts(PDO $pdo, array $alert): array
     if (!empty($alert['path_id'])) {
         try {
             $stmt = $pdo->prepare('SELECT path FROM paths WHERE id = ?');
-            $stmt->execute([(int)$alert['path_id']]);
+            $stmt->execute([(int) $alert['path_id']]);
             $path = $stmt->fetchColumn();
             if ($path !== false) {
-                $facts['path'] = (string)$path;
+                $facts['path'] = (string) $path;
             }
         } catch (Throwable) {
             // A missing path is not worth failing an email over.
@@ -1576,16 +2003,19 @@ function alertFacts(PDO $pdo, array $alert): array
      * every one of them to serve the email would be a larger change than
      * reading back the thing they already wrote down.
      */
-    $detail = (string)($alert['subject'] ?? '') . ' ' . (string)($alert['detail'] ?? '');
+    $detail =
+        (string) ($alert['subject'] ?? '') .
+        ' ' .
+        (string) ($alert['detail'] ?? '');
 
     if (preg_match('/\bpid\s*[:# ]\s*(\d{1,7})\b/i', $detail, $m)) {
-        $facts['pid'] = (int)$m[1];
+        $facts['pid'] = (int) $m[1];
     }
     if (preg_match('#\bhttps?://\S+#i', $detail, $m)) {
         $facts['url'] = rtrim($m[0], '.,);');
     }
 
-    $rule = explode(':', (string)($alert['rule'] ?? ''), 2);
+    $rule = explode(':', (string) ($alert['rule'] ?? ''), 2);
     if ($rule[0] === 'domain_expiry' && isset($rule[1])) {
         $facts['domain'] = $rule[1];
     }
@@ -1596,12 +2026,12 @@ function alertFacts(PDO $pdo, array $alert): array
 /** Whose shell the account commands are meant for, if it can be worked out. */
 function currentAccountOwner(array $config): string
 {
-    $owner = trim((string)($config['host']['owner'] ?? ''));
+    $owner = trim((string) ($config['host']['owner'] ?? ''));
     if ($owner !== '') {
         return $owner;
     }
 
-    $root = (string)($config['scan_root'] ?? '');
+    $root = (string) ($config['scan_root'] ?? '');
     return $root === '' ? '' : basename($root);
 }
 
@@ -1616,12 +2046,12 @@ function repeatNote(array $config, array $raised): string
     $spans = [];
 
     foreach ($raised as $alert) {
-        $settings = alertRule($config, (string)$alert['rule']);
+        $settings = alertRule($config, (string) $alert['rule']);
         $spans[$settings['label']] = $settings['cooldown'];
     }
 
     if (count($spans) === 1) {
-        $only = (int)reset($spans);
+        $only = (int) reset($spans);
         return $only <= 0
             ? 'This will be sent again the next time it is true.'
             : 'This will not repeat for ' . plainSpan($only, true) . '.';
@@ -1629,7 +2059,12 @@ function repeatNote(array $config, array $raised): string
 
     $parts = [];
     foreach ($spans as $label => $seconds) {
-        $parts[] = $label . ': ' . ((int)$seconds <= 0 ? 'every time' : plainSpan((int)$seconds, true));
+        $parts[] =
+            $label .
+            ': ' .
+            ((int) $seconds <= 0
+                ? 'every time'
+                : plainSpan((int) $seconds, true));
     }
 
     return 'Before repeating — ' . implode('; ', $parts) . '.';
@@ -1688,17 +2123,27 @@ function dateAlerts(array $config, PDO $pdo): array
             continue;
         }
 
-        $days = (int)floor(($item['at'] - time()) / SPAN_DAY);
+        $days = (int) floor(($item['at'] - time()) / SPAN_DAY);
 
         $out[] = [
             'rule' => 'event_due',
-            'severity' => $days <= 1 ? 'error' : ($days <= 3 ? 'warning' : 'info'),
-            'subject' => sprintf('%s %s', $item['title'], $days < 0
-                ? 'was due ' . abs($days) . ' days ago'
-                : ($days === 0 ? 'is due today' : 'is due in ' . $days . ' days')),
-            'detail' => trim(($item['note'] ?? '') . "\n"
-                . 'Marked as important on the calendar. Mark it dealt with there to stop '
-                . 'it appearing here.'),
+            'severity' =>
+                $days <= 1 ? 'error' : ($days <= 3 ? 'warning' : 'info'),
+            'subject' => sprintf(
+                '%s %s',
+                $item['title'],
+                $days < 0
+                    ? 'was due ' . abs($days) . ' days ago'
+                    : ($days === 0
+                        ? 'is due today'
+                        : 'is due in ' . $days . ' days'),
+            ),
+            'detail' => trim(
+                ($item['note'] ?? '') .
+                    "\n" .
+                    'Marked as important on the calendar. Mark it dealt with there to stop ' .
+                    'it appearing here.',
+            ),
         ];
     }
 
@@ -1714,42 +2159,60 @@ function statusReport(PDO $pdo): array
         return ['Nothing has been collected yet. Run: php cron.php --vitals'];
     }
 
-    $lines[] = 'At the last reading (' . date('Y-m-d H:i', (int)$vitals['taken_at']) . '):';
+    $lines[] =
+        'At the last reading (' .
+        date('Y-m-d H:i', (int) $vitals['taken_at']) .
+        '):';
     $lines[] = sprintf(
         '  disk     %s free of %s (%.1f%% used)',
-        humanBytes((int)$vitals['disk_free_bytes']),
-        humanBytes((int)$vitals['disk_total_bytes']),
-        (float)$vitals['disk_used_percent']
+        humanBytes((int) $vitals['disk_free_bytes']),
+        humanBytes((int) $vitals['disk_total_bytes']),
+        (float) $vitals['disk_used_percent'],
     );
 
     if ($vitals['inodes_free'] !== null) {
         $lines[] = sprintf(
             '  inodes   %s free of %s (%.1f%% used)',
-            number_format((float)$vitals['inodes_free']),
-            number_format((float)$vitals['inodes_total']),
-            (float)$vitals['inodes_used_percent']
+            number_format((float) $vitals['inodes_free']),
+            number_format((float) $vitals['inodes_total']),
+            (float) $vitals['inodes_used_percent'],
         );
     }
     if ($vitals['load1'] !== null) {
-        $cores = $vitals['cpu_cores'] ? ' over ' . (int)$vitals['cpu_cores'] . ' cores' : '';
-        $lines[] = sprintf('  load     %.2f %.2f %.2f%s',
-            (float)$vitals['load1'], (float)$vitals['load5'], (float)$vitals['load15'], $cores);
+        $cores = $vitals['cpu_cores']
+            ? ' over ' . (int) $vitals['cpu_cores'] . ' cores'
+            : '';
+        $lines[] = sprintf(
+            '  load     %.2f %.2f %.2f%s',
+            (float) $vitals['load1'],
+            (float) $vitals['load5'],
+            (float) $vitals['load15'],
+            $cores,
+        );
     }
     if ($vitals['cpu_percent'] !== null) {
-        $lines[] = sprintf('  cpu      %.0f%%', (float)$vitals['cpu_percent']);
+        $lines[] = sprintf('  cpu      %.0f%%', (float) $vitals['cpu_percent']);
     }
     if ($vitals['mem_used_percent'] !== null) {
-        $lines[] = sprintf('  memory   %.0f%% used, %s available',
-            (float)$vitals['mem_used_percent'], humanBytes((int)$vitals['mem_available_bytes']));
+        $lines[] = sprintf(
+            '  memory   %.0f%% used, %s available',
+            (float) $vitals['mem_used_percent'],
+            humanBytes((int) $vitals['mem_available_bytes']),
+        );
     }
     if ($vitals['net_rx_rate'] !== null) {
-        $lines[] = sprintf('  network  %s/s in, %s/s out',
-            humanBytes((int)$vitals['net_rx_rate']), humanBytes((int)$vitals['net_tx_rate']));
+        $lines[] = sprintf(
+            '  network  %s/s in, %s/s out',
+            humanBytes((int) $vitals['net_rx_rate']),
+            humanBytes((int) $vitals['net_tx_rate']),
+        );
     }
 
-    $scan = $pdo->query(
-        'SELECT id, started_at FROM scans WHERE finished_at IS NOT NULL ORDER BY id DESC LIMIT 1'
-    )->fetch();
+    $scan = $pdo
+        ->query(
+            'SELECT id, started_at FROM scans WHERE finished_at IS NOT NULL ORDER BY id DESC LIMIT 1',
+        )
+        ->fetch();
 
     if (!$scan) {
         $lines[] = '';
@@ -1758,13 +2221,20 @@ function statusReport(PDO $pdo): array
     }
 
     $lines[] = '';
-    $lines[] = 'Last scan (' . date('Y-m-d H:i', (int)$scan['started_at']) . '):';
+    $lines[] =
+        'Last scan (' . date('Y-m-d H:i', (int) $scan['started_at']) . '):';
 
-    $totals = $pdo->prepare('SELECT category, bytes, files FROM scan_totals WHERE scan_id = ? ORDER BY bytes DESC');
+    $totals = $pdo->prepare(
+        'SELECT category, bytes, files FROM scan_totals WHERE scan_id = ? ORDER BY bytes DESC',
+    );
     $totals->execute([$scan['id']]);
     foreach ($totals->fetchAll() as $row) {
-        $lines[] = sprintf('  %-8s %10s in %s files',
-            $row['category'], humanBytes((int)$row['bytes']), number_format((float)$row['files']));
+        $lines[] = sprintf(
+            '  %-8s %10s in %s files',
+            $row['category'],
+            humanBytes((int) $row['bytes']),
+            number_format((float) $row['files']),
+        );
     }
 
     /*
@@ -1776,7 +2246,7 @@ function statusReport(PDO $pdo): array
      */
     $top = $pdo->prepare(
         'SELECT p.path, ps.bytes FROM path_sizes ps JOIN paths p ON p.id = ps.path_id
-         WHERE ps.scan_id = ? AND p.kind = \'file\' ORDER BY ps.bytes DESC LIMIT 5'
+         WHERE ps.scan_id = ? AND p.kind = \'file\' ORDER BY ps.bytes DESC LIMIT 5',
     );
     $top->execute([$scan['id']]);
     $biggest = $top->fetchAll();
@@ -1785,7 +2255,11 @@ function statusReport(PDO $pdo): array
         $lines[] = '';
         $lines[] = 'Largest files:';
         foreach ($biggest as $row) {
-            $lines[] = sprintf('  %10s  %s', humanBytes((int)$row['bytes']), $row['path']);
+            $lines[] = sprintf(
+                '  %10s  %s',
+                humanBytes((int) $row['bytes']),
+                $row['path'],
+            );
         }
     }
 
@@ -1804,34 +2278,61 @@ function statusReport(PDO $pdo): array
 function sendTestEmail(array $config, PDO $pdo): array
 {
     $rules = $config['alerts'] ?? [];
-    $to = trim((string)($rules['to'] ?? ''));
+    $to = trim((string) ($rules['to'] ?? ''));
 
     if ($to === '') {
-        return ['sent' => false, 'to' => '', 'error' => 'No alert address is configured.'];
+        return [
+            'sent' => false,
+            'to' => '',
+            'error' => 'No alert address is configured.',
+        ];
     }
     if (!function_exists('mail')) {
-        return ['sent' => false, 'to' => $to, 'error' => 'mail() is not available on this host.'];
+        return [
+            'sent' => false,
+            'to' => $to,
+            'error' => 'mail() is not available on this host.',
+        ];
     }
 
     $host = php_uname('n');
     $body = array_merge(
-        ['Zogograph on ' . $host, '', 'This is a test. Nothing has tripped.', ''],
+        [
+            'Zogograph on ' . $host,
+            '',
+            'This is a test. Nothing has tripped.',
+            '',
+        ],
         statusReport($pdo),
-        ['', 'Alerts are ' . (($rules['enabled'] ?? false) ? 'enabled' : 'DISABLED in the config') . '.']
+        [
+            '',
+            'Alerts are ' .
+            ($rules['enabled'] ?? false
+                ? 'enabled'
+                : 'DISABLED in the config') .
+            '.',
+        ],
     );
 
     $headers = ['Auto-Submitted: auto-generated'];
-    $from = trim((string)($rules['from'] ?? ''));
+    $from = trim((string) ($rules['from'] ?? ''));
     if ($from !== '') {
         $headers[] = 'From: ' . $from;
     }
 
-    $sent = @mail($to, "[test] $host Zogograph", implode("\n", $body), implode("\r\n", $headers));
+    $sent = @mail(
+        $to,
+        "[test] $host Zogograph",
+        implode("\n", $body),
+        implode("\r\n", $headers),
+    );
 
     return [
-        'sent' => (bool)$sent,
+        'sent' => (bool) $sent,
         'to' => $to,
-        'error' => $sent ? null : 'mail() returned false. The host may not accept mail from PHP.',
+        'error' => $sent
+            ? null
+            : 'mail() returned false. The host may not accept mail from PHP.',
     ];
 }
 
@@ -1841,7 +2342,7 @@ function humanBytes(?int $bytes): string
         return 'unknown';
     }
     $units = ['B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB'];
-    $value = (float)$bytes;
+    $value = (float) $bytes;
     $i = 0;
     while (abs($value) >= 1024 && $i < count($units) - 1) {
         $value /= 1024;
@@ -1864,11 +2365,11 @@ function humanBytes(?int $bytes): string
 function humanDuration(float $seconds): string
 {
     if ($seconds < 60) {
-        $whole = max(0, (int)round($seconds));
+        $whole = max(0, (int) round($seconds));
         return $whole . ($whole === 1 ? ' second' : ' seconds');
     }
     if ($seconds < 3600) {
-        $whole = (int)round($seconds / 60);
+        $whole = (int) round($seconds / 60);
         return $whole . ($whole === 1 ? ' minute' : ' minutes');
     }
     if ($seconds < 172800) {
@@ -1902,7 +2403,7 @@ function domainAlerts(array $config, PDO $pdo): array
             continue;
         }
 
-        $urgency = domainUrgency((int)$domain['days_left']);
+        $urgency = domainUrgency((int) $domain['days_left']);
         if ($urgency === null) {
             continue;
         }
@@ -1914,29 +2415,36 @@ function domainAlerts(array $config, PDO $pdo): array
          * changed its terms - that saying nothing would be wrong. Saying it at
          * the same volume as an unprotected domain would be wrong too.
          */
-        $severity = $domain['auto_renew'] === true && $urgency['severity'] !== 'critical'
-            ? 'info'
-            : $urgency['severity'];
+        $severity =
+            $domain['auto_renew'] === true &&
+            $urgency['severity'] !== 'critical'
+                ? 'info'
+                : $urgency['severity'];
 
         $out[] = [
             'rule' => 'domain_expiry:' . $domain['name'],
             'severity' => $severity,
             'subject' => sprintf('%s %s', $domain['name'], $urgency['when']),
-            'detail' => implode("\n", array_filter([
-                $domain['registrar'] ? 'Registered through ' . $domain['registrar'] . '.' : '',
-                $domain['auto_renew'] === true
-                    ? 'The registrar says auto-renew is on, which is not the same as it '
-                        . 'working - an expired card is the usual reason it does not.'
-                    : ($domain['auto_renew'] === false
-                        ? 'Auto-renew is off, so this will not renew itself.'
-                        : ''),
-                'Nothing else on this dashboard can see this coming: every server measure '
-                . 'stays green until the name stops resolving, and then everything fails at '
-                . 'once for a reason that is in no log.',
-            ])),
+            'detail' => implode(
+                "\n",
+                array_filter([
+                    $domain['registrar']
+                        ? 'Registered through ' . $domain['registrar'] . '.'
+                        : '',
+                    $domain['auto_renew'] === true
+                        ? 'The registrar says auto-renew is on, which is not the same as it ' .
+                            'working - an expired card is the usual reason it does not.'
+                        : ($domain['auto_renew'] === false
+                            ? 'Auto-renew is off, so this will not renew itself.'
+                            : ''),
+                    'Nothing else on this dashboard can see this coming: every server measure ' .
+                    'stays green until the name stops resolving, and then everything fails at ' .
+                    'once for a reason that is in no log.',
+                ]),
+            ),
             'group' => 'domains',
-            'days_left' => (int)$domain['days_left'],
-            'domain' => (string)$domain['name'],
+            'days_left' => (int) $domain['days_left'],
+            'domain' => (string) $domain['name'],
         ];
     }
 
@@ -1947,9 +2455,13 @@ function domainAlerts(array $config, PDO $pdo): array
      * severity, so the first line of a message about six domains is the one
      * that needs doing today.
      */
-    usort($out, fn(array $a, array $b): int =>
-        [severityRank($b['severity']), $a['days_left']]
-        <=> [severityRank($a['severity']), $b['days_left']]);
+    usort(
+        $out,
+        fn(array $a, array $b): int => [
+            severityRank($b['severity']),
+            $a['days_left'],
+        ] <=> [severityRank($a['severity']), $b['days_left']],
+    );
 
     return $out;
 }

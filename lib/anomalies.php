@@ -155,14 +155,15 @@ function percentileOf(array $values, float $fraction): float
 
     sort($values);
     $position = $fraction * (count($values) - 1);
-    $low = (int)floor($position);
-    $high = (int)ceil($position);
+    $low = (int) floor($position);
+    $high = (int) ceil($position);
 
     if ($low === $high) {
         return $values[$low];
     }
 
-    return $values[$low] + ($values[$high] - $values[$low]) * ($position - $low);
+    return $values[$low] +
+        ($values[$high] - $values[$low]) * ($position - $low);
 }
 
 /** Age is whole seconds; a drop larger than this is a different process. */
@@ -198,13 +199,13 @@ function tracksTheClock(array $samples, float $agreement = 0.9): bool
     $resets = 0;
 
     for ($i = 1; $i < count($samples); $i++) {
-        $clock = (float)$samples[$i]['at'] - (float)$samples[$i - 1]['at'];
+        $clock = (float) $samples[$i]['at'] - (float) $samples[$i - 1]['at'];
         if ($clock <= 0) {
             continue;
         }
 
         $pairs++;
-        $aged = (float)$samples[$i]['age'] - (float)$samples[$i - 1]['age'];
+        $aged = (float) $samples[$i]['age'] - (float) $samples[$i - 1]['age'];
         $slack = max(5.0, $clock * 0.1);
 
         if (abs($aged - $clock) <= $slack) {
@@ -268,9 +269,13 @@ function tracksTheClock(array $samples, float $agreement = 0.9): bool
  * grow tenfold at the moment it forks. PSS divides each shared page among its
  * users, so this compares like with like.
  */
-function serviceMemoryAnomaly(string $name, float $current, array $history, array $rules): ?array
-{
-    if (count($history) < (int)$rules['min_readings']) {
+function serviceMemoryAnomaly(
+    string $name,
+    float $current,
+    array $history,
+    array $rules,
+): ?array {
+    if (count($history) < (int) $rules['min_readings']) {
         return null;
     }
 
@@ -280,28 +285,34 @@ function serviceMemoryAnomaly(string $name, float $current, array $history, arra
     }
 
     $grew = $current - $usual;
-    $percent = $grew / $usual * 100;
+    $percent = ($grew / $usual) * 100;
 
-    if ($grew < (float)$rules['service_pss_floor_bytes']
-        || $percent < (float)$rules['service_pss_percent']) {
+    if (
+        $grew < (float) $rules['service_pss_floor_bytes'] ||
+        $percent < (float) $rules['service_pss_percent']
+    ) {
         return null;
     }
 
     return [
         'rule' => 'anomaly:service_memory:' . $name,
         'severity' => 'warning',
-        'subject' => sprintf('%s is holding %s more memory than usual', $name, humanBytes((int)$grew)),
-        'detail' => sprintf(
-            "%s is using %s of proportional memory (PSS). Its usual figure is %s, taken as the "
-            . "median of %d readings over the last %d hours, so this is %.0f%% above normal.\n\n"
-            . "A service that has grown and stays grown is leaking. One that grows and returns to "
-            . "its usual figure was busy. The services chart will show which of the two this is.",
+        'subject' => sprintf(
+            '%s is holding %s more memory than usual',
             $name,
-            humanBytes((int)$current),
-            humanBytes((int)$usual),
+            humanBytes((int) $grew),
+        ),
+        'detail' => sprintf(
+            '%s is using %s of proportional memory (PSS). Its usual figure is %s, taken as the ' .
+                "median of %d readings over the last %d hours, so this is %.0f%% above normal.\n\n" .
+                'A service that has grown and stays grown is leaking. One that grows and returns to ' .
+                'its usual figure was busy. The services chart will show which of the two this is.',
+            $name,
+            humanBytes((int) $current),
+            humanBytes((int) $usual),
             count($history),
-            (int)$rules['baseline_hours'],
-            $percent
+            (int) $rules['baseline_hours'],
+            $percent,
         ),
     ];
 }
@@ -321,10 +332,28 @@ function serviceMemoryAnomaly(string $name, float $current, array $history, arra
 function fansOutByDesign(string $name): bool
 {
     static $known = [
-        'git', 'git-upload-pack', 'git-receive-pack', 'git-http-backend',
-        'php-cgi', 'php-fpm', 'php', 'httpd', 'apache2', 'nginx', 'lsphp',
-        'sshd', 'dovecot', 'imap-login', 'pop3-login', 'exim', 'smtpd',
-        'postfix', 'qmgr', 'proxyexec', 'cpsrvd', 'cpanellogd',
+        'git',
+        'git-upload-pack',
+        'git-receive-pack',
+        'git-http-backend',
+        'php-cgi',
+        'php-fpm',
+        'php',
+        'httpd',
+        'apache2',
+        'nginx',
+        'lsphp',
+        'sshd',
+        'dovecot',
+        'imap-login',
+        'pop3-login',
+        'exim',
+        'smtpd',
+        'postfix',
+        'qmgr',
+        'proxyexec',
+        'cpsrvd',
+        'cpanellogd',
     ];
 
     return in_array($name, $known, true) || str_starts_with($name, 'ea-php');
@@ -356,9 +385,14 @@ function fansOutByDesign(string $name): bool
  * @param list<float> $history past counts
  * @param array $context load and core count at this moment
  */
-function serviceCountAnomaly(string $name, array $now, array $history, array $rules, array $context = []): ?array
-{
-    if (count($history) < (int)$rules['min_readings']) {
+function serviceCountAnomaly(
+    string $name,
+    array $now,
+    array $history,
+    array $rules,
+    array $context = [],
+): ?array {
+    if (count($history) < (int) $rules['min_readings']) {
         return null;
     }
 
@@ -367,7 +401,7 @@ function serviceCountAnomaly(string $name, array $now, array $history, array $ru
         return null;
     }
 
-    $count = (int)($now['procs'] ?? 0);
+    $count = (int) ($now['procs'] ?? 0);
     $ratio = $count / $usual;
 
     /*
@@ -378,28 +412,42 @@ function serviceCountAnomaly(string $name, array $now, array $history, array $ru
      * ones with it.
      */
     $multiple = fansOutByDesign($name)
-        ? max(3.0, (float)$rules['process_multiple'])
-        : (float)$rules['process_multiple'];
+        ? max(3.0, (float) $rules['process_multiple'])
+        : (float) $rules['process_multiple'];
 
-    if ($ratio < $multiple || $count - $usual < (float)$rules['process_floor']) {
+    if (
+        $ratio < $multiple ||
+        $count - $usual < (float) $rules['process_floor']
+    ) {
         return null;
     }
 
     // How long the pile has been there, from the readings themselves.
-    $recent = array_slice($history, -max(1, (int)($rules['process_readings'] ?? 3)));
-    $persistent = count($recent) >= (int)($rules['process_readings'] ?? 3)
-        && count(array_filter($recent, fn(float $n): bool => $n >= $usual * 2)) === count($recent);
+    $recent = array_slice(
+        $history,
+        -max(1, (int) ($rules['process_readings'] ?? 3)),
+    );
+    $persistent =
+        count($recent) >= (int) ($rules['process_readings'] ?? 3) &&
+        count(array_filter($recent, fn(float $n): bool => $n >= $usual * 2)) ===
+            count($recent);
 
-    $median = $now['median_seconds'] === null ? null : (int)$now['median_seconds'];
-    $oldMedian = $median !== null && $median >= (int)($rules['process_age_seconds'] ?? 600);
+    $median =
+        $now['median_seconds'] === null ? null : (int) $now['median_seconds'];
+    $oldMedian =
+        $median !== null &&
+        $median >= (int) ($rules['process_age_seconds'] ?? 600);
 
-    $cores = (int)($context['cores'] ?? 0);
-    $load = (float)($context['load'] ?? 0);
+    $cores = (int) ($context['cores'] ?? 0);
+    $load = (float) ($context['load'] ?? 0);
     $loaded = $cores > 0 && $load > $cores;
 
-    $parents = $now['distinct_parents'] === null ? null : (int)$now['distinct_parents'];
-    $states = (string)($now['state_summary'] ?? '');
-    $commands = (string)($now['command_summary'] ?? '');
+    $parents =
+        $now['distinct_parents'] === null
+            ? null
+            : (int) $now['distinct_parents'];
+    $states = (string) ($now['state_summary'] ?? '');
+    $commands = (string) ($now['command_summary'] ?? '');
 
     /*
      * Critical needs all three, exactly as asked for: many, old, and the
@@ -411,15 +459,20 @@ function serviceCountAnomaly(string $name, array $now, array $history, array $ru
     if ($median !== null) {
         $evidence[] = sprintf(
             'oldest %s, median %s, newest %s',
-            $now['oldest_seconds'] === null ? '?' : humanDuration((float)$now['oldest_seconds']),
-            humanDuration((float)$median),
-            $now['newest_seconds'] === null ? '?' : humanDuration((float)$now['newest_seconds'])
+            $now['oldest_seconds'] === null
+                ? '?'
+                : humanDuration((float) $now['oldest_seconds']),
+            humanDuration((float) $median),
+            $now['newest_seconds'] === null
+                ? '?'
+                : humanDuration((float) $now['newest_seconds']),
         );
     }
     if ($parents !== null) {
-        $evidence[] = $parents === 1
-            ? 'all of them share one parent process'
-            : sprintf('%d distinct parent processes', $parents);
+        $evidence[] =
+            $parents === 1
+                ? 'all of them share one parent process'
+                : sprintf('%d distinct parent processes', $parents);
     }
     if ($states !== '') {
         $evidence[] = 'states ' . $states;
@@ -435,26 +488,29 @@ function serviceCountAnomaly(string $name, array $now, array $history, array $ru
      * is the ordinary shape of being busy, and saying so is more useful than
      * repeating the alarming interpretation.
      */
-    $young = $median !== null && $median < (int)($rules['process_age_seconds'] ?? 600);
+    $young =
+        $median !== null &&
+        $median < (int) ($rules['process_age_seconds'] ?? 600);
     $spread = $parents !== null && $parents > 1;
     $stuck = str_contains($states, 'D:') || $parents === 1;
 
     if (fansOutByDesign($name) && $young && $spread) {
         $reading = sprintf(
-            'These are short-lived and started by %d different parents, which is what %s '
-            . 'looks like when it is simply busy. Worth a glance rather than an intervention.',
+            'These are short-lived and started by %d different parents, which is what %s ' .
+                'looks like when it is simply busy. Worth a glance rather than an intervention.',
             $parents,
-            $name
+            $name,
         );
     } elseif ($stuck && $oldMedian) {
-        $reading = 'They are old and share a parent, which is what a job that has stopped '
-            . 'finishing looks like: each run starts another and none of the old ones leave.';
+        $reading =
+            'They are old and share a parent, which is what a job that has stopped ' .
+            'finishing looks like: each run starts another and none of the old ones leave.';
     } else {
         $reading = sprintf(
-            'The count is %.1f times its recent median. That can mean work is piling up '
-            . 'unfinished, and on a service that spawns per request it can equally mean a '
-            . 'busy period - the ages and parents above are what tell them apart.',
-            $ratio
+            'The count is %.1f times its recent median. That can mean work is piling up ' .
+                'unfinished, and on a service that spawns per request it can equally mean a ' .
+                'busy period - the ages and parents above are what tell them apart.',
+            $ratio,
         );
     }
 
@@ -465,30 +521,32 @@ function serviceCountAnomaly(string $name, array $now, array $history, array $ru
             '%d copies of %s are running%s',
             $count,
             $name,
-            $critical ? ', and the machine is struggling' : ''
+            $critical ? ', and the machine is struggling' : '',
         ),
         'detail' => sprintf(
-            "There are %d %s processes against a usual %s, the median of %d readings.\n\n"
-            . "%s\n\n%s%s",
+            "There are %d %s processes against a usual %s, the median of %d readings.\n\n" .
+                "%s\n\n%s%s",
             $count,
             $name,
             rtrim(rtrim(number_format($usual, 1), '0'), '.'),
             count($history),
-            $evidence === [] ? 'No age or parent detail was recorded for this reading.'
+            $evidence === []
+                ? 'No age or parent detail was recorded for this reading.'
                 : 'At this reading: ' . implode('; ', $evidence) . '.',
             $reading,
             $critical
                 ? sprintf(
-                    "\n\nRaised as critical because the pile is old and load is %.2f on %d core%s "
-                    . '- the machine is behind, not merely busy.',
+                    "\n\nRaised as critical because the pile is old and load is %.2f on %d core%s " .
+                        '- the machine is behind, not merely busy.',
                     $load,
                     $cores,
-                    $cores === 1 ? '' : 's'
+                    $cores === 1 ? '' : 's',
                 )
                 : ($persistent
-                    ? "\n\nIt has been at least double its baseline for the last "
-                      . (int)($rules['process_readings'] ?? 3) . ' readings, so this is not a spike.'
-                    : '')
+                    ? "\n\nIt has been at least double its baseline for the last " .
+                        (int) ($rules['process_readings'] ?? 3) .
+                        ' readings, so this is not a spike.'
+                    : ''),
         ),
     ];
 }
@@ -508,9 +566,13 @@ function serviceCountAnomaly(string $name, array $now, array $history, array $ru
  *
  * @param list<array{at: int, age: float}> $samples chronological
  */
-function serviceAgeAnomaly(string $name, float $current, array $samples, array $rules): ?array
-{
-    if (count($samples) < (int)$rules['min_readings']) {
+function serviceAgeAnomaly(
+    string $name,
+    float $current,
+    array $samples,
+    array $rules,
+): ?array {
+    if (count($samples) < (int) $rules['min_readings']) {
         return null;
     }
 
@@ -519,32 +581,36 @@ function serviceAgeAnomaly(string $name, float $current, array $samples, array $
         return null;
     }
 
-    if ($current < (float)$rules['age_floor_seconds']) {
+    if ($current < (float) $rules['age_floor_seconds']) {
         return null;
     }
 
     $usual = percentileOf(array_column($samples, 'age'), 0.9);
-    if ($usual <= 0 || $current < $usual * (float)$rules['age_multiple']) {
+    if ($usual <= 0 || $current < $usual * (float) $rules['age_multiple']) {
         return null;
     }
 
     return [
         'rule' => 'anomaly:process_age:' . $name,
         'severity' => 'warning',
-        'subject' => sprintf('%s has been running for %s', $name, humanDuration($current)),
+        'subject' => sprintf(
+            '%s has been running for %s',
+            $name,
+            humanDuration($current),
+        ),
         'detail' => sprintf(
-            "The oldest %s process has been alive for %s. That job normally finishes well "
-            . "inside %s - the figure is the ninetieth percentile of %d readings over the last "
-            . "%d hours, so nine times in ten it is done by then.\n\n"
-            . "This one is not, by a factor of %.1f. A job that starts on a timer and never "
-            . "finishes will keep starting anyway, and the copies accumulate until something "
-            . "runs out.",
+            'The oldest %s process has been alive for %s. That job normally finishes well ' .
+                'inside %s - the figure is the ninetieth percentile of %d readings over the last ' .
+                "%d hours, so nine times in ten it is done by then.\n\n" .
+                'This one is not, by a factor of %.1f. A job that starts on a timer and never ' .
+                'finishes will keep starting anyway, and the copies accumulate until something ' .
+                'runs out.',
             $name,
             humanDuration($current),
             humanDuration($usual),
             count($samples),
-            (int)$rules['service_baseline_hours'],
-            $current / $usual
+            (int) $rules['service_baseline_hours'],
+            $current / $usual,
         ),
     ];
 }
@@ -558,13 +624,17 @@ function serviceAgeAnomaly(string $name, float $current, array $samples, array $
  * hundred megabytes every single night stops sending mail about it, while the
  * same growth somewhere that has been flat all month still does.
  */
-function categoryGrowthAnomaly(string $category, int $grew, array $history, array $rules): ?array
-{
-    if ($grew < (int)$rules['category_floor_bytes']) {
+function categoryGrowthAnomaly(
+    string $category,
+    int $grew,
+    array $history,
+    array $rules,
+): ?array {
+    if ($grew < (int) $rules['category_floor_bytes']) {
         return null;
     }
 
-    if (count($history) < (int)$rules['min_readings']) {
+    if (count($history) < (int) $rules['min_readings']) {
         return null;
     }
 
@@ -576,24 +646,31 @@ function categoryGrowthAnomaly(string $category, int $grew, array $history, arra
      * in that case, which is the right answer: the first 100 MB to land
      * somewhere that has been flat for a month is exactly the interesting one.
      */
-    if ($usual > 0 && $grew < $usual * (float)$rules['category_multiple']) {
+    if ($usual > 0 && $grew < $usual * (float) $rules['category_multiple']) {
         return null;
     }
 
     return [
         'rule' => 'anomaly:category:' . $category,
         'severity' => 'warning',
-        'subject' => sprintf('%s grew by %s, which is unusual for it', ucfirst($category), humanBytes($grew)),
-        'detail' => sprintf(
-            "%s gained %s since the previous scan. Between scans it usually changes by %s "
-            . "(median of %d recent scans)%s.",
+        'subject' => sprintf(
+            '%s grew by %s, which is unusual for it',
             ucfirst($category),
             humanBytes($grew),
-            humanBytes((int)$usual),
+        ),
+        'detail' => sprintf(
+            '%s gained %s since the previous scan. Between scans it usually changes by %s ' .
+                '(median of %d recent scans)%s.',
+            ucfirst($category),
+            humanBytes($grew),
+            humanBytes((int) $usual),
             count($history),
             $usual > 0
-                ? sprintf(', so this is %.1f times its normal rate', $grew / $usual)
-                : ', so this is the first growth of any size recorded there'
+                ? sprintf(
+                    ', so this is %.1f times its normal rate',
+                    $grew / $usual,
+                )
+                : ', so this is the first growth of any size recorded there',
         ),
     ];
 }
@@ -612,29 +689,32 @@ function categoryGrowthAnomaly(string $category, int $grew, array $history, arra
  */
 function fileGrowthAnomaly(array $file, array $history, array $rules): ?array
 {
-    $grew = (int)$file['grew'];
-    if ($grew < (int)$rules['file_floor_bytes']) {
+    $grew = (int) $file['grew'];
+    if ($grew < (int) $rules['file_floor_bytes']) {
         return null;
     }
 
-    if (count($history) < (int)$rules['min_readings']) {
+    if (count($history) < (int) $rules['min_readings']) {
         return null;
     }
 
-    $rate = (float)$file['rate'];
+    $rate = (float) $file['rate'];
     $usual = medianOf($history);
 
-    if ($usual > 0 && $rate < $usual * (float)$rules['file_multiple']) {
+    if ($usual > 0 && $rate < $usual * (float) $rules['file_multiple']) {
         return null;
     }
 
     return [
         'rule' => 'anomaly:file_growth',
-        'path_id' => (int)$file['path_id'],
-        'path' => (string)$file['path'],
-        'kind' => (string)($file['kind'] ?? 'file'),
+        'path_id' => (int) $file['path_id'],
+        'path' => (string) $file['path'],
+        'kind' => (string) ($file['kind'] ?? 'file'),
         'severity' => 'warning',
-        'subject' => sprintf('%s is growing much faster than it normally does', basename((string)$file['path'])),
+        'subject' => sprintf(
+            '%s is growing much faster than it normally does',
+            basename((string) $file['path']),
+        ),
         /*
          * The path leads, as it does in the threshold alert next door - and
          * for the same reason. presentAlert() swaps it for a mask when nobody
@@ -644,18 +724,21 @@ function fileGrowthAnomaly(array $file, array $history, array $rules): ?array
          */
         'detail' => sprintf(
             "%s\n  grew by %s since the previous scan, a rate of %s an hour.\n  %s",
-            (string)$file['path'],
+            (string) $file['path'],
             humanBytes($grew),
-            humanBytes((int)$rate),
+            humanBytes((int) $rate),
             $usual > 0
                 ? sprintf(
-                    'It normally grows at %s an hour (median of %d recent scans), so it is '
-                    . 'running %.0f times faster than usual.',
-                    humanBytes((int)$usual),
+                    'It normally grows at %s an hour (median of %d recent scans), so it is ' .
+                        'running %.0f times faster than usual.',
+                    humanBytes((int) $usual),
                     count($history),
-                    $rate / $usual
+                    $rate / $usual,
                 )
-                : sprintf('It had not grown at all in the previous %d scans.', count($history))
+                : sprintf(
+                    'It had not grown at all in the previous %d scans.',
+                    count($history),
+                ),
         ),
     ];
 }
@@ -674,42 +757,54 @@ function fileGrowthAnomaly(array $file, array $history, array $rules): ?array
  */
 function loadAnomalies(array $readings, array $rules): array
 {
-    $wanted = (int)$rules['load_readings'];
+    $wanted = (int) $rules['load_readings'];
     if ($wanted < 1 || count($readings) < $wanted) {
         return [];
     }
 
     $recent = array_slice($readings, 0, $wanted);
-    $cores = (int)($recent[0]['cpu_cores'] ?? 0);
+    $cores = (int) ($recent[0]['cpu_cores'] ?? 0);
     if ($cores < 1) {
         return [];
     }
 
     $loads = [];
     foreach ($recent as $row) {
-        $load = (float)($row['load1'] ?? 0);
+        $load = (float) ($row['load1'] ?? 0);
         if ($load <= $cores) {
             return [];
         }
         $loads[] = $load;
     }
 
-    return [[
-        'rule' => 'anomaly:load',
-        'severity' => 'warning',
-        'subject' => sprintf('Load has been above %d for %d readings', $cores, $wanted),
-        'detail' => sprintf(
-            "Load average over the last %d readings: %s. This machine has %d core%s.\n\n"
-            . "Load counts work waiting as well as work running, so anything above %d means "
-            . "jobs are queuing for a core rather than getting one. Sustained, it is a runaway "
-            . "process or genuinely too much work, and the process list will say which.",
-            $wanted,
-            implode(', ', array_map(fn(float $l): string => number_format($l, 2), $loads)),
-            $cores,
-            $cores === 1 ? '' : 's',
-            $cores
-        ),
-    ]];
+    return [
+        [
+            'rule' => 'anomaly:load',
+            'severity' => 'warning',
+            'subject' => sprintf(
+                'Load has been above %d for %d readings',
+                $cores,
+                $wanted,
+            ),
+            'detail' => sprintf(
+                "Load average over the last %d readings: %s. This machine has %d core%s.\n\n" .
+                    'Load counts work waiting as well as work running, so anything above %d means ' .
+                    'jobs are queuing for a core rather than getting one. Sustained, it is a runaway ' .
+                    'process or genuinely too much work, and the process list will say which.',
+                $wanted,
+                implode(
+                    ', ',
+                    array_map(
+                        fn(float $l): string => number_format($l, 2),
+                        $loads,
+                    ),
+                ),
+                $cores,
+                $cores === 1 ? '' : 's',
+                $cores,
+            ),
+        ],
+    ];
 }
 
 /**
@@ -727,30 +822,39 @@ function loadAnomalies(array $readings, array $rules): array
  */
 function swapAnomalies(array $latest, array $earlier, array $rules): array
 {
-    $swapGrew = (int)($latest['swap_used_bytes'] ?? 0) - (int)($earlier['swap_used_bytes'] ?? 0);
-    $availableFell = (int)($earlier['mem_available_bytes'] ?? 0) - (int)($latest['mem_available_bytes'] ?? 0);
+    $swapGrew =
+        (int) ($latest['swap_used_bytes'] ?? 0) -
+        (int) ($earlier['swap_used_bytes'] ?? 0);
+    $availableFell =
+        (int) ($earlier['mem_available_bytes'] ?? 0) -
+        (int) ($latest['mem_available_bytes'] ?? 0);
 
-    if ($swapGrew < (int)$rules['swap_floor_bytes'] || $availableFell <= 0) {
+    if ($swapGrew < (int) $rules['swap_floor_bytes'] || $availableFell <= 0) {
         return [];
     }
 
-    return [[
-        'rule' => 'anomaly:swap',
-        'severity' => 'warning',
-        'subject' => sprintf('Swap grew by %s while free memory fell', humanBytes($swapGrew)),
-        'detail' => sprintf(
-            "Swap in use rose by %s and available memory dropped by %s over the same period. "
-            . "Swap now stands at %s, with %s available.\n\n"
-            . "Either figure alone would be unremarkable - swap holds pages long after they "
-            . "stopped mattering, and available memory moves with the page cache. Both moving "
-            . "the wrong way together is the kernel paging memory out because it has run out of "
-            . "cheaper options.",
-            humanBytes($swapGrew),
-            humanBytes($availableFell),
-            humanBytes((int)($latest['swap_used_bytes'] ?? 0)),
-            humanBytes((int)($latest['mem_available_bytes'] ?? 0))
-        ),
-    ]];
+    return [
+        [
+            'rule' => 'anomaly:swap',
+            'severity' => 'warning',
+            'subject' => sprintf(
+                'Swap grew by %s while free memory fell',
+                humanBytes($swapGrew),
+            ),
+            'detail' => sprintf(
+                'Swap in use rose by %s and available memory dropped by %s over the same period. ' .
+                    "Swap now stands at %s, with %s available.\n\n" .
+                    'Either figure alone would be unremarkable - swap holds pages long after they ' .
+                    'stopped mattering, and available memory moves with the page cache. Both moving ' .
+                    'the wrong way together is the kernel paging memory out because it has run out of ' .
+                    'cheaper options.',
+                humanBytes($swapGrew),
+                humanBytes($availableFell),
+                humanBytes((int) ($latest['swap_used_bytes'] ?? 0)),
+                humanBytes((int) ($latest['mem_available_bytes'] ?? 0)),
+            ),
+        ],
+    ];
 }
 
 /**
@@ -794,8 +898,8 @@ function daemonAnomalies(array $rows, array $rules): array
             continue;
         }
 
-        $since = (int)($row['since'] ?? 0);
-        $label = (string)$row['label'];
+        $since = (int) ($row['since'] ?? 0);
+        $label = (string) $row['label'];
 
         $found[] = [
             'rule' => 'anomaly:daemon_down:' . $row['name'],
@@ -804,23 +908,28 @@ function daemonAnomalies(array $rows, array $rules): array
             'detail' => sprintf(
                 "%s was running and is not any more%s.\n\n%s%s",
                 $label,
-                $since > 0 ? sprintf(', as of %s', humanDuration(max(0, time() - $since)) . ' ago') : '',
+                $since > 0
+                    ? sprintf(
+                        ', as of %s',
+                        humanDuration(max(0, time() - $since)) . ' ago',
+                    )
+                    : '',
                 $row['unit']
                     ? sprintf(
-                        "systemd reports the unit %s as %s (%s). ",
+                        'systemd reports the unit %s as %s (%s). ',
                         $row['unit'],
                         $row['active_state'] ?? 'inactive',
-                        $row['sub_state'] ?? 'unknown'
+                        $row['sub_state'] ?? 'unknown',
                     )
                     : 'No systemd unit answered for it. ',
                 ($row['restarts'] ?? 0) > 0
                     ? sprintf(
-                        'It has restarted %d times, so if it comes back on its own it is '
-                        . 'crash-looping rather than recovering.',
-                        (int)$row['restarts']
+                        'It has restarted %d times, so if it comes back on its own it is ' .
+                            'crash-looping rather than recovering.',
+                        (int) $row['restarts'],
                     )
-                    : 'Nothing else on this page can report a service that is absent, '
-                        . 'because a process that is not running uses no memory and no CPU.'
+                    : 'Nothing else on this page can report a service that is absent, ' .
+                        'because a process that is not running uses no memory and no CPU.',
             ),
         ];
     }
@@ -876,20 +985,25 @@ function accountAnomalies(PDO $pdo, array $rules): array
      * would make it the only rule that goes quiet when the collector falls
      * behind, which is not a distinction worth having.
      */
-    $newest = (int)$pdo->query('SELECT MAX(taken_at) FROM vitals')->fetchColumn();
+    $newest = (int) $pdo
+        ->query('SELECT MAX(taken_at) FROM vitals')
+        ->fetchColumn();
     if ($newest <= 0) {
         return $found;
     }
-    $window = $newest - (int)$rules['baseline_hours'] * 3600;
+    $window = $newest - (int) $rules['baseline_hours'] * 3600;
 
     // Load, over the most recent readings.
     $readings = $pdo->prepare(
         'SELECT load1, cpu_cores FROM vitals
          WHERE load1 IS NOT NULL AND cpu_cores IS NOT NULL
-         ORDER BY taken_at DESC LIMIT ?'
+         ORDER BY taken_at DESC LIMIT ?',
     );
-    $readings->execute([max(1, (int)$rules['load_readings'])]);
-    $found = [...$found, ...loadAnomalies($readings->fetchAll(PDO::FETCH_ASSOC), $rules)];
+    $readings->execute([max(1, (int) $rules['load_readings'])]);
+    $found = [
+        ...$found,
+        ...loadAnomalies($readings->fetchAll(PDO::FETCH_ASSOC), $rules),
+    ];
 
     /*
      * Swap, over the baseline window rather than between neighbouring readings.
@@ -903,12 +1017,15 @@ function accountAnomalies(PDO $pdo, array $rules): array
         'SELECT swap_used_bytes, mem_available_bytes, taken_at FROM vitals
          WHERE swap_used_bytes IS NOT NULL AND mem_available_bytes IS NOT NULL
            AND taken_at >= ?
-         ORDER BY taken_at DESC'
+         ORDER BY taken_at DESC',
     );
     $swap->execute([$window]);
     $rows = $swap->fetchAll(PDO::FETCH_ASSOC);
     if (count($rows) >= 2) {
-        $found = [...$found, ...swapAnomalies($rows[0], $rows[count($rows) - 1], $rules)];
+        $found = [
+            ...$found,
+            ...swapAnomalies($rows[0], $rows[count($rows) - 1], $rules),
+        ];
     }
 
     $found = [...$found, ...categoryAnomalies($pdo, $rules)];
@@ -922,9 +1039,11 @@ function accountAnomalies(PDO $pdo, array $rules): array
  */
 function categoryAnomalies(PDO $pdo, array $rules): array
 {
-    $scans = $pdo->query(
-        'SELECT id FROM scans WHERE finished_at IS NOT NULL ORDER BY id DESC LIMIT 40'
-    )->fetchAll(PDO::FETCH_COLUMN);
+    $scans = $pdo
+        ->query(
+            'SELECT id FROM scans WHERE finished_at IS NOT NULL ORDER BY id DESC LIMIT 40',
+        )
+        ->fetchAll(PDO::FETCH_COLUMN);
 
     if (count($scans) < 3) {
         return [];
@@ -933,7 +1052,7 @@ function categoryAnomalies(PDO $pdo, array $rules): array
     $placeholders = implode(',', array_fill(0, count($scans), '?'));
     $rowsStmt = $pdo->prepare(
         "SELECT scan_id, category, bytes FROM scan_totals
-         WHERE scan_id IN ($placeholders)"
+         WHERE scan_id IN ($placeholders)",
     );
     $rowsStmt->execute($scans);
 
@@ -941,7 +1060,8 @@ function categoryAnomalies(PDO $pdo, array $rules): array
     $order = array_flip($scans);
     $series = [];
     foreach ($rowsStmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
-        $series[(string)$row['category']][$order[(int)$row['scan_id']]] = (int)$row['bytes'];
+        $series[(string) $row['category']][$order[(int) $row['scan_id']]] =
+            (int) $row['bytes'];
     }
 
     $found = [];
@@ -965,7 +1085,12 @@ function categoryAnomalies(PDO $pdo, array $rules): array
         }
 
         $latest = array_shift($growths);
-        $anomaly = categoryGrowthAnomaly((string)$category, (int)$latest, $growths, $rules);
+        $anomaly = categoryGrowthAnomaly(
+            (string) $category,
+            (int) $latest,
+            $growths,
+            $rules,
+        );
         if ($anomaly !== null) {
             $found[] = $anomaly;
         }
@@ -984,16 +1109,22 @@ function categoryAnomalies(PDO $pdo, array $rules): array
  */
 function fileAnomalies(PDO $pdo, array $rules): array
 {
-    $scans = $pdo->query(
-        'SELECT id, finished_at FROM scans
-         WHERE finished_at IS NOT NULL ORDER BY id DESC LIMIT 2'
-    )->fetchAll(PDO::FETCH_ASSOC);
+    $scans = $pdo
+        ->query(
+            'SELECT id, finished_at FROM scans
+         WHERE finished_at IS NOT NULL ORDER BY id DESC LIMIT 2',
+        )
+        ->fetchAll(PDO::FETCH_ASSOC);
 
     if (count($scans) < 2) {
         return [];
     }
 
-    $hours = max(0.01, ((int)$scans[0]['finished_at'] - (int)$scans[1]['finished_at']) / 3600);
+    $hours = max(
+        0.01,
+        ((int) $scans[0]['finished_at'] - (int) $scans[1]['finished_at']) /
+            3600,
+    );
 
     $movers = $pdo->prepare(
         'SELECT p.id AS path_id, p.path, p.kind, now.bytes - was.bytes AS grew
@@ -1002,34 +1133,45 @@ function fileAnomalies(PDO $pdo, array $rules): array
          JOIN paths p ON p.id = now.path_id
          WHERE now.scan_id = :now AND p.kind = \'file\'
            AND now.bytes - was.bytes >= :floor
-         ORDER BY grew DESC LIMIT :limit'
+         ORDER BY grew DESC LIMIT :limit',
     );
-    $movers->bindValue(':was', (int)$scans[1]['id'], PDO::PARAM_INT);
-    $movers->bindValue(':now', (int)$scans[0]['id'], PDO::PARAM_INT);
-    $movers->bindValue(':floor', (int)$rules['file_floor_bytes'], PDO::PARAM_INT);
-    $movers->bindValue(':limit', (int)$rules['file_limit'], PDO::PARAM_INT);
+    $movers->bindValue(':was', (int) $scans[1]['id'], PDO::PARAM_INT);
+    $movers->bindValue(':now', (int) $scans[0]['id'], PDO::PARAM_INT);
+    $movers->bindValue(
+        ':floor',
+        (int) $rules['file_floor_bytes'],
+        PDO::PARAM_INT,
+    );
+    $movers->bindValue(':limit', (int) $rules['file_limit'], PDO::PARAM_INT);
     $movers->execute();
 
     $history = $pdo->prepare(
         'SELECT s.finished_at, ps.bytes FROM path_sizes ps
          JOIN scans s ON s.id = ps.scan_id
          WHERE ps.path_id = ? AND s.finished_at IS NOT NULL
-         ORDER BY s.finished_at DESC LIMIT 40'
+         ORDER BY s.finished_at DESC LIMIT 40',
     );
 
     $found = [];
     foreach ($movers->fetchAll(PDO::FETCH_ASSOC) as $file) {
-        $history->execute([(int)$file['path_id']]);
+        $history->execute([(int) $file['path_id']]);
         $past = $history->fetchAll(PDO::FETCH_ASSOC);
 
         // Rates, so that unevenly spaced scans compare honestly.
         $rates = [];
         for ($i = 1; $i < count($past); $i++) {
-            $span = ((int)$past[$i - 1]['finished_at'] - (int)$past[$i]['finished_at']) / 3600;
+            $span =
+                ((int) $past[$i - 1]['finished_at'] -
+                    (int) $past[$i]['finished_at']) /
+                3600;
             if ($span <= 0) {
                 continue;
             }
-            $rates[] = max(0, ((int)$past[$i - 1]['bytes'] - (int)$past[$i]['bytes']) / $span);
+            $rates[] = max(
+                0,
+                ((int) $past[$i - 1]['bytes'] - (int) $past[$i]['bytes']) /
+                    $span,
+            );
         }
 
         // The first entry is the growth being judged; it cannot also be part of
@@ -1037,9 +1179,9 @@ function fileAnomalies(PDO $pdo, array $rules): array
         array_shift($rates);
 
         $anomaly = fileGrowthAnomaly(
-            $file + ['rate' => (int)$file['grew'] / $hours],
+            $file + ['rate' => (int) $file['grew'] / $hours],
             $rates,
-            $rules
+            $rules,
         );
         if ($anomaly !== null) {
             // One rule name per file, or a cooldown on the first would silence
@@ -1066,43 +1208,45 @@ function hostAnomalies(PDO $host, array $rules): array
      */
     $found = daemonAnomalies(daemonStatus($host)['rows'], $rules);
 
-    $latest = (int)$host->query('SELECT MAX(taken_at) FROM host_services')->fetchColumn();
+    $latest = (int) $host
+        ->query('SELECT MAX(taken_at) FROM host_services')
+        ->fetchColumn();
     if ($latest <= 0) {
         return $found;
     }
 
-    $since = $latest - (int)$rules['service_baseline_hours'] * 3600;
-    $recent = $latest - (int)$rules['baseline_hours'] * 3600;
+    $since = $latest - (int) $rules['service_baseline_hours'] * 3600;
+    $recent = $latest - (int) $rules['baseline_hours'] * 3600;
 
     $stmt = $host->prepare(
         'SELECT name, taken_at, pss_bytes, procs, oldest_seconds, newest_seconds,
                 median_seconds, distinct_parents, state_summary, command_summary
-         FROM host_services WHERE taken_at >= ? ORDER BY taken_at ASC'
+         FROM host_services WHERE taken_at >= ? ORDER BY taken_at ASC',
     );
     $stmt->execute([$since]);
 
     $series = [];
     $current = [];
     foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
-        $name = (string)$row['name'];
+        $name = (string) $row['name'];
 
-        if ((int)$row['taken_at'] === $latest) {
+        if ((int) $row['taken_at'] === $latest) {
             $current[$name] = $row;
             continue;
         }
 
         // Memory is judged against the last day, ages and counts against the
         // whole week. See the two-windows note in anomalyRules().
-        if ((int)$row['taken_at'] >= $recent) {
-            $series[$name]['pss'][] = (float)$row['pss_bytes'];
+        if ((int) $row['taken_at'] >= $recent) {
+            $series[$name]['pss'][] = (float) $row['pss_bytes'];
         }
-        $series[$name]['procs'][] = (float)$row['procs'];
+        $series[$name]['procs'][] = (float) $row['procs'];
         if ($row['oldest_seconds'] !== null) {
             // Timestamped, because the age rule has to ask whether the age
             // moved with the clock, not merely how big it got.
             $series[$name]['age'][] = [
-                'at' => (int)$row['taken_at'],
-                'age' => (float)$row['oldest_seconds'],
+                'at' => (int) $row['taken_at'],
+                'age' => (float) $row['oldest_seconds'],
             ];
         }
     }
@@ -1116,13 +1260,15 @@ function hostAnomalies(PDO $host, array $rules): array
      */
     $context = [];
     try {
-        $sample = $host->query(
-            'SELECT load1, cpu_cores FROM host_samples ORDER BY id DESC LIMIT 1'
-        )->fetch(PDO::FETCH_ASSOC);
+        $sample = $host
+            ->query(
+                'SELECT load1, cpu_cores FROM host_samples ORDER BY id DESC LIMIT 1',
+            )
+            ->fetch(PDO::FETCH_ASSOC);
         if ($sample) {
             $context = [
-                'load' => (float)($sample['load1'] ?? 0),
-                'cores' => (int)($sample['cpu_cores'] ?? 0),
+                'load' => (float) ($sample['load1'] ?? 0),
+                'cores' => (int) ($sample['cpu_cores'] ?? 0),
             ];
         }
     } catch (Throwable) {
@@ -1133,11 +1279,27 @@ function hostAnomalies(PDO $host, array $rules): array
         $past = $series[$name] ?? [];
 
         $checks = [
-            serviceMemoryAnomaly($name, (float)$row['pss_bytes'], $past['pss'] ?? [], $rules),
-            serviceCountAnomaly($name, $row, $past['procs'] ?? [], $rules, $context),
+            serviceMemoryAnomaly(
+                $name,
+                (float) $row['pss_bytes'],
+                $past['pss'] ?? [],
+                $rules,
+            ),
+            serviceCountAnomaly(
+                $name,
+                $row,
+                $past['procs'] ?? [],
+                $rules,
+                $context,
+            ),
             $row['oldest_seconds'] === null
                 ? null
-                : serviceAgeAnomaly($name, (float)$row['oldest_seconds'], $past['age'] ?? [], $rules),
+                : serviceAgeAnomaly(
+                    $name,
+                    (float) $row['oldest_seconds'],
+                    $past['age'] ?? [],
+                    $rules,
+                ),
         ];
 
         foreach ($checks as $anomaly) {
@@ -1172,9 +1334,11 @@ function supersedeThresholds(array $alerts): array
 {
     $covered = [];
     foreach ($alerts as $alert) {
-        $rule = (string)$alert['rule'];
+        $rule = (string) $alert['rule'];
         if (str_starts_with($rule, 'anomaly:category:')) {
-            $covered['category_jump:' . substr($rule, strlen('anomaly:category:'))] = true;
+            $covered[
+                'category_jump:' . substr($rule, strlen('anomaly:category:'))
+            ] = true;
         }
         if (str_starts_with($rule, 'anomaly:file_growth')) {
             // Keyed by the file, since one runaway file must not silence the
@@ -1183,14 +1347,19 @@ function supersedeThresholds(array $alerts): array
         }
     }
 
-    return array_values(array_filter($alerts, function (array $alert) use ($covered): bool {
-        $rule = (string)$alert['rule'];
-        if (isset($covered[$rule])) {
-            return false;
-        }
-        if ($rule === 'path_jump' && isset($covered['path_jump/' . ($alert['path_id'] ?? '')])) {
-            return false;
-        }
-        return true;
-    }));
+    return array_values(
+        array_filter($alerts, function (array $alert) use ($covered): bool {
+            $rule = (string) $alert['rule'];
+            if (isset($covered[$rule])) {
+                return false;
+            }
+            if (
+                $rule === 'path_jump' &&
+                isset($covered['path_jump/' . ($alert['path_id'] ?? '')])
+            ) {
+                return false;
+            }
+            return true;
+        }),
+    );
 }

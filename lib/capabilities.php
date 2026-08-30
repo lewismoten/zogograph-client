@@ -48,8 +48,16 @@ const PROGRAM_NAME_PATTERN = '/^[A-Za-z0-9][A-Za-z0-9._+-]{0,63}$/';
  * unanswerable by every mechanism this file has, and the backups page reported
  * the CLI as missing on machines that had it.
  */
-const CAPABILITY_SEARCH_ROOTS = ['/usr/bin', '/usr/sbin', '/usr/local/bin', '/usr/local/sbin',
-                                 '/bin', '/sbin', '/opt', '/usr/local/jetapps'];
+const CAPABILITY_SEARCH_ROOTS = [
+    '/usr/bin',
+    '/usr/sbin',
+    '/usr/local/bin',
+    '/usr/local/sbin',
+    '/bin',
+    '/sbin',
+    '/opt',
+    '/usr/local/jetapps',
+];
 
 /**
  * The programs worth knowing about, and what each one buys you.
@@ -64,8 +72,10 @@ const CAPABILITY_SEARCH_ROOTS = ['/usr/bin', '/usr/sbin', '/usr/local/bin', '/us
  */
 function capabilityCatalogue(): array
 {
-    $g = static fn(string $group, array $rows): array =>
-        array_map(fn(array $r): array => $r + ['group' => $group], $rows);
+    $g = static fn(string $group, array $rows): array => array_map(
+        fn(array $r): array => $r + ['group' => $group],
+        $rows,
+    );
 
     return array_merge(
         $g('core', [
@@ -76,7 +86,10 @@ function capabilityCatalogue(): array
             ['name' => 'mv', 'does' => 'Move and rename'],
             ['name' => 'rm', 'does' => 'Delete files'],
             ['name' => 'mkdir', 'does' => 'Create directories'],
-            ['name' => 'find', 'does' => 'Search the filesystem by name, size or age'],
+            [
+                'name' => 'find',
+                'does' => 'Search the filesystem by name, size or age',
+            ],
             ['name' => 'grep', 'does' => 'Search inside files'],
             ['name' => 'sed', 'does' => 'Edit text in a stream'],
             ['name' => 'awk', 'does' => 'Field-based text processing'],
@@ -116,42 +129,156 @@ function capabilityCatalogue(): array
             ['name' => 'top', 'does' => 'Live process and CPU view'],
             ['name' => 'free', 'does' => 'Memory in use and available'],
             ['name' => 'uptime', 'does' => 'Load average and time since boot'],
-            ['name' => 'vmstat', 'does' => 'Memory, swap and CPU over time', 'package' => 'procps-ng'],
-            ['name' => 'lsblk', 'does' => 'Block devices and partitions', 'package' => 'util-linux'],
-            ['name' => 'findmnt', 'does' => 'Mount tree, including bind mounts', 'package' => 'util-linux'],
-            ['name' => 'ss', 'does' => 'Open sockets and listening ports', 'package' => 'iproute', 'key' => true],
-            ['name' => 'ip', 'does' => 'Interfaces, addresses and routes', 'package' => 'iproute'],
-            ['name' => 'ping', 'does' => 'Reachability of a host', 'package' => 'iputils'],
-            ['name' => 'traceroute', 'does' => 'Where along a path traffic stops', 'package' => 'traceroute'],
-            ['name' => 'curl', 'does' => 'HTTP checks against a URL', 'package' => 'curl', 'key' => true],
-            ['name' => 'wget', 'does' => 'Fetch over HTTP', 'package' => 'wget'],
-            ['name' => 'ssh', 'does' => 'Connect to another machine', 'package' => 'openssh-clients'],
-            ['name' => 'scp', 'does' => 'Copy files between machines', 'package' => 'openssh-clients'],
-            ['name' => 'sftp', 'does' => 'Interactive file transfer', 'package' => 'openssh-clients'],
-            ['name' => 'openssl', 'does' => 'Certificate and TLS inspection', 'package' => 'openssl'],
-            ['name' => 'systemctl', 'does' => 'Service state and restart counts', 'package' => 'systemd'],
-            ['name' => 'journalctl', 'does' => 'System log, including crashes', 'package' => 'systemd'],
-            ['name' => 'crontab', 'does' => 'Scheduled jobs', 'package' => 'cronie'],
-            ['name' => 'logger', 'does' => 'Write to the system log', 'package' => 'util-linux'],
-            ['name' => 'dmesg', 'does' => 'Kernel messages: OOM kills, disk errors', 'package' => 'util-linux'],
+            [
+                'name' => 'vmstat',
+                'does' => 'Memory, swap and CPU over time',
+                'package' => 'procps-ng',
+            ],
+            [
+                'name' => 'lsblk',
+                'does' => 'Block devices and partitions',
+                'package' => 'util-linux',
+            ],
+            [
+                'name' => 'findmnt',
+                'does' => 'Mount tree, including bind mounts',
+                'package' => 'util-linux',
+            ],
+            [
+                'name' => 'ss',
+                'does' => 'Open sockets and listening ports',
+                'package' => 'iproute',
+                'key' => true,
+            ],
+            [
+                'name' => 'ip',
+                'does' => 'Interfaces, addresses and routes',
+                'package' => 'iproute',
+            ],
+            [
+                'name' => 'ping',
+                'does' => 'Reachability of a host',
+                'package' => 'iputils',
+            ],
+            [
+                'name' => 'traceroute',
+                'does' => 'Where along a path traffic stops',
+                'package' => 'traceroute',
+            ],
+            [
+                'name' => 'curl',
+                'does' => 'HTTP checks against a URL',
+                'package' => 'curl',
+                'key' => true,
+            ],
+            [
+                'name' => 'wget',
+                'does' => 'Fetch over HTTP',
+                'package' => 'wget',
+            ],
+            [
+                'name' => 'ssh',
+                'does' => 'Connect to another machine',
+                'package' => 'openssh-clients',
+            ],
+            [
+                'name' => 'scp',
+                'does' => 'Copy files between machines',
+                'package' => 'openssh-clients',
+            ],
+            [
+                'name' => 'sftp',
+                'does' => 'Interactive file transfer',
+                'package' => 'openssh-clients',
+            ],
+            [
+                'name' => 'openssl',
+                'does' => 'Certificate and TLS inspection',
+                'package' => 'openssl',
+            ],
+            [
+                'name' => 'systemctl',
+                'does' => 'Service state and restart counts',
+                'package' => 'systemd',
+            ],
+            [
+                'name' => 'journalctl',
+                'does' => 'System log, including crashes',
+                'package' => 'systemd',
+            ],
+            [
+                'name' => 'crontab',
+                'does' => 'Scheduled jobs',
+                'package' => 'cronie',
+            ],
+            [
+                'name' => 'logger',
+                'does' => 'Write to the system log',
+                'package' => 'util-linux',
+            ],
+            [
+                'name' => 'dmesg',
+                'does' => 'Kernel messages: OOM kills, disk errors',
+                'package' => 'util-linux',
+            ],
         ]),
 
         $g('dev', [
-            ['name' => 'php', 'does' => 'Run PHP from the command line', 'version_arg' => '-v'],
+            [
+                'name' => 'php',
+                'does' => 'Run PHP from the command line',
+                'version_arg' => '-v',
+            ],
             ['name' => 'perl', 'does' => 'Run Perl', 'version_arg' => '-v'],
             ['name' => 'python3', 'does' => 'Run Python'],
-            ['name' => 'git', 'does' => 'Inspect repositories and history', 'package' => 'git', 'key' => true],
-            ['name' => 'make', 'does' => 'Build from a Makefile', 'package' => 'make'],
+            [
+                'name' => 'git',
+                'does' => 'Inspect repositories and history',
+                'package' => 'git',
+                'key' => true,
+            ],
+            [
+                'name' => 'make',
+                'does' => 'Build from a Makefile',
+                'package' => 'make',
+            ],
             ['name' => 'gcc', 'does' => 'Compile C', 'package' => 'gcc'],
-            ['name' => 'mysql', 'does' => 'Query MySQL/MariaDB directly', 'package' => 'mysql', 'key' => true],
-            ['name' => 'mariadb', 'does' => 'Query MariaDB directly', 'package' => 'mariadb', 'key' => true],
+            [
+                'name' => 'mysql',
+                'does' => 'Query MySQL/MariaDB directly',
+                'package' => 'mysql',
+                'key' => true,
+            ],
+            [
+                'name' => 'mariadb',
+                'does' => 'Query MariaDB directly',
+                'package' => 'mariadb',
+                'key' => true,
+            ],
             ['name' => 'mysqldump', 'does' => 'Back up a database'],
-            ['name' => 'sqlite3', 'does' => 'Query SQLite files', 'package' => 'sqlite', 'key' => true],
+            [
+                'name' => 'sqlite3',
+                'does' => 'Query SQLite files',
+                'package' => 'sqlite',
+                'key' => true,
+            ],
             ['name' => 'composer', 'does' => 'PHP dependency management'],
             ['name' => 'npm', 'does' => 'Node dependency management'],
-            ['name' => 'node', 'does' => 'Run JavaScript', 'version_arg' => '-v'],
-            ['name' => 'wp', 'does' => 'WordPress administration from the shell'],
-            ['name' => 'rsync', 'does' => 'Efficient copies and backups', 'package' => 'rsync', 'key' => true],
+            [
+                'name' => 'node',
+                'does' => 'Run JavaScript',
+                'version_arg' => '-v',
+            ],
+            [
+                'name' => 'wp',
+                'does' => 'WordPress administration from the shell',
+            ],
+            [
+                'name' => 'rsync',
+                'does' => 'Efficient copies and backups',
+                'package' => 'rsync',
+                'key' => true,
+            ],
             /*
              * The backup CLIs, which are the difference between a backup page
              * that knows what is in a backup and one that describes directories.
@@ -162,64 +289,214 @@ function capabilityCatalogue(): array
              * "under another path" rather than missing. `key` because the
              * backups page is unable to say anything useful without one.
              */
-            ['name' => 'jetbackup5api', 'does' => 'What JetBackup 5 has backed up, and when',
-             'package' => 'jetbackup5', 'key' => true, 'version_arg' => '--version'],
-            ['name' => 'jetbackupapi', 'does' => 'What JetBackup 4 has backed up, and when',
-             'package' => 'jetbackup', 'version_arg' => '--version'],
+            [
+                'name' => 'jetbackup5api',
+                'does' => 'What JetBackup 5 has backed up, and when',
+                'package' => 'jetbackup5',
+                'key' => true,
+                'version_arg' => '--version',
+            ],
+            [
+                'name' => 'jetbackupapi',
+                'does' => 'What JetBackup 4 has backed up, and when',
+                'package' => 'jetbackup',
+                'version_arg' => '--version',
+            ],
         ]),
 
         $g('diagnostics', [
-            ['name' => 'htop', 'does' => 'Interactive process view', 'package' => 'htop'],
-            ['name' => 'iotop', 'does' => 'Which process is using the disk', 'package' => 'iotop'],
-            ['name' => 'iostat', 'does' => 'Disk I/O history per device', 'package' => 'sysstat', 'key' => true],
-            ['name' => 'sar', 'does' => 'Historical CPU, memory and I/O', 'package' => 'sysstat', 'key' => true],
-            ['name' => 'lsof', 'does' => 'Open files, including deleted ones holding space',
-             'package' => 'lsof', 'key' => true, 'version_arg' => '-v'],
-            ['name' => 'strace', 'does' => 'What a stuck process is waiting on', 'package' => 'strace', 'key' => true],
-            ['name' => 'tcpdump', 'does' => 'Packet capture', 'package' => 'tcpdump', 'key' => true],
+            [
+                'name' => 'htop',
+                'does' => 'Interactive process view',
+                'package' => 'htop',
+            ],
+            [
+                'name' => 'iotop',
+                'does' => 'Which process is using the disk',
+                'package' => 'iotop',
+            ],
+            [
+                'name' => 'iostat',
+                'does' => 'Disk I/O history per device',
+                'package' => 'sysstat',
+                'key' => true,
+            ],
+            [
+                'name' => 'sar',
+                'does' => 'Historical CPU, memory and I/O',
+                'package' => 'sysstat',
+                'key' => true,
+            ],
+            [
+                'name' => 'lsof',
+                'does' => 'Open files, including deleted ones holding space',
+                'package' => 'lsof',
+                'key' => true,
+                'version_arg' => '-v',
+            ],
+            [
+                'name' => 'strace',
+                'does' => 'What a stuck process is waiting on',
+                'package' => 'strace',
+                'key' => true,
+            ],
+            [
+                'name' => 'tcpdump',
+                'does' => 'Packet capture',
+                'package' => 'tcpdump',
+                'key' => true,
+            ],
             ['name' => 'nmap', 'does' => 'Port scanning', 'package' => 'nmap'],
-            ['name' => 'nc', 'does' => 'Raw TCP connections', 'package' => 'nmap-ncat'],
-            ['name' => 'dig', 'does' => 'DNS diagnostics', 'package' => 'bind-utils', 'key' => true],
-            ['name' => 'host', 'does' => 'Quick DNS lookups', 'package' => 'bind-utils'],
-            ['name' => 'whois', 'does' => 'Domain registration detail', 'package' => 'whois'],
-            ['name' => 'jq', 'does' => 'Parse JSON in scripts', 'package' => 'jq', 'key' => true],
-            ['name' => 'tree', 'does' => 'Directory structure at a glance', 'package' => 'tree'],
-            ['name' => 'ncdu', 'does' => 'Interactive disk usage explorer', 'package' => 'ncdu', 'key' => true],
-            ['name' => 'smartctl', 'does' => 'SMART disk health and failure prediction',
-             'package' => 'smartmontools', 'key' => true],
+            [
+                'name' => 'nc',
+                'does' => 'Raw TCP connections',
+                'package' => 'nmap-ncat',
+            ],
+            [
+                'name' => 'dig',
+                'does' => 'DNS diagnostics',
+                'package' => 'bind-utils',
+                'key' => true,
+            ],
+            [
+                'name' => 'host',
+                'does' => 'Quick DNS lookups',
+                'package' => 'bind-utils',
+            ],
+            [
+                'name' => 'whois',
+                'does' => 'Domain registration detail',
+                'package' => 'whois',
+            ],
+            [
+                'name' => 'jq',
+                'does' => 'Parse JSON in scripts',
+                'package' => 'jq',
+                'key' => true,
+            ],
+            [
+                'name' => 'tree',
+                'does' => 'Directory structure at a glance',
+                'package' => 'tree',
+            ],
+            [
+                'name' => 'ncdu',
+                'does' => 'Interactive disk usage explorer',
+                'package' => 'ncdu',
+                'key' => true,
+            ],
+            [
+                'name' => 'smartctl',
+                'does' => 'SMART disk health and failure prediction',
+                'package' => 'smartmontools',
+                'key' => true,
+            ],
         ]),
 
         $g('media', [
-            ['name' => 'ffmpeg', 'does' => 'Transcode audio and video', 'package' => 'ffmpeg'],
-            ['name' => 'ffprobe', 'does' => 'Inspect media files', 'package' => 'ffmpeg'],
-            ['name' => 'convert', 'does' => 'Resize and convert images', 'package' => 'ImageMagick'],
-            ['name' => 'magick', 'does' => 'ImageMagick 7 entry point', 'package' => 'ImageMagick'],
-            ['name' => 'identify', 'does' => 'Image dimensions and format', 'package' => 'ImageMagick'],
-            ['name' => 'exiftool', 'does' => 'Read and strip image metadata', 'package' => 'perl-Image-ExifTool'],
+            [
+                'name' => 'ffmpeg',
+                'does' => 'Transcode audio and video',
+                'package' => 'ffmpeg',
+            ],
+            [
+                'name' => 'ffprobe',
+                'does' => 'Inspect media files',
+                'package' => 'ffmpeg',
+            ],
+            [
+                'name' => 'convert',
+                'does' => 'Resize and convert images',
+                'package' => 'ImageMagick',
+            ],
+            [
+                'name' => 'magick',
+                'does' => 'ImageMagick 7 entry point',
+                'package' => 'ImageMagick',
+            ],
+            [
+                'name' => 'identify',
+                'does' => 'Image dimensions and format',
+                'package' => 'ImageMagick',
+            ],
+            [
+                'name' => 'exiftool',
+                'does' => 'Read and strip image metadata',
+                'package' => 'perl-Image-ExifTool',
+            ],
         ]),
 
         $g('archive', [
-            ['name' => 'zip', 'does' => 'Create zip archives', 'package' => 'zip'],
-            ['name' => 'unzip', 'does' => 'Extract zip archives', 'package' => 'unzip'],
+            [
+                'name' => 'zip',
+                'does' => 'Create zip archives',
+                'package' => 'zip',
+            ],
+            [
+                'name' => 'unzip',
+                'does' => 'Extract zip archives',
+                'package' => 'unzip',
+            ],
             ['name' => '7z', 'does' => '7-zip archives', 'package' => 'p7zip'],
-            ['name' => 'xz', 'does' => 'High-ratio compression', 'package' => 'xz'],
-            ['name' => 'bzip2', 'does' => 'bzip2 compression', 'package' => 'bzip2'],
-            ['name' => 'zstd', 'does' => 'Fast modern compression', 'package' => 'zstd'],
+            [
+                'name' => 'xz',
+                'does' => 'High-ratio compression',
+                'package' => 'xz',
+            ],
+            [
+                'name' => 'bzip2',
+                'does' => 'bzip2 compression',
+                'package' => 'bzip2',
+            ],
+            [
+                'name' => 'zstd',
+                'does' => 'Fast modern compression',
+                'package' => 'zstd',
+            ],
         ]),
 
         $g('extras', [
-            ['name' => 'redis-cli', 'does' => 'Query Redis directly', 'package' => 'redis', 'key' => true],
-            ['name' => 'mongosh', 'does' => 'Query MongoDB directly', 'key' => true],
+            [
+                'name' => 'redis-cli',
+                'does' => 'Query Redis directly',
+                'package' => 'redis',
+                'key' => true,
+            ],
+            [
+                'name' => 'mongosh',
+                'does' => 'Query MongoDB directly',
+                'key' => true,
+            ],
             ['name' => 'docker', 'does' => 'Container management'],
             ['name' => 'podman', 'does' => 'Rootless containers'],
-            ['name' => 'tmux', 'does' => 'Keep a session alive across disconnects', 'package' => 'tmux'],
-            ['name' => 'screen', 'does' => 'Detachable terminal sessions', 'package' => 'screen'],
+            [
+                'name' => 'tmux',
+                'does' => 'Keep a session alive across disconnects',
+                'package' => 'tmux',
+            ],
+            [
+                'name' => 'screen',
+                'does' => 'Detachable terminal sessions',
+                'package' => 'screen',
+            ],
             ['name' => 'supervisord', 'does' => 'Keep a process running'],
-            ['name' => 'fail2ban-client', 'does' => 'Ban hosts after failed logins', 'package' => 'fail2ban'],
-            ['name' => 'clamdscan', 'does' => 'Virus scanning', 'package' => 'clamav'],
-            ['name' => 'rclone', 'does' => 'Sync to object storage and cloud drives',
-             'package' => 'rclone', 'key' => true],
-        ])
+            [
+                'name' => 'fail2ban-client',
+                'does' => 'Ban hosts after failed logins',
+                'package' => 'fail2ban',
+            ],
+            [
+                'name' => 'clamdscan',
+                'does' => 'Virus scanning',
+                'package' => 'clamav',
+            ],
+            [
+                'name' => 'rclone',
+                'does' => 'Sync to object storage and cloud drives',
+                'package' => 'rclone',
+                'key' => true,
+            ],
+        ]),
     );
 }
 
@@ -259,16 +536,20 @@ function capabilityHelpUrl(string $name): string
         'identify' => 'https://imagemagick.org/script/identify.php',
         'exiftool' => 'https://exiftool.org/exiftool_pod.html',
         'openssl' => 'https://docs.openssl.org/master/man1/openssl/',
-        'systemctl' => 'https://www.freedesktop.org/software/systemd/man/systemctl.html',
-        'journalctl' => 'https://www.freedesktop.org/software/systemd/man/journalctl.html',
-        'smartctl' => 'https://www.smartmontools.org/browser/trunk/smartmontools/smartctl.8.in',
+        'systemctl' =>
+            'https://www.freedesktop.org/software/systemd/man/systemctl.html',
+        'journalctl' =>
+            'https://www.freedesktop.org/software/systemd/man/journalctl.html',
+        'smartctl' =>
+            'https://www.smartmontools.org/browser/trunk/smartmontools/smartctl.8.in',
         'ncdu' => 'https://dev.yorhel.nl/ncdu/man',
         'htop' => 'https://man7.org/linux/man-pages/man1/htop.1.html',
         'supervisord' => 'http://supervisord.org/running.html',
         'fail2ban-client' => 'https://www.fail2ban.org/wiki/index.php/Commands',
         'clamdscan' => 'https://docs.clamav.net/manual/Usage/Scanning.html',
         '7z' => 'https://linux.die.net/man/1/7z',
-        'zstd' => 'https://github.com/facebook/zstd/blob/dev/programs/zstd.1.md',
+        'zstd' =>
+            'https://github.com/facebook/zstd/blob/dev/programs/zstd.1.md',
         'nc' => 'https://man7.org/linux/man-pages/man1/ncat.1.html',
         'wp-cli' => 'https://developer.wordpress.org/cli/commands/',
     ];
@@ -278,13 +559,20 @@ function capabilityHelpUrl(string $name): string
     }
 
     // Section 8 for the ones that live in sbin; section 1 for everything else.
-    static $sectionEight = ['tcpdump', 'traceroute', 'iotop', 'dmesg', 'lsblk', 'findmnt'];
+    static $sectionEight = [
+        'tcpdump',
+        'traceroute',
+        'iotop',
+        'dmesg',
+        'lsblk',
+        'findmnt',
+    ];
 
     return sprintf(
         'https://man7.org/linux/man-pages/man%d/%s.%d.html',
         in_array($name, $sectionEight, true) ? 8 : 1,
         rawurlencode($name),
-        in_array($name, $sectionEight, true) ? 8 : 1
+        in_array($name, $sectionEight, true) ? 8 : 1,
     );
 }
 
@@ -313,7 +601,7 @@ function capabilityList(array $config): array
 {
     $rows = capabilityCatalogue();
 
-    foreach ((array)($config['capabilities']['extra'] ?? []) as $entry) {
+    foreach ((array) ($config['capabilities']['extra'] ?? []) as $entry) {
         if (is_string($entry)) {
             $entry = ['name' => $entry];
         }
@@ -321,19 +609,19 @@ function capabilityList(array $config): array
             continue;
         }
         $rows[] = [
-            'name' => (string)$entry['name'],
-            'does' => (string)($entry['does'] ?? 'Added to the watch list'),
-            'group' => (string)($entry['group'] ?? 'custom'),
+            'name' => (string) $entry['name'],
+            'does' => (string) ($entry['does'] ?? 'Added to the watch list'),
+            'group' => (string) ($entry['group'] ?? 'custom'),
             'package' => $entry['package'] ?? null,
             'version_arg' => $entry['version_arg'] ?? null,
-            'key' => (bool)($entry['key'] ?? false),
+            'key' => (bool) ($entry['key'] ?? false),
         ];
     }
 
     $seen = [];
     $out = [];
     foreach ($rows as $row) {
-        $name = (string)$row['name'];
+        $name = (string) $row['name'];
         if (!preg_match(PROGRAM_NAME_PATTERN, $name) || isset($seen[$name])) {
             continue;
         }
@@ -381,9 +669,17 @@ function capabilityList(array $config): array
 function searchPath(): string
 {
     $extra = [
-        '/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin',
-        '/opt/cpanel/composer/bin', '/usr/local/cpanel/3rdparty/bin',
-        '/opt/puppetlabs/bin', '/usr/local/mysql/bin', '/opt/homebrew/bin',
+        '/usr/local/sbin',
+        '/usr/local/bin',
+        '/usr/sbin',
+        '/usr/bin',
+        '/sbin',
+        '/bin',
+        '/opt/cpanel/composer/bin',
+        '/usr/local/cpanel/3rdparty/bin',
+        '/opt/puppetlabs/bin',
+        '/usr/local/mysql/bin',
+        '/opt/homebrew/bin',
     ];
 
     $home = getenv('HOME');
@@ -392,10 +688,10 @@ function searchPath(): string
         $extra[] = rtrim($home, '/') . '/.local/bin';
     }
 
-    $inherited = (string)(getenv('PATH') ?: '');
+    $inherited = (string) (getenv('PATH') ?: '');
     $parts = array_merge(
         $inherited === '' ? [] : explode(':', $inherited),
-        $extra
+        $extra,
     );
 
     $seen = [];
@@ -414,10 +710,12 @@ function searchPath(): string
 
 function probePaths(array $names, ?string $asUser = null): array
 {
-    $safe = array_values(array_filter(
-        $names,
-        fn(string $n): bool => (bool)preg_match(PROGRAM_NAME_PATTERN, $n)
-    ));
+    $safe = array_values(
+        array_filter(
+            $names,
+            fn(string $n): bool => (bool) preg_match(PROGRAM_NAME_PATTERN, $n),
+        ),
+    );
     if ($safe === []) {
         return [];
     }
@@ -434,9 +732,14 @@ function probePaths(array $names, ?string $asUser = null): array
      * match what the terminal would say, and the searched PATH is reported
      * alongside the result so the claim can be checked rather than believed.
      */
-    $script = 'PATH=' . escapeshellarg(searchPath()) . '; export PATH; '
-        . 'for p in ' . implode(' ', $safe) . '; do '
-        . 'printf "%s\t%s\n" "$p" "$(command -v "$p" 2>/dev/null || true)"; done';
+    $script =
+        'PATH=' .
+        escapeshellarg(searchPath()) .
+        '; export PATH; ' .
+        'for p in ' .
+        implode(' ', $safe) .
+        '; do ' .
+        'printf "%s\t%s\n" "$p" "$(command -v "$p" 2>/dev/null || true)"; done';
 
     if ($asUser !== null) {
         /*
@@ -450,8 +753,12 @@ function probePaths(array $names, ?string $asUser = null): array
         if (!preg_match('/^[A-Za-z0-9._-]{1,32}$/', $asUser)) {
             return [];
         }
-        $command = '/usr/sbin/cagefs_enter_user ' . escapeshellarg($asUser)
-            . ' /bin/sh -c ' . escapeshellarg($script) . ' 2>/dev/null';
+        $command =
+            '/usr/sbin/cagefs_enter_user ' .
+            escapeshellarg($asUser) .
+            ' /bin/sh -c ' .
+            escapeshellarg($script) .
+            ' 2>/dev/null';
     } else {
         $command = '/bin/sh -c ' . escapeshellarg($script) . ' 2>/dev/null';
     }
@@ -494,10 +801,12 @@ function probePaths(array $names, ?string $asUser = null): array
  */
 function probeAlternatePaths(array $names, float $budgetSeconds = 8.0): array
 {
-    $safe = array_values(array_filter(
-        $names,
-        fn(string $n): bool => (bool)preg_match(PROGRAM_NAME_PATTERN, $n)
-    ));
+    $safe = array_values(
+        array_filter(
+            $names,
+            fn(string $n): bool => (bool) preg_match(PROGRAM_NAME_PATTERN, $n),
+        ),
+    );
     if ($safe === []) {
         return [];
     }
@@ -512,14 +821,18 @@ function probeAlternatePaths(array $names, float $budgetSeconds = 8.0): array
         $expressions[] = '-name ' . escapeshellarg($name);
     }
 
-    $command = 'find ' . implode(' ', array_map('escapeshellarg', $roots))
-        . ' -maxdepth 6 -type f -perm -111 \\( ' . implode(' -o ', $expressions) . ' \\) '
-        . '2>/dev/null';
+    $command =
+        'find ' .
+        implode(' ', array_map('escapeshellarg', $roots)) .
+        ' -maxdepth 6 -type f -perm -111 \\( ' .
+        implode(' -o ', $expressions) .
+        ' \\) ' .
+        '2>/dev/null';
 
     // A find over /usr and /opt can run for minutes on a busy host; the whole
     // check is worth a few seconds and no more.
     if (is_executable('/usr/bin/timeout') || is_executable('/bin/timeout')) {
-        $command = 'timeout ' . (int)ceil($budgetSeconds) . ' ' . $command;
+        $command = 'timeout ' . (int) ceil($budgetSeconds) . ' ' . $command;
     }
 
     $out = shellRead($command);
@@ -559,7 +872,7 @@ function probeVersions(array $paths, array $catalogue, int $limit = 140): array
     $keys = [];
     foreach ($catalogue as $row) {
         $args[$row['name']] = $row['version_arg'] ?? '--version';
-        $keys[$row['name']] = (bool)($row['key'] ?? false);
+        $keys[$row['name']] = (bool) ($row['key'] ?? false);
     }
 
     /*
@@ -571,10 +884,14 @@ function probeVersions(array $paths, array $catalogue, int $limit = 140): array
      * it should be spent on the answers somebody asked for.
      */
     $order = array_keys($paths);
-    usort($order, fn(string $a, string $b): int =>
-        (int)($keys[$b] ?? false) <=> (int)($keys[$a] ?? false));
+    usort(
+        $order,
+        fn(string $a, string $b): int => (int) ($keys[$b] ?? false) <=>
+            (int) ($keys[$a] ?? false),
+    );
 
-    $hasTimeout = is_executable('/usr/bin/timeout') || is_executable('/bin/timeout');
+    $hasTimeout =
+        is_executable('/usr/bin/timeout') || is_executable('/bin/timeout');
     $versions = [];
     $done = 0;
 
@@ -652,20 +969,35 @@ function looksLikeVersion(string $line): bool
 {
     $lower = strtolower($line);
 
-    foreach ([
-        'illegal option', 'unrecognized option', 'unrecognised option',
-        'invalid option', 'unknown option', 'usage:', 'no such file',
-        'command not found', 'permission denied', 'try \'', 'try "',
-        // Programs that work fine and clear their throat first.
-        'deprecated', 'warning:', 'notice:', 'fatal error', 'stack trace',
-    ] as $complaint) {
+    foreach (
+        [
+            'illegal option',
+            'unrecognized option',
+            'unrecognised option',
+            'invalid option',
+            'unknown option',
+            'usage:',
+            'no such file',
+            'command not found',
+            'permission denied',
+            'try \'',
+            'try "',
+            // Programs that work fine and clear their throat first.
+            'deprecated',
+            'warning:',
+            'notice:',
+            'fatal error',
+            'stack trace',
+        ]
+        as $complaint
+    ) {
         if (str_contains($lower, $complaint)) {
             return false;
         }
     }
 
     // A version without a number in it is not a version.
-    return (bool)preg_match('/\d/', $line);
+    return (bool) preg_match('/\d/', $line);
 }
 
 /**
@@ -699,9 +1031,10 @@ function cagefsStatus(?string $user = null, ?string $binary = null): array
     // problem, and getting them wrong is how a message ends up describing the
     // wrong account.
     $ctl = null;
-    $candidates = $binary !== null
-        ? [$binary]
-        : ['/usr/sbin/cagefsctl', '/sbin/cagefsctl', '/usr/bin/cagefsctl'];
+    $candidates =
+        $binary !== null
+            ? [$binary]
+            : ['/usr/sbin/cagefsctl', '/sbin/cagefsctl', '/usr/bin/cagefsctl'];
 
     foreach ($candidates as $candidate) {
         if (is_executable($candidate)) {
@@ -716,29 +1049,43 @@ function cagefsStatus(?string $user = null, ?string $binary = null): array
             'user' => $user,
             'enabled' => null,
             'raw' => null,
-            'note' => 'CageFS is not installed on this host, so every account sees the same '
-                . 'filesystem and "installed" means the same thing everywhere.',
+            'note' =>
+                'CageFS is not installed on this host, so every account sees the same ' .
+                'filesystem and "installed" means the same thing everywhere.',
         ];
     }
 
     if ($user === null || !preg_match('/^[A-Za-z0-9._-]{1,32}$/', $user)) {
         return [
-            'installed' => true, 'user' => $user, 'enabled' => null, 'raw' => null,
-            'note' => 'CageFS is installed. Without an account name its status cannot be checked.',
+            'installed' => true,
+            'user' => $user,
+            'enabled' => null,
+            'raw' => null,
+            'note' =>
+                'CageFS is installed. Without an account name its status cannot be checked.',
         ];
     }
 
-    $raw = shellRead($ctl . ' --user-status ' . escapeshellarg($user) . ' 2>&1');
+    $raw = shellRead(
+        $ctl . ' --user-status ' . escapeshellarg($user) . ' 2>&1',
+    );
     if ($raw === null) {
         return [
-            'installed' => true, 'user' => $user, 'enabled' => null, 'raw' => null,
-            'note' => 'CageFS is installed but cagefsctl could not be run - this needs root.',
+            'installed' => true,
+            'user' => $user,
+            'enabled' => null,
+            'raw' => null,
+            'note' =>
+                'CageFS is installed but cagefsctl could not be run - this needs root.',
         ];
     }
 
     $text = trim($raw);
     $enabled = null;
-    if (preg_match('/\bEnabled\b/i', $text) && !preg_match('/\bNot enabled|Disabled\b/i', $text)) {
+    if (
+        preg_match('/\bEnabled\b/i', $text) &&
+        !preg_match('/\bNot enabled|Disabled\b/i', $text)
+    ) {
         $enabled = true;
     } elseif (preg_match('/\bDisabled|Not enabled\b/i', $text)) {
         $enabled = false;
@@ -756,20 +1103,24 @@ function cagefsStatus(?string $user = null, ?string $binary = null): array
          * somebody else, so "this account" reads as whoever is at the terminal
          * - which is exactly the account it is not talking about.
          */
-        'note' => $enabled === true
-            ? sprintf(
-                '%s is inside CageFS, so that account sees a curated filesystem rather than '
-                . 'the host\'s. A program missing there may be installed here and simply not '
-                . 'exposed.',
-                $user
-            )
-            : ($enabled === false
+        'note' =>
+            $enabled === true
                 ? sprintf(
-                    'CageFS is installed but %s is not caged, so that account sees the host '
-                    . 'filesystem directly.',
-                    $user
+                    '%s is inside CageFS, so that account sees a curated filesystem rather than ' .
+                        'the host\'s. A program missing there may be installed here and simply not ' .
+                        'exposed.',
+                    $user,
                 )
-                : sprintf('CageFS is installed; the status of %s could not be read.', $user)),
+                : ($enabled === false
+                    ? sprintf(
+                        'CageFS is installed but %s is not caged, so that account sees the host ' .
+                            'filesystem directly.',
+                        $user,
+                    )
+                    : sprintf(
+                        'CageFS is installed; the status of %s could not be read.',
+                        $user,
+                    )),
     ];
 }
 
@@ -806,7 +1157,9 @@ function probeSources(array $paths): array
     if ($rpm !== null && $paths !== []) {
         $names = array_keys($paths);
         $args = implode(' ', array_map('escapeshellarg', array_values($paths)));
-        $raw = shellRead($rpm . ' -qf --queryformat "%{NAME}\n" ' . $args . ' 2>&1');
+        $raw = shellRead(
+            $rpm . ' -qf --queryformat "%{NAME}\n" ' . $args . ' 2>&1',
+        );
 
         if ($raw !== null) {
             $lines = preg_split('/\R/', trim($raw)) ?: [];
@@ -814,18 +1167,21 @@ function probeSources(array $paths): array
                 $line = trim($lines[$i] ?? '');
                 // "file ... is not owned by any package" is rpm telling us it
                 // was installed by hand, which is a real answer.
-                $out[$name] = ($line === '' || str_contains($line, 'not owned'))
-                    ? 'custom'
-                    : $line;
+                $out[$name] =
+                    $line === '' || str_contains($line, 'not owned')
+                        ? 'custom'
+                        : $line;
             }
             return $out;
         }
     }
 
     foreach ($paths as $name => $path) {
-        $out[$name] = str_starts_with($path, '/usr/local/') || str_starts_with($path, '/opt/')
-            ? 'custom?'
-            : 'unknown';
+        $out[$name] =
+            str_starts_with($path, '/usr/local/') ||
+            str_starts_with($path, '/opt/')
+                ? 'custom?'
+                : 'unknown';
     }
 
     return $out;
@@ -841,10 +1197,10 @@ function probeSources(array $paths): array
 function capabilityState(array $row): array
 {
     $inAccount = ($row['account_path'] ?? '') !== '';
-    $executable = (bool)($row['executable'] ?? false);
+    $executable = (bool) ($row['executable'] ?? false);
     $alternate = ($row['alternate_path'] ?? '') !== '';
-    $onHost = (bool)($row['on_host'] ?? false);
-    $caged = (bool)($row['caged'] ?? false);
+    $onHost = (bool) ($row['on_host'] ?? false);
+    $caged = (bool) ($row['caged'] ?? false);
 
     if ($inAccount && $executable) {
         return ['state' => 'available', 'reason' => null];
@@ -853,15 +1209,20 @@ function capabilityState(array $row): array
     if ($inAccount && !$executable) {
         return [
             'state' => 'unusable',
-            'reason' => 'Found at ' . $row['account_path'] . ' but this account cannot execute it.',
+            'reason' =>
+                'Found at ' .
+                $row['account_path'] .
+                ' but this account cannot execute it.',
         ];
     }
 
     if ($alternate) {
         return [
             'state' => 'alternate',
-            'reason' => 'Not on PATH, but present at ' . $row['alternate_path']
-                . '. Call it by its full path, or ask for it to be linked onto PATH.',
+            'reason' =>
+                'Not on PATH, but present at ' .
+                $row['alternate_path'] .
+                '. Call it by its full path, or ask for it to be linked onto PATH.',
         ];
     }
 
@@ -869,16 +1230,17 @@ function capabilityState(array $row): array
         return [
             'state' => 'host_only',
             'reason' => $caged
-                ? 'Installed on the host and not exposed through CageFS. This needs a CageFS '
-                  . 'configuration change, not an installation.'
+                ? 'Installed on the host and not exposed through CageFS. This needs a CageFS ' .
+                    'configuration change, not an installation.'
                 : 'Present on the host but not reachable from this account\'s PATH.',
         ];
     }
 
     return [
         'state' => 'missing',
-        'reason' => 'Not found on the host either. This one needs installing'
-            . (($row['package'] ?? null) ? ' (' . $row['package'] . ').' : '.'),
+        'reason' =>
+            'Not found on the host either. This one needs installing' .
+            ($row['package'] ?? null ? ' (' . $row['package'] . ').' : '.'),
     ];
 }
 
@@ -894,7 +1256,7 @@ function probeCapabilities(
     array $config,
     ?string $asUser = null,
     bool $withVersions = true,
-    bool $withAlternates = true
+    bool $withAlternates = true,
 ): array {
     $started = microtime(true);
     $catalogue = capabilityList($config);
@@ -904,9 +1266,10 @@ function probeCapabilities(
     $paths = probePaths($names, $asUser);
 
     $missing = array_values(array_diff($names, array_keys($paths)));
-    $alternates = $withAlternates && $asUser === null
-        ? probeAlternatePaths($missing)
-        : [];
+    $alternates =
+        $withAlternates && $asUser === null
+            ? probeAlternatePaths($missing)
+            : [];
 
     $versions = $withVersions ? probeVersions($paths, $catalogue) : [];
     $sources = probeSources($paths);
@@ -921,7 +1284,7 @@ function probeCapabilities(
             'group_name' => $entry['group'],
             'does' => $entry['does'],
             'package' => $entry['package'],
-            'key' => (bool)$entry['key'],
+            'key' => (bool) $entry['key'],
             'path' => $path,
             /*
              * is_executable() rather than trusting the -x that found it.
@@ -942,9 +1305,10 @@ function probeCapabilities(
              * where "the file is different from Tuesday's" is the only change
              * detection available.
              */
-            'fingerprint' => ($versions[$name] ?? '') === '' && $path !== ''
-                ? (fileFingerprint($path) ?? '')
-                : '',
+            'fingerprint' =>
+                ($versions[$name] ?? '') === '' && $path !== ''
+                    ? fileFingerprint($path) ?? ''
+                    : '',
             'source' => $sources[$name] ?? '',
         ];
     }
@@ -966,34 +1330,37 @@ function probeCapabilities(
  * @param list<array> $account rows from probeCapabilities() run as the account
  * @param list<array> $host    rows from the host collector, or []
  */
-function mergeCapabilities(array $account, array $host, array $cagefs = []): array
-{
+function mergeCapabilities(
+    array $account,
+    array $host,
+    array $cagefs = [],
+): array {
     $byName = [];
     foreach ($host as $row) {
-        $byName[(string)$row['name']] = $row;
+        $byName[(string) $row['name']] = $row;
     }
 
-    $caged = (bool)($cagefs['enabled'] ?? false);
+    $caged = (bool) ($cagefs['enabled'] ?? false);
     $out = [];
 
     foreach ($account as $row) {
-        $name = (string)$row['name'];
+        $name = (string) $row['name'];
         $hostRow = $byName[$name] ?? null;
 
         $merged = [
             'name' => $name,
-            'group_name' => (string)$row['group_name'],
-            'does' => (string)$row['does'],
+            'group_name' => (string) $row['group_name'],
+            'does' => (string) $row['does'],
             'package' => $row['package'],
-            'key' => (bool)$row['key'],
-            'account_path' => (string)$row['path'],
-            'executable' => (bool)$row['executable'],
-            'alternate_path' => (string)($row['alternate_path'] ?? ''),
-            'version' => (string)($row['version'] ?? ''),
+            'key' => (bool) $row['key'],
+            'account_path' => (string) $row['path'],
+            'executable' => (bool) $row['executable'],
+            'alternate_path' => (string) ($row['alternate_path'] ?? ''),
+            'version' => (string) ($row['version'] ?? ''),
             // The number on its own, for the column; the full line travels with
             // it so nothing is lost to the shortening.
-            'version_short' => shortVersion((string)($row['version'] ?? '')),
-            'source' => (string)($row['source'] ?? ''),
+            'version_short' => shortVersion((string) ($row['version'] ?? '')),
+            'source' => (string) ($row['source'] ?? ''),
             /*
              * Absent host data is not evidence of absence.
              *
@@ -1003,27 +1370,31 @@ function mergeCapabilities(array $account, array $host, array $cagefs = []): arr
              * them are installed and merely not exposed.
              */
             'host_known' => $hostRow !== null,
-            'on_host' => $hostRow !== null && (string)$hostRow['path'] !== '',
-            'host_path' => $hostRow === null ? '' : (string)$hostRow['path'],
-            'host_version' => $hostRow === null ? '' : (string)($hostRow['version'] ?? ''),
-            'host_version_short' => $hostRow === null
-                ? '' : shortVersion((string)($hostRow['version'] ?? '')),
+            'on_host' => $hostRow !== null && (string) $hostRow['path'] !== '',
+            'host_path' => $hostRow === null ? '' : (string) $hostRow['path'],
+            'host_version' =>
+                $hostRow === null ? '' : (string) ($hostRow['version'] ?? ''),
+            'host_version_short' =>
+                $hostRow === null
+                    ? ''
+                    : shortVersion((string) ($hostRow['version'] ?? '')),
             'caged' => $caged,
         ];
 
         // The host knows the package where the account cannot see the binary.
         if ($merged['source'] === '' && $hostRow !== null) {
-            $merged['source'] = (string)($hostRow['source'] ?? '');
+            $merged['source'] = (string) ($hostRow['source'] ?? '');
         }
 
-        $merged['help'] = (string)($row['help'] ?? '');
+        $merged['help'] = (string) ($row['help'] ?? '');
 
         $verdict = capabilityState($merged);
         if (!$merged['host_known'] && $verdict['state'] === 'missing') {
             $verdict = [
                 'state' => 'unknown_host',
-                'reason' => 'Not reachable from this account. Whether the host has it is '
-                    . 'unknown - that needs the host collector.',
+                'reason' =>
+                    'Not reachable from this account. Whether the host has it is ' .
+                    'unknown - that needs the host collector.',
             ];
         }
 
@@ -1053,21 +1424,34 @@ function mergeCapabilities(array $account, array $host, array $cagefs = []): arr
 /** A one-line summary of how much of the catalogue is actually usable. */
 function capabilitySummary(array $rows): array
 {
-    $counts = ['available' => 0, 'alternate' => 0, 'host_only' => 0,
-               'unusable' => 0, 'missing' => 0, 'unknown_host' => 0];
+    $counts = [
+        'available' => 0,
+        'alternate' => 0,
+        'host_only' => 0,
+        'unusable' => 0,
+        'missing' => 0,
+        'unknown_host' => 0,
+    ];
 
     foreach ($rows as $row) {
-        $state = (string)$row['state'];
+        $state = (string) $row['state'];
         $counts[$state] = ($counts[$state] ?? 0) + 1;
     }
 
-    $key = array_values(array_filter($rows, fn(array $r): bool => (bool)$r['key']));
+    $key = array_values(
+        array_filter($rows, fn(array $r): bool => (bool) $r['key']),
+    );
 
     return [
         'total' => count($rows),
         'counts' => $counts,
         'key_total' => count($key),
-        'key_available' => count(array_filter($key, fn(array $r): bool => $r['state'] === 'available')),
+        'key_available' => count(
+            array_filter(
+                $key,
+                fn(array $r): bool => $r['state'] === 'available',
+            ),
+        ),
     ];
 }
 
@@ -1090,23 +1474,39 @@ function storeCapabilities(PDO $pdo, array $probe): int
          * depends on doing this in the right order inside the same transaction.
          */
         $before = [];
-        foreach ($pdo->query('SELECT * FROM capabilities')->fetchAll(PDO::FETCH_ASSOC) as $row) {
-            $before[(string)$row['name']] = $row;
+        foreach (
+            $pdo
+                ->query('SELECT * FROM capabilities')
+                ->fetchAll(PDO::FETCH_ASSOC)
+            as $row
+        ) {
+            $before[(string) $row['name']] = $row;
         }
 
-        $changes = detectCapabilityChanges($before, $probe['rows'], 'account', $before !== []);
+        $changes = detectCapabilityChanges(
+            $before,
+            $probe['rows'],
+            'account',
+            $before !== [],
+        );
         $log = $pdo->prepare(
             'INSERT INTO capability_changes (at, name, group_name, side,
                 old_state, new_state, old_version, new_version,
                 old_fingerprint, new_fingerprint)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
         );
         foreach ($changes as $change) {
             $log->execute([
-                $at, $change['name'], $change['group_name'], $change['side'],
-                $change['old_state'], $change['new_state'],
-                $change['old_version'], $change['new_version'],
-                $change['old_fingerprint'] ?? '', $change['new_fingerprint'] ?? '',
+                $at,
+                $change['name'],
+                $change['group_name'],
+                $change['side'],
+                $change['old_state'],
+                $change['new_state'],
+                $change['old_version'],
+                $change['new_version'],
+                $change['old_fingerprint'] ?? '',
+                $change['new_fingerprint'] ?? '',
             ]);
         }
 
@@ -1124,7 +1524,7 @@ function storeCapabilities(PDO $pdo, array $probe): int
         $insert = $pdo->prepare(
             'INSERT INTO capabilities (name, group_name, checked_at, path, executable,
                 alternate_path, version, source, fingerprint)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
         );
         $found = 0;
         foreach ($probe['rows'] as $row) {
@@ -1140,21 +1540,33 @@ function storeCapabilities(PDO $pdo, array $probe): int
              * something working exactly as intended.
              */
             $insert->execute([
-                $row['name'], $row['group_name'], $at, $row['path'] ?? '',
-                ($row['executable'] ?? false) ? 1 : 0, $row['alternate_path'] ?? '',
-                $row['version'] ?? '', $row['source'] ?? '', $row['fingerprint'] ?? '',
+                $row['name'],
+                $row['group_name'],
+                $at,
+                $row['path'] ?? '',
+                $row['executable'] ?? false ? 1 : 0,
+                $row['alternate_path'] ?? '',
+                $row['version'] ?? '',
+                $row['source'] ?? '',
+                $row['fingerprint'] ?? '',
             ]);
         }
 
         $pdo->prepare(
             'INSERT INTO capability_runs (ran_at, seconds, found, total,
                 cagefs_installed, cagefs_enabled, cagefs_note)
-             VALUES (?, ?, ?, ?, ?, ?, ?)'
+             VALUES (?, ?, ?, ?, ?, ?, ?)',
         )->execute([
-            $at, $probe['seconds'], $found, count($probe['rows']),
-            ($probe['cagefs']['installed'] ?? false) ? 1 : 0,
+            $at,
+            $probe['seconds'],
+            $found,
+            count($probe['rows']),
+            $probe['cagefs']['installed'] ?? false ? 1 : 0,
             ($probe['cagefs']['enabled'] ?? null) === null
-                ? null : (($probe['cagefs']['enabled']) ? 1 : 0),
+                ? null
+                : ($probe['cagefs']['enabled']
+                    ? 1
+                    : 0),
             $probe['cagefs']['note'] ?? null,
         ]);
 
@@ -1185,8 +1597,12 @@ function storeCapabilities(PDO $pdo, array $probe): int
  * @param list<array> $after
  * @return list<array>
  */
-function detectCapabilityChanges(array $before, array $after, string $side, bool $hadPrevious): array
-{
+function detectCapabilityChanges(
+    array $before,
+    array $after,
+    string $side,
+    bool $hadPrevious,
+): array {
     if (!$hadPrevious) {
         return [];
     }
@@ -1194,11 +1610,11 @@ function detectCapabilityChanges(array $before, array $after, string $side, bool
     $changes = [];
 
     foreach ($after as $row) {
-        $name = (string)$row['name'];
+        $name = (string) $row['name'];
         $old = $before[$name] ?? null;
 
         $newState = capabilitySideState($row, $side);
-        $newVersion = (string)($row['version'] ?? '');
+        $newVersion = (string) ($row['version'] ?? '');
 
         if ($old === null) {
             /*
@@ -1212,20 +1628,27 @@ function detectCapabilityChanges(array $before, array $after, string $side, bool
                 continue;
             }
             $changes[] = [
-                'name' => $name, 'group_name' => (string)$row['group_name'], 'side' => $side,
-                'old_state' => 'unwatched', 'new_state' => $newState,
-                'old_version' => '', 'new_version' => $newVersion,
+                'name' => $name,
+                'group_name' => (string) $row['group_name'],
+                'side' => $side,
+                'old_state' => 'unwatched',
+                'new_state' => $newState,
+                'old_version' => '',
+                'new_version' => $newVersion,
             ];
             continue;
         }
 
-        $oldState = capabilitySideState([
-            'path' => (string)($old['path'] ?? ''),
-            'executable' => (bool)($old['executable'] ?? false),
-        ], $side);
-        $oldVersion = (string)($old['version'] ?? '');
-        $oldMark = (string)($old['fingerprint'] ?? '');
-        $newMark = (string)($row['fingerprint'] ?? '');
+        $oldState = capabilitySideState(
+            [
+                'path' => (string) ($old['path'] ?? ''),
+                'executable' => (bool) ($old['executable'] ?? false),
+            ],
+            $side,
+        );
+        $oldVersion = (string) ($old['version'] ?? '');
+        $oldMark = (string) ($old['fingerprint'] ?? '');
+        $newMark = (string) ($row['fingerprint'] ?? '');
 
         /*
          * The fingerprint counts as a change, but only where there is no
@@ -1235,10 +1658,18 @@ function detectCapabilityChanges(array $before, array $after, string $side, bool
          * changed - the probe got luckier - and reporting that as an upgrade
          * would fill the history with events nobody caused.
          */
-        $markMoved = $oldVersion === '' && $newVersion === ''
-            && $oldMark !== '' && $newMark !== '' && $oldMark !== $newMark;
+        $markMoved =
+            $oldVersion === '' &&
+            $newVersion === '' &&
+            $oldMark !== '' &&
+            $newMark !== '' &&
+            $oldMark !== $newMark;
 
-        if ($oldState === $newState && $oldVersion === $newVersion && !$markMoved) {
+        if (
+            $oldState === $newState &&
+            $oldVersion === $newVersion &&
+            !$markMoved
+        ) {
             continue;
         }
 
@@ -1249,15 +1680,24 @@ function detectCapabilityChanges(array $before, array $after, string $side, bool
          * without it would otherwise report every program as having lost its
          * version - a hundred fabricated events from a cheaper check.
          */
-        if ($oldState === $newState && $newVersion === '' && $oldVersion !== '') {
+        if (
+            $oldState === $newState &&
+            $newVersion === '' &&
+            $oldVersion !== ''
+        ) {
             continue;
         }
 
         $changes[] = [
-            'name' => $name, 'group_name' => (string)$row['group_name'], 'side' => $side,
-            'old_state' => $oldState, 'new_state' => $newState,
-            'old_version' => $oldVersion, 'new_version' => $newVersion,
-            'old_fingerprint' => $oldMark, 'new_fingerprint' => $newMark,
+            'name' => $name,
+            'group_name' => (string) $row['group_name'],
+            'side' => $side,
+            'old_state' => $oldState,
+            'new_state' => $newState,
+            'old_version' => $oldVersion,
+            'new_version' => $newVersion,
+            'old_fingerprint' => $oldMark,
+            'new_fingerprint' => $newMark,
         ];
     }
 
@@ -1274,7 +1714,7 @@ function detectCapabilityChanges(array $before, array $after, string $side, bool
  */
 function capabilitySideState(array $row, string $side): string
 {
-    $path = (string)($row['path'] ?? '');
+    $path = (string) ($row['path'] ?? '');
 
     if ($side === 'host') {
         return $path === '' ? 'absent' : 'present';
@@ -1284,32 +1724,51 @@ function capabilitySideState(array $row, string $side): string
         return 'absent';
     }
 
-    return ($row['executable'] ?? false) ? 'available' : 'unusable';
+    return $row['executable'] ?? false ? 'available' : 'unusable';
 }
 
 /** Writes a host-side probe. */
-function storeHostCapabilities(PDO $host, array $probe, array $inCage, ?string $user): void
-{
+function storeHostCapabilities(
+    PDO $host,
+    array $probe,
+    array $inCage,
+    ?string $user,
+): void {
     $host->beginTransaction();
     try {
         $at = time();
 
         $before = [];
-        foreach ($host->query('SELECT * FROM host_capabilities')->fetchAll(PDO::FETCH_ASSOC) as $row) {
-            $before[(string)$row['name']] = $row;
+        foreach (
+            $host
+                ->query('SELECT * FROM host_capabilities')
+                ->fetchAll(PDO::FETCH_ASSOC)
+            as $row
+        ) {
+            $before[(string) $row['name']] = $row;
         }
 
-        $changes = detectCapabilityChanges($before, $probe['rows'], 'host', $before !== []);
+        $changes = detectCapabilityChanges(
+            $before,
+            $probe['rows'],
+            'host',
+            $before !== [],
+        );
         $log = $host->prepare(
             'INSERT INTO host_capability_changes (at, name, group_name, side,
                 old_state, new_state, old_version, new_version)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
         );
         foreach ($changes as $change) {
             $log->execute([
-                $at, $change['name'], $change['group_name'], $change['side'],
-                $change['old_state'], $change['new_state'],
-                $change['old_version'], $change['new_version'],
+                $at,
+                $change['name'],
+                $change['group_name'],
+                $change['side'],
+                $change['old_state'],
+                $change['new_state'],
+                $change['old_version'],
+                $change['new_version'],
             ]);
         }
 
@@ -1318,7 +1777,7 @@ function storeHostCapabilities(PDO $host, array $probe, array $inCage, ?string $
         $insert = $host->prepare(
             'INSERT INTO host_capabilities (name, group_name, checked_at, path, executable,
                 version, source, account_path, account_seen)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
         );
 
         $onHost = 0;
@@ -1332,23 +1791,39 @@ function storeHostCapabilities(PDO $host, array $probe, array $inCage, ?string $
                 $seen++;
             }
             $insert->execute([
-                $row['name'], $row['group_name'], $at, $row['path'] ?? '',
-                ($row['executable'] ?? false) ? 1 : 0, $row['version'] ?? '',
-                $row['source'] ?? '', $accountPath, $accountPath !== '' ? 1 : 0,
+                $row['name'],
+                $row['group_name'],
+                $at,
+                $row['path'] ?? '',
+                $row['executable'] ?? false ? 1 : 0,
+                $row['version'] ?? '',
+                $row['source'] ?? '',
+                $accountPath,
+                $accountPath !== '' ? 1 : 0,
             ]);
         }
 
-        $host->prepare(
-            'INSERT INTO host_capability_runs (ran_at, seconds, total, on_host, seen_by_account,
+        $host
+            ->prepare(
+                'INSERT INTO host_capability_runs (ran_at, seconds, total, on_host, seen_by_account,
                 user, cagefs_installed, cagefs_enabled, cagefs_note)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'
-        )->execute([
-            $at, $probe['seconds'], count($probe['rows']), $onHost, $seen, $user,
-            ($probe['cagefs']['installed'] ?? false) ? 1 : 0,
-            ($probe['cagefs']['enabled'] ?? null) === null
-                ? null : (($probe['cagefs']['enabled']) ? 1 : 0),
-            $probe['cagefs']['note'] ?? null,
-        ]);
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            )
+            ->execute([
+                $at,
+                $probe['seconds'],
+                count($probe['rows']),
+                $onHost,
+                $seen,
+                $user,
+                $probe['cagefs']['installed'] ?? false ? 1 : 0,
+                ($probe['cagefs']['enabled'] ?? null) === null
+                    ? null
+                    : ($probe['cagefs']['enabled']
+                        ? 1
+                        : 0),
+                $probe['cagefs']['note'] ?? null,
+            ]);
 
         $host->commit();
     } catch (Throwable $e) {
@@ -1370,34 +1845,40 @@ function capabilityReport(array $config, PDO $pdo, ?PDO $host): array
         $catalogue[$row['name']] = $row;
     }
 
-    $stored = $pdo->query('SELECT * FROM capabilities')->fetchAll(PDO::FETCH_ASSOC);
-    $run = $pdo->query('SELECT * FROM capability_runs ORDER BY ran_at DESC LIMIT 1')
+    $stored = $pdo
+        ->query('SELECT * FROM capabilities')
+        ->fetchAll(PDO::FETCH_ASSOC);
+    $run = $pdo
+        ->query('SELECT * FROM capability_runs ORDER BY ran_at DESC LIMIT 1')
         ->fetch(PDO::FETCH_ASSOC);
 
     if (!$stored) {
         return [
             'available' => false,
             'reason' => 'Nothing has been checked yet. Press Check now.',
-            'rows' => [], 'groups' => capabilityGroups(), 'summary' => null,
-            'cagefs' => null, 'host' => null,
+            'rows' => [],
+            'groups' => capabilityGroups(),
+            'summary' => null,
+            'cagefs' => null,
+            'host' => null,
         ];
     }
 
     $account = [];
     foreach ($stored as $row) {
-        $entry = $catalogue[(string)$row['name']] ?? null;
+        $entry = $catalogue[(string) $row['name']] ?? null;
         $account[] = [
-            'name' => (string)$row['name'],
-            'group_name' => (string)$row['group_name'],
-            'does' => (string)($entry['does'] ?? ''),
+            'name' => (string) $row['name'],
+            'group_name' => (string) $row['group_name'],
+            'does' => (string) ($entry['does'] ?? ''),
             'package' => $entry['package'] ?? null,
-            'key' => (bool)($entry['key'] ?? false),
-            'help' => (string)($entry['help'] ?? ''),
-            'path' => (string)($row['path'] ?? ''),
-            'executable' => (bool)$row['executable'],
-            'alternate_path' => (string)($row['alternate_path'] ?? ''),
-            'version' => (string)($row['version'] ?? ''),
-            'source' => (string)($row['source'] ?? ''),
+            'key' => (bool) ($entry['key'] ?? false),
+            'help' => (string) ($entry['help'] ?? ''),
+            'path' => (string) ($row['path'] ?? ''),
+            'executable' => (bool) $row['executable'],
+            'alternate_path' => (string) ($row['alternate_path'] ?? ''),
+            'version' => (string) ($row['version'] ?? ''),
+            'source' => (string) ($row['source'] ?? ''),
         ];
     }
 
@@ -1405,10 +1886,14 @@ function capabilityReport(array $config, PDO $pdo, ?PDO $host): array
     $hostRun = null;
     if ($host !== null) {
         try {
-            $hostRows = $host->query('SELECT * FROM host_capabilities')->fetchAll(PDO::FETCH_ASSOC);
-            $hostRun = $host->query(
-                'SELECT * FROM host_capability_runs ORDER BY ran_at DESC LIMIT 1'
-            )->fetch(PDO::FETCH_ASSOC);
+            $hostRows = $host
+                ->query('SELECT * FROM host_capabilities')
+                ->fetchAll(PDO::FETCH_ASSOC);
+            $hostRun = $host
+                ->query(
+                    'SELECT * FROM host_capability_runs ORDER BY ran_at DESC LIMIT 1',
+                )
+                ->fetch(PDO::FETCH_ASSOC);
         } catch (Throwable) {
             // An older host database has no such table, which simply means the
             // host side has never been asked.
@@ -1417,11 +1902,16 @@ function capabilityReport(array $config, PDO $pdo, ?PDO $host): array
     }
 
     $cagefs = [
-        'installed' => (bool)($hostRun['cagefs_installed'] ?? $run['cagefs_installed'] ?? false),
+        'installed' =>
+            (bool) ($hostRun['cagefs_installed'] ??
+                ($run['cagefs_installed'] ?? false)),
         'enabled' => isset($hostRun['cagefs_enabled'])
-            ? (bool)$hostRun['cagefs_enabled']
-            : (isset($run['cagefs_enabled']) ? (bool)$run['cagefs_enabled'] : null),
-        'note' => (string)($hostRun['cagefs_note'] ?? $run['cagefs_note'] ?? ''),
+            ? (bool) $hostRun['cagefs_enabled']
+            : (isset($run['cagefs_enabled'])
+                ? (bool) $run['cagefs_enabled']
+                : null),
+        'note' =>
+            (string) ($hostRun['cagefs_note'] ?? ($run['cagefs_note'] ?? '')),
         'user' => $hostRun['user'] ?? null,
     ];
 
@@ -1434,9 +1924,9 @@ function capabilityReport(array $config, PDO $pdo, ?PDO $host): array
         'groups' => capabilityGroups(),
         'summary' => capabilitySummary($rows),
         'cagefs' => $cagefs,
-        'checked_at' => (int)($run['ran_at'] ?? 0),
-        'seconds' => (float)($run['seconds'] ?? 0),
-        'host_checked_at' => $hostRun ? (int)$hostRun['ran_at'] : null,
+        'checked_at' => (int) ($run['ran_at'] ?? 0),
+        'seconds' => (float) ($run['seconds'] ?? 0),
+        'host_checked_at' => $hostRun ? (int) $hostRun['ran_at'] : null,
         /*
          * Where it looked, so "not installed" can be checked rather than
          * believed. A program on a PATH this did not search is present and
@@ -1493,7 +1983,7 @@ function cagefsExposeSnippet(string $program, string $path): array
         "[%s]\ncomment=%s - exposed for the disk monitor\npaths=%s\n",
         $program,
         $program,
-        $path
+        $path,
     );
 
     /*
@@ -1510,7 +2000,7 @@ function cagefsExposeSnippet(string $program, string $path): array
         'commands' => array_merge(
             [sprintf('cat > %s <<\'EOF\'', $file)],
             explode("\n", rtrim($contents, "\n")),
-            ['EOF', 'cagefsctl --force-update']
+            ['EOF', 'cagefsctl --force-update'],
         ),
     ];
 }
@@ -1560,14 +2050,21 @@ function changeBucketStart(int $at, int $bucket): int
         return intdiv($at, $bucket) * $bucket;
     }
 
-    $midnight = (int)mktime(0, 0, 0, (int)date('n', $at), (int)date('j', $at), (int)date('Y', $at));
+    $midnight = (int) mktime(
+        0,
+        0,
+        0,
+        (int) date('n', $at),
+        (int) date('j', $at),
+        (int) date('Y', $at),
+    );
 
     if ($bucket < 604800) {
         return $midnight;
     }
 
     // Weeks begin on Monday: date('N') is 1 for Monday through 7 for Sunday.
-    return $midnight - ((int)date('N', $at) - 1) * 86400;
+    return $midnight - ((int) date('N', $at) - 1) * 86400;
 }
 
 /**
@@ -1579,17 +2076,27 @@ function changeBucketStart(int $at, int $bucket): int
  * once as the account noticing, and those are genuinely two observations rather
  * than a duplicate: on a caged box they can be days apart.
  */
-function capabilityChanges(array $config, PDO $pdo, ?PDO $host, int $from, int $to, int $limit = 800): array
-{
+function capabilityChanges(
+    array $config,
+    PDO $pdo,
+    ?PDO $host,
+    int $from,
+    int $to,
+    int $limit = 800,
+): array {
     $rows = [];
 
-    $read = static function (?PDO $db, string $table) use ($from, $to, &$rows): void {
+    $read = static function (?PDO $db, string $table) use (
+        $from,
+        $to,
+        &$rows,
+    ): void {
         if ($db === null) {
             return;
         }
         try {
             $stmt = $db->prepare(
-                "SELECT * FROM $table WHERE at BETWEEN ? AND ? ORDER BY at DESC"
+                "SELECT * FROM $table WHERE at BETWEEN ? AND ? ORDER BY at DESC",
             );
             $stmt->execute([$from, $to]);
             foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
@@ -1603,7 +2110,10 @@ function capabilityChanges(array $config, PDO $pdo, ?PDO $host, int $from, int $
     $read($pdo, 'capability_changes');
     $read($host, 'host_capability_changes');
 
-    usort($rows, fn(array $a, array $b): int => (int)$b['at'] <=> (int)$a['at']);
+    usort(
+        $rows,
+        fn(array $a, array $b): int => (int) $b['at'] <=> (int) $a['at'],
+    );
 
     $catalogue = [];
     foreach (capabilityList($config) as $entry) {
@@ -1616,37 +2126,39 @@ function capabilityChanges(array $config, PDO $pdo, ?PDO $host, int $from, int $
     $groups = [];
 
     foreach ($rows as $row) {
-        $group = (string)$row['group_name'];
+        $group = (string) $row['group_name'];
         $groups[$group] = true;
 
-        $key = changeBucketStart((int)$row['at'], $bucket);
+        $key = changeBucketStart((int) $row['at'], $bucket);
         $buckets[$key] ??= ['at' => $key, 'total' => 0, 'counts' => []];
         $buckets[$key]['total']++;
-        $buckets[$key]['counts'][$group] = ($buckets[$key]['counts'][$group] ?? 0) + 1;
+        $buckets[$key]['counts'][$group] =
+            ($buckets[$key]['counts'][$group] ?? 0) + 1;
     }
 
     ksort($buckets);
 
-    $detailed = array_map(
-        static function (array $row) use ($catalogue): array {
-            $entry = $catalogue[(string)$row['name']] ?? null;
-            return [
-                'at' => (int)$row['at'],
-                'name' => (string)$row['name'],
-                'group_name' => (string)$row['group_name'],
-                'side' => (string)$row['side'],
-                'does' => (string)($entry['does'] ?? ''),
-                'help' => (string)($entry['help'] ?? ''),
-                'old_state' => (string)($row['old_state'] ?? ''),
-                'new_state' => (string)($row['new_state'] ?? ''),
-                'old_version' => (string)($row['old_version'] ?? ''),
-                'new_version' => (string)($row['new_version'] ?? ''),
-                'old_version_short' => shortVersion((string)($row['old_version'] ?? '')),
-                'new_version_short' => shortVersion((string)($row['new_version'] ?? '')),
-            ];
-        },
-        array_slice($rows, 0, $limit)
-    );
+    $detailed = array_map(static function (array $row) use ($catalogue): array {
+        $entry = $catalogue[(string) $row['name']] ?? null;
+        return [
+            'at' => (int) $row['at'],
+            'name' => (string) $row['name'],
+            'group_name' => (string) $row['group_name'],
+            'side' => (string) $row['side'],
+            'does' => (string) ($entry['does'] ?? ''),
+            'help' => (string) ($entry['help'] ?? ''),
+            'old_state' => (string) ($row['old_state'] ?? ''),
+            'new_state' => (string) ($row['new_state'] ?? ''),
+            'old_version' => (string) ($row['old_version'] ?? ''),
+            'new_version' => (string) ($row['new_version'] ?? ''),
+            'old_version_short' => shortVersion(
+                (string) ($row['old_version'] ?? ''),
+            ),
+            'new_version_short' => shortVersion(
+                (string) ($row['new_version'] ?? ''),
+            ),
+        ];
+    }, array_slice($rows, 0, $limit));
 
     return [
         'from' => $from,

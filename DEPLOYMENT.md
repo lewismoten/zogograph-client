@@ -8,24 +8,24 @@ safe for the existing installation after the following Forgejo settings exist.
 
 Repository **variables**:
 
-| Variable | Value |
-| --- | --- |
-| `DEPLOY_HOST` | SSH hostname or IP address |
-| `DEPLOY_PORT` | SSH port; leave empty for `22` |
-| `DEPLOY_USER` | restricted deployment user |
-| `DEPLOY_PATH` | absolute web-root path for this Zogograph client install |
-| `DEPLOY_URL` | public HTTPS URL for the install, without a trailing slash |
-| `TEST_PATH` | absolute web-root path for the disposable develop/test install |
-| `TEST_URL` | public HTTPS URL for the disposable develop/test install, without a trailing slash |
-| `DEPLOY_KNOWN_HOSTS` | exact `known_hosts` line for the server's SSH host key |
-| `SNAPSHOT_PATH` | absolute private snapshot root, outside the web root and deploy path; the workflow creates a repository-name subdirectory below it |
-| `SNAPSHOT_RETENTION` | optional whole number from `1` to `50`; defaults to `3` complete snapshots |
-| `BROWSER_REFRESH_REQUIRED` | legacy compatibility variable: optional `true` when this release requires open browsers to reload; otherwise omit or use `false` |
+| Variable                   | Value                                                                                                                              |
+| -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `DEPLOY_HOST`              | SSH hostname or IP address                                                                                                         |
+| `DEPLOY_PORT`              | SSH port; leave empty for `22`                                                                                                     |
+| `DEPLOY_USER`              | restricted deployment user                                                                                                         |
+| `DEPLOY_PATH`              | absolute web-root path for this Zogograph client install                                                                           |
+| `DEPLOY_URL`               | public HTTPS URL for the install, without a trailing slash                                                                         |
+| `TEST_PATH`                | absolute web-root path for the disposable develop/test install                                                                     |
+| `TEST_URL`                 | public HTTPS URL for the disposable develop/test install, without a trailing slash                                                 |
+| `DEPLOY_KNOWN_HOSTS`       | exact `known_hosts` line for the server's SSH host key                                                                             |
+| `SNAPSHOT_PATH`            | absolute private snapshot root, outside the web root and deploy path; the workflow creates a repository-name subdirectory below it |
+| `SNAPSHOT_RETENTION`       | optional whole number from `1` to `50`; defaults to `3` complete snapshots                                                         |
+| `BROWSER_REFRESH_REQUIRED` | legacy compatibility variable: optional `true` when this release requires open browsers to reload; otherwise omit or use `false`   |
 
 Repository **secret**:
 
-| Secret | Value |
-| --- | --- |
+| Secret                   | Value                                                                                        |
+| ------------------------ | -------------------------------------------------------------------------------------------- |
 | `DEPLOY_SSH_PRIVATE_KEY` | private key for the deployment user; its public key belongs in that user’s `authorized_keys` |
 
 The deployment user needs read/write access to both deployment and snapshot

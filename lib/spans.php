@@ -40,7 +40,7 @@ const SPAN_YEAR = 31556952;
  */
 function plainSpan(int|float $seconds, bool $long = false): string
 {
-    $seconds = (int)round(abs($seconds));
+    $seconds = (int) round(abs($seconds));
 
     if ($seconds < 1) {
         return $long ? 'no time at all' : '0s';
@@ -62,7 +62,18 @@ function plainSpan(int|float $seconds, bool $long = false): string
         [SPAN_MINUTE, SPAN_MINUTE, 1, 'm', 's', 'minute', 'second'],
     ];
 
-    foreach ($ladder as [$threshold, $big, $small, $bigShort, $smallShort, $bigLong, $smallLong]) {
+    foreach (
+        $ladder
+        as [
+            $threshold,
+            $big,
+            $small,
+            $bigShort,
+            $smallShort,
+            $bigLong,
+            $smallLong,
+        ]
+    ) {
         if ($seconds < $threshold) {
             continue;
         }
@@ -107,7 +118,7 @@ function plainWhen(int|float $seconds, bool $long = false): string
     if (abs($seconds) > 10 * SPAN_YEAR) {
         return sprintf(
             '(a span of %s - if this was meant to be a date, it needs time() subtracting)',
-            plainSpan($seconds, $long)
+            plainSpan($seconds, $long),
         );
     }
 

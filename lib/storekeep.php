@@ -62,9 +62,10 @@ function retentionCatalogue(): array
             'recommended' => 7,
             'never_recommended' => false,
             'what' => 'Every reading exactly as the collector took it.',
-            'why' => 'A week is long enough to look back through an incident minute by '
-                . 'minute. Older than that, the minute-by-minute detail is almost never '
-                . 'what anybody wants and it is by far the largest thing here.',
+            'why' =>
+                'A week is long enough to look back through an incident minute by ' .
+                'minute. Older than that, the minute-by-minute detail is almost never ' .
+                'what anybody wants and it is by far the largest thing here.',
             'rolls_up' => true,
         ],
         [
@@ -78,8 +79,9 @@ function retentionCatalogue(): array
             'recommended' => 30,
             'never_recommended' => false,
             'what' => 'The same readings, merged into five-minute buckets.',
-            'why' => 'A month at five minutes answers "when did this start" for anything '
-                . 'that built up over weeks.',
+            'why' =>
+                'A month at five minutes answers "when did this start" for anything ' .
+                'that built up over weeks.',
             'rolls_up' => true,
         ],
         [
@@ -92,9 +94,11 @@ function retentionCatalogue(): array
             'column' => 'taken_at',
             'recommended' => 365,
             'never_recommended' => false,
-            'what' => 'Hourly buckets, each holding the worst moment in its hour.',
-            'why' => 'A year of hours is what makes "is this normal for August?" a question '
-                . 'with an answer.',
+            'what' =>
+                'Hourly buckets, each holding the worst moment in its hour.',
+            'why' =>
+                'A year of hours is what makes "is this normal for August?" a question ' .
+                'with an answer.',
             'rolls_up' => true,
         ],
         [
@@ -108,8 +112,9 @@ function retentionCatalogue(): array
             'recommended' => 0,
             'never_recommended' => true,
             'what' => 'One row per day, for ever.',
-            'why' => 'A few hundred rows a year. Deleting these saves almost nothing and '
-                . 'throws away the only long record of what this machine used to do.',
+            'why' =>
+                'A few hundred rows a year. Deleting these saves almost nothing and ' .
+                'throws away the only long record of what this machine used to do.',
             'rolls_up' => false,
         ],
         [
@@ -119,9 +124,11 @@ function retentionCatalogue(): array
             'column' => 'raised_at',
             'recommended' => 0,
             'never_recommended' => true,
-            'what' => 'Each alert, with what it said and whether anybody read it.',
-            'why' => 'Small, and the index into the incident evidence. An incident whose '
-                . 'alert has been deleted is a folder with no label on it.',
+            'what' =>
+                'Each alert, with what it said and whether anybody read it.',
+            'why' =>
+                'Small, and the index into the incident evidence. An incident whose ' .
+                'alert has been deleted is a folder with no label on it.',
             'rolls_up' => false,
         ],
         [
@@ -131,11 +138,13 @@ function retentionCatalogue(): array
             'column' => 'taken_at',
             'recommended' => 0,
             'never_recommended' => true,
-            'what' => 'A snapshot of what the machine was doing at the moment each alert '
-                . 'fired.',
-            'why' => 'One per alerting evaluation, not one per reading. This is the only '
-                . 'record of what actually happened, and it is the thing you will want in '
-                . 'six months when it happens again.',
+            'what' =>
+                'A snapshot of what the machine was doing at the moment each alert ' .
+                'fired.',
+            'why' =>
+                'One per alerting evaluation, not one per reading. This is the only ' .
+                'record of what actually happened, and it is the thing you will want in ' .
+                'six months when it happens again.',
             'rolls_up' => false,
         ],
         [
@@ -145,11 +154,13 @@ function retentionCatalogue(): array
             'column' => 'at',
             'recommended' => 0,
             'never_recommended' => false,
-            'what' => 'Every action taken through this dashboard: deletions, scans, '
-                . 'lookups, sign-ins.',
-            'why' => 'This is the audit trail. If something was deleted through here, this '
-                . 'is where it says so - which matters most exactly when somebody is asking '
-                . 'what happened.',
+            'what' =>
+                'Every action taken through this dashboard: deletions, scans, ' .
+                'lookups, sign-ins.',
+            'why' =>
+                'This is the audit trail. If something was deleted through here, this ' .
+                'is where it says so - which matters most exactly when somebody is asking ' .
+                'what happened.',
             'rolls_up' => false,
         ],
         [
@@ -159,9 +170,11 @@ function retentionCatalogue(): array
             'column' => 'started_at',
             'recommended' => 400,
             'never_recommended' => false,
-            'what' => 'Each walk of the watched directory and the sizes it found.',
-            'why' => 'Just over a year, so a full year of growth is always comparable with '
-                . 'the same month last year.',
+            'what' =>
+                'Each walk of the watched directory and the sizes it found.',
+            'why' =>
+                'Just over a year, so a full year of growth is always comparable with ' .
+                'the same month last year.',
             'rolls_up' => false,
         ],
         [
@@ -172,7 +185,8 @@ function retentionCatalogue(): array
             'recommended' => 400,
             'never_recommended' => false,
             'what' => 'Which processes were running and what they were using.',
-            'why' => 'Matches the disk scans, so the two can be read side by side.',
+            'why' =>
+                'Matches the disk scans, so the two can be read side by side.',
             'rolls_up' => false,
         ],
         [
@@ -182,8 +196,10 @@ function retentionCatalogue(): array
             'column' => 'taken_at',
             'recommended' => 400,
             'never_recommended' => false,
-            'what' => 'Accepted vital payloads sent by paired remote Zogograph installations.',
-            'why' => 'Matches local scan history while keeping fleet-delivery evidence bounded.',
+            'what' =>
+                'Accepted vital payloads sent by paired remote Zogograph installations.',
+            'why' =>
+                'Matches local scan history while keeping fleet-delivery evidence bounded.',
             'rolls_up' => false,
         ],
         [
@@ -193,8 +209,10 @@ function retentionCatalogue(): array
             'column' => 'received_at',
             'recommended' => 2,
             'never_recommended' => false,
-            'what' => 'Recently accepted peer/nonces used to reject replayed deliveries.',
-            'why' => 'Two days exceeds the replay window while avoiding a permanent ledger of request nonces.',
+            'what' =>
+                'Recently accepted peer/nonces used to reject replayed deliveries.',
+            'why' =>
+                'Two days exceeds the replay window while avoiding a permanent ledger of request nonces.',
             'rolls_up' => false,
         ],
     ];
@@ -212,11 +230,16 @@ function retentionCatalogue(): array
 function storeTables(PDO $pdo): array
 {
     $rows = [];
-    foreach ($pdo->query(
-        "SELECT name, type, tbl_name FROM sqlite_master
-         WHERE type IN ('table','index') AND name NOT LIKE 'sqlite_%'"
-    )->fetchAll() as $entry) {
-        $rows[(string)$entry['name']] = (string)$entry['tbl_name'];
+    foreach (
+        $pdo
+            ->query(
+                "SELECT name, type, tbl_name FROM sqlite_master
+         WHERE type IN ('table','index') AND name NOT LIKE 'sqlite_%'",
+            )
+            ->fetchAll()
+        as $entry
+    ) {
+        $rows[(string) $entry['name']] = (string) $entry['tbl_name'];
     }
 
     $sizes = [];
@@ -224,9 +247,15 @@ function storeTables(PDO $pdo): array
     $why = '';
 
     try {
-        foreach ($pdo->query('SELECT name, SUM(pgsize) AS bytes FROM dbstat GROUP BY name')
-                     ->fetchAll() as $entry) {
-            $sizes[(string)$entry['name']] = (int)$entry['bytes'];
+        foreach (
+            $pdo
+                ->query(
+                    'SELECT name, SUM(pgsize) AS bytes FROM dbstat GROUP BY name',
+                )
+                ->fetchAll()
+            as $entry
+        ) {
+            $sizes[(string) $entry['name']] = (int) $entry['bytes'];
         }
     } catch (Throwable $e) {
         /*
@@ -237,14 +266,19 @@ function storeTables(PDO $pdo): array
          * makes from it - what to stop keeping - deserves better than a guess.
          */
         $measured = false;
-        $why = 'This SQLite build has no dbstat table, so per-table sizes cannot be '
-            . 'measured. Row counts and the total file size are still exact.';
+        $why =
+            'This SQLite build has no dbstat table, so per-table sizes cannot be ' .
+            'measured. Row counts and the total file size are still exact.';
     }
 
     $tables = [];
     foreach ($rows as $name => $owner) {
         if (!isset($tables[$owner])) {
-            $tables[$owner] = ['rows' => null, 'bytes' => 0, 'index_bytes' => 0];
+            $tables[$owner] = [
+                'rows' => null,
+                'bytes' => 0,
+                'index_bytes' => 0,
+            ];
         }
 
         $bytes = $sizes[$name] ?? 0;
@@ -257,16 +291,20 @@ function storeTables(PDO $pdo): array
 
     foreach (array_keys($tables) as $name) {
         try {
-            $tables[$name]['rows'] = (int)$pdo->query(
-                'SELECT COUNT(*) FROM ' . quoteName($name)
-            )->fetchColumn();
+            $tables[$name]['rows'] = (int) $pdo
+                ->query('SELECT COUNT(*) FROM ' . quoteName($name))
+                ->fetchColumn();
         } catch (Throwable) {
             $tables[$name]['rows'] = null;
         }
-        $tables[$name]['total_bytes'] = $tables[$name]['bytes'] + $tables[$name]['index_bytes'];
+        $tables[$name]['total_bytes'] =
+            $tables[$name]['bytes'] + $tables[$name]['index_bytes'];
     }
 
-    uasort($tables, fn(array $a, array $b): int => $b['total_bytes'] <=> $a['total_bytes']);
+    uasort(
+        $tables,
+        fn(array $a, array $b): int => $b['total_bytes'] <=> $a['total_bytes'],
+    );
 
     return [
         'measured' => $measured,
@@ -330,7 +368,7 @@ function retentionReport(PDO $pdo, array $config): array
         $facts = $store['tables'][$table] ?? null;
 
         $span = tableSpan($pdo, $table, $item['column']);
-        $days = (int)($rules[$item['key']] ?? 0);
+        $days = (int) ($rules[$item['key']] ?? 0);
         $isTier = $table === 'vitals';
 
         $entry = $item + [
@@ -345,8 +383,15 @@ function retentionReport(PDO $pdo, array $config): array
 
         if ($isTier) {
             $window = tierWindow($rules, $item['key'], $now);
-            $entry['rows'] = countBetween($pdo, 'vitals', 'taken_at', $window['from'], $window['to']);
-            $entry['bytes'] = $perRow === null ? null : (int)round($entry['rows'] * $perRow);
+            $entry['rows'] = countBetween(
+                $pdo,
+                'vitals',
+                'taken_at',
+                $window['from'],
+                $window['to'],
+            );
+            $entry['bytes'] =
+                $perRow === null ? null : (int) round($entry['rows'] * $perRow);
 
             /*
              * Rows this tier holds once it has filled.
@@ -362,18 +407,22 @@ function retentionReport(PDO $pdo, array $config): array
                 // The daily tier never stops, so it has no settled size. What
                 // it costs per year is the answerable question.
                 $entry['projected'] = null;
-                $entry['per_year'] = $perRow === null ? null : (int)round($perRow * 365);
+                $entry['per_year'] =
+                    $perRow === null ? null : (int) round($perRow * 365);
                 $known = false;
             } elseif ($cadence !== null && $perRow !== null) {
-                $entry['projected'] = (int)round($depth * SPAN_DAY / $cadence * $perRow);
+                $entry['projected'] = (int) round(
+                    (($depth * SPAN_DAY) / $cadence) * $perRow,
+                );
                 $entry['at_rest'] = $entry['covers'] >= $days * SPAN_DAY;
             } else {
                 $entry['projected'] = null;
             }
 
-            $entry['rate_per_day'] = $cadence === null || $perRow === null
-                ? null
-                : $perRow * SPAN_DAY / $cadence;
+            $entry['rate_per_day'] =
+                $cadence === null || $perRow === null
+                    ? null
+                    : ($perRow * SPAN_DAY) / $cadence;
         } else {
             $entry['rows'] = $facts['rows'] ?? null;
             $entry['bytes'] = $facts === null ? null : $facts['total_bytes'];
@@ -389,12 +438,16 @@ function retentionReport(PDO $pdo, array $config): array
              * number that is mostly noise - so it says "not yet" rather than
              * inventing one.
              */
-            if ($entry['bytes'] !== null && $entry['covers'] >= SPAN_DAY && $entry['bytes'] > 0) {
+            if (
+                $entry['bytes'] !== null &&
+                $entry['covers'] >= SPAN_DAY &&
+                $entry['bytes'] > 0
+            ) {
                 $perDay = $entry['bytes'] / ($entry['covers'] / SPAN_DAY);
                 $entry['rate_per_day'] = $perDay;
 
                 if ($days > 0) {
-                    $entry['projected'] = (int)round($perDay * $days);
+                    $entry['projected'] = (int) round($perDay * $days);
                     // Already full: the projection is the current size, not growth.
                     $entry['at_rest'] = $entry['covers'] >= $days * SPAN_DAY;
                 }
@@ -415,8 +468,11 @@ function retentionReport(PDO $pdo, array $config): array
             $known = false;
             $projectedTotal += $entry['bytes'];
 
-            $yearly = $entry['per_year']
-                ?? ($entry['rate_per_day'] === null ? null : $entry['rate_per_day'] * 365);
+            $yearly =
+                $entry['per_year'] ??
+                ($entry['rate_per_day'] === null
+                    ? null
+                    : $entry['rate_per_day'] * 365);
             if ($yearly !== null) {
                 $growthPerYear += $yearly;
             }
@@ -449,7 +505,7 @@ function retentionReport(PDO $pdo, array $config): array
         'file' => databaseFacts($pdo, $config),
         'projected_total' => $projectedTotal,
         'projected_known' => $known,
-        'growth_per_year' => (int)round($growthPerYear),
+        'growth_per_year' => (int) round($growthPerYear),
         'defaults' => array_column(retentionCatalogue(), 'recommended', 'key'),
     ];
 }
@@ -462,17 +518,24 @@ function retentionReport(PDO $pdo, array $config): array
 function tableSpan(PDO $pdo, string $table, string $column): array
 {
     try {
-        $row = $pdo->query(
-            'SELECT MIN(' . quoteName($column) . ') AS oldest, '
-            . 'MAX(' . quoteName($column) . ') AS newest FROM ' . quoteName($table)
-        )->fetch();
+        $row = $pdo
+            ->query(
+                'SELECT MIN(' .
+                    quoteName($column) .
+                    ') AS oldest, ' .
+                    'MAX(' .
+                    quoteName($column) .
+                    ') AS newest FROM ' .
+                    quoteName($table),
+            )
+            ->fetch();
     } catch (Throwable) {
         return ['oldest' => null, 'newest' => null];
     }
 
     return [
-        'oldest' => $row['oldest'] === null ? null : (int)$row['oldest'],
-        'newest' => $row['newest'] === null ? null : (int)$row['newest'],
+        'oldest' => $row['oldest'] === null ? null : (int) $row['oldest'],
+        'newest' => $row['newest'] === null ? null : (int) $row['newest'],
     ];
 }
 
@@ -488,25 +551,25 @@ function tableSpan(PDO $pdo, string $table, string $column): array
  */
 function databaseFacts(PDO $pdo, array $config, ?string $path = null): array
 {
-    $path ??= (string)($config['database'] ?? '');
+    $path ??= (string) ($config['database'] ?? '');
 
-    $pageSize = (int)$pdo->query('PRAGMA page_size')->fetchColumn();
-    $pages = (int)$pdo->query('PRAGMA page_count')->fetchColumn();
-    $free = (int)$pdo->query('PRAGMA freelist_count')->fetchColumn();
+    $pageSize = (int) $pdo->query('PRAGMA page_size')->fetchColumn();
+    $pages = (int) $pdo->query('PRAGMA page_count')->fetchColumn();
+    $free = (int) $pdo->query('PRAGMA freelist_count')->fetchColumn();
 
-    $wal = is_file($path . '-wal') ? (int)filesize($path . '-wal') : 0;
+    $wal = is_file($path . '-wal') ? (int) filesize($path . '-wal') : 0;
 
     return [
         'path' => $path,
         'name' => basename($path),
-        'bytes' => is_file($path) ? (int)filesize($path) : $pages * $pageSize,
+        'bytes' => is_file($path) ? (int) filesize($path) : $pages * $pageSize,
         'wal_bytes' => $wal,
         'page_size' => $pageSize,
         'pages' => $pages,
         'free_pages' => $free,
         'free_bytes' => $free * $pageSize,
         'free_share' => $pages > 0 ? $free / $pages : 0.0,
-        'journal' => (string)$pdo->query('PRAGMA journal_mode')->fetchColumn(),
+        'journal' => (string) $pdo->query('PRAGMA journal_mode')->fetchColumn(),
         'writable' => is_writable($path) && is_writable(dirname($path)),
         'integrity' => databaseIntegrity($pdo, $path),
     ];
@@ -526,18 +589,30 @@ function databaseIntegrity(PDO $pdo, string $path): array
     try {
         $result = $pdo->query('PRAGMA quick_check(1)')->fetchColumn();
         $ok = $result === 'ok';
-        $message = $ok ? 'SQLite quick check passed.' : (string)$result;
+        $message = $ok ? 'SQLite quick check passed.' : (string) $result;
     } catch (Throwable $e) {
         $ok = false;
         $message = 'SQLite quick check could not run: ' . $e->getMessage();
     }
-    $backups = glob(dirname($path) . '/migration-backups/' . basename($path) . '.schema-*.db') ?: [];
+    $backups =
+        glob(
+            dirname($path) .
+                '/migration-backups/' .
+                basename($path) .
+                '.schema-*.db',
+        ) ?:
+        [];
     $newest = 0;
     foreach ($backups as $backup) {
-        $newest = max($newest, (int)@filemtime($backup));
+        $newest = max($newest, (int) @filemtime($backup));
     }
-    return ['ok' => $ok, 'message' => $message, 'checked_at' => time(),
-        'migration_backups' => count($backups), 'newest_backup_at' => $newest ?: null];
+    return [
+        'ok' => $ok,
+        'message' => $message,
+        'checked_at' => time(),
+        'migration_backups' => count($backups),
+        'newest_backup_at' => $newest ?: null,
+    ];
 }
 
 /**
@@ -553,15 +628,28 @@ function databaseIntegrity(PDO $pdo, string $path): array
 function databaseFullIntegrity(PDO $pdo): array
 {
     try {
-        $messages = array_map('strval', $pdo->query('PRAGMA integrity_check(50)')->fetchAll(PDO::FETCH_COLUMN));
+        $messages = array_map(
+            'strval',
+            $pdo
+                ->query('PRAGMA integrity_check(50)')
+                ->fetchAll(PDO::FETCH_COLUMN),
+        );
     } catch (Throwable $e) {
-        return ['ok' => false, 'messages' => ['SQLite integrity check could not run: ' . $e->getMessage()],
-            'checked_at' => time()];
+        return [
+            'ok' => false,
+            'messages' => [
+                'SQLite integrity check could not run: ' . $e->getMessage(),
+            ],
+            'checked_at' => time(),
+        ];
     }
 
     $ok = $messages === ['ok'];
-    return ['ok' => $ok, 'messages' => $ok ? ['SQLite integrity check passed.'] : $messages,
-        'checked_at' => time()];
+    return [
+        'ok' => $ok,
+        'messages' => $ok ? ['SQLite integrity check passed.'] : $messages,
+        'checked_at' => time(),
+    ];
 }
 
 /**
@@ -587,11 +675,13 @@ function compactNow(PDO $pdo, array $config, ?string $path = null): array
 
     $room = @disk_free_space(dirname($before['path']));
     if ($room !== false && $room < $before['bytes'] * 1.1) {
-        throw new ActionRefused(sprintf(
-            'a rewrite needs room for a second copy - %s free, %s needed',
-            humanBytes((int)$room),
-            humanBytes((int)($before['bytes'] * 1.1))
-        ));
+        throw new ActionRefused(
+            sprintf(
+                'a rewrite needs room for a second copy - %s free, %s needed',
+                humanBytes((int) $room),
+                humanBytes((int) ($before['bytes'] * 1.1)),
+            ),
+        );
     }
 
     $started = microtime(true);
@@ -648,7 +738,7 @@ function purgeEntry(PDO $pdo, array $config, string $key, int $days): array
 
     if ($item['table'] === 'vitals') {
         $rules = retentionRules($config);
-        $pad = max(0, (int)($rules['protect_hours'] ?? 2)) * SPAN_HOUR;
+        $pad = max(0, (int) ($rules['protect_hours'] ?? 2)) * SPAN_HOUR;
         if ($pad > 0) {
             // protectionClause() already opens with AND, because it is written
             // to be appended to a WHERE that has something in it.
@@ -657,7 +747,9 @@ function purgeEntry(PDO $pdo, array $config, string $key, int $days): array
         }
     }
 
-    $statement = $pdo->prepare('DELETE FROM ' . quoteName($item['table']) . ' WHERE ' . $where);
+    $statement = $pdo->prepare(
+        'DELETE FROM ' . quoteName($item['table']) . ' WHERE ' . $where,
+    );
     $statement->bindValue(':cutoff', $cutoff, PDO::PARAM_INT);
     if ($pad > 0) {
         $statement->bindValue(':pad', $pad, PDO::PARAM_INT);
@@ -690,12 +782,14 @@ function retentionSettings(array $posted): array
             continue;
         }
 
-        $value = (int)$posted[$key];
+        $value = (int) $posted[$key];
         if ($value < 0) {
             throw new ActionRefused('a number of days cannot be negative');
         }
         if ($value > 3650) {
-            throw new ActionRefused('use 0 for "keep for ever" rather than a very large number');
+            throw new ActionRefused(
+                'use 0 for "keep for ever" rather than a very large number',
+            );
         }
 
         $out[$key] = $value;
@@ -719,7 +813,7 @@ function retentionSettings(array $posted): array
         }
         if ($value < $previous) {
             throw new ActionRefused(
-                'each tier has to reach at least as far back as the one before it'
+                'each tier has to reach at least as far back as the one before it',
             );
         }
         $previous = $value;
@@ -744,8 +838,8 @@ function tierWindow(array $rules, string $key, int $now): array
         return ['from' => null, 'to' => null];
     }
 
-    $before = $at === 0 ? 0 : (int)($rules[$order[$at - 1]] ?? 0);
-    $mine = (int)($rules[$key] ?? 0);
+    $before = $at === 0 ? 0 : (int) ($rules[$order[$at - 1]] ?? 0);
+    $mine = (int) ($rules[$key] ?? 0);
 
     return [
         // Older bound: null when this tier runs back indefinitely.
@@ -769,18 +863,23 @@ function tierDepth(array $rules, string $key): ?int
         return null;
     }
 
-    $mine = (int)($rules[$key] ?? 0);
+    $mine = (int) ($rules[$key] ?? 0);
     if ($mine === 0) {
         return null;
     }
 
-    $before = $at === 0 ? 0 : (int)($rules[$order[$at - 1]] ?? 0);
+    $before = $at === 0 ? 0 : (int) ($rules[$order[$at - 1]] ?? 0);
     return max(0, $mine - $before);
 }
 
 /** Rows in a table between two moments, either of which may be open. */
-function countBetween(PDO $pdo, string $table, string $column, ?int $from, ?int $to): int
-{
+function countBetween(
+    PDO $pdo,
+    string $table,
+    string $column,
+    ?int $from,
+    ?int $to,
+): int {
     $where = [];
     $bind = [];
 
@@ -793,13 +892,15 @@ function countBetween(PDO $pdo, string $table, string $column, ?int $from, ?int 
         $bind[] = $to;
     }
 
-    $sql = 'SELECT COUNT(*) FROM ' . quoteName($table)
-        . ($where === [] ? '' : ' WHERE ' . implode(' AND ', $where));
+    $sql =
+        'SELECT COUNT(*) FROM ' .
+        quoteName($table) .
+        ($where === [] ? '' : ' WHERE ' . implode(' AND ', $where));
 
     try {
         $stmt = $pdo->prepare($sql);
         $stmt->execute($bind);
-        return (int)$stmt->fetchColumn();
+        return (int) $stmt->fetchColumn();
     } catch (Throwable) {
         return 0;
     }
@@ -819,9 +920,12 @@ function countBetween(PDO $pdo, string $table, string $column, ?int $from, ?int 
 function collectorInterval(PDO $pdo, int $sample = 60): ?int
 {
     try {
-        $times = $pdo->query(
-            'SELECT taken_at FROM vitals ORDER BY taken_at DESC LIMIT ' . max(3, $sample)
-        )->fetchAll(PDO::FETCH_COLUMN, 0);
+        $times = $pdo
+            ->query(
+                'SELECT taken_at FROM vitals ORDER BY taken_at DESC LIMIT ' .
+                    max(3, $sample),
+            )
+            ->fetchAll(PDO::FETCH_COLUMN, 0);
     } catch (Throwable) {
         return null;
     }
@@ -832,7 +936,7 @@ function collectorInterval(PDO $pdo, int $sample = 60): ?int
 
     $gaps = [];
     for ($i = 1, $n = count($times); $i < $n; $i++) {
-        $gap = (int)$times[$i - 1] - (int)$times[$i];
+        $gap = (int) $times[$i - 1] - (int) $times[$i];
         if ($gap > 0) {
             $gaps[] = $gap;
         }
@@ -843,5 +947,5 @@ function collectorInterval(PDO $pdo, int $sample = 60): ?int
     }
 
     sort($gaps);
-    return (int)$gaps[intdiv(count($gaps), 2)];
+    return (int) $gaps[intdiv(count($gaps), 2)];
 }

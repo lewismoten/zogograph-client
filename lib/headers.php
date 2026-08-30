@@ -47,71 +47,121 @@ require_once __DIR__ . '/db.php';
 function headerCatalogue(): array
 {
     return [
-        'cache-control' => ['Caching rules',
-            'How long this may be reused, and by whom. `public` allows shared caches, '
-            . '`private` allows only the browser, `no-store` forbids keeping it at all.'],
-        'age' => ['Time in cache',
-            'How long the copy you received has been sitting in a cache. A large age with a '
-            . 'small max-age means you are being served something close to stale.'],
-        'expires' => ['Expiry date',
-            'The older way of saying the same thing as max-age. When both are present, '
-            . 'Cache-Control wins.'],
-        'etag' => ['Version tag',
-            'An opaque marker for this exact version. Send it back as If-None-Match and an '
-            . 'unchanged page answers 304 with no body.'],
-        'last-modified' => ['When it last changed',
-            'The other way of asking "has this changed", using a date rather than a tag.'],
-        'content-encoding' => ['Compression',
-            'How the body was compressed on the wire. It is decompressed before you see it, '
-            . 'so this does not change the content.'],
-        'content-type' => ['What kind of thing this is',
-            'The media type, and for text the character set. Browsers take this seriously; '
-            . 'getting it wrong is why a page sometimes downloads instead of displaying.'],
-        'content-length' => ['Size in bytes', 'The length of the body as sent, after any '
-            . 'compression.'],
-        'set-cookie' => ['Sets a cookie',
-            'One cookie per header, with its attributes. `HttpOnly` hides it from JavaScript, '
-            . '`Secure` sends it only over HTTPS, and `SameSite` decides whether it travels '
-            . 'with requests from other sites.'],
-        'link' => ['Related URLs',
-            'Relationships to other addresses - the API root, alternate formats, a canonical '
-            . 'URL - carried in the headers rather than in the page.'],
-        'server-timing' => ['How long the server took',
-            'Measurements the server chose to publish about its own work. Names are the '
-            . 'server\'s own; the durations are in milliseconds.'],
-        'strict-transport-security' => ['HTTPS only, from now on',
-            'Tells the browser to refuse plain HTTP for this host for the given period. '
-            . 'Powerful and hard to undo: a long max-age set by accident is a long problem.'],
-        'content-security-policy' => ['What the page may load',
-            'Restricts where scripts, styles and images may come from. The main defence '
-            . 'against injected script.'],
-        'x-frame-options' => ['Framing rules',
-            'Whether other sites may embed this page. Largely superseded by '
-            . 'frame-ancestors in the Content-Security-Policy.'],
+        'cache-control' => [
+            'Caching rules',
+            'How long this may be reused, and by whom. `public` allows shared caches, ' .
+            '`private` allows only the browser, `no-store` forbids keeping it at all.',
+        ],
+        'age' => [
+            'Time in cache',
+            'How long the copy you received has been sitting in a cache. A large age with a ' .
+            'small max-age means you are being served something close to stale.',
+        ],
+        'expires' => [
+            'Expiry date',
+            'The older way of saying the same thing as max-age. When both are present, ' .
+            'Cache-Control wins.',
+        ],
+        'etag' => [
+            'Version tag',
+            'An opaque marker for this exact version. Send it back as If-None-Match and an ' .
+            'unchanged page answers 304 with no body.',
+        ],
+        'last-modified' => [
+            'When it last changed',
+            'The other way of asking "has this changed", using a date rather than a tag.',
+        ],
+        'content-encoding' => [
+            'Compression',
+            'How the body was compressed on the wire. It is decompressed before you see it, ' .
+            'so this does not change the content.',
+        ],
+        'content-type' => [
+            'What kind of thing this is',
+            'The media type, and for text the character set. Browsers take this seriously; ' .
+            'getting it wrong is why a page sometimes downloads instead of displaying.',
+        ],
+        'content-length' => [
+            'Size in bytes',
+            'The length of the body as sent, after any ' . 'compression.',
+        ],
+        'set-cookie' => [
+            'Sets a cookie',
+            'One cookie per header, with its attributes. `HttpOnly` hides it from JavaScript, ' .
+            '`Secure` sends it only over HTTPS, and `SameSite` decides whether it travels ' .
+            'with requests from other sites.',
+        ],
+        'link' => [
+            'Related URLs',
+            'Relationships to other addresses - the API root, alternate formats, a canonical ' .
+            'URL - carried in the headers rather than in the page.',
+        ],
+        'server-timing' => [
+            'How long the server took',
+            'Measurements the server chose to publish about its own work. Names are the ' .
+            'server\'s own; the durations are in milliseconds.',
+        ],
+        'strict-transport-security' => [
+            'HTTPS only, from now on',
+            'Tells the browser to refuse plain HTTP for this host for the given period. ' .
+            'Powerful and hard to undo: a long max-age set by accident is a long problem.',
+        ],
+        'content-security-policy' => [
+            'What the page may load',
+            'Restricts where scripts, styles and images may come from. The main defence ' .
+            'against injected script.',
+        ],
+        'x-frame-options' => [
+            'Framing rules',
+            'Whether other sites may embed this page. Largely superseded by ' .
+            'frame-ancestors in the Content-Security-Policy.',
+        ],
         'location' => ['Where it is redirecting to', ''],
-        'server' => ['What is serving it', 'Often deliberately vague, and sometimes a lie.'],
-        'vary' => ['What the cache must key on',
-            'Which request headers change the response. A cache that ignores this serves the '
-            . 'wrong variant - the compressed copy to a client that cannot decompress it.'],
-        'x-ac' => ['Cache and routing (Automattic)',
-            'A house header from Automattic\'s edge. It names the data centre that served '
-            . 'you and whether the cache had a copy - HIT means it did, MISS means it had to '
-            . 'ask the origin.'],
-        'x-cache' => ['Cache result',
-            'Whether the edge had a copy already. HIT is served from cache; MISS went to the '
-            . 'origin.'],
+        'server' => [
+            'What is serving it',
+            'Often deliberately vague, and sometimes a lie.',
+        ],
+        'vary' => [
+            'What the cache must key on',
+            'Which request headers change the response. A cache that ignores this serves the ' .
+            'wrong variant - the compressed copy to a client that cannot decompress it.',
+        ],
+        'x-ac' => [
+            'Cache and routing (Automattic)',
+            'A house header from Automattic\'s edge. It names the data centre that served ' .
+            'you and whether the cache had a copy - HIT means it did, MISS means it had to ' .
+            'ask the origin.',
+        ],
+        'x-cache' => [
+            'Cache result',
+            'Whether the edge had a copy already. HIT is served from cache; MISS went to the ' .
+            'origin.',
+        ],
         'x-served-by' => ['Which edge server answered', ''],
-        'cf-cache-status' => ['Cache result (Cloudflare)',
-            'HIT, MISS, EXPIRED, BYPASS and so on - whether Cloudflare had a usable copy.'],
-        'x-powered-by' => ['What built the response',
-            'Usually worth turning off: it advertises versions to anybody scanning.'],
-        'x-robots-tag' => ['Indexing rules', 'Whether search engines may index this.'],
-        'retry-after' => ['When to try again',
-            'Sent with 429 and 503. Either a number of seconds or a date.'],
-        'accept-ranges' => ['Partial requests', 'Whether the server supports resuming a '
-            . 'download part-way.'],
-        'alt-svc' => ['Other ways to reach this',
-            'Advertises an alternative protocol, usually HTTP/3, for future requests.'],
+        'cf-cache-status' => [
+            'Cache result (Cloudflare)',
+            'HIT, MISS, EXPIRED, BYPASS and so on - whether Cloudflare had a usable copy.',
+        ],
+        'x-powered-by' => [
+            'What built the response',
+            'Usually worth turning off: it advertises versions to anybody scanning.',
+        ],
+        'x-robots-tag' => [
+            'Indexing rules',
+            'Whether search engines may index this.',
+        ],
+        'retry-after' => [
+            'When to try again',
+            'Sent with 429 and 503. Either a number of seconds or a date.',
+        ],
+        'accept-ranges' => [
+            'Partial requests',
+            'Whether the server supports resuming a ' . 'download part-way.',
+        ],
+        'alt-svc' => [
+            'Other ways to reach this',
+            'Advertises an alternative protocol, usually HTTP/3, for future requests.',
+        ],
     ];
 }
 
@@ -132,16 +182,19 @@ function headerNotes(PDO $pdo): array
     }
 
     try {
-        $rows = $pdo->query("SELECT match, label, note FROM labels WHERE kind = 'header'")
+        $rows = $pdo
+            ->query(
+                "SELECT match, label, note FROM labels WHERE kind = 'header'",
+            )
             ->fetchAll();
     } catch (Throwable) {
         return $out;
     }
 
     foreach ($rows as $row) {
-        $out[strtolower((string)$row['match'])] = [
-            'title' => (string)$row['label'],
-            'note' => (string)($row['note'] ?? ''),
+        $out[strtolower((string) $row['match'])] = [
+            'title' => (string) $row['label'],
+            'note' => (string) ($row['note'] ?? ''),
             'mine' => true,
         ];
     }
@@ -164,7 +217,7 @@ function explainHeader(string $name, string $value, array $notes): array
         'value' => $value,
         'title' => $note['title'] ?? null,
         'note' => $note['note'] ?? null,
-        'mine' => (bool)($note['mine'] ?? false),
+        'mine' => (bool) ($note['mine'] ?? false),
         'parts' => [],
         'kind' => 'plain',
     ];
@@ -211,11 +264,13 @@ function explainHeader(string $name, string $value, array $notes): array
             $at = strtotime($value);
             if ($at !== false) {
                 $out['kind'] = 'date';
-                $out['parts'] = [[
-                    'name' => '',
-                    'value' => $value,
-                    'note' => headerWhen($at),
-                ]];
+                $out['parts'] = [
+                    [
+                        'name' => '',
+                        'value' => $value,
+                        'note' => headerWhen($at),
+                    ],
+                ];
             }
             break;
 
@@ -223,11 +278,13 @@ function explainHeader(string $name, string $value, array $notes): array
         case 'retry-after':
             if (ctype_digit(trim($value))) {
                 $out['kind'] = 'duration';
-                $out['parts'] = [[
-                    'name' => '',
-                    'value' => $value,
-                    'note' => headerDuration((int)$value),
-                ]];
+                $out['parts'] = [
+                    [
+                        'name' => '',
+                        'value' => $value,
+                        'note' => headerDuration((int) $value),
+                    ],
+                ];
             }
             break;
     }
@@ -248,8 +305,12 @@ function headerDuration(int $seconds): string
     }
 
     $units = [
-        ['year', 31536000], ['month', 2592000], ['week', 604800],
-        ['day', 86400], ['hour', 3600], ['minute', 60],
+        ['year', 31536000],
+        ['month', 2592000],
+        ['week', 604800],
+        ['day', 86400],
+        ['hour', 3600],
+        ['minute', 60],
     ];
 
     foreach ($units as [$name, $size]) {
@@ -263,7 +324,7 @@ function headerDuration(int $seconds): string
              * Trimming them unconditionally turns 10 minutes into 1 minute,
              * which is the kind of wrong that reads as right.
              */
-            $shown = (string)$rounded;
+            $shown = (string) $rounded;
             if (str_contains($shown, '.')) {
                 $shown = rtrim(rtrim($shown, '0'), '.');
             }
@@ -313,12 +374,17 @@ function explainCookie(string $value): array
             $out[] = [
                 'name' => $name,
                 'value' => $val,
-                'note' => 'The cookie itself: its name and the value being stored.',
+                'note' =>
+                    'The cookie itself: its name and the value being stored.',
             ];
             continue;
         }
 
-        $out[] = ['name' => $name, 'value' => $val, 'note' => cookieAttributeNote($name, $val)];
+        $out[] = [
+            'name' => $name,
+            'value' => $val,
+            'note' => cookieAttributeNote($name, $val),
+        ];
     }
 
     return $out;
@@ -335,7 +401,9 @@ function cookieAttributeNote(string $name, string $value): string
 
         case 'max-age':
             return ctype_digit(trim($value))
-                ? 'Kept for ' . headerDuration((int)$value) . ' — this wins over Expires.'
+                ? 'Kept for ' .
+                        headerDuration((int) $value) .
+                        ' — this wins over Expires.'
                 : 'How long the browser should keep it.';
 
         case 'path':
@@ -348,21 +416,25 @@ function cookieAttributeNote(string $name, string $value): string
             return 'Sent only over HTTPS.';
 
         case 'httponly':
-            return 'Hidden from JavaScript, which is the main defence against a stolen '
-                . 'session cookie.';
+            return 'Hidden from JavaScript, which is the main defence against a stolen ' .
+                'session cookie.';
 
         case 'samesite':
             return match (strtolower(trim($value))) {
-                'strict' => 'Never sent with requests coming from another site.',
-                'lax' => 'Sent when following a link from another site, but not with '
-                    . 'background requests. The usual choice.',
-                'none' => 'Sent with requests from any site, which requires Secure.',
-                default => 'Whether it travels with requests from other sites.',
+                'strict'
+                    => 'Never sent with requests coming from another site.',
+                'lax'
+                    => 'Sent when following a link from another site, but not with ' .
+                    'background requests. The usual choice.',
+                'none'
+                    => 'Sent with requests from any site, which requires Secure.',
+                default
+                    => 'Whether it travels with requests from other sites.',
             };
 
         case 'partitioned':
-            return 'Kept separately per top-level site, so embedded content cannot track '
-                . 'across them.';
+            return 'Kept separately per top-level site, so embedded content cannot track ' .
+                'across them.';
 
         default:
             return '';
@@ -423,7 +495,8 @@ function linkRelNote(string $rel, array $attributes): string
     $tail = $extra === [] ? '' : ' (' . implode(', ', $extra) . ')';
 
     $known = [
-        'canonical' => 'The address this page should be known by, for search engines.',
+        'canonical' =>
+            'The address this page should be known by, for search engines.',
         'alternate' => 'The same content in another form or language.',
         'shortlink' => 'A short address for the same page.',
         'next' => 'The next page in a sequence.',
@@ -468,7 +541,7 @@ function explainServerTiming(string $value): array
             if (str_starts_with($piece, 'desc=')) {
                 $description = trim(substr($piece, 5), " \"'");
             } elseif (str_starts_with($piece, 'dur=')) {
-                $duration = (float)substr($piece, 4);
+                $duration = (float) substr($piece, 4);
             }
         }
 
@@ -479,14 +552,19 @@ function explainServerTiming(string $value): array
         if ($duration !== null) {
             // Milliseconds by specification, which nobody reads as such at
             // three significant figures.
-            $note[] = $duration >= 1000
-                ? sprintf('took %.2f seconds', $duration / 1000)
-                : sprintf('took %s ms', rtrim(rtrim(number_format($duration, 1), '0'), '.'));
+            $note[] =
+                $duration >= 1000
+                    ? sprintf('took %.2f seconds', $duration / 1000)
+                    : sprintf(
+                        'took %s ms',
+                        rtrim(rtrim(number_format($duration, 1), '0'), '.'),
+                    );
         }
 
         $out[] = [
             'name' => $name,
-            'value' => $description ?? ($duration === null ? '' : (string)$duration),
+            'value' =>
+                $description ?? ($duration === null ? '' : (string) $duration),
             'note' => implode(' — ', $note),
         ];
     }
@@ -513,7 +591,11 @@ function explainDirectives(string $value): array
         $name = $at === false ? $directive : substr($directive, 0, $at);
         $val = $at === false ? '' : trim(substr($directive, $at + 1), " \"'");
 
-        $out[] = ['name' => $name, 'value' => $val, 'note' => directiveNote($name, $val)];
+        $out[] = [
+            'name' => $name,
+            'value' => $val,
+            'note' => directiveNote($name, $val),
+        ];
     }
 
     return $out;
@@ -523,15 +605,30 @@ function directiveNote(string $name, string $value): string
 {
     $key = strtolower(trim($name));
 
-    if (in_array($key, ['max-age', 's-maxage', 'stale-while-revalidate',
-                        'stale-if-error', 'min-fresh'], true) && is_numeric($value)) {
-        $said = headerDuration((int)$value);
+    if (
+        in_array(
+            $key,
+            [
+                'max-age',
+                's-maxage',
+                'stale-while-revalidate',
+                'stale-if-error',
+                'min-fresh',
+            ],
+            true,
+        ) &&
+        is_numeric($value)
+    ) {
+        $said = headerDuration((int) $value);
         return match ($key) {
             'max-age' => "Reusable for {$said}.",
-            's-maxage' => "Reusable by shared caches for {$said}, overriding max-age for them.",
-            'stale-while-revalidate' => "May be served stale for {$said} while a fresh copy "
-                . 'is fetched in the background.',
-            'stale-if-error' => "May be served stale for {$said} if the origin is failing.",
+            's-maxage'
+                => "Reusable by shared caches for {$said}, overriding max-age for them.",
+            'stale-while-revalidate'
+                => "May be served stale for {$said} while a fresh copy " .
+                'is fetched in the background.',
+            'stale-if-error'
+                => "May be served stale for {$said} if the origin is failing.",
             default => $said,
         };
     }
@@ -539,15 +636,19 @@ function directiveNote(string $name, string $value): string
     return match ($key) {
         'public' => 'Any cache may keep it, including shared ones.',
         'private' => 'Only the browser may keep it, not a shared cache.',
-        'no-cache' => 'May be kept, but must be revalidated before reuse. Not the same as '
-            . 'no-store.',
+        'no-cache'
+            => 'May be kept, but must be revalidated before reuse. Not the same as ' .
+            'no-store.',
         'no-store' => 'Must not be written to any cache at all.',
-        'must-revalidate' => 'Once stale, it may not be served without checking.',
-        'immutable' => 'Promises it will never change, so the browser need not revalidate '
-            . 'even on reload.',
+        'must-revalidate'
+            => 'Once stale, it may not be served without checking.',
+        'immutable'
+            => 'Promises it will never change, so the browser need not revalidate ' .
+            'even on reload.',
         'includesubdomains' => 'Applies to every subdomain as well.',
-        'preload' => 'Requests inclusion in browsers\' built-in HTTPS-only lists. Very hard '
-            . 'to undo.',
+        'preload'
+            => 'Requests inclusion in browsers\' built-in HTTPS-only lists. Very hard ' .
+            'to undo.',
         default => '',
     };
 }
@@ -556,10 +657,16 @@ function directiveNote(string $name, string $value): string
 function explainEncoding(string $value): array
 {
     $known = [
-        'br' => ['Brotli', 'Compression developed at Google. Smaller than gzip for text, and '
-            . 'supported by every current browser over HTTPS.'],
+        'br' => [
+            'Brotli',
+            'Compression developed at Google. Smaller than gzip for text, and ' .
+            'supported by every current browser over HTTPS.',
+        ],
         'gzip' => ['gzip', 'The long-standing default. Universally supported.'],
-        'deflate' => ['deflate', 'Older and rarely used; implementations disagree about it.'],
+        'deflate' => [
+            'deflate',
+            'Older and rarely used; implementations disagree about it.',
+        ],
         'zstd' => ['Zstandard', 'Newer, fast, increasingly supported.'],
         'identity' => ['no compression', 'Sent as-is.'],
     ];
@@ -568,7 +675,11 @@ function explainEncoding(string $value): array
     foreach (preg_split('/,\s*/', trim($value)) ?: [] as $encoding) {
         $key = strtolower(trim($encoding));
         $entry = $known[$key] ?? [$encoding, ''];
-        $out[] = ['name' => $encoding, 'value' => $entry[0], 'note' => $entry[1]];
+        $out[] = [
+            'name' => $encoding,
+            'value' => $entry[0],
+            'note' => $entry[1],
+        ];
     }
 
     return $out;
@@ -587,27 +698,45 @@ function explainXac(string $value): array
     $out = [];
 
     $centres = [
-        'dca' => 'Washington DC', 'dfw' => 'Dallas', 'sjc' => 'San Jose',
-        'ams' => 'Amsterdam', 'lhr' => 'London', 'nrt' => 'Tokyo',
-        'bur' => 'Los Angeles', 'ord' => 'Chicago', 'cdg' => 'Paris',
-        'sin' => 'Singapore', 'syd' => 'Sydney', 'fra' => 'Frankfurt',
+        'dca' => 'Washington DC',
+        'dfw' => 'Dallas',
+        'sjc' => 'San Jose',
+        'ams' => 'Amsterdam',
+        'lhr' => 'London',
+        'nrt' => 'Tokyo',
+        'bur' => 'Los Angeles',
+        'ord' => 'Chicago',
+        'cdg' => 'Paris',
+        'sin' => 'Singapore',
+        'syd' => 'Sydney',
+        'fra' => 'Frankfurt',
     ];
 
     foreach ($pieces as $piece) {
         $upper = strtoupper($piece);
 
-        if (in_array($upper, ['HIT', 'MISS', 'BYPASS', 'EXPIRED', 'STALE', 'UPDATING'], true)) {
+        if (
+            in_array(
+                $upper,
+                ['HIT', 'MISS', 'BYPASS', 'EXPIRED', 'STALE', 'UPDATING'],
+                true,
+            )
+        ) {
             $out[] = [
                 'name' => 'cache',
                 'value' => $upper,
                 'note' => match ($upper) {
-                    'HIT' => 'The edge already had a copy and served it without asking the '
-                        . 'origin. Fast, and the origin never saw this request.',
-                    'MISS' => 'The edge had no usable copy, so it fetched from the origin. '
-                        . 'Normal for a first request or an uncacheable page.',
-                    'BYPASS' => 'Caching was deliberately skipped for this request.',
+                    'HIT'
+                        => 'The edge already had a copy and served it without asking the ' .
+                        'origin. Fast, and the origin never saw this request.',
+                    'MISS'
+                        => 'The edge had no usable copy, so it fetched from the origin. ' .
+                        'Normal for a first request or an uncacheable page.',
+                    'BYPASS'
+                        => 'Caching was deliberately skipped for this request.',
                     'EXPIRED' => 'A copy existed but was too old to use.',
-                    'STALE' => 'An old copy was served while a fresh one was fetched.',
+                    'STALE'
+                        => 'An old copy was served while a fresh one was fetched.',
                     default => 'The cache was updating this entry.',
                 },
             ];
@@ -625,9 +754,10 @@ function explainXac(string $value): array
         $out[] = [
             'name' => 'route',
             'value' => $piece,
-            'note' => $found === null
-                ? 'Part of the edge routing path.'
-                : 'Served from the ' . $found . ' edge.',
+            'note' =>
+                $found === null
+                    ? 'Part of the edge routing path.'
+                    : 'Served from the ' . $found . ' edge.',
         ];
     }
 

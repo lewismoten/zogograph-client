@@ -33,13 +33,18 @@ const PROCESS_KEEP_DEFAULT = 8;
  *
  * @return array{available: bool, reason: ?string, rows: list<array>}
  */
-function listProcesses(string $by = 'cpu', int $limit = 20, bool $group = true): array
-{
+function listProcesses(
+    string $by = 'cpu',
+    int $limit = 20,
+    bool $group = true,
+): array {
     // `etime` rather than `etimes`: the seconds form is procps only, and the
     // clock form is understood by both. It has no spaces, so it stays a field.
     // ppid is here so the collector can identify its own tree and leave itself
     // out of the record - see excludeOwnTree().
-    $out = shellRead('ps -eo pid,ppid,user,pcpu,pmem,rss,etime,args 2>/dev/null');
+    $out = shellRead(
+        'ps -eo pid,ppid,user,pcpu,pmem,rss,etime,args 2>/dev/null',
+    );
     if ($out === null) {
         return [
             'available' => false,
@@ -71,13 +76,13 @@ function listProcesses(string $by = 'cpu', int $limit = 20, bool $group = true):
         }
 
         $rows[] = [
-            'pid' => (int)$pid,
-            'ppid' => (int)$ppid,
+            'pid' => (int) $pid,
+            'ppid' => (int) $ppid,
             'user' => $user,
-            'cpu_percent' => (float)$cpu,
-            'mem_percent' => (float)$mem,
+            'cpu_percent' => (float) $cpu,
+            'mem_percent' => (float) $mem,
             // ps reports RSS in kilobytes on both platforms.
-            'rss_bytes' => (int)$rss * 1024,
+            'rss_bytes' => (int) $rss * 1024,
             'elapsed_seconds' => parseElapsed($etime),
             'name' => processName($args),
             'command' => redactSecrets($args),
@@ -99,7 +104,11 @@ function listProcesses(string $by = 'cpu', int $limit = 20, bool $group = true):
     $key = $by === 'memory' ? 'rss_bytes' : 'cpu_percent';
     usort($rows, fn(array $a, array $b): int => $b[$key] <=> $a[$key]);
 
-    return ['available' => true, 'reason' => null, 'rows' => array_slice($rows, 0, $limit)];
+    return [
+        'available' => true,
+        'reason' => null,
+        'rows' => array_slice($rows, 0, $limit),
+    ];
 }
 
 /**
@@ -112,14 +121,16 @@ function listProcesses(string $by = 'cpu', int $limit = 20, bool $group = true):
  */
 function parseElapsed(string $etime): ?int
 {
-    if (!preg_match('/^(?:(\d+)-)?(?:(\d+):)?(\d+):(\d+)$/', trim($etime), $m)) {
+    if (
+        !preg_match('/^(?:(\d+)-)?(?:(\d+):)?(\d+):(\d+)$/', trim($etime), $m)
+    ) {
         return null;
     }
 
-    return ((int)($m[1] ?: 0)) * 86400
-        + ((int)($m[2] ?: 0)) * 3600
-        + ((int)$m[3]) * 60
-        + (int)$m[4];
+    return ((int) ($m[1] ?: 0)) * 86400 +
+        ((int) ($m[2] ?: 0)) * 3600 +
+        ((int) $m[3]) * 60 +
+        (int) $m[4];
 }
 
 /**
@@ -210,10 +221,9 @@ function excludeOwnTree(array $rows): array
         }
     }
 
-    return array_values(array_filter(
-        $rows,
-        fn(array $row): bool => !isset($drop[$row['pid']])
-    ));
+    return array_values(
+        array_filter($rows, fn(array $row): bool => !isset($drop[$row['pid']])),
+    );
 }
 
 /**
@@ -231,13 +241,15 @@ function redactSecrets(string $args): string
         // -pSECRET, as mysql and friends take it.
         '/(^|\s)(-p)(?!\s)\S+/i' => '$1$2[hidden]',
         // --password=SECRET, --token SECRET, api_key=SECRET, and the like.
-        '/(--?(?:password|passwd|pwd|token|secret|api[-_]?key|auth)[=\s])\S+/i' => '$1[hidden]',
-        '/((?:password|passwd|pwd|token|secret|auth|api[-_]?key|access[-_]?key)=)\S+/i' => '$1[hidden]',
+        '/(--?(?:password|passwd|pwd|token|secret|api[-_]?key|auth)[=\s])\S+/i' =>
+            '$1[hidden]',
+        '/((?:password|passwd|pwd|token|secret|auth|api[-_]?key|access[-_]?key)=)\S+/i' =>
+            '$1[hidden]',
     ];
 
     $clean = $args;
     foreach ($patterns as $pattern => $replacement) {
-        $clean = (string)preg_replace($pattern, $replacement, $clean);
+        $clean = (string) preg_replace($pattern, $replacement, $clean);
     }
 
     return mb_substr($clean, 0, 400);
@@ -254,8 +266,8 @@ function redactSecrets(string $args): string
 function recordProcesses(array $config, PDO $pdo, array $vitals): array
 {
     $rules = $config['processes'] ?? [];
-    $cpuAbove = (float)($rules['record_when_cpu_above'] ?? 70);
-    $memoryAbove = (float)($rules['record_when_memory_above'] ?? 85);
+    $cpuAbove = (float) ($rules['record_when_cpu_above'] ?? 70);
+    $memoryAbove = (float) ($rules['record_when_memory_above'] ?? 85);
 
     $cpu = $vitals['cpu_percent'];
     $memory = $vitals['mem_used_percent'];
@@ -278,9 +290,12 @@ function recordProcesses(array $config, PDO $pdo, array $vitals): array
     }
 
     $grouped = groupByName(excludeOwnTree($snapshot['rows']));
-    usort($grouped, fn(array $a, array $b): int => $b['cpu_percent'] <=> $a['cpu_percent']);
+    usort(
+        $grouped,
+        fn(array $a, array $b): int => $b['cpu_percent'] <=> $a['cpu_percent'],
+    );
 
-    $keep = max(1, (int)($rules['keep'] ?? PROCESS_KEEP_DEFAULT));
+    $keep = max(1, (int) ($rules['keep'] ?? PROCESS_KEEP_DEFAULT));
 
     /*
      * What triggered it, alongside what the snapshot can explain.
@@ -294,14 +309,14 @@ function recordProcesses(array $config, PDO $pdo, array $vitals): array
      */
     $accounted = 0.0;
     foreach (array_slice($grouped, 0, $keep) as $row) {
-        $accounted += (float)$row['cpu_percent'];
+        $accounted += (float) $row['cpu_percent'];
     }
 
     $insert = $pdo->prepare(
         'INSERT INTO process_samples
             (taken_at, reason, name, cpu_percent, mem_percent, rss_bytes, procs,
              oldest_seconds, newest_seconds, trigger_percent, accounted_percent)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
     );
 
     $written = 0;
@@ -310,13 +325,15 @@ function recordProcesses(array $config, PDO $pdo, array $vitals): array
         usort(
             $ranked,
             $reason === 'memory'
-                ? fn(array $a, array $b): int => $b['rss_bytes'] <=> $a['rss_bytes']
-                : fn(array $a, array $b): int => $b['cpu_percent'] <=> $a['cpu_percent']
+                ? fn(array $a, array $b): int => $b['rss_bytes'] <=>
+                    $a['rss_bytes']
+                : fn(array $a, array $b): int => $b['cpu_percent'] <=>
+                    $a['cpu_percent'],
         );
 
         foreach (array_slice($ranked, 0, $keep) as $row) {
             $insert->execute([
-                (int)$vitals['taken_at'],
+                (int) $vitals['taken_at'],
                 $reason,
                 $row['name'],
                 round($row['cpu_percent'], 2),
@@ -325,7 +342,7 @@ function recordProcesses(array $config, PDO $pdo, array $vitals): array
                 $row['procs'],
                 $row['oldest_seconds'],
                 $row['newest_seconds'],
-                round($reason === 'memory' ? (float)$memory : (float)$cpu, 2),
+                round($reason === 'memory' ? (float) $memory : (float) $cpu, 2),
                 round($reason === 'memory' ? 0.0 : $accounted, 2),
             ]);
             $written++;
@@ -382,12 +399,14 @@ function groupByName(array $rows): array
 
         $elapsed = $row['elapsed_seconds'];
         if ($elapsed !== null) {
-            $into['oldest_seconds'] = $into['oldest_seconds'] === null
-                ? $elapsed
-                : max($into['oldest_seconds'], $elapsed);
-            $into['newest_seconds'] = $into['newest_seconds'] === null
-                ? $elapsed
-                : min($into['newest_seconds'], $elapsed);
+            $into['oldest_seconds'] =
+                $into['oldest_seconds'] === null
+                    ? $elapsed
+                    : max($into['oldest_seconds'], $elapsed);
+            $into['newest_seconds'] =
+                $into['newest_seconds'] === null
+                    ? $elapsed
+                    : min($into['newest_seconds'], $elapsed);
         }
 
         if ($row['rss_bytes'] > $into['heaviest']) {
@@ -426,7 +445,7 @@ function recordedProcesses(PDO $pdo, int $limit = 12): array
 {
     $moments = $pdo->prepare(
         'SELECT DISTINCT taken_at, reason FROM process_samples
-         ORDER BY taken_at DESC LIMIT :limit'
+         ORDER BY taken_at DESC LIMIT :limit',
     );
     $moments->bindValue(':limit', $limit, PDO::PARAM_INT);
     $moments->execute();
@@ -435,14 +454,19 @@ function recordedProcesses(PDO $pdo, int $limit = 12): array
         'SELECT name, cpu_percent, mem_percent, rss_bytes, procs,
                 oldest_seconds, newest_seconds, trigger_percent, accounted_percent
          FROM process_samples WHERE taken_at = ? AND reason = ?
-         ORDER BY ' . '(CASE WHEN ? = \'memory\' THEN rss_bytes ELSE cpu_percent END) DESC'
+         ORDER BY ' .
+            '(CASE WHEN ? = \'memory\' THEN rss_bytes ELSE cpu_percent END) DESC',
     );
 
     $out = [];
     foreach ($moments->fetchAll() as $moment) {
-        $rows->execute([$moment['taken_at'], $moment['reason'], $moment['reason']]);
+        $rows->execute([
+            $moment['taken_at'],
+            $moment['reason'],
+            $moment['reason'],
+        ]);
         $out[] = [
-            'taken_at' => (int)$moment['taken_at'],
+            'taken_at' => (int) $moment['taken_at'],
             'reason' => $moment['reason'],
             'rows' => $rows->fetchAll(),
         ];
@@ -462,56 +486,90 @@ function recordedProcesses(PDO $pdo, int $limit = 12): array
  *
  * @return array{metric: string, names: list<string>, rows: list<array<string, int|float|null>>}
  */
-function processTrend(PDO $pdo, int $from, int $to, string $metric, int $limit = 10): array
-{
+function processTrend(
+    PDO $pdo,
+    int $from,
+    int $to,
+    string $metric,
+    int $limit = 10,
+): array {
     $metric = $metric === 'memory' ? 'memory' : 'cpu';
     $limit = max(1, min(10, $limit));
     $peak = $metric === 'memory' ? 'MAX(rss_bytes)' : 'MAX(cpu_percent)';
     $summary = $pdo->prepare(
-        'SELECT name, MAX(taken_at) AS last_at, ' . $peak . ' AS peak
+        'SELECT name, MAX(taken_at) AS last_at, ' .
+            $peak .
+            ' AS peak
            FROM process_samples
           WHERE taken_at BETWEEN ? AND ?
-          GROUP BY name'
+          GROUP BY name',
     );
     $summary->execute([$from, $to]);
     $all = $summary->fetchAll();
 
     $recent = $all;
-    usort($recent, fn(array $a, array $b): int => ((int)$b['last_at'] <=> (int)$a['last_at'])
-        ?: ((float)$b['peak'] <=> (float)$a['peak']) ?: strcmp((string)$a['name'], (string)$b['name']));
+    usort(
+        $recent,
+        fn(array $a, array $b): int => (int) $b['last_at'] <=>
+        (int) $a['last_at'] ?:
+        (float) $b['peak'] <=> (float) $a['peak'] ?:
+        strcmp((string) $a['name'], (string) $b['name']),
+    );
     $heavy = $all;
-    usort($heavy, fn(array $a, array $b): int => ((float)$b['peak'] <=> (float)$a['peak'])
-        ?: ((int)$b['last_at'] <=> (int)$a['last_at']) ?: strcmp((string)$a['name'], (string)$b['name']));
+    usort(
+        $heavy,
+        fn(array $a, array $b): int => (float) $b['peak'] <=>
+        (float) $a['peak'] ?:
+        (int) $b['last_at'] <=> (int) $a['last_at'] ?:
+        strcmp((string) $a['name'], (string) $b['name']),
+    );
 
     $chosen = [];
     // Seven current/recent answers, then the best historic peaks. The exact
     // split makes recency the default without turning "was it webalizer last
     // night?" into a question the chart cannot answer.
     foreach (array_merge(array_slice($recent, 0, 7), $heavy, $recent) as $row) {
-        $name = (string)$row['name'];
-        if (!isset($chosen[$name])) $chosen[$name] = true;
-        if (count($chosen) >= $limit) break;
+        $name = (string) $row['name'];
+        if (!isset($chosen[$name])) {
+            $chosen[$name] = true;
+        }
+        if (count($chosen) >= $limit) {
+            break;
+        }
     }
     $names = array_keys($chosen);
-    if ($names === []) return ['metric' => $metric, 'names' => [], 'rows' => []];
+    if ($names === []) {
+        return ['metric' => $metric, 'names' => [], 'rows' => []];
+    }
 
     $holders = implode(', ', array_fill(0, count($names), '?'));
     $value = $metric === 'memory' ? 'MAX(rss_bytes)' : 'MAX(cpu_percent)';
     $rows = $pdo->prepare(
-        'SELECT taken_at, name, ' . $value . ' AS value
+        'SELECT taken_at, name, ' .
+            $value .
+            ' AS value
            FROM process_samples
-          WHERE taken_at BETWEEN ? AND ? AND name IN (' . $holders . ')
+          WHERE taken_at BETWEEN ? AND ? AND name IN (' .
+            $holders .
+            ')
           GROUP BY taken_at, name
-          ORDER BY taken_at, name'
+          ORDER BY taken_at, name',
     );
     $rows->execute([$from, $to, ...$names]);
 
     $points = [];
     foreach ($rows->fetchAll() as $row) {
-        $at = (int)$row['taken_at'];
-        if (!isset($points[$at])) $points[$at] = ['taken_at' => $at];
-        $points[$at][(string)$row['name']] = $row['value'] === null ? null : (float)$row['value'];
+        $at = (int) $row['taken_at'];
+        if (!isset($points[$at])) {
+            $points[$at] = ['taken_at' => $at];
+        }
+        $points[$at][(string) $row['name']] =
+            $row['value'] === null ? null : (float) $row['value'];
     }
 
-    return ['metric' => $metric, 'names' => $names, 'rows' => array_values($points)];
+    return [
+        'metric' => $metric,
+        'names' => $names,
+        'rows' => array_values($points),
+    ];
 }

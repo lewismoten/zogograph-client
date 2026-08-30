@@ -26,7 +26,10 @@ if (PHP_SAPI !== 'cli') {
 
 $configFile = __DIR__ . '/lib/config.php';
 if (!is_file($configFile)) {
-    fwrite(STDERR, "No lib/config.php. Copy lib/config.sample.php and edit it.\n");
+    fwrite(
+        STDERR,
+        "No lib/config.php. Copy lib/config.sample.php and edit it.\n",
+    );
     exit(1);
 }
 
@@ -37,7 +40,7 @@ date_default_timezone_set($config['timezone'] ?? 'UTC');
 require_once __DIR__ . '/lib/scans.php';
 require_once __DIR__ . '/lib/rdns.php';
 require_once __DIR__ . '/lib/boot.php';
-define('DISKMON_LOG', dirname((string)$config['database']) . '/error.log');
+define('DISKMON_LOG', dirname((string) $config['database']) . '/error.log');
 
 require_once __DIR__ . '/lib/db.php';
 require_once __DIR__ . '/lib/encryption.php';
@@ -57,22 +60,27 @@ require_once __DIR__ . '/lib/updates.php';
 
 $flags = array_slice($argv, 1);
 $quiet = in_array('--quiet', $flags, true);
-$jobs = array_values(array_filter($flags, fn(string $f): bool => $f !== '--quiet'));
+$jobs = array_values(
+    array_filter($flags, fn(string $f): bool => $f !== '--quiet'),
+);
 $wants = fn(string $flag): bool => $jobs === [] || in_array($flag, $jobs, true);
 $runStarted = microtime(true);
 $runPdo = null;
 
 /** Records the cost of the whole cron invocation, even when one job fails. */
-$recordRun = function (?PDO $pdo, bool $ok, ?string $error = null) use ($runStarted, $jobs): void {
+$recordRun = function (?PDO $pdo, bool $ok, ?string $error = null) use (
+    $runStarted,
+    $jobs,
+): void {
     if ($pdo === null) {
         return;
     }
     try {
         $pdo->prepare(
             'INSERT INTO collector_runs (started_at, kind, jobs, seconds, ok, error)
-             VALUES (?, ?, ?, ?, ?, ?)'
+             VALUES (?, ?, ?, ?, ?, ?)',
         )->execute([
-            (int)$runStarted,
+            (int) $runStarted,
             'account',
             $jobs === [] ? 'normal' : implode(' ', $jobs),
             round(microtime(true) - $runStarted, 3),
@@ -121,57 +129,103 @@ try {
         // Only writes anything when the reading was a busy one.
         $processes = recordProcesses($config, $pdo, $row);
         if ($processes['recorded'] > 0) {
-            $say(sprintf(
-                'busy    recorded %d processes (%s)',
-                $processes['recorded'],
-                implode(' and ', $processes['reasons'])
-            ));
+            $say(
+                sprintf(
+                    'busy    recorded %d processes (%s)',
+                    $processes['recorded'],
+                    implode(' and ', $processes['reasons']),
+                ),
+            );
         }
 
-        $say(sprintf(
-            'vitals  disk %s free of %s, load %s, cpu %s',
-            humanBytes($row['disk_free_bytes']),
-            humanBytes($row['disk_total_bytes']),
-            $row['load1'] === null ? 'n/a' : (string)$row['load1'],
-            $row['cpu_percent'] === null ? 'n/a' : $row['cpu_percent'] . '%'
-        ));
+        $say(
+            sprintf(
+                'vitals  disk %s free of %s, load %s, cpu %s',
+                humanBytes($row['disk_free_bytes']),
+                humanBytes($row['disk_total_bytes']),
+                $row['load1'] === null ? 'n/a' : (string) $row['load1'],
+                $row['cpu_percent'] === null
+                    ? 'n/a'
+                    : $row['cpu_percent'] . '%',
+            ),
+        );
     }
 
     // Sealing is deliberately explicit. A normal collector invocation must
     // never create encrypted copies merely because a key path exists.
     if (in_array('--seal', $jobs, true)) {
         $sealed = encryptionSealConfiguredCopies($config, $pdo, __DIR__);
-        if ($sealed !== []) encryptionRecordArtifacts($pdo, $sealed);
+        if ($sealed !== []) {
+            encryptionRecordArtifacts($pdo, $sealed);
+        }
         $pruned = encryptionPruneConfiguredCopies($config, $pdo);
-        $say($sealed === [] ? 'Encryption is disabled; no sealed copies made.'
-            : 'Created ' . count($sealed) . ' sealed database cop' . (count($sealed) === 1 ? 'y.' : 'ies.'));
-        if ($pruned['removed'] > 0) $say('Pruned ' . $pruned['removed'] . ' expired encrypted artifact' . ($pruned['removed'] === 1 ? '.' : 's.'));
-        foreach ($pruned['warnings'] as $warning) $say('Encryption retention warning: ' . $warning);
+        $say(
+            $sealed === []
+                ? 'Encryption is disabled; no sealed copies made.'
+                : 'Created ' .
+                    count($sealed) .
+                    ' sealed database cop' .
+                    (count($sealed) === 1 ? 'y.' : 'ies.'),
+        );
+        if ($pruned['removed'] > 0) {
+            $say(
+                'Pruned ' .
+                    $pruned['removed'] .
+                    ' expired encrypted artifact' .
+                    ($pruned['removed'] === 1 ? '.' : 's.'),
+            );
+        }
+        foreach ($pruned['warnings'] as $warning) {
+            $say('Encryption retention warning: ' . $warning);
+        }
     }
 
     if (in_array('--verify-sealed', $jobs, true)) {
         $checked = encryptionVerifyConfiguredCopies($config, $pdo, __DIR__);
-        $say('Verified ' . $checked['verified'] . ' retained encrypted artifact' . ($checked['verified'] === 1 ? '.' : 's.'));
-        if ($checked['failed'] > 0) $say('Encryption verification failed for ' . $checked['failed'] . ' artifact' . ($checked['failed'] === 1 ? '.' : 's.'));
-        foreach ($checked['warnings'] as $warning) $say('Encryption verification warning: ' . $warning);
+        $say(
+            'Verified ' .
+                $checked['verified'] .
+                ' retained encrypted artifact' .
+                ($checked['verified'] === 1 ? '.' : 's.'),
+        );
+        if ($checked['failed'] > 0) {
+            $say(
+                'Encryption verification failed for ' .
+                    $checked['failed'] .
+                    ' artifact' .
+                    ($checked['failed'] === 1 ? '.' : 's.'),
+            );
+        }
+        foreach ($checked['warnings'] as $warning) {
+            $say('Encryption verification warning: ' . $warning);
+        }
     }
 
     if (in_array('--recovery-drill', $jobs, true)) {
         $drill = encryptionRunRecoveryDrill($config, $pdo, __DIR__);
-        $say('Recovery drill tested ' . $drill['tested'] . ' selected encrypted store' . ($drill['tested'] === 1 ? '.' : 's.'));
-        foreach ($drill['warnings'] as $warning) $say('Encryption recovery-drill warning: ' . $warning);
+        $say(
+            'Recovery drill tested ' .
+                $drill['tested'] .
+                ' selected encrypted store' .
+                ($drill['tested'] === 1 ? '.' : 's.'),
+        );
+        foreach ($drill['warnings'] as $warning) {
+            $say('Encryption recovery-drill warning: ' . $warning);
+        }
     }
 
     if ($wants('--scan')) {
         $result = runScan($config, $pdo);
-        $say(sprintf(
-            'scan    %s files in %s dirs, %s, kept %d paths%s',
-            number_format($result['files']),
-            number_format($result['dirs']),
-            humanBytes($result['bytes']),
-            $result['kept'],
-            $result['error'] ? ' (partial: ' . $result['error'] . ')' : ''
-        ));
+        $say(
+            sprintf(
+                'scan    %s files in %s dirs, %s, kept %d paths%s',
+                number_format($result['files']),
+                number_format($result['dirs']),
+                humanBytes($result['bytes']),
+                $result['kept'],
+                $result['error'] ? ' (partial: ' . $result['error'] . ')' : '',
+            ),
+        );
     }
 
     /*
@@ -210,11 +264,22 @@ try {
         try {
             $urls = urlWatchRunDue($pdo, null, null, $config);
             if ($urls['ran'] > 0) {
-                $say(sprintf('urls    checked %d, %d failing', $urls['ran'], $urls['failed']));
+                $say(
+                    sprintf(
+                        'urls    checked %d, %d failing',
+                        $urls['ran'],
+                        $urls['failed'],
+                    ),
+                );
                 foreach ($urls['rows'] as $row) {
                     if (!$row['ok']) {
-                        $say(sprintf('        FAIL %s: %s', $row['label'],
-                            $row['error'] ?? 'status ' . $row['status']));
+                        $say(
+                            sprintf(
+                                '        FAIL %s: %s',
+                                $row['label'],
+                                $row['error'] ?? 'status ' . $row['status'],
+                            ),
+                        );
                     }
                 }
             }
@@ -248,7 +313,12 @@ try {
         try {
             $imported = rdnsImportHostAnswers($pdo, hostDb($config, false));
             if ($imported > 0) {
-                $say(sprintf('names   took %d answer(s) from the host collector', $imported));
+                $say(
+                    sprintf(
+                        'names   took %d answer(s) from the host collector',
+                        $imported,
+                    ),
+                );
             }
 
             $budget = externalBudget($config, 'rdns');
@@ -257,9 +327,15 @@ try {
                 if ($one === null) {
                     break;
                 }
-                $say(sprintf('names   %s -> %s (%dms, waited %s)',
-                    $one['address'], $one['name'] ?? 'no name', $one['ms'],
-                    plainSpan($one['waited'])));
+                $say(
+                    sprintf(
+                        'names   %s -> %s (%dms, waited %s)',
+                        $one['address'],
+                        $one['name'] ?? 'no name',
+                        $one['ms'],
+                        plainSpan($one['waited']),
+                    ),
+                );
             }
 
             /*
@@ -280,8 +356,13 @@ try {
         try {
             $domains = domainCheckDue($pdo, null, null, $config);
             if ($domains['ran'] > 0) {
-                $say(sprintf('domains checked %d, %d could not be read',
-                    $domains['ran'], $domains['failed']));
+                $say(
+                    sprintf(
+                        'domains checked %d, %d could not be read',
+                        $domains['ran'],
+                        $domains['failed'],
+                    ),
+                );
             }
         } catch (Throwable $e) {
             logProblem('warning', 'domain checks: ' . $e->getMessage());
@@ -292,7 +373,12 @@ try {
     if ($wants('--alerts')) {
         $raised = evaluateAlerts($config, $pdo);
         foreach ($raised as $alert) {
-            $say('ALERT   ' . strtoupper($alert['severity']) . ' ' . $alert['subject']);
+            $say(
+                'ALERT   ' .
+                    strtoupper($alert['severity']) .
+                    ' ' .
+                    $alert['subject'],
+            );
         }
         if (!$raised) {
             $say('alerts  nothing tripped');
@@ -307,11 +393,17 @@ try {
         try {
             $delivery = peerTransportSend($config, $pdo);
             if ($delivery !== null) {
-                $say($delivery['skipped'] && $delivery['delivered'] === 0
-                    ? 'remote  next new delivery is rate-limited'
-                    : ($delivery['queued']
-                    ? 'remote  queued vital reading for ' . $delivery['peer']
-                    : 'remote  delivered ' . $delivery['delivered'] . ' vital reading(s) to ' . $delivery['peer']));
+                $say(
+                    $delivery['skipped'] && $delivery['delivered'] === 0
+                        ? 'remote  next new delivery is rate-limited'
+                        : ($delivery['queued']
+                            ? 'remote  queued vital reading for ' .
+                                $delivery['peer']
+                            : 'remote  delivered ' .
+                                $delivery['delivered'] .
+                                ' vital reading(s) to ' .
+                                $delivery['peer']),
+                );
             }
         } catch (Throwable $e) {
             // Delivery is an extra path: an offline controller must never make
@@ -337,7 +429,15 @@ try {
     $recordRun($runPdo, false, $e->getMessage());
     // To the log as well as to stderr: cron's stderr goes to whatever the
     // crontab line redirects to, which is often nowhere.
-    logProblem('error', 'cron: ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine());
+    logProblem(
+        'error',
+        'cron: ' .
+            $e->getMessage() .
+            ' in ' .
+            $e->getFile() .
+            ':' .
+            $e->getLine(),
+    );
     fwrite(STDERR, 'error: ' . $e->getMessage() . "\n");
     exit(1);
 }
@@ -380,12 +480,17 @@ function aiReports(array $config, PDO $pdo): string
  * may reasonably want them in different places, but requiring a second address
  * before the feature works at all would be a needless step.
  */
-function sendReportEmail(array $config, PDO $pdo, string $period, array $report): bool
-{
+function sendReportEmail(
+    array $config,
+    PDO $pdo,
+    string $period,
+    array $report,
+): bool {
     $settings = aiAlertSettings($config);
-    $to = trim($settings['report_to']) !== ''
-        ? $settings['report_to']
-        : (string)($config['alerts']['to'] ?? '');
+    $to =
+        trim($settings['report_to']) !== ''
+            ? $settings['report_to']
+            : (string) ($config['alerts']['to'] ?? '');
 
     $recipients = alertRecipients($to);
 
@@ -396,12 +501,7 @@ function sendReportEmail(array $config, PDO $pdo, string $period, array $report)
     $host = php_uname('n');
     $label = aiReportPeriods()[$period]['label'] ?? ucfirst($period);
 
-    $body = [
-        'Zogograph on ' . $host,
-        '',
-        $report['body'],
-        '',
-    ];
+    $body = ['Zogograph on ' . $host, '', $report['body'], ''];
 
     $link = dashboardLink($config, 'sys-reports');
     if ($link !== null) {
@@ -409,11 +509,14 @@ function sendReportEmail(array $config, PDO $pdo, string $period, array $report)
     }
 
     $body[] = '';
-    $body[] = 'Written by ' . aiPersona($config)['name'] . ', which is a language model '
-        . 'reading the figures. The figures themselves are on the dashboard.';
+    $body[] =
+        'Written by ' .
+        aiPersona($config)['name'] .
+        ', which is a language model ' .
+        'reading the figures. The figures themselves are on the dashboard.';
 
     $headers = ['Auto-Submitted: auto-generated'];
-    $from = trim((string)($config['alerts']['from'] ?? ''));
+    $from = trim((string) ($config['alerts']['from'] ?? ''));
     if ($from !== '') {
         $headers[] = 'From: ' . $from;
     }
@@ -426,18 +529,24 @@ function sendReportEmail(array $config, PDO $pdo, string $period, array $report)
      */
     $sent = false;
     foreach ($recipients as $who) {
-        $sent = @mail(
-            $who,
-            sprintf('[%s] %s summary', $host, $label),
-            implode("\n", $body),
-            implode("\r\n", $headers)
-        ) || $sent;
+        $sent =
+            @mail(
+                $who,
+                sprintf('[%s] %s summary', $host, $label),
+                implode("\n", $body),
+                implode("\r\n", $headers),
+            ) || $sent;
     }
 
-    $pdo->prepare('UPDATE ai_reports SET emailed_at = ?, email_error = ? WHERE id = ?')
-        ->execute([$sent ? time() : null, $sent ? null : 'mail() refused it', $report['id']]);
+    $pdo->prepare(
+        'UPDATE ai_reports SET emailed_at = ?, email_error = ? WHERE id = ?',
+    )->execute([
+        $sent ? time() : null,
+        $sent ? null : 'mail() refused it',
+        $report['id'],
+    ]);
 
-    return (bool)$sent;
+    return (bool) $sent;
 }
 
 /**
@@ -466,8 +575,9 @@ function prune(array $config, PDO $pdo): string
      */
     $vitals = compactVitals($pdo, $rules, $now);
 
-    $ancient = fn(string $key): ?int =>
-        (int)$rules[$key] > 0 ? $now - (int)$rules[$key] * 86400 : null;
+    $ancient = fn(string $key): ?int => (int) $rules[$key] > 0
+        ? $now - (int) $rules[$key] * 86400
+        : null;
 
     $scanCount = 0;
     if (($cut = $ancient('scan_days')) !== null) {
@@ -479,7 +589,9 @@ function prune(array $config, PDO $pdo): string
 
     $processCount = 0;
     if (($cut = $ancient('process_days')) !== null) {
-        $processes = $pdo->prepare('DELETE FROM process_samples WHERE taken_at < ?');
+        $processes = $pdo->prepare(
+            'DELETE FROM process_samples WHERE taken_at < ?',
+        );
         $processes->execute([$cut]);
         $processCount = $processes->rowCount();
     }
@@ -489,15 +601,16 @@ function prune(array $config, PDO $pdo): string
      * else, because they are the evidence. One per alerting evaluation rather
      * than one per reading, so even a bad year is a few hundred rows.
      */
-    $incidentCount = (int)$rules['incident_days'] > 0
-        ? pruneIncidents($pdo, (int)$rules['incident_days'])
-        : 0;
+    $incidentCount =
+        (int) $rules['incident_days'] > 0
+            ? pruneIncidents($pdo, (int) $rules['incident_days'])
+            : 0;
 
     // A path nothing refers to any more is history nobody can ask about.
     $paths = $pdo->exec(
         'DELETE FROM paths
          WHERE id NOT IN (SELECT path_id FROM path_sizes)
-           AND id NOT IN (SELECT path_id FROM alerts WHERE path_id IS NOT NULL)'
+           AND id NOT IN (SELECT path_id FROM alerts WHERE path_id IS NOT NULL)',
     );
 
     $pdo->commit();
@@ -507,18 +620,19 @@ function prune(array $config, PDO $pdo): string
     $reclaimed = reclaimSpace($pdo);
 
     return sprintf(
-        'compacted %d buckets (5m %d, 1h %d, 1d %d) removing %d readings; '
-        . 'kept %d around alerts; dropped %d scans, %d paths, %d process rows, %d incidents; %s',
+        'compacted %d buckets (5m %d, 1h %d, 1d %d) removing %d readings; ' .
+            'kept %d around alerts; dropped %d scans, %d paths, %d process rows, %d incidents; %s',
         $vitals['compacted'],
         $vitals['tiers']['five_minute'] ?? 0,
         $vitals['tiers']['hourly'] ?? 0,
         $vitals['tiers']['daily'] ?? 0,
         $vitals['removed'],
-        protectedReadings($pdo, max(0, (int)$rules['protect_hours']) * 3600),
+        protectedReadings($pdo, max(0, (int) $rules['protect_hours']) * 3600),
         $scanCount,
-        (int)$paths,
+        (int) $paths,
         $processCount,
         $incidentCount,
-        $reclaimed
+        $reclaimed,
     );
 }
+

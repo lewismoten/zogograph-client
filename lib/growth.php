@@ -34,7 +34,15 @@ require_once __DIR__ . '/db.php';
 require_once __DIR__ . '/actions.php';
 
 /** The views this file can answer. */
-const GROWTH_VIEWS = ['size', 'growth', 'hour', 'today', 'week', 'new', 'deleted'];
+const GROWTH_VIEWS = [
+    'size',
+    'growth',
+    'hour',
+    'today',
+    'week',
+    'new',
+    'deleted',
+];
 
 /** How far back each windowed view reaches. 'today' is handled separately. */
 const GROWTH_WINDOWS = ['hour' => 3600, 'week' => 604800];
@@ -67,12 +75,22 @@ const GROWTH_NEW_MIN_BYTES = 10485760;
  */
 function growthWindow(PDO $pdo, string $view): array
 {
-    $blank = ['now' => null, 'before' => null, 'now_at' => null, 'before_at' => null,
-              'requested' => null, 'actual' => null, 'exact' => true, 'reason' => null];
+    $blank = [
+        'now' => null,
+        'before' => null,
+        'now_at' => null,
+        'before_at' => null,
+        'requested' => null,
+        'actual' => null,
+        'exact' => true,
+        'reason' => null,
+    ];
 
-    $latest = $pdo->query(
-        'SELECT id, finished_at FROM scans WHERE finished_at IS NOT NULL ORDER BY id DESC LIMIT 1'
-    )->fetch();
+    $latest = $pdo
+        ->query(
+            'SELECT id, finished_at FROM scans WHERE finished_at IS NOT NULL ORDER BY id DESC LIMIT 1',
+        )
+        ->fetch();
 
     if (!$latest) {
         /*
@@ -89,32 +107,38 @@ function growthWindow(PDO $pdo, string $view): array
         return $blank;
     }
 
-    $nowAt = (int)$latest['finished_at'];
+    $nowAt = (int) $latest['finished_at'];
     $window = $blank;
-    $window['now'] = (int)$latest['id'];
+    $window['now'] = (int) $latest['id'];
     $window['now_at'] = $nowAt;
 
     // The two views that compare against the immediately preceding scan.
-    if ($view === 'size' || $view === 'growth' || $view === 'deleted' || $view === 'new') {
-        $previous = $pdo->query(
-            'SELECT id, finished_at FROM scans WHERE finished_at IS NOT NULL
-             ORDER BY id DESC LIMIT 1 OFFSET 1'
-        )->fetch();
+    if (
+        $view === 'size' ||
+        $view === 'growth' ||
+        $view === 'deleted' ||
+        $view === 'new'
+    ) {
+        $previous = $pdo
+            ->query(
+                'SELECT id, finished_at FROM scans WHERE finished_at IS NOT NULL
+             ORDER BY id DESC LIMIT 1 OFFSET 1',
+            )
+            ->fetch();
 
         if (!$previous) {
             $window['reason'] = 'Needs two completed scans to compare.';
             return $window;
         }
 
-        $window['before'] = (int)$previous['id'];
-        $window['before_at'] = (int)$previous['finished_at'];
-        $window['actual'] = $nowAt - (int)$previous['finished_at'];
+        $window['before'] = (int) $previous['id'];
+        $window['before_at'] = (int) $previous['finished_at'];
+        $window['actual'] = $nowAt - (int) $previous['finished_at'];
         return $window;
     }
 
-    $target = $view === 'today'
-        ? startOfDay($nowAt)
-        : $nowAt - GROWTH_WINDOWS[$view];
+    $target =
+        $view === 'today' ? startOfDay($nowAt) : $nowAt - GROWTH_WINDOWS[$view];
 
     $requested = $nowAt - $target;
     $window['requested'] = $requested;
@@ -122,7 +146,7 @@ function growthWindow(PDO $pdo, string $view): array
     $before = $pdo->prepare(
         'SELECT id, finished_at FROM scans
          WHERE finished_at IS NOT NULL AND finished_at <= ?
-         ORDER BY finished_at DESC LIMIT 1'
+         ORDER BY finished_at DESC LIMIT 1',
     );
     $before->execute([$target]);
     $row = $before->fetch();
@@ -133,25 +157,28 @@ function growthWindow(PDO $pdo, string $view): array
         $inside = $pdo->prepare(
             'SELECT id, finished_at FROM scans
              WHERE finished_at IS NOT NULL AND finished_at > ? AND id != ?
-             ORDER BY finished_at ASC LIMIT 1'
+             ORDER BY finished_at ASC LIMIT 1',
         );
         $inside->execute([$target, $window['now']]);
         $row = $inside->fetch();
     }
 
     if (!$row) {
-        $window['reason'] = 'Only one scan falls in this period, so there is nothing '
-            . 'to compare it with.';
+        $window['reason'] =
+            'Only one scan falls in this period, so there is nothing ' .
+            'to compare it with.';
         return $window;
     }
 
-    $window['before'] = (int)$row['id'];
-    $window['before_at'] = (int)$row['finished_at'];
-    $window['actual'] = $nowAt - (int)$row['finished_at'];
+    $window['before'] = (int) $row['id'];
+    $window['before_at'] = (int) $row['finished_at'];
+    $window['actual'] = $nowAt - (int) $row['finished_at'];
 
     // Close enough that the label is not misleading: within a quarter of the
     // window, or within a minute for the short ones.
-    $window['exact'] = abs($window['actual'] - $requested) <= max(60, (int)($requested * 0.25));
+    $window['exact'] =
+        abs($window['actual'] - $requested) <=
+        max(60, (int) ($requested * 0.25));
 
     return $window;
 }
@@ -159,7 +186,14 @@ function growthWindow(PDO $pdo, string $view): array
 /** Midnight local time, in the configured zone - not "twenty-four hours ago". */
 function startOfDay(int $at): int
 {
-    return (int)mktime(0, 0, 0, (int)date('n', $at), (int)date('j', $at), (int)date('Y', $at));
+    return (int) mktime(
+        0,
+        0,
+        0,
+        (int) date('n', $at),
+        (int) date('j', $at),
+        (int) date('Y', $at),
+    );
 }
 
 /**
@@ -172,8 +206,12 @@ function startOfDay(int $at): int
  * seen before has merely come back into view. Both are worth showing and they
  * are labelled differently.
  */
-function newlyAppeared(PDO $pdo, array $window, array $filters, int $limit): array
-{
+function newlyAppeared(
+    PDO $pdo,
+    array $window,
+    array $filters,
+    int $limit,
+): array {
     $where = ['now.scan_id = :now', 'p.kind = \'file\'', 'now.bytes >= :min'];
     $params = [
         ':now' => $window['now'],
@@ -190,7 +228,9 @@ function newlyAppeared(PDO $pdo, array $window, array $filters, int $limit): arr
                 CASE WHEN p.first_seen >= :beforeAt THEN 1 ELSE 0 END AS never_seen_before
          FROM path_sizes now
          JOIN paths p ON p.id = now.path_id
-         WHERE ' . implode(' AND ', $where) . '
+         WHERE ' .
+        implode(' AND ', $where) .
+        '
            AND NOT EXISTS (
              SELECT 1 FROM path_sizes was
               WHERE was.path_id = now.path_id AND was.scan_id = :before
@@ -214,10 +254,18 @@ function newlyAppeared(PDO $pdo, array $window, array $filters, int $limit): arr
  * of the largest 25" is a real answer to "where did it go" and hiding it would
  * leave somebody hunting for a file that never moved.
  */
-function deletedSince(PDO $pdo, array $window, array $filters, int $limit): array
-{
+function deletedSince(
+    PDO $pdo,
+    array $window,
+    array $filters,
+    int $limit,
+): array {
     $where = ['was.scan_id = :before'];
-    $params = [':before' => $window['before'], ':now' => $window['now'], ':limit' => $limit];
+    $params = [
+        ':before' => $window['before'],
+        ':now' => $window['now'],
+        ':limit' => $limit,
+    ];
     applyFilters($filters, $where, $params);
 
     $sql =
@@ -231,7 +279,9 @@ function deletedSince(PDO $pdo, array $window, array $filters, int $limit): arra
                 ) AS deleted_at
          FROM path_sizes was
          JOIN paths p ON p.id = was.path_id
-         WHERE ' . implode(' AND ', $where) . '
+         WHERE ' .
+        implode(' AND ', $where) .
+        '
            AND NOT EXISTS (
              SELECT 1 FROM path_sizes now
               WHERE now.path_id = was.path_id AND now.scan_id = :now
@@ -241,7 +291,7 @@ function deletedSince(PDO $pdo, array $window, array $filters, int $limit): arra
     $rows = runGrowthQuery($pdo, $sql, $params);
 
     foreach ($rows as $i => $row) {
-        $path = (string)$row['path'];
+        $path = (string) $row['path'];
 
         /*
          * The filesystem is the authority here, not the database.
@@ -256,7 +306,9 @@ function deletedSince(PDO $pdo, array $window, array $filters, int $limit): arra
         $rows[$i]['gone'] = !$stillThere;
         $rows[$i]['reason'] = $stillThere
             ? 'still on disk'
-            : (($row['deleted_at'] ?? null) !== null ? 'deleted from here' : 'removed');
+            : (($row['deleted_at'] ?? null) !== null
+                ? 'deleted from here'
+                : 'removed');
     }
 
     /*
@@ -265,8 +317,13 @@ function deletedSince(PDO $pdo, array $window, array $filters, int $limit): arra
      * The demoted ones are context rather than news, and a list that opens with
      * five files that never moved buries the one that did.
      */
-    usort($rows, fn(array $a, array $b): int =>
-        [$b['gone'], (int)$b['bytes']] <=> [$a['gone'], (int)$a['bytes']]);
+    usort(
+        $rows,
+        fn(array $a, array $b): int => [$b['gone'], (int) $b['bytes']] <=> [
+            $a['gone'],
+            (int) $a['bytes'],
+        ],
+    );
 
     return $rows;
 }
@@ -275,7 +332,11 @@ function deletedSince(PDO $pdo, array $window, array $filters, int $limit): arra
 function grewMost(PDO $pdo, array $window, array $filters, int $limit): array
 {
     $where = ['now.scan_id = :now'];
-    $params = [':now' => $window['now'], ':before' => $window['before'], ':limit' => $limit];
+    $params = [
+        ':now' => $window['now'],
+        ':before' => $window['before'],
+        ':limit' => $limit,
+    ];
     applyFilters($filters, $where, $params);
 
     $sql =
@@ -286,7 +347,9 @@ function grewMost(PDO $pdo, array $window, array $filters, int $limit): array
          FROM path_sizes now
          JOIN path_sizes was ON was.path_id = now.path_id AND was.scan_id = :before
          JOIN paths p ON p.id = now.path_id
-         WHERE ' . implode(' AND ', $where) . '
+         WHERE ' .
+        implode(' AND ', $where) .
+        '
            AND now.bytes - was.bytes > 0
          ORDER BY growth DESC LIMIT :limit';
 
@@ -295,13 +358,13 @@ function grewMost(PDO $pdo, array $window, array $filters, int $limit): array
 
 function applyFilters(array $filters, array &$where, array &$params): void
 {
-    $category = (string)($filters['category'] ?? '');
+    $category = (string) ($filters['category'] ?? '');
     if ($category !== '') {
         $where[] = 'p.category = :category';
         $params[':category'] = $category;
     }
 
-    $kind = (string)($filters['kind'] ?? '');
+    $kind = (string) ($filters['kind'] ?? '');
     if ($kind === 'file' || $kind === 'dir') {
         $where[] = 'p.kind = :kind';
         $params[':kind'] = $kind;
@@ -312,7 +375,11 @@ function runGrowthQuery(PDO $pdo, string $sql, array $params): array
 {
     $stmt = $pdo->prepare($sql);
     foreach ($params as $key => $value) {
-        $stmt->bindValue($key, $value, is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR);
+        $stmt->bindValue(
+            $key,
+            $value,
+            is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR,
+        );
     }
     $stmt->execute();
 
@@ -329,26 +396,40 @@ function runGrowthQuery(PDO $pdo, string $sql, array $params): array
 function growthSpanNote(array $window, string $view): string
 {
     if ($window['reason'] !== null) {
-        return (string)$window['reason'];
+        return (string) $window['reason'];
     }
 
-    $actual = (int)($window['actual'] ?? 0);
+    $actual = (int) ($window['actual'] ?? 0);
     $span = $actual > 0 ? humanDuration($actual) : 'no time at all';
 
-    if ($view === 'deleted' || $view === 'new' || $view === 'growth' || $view === 'size') {
+    if (
+        $view === 'deleted' ||
+        $view === 'new' ||
+        $view === 'growth' ||
+        $view === 'size'
+    ) {
         return sprintf('Comparing the last two scans, %s apart.', $span);
     }
 
-    $asked = ['hour' => 'the last hour', 'today' => 'today', 'week' => 'the last 7 days'][$view] ?? 'this period';
+    $asked =
+        [
+            'hour' => 'the last hour',
+            'today' => 'today',
+            'week' => 'the last 7 days',
+        ][$view] ?? 'this period';
 
     if ($window['exact']) {
-        return sprintf('Covering %s — the two scans are %s apart.', $asked, $span);
+        return sprintf(
+            'Covering %s — the two scans are %s apart.',
+            $asked,
+            $span,
+        );
     }
 
     return sprintf(
-        'Asked for %s, but scans do not line up with it: this covers %s, between the two '
-        . 'nearest scans. The numbers are real, the period is just not the one on the label.',
+        'Asked for %s, but scans do not line up with it: this covers %s, between the two ' .
+            'nearest scans. The numbers are real, the period is just not the one on the label.',
         $asked,
-        $span
+        $span,
     );
 }

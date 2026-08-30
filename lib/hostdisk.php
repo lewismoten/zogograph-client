@@ -79,10 +79,29 @@ const HOSTDISK_KEEP_UNMEASURED = 60;
 function pseudoFilesystems(): array
 {
     return [
-        'proc', 'sysfs', 'devtmpfs', 'devpts', 'securityfs', 'cgroup', 'cgroup2',
-        'pstore', 'bpf', 'autofs', 'mqueue', 'hugetlbfs', 'debugfs', 'tracefs',
-        'fusectl', 'configfs', 'binfmt_misc', 'rpc_pipefs', 'nfsd', 'selinuxfs',
-        'squashfs', 'ramfs', 'efivarfs',
+        'proc',
+        'sysfs',
+        'devtmpfs',
+        'devpts',
+        'securityfs',
+        'cgroup',
+        'cgroup2',
+        'pstore',
+        'bpf',
+        'autofs',
+        'mqueue',
+        'hugetlbfs',
+        'debugfs',
+        'tracefs',
+        'fusectl',
+        'configfs',
+        'binfmt_misc',
+        'rpc_pipefs',
+        'nfsd',
+        'selinuxfs',
+        'squashfs',
+        'ramfs',
+        'efivarfs',
     ];
 }
 
@@ -118,7 +137,11 @@ function hostMounts(string $procRoot = '/proc'): array
         }
 
         // Mount points are escaped in /proc/mounts: a space is \040.
-        $mount = str_replace(['\040', '\011', '\012', '\134'], [' ', "\t", "\n", '\\'], $mount);
+        $mount = str_replace(
+            ['\040', '\011', '\012', '\134'],
+            [' ', "\t", "\n", '\\'],
+            $mount,
+        );
 
         $total = @disk_total_space($mount);
         $free = @disk_free_space($mount);
@@ -145,15 +168,18 @@ function hostMounts(string $procRoot = '/proc'): array
             'device' => $device,
             'mount' => $mount,
             'type' => $type,
-            'total_bytes' => (int)$total,
-            'free_bytes' => (int)$free,
-            'used_bytes' => (int)($total - $free),
-            'used_percent' => round(($total - $free) / $total * 100, 2),
+            'total_bytes' => (int) $total,
+            'free_bytes' => (int) $free,
+            'used_bytes' => (int) ($total - $free),
+            'used_percent' => round((($total - $free) / $total) * 100, 2),
             'also_at' => [],
         ];
     }
 
-    usort($out, fn(array $a, array $b): int => $b['used_bytes'] <=> $a['used_bytes']);
+    usort(
+        $out,
+        fn(array $a, array $b): int => $b['used_bytes'] <=> $a['used_bytes'],
+    );
     return $out;
 }
 
@@ -181,19 +207,24 @@ function hostDirectoryUsage(
     ?float $budget = null,
     array $skip = [],
     ?int $device = null,
-    array $keepChildrenOf = []
+    array $keepChildrenOf = [],
 ): array {
     $started = microtime(true);
     $deadline = $started + ($budget ?? HOSTDISK_WALK_SECONDS);
 
     $real = realpath($root);
     if ($real === false || !is_dir($real)) {
-        return ['dirs' => [], 'complete' => false, 'seconds' => 0.0, 'scanned' => 0];
+        return [
+            'dirs' => [],
+            'complete' => false,
+            'seconds' => 0.0,
+            'scanned' => 0,
+        ];
     }
 
     if ($device === null) {
         $stat = @stat($real);
-        $device = $stat === false ? null : (int)$stat['dev'];
+        $device = $stat === false ? null : (int) $stat['dev'];
     }
 
     /*
@@ -228,13 +259,17 @@ function hostDirectoryUsage(
      * Trailing slashes go too, for the same reason from the other direction.
      */
     $resolve = static function (array $paths): array {
-        return array_values(array_filter(array_map(
-            static function (string $path): ?string {
-                $resolved = realpath($path);
-                return $resolved === false ? (rtrim($path, '/') ?: null) : $resolved;
-            },
-            $paths
-        )));
+        return array_values(
+            array_filter(
+                array_map(static function (string $path): ?string {
+                    $resolved = realpath($path);
+                    return $resolved === false
+                        ? (rtrim($path, '/') ?:
+                            null)
+                        : $resolved;
+                }, $paths),
+            ),
+        );
     };
 
     $skip = $resolve($skip);
@@ -251,9 +286,24 @@ function hostDirectoryUsage(
 
     $sizes = [];
     $counts = [];
-    $state = ['complete' => true, 'scanned' => 0, 'inodes' => [], 'unmeasured' => []];
+    $state = [
+        'complete' => true,
+        'scanned' => 0,
+        'inodes' => [],
+        'unmeasured' => [],
+    ];
 
-    hostWalkDir($real, $real, 0, $device, $skip, $deadline, $sizes, $counts, $state);
+    hostWalkDir(
+        $real,
+        $real,
+        0,
+        $device,
+        $skip,
+        $deadline,
+        $sizes,
+        $counts,
+        $state,
+    );
 
     $dirs = [];
     foreach ($sizes as $path => $bytes) {
@@ -276,8 +326,12 @@ function hostDirectoryUsage(
      * backup destination disappeared. A directory nobody looked at is more
      * worth reporting than the four-hundredth largest one somebody did.
      */
-    $unmeasured = array_values(array_filter($dirs, fn(array $d): bool => !$d['measured']));
-    $measured = array_values(array_filter($dirs, fn(array $d): bool => $d['measured']));
+    $unmeasured = array_values(
+        array_filter($dirs, fn(array $d): bool => !$d['measured']),
+    );
+    $measured = array_values(
+        array_filter($dirs, fn(array $d): bool => $d['measured']),
+    );
 
     /*
      * The shallowest unopened directories, and only a handful.
@@ -307,8 +361,11 @@ function hostDirectoryUsage(
     $always = [];
     $rest = [];
     foreach ($measured as $row) {
-        $parent = dirname((string)$row['path']);
-        if (in_array($parent, $keepChildrenOf, true) || in_array((string)$row['path'], $keepChildrenOf, true)) {
+        $parent = dirname((string) $row['path']);
+        if (
+            in_array($parent, $keepChildrenOf, true) ||
+            in_array((string) $row['path'], $keepChildrenOf, true)
+        ) {
             $always[] = $row;
         } else {
             $rest[] = $row;
@@ -319,13 +376,19 @@ function hostDirectoryUsage(
 
     $kept = array_merge(
         $always,
-        array_slice($rest, 0, max(0, HOSTDISK_KEEP_DIRS - count($unmeasured) - count($always)))
+        array_slice(
+            $rest,
+            0,
+            max(0, HOSTDISK_KEEP_DIRS - count($unmeasured) - count($always)),
+        ),
     );
 
     return [
         'dirs' => array_merge($kept, $unmeasured),
         'unmeasured' => count($unmeasured),
-        'unmeasured_total' => count(array_filter($dirs, fn(array $d): bool => !$d['measured'])),
+        'unmeasured_total' => count(
+            array_filter($dirs, fn(array $d): bool => !$d['measured']),
+        ),
         'complete' => $state['complete'],
         'scanned' => $state['scanned'],
         'seconds' => round(microtime(true) - $started, 2),
@@ -346,7 +409,7 @@ function hostWalkDir(
     float $deadline,
     array &$sizes,
     array &$counts,
-    array &$state
+    array &$state,
 ): array {
     if (microtime(true) > $deadline) {
         $state['complete'] = false;
@@ -409,7 +472,7 @@ function hostWalkDir(
              * backup volume attached to the machine - and each of those is
              * already its own row in hostMounts().
              */
-            if ($device !== null && (int)$stat['dev'] !== $device) {
+            if ($device !== null && (int) $stat['dev'] !== $device) {
                 continue;
             }
 
@@ -425,7 +488,7 @@ function hostWalkDir(
          * treemap makes the opposite choice deliberately, for a different
          * reason - see the note in lib/treemap.php.
          */
-        if ((int)($stat['nlink'] ?? 1) > 1) {
+        if ((int) ($stat['nlink'] ?? 1) > 1) {
             $key = $stat['dev'] . ':' . $stat['ino'];
             if (isset($state['inodes'][$key])) {
                 continue;
@@ -441,9 +504,10 @@ function hostWalkDir(
          * to explain df has to count blocks too - otherwise the two disagree
          * and the disagreement looks like the missing space.
          */
-        $bytes += isset($stat['blocks']) && $stat['blocks'] >= 0
-            ? (int)$stat['blocks'] * 512
-            : (int)$stat['size'];
+        $bytes +=
+            isset($stat['blocks']) && $stat['blocks'] >= 0
+                ? (int) $stat['blocks'] * 512
+                : (int) $stat['size'];
         $files++;
     }
 
@@ -470,7 +534,10 @@ function hostWalkDir(
             // The ones never entered are still recorded, marked unmeasured, so
             // they appear as "not measured" rather than as though absent.
             foreach ($remaining as $missed) {
-                if ($depth + 1 <= HOSTDISK_MAX_DEPTH && !isset($sizes[$missed])) {
+                if (
+                    $depth + 1 <= HOSTDISK_MAX_DEPTH &&
+                    !isset($sizes[$missed])
+                ) {
                     $sizes[$missed] = 0;
                     $counts[$missed] = 0;
                     $state['unmeasured'][$missed] = true;
@@ -492,8 +559,15 @@ function hostWalkDir(
             : $deadline;
 
         $below = hostWalkDir(
-            $child, $root, $depth + 1, $device, $skip, $childDeadline,
-            $sizes, $counts, $state
+            $child,
+            $root,
+            $depth + 1,
+            $device,
+            $skip,
+            $childDeadline,
+            $sizes,
+            $counts,
+            $state,
         );
 
         $bytes += $below['bytes'];
@@ -536,8 +610,12 @@ function hostDeletedOpen(string $procRoot = '/proc'): array
 {
     $entries = @scandir($procRoot);
     if ($entries === false) {
-        return ['files' => [], 'bytes' => 0, 'readable' => false,
-                'reason' => 'This host does not expose /proc.'];
+        return [
+            'files' => [],
+            'bytes' => 0,
+            'readable' => false,
+            'reason' => 'This host does not expose /proc.',
+        ];
     }
 
     $found = [];
@@ -557,7 +635,7 @@ function hostDeletedOpen(string $procRoot = '/proc'): array
             continue;
         }
 
-        $name = trim((string)@file_get_contents("$procRoot/$entry/comm"));
+        $name = trim((string) @file_get_contents("$procRoot/$entry/comm"));
 
         foreach ($handles as $fd) {
             if ($fd === '.' || $fd === '..') {
@@ -575,9 +653,10 @@ function hostDeletedOpen(string $procRoot = '/proc'): array
                 continue;
             }
 
-            $bytes = isset($stat['blocks']) && $stat['blocks'] >= 0
-                ? (int)$stat['blocks'] * 512
-                : (int)$stat['size'];
+            $bytes =
+                isset($stat['blocks']) && $stat['blocks'] >= 0
+                    ? (int) $stat['blocks'] * 512
+                    : (int) $stat['size'];
             if ($bytes <= 0) {
                 continue;
             }
@@ -598,7 +677,7 @@ function hostDeletedOpen(string $procRoot = '/proc'): array
             $seen[$key] = count($found);
 
             $found[] = [
-                'pid' => (int)$entry,
+                'pid' => (int) $entry,
                 'process' => $name !== '' ? $name : '?',
                 'path' => substr($target, 0, -strlen(' (deleted)')),
                 'bytes' => $bytes,
@@ -613,13 +692,14 @@ function hostDeletedOpen(string $procRoot = '/proc'): array
         'files' => array_slice($found, 0, 50),
         'bytes' => array_sum(array_column($found, 'bytes')),
         'readable' => true,
-        'reason' => $blocked > 0
-            ? sprintf(
-                '%d processes could not be inspected. Without root this only covers this '
-                . 'account\'s own processes, and the space held by everyone else stays hidden.',
-                $blocked
-            )
-            : null,
+        'reason' =>
+            $blocked > 0
+                ? sprintf(
+                    '%d processes could not be inspected. Without root this only covers this ' .
+                        'account\'s own processes, and the space held by everyone else stays hidden.',
+                    $blocked,
+                )
+                : null,
     ];
 }
 
@@ -635,37 +715,42 @@ function hostDeletedOpen(string $procRoot = '/proc'): array
  */
 function hostDiskReport(PDO $pdo, int $limit = 40): array
 {
-    $walk = $pdo->query(
-        'SELECT * FROM host_walks ORDER BY taken_at DESC LIMIT 1'
-    )->fetch(PDO::FETCH_ASSOC);
+    $walk = $pdo
+        ->query('SELECT * FROM host_walks ORDER BY taken_at DESC LIMIT 1')
+        ->fetch(PDO::FETCH_ASSOC);
 
-    $latestMount = (int)$pdo->query('SELECT MAX(taken_at) FROM host_mounts')->fetchColumn();
+    $latestMount = (int) $pdo
+        ->query('SELECT MAX(taken_at) FROM host_mounts')
+        ->fetchColumn();
 
     if (!$walk && $latestMount <= 0) {
         return [
             'available' => false,
-            'reason' => 'No disk walk has been run yet. As root: php host-cron.php --disk',
+            'reason' =>
+                'No disk walk has been run yet. As root: php host-cron.php --disk',
             'taken_at' => 0,
-            'mounts' => [], 'dirs' => [], 'deleted' => [],
+            'mounts' => [],
+            'dirs' => [],
+            'deleted' => [],
         ];
     }
 
-    $at = (int)($walk['taken_at'] ?? $latestMount);
+    $at = (int) ($walk['taken_at'] ?? $latestMount);
 
     $mounts = $pdo->prepare(
-        'SELECT * FROM host_mounts WHERE taken_at = ? ORDER BY used_bytes DESC'
+        'SELECT * FROM host_mounts WHERE taken_at = ? ORDER BY used_bytes DESC',
     );
     $mounts->execute([$latestMount]);
 
     $dirs = $pdo->prepare(
-        'SELECT * FROM host_dirs WHERE taken_at = ? ORDER BY bytes DESC LIMIT ?'
+        'SELECT * FROM host_dirs WHERE taken_at = ? ORDER BY bytes DESC LIMIT ?',
     );
     $dirs->bindValue(1, $at, PDO::PARAM_INT);
     $dirs->bindValue(2, $limit, PDO::PARAM_INT);
     $dirs->execute();
 
     $deleted = $pdo->prepare(
-        'SELECT * FROM host_deleted WHERE taken_at = ? ORDER BY bytes DESC LIMIT ?'
+        'SELECT * FROM host_deleted WHERE taken_at = ? ORDER BY bytes DESC LIMIT ?',
     );
     $deleted->bindValue(1, $at, PDO::PARAM_INT);
     $deleted->bindValue(2, $limit, PDO::PARAM_INT);
@@ -678,16 +763,16 @@ function hostDiskReport(PDO $pdo, int $limit = 40): array
         'reason' => null,
         'taken_at' => $at,
         'age_seconds' => max(0, time() - $at),
-        'root' => (string)($walk['root'] ?? '/'),
-        'complete' => (bool)($walk['complete'] ?? false),
-        'seconds' => (float)($walk['seconds'] ?? 0),
-        'dirs_scanned' => (int)($walk['dirs_scanned'] ?? 0),
+        'root' => (string) ($walk['root'] ?? '/'),
+        'complete' => (bool) ($walk['complete'] ?? false),
+        'seconds' => (float) ($walk['seconds'] ?? 0),
+        'dirs_scanned' => (int) ($walk['dirs_scanned'] ?? 0),
         'note' => $walk['note'] ?? null,
         'mounts' => $mounts->fetchAll(PDO::FETCH_ASSOC),
         'dirs' => $dirs->fetchAll(PDO::FETCH_ASSOC),
         'deleted' => $deletedRows,
-        'deleted_bytes' => (int)($walk['deleted_bytes'] ?? 0),
-        'deleted_readable' => (bool)($walk['deleted_readable'] ?? false),
+        'deleted_bytes' => (int) ($walk['deleted_bytes'] ?? 0),
+        'deleted_readable' => (bool) ($walk['deleted_readable'] ?? false),
     ];
 }
 
@@ -701,7 +786,11 @@ function hostDiskReport(PDO $pdo, int $limit = 40): array
  */
 function hostUnaccounted(array $report): ?array
 {
-    if (!$report['available'] || $report['mounts'] === [] || $report['dirs'] === []) {
+    if (
+        !$report['available'] ||
+        $report['mounts'] === [] ||
+        $report['dirs'] === []
+    ) {
         return null;
     }
 
@@ -709,9 +798,16 @@ function hostUnaccounted(array $report): ?array
     $mount = null;
     foreach ($report['mounts'] as $row) {
         // The longest mount point that is a prefix of the walked root owns it.
-        $point = (string)$row['mount'];
-        if ($root === $point || str_starts_with($root, rtrim($point, '/') . '/') || $point === '/') {
-            if ($mount === null || strlen($point) > strlen((string)$mount['mount'])) {
+        $point = (string) $row['mount'];
+        if (
+            $root === $point ||
+            str_starts_with($root, rtrim($point, '/') . '/') ||
+            $point === '/'
+        ) {
+            if (
+                $mount === null ||
+                strlen($point) > strlen((string) $mount['mount'])
+            ) {
                 $mount = $row;
             }
         }
@@ -722,8 +818,8 @@ function hostUnaccounted(array $report): ?array
 
     $found = 0;
     foreach ($report['dirs'] as $dir) {
-        if ((string)$dir['path'] === $root) {
-            $found = (int)$dir['bytes'];
+        if ((string) $dir['path'] === $root) {
+            $found = (int) $dir['bytes'];
             break;
         }
     }
@@ -731,15 +827,18 @@ function hostUnaccounted(array $report): ?array
         return null;
     }
 
-    $used = (int)$mount['used_bytes'];
+    $used = (int) $mount['used_bytes'];
 
     return [
-        'mount' => (string)$mount['mount'],
+        'mount' => (string) $mount['mount'],
         'used_bytes' => $used,
         'found_bytes' => $found,
-        'deleted_bytes' => (int)$report['deleted_bytes'],
-        'missing_bytes' => max(0, $used - $found - (int)$report['deleted_bytes']),
-        'complete' => (bool)$report['complete'],
+        'deleted_bytes' => (int) $report['deleted_bytes'],
+        'missing_bytes' => max(
+            0,
+            $used - $found - (int) $report['deleted_bytes'],
+        ),
+        'complete' => (bool) $report['complete'],
     ];
 }
 
@@ -772,11 +871,13 @@ function requestHostWalk(PDO $account, ?string $who = null): int
 function requestHostTask(PDO $account, string $task, ?string $who = null): int
 {
     $at = time();
-    $account->prepare(
-        'INSERT INTO host_tasks (task, requested_at, requested_by)
+    $account
+        ->prepare(
+            'INSERT INTO host_tasks (task, requested_at, requested_by)
          VALUES (:task, :at, :who)
-         ON CONFLICT(task) DO UPDATE SET requested_at = :at, requested_by = :who'
-    )->execute([':task' => $task, ':at' => $at, ':who' => $who]);
+         ON CONFLICT(task) DO UPDATE SET requested_at = :at, requested_by = :who',
+        )
+        ->execute([':task' => $task, ':at' => $at, ':who' => $who]);
 
     return $at;
 }
@@ -788,7 +889,7 @@ function requestHostTask(PDO $account, string $task, ?string $who = null): int
  */
 function requestedHostTasks(array $config): array
 {
-    $file = (string)($config['database'] ?? '');
+    $file = (string) ($config['database'] ?? '');
     if ($file === '' || !is_file($file) || !is_readable($file)) {
         return [];
     }
@@ -800,7 +901,8 @@ function requestedHostTasks(array $config): array
         ]);
         $pdo->exec('PRAGMA query_only = 1');
 
-        $rows = $pdo->query('SELECT task, requested_at FROM host_tasks')
+        $rows = $pdo
+            ->query('SELECT task, requested_at FROM host_tasks')
             ->fetchAll(PDO::FETCH_KEY_PAIR);
 
         return array_map('intval', $rows);
@@ -819,7 +921,8 @@ function requestedHostTasks(array $config): array
 function pendingHostTasks(array $config, PDO $account, ?PDO $host): array
 {
     try {
-        $rows = $account->query('SELECT task, requested_at FROM host_tasks')
+        $rows = $account
+            ->query('SELECT task, requested_at FROM host_tasks')
             ->fetchAll(PDO::FETCH_ASSOC);
     } catch (Throwable) {
         return [];
@@ -829,14 +932,16 @@ function pendingHostTasks(array $config, PDO $account, ?PDO $host): array
     $walkRun = 0;
     if ($host !== null) {
         try {
-            $capabilityRun = (int)$host->query(
-                'SELECT MAX(ran_at) FROM host_capability_runs'
-            )->fetchColumn();
+            $capabilityRun = (int) $host
+                ->query('SELECT MAX(ran_at) FROM host_capability_runs')
+                ->fetchColumn();
         } catch (Throwable) {
             $capabilityRun = 0;
         }
         try {
-            $walkRun = (int)$host->query('SELECT MAX(taken_at) FROM host_walks')->fetchColumn();
+            $walkRun = (int) $host
+                ->query('SELECT MAX(taken_at) FROM host_walks')
+                ->fetchColumn();
         } catch (Throwable) {
             $walkRun = 0;
         }
@@ -844,13 +949,15 @@ function pendingHostTasks(array $config, PDO $account, ?PDO $host): array
 
     $out = [];
     foreach ($rows as $row) {
-        $task = (string)$row['task'];
-        $at = (int)$row['requested_at'];
+        $task = (string) $row['task'];
+        $at = (int) $row['requested_at'];
 
         // See hostWalkPending(): a same-second tie goes to "still pending".
         $done = match (true) {
             $task === HOSTDISK_TASK => $walkRun > $at,
-            $task === 'capabilities', str_starts_with($task, 'expose:') => $capabilityRun > $at,
+            $task === 'capabilities',
+            str_starts_with($task, 'expose:')
+                => $capabilityRun > $at,
             default => false,
         };
 
@@ -877,7 +984,7 @@ function pendingHostTasks(array $config, PDO $account, ?PDO $host): array
  */
 function requestedHostWalk(array $config): ?int
 {
-    $file = (string)($config['database'] ?? '');
+    $file = (string) ($config['database'] ?? '');
     if ($file === '' || !is_file($file) || !is_readable($file)) {
         return null;
     }
@@ -889,11 +996,13 @@ function requestedHostWalk(array $config): ?int
         ]);
         $pdo->exec('PRAGMA query_only = 1');
 
-        $stmt = $pdo->prepare('SELECT requested_at FROM host_tasks WHERE task = ?');
+        $stmt = $pdo->prepare(
+            'SELECT requested_at FROM host_tasks WHERE task = ?',
+        );
         $stmt->execute([HOSTDISK_TASK]);
         $at = $stmt->fetchColumn();
 
-        return $at === false || $at === null ? null : (int)$at;
+        return $at === false || $at === null ? null : (int) $at;
     } catch (Throwable) {
         return null;
     }
@@ -912,7 +1021,9 @@ function hostWalkPending(PDO $host, ?int $requestedAt): bool
         return false;
     }
 
-    $last = (int)$host->query('SELECT MAX(taken_at) FROM host_walks')->fetchColumn();
+    $last = (int) $host
+        ->query('SELECT MAX(taken_at) FROM host_walks')
+        ->fetchColumn();
 
     /*
      * A walk in the same second as the request does not count as answering it.

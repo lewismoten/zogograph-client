@@ -50,8 +50,12 @@ function aiAlertSettings(array $config): array
          *   decide    it may also conclude that an alert did not warrant
          *             sending, with its reasoning recorded
          */
-        'mode' => in_array($set['mode'] ?? 'off', ['off', 'comment', 'look', 'decide'], true)
-            ? (string)($set['mode'] ?? 'off')
+        'mode' => in_array(
+            $set['mode'] ?? 'off',
+            ['off', 'comment', 'look', 'decide'],
+            true,
+        )
+            ? (string) ($set['mode'] ?? 'off')
             : 'off',
 
         /*
@@ -61,26 +65,31 @@ function aiAlertSettings(array $config): array
          * are both worse than a plain fast message. This is the floor at which
          * it stops being consulted at all.
          */
-        'never_above' => in_array($set['never_above'] ?? 'error',
-            ['none', 'critical', 'error', 'warning'], true)
-            ? (string)($set['never_above'] ?? 'error')
+        'never_above' => in_array(
+            $set['never_above'] ?? 'error',
+            ['none', 'critical', 'error', 'warning'],
+            true,
+        )
+            ? (string) ($set['never_above'] ?? 'error')
             : 'error',
 
         // Most alerts it will look at in one run, so a storm cannot run up a bill.
-        'per_run' => max(1, min(20, (int)($set['per_run'] ?? 5))),
+        'per_run' => max(1, min(20, (int) ($set['per_run'] ?? 5))),
 
         /* ---- reports ---- */
-        'daily' => (bool)($set['daily'] ?? false),
-        'weekly' => (bool)($set['weekly'] ?? false),
-        'monthly' => (bool)($set['monthly'] ?? false),
-        'report_to' => (string)($set['report_to'] ?? ''),
+        'daily' => (bool) ($set['daily'] ?? false),
+        'weekly' => (bool) ($set['weekly'] ?? false),
+        'monthly' => (bool) ($set['monthly'] ?? false),
+        'report_to' => (string) ($set['report_to'] ?? ''),
     ];
 }
 
 /** The severities, worst first, for comparing against `never_above`. */
 function aiAlertRank(string $severity): int
 {
-    return ['critical' => 0, 'error' => 1, 'warning' => 2, 'info' => 3][$severity] ?? 3;
+    return ['critical' => 0, 'error' => 1, 'warning' => 2, 'info' => 3][
+        $severity
+    ] ?? 3;
 }
 
 /**
@@ -121,12 +130,12 @@ function aiJudgeAlert(
     array $config,
     PDO $pdo,
     array $alert,
-    ?callable $ask = null
+    ?callable $ask = null,
 ): ?array {
     $settings = aiAlertSettings($config);
     $ready = aiReady($config);
 
-    if (!$ready['ok'] || !aiMayJudge($config, (string)$alert['severity'])) {
+    if (!$ready['ok'] || !aiMayJudge($config, (string) $alert['severity'])) {
         return null;
     }
 
@@ -145,10 +154,12 @@ function aiJudgeAlert(
     $model = aiSettings($config);
     $ask ??= 'aiAsk';
 
-    $transcript = [[
-        'role' => 'user',
-        'content' => aiAlertQuestion($alert, $mayDecide),
-    ]];
+    $transcript = [
+        [
+            'role' => 'user',
+            'content' => aiAlertQuestion($alert, $mayDecide),
+        ],
+    ];
 
     $spent = ['in' => 0, 'out' => 0, 'cents' => 0];
     $answer = null;
@@ -164,11 +175,11 @@ function aiJudgeAlert(
             $model,
             $transcript,
             $tools === [] ? [] : aiToolSchemas($tools),
-            aiAlertPrompt($config, $mayDecide, $tools)
+            aiAlertPrompt($config, $mayDecide, $tools),
         );
 
-        $spent['in'] += (int)($answer['tokens_in'] ?? 0);
-        $spent['out'] += (int)($answer['tokens_out'] ?? 0);
+        $spent['in'] += (int) ($answer['tokens_in'] ?? 0);
+        $spent['out'] += (int) ($answer['tokens_out'] ?? 0);
 
         if (!$answer['ok']) {
             /*
@@ -177,8 +188,11 @@ function aiJudgeAlert(
              * Logged rather than thrown: an alert that failed to be commented
              * on must still be an alert that goes out.
              */
-            logProblem('warning', 'alert triage could not reach the model: '
-                . (string)($answer['error'] ?? 'unknown'));
+            logProblem(
+                'warning',
+                'alert triage could not reach the model: ' .
+                    (string) ($answer['error'] ?? 'unknown'),
+            );
             return null;
         }
 
@@ -189,33 +203,44 @@ function aiJudgeAlert(
 
         $transcript[] = [
             'role' => 'assistant',
-            'content' => (string)($answer['text'] ?? ''),
-            'tool_calls' => array_map(fn(array $call): array => [
-                'id' => (string)$call['id'],
-                'type' => 'function',
-                'function' => [
-                    'name' => (string)$call['name'],
-                    'arguments' => json_encode($call['arguments'] ?? []),
+            'content' => (string) ($answer['text'] ?? ''),
+            'tool_calls' => array_map(
+                fn(array $call): array => [
+                    'id' => (string) $call['id'],
+                    'type' => 'function',
+                    'function' => [
+                        'name' => (string) $call['name'],
+                        'arguments' => json_encode($call['arguments'] ?? []),
+                    ],
                 ],
-            ], $calls),
+                $calls,
+            ),
         ];
 
         foreach ($calls as $call) {
-            $name = (string)$call['name'];
+            $name = (string) $call['name'];
             $result = isset($tools[$name])
-                ? aiRunTool($name, (array)($call['arguments'] ?? []), $config, $pdo, null, 0, false)
+                ? aiRunTool(
+                    $name,
+                    (array) ($call['arguments'] ?? []),
+                    $config,
+                    $pdo,
+                    null,
+                    0,
+                    false,
+                )
                 : ['error' => 'That tool is not available for this.'];
 
             $transcript[] = [
                 'role' => 'tool',
-                'tool_call_id' => (string)$call['id'],
+                'tool_call_id' => (string) $call['id'],
                 'content' => aiEncodeResult($result),
             ];
         }
     }
 
     $spent['cents'] = aiCost($model, $spent['in'], $spent['out'], 0);
-    $said = trim((string)($answer['text'] ?? ''));
+    $said = trim((string) ($answer['text'] ?? ''));
 
     if ($said === '') {
         return null;
@@ -245,7 +270,9 @@ function aiUnattendedTools(array $config): array
         }
         // Writing a memory from an unattended run is a side effect nobody asked
         // for and nobody would see happen.
-        if (in_array($tool['group'], ['memory', 'pictures', 'terminal'], true)) {
+        if (
+            in_array($tool['group'], ['memory', 'pictures', 'terminal'], true)
+        ) {
             continue;
         }
         $out[$name] = $tool;
@@ -260,10 +287,10 @@ function aiAlertQuestion(array $alert, bool $mayDecide): string
     $lines = [
         'An alert has just been raised on this machine.',
         '',
-        'Rule: ' . (string)$alert['rule'],
-        'Severity as the rule judged it: ' . (string)$alert['severity'],
-        'Subject: ' . (string)$alert['subject'],
-        'Detail: ' . (string)$alert['detail'],
+        'Rule: ' . (string) $alert['rule'],
+        'Severity as the rule judged it: ' . (string) $alert['severity'],
+        'Subject: ' . (string) $alert['subject'],
+        'Detail: ' . (string) $alert['detail'],
         '',
     ];
 
@@ -282,50 +309,58 @@ function aiAlertPrompt(array $config, bool $mayDecide, array $tools): string
     $lines = [
         sprintf('Your name is %s.', $persona['name']),
         '',
-        'You are looking at ONE alert that a threshold rule has just raised on a shared '
-        . 'hosting account, and writing a short note that will be attached to it - in the '
-        . 'email that goes out, and in the list the operator reads later.',
+        'You are looking at ONE alert that a threshold rule has just raised on a shared ' .
+        'hosting account, and writing a short note that will be attached to it - in the ' .
+        'email that goes out, and in the list the operator reads later.',
         '',
         'Nobody is watching. This runs from cron. There is no one to ask.',
         '',
         'WHAT TO WRITE',
-        '  - Two or three sentences. This is read on a phone, at night, by somebody who '
-        . 'was asleep.',
-        '  - Say what the alert means for this machine in particular, not what the rule '
-        . 'checks - they can read the rule.',
+        '  - Two or three sentences. This is read on a phone, at night, by somebody who ' .
+        'was asleep.',
+        '  - Say what the alert means for this machine in particular, not what the rule ' .
+        'checks - they can read the rule.',
         '  - If you looked something up, say what you found and what it was.',
         '  - Markdown is fine and will be rendered. Keep it to emphasis and short lists.',
     ];
 
     if ($tools !== []) {
         $lines[] = '';
-        $lines[] = 'YOU MAY LOOK THINGS UP FIRST: '
-            . implode(', ', array_keys($tools)) . '.';
-        $lines[] = '  Use them when the alert is ambiguous without context - whether this '
-            . 'is the first time, whether a collector has stopped, what else happened in '
-            . 'the same minutes. Two or three at most; this is a note, not an '
-            . 'investigation.';
+        $lines[] =
+            'YOU MAY LOOK THINGS UP FIRST: ' .
+            implode(', ', array_keys($tools)) .
+            '.';
+        $lines[] =
+            '  Use them when the alert is ambiguous without context - whether this ' .
+            'is the first time, whether a collector has stopped, what else happened in ' .
+            'the same minutes. Two or three at most; this is a note, not an ' .
+            'investigation.';
     }
 
     if ($mayDecide) {
         $lines[] = '';
         $lines[] = 'YOU MAY ALSO SAY IT SHOULD NOT BE SENT.';
-        $lines[] = '  A rule is a threshold and knows nothing else. You may have found '
-            . 'that the spike was a backup that has since finished, or that this fires '
-            . 'every night at the same time and always has. That is worth acting on.';
-        $lines[] = '  Silencing does NOT delete the alert. It stays in the list, unread, '
-            . 'marked as silenced, with your reasoning attached. The only thing that '
-            . 'changes is that nobody is woken.';
-        $lines[] = '  Do NOT silence anything you are not sure about. The cost of a '
-            . 'needless email is somebody being briefly annoyed; the cost of silencing a '
-            . 'real problem is the problem continuing unattended. Those are not '
-            . 'comparable, and when they are in tension you send it.';
-        $lines[] = '  Do NOT silence something merely because it is repetitive. If it '
-            . 'keeps firing and keeps being real, it is doing its job.';
+        $lines[] =
+            '  A rule is a threshold and knows nothing else. You may have found ' .
+            'that the spike was a backup that has since finished, or that this fires ' .
+            'every night at the same time and always has. That is worth acting on.';
+        $lines[] =
+            '  Silencing does NOT delete the alert. It stays in the list, unread, ' .
+            'marked as silenced, with your reasoning attached. The only thing that ' .
+            'changes is that nobody is woken.';
+        $lines[] =
+            '  Do NOT silence anything you are not sure about. The cost of a ' .
+            'needless email is somebody being briefly annoyed; the cost of silencing a ' .
+            'real problem is the problem continuing unattended. Those are not ' .
+            'comparable, and when they are in tension you send it.';
+        $lines[] =
+            '  Do NOT silence something merely because it is repetitive. If it ' .
+            'keeps firing and keeps being real, it is doing its job.';
     }
 
     $lines[] = '';
-    $lines[] = 'ANSWER IN EXACTLY THIS FORM, with these labels on their own lines:';
+    $lines[] =
+        'ANSWER IN EXACTLY THIS FORM, with these labels on their own lines:';
     $lines[] = '';
     $lines[] = 'VERDICT: send';
     if ($mayDecide) {
@@ -333,15 +368,18 @@ function aiAlertPrompt(array $config, bool $mayDecide, array $tools): string
     }
     $lines[] = 'NOTE: your two or three sentences, on one line or several.';
     $lines[] = 'BECAUSE: one sentence on why you reached that verdict.';
-    $lines[] = 'BETTER RULE: one sentence on what would let the RULE decide this without '
-        . 'asking you - a threshold, a time window, something to compare against. Write '
-        . '"none" if you cannot think of one.';
+    $lines[] =
+        'BETTER RULE: one sentence on what would let the RULE decide this without ' .
+        'asking you - a threshold, a time window, something to compare against. Write ' .
+        '"none" if you cannot think of one.';
     $lines[] = '';
-    $lines[] = 'Nothing else. No greeting, no sign-off, no heading above the labels.';
+    $lines[] =
+        'Nothing else. No greeting, no sign-off, no heading above the labels.';
     $lines[] = '';
-    $lines[] = 'Never state a cause you have not measured. If you have a suspicion, say '
-        . 'it is one. This note is attached to a machine-generated alert and will be read '
-        . 'as authoritative, which is a reason to be more careful rather than less.';
+    $lines[] =
+        'Never state a cause you have not measured. If you have a suspicion, say ' .
+        'it is one. This note is attached to a machine-generated alert and will be read ' .
+        'as authoritative, which is a reason to be more careful rather than less.';
 
     return implode("\n", $lines);
 }
@@ -358,7 +396,12 @@ function aiAlertPrompt(array $config, bool $mayDecide, array $tools): string
  */
 function aiReadVerdict(string $said, bool $mayDecide): array
 {
-    $parts = ['verdict' => 'send', 'summary' => '', 'reason' => '', 'advice' => ''];
+    $parts = [
+        'verdict' => 'send',
+        'summary' => '',
+        'reason' => '',
+        'advice' => '',
+    ];
     $current = 'summary';
 
     foreach (explode("\n", $said) as $line) {
@@ -366,9 +409,10 @@ function aiReadVerdict(string $said, bool $mayDecide): array
 
         if (preg_match('/^VERDICT:\s*(.*)$/i', $trimmed, $m)) {
             $wanted = strtolower(trim($m[1]));
-            $parts['verdict'] = ($mayDecide && str_starts_with($wanted, 'silence'))
-                ? 'silence'
-                : 'send';
+            $parts['verdict'] =
+                $mayDecide && str_starts_with($wanted, 'silence')
+                    ? 'silence'
+                    : 'send';
             $current = null;
             continue;
         }
@@ -402,8 +446,9 @@ function aiReadVerdict(string $said, bool $mayDecide): array
      */
     if ($parts['verdict'] === 'silence' && trim($parts['reason']) === '') {
         $parts['verdict'] = 'send';
-        $parts['reason'] = 'It asked for this to be silenced without saying why, so it '
-            . 'was sent.';
+        $parts['reason'] =
+            'It asked for this to be silenced without saying why, so it ' .
+            'was sent.';
     }
 
     if (strtolower(trim($parts['advice'])) === 'none') {
@@ -420,7 +465,7 @@ function aiSaveVerdict(PDO $pdo, int $alertId, array $verdict): void
         'UPDATE alerts
             SET ai_summary = ?, ai_verdict = ?, ai_reason = ?, ai_advice = ?,
                 ai_at = ?, silenced = ?
-          WHERE id = ?'
+          WHERE id = ?',
     )->execute([
         $verdict['summary'],
         $verdict['verdict'],
@@ -438,9 +483,21 @@ function aiSaveVerdict(PDO $pdo, int $alertId, array $verdict): void
 function aiReportPeriods(): array
 {
     return [
-        'daily' => ['label' => 'Daily', 'covers' => SPAN_DAY, 'every' => SPAN_DAY],
-        'weekly' => ['label' => 'Weekly', 'covers' => 7 * SPAN_DAY, 'every' => 7 * SPAN_DAY],
-        'monthly' => ['label' => 'Monthly', 'covers' => 30 * SPAN_DAY, 'every' => 30 * SPAN_DAY],
+        'daily' => [
+            'label' => 'Daily',
+            'covers' => SPAN_DAY,
+            'every' => SPAN_DAY,
+        ],
+        'weekly' => [
+            'label' => 'Weekly',
+            'covers' => 7 * SPAN_DAY,
+            'every' => 7 * SPAN_DAY,
+        ],
+        'monthly' => [
+            'label' => 'Monthly',
+            'covers' => 30 * SPAN_DAY,
+            'every' => 30 * SPAN_DAY,
+        ],
     ];
 }
 
@@ -460,7 +517,7 @@ function aiReportDue(PDO $pdo, string $period): bool
 
     try {
         $stmt = $pdo->prepare(
-            'SELECT MAX(at) FROM ai_reports WHERE period = ?'
+            'SELECT MAX(at) FROM ai_reports WHERE period = ?',
         );
         $stmt->execute([$period]);
         $last = $stmt->fetchColumn();
@@ -472,7 +529,7 @@ function aiReportDue(PDO $pdo, string $period): bool
         return true;
     }
 
-    return time() - (int)$last >= $periods[$period]['every'];
+    return time() - (int) $last >= $periods[$period]['every'];
 }
 
 /**
@@ -490,7 +547,7 @@ function aiWriteReport(
     array $config,
     PDO $pdo,
     string $period,
-    ?callable $ask = null
+    ?callable $ask = null,
 ): ?array {
     $periods = aiReportPeriods();
     if (!isset($periods[$period])) {
@@ -519,35 +576,55 @@ function aiWriteReport(
 
     $answer = $ask(
         $model,
-        [['role' => 'user', 'content' => json_encode($facts, JSON_PRETTY_PRINT)]],
+        [
+            [
+                'role' => 'user',
+                'content' => json_encode($facts, JSON_PRETTY_PRINT),
+            ],
+        ],
         [],
-        aiReportPrompt($config, $periods[$period]['label'], $from, $to)
+        aiReportPrompt($config, $periods[$period]['label'], $from, $to),
     );
 
     if (!$answer['ok']) {
-        logProblem('warning', 'the ' . $period . ' summary could not be written: '
-            . (string)($answer['error'] ?? 'unknown'));
+        logProblem(
+            'warning',
+            'the ' .
+                $period .
+                ' summary could not be written: ' .
+                (string) ($answer['error'] ?? 'unknown'),
+        );
         return null;
     }
 
-    $body = trim((string)($answer['text'] ?? ''));
+    $body = trim((string) ($answer['text'] ?? ''));
     if ($body === '') {
         return null;
     }
 
-    $cost = aiCost($model, (int)($answer['tokens_in'] ?? 0),
-        (int)($answer['tokens_out'] ?? 0), 0);
+    $cost = aiCost(
+        $model,
+        (int) ($answer['tokens_in'] ?? 0),
+        (int) ($answer['tokens_out'] ?? 0),
+        0,
+    );
 
     $pdo->prepare(
         'INSERT INTO ai_reports
             (at, period, covers_from, covers_to, body, tokens_in, tokens_out, millicents)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
     )->execute([
-        $to, $period, $from, $to, $body,
-        (int)($answer['tokens_in'] ?? 0), (int)($answer['tokens_out'] ?? 0), $cost,
+        $to,
+        $period,
+        $from,
+        $to,
+        $body,
+        (int) ($answer['tokens_in'] ?? 0),
+        (int) ($answer['tokens_out'] ?? 0),
+        $cost,
     ]);
 
-    return ['id' => (int)$pdo->lastInsertId(), 'body' => $body];
+    return ['id' => (int) $pdo->lastInsertId(), 'body' => $body];
 }
 
 /**
@@ -579,13 +656,13 @@ function aiReportFacts(array $config, PDO $pdo, int $from, int $to): array
     $facts['alerts'] = $ask(
         'SELECT severity, COUNT(*) AS n FROM alerts
           WHERE raised_at BETWEEN ? AND ? GROUP BY severity ORDER BY n DESC',
-        [$from, $to]
+        [$from, $to],
     );
 
     $facts['loudest_rules'] = $ask(
         'SELECT rule, COUNT(*) AS n, MAX(raised_at) AS last FROM alerts
           WHERE raised_at BETWEEN ? AND ? GROUP BY rule ORDER BY n DESC LIMIT 8',
-        [$from, $to]
+        [$from, $to],
     );
 
     $facts['vitals'] = $ask(
@@ -598,18 +675,18 @@ function aiReportFacts(array $config, PDO $pdo, int $from, int $to): array
              MAX(disk_free_bytes) AS disk_free_high,
              COUNT(*) AS readings
            FROM vitals WHERE taken_at BETWEEN ? AND ?',
-        [$from, $to]
+        [$from, $to],
     );
 
     $facts['disk_now'] = $ask(
         'SELECT disk_free_bytes, disk_total_bytes, inodes_free, taken_at
-           FROM vitals ORDER BY taken_at DESC LIMIT 1'
+           FROM vitals ORDER BY taken_at DESC LIMIT 1',
     );
 
     $facts['actions'] = $ask(
         'SELECT action, COUNT(*) AS n FROM actions
           WHERE at BETWEEN ? AND ? GROUP BY action ORDER BY n DESC LIMIT 10',
-        [$from, $to]
+        [$from, $to],
     );
 
     /*
@@ -625,8 +702,12 @@ function aiReportFacts(array $config, PDO $pdo, int $from, int $to): array
 }
 
 /** What the summariser is told. */
-function aiReportPrompt(array $config, string $label, int $from, int $to): string
-{
+function aiReportPrompt(
+    array $config,
+    string $label,
+    int $from,
+    int $to,
+): string {
     $persona = aiPersona($config);
 
     return implode("\n", [
@@ -636,32 +717,32 @@ function aiReportPrompt(array $config, string $label, int $from, int $to): strin
             'Write the %s summary for a shared hosting account, covering %s to %s.',
             strtolower($label),
             date('j M', $from),
-            date('j M', $to)
+            date('j M', $to),
         ),
-        'You are given the figures as JSON. Nothing else is available; do not refer to '
-        . 'anything you were not given.',
+        'You are given the figures as JSON. Nothing else is available; do not refer to ' .
+        'anything you were not given.',
         '',
-        'WHO READS THIS. One person, who runs one account, and who did not ask a '
-        . 'question. They are skimming. If nothing needed their attention, the most '
-        . 'useful thing you can do is say so in one line and stop.',
+        'WHO READS THIS. One person, who runs one account, and who did not ask a ' .
+        'question. They are skimming. If nothing needed their attention, the most ' .
+        'useful thing you can do is say so in one line and stop.',
         '',
         'WHAT TO WRITE',
         '  - Lead with anything that needs doing. If nothing does, say that first.',
         '  - Numbers, with their units, for anything that moved.',
-        '  - Compare against the period rather than against nothing: "the disk lost 2 GB '
-        . 'over the week" is a fact; "the disk is 84% full" is a reading they can see.',
+        '  - Compare against the period rather than against nothing: "the disk lost 2 GB ' .
+        'over the week" is a fact; "the disk is 84% full" is a reading they can see.',
         '  - Under 200 words unless something genuinely happened.',
         '  - Markdown. A short heading or two at most; no tables.',
         '',
         'WHAT NOT TO WRITE',
-        '  - Do not pad. A week where nothing happened is three lines, and writing four '
-        . 'paragraphs about it is how this becomes an email nobody opens - which would '
-        . 'cost more than it saves.',
-        '  - Do not invent trends from few readings. If `readings` is small, the averages '
-        . 'mean little and you should say so instead of describing them.',
+        '  - Do not pad. A week where nothing happened is three lines, and writing four ' .
+        'paragraphs about it is how this becomes an email nobody opens - which would ' .
+        'cost more than it saves.',
+        '  - Do not invent trends from few readings. If `readings` is small, the averages ' .
+        'mean little and you should say so instead of describing them.',
         '  - Do not state a cause you were not given evidence for.',
-        '  - If a collector stopped during the period, that is the headline, because '
-        . 'every other figure here is then measuring a shorter period than it claims.',
+        '  - If a collector stopped during the period, that is the headline, because ' .
+        'every other figure here is then measuring a shorter period than it claims.',
         '  - No greeting and no sign-off. It arrives in an email that already has both.',
     ]);
 }
@@ -672,7 +753,7 @@ function aiReportList(PDO $pdo, int $limit = 30): array
     try {
         $stmt = $pdo->prepare(
             'SELECT id, at, period, covers_from, covers_to, body, emailed_at, millicents
-               FROM ai_reports ORDER BY at DESC LIMIT ?'
+               FROM ai_reports ORDER BY at DESC LIMIT ?',
         );
         $stmt->execute([$limit]);
         return $stmt->fetchAll();
@@ -685,10 +766,12 @@ function aiReportList(PDO $pdo, int $limit = 30): array
 function aiLatestReport(PDO $pdo): ?array
 {
     try {
-        $row = $pdo->query(
-            'SELECT id, at, period, covers_from, covers_to, body FROM ai_reports
-              ORDER BY at DESC LIMIT 1'
-        )->fetch();
+        $row = $pdo
+            ->query(
+                'SELECT id, at, period, covers_from, covers_to, body FROM ai_reports
+              ORDER BY at DESC LIMIT 1',
+            )
+            ->fetch();
     } catch (Throwable) {
         return null;
     }

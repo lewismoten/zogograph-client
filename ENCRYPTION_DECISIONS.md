@@ -10,15 +10,15 @@ Customers see one **Protection** page. They choose a protection scope first,
 then see compatible methods supplied by installed packages. They do not see
 uninstalled KMS, SQLCipher, fleet, database-server, or cache choices.
 
-| choice | initial recommendation | why |
-| --- | --- | --- |
-| normal database | SQLite | It is the smallest supported, local-first deployment. |
-| initially selected stores | bootstrap configuration, `setup.db`, and `stats.db` | They normally contain the most sensitive credentials, policy, and operational history. |
-| conditional stores | `host.db` and `ai.db` when present and confirmed | Host/process evidence and assistant history can be sensitive, but should not surprise a minimal deployment. |
-| portable protection | daily verified AES-256-GCM sealed copies, retained for 30 days | It works without a specialist database driver and gives a recoverable starting point. |
-| live at-rest protection | operator-managed host/volume encryption | It covers a live SQLite database and its WAL/SHM files without pretending that a backup is live encryption. |
-| local key custody | a dedicated, owner-readable key file outside the web root, with one separately protected offline recovery copy | This is understandable and independent of a hosted service. |
-| remote replicas and hosted custody | off | Neither should become an implicit dependency or an accidental upload path. |
+| choice                             | initial recommendation                                                                                         | why                                                                                                         |
+| ---------------------------------- | -------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| normal database                    | SQLite                                                                                                         | It is the smallest supported, local-first deployment.                                                       |
+| initially selected stores          | bootstrap configuration, `setup.db`, and `stats.db`                                                            | They normally contain the most sensitive credentials, policy, and operational history.                      |
+| conditional stores                 | `host.db` and `ai.db` when present and confirmed                                                               | Host/process evidence and assistant history can be sensitive, but should not surprise a minimal deployment. |
+| portable protection                | daily verified AES-256-GCM sealed copies, retained for 30 days                                                 | It works without a specialist database driver and gives a recoverable starting point.                       |
+| live at-rest protection            | operator-managed host/volume encryption                                                                        | It covers a live SQLite database and its WAL/SHM files without pretending that a backup is live encryption. |
+| local key custody                  | a dedicated, owner-readable key file outside the web root, with one separately protected offline recovery copy | This is understandable and independent of a hosted service.                                                 |
+| remote replicas and hosted custody | off                                                                                                            | Neither should become an implicit dependency or an accidental upload path.                                  |
 
 The first setup must require a successful recovery test before it calls a
 policy ready. It must also show the space estimate for the next sealing run.
@@ -56,13 +56,13 @@ prerequisites; neither is a live-encryption or provider-connection claim.
 
 ## Where a product owner changes this later
 
-| decision | authoritative future location | do not change it by |
-| --- | --- | --- |
-| defaults, labels, supported packages, policy choices | authenticated setup/product settings database and Protection UI | editing client source or a release manifest |
-| package-specific schedule, retention, provider endpoint, and replica policy | that package's schema-validated settings and private package database | adding secrets to `lib/config.php` |
-| enrollment credentials and provider secrets | encrypted package secret references | browser storage, URLs, logs, or normal configuration values |
-| commercial plans, prices, domains, service endpoints, and support matrix | site/marketplace administration database | embedding a provisional domain in a protocol or artifact identifier |
-| custody entitlement | the separate commercial billing control plane | giving billing credentials custody or client-unwrapping permission |
+| decision                                                                    | authoritative future location                                         | do not change it by                                                 |
+| --------------------------------------------------------------------------- | --------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| defaults, labels, supported packages, policy choices                        | authenticated setup/product settings database and Protection UI       | editing client source or a release manifest                         |
+| package-specific schedule, retention, provider endpoint, and replica policy | that package's schema-validated settings and private package database | adding secrets to `lib/config.php`                                  |
+| enrollment credentials and provider secrets                                 | encrypted package secret references                                   | browser storage, URLs, logs, or normal configuration values         |
+| commercial plans, prices, domains, service endpoints, and support matrix    | site/marketplace administration database                              | embedding a provisional domain in a protocol or artifact identifier |
+| custody entitlement                                                         | the separate commercial billing control plane                         | giving billing credentials custody or client-unwrapping permission  |
 
 Until the settings migration is complete, the small bootstrap configuration is
 an exception: it contains only the paths required to open Zogograph. Keep it

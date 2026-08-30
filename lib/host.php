@@ -96,7 +96,8 @@ function hostMeminfo(string $procRoot = '/proc'): array
     $out = [];
     foreach (preg_split('/\R/', $raw) ?: [] as $line) {
         if (preg_match('/^(\w+):\s+(\d+)(\s+kB)?/', $line, $m)) {
-            $out[$m[1]] = (int)$m[2] * (isset($m[3]) && $m[3] !== '' ? 1024 : 1);
+            $out[$m[1]] =
+                (int) $m[2] * (isset($m[3]) && $m[3] !== '' ? 1024 : 1);
         }
     }
 
@@ -141,11 +142,15 @@ function hostMeminfo(string $procRoot = '/proc'): array
  */
 function hostMemoryAccounting(array $mem, int $rssSum, int $pssSum): array
 {
-    $get = fn(string $key): int => (int)($mem[$key] ?? 0);
+    $get = fn(string $key): int => (int) ($mem[$key] ?? 0);
 
     $total = $get('MemTotal');
     if ($total <= 0) {
-        return ['used_bytes' => null, 'cache_bytes' => null, 'unaccounted' => null];
+        return [
+            'used_bytes' => null,
+            'cache_bytes' => null,
+            'unaccounted' => null,
+        ];
     }
 
     $cache = $get('Buffers') + $get('Cached') + $get('SReclaimable');
@@ -162,12 +167,13 @@ function hostMemoryAccounting(array $mem, int $rssSum, int $pssSum): array
      * subtracting it would turn the remainder into a large negative number that
      * looked like a bug in this function rather than in the source.
      */
-    $named = $get('AnonPages')
-        + $get('SwapCached')
-        + $get('SUnreclaim')
-        + $get('PageTables')
-        + $get('KernelStack')
-        + $get('Percpu');
+    $named =
+        $get('AnonPages') +
+        $get('SwapCached') +
+        $get('SUnreclaim') +
+        $get('PageTables') +
+        $get('KernelStack') +
+        $get('Percpu');
 
     return [
         'used_bytes' => $used,
@@ -192,14 +198,21 @@ function hostMemoryAccounting(array $mem, int $rssSum, int $pssSum): array
 function hostProcesses(
     string $procRoot = '/proc',
     int $pssLimit = HOST_PSS_LIMIT,
-    string $passwd = '/etc/passwd'
+    string $passwd = '/etc/passwd',
 ): array {
     $entries = @scandir($procRoot);
     if ($entries === false) {
         // Every key the success path returns, so a caller reading one of them
         // does not have to know which branch it came from.
-        return ['procs' => [], 'rss_sum' => 0, 'pss_sum' => 0, 'pss_procs' => 0,
-                'swap_sum' => 0, 'threads' => 0, 'available' => false];
+        return [
+            'procs' => [],
+            'rss_sum' => 0,
+            'pss_sum' => 0,
+            'pss_procs' => 0,
+            'swap_sum' => 0,
+            'threads' => 0,
+            'available' => false,
+        ];
     }
 
     $users = hostUserNames($passwd);
@@ -228,36 +241,48 @@ function hostProcesses(
             }
         }
 
-        $kb = fn(string $key): int =>
-            preg_match('/^(\d+)/', (string)($fields[$key] ?? ''), $m) ? (int)$m[1] * 1024 : 0;
+        $kb = fn(string $key): int => preg_match(
+            '/^(\d+)/',
+            (string) ($fields[$key] ?? ''),
+            $m,
+        )
+            ? (int) $m[1] * 1024
+            : 0;
 
-        $uid = preg_match('/^(\d+)/', (string)($fields['Uid'] ?? ''), $m) ? (int)$m[1] : -1;
+        $uid = preg_match('/^(\d+)/', (string) ($fields['Uid'] ?? ''), $m)
+            ? (int) $m[1]
+            : -1;
         $rss = $kb('VmRSS');
         $swap = $kb('VmSwap');
-        $thr = (int)($fields['Threads'] ?? 1);
+        $thr = (int) ($fields['Threads'] ?? 1);
 
         $rssSum += $rss;
         $swapSum += $swap;
         $threads += $thr;
 
-        $stat = hostProcStat($procRoot, (int)$entry);
+        $stat = hostProcStat($procRoot, (int) $entry);
 
         $procs[] = [
-            'pid' => (int)$entry,
-            'user' => $users[$uid] ?? (string)$uid,
+            'pid' => (int) $entry,
+            'user' => $users[$uid] ?? (string) $uid,
             'uid' => $uid,
-            'name' => (string)($fields['Name'] ?? '?'),
+            'name' => (string) ($fields['Name'] ?? '?'),
             'rss_bytes' => $rss,
             'pss_bytes' => null,
             'swap_bytes' => $swap,
             'vsz_bytes' => $kb('VmSize'),
             'threads' => $thr,
-            'elapsed_seconds' => hostElapsed($stat['started'] ?? null, $boot, $ticks),
+            'elapsed_seconds' => hostElapsed(
+                $stat['started'] ?? null,
+                $boot,
+                $ticks,
+            ),
             'state' => $stat['state'] ?? null,
             'ppid' => $stat['ppid'] ?? null,
             // Processor time since it started, in jiffies. A counter, so it
             // says nothing until it is differenced - see hostCpuRates.
-            'cpu_ticks' => $stat === null ? null : $stat['utime'] + $stat['stime'],
+            'cpu_ticks' =>
+                $stat === null ? null : $stat['utime'] + $stat['stime'],
             'started_ticks' => $stat['started'] ?? null,
             /*
              * The share of its own lifetime this process has spent on a core.
@@ -273,19 +298,32 @@ function hostProcesses(
             // Block-layer bytes, so a service re-reading its own cache all day
             // does not look like a heavy reader. Readable for every process
             // when running as root, which is the point of this collector.
-            'io' => hostProcessIo($procRoot, (int)$entry),
-            'command' => hostCommandLine($procRoot, (int)$entry, (string)($fields['Name'] ?? '')),
+            'io' => hostProcessIo($procRoot, (int) $entry),
+            'command' => hostCommandLine(
+                $procRoot,
+                (int) $entry,
+                (string) ($fields['Name'] ?? ''),
+            ),
         ];
 
         $life = end($procs);
-        if ($life['cpu_ticks'] !== null && $ticks > 0 && (int)$life['elapsed_seconds'] > 0) {
-            $procs[count($procs) - 1]['cpu_lifetime_percent'] =
-                round(($life['cpu_ticks'] / $ticks) / $life['elapsed_seconds'] * 100, 2);
+        if (
+            $life['cpu_ticks'] !== null &&
+            $ticks > 0 &&
+            (int) $life['elapsed_seconds'] > 0
+        ) {
+            $procs[count($procs) - 1]['cpu_lifetime_percent'] = round(
+                ($life['cpu_ticks'] / $ticks / $life['elapsed_seconds']) * 100,
+                2,
+            );
         }
     }
 
     // Biggest first, then Pss for the head of the list.
-    usort($procs, fn(array $a, array $b): int => $b['rss_bytes'] <=> $a['rss_bytes']);
+    usort(
+        $procs,
+        fn(array $a, array $b): int => $b['rss_bytes'] <=> $a['rss_bytes'],
+    );
 
     $pssSum = 0;
     $pssCount = 0;
@@ -333,20 +371,30 @@ function hostProcesses(
  * @param list<array<string, mixed>> $procs
  * @return array{processes: int, runnable: int, cpu_percent: ?float, rss_bytes: int, pss_bytes: ?int}
  */
-function hostMonitoringImpact(array $procs, string $installRoot, string $procRoot = '/proc'): array
-{
+function hostMonitoringImpact(
+    array $procs,
+    string $installRoot,
+    string $procRoot = '/proc',
+): array {
     $byPid = [];
     $children = [];
     $roots = [];
-    $entries = [rtrim($installRoot, '/') . '/cron.php', rtrim($installRoot, '/') . '/host-cron.php'];
+    $entries = [
+        rtrim($installRoot, '/') . '/cron.php',
+        rtrim($installRoot, '/') . '/host-cron.php',
+    ];
 
     foreach ($procs as $proc) {
-        $pid = (int)($proc['pid'] ?? 0);
-        if ($pid <= 0) continue;
+        $pid = (int) ($proc['pid'] ?? 0);
+        if ($pid <= 0) {
+            continue;
+        }
         $byPid[$pid] = $proc;
-        $parent = (int)($proc['ppid'] ?? 0);
-        if ($parent > 0) $children[$parent][] = $pid;
-        $command = (string)($proc['command'] ?? '');
+        $parent = (int) ($proc['ppid'] ?? 0);
+        if ($parent > 0) {
+            $children[$parent][] = $pid;
+        }
+        $command = (string) ($proc['command'] ?? '');
         foreach ($entries as $entry) {
             if ($command !== '' && str_contains($command, $entry)) {
                 $roots[$pid] = true;
@@ -354,15 +402,21 @@ function hostMonitoringImpact(array $procs, string $installRoot, string $procRoo
             }
         }
     }
-    if (isset($byPid[getmypid()])) $roots[getmypid()] = true;
+    if (isset($byPid[getmypid()])) {
+        $roots[getmypid()] = true;
+    }
 
     $seen = [];
     $queue = array_keys($roots);
     while ($queue !== []) {
         $pid = array_pop($queue);
-        if (isset($seen[$pid]) || !isset($byPid[$pid])) continue;
+        if (isset($seen[$pid]) || !isset($byPid[$pid])) {
+            continue;
+        }
         $seen[$pid] = true;
-        foreach ($children[$pid] ?? [] as $child) $queue[] = $child;
+        foreach ($children[$pid] ?? [] as $child) {
+            $queue[] = $child;
+        }
     }
 
     $runnable = $rss = $pss = 0;
@@ -370,10 +424,12 @@ function hostMonitoringImpact(array $procs, string $installRoot, string $procRoo
     $hasCpu = $hasPss = false;
     foreach (array_keys($seen) as $pid) {
         $proc = $byPid[$pid];
-        $rss += max(0, (int)($proc['rss_bytes'] ?? 0));
-        if (in_array((string)($proc['state'] ?? ''), ['R', 'D'], true)) $runnable++;
+        $rss += max(0, (int) ($proc['rss_bytes'] ?? 0));
+        if (in_array((string) ($proc['state'] ?? ''), ['R', 'D'], true)) {
+            $runnable++;
+        }
         if (($proc['cpu_percent'] ?? null) !== null) {
-            $cpu += max(0.0, (float)$proc['cpu_percent']);
+            $cpu += max(0.0, (float) $proc['cpu_percent']);
             $hasCpu = true;
         }
         // Get PSS for this small, explicitly selected tree even if it fell
@@ -424,7 +480,9 @@ function hostProcessIo(string $procRoot, int $pid): array
     }
 
     $get = function (string $key) use ($raw): int {
-        return preg_match('/^' . $key . ':\s+(\d+)/m', $raw, $m) ? (int)$m[1] : 0;
+        return preg_match('/^' . $key . ':\s+(\d+)/m', $raw, $m)
+            ? (int) $m[1]
+            : 0;
     };
 
     return [
@@ -458,22 +516,26 @@ function hostKeepProcesses(array $procs): array
 {
     $keep = [];
     foreach (array_slice($procs, 0, HOST_KEEP_PROCS) as $row) {
-        $keep[(int)$row['pid']] = $row;
+        $keep[(int) $row['pid']] = $row;
     }
 
-    $byIo = array_filter($procs, fn(array $r): bool => ($r['io']['readable'] ?? false));
+    $byIo = array_filter(
+        $procs,
+        fn(array $r): bool => $r['io']['readable'] ?? false,
+    );
     usort($byIo, function (array $a, array $b): int {
-        $total = fn(array $r): int => (int)$r['io']['read'] + (int)$r['io']['write'];
+        $total = fn(array $r): int => (int) $r['io']['read'] +
+            (int) $r['io']['write'];
         return $total($b) <=> $total($a);
     });
 
     foreach (array_slice($byIo, 0, HOST_KEEP_IO_PROCS) as $row) {
         // A process that has never touched a disk is not an I/O finding, and
         // including it would just pad the table with zeroes.
-        if ((int)$row['io']['read'] + (int)$row['io']['write'] <= 0) {
+        if ((int) $row['io']['read'] + (int) $row['io']['write'] <= 0) {
             break;
         }
-        $keep[(int)$row['pid']] = $row;
+        $keep[(int) $row['pid']] = $row;
     }
 
     /*
@@ -486,20 +548,26 @@ function hostKeepProcesses(array $procs): array
      */
     $byCpu = array_filter(
         $procs,
-        fn(array $r): bool => ($r['cpu_percent'] ?? $r['cpu_lifetime_percent'] ?? null) !== null
+        fn(array $r): bool => ($r['cpu_percent'] ??
+            ($r['cpu_lifetime_percent'] ?? null)) !==
+            null,
     );
     usort($byCpu, function (array $a, array $b): int {
-        $of = fn(array $r): float => (float)($r['cpu_percent'] ?? $r['cpu_lifetime_percent'] ?? 0);
+        $of = fn(array $r): float => (float) ($r['cpu_percent'] ??
+            ($r['cpu_lifetime_percent'] ?? 0));
         return $of($b) <=> $of($a);
     });
 
     foreach (array_slice($byCpu, 0, HOST_KEEP_CPU_PROCS) as $row) {
         // An idle process is not a CPU finding, and a table padded with zeroes
         // is how a CPU page stops being read.
-        if ((float)($row['cpu_percent'] ?? $row['cpu_lifetime_percent'] ?? 0) <= 0) {
+        if (
+            (float) ($row['cpu_percent'] ??
+                ($row['cpu_lifetime_percent'] ?? 0)) <= 0
+        ) {
             break;
         }
-        $keep[(int)$row['pid']] = $row;
+        $keep[(int) $row['pid']] = $row;
     }
 
     return array_values($keep);
@@ -538,8 +606,11 @@ function hostCpuRates(PDO $pdo, array $procs, int $ticks, int $now): array
 
     $previous = [];
     try {
-        foreach ($pdo->query('SELECT pid, started, ticks, at FROM host_proc_ticks') as $row) {
-            $previous[(int)$row['pid']] = $row;
+        foreach (
+            $pdo->query('SELECT pid, started, ticks, at FROM host_proc_ticks')
+            as $row
+        ) {
+            $previous[(int) $row['pid']] = $row;
         }
     } catch (Throwable) {
         // The table arrives with a migration, and a collector running against a
@@ -549,7 +620,7 @@ function hostCpuRates(PDO $pdo, array $procs, int $ticks, int $now): array
 
     $rates = [];
     foreach ($procs as $proc) {
-        $pid = (int)$proc['pid'];
+        $pid = (int) $proc['pid'];
         $ours = $proc['cpu_ticks'] ?? null;
         $was = $previous[$pid] ?? null;
         if ($ours === null || $was === null) {
@@ -557,17 +628,21 @@ function hostCpuRates(PDO $pdo, array $procs, int $ticks, int $now): array
         }
 
         $started = $proc['started_ticks'] ?? null;
-        if ($started !== null && $was['started'] !== null && (int)$was['started'] !== (int)$started) {
+        if (
+            $started !== null &&
+            $was['started'] !== null &&
+            (int) $was['started'] !== (int) $started
+        ) {
             continue;
         }
 
-        $seconds = $now - (int)$was['at'];
-        $delta = $ours - (int)$was['ticks'];
+        $seconds = $now - (int) $was['at'];
+        $delta = $ours - (int) $was['ticks'];
         if ($seconds <= 0 || $delta < 0) {
             continue;
         }
 
-        $rates[$pid] = round(($delta / $ticks) / $seconds * 100, 2);
+        $rates[$pid] = round(($delta / $ticks / $seconds) * 100, 2);
     }
 
     return $rates;
@@ -586,14 +661,17 @@ function hostRememberCpuTicks(PDO $pdo, array $procs, int $now): void
     $pdo->exec('DELETE FROM host_proc_ticks');
 
     $write = $pdo->prepare(
-        'INSERT OR REPLACE INTO host_proc_ticks (pid, started, ticks, at) VALUES (?, ?, ?, ?)'
+        'INSERT OR REPLACE INTO host_proc_ticks (pid, started, ticks, at) VALUES (?, ?, ?, ?)',
     );
     foreach ($procs as $proc) {
         if (($proc['cpu_ticks'] ?? null) === null) {
             continue;
         }
         $write->execute([
-            (int)$proc['pid'], $proc['started_ticks'] ?? null, (int)$proc['cpu_ticks'], $now,
+            (int) $proc['pid'],
+            $proc['started_ticks'] ?? null,
+            (int) $proc['cpu_ticks'],
+            $now,
         ]);
     }
 }
@@ -623,15 +701,18 @@ function hostCoreBusy(array $now, array $before): array
             continue;
         }
 
-        $totalDelta = $core['total'] - (int)$was['total_ticks'];
+        $totalDelta = $core['total'] - (int) $was['total_ticks'];
         // A counter that went backwards is a reboot, not a measurement.
         if ($totalDelta <= 0) {
             continue;
         }
 
-        $idleDelta = ($core['idle'] + $core['iowait'])
-            - ((int)$was['idle_ticks']);
-        $busy[$index] = round(max(0.0, min(100.0, (1 - $idleDelta / $totalDelta) * 100)), 2);
+        $idleDelta =
+            $core['idle'] + $core['iowait'] - ((int) $was['idle_ticks']);
+        $busy[$index] = round(
+            max(0.0, min(100.0, (1 - $idleDelta / $totalDelta) * 100)),
+            2,
+        );
     }
 
     return $busy;
@@ -644,7 +725,9 @@ function hostPss(string $procRoot, int $pid): ?int
     if ($raw === false) {
         return null;
     }
-    return preg_match('/^Pss:\s+(\d+)\s*kB/m', $raw, $m) ? (int)$m[1] * 1024 : null;
+    return preg_match('/^Pss:\s+(\d+)\s*kB/m', $raw, $m)
+        ? (int) $m[1] * 1024
+        : null;
 }
 
 /**
@@ -722,12 +805,14 @@ function hostProcStat(string $procRoot, int $pid): ?array
     }
 
     $rest = preg_split('/\s+/', trim(substr($raw, $close + 1))) ?: [];
-    $at = static fn(int $i): ?int =>
-        isset($rest[$i]) && ctype_digit($rest[$i]) ? (int)$rest[$i] : null;
+    $at = static fn(int $i): ?int => isset($rest[$i]) && ctype_digit($rest[$i])
+        ? (int) $rest[$i]
+        : null;
 
     // Counting from after the name: state is [0], so field N overall is [N-3].
     return [
-        'state' => isset($rest[0]) && $rest[0] !== '' ? substr($rest[0], 0, 1) : null,
+        'state' =>
+            isset($rest[0]) && $rest[0] !== '' ? substr($rest[0], 0, 1) : null,
         'ppid' => $at(1),
         'utime' => $at(11) ?? 0,
         'stime' => $at(12) ?? 0,
@@ -742,7 +827,7 @@ function hostElapsed(?int $started, int $boot, int $ticks): ?int
         return null;
     }
 
-    return max(0, (int)round(time() - ($boot + $started / $ticks)));
+    return max(0, (int) round(time() - ($boot + $started / $ticks)));
 }
 
 /** Kernel clock ticks per second. Practically always 100, but not by standard. */
@@ -755,7 +840,7 @@ function hostClockTicks(): int
         }
     }
     $out = shellRead('getconf CLK_TCK 2>/dev/null');
-    return $out !== null && ctype_digit(trim($out)) ? (int)trim($out) : 100;
+    return $out !== null && ctype_digit(trim($out)) ? (int) trim($out) : 100;
 }
 
 /**
@@ -784,7 +869,7 @@ function hostUserNames(string $passwd = '/etc/passwd'): array
         foreach (preg_split('/\R/', $raw) ?: [] as $line) {
             $parts = explode(':', $line);
             if (count($parts) >= 3 && ctype_digit($parts[2])) {
-                $names[(int)$parts[2]] = $parts[0];
+                $names[(int) $parts[2]] = $parts[0];
             }
         }
     }
@@ -808,18 +893,25 @@ function hostByUser(array $procs): array
     foreach ($procs as $proc) {
         $name = $proc['user'];
         $users[$name] ??= [
-            'user' => $name, 'procs' => 0, 'threads' => 0,
-            'rss_bytes' => 0, 'pss_bytes' => 0, 'swap_bytes' => 0,
+            'user' => $name,
+            'procs' => 0,
+            'threads' => 0,
+            'rss_bytes' => 0,
+            'pss_bytes' => 0,
+            'swap_bytes' => 0,
         ];
 
         $users[$name]['procs']++;
-        $users[$name]['threads'] += (int)$proc['threads'];
-        $users[$name]['rss_bytes'] += (int)$proc['rss_bytes'];
-        $users[$name]['pss_bytes'] += (int)($proc['pss_bytes'] ?? 0);
-        $users[$name]['swap_bytes'] += (int)$proc['swap_bytes'];
+        $users[$name]['threads'] += (int) $proc['threads'];
+        $users[$name]['rss_bytes'] += (int) $proc['rss_bytes'];
+        $users[$name]['pss_bytes'] += (int) ($proc['pss_bytes'] ?? 0);
+        $users[$name]['swap_bytes'] += (int) $proc['swap_bytes'];
     }
 
-    usort($users, fn(array $a, array $b): int => $b['rss_bytes'] <=> $a['rss_bytes']);
+    usort(
+        $users,
+        fn(array $a, array $b): int => $b['rss_bytes'] <=> $a['rss_bytes'],
+    );
     return array_values($users);
 }
 
@@ -860,7 +952,11 @@ function commandShape(string $command, string $name): string
 
     // A second token that is a path says nothing; one that is a subcommand
     // says everything.
-    if ($second === '' || str_starts_with($second, '/') || str_starts_with($second, '-')) {
+    if (
+        $second === '' ||
+        str_starts_with($second, '/') ||
+        str_starts_with($second, '-')
+    ) {
         return $first;
     }
 
@@ -885,13 +981,19 @@ function hostByService(array $procs): array
     foreach ($procs as $proc) {
         $name = $proc['name'];
         $services[$name] ??= [
-            'name' => $name, 'procs' => 0, 'threads' => 0,
-            'rss_bytes' => 0, 'pss_bytes' => 0, 'swap_bytes' => 0,
-            'read_bytes' => 0, 'write_bytes' => 0,
+            'name' => $name,
+            'procs' => 0,
+            'threads' => 0,
+            'rss_bytes' => 0,
+            'pss_bytes' => 0,
+            'swap_bytes' => 0,
+            'read_bytes' => 0,
+            'write_bytes' => 0,
             // Both ends, because together they say what neither says alone: a
             // group whose oldest is hours and whose newest is seconds is
             // churning, not merely long-lived.
-            'oldest_seconds' => null, 'newest_seconds' => null,
+            'oldest_seconds' => null,
+            'newest_seconds' => null,
             /*
              * The evidence a count on its own cannot supply.
              *
@@ -901,16 +1003,19 @@ function hostByService(array $procs): array
              * server. Collected here because it is nearly free while the
              * process list is already in hand, and impossible afterwards.
              */
-            'ages' => [], 'states' => [], 'parents' => [], 'commands' => [],
+            'ages' => [],
+            'states' => [],
+            'parents' => [],
+            'commands' => [],
         ];
 
         $services[$name]['procs']++;
-        $services[$name]['threads'] += (int)$proc['threads'];
-        $services[$name]['rss_bytes'] += (int)$proc['rss_bytes'];
-        $services[$name]['pss_bytes'] += (int)($proc['pss_bytes'] ?? 0);
-        $services[$name]['swap_bytes'] += (int)$proc['swap_bytes'];
-        $services[$name]['read_bytes'] += (int)($proc['io']['read'] ?? 0);
-        $services[$name]['write_bytes'] += (int)($proc['io']['write'] ?? 0);
+        $services[$name]['threads'] += (int) $proc['threads'];
+        $services[$name]['rss_bytes'] += (int) $proc['rss_bytes'];
+        $services[$name]['pss_bytes'] += (int) ($proc['pss_bytes'] ?? 0);
+        $services[$name]['swap_bytes'] += (int) $proc['swap_bytes'];
+        $services[$name]['read_bytes'] += (int) ($proc['io']['read'] ?? 0);
+        $services[$name]['write_bytes'] += (int) ($proc['io']['write'] ?? 0);
 
         if (($proc['state'] ?? null) !== null) {
             $services[$name]['states'][$proc['state']] =
@@ -918,8 +1023,8 @@ function hostByService(array $procs): array
         }
 
         if (($proc['ppid'] ?? null) !== null) {
-            $services[$name]['parents'][(int)$proc['ppid']] =
-                ($services[$name]['parents'][(int)$proc['ppid']] ?? 0) + 1;
+            $services[$name]['parents'][(int) $proc['ppid']] =
+                ($services[$name]['parents'][(int) $proc['ppid']] ?? 0) + 1;
         }
 
         /*
@@ -930,7 +1035,7 @@ function hostByService(array $procs): array
          * couple of tokens turns them into one row saying "upload-pack x18",
          * which is the thing worth reading.
          */
-        $shape = commandShape((string)($proc['command'] ?? ''), $name);
+        $shape = commandShape((string) ($proc['command'] ?? ''), $name);
         if ($shape !== '') {
             $services[$name]['commands'][$shape] =
                 ($services[$name]['commands'][$shape] ?? 0) + 1;
@@ -941,39 +1046,57 @@ function hostByService(array $procs): array
             $services[$name]['ages'][] = $age;
         }
         if ($age !== null) {
-            $services[$name]['oldest_seconds'] = $services[$name]['oldest_seconds'] === null
-                ? $age : max($services[$name]['oldest_seconds'], $age);
-            $services[$name]['newest_seconds'] = $services[$name]['newest_seconds'] === null
-                ? $age : min($services[$name]['newest_seconds'], $age);
+            $services[$name]['oldest_seconds'] =
+                $services[$name]['oldest_seconds'] === null
+                    ? $age
+                    : max($services[$name]['oldest_seconds'], $age);
+            $services[$name]['newest_seconds'] =
+                $services[$name]['newest_seconds'] === null
+                    ? $age
+                    : min($services[$name]['newest_seconds'], $age);
         }
     }
 
     foreach ($services as $name => $row) {
         $ages = $row['ages'];
         sort($ages);
-        $services[$name]['median_seconds'] = $ages === []
-            ? null
-            : (int)$ages[intdiv(count($ages), 2)];
+        $services[$name]['median_seconds'] =
+            $ages === [] ? null : (int) $ages[intdiv(count($ages), 2)];
 
         arsort($services[$name]['states']);
         arsort($services[$name]['parents']);
         arsort($services[$name]['commands']);
 
         $services[$name]['distinct_parents'] = count($row['parents']);
-        $services[$name]['state_summary'] = summariseCounts($services[$name]['states'], 4);
-        $services[$name]['command_summary'] = summariseCounts($services[$name]['commands'], 3);
+        $services[$name]['state_summary'] = summariseCounts(
+            $services[$name]['states'],
+            4,
+        );
+        $services[$name]['command_summary'] = summariseCounts(
+            $services[$name]['commands'],
+            3,
+        );
 
         // The raw arrays have done their job and would bloat every row.
-        unset($services[$name]['ages'], $services[$name]['states'],
-              $services[$name]['parents'], $services[$name]['commands']);
+        unset(
+            $services[$name]['ages'],
+            $services[$name]['states'],
+            $services[$name]['parents'],
+            $services[$name]['commands'],
+        );
     }
 
-    $services = array_values(array_filter(
-        $services,
-        fn(array $row): bool => $row['rss_bytes'] >= HOST_SERVICE_MIN_BYTES
-    ));
+    $services = array_values(
+        array_filter(
+            $services,
+            fn(array $row): bool => $row['rss_bytes'] >= HOST_SERVICE_MIN_BYTES,
+        ),
+    );
 
-    usort($services, fn(array $a, array $b): int => $b['rss_bytes'] <=> $a['rss_bytes']);
+    usort(
+        $services,
+        fn(array $a, array $b): int => $b['rss_bytes'] <=> $a['rss_bytes'],
+    );
     return array_slice($services, 0, HOST_KEEP_SERVICES);
 }
 
@@ -997,7 +1120,11 @@ function hostSlab(string $procRoot = '/proc', int $pageSize = 4096): array
     $out = [];
     foreach (preg_split('/\R/', $raw) ?: [] as $line) {
         $line = trim($line);
-        if ($line === '' || $line[0] === '#' || str_starts_with($line, 'slabinfo')) {
+        if (
+            $line === '' ||
+            $line[0] === '#' ||
+            str_starts_with($line, 'slabinfo')
+        ) {
             continue;
         }
 
@@ -1010,18 +1137,18 @@ function hostSlab(string $procRoot = '/proc', int $pageSize = 4096): array
         $numSlabs = null;
         foreach ($parts as $i => $part) {
             if ($part === 'slabdata' && isset($parts[$i + 2])) {
-                $numSlabs = (int)$parts[$i + 2];
+                $numSlabs = (int) $parts[$i + 2];
                 break;
             }
         }
 
-        $objs = (int)$parts[2];
-        $objSize = (int)$parts[3];
-        $perSlab = max(1, (int)$parts[4]);
-        $pagesPer = max(1, (int)$parts[5]);
+        $objs = (int) $parts[2];
+        $objSize = (int) $parts[3];
+        $perSlab = max(1, (int) $parts[4]);
+        $pagesPer = max(1, (int) $parts[5]);
 
         // Without a slabdata section, fall back to what the object counts imply.
-        $slabs = $numSlabs ?? (int)ceil($objs / $perSlab);
+        $slabs = $numSlabs ?? (int) ceil($objs / $perSlab);
 
         $out[] = [
             'name' => $parts[0],
@@ -1031,7 +1158,10 @@ function hostSlab(string $procRoot = '/proc', int $pageSize = 4096): array
         ];
     }
 
-    usort($out, fn(array $a, array $b): int => $b['cache_bytes'] <=> $a['cache_bytes']);
+    usort(
+        $out,
+        fn(array $a, array $b): int => $b['cache_bytes'] <=> $a['cache_bytes'],
+    );
     return $out;
 }
 
@@ -1054,9 +1184,13 @@ function hostSharedMemory(): array
         foreach (preg_split('/\R/', $out) ?: [] as $line) {
             // key shmid owner perms bytes nattch status
             $parts = preg_split('/\s+/', trim($line)) ?: [];
-            if (count($parts) >= 6 && str_starts_with($parts[0], '0x') && ctype_digit($parts[4])) {
+            if (
+                count($parts) >= 6 &&
+                str_starts_with($parts[0], '0x') &&
+                ctype_digit($parts[4])
+            ) {
                 $segments++;
-                $bytes += (int)$parts[4];
+                $bytes += (int) $parts[4];
             }
         }
     }
@@ -1066,13 +1200,17 @@ function hostSharedMemory(): array
         $free = @disk_free_space('/dev/shm');
         $size = @disk_total_space('/dev/shm');
         if ($size !== false && $free !== false) {
-            $total = (int)$size;
-            $used = (int)($size - $free);
+            $total = (int) $size;
+            $used = (int) ($size - $free);
         }
     }
 
-    return ['segments' => $segments, 'bytes' => $bytes,
-            'devshm_total' => $total, 'devshm_used' => $used];
+    return [
+        'segments' => $segments,
+        'bytes' => $bytes,
+        'devshm_total' => $total,
+        'devshm_used' => $used,
+    ];
 }
 
 /**
@@ -1084,14 +1222,17 @@ function hostSharedMemory(): array
  *
  * @return list<array>
  */
-function hostWatchedFiles(array $config, int $limit = 40, string $passwd = '/etc/passwd'): array
-{
+function hostWatchedFiles(
+    array $config,
+    int $limit = 40,
+    string $passwd = '/etc/passwd',
+): array {
     $globs = $config['host']['watch'] ?? [];
-    $minimum = (int)($config['host']['watch_min_bytes'] ?? 1048576);
+    $minimum = (int) ($config['host']['watch_min_bytes'] ?? 1048576);
 
     $found = [];
     foreach ($globs as $pattern) {
-        foreach (glob((string)$pattern) ?: [] as $path) {
+        foreach (glob((string) $pattern) ?: [] as $path) {
             if (!is_file($path)) {
                 continue;
             }
@@ -1105,19 +1246,22 @@ function hostWatchedFiles(array $config, int $limit = 40, string $passwd = '/etc
              * against 398 MB.
              */
             $stat = @stat($path);
-            if ($stat === false || (int)$stat['size'] < $minimum) {
+            if ($stat === false || (int) $stat['size'] < $minimum) {
                 continue;
             }
 
             $uid = $stat['uid'] ?? false;
             $found[$path] = [
                 'path' => $path,
-                'bytes' => (int)$stat['size'],
-                'owner' => $uid === false ? null : (hostUserNames($passwd)[$uid] ?? (string)$uid),
-                'mtime' => (int)($stat['mtime'] ?? 0),
-                'device' => (int)($stat['dev'] ?? 0),
-                'inode' => (int)($stat['ino'] ?? 0),
-                'links' => (int)($stat['nlink'] ?? 1),
+                'bytes' => (int) $stat['size'],
+                'owner' =>
+                    $uid === false
+                        ? null
+                        : hostUserNames($passwd)[$uid] ?? (string) $uid,
+                'mtime' => (int) ($stat['mtime'] ?? 0),
+                'device' => (int) ($stat['dev'] ?? 0),
+                'inode' => (int) ($stat['ino'] ?? 0),
+                'links' => (int) ($stat['nlink'] ?? 1),
             ];
         }
     }
@@ -1139,17 +1283,29 @@ function hostWatchedFiles(array $config, int $limit = 40, string $passwd = '/etc
 function hostLve(): array
 {
     if (!is_file('/usr/sbin/lveinfo') && !is_file('/usr/bin/lveinfo')) {
-        return ['available' => false, 'reason' => 'CloudLinux is not installed here.', 'rows' => []];
+        return [
+            'available' => false,
+            'reason' => 'CloudLinux is not installed here.',
+            'rows' => [],
+        ];
     }
 
     $out = shellRead('lveinfo --json --period=1h --by-fault=any 2>/dev/null');
     if ($out === null || trim($out) === '') {
-        return ['available' => false, 'reason' => 'lveinfo returned nothing.', 'rows' => []];
+        return [
+            'available' => false,
+            'reason' => 'lveinfo returned nothing.',
+            'rows' => [],
+        ];
     }
 
     $parsed = json_decode($out, true);
     if (!is_array($parsed)) {
-        return ['available' => false, 'reason' => 'lveinfo output was not JSON.', 'rows' => []];
+        return [
+            'available' => false,
+            'reason' => 'lveinfo output was not JSON.',
+            'rows' => [],
+        ];
     }
 
     /*
@@ -1165,18 +1321,25 @@ function hostLve(): array
         if (!is_array($entry)) {
             continue;
         }
-        $user = (string)($entry['user'] ?? $entry['username'] ?? $entry['id'] ?? '');
+        $user =
+            (string) ($entry['user'] ??
+                ($entry['username'] ?? ($entry['id'] ?? '')));
         if ($user === '') {
             continue;
         }
         $rows[] = [
             'user' => $user,
-            'cpu_percent' => isset($entry['cpu']) ? (float)$entry['cpu'] : null,
-            'mem_bytes' => isset($entry['mem']) ? (int)$entry['mem'] : null,
-            'procs' => isset($entry['nproc']) ? (int)$entry['nproc'] : null,
-            'faults_cpu' => (int)($entry['cpuf'] ?? $entry['cpu_faults'] ?? 0),
-            'faults_mem' => (int)($entry['memf'] ?? $entry['mem_faults'] ?? 0),
-            'faults_procs' => (int)($entry['nprocf'] ?? $entry['nproc_faults'] ?? 0),
+            'cpu_percent' => isset($entry['cpu'])
+                ? (float) $entry['cpu']
+                : null,
+            'mem_bytes' => isset($entry['mem']) ? (int) $entry['mem'] : null,
+            'procs' => isset($entry['nproc']) ? (int) $entry['nproc'] : null,
+            'faults_cpu' =>
+                (int) ($entry['cpuf'] ?? ($entry['cpu_faults'] ?? 0)),
+            'faults_mem' =>
+                (int) ($entry['memf'] ?? ($entry['mem_faults'] ?? 0)),
+            'faults_procs' =>
+                (int) ($entry['nprocf'] ?? ($entry['nproc_faults'] ?? 0)),
         ];
     }
 
@@ -1198,7 +1361,7 @@ function hostTakeReading(
     PDO $pdo,
     string $source = 'cron',
     string $procRoot = '/proc',
-    string $passwd = '/etc/passwd'
+    string $passwd = '/etc/passwd',
 ): array {
     $mem = hostMeminfo($procRoot);
     $processes = hostProcesses($procRoot, HOST_PSS_LIMIT, $passwd);
@@ -1213,10 +1376,14 @@ function hostTakeReading(
      */
     if (!$processes['available'] && !$mem) {
         throw new RuntimeException(
-            "nothing readable at $procRoot - this collector needs a Linux host with /proc"
+            "nothing readable at $procRoot - this collector needs a Linux host with /proc",
         );
     }
-    $accounting = hostMemoryAccounting($mem, $processes['rss_sum'], $processes['pss_sum']);
+    $accounting = hostMemoryAccounting(
+        $mem,
+        $processes['rss_sum'],
+        $processes['pss_sum'],
+    );
     $slab = hostSlab($procRoot);
     $shm = hostSharedMemory();
     $files = hostWatchedFiles($config, 40, $passwd);
@@ -1236,7 +1403,7 @@ function hostTakeReading(
     $cpuPressure = pressureCpu($procRoot);
     $history = bootHistory();
 
-    $get = fn(string $key): ?int => isset($mem[$key]) ? (int)$mem[$key] : null;
+    $get = fn(string $key): ?int => isset($mem[$key]) ? (int) $mem[$key] : null;
 
     // Taken once and shared, so a sample and the service rows written beside it
     // carry the same instant even if the insert loop takes a second.
@@ -1263,28 +1430,42 @@ function hostTakeReading(
          * where the counters restart and a difference would be negative. Both
          * are left null rather than guessed at.
          */
-        $cpu = $cpuStat === null
-            ? cpuTicks()
-            : ['total' => $cpuStat['fields']['total'],
-               // Idle for this purpose is idle plus iowait: a core waiting on a
-               // disk is a core with nothing to run, and counting it as work
-               // makes a storage problem read as a processor one.
-               'idle' => $cpuStat['fields']['idle'] + $cpuStat['fields']['iowait']];
+        $cpu =
+            $cpuStat === null
+                ? cpuTicks()
+                : [
+                    'total' => $cpuStat['fields']['total'],
+                    // Idle for this purpose is idle plus iowait: a core waiting on a
+                    // disk is a core with nothing to run, and counting it as work
+                    // makes a storage problem read as a processor one.
+                    'idle' =>
+                        $cpuStat['fields']['idle'] +
+                        $cpuStat['fields']['iowait'],
+                ];
         $cpuPercent = null;
         $previousId = null;
         if ($cpu !== null) {
-            $previous = $pdo->query(
-                'SELECT id, cpu_total_ticks, cpu_idle_ticks FROM host_samples
-                 WHERE cpu_total_ticks IS NOT NULL ORDER BY taken_at DESC, id DESC LIMIT 1'
-            )->fetch();
+            $previous = $pdo
+                ->query(
+                    'SELECT id, cpu_total_ticks, cpu_idle_ticks FROM host_samples
+                 WHERE cpu_total_ticks IS NOT NULL ORDER BY taken_at DESC, id DESC LIMIT 1',
+                )
+                ->fetch();
 
             if ($previous) {
-                $previousId = (int)$previous['id'];
+                $previousId = (int) $previous['id'];
             }
-            if ($previous && $cpu['total'] > (int)$previous['cpu_total_ticks']) {
-                $totalDelta = $cpu['total'] - (int)$previous['cpu_total_ticks'];
-                $idleDelta = $cpu['idle'] - (int)$previous['cpu_idle_ticks'];
-                $cpuPercent = round(max(0.0, min(100.0, (1 - $idleDelta / $totalDelta) * 100)), 2);
+            if (
+                $previous &&
+                $cpu['total'] > (int) $previous['cpu_total_ticks']
+            ) {
+                $totalDelta =
+                    $cpu['total'] - (int) $previous['cpu_total_ticks'];
+                $idleDelta = $cpu['idle'] - (int) $previous['cpu_idle_ticks'];
+                $cpuPercent = round(
+                    max(0.0, min(100.0, (1 - $idleDelta / $totalDelta) * 100)),
+                    2,
+                );
             }
         }
 
@@ -1297,11 +1478,21 @@ function hostTakeReading(
          * between the two would see an empty table.
          */
         $clockTicks = hostClockTicks();
-        $cpuRates = hostCpuRates($pdo, $processes['procs'], $clockTicks, $takenAt);
+        $cpuRates = hostCpuRates(
+            $pdo,
+            $processes['procs'],
+            $clockTicks,
+            $takenAt,
+        );
         foreach ($processes['procs'] as $i => $proc) {
-            $processes['procs'][$i]['cpu_percent'] = $cpuRates[(int)$proc['pid']] ?? null;
+            $processes['procs'][$i]['cpu_percent'] =
+                $cpuRates[(int) $proc['pid']] ?? null;
         }
-        $monitoring = hostMonitoringImpact($processes['procs'], dirname(__DIR__), $procRoot);
+        $monitoring = hostMonitoringImpact(
+            $processes['procs'],
+            dirname(__DIR__),
+            $procRoot,
+        );
 
         $sample = [
             'taken_at' => $takenAt,
@@ -1393,19 +1584,25 @@ function hostTakeReading(
 
         $names = implode(', ', array_keys($sample));
         $holders = implode(', ', array_fill(0, count($sample), '?'));
-        $pdo->prepare("INSERT INTO host_samples ($names) VALUES ($holders)")
-            ->execute(array_values($sample));
+        $pdo->prepare(
+            "INSERT INTO host_samples ($names) VALUES ($holders)",
+        )->execute(array_values($sample));
 
-        $sampleId = (int)$pdo->lastInsertId();
+        $sampleId = (int) $pdo->lastInsertId();
 
         $users = $pdo->prepare(
             'INSERT INTO host_users (sample_id, user, procs, threads, rss_bytes, pss_bytes, swap_bytes)
-             VALUES (?, ?, ?, ?, ?, ?, ?)'
+             VALUES (?, ?, ?, ?, ?, ?, ?)',
         );
         foreach (hostByUser($processes['procs']) as $row) {
             $users->execute([
-                $sampleId, $row['user'], $row['procs'], $row['threads'],
-                $row['rss_bytes'], $row['pss_bytes'], $row['swap_bytes'],
+                $sampleId,
+                $row['user'],
+                $row['procs'],
+                $row['threads'],
+                $row['rss_bytes'],
+                $row['pss_bytes'],
+                $row['swap_bytes'],
             ]);
         }
 
@@ -1414,17 +1611,31 @@ function hostTakeReading(
                 (sample_id, pid, user, name, rss_bytes, pss_bytes, swap_bytes, vsz_bytes,
                  threads, elapsed_seconds, command, read_bytes, write_bytes, state, ppid,
                  cpu_ticks, cpu_percent, cpu_lifetime_percent)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
         );
         foreach (hostKeepProcesses($processes['procs']) as $row) {
             $procs->execute([
-                $sampleId, $row['pid'], $row['user'], $row['name'], $row['rss_bytes'],
-                $row['pss_bytes'], $row['swap_bytes'], $row['vsz_bytes'], $row['threads'],
-                $row['elapsed_seconds'], $row['command'],
-                ($row['io']['readable'] ?? false) ? (int)$row['io']['read'] : null,
-                ($row['io']['readable'] ?? false) ? (int)$row['io']['write'] : null,
-                $row['state'] ?? null, $row['ppid'] ?? null,
-                $row['cpu_ticks'] ?? null, $row['cpu_percent'] ?? null,
+                $sampleId,
+                $row['pid'],
+                $row['user'],
+                $row['name'],
+                $row['rss_bytes'],
+                $row['pss_bytes'],
+                $row['swap_bytes'],
+                $row['vsz_bytes'],
+                $row['threads'],
+                $row['elapsed_seconds'],
+                $row['command'],
+                $row['io']['readable'] ?? false
+                    ? (int) $row['io']['read']
+                    : null,
+                $row['io']['readable'] ?? false
+                    ? (int) $row['io']['write']
+                    : null,
+                $row['state'] ?? null,
+                $row['ppid'] ?? null,
+                $row['cpu_ticks'] ?? null,
+                $row['cpu_percent'] ?? null,
                 $row['cpu_lifetime_percent'] ?? null,
             ]);
         }
@@ -1450,7 +1661,7 @@ function hostTakeReading(
             $was = $pdo->prepare('SELECT * FROM host_cpus WHERE sample_id = ?');
             $was->execute([$previousId]);
             foreach ($was->fetchAll() as $row) {
-                $before[(int)$row['cpu']] = $row;
+                $before[(int) $row['cpu']] = $row;
             }
         }
 
@@ -1459,15 +1670,20 @@ function hostTakeReading(
             'INSERT INTO host_cpus
                 (sample_id, cpu, total_ticks, idle_ticks, user_ticks, system_ticks,
                  iowait_ticks, steal_ticks, busy_percent)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
         );
         foreach ($cpuStat['cpus'] ?? [] as $index => $core) {
             $cores->execute([
-                $sampleId, $index, $core['total'],
+                $sampleId,
+                $index,
+                $core['total'],
                 // Stored the way the percentage uses it, so a reader
                 // differencing this column gets the same answer this did.
                 $core['idle'] + $core['iowait'],
-                $core['user'], $core['system'], $core['iowait'], $core['steal'],
+                $core['user'],
+                $core['system'],
+                $core['iowait'],
+                $core['steal'],
                 $busy[$index] ?? null,
             ]);
         }
@@ -1479,16 +1695,25 @@ function hostTakeReading(
                 (taken_at, name, procs, threads, rss_bytes, pss_bytes, swap_bytes,
                  read_bytes, write_bytes, oldest_seconds, newest_seconds,
                  median_seconds, distinct_parents, state_summary, command_summary)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
         );
         foreach (hostByService($processes['procs']) as $row) {
             $services->execute([
-                $takenAt, $row['name'], $row['procs'], $row['threads'],
-                $row['rss_bytes'], $row['pss_bytes'], $row['swap_bytes'],
-                $row['read_bytes'], $row['write_bytes'],
-                $row['oldest_seconds'], $row['newest_seconds'],
-                $row['median_seconds'] ?? null, $row['distinct_parents'] ?? null,
-                $row['state_summary'] ?? null, $row['command_summary'] ?? null,
+                $takenAt,
+                $row['name'],
+                $row['procs'],
+                $row['threads'],
+                $row['rss_bytes'],
+                $row['pss_bytes'],
+                $row['swap_bytes'],
+                $row['read_bytes'],
+                $row['write_bytes'],
+                $row['oldest_seconds'],
+                $row['newest_seconds'],
+                $row['median_seconds'] ?? null,
+                $row['distinct_parents'] ?? null,
+                $row['state_summary'] ?? null,
+                $row['command_summary'] ?? null,
             ]);
         }
 
@@ -1504,14 +1729,31 @@ function hostTakeReading(
             'INSERT INTO host_daemons
                 (taken_at, name, label, state, unit, units_total, units_active,
                  active_state, sub_state, restarts, started_at, procs, pid, source)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
         );
-        foreach (readDaemons($config, $processes['procs'], bootTime($procRoot) ?: null) as $row) {
+        foreach (
+            readDaemons(
+                $config,
+                $processes['procs'],
+                bootTime($procRoot) ?: null,
+            )
+            as $row
+        ) {
             $daemons->execute([
-                $takenAt, $row['name'], $row['label'], $row['state'], $row['unit'],
-                $row['units_total'], $row['units_active'], $row['active_state'],
-                $row['sub_state'], $row['restarts'], $row['started_at'],
-                $row['procs'], $row['pid'], $row['source'],
+                $takenAt,
+                $row['name'],
+                $row['label'],
+                $row['state'],
+                $row['unit'],
+                $row['units_total'],
+                $row['units_active'],
+                $row['active_state'],
+                $row['sub_state'],
+                $row['restarts'],
+                $row['started_at'],
+                $row['procs'],
+                $row['pid'],
+                $row['source'],
             ]);
         }
 
@@ -1526,12 +1768,16 @@ function hostTakeReading(
             $boots = $pdo->prepare(
                 'INSERT OR REPLACE INTO host_boots
                     (booted_at, kernel, ended, shutdown_at, still_running, seen_at)
-                 VALUES (?, ?, ?, ?, ?, ?)'
+                 VALUES (?, ?, ?, ?, ?, ?)',
             );
             foreach ($history['boots'] as $row) {
                 $boots->execute([
-                    $row['booted_at'], $row['kernel'], $row['ended'],
-                    $row['shutdown_at'], $row['still_running'] ? 1 : 0, $takenAt,
+                    $row['booted_at'],
+                    $row['kernel'],
+                    $row['ended'],
+                    $row['shutdown_at'],
+                    $row['still_running'] ? 1 : 0,
+                    $takenAt,
                 ]);
             }
         }
@@ -1540,32 +1786,51 @@ function hostTakeReading(
             'INSERT INTO host_disks
                 (sample_id, name, stacked, read_bytes, write_bytes, read_ios, write_ios,
                  io_ms, queue_ms, in_flight)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
         );
         foreach ($disks['devices'] ?? [] as $row) {
             $devices->execute([
-                $sampleId, $row['name'], $row['stacked'] ? 1 : 0,
-                $row['read_bytes'], $row['write_bytes'], $row['read_ios'],
-                $row['write_ios'], $row['io_ms'], $row['queue_ms'], $row['in_flight'],
+                $sampleId,
+                $row['name'],
+                $row['stacked'] ? 1 : 0,
+                $row['read_bytes'],
+                $row['write_bytes'],
+                $row['read_ios'],
+                $row['write_ios'],
+                $row['io_ms'],
+                $row['queue_ms'],
+                $row['in_flight'],
             ]);
         }
 
         $slabs = $pdo->prepare(
             'INSERT INTO host_slab (sample_id, name, objs, obj_bytes, cache_bytes)
-             VALUES (?, ?, ?, ?, ?)'
+             VALUES (?, ?, ?, ?, ?)',
         );
         foreach (array_slice($slab, 0, HOST_KEEP_SLAB) as $row) {
-            $slabs->execute([$sampleId, $row['name'], $row['objs'], $row['obj_bytes'], $row['cache_bytes']]);
+            $slabs->execute([
+                $sampleId,
+                $row['name'],
+                $row['objs'],
+                $row['obj_bytes'],
+                $row['cache_bytes'],
+            ]);
         }
 
         $watched = $pdo->prepare(
             'INSERT INTO host_files (sample_id, path, bytes, owner, mtime, device, inode, links)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
         );
         foreach ($files as $row) {
             $watched->execute([
-                $sampleId, $row['path'], $row['bytes'], $row['owner'], $row['mtime'],
-                $row['device'], $row['inode'], $row['links'],
+                $sampleId,
+                $row['path'],
+                $row['bytes'],
+                $row['owner'],
+                $row['mtime'],
+                $row['device'],
+                $row['inode'],
+                $row['links'],
             ]);
         }
 
@@ -1573,12 +1838,18 @@ function hostTakeReading(
             $limits = $pdo->prepare(
                 'INSERT INTO host_lve (sample_id, user, cpu_percent, mem_bytes, procs,
                                        faults_cpu, faults_mem, faults_procs)
-                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
             );
             foreach ($lve['rows'] as $row) {
                 $limits->execute([
-                    $sampleId, $row['user'], $row['cpu_percent'], $row['mem_bytes'],
-                    $row['procs'], $row['faults_cpu'], $row['faults_mem'], $row['faults_procs'],
+                    $sampleId,
+                    $row['user'],
+                    $row['cpu_percent'],
+                    $row['mem_bytes'],
+                    $row['procs'],
+                    $row['faults_cpu'],
+                    $row['faults_mem'],
+                    $row['faults_procs'],
                 ]);
             }
         }
@@ -1630,12 +1901,17 @@ function hostTakeReading(
 function hostLoad(string $procRoot = '/proc'): array
 {
     $raw = @file_get_contents($procRoot . '/loadavg');
-    if ($raw !== false && preg_match('/^([\d.]+)\s+([\d.]+)\s+([\d.]+)/', trim($raw), $m)) {
-        return [(float)$m[1], (float)$m[2], (float)$m[3]];
+    if (
+        $raw !== false &&
+        preg_match('/^([\d.]+)\s+([\d.]+)\s+([\d.]+)/', trim($raw), $m)
+    ) {
+        return [(float) $m[1], (float) $m[2], (float) $m[3]];
     }
 
     $load = @sys_getloadavg();
-    return is_array($load) ? [$load[0], $load[1], $load[2]] : [null, null, null];
+    return is_array($load)
+        ? [$load[0], $load[1], $load[2]]
+        : [null, null, null];
 }
 
 /**
@@ -1666,18 +1942,29 @@ function hostLoad(string $procRoot = '/proc'): array
  */
 function swapPressure(array $rows): array
 {
-    $unknown = ['state' => 'unknown', 'swap_rate' => null, 'available_rate' => null,
-                'samples' => count($rows), 'span_seconds' => 0];
+    $unknown = [
+        'state' => 'unknown',
+        'swap_rate' => null,
+        'available_rate' => null,
+        'samples' => count($rows),
+        'span_seconds' => 0,
+    ];
 
     $swap = [];
     $available = [];
     foreach ($rows as $row) {
-        $at = (int)($row['taken_at'] ?? 0);
-        if (($row['swap_total'] ?? null) !== null && ($row['swap_free'] ?? null) !== null) {
-            $swap[] = [$at, (float)$row['swap_total'] - (float)$row['swap_free']];
+        $at = (int) ($row['taken_at'] ?? 0);
+        if (
+            ($row['swap_total'] ?? null) !== null &&
+            ($row['swap_free'] ?? null) !== null
+        ) {
+            $swap[] = [
+                $at,
+                (float) $row['swap_total'] - (float) $row['swap_free'],
+            ];
         }
         if (($row['mem_available'] ?? null) !== null) {
-            $available[] = [$at, (float)$row['mem_available']];
+            $available[] = [$at, (float) $row['mem_available']];
         }
     }
 
@@ -1688,8 +1975,13 @@ function swapPressure(array $rows): array
     // history to judge a direction.
     $latest = $count > 0 ? $swap[$count - 1][1] : null;
     if ($latest !== null && $latest <= 0) {
-        return ['state' => 'clear', 'swap_rate' => 0.0, 'available_rate' => null,
-                'samples' => $count, 'span_seconds' => $span];
+        return [
+            'state' => 'clear',
+            'swap_rate' => 0.0,
+            'available_rate' => null,
+            'samples' => $count,
+            'span_seconds' => $span,
+        ];
     }
 
     // Same thresholds as the disk trend, for the same reason: below them any
@@ -1697,8 +1989,13 @@ function swapPressure(array $rows): array
     if ($count < 8 || $span < 1800 || count($available) < 8) {
         return $latest === null
             ? $unknown
-            : ['state' => 'cold', 'swap_rate' => null, 'available_rate' => null,
-               'samples' => $count, 'span_seconds' => $span];
+            : [
+                'state' => 'cold',
+                'swap_rate' => null,
+                'available_rate' => null,
+                'samples' => $count,
+                'span_seconds' => $span,
+            ];
     }
 
     $swapRate = seriesDirection($swap);
@@ -1714,12 +2011,15 @@ function swapPressure(array $rows): array
      * enough to exclude wander, small enough that anything genuinely running
      * out clears it easily.
      */
-    $memTotal = (float)($rows[count($rows) - 1]['mem_total'] ?? 0);
-    $floor = $memTotal > 0 ? $memTotal * 0.005 / 3600 : 0.0;
+    $memTotal = (float) ($rows[count($rows) - 1]['mem_total'] ?? 0);
+    $floor = $memTotal > 0 ? ($memTotal * 0.005) / 3600 : 0.0;
 
-    $swapRising = $swapRate !== null && $swapRate['sustained'] && $swapRate['median'] > 0;
-    $availableFalling = $availableRate !== null && $availableRate['sustained']
-        && $availableRate['median'] < -$floor;
+    $swapRising =
+        $swapRate !== null && $swapRate['sustained'] && $swapRate['median'] > 0;
+    $availableFalling =
+        $availableRate !== null &&
+        $availableRate['sustained'] &&
+        $availableRate['median'] < -$floor;
 
     $state = match (true) {
         $swapRising && $availableFalling => 'pressure',
@@ -1771,15 +2071,21 @@ function seriesDirection(array $points): ?array
         return null;
     }
 
-    $middle = (int)floor($n / 2);
+    $middle = (int) floor($n / 2);
     $first = halfRate(array_slice($points, 0, $middle + 1));
     $second = halfRate(array_slice($points, $middle));
 
-    $sustained = $first !== null && $second !== null
-        && (($first > 0 && $second > 0 && $overall > 0)
-            || ($first < 0 && $second < 0 && $overall < 0));
+    $sustained =
+        $first !== null &&
+        $second !== null &&
+        (($first > 0 && $second > 0 && $overall > 0) ||
+            ($first < 0 && $second < 0 && $overall < 0));
 
-    return ['median' => median($steps), 'overall' => $overall, 'sustained' => $sustained];
+    return [
+        'median' => median($steps),
+        'overall' => $overall,
+        'sustained' => $sustained,
+    ];
 }
 
 /**
@@ -1809,8 +2115,8 @@ function hostFileTotals(array $rows): array
          * different denominators is how a summary line ends up reading "57 MiB
          * across 1 file" with three of them on screen.
          */
-        if ((int)($row['inode'] ?? 0) === 0) {
-            $bytes += (int)$row['bytes'];
+        if ((int) ($row['inode'] ?? 0) === 0) {
+            $bytes += (int) $row['bytes'];
             $files++;
             continue;
         }
@@ -1822,7 +2128,7 @@ function hostFileTotals(array $rows): array
         }
 
         $seen[$key] = true;
-        $bytes += (int)$row['bytes'];
+        $bytes += (int) $row['bytes'];
         $files++;
     }
 
@@ -1854,7 +2160,9 @@ function hostFileTotals(array $rows): array
  */
 function hostServiceGrowth(PDO $pdo, int $now, int $limit = 20): array
 {
-    $latest = (int)$pdo->query('SELECT COALESCE(MAX(taken_at), 0) FROM host_services')->fetchColumn();
+    $latest = (int) $pdo
+        ->query('SELECT COALESCE(MAX(taken_at), 0) FROM host_services')
+        ->fetchColumn();
     if ($latest === 0) {
         return [];
     }
@@ -1862,7 +2170,7 @@ function hostServiceGrowth(PDO $pdo, int $now, int $limit = 20): array
     $current = $pdo->prepare(
         'SELECT name, procs, threads, rss_bytes, pss_bytes, swap_bytes
          FROM host_services WHERE taken_at = ? ORDER BY pss_bytes DESC, rss_bytes DESC
-         LIMIT :limit'
+         LIMIT :limit',
     );
     $current->bindValue(1, $latest, PDO::PARAM_INT);
     $current->bindValue(':limit', $limit, PDO::PARAM_INT);
@@ -1880,19 +2188,21 @@ function hostServiceGrowth(PDO $pdo, int $now, int $limit = 20): array
 
         $out[] = [
             'name' => $row['name'],
-            'procs' => (int)$row['procs'],
-            'threads' => (int)$row['threads'],
-            'rss_bytes' => (int)$row['rss_bytes'],
-            'pss_bytes' => (int)$row['pss_bytes'],
-            'swap_bytes' => (int)$row['swap_bytes'],
+            'procs' => (int) $row['procs'],
+            'threads' => (int) $row['threads'],
+            'rss_bytes' => (int) $row['rss_bytes'],
+            'pss_bytes' => (int) $row['pss_bytes'],
+            'swap_bytes' => (int) $row['swap_bytes'],
             'day_ago' => $day,
             'week_ago' => $week,
             // Null rather than zero when there is no reading to compare with.
             // A change of zero and no history at all are different answers, and
             // showing the second as the first is how a brand new install
             // reports every service as perfectly stable.
-            'change_day' => $day === null ? null : (int)$row['pss_bytes'] - $day,
-            'change_week' => $week === null ? null : (int)$row['pss_bytes'] - $week,
+            'change_day' =>
+                $day === null ? null : (int) $row['pss_bytes'] - $day,
+            'change_week' =>
+                $week === null ? null : (int) $row['pss_bytes'] - $week,
         ];
     }
 
@@ -1907,20 +2217,24 @@ function hostServiceGrowth(PDO $pdo, int $now, int $limit = 20): array
  * answer "a week ago" with a reading from three weeks back and report the
  * difference as growth.
  */
-function hostServiceAt(PDO $pdo, string $name, int $target, int $tolerance = 43200): ?int
-{
+function hostServiceAt(
+    PDO $pdo,
+    string $name,
+    int $target,
+    int $tolerance = 43200,
+): ?int {
     $stmt = $pdo->prepare(
         'SELECT pss_bytes, taken_at FROM host_services
-         WHERE name = ? AND taken_at <= ? ORDER BY taken_at DESC LIMIT 1'
+         WHERE name = ? AND taken_at <= ? ORDER BY taken_at DESC LIMIT 1',
     );
     $stmt->execute([$name, $target]);
     $row = $stmt->fetch();
 
-    if (!$row || abs($target - (int)$row['taken_at']) > $tolerance) {
+    if (!$row || abs($target - (int) $row['taken_at']) > $tolerance) {
         return null;
     }
 
-    return (int)$row['pss_bytes'];
+    return (int) $row['pss_bytes'];
 }
 
 /**
@@ -1935,13 +2249,41 @@ function hostServiceAt(PDO $pdo, string $name, int $target, int $tolerance = 432
 function hostServiceMetrics(): array
 {
     return [
-        'pss' => ['column' => 'pss_bytes', 'counter' => false, 'label' => 'Proportional memory'],
-        'rss' => ['column' => 'rss_bytes', 'counter' => false, 'label' => 'Resident memory'],
-        'swap' => ['column' => 'swap_bytes', 'counter' => false, 'label' => 'Swapped'],
-        'read' => ['column' => 'read_bytes', 'counter' => true, 'label' => 'Reading'],
-        'write' => ['column' => 'write_bytes', 'counter' => true, 'label' => 'Writing'],
-        'procs' => ['column' => 'procs', 'counter' => false, 'label' => 'Processes'],
-        'threads' => ['column' => 'threads', 'counter' => false, 'label' => 'Threads'],
+        'pss' => [
+            'column' => 'pss_bytes',
+            'counter' => false,
+            'label' => 'Proportional memory',
+        ],
+        'rss' => [
+            'column' => 'rss_bytes',
+            'counter' => false,
+            'label' => 'Resident memory',
+        ],
+        'swap' => [
+            'column' => 'swap_bytes',
+            'counter' => false,
+            'label' => 'Swapped',
+        ],
+        'read' => [
+            'column' => 'read_bytes',
+            'counter' => true,
+            'label' => 'Reading',
+        ],
+        'write' => [
+            'column' => 'write_bytes',
+            'counter' => true,
+            'label' => 'Writing',
+        ],
+        'procs' => [
+            'column' => 'procs',
+            'counter' => false,
+            'label' => 'Processes',
+        ],
+        'threads' => [
+            'column' => 'threads',
+            'counter' => false,
+            'label' => 'Threads',
+        ],
     ];
 }
 
@@ -1960,7 +2302,7 @@ function hostServiceSeries(
     int $from,
     int $to,
     string $metric = 'pss',
-    int $limit = 400
+    int $limit = 400,
 ): array {
     if (!$names) {
         return [];
@@ -1977,10 +2319,10 @@ function hostServiceSeries(
 
     $count = $pdo->prepare(
         "SELECT COUNT(DISTINCT taken_at) FROM host_services
-         WHERE name IN ($marks) AND taken_at BETWEEN ? AND ?"
+         WHERE name IN ($marks) AND taken_at BETWEEN ? AND ?",
     );
     $count->execute([...$names, $from, $to]);
-    $step = max(1, (int)ceil(((int)$count->fetchColumn()) / $limit));
+    $step = max(1, (int) ceil(((int) $count->fetchColumn()) / $limit));
 
     $stmt = $pdo->prepare(
         "SELECT taken_at, name, $column AS value FROM (
@@ -1988,7 +2330,7 @@ function hostServiceSeries(
                     DENSE_RANK() OVER (ORDER BY taken_at) AS rn
              FROM host_services
              WHERE name IN ($marks) AND taken_at BETWEEN ? AND ?
-         ) WHERE rn % ? = 0 ORDER BY taken_at"
+         ) WHERE rn % ? = 0 ORDER BY taken_at",
     );
     $stmt->execute([...$names, $from, $to, $step]);
 
@@ -2006,7 +2348,7 @@ function hostServiceSeries(
      */
     $byTime = [];
     foreach ($rows as $row) {
-        $at = (int)$row['taken_at'];
+        $at = (int) $row['taken_at'];
         $byTime[$at]['taken_at'] = $at;
         if ($row['value'] !== null) {
             $byTime[$at][$row['name']] = $row['value'];
@@ -2035,8 +2377,8 @@ function hostDifferentiate(array $rows): array
 
     foreach ($rows as $row) {
         $name = $row['name'];
-        $at = (int)$row['taken_at'];
-        $value = (int)$row['value'];
+        $at = (int) $row['taken_at'];
+        $value = (int) $row['value'];
 
         $rate = null;
         if (isset($previous[$name])) {
@@ -2068,16 +2410,18 @@ function hostDifferentiate(array $rows): array
  */
 function hostDiskRates(PDO $pdo): array
 {
-    $samples = $pdo->query(
-        'SELECT id, taken_at FROM host_samples ORDER BY id DESC LIMIT 2'
-    )->fetchAll();
+    $samples = $pdo
+        ->query(
+            'SELECT id, taken_at FROM host_samples ORDER BY id DESC LIMIT 2',
+        )
+        ->fetchAll();
 
     if (count($samples) < 2) {
         return [];
     }
 
     [$now, $before] = $samples;
-    $seconds = (int)$now['taken_at'] - (int)$before['taken_at'];
+    $seconds = (int) $now['taken_at'] - (int) $before['taken_at'];
     if ($seconds <= 0) {
         return [];
     }
@@ -2098,10 +2442,10 @@ function hostDiskRates(PDO $pdo): array
         $readRate = $writeRate = $util = $queue = null;
 
         if ($was) {
-            $readDelta = (int)$row['read_bytes'] - (int)$was['read_bytes'];
-            $writeDelta = (int)$row['write_bytes'] - (int)$was['write_bytes'];
-            $busyDelta = (int)$row['io_ms'] - (int)$was['io_ms'];
-            $queueDelta = (int)$row['queue_ms'] - (int)$was['queue_ms'];
+            $readDelta = (int) $row['read_bytes'] - (int) $was['read_bytes'];
+            $writeDelta = (int) $row['write_bytes'] - (int) $was['write_bytes'];
+            $busyDelta = (int) $row['io_ms'] - (int) $was['io_ms'];
+            $queueDelta = (int) $row['queue_ms'] - (int) $was['queue_ms'];
 
             // Negative means the machine rebooted and the counters restarted.
             // No rate exists across that boundary; an unknown is the honest
@@ -2121,19 +2465,22 @@ function hostDiskRates(PDO $pdo): array
 
         $out[] = [
             'name' => $row['name'],
-            'stacked' => (bool)$row['stacked'],
+            'stacked' => (bool) $row['stacked'],
             'read_rate' => $readRate,
             'write_rate' => $writeRate,
             'util_percent' => $util,
             'queue_depth' => $queue,
-            'in_flight' => (int)$row['in_flight'],
+            'in_flight' => (int) $row['in_flight'],
             'seconds' => $seconds,
         ];
     }
 
-    usort($out, fn(array $a, array $b): int =>
-        (($b['read_rate'] ?? 0) + ($b['write_rate'] ?? 0))
-        <=> (($a['read_rate'] ?? 0) + ($a['write_rate'] ?? 0)));
+    usort(
+        $out,
+        fn(array $a, array $b): int => ($b['read_rate'] ?? 0) +
+            ($b['write_rate'] ?? 0) <=>
+            ($a['read_rate'] ?? 0) + ($a['write_rate'] ?? 0),
+    );
 
     return $out;
 }
@@ -2151,21 +2498,23 @@ function hostDiskRates(PDO $pdo): array
  */
 function hostServiceIoRates(PDO $pdo): array
 {
-    $instants = $pdo->query(
-        'SELECT DISTINCT taken_at FROM host_services ORDER BY taken_at DESC LIMIT 2'
-    )->fetchAll(PDO::FETCH_COLUMN);
+    $instants = $pdo
+        ->query(
+            'SELECT DISTINCT taken_at FROM host_services ORDER BY taken_at DESC LIMIT 2',
+        )
+        ->fetchAll(PDO::FETCH_COLUMN);
 
     if (count($instants) < 2) {
         return [];
     }
 
-    $seconds = (int)$instants[0] - (int)$instants[1];
+    $seconds = (int) $instants[0] - (int) $instants[1];
     if ($seconds <= 0) {
         return [];
     }
 
     $stmt = $pdo->prepare(
-        'SELECT name, read_bytes, write_bytes FROM host_services WHERE taken_at = ?'
+        'SELECT name, read_bytes, write_bytes FROM host_services WHERE taken_at = ?',
     );
     $stmt->execute([$instants[0]]);
     $current = $stmt->fetchAll();
@@ -2184,12 +2533,16 @@ function hostServiceIoRates(PDO $pdo): array
             continue;
         }
 
-        $readDelta = (int)$row['read_bytes'] - (int)$was['read_bytes'];
-        $writeDelta = (int)$row['write_bytes'] - (int)$was['write_bytes'];
+        $readDelta = (int) $row['read_bytes'] - (int) $was['read_bytes'];
+        $writeDelta = (int) $row['write_bytes'] - (int) $was['write_bytes'];
 
-        $out[$row['name']] = ($readDelta >= 0 && $writeDelta >= 0)
-            ? ['read' => round($readDelta / $seconds, 2), 'write' => round($writeDelta / $seconds, 2)]
-            : ['read' => null, 'write' => null];
+        $out[$row['name']] =
+            $readDelta >= 0 && $writeDelta >= 0
+                ? [
+                    'read' => round($readDelta / $seconds, 2),
+                    'write' => round($writeDelta / $seconds, 2),
+                ]
+                : ['read' => null, 'write' => null];
     }
 
     return $out;
@@ -2226,29 +2579,39 @@ function hostServiceIoRates(PDO $pdo): array
  */
 function hostProcessIoRates(PDO $pdo): array
 {
-    $samples = $pdo->query(
-        'SELECT id, taken_at FROM host_samples ORDER BY id DESC LIMIT 2'
-    )->fetchAll();
+    $samples = $pdo
+        ->query(
+            'SELECT id, taken_at FROM host_samples ORDER BY id DESC LIMIT 2',
+        )
+        ->fetchAll();
 
     if ($samples === []) {
-        return ['available' => false, 'reason' => 'The host collector has not run yet.',
-                'seconds' => 0, 'rows' => []];
+        return [
+            'available' => false,
+            'reason' => 'The host collector has not run yet.',
+            'seconds' => 0,
+            'rows' => [],
+        ];
     }
 
     $now = $samples[0];
     $before = $samples[1] ?? null;
-    $seconds = $before ? (int)$now['taken_at'] - (int)$before['taken_at'] : 0;
+    $seconds = $before ? (int) $now['taken_at'] - (int) $before['taken_at'] : 0;
 
     $stmt = $pdo->prepare(
         'SELECT pid, user, name, command, rss_bytes, elapsed_seconds, read_bytes, write_bytes
-         FROM host_processes WHERE sample_id = ?'
+         FROM host_processes WHERE sample_id = ?',
     );
     $stmt->execute([$now['id']]);
     $current = $stmt->fetchAll();
 
     if ($current === []) {
-        return ['available' => false, 'reason' => 'No processes were recorded in the last reading.',
-                'seconds' => $seconds, 'rows' => []];
+        return [
+            'available' => false,
+            'reason' => 'No processes were recorded in the last reading.',
+            'seconds' => $seconds,
+            'rows' => [],
+        ];
     }
 
     /*
@@ -2258,13 +2621,17 @@ function hostProcessIoRates(PDO $pdo): array
      * process's owner and by root, and by nobody else. That is a different
      * situation from "nothing was doing any I/O" and gets a different message.
      */
-    $readable = array_filter($current, fn(array $r): bool => $r['read_bytes'] !== null);
+    $readable = array_filter(
+        $current,
+        fn(array $r): bool => $r['read_bytes'] !== null,
+    );
     if ($readable === []) {
         return [
             'available' => false,
-            'reason' => 'Per-process disk I/O was not readable. /proc/<pid>/io is readable '
-                . 'only by root and by each process\'s own owner, so the collector needs to '
-                . 'run as root to see this for the whole machine.',
+            'reason' =>
+                'Per-process disk I/O was not readable. /proc/<pid>/io is readable ' .
+                'only by root and by each process\'s own owner, so the collector needs to ' .
+                'run as root to see this for the whole machine.',
             'seconds' => $seconds,
             'rows' => [],
         ];
@@ -2280,16 +2647,16 @@ function hostProcessIoRates(PDO $pdo): array
 
     $out = [];
     foreach ($readable as $row) {
-        $read = (int)$row['read_bytes'];
-        $write = (int)$row['write_bytes'];
+        $read = (int) $row['read_bytes'];
+        $write = (int) $row['write_bytes'];
         $was = $previous[$row['pid'] . "\x01" . $row['command']] ?? null;
 
         $readRate = $writeRate = null;
         $basis = 'unknown';
 
         if ($was && $seconds > 0 && $was['read_bytes'] !== null) {
-            $readDelta = $read - (int)$was['read_bytes'];
-            $writeDelta = $write - (int)$was['write_bytes'];
+            $readDelta = $read - (int) $was['read_bytes'];
+            $writeDelta = $write - (int) $was['write_bytes'];
 
             // Backwards means this is not the process we think it is, whatever
             // the pid and command say. No rate exists across that.
@@ -2301,7 +2668,7 @@ function hostProcessIoRates(PDO $pdo): array
         }
 
         if ($basis === 'unknown') {
-            $life = (int)($row['elapsed_seconds'] ?? 0);
+            $life = (int) ($row['elapsed_seconds'] ?? 0);
             if ($life > 0) {
                 $readRate = round($read / $life, 2);
                 $writeRate = round($write / $life, 2);
@@ -2310,12 +2677,15 @@ function hostProcessIoRates(PDO $pdo): array
         }
 
         $out[] = [
-            'pid' => (int)$row['pid'],
-            'user' => (string)$row['user'],
-            'name' => (string)$row['name'],
-            'command' => (string)$row['command'],
-            'rss_bytes' => (int)$row['rss_bytes'],
-            'elapsed_seconds' => $row['elapsed_seconds'] === null ? null : (int)$row['elapsed_seconds'],
+            'pid' => (int) $row['pid'],
+            'user' => (string) $row['user'],
+            'name' => (string) $row['name'],
+            'command' => (string) $row['command'],
+            'rss_bytes' => (int) $row['rss_bytes'],
+            'elapsed_seconds' =>
+                $row['elapsed_seconds'] === null
+                    ? null
+                    : (int) $row['elapsed_seconds'],
             'read_bytes' => $read,
             'write_bytes' => $write,
             'read_rate' => $readRate,
@@ -2333,7 +2703,8 @@ function hostProcessIoRates(PDO $pdo): array
      * the 40 GB is the thing worth seeing.
      */
     usort($out, function (array $a, array $b): int {
-        $rate = fn(array $r): float => (float)($r['read_rate'] ?? 0) + (float)($r['write_rate'] ?? 0);
+        $rate = fn(array $r): float => (float) ($r['read_rate'] ?? 0) +
+            (float) ($r['write_rate'] ?? 0);
         $total = fn(array $r): int => $r['read_bytes'] + $r['write_bytes'];
         return [$rate($b), $total($b)] <=> [$rate($a), $total($a)];
     });
@@ -2378,9 +2749,11 @@ function hostDiskSeries(PDO $pdo, int $from, int $to): array
      * nothing to subtract from and would be a gap - leaving every chart to
      * begin with a hole that moves as the range changes.
      */
-    $start = $pdo->prepare('SELECT MAX(id) FROM host_samples WHERE taken_at < ?');
+    $start = $pdo->prepare(
+        'SELECT MAX(id) FROM host_samples WHERE taken_at < ?',
+    );
     $start->execute([$from]);
-    $startId = (int)$start->fetchColumn();
+    $startId = (int) $start->fetchColumn();
 
     $stmt = $pdo->prepare(
         'SELECT s.id, s.taken_at, d.name, d.stacked, d.read_bytes, d.write_bytes,
@@ -2389,15 +2762,15 @@ function hostDiskSeries(PDO $pdo, int $from, int $to): array
          JOIN host_samples s ON s.id = d.sample_id
          WHERE s.id >= ? AND s.taken_at <= ?
            AND d.stacked = 0
-         ORDER BY s.id'
+         ORDER BY s.id',
     );
     $stmt->execute([$startId, $to]);
 
     $samples = [];
     foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
-        $id = (int)$row['id'];
-        $samples[$id]['taken_at'] = (int)$row['taken_at'];
-        $samples[$id]['disks'][(string)$row['name']] = $row;
+        $id = (int) $row['id'];
+        $samples[$id]['taken_at'] = (int) $row['taken_at'];
+        $samples[$id]['disks'][(string) $row['name']] = $row;
     }
 
     $out = [];
@@ -2431,9 +2804,9 @@ function hostDiskSeries(PDO $pdo, int $from, int $to): array
                 continue;
             }
 
-            $readDelta = (int)$now['read_bytes'] - (int)$was['read_bytes'];
-            $writeDelta = (int)$now['write_bytes'] - (int)$was['write_bytes'];
-            $busyDelta = (int)$now['io_ms'] - (int)$was['io_ms'];
+            $readDelta = (int) $now['read_bytes'] - (int) $was['read_bytes'];
+            $writeDelta = (int) $now['write_bytes'] - (int) $was['write_bytes'];
+            $busyDelta = (int) $now['io_ms'] - (int) $was['io_ms'];
 
             /*
              * Backwards means the machine rebooted and the counters restarted.
@@ -2455,10 +2828,11 @@ function hostDiskSeries(PDO $pdo, int $from, int $to): array
             $deviceUtil = min(100.0, $busyDelta / ($seconds * 10));
             $util = $util === null ? $deviceUtil : max($util, $deviceUtil);
 
-            $queueDelta = (int)$now['queue_ms'] - (int)$was['queue_ms'];
+            $queueDelta = (int) $now['queue_ms'] - (int) $was['queue_ms'];
             if ($queueDelta >= 0) {
                 $deviceQueue = $queueDelta / ($seconds * 1000);
-                $queue = $queue === null ? $deviceQueue : max($queue, $deviceQueue);
+                $queue =
+                    $queue === null ? $deviceQueue : max($queue, $deviceQueue);
             }
         }
 
@@ -2469,8 +2843,10 @@ function hostDiskSeries(PDO $pdo, int $from, int $to): array
             'read_rate' => $usable ? round($read / $seconds, 2) : null,
             'write_rate' => $usable ? round($write / $seconds, 2) : null,
             // The busiest device, not the sum. See the note above.
-            'util_percent' => $usable && $util !== null ? round($util, 2) : null,
-            'queue_depth' => $usable && $queue !== null ? round($queue, 2) : null,
+            'util_percent' =>
+                $usable && $util !== null ? round($util, 2) : null,
+            'queue_depth' =>
+                $usable && $queue !== null ? round($queue, 2) : null,
         ];
 
         $previous = $sample;

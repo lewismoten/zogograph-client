@@ -32,14 +32,14 @@ be a data disclosure bug.
 
 ## Data classes
 
-| store | content | default encryption choice when enabled |
-| --- | --- | --- |
-| `setup.db` | complete configuration, authentication material, integration credentials, and signing keys | selected by default |
-| `stats.db` | paths, measurements, alert/audit records, and account operational history | selected by default |
-| `host.db` | host-wide users, processes, paths, and system evidence | selected by default when host collection is enabled |
-| `ai.db` | assistant transcripts, tool evidence, memory, and generated assets | selected by default when the assistant is enabled |
-| `lib/config.php` | bootstrap paths; legacy installations can contain more | protected as a sealed configuration artifact, not a SQLite target |
-| logs and exports | may contain paths, errors, or query data | opt-in encrypted archive/export; do not silently claim they are database encryption |
+| store            | content                                                                                    | default encryption choice when enabled                                              |
+| ---------------- | ------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------- |
+| `setup.db`       | complete configuration, authentication material, integration credentials, and signing keys | selected by default                                                                 |
+| `stats.db`       | paths, measurements, alert/audit records, and account operational history                  | selected by default                                                                 |
+| `host.db`        | host-wide users, processes, paths, and system evidence                                     | selected by default when host collection is enabled                                 |
+| `ai.db`          | assistant transcripts, tool evidence, memory, and generated assets                         | selected by default when the assistant is enabled                                   |
+| `lib/config.php` | bootstrap paths; legacy installations can contain more                                     | protected as a sealed configuration artifact, not a SQLite target                   |
+| logs and exports | may contain paths, errors, or query data                                                   | opt-in encrypted archive/export; do not silently claim they are database encryption |
 
 The setup page must make these choices explicit. It must never silently enable
 encryption, upload a key, or contact another Zogograph server.
@@ -111,13 +111,13 @@ a generic “encrypt this table” control.
 The setup interface exposes only modes that the current server can validate.
 Every mode displays its recovery consequence before activation.
 
-| mode | key location | suitable use | limitation |
-| --- | --- | --- | --- |
-| Manual unlock | operator supplies an unlock secret after restart | highest separation for an unattended key | collection and dashboard cannot start until unlocked |
-| Local protected file | outside document root, owner-readable only | simple single-server deployments | a host/account compromise can read the key |
-| Host-managed encrypted volume | operating system or hosting platform | transparent protection for live SQLite, WAL, logs, and configuration | key custody is outside Zogograph; availability follows the host |
-| Zogograph fleet custodian | one or more explicitly enrolled Zogograph peers hold wrapped-DEK material | self-managed remote custody and failover | requires mutually authenticated key protocol, cache policy, and recovery quorum |
-| External provider | optional marketplace/plugin integration | organizations already using a compatible KMS/HSM | never a default and never required for core encryption |
+| mode                          | key location                                                              | suitable use                                                         | limitation                                                                      |
+| ----------------------------- | ------------------------------------------------------------------------- | -------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| Manual unlock                 | operator supplies an unlock secret after restart                          | highest separation for an unattended key                             | collection and dashboard cannot start until unlocked                            |
+| Local protected file          | outside document root, owner-readable only                                | simple single-server deployments                                     | a host/account compromise can read the key                                      |
+| Host-managed encrypted volume | operating system or hosting platform                                      | transparent protection for live SQLite, WAL, logs, and configuration | key custody is outside Zogograph; availability follows the host                 |
+| Zogograph fleet custodian     | one or more explicitly enrolled Zogograph peers hold wrapped-DEK material | self-managed remote custody and failover                             | requires mutually authenticated key protocol, cache policy, and recovery quorum |
+| External provider             | optional marketplace/plugin integration                                   | organizations already using a compatible KMS/HSM                     | never a default and never required for core encryption                          |
 
 `.htaccess` prevents HTTP delivery; it is not encryption and does not protect a
 local account, backup, shell, or filesystem reader. A local key file belongs

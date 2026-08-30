@@ -179,11 +179,11 @@ Start with the smallest path that meets the installation's recovery needs. The
 Protection page only shows optional methods after their package has been
 installed and its platform checks have passed.
 
-| situation | recommended setup choice | important limit |
-| --- | --- | --- |
-| shared host, single VPS, or a first installation | local encrypted copies; protect configuration, `setup`, and `account`; run daily and retain 30 days | protects copies and backup media, not the live SQLite files while Zogograph runs |
-| host/VM/managed platform already encrypts its disks | record host/VM protection for the selected live stores, then still make encrypted recovery copies | Zogograph records this as an operator statement; it cannot prove the platform's disk-encryption setting |
-| live SQLite files must be encrypted by Zogograph | install the SQLCipher package only on a Zogograph-tested PHP/PDO image and run its disposable preflight | do not activate it on an ordinary PDO SQLite build or treat a sealed copy as live-store encryption |
+| situation                                                      | recommended setup choice                                                                                       | important limit                                                                                                |
+| -------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| shared host, single VPS, or a first installation               | local encrypted copies; protect configuration, `setup`, and `account`; run daily and retain 30 days            | protects copies and backup media, not the live SQLite files while Zogograph runs                               |
+| host/VM/managed platform already encrypts its disks            | record host/VM protection for the selected live stores, then still make encrypted recovery copies              | Zogograph records this as an operator statement; it cannot prove the platform's disk-encryption setting        |
+| live SQLite files must be encrypted by Zogograph               | install the SQLCipher package only on a Zogograph-tested PHP/PDO image and run its disposable preflight        | do not activate it on an ordinary PDO SQLite build or treat a sealed copy as live-store encryption             |
 | organization needs remote recovery, KMS/HSM, or hosted custody | install and review the compatible custody/replica/provider package, then enroll it through the Protection page | remote custody and replicas remain off until the provider runtime and recovery/availability gates are complete |
 
 The local encrypted-copy path is the initial recommendation because it works

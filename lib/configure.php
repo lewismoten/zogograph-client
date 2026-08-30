@@ -26,7 +26,10 @@ require_once __DIR__ . '/openid.php';
 function categoryNames(array $rules): array
 {
     $names = [];
-    foreach (['category_dirs', 'category_files', 'category_extensions'] as $group) {
+    foreach (
+        ['category_dirs', 'category_files', 'category_extensions']
+        as $group
+    ) {
         foreach (array_keys($rules[$group] ?? []) as $category) {
             $names[$category] = true;
         }
@@ -45,16 +48,24 @@ function configFields(array $sample): array
 {
     return [
         [
-            'key' => 'branding_name', 'section' => 'display', 'path' => ['branding', 'name'], 'type' => 'text',
+            'key' => 'branding_name',
+            'section' => 'display',
+            'path' => ['branding', 'name'],
+            'type' => 'text',
             'label' => 'Product name',
-            'help' => 'The short name shown in the dashboard and setup shell. It is plain text, not HTML.',
-            'default' => (string)($sample['branding']['name'] ?? 'Zogograph'),
+            'help' =>
+                'The short name shown in the dashboard and setup shell. It is plain text, not HTML.',
+            'default' => (string) ($sample['branding']['name'] ?? 'Zogograph'),
         ],
         [
-            'key' => 'core_features_overview', 'section' => 'features', 'path' => ['core_features', 'overview'], 'type' => 'bool',
+            'key' => 'core_features_overview',
+            'section' => 'features',
+            'path' => ['core_features', 'overview'],
+            'type' => 'bool',
             'label' => 'Overview core feature',
-            'help' => 'Disabling this removes the Overview dashboard and its shared measurements. The shell keeps only the feature and access state needed to open another enabled page; collection continues unchanged.',
-            'default' => (bool)($sample['core_features']['overview'] ?? true),
+            'help' =>
+                'Disabling this removes the Overview dashboard and its shared measurements. The shell keeps only the feature and access state needed to open another enabled page; collection continues unchanged.',
+            'default' => (bool) ($sample['core_features']['overview'] ?? true),
         ],
         [
             'key' => 'core_features_assistant',
@@ -62,8 +73,9 @@ function configFields(array $sample): array
             'path' => ['core_features', 'assistant'],
             'type' => 'bool',
             'label' => 'Assistant core feature',
-            'help' => 'Disabling this removes the assistant from the dashboard and blocks its API routes. Existing assistant settings and private data are retained for a later re-enable.',
-            'default' => (bool)($sample['core_features']['assistant'] ?? true),
+            'help' =>
+                'Disabling this removes the assistant from the dashboard and blocks its API routes. Existing assistant settings and private data are retained for a later re-enable.',
+            'default' => (bool) ($sample['core_features']['assistant'] ?? true),
         ],
         [
             'key' => 'core_features_peers',
@@ -71,8 +83,9 @@ function configFields(array $sample): array
             'path' => ['core_features', 'peers'],
             'type' => 'bool',
             'label' => 'Trusted servers core feature',
-            'help' => 'Disabling this removes trusted servers from the dashboard and refuses its API, telemetry, and connection routes. Existing peer settings and private data are retained for a later re-enable.',
-            'default' => (bool)($sample['core_features']['peers'] ?? true),
+            'help' =>
+                'Disabling this removes trusted servers from the dashboard and refuses its API, telemetry, and connection routes. Existing peer settings and private data are retained for a later re-enable.',
+            'default' => (bool) ($sample['core_features']['peers'] ?? true),
         ],
         [
             'key' => 'core_features_marketplace',
@@ -80,8 +93,10 @@ function configFields(array $sample): array
             'path' => ['core_features', 'marketplace'],
             'type' => 'bool',
             'label' => 'Marketplace core feature',
-            'help' => 'Disabling this removes Marketplace from the dashboard and blocks its API routes. Installed marketplace metadata and revision history are retained for a later re-enable.',
-            'default' => (bool)($sample['core_features']['marketplace'] ?? true),
+            'help' =>
+                'Disabling this removes Marketplace from the dashboard and blocks its API routes. Installed marketplace metadata and revision history are retained for a later re-enable.',
+            'default' =>
+                (bool) ($sample['core_features']['marketplace'] ?? true),
         ],
         [
             'key' => 'core_features_terminal',
@@ -89,8 +104,9 @@ function configFields(array $sample): array
             'path' => ['core_features', 'terminal'],
             'type' => 'bool',
             'label' => 'Terminal core feature',
-            'help' => 'Disabling this removes the Terminal and its sessions from the dashboard, blocks its API routes, and prevents assistant tools from reading terminal history. Existing private terminal evidence is retained for a later re-enable.',
-            'default' => (bool)($sample['core_features']['terminal'] ?? true),
+            'help' =>
+                'Disabling this removes the Terminal and its sessions from the dashboard, blocks its API routes, and prevents assistant tools from reading terminal history. Existing private terminal evidence is retained for a later re-enable.',
+            'default' => (bool) ($sample['core_features']['terminal'] ?? true),
         ],
         [
             'key' => 'core_features_notes',
@@ -98,8 +114,9 @@ function configFields(array $sample): array
             'path' => ['core_features', 'notes'],
             'type' => 'bool',
             'label' => 'Notes core feature',
-            'help' => 'Disabling this removes notes, database copies, chart annotations, and broadcasts from the dashboard and blocks their API routes. Existing notes and captured evidence are retained for a later re-enable.',
-            'default' => (bool)($sample['core_features']['notes'] ?? true),
+            'help' =>
+                'Disabling this removes notes, database copies, chart annotations, and broadcasts from the dashboard and blocks their API routes. Existing notes and captured evidence are retained for a later re-enable.',
+            'default' => (bool) ($sample['core_features']['notes'] ?? true),
         ],
         [
             'key' => 'core_features_problems',
@@ -107,8 +124,9 @@ function configFields(array $sample): array
             'path' => ['core_features', 'problems'],
             'type' => 'bool',
             'label' => 'Recent problems core feature',
-            'help' => 'Disabling this removes Recent problems, its dashboard badges, and its API routes. Zogograph continues recording server errors so diagnostics and support remain safe.',
-            'default' => (bool)($sample['core_features']['problems'] ?? true),
+            'help' =>
+                'Disabling this removes Recent problems, its dashboard badges, and its API routes. Zogograph continues recording server errors so diagnostics and support remain safe.',
+            'default' => (bool) ($sample['core_features']['problems'] ?? true),
         ],
         [
             'key' => 'core_features_storage',
@@ -116,8 +134,9 @@ function configFields(array $sample): array
             'path' => ['core_features', 'storage'],
             'type' => 'bool',
             'label' => 'Data storage core feature',
-            'help' => 'Disabling this removes account storage, its file views, data controls, and retention controls from the dashboard; blocks their read, management, and assistant APIs; and preserves scans, configured retention, and safe server-side rollups.',
-            'default' => (bool)($sample['core_features']['storage'] ?? true),
+            'help' =>
+                'Disabling this removes account storage, its file views, data controls, and retention controls from the dashboard; blocks their read, management, and assistant APIs; and preserves scans, configured retention, and safe server-side rollups.',
+            'default' => (bool) ($sample['core_features']['storage'] ?? true),
         ],
         [
             'key' => 'core_features_audit',
@@ -125,8 +144,9 @@ function configFields(array $sample): array
             'path' => ['core_features', 'audit'],
             'type' => 'bool',
             'label' => 'Audit log core feature',
-            'help' => 'Disabling this removes the Audit page and blocks its API routes and assistant history tool. Zogograph continues recording accountability entries server-side.',
-            'default' => (bool)($sample['core_features']['audit'] ?? true),
+            'help' =>
+                'Disabling this removes the Audit page and blocks its API routes and assistant history tool. Zogograph continues recording accountability entries server-side.',
+            'default' => (bool) ($sample['core_features']['audit'] ?? true),
         ],
         [
             'key' => 'core_features_metadata',
@@ -134,8 +154,9 @@ function configFields(array $sample): array
             'path' => ['core_features', 'metadata'],
             'type' => 'bool',
             'label' => 'Custom names and descriptions core feature',
-            'help' => 'Disabling this removes Custom names and What things are from the dashboard and blocks their API routes. Existing labels and descriptions are retained for a later re-enable.',
-            'default' => (bool)($sample['core_features']['metadata'] ?? true),
+            'help' =>
+                'Disabling this removes Custom names and What things are from the dashboard and blocks their API routes. Existing labels and descriptions are retained for a later re-enable.',
+            'default' => (bool) ($sample['core_features']['metadata'] ?? true),
         ],
         [
             'key' => 'core_features_notifications',
@@ -143,8 +164,10 @@ function configFields(array $sample): array
             'path' => ['core_features', 'notifications'],
             'type' => 'bool',
             'label' => 'Email alerts configuration core feature',
-            'help' => 'Disabling this removes Email alerts from the dashboard and blocks its configuration and test API routes. Existing alert delivery settings and server-side alert evaluation continue unchanged.',
-            'default' => (bool)($sample['core_features']['notifications'] ?? true),
+            'help' =>
+                'Disabling this removes Email alerts from the dashboard and blocks its configuration and test API routes. Existing alert delivery settings and server-side alert evaluation continue unchanged.',
+            'default' =>
+                (bool) ($sample['core_features']['notifications'] ?? true),
         ],
         [
             'key' => 'core_features_backups',
@@ -152,8 +175,9 @@ function configFields(array $sample): array
             'path' => ['core_features', 'backups'],
             'type' => 'bool',
             'label' => 'Backup inspection core feature',
-            'help' => 'Disabling this removes the Backup inspection pages and blocks their API route. It does not alter backups or their provider-managed schedules.',
-            'default' => (bool)($sample['core_features']['backups'] ?? true),
+            'help' =>
+                'Disabling this removes the Backup inspection pages and blocks their API route. It does not alter backups or their provider-managed schedules.',
+            'default' => (bool) ($sample['core_features']['backups'] ?? true),
         ],
         [
             'key' => 'core_features_encryption',
@@ -161,8 +185,10 @@ function configFields(array $sample): array
             'path' => ['core_features', 'encryption'],
             'type' => 'bool',
             'label' => 'Protection core feature',
-            'help' => 'Disabling this removes Protection and blocks its on-demand status and recovery APIs. Configured encrypted-copy schedules and server-side verification continue unchanged.',
-            'default' => (bool)($sample['core_features']['encryption'] ?? true),
+            'help' =>
+                'Disabling this removes Protection and blocks its on-demand status and recovery APIs. Configured encrypted-copy schedules and server-side verification continue unchanged.',
+            'default' =>
+                (bool) ($sample['core_features']['encryption'] ?? true),
         ],
         [
             'key' => 'core_features_alerts',
@@ -170,8 +196,9 @@ function configFields(array $sample): array
             'path' => ['core_features', 'alerts'],
             'type' => 'bool',
             'label' => 'Alerts core feature',
-            'help' => 'Disabling this removes Alerts, its shared dashboard badge and banner, and its API routes. Server-side alert evaluation and configured delivery continue unchanged.',
-            'default' => (bool)($sample['core_features']['alerts'] ?? true),
+            'help' =>
+                'Disabling this removes Alerts, its shared dashboard badge and banner, and its API routes. Server-side alert evaluation and configured delivery continue unchanged.',
+            'default' => (bool) ($sample['core_features']['alerts'] ?? true),
         ],
         [
             'key' => 'core_features_uptime',
@@ -179,8 +206,9 @@ function configFields(array $sample): array
             'path' => ['core_features', 'uptime'],
             'type' => 'bool',
             'label' => 'Uptime core feature',
-            'help' => 'Disabling this removes Uptime and blocks its API route. It does not alter host or account collector schedules.',
-            'default' => (bool)($sample['core_features']['uptime'] ?? true),
+            'help' =>
+                'Disabling this removes Uptime and blocks its API route. It does not alter host or account collector schedules.',
+            'default' => (bool) ($sample['core_features']['uptime'] ?? true),
         ],
         [
             'key' => 'core_features_packages',
@@ -188,8 +216,9 @@ function configFields(array $sample): array
             'path' => ['core_features', 'packages'],
             'type' => 'bool',
             'label' => 'Package management core feature',
-            'help' => 'Disabling this removes Package runtime and package-contributed pages from the dashboard, blocks package-management APIs, and stops loading package language catalogs. Installed package records and their private settings remain intact for a later re-enable.',
-            'default' => (bool)($sample['core_features']['packages'] ?? true),
+            'help' =>
+                'Disabling this removes Package runtime and package-contributed pages from the dashboard, blocks package-management APIs, and stops loading package language catalogs. Installed package records and their private settings remain intact for a later re-enable.',
+            'default' => (bool) ($sample['core_features']['packages'] ?? true),
         ],
         [
             'key' => 'core_features_charts',
@@ -197,8 +226,9 @@ function configFields(array $sample): array
             'path' => ['core_features', 'charts'],
             'type' => 'bool',
             'label' => 'Chart history core feature',
-            'help' => 'Disabling this removes Over time, blocks chart catalog and series APIs, and prevents assistant chart tools from reading or rendering chart history. Collectors and the current overview remain available.',
-            'default' => (bool)($sample['core_features']['charts'] ?? true),
+            'help' =>
+                'Disabling this removes Over time, blocks chart catalog and series APIs, and prevents assistant chart tools from reading or rendering chart history. Collectors and the current overview remain available.',
+            'default' => (bool) ($sample['core_features']['charts'] ?? true),
         ],
         [
             'key' => 'core_features_health',
@@ -206,8 +236,9 @@ function configFields(array $sample): array
             'path' => ['core_features', 'health'],
             'type' => 'bool',
             'label' => 'System health core feature',
-            'help' => 'Disabling this removes the System health and self-diagnostic dashboard, blocks its presentation and diagnosis APIs, and hides overview findings. Setup checks and server-side collector safety checks continue to run.',
-            'default' => (bool)($sample['core_features']['health'] ?? true),
+            'help' =>
+                'Disabling this removes the System health and self-diagnostic dashboard, blocks its presentation and diagnosis APIs, and hides overview findings. Setup checks and server-side collector safety checks continue to run.',
+            'default' => (bool) ($sample['core_features']['health'] ?? true),
         ],
         [
             'key' => 'core_features_network',
@@ -215,14 +246,19 @@ function configFields(array $sample): array
             'path' => ['core_features', 'network'],
             'type' => 'bool',
             'label' => 'Network tools core feature',
-            'help' => 'Disabling this removes network views and blocks their API, outbound lookup, capture, URL/domain, reverse-DNS, and calendar actions. Existing outbound safety, allow-list, and rate-limit controls remain enforced whenever it is enabled.',
-            'default' => (bool)($sample['core_features']['network'] ?? true),
+            'help' =>
+                'Disabling this removes network views and blocks their API, outbound lookup, capture, URL/domain, reverse-DNS, and calendar actions. Existing outbound safety, allow-list, and rate-limit controls remain enforced whenever it is enabled.',
+            'default' => (bool) ($sample['core_features']['network'] ?? true),
         ],
         [
-            'key' => 'core_features_host', 'section' => 'features', 'path' => ['core_features', 'host'], 'type' => 'bool',
+            'key' => 'core_features_host',
+            'section' => 'features',
+            'path' => ['core_features', 'host'],
+            'type' => 'bool',
             'label' => 'Host observations core feature',
-            'help' => 'Disabling this removes host, CPU, process, filesystem, capability, and change views; blocks their APIs, assistant tools, and on-demand host-task requests. Root-owned collection and its configured schedule continue unchanged.',
-            'default' => (bool)($sample['core_features']['host'] ?? true),
+            'help' =>
+                'Disabling this removes host, CPU, process, filesystem, capability, and change views; blocks their APIs, assistant tools, and on-demand host-task requests. Root-owned collection and its configured schedule continue unchanged.',
+            'default' => (bool) ($sample['core_features']['host'] ?? true),
         ],
         [
             'key' => 'openid_enabled',
@@ -230,8 +266,9 @@ function configFields(array $sample): array
             'path' => ['openid', 'enabled'],
             'type' => 'bool',
             'label' => 'Act as an OpenID Connect provider',
-            'help' => 'Lets explicitly registered trusted applications sign users in through this Zogograph installation. It does not make this server a public identity service.',
-            'default' => (bool)($sample['openid']['enabled'] ?? false),
+            'help' =>
+                'Lets explicitly registered trusted applications sign users in through this Zogograph installation. It does not make this server a public identity service.',
+            'default' => (bool) ($sample['openid']['enabled'] ?? false),
         ],
         [
             'key' => 'openid_issuer',
@@ -239,10 +276,13 @@ function configFields(array $sample): array
             'path' => ['openid', 'issuer'],
             'type' => 'text',
             'label' => 'Public issuer URL',
-            'help' => 'The HTTPS URL trusted clients use to discover this provider, for example https://monitor.example.com. Do not include a trailing slash.',
-            'default' => (string)($sample['openid']['issuer'] ?? ''),
-            'validate' => static fn(string $value): ?string => $value === '' || openIdIssuerUrl($value) !== null
-                ? null : 'Enter a complete HTTPS URL without credentials, a query, or a fragment.',
+            'help' =>
+                'The HTTPS URL trusted clients use to discover this provider, for example https://monitor.example.com. Do not include a trailing slash.',
+            'default' => (string) ($sample['openid']['issuer'] ?? ''),
+            'validate' => static fn(string $value): ?string => $value === '' ||
+            openIdIssuerUrl($value) !== null
+                ? null
+                : 'Enter a complete HTTPS URL without credentials, a query, or a fragment.',
         ],
         [
             'key' => 'openid_signing_private_key',
@@ -250,10 +290,14 @@ function configFields(array $sample): array
             'path' => ['openid', 'signing_private_key'],
             'type' => 'textarea',
             'label' => 'OpenID signing private key',
-            'help' => 'Required before enabling the provider. Use a dedicated RSA private key; never reuse the TLS certificate key. Setup can generate a dedicated key that is kept only in the protected setup session until this section is saved.',
-            'default' => (string)($sample['openid']['signing_private_key'] ?? ''),
-            'validate' => static fn(string $value): ?string => $value === '' || openIdSigningKeyDetails($value) !== null
-                ? null : 'Use a dedicated RSA private key with at least 3072 bits.',
+            'help' =>
+                'Required before enabling the provider. Use a dedicated RSA private key; never reuse the TLS certificate key. Setup can generate a dedicated key that is kept only in the protected setup session until this section is saved.',
+            'default' =>
+                (string) ($sample['openid']['signing_private_key'] ?? ''),
+            'validate' => static fn(string $value): ?string => $value === '' ||
+            openIdSigningKeyDetails($value) !== null
+                ? null
+                : 'Use a dedicated RSA private key with at least 3072 bits.',
             'when' => ['openid_enabled' => true],
         ],
         [
@@ -262,8 +306,9 @@ function configFields(array $sample): array
             'path' => ['scan_root'],
             'type' => 'text',
             'label' => 'Directory to watch',
-            'help' => 'Everything is measured under here, and nothing outside it can ever be deleted.',
-            'default' => (string)$sample['scan_root'],
+            'help' =>
+                'Everything is measured under here, and nothing outside it can ever be deleted.',
+            'default' => (string) $sample['scan_root'],
             'validate' => function (string $value): ?string {
                 if ($value === '') {
                     return 'A directory is required.';
@@ -283,9 +328,14 @@ function configFields(array $sample): array
             'path' => ['timezone'],
             'type' => 'text',
             'label' => 'Timezone',
-            'help' => 'Used for the timestamps on the dashboard and in alert emails.',
-            'default' => (string)$sample['timezone'],
-            'validate' => fn(string $v): ?string => in_array($v, timezone_identifiers_list(), true)
+            'help' =>
+                'Used for the timestamps on the dashboard and in alert emails.',
+            'default' => (string) $sample['timezone'],
+            'validate' => fn(string $v): ?string => in_array(
+                $v,
+                timezone_identifiers_list(),
+                true,
+            )
                 ? null
                 : 'Not a timezone PHP knows. Try America/New_York or UTC.',
         ],
@@ -295,14 +345,17 @@ function configFields(array $sample): array
             'path' => ['encryption', 'mode'],
             'type' => 'choice',
             'label' => 'Encryption mode',
-            'help' => 'Off keeps all current storage unencrypted. Sealed copies make separately encrypted, '
-                . 'verified snapshots; they do not alter the live database or its journal. Host-managed '
-                . 'volume protection is configured and operated outside Zogograph.',
-            'default' => (string)($sample['encryption']['mode'] ?? 'none'),
+            'help' =>
+                'Off keeps all current storage unencrypted. Sealed copies make separately encrypted, ' .
+                'verified snapshots; they do not alter the live database or its journal. Host-managed ' .
+                'volume protection is configured and operated outside Zogograph.',
+            'default' => (string) ($sample['encryption']['mode'] ?? 'none'),
             'options' => [
                 'none' => 'Off — do not encrypt anything',
-                'sealed_copies_local' => 'Encrypted copies with a local private key',
-                'operator_managed_volume' => 'My host/VM encrypts the selected live stores',
+                'sealed_copies_local' =>
+                    'Encrypted copies with a local private key',
+                'operator_managed_volume' =>
+                    'My host/VM encrypts the selected live stores',
             ],
         ],
         [
@@ -311,11 +364,17 @@ function configFields(array $sample): array
             'path' => ['package_runtime', 'trusted_keys'],
             'type' => 'json',
             'label' => 'Trusted executable-package publishers',
-            'help' => 'Optional. Add only a publisher key you independently trust. Each key id maps to a publisher name and Base64 Ed25519 public_key. A signed package cannot install unless its publisher and key match this list.',
-            'default' => (array)($sample['package_runtime']['trusted_keys'] ?? []),
+            'help' =>
+                'Optional. Add only a publisher key you independently trust. Each key id maps to a publisher name and Base64 Ed25519 public_key. A signed package cannot install unless its publisher and key match this list.',
+            'default' =>
+                (array) ($sample['package_runtime']['trusted_keys'] ?? []),
             'validate' => function (array $value): ?string {
-                try { packageRuntimeTrustedKeys($value); return null; }
-                catch (InvalidArgumentException $error) { return $error->getMessage(); }
+                try {
+                    packageRuntimeTrustedKeys($value);
+                    return null;
+                } catch (InvalidArgumentException $error) {
+                    return $error->getMessage();
+                }
             },
         ],
         [
@@ -324,12 +383,20 @@ function configFields(array $sample): array
             'path' => ['package_runtime', 'secret_key_file'],
             'type' => 'text',
             'label' => 'Package secrets key file (optional)',
-            'help' => 'An absolute private key file outside this web directory. Leave blank to reuse the local encryption key when configured. Without either key, package secret references cannot be saved. A separate file gives package credentials separate custody.',
-            'default' => (string)($sample['package_runtime']['secret_key_file'] ?? ''),
+            'help' =>
+                'An absolute private key file outside this web directory. Leave blank to reuse the local encryption key when configured. Without either key, package secret references cannot be saved. A separate file gives package credentials separate custody.',
+            'default' =>
+                (string) ($sample['package_runtime']['secret_key_file'] ?? ''),
             'validate' => function (string $value): ?string {
-                if ($value === '') return null;
-                try { encryptionReadLocalKey($value, dirname(__DIR__)); return null; }
-                catch (Throwable $error) { return $error->getMessage(); }
+                if ($value === '') {
+                    return null;
+                }
+                try {
+                    encryptionReadLocalKey($value, dirname(__DIR__));
+                    return null;
+                } catch (Throwable $error) {
+                    return $error->getMessage();
+                }
             },
         ],
         [
@@ -338,11 +405,17 @@ function configFields(array $sample): array
             'path' => ['encryption', 'key_custody'],
             'type' => 'choice',
             'label' => 'Key custody',
-            'help' => 'The built-in sealed-copy mode currently uses one private local key file. Fleet, '
-                . 'manual-unlock, and marketplace key providers will be selectable only when their secure '
-                . 'protocols are installed and tested.',
-            'default' => (string)($sample['encryption']['key_custody'] ?? 'local_private_file'),
-            'options' => ['local_private_file' => 'Private local key file outside the web directory'],
+            'help' =>
+                'The built-in sealed-copy mode currently uses one private local key file. Fleet, ' .
+                'manual-unlock, and marketplace key providers will be selectable only when their secure ' .
+                'protocols are installed and tested.',
+            'default' =>
+                (string) ($sample['encryption']['key_custody'] ??
+                    'local_private_file'),
+            'options' => [
+                'local_private_file' =>
+                    'Private local key file outside the web directory',
+            ],
             'when' => ['encryption_mode' => 'sealed_copies_local'],
         ],
         [
@@ -351,11 +424,15 @@ function configFields(array $sample): array
             'path' => ['encryption', 'local_key_file'],
             'type' => 'text',
             'label' => 'Private key-file path',
-            'help' => 'Create it first with scripts/encryption-key.php. It must be an absolute, non-symlink '
-                . 'file outside this web directory and readable only by the Zogograph service account.',
-            'default' => (string)($sample['encryption']['local_key_file'] ?? ''),
-            'validate' => fn(string $v): ?string => $v !== '' && str_starts_with($v, '/')
-                ? null : 'Enter an absolute private key-file path.',
+            'help' =>
+                'Create it first with scripts/encryption-key.php. It must be an absolute, non-symlink ' .
+                'file outside this web directory and readable only by the Zogograph service account.',
+            'default' =>
+                (string) ($sample['encryption']['local_key_file'] ?? ''),
+            'validate' => fn(string $v): ?string => $v !== '' &&
+            str_starts_with($v, '/')
+                ? null
+                : 'Enter an absolute private key-file path.',
             'when' => ['encryption_mode' => 'sealed_copies_local'],
         ],
         [
@@ -364,12 +441,22 @@ function configFields(array $sample): array
             'path' => ['encryption', 'artifact_directory'],
             'type' => 'nullable',
             'label' => 'Encrypted-copy directory',
-            'help' => 'Leave blank for data/sealed. Use an absolute private path to keep encrypted copies elsewhere.',
+            'help' =>
+                'Leave blank for data/sealed. Use an absolute private path to keep encrypted copies elsewhere.',
             'default' => $sample['encryption']['artifact_directory'] ?? null,
             'validate' => function (?string $value): ?string {
-                if ($value === null || $value === '') return null;
-                try { encryptionValidateArtifactDirectory($value, dirname(__DIR__)); return null; }
-                catch (Throwable $error) { return $error->getMessage(); }
+                if ($value === null || $value === '') {
+                    return null;
+                }
+                try {
+                    encryptionValidateArtifactDirectory(
+                        $value,
+                        dirname(__DIR__),
+                    );
+                    return null;
+                } catch (Throwable $error) {
+                    return $error->getMessage();
+                }
             },
             'when' => ['encryption_mode' => 'sealed_copies_local'],
         ],
@@ -379,14 +466,22 @@ function configFields(array $sample): array
             'path' => ['encryption', 'stores'],
             'type' => 'choices',
             'label' => 'Databases to copy into encrypted artifacts',
-            'help' => 'The recommended start protects bootstrap configuration, setup, and account data. Add host or assistant stores when you want their process evidence or conversations protected too; those optional stores wait until they exist.',
-            'default' => (array)($sample['encryption']['stores'] ?? []),
+            'help' =>
+                'The recommended start protects bootstrap configuration, setup, and account data. Add host or assistant stores when you want their process evidence or conversations protected too; those optional stores wait until they exist.',
+            'default' => (array) ($sample['encryption']['stores'] ?? []),
             'options' => [
-                'config' => 'Bootstrap configuration file', 'setup' => 'Setup and configuration database',
+                'config' => 'Bootstrap configuration file',
+                'setup' => 'Setup and configuration database',
                 'account' => 'Account metrics and audit history',
-                'host' => 'Host-wide metrics', 'ai' => 'Assistant conversations and memory',
+                'host' => 'Host-wide metrics',
+                'ai' => 'Assistant conversations and memory',
             ],
-            'when' => ['encryption_mode' => ['sealed_copies_local', 'operator_managed_volume']],
+            'when' => [
+                'encryption_mode' => [
+                    'sealed_copies_local',
+                    'operator_managed_volume',
+                ],
+            ],
         ],
         [
             'key' => 'encryption_backup_schedule',
@@ -394,10 +489,16 @@ function configFields(array $sample): array
             'path' => ['encryption', 'backup_schedule'],
             'type' => 'choice',
             'label' => 'Encrypted-copy schedule',
-            'help' => 'Zogograph records this preference; configure the matching cron or host-scheduler job. '
-                . 'Manual creates copies only when cron.php --seal is run.',
-            'default' => (string)($sample['encryption']['backup_schedule'] ?? 'daily'),
-            'options' => ['manual' => 'Manual only', 'daily' => 'Daily', 'weekly' => 'Weekly'],
+            'help' =>
+                'Zogograph records this preference; configure the matching cron or host-scheduler job. ' .
+                'Manual creates copies only when cron.php --seal is run.',
+            'default' =>
+                (string) ($sample['encryption']['backup_schedule'] ?? 'daily'),
+            'options' => [
+                'manual' => 'Manual only',
+                'daily' => 'Daily',
+                'weekly' => 'Weekly',
+            ],
             'when' => ['encryption_mode' => 'sealed_copies_local'],
         ],
         [
@@ -406,10 +507,13 @@ function configFields(array $sample): array
             'path' => ['encryption', 'retention_days'],
             'type' => 'int',
             'label' => 'Local encrypted-copy retention target (days)',
-            'help' => 'Zero means keep every copy. During an explicit sealing run, Zogograph prunes only old verified local artifacts whose ciphertext hash still matches, and never the newest verified copy for a store.',
-            'default' => (int)($sample['encryption']['retention_days'] ?? 30),
-            'validate' => fn(string $v): ?string => ctype_digit($v) && (int)$v <= 36500
-                ? null : 'Enter a whole number from 0 to 36500.',
+            'help' =>
+                'Zero means keep every copy. During an explicit sealing run, Zogograph prunes only old verified local artifacts whose ciphertext hash still matches, and never the newest verified copy for a store.',
+            'default' => (int) ($sample['encryption']['retention_days'] ?? 30),
+            'validate' => fn(string $v): ?string => ctype_digit($v) &&
+            (int) $v <= 36500
+                ? null
+                : 'Enter a whole number from 0 to 36500.',
             'when' => ['encryption_mode' => 'sealed_copies_local'],
         ],
         [
@@ -418,13 +522,23 @@ function configFields(array $sample): array
             'path' => ['encryption', 'retention_days_by_store'],
             'type' => 'json',
             'label' => 'Per-store retention overrides (advanced)',
-            'help' => 'Optional JSON object, for example {"setup":365,"account":30}. Zero keeps every copy for that store. Stores not listed use the normal retention target.',
-            'default' => (array)($sample['encryption']['retention_days_by_store'] ?? []),
+            'help' =>
+                'Optional JSON object, for example {"setup":365,"account":30}. Zero keeps every copy for that store. Stores not listed use the normal retention target.',
+            'default' =>
+                (array) ($sample['encryption']['retention_days_by_store'] ??
+                    []),
             'validate' => function (array $value): ?string {
                 $stores = ['config', 'setup', 'account', 'host', 'ai'];
                 foreach ($value as $store => $days) {
-                    if (!is_string($store) || !in_array($store, $stores, true)) return 'Use only config, setup, account, host, or ai as store names.';
-                    if (!is_int($days) || $days < 0 || $days > 36500) return 'Each retention value must be a whole number from 0 to 36500.';
+                    if (
+                        !is_string($store) ||
+                        !in_array($store, $stores, true)
+                    ) {
+                        return 'Use only config, setup, account, host, or ai as store names.';
+                    }
+                    if (!is_int($days) || $days < 0 || $days > 36500) {
+                        return 'Each retention value must be a whole number from 0 to 36500.';
+                    }
                 }
                 return null;
             },
@@ -436,10 +550,15 @@ function configFields(array $sample): array
             'path' => ['encryption', 'recovery_drill_max_age_days'],
             'type' => 'int',
             'label' => 'Recovery-drill review period (days)',
-            'help' => 'Zogograph warns when a selected store has not completed a non-destructive recovery drill within this period. Ninety days is the recommended starting point; zero disables periodic reminders after the first required drill.',
-            'default' => (int)($sample['encryption']['recovery_drill_max_age_days'] ?? 90),
-            'validate' => fn(string $v): ?string => ctype_digit($v) && (int)$v <= 36500
-                ? null : 'Enter a whole number from 0 to 36500.',
+            'help' =>
+                'Zogograph warns when a selected store has not completed a non-destructive recovery drill within this period. Ninety days is the recommended starting point; zero disables periodic reminders after the first required drill.',
+            'default' =>
+                (int) ($sample['encryption']['recovery_drill_max_age_days'] ??
+                    90),
+            'validate' => fn(string $v): ?string => ctype_digit($v) &&
+            (int) $v <= 36500
+                ? null
+                : 'Enter a whole number from 0 to 36500.',
             'when' => ['encryption_mode' => 'sealed_copies_local'],
         ],
         [
@@ -448,11 +567,25 @@ function configFields(array $sample): array
             'path' => ['encryption', 'retention_recovery_tiers'],
             'type' => 'json',
             'label' => 'Long-term recovery copies (advanced)',
-            'help' => 'Optional JSON object such as {"daily":7,"weekly":4,"monthly":12}. It preserves the newest verified copy from each distinct UTC day, week, or month in addition to normal retention. Zero or omitted tiers keep the simple retention target.',
-            'default' => (array)($sample['encryption']['retention_recovery_tiers'] ?? ['daily' => 0, 'weekly' => 0, 'monthly' => 0]),
+            'help' =>
+                'Optional JSON object such as {"daily":7,"weekly":4,"monthly":12}. It preserves the newest verified copy from each distinct UTC day, week, or month in addition to normal retention. Zero or omitted tiers keep the simple retention target.',
+            'default' => (array) ($sample['encryption'][
+                'retention_recovery_tiers'
+            ] ?? ['daily' => 0, 'weekly' => 0, 'monthly' => 0]),
             'validate' => function (array $value): ?string {
                 foreach ($value as $tier => $copies) {
-                    if (!in_array($tier, ['daily', 'weekly', 'monthly'], true) || !is_int($copies) || $copies < 0 || $copies > 36500) return 'Use daily, weekly, and/or monthly whole-number values from 0 to 36500.';
+                    if (
+                        !in_array(
+                            $tier,
+                            ['daily', 'weekly', 'monthly'],
+                            true,
+                        ) ||
+                        !is_int($copies) ||
+                        $copies < 0 ||
+                        $copies > 36500
+                    ) {
+                        return 'Use daily, weekly, and/or monthly whole-number values from 0 to 36500.';
+                    }
                 }
                 return null;
             },
@@ -464,8 +597,9 @@ function configFields(array $sample): array
             'path' => ['password_hash'],
             'type' => 'password',
             'label' => 'Sign-in password',
-            'help' => 'Reveals real paths and enables deleting. Leave blank to disable sign-in, '
-                . 'which leaves the dashboard readable with every path masked.',
+            'help' =>
+                'Reveals real paths and enables deleting. Leave blank to disable sign-in, ' .
+                'which leaves the dashboard readable with every path masked.',
             'default' => '',
         ],
         [
@@ -474,8 +608,9 @@ function configFields(array $sample): array
             'path' => ['alerts', 'enabled'],
             'type' => 'bool',
             'label' => 'Send alert emails',
-            'help' => 'The point of the thing: it tells you before the disk fills, not after.',
-            'default' => (bool)$sample['alerts']['enabled'],
+            'help' =>
+                'The point of the thing: it tells you before the disk fills, not after.',
+            'default' => (bool) $sample['alerts']['enabled'],
         ],
         [
             'key' => 'alerts_to',
@@ -483,9 +618,12 @@ function configFields(array $sample): array
             'path' => ['alerts', 'to'],
             'type' => 'email',
             'label' => 'Send alerts to',
-            'default' => (string)$sample['alerts']['to'],
+            'default' => (string) $sample['alerts']['to'],
             'when' => 'alerts_enabled',
-            'validate' => fn(string $v): ?string => filter_var($v, FILTER_VALIDATE_EMAIL)
+            'validate' => fn(string $v): ?string => filter_var(
+                $v,
+                FILTER_VALIDATE_EMAIL,
+            )
                 ? null
                 : 'That does not look like an email address.',
         ],
@@ -496,10 +634,11 @@ function configFields(array $sample): array
             'type' => 'email',
             'label' => 'Send alerts from',
             'help' => 'Blank uses whatever the server sends as by default.',
-            'default' => (string)$sample['alerts']['from'],
+            'default' => (string) $sample['alerts']['from'],
             'when' => 'alerts_enabled',
             'optional' => true,
-            'validate' => fn(string $v): ?string => $v === '' || filter_var($v, FILTER_VALIDATE_EMAIL)
+            'validate' => fn(string $v): ?string => $v === '' ||
+            filter_var($v, FILTER_VALIDATE_EMAIL)
                 ? null
                 : 'That does not look like an email address.',
         ],
@@ -509,8 +648,9 @@ function configFields(array $sample): array
             'path' => ['alerts', 'disk_free_bytes'],
             'type' => 'bytes',
             'label' => 'Warn when free space drops below',
-            'help' => 'Write it how you say it: 5G, 500M, or a plain number of bytes.',
-            'default' => (int)$sample['alerts']['disk_free_bytes'],
+            'help' =>
+                'Write it how you say it: 5G, 500M, or a plain number of bytes.',
+            'default' => (int) $sample['alerts']['disk_free_bytes'],
             'when' => 'alerts_enabled',
         ],
         [
@@ -518,12 +658,15 @@ function configFields(array $sample): array
             'section' => 'alerts',
             'path' => ['alerts', 'projected_full_hours'],
             'type' => 'number',
-            'label' => 'Warn when the trend says it will be full within (hours)',
-            'help' => 'Fitted over the last day of readings. This is the alert that arrives '
-                . 'while there is still time to do something.',
-            'default' => (float)$sample['alerts']['projected_full_hours'],
+            'label' =>
+                'Warn when the trend says it will be full within (hours)',
+            'help' =>
+                'Fitted over the last day of readings. This is the alert that arrives ' .
+                'while there is still time to do something.',
+            'default' => (float) $sample['alerts']['projected_full_hours'],
             'when' => 'alerts_enabled',
-            'validate' => fn(string $v): ?string => is_numeric($v) && (float)$v > 0
+            'validate' => fn(string $v): ?string => is_numeric($v) &&
+            (float) $v > 0
                 ? null
                 : 'Enter a number of hours.',
         ],
@@ -532,9 +675,11 @@ function configFields(array $sample): array
             'section' => 'alerts',
             'path' => ['alerts', 'path_jump_bytes'],
             'type' => 'bytes',
-            'label' => 'Warn when one file or directory grows in a single scan by',
-            'help' => 'The alert that names the culprit rather than the symptom.',
-            'default' => (int)$sample['alerts']['path_jump_bytes'],
+            'label' =>
+                'Warn when one file or directory grows in a single scan by',
+            'help' =>
+                'The alert that names the culprit rather than the symptom.',
+            'default' => (int) $sample['alerts']['path_jump_bytes'],
             'when' => 'alerts_enabled',
         ],
         [
@@ -543,12 +688,15 @@ function configFields(array $sample): array
             'path' => ['alerts', 'cpu_percent'],
             'type' => 'number',
             'label' => 'Warn when CPU stays at or above (%)',
-            'help' => 'Sustained, not a spike: it has to hold across the whole window '
-                . 'below. Zero turns it off. On CloudLinux this is a share of what the '
-                . 'account may use, not of the machine.',
-            'default' => (float)($sample['alerts']['cpu_percent'] ?? 95),
+            'help' =>
+                'Sustained, not a spike: it has to hold across the whole window ' .
+                'below. Zero turns it off. On CloudLinux this is a share of what the ' .
+                'account may use, not of the machine.',
+            'default' => (float) ($sample['alerts']['cpu_percent'] ?? 95),
             'when' => 'alerts_enabled',
-            'validate' => fn(string $v): ?string => is_numeric($v) && (float)$v >= 0 && (float)$v <= 100
+            'validate' => fn(string $v): ?string => is_numeric($v) &&
+            (float) $v >= 0 &&
+            (float) $v <= 100
                 ? null
                 : 'Enter a percentage between 0 and 100.',
         ],
@@ -558,11 +706,13 @@ function configFields(array $sample): array
             'path' => ['alerts', 'cpu_minutes'],
             'type' => 'int',
             'label' => 'How long it must stay there (minutes)',
-            'help' => 'A burst cannot hold across a long window, which is the whole point '
-                . 'of measuring duration rather than height.',
-            'default' => (int)($sample['alerts']['cpu_minutes'] ?? 15),
+            'help' =>
+                'A burst cannot hold across a long window, which is the whole point ' .
+                'of measuring duration rather than height.',
+            'default' => (int) ($sample['alerts']['cpu_minutes'] ?? 15),
             'when' => 'alerts_enabled',
-            'validate' => fn(string $v): ?string => is_numeric($v) && (int)$v >= 1
+            'validate' => fn(string $v): ?string => is_numeric($v) &&
+            (int) $v >= 1
                 ? null
                 : 'Enter a number of minutes, at least 1.',
         ],
@@ -572,9 +722,10 @@ function configFields(array $sample): array
             'path' => ['alerts', 'cooldown_seconds'],
             'type' => 'seconds',
             'label' => 'Wait at least this long before repeating an alert',
-            'help' => 'Written how you say it: 6h, 90m, 2d. A plain number is seconds. '
-                . 'An alert that arrives every minute becomes a filter rule within a day.',
-            'default' => (int)$sample['alerts']['cooldown_seconds'],
+            'help' =>
+                'Written how you say it: 6h, 90m, 2d. A plain number is seconds. ' .
+                'An alert that arrives every minute becomes a filter rule within a day.',
+            'default' => (int) $sample['alerts']['cooldown_seconds'],
             'when' => 'alerts_enabled',
         ],
 
@@ -592,11 +743,13 @@ function configFields(array $sample): array
             'path' => ['alerts', 'anomalies', 'enabled'],
             'type' => 'bool',
             'label' => 'Also alert on what is unusual, not just what is large',
-            'help' => 'Compares each service, category and file against its own history. '
-                . 'It catches the things no threshold can - a job that normally takes two '
-                . 'minutes still running after an hour - and stays quiet about the nightly '
-                . 'backup that always grows. Says nothing until it has history to say it from.',
-            'default' => (bool)($sample['alerts']['anomalies']['enabled'] ?? true),
+            'help' =>
+                'Compares each service, category and file against its own history. ' .
+                'It catches the things no threshold can - a job that normally takes two ' .
+                'minutes still running after an hour - and stays quiet about the nightly ' .
+                'backup that always grows. Says nothing until it has history to say it from.',
+            'default' =>
+                (bool) ($sample['alerts']['anomalies']['enabled'] ?? true),
             'when' => 'alerts_enabled',
         ],
         [
@@ -604,12 +757,16 @@ function configFields(array $sample): array
             'section' => 'alerts',
             'path' => ['alerts', 'anomalies', 'min_readings'],
             'type' => 'int',
-            'label' => 'Readings of history needed before it will judge anything',
-            'help' => 'Below this it says nothing at all. Too low and its first day is '
-                . 'all false alarms, which is how these get turned off.',
-            'default' => (int)($sample['alerts']['anomalies']['min_readings'] ?? 8),
+            'label' =>
+                'Readings of history needed before it will judge anything',
+            'help' =>
+                'Below this it says nothing at all. Too low and its first day is ' .
+                'all false alarms, which is how these get turned off.',
+            'default' =>
+                (int) ($sample['alerts']['anomalies']['min_readings'] ?? 8),
             'when' => 'alerts_enabled',
-            'validate' => fn(string $v): ?string => is_numeric($v) && (int)$v >= 3
+            'validate' => fn(string $v): ?string => is_numeric($v) &&
+            (int) $v >= 3
                 ? null
                 : 'Enter a number of readings, at least 3.',
         ],
@@ -618,13 +775,19 @@ function configFields(array $sample): array
             'section' => 'alerts',
             'path' => ['alerts', 'anomalies', 'service_pss_percent'],
             'type' => 'number',
-            'label' => 'Warn when a service holds more memory than usual by (%)',
-            'help' => 'Against its own median over the last day, not against a fixed size. '
-                . 'A service that grows and stays grown is leaking; one that grows and comes '
-                . 'back was busy.',
-            'default' => (float)($sample['alerts']['anomalies']['service_pss_percent'] ?? 25),
+            'label' =>
+                'Warn when a service holds more memory than usual by (%)',
+            'help' =>
+                'Against its own median over the last day, not against a fixed size. ' .
+                'A service that grows and stays grown is leaking; one that grows and comes ' .
+                'back was busy.',
+            'default' =>
+                (float) ($sample['alerts']['anomalies'][
+                    'service_pss_percent'
+                ] ?? 25),
             'when' => 'alerts_enabled',
-            'validate' => fn(string $v): ?string => is_numeric($v) && (float)$v > 0
+            'validate' => fn(string $v): ?string => is_numeric($v) &&
+            (float) $v > 0
                 ? null
                 : 'Enter a percentage above 0.',
         ],
@@ -635,8 +798,9 @@ function configFields(array $sample): array
             'path' => ['deletable_categories'],
             'type' => 'categories',
             'label' => 'Categories that may be deleted from the dashboard',
-            'help' => 'Only ever by a signed-in session, and only inside the watched directory.',
-            'default' => (array)$sample['deletable_categories'],
+            'help' =>
+                'Only ever by a signed-in session, and only inside the watched directory.',
+            'default' => (array) $sample['deletable_categories'],
             // Whatever the rules define, so a category added to the config
             // shows up here instead of being quietly undeletable.
             'options' => categoryNames($sample['scan']),
@@ -654,11 +818,12 @@ function configFields(array $sample): array
             'path' => ['host', 'enabled'],
             'type' => 'bool',
             'label' => 'Also collect host-wide readings (needs root)',
-            'help' => 'Adds a second collector, run by root from WHM, that sees what this '
-                . 'account cannot: other users\' processes and memory, kernel slab caches, '
-                . 'and root-owned logs under /etc. On CloudLinux this is the only way to find '
-                . 'out what is using the machine.',
-            'default' => (bool)($sample['host']['enabled'] ?? true),
+            'help' =>
+                'Adds a second collector, run by root from WHM, that sees what this ' .
+                'account cannot: other users\' processes and memory, kernel slab caches, ' .
+                'and root-owned logs under /etc. On CloudLinux this is the only way to find ' .
+                'out what is using the machine.',
+            'default' => (bool) ($sample['host']['enabled'] ?? true),
         ],
         [
             'key' => 'host_owner',
@@ -666,13 +831,17 @@ function configFields(array $sample): array
             'path' => ['host', 'owner'],
             'type' => 'text',
             'label' => 'Account the dashboard runs as',
-            'help' => 'Root creates the host database, so without this only root can read it '
-                . 'and the panel stays empty. Almost always the cPanel username.',
+            'help' =>
+                'Root creates the host database, so without this only root can read it ' .
+                'and the panel stays empty. Almost always the cPanel username.',
             // Detected rather than guessed: the user PHP is running as right
             // now is the one that will be reading the file later.
-            'default' => currentAccountName() ?: (string)($sample['host']['owner'] ?? ''),
+            'default' =>
+                currentAccountName() ?:
+                (string) ($sample['host']['owner'] ?? ''),
             'when' => 'host_enabled',
-            'validate' => fn(string $v): ?string => $v === '' || preg_match('/^[a-z_][a-z0-9_-]*$/i', $v)
+            'validate' => fn(string $v): ?string => $v === '' ||
+            preg_match('/^[a-z_][a-z0-9_-]*$/i', $v)
                 ? null
                 : 'That does not look like a username.',
             'optional' => true,
@@ -683,9 +852,10 @@ function configFields(array $sample): array
             'path' => ['host', 'watch'],
             'type' => 'lines',
             'label' => 'Root-owned files to watch, one pattern per line',
-            'help' => 'Apache writes each domain\'s logs under /etc owned by root, where a '
-                . 'rotated log can reach several hundred megabytes invisibly. Shell globs.',
-            'default' => (array)($sample['host']['watch'] ?? []),
+            'help' =>
+                'Apache writes each domain\'s logs under /etc owned by root, where a ' .
+                'rotated log can reach several hundred megabytes invisibly. Shell globs.',
+            'default' => (array) ($sample['host']['watch'] ?? []),
             'when' => 'host_enabled',
         ],
         [
@@ -694,11 +864,13 @@ function configFields(array $sample): array
             'path' => ['host', 'keep_days'],
             'type' => 'int',
             'label' => 'Days of host readings to keep',
-            'help' => 'A host reading is much bigger than an account one - it carries every '
-                . 'user, the biggest processes and the slab table.',
-            'default' => (int)($sample['host']['keep_days'] ?? 14),
+            'help' =>
+                'A host reading is much bigger than an account one - it carries every ' .
+                'user, the biggest processes and the slab table.',
+            'default' => (int) ($sample['host']['keep_days'] ?? 14),
             'when' => 'host_enabled',
-            'validate' => fn(string $v): ?string => is_numeric($v) && (float)$v >= 1
+            'validate' => fn(string $v): ?string => is_numeric($v) &&
+            (float) $v >= 1
                 ? null
                 : 'Enter a number of days, at least 1.',
         ],
@@ -728,7 +900,9 @@ function configFields(array $sample): array
  */
 function sampleHelp(string $samplePath): array
 {
-    $source = is_file($samplePath) ? (string)file_get_contents($samplePath) : '';
+    $source = is_file($samplePath)
+        ? (string) file_get_contents($samplePath)
+        : '';
     $lines = preg_split('/\R/', $source) ?: [];
 
     $help = [];
@@ -799,9 +973,10 @@ function sampleHelp(string $samplePath): array
             $key = $m[1];
             $path = implode('.', array_merge($stack, [$key]));
 
-            $said = $comment !== []
-                ? implode(' ', $comment)
-                : ($keyNotes[$key] ?? '');
+            $said =
+                $comment !== []
+                    ? implode(' ', $comment)
+                    : $keyNotes[$key] ?? '';
 
             if ($said !== '') {
                 $help[$path] = $said;
@@ -915,10 +1090,13 @@ function generatedFields(array $sample, string $samplePath): array
     $fields = [];
 
     $walk = function (array $level, array $path) use (
-        &$walk, &$fields, $covered, $notes
+        &$walk,
+        &$fields,
+        $covered,
+        $notes,
     ): void {
         foreach ($level as $key => $value) {
-            $here = array_merge($path, [(string)$key]);
+            $here = array_merge($path, [(string) $key]);
             $dotted = implode('.', $here);
 
             /*
@@ -932,7 +1110,10 @@ function generatedFields(array $sample, string $samplePath): array
             if (in_array($dotted, structuredConfigPaths(), true)) {
                 if (!isset($covered[$dotted])) {
                     $fields[] = generatedStructuredField(
-                        $dotted, $here, $value, $notes['help'][$dotted] ?? ''
+                        $dotted,
+                        $here,
+                        $value,
+                        $notes['help'][$dotted] ?? '',
                     );
                 }
                 continue;
@@ -950,11 +1131,19 @@ function generatedFields(array $sample, string $samplePath): array
                 continue;
             }
 
-            if (isset($covered[$dotted]) || in_array($dotted, hiddenConfigPaths(), true)) {
+            if (
+                isset($covered[$dotted]) ||
+                in_array($dotted, hiddenConfigPaths(), true)
+            ) {
                 continue;
             }
 
-            $fields[] = generatedField($dotted, $here, $value, $notes['help'][$dotted] ?? '');
+            $fields[] = generatedField(
+                $dotted,
+                $here,
+                $value,
+                $notes['help'][$dotted] ?? '',
+            );
         }
     };
 
@@ -1006,13 +1195,27 @@ function hiddenConfigPaths(): array
 /** Maps whose dynamic keys need a structured editor in setup.php. */
 function structuredConfigPaths(): array
 {
-    return ['access.groups', 'access.users', 'alerts.rules', 'ai.images', 'ai.tools', 'ai.toolsets', 'openid.clients', 'peers', 'scans'];
+    return [
+        'access.groups',
+        'access.users',
+        'alerts.rules',
+        'ai.images',
+        'ai.tools',
+        'ai.toolsets',
+        'openid.clients',
+        'peers',
+        'scans',
+    ];
 }
 
 /** One generated field, with its type guessed from what the sample holds. */
-function generatedField(string $dotted, array $path, mixed $value, string $help): array
-{
-    $key = (string)end($path);
+function generatedField(
+    string $dotted,
+    array $path,
+    mixed $value,
+    string $help,
+): array {
+    $key = (string) end($path);
     $field = [
         'key' => 'cfg_' . str_replace('.', '__', $dotted),
         'path' => $path,
@@ -1038,7 +1241,11 @@ function generatedField(string $dotted, array $path, mixed $value, string $help)
          * somewhere sensible beside the others. A field that turned blank into
          * an empty string would break the very thing null is for.
          */
-        return $field + ['type' => 'nullable', 'default' => '', 'optional' => true];
+        return $field + [
+            'type' => 'nullable',
+            'default' => '',
+            'optional' => true,
+        ];
     }
 
     if (is_int($value)) {
@@ -1057,21 +1264,39 @@ function generatedField(string $dotted, array $path, mixed $value, string $help)
         return $field + ['type' => 'number', 'default' => $value];
     }
 
-    if (str_ends_with($key, '_private_key') || str_ends_with($key, '_certificate')) {
-        return $field + ['type' => 'textarea', 'default' => (string)$value, 'optional' => true];
+    if (
+        str_ends_with($key, '_private_key') ||
+        str_ends_with($key, '_certificate')
+    ) {
+        return $field + [
+            'type' => 'textarea',
+            'default' => (string) $value,
+            'optional' => true,
+        ];
     }
 
-    return $field + ['type' => 'text', 'default' => (string)$value, 'optional' => true];
+    return $field + [
+        'type' => 'text',
+        'default' => (string) $value,
+        'optional' => true,
+    ];
 }
 
 /** A JSON field for a configuration map with operator-defined keys. */
-function generatedStructuredField(string $dotted, array $path, mixed $value, string $help): array
-{
+function generatedStructuredField(
+    string $dotted,
+    array $path,
+    mixed $value,
+    string $help,
+): array {
     return [
         'key' => 'cfg_' . str_replace('.', '__', $dotted),
         'path' => $path,
         'label' => generatedFieldLabel($path),
-        'help' => trim($help . ' Enter a JSON object; its keys and nested values are preserved exactly.'),
+        'help' => trim(
+            $help .
+                ' Enter a JSON object; its keys and nested values are preserved exactly.',
+        ),
         'section' => count($path) > 1 ? $path[0] : 'general',
         'generated' => true,
         'type' => 'json',
@@ -1086,9 +1311,22 @@ function generatedStructuredField(string $dotted, array $path, mixed $value, str
  */
 function generatedFieldLabel(array $path): string
 {
-    $leaf = (string)end($path);
+    $leaf = (string) end($path);
     $words = preg_split('/[_-]+/', $leaf) ?: [];
-    $acronyms = ['ai' => 'AI', 'api' => 'API', 'cpu' => 'CPU', 'dns' => 'DNS', 'id' => 'ID', 'ip' => 'IP', 'oidc' => 'OpenID Connect', 'ssl' => 'SSL', 'tls' => 'TLS', 'totp' => 'TOTP', 'ttl' => 'TTL', 'url' => 'URL'];
+    $acronyms = [
+        'ai' => 'AI',
+        'api' => 'API',
+        'cpu' => 'CPU',
+        'dns' => 'DNS',
+        'id' => 'ID',
+        'ip' => 'IP',
+        'oidc' => 'OpenID Connect',
+        'ssl' => 'SSL',
+        'tls' => 'TLS',
+        'totp' => 'TOTP',
+        'ttl' => 'TTL',
+        'url' => 'URL',
+    ];
     $label = [];
     foreach ($words as $word) {
         $lower = strtolower($word);
@@ -1111,7 +1349,7 @@ function currentAccountName(): string
     if (function_exists('posix_geteuid') && function_exists('posix_getpwuid')) {
         $info = @posix_getpwuid(posix_geteuid());
         if (is_array($info) && !empty($info['name'])) {
-            return (string)$info['name'];
+            return (string) $info['name'];
         }
     }
 
@@ -1122,10 +1360,16 @@ function currentAccountName(): string
 /** Whether a field applies, given the answers so far. */
 function fieldApplies(array $field, array $values): bool
 {
-    if (!isset($field['when'])) return true;
-    if (is_string($field['when'])) return !empty($values[$field['when']]);
-    foreach ((array)$field['when'] as $key => $allowed) {
-        if (!in_array($values[$key] ?? null, (array)$allowed, true)) return false;
+    if (!isset($field['when'])) {
+        return true;
+    }
+    if (is_string($field['when'])) {
+        return !empty($values[$field['when']]);
+    }
+    foreach ((array) $field['when'] as $key => $allowed) {
+        if (!in_array($values[$key] ?? null, (array) $allowed, true)) {
+            return false;
+        }
     }
     return true;
 }
@@ -1142,9 +1386,12 @@ function parseField(array $field, mixed $raw): array
 
     if ($type === 'bool') {
         if (is_string($raw)) {
-            return [(bool)preg_match('/^(y|yes|1|on|true)$/i', trim($raw)), null];
+            return [
+                (bool) preg_match('/^(y|yes|1|on|true)$/i', trim($raw)),
+                null,
+            ];
         }
-        return [(bool)$raw, null];
+        return [(bool) $raw, null];
     }
 
     /*
@@ -1153,7 +1400,7 @@ function parseField(array $field, mixed $raw): array
      * Accepting both means the same field works in both front ends.
      */
     if ($type === 'lines') {
-        $text = is_array($raw) ? implode("\n", $raw) : (string)$raw;
+        $text = is_array($raw) ? implode("\n", $raw) : (string) $raw;
         $parts = preg_split('/[\r\n,]+/', $text) ?: [];
         $clean = [];
         foreach ($parts as $part) {
@@ -1166,13 +1413,15 @@ function parseField(array $field, mixed $raw): array
     }
 
     if ($type === 'json') {
-        $decoded = json_decode((string)$raw, true);
+        $decoded = json_decode((string) $raw, true);
         if (!is_array($decoded) || json_last_error() !== JSON_ERROR_NONE) {
             return [$field['default'], 'Enter a valid JSON object or array.'];
         }
         if (isset($field['validate'])) {
-            $problem = ($field['validate'])($decoded);
-            if ($problem !== null) return [$field['default'], $problem];
+            $problem = $field['validate']($decoded);
+            if ($problem !== null) {
+                return [$field['default'], $problem];
+            }
         }
         return [$decoded, null];
     }
@@ -1180,7 +1429,12 @@ function parseField(array $field, mixed $raw): array
     if ($type === 'categories') {
         $chosen = is_array($raw) ? $raw : [];
         $allowed = $field['options'];
-        return [array_values(array_intersect($allowed, array_map('strval', $chosen))), null];
+        return [
+            array_values(
+                array_intersect($allowed, array_map('strval', $chosen)),
+            ),
+            null,
+        ];
     }
 
     if ($type === 'choice') {
@@ -1191,8 +1445,18 @@ function parseField(array $field, mixed $raw): array
     }
 
     if ($type === 'choices') {
-        $chosen = is_array($raw) ? $raw : preg_split('/[\r\n,]+/', (string)$raw);
-        return [array_values(array_intersect(array_keys($field['options']), array_map('strval', $chosen ?: []))), null];
+        $chosen = is_array($raw)
+            ? $raw
+            : preg_split('/[\r\n,]+/', (string) $raw);
+        return [
+            array_values(
+                array_intersect(
+                    array_keys($field['options']),
+                    array_map('strval', $chosen ?: []),
+                ),
+            ),
+            null,
+        ];
     }
 
     $value = is_string($raw) ? trim($raw) : '';
@@ -1213,7 +1477,7 @@ function parseField(array $field, mixed $raw): array
     }
 
     if (isset($field['validate'])) {
-        $problem = ($field['validate'])($value);
+        $problem = $field['validate']($value);
         if ($problem !== null) {
             return [$field['default'], $problem];
         }
@@ -1222,25 +1486,31 @@ function parseField(array $field, mixed $raw): array
     if ($type === 'bytes') {
         $parsed = parseBytes($value, true);
         return $parsed === null
-            ? [$field['default'], 'Enter a size, like 5G or 500M or a plain number of bytes.']
+            ? [
+                $field['default'],
+                'Enter a size, like 5G or 500M or a plain number of bytes.',
+            ]
             : [$parsed, null];
     }
 
     if ($type === 'seconds') {
         $parsed = parseDuration($value);
         return $parsed === null
-            ? [$field['default'], 'Enter a time, like 6h or 90m or 2d. A plain number is seconds.']
+            ? [
+                $field['default'],
+                'Enter a time, like 6h or 90m or 2d. A plain number is seconds.',
+            ]
             : [$parsed, null];
     }
 
     if ($type === 'number') {
-        return [(float)$value, null];
+        return [(float) $value, null];
     }
 
     // Whole numbers stay whole. A day count written as 14.0 in a config file
     // reads like a rounding error somebody should look into.
     if ($type === 'int') {
-        return [(int)$value, null];
+        return [(int) $value, null];
     }
 
     return [$value, null];
@@ -1258,9 +1528,8 @@ function buildConfig(
     array $values,
     string $passwordHash,
     string $maskSecret,
-    ?string $samplePath = null
-): array
-{
+    ?string $samplePath = null,
+): array {
     $config = $sample;
 
     foreach (allConfigFields($sample, $samplePath) as $field) {
@@ -1307,14 +1576,22 @@ function parseBytes(string $value, bool $units = true): ?int
         return null;
     }
     if (ctype_digit($value)) {
-        return (int)$value;
+        return (int) $value;
     }
-    if (!$units || !preg_match('/^(\d+(?:\.\d+)?)\s*([kmgt])i?b?$/i', $value, $m)) {
+    if (
+        !$units ||
+        !preg_match('/^(\d+(?:\.\d+)?)\s*([kmgt])i?b?$/i', $value, $m)
+    ) {
         return null;
     }
 
-    $scale = ['k' => 1024, 'm' => 1024 ** 2, 'g' => 1024 ** 3, 't' => 1024 ** 4];
-    return (int)round((float)$m[1] * $scale[strtolower($m[2])]);
+    $scale = [
+        'k' => 1024,
+        'm' => 1024 ** 2,
+        'g' => 1024 ** 3,
+        't' => 1024 ** 4,
+    ];
+    return (int) round((float) $m[1] * $scale[strtolower($m[2])]);
 }
 
 /**
@@ -1332,7 +1609,7 @@ function formatDuration(int $seconds): string
 {
     foreach ([['d', 86400], ['h', 3600], ['m', 60]] as [$suffix, $scale]) {
         if ($seconds >= $scale && $seconds % $scale === 0) {
-            return ($seconds / $scale) . $suffix;
+            return $seconds / $scale . $suffix;
         }
     }
     return $seconds . 's';
@@ -1352,7 +1629,7 @@ function parseDuration(string $value): ?int
         return null;
     }
     if (ctype_digit($value)) {
-        return (int)$value;
+        return (int) $value;
     }
 
     if (!preg_match('/^(\d+(?:\.\d+)?)\s*([a-z]+)$/', $value, $m)) {
@@ -1368,7 +1645,7 @@ function parseDuration(string $value): ?int
 
     foreach ($units as $scale => $names) {
         if (in_array($m[2], $names, true)) {
-            return (int)round((float)$m[1] * $scale);
+            return (int) round((float) $m[1] * $scale);
         }
     }
 
@@ -1377,28 +1654,35 @@ function parseDuration(string $value): ?int
 
 function formatBytes(int $bytes): string
 {
-    foreach ([['T', 1024 ** 4], ['G', 1024 ** 3], ['M', 1024 ** 2], ['K', 1024]] as [$suffix, $scale]) {
+    foreach (
+        [['T', 1024 ** 4], ['G', 1024 ** 3], ['M', 1024 ** 2], ['K', 1024]]
+        as [$suffix, $scale]
+    ) {
         if ($bytes >= $scale && $bytes % $scale === 0) {
-            return ($bytes / $scale) . $suffix;
+            return $bytes / $scale . $suffix;
         }
     }
-    return (string)$bytes;
+    return (string) $bytes;
 }
 
 /** How a field's current value should appear in a prompt or an input box. */
 function displayValue(array $field, mixed $value): string
 {
     $shown = match ($field['type']) {
-        'bytes' => formatBytes((int)$value),
-        'seconds' => formatDuration((int)$value),
+        'bytes' => formatBytes((int) $value),
+        'seconds' => formatDuration((int) $value),
         'bool' => $value ? 'y' : 'n',
-        'categories' => implode(', ', (array)$value),
-        'lines' => implode("\n", (array)$value),
-        'json' => json_encode(setupDisplayValue($value), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) ?: '{}',
+        'categories' => implode(', ', (array) $value),
+        'lines' => implode("\n", (array) $value),
+        'json' => json_encode(
+            setupDisplayValue($value),
+            JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES,
+        ) ?:
+        '{}',
         // Blank, so that leaving it blank means what it already meant. Showing
         // the word "null" in a text box invites somebody to type it.
-        'nullable' => $value === null ? '' : (string)$value,
-        default => (string)$value,
+        'nullable' => $value === null ? '' : (string) $value,
+        default => (string) $value,
     };
     return setupDisplayPath($shown);
 }
@@ -1414,15 +1698,27 @@ function setupDisplayPath(string $value): string
     // base64 lines can legitimately begin with a slash; normalizing those
     // lines as paths corrupts a generated OpenID signing key before it can be
     // reviewed and saved by Setup.
-    if (str_starts_with($value, '-----BEGIN ')) return $value;
-    if (str_contains($value, "\n")) {
-        return implode("\n", array_map('setupDisplayPath', explode("\n", $value)));
+    if (str_starts_with($value, '-----BEGIN ')) {
+        return $value;
     }
-    if (!str_starts_with($value, '/')) return $value;
+    if (str_contains($value, "\n")) {
+        return implode(
+            "\n",
+            array_map('setupDisplayPath', explode("\n", $value)),
+        );
+    }
+    if (!str_starts_with($value, '/')) {
+        return $value;
+    }
     $parts = [];
     foreach (explode('/', $value) as $part) {
-        if ($part === '' || $part === '.') continue;
-        if ($part === '..') { array_pop($parts); continue; }
+        if ($part === '' || $part === '.') {
+            continue;
+        }
+        if ($part === '..') {
+            array_pop($parts);
+            continue;
+        }
         $parts[] = $part;
     }
     return '/' . implode('/', $parts);
@@ -1435,9 +1731,15 @@ function setupDisplayPath(string $value): string
  */
 function setupDisplayValue(mixed $value): mixed
 {
-    if (is_string($value)) return setupDisplayPath($value);
-    if (!is_array($value)) return $value;
-    foreach ($value as $key => $item) $value[$key] = setupDisplayValue($item);
+    if (is_string($value)) {
+        return setupDisplayPath($value);
+    }
+    if (!is_array($value)) {
+        return $value;
+    }
+    foreach ($value as $key => $item) {
+        $value[$key] = setupDisplayValue($item);
+    }
     return $value;
 }
 
@@ -1520,7 +1822,8 @@ function relativeToLib(string $value, string $libDir): string
     // Setup save preserves the confusing lib/../ spelling.
     $displayPath = setupDisplayPath($value);
     if ($libDir !== '' && str_starts_with($displayPath, $libDir . '/')) {
-        return '__DIR__ . ' . renderScalar(substr($displayPath, strlen($libDir)));
+        return '__DIR__ . ' .
+            renderScalar(substr($displayPath, strlen($libDir)));
     }
     return renderScalar($displayPath);
 }
@@ -1534,14 +1837,14 @@ function renderScalar(mixed $value): string
         return $value ? 'true' : 'false';
     }
     if (is_int($value)) {
-        return (string)$value;
+        return (string) $value;
     }
     if (is_float($value)) {
         // A float that prints as "5" reads back as an int, which then fails a
         // strict comparison somewhere far from here.
-        $printed = (string)$value;
+        $printed = (string) $value;
         return str_contains($printed, '.') ? $printed : $printed . '.0';
     }
 
-    return "'" . strtr((string)$value, ["\\" => '\\\\', "'" => "\\'"]) . "'";
+    return "'" . strtr((string) $value, ['\\' => '\\\\', "'" => "\\'"]) . "'";
 }

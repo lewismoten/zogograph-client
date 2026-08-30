@@ -82,7 +82,14 @@ $fields = allConfigFields($sample, $samplePath);
 $existing = readExistingSecrets($targetPath);
 
 if (PHP_SAPI === 'cli') {
-    runCli($sample, $fields, $root, $targetPath, $existing, array_slice($argv, 1));
+    runCli(
+        $sample,
+        $fields,
+        $root,
+        $targetPath,
+        $existing,
+        array_slice($argv, 1),
+    );
     exit(0);
 }
 
@@ -113,8 +120,12 @@ function readExistingSecrets(string $targetPath): ?array
     }
 
     return [
-        'password_hash' => is_array($current) ? (string)($current['password_hash'] ?? '') : '',
-        'mask_secret' => is_array($current) ? (string)($current['mask_secret'] ?? '') : '',
+        'password_hash' => is_array($current)
+            ? (string) ($current['password_hash'] ?? '')
+            : '',
+        'mask_secret' => is_array($current)
+            ? (string) ($current['mask_secret'] ?? '')
+            : '',
     ];
 }
 
@@ -165,8 +176,9 @@ function startSetupSession(): void
     if (session_status() === PHP_SESSION_ACTIVE) {
         return;
     }
-    $secure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
-        || (($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https');
+    $secure =
+        (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ||
+        ($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https';
     session_set_cookie_params([
         'lifetime' => 0,
         'httponly' => true,
@@ -188,9 +200,16 @@ function takeSetupError(): ?array
 }
 
 /** Stores one localized, secret-free success notice across a Setup redirect. */
-function setupFlashNotice(string $key, string $fallback, array $values = []): void
-{
-    $_SESSION['setup_notice'] = ['key' => $key, 'fallback' => $fallback, 'values' => $values];
+function setupFlashNotice(
+    string $key,
+    string $fallback,
+    array $values = [],
+): void {
+    $_SESSION['setup_notice'] = [
+        'key' => $key,
+        'fallback' => $fallback,
+        'values' => $values,
+    ];
 }
 
 /** A one-time success notice, deliberately without a key path or key material. */
@@ -198,9 +217,23 @@ function takeSetupNotice(): ?array
 {
     $message = $_SESSION['setup_notice'] ?? null;
     unset($_SESSION['setup_notice']);
-    if (is_string($message)) return ['text' => $message];
-    if (!is_array($message) || !is_string($message['key'] ?? null) || !is_string($message['fallback'] ?? null)) return null;
-    return ['key' => $message['key'], 'fallback' => $message['fallback'], 'values' => is_array($message['values'] ?? null) ? $message['values'] : []];
+    if (is_string($message)) {
+        return ['text' => $message];
+    }
+    if (
+        !is_array($message) ||
+        !is_string($message['key'] ?? null) ||
+        !is_string($message['fallback'] ?? null)
+    ) {
+        return null;
+    }
+    return [
+        'key' => $message['key'],
+        'fallback' => $message['fallback'],
+        'values' => is_array($message['values'] ?? null)
+            ? $message['values']
+            : [],
+    ];
 }
 
 /** CSRF token limited to the key-creation action; the key is never returned. */
@@ -232,16 +265,22 @@ function setupRedirect(?string $section = null, bool $saved = false): void
     }
     $location = './setup.php';
     if ($section !== null) {
-        if (!preg_match('/^[a-z][a-z0-9_-]{1,62}$/', $section)) $section = 'basics';
+        if (!preg_match('/^[a-z][a-z0-9_-]{1,62}$/', $section)) {
+            $section = 'basics';
+        }
         $location .= '?section=' . rawurlencode($section);
-        if ($saved) $location .= '&saved=1';
+        if ($saved) {
+            $location .= '&saved=1';
+        }
     }
     header('Location: ' . $location, true, 303);
 }
 
 function setupTotpToken(): string
 {
-    if (!is_string($_SESSION['setup_totp_token'] ?? null)) $_SESSION['setup_totp_token'] = bin2hex(random_bytes(32));
+    if (!is_string($_SESSION['setup_totp_token'] ?? null)) {
+        $_SESSION['setup_totp_token'] = bin2hex(random_bytes(32));
+    }
     return $_SESSION['setup_totp_token'];
 }
 
@@ -251,26 +290,70 @@ function setupTotpToken(): string
  */
 function setupTotpQrImage(string $uri): ?string
 {
-    if ($uri === '' || strlen($uri) > 1024 || !function_exists('proc_open')) return null;
-    foreach (['/usr/bin/qrencode', '/usr/local/bin/qrencode', '/opt/homebrew/bin/qrencode'] as $binary) {
-        if (!is_file($binary) || !is_executable($binary)) continue;
-        $pipes = []; $process = @proc_open([$binary, '-t', 'SVG', '-o', '-'], [['pipe', 'r'], ['pipe', 'w'], ['pipe', 'w']], $pipes, null, null, ['bypass_shell' => true]);
-        if (!is_resource($process)) continue;
-        fwrite($pipes[0], $uri); fclose($pipes[0]);
-        stream_set_blocking($pipes[1], false); stream_set_blocking($pipes[2], false);
-        $svg = ''; $deadline = microtime(true) + 2; $aborted = false;
+    if ($uri === '' || strlen($uri) > 1024 || !function_exists('proc_open')) {
+        return null;
+    }
+    foreach (
+        [
+            '/usr/bin/qrencode',
+            '/usr/local/bin/qrencode',
+            '/opt/homebrew/bin/qrencode',
+        ]
+        as $binary
+    ) {
+        if (!is_file($binary) || !is_executable($binary)) {
+            continue;
+        }
+        $pipes = [];
+        $process = @proc_open(
+            [$binary, '-t', 'SVG', '-o', '-'],
+            [['pipe', 'r'], ['pipe', 'w'], ['pipe', 'w']],
+            $pipes,
+            null,
+            null,
+            ['bypass_shell' => true],
+        );
+        if (!is_resource($process)) {
+            continue;
+        }
+        fwrite($pipes[0], $uri);
+        fclose($pipes[0]);
+        stream_set_blocking($pipes[1], false);
+        stream_set_blocking($pipes[2], false);
+        $svg = '';
+        $deadline = microtime(true) + 2;
+        $aborted = false;
         do {
-            $chunk = stream_get_contents($pipes[1]); stream_get_contents($pipes[2]);
-            if ($chunk !== false) $svg .= $chunk;
+            $chunk = stream_get_contents($pipes[1]);
+            stream_get_contents($pipes[2]);
+            if ($chunk !== false) {
+                $svg .= $chunk;
+            }
             $status = proc_get_status($process);
-            if (!$status['running']) break;
-            if (strlen($svg) > 1048576 || microtime(true) >= $deadline) { $aborted = true; proc_terminate($process); break; }
+            if (!$status['running']) {
+                break;
+            }
+            if (strlen($svg) > 1048576 || microtime(true) >= $deadline) {
+                $aborted = true;
+                proc_terminate($process);
+                break;
+            }
             usleep(10000);
         } while (true);
-        $exitCode = (int)($status['exitcode'] ?? -1);
-        foreach ([1, 2] as $pipe) { stream_get_contents($pipes[$pipe]); fclose($pipes[$pipe]); }
-        $closedCode = proc_close($process); $exit = $exitCode >= 0 ? $exitCode : $closedCode;
-        if (!$aborted && $exit === 0 && strlen($svg) > 100 && strlen($svg) <= 1048576 && preg_match('/<svg\\b/i', $svg)) {
+        $exitCode = (int) ($status['exitcode'] ?? -1);
+        foreach ([1, 2] as $pipe) {
+            stream_get_contents($pipes[$pipe]);
+            fclose($pipes[$pipe]);
+        }
+        $closedCode = proc_close($process);
+        $exit = $exitCode >= 0 ? $exitCode : $closedCode;
+        if (
+            !$aborted &&
+            $exit === 0 &&
+            strlen($svg) > 100 &&
+            strlen($svg) <= 1048576 &&
+            preg_match('/<svg\\b/i', $svg)
+        ) {
             return 'data:image/svg+xml;base64,' . base64_encode($svg);
         }
     }
@@ -280,14 +363,18 @@ function setupTotpQrImage(string $uri): ?string
 /** CSRF protection for generating a provider signing key without saving a form. */
 function setupOpenIdKeyToken(): string
 {
-    if (!is_string($_SESSION['setup_openid_key_token'] ?? null)) $_SESSION['setup_openid_key_token'] = bin2hex(random_bytes(32));
+    if (!is_string($_SESSION['setup_openid_key_token'] ?? null)) {
+        $_SESSION['setup_openid_key_token'] = bin2hex(random_bytes(32));
+    }
     return $_SESSION['setup_openid_key_token'];
 }
 
 /** CSRF token for one-time OpenID client-secret management. */
 function setupOpenIdClientToken(): string
 {
-    if (!is_string($_SESSION['setup_openid_client_token'] ?? null)) $_SESSION['setup_openid_client_token'] = bin2hex(random_bytes(32));
+    if (!is_string($_SESSION['setup_openid_client_token'] ?? null)) {
+        $_SESSION['setup_openid_client_token'] = bin2hex(random_bytes(32));
+    }
     return $_SESSION['setup_openid_client_token'];
 }
 
@@ -303,28 +390,48 @@ function setupPackageSettingsToken(): string
 /** CSRF token for remote deployment profile and credential-reference changes. */
 function setupDeploymentToken(): string
 {
-    if (!is_string($_SESSION['setup_deployment_token'] ?? null)) $_SESSION['setup_deployment_token'] = bin2hex(random_bytes(32));
+    if (!is_string($_SESSION['setup_deployment_token'] ?? null)) {
+        $_SESSION['setup_deployment_token'] = bin2hex(random_bytes(32));
+    }
     return $_SESSION['setup_deployment_token'];
 }
 
 /** CSRF token for the explicitly reviewed account collector merge workflow. */
 function setupAccountMergeToken(): string
 {
-    if (!is_string($_SESSION['setup_account_merge_token'] ?? null)) $_SESSION['setup_account_merge_token'] = bin2hex(random_bytes(32));
+    if (!is_string($_SESSION['setup_account_merge_token'] ?? null)) {
+        $_SESSION['setup_account_merge_token'] = bin2hex(random_bytes(32));
+    }
     return $_SESSION['setup_account_merge_token'];
 }
 
 function setupAccountMergeUploadDirectory(array $config): string
 {
-    $database = trim((string)($config['database'] ?? ''));
-    if ($database === '' || !str_starts_with($database, '/')) throw new RuntimeException('the live account database is unavailable');
+    $database = trim((string) ($config['database'] ?? ''));
+    if ($database === '' || !str_starts_with($database, '/')) {
+        throw new RuntimeException('the live account database is unavailable');
+    }
     $directory = dirname($database) . '/merge-review-inputs';
-    if (!is_dir($directory) && !mkdir($directory, 0700, true)) throw new RuntimeException('could not prepare private merge review storage');
-    if (is_link($directory) || !is_writable($directory)) throw new RuntimeException('private merge review storage is unavailable');
+    if (!is_dir($directory) && !mkdir($directory, 0700, true)) {
+        throw new RuntimeException(
+            'could not prepare private merge review storage',
+        );
+    }
+    if (is_link($directory) || !is_writable($directory)) {
+        throw new RuntimeException(
+            'private merge review storage is unavailable',
+        );
+    }
     @chmod($directory, 0700);
     $deadline = time() - 3600;
     foreach (glob($directory . '/review-*.db') ?: [] as $file) {
-        if (!is_link($file) && is_file($file) && (int)@filemtime($file) < $deadline) @unlink($file);
+        if (
+            !is_link($file) &&
+            is_file($file) &&
+            (int) @filemtime($file) < $deadline
+        ) {
+            @unlink($file);
+        }
     }
     return $directory;
 }
@@ -332,10 +439,18 @@ function setupAccountMergeUploadDirectory(array $config): string
 /** Opens the already-configured local registry without creating or migrating it. */
 function setupPackageRegistry(array $config): ?PDO
 {
-    $database = (string)($config['database'] ?? '');
-    if ($database === '' || !str_starts_with($database, '/') || !is_file($database)) return null;
+    $database = (string) ($config['database'] ?? '');
+    if (
+        $database === '' ||
+        !str_starts_with($database, '/') ||
+        !is_file($database)
+    ) {
+        return null;
+    }
     try {
-        return new PDO('sqlite:' . $database, null, null, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+        return new PDO('sqlite:' . $database, null, null, [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        ]);
     } catch (Throwable) {
         return null;
     }
@@ -344,13 +459,23 @@ function setupPackageRegistry(array $config): ?PDO
 /** Inert, signed package metadata that is allowed into Setup navigation. */
 function setupPackagePanels(?array $config): array
 {
-    if ($config === null || ($registry = setupPackageRegistry($config)) === null) return [];
+    if (
+        $config === null ||
+        ($registry = setupPackageRegistry($config)) === null
+    ) {
+        return [];
+    }
     try {
         $out = [];
         foreach (packageRuntimePackages($registry) as $package) {
-            if (!$package['enabled']) continue;
-            foreach ((array)$package['setup_panels'] as $panel) {
-                $out[] = (array)$panel + ['kind' => 'package', 'feature' => (string)$package['id']];
+            if (!$package['enabled']) {
+                continue;
+            }
+            foreach ((array) $package['setup_panels'] as $panel) {
+                $out[] = (array) $panel + [
+                    'kind' => 'package',
+                    'feature' => (string) $package['id'],
+                ];
             }
         }
         return $out;
@@ -361,7 +486,10 @@ function setupPackagePanels(?array $config): array
 
 function setupPackageSettings(?array $config, string $packageId): array
 {
-    if ($config === null || ($registry = setupPackageRegistry($config)) === null) {
+    if (
+        $config === null ||
+        ($registry = setupPackageRegistry($config)) === null
+    ) {
         throw new RuntimeException('the package registry is unavailable');
     }
     return packageRuntimeSettings($registry, $config, $packageId);
@@ -370,53 +498,116 @@ function setupPackageSettings(?array $config, string $packageId): array
 /** @return array{names:list<string>,references:list<array{reference:string,created_at:int,updated_at:int,referenced:bool}>} */
 function setupPackageSecretPicker(?array $config, string $packageId): array
 {
-    if ($config === null || ($registry = setupPackageRegistry($config)) === null) {
+    if (
+        $config === null ||
+        ($registry = setupPackageRegistry($config)) === null
+    ) {
         throw new RuntimeException('the package registry is unavailable');
     }
-    return ['names' => packageRuntimeSecretSettingNames($registry, $packageId),
-        'references' => packageRuntimeSecrets($registry, $config, $packageId)];
+    return [
+        'names' => packageRuntimeSecretSettingNames($registry, $packageId),
+        'references' => packageRuntimeSecrets($registry, $config, $packageId),
+    ];
 }
 
 /** Core-owned renderer for both standalone and parented signed package panels. */
 function setupRenderPackageSettingsPanel(array $panel, ?array $config): string
 {
-    $packageId = (string)($panel['feature'] ?? ''); $panelId = (string)($panel['id'] ?? '');
-    if ($packageId === '' || $panelId === '') throw new RuntimeException('package panel metadata is unavailable');
+    $packageId = (string) ($panel['feature'] ?? '');
+    $panelId = (string) ($panel['id'] ?? '');
+    if ($packageId === '' || $panelId === '') {
+        throw new RuntimeException('package panel metadata is unavailable');
+    }
     $settings = setupPackageSettings($config, $packageId);
-    $encoded = json_encode(setupDisplayValue($settings), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR);
+    $encoded = json_encode(
+        setupDisplayValue($settings),
+        JSON_PRETTY_PRINT |
+            JSON_UNESCAPED_SLASHES |
+            JSON_UNESCAPED_UNICODE |
+            JSON_THROW_ON_ERROR,
+    );
     $fieldName = 'package_settings_' . $panelId;
-    $titleKey = trim((string)($panel['title_key'] ?? ''));
-    $out = '<fieldset><legend' . ($titleKey !== '' ? ' data-i18n="' . h($titleKey) . '"' : '') . '>' . h((string)($panel['title'] ?? 'Package settings')) . '</legend><p class="help" data-i18n="package.settings_help">These settings are validated against the signed package schema. Setup does not load package code to render this panel.</p><label><span data-i18n="package.settings_json">Settings (JSON)</span>'
-        . '<textarea name="' . h($fieldName) . '" rows="16" spellcheck="false">' . h($encoded) . '</textarea></label>'
-        . '<input type="hidden" name="setup_package_settings_token" value="' . h(setupPackageSettingsToken()) . '">'
-        . '<button type="submit" name="intent" value="save-package-settings:' . h($panelId) . '" data-i18n="package.save_settings">Save package settings</button></fieldset>';
+    $titleKey = trim((string) ($panel['title_key'] ?? ''));
+    $out =
+        '<fieldset><legend' .
+        ($titleKey !== '' ? ' data-i18n="' . h($titleKey) . '"' : '') .
+        '>' .
+        h((string) ($panel['title'] ?? 'Package settings')) .
+        '</legend><p class="help" data-i18n="package.settings_help">These settings are validated against the signed package schema. Setup does not load package code to render this panel.</p><label><span data-i18n="package.settings_json">Settings (JSON)</span>' .
+        '<textarea name="' .
+        h($fieldName) .
+        '" rows="16" spellcheck="false">' .
+        h($encoded) .
+        '</textarea></label>' .
+        '<input type="hidden" name="setup_package_settings_token" value="' .
+        h(setupPackageSettingsToken()) .
+        '">' .
+        '<button type="submit" name="intent" value="save-package-settings:' .
+        h($panelId) .
+        '" data-i18n="package.save_settings">Save package settings</button></fieldset>';
     $picker = setupPackageSecretPicker($config, $packageId);
-    if ($picker['names'] === []) return $out;
-    $out .= '<fieldset><legend data-i18n="package.secret_references">Protected secret references</legend><p class="help" data-i18n="package.secret_references_help">Select a reference already stored for this package. The secret value is never shown or copied into this page. Create a new secret from the dashboard’s Packages area first if this list is empty.</p>';
+    if ($picker['names'] === []) {
+        return $out;
+    }
+    $out .=
+        '<fieldset><legend data-i18n="package.secret_references">Protected secret references</legend><p class="help" data-i18n="package.secret_references_help">Select a reference already stored for this package. The secret value is never shown or copied into this page. Create a new secret from the dashboard’s Packages area first if this list is empty.</p>';
     foreach ($picker['names'] as $name) {
-        $selected = (string)($settings[$name] ?? '');
-        $out .= '<label>' . h($name) . '<select data-package-secret-picker="' . h($name) . '" data-package-settings-target="' . h($fieldName) . '"><option value="" data-i18n="package.no_reference">No reference selected</option>';
+        $selected = (string) ($settings[$name] ?? '');
+        $out .=
+            '<label>' .
+            h($name) .
+            '<select data-package-secret-picker="' .
+            h($name) .
+            '" data-package-settings-target="' .
+            h($fieldName) .
+            '"><option value="" data-i18n="package.no_reference">No reference selected</option>';
         foreach ($picker['references'] as $secret) {
-            $reference = (string)$secret['reference'];
-            $out .= '<option value="' . h($reference) . '"' . ($reference === $selected ? ' selected' : '') . '>'
-                . h($reference) . ($secret['referenced'] ? ' (currently used)' : '') . '</option>';
+            $reference = (string) $secret['reference'];
+            $out .=
+                '<option value="' .
+                h($reference) .
+                '"' .
+                ($reference === $selected ? ' selected' : '') .
+                '>' .
+                h($reference) .
+                ($secret['referenced'] ? ' (currently used)' : '') .
+                '</option>';
         }
         $out .= '</select></label>';
     }
     return $out . '</fieldset>';
 }
 
-function setupSavePackageSettings(?array $config, string $packageId, array $settings): void
-{
-    if ($config === null || ($registry = setupPackageRegistry($config)) === null) {
+function setupSavePackageSettings(
+    ?array $config,
+    string $packageId,
+    array $settings,
+): void {
+    if (
+        $config === null ||
+        ($registry = setupPackageRegistry($config)) === null
+    ) {
         throw new RuntimeException('the package registry is unavailable');
     }
-    packageRuntimeSaveSettings($registry, $config, $packageId, $settings, 'setup administrator');
+    packageRuntimeSaveSettings(
+        $registry,
+        $config,
+        $packageId,
+        $settings,
+        'setup administrator',
+    );
     // Package settings themselves live in protected setup.db. The fact that
     // they changed belongs in the account action trail, without copying any
     // setting values or secret references into it.
-    logAction($registry, 'package_runtime_settings_save', $packageId, 'ok', 0, 0,
-        'saved from setup.php using signed package schema');
+    logAction(
+        $registry,
+        'package_runtime_settings_save',
+        $packageId,
+        'ok',
+        0,
+        0,
+        'saved from setup.php using signed package schema',
+    );
 }
 
 /** The stable persisted shape consumed by SetupCronApi and future panels. */
@@ -425,17 +616,25 @@ function setupScheduleChoices(array $source): array
     $profiles = cronEditorProfiles();
     $choices = [];
     foreach (array_keys(cronJobs()) as $job) {
-        $raw = (array)($source[$job] ?? []);
-        $profile = (string)($raw['profile'] ?? 'none');
-        if (!isset(cronEditorProfiles($job)[$profile])) $profile = 'none';
-        $custom = [];
-        $rawCustom = (array)($raw['custom'] ?? []);
-        foreach (['minute', 'hour', 'day', 'month', 'weekday'] as $field) {
-            $custom[$field] = (string)($rawCustom[$field] ?? '*');
+        $raw = (array) ($source[$job] ?? []);
+        $profile = (string) ($raw['profile'] ?? 'none');
+        if (!isset(cronEditorProfiles($job)[$profile])) {
+            $profile = 'none';
         }
-        $rawOffset = (array)($raw['offset'] ?? []);
-        $choices[$job] = ['profile' => $profile, 'custom' => $custom,
-            'offset' => ['minute' => max(0, min(59, (int)($rawOffset['minute'] ?? 0))), 'hour' => max(0, min(23, (int)($rawOffset['hour'] ?? 0)))]];
+        $custom = [];
+        $rawCustom = (array) ($raw['custom'] ?? []);
+        foreach (['minute', 'hour', 'day', 'month', 'weekday'] as $field) {
+            $custom[$field] = (string) ($rawCustom[$field] ?? '*');
+        }
+        $rawOffset = (array) ($raw['offset'] ?? []);
+        $choices[$job] = [
+            'profile' => $profile,
+            'custom' => $custom,
+            'offset' => [
+                'minute' => max(0, min(59, (int) ($rawOffset['minute'] ?? 0))),
+                'hour' => max(0, min(23, (int) ($rawOffset['hour'] ?? 0))),
+            ],
+        ];
     }
     return $choices;
 }
@@ -447,10 +646,20 @@ function setupScheduleRequest(array $source): array
     foreach (array_keys(cronJobs()) as $job) {
         $custom = [];
         foreach (['minute', 'hour', 'day', 'month', 'weekday'] as $field) {
-            $custom[$field] = (string)($source['schedule_' . $job . '_' . $field] ?? '*');
+            $custom[$field] =
+                (string) ($source['schedule_' . $job . '_' . $field] ?? '*');
         }
-        $choices[$job] = ['profile' => (string)($source['schedule_' . $job . '_profile'] ?? 'none'), 'custom' => $custom,
-            'offset' => ['minute' => (int)($source['schedule_' . $job . '_offset_minute'] ?? 0), 'hour' => (int)($source['schedule_' . $job . '_offset_hour'] ?? 0)]];
+        $choices[$job] = [
+            'profile' =>
+                (string) ($source['schedule_' . $job . '_profile'] ?? 'none'),
+            'custom' => $custom,
+            'offset' => [
+                'minute' =>
+                    (int) ($source['schedule_' . $job . '_offset_minute'] ?? 0),
+                'hour' =>
+                    (int) ($source['schedule_' . $job . '_offset_hour'] ?? 0),
+            ],
+        ];
     }
     return setupScheduleChoices($choices);
 }
@@ -466,7 +675,7 @@ function setupSuggestedPrivateKeyPath(): string
     $home = '';
     if (function_exists('posix_geteuid') && function_exists('posix_getpwuid')) {
         $account = @posix_getpwuid(posix_geteuid());
-        $home = is_array($account) ? (string)($account['dir'] ?? '') : '';
+        $home = is_array($account) ? (string) ($account['dir'] ?? '') : '';
     }
     if ($home === '') {
         $environmentHome = getenv('HOME');
@@ -482,13 +691,14 @@ function setupSuggestedPrivateKeyPath(): string
 /** Package credentials can use a separate key without needing another directory. */
 function setupSuggestedPackageSecretKeyPath(): string
 {
-    return dirname(setupSuggestedPrivateKeyPath()) . '/zogograph-package-secrets.key';
+    return dirname(setupSuggestedPrivateKeyPath()) .
+        '/zogograph-package-secrets.key';
 }
 
 /** An empty quick-start field deliberately means “use the displayed default”. */
 function setupRequestedPrivateKeyPath(mixed $submittedPath): string
 {
-    $path = trim((string)$submittedPath);
+    $path = trim((string) $submittedPath);
     return $path === '' ? setupSuggestedPrivateKeyPath() : $path;
 }
 
@@ -499,38 +709,64 @@ function setupPrivateKeyExists(string $path): bool
 }
 
 /** Groups the package-key setting with the action that provisions its value. */
-function packageSecretKeyQuickStart(string $field, string $path, bool $exists, bool $canCreate): string
-{
-    $out = '<fieldset><legend data-i18n="encryption.package_key">Package secrets key</legend>' . $field
-        . '<p class="help" data-i18n="encryption.package_key_intro">Create a separate key for optional separate custody of package credentials. It is stored with owner-only permissions in the same hidden private directory as the primary encryption key and protected by an Apache deny policy.</p><p class="help"><span data-i18n="encryption.suggested_location">Suggested location:</span> <code>' . h($path) . '</code></p>'
-        . '<input type="hidden" name="setup_key_create_token" value="' . h(setupKeyCreateToken()) . '">';
+function packageSecretKeyQuickStart(
+    string $field,
+    string $path,
+    bool $exists,
+    bool $canCreate,
+): string {
+    $out =
+        '<fieldset><legend data-i18n="encryption.package_key">Package secrets key</legend>' .
+        $field .
+        '<p class="help" data-i18n="encryption.package_key_intro">Create a separate key for optional separate custody of package credentials. It is stored with owner-only permissions in the same hidden private directory as the primary encryption key and protected by an Apache deny policy.</p><p class="help"><span data-i18n="encryption.suggested_location">Suggested location:</span> <code>' .
+        h($path) .
+        '</code></p>' .
+        '<input type="hidden" name="setup_key_create_token" value="' .
+        h(setupKeyCreateToken()) .
+        '">';
     if ($exists) {
-        return $out . '<p class="banner ok" role="status" data-i18n="encryption.package_key_exists">Package-secrets key already exists at this location; this step is complete.</p><button type="submit" disabled aria-disabled="true" data-i18n="encryption.create_package_key">Create package-secrets key file</button></fieldset>';
+        return $out .
+            '<p class="banner ok" role="status" data-i18n="encryption.package_key_exists">Package-secrets key already exists at this location; this step is complete.</p><button type="submit" disabled aria-disabled="true" data-i18n="encryption.create_package_key">Create package-secrets key file</button></fieldset>';
     }
     if (!$canCreate) {
-        return $out . '<p class="help" data-i18n="encryption.unlock_to_create">Unlock setup with the current password before creating this key.</p>'
-            . '<button type="submit" disabled aria-disabled="true" data-i18n="encryption.create_package_key">Create package-secrets key file</button></fieldset>';
+        return $out .
+            '<p class="help" data-i18n="encryption.unlock_to_create">Unlock setup with the current password before creating this key.</p>' .
+            '<button type="submit" disabled aria-disabled="true" data-i18n="encryption.create_package_key">Create package-secrets key file</button></fieldset>';
     }
-    return $out . '<button type="submit" name="intent" value="create-package-secret-key" data-i18n="encryption.create_package_key">Create package-secrets key file</button></fieldset>';
+    return $out .
+        '<button type="submit" name="intent" value="create-package-secret-key" data-i18n="encryption.create_package_key">Create package-secrets key file</button></fieldset>';
 }
 
 /** Inline provisioning for the encryption setting, never on the bootstrap page. */
-function primaryKeyQuickStart(string $path, bool $exists, bool $canCreate): string
-{
-    $out = '<fieldset><legend data-i18n="encryption.private_key">Create private encryption key</legend>'
-        . '<p class="help" data-i18n="encryption.private_key_intro">Creates a Base64 256-bit key outside the web directory, with owner-only permissions and an Apache deny policy for its private directory.</p>'
-        . '<label><span data-i18n="encryption.key_path">New private key-file path (leave blank to use this location)</span><input type="text" name="key_path" '
-        . 'placeholder="' . h($path) . '" data-i18n-placeholder-dynamic="server-path" autocomplete="off"' . ($exists ? ' disabled' : '') . '></label>'
-        . '<input type="hidden" name="setup_key_create_token" value="' . h(setupKeyCreateToken()) . '">';
+function primaryKeyQuickStart(
+    string $path,
+    bool $exists,
+    bool $canCreate,
+): string {
+    $out =
+        '<fieldset><legend data-i18n="encryption.private_key">Create private encryption key</legend>' .
+        '<p class="help" data-i18n="encryption.private_key_intro">Creates a Base64 256-bit key outside the web directory, with owner-only permissions and an Apache deny policy for its private directory.</p>' .
+        '<label><span data-i18n="encryption.key_path">New private key-file path (leave blank to use this location)</span><input type="text" name="key_path" ' .
+        'placeholder="' .
+        h($path) .
+        '" data-i18n-placeholder-dynamic="server-path" autocomplete="off"' .
+        ($exists ? ' disabled' : '') .
+        '></label>' .
+        '<input type="hidden" name="setup_key_create_token" value="' .
+        h(setupKeyCreateToken()) .
+        '">';
     if ($exists) {
-        return $out . '<p class="banner ok" role="status" data-i18n="encryption.private_key_exists">Private key already exists at this location; '
-            . 'this step is complete.</p><button type="submit" disabled aria-disabled="true" data-i18n="encryption.create_private_key">Create private key file</button></fieldset>';
+        return $out .
+            '<p class="banner ok" role="status" data-i18n="encryption.private_key_exists">Private key already exists at this location; ' .
+            'this step is complete.</p><button type="submit" disabled aria-disabled="true" data-i18n="encryption.create_private_key">Create private key file</button></fieldset>';
     }
     if (!$canCreate) {
-        return $out . '<p class="help" data-i18n="encryption.unlock_to_create">Unlock setup with the current password before creating this key.</p>'
-            . '<button type="submit" disabled aria-disabled="true" data-i18n="encryption.create_private_key">Create private key file</button></fieldset>';
+        return $out .
+            '<p class="help" data-i18n="encryption.unlock_to_create">Unlock setup with the current password before creating this key.</p>' .
+            '<button type="submit" disabled aria-disabled="true" data-i18n="encryption.create_private_key">Create private key file</button></fieldset>';
     }
-    return $out . '<button type="submit" name="intent" value="create-local-key" data-i18n="encryption.create_private_key">Create private key file</button></fieldset>';
+    return $out .
+        '<button type="submit" name="intent" value="create-local-key" data-i18n="encryption.create_private_key">Create private key file</button></fieldset>';
 }
 
 /* ------------------------------------------------------------------- web -- */
@@ -540,7 +776,7 @@ function runWeb(
     array $fields,
     string $root,
     string $targetPath,
-    ?array $existing
+    ?array $existing,
 ): void {
     header('Content-Type: text/html; charset=utf-8');
     header('Cache-Control: no-store');
@@ -550,9 +786,13 @@ function runWeb(
     header('X-Frame-Options: DENY');
 
     $posted = $_SERVER['REQUEST_METHOD'] === 'POST';
-    $configured = $existing !== null && is_file(setupStorePath(require $targetPath));
+    $configured =
+        $existing !== null && is_file(setupStorePath(require $targetPath));
     $activeSection = $configured
-        ? setupSection($fields, (string)($_GET['section'] ?? $_POST['section'] ?? 'basics'))
+        ? setupSection(
+            $fields,
+            (string) ($_GET['section'] ?? ($_POST['section'] ?? 'basics')),
+        )
         : 'basics';
 
     /*
@@ -570,9 +810,10 @@ function runWeb(
      * granted here should outlive the sitting.
      */
     startSetupSession();
-    $unlocked = $configured
-        && !empty($_SESSION['setup_unlocked'])
-        && (time() - (int)$_SESSION['setup_unlocked']) < SETUP_UNLOCK_SECONDS;
+    $unlocked =
+        $configured &&
+        !empty($_SESSION['setup_unlocked']) &&
+        time() - (int) $_SESSION['setup_unlocked'] < SETUP_UNLOCK_SECONDS;
 
     if (($_GET['lock'] ?? '') !== '') {
         unset($_SESSION['setup_unlocked']);
@@ -581,73 +822,189 @@ function runWeb(
     }
 
     if ($posted && ($_POST['intent'] ?? '') === 'unlock') {
-        if (mayOverwrite($existing, (string)($_POST['current_password'] ?? ''))) {
+        if (
+            mayOverwrite($existing, (string) ($_POST['current_password'] ?? ''))
+        ) {
             $_SESSION['setup_unlocked'] = time();
             // Redirected rather than rendered, so a refresh does not re-post a
             // password and the URL people end up bookmarking is a plain GET.
             setupRedirect($activeSection);
             return;
         }
-        $_SESSION['setup_error'] = $existing['password_hash'] === ''
-            ? 'This install has no password set, so nothing can authorise replacing its config.'
-            : 'That is not the current password.';
+        $_SESSION['setup_error'] =
+            $existing['password_hash'] === ''
+                ? 'This install has no password set, so nothing can authorise replacing its config.'
+                : 'That is not the current password.';
         setupRedirect();
         return;
     }
 
     if ($posted && ($_POST['intent'] ?? '') === 'generate-openid-signing-key') {
         if ($configured && !$unlocked) {
-            $_SESSION['setup_error'] = 'Unlock setup before generating an OpenID signing key.';
-        } elseif (!hash_equals(setupOpenIdKeyToken(), (string)($_POST['setup_openid_key_token'] ?? ''))) {
-            $_SESSION['setup_error'] = 'The OpenID key form expired. Reload setup and try again.';
+            $_SESSION['setup_error'] =
+                'Unlock setup before generating an OpenID signing key.';
+        } elseif (
+            !hash_equals(
+                setupOpenIdKeyToken(),
+                (string) ($_POST['setup_openid_key_token'] ?? ''),
+            )
+        ) {
+            $_SESSION['setup_error'] =
+                'The OpenID key form expired. Reload setup and try again.';
         } else {
             try {
-                $_SESSION['setup_pending_openid_signing_key'] = openIdGenerateSigningKey();
-                setupFlashNotice('openid.key_generated', 'A dedicated OpenID signing key was generated. Review the OpenID settings and save this section to commit it.');
+                $_SESSION[
+                    'setup_pending_openid_signing_key'
+                ] = openIdGenerateSigningKey();
+                setupFlashNotice(
+                    'openid.key_generated',
+                    'A dedicated OpenID signing key was generated. Review the OpenID settings and save this section to commit it.',
+                );
             } catch (Throwable $error) {
-                $_SESSION['setup_error'] = 'Could not generate the OpenID signing key: ' . $error->getMessage();
+                $_SESSION['setup_error'] =
+                    'Could not generate the OpenID signing key: ' .
+                    $error->getMessage();
             }
         }
         setupRedirect('openid');
         return;
     }
 
-    if ($posted && in_array($_POST['intent'] ?? '', ['create-openid-client', 'remove-openid-client', 'ack-openid-client-secret'], true)) {
+    if (
+        $posted &&
+        in_array(
+            $_POST['intent'] ?? '',
+            [
+                'create-openid-client',
+                'remove-openid-client',
+                'ack-openid-client-secret',
+            ],
+            true,
+        )
+    ) {
         try {
-            if (!$configured || !$unlocked) throw new RuntimeException('unlock setup before managing trusted OpenID clients');
-            if (!hash_equals(setupOpenIdClientToken(), (string)($_POST['setup_openid_client_token'] ?? ''))) throw new RuntimeException('the OpenID client form expired; reload Setup and try again');
-            $config = readExistingConfig($targetPath);
-            if ($config === null) throw new RuntimeException('could not read the current setup settings');
-            $intent = (string)$_POST['intent'];
-            if ($intent === 'create-openid-client') {
-                $client = openIdCreateClient(trim((string)($_POST['openid_client_id'] ?? '')), trim((string)($_POST['openid_redirect_uri'] ?? '')));
-                if (isset(openIdClientDefinitions($config)[$client['client_id']])) throw new RuntimeException('a trusted OpenID client already uses that client ID');
-                $config['openid']['clients'][$client['name']] = ['client_id' => $client['client_id'], 'client_secret' => $client['client_secret'], 'redirect_uris' => $client['redirect_uris']];
-                [$saved, $problem] = writeConfig($targetPath, $config, $root . '/lib'); if (!$saved) throw new RuntimeException((string)$problem);
-                $_SESSION['setup_openid_client_secret'] = ['client_id' => $client['client_id'], 'secret' => $client['client_secret']];
-                setupFlashNotice('openid.client_saved', 'Trusted OpenID client saved. Copy its secret now; it will not be shown again.');
-            } elseif ($intent === 'remove-openid-client') {
-                $id = (string)($_POST['remove_openid_client_id'] ?? ''); $client = openIdClientDefinitions($config)[$id] ?? null;
-                if ($client === null) throw new RuntimeException('that trusted OpenID client is unavailable');
-                unset($config['openid']['clients'][$client['name']]);
-                [$saved, $problem] = writeConfig($targetPath, $config, $root . '/lib'); if (!$saved) throw new RuntimeException((string)$problem);
-                setupFlashNotice('openid.client_removed', 'Trusted OpenID client removed. Its secret and existing sessions are no longer accepted for new token exchanges.');
-            } else {
-                unset($_SESSION['setup_openid_client_secret']); setupFlashNotice('openid.secret_acknowledged', 'OpenID client secret acknowledgement saved.');
+            if (!$configured || !$unlocked) {
+                throw new RuntimeException(
+                    'unlock setup before managing trusted OpenID clients',
+                );
             }
-        } catch (Throwable $error) { $_SESSION['setup_error'] = 'Could not manage trusted OpenID clients: ' . $error->getMessage(); }
+            if (
+                !hash_equals(
+                    setupOpenIdClientToken(),
+                    (string) ($_POST['setup_openid_client_token'] ?? ''),
+                )
+            ) {
+                throw new RuntimeException(
+                    'the OpenID client form expired; reload Setup and try again',
+                );
+            }
+            $config = readExistingConfig($targetPath);
+            if ($config === null) {
+                throw new RuntimeException(
+                    'could not read the current setup settings',
+                );
+            }
+            $intent = (string) $_POST['intent'];
+            if ($intent === 'create-openid-client') {
+                $client = openIdCreateClient(
+                    trim((string) ($_POST['openid_client_id'] ?? '')),
+                    trim((string) ($_POST['openid_redirect_uri'] ?? '')),
+                );
+                if (
+                    isset(
+                        openIdClientDefinitions($config)[$client['client_id']],
+                    )
+                ) {
+                    throw new RuntimeException(
+                        'a trusted OpenID client already uses that client ID',
+                    );
+                }
+                $config['openid']['clients'][$client['name']] = [
+                    'client_id' => $client['client_id'],
+                    'client_secret' => $client['client_secret'],
+                    'redirect_uris' => $client['redirect_uris'],
+                ];
+                [$saved, $problem] = writeConfig(
+                    $targetPath,
+                    $config,
+                    $root . '/lib',
+                );
+                if (!$saved) {
+                    throw new RuntimeException((string) $problem);
+                }
+                $_SESSION['setup_openid_client_secret'] = [
+                    'client_id' => $client['client_id'],
+                    'secret' => $client['client_secret'],
+                ];
+                setupFlashNotice(
+                    'openid.client_saved',
+                    'Trusted OpenID client saved. Copy its secret now; it will not be shown again.',
+                );
+            } elseif ($intent === 'remove-openid-client') {
+                $id = (string) ($_POST['remove_openid_client_id'] ?? '');
+                $client = openIdClientDefinitions($config)[$id] ?? null;
+                if ($client === null) {
+                    throw new RuntimeException(
+                        'that trusted OpenID client is unavailable',
+                    );
+                }
+                unset($config['openid']['clients'][$client['name']]);
+                [$saved, $problem] = writeConfig(
+                    $targetPath,
+                    $config,
+                    $root . '/lib',
+                );
+                if (!$saved) {
+                    throw new RuntimeException((string) $problem);
+                }
+                setupFlashNotice(
+                    'openid.client_removed',
+                    'Trusted OpenID client removed. Its secret and existing sessions are no longer accepted for new token exchanges.',
+                );
+            } else {
+                unset($_SESSION['setup_openid_client_secret']);
+                setupFlashNotice(
+                    'openid.secret_acknowledged',
+                    'OpenID client secret acknowledgement saved.',
+                );
+            }
+        } catch (Throwable $error) {
+            $_SESSION['setup_error'] =
+                'Could not manage trusted OpenID clients: ' .
+                $error->getMessage();
+        }
         setupRedirect('openid');
         return;
     }
 
-    if ($posted && in_array($_POST['intent'] ?? '', ['create-local-key', 'create-package-secret-key'], true)) {
-        $creatingPackageSecretKey = ($_POST['intent'] ?? '') === 'create-package-secret-key';
-        $canCreate = $existing === null || $unlocked
-            || mayOverwrite($existing, (string)($_POST['current_password'] ?? ''));
-        if (!hash_equals(setupKeyCreateToken(), (string)($_POST['setup_key_create_token'] ?? ''))) {
-            $_SESSION['setup_error'] = 'The key-creation form expired. Reload setup and try again.';
+    if (
+        $posted &&
+        in_array(
+            $_POST['intent'] ?? '',
+            ['create-local-key', 'create-package-secret-key'],
+            true,
+        )
+    ) {
+        $creatingPackageSecretKey =
+            ($_POST['intent'] ?? '') === 'create-package-secret-key';
+        $canCreate =
+            $existing === null ||
+            $unlocked ||
+            mayOverwrite(
+                $existing,
+                (string) ($_POST['current_password'] ?? ''),
+            );
+        if (
+            !hash_equals(
+                setupKeyCreateToken(),
+                (string) ($_POST['setup_key_create_token'] ?? ''),
+            )
+        ) {
+            $_SESSION['setup_error'] =
+                'The key-creation form expired. Reload setup and try again.';
         } elseif (!$canCreate) {
-            $_SESSION['setup_error'] = 'Enter the current setup password before creating a new local key file.';
+            $_SESSION['setup_error'] =
+                'Enter the current setup password before creating a new local key file.';
         } else {
             try {
                 $path = $creatingPackageSecretKey
@@ -655,12 +1012,20 @@ function runWeb(
                     : setupRequestedPrivateKeyPath($_POST['key_path'] ?? '');
                 encryptionCreateLocalKey($path, $root);
                 if ($creatingPackageSecretKey) {
-                    setupFlashNotice('encryption.package_key_created', 'A separate private package-secrets key file was created. Its contents were not shown or saved in the browser. Enter its path in Package secrets key file and save that setting before storing package secrets.');
+                    setupFlashNotice(
+                        'encryption.package_key_created',
+                        'A separate private package-secrets key file was created. Its contents were not shown or saved in the browser. Enter its path in Package secrets key file and save that setting before storing package secrets.',
+                    );
                 } else {
-                    setupFlashNotice('encryption.private_key_created', 'A new private local key file was created. Its contents were not shown or saved in the browser. Record an offline recovery copy before enabling encrypted copies.');
+                    setupFlashNotice(
+                        'encryption.private_key_created',
+                        'A new private local key file was created. Its contents were not shown or saved in the browser. Record an offline recovery copy before enabling encrypted copies.',
+                    );
                 }
             } catch (Throwable $error) {
-                $_SESSION['setup_error'] = 'Could not create the local key file: ' . $error->getMessage();
+                $_SESSION['setup_error'] =
+                    'Could not create the local key file: ' .
+                    $error->getMessage();
             }
         }
         setupRedirect('basics');
@@ -669,33 +1034,73 @@ function runWeb(
 
     if ($posted && ($_POST['intent'] ?? '') === 'apply-schedule') {
         if (!$configured || !$unlocked) {
-            $_SESSION['setup_error'] = 'Unlock setup before changing the account schedule.';
-        } elseif (!hash_equals(setupScheduleToken(), (string)($_POST['setup_schedule_token'] ?? ''))) {
-            $_SESSION['setup_error'] = 'The schedule form expired. Reload setup and try again.';
+            $_SESSION['setup_error'] =
+                'Unlock setup before changing the account schedule.';
+        } elseif (
+            !hash_equals(
+                setupScheduleToken(),
+                (string) ($_POST['setup_schedule_token'] ?? ''),
+            )
+        ) {
+            $_SESSION['setup_error'] =
+                'The schedule form expired. Reload setup and try again.';
         } else {
             try {
                 $config = readExistingConfig($targetPath);
-                if ($config === null) throw new RuntimeException('could not read the current setup settings');
-                $existingChoices = setupScheduleChoices((array)($config['schedule'] ?? []));
+                if ($config === null) {
+                    throw new RuntimeException(
+                        'could not read the current setup settings',
+                    );
+                }
+                $existingChoices = setupScheduleChoices(
+                    (array) ($config['schedule'] ?? []),
+                );
                 $requestedChoices = setupScheduleRequest($_POST);
-                [$job, $operation] = array_pad(explode(':', (string)($_POST['schedule_action'] ?? ''), 2), 2, '');
-                if (!isset(cronJobs()[$job])) throw new RuntimeException('choose the collector job to change');
+                [$job, $operation] = array_pad(
+                    explode(':', (string) ($_POST['schedule_action'] ?? ''), 2),
+                    2,
+                    '',
+                );
+                if (!isset(cronJobs()[$job])) {
+                    throw new RuntimeException(
+                        'choose the collector job to change',
+                    );
+                }
                 $choices = $existingChoices;
                 $choices[$job] = $requestedChoices[$job];
-                if ($operation === 'remove') $choices[$job]['profile'] = 'none';
-                if (!in_array($operation, ['add', 'update', 'remove'], true)) throw new RuntimeException('unknown schedule action');
-                $php = (string)($_POST['schedule_php'] ?? '');
+                if ($operation === 'remove') {
+                    $choices[$job]['profile'] = 'none';
+                }
+                if (!in_array($operation, ['add', 'update', 'remove'], true)) {
+                    throw new RuntimeException('unknown schedule action');
+                }
+                $php = (string) ($_POST['schedule_php'] ?? '');
                 $api = new SetupCronApi($root);
                 // Persist the intended schedule before applying it. If the host refuses
                 // the crontab, the page can accurately report the saved intent as out
                 // of sync instead of pretending no change was requested.
                 $config['schedule'] = ['php' => $php, ...$choices];
-                [$saved, $problem] = writeConfig($targetPath, $config, $root . '/lib');
-                if (!$saved) throw new RuntimeException((string)$problem);
+                [$saved, $problem] = writeConfig(
+                    $targetPath,
+                    $config,
+                    $root . '/lib',
+                );
+                if (!$saved) {
+                    throw new RuntimeException((string) $problem);
+                }
                 $api->applyJob($job, $choices[$job], $php);
-                setupFlashNotice($operation === 'remove' ? 'schedule.removed' : 'schedule.saved_applied', $operation === 'remove' ? '{{job}} schedule removed.' : '{{job}} schedule saved and applied.', ['job' => ucfirst($job)]);
+                setupFlashNotice(
+                    $operation === 'remove'
+                        ? 'schedule.removed'
+                        : 'schedule.saved_applied',
+                    $operation === 'remove'
+                        ? '{{job}} schedule removed.'
+                        : '{{job}} schedule saved and applied.',
+                    ['job' => ucfirst($job)],
+                );
             } catch (Throwable $error) {
-                $_SESSION['setup_error'] = 'Could not apply the schedule: ' . $error->getMessage();
+                $_SESSION['setup_error'] =
+                    'Could not apply the schedule: ' . $error->getMessage();
             }
         }
         setupRedirect('schedule');
@@ -710,118 +1115,386 @@ function runWeb(
      * the mask secret is not a form field at all.
      */
     $values = [];
-    $current = ($unlocked || !$configured) ? readExistingConfig($targetPath) : null;
+    $current =
+        $unlocked || !$configured ? readExistingConfig($targetPath) : null;
     $packagePanels = $unlocked ? setupPackagePanels($current) : [];
     $activeSection = $configured
-        ? setupSection($fields, (string)($_GET['section'] ?? $_POST['section'] ?? 'basics'), $packagePanels)
+        ? setupSection(
+            $fields,
+            (string) ($_GET['section'] ?? ($_POST['section'] ?? 'basics')),
+            $packagePanels,
+        )
         : 'basics';
     foreach ($fields as $field) {
-        $values[$field['key']] = $current !== null
-            ? valueAtPath($current, $field['path'], $field['default'])
-            : $field['default'];
+        $values[$field['key']] =
+            $current !== null
+                ? valueAtPath($current, $field['path'], $field['default'])
+                : $field['default'];
     }
     if (is_string($_SESSION['setup_pending_openid_signing_key'] ?? null)) {
-        $values['openid_signing_private_key'] = $_SESSION['setup_pending_openid_signing_key'];
+        $values['openid_signing_private_key'] =
+            $_SESSION['setup_pending_openid_signing_key'];
     }
 
-    if ($posted && in_array($_POST['intent'] ?? '', ['store-deployment-secret', 'save-deployment-profile', 'test-deployment-target', 'copy-deployment-release'], true)) {
+    if (
+        $posted &&
+        in_array(
+            $_POST['intent'] ?? '',
+            [
+                'store-deployment-secret',
+                'save-deployment-profile',
+                'test-deployment-target',
+                'copy-deployment-release',
+            ],
+            true,
+        )
+    ) {
         try {
-            if (!$configured || !$unlocked || $current === null) throw new RuntimeException('unlock setup before changing remote deployment');
-            if (!hash_equals(setupDeploymentToken(), (string)($_POST['setup_deployment_token'] ?? ''))) throw new RuntimeException('the deployment form expired; reload Setup and try again');
+            if (!$configured || !$unlocked || $current === null) {
+                throw new RuntimeException(
+                    'unlock setup before changing remote deployment',
+                );
+            }
+            if (
+                !hash_equals(
+                    setupDeploymentToken(),
+                    (string) ($_POST['setup_deployment_token'] ?? ''),
+                )
+            ) {
+                throw new RuntimeException(
+                    'the deployment form expired; reload Setup and try again',
+                );
+            }
             if (($_POST['intent'] ?? '') === 'store-deployment-secret') {
-                $reference = remoteDeploymentSecretStore($current, (string)($_POST['deployment_secret'] ?? ''), 'setup administrator');
+                $reference = remoteDeploymentSecretStore(
+                    $current,
+                    (string) ($_POST['deployment_secret'] ?? ''),
+                    'setup administrator',
+                );
                 $_SESSION['setup_deployment_last_reference'] = $reference;
-                setupFlashNotice('deployment.credential_stored', 'Deployment credential stored with encryption. Its value was not retained in this page.');
+                setupFlashNotice(
+                    'deployment.credential_stored',
+                    'Deployment credential stored with encryption. Its value was not retained in this page.',
+                );
             } elseif (($_POST['intent'] ?? '') === 'test-deployment-target') {
                 $profile = remoteDeploymentProfile($_POST);
-                if (!remoteDeploymentSecretExists($current, $profile['credential_reference'])) throw new RuntimeException('the selected deployment credential reference is unavailable');
-                if ($profile['known_host_reference'] !== null && !remoteDeploymentSecretExists($current, $profile['known_host_reference'])) throw new RuntimeException('the selected SSH host-key reference is unavailable');
+                if (
+                    !remoteDeploymentSecretExists(
+                        $current,
+                        $profile['credential_reference'],
+                    )
+                ) {
+                    throw new RuntimeException(
+                        'the selected deployment credential reference is unavailable',
+                    );
+                }
+                if (
+                    $profile['known_host_reference'] !== null &&
+                    !remoteDeploymentSecretExists(
+                        $current,
+                        $profile['known_host_reference'],
+                    )
+                ) {
+                    throw new RuntimeException(
+                        'the selected SSH host-key reference is unavailable',
+                    );
+                }
                 $result = remoteDeploymentTest($current, $profile);
                 $_SESSION['setup_deployment_test'] = $result;
-                setupFlashNotice($result['ok'] ? 'deployment.target_verified' : 'deployment.target_not_verified', $result['ok'] ? 'Remote deployment target verified. You may now review and copy a build.' : 'Remote deployment target was not verified: {{detail}}', $result['ok'] ? [] : ['detail' => (string)$result['detail']]);
+                setupFlashNotice(
+                    $result['ok']
+                        ? 'deployment.target_verified'
+                        : 'deployment.target_not_verified',
+                    $result['ok']
+                        ? 'Remote deployment target verified. You may now review and copy a build.'
+                        : 'Remote deployment target was not verified: {{detail}}',
+                    $result['ok']
+                        ? []
+                        : ['detail' => (string) $result['detail']],
+                );
             } elseif (($_POST['intent'] ?? '') === 'copy-deployment-release') {
                 $profile = remoteDeploymentProfile($_POST);
-                if (!remoteDeploymentSecretExists($current, $profile['credential_reference'])) throw new RuntimeException('the selected deployment credential reference is unavailable');
-                if ($profile['known_host_reference'] !== null && !remoteDeploymentSecretExists($current, $profile['known_host_reference'])) throw new RuntimeException('the selected SSH host-key reference is unavailable');
+                if (
+                    !remoteDeploymentSecretExists(
+                        $current,
+                        $profile['credential_reference'],
+                    )
+                ) {
+                    throw new RuntimeException(
+                        'the selected deployment credential reference is unavailable',
+                    );
+                }
+                if (
+                    $profile['known_host_reference'] !== null &&
+                    !remoteDeploymentSecretExists(
+                        $current,
+                        $profile['known_host_reference'],
+                    )
+                ) {
+                    throw new RuntimeException(
+                        'the selected SSH host-key reference is unavailable',
+                    );
+                }
                 $release = $_FILES['deployment_release'] ?? null;
-                if (!is_array($release) || ($release['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK || !is_string($release['tmp_name'] ?? null) || !is_uploaded_file($release['tmp_name'])) throw new RuntimeException('choose the ZIP release archive to copy');
-                $result = remoteDeploymentCopyRelease($current, $profile, $release['tmp_name']);
+                if (
+                    !is_array($release) ||
+                    ($release['error'] ?? UPLOAD_ERR_NO_FILE) !==
+                        UPLOAD_ERR_OK ||
+                    !is_string($release['tmp_name'] ?? null) ||
+                    !is_uploaded_file($release['tmp_name'])
+                ) {
+                    throw new RuntimeException(
+                        'choose the ZIP release archive to copy',
+                    );
+                }
+                $result = remoteDeploymentCopyRelease(
+                    $current,
+                    $profile,
+                    $release['tmp_name'],
+                );
                 $_SESSION['setup_deployment_copy'] = $result;
-                setupFlashNotice($result['ok'] ? 'deployment.release_copied' : 'deployment.release_not_copied', $result['ok'] ? 'Remote deployment release copied after a fresh target verification.' : 'Remote deployment release was not copied: {{detail}}', $result['ok'] ? [] : ['detail' => (string)$result['detail']]);
+                setupFlashNotice(
+                    $result['ok']
+                        ? 'deployment.release_copied'
+                        : 'deployment.release_not_copied',
+                    $result['ok']
+                        ? 'Remote deployment release copied after a fresh target verification.'
+                        : 'Remote deployment release was not copied: {{detail}}',
+                    $result['ok']
+                        ? []
+                        : ['detail' => (string) $result['detail']],
+                );
             } else {
                 $profile = remoteDeploymentProfile($_POST);
-                if (!remoteDeploymentSecretExists($current, $profile['credential_reference'])) throw new RuntimeException('the selected deployment credential reference is unavailable');
-                if ($profile['known_host_reference'] !== null && !remoteDeploymentSecretExists($current, $profile['known_host_reference'])) throw new RuntimeException('the selected SSH host-key reference is unavailable');
+                if (
+                    !remoteDeploymentSecretExists(
+                        $current,
+                        $profile['credential_reference'],
+                    )
+                ) {
+                    throw new RuntimeException(
+                        'the selected deployment credential reference is unavailable',
+                    );
+                }
+                if (
+                    $profile['known_host_reference'] !== null &&
+                    !remoteDeploymentSecretExists(
+                        $current,
+                        $profile['known_host_reference'],
+                    )
+                ) {
+                    throw new RuntimeException(
+                        'the selected SSH host-key reference is unavailable',
+                    );
+                }
                 $current['remote_deployment'] = $profile;
-                [$saved, $problem] = writeConfig($targetPath, $current, $root . '/lib');
-                if (!$saved) throw new RuntimeException((string)$problem);
-                setupFlashNotice('deployment.profile_saved', 'Remote deployment profile saved. Test the target before copying any files.');
+                [$saved, $problem] = writeConfig(
+                    $targetPath,
+                    $current,
+                    $root . '/lib',
+                );
+                if (!$saved) {
+                    throw new RuntimeException((string) $problem);
+                }
+                setupFlashNotice(
+                    'deployment.profile_saved',
+                    'Remote deployment profile saved. Test the target before copying any files.',
+                );
             }
         } catch (Throwable $error) {
-            $_SESSION['setup_error'] = 'Could not save remote deployment settings: ' . $error->getMessage();
+            $_SESSION['setup_error'] =
+                'Could not save remote deployment settings: ' .
+                $error->getMessage();
         }
         setupRedirect('deployment');
         return;
     }
 
-    if ($posted && in_array($_POST['intent'] ?? '', ['review-account-merge', 'apply-account-merge'], true)) {
+    if (
+        $posted &&
+        in_array(
+            $_POST['intent'] ?? '',
+            ['review-account-merge', 'apply-account-merge'],
+            true,
+        )
+    ) {
         try {
-            if (!$configured || !$unlocked || $current === null) throw new RuntimeException('unlock setup before reviewing an account merge');
-            if (!hash_equals(setupAccountMergeToken(), (string)($_POST['setup_account_merge_token'] ?? ''))) throw new RuntimeException('the account merge form expired; reload Setup and try again');
+            if (!$configured || !$unlocked || $current === null) {
+                throw new RuntimeException(
+                    'unlock setup before reviewing an account merge',
+                );
+            }
+            if (
+                !hash_equals(
+                    setupAccountMergeToken(),
+                    (string) ($_POST['setup_account_merge_token'] ?? ''),
+                )
+            ) {
+                throw new RuntimeException(
+                    'the account merge form expired; reload Setup and try again',
+                );
+            }
             if (($_POST['intent'] ?? '') === 'review-account-merge') {
                 $upload = $_FILES['account_merge_source'] ?? null;
-                if (!is_array($upload) || ($upload['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK || !is_string($upload['tmp_name'] ?? null) || !is_uploaded_file($upload['tmp_name'])) throw new RuntimeException('choose an exported account SQLite file to review');
+                if (
+                    !is_array($upload) ||
+                    ($upload['error'] ?? UPLOAD_ERR_NO_FILE) !==
+                        UPLOAD_ERR_OK ||
+                    !is_string($upload['tmp_name'] ?? null) ||
+                    !is_uploaded_file($upload['tmp_name'])
+                ) {
+                    throw new RuntimeException(
+                        'choose an exported account SQLite file to review',
+                    );
+                }
                 $bytes = filesize($upload['tmp_name']);
-                if (!is_int($bytes) || $bytes < 1 || $bytes > 1073741824) throw new RuntimeException('the account database export must be between 1 byte and 1 GiB');
-                $source = setupAccountMergeUploadDirectory($current) . '/review-' . bin2hex(random_bytes(16)) . '.db';
-                if (!move_uploaded_file($upload['tmp_name'], $source) || !chmod($source, 0600)) { @unlink($source); throw new RuntimeException('could not safely retain the uploaded account export for review'); }
+                if (!is_int($bytes) || $bytes < 1 || $bytes > 1073741824) {
+                    throw new RuntimeException(
+                        'the account database export must be between 1 byte and 1 GiB',
+                    );
+                }
+                $source =
+                    setupAccountMergeUploadDirectory($current) .
+                    '/review-' .
+                    bin2hex(random_bytes(16)) .
+                    '.db';
+                if (
+                    !move_uploaded_file($upload['tmp_name'], $source) ||
+                    !chmod($source, 0600)
+                ) {
+                    @unlink($source);
+                    throw new RuntimeException(
+                        'could not safely retain the uploaded account export for review',
+                    );
+                }
                 $plan = accountMergePlan(db($current), $source);
-                if (!$plan['eligible']) { @unlink($source); throw new RuntimeException((string)$plan['reason']); }
-                $_SESSION['setup_account_merge'] = ['source' => $source, 'expires_at' => time() + 900];
+                if (!$plan['eligible']) {
+                    @unlink($source);
+                    throw new RuntimeException((string) $plan['reason']);
+                }
+                $_SESSION['setup_account_merge'] = [
+                    'source' => $source,
+                    'expires_at' => time() + 900,
+                ];
                 $_SESSION['setup_account_merge_plan'] = $plan;
-                setupFlashNotice('merge.reviewed', 'Account collector merge reviewed. No data has changed; read the ranges and confirm before applying it.');
+                setupFlashNotice(
+                    'merge.reviewed',
+                    'Account collector merge reviewed. No data has changed; read the ranges and confirm before applying it.',
+                );
             } else {
                 $review = $_SESSION['setup_account_merge'] ?? null;
-                $source = is_array($review) ? (string)($review['source'] ?? '') : '';
-                if ($source === '' || (int)($review['expires_at'] ?? 0) < time() || !is_file($source) || is_link($source)) {
-                    if ($source !== '' && is_file($source)) @unlink($source);
-                    unset($_SESSION['setup_account_merge'], $_SESSION['setup_account_merge_plan']);
-                    throw new RuntimeException('the reviewed account export is no longer available; upload it again for a fresh review');
+                $source = is_array($review)
+                    ? (string) ($review['source'] ?? '')
+                    : '';
+                if (
+                    $source === '' ||
+                    (int) ($review['expires_at'] ?? 0) < time() ||
+                    !is_file($source) ||
+                    is_link($source)
+                ) {
+                    if ($source !== '' && is_file($source)) {
+                        @unlink($source);
+                    }
+                    unset(
+                        $_SESSION['setup_account_merge'],
+                        $_SESSION['setup_account_merge_plan'],
+                    );
+                    throw new RuntimeException(
+                        'the reviewed account export is no longer available; upload it again for a fresh review',
+                    );
                 }
-                if (($_POST['writers_stopped'] ?? '') !== '1') throw new RuntimeException('confirm that all dashboard and collector writers are stopped before applying a merge');
-                if (($_POST['allow_overlap'] ?? '') !== '1') throw new RuntimeException('confirm that overlapping collector times may be deduplicated before applying a merge');
+                if (($_POST['writers_stopped'] ?? '') !== '1') {
+                    throw new RuntimeException(
+                        'confirm that all dashboard and collector writers are stopped before applying a merge',
+                    );
+                }
+                if (($_POST['allow_overlap'] ?? '') !== '1') {
+                    throw new RuntimeException(
+                        'confirm that overlapping collector times may be deduplicated before applying a merge',
+                    );
+                }
                 $result = accountMergeApply(db($current), $source, true);
-                @unlink($source); unset($_SESSION['setup_account_merge'], $_SESSION['setup_account_merge_plan']);
+                @unlink($source);
+                unset(
+                    $_SESSION['setup_account_merge'],
+                    $_SESSION['setup_account_merge_plan'],
+                );
                 $_SESSION['setup_account_merge_result'] = $result;
-                setupFlashNotice('merge.completed', 'Account collector data merged. A private rollback snapshot was created before the transaction.');
+                setupFlashNotice(
+                    'merge.completed',
+                    'Account collector data merged. A private rollback snapshot was created before the transaction.',
+                );
             }
         } catch (Throwable $error) {
-            $_SESSION['setup_error'] = 'Could not complete the account merge: ' . $error->getMessage();
+            $_SESSION['setup_error'] =
+                'Could not complete the account merge: ' . $error->getMessage();
         }
         setupRedirect('maintenance');
         return;
     }
 
-    if ($posted && str_starts_with((string)($_POST['intent'] ?? ''), 'save-package-settings')) {
+    if (
+        $posted &&
+        str_starts_with(
+            (string) ($_POST['intent'] ?? ''),
+            'save-package-settings',
+        )
+    ) {
         $packagePanelId = '';
         try {
-            if (!$unlocked) throw new RuntimeException('unlock setup before changing package settings');
-            if (!hash_equals(setupPackageSettingsToken(), (string)($_POST['setup_package_settings_token'] ?? ''))) {
-                throw new RuntimeException('the package settings form expired; reload Setup and try again');
+            if (!$unlocked) {
+                throw new RuntimeException(
+                    'unlock setup before changing package settings',
+                );
             }
-            $intent = (string)$_POST['intent']; $panelId = str_starts_with($intent, 'save-package-settings:') ? substr($intent, strlen('save-package-settings:')) : (string)($_POST['package_panel_id'] ?? '');
+            if (
+                !hash_equals(
+                    setupPackageSettingsToken(),
+                    (string) ($_POST['setup_package_settings_token'] ?? ''),
+                )
+            ) {
+                throw new RuntimeException(
+                    'the package settings form expired; reload Setup and try again',
+                );
+            }
+            $intent = (string) $_POST['intent'];
+            $panelId = str_starts_with($intent, 'save-package-settings:')
+                ? substr($intent, strlen('save-package-settings:'))
+                : (string) ($_POST['package_panel_id'] ?? '');
             $packagePanelId = $panelId;
             $panels = setupPanels($fields, $packagePanels);
             $panel = $panels[$panelId] ?? null;
-            if (!is_array($panel) || $panel['kind'] !== 'package') throw new RuntimeException('that package settings panel is unavailable');
-            $settings = json_decode((string)($_POST['package_settings_' . $panelId] ?? $_POST['package_settings'] ?? ''), true, 64, JSON_THROW_ON_ERROR);
-            if (!is_array($settings) || array_is_list($settings)) throw new RuntimeException('package settings must be a JSON object');
-            setupSavePackageSettings($current, (string)$panel['feature'], $settings);
-            setupFlashNotice('package.settings_saved', 'Package settings were saved using the package’s signed schema.');
+            if (!is_array($panel) || $panel['kind'] !== 'package') {
+                throw new RuntimeException(
+                    'that package settings panel is unavailable',
+                );
+            }
+            $settings = json_decode(
+                (string) ($_POST['package_settings_' . $panelId] ??
+                    ($_POST['package_settings'] ?? '')),
+                true,
+                64,
+                JSON_THROW_ON_ERROR,
+            );
+            if (!is_array($settings) || array_is_list($settings)) {
+                throw new RuntimeException(
+                    'package settings must be a JSON object',
+                );
+            }
+            setupSavePackageSettings(
+                $current,
+                (string) $panel['feature'],
+                $settings,
+            );
+            setupFlashNotice(
+                'package.settings_saved',
+                'Package settings were saved using the package’s signed schema.',
+            );
         } catch (JsonException) {
             $_SESSION['setup_error'] = 'Package settings must be valid JSON.';
         } catch (Throwable $error) {
-            $_SESSION['setup_error'] = 'Could not save package settings: ' . $error->getMessage();
+            $_SESSION['setup_error'] =
+                'Could not save package settings: ' . $error->getMessage();
         }
         // The submit button names the signed panel; carry it through the
         // redirect so a saved child panel does not unexpectedly strand the
@@ -830,38 +1503,104 @@ function runWeb(
         return;
     }
 
-    if ($posted && in_array($_POST['intent'] ?? '', ['start-totp', 'confirm-totp', 'ack-totp-recovery', 'reset-totp'], true)) {
+    if (
+        $posted &&
+        in_array(
+            $_POST['intent'] ?? '',
+            ['start-totp', 'confirm-totp', 'ack-totp-recovery', 'reset-totp'],
+            true,
+        )
+    ) {
         try {
-            if (!$configured || !$unlocked) throw new RuntimeException('unlock setup before changing authentication');
-            if (!hash_equals(setupTotpToken(), (string)($_POST['setup_totp_token'] ?? ''))) throw new RuntimeException('the authenticator form expired; reload Setup and try again');
-            $intent = (string)$_POST['intent'];
+            if (!$configured || !$unlocked) {
+                throw new RuntimeException(
+                    'unlock setup before changing authentication',
+                );
+            }
+            if (
+                !hash_equals(
+                    setupTotpToken(),
+                    (string) ($_POST['setup_totp_token'] ?? ''),
+                )
+            ) {
+                throw new RuntimeException(
+                    'the authenticator form expired; reload Setup and try again',
+                );
+            }
+            $intent = (string) $_POST['intent'];
             if ($intent === 'reset-totp') {
                 $config = readExistingConfig($targetPath);
-                if ($config === null) throw new RuntimeException('could not read the current setup settings');
+                if ($config === null) {
+                    throw new RuntimeException(
+                        'could not read the current setup settings',
+                    );
+                }
                 $config['auth']['totp_secret'] = '';
-                [$saved, $problem] = writeConfig($targetPath, $config, $root . '/lib');
-                if (!$saved) throw new RuntimeException((string)$problem);
-                unset($_SESSION['setup_pending_totp'], $_SESSION['setup_recovery_codes']);
-                setupFlashNotice('auth.reset_complete', 'Authenticator reset. Create and verify a new secret before the next sign-in.');
+                [$saved, $problem] = writeConfig(
+                    $targetPath,
+                    $config,
+                    $root . '/lib',
+                );
+                if (!$saved) {
+                    throw new RuntimeException((string) $problem);
+                }
+                unset(
+                    $_SESSION['setup_pending_totp'],
+                    $_SESSION['setup_recovery_codes'],
+                );
+                setupFlashNotice(
+                    'auth.reset_complete',
+                    'Authenticator reset. Create and verify a new secret before the next sign-in.',
+                );
             } elseif ($intent === 'start-totp') {
                 $_SESSION['setup_pending_totp'] = totpGenerateSecret();
                 unset($_SESSION['setup_recovery_codes']);
             } elseif ($intent === 'confirm-totp') {
-                $secret = (string)($_SESSION['setup_pending_totp'] ?? '');
-                if ($secret === '' || !totpValid($secret, (string)($_POST['totp_code'] ?? ''))) throw new RuntimeException('the authenticator code was not accepted');
+                $secret = (string) ($_SESSION['setup_pending_totp'] ?? '');
+                if (
+                    $secret === '' ||
+                    !totpValid($secret, (string) ($_POST['totp_code'] ?? ''))
+                ) {
+                    throw new RuntimeException(
+                        'the authenticator code was not accepted',
+                    );
+                }
                 $config = readExistingConfig($targetPath);
-                if ($config === null) throw new RuntimeException('could not read the current setup settings');
+                if ($config === null) {
+                    throw new RuntimeException(
+                        'could not read the current setup settings',
+                    );
+                }
                 $config['auth']['totp_secret'] = $secret;
-                [$saved, $problem] = writeConfig($targetPath, $config, $root . '/lib');
-                if (!$saved) throw new RuntimeException((string)$problem);
-                $_SESSION['setup_recovery_codes'] = totpRecoveryCodes(db($config), 'administrator');
+                [$saved, $problem] = writeConfig(
+                    $targetPath,
+                    $config,
+                    $root . '/lib',
+                );
+                if (!$saved) {
+                    throw new RuntimeException((string) $problem);
+                }
+                $_SESSION['setup_recovery_codes'] = totpRecoveryCodes(
+                    db($config),
+                    'administrator',
+                );
                 unset($_SESSION['setup_pending_totp']);
             } else {
-                if (empty($_POST['recovery_confirmed'])) throw new RuntimeException('confirm that you stored the recovery codes before continuing');
+                if (empty($_POST['recovery_confirmed'])) {
+                    throw new RuntimeException(
+                        'confirm that you stored the recovery codes before continuing',
+                    );
+                }
                 unset($_SESSION['setup_recovery_codes']);
-                setupFlashNotice('auth.recovery_complete', 'Authenticator and recovery codes are set up.');
+                setupFlashNotice(
+                    'auth.recovery_complete',
+                    'Authenticator and recovery codes are set up.',
+                );
             }
-        } catch (Throwable $error) { $_SESSION['setup_error'] = 'Could not update authentication: ' . $error->getMessage(); }
+        } catch (Throwable $error) {
+            $_SESSION['setup_error'] =
+                'Could not update authentication: ' . $error->getMessage();
+        }
         setupRedirect('auth');
         return;
     }
@@ -881,14 +1620,20 @@ function runWeb(
             }
             // Trusted clients are managed by their dedicated, CSRF-protected
             // actions below, not by this generic provider-settings form.
-            if ($activeSection === 'openid' && $field['path'] === ['openid', 'clients']) {
+            if (
+                $activeSection === 'openid' &&
+                $field['path'] === ['openid', 'clients']
+            ) {
                 continue;
             }
             $key = $field['key'];
             if ($field['type'] === 'password') {
                 continue;
             }
-            $blank = $field['type'] === 'bool' || $field['type'] === 'categories' ? [] : '';
+            $blank =
+                $field['type'] === 'bool' || $field['type'] === 'categories'
+                    ? []
+                    : '';
             [$parsed, $problem] = parseField($field, $_POST[$key] ?? $blank);
             $values[$key] = $parsed;
             if ($problem !== null && fieldApplies($field, $values)) {
@@ -896,7 +1641,7 @@ function runWeb(
             }
         }
 
-        $supplied = (string)($_POST['current_password'] ?? '');
+        $supplied = (string) ($_POST['current_password'] ?? '');
         $authorised = $unlocked || mayOverwrite($existing, $supplied);
         $rotate = !empty($_POST['rotate_mask']);
 
@@ -909,20 +1654,27 @@ function runWeb(
          * the text to paste - the two things this page is for.
          */
         if ($configured && $supplied !== '' && !$authorised) {
-            $refusal = $existing['password_hash'] === ''
-                ? 'This install has no password set, so nothing can authorise replacing its config.'
-                : 'That is not the current password. Nothing was written; here is the text to paste.';
+            $refusal =
+                $existing['password_hash'] === ''
+                    ? 'This install has no password set, so nothing can authorise replacing its config.'
+                    : 'That is not the current password. Nothing was written; here is the text to paste.';
         }
 
-        $password = (string)($_POST['password'] ?? '');
-        $again = (string)($_POST['password_again'] ?? '');
+        $password = (string) ($_POST['password'] ?? '');
+        $again = (string) ($_POST['password_again'] ?? '');
         $hash = null;
 
         if ($password !== '' || $again !== '') {
             if (strlen($password) < 8) {
-                $errors['password'] = ['key' => 'auth.password_minimum', 'fallback' => 'Use at least 8 characters.'];
+                $errors['password'] = [
+                    'key' => 'auth.password_minimum',
+                    'fallback' => 'Use at least 8 characters.',
+                ];
             } elseif ($password !== $again) {
-                $errors['password'] = ['key' => 'auth.password_mismatch', 'fallback' => 'Those did not match.'];
+                $errors['password'] = [
+                    'key' => 'auth.password_mismatch',
+                    'fallback' => 'Those did not match.',
+                ];
             } else {
                 $hash = password_hash($password, PASSWORD_DEFAULT);
             }
@@ -938,11 +1690,24 @@ function runWeb(
              * them a config that silently disables sign-in the moment they
              * paste it. Asking for a password is the only honest option.
              */
-            $errors['password'] = ['key' => 'auth.password_required_current', 'fallback' => 'Choose a password. The current one cannot be carried over into text shown to somebody who has not entered it.'];
-        } elseif (trim((string)(($current ?? [])['auth']['totp_secret'] ?? '')) !== '') {
-            $out[] = '<p class="help" data-i18n="auth.enabled">An authenticator is currently enabled for this account.</p><input type="hidden" name="setup_totp_token" value="' . h(setupTotpToken()) . '"><button type="submit" name="intent" value="reset-totp" data-i18n="auth.reset">Reset authenticator</button>';
+            $errors['password'] = [
+                'key' => 'auth.password_required_current',
+                'fallback' =>
+                    'Choose a password. The current one cannot be carried over into text shown to somebody who has not entered it.',
+            ];
+        } elseif (
+            trim((string) (($current ?? [])['auth']['totp_secret'] ?? '')) !==
+            ''
+        ) {
+            $out[] =
+                '<p class="help" data-i18n="auth.enabled">An authenticator is currently enabled for this account.</p><input type="hidden" name="setup_totp_token" value="' .
+                h(setupTotpToken()) .
+                '"><button type="submit" name="intent" value="reset-totp" data-i18n="auth.reset">Reset authenticator</button>';
         } else {
-            $errors['password'] = ['key' => 'auth.password_required', 'fallback' => 'Create a password before continuing.'];
+            $errors['password'] = [
+                'key' => 'auth.password_required',
+                'fallback' => 'Create a password before continuing.',
+            ];
         }
 
         if (!$errors) {
@@ -954,15 +1719,29 @@ function runWeb(
              * rotate - and only available to reuse at all when the password
              * has been proved, since reusing it means printing it.
              */
-            $mask = ($authorised && $configured && !$rotate && $existing['mask_secret'] !== '')
-                ? $existing['mask_secret']
-                : bin2hex(random_bytes(32));
+            $mask =
+                $authorised &&
+                $configured &&
+                !$rotate &&
+                $existing['mask_secret'] !== ''
+                    ? $existing['mask_secret']
+                    : bin2hex(random_bytes(32));
 
-            $config = buildConfig($sample, $values, (string)$hash, $mask, $samplePath);
+            $config = buildConfig(
+                $sample,
+                $values,
+                (string) $hash,
+                $mask,
+                $samplePath,
+            );
             $rendered = renderConfig($config, $root . '/lib');
 
             if ($authorised) {
-                [$written, $writeError] = writeConfig($targetPath, $config, $root . '/lib');
+                [$written, $writeError] = writeConfig(
+                    $targetPath,
+                    $config,
+                    $root . '/lib',
+                );
                 if ($written) {
                     unset($_SESSION['setup_pending_openid_signing_key']);
                 }
@@ -978,19 +1757,43 @@ function runWeb(
     $notice = takeSetupNotice();
 
     echo webPage(
-        $fields, $values, $errors, $rendered, $written, $writeError,
-        $configured, $authorised, $posted, $existing, $refusal, $notice, $unlocked,
-        $root . '/lib/config.sample.php', $activeSection, setupPreflight($root, $targetPath), $packagePanels, $current
+        $fields,
+        $values,
+        $errors,
+        $rendered,
+        $written,
+        $writeError,
+        $configured,
+        $authorised,
+        $posted,
+        $existing,
+        $refusal,
+        $notice,
+        $unlocked,
+        $root . '/lib/config.sample.php',
+        $activeSection,
+        setupPreflight($root, $targetPath),
+        $packagePanels,
+        $current,
     );
 }
 
 /** The settings pages, derived from the same field definitions as the CLI. */
-function setupSection(array $fields, string $asked, array $registered = []): string
-{
-    if (in_array($asked, ['basics', 'privacy', 'schedule'], true)) return $asked;
-    if (isset(setupPanels($fields, $registered)[$asked])) return $asked;
+function setupSection(
+    array $fields,
+    string $asked,
+    array $registered = [],
+): string {
+    if (in_array($asked, ['basics', 'privacy', 'schedule'], true)) {
+        return $asked;
+    }
+    if (isset(setupPanels($fields, $registered)[$asked])) {
+        return $asked;
+    }
     foreach ($fields as $field) {
-        if (($field['section'] ?? 'basics') === $asked) return $asked;
+        if (($field['section'] ?? 'basics') === $asked) {
+            return $asked;
+        }
     }
     return 'basics';
 }
@@ -1018,7 +1821,11 @@ function writeConfig(string $targetPath, array $config, string $libDir): array
         saveConfiguredSettings($config, $targetPath, $libDir);
         return [true, null];
     } catch (Throwable $error) {
-        return [false, 'Could not save setup.db and the bootstrap config: ' . $error->getMessage()];
+        return [
+            false,
+            'Could not save setup.db and the bootstrap config: ' .
+            $error->getMessage(),
+        ];
     }
 }
 
@@ -1040,353 +1847,910 @@ function webPage(
     string $activeSection,
     array $preflight,
     array $packagePanels,
-    ?array $current
+    ?array $current,
 ): string {
     // Keep a generated provider key in the protected Setup session until this
     // section is saved. Bind it at the rendering boundary as well as when the
     // form state is first assembled: success notices and section-specific
     // rendering must never turn a ready key into an empty textarea.
-    if ($activeSection === 'openid' && is_string($_SESSION['setup_pending_openid_signing_key'] ?? null)) {
-        $values['openid_signing_private_key'] = $_SESSION['setup_pending_openid_signing_key'];
+    if (
+        $activeSection === 'openid' &&
+        is_string($_SESSION['setup_pending_openid_signing_key'] ?? null)
+    ) {
+        $values['openid_signing_private_key'] =
+            $_SESSION['setup_pending_openid_signing_key'];
     }
     $brand = brandName($current ?? []);
     $out = [];
     $out[] = '<!doctype html><html lang="en"><head><meta charset="utf-8">';
-    $out[] = '<meta name="viewport" content="width=device-width, initial-scale=1">';
-    $out[] = '<title data-i18n="setup.document_title">' . h($brand) . ' — Setup</title>';
+    $out[] =
+        '<meta name="viewport" content="width=device-width, initial-scale=1">';
+    $out[] =
+        '<title data-i18n="setup.document_title">' .
+        h($brand) .
+        ' — Setup</title>';
     $out[] = '<link rel="stylesheet" href="index.css">';
-    $out[] = '<script>window.ZogographBrand=' . json_encode($brand, JSON_THROW_ON_ERROR) . ';</script><script src="i18n.js"></script>';
-    $out[] = '<style>'
-        . 'body{max-width:1180px;padding-top:0}'
-        . '.setup-header{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0;background:var(--bg)}'
-        . '.setup-brand{display:flex;align-items:center;gap:9px;color:var(--text);text-decoration:none}.setup-brand strong{font-size:1.08rem}.setup-brand small{color:var(--muted)}.setup-brand .poll{display:inline-block}.setup-brand .poll-fill,.setup-brand .poll-host-fill{stroke:var(--accent);stroke-dasharray:none;stroke-dashoffset:0}'
-        . '.setup-header a:not(.setup-brand){color:var(--muted);font-size:.86rem}'
-        . '.setup-controls{display:flex;align-items:center;gap:9px;font-size:.78rem;color:var(--muted)}.setup-controls label{display:flex;align-items:center;gap:4px;margin:0}.setup-controls select{max-width:105px}'
-        . '.setup-layout{display:grid;grid-template-columns:210px minmax(0,1fr);gap:24px;align-items:start}'
-        . '.setup-nav{position:sticky;top:16px;max-height:calc(100vh - 32px);overflow:auto;border:1px solid var(--line);border-radius:10px;padding:10px}'
-        . '.setup-nav-search{display:block;margin:0 0 8px}.setup-nav-search input{width:100%;box-sizing:border-box}'
-        . '.setup-nav a{display:block;padding:7px 8px;border-radius:6px;color:var(--muted);text-decoration:none;font-size:.86rem}'
-        . '.setup-nav a:hover,.setup-nav a.current{background:var(--panel);color:var(--text)}'
-        . '.setup-main{min-width:0}'
-        . '.wiz label{display:grid;gap:6px;margin-bottom:16px}'
-        . '.wiz input[type=text],.wiz input[type=password],.wiz input[type=email]{width:100%}'
-        . '.wiz .help{color:var(--muted);font-size:.82rem}'
-        . '.wiz .bad{color:#ffb0b0;font-size:.82rem}'
-        . '.wiz fieldset{border:1px solid var(--line);border-radius:10px;padding:12px;margin:0 0 16px}'
-        . '.wiz legend{color:var(--muted);font-size:.85rem;padding:0 6px}'
-        . '.wiz .row{display:flex;gap:14px;flex-wrap:wrap}'
-        . '.wiz .row label{display:flex;align-items:center;gap:6px;margin:0}'
-        . 'textarea{width:100%;min-height:340px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;'
-        . 'font-size:.8rem;background:#111;color:#dfe6d6;border:1px solid var(--line);'
-        . 'border-radius:10px;padding:12px}'
-        . '.banner{border-radius:12px;padding:12px 14px;margin-bottom:16px;border:1px solid}'
-        . '.banner p:last-child{margin-bottom:0}'
-        . '.banner.warn{border-color:#7a5a30;background:#2b2114}'
-        . '.banner.ok{border-color:#2f6f3a;background:#152b1c}'
-        . '.banner.crit{border-color:#7a3030;background:#2b1414}'
-        . '.setup-update{display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid var(--accent);border-radius:10px;padding:10px 12px;margin:0 0 16px;background:var(--panel)}.setup-update[hidden]{display:none}'
-        . '.preflight{width:100%;border-collapse:collapse;margin:0 0 16px}.preflight th,.preflight td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:left;font-size:.85rem}.preflight th{color:var(--muted);font-weight:500}.preflight .ok{color:#8be0a8}.preflight .warning{color:#f0c27b}.preflight .error{color:#ff9ca3}'
-        . 'code{background:#111;padding:1px 5px;border-radius:4px}'
-        . 'details{border:1px solid var(--line);border-radius:10px;margin:0 0 12px;padding:0 14px}'
-        . 'details[open]{padding-bottom:8px}'
-        . 'summary{cursor:pointer;padding:12px 0;color:var(--text);font-size:.92rem}'
-        . 'summary strong{color:#ffb0b0;font-weight:600}'
-        . '.wiz details label{margin-bottom:14px}'
-        . 'pre{overflow-x:auto}'
+    $out[] =
+        '<script>window.ZogographBrand=' .
+        json_encode($brand, JSON_THROW_ON_ERROR) .
+        ';</script><script src="i18n.js"></script>';
+    $out[] =
+        '<style>' .
+        'body{max-width:1180px;padding-top:0}' .
+        '.setup-header{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0;background:var(--bg)}' .
+        '.setup-brand{display:flex;align-items:center;gap:9px;color:var(--text);text-decoration:none}.setup-brand strong{font-size:1.08rem}.setup-brand small{color:var(--muted)}.setup-brand .poll{display:inline-block}.setup-brand .poll-fill,.setup-brand .poll-host-fill{stroke:var(--accent);stroke-dasharray:none;stroke-dashoffset:0}' .
+        '.setup-header a:not(.setup-brand){color:var(--muted);font-size:.86rem}' .
+        '.setup-controls{display:flex;align-items:center;gap:9px;font-size:.78rem;color:var(--muted)}.setup-controls label{display:flex;align-items:center;gap:4px;margin:0}.setup-controls select{max-width:105px}' .
+        '.setup-layout{display:grid;grid-template-columns:210px minmax(0,1fr);gap:24px;align-items:start}' .
+        '.setup-nav{position:sticky;top:16px;max-height:calc(100vh - 32px);overflow:auto;border:1px solid var(--line);border-radius:10px;padding:10px}' .
+        '.setup-nav-search{display:block;margin:0 0 8px}.setup-nav-search input{width:100%;box-sizing:border-box}' .
+        '.setup-nav a{display:block;padding:7px 8px;border-radius:6px;color:var(--muted);text-decoration:none;font-size:.86rem}' .
+        '.setup-nav a:hover,.setup-nav a.current{background:var(--panel);color:var(--text)}' .
+        '.setup-main{min-width:0}' .
+        '.wiz label{display:grid;gap:6px;margin-bottom:16px}' .
+        '.wiz input[type=text],.wiz input[type=password],.wiz input[type=email]{width:100%}' .
+        '.wiz .help{color:var(--muted);font-size:.82rem}' .
+        '.wiz .bad{color:#ffb0b0;font-size:.82rem}' .
+        '.wiz fieldset{border:1px solid var(--line);border-radius:10px;padding:12px;margin:0 0 16px}' .
+        '.wiz legend{color:var(--muted);font-size:.85rem;padding:0 6px}' .
+        '.wiz .row{display:flex;gap:14px;flex-wrap:wrap}' .
+        '.wiz .row label{display:flex;align-items:center;gap:6px;margin:0}' .
+        'textarea{width:100%;min-height:340px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;' .
+        'font-size:.8rem;background:#111;color:#dfe6d6;border:1px solid var(--line);' .
+        'border-radius:10px;padding:12px}' .
+        '.banner{border-radius:12px;padding:12px 14px;margin-bottom:16px;border:1px solid}' .
+        '.banner p:last-child{margin-bottom:0}' .
+        '.banner.warn{border-color:#7a5a30;background:#2b2114}' .
+        '.banner.ok{border-color:#2f6f3a;background:#152b1c}' .
+        '.banner.crit{border-color:#7a3030;background:#2b1414}' .
+        '.setup-update{display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid var(--accent);border-radius:10px;padding:10px 12px;margin:0 0 16px;background:var(--panel)}.setup-update[hidden]{display:none}' .
+        '.preflight{width:100%;border-collapse:collapse;margin:0 0 16px}.preflight th,.preflight td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:left;font-size:.85rem}.preflight th{color:var(--muted);font-weight:500}.preflight .ok{color:#8be0a8}.preflight .warning{color:#f0c27b}.preflight .error{color:#ff9ca3}' .
+        'code{background:#111;padding:1px 5px;border-radius:4px}' .
+        'details{border:1px solid var(--line);border-radius:10px;margin:0 0 12px;padding:0 14px}' .
+        'details[open]{padding-bottom:8px}' .
+        'summary{cursor:pointer;padding:12px 0;color:var(--text);font-size:.92rem}' .
+        'summary strong{color:#ffb0b0;font-weight:600}' .
+        '.wiz details label{margin-bottom:14px}' .
+        'pre{overflow-x:auto}' .
         // Only the form fields. The rule above is for the big read-only box
         // that holds the config to copy, which has no name and wants its 340px.
-        . 'textarea[name]{min-height:0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;'
-        . 'font-size:.85rem;background:#111;color:#eee;border:1px solid var(--line);'
-        . 'border-radius:8px;padding:8px}'
-        . '@media(max-width:700px){.setup-header{padding:11px 0}.setup-controls{flex-wrap:wrap}.setup-layout{display:block}.setup-nav{position:static;display:flex;max-height:none;overflow-x:auto;gap:3px;margin-bottom:16px;white-space:nowrap}.setup-nav-search{display:none}.setup-nav a{flex:0 0 auto}}'
-        . '</style></head><body class="wiz">';
+        'textarea[name]{min-height:0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;' .
+        'font-size:.85rem;background:#111;color:#eee;border:1px solid var(--line);' .
+        'border-radius:8px;padding:8px}' .
+        '@media(max-width:700px){.setup-header{padding:11px 0}.setup-controls{flex-wrap:wrap}.setup-layout{display:block}.setup-nav{position:static;display:flex;max-height:none;overflow-x:auto;gap:3px;margin-bottom:16px;white-space:nowrap}.setup-nav-search{display:none}.setup-nav a{flex:0 0 auto}}' .
+        '</style></head><body class="wiz">';
 
-    $out[] = '<header class="setup-header"><a class="setup-brand" href="?section=basics">'
-        . '<span class="poll" aria-hidden="true"><svg viewBox="0 0 36 36"><circle class="poll-track" cx="18" cy="18" r="15"></circle><circle class="poll-fill" cx="18" cy="18" r="15"></circle><circle class="poll-host-track" cx="18" cy="18" r="9"></circle><circle class="poll-host-fill" cx="18" cy="18" r="9"></circle></svg><span class="poll-dot"></span></span>'
-        . '<strong data-brand>' . h($brand) . '</strong><small data-i18n="setup.label">Setup</small></a><span class="setup-controls">'
-        . '<label><span data-i18n="language.label">Language</span><select id="languagePicker" aria-label="Language" data-i18n-aria-label="language.label"><option value="en">English</option><option value="en-US">English (US)</option><option value="en-GB">English (UK)</option><option value="es">Español</option><option value="hi">हिन्दी</option><option value="zh">中文</option><option value="ar">العربية</option></select></label>'
-        . '<label><input id="languageKeys" type="checkbox"><span data-i18n="language.keys">Show translation keys</span></label><label><input id="languageHighlight" type="checkbox"><span data-i18n="language.highlight">Highlight translation sources</span></label>'
-        . ($unlocked ? '<a href="?lock=1" data-i18n="setup.lock">Lock setup</a> · ' : '')
-        . '<a href="./" data-i18n="setup.dashboard">Open dashboard</a></span></header>';
+    $out[] =
+        '<header class="setup-header"><a class="setup-brand" href="?section=basics">' .
+        '<span class="poll" aria-hidden="true"><svg viewBox="0 0 36 36"><circle class="poll-track" cx="18" cy="18" r="15"></circle><circle class="poll-fill" cx="18" cy="18" r="15"></circle><circle class="poll-host-track" cx="18" cy="18" r="9"></circle><circle class="poll-host-fill" cx="18" cy="18" r="9"></circle></svg><span class="poll-dot"></span></span>' .
+        '<strong data-brand>' .
+        h($brand) .
+        '</strong><small data-i18n="setup.label">Setup</small></a><span class="setup-controls">' .
+        '<label><span data-i18n="language.label">Language</span><select id="languagePicker" aria-label="Language" data-i18n-aria-label="language.label"><option value="en">English</option><option value="en-US">English (US)</option><option value="en-GB">English (UK)</option><option value="es">Español</option><option value="hi">हिन्दी</option><option value="zh">中文</option><option value="ar">العربية</option></select></label>' .
+        '<label><input id="languageKeys" type="checkbox"><span data-i18n="language.keys">Show translation keys</span></label><label><input id="languageHighlight" type="checkbox"><span data-i18n="language.highlight">Highlight translation sources</span></label>' .
+        ($unlocked
+            ? '<a href="?lock=1" data-i18n="setup.lock">Lock setup</a> · '
+            : '') .
+        '<a href="./" data-i18n="setup.dashboard">Open dashboard</a></span></header>';
     $out[] = '<h1 data-i18n="setup.title">Setup</h1>';
-    $out[] = '<section id="setupUpdateBanner" class="setup-update" hidden aria-live="polite"></section>';
+    $out[] =
+        '<section id="setupUpdateBanner" class="setup-update" hidden aria-live="polite"></section>';
 
     if (($_GET['saved'] ?? '') === '1') {
-        $out[] = '<div class="banner ok" role="status"><strong data-i18n="setup.saved">Saved.</strong> <span data-i18n="setup.saved_section">This section is now stored in data/setup.db.</span></div>';
+        $out[] =
+            '<div class="banner ok" role="status"><strong data-i18n="setup.saved">Saved.</strong> <span data-i18n="setup.saved_section">This section is now stored in data/setup.db.</span></div>';
     }
 
     if ($written) {
-        $out[] = '<div class="banner ok"><strong data-i18n="setup.settings_saved">Settings saved in data/setup.db.</strong>'
-            . '<p data-i18n="setup.first_readings">Take the first readings, then open the dashboard:</p>'
-            . '<pre><code>php cron.php --vitals' . "\n" . 'php cron.php --scan</code></pre>'
-            . '<p data-i18n="setup.keep_setup">Keep setup.php available for later administrator changes. It requires the current password before it can replace your configuration.</p>'
-            . '<p><a href="./" data-i18n="setup.dashboard">Open the dashboard</a></p></div>';
+        $out[] =
+            '<div class="banner ok"><strong data-i18n="setup.settings_saved">Settings saved in data/setup.db.</strong>' .
+            '<p data-i18n="setup.first_readings">Take the first readings, then open the dashboard:</p>' .
+            '<pre><code>php cron.php --vitals' .
+            "\n" .
+            'php cron.php --scan</code></pre>' .
+            '<p data-i18n="setup.keep_setup">Keep setup.php available for later administrator changes. It requires the current password before it can replace your configuration.</p>' .
+            '<p><a href="./" data-i18n="setup.dashboard">Open the dashboard</a></p></div>';
 
         if (!empty($values['host_enabled'])) {
-            $out[] = '<div class="banner warn"><strong data-i18n="setup.root_step">One more step, as root.</strong>'
-                . '<p data-i18n="setup.root_install_help">The host collector cannot be installed from here — it runs as root, and this page runs as your account. Log in to WHM or SSH as root and add this to root’s crontab (crontab -e):</p>'
-                . '<pre><code>' . h(hostCronLine()) . '</code></pre>'
-                . '<p data-i18n="setup.root_verify_help">Then run it once by hand to see that it works — without the schedule, and without --quiet so it tells you what it found:</p>'
-                . '<pre><code>' . h(hostCronCommand()) . '</code></pre>'
-                . '<p data-i18n="setup.root_schedule_help">Until it runs, the whole-machine panel on the dashboard will say so rather than showing anything. The dashboard’s schedule editor cannot manage this job: it edits your account’s crontab, and this one belongs to root.</p>'
-                . '</div>';
+            $out[] =
+                '<div class="banner warn"><strong data-i18n="setup.root_step">One more step, as root.</strong>' .
+                '<p data-i18n="setup.root_install_help">The host collector cannot be installed from here — it runs as root, and this page runs as your account. Log in to WHM or SSH as root and add this to root’s crontab (crontab -e):</p>' .
+                '<pre><code>' .
+                h(hostCronLine()) .
+                '</code></pre>' .
+                '<p data-i18n="setup.root_verify_help">Then run it once by hand to see that it works — without the schedule, and without --quiet so it tells you what it found:</p>' .
+                '<pre><code>' .
+                h(hostCronCommand()) .
+                '</code></pre>' .
+                '<p data-i18n="setup.root_schedule_help">Until it runs, the whole-machine panel on the dashboard will say so rather than showing anything. The dashboard’s schedule editor cannot manage this job: it edits your account’s crontab, and this one belongs to root.</p>' .
+                '</div>';
         }
         $out[] = '</body></html>';
         return implode("\n", $out);
     }
 
     if (!$configured) {
-        $out[] = '<div class="banner crit"><strong data-i18n="setup.not_configured">Nothing is configured yet.</strong>'
-            . '<p data-i18n="setup.not_configured_help">Until you finish, anybody who can reach this page can set the password. '
-            . 'Do it now; afterwards this remains the password-protected configuration backend.</p></div>';
+        $out[] =
+            '<div class="banner crit"><strong data-i18n="setup.not_configured">Nothing is configured yet.</strong>' .
+            '<p data-i18n="setup.not_configured_help">Until you finish, anybody who can reach this page can set the password. ' .
+            'Do it now; afterwards this remains the password-protected configuration backend.</p></div>';
     }
 
     if ($refusal !== null) {
-        $detail = is_array($refusal) ? (string)($refusal['detail'] ?? '') : $refusal;
-        $out[] = '<div class="banner crit" data-i18n="setup.error_detail" data-i18n-values="' . h(json_encode(['detail' => $detail], JSON_THROW_ON_ERROR)) . '">Setup could not complete this action: ' . h($detail) . '</div>';
+        $detail = is_array($refusal)
+            ? (string) ($refusal['detail'] ?? '')
+            : $refusal;
+        $out[] =
+            '<div class="banner crit" data-i18n="setup.error_detail" data-i18n-values="' .
+            h(json_encode(['detail' => $detail], JSON_THROW_ON_ERROR)) .
+            '">Setup could not complete this action: ' .
+            h($detail) .
+            '</div>';
     }
     if ($notice !== null) {
         if (isset($notice['key'], $notice['fallback'])) {
-            $noticeValues = isset($notice['values']) ? ' data-i18n-values="' . h(json_encode($notice['values'], JSON_THROW_ON_ERROR)) . '"' : '';
-            $out[] = '<div class="banner ok" data-i18n="' . h((string)$notice['key']) . '"' . $noticeValues . '>' . h((string)$notice['fallback']) . '</div>';
+            $noticeValues = isset($notice['values'])
+                ? ' data-i18n-values="' .
+                    h(json_encode($notice['values'], JSON_THROW_ON_ERROR)) .
+                    '"'
+                : '';
+            $out[] =
+                '<div class="banner ok" data-i18n="' .
+                h((string) $notice['key']) .
+                '"' .
+                $noticeValues .
+                '>' .
+                h((string) $notice['fallback']) .
+                '</div>';
         } else {
-            $out[] = '<div class="banner ok">' . h((string)($notice['text'] ?? '')) . '</div>';
+            $out[] =
+                '<div class="banner ok">' .
+                h((string) ($notice['text'] ?? '')) .
+                '</div>';
         }
     }
     if ($writeError !== null) {
-        $out[] = '<div class="banner crit" data-i18n="setup.error_detail" data-i18n-values="' . h(json_encode(['detail' => $writeError], JSON_THROW_ON_ERROR)) . '">Setup could not complete this action: ' . h($writeError) . '</div>';
+        $out[] =
+            '<div class="banner crit" data-i18n="setup.error_detail" data-i18n-values="' .
+            h(json_encode(['detail' => $writeError], JSON_THROW_ON_ERROR)) .
+            '">Setup could not complete this action: ' .
+            h($writeError) .
+            '</div>';
     }
     if ($posted && $errors) {
-        $out[] = '<div class="banner crit" data-i18n="setup.validation_error">Some answers need another look.</div>';
+        $out[] =
+            '<div class="banner crit" data-i18n="setup.validation_error">Some answers need another look.</div>';
     }
 
     $panels = setupPanels($fields, $packagePanels);
     $out[] = '<div class="setup-layout">';
     if ($configured) {
-        $out[] = '<aside class="setup-nav" aria-label="Setup sections" data-i18n-aria-label="setup.sections">'
-            . '<label class="setup-nav-search"><span data-i18n="setup.search">Search settings</span><input type="search" data-setup-nav-search placeholder="Search settings" data-i18n-placeholder="setup.search" autocomplete="off"></label>'
-            . '<a data-i18n="setup.installation" data-setup-nav-item data-setup-nav-terms="installation checks prerequisites"' . ($activeSection === 'basics' ? ' class="current" aria-current="page"' : '') . ' href="?section=basics">Installation</a>';
+        $out[] =
+            '<aside class="setup-nav" aria-label="Setup sections" data-i18n-aria-label="setup.sections">' .
+            '<label class="setup-nav-search"><span data-i18n="setup.search">Search settings</span><input type="search" data-setup-nav-search placeholder="Search settings" data-i18n-placeholder="setup.search" autocomplete="off"></label>' .
+            '<a data-i18n="setup.installation" data-setup-nav-item data-setup-nav-terms="installation checks prerequisites"' .
+            ($activeSection === 'basics'
+                ? ' class="current" aria-current="page"'
+                : '') .
+            ' href="?section=basics">Installation</a>';
         foreach ($panels as $name => $panel) {
-            if ($name === 'basics') continue;
-            $navigationKey = $panel['kind'] === 'core' ? 'setup.section.' . $name : (string)($panel['title_key'] ?? '');
-            $out[] = '<a data-setup-nav-item data-setup-nav-terms="' . h($name . ' ' . $panel['title'] . ' ' . implode(' ', $panel['keywords'])) . '"'
-                . ($navigationKey !== '' ? ' data-i18n="' . h($navigationKey) . '"' : '')
-                . ($activeSection === $name ? ' class="current" aria-current="page"' : '')
-                . ' href="?section=' . rawurlencode($name) . '">' . h($panel['title']) . '</a>';
+            if ($name === 'basics') {
+                continue;
+            }
+            $navigationKey =
+                $panel['kind'] === 'core'
+                    ? 'setup.section.' . $name
+                    : (string) ($panel['title_key'] ?? '');
+            $out[] =
+                '<a data-setup-nav-item data-setup-nav-terms="' .
+                h(
+                    $name .
+                        ' ' .
+                        $panel['title'] .
+                        ' ' .
+                        implode(' ', $panel['keywords']),
+                ) .
+                '"' .
+                ($navigationKey !== ''
+                    ? ' data-i18n="' . h($navigationKey) . '"'
+                    : '') .
+                ($activeSection === $name
+                    ? ' class="current" aria-current="page"'
+                    : '') .
+                ' href="?section=' .
+                rawurlencode($name) .
+                '">' .
+                h($panel['title']) .
+                '</a>';
         }
-        $out[] = '<p class="setup-nav-results" data-setup-nav-results role="status" aria-live="polite" aria-atomic="true"></p></aside>';
+        $out[] =
+            '<p class="setup-nav-results" data-setup-nav-results role="status" aria-live="polite" aria-atomic="true"></p></aside>';
     }
-    $out[] = '<main class="setup-main"><form method="post" enctype="multipart/form-data">'
-        . '<input type="hidden" name="section" value="' . h($activeSection) . '">';
+    $out[] =
+        '<main class="setup-main"><form method="post" enctype="multipart/form-data">' .
+        '<input type="hidden" name="section" value="' .
+        h($activeSection) .
+        '">';
 
-    $editingLocked = $configured && $existing['password_hash'] !== '' && !$unlocked;
+    $editingLocked =
+        $configured && $existing['password_hash'] !== '' && !$unlocked;
     if ($editingLocked && $activeSection !== 'basics') {
         // Its own form, so pressing enter in the password box unlocks rather
         // than submitting a whole config full of defaults.
-        $out[] = '</form><form method="post"><input type="hidden" name="intent" value="unlock">'
-            . '<input type="hidden" name="section" value="' . h($activeSection) . '">'
-            . '<fieldset><legend data-i18n="setup.authorize">Authorize</legend>'
-            . '<span class="help" data-i18n="setup.authorize_help">Enter the password that protects this setup area to make changes.</span>'
-            . '<label style="margin-top:10px"><span data-i18n="setup.current_password">Current password</span>'
-            . '<input type="password" name="current_password" autocomplete="current-password"></label>'
-            . '<button type="submit" data-i18n="setup.unlock">Unlock</button>'
-            . '</fieldset></form><form method="post">';
+        $out[] =
+            '</form><form method="post"><input type="hidden" name="intent" value="unlock">' .
+            '<input type="hidden" name="section" value="' .
+            h($activeSection) .
+            '">' .
+            '<fieldset><legend data-i18n="setup.authorize">Authorize</legend>' .
+            '<span class="help" data-i18n="setup.authorize_help">Enter the password that protects this setup area to make changes.</span>' .
+            '<label style="margin-top:10px"><span data-i18n="setup.current_password">Current password</span>' .
+            '<input type="password" name="current_password" autocomplete="current-password"></label>' .
+            '<button type="submit" data-i18n="setup.unlock">Unlock</button>' .
+            '</fieldset></form><form method="post">';
     }
 
     $activePanel = $panels[$activeSection] ?? null;
-    $title = $activeSection === 'basics' ? 'Installation'
-        : (is_array($activePanel) && $activePanel['kind'] === 'package' ? (string)$activePanel['title'] : sectionTitle($activeSection));
-    $titleKey = $activeSection === 'basics' ? 'setup.installation'
-        : (is_array($activePanel) && $activePanel['kind'] === 'package' ? (string)($activePanel['title_key'] ?? '') : 'setup.section.' . $activeSection);
+    $title =
+        $activeSection === 'basics'
+            ? 'Installation'
+            : (is_array($activePanel) && $activePanel['kind'] === 'package'
+                ? (string) $activePanel['title']
+                : sectionTitle($activeSection));
+    $titleKey =
+        $activeSection === 'basics'
+            ? 'setup.installation'
+            : (is_array($activePanel) && $activePanel['kind'] === 'package'
+                ? (string) ($activePanel['title_key'] ?? '')
+                : 'setup.section.' . $activeSection);
     $suggestedKeyPath = setupSuggestedPrivateKeyPath();
     $suggestedKeyExists = setupPrivateKeyExists($suggestedKeyPath);
     $suggestedPackageSecretKeyPath = setupSuggestedPackageSecretKeyPath();
-    $suggestedPackageSecretKeyExists = setupPrivateKeyExists($suggestedPackageSecretKeyPath);
-    $out[] = '<section class="setup-section"><h2' . ($titleKey !== '' ? ' data-i18n="' . h($titleKey) . '"' : '') . '>' . h($title) . '</h2>';
+    $suggestedPackageSecretKeyExists = setupPrivateKeyExists(
+        $suggestedPackageSecretKeyPath,
+    );
+    $out[] =
+        '<section class="setup-section"><h2' .
+        ($titleKey !== '' ? ' data-i18n="' . h($titleKey) . '"' : '') .
+        '>' .
+        h($title) .
+        '</h2>';
     if ($editingLocked && $activeSection !== 'basics') {
-        $out[] = '<p class="help" data-i18n="setup.unlock_to_view">Unlock setup to view or change this section.</p>';
+        $out[] =
+            '<p class="help" data-i18n="setup.unlock_to_view">Unlock setup to view or change this section.</p>';
     } elseif ($activeSection === 'basics') {
         if (!$configured) {
             foreach ($fields as $field) {
-                if ($field['key'] !== 'password') continue;
-                $out[] = renderField($field, $values, $errors, false)
-                    . '<button type="submit" data-i18n="auth.create_password">Create password</button>';
+                if ($field['key'] !== 'password') {
+                    continue;
+                }
+                $out[] =
+                    renderField($field, $values, $errors, false) .
+                    '<button type="submit" data-i18n="auth.create_password">Create password</button>';
                 break;
             }
         }
-        $basicsHelpKey = $configured ? 'setup.basics_help' : 'setup.basics_first_run_help';
+        $basicsHelpKey = $configured
+            ? 'setup.basics_help'
+            : 'setup.basics_first_run_help';
         $basicsHelp = $configured
             ? 'Review these checks, then open Security to create the sign-in password. All other settings are available from the navigation when you need them.'
             : 'Create the sign-in password to finish the first step. Installation checks stay below it; other settings appear after the password is saved.';
-        $out[] = '<p class="help" data-i18n="' . $basicsHelpKey . '">' . h($basicsHelp) . '</p>';
+        $out[] =
+            '<p class="help" data-i18n="' .
+            $basicsHelpKey .
+            '">' .
+            h($basicsHelp) .
+            '</p>';
     } elseif ($activeSection === 'privacy') {
-        $out[] = '<fieldset><legend data-i18n="privacy.masked_paths">Masked-path privacy</legend>'
-            . '<p class="help" data-i18n="privacy.masked_paths_help">Signed-out visitors see stable anonymous labels instead of real filesystem '
-            . 'paths. Rotating this secret changes every one of those labels, breaking any old label-to-path '
-            . 'correlation. Leave it unchanged unless you suspect it was exposed.</p>'
-            . '<table class="preflight"><thead><tr><th data-i18n="privacy.visitor_view">What a signed-out visitor sees</th><th data-i18n="privacy.before_rotation">Before rotation</th><th data-i18n="privacy.after_rotation">After rotation</th></tr></thead><tbody>'
-            . '<tr><th data-i18n="privacy.private_log">Same private log file</th><td><code>.log file A1B2C3</code></td><td><code>.log file D4E5F6</code></td></tr>'
-            . '<tr><th data-i18n="privacy.real_path">Real filesystem path</th><td colspan="2" data-i18n="privacy.never_shown">Never shown</td></tr>'
-            . '</tbody></table>'
-            . '<label class="row"><input type="checkbox" name="rotate_mask" value="1"> <span data-i18n="privacy.rotate_mask">Generate a new mask secret</span></label>'
-            . '</fieldset>';
+        $out[] =
+            '<fieldset><legend data-i18n="privacy.masked_paths">Masked-path privacy</legend>' .
+            '<p class="help" data-i18n="privacy.masked_paths_help">Signed-out visitors see stable anonymous labels instead of real filesystem ' .
+            'paths. Rotating this secret changes every one of those labels, breaking any old label-to-path ' .
+            'correlation. Leave it unchanged unless you suspect it was exposed.</p>' .
+            '<table class="preflight"><thead><tr><th data-i18n="privacy.visitor_view">What a signed-out visitor sees</th><th data-i18n="privacy.before_rotation">Before rotation</th><th data-i18n="privacy.after_rotation">After rotation</th></tr></thead><tbody>' .
+            '<tr><th data-i18n="privacy.private_log">Same private log file</th><td><code>.log file A1B2C3</code></td><td><code>.log file D4E5F6</code></td></tr>' .
+            '<tr><th data-i18n="privacy.real_path">Real filesystem path</th><td colspan="2" data-i18n="privacy.never_shown">Never shown</td></tr>' .
+            '</tbody></table>' .
+            '<label class="row"><input type="checkbox" name="rotate_mask" value="1"> <span data-i18n="privacy.rotate_mask">Generate a new mask secret</span></label>' .
+            '</fieldset>';
     } elseif ($activeSection === 'host') {
         // Status exposes only derived filesystem and schedule facts, never the
         // saved configuration itself. It must still reflect the saved Host
         // checkbox after the normal Setup unlock session has expired.
-        $hostConfig = $current ?? readExistingConfig($targetPath) ?? ['database' => $root . '/data/stats.db', 'host' => ['enabled' => (bool)($values['host_enabled'] ?? false), 'owner' => (string)($values['host_owner'] ?? '')]];
+        $hostConfig =
+            $current ??
+            (readExistingConfig($targetPath) ?? [
+                'database' => $root . '/data/stats.db',
+                'host' => [
+                    'enabled' => (bool) ($values['host_enabled'] ?? false),
+                    'owner' => (string) ($values['host_owner'] ?? ''),
+                ],
+            ]);
         $hostStatus = setupHostStatus($hostConfig);
         $rows = [
-            ['host.status.enabled', 'Enabled', $hostStatus['enabled'] ? 'Yes' : 'No', $hostStatus['enabled'] ? 'ok' : 'warn'],
-            ['host.status.database_exists', 'Database exists', $hostStatus['exists'] ? 'Yes' : 'No', $hostStatus['exists'] ? 'ok' : 'warn'],
-            ['host.status.database_access', 'Database access', $hostStatus['access'], $hostStatus['readable'] ? 'ok' : 'warn'],
-            ['host.status.database_owner', 'Database owner', $hostStatus['owner'], $hostStatus['owner_matches'] ? 'ok' : 'warn'],
-            ['host.status.account_crontab', 'Current account crontab', $hostStatus['account_cron'], $hostStatus['account_cron_ok'] ? 'ok' : 'warn'],
-            ['host.status.samples', 'Samples', $hostStatus['samples'], $hostStatus['sample_count'] > 0 ? 'ok' : 'warn'],
-            ['host.status.cadence', 'Cadence', $hostStatus['cadence'], $hostStatus['cadence_ok'] ? 'ok' : 'warn'],
-            ['host.status.next_expected', 'Next expected', $hostStatus['next'], $hostStatus['next_ok'] ? 'ok' : 'warn'],
+            [
+                'host.status.enabled',
+                'Enabled',
+                $hostStatus['enabled'] ? 'Yes' : 'No',
+                $hostStatus['enabled'] ? 'ok' : 'warn',
+            ],
+            [
+                'host.status.database_exists',
+                'Database exists',
+                $hostStatus['exists'] ? 'Yes' : 'No',
+                $hostStatus['exists'] ? 'ok' : 'warn',
+            ],
+            [
+                'host.status.database_access',
+                'Database access',
+                $hostStatus['access'],
+                $hostStatus['readable'] ? 'ok' : 'warn',
+            ],
+            [
+                'host.status.database_owner',
+                'Database owner',
+                $hostStatus['owner'],
+                $hostStatus['owner_matches'] ? 'ok' : 'warn',
+            ],
+            [
+                'host.status.account_crontab',
+                'Current account crontab',
+                $hostStatus['account_cron'],
+                $hostStatus['account_cron_ok'] ? 'ok' : 'warn',
+            ],
+            [
+                'host.status.samples',
+                'Samples',
+                $hostStatus['samples'],
+                $hostStatus['sample_count'] > 0 ? 'ok' : 'warn',
+            ],
+            [
+                'host.status.cadence',
+                'Cadence',
+                $hostStatus['cadence'],
+                $hostStatus['cadence_ok'] ? 'ok' : 'warn',
+            ],
+            [
+                'host.status.next_expected',
+                'Next expected',
+                $hostStatus['next'],
+                $hostStatus['next_ok'] ? 'ok' : 'warn',
+            ],
         ];
-        $out[] = '<fieldset><legend data-i18n="host.status.title">Host collector status</legend><p class="help" data-i18n="host.status.intro">These checks use the host database as the dashboard account can read it. Root collection is required for host-wide results; an account-run collector records only its own visible subset. This page can inspect this account’s crontab, but cannot read root’s crontab.</p><table class="preflight"><thead><tr><th data-i18n="host.status.check">Check</th><th data-i18n="host.status.state">State</th><th data-i18n="host.status.detail">Detail</th></tr></thead><tbody>';
-        foreach ($rows as [$labelKey, $label, $detail, $state]) $out[] = '<tr><th data-i18n="' . h($labelKey) . '">' . h($label) . '</th><td class="' . h($state) . '" data-i18n="' . ($state === 'ok' ? 'host.status.ready' : 'host.status.needs_attention') . '">' . h($state === 'ok' ? 'Ready' : 'Needs attention') . '</td><td>' . h($detail) . '</td></tr>';
-        $out[] = '</tbody></table><p class="help" data-i18n="host.status.run_root">Run this once as root after saving Host settings:</p><pre><code>' . h(hostCronCommand()) . '</code></pre><p class="help" data-i18n="host.status.add_root_cron">Then add to root’s crontab:</p><pre><code>' . h(hostCronLine()) . '</code></pre></fieldset>';
+        $out[] =
+            '<fieldset><legend data-i18n="host.status.title">Host collector status</legend><p class="help" data-i18n="host.status.intro">These checks use the host database as the dashboard account can read it. Root collection is required for host-wide results; an account-run collector records only its own visible subset. This page can inspect this account’s crontab, but cannot read root’s crontab.</p><table class="preflight"><thead><tr><th data-i18n="host.status.check">Check</th><th data-i18n="host.status.state">State</th><th data-i18n="host.status.detail">Detail</th></tr></thead><tbody>';
+        foreach ($rows as [$labelKey, $label, $detail, $state]) {
+            $out[] =
+                '<tr><th data-i18n="' .
+                h($labelKey) .
+                '">' .
+                h($label) .
+                '</th><td class="' .
+                h($state) .
+                '" data-i18n="' .
+                ($state === 'ok'
+                    ? 'host.status.ready'
+                    : 'host.status.needs_attention') .
+                '">' .
+                h($state === 'ok' ? 'Ready' : 'Needs attention') .
+                '</td><td>' .
+                h($detail) .
+                '</td></tr>';
+        }
+        $out[] =
+            '</tbody></table><p class="help" data-i18n="host.status.run_root">Run this once as root after saving Host settings:</p><pre><code>' .
+            h(hostCronCommand()) .
+            '</code></pre><p class="help" data-i18n="host.status.add_root_cron">Then add to root’s crontab:</p><pre><code>' .
+            h(hostCronLine()) .
+            '</code></pre></fieldset>';
     } elseif ($activeSection === 'openid') {
-        $pendingOpenIdKey = is_string($_SESSION['setup_pending_openid_signing_key'] ?? null);
-        $out[] = '<fieldset><legend data-i18n="openid.provider">OpenID Connect provider</legend><p class="help" data-i18n="openid.provider_intro">This installation can already act as an OpenID Connect provider for trusted applications. Enable it only after setting its public HTTPS issuer, a dedicated signing key, and registered client redirect URLs. The provider supports authorization code with PKCE, discovery, JWKS, and signed ID tokens.</p><p class="help" data-i18n="openid.provider_clients">Client registrations are managed below as structured settings; each client needs an exact redirect URL and a private client secret.</p><input type="hidden" name="setup_openid_key_token" value="' . h(setupOpenIdKeyToken()) . '"><button type="submit" name="intent" value="generate-openid-signing-key" data-i18n="openid.generate_key"' . ($editingLocked ? ' disabled aria-disabled="true"' : '') . '>Generate dedicated RSA signing key</button><p class="help" data-i18n="' . ($pendingOpenIdKey ? 'openid.key_ready' : 'openid.key_generation') . '">' . ($pendingOpenIdKey ? 'A new key is ready in this protected setup session. Save this section to commit it; it is not included in notices or logs.' : 'Generation creates a new 3072-bit RSA key in this protected setup session. It is not committed until you save this section.') . '</p></fieldset>';
-        $clients = openIdClientDefinitions($current ?? []); $shownSecret = $_SESSION['setup_openid_client_secret'] ?? null;
-        $out[] = '<fieldset><legend data-i18n="openid.trusted_apps">Trusted applications</legend><p class="help" data-i18n="openid.trusted_apps_intro">Each application gets one exact HTTPS callback URL and a generated confidential-client secret. Existing secrets are never shown again; remove and recreate a client to rotate one.</p><input type="hidden" name="setup_openid_client_token" value="' . h(setupOpenIdClientToken()) . '">';
-        if (is_array($shownSecret) && is_string($shownSecret['client_id'] ?? null) && is_string($shownSecret['secret'] ?? null)) {
-            $out[] = '<div class="banner warn"><strong data-i18n="openid.secret_copy">Copy this client secret now.</strong><p><span data-i18n="openid.client_id">Client ID</span>: <code>' . h($shownSecret['client_id']) . '</code></p><pre><code>' . h($shownSecret['secret']) . '</code></pre><p data-i18n="openid.secret_once">It will not be shown again after acknowledgement.</p><button type="submit" name="intent" value="ack-openid-client-secret" data-i18n="openid.secret_saved">I saved the client secret</button></div>';
+        $pendingOpenIdKey = is_string(
+            $_SESSION['setup_pending_openid_signing_key'] ?? null,
+        );
+        $out[] =
+            '<fieldset><legend data-i18n="openid.provider">OpenID Connect provider</legend><p class="help" data-i18n="openid.provider_intro">This installation can already act as an OpenID Connect provider for trusted applications. Enable it only after setting its public HTTPS issuer, a dedicated signing key, and registered client redirect URLs. The provider supports authorization code with PKCE, discovery, JWKS, and signed ID tokens.</p><p class="help" data-i18n="openid.provider_clients">Client registrations are managed below as structured settings; each client needs an exact redirect URL and a private client secret.</p><input type="hidden" name="setup_openid_key_token" value="' .
+            h(setupOpenIdKeyToken()) .
+            '"><button type="submit" name="intent" value="generate-openid-signing-key" data-i18n="openid.generate_key"' .
+            ($editingLocked ? ' disabled aria-disabled="true"' : '') .
+            '>Generate dedicated RSA signing key</button><p class="help" data-i18n="' .
+            ($pendingOpenIdKey ? 'openid.key_ready' : 'openid.key_generation') .
+            '">' .
+            ($pendingOpenIdKey
+                ? 'A new key is ready in this protected setup session. Save this section to commit it; it is not included in notices or logs.'
+                : 'Generation creates a new 3072-bit RSA key in this protected setup session. It is not committed until you save this section.') .
+            '</p></fieldset>';
+        $clients = openIdClientDefinitions($current ?? []);
+        $shownSecret = $_SESSION['setup_openid_client_secret'] ?? null;
+        $out[] =
+            '<fieldset><legend data-i18n="openid.trusted_apps">Trusted applications</legend><p class="help" data-i18n="openid.trusted_apps_intro">Each application gets one exact HTTPS callback URL and a generated confidential-client secret. Existing secrets are never shown again; remove and recreate a client to rotate one.</p><input type="hidden" name="setup_openid_client_token" value="' .
+            h(setupOpenIdClientToken()) .
+            '">';
+        if (
+            is_array($shownSecret) &&
+            is_string($shownSecret['client_id'] ?? null) &&
+            is_string($shownSecret['secret'] ?? null)
+        ) {
+            $out[] =
+                '<div class="banner warn"><strong data-i18n="openid.secret_copy">Copy this client secret now.</strong><p><span data-i18n="openid.client_id">Client ID</span>: <code>' .
+                h($shownSecret['client_id']) .
+                '</code></p><pre><code>' .
+                h($shownSecret['secret']) .
+                '</code></pre><p data-i18n="openid.secret_once">It will not be shown again after acknowledgement.</p><button type="submit" name="intent" value="ack-openid-client-secret" data-i18n="openid.secret_saved">I saved the client secret</button></div>';
         }
         if ($clients !== []) {
-            $out[] = '<table class="preflight"><thead><tr><th data-i18n="openid.client_id">Client ID</th><th data-i18n="openid.redirect_url">Exact redirect URL</th><th><span class="sr-only" data-i18n="openid.actions">Actions</span></th></tr></thead><tbody>';
-            foreach ($clients as $client) $out[] = '<tr><td><code>' . h($client['client_id']) . '</code></td><td><code>' . h(implode("\n", $client['redirect_uris'])) . '</code></td><td><button formnovalidate type="submit" name="intent" value="remove-openid-client" data-i18n="openid.remove">Remove<input type="hidden" name="remove_openid_client_id" value="' . h($client['client_id']) . '"></button></td></tr>';
+            $out[] =
+                '<table class="preflight"><thead><tr><th data-i18n="openid.client_id">Client ID</th><th data-i18n="openid.redirect_url">Exact redirect URL</th><th><span class="sr-only" data-i18n="openid.actions">Actions</span></th></tr></thead><tbody>';
+            foreach ($clients as $client) {
+                $out[] =
+                    '<tr><td><code>' .
+                    h($client['client_id']) .
+                    '</code></td><td><code>' .
+                    h(implode("\n", $client['redirect_uris'])) .
+                    '</code></td><td><button formnovalidate type="submit" name="intent" value="remove-openid-client" data-i18n="openid.remove">Remove<input type="hidden" name="remove_openid_client_id" value="' .
+                    h($client['client_id']) .
+                    '"></button></td></tr>';
+            }
             $out[] = '</tbody></table>';
         }
-        $out[] = '<label><span data-i18n="openid.client_id">Client ID</span><input required name="openid_client_id" pattern="[A-Za-z][A-Za-z0-9._-]{2,127}" autocomplete="off" placeholder="trusted-app" data-i18n-placeholder="openid.client_id_placeholder"></label><label><span data-i18n="openid.redirect_url">Exact HTTPS redirect URL</span><input required type="url" name="openid_redirect_uri" placeholder="https://app.example/callback" data-i18n-placeholder="openid.redirect_url_placeholder"></label><button type="submit" name="intent" value="create-openid-client" data-i18n="openid.create_client"' . ($editingLocked ? ' disabled aria-disabled="true"' : '') . '>Create trusted client</button></fieldset>';
+        $out[] =
+            '<label><span data-i18n="openid.client_id">Client ID</span><input required name="openid_client_id" pattern="[A-Za-z][A-Za-z0-9._-]{2,127}" autocomplete="off" placeholder="trusted-app" data-i18n-placeholder="openid.client_id_placeholder"></label><label><span data-i18n="openid.redirect_url">Exact HTTPS redirect URL</span><input required type="url" name="openid_redirect_uri" placeholder="https://app.example/callback" data-i18n-placeholder="openid.redirect_url_placeholder"></label><button type="submit" name="intent" value="create-openid-client" data-i18n="openid.create_client"' .
+            ($editingLocked ? ' disabled aria-disabled="true"' : '') .
+            '>Create trusted client</button></fieldset>';
     } elseif ($activeSection === 'auth') {
-        $pendingTotp = (string)($_SESSION['setup_pending_totp'] ?? '');
-        $recoveryCodes = (array)($_SESSION['setup_recovery_codes'] ?? []);
-        $out[] = '<fieldset><legend data-i18n="auth.app">Authenticator app</legend><p class="help" data-i18n="auth.app_intro">Use an authenticator app such as Google Authenticator, 1Password, or Authy for a six-digit second factor. The secret is not saved until the app proves it can create a correct code.</p>';
+        $pendingTotp = (string) ($_SESSION['setup_pending_totp'] ?? '');
+        $recoveryCodes = (array) ($_SESSION['setup_recovery_codes'] ?? []);
+        $out[] =
+            '<fieldset><legend data-i18n="auth.app">Authenticator app</legend><p class="help" data-i18n="auth.app_intro">Use an authenticator app such as Google Authenticator, 1Password, or Authy for a six-digit second factor. The secret is not saved until the app proves it can create a correct code.</p>';
         if ($recoveryCodes !== []) {
-            $out[] = '<div class="banner warn"><strong data-i18n="auth.recovery_title">Save these recovery codes now.</strong><p data-i18n="auth.recovery_help">They will not be shown again. Each code works once if your authenticator is unavailable.</p><pre><code>' . h(implode("\n", $recoveryCodes)) . '</code></pre><label class="row"><input type="checkbox" name="recovery_confirmed" value="1"> <span data-i18n="auth.recovery_confirm">I saved these recovery codes somewhere safe.</span></label><input type="hidden" name="setup_totp_token" value="' . h(setupTotpToken()) . '"><button type="submit" name="intent" value="ack-totp-recovery" data-i18n="auth.finish_recovery">Finish recovery-code setup</button></div>';
+            $out[] =
+                '<div class="banner warn"><strong data-i18n="auth.recovery_title">Save these recovery codes now.</strong><p data-i18n="auth.recovery_help">They will not be shown again. Each code works once if your authenticator is unavailable.</p><pre><code>' .
+                h(implode("\n", $recoveryCodes)) .
+                '</code></pre><label class="row"><input type="checkbox" name="recovery_confirmed" value="1"> <span data-i18n="auth.recovery_confirm">I saved these recovery codes somewhere safe.</span></label><input type="hidden" name="setup_totp_token" value="' .
+                h(setupTotpToken()) .
+                '"><button type="submit" name="intent" value="ack-totp-recovery" data-i18n="auth.finish_recovery">Finish recovery-code setup</button></div>';
         } elseif ($pendingTotp !== '') {
-            $issuer = rawurlencode($brand); $account = rawurlencode('administrator');
-            $uri = 'otpauth://totp/' . $issuer . ':' . $account . '?secret=' . rawurlencode($pendingTotp) . '&issuer=' . $issuer . '&algorithm=SHA1&digits=6&period=30';
+            $issuer = rawurlencode($brand);
+            $account = rawurlencode('administrator');
+            $uri =
+                'otpauth://totp/' .
+                $issuer .
+                ':' .
+                $account .
+                '?secret=' .
+                rawurlencode($pendingTotp) .
+                '&issuer=' .
+                $issuer .
+                '&algorithm=SHA1&digits=6&period=30';
             $qr = setupTotpQrImage($uri);
-            $out[] = '<p data-i18n="auth.enter_secret">Enter this secret into your authenticator app:</p><pre><code>' . h($pendingTotp) . '</code></pre>'
-                . ($qr === null ? '' : '<p><img width="220" height="220" alt="Scan this QR code with your authenticator app" data-i18n-alt="auth.qr_alt" src="' . h($qr) . '"></p>')
-                . '<p class="help"><a href="' . h($uri) . '" data-i18n="auth.open_account">Open this account in the authenticator app</a><span data-i18n="auth.manual_secret">. On a device with a compatible authenticator installed, use the account link. Otherwise add the secret above manually.</span></p><p class="help"><span data-i18n="auth.provisioning_uri">Provisioning URI:</span> <code>' . h($uri) . '</code></p><label><span data-i18n="auth.current_code">Current six-digit code</span><input type="text" name="totp_code" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="one-time-code"></label><input type="hidden" name="setup_totp_token" value="' . h(setupTotpToken()) . '"><button type="submit" name="intent" value="confirm-totp" data-i18n="auth.verify">Verify and enable authenticator</button>';
+            $out[] =
+                '<p data-i18n="auth.enter_secret">Enter this secret into your authenticator app:</p><pre><code>' .
+                h($pendingTotp) .
+                '</code></pre>' .
+                ($qr === null
+                    ? ''
+                    : '<p><img width="220" height="220" alt="Scan this QR code with your authenticator app" data-i18n-alt="auth.qr_alt" src="' .
+                        h($qr) .
+                        '"></p>') .
+                '<p class="help"><a href="' .
+                h($uri) .
+                '" data-i18n="auth.open_account">Open this account in the authenticator app</a><span data-i18n="auth.manual_secret">. On a device with a compatible authenticator installed, use the account link. Otherwise add the secret above manually.</span></p><p class="help"><span data-i18n="auth.provisioning_uri">Provisioning URI:</span> <code>' .
+                h($uri) .
+                '</code></p><label><span data-i18n="auth.current_code">Current six-digit code</span><input type="text" name="totp_code" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="one-time-code"></label><input type="hidden" name="setup_totp_token" value="' .
+                h(setupTotpToken()) .
+                '"><button type="submit" name="intent" value="confirm-totp" data-i18n="auth.verify">Verify and enable authenticator</button>';
         } else {
-            $out[] = '<input type="hidden" name="setup_totp_token" value="' . h(setupTotpToken()) . '"><button type="submit" name="intent" value="start-totp" data-i18n="auth.start">Create authenticator secret</button>';
+            $out[] =
+                '<input type="hidden" name="setup_totp_token" value="' .
+                h(setupTotpToken()) .
+                '"><button type="submit" name="intent" value="start-totp" data-i18n="auth.start">Create authenticator secret</button>';
         }
         $out[] = '</fieldset>';
     } elseif ($activeSection === 'deployment') {
-        $deployment = (array)(($current ?? [])['remote_deployment'] ?? []);
-        $lastReference = is_string($_SESSION['setup_deployment_last_reference'] ?? null) ? $_SESSION['setup_deployment_last_reference'] : '';
-        $out[] = '<fieldset><legend data-i18n="deployment.profile">Remote deployment profile</legend><p class="help" data-i18n="deployment.profile_intro">Save the target and update policy here. Credentials and SSH host keys are encrypted separately and the profile retains only opaque references. Plain FTP is not available; choose explicit TLS FTP where SSH is unavailable.</p>'
-            . '<input type="hidden" name="setup_deployment_token" value="' . h(setupDeploymentToken()) . '">'
-            . '<label><span data-i18n="deployment.method">Transfer method</span><select name="method"><option value="rsync_ssh" data-i18n="deployment.method_rsync"' . (($deployment['method'] ?? 'rsync_ssh') === 'rsync_ssh' ? ' selected' : '') . '>rsync over SSH</option><option value="sftp" data-i18n="deployment.method_sftp"' . (($deployment['method'] ?? '') === 'sftp' ? ' selected' : '') . '>SFTP</option><option value="ftps" data-i18n="deployment.method_ftps"' . (($deployment['method'] ?? '') === 'ftps' ? ' selected' : '') . '>FTP with explicit TLS</option></select></label>'
-            . '<label><span data-i18n="deployment.host">Target hostname or IP</span><input required name="host" value="' . h((string)($deployment['host'] ?? '')) . '" autocomplete="off"></label><label><span data-i18n="deployment.port">Port (leave blank for method default)</span><input name="port" inputmode="numeric" value="' . h((string)($deployment['port'] ?? '')) . '"></label><label><span data-i18n="deployment.username">Deployment username</span><input required name="username" value="' . h((string)($deployment['username'] ?? '')) . '" autocomplete="username"></label><label><span data-i18n="deployment.target_path">Remote target path</span><input required name="target_path" value="' . h((string)($deployment['target_path'] ?? '')) . '" placeholder="/srv/zogograph-remote" data-i18n-placeholder="deployment.target_path_placeholder"></label>'
-            . '<label><span data-i18n="deployment.credential_reference">Encrypted credential reference</span><input required name="credential_reference" value="' . h((string)($deployment['credential_reference'] ?? $lastReference)) . '" autocomplete="off"></label><label><span data-i18n="deployment.host_key_reference">SSH host-key reference (not used for FTPS)</span><input name="known_host_reference" value="' . h((string)($deployment['known_host_reference'] ?? '')) . '" autocomplete="off"></label><label><span data-i18n="deployment.controller_url">Core controller URL</span><input required type="url" name="controller_url" value="' . h((string)($deployment['controller_url'] ?? '')) . '" placeholder="https://core.example" data-i18n-placeholder="deployment.controller_url_placeholder"></label><label><span data-i18n="deployment.update_mode">Remote update behavior</span><select name="update_mode"><option value="manual" data-i18n="deployment.update_manual"' . (($deployment['update_mode'] ?? 'manual') === 'manual' ? ' selected' : '') . '>Manual install</option><option value="download" data-i18n="deployment.update_download"' . (($deployment['update_mode'] ?? '') === 'download' ? ' selected' : '') . '>Download, then wait for approval</option><option value="auto" data-i18n="deployment.update_automatic"' . (($deployment['update_mode'] ?? '') === 'auto' ? ' selected' : '') . '>Install automatically</option></select></label><label><span data-i18n="deployment.packages">Package groups (comma-separated)</span><input required name="packages[]" value="remote-core" readonly></label><button type="submit" name="intent" value="save-deployment-profile" data-i18n="deployment.save">Save deployment profile</button><button type="submit" name="intent" value="test-deployment-target" data-i18n="deployment.test">Test target and credentials</button></fieldset>';
-        $out[] = '<fieldset><legend data-i18n="deployment.store">Store deployment credential or host key</legend><p class="help" data-i18n="deployment.store_help">Paste one password, private key, or known_hosts entry. It is encrypted with the configured local key and shown only as an opaque reference after storage.</p><label><span data-i18n="deployment.secret_material">Credential or host-key material</span><textarea name="deployment_secret" rows="5" autocomplete="off"></textarea></label><button type="submit" name="intent" value="store-deployment-secret" data-i18n="deployment.store_action">Store encrypted credential</button>'
-            . ($lastReference !== '' ? '<p class="banner ok"><span data-i18n="deployment.new_reference">New encrypted reference:</span> <code>' . h($lastReference) . '</code></p>' : '') . '</fieldset>';
-        $out[] = '<fieldset><legend data-i18n="deployment.copy_release">Copy a tested release</legend><p class="help" data-i18n="deployment.copy_release_help">Upload the ZIP made from the selected remote-core release. Copying always repeats the target and credential check first. The ZIP is unpacked only in a private temporary directory, and its contents are removed after transfer.</p><label><span data-i18n="deployment.release_zip">Remote-core ZIP release</span><input required type="file" name="deployment_release" accept="application/zip,.zip"></label><button type="submit" name="intent" value="copy-deployment-release" data-i18n="deployment.copy_action">Verify again and copy release</button></fieldset>';
+        $deployment = (array) (($current ?? [])['remote_deployment'] ?? []);
+        $lastReference = is_string(
+            $_SESSION['setup_deployment_last_reference'] ?? null,
+        )
+            ? $_SESSION['setup_deployment_last_reference']
+            : '';
+        $out[] =
+            '<fieldset><legend data-i18n="deployment.profile">Remote deployment profile</legend><p class="help" data-i18n="deployment.profile_intro">Save the target and update policy here. Credentials and SSH host keys are encrypted separately and the profile retains only opaque references. Plain FTP is not available; choose explicit TLS FTP where SSH is unavailable.</p>' .
+            '<input type="hidden" name="setup_deployment_token" value="' .
+            h(setupDeploymentToken()) .
+            '">' .
+            '<label><span data-i18n="deployment.method">Transfer method</span><select name="method"><option value="rsync_ssh" data-i18n="deployment.method_rsync"' .
+            (($deployment['method'] ?? 'rsync_ssh') === 'rsync_ssh'
+                ? ' selected'
+                : '') .
+            '>rsync over SSH</option><option value="sftp" data-i18n="deployment.method_sftp"' .
+            (($deployment['method'] ?? '') === 'sftp' ? ' selected' : '') .
+            '>SFTP</option><option value="ftps" data-i18n="deployment.method_ftps"' .
+            (($deployment['method'] ?? '') === 'ftps' ? ' selected' : '') .
+            '>FTP with explicit TLS</option></select></label>' .
+            '<label><span data-i18n="deployment.host">Target hostname or IP</span><input required name="host" value="' .
+            h((string) ($deployment['host'] ?? '')) .
+            '" autocomplete="off"></label><label><span data-i18n="deployment.port">Port (leave blank for method default)</span><input name="port" inputmode="numeric" value="' .
+            h((string) ($deployment['port'] ?? '')) .
+            '"></label><label><span data-i18n="deployment.username">Deployment username</span><input required name="username" value="' .
+            h((string) ($deployment['username'] ?? '')) .
+            '" autocomplete="username"></label><label><span data-i18n="deployment.target_path">Remote target path</span><input required name="target_path" value="' .
+            h((string) ($deployment['target_path'] ?? '')) .
+            '" placeholder="/srv/zogograph-remote" data-i18n-placeholder="deployment.target_path_placeholder"></label>' .
+            '<label><span data-i18n="deployment.credential_reference">Encrypted credential reference</span><input required name="credential_reference" value="' .
+            h(
+                (string) ($deployment['credential_reference'] ??
+                    $lastReference),
+            ) .
+            '" autocomplete="off"></label><label><span data-i18n="deployment.host_key_reference">SSH host-key reference (not used for FTPS)</span><input name="known_host_reference" value="' .
+            h((string) ($deployment['known_host_reference'] ?? '')) .
+            '" autocomplete="off"></label><label><span data-i18n="deployment.controller_url">Core controller URL</span><input required type="url" name="controller_url" value="' .
+            h((string) ($deployment['controller_url'] ?? '')) .
+            '" placeholder="https://core.example" data-i18n-placeholder="deployment.controller_url_placeholder"></label><label><span data-i18n="deployment.update_mode">Remote update behavior</span><select name="update_mode"><option value="manual" data-i18n="deployment.update_manual"' .
+            (($deployment['update_mode'] ?? 'manual') === 'manual'
+                ? ' selected'
+                : '') .
+            '>Manual install</option><option value="download" data-i18n="deployment.update_download"' .
+            (($deployment['update_mode'] ?? '') === 'download'
+                ? ' selected'
+                : '') .
+            '>Download, then wait for approval</option><option value="auto" data-i18n="deployment.update_automatic"' .
+            (($deployment['update_mode'] ?? '') === 'auto' ? ' selected' : '') .
+            '>Install automatically</option></select></label><label><span data-i18n="deployment.packages">Package groups (comma-separated)</span><input required name="packages[]" value="remote-core" readonly></label><button type="submit" name="intent" value="save-deployment-profile" data-i18n="deployment.save">Save deployment profile</button><button type="submit" name="intent" value="test-deployment-target" data-i18n="deployment.test">Test target and credentials</button></fieldset>';
+        $out[] =
+            '<fieldset><legend data-i18n="deployment.store">Store deployment credential or host key</legend><p class="help" data-i18n="deployment.store_help">Paste one password, private key, or known_hosts entry. It is encrypted with the configured local key and shown only as an opaque reference after storage.</p><label><span data-i18n="deployment.secret_material">Credential or host-key material</span><textarea name="deployment_secret" rows="5" autocomplete="off"></textarea></label><button type="submit" name="intent" value="store-deployment-secret" data-i18n="deployment.store_action">Store encrypted credential</button>' .
+            ($lastReference !== ''
+                ? '<p class="banner ok"><span data-i18n="deployment.new_reference">New encrypted reference:</span> <code>' .
+                    h($lastReference) .
+                    '</code></p>'
+                : '') .
+            '</fieldset>';
+        $out[] =
+            '<fieldset><legend data-i18n="deployment.copy_release">Copy a tested release</legend><p class="help" data-i18n="deployment.copy_release_help">Upload the ZIP made from the selected remote-core release. Copying always repeats the target and credential check first. The ZIP is unpacked only in a private temporary directory, and its contents are removed after transfer.</p><label><span data-i18n="deployment.release_zip">Remote-core ZIP release</span><input required type="file" name="deployment_release" accept="application/zip,.zip"></label><button type="submit" name="intent" value="copy-deployment-release" data-i18n="deployment.copy_action">Verify again and copy release</button></fieldset>';
         if ($deployment !== []) {
             try {
                 $plan = remoteDeploymentCommandPlan($deployment);
-                $out[] = '<details><summary data-i18n="deployment.review_transport">Review planned transport</summary><p class="help" data-i18n="deployment.review_transport_help">This is a secret-free argument preview only. Braced values are supplied by the reviewed worker at test/copy time; saving or opening this preview makes no network connection.</p><pre><code>' . h(json_encode($plan, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR)) . '</code></pre></details>';
+                $out[] =
+                    '<details><summary data-i18n="deployment.review_transport">Review planned transport</summary><p class="help" data-i18n="deployment.review_transport_help">This is a secret-free argument preview only. Braced values are supplied by the reviewed worker at test/copy time; saving or opening this preview makes no network connection.</p><pre><code>' .
+                    h(
+                        json_encode(
+                            $plan,
+                            JSON_PRETTY_PRINT |
+                                JSON_UNESCAPED_SLASHES |
+                                JSON_THROW_ON_ERROR,
+                        ),
+                    ) .
+                    '</code></pre></details>';
                 $handoff = remoteDeploymentSetupHandoff($deployment);
-                $out[] = '<details><summary data-i18n="deployment.handoff">Remote setup handoff</summary><p class="help" data-i18n="deployment.handoff_help">Copy this nonsecret JSON into the remote Setup import form after unlocking it. It includes the controller address, update policy, and selected package groups; it never includes deployment credentials, host keys, pairing credentials, or local passwords.</p><textarea readonly rows="7" aria-label="Remote setup handoff" data-i18n-aria-label="deployment.handoff">' . h(json_encode($handoff, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR)) . '</textarea></details>';
+                $out[] =
+                    '<details><summary data-i18n="deployment.handoff">Remote setup handoff</summary><p class="help" data-i18n="deployment.handoff_help">Copy this nonsecret JSON into the remote Setup import form after unlocking it. It includes the controller address, update policy, and selected package groups; it never includes deployment credentials, host keys, pairing credentials, or local passwords.</p><textarea readonly rows="7" aria-label="Remote setup handoff" data-i18n-aria-label="deployment.handoff">' .
+                    h(
+                        json_encode(
+                            $handoff,
+                            JSON_PRETTY_PRINT |
+                                JSON_UNESCAPED_SLASHES |
+                                JSON_THROW_ON_ERROR,
+                        ),
+                    ) .
+                    '</textarea></details>';
             } catch (Throwable) {
-                $out[] = '<p class="help" data-i18n="deployment.save_to_review">Save a complete deployment profile to review its planned transport.</p>';
+                $out[] =
+                    '<p class="help" data-i18n="deployment.save_to_review">Save a complete deployment profile to review its planned transport.</p>';
             }
         }
         $lastTest = $_SESSION['setup_deployment_test'] ?? null;
-        if (is_array($lastTest) && isset($lastTest['ok'], $lastTest['detail'], $lastTest['tested_at'])) {
-            $out[] = '<p class="banner ' . ($lastTest['ok'] ? 'ok' : 'warn') . '" data-i18n="deployment.last_test_result" data-i18n-values="' . h(json_encode(['detail' => (string)$lastTest['detail'], 'tested' => gmdate('c', (int)$lastTest['tested_at'])], JSON_THROW_ON_ERROR)) . '">Last target test: ' . h((string)$lastTest['detail']) . ' (' . h(gmdate('Y-m-d H:i:s', (int)$lastTest['tested_at'])) . ' UTC)</p>';
+        if (
+            is_array($lastTest) &&
+            isset($lastTest['ok'], $lastTest['detail'], $lastTest['tested_at'])
+        ) {
+            $out[] =
+                '<p class="banner ' .
+                ($lastTest['ok'] ? 'ok' : 'warn') .
+                '" data-i18n="deployment.last_test_result" data-i18n-values="' .
+                h(
+                    json_encode(
+                        [
+                            'detail' => (string) $lastTest['detail'],
+                            'tested' => gmdate(
+                                'c',
+                                (int) $lastTest['tested_at'],
+                            ),
+                        ],
+                        JSON_THROW_ON_ERROR,
+                    ),
+                ) .
+                '">Last target test: ' .
+                h((string) $lastTest['detail']) .
+                ' (' .
+                h(gmdate('Y-m-d H:i:s', (int) $lastTest['tested_at'])) .
+                ' UTC)</p>';
         }
         $lastCopy = $_SESSION['setup_deployment_copy'] ?? null;
-        if (is_array($lastCopy) && isset($lastCopy['ok'], $lastCopy['detail'], $lastCopy['files'])) {
-            $out[] = '<p class="banner ' . ($lastCopy['ok'] ? 'ok' : 'warn') . '" data-i18n="deployment.last_copy_result" data-i18n-values="' . h(json_encode(['detail' => (string)$lastCopy['detail'], 'files' => (int)$lastCopy['files']], JSON_THROW_ON_ERROR)) . '">Last release copy: ' . h((string)$lastCopy['detail']) . ' (' . h((string)$lastCopy['files']) . ' files)</p>';
+        if (
+            is_array($lastCopy) &&
+            isset($lastCopy['ok'], $lastCopy['detail'], $lastCopy['files'])
+        ) {
+            $out[] =
+                '<p class="banner ' .
+                ($lastCopy['ok'] ? 'ok' : 'warn') .
+                '" data-i18n="deployment.last_copy_result" data-i18n-values="' .
+                h(
+                    json_encode(
+                        [
+                            'detail' => (string) $lastCopy['detail'],
+                            'files' => (int) $lastCopy['files'],
+                        ],
+                        JSON_THROW_ON_ERROR,
+                    ),
+                ) .
+                '">Last release copy: ' .
+                h((string) $lastCopy['detail']) .
+                ' (' .
+                h((string) $lastCopy['files']) .
+                ' files)</p>';
         }
     } elseif ($activeSection === 'schedule') {
         $schedule = scheduleState(__DIR__);
-        $savedSchedule = (array)(($current ?? [])['schedule'] ?? []);
+        $savedSchedule = (array) (($current ?? [])['schedule'] ?? []);
         $choices = setupScheduleChoices($savedSchedule);
-        $binaries = (array)($schedule['binaries'] ?? []);
-        $php = (string)($savedSchedule['php'] ?? '');
-        if (!in_array($php, $binaries, true)) $php = (string)($binaries[0] ?? '');
-        $out[] = '<p class="help" data-i18n="schedule.intro">Choose the account collector cadence and apply it here. Only Zogograph’s marked cron block is changed; every other account cron job stays untouched.</p>';
+        $binaries = (array) ($schedule['binaries'] ?? []);
+        $php = (string) ($savedSchedule['php'] ?? '');
+        if (!in_array($php, $binaries, true)) {
+            $php = (string) ($binaries[0] ?? '');
+        }
+        $out[] =
+            '<p class="help" data-i18n="schedule.intro">Choose the account collector cadence and apply it here. Only Zogograph’s marked cron block is changed; every other account cron job stays untouched.</p>';
         if (!$schedule['available']) {
-            $out[] = '<div class="banner warn">' . h((string)($schedule['reason'] ?? 'The crontab cannot be read here.')) . '</div>';
+            $out[] =
+                '<div class="banner warn">' .
+                h(
+                    (string) ($schedule['reason'] ??
+                        'The crontab cannot be read here.'),
+                ) .
+                '</div>';
         } elseif ($php === '') {
-            $out[] = '<div class="banner warn" data-i18n="schedule.no_php">No usable command-line PHP binary was found, so this host cannot apply a schedule from Setup.</div>';
+            $out[] =
+                '<div class="banner warn" data-i18n="schedule.no_php">No usable command-line PHP binary was found, so this host cannot apply a schedule from Setup.</div>';
         } else {
             try {
-                $status = (new SetupCronApi(__DIR__))->status($choices, $php);
-                $sync = (string)$status['sync'];
-                $copyKey = $sync === 'in_sync' ? 'schedule.in_sync'
-                    : ($sync === 'missing' ? 'schedule.missing' : 'schedule.out_of_sync');
-                $copy = $sync === 'in_sync' ? 'Saved schedule is installed and in sync.'
-                    : ($sync === 'missing' ? 'Saved schedule is not installed yet.' : 'Installed schedule differs from the saved settings.');
-                $out[] = '<div class="banner ' . ($sync === 'in_sync' ? 'ok' : 'warn') . '"><strong data-i18n="' . $copyKey . '">' . h($copy) . '</strong></div>';
+                $status = new SetupCronApi(__DIR__)->status($choices, $php);
+                $sync = (string) $status['sync'];
+                $copyKey =
+                    $sync === 'in_sync'
+                        ? 'schedule.in_sync'
+                        : ($sync === 'missing'
+                            ? 'schedule.missing'
+                            : 'schedule.out_of_sync');
+                $copy =
+                    $sync === 'in_sync'
+                        ? 'Saved schedule is installed and in sync.'
+                        : ($sync === 'missing'
+                            ? 'Saved schedule is not installed yet.'
+                            : 'Installed schedule differs from the saved settings.');
+                $out[] =
+                    '<div class="banner ' .
+                    ($sync === 'in_sync' ? 'ok' : 'warn') .
+                    '"><strong data-i18n="' .
+                    $copyKey .
+                    '">' .
+                    h($copy) .
+                    '</strong></div>';
             } catch (Throwable $error) {
-                $out[] = '<div class="banner warn"><span data-i18n="schedule.build_error">Could not build the saved schedule:</span> ' . h($error->getMessage()) . '</div>';
+                $out[] =
+                    '<div class="banner warn"><span data-i18n="schedule.build_error">Could not build the saved schedule:</span> ' .
+                    h($error->getMessage()) .
+                    '</div>';
             }
         }
-        $out[] = '<fieldset><legend data-i18n="schedule.collector">Account collector schedule</legend>'
-            . '<p class="help" data-i18n="schedule.collector_help">Vitals are lightweight readings. A scan walks the monitored directory and is normally left off or scheduled much less often.</p>'
-            . '<label><span data-i18n="schedule.php_binary">PHP command-line binary</span><select name="schedule_php">';
+        $out[] =
+            '<fieldset><legend data-i18n="schedule.collector">Account collector schedule</legend>' .
+            '<p class="help" data-i18n="schedule.collector_help">Vitals are lightweight readings. A scan walks the monitored directory and is normally left off or scheduled much less often.</p>' .
+            '<label><span data-i18n="schedule.php_binary">PHP command-line binary</span><select name="schedule_php">';
         foreach ($binaries as $binary) {
-            $out[] = '<option value="' . h($binary) . '"' . ($binary === $php ? ' selected' : '') . '>' . h($binary) . '</option>';
+            $out[] =
+                '<option value="' .
+                h($binary) .
+                '"' .
+                ($binary === $php ? ' selected' : '') .
+                '>' .
+                h($binary) .
+                '</option>';
         }
         $out[] = '</select></label>';
         $desiredByJob = [];
-        try { if ($php !== '') $desiredByJob = cronEditorBuildJobLines($choices, $php, __DIR__); } catch (Throwable) {}
-        $installedByJob = cronEditorInstalledJobLines((array)($schedule['lines'] ?? []));
-        foreach (['vitals' => 'Vitals collection', 'scan' => 'Directory scan'] as $job => $label) {
-            $out[] = renderSetupCronEditor('schedule_' . $job, $label, $choices[$job], $job)
-                . '<p><strong data-i18n="schedule.saved_preview">Saved preview</strong></p><pre><code>' . (isset($desiredByJob[$job]) ? h($desiredByJob[$job]) : '<span data-i18n="schedule.none">(none)</span>') . '</code></pre>'
-                . '<p><strong data-i18n="schedule.installed">Currently installed</strong></p><pre><code>' . (isset($installedByJob[$job]) ? h($installedByJob[$job]) : '<span data-i18n="schedule.none">(none)</span>') . '</code></pre>'
-                . '<input type="hidden" name="setup_schedule_token" value="' . h(setupScheduleToken()) . '">'
-                . '<input type="hidden" name="intent" value="apply-schedule">'
-                . '<button type="submit" name="schedule_action" value="' . h($job . ':add') . '" data-i18n="schedule.add"' . ($editingLocked || !$schedule['available'] || $php === '' ? ' disabled aria-disabled="true"' : '') . '>Add</button> '
-                . '<button type="submit" name="schedule_action" value="' . h($job . ':update') . '" data-i18n="schedule.update"' . ($editingLocked || !$schedule['available'] || $php === '' ? ' disabled aria-disabled="true"' : '') . '>Update</button> '
-                . '<button type="submit" name="schedule_action" value="' . h($job . ':remove') . '" data-i18n="schedule.remove"' . ($editingLocked || !$schedule['available'] || $php === '' ? ' disabled aria-disabled="true"' : '') . '>Remove</button>';
+        try {
+            if ($php !== '') {
+                $desiredByJob = cronEditorBuildJobLines(
+                    $choices,
+                    $php,
+                    __DIR__,
+                );
+            }
+        } catch (Throwable) {
+        }
+        $installedByJob = cronEditorInstalledJobLines(
+            (array) ($schedule['lines'] ?? []),
+        );
+        foreach (
+            ['vitals' => 'Vitals collection', 'scan' => 'Directory scan']
+            as $job => $label
+        ) {
+            $out[] =
+                renderSetupCronEditor(
+                    'schedule_' . $job,
+                    $label,
+                    $choices[$job],
+                    $job,
+                ) .
+                '<p><strong data-i18n="schedule.saved_preview">Saved preview</strong></p><pre><code>' .
+                (isset($desiredByJob[$job])
+                    ? h($desiredByJob[$job])
+                    : '<span data-i18n="schedule.none">(none)</span>') .
+                '</code></pre>' .
+                '<p><strong data-i18n="schedule.installed">Currently installed</strong></p><pre><code>' .
+                (isset($installedByJob[$job])
+                    ? h($installedByJob[$job])
+                    : '<span data-i18n="schedule.none">(none)</span>') .
+                '</code></pre>' .
+                '<input type="hidden" name="setup_schedule_token" value="' .
+                h(setupScheduleToken()) .
+                '">' .
+                '<input type="hidden" name="intent" value="apply-schedule">' .
+                '<button type="submit" name="schedule_action" value="' .
+                h($job . ':add') .
+                '" data-i18n="schedule.add"' .
+                ($editingLocked || !$schedule['available'] || $php === ''
+                    ? ' disabled aria-disabled="true"'
+                    : '') .
+                '>Add</button> ' .
+                '<button type="submit" name="schedule_action" value="' .
+                h($job . ':update') .
+                '" data-i18n="schedule.update"' .
+                ($editingLocked || !$schedule['available'] || $php === ''
+                    ? ' disabled aria-disabled="true"'
+                    : '') .
+                '>Update</button> ' .
+                '<button type="submit" name="schedule_action" value="' .
+                h($job . ':remove') .
+                '" data-i18n="schedule.remove"' .
+                ($editingLocked || !$schedule['available'] || $php === ''
+                    ? ' disabled aria-disabled="true"'
+                    : '') .
+                '>Remove</button>';
         }
         $out[] = '</fieldset>';
     } elseif ($activeSection === 'maintenance') {
         $review = $_SESSION['setup_account_merge'] ?? null;
         $plan = $_SESSION['setup_account_merge_plan'] ?? null;
-        $out[] = '<fieldset><legend data-i18n="merge.upload_title">Merge another account’s collector database</legend><p class="help" data-i18n="merge.upload_intro">Upload an exported Zogograph account SQLite database to review it. The review reads only collector paths, vitals, scans, totals, and path sizes; it never copies accounts, passwords, alerts, settings, packages, or audit history. Nothing changes until you explicitly apply the reviewed merge.</p><input type="hidden" name="setup_account_merge_token" value="' . h(setupAccountMergeToken()) . '"><label><span data-i18n="merge.export_file">Exported account SQLite file</span><input required type="file" name="account_merge_source" accept="application/vnd.sqlite3,application/octet-stream,.db,.sqlite"></label><button type="submit" name="intent" value="review-account-merge" data-i18n="merge.review">Review collector merge</button></fieldset>';
-        if (is_array($review) && is_array($plan) && ($plan['eligible'] ?? false) === true && (int)($review['expires_at'] ?? 0) >= time()) {
-            $expiresInMinutes = max(0, (int)ceil(((int)$review['expires_at'] - time()) / 60));
-            $out[] = '<fieldset><legend data-i18n="merge.reviewed_title">Reviewed collector merge</legend><p class="help" data-i18n="merge.review_expiry" data-i18n-values="' . h(json_encode(['minutes' => $expiresInMinutes], JSON_THROW_ON_ERROR)) . '">This review expires in ' . h((string)$expiresInMinutes) . ' minutes. The live database is checked again when you apply it.</p><table class="preflight"><thead><tr><th data-i18n="merge.collector_data">Collector data</th><th data-i18n="merge.imported_rows">Imported rows</th><th data-i18n="merge.existing_rows">Existing rows</th><th data-i18n="merge.ranges_overlap">Ranges overlap</th></tr></thead><tbody>';
-            foreach ((array)($plan['collector'] ?? []) as $kind => $evidence) {
-                $source = (array)($evidence['source'] ?? []); $target = (array)($evidence['target'] ?? []);
-                $range = static fn(array $range): string => ($range['first'] ?? null) === null ? 'none' : gmdate('Y-m-d H:i', (int)$range['first']) . '–' . gmdate('Y-m-d H:i', (int)$range['last']);
-                $out[] = '<tr><th>' . h(ucfirst((string)$kind)) . '</th><td>' . h((string)($source['rows'] ?? 0)) . ' · ' . h($range($source)) . '</td><td>' . h((string)($target['rows'] ?? 0)) . ' · ' . h($range($target)) . '</td><td data-i18n="' . (($evidence['overlap'] ?? false) ? 'merge.overlap_yes' : 'merge.overlap_no') . '">' . (($evidence['overlap'] ?? false) ? 'Yes — duplicates are skipped by timestamp' : 'No') . '</td></tr>';
+        $out[] =
+            '<fieldset><legend data-i18n="merge.upload_title">Merge another account’s collector database</legend><p class="help" data-i18n="merge.upload_intro">Upload an exported Zogograph account SQLite database to review it. The review reads only collector paths, vitals, scans, totals, and path sizes; it never copies accounts, passwords, alerts, settings, packages, or audit history. Nothing changes until you explicitly apply the reviewed merge.</p><input type="hidden" name="setup_account_merge_token" value="' .
+            h(setupAccountMergeToken()) .
+            '"><label><span data-i18n="merge.export_file">Exported account SQLite file</span><input required type="file" name="account_merge_source" accept="application/vnd.sqlite3,application/octet-stream,.db,.sqlite"></label><button type="submit" name="intent" value="review-account-merge" data-i18n="merge.review">Review collector merge</button></fieldset>';
+        if (
+            is_array($review) &&
+            is_array($plan) &&
+            ($plan['eligible'] ?? false) === true &&
+            (int) ($review['expires_at'] ?? 0) >= time()
+        ) {
+            $expiresInMinutes = max(
+                0,
+                (int) ceil(((int) $review['expires_at'] - time()) / 60),
+            );
+            $out[] =
+                '<fieldset><legend data-i18n="merge.reviewed_title">Reviewed collector merge</legend><p class="help" data-i18n="merge.review_expiry" data-i18n-values="' .
+                h(
+                    json_encode(
+                        ['minutes' => $expiresInMinutes],
+                        JSON_THROW_ON_ERROR,
+                    ),
+                ) .
+                '">This review expires in ' .
+                h((string) $expiresInMinutes) .
+                ' minutes. The live database is checked again when you apply it.</p><table class="preflight"><thead><tr><th data-i18n="merge.collector_data">Collector data</th><th data-i18n="merge.imported_rows">Imported rows</th><th data-i18n="merge.existing_rows">Existing rows</th><th data-i18n="merge.ranges_overlap">Ranges overlap</th></tr></thead><tbody>';
+            foreach ((array) ($plan['collector'] ?? []) as $kind => $evidence) {
+                $source = (array) ($evidence['source'] ?? []);
+                $target = (array) ($evidence['target'] ?? []);
+                $range = static fn(array $range): string => ($range['first'] ??
+                    null) ===
+                null
+                    ? 'none'
+                    : gmdate('Y-m-d H:i', (int) $range['first']) .
+                        '–' .
+                        gmdate('Y-m-d H:i', (int) $range['last']);
+                $out[] =
+                    '<tr><th>' .
+                    h(ucfirst((string) $kind)) .
+                    '</th><td>' .
+                    h((string) ($source['rows'] ?? 0)) .
+                    ' · ' .
+                    h($range($source)) .
+                    '</td><td>' .
+                    h((string) ($target['rows'] ?? 0)) .
+                    ' · ' .
+                    h($range($target)) .
+                    '</td><td data-i18n="' .
+                    ($evidence['overlap'] ?? false
+                        ? 'merge.overlap_yes'
+                        : 'merge.overlap_no') .
+                    '">' .
+                    ($evidence['overlap'] ?? false
+                        ? 'Yes — duplicates are skipped by timestamp'
+                        : 'No') .
+                    '</td></tr>';
             }
-            $out[] = '</tbody></table><p class="help" data-i18n="merge.apply_help">Stop the account collector cron jobs and any dashboard writers first. Applying creates a private rollback snapshot, upgrades a private clone of the import when needed, then merges collector rows in one transaction.</p><label class="row"><input type="checkbox" name="writers_stopped" value="1"> <span data-i18n="merge.writers_stopped">I stopped all dashboard and collector writers.</span></label><label class="row"><input type="checkbox" name="allow_overlap" value="1"> <span data-i18n="merge.allow_overlap">I understand overlapping vitals and scans are deduplicated by timestamp.</span></label><input type="hidden" name="setup_account_merge_token" value="' . h(setupAccountMergeToken()) . '"><button type="submit" name="intent" value="apply-account-merge" data-i18n="merge.apply">Apply reviewed collector merge</button></fieldset>';
+            $out[] =
+                '</tbody></table><p class="help" data-i18n="merge.apply_help">Stop the account collector cron jobs and any dashboard writers first. Applying creates a private rollback snapshot, upgrades a private clone of the import when needed, then merges collector rows in one transaction.</p><label class="row"><input type="checkbox" name="writers_stopped" value="1"> <span data-i18n="merge.writers_stopped">I stopped all dashboard and collector writers.</span></label><label class="row"><input type="checkbox" name="allow_overlap" value="1"> <span data-i18n="merge.allow_overlap">I understand overlapping vitals and scans are deduplicated by timestamp.</span></label><input type="hidden" name="setup_account_merge_token" value="' .
+                h(setupAccountMergeToken()) .
+                '"><button type="submit" name="intent" value="apply-account-merge" data-i18n="merge.apply">Apply reviewed collector merge</button></fieldset>';
         }
         $result = $_SESSION['setup_account_merge_result'] ?? null;
-        if (is_array($result) && isset($result['vitals'], $result['scans'], $result['paths'])) {
-            $out[] = '<p class="banner ok" data-i18n="merge.last_result" data-i18n-values="' . h(json_encode(['paths' => (int)$result['paths'], 'vitals' => (int)$result['vitals'], 'scans' => (int)$result['scans']], JSON_THROW_ON_ERROR)) . '"><strong>Last collector merge:</strong> ' . h((string)$result['paths']) . ' paths, ' . h((string)$result['vitals']) . ' vitals, and ' . h((string)$result['scans']) . ' scans added. A private rollback snapshot was retained.</p>';
+        if (
+            is_array($result) &&
+            isset($result['vitals'], $result['scans'], $result['paths'])
+        ) {
+            $out[] =
+                '<p class="banner ok" data-i18n="merge.last_result" data-i18n-values="' .
+                h(
+                    json_encode(
+                        [
+                            'paths' => (int) $result['paths'],
+                            'vitals' => (int) $result['vitals'],
+                            'scans' => (int) $result['scans'],
+                        ],
+                        JSON_THROW_ON_ERROR,
+                    ),
+                ) .
+                '"><strong>Last collector merge:</strong> ' .
+                h((string) $result['paths']) .
+                ' paths, ' .
+                h((string) $result['vitals']) .
+                ' vitals, and ' .
+                h((string) $result['scans']) .
+                ' scans added. A private rollback snapshot was retained.</p>';
         }
     } elseif (is_array($activePanel) && $activePanel['kind'] === 'package') {
         try {
             $out[] = setupRenderPackageSettingsPanel($activePanel, $current);
         } catch (Throwable $error) {
-            $out[] = '<div class="banner warn" data-i18n="package.unavailable" data-i18n-values="' . h(json_encode(['detail' => $error->getMessage()], JSON_THROW_ON_ERROR)) . '">Package settings are unavailable: ' . h($error->getMessage()) . '</div>';
+            $out[] =
+                '<div class="banner warn" data-i18n="package.unavailable" data-i18n-values="' .
+                h(
+                    json_encode(
+                        ['detail' => $error->getMessage()],
+                        JSON_THROW_ON_ERROR,
+                    ),
+                ) .
+                '">Package settings are unavailable: ' .
+                h($error->getMessage()) .
+                '</div>';
         }
     } else {
         $help = sampleHelp($samplePath)['sections'][$activeSection] ?? '';
-        if ($help !== '') $out[] = '<p class="help">' . h(firstParagraph($help)) . '</p>';
+        if ($help !== '') {
+            $out[] = '<p class="help">' . h(firstParagraph($help)) . '</p>';
+        }
     }
-    if (!$editingLocked && (!is_array($activePanel) || $activePanel['kind'] !== 'package')) {
-        foreach ($packagePanels as $panel) if (($panel['parent'] ?? null) === $activeSection) {
-            try { $out[] = setupRenderPackageSettingsPanel($panel, $current); }
-            catch (Throwable $error) { $out[] = '<div class="banner warn" data-i18n="package.unavailable" data-i18n-values="' . h(json_encode(['detail' => $error->getMessage()], JSON_THROW_ON_ERROR)) . '">Package settings are unavailable: ' . h($error->getMessage()) . '</div>'; }
+    if (
+        !$editingLocked &&
+        (!is_array($activePanel) || $activePanel['kind'] !== 'package')
+    ) {
+        foreach ($packagePanels as $panel) {
+            if (($panel['parent'] ?? null) === $activeSection) {
+                try {
+                    $out[] = setupRenderPackageSettingsPanel($panel, $current);
+                } catch (Throwable $error) {
+                    $out[] =
+                        '<div class="banner warn" data-i18n="package.unavailable" data-i18n-values="' .
+                        h(
+                            json_encode(
+                                ['detail' => $error->getMessage()],
+                                JSON_THROW_ON_ERROR,
+                            ),
+                        ) .
+                        '">Package settings are unavailable: ' .
+                        h($error->getMessage()) .
+                        '</div>';
+                }
+            }
         }
     }
     if (!$editingLocked) {
@@ -1394,7 +2758,10 @@ function webPage(
             if (!fieldIsInSection($field, $activeSection)) {
                 continue;
             }
-            if ($activeSection === 'openid' && $field['path'] === ['openid', 'clients']) {
+            if (
+                $activeSection === 'openid' &&
+                $field['path'] === ['openid', 'clients']
+            ) {
                 continue;
             }
             if ($field['key'] === 'package_runtime_secret_key_file') {
@@ -1402,162 +2769,195 @@ function webPage(
                     renderField($field, $values, $errors, $configured),
                     $suggestedPackageSecretKeyPath,
                     $suggestedPackageSecretKeyExists,
-                    !$configured || $unlocked
+                    !$configured || $unlocked,
                 );
             } elseif ($field['key'] === 'encryption_key_file') {
-                $out[] = renderField($field, $values, $errors, $configured)
-                    . primaryKeyQuickStart($suggestedKeyPath, $suggestedKeyExists, !$configured || $unlocked);
+                $out[] =
+                    renderField($field, $values, $errors, $configured) .
+                    primaryKeyQuickStart(
+                        $suggestedKeyPath,
+                        $suggestedKeyExists,
+                        !$configured || $unlocked,
+                    );
             } elseif ($field['key'] === 'password') {
-                $out[] = renderField($field, $values, $errors, $configured)
-                    . '<button type="submit" data-i18n="' . ($configured ? 'auth.change_password' : 'auth.create_password') . '">' . ($configured ? 'Change password' : 'Create password') . '</button>';
+                $out[] =
+                    renderField($field, $values, $errors, $configured) .
+                    '<button type="submit" data-i18n="' .
+                    ($configured
+                        ? 'auth.change_password'
+                        : 'auth.create_password') .
+                    '">' .
+                    ($configured ? 'Change password' : 'Create password') .
+                    '</button>';
             } else {
                 $out[] = renderField($field, $values, $errors, $configured);
             }
         }
     }
     if ($activeSection === 'basics') {
-        $out[] = '<details open><summary data-i18n="installation.checks">Installation checks</summary><table class="preflight"><thead><tr><th data-i18n="installation.check">Check</th><th data-i18n="installation.state">State</th><th data-i18n="installation.detail">Detail</th></tr></thead><tbody>';
+        $out[] =
+            '<details open><summary data-i18n="installation.checks">Installation checks</summary><table class="preflight"><thead><tr><th data-i18n="installation.check">Check</th><th data-i18n="installation.state">State</th><th data-i18n="installation.detail">Detail</th></tr></thead><tbody>';
         foreach ($preflight as $check) {
-            $out[] = '<tr><th>' . h($check['label']) . '</th><td class="' . h($check['state']) . '">' . h(strtoupper($check['state']))
-                . '</td><td>' . h($check['detail']) . '</td></tr>';
+            $out[] =
+                '<tr><th>' .
+                h($check['label']) .
+                '</th><td class="' .
+                h($check['state']) .
+                '">' .
+                h(strtoupper($check['state'])) .
+                '</td><td>' .
+                h($check['detail']) .
+                '</td></tr>';
         }
         $out[] = '</tbody></table></details>';
     }
     $out[] = '</section>';
 
-    if (!$editingLocked && !in_array($activeSection, ['basics', 'security', 'schedule', 'maintenance'], true)
-        && (!is_array($activePanel) || $activePanel['kind'] !== 'package')) {
+    if (
+        !$editingLocked &&
+        !in_array(
+            $activeSection,
+            ['basics', 'security', 'schedule', 'maintenance'],
+            true,
+        ) &&
+        (!is_array($activePanel) || $activePanel['kind'] !== 'package')
+    ) {
         $out[] = '<button type="submit" data-i18n="setup.save">Save</button>';
     }
     $out[] = '</form></main></div>';
 
     if ($rendered !== null) {
-        $out[] = '<h2 style="margin-top:28px" data-i18n="setup.copy_config">Copy this into lib/config.php</h2>';
-        $out[] = '<p class="muted small"><span data-i18n="setup.copy_config_help">Replacing the whole file. Keep it out of reach — lib/.htaccess already denies the directory.</span>'
-            . ($configured && !$authorised
+        $out[] =
+            '<h2 style="margin-top:28px" data-i18n="setup.copy_config">Copy this into lib/config.php</h2>';
+        $out[] =
+            '<p class="muted small"><span data-i18n="setup.copy_config_help">Replacing the whole file. Keep it out of reach — lib/.htaccess already denies the directory.</span>' .
+            ($configured && !$authorised
                 ? ' <span data-i18n="setup.new_mask_warning">This text carries a new mask secret, so using it renames every masked path on the dashboard.</span>'
-                : '')
-            . '</p>';
-        $out[] = '<textarea readonly onclick="this.select()">' . h($rendered) . '</textarea>';
+                : '') .
+            '</p>';
+        $out[] =
+            '<textarea readonly onclick="this.select()">' .
+            h($rendered) .
+            '</textarea>';
     }
 
     $out[] = <<<'HTML'
-<script>
-document.querySelector("[data-setup-nav-search]")?.addEventListener("input", function () {
-    const query = this.value.trim().toLowerCase();
-    let visible = 0;
-    document.querySelectorAll("[data-setup-nav-item]").forEach(function (item) {
-        item.hidden = query !== "" && !((item.dataset.setupNavTerms + " " + item.textContent).toLowerCase().includes(query));
-        if (!item.hidden) visible++;
-    });
-    const results = document.querySelector("[data-setup-nav-results]");
-    if (results) results.textContent = query === "" ? "" : (window.ZogographI18n?.t("setup.search_results", {count: visible}, "Showing " + visible + " settings sections") || "Showing " + visible + " settings sections");
-});
-document.querySelectorAll("[data-package-settings-target]").forEach(function (picker) {
-    picker.addEventListener("change", function () {
-        const box = document.querySelector("textarea[name=" + picker.dataset.packageSettingsTarget + "]");
-        if (!box) return;
-        try {
-            const settings = JSON.parse(box.value);
-            settings[picker.dataset.packageSecretPicker] = picker.value;
-            box.value = JSON.stringify(settings, null, 2);
-        } catch (error) {
-            picker.value = "";
-            window.alert(window.ZogographI18n?.t("package.fix_settings_json", {}, "Fix the package settings JSON before choosing a secret reference.") || "Fix the package settings JSON before choosing a secret reference.");
-        }
-    });
-});
-(function () {
-    const storageKey = "zogograph.build.identity";
-    const updateStorageKey = "zogograph.build.update";
-    const identity = build => [build?.commit, build?.runId, build?.createdAt].filter(Boolean).join(":");
-    const savedIdentity = function () {
-        try { return sessionStorage.getItem(storageKey); } catch (error) { return null; }
-    };
-    const rememberIdentity = function (value) {
-        try { sessionStorage.setItem(storageKey, value); } catch (error) { /* Storage is optional. */ }
-    };
-    const readUpdate = function () {
-        try {
-            const saved = JSON.parse(sessionStorage.getItem(updateStorageKey) || "null");
-            return saved && typeof saved === "object" && identity(saved.build) === saved.identity ? saved.build : null;
-        } catch (error) { return null; }
-    };
-    const rememberUpdate = function (build) {
-        try {
-            const value = identity(build);
-            if (value) sessionStorage.setItem(updateStorageKey, JSON.stringify({identity: value, build: build}));
-        } catch (error) { /* Storage is optional. */ }
-    };
-    const clearUpdate = function () {
-        try { sessionStorage.removeItem(updateStorageKey); } catch (error) { /* Storage is optional. */ }
-    };
-    let current = savedIdentity();
-    let latest = null;
-    let checking = false;
-
-    function show(build) {
-        const banner = document.querySelector("#setupUpdateBanner");
-        if (!banner) return;
-        banner.replaceChildren();
-        const text = document.createElement("span");
-        const messageKey = build.browserRefreshRequired === true ? "update.compatibility" : "update.available";
-        const messageFallback = build.browserRefreshRequired === true ? "A compatibility update is ready. Reload before changing settings." : "A newer Zogograph update is available. Reload when you are ready.";
-        text.textContent = window.ZogographI18n?.markSource?.(text, messageKey, messageFallback) || messageFallback;
-        const reload = document.createElement("button");
-        reload.type = "button";
-        reload.textContent = window.ZogographI18n?.markSource?.(reload, "action.reload", "Reload now") || "Reload now";
-        reload.addEventListener("click", () => {
-            rememberIdentity(identity(build));
-            clearUpdate();
-            location.reload();
+    <script>
+    document.querySelector("[data-setup-nav-search]")?.addEventListener("input", function () {
+        const query = this.value.trim().toLowerCase();
+        let visible = 0;
+        document.querySelectorAll("[data-setup-nav-item]").forEach(function (item) {
+            item.hidden = query !== "" && !((item.dataset.setupNavTerms + " " + item.textContent).toLowerCase().includes(query));
+            if (!item.hidden) visible++;
         });
-        banner.append(text, reload);
-        banner.hidden = false;
-    }
+        const results = document.querySelector("[data-setup-nav-results]");
+        if (results) results.textContent = query === "" ? "" : (window.ZogographI18n?.t("setup.search_results", {count: visible}, "Showing " + visible + " settings sections") || "Showing " + visible + " settings sections");
+    });
+    document.querySelectorAll("[data-package-settings-target]").forEach(function (picker) {
+        picker.addEventListener("change", function () {
+            const box = document.querySelector("textarea[name=" + picker.dataset.packageSettingsTarget + "]");
+            if (!box) return;
+            try {
+                const settings = JSON.parse(box.value);
+                settings[picker.dataset.packageSecretPicker] = picker.value;
+                box.value = JSON.stringify(settings, null, 2);
+            } catch (error) {
+                picker.value = "";
+                window.alert(window.ZogographI18n?.t("package.fix_settings_json", {}, "Fix the package settings JSON before choosing a secret reference.") || "Fix the package settings JSON before choosing a secret reference.");
+            }
+        });
+    });
+    (function () {
+        const storageKey = "zogograph.build.identity";
+        const updateStorageKey = "zogograph.build.update";
+        const identity = build => [build?.commit, build?.runId, build?.createdAt].filter(Boolean).join(":");
+        const savedIdentity = function () {
+            try { return sessionStorage.getItem(storageKey); } catch (error) { return null; }
+        };
+        const rememberIdentity = function (value) {
+            try { sessionStorage.setItem(storageKey, value); } catch (error) { /* Storage is optional. */ }
+        };
+        const readUpdate = function () {
+            try {
+                const saved = JSON.parse(sessionStorage.getItem(updateStorageKey) || "null");
+                return saved && typeof saved === "object" && identity(saved.build) === saved.identity ? saved.build : null;
+            } catch (error) { return null; }
+        };
+        const rememberUpdate = function (build) {
+            try {
+                const value = identity(build);
+                if (value) sessionStorage.setItem(updateStorageKey, JSON.stringify({identity: value, build: build}));
+            } catch (error) { /* Storage is optional. */ }
+        };
+        const clearUpdate = function () {
+            try { sessionStorage.removeItem(updateStorageKey); } catch (error) { /* Storage is optional. */ }
+        };
+        let current = savedIdentity();
+        let latest = null;
+        let checking = false;
 
-    async function check() {
-        if (document.hidden || checking) return;
-        checking = true;
-        try {
-            const response = await fetch("./build.json?at=" + Date.now(), {cache: "no-store", credentials: "same-origin"});
-            if (!response.ok) return;
-            const build = await response.json();
-            const next = identity(build);
-            if (!next) return;
-            if (current === null) {
-                current = next;
-                rememberIdentity(next);
-                return;
-            }
-            if (current !== next) {
-                current = next;
-                latest = build;
-                rememberUpdate(build);
-                show(build);
-            }
-        } catch (error) {
-            // Deployment metadata is optional and must never interrupt Setup.
-        } finally {
-            checking = false;
+        function show(build) {
+            const banner = document.querySelector("#setupUpdateBanner");
+            if (!banner) return;
+            banner.replaceChildren();
+            const text = document.createElement("span");
+            const messageKey = build.browserRefreshRequired === true ? "update.compatibility" : "update.available";
+            const messageFallback = build.browserRefreshRequired === true ? "A compatibility update is ready. Reload before changing settings." : "A newer Zogograph update is available. Reload when you are ready.";
+            text.textContent = window.ZogographI18n?.markSource?.(text, messageKey, messageFallback) || messageFallback;
+            const reload = document.createElement("button");
+            reload.type = "button";
+            reload.textContent = window.ZogographI18n?.markSource?.(reload, "action.reload", "Reload now") || "Reload now";
+            reload.addEventListener("click", () => {
+                rememberIdentity(identity(build));
+                clearUpdate();
+                location.reload();
+            });
+            banner.append(text, reload);
+            banner.hidden = false;
         }
-    }
 
-    const remembered = readUpdate();
-    if (remembered && identity(remembered) !== current) {
-        latest = remembered;
-        show(remembered);
-    }
-    check();
-    setInterval(check, 60000);
-    // A deployment can happen while Setup is in another tab. Recheck on the
-    // return rather than making an administrator wait for the next poll.
-    document.addEventListener("visibilitychange", () => { if (!document.hidden) check(); });
-    window.addEventListener("focus", check);
-    document.addEventListener("zogograph-i18n-load", () => { if (latest) show(latest); });
-})();
-</script>
-HTML;
+        async function check() {
+            if (document.hidden || checking) return;
+            checking = true;
+            try {
+                const response = await fetch("./build.json?at=" + Date.now(), {cache: "no-store", credentials: "same-origin"});
+                if (!response.ok) return;
+                const build = await response.json();
+                const next = identity(build);
+                if (!next) return;
+                if (current === null) {
+                    current = next;
+                    rememberIdentity(next);
+                    return;
+                }
+                if (current !== next) {
+                    current = next;
+                    latest = build;
+                    rememberUpdate(build);
+                    show(build);
+                }
+            } catch (error) {
+                // Deployment metadata is optional and must never interrupt Setup.
+            } finally {
+                checking = false;
+            }
+        }
+
+        const remembered = readUpdate();
+        if (remembered && identity(remembered) !== current) {
+            latest = remembered;
+            show(remembered);
+        }
+        check();
+        setInterval(check, 60000);
+        // A deployment can happen while Setup is in another tab. Recheck on the
+        // return rather than making an administrator wait for the next poll.
+        document.addEventListener("visibilitychange", () => { if (!document.hidden) check(); });
+        window.addEventListener("focus", check);
+        document.addEventListener("zogograph-i18n-load", () => { if (latest) show(latest); });
+    })();
+    </script>
+    HTML;
     $out[] = '</body></html>';
     return implode("\n", $out);
 }
@@ -1605,124 +3005,336 @@ function setupHostStatus(array $config): array
     $exists = is_file($path);
     $readable = $exists && is_readable($path);
     $ownerId = $exists ? @fileowner($path) : false;
-    $owner = $ownerId === false ? 'Not available' : (string)$ownerId;
+    $owner = $ownerId === false ? 'Not available' : (string) $ownerId;
     if ($ownerId !== false && function_exists('posix_getpwuid')) {
-        $resolved = @posix_getpwuid((int)$ownerId);
-        if (is_array($resolved) && isset($resolved['name'])) $owner = (string)$resolved['name'];
+        $resolved = @posix_getpwuid((int) $ownerId);
+        if (is_array($resolved) && isset($resolved['name'])) {
+            $owner = (string) $resolved['name'];
+        }
     }
-    $expectedOwner = trim((string)($config['host']['owner'] ?? currentAccountName()));
+    $expectedOwner = trim(
+        (string) ($config['host']['owner'] ?? currentAccountName()),
+    );
     $accountCron = readCrontab();
-    $accountRunsHost = ($accountCron['available'] ?? false) && str_contains((string)($accountCron['raw'] ?? ''), hostCronCommand());
-    $count = 0; $times = [];
-    if ($readable) try {
-        $pdo = new PDO('sqlite:' . $path, null, null, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-        $count = (int)$pdo->query('SELECT COUNT(*) FROM host_samples')->fetchColumn();
-        $times = array_map('intval', $pdo->query('SELECT taken_at FROM host_samples ORDER BY id DESC LIMIT 20')->fetchAll(PDO::FETCH_COLUMN));
-    } catch (Throwable) { $readable = false; }
+    $accountRunsHost =
+        ($accountCron['available'] ?? false) &&
+        str_contains((string) ($accountCron['raw'] ?? ''), hostCronCommand());
+    $count = 0;
+    $times = [];
+    if ($readable) {
+        try {
+            $pdo = new PDO('sqlite:' . $path, null, null, [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            ]);
+            $count = (int) $pdo
+                ->query('SELECT COUNT(*) FROM host_samples')
+                ->fetchColumn();
+            $times = array_map(
+                'intval',
+                $pdo
+                    ->query(
+                        'SELECT taken_at FROM host_samples ORDER BY id DESC LIMIT 20',
+                    )
+                    ->fetchAll(PDO::FETCH_COLUMN),
+            );
+        } catch (Throwable) {
+            $readable = false;
+        };
+    }
     $gaps = [];
-    for ($i = 0; $i + 1 < count($times); $i++) $gaps[] = $times[$i] - $times[$i + 1];
-    sort($gaps); $cadence = $gaps === [] ? null : $gaps[intdiv(count($gaps), 2)];
-    $last = $times[0] ?? 0; $due = $cadence === null ? 0 : $last + $cadence; $now = time();
-    $samples = $count === 0 ? 'No samples yet' : ($count >= 10000 ? '10k+ samples' : ($count >= 1000 ? '1k+ samples' : ($count >= 100 ? '100+ samples' : ($count >= 78 ? '78+ samples' : $count . ' sample' . ($count === 1 ? '' : 's')))));
-    $next = $cadence === null ? 'Need ' . max(1, 2 - $count) . ' more sample' . ($count === 1 ? '' : 's') : ($due >= $now ? 'Expected in ' . max(1, (int)ceil(($due - $now) / 60)) . 'm' : (($now - $due) > $cadence * 4 ? 'Stopped; last sample ' . (int)floor(($now - $last) / 3600) . 'h ago' : 'Overdue ' . max(1, (int)ceil(($now - $due) / 60)) . 'm'));
-    return ['enabled' => (bool)($config['host']['enabled'] ?? false), 'exists' => $exists, 'readable' => $readable, 'owner' => $owner, 'owner_matches' => $owner === $expectedOwner, 'sample_count' => $count, 'samples' => $samples, 'cadence' => $cadence === null ? 'No; need more samples' : 'Yes; every ' . max(1, (int)round($cadence / 60)) . 'm', 'cadence_ok' => $cadence !== null, 'next' => $next, 'next_ok' => $cadence !== null && $due >= $now, 'access' => $readable ? 'Readable by this dashboard account' : ($exists ? 'Exists but is not readable by this dashboard account' : 'No database yet'), 'account_cron' => !($accountCron['available'] ?? false) ? 'Cannot read this account’s crontab' : ($accountRunsHost ? 'Yes; this account runs host-cron.php' : 'No host-cron.php entry in this account’s crontab'), 'account_cron_ok' => $accountRunsHost];
+    for ($i = 0; $i + 1 < count($times); $i++) {
+        $gaps[] = $times[$i] - $times[$i + 1];
+    }
+    sort($gaps);
+    $cadence = $gaps === [] ? null : $gaps[intdiv(count($gaps), 2)];
+    $last = $times[0] ?? 0;
+    $due = $cadence === null ? 0 : $last + $cadence;
+    $now = time();
+    $samples =
+        $count === 0
+            ? 'No samples yet'
+            : ($count >= 10000
+                ? '10k+ samples'
+                : ($count >= 1000
+                    ? '1k+ samples'
+                    : ($count >= 100
+                        ? '100+ samples'
+                        : ($count >= 78
+                            ? '78+ samples'
+                            : $count .
+                                ' sample' .
+                                ($count === 1 ? '' : 's')))));
+    $next =
+        $cadence === null
+            ? 'Need ' .
+                max(1, 2 - $count) .
+                ' more sample' .
+                ($count === 1 ? '' : 's')
+            : ($due >= $now
+                ? 'Expected in ' . max(1, (int) ceil(($due - $now) / 60)) . 'm'
+                : ($now - $due > $cadence * 4
+                    ? 'Stopped; last sample ' .
+                        (int) floor(($now - $last) / 3600) .
+                        'h ago'
+                    : 'Overdue ' .
+                        max(1, (int) ceil(($now - $due) / 60)) .
+                        'm'));
+    return [
+        'enabled' => (bool) ($config['host']['enabled'] ?? false),
+        'exists' => $exists,
+        'readable' => $readable,
+        'owner' => $owner,
+        'owner_matches' => $owner === $expectedOwner,
+        'sample_count' => $count,
+        'samples' => $samples,
+        'cadence' =>
+            $cadence === null
+                ? 'No; need more samples'
+                : 'Yes; every ' . max(1, (int) round($cadence / 60)) . 'm',
+        'cadence_ok' => $cadence !== null,
+        'next' => $next,
+        'next_ok' => $cadence !== null && $due >= $now,
+        'access' => $readable
+            ? 'Readable by this dashboard account'
+            : ($exists
+                ? 'Exists but is not readable by this dashboard account'
+                : 'No database yet'),
+        'account_cron' => !($accountCron['available'] ?? false)
+            ? 'Cannot read this account’s crontab'
+            : ($accountRunsHost
+                ? 'Yes; this account runs host-cron.php'
+                : 'No host-cron.php entry in this account’s crontab'),
+        'account_cron_ok' => $accountRunsHost,
+    ];
 }
 
-function renderField(array $field, array $values, array $errors, bool $configured): string
-{
+function renderField(
+    array $field,
+    array $values,
+    array $errors,
+    bool $configured,
+): string {
     $key = $field['key'];
-    $labelText = $key === 'password' ? ($configured ? 'Change password' : 'Create sign-in password') : (string)$field['label'];
-    $label = '<span data-i18n="setup.field.' . h($key) . '">' . h($labelText) . '</span>';
-    $help = isset($field['help']) ? '<span class="help" data-i18n="setup.help.' . h($key) . '">' . h($field['help']) . '</span>' : '';
+    $labelText =
+        $key === 'password'
+            ? ($configured
+                ? 'Change password'
+                : 'Create sign-in password')
+            : (string) $field['label'];
+    $label =
+        '<span data-i18n="setup.field.' .
+        h($key) .
+        '">' .
+        h($labelText) .
+        '</span>';
+    $help = isset($field['help'])
+        ? '<span class="help" data-i18n="setup.help.' .
+            h($key) .
+            '">' .
+            h($field['help']) .
+            '</span>'
+        : '';
     $error = $errors[$key] ?? null;
     $bad = '';
     if (is_array($error) && isset($error['key'], $error['fallback'])) {
-        $bad = '<span class="bad" data-i18n="' . h((string)$error['key']) . '">' . h((string)$error['fallback']) . '</span>';
+        $bad =
+            '<span class="bad" data-i18n="' .
+            h((string) $error['key']) .
+            '">' .
+            h((string) $error['fallback']) .
+            '</span>';
     } elseif ($error !== null) {
-        $bad = '<span class="bad" data-i18n="setup.validation_detail" data-i18n-values="' . h(json_encode(['detail' => (string)$error], JSON_THROW_ON_ERROR)) . '">Please correct this value: ' . h((string)$error) . '</span>';
+        $bad =
+            '<span class="bad" data-i18n="setup.validation_detail" data-i18n-values="' .
+            h(json_encode(['detail' => (string) $error], JSON_THROW_ON_ERROR)) .
+            '">Please correct this value: ' .
+            h((string) $error) .
+            '</span>';
     }
 
     if ($field['type'] === 'password') {
-        $note = $configured ? 'Leave blank to keep the current password.' : h((string)$field['help']);
+        $note = $configured
+            ? 'Leave blank to keep the current password.'
+            : h((string) $field['help']);
         $noteKey = $configured ? 'auth.password_keep' : 'setup.help.password';
-        return '<fieldset><legend data-i18n="' . ($configured ? 'auth.change_password' : 'auth.create_sign_in_password') . '">' . $label . '</legend>'
-            . '<span class="help" data-i18n="' . $noteKey . '">' . $note . '</span>'
-            . '<label style="margin-top:10px"><span data-i18n="auth.new_password">New password</span>'
-            . '<input type="password" name="password" autocomplete="new-password"></label>'
-            . '<label><span data-i18n="auth.password_again">Again</span><input type="password" name="password_again" autocomplete="new-password"></label>'
-            . $bad . '</fieldset>';
+        return '<fieldset><legend data-i18n="' .
+            ($configured
+                ? 'auth.change_password'
+                : 'auth.create_sign_in_password') .
+            '">' .
+            $label .
+            '</legend>' .
+            '<span class="help" data-i18n="' .
+            $noteKey .
+            '">' .
+            $note .
+            '</span>' .
+            '<label style="margin-top:10px"><span data-i18n="auth.new_password">New password</span>' .
+            '<input type="password" name="password" autocomplete="new-password"></label>' .
+            '<label><span data-i18n="auth.password_again">Again</span><input type="password" name="password_again" autocomplete="new-password"></label>' .
+            $bad .
+            '</fieldset>';
     }
 
     if ($field['type'] === 'bool') {
         $checked = !empty($values[$key]) ? ' checked' : '';
-        return '<fieldset><legend>' . $label . '</legend>'
-            . '<label class="row" style="margin:0"><input type="checkbox" name="' . h($key)
-            . '" value="1"' . $checked . '> <span data-i18n="form.yes">Yes</span></label>'
-            . $help . $bad . '</fieldset>';
+        return '<fieldset><legend>' .
+            $label .
+            '</legend>' .
+            '<label class="row" style="margin:0"><input type="checkbox" name="' .
+            h($key) .
+            '" value="1"' .
+            $checked .
+            '> <span data-i18n="form.yes">Yes</span></label>' .
+            $help .
+            $bad .
+            '</fieldset>';
     }
 
     if ($field['type'] === 'categories') {
-        $chosen = (array)$values[$key];
+        $chosen = (array) $values[$key];
         $boxes = '';
         foreach ($field['options'] as $option) {
             $checked = in_array($option, $chosen, true) ? ' checked' : '';
-            $boxes .= '<label><input type="checkbox" name="' . h($key) . '[]" value="'
-                . h($option) . '"' . $checked . '> <span data-i18n="setup.option.' . h($key) . '.' . h($option) . '">' . h($option) . '</span></label>';
+            $boxes .=
+                '<label><input type="checkbox" name="' .
+                h($key) .
+                '[]" value="' .
+                h($option) .
+                '"' .
+                $checked .
+                '> <span data-i18n="setup.option.' .
+                h($key) .
+                '.' .
+                h($option) .
+                '">' .
+                h($option) .
+                '</span></label>';
         }
-        return '<fieldset><legend>' . $label . '</legend>'
-            . '<div class="row">' . $boxes . '</div>' . $help . $bad . '</fieldset>';
+        return '<fieldset><legend>' .
+            $label .
+            '</legend>' .
+            '<div class="row">' .
+            $boxes .
+            '</div>' .
+            $help .
+            $bad .
+            '</fieldset>';
     }
 
     if ($field['type'] === 'choice') {
         $options = '';
         foreach ($field['options'] as $value => $text) {
-            $selected = (string)$values[$key] === (string)$value ? ' selected' : '';
-            $options .= '<option value="' . h((string)$value) . '"' . $selected . ' data-i18n="setup.option.' . h($key) . '.' . h((string)$value) . '">'
-                . h((string)$text) . '</option>';
+            $selected =
+                (string) $values[$key] === (string) $value ? ' selected' : '';
+            $options .=
+                '<option value="' .
+                h((string) $value) .
+                '"' .
+                $selected .
+                ' data-i18n="setup.option.' .
+                h($key) .
+                '.' .
+                h((string) $value) .
+                '">' .
+                h((string) $text) .
+                '</option>';
         }
-        return '<label>' . $label . '<select name="' . h($key) . '">' . $options . '</select>'
-            . $help . $bad . '</label>';
+        return '<label>' .
+            $label .
+            '<select name="' .
+            h($key) .
+            '">' .
+            $options .
+            '</select>' .
+            $help .
+            $bad .
+            '</label>';
     }
 
     if ($field['type'] === 'choices') {
-        $chosen = (array)$values[$key];
+        $chosen = (array) $values[$key];
         $boxes = '';
         foreach ($field['options'] as $value => $text) {
             $checked = in_array($value, $chosen, true) ? ' checked' : '';
-            $boxes .= '<label><input type="checkbox" name="' . h($key) . '[]" value="'
-                . h((string)$value) . '"' . $checked . '> <span data-i18n="setup.option.' . h($key) . '.' . h((string)$value) . '">' . h((string)$text) . '</span></label>';
+            $boxes .=
+                '<label><input type="checkbox" name="' .
+                h($key) .
+                '[]" value="' .
+                h((string) $value) .
+                '"' .
+                $checked .
+                '> <span data-i18n="setup.option.' .
+                h($key) .
+                '.' .
+                h((string) $value) .
+                '">' .
+                h((string) $text) .
+                '</span></label>';
         }
-        return '<fieldset><legend>' . $label . '</legend><div class="row">' . $boxes . '</div>'
-            . $help . $bad . '</fieldset>';
+        return '<fieldset><legend>' .
+            $label .
+            '</legend><div class="row">' .
+            $boxes .
+            '</div>' .
+            $help .
+            $bad .
+            '</fieldset>';
     }
 
     if ($field['type'] === 'lines') {
-        return '<label>' . $label
-            . '<textarea name="' . h($key) . '" rows="4" spellcheck="false">'
-            . h(displayValue($field, $values[$key])) . '</textarea>'
-            . $help . $bad . '</label>';
+        return '<label>' .
+            $label .
+            '<textarea name="' .
+            h($key) .
+            '" rows="4" spellcheck="false">' .
+            h(displayValue($field, $values[$key])) .
+            '</textarea>' .
+            $help .
+            $bad .
+            '</label>';
     }
 
     if ($field['type'] === 'json') {
-        return '<label>' . $label
-            . '<textarea class="structured" name="' . h($key) . '" rows="12" spellcheck="false">'
-            . h(displayValue($field, $values[$key])) . '</textarea>'
-            . $help . $bad . '</label>';
+        return '<label>' .
+            $label .
+            '<textarea class="structured" name="' .
+            h($key) .
+            '" rows="12" spellcheck="false">' .
+            h(displayValue($field, $values[$key])) .
+            '</textarea>' .
+            $help .
+            $bad .
+            '</label>';
     }
 
     if ($field['type'] === 'textarea') {
-        return '<label>' . $label
-            . '<textarea class="structured" name="' . h($key) . '" rows="12" spellcheck="false">'
-            . h(displayValue($field, $values[$key])) . '</textarea>'
-            . $help . $bad . '</label>';
+        return '<label>' .
+            $label .
+            '<textarea class="structured" name="' .
+            h($key) .
+            '" rows="12" spellcheck="false">' .
+            h(displayValue($field, $values[$key])) .
+            '</textarea>' .
+            $help .
+            $bad .
+            '</label>';
     }
 
     $type = $field['type'] === 'email' ? 'email' : 'text';
 
-    return '<label>' . $label
-        . '<input type="' . $type . '" name="' . h($key) . '" value="'
-        . h(displayValue($field, $values[$key])) . '">'
-        . $help . $bad . '</label>';
+    return '<label>' .
+        $label .
+        '<input type="' .
+        $type .
+        '" name="' .
+        h($key) .
+        '" value="' .
+        h(displayValue($field, $values[$key])) .
+        '">' .
+        $help .
+        $bad .
+        '</label>';
 }
 
 function h(string $text): string
@@ -1738,10 +3350,11 @@ function runCli(
     string $root,
     string $targetPath,
     ?array $existing,
-    array $flags
+    array $flags,
 ): void {
     $has = fn(string $flag): bool => in_array($flag, $flags, true);
-    $configured = $existing !== null && is_file(setupStorePath(require $targetPath));
+    $configured =
+        $existing !== null && is_file(setupStorePath(require $targetPath));
     $brand = brandName($existing ?? []);
 
     if ($has('--help') || $has('-h')) {
@@ -1767,24 +3380,37 @@ function runCli(
     say('');
     say('  ' . $brand . ' — config wizard');
     foreach (setupPreflight($root, $targetPath) as $check) {
-        say('  [' . strtoupper($check['state']) . '] ' . $check['label'] . ': ' . $check['detail']);
+        say(
+            '  [' .
+                strtoupper($check['state']) .
+                '] ' .
+                $check['label'] .
+                ': ' .
+                $check['detail'],
+        );
     }
-    say($configured
-        ? '  lib/config.php exists. Replacing it needs the password it already holds.'
-        : '  Press enter to accept the value in brackets.');
+    say(
+        $configured
+            ? '  lib/config.php exists. Replacing it needs the password it already holds.'
+            : '  Press enter to accept the value in brackets.',
+    );
     say('');
 
     $authorised = !$configured;
     if ($configured && $has('--write')) {
         if ($existing['password_hash'] === '') {
-            say('  This install has no password set, so nothing can authorise replacing it.');
+            say(
+                '  This install has no password set, so nothing can authorise replacing it.',
+            );
             say('  The config will be printed instead.');
         } else {
             $current = readSecret('  Current password: ', canHideInput());
             $authorised = mayOverwrite($existing, $current);
-            say($authorised
-                ? '  Authorised.'
-                : '  That is not the current password. The config will be printed instead.');
+            say(
+                $authorised
+                    ? '  Authorised.'
+                    : '  That is not the current password. The config will be printed instead.',
+            );
         }
         say('');
     }
@@ -1805,12 +3431,15 @@ function runCli(
         say('  Password: unchanged.');
     }
 
-    $mask = ($authorised && $configured && $existing['mask_secret'] !== '')
-        ? $existing['mask_secret']
-        : bin2hex(random_bytes(32));
-    say($mask === ($existing['mask_secret'] ?? null)
-        ? '  Mask secret: kept, so masked names do not all change.'
-        : '  Mask secret: generated (32 random bytes).');
+    $mask =
+        $authorised && $configured && $existing['mask_secret'] !== ''
+            ? $existing['mask_secret']
+            : bin2hex(random_bytes(32));
+    say(
+        $mask === ($existing['mask_secret'] ?? null)
+            ? '  Mask secret: kept, so masked names do not all change.'
+            : '  Mask secret: generated (32 random bytes).',
+    );
 
     $config = buildConfig($sample, $values, $hash, $mask, $samplePath);
     $text = renderConfig($config, $root . '/lib');
@@ -1818,7 +3447,11 @@ function runCli(
     say('');
 
     if ($has('--write') && $authorised) {
-        [$written, $problem] = writeConfig($targetPath, $config, $root . '/lib');
+        [$written, $problem] = writeConfig(
+            $targetPath,
+            $config,
+            $root . '/lib',
+        );
         if ($written) {
             say('  Written to lib/config.php (mode 600).');
             say('');
@@ -1827,8 +3460,12 @@ function runCli(
             say('    php cron.php --scan');
             say('');
             if (!empty($values['host_enabled'])) {
-                say('  One more step, as root. The host collector runs as root and cannot');
-                say('  be installed from here. In root\'s crontab (crontab -e):');
+                say(
+                    '  One more step, as root. The host collector runs as root and cannot',
+                );
+                say(
+                    '  be installed from here. In root\'s crontab (crontab -e):',
+                );
                 say('');
                 say('    ' . hostCronLine());
                 say('');
@@ -1843,11 +3480,15 @@ function runCli(
         say('');
     }
 
-    say('  ── Copy everything between the lines into lib/config.php ────────────');
+    say(
+        '  ── Copy everything between the lines into lib/config.php ────────────',
+    );
     say('');
     echo $text;
     say('');
-    say('  ── end ──────────────────────────────────────────────────────────────');
+    say(
+        '  ── end ──────────────────────────────────────────────────────────────',
+    );
     say('');
 }
 
@@ -1856,7 +3497,13 @@ function askField(array $field, bool $quiet): mixed
     if ($field['type'] === 'categories') {
         $chosen = [];
         foreach ($field['options'] as $option) {
-            if (askYesNo("Allow deleting $option", in_array($option, $field['default'], true), $quiet)) {
+            if (
+                askYesNo(
+                    "Allow deleting $option",
+                    in_array($option, $field['default'], true),
+                    $quiet,
+                )
+            ) {
                 $chosen[] = $option;
             }
         }
@@ -1864,11 +3511,15 @@ function askField(array $field, bool $quiet): mixed
     }
 
     if ($field['type'] === 'bool') {
-        return askYesNo($field['label'], (bool)$field['default'], $quiet);
+        return askYesNo($field['label'], (bool) $field['default'], $quiet);
     }
 
     while (true) {
-        $raw = prompt($field['label'], displayValue($field, $field['default']), $quiet);
+        $raw = prompt(
+            $field['label'],
+            displayValue($field, $field['default']),
+            $quiet,
+        );
         [$value, $problem] = parseField($field, $raw);
         if ($problem === null) {
             return $value;
@@ -1904,7 +3555,7 @@ function askYesNo(string $question, bool $default, bool $quiet): bool
     while (true) {
         $answer = prompt($question . ' (y/n)', $default ? 'y' : 'n', $quiet);
         if (preg_match('/^(y|yes|n|no)$/i', $answer)) {
-            return (bool)preg_match('/^y/i', $answer);
+            return (bool) preg_match('/^y/i', $answer);
         }
         complain('Answer y or n.');
         if ($quiet) {
@@ -1941,9 +3592,11 @@ function askPasswordHash(bool $quiet, bool $mayKeep): ?string
 
     say('');
     say('  Sign-in password. Reveals real paths and enables deleting.');
-    say($mayKeep
-        ? '  Leave blank to keep the current one.'
-        : '  Leave blank to disable sign-in entirely.');
+    say(
+        $mayKeep
+            ? '  Leave blank to keep the current one.'
+            : '  Leave blank to disable sign-in entirely.',
+    );
 
     $hidden = canHideInput();
     if (!$hidden) {
@@ -1978,7 +3631,10 @@ function canHideInput(): bool
     if (!function_exists('shell_exec') || stripos(PHP_OS_FAMILY, 'win') === 0) {
         return false;
     }
-    $disabled = array_map('trim', explode(',', (string)ini_get('disable_functions')));
+    $disabled = array_map(
+        'trim',
+        explode(',', (string) ini_get('disable_functions')),
+    );
     return !in_array('shell_exec', $disabled, true) && stream_isatty(STDIN);
 }
 

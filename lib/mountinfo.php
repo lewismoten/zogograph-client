@@ -90,8 +90,8 @@ function readMountInfo(string $procRoot = '/proc'): array
         $point = unescapeMountField($parts[4]);
 
         $out[] = [
-            'mount_id' => (int)$parts[0],
-            'parent_id' => (int)$parts[1],
+            'mount_id' => (int) $parts[0],
+            'parent_id' => (int) $parts[1],
             'device' => $parts[2],
             // "/" means the whole filesystem; anything else is a subtree, which
             // is what a bind mount looks like from here.
@@ -120,10 +120,10 @@ function readMountInfo(string $procRoot = '/proc'): array
  */
 function unescapeMountField(string $value): string
 {
-    return (string)preg_replace_callback(
+    return (string) preg_replace_callback(
         '/\\\\([0-7]{3})/',
-        fn(array $m): string => chr((int)octdec($m[1])),
-        $value
+        fn(array $m): string => chr((int) octdec($m[1])),
+        $value,
     );
 }
 
@@ -161,24 +161,31 @@ function groupByFilesystem(array $mounts): array
             }
         }
         if ($primary === null) {
-            usort($group, fn(array $a, array $b): int =>
-                strlen($a['mount_point']) <=> strlen($b['mount_point']));
+            usort(
+                $group,
+                fn(array $a, array $b): int => strlen($a['mount_point']) <=>
+                    strlen($b['mount_point']),
+            );
             $primary = $group[0];
         }
 
-        $others = array_values(array_filter(
-            $group,
-            fn(array $m): bool => $m['mount_id'] !== $primary['mount_id']
-        ));
+        $others = array_values(
+            array_filter(
+                $group,
+                fn(array $m): bool => $m['mount_id'] !== $primary['mount_id'],
+            ),
+        );
 
         $out[] = [
-            'device' => (string)$device,
+            'device' => (string) $device,
             'fs_type' => $primary['fs_type'],
             'source' => $primary['source'],
             'mount_point' => $primary['mount_point'],
             'read_only' => $primary['read_only'],
             'mounts' => count($group),
-            'binds' => count(array_filter($group, fn(array $m): bool => $m['bind'])),
+            'binds' => count(
+                array_filter($group, fn(array $m): bool => $m['bind']),
+            ),
             'others' => $others,
         ];
     }
@@ -199,20 +206,30 @@ function groupByFilesystem(array $mounts): array
  *
  * @param list<array> $mounts
  */
-function cagefsMounts(array $mounts, string $skeleton = CAGEFS_SKELETON, bool $hostView = true): array
-{
+function cagefsMounts(
+    array $mounts,
+    string $skeleton = CAGEFS_SKELETON,
+    bool $hostView = true,
+): array {
     $prefix = rtrim($skeleton, '/');
     $under = [];
 
     foreach ($mounts as $mount) {
         $point = $mount['mount_point'];
         if ($point === $prefix || str_starts_with($point, $prefix . '/')) {
-            $mount['relative'] = $point === $prefix ? '/' : substr($point, strlen($prefix));
+            $mount['relative'] =
+                $point === $prefix ? '/' : substr($point, strlen($prefix));
             $under[] = $mount;
         }
     }
 
-    usort($under, fn(array $a, array $b): int => strcmp($a['mount_point'], $b['mount_point']));
+    usort(
+        $under,
+        fn(array $a, array $b): int => strcmp(
+            $a['mount_point'],
+            $b['mount_point'],
+        ),
+    );
 
     $devices = array_unique(array_column($under, 'device'));
 
@@ -226,7 +243,9 @@ function cagefsMounts(array $mounts, string $skeleton = CAGEFS_SKELETON, bool $h
         'mounts' => $under,
         'count' => count($under),
         'devices' => count($devices),
-        'read_only' => count(array_filter($under, fn(array $m): bool => $m['read_only'])),
+        'read_only' => count(
+            array_filter($under, fn(array $m): bool => $m['read_only']),
+        ),
         /*
          * Said as a count of filesystems, never as a sum of sizes.
          *
@@ -258,29 +277,30 @@ function cagefsMounts(array $mounts, string $skeleton = CAGEFS_SKELETON, bool $h
          * inside an account it means the skeleton is invisible by design. Only
          * from the host does an empty list actually mean CageFS is not here.
          */
-        'note' => $mounts === []
-            ? 'No mount table could be read, so nothing can be said about CageFS either way.'
-            : ($under !== []
-            ? sprintf(
-                '%d mounts drawn from %d filesystem%s. These are views of filesystems '
-                . 'counted elsewhere, not additional space.',
-                count($under),
-                count($devices),
-                count($devices) === 1 ? '' : 's'
-            )
-            : ($hostView
-                ? 'Nothing is mounted under the CageFS skeleton on this host, so CageFS is '
-                  . 'either not installed or not in use here.'
-                : ($insideCage
-                    ? 'This is the account\'s own mount table, and it is showing the inside '
-                      . 'of a CageFS cage - the skeleton\'s contents appear here as /usr and '
-                      . '/lib rather than under /usr/share/cagefs-skeleton. The mounts that '
-                      . 'assemble the cage exist only in the host\'s namespace. Run the host '
-                      . 'collector as root to see them: php host-cron.php --capabilities'
-                    : 'This is the account\'s own mount table. The CageFS skeleton is not '
-                      . 'visible from inside an account even when CageFS is in use, so this '
-                      . 'says nothing either way. Run the host collector as root to find out: '
-                      . 'php host-cron.php --capabilities'))),
+        'note' =>
+            $mounts === []
+                ? 'No mount table could be read, so nothing can be said about CageFS either way.'
+                : ($under !== []
+                    ? sprintf(
+                        '%d mounts drawn from %d filesystem%s. These are views of filesystems ' .
+                            'counted elsewhere, not additional space.',
+                        count($under),
+                        count($devices),
+                        count($devices) === 1 ? '' : 's',
+                    )
+                    : ($hostView
+                        ? 'Nothing is mounted under the CageFS skeleton on this host, so CageFS is ' .
+                            'either not installed or not in use here.'
+                        : ($insideCage
+                            ? 'This is the account\'s own mount table, and it is showing the inside ' .
+                                'of a CageFS cage - the skeleton\'s contents appear here as /usr and ' .
+                                '/lib rather than under /usr/share/cagefs-skeleton. The mounts that ' .
+                                'assemble the cage exist only in the host\'s namespace. Run the host ' .
+                                'collector as root to see them: php host-cron.php --capabilities'
+                            : 'This is the account\'s own mount table. The CageFS skeleton is not ' .
+                                'visible from inside an account even when CageFS is in use, so this ' .
+                                'says nothing either way. Run the host collector as root to find out: ' .
+                                'php host-cron.php --capabilities'))),
     ];
 }
 
@@ -329,15 +349,24 @@ function looksLikeCage(array $mounts, string $skeleton = CAGEFS_SKELETON): array
         return ['likely' => false, 'signals' => []];
     }
 
-    $signals = [sprintf(
-        'the root here is a subtree of its filesystem (%s), which is how a cage is built',
-        $rootFromSubtree
-    )];
+    $signals = [
+        sprintf(
+            'the root here is a subtree of its filesystem (%s), which is how a cage is built',
+            $rootFromSubtree,
+        ),
+    ];
 
     // Corroboration only. Neither of these would be enough on its own.
     foreach ($mounts as $mount) {
-        $haystack = strtolower($mount['device'] . ' ' . $mount['source'] . ' '
-            . $mount['mount_point'] . ' ' . $mount['fs_root']);
+        $haystack = strtolower(
+            $mount['device'] .
+                ' ' .
+                $mount['source'] .
+                ' ' .
+                $mount['mount_point'] .
+                ' ' .
+                $mount['fs_root'],
+        );
         if (str_contains($haystack, 'cagefs')) {
             $signals[] = 'a mount mentions cagefs';
             break;
@@ -345,8 +374,10 @@ function looksLikeCage(array $mounts, string $skeleton = CAGEFS_SKELETON): array
     }
 
     if (count($mounts) < 12) {
-        $signals[] = sprintf('only %d mounts are visible, far fewer than a whole host',
-            count($mounts));
+        $signals[] = sprintf(
+            'only %d mounts are visible, far fewer than a whole host',
+            count($mounts),
+        );
     }
 
     return ['likely' => true, 'signals' => $signals];

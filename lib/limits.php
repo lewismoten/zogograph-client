@@ -39,8 +39,13 @@ const LIMIT_AGREEMENT = 0.05;
  *   share: float|null, verdict: string, note: string
  * }
  */
-function compareLimit(string $name, ?float $account, ?float $host, string $unit, string $what): array
-{
+function compareLimit(
+    string $name,
+    ?float $account,
+    ?float $host,
+    string $unit,
+    string $what,
+): array {
     $out = [
         'name' => $name,
         'account' => $account,
@@ -52,9 +57,10 @@ function compareLimit(string $name, ?float $account, ?float $host, string $unit,
     ];
 
     if ($account === null || $host === null || $host <= 0) {
-        $out['note'] = $host === null
-            ? 'The host reading is missing, so there is nothing to compare against.'
-            : 'This account cannot measure it.';
+        $out['note'] =
+            $host === null
+                ? 'The host reading is missing, so there is nothing to compare against.'
+                : 'This account cannot measure it.';
         return $out;
     }
 
@@ -64,11 +70,11 @@ function compareLimit(string $name, ?float $account, ?float $host, string $unit,
     if ($share < 1 - LIMIT_AGREEMENT) {
         $out['verdict'] = 'capped';
         $out['note'] = sprintf(
-            'This account may use %s of the machine\'s %s. It will run out of %s '
-            . 'while the server still has plenty.',
+            'This account may use %s of the machine\'s %s. It will run out of %s ' .
+                'while the server still has plenty.',
             percentWord($share),
             $what,
-            $what
+            $what,
         );
         return $out;
     }
@@ -83,14 +89,19 @@ function compareLimit(string $name, ?float $account, ?float $host, string $unit,
          * something odd. Averaging it away would hide the fault.
          */
         $out['verdict'] = 'disagree';
-        $out['note'] = 'This account reports more ' . $what . ' than the host does, '
-            . 'which cannot be true. One of the two readings is stale or wrong.';
+        $out['note'] =
+            'This account reports more ' .
+            $what .
+            ' than the host does, ' .
+            'which cannot be true. One of the two readings is stale or wrong.';
         return $out;
     }
 
     $out['verdict'] = 'whole';
-    $out['note'] = 'This account sees the whole machine\'s ' . $what
-        . ', so nothing is holding it back except everyone else using the same server.';
+    $out['note'] =
+        'This account sees the whole machine\'s ' .
+        $what .
+        ', so nothing is holding it back except everyone else using the same server.';
     return $out;
 }
 
@@ -99,7 +110,7 @@ function percentWord(float $share): string
     $percent = $share * 100;
     return $percent < 1
         ? sprintf('%.1f%%', $percent)
-        : sprintf('%d%%', (int)round($percent));
+        : sprintf('%d%%', (int) round($percent));
 }
 
 /**
@@ -114,24 +125,33 @@ function percentWord(float $share): string
 function accountLimits(?array $vitals, ?array $host): array
 {
     if ($vitals === null) {
-        return ['available' => false, 'reason' => 'No reading from this account yet.',
-                'rows' => [], 'taken_at' => null, 'host_at' => null];
+        return [
+            'available' => false,
+            'reason' => 'No reading from this account yet.',
+            'rows' => [],
+            'taken_at' => null,
+            'host_at' => null,
+        ];
     }
 
     if ($host === null) {
         return [
             'available' => false,
-            'reason' => 'No host reading. Without one, there is no way to tell a limit '
-                . 'on this account from the size of the machine — every number on this '
-                . 'dashboard would be the cage\'s answer, presented as the server\'s.',
+            'reason' =>
+                'No host reading. Without one, there is no way to tell a limit ' .
+                'on this account from the size of the machine — every number on this ' .
+                'dashboard would be the cage\'s answer, presented as the server\'s.',
             'rows' => [],
-            'taken_at' => (int)$vitals['taken_at'],
+            'taken_at' => (int) $vitals['taken_at'],
             'host_at' => null,
         ];
     }
 
-    $number = fn(?string $key, array $row): ?float =>
-        $key !== null && isset($row[$key]) && $row[$key] !== null ? (float)$row[$key] : null;
+    $number = fn(?string $key, array $row): ?float => $key !== null &&
+    isset($row[$key]) &&
+    $row[$key] !== null
+        ? (float) $row[$key]
+        : null;
 
     $rows = [
         compareLimit(
@@ -139,14 +159,14 @@ function accountLimits(?array $vitals, ?array $host): array
             $number('cpu_cores', $vitals),
             $number('cpu_cores', $host),
             'cores',
-            'CPU'
+            'CPU',
         ),
         compareLimit(
             'Memory',
             $number('mem_total_bytes', $vitals),
             $number('mem_total', $host),
             'bytes',
-            'memory'
+            'memory',
         ),
     ];
 
@@ -165,19 +185,23 @@ function accountLimits(?array $vitals, ?array $host): array
         'unit' => 'percent',
         'share' => null,
         'verdict' => 'sidebyside',
-        'note' => 'Not comparable as a ratio: the account\'s percentage is of its own '
-            . 'allowance and the host\'s is of every core on the machine. High on the '
-            . 'left and low on the right is the ordinary shape of hitting a limit.',
+        'note' =>
+            'Not comparable as a ratio: the account\'s percentage is of its own ' .
+            'allowance and the host\'s is of every core on the machine. High on the ' .
+            'left and low on the right is the ordinary shape of hitting a limit.',
     ];
 
     return [
         'available' => true,
         'reason' => '',
-        'rows' => array_values(array_filter(
-            $rows,
-            fn(array $row): bool => $row['account'] !== null || $row['host'] !== null
-        )),
-        'taken_at' => (int)$vitals['taken_at'],
-        'host_at' => (int)($host['taken_at'] ?? 0) ?: null,
+        'rows' => array_values(
+            array_filter(
+                $rows,
+                fn(array $row): bool => $row['account'] !== null ||
+                    $row['host'] !== null,
+            ),
+        ),
+        'taken_at' => (int) $vitals['taken_at'],
+        'host_at' => (int) ($host['taken_at'] ?? 0) ?: null,
     ];
 }

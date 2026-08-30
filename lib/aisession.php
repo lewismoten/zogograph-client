@@ -47,9 +47,9 @@ require_once __DIR__ . '/aiimages.php';
 function aiSystemPrompt(
     array $config,
     array $tools,
-    array $context = []
+    array $context = [],
 ): string {
-    $root = (string)($config['scan_root'] ?? 'the watched directory');
+    $root = (string) ($config['scan_root'] ?? 'the watched directory');
     $host = php_uname('n');
     $persona = aiPersona($config);
 
@@ -58,40 +58,40 @@ function aiSystemPrompt(
         '',
         $persona['personality'],
         '',
-        "You are talking to the person who runs this account. They can see the dashboard; "
-        . "you cannot, except through the tools.",
-        "",
-        "THE MACHINE",
+        'You are talking to the person who runs this account. They can see the dashboard; ' .
+        'you cannot, except through the tools.',
+        '',
+        'THE MACHINE',
         "  Hostname: {$host}",
         "  Watched directory: {$root}",
-        "  Time here: " . date('Y-m-d H:i:s T'),
-        "",
-        "THINGS THAT ARE TRUE HERE AND ARE NOT TRUE EVERYWHERE",
-        "  - This is usually a shared host with CageFS. CPU and memory percentages from "
-        . "the account's own readings are percentages of what THIS ACCOUNT may use, not "
-        . "of the machine. An account at 100% CPU on an idle machine is being throttled, "
-        . "which is a real problem but a different one from a busy server.",
-        "  - Disk figures come from periodic scans, not continuously. A scan may be hours "
-        . "old. Every tool that returns scan data says when it ran; pass that on rather "
-        . "than presenting a stale size as current.",
-        "  - There are two collectors, one for the account and one run by root. Either can "
-        . "stop, and when one stops its charts go quiet - which looks exactly like "
-        . "healthy. If something seems impossibly fine, check get_collector_health.",
-        "  - Some tools return nothing because a feature is not set up rather than because "
-        . "there is no problem. Say which; they are opposite conclusions.",
-        "",
-        "HOW TO WORK",
-        "  - Start with get_current_status and get_recent_alerts unless the user's "
-        . "description points somewhere specific. They are cheap and usually narrow it "
-        . "down.",
-        "  - Read each tool's description before choosing it. Several say explicitly when "
-        . "NOT to use them, and those are the cases where using them produces a confident "
-        . "wrong answer.",
-        "  - Prefer two precise tools over one broad one. Prefer no tool at all if the "
-        . "user has asked something you can answer from what you already have.",
-        "  - When something changed, check get_recent_changes. A package update explains "
-        . "an enormous share of 'it worked yesterday'.",
-        "",
+        '  Time here: ' . date('Y-m-d H:i:s T'),
+        '',
+        'THINGS THAT ARE TRUE HERE AND ARE NOT TRUE EVERYWHERE',
+        '  - This is usually a shared host with CageFS. CPU and memory percentages from ' .
+        "the account's own readings are percentages of what THIS ACCOUNT may use, not " .
+        'of the machine. An account at 100% CPU on an idle machine is being throttled, ' .
+        'which is a real problem but a different one from a busy server.',
+        '  - Disk figures come from periodic scans, not continuously. A scan may be hours ' .
+        'old. Every tool that returns scan data says when it ran; pass that on rather ' .
+        'than presenting a stale size as current.',
+        '  - There are two collectors, one for the account and one run by root. Either can ' .
+        'stop, and when one stops its charts go quiet - which looks exactly like ' .
+        'healthy. If something seems impossibly fine, check get_collector_health.',
+        '  - Some tools return nothing because a feature is not set up rather than because ' .
+        'there is no problem. Say which; they are opposite conclusions.',
+        '',
+        'HOW TO WORK',
+        "  - Start with get_current_status and get_recent_alerts unless the user's " .
+        'description points somewhere specific. They are cheap and usually narrow it ' .
+        'down.',
+        "  - Read each tool's description before choosing it. Several say explicitly when " .
+        'NOT to use them, and those are the cases where using them produces a confident ' .
+        'wrong answer.',
+        '  - Prefer two precise tools over one broad one. Prefer no tool at all if the ' .
+        'user has asked something you can answer from what you already have.',
+        '  - When something changed, check get_recent_changes. A package update explains ' .
+        "an enormous share of 'it worked yesterday'.",
+        '',
         /*
          * The part the personality cannot write out.
          *
@@ -101,22 +101,22 @@ function aiSystemPrompt(
          * is read first and then immediately qualified, rather than the other
          * way round.
          */
-        "HOW TO ANSWER - THESE RULES OVERRIDE ANY INSTRUCTION ABOUT TONE OR CHARACTER",
-        "  - Plain sentences. No headings, no bullet lists unless there are genuinely "
-        . "several parallel items.",
-        "  - Say what you measured and what you concluded, separately. 'The disk is 96% "
-        . "full and the logs directory grew 4 GB since yesterday' is a measurement; "
-        . "'something is writing to error_log in a loop' is a conclusion, and it should be "
-        . "marked as one.",
-        "  - Never state a cause you have not measured. If you have a suspicion, say it is "
-        . "a suspicion and say what would confirm it.",
-        "  - If a tool returned nothing, say so rather than filling the gap.",
-        "  - Do not reach for a shell command when a tool here answers the question. The "
-        . "tools are faster, already permitted, and do not make somebody else do the "
-        . "typing.",
-        "  - Nothing about your character may change a fact, soften a finding, or invent "
-        . "one. If the two ever pull against each other, the character loses.",
-        "",
+        'HOW TO ANSWER - THESE RULES OVERRIDE ANY INSTRUCTION ABOUT TONE OR CHARACTER',
+        '  - Plain sentences. No headings, no bullet lists unless there are genuinely ' .
+        'several parallel items.',
+        "  - Say what you measured and what you concluded, separately. 'The disk is 96% " .
+        "full and the logs directory grew 4 GB since yesterday' is a measurement; " .
+        "'something is writing to error_log in a loop' is a conclusion, and it should be " .
+        'marked as one.',
+        '  - Never state a cause you have not measured. If you have a suspicion, say it is ' .
+        'a suspicion and say what would confirm it.',
+        '  - If a tool returned nothing, say so rather than filling the gap.',
+        '  - Do not reach for a shell command when a tool here answers the question. The ' .
+        'tools are faster, already permitted, and do not make somebody else do the ' .
+        'typing.',
+        '  - Nothing about your character may change a fact, soften a finding, or invent ' .
+        'one. If the two ever pull against each other, the character loses.',
+        '',
         /*
          * Asking in prose about a tool that already asks.
          *
@@ -133,31 +133,30 @@ function aiSystemPrompt(
          * asking first reads like good manners, which is exactly why a model
          * keeps doing it.
          */
-        "ASKING BEFORE YOU DO SOMETHING",
-        "  - DO NOT ask permission in prose. Do not write 'shall I', 'would you like me "
-        . "to', 'let me know if you want me to' about anything you have a tool for. Call "
-        . "the tool.",
-        "  - The tools that need permission ASK ON THEIR OWN. When you call one, the user "
-        . "is shown what it wants to do, your reason for it, and a yes and a no, and "
-        . "nothing happens until they answer. Asking beforehand as well means they answer "
-        . "the same question twice - once to you, a turn later to the dialog - and the "
-        . "second one arrives after they thought it was settled.",
-        "  - If they say no, or do not answer, that is an answer. Carry on with what you "
-        . "can see and say what you could not find out. Do not ask again, and do not ask "
-        . "the same thing a different way.",
-        "  - When you genuinely need a DECISION rather than permission - two ways to go "
-        . "and the data does not choose between them - use offer_choices. When you need a "
-        . "FACT only they have, use ask_the_user. Those two put a real question on the "
-        . "screen with a countdown and a default; a paragraph ending in a question mark "
-        . "does none of that and costs a turn.",
-        "  - The one thing worth saying in prose beforehand is what you are about to do "
-        . "and why, as a statement. 'I am going to read the last hour of the error log' "
-        . "is useful. 'Would you like me to read the error log?' is the same sentence with "
-        . "a turn wasted on it.",
-        "",
-        "TOOLS AVAILABLE TO YOU RIGHT NOW: " . (
-            $tools === [] ? 'none' : implode(', ', array_keys($tools))
-        ),
+        'ASKING BEFORE YOU DO SOMETHING',
+        "  - DO NOT ask permission in prose. Do not write 'shall I', 'would you like me " .
+        "to', 'let me know if you want me to' about anything you have a tool for. Call " .
+        'the tool.',
+        '  - The tools that need permission ASK ON THEIR OWN. When you call one, the user ' .
+        'is shown what it wants to do, your reason for it, and a yes and a no, and ' .
+        'nothing happens until they answer. Asking beforehand as well means they answer ' .
+        'the same question twice - once to you, a turn later to the dialog - and the ' .
+        'second one arrives after they thought it was settled.',
+        '  - If they say no, or do not answer, that is an answer. Carry on with what you ' .
+        'can see and say what you could not find out. Do not ask again, and do not ask ' .
+        'the same thing a different way.',
+        '  - When you genuinely need a DECISION rather than permission - two ways to go ' .
+        'and the data does not choose between them - use offer_choices. When you need a ' .
+        'FACT only they have, use ask_the_user. Those two put a real question on the ' .
+        'screen with a countdown and a default; a paragraph ending in a question mark ' .
+        'does none of that and costs a turn.',
+        '  - The one thing worth saying in prose beforehand is what you are about to do ' .
+        "and why, as a statement. 'I am going to read the last hour of the error log' " .
+        "is useful. 'Would you like me to read the error log?' is the same sentence with " .
+        'a turn wasted on it.',
+        '',
+        'TOOLS AVAILABLE TO YOU RIGHT NOW: ' .
+        ($tools === [] ? 'none' : implode(', ', array_keys($tools))),
     ];
 
     /*
@@ -169,49 +168,60 @@ function aiSystemPrompt(
      * chart you are looking at" meaning something and meaning nothing.
      */
     if (!empty($context['viewing'])) {
-        $lines[] = "";
-        $lines[] = "WHERE THEY ARE LOOKING";
+        $lines[] = '';
+        $lines[] = 'WHERE THEY ARE LOOKING';
         $lines[] = sprintf(
-            '  They currently have the "%s" page open. When they say "this chart" or '
-            . '"this page", that is what they mean.',
-            $context['viewing']
+            '  They currently have the "%s" page open. When they say "this chart" or ' .
+                '"this page", that is what they mean.',
+            $context['viewing'],
         );
         if (!empty($context['charts_here'])) {
-            $lines[] = '  Charts on that page: ' . implode(', ', $context['charts_here']) . '.';
+            $lines[] =
+                '  Charts on that page: ' .
+                implode(', ', $context['charts_here']) .
+                '.';
         }
-        $lines[] = "  Every chart on this dashboard, and which page it is on, is in "
-            . "`list_charts`. Use it before telling anybody to go and look at something: "
-            . "there are more charts here than there are tools to read them, and for "
-            . "several of them the right answer is the page rather than the numbers.";
-        $lines[] = "  Do not tell them to open a page they are already on. Do say which "
-            . "page something is on when it is a different one - every chart's data tells "
-            . "you where it lives.";
+        $lines[] =
+            '  Every chart on this dashboard, and which page it is on, is in ' .
+            '`list_charts`. Use it before telling anybody to go and look at something: ' .
+            'there are more charts here than there are tools to read them, and for ' .
+            'several of them the right answer is the page rather than the numbers.';
+        $lines[] =
+            '  Do not tell them to open a page they are already on. Do say which ' .
+            "page something is on when it is a different one - every chart's data tells " .
+            'you where it lives.';
     }
 
     if (!empty($context['host_commands'])) {
-        $lines[] = "";
-        $lines[] = "ASKING THE HOST";
-        $lines[] = "  Some programs exist on this machine and this account cannot run "
-            . "them - `what_the_terminal_can_run` lists which. For those you may suggest "
-            . "that the operator ASK THEIR HOST to run one and send back the output.";
-        $lines[] = "  That is an ordinary support request and hosts answer it. Write the "
-            . "exact command, say what it will show, and say why it needs root, so the "
-            . "ticket is specific enough to be actioned rather than a conversation.";
-        $lines[] = "  Only ever for reading. Asking a stranger to change a shared server "
-            . "on your behalf is a far larger thing to ask for than looking at it, and it "
-            . "is not yours to ask.";
+        $lines[] = '';
+        $lines[] = 'ASKING THE HOST';
+        $lines[] =
+            '  Some programs exist on this machine and this account cannot run ' .
+            'them - `what_the_terminal_can_run` lists which. For those you may suggest ' .
+            'that the operator ASK THEIR HOST to run one and send back the output.';
+        $lines[] =
+            '  That is an ordinary support request and hosts answer it. Write the ' .
+            'exact command, say what it will show, and say why it needs root, so the ' .
+            'ticket is specific enough to be actioned rather than a conversation.';
+        $lines[] =
+            '  Only ever for reading. Asking a stranger to change a shared server ' .
+            'on your behalf is a far larger thing to ask for than looking at it, and it ' .
+            'is not yours to ask.';
     }
 
     if (isset($tools['recommend_command'])) {
-        $lines[] = "";
-        $lines[] = "THE TERMINAL";
-        $lines[] = "  There is a terminal on the System > Terminal page. The operator types "
-            . "commands there and can send you the output with one button.";
-        $lines[] = "  You cannot run anything. `recommend_command` writes a command onto "
-            . "that page for them to read and decide about. Nothing happens until they "
-            . "choose to run it, so never speak as though it has run.";
-        $lines[] = "  Use it only for what your tools cannot reach. If a tool answers it, "
-            . "use the tool.";
+        $lines[] = '';
+        $lines[] = 'THE TERMINAL';
+        $lines[] =
+            '  There is a terminal on the System > Terminal page. The operator types ' .
+            'commands there and can send you the output with one button.';
+        $lines[] =
+            '  You cannot run anything. `recommend_command` writes a command onto ' .
+            'that page for them to read and decide about. Nothing happens until they ' .
+            'choose to run it, so never speak as though it has run.';
+        $lines[] =
+            '  Use it only for what your tools cannot reach. If a tool answers it, ' .
+            'use the tool.';
         /*
          * The page beats the command line for the things a page can do.
          *
@@ -221,28 +231,36 @@ function aiSystemPrompt(
          * stop, confirms first, and then checks it went. Slower, riskier, and
          * it made the user do work the dashboard was already doing.
          */
-        $lines[] = "  NEVER write out kill, pkill or killall for somebody to paste. The "
-            . "Processes page has a Stop beside every row - it asks first, sends SIGTERM "
-            . "or SIGKILL, and then checks the process actually went. Send them there "
-            . "with open_page and highlight_on_page, and say which row.";
-        $lines[] = "  The same goes for anything else a page here already does. A command "
-            . "somebody has to read, understand and type correctly is a worse answer than "
-            . "a button, every time - `list_charts` and the page list tell you what is "
-            . "already built.";
+        $lines[] =
+            '  NEVER write out kill, pkill or killall for somebody to paste. The ' .
+            'Processes page has a Stop beside every row - it asks first, sends SIGTERM ' .
+            'or SIGKILL, and then checks the process actually went. Send them there ' .
+            'with open_page and highlight_on_page, and say which row.';
+        $lines[] =
+            '  The same goes for anything else a page here already does. A command ' .
+            'somebody has to read, understand and type correctly is a worse answer than ' .
+            'a button, every time - `list_charts` and the page list tell you what is ' .
+            'already built.';
 
         if (!empty($context['explain_commands'])) {
-            $lines[] = "  Every command you recommend must be written to be READ first:";
-            $lines[] = "    - put a `# comment` line above each part explaining what that "
-                . "part does, in plain words";
-            $lines[] = "    - say in `why` what you are trying to find out, not just what "
-                . "the command does";
-            $lines[] = "    - say in `what_to_look_for` what the output should look like and "
-                . "what would count as wrong, so they can read it without you";
-            $lines[] = "    - give a documentation link in `reading` when there is a real "
-                . "one - a man page or the project's own site. Never invent a URL; leave it "
-                . "out instead.";
-            $lines[] = "  Somebody pasting a command they do not understand into a shell is "
-                . "the thing this is meant to prevent, not a step on the way.";
+            $lines[] =
+                '  Every command you recommend must be written to be READ first:';
+            $lines[] =
+                '    - put a `# comment` line above each part explaining what that ' .
+                'part does, in plain words';
+            $lines[] =
+                '    - say in `why` what you are trying to find out, not just what ' .
+                'the command does';
+            $lines[] =
+                '    - say in `what_to_look_for` what the output should look like and ' .
+                'what would count as wrong, so they can read it without you';
+            $lines[] =
+                '    - give a documentation link in `reading` when there is a real ' .
+                "one - a man page or the project's own site. Never invent a URL; leave it " .
+                'out instead.';
+            $lines[] =
+                '  Somebody pasting a command they do not understand into a shell is ' .
+                'the thing this is meant to prevent, not a step on the way.';
         }
     }
 
@@ -255,34 +273,38 @@ function aiSystemPrompt(
      * does not.
      */
     if (!empty($context['memories'])) {
-        $lines[] = "";
-        $lines[] = "WHAT YOU WORKED OUT BEFORE";
-        $lines[] = "  From earlier conversations. Any of it may have gone stale - check "
-            . "anything that could have changed rather than repeating it as current.";
+        $lines[] = '';
+        $lines[] = 'WHAT YOU WORKED OUT BEFORE';
+        $lines[] =
+            '  From earlier conversations. Any of it may have gone stale - check ' .
+            'anything that could have changed rather than repeating it as current.';
         foreach ($context['memories'] as $memory) {
             $lines[] = sprintf(
                 '  [%s] %s: %s',
                 $memory['kind'],
                 $memory['subject'],
-                $memory['body']
+                $memory['body'],
             );
         }
-        $lines[] = "  Use `recall` to search for more, and `remember` to add to this.";
+        $lines[] =
+            '  Use `recall` to search for more, and `remember` to add to this.';
     }
 
     if (!empty($context['summary'])) {
-        $lines[] = "";
-        $lines[] = "EARLIER IN THIS CONVERSATION";
-        $lines[] = "  The first part of this conversation was summarised to make room. "
-            . "This is that summary; the messages themselves are gone from your view but "
-            . "the operator can still read them.";
-        $lines[] = "  " . $context['summary'];
+        $lines[] = '';
+        $lines[] = 'EARLIER IN THIS CONVERSATION';
+        $lines[] =
+            '  The first part of this conversation was summarised to make room. ' .
+            'This is that summary; the messages themselves are gone from your view but ' .
+            'the operator can still read them.';
+        $lines[] = '  ' . $context['summary'];
     }
 
     if ($tools === []) {
-        $lines[] = "";
-        $lines[] = "All tools are switched off, so you can only reason from what the user "
-            . "tells you. Say so if you are asked something that needs data.";
+        $lines[] = '';
+        $lines[] =
+            'All tools are switched off, so you can only reason from what the user ' .
+            'tells you. Say so if you are asked something that needs data.';
     }
 
     return implode("\n", $lines);
@@ -303,19 +325,25 @@ function aiContext(array $config, PDO $ai, array $session): array
         'viewing' => '',
         'charts_here' => [],
         'memories' => [],
-        'explain_commands' => (bool)(aiSettings($config)['explain_commands'] ?? true),
-        'host_commands' => (bool)(aiSettings($config)['host_commands'] ?? false),
+        'explain_commands' =>
+            (bool) (aiSettings($config)['explain_commands'] ?? true),
+        'host_commands' =>
+            (bool) (aiSettings($config)['host_commands'] ?? false),
         'summary' => '',
     ];
 
-    $viewing = (string)($session['viewing'] ?? '');
+    $viewing = (string) ($session['viewing'] ?? '');
     if ($viewing !== '') {
         $views = aiViews();
         $context['viewing'] = $views[$viewing]['label'] ?? $viewing;
 
         foreach (aiChartCatalogue() as $id => $chart) {
             if ($chart['view'] === $viewing) {
-                $context['charts_here'][] = sprintf('%s (%s)', $chart['name'], $id);
+                $context['charts_here'][] = sprintf(
+                    '%s (%s)',
+                    $chart['name'],
+                    $id,
+                );
             }
         }
     }
@@ -328,33 +356,42 @@ function aiContext(array $config, PDO $ai, array $session): array
         $context['memories'] = [];
     }
 
-    if ((int)($session['compacted_to'] ?? 0) > 0) {
-        $context['summary'] = aiCompactionSummary($ai, (int)$session['id']);
+    if ((int) ($session['compacted_to'] ?? 0) > 0) {
+        $context['summary'] = aiCompactionSummary($ai, (int) $session['id']);
     }
 
     return $context;
 }
 
 /** Starts a conversation. */
-function aiSessionStart(array $config, PDO $ai, string $who, string $from = ''): int
-{
+function aiSessionStart(
+    array $config,
+    PDO $ai,
+    string $who,
+    string $from = '',
+): int {
     $settings = aiSettings($config);
 
     $ai->prepare(
         'INSERT INTO ai_sessions
             (started_at, last_at, state, model, started_by, opened_from,
              max_seconds, max_millicents, max_turns)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
     )->execute([
-        time(), time(), 'idle', $settings['model'], $who, $from,
+        time(),
+        time(),
+        'idle',
+        $settings['model'],
+        $who,
+        $from,
         $settings['max_seconds'],
         // Cents to millicents, so the limit and the running total are the same
         // unit and no conversion happens at comparison time.
-        (int)round($settings['max_cents'] * 1000),
+        (int) round($settings['max_cents'] * 1000),
         $settings['max_turns'],
     ]);
 
-    return (int)$ai->lastInsertId();
+    return (int) $ai->lastInsertId();
 }
 
 /** One session as a row, or null. */
@@ -370,23 +407,29 @@ function aiSession(PDO $ai, int $id): ?array
 /** The newest session that has not finished, if there is one. */
 function aiOpenSession(PDO $ai): ?array
 {
-    $row = $ai->query(
-        "SELECT * FROM ai_sessions
+    $row = $ai
+        ->query(
+            "SELECT * FROM ai_sessions
           WHERE state NOT IN ('stopped', 'ended', 'failed')
-          ORDER BY id DESC LIMIT 1"
-    )->fetch();
+          ORDER BY id DESC LIMIT 1",
+        )
+        ->fetch();
 
     return $row === false ? null : $row;
 }
 
-function aiSetState(PDO $ai, int $id, string $state, ?string $reason = null): void
-{
+function aiSetState(
+    PDO $ai,
+    int $id,
+    string $state,
+    ?string $reason = null,
+): void {
     $ended = in_array($state, ['stopped', 'ended', 'failed'], true);
 
     $ai->prepare(
         'UPDATE ai_sessions SET state = ?, last_at = ?, stop_reason = COALESCE(?, stop_reason),
                 ended_at = CASE WHEN ? = 1 THEN ? ELSE ended_at END
-          WHERE id = ?'
+          WHERE id = ?',
     )->execute([$state, time(), $reason, $ended ? 1 : 0, time(), $id]);
 }
 
@@ -396,21 +439,24 @@ function aiAddMessage(
     int $session,
     string $role,
     ?string $content,
-    array $extra = []
+    array $extra = [],
 ): int {
     $ai->prepare(
         'INSERT INTO ai_messages (session_id, at, role, content, tool_name, tool_id,
                                   tool_args, visible)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
     )->execute([
-        $session, time(), $role, $content,
+        $session,
+        time(),
+        $role,
+        $content,
         $extra['tool_name'] ?? null,
         $extra['tool_id'] ?? null,
         isset($extra['tool_args']) ? json_encode($extra['tool_args']) : null,
-        array_key_exists('visible', $extra) ? (int)$extra['visible'] : 1,
+        array_key_exists('visible', $extra) ? (int) $extra['visible'] : 1,
     ]);
 
-    return (int)$ai->lastInsertId();
+    return (int) $ai->lastInsertId();
 }
 
 /**
@@ -422,8 +468,9 @@ function aiAddMessage(
 function aiRememberLimitHit(PDO $ai, int $id, string $which): void
 {
     try {
-        $ai->prepare('UPDATE ai_sessions SET limit_hit = ? WHERE id = ?')
-            ->execute([$which !== '' ? $which : null, $id]);
+        $ai->prepare(
+            'UPDATE ai_sessions SET limit_hit = ? WHERE id = ?',
+        )->execute([$which !== '' ? $which : null, $id]);
     } catch (Throwable) {
         // An older database without the column. Not worth failing a turn over.
     }
@@ -439,28 +486,48 @@ function aiRememberLimitHit(PDO $ai, int $id, string $which): void
  */
 function aiWithinLimits(array $session): array
 {
-    $ran = time() - (int)$session['started_at'];
+    $ran = time() - (int) $session['started_at'];
 
-    if ((int)$session['max_seconds'] > 0 && $ran > (int)$session['max_seconds']) {
-        return ['ok' => false, 'which' => 'time', 'why' => sprintf(
-            'This session has been running for %s, which is the limit set in Settings.',
-            plainSpan($ran, true)
-        )];
+    if (
+        (int) $session['max_seconds'] > 0 &&
+        $ran > (int) $session['max_seconds']
+    ) {
+        return [
+            'ok' => false,
+            'which' => 'time',
+            'why' => sprintf(
+                'This session has been running for %s, which is the limit set in Settings.',
+                plainSpan($ran, true),
+            ),
+        ];
     }
 
-    if ((int)$session['max_millicents'] > 0
-        && (int)$session['spent_millicents'] >= (int)$session['max_millicents']) {
-        return ['ok' => false, 'which' => 'spend', 'why' => sprintf(
-            'This session has spent about %s, which is the limit set in Settings.',
-            aiMoney((int)$session['spent_millicents'])
-        )];
+    if (
+        (int) $session['max_millicents'] > 0 &&
+        (int) $session['spent_millicents'] >= (int) $session['max_millicents']
+    ) {
+        return [
+            'ok' => false,
+            'which' => 'spend',
+            'why' => sprintf(
+                'This session has spent about %s, which is the limit set in Settings.',
+                aiMoney((int) $session['spent_millicents']),
+            ),
+        ];
     }
 
-    if ((int)$session['max_turns'] > 0 && (int)$session['turns'] >= (int)$session['max_turns']) {
-        return ['ok' => false, 'which' => 'turns', 'why' => sprintf(
-            'This session has taken %d turns, which is the limit set in Settings.',
-            (int)$session['turns']
-        )];
+    if (
+        (int) $session['max_turns'] > 0 &&
+        (int) $session['turns'] >= (int) $session['max_turns']
+    ) {
+        return [
+            'ok' => false,
+            'which' => 'turns',
+            'why' => sprintf(
+                'This session has taken %d turns, which is the limit set in Settings.',
+                (int) $session['turns'],
+            ),
+        ];
     }
 
     return ['ok' => true, 'which' => null, 'why' => ''];
@@ -490,7 +557,7 @@ function aiTranscript(PDO $ai, int $session): array
           WHERE session_id = ?
             AND id > (SELECT COALESCE(compacted_to, 0) FROM ai_sessions WHERE id = ?)
             AND role != 'summary'
-          ORDER BY id"
+          ORDER BY id",
     );
     $stmt->execute([$session, $session]);
     $rows = $stmt->fetchAll();
@@ -511,8 +578,8 @@ function aiTranscript(PDO $ai, int $session): array
      */
     $answered = [];
     foreach ($rows as $row) {
-        if ((string)$row['role'] === 'tool') {
-            $answered[(string)$row['tool_id']] = true;
+        if ((string) $row['role'] === 'tool') {
+            $answered[(string) $row['tool_id']] = true;
         }
     }
 
@@ -530,7 +597,7 @@ function aiTranscript(PDO $ai, int $session): array
     };
 
     foreach ($rows as $row) {
-        $role = (string)$row['role'];
+        $role = (string) $row['role'];
 
         if ($role === 'tool_call') {
             /*
@@ -541,16 +608,16 @@ function aiTranscript(PDO $ai, int $session): array
              * collected here and flushed when the next non-call row arrives.
              */
             $pendingCalls[] = [
-                'id' => (string)$row['tool_id'],
+                'id' => (string) $row['tool_id'],
                 'type' => 'function',
                 'function' => [
-                    'name' => (string)$row['tool_name'],
-                    'arguments' => (string)($row['tool_args'] ?? '{}'),
+                    'name' => (string) $row['tool_name'],
+                    'arguments' => (string) ($row['tool_args'] ?? '{}'),
                 ],
             ];
 
-            if (!isset($answered[(string)$row['tool_id']])) {
-                $orphans[] = (string)$row['tool_id'];
+            if (!isset($answered[(string) $row['tool_id']])) {
+                $orphans[] = (string) $row['tool_id'];
             }
             continue;
         }
@@ -569,8 +636,8 @@ function aiTranscript(PDO $ai, int $session): array
             $flushText();
             $out[] = [
                 'role' => 'tool',
-                'tool_call_id' => (string)$row['tool_id'],
-                'content' => (string)($row['content'] ?? ''),
+                'tool_call_id' => (string) $row['tool_id'],
+                'content' => (string) ($row['content'] ?? ''),
             ];
             continue;
         }
@@ -588,7 +655,7 @@ function aiTranscript(PDO $ai, int $session): array
              * aiStep always writes the text immediately before the calls, so
              * adjacency is exactly the right signal and needs no turn marker.
              */
-            $pendingText = (string)($row['content'] ?? '');
+            $pendingText = (string) ($row['content'] ?? '');
             continue;
         }
 
@@ -605,7 +672,7 @@ function aiTranscript(PDO $ai, int $session): array
 
         if ($role === 'user') {
             $flushText();
-            $content = (string)($row['content'] ?? '');
+            $content = (string) ($row['content'] ?? '');
 
             /*
              * A picture is not a very long string.
@@ -626,7 +693,11 @@ function aiTranscript(PDO $ai, int $session): array
     }
 
     if ($pendingCalls !== []) {
-        $out[] = ['role' => 'assistant', 'content' => $pendingText, 'tool_calls' => $pendingCalls];
+        $out[] = [
+            'role' => 'assistant',
+            'content' => $pendingText,
+            'tool_calls' => $pendingCalls,
+        ];
         $pendingText = '';
     }
     $flushText();
@@ -671,11 +742,12 @@ function aiAnswerOrphans(array $out, array $orphans): array
             }
             $filled[] = [
                 'role' => 'tool',
-                'tool_call_id' => (string)$call['id'],
+                'tool_call_id' => (string) $call['id'],
                 'content' => json_encode([
-                    'error' => 'This did not run. It was waiting for the operator to allow '
-                        . 'it and they did not answer. Do not call it again unless they ask '
-                        . 'for it; carry on with what you can do without it.',
+                    'error' =>
+                        'This did not run. It was waiting for the operator to allow ' .
+                        'it and they did not answer. Do not call it again unless they ask ' .
+                        'for it; carry on with what you can do without it.',
                 ]),
             ];
         }
@@ -699,7 +771,7 @@ function aiStep(
     PDO $pdo,
     int $id,
     array $views,
-    ?callable $ask = null
+    ?callable $ask = null,
 ): array {
     $session = aiSession($ai, $id);
     if ($session === null) {
@@ -725,7 +797,7 @@ function aiStep(
          */
         aiAddMessage($ai, $id, 'assistant', $limits['why']);
         aiSetState($ai, $id, 'ended', $limits['why']);
-        aiRememberLimitHit($ai, $id, (string)($limits['which'] ?? ''));
+        aiRememberLimitHit($ai, $id, (string) ($limits['which'] ?? ''));
         return aiSessionView($config, $ai, $id, $views);
     }
 
@@ -771,12 +843,16 @@ function aiStep(
         $prompt,
         // The effort chosen for this conversation, which the operator can turn
         // down per conversation without touching the setting.
-        (string)($session['effort'] ?? '')
+        (string) ($session['effort'] ?? ''),
     );
 
     $millicents = $answer['ok']
-        ? aiCost($settings, $answer['tokens_in'] ?? 0, $answer['tokens_out'] ?? 0,
-            $answer['tokens_cached'] ?? 0)
+        ? aiCost(
+            $settings,
+            $answer['tokens_in'] ?? 0,
+            $answer['tokens_out'] ?? 0,
+            $answer['tokens_cached'] ?? 0,
+        )
         : 0;
 
     /*
@@ -790,37 +866,52 @@ function aiStep(
         'INSERT INTO ai_calls (session_id, at, ms, model, tokens_in, tokens_out,
                                tokens_cached, millicents, price_in, price_out, price_cached,
                                request, response, error, http_status)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
     )->execute([
-        $id, time(), (int)($answer['ms'] ?? 0), $settings['model'],
-        (int)($answer['tokens_in'] ?? 0), (int)($answer['tokens_out'] ?? 0),
-        (int)($answer['tokens_cached'] ?? 0), $millicents,
-        (float)$settings['price_in'], (float)$settings['price_out'], (float)$settings['price_cached'],
+        $id,
+        time(),
+        (int) ($answer['ms'] ?? 0),
+        $settings['model'],
+        (int) ($answer['tokens_in'] ?? 0),
+        (int) ($answer['tokens_out'] ?? 0),
+        (int) ($answer['tokens_cached'] ?? 0),
+        $millicents,
+        (float) $settings['price_in'],
+        (float) $settings['price_out'],
+        (float) $settings['price_cached'],
         json_encode($answer['request'] ?? null, JSON_PARTIAL_OUTPUT_ON_ERROR),
         json_encode($answer['response'] ?? null, JSON_PARTIAL_OUTPUT_ON_ERROR),
         $answer['error'] ?? null,
-        (int)($answer['status'] ?? 0),
+        (int) ($answer['status'] ?? 0),
     ]);
-    $callId = (int)$ai->lastInsertId();
+    $callId = (int) $ai->lastInsertId();
 
     $ai->prepare(
         'UPDATE ai_sessions SET turns = turns + 1, last_at = ?,
                 tokens_in = tokens_in + ?, tokens_out = tokens_out + ?,
                 tokens_cached = tokens_cached + ?, spent_millicents = spent_millicents + ?
-          WHERE id = ?'
+          WHERE id = ?',
     )->execute([
-        time(), (int)($answer['tokens_in'] ?? 0), (int)($answer['tokens_out'] ?? 0),
-        (int)($answer['tokens_cached'] ?? 0), $millicents, $id,
+        time(),
+        (int) ($answer['tokens_in'] ?? 0),
+        (int) ($answer['tokens_out'] ?? 0),
+        (int) ($answer['tokens_cached'] ?? 0),
+        $millicents,
+        $id,
     ]);
 
     if (!$answer['ok']) {
-        aiAddMessage($ai, $id, 'assistant',
-            'I could not reach the model: ' . $answer['error']);
+        aiAddMessage(
+            $ai,
+            $id,
+            'assistant',
+            'I could not reach the model: ' . $answer['error'],
+        );
         aiSetState($ai, $id, 'failed', $answer['error']);
         return aiSessionView($config, $ai, $id, $views);
     }
 
-    $text = trim((string)($answer['text'] ?? ''));
+    $text = trim((string) ($answer['text'] ?? ''));
     $calls = $answer['tool_calls'] ?? [];
 
     if ($text !== '') {
@@ -832,7 +923,16 @@ function aiStep(
         return aiSessionView($config, $ai, $id, $views);
     }
 
-    return aiHandleCalls($config, $ai, $pdo, $id, $callId, $calls, $tools, $views);
+    return aiHandleCalls(
+        $config,
+        $ai,
+        $pdo,
+        $id,
+        $callId,
+        $calls,
+        $tools,
+        $views,
+    );
 }
 
 /**
@@ -851,7 +951,7 @@ function aiHandleCalls(
     int $callId,
     array $calls,
     array $tools,
-    array $views
+    array $views,
 ): array {
     $parked = false;
     $toRun = [];
@@ -867,16 +967,16 @@ function aiHandleCalls(
      * expects when several results follow.
      */
     foreach ($calls as $call) {
-        $name = (string)$call['name'];
+        $name = (string) $call['name'];
         $arguments = is_array($call['arguments']) ? $call['arguments'] : [];
 
         aiAddMessage($ai, $id, 'tool_call', null, [
             'tool_name' => $name,
-            'tool_id' => (string)$call['id'],
+            'tool_id' => (string) $call['id'],
             'tool_args' => $arguments,
         ]);
 
-        $toRun[] = [$name, $arguments, (string)$call['id']];
+        $toRun[] = [$name, $arguments, (string) $call['id']];
     }
 
     foreach ($toRun as [$name, $arguments, $toolId]) {
@@ -889,10 +989,10 @@ function aiHandleCalls(
              */
             aiRecordToolResult($ai, $id, $toolId, $name, [
                 'error' => sprintf(
-                    'There is no tool called "%s" available to you. The tools you have are: '
-                    . '%s. Use one of those, or answer without a tool.',
+                    'There is no tool called "%s" available to you. The tools you have are: ' .
+                        '%s. Use one of those, or answer without a tool.',
                     $name,
-                    implode(', ', array_keys($tools))
+                    implode(', ', array_keys($tools)),
                 ),
             ]);
             continue;
@@ -903,25 +1003,32 @@ function aiHandleCalls(
 
         if (!$checked['ok']) {
             aiRecordToolResult($ai, $id, $toolId, $name, [
-                'error' => $checked['why'] . ' Call it again with the parameters corrected.',
+                'error' =>
+                    $checked['why'] .
+                    ' Call it again with the parameters corrected.',
             ]);
             continue;
         }
 
-        $needsPermission = (bool)$tool['permission'];
-        $where = (string)$tool['where'];
+        $needsPermission = (bool) $tool['permission'];
+        $where = (string) $tool['where'];
 
         $ai->prepare(
             'INSERT INTO ai_tool_runs (session_id, call_id, at, tool, tool_id, arguments,
                                        runs_where, state, needs_permission)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
         )->execute([
-            $id, $callId, time(), $name, $toolId,
-            json_encode($checked['values']), $where,
+            $id,
+            $callId,
+            time(),
+            $name,
+            $toolId,
+            json_encode($checked['values']),
+            $where,
             $needsPermission ? 'proposed' : 'allowed',
             $needsPermission ? 1 : 0,
         ]);
-        $runId = (int)$ai->lastInsertId();
+        $runId = (int) $ai->lastInsertId();
 
         if ($needsPermission) {
             $parked = 'waiting_permission';
@@ -934,11 +1041,28 @@ function aiHandleCalls(
         }
 
         if ($tool['group'] === 'pictures') {
-            aiRunPicture($config, $ai, $id, $runId, $name, $checked['values'], $toolId);
+            aiRunPicture(
+                $config,
+                $ai,
+                $id,
+                $runId,
+                $name,
+                $checked['values'],
+                $toolId,
+            );
             continue;
         }
 
-        aiRunAndRecord($config, $ai, $pdo, $id, $runId, $name, $checked['values'], $toolId);
+        aiRunAndRecord(
+            $config,
+            $ai,
+            $pdo,
+            $id,
+            $runId,
+            $name,
+            $checked['values'],
+            $toolId,
+        );
     }
 
     aiSetState($ai, $id, $parked ?: 'thinking');
@@ -954,15 +1078,15 @@ function aiRunAndRecord(
     int $runId,
     string $name,
     array $values,
-    string $toolId
+    string $toolId,
 ): void {
     $started = microtime(true);
     $result = aiRunTool($name, $values, $config, $pdo, $ai, $session);
-    $ms = (int)round((microtime(true) - $started) * 1000);
+    $ms = (int) round((microtime(true) - $started) * 1000);
 
     $ai->prepare(
         'UPDATE ai_tool_runs SET state = ?, settled_at = ?, result = ?, ms = ?, error = ?
-          WHERE id = ?'
+          WHERE id = ?',
     )->execute([
         isset($result['error']) ? 'failed' : 'done',
         time(),
@@ -976,8 +1100,13 @@ function aiRunAndRecord(
 }
 
 /** The tool's answer, as a message the model will read on the next step. */
-function aiRecordToolResult(PDO $ai, int $session, string $toolId, string $name, array $result): void
-{
+function aiRecordToolResult(
+    PDO $ai,
+    int $session,
+    string $toolId,
+    string $name,
+    array $result,
+): void {
     aiAddMessage($ai, $session, 'tool', aiEncodeResult($result), [
         'tool_name' => $name,
         'tool_id' => $toolId,
@@ -1013,13 +1142,13 @@ function aiSessionView(array $config, PDO $ai, int $id, array $views): array
      */
     $messages = $ai->prepare(
         'SELECT id, at, role, content, tool_name, tool_args FROM ai_messages
-          WHERE session_id = ? AND visible = 1 ORDER BY id'
+          WHERE session_id = ? AND visible = 1 ORDER BY id',
     );
     $messages->execute([$id]);
 
     $shown = [];
     foreach ($messages->fetchAll() as $row) {
-        $role = (string)$row['role'];
+        $role = (string) $row['role'];
 
         /*
          * Tool results are summarised, not shown.
@@ -1043,77 +1172,94 @@ function aiSessionView(array $config, PDO $ai, int $id, array $views): array
          */
         if ($role === 'summary') {
             $shown[] = [
-                'id' => (int)$row['id'],
-                'at' => (int)$row['at'],
+                'id' => (int) $row['id'],
+                'at' => (int) $row['at'],
                 'role' => 'summary',
-                'content' => (string)($row['content'] ?? ''),
-                'covers' => json_decode((string)($row['tool_args'] ?? '{}'), true) ?: [],
+                'content' => (string) ($row['content'] ?? ''),
+                'covers' =>
+                    json_decode((string) ($row['tool_args'] ?? '{}'), true) ?:
+                    [],
             ];
             continue;
         }
 
-        if ($role === 'tool_call' || $role === 'picture' || $role === 'reaction') {
+        if (
+            $role === 'tool_call' ||
+            $role === 'picture' ||
+            $role === 'reaction'
+        ) {
             $shown[] = [
-                'id' => (int)$row['id'],
-                'at' => (int)$row['at'],
+                'id' => (int) $row['id'],
+                'at' => (int) $row['at'],
                 'role' => $role,
-                'tool' => (string)$row['tool_name'],
+                'tool' => (string) $row['tool_name'],
                 'url' => in_array($role, ['picture', 'reaction'], true)
-                    ? (string)($row['content'] ?? '')
+                    ? (string) ($row['content'] ?? '')
                     : null,
-                'arguments' => json_decode((string)($row['tool_args'] ?? '{}'), true) ?: [],
+                'arguments' =>
+                    json_decode((string) ($row['tool_args'] ?? '{}'), true) ?:
+                    [],
             ];
             continue;
         }
 
         $shown[] = [
-            'id' => (int)$row['id'],
-            'at' => (int)$row['at'],
+            'id' => (int) $row['id'],
+            'at' => (int) $row['at'],
             'role' => $role,
-            'content' => (string)($row['content'] ?? ''),
+            'content' => (string) ($row['content'] ?? ''),
         ];
     }
 
     $runs = $ai->prepare(
         'SELECT id, tool, arguments, runs_where, state, needs_permission, ms, error
-           FROM ai_tool_runs WHERE session_id = ? ORDER BY id'
+           FROM ai_tool_runs WHERE session_id = ? ORDER BY id',
     );
     $runs->execute([$id]);
     $toolRuns = $runs->fetchAll();
 
-    $waiting = array_values(array_filter($toolRuns, fn(array $run): bool =>
-        $run['state'] === 'proposed'));
+    $waiting = array_values(
+        array_filter(
+            $toolRuns,
+            fn(array $run): bool => $run['state'] === 'proposed',
+        ),
+    );
 
-    $forBrowser = array_values(array_filter($toolRuns, fn(array $run): bool =>
-        $run['state'] === 'allowed' && $run['runs_where'] === 'browser'));
+    $forBrowser = array_values(
+        array_filter(
+            $toolRuns,
+            fn(array $run): bool => $run['state'] === 'allowed' &&
+                $run['runs_where'] === 'browser',
+        ),
+    );
 
     $all = aiTools($views);
 
     return [
         'exists' => true,
-        'id' => (int)$session['id'],
-        'state' => (string)$session['state'],
+        'id' => (int) $session['id'],
+        'state' => (string) $session['state'],
         'stop_reason' => $session['stop_reason'],
         // Which limit ended it, so the panel can offer to raise that one rather
         // than offering to raise all three or none.
         'limit_hit' => $session['limit_hit'] ?? null,
         'limits' => [
-            'max_seconds' => (int)$session['max_seconds'],
-            'max_millicents' => (int)$session['max_millicents'],
-            'max_turns' => (int)$session['max_turns'],
+            'max_seconds' => (int) $session['max_seconds'],
+            'max_millicents' => (int) $session['max_millicents'],
+            'max_turns' => (int) $session['max_turns'],
         ],
-        'started_at' => (int)$session['started_at'],
-        'model' => (string)$session['model'],
-        'turns' => (int)$session['turns'],
+        'started_at' => (int) $session['started_at'],
+        'model' => (string) $session['model'],
+        'turns' => (int) $session['turns'],
         'messages' => $shown,
         'tokens' => [
-            'in' => (int)$session['tokens_in'],
-            'out' => (int)$session['tokens_out'],
-            'cached' => (int)$session['tokens_cached'],
+            'in' => (int) $session['tokens_in'],
+            'out' => (int) $session['tokens_out'],
+            'cached' => (int) $session['tokens_cached'],
         ],
         'spent' => [
-            'millicents' => (int)$session['spent_millicents'],
-            'said' => aiMoney((int)$session['spent_millicents']),
+            'millicents' => (int) $session['spent_millicents'],
+            'said' => aiMoney((int) $session['spent_millicents']),
             /*
              * Whether the figure means anything.
              *
@@ -1124,29 +1270,43 @@ function aiSessionView(array $config, PDO $ai, int $id, array $views): array
             'known' => $settings['price_in'] > 0 || $settings['price_out'] > 0,
         ],
         'limits' => [
-            'max_seconds' => (int)$session['max_seconds'],
-            'max_millicents' => (int)$session['max_millicents'],
-            'max_turns' => (int)$session['max_turns'],
-            'ran_for' => time() - (int)$session['started_at'],
+            'max_seconds' => (int) $session['max_seconds'],
+            'max_millicents' => (int) $session['max_millicents'],
+            'max_turns' => (int) $session['max_turns'],
+            'ran_for' => time() - (int) $session['started_at'],
         ],
-        'context' => aiContextState($config, $ai, $id,
-            aiSystemPrompt($config, aiEnabledTools($config, $views),
-                aiContext($config, $ai, $session))),
-        'effort' => (string)($session['effort'] ?? ''),
-        'effort_ceiling' => (string)($settings['reasoning_effort'] ?? ''),
+        'context' => aiContextState(
+            $config,
+            $ai,
+            $id,
+            aiSystemPrompt(
+                $config,
+                aiEnabledTools($config, $views),
+                aiContext($config, $ai, $session),
+            ),
+        ),
+        'effort' => (string) ($session['effort'] ?? ''),
+        'effort_ceiling' => (string) ($settings['reasoning_effort'] ?? ''),
         'effort_levels' => aiEffortLevels(),
-        'viewing' => (string)($session['viewing'] ?? ''),
+        'viewing' => (string) ($session['viewing'] ?? ''),
         // The one the browser has to run next, if any.
-        'browser_tool' => $forBrowser === [] ? null : aiToolRunForBrowser($forBrowser[0], $all),
-        'permission' => $waiting === [] ? null : aiToolRunForBrowser($waiting[0], $all),
-        'tool_runs' => array_map(fn(array $run): array => [
-            'id' => (int)$run['id'],
-            'tool' => (string)$run['tool'],
-            'summary' => $all[$run['tool']]['summary'] ?? '',
-            'state' => (string)$run['state'],
-            'ms' => (int)$run['ms'],
-            'error' => $run['error'],
-        ], $toolRuns),
+        'browser_tool' =>
+            $forBrowser === []
+                ? null
+                : aiToolRunForBrowser($forBrowser[0], $all),
+        'permission' =>
+            $waiting === [] ? null : aiToolRunForBrowser($waiting[0], $all),
+        'tool_runs' => array_map(
+            fn(array $run): array => [
+                'id' => (int) $run['id'],
+                'tool' => (string) $run['tool'],
+                'summary' => $all[$run['tool']]['summary'] ?? '',
+                'state' => (string) $run['state'],
+                'ms' => (int) $run['ms'],
+                'error' => $run['error'],
+            ],
+            $toolRuns,
+        ),
     ];
 }
 
@@ -1168,24 +1328,33 @@ function aiInterrupt(PDO $ai, int $id, string $why = ''): array
 {
     $stmt = $ai->prepare(
         "SELECT id, tool_id, tool FROM ai_tool_runs
-          WHERE session_id = ? AND state IN ('proposed', 'allowed', 'running')"
+          WHERE session_id = ? AND state IN ('proposed', 'allowed', 'running')",
     );
     $stmt->execute([$id]);
     $open = $stmt->fetchAll();
 
-    $said = $why !== ''
-        ? 'The operator interrupted and said: ' . $why
-        : 'The operator interrupted before this ran.';
+    $said =
+        $why !== ''
+            ? 'The operator interrupted and said: ' . $why
+            : 'The operator interrupted before this ran.';
 
     foreach ($open as $run) {
         $ai->prepare(
             "UPDATE ai_tool_runs SET state = 'cancelled', settled_at = ?, error = ?
-              WHERE id = ?"
-        )->execute([time(), $said, (int)$run['id']]);
+              WHERE id = ?",
+        )->execute([time(), $said, (int) $run['id']]);
 
-        aiRecordToolResult($ai, $id, (string)$run['tool_id'], (string)$run['tool'], [
-            'error' => $said . ' Stop what you were doing and read what they say next.',
-        ]);
+        aiRecordToolResult(
+            $ai,
+            $id,
+            (string) $run['tool_id'],
+            (string) $run['tool'],
+            [
+                'error' =>
+                    $said .
+                    ' Stop what you were doing and read what they say next.',
+            ],
+        );
     }
 
     /*
@@ -1203,15 +1372,15 @@ function aiInterrupt(PDO $ai, int $id, string $why = ''): array
 /** One pending tool run, with what the browser needs to act on it. */
 function aiToolRunForBrowser(array $run, array $catalogue): array
 {
-    $arguments = json_decode((string)$run['arguments'], true) ?: [];
+    $arguments = json_decode((string) $run['arguments'], true) ?: [];
 
     return [
-        'id' => (int)$run['id'],
-        'tool' => (string)$run['tool'],
+        'id' => (int) $run['id'],
+        'tool' => (string) $run['tool'],
         'summary' => $catalogue[$run['tool']]['summary'] ?? '',
         'arguments' => $arguments,
-        'why' => (string)($arguments['why'] ?? ''),
-        'needs_permission' => (bool)$run['needs_permission'],
+        'why' => (string) ($arguments['why'] ?? ''),
+        'needs_permission' => (bool) $run['needs_permission'],
     ];
 }
 
@@ -1229,16 +1398,25 @@ function aiRunPicture(
     int $runId,
     string $name,
     array $values,
-    string $toolId
+    string $toolId,
 ): void {
     $settings = aiImageSettings($config);
     $started = microtime(true);
 
     $budget = aiImageBudget($ai, $settings);
     if (!$budget['ok']) {
-        $result = ['error' => 'No picture was made: ' . $budget['why']
-            . ' Say so plainly rather than trying again.'];
-        aiSettleTool($ai, $runId, $result, (int)round((microtime(true) - $started) * 1000));
+        $result = [
+            'error' =>
+                'No picture was made: ' .
+                $budget['why'] .
+                ' Say so plainly rather than trying again.',
+        ];
+        aiSettleTool(
+            $ai,
+            $runId,
+            $result,
+            (int) round((microtime(true) - $started) * 1000),
+        );
         aiRecordToolResult($ai, $session, $toolId, $name, $result);
         return;
     }
@@ -1256,36 +1434,61 @@ function aiRunPicture(
         ? (in_array('cyberpunk-portrait-generator', $settings['styles'], true)
             ? 'cyberpunk-portrait-generator'
             : $settings['styles'][0])
-        : (string)$values['style'];
+        : (string) $values['style'];
 
-    $prompt = (string)$values['description'];
+    $prompt = (string) $values['description'];
 
     $made = aiMakeImage($settings, $prompt, $style);
-    $ms = (int)round((microtime(true) - $started) * 1000);
+    $ms = (int) round((microtime(true) - $started) * 1000);
 
     if (!$made['ok']) {
-        aiRecordImage($ai, $session, $isPortrait ? 'portrait' : 'picture', $prompt, $style,
-            null, (string)$made['error']);
-        $result = ['error' => 'The picture could not be made: ' . $made['error']];
+        aiRecordImage(
+            $ai,
+            $session,
+            $isPortrait ? 'portrait' : 'picture',
+            $prompt,
+            $style,
+            null,
+            (string) $made['error'],
+        );
+        $result = [
+            'error' => 'The picture could not be made: ' . $made['error'],
+        ];
         aiSettleTool($ai, $runId, $result, $ms);
         aiRecordToolResult($ai, $session, $toolId, $name, $result);
         return;
     }
 
-    $url = (string)($made['body']['output_url'] ?? '');
+    $url = (string) ($made['body']['output_url'] ?? '');
 
     if ($url === '' || !filter_var($url, FILTER_VALIDATE_URL)) {
         $result = ['error' => 'The generator answered without a picture.'];
-        aiRecordImage($ai, $session, $isPortrait ? 'portrait' : 'picture', $prompt, $style,
-            null, 'no output_url');
+        aiRecordImage(
+            $ai,
+            $session,
+            $isPortrait ? 'portrait' : 'picture',
+            $prompt,
+            $style,
+            null,
+            'no output_url',
+        );
         aiSettleTool($ai, $runId, $result, $ms);
         aiRecordToolResult($ai, $session, $toolId, $name, $result);
         return;
     }
 
     $cost = aiImageCost($ai, $settings, $settings['quality']);
-    $imageId = aiRecordImage($ai, $session, $isPortrait ? 'portrait' : 'picture', $prompt,
-        $style, $url, null, $cost, (string)$settings['quality']);
+    $imageId = aiRecordImage(
+        $ai,
+        $session,
+        $isPortrait ? 'portrait' : 'picture',
+        $prompt,
+        $style,
+        $url,
+        null,
+        $cost,
+        (string) $settings['quality'],
+    );
 
     /*
      * The bytes are kept, not just the link.
@@ -1300,7 +1503,7 @@ function aiRunPicture(
 
     if ($cost > 0) {
         $ai->prepare(
-            'UPDATE ai_sessions SET spent_millicents = spent_millicents + ? WHERE id = ?'
+            'UPDATE ai_sessions SET spent_millicents = spent_millicents + ? WHERE id = ?',
         )->execute([$cost, $session]);
     }
 
@@ -1313,9 +1516,12 @@ function aiRunPicture(
      */
     aiAddMessage($ai, $session, 'picture', $url, [
         'tool_name' => $name,
-        'tool_args' => ['description' => $prompt, 'style' => $style,
-                        'portrait' => $isPortrait,
-                        'asset' => $kept['ok'] ? $imageId : 0],
+        'tool_args' => [
+            'description' => $prompt,
+            'style' => $style,
+            'portrait' => $isPortrait,
+            'asset' => $kept['ok'] ? $imageId : 0,
+        ],
     ]);
 
     $result = [
@@ -1337,7 +1543,7 @@ function aiSettleTool(PDO $ai, int $runId, array $result, int $ms): void
 {
     $ai->prepare(
         'UPDATE ai_tool_runs SET state = ?, settled_at = ?, result = ?, ms = ?, error = ?
-          WHERE id = ?'
+          WHERE id = ?',
     )->execute([
         isset($result['error']) ? 'failed' : 'done',
         time(),

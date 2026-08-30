@@ -49,15 +49,29 @@ const TAIL_MAX_LINE = 8192;
  * honest answer is that this viewer does not read compressed files.
  */
 const COMPRESSED_EXTENSIONS = [
-    'gz', 'bz2', 'xz', 'zst', 'lz4', 'lzma', 'z', 'zip', '7z', 'rar',
-    'tar', 'tgz', 'tbz2', 'txz',
+    'gz',
+    'bz2',
+    'xz',
+    'zst',
+    'lz4',
+    'lzma',
+    'z',
+    'zip',
+    '7z',
+    'rar',
+    'tar',
+    'tgz',
+    'tbz2',
+    'txz',
 ];
 
 /** The compressed extension of a path, or null if it has none. */
 function compressedExtension(string $path): ?string
 {
     $extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
-    return in_array($extension, COMPRESSED_EXTENSIONS, true) ? $extension : null;
+    return in_array($extension, COMPRESSED_EXTENSIONS, true)
+        ? $extension
+        : null;
 }
 
 /**
@@ -92,7 +106,7 @@ function looksLikeText(string $path, int $sample = 4096): bool
     if ($size > $sample) {
         fseek($handle, -$sample, SEEK_END);
     }
-    $chunk = (string)fread($handle, $sample);
+    $chunk = (string) fread($handle, $sample);
     fclose($handle);
 
     if ($chunk === '') {
@@ -107,7 +121,10 @@ function looksLikeText(string $path, int $sample = 4096): bool
     $length = strlen($chunk);
     for ($i = 0; $i < $length; $i++) {
         $byte = ord($chunk[$i]);
-        if (($byte < 32 && !in_array($byte, [9, 10, 13], true)) || $byte === 127) {
+        if (
+            ($byte < 32 && !in_array($byte, [9, 10, 13], true)) ||
+            $byte === 127
+        ) {
             $control++;
         }
     }
@@ -135,22 +152,30 @@ function resolveViewable(array $config, string $requested): string
      * this file one of the ones worth offering. Compared exactly against the
      * resolved path so a symlink cannot be used to nominate a different file.
      */
-    $hostLogs = array_values(array_filter(
-        array_map('realpath', $config['host_log_paths'] ?? []),
-        fn(mixed $p): bool => is_string($p)
-    ));
+    $hostLogs = array_values(
+        array_filter(
+            array_map('realpath', $config['host_log_paths'] ?? []),
+            fn(mixed $p): bool => is_string($p),
+        ),
+    );
     $isHostLog = in_array($real, $hostLogs, true);
 
-    $root = realpath((string)$config['scan_root']);
-    if (!$isHostLog && ($root === false || !str_starts_with($real . '/', rtrim($root, '/') . '/'))) {
-        throw new ActionRefused('outside the scan root, and not one of the host logs '
-            . 'named in host_log_paths');
+    $root = realpath((string) $config['scan_root']);
+    if (
+        !$isHostLog &&
+        ($root === false ||
+            !str_starts_with($real . '/', rtrim($root, '/') . '/'))
+    ) {
+        throw new ActionRefused(
+            'outside the scan root, and not one of the host logs ' .
+                'named in host_log_paths',
+        );
     }
     if (is_link($requested) || is_link($real)) {
         throw new ActionRefused('symlinks are not read');
     }
 
-    $dataDir = realpath(dirname((string)$config['database']));
+    $dataDir = realpath(dirname((string) $config['database']));
     if ($dataDir !== false && str_starts_with($real . '/', $dataDir . '/')) {
         throw new ActionRefused('not the monitor\'s own data');
     }
@@ -159,7 +184,11 @@ function resolveViewable(array $config, string $requested): string
     // account's category rules describe the account's own tree and have nothing
     // to say about /var/log.
     if (!$isHostLog) {
-        $category = categoryOf($real, $config['scan'], $root === false ? '' : $root);
+        $category = categoryOf(
+            $real,
+            $config['scan'],
+            $root === false ? '' : $root,
+        );
         $allowed = $config['viewable_categories'] ?? ['logs', 'errors'];
         if ($category === null || !in_array($category, $allowed, true)) {
             throw new ActionRefused('only log files can be read here');
@@ -167,27 +196,31 @@ function resolveViewable(array $config, string $requested): string
     }
 
     if (!is_readable($real)) {
-        throw new ActionRefused($isHostLog
-            ? 'that log belongs to the host and this account cannot read it. On a '
-                . 'shared server that is normal and there is nothing to change here — '
-                . 'it needs a group membership or an ACL granted by root.'
-            : 'the file is not readable by this user');
+        throw new ActionRefused(
+            $isHostLog
+                ? 'that log belongs to the host and this account cannot read it. On a ' .
+                    'shared server that is normal and there is nothing to change here — ' .
+                    'it needs a group membership or an ACL granted by root.'
+                : 'the file is not readable by this user',
+        );
     }
 
     $compressed = compressedExtension($real);
     if ($compressed !== null) {
-        throw new ActionRefused(sprintf(
-            'that is a .%s archive, not a readable log. Compressed files cannot be '
-            . 'tailed: gzip and friends cannot be read backwards, so showing the end '
-            . 'would mean decompressing the whole file. Uncompress a copy and read that.',
-            $compressed
-        ));
+        throw new ActionRefused(
+            sprintf(
+                'that is a .%s archive, not a readable log. Compressed files cannot be ' .
+                    'tailed: gzip and friends cannot be read backwards, so showing the end ' .
+                    'would mean decompressing the whole file. Uncompress a copy and read that.',
+                $compressed,
+            ),
+        );
     }
 
     if (!looksLikeText($real)) {
         throw new ActionRefused(
-            'that file does not look like text — the end of it is mostly control bytes, '
-            . 'so showing it would print binary rather than log lines.'
+            'that file does not look like text — the end of it is mostly control bytes, ' .
+                'so showing it would print binary rather than log lines.',
         );
     }
 
@@ -212,7 +245,7 @@ function tailFile(
     int $lines = 200,
     int $page = 0,
     string $needle = '',
-    bool $caseSensitive = false
+    bool $caseSensitive = false,
 ): array {
     $lines = max(1, min(2000, $lines));
     $page = max(0, $page);
@@ -222,7 +255,7 @@ function tailFile(
         throw new ActionRefused('could not open the file');
     }
 
-    $size = (int)max(0, @filesize($path) ?: 0);
+    $size = (int) max(0, @filesize($path) ?: 0);
     $position = $size;
     $remainder = '';
     $collected = [];
@@ -240,10 +273,10 @@ function tailFile(
     $fromEnd = 0;
 
     while ($position > 0 && count($collected) < $lines && $scanned < $budget) {
-        $read = (int)min(TAIL_BLOCK, $position);
+        $read = (int) min(TAIL_BLOCK, $position);
         $position -= $read;
         fseek($handle, $position);
-        $block = (string)fread($handle, $read);
+        $block = (string) fread($handle, $read);
         $scanned += $read;
 
         $chunk = $block . $remainder;
@@ -273,9 +306,10 @@ function tailFile(
 
             $collected[] = [
                 'n' => $fromEnd,
-                'text' => strlen($text) > TAIL_MAX_LINE
-                    ? substr($text, 0, TAIL_MAX_LINE) . ' …[line truncated]'
-                    : $text,
+                'text' =>
+                    strlen($text) > TAIL_MAX_LINE
+                        ? substr($text, 0, TAIL_MAX_LINE) . ' …[line truncated]'
+                        : $text,
             ];
 
             if (count($collected) >= $lines) {

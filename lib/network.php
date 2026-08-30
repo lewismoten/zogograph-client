@@ -76,21 +76,24 @@ function networkInterfaces(string $procRoot = '/proc'): array
         $out[] = [
             'name' => $name,
             'loopback' => $name === 'lo',
-            'rx_bytes' => (int)$parts[0],
-            'rx_packets' => (int)$parts[1],
-            'rx_errors' => (int)$parts[2],
-            'rx_dropped' => (int)$parts[3],
-            'tx_bytes' => (int)$parts[8],
-            'tx_packets' => (int)$parts[9],
-            'tx_errors' => (int)$parts[10],
-            'tx_dropped' => (int)$parts[11],
+            'rx_bytes' => (int) $parts[0],
+            'rx_packets' => (int) $parts[1],
+            'rx_errors' => (int) $parts[2],
+            'rx_dropped' => (int) $parts[3],
+            'tx_bytes' => (int) $parts[8],
+            'tx_packets' => (int) $parts[9],
+            'tx_errors' => (int) $parts[10],
+            'tx_dropped' => (int) $parts[11],
             'up' => interfaceIsUp($name),
             'speed_mbit' => interfaceSpeed($name),
         ];
     }
 
-    usort($out, fn(array $a, array $b): int =>
-        ($a['loopback'] <=> $b['loopback']) ?: ($b['rx_bytes'] + $b['tx_bytes'] <=> $a['rx_bytes'] + $a['tx_bytes']));
+    usort(
+        $out,
+        fn(array $a, array $b): int => $a['loopback'] <=> $b['loopback'] ?:
+        $b['rx_bytes'] + $b['tx_bytes'] <=> $a['rx_bytes'] + $a['tx_bytes'],
+    );
 
     return $out;
 }
@@ -117,7 +120,7 @@ function interfaceSpeed(string $name): ?int
     if ($speed === false) {
         return null;
     }
-    $value = (int)trim($speed);
+    $value = (int) trim($speed);
     return $value > 0 ? $value : null;
 }
 
@@ -136,24 +139,40 @@ function listeningSockets(): array
 {
     $out = shellRead('ss -lntupH 2>/dev/null');
     if ($out !== null) {
-        return ['rows' => parseSsListening($out), 'source' => 'ss', 'reason' => ''];
+        return [
+            'rows' => parseSsListening($out),
+            'source' => 'ss',
+            'reason' => '',
+        ];
     }
 
     $rows = [];
-    foreach (['tcp' => '/proc/net/tcp', 'tcp6' => '/proc/net/tcp6',
-              'udp' => '/proc/net/udp', 'udp6' => '/proc/net/udp6'] as $kind => $file) {
+    foreach (
+        [
+            'tcp' => '/proc/net/tcp',
+            'tcp6' => '/proc/net/tcp6',
+            'udp' => '/proc/net/udp',
+            'udp6' => '/proc/net/udp6',
+        ]
+        as $kind => $file
+    ) {
         foreach (parseProcNet($file, str_starts_with($kind, 'tcp')) as $row) {
-            $rows[] = $row + ['protocol' => $kind, 'process' => null, 'pid' => null];
+            $rows[] = $row + [
+                'protocol' => $kind,
+                'process' => null,
+                'pid' => null,
+            ];
         }
     }
 
     return [
         'rows' => dedupePorts($rows),
         'source' => 'proc',
-        'reason' => $rows === []
-            ? 'Neither ss nor /proc/net could be read here.'
-            : 'Read from /proc/net, which does not say which process holds each socket. '
-                . 'Install iproute2, or run the host collector as root, for that.',
+        'reason' =>
+            $rows === []
+                ? 'Neither ss nor /proc/net could be read here.'
+                : 'Read from /proc/net, which does not say which process holds each socket. ' .
+                    'Install iproute2, or run the host collector as root, for that.',
     ];
 }
 
@@ -182,7 +201,7 @@ function parseSsListening(string $out): array
             continue;
         }
         $address = substr($local, 0, $at);
-        $port = (int)substr($local, $at + 1);
+        $port = (int) substr($local, $at + 1);
         if ($port <= 0) {
             continue;
         }
@@ -191,7 +210,7 @@ function parseSsListening(string $out): array
         $pid = null;
         if (preg_match('/users:\(\("([^"]+)",pid=(\d+)/', $line, $m)) {
             $process = $m[1];
-            $pid = (int)$m[2];
+            $pid = (int) $m[2];
         }
 
         $rows[] = [
@@ -227,7 +246,7 @@ function dedupePorts(array $rows): array
          * against /proc/net/tcp6, where the name carries it, and quietly
          * reported every IPv6 listener as IPv4 everywhere else.
          */
-        $family = str_contains((string)$row['address'], ':') ? 'v6' : 'v4';
+        $family = str_contains((string) $row['address'], ':') ? 'v6' : 'v4';
         $base = rtrim($row['protocol'], '6');
         $key = $base . ':' . $row['port'];
 
@@ -279,7 +298,12 @@ function portIsPublic(array $addresses): bool
 {
     foreach ($addresses as $address) {
         $address = trim($address, '[]');
-        if ($address === '0.0.0.0' || $address === '*' || $address === '::' || $address === '') {
+        if (
+            $address === '0.0.0.0' ||
+            $address === '*' ||
+            $address === '::' ||
+            $address === ''
+        ) {
             return true;
         }
         if (!str_starts_with($address, '127.') && $address !== '::1') {
@@ -315,7 +339,7 @@ function parseProcNet(string $file, bool $isTcp): array
         }
 
         [$hexAddress, $hexPort] = array_pad(explode(':', $parts[1]), 2, '');
-        $port = (int)hexdec($hexPort);
+        $port = (int) hexdec($hexPort);
         if ($port <= 0) {
             continue;
         }
@@ -344,7 +368,9 @@ function hexToAddress(string $hex): string
             $parts[] = substr($reversed, 4, 4);
         }
         $packed = @inet_pton(implode(':', $parts));
-        return $packed === false ? implode(':', $parts) : (string)inet_ntop($packed);
+        return $packed === false
+            ? implode(':', $parts)
+            : (string) inet_ntop($packed);
     }
 
     return $hex;
@@ -364,28 +390,61 @@ function portService(int $port, string $protocol = 'tcp'): array
     static $known = [
         20 => ['FTP data', 'The data channel for a classic FTP transfer.'],
         21 => ['FTP', 'Unencrypted by default. Usually replaced by SFTP.'],
-        22 => ['SSH', 'Shell access and SFTP. The most probed port on the internet.'],
-        25 => ['SMTP', 'Mail between servers. An open one gets abused within hours.'],
-        53 => ['DNS', 'Name service. Both UDP and TCP; UDP carries almost all of it, '
-            . 'and an authoritative server here will see far more traffic than anything else.'],
+        22 => [
+            'SSH',
+            'Shell access and SFTP. The most probed port on the internet.',
+        ],
+        25 => [
+            'SMTP',
+            'Mail between servers. An open one gets abused within hours.',
+        ],
+        53 => [
+            'DNS',
+            'Name service. Both UDP and TCP; UDP carries almost all of it, ' .
+            'and an authoritative server here will see far more traffic than anything else.',
+        ],
         80 => ['HTTP', 'Web, unencrypted. Usually a redirect to 443.'],
         110 => ['POP3', 'Mail collection, legacy.'],
-        123 => ['NTP', 'Clock synchronisation. Amplification-attack bait if open to the world.'],
+        123 => [
+            'NTP',
+            'Clock synchronisation. Amplification-attack bait if open to the world.',
+        ],
         143 => ['IMAP', 'Mail collection.'],
         443 => ['HTTPS', 'Web, encrypted. The busiest port on most web hosts.'],
         465 => ['SMTPS', 'Mail submission over TLS.'],
         587 => ['Mail submission', 'What mail clients use to send.'],
         993 => ['IMAPS', 'IMAP over TLS.'],
         995 => ['POP3S', 'POP3 over TLS.'],
-        3306 => ['MySQL / MariaDB', 'Should almost never be reachable from off the machine.'],
-        5432 => ['PostgreSQL', 'Should almost never be reachable from off the machine.'],
-        6379 => ['Redis', 'No authentication by default. Public exposure is a compromise.'],
-        8000 => ['HTTP alternate', 'Often a development or application server.'],
-        8080 => ['HTTP alternate', 'Often a proxy, an app server, or a control panel.'],
+        3306 => [
+            'MySQL / MariaDB',
+            'Should almost never be reachable from off the machine.',
+        ],
+        5432 => [
+            'PostgreSQL',
+            'Should almost never be reachable from off the machine.',
+        ],
+        6379 => [
+            'Redis',
+            'No authentication by default. Public exposure is a compromise.',
+        ],
+        8000 => [
+            'HTTP alternate',
+            'Often a development or application server.',
+        ],
+        8080 => [
+            'HTTP alternate',
+            'Often a proxy, an app server, or a control panel.',
+        ],
         8443 => ['HTTPS alternate', 'Often a control panel.'],
         9000 => ['PHP-FPM or app server', 'FastCGI, usually local only.'],
-        11211 => ['Memcached', 'No authentication. A famous amplification vector when public.'],
-        27017 => ['MongoDB', 'Should almost never be reachable from off the machine.'],
+        11211 => [
+            'Memcached',
+            'No authentication. A famous amplification vector when public.',
+        ],
+        27017 => [
+            'MongoDB',
+            'Should almost never be reachable from off the machine.',
+        ],
         // cPanel and WHM, which is what this is most likely running on.
         2077 => ['cPanel WebDisk', ''],
         2078 => ['cPanel WebDisk (TLS)', ''],
@@ -395,21 +454,29 @@ function portService(int $port, string $protocol = 'tcp'): array
         2087 => ['WHM (TLS)', 'Server administration.'],
         2095 => ['Webmail', ''],
         2096 => ['Webmail (TLS)', ''],
-        3000 => ['Application server', 'Node, Rails and Forgejo all default here.'],
+        3000 => [
+            'Application server',
+            'Node, Rails and Forgejo all default here.',
+        ],
         // Common self-hosted things.
         8006 => ['Proxmox', ''],
         9090 => ['Cockpit or Prometheus', ''],
     ];
 
     if (isset($known[$port])) {
-        return ['name' => $known[$port][0], 'note' => $known[$port][1], 'known' => true];
+        return [
+            'name' => $known[$port][0],
+            'note' => $known[$port][1],
+            'known' => true,
+        ];
     }
 
     if ($port >= 49152) {
         return [
             'name' => 'ephemeral range',
-            'note' => 'Ports above 49151 are handed out to outgoing connections. A listener '
-                . 'here is unusual and worth identifying.',
+            'note' =>
+                'Ports above 49151 are handed out to outgoing connections. A listener ' .
+                'here is unusual and worth identifying.',
             'known' => false,
         ];
     }
@@ -432,10 +499,14 @@ function connectionSummary(): array
     $out = shellRead('ss -Htn state connected 2>/dev/null');
     if ($out === null) {
         return [
-            'peers' => [], 'ports' => [], 'total' => 0, 'states' => [],
+            'peers' => [],
+            'ports' => [],
+            'total' => 0,
+            'states' => [],
             'source' => 'none',
-            'reason' => 'ss could not be run here, so established connections cannot be listed. '
-                . '/proc/net/tcp has the same information but not the process behind it.',
+            'reason' =>
+                'ss could not be run here, so established connections cannot be listed. ' .
+                '/proc/net/tcp has the same information but not the process behind it.',
         ];
     }
 
@@ -452,8 +523,8 @@ function connectionSummary(): array
         $local = $parts[count($parts) - 2];
         $peer = $parts[count($parts) - 1];
 
-        $localPort = (int)substr($local, (int)strrpos($local, ':') + 1);
-        $peerAddress = trim(substr($peer, 0, (int)strrpos($peer, ':')), '[]');
+        $localPort = (int) substr($local, (int) strrpos($local, ':') + 1);
+        $peerAddress = trim(substr($peer, 0, (int) strrpos($peer, ':')), '[]');
 
         if ($localPort <= 0 || $peerAddress === '') {
             continue;
@@ -475,7 +546,7 @@ function connectionSummary(): array
                 'private' => addressIsPrivate($address),
             ],
             array_keys(array_slice($peers, 0, CAPTURE_KEEP, true)),
-            array_values(array_slice($peers, 0, CAPTURE_KEEP, true))
+            array_values(array_slice($peers, 0, CAPTURE_KEEP, true)),
         ),
         'ports' => array_map(
             fn(int $port, int $count): array => [
@@ -484,7 +555,7 @@ function connectionSummary(): array
                 'service' => portService($port),
             ],
             array_keys(array_slice($ports, 0, CAPTURE_KEEP, true)),
-            array_values(array_slice($ports, 0, CAPTURE_KEEP, true))
+            array_values(array_slice($ports, 0, CAPTURE_KEEP, true)),
         ),
         'total' => $total,
         'states' => [],
@@ -497,14 +568,16 @@ function connectionSummary(): array
 function addressIsPrivate(string $address): bool
 {
     if (str_contains($address, ':')) {
-        return str_starts_with($address, 'fe80') || str_starts_with($address, 'fc')
-            || str_starts_with($address, 'fd') || $address === '::1';
+        return str_starts_with($address, 'fe80') ||
+            str_starts_with($address, 'fc') ||
+            str_starts_with($address, 'fd') ||
+            $address === '::1';
     }
 
-    return str_starts_with($address, '10.')
-        || str_starts_with($address, '192.168.')
-        || str_starts_with($address, '127.')
-        || (bool)preg_match('/^172\.(1[6-9]|2\d|3[01])\./', $address);
+    return str_starts_with($address, '10.') ||
+        str_starts_with($address, '192.168.') ||
+        str_starts_with($address, '127.') ||
+        (bool) preg_match('/^172\.(1[6-9]|2\d|3[01])\./', $address);
 }
 
 /* ------------------------------------------------------- packet sampling -- */
@@ -527,7 +600,7 @@ function localAddresses(): array
     $ip = whichBinary('ip');
     if ($ip !== null) {
         $lines = shellRead(escapeshellarg($ip) . ' -o addr show 2>/dev/null');
-        foreach (preg_split('/\R/', (string)$lines) ?: [] as $line) {
+        foreach (preg_split('/\R/', (string) $lines) ?: [] as $line) {
             if (preg_match('/\binet6?\s+([0-9a-f.:]+)/i', $line, $m)) {
                 $out[] = $m[1];
             }
@@ -579,7 +652,7 @@ function captureTraffic(
     int $seconds,
     string $filter = '',
     ?array $local = null,
-    bool $readAsked = false
+    bool $readAsked = false,
 ): array {
     $seconds = max(5, min(CAPTURE_MAX_SECONDS, $seconds));
 
@@ -590,19 +663,23 @@ function captureTraffic(
     $expression = captureFilter($filter);
     if ($expression === null) {
         return captureFailure(
-            'That capture filter is not one of the ones offered. Filters are chosen from a '
-            . 'fixed list rather than typed, because a tcpdump expression is passed to a '
-            . 'program running as root and there is no safe way to accept an arbitrary one.'
+            'That capture filter is not one of the ones offered. Filters are chosen from a ' .
+                'fixed list rather than typed, because a tcpdump expression is passed to a ' .
+                'program running as root and there is no safe way to accept an arbitrary one.',
         );
     }
 
     $tcpdump = whichBinary('tcpdump');
     if ($tcpdump === null) {
-        return captureFailure('tcpdump is not installed, or is not on this PATH.');
+        return captureFailure(
+            'tcpdump is not installed, or is not on this PATH.',
+        );
     }
 
     if (!function_exists('popen')) {
-        return captureFailure('popen is disabled in this PHP, so a capture cannot be read.');
+        return captureFailure(
+            'popen is disabled in this PHP, so a capture cannot be read.',
+        );
     }
 
     $timeout = whichBinary('timeout');
@@ -617,13 +694,17 @@ function captureTraffic(
      */
     $command = sprintf(
         '%s%s -nn %s -l -s %d -c %d -i %s %s 2>&1',
-        $timeout === null ? '' : escapeshellarg($timeout) . ' ' . ($seconds + 3) . ' ',
+        $timeout === null
+            ? ''
+            : escapeshellarg($timeout) . ' ' . ($seconds + 3) . ' ',
         escapeshellarg($tcpdump),
         $readAsked ? '-A' : '-q',
         $readAsked ? 512 : 128,
         CAPTURE_MAX_PACKETS,
         escapeshellarg($interface),
-        $expression['argument'] === '' ? '' : escapeshellarg($expression['argument'])
+        $expression['argument'] === ''
+            ? ''
+            : escapeshellarg($expression['argument']),
     );
 
     $local ??= localAddresses();
@@ -643,7 +724,10 @@ function captureTraffic(
             continue;
         }
 
-        if (str_starts_with($line, 'tcpdump:') || str_starts_with($line, 'listening on')) {
+        if (
+            str_starts_with($line, 'tcpdump:') ||
+            str_starts_with($line, 'listening on')
+        ) {
             $complaints[] = $line;
             continue;
         }
@@ -652,7 +736,10 @@ function captureTraffic(
 
         // A second guard on the clock: `timeout` may be missing, and a filter
         // that matches nothing would otherwise block here for ever.
-        if ($state['packets'] % 512 === 0 && microtime(true) - $started > $seconds + 5) {
+        if (
+            $state['packets'] % 512 === 0 &&
+            microtime(true) - $started > $seconds + 5
+        ) {
             break;
         }
     }
@@ -669,19 +756,28 @@ function captureTraffic(
          * command reads as "no traffic", which is the opposite of the truth.
          */
         $said = implode(' ', $complaints);
-        foreach (['permission' => 'This needs root: tcpdump could not open the interface.',
-                  'No such device' => 'There is no interface by that name on this machine.',
-                  'not found' => 'tcpdump is not installed here.'] as $needle => $because) {
+        foreach (
+            [
+                'permission' =>
+                    'This needs root: tcpdump could not open the interface.',
+                'No such device' =>
+                    'There is no interface by that name on this machine.',
+                'not found' => 'tcpdump is not installed here.',
+            ]
+            as $needle => $because
+        ) {
             if (stripos($said, $needle) !== false) {
                 return captureFailure($because);
             }
         }
 
-        return captureFailure(sprintf(
-            'Nothing matched in %ss. The interface is up and the filter caught no packets, '
-            . 'which for a narrow filter on a quiet link is an ordinary answer.',
-            $elapsed
-        ));
+        return captureFailure(
+            sprintf(
+                'Nothing matched in %ss. The interface is up and the filter caught no packets, ' .
+                    'which for a narrow filter on a quiet link is an ordinary answer.',
+                $elapsed,
+            ),
+        );
     }
 
     $summary = finishCapture($state);
@@ -701,13 +797,31 @@ function captureTraffic(
 function captureFailure(string $reason): array
 {
     return [
-        'ok' => false, 'reason' => $reason, 'packets' => 0, 'bytes' => 0,
-        'peers' => [], 'ports' => [], 'names' => [], 'flags' => [],
-        'asked' => [], 'visited' => [], 'read_asked' => false,
-        'in_packets' => 0, 'out_packets' => 0, 'in_bytes' => 0, 'out_bytes' => 0,
-        'unparsed' => 0, 'distinct_peers' => 0, 'distinct_names' => 0,
-        'seconds' => 0, 'interface' => '', 'filter' => '', 'filter_label' => '',
-        'hit_packet_limit' => false, 'requested_seconds' => 0, 'local' => [],
+        'ok' => false,
+        'reason' => $reason,
+        'packets' => 0,
+        'bytes' => 0,
+        'peers' => [],
+        'ports' => [],
+        'names' => [],
+        'flags' => [],
+        'asked' => [],
+        'visited' => [],
+        'read_asked' => false,
+        'in_packets' => 0,
+        'out_packets' => 0,
+        'in_bytes' => 0,
+        'out_bytes' => 0,
+        'unparsed' => 0,
+        'distinct_peers' => 0,
+        'distinct_names' => 0,
+        'seconds' => 0,
+        'interface' => '',
+        'filter' => '',
+        'filter_label' => '',
+        'hit_packet_limit' => false,
+        'requested_seconds' => 0,
+        'local' => [],
     ];
 }
 
@@ -783,13 +897,13 @@ function countPacket(array &$state, string $line): void
     $bytes = 0;
     if (preg_match('/\blength (\d+)/', $line, $size)) {
         // The usual form, and the one TCP uses once flags are being printed.
-        $bytes = (int)$size[1];
+        $bytes = (int) $size[1];
     } elseif (preg_match('/\b(?:tcp|UDP|udp)\s+(\d+)/', $line, $size)) {
         // `-q` without flags: "tcp 517".
-        $bytes = (int)$size[1];
+        $bytes = (int) $size[1];
     } elseif (preg_match('/\((\d+)\)\s*$/', $line, $size)) {
         // DNS and other UDP, which carry the length in brackets at the end.
-        $bytes = (int)$size[1];
+        $bytes = (int) $size[1];
     }
     $state['bytes'] += $bytes;
 
@@ -815,8 +929,11 @@ function countPacket(array &$state, string $line): void
 
         if (!isset($state['peers'][$remote])) {
             $state['peers'][$remote] = [
-                'in_packets' => 0, 'out_packets' => 0,
-                'in_bytes' => 0, 'out_bytes' => 0, 'opened' => 0,
+                'in_packets' => 0,
+                'out_packets' => 0,
+                'in_bytes' => 0,
+                'out_bytes' => 0,
+                'opened' => 0,
             ];
         }
 
@@ -839,7 +956,7 @@ function countPacket(array &$state, string $line): void
      * One side of every conversation is an ephemeral port picked at random, and
      * counting those produces thousands of ports each seen once.
      */
-    $port = min((int)$sourcePort, (int)$destinationPort);
+    $port = min((int) $sourcePort, (int) $destinationPort);
     if (!isset($state['ports'][$port])) {
         $state['ports'][$port] = ['packets' => 0, 'bytes' => 0];
     }
@@ -873,12 +990,12 @@ function countPacket(array &$state, string $line): void
      */
     $question = captureDnsQuestion($line);
     if ($question !== null) {
-        $state['names'][$question['name']] = ($state['names'][$question['name']] ?? 0) + 1;
+        $state['names'][$question['name']] =
+            ($state['names'][$question['name']] ?? 0) + 1;
 
         $key = $question['type'] . ' ' . $question['name'];
         $state['asked'][$key] = ($state['asked'][$key] ?? 0) + 1;
     }
-
 }
 
 /**
@@ -964,11 +1081,13 @@ const CAPTURE_ASKED_MAX = 180;
  */
 function captureDnsQuestion(string $line): ?array
 {
-    if (!preg_match(
-        '/\s(A|AAAA|NS|MX|TXT|SOA|PTR|CNAME|SRV|CAA|DS|DNSKEY|ANY)\?\s+([A-Za-z0-9._-]+)/',
-        $line,
-        $m
-    )) {
+    if (
+        !preg_match(
+            '/\s(A|AAAA|NS|MX|TXT|SOA|PTR|CNAME|SRV|CAA|DS|DNSKEY|ANY)\?\s+([A-Za-z0-9._-]+)/',
+            $line,
+            $m,
+        )
+    ) {
         return null;
     }
 
@@ -1011,11 +1130,13 @@ function captureTlsName(string $line): ?string
      * a dot as a name character either swallows the padding or refuses to start
      * because the character before is a dot.
      */
-    if (!preg_match_all(
-        '/[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?){1,6}/i',
-        $line,
-        $matches
-    )) {
+    if (
+        !preg_match_all(
+            '/[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?){1,6}/i',
+            $line,
+            $matches,
+        )
+    ) {
         return null;
     }
 
@@ -1040,8 +1161,10 @@ function captureTlsName(string $line): ?string
          * well-formed hostname and was being reported as one on every single
          * TLS connection. These are the tokens that actually appear there.
          */
-        if (preg_match('/^(?:h2|h3|http|spdy|hq|quic)\b/', $name)
-            || str_contains($name, 'http/')) {
+        if (
+            preg_match('/^(?:h2|h3|http|spdy|hq|quic)\b/', $name) ||
+            str_contains($name, 'http/')
+        ) {
             continue;
         }
 
@@ -1053,11 +1176,13 @@ function captureTlsName(string $line): ?string
          * against the extensions that turn up rather than against a list of
          * every real top-level domain, which would be a list to maintain.
          */
-        if (preg_match(
-            '/\.(?:png|jpe?g|gif|webp|svg|ico|css|js|mjs|json|xml|html?|txt|woff2?|'
-            . 'ttf|eot|map|pdf|zip|gz|mp4|webm|mp3|wav|php|asp|aspx|jsp)$/',
-            $name
-        )) {
+        if (
+            preg_match(
+                '/\.(?:png|jpe?g|gif|webp|svg|ico|css|js|mjs|json|xml|html?|txt|woff2?|' .
+                    'ttf|eot|map|pdf|zip|gz|mp4|webm|mp3|wav|php|asp|aspx|jsp)$/',
+                $name,
+            )
+        ) {
             continue;
         }
 
@@ -1097,7 +1222,13 @@ function captureHttpRequest(string $line): ?array
 {
     $out = ['host' => null, 'path' => null];
 
-    if (preg_match('#\b(GET|POST|HEAD|PUT|DELETE|PATCH|OPTIONS)\s+(/[^\s?]*)#', $line, $m)) {
+    if (
+        preg_match(
+            '#\b(GET|POST|HEAD|PUT|DELETE|PATCH|OPTIONS)\s+(/[^\s?]*)#',
+            $line,
+            $m,
+        )
+    ) {
         $out['path'] = $m[1] . ' ' . substr($m[2], 0, CAPTURE_ASKED_MAX);
     }
 
@@ -1108,18 +1239,20 @@ function captureHttpRequest(string $line): ?array
      * a dot as a name character ran straight through it and into the next
      * header - "radio.kognabo.com..user-agent" was reported as a hostname.
      */
-    if (preg_match(
-        '/\bHost:\s*([A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)*)/i',
-        $line,
-        $m
-    )) {
+    if (
+        preg_match(
+            '/\bHost:\s*([A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)*)/i',
+            $line,
+            $m,
+        )
+    ) {
         $host = strtolower(rtrim($m[1], '.'));
         if ($host !== '' && strlen($host) <= CAPTURE_ASKED_MAX) {
             $out['host'] = $host;
         }
     }
 
-    return ($out['host'] === null && $out['path'] === null) ? null : $out;
+    return $out['host'] === null && $out['path'] === null ? null : $out;
 }
 
 /** tcpdump's flag letters, named for what they mean. */
@@ -1164,7 +1297,10 @@ function captureFlagName(string $letters): string
 function captureFilter(string $key): ?array
 {
     foreach (captureFilters() as $filter) {
-        if ($filter['key'] === $key || ($key === '' && $filter['key'] === 'all')) {
+        if (
+            $filter['key'] === $key ||
+            ($key === '' && $filter['key'] === 'all')
+        ) {
             return $filter;
         }
     }
@@ -1179,55 +1315,62 @@ function captureFilters(): array
             'key' => 'all',
             'label' => 'Everything',
             'argument' => '',
-            'about' => 'Every packet crossing the interface. The right place to start when '
-                . 'you do not yet know what is busy - and the only one whose port breakdown '
-                . 'is a share of the whole, rather than of whatever the filter let through.',
+            'about' =>
+                'Every packet crossing the interface. The right place to start when ' .
+                'you do not yet know what is busy - and the only one whose port breakdown ' .
+                'is a share of the whole, rather than of whatever the filter let through.',
         ],
         [
             'key' => 'dns',
             'label' => 'DNS (port 53)',
             'argument' => 'port 53',
-            'about' => 'Both UDP and TCP. Dramatic to watch scrolling past and very often a '
-                . 'small fraction of the actual load - which is worth knowing before you go '
-                . 'looking at the nameserver.',
+            'about' =>
+                'Both UDP and TCP. Dramatic to watch scrolling past and very often a ' .
+                'small fraction of the actual load - which is worth knowing before you go ' .
+                'looking at the nameserver.',
         ],
         [
             'key' => 'dns-udp',
             'label' => 'DNS over UDP only',
             'argument' => 'udp port 53',
-            'about' => 'Almost all real query traffic. Separating it from TCP tells a flood '
-                . 'of ordinary queries apart from zone transfers.',
+            'about' =>
+                'Almost all real query traffic. Separating it from TCP tells a flood ' .
+                'of ordinary queries apart from zone transfers.',
         ],
         [
             'key' => 'https',
             'label' => 'HTTPS (port 443)',
             'argument' => 'tcp port 443',
-            'about' => 'Web traffic in both directions. On a machine hosting anything at all '
-                . 'this is usually where the packets actually are.',
+            'about' =>
+                'Web traffic in both directions. On a machine hosting anything at all ' .
+                'this is usually where the packets actually are.',
         ],
         [
             'key' => 'https-in',
             'label' => 'HTTPS arriving here',
             'argument' => 'tcp dst port 443',
-            'about' => 'Only packets addressed to this machine\'s web port, so the counts are '
-                . 'what clients are sending rather than what is being served back. This is the '
-                . 'one that names who is generating the load.',
+            'about' =>
+                'Only packets addressed to this machine\'s web port, so the counts are ' .
+                'what clients are sending rather than what is being served back. This is the ' .
+                'one that names who is generating the load.',
         ],
         [
             'key' => 'https-syn',
             'label' => 'New HTTPS connections only',
             'argument' => 'tcp dst port 443 and tcp[tcpflags] & tcp-syn != 0',
-            'about' => 'Only the opening packet of each connection, so the count is "how many '
-                . 'connections are being attempted" rather than "how much data". Many from one '
-                . 'address is a busy client; a few each from hundreds of changing addresses is '
-                . 'scanning or a flood.',
+            'about' =>
+                'Only the opening packet of each connection, so the count is "how many ' .
+                'connections are being attempted" rather than "how much data". Many from one ' .
+                'address is a busy client; a few each from hundreds of changing addresses is ' .
+                'scanning or a flood.',
         ],
         [
             'key' => 'mail',
             'label' => 'Mail (25, 465, 587)',
             'argument' => 'port 25 or port 465 or port 587',
-            'about' => 'A compromised account sending spam shows up here long before it shows '
-                . 'up in the disk figures.',
+            'about' =>
+                'A compromised account sending spam shows up here long before it shows ' .
+                'up in the disk figures.',
         ],
         [
             'key' => 'web',
@@ -1263,46 +1406,65 @@ function finishCapture(array $state): array
                     continue;
                 }
                 $peers[$address] = [
-                    'in_packets' => $count, 'out_packets' => 0,
-                    'in_bytes' => 0, 'out_bytes' => 0, 'opened' => 0,
+                    'in_packets' => $count,
+                    'out_packets' => 0,
+                    'in_bytes' => 0,
+                    'out_bytes' => 0,
+                    'opened' => 0,
                 ];
             }
         }
     }
 
-    uasort($peers, fn(array $a, array $b): int =>
-        ($b['in_bytes'] + $b['out_bytes'] <=> $a['in_bytes'] + $a['out_bytes'])
-        ?: ($b['in_packets'] + $b['out_packets'] <=> $a['in_packets'] + $a['out_packets']));
+    uasort(
+        $peers,
+        fn(array $a, array $b): int => $b['in_bytes'] + $b['out_bytes'] <=>
+        $a['in_bytes'] + $a['out_bytes'] ?:
+        $b['in_packets'] + $b['out_packets'] <=>
+            $a['in_packets'] + $a['out_packets'],
+    );
 
     $peerRows = [];
-    foreach (array_slice($peers, 0, CAPTURE_KEEP, true) as $address => $counts) {
+    foreach (
+        array_slice($peers, 0, CAPTURE_KEEP, true)
+        as $address => $counts
+    ) {
         $peerRows[] = [
-            'address' => (string)$address,
+            'address' => (string) $address,
             'packets' => $counts['in_packets'] + $counts['out_packets'],
             'in_packets' => $counts['in_packets'],
             'out_packets' => $counts['out_packets'],
             'in_bytes' => $counts['in_bytes'],
             'out_bytes' => $counts['out_bytes'],
             'opened' => $counts['opened'],
-            'private' => addressIsPrivate((string)$address),
+            'private' => addressIsPrivate((string) $address),
         ];
     }
 
-    uasort($state['ports'], fn(array $a, array $b): int => $b['packets'] <=> $a['packets']);
+    uasort(
+        $state['ports'],
+        fn(array $a, array $b): int => $b['packets'] <=> $a['packets'],
+    );
     $portRows = [];
-    foreach (array_slice($state['ports'], 0, CAPTURE_KEEP, true) as $port => $counts) {
+    foreach (
+        array_slice($state['ports'], 0, CAPTURE_KEEP, true)
+        as $port => $counts
+    ) {
         $portRows[] = [
-            'port' => (int)$port,
+            'port' => (int) $port,
             'packets' => $counts['packets'],
             'bytes' => $counts['bytes'],
-            'service' => portService((int)$port),
+            'service' => portService((int) $port),
         ];
     }
 
     arsort($state['names']);
     $nameRows = [];
-    foreach (array_slice($state['names'], 0, CAPTURE_KEEP, true) as $name => $count) {
-        $nameRows[] = ['name' => (string)$name, 'packets' => $count];
+    foreach (
+        array_slice($state['names'], 0, CAPTURE_KEEP, true)
+        as $name => $count
+    ) {
+        $nameRows[] = ['name' => (string) $name, 'packets' => $count];
     }
 
     arsort($state['flags']);
@@ -1317,14 +1479,20 @@ function finishCapture(array $state): array
      */
     arsort($state['asked']);
     $askedRows = [];
-    foreach (array_slice($state['asked'], 0, CAPTURE_KEEP, true) as $key => $count) {
+    foreach (
+        array_slice($state['asked'], 0, CAPTURE_KEEP, true)
+        as $key => $count
+    ) {
         [$type, $name] = explode(' ', $key, 2);
         $askedRows[] = ['kind' => $type, 'name' => $name, 'packets' => $count];
     }
 
     arsort($state['visited']);
     $visitedRows = [];
-    foreach (array_slice($state['visited'], 0, CAPTURE_KEEP, true) as $key => $count) {
+    foreach (
+        array_slice($state['visited'], 0, CAPTURE_KEEP, true)
+        as $key => $count
+    ) {
         [$how, $what] = explode(' ', $key, 2);
         $visitedRows[] = ['kind' => $how, 'name' => $what, 'packets' => $count];
     }
@@ -1342,7 +1510,7 @@ function finishCapture(array $state): array
         'names' => $nameRows,
         'asked' => $askedRows,
         'visited' => $visitedRows,
-        'read_asked' => (bool)($state['read_asked'] ?? false),
+        'read_asked' => (bool) ($state['read_asked'] ?? false),
         'flags' => $state['flags'],
         'distinct_peers' => count($peers),
         'distinct_names' => count($state['names']),
@@ -1363,8 +1531,18 @@ function whichBinary(string $name): ?string
         return null;
     }
 
-    foreach (['/usr/sbin/', '/sbin/', '/usr/bin/', '/bin/',
-              '/usr/local/sbin/', '/usr/local/bin/', '/opt/homebrew/bin/'] as $dir) {
+    foreach (
+        [
+            '/usr/sbin/',
+            '/sbin/',
+            '/usr/bin/',
+            '/bin/',
+            '/usr/local/sbin/',
+            '/usr/local/bin/',
+            '/opt/homebrew/bin/',
+        ]
+        as $dir
+    ) {
         if (@is_executable($dir . $name)) {
             return $dir . $name;
         }
@@ -1400,8 +1578,9 @@ function dnsChecks(array $queries, ?callable $runner = null): array
         return [
             'available' => false,
             'rows' => [],
-            'reason' => 'dig is not installed here. On a Red Hat system it is in bind-utils; '
-                . 'on Debian, dnsutils. Without it this cannot ask a nameserver anything.',
+            'reason' =>
+                'dig is not installed here. On a Red Hat system it is in bind-utils; ' .
+                'on Debian, dnsutils. Without it this cannot ask a nameserver anything.',
         ];
     }
 
@@ -1424,15 +1603,15 @@ function dnsChecks(array $queries, ?callable $runner = null): array
  */
 function dnsQuery(string $dig, array $query, ?callable $runner = null): array
 {
-    $name = (string)($query['name'] ?? '');
-    $type = strtoupper((string)($query['type'] ?? 'A'));
+    $name = (string) ($query['name'] ?? '');
+    $type = strtoupper((string) ($query['type'] ?? 'A'));
     $server = $query['server'] ?? null;
 
     $row = [
         'name' => $name,
         'type' => $type,
         'server' => $server,
-        'why' => (string)($query['why'] ?? ''),
+        'why' => (string) ($query['why'] ?? ''),
         'ok' => false,
         'status' => 'unknown',
         'answers' => [],
@@ -1440,9 +1619,12 @@ function dnsQuery(string $dig, array $query, ?callable $runner = null): array
         'note' => '',
     ];
 
-    if (!preg_match('/^[A-Za-z0-9._-]{1,253}$/', $name)
-        || !preg_match('/^[A-Z]{1,10}$/', $type)
-        || ($server !== null && !preg_match('/^[A-Za-z0-9._:-]{1,253}$/', (string)$server))) {
+    if (
+        !preg_match('/^[A-Za-z0-9._-]{1,253}$/', $name) ||
+        !preg_match('/^[A-Z]{1,10}$/', $type) ||
+        ($server !== null &&
+            !preg_match('/^[A-Za-z0-9._:-]{1,253}$/', (string) $server))
+    ) {
         $row['note'] = 'That is not a name this will look up.';
         return $row;
     }
@@ -1452,23 +1634,27 @@ function dnsQuery(string $dig, array $query, ?callable $runner = null): array
         escapeshellarg($dig),
         $server === null ? '' : escapeshellarg('@' . $server),
         escapeshellarg($name),
-        escapeshellarg($type)
+        escapeshellarg($type),
     );
 
     $started = microtime(true);
     $out = $runner === null ? shellRead($command) : $runner($command);
-    $row['ms'] = (int)round((microtime(true) - $started) * 1000);
+    $row['ms'] = (int) round((microtime(true) - $started) * 1000);
 
     if ($out === null || trim($out) === '') {
         $row['status'] = 'no reply';
-        $row['note'] = 'Nothing came back at all. The server is unreachable, or a firewall '
-            . 'is dropping the query.';
+        $row['note'] =
+            'Nothing came back at all. The server is unreachable, or a firewall ' .
+            'is dropping the query.';
         return $row;
     }
 
     if (preg_match('/status:\s*([A-Z]+)/', $out, $m)) {
         $row['status'] = strtolower($m[1]);
-    } elseif (str_contains($out, 'connection timed out') || str_contains($out, 'no servers could be reached')) {
+    } elseif (
+        str_contains($out, 'connection timed out') ||
+        str_contains($out, 'no servers could be reached')
+    ) {
         $row['status'] = 'no reply';
     }
 
@@ -1479,7 +1665,7 @@ function dnsQuery(string $dig, array $query, ?callable $runner = null): array
         $parts = preg_split('/\s+/', trim($line)) ?: [];
         if (count($parts) >= 5) {
             $row['answers'][] = [
-                'ttl' => (int)$parts[1],
+                'ttl' => (int) $parts[1],
                 'type' => $parts[3],
                 'value' => implode(' ', array_slice($parts, 4)),
             ];
@@ -1491,13 +1677,16 @@ function dnsQuery(string $dig, array $query, ?callable $runner = null): array
         'noerror' => $row['answers'] === []
             ? 'The server answered and knows the name, but has no record of this type.'
             : '',
-        'nxdomain' => 'The server answered: there is no such name. That is a working '
-            . 'nameserver giving a correct negative answer, not a failure.',
-        'refused' => 'The server refused. It is running and reachable, and does not consider '
-            . 'itself responsible for this name — usually a zone that is not configured, or '
-            . 'recursion turned off for outside queries.',
-        'servfail' => 'The server tried and failed. For a recursive query that often means '
-            . 'upstream is broken; for an authoritative one, the zone failed to load.',
+        'nxdomain'
+            => 'The server answered: there is no such name. That is a working ' .
+            'nameserver giving a correct negative answer, not a failure.',
+        'refused'
+            => 'The server refused. It is running and reachable, and does not consider ' .
+            'itself responsible for this name — usually a zone that is not configured, or ' .
+            'recursion turned off for outside queries.',
+        'servfail'
+            => 'The server tried and failed. For a recursive query that often means ' .
+            'upstream is broken; for an authoritative one, the zone failed to load.',
         'no reply' => $row['note'],
         default => '',
     };
@@ -1519,7 +1708,7 @@ function defaultDnsQueries(array $config, array $listening = []): array
     $host = php_uname('n');
     $servesDns = false;
     foreach ($listening as $row) {
-        if ((int)($row['port'] ?? 0) === 53) {
+        if ((int) ($row['port'] ?? 0) === 53) {
             $servesDns = true;
             break;
         }
@@ -1530,14 +1719,16 @@ function defaultDnsQueries(array $config, array $listening = []): array
             'name' => $host,
             'type' => 'A',
             'server' => null,
-            'why' => 'This machine\'s own name, asked the way anything else on it would ask.',
+            'why' =>
+                'This machine\'s own name, asked the way anything else on it would ask.',
         ],
         [
             'name' => 'example.com',
             'type' => 'A',
             'server' => null,
-            'why' => 'A name that has nothing to do with this machine, so a failure here is '
-                . 'the resolver rather than the zone.',
+            'why' =>
+                'A name that has nothing to do with this machine, so a failure here is ' .
+                'the resolver rather than the zone.',
         ],
     ];
 
@@ -1546,23 +1737,25 @@ function defaultDnsQueries(array $config, array $listening = []): array
             'name' => $host,
             'type' => 'A',
             'server' => '127.0.0.1',
-            'why' => 'The same question asked of the nameserver running here. If this differs '
-                . 'from the first answer, this machine and the rest of the world disagree '
-                . 'about where it is.',
+            'why' =>
+                'The same question asked of the nameserver running here. If this differs ' .
+                'from the first answer, this machine and the rest of the world disagree ' .
+                'about where it is.',
         ];
         $queries[] = [
             'name' => 'example.com',
             'type' => 'A',
             'server' => '127.0.0.1',
-            'why' => 'Whether the nameserver here will recurse for a name it is not '
-                . 'authoritative for. An authoritative-only server refusing this is correct '
-                . 'and is not a fault.',
+            'why' =>
+                'Whether the nameserver here will recurse for a name it is not ' .
+                'authoritative for. An authoritative-only server refusing this is correct ' .
+                'and is not a fault.',
         ];
     }
 
-    foreach ((array)($config['network']['dns_names'] ?? []) as $extra) {
+    foreach ((array) ($config['network']['dns_names'] ?? []) as $extra) {
         $queries[] = [
-            'name' => (string)$extra,
+            'name' => (string) $extra,
             'type' => 'A',
             'server' => null,
             'why' => 'From network.dns_names in the config.',
@@ -1594,28 +1787,38 @@ function serviceUnits(): array
     $systemctl = whichBinary('systemctl');
     if ($systemctl === null) {
         return [
-            'available' => false, 'rows' => [], 'summary' => [],
-            'reason' => 'systemctl is not on this machine, so there are no systemd units to '
-                . 'list. On a container or an older init this is expected.',
+            'available' => false,
+            'rows' => [],
+            'summary' => [],
+            'reason' =>
+                'systemctl is not on this machine, so there are no systemd units to ' .
+                'list. On a container or an older init this is expected.',
         ];
     }
 
-    $listed = shellRead(escapeshellarg($systemctl)
-        . ' list-units --type=service --all --no-pager --no-legend --plain 2>/dev/null');
-    $files = shellRead(escapeshellarg($systemctl)
-        . ' list-unit-files --type=service --no-pager --no-legend --plain 2>/dev/null');
+    $listed = shellRead(
+        escapeshellarg($systemctl) .
+            ' list-units --type=service --all --no-pager --no-legend --plain 2>/dev/null',
+    );
+    $files = shellRead(
+        escapeshellarg($systemctl) .
+            ' list-unit-files --type=service --no-pager --no-legend --plain 2>/dev/null',
+    );
 
     if ($listed === null && $files === null) {
         return [
-            'available' => false, 'rows' => [], 'summary' => [],
-            'reason' => 'systemctl is installed but returned nothing. Inside a container '
-                . 'without a running systemd this is what happens.',
+            'available' => false,
+            'rows' => [],
+            'summary' => [],
+            'reason' =>
+                'systemctl is installed but returned nothing. Inside a container ' .
+                'without a running systemd this is what happens.',
         ];
     }
 
     $rows = [];
 
-    foreach (preg_split('/\R/', trim((string)$listed)) ?: [] as $line) {
+    foreach (preg_split('/\R/', trim((string) $listed)) ?: [] as $line) {
         $parts = preg_split('/\s+/', trim($line), 5) ?: [];
         if (count($parts) < 4 || !str_ends_with($parts[0], '.service')) {
             continue;
@@ -1639,7 +1842,7 @@ function serviceUnits(): array
      * the next reboot, and one that is enabled but dead failed to start - two
      * findings that neither list produces on its own.
      */
-    foreach (preg_split('/\R/', trim((string)$files)) ?: [] as $line) {
+    foreach (preg_split('/\R/', trim((string) $files)) ?: [] as $line) {
         $parts = preg_split('/\s+/', trim($line)) ?: [];
         if (count($parts) < 2 || !str_ends_with($parts[0], '.service')) {
             continue;
@@ -1651,8 +1854,12 @@ function serviceUnits(): array
         }
         if (!isset($rows[$name])) {
             $rows[$name] = [
-                'name' => $name, 'loaded' => 'not-loaded', 'active' => 'inactive',
-                'sub' => 'dead', 'description' => '', 'enabled' => $parts[1],
+                'name' => $name,
+                'loaded' => 'not-loaded',
+                'active' => 'inactive',
+                'sub' => 'dead',
+                'description' => '',
+                'enabled' => $parts[1],
             ];
             continue;
         }
@@ -1671,17 +1878,32 @@ function serviceUnits(): array
      * A list of two hundred services alphabetically is a list nobody reads to
      * the bottom, and the three that failed are somewhere in the middle of it.
      */
-    $rank = ['failed' => 0, 'masked' => 1, 'running-not-enabled' => 2,
-             'enabled-not-running' => 3, 'running' => 4, 'stopped' => 5];
-    usort($out, fn(array $a, array $b): int =>
-        (($rank[$a['state']] ?? 9) <=> ($rank[$b['state']] ?? 9)) ?: strcmp($a['name'], $b['name']));
+    $rank = [
+        'failed' => 0,
+        'masked' => 1,
+        'running-not-enabled' => 2,
+        'enabled-not-running' => 3,
+        'running' => 4,
+        'stopped' => 5,
+    ];
+    usort(
+        $out,
+        fn(array $a, array $b): int => ($rank[$a['state']] ?? 9) <=>
+        ($rank[$b['state']] ?? 9) ?:
+        strcmp($a['name'], $b['name']),
+    );
 
     $summary = [];
     foreach ($out as $row) {
         $summary[$row['state']] = ($summary[$row['state']] ?? 0) + 1;
     }
 
-    return ['available' => true, 'reason' => '', 'rows' => $out, 'summary' => $summary];
+    return [
+        'available' => true,
+        'reason' => '',
+        'rows' => $out,
+        'summary' => $summary,
+    ];
 }
 
 /**
@@ -1694,8 +1916,8 @@ function serviceUnits(): array
  */
 function serviceState(array $row): string
 {
-    $active = (string)($row['active'] ?? '');
-    $enabled = (string)($row['enabled'] ?? '');
+    $active = (string) ($row['active'] ?? '');
+    $enabled = (string) ($row['enabled'] ?? '');
 
     if ($active === 'failed' || ($row['sub'] ?? '') === 'failed') {
         return 'failed';
@@ -1716,14 +1938,18 @@ function serviceState(array $row): string
 function serviceStateNote(string $state): string
 {
     return match ($state) {
-        'failed' => 'Tried to run and could not. It uses no memory and no CPU, so it is '
-            . 'absent from every other panel here rather than standing out in one.',
-        'masked' => 'Deliberately blocked. It cannot be started at all until it is unmasked, '
-            . 'which is a long mystery if you do not know it was done.',
-        'running-not-enabled' => 'Running now, but not set to start at boot — it will be gone '
-            . 'after the next restart.',
-        'enabled-not-running' => 'Set to start at boot and is not running. Either it failed '
-            . 'quietly or something stopped it.',
+        'failed'
+            => 'Tried to run and could not. It uses no memory and no CPU, so it is ' .
+            'absent from every other panel here rather than standing out in one.',
+        'masked'
+            => 'Deliberately blocked. It cannot be started at all until it is unmasked, ' .
+            'which is a long mystery if you do not know it was done.',
+        'running-not-enabled'
+            => 'Running now, but not set to start at boot — it will be gone ' .
+            'after the next restart.',
+        'enabled-not-running'
+            => 'Set to start at boot and is not running. Either it failed ' .
+            'quietly or something stopped it.',
         'running' => 'Running, and set to start at boot.',
         'stopped' => 'Not running and not set to. Usually intentional.',
         default => '',
@@ -1747,13 +1973,18 @@ function storeNetwork(PDO $host, int $sampleId): array
     $insertPort = $host->prepare(
         'INSERT OR REPLACE INTO host_ports
             (sample_id, protocol, port, addresses, families, public, process, pid)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
     );
     foreach ($listening['rows'] as $row) {
         $insertPort->execute([
-            $sampleId, $row['protocol'], $row['port'],
-            implode(' ', $row['addresses']), implode(' ', $row['families']),
-            $row['public'] ? 1 : 0, $row['process'], $row['pid'],
+            $sampleId,
+            $row['protocol'],
+            $row['port'],
+            implode(' ', $row['addresses']),
+            implode(' ', $row['families']),
+            $row['public'] ? 1 : 0,
+            $row['process'],
+            $row['pid'],
         ]);
         $counts['ports']++;
     }
@@ -1762,13 +1993,20 @@ function storeNetwork(PDO $host, int $sampleId): array
         'INSERT OR REPLACE INTO host_interfaces
             (sample_id, name, rx_bytes, tx_bytes, rx_packets, tx_packets,
              rx_errors, tx_errors, rx_dropped, tx_dropped, up, speed_mbit)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
     );
     foreach (networkInterfaces() as $row) {
         $insertInterface->execute([
-            $sampleId, $row['name'], $row['rx_bytes'], $row['tx_bytes'],
-            $row['rx_packets'], $row['tx_packets'], $row['rx_errors'], $row['tx_errors'],
-            $row['rx_dropped'], $row['tx_dropped'],
+            $sampleId,
+            $row['name'],
+            $row['rx_bytes'],
+            $row['tx_bytes'],
+            $row['rx_packets'],
+            $row['tx_packets'],
+            $row['rx_errors'],
+            $row['tx_errors'],
+            $row['rx_dropped'],
+            $row['tx_dropped'],
             $row['up'] === null ? null : ($row['up'] ? 1 : 0),
             $row['speed_mbit'],
         ]);
@@ -1778,11 +2016,14 @@ function storeNetwork(PDO $host, int $sampleId): array
     $connections = connectionSummary();
     $insertPeer = $host->prepare(
         'INSERT OR REPLACE INTO host_peers (sample_id, address, connections, private)
-         VALUES (?, ?, ?, ?)'
+         VALUES (?, ?, ?, ?)',
     );
     foreach (array_slice($connections['peers'], 0, CAPTURE_KEEP) as $peer) {
         $insertPeer->execute([
-            $sampleId, $peer['address'], $peer['connections'], $peer['private'] ? 1 : 0,
+            $sampleId,
+            $peer['address'],
+            $peer['connections'],
+            $peer['private'] ? 1 : 0,
         ]);
         $counts['peers']++;
     }
@@ -1791,12 +2032,17 @@ function storeNetwork(PDO $host, int $sampleId): array
     $insertUnit = $host->prepare(
         'INSERT OR REPLACE INTO host_units
             (sample_id, name, state, active, sub, enabled, description)
-         VALUES (?, ?, ?, ?, ?, ?, ?)'
+         VALUES (?, ?, ?, ?, ?, ?, ?)',
     );
     foreach ($units['rows'] as $row) {
         $insertUnit->execute([
-            $sampleId, $row['name'], $row['state'], $row['active'],
-            $row['sub'], $row['enabled'], $row['description'],
+            $sampleId,
+            $row['name'],
+            $row['state'],
+            $row['active'],
+            $row['sub'],
+            $row['enabled'],
+            $row['description'],
         ]);
         $counts['units']++;
     }
@@ -1813,29 +2059,41 @@ function storeNetwork(PDO $host, int $sampleId): array
  */
 function storeCapture(PDO $host, array $capture): int
 {
-    $host->prepare(
-        'INSERT INTO host_captures
+    $host
+        ->prepare(
+            'INSERT INTO host_captures
             (taken_at, interface, filter, seconds, packets, bytes, unparsed,
              distinct_peers, distinct_names, hit_limit, ok, reason,
              in_packets, out_packets, in_bytes, out_bytes, inferred_local)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
-    )->execute([
-        time(), $capture['interface'], $capture['filter'], $capture['seconds'],
-        $capture['packets'], $capture['bytes'], $capture['unparsed'] ?? 0,
-        $capture['distinct_peers'] ?? 0, $capture['distinct_names'] ?? 0,
-        $capture['hit_packet_limit'] ? 1 : 0, $capture['ok'] ? 1 : 0, $capture['reason'],
-        $capture['in_packets'] ?? 0, $capture['out_packets'] ?? 0,
-        $capture['in_bytes'] ?? 0, $capture['out_bytes'] ?? 0,
-        $capture['inferred_local'] ?? null,
-    ]);
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        )
+        ->execute([
+            time(),
+            $capture['interface'],
+            $capture['filter'],
+            $capture['seconds'],
+            $capture['packets'],
+            $capture['bytes'],
+            $capture['unparsed'] ?? 0,
+            $capture['distinct_peers'] ?? 0,
+            $capture['distinct_names'] ?? 0,
+            $capture['hit_packet_limit'] ? 1 : 0,
+            $capture['ok'] ? 1 : 0,
+            $capture['reason'],
+            $capture['in_packets'] ?? 0,
+            $capture['out_packets'] ?? 0,
+            $capture['in_bytes'] ?? 0,
+            $capture['out_bytes'] ?? 0,
+            $capture['inferred_local'] ?? null,
+        ]);
 
-    $id = (int)$host->lastInsertId();
+    $id = (int) $host->lastInsertId();
 
     $insert = $host->prepare(
         'INSERT OR REPLACE INTO host_capture_rows
             (capture_id, kind, label, packets, private,
              in_packets, out_packets, in_bytes, out_bytes, opened, bytes)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
     );
     /*
      * The two rollups are stored with their sub-kind in the label.
@@ -1848,27 +2106,57 @@ function storeCapture(PDO $host, array $capture): int
     foreach (['asked', 'visited'] as $kind) {
         foreach ($capture[$kind] ?? [] as $row) {
             $insert->execute([
-                $id, $kind, $row['kind'] . ' ' . $row['name'], (int)$row['packets'],
-                0, 0, 0, 0, 0, 0, 0,
+                $id,
+                $kind,
+                $row['kind'] . ' ' . $row['name'],
+                (int) $row['packets'],
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
             ]);
         }
     }
 
-    foreach (['peers' => 'address', 'ports' => 'port', 'names' => 'name'] as $kind => $field) {
+    foreach (
+        ['peers' => 'address', 'ports' => 'port', 'names' => 'name']
+        as $kind => $field
+    ) {
         foreach ($capture[$kind] ?? [] as $row) {
             $insert->execute([
-                $id, $kind, (string)$row[$field], (int)$row['packets'],
-                (int)($row['private'] ?? 0),
-                (int)($row['in_packets'] ?? 0), (int)($row['out_packets'] ?? 0),
-                (int)($row['in_bytes'] ?? 0), (int)($row['out_bytes'] ?? 0),
-                (int)($row['opened'] ?? 0), (int)($row['bytes'] ?? 0),
+                $id,
+                $kind,
+                (string) $row[$field],
+                (int) $row['packets'],
+                (int) ($row['private'] ?? 0),
+                (int) ($row['in_packets'] ?? 0),
+                (int) ($row['out_packets'] ?? 0),
+                (int) ($row['in_bytes'] ?? 0),
+                (int) ($row['out_bytes'] ?? 0),
+                (int) ($row['opened'] ?? 0),
+                (int) ($row['bytes'] ?? 0),
             ]);
         }
     }
 
     // The flag tally, stored as rows of its own kind so it needs no new table.
     foreach ($capture['flags'] ?? [] as $flag => $count) {
-        $insert->execute([$id, 'flags', (string)$flag, (int)$count, 0, 0, 0, 0, 0, 0, 0]);
+        $insert->execute([
+            $id,
+            'flags',
+            (string) $flag,
+            (int) $count,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+        ]);
     }
 
     return $id;
@@ -1881,8 +2169,11 @@ function storeCapture(PDO $host, array $capture): int
  * asking for DNS on eth0 and then everything on eth1 should run both, not
  * overwrite one with the other.
  */
-function captureTaskName(string $interface, string $filter, bool $readAsked = false): string
-{
+function captureTaskName(
+    string $interface,
+    string $filter,
+    bool $readAsked = false,
+): string {
     /*
      * The payload flag rides in the task name.
      *
@@ -1892,7 +2183,11 @@ function captureTaskName(string $interface, string $filter, bool $readAsked = fa
      * request for the other. Two people asking for the same capture still get
      * one capture; two people asking for different ones get both.
      */
-    return 'capture:' . $interface . ':' . $filter . ($readAsked ? ':asked' : '');
+    return 'capture:' .
+        $interface .
+        ':' .
+        $filter .
+        ($readAsked ? ':asked' : '');
 }
 
 /** Reads a task name back into its parts, or null if it is not one. */
@@ -1907,7 +2202,10 @@ function parseCaptureTask(string $task): ?array
         return null;
     }
 
-    if (!preg_match('/^[A-Za-z0-9._-]{1,32}$/', $parts[1]) || captureFilter($parts[2]) === null) {
+    if (
+        !preg_match('/^[A-Za-z0-9._-]{1,32}$/', $parts[1]) ||
+        captureFilter($parts[2]) === null
+    ) {
         return null;
     }
 
@@ -1935,22 +2233,34 @@ function hostVerbs(): array
     return [
         'whois' => [
             'binary' => 'whois',
-            'build' => fn(string $binary, string $argument): string =>
-                escapeshellarg($binary) . ' ' . escapeshellarg($argument),
+            'build' => fn(
+                string $binary,
+                string $argument,
+            ): string => escapeshellarg($binary) .
+                ' ' .
+                escapeshellarg($argument),
             'about' => 'the registry record for a domain',
         ],
         'dig-any' => [
             'binary' => 'dig',
-            'build' => fn(string $binary, string $argument): string =>
-                escapeshellarg($binary) . ' +noall +answer +tries=1 +time=3 '
-                . escapeshellarg($argument) . ' ANY',
+            'build' => fn(
+                string $binary,
+                string $argument,
+            ): string => escapeshellarg($binary) .
+                ' +noall +answer +tries=1 +time=3 ' .
+                escapeshellarg($argument) .
+                ' ANY',
             'about' => 'every record type for a name',
         ],
         'dig-ns' => [
             'binary' => 'dig',
-            'build' => fn(string $binary, string $argument): string =>
-                escapeshellarg($binary) . ' +noall +answer +tries=1 +time=3 '
-                . escapeshellarg($argument) . ' NS',
+            'build' => fn(
+                string $binary,
+                string $argument,
+            ): string => escapeshellarg($binary) .
+                ' +noall +answer +tries=1 +time=3 ' .
+                escapeshellarg($argument) .
+                ' NS',
             'about' => 'which nameservers are authoritative',
         ],
         /*
@@ -1968,8 +2278,10 @@ function hostVerbs(): array
          */
         'ldconfig' => [
             'binary' => 'ldconfig',
-            'build' => fn(string $binary, string $argument): string =>
-                escapeshellarg($binary) . ' -v',
+            'build' => fn(
+                string $binary,
+                string $argument,
+            ): string => escapeshellarg($binary) . ' -v',
             'about' => 'rebuilding the shared library cache',
             'takes_argument' => false,
             'changes_things' => true,
@@ -2011,7 +2323,12 @@ function parseAskTask(string $task): ?array
             : null;
     }
 
-    if (!preg_match('/^(?!-)[A-Za-z0-9-]{1,63}(?<!-)(\.(?!-)[A-Za-z0-9-]{1,63}(?<!-))+$/', $parts[2])) {
+    if (
+        !preg_match(
+            '/^(?!-)[A-Za-z0-9-]{1,63}(?<!-)(\.(?!-)[A-Za-z0-9-]{1,63}(?<!-))+$/',
+            $parts[2],
+        )
+    ) {
         return null;
     }
 
@@ -2026,8 +2343,12 @@ function parseAskTask(string $task): ?array
  * its own, so that improving the parsing never requires touching the thing that
  * runs as root.
  */
-function runHostAsk(PDO $host, string $verb, string $argument, int $askedAt): array
-{
+function runHostAsk(
+    PDO $host,
+    string $verb,
+    string $argument,
+    int $askedAt,
+): array {
     $verbs = hostVerbs();
     if (!isset($verbs[$verb])) {
         return ['ok' => false, 'error' => 'not a verb this runs'];
@@ -2035,26 +2356,49 @@ function runHostAsk(PDO $host, string $verb, string $argument, int $askedAt): ar
 
     $binary = whichBinary($verbs[$verb]['binary']);
     if ($binary === null) {
-        $answer = ['ok' => false, 'text' => null,
-                   'error' => $verbs[$verb]['binary'] . ' is not installed on the host either'];
+        $answer = [
+            'ok' => false,
+            'text' => null,
+            'error' =>
+                $verbs[$verb]['binary'] .
+                ' is not installed on the host either',
+        ];
     } else {
         $timeout = whichBinary('timeout');
-        $command = ($timeout === null ? '' : escapeshellarg($timeout) . ' 25 ')
-            . ($verbs[$verb]['build'])($binary, $argument) . ' 2>&1';
+        $command =
+            ($timeout === null ? '' : escapeshellarg($timeout) . ' 25 ') .
+            $verbs[$verb]['build']($binary, $argument) .
+            ' 2>&1';
 
         $text = shellRead($command);
-        $answer = $text === null || trim($text) === ''
-            ? ['ok' => false, 'text' => null, 'error' => 'the command produced no output']
-            : ['ok' => true, 'text' => substr($text, 0, 40000), 'error' => null];
+        $answer =
+            $text === null || trim($text) === ''
+                ? [
+                    'ok' => false,
+                    'text' => null,
+                    'error' => 'the command produced no output',
+                ]
+                : [
+                    'ok' => true,
+                    'text' => substr($text, 0, 40000),
+                    'error' => null,
+                ];
     }
 
-    $host->prepare(
-        'INSERT INTO host_answers (verb, argument, asked_at, answered_at, ok, text, error)
-         VALUES (?, ?, ?, ?, ?, ?, ?)'
-    )->execute([
-        $verb, $argument, $askedAt, time(),
-        $answer['ok'] ? 1 : 0, $answer['text'], $answer['error'],
-    ]);
+    $host
+        ->prepare(
+            'INSERT INTO host_answers (verb, argument, asked_at, answered_at, ok, text, error)
+         VALUES (?, ?, ?, ?, ?, ?, ?)',
+        )
+        ->execute([
+            $verb,
+            $argument,
+            $askedAt,
+            time(),
+            $answer['ok'] ? 1 : 0,
+            $answer['text'],
+            $answer['error'],
+        ]);
 
     return $answer;
 }
@@ -2069,7 +2413,7 @@ function hostAnswer(PDO $host, string $verb, string $argument): ?array
     try {
         $stmt = $host->prepare(
             'SELECT ok, text, error, answered_at FROM host_answers
-              WHERE verb = ? AND argument = ? ORDER BY answered_at DESC LIMIT 1'
+              WHERE verb = ? AND argument = ? ORDER BY answered_at DESC LIMIT 1',
         );
         $stmt->execute([$verb, $argument]);
         $row = $stmt->fetch();
@@ -2082,9 +2426,9 @@ function hostAnswer(PDO $host, string $verb, string $argument): ?array
     }
 
     return [
-        'ok' => (bool)$row['ok'],
+        'ok' => (bool) $row['ok'],
         'text' => $row['text'],
         'error' => $row['error'],
-        'answered_at' => (int)$row['answered_at'],
+        'answered_at' => (int) $row['answered_at'],
     ];
 }

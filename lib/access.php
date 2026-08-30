@@ -23,11 +23,35 @@ function accessDefaults(): array
             'write' => false,
         ],
         'Staff' => [
-            'pages' => ['overview', 'charts', 'alerts', 'uptime', 'calendar', 'storage',
-                'storage-files', 'cpu', 'cpu-time', 'cpu-cores', 'cpu-procs', 'cpu-queue',
-                'host', 'mem-users', 'mem-goes', 'mem-services', 'mem-procs', 'processes',
-                'services', 'busy', 'network', 'net-ports', 'net-peers', 'net-urls',
-                'backups', 'backups-other', 'backups-jetbackup'],
+            'pages' => [
+                'overview',
+                'charts',
+                'alerts',
+                'uptime',
+                'calendar',
+                'storage',
+                'storage-files',
+                'cpu',
+                'cpu-time',
+                'cpu-cores',
+                'cpu-procs',
+                'cpu-queue',
+                'host',
+                'mem-users',
+                'mem-goes',
+                'mem-services',
+                'mem-procs',
+                'processes',
+                'services',
+                'busy',
+                'network',
+                'net-ports',
+                'net-peers',
+                'net-urls',
+                'backups',
+                'backups-other',
+                'backups-jetbackup',
+            ],
             'charts' => ['*'],
             'tools' => ['diagnostic', 'navigation'],
             'notes' => true,
@@ -71,7 +95,7 @@ function accessDefaults(): array
 function accessGroups(array $config): array
 {
     $groups = accessDefaults();
-    foreach (($config['access']['groups'] ?? []) as $name => $policy) {
+    foreach ($config['access']['groups'] ?? [] as $name => $policy) {
         if (!is_string($name) || !is_array($policy)) {
             continue;
         }
@@ -85,14 +109,19 @@ function accessIdentity(array $config): array
 {
     $groups = ['Public'];
     if (isSignedIn()) {
-        foreach ((array)($_SESSION['groups'] ?? ['Administrators']) as $group) {
+        foreach (
+            (array) ($_SESSION['groups'] ?? ['Administrators'])
+            as $group
+        ) {
             if (is_string($group) && $group !== '') {
                 $groups[] = $group;
             }
         }
     }
     return [
-        'username' => isSignedIn() ? (string)($_SESSION['username'] ?? 'administrator') : null,
+        'username' => isSignedIn()
+            ? (string) ($_SESSION['username'] ?? 'administrator')
+            : null,
         'groups' => array_values(array_unique($groups)),
     ];
 }
@@ -100,7 +129,7 @@ function accessIdentity(array $config): array
 function accessListAllows(array $values, string|int $wanted): bool
 {
     foreach ($values as $value) {
-        if ($value === '*' || (string)$value === (string)$wanted) {
+        if ($value === '*' || (string) $value === (string) $wanted) {
             return true;
         }
     }
@@ -108,25 +137,43 @@ function accessListAllows(array $values, string|int $wanted): bool
 }
 
 /** Whether the active identity may use one protected surface. */
-function accessAllows(array $config, string $surface, string|int|null $id = null): bool
-{
-    return accessAllowsGroups($config, accessIdentity($config)['groups'], $surface, $id);
+function accessAllows(
+    array $config,
+    string $surface,
+    string|int|null $id = null,
+): bool {
+    return accessAllowsGroups(
+        $config,
+        accessIdentity($config)['groups'],
+        $surface,
+        $id,
+    );
 }
 
 /** Checks a verified external identity without putting it in the PHP session. */
-function accessAllowsGroups(array $config, array $groups, string $surface, string|int|null $id = null): bool
-{
+function accessAllowsGroups(
+    array $config,
+    array $groups,
+    string $surface,
+    string|int|null $id = null,
+): bool {
     $policies = accessGroups($config);
     foreach ($groups as $group) {
         $policy = $policies[$group] ?? null;
         if (!is_array($policy)) {
             continue;
         }
-        if (in_array($surface, ['notes', 'live', 'ai', 'ips', 'write'], true) && !empty($policy[$surface])) {
+        if (
+            in_array($surface, ['notes', 'live', 'ai', 'ips', 'write'], true) &&
+            !empty($policy[$surface])
+        ) {
             return true;
         }
-        if (in_array($surface, ['pages', 'charts', 'tools', 'ranges'], true)
-            && $id !== null && accessListAllows((array)($policy[$surface] ?? []), $id)) {
+        if (
+            in_array($surface, ['pages', 'charts', 'tools', 'ranges'], true) &&
+            $id !== null &&
+            accessListAllows((array) ($policy[$surface] ?? []), $id)
+        ) {
             return true;
         }
     }
@@ -138,9 +185,18 @@ function accessView(array $config): array
 {
     $identity = accessIdentity($config);
     $policies = accessGroups($config);
-    $collect = fn(string $surface): array => array_values(array_unique(array_merge(
-        ...array_map(fn(string $group): array => (array)($policies[$group][$surface] ?? []), $identity['groups'])
-    )));
+    $collect = fn(string $surface): array => array_values(
+        array_unique(
+            array_merge(
+                ...array_map(
+                    fn(string $group): array => (array) ($policies[$group][
+                        $surface
+                    ] ?? []),
+                    $identity['groups'],
+                ),
+            ),
+        ),
+    );
 
     return $identity + [
         'pages' => $collect('pages'),

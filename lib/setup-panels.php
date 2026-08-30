@@ -8,18 +8,50 @@ declare(strict_types=1);
 /** Normalizes inert panel metadata before it reaches Setup navigation. */
 function setupPanelDefinition(array $panel): array
 {
-    $id = setupPanelId((string)($panel['id'] ?? ''));
-    $title = trim((string)($panel['title'] ?? ''));
-    $kind = (string)($panel['kind'] ?? 'core');
-    if ($title === '' || mb_strlen($title) > 80 || !in_array($kind, ['core', 'package'], true)) {
+    $id = setupPanelId((string) ($panel['id'] ?? ''));
+    $title = trim((string) ($panel['title'] ?? ''));
+    $kind = (string) ($panel['kind'] ?? 'core');
+    if (
+        $title === '' ||
+        mb_strlen($title) > 80 ||
+        !in_array($kind, ['core', 'package'], true)
+    ) {
         throw new InvalidArgumentException('setup panel metadata is invalid');
     }
-    $keywords = array_values(array_unique(array_filter((array)($panel['keywords'] ?? []), static fn(mixed $word): bool => is_string($word) && preg_match('/^[a-z0-9 _-]{1,40}$/i', $word))));
-    $parent = isset($panel['parent']) ? setupPanelId((string)$panel['parent']) : null;
-    $titleKey = isset($panel['title_key']) ? trim((string)$panel['title_key']) : null;
-    if ($titleKey !== null && !preg_match('/^[a-z][\w.-]{0,119}$/i', $titleKey)) throw new InvalidArgumentException('setup panel translation key is invalid');
-    return ['id' => $id, 'title' => $title, 'kind' => $kind, 'keywords' => $keywords,
-        'feature' => isset($panel['feature']) ? setupPanelId((string)$panel['feature']) : null, 'parent' => $parent, 'title_key' => $titleKey];
+    $keywords = array_values(
+        array_unique(
+            array_filter(
+                (array) ($panel['keywords'] ?? []),
+                static fn(mixed $word): bool => is_string($word) &&
+                    preg_match('/^[a-z0-9 _-]{1,40}$/i', $word),
+            ),
+        ),
+    );
+    $parent = isset($panel['parent'])
+        ? setupPanelId((string) $panel['parent'])
+        : null;
+    $titleKey = isset($panel['title_key'])
+        ? trim((string) $panel['title_key'])
+        : null;
+    if (
+        $titleKey !== null &&
+        !preg_match('/^[a-z][\w.-]{0,119}$/i', $titleKey)
+    ) {
+        throw new InvalidArgumentException(
+            'setup panel translation key is invalid',
+        );
+    }
+    return [
+        'id' => $id,
+        'title' => $title,
+        'kind' => $kind,
+        'keywords' => $keywords,
+        'feature' => isset($panel['feature'])
+            ? setupPanelId((string) $panel['feature'])
+            : null,
+        'parent' => $parent,
+        'title_key' => $titleKey,
+    ];
 }
 
 /** Registry shared by core Setup and the future isolated package bridge. */
@@ -30,29 +62,65 @@ final class SetupPanelRegistry
 
     public function __construct(array $fields)
     {
-        foreach ([
-            ['id' => 'basics', 'title' => 'Installation', 'kind' => 'core', 'keywords' => ['checks', 'prerequisites']],
-            ['id' => 'privacy', 'title' => 'Privacy', 'kind' => 'core', 'keywords' => ['mask', 'paths']],
-            ['id' => 'schedule', 'title' => 'Schedule', 'kind' => 'core', 'keywords' => ['cron', 'vitals', 'scan']],
-            ['id' => 'deployment', 'title' => 'Deployment', 'kind' => 'core', 'keywords' => ['remote', 'rsync', 'sftp', 'ftps']],
-        ] as $panel) $this->add($panel);
+        foreach (
+            [
+                [
+                    'id' => 'basics',
+                    'title' => 'Installation',
+                    'kind' => 'core',
+                    'keywords' => ['checks', 'prerequisites'],
+                ],
+                [
+                    'id' => 'privacy',
+                    'title' => 'Privacy',
+                    'kind' => 'core',
+                    'keywords' => ['mask', 'paths'],
+                ],
+                [
+                    'id' => 'schedule',
+                    'title' => 'Schedule',
+                    'kind' => 'core',
+                    'keywords' => ['cron', 'vitals', 'scan'],
+                ],
+                [
+                    'id' => 'deployment',
+                    'title' => 'Deployment',
+                    'kind' => 'core',
+                    'keywords' => ['remote', 'rsync', 'sftp', 'ftps'],
+                ],
+            ]
+            as $panel
+        ) {
+            $this->add($panel);
+        }
         foreach ($fields as $field) {
-            $id = (string)($field['section'] ?? 'basics');
+            $id = (string) ($field['section'] ?? 'basics');
             if (!isset($this->panels[$id])) {
-                $this->add(['id' => $id, 'title' => ucfirst(str_replace('_', ' ', $id)), 'kind' => 'core']);
+                $this->add([
+                    'id' => $id,
+                    'title' => ucfirst(str_replace('_', ' ', $id)),
+                    'kind' => 'core',
+                ]);
             }
         }
     }
 
     public function add(array $panel): void
     {
-        $definition = setupPanelDefinition((array)$panel);
-        if (isset($this->panels[$definition['id']])) throw new InvalidArgumentException('setup panel id is already registered');
+        $definition = setupPanelDefinition((array) $panel);
+        if (isset($this->panels[$definition['id']])) {
+            throw new InvalidArgumentException(
+                'setup panel id is already registered',
+            );
+        }
         $this->panels[$definition['id']] = $definition;
     }
 
     /** @return array<string, array{id:string,title:string,kind:string,keywords:list<string>,feature:?string}> */
-    public function all(): array { return $this->panels; }
+    public function all(): array
+    {
+        return $this->panels;
+    }
 }
 
 /**
@@ -68,12 +136,14 @@ function setupPanels(array $fields, array $registered = []): array
     // A parented package panel is rendered inside that existing core page; it
     // is deliberately not duplicated as a separate navigation destination.
     foreach ($registered as $panel) {
-        if (isset($panel['parent']) && $panel['parent'] !== null) continue;
+        if (isset($panel['parent']) && $panel['parent'] !== null) {
+            continue;
+        }
         try {
             // A package declaration is signed metadata, not authority to
             // replace a core destination. A collision or malformed late
             // contribution is ignored so one package cannot break Setup.
-            $registry->add((array)$panel);
+            $registry->add((array) $panel);
         } catch (InvalidArgumentException) {
             continue;
         }
@@ -84,9 +154,15 @@ function setupPanels(array $fields, array $registered = []): array
     // lower-frequency configuration concern.
     $ordered = [];
     foreach (['basics', 'schedule', 'host', 'privacy'] as $id) {
-        if (isset($all[$id])) $ordered[$id] = $all[$id];
+        if (isset($all[$id])) {
+            $ordered[$id] = $all[$id];
+        }
     }
-    foreach ($all as $id => $panel) if (!isset($ordered[$id])) $ordered[$id] = $panel;
+    foreach ($all as $id => $panel) {
+        if (!isset($ordered[$id])) {
+            $ordered[$id] = $panel;
+        }
+    }
     return $ordered;
 }
 
@@ -110,14 +186,26 @@ final class SetupCronApi
 {
     public function __construct(private readonly string $scriptDir) {}
 
-    public function profiles(): array { return cronEditorProfiles(); }
-    public function preview(array $jobs, string $php): array { return cronEditorBuildLines($jobs, $php, $this->scriptDir); }
+    public function profiles(): array
+    {
+        return cronEditorProfiles();
+    }
+    public function preview(array $jobs, string $php): array
+    {
+        return cronEditorBuildLines($jobs, $php, $this->scriptDir);
+    }
     public function status(array $jobs, string $php): array
     {
         return cronEditorStatus($this->preview($jobs, $php), $this->scriptDir);
     }
-    public function apply(array $jobs, string $php): array { return cronEditorApply($jobs, $php, $this->scriptDir); }
-    public function applyJob(string $job, array $choice, string $php): array { return cronEditorApplyJob($job, $choice, $php, $this->scriptDir); }
+    public function apply(array $jobs, string $php): array
+    {
+        return cronEditorApply($jobs, $php, $this->scriptDir);
+    }
+    public function applyJob(string $job, array $choice, string $php): array
+    {
+        return cronEditorApplyJob($job, $choice, $php, $this->scriptDir);
+    }
 }
 
 /**
@@ -129,8 +217,10 @@ final class SetupPanelApi
     public function __construct(
         private readonly string $packageId,
         private readonly SetupPanelRegistry $registry,
-        private readonly SetupCronApi $cron
-    ) { setupPanelId($packageId); }
+        private readonly SetupCronApi $cron,
+    ) {
+        setupPanelId($packageId);
+    }
 
     /** Registers inert package-owned navigation metadata, never a callback. */
     public function addPanel(array $panel): void
@@ -142,5 +232,8 @@ final class SetupPanelApi
         $this->registry->add($panel);
     }
 
-    public function cron(): SetupCronApi { return $this->cron; }
+    public function cron(): SetupCronApi
+    {
+        return $this->cron;
+    }
 }

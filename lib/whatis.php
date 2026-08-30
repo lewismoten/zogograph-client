@@ -57,7 +57,9 @@ function whatIsBuiltIn(): array
      */
     $loaded = [
         'slab' => is_array($found['slab'] ?? null) ? $found['slab'] : [],
-        'process' => is_array($found['process'] ?? null) ? $found['process'] : [],
+        'process' => is_array($found['process'] ?? null)
+            ? $found['process']
+            : [],
     ];
 
     return $loaded;
@@ -78,9 +80,10 @@ function whatIsAll(PDO $pdo, string $kind): array
     $out = [];
 
     foreach (whatIsBuiltIn()[$kind] ?? [] as $name => $entry) {
-        $out[(string)$name] = [
-            'what' => (string)($entry['what'] ?? ''),
-            'link' => ($entry['link'] ?? '') === '' ? null : (string)$entry['link'],
+        $out[(string) $name] = [
+            'what' => (string) ($entry['what'] ?? ''),
+            'link' =>
+                ($entry['link'] ?? '') === '' ? null : (string) $entry['link'],
             'mine' => false,
         ];
     }
@@ -95,9 +98,10 @@ function whatIsAll(PDO $pdo, string $kind): array
          * page can show whose sentence it is rather than presenting a local
          * note as documentation.
          */
-        $out[(string)$row['name']] = [
-            'what' => (string)$row['what'],
-            'link' => ($row['link'] ?? '') === '' ? null : (string)$row['link'],
+        $out[(string) $row['name']] = [
+            'what' => (string) $row['what'],
+            'link' =>
+                ($row['link'] ?? '') === '' ? null : (string) $row['link'],
             'mine' => true,
         ];
     }
@@ -114,12 +118,12 @@ function whatIsMine(PDO $pdo, ?string $kind = null): array
 {
     try {
         if ($kind === null) {
-            return $pdo->query(
-                'SELECT * FROM descriptions ORDER BY kind, name'
-            )->fetchAll();
+            return $pdo
+                ->query('SELECT * FROM descriptions ORDER BY kind, name')
+                ->fetchAll();
         }
         $stmt = $pdo->prepare(
-            'SELECT * FROM descriptions WHERE kind = ? ORDER BY name'
+            'SELECT * FROM descriptions WHERE kind = ? ORDER BY name',
         );
         $stmt->execute([$kind]);
         return $stmt->fetchAll();
@@ -140,7 +144,7 @@ function whatIsSave(
     string $kind,
     string $name,
     string $what,
-    string $link = ''
+    string $link = '',
 ): void {
     $kind = in_array($kind, ['slab', 'process'], true) ? $kind : 'process';
     $name = trim($name);
@@ -161,15 +165,19 @@ function whatIsSave(
      */
     if (!preg_match('~^[A-Za-z0-9_.:/@+-]+\*?$~', $name)) {
         throw new ActionRefused(
-            'a name can hold letters, digits and _.:/@+-, and may end in * for a family'
+            'a name can hold letters, digits and _.:/@+-, and may end in * for a family',
         );
     }
 
     if ($what === '') {
-        throw new ActionRefused('a description with no words in it explains nothing');
+        throw new ActionRefused(
+            'a description with no words in it explains nothing',
+        );
     }
     if (mb_strlen($what) > 600) {
-        throw new ActionRefused('that is longer than a tooltip can usefully hold');
+        throw new ActionRefused(
+            'that is longer than a tooltip can usefully hold',
+        );
     }
 
     if ($link !== '') {
@@ -181,29 +189,43 @@ function whatIsSave(
          * allowing only the two that are ever meant.
          */
         $parts = parse_url($link);
-        if ($parts === false || !in_array($parts['scheme'] ?? '', ['http', 'https'], true)) {
-            throw new ActionRefused('a link has to start with http:// or https://');
+        if (
+            $parts === false ||
+            !in_array($parts['scheme'] ?? '', ['http', 'https'], true)
+        ) {
+            throw new ActionRefused(
+                'a link has to start with http:// or https://',
+            );
         }
         if (mb_strlen($link) > 300) {
             throw new ActionRefused('that link is too long');
         }
     }
 
-    $count = (int)$pdo->query('SELECT COUNT(*) FROM descriptions')->fetchColumn();
-    $exists = $pdo->prepare('SELECT COUNT(*) FROM descriptions WHERE kind = ? AND name = ?');
+    $count = (int) $pdo
+        ->query('SELECT COUNT(*) FROM descriptions')
+        ->fetchColumn();
+    $exists = $pdo->prepare(
+        'SELECT COUNT(*) FROM descriptions WHERE kind = ? AND name = ?',
+    );
     $exists->execute([$kind, $name]);
 
-    if ($count >= WHATIS_MAX && (int)$exists->fetchColumn() === 0) {
-        throw new ActionRefused('that is as many descriptions as this will hold');
+    if ($count >= WHATIS_MAX && (int) $exists->fetchColumn() === 0) {
+        throw new ActionRefused(
+            'that is as many descriptions as this will hold',
+        );
     }
 
     $pdo->prepare(
         'INSERT INTO descriptions (kind, name, what, link, added_at)
          VALUES (:k, :n, :w, :l, :at)
-         ON CONFLICT(kind, name) DO UPDATE SET what = :w, link = :l'
+         ON CONFLICT(kind, name) DO UPDATE SET what = :w, link = :l',
     )->execute([
-        ':k' => $kind, ':n' => $name, ':w' => $what,
-        ':l' => $link === '' ? null : $link, ':at' => time(),
+        ':k' => $kind,
+        ':n' => $name,
+        ':w' => $what,
+        ':l' => $link === '' ? null : $link,
+        ':at' => time(),
     ]);
 }
 

@@ -74,10 +74,20 @@ function rdnsRequest(PDO $pdo, string $address, string $who = 'account'): array
     $known = rdnsLookup($pdo, $address);
 
     if ($known !== null) {
-        if ($known['name'] !== null && $known['checked_at'] > time() - RDNS_FRESH_FOR) {
-            return ['state' => 'known', 'name' => $known['name'], 'at' => $known['checked_at']];
+        if (
+            $known['name'] !== null &&
+            $known['checked_at'] > time() - RDNS_FRESH_FOR
+        ) {
+            return [
+                'state' => 'known',
+                'name' => $known['name'],
+                'at' => $known['checked_at'],
+            ];
         }
-        if ($known['name'] === null && $known['checked_at'] > time() - RDNS_RETRY_AFTER) {
+        if (
+            $known['name'] === null &&
+            $known['checked_at'] > time() - RDNS_RETRY_AFTER
+        ) {
             /*
              * A recent failure counts as an answer.
              *
@@ -85,34 +95,40 @@ function rdnsRequest(PDO $pdo, string $address, string $who = 'account'): array
              * every time one appears in a capture would spend the whole budget
              * on the addresses guaranteed not to answer.
              */
-            return ['state' => 'no name', 'name' => null, 'at' => $known['checked_at']];
+            return [
+                'state' => 'no name',
+                'name' => null,
+                'at' => $known['checked_at'],
+            ];
         }
     }
 
-    $waiting = (int)$pdo->query(
-        'SELECT COUNT(*) FROM rdns_queue WHERE taken_at IS NULL'
-    )->fetchColumn();
+    $waiting = (int) $pdo
+        ->query('SELECT COUNT(*) FROM rdns_queue WHERE taken_at IS NULL')
+        ->fetchColumn();
 
     $already = $pdo->prepare(
-        'SELECT asked_at FROM rdns_queue WHERE address = ? AND taken_at IS NULL'
+        'SELECT asked_at FROM rdns_queue WHERE address = ? AND taken_at IS NULL',
     );
     $already->execute([$address]);
     $when = $already->fetchColumn();
 
     if ($when !== false) {
-        return ['state' => 'waiting', 'name' => null, 'at' => (int)$when];
+        return ['state' => 'waiting', 'name' => null, 'at' => (int) $when];
     }
 
     if ($waiting >= RDNS_QUEUE_MAX) {
-        throw new ActionRefused(sprintf(
-            'there are already %d addresses waiting, which at one per collector run is '
-            . 'more than a week of work. Let it catch up first.',
-            $waiting
-        ));
+        throw new ActionRefused(
+            sprintf(
+                'there are already %d addresses waiting, which at one per collector run is ' .
+                    'more than a week of work. Let it catch up first.',
+                $waiting,
+            ),
+        );
     }
 
     $pdo->prepare(
-        'INSERT INTO rdns_queue (address, asked_at, asked_by) VALUES (?, ?, ?)'
+        'INSERT INTO rdns_queue (address, asked_at, asked_by) VALUES (?, ?, ?)',
     )->execute([$address, time(), $who]);
 
     return ['state' => 'queued', 'name' => null, 'at' => time()];
@@ -133,17 +149,19 @@ function isPrivateAddress(string $address): bool
 
     if (strlen($packed) === 4) {
         // RFC 1918, loopback, link-local, CGNAT and this-network.
-        return (bool)!filter_var(
+        return (bool) !filter_var(
             $address,
             FILTER_VALIDATE_IP,
-            FILTER_FLAG_IPV4 | FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE
+            FILTER_FLAG_IPV4 |
+                FILTER_FLAG_NO_PRIV_RANGE |
+                FILTER_FLAG_NO_RES_RANGE,
         );
     }
 
-    return (bool)!filter_var(
+    return (bool) !filter_var(
         $address,
         FILTER_VALIDATE_IP,
-        FILTER_FLAG_IPV6 | FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE
+        FILTER_FLAG_IPV6 | FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE,
     );
 }
 
@@ -163,12 +181,15 @@ function rdnsLookup(PDO $pdo, string $address): ?array
     }
 
     return [
-        'address' => (string)$row['address'],
-        'name' => $row['name'] === null || $row['name'] === '' ? null : (string)$row['name'],
-        'checked_at' => (int)$row['checked_at'],
-        'first_seen' => (int)$row['first_seen'],
-        'by' => (string)$row['resolved_by'],
-        'ms' => (int)$row['ms'],
+        'address' => (string) $row['address'],
+        'name' =>
+            $row['name'] === null || $row['name'] === ''
+                ? null
+                : (string) $row['name'],
+        'checked_at' => (int) $row['checked_at'],
+        'first_seen' => (int) $row['first_seen'],
+        'by' => (string) $row['resolved_by'],
+        'ms' => (int) $row['ms'],
     ];
 }
 
@@ -184,14 +205,16 @@ function rdnsNames(PDO $pdo, array $addresses = []): array
 {
     try {
         if ($addresses === []) {
-            $rows = $pdo->query(
-                "SELECT address, name FROM rdns WHERE name IS NOT NULL AND name <> ''"
-            )->fetchAll();
+            $rows = $pdo
+                ->query(
+                    "SELECT address, name FROM rdns WHERE name IS NOT NULL AND name <> ''",
+                )
+                ->fetchAll();
         } else {
             $in = implode(',', array_fill(0, count($addresses), '?'));
             $stmt = $pdo->prepare(
                 "SELECT address, name FROM rdns
-                  WHERE name IS NOT NULL AND name <> '' AND address IN ($in)"
+                  WHERE name IS NOT NULL AND name <> '' AND address IN ($in)",
             );
             $stmt->execute(array_values($addresses));
             $rows = $stmt->fetchAll();
@@ -202,7 +225,7 @@ function rdnsNames(PDO $pdo, array $addresses = []): array
 
     $out = [];
     foreach ($rows as $row) {
-        $out[(string)$row['address']] = (string)$row['name'];
+        $out[(string) $row['address']] = (string) $row['name'];
     }
 
     return $out;
@@ -220,13 +243,18 @@ function rdnsNames(PDO $pdo, array $addresses = []): array
  *
  * @return array{address: string, name: ?string, ms: int, waited: int}|null
  */
-function rdnsDrainOne(PDO $pdo, string $by = 'host', ?callable $resolver = null): ?array
-{
+function rdnsDrainOne(
+    PDO $pdo,
+    string $by = 'host',
+    ?callable $resolver = null,
+): ?array {
     try {
-        $next = $pdo->query(
-            'SELECT id, address, asked_at FROM rdns_queue
-              WHERE taken_at IS NULL ORDER BY asked_at, id LIMIT 1'
-        )->fetch();
+        $next = $pdo
+            ->query(
+                'SELECT id, address, asked_at FROM rdns_queue
+              WHERE taken_at IS NULL ORDER BY asked_at, id LIMIT 1',
+            )
+            ->fetch();
     } catch (Throwable) {
         return null;
     }
@@ -242,27 +270,28 @@ function rdnsDrainOne(PDO $pdo, string $by = 'host', ?callable $resolver = null)
      * otherwise leave the request at the head of the queue for ever, and every
      * subsequent run would pick the same one and hang on it too.
      */
-    $pdo->prepare('UPDATE rdns_queue SET taken_at = ?, taken_by = ? WHERE id = ?')
-        ->execute([time(), $by, (int)$next['id']]);
+    $pdo->prepare(
+        'UPDATE rdns_queue SET taken_at = ?, taken_by = ? WHERE id = ?',
+    )->execute([time(), $by, (int) $next['id']]);
 
-    $address = (string)$next['address'];
+    $address = (string) $next['address'];
     $started = microtime(true);
 
-    $name = $resolver !== null
-        ? $resolver($address)
-        : rdnsResolve($address);
+    $name = $resolver !== null ? $resolver($address) : rdnsResolve($address);
 
-    $ms = (int)round((microtime(true) - $started) * 1000);
+    $ms = (int) round((microtime(true) - $started) * 1000);
 
     rdnsStore($pdo, $address, $name, $by, $ms);
 
-    $pdo->prepare('DELETE FROM rdns_queue WHERE id = ?')->execute([(int)$next['id']]);
+    $pdo->prepare('DELETE FROM rdns_queue WHERE id = ?')->execute([
+        (int) $next['id'],
+    ]);
 
     return [
         'address' => $address,
         'name' => $name,
         'ms' => $ms,
-        'waited' => time() - (int)$next['asked_at'],
+        'waited' => time() - (int) $next['asked_at'],
     ];
 }
 
@@ -287,8 +316,13 @@ function rdnsResolve(string $address): ?string
 }
 
 /** Records an answer, including the answer "there is no name". */
-function rdnsStore(PDO $pdo, string $address, ?string $name, string $by, int $ms): void
-{
+function rdnsStore(
+    PDO $pdo,
+    string $address,
+    ?string $name,
+    string $by,
+    int $ms,
+): void {
     $now = time();
 
     $pdo->prepare(
@@ -301,7 +335,7 @@ function rdnsStore(PDO $pdo, string $address, ?string $name, string $by, int $ms
              * moment the row did - so "this address has been called that since
              * March" is answerable, and a name that changes resets it.
              */
-            first_seen = CASE WHEN rdns.name IS :name THEN rdns.first_seen ELSE :now END'
+            first_seen = CASE WHEN rdns.name IS :name THEN rdns.first_seen ELSE :now END',
     )->execute([
         ':address' => $address,
         ':name' => $name,
@@ -322,28 +356,33 @@ function rdnsState(PDO $pdo, int $limit = 200): array
     $known = [];
 
     try {
-        $waiting = $pdo->query(
-            'SELECT id, address, asked_at, asked_by, taken_at, taken_by
-               FROM rdns_queue ORDER BY asked_at, id LIMIT ' . max(1, $limit)
-        )->fetchAll();
+        $waiting = $pdo
+            ->query(
+                'SELECT id, address, asked_at, asked_by, taken_at, taken_by
+               FROM rdns_queue ORDER BY asked_at, id LIMIT ' . max(1, $limit),
+            )
+            ->fetchAll();
 
-        $known = $pdo->query(
-            'SELECT * FROM rdns ORDER BY checked_at DESC LIMIT ' . max(1, $limit)
-        )->fetchAll();
+        $known = $pdo
+            ->query(
+                'SELECT * FROM rdns ORDER BY checked_at DESC LIMIT ' .
+                    max(1, $limit),
+            )
+            ->fetchAll();
     } catch (Throwable) {
         return ['waiting' => [], 'known' => [], 'queue_max' => RDNS_QUEUE_MAX];
     }
 
     $now = time();
     foreach ($waiting as &$row) {
-        $row['waited'] = $now - (int)$row['asked_at'];
+        $row['waited'] = $now - (int) $row['asked_at'];
         $row['taken'] = $row['taken_at'] !== null;
     }
     unset($row);
 
     foreach ($known as &$row) {
         $row['name'] = $row['name'] === '' ? null : $row['name'];
-        $row['age'] = $now - (int)$row['checked_at'];
+        $row['age'] = $now - (int) $row['checked_at'];
         $row['stale'] = $row['age'] > RDNS_FRESH_FOR;
     }
     unset($row);
@@ -365,7 +404,9 @@ function rdnsState(PDO $pdo, int $limit = 200): array
  */
 function rdnsCancel(PDO $pdo, int $id): bool
 {
-    $stmt = $pdo->prepare('DELETE FROM rdns_queue WHERE id = ? AND taken_at IS NULL');
+    $stmt = $pdo->prepare(
+        'DELETE FROM rdns_queue WHERE id = ? AND taken_at IS NULL',
+    );
     $stmt->execute([$id]);
     return $stmt->rowCount() > 0;
 }
@@ -388,7 +429,7 @@ function rdnsCancelAll(PDO $pdo): int
 function rdnsReleaseStuck(PDO $pdo, int $after = 900): int
 {
     $stmt = $pdo->prepare(
-        'UPDATE rdns_queue SET taken_at = NULL, taken_by = NULL WHERE taken_at < ?'
+        'UPDATE rdns_queue SET taken_at = NULL, taken_by = NULL WHERE taken_at < ?',
     );
     $stmt->execute([time() - $after]);
     return $stmt->rowCount();
@@ -408,7 +449,7 @@ function rdnsReleaseStuck(PDO $pdo, int $after = 900): int
  */
 function rdnsQueueFor(array $config, int $limit = 1): array
 {
-    $file = (string)($config['database'] ?? '');
+    $file = (string) ($config['database'] ?? '');
     if ($file === '' || !is_file($file) || !is_readable($file)) {
         return [];
     }
@@ -422,7 +463,8 @@ function rdnsQueueFor(array $config, int $limit = 1): array
 
         $stmt = $pdo->prepare(
             'SELECT id, address, asked_at FROM rdns_queue
-              WHERE taken_at IS NULL ORDER BY asked_at, id LIMIT ' . max(1, $limit)
+              WHERE taken_at IS NULL ORDER BY asked_at, id LIMIT ' .
+                max(1, $limit),
         );
         $stmt->execute();
         return $stmt->fetchAll();
@@ -443,10 +485,10 @@ function rdnsAlreadyAnswered(PDO $host, string $address): bool
     try {
         $stmt = $host->prepare(
             "SELECT COUNT(*) FROM host_answers
-              WHERE verb = 'rdns' AND argument = ? AND answered_at > ?"
+              WHERE verb = 'rdns' AND argument = ? AND answered_at > ?",
         );
         $stmt->execute([$address, time() - RDNS_FRESH_FOR]);
-        return (int)$stmt->fetchColumn() > 0;
+        return (int) $stmt->fetchColumn() > 0;
     } catch (Throwable) {
         return false;
     }
@@ -459,36 +501,47 @@ function rdnsAlreadyAnswered(PDO $host, string $address): bool
  *
  * @return array{address: string, name: ?string, ms: int}|null
  */
-function rdnsHostDrain(array $config, PDO $host, ?callable $resolver = null): ?array
-{
+function rdnsHostDrain(
+    array $config,
+    PDO $host,
+    ?callable $resolver = null,
+): ?array {
     foreach (rdnsQueueFor($config, 5) as $row) {
-        $address = (string)$row['address'];
+        $address = (string) $row['address'];
 
         if (rdnsAlreadyAnswered($host, $address)) {
             continue;
         }
 
         $started = microtime(true);
-        $name = $resolver !== null ? $resolver($address) : rdnsResolve($address);
-        $ms = (int)round((microtime(true) - $started) * 1000);
+        $name =
+            $resolver !== null ? $resolver($address) : rdnsResolve($address);
+        $ms = (int) round((microtime(true) - $started) * 1000);
 
         try {
-            $host->prepare(
-                'INSERT INTO host_answers (verb, argument, asked_at, answered_at, ok, text, error)
-                 VALUES (?, ?, ?, ?, ?, ?, ?)'
-            )->execute([
-                'rdns',
-                $address,
-                (int)$row['asked_at'],
-                time(),
-                1,
-                // The empty string is the answer "there is no name", which is
-                // different from the lookup having failed.
-                $name ?? '',
-                null,
-            ]);
+            $host
+                ->prepare(
+                    'INSERT INTO host_answers (verb, argument, asked_at, answered_at, ok, text, error)
+                 VALUES (?, ?, ?, ?, ?, ?, ?)',
+                )
+                ->execute([
+                    'rdns',
+                    $address,
+                    (int) $row['asked_at'],
+                    time(),
+                    1,
+                    // The empty string is the answer "there is no name", which is
+                    // different from the lookup having failed.
+                    $name ?? '',
+                    null,
+                ]);
         } catch (Throwable $e) {
-            return ['address' => $address, 'name' => null, 'ms' => $ms, 'error' => $e->getMessage()];
+            return [
+                'address' => $address,
+                'name' => null,
+                'ms' => $ms,
+                'error' => $e->getMessage(),
+            ];
         }
 
         return ['address' => $address, 'name' => $name, 'ms' => $ms];
@@ -515,10 +568,12 @@ function rdnsImportHostAnswers(PDO $pdo, ?PDO $host): int
     }
 
     try {
-        $rows = $host->query(
-            "SELECT argument, text, answered_at FROM host_answers
-              WHERE verb = 'rdns' ORDER BY answered_at"
-        )->fetchAll();
+        $rows = $host
+            ->query(
+                "SELECT argument, text, answered_at FROM host_answers
+              WHERE verb = 'rdns' ORDER BY answered_at",
+            )
+            ->fetchAll();
     } catch (Throwable) {
         return 0;
     }
@@ -526,11 +581,14 @@ function rdnsImportHostAnswers(PDO $pdo, ?PDO $host): int
     $taken = 0;
 
     foreach ($rows as $row) {
-        $address = (string)$row['argument'];
-        $name = (string)($row['text'] ?? '');
+        $address = (string) $row['argument'];
+        $name = (string) ($row['text'] ?? '');
 
         $known = rdnsLookup($pdo, $address);
-        if ($known !== null && $known['checked_at'] >= (int)$row['answered_at']) {
+        if (
+            $known !== null &&
+            $known['checked_at'] >= (int) $row['answered_at']
+        ) {
             /*
              * The account already has something at least as new.
              *
@@ -538,12 +596,16 @@ function rdnsImportHostAnswers(PDO $pdo, ?PDO $host): int
              * was in flight. The queue row is still cleared below, because the
              * question has been answered either way.
              */
-            $pdo->prepare('DELETE FROM rdns_queue WHERE address = ?')->execute([$address]);
+            $pdo->prepare('DELETE FROM rdns_queue WHERE address = ?')->execute([
+                $address,
+            ]);
             continue;
         }
 
         rdnsStore($pdo, $address, $name === '' ? null : $name, 'host', 0);
-        $pdo->prepare('DELETE FROM rdns_queue WHERE address = ?')->execute([$address]);
+        $pdo->prepare('DELETE FROM rdns_queue WHERE address = ?')->execute([
+            $address,
+        ]);
         $taken++;
     }
 
@@ -590,11 +652,11 @@ function applyRdns(PDO $pdo, array $rows, string $field = 'address'): array
     try {
         $in = implode(',', array_fill(0, count($addresses), '?'));
         $stmt = $pdo->prepare(
-            "SELECT address FROM rdns WHERE (name IS NULL OR name = '') AND address IN ($in)"
+            "SELECT address FROM rdns WHERE (name IS NULL OR name = '') AND address IN ($in)",
         );
         $stmt->execute(array_keys($addresses));
         foreach ($stmt->fetchAll(PDO::FETCH_COLUMN, 0) as $address) {
-            $none[(string)$address] = true;
+            $none[(string) $address] = true;
         }
     } catch (Throwable) {
         $none = [];
@@ -604,11 +666,11 @@ function applyRdns(PDO $pdo, array $rows, string $field = 'address'): array
     try {
         $in = implode(',', array_fill(0, count($addresses), '?'));
         $stmt = $pdo->prepare(
-            "SELECT address FROM rdns_queue WHERE address IN ($in)"
+            "SELECT address FROM rdns_queue WHERE address IN ($in)",
         );
         $stmt->execute(array_keys($addresses));
         foreach ($stmt->fetchAll(PDO::FETCH_COLUMN, 0) as $address) {
-            $queued[(string)$address] = true;
+            $queued[(string) $address] = true;
         }
     } catch (Throwable) {
         $queued = [];

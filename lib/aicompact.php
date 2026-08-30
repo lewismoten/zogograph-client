@@ -62,16 +62,16 @@ function aiContextSize(PDO $ai, int $session, string $systemPrompt = ''): array
                 COUNT(*) AS messages
            FROM ai_messages
           WHERE session_id = ? AND id > (
-                SELECT COALESCE(compacted_to, 0) FROM ai_sessions WHERE id = ?)'
+                SELECT COALESCE(compacted_to, 0) FROM ai_sessions WHERE id = ?)',
     );
     $row->execute([$session, $session]);
     $found = $row->fetch();
 
-    $chars = (int)($found['chars'] ?? 0) + strlen($systemPrompt);
+    $chars = (int) ($found['chars'] ?? 0) + strlen($systemPrompt);
 
     return [
-        'tokens' => (int)ceil($chars / AI_CHARS_PER_TOKEN),
-        'messages' => (int)($found['messages'] ?? 0),
+        'tokens' => (int) ceil($chars / AI_CHARS_PER_TOKEN),
+        'messages' => (int) ($found['messages'] ?? 0),
         'estimated' => true,
     ];
 }
@@ -81,10 +81,14 @@ function aiContextSize(PDO $ai, int $session, string $systemPrompt = ''): array
  *
  * @return array<string, mixed>
  */
-function aiContextState(array $config, PDO $ai, int $session, string $systemPrompt = ''): array
-{
+function aiContextState(
+    array $config,
+    PDO $ai,
+    int $session,
+    string $systemPrompt = '',
+): array {
     $settings = aiSettings($config);
-    $window = max(4000, (int)($settings['context_tokens'] ?? 128000));
+    $window = max(4000, (int) ($settings['context_tokens'] ?? 128000));
 
     /*
      * The soft limit leaves room for the compaction request itself.
@@ -94,8 +98,8 @@ function aiContextState(array $config, PDO $ai, int $session, string $systemProm
      * Clamped rather than trusted: a share typed as 95 would produce exactly
      * that failure.
      */
-    $share = min(85, max(30, (int)($settings['compact_at'] ?? 70)));
-    $soft = (int)floor($window * ($share / 100));
+    $share = min(85, max(30, (int) ($settings['compact_at'] ?? 70)));
+    $soft = (int) floor($window * ($share / 100));
 
     $size = aiContextSize($ai, $session, $systemPrompt);
 
@@ -107,7 +111,7 @@ function aiContextState(array $config, PDO $ai, int $session, string $systemProm
         'share' => $window > 0 ? min(1.0, $size['tokens'] / $window) : 0.0,
         'full' => $size['tokens'] >= $soft,
         'estimated' => true,
-        'automatic' => (bool)($settings['compact_automatically'] ?? true),
+        'automatic' => (bool) ($settings['compact_automatically'] ?? true),
     ];
 }
 
@@ -128,7 +132,7 @@ function aiCompactionCut(PDO $ai, int $session): int
         'SELECT id, role FROM ai_messages
           WHERE session_id = ? AND id > (
                 SELECT COALESCE(compacted_to, 0) FROM ai_sessions WHERE id = ?)
-          ORDER BY id'
+          ORDER BY id',
     );
     $stmt->execute([$session, $session]);
     $rows = $stmt->fetchAll();
@@ -147,8 +151,8 @@ function aiCompactionCut(PDO $ai, int $session): int
      * could means doing it again sooner, which is a wasted request.
      */
     for ($i = $limit; $i > 0; $i--) {
-        if ((string)$rows[$i]['role'] === 'user') {
-            return (int)$rows[$i - 1]['id'];
+        if ((string) $rows[$i]['role'] === 'user') {
+            return (int) $rows[$i - 1]['id'];
         }
     }
 
@@ -170,8 +174,12 @@ function aiCompactionCut(PDO $ai, int $session): int
  * @param callable|null $ask seam for tests, same shape as aiAsk
  * @return array{compacted: int, to: int, summary: string, why: string|null}
  */
-function aiCompact(array $config, PDO $ai, int $session, ?callable $ask = null): array
-{
+function aiCompact(
+    array $config,
+    PDO $ai,
+    int $session,
+    ?callable $ask = null,
+): array {
     $cut = aiCompactionCut($ai, $session);
 
     if ($cut <= 0) {
@@ -179,7 +187,8 @@ function aiCompact(array $config, PDO $ai, int $session, ?callable $ask = null):
             'compacted' => 0,
             'to' => 0,
             'summary' => '',
-            'why' => 'There is not enough old conversation to be worth summarising yet.',
+            'why' =>
+                'There is not enough old conversation to be worth summarising yet.',
         ];
     }
 
@@ -188,13 +197,18 @@ function aiCompact(array $config, PDO $ai, int $session, ?callable $ask = null):
           WHERE session_id = ? AND id > (
                 SELECT COALESCE(compacted_to, 0) FROM ai_sessions WHERE id = ?)
             AND id <= ?
-          ORDER BY id'
+          ORDER BY id',
     );
     $stmt->execute([$session, $session, $cut]);
     $rows = $stmt->fetchAll();
 
     if ($rows === []) {
-        return ['compacted' => 0, 'to' => 0, 'summary' => '', 'why' => 'Nothing to compact.'];
+        return [
+            'compacted' => 0,
+            'to' => 0,
+            'summary' => '',
+            'why' => 'Nothing to compact.',
+        ];
     }
 
     $earlier = aiCompactionSummary($ai, $session);
@@ -205,20 +219,24 @@ function aiCompact(array $config, PDO $ai, int $session, ?callable $ask = null):
 
     $answer = $ask(
         $settings,
-        [[
-            'role' => 'user',
-            'content' => ($earlier === ''
-                ? ''
-                : "This is the summary so far, which your new summary must also cover:\n\n"
-                    . $earlier . "\n\n---\n\n")
-                . "Summarise the troubleshooting conversation below so that it can be "
-                . "continued without it.\n\n"
-                . $plain,
-        ]],
+        [
+            [
+                'role' => 'user',
+                'content' =>
+                    ($earlier === ''
+                        ? ''
+                        : "This is the summary so far, which your new summary must also cover:\n\n" .
+                            $earlier .
+                            "\n\n---\n\n") .
+                    'Summarise the troubleshooting conversation below so that it can be ' .
+                    "continued without it.\n\n" .
+                    $plain,
+            ],
+        ],
         [],
         aiSummaryPrompt(),
         // Cheap: this is compression, not reasoning, and it happens repeatedly.
-        'minimal'
+        'minimal',
     );
 
     if (!$answer['ok']) {
@@ -230,13 +248,14 @@ function aiCompact(array $config, PDO $ai, int $session, ?callable $ask = null):
         ];
     }
 
-    $summary = trim((string)($answer['text'] ?? ''));
+    $summary = trim((string) ($answer['text'] ?? ''));
     if ($summary === '') {
         return [
             'compacted' => 0,
             'to' => 0,
             'summary' => '',
-            'why' => 'The model returned an empty summary, so nothing was replaced.',
+            'why' =>
+                'The model returned an empty summary, so nothing was replaced.',
         ];
     }
 
@@ -251,16 +270,22 @@ function aiCompact(array $config, PDO $ai, int $session, ?callable $ask = null):
      */
     $ai->prepare(
         "INSERT INTO ai_messages (session_id, at, role, content, tool_args, visible)
-         VALUES (?, ?, 'summary', ?, ?, 1)"
-    )->execute([$session, time(), $summary, json_encode([
-        'from_message' => (int)($rows[0]['id'] ?? 0),
-        'to_message' => $cut,
-        'messages' => count($rows),
-        'tokens_before' => aiContextSize($ai, $session)['tokens'],
-    ])]);
+         VALUES (?, ?, 'summary', ?, ?, 1)",
+    )->execute([
+        $session,
+        time(),
+        $summary,
+        json_encode([
+            'from_message' => (int) ($rows[0]['id'] ?? 0),
+            'to_message' => $cut,
+            'messages' => count($rows),
+            'tokens_before' => aiContextSize($ai, $session)['tokens'],
+        ]),
+    ]);
 
-    $ai->prepare('UPDATE ai_sessions SET compacted_to = ? WHERE id = ?')
-        ->execute([$cut, $session]);
+    $ai->prepare(
+        'UPDATE ai_sessions SET compacted_to = ? WHERE id = ?',
+    )->execute([$cut, $session]);
 
     return [
         'compacted' => count($rows),
@@ -277,7 +302,7 @@ function aiCompactionSummary(PDO $ai, int $session): string
         $stmt = $ai->prepare(
             "SELECT content FROM ai_messages
               WHERE session_id = ? AND role = 'summary'
-              ORDER BY id DESC LIMIT 1"
+              ORDER BY id DESC LIMIT 1",
         );
         $stmt->execute([$session]);
         $found = $stmt->fetchColumn();
@@ -285,7 +310,7 @@ function aiCompactionSummary(PDO $ai, int $session): string
         return '';
     }
 
-    return $found === false ? '' : (string)$found;
+    return $found === false ? '' : (string) $found;
 }
 
 /** Turns stored messages into something readable enough to summarise. */
@@ -294,16 +319,19 @@ function aiFlattenForSummary(array $rows): string
     $out = [];
 
     foreach ($rows as $row) {
-        $role = (string)$row['role'];
-        $content = (string)($row['content'] ?? '');
+        $role = (string) $row['role'];
+        $content = (string) ($row['content'] ?? '');
 
         if ($role === 'summary') {
             continue;
         }
 
         if ($role === 'tool_call') {
-            $out[] = sprintf('[asked for the %s tool: %s]',
-                (string)$row['tool_name'], (string)($row['tool_args'] ?? '{}'));
+            $out[] = sprintf(
+                '[asked for the %s tool: %s]',
+                (string) $row['tool_name'],
+                (string) ($row['tool_args'] ?? '{}'),
+            );
             continue;
         }
 
@@ -316,8 +344,10 @@ function aiFlattenForSummary(array $rows): string
          * shortened so it does not treat the fragment as the whole.
          */
         if ($role === 'tool') {
-            $out[] = '[result: ' . mb_substr($content, 0, 1200)
-                . (mb_strlen($content) > 1200 ? ' … (shortened)]' : ']');
+            $out[] =
+                '[result: ' .
+                mb_substr($content, 0, 1200) .
+                (mb_strlen($content) > 1200 ? ' … (shortened)]' : ']');
             continue;
         }
 
@@ -336,24 +366,24 @@ function aiFlattenForSummary(array $rows): string
 function aiSummaryPrompt(): string
 {
     return implode("\n", [
-        "You are compressing the earlier part of a technical troubleshooting conversation "
-        . "so that it can continue in a smaller space.",
-        "",
-        "Write prose, not headings. Aim for under 400 words. Cover, in this order:",
-        "  - what the person originally reported, in their terms",
-        "  - what was measured, with the actual numbers, and when",
-        "  - what was concluded, and marked clearly as a conclusion rather than a "
-        . "measurement",
-        "  - what was ruled out, and on what evidence - this is the part that stops the "
-        . "same ground being covered twice",
-        "  - anything the person asked for, preferred, or refused",
-        "  - what was about to happen next",
-        "",
-        "Keep exact figures, paths, times and error strings. A summary that says "
-        . "\"the disk was quite full\" has thrown away the only thing worth keeping.",
-        "",
-        "Do not add anything that was not there. Do not resolve open questions. If "
-        . "something was uncertain, it stays uncertain in the summary - a conclusion that "
-        . "firms up during compression is a conclusion nobody reached.",
+        'You are compressing the earlier part of a technical troubleshooting conversation ' .
+        'so that it can continue in a smaller space.',
+        '',
+        'Write prose, not headings. Aim for under 400 words. Cover, in this order:',
+        '  - what the person originally reported, in their terms',
+        '  - what was measured, with the actual numbers, and when',
+        '  - what was concluded, and marked clearly as a conclusion rather than a ' .
+        'measurement',
+        '  - what was ruled out, and on what evidence - this is the part that stops the ' .
+        'same ground being covered twice',
+        '  - anything the person asked for, preferred, or refused',
+        '  - what was about to happen next',
+        '',
+        'Keep exact figures, paths, times and error strings. A summary that says ' .
+        "\"the disk was quite full\" has thrown away the only thing worth keeping.",
+        '',
+        'Do not add anything that was not there. Do not resolve open questions. If ' .
+        'something was uncertain, it stays uncertain in the summary - a conclusion that ' .
+        'firms up during compression is a conclusion nobody reached.',
     ]);
 }

@@ -29,7 +29,7 @@ function takeVitals(
     array $config,
     PDO $pdo,
     string $source = 'cron',
-    string $procRoot = '/proc'
+    string $procRoot = '/proc',
 ): array {
     $now = time();
 
@@ -50,15 +50,20 @@ function takeVitals(
     // because a rate needs two points and inventing one would be a lie.
     $percent = null;
     if ($cpu !== null) {
-        $previous = $pdo->query(
-            'SELECT cpu_total_ticks, cpu_idle_ticks FROM vitals
-             WHERE cpu_total_ticks IS NOT NULL ORDER BY taken_at DESC, id DESC LIMIT 1'
-        )->fetch();
+        $previous = $pdo
+            ->query(
+                'SELECT cpu_total_ticks, cpu_idle_ticks FROM vitals
+             WHERE cpu_total_ticks IS NOT NULL ORDER BY taken_at DESC, id DESC LIMIT 1',
+            )
+            ->fetch();
 
-        if ($previous && $cpu['total'] > (int)$previous['cpu_total_ticks']) {
-            $totalDelta = $cpu['total'] - (int)$previous['cpu_total_ticks'];
-            $idleDelta = $cpu['idle'] - (int)$previous['cpu_idle_ticks'];
-            $percent = round(max(0.0, min(100.0, (1 - $idleDelta / $totalDelta) * 100)), 2);
+        if ($previous && $cpu['total'] > (int) $previous['cpu_total_ticks']) {
+            $totalDelta = $cpu['total'] - (int) $previous['cpu_total_ticks'];
+            $idleDelta = $cpu['idle'] - (int) $previous['cpu_idle_ticks'];
+            $percent = round(
+                max(0.0, min(100.0, (1 - $idleDelta / $totalDelta) * 100)),
+                2,
+            );
         }
     }
 
@@ -73,15 +78,17 @@ function takeVitals(
     $rxRate = null;
     $txRate = null;
     if ($net !== null) {
-        $previous = $pdo->query(
-            'SELECT taken_at, net_rx_bytes, net_tx_bytes FROM vitals
-             WHERE net_rx_bytes IS NOT NULL ORDER BY taken_at DESC, id DESC LIMIT 1'
-        )->fetch();
+        $previous = $pdo
+            ->query(
+                'SELECT taken_at, net_rx_bytes, net_tx_bytes FROM vitals
+             WHERE net_rx_bytes IS NOT NULL ORDER BY taken_at DESC, id DESC LIMIT 1',
+            )
+            ->fetch();
 
         if ($previous) {
-            $seconds = $now - (int)$previous['taken_at'];
-            $rxDelta = $net['rx'] - (int)$previous['net_rx_bytes'];
-            $txDelta = $net['tx'] - (int)$previous['net_tx_bytes'];
+            $seconds = $now - (int) $previous['taken_at'];
+            $rxDelta = $net['rx'] - (int) $previous['net_rx_bytes'];
+            $txDelta = $net['tx'] - (int) $previous['net_tx_bytes'];
             if ($seconds > 0 && $rxDelta >= 0 && $txDelta >= 0) {
                 $rxRate = round($rxDelta / $seconds, 2);
                 $txRate = round($txDelta / $seconds, 2);
@@ -100,18 +107,29 @@ function takeVitals(
      */
     $ioRead = $ioWrite = $ioUtil = null;
     if ($disks !== null) {
-        $previous = $pdo->query(
-            'SELECT taken_at, io_read_bytes, io_write_bytes, io_ms FROM vitals
-             WHERE io_read_bytes IS NOT NULL ORDER BY taken_at DESC, id DESC LIMIT 1'
-        )->fetch();
+        $previous = $pdo
+            ->query(
+                'SELECT taken_at, io_read_bytes, io_write_bytes, io_ms FROM vitals
+             WHERE io_read_bytes IS NOT NULL ORDER BY taken_at DESC, id DESC LIMIT 1',
+            )
+            ->fetch();
 
         if ($previous) {
-            $seconds = $now - (int)$previous['taken_at'];
-            $readDelta = $disks['total']['read_bytes'] - (int)$previous['io_read_bytes'];
-            $writeDelta = $disks['total']['write_bytes'] - (int)$previous['io_write_bytes'];
-            $busyDelta = $disks['total']['io_ms'] - (int)$previous['io_ms'];
+            $seconds = $now - (int) $previous['taken_at'];
+            $readDelta =
+                $disks['total']['read_bytes'] -
+                (int) $previous['io_read_bytes'];
+            $writeDelta =
+                $disks['total']['write_bytes'] -
+                (int) $previous['io_write_bytes'];
+            $busyDelta = $disks['total']['io_ms'] - (int) $previous['io_ms'];
 
-            if ($seconds > 0 && $readDelta >= 0 && $writeDelta >= 0 && $busyDelta >= 0) {
+            if (
+                $seconds > 0 &&
+                $readDelta >= 0 &&
+                $writeDelta >= 0 &&
+                $busyDelta >= 0
+            ) {
                 $ioRead = round($readDelta / $seconds, 2);
                 $ioWrite = round($writeDelta / $seconds, 2);
                 $ioUtil = round(min(100.0, $busyDelta / ($seconds * 10)), 2);
@@ -121,15 +139,17 @@ function takeVitals(
 
     $ownRead = $ownWrite = null;
     if ($ownIo !== null) {
-        $previous = $pdo->query(
-            'SELECT taken_at, own_read_bytes, own_write_bytes FROM vitals
-             WHERE own_read_bytes IS NOT NULL ORDER BY taken_at DESC, id DESC LIMIT 1'
-        )->fetch();
+        $previous = $pdo
+            ->query(
+                'SELECT taken_at, own_read_bytes, own_write_bytes FROM vitals
+             WHERE own_read_bytes IS NOT NULL ORDER BY taken_at DESC, id DESC LIMIT 1',
+            )
+            ->fetch();
 
         if ($previous) {
-            $seconds = $now - (int)$previous['taken_at'];
-            $readDelta = $ownIo['read'] - (int)$previous['own_read_bytes'];
-            $writeDelta = $ownIo['write'] - (int)$previous['own_write_bytes'];
+            $seconds = $now - (int) $previous['taken_at'];
+            $readDelta = $ownIo['read'] - (int) $previous['own_read_bytes'];
+            $writeDelta = $ownIo['write'] - (int) $previous['own_write_bytes'];
             /*
              * Negative is normal here, unlike for the device counters: these
              * are summed over whatever processes exist right now, so a busy
@@ -190,8 +210,10 @@ function takeVitals(
 
     $columns = implode(', ', array_keys($row));
     $holders = ':' . implode(', :', array_keys($row));
-    $pdo->prepare("INSERT INTO vitals ($columns) VALUES ($holders)")->execute($row);
-    $row['id'] = (int)$pdo->lastInsertId();
+    $pdo->prepare("INSERT INTO vitals ($columns) VALUES ($holders)")->execute(
+        $row,
+    );
+    $row['id'] = (int) $pdo->lastInsertId();
 
     return $row;
 }
@@ -201,13 +223,18 @@ function diskUsage(string $path): array
     $total = @disk_total_space($path);
     $free = @disk_free_space($path);
     if ($total === false || $free === false || $total <= 0) {
-        return ['total' => null, 'used' => null, 'free' => null, 'used_percent' => null];
+        return [
+            'total' => null,
+            'used' => null,
+            'free' => null,
+            'used_percent' => null,
+        ];
     }
     $used = $total - $free;
     return [
-        'total' => (int)$total,
-        'used' => (int)$used,
-        'free' => (int)$free,
+        'total' => (int) $total,
+        'used' => (int) $used,
+        'free' => (int) $free,
         'used_percent' => round(($used / $total) * 100, 2),
     ];
 }
@@ -220,7 +247,12 @@ function diskUsage(string $path): array
  */
 function inodeUsage(string $path): array
 {
-    $empty = ['total' => null, 'used' => null, 'free' => null, 'used_percent' => null];
+    $empty = [
+        'total' => null,
+        'used' => null,
+        'free' => null,
+        'used_percent' => null,
+    ];
 
     $out = shellRead('df -iP ' . escapeshellarg($path) . ' 2>/dev/null');
     if ($out === null) {
@@ -237,9 +269,9 @@ function inodeUsage(string $path): array
         return $empty;
     }
 
-    $total = (int)$fields[1];
-    $used = (int)$fields[2];
-    $free = (int)$fields[3];
+    $total = (int) $fields[1];
+    $used = (int) $fields[2];
+    $free = (int) $fields[3];
     if ($total <= 0) {
         return $empty;
     }
@@ -334,8 +366,18 @@ function cpuBreakdown(string $procRoot = '/proc'): ?array
 
     // In /proc/stat's order. Anything past these is a kernel newer than this
     // list, and is summed into the total without being named.
-    $names = ['user', 'nice', 'system', 'idle', 'iowait', 'irq', 'softirq',
-              'steal', 'guest', 'guest_nice'];
+    $names = [
+        'user',
+        'nice',
+        'system',
+        'idle',
+        'iowait',
+        'irq',
+        'softirq',
+        'steal',
+        'guest',
+        'guest_nice',
+    ];
 
     $split = static function (string $values) use ($names): ?array {
         $parts = array_map('intval', preg_split('/\s+/', trim($values)) ?: []);
@@ -361,20 +403,26 @@ function cpuBreakdown(string $procRoot = '/proc'): ?array
         if (preg_match('/^cpu(\d+)\s+(.*)$/', $line, $m)) {
             $one = $split($m[2]);
             if ($one !== null) {
-                $cpus[(int)$m[1]] = $one;
+                $cpus[(int) $m[1]] = $one;
             }
             continue;
         }
-        if (preg_match('/^(ctxt|intr|processes|procs_running|procs_blocked)\s+(\d+)/', $line, $m)) {
-            $value = (int)$m[2];
+        if (
+            preg_match(
+                '/^(ctxt|intr|processes|procs_running|procs_blocked)\s+(\d+)/',
+                $line,
+                $m,
+            )
+        ) {
+            $value = (int) $m[2];
             match ($m[1]) {
-                'ctxt' => $ctxt = $value,
+                'ctxt' => ($ctxt = $value),
                 // The first number on the intr line is the total; the rest are
                 // per-vector and would make this row enormous for no gain.
-                'intr' => $intr = $value,
-                'processes' => $forks = $value,
-                'procs_running' => $running = $value,
-                'procs_blocked' => $blocked = $value,
+                'intr' => ($intr = $value),
+                'processes' => ($forks = $value),
+                'procs_running' => ($running = $value),
+                'procs_blocked' => ($blocked = $value),
                 default => null,
             };
         }
@@ -386,8 +434,15 @@ function cpuBreakdown(string $procRoot = '/proc'): ?array
 
     ksort($cpus);
 
-    return ['fields' => $fields, 'cpus' => $cpus, 'ctxt' => $ctxt, 'intr' => $intr,
-            'forks' => $forks, 'running' => $running, 'blocked' => $blocked];
+    return [
+        'fields' => $fields,
+        'cpus' => $cpus,
+        'ctxt' => $ctxt,
+        'intr' => $intr,
+        'forks' => $forks,
+        'running' => $running,
+        'blocked' => $blocked,
+    ];
 }
 
 /**
@@ -413,8 +468,18 @@ function pressureCpu(string $procRoot = '/proc'): ?array
         return null;
     }
 
-    if (preg_match('/^some\s+avg10=([\d.]+)\s+avg60=([\d.]+)\s+avg300=([\d.]+)/m', $raw, $m)) {
-        return ['some10' => (float)$m[1], 'some60' => (float)$m[2], 'some300' => (float)$m[3]];
+    if (
+        preg_match(
+            '/^some\s+avg10=([\d.]+)\s+avg60=([\d.]+)\s+avg300=([\d.]+)/m',
+            $raw,
+            $m,
+        )
+    ) {
+        return [
+            'some10' => (float) $m[1],
+            'some60' => (float) $m[2],
+            'some300' => (float) $m[3],
+        ];
     }
 
     return null;
@@ -445,15 +510,19 @@ function networkCounters(): ?array
             continue;
         }
         $name = trim($m[1]);
-        if ($name === 'lo' || str_starts_with($name, 'veth') || str_starts_with($name, 'docker')) {
+        if (
+            $name === 'lo' ||
+            str_starts_with($name, 'veth') ||
+            str_starts_with($name, 'docker')
+        ) {
             continue;
         }
         $fields = preg_split('/\s+/', trim($m[2])) ?: [];
         if (count($fields) < 9) {
             continue;
         }
-        $rx += (int)$fields[0];
-        $tx += (int)$fields[8];
+        $rx += (int) $fields[0];
+        $tx += (int) $fields[8];
         $found = true;
     }
 
@@ -472,14 +541,19 @@ function cpuCores(): ?int
     }
 
     $nproc = shellRead('getconf _NPROCESSORS_ONLN 2>/dev/null');
-    return $nproc !== null && ctype_digit(trim($nproc)) ? (int)trim($nproc) : null;
+    return $nproc !== null && ctype_digit(trim($nproc))
+        ? (int) trim($nproc)
+        : null;
 }
 
 function memoryUsage(): array
 {
     $empty = [
-        'total' => null, 'available' => null, 'used_percent' => null,
-        'swap_total' => null, 'swap_used' => null,
+        'total' => null,
+        'available' => null,
+        'used_percent' => null,
+        'swap_total' => null,
+        'swap_used' => null,
     ];
 
     $raw = @file_get_contents('/proc/meminfo');
@@ -490,7 +564,7 @@ function memoryUsage(): array
     $kb = [];
     foreach (preg_split('/\R/', $raw) ?: [] as $line) {
         if (preg_match('/^(\w+):\s+(\d+)\s*kB/', $line, $m)) {
-            $kb[$m[1]] = (int)$m[2];
+            $kb[$m[1]] = (int) $m[2];
         }
     }
     if (!isset($kb['MemTotal']) || $kb['MemTotal'] <= 0) {
@@ -518,7 +592,10 @@ function shellRead(string $command): ?string
     if (!function_exists('shell_exec')) {
         return null;
     }
-    $disabled = array_map('trim', explode(',', (string)ini_get('disable_functions')));
+    $disabled = array_map(
+        'trim',
+        explode(',', (string) ini_get('disable_functions')),
+    );
     if (in_array('shell_exec', $disabled, true)) {
         return null;
     }
@@ -544,8 +621,10 @@ function runScan(array $config, PDO $pdo): array
     $started = time();
     $begin = microtime(true);
 
-    $pdo->prepare('INSERT INTO scans (started_at) VALUES (?)')->execute([$started]);
-    $scanId = (int)$pdo->lastInsertId();
+    $pdo->prepare('INSERT INTO scans (started_at) VALUES (?)')->execute([
+        $started,
+    ]);
+    $scanId = (int) $pdo->lastInsertId();
 
     $root = normalisePath($config['scan_root']);
     $rules = $config['scan'];
@@ -567,9 +646,25 @@ function runScan(array $config, PDO $pdo): array
     $pathHygiene = pathHygieneStart(pathHygieneEnabled($config, $pdo));
 
     try {
-        walk($root, $root, $rules, $excluded, $dirBytes, $dirFiles, $fileBytes,
-             $totals, $types, $extensions, $seenFiles, $seenDirs, $seenBytes,
-             $seenInodes, $linkCounts, 0, $pathHygiene);
+        walk(
+            $root,
+            $root,
+            $rules,
+            $excluded,
+            $dirBytes,
+            $dirFiles,
+            $fileBytes,
+            $totals,
+            $types,
+            $extensions,
+            $seenFiles,
+            $seenDirs,
+            $seenBytes,
+            $seenInodes,
+            $linkCounts,
+            0,
+            $pathHygiene,
+        );
     } catch (Throwable $e) {
         $error = $e->getMessage();
     }
@@ -598,10 +693,16 @@ function runScan(array $config, PDO $pdo): array
         $keep[$path] ??= ['kind' => 'dir', 'bytes' => $dirBytes[$path] ?? 0];
     }
 
-    foreach (categoryTops($fileBytes, $dirBytes, $rules, $top, $root) as $path => $kind) {
+    foreach (
+        categoryTops($fileBytes, $dirBytes, $rules, $top, $root)
+        as $path => $kind
+    ) {
         $keep[$path] ??= [
             'kind' => $kind,
-            'bytes' => ($kind === 'dir' ? ($dirBytes[$path] ?? 0) : ($fileBytes[$path] ?? 0)),
+            'bytes' =>
+                $kind === 'dir'
+                    ? $dirBytes[$path] ?? 0
+                    : $fileBytes[$path] ?? 0,
         ];
     }
 
@@ -610,7 +711,7 @@ function runScan(array $config, PDO $pdo): array
     try {
         $insertSize = $pdo->prepare(
             'INSERT INTO path_sizes (scan_id, path_id, bytes, files, links)
-             VALUES (?, ?, ?, ?, ?)'
+             VALUES (?, ?, ?, ?, ?)',
         );
         foreach ($keep as $path => $info) {
             $id = pathId(
@@ -618,35 +719,42 @@ function runScan(array $config, PDO $pdo): array
                 $path,
                 $info['kind'],
                 $now,
-                categoryOf($path . ($info['kind'] === 'dir' ? '/x' : ''), $rules, $root)
+                categoryOf(
+                    $path . ($info['kind'] === 'dir' ? '/x' : ''),
+                    $rules,
+                    $root,
+                ),
             );
             $insertSize->execute([
                 $scanId,
                 $id,
-                (int)$info['bytes'],
-                (int)($dirFiles[$path] ?? ($info['kind'] === 'file' ? 1 : 0)),
+                (int) $info['bytes'],
+                (int) ($dirFiles[$path] ?? ($info['kind'] === 'file' ? 1 : 0)),
                 $linkCounts[$path] ?? null,
             ]);
         }
 
         $insertTotal = $pdo->prepare(
-            'INSERT INTO scan_totals (scan_id, category, bytes, files) VALUES (?, ?, ?, ?)'
+            'INSERT INTO scan_totals (scan_id, category, bytes, files) VALUES (?, ?, ?, ?)',
         );
         foreach (categoryNames($rules) as $category) {
             $insertTotal->execute([
                 $scanId,
                 $category,
-                (int)($totals[$category]['bytes'] ?? 0),
-                (int)($totals[$category]['files'] ?? 0),
+                (int) ($totals[$category]['bytes'] ?? 0),
+                (int) ($totals[$category]['files'] ?? 0),
             ]);
         }
 
         $insertType = $pdo->prepare(
-            'INSERT INTO scan_file_types (scan_id, type, bytes, files) VALUES (?, ?, ?, ?)'
+            'INSERT INTO scan_file_types (scan_id, type, bytes, files) VALUES (?, ?, ?, ?)',
         );
         foreach ($types as $type => $tally) {
             $insertType->execute([
-                $scanId, $type, (int)$tally['bytes'], (int)$tally['files'],
+                $scanId,
+                $type,
+                (int) $tally['bytes'],
+                (int) $tally['files'],
             ]);
         }
 
@@ -659,22 +767,31 @@ function runScan(array $config, PDO $pdo): array
          * an "everything else" row inside a breakdown of "everything else" is
          * a hall of mirrors, and the type total above already holds the truth.
          */
-        uasort($extensions, fn(array $a, array $b): int => $b['bytes'] <=> $a['bytes']);
-        $insertExtension = $pdo->prepare(
-            'INSERT INTO scan_extensions (scan_id, extension, bytes, files) VALUES (?, ?, ?, ?)'
+        uasort(
+            $extensions,
+            fn(array $a, array $b): int => $b['bytes'] <=> $a['bytes'],
         );
-        foreach (array_slice($extensions, 0, SCAN_EXTENSION_LIMIT, true) as $extension => $tally) {
+        $insertExtension = $pdo->prepare(
+            'INSERT INTO scan_extensions (scan_id, extension, bytes, files) VALUES (?, ?, ?, ?)',
+        );
+        foreach (
+            array_slice($extensions, 0, SCAN_EXTENSION_LIMIT, true)
+            as $extension => $tally
+        ) {
             $insertExtension->execute([
-                $scanId, (string)$extension, (int)$tally['bytes'], (int)$tally['files'],
+                $scanId,
+                (string) $extension,
+                (int) $tally['bytes'],
+                (int) $tally['files'],
             ]);
         }
 
         $pdo->prepare(
             'UPDATE scans SET finished_at = ?, duration_ms = ?, files_seen = ?,
-                    dirs_seen = ?, bytes_seen = ?, error = ? WHERE id = ?'
+                    dirs_seen = ?, bytes_seen = ?, error = ? WHERE id = ?',
         )->execute([
             time(),
-            (int)round((microtime(true) - $begin) * 1000),
+            (int) round((microtime(true) - $begin) * 1000),
             $seenFiles,
             $seenDirs,
             $seenBytes,
@@ -749,7 +866,7 @@ function walk(
     array &$seenInodes = [],
     array &$linkCounts = [],
     int $depth = 0,
-    array &$pathHygiene = []
+    array &$pathHygiene = [],
 ): array {
     if ($depth > 40 || isExcludedPath($dir, $excluded)) {
         return [0, 0];
@@ -779,9 +896,23 @@ function walk(
 
         if (is_dir($full)) {
             [$childBytes, $childFiles] = walk(
-                $full, $root, $rules, $excluded, $dirBytes, $dirFiles, $fileBytes,
-                $totals, $types, $extensions, $seenFiles, $seenDirs, $seenBytes,
-                $seenInodes, $linkCounts, $depth + 1, $pathHygiene
+                $full,
+                $root,
+                $rules,
+                $excluded,
+                $dirBytes,
+                $dirFiles,
+                $fileBytes,
+                $totals,
+                $types,
+                $extensions,
+                $seenFiles,
+                $seenDirs,
+                $seenBytes,
+                $seenInodes,
+                $linkCounts,
+                $depth + 1,
+                $pathHygiene,
             );
             $bytes += $childBytes;
             $files += $childFiles;
@@ -799,8 +930,8 @@ function walk(
             continue;
         }
 
-        $size = (int)$stat['size'];
-        $links = (int)($stat['nlink'] ?? 1);
+        $size = (int) $stat['size'];
+        $links = (int) ($stat['nlink'] ?? 1);
 
         /*
          * A second path onto an inode already counted contributes nothing.
@@ -847,14 +978,17 @@ function walk(
          */
         if ($type === 'other') {
             $key = $what['extension'] === '' ? '(none)' : $what['extension'];
-            $extensions[$key]['bytes'] = ($extensions[$key]['bytes'] ?? 0) + $size;
+            $extensions[$key]['bytes'] =
+                ($extensions[$key]['bytes'] ?? 0) + $size;
             $extensions[$key]['files'] = ($extensions[$key]['files'] ?? 0) + 1;
         }
 
         $category = categoryOf($full, $rules, $root);
         if ($category !== null) {
-            $totals[$category]['bytes'] = ($totals[$category]['bytes'] ?? 0) + $size;
-            $totals[$category]['files'] = ($totals[$category]['files'] ?? 0) + 1;
+            $totals[$category]['bytes'] =
+                ($totals[$category]['bytes'] ?? 0) + $size;
+            $totals[$category]['files'] =
+                ($totals[$category]['files'] ?? 0) + 1;
         }
     }
 
@@ -883,21 +1017,181 @@ function walk(
 function fileTypeGroups(): array
 {
     static $groups = [
-        'images' => ['jpg','jpeg','png','gif','webp','bmp','tif','tiff','svg','ico','heic','avif','psd','raw','cr2','nef','xcf'],
-        'video' => ['mp4','m4v','mov','avi','mkv','webm','wmv','flv','mpg','mpeg','ts','3gp'],
-        'audio' => ['mp3','wav','flac','aac','ogg','oga','m4a','wma','aiff','opus'],
+        'images' => [
+            'jpg',
+            'jpeg',
+            'png',
+            'gif',
+            'webp',
+            'bmp',
+            'tif',
+            'tiff',
+            'svg',
+            'ico',
+            'heic',
+            'avif',
+            'psd',
+            'raw',
+            'cr2',
+            'nef',
+            'xcf',
+        ],
+        'video' => [
+            'mp4',
+            'm4v',
+            'mov',
+            'avi',
+            'mkv',
+            'webm',
+            'wmv',
+            'flv',
+            'mpg',
+            'mpeg',
+            'ts',
+            '3gp',
+        ],
+        'audio' => [
+            'mp3',
+            'wav',
+            'flac',
+            'aac',
+            'ogg',
+            'oga',
+            'm4a',
+            'wma',
+            'aiff',
+            'opus',
+        ],
         // `br` is Brotli, which sits beside gzip in every web server's static
         // directory; `backup` is what a person names a copy they made by hand.
-        'archives' => ['zip','gz','br','tgz','bz2','xz','7z','rar','tar','zst','lz','lzma','jar','war','iso','dmg','pkg','deb','rpm','cab','backup'],
+        'archives' => [
+            'zip',
+            'gz',
+            'br',
+            'tgz',
+            'bz2',
+            'xz',
+            '7z',
+            'rar',
+            'tar',
+            'zst',
+            'lz',
+            'lzma',
+            'jar',
+            'war',
+            'iso',
+            'dmg',
+            'pkg',
+            'deb',
+            'rpm',
+            'cab',
+            'backup',
+        ],
         // htaccess has no name before the dot, so pathinfo reports the whole
         // thing as the extension - which is exactly the string matched here.
-        'web' => ['html','htm','css','js','mjs','cjs','map','woff','woff2','ttf','eot','otf','json','xml','scss','less','vue','ts','tsx','jsx','xsd','xsl','xslt','htaccess','htpasswd','mustache','twig','hbs','ejs','pug'],
-        'documents' => ['pdf','doc','docx','xls','xlsx','ppt','pptx','odt','ods','odp','rtf','txt','md','csv','tsv','epub','mobi','license','manual','readme','changelog','nfo'],
-        'code' => ['php','py','rb','pl','sh','bash','c','h','cpp','hpp','go','rs','java','cs','swift','kt','lua','sql','yml','yaml','toml','ini','conf','patch','diff'],
+        'web' => [
+            'html',
+            'htm',
+            'css',
+            'js',
+            'mjs',
+            'cjs',
+            'map',
+            'woff',
+            'woff2',
+            'ttf',
+            'eot',
+            'otf',
+            'json',
+            'xml',
+            'scss',
+            'less',
+            'vue',
+            'ts',
+            'tsx',
+            'jsx',
+            'xsd',
+            'xsl',
+            'xslt',
+            'htaccess',
+            'htpasswd',
+            'mustache',
+            'twig',
+            'hbs',
+            'ejs',
+            'pug',
+        ],
+        'documents' => [
+            'pdf',
+            'doc',
+            'docx',
+            'xls',
+            'xlsx',
+            'ppt',
+            'pptx',
+            'odt',
+            'ods',
+            'odp',
+            'rtf',
+            'txt',
+            'md',
+            'csv',
+            'tsv',
+            'epub',
+            'mobi',
+            'license',
+            'manual',
+            'readme',
+            'changelog',
+            'nfo',
+        ],
+        'code' => [
+            'php',
+            'py',
+            'rb',
+            'pl',
+            'sh',
+            'bash',
+            'c',
+            'h',
+            'cpp',
+            'hpp',
+            'go',
+            'rs',
+            'java',
+            'cs',
+            'swift',
+            'kt',
+            'lua',
+            'sql',
+            'yml',
+            'yaml',
+            'toml',
+            'ini',
+            'conf',
+            'patch',
+            'diff',
+        ],
         // `idx` is an index beside the data it indexes - git packs, Bleve,
         // Sphinx - and belongs with the store rather than on its own.
-        'databases' => ['db','sqlite','sqlite3','mdb','frm','ibd','myd','myi','dump','bak','idx','pack','mmdb','rdb','aof'],
-        'logs' => ['log','out','err'],
+        'databases' => [
+            'db',
+            'sqlite',
+            'sqlite3',
+            'mdb',
+            'frm',
+            'ibd',
+            'myd',
+            'myi',
+            'dump',
+            'bak',
+            'idx',
+            'pack',
+            'mmdb',
+            'rdb',
+            'aof',
+        ],
+        'logs' => ['log', 'out', 'err'],
         /*
          * Things that run.
          *
@@ -906,7 +1200,19 @@ function fileTypeGroups(): array
          * applied in classifyFile below. `class` is a compiled Java class,
          * `exe`/`dll` are Windows binaries that turn up in uploads and backups.
          */
-        'executables' => ['exe','dll','so','dylib','class','bin','com','msi','app','o','a'],
+        'executables' => [
+            'exe',
+            'dll',
+            'so',
+            'dylib',
+            'class',
+            'bin',
+            'com',
+            'msi',
+            'app',
+            'o',
+            'a',
+        ],
     ];
     return $groups;
 }
@@ -955,7 +1261,11 @@ function classifyFile(string $path): array
      * Anything not made of letters and digits goes the same way, so a filename
      * ending `.tar.gz~` or `.log:2` cannot invent an extension either.
      */
-    if ($extension === '' || strlen($extension) > 12 || !ctype_alnum($extension)) {
+    if (
+        $extension === '' ||
+        strlen($extension) > 12 ||
+        !ctype_alnum($extension)
+    ) {
         /*
          * No usable extension: ask the file whether it runs.
          *
@@ -968,7 +1278,8 @@ function classifyFile(string $path): array
          * Only for files with no extension. A `.log` that happens to be marked
          * executable is a log with a wrong mode, not a program.
          */
-        $executable = $extension === '' && @is_executable($path) && @is_file($path);
+        $executable =
+            $extension === '' && @is_executable($path) && @is_file($path);
         return [
             'type' => $executable ? 'executables' : 'other',
             'extension' => '',
@@ -1033,7 +1344,10 @@ function categoryOf(string $path, array $rules, string $root = ''): ?string
 
     $extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
     if ($extension !== '') {
-        foreach ($rules['category_extensions'] ?? [] as $category => $extensions) {
+        foreach (
+            $rules['category_extensions'] ?? []
+            as $category => $extensions
+        ) {
             foreach ($extensions as $candidate) {
                 if ($extension === strtolower($candidate)) {
                     return $category;
@@ -1051,19 +1365,31 @@ function categoryTops(
     array $dirBytes,
     array $rules,
     int $top,
-    string $root
+    string $root,
 ): array {
     $picked = [];
     foreach (categoryNames($rules) as $category) {
-        foreach (['file' => $fileBytes, 'dir' => $dirBytes] as $kind => $sizes) {
+        foreach (
+            ['file' => $fileBytes, 'dir' => $dirBytes]
+            as $kind => $sizes
+        ) {
             $inCategory = [];
             foreach ($sizes as $path => $bytes) {
-                if (categoryOf($path . ($kind === 'dir' ? '/x' : ''), $rules, $root) === $category) {
+                if (
+                    categoryOf(
+                        $path . ($kind === 'dir' ? '/x' : ''),
+                        $rules,
+                        $root,
+                    ) === $category
+                ) {
                     $inCategory[$path] = $bytes;
                 }
             }
             arsort($inCategory);
-            foreach (array_slice($inCategory, 0, $top, true) as $path => $bytes) {
+            foreach (
+                array_slice($inCategory, 0, $top, true)
+                as $path => $bytes
+            ) {
                 $picked[$path] = $kind;
             }
         }
@@ -1081,7 +1407,10 @@ function isExcludedPath(string $path, array $excluded): bool
 {
     $path = normalisePath($path);
     foreach ($excluded as $exclude) {
-        if ($path === $exclude || str_starts_with($path . '/', $exclude . '/')) {
+        if (
+            $path === $exclude ||
+            str_starts_with($path . '/', $exclude . '/')
+        ) {
             return true;
         }
     }
@@ -1140,18 +1469,18 @@ function diskStats(string $procRoot = '/proc'): ?array
 
         $rows[$name] = [
             'name' => $name,
-            'read_ios' => (int)$f[0],
-            'read_bytes' => (int)$f[2] * DISKSTAT_SECTOR,
-            'read_ms' => (int)$f[3],
-            'write_ios' => (int)$f[4],
-            'write_bytes' => (int)$f[6] * DISKSTAT_SECTOR,
-            'write_ms' => (int)$f[7],
-            'in_flight' => (int)$f[8],
+            'read_ios' => (int) $f[0],
+            'read_bytes' => (int) $f[2] * DISKSTAT_SECTOR,
+            'read_ms' => (int) $f[3],
+            'write_ios' => (int) $f[4],
+            'write_bytes' => (int) $f[6] * DISKSTAT_SECTOR,
+            'write_ms' => (int) $f[7],
+            'in_flight' => (int) $f[8],
             // Milliseconds during which anything at all was in flight. Divided
             // by elapsed time this is utilisation - the figure that says the
             // disk itself is the bottleneck rather than merely busy.
-            'io_ms' => (int)$f[9],
-            'queue_ms' => (int)$f[10],
+            'io_ms' => (int) $f[9],
+            'queue_ms' => (int) $f[10],
         ];
     }
 
@@ -1180,12 +1509,18 @@ function diskStats(string $procRoot = '/proc'): ?array
          * still worth showing individually, because "which volume is busy" is a
          * real question; they are just not additional bytes.
          */
-        $row['stacked'] = (bool)preg_match('/^(dm-|md)/', $name);
+        $row['stacked'] = (bool) preg_match('/^(dm-|md)/', $name);
         $devices[$name] = $row;
     }
 
-    $total = ['read_ios' => 0, 'read_bytes' => 0, 'write_ios' => 0,
-              'write_bytes' => 0, 'io_ms' => 0, 'queue_ms' => 0];
+    $total = [
+        'read_ios' => 0,
+        'read_bytes' => 0,
+        'write_ios' => 0,
+        'write_bytes' => 0,
+        'io_ms' => 0,
+        'queue_ms' => 0,
+    ];
     foreach ($devices as $row) {
         if ($row['stacked']) {
             continue;
@@ -1221,13 +1556,21 @@ function pressureIo(string $procRoot = '/proc'): ?array
 
     $out = [];
     foreach (preg_split('/\R/', $raw) ?: [] as $line) {
-        if (preg_match('/^(some|full)\s+avg10=([\d.]+)\s+avg60=([\d.]+)/', trim($line), $m)) {
-            $out[$m[1] . '10'] = (float)$m[2];
-            $out[$m[1] . '60'] = (float)$m[3];
+        if (
+            preg_match(
+                '/^(some|full)\s+avg10=([\d.]+)\s+avg60=([\d.]+)/',
+                trim($line),
+                $m,
+            )
+        ) {
+            $out[$m[1] . '10'] = (float) $m[2];
+            $out[$m[1] . '60'] = (float) $m[3];
         }
     }
 
-    return isset($out['some10']) ? $out + ['full10' => 0.0, 'full60' => 0.0] : null;
+    return isset($out['some10'])
+        ? $out + ['full10' => 0.0, 'full60' => 0.0]
+        : null;
 }
 
 /**
@@ -1267,10 +1610,10 @@ function processIoTotals(string $procRoot = '/proc'): ?array
         $any = true;
         $seen++;
         if (preg_match('/^read_bytes:\s+(\d+)/m', $raw, $m)) {
-            $read += (int)$m[1];
+            $read += (int) $m[1];
         }
         if (preg_match('/^write_bytes:\s+(\d+)/m', $raw, $m)) {
-            $write += (int)$m[1];
+            $write += (int) $m[1];
         }
         /*
          * Writes charged and then withdrawn - a file deleted before its dirty
@@ -1278,12 +1621,18 @@ function processIoTotals(string $procRoot = '/proc'): ?array
          * mean four gigabytes actually went to the platter.
          */
         if (preg_match('/^cancelled_write_bytes:\s+(\d+)/m', $raw, $m)) {
-            $cancelled += (int)$m[1];
+            $cancelled += (int) $m[1];
         }
     }
 
-    return $any ? ['read' => $read, 'write' => $write,
-                   'cancelled' => $cancelled, 'procs' => $seen] : null;
+    return $any
+        ? [
+            'read' => $read,
+            'write' => $write,
+            'cancelled' => $cancelled,
+            'procs' => $seen,
+        ]
+        : null;
 }
 
 /**
@@ -1300,7 +1649,9 @@ function processIoTotals(string $procRoot = '/proc'): ?array
 function bootTime(string $procRoot = '/proc'): int
 {
     $raw = @file_get_contents($procRoot . '/stat');
-    return $raw !== false && preg_match('/^btime\s+(\d+)/m', $raw, $m) ? (int)$m[1] : 0;
+    return $raw !== false && preg_match('/^btime\s+(\d+)/m', $raw, $m)
+        ? (int) $m[1]
+        : 0;
 }
 
 /* ---------------------------------------------------------- diagnosis -- */
@@ -1314,8 +1665,10 @@ function bootTime(string $procRoot = '/proc'): int
  * their 4.18 kernels, so "4.18 is below 4.20" is exactly the wrong conclusion
  * on the machines this tool is aimed at.
  */
-function pressureDiagnosis(string $procRoot = '/proc', ?string $bootConfig = null): string
-{
+function pressureDiagnosis(
+    string $procRoot = '/proc',
+    ?string $bootConfig = null,
+): string {
     if (@is_readable($procRoot . '/pressure/io')) {
         return '';
     }
@@ -1341,10 +1694,10 @@ function pressureDiagnosis(string $procRoot = '/proc', ?string $bootConfig = nul
      * defers the question rather than answering it from the wrong side.
      */
     if (!@is_readable($procRoot . '/diskstats')) {
-        return "Kernel $kernel. This account sees a filtered /proc: /proc/stat is "
-            . 'readable but /proc/diskstats is not, which is CageFS. Whether the kernel '
-            . 'has pressure stall info cannot be told from in here — the host collector '
-            . 'reads it as root and records the answer, which the host panel shows.';
+        return "Kernel $kernel. This account sees a filtered /proc: /proc/stat is " .
+            'readable but /proc/diskstats is not, which is CageFS. Whether the kernel ' .
+            'has pressure stall info cannot be told from in here — the host collector ' .
+            'reads it as root and records the answer, which the host panel shows.';
     }
 
     if (!@file_exists($procRoot . '/pressure')) {
@@ -1356,14 +1709,16 @@ function pressureDiagnosis(string $procRoot = '/proc', ?string $bootConfig = nul
     // Whether the switch is already thrown changes the advice completely, so it
     // is read before anything is recommended rather than tacked on afterwards.
     $cmdline = @file_get_contents($procRoot . '/cmdline');
-    $booted = is_string($cmdline) && preg_match('/(^|\s)psi=1(\s|$)/', $cmdline);
+    $booted =
+        is_string($cmdline) && preg_match('/(^|\s)psi=1(\s|$)/', $cmdline);
 
     $config = $bootConfig ?? "/boot/config-$kernel";
     if (@is_readable($config)) {
-        $text = (string)@file_get_contents($config);
+        $text = (string) @file_get_contents($config);
         if (!preg_match('/^CONFIG_PSI=y/m', $text)) {
-            $parts[] = 'This kernel was built without CONFIG_PSI, so it cannot be turned on '
-                . 'without a different kernel.';
+            $parts[] =
+                'This kernel was built without CONFIG_PSI, so it cannot be turned on ' .
+                'without a different kernel.';
         } elseif (preg_match('/^CONFIG_PSI_DEFAULT_DISABLED=y/m', $text)) {
             /*
              * The RHEL and CloudLinux case. Built in, off unless asked for -
@@ -1371,18 +1726,20 @@ function pressureDiagnosis(string $procRoot = '/proc', ?string $bootConfig = nul
              * introduced PSI and still not have the file.
              */
             $parts[] = $booted
-                ? 'The kernel has CONFIG_PSI and psi=1 is already on the command line, '
-                    . 'so this needs a reboot to take effect — or something is hiding '
-                    . '/proc/pressure.'
-                : 'The kernel has CONFIG_PSI but ships disabled: add psi=1 to the kernel '
-                    . 'command line (grubby --update-kernel=ALL --args="psi=1") and reboot.';
+                ? 'The kernel has CONFIG_PSI and psi=1 is already on the command line, ' .
+                    'so this needs a reboot to take effect — or something is hiding ' .
+                    '/proc/pressure.'
+                : 'The kernel has CONFIG_PSI but ships disabled: add psi=1 to the kernel ' .
+                    'command line (grubby --update-kernel=ALL --args="psi=1") and reboot.';
         } else {
-            $parts[] = 'The kernel has CONFIG_PSI and is not built to default it off, '
-                . 'so something else is hiding /proc/pressure.';
+            $parts[] =
+                'The kernel has CONFIG_PSI and is not built to default it off, ' .
+                'so something else is hiding /proc/pressure.';
         }
     } else {
-        $parts[] = "Cannot read $config to tell whether CONFIG_PSI was compiled in — "
-            . 'check it as root, or read /proc/pressure/io there.';
+        $parts[] =
+            "Cannot read $config to tell whether CONFIG_PSI was compiled in — " .
+            'check it as root, or read /proc/pressure/io there.';
         if (!$booted) {
             $parts[] = 'psi=1 is not on the boot command line.';
         }
@@ -1408,8 +1765,8 @@ function diskstatsDiagnosis(string $procRoot = '/proc'): string
         return '/proc is not readable at all here.';
     }
 
-    return 'Hidden from this account — /proc/stat is readable but /proc/diskstats is '
-        . 'not, which is CageFS filtering /proc. Nothing is broken: the host collector '
-        . 'reads the real device counters, and this account\'s own I/O is still '
-        . 'measured from its processes.';
+    return 'Hidden from this account — /proc/stat is readable but /proc/diskstats is ' .
+        'not, which is CageFS filtering /proc. Nothing is broken: the host collector ' .
+        'reads the real device counters, and this account\'s own I/O is still ' .
+        'measured from its processes.';
 }

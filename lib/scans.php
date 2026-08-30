@@ -65,14 +65,17 @@ function scanCatalogue(): array
         'vitals' => [
             'side' => 'account',
             'label' => 'Readings',
-            'what' => 'Disk, inodes, CPU, memory, load and uptime. One row per run.',
-            'cost' => 'Milliseconds. It reads a handful of files in /proc and does some '
-                . 'arithmetic.',
+            'what' =>
+                'Disk, inodes, CPU, memory, load and uptime. One row per run.',
+            'cost' =>
+                'Milliseconds. It reads a handful of files in /proc and does some ' .
+                'arithmetic.',
             'recommended' => 300,
-            'why' => 'Every chart here is drawn from these, and the resolution of every '
-                . 'question you can ask later is decided by how often they were taken. '
-                . 'Five minutes is the usual compromise; a minute is fine if the disk can '
-                . 'take the rows.',
+            'why' =>
+                'Every chart here is drawn from these, and the resolution of every ' .
+                'question you can ask later is decided by how often they were taken. ' .
+                'Five minutes is the usual compromise; a minute is fine if the disk can ' .
+                'take the rows.',
             'task' => null,
             'live_only' => false,
             'browse_boost' => 60,
@@ -80,15 +83,18 @@ function scanCatalogue(): array
         'scan' => [
             'side' => 'account',
             'label' => 'Disk walk',
-            'what' => 'Walks the watched directory, recording the size of every path worth '
-                . 'recording.',
-            'cost' => 'Minutes on a large account, and it reads every inode under it. On a '
-                . 'shared host this is the single most expensive thing here.',
+            'what' =>
+                'Walks the watched directory, recording the size of every path worth ' .
+                'recording.',
+            'cost' =>
+                'Minutes on a large account, and it reads every inode under it. On a ' .
+                'shared host this is the single most expensive thing here.',
             'recommended' => 86400,
-            'why' => 'Daily, at a quiet hour. The numbers it produces move slowly - a '
-                . 'directory that grew overnight is still the directory that grew when you '
-                . 'look at lunchtime - and running it hourly buys almost nothing for a '
-                . 'great deal of disk work.',
+            'why' =>
+                'Daily, at a quiet hour. The numbers it produces move slowly - a ' .
+                'directory that grew overnight is still the directory that grew when you ' .
+                'look at lunchtime - and running it hourly buys almost nothing for a ' .
+                'great deal of disk work.',
             'task' => null,
             'live_only' => false,
             'browse_boost' => 0,
@@ -96,12 +102,15 @@ function scanCatalogue(): array
         'urls' => [
             'side' => 'account',
             'label' => 'Site checks',
-            'what' => 'Fetches each configured address and records what came back.',
-            'cost' => 'One HTTP request per check that is due. Each check has its own '
-                . 'interval; this is only how often the collector looks for due ones.',
+            'what' =>
+                'Fetches each configured address and records what came back.',
+            'cost' =>
+                'One HTTP request per check that is due. Each check has its own ' .
+                'interval; this is only how often the collector looks for due ones.',
             'recommended' => 300,
-            'why' => 'The check intervals do the real work. This only needs to run often '
-                . 'enough not to delay them, so it matches the readings.',
+            'why' =>
+                'The check intervals do the real work. This only needs to run often ' .
+                'enough not to delay them, so it matches the readings.',
             'task' => null,
             'live_only' => false,
             'browse_boost' => 0,
@@ -110,12 +119,14 @@ function scanCatalogue(): array
             'side' => 'account',
             'label' => 'Domain expiry',
             'what' => 'Asks a registry when each watched domain expires.',
-            'cost' => 'One whois lookup, to somebody else\'s server. Throttled to one per '
-                . 'run whatever this says.',
+            'cost' =>
+                'One whois lookup, to somebody else\'s server. Throttled to one per ' .
+                'run whatever this says.',
             'recommended' => 86400,
-            'why' => 'An expiry date changes once a year. Asking daily is already far more '
-                . 'often than the answer moves, and registries rate-limit anything more '
-                . 'eager.',
+            'why' =>
+                'An expiry date changes once a year. Asking daily is already far more ' .
+                'often than the answer moves, and registries rate-limit anything more ' .
+                'eager.',
             'task' => null,
             'live_only' => false,
             'browse_boost' => 0,
@@ -126,9 +137,10 @@ function scanCatalogue(): array
             'what' => 'Resolves one waiting address to a name.',
             'cost' => 'One DNS query, to somebody else\'s resolver.',
             'recommended' => 300,
-            'why' => 'The queue drains one per run, so this is really "how fast does the '
-                . 'queue move". At five minutes a hundred addresses take eight hours, '
-                . 'which is fine for something nobody is waiting on.',
+            'why' =>
+                'The queue drains one per run, so this is really "how fast does the ' .
+                'queue move". At five minutes a hundred addresses take eight hours, ' .
+                'which is fine for something nobody is waiting on.',
             'task' => null,
             'live_only' => false,
             'browse_boost' => 60,
@@ -136,12 +148,15 @@ function scanCatalogue(): array
         'processes' => [
             'side' => 'account',
             'label' => 'Process samples',
-            'what' => 'What is running and what it is using, grouped by program.',
-            'cost' => 'Walks every process in /proc. Noticeable on a busy machine.',
+            'what' =>
+                'What is running and what it is using, grouped by program.',
+            'cost' =>
+                'Walks every process in /proc. Noticeable on a busy machine.',
             'recommended' => 0,
-            'why' => 'Taken automatically when CPU or memory crosses a threshold, which is '
-                . 'when it is worth having. On a schedule it mostly records an idle '
-                . 'machine being idle, at the cost of walking /proc to find out.',
+            'why' =>
+                'Taken automatically when CPU or memory crosses a threshold, which is ' .
+                'when it is worth having. On a schedule it mostly records an idle ' .
+                'machine being idle, at the cost of walking /proc to find out.',
             'task' => null,
             'live_only' => true,
             'browse_boost' => 0,
@@ -152,13 +167,15 @@ function scanCatalogue(): array
         'host-collect' => [
             'side' => 'host',
             'label' => 'Host readings',
-            'what' => 'The machine as a whole: every filesystem, every tenant, memory, '
-                . 'load, and the processes this account cannot see.',
+            'what' =>
+                'The machine as a whole: every filesystem, every tenant, memory, ' .
+                'load, and the processes this account cannot see.',
             'cost' => 'Walks /proc as root. Seconds on a busy box.',
             'recommended' => 300,
-            'why' => 'Everything on this dashboard about the machine rather than the '
-                . 'account comes from here. Matching the account readings means the two '
-                . 'can be read side by side without interpolating.',
+            'why' =>
+                'Everything on this dashboard about the machine rather than the ' .
+                'account comes from here. Matching the account readings means the two ' .
+                'can be read side by side without interpolating.',
             // Nothing to ask for: the host collector takes a reading every
             // run, so "do it now" is what the next run already is.
             'task' => null,
@@ -168,14 +185,17 @@ function scanCatalogue(): array
         'host-disk' => [
             'side' => 'host',
             'label' => 'Host disk walk',
-            'what' => 'Every filesystem on the machine, the biggest directories on each, '
-                . 'and files held open after deletion.',
-            'cost' => 'Very expensive. It walks filesystems that may hold every account on '
-                . 'the server.',
+            'what' =>
+                'Every filesystem on the machine, the biggest directories on each, ' .
+                'and files held open after deletion.',
+            'cost' =>
+                'Very expensive. It walks filesystems that may hold every account on ' .
+                'the server.',
             'recommended' => 0,
-            'why' => 'Not on a schedule. This is a thing to run when a disk is filling and '
-                . 'nobody knows why, not something to do to a shared machine every hour. '
-                . 'Ask for it when you need it.',
+            'why' =>
+                'Not on a schedule. This is a thing to run when a disk is filling and ' .
+                'nobody knows why, not something to do to a shared machine every hour. ' .
+                'Ask for it when you need it.',
             'task' => 'request-host-walk',
             'live_only' => false,
             'browse_boost' => 0,
@@ -183,15 +203,18 @@ function scanCatalogue(): array
         'host-capabilities' => [
             'side' => 'host',
             'label' => 'Capability probe',
-            'what' => 'Which programs exist and what version each is - and, on the same '
-                . 'pass, the kernel, PHP, OpenSSL and the rest.',
-            'cost' => 'Runs a hundred or so programs with --version. Seconds, and a burst '
-                . 'of process churn.',
+            'what' =>
+                'Which programs exist and what version each is - and, on the same ' .
+                'pass, the kernel, PHP, OpenSSL and the rest.',
+            'cost' =>
+                'Runs a hundred or so programs with --version. Seconds, and a burst ' .
+                'of process churn.',
             'recommended' => 86400,
-            'why' => 'Daily. This is what notices a package update happening underneath '
-                . 'you, and a day is fine for that - but every timestamp it records is '
-                . 'when a change was noticed rather than when it happened, so a weekly '
-                . 'probe turns a Tuesday upgrade into a Sunday event.',
+            'why' =>
+                'Daily. This is what notices a package update happening underneath ' .
+                'you, and a day is fine for that - but every timestamp it records is ' .
+                'when a change was noticed rather than when it happened, so a weekly ' .
+                'probe turns a Tuesday upgrade into a Sunday event.',
             'task' => 'request-host-task:capabilities',
             'live_only' => false,
             'browse_boost' => 0,
@@ -199,14 +222,17 @@ function scanCatalogue(): array
         'host-capture' => [
             'side' => 'host',
             'label' => 'Packet capture',
-            'what' => 'Watches the wire for a few seconds and counts what went past.',
-            'cost' => 'Holds a raw socket open and processes every packet. On a busy '
-                . 'nameserver this is real work.',
+            'what' =>
+                'Watches the wire for a few seconds and counts what went past.',
+            'cost' =>
+                'Holds a raw socket open and processes every packet. On a busy ' .
+                'nameserver this is real work.',
             'recommended' => 0,
-            'why' => 'Not on a schedule by default - but this is the one expensive scan '
-                . 'where a schedule genuinely helps: two captures a day apart answer "is '
-                . 'this getting worse", which one capture cannot. Turn it on while you '
-                . 'are investigating something, and off again afterwards.',
+            'why' =>
+                'Not on a schedule by default - but this is the one expensive scan ' .
+                'where a schedule genuinely helps: two captures a day apart answer "is ' .
+                'this getting worse", which one capture cannot. Turn it on while you ' .
+                'are investigating something, and off again afterwards.',
             /*
              * Asked for from the capture page, not here.
              *
@@ -222,12 +248,14 @@ function scanCatalogue(): array
         'host-rdns' => [
             'side' => 'host',
             'label' => 'Address names (host)',
-            'what' => 'Resolves one waiting address, for the cases where this account\'s '
-                . 'resolver is blocked and the host\'s is not.',
+            'what' =>
+                'Resolves one waiting address, for the cases where this account\'s ' .
+                'resolver is blocked and the host\'s is not.',
             'cost' => 'One DNS query.',
             'recommended' => 300,
-            'why' => 'Rides along with the host readings and costs nothing when the queue '
-                . 'is empty, which is most of the time.',
+            'why' =>
+                'Rides along with the host readings and costs nothing when the queue ' .
+                'is empty, which is most of the time.',
             'task' => null,
             'live_only' => false,
             'browse_boost' => 0,
@@ -254,8 +282,8 @@ function scanSetting(array $config, string $key): array
     return $entry + [
         'key' => $key,
         'every' => array_key_exists('every', $mine)
-            ? max(0, (int)$mine['every'])
-            : (int)$entry['recommended'],
+            ? max(0, (int) $mine['every'])
+            : (int) $entry['recommended'],
         /*
          * Whether to speed up while somebody is browsing.
          *
@@ -264,11 +292,11 @@ function scanSetting(array $config, string $key): array
          * so the option is only offered where it makes sense.
          */
         'boost' => array_key_exists('boost', $mine)
-            ? (bool)$mine['boost']
-            : (int)$entry['browse_boost'] > 0,
+            ? (bool) $mine['boost']
+            : (int) $entry['browse_boost'] > 0,
         'live_only' => array_key_exists('live_only', $mine)
-            ? (bool)$mine['live_only']
-            : (bool)$entry['live_only'],
+            ? (bool) $mine['live_only']
+            : (bool) $entry['live_only'],
     ];
 }
 
@@ -297,14 +325,14 @@ function scanSettings(array $config, string $side = ''): array
 function lastSeenBrowsing(PDO $pdo): ?int
 {
     try {
-        $at = $pdo->query(
-            "SELECT value FROM settings WHERE key = 'last_browsed_at'"
-        )->fetchColumn();
+        $at = $pdo
+            ->query("SELECT value FROM settings WHERE key = 'last_browsed_at'")
+            ->fetchColumn();
     } catch (Throwable) {
         return null;
     }
 
-    return $at === false || $at === null ? null : (int)$at;
+    return $at === false || $at === null ? null : (int) $at;
 }
 
 function noteBrowsing(PDO $pdo): void
@@ -312,8 +340,8 @@ function noteBrowsing(PDO $pdo): void
     try {
         $pdo->prepare(
             "INSERT INTO settings (key, value) VALUES ('last_browsed_at', ?)
-             ON CONFLICT(key) DO UPDATE SET value = excluded.value"
-        )->execute([(string)time()]);
+             ON CONFLICT(key) DO UPDATE SET value = excluded.value",
+        )->execute([(string) time()]);
     } catch (Throwable) {
         // A missing settings table is not worth failing a page load over.
     }
@@ -323,7 +351,7 @@ function noteBrowsing(PDO $pdo): void
 function someoneIsBrowsing(PDO $pdo, int $within = 180): bool
 {
     $at = lastSeenBrowsing($pdo);
-    return $at !== null && (time() - $at) <= $within;
+    return $at !== null && time() - $at <= $within;
 }
 
 /**
@@ -342,7 +370,11 @@ function scanDue(array $config, PDO $pdo, string $key, ?int $lastAt): array
     $scan = scanSetting($config, $key);
 
     if ($scan['every'] <= 0) {
-        return ['due' => false, 'why' => 'not on a schedule', 'next_at' => null];
+        return [
+            'due' => false,
+            'why' => 'not on a schedule',
+            'next_at' => null,
+        ];
     }
 
     if ($scan['live_only'] && !someoneIsBrowsing($pdo)) {
@@ -356,7 +388,7 @@ function scanDue(array $config, PDO $pdo, string $key, ?int $lastAt): array
     $every = $scan['every'];
 
     if ($scan['boost'] && someoneIsBrowsing($pdo)) {
-        $faster = (int)($scan['browse_boost'] ?: $every);
+        $faster = (int) ($scan['browse_boost'] ?: $every);
         if ($faster > 0 && $faster < $every) {
             $every = $faster;
         }
@@ -395,28 +427,34 @@ function scanSettingsFrom(array $posted): array
             continue;
         }
 
-        $every = (int)$posted[$field];
+        $every = (int) $posted[$field];
         if (!isset($intervals[$every])) {
-            throw new ActionRefused('that is not one of the intervals on offer');
+            throw new ActionRefused(
+                'that is not one of the intervals on offer',
+            );
         }
 
         $mine = [];
 
-        if ($every !== (int)$entry['recommended']) {
+        if ($every !== (int) $entry['recommended']) {
             $mine['every'] = $every;
         }
 
-        $boost = in_array($key, array_filter(
-            explode(',', (string)($posted['boosted'] ?? ''))
-        ), true);
-        if ($boost !== ((int)$entry['browse_boost'] > 0)) {
+        $boost = in_array(
+            $key,
+            array_filter(explode(',', (string) ($posted['boosted'] ?? ''))),
+            true,
+        );
+        if ($boost !== (int) $entry['browse_boost'] > 0) {
             $mine['boost'] = $boost;
         }
 
-        $liveOnly = in_array($key, array_filter(
-            explode(',', (string)($posted['live_only'] ?? ''))
-        ), true);
-        if ($liveOnly !== (bool)$entry['live_only']) {
+        $liveOnly = in_array(
+            $key,
+            array_filter(explode(',', (string) ($posted['live_only'] ?? ''))),
+            true,
+        );
+        if ($liveOnly !== (bool) $entry['live_only']) {
             $mine['live_only'] = $liveOnly;
         }
 
@@ -460,7 +498,7 @@ function scanLastRunFor(array $config, PDO $pdo, string $key): ?int
 
     try {
         $at = $pdo->query($queries[$key])->fetchColumn();
-        return $at === false || $at === null ? null : (int)$at;
+        return $at === false || $at === null ? null : (int) $at;
     } catch (Throwable) {
         return null;
     }
@@ -503,7 +541,7 @@ function hostScanDue(array $config, ?PDO $host, string $key): array
 
     try {
         $at = $host->query($queries[$key])->fetchColumn();
-        $last = $at === false || $at === null ? null : (int)$at;
+        $last = $at === false || $at === null ? null : (int) $at;
     } catch (Throwable) {
         return ['due' => false, 'why' => 'could not read when it last ran'];
     }
@@ -515,14 +553,17 @@ function hostScanDue(array $config, ?PDO $host, string $key): array
     $every = $scan['every'];
 
     if ($scan['boost'] && hostSeesBrowsing($config)) {
-        $faster = (int)($scan['browse_boost'] ?: $every);
+        $faster = (int) ($scan['browse_boost'] ?: $every);
         if ($faster > 0 && $faster < $every) {
             $every = $faster;
         }
     }
 
     if ($scan['live_only'] && !hostSeesBrowsing($config)) {
-        return ['due' => false, 'why' => 'only while somebody is looking, and nobody is'];
+        return [
+            'due' => false,
+            'why' => 'only while somebody is looking, and nobody is',
+        ];
     }
 
     $next = $last + $every;
@@ -535,7 +576,7 @@ function hostScanDue(array $config, ?PDO $host, string $key): array
 /** The browsing signal, read from the account database without writing to it. */
 function hostSeesBrowsing(array $config, int $within = 180): bool
 {
-    $file = (string)($config['database'] ?? '');
+    $file = (string) ($config['database'] ?? '');
     if ($file === '' || !is_file($file) || !is_readable($file)) {
         return false;
     }
@@ -546,11 +587,12 @@ function hostSeesBrowsing(array $config, int $within = 180): bool
         ]);
         $pdo->exec('PRAGMA query_only = 1');
 
-        $at = $pdo->query("SELECT value FROM settings WHERE key = 'last_browsed_at'")
+        $at = $pdo
+            ->query("SELECT value FROM settings WHERE key = 'last_browsed_at'")
             ->fetchColumn();
     } catch (Throwable) {
         return false;
     }
 
-    return $at !== false && $at !== null && (time() - (int)$at) <= $within;
+    return $at !== false && $at !== null && time() - (int) $at <= $within;
 }

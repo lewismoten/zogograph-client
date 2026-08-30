@@ -25,7 +25,7 @@ convert one selected store at a time, validate schema and application queries,
 prove WAL and crash recovery, and retain the original until the administrator
 confirms recovery. Each package version requires compatibility tests against
 the supported PHP/OS builds. The adapter currently reports a detected driver
-as *driver-ready*, not active: isolated execution and the recovery migration
+as _driver-ready_, not active: isolated execution and the recovery migration
 are separate requirements.
 
 ## Release integrity and signing

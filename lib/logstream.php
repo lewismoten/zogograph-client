@@ -49,33 +49,50 @@ function logStream(array $files, int $want = 20): array
     $untimed = 0;
 
     foreach (array_slice($files, 0, 40) as $file) {
-        $path = (string)$file['path'];
-        $label = (string)($file['label'] ?? basename($path));
+        $path = (string) $file['path'];
+        $label = (string) ($file['label'] ?? basename($path));
 
         if (!is_file($path) || !is_readable($path)) {
-            $read[] = ['path' => $path, 'label' => $label, 'ok' => false,
-                       'reason' => 'not readable'];
+            $read[] = [
+                'path' => $path,
+                'label' => $label,
+                'ok' => false,
+                'reason' => 'not readable',
+            ];
             continue;
         }
 
         if (compressedExtension($path) !== null) {
-            $read[] = ['path' => $path, 'label' => $label, 'ok' => false,
-                       'reason' => 'compressed'];
+            $read[] = [
+                'path' => $path,
+                'label' => $label,
+                'ok' => false,
+                'reason' => 'compressed',
+            ];
             continue;
         }
 
         try {
             $tail = tailFile($path, STREAM_PER_FILE, 0, '');
         } catch (Throwable $e) {
-            $read[] = ['path' => $path, 'label' => $label, 'ok' => false,
-                       'reason' => $e->getMessage()];
+            $read[] = [
+                'path' => $path,
+                'label' => $label,
+                'ok' => false,
+                'reason' => $e->getMessage(),
+            ];
             continue;
         }
 
-        $mtime = (int)(@filemtime($path) ?: 0);
+        $mtime = (int) (@filemtime($path) ?: 0);
         $read[] = [
-            'path' => $path, 'label' => $label, 'ok' => true, 'reason' => '',
-            'lines' => count($tail['lines']), 'bytes' => $tail['size'], 'modified_at' => $mtime,
+            'path' => $path,
+            'label' => $label,
+            'ok' => true,
+            'reason' => '',
+            'lines' => count($tail['lines']),
+            'bytes' => $tail['size'],
+            'modified_at' => $mtime,
         ];
 
         /*
@@ -89,7 +106,7 @@ function logStream(array $files, int $want = 20): array
          * adjacent, which was usually the wrong entry.
          */
         foreach (foldFileLines($tail['lines']) as $line) {
-            $text = (string)$line['text'];
+            $text = (string) $line['text'];
             $at = logLineTime($text);
 
             if ($at === null) {
@@ -103,7 +120,7 @@ function logStream(array $files, int $want = 20): array
                 'trace' => $line['trace'],
                 'path' => $path,
                 'label' => $label,
-                'n' => (int)$line['n'],
+                'n' => (int) $line['n'],
                 'text' => mb_substr($text, 0, STREAM_MAX_LINE),
                 'at' => $at,
                 /*
@@ -128,12 +145,15 @@ function logStream(array $files, int $want = 20): array
      * file's mtime, which puts it near the other lines from the same file - the
      * least wrong place for it.
      */
-    usort($rows, fn(array $a, array $b): int =>
-        (($b['at'] ?? $b['at_guess']) <=> ($a['at'] ?? $a['at_guess']))
-        ?: ($b['n'] <=> $a['n']));
+    usort(
+        $rows,
+        fn(array $a, array $b): int => ($b['at'] ?? $b['at_guess']) <=>
+        ($a['at'] ?? $a['at_guess']) ?:
+        $b['n'] <=> $a['n'],
+    );
 
-    $ordering = $untimed === 0 ? 'timestamps'
-        : ($timed === 0 ? 'file times' : 'mixed');
+    $ordering =
+        $untimed === 0 ? 'timestamps' : ($timed === 0 ? 'file times' : 'mixed');
 
     return [
         'rows' => array_slice($rows, 0, $want),
@@ -141,15 +161,16 @@ function logStream(array $files, int $want = 20): array
         'ordering' => $ordering,
         'note' => match ($ordering) {
             'timestamps' => '',
-            'file times' => 'None of these lines carry a timestamp this recognises, so they '
-                . 'are ordered by when each file was last written. Lines from one file keep '
-                . 'their order; lines from different files may be interleaved wrongly.',
+            'file times'
+                => 'None of these lines carry a timestamp this recognises, so they ' .
+                'are ordered by when each file was last written. Lines from one file keep ' .
+                'their order; lines from different files may be interleaved wrongly.',
             default => sprintf(
-                '%d of these lines carry a timestamp and %d do not. The ones without are '
-                . 'placed by when their file was last written, which is only approximately '
-                . 'where they belong.',
+                '%d of these lines carry a timestamp and %d do not. The ones without are ' .
+                    'placed by when their file was last written, which is only approximately ' .
+                    'where they belong.',
                 $timed,
-                $untimed
+                $untimed,
             ),
         },
     ];
@@ -171,7 +192,13 @@ function logLineTime(string $line): ?int
     $head = substr($line, 0, 120);
 
     // [Mon Aug 24 09:20:00 2026] or [Mon Aug 24 09:20:00.123456 2026]
-    if (preg_match('/^\[([A-Z][a-z]{2} [A-Z][a-z]{2} +\d+ \d{2}:\d{2}:\d{2})(?:\.\d+)? (\d{4})\]/', $head, $m)) {
+    if (
+        preg_match(
+            '/^\[([A-Z][a-z]{2} [A-Z][a-z]{2} +\d+ \d{2}:\d{2}:\d{2})(?:\.\d+)? (\d{4})\]/',
+            $head,
+            $m,
+        )
+    ) {
         $at = strtotime($m[1] . ' ' . $m[2]);
         return $at === false ? null : $at;
     }
@@ -188,7 +215,13 @@ function logLineTime(string $line): ?int
      * The zone is a name rather than an offset, so it is applied rather than
      * parsed: strtotime does not accept "11:40:20 America/New_York".
      */
-    if (preg_match('/^\[(\d{1,2}-[A-Z][a-z]{2}-\d{4} \d{2}:\d{2}:\d{2})(?:\s+([A-Za-z_\/+-]{2,40}))?\]/', $head, $m)) {
+    if (
+        preg_match(
+            '/^\[(\d{1,2}-[A-Z][a-z]{2}-\d{4} \d{2}:\d{2}:\d{2})(?:\s+([A-Za-z_\/+-]{2,40}))?\]/',
+            $head,
+            $m,
+        )
+    ) {
         $zone = null;
         if (isset($m[2]) && $m[2] !== '') {
             try {
@@ -209,14 +242,28 @@ function logLineTime(string $line): ?int
     }
 
     // 2026-08-24 09:20:00 or 2026-08-24T09:20:00Z or with an offset
-    if (preg_match('/(\d{4}-\d{2}-\d{2}[T ]\d{2}:\d{2}:\d{2}(?:[.,]\d+)?(?:Z|[+-]\d{2}:?\d{2})?)/', $head, $m)) {
+    if (
+        preg_match(
+            '/(\d{4}-\d{2}-\d{2}[T ]\d{2}:\d{2}:\d{2}(?:[.,]\d+)?(?:Z|[+-]\d{2}:?\d{2})?)/',
+            $head,
+            $m,
+        )
+    ) {
         $at = strtotime(str_replace(',', '.', $m[1]));
         return $at === false ? null : $at;
     }
 
     // Common Log Format: [24/Aug/2026:09:20:00 +0000]
-    if (preg_match('#\[(\d{2}/[A-Z][a-z]{2}/\d{4}):(\d{2}:\d{2}:\d{2}) ([+-]\d{4})\]#', $head, $m)) {
-        $at = strtotime(str_replace('/', '-', $m[1]) . ' ' . $m[2] . ' ' . $m[3]);
+    if (
+        preg_match(
+            '#\[(\d{2}/[A-Z][a-z]{2}/\d{4}):(\d{2}:\d{2}:\d{2}) ([+-]\d{4})\]#',
+            $head,
+            $m,
+        )
+    ) {
+        $at = strtotime(
+            str_replace('/', '-', $m[1]) . ' ' . $m[2] . ' ' . $m[3],
+        );
         return $at === false ? null : $at;
     }
 
@@ -229,7 +276,7 @@ function logLineTime(string $line): ?int
      * eleven months ahead of everything around it.
      */
     if (preg_match('/^([A-Z][a-z]{2} +\d+ \d{2}:\d{2}:\d{2})/', $head, $m)) {
-        $year = (int)date('Y');
+        $year = (int) date('Y');
         $at = strtotime($m[1] . ' ' . $year);
         if ($at === false) {
             return null;
@@ -264,7 +311,7 @@ function repeatedLines(array $rows, int $keep = 15): array
     $groups = [];
 
     foreach ($rows as $row) {
-        $text = (string)($row['text'] ?? '');
+        $text = (string) ($row['text'] ?? '');
         if (trim($text) === '') {
             continue;
         }
@@ -287,9 +334,9 @@ function repeatedLines(array $rows, int $keep = 15): array
                 'shape' => $shape,
                 'count' => 0,
                 'example' => $text,
-                'message' => trim((string)($parsed['message'] ?? $text)),
-                'kind' => (string)($parsed['kind'] ?? ''),
-                'where' => (string)($parsed['where'] ?? ''),
+                'message' => trim((string) ($parsed['message'] ?? $text)),
+                'kind' => (string) ($parsed['kind'] ?? ''),
+                'where' => (string) ($parsed['where'] ?? ''),
                 'files' => [],
                 'first_at' => null,
                 'last_at' => null,
@@ -297,20 +344,26 @@ function repeatedLines(array $rows, int $keep = 15): array
         }
 
         $groups[$shape]['count']++;
-        $groups[$shape]['files'][(string)($row['label'] ?? '')] = true;
+        $groups[$shape]['files'][(string) ($row['label'] ?? '')] = true;
 
         $at = $row['at'] ?? null;
         if ($at !== null) {
-            $groups[$shape]['first_at'] = $groups[$shape]['first_at'] === null
-                ? $at : min($groups[$shape]['first_at'], $at);
-            $groups[$shape]['last_at'] = $groups[$shape]['last_at'] === null
-                ? $at : max($groups[$shape]['last_at'], $at);
+            $groups[$shape]['first_at'] =
+                $groups[$shape]['first_at'] === null
+                    ? $at
+                    : min($groups[$shape]['first_at'], $at);
+            $groups[$shape]['last_at'] =
+                $groups[$shape]['last_at'] === null
+                    ? $at
+                    : max($groups[$shape]['last_at'], $at);
         }
     }
 
     $out = [];
     foreach ($groups as $group) {
-        $group['files'] = array_values(array_filter(array_keys($group['files'])));
+        $group['files'] = array_values(
+            array_filter(array_keys($group['files'])),
+        );
 
         /*
          * A rate, where the timestamps allow one.
@@ -319,7 +372,8 @@ function repeatedLines(array $rows, int $keep = 15): array
          * is an emergency, and the difference is not visible in the count.
          */
         $span = ($group['last_at'] ?? 0) - ($group['first_at'] ?? 0);
-        $group['per_minute'] = $span > 0 ? round($group['count'] / ($span / 60), 1) : null;
+        $group['per_minute'] =
+            $span > 0 ? round($group['count'] / ($span / 60), 1) : null;
         $group['span_seconds'] = $span > 0 ? $span : null;
 
         $out[] = $group;
@@ -345,14 +399,34 @@ function normaliseLogLine(string $line): string
     $shape = $line;
 
     // Timestamps in the shapes logLineTime knows about.
-    $shape = preg_replace('/\[[A-Z][a-z]{2} [A-Z][a-z]{2} +\d+ [\d:.]+ \d{4}\]/', '[TIME]', $shape);
-    $shape = preg_replace('#\[\d{2}/[A-Z][a-z]{2}/\d{4}:[\d:]+ [+-]\d{4}\]#', '[TIME]', $shape);
-    $shape = preg_replace('/\d{4}-\d{2}-\d{2}[T ][\d:]+(?:[.,]\d+)?(?:Z|[+-][\d:]+)?/', 'TIME', $shape);
-    $shape = preg_replace('/^[A-Z][a-z]{2} +\d+ \d{2}:\d{2}:\d{2}/', 'TIME', $shape);
+    $shape = preg_replace(
+        '/\[[A-Z][a-z]{2} [A-Z][a-z]{2} +\d+ [\d:.]+ \d{4}\]/',
+        '[TIME]',
+        $shape,
+    );
+    $shape = preg_replace(
+        '#\[\d{2}/[A-Z][a-z]{2}/\d{4}:[\d:]+ [+-]\d{4}\]#',
+        '[TIME]',
+        $shape,
+    );
+    $shape = preg_replace(
+        '/\d{4}-\d{2}-\d{2}[T ][\d:]+(?:[.,]\d+)?(?:Z|[+-][\d:]+)?/',
+        'TIME',
+        $shape,
+    );
+    $shape = preg_replace(
+        '/^[A-Z][a-z]{2} +\d+ \d{2}:\d{2}:\d{2}/',
+        'TIME',
+        $shape,
+    );
 
     // Addresses before numbers, or an IPv4 becomes four separate N's.
     $shape = preg_replace('/\b\d{1,3}(?:\.\d{1,3}){3}\b/', 'IP', $shape);
-    $shape = preg_replace('/\b(?:[0-9a-f]{1,4}:){2,7}[0-9a-f]{0,4}\b/i', 'IP6', $shape);
+    $shape = preg_replace(
+        '/\b(?:[0-9a-f]{1,4}:){2,7}[0-9a-f]{0,4}\b/i',
+        'IP6',
+        $shape,
+    );
 
     // Quoted runs, which in an access log are the whole request.
     $shape = preg_replace('/"[^"]*"/', '"S"', $shape);
@@ -368,7 +442,7 @@ function normaliseLogLine(string $line): string
     $shape = preg_replace('/\b\d+\b/', 'N', $shape);
 
     // Whitespace last, so the collapsing does not merge tokens above.
-    $shape = trim((string)preg_replace('/\s+/', ' ', (string)$shape));
+    $shape = trim((string) preg_replace('/\s+/', ' ', (string) $shape));
 
     return mb_substr($shape, 0, 200);
 }
@@ -421,7 +495,7 @@ function parseLogLine(string $line): array
             'where' => '',
             'message' => trim($m[2]),
             'trace' => true,
-            'frame' => (int)$m[1],
+            'frame' => (int) $m[1],
             'stamp' => '',
         ];
     }
@@ -471,10 +545,19 @@ function parseLogLine(string $line): array
      * numbering styles: PHP's own `PHP   1. {main}()` and the exception
      * form `#0 /path(12): thing()`.
      */
-    if (preg_match('/^(PHP\s+)?(Stack trace:|thrown in\b|#\d+\s|\d+\.\s)/i', ltrim($rest))) {
+    if (
+        preg_match(
+            '/^(PHP\s+)?(Stack trace:|thrown in\b|#\d+\s|\d+\.\s)/i',
+            ltrim($rest),
+        )
+    ) {
         return [
-            'kind' => '', 'where' => '', 'message' => trim($rest),
-            'trace' => true, 'frame' => null, 'stamp' => $out['stamp'],
+            'kind' => '',
+            'where' => '',
+            'message' => trim($rest),
+            'trace' => true,
+            'frame' => null,
+            'stamp' => $out['stamp'],
         ];
     }
 
@@ -525,7 +608,13 @@ function parseLogLine(string $line): array
      * short and read as a level - otherwise a message that happens to contain
      * a colon would have its first clause promoted to a severity.
      */
-    if (preg_match('/^(?:PHP\s+)?([A-Za-z][A-Za-z ]{1,24}?):\s*(.*)$/s', $rest, $m)) {
+    if (
+        preg_match(
+            '/^(?:PHP\s+)?([A-Za-z][A-Za-z ]{1,24}?):\s*(.*)$/s',
+            $rest,
+            $m,
+        )
+    ) {
         $level = logLevelWord($m[1]);
         if ($level !== '') {
             $out['kind'] = $level;
@@ -545,8 +634,13 @@ function parseLogLine(string $line): array
      * /var/log/messages said this" - and the hostname is the same on every
      * line of a file read from the machine it describes.
      */
-    if ($out['where'] === ''
-        && preg_match('/^(\S+)\s+([A-Za-z][\w.\/-]{1,32})(\[\d+\])?:\s+(.*)$/s', $rest, $m)
+    if (
+        $out['where'] === '' &&
+        preg_match(
+            '/^(\S+)\s+([A-Za-z][\w.\/-]{1,32})(\[\d+\])?:\s+(.*)$/s',
+            $rest,
+            $m,
+        ) &&
         /*
          * Not when the second word is a level.
          *
@@ -555,7 +649,8 @@ function parseLogLine(string $line): array
          * the line before the level branch could see it, so every PHP warning
          * came out with no severity at all.
          */
-        && logLevelWord($m[2]) === '') {
+        logLevelWord($m[2]) === ''
+    ) {
         $out['where'] = $m[2] . ($m[3] ?? '');
         $rest = $m[4];
     }
@@ -569,15 +664,23 @@ function parseLogLine(string $line): array
      * the longest thing on the line. Held separately so the message reads as a
      * message and the location is still there when it is wanted.
      */
-    if (preg_match('/^(.*?)\s+in\s+(\/\S+)\s+on\s+line\s+(\d+)\.?$/s', $out['message'], $m)) {
+    if (
+        preg_match(
+            '/^(.*?)\s+in\s+(\/\S+)\s+on\s+line\s+(\d+)\.?$/s',
+            $out['message'],
+            $m,
+        )
+    ) {
         $out['message'] = trim($m[1]);
         $out['file'] = $m[2];
-        $out['line'] = (int)$m[3];
-    } elseif (preg_match('/^(.*?)\s+in\s+(\/\S+):(\d+)$/s', $out['message'], $m)) {
+        $out['line'] = (int) $m[3];
+    } elseif (
+        preg_match('/^(.*?)\s+in\s+(\/\S+):(\d+)$/s', $out['message'], $m)
+    ) {
         // The `:12` form, which is what an uncaught exception writes.
         $out['message'] = trim($m[1]);
         $out['file'] = $m[2];
-        $out['line'] = (int)$m[3];
+        $out['line'] = (int) $m[3];
     }
 
     return $out;
@@ -596,23 +699,39 @@ function logLevelWord(string $word): string
 
     // `core:error`, `php:warn`, `LogLevel=error` - the level is the last part.
     if (str_contains($word, ':')) {
-        $word = trim((string)strrchr($word, ':'), ': ');
+        $word = trim((string) strrchr($word, ':'), ': ');
     }
 
     return match (true) {
-        $word === 'emerg' || $word === 'emergency' || $word === 'alert'
-            || $word === 'crit' || $word === 'critical'
-            || $word === 'fatal error' || $word === 'fatal'
-            || $word === 'parse error' || $word === 'core error' => 'critical',
+        $word === 'emerg' ||
+            $word === 'emergency' ||
+            $word === 'alert' ||
+            $word === 'crit' ||
+            $word === 'critical' ||
+            $word === 'fatal error' ||
+            $word === 'fatal' ||
+            $word === 'parse error' ||
+            $word === 'core error'
+            => 'critical',
 
-        $word === 'err' || $word === 'error' || $word === 'exception'
-            || $word === 'recoverable fatal error'
-            || $word === 'user error' || $word === 'core warning' => 'error',
+        $word === 'err' ||
+            $word === 'error' ||
+            $word === 'exception' ||
+            $word === 'recoverable fatal error' ||
+            $word === 'user error' ||
+            $word === 'core warning'
+            => 'error',
 
-        $word === 'warn' || $word === 'warning' || $word === 'user warning'
-            || $word === 'deprecated' || $word === 'user deprecated' => 'warning',
+        $word === 'warn' ||
+            $word === 'warning' ||
+            $word === 'user warning' ||
+            $word === 'deprecated' ||
+            $word === 'user deprecated'
+            => 'warning',
 
-        $word === 'notice' || $word === 'user notice' || $word === 'strict standards'
+        $word === 'notice' ||
+            $word === 'user notice' ||
+            $word === 'strict standards'
             => 'notice',
 
         $word === 'info' || $word === 'debug' || $word === 'trace' => 'info',
@@ -640,7 +759,7 @@ function foldFileLines(array $lines): array
     $out = [];
 
     foreach ($lines as $line) {
-        $text = (string)$line['text'];
+        $text = (string) $line['text'];
         $parsed = parseLogLine($text);
 
         if ($parsed['trace'] && $out !== []) {
@@ -656,7 +775,7 @@ function foldFileLines(array $lines): array
          * lines" showing twelve with no explanation of the rest.
          */
         $out[] = [
-            'n' => (int)$line['n'],
+            'n' => (int) $line['n'],
             'text' => $text,
             'parsed' => $parsed,
             'trace' => [],

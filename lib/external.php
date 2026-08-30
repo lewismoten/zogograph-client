@@ -27,7 +27,7 @@ function externalBudget(array $config, string $command): int
     $set = $config['external'] ?? [];
     $byCommand = $set['per_run_by_command'] ?? [];
 
-    $limit = (int)($byCommand[$command] ?? $set['per_run'] ?? 1);
+    $limit = (int) ($byCommand[$command] ?? ($set['per_run'] ?? 1));
 
     // A budget of zero would stop the queue for ever, which is never what
     // somebody means by "slow down" - one is the floor.
@@ -46,7 +46,7 @@ function externalBudget(array $config, string $command): int
  */
 function packageManager(array $config): array
 {
-    $named = (string)($config['external']['package_manager'] ?? 'auto');
+    $named = (string) ($config['external']['package_manager'] ?? 'auto');
 
     $known = [
         'dnf' => 'dnf install -y %s',
@@ -58,13 +58,24 @@ function packageManager(array $config): array
     ];
 
     if ($named !== 'auto' && isset($known[$named])) {
-        return ['manager' => $named, 'install' => $known[$named], 'detected' => false];
+        return [
+            'manager' => $named,
+            'install' => $known[$named],
+            'detected' => false,
+        ];
     }
 
     foreach ($known as $manager => $template) {
-        foreach (['/usr/bin/', '/bin/', '/usr/local/bin/', '/sbin/', '/usr/sbin/'] as $dir) {
+        foreach (
+            ['/usr/bin/', '/bin/', '/usr/local/bin/', '/sbin/', '/usr/sbin/']
+            as $dir
+        ) {
             if (@is_executable($dir . $manager)) {
-                return ['manager' => $manager, 'install' => $template, 'detected' => true];
+                return [
+                    'manager' => $manager,
+                    'install' => $template,
+                    'detected' => true,
+                ];
             }
         }
     }
@@ -91,18 +102,32 @@ function packageManager(array $config): array
 function missingCommand(array $config, string $command): array
 {
     $packages = [
-        'whois' => ['dnf' => 'whois', 'yum' => 'whois', 'apt' => 'whois',
-                    'apk' => 'whois', 'default' => 'whois'],
-        'dig' => ['dnf' => 'bind-utils', 'yum' => 'bind-utils', 'apt' => 'dnsutils',
-                  'apk' => 'bind-tools', 'default' => 'bind-utils'],
+        'whois' => [
+            'dnf' => 'whois',
+            'yum' => 'whois',
+            'apt' => 'whois',
+            'apk' => 'whois',
+            'default' => 'whois',
+        ],
+        'dig' => [
+            'dnf' => 'bind-utils',
+            'yum' => 'bind-utils',
+            'apt' => 'dnsutils',
+            'apk' => 'bind-tools',
+            'default' => 'bind-utils',
+        ],
         'tcpdump' => ['default' => 'tcpdump'],
-        'ss' => ['dnf' => 'iproute', 'yum' => 'iproute', 'apt' => 'iproute2',
-                 'default' => 'iproute2'],
+        'ss' => [
+            'dnf' => 'iproute',
+            'yum' => 'iproute',
+            'apt' => 'iproute2',
+            'default' => 'iproute2',
+        ],
     ];
 
     $manager = packageManager($config);
     $set = $packages[$command] ?? ['default' => $command];
-    $package = $set[$manager['manager']] ?? $set['default'] ?? $command;
+    $package = $set[$manager['manager']] ?? ($set['default'] ?? $command);
 
     return [
         'command' => $command,
@@ -112,9 +137,9 @@ function missingCommand(array $config, string $command): array
         'note' => $manager['detected']
             ? ''
             : ($manager['manager'] === 'unknown'
-                ? 'No package manager was recognised on this machine, so the line above names '
-                    . 'the package rather than the command to install it with.'
-                : 'Taken from external.package_manager in the config rather than from what is '
-                    . 'on this machine.'),
+                ? 'No package manager was recognised on this machine, so the line above names ' .
+                    'the package rather than the command to install it with.'
+                : 'Taken from external.package_manager in the config rather than from what is ' .
+                    'on this machine.'),
     ];
 }

@@ -2,12 +2,30 @@
   "title": "HostScope ciphertext replica relay",
   "type": "object",
   "additionalProperties": false,
-  "required": ["service_base_url", "tenant_id", "client_credential_secret", "client_signing_secret"],
+  "required": [
+    "service_base_url",
+    "tenant_id",
+    "client_credential_secret",
+    "client_signing_secret"
+  ],
   "properties": {
-    "service_base_url": {"type": "string", "format": "uri", "pattern": "^https://", "description": "Configured HTTPS replica-relay base URL; credentials, queries, and fragments are refused by the adapter."},
-    "tenant_id": {"type": "string", "pattern": "^ten_[a-f0-9]{24}$"},
-    "client_credential_secret": {"type": "string", "pattern": "^secret_ref:"},
-    "client_signing_secret": {"type": "string", "pattern": "^secret_ref:", "description": "Base64 Ed25519 private key emitted once by relay enrollment."},
-    "tls_spki_pin": {"type": "string", "pattern": "^sha256//[A-Za-z0-9+/]{43}=$", "description": "Optional SHA-256 SPKI pin for the relay HTTPS certificate. Leave unset for normal CA validation; update through a tested endpoint-identity migration before a certificate-key rotation."}
+    "service_base_url": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://",
+      "description": "Configured HTTPS replica-relay base URL; credentials, queries, and fragments are refused by the adapter."
+    },
+    "tenant_id": { "type": "string", "pattern": "^ten_[a-f0-9]{24}$" },
+    "client_credential_secret": { "type": "string", "pattern": "^secret_ref:" },
+    "client_signing_secret": {
+      "type": "string",
+      "pattern": "^secret_ref:",
+      "description": "Base64 Ed25519 private key emitted once by relay enrollment."
+    },
+    "tls_spki_pin": {
+      "type": "string",
+      "pattern": "^sha256//[A-Za-z0-9+/]{43}=$",
+      "description": "Optional SHA-256 SPKI pin for the relay HTTPS certificate. Leave unset for normal CA validation; update through a tested endpoint-identity migration before a certificate-key rotation."
+    }
   }
 }

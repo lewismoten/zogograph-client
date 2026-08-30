@@ -47,7 +47,7 @@ const INSPECT_HISTORY_ROWS = 400;
 function inspectPath(array $config, PDO $pdo, string $requested): array
 {
     $real = resolveInspectable($config, $requested);
-    $root = realpath((string)$config['scan_root']) ?: '';
+    $root = realpath((string) $config['scan_root']) ?: '';
 
     $isLink = is_link($real);
     $isDir = !$isLink && is_dir($real);
@@ -60,11 +60,17 @@ function inspectPath(array $config, PDO $pdo, string $requested): array
         'name' => basename($real) ?: $real,
         'parent' => dirname($real),
         'kind' => $isLink ? 'link' : ($isDir ? 'dir' : 'file'),
-        'inside_account' => $root !== '' && str_starts_with($real . '/', rtrim($root, '/') . '/'),
+        'inside_account' =>
+            $root !== '' &&
+            str_starts_with($real . '/', rtrim($root, '/') . '/'),
         'facts' => $facts,
         'type' => $isDir ? null : $what['type'],
         'extension' => $isDir ? null : $what['extension'],
-        'category' => categoryOf($real . ($isDir ? '/x' : ''), $config['scan'], $root),
+        'category' => categoryOf(
+            $real . ($isDir ? '/x' : ''),
+            $config['scan'],
+            $root,
+        ),
     ];
 
     /*
@@ -75,9 +81,10 @@ function inspectPath(array $config, PDO $pdo, string $requested): array
      * here can be reconciled with the number on the disk.
      */
     $stat = $isLink ? @lstat($real) : @stat($real);
-    $out['allocated_bytes'] = $stat === false ? null : (int)($stat['blocks'] ?? 0) * 512;
-    $out['inode'] = $stat === false ? null : (int)($stat['ino'] ?? 0);
-    $out['device'] = $stat === false ? null : (int)($stat['dev'] ?? 0);
+    $out['allocated_bytes'] =
+        $stat === false ? null : (int) ($stat['blocks'] ?? 0) * 512;
+    $out['inode'] = $stat === false ? null : (int) ($stat['ino'] ?? 0);
+    $out['device'] = $stat === false ? null : (int) ($stat['dev'] ?? 0);
 
     if ($isLink) {
         $target = @readlink($real);
@@ -94,7 +101,13 @@ function inspectPath(array $config, PDO $pdo, string $requested): array
     }
 
     $out['history'] = pathHistoryRows($pdo, $real);
-    $out['permissions'] = permissionFacts($config, $pdo, $real, $isDir, $isLink);
+    $out['permissions'] = permissionFacts(
+        $config,
+        $pdo,
+        $real,
+        $isDir,
+        $isLink,
+    );
 
     return $out;
 }
@@ -136,28 +149,33 @@ function resolveInspectable(array $config, string $requested): string
         throw new ActionRefused('no such path');
     }
 
-    $dataDir = realpath(dirname((string)$config['database']));
+    $dataDir = realpath(dirname((string) $config['database']));
     if ($dataDir !== false && str_starts_with($real . '/', $dataDir . '/')) {
         throw new ActionRefused('that is the monitor\'s own data');
     }
 
-    $root = realpath((string)$config['scan_root']);
-    if ($root !== false && str_starts_with($real . '/', rtrim($root, '/') . '/')) {
+    $root = realpath((string) $config['scan_root']);
+    if (
+        $root !== false &&
+        str_starts_with($real . '/', rtrim($root, '/') . '/')
+    ) {
         return $real;
     }
 
-    $hostLogs = array_values(array_filter(
-        array_map('realpath', $config['host_log_paths'] ?? []),
-        fn(mixed $p): bool => is_string($p)
-    ));
+    $hostLogs = array_values(
+        array_filter(
+            array_map('realpath', $config['host_log_paths'] ?? []),
+            fn(mixed $p): bool => is_string($p),
+        ),
+    );
     if (in_array($real, $hostLogs, true)) {
         return $real;
     }
 
     throw new ActionRefused(
-        'that path is outside this account and is not one of the host logs named in '
-        . 'host_log_paths. Files that only root can see are reported by the host '
-        . 'collector, which records them; this account cannot examine them directly.'
+        'that path is outside this account and is not one of the host logs named in ' .
+            'host_log_paths. Files that only root can see are reported by the host ' .
+            'collector, which records them; this account cannot examine them directly.',
     );
 }
 
@@ -170,7 +188,10 @@ function resolveInspectable(array $config, string $requested): string
  */
 function directoryContents(array $config, string $dir): array
 {
-    $excluded = array_map('normalisePath', $config['scan']['exclude_paths'] ?? []);
+    $excluded = array_map(
+        'normalisePath',
+        $config['scan']['exclude_paths'] ?? [],
+    );
     $total = walkSize($dir, $excluded, microtime(true) + INSPECT_WALK_BUDGET);
 
     $entries = ['dirs' => 0, 'files' => 0, 'links' => 0];
@@ -195,7 +216,7 @@ function directoryContents(array $config, string $dir): array
             }
 
             $entries['files']++;
-            $size = (int)(@filesize($full) ?: 0);
+            $size = (int) (@filesize($full) ?: 0);
             $biggest[$entry] = $size;
         }
         closedir($handle);
@@ -219,14 +240,20 @@ function directoryContents(array $config, string $dir): array
         'complete' => $total['complete'],
         'entries' => $entries,
         'biggest' => array_map(
-            fn(string $name, int $bytes): array => ['name' => $name, 'bytes' => $bytes],
+            fn(string $name, int $bytes): array => [
+                'name' => $name,
+                'bytes' => $bytes,
+            ],
             array_keys(array_slice($biggest, 0, 8, true)),
-            array_values(array_slice($biggest, 0, 8, true))
+            array_values(array_slice($biggest, 0, 8, true)),
         ),
         'types' => array_map(
-            fn(string $type, int $bytes): array => ['type' => $type, 'bytes' => $bytes],
+            fn(string $type, int $bytes): array => [
+                'type' => $type,
+                'bytes' => $bytes,
+            ],
             array_keys($types),
-            array_values($types)
+            array_values($types),
         ),
     ];
 }
@@ -250,7 +277,12 @@ function directoryContents(array $config, string $dir): array
  */
 function siteFacts(array $config, string $path): array
 {
-    $none = ['is_site' => false, 'domains' => [], 'confident' => false, 'why' => ''];
+    $none = [
+        'is_site' => false,
+        'domains' => [],
+        'confident' => false,
+        'why' => '',
+    ];
 
     if (!is_dir($path)) {
         return $none;
@@ -264,8 +296,10 @@ function siteFacts(array $config, string $path): array
             'is_site' => true,
             'domains' => $known[$real],
             'confident' => true,
-            'why' => 'This is the document root cPanel has recorded for '
-                . (count($known[$real]) === 1 ? 'this domain' : 'these domains') . '.',
+            'why' =>
+                'This is the document root cPanel has recorded for ' .
+                (count($known[$real]) === 1 ? 'this domain' : 'these domains') .
+                '.',
         ];
     }
 
@@ -277,9 +311,9 @@ function siteFacts(array $config, string $path): array
      * calling it a site would put a globe on the wrong rectangle.
      */
     $name = basename($path);
-    $looksLikeDomain = (bool)preg_match(
+    $looksLikeDomain = (bool) preg_match(
         '/^(?:www\.)?[a-z0-9]([a-z0-9-]*[a-z0-9])?(?:\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)+$/i',
-        $name
+        $name,
     );
 
     $indexes = ['index.php', 'index.html', 'index.htm', 'index.cgi'];
@@ -299,22 +333,27 @@ function siteFacts(array $config, string $path): array
      * cPanel serves nothing from here and whatever is in it is something else.
      * Saying "not readable" in the second case would be a confident falsehood.
      */
-    $why = $known === []
-        ? 'cPanel\'s own record of document roots could not be read, so this is a guess '
-            . 'from the name and contents.'
-        : 'cPanel does not serve anything from here, so this is a guess from the name '
-            . 'and contents — quite possibly a copy of a site rather than a live one.';
+    $why =
+        $known === []
+            ? 'cPanel\'s own record of document roots could not be read, so this is a guess ' .
+                'from the name and contents.'
+            : 'cPanel does not serve anything from here, so this is a guess from the name ' .
+                'and contents — quite possibly a copy of a site rather than a live one.';
 
     if ($name === 'public_html' && $hasIndex) {
         return [
-            'is_site' => true, 'domains' => [], 'confident' => false,
+            'is_site' => true,
+            'domains' => [],
+            'confident' => false,
             'why' => 'A public_html with an index file in it. ' . $why,
         ];
     }
 
     if ($looksLikeDomain && $hasIndex) {
         return [
-            'is_site' => true, 'domains' => [strtolower($name)], 'confident' => false,
+            'is_site' => true,
+            'domains' => [strtolower($name)],
+            'confident' => false,
             'why' => 'Named like a domain and contains an index file. ' . $why,
         ];
     }
@@ -343,7 +382,7 @@ function cpanelDocumentRoots(array $config): array
     }
 
     $roots = [];
-    $home = (string)($config['scan_root'] ?? '');
+    $home = (string) ($config['scan_root'] ?? '');
     $dir = rtrim($home, '/') . '/.cpanel/userdata';
 
     if (!is_dir($dir) || !is_readable($dir)) {
@@ -357,8 +396,12 @@ function cpanelDocumentRoots(array $config): array
 
     while (($entry = readdir($handle)) !== false) {
         // main and *.cache are indexes, not per-domain files.
-        if ($entry === '.' || $entry === '..' || $entry === 'main'
-            || str_ends_with($entry, '.cache')) {
+        if (
+            $entry === '.' ||
+            $entry === '..' ||
+            $entry === 'main' ||
+            str_ends_with($entry, '.cache')
+        ) {
             continue;
         }
 
@@ -371,7 +414,10 @@ function cpanelDocumentRoots(array $config): array
         $serverName = null;
         $aliases = [];
 
-        foreach (preg_split('/\R/', (string)@file_get_contents($file)) ?: [] as $line) {
+        foreach (
+            preg_split('/\R/', (string) @file_get_contents($file)) ?: []
+            as $line
+        ) {
             if (preg_match('/^documentroot:\s*(.+)$/i', $line, $m)) {
                 $documentRoot = trim($m[1], " \t'\"");
             } elseif (preg_match('/^servername:\s*(.+)$/i', $line, $m)) {
@@ -390,14 +436,18 @@ function cpanelDocumentRoots(array $config): array
             continue;
         }
 
-        $names = array_values(array_unique(array_filter(
-            array_merge([$serverName ?? $entry], $aliases),
-            fn(string $n): bool => $n !== ''
-        )));
+        $names = array_values(
+            array_unique(
+                array_filter(
+                    array_merge([$serverName ?? $entry], $aliases),
+                    fn(string $n): bool => $n !== '',
+                ),
+            ),
+        );
 
-        $roots[$resolved] = array_values(array_unique(
-            array_merge($roots[$resolved] ?? [], $names)
-        ));
+        $roots[$resolved] = array_values(
+            array_unique(array_merge($roots[$resolved] ?? [], $names)),
+        );
     }
 
     closedir($handle);
@@ -418,35 +468,51 @@ function cpanelDocumentRoots(array $config): array
  */
 function imageFacts(string $path): array
 {
-    $none = ['is_image' => false, 'format' => null, 'width' => null, 'height' => null, 'reason' => ''];
+    $none = [
+        'is_image' => false,
+        'format' => null,
+        'width' => null,
+        'height' => null,
+        'reason' => '',
+    ];
 
     $size = @filesize($path);
     if ($size === false || $size < 8) {
         return $none + ['reason' => 'too small to carry a signature'];
     }
     if ($size > INSPECT_IMAGE_MAX) {
-        return array_merge($none, ['reason' => 'larger than this will read for a preview']);
+        return array_merge($none, [
+            'reason' => 'larger than this will read for a preview',
+        ]);
     }
 
     $handle = @fopen($path, 'rb');
     if ($handle === false) {
         return array_merge($none, ['reason' => 'not readable by this user']);
     }
-    $head = (string)fread($handle, 16);
+    $head = (string) fread($handle, 16);
     fclose($handle);
 
     $format = imageSignature($head);
     if ($format === null) {
-        return array_merge($none, ['reason' => 'the first bytes are not an image signature']);
+        return array_merge($none, [
+            'reason' => 'the first bytes are not an image signature',
+        ]);
     }
 
-    $facts = ['is_image' => true, 'format' => $format, 'width' => null, 'height' => null, 'reason' => ''];
+    $facts = [
+        'is_image' => true,
+        'format' => $format,
+        'width' => null,
+        'height' => null,
+        'reason' => '',
+    ];
 
     if (function_exists('getimagesize')) {
         $measured = @getimagesize($path);
         if (is_array($measured)) {
-            $facts['width'] = (int)$measured[0];
-            $facts['height'] = (int)$measured[1];
+            $facts['width'] = (int) $measured[0];
+            $facts['height'] = (int) $measured[1];
         }
     }
 
@@ -465,13 +531,13 @@ function imageSignature(string $head): ?string
     if (str_starts_with($head, "\x89PNG\r\n\x1a\n")) {
         return 'png';
     }
-    if (str_starts_with($head, "GIF87a") || str_starts_with($head, "GIF89a")) {
+    if (str_starts_with($head, 'GIF87a') || str_starts_with($head, 'GIF89a')) {
         return 'gif';
     }
     if (str_starts_with($head, "\xff\xd8\xff")) {
         return 'jpeg';
     }
-    if (str_starts_with($head, "BM")) {
+    if (str_starts_with($head, 'BM')) {
         return 'bmp';
     }
     // RIFF....WEBP
@@ -516,14 +582,14 @@ function pathHistoryRows(PDO $pdo, string $path): array
         'SELECT s.started_at, ps.bytes, ps.files, ps.links
            FROM path_sizes ps JOIN scans s ON s.id = ps.scan_id
           WHERE ps.path_id = ? AND s.finished_at IS NOT NULL
-          ORDER BY s.started_at DESC LIMIT ' . INSPECT_HISTORY_ROWS
+          ORDER BY s.started_at DESC LIMIT ' . INSPECT_HISTORY_ROWS,
     );
-    $sizes->execute([(int)$row['id']]);
+    $sizes->execute([(int) $row['id']]);
     $rows = array_reverse($sizes->fetchAll());
 
     return [
         'recorded' => true,
-        'path_id' => (int)$row['id'],
+        'path_id' => (int) $row['id'],
         'category' => $row['category'],
         'rows' => $rows,
     ];
@@ -541,16 +607,19 @@ function permissionFacts(
     PDO $pdo,
     string $path,
     bool $isDir,
-    bool $isLink
+    bool $isLink,
 ): array {
     $out = [
-        'delete' => false, 'delete_reason' => '',
-        'view' => false, 'view_reason' => '',
+        'delete' => false,
+        'delete_reason' => '',
+        'view' => false,
+        'view_reason' => '',
     ];
 
     if ($isLink) {
-        $out['delete_reason'] = 'This is a symlink. Removing it would not free any space, '
-            . 'and following it to delete what it points at is not something this will do.';
+        $out['delete_reason'] =
+            'This is a symlink. Removing it would not free any space, ' .
+            'and following it to delete what it points at is not something this will do.';
         $out['view_reason'] = 'This is a symlink.';
         return $out;
     }

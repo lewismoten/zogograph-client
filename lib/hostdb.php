@@ -34,7 +34,10 @@ function hostCronCommand(?string $root = null): string
     $root ??= dirname(__DIR__);
 
     $php = PHP_BINDIR . '/php';
-    foreach (['/usr/local/bin/php', '/opt/cpanel/ea-php85/root/usr/bin/php'] as $candidate) {
+    foreach (
+        ['/usr/local/bin/php', '/opt/cpanel/ea-php85/root/usr/bin/php']
+        as $candidate
+    ) {
         if (is_executable($candidate)) {
             $php = $candidate;
             break;
@@ -58,12 +61,12 @@ function hostCronLine(?string $root = null): string
 /** Where the host database lives when the config does not say. */
 function hostDatabasePath(array $config): string
 {
-    $configured = (string)($config['host']['database'] ?? '');
+    $configured = (string) ($config['host']['database'] ?? '');
     if ($configured !== '') {
         return $configured;
     }
     // Beside the account database, which is already denied over HTTP.
-    return dirname((string)$config['database']) . '/host.db';
+    return dirname((string) $config['database']) . '/host.db';
 }
 
 /**
@@ -104,21 +107,23 @@ function hostDb(array $config, bool $forWriting): ?PDO
     $fresh = !file_exists($file);
     $previousUmask = umask(0077);
     try {
-    $pdo = new PDO('sqlite:' . $file, null, null, [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    ]);
+        $pdo = new PDO('sqlite:' . $file, null, null, [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        ]);
 
-    $pdo->exec('PRAGMA journal_mode = WAL');
-    $pdo->exec('PRAGMA synchronous = NORMAL');
-    $pdo->exec('PRAGMA foreign_keys = ON');
-    $pdo->exec('PRAGMA busy_timeout = 10000');
+        $pdo->exec('PRAGMA journal_mode = WAL');
+        $pdo->exec('PRAGMA synchronous = NORMAL');
+        $pdo->exec('PRAGMA foreign_keys = ON');
+        $pdo->exec('PRAGMA busy_timeout = 10000');
 
-    hostMigrate($pdo, $fresh);
-    hostHandOver($config, $file);
+        hostMigrate($pdo, $fresh);
+        hostHandOver($config, $file);
 
-    return $handles[$key] = $pdo;
-    } finally { umask($previousUmask); }
+        return $handles[$key] = $pdo;
+    } finally {
+        umask($previousUmask);
+    }
 }
 
 /**
@@ -136,7 +141,7 @@ function hostHandOver(array $config, string $file): void
 {
     @chmod($file, 0640);
 
-    $owner = (string)($config['host']['owner'] ?? '');
+    $owner = (string) ($config['host']['owner'] ?? '');
     if ($owner === '' || !function_exists('chown')) {
         return;
     }
@@ -153,8 +158,12 @@ function hostHandOver(array $config, string $file): void
 
 function hostMigrate(PDO $pdo, bool $fresh = false): void
 {
-    $pdo->exec('CREATE TABLE IF NOT EXISTS schema_version (version INTEGER NOT NULL)');
-    $at = (int)($pdo->query('SELECT COALESCE(MAX(version), 0) FROM schema_version')->fetchColumn());
+    $pdo->exec(
+        'CREATE TABLE IF NOT EXISTS schema_version (version INTEGER NOT NULL)',
+    );
+    $at = (int) $pdo
+        ->query('SELECT COALESCE(MAX(version), 0) FROM schema_version')
+        ->fetchColumn();
 
     /*
      * By version number, not by the order they happen to be written in.
@@ -169,7 +178,10 @@ function hostMigrate(PDO $pdo, bool $fresh = false): void
     $steps = hostMigrations();
     ksort($steps);
 
-    $pending = array_filter(array_keys($steps), fn(int $version): bool => $version > $at);
+    $pending = array_filter(
+        array_keys($steps),
+        fn(int $version): bool => $version > $at,
+    );
     if (!$fresh && $pending !== []) {
         migrationBackup($pdo, $at, min($pending));
     }
@@ -181,13 +193,21 @@ function hostMigrate(PDO $pdo, bool $fresh = false): void
         $pdo->beginTransaction();
         try {
             foreach ($statements as $sql) {
-                if (preg_match('/^ALTER TABLE (\w+) ADD COLUMN (\w+)/i', trim($sql), $m)
-                    && columnExists($pdo, $m[1], $m[2])) {
+                if (
+                    preg_match(
+                        '/^ALTER TABLE (\w+) ADD COLUMN (\w+)/i',
+                        trim($sql),
+                        $m,
+                    ) &&
+                    columnExists($pdo, $m[1], $m[2])
+                ) {
                     continue;
                 }
                 $pdo->exec($sql);
             }
-            $pdo->prepare('INSERT INTO schema_version (version) VALUES (?)')->execute([$version]);
+            $pdo->prepare(
+                'INSERT INTO schema_version (version) VALUES (?)',
+            )->execute([$version]);
             $pdo->commit();
         } catch (Throwable $e) {
             $pdo->rollBack();
@@ -509,9 +529,7 @@ function hostMigrations(): array
          * collector runs as root and can, so the answer is recorded at
          * collection time and simply read back later.
          */
-        6 => [
-            'ALTER TABLE host_samples ADD COLUMN psi_reason TEXT',
-        ],
+        6 => ['ALTER TABLE host_samples ADD COLUMN psi_reason TEXT'],
 
         // The same boot column as the account side, for the same reason.
         7 => [
@@ -549,9 +567,7 @@ function hostMigrations(): array
          * it is a cache of what `last` says, and the next collection rebuilds
          * it from wtmp in full.
          */
-        8 => [
-            'DELETE FROM host_boots',
-        ],
+        8 => ['DELETE FROM host_boots'],
 
         /*
          * How long each service's processes have been alive.
@@ -1124,7 +1140,10 @@ function hostPruneServices(PDO $pdo, int $keepDays): int
 function hostPruneOperationalRuns(PDO $pdo): int
 {
     $removed = 0;
-    foreach ([['host_collector_runs', 90], ['host_update_runs', 365]] as [$table, $days]) {
+    foreach (
+        [['host_collector_runs', 90], ['host_update_runs', 365]]
+        as [$table, $days]
+    ) {
         try {
             $stmt = $pdo->prepare("DELETE FROM {$table} WHERE started_at < ?");
             $stmt->execute([time() - $days * 86400]);

@@ -15,9 +15,12 @@ $defaultScanRoot = static function (): string {
     $home = getenv('HOME');
     if (!is_string($home) || $home === '' || $home[0] !== '/') {
         $home = '';
-        if (function_exists('posix_geteuid') && function_exists('posix_getpwuid')) {
+        if (
+            function_exists('posix_geteuid') &&
+            function_exists('posix_getpwuid')
+        ) {
             $account = @posix_getpwuid(posix_geteuid());
-            $home = is_array($account) ? (string)($account['dir'] ?? '') : '';
+            $home = is_array($account) ? (string) ($account['dir'] ?? '') : '';
         }
     }
     if ($home !== '' && $home[0] === '/') {
@@ -72,8 +75,26 @@ return [
     // marked block, then compares this intent with what cron actually has.
     'schedule' => [
         'php' => '',
-        'vitals' => ['profile' => 'every-5m', 'custom' => ['minute' => '*', 'hour' => '*', 'day' => '*', 'month' => '*', 'weekday' => '*']],
-        'scan' => ['profile' => 'none', 'custom' => ['minute' => '*', 'hour' => '*', 'day' => '*', 'month' => '*', 'weekday' => '*']],
+        'vitals' => [
+            'profile' => 'every-5m',
+            'custom' => [
+                'minute' => '*',
+                'hour' => '*',
+                'day' => '*',
+                'month' => '*',
+                'weekday' => '*',
+            ],
+        ],
+        'scan' => [
+            'profile' => 'none',
+            'custom' => [
+                'minute' => '*',
+                'hour' => '*',
+                'day' => '*',
+                'month' => '*',
+                'weekday' => '*',
+            ],
+        ],
     ],
 
     /*
@@ -104,7 +125,11 @@ return [
         // Re-run a non-destructive recovery drill at least this often; 0 disables reminders.
         'recovery_drill_max_age_days' => 90,
         // Optional long-term recovery copies: newest distinct UTC days/weeks/months to preserve.
-        'retention_recovery_tiers' => ['daily' => 0, 'weekly' => 0, 'monthly' => 0],
+        'retention_recovery_tiers' => [
+            'daily' => 0,
+            'weekly' => 0,
+            'monthly' => 0,
+        ],
         // Optional per-store overrides: config, setup, account, host, ai => 0..36500 days.
         'retention_days_by_store' => [],
     ],
@@ -359,18 +384,18 @@ return [
             // Both have to be exceeded, so a quarter of a small service is not
             // grounds for mail.
             'service_pss_percent' => 25.0,
-            'service_pss_floor_bytes' => 67108864,      // 64 MiB
+            'service_pss_floor_bytes' => 67108864, // 64 MiB
 
             // A category that jumped, where jumping is not what it does. The
             // multiple is what keeps the nightly backup quiet while the same
             // growth somewhere flat still reports.
-            'category_floor_bytes' => 104857600,        // 100 MB
+            'category_floor_bytes' => 104857600, // 100 MB
             'category_multiple' => 3.0,
 
             // A file growing far faster than that same file grows. Only the
             // biggest few movers in a scan are examined; the rest cost more to
             // check than they could ever be worth.
-            'file_floor_bytes' => 52428800,             // 50 MiB
+            'file_floor_bytes' => 52428800, // 50 MiB
             'file_multiple' => 4.0,
             'file_limit' => 5,
 
@@ -380,7 +405,7 @@ return [
 
             // Swap filling *while* available memory falls. Either alone is
             // meaningless; together they are the kernel running out of options.
-            'swap_floor_bytes' => 33554432,             // 32 MiB
+            'swap_floor_bytes' => 33554432, // 32 MiB
 
             // Many more copies of something than there usually are.
             'process_multiple' => 3.0,
@@ -445,9 +470,7 @@ return [
             'logs' => ['log'],
             'temp' => ['tmp', 'temp'],
         ],
-        'exclude_paths' => [
-            $dataDirectory,
-        ],
+        'exclude_paths' => [$dataDirectory],
     ],
 
     /*
@@ -660,11 +683,31 @@ return [
          * users' processes are still refused, because those are not opinions.
          */
         'protect' => [
-            'init', 'systemd', 'launchd',
-            'sshd', 'bash', 'sh', 'zsh', 'login', 'tmux', 'screen',
-            'cron', 'crond', 'cpsrvd', 'cpanel',
-            'httpd', 'nginx', 'apache2', 'php-fpm', 'lsphp', 'litespeed',
-            'mysqld', 'mariadbd', 'exim', 'dovecot', 'named',
+            'init',
+            'systemd',
+            'launchd',
+            'sshd',
+            'bash',
+            'sh',
+            'zsh',
+            'login',
+            'tmux',
+            'screen',
+            'cron',
+            'crond',
+            'cpsrvd',
+            'cpanel',
+            'httpd',
+            'nginx',
+            'apache2',
+            'php-fpm',
+            'lsphp',
+            'litespeed',
+            'mysqld',
+            'mariadbd',
+            'exim',
+            'dovecot',
+            'named',
         ],
 
         /*
@@ -722,7 +765,7 @@ return [
     'logs' => [
         // Any single log above this, whatever it is doing. A log has no
         // natural size the way a database or an archive does.
-        'max_bytes' => 1073741824,                  // 1 GiB
+        'max_bytes' => 1073741824, // 1 GiB
 
         /*
          * Bytes an hour, against a ceiling rather than against the file's own
@@ -731,7 +774,7 @@ return [
          * gigabyte an hour all week - which is exactly when somebody wants to
          * be told.
          */
-        'fast_bytes_per_hour' => 104857600,         // 100 MiB/h
+        'fast_bytes_per_hour' => 104857600, // 100 MiB/h
 
         /*
          * A job writes one of these beside the log it is processing and
@@ -748,7 +791,7 @@ return [
          * across this many days is one whose rotation is not running.
          */
         'rotate_after_days' => 8,
-        'rotate_min_bytes' => 104857600,            // 100 MiB
+        'rotate_min_bytes' => 104857600, // 100 MiB
 
         /*
          * Error-log acceleration: the recent half of the history against the
@@ -758,8 +801,13 @@ return [
          * floor, because doubling from nothing is still nothing.
          */
         'acceleration_multiple' => 4.0,
-        'acceleration_floor_per_hour' => 10485760,  // 10 MiB/h
-        'error_names' => ['error_log', 'error.log', 'php_errorlog', 'php-error.log'],
+        'acceleration_floor_per_hour' => 10485760, // 10 MiB/h
+        'error_names' => [
+            'error_log',
+            'error.log',
+            'php_errorlog',
+            'php-error.log',
+        ],
     ],
 
     /*

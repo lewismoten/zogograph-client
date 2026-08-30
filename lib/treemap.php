@@ -59,7 +59,7 @@ const TREEMAP_MAX_DEPTH = 24;
  */
 function resolveTreemapPath(array $config, string $requested): string
 {
-    $root = realpath((string)$config['scan_root']);
+    $root = realpath((string) $config['scan_root']);
     if ($root === false) {
         throw new ActionRefused('the watched directory does not resolve');
     }
@@ -79,7 +79,10 @@ function resolveTreemapPath(array $config, string $requested): string
 
     // The trailing separator matters: without it "/home/account-old" passes a
     // prefix test against "/home/account".
-    if ($real !== $root && !str_starts_with($real . '/', rtrim($root, '/') . '/')) {
+    if (
+        $real !== $root &&
+        !str_starts_with($real . '/', rtrim($root, '/') . '/')
+    ) {
         throw new ActionRefused('outside the watched directory');
     }
 
@@ -111,14 +114,20 @@ function resolveTreemapPath(array $config, string $requested): string
  *   bytes: int, files: int, complete: bool, seconds: float, pooled: int
  * }
  */
-function treemapLevel(array $config, string $requested, ?float $budget = null): array
-{
-    $root = realpath((string)$config['scan_root']);
+function treemapLevel(
+    array $config,
+    string $requested,
+    ?float $budget = null,
+): array {
+    $root = realpath((string) $config['scan_root']);
     $path = resolveTreemapPath($config, $requested);
     $deadline = microtime(true) + ($budget ?? TREEMAP_BUDGET_SECONDS);
     $started = microtime(true);
 
-    $excluded = array_map('normalisePath', $config['scan']['exclude_paths'] ?? []);
+    $excluded = array_map(
+        'normalisePath',
+        $config['scan']['exclude_paths'] ?? [],
+    );
 
     $handle = @opendir($path);
     if ($handle === false) {
@@ -144,14 +153,15 @@ function treemapLevel(array $config, string $requested, ?float $budget = null): 
          * says the entry exists without claiming it occupies anything.
          */
         if (is_link($full)) {
-            $children[] = [
-                'name' => $entry,
-                'path' => $full,
-                'kind' => 'link',
-                'bytes' => 0,
-                'files' => 0,
-                'complete' => true,
-            ] + statFacts($full, true);
+            $children[] =
+                [
+                    'name' => $entry,
+                    'path' => $full,
+                    'kind' => 'link',
+                    'bytes' => 0,
+                    'files' => 0,
+                    'complete' => true,
+                ] + statFacts($full, true);
             continue;
         }
 
@@ -161,25 +171,26 @@ function treemapLevel(array $config, string $requested, ?float $budget = null): 
 
         if (is_dir($full)) {
             $measured = walkSize($full, $excluded, $deadline);
-            $children[] = [
-                'name' => $entry,
-                'path' => $full,
-                'kind' => 'dir',
-                'bytes' => $measured['bytes'],
-                'type_bytes' => $measured['types'],
-                /*
-                 * The domains served out of it, where that is knowable.
-                 *
-                 * A globe on a rectangle answers "which of these forty
-                 * directories is the live site" without opening any of them,
-                 * which is the question somebody looking at a home directory
-                 * usually has. cpanelDocumentRoots caches, so this is a lookup
-                 * per child rather than a re-read.
-                 */
-                'site' => siteFacts($config, $full),
-                'files' => $measured['files'],
-                'complete' => $measured['complete'],
-            ] + statFacts($full, false);
+            $children[] =
+                [
+                    'name' => $entry,
+                    'path' => $full,
+                    'kind' => 'dir',
+                    'bytes' => $measured['bytes'],
+                    'type_bytes' => $measured['types'],
+                    /*
+                     * The domains served out of it, where that is knowable.
+                     *
+                     * A globe on a rectangle answers "which of these forty
+                     * directories is the live site" without opening any of them,
+                     * which is the question somebody looking at a home directory
+                     * usually has. cpanelDocumentRoots caches, so this is a lookup
+                     * per child rather than a re-read.
+                     */
+                    'site' => siteFacts($config, $full),
+                    'files' => $measured['files'],
+                    'complete' => $measured['complete'],
+                ] + statFacts($full, false);
 
             if (!$measured['complete']) {
                 $complete = false;
@@ -188,27 +199,33 @@ function treemapLevel(array $config, string $requested, ?float $budget = null): 
         }
 
         $facts = statFacts($full, false);
-        $children[] = [
-            'name' => $entry,
-            'path' => $full,
-            'kind' => 'file',
-            'bytes' => $facts['size_bytes'],
-            'files' => 1,
-            'complete' => true,
-            /*
-             * Whether it runs, which the browser cannot work out for itself.
-             *
-             * Most Unix executables have no extension, so a map coloured by
-             * type in the browser would put every compiled helper in `other`.
-             * One bit, and it comes from the stat that has already happened.
-             */
-            'executable' => (bool)(((int)octdec((string)($facts['mode'] ?? '0'))) & 0o111),
-        ] + $facts;
+        $children[] =
+            [
+                'name' => $entry,
+                'path' => $full,
+                'kind' => 'file',
+                'bytes' => $facts['size_bytes'],
+                'files' => 1,
+                'complete' => true,
+                /*
+                 * Whether it runs, which the browser cannot work out for itself.
+                 *
+                 * Most Unix executables have no extension, so a map coloured by
+                 * type in the browser would put every compiled helper in `other`.
+                 * One bit, and it comes from the stat that has already happened.
+                 */
+                'executable' =>
+                    (bool) (((int) octdec((string) ($facts['mode'] ?? '0'))) &
+                        0o111),
+            ] + $facts;
     }
 
     closedir($handle);
 
-    usort($children, fn(array $a, array $b): int => $b['bytes'] <=> $a['bytes']);
+    usort(
+        $children,
+        fn(array $a, array $b): int => $b['bytes'] <=> $a['bytes'],
+    );
 
     /*
      * Everything past the cap becomes one rectangle.
@@ -243,15 +260,18 @@ function treemapLevel(array $config, string $requested, ?float $budget = null): 
     }
 
     $parent = $path === $root ? null : dirname($path);
-    if ($parent !== null && !str_starts_with($parent . '/', rtrim((string)$root, '/') . '/')
-        && $parent !== $root) {
+    if (
+        $parent !== null &&
+        !str_starts_with($parent . '/', rtrim((string) $root, '/') . '/') &&
+        $parent !== $root
+    ) {
         $parent = null;
     }
 
     return [
         'path' => $path,
         'parent' => $parent,
-        'root' => (string)$root,
+        'root' => (string) $root,
         'children' => $children,
         'bytes' => array_sum(array_column($children, 'bytes')),
         'files' => array_sum(array_column($children, 'files')),
@@ -280,8 +300,12 @@ function treemapLevel(array $config, string $requested, ?float $budget = null): 
  *
  * @return array{bytes: int, files: int, complete: bool, types: array<string,int>}
  */
-function walkSize(string $dir, array $excluded, float $deadline, int $depth = 0): array
-{
+function walkSize(
+    string $dir,
+    array $excluded,
+    float $deadline,
+    int $depth = 0,
+): array {
     $bytes = 0;
     $files = 0;
     $complete = true;
@@ -343,21 +367,26 @@ function walkSize(string $dir, array $excluded, float $deadline, int $depth = 0)
          * in both as far as anyone reading the map is concerned. The tooltip
          * reports the link count so the difference is visible where it matters.
          */
-        $bytes += (int)$stat['size'];
+        $bytes += (int) $stat['size'];
         $files++;
 
         $type = fileTypeOf($full);
         // A file with no extension is classified by its execute bit, and the
         // stat is already in hand - no second syscall for the same question.
-        if ($type === 'other' && (((int)$stat['mode']) & 0o111)) {
+        if ($type === 'other' && ((int) $stat['mode']) & 0o111) {
             $type = 'executables';
         }
-        $types[$type] = ($types[$type] ?? 0) + (int)$stat['size'];
+        $types[$type] = ($types[$type] ?? 0) + (int) $stat['size'];
     }
 
     closedir($handle);
 
-    return ['bytes' => $bytes, 'files' => $files, 'complete' => $complete, 'types' => $types];
+    return [
+        'bytes' => $bytes,
+        'files' => $files,
+        'complete' => $complete,
+        'types' => $types,
+    ];
 }
 
 /**
@@ -372,14 +401,19 @@ function statFacts(string $path, bool $isLink): array
     $stat = $isLink ? @lstat($path) : @stat($path);
     if ($stat === false) {
         return [
-            'size_bytes' => 0, 'modified_at' => null, 'changed_at' => null,
-            'accessed_at' => null, 'mode' => null, 'owner' => null, 'links' => 1,
+            'size_bytes' => 0,
+            'modified_at' => null,
+            'changed_at' => null,
+            'accessed_at' => null,
+            'mode' => null,
+            'owner' => null,
+            'links' => 1,
         ];
     }
 
     return [
-        'size_bytes' => (int)$stat['size'],
-        'modified_at' => (int)$stat['mtime'],
+        'size_bytes' => (int) $stat['size'],
+        'modified_at' => (int) $stat['mtime'],
         /*
          * ctime is when the inode last changed, not when the file was created.
          *
@@ -388,11 +422,11 @@ function statFacts(string $path, bool $isLink): array
          * manager. It is still useful - a permissions change or a rename moves
          * it - so it is reported under its own name.
          */
-        'changed_at' => (int)$stat['ctime'],
-        'accessed_at' => (int)$stat['atime'],
+        'changed_at' => (int) $stat['ctime'],
+        'accessed_at' => (int) $stat['atime'],
         'mode' => substr(sprintf('%o', $stat['mode']), -4),
-        'owner' => ownerName((int)$stat['uid']),
-        'links' => (int)$stat['nlink'],
+        'owner' => ownerName((int) $stat['uid']),
+        'links' => (int) $stat['nlink'],
     ];
 }
 
@@ -407,11 +441,11 @@ function ownerName(int $uid): string
     if (function_exists('posix_getpwuid')) {
         $entry = @posix_getpwuid($uid);
         if (is_array($entry) && isset($entry['name'])) {
-            return $cache[$uid] = (string)$entry['name'];
+            return $cache[$uid] = (string) $entry['name'];
         }
     }
 
-    return $cache[$uid] = (string)$uid;
+    return $cache[$uid] = (string) $uid;
 }
 
 /**
@@ -428,11 +462,19 @@ function ownerName(int $uid): string
  */
 function hostTreemapLevel(PDO $host, string $requested): array
 {
-    $latest = (int)$host->query('SELECT MAX(id) FROM host_samples')->fetchColumn();
+    $latest = (int) $host
+        ->query('SELECT MAX(id) FROM host_samples')
+        ->fetchColumn();
     if ($latest <= 0) {
         return [
-            'path' => '/', 'parent' => null, 'root' => '/', 'children' => [],
-            'bytes' => 0, 'files' => 0, 'complete' => false, 'pooled' => 0,
+            'path' => '/',
+            'parent' => null,
+            'root' => '/',
+            'children' => [],
+            'bytes' => 0,
+            'files' => 0,
+            'complete' => false,
+            'pooled' => 0,
             'seconds' => 0.0,
             'reason' => 'The host collector has not recorded any files yet.',
         ];
@@ -440,7 +482,7 @@ function hostTreemapLevel(PDO $host, string $requested): array
 
     $stmt = $host->prepare(
         'SELECT path, bytes, owner, mtime, device, inode, links
-         FROM host_files WHERE sample_id = ?'
+         FROM host_files WHERE sample_id = ?',
     );
     $stmt->execute([$latest]);
     $files = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -455,7 +497,7 @@ function hostTreemapLevel(PDO $host, string $requested): array
     $countedInodes = [];
 
     foreach ($files as $file) {
-        $path = (string)$file['path'];
+        $path = (string) $file['path'];
         if (!str_starts_with($path, $prefix)) {
             continue;
         }
@@ -472,36 +514,39 @@ function hostTreemapLevel(PDO $host, string $requested): array
          * nothing else on the dashboard can describe at all.
          */
         $facts = [
-            'size_bytes' => (int)$file['bytes'],
-            'modified_at' => $file['mtime'] === null ? null : (int)$file['mtime'],
+            'size_bytes' => (int) $file['bytes'],
+            'modified_at' =>
+                $file['mtime'] === null ? null : (int) $file['mtime'],
             'changed_at' => null,
             'accessed_at' => null,
             'mode' => null,
-            'owner' => $file['owner'] === null ? null : (string)$file['owner'],
-            'links' => max(1, (int)$file['links']),
+            'owner' => $file['owner'] === null ? null : (string) $file['owner'],
+            'links' => max(1, (int) $file['links']),
         ];
 
         if ($slash === false) {
-            $children[$rest] = [
-                'name' => $rest,
-                'path' => $path,
-                'kind' => 'file',
-                'bytes' => (int)$file['bytes'],
-                'files' => 1,
-                'complete' => true,
-            ] + $facts;
+            $children[$rest] =
+                [
+                    'name' => $rest,
+                    'path' => $path,
+                    'kind' => 'file',
+                    'bytes' => (int) $file['bytes'],
+                    'files' => 1,
+                    'complete' => true,
+                ] + $facts;
             continue;
         }
 
         $dir = substr($rest, 0, $slash);
-        $children[$dir] ??= [
-            'name' => $dir,
-            'path' => $prefix . $dir,
-            'kind' => 'dir',
-            'bytes' => 0,
-            'files' => 0,
-            'complete' => false,
-        ] + blankFacts(0);
+        $children[$dir] ??=
+            [
+                'name' => $dir,
+                'path' => $prefix . $dir,
+                'kind' => 'dir',
+                'bytes' => 0,
+                'files' => 0,
+                'complete' => false,
+            ] + blankFacts(0);
 
         /*
          * A hard-linked file is added to a directory total once.
@@ -512,19 +557,23 @@ function hostTreemapLevel(PDO $host, string $requested): array
          * name still gets its own rectangle at the level it lives in, where
          * the tooltip's link count explains it.
          */
-        $key = $file['device'] === null || $file['inode'] === null
-            ? $path
-            : $file['device'] . ':' . $file['inode'];
+        $key =
+            $file['device'] === null || $file['inode'] === null
+                ? $path
+                : $file['device'] . ':' . $file['inode'];
 
         if (!isset($countedInodes[$key])) {
             $countedInodes[$key] = true;
-            $children[$dir]['bytes'] += (int)$file['bytes'];
+            $children[$dir]['bytes'] += (int) $file['bytes'];
         }
         $children[$dir]['files']++;
     }
 
     $children = array_values($children);
-    usort($children, fn(array $a, array $b): int => $b['bytes'] <=> $a['bytes']);
+    usort(
+        $children,
+        fn(array $a, array $b): int => $b['bytes'] <=> $a['bytes'],
+    );
 
     return [
         'path' => $base,
@@ -537,10 +586,11 @@ function hostTreemapLevel(PDO $host, string $requested): array
         'complete' => false,
         'pooled' => 0,
         'seconds' => 0.0,
-        'reason' => 'Built from the files the host collector recorded, not from a walk of '
-            . 'the disk - the dashboard cannot read root\'s directories. Sizes are the sum '
-            . 'of the recorded files underneath, so anything below the collector\'s '
-            . 'threshold is not counted.',
+        'reason' =>
+            'Built from the files the host collector recorded, not from a walk of ' .
+            'the disk - the dashboard cannot read root\'s directories. Sizes are the sum ' .
+            'of the recorded files underneath, so anything below the collector\'s ' .
+            'threshold is not counted.',
     ];
 }
 
@@ -548,7 +598,12 @@ function hostTreemapLevel(PDO $host, string $requested): array
 function blankFacts(int $bytes): array
 {
     return [
-        'size_bytes' => $bytes, 'modified_at' => null, 'changed_at' => null,
-        'accessed_at' => null, 'mode' => null, 'owner' => null, 'links' => 1,
+        'size_bytes' => $bytes,
+        'modified_at' => null,
+        'changed_at' => null,
+        'accessed_at' => null,
+        'mode' => null,
+        'owner' => null,
+        'links' => 1,
     ];
 }

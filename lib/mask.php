@@ -25,11 +25,12 @@ declare(strict_types=1);
  */
 function maskPath(array $config, string $path, string $kind): string
 {
-    $secret = (string)($config['mask_secret'] ?? '');
+    $secret = (string) ($config['mask_secret'] ?? '');
     $tag = strtoupper(substr(hash_hmac('sha256', $path, $secret), 0, 6));
 
     $depth = max(0, substr_count(trim($path, '/'), '/'));
-    $extension = $kind === 'file' ? strtolower(pathinfo($path, PATHINFO_EXTENSION)) : '';
+    $extension =
+        $kind === 'file' ? strtolower(pathinfo($path, PATHINFO_EXTENSION)) : '';
 
     $label = $kind === 'dir' ? 'directory' : 'file';
     if ($extension !== '' && preg_match('/^[a-z0-9]{1,8}$/', $extension)) {
@@ -48,8 +49,8 @@ function maskPath(array $config, string $path, string $kind): string
  */
 function presentPath(array $config, array $row, bool $signedIn): array
 {
-    $path = (string)($row['path'] ?? '');
-    $kind = (string)($row['kind'] ?? 'file');
+    $path = (string) ($row['path'] ?? '');
+    $kind = (string) ($row['kind'] ?? 'file');
 
     if ($signedIn) {
         $row['display'] = $path;
@@ -76,11 +77,19 @@ function presentAlert(array $config, array $row, bool $signedIn): array
         return $row;
     }
 
-    $path = (string)($row['path'] ?? '');
+    $path = (string) ($row['path'] ?? '');
     if ($path !== '') {
-        $mask = maskPath($config, $path, (string)($row['kind'] ?? 'file'));
-        $row['subject'] = str_replace([$path, basename($path)], $mask, (string)$row['subject']);
-        $row['detail'] = str_replace([$path, basename($path)], $mask, (string)$row['detail']);
+        $mask = maskPath($config, $path, (string) ($row['kind'] ?? 'file'));
+        $row['subject'] = str_replace(
+            [$path, basename($path)],
+            $mask,
+            (string) $row['subject'],
+        );
+        $row['detail'] = str_replace(
+            [$path, basename($path)],
+            $mask,
+            (string) $row['detail'],
+        );
     }
 
     /*
@@ -90,8 +99,8 @@ function presentAlert(array $config, array $row, bool $signedIn): array
      * detail line is free text that a future rule might fill in differently.
      * Leaking a path here would be silent, so the fallback is unconditional.
      */
-    $row['subject'] = redactPaths((string)$row['subject']);
-    $row['detail'] = redactPaths((string)$row['detail']);
+    $row['subject'] = redactPaths((string) $row['subject']);
+    $row['detail'] = redactPaths((string) $row['detail']);
 
     /*
      * The link to the evidence goes too.
@@ -124,5 +133,5 @@ function presentAlert(array $config, array $row, bool $signedIn): array
 
 function redactPaths(string $text): string
 {
-    return (string)preg_replace('#(/[^\s/]+){2,}/?#', '[path hidden]', $text);
+    return (string) preg_replace('#(/[^\s/]+){2,}/?#', '[path hidden]', $text);
 }

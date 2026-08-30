@@ -36,7 +36,7 @@ if (!is_file($configFile)) {
 
 require_once __DIR__ . '/lib/setupstore.php';
 $config = loadConfiguredSettings($configFile);
-define('DISKMON_LOG', dirname((string)$config['database']) . '/error.log');
+define('DISKMON_LOG', dirname((string) $config['database']) . '/error.log');
 
 require_once __DIR__ . '/lib/db.php';
 require_once __DIR__ . '/lib/auth.php';
@@ -55,7 +55,7 @@ try {
         throw new ActionRefused('your group cannot see inspected images');
     }
 
-    $path = resolveInspectable($config, (string)($_GET['path'] ?? ''));
+    $path = resolveInspectable($config, (string) ($_GET['path'] ?? ''));
 
     if (is_link($path) || !is_file($path)) {
         throw new ActionRefused('not a regular file');
@@ -63,15 +63,17 @@ try {
 
     $facts = imageFacts($path);
     if (!$facts['is_image']) {
-        throw new ActionRefused('that file is not an image: ' . $facts['reason']);
+        throw new ActionRefused(
+            'that file is not an image: ' . $facts['reason'],
+        );
     }
 
-    $size = (int)(@filesize($path) ?: 0);
+    $size = (int) (@filesize($path) ?: 0);
     if ($size <= 0 || $size > INSPECT_IMAGE_MAX) {
         throw new ActionRefused('too large to send');
     }
 
-    header('Content-Type: ' . imageMime((string)$facts['format']));
+    header('Content-Type: ' . imageMime((string) $facts['format']));
     header('Content-Length: ' . $size);
     // Never inline: the browser downloads or renders it in an <img>, and this
     // header stops a crafted file being opened as a top-level document.

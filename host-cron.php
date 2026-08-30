@@ -34,7 +34,7 @@ if (!is_file($configFile)) {
 
 $config = loadConfiguredSettings($configFile);
 date_default_timezone_set($config['timezone'] ?? 'UTC');
-define('DISKMON_LOG', dirname((string)$config['database']) . '/error.log');
+define('DISKMON_LOG', dirname((string) $config['database']) . '/error.log');
 
 require_once __DIR__ . '/lib/db.php';
 // For humanBytes, the same way cron.php gets it.
@@ -55,16 +55,23 @@ $quiet = in_array('--quiet', $args, true);
 $want = fn(string $flag): bool => in_array($flag, $args, true);
 $runStarted = microtime(true);
 $runPdo = null;
-$runJobs = array_values(array_filter($args, fn(string $arg): bool => $arg !== '--quiet'));
+$runJobs = array_values(
+    array_filter($args, fn(string $arg): bool => $arg !== '--quiet'),
+);
 
-$recordRun = function (?PDO $pdo, bool $ok, ?string $error = null) use ($runStarted, &$runJobs): void {
-    if ($pdo === null) return;
+$recordRun = function (?PDO $pdo, bool $ok, ?string $error = null) use (
+    $runStarted,
+    &$runJobs,
+): void {
+    if ($pdo === null) {
+        return;
+    }
     try {
         $pdo->prepare(
             'INSERT INTO host_collector_runs (started_at, jobs, seconds, ok, error)
-             VALUES (?, ?, ?, ?, ?)'
+             VALUES (?, ?, ?, ?, ?)',
         )->execute([
-            (int)$runStarted,
+            (int) $runStarted,
             $runJobs === [] ? 'normal' : implode(' · ', array_unique($runJobs)),
             round(microtime(true) - $runStarted, 3),
             $ok ? 1 : 0,
@@ -76,8 +83,12 @@ $recordRun = function (?PDO $pdo, bool $ok, ?string $error = null) use ($runStar
 };
 
 // Nothing named means collect, which is what a crontab line usually wants.
-$doCollect = $want('--collect')
-    || (!$want('--prune') && !$want('--show') && !$want('--disk') && !$want('--capabilities'));
+$doCollect =
+    $want('--collect') ||
+    (!$want('--prune') &&
+        !$want('--show') &&
+        !$want('--disk') &&
+        !$want('--capabilities'));
 
 /*
  * The disk walk is its own mode, and deliberately not part of --collect.
@@ -117,14 +128,23 @@ $say = function (string $line) use ($quiet): void {
  * than exiting, because "I ran it and it collected nothing interesting" is
  * otherwise very hard to explain.
  */
-$root = function_exists('posix_geteuid') ? posix_geteuid() === 0 : (trim((string)shell_exec('id -u')) === '0');
+$root = function_exists('posix_geteuid')
+    ? posix_geteuid() === 0
+    : trim((string) shell_exec('id -u')) === '0';
 if (!$root) {
-    $say('Warning: not running as root. Other users\' processes, slab detail and');
-    $say('         Apache\'s logs will be invisible - which is the whole point of this.');
+    $say(
+        'Warning: not running as root. Other users\' processes, slab detail and',
+    );
+    $say(
+        '         Apache\'s logs will be invisible - which is the whole point of this.',
+    );
 }
 
 if (!($config['host']['enabled'] ?? true)) {
-    fwrite(STDERR, "Host collection is turned off: set host.enabled to true in lib/config.php.\n");
+    fwrite(
+        STDERR,
+        "Host collection is turned off: set host.enabled to true in lib/config.php.\n",
+    );
     exit(1);
 }
 
@@ -132,7 +152,9 @@ try {
     $pdo = hostDb($config, true);
     $runPdo = $pdo;
     if ($pdo === null) {
-        throw new RuntimeException('the host database could not be opened for writing');
+        throw new RuntimeException(
+            'the host database could not be opened for writing',
+        );
     }
 
     /*
@@ -153,19 +175,23 @@ try {
             // root, and the dashboard cannot read a WAL database without them.
             hostHandOver($config, hostDatabasePath($config));
 
-            $say(sprintf(
-                'Recorded sample %d: %d processes, %d users, %d services, %d slab caches, '
-                . '%d files, %d disks, %d cores%s.',
-                $result['sample_id'],
-                $result['processes'],
-                $result['users'],
-                $result['services'],
-                $result['slab'],
-                $result['files'],
-                $result['disks'],
-                $result['cores'],
-                $result['lve'] === null ? '' : ", {$result['lve']} LVE rows"
-            ));
+            $say(
+                sprintf(
+                    'Recorded sample %d: %d processes, %d users, %d services, %d slab caches, ' .
+                        '%d files, %d disks, %d cores%s.',
+                    $result['sample_id'],
+                    $result['processes'],
+                    $result['users'],
+                    $result['services'],
+                    $result['slab'],
+                    $result['files'],
+                    $result['disks'],
+                    $result['cores'],
+                    $result['lve'] === null
+                        ? ''
+                        : ", {$result['lve']} LVE rows",
+                ),
+            );
 
             /*
              * Said out loud when a source is missing, rather than left as a zero in
@@ -173,7 +199,9 @@ try {
              * on the dashboard is the situation this line exists to explain.
              */
             if ($result['disks'] === 0) {
-                $say('  No disk devices: /proc/diskstats could not be read, even as root.');
+                $say(
+                    '  No disk devices: /proc/diskstats could not be read, even as root.',
+                );
             }
             /*
              * The per-core table is what tells one pinned core apart from an
@@ -181,22 +209,28 @@ try {
              * the whole "Each core" page blank with nothing to explain it.
              */
             if ($result['cores'] === 0) {
-                $say('  No per-core lines in /proc/stat: the "Each core" page will be empty.');
+                $say(
+                    '  No per-core lines in /proc/stat: the "Each core" page will be empty.',
+                );
             }
-            $say(sprintf(
-                '  Kernel %s. Device counters %s, pressure stall info %s.',
-                php_uname('r'),
-                $result['disks'] > 0 ? 'readable' : 'NOT readable',
-                $result['psi'] ? 'available' : 'NOT available'
-            ));
+            $say(
+                sprintf(
+                    '  Kernel %s. Device counters %s, pressure stall info %s.',
+                    php_uname('r'),
+                    $result['disks'] > 0 ? 'readable' : 'NOT readable',
+                    $result['psi'] ? 'available' : 'NOT available',
+                ),
+            );
             if (!$result['psi'] && $result['psi_reason'] !== '') {
                 $say('  ' . $result['psi_reason']);
             }
             if ($result['unaccounted'] !== null) {
-                $say(sprintf(
-                    'Other kernel/system memory: %s (not in any process, cache or slab).',
-                    humanBytes((int)$result['unaccounted'])
-                ));
+                $say(
+                    sprintf(
+                        'Other kernel/system memory: %s (not in any process, cache or slab).',
+                        humanBytes((int) $result['unaccounted']),
+                    ),
+                );
             }
         } catch (Throwable $e) {
             $collectFailure = $e->getMessage();
@@ -216,7 +250,7 @@ try {
      * satisfied by a capture recorded after it was made.
      */
     foreach ($requestedTasks as $task => $requested) {
-        $capture = parseCaptureTask((string)$task);
+        $capture = parseCaptureTask((string) $task);
         if ($capture === null) {
             continue;
         }
@@ -224,39 +258,53 @@ try {
         $done = 0;
         try {
             $stmt = $pdo->prepare(
-                'SELECT MAX(taken_at) FROM host_captures WHERE interface = ? AND filter = ?'
+                'SELECT MAX(taken_at) FROM host_captures WHERE interface = ? AND filter = ?',
             );
             $stmt->execute([$capture['interface'], $capture['filter']]);
-            $done = (int)$stmt->fetchColumn();
+            $done = (int) $stmt->fetchColumn();
         } catch (Throwable) {
             $done = 0;
         }
 
-        if ($done >= (int)$requested) {
+        if ($done >= (int) $requested) {
             continue;
         }
 
-        $seconds = (int)($config['network']['capture_seconds'] ?? 20);
-        $say(sprintf('Capturing %ds of %s on %s%s (requested %s ago)...',
-            $seconds, $capture['filter'], $capture['interface'],
-            !empty($capture['read_asked']) ? ', reading what was asked for' : '',
-            humanDuration(time() - (int)$requested)));
+        $seconds = (int) ($config['network']['capture_seconds'] ?? 20);
+        $say(
+            sprintf(
+                'Capturing %ds of %s on %s%s (requested %s ago)...',
+                $seconds,
+                $capture['filter'],
+                $capture['interface'],
+                !empty($capture['read_asked'])
+                    ? ', reading what was asked for'
+                    : '',
+                humanDuration(time() - (int) $requested),
+            ),
+        );
 
         $result = captureTraffic(
             $capture['interface'],
             $seconds,
             $capture['filter'],
             null,
-            (bool)($capture['read_asked'] ?? false)
+            (bool) ($capture['read_asked'] ?? false),
         );
         $runJobs[] = 'capture:' . $capture['filter'];
         storeCapture($pdo, $result);
         hostHandOver($config, hostDatabasePath($config));
 
-        $say($result['ok']
-            ? sprintf('  %d packets from %d peers in %ss.',
-                $result['packets'], $result['distinct_peers'], $result['seconds'])
-            : '  ' . $result['reason']);
+        $say(
+            $result['ok']
+                ? sprintf(
+                    '  %d packets from %d peers in %ss.',
+                    $result['packets'],
+                    $result['distinct_peers'],
+                    $result['seconds'],
+                )
+                : '  ' . $result['reason'],
+        );
     }
 
     /*
@@ -277,20 +325,30 @@ try {
      */
     $asks = [];
     foreach ($requestedTasks as $task => $requested) {
-        $parsed = parseAskTask((string)$task);
+        $parsed = parseAskTask((string) $task);
         if ($parsed !== null) {
-            $asks[] = $parsed + ['task' => (string)$task, 'requested' => (int)$requested];
+            $asks[] = $parsed + [
+                'task' => (string) $task,
+                'requested' => (int) $requested,
+            ];
         }
     }
-    usort($asks, fn(array $a, array $b): int => $a['requested'] <=> $b['requested']);
+    usort(
+        $asks,
+        fn(array $a, array $b): int => $a['requested'] <=> $b['requested'],
+    );
 
     $askBudget = externalBudget($config, 'whois');
     $askedThisRun = 0;
 
     foreach ($asks as $entry) {
         if ($askedThisRun >= $askBudget) {
-            $say(sprintf('%d more question(s) waiting; they run next time.',
-                count($asks) - $askedThisRun));
+            $say(
+                sprintf(
+                    '%d more question(s) waiting; they run next time.',
+                    count($asks) - $askedThisRun,
+                ),
+            );
             break;
         }
 
@@ -301,26 +359,34 @@ try {
         $done = 0;
         try {
             $stmt = $pdo->prepare(
-                'SELECT MAX(answered_at) FROM host_answers WHERE verb = ? AND argument = ?'
+                'SELECT MAX(answered_at) FROM host_answers WHERE verb = ? AND argument = ?',
             );
             $stmt->execute([$ask['verb'], $ask['argument']]);
-            $done = (int)$stmt->fetchColumn();
+            $done = (int) $stmt->fetchColumn();
         } catch (Throwable) {
             $done = 0;
         }
 
-        if ($done >= (int)$requested) {
+        if ($done >= (int) $requested) {
             continue;
         }
 
         $say(sprintf('Answering %s for %s...', $ask['verb'], $ask['argument']));
-        $answer = runHostAsk($pdo, $ask['verb'], $ask['argument'], (int)$requested);
+        $answer = runHostAsk(
+            $pdo,
+            $ask['verb'],
+            $ask['argument'],
+            (int) $requested,
+        );
         $runJobs[] = 'ask:' . $ask['verb'];
         $askedThisRun++;
         hostHandOver($config, hostDatabasePath($config));
-        $say('  ' . ($answer['ok']
-            ? strlen((string)$answer['text']) . ' bytes'
-            : $answer['error']));
+        $say(
+            '  ' .
+                ($answer['ok']
+                    ? strlen((string) $answer['text']) . ' bytes'
+                    : $answer['error']),
+        );
     }
 
     /*
@@ -338,8 +404,14 @@ try {
     $lookup = rdnsHostDrain($config, $pdo);
     if ($lookup !== null) {
         hostHandOver($config, hostDatabasePath($config));
-        $say(sprintf('Resolved %s -> %s (%dms).',
-            $lookup['address'], $lookup['name'] ?? 'no name', $lookup['ms']));
+        $say(
+            sprintf(
+                'Resolved %s -> %s (%dms).',
+                $lookup['address'],
+                $lookup['name'] ?? 'no name',
+                $lookup['ms'],
+            ),
+        );
     }
 
     /*
@@ -350,8 +422,9 @@ try {
      */
     $capabilityRequests = array_filter(
         $requestedTasks,
-        fn(string $task): bool => $task === 'capabilities' || str_starts_with($task, 'expose:'),
-        ARRAY_FILTER_USE_KEY
+        fn(string $task): bool => $task === 'capabilities' ||
+            str_starts_with($task, 'expose:'),
+        ARRAY_FILTER_USE_KEY,
     );
 
     /*
@@ -364,7 +437,9 @@ try {
      */
     $previousRun = 0;
     try {
-        $previousRun = (int)$pdo->query('SELECT MAX(ran_at) FROM host_capability_runs')->fetchColumn();
+        $previousRun = (int) $pdo
+            ->query('SELECT MAX(ran_at) FROM host_capability_runs')
+            ->fetchColumn();
     } catch (Throwable) {
         $previousRun = 0;
     }
@@ -399,14 +474,18 @@ try {
     if (!$doCapabilities && $capabilityRequests !== []) {
         if (max($capabilityRequests) >= $previousRun) {
             $doCapabilities = true;
-            $say(sprintf('%d capability request(s) outstanding. Running a sweep.',
-                count($capabilityRequests)));
+            $say(
+                sprintf(
+                    '%d capability request(s) outstanding. Running a sweep.',
+                    count($capabilityRequests),
+                ),
+            );
         }
     }
 
     if ($doCapabilities) {
         $runJobs[] = 'capabilities';
-        $user = (string)($config['host']['owner'] ?? '');
+        $user = (string) ($config['host']['owner'] ?? '');
         $cagefs = cagefsStatus($user !== '' ? $user : null);
 
         $say($cagefs['note']);
@@ -422,17 +501,43 @@ try {
          * second probe is skipped.
          */
         $inCage = [];
-        if ($cagefs['installed'] && $user !== '' && ($cagefs['enabled'] ?? false)) {
+        if (
+            $cagefs['installed'] &&
+            $user !== '' &&
+            ($cagefs['enabled'] ?? false)
+        ) {
             $inCage = probePaths(array_column($probe['rows'], 'name'), $user);
-            $say(sprintf('  %d of %d visible inside %s\'s cage.',
-                count($inCage), count($probe['rows']), $user));
+            $say(
+                sprintf(
+                    '  %d of %d visible inside %s\'s cage.',
+                    count($inCage),
+                    count($probe['rows']),
+                    $user,
+                ),
+            );
         }
 
-        storeHostCapabilities($pdo, $probe, $inCage, $user !== '' ? $user : null);
+        storeHostCapabilities(
+            $pdo,
+            $probe,
+            $inCage,
+            $user !== '' ? $user : null,
+        );
 
-        $onHost = count(array_filter($probe['rows'], fn(array $r): bool => $r['path'] !== ''));
-        $say(sprintf('Capabilities: %d of %d present on the host, checked in %ss.',
-            $onHost, count($probe['rows']), $probe['seconds']));
+        $onHost = count(
+            array_filter(
+                $probe['rows'],
+                fn(array $r): bool => $r['path'] !== '',
+            ),
+        );
+        $say(
+            sprintf(
+                'Capabilities: %d of %d present on the host, checked in %ss.',
+                $onHost,
+                count($probe['rows']),
+                $probe['seconds'],
+            ),
+        );
 
         // The mount table goes with it: both answer "what can this account see".
         $mounts = readMountInfo();
@@ -442,19 +547,33 @@ try {
             $insert = $pdo->prepare(
                 'INSERT INTO host_mountinfo (taken_at, mount_id, parent_id, device, fs_root,
                     mount_point, fs_type, source, options, propagation, read_only, bind)
-                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
             );
             foreach ($mounts as $mount) {
                 $insert->execute([
-                    $at, $mount['mount_id'], $mount['parent_id'], $mount['device'],
-                    $mount['fs_root'], $mount['mount_point'], $mount['fs_type'],
-                    $mount['source'], $mount['options'], $mount['propagation'],
-                    $mount['read_only'] ? 1 : 0, $mount['bind'] ? 1 : 0,
+                    $at,
+                    $mount['mount_id'],
+                    $mount['parent_id'],
+                    $mount['device'],
+                    $mount['fs_root'],
+                    $mount['mount_point'],
+                    $mount['fs_type'],
+                    $mount['source'],
+                    $mount['options'],
+                    $mount['propagation'],
+                    $mount['read_only'] ? 1 : 0,
+                    $mount['bind'] ? 1 : 0,
                 ]);
             }
 
             $cage = cagefsMounts($mounts);
-            $say(sprintf('Mount table: %d mounts recorded. %s', count($mounts), $cage['note']));
+            $say(
+                sprintf(
+                    'Mount table: %d mounts recorded. %s',
+                    count($mounts),
+                    $cage['note'],
+                ),
+            );
         }
 
         /*
@@ -493,7 +612,12 @@ try {
             }
 
             if ($path === null || $path === '') {
-                $say(sprintf('Cannot expose %s: it is not installed on this host.', $program));
+                $say(
+                    sprintf(
+                        'Cannot expose %s: it is not installed on this host.',
+                        $program,
+                    ),
+                );
                 continue;
             }
 
@@ -506,18 +630,27 @@ try {
              * line to cagefs conf.d.
              */
             if (isset($inCage[$program])) {
-                $say(sprintf(
-                    '%s is already visible to %s at %s - nothing to do.',
-                    $program,
-                    $user ?: 'the account',
-                    $inCage[$program]
-                ));
+                $say(
+                    sprintf(
+                        '%s is already visible to %s at %s - nothing to do.',
+                        $program,
+                        $user ?: 'the account',
+                        $inCage[$program],
+                    ),
+                );
                 continue;
             }
 
             $snippet = cagefsExposeSnippet($program, $path);
 
-            $say(sprintf('Requested: expose %s (%s) to %s.', $program, $path, $user ?: 'the account'));
+            $say(
+                sprintf(
+                    'Requested: expose %s (%s) to %s.',
+                    $program,
+                    $path,
+                    $user ?: 'the account',
+                ),
+            );
             $say('  To do it, as root:');
             $say('');
             // Printed flush left: this is meant to be copied and pasted, and an
@@ -527,18 +660,28 @@ try {
                 $say($line);
             }
             $say('');
-            $say('  These files are INI, so the section header matters - a bare path makes '
-                . 'cagefsctl refuse to run at all.');
-            $say('  Not done automatically: it changes what every caged account can run.');
+            $say(
+                '  These files are INI, so the section header matters - a bare path makes ' .
+                    'cagefsctl refuse to run at all.',
+            );
+            $say(
+                '  Not done automatically: it changes what every caged account can run.',
+            );
         }
     }
 
-    if (!$doDisk && $requestedAt !== null && hostWalkPending($pdo, $requestedAt)) {
+    if (
+        !$doDisk &&
+        $requestedAt !== null &&
+        hostWalkPending($pdo, $requestedAt)
+    ) {
         $doDisk = true;
-        $say(sprintf(
-            'A disk walk was requested from the dashboard %s ago. Running it now.',
-            humanDuration(max(0, time() - $requestedAt))
-        ));
+        $say(
+            sprintf(
+                'A disk walk was requested from the dashboard %s ago. Running it now.',
+                humanDuration(max(0, time() - $requestedAt)),
+            ),
+        );
     }
 
     if ($doDisk) {
@@ -549,12 +692,18 @@ try {
         $insert = $pdo->prepare(
             'INSERT INTO host_mounts (taken_at, device, mount, type, total_bytes,
                 used_bytes, free_bytes, used_percent, also_at)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
         );
         foreach ($mounts as $row) {
             $insert->execute([
-                $at, $row['device'], $row['mount'], $row['type'], $row['total_bytes'],
-                $row['used_bytes'], $row['free_bytes'], $row['used_percent'],
+                $at,
+                $row['device'],
+                $row['mount'],
+                $row['type'],
+                $row['total_bytes'],
+                $row['used_bytes'],
+                $row['free_bytes'],
+                $row['used_percent'],
                 $row['also_at'] ? implode(' ', $row['also_at']) : null,
             ]);
         }
@@ -564,25 +713,35 @@ try {
              * could not be asked" - and that is the first question of the
              * three, so saying which it is matters.
              */
-            $say('No filesystems could be read. /proc/mounts is where this comes from, so '
-                . 'either this is not Linux or /proc is not mounted.');
+            $say(
+                'No filesystems could be read. /proc/mounts is where this comes from, so ' .
+                    'either this is not Linux or /proc is not mounted.',
+            );
         } else {
-            $say(sprintf('Recorded %d filesystem(s), fullest first:', count($mounts)));
+            $say(
+                sprintf(
+                    'Recorded %d filesystem(s), fullest first:',
+                    count($mounts),
+                ),
+            );
         }
         foreach (array_slice($mounts, 0, 6) as $row) {
-            $say(sprintf(
-                '  %-28s %6s used of %-8s (%.0f%%) on %s',
-                $row['mount'],
-                humanBytes($row["used_bytes"]),
-                humanBytes($row["total_bytes"]),
-                $row['used_percent'],
-                $row['device']
-            ));
+            $say(
+                sprintf(
+                    '  %-28s %6s used of %-8s (%.0f%%) on %s',
+                    $row['mount'],
+                    humanBytes($row['used_bytes']),
+                    humanBytes($row['total_bytes']),
+                    $row['used_percent'],
+                    $row['device'],
+                ),
+            );
         }
 
-        $root = (string)($config['host']['walk_root'] ?? '/');
+        $root = (string) ($config['host']['walk_root'] ?? '/');
         $skip = array_map('strval', $config['host']['walk_skip'] ?? []);
-        $budget = (float)($config['host']['walk_seconds'] ?? HOSTDISK_WALK_SECONDS);
+        $budget =
+            (float) ($config['host']['walk_seconds'] ?? HOSTDISK_WALK_SECONDS);
 
         /*
          * Backup roots keep all of their children, however small.
@@ -595,58 +754,94 @@ try {
         $keepChildrenOf = backupRoots($config);
 
         $say(sprintf('Walking %s (up to %.0fs)...', $root, $budget));
-        $walk = hostDirectoryUsage($root, $budget, $skip, null, $keepChildrenOf);
+        $walk = hostDirectoryUsage(
+            $root,
+            $budget,
+            $skip,
+            null,
+            $keepChildrenOf,
+        );
 
         $dirs = $pdo->prepare(
             'INSERT INTO host_dirs (taken_at, path, depth, bytes, files, measured)
-             VALUES (?, ?, ?, ?, ?, ?)'
+             VALUES (?, ?, ?, ?, ?, ?)',
         );
         foreach ($walk['dirs'] as $row) {
             $dirs->execute([
-                $at, $row['path'], $row['depth'], $row['bytes'], $row['files'],
-                ($row['measured'] ?? true) ? 1 : 0,
+                $at,
+                $row['path'],
+                $row['depth'],
+                $row['bytes'],
+                $row['files'],
+                $row['measured'] ?? true ? 1 : 0,
             ]);
         }
         if (($walk['unmeasured'] ?? 0) > 0) {
-            $say(sprintf(
-                '  %s directories were not finished before the time ran out; the %d '
-                . 'shallowest are recorded with no size rather than dropped, because an '
-                . 'unopened directory is not an empty one.',
-                number_format($walk['unmeasured_total'] ?? $walk['unmeasured']),
-                $walk['unmeasured']
-            ));
+            $say(
+                sprintf(
+                    '  %s directories were not finished before the time ran out; the %d ' .
+                        'shallowest are recorded with no size rather than dropped, because an ' .
+                        'unopened directory is not an empty one.',
+                    number_format(
+                        $walk['unmeasured_total'] ?? $walk['unmeasured'],
+                    ),
+                    $walk['unmeasured'],
+                ),
+            );
         }
 
-        $say(sprintf(
-            '  %d directories kept from %s scanned in %ss%s.',
-            count($walk['dirs']),
-            number_format($walk['scanned']),
-            $walk['seconds'],
-            $walk['complete'] ? '' : ' - STOPPED EARLY, the totals are lower bounds'
-        ));
+        $say(
+            sprintf(
+                '  %d directories kept from %s scanned in %ss%s.',
+                count($walk['dirs']),
+                number_format($walk['scanned']),
+                $walk['seconds'],
+                $walk['complete']
+                    ? ''
+                    : ' - STOPPED EARLY, the totals are lower bounds',
+            ),
+        );
         foreach (array_slice($walk['dirs'], 0, 8) as $row) {
-            $say(sprintf('  %10s  %s', humanBytes($row["bytes"]), $row['path']));
+            $say(
+                sprintf('  %10s  %s', humanBytes($row['bytes']), $row['path']),
+            );
         }
 
         $deleted = hostDeletedOpen();
         $del = $pdo->prepare(
             'INSERT INTO host_deleted (taken_at, pid, process, path, bytes, holders)
-             VALUES (?, ?, ?, ?, ?, ?)'
+             VALUES (?, ?, ?, ?, ?, ?)',
         );
         foreach ($deleted['files'] as $row) {
-            $del->execute([$at, $row['pid'], $row['process'], $row['path'], $row['bytes'], $row['holders']]);
+            $del->execute([
+                $at,
+                $row['pid'],
+                $row['process'],
+                $row['path'],
+                $row['bytes'],
+                $row['holders'],
+            ]);
         }
 
         if ($deleted['bytes'] > 0) {
-            $say(sprintf(
-                'Deleted but still open: %s held by %d file(s). This space is gone from df '
-                . 'and invisible to du.',
-                humanBytes($deleted["bytes"]),
-                count($deleted['files'])
-            ));
+            $say(
+                sprintf(
+                    'Deleted but still open: %s held by %d file(s). This space is gone from df ' .
+                        'and invisible to du.',
+                    humanBytes($deleted['bytes']),
+                    count($deleted['files']),
+                ),
+            );
             foreach (array_slice($deleted['files'], 0, 8) as $row) {
-                $say(sprintf('  %10s  %s (pid %d, %s)',
-                    humanBytes($row["bytes"]), $row['path'], $row['pid'], $row['process']));
+                $say(
+                    sprintf(
+                        '  %10s  %s (pid %d, %s)',
+                        humanBytes($row['bytes']),
+                        $row['path'],
+                        $row['pid'],
+                        $row['process'],
+                    ),
+                );
             }
         } else {
             $say('No deleted-but-open files holding space.');
@@ -667,22 +862,34 @@ try {
             $ins = $pdo->prepare(
                 'INSERT INTO host_backups (taken_at, account, created_at, type, bytes,
                     destination, path, backup_id)
-                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
             );
             foreach ($jet['backups'] as $backup) {
                 $ins->execute([
                     $at,
-                    is_string($backup['account'] ?? null) ? $backup['account'] : null,
-                    is_numeric($backup['created'] ?? null) ? (int)$backup['created'] : null,
+                    is_string($backup['account'] ?? null)
+                        ? $backup['account']
+                        : null,
+                    is_numeric($backup['created'] ?? null)
+                        ? (int) $backup['created']
+                        : null,
                     is_string($backup['type'] ?? null) ? $backup['type'] : null,
-                    is_numeric($backup['size'] ?? null) ? (int)$backup['size'] : null,
-                    is_string($backup['destination'] ?? null) ? $backup['destination'] : null,
+                    is_numeric($backup['size'] ?? null)
+                        ? (int) $backup['size']
+                        : null,
+                    is_string($backup['destination'] ?? null)
+                        ? $backup['destination']
+                        : null,
                     is_string($backup['path'] ?? null) ? $backup['path'] : null,
                     is_string($backup['id'] ?? null) ? $backup['id'] : null,
                 ]);
             }
-            $say(sprintf('JetBackup: %d backups recorded from its own metadata.',
-                count($jet['backups'])));
+            $say(
+                sprintf(
+                    'JetBackup: %d backups recorded from its own metadata.',
+                    count($jet['backups']),
+                ),
+            );
         } else {
             $say('JetBackup: ' . $jet['reason']);
         }
@@ -690,26 +897,45 @@ try {
         $pdo->prepare(
             'INSERT INTO host_walks (taken_at, root, complete, seconds, dirs_scanned,
                 deleted_bytes, deleted_readable, note)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
         )->execute([
-            $at, $root, $walk['complete'] ? 1 : 0, $walk['seconds'], $walk['scanned'],
-            $deleted['bytes'], $deleted['readable'] ? 1 : 0, $deleted['reason'],
+            $at,
+            $root,
+            $walk['complete'] ? 1 : 0,
+            $walk['seconds'],
+            $walk['scanned'],
+            $deleted['bytes'],
+            $deleted['readable'] ? 1 : 0,
+            $deleted['reason'],
         ]);
     }
 
     if ($want('--prune')) {
-        $days = (int)($config['host']['keep_days'] ?? 14);
-        $say(sprintf('Pruned %d readings older than %d days.', hostPrune($pdo, $days), $days));
+        $days = (int) ($config['host']['keep_days'] ?? 14);
+        $say(
+            sprintf(
+                'Pruned %d readings older than %d days.',
+                hostPrune($pdo, $days),
+                $days,
+            ),
+        );
 
         // The service series keeps its own, much longer clock: those rows are
         // tiny and their whole value is being older than the detail tables.
-        $serviceDays = (int)($config['host']['keep_service_days'] ?? 90);
-        $say(sprintf(
-            'Pruned %d service readings older than %d days.',
-            hostPruneServices($pdo, $serviceDays),
-            $serviceDays
-        ));
-        $say(sprintf('Pruned %d old operational-run records.', hostPruneOperationalRuns($pdo)));
+        $serviceDays = (int) ($config['host']['keep_service_days'] ?? 90);
+        $say(
+            sprintf(
+                'Pruned %d service readings older than %d days.',
+                hostPruneServices($pdo, $serviceDays),
+                $serviceDays,
+            ),
+        );
+        $say(
+            sprintf(
+                'Pruned %d old operational-run records.',
+                hostPruneOperationalRuns($pdo),
+            ),
+        );
 
         /*
          * And give the space back, which deleting rows does not do.
@@ -734,18 +960,29 @@ try {
     $updateRows = runSystemUpdates($config, $pdo, $doUpdates);
     foreach ($updateRows as $row) {
         $runJobs[] = 'updates:' . $row['stage'];
-        $say(sprintf('Updates %s via %s: %s%s.', $row['stage'], $row['manager'],
-            $row['ok'] ? 'ok' : 'FAILED', $row['updates'] === null ? '' : ", {$row['updates']} available"));
+        $say(
+            sprintf(
+                'Updates %s via %s: %s%s.',
+                $row['stage'],
+                $row['manager'],
+                $row['ok'] ? 'ok' : 'FAILED',
+                $row['updates'] === null ? '' : ", {$row['updates']} available",
+            ),
+        );
     }
-    if ($updateRows !== []) hostHandOver($config, hostDatabasePath($config));
+    if ($updateRows !== []) {
+        hostHandOver($config, hostDatabasePath($config));
+    }
 
     if ($want('--show')) {
-        $row = $pdo->query('SELECT * FROM host_samples ORDER BY id DESC LIMIT 1')->fetch();
+        $row = $pdo
+            ->query('SELECT * FROM host_samples ORDER BY id DESC LIMIT 1')
+            ->fetch();
         if (!$row) {
             $say('Nothing recorded yet.');
         } else {
             foreach ($row as $key => $value) {
-                printf("  %-16s %s\n", $key, (string)$value);
+                printf("  %-16s %s\n", $key, (string) $value);
             }
         }
     }
@@ -753,8 +990,15 @@ try {
 } catch (Throwable $e) {
     $recordRun($runPdo, false, $e->getMessage());
     // Same shape as cron.php's handler: the log wants a level and a string.
-    logProblem('error', 'host-cron: ' . $e->getMessage()
-        . ' in ' . $e->getFile() . ':' . $e->getLine());
+    logProblem(
+        'error',
+        'host-cron: ' .
+            $e->getMessage() .
+            ' in ' .
+            $e->getFile() .
+            ':' .
+            $e->getLine(),
+    );
     fwrite(STDERR, 'Failed: ' . $e->getMessage() . "\n");
     exit(1);
 }

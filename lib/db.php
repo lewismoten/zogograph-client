@@ -28,32 +28,38 @@ function db(array $config): PDO
     $fresh = !file_exists($file);
     $previousUmask = umask(0077);
     try {
-    $pdo = new PDO('sqlite:' . $file, null, null, [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    ]);
+        $pdo = new PDO('sqlite:' . $file, null, null, [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        ]);
 
-    /*
-     * Write-ahead logging, so a dashboard reading while the collector writes
-     * does not get "database is locked" - which on a once-a-minute writer and a
-     * ten-second poller would otherwise happen regularly.
-     */
-    $pdo->exec('PRAGMA journal_mode = WAL');
-    $pdo->exec('PRAGMA synchronous = NORMAL');
-    $pdo->exec('PRAGMA foreign_keys = ON');
-    $pdo->exec('PRAGMA busy_timeout = 5000');
+        /*
+         * Write-ahead logging, so a dashboard reading while the collector writes
+         * does not get "database is locked" - which on a once-a-minute writer and a
+         * ten-second poller would otherwise happen regularly.
+         */
+        $pdo->exec('PRAGMA journal_mode = WAL');
+        $pdo->exec('PRAGMA synchronous = NORMAL');
+        $pdo->exec('PRAGMA foreign_keys = ON');
+        $pdo->exec('PRAGMA busy_timeout = 5000');
 
-    migrate($pdo, $fresh);
-    dbPrivateSqliteFiles($file);
+        migrate($pdo, $fresh);
+        dbPrivateSqliteFiles($file);
 
-    return $pdo;
-    } finally { umask($previousUmask); }
+        return $pdo;
+    } finally {
+        umask($previousUmask);
+    }
 }
 
 /** Core account data and SQLite journals contain operational and secret state. */
 function dbPrivateSqliteFiles(string $file): void
 {
-    foreach ([$file, $file . '-wal', $file . '-shm'] as $part) if (is_file($part) && !is_link($part)) @chmod($part, 0600);
+    foreach ([$file, $file . '-wal', $file . '-shm'] as $part) {
+        if (is_file($part) && !is_link($part)) {
+            @chmod($part, 0600);
+        }
+    }
 }
 
 /**
@@ -65,8 +71,12 @@ function dbPrivateSqliteFiles(string $file): void
  */
 function migrate(PDO $pdo, bool $fresh = false): void
 {
-    $pdo->exec('CREATE TABLE IF NOT EXISTS schema_version (version INTEGER NOT NULL)');
-    $at = (int)($pdo->query('SELECT COALESCE(MAX(version), 0) FROM schema_version')->fetchColumn());
+    $pdo->exec(
+        'CREATE TABLE IF NOT EXISTS schema_version (version INTEGER NOT NULL)',
+    );
+    $at = (int) $pdo
+        ->query('SELECT COALESCE(MAX(version), 0) FROM schema_version')
+        ->fetchColumn();
 
     /*
      * By version number, not by the order they happen to be written in.
@@ -81,7 +91,10 @@ function migrate(PDO $pdo, bool $fresh = false): void
     $steps = migrations();
     ksort($steps);
 
-    $pending = array_filter(array_keys($steps), fn(int $version): bool => $version > $at);
+    $pending = array_filter(
+        array_keys($steps),
+        fn(int $version): bool => $version > $at,
+    );
     if (!$fresh && $pending !== []) {
         migrationBackup($pdo, $at, min($pending));
     }
@@ -107,7 +120,9 @@ function migrate(PDO $pdo, bool $fresh = false): void
                 }
                 $pdo->exec($sql);
             }
-            $pdo->prepare('INSERT INTO schema_version (version) VALUES (?)')->execute([$version]);
+            $pdo->prepare(
+                'INSERT INTO schema_version (version) VALUES (?)',
+            )->execute([$version]);
             $pdo->commit();
         } catch (Throwable $e) {
             $pdo->rollBack();
@@ -130,7 +145,7 @@ function migrationBackup(PDO $pdo, int $fromVersion, int $toVersion): string
     $file = '';
     foreach ($listed as $database) {
         if (($database['name'] ?? '') === 'main') {
-            $file = (string)($database['file'] ?? '');
+            $file = (string) ($database['file'] ?? '');
             break;
         }
     }
@@ -139,13 +154,24 @@ function migrationBackup(PDO $pdo, int $fromVersion, int $toVersion): string
     }
 
     $directory = dirname($file) . '/migration-backups';
-    if (!is_dir($directory) && !mkdir($directory, 0700, true) && !is_dir($directory)) {
-        throw new RuntimeException('Unable to create the private migration backup directory.');
+    if (
+        !is_dir($directory) &&
+        !mkdir($directory, 0700, true) &&
+        !is_dir($directory)
+    ) {
+        throw new RuntimeException(
+            'Unable to create the private migration backup directory.',
+        );
     }
     @chmod($directory, 0700);
 
-    $name = sprintf('%s.schema-%d-to-%d.%s.db', basename($file), $fromVersion, $toVersion,
-        gmdate('Ymd\\THis\\Z') . '-' . bin2hex(random_bytes(4)));
+    $name = sprintf(
+        '%s.schema-%d-to-%d.%s.db',
+        basename($file),
+        $fromVersion,
+        $toVersion,
+        gmdate('Ymd\\THis\\Z') . '-' . bin2hex(random_bytes(4)),
+    );
     $backup = $directory . '/' . $name;
 
     try {
@@ -153,7 +179,11 @@ function migrationBackup(PDO $pdo, int $fromVersion, int $toVersion): string
         @chmod($backup, 0600);
     } catch (Throwable $e) {
         @unlink($backup);
-        throw new RuntimeException('Unable to make a migration backup; the schema was not changed.', 0, $e);
+        throw new RuntimeException(
+            'Unable to make a migration backup; the schema was not changed.',
+            0,
+            $e,
+        );
     }
 
     return $backup;
@@ -161,9 +191,11 @@ function migrationBackup(PDO $pdo, int $fromVersion, int $toVersion): string
 
 function columnExists(PDO $pdo, string $table, string $column): bool
 {
-    $stmt = $pdo->prepare('SELECT COUNT(*) FROM pragma_table_info(?) WHERE name = ?');
+    $stmt = $pdo->prepare(
+        'SELECT COUNT(*) FROM pragma_table_info(?) WHERE name = ?',
+    );
     $stmt->execute([$table, $column]);
-    return (int)$stmt->fetchColumn() > 0;
+    return (int) $stmt->fetchColumn() > 0;
 }
 
 /**
@@ -179,14 +211,18 @@ function migrationStatementApplied(PDO $pdo, string $sql): bool
         return columnExists($pdo, $match[1], $match[2]);
     }
     if (preg_match('/^CREATE TABLE (?:IF NOT EXISTS )?(\w+)/i', $sql, $match)) {
-        $stmt = $pdo->prepare("SELECT COUNT(*) FROM sqlite_master WHERE type = 'table' AND name = ?");
+        $stmt = $pdo->prepare(
+            "SELECT COUNT(*) FROM sqlite_master WHERE type = 'table' AND name = ?",
+        );
         $stmt->execute([$match[1]]);
-        return (int)$stmt->fetchColumn() === 1;
+        return (int) $stmt->fetchColumn() === 1;
     }
     if (preg_match('/^CREATE INDEX (?:IF NOT EXISTS )?(\w+)/i', $sql, $match)) {
-        $stmt = $pdo->prepare("SELECT COUNT(*) FROM sqlite_master WHERE type = 'index' AND name = ?");
+        $stmt = $pdo->prepare(
+            "SELECT COUNT(*) FROM sqlite_master WHERE type = 'index' AND name = ?",
+        );
         $stmt->execute([$match[1]]);
-        return (int)$stmt->fetchColumn() === 1;
+        return (int) $stmt->fetchColumn() === 1;
     }
     return false;
 }
@@ -709,9 +745,7 @@ function migrations(): array
          * collector was off" - two facts that look identical in a database
          * otherwise, and which need opposite responses.
          */
-        7 => [
-            'ALTER TABLE vitals ADD COLUMN boot_at INTEGER',
-        ],
+        7 => ['ALTER TABLE vitals ADD COLUMN boot_at INTEGER'],
 
         /*
          * What set a busy record off, and how much of it the processes explain.
@@ -788,9 +822,7 @@ function migrations(): array
          * Nullable, and read as 1 when absent: every row written before this
          * migration is a single reading, which is exactly what null means here.
          */
-        11 => [
-            'ALTER TABLE vitals ADD COLUMN samples INTEGER',
-        ],
+        11 => ['ALTER TABLE vitals ADD COLUMN samples INTEGER'],
 
         /*
          * Jobs the dashboard would like root to do.
@@ -1347,12 +1379,12 @@ function migrations(): array
         ],
 
         21 => [
-            "ALTER TABLE url_checks ADD COLUMN follow_redirects INTEGER NOT NULL DEFAULT 1",
+            'ALTER TABLE url_checks ADD COLUMN follow_redirects INTEGER NOT NULL DEFAULT 1',
             "ALTER TABLE url_checks ADD COLUMN method TEXT NOT NULL DEFAULT 'GET'",
-            "ALTER TABLE url_checks ADD COLUMN send_etag INTEGER NOT NULL DEFAULT 0",
-            "ALTER TABLE url_checks ADD COLUMN last_etag TEXT",
-            "ALTER TABLE url_results ADD COLUMN redirected_to TEXT",
-            "ALTER TABLE url_results ADD COLUMN hops INTEGER NOT NULL DEFAULT 0",
+            'ALTER TABLE url_checks ADD COLUMN send_etag INTEGER NOT NULL DEFAULT 0',
+            'ALTER TABLE url_checks ADD COLUMN last_etag TEXT',
+            'ALTER TABLE url_results ADD COLUMN redirected_to TEXT',
+            'ALTER TABLE url_results ADD COLUMN hops INTEGER NOT NULL DEFAULT 0',
         ],
 
         20 => [
@@ -1460,9 +1492,7 @@ function migrations(): array
             )",
         ],
 
-        15 => [
-            'ALTER TABLE alerts ADD COLUMN acknowledged_at INTEGER',
-        ],
+        15 => ['ALTER TABLE alerts ADD COLUMN acknowledged_at INTEGER'],
     ];
 }
 
@@ -1478,13 +1508,19 @@ function migrations(): array
  * Cached per process: a scan asks about the same directories thousands of
  * times, and a round trip to SQLite for each one is most of the scan.
  */
-function pathId(PDO $pdo, string $path, string $kind, int $now, ?string $category): int
-{
+function pathId(
+    PDO $pdo,
+    string $path,
+    string $kind,
+    int $now,
+    ?string $category,
+): int {
     static $cache = [];
     if (isset($cache[$path])) {
         $id = $cache[$path];
-        $pdo->prepare('UPDATE paths SET last_seen = ?, category = ? WHERE id = ?')
-            ->execute([$now, $category, $id]);
+        $pdo->prepare(
+            'UPDATE paths SET last_seen = ?, category = ? WHERE id = ?',
+        )->execute([$now, $category, $id]);
         return $id;
     }
 
@@ -1493,7 +1529,7 @@ function pathId(PDO $pdo, string $path, string $kind, int $now, ?string $categor
          VALUES (:path, :kind, :category, :now, :now)
          ON CONFLICT(path) DO UPDATE SET
             last_seen = :now,
-            category = :category'
+            category = :category',
     )->execute([
         ':path' => $path,
         ':kind' => $kind,
@@ -1503,7 +1539,7 @@ function pathId(PDO $pdo, string $path, string $kind, int $now, ?string $categor
 
     $stmt = $pdo->prepare('SELECT id FROM paths WHERE path = ?');
     $stmt->execute([$path]);
-    $id = (int)$stmt->fetchColumn();
+    $id = (int) $stmt->fetchColumn();
     $cache[$path] = $id;
     return $id;
 }

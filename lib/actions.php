@@ -29,9 +29,7 @@ require_once __DIR__ . '/collect.php';
 // humanBytes, for the audit note when a link survives a delete.
 require_once __DIR__ . '/alerts.php';
 
-final class ActionRefused extends RuntimeException
-{
-}
+final class ActionRefused extends RuntimeException {}
 
 /**
  * Resolves a requested path and refuses it if it is not somewhere we may touch.
@@ -51,14 +49,17 @@ function resolveDeletable(array $config, string $requested): string
         throw new ActionRefused('path does not exist');
     }
 
-    $root = realpath((string)$config['scan_root']);
+    $root = realpath((string) $config['scan_root']);
     if ($root === false) {
         throw new ActionRefused('scan root does not resolve');
     }
 
     // The trailing separator matters: without it "/home/account-old" passes a
     // prefix test against "/home/account".
-    if ($real !== $root && !str_starts_with($real . '/', rtrim($root, '/') . '/')) {
+    if (
+        $real !== $root &&
+        !str_starts_with($real . '/', rtrim($root, '/') . '/')
+    ) {
         throw new ActionRefused('outside the scan root');
     }
     if ($real === $root) {
@@ -71,8 +72,11 @@ function resolveDeletable(array $config, string $requested): string
         throw new ActionRefused('symlinks are not deleted');
     }
 
-    $dataDir = realpath(dirname((string)$config['database']));
-    if ($dataDir !== false && ($real === $dataDir || str_starts_with($real . '/', $dataDir . '/'))) {
+    $dataDir = realpath(dirname((string) $config['database']));
+    if (
+        $dataDir !== false &&
+        ($real === $dataDir || str_starts_with($real . '/', $dataDir . '/'))
+    ) {
         throw new ActionRefused('refusing to delete the monitor\'s own data');
     }
 
@@ -88,18 +92,24 @@ function resolveDeletable(array $config, string $requested): string
      * itself, never outside it, never a symlink, never the monitor's own data.
      * Widening the categories does not widen those.
      */
-    $scope = (string)($config['deletable_scope'] ?? 'account');
+    $scope = (string) ($config['deletable_scope'] ?? 'account');
 
     if ($scope !== 'account') {
-        $category = categoryOf($real . (is_dir($real) ? '/x' : ''), $config['scan'], $root);
+        $category = categoryOf(
+            $real . (is_dir($real) ? '/x' : ''),
+            $config['scan'],
+            $root,
+        );
         $allowed = $config['deletable_categories'] ?? [];
         if ($category === null || !in_array($category, $allowed, true)) {
-            throw new ActionRefused(sprintf(
-                'this install only allows deleting from %s. Change deletable_scope to '
-                . "'account' in lib/config.php to allow anything inside the watched "
-                . 'directory',
-                $allowed === [] ? 'nothing' : implode(' and ', $allowed)
-            ));
+            throw new ActionRefused(
+                sprintf(
+                    'this install only allows deleting from %s. Change deletable_scope to ' .
+                        "'account' in lib/config.php to allow anything inside the watched " .
+                        'directory',
+                    $allowed === [] ? 'nothing' : implode(' and ', $allowed),
+                ),
+            );
         }
     }
 
@@ -127,19 +137,43 @@ function deleteFile(array $config, PDO $pdo, string $requested): array
          * log is right there to say so.
          */
         if (!file_exists($requested) && alreadyDeleted($pdo, $requested)) {
-            logAction($pdo, 'delete_file', $requested, 'refused', 0, 0, 'already deleted');
+            logAction(
+                $pdo,
+                'delete_file',
+                $requested,
+                'refused',
+                0,
+                0,
+                'already deleted',
+            );
             throw new ActionRefused(
-                'that file was already deleted. It is still listed because the last scan '
-                . 'found it; the next scan will drop it.'
+                'that file was already deleted. It is still listed because the last scan ' .
+                    'found it; the next scan will drop it.',
             );
         }
 
-        logAction($pdo, 'delete_file', $requested, 'refused', 0, 0, $e->getMessage());
+        logAction(
+            $pdo,
+            'delete_file',
+            $requested,
+            'refused',
+            0,
+            0,
+            $e->getMessage(),
+        );
         throw $e;
     }
 
     if (is_dir($real)) {
-        logAction($pdo, 'delete_file', $real, 'refused', 0, 0, 'is a directory');
+        logAction(
+            $pdo,
+            'delete_file',
+            $real,
+            'refused',
+            0,
+            0,
+            'is a directory',
+        );
         throw new ActionRefused('that is a directory; use empty instead');
     }
 
@@ -153,12 +187,20 @@ function deleteFile(array $config, PDO $pdo, string $requested): array
      * every total in it wrong, and wrong in the flattering direction.
      */
     $stat = @stat($real);
-    $size = $stat === false ? 0 : (int)$stat['size'];
-    $links = $stat === false ? 1 : (int)($stat['nlink'] ?? 1);
+    $size = $stat === false ? 0 : (int) $stat['size'];
+    $links = $stat === false ? 1 : (int) ($stat['nlink'] ?? 1);
     $freed = $links > 1 ? 0 : $size;
 
     if (!@unlink($real)) {
-        logAction($pdo, 'delete_file', $real, 'failed', 0, 0, 'unlink returned false');
+        logAction(
+            $pdo,
+            'delete_file',
+            $real,
+            'failed',
+            0,
+            0,
+            'unlink returned false',
+        );
         throw new ActionRefused('could not delete the file');
     }
 
@@ -170,11 +212,20 @@ function deleteFile(array $config, PDO $pdo, string $requested): array
         $freed,
         1,
         $links > 1
-            ? sprintf('one of %d links; %s stays on disk until the rest go', $links, humanBytes($size))
-            : null
+            ? sprintf(
+                'one of %d links; %s stays on disk until the rest go',
+                $links,
+                humanBytes($size),
+            )
+            : null,
     );
 
-    return ['bytes_freed' => $freed, 'files_removed' => 1, 'links' => $links, 'bytes' => $size];
+    return [
+        'bytes_freed' => $freed,
+        'files_removed' => 1,
+        'links' => $links,
+        'bytes' => $size,
+    ];
 }
 
 /** Whether this tool has a record of successfully deleting that exact path. */
@@ -207,7 +258,13 @@ function deleteDirectory(array $config, PDO $pdo, string $requested): array
     }
 
     $device = @stat($real)['dev'] ?? null;
-    $result = ['files' => 0, 'dirs' => 0, 'bytes' => 0, 'skipped' => [], 'links' => 0];
+    $result = [
+        'files' => 0,
+        'dirs' => 0,
+        'bytes' => 0,
+        'skipped' => [],
+        'links' => 0,
+    ];
 
     removeTree($real, $device, $result, 0);
 
@@ -227,10 +284,16 @@ function deleteDirectory(array $config, PDO $pdo, string $requested): array
         $result['files'],
         $result['skipped'] === []
             ? null
-            : count($result['skipped']) . ' left behind: ' . implode(', ', array_slice($result['skipped'], 0, 5))
+            : count($result['skipped']) .
+                ' left behind: ' .
+                implode(', ', array_slice($result['skipped'], 0, 5)),
     );
 
-    return $result + ['path' => $real, 'removed_itself' => $removed, 'outcome' => $outcome];
+    return $result + [
+        'path' => $real,
+        'removed_itself' => $removed,
+        'outcome' => $outcome,
+    ];
 }
 
 function removeTree(string $dir, ?int $device, array &$result, int $depth): void
@@ -273,11 +336,12 @@ function removeTree(string $dir, ?int $device, array &$result, int $depth): void
             continue;
         }
 
-        if ($device !== null && (int)$stat['dev'] !== $device) {
+        if ($device !== null && (int) $stat['dev'] !== $device) {
             // A different filesystem is mounted here. Emptying somebody else's
             // mount because it happens to sit inside this directory is not what
             // "delete this directory" means.
-            $result['skipped'][] = $full . ' (a different filesystem is mounted here)';
+            $result['skipped'][] =
+                $full . ' (a different filesystem is mounted here)';
             continue;
         }
 
@@ -291,7 +355,7 @@ function removeTree(string $dir, ?int $device, array &$result, int $depth): void
             continue;
         }
 
-        $bytes = (int)($stat['size'] ?? 0);
+        $bytes = (int) ($stat['size'] ?? 0);
         if (@unlink($full)) {
             $result['files']++;
             $result['bytes'] += $bytes;
@@ -307,10 +371,10 @@ function alreadyDeleted(PDO $pdo, string $path): bool
 {
     $stmt = $pdo->prepare(
         "SELECT COUNT(*) FROM actions
-         WHERE action = 'delete_file' AND outcome = 'ok' AND target = ?"
+         WHERE action = 'delete_file' AND outcome = 'ok' AND target = ?",
     );
     $stmt->execute([$path]);
-    return (int)$stmt->fetchColumn() > 0;
+    return (int) $stmt->fetchColumn() > 0;
 }
 
 /**
@@ -324,23 +388,41 @@ function emptyCategory(array $config, PDO $pdo, string $category): array
 {
     $allowed = $config['deletable_categories'] ?? [];
     if (!in_array($category, $allowed, true)) {
-        logAction($pdo, 'empty_category', $category, 'refused', 0, 0, 'category not deletable');
+        logAction(
+            $pdo,
+            'empty_category',
+            $category,
+            'refused',
+            0,
+            0,
+            'category not deletable',
+        );
         throw new ActionRefused('that category cannot be emptied');
     }
 
-    $root = realpath((string)$config['scan_root']);
+    $root = realpath((string) $config['scan_root']);
     if ($root === false) {
         throw new ActionRefused('scan root does not resolve');
     }
 
-    $excluded = array_map('normalisePath', $config['scan']['exclude_paths'] ?? []);
+    $excluded = array_map(
+        'normalisePath',
+        $config['scan']['exclude_paths'] ?? [],
+    );
     $freed = 0;
     $removed = 0;
     $failed = 0;
     $linked = 0;
 
     $files = [];
-    collectCategoryFiles($root, $config['scan'], $category, $excluded, $root, $files);
+    collectCategoryFiles(
+        $root,
+        $config['scan'],
+        $category,
+        $excluded,
+        $root,
+        $files,
+    );
 
     foreach ($files as $file => $size) {
         // Re-checked one at a time rather than trusted from the walk: the walk
@@ -363,7 +445,7 @@ function emptyCategory(array $config, PDO $pdo, string $category): array
          * order they were reached in.
          */
         $stat = @stat($real);
-        $last = $stat === false || (int)($stat['nlink'] ?? 1) <= 1;
+        $last = $stat === false || (int) ($stat['nlink'] ?? 1) <= 1;
 
         if (@unlink($real)) {
             if ($last) {
@@ -384,10 +466,16 @@ function emptyCategory(array $config, PDO $pdo, string $category): array
         $failed > 0 ? 'partial' : 'ok',
         $freed,
         $removed,
-        implode('; ', array_filter([
-            $failed > 0 ? "$failed could not be removed" : null,
-            $linked > 0 ? "$linked still had another link, so freed nothing" : null,
-        ])) ?: null
+        implode(
+            '; ',
+            array_filter([
+                $failed > 0 ? "$failed could not be removed" : null,
+                $linked > 0
+                    ? "$linked still had another link, so freed nothing"
+                    : null,
+            ]),
+        ) ?:
+        null,
     );
 
     return [
@@ -406,7 +494,7 @@ function collectCategoryFiles(
     array $excluded,
     string $root,
     ?array &$out = null,
-    int $depth = 0
+    int $depth = 0,
 ): void {
     $out ??= [];
     if ($depth > 40 || isExcludedPath($dir, $excluded)) {
@@ -427,7 +515,15 @@ function collectCategoryFiles(
             continue;
         }
         if (is_dir($full)) {
-            collectCategoryFiles($full, $rules, $category, $excluded, $root, $out, $depth + 1);
+            collectCategoryFiles(
+                $full,
+                $rules,
+                $category,
+                $excluded,
+                $root,
+                $out,
+                $depth + 1,
+            );
             continue;
         }
         if (categoryOf($full, $rules, $root) !== $category) {
@@ -435,7 +531,7 @@ function collectCategoryFiles(
         }
         $size = @filesize($full);
         if ($size !== false) {
-            $out[$full] = (int)$size;
+            $out[$full] = (int) $size;
         }
     }
 
@@ -449,15 +545,15 @@ function logAction(
     string $outcome,
     int $bytes = 0,
     int $files = 0,
-    ?string $detail = null
+    ?string $detail = null,
 ): void {
-    $actor = trim((string)($_SESSION['username'] ?? ''));
+    $actor = trim((string) ($_SESSION['username'] ?? ''));
     if ($actor === '' && PHP_SAPI === 'cli') {
         $actor = 'collector';
     }
     $pdo->prepare(
         'INSERT INTO actions (at, action, target, outcome, bytes_freed, files_removed, detail, remote_addr, actor)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
     )->execute([
         time(),
         $action,

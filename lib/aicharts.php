@@ -42,9 +42,10 @@ function aiChartCatalogue(): array
         'roomChart' => [
             'name' => 'Room left',
             'view' => 'charts',
-            'what' => 'Free disk space and free inodes over time. Either can run out on '
-                . 'its own - a disk with free gigabytes and no inodes still refuses to '
-                . 'create a file.',
+            'what' =>
+                'Free disk space and free inodes over time. Either can run out on ' .
+                'its own - a disk with free gigabytes and no inodes still refuses to ' .
+                'create a file.',
             'series' => [
                 ['disk_free_bytes', 'Disk free', 'bytes'],
                 ['inodes_free', 'Inodes free', 'count'],
@@ -53,9 +54,10 @@ function aiChartCatalogue(): array
         'cpuChart' => [
             'name' => 'CPU and memory',
             'view' => 'charts',
-            'what' => "Processor and memory use as a share of what this ACCOUNT may use, "
-                . "not of the machine. Inside CageFS this can sit at 100 while the machine "
-                . "is idle, which is what being throttled looks like.",
+            'what' =>
+                'Processor and memory use as a share of what this ACCOUNT may use, ' .
+                'not of the machine. Inside CageFS this can sit at 100 while the machine ' .
+                'is idle, which is what being throttled looks like.',
             'series' => [
                 ['cpu_percent', 'CPU', 'percent'],
                 ['mem_used_percent', 'Memory', 'percent'],
@@ -64,8 +66,9 @@ function aiChartCatalogue(): array
         'ioChart' => [
             'name' => 'Disk I/O',
             'view' => 'charts',
-            'what' => 'Bytes actually reaching a disk, not bytes served from cache. Read '
-                . 'and written separately.',
+            'what' =>
+                'Bytes actually reaching a disk, not bytes served from cache. Read ' .
+                'and written separately.',
             'series' => [
                 ['io_read_bytes', 'Read', 'bytes'],
                 ['io_write_bytes', 'Written', 'bytes'],
@@ -74,9 +77,10 @@ function aiChartCatalogue(): array
         'loadChart' => [
             'name' => 'Load average',
             'view' => 'charts',
-            'what' => 'How many processes wanted to run at once. Not a percentage - '
-                . 'compare it to the core count. At one per core the machine is busy; '
-                . 'above that, work is queueing.',
+            'what' =>
+                'How many processes wanted to run at once. Not a percentage - ' .
+                'compare it to the core count. At one per core the machine is busy; ' .
+                'above that, work is queueing.',
             'series' => [
                 ['load1', 'Load, one minute', 'count'],
                 ['load_per_core', 'Per core', 'percent'],
@@ -85,8 +89,9 @@ function aiChartCatalogue(): array
         'netChart' => [
             'name' => 'Network',
             'view' => 'charts',
-            'what' => 'Bytes a second in and out, summed over the real interfaces. '
-                . 'Loopback is not counted.',
+            'what' =>
+                'Bytes a second in and out, summed over the real interfaces. ' .
+                'Loopback is not counted.',
             'series' => [
                 ['net_in_bytes', 'Arriving', 'bytes'],
                 ['net_out_bytes', 'Leaving', 'bytes'],
@@ -105,9 +110,10 @@ function aiChartCatalogue(): array
              * data comes from".
              */
             'view' => null,
-            'what' => 'Disk and inode use as percentages. The same readings as Room left, '
-                . 'the other way up - this is the one to use when the question is "how '
-                . 'close to full", and Room left when it is "how much is there".',
+            'what' =>
+                'Disk and inode use as percentages. The same readings as Room left, ' .
+                'the other way up - this is the one to use when the question is "how ' .
+                'close to full", and Room left when it is "how much is there".',
             'series' => [
                 ['disk_used_percent', 'Disk used', 'percent'],
                 ['inodes_used_percent', 'Inodes used', 'percent'],
@@ -128,17 +134,14 @@ function aiChartExpression(string $key): ?string
     return [
         'disk_free_bytes' => 'CAST("disk_free_bytes" AS REAL)',
         'inodes_free' => 'CAST("inodes_free" AS REAL)',
-        'disk_used_percent' =>
-            'CASE WHEN "disk_total_bytes" > 0
+        'disk_used_percent' => 'CASE WHEN "disk_total_bytes" > 0
                   THEN (CAST("disk_used_bytes" AS REAL) / "disk_total_bytes") * 100 END',
-        'inodes_used_percent' =>
-            'CASE WHEN "inodes_total" > 0
+        'inodes_used_percent' => 'CASE WHEN "inodes_total" > 0
                   THEN (CAST("inodes_used" AS REAL) / "inodes_total") * 100 END',
         'cpu_percent' => 'CAST("cpu_percent" AS REAL)',
         'mem_used_percent' => 'CAST("mem_used_percent" AS REAL)',
         'load1' => 'CAST("load1" AS REAL)',
-        'load_per_core' =>
-            'CASE WHEN "cpu_cores" > 0
+        'load_per_core' => 'CASE WHEN "cpu_cores" > 0
                   THEN (CAST("load1" AS REAL) / "cpu_cores") * 100 END',
         'io_read_bytes' => 'CAST("io_read_bytes" AS REAL)',
         'io_write_bytes' => 'CAST("io_write_bytes" AS REAL)',
@@ -163,16 +166,18 @@ function aiChartData(PDO $pdo, string $chartId, int $hours): array
     $catalogue = aiChartCatalogue();
 
     if (!isset($catalogue[$chartId])) {
-        return ['error' => sprintf(
-            'There is no chart called "%s". The charts are: %s.',
-            $chartId,
-            implode(', ', array_keys($catalogue))
-        )];
+        return [
+            'error' => sprintf(
+                'There is no chart called "%s". The charts are: %s.',
+                $chartId,
+                implode(', ', array_keys($catalogue)),
+            ),
+        ];
     }
 
     $chart = $catalogue[$chartId];
-    $since = time() - ($hours * SPAN_HOUR);
-    $bucket = max(60, (int)floor(($hours * SPAN_HOUR) / 24));
+    $since = time() - $hours * SPAN_HOUR;
+    $bucket = max(60, (int) floor(($hours * SPAN_HOUR) / 24));
 
     $out = [
         'chart' => $chartId,
@@ -195,15 +200,17 @@ function aiChartData(PDO $pdo, string $chartId, int $hours): array
             continue;
         }
 
-        $stmt = $pdo->prepare(sprintf(
-            'SELECT MIN(taken_at) AS from_at, MAX(taken_at) AS to_at, COUNT(*) AS readings,
+        $stmt = $pdo->prepare(
+            sprintf(
+                'SELECT MIN(taken_at) AS from_at, MAX(taken_at) AS to_at, COUNT(*) AS readings,
                     MIN(%1$s) AS low, MAX(%1$s) AS high, AVG(%1$s) AS mean,
                     (taken_at / :bucket) AS slot
                FROM vitals
               WHERE taken_at >= :since AND %1$s IS NOT NULL
               GROUP BY slot ORDER BY slot',
-            $expression
-        ));
+                $expression,
+            ),
+        );
         $stmt->execute([':since' => $since, ':bucket' => $bucket]);
         $rows = $stmt->fetchAll();
 
@@ -217,37 +224,50 @@ function aiChartData(PDO $pdo, string $chartId, int $hours): array
          * conversation came out empty while the numbers underneath it were
          * perfectly good.
          */
-        $points = array_map(fn(array $row): array => [
-            'at' => (int)$row['from_at'],
-            'when' => date('Y-m-d H:i', (int)$row['from_at']),
-            'low' => round((float)$row['low'], 2),
-            'high' => round((float)$row['high'], 2),
-            'average' => round((float)$row['mean'], 2),
-        ], $rows);
+        $points = array_map(
+            fn(array $row): array => [
+                'at' => (int) $row['from_at'],
+                'when' => date('Y-m-d H:i', (int) $row['from_at']),
+                'low' => round((float) $row['low'], 2),
+                'high' => round((float) $row['high'], 2),
+                'average' => round((float) $row['mean'], 2),
+            ],
+            $rows,
+        );
 
         $out['series'][] = [
             'measurement' => $key,
             'label' => $label,
             'unit' => $unit,
             'points' => $points,
-            'moved_by' => count($points) < 2
-                ? null
-                : round($points[count($points) - 1]['average'] - $points[0]['average'], 2),
+            'moved_by' =>
+                count($points) < 2
+                    ? null
+                    : round(
+                        $points[count($points) - 1]['average'] -
+                            $points[0]['average'],
+                        2,
+                    ),
         ];
     }
 
-    $any = array_filter($out['series'], fn(array $series): bool => $series['points'] !== []);
+    $any = array_filter(
+        $out['series'],
+        fn(array $series): bool => $series['points'] !== [],
+    );
 
     if ($any === []) {
-        $out['note'] = 'No readings in that period for anything this chart plots. Either '
-            . 'the collector was not running - check get_collector_health - or the period '
-            . 'is older than the retention settings keep.';
+        $out['note'] =
+            'No readings in that period for anything this chart plots. Either ' .
+            'the collector was not running - check get_collector_health - or the period ' .
+            'is older than the retention settings keep.';
         return $out;
     }
 
-    $out['note'] = 'These are the numbers the chart is drawn from. Only ask for a picture '
-        . 'of it if the person is describing something about its SHAPE that these cannot '
-        . 'tell you.';
+    $out['note'] =
+        'These are the numbers the chart is drawn from. Only ask for a picture ' .
+        'of it if the person is describing something about its SHAPE that these cannot ' .
+        'tell you.';
 
     return $out;
 }
@@ -278,10 +298,11 @@ function aiEveryChart(): array
             'page' => $chart['view'],
             'shows' => $chart['what'],
             'data_available' => true,
-            'note' => $chart['view'] === null
-                ? 'Not on any page. You can draw it in the conversation with show_chart, '
-                  . 'but do not send anybody to look at it.'
-                : null,
+            'note' =>
+                $chart['view'] === null
+                    ? 'Not on any page. You can draw it in the conversation with show_chart, ' .
+                        'but do not send anybody to look at it.'
+                    : null,
         ];
     }
 
@@ -294,41 +315,104 @@ function aiEveryChart(): array
      * "the answer to that is the treemap on Tree map" instead of describing
      * numbers at somebody.
      */
-    foreach ([
-        ['typePie', 'What the space is made of', 'storage',
-         'A pie of disk use by file extension, from the last completed scan.'],
-        ['typeGrowthChart', 'What grew', 'storage',
-         'How each file type has grown between scans.'],
-        ['categoryChart', 'The watched categories', 'storage',
-         'Disk use for the categories that raise alerts and can be emptied.'],
-        ['historyChart', 'One path over time', 'storage-files',
-         'The size of a single file or directory across scans.'],
-        ['treemap', 'Tree map', 'storage-map',
-         'Every directory as a rectangle in proportion to its size. The fastest way '
-         . 'to see where space went when nobody knows where to start.'],
-        ['hostChart', 'Memory on the machine', 'host',
-         'What the whole machine is using, as opposed to this account.'],
-        ['hostServiceChart', 'Memory per service', 'mem-services',
-         'Which services are holding memory, over time.'],
-        ['hostPie', 'Where memory goes', 'mem-goes',
-         'A breakdown of the machine memory that is not free.'],
-        ['hostIoChart', 'Disk I/O on the machine', 'storage-io',
-         'Bytes reaching the disks, for the machine rather than the account.'],
-        ['urlChart', 'How a site answered', 'net-urls',
-         'Response time and failures for one watched address, with the moments its '
-         . 'watched value changed marked on it.'],
-        ['urlValueChart', 'What a site reported', 'net-urls',
-         'The number extracted from a watched page, over time.'],
-        ['capChanges', 'When programs changed', 'capabilities',
-         'When something the host provides appeared, went, or changed version.'],
-        ['alertTimeline', 'When alerts fired', 'alerts',
-         'Alerts per hour or per day, stacked by severity, with restarts marked.'],
-        ['uptimeChart', 'What was reporting', 'uptime',
-         'Two tracks: whether the machine was up, and whether each collector was '
-         . 'writing readings.'],
-        ['changedChart', 'When software changed', 'sys-changed',
-         'Kernel, PHP and library versions changing underneath the account.'],
-    ] as [$id, $name, $page, $shows]) {
+    foreach (
+        [
+            [
+                'typePie',
+                'What the space is made of',
+                'storage',
+                'A pie of disk use by file extension, from the last completed scan.',
+            ],
+            [
+                'typeGrowthChart',
+                'What grew',
+                'storage',
+                'How each file type has grown between scans.',
+            ],
+            [
+                'categoryChart',
+                'The watched categories',
+                'storage',
+                'Disk use for the categories that raise alerts and can be emptied.',
+            ],
+            [
+                'historyChart',
+                'One path over time',
+                'storage-files',
+                'The size of a single file or directory across scans.',
+            ],
+            [
+                'treemap',
+                'Tree map',
+                'storage-map',
+                'Every directory as a rectangle in proportion to its size. The fastest way ' .
+                'to see where space went when nobody knows where to start.',
+            ],
+            [
+                'hostChart',
+                'Memory on the machine',
+                'host',
+                'What the whole machine is using, as opposed to this account.',
+            ],
+            [
+                'hostServiceChart',
+                'Memory per service',
+                'mem-services',
+                'Which services are holding memory, over time.',
+            ],
+            [
+                'hostPie',
+                'Where memory goes',
+                'mem-goes',
+                'A breakdown of the machine memory that is not free.',
+            ],
+            [
+                'hostIoChart',
+                'Disk I/O on the machine',
+                'storage-io',
+                'Bytes reaching the disks, for the machine rather than the account.',
+            ],
+            [
+                'urlChart',
+                'How a site answered',
+                'net-urls',
+                'Response time and failures for one watched address, with the moments its ' .
+                'watched value changed marked on it.',
+            ],
+            [
+                'urlValueChart',
+                'What a site reported',
+                'net-urls',
+                'The number extracted from a watched page, over time.',
+            ],
+            [
+                'capChanges',
+                'When programs changed',
+                'capabilities',
+                'When something the host provides appeared, went, or changed version.',
+            ],
+            [
+                'alertTimeline',
+                'When alerts fired',
+                'alerts',
+                'Alerts per hour or per day, stacked by severity, with restarts marked.',
+            ],
+            [
+                'uptimeChart',
+                'What was reporting',
+                'uptime',
+                'Two tracks: whether the machine was up, and whether each collector was ' .
+                'writing readings.',
+            ],
+            [
+                'changedChart',
+                'When software changed',
+                'sys-changed',
+                'Kernel, PHP and library versions changing underneath the account.',
+            ],
+        ]
+        as [$id, $name, $page, $shows]
+    ) {
         $out[] = [
             'id' => $id,
             'name' => $name,
@@ -360,16 +444,21 @@ function aiEveryChart(): array
  */
 function aiGauges(array $config, PDO $pdo): array
 {
-    $row = $pdo->query('SELECT * FROM vitals ORDER BY taken_at DESC, id DESC LIMIT 1')
+    $row = $pdo
+        ->query('SELECT * FROM vitals ORDER BY taken_at DESC, id DESC LIMIT 1')
         ->fetch();
 
     if ($row === false) {
-        return ['error' => 'No readings have been collected yet, so the gauges on the '
-            . 'front page are empty too.'];
+        return [
+            'error' =>
+                'No readings have been collected yet, so the gauges on the ' .
+                'front page are empty too.',
+        ];
     }
 
-    $number = fn(?string $key): ?float =>
-        $key === null || $row[$key] === null ? null : (float)$row[$key];
+    $number = fn(?string $key): ?float => $key === null || $row[$key] === null
+        ? null
+        : (float) $row[$key];
 
     /*
      * Worked out the way the page works them out, not read from a column.
@@ -389,14 +478,19 @@ function aiGauges(array $config, PDO $pdo): array
         if ($value === null) {
             return 'not measured';
         }
-        return $value >= $crit ? 'urgent' : ($value >= $warn ? 'watch' : 'healthy');
+        return $value >= $crit
+            ? 'urgent'
+            : ($value >= $warn
+                ? 'watch'
+                : 'healthy');
     };
 
     $cores = $number('cpu_cores');
     $load = $number('load1');
-    $perCore = ($load !== null && $cores !== null && $cores > 0)
-        ? round(($load / $cores) * 100, 1)
-        : null;
+    $perCore =
+        $load !== null && $cores !== null && $cores > 0
+            ? round(($load / $cores) * 100, 1)
+            : null;
 
     $disk = $share($number('disk_used_bytes'), $number('disk_total_bytes'));
     $inodes = $share($number('inodes_used'), $number('inodes_total'));
@@ -411,11 +505,14 @@ function aiGauges(array $config, PDO $pdo): array
             'verdict' => $band($disk, 88, 95),
             'watch_above' => 88,
             'urgent_above' => 95,
-            'beneath_it' => $number('disk_total_bytes') === null
-                ? 'not reported'
-                : sprintf('%s free of %s',
-                    humanBytes((int)$row['disk_free_bytes']),
-                    humanBytes((int)$row['disk_total_bytes'])),
+            'beneath_it' =>
+                $number('disk_total_bytes') === null
+                    ? 'not reported'
+                    : sprintf(
+                        '%s free of %s',
+                        humanBytes((int) $row['disk_free_bytes']),
+                        humanBytes((int) $row['disk_total_bytes']),
+                    ),
             'chart' => 'diskUsedChart',
         ],
         [
@@ -425,13 +522,15 @@ function aiGauges(array $config, PDO $pdo): array
             'verdict' => $band($inodes, 88, 95),
             'watch_above' => 88,
             'urgent_above' => 95,
-            'beneath_it' => $number('inodes_total') === null
-                ? 'not reported'
-                : number_format((int)$row['inodes_free']) . ' free',
+            'beneath_it' =>
+                $number('inodes_total') === null
+                    ? 'not reported'
+                    : number_format((int) $row['inodes_free']) . ' free',
             'chart' => 'roomChart',
-            'note' => 'An inode is one file. A disk with free gigabytes and no inodes '
-                . 'still refuses to create a file, and nothing about the disk gauge '
-                . 'shows that.',
+            'note' =>
+                'An inode is one file. A disk with free gigabytes and no inodes ' .
+                'still refuses to create a file, and nothing about the disk gauge ' .
+                'shows that.',
         ],
         [
             'gauge' => 'CPU',
@@ -441,9 +540,10 @@ function aiGauges(array $config, PDO $pdo): array
             'watch_above' => 70,
             'urgent_above' => 90,
             'chart' => 'cpuChart',
-            'note' => 'A percentage of what THIS ACCOUNT may use, not of the machine. '
-                . '100% here on an idle server is being throttled, which is a real '
-                . 'problem and a different one from a busy server.',
+            'note' =>
+                'A percentage of what THIS ACCOUNT may use, not of the machine. ' .
+                '100% here on an idle server is being throttled, which is a real ' .
+                'problem and a different one from a busy server.',
         ],
         [
             'gauge' => 'Memory',
@@ -452,11 +552,14 @@ function aiGauges(array $config, PDO $pdo): array
             'verdict' => $band($memory, 80, 92),
             'watch_above' => 80,
             'urgent_above' => 92,
-            'beneath_it' => $number('mem_total_bytes') === null
-                ? 'not reported'
-                : sprintf('%s available of %s',
-                    humanBytes((int)$row['mem_available_bytes']),
-                    humanBytes((int)$row['mem_total_bytes'])),
+            'beneath_it' =>
+                $number('mem_total_bytes') === null
+                    ? 'not reported'
+                    : sprintf(
+                        '%s available of %s',
+                        humanBytes((int) $row['mem_available_bytes']),
+                        humanBytes((int) $row['mem_total_bytes']),
+                    ),
             'chart' => 'cpuChart',
         ],
         [
@@ -466,26 +569,29 @@ function aiGauges(array $config, PDO $pdo): array
             'verdict' => $band($perCore, 100, 150),
             'watch_above' => 100,
             'urgent_above' => 150,
-            'beneath_it' => $load === null
-                ? 'not reported'
-                : ($cores
-                    ? sprintf('%.2f over %d cores', $load, (int)$cores)
-                    : sprintf('%.2f, cores unknown', $load)),
+            'beneath_it' =>
+                $load === null
+                    ? 'not reported'
+                    : ($cores
+                        ? sprintf('%.2f over %d cores', $load, (int) $cores)
+                        : sprintf('%.2f, cores unknown', $load)),
             'chart' => 'loadChart',
-            'note' => 'The gauge shows load as a percentage of one process per core, so '
-                . '100 means exactly as much work as there are cores. The raw load '
-                . 'average is in beneath_it.',
+            'note' =>
+                'The gauge shows load as a percentage of one process per core, so ' .
+                '100 means exactly as much work as there are cores. The raw load ' .
+                'average is in beneath_it.',
         ],
     ];
 
     return [
-        'measured' => aiWhen((int)$row['taken_at']),
+        'measured' => aiWhen((int) $row['taken_at']),
         'shown_on' => 'overview',
         'gauges' => $gauges,
-        'note' => 'This is what the operator sees at a glance on the front page. The '
-            . 'bands here colour the arcs and are fixed; they are NOT the alert '
-            . 'thresholds, which are configurable and are what sends email. If you '
-            . 'disagree with a verdict, say you are disagreeing with where the band is '
-            . 'drawn rather than stating a different number.',
+        'note' =>
+            'This is what the operator sees at a glance on the front page. The ' .
+            'bands here colour the arcs and are fixed; they are NOT the alert ' .
+            'thresholds, which are configurable and are what sends email. If you ' .
+            'disagree with a verdict, say you are disagreeing with where the band is ' .
+            'drawn rather than stating a different number.',
     ];
 }

@@ -60,7 +60,7 @@ function fileFingerprint(string $path): ?string
         return null;
     }
 
-    $head = (string)@fread($handle, FINGERPRINT_BYTES);
+    $head = (string) @fread($handle, FINGERPRINT_BYTES);
     fclose($handle);
 
     /*
@@ -88,11 +88,17 @@ function criticalSoftware(): array
 {
     $out = [];
 
-    $add = function (string $name, string $label, ?string $value, string $note) use (&$out): void {
+    $add = function (
+        string $name,
+        string $label,
+        ?string $value,
+        string $note,
+    ) use (&$out): void {
         $out[] = [
             'name' => $name,
             'label' => $label,
-            'value' => $value === null || trim($value) === '' ? null : trim($value),
+            'value' =>
+                $value === null || trim($value) === '' ? null : trim($value),
             'note' => $note,
         ];
     };
@@ -105,14 +111,22 @@ function criticalSoftware(): array
      * rebuilds of the same release - and a rebuild is exactly the change that
      * turns up as "nothing changed" in every other record.
      */
-    $add('kernel.release', 'Kernel', readTrimmed('/proc/sys/kernel/osrelease'),
-        'The running kernel. A change here means the machine was rebooted into '
-        . 'something else, whatever the package log says.');
+    $add(
+        'kernel.release',
+        'Kernel',
+        readTrimmed('/proc/sys/kernel/osrelease'),
+        'The running kernel. A change here means the machine was rebooted into ' .
+            'something else, whatever the package log says.',
+    );
 
     $build = readTrimmed('/proc/version');
-    $add('kernel.build', 'Kernel build', $build === null ? null : substr($build, 0, 200),
-        'The full build string, including who built it and when. Two rebuilds of the same '
-        . 'release differ here and nowhere else.');
+    $add(
+        'kernel.build',
+        'Kernel build',
+        $build === null ? null : substr($build, 0, 200),
+        'The full build string, including who built it and when. Two rebuilds of the same ' .
+            'release differ here and nowhere else.',
+    );
 
     /*
      * The distribution, from os-release.
@@ -120,22 +134,38 @@ function criticalSoftware(): array
      * A change here is a major upgrade, which is rarely a surprise but is
      * always worth being able to point at afterwards.
      */
-    $add('os.name', 'Operating system', osReleaseField('PRETTY_NAME'),
-        'The distribution and its release. A change is a major upgrade.');
+    $add(
+        'os.name',
+        'Operating system',
+        osReleaseField('PRETTY_NAME'),
+        'The distribution and its release. A change is a major upgrade.',
+    );
 
     // PHP itself, which is this tool's own floor.
-    $add('php.version', 'PHP', PHP_VERSION,
-        'What this dashboard is running on. A point release can deprecate a function '
-        . 'that half the site depends on.');
+    $add(
+        'php.version',
+        'PHP',
+        PHP_VERSION,
+        'What this dashboard is running on. A point release can deprecate a function ' .
+            'that half the site depends on.',
+    );
 
-    $add('php.extensions', 'PHP extensions', phpExtensionFingerprint(),
-        'A fingerprint over the loaded extension list. It moves when one is added, '
-        . 'removed or replaced - which is how a working site starts returning 500 after '
-        . 'a routine update.');
+    $add(
+        'php.extensions',
+        'PHP extensions',
+        phpExtensionFingerprint(),
+        'A fingerprint over the loaded extension list. It moves when one is added, ' .
+            'removed or replaced - which is how a working site starts returning 500 after ' .
+            'a routine update.',
+    );
 
-    $add('php.ini', 'PHP configuration', configFingerprint(php_ini_loaded_file() ?: ''),
-        'A fingerprint over the loaded php.ini. Changes here are invisible everywhere '
-        . 'else and change how everything behaves.');
+    $add(
+        'php.ini',
+        'PHP configuration',
+        configFingerprint(php_ini_loaded_file() ?: ''),
+        'A fingerprint over the loaded php.ini. Changes here are invisible everywhere ' .
+            'else and change how everything behaves.',
+    );
 
     /*
      * OpenSSL, from the extension rather than from the command.
@@ -144,21 +174,36 @@ function criticalSoftware(): array
      * this tool does, and it is not always the same as whatever `openssl
      * version` prints - a machine can easily have two.
      */
-    $add('openssl.version', 'OpenSSL (as PHP sees it)',
+    $add(
+        'openssl.version',
+        'OpenSSL (as PHP sees it)',
         defined('OPENSSL_VERSION_TEXT') ? OPENSSL_VERSION_TEXT : null,
-        'The library PHP is linked against, which is not always the one the openssl '
-        . 'command reports - a machine can have two.');
+        'The library PHP is linked against, which is not always the one the openssl ' .
+            'command reports - a machine can have two.',
+    );
 
-    $add('sqlite.version', 'SQLite', sqliteVersion(),
-        'What both databases here are stored by.');
+    $add(
+        'sqlite.version',
+        'SQLite',
+        sqliteVersion(),
+        'What both databases here are stored by.',
+    );
 
-    $add('libc.version', 'C library', libcVersion(),
-        'Almost everything on the machine is linked against it, so a change here is a '
-        . 'change to almost everything.');
+    $add(
+        'libc.version',
+        'C library',
+        libcVersion(),
+        'Almost everything on the machine is linked against it, so a change here is a ' .
+            'change to almost everything.',
+    );
 
-    $add('timezone', 'System timezone', readTrimmed('/etc/timezone') ?: date_default_timezone_get(),
-        'A change moves every timestamp on this site relative to every log file on the '
-        . 'machine, which is a confusing hour to spend.');
+    $add(
+        'timezone',
+        'System timezone',
+        readTrimmed('/etc/timezone') ?: date_default_timezone_get(),
+        'A change moves every timestamp on this site relative to every log file on the ' .
+            'machine, which is a confusing hour to spend.',
+    );
 
     return $out;
 }
@@ -205,7 +250,9 @@ function phpExtensionFingerprint(): ?string
     }
 
     sort($loaded);
-    return count($loaded) . ' loaded · ' . substr(hash('sha256', implode(',', $loaded)), 0, 12);
+    return count($loaded) .
+        ' loaded · ' .
+        substr(hash('sha256', implode(',', $loaded)), 0, 12);
 }
 
 /** A marker over a configuration file, or null if it cannot be read. */
@@ -218,8 +265,10 @@ function configFingerprint(string $path): ?string
 function sqliteVersion(): ?string
 {
     try {
-        return (new PDO('sqlite::memory:'))->query('SELECT sqlite_version()')->fetchColumn()
-            ?: null;
+        return new PDO('sqlite::memory:')
+            ->query('SELECT sqlite_version()')
+            ->fetchColumn() ?:
+            null;
     } catch (Throwable) {
         return null;
     }
@@ -235,7 +284,10 @@ function sqliteVersion(): ?string
  */
 function libcVersion(): ?string
 {
-    foreach (['/lib64', '/lib/x86_64-linux-gnu', '/lib/aarch64-linux-gnu', '/lib'] as $directory) {
+    foreach (
+        ['/lib64', '/lib/x86_64-linux-gnu', '/lib/aarch64-linux-gnu', '/lib']
+        as $directory
+    ) {
         foreach (@glob($directory . '/libc-*.so') ?: [] as $path) {
             if (preg_match('/libc-(\d+\.\d+(?:\.\d+)?)\.so$/', $path, $m)) {
                 return 'glibc ' . $m[1];
@@ -266,10 +318,12 @@ function recordSoftware(PDO $pdo, array $items, string $side = 'account'): array
 {
     $before = [];
     try {
-        $rows = $pdo->prepare('SELECT name, value FROM software WHERE side = ?');
+        $rows = $pdo->prepare(
+            'SELECT name, value FROM software WHERE side = ?',
+        );
         $rows->execute([$side]);
         foreach ($rows->fetchAll() as $row) {
-            $before[(string)$row['name']] = (string)$row['value'];
+            $before[(string) $row['name']] = (string) $row['value'];
         }
     } catch (Throwable) {
         return ['changes' => [], 'checked' => 0];
@@ -284,12 +338,12 @@ function recordSoftware(PDO $pdo, array $items, string $side = 'account'): array
          VALUES (:side, :name, :label, :value, :note, :now, :now)
          ON CONFLICT(side, name) DO UPDATE SET
             value = :value, label = :label, note = :note, last_seen = :now,
-            first_seen = CASE WHEN software.value = :value THEN software.first_seen ELSE :now END'
+            first_seen = CASE WHEN software.value = :value THEN software.first_seen ELSE :now END',
     );
 
     $log = $pdo->prepare(
         'INSERT INTO software_changes (at, side, name, label, old_value, new_value)
-         VALUES (?, ?, ?, ?, ?, ?)'
+         VALUES (?, ?, ?, ?, ?, ?)',
     );
 
     $checked = 0;
@@ -317,7 +371,14 @@ function recordSoftware(PDO $pdo, array $items, string $side = 'account'): array
                 'old_value' => $was,
                 'new_value' => $value,
             ];
-            $log->execute([$at, $side, $item['name'], $item['label'], $was, $value]);
+            $log->execute([
+                $at,
+                $side,
+                $item['name'],
+                $item['label'],
+                $was,
+                $value,
+            ]);
         }
 
         $save->execute([
@@ -348,8 +409,13 @@ function softwareHistory(PDO $pdo, int $from, int $to, string $only = ''): array
     $changes = [];
 
     try {
-        foreach ($pdo->query('SELECT * FROM software ORDER BY side, name')->fetchAll() as $row) {
-            $row['age'] = time() - (int)$row['first_seen'];
+        foreach (
+            $pdo
+                ->query('SELECT * FROM software ORDER BY side, name')
+                ->fetchAll()
+            as $row
+        ) {
+            $row['age'] = time() - (int) $row['first_seen'];
             $now[] = $row;
         }
 
@@ -376,10 +442,15 @@ function softwareHistory(PDO $pdo, int $from, int $to, string $only = ''): array
      */
     $names = [];
     try {
-        foreach ($pdo->query(
-            'SELECT name, label, COUNT(*) AS times, MAX(at) AS last
-               FROM software_changes GROUP BY name ORDER BY label'
-        )->fetchAll() as $row) {
+        foreach (
+            $pdo
+                ->query(
+                    'SELECT name, label, COUNT(*) AS times, MAX(at) AS last
+               FROM software_changes GROUP BY name ORDER BY label',
+                )
+                ->fetchAll()
+            as $row
+        ) {
             $names[] = $row;
         }
     } catch (Throwable) {

@@ -47,10 +47,11 @@ function aiProviders(): array
             'label' => 'OpenAI (chat completions)',
             'base' => 'https://api.openai.com/v1',
             'auth' => 'bearer',
-            'note' => 'Also the shape used by Groq, Together, Fireworks, DeepSeek, '
-                . 'OpenRouter and most others. Point the address at theirs. Newer '
-                . 'reasoning models refuse function tools on this endpoint - use the '
-                . 'Responses option below for those.',
+            'note' =>
+                'Also the shape used by Groq, Together, Fireworks, DeepSeek, ' .
+                'OpenRouter and most others. Point the address at theirs. Newer ' .
+                'reasoning models refuse function tools on this endpoint - use the ' .
+                'Responses option below for those.',
             'models' => ['gpt-4o-mini', 'gpt-4o', 'gpt-4.1-mini', 'gpt-4.1'],
         ],
         /*
@@ -66,26 +67,33 @@ function aiProviders(): array
             'label' => 'OpenAI (responses, for reasoning models)',
             'base' => 'https://api.openai.com/v1',
             'auth' => 'bearer',
-            'note' => 'For gpt-5 and other reasoning models, which refuse function tools '
-                . 'on the older chat-completions endpoint unless reasoning is turned off '
-                . 'entirely. Same key, same address, different shape.',
+            'note' =>
+                'For gpt-5 and other reasoning models, which refuse function tools ' .
+                'on the older chat-completions endpoint unless reasoning is turned off ' .
+                'entirely. Same key, same address, different shape.',
             'models' => ['gpt-5.6-luna', 'gpt-5', 'gpt-5-mini', 'o4-mini'],
         ],
         'anthropic' => [
             'label' => 'Anthropic',
             'base' => 'https://api.anthropic.com/v1',
             'auth' => 'x-api-key',
-            'note' => 'Uses its own message format, which this translates to and from.',
-            'models' => ['claude-sonnet-4-5', 'claude-haiku-4-5', 'claude-opus-4-5'],
+            'note' =>
+                'Uses its own message format, which this translates to and from.',
+            'models' => [
+                'claude-sonnet-4-5',
+                'claude-haiku-4-5',
+                'claude-opus-4-5',
+            ],
         ],
         'compatible' => [
             'label' => 'Ollama and OpenAI-compatible',
             'base' => 'http://127.0.0.1:11434/v1',
             'auth' => 'bearer',
-            'note' => 'Ollama, llama.cpp, LM Studio, vLLM, or a gateway of your own. '
-                . 'No API key is required. Use loopback HTTP(S) for a local model, or a '
-                . 'public HTTPS address (including a custom port such as :8443) for a '
-                . 'remote Ollama-compatible server.',
+            'note' =>
+                'Ollama, llama.cpp, LM Studio, vLLM, or a gateway of your own. ' .
+                'No API key is required. Use loopback HTTP(S) for a local model, or a ' .
+                'public HTTPS address (including a custom port such as :8443) for a ' .
+                'remote Ollama-compatible server.',
             'models' => [],
         ],
     ];
@@ -104,24 +112,39 @@ function aiProviders(): array
  *
  * @return array{url: string, resolve: list<string>, local: bool}
  */
-function aiEndpointPolicy(string $provider, string $base, bool $allowQuery = false): array
-{
+function aiEndpointPolicy(
+    string $provider,
+    string $base,
+    bool $allowQuery = false,
+): array {
     $url = rtrim(trim($base), '/');
     $parts = parse_url($url);
-    if ($url === '' || $parts === false || empty($parts['host']) || isset($parts['user'])
-        || isset($parts['pass']) || (!$allowQuery && isset($parts['query'])) || isset($parts['fragment'])) {
+    if (
+        $url === '' ||
+        $parts === false ||
+        empty($parts['host']) ||
+        isset($parts['user']) ||
+        isset($parts['pass']) ||
+        (!$allowQuery && isset($parts['query'])) ||
+        isset($parts['fragment'])
+    ) {
         throw new ActionRefused('the model endpoint must be a plain URL');
     }
-    $scheme = strtolower((string)($parts['scheme'] ?? ''));
-    $host = trim((string)$parts['host'], '[]');
-    $port = (int)($parts['port'] ?? ($scheme === 'https' ? 443 : 80));
+    $scheme = strtolower((string) ($parts['scheme'] ?? ''));
+    $host = trim((string) $parts['host'], '[]');
+    $port = (int) ($parts['port'] ?? ($scheme === 'https' ? 443 : 80));
 
     if ($provider === 'compatible') {
-        if (in_array($scheme, ['http', 'https'], true) && outboundLoopbackHost($host)) {
+        if (
+            in_array($scheme, ['http', 'https'], true) &&
+            outboundLoopbackHost($host)
+        ) {
             return ['url' => $url, 'resolve' => [], 'local' => true];
         }
         if ($scheme !== 'https') {
-            throw new ActionRefused('a remote compatible model must use HTTPS; HTTP is allowed only on loopback');
+            throw new ActionRefused(
+                'a remote compatible model must use HTTPS; HTTP is allowed only on loopback',
+            );
         }
     }
 
@@ -129,12 +152,22 @@ function aiEndpointPolicy(string $provider, string $base, bool $allowQuery = fal
         throw new ActionRefused('hosted model endpoints must use HTTPS');
     }
     $addresses = outboundHostAddresses($host);
-    if ($addresses === [] || array_filter($addresses, 'outboundPublicAddress') !== $addresses) {
-        throw new ActionRefused('the model endpoint must resolve only to public addresses');
+    if (
+        $addresses === [] ||
+        array_filter($addresses, 'outboundPublicAddress') !== $addresses
+    ) {
+        throw new ActionRefused(
+            'the model endpoint must resolve only to public addresses',
+        );
     }
-    return ['url' => $url,
-        'resolve' => array_map(fn(string $address): string => $host . ':' . $port . ':' . $address, $addresses),
-        'local' => false];
+    return [
+        'url' => $url,
+        'resolve' => array_map(
+            fn(string $address): string => $host . ':' . $port . ':' . $address,
+            $addresses,
+        ),
+        'local' => false,
+    ];
 }
 
 /**
@@ -145,39 +178,61 @@ function aiEndpointPolicy(string $provider, string $base, bool $allowQuery = fal
 function aiSettings(array $config): array
 {
     $set = $config['ai'] ?? [];
-    $provider = (string)($set['provider'] ?? 'openai');
+    $provider = (string) ($set['provider'] ?? 'openai');
     $providers = aiProviders();
 
     if (!isset($providers[$provider])) {
         $provider = 'openai';
     }
     $connections = is_array($set['providers'] ?? null) ? $set['providers'] : [];
-    $connection = is_array($connections[$provider] ?? null) ? $connections[$provider] : [];
+    $connection = is_array($connections[$provider] ?? null)
+        ? $connections[$provider]
+        : [];
     /*
      * Older installs have one endpoint and key at the top level.  Keep using
      * that pair for their active provider until it is saved on the Providers
      * page; newly saved connections are isolated by provider.
      */
-    $legacy = $provider === (string)($set['provider'] ?? '');
-    $base = trim((string)($connection['base_url'] ?? ''));
-    if ($base === '' && $legacy) $base = trim((string)($set['base_url'] ?? ''));
-    $key = (string)($connection['api_key'] ?? '');
-    if ($key === '' && $legacy) $key = (string)($set['api_key'] ?? '');
-    $model = trim((string)($set['model'] ?? '')) ?: ($providers[$provider]['models'][0] ?? '');
-    $activePrice = aiKnownPrice(['price_book' => $set['price_book'] ?? [],
-        'known_prices' => $set['known_prices'] ?? []], $provider, $model);
+    $legacy = $provider === (string) ($set['provider'] ?? '');
+    $base = trim((string) ($connection['base_url'] ?? ''));
+    if ($base === '' && $legacy) {
+        $base = trim((string) ($set['base_url'] ?? ''));
+    }
+    $key = (string) ($connection['api_key'] ?? '');
+    if ($key === '' && $legacy) {
+        $key = (string) ($set['api_key'] ?? '');
+    }
+    $model =
+        trim((string) ($set['model'] ?? '')) ?:
+        $providers[$provider]['models'][0] ?? '';
+    $activePrice = aiKnownPrice(
+        [
+            'price_book' => $set['price_book'] ?? [],
+            'known_prices' => $set['known_prices'] ?? [],
+        ],
+        $provider,
+        $model,
+    );
 
     return [
-        'enabled' => coreFeatureEnabled($config, 'assistant') && (bool)($set['enabled'] ?? false),
+        'enabled' =>
+            coreFeatureEnabled($config, 'assistant') &&
+            (bool) ($set['enabled'] ?? false),
         'provider' => $provider,
         'base_url' => $base ?: $providers[$provider]['base'],
         'model' => $model,
         // Never returned to the browser; see aiSettingsView.
         'api_key' => $key,
-        'connections' => array_map(static fn($one): array => [
-            'base_url' => is_array($one) ? trim((string)($one['base_url'] ?? '')) : '',
-            'has_key' => is_array($one) && (string)($one['api_key'] ?? '') !== '',
-        ], $connections),
+        'connections' => array_map(
+            static fn($one): array => [
+                'base_url' => is_array($one)
+                    ? trim((string) ($one['base_url'] ?? ''))
+                    : '',
+                'has_key' =>
+                    is_array($one) && (string) ($one['api_key'] ?? '') !== '',
+            ],
+            $connections,
+        ),
 
         /*
          * Prices per million tokens, in cents.
@@ -186,16 +241,17 @@ function aiSettings(array $config): array
          * reports token counts rather than money. A wrong price is worse than
          * no price, so nothing is guessed from the model name.
          */
-        'price_in' => $activePrice['in'] ?? (float)($set['price_in'] ?? 0),
-        'price_out' => $activePrice['out'] ?? (float)($set['price_out'] ?? 0),
-        'price_cached' => $activePrice['cached'] ?? (float)($set['price_cached'] ?? 0),
+        'price_in' => $activePrice['in'] ?? (float) ($set['price_in'] ?? 0),
+        'price_out' => $activePrice['out'] ?? (float) ($set['price_out'] ?? 0),
+        'price_cached' =>
+            $activePrice['cached'] ?? (float) ($set['price_cached'] ?? 0),
 
         // Limits on one session. Zero means no limit of that kind.
-        'max_seconds' => max(0, (int)($set['max_seconds'] ?? 3600)),
-        'max_cents' => max(0, (float)($set['max_cents'] ?? 50)),
-        'max_turns' => max(0, (int)($set['max_turns'] ?? 40)),
-        'daily_cents' => max(0, (float)($set['daily_cents'] ?? 0)),
-        'monthly_cents' => max(0, (float)($set['monthly_cents'] ?? 0)),
+        'max_seconds' => max(0, (int) ($set['max_seconds'] ?? 3600)),
+        'max_cents' => max(0, (float) ($set['max_cents'] ?? 50)),
+        'max_turns' => max(0, (int) ($set['max_turns'] ?? 40)),
+        'daily_cents' => max(0, (float) ($set['daily_cents'] ?? 0)),
+        'monthly_cents' => max(0, (float) ($set['monthly_cents'] ?? 0)),
 
         /*
          * How hard a reasoning model should think, where it has the option.
@@ -205,9 +261,12 @@ function aiSettings(array $config): array
          * none, which is the error that led to this endpoint being spoken at
          * all.
          */
-        'reasoning_effort' => in_array((string)($set['reasoning_effort'] ?? ''),
-            array_merge([''], aiEffortLevels()), true)
-            ? (string)($set['reasoning_effort'] ?? '')
+        'reasoning_effort' => in_array(
+            (string) ($set['reasoning_effort'] ?? ''),
+            array_merge([''], aiEffortLevels()),
+            true,
+        )
+            ? (string) ($set['reasoning_effort'] ?? '')
             : '',
 
         /*
@@ -219,9 +278,10 @@ function aiSettings(array $config): array
          * provider rejects the request, which is the failure this exists to
          * avoid.
          */
-        'context_tokens' => max(4000, (int)($set['context_tokens'] ?? 128000)),
-        'compact_at' => min(85, max(30, (int)($set['compact_at'] ?? 70))),
-        'compact_automatically' => (bool)($set['compact_automatically'] ?? true),
+        'context_tokens' => max(4000, (int) ($set['context_tokens'] ?? 128000)),
+        'compact_at' => min(85, max(30, (int) ($set['compact_at'] ?? 70))),
+        'compact_automatically' =>
+            (bool) ($set['compact_automatically'] ?? true),
 
         /*
          * Whether recommended commands come with their explanation.
@@ -231,7 +291,7 @@ function aiSettings(array $config): array
          * the way to it - but it is a preference, and somebody who reads shell
          * fluently should be able to turn the commentary off.
          */
-        'explain_commands' => (bool)($set['explain_commands'] ?? true),
+        'explain_commands' => (bool) ($set['explain_commands'] ?? true),
 
         /*
          * Whether it may see what the host has that this account cannot.
@@ -241,7 +301,7 @@ function aiSettings(array $config): array
          * means the operator opening a support ticket. That is often exactly
          * the right move and is nobody's decision but theirs to enable.
          */
-        'host_commands' => (bool)($set['host_commands'] ?? false),
+        'host_commands' => (bool) ($set['host_commands'] ?? false),
 
         /*
          * Prices remembered per provider and model.
@@ -252,7 +312,9 @@ function aiSettings(array $config): array
          * a bill arrives. Remembering them means switching models and switching
          * back does not silently corrupt every cost figure in between.
          */
-        'known_prices' => is_array($set['known_prices'] ?? null) ? $set['known_prices'] : [],
+        'known_prices' => is_array($set['known_prices'] ?? null)
+            ? $set['known_prices']
+            : [],
         'price_book' => aiPriceBook($set),
 
         'tools' => $set['tools'] ?? [],
@@ -264,22 +326,44 @@ function aiSharedBudget(PDO $ai, array $settings, ?int $now = null): array
 {
     $now ??= time();
     $windows = [
-        'daily' => gmmktime(0, 0, 0, (int)gmdate('n', $now), (int)gmdate('j', $now), (int)gmdate('Y', $now)),
-        'monthly' => gmmktime(0, 0, 0, (int)gmdate('n', $now), 1, (int)gmdate('Y', $now)),
+        'daily' => gmmktime(
+            0,
+            0,
+            0,
+            (int) gmdate('n', $now),
+            (int) gmdate('j', $now),
+            (int) gmdate('Y', $now),
+        ),
+        'monthly' => gmmktime(
+            0,
+            0,
+            0,
+            (int) gmdate('n', $now),
+            1,
+            (int) gmdate('Y', $now),
+        ),
     ];
     $limits = [
-        'daily' => (int)round((float)($settings['daily_cents'] ?? 0) * 1000),
-        'monthly' => (int)round((float)($settings['monthly_cents'] ?? 0) * 1000),
+        'daily' => (int) round((float) ($settings['daily_cents'] ?? 0) * 1000),
+        'monthly' => (int) round(
+            (float) ($settings['monthly_cents'] ?? 0) * 1000,
+        ),
     ];
-    $spent = $ai->prepare('SELECT COALESCE(SUM(millicents), 0) FROM ai_calls WHERE at >= ?');
+    $spent = $ai->prepare(
+        'SELECT COALESCE(SUM(millicents), 0) FROM ai_calls WHERE at >= ?',
+    );
     $out = [];
     foreach ($windows as $name => $from) {
         $spent->execute([$from]);
-        $used = (int)$spent->fetchColumn();
+        $used = (int) $spent->fetchColumn();
         $limit = $limits[$name];
-        $out[$name] = ['used_millicents' => $used, 'limit_millicents' => $limit,
-            'remaining_millicents' => $limit === 0 ? null : max(0, $limit - $used),
-            'ok' => $limit === 0 || $used < $limit];
+        $out[$name] = [
+            'used_millicents' => $used,
+            'limit_millicents' => $limit,
+            'remaining_millicents' =>
+                $limit === 0 ? null : max(0, $limit - $used),
+            'ok' => $limit === 0 || $used < $limit,
+        ];
     }
     return $out;
 }
@@ -289,10 +373,15 @@ function aiWithinSharedBudget(PDO $ai, array $settings): array
 {
     foreach (aiSharedBudget($ai, $settings) as $name => $budget) {
         if (!$budget['ok']) {
-            return ['ok' => false, 'which' => $name . '_spend', 'why' => sprintf(
-                'The shared %s AI budget has spent about %s, which is the limit set in Settings.',
-                $name, aiMoney((int)$budget['used_millicents'])
-            )];
+            return [
+                'ok' => false,
+                'which' => $name . '_spend',
+                'why' => sprintf(
+                    'The shared %s AI budget has spent about %s, which is the limit set in Settings.',
+                    $name,
+                    aiMoney((int) $budget['used_millicents']),
+                ),
+            ];
         }
     }
     return ['ok' => true, 'which' => null, 'why' => ''];
@@ -307,49 +396,87 @@ function aiKnownPrice(array $settings, string $provider, string $model): ?array
 {
     $today = gmdate('Y-m-d');
     $book = aiPriceBook($settings);
-    $matches = array_values(array_filter($book, fn(array $row): bool =>
-        $row['provider'] === $provider && $row['model'] === $model
-        && $row['active_from'] <= $today
-        && ($row['retired_on'] === null || $row['retired_on'] >= $today)
-    ));
-    usort($matches, fn(array $a, array $b): int => strcmp($b['active_from'], $a['active_from']));
+    $matches = array_values(
+        array_filter(
+            $book,
+            fn(array $row): bool => $row['provider'] === $provider &&
+                $row['model'] === $model &&
+                $row['active_from'] <= $today &&
+                ($row['retired_on'] === null || $row['retired_on'] >= $today),
+        ),
+    );
+    usort(
+        $matches,
+        fn(array $a, array $b): int => strcmp(
+            $b['active_from'],
+            $a['active_from'],
+        ),
+    );
     if ($matches !== []) {
-        return ['in' => $matches[0]['in'], 'out' => $matches[0]['out'], 'cached' => $matches[0]['cached']];
+        return [
+            'in' => $matches[0]['in'],
+            'out' => $matches[0]['out'],
+            'cached' => $matches[0]['cached'],
+        ];
     }
     $found = $settings['known_prices'][$provider . '/' . $model] ?? null;
 
-    return is_array($found) ? [
-        'in' => (float)($found['in'] ?? 0),
-        'out' => (float)($found['out'] ?? 0),
-        'cached' => (float)($found['cached'] ?? 0),
-    ] : null;
+    return is_array($found)
+        ? [
+            'in' => (float) ($found['in'] ?? 0),
+            'out' => (float) ($found['out'] ?? 0),
+            'cached' => (float) ($found['cached'] ?? 0),
+        ]
+        : null;
 }
 
 /** Dated price records, with legacy provider/model map converted on read. */
 function aiPriceBook(array $settings): array
 {
-    $rows = is_array($settings['price_book'] ?? null) ? $settings['price_book'] : [];
-    foreach ((array)($settings['known_prices'] ?? []) as $key => $price) {
-        [$provider, $model] = array_pad(explode('/', (string)$key, 2), 2, '');
-        if ($provider === '' || $model === '' || !is_array($price)) continue;
-        $found = array_filter($rows, fn(mixed $row): bool => is_array($row)
-            && ($row['provider'] ?? '') === $provider && ($row['model'] ?? '') === $model);
+    $rows = is_array($settings['price_book'] ?? null)
+        ? $settings['price_book']
+        : [];
+    foreach ((array) ($settings['known_prices'] ?? []) as $key => $price) {
+        [$provider, $model] = array_pad(explode('/', (string) $key, 2), 2, '');
+        if ($provider === '' || $model === '' || !is_array($price)) {
+            continue;
+        }
+        $found = array_filter(
+            $rows,
+            fn(mixed $row): bool => is_array($row) &&
+                ($row['provider'] ?? '') === $provider &&
+                ($row['model'] ?? '') === $model,
+        );
         if ($found === []) {
-            $rows[] = ['id' => sha1($key . '|legacy'), 'provider' => $provider, 'model' => $model,
-                'active_from' => '1970-01-01', 'retired_on' => null] + $price;
+            $rows[] =
+                [
+                    'id' => sha1($key . '|legacy'),
+                    'provider' => $provider,
+                    'model' => $model,
+                    'active_from' => '1970-01-01',
+                    'retired_on' => null,
+                ] + $price;
         }
     }
-    return array_values(array_map(fn(array $row): array => [
-        'id' => (string)($row['id'] ?? sha1(json_encode($row))),
-        'provider' => (string)($row['provider'] ?? ''), 'model' => (string)($row['model'] ?? ''),
-        'in' => (float)($row['in'] ?? 0), 'out' => (float)($row['out'] ?? 0),
-        'cached' => (float)($row['cached'] ?? 0),
-        'cache_write_5m' => (float)($row['cache_write_5m'] ?? 0),
-        'cache_write_1h' => (float)($row['cache_write_1h'] ?? 0),
-        'cache_refresh' => (float)($row['cache_refresh'] ?? 0),
-        'active_from' => (string)($row['active_from'] ?? gmdate('Y-m-d')),
-        'retired_on' => ($row['retired_on'] ?? null) ?: null,
-    ], array_filter($rows, 'is_array')));
+    return array_values(
+        array_map(
+            fn(array $row): array => [
+                'id' => (string) ($row['id'] ?? sha1(json_encode($row))),
+                'provider' => (string) ($row['provider'] ?? ''),
+                'model' => (string) ($row['model'] ?? ''),
+                'in' => (float) ($row['in'] ?? 0),
+                'out' => (float) ($row['out'] ?? 0),
+                'cached' => (float) ($row['cached'] ?? 0),
+                'cache_write_5m' => (float) ($row['cache_write_5m'] ?? 0),
+                'cache_write_1h' => (float) ($row['cache_write_1h'] ?? 0),
+                'cache_refresh' => (float) ($row['cache_refresh'] ?? 0),
+                'active_from' =>
+                    (string) ($row['active_from'] ?? gmdate('Y-m-d')),
+                'retired_on' => $row['retired_on'] ?? null ?: null,
+            ],
+            array_filter($rows, 'is_array'),
+        ),
+    );
 }
 
 /** The effort levels, cheapest first. The empty string means "do not send one". */
@@ -390,16 +517,26 @@ function aiReady(array $config): array
     $set = aiSettings($config);
 
     if (!$set['enabled']) {
-        return ['ok' => false, 'why' => aiPersona($config)['name'] . ' is switched off in Settings.'];
+        return [
+            'ok' => false,
+            'why' =>
+                aiPersona($config)['name'] . ' is switched off in Settings.',
+        ];
     }
     if ($set['model'] === '') {
-        return ['ok' => false, 'why' => 'No model has been chosen in Settings.'];
+        return [
+            'ok' => false,
+            'why' => 'No model has been chosen in Settings.',
+        ];
     }
     if ($set['api_key'] === '' && $set['provider'] !== 'compatible') {
         return ['ok' => false, 'why' => 'No API key has been set in Settings.'];
     }
     if (!function_exists('curl_init')) {
-        return ['ok' => false, 'why' => 'This PHP has no curl, so it cannot reach a model.'];
+        return [
+            'ok' => false,
+            'why' => 'This PHP has no curl, so it cannot reach a model.',
+        ];
     }
     try {
         aiEndpointPolicy($set['provider'], $set['base_url']);
@@ -420,14 +557,15 @@ function aiReady(array $config): array
  */
 function aiCost(array $settings, int $in, int $out, int $cached): int
 {
-    $perMillionToMillicents = fn(float $cents): float => $cents * 1000 / 1000000;
+    $perMillionToMillicents = fn(float $cents): float => ($cents * 1000) /
+        1000000;
 
     $total =
-        $in * $perMillionToMillicents($settings['price_in'])
-        + $out * $perMillionToMillicents($settings['price_out'])
-        + $cached * $perMillionToMillicents($settings['price_cached']);
+        $in * $perMillionToMillicents($settings['price_in']) +
+        $out * $perMillionToMillicents($settings['price_out']) +
+        $cached * $perMillionToMillicents($settings['price_cached']);
 
-    return (int)round($total);
+    return (int) round($total);
 }
 
 /** Millicents as something to put on screen. */
@@ -468,16 +606,22 @@ function aiAsk(
     array $messages,
     array $tools,
     ?string $system = null,
-    string $effort = ''
+    string $effort = '',
 ): array {
     $started = microtime(true);
     $provider = $settings['provider'];
 
     try {
-        $endpoint = aiEndpointPolicy($provider, (string)$settings['base_url']);
+        $endpoint = aiEndpointPolicy($provider, (string) $settings['base_url']);
     } catch (ActionRefused $e) {
-        return ['ok' => false, 'error' => $e->getMessage(), 'status' => 0, 'ms' => 0,
-            'request' => null, 'response' => null];
+        return [
+            'ok' => false,
+            'error' => $e->getMessage(),
+            'status' => 0,
+            'ms' => 0,
+            'request' => null,
+            'response' => null,
+        ];
     }
     $settings['base_url'] = $endpoint['url'];
 
@@ -489,22 +633,40 @@ function aiAsk(
      * should be a decision made once, in settings, by whoever pays the bill.
      */
     if ($effort !== '') {
-        $settings['reasoning_effort'] = aiEffortAtMost($effort, $settings['reasoning_effort']);
+        $settings['reasoning_effort'] = aiEffortAtMost(
+            $effort,
+            $settings['reasoning_effort'],
+        );
     }
 
     [$url, $headers, $body] = match ($provider) {
-        'anthropic' => aiAnthropicRequest($settings, $messages, $tools, $system),
-        'openai-responses' => aiResponsesRequest($settings, $messages, $tools, $system),
+        'anthropic' => aiAnthropicRequest(
+            $settings,
+            $messages,
+            $tools,
+            $system,
+        ),
+        'openai-responses' => aiResponsesRequest(
+            $settings,
+            $messages,
+            $tools,
+            $system,
+        ),
         default => aiOpenAiRequest($settings, $messages, $tools, $system),
     };
 
     $handle = curl_init($url);
-    $protocols = $endpoint['local'] ? CURLPROTO_HTTP | CURLPROTO_HTTPS : CURLPROTO_HTTPS;
+    $protocols = $endpoint['local']
+        ? CURLPROTO_HTTP | CURLPROTO_HTTPS
+        : CURLPROTO_HTTPS;
     curl_setopt_array($handle, [
         CURLOPT_POST => true,
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_HTTPHEADER => $headers,
-        CURLOPT_POSTFIELDS => json_encode($body, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
+        CURLOPT_POSTFIELDS => json_encode(
+            $body,
+            JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE,
+        ),
         CURLOPT_TIMEOUT => AI_TIMEOUT,
         CURLOPT_CONNECTTIMEOUT => 15,
         CURLOPT_PROTOCOLS => $protocols,
@@ -519,7 +681,7 @@ function aiAsk(
     ]);
 
     $raw = curl_exec($handle);
-    $status = (int)curl_getinfo($handle, CURLINFO_RESPONSE_CODE);
+    $status = (int) curl_getinfo($handle, CURLINFO_RESPONSE_CODE);
     $problem = curl_error($handle);
     /*
      * No curl_close: it has done nothing since PHP 8.0 and is deprecated from
@@ -529,12 +691,15 @@ function aiAsk(
      * host filled its log with it.
      */
 
-    $ms = (int)round((microtime(true) - $started) * 1000);
+    $ms = (int) round((microtime(true) - $started) * 1000);
 
     if ($raw === false) {
         return [
             'ok' => false,
-            'error' => $problem !== '' ? aiRedactErrorText($problem) : 'the request failed',
+            'error' =>
+                $problem !== ''
+                    ? aiRedactErrorText($problem)
+                    : 'the request failed',
             'status' => $status,
             'ms' => $ms,
             'request' => $body,
@@ -542,7 +707,7 @@ function aiAsk(
         ];
     }
 
-    $decoded = json_decode((string)$raw, true);
+    $decoded = json_decode((string) $raw, true);
 
     if (!is_array($decoded)) {
         return [
@@ -551,7 +716,9 @@ function aiAsk(
             'status' => $status,
             'ms' => $ms,
             'request' => $body,
-            'response' => ['raw' => mb_substr(aiRedactErrorText((string)$raw), 0, 2000)],
+            'response' => [
+                'raw' => mb_substr(aiRedactErrorText((string) $raw), 0, 2000),
+            ],
         ];
     }
 
@@ -585,7 +752,10 @@ function aiAsk(
 /** Whatever the provider called the problem, in one line. */
 function aiErrorText(array $decoded, int $status): string
 {
-    foreach ([['error', 'message'], ['error', 'type'], ['message'], ['detail']] as $path) {
+    foreach (
+        [['error', 'message'], ['error', 'type'], ['message'], ['detail']]
+        as $path
+    ) {
         $at = $decoded;
         foreach ($path as $key) {
             if (!is_array($at) || !isset($at[$key])) {
@@ -607,11 +777,12 @@ function aiRedactErrorText(string $text): string
 {
     $patterns = [
         '/(authorization\s*:\s*bearer\s+)\S+/i' => '$1[hidden]',
-        '/((?:api[-_]?key|access[-_]?key|token|secret|password)\s*[=:]\s*["\']?)\S+/i' => '$1[hidden]',
+        '/((?:api[-_]?key|access[-_]?key|token|secret|password)\s*[=:]\s*["\']?)\S+/i' =>
+            '$1[hidden]',
         '/\b(?:sk|rk|AIza)[-_A-Za-z0-9]{16,}\b/' => '[hidden]',
     ];
     foreach ($patterns as $pattern => $replacement) {
-        $text = (string)preg_replace($pattern, $replacement, $text);
+        $text = (string) preg_replace($pattern, $replacement, $text);
     }
     return mb_substr(trim($text), 0, 800);
 }
@@ -621,8 +792,13 @@ function aiRedactErrorPayload(array $payload): array
 {
     $clean = [];
     foreach ($payload as $key => $value) {
-        $name = strtolower((string)$key);
-        if (preg_match('/(?:api[-_]?key|access[-_]?key|token|secret|password|authorization)/', $name)) {
+        $name = strtolower((string) $key);
+        if (
+            preg_match(
+                '/(?:api[-_]?key|access[-_]?key|token|secret|password|authorization)/',
+                $name,
+            )
+        ) {
             $clean[$key] = '[hidden]';
         } elseif (is_array($value)) {
             $clean[$key] = aiRedactErrorPayload($value);
@@ -636,8 +812,12 @@ function aiRedactErrorPayload(array $payload): array
 }
 
 /** @return array{0: string, 1: list<string>, 2: array} */
-function aiOpenAiRequest(array $settings, array $messages, array $tools, ?string $system): array
-{
+function aiOpenAiRequest(
+    array $settings,
+    array $messages,
+    array $tools,
+    ?string $system,
+): array {
     $out = [];
 
     foreach ($messages as $message) {
@@ -645,10 +825,12 @@ function aiOpenAiRequest(array $settings, array $messages, array $tools, ?string
         if (isset($message['image'])) {
             $out[] = [
                 'role' => 'user',
-                'content' => [[
-                    'type' => 'image_url',
-                    'image_url' => ['url' => (string)$message['image']],
-                ]],
+                'content' => [
+                    [
+                        'type' => 'image_url',
+                        'image_url' => ['url' => (string) $message['image']],
+                    ],
+                ],
             ];
             continue;
         }
@@ -657,9 +839,13 @@ function aiOpenAiRequest(array $settings, array $messages, array $tools, ?string
 
     $body = [
         'model' => $settings['model'],
-        'messages' => $system === null
-            ? $out
-            : array_merge([['role' => 'system', 'content' => $system]], $out),
+        'messages' =>
+            $system === null
+                ? $out
+                : array_merge(
+                    [['role' => 'system', 'content' => $system]],
+                    $out,
+                ),
     ];
 
     if ($tools !== []) {
@@ -672,7 +858,11 @@ function aiOpenAiRequest(array $settings, array $messages, array $tools, ?string
         $headers[] = 'Authorization: Bearer ' . $settings['api_key'];
     }
 
-    return [rtrim($settings['base_url'], '/') . '/chat/completions', $headers, $body];
+    return [
+        rtrim($settings['base_url'], '/') . '/chat/completions',
+        $headers,
+        $body,
+    ];
 }
 
 /**
@@ -689,8 +879,8 @@ function aiOpenAiReply(array $decoded): array
     foreach ($choice['tool_calls'] ?? [] as $call) {
         $arguments = $call['function']['arguments'] ?? '{}';
         $calls[] = [
-            'id' => (string)($call['id'] ?? uniqid('call_', true)),
-            'name' => (string)($call['function']['name'] ?? ''),
+            'id' => (string) ($call['id'] ?? uniqid('call_', true)),
+            'name' => (string) ($call['function']['name'] ?? ''),
             /*
              * Arguments arrive as a JSON string, and sometimes an invalid one.
              *
@@ -701,23 +891,29 @@ function aiOpenAiReply(array $decoded): array
              */
             'arguments' => is_array($arguments)
                 ? $arguments
-                : (json_decode((string)$arguments, true) ?: []),
+                : (json_decode((string) $arguments, true) ?:
+                []),
         ];
     }
 
     return [
-        'text' => (string)($choice['content'] ?? ''),
+        'text' => (string) ($choice['content'] ?? ''),
         'tool_calls' => $calls,
-        'finish' => (string)($decoded['choices'][0]['finish_reason'] ?? ''),
-        'tokens_in' => (int)($usage['prompt_tokens'] ?? 0),
-        'tokens_out' => (int)($usage['completion_tokens'] ?? 0),
-        'tokens_cached' => (int)($usage['prompt_tokens_details']['cached_tokens'] ?? 0),
+        'finish' => (string) ($decoded['choices'][0]['finish_reason'] ?? ''),
+        'tokens_in' => (int) ($usage['prompt_tokens'] ?? 0),
+        'tokens_out' => (int) ($usage['completion_tokens'] ?? 0),
+        'tokens_cached' =>
+            (int) ($usage['prompt_tokens_details']['cached_tokens'] ?? 0),
     ];
 }
 
 /** @return array{0: string, 1: list<string>, 2: array} */
-function aiAnthropicRequest(array $settings, array $messages, array $tools, ?string $system): array
-{
+function aiAnthropicRequest(
+    array $settings,
+    array $messages,
+    array $tools,
+    ?string $system,
+): array {
     /*
      * Anthropic keeps the system prompt out of the message list and names tool
      * results differently. Translated here rather than storing two shapes.
@@ -728,47 +924,72 @@ function aiAnthropicRequest(array $settings, array $messages, array $tools, ?str
             /*
              * Anthropic wants the bytes and the type separately, not a data URL.
              */
-            $url = (string)$message['image'];
+            $url = (string) $message['image'];
             if (preg_match('#^data:(image/[a-z]+);base64,(.*)$#s', $url, $m)) {
-                $out[] = ['role' => 'user', 'content' => [[
-                    'type' => 'image',
-                    'source' => [
-                        'type' => 'base64',
-                        'media_type' => $m[1],
-                        'data' => $m[2],
+                $out[] = [
+                    'role' => 'user',
+                    'content' => [
+                        [
+                            'type' => 'image',
+                            'source' => [
+                                'type' => 'base64',
+                                'media_type' => $m[1],
+                                'data' => $m[2],
+                            ],
+                        ],
                     ],
-                ]]];
+                ];
             }
             continue;
         }
 
         if (($message['role'] ?? '') === 'tool') {
-            $out[] = ['role' => 'user', 'content' => [[
-                'type' => 'tool_result',
-                'tool_use_id' => (string)($message['tool_call_id'] ?? ''),
-                'content' => (string)($message['content'] ?? ''),
-            ]]];
+            $out[] = [
+                'role' => 'user',
+                'content' => [
+                    [
+                        'type' => 'tool_result',
+                        'tool_use_id' =>
+                            (string) ($message['tool_call_id'] ?? ''),
+                        'content' => (string) ($message['content'] ?? ''),
+                    ],
+                ],
+            ];
             continue;
         }
 
-        if (($message['role'] ?? '') === 'assistant' && !empty($message['tool_calls'])) {
+        if (
+            ($message['role'] ?? '') === 'assistant' &&
+            !empty($message['tool_calls'])
+        ) {
             $blocks = [];
             if (($message['content'] ?? '') !== '') {
-                $blocks[] = ['type' => 'text', 'text' => (string)$message['content']];
+                $blocks[] = [
+                    'type' => 'text',
+                    'text' => (string) $message['content'],
+                ];
             }
             foreach ($message['tool_calls'] as $call) {
                 $blocks[] = [
                     'type' => 'tool_use',
-                    'id' => (string)$call['id'],
-                    'name' => (string)$call['function']['name'],
-                    'input' => json_decode((string)$call['function']['arguments'], true) ?: (object)[],
+                    'id' => (string) $call['id'],
+                    'name' => (string) $call['function']['name'],
+                    'input' =>
+                        json_decode(
+                            (string) $call['function']['arguments'],
+                            true,
+                        ) ?:
+                        (object) [],
                 ];
             }
             $out[] = ['role' => 'assistant', 'content' => $blocks];
             continue;
         }
 
-        $out[] = ['role' => $message['role'], 'content' => (string)($message['content'] ?? '')];
+        $out[] = [
+            'role' => $message['role'],
+            'content' => (string) ($message['content'] ?? ''),
+        ];
     }
 
     $body = [
@@ -782,11 +1003,14 @@ function aiAnthropicRequest(array $settings, array $messages, array $tools, ?str
     }
 
     if ($tools !== []) {
-        $body['tools'] = array_map(fn(array $tool): array => [
-            'name' => $tool['function']['name'],
-            'description' => $tool['function']['description'],
-            'input_schema' => $tool['function']['parameters'],
-        ], $tools);
+        $body['tools'] = array_map(
+            fn(array $tool): array => [
+                'name' => $tool['function']['name'],
+                'description' => $tool['function']['description'],
+                'input_schema' => $tool['function']['parameters'],
+            ],
+            $tools,
+        );
     }
 
     return [
@@ -808,13 +1032,15 @@ function aiAnthropicReply(array $decoded): array
 
     foreach ($decoded['content'] ?? [] as $block) {
         if (($block['type'] ?? '') === 'text') {
-            $text .= (string)($block['text'] ?? '');
+            $text .= (string) ($block['text'] ?? '');
         }
         if (($block['type'] ?? '') === 'tool_use') {
             $calls[] = [
-                'id' => (string)($block['id'] ?? uniqid('call_', true)),
-                'name' => (string)($block['name'] ?? ''),
-                'arguments' => is_array($block['input'] ?? null) ? $block['input'] : [],
+                'id' => (string) ($block['id'] ?? uniqid('call_', true)),
+                'name' => (string) ($block['name'] ?? ''),
+                'arguments' => is_array($block['input'] ?? null)
+                    ? $block['input']
+                    : [],
             ];
         }
     }
@@ -824,10 +1050,10 @@ function aiAnthropicReply(array $decoded): array
     return [
         'text' => $text,
         'tool_calls' => $calls,
-        'finish' => (string)($decoded['stop_reason'] ?? ''),
-        'tokens_in' => (int)($usage['input_tokens'] ?? 0),
-        'tokens_out' => (int)($usage['output_tokens'] ?? 0),
-        'tokens_cached' => (int)($usage['cache_read_input_tokens'] ?? 0),
+        'finish' => (string) ($decoded['stop_reason'] ?? ''),
+        'tokens_in' => (int) ($usage['input_tokens'] ?? 0),
+        'tokens_out' => (int) ($usage['output_tokens'] ?? 0),
+        'tokens_cached' => (int) ($usage['cache_read_input_tokens'] ?? 0),
     ];
 }
 
@@ -841,29 +1067,35 @@ function aiAnthropicReply(array $decoded): array
  *
  * @return array{0: string, 1: list<string>, 2: array}
  */
-function aiResponsesRequest(array $settings, array $messages, array $tools, ?string $system): array
-{
+function aiResponsesRequest(
+    array $settings,
+    array $messages,
+    array $tools,
+    ?string $system,
+): array {
     $input = [];
 
     foreach ($messages as $message) {
         if (isset($message['image'])) {
             $input[] = [
                 'role' => 'user',
-                'content' => [[
-                    'type' => 'input_image',
-                    'image_url' => (string)$message['image'],
-                ]],
+                'content' => [
+                    [
+                        'type' => 'input_image',
+                        'image_url' => (string) $message['image'],
+                    ],
+                ],
             ];
             continue;
         }
 
-        $role = (string)($message['role'] ?? 'user');
+        $role = (string) ($message['role'] ?? 'user');
 
         if ($role === 'tool') {
             $input[] = [
                 'type' => 'function_call_output',
-                'call_id' => (string)($message['tool_call_id'] ?? ''),
-                'output' => (string)($message['content'] ?? ''),
+                'call_id' => (string) ($message['tool_call_id'] ?? ''),
+                'output' => (string) ($message['content'] ?? ''),
             ];
             continue;
         }
@@ -878,17 +1110,21 @@ function aiResponsesRequest(array $settings, array $messages, array $tools, ?str
             if (($message['content'] ?? '') !== '') {
                 $input[] = [
                     'role' => 'assistant',
-                    'content' => [['type' => 'output_text',
-                                   'text' => (string)$message['content']]],
+                    'content' => [
+                        [
+                            'type' => 'output_text',
+                            'text' => (string) $message['content'],
+                        ],
+                    ],
                 ];
             }
 
             foreach ($message['tool_calls'] as $call) {
                 $input[] = [
                     'type' => 'function_call',
-                    'call_id' => (string)$call['id'],
-                    'name' => (string)$call['function']['name'],
-                    'arguments' => (string)$call['function']['arguments'],
+                    'call_id' => (string) $call['id'],
+                    'name' => (string) $call['function']['name'],
+                    'arguments' => (string) $call['function']['arguments'],
                 ];
             }
             continue;
@@ -896,10 +1132,13 @@ function aiResponsesRequest(array $settings, array $messages, array $tools, ?str
 
         $input[] = [
             'role' => $role,
-            'content' => [[
-                'type' => $role === 'assistant' ? 'output_text' : 'input_text',
-                'text' => (string)($message['content'] ?? ''),
-            ]],
+            'content' => [
+                [
+                    'type' =>
+                        $role === 'assistant' ? 'output_text' : 'input_text',
+                    'text' => (string) ($message['content'] ?? ''),
+                ],
+            ],
         ];
     }
 
@@ -914,21 +1153,24 @@ function aiResponsesRequest(array $settings, array $messages, array $tools, ?str
     }
 
     if ($tools !== []) {
-        $body['tools'] = array_map(fn(array $tool): array => [
-            'type' => 'function',
-            'name' => $tool['function']['name'],
-            'description' => $tool['function']['description'],
-            'parameters' => $tool['function']['parameters'],
-            /*
-             * Strict mode, since this endpoint offers it.
-             *
-             * The schemas here already say additionalProperties: false and list
-             * every required field, which is what strict mode needs - so the
-             * model is constrained to produce valid arguments rather than being
-             * told off for invalid ones afterwards.
-             */
-            'strict' => true,
-        ], $tools);
+        $body['tools'] = array_map(
+            fn(array $tool): array => [
+                'type' => 'function',
+                'name' => $tool['function']['name'],
+                'description' => $tool['function']['description'],
+                'parameters' => $tool['function']['parameters'],
+                /*
+                 * Strict mode, since this endpoint offers it.
+                 *
+                 * The schemas here already say additionalProperties: false and list
+                 * every required field, which is what strict mode needs - so the
+                 * model is constrained to produce valid arguments rather than being
+                 * told off for invalid ones afterwards.
+                 */
+                'strict' => true,
+            ],
+            $tools,
+        );
         $body['tool_choice'] = 'auto';
     }
 
@@ -951,12 +1193,12 @@ function aiResponsesReply(array $decoded): array
     $calls = [];
 
     foreach ($decoded['output'] ?? [] as $item) {
-        $type = (string)($item['type'] ?? '');
+        $type = (string) ($item['type'] ?? '');
 
         if ($type === 'message') {
             foreach ($item['content'] ?? [] as $block) {
                 if (($block['type'] ?? '') === 'output_text') {
-                    $text .= (string)($block['text'] ?? '');
+                    $text .= (string) ($block['text'] ?? '');
                 }
             }
             continue;
@@ -965,11 +1207,14 @@ function aiResponsesReply(array $decoded): array
         if ($type === 'function_call') {
             $arguments = $item['arguments'] ?? '{}';
             $calls[] = [
-                'id' => (string)($item['call_id'] ?? $item['id'] ?? uniqid('call_', true)),
-                'name' => (string)($item['name'] ?? ''),
+                'id' =>
+                    (string) ($item['call_id'] ??
+                        ($item['id'] ?? uniqid('call_', true))),
+                'name' => (string) ($item['name'] ?? ''),
                 'arguments' => is_array($arguments)
                     ? $arguments
-                    : (json_decode((string)$arguments, true) ?: []),
+                    : (json_decode((string) $arguments, true) ?:
+                    []),
             ];
         }
     }
@@ -979,9 +1224,9 @@ function aiResponsesReply(array $decoded): array
     return [
         'text' => $text,
         'tool_calls' => $calls,
-        'finish' => (string)($decoded['status'] ?? ''),
-        'tokens_in' => (int)($usage['input_tokens'] ?? 0),
-        'tokens_out' => (int)($usage['output_tokens'] ?? 0),
+        'finish' => (string) ($decoded['status'] ?? ''),
+        'tokens_in' => (int) ($usage['input_tokens'] ?? 0),
+        'tokens_out' => (int) ($usage['output_tokens'] ?? 0),
         /*
          * Reasoning tokens are billed as output and are invisible otherwise.
          *
@@ -990,7 +1235,9 @@ function aiResponsesReply(array $decoded): array
          * models this endpoint exists for. They are already inside
          * output_tokens, so this is reported rather than added.
          */
-        'tokens_reasoning' => (int)($usage['output_tokens_details']['reasoning_tokens'] ?? 0),
-        'tokens_cached' => (int)($usage['input_tokens_details']['cached_tokens'] ?? 0),
+        'tokens_reasoning' =>
+            (int) ($usage['output_tokens_details']['reasoning_tokens'] ?? 0),
+        'tokens_cached' =>
+            (int) ($usage['input_tokens_details']['cached_tokens'] ?? 0),
     ];
 }

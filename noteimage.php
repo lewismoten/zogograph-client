@@ -28,7 +28,7 @@ if (!is_file($configFile)) {
 
 require_once __DIR__ . '/lib/setupstore.php';
 $config = loadConfiguredSettings($configFile);
-define('DISKMON_LOG', dirname((string)$config['database']) . '/error.log');
+define('DISKMON_LOG', dirname((string) $config['database']) . '/error.log');
 
 require_once __DIR__ . '/lib/db.php';
 require_once __DIR__ . '/lib/auth.php';
@@ -43,7 +43,7 @@ if (!isSignedIn() || !accessAllows($config, 'notes')) {
     exit('Sign in to see this.');
 }
 
-$id = (int)($_GET['id'] ?? 0);
+$id = (int) ($_GET['id'] ?? 0);
 if ($id <= 0) {
     http_response_code(400);
     exit('No picture asked for.');
@@ -54,7 +54,9 @@ if (noteForSnapshot($pdo, $config, $id) === null) {
     http_response_code(403);
     exit('That picture is not available to your group.');
 }
-$stmt = $pdo->prepare("SELECT body, at FROM note_snapshots WHERE id = ? AND kind = 'image'");
+$stmt = $pdo->prepare(
+    "SELECT body, at FROM note_snapshots WHERE id = ? AND kind = 'image'",
+);
 $stmt->execute([$id]);
 $row = $stmt->fetch();
 
@@ -63,7 +65,7 @@ if ($row === false) {
     exit('No such picture.');
 }
 
-$bytes = (string)$row['body'];
+$bytes = (string) $row['body'];
 
 if (!str_starts_with($bytes, "\x89PNG\r\n\x1a\n")) {
     http_response_code(422);

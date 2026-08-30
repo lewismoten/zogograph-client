@@ -48,24 +48,47 @@ require_once __DIR__ . '/collect.php';
 function defaultDaemons(): array
 {
     return [
-        ['name' => 'httpd', 'label' => 'Apache (httpd)',
-         'units' => ['httpd', 'apache2'], 'processes' => ['httpd', 'apache2']],
+        [
+            'name' => 'httpd',
+            'label' => 'Apache (httpd)',
+            'units' => ['httpd', 'apache2'],
+            'processes' => ['httpd', 'apache2'],
+        ],
 
-        ['name' => 'mariadb', 'label' => 'MariaDB / MySQL',
-         'units' => ['mariadb', 'mysql', 'mysqld'],
-         'processes' => ['mariadbd', 'mysqld']],
+        [
+            'name' => 'mariadb',
+            'label' => 'MariaDB / MySQL',
+            'units' => ['mariadb', 'mysql', 'mysqld'],
+            'processes' => ['mariadbd', 'mysqld'],
+        ],
 
-        ['name' => 'forgejo', 'label' => 'Forgejo',
-         'units' => ['forgejo', 'gitea'], 'processes' => ['forgejo', 'gitea']],
+        [
+            'name' => 'forgejo',
+            'label' => 'Forgejo',
+            'units' => ['forgejo', 'gitea'],
+            'processes' => ['forgejo', 'gitea'],
+        ],
 
-        ['name' => 'mongod', 'label' => 'MongoDB',
-         'units' => ['mongod'], 'processes' => ['mongod']],
+        [
+            'name' => 'mongod',
+            'label' => 'MongoDB',
+            'units' => ['mongod'],
+            'processes' => ['mongod'],
+        ],
 
-        ['name' => 'redis', 'label' => 'Redis',
-         'units' => ['redis', 'redis-server'], 'processes' => ['redis-server', 'redis']],
+        [
+            'name' => 'redis',
+            'label' => 'Redis',
+            'units' => ['redis', 'redis-server'],
+            'processes' => ['redis-server', 'redis'],
+        ],
 
-        ['name' => 'icecast', 'label' => 'Icecast',
-         'units' => ['icecast', 'icecast2'], 'processes' => ['icecast', 'icecast2']],
+        [
+            'name' => 'icecast',
+            'label' => 'Icecast',
+            'units' => ['icecast', 'icecast2'],
+            'processes' => ['icecast', 'icecast2'],
+        ],
 
         /*
          * PHP-FPM is several services on cPanel - one per installed PHP
@@ -73,19 +96,34 @@ function defaultDaemons(): array
          * "Running" here means at least one pool is up; the count is what tells
          * you a version disappeared.
          */
-        ['name' => 'php-fpm', 'label' => 'PHP-FPM',
-         'units' => ['ea-php*-php-fpm', 'php*-fpm', 'php-fpm'],
-         'processes' => ['php-fpm'], 'many' => true],
+        [
+            'name' => 'php-fpm',
+            'label' => 'PHP-FPM',
+            'units' => ['ea-php*-php-fpm', 'php*-fpm', 'php-fpm'],
+            'processes' => ['php-fpm'],
+            'many' => true,
+        ],
 
-        ['name' => 'exim', 'label' => 'Mail — outgoing (Exim)',
-         'units' => ['exim', 'postfix'], 'processes' => ['exim', 'master']],
+        [
+            'name' => 'exim',
+            'label' => 'Mail — outgoing (Exim)',
+            'units' => ['exim', 'postfix'],
+            'processes' => ['exim', 'master'],
+        ],
 
-        ['name' => 'dovecot', 'label' => 'Mail — mailboxes (Dovecot)',
-         'units' => ['dovecot'], 'processes' => ['dovecot']],
+        [
+            'name' => 'dovecot',
+            'label' => 'Mail — mailboxes (Dovecot)',
+            'units' => ['dovecot'],
+            'processes' => ['dovecot'],
+        ],
 
-        ['name' => 'dns', 'label' => 'DNS (BIND / PowerDNS)',
-         'units' => ['named', 'bind9', 'pdns'],
-         'processes' => ['named', 'pdns_server']],
+        [
+            'name' => 'dns',
+            'label' => 'DNS (BIND / PowerDNS)',
+            'units' => ['named', 'bind9', 'pdns'],
+            'processes' => ['named', 'pdns_server'],
+        ],
     ];
 }
 
@@ -108,7 +146,11 @@ function daemonDefinitions(array $config): array
         if (!is_array($row) || !isset($row['name'])) {
             continue;
         }
-        $out[] = $row + ['label' => (string)$row['name'], 'units' => [], 'processes' => []];
+        $out[] = $row + [
+            'label' => (string) $row['name'],
+            'units' => [],
+            'processes' => [],
+        ];
     }
 
     return $out ?: defaultDaemons();
@@ -130,7 +172,9 @@ function daemonDefinitions(array $config): array
 function daemonWatch(PDO $pdo): array
 {
     try {
-        $rows = $pdo->query('SELECT name, watched FROM daemon_watch')->fetchAll(PDO::FETCH_KEY_PAIR);
+        $rows = $pdo
+            ->query('SELECT name, watched FROM daemon_watch')
+            ->fetchAll(PDO::FETCH_KEY_PAIR);
     } catch (Throwable) {
         // The table arrives in a migration; an older database simply has no
         // choices recorded, which means everything is watched.
@@ -139,7 +183,7 @@ function daemonWatch(PDO $pdo): array
 
     $out = [];
     foreach ($rows as $name => $watched) {
-        $out[(string)$name] = (bool)$watched;
+        $out[(string) $name] = (bool) $watched;
     }
 
     return $out;
@@ -150,8 +194,12 @@ function setDaemonWatch(PDO $pdo, string $name, bool $watched): void
 {
     $pdo->prepare(
         'INSERT INTO daemon_watch (name, watched, changed_at) VALUES (:name, :watched, :at)
-         ON CONFLICT(name) DO UPDATE SET watched = :watched, changed_at = :at'
-    )->execute(['name' => $name, 'watched' => $watched ? 1 : 0, 'at' => time()]);
+         ON CONFLICT(name) DO UPDATE SET watched = :watched, changed_at = :at',
+    )->execute([
+        'name' => $name,
+        'watched' => $watched ? 1 : 0,
+        'at' => time(),
+    ]);
 }
 
 /**
@@ -170,7 +218,7 @@ function setDaemonWatch(PDO $pdo, string $name, bool $watched): void
  */
 function daemonWatchFromConfig(array $config): array
 {
-    $file = (string)($config['database'] ?? '');
+    $file = (string) ($config['database'] ?? '');
     if ($file === '' || !is_file($file) || !is_readable($file)) {
         return [];
     }
@@ -198,10 +246,12 @@ function daemonWatchFromConfig(array $config): array
  */
 function watchedDaemons(array $definitions, array $watch): array
 {
-    return array_values(array_filter(
-        $definitions,
-        fn(array $d): bool => $watch[(string)$d['name']] ?? true
-    ));
+    return array_values(
+        array_filter(
+            $definitions,
+            fn(array $d): bool => $watch[(string) $d['name']] ?? true,
+        ),
+    );
 }
 
 /* ------------------------------------------------------------------ *
@@ -218,7 +268,9 @@ function watchedDaemons(array $definitions, array $watch): array
  */
 function systemdUnits(): ?array
 {
-    $out = shellRead('systemctl list-units --type=service --all --no-legend --plain 2>/dev/null');
+    $out = shellRead(
+        'systemctl list-units --type=service --all --no-legend --plain 2>/dev/null',
+    );
     if ($out === null) {
         return null;
     }
@@ -275,10 +327,11 @@ function systemdProperties(array $units): ?array
     }
 
     $out = shellRead(
-        'systemctl show ' . implode(' ', $safe)
-        . ' --property=Id,ActiveState,SubState,NRestarts,ExecMainPID'
-        . ',ActiveEnterTimestampMonotonic,ActiveEnterTimestamp'
-        . ' --timestamp=unix 2>/dev/null'
+        'systemctl show ' .
+            implode(' ', $safe) .
+            ' --property=Id,ActiveState,SubState,NRestarts,ExecMainPID' .
+            ',ActiveEnterTimestampMonotonic,ActiveEnterTimestamp' .
+            ' --timestamp=unix 2>/dev/null',
     );
     if ($out === null) {
         return null;
@@ -290,7 +343,9 @@ function systemdProperties(array $units): ?array
         $line = trim($line);
         if ($line === '') {
             if (isset($current['Id'])) {
-                $blocks[preg_replace('/\.service$/', '', $current['Id'])] = $current;
+                $blocks[
+                    preg_replace('/\.service$/', '', $current['Id'])
+                ] = $current;
             }
             $current = [];
             continue;
@@ -320,14 +375,14 @@ function systemdProperties(array $units): ?array
  */
 function daemonStartedAt(array $properties, ?int $bootAt): ?int
 {
-    $stamp = (string)($properties['ActiveEnterTimestamp'] ?? '');
+    $stamp = (string) ($properties['ActiveEnterTimestamp'] ?? '');
     if (preg_match('/^@?(\d{9,})$/', $stamp, $m)) {
-        return (int)$m[1];
+        return (int) $m[1];
     }
 
-    $monotonic = (int)($properties['ActiveEnterTimestampMonotonic'] ?? 0);
+    $monotonic = (int) ($properties['ActiveEnterTimestampMonotonic'] ?? 0);
     if ($monotonic > 0 && $bootAt !== null) {
-        return $bootAt + (int)($monotonic / 1000000);
+        return $bootAt + (int) ($monotonic / 1000000);
     }
 
     return null;
@@ -356,11 +411,11 @@ function daemonStates(
     array $procs,
     ?array $units,
     array $properties = [],
-    ?int $bootAt = null
+    ?int $bootAt = null,
 ): array {
     $running = [];
     foreach ($procs as $proc) {
-        $name = (string)($proc['name'] ?? '');
+        $name = (string) ($proc['name'] ?? '');
         if ($name === '') {
             continue;
         }
@@ -369,20 +424,23 @@ function daemonStates(
 
     $out = [];
     foreach ($definitions as $definition) {
-        $matched = $units === null ? [] : matchUnits($units, (array)($definition['units'] ?? []));
+        $matched =
+            $units === null
+                ? []
+                : matchUnits($units, (array) ($definition['units'] ?? []));
 
         $procMatches = [];
-        foreach ((array)($definition['processes'] ?? []) as $pattern) {
+        foreach ((array) ($definition['processes'] ?? []) as $pattern) {
             foreach ($running[$pattern] ?? [] as $proc) {
                 $procMatches[] = $proc;
             }
         }
 
         $row = [
-            'name' => (string)$definition['name'],
-            'label' => (string)($definition['label'] ?? $definition['name']),
+            'name' => (string) $definition['name'],
+            'label' => (string) ($definition['label'] ?? $definition['name']),
             'procs' => count($procMatches),
-            'pid' => $procMatches ? (int)($procMatches[0]['pid'] ?? 0) : null,
+            'pid' => $procMatches ? (int) ($procMatches[0]['pid'] ?? 0) : null,
             'unit' => null,
             'units_total' => count($matched),
             'units_active' => 0,
@@ -418,12 +476,15 @@ function daemonStates(
 
             $props = $properties[$chosen] ?? null;
             if ($props) {
-                $row['restarts'] = isset($props['NRestarts']) && $props['NRestarts'] !== ''
-                    ? (int)$props['NRestarts'] : null;
-                $row['started_at'] = $row['state'] === 'running'
-                    ? daemonStartedAt($props, $bootAt)
-                    : null;
-                $pid = (int)($props['ExecMainPID'] ?? 0);
+                $row['restarts'] =
+                    isset($props['NRestarts']) && $props['NRestarts'] !== ''
+                        ? (int) $props['NRestarts']
+                        : null;
+                $row['started_at'] =
+                    $row['state'] === 'running'
+                        ? daemonStartedAt($props, $bootAt)
+                        : null;
+                $pid = (int) ($props['ExecMainPID'] ?? 0);
                 if ($pid > 0) {
                     $row['pid'] = $pid;
                 }
@@ -450,7 +511,11 @@ function daemonStates(
 
         // A unit can be active while its processes are gone - "running" from a
         // unit that owns nothing is worth seeing rather than smoothing over.
-        if ($row['state'] === 'running' && $procMatches === [] && $row['units_active'] === 0) {
+        if (
+            $row['state'] === 'running' &&
+            $procMatches === [] &&
+            $row['units_active'] === 0
+        ) {
             $row['state'] = 'stopped';
         }
 
@@ -473,9 +538,12 @@ function matchUnits(array $units, array $patterns): array
 {
     $found = [];
     foreach ($patterns as $pattern) {
-        $pattern = (string)$pattern;
+        $pattern = (string) $pattern;
         foreach ($units as $name => $info) {
-            if ($name === $pattern || (str_contains($pattern, '*') && fnmatch($pattern, $name))) {
+            if (
+                $name === $pattern ||
+                (str_contains($pattern, '*') && fnmatch($pattern, $name))
+            ) {
                 $found[$name] = $info;
             }
         }
@@ -492,7 +560,10 @@ function matchUnits(array $units, array $patterns): array
  */
 function readDaemons(array $config, array $procs, ?int $bootAt = null): array
 {
-    $definitions = watchedDaemons(daemonDefinitions($config), daemonWatchFromConfig($config));
+    $definitions = watchedDaemons(
+        daemonDefinitions($config),
+        daemonWatchFromConfig($config),
+    );
     if ($definitions === []) {
         return [];
     }
@@ -502,13 +573,18 @@ function readDaemons(array $config, array $procs, ?int $bootAt = null): array
     $wanted = [];
     if ($units !== null) {
         foreach ($definitions as $definition) {
-            foreach (array_keys(matchUnits($units, (array)($definition['units'] ?? []))) as $unit) {
+            foreach (
+                array_keys(
+                    matchUnits($units, (array) ($definition['units'] ?? [])),
+                )
+                as $unit
+            ) {
                 $wanted[$unit] = true;
             }
         }
     }
 
-    $properties = $wanted ? (systemdProperties(array_keys($wanted)) ?? []) : [];
+    $properties = $wanted ? systemdProperties(array_keys($wanted)) ?? [] : [];
 
     return daemonStates($definitions, $procs, $units, $properties, $bootAt);
 }
@@ -538,16 +614,18 @@ function daemonStatus(
     PDO $pdo,
     array $definitions = [],
     array $watch = [],
-    int $historyDays = DAEMON_HISTORY_DAYS
+    int $historyDays = DAEMON_HISTORY_DAYS,
 ): array {
-    $latest = (int)$pdo->query('SELECT MAX(taken_at) FROM host_daemons')->fetchColumn();
+    $latest = (int) $pdo
+        ->query('SELECT MAX(taken_at) FROM host_daemons')
+        ->fetchColumn();
 
     $collected = [];
     if ($latest > 0) {
         $stmt = $pdo->prepare('SELECT * FROM host_daemons WHERE taken_at = ?');
         $stmt->execute([$latest]);
         foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
-            $collected[(string)$row['name']] = $row;
+            $collected[(string) $row['name']] = $row;
         }
     }
 
@@ -562,53 +640,72 @@ function daemonStatus(
      */
     if ($definitions === []) {
         foreach ($collected as $name => $row) {
-            $definitions[] = ['name' => $name, 'label' => (string)$row['label']];
+            $definitions[] = [
+                'name' => $name,
+                'label' => (string) $row['label'],
+            ];
         }
     } else {
         $known = array_column($definitions, 'name');
         foreach ($collected as $name => $row) {
             if (!in_array($name, $known, true)) {
-                $definitions[] = ['name' => $name, 'label' => (string)$row['label'], 'retired' => true];
+                $definitions[] = [
+                    'name' => $name,
+                    'label' => (string) $row['label'],
+                    'retired' => true,
+                ];
             }
         }
     }
 
     $lastDifferent = $pdo->prepare(
-        'SELECT MAX(taken_at) FROM host_daemons WHERE name = ? AND state != ?'
+        'SELECT MAX(taken_at) FROM host_daemons WHERE name = ? AND state != ?',
     );
     $firstAfter = $pdo->prepare(
-        'SELECT MIN(taken_at) FROM host_daemons WHERE name = ? AND state = ? AND taken_at > ?'
+        'SELECT MIN(taken_at) FROM host_daemons WHERE name = ? AND state = ? AND taken_at > ?',
     );
-    $earliest = $pdo->prepare('SELECT MIN(taken_at) FROM host_daemons WHERE name = ?');
+    $earliest = $pdo->prepare(
+        'SELECT MIN(taken_at) FROM host_daemons WHERE name = ?',
+    );
     $down = $pdo->prepare(
         'SELECT COUNT(*) AS readings, MAX(taken_at) AS last_at
          FROM host_daemons
-         WHERE name = ? AND state = \'stopped\' AND taken_at >= ?'
+         WHERE name = ? AND state = \'stopped\' AND taken_at >= ?',
     );
     $downSince = $historyDays > 0 ? $latest - $historyDays * 86400 : $latest;
 
     $rows = [];
     foreach ($definitions as $definition) {
-        $name = (string)$definition['name'];
+        $name = (string) $definition['name'];
         $watched = $watch[$name] ?? true;
         $row = $collected[$name] ?? null;
 
         $base = [
             'name' => $name,
-            'label' => (string)($definition['label'] ?? $name),
+            'label' => (string) ($definition['label'] ?? $name),
             'watched' => $watched,
-            'retired' => (bool)($definition['retired'] ?? false),
+            'retired' => (bool) ($definition['retired'] ?? false),
         ];
 
         if (!$watched) {
             // Switched off: no reading was taken, so there is nothing to report
             // about it and saying anything else would be inventing a state.
             $rows[] = $base + [
-                'state' => 'off', 'unit' => null, 'units_total' => 0, 'units_active' => 0,
-                'active_state' => null, 'sub_state' => null, 'restarts' => null,
-                'started_at' => null, 'since' => null, 'since_known' => false,
-                'procs' => 0, 'pid' => null, 'source' => null,
-                'down_readings' => 0, 'last_down_at' => null,
+                'state' => 'off',
+                'unit' => null,
+                'units_total' => 0,
+                'units_active' => 0,
+                'active_state' => null,
+                'sub_state' => null,
+                'restarts' => null,
+                'started_at' => null,
+                'since' => null,
+                'since_known' => false,
+                'procs' => 0,
+                'pid' => null,
+                'source' => null,
+                'down_readings' => 0,
+                'last_down_at' => null,
             ];
             continue;
         }
@@ -623,41 +720,55 @@ function daemonStatus(
              * showing it as absent, which would look like a verdict.
              */
             $rows[] = $base + [
-                'state' => 'pending', 'unit' => null, 'units_total' => 0, 'units_active' => 0,
-                'active_state' => null, 'sub_state' => null, 'restarts' => null,
-                'started_at' => null, 'since' => null, 'since_known' => false,
-                'procs' => 0, 'pid' => null, 'source' => null,
-                'down_readings' => 0, 'last_down_at' => null,
+                'state' => 'pending',
+                'unit' => null,
+                'units_total' => 0,
+                'units_active' => 0,
+                'active_state' => null,
+                'sub_state' => null,
+                'restarts' => null,
+                'started_at' => null,
+                'since' => null,
+                'since_known' => false,
+                'procs' => 0,
+                'pid' => null,
+                'source' => null,
+                'down_readings' => 0,
+                'last_down_at' => null,
             ];
             continue;
         }
 
-        $state = (string)$row['state'];
+        $state = (string) $row['state'];
 
         $lastDifferent->execute([$name, $state]);
         $changed = $lastDifferent->fetchColumn();
 
         if ($changed === null || $changed === false) {
             $earliest->execute([$name]);
-            $since = (int)$earliest->fetchColumn();
+            $since = (int) $earliest->fetchColumn();
             $sinceKnown = false;
         } else {
-            $firstAfter->execute([$name, $state, (int)$changed]);
-            $since = (int)$firstAfter->fetchColumn();
+            $firstAfter->execute([$name, $state, (int) $changed]);
+            $since = (int) $firstAfter->fetchColumn();
             $sinceKnown = true;
         }
 
         $down->execute([$name, $downSince]);
-        $outage = $down->fetch(PDO::FETCH_ASSOC) ?: ['readings' => 0, 'last_at' => null];
+        $outage = $down->fetch(PDO::FETCH_ASSOC) ?: [
+            'readings' => 0,
+            'last_at' => null,
+        ];
 
         $rows[] = $base + [
             'state' => $state,
             'unit' => $row['unit'],
-            'units_total' => (int)$row['units_total'],
-            'units_active' => (int)$row['units_active'],
+            'units_total' => (int) $row['units_total'],
+            'units_active' => (int) $row['units_active'],
             'active_state' => $row['active_state'],
             'sub_state' => $row['sub_state'],
-            'restarts' => $row['restarts'] === null ? null : (int)$row['restarts'],
+            'restarts' =>
+                $row['restarts'] === null ? null : (int) $row['restarts'],
             /*
              * Two different times, and confusing them would be a real error.
              *
@@ -667,24 +778,31 @@ function daemonStatus(
              * is the better answer because it does not depend on us having
              * been there.
              */
-            'started_at' => $row['started_at'] === null ? null : (int)$row['started_at'],
+            'started_at' =>
+                $row['started_at'] === null ? null : (int) $row['started_at'],
             'since' => $since ?: null,
             'since_known' => $sinceKnown,
-            'procs' => (int)$row['procs'],
-            'pid' => $row['pid'] === null ? null : (int)$row['pid'],
-            'source' => (string)$row['source'],
-            'down_readings' => (int)$outage['readings'],
-            'last_down_at' => $outage['last_at'] === null ? null : (int)$outage['last_at'],
+            'procs' => (int) $row['procs'],
+            'pid' => $row['pid'] === null ? null : (int) $row['pid'],
+            'source' => (string) $row['source'],
+            'down_readings' => (int) $outage['readings'],
+            'last_down_at' =>
+                $outage['last_at'] === null ? null : (int) $outage['last_at'],
         ];
     }
 
-    usort($rows, fn(array $a, array $b): int => strcasecmp($a['label'], $b['label']));
+    usort(
+        $rows,
+        fn(array $a, array $b): int => strcasecmp($a['label'], $b['label']),
+    );
 
     return [
         'available' => $latest > 0,
-        'reason' => $latest > 0 ? null
-            : 'No daemon states have been recorded yet. This needs the host collector; '
-              . 'upload it and let it run once.',
+        'reason' =>
+            $latest > 0
+                ? null
+                : 'No daemon states have been recorded yet. This needs the host collector; ' .
+                    'upload it and let it run once.',
         'taken_at' => $latest,
         'history_days' => $historyDays,
         'rows' => $rows,

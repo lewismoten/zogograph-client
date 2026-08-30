@@ -40,7 +40,7 @@ if (!is_file($configFile)) {
 
 require_once __DIR__ . '/lib/setupstore.php';
 $config = loadConfiguredSettings($configFile);
-define('DISKMON_LOG', dirname((string)$config['database']) . '/error.log');
+define('DISKMON_LOG', dirname((string) $config['database']) . '/error.log');
 
 require_once __DIR__ . '/lib/db.php';
 require_once __DIR__ . '/lib/auth.php';
@@ -56,7 +56,7 @@ if (!isSignedIn() || !accessAllows($config, 'pages', 'net-fetch')) {
 
 $pdo = db($config);
 
-$token = (string)($_GET['token'] ?? '');
+$token = (string) ($_GET['token'] ?? '');
 
 /*
  * Whether the page may fetch its own supporting files.
@@ -76,10 +76,12 @@ if (!preg_match('/^[a-f0-9]{32}$/', $token)) {
     http_response_code(400);
     header('Content-Type: text/plain; charset=utf-8');
     echo 'No such preview.';
-    exit;
+    exit();
 }
 
-$stmt = $pdo->prepare('SELECT url, content_type, body FROM fetch_bodies WHERE token = ?');
+$stmt = $pdo->prepare(
+    'SELECT url, content_type, body FROM fetch_bodies WHERE token = ?',
+);
 $stmt->execute([$token]);
 $row = $stmt->fetch();
 
@@ -87,10 +89,10 @@ if ($row === false) {
     http_response_code(404);
     header('Content-Type: text/plain; charset=utf-8');
     echo 'That preview has expired. Ask for the page again.';
-    exit;
+    exit();
 }
 
-$body = (string)$row['body'];
+$body = (string) $row['body'];
 
 /*
  * A base so that relative links resolve against the site they came from.
@@ -99,7 +101,8 @@ $body = (string)$row['body'];
  * which is both wrong and a way to point a page at our own endpoints - which
  * matters rather more once the site's own files are allowed to load.
  */
-$base = '<base href="' . htmlspecialchars((string)$row['url'], ENT_QUOTES) . '">';
+$base =
+    '<base href="' . htmlspecialchars((string) $row['url'], ENT_QUOTES) . '">';
 
 if (!$images) {
     /*
@@ -114,15 +117,15 @@ if (!$images) {
 }
 
 $policy = $images
-    ? "img-src data: https: http:; style-src 'unsafe-inline' https: http:; "
-        . "font-src data: https: http:"
+    ? "img-src data: https: http:; style-src 'unsafe-inline' https: http:; " .
+        'font-src data: https: http:'
     : "img-src data:; style-src 'unsafe-inline'; font-src data:";
 
 header('Content-Type: text/html; charset=utf-8');
 header('X-Content-Type-Options: nosniff');
 header(
-    "Content-Security-Policy: sandbox; default-src 'none'; {$policy}; "
-    . "form-action 'none'; base-uri 'none'; frame-ancestors 'self'"
+    "Content-Security-Policy: sandbox; default-src 'none'; {$policy}; " .
+        "form-action 'none'; base-uri 'none'; frame-ancestors 'self'",
 );
 // No referrer on anything the page does fetch: the site should not learn the
 // address of this dashboard from a stylesheet request.
@@ -141,36 +144,59 @@ echo $base, $body;
  */
 function previewPlaceholders(string $html): string
 {
-    return (string)preg_replace_callback(
+    return (string) preg_replace_callback(
         '#<img\b([^>]*)>#i',
         function (array $m): string {
             $attributes = $m[1];
 
-            $alt = preg_match('/\balt\s*=\s*"([^"]*)"|\balt\s*=\s*\'([^\']*)\'/i', $attributes, $a)
-                ? ($a[1] !== '' ? $a[1] : ($a[2] ?? ''))
+            $alt = preg_match(
+                '/\balt\s*=\s*"([^"]*)"|\balt\s*=\s*\'([^\']*)\'/i',
+                $attributes,
+                $a,
+            )
+                ? ($a[1] !== ''
+                    ? $a[1]
+                    : $a[2] ?? '')
                 : null;
 
-            $label = $alt === null
-                ? 'no alt attribute'
-                : ($alt === '' ? 'alt is empty' : $alt);
+            $label =
+                $alt === null
+                    ? 'no alt attribute'
+                    : ($alt === ''
+                        ? 'alt is empty'
+                        : $alt);
 
-            $svg = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="12">'
-                . '<rect width="16" height="12" fill="#d8d8e0" stroke="#8a8a99"/>'
-                . '<path d="M1 11 L6 5 L9 8 L12 5 L15 11 Z" fill="#8a8a99"/></svg>';
+            $svg =
+                '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="12">' .
+                '<rect width="16" height="12" fill="#d8d8e0" stroke="#8a8a99"/>' .
+                '<path d="M1 11 L6 5 L9 8 L12 5 L15 11 Z" fill="#8a8a99"/></svg>';
 
             // Width and height are kept if the page declared them, so the
             // layout stays the shape the page intended.
             $size = '';
             foreach (['width', 'height'] as $dimension) {
-                if (preg_match('/\b' . $dimension . '\s*=\s*"?(\d+)"?/i', $attributes, $d)) {
+                if (
+                    preg_match(
+                        '/\b' . $dimension . '\s*=\s*"?(\d+)"?/i',
+                        $attributes,
+                        $d,
+                    )
+                ) {
                     $size .= ' ' . $dimension . '="' . $d[1] . '"';
                 }
             }
 
-            return '<img src="data:image/svg+xml;base64,' . base64_encode($svg) . '"'
-                . $size . ' alt="' . htmlspecialchars($label, ENT_QUOTES) . '"'
-                . ' title="' . htmlspecialchars('Placeholder — ' . $label, ENT_QUOTES) . '">';
+            return '<img src="data:image/svg+xml;base64,' .
+                base64_encode($svg) .
+                '"' .
+                $size .
+                ' alt="' .
+                htmlspecialchars($label, ENT_QUOTES) .
+                '"' .
+                ' title="' .
+                htmlspecialchars('Placeholder — ' . $label, ENT_QUOTES) .
+                '">';
         },
-        $html
+        $html,
     );
 }

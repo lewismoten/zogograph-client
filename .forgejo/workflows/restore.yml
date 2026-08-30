@@ -37,7 +37,7 @@ jobs:
             deploy_path: ${{ vars.TEST_PATH }}
             deploy_url: ${{ vars.TEST_URL }}
 
-          - environment:  client
+          - environment: client
             deploy_path: ${{ vars.DEPLOY_PATH }}
             deploy_url: ${{ vars.DEPLOY_URL }}
     env:

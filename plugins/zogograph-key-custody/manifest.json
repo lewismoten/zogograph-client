@@ -5,22 +5,54 @@
   "publisher": "HostScope",
   "summary": "Optional client for the HostScope key-custody service using signed enrolled-client authentication and registered-envelope authorization.",
   "license": "Proprietary preview",
-  "capabilities": ["key_provider", "network_client", "package_private_database"],
-  "runtime": {"kind": "zogograph-isolated-php-package", "entrypoint": "src/KeyCustodyProvider.php", "provider_class": "HostScope\\Plugin\\KeyCustody\\KeyCustodyProvider", "operations": ["capability", "custody_endpoint_probe", "custody_enrollment_check", "custody_store_envelope", "custody_unwrap_artifact"], "minimum_api": "1.0"},
+  "capabilities": [
+    "key_provider",
+    "network_client",
+    "package_private_database"
+  ],
+  "runtime": {
+    "kind": "zogograph-isolated-php-package",
+    "entrypoint": "src/KeyCustodyProvider.php",
+    "provider_class": "HostScope\\Plugin\\KeyCustody\\KeyCustodyProvider",
+    "operations": [
+      "capability",
+      "custody_endpoint_probe",
+      "custody_enrollment_check",
+      "custody_store_envelope",
+      "custody_unwrap_artifact"
+    ],
+    "minimum_api": "1.0"
+  },
   "settings_schema": "settings.schema.json",
-  "locales": {"ar": "locales/ar.json", "en": "locales/en.json", "es": "locales/es.json", "hi": "locales/hi.json", "zh": "locales/zh.json"},
-  "data": {"directory": "data", "migration_namespace": "zogograph_key_custody"},
-  "compatibility": {"min_php": "8.1.0", "requires_extensions": ["curl", "openssl", "sodium"], "requires_runtime_capability": "isolated_package_runtime"},
-  "integrity": {"algorithm": "sha256", "files": {
-    "README.md": "d423ab75d3a925840b77a36d36490044d4cd44700e23a8f1d85ebf40b5ab45cd",
-    "locales/ar.json": "d913f5436b36389fc032fbca801656eec7dafdcc82eeb850fd70cce5782d1926",
-    "locales/en.json": "0832254ae98e54e59816bc12d3fce314ac55ba4cfe9e9f3886d2c7c0a43102c5",
-    "locales/es.json": "c9931b4a08cb8d33cc0ebbd7a907527c2fc90cf9598ecc1ffbd5d2350f35dadf",
-    "locales/hi.json": "bdbf47b847f445677575a2164478408df030bd5dcdc60887c77f53d1dbd90f02",
-    "locales/zh.json": "b4f6176be00245f9329a9e20cceb6dfd99ba60495e226e3f038dd31780a83be1",
-    "settings.schema.json": "93184f8057c1bde0d8ddcad65923615365fa6d60d9231117214aed0f87f7c37b",
-    "src/KeyCustodyProvider.php": "4b0d54e927f40e011295ca7bbb46dce7017ee0febb25cec5a4e453cfd417340a",
-    "src/KeyCustodyHttpClient.php": "89aa16ac8292571ef7c18ae95997f33c4921074f4a67def23b118df16caf9db6"
-  }},
+  "locales": {
+    "ar": "locales/ar.json",
+    "en": "locales/en.json",
+    "es": "locales/es.json",
+    "hi": "locales/hi.json",
+    "zh": "locales/zh.json"
+  },
+  "data": {
+    "directory": "data",
+    "migration_namespace": "zogograph_key_custody"
+  },
+  "compatibility": {
+    "min_php": "8.1.0",
+    "requires_extensions": ["curl", "openssl", "sodium"],
+    "requires_runtime_capability": "isolated_package_runtime"
+  },
+  "integrity": {
+    "algorithm": "sha256",
+    "files": {
+      "README.md": "d423ab75d3a925840b77a36d36490044d4cd44700e23a8f1d85ebf40b5ab45cd",
+      "locales/ar.json": "d913f5436b36389fc032fbca801656eec7dafdcc82eeb850fd70cce5782d1926",
+      "locales/en.json": "0832254ae98e54e59816bc12d3fce314ac55ba4cfe9e9f3886d2c7c0a43102c5",
+      "locales/es.json": "c9931b4a08cb8d33cc0ebbd7a907527c2fc90cf9598ecc1ffbd5d2350f35dadf",
+      "locales/hi.json": "bdbf47b847f445677575a2164478408df030bd5dcdc60887c77f53d1dbd90f02",
+      "locales/zh.json": "b4f6176be00245f9329a9e20cceb6dfd99ba60495e226e3f038dd31780a83be1",
+      "settings.schema.json": "93184f8057c1bde0d8ddcad65923615365fa6d60d9231117214aed0f87f7c37b",
+      "src/KeyCustodyProvider.php": "4b0d54e927f40e011295ca7bbb46dce7017ee0febb25cec5a4e453cfd417340a",
+      "src/KeyCustodyHttpClient.php": "89aa16ac8292571ef7c18ae95997f33c4921074f4a67def23b118df16caf9db6"
+    }
+  },
   "state": "design-preview"
 }

@@ -31,7 +31,7 @@ if (!is_file($configFile)) {
 
 require_once __DIR__ . '/lib/setupstore.php';
 $config = loadConfiguredSettings($configFile);
-define('DISKMON_LOG', dirname((string)$config['database']) . '/error.log');
+define('DISKMON_LOG', dirname((string) $config['database']) . '/error.log');
 
 require_once __DIR__ . '/lib/db.php';
 require_once __DIR__ . '/lib/auth.php';
@@ -48,7 +48,7 @@ if (!isSignedIn() || !accessAllows($config, 'ai')) {
     exit('Your group cannot see assistant assets.');
 }
 
-$id = (int)($_GET['id'] ?? 0);
+$id = (int) ($_GET['id'] ?? 0);
 if ($id <= 0) {
     http_response_code(400);
     exit('No picture asked for.');
@@ -69,7 +69,7 @@ if ($row === false) {
     exit('No such picture.');
 }
 
-$bytes = (string)$row['body'];
+$bytes = (string) $row['body'];
 
 /*
  * The type comes from the bytes, not from the column.
@@ -81,7 +81,10 @@ $bytes = (string)$row['body'];
 $size = @getimagesizefromstring($bytes);
 $allowed = ['image/png', 'image/jpeg', 'image/gif', 'image/webp'];
 
-if ($size === false || !in_array((string)($size['mime'] ?? ''), $allowed, true)) {
+if (
+    $size === false ||
+    !in_array((string) ($size['mime'] ?? ''), $allowed, true)
+) {
     http_response_code(422);
     exit('That is not a picture.');
 }

@@ -130,7 +130,7 @@ function retentionSkipColumns(): array
 function compactVitals(PDO $pdo, array $rules, ?int $now = null): array
 {
     $now ??= time();
-    $pad = max(0, (int)$rules['protect_hours']) * 3600;
+    $pad = max(0, (int) $rules['protect_hours']) * 3600;
 
     $columns = vitalsColumns($pdo);
     $tiers = [];
@@ -139,11 +139,31 @@ function compactVitals(PDO $pdo, array $rules, ?int $now = null): array
 
     $bands = [
         // [bucket seconds, oldest edge of the band, newest edge of the band]
-        'daily' => [86400, null, $rules['hourly_days'] > 0 ? $now - (int)$rules['hourly_days'] * 86400 : null],
-        'hourly' => [3600, $rules['hourly_days'] > 0 ? $now - (int)$rules['hourly_days'] * 86400 : null,
-                     $rules['five_minute_days'] > 0 ? $now - (int)$rules['five_minute_days'] * 86400 : null],
-        'five_minute' => [300, $rules['five_minute_days'] > 0 ? $now - (int)$rules['five_minute_days'] * 86400 : null,
-                          $rules['raw_days'] > 0 ? $now - (int)$rules['raw_days'] * 86400 : null],
+        'daily' => [
+            86400,
+            null,
+            $rules['hourly_days'] > 0
+                ? $now - (int) $rules['hourly_days'] * 86400
+                : null,
+        ],
+        'hourly' => [
+            3600,
+            $rules['hourly_days'] > 0
+                ? $now - (int) $rules['hourly_days'] * 86400
+                : null,
+            $rules['five_minute_days'] > 0
+                ? $now - (int) $rules['five_minute_days'] * 86400
+                : null,
+        ],
+        'five_minute' => [
+            300,
+            $rules['five_minute_days'] > 0
+                ? $now - (int) $rules['five_minute_days'] * 86400
+                : null,
+            $rules['raw_days'] > 0
+                ? $now - (int) $rules['raw_days'] * 86400
+                : null,
+        ],
     ];
 
     foreach ($bands as $name => [$bucket, $from, $to]) {
@@ -161,12 +181,13 @@ function compactVitals(PDO $pdo, array $rules, ?int $now = null): array
     }
 
     // Anything past the last tier, when that tier is not "for ever".
-    if ((int)$rules['daily_days'] > 0) {
+    if ((int) $rules['daily_days'] > 0) {
         $stmt = $pdo->prepare(
-            'DELETE FROM vitals WHERE taken_at < :cutoff' . protectionClause('vitals')
+            'DELETE FROM vitals WHERE taken_at < :cutoff' .
+                protectionClause('vitals'),
         );
         $stmt->execute([
-            ':cutoff' => $now - (int)$rules['daily_days'] * 86400,
+            ':cutoff' => $now - (int) $rules['daily_days'] * 86400,
             ':pad' => $pad,
         ]);
         $removed += $stmt->rowCount();
@@ -183,8 +204,11 @@ function compactVitals(PDO $pdo, array $rules, ?int $now = null): array
      * row is a few dozen bytes. But the setting now means what it says.
      */
     $kept = [];
-    foreach (['alerts' => 'alert_days', 'actions' => 'action_days'] as $table => $key) {
-        $days = (int)($rules[$key] ?? 0);
+    foreach (
+        ['alerts' => 'alert_days', 'actions' => 'action_days']
+        as $table => $key
+    ) {
+        $days = (int) ($rules[$key] ?? 0);
         $kept[$table] = $days;
         if ($days <= 0) {
             continue;
@@ -195,13 +219,23 @@ function compactVitals(PDO $pdo, array $rules, ?int $now = null): array
         $removed += $stmt->rowCount();
     }
 
-    foreach (['remote_peer_vitals' => ['remote_vital_days', 'taken_at'],
-              'remote_peer_receipts' => ['remote_receipt_days', 'received_at']] as $table => [$key, $column]) {
+    foreach (
+        [
+            'remote_peer_vitals' => ['remote_vital_days', 'taken_at'],
+            'remote_peer_receipts' => ['remote_receipt_days', 'received_at'],
+        ]
+        as $table => [$key, $column]
+    ) {
         // A replay ledger must always expire; zero otherwise means forever in
         // retention settings, which is unsuitable for request nonces.
-        $days = $key === 'remote_receipt_days' ? max(1, (int)$rules[$key]) : (int)$rules[$key];
+        $days =
+            $key === 'remote_receipt_days'
+                ? max(1, (int) $rules[$key])
+                : (int) $rules[$key];
         $kept[$table] = $days;
-        if ($days <= 0) continue;
+        if ($days <= 0) {
+            continue;
+        }
         $stmt = $pdo->prepare("DELETE FROM {$table} WHERE {$column} < ?");
         $stmt->execute([$now - $days * 86400]);
         $removed += $stmt->rowCount();
@@ -220,12 +254,21 @@ function compactVitals(PDO $pdo, array $rules, ?int $now = null): array
  *
  * @return array{buckets: int, removed: int}
  */
-function compactBand(PDO $pdo, array $columns, int $bucket, ?int $from, int $to, int $pad): array
-{
+function compactBand(
+    PDO $pdo,
+    array $columns,
+    int $bucket,
+    ?int $from,
+    int $to,
+    int $pad,
+): array {
     $min = retentionMinColumns();
     $skip = retentionSkipColumns();
 
-    $select = ['MAX(taken_at) AS taken_at', 'SUM(COALESCE(samples, 1)) AS samples'];
+    $select = [
+        'MAX(taken_at) AS taken_at',
+        'SUM(COALESCE(samples, 1)) AS samples',
+    ];
     $into = ['taken_at', 'samples'];
 
     foreach ($columns as $column) {
@@ -233,7 +276,9 @@ function compactBand(PDO $pdo, array $columns, int $bucket, ?int $from, int $to,
             continue;
         }
         $into[] = $column;
-        $select[] = (in_array($column, $min, true) ? 'MIN' : 'MAX') . "($column) AS $column";
+        $select[] =
+            (in_array($column, $min, true) ? 'MIN' : 'MAX') .
+            "($column) AS $column";
     }
 
     $where = ['taken_at < :to'];
@@ -245,9 +290,14 @@ function compactBand(PDO $pdo, array $columns, int $bucket, ?int $from, int $to,
 
     $guard = protectionClause('vitals');
     $sql =
-        'SELECT ' . implode(', ', $select) . ', taken_at / :bucket AS bucket_key
+        'SELECT ' .
+        implode(', ', $select) .
+        ', taken_at / :bucket AS bucket_key
          FROM vitals
-         WHERE ' . implode(' AND ', $where) . $guard . '
+         WHERE ' .
+        implode(' AND ', $where) .
+        $guard .
+        '
          GROUP BY taken_at / :bucket
          HAVING COUNT(*) > 1';
 
@@ -263,8 +313,12 @@ function compactBand(PDO $pdo, array $columns, int $bucket, ?int $from, int $to,
     }
 
     $insert = $pdo->prepare(
-        'INSERT INTO vitals (' . implode(', ', $into) . ')
-         VALUES (' . implode(', ', array_fill(0, count($into), '?')) . ')'
+        'INSERT INTO vitals (' .
+            implode(', ', $into) .
+            ')
+         VALUES (' .
+            implode(', ', array_fill(0, count($into), '?')) .
+            ')',
     );
 
     /*
@@ -275,14 +329,14 @@ function compactBand(PDO $pdo, array $columns, int $bucket, ?int $from, int $to,
      * would double every figure in it and be very hard to notice a year later.
      */
     $clear = $pdo->prepare(
-        'DELETE FROM vitals WHERE taken_at / :bucket = :key AND taken_at < :to'
-        . ($from !== null ? ' AND taken_at >= :from' : '')
-        . protectionClause('vitals')
+        'DELETE FROM vitals WHERE taken_at / :bucket = :key AND taken_at < :to' .
+            ($from !== null ? ' AND taken_at >= :from' : '') .
+            protectionClause('vitals'),
     );
 
     $removed = 0;
     foreach ($buckets as $row) {
-        $key = (int)$row['bucket_key'];
+        $key = (int) $row['bucket_key'];
         unset($row['bucket_key']);
 
         $clear->bindValue(':bucket', $bucket, PDO::PARAM_INT);
@@ -337,7 +391,9 @@ function vitalsColumns(PDO $pdo): array
 {
     static $columns = null;
     if ($columns === null) {
-        $columns = $pdo->query('PRAGMA table_info(vitals)')->fetchAll(PDO::FETCH_COLUMN, 1);
+        $columns = $pdo
+            ->query('PRAGMA table_info(vitals)')
+            ->fetchAll(PDO::FETCH_COLUMN, 1);
     }
     return $columns;
 }
@@ -362,10 +418,10 @@ function protectedReadings(PDO $pdo, int $pad): int
              OR EXISTS (
                   SELECT 1 FROM alerts a
                    WHERE vitals.taken_at BETWEEN a.raised_at - :pad AND a.raised_at + :pad
-                )'
+                )',
     );
     $stmt->execute([':pad' => $pad]);
-    return (int)$stmt->fetchColumn();
+    return (int) $stmt->fetchColumn();
 }
 
 /**
@@ -388,8 +444,8 @@ function protectedReadings(PDO $pdo, int $pad): int
  */
 function reclaimSpace(PDO $pdo, float $minimumWasted = 0.25): string
 {
-    $free = (int)$pdo->query('PRAGMA freelist_count')->fetchColumn();
-    $total = (int)$pdo->query('PRAGMA page_count')->fetchColumn();
+    $free = (int) $pdo->query('PRAGMA freelist_count')->fetchColumn();
+    $total = (int) $pdo->query('PRAGMA page_count')->fetchColumn();
 
     if ($total <= 0) {
         return 'nothing to reclaim';
@@ -400,7 +456,7 @@ function reclaimSpace(PDO $pdo, float $minimumWasted = 0.25): string
         return sprintf('%.0f%% free pages, not worth a rewrite', $wasted * 100);
     }
 
-    $pageSize = (int)$pdo->query('PRAGMA page_size')->fetchColumn();
+    $pageSize = (int) $pdo->query('PRAGMA page_size')->fetchColumn();
     $before = $free * $pageSize;
 
     try {

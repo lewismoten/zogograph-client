@@ -64,18 +64,24 @@ const SYMLINK_SHOW_MAX = 300;
  */
 function findSymlinkProblems(array $config, float $budgetSeconds = 10.0): array
 {
-    $root = realpath((string)$config['scan_root']);
+    $root = realpath((string) $config['scan_root']);
     if ($root === false) {
         throw new ActionRefused('the watched directory does not resolve');
     }
 
-    $excluded = array_map('normalisePath', $config['scan']['exclude_paths'] ?? []);
+    $excluded = array_map(
+        'normalisePath',
+        $config['scan']['exclude_paths'] ?? [],
+    );
     $deadline = microtime(true) + $budgetSeconds;
     $started = microtime(true);
 
     $state = [
-        'links' => 0, 'dirs' => 0, 'problems' => [],
-        'complete' => true, 'full' => true,
+        'links' => 0,
+        'dirs' => 0,
+        'problems' => [],
+        'complete' => true,
+        'full' => true,
     ];
     walkForLinks($root, $root, $excluded, $deadline, $state);
 
@@ -83,7 +89,8 @@ function findSymlinkProblems(array $config, float $budgetSeconds = 10.0): array
     $rank = ['loop' => 0, 'ancestor' => 1, 'outside' => 2, 'broken' => 3];
     usort(
         $state['problems'],
-        fn(array $a, array $b): int => ($rank[$a['kind']] ?? 9) <=> ($rank[$b['kind']] ?? 9)
+        fn(array $a, array $b): int => ($rank[$a['kind']] ?? 9) <=>
+            ($rank[$b['kind']] ?? 9),
     );
 
     $kinds = ['loop' => 0, 'ancestor' => 0, 'outside' => 0, 'broken' => 0];
@@ -110,7 +117,7 @@ function walkForLinks(
     array $excluded,
     float $deadline,
     array &$state,
-    int $depth = 0
+    int $depth = 0,
 ): void {
     if ($depth > 40 || isExcludedPath($dir, $excluded)) {
         return;
@@ -154,7 +161,14 @@ function walkForLinks(
         }
 
         if (is_dir($full)) {
-            walkForLinks($full, $root, $excluded, $deadline, $state, $depth + 1);
+            walkForLinks(
+                $full,
+                $root,
+                $excluded,
+                $deadline,
+                $state,
+                $depth + 1,
+            );
             if (!$state['complete']) {
                 break;
             }
@@ -191,9 +205,10 @@ function inspectLink(string $link, string $root): ?array
             'path' => $link,
             'target' => $target,
             'hops' => $chain['hops'],
-            'note' => $chain['hops'] >= SYMLINK_MAX_HOPS
-                ? 'The chain of links never ends. Anything following it will give up or hang.'
-                : 'The links point at each other in a circle.',
+            'note' =>
+                $chain['hops'] >= SYMLINK_MAX_HOPS
+                    ? 'The chain of links never ends. Anything following it will give up or hang.'
+                    : 'The links point at each other in a circle.',
         ];
     }
 
@@ -210,8 +225,9 @@ function inspectLink(string $link, string $root): ?array
             'path' => $link,
             'target' => $target,
             'hops' => $chain['hops'],
-            'note' => 'Points at a directory that contains the link itself, so anything '
-                . 'following symlinks will descend for ever.',
+            'note' =>
+                'Points at a directory that contains the link itself, so anything ' .
+                'following symlinks will descend for ever.',
         ];
     }
 
@@ -231,8 +247,9 @@ function inspectLink(string $link, string $root): ?array
             'path' => $link,
             'target' => $target,
             'hops' => $chain['hops'],
-            'note' => 'Leaves the watched directory. Sizes measured here will not match '
-                . 'what a program following this link would see.',
+            'note' =>
+                'Leaves the watched directory. Sizes measured here will not match ' .
+                'what a program following this link would see.',
         ];
     }
 
@@ -258,7 +275,12 @@ function followLink(string $link): array
 
     while ($hops < SYMLINK_MAX_HOPS) {
         if (isset($seen[$current])) {
-            return ['target' => $current, 'loop' => true, 'exists' => false, 'hops' => $hops];
+            return [
+                'target' => $current,
+                'loop' => true,
+                'exists' => false,
+                'hops' => $hops,
+            ];
         }
         $seen[$current] = true;
 
@@ -274,7 +296,12 @@ function followLink(string $link): array
 
         $next = @readlink($current);
         if ($next === false) {
-            return ['target' => $current, 'loop' => false, 'exists' => false, 'hops' => $hops];
+            return [
+                'target' => $current,
+                'loop' => false,
+                'exists' => false,
+                'hops' => $hops,
+            ];
         }
 
         // A relative target is relative to the directory the link sits in.
@@ -283,7 +310,12 @@ function followLink(string $link): array
         $hops++;
     }
 
-    return ['target' => $current, 'loop' => true, 'exists' => false, 'hops' => $hops];
+    return [
+        'target' => $current,
+        'loop' => true,
+        'exists' => false,
+        'hops' => $hops,
+    ];
 }
 
 /**
@@ -337,7 +369,7 @@ const SYMLINK_BULK_MAX = 500;
  */
 function resolveLinkPath(array $config, string $path): string
 {
-    $root = realpath((string)$config['scan_root']);
+    $root = realpath((string) $config['scan_root']);
     if ($root === false) {
         throw new ActionRefused('the watched directory does not resolve');
     }
@@ -386,10 +418,12 @@ function deleteLink(array $config, string $path): array
         throw new ActionRefused('that is not a symlink');
     }
 
-    $target = (string)@readlink($full);
+    $target = (string) @readlink($full);
 
     if (!@unlink($full)) {
-        throw new ActionRefused('could not remove it - check the directory is writable');
+        throw new ActionRefused(
+            'could not remove it - check the directory is writable',
+        );
     }
 
     return ['path' => $full, 'target' => $target];
@@ -425,7 +459,7 @@ function repointLink(array $config, string $path, string $target): array
         throw new ActionRefused('that target is too long');
     }
 
-    $was = (string)@readlink($full);
+    $was = (string) @readlink($full);
 
     /*
      * Refuse to build the problem this page reports.
@@ -438,14 +472,16 @@ function repointLink(array $config, string $path, string $target): array
     $resolved = tidyPath($resolved);
     if (str_starts_with($full . '/', rtrim($resolved, '/') . '/')) {
         throw new ActionRefused(
-            'that points at a directory containing the link itself, which is the loop this '
-            . 'page exists to find'
+            'that points at a directory containing the link itself, which is the loop this ' .
+                'page exists to find',
         );
     }
 
     $temporary = $full . '.relink-' . bin2hex(random_bytes(4));
     if (!@symlink($target, $temporary)) {
-        throw new ActionRefused('could not create the new link - check the directory is writable');
+        throw new ActionRefused(
+            'could not create the new link - check the directory is writable',
+        );
     }
 
     if (!@rename($temporary, $full)) {
@@ -479,16 +515,20 @@ function replaceLinkWithDirectory(array $config, string $path): array
         throw new ActionRefused('that is not a symlink');
     }
 
-    $was = (string)@readlink($full);
+    $was = (string) @readlink($full);
 
     if (!@unlink($full)) {
-        throw new ActionRefused('could not remove the link - check the directory is writable');
+        throw new ActionRefused(
+            'could not remove the link - check the directory is writable',
+        );
     }
 
     if (!@mkdir($full, 0755)) {
         // Put it back rather than leaving the name missing entirely.
         @symlink($was, $full);
-        throw new ActionRefused('could not create the directory, so the link was left as it was');
+        throw new ActionRefused(
+            'could not create the directory, so the link was left as it was',
+        );
     }
 
     return ['path' => $full, 'was' => $was];
@@ -529,7 +569,7 @@ function symlinkPatternMatch(string $pattern, string $path): bool
     }
 
     // The place itself, or anything below it.
-    return (bool)preg_match('#^' . $regex . '(/.*)?$#', $path);
+    return (bool) preg_match('#^' . $regex . '(/.*)?$#', $path);
 }
 
 /**
@@ -556,9 +596,9 @@ function deleteBrokenMatching(
     array $config,
     string $pattern,
     bool $dryRun = true,
-    float $budgetSeconds = 20.0
+    float $budgetSeconds = 20.0,
 ): array {
-    $root = realpath((string)$config['scan_root']);
+    $root = realpath((string) $config['scan_root']);
     if ($root === false) {
         throw new ActionRefused('the watched directory does not resolve');
     }
@@ -577,10 +617,14 @@ function deleteBrokenMatching(
     $literal = substr($pattern, 0, strcspn($pattern, '*?['));
 
     $inside = rtrim($root, '/') . '/';
-    if (!str_starts_with($literal, $inside) || strlen($literal) <= strlen($inside)) {
+    if (
+        !str_starts_with($literal, $inside) ||
+        strlen($literal) <= strlen($inside)
+    ) {
         throw new ActionRefused(
-            'the pattern has to start with a real path inside ' . $root
-            . ', so that a stray wildcard cannot match the whole account'
+            'the pattern has to start with a real path inside ' .
+                $root .
+                ', so that a stray wildcard cannot match the whole account',
         );
     }
 
@@ -621,7 +665,10 @@ function deleteBrokenMatching(
         }
 
         if ($dryRun) {
-            $deleted[] = ['path' => $problem['path'], 'target' => $problem['target']];
+            $deleted[] = [
+                'path' => $problem['path'],
+                'target' => $problem['target'],
+            ];
             continue;
         }
 
@@ -660,7 +707,7 @@ function rememberSetting(PDO $pdo, string $key, string $value): void
     try {
         $pdo->prepare(
             'INSERT INTO settings (key, value) VALUES (?, ?)
-             ON CONFLICT(key) DO UPDATE SET value = excluded.value'
+             ON CONFLICT(key) DO UPDATE SET value = excluded.value',
         )->execute([$key, $value]);
     } catch (Throwable) {
         // A missing table means an install that has not migrated yet. Losing
@@ -678,7 +725,7 @@ function recallSetting(PDO $pdo, string $key): ?string
         return null;
     }
 
-    return $found === false ? null : (string)$found;
+    return $found === false ? null : (string) $found;
 }
 
 /**
@@ -706,36 +753,42 @@ function lastSymlinkCheck(PDO $pdo): ?array
     }
 
     try {
-        $rows = $pdo->query(
-            'SELECT path, kind, target FROM symlink_problems ORDER BY kind, path'
-        )->fetchAll();
+        $rows = $pdo
+            ->query(
+                'SELECT path, kind, target FROM symlink_problems ORDER BY kind, path',
+            )
+            ->fetchAll();
     } catch (Throwable) {
         return null;
     }
 
     $rank = ['loop' => 0, 'ancestor' => 1, 'outside' => 2, 'broken' => 3];
-    $problems = array_map(fn(array $row): array => [
-        'kind' => (string)$row['kind'],
-        'path' => (string)$row['path'],
-        'target' => (string)($row['target'] ?? ''),
-        'hops' => 0,
-        'note' => symlinkNoteFor((string)$row['kind']),
-    ], $rows);
+    $problems = array_map(
+        fn(array $row): array => [
+            'kind' => (string) $row['kind'],
+            'path' => (string) $row['path'],
+            'target' => (string) ($row['target'] ?? ''),
+            'hops' => 0,
+            'note' => symlinkNoteFor((string) $row['kind']),
+        ],
+        $rows,
+    );
 
     usort(
         $problems,
-        fn(array $a, array $b): int => ($rank[$a['kind']] ?? 9) <=> ($rank[$b['kind']] ?? 9)
+        fn(array $a, array $b): int => ($rank[$a['kind']] ?? 9) <=>
+            ($rank[$b['kind']] ?? 9),
     );
 
     return [
         'problems' => $problems,
-        'links' => (int)($walk['links'] ?? 0),
-        'dirs' => (int)($walk['dirs'] ?? 0),
+        'links' => (int) ($walk['links'] ?? 0),
+        'dirs' => (int) ($walk['dirs'] ?? 0),
         'kinds' => $walk['kinds'] ?? [],
-        'seconds' => (float)($walk['seconds'] ?? 0),
+        'seconds' => (float) ($walk['seconds'] ?? 0),
         'complete' => true,
-        'full' => (bool)($walk['full'] ?? true),
-        'at' => (int)($walk['at'] ?? 0),
+        'full' => (bool) ($walk['full'] ?? true),
+        'at' => (int) ($walk['at'] ?? 0),
     ];
 }
 
@@ -744,10 +797,12 @@ function symlinkNoteFor(string $kind): string
 {
     return match ($kind) {
         'loop' => 'The links point at each other in a circle.',
-        'ancestor' => 'Points at a directory that contains the link itself, so anything '
-            . 'following symlinks will descend for ever.',
-        'outside' => 'Leaves the watched directory, so sizes measured here are not the '
-            . 'sizes something following it would see.',
+        'ancestor'
+            => 'Points at a directory that contains the link itself, so anything ' .
+            'following symlinks will descend for ever.',
+        'outside'
+            => 'Leaves the watched directory, so sizes measured here are not the ' .
+            'sizes something following it would see.',
         'broken' => 'Points at something that is not there.',
         default => '',
     };
@@ -773,7 +828,9 @@ function recordSymlinkState(PDO $pdo, array $found): array
     }
 
     try {
-        $before = $pdo->query('SELECT path, kind FROM symlink_problems')->fetchAll();
+        $before = $pdo
+            ->query('SELECT path, kind FROM symlink_problems')
+            ->fetchAll();
     } catch (Throwable) {
         return ['added' => [], 'gone' => 0, 'first' => true];
     }
@@ -781,7 +838,7 @@ function recordSymlinkState(PDO $pdo, array $found): array
     $first = $before === [];
     $known = [];
     foreach ($before as $row) {
-        $known[(string)$row['path'] . "\0" . (string)$row['kind']] = true;
+        $known[(string) $row['path'] . "\0" . (string) $row['kind']] = true;
     }
 
     $added = [];
@@ -808,15 +865,19 @@ function recordSymlinkState(PDO $pdo, array $found): array
      * handful of numbers around them.
      */
     if ($found['complete']) {
-        rememberSetting($pdo, 'symlink_walk', json_encode([
-            'at' => $now,
-            'links' => $found['links'],
-            'dirs' => $found['dirs'],
-            'seconds' => $found['seconds'],
-            'kinds' => $found['kinds'],
-            'total' => count($found['problems']),
-            'full' => $found['full'],
-        ]));
+        rememberSetting(
+            $pdo,
+            'symlink_walk',
+            json_encode([
+                'at' => $now,
+                'links' => $found['links'],
+                'dirs' => $found['dirs'],
+                'seconds' => $found['seconds'],
+                'kinds' => $found['kinds'],
+                'total' => count($found['problems']),
+                'full' => $found['full'],
+            ]),
+        );
     }
 
     if ($found['complete']) {
@@ -824,11 +885,15 @@ function recordSymlinkState(PDO $pdo, array $found): array
         $pdo->exec('DELETE FROM symlink_problems');
         $insert = $pdo->prepare(
             'INSERT INTO symlink_problems (path, kind, target, first_seen, last_seen)
-             VALUES (?, ?, ?, ?, ?)'
+             VALUES (?, ?, ?, ?, ?)',
         );
         foreach ($seen as $problem) {
             $insert->execute([
-                $problem['path'], $problem['kind'], $problem['target'], $now, $now,
+                $problem['path'],
+                $problem['kind'],
+                $problem['target'],
+                $now,
+                $now,
             ]);
         }
         $pdo->commit();

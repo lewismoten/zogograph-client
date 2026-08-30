@@ -118,7 +118,7 @@ version; a newer application will correctly see the old schema as needing an
 upgrade and will make a new snapshot before changing it.
 
 **If you have root on the machine**, there is a second collector. The wizard asks
-about it — *Also collect host-wide readings* — and prints the crontab line when
+about it — _Also collect host-wide readings_ — and prints the crontab line when
 it finishes, with your real paths already filled in. It has to go in **root's**
 crontab rather than your account's, so it is the one step the wizard cannot do
 for you:
@@ -127,7 +127,7 @@ for you:
 */5 * * * * /usr/local/bin/php ~/public_html/stats.example.com/host-cron.php --collect --prune --quiet
 ```
 
-Without it the dashboard's *whole machine* panel shows that line and nothing
+Without it the dashboard's _whole machine_ panel shows that line and nothing
 else. See [The host half](#the-host-half) for what it collects and why it needs
 its own database. On CloudLinux it is the only way to find out what is using the
 machine, because CageFS hides every other account's processes from yours.
@@ -153,11 +153,11 @@ prompt cannot drift apart.
 
 Who is allowed to write `lib/config.php`:
 
-| state | what happens |
-| --- | --- |
-| the file is missing | anybody may write it — this is the install, and there is no password yet to ask for |
-| the file exists | you must enter the password already in it |
-| the file exists, sign-in was never set up | nobody — there is no secret to prove, so paste it yourself |
+| state                                     | what happens                                                                        |
+| ----------------------------------------- | ----------------------------------------------------------------------------------- |
+| the file is missing                       | anybody may write it — this is the install, and there is no password yet to ask for |
+| the file exists                           | you must enter the password already in it                                           |
+| the file exists, sign-in was never set up | nobody — there is no secret to prove, so paste it yourself                          |
 
 Anyone who cannot write still gets the finished text to paste into the file.
 Having a file to edit is its own authorisation.
@@ -285,7 +285,7 @@ them:
 Up to four times are listed with a count of how many there are altogether, so a
 six-hourly job shows all four and an hourly one shows the next four of twenty-
 four. Anything more frequent than hourly is described rather than listed —
-*"every 5 minutes, next at 4:30 AM"* — because a list of consecutive minutes
+_"every 5 minutes, next at 4:30 AM"_ — because a list of consecutive minutes
 tells you nothing.
 
 The conversion goes through the IANA zone name rather than a fixed offset, so
@@ -332,7 +332,7 @@ heaviest single process of the group — the one worth going to look at.
 **How long it has been running** comes from `ps -eo etime`, which every platform
 writes as `[[DD-]HH:]MM:SS` — readable and useless for arithmetic, so it is
 parsed into seconds. (`etimes`, the seconds form, is procps only and absent on
-BSD.) A group shows the age of its *oldest* member, and the newest beside it
+BSD.) A group shows the age of its _oldest_ member, and the newest beside it
 when the two diverge sharply: a pool up for forty days whose newest member is
 nine seconds old is restarting as fast as it dies, and that is a different fault
 from one that has simply been running a long time. Neither number alone says so.
@@ -356,7 +356,7 @@ a burst, not sustained load — and that is a different answer from the same 78%
 with a process sitting at 60%. Without both, a list of near-idle processes under
 a heading saying "high cpu" reads as the tool being wrong.
 
-The panel deliberately does *not* express one as a fraction of the other. `ps`
+The panel deliberately does _not_ express one as a fraction of the other. `ps`
 reports a lifetime average per core, so on a multi-core machine the rows sum well
 past 100 and the arithmetic would claim the processes account for more than the
 whole reading. The coarser distinction survives the mismatch and is the one worth
@@ -390,7 +390,7 @@ sent, so this tool does not become a second place the password leaks from.
 
 One wrinkle: names come from the command line's first word, because `ps`'s
 `comm` column is a path that can contain spaces on BSD and so cannot be split on
-reliably. An executable whose *path* contains a space therefore shows only the
+reliably. An executable whose _path_ contains a space therefore shows only the
 part before it — vanishingly rare on a server, common in macOS application
 bundles, so it looks worse on a laptop than where it will run.
 
@@ -399,9 +399,9 @@ bundles, so it looks worse on a laptop than where it will run.
 Signed in, every row of the live list carries **Ask** and **Force**, and they
 are not two strengths of one button:
 
-| | signal | what it means |
-|---|---|---|
-| Ask | SIGTERM | the process is told to go, and closes its files first |
+|       | signal  | what it means                                              |
+| ----- | ------- | ---------------------------------------------------------- |
+| Ask   | SIGTERM | the process is told to go, and closes its files first      |
 | Force | SIGKILL | the kernel removes it; it cannot catch, decline or tidy up |
 
 Force is the one that loses data, so it is styled as damage and says so in its
@@ -409,7 +409,7 @@ own confirmation. Ask reports honestly when a process ignored it — the normal
 case for anything with a signal handler, and the reason both buttons exist.
 
 **Grouped or one at a time.** The list is grouped by name by default, and a
-group's buttons stop the whole group. Untick *Group by name* and every process
+group's buttons stop the whole group. Untick _Group by name_ and every process
 becomes its own row with its own buttons, which is how you stop one worker of a
 pool and leave the rest running.
 
@@ -433,7 +433,7 @@ Two deliberate differences from the real `pkill`:
   amount of quoting is worth betting the account on.
 - **It previews first.** `pkill -9 -f` fails in exactly one way — the pattern was
   broader than the person writing it believed — and it fails silently, after the
-  fact, on processes that are already gone. *Show matches* turns that into a
+  fact, on processes that are already gone. _Show matches_ turns that into a
   decision. Protected matches appear struck through rather than hidden: a
   pattern that reaches `sshd` is a pattern about to be run again with one more
   character on the end, and that is worth seeing now.
@@ -466,7 +466,7 @@ and between the reading and the click that process can exit and the kernel can
 hand its number to something else. Signalling a pid because of what a stale
 table says is sitting on it is how a monitoring tool kills a database.
 
-So stopping *one* process sends what the screen believed it was — the name, and
+So stopping _one_ process sends what the screen believed it was — the name, and
 how long it had been running — and the server re-reads the process and refuses
 if either has changed. A recycled pid always fails the age test, because the new
 occupant is younger than the reading:
@@ -474,7 +474,7 @@ occupant is younger than the reading:
     pid 8214 has only been running 4 seconds, less than the 11.6 days on
     screen. The number was reused; refresh and look again.
 
-Stopping a *group* or a *pattern* sends no pids at all — the name or the regex is
+Stopping a _group_ or a _pattern_ sends no pids at all — the name or the regex is
 resolved to pids at the instant they are signalled, so there is no window for
 them to go stale in.
 
@@ -543,14 +543,14 @@ hundred workers contributes a hundredth to each, while everything that process
 alone holds counts whole.
 
 That distinction is worth stating carefully, because "proportional" invites the
-idea that PSS is a measure of *sharing*. It is not. It is the effective physical
+idea that PSS is a measure of _sharing_. It is not. It is the effective physical
 memory **attributable** to a process: shared pages are apportioned so that
 summing PSS across every process gives the memory those processes actually
 occupy, counted once. That is the whole reason it can be summed at all.
 
 Attributable is not the same as reclaimable. Killing one of ten processes
 sharing a page frees nothing of it — the page stays, and the other nine each see
-their PSS *rise* as it is divided nine ways instead of ten. What a single exit
+their PSS _rise_ as it is divided nine ways instead of ten. What a single exit
 returns is only that process's private pages, which is a different figure again
 (USS, which this does not collect). PSS answers "whose memory is this", not
 "what would I get back".
@@ -565,10 +565,10 @@ partial sum as a whole-machine total.
 Worth separating, because the word does double duty and the two quantities are
 measured differently, from different files, for different purposes:
 
-| | what it is | where it comes from |
-|---|---|---|
+|                                  | what it is                                                                                     | where it comes from        |
+| -------------------------------- | ---------------------------------------------------------------------------------------------- | -------------------------- |
 | **Kernel shared memory / tmpfs** | tmpfs pages and System V segments — memory the kernel holds on behalf of no particular process | `Shmem` in `/proc/meminfo` |
-| **Proportional (PSS)** | a process's private pages in full, plus its share of each page it maps alongside others | `/proc/<pid>/smaps_rollup` |
+| **Proportional (PSS)**           | a process's private pages in full, plus its share of each page it maps alongside others        | `/proc/<pid>/smaps_rollup` |
 
 Neither is a subtotal of the other, and adding them together means nothing. They
 are not quite disjoint either — a tmpfs page that some process maps is counted
@@ -586,11 +586,11 @@ running on a schedule rather than once.
 or a working set that has been 1.8 GiB since the day it was installed, and those
 call for opposite responses. The same fact with history attached answers itself:
 
-| Service | Processes | Now | 24h ago | Change 24h | 7d ago | Change 7d |
-|---|---|---|---|---|---|---|
-| forgejo | 1 | 1.78 GiB | 1.73 GiB | +46.8 MiB | 1.52 GiB | **+263 MiB** |
-| mariadbd | 1 | 1.07 GiB | 1.09 GiB | −13.6 MiB | 1.06 GiB | +19.2 MiB |
-| httpd | 120 | 310 MiB | 307 MiB | +3.14 MiB | 293 MiB | +16.9 MiB |
+| Service  | Processes | Now      | 24h ago  | Change 24h | 7d ago   | Change 7d    |
+| -------- | --------- | -------- | -------- | ---------- | -------- | ------------ |
+| forgejo  | 1         | 1.78 GiB | 1.73 GiB | +46.8 MiB  | 1.52 GiB | **+263 MiB** |
+| mariadbd | 1         | 1.07 GiB | 1.09 GiB | −13.6 MiB  | 1.06 GiB | +19.2 MiB    |
+| httpd    | 120       | 310 MiB  | 307 MiB  | +3.14 MiB  | 293 MiB  | +16.9 MiB    |
 
 Forgejo is leaking. MariaDB is not, and is nearly as large. Neither is visible
 from a single reading.
@@ -601,7 +601,7 @@ upgraded — precisely when comparing before and after matters most. The service
 name survives that.
 
 **Grouped first, then ranked.** The order is easy to get backwards and the
-consequence is invisible. Taking the biggest *processes* and grouping whatever
+consequence is invisible. Taking the biggest _processes_ and grouping whatever
 survives loses every service made of many small workers: a hundred and twenty
 httpd children at 20 MiB each is 2.4 GiB that never enters a top-25-processes
 list, while one Forgejo at 1.8 GiB does. Ranking the groups puts them side by
@@ -623,7 +623,7 @@ moment it wants: a collector switched off for a week would otherwise answer
 cascade, unlike every other detail table. Those carry a process list and a slab
 table and are pruned at a fortnight to keep the file small; a service row is a
 name and five integers — roughly a megabyte a month — and its entire value is
-being *older* than that. `host.keep_service_days` defaults to 90, so "and what
+being _older_ than that. `host.keep_service_days` defaults to 90, so "and what
 was it in June?" stays answerable after the detail behind it has gone.
 
 ### Charting a service
@@ -649,7 +649,7 @@ table and the file list to redraw one canvas.
 
 **The selection survives a background refresh**, which took a fix. The host
 payload returned proportional memory regardless of what was chosen, while the
-chart took its axis from the selector — so picking *Writing* drew memory sizes
+chart took its axis from the selector — so picking _Writing_ drew memory sizes
 against a bytes-per-second scale, and every poll quietly put memory data back
 under a heading that still said Writing. Two failures from one cause: a reset
 that looked like a glitch, and a chart that was simply wrong.
@@ -693,7 +693,7 @@ The denominator is the **measured total from the sample**, not the sum of the
 visible rows. Only the biggest services are recorded, and PSS itself is measured
 for the biggest processes, so adding up the slices would quietly rescale the
 visible part to look like the whole machine. Taking the remainder from the
-measured total instead means *Everything else* covers services too small to have
+measured total instead means _Everything else_ covers services too small to have
 been recorded at all — the slice means "all the rest", not "the rest of the rows
 you can see". It is grey on purpose: it is the part with no answer in it, and
 colouring it like a service invites reading it as one.
@@ -717,7 +717,7 @@ ignore the colour, so the card stays neutral and says what it is:
 > Old or cold pages left over from an earlier squeeze… a high-water mark, not a
 > measure of now. No current shortage.
 
-What *is* worth acting on is two things happening together: **swap climbing while
+What _is_ worth acting on is two things happening together: **swap climbing while
 available memory falls.** Either alone is ordinary. Swap rising while
 MemAvailable holds steady is the kernel moving cold pages out of the way, which
 is it doing its job. MemAvailable falling while swap holds steady is cache being
@@ -730,7 +730,7 @@ options and is paying for memory with disk. Only then does the card turn amber:
 The estimate is the same shape as the disk projection — median of the steps,
 gated on both halves of the window agreeing — because the failure mode is the
 same: one burst of swapping during a nightly backup would otherwise read as a
-trend for as long as it stayed in the window. There is one addition. A *direction*
+trend for as long as it stayed in the window. There is one addition. A _direction_
 is not a trend until it is big enough to matter: available memory wanders by tens
 of megabytes on any busy machine, and on sign alone a drift of 27 MiB an hour
 across 7.5 GiB counts as falling and pairs with any swap growth to report
@@ -754,13 +754,14 @@ reclaimable cache as used and makes every healthy machine look full.
   and the counters are not all sampled at the same instant either. A few hundred
   megabytes there is this machine's kernel, not a fault.
 
-  It is called *other kernel/system memory* on the dashboard and `unaccounted`
+  It is called _other kernel/system memory_ on the dashboard and `unaccounted`
   in the database. The internal name is the honest description of the
   arithmetic; the displayed one avoids implying a leak or a broken sum, which is
   what people read into "unaccounted". What is worth watching is the figure
-  *growing* across days while nothing else does — then the memory has gone
-  somewhere no per-process view will ever show, and knowing *that* is worth more
+  _growing_ across days while nothing else does — then the memory has gone
+  somewhere no per-process view will ever show, and knowing _that_ is worth more
   than another process list.
+
 - **Memory per user**, which is the column CageFS hides and usually the answer.
 - **The biggest processes on the host**, with Pss, swap, threads and age.
 - **Kernel slab caches**, sized the way `slabtop` does it — slabs × pages per
@@ -800,7 +801,7 @@ confidently zero.
 
 Whole-machine figures — the busy percentage, the state breakdown, each core's
 bar — are **of every core added together**, so 100% means the machine fully
-occupied. Per-process figures on *What is burning it* are **of one core**, the
+occupied. Per-process figures on _What is burning it_ are **of one core**, the
 way `top` reports them, so a process with four busy threads shows 400%. Both
 conventions are standard, both are labelled on every column that uses them, and
 mixing them up is the easiest mistake there is to make with these numbers.
@@ -810,16 +811,16 @@ mixing them up is the easiest mistake there is to make with these numbers.
 Every jiffy the processor spends is charged to one of eight states, and which
 one changes what to do next:
 
-| State | What it means |
-| --- | --- |
-| `steal` | Ready to run, and the hypervisor gave the physical core to another tenant. Not your workload, and nothing on this machine reduces it. |
-| `iowait` | The core had nothing to run *and* something was blocked on a disk. This is idle time — the processor is the victim, not the cause. |
-| `softirq` | Deferred interrupt work, on a server nearly always the network stack. A whole core of it is a finding. |
-| `irq` | Servicing devices. Ordinarily a fraction of a percent. |
-| `system` | Kernel work on a process's behalf: syscalls, page faults, mapping. More of this than userland means the work is syscall-heavy, not computational. |
-| `user` | Ordinary work at normal priority — the machine doing what you asked. |
-| `nice` | The same at lowered priority. It yields to everything, so a machine busy only here is not one anybody is waiting on. |
-| `idle` | Nothing to run. |
+| State     | What it means                                                                                                                                     |
+| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `steal`   | Ready to run, and the hypervisor gave the physical core to another tenant. Not your workload, and nothing on this machine reduces it.             |
+| `iowait`  | The core had nothing to run _and_ something was blocked on a disk. This is idle time — the processor is the victim, not the cause.                |
+| `softirq` | Deferred interrupt work, on a server nearly always the network stack. A whole core of it is a finding.                                            |
+| `irq`     | Servicing devices. Ordinarily a fraction of a percent.                                                                                            |
+| `system`  | Kernel work on a process's behalf: syscalls, page faults, mapping. More of this than userland means the work is syscall-heavy, not computational. |
+| `user`    | Ordinary work at normal priority — the machine doing what you asked.                                                                              |
+| `nice`    | The same at lowered priority. It yields to everything, so a machine busy only here is not one anybody is waiting on.                              |
+| `idle`    | Nothing to run.                                                                                                                                   |
 
 `guest` is collected but left out of the shares, because the kernel counts guest
 time inside `user` as well and including both makes the percentages add to more
@@ -852,7 +853,7 @@ has since settled. One at 90% now and 3% lifetime has just started doing
 something. This is why the two tools appear to disagree about the same process.
 
 Ranking by CPU needs last minute's count for every process, not just the ones
-kept in the history — otherwise the ranking finds the busiest of the *fattest*,
+kept in the history — otherwise the ranking finds the busiest of the _fattest_,
 since the kept set is chosen by memory. So `host_proc_ticks` carries one row per
 live process and is replaced whole every reading: a scratchpad, not history, with
 no sample id, no growth and nothing to prune. It records each process's start
@@ -862,13 +863,13 @@ stranger's counter produces a spectacular figure for an innocent process.
 Work that arrives and leaves inside one minute — a fork-per-request server, a
 tight cron loop — can hold a core permanently without any of its processes ever
 appearing in this table. When the machine is busy and this list is not, the fork
-rate on *Waiting to run* is where that shows up, and the page says so rather than
+rate on _Waiting to run_ is where that shows up, and the page says so rather than
 leaving the table looking broken.
 
 ### Waiting to run
 
 Why a load average of 40 can sit on a machine that is 5% busy. **Load is a queue
-length, not a processor reading**: it counts everything runnable *and* everything
+length, not a processor reading**: it counts everything runnable _and_ everything
 stuck in uninterruptible sleep waiting on storage, so a hung disk drives it into
 the dozens while the cores idle. `procs_running` and `procs_blocked` tell those
 two apart, and the page says which it is looking at in a sentence rather than
@@ -891,7 +892,7 @@ by side rather than compared.
 
 Where CloudLinux is installed, the LVE **fault counts** are the figure that
 matters. A fault is an account asking for more processor than its LVE allows and
-being held back — that is being throttled *now*, as against being near a limit. A
+being held back — that is being throttled _now_, as against being near a limit. A
 throttled account's own percentage sits calmly at its ceiling and looks fine,
 which is exactly why the percentage is the wrong thing to watch.
 
@@ -903,7 +904,7 @@ which is exactly why the percentage is the wrong thing to watch.
 - **Per-core counters**, one row per core per reading, with the busy percentage
   differenced against the same core in the previous reading and stored beside
   them. Stored rather than only derived, because the difference is against
-  *another sample's* row for the same core, and a query that joins a table to
+  _another sample's_ row for the same core, and a query that joins a table to
   itself to draw a bar chart is one nobody writes twice.
 - **CPU pressure** from `/proc/pressure/cpu`, where the kernel was built with PSI.
 - **Per-process processor time** — `utime + stime` from `/proc/PID/stat` — with
@@ -922,7 +923,7 @@ neither answer is complete alone.
 ### What the account can see
 
 **The device**, from `/proc/diskstats`. Inside CageFS an account can usually
-still read it, but what it reports is the *host's* disk — every account's
+still read it, but what it reports is the _host's_ disk — every account's
 traffic together. It says the disk is busy; it never says you are the reason.
 
 **Its own traffic**, summed from `/proc/<pid>/io` across every process the user
@@ -947,7 +948,7 @@ went to the platter.
 **Per device**: throughput, utilisation, queue depth and requests in flight.
 
 **Stacked devices are listed but never summed.** LVM and software RAID sit on
-top of real hardware: a write to `dm-0` is remapped onto `sda` and *both*
+top of real hardware: a write to `dm-0` is remapped onto `sda` and _both_
 counters advance for the one write. Adding them together reports twice the
 traffic that happened — the same mistake as counting a hard link twice, one
 layer down. They still get a row, because "which volume is busy" is a real
@@ -961,7 +962,7 @@ reported as unknown rather than as a large negative rate.
 **Pressure**, from `/proc/pressure/io` where the kernel has `CONFIG_PSI`.
 
 On **RHEL 9 and CloudLinux 9 this is off by default**: the kernel is built with
-`CONFIG_PSI=y` *and* `CONFIG_PSI_DEFAULT_DISABLED=y`, so a 5.14 kernel — well
+`CONFIG_PSI=y` _and_ `CONFIG_PSI_DEFAULT_DISABLED=y`, so a 5.14 kernel — well
 past the 4.20 that introduced the feature — still has no `/proc/pressure`. Turn
 it on with
 
@@ -974,11 +975,11 @@ The reason is worked out by the **host collector**, not the dashboard, because
 `/boot/config-$(uname -r)` is the file that settles it and the account cannot
 read it. Note that a filtered `/proc` and a disabled `CONFIG_PSI` are
 independent: on a real CloudLinux 9 box, enabling `psi=1` made
-`/proc/pressure/io` readable *inside* the cage while `/proc/diskstats` stayed
+`/proc/pressure/io` readable _inside_ the cage while `/proc/diskstats` stayed
 hidden. Two absences, two causes — so the account-side check reports the
 filtering it can prove and defers the kernel question rather than guessing at
 it. It is recorded with each reading and shown in the host panel. The
-Health panel says whether it is there and, when it is not, *which* of the
+Health panel says whether it is there and, when it is not, _which_ of the
 possible reasons applies — a kernel without it, a kernel with it disabled at
 boot, or a `/proc` filtered by CageFS so the account cannot see a kernel feature
 the machine does have. Note that the version is reported and never concluded
@@ -987,7 +988,7 @@ from: RHEL and therefore CloudLinux backported PSI into their 4.18 kernels, so
 at. This is
 the better answer to "is the disk actually hurting anything", and utilisation is
 a poor proxy for it: a device can sit at 100% pushing background writeback and
-bother nobody. PSI measures the opposite thing — time spent *waiting*. `some` is
+bother nobody. PSI measures the opposite thing — time spent _waiting_. `some` is
 the share of time at least one task was blocked on I/O; `full` is the share when
 nothing at all could run, which is what a machine grinding to a halt looks like
 from the inside.
@@ -1068,7 +1069,7 @@ job would masquerade as a fragile machine.
 
 If the last reading was at 02:00 and the machine came back at 03:05, it was up
 for some unknown part of that hour before going down. The boot time is the
-moment it *returned*, so the outage is **at most** the gap and probably less.
+moment it _returned_, so the outage is **at most** the gap and probably less.
 The table writes `≤ 65 min` rather than `65 min`; treating the bound as the
 measurement would overstate every outage by however long the machine sat there
 working with nobody watching.
@@ -1083,15 +1084,15 @@ went wrong and hide the next one.
 A gap in the readings gets its own label — **Reading gap** — and never a red
 band. Three of them exist and the difference is only in how much can be said:
 
-| | what it means |
-|---|---|
-| boot time unchanged either side | the machine ran straight through; the collector was not running |
+|                                       | what it means                                                       |
+| ------------------------------------- | ------------------------------------------------------------------- |
+| boot time unchanged either side       | the machine ran straight through; the collector was not running     |
 | readings predate the `boot_at` column | it cannot be classified at all — not an outage, just unclassifiable |
-| no boot time either side, later | same, but without the excuse |
+| no boot time either side, later       | same, but without the excuse                                        |
 
 Only the first two are common, and the middle one disappears once boot times
 have been recorded for as long as the window. Calling any of them
-"Unexplained" in a panel headed *Uptime and outages* invited exactly the wrong
+"Unexplained" in a panel headed _Uptime and outages_ invited exactly the wrong
 reading — that the machine had been off — while the uptime figure beside it said
 100%. Two numbers on one screen disagreeing about the same hour is worse than
 either being absent.
@@ -1100,7 +1101,7 @@ either being absent.
 
 From `last` on the host, which only root can read.
 
-**Timestamps are asked for in ISO 8601.** `last` prints in the *system's*
+**Timestamps are asked for in ISO 8601.** `last` prints in the _system's_
 timezone, and this program has already set PHP's default to the one in the
 config. Where those differ — a server running UTC, a config saying
 America/New_York — `strtotime` reads `03:54` as though it were already Eastern
@@ -1110,7 +1111,7 @@ reboot that disagree, and nothing to say which to trust.
 
 `last -x -F --time-format iso` gives `2026-08-24T03:54:16+00:00`, and an
 explicit offset makes the default timezone irrelevant. Older `util-linux` has no
-`--time-format`, so the legacy output is parsed as a fallback — in the *system's*
+`--time-format`, so the legacy output is parsed as a fallback — in the _system's_
 zone, read from `/etc/localtime` or `timedatectl`, and not in whatever the config
 asked the rest of the program to display in. A boot
 with a shutdown record shortly before it was asked to stop; a boot with none
@@ -1119,7 +1120,7 @@ means the previous session ended without recording one.
 The wording is careful about what is actually known. "Crashed" is a strong claim
 to make from the absence of a log record, and the absence has other explanations
 — a rotated wtmp, a shutdown so abrupt the record never reached the disk. So the
-panel says *stopped without recording a shutdown* and lists the possibilities.
+panel says _stopped without recording a shutdown_ and lists the possibilities.
 The oldest record has nothing before it, which is reported as unknown rather
 than as a crash.
 
@@ -1141,16 +1142,16 @@ button.
     [Empty]               [Empty]
 
 A bare "Empty trash" asks for a decision without supplying the fact the decision
-turns on. With the size above it, the question is *is 16.7 MiB across 25 files
-worth reclaiming* — which is a question. Without it, the question is *do you want
-to delete an unknown quantity of things*, which is a dare. The confirmation
+turns on. With the size above it, the question is _is 16.7 MiB across 25 files
+worth reclaiming_ — which is a question. Without it, the question is _do you want
+to delete an unknown quantity of things_, which is a dare. The confirmation
 repeats the figures and says they are as of the last scan.
 
 The button is disabled when the category is empty, so a card can say "0 B" and
 still be worth showing: knowing trash is empty is knowing something.
 
 **After emptying**, the same treatment as a deleted row — figures struck through,
-button replaced by *emptied 2:52 AM*. The totals come from the last scan, so they
+button replaced by _emptied 2:52 AM_. The totals come from the last scan, so they
 are stale the moment the category is emptied, and offering to empty it again
 under a size that is no longer there is the trap the per-row Delete button had.
 
@@ -1163,13 +1164,13 @@ here it is "is this total still true", and after any successful removal it is no
 The offenders table is what the **last scan** saw, so a file it found stays
 listed until the next scan runs. That is right — it is a record, not a live
 directory listing — but the Delete button came back with it on every refresh, and
-pressing it a second time answered *path does not exist*, which reads as a fault
+pressing it a second time answered _path does not exist_, which reads as a fault
 rather than as "already done".
 
 So a row whose path has been deleted since the scan that found it shows
 **deleted** where its controls were, with its size struck through: the size was
 true when the scan ran and is not now. That covers **View** as well as Delete —
-View had exactly the same fault, staying live and answering *no such file* — and
+View had exactly the same fault, staying live and answering _no such file_ — and
 it is decided once, for the whole cell, rather than per button, so a control
 added later cannot forget.
 
@@ -1183,7 +1184,7 @@ file, so that case is matched on the category instead.
 
 If a request does slip through — a stale tab, a second click in flight, or a log
 viewer left open on a file that has since gone — the refusal says what happened:
-*"that file was deleted. It is still listed because the last scan found it."* The
+_"that file was deleted. It is still listed because the last scan found it."_ The
 log panel shows it in place of the lines rather than as an error. A path this tool removed itself is not
 something to investigate.
 
@@ -1195,7 +1196,7 @@ still cleared by the next successful refresh, since a failure that has been fixe
 should not stay on screen.
 
 Where a hard link survives, the message says so rather than claiming space back:
-*"Deleted, but nothing was freed: 1 other name still points at those 2.86 MiB."*
+_"Deleted, but nothing was freed: 1 other name still points at those 2.86 MiB."_
 
 ## Reading log files
 
@@ -1307,25 +1308,25 @@ keeps dropping is a leak. So the window is cut in half and each half measured
 on its own — a spike lands in one of them, a leak is in both — and three numbers
 come out:
 
-| | what it answers |
-| --- | --- |
-| `overall` | where the level actually went, spikes included |
-| `median` | the middle step between readings, which one outlier cannot move |
-| both halves | whether it is still going |
+|             | what it answers                                                 |
+| ----------- | --------------------------------------------------------------- |
+| `overall`   | where the level actually went, spikes included                  |
+| `median`    | the middle step between readings, which one outlier cannot move |
+| both halves | whether it is still going                                       |
 
 Only a fall in **both halves** counts as a trend, and the projection uses the
 median step, so a leak that also happens to contain a spike is still projected
 at the leak's rate. Tested against seven shapes:
 
-| scenario | verdict |
-| --- | --- |
-| steady 1 GiB/h leak | sustained, 7.5 days |
-| flat | steady |
-| one 20 GiB upload | **spike — no alert** |
-| upload near the end of the window | **spike — no alert** |
-| leak *and* an upload | sustained, projected at the leak's 1 GiB/h |
-| freeing up | steady |
-| slow 100 MiB/h drift | sustained, 84 days |
+| scenario                          | verdict                                    |
+| --------------------------------- | ------------------------------------------ |
+| steady 1 GiB/h leak               | sustained, 7.5 days                        |
+| flat                              | steady                                     |
+| one 20 GiB upload                 | **spike — no alert**                       |
+| upload near the end of the window | **spike — no alert**                       |
+| leak _and_ an upload              | sustained, projected at the leak's 1 GiB/h |
+| freeing up                        | steady                                     |
+| slow 100 MiB/h drift              | sustained, 84 days                         |
 
 The card says which it decided — `6.5 days · losing 1 GiB/h, and still falling`
 versus `one-off · 20 GiB went at once, not a trend` — because a projection whose
@@ -1375,7 +1376,7 @@ asks is an open relay with a disk inventory attached.
 
 A single reading at 100% is not worth an email. A backup starts, a scan runs, a
 page renders, and it is over before anybody could read about it. What matters is
-the CPU *staying* there, because that is the shape of a runaway process — and for
+the CPU _staying_ there, because that is the shape of a runaway process — and for
 the first minute it is indistinguishable from a spike.
 
 So the rule is defined by duration, not height. All three settings work together:
@@ -1389,22 +1390,22 @@ changes nothing about what is happening. **A share rather than the median**, for
 the opposite reason: a median tolerates a machine pegged only half the time, and
 that is a different condition. Tested against both:
 
-| | fires |
-|---|---|
-| 15 minutes at 98% | yes |
-| pegged, with one dip to 60% | yes |
-| one reading at 100%, otherwise quiet | no |
-| half the window pegged, half idle | no |
-| steady 88% | no |
-| alternating 100% / 40% | no |
-| four readings, all 100% | no — too thin to judge |
+|                                                 | fires                         |
+| ----------------------------------------------- | ----------------------------- |
+| 15 minutes at 98%                               | yes                           |
+| pegged, with one dip to 60%                     | yes                           |
+| one reading at 100%, otherwise quiet            | no                            |
+| half the window pegged, half idle               | no                            |
+| steady 88%                                      | no                            |
+| alternating 100% / 40%                          | no                            |
+| four readings, all 100%                         | no — too thin to judge        |
 | three readings at 100% spread across the window | no — that is a collection gap |
 
 That last row is the one worth having. Three readings at 100% inside a window
 whose other twelve minutes are missing is not evidence of a pegged CPU; it is
 evidence of a collector that stopped. Without the check, an outage would raise a
 CPU alert, which is the wrong thing to be told at the wrong moment. The window
-has to be *covered*: the reading count is compared against what the median
+has to be _covered_: the reading count is compared against what the median
 interval implies it should be.
 
 The alert names what was running, taken from the process records inside the same
@@ -1449,7 +1450,7 @@ for paths that survive every one of these:
 - are not a symlink, and are not reached through one
 - are not the monitor's own database
 
-Everything is decided against the *resolved* path, because
+Everything is decided against the _resolved_ path, because
 `trash/../../../etc/passwd` is inside the scan root right up until you resolve
 it. Every attempt is written to the `actions` table **including the refusals** —
 a run of refusals is what an attempt to escape the scan root looks like, and
@@ -1497,7 +1498,7 @@ the only way to say "CPU", so that line never changes. Memory has both forms, so
 in **Absolute** it becomes bytes consumed on the right-hand axis, with the total
 installed named in the subtitle. `83%` is a number you have to already know the
 machine to act on; `13.3 GiB of 16 GiB` is not. Consumed rather than available,
-because that is the direction the question runs — memory is used *up* by
+because that is the direction the question runs — memory is used _up_ by
 something, and a line that climbs as things get worse needs no explaining. It is
 derived from the stored total and available rather than stored a third time,
 which is one fewer way for the three to disagree.
@@ -1523,7 +1524,7 @@ averages are already their own unit, so nothing changes for them.
 ## Live updates
 
 The dashboard refreshes every 30 seconds. The **Live** button switches it to
-every 10 seconds and makes each poll take a *fresh* reading rather than
+every 10 seconds and makes each poll take a _fresh_ reading rather than
 re-reading the last one — the collector's own clock is a minute at best, and the
 moment you want ten-second resolution is the moment something is going wrong.
 Polling stops while the tab is hidden.
@@ -1537,7 +1538,7 @@ It surfaces later, on the one machine that matters, as
 
     Failed: SQLSTATE[HY000]: General error: 1 table host_files has no column named device
 
-New columns go in a new numbered step, *and* in the `CREATE TABLE` above it. The
+New columns go in a new numbered step, _and_ in the `CREATE TABLE` above it. The
 `ALTER TABLE … ADD COLUMN` guard makes the step a no-op where the column already
 exists, so both paths land in the same place — a fresh install builds it in one
 statement, an existing one alters into it.
@@ -1545,25 +1546,23 @@ statement, an existing one alters into it.
 **Steps are applied in version order, not in the order they are written.** The
 lists are kept newest-first so the interesting one is at the top, which is fine
 for reading and was wrong for applying: `foreach` walks an array in insertion
-order, so a *fresh* database ran step 21 before step 19 and hit an `ALTER` on a
+order, so a _fresh_ database ran step 21 before step 19 and hit an `ALTER` on a
 table its own `CREATE` had not reached yet. No existing install ever saw it,
 because every step was already recorded by the time the order drifted — which is
 exactly why it sat there undetected. Both migration runners now sort by key
 first.
 
-
-
 One SQLite file, normalised on `paths`:
 
-| table | what it holds |
-| --- | --- |
-| `paths` | every path once: id, string, file or dir, category |
-| `vitals` | one row per cheap reading |
-| `scans` | one row per walk of the tree |
-| `scan_totals` | trash / logs / temp bytes and file counts per scan |
-| `path_sizes` | one path's size and file count at one scan |
-| `alerts` | what was raised, and whether the email went |
-| `actions` | audited actions, outcomes, actor, and source address; the CSV export retains both identity fields |
+| table         | what it holds                                                                                     |
+| ------------- | ------------------------------------------------------------------------------------------------- |
+| `paths`       | every path once: id, string, file or dir, category                                                |
+| `vitals`      | one row per cheap reading                                                                         |
+| `scans`       | one row per walk of the tree                                                                      |
+| `scan_totals` | trash / logs / temp bytes and file counts per scan                                                |
+| `path_sizes`  | one path's size and file count at one scan                                                        |
+| `alerts`      | what was raised, and whether the email went                                                       |
+| `actions`     | audited actions, outcomes, actor, and source address; the CSV export retains both identity fields |
 
 Problems go to `data/error.log` rather than a table, so that a database that
 cannot be opened is still able to report why.
@@ -1621,9 +1620,9 @@ than a scan is allowed to use.
 The dashboard shows the consequence rather than hiding it. In the host panel one
 row per physical file, with the other names beneath it:
 
-| Path | Size | Names |
-|---|---|---|
-| `…/domlogs/git.lewismoten.com-ssl_log`<br>*also at `…/domlogs/account/git.lewismoten.com-ssl_log`* | 199 MiB | 2 paths, 1 file |
+| Path                                                                                               | Size    | Names           |
+| -------------------------------------------------------------------------------------------------- | ------- | --------------- |
+| `…/domlogs/git.lewismoten.com-ssl_log`<br>_also at `…/domlogs/account/git.lewismoten.com-ssl_log`_ | 199 MiB | 2 paths, 1 file |
 
 and under the table, `250 MiB across 2 files, reached by 3 paths.` Where a file
 has more links than the watch list can see, it says so — `2 here of 5` — because
@@ -1680,18 +1679,18 @@ that will send something into a circle.
 
 The scanner steps over every symlink it meets, deliberately — following them
 double counts at best and walks out of the watched directory at worst. The
-consequence is that a bad link is invisible *here* while still being the thing
+consequence is that a bad link is invisible _here_ while still being the thing
 that ruins everything else: a link pointing at one of its own ancestors is an
 infinitely deep directory to anything that does follow links, and backup jobs,
 `du`, `tar` and web crawlers all do. That is how a disk fills up with one
 directory copied ten thousand times.
 
-| finding | what it means |
-| --- | --- |
-| **Loop** | the chain of links comes back to one it already passed |
-| **Endless directory** | resolves to a directory containing the link itself, so anything following it descends for ever |
-| **Leaves the tree** | resolves outside the watched directory, so sizes measured here are not what a program following it would see |
-| **Broken** | points at nothing — untidy rather than dangerous |
+| finding               | what it means                                                                                                |
+| --------------------- | ------------------------------------------------------------------------------------------------------------ |
+| **Loop**              | the chain of links comes back to one it already passed                                                       |
+| **Endless directory** | resolves to a directory containing the link itself, so anything following it descends for ever               |
+| **Leaves the tree**   | resolves outside the watched directory, so sizes measured here are not what a program following it would see |
+| **Broken**            | points at nothing — untidy rather than dangerous                                                             |
 
 `photos/all -> ..` is one line in a listing and an infinitely deep tree, which
 is why the endless-directory case is worth a category of its own.
@@ -1749,7 +1748,7 @@ match, and each was found by a log that failed to collapse without it:
   moves with the clock, so only the `action` is kept.
 - **The endpoint itself.** A missing include breaks everything that requires it,
   and keying on the endpoint put one absent file on eight rows. Faults are keyed
-  on what went wrong; the endpoints are collected and shown as *4 endpoints*
+  on what went wrong; the endpoints are collected and shown as _4 endpoints_
   with the full list on hover.
 
 Together those take a real 91-line log down to the eight distinct faults it
@@ -1775,7 +1774,7 @@ If everything there is green, the fault is at runtime. Every failed request now
 returns a **reference** instead of a blank page:
 
 ```json
-{"error":"Something went wrong on the server.","reference":"c5767186"}
+{ "error": "Something went wrong on the server.", "reference": "c5767186" }
 ```
 
 Find that reference in `data/error.log`, or on the dashboard under **Recent
@@ -1869,7 +1868,7 @@ reduced motion disables Zogograph's decorative transitions and animation.
   silently otherwise. Styles set from JavaScript are fine: CSP governs style
   attributes in markup and `<style>` blocks, not CSSOM assignment.
 - `health.php` and `setup.php` are the exception, and get `style-src 'self'
-  'unsafe-inline'` from a `FilesMatch` block. Both carry their stylesheet
+'unsafe-inline'` from a `FilesMatch` block. Both carry their stylesheet
   inline, and both were rendering completely unstyled until that was noticed.
   Giving `health.php` an external stylesheet instead would hand it a dependency
   that can be missing in exactly the situation it exists for. Neither page puts

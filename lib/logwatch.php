@@ -61,10 +61,10 @@ function logRules(array $config): array
 
     return $set + [
         // Any single log bigger than this, whatever it is doing.
-        'max_bytes' => 1073741824,              // 1 GiB
+        'max_bytes' => 1073741824, // 1 GiB
 
         // Bytes an hour, against a ceiling rather than against its own past.
-        'fast_bytes_per_hour' => 104857600,     // 100 MiB/h
+        'fast_bytes_per_hour' => 104857600, // 100 MiB/h
 
         // A .bkup left behind by a job that did not finish.
         'backup_suffixes' => ['.bkup', '.bak', '.tmp', '.partial'],
@@ -73,12 +73,17 @@ function logRules(array $config): array
         // Rotation: a log this big that has not shrunk once in this many days
         // is not being rotated.
         'rotate_after_days' => 8,
-        'rotate_min_bytes' => 104857600,        // 100 MiB
+        'rotate_min_bytes' => 104857600, // 100 MiB
 
         // Error-log acceleration: the recent rate against the earlier one.
         'acceleration_multiple' => 4.0,
-        'acceleration_floor_per_hour' => 10485760,   // 10 MiB/h
-        'error_names' => ['error_log', 'error.log', 'php_errorlog', 'php-error.log'],
+        'acceleration_floor_per_hour' => 10485760, // 10 MiB/h
+        'error_names' => [
+            'error_log',
+            'error.log',
+            'php_errorlog',
+            'php-error.log',
+        ],
     ];
 }
 
@@ -96,12 +101,12 @@ function isLogPath(array $row, array $rules): bool
         return true;
     }
 
-    $name = strtolower(basename((string)$row['path']));
+    $name = strtolower(basename((string) $row['path']));
     if (in_array($name, array_map('strtolower', $rules['error_names']), true)) {
         return true;
     }
 
-    return (bool)preg_match('/\.log($|\.)|_log($|\.)|\blog\b/', $name);
+    return (bool) preg_match('/\.log($|\.)|_log($|\.)|\blog\b/', $name);
 }
 
 /**
@@ -118,10 +123,12 @@ function logCandidates(PDO $pdo, array $config): array
 {
     $rules = logRules($config);
 
-    $scans = $pdo->query(
-        'SELECT id, finished_at FROM scans WHERE finished_at IS NOT NULL
-         ORDER BY id DESC LIMIT ' . LOG_HISTORY_SCANS
-    )->fetchAll(PDO::FETCH_ASSOC);
+    $scans = $pdo
+        ->query(
+            'SELECT id, finished_at FROM scans WHERE finished_at IS NOT NULL
+         ORDER BY id DESC LIMIT ' . LOG_HISTORY_SCANS,
+        )
+        ->fetchAll(PDO::FETCH_ASSOC);
 
     if (count($scans) < 1) {
         return [];
@@ -129,17 +136,19 @@ function logCandidates(PDO $pdo, array $config): array
 
     $finished = [];
     foreach ($scans as $scan) {
-        $finished[(int)$scan['id']] = (int)$scan['finished_at'];
+        $finished[(int) $scan['id']] = (int) $scan['finished_at'];
     }
-    $latest = (int)$scans[0]['id'];
+    $latest = (int) $scans[0]['id'];
 
     $rows = $pdo->prepare(
         'SELECT ps.scan_id, ps.bytes, ps.links, p.id AS path_id, p.path, p.kind, p.category
          FROM path_sizes ps
          JOIN paths p ON p.id = ps.path_id
-         WHERE ps.scan_id IN (' . implode(',', array_map('intval', array_keys($finished))) . ')
+         WHERE ps.scan_id IN (' .
+            implode(',', array_map('intval', array_keys($finished))) .
+            ')
            AND p.kind = \'file\'
-         ORDER BY ps.scan_id ASC'
+         ORDER BY ps.scan_id ASC',
     );
     $rows->execute();
 
@@ -149,11 +158,11 @@ function logCandidates(PDO $pdo, array $config): array
             continue;
         }
 
-        $id = (int)$row['path_id'];
+        $id = (int) $row['path_id'];
         $byPath[$id] ??= [
             'path_id' => $id,
-            'path' => (string)$row['path'],
-            'kind' => (string)$row['kind'],
+            'path' => (string) $row['path'],
+            'kind' => (string) $row['kind'],
             'category' => $row['category'],
             'bytes' => 0,
             'links' => 1,
@@ -162,13 +171,13 @@ function logCandidates(PDO $pdo, array $config): array
         ];
 
         $byPath[$id]['series'][] = [
-            'at' => $finished[(int)$row['scan_id']],
-            'bytes' => (int)$row['bytes'],
+            'at' => $finished[(int) $row['scan_id']],
+            'bytes' => (int) $row['bytes'],
         ];
 
-        if ((int)$row['scan_id'] === $latest) {
-            $byPath[$id]['bytes'] = (int)$row['bytes'];
-            $byPath[$id]['links'] = max(1, (int)$row['links']);
+        if ((int) $row['scan_id'] === $latest) {
+            $byPath[$id]['bytes'] = (int) $row['bytes'];
+            $byPath[$id]['links'] = max(1, (int) $row['links']);
             $byPath[$id]['present'] = true;
         }
     }
@@ -183,7 +192,7 @@ function logCandidates(PDO $pdo, array $config): array
 /** A log bigger than any log has business being. */
 function oversizeLogs(array $logs, array $rules): array
 {
-    $limit = (int)$rules['max_bytes'];
+    $limit = (int) $rules['max_bytes'];
     if ($limit <= 0) {
         return [];
     }
@@ -194,18 +203,26 @@ function oversizeLogs(array $logs, array $rules): array
             continue;
         }
 
-        $out[] = logAlert($log, 'log_oversize', 'warning',
-            sprintf('%s is %s', basename($log['path']), humanBytes($log['bytes'])),
+        $out[] = logAlert(
+            $log,
+            'log_oversize',
+            'warning',
             sprintf(
-                "%s\n  A single log file has reached %s, past the %s that this account "
-                . "considers reasonable for one.\n\n"
-                . "Nothing reads a log this large. If it matters, rotate and compress it; "
-                . "if it does not, it is %s of disk doing nothing.",
+                '%s is %s',
+                basename($log['path']),
+                humanBytes($log['bytes']),
+            ),
+            sprintf(
+                "%s\n  A single log file has reached %s, past the %s that this account " .
+                    "considers reasonable for one.\n\n" .
+                    'Nothing reads a log this large. If it matters, rotate and compress it; ' .
+                    'if it does not, it is %s of disk doing nothing.',
                 $log['path'],
                 humanBytes($log['bytes']),
                 humanBytes($limit),
-                humanBytes($log['bytes'])
-            ));
+                humanBytes($log['bytes']),
+            ),
+        );
     }
 
     return $out;
@@ -221,7 +238,7 @@ function oversizeLogs(array $logs, array $rules): array
  */
 function fastGrowingLogs(array $logs, array $rules): array
 {
-    $ceiling = (float)$rules['fast_bytes_per_hour'];
+    $ceiling = (float) $rules['fast_bytes_per_hour'];
     if ($ceiling <= 0) {
         return [];
     }
@@ -233,19 +250,27 @@ function fastGrowingLogs(array $logs, array $rules): array
             continue;
         }
 
-        $out[] = logAlert($log, 'log_fast', 'warning',
-            sprintf('%s is writing %s an hour', basename($log['path']), humanBytes((int)$rate)),
+        $out[] = logAlert(
+            $log,
+            'log_fast',
+            'warning',
             sprintf(
-                "%s\n  Growing at %s an hour, above the %s an hour this account treats as "
-                . "too fast for a log.\n\n"
-                . "At that rate it adds %s a day. This is a ceiling rather than a comparison "
-                . "with its own past: a log that has always written this fast is not thereby "
-                . "fine.",
+                '%s is writing %s an hour',
+                basename($log['path']),
+                humanBytes((int) $rate),
+            ),
+            sprintf(
+                "%s\n  Growing at %s an hour, above the %s an hour this account treats as " .
+                    "too fast for a log.\n\n" .
+                    'At that rate it adds %s a day. This is a ceiling rather than a comparison ' .
+                    'with its own past: a log that has always written this fast is not thereby ' .
+                    'fine.',
                 $log['path'],
-                humanBytes((int)$rate),
-                humanBytes((int)$ceiling),
-                humanBytes((int)($rate * 24))
-            ));
+                humanBytes((int) $rate),
+                humanBytes((int) $ceiling),
+                humanBytes((int) ($rate * 24)),
+            ),
+        );
     }
 
     return $out;
@@ -265,8 +290,8 @@ function fastGrowingLogs(array $logs, array $rules): array
  */
 function staleBackups(array $logs, array $rules): array
 {
-    $maxAge = max(1, (int)$rules['backup_max_age_hours']) * 3600;
-    $suffixes = array_map('strtolower', (array)$rules['backup_suffixes']);
+    $maxAge = max(1, (int) $rules['backup_max_age_hours']) * 3600;
+    $suffixes = array_map('strtolower', (array) $rules['backup_suffixes']);
     $now = time();
 
     $out = [];
@@ -278,7 +303,10 @@ function staleBackups(array $logs, array $rules): array
         $name = strtolower(basename($log['path']));
         $matched = null;
         foreach ($suffixes as $suffix) {
-            if (str_ends_with($name, $suffix) || str_contains($name, $suffix . '.')) {
+            if (
+                str_ends_with($name, $suffix) ||
+                str_contains($name, $suffix . '.')
+            ) {
                 $matched = $suffix;
                 break;
             }
@@ -298,20 +326,28 @@ function staleBackups(array $logs, array $rules): array
             continue;
         }
 
-        $out[] = logAlert($log, 'log_stale_backup', 'warning',
-            sprintf('%s has been left behind for %s', basename($log['path']), humanDuration($age)),
+        $out[] = logAlert(
+            $log,
+            'log_stale_backup',
+            'warning',
             sprintf(
-                "%s\n  Last written %s ago, and it is a %s file - the kind a job creates "
-                . "while it works and removes when it finishes.\n\n"
-                . "One still here after %s means the job that made it did not finish. It is "
-                . "only %s, so nothing else on this page would ever mention it, and the job "
-                . "will most likely make another one on its next run.",
+                '%s has been left behind for %s',
+                basename($log['path']),
+                humanDuration($age),
+            ),
+            sprintf(
+                "%s\n  Last written %s ago, and it is a %s file - the kind a job creates " .
+                    "while it works and removes when it finishes.\n\n" .
+                    'One still here after %s means the job that made it did not finish. It is ' .
+                    'only %s, so nothing else on this page would ever mention it, and the job ' .
+                    'will most likely make another one on its next run.',
                 $log['path'],
                 humanDuration($age),
                 $matched,
                 humanDuration($maxAge),
-                humanBytes($log['bytes'])
-            ));
+                humanBytes($log['bytes']),
+            ),
+        );
     }
 
     return $out;
@@ -344,7 +380,7 @@ function duplicatedLogs(array $logs, array $rules): array
          * for. Logs are a small set; the filesystem is the authority.
          */
         $stat = @stat($log['path']);
-        if ($stat === false || (int)($stat['nlink'] ?? 1) < 2) {
+        if ($stat === false || (int) ($stat['nlink'] ?? 1) < 2) {
             continue;
         }
 
@@ -366,27 +402,36 @@ function duplicatedLogs(array $logs, array $rules): array
             continue;
         }
 
-        usort($members, fn(array $a, array $b): int => strcmp($a['path'], $b['path']));
+        usort(
+            $members,
+            fn(array $a, array $b): int => strcmp($a['path'], $b['path']),
+        );
         $first = $members[0];
         $paths = array_column($members, 'path');
 
-        $out[] = logAlert($first, 'log_duplicated', 'warning',
+        $out[] = logAlert(
+            $first,
+            'log_duplicated',
+            'warning',
             sprintf(
                 '%s is the same file as %s',
                 basename($paths[0]),
-                count($paths) === 2 ? basename($paths[1]) : count($paths) - 1 . ' other names'
+                count($paths) === 2
+                    ? basename($paths[1])
+                    : count($paths) - 1 . ' other names',
             ),
             sprintf(
-                "%s\n\n  These %d paths are one file of %s, hard-linked:\n%s\n\n"
-                . "The disk holds those bytes once. Deleting any one of these names frees "
-                . "nothing while another survives, and any total that adds them up is over "
-                . "by %s.",
+                "%s\n\n  These %d paths are one file of %s, hard-linked:\n%s\n\n" .
+                    'The disk holds those bytes once. Deleting any one of these names frees ' .
+                    'nothing while another survives, and any total that adds them up is over ' .
+                    'by %s.',
                 $first['path'],
                 count($paths),
                 humanBytes($first['bytes']),
                 '    ' . implode("\n    ", $paths),
-                humanBytes($first['bytes'] * (count($paths) - 1))
-            ));
+                humanBytes($first['bytes'] * (count($paths) - 1)),
+            ),
+        );
     }
 
     return $out;
@@ -403,8 +448,8 @@ function duplicatedLogs(array $logs, array $rules): array
  */
 function unrotatedLogs(PDO $pdo, array $logs, array $rules): array
 {
-    $minBytes = (int)$rules['rotate_min_bytes'];
-    $needSeconds = max(1, (int)$rules['rotate_after_days']) * 86400;
+    $minBytes = (int) $rules['rotate_min_bytes'];
+    $needSeconds = max(1, (int) $rules['rotate_after_days']) * 86400;
     if ($minBytes <= 0) {
         return [];
     }
@@ -426,7 +471,7 @@ function unrotatedLogs(PDO $pdo, array $logs, array $rules): array
          FROM path_sizes ps
          JOIN scans s ON s.id = ps.scan_id
          WHERE ps.path_id = :path AND s.finished_at IS NOT NULL AND s.finished_at >= :since
-         ORDER BY s.finished_at ASC'
+         ORDER BY s.finished_at ASC',
     );
 
     $out = [];
@@ -472,14 +517,16 @@ function unrotatedLogs(PDO $pdo, array $logs, array $rules): array
             continue;
         }
 
-        $span = (int)$series[count($series) - 1]['finished_at'] - (int)$series[0]['finished_at'];
+        $span =
+            (int) $series[count($series) - 1]['finished_at'] -
+            (int) $series[0]['finished_at'];
         if ($span < $needSeconds) {
             continue;
         }
 
         $shrank = false;
         for ($i = 1; $i < count($series); $i++) {
-            if ((int)$series[$i]['bytes'] < (int)$series[$i - 1]['bytes']) {
+            if ((int) $series[$i]['bytes'] < (int) $series[$i - 1]['bytes']) {
                 $shrank = true;
                 break;
             }
@@ -488,7 +535,7 @@ function unrotatedLogs(PDO $pdo, array $logs, array $rules): array
             continue;
         }
 
-        $grew = $log['bytes'] - (int)$series[0]['bytes'];
+        $grew = $log['bytes'] - (int) $series[0]['bytes'];
 
         /*
          * A log that is not growing has nothing to rotate.
@@ -502,23 +549,31 @@ function unrotatedLogs(PDO $pdo, array $logs, array $rules): array
          * Measured against the file's own size so that the test means the same
          * thing for a 100 MiB log as for a 40 GiB one.
          */
-        if ($grew < max(1048576, (int)($log['bytes'] * 0.05))) {
+        if ($grew < max(1048576, (int) ($log['bytes'] * 0.05))) {
             continue;
         }
 
-        $out[] = logAlert($log, 'log_unrotated', 'warning',
-            sprintf('%s has not been rotated in %s', basename($log['path']), humanDuration($span)),
+        $out[] = logAlert(
+            $log,
+            'log_unrotated',
+            'warning',
             sprintf(
-                "%s\n  Now %s, and it has not got smaller once in %s of scans - it grew by "
-                . "%s over that period without a single drop.\n\n"
-                . "Rotation shows up here as a fall, when the file is renamed or truncated "
-                . "and starts again. A log this size with no fall at all is one whose "
-                . "rotation is not running.",
+                '%s has not been rotated in %s',
+                basename($log['path']),
+                humanDuration($span),
+            ),
+            sprintf(
+                "%s\n  Now %s, and it has not got smaller once in %s of scans - it grew by " .
+                    "%s over that period without a single drop.\n\n" .
+                    'Rotation shows up here as a fall, when the file is renamed or truncated ' .
+                    'and starts again. A log this size with no fall at all is one whose ' .
+                    'rotation is not running.',
                 $log['path'],
                 humanBytes($log['bytes']),
                 humanDuration($span),
-                humanBytes($grew)
-            ));
+                humanBytes($grew),
+            ),
+        );
     }
 
     return $out;
@@ -537,9 +592,9 @@ function unrotatedLogs(PDO $pdo, array $logs, array $rules): array
  */
 function acceleratingErrorLogs(array $logs, array $rules): array
 {
-    $multiple = (float)$rules['acceleration_multiple'];
-    $floor = (float)$rules['acceleration_floor_per_hour'];
-    $names = array_map('strtolower', (array)$rules['error_names']);
+    $multiple = (float) $rules['acceleration_multiple'];
+    $floor = (float) $rules['acceleration_floor_per_hour'];
+    $names = array_map('strtolower', (array) $rules['error_names']);
 
     $out = [];
     foreach ($logs as $log) {
@@ -548,9 +603,10 @@ function acceleratingErrorLogs(array $logs, array $rules): array
         }
 
         $name = strtolower(basename($log['path']));
-        $isError = ($log['category'] ?? null) === 'errors'
-            || in_array($name, $names, true)
-            || str_contains($name, 'error');
+        $isError =
+            ($log['category'] ?? null) === 'errors' ||
+            in_array($name, $names, true) ||
+            str_contains($name, 'error');
         if (!$isError) {
             continue;
         }
@@ -574,20 +630,24 @@ function acceleratingErrorLogs(array $logs, array $rules): array
             continue;
         }
 
-        $out[] = logAlert($log, 'log_accelerating', 'critical',
+        $out[] = logAlert(
+            $log,
+            'log_accelerating',
+            'critical',
             sprintf('%s is filling faster and faster', basename($log['path'])),
             sprintf(
-                "%s\n  Writing %s an hour now, against %s an hour over the earlier half of "
-                . "the same history - %s.\n\n"
-                . "An error log that is speeding up usually means something has started "
-                . "failing and is retrying. The size is not the problem yet; the shape is.",
+                "%s\n  Writing %s an hour now, against %s an hour over the earlier half of " .
+                    "the same history - %s.\n\n" .
+                    'An error log that is speeding up usually means something has started ' .
+                    'failing and is retrying. The size is not the problem yet; the shape is.',
                 $log['path'],
-                humanBytes((int)$recent),
-                $earlier > 0 ? humanBytes((int)$earlier) : 'almost nothing',
+                humanBytes((int) $recent),
+                $earlier > 0 ? humanBytes((int) $earlier) : 'almost nothing',
                 is_infinite($times)
                     ? 'it was effectively idle before'
-                    : sprintf('%.1f times faster', $times)
-            ));
+                    : sprintf('%.1f times faster', $times),
+            ),
+        );
     }
 
     return $out;
@@ -640,8 +700,13 @@ function rateOver(array $series): ?float
 }
 
 /** One alert, shaped the way recordAlert and presentAlert both expect. */
-function logAlert(array $log, string $rule, string $severity, string $subject, string $detail): array
-{
+function logAlert(
+    array $log,
+    string $rule,
+    string $severity,
+    string $subject,
+    string $detail,
+): array {
     return [
         // Per path, so one noisy log cannot silence the rule for every other.
         'rule' => $rule . ':' . $log['path_id'],

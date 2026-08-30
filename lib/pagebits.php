@@ -28,7 +28,11 @@ function pageMeta(string $html): array
 {
     $doc = loadHtml($html);
     if ($doc === null) {
-        return ['title' => null, 'tags' => [], 'error' => 'that does not parse as HTML'];
+        return [
+            'title' => null,
+            'tags' => [],
+            'error' => 'that does not parse as HTML',
+        ];
     }
 
     $title = null;
@@ -51,12 +55,14 @@ function pageMeta(string $html): array
                 continue;
             }
 
-            $key = $attribute === 'charset'
-                ? 'charset'
-                : trim($meta->getAttribute($attribute));
-            $value = $attribute === 'charset'
-                ? $meta->getAttribute('charset')
-                : $meta->getAttribute('content');
+            $key =
+                $attribute === 'charset'
+                    ? 'charset'
+                    : trim($meta->getAttribute($attribute));
+            $value =
+                $attribute === 'charset'
+                    ? $meta->getAttribute('charset')
+                    : $meta->getAttribute('content');
 
             $tags[] = [
                 'group' => metaGroup($key),
@@ -70,10 +76,21 @@ function pageMeta(string $html): array
     }
 
     // Grouped so Open Graph does not sit interleaved with the viewport.
-    $order = ['Page' => 0, 'Search engines' => 1, 'Open Graph' => 2,
-              'Twitter' => 3, 'Technical' => 4, 'Other' => 5];
-    usort($tags, fn(array $a, array $b): int =>
-        [$order[$a['group']] ?? 9, $a['key']] <=> [$order[$b['group']] ?? 9, $b['key']]);
+    $order = [
+        'Page' => 0,
+        'Search engines' => 1,
+        'Open Graph' => 2,
+        'Twitter' => 3,
+        'Technical' => 4,
+        'Other' => 5,
+    ];
+    usort(
+        $tags,
+        fn(array $a, array $b): int => [
+            $order[$a['group']] ?? 9,
+            $a['key'],
+        ] <=> [$order[$b['group']] ?? 9, $b['key']],
+    );
 
     return ['title' => $title, 'tags' => $tags, 'error' => null];
 }
@@ -82,22 +99,48 @@ function metaGroup(string $key): string
 {
     $key = strtolower($key);
 
-    if (str_starts_with($key, 'og:') || str_starts_with($key, 'article:')
-        || str_starts_with($key, 'fb:')) {
+    if (
+        str_starts_with($key, 'og:') ||
+        str_starts_with($key, 'article:') ||
+        str_starts_with($key, 'fb:')
+    ) {
         return 'Open Graph';
     }
     if (str_starts_with($key, 'twitter:')) {
         return 'Twitter';
     }
-    if (in_array($key, ['description', 'keywords', 'robots', 'googlebot', 'canonical'], true)) {
+    if (
+        in_array(
+            $key,
+            ['description', 'keywords', 'robots', 'googlebot', 'canonical'],
+            true,
+        )
+    ) {
         return 'Search engines';
     }
-    if (in_array($key, ['charset', 'content-type', 'viewport', 'refresh',
-                        'x-ua-compatible', 'content-security-policy'], true)) {
+    if (
+        in_array(
+            $key,
+            [
+                'charset',
+                'content-type',
+                'viewport',
+                'refresh',
+                'x-ua-compatible',
+                'content-security-policy',
+            ],
+            true,
+        )
+    ) {
         return 'Technical';
     }
-    if (in_array($key, ['title', 'author', 'generator', 'application-name',
-                        'theme-color'], true)) {
+    if (
+        in_array(
+            $key,
+            ['title', 'author', 'generator', 'application-name', 'theme-color'],
+            true,
+        )
+    ) {
         return 'Page';
     }
 
@@ -107,23 +150,34 @@ function metaGroup(string $key): string
 function metaNote(string $key): string
 {
     return match (strtolower($key)) {
-        'description' => 'The sentence search engines usually show under the title.',
+        'description'
+            => 'The sentence search engines usually show under the title.',
         'keywords' => 'Ignored by every major search engine since about 2009.',
-        'robots' => 'Whether search engines may index this page and follow its links.',
-        'viewport' => 'How the page should scale on a phone. Without it, mobile browsers '
-            . 'render at desktop width and zoom out.',
-        'charset' => 'The character encoding. Wrong here is where mojibake comes from.',
-        'generator' => 'What built the page. Often names software and version to anyone asking.',
+        'robots'
+            => 'Whether search engines may index this page and follow its links.',
+        'viewport'
+            => 'How the page should scale on a phone. Without it, mobile browsers ' .
+            'render at desktop width and zoom out.',
+        'charset'
+            => 'The character encoding. Wrong here is where mojibake comes from.',
+        'generator'
+            => 'What built the page. Often names software and version to anyone asking.',
         'theme-color' => 'Tints the browser chrome on mobile.',
-        'og:title' => 'The headline used when the page is shared on social networks.',
+        'og:title'
+            => 'The headline used when the page is shared on social networks.',
         'og:description' => 'The summary used when shared.',
-        'og:image' => 'The picture used when shared. Its absence is why some links look bare.',
-        'og:url' => 'The address a share should point at, regardless of how you arrived.',
-        'og:type' => 'What kind of thing this page is - article, website, product.',
+        'og:image'
+            => 'The picture used when shared. Its absence is why some links look bare.',
+        'og:url'
+            => 'The address a share should point at, regardless of how you arrived.',
+        'og:type'
+            => 'What kind of thing this page is - article, website, product.',
         'og:site_name' => 'The name of the site as a whole.',
         'twitter:card' => 'Which layout X/Twitter should use for the preview.',
-        'refresh' => 'Redirects or reloads after a delay. A relic, and bad for accessibility.',
-        'x-ua-compatible' => 'A message to versions of Internet Explorer that no longer exist.',
+        'refresh'
+            => 'Redirects or reloads after a delay. A relic, and bad for accessibility.',
+        'x-ua-compatible'
+            => 'A message to versions of Internet Explorer that no longer exist.',
         default => '',
     };
 }
@@ -158,7 +212,8 @@ function pageLinkedData(string $html): array
             $blocks[] = [
                 'type' => null,
                 'name' => null,
-                'error' => 'this block is not valid JSON: ' . json_last_error_msg(),
+                'error' =>
+                    'this block is not valid JSON: ' . json_last_error_msg(),
                 'json' => $raw,
             ];
             continue;
@@ -168,11 +223,17 @@ function pageLinkedData(string $html): array
             $blocks[] = [
                 'type' => linkedDataType($entity),
                 'name' => is_array($entity)
-                    ? (is_string($entity['name'] ?? null) ? $entity['name'] : null)
+                    ? (is_string($entity['name'] ?? null)
+                        ? $entity['name']
+                        : null)
                     : null,
                 'error' => null,
-                'json' => json_encode($entity, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES
-                    | JSON_UNESCAPED_UNICODE),
+                'json' => json_encode(
+                    $entity,
+                    JSON_PRETTY_PRINT |
+                        JSON_UNESCAPED_SLASHES |
+                        JSON_UNESCAPED_UNICODE,
+                ),
             ];
         }
     }
@@ -219,7 +280,9 @@ function linkedDataType(mixed $entity): ?string
     }
     return is_array($entity['@type'])
         ? implode(', ', array_filter($entity['@type'], 'is_string'))
-        : (is_string($entity['@type']) ? $entity['@type'] : null);
+        : (is_string($entity['@type'])
+            ? $entity['@type']
+            : null);
 }
 
 /**
@@ -249,7 +312,7 @@ function loadHtml(string $html): ?DOMDocument
      */
     $ok = $doc->loadHTML(
         '<?xml encoding="UTF-8">' . $html,
-        LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING
+        LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING,
     );
 
     libxml_clear_errors();
@@ -283,11 +346,15 @@ function formatJson(string $body, int $maxLines = 4000): array
 
     $pretty = json_encode(
         $data,
-        JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
+        JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE,
     );
 
     if ($pretty === false) {
-        return ['ok' => false, 'error' => 'could not be re-encoded', 'lines' => []];
+        return [
+            'ok' => false,
+            'error' => 'could not be re-encoded',
+            'lines' => [],
+        ];
     }
 
     $lines = [];
@@ -298,7 +365,7 @@ function formatJson(string $body, int $maxLines = 4000): array
         $lines[] = [
             'n' => $index + 1,
             'text' => $text,
-            'depth' => (int)floor((strlen($text) - strlen(ltrim($text))) / 4),
+            'depth' => (int) floor((strlen($text) - strlen(ltrim($text))) / 4),
         ];
     }
 

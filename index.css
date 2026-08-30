@@ -21,7 +21,7 @@
   --dim: #718196;
 
   --accent: #68a7ff;
-  --accent-soft: rgba(104, 167, 255, .15);
+  --accent-soft: rgba(104, 167, 255, 0.15);
 
   --warn: #f0a35e;
   --crit: #f2616b;
@@ -30,19 +30,35 @@
   --topbar-height: 60px;
   --sidebar-width: 232px;
   --radius: 12px;
-  --editor-font: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  --editor-font:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+    monospace;
 
   color: var(--text);
-  font-family: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-family:
+    'Inter',
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    sans-serif;
   font-size: 15px;
 }
-:root[data-text-size="small"] { font-size: 13px; }
-:root[data-text-size="large"] { font-size: 18px; }
-:root[data-editor-font="compact"] { --editor-font: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
-:root[data-editor-font="classic"] { --editor-font: "Courier New", Courier, monospace; }
+:root[data-text-size='small'] {
+  font-size: 13px;
+}
+:root[data-text-size='large'] {
+  font-size: 18px;
+}
+:root[data-editor-font='compact'] {
+  --editor-font: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+}
+:root[data-editor-font='classic'] {
+  --editor-font: 'Courier New', Courier, monospace;
+}
 /* Blue, orange, and violet remain distinguishable for common red/green colour
    vision differences. Words, icons, and non-colour state cues remain primary. */
-:root[data-color-vision="distinguish"] {
+:root[data-color-vision='distinguish'] {
   --ok: #55b4e6;
   --warn: #f0aa45;
   --crit: #c78ae8;
@@ -50,13 +66,13 @@
 
 /* System motion preferences remain the default. This explicit setting is for
    people who need a consistent reduced-motion view across browsers/devices. */
-:root[data-motion="reduce"] *,
-:root[data-motion="reduce"] *::before,
-:root[data-motion="reduce"] *::after {
-  animation-duration: .001ms !important;
+:root[data-motion='reduce'] *,
+:root[data-motion='reduce'] *::before,
+:root[data-motion='reduce'] *::after {
+  animation-duration: 0.001ms !important;
   animation-iteration-count: 1 !important;
   scroll-behavior: auto !important;
-  transition-duration: .001ms !important;
+  transition-duration: 0.001ms !important;
 }
 
 /*
@@ -72,27 +88,74 @@
  * reason, and it is the one place !important earns its keep: nothing should
  * ever out-rank it.
  */
-[hidden] { display: none !important; }
+[hidden] {
+  display: none !important;
+}
 
-.try-textarea { width: 100%; min-height: 12rem; }
+.try-textarea {
+  width: 100%;
+  min-height: 12rem;
+}
 
 /* First-run guidance is evidence-driven, not a dismissible marketing tour. */
-.onboarding { border-color: var(--accent); background: var(--panel-hover); }
-.onboarding-list { margin: 0; padding-left: 1.3rem; }
-.onboarding-list li { margin: 8px 0; }
-.onboarding-list a { margin-left: 6px; }
+.onboarding {
+  border-color: var(--accent);
+  background: var(--panel-hover);
+}
+.onboarding-list {
+  margin: 0;
+  padding-left: 1.3rem;
+}
+.onboarding-list li {
+  margin: 8px 0;
+}
+.onboarding-list a {
+  margin-left: 6px;
+}
 
 /* A report should remain useful off-screen: controls and navigation do not. */
 @media print {
-  :root { color-scheme: light; }
-  body { max-width: none; padding: 0; background: #fff; color: #111; }
-  .topbar, .sidebar, .topbar-actions, .panel-tools, button, dialog,
-  #notice, #broadcastBanner, #fetchState { display: none !important; }
-  main { margin: 0 !important; padding: 0 !important; }
-  .view[hidden] { display: none !important; }
-  .panel, .card, .gauge { break-inside: avoid; box-shadow: none; border-color: #aaa; }
-  canvas { max-width: 100%; }
-  a { color: #111; text-decoration: underline; }
+  :root {
+    color-scheme: light;
+  }
+  body {
+    max-width: none;
+    padding: 0;
+    background: #fff;
+    color: #111;
+  }
+  .topbar,
+  .sidebar,
+  .topbar-actions,
+  .panel-tools,
+  button,
+  dialog,
+  #notice,
+  #broadcastBanner,
+  #fetchState {
+    display: none !important;
+  }
+  main {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .view[hidden] {
+    display: none !important;
+  }
+  .panel,
+  .card,
+  .gauge {
+    break-inside: avoid;
+    box-shadow: none;
+    border-color: #aaa;
+  }
+  canvas {
+    max-width: 100%;
+  }
+  a {
+    color: #111;
+    text-decoration: underline;
+  }
 }
 
 /* Visible to screen readers and document outlines without adding a second
@@ -109,10 +172,23 @@
   border: 0;
 }
 
-* { box-sizing: border-box; }
-body { margin: 0; padding: 24px; max-width: 1600px; margin-inline: auto; }
-h1 { font-size: 1.35rem; margin: 0; }
-h2 { margin: 0 0 12px; font-size: 1.05rem; }
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  padding: 24px;
+  max-width: 1600px;
+  margin-inline: auto;
+}
+h1 {
+  font-size: 1.35rem;
+  margin: 0;
+}
+h2 {
+  margin: 0 0 12px;
+  font-size: 1.05rem;
+}
 
 /* The header follows the page down.
 
@@ -134,7 +210,7 @@ h2 { margin: 0 0 12px; font-size: 1.05rem; }
   border-bottom: 1px solid var(--line);
   /* Enough shadow to separate the bar from a chart passing under it, not
      enough to look like a raised card. */
-  box-shadow: 0 6px 14px rgba(0, 0, 0, .45);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.45);
 
   margin: -24px -24px 16px;
   padding: 16px 24px 14px;
@@ -166,22 +242,53 @@ h2 { margin: 0 0 12px; font-size: 1.05rem; }
     gap: 8px;
     row-gap: 6px;
   }
-  .bar h1 { font-size: 1.05rem; }
-  .bar-controls { gap: 8px; row-gap: 6px; }
+  .bar h1 {
+    font-size: 1.05rem;
+  }
+  .bar-controls {
+    gap: 8px;
+    row-gap: 6px;
+  }
   .bar select,
-  .bar button { padding: 4px 8px; font-size: .85rem; }
-  .bar label.inline { font-size: .8rem; gap: 4px; }
+  .bar button {
+    padding: 4px 8px;
+    font-size: 0.85rem;
+  }
+  .bar label.inline {
+    font-size: 0.8rem;
+    gap: 4px;
+  }
 }
 
 /* Anything scrolled to deliberately - a log, a panel - would otherwise land
    underneath the bar. */
-.panel, #logPanel, #historyPanel { scroll-margin-top: 96px; }
-.bar-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.panel,
+#logPanel,
+#historyPanel {
+  scroll-margin-top: 96px;
+}
+.bar-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
 
-label { display: grid; gap: 6px; font-size: .9rem; color: var(--muted); }
-label.inline { display: flex; align-items: center; gap: 6px; }
+label {
+  display: grid;
+  gap: 6px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+label.inline {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
 
-select, input, button {
+select,
+input,
+button {
   font: inherit;
   padding: 7px 10px;
   border: 1px solid #555;
@@ -189,8 +296,12 @@ select, input, button {
   background: #1b1b1b;
   color: #fff;
 }
-button { cursor: pointer; }
-button:hover { border-color: #888; }
+button {
+  cursor: pointer;
+}
+button:hover {
+  border-color: #888;
+}
 button.link {
   border: 0;
   background: none;
@@ -201,7 +312,7 @@ button.link {
 button.icon-action {
   min-width: 2rem;
   min-height: 2rem;
-  padding: .3rem .45rem;
+  padding: 0.3rem 0.45rem;
   text-align: center;
   text-decoration: none;
 }
@@ -211,45 +322,94 @@ button.table-sort {
   color: inherit;
   text-decoration: none;
 }
-button.danger { border-color: #7a3030; color: #ffb0b0; }
-button.danger:hover { border-color: var(--crit); }
-button:disabled { opacity: .5; cursor: default; }
+button.danger {
+  border-color: #7a3030;
+  color: #ffb0b0;
+}
+button.danger:hover {
+  border-color: var(--crit);
+}
+button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
 
 /* The live toggle. Its dot pulses only while it is actually polling, so the
    page always says whether the numbers on it are still moving. */
 .toggle .dot {
   display: inline-block;
-  width: .6em;
-  height: .6em;
+  width: 0.6em;
+  height: 0.6em;
   border-radius: 50%;
   background: #555;
   margin-right: 4px;
   vertical-align: baseline;
 }
-.toggle[aria-pressed="true"] { border-color: var(--ok); color: var(--ok); }
-.toggle[aria-pressed="true"] .dot { background: var(--ok); animation: pulse 2s infinite; }
-@keyframes pulse { 50% { opacity: .25; } }
+.toggle[aria-pressed='true'] {
+  border-color: var(--ok);
+  color: var(--ok);
+}
+.toggle[aria-pressed='true'] .dot {
+  background: var(--ok);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  50% {
+    opacity: 0.25;
+  }
+}
 
-.cards, .grid { display: grid; gap: 12px; }
-.cards { grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); margin: 16px 0; }
-.grid { grid-template-columns: repeat(auto-fit, minmax(430px, 1fr)); margin-bottom: 12px; }
-.grid .wide { grid-column: 1 / -1; }
+.cards,
+.grid {
+  display: grid;
+  gap: 12px;
+}
+.cards {
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  margin: 16px 0;
+}
+.grid {
+  grid-template-columns: repeat(auto-fit, minmax(430px, 1fr));
+  margin-bottom: 12px;
+}
+.grid .wide {
+  grid-column: 1 / -1;
+}
 
-.card, .panel {
+.card,
+.panel {
   border: 1px solid var(--line);
   background: var(--panel);
   border-radius: 12px;
   padding: 14px;
 }
-.panel { margin-bottom: 12px; }
-.card .label { color: var(--muted); font-size: .85rem; }
-.card .value { margin-top: 6px; font-size: 1.35rem; font-weight: 700; }
-.card .sub { margin-top: 3px; font-size: .78rem; }
+.panel {
+  margin-bottom: 12px;
+}
+.card .label {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+.card .value {
+  margin-top: 6px;
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+.card .sub {
+  margin-top: 3px;
+  font-size: 0.78rem;
+}
 /* A value carrying two numbers ("696 MiB / 1024 MiB") needs the room. At the
    full size it wraps and leaves that one card taller than the row. */
-.card .value.pair { font-size: 1.1rem; }
-.card.warn .value { color: var(--warn); }
-.card.crit .value { color: var(--crit); }
+.card .value.pair {
+  font-size: 1.1rem;
+}
+.card.warn .value {
+  color: var(--warn);
+}
+.card.crit .value {
+  color: var(--crit);
+}
 
 .panel-head {
   display: flex;
@@ -259,7 +419,9 @@ button:disabled { opacity: .5; cursor: default; }
   gap: 10px;
   margin-bottom: 10px;
 }
-.panel-head h2 { margin: 0; }
+.panel-head h2 {
+  margin: 0;
+}
 /* A line of prose under a chart title, saying what the numbers are. Cheaper
    than a tooltip and it survives a screenshot. */
 /*
@@ -270,7 +432,10 @@ button:disabled { opacity: .5; cursor: default; }
  * empty box. 90ch is still inside the range where the eye finds the next line
  * without effort, and it fills a panel rather than appearing to give up on one.
  */
-.sub-note { margin: -6px 0 10px; max-width: 90ch; }
+.sub-note {
+  margin: -6px 0 10px;
+  max-width: 90ch;
+}
 /*
  * A note that follows a chart rather than a heading.
  *
@@ -278,23 +443,47 @@ button:disabled { opacity: .5; cursor: default; }
  * that lands it on top of the legend, which drawLineChart inserts directly
  * after the canvas - so this is the same note with the margin the other way up.
  */
-.chart-note { margin: 10px 0 14px; max-width: 90ch; }
-.sub-head { font-size: .95rem; margin: 22px 0 4px; color: #cfcfcf; }
+.chart-note {
+  margin: 10px 0 14px;
+  max-width: 90ch;
+}
+.sub-head {
+  font-size: 0.95rem;
+  margin: 22px 0 4px;
+  color: #cfcfcf;
+}
 /* A command line is long and must not push the numbers off the screen. */
 td.cmd {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: .78rem;
+  font-size: 0.78rem;
   color: var(--muted);
   max-width: 46ch;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.domain-capability { margin: 0 0 10px; }
-.domain-lock { cursor: help; font-size: 1.05rem; }
-.busy-moment { margin-bottom: 14px; }
-.busy-moment h4 { margin: 0 0 4px; font-size: .85rem; font-weight: 600; color: #cfcfcf; }
-.panel-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.domain-capability {
+  margin: 0 0 10px;
+}
+.domain-lock {
+  cursor: help;
+  font-size: 1.05rem;
+}
+.busy-moment {
+  margin-bottom: 14px;
+}
+.busy-moment h4 {
+  margin: 0 0 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #cfcfcf;
+}
+.panel-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
 /* One card per emptyable category: the size above, the button below, so the
    decision is made with the number that decides it. */
 .empty-buttons {
@@ -305,26 +494,74 @@ td.cmd {
   gap: 10px;
   margin: 0 0 14px;
 }
-.empty-buttons:empty { display: none; }
-.empty-card { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; }
-.empty-card .value { font-size: 1.15rem; }
-.empty-card button { margin-top: 8px; }
+.empty-buttons:empty {
+  display: none;
+}
+.empty-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+.empty-card .value {
+  font-size: 1.15rem;
+}
+.empty-card button {
+  margin-top: 8px;
+}
 
-canvas { width: 100%; height: 260px; display: block; }
+canvas {
+  width: 100%;
+  height: 260px;
+  display: block;
+}
 
-table { width: 100%; border-collapse: collapse; font-size: .9rem; }
-th, td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--line); }
-th { color: var(--muted); font-weight: 600; }
-td.size, th.size { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
-td.name { word-break: break-all; }
-tr.clickable { cursor: pointer; }
-tr.clickable:hover { background: #202020; }
-.grew { color: var(--warn); }
-.shrank { color: var(--ok); }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+th,
+td {
+  text-align: left;
+  padding: 7px 8px;
+  border-bottom: 1px solid var(--line);
+}
+th {
+  color: var(--muted);
+  font-weight: 600;
+}
+td.size,
+th.size {
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+td.name {
+  word-break: break-all;
+}
+tr.clickable {
+  cursor: pointer;
+}
+tr.clickable:hover {
+  background: #202020;
+}
+.grew {
+  color: var(--warn);
+}
+.shrank {
+  color: var(--ok);
+}
 
-.muted { color: var(--muted); }
-.small { font-size: .82rem; }
-.error { color: #ffb0b0; }
+.muted {
+  color: var(--muted);
+}
+.small {
+  font-size: 0.82rem;
+}
+.error {
+  color: #ffb0b0;
+}
 
 #notice:not(:empty) {
   padding: 10px 12px;
@@ -333,7 +570,9 @@ tr.clickable:hover { background: #202020; }
   margin-bottom: 12px;
   overflow-wrap: anywhere;
 }
-#notice.ok { background: #1c4b2a; }
+#notice.ok {
+  background: #1c4b2a;
+}
 
 #updateBanner {
   display: flex;
@@ -346,8 +585,12 @@ tr.clickable:hover { background: #202020; }
   border-radius: 8px;
   margin-bottom: 12px;
 }
-#updateBanner[hidden] { display: none; }
-#updateBanner button { white-space: nowrap; }
+#updateBanner[hidden] {
+  display: none;
+}
+#updateBanner button {
+  white-space: nowrap;
+}
 
 #alertBanner {
   border: 1px solid #7a5a30;
@@ -356,14 +599,31 @@ tr.clickable:hover { background: #202020; }
   padding: 12px 14px;
   margin-bottom: 12px;
 }
-#alertBanner.crit { border-color: #7a3030; background: #2b1414; }
-#alertBanner ul { margin: 6px 0 0; padding-left: 18px; }
+#alertBanner.crit {
+  border-color: #7a3030;
+  background: #2b1414;
+}
+#alertBanner ul {
+  margin: 6px 0 0;
+  padding-left: 18px;
+}
 
-.legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: .85rem; color: var(--muted); margin-top: 8px; }
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-top: 8px;
+}
 /* The dot is the series colour and the label stays muted, so the swatch is
    readable without the text shouting. --dot is set from the same palette the
    chart draws with; see SERIES_COLORS. */
-.legend span::before { content: "●"; margin-right: 5px; color: var(--dot, currentColor); }
+.legend span::before {
+  content: '●';
+  margin-right: 5px;
+  color: var(--dot, currentColor);
+}
 
 dialog {
   border: 1px solid var(--line);
@@ -373,9 +633,18 @@ dialog {
   padding: 18px;
   min-width: 300px;
 }
-dialog::backdrop { background: rgba(0, 0, 0, .6); }
-dialog form { display: grid; gap: 12px; }
-.dialog-buttons { display: flex; justify-content: flex-end; gap: 8px; }
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.6);
+}
+dialog form {
+  display: grid;
+  gap: 12px;
+}
+.dialog-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
 
 /* The log viewer. Monospaced, scrolls on its own, and never wraps: a wrapped
    log line makes two entries look like one. */
@@ -388,7 +657,7 @@ dialog form { display: grid; gap: 12px; }
   border-radius: 10px;
   padding: 10px 12px;
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: .78rem;
+  font-size: 0.78rem;
   line-height: 1.5;
   white-space: pre;
   tab-size: 4;
@@ -401,10 +670,22 @@ dialog form { display: grid; gap: 12px; }
   text-align: right;
   margin-right: 12px;
 }
-.logview mark { background: #6b5a1c; color: #ffe9a8; border-radius: 2px; }
+.logview mark {
+  background: #6b5a1c;
+  color: #ffe9a8;
+  border-radius: 2px;
+}
 
-.sched { display: grid; gap: 12px; }
-.sched .row { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; }
+.sched {
+  display: grid;
+  gap: 12px;
+}
+.sched .row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: end;
+}
 .sched pre {
   margin: 0;
   background: #0d0d0d;
@@ -412,7 +693,7 @@ dialog form { display: grid; gap: 12px; }
   border-radius: 8px;
   padding: 10px 12px;
   overflow-x: auto;
-  font-size: .76rem;
+  font-size: 0.76rem;
 }
 
 /* The file-size gauges deliberately run to 150%. A settled-size marker at
@@ -424,8 +705,14 @@ dialog form { display: grid; gap: 12px; }
   gap: 12px;
   margin: 0 0 14px;
 }
-.database-gauge { min-width: 0; }
-.database-gauge-head { display: flex; justify-content: space-between; gap: 8px; }
+.database-gauge {
+  min-width: 0;
+}
+.database-gauge-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
 .database-gauge-track {
   position: relative;
   height: 9px;
@@ -435,15 +722,19 @@ dialog form { display: grid; gap: 12px; }
   background: var(--line-soft);
 }
 .database-gauge-track::before {
-  content: "";
+  content: '';
   display: block;
   width: var(--fill);
   height: 100%;
   border-radius: inherit;
   background: var(--ok);
 }
-.database-gauge.band-warn .database-gauge-track::before { background: var(--warn); }
-.database-gauge.band-crit .database-gauge-track::before { background: var(--crit); }
+.database-gauge.band-warn .database-gauge-track::before {
+  background: var(--warn);
+}
+.database-gauge.band-crit .database-gauge-track::before {
+  background: var(--crit);
+}
 .database-gauge-tick {
   position: absolute;
   top: -4px;
@@ -451,13 +742,19 @@ dialog form { display: grid; gap: 12px; }
   left: var(--tick);
   width: 2px;
   background: var(--text);
-  opacity: .9;
+  opacity: 0.9;
 }
 
 @media (max-width: 760px) {
-  body { padding: 12px; }
-  .grid { grid-template-columns: 1fr; }
-  canvas { height: 220px; }
+  body {
+    padding: 12px;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  canvas {
+    height: 220px;
+  }
 }
 
 /* Stopping processes.
@@ -467,7 +764,7 @@ dialog form { display: grid; gap: 12px; }
    irreversible control on this page uses. Small, because a table row of them
    at normal size reads as the point of the table, and reading the table is. */
 button.small {
-  font-size: .78rem;
+  font-size: 0.78rem;
   padding: 2px 7px;
 }
 .stop-buttons {
@@ -475,7 +772,11 @@ button.small {
   gap: 5px;
   white-space: nowrap;
 }
-td.stop-cell, th.stop-cell { text-align: right; width: 1%; }
+td.stop-cell,
+th.stop-cell {
+  text-align: right;
+  width: 1%;
+}
 
 .pattern-row {
   display: flex;
@@ -487,7 +788,7 @@ td.stop-cell, th.stop-cell { text-align: right; width: 1%; }
   flex: 1 1 auto;
   min-width: 0;
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: .85rem;
+  font-size: 0.85rem;
 }
 .pattern-actions {
   display: flex;
@@ -510,25 +811,38 @@ pre.paste {
   border-radius: 8px;
   padding: 10px 12px;
   overflow-x: auto;
-  font-size: .8rem;
+  font-size: 0.8rem;
   margin: 8px 0;
 }
 
 /* Controls that sit above a chart rather than in a panel heading. The gap is
    here and not in a style attribute because the CSP forbids inline styles -
    `default-src 'self'` with no style-src means style="" is blocked outright. */
-.chart-controls { margin-top: 12px; }
+.chart-controls {
+  margin-top: 12px;
+}
 
 /* Taller than a line chart: the slice labels stack down the right, and a short
    canvas crops the ones at the ends. */
-canvas.pie { height: 340px; }
+canvas.pie {
+  height: 340px;
+}
 
 /* The two shadings, named in the prose so the legend is the sentence itself. */
-.band-restart { color: #ff9a9a; font-weight: 600; }
-.band-gap { color: #b9b9b9; font-weight: 600; }
+.band-restart {
+  color: #ff9a9a;
+  font-weight: 600;
+}
+.band-gap {
+  color: #b9b9b9;
+  font-weight: 600;
+}
 
 /* A size that was true when the scan ran and is not any more. */
-.struck-through { text-decoration: line-through; color: var(--muted); }
+.struck-through {
+  text-decoration: line-through;
+  color: var(--muted);
+}
 
 /*
  * The reasoning under an alert.
@@ -543,11 +857,14 @@ canvas.pie { height: 340px; }
  * stretching the table. Right for a path, wrong for a sentence: it split
  * "usual" across two lines as "usu / al".
  */
-.alert-subject { word-break: normal; overflow-wrap: break-word; }
+.alert-subject {
+  word-break: normal;
+  overflow-wrap: break-word;
+}
 
 .alert-why {
   margin-top: 4px;
-  font-size: .82rem;
+  font-size: 0.82rem;
   line-height: 1.45;
   color: var(--muted);
   white-space: pre-line;
@@ -570,26 +887,35 @@ canvas.pie { height: 340px; }
 .why {
   display: inline-block;
   margin-top: 6px;
-  font-size: .82rem;
+  font-size: 0.82rem;
 }
 
-.evidence { margin-top: 22px; }
-.evidence:first-child { margin-top: 6px; }
+.evidence {
+  margin-top: 22px;
+}
+.evidence:first-child {
+  margin-top: 6px;
+}
 .evidence h3 {
-  font-size: .95rem;
+  font-size: 0.95rem;
   margin: 0 0 8px;
   padding-bottom: 6px;
   border-bottom: 1px solid var(--line, #333);
 }
 .evidence h4 {
-  font-size: .85rem;
+  font-size: 0.85rem;
   color: var(--muted);
   margin: 0 0 6px;
   font-weight: 500;
 }
 
-.evidence-list { margin: 0; padding-left: 18px; }
-.evidence-list li { margin-bottom: 4px; }
+.evidence-list {
+  margin: 0;
+  padding-left: 18px;
+}
+.evidence-list li {
+  margin-bottom: 4px;
+}
 
 /*
  * The rankings side by side where there is room for them, stacked where there
@@ -607,9 +933,11 @@ canvas.pie { height: 340px; }
   display: grid;
   grid-template-columns: max-content 1fr;
   gap: 4px 16px;
-  font-size: .9rem;
+  font-size: 0.9rem;
 }
-.facts-label { color: var(--muted); }
+.facts-label {
+  color: var(--muted);
+}
 
 /*
  * Wide content scrolls inside its own box.
@@ -617,18 +945,30 @@ canvas.pie { height: 340px; }
  * A command line or a deep path is arbitrarily long, and without this the
  * whole page gains a horizontal scrollbar because of one row in one table.
  */
-.scroll-x { overflow-x: auto; }
+.scroll-x {
+  overflow-x: auto;
+}
 
 .tree {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: .8rem;
+  font-size: 0.8rem;
   line-height: 1.7;
   white-space: nowrap;
 }
-.tree-line { color: var(--muted); }
-.tree-line.notable { color: inherit; }
-.tree-name { font-weight: 600; }
-.tree-meta { color: var(--muted); margin-left: 10px; font-weight: 400; }
+.tree-line {
+  color: var(--muted);
+}
+.tree-line.notable {
+  color: inherit;
+}
+.tree-name {
+  font-weight: 600;
+}
+.tree-meta {
+  color: var(--muted);
+  margin-left: 10px;
+  font-weight: 400;
+}
 
 /* --------------------------------------------------------- daemons -- */
 
@@ -639,14 +979,29 @@ canvas.pie { height: 340px; }
  * service that is simply not installed here is greyed rather than coloured —
  * it is not a result, and the eye should skip it.
  */
-.state-up { color: var(--ok); }
-.state-down { color: var(--crit); font-weight: 600; letter-spacing: .02em; }
-.state-absent { color: var(--muted); }
+.state-up {
+  color: var(--ok);
+}
+.state-down {
+  color: var(--crit);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.state-absent {
+  color: var(--muted);
+}
 
 /* -------------------------------------------------------------- treemap -- */
 
-.treemap-holder { position: relative; }
-#treemap { width: 100%; height: 460px; display: block; cursor: pointer; }
+.treemap-holder {
+  position: relative;
+}
+#treemap {
+  width: 100%;
+  height: 460px;
+  display: block;
+  cursor: pointer;
+}
 
 /*
  * The tooltip follows the pointer and must never sit under it.
@@ -663,25 +1018,56 @@ canvas.pie { height: 340px; }
   padding: 8px 10px;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: rgba(10, 12, 16, .94);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, .55);
-  font-size: .82rem;
+  background: rgba(10, 12, 16, 0.94);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.55);
+  font-size: 0.82rem;
   line-height: 1.5;
   /* It is parked in a corner rather than following the pointer, so it moves
      between corners rather than continuously - worth easing, unlike a box that
      tracked the mouse, where any transition would lag behind it. */
-  transition: left .12s ease, top .12s ease;
+  transition:
+    left 0.12s ease,
+    top 0.12s ease;
 }
-@media (prefers-reduced-motion: reduce) { .treemap-tip { transition: none; } }
-.treemap-tip .tip-name { font-weight: 600; word-break: break-all; }
-.treemap-tip .tip-size { color: var(--warn); }
-.treemap-tip dl { display: grid; grid-template-columns: max-content 1fr; gap: 2px 10px; margin: 6px 0 0; }
-.treemap-tip dt { color: var(--muted); }
-.treemap-tip dd { margin: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .treemap-tip {
+    transition: none;
+  }
+}
+.treemap-tip .tip-name {
+  font-weight: 600;
+  word-break: break-all;
+}
+.treemap-tip .tip-size {
+  color: var(--warn);
+}
+.treemap-tip dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 2px 10px;
+  margin: 6px 0 0;
+}
+.treemap-tip dt {
+  color: var(--muted);
+}
+.treemap-tip dd {
+  margin: 0;
+}
 
-.crumbs { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; font-size: .85rem; margin-bottom: 8px; }
-.crumbs button { padding: 2px 4px; }
-.crumbs .sep { color: var(--muted); }
+.crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-items: center;
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+}
+.crumbs button {
+  padding: 2px 4px;
+}
+.crumbs .sep {
+  color: var(--muted);
+}
 
 /* ------------------------------------------------------- list dialog -- */
 
@@ -693,27 +1079,40 @@ canvas.pie { height: 340px; }
  * the reader nothing. Height is capped in viewport units so the dialog stays
  * usable on a laptop and still uses a tall screen when there is one.
  */
-#listDialog { max-width: min(900px, 92vw); }
-.scroll-list { max-height: 60vh; overflow-y: auto; }
-.scroll-list .group { margin-bottom: 14px; }
+#listDialog {
+  max-width: min(900px, 92vw);
+}
+.scroll-list {
+  max-height: 60vh;
+  overflow-y: auto;
+}
+.scroll-list .group {
+  margin-bottom: 14px;
+}
 .scroll-list .group-head {
   position: sticky;
   top: 0;
   background: var(--panel);
   padding: 4px 0;
   font-weight: 600;
-  font-size: .85rem;
+  font-size: 0.85rem;
   border-bottom: 1px solid var(--line);
 }
-.scroll-list ul { margin: 6px 0 0; padding-left: 18px; }
+.scroll-list ul {
+  margin: 6px 0 0;
+  padding-left: 18px;
+}
 .scroll-list li {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: .78rem;
+  font-size: 0.78rem;
   line-height: 1.6;
   word-break: break-all;
   color: var(--muted);
 }
-.more-link { margin-left: 6px; white-space: nowrap; }
+.more-link {
+  margin-left: 6px;
+  white-space: nowrap;
+}
 
 /* --------------------------------------------------------- capabilities -- */
 
@@ -724,34 +1123,87 @@ canvas.pie { height: 340px; }
  * the eye can run down them; a table would align on the longest description and
  * scatter the marks.
  */
-.cap-list { display: grid; grid-template-columns: 1.6em 1fr auto; gap: 2px 10px; align-items: baseline; }
-.cap-mark { font-size: .95rem; line-height: 1.5; }
-.cap-yes { color: var(--ok); }
-.cap-no { color: var(--muted); }
-.cap-part { color: var(--warn); }
-.cap-does { font-size: .88rem; }
+.cap-list {
+  display: grid;
+  grid-template-columns: 1.6em 1fr auto;
+  gap: 2px 10px;
+  align-items: baseline;
+}
+.cap-mark {
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.cap-yes {
+  color: var(--ok);
+}
+.cap-no {
+  color: var(--muted);
+}
+.cap-part {
+  color: var(--warn);
+}
+.cap-does {
+  font-size: 0.88rem;
+}
 .cap-prog {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: .8rem;
+  font-size: 0.8rem;
   color: var(--muted);
   text-align: right;
   white-space: nowrap;
 }
-.cap-why { color: var(--muted); font-size: .78rem; }
+.cap-why {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
 /* The version is the answer; the state tag is an aside about it. */
-.cap-version { color: #cfcfcf; }
-.cap-tag { color: var(--muted); }
-.cap-group { margin-top: 18px; }
-.cap-group h3 { font-size: .9rem; margin: 0 0 8px; padding-bottom: 5px; border-bottom: 1px solid var(--line); }
-.cap-expose { margin-left: 8px; font-size: .75rem; }
-.explainer { border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; margin-bottom: 14px; }
-.explainer h3 { font-size: .92rem; margin: 0 0 6px; }
-.explainer p { margin: 0 0 8px; font-size: .86rem; line-height: 1.55; color: #cfcfcf; }
-.explainer p:last-child { margin-bottom: 0; }
+.cap-version {
+  color: #cfcfcf;
+}
+.cap-tag {
+  color: var(--muted);
+}
+.cap-group {
+  margin-top: 18px;
+}
+.cap-group h3 {
+  font-size: 0.9rem;
+  margin: 0 0 8px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--line);
+}
+.cap-expose {
+  margin-left: 8px;
+  font-size: 0.75rem;
+}
+.explainer {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 14px;
+}
+.explainer h3 {
+  font-size: 0.92rem;
+  margin: 0 0 6px;
+}
+.explainer p {
+  margin: 0 0 8px;
+  font-size: 0.86rem;
+  line-height: 1.55;
+  color: #cfcfcf;
+}
+.explainer p:last-child {
+  margin-bottom: 0;
+}
 
 /* ------------------------------------------------- capability changes -- */
 
-#capChanges { width: 100%; height: 200px; display: block; cursor: pointer; }
+#capChanges {
+  width: 100%;
+  height: 200px;
+  display: block;
+  cursor: pointer;
+}
 
 /*
  * The icons sit at the end of the program column and must not wrap away from
@@ -761,27 +1213,46 @@ canvas.pie { height: 340px; }
   display: inline-block;
   margin-left: 7px;
   padding: 0 3px;
-  font-size: .9rem;
+  font-size: 0.9rem;
   line-height: 1;
   text-decoration: none;
-  opacity: .55;
+  opacity: 0.55;
 }
-.cap-icon:hover, .cap-icon:focus { opacity: 1; }
+.cap-icon:hover,
+.cap-icon:focus {
+  opacity: 1;
+}
 
-.change-list { max-height: 60vh; overflow-y: auto; }
+.change-list {
+  max-height: 60vh;
+  overflow-y: auto;
+}
 .change-row {
   display: grid;
   grid-template-columns: max-content 1fr;
   gap: 2px 12px;
   padding: 8px 0;
   border-bottom: 1px solid var(--line);
-  font-size: .85rem;
+  font-size: 0.85rem;
 }
-.change-when { color: var(--muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .78rem; }
-.change-what .prog { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-weight: 600; }
-.change-arrow { color: var(--muted); }
-.change-gain { color: var(--ok); }
-.change-loss { color: var(--crit); }
+.change-when {
+  color: var(--muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.78rem;
+}
+.change-what .prog {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-weight: 600;
+}
+.change-arrow {
+  color: var(--muted);
+}
+.change-gain {
+  color: var(--ok);
+}
+.change-loss {
+  color: var(--crit);
+}
 pre.commands {
   margin: 8px 0 0;
   padding: 10px 12px;
@@ -789,37 +1260,79 @@ pre.commands {
   border: 1px solid var(--line);
   border-radius: 8px;
   overflow-x: auto;
-  font-size: .8rem;
+  font-size: 0.8rem;
   line-height: 1.5;
   white-space: pre;
 }
 
 /* -------------------------------------------------------------- backups -- */
 
-.headline { font-size: 1.6rem; font-weight: 600; }
-.headline-sub { color: var(--muted); font-size: .88rem; margin-top: 2px; }
+.headline {
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+.headline-sub {
+  color: var(--muted);
+  font-size: 0.88rem;
+  margin-top: 2px;
+}
 
 /*
  * Safety levels are colour-coded, and dangerous is deliberately not red-as-in-
  * do-this-first. It is listed to be named as dangerous, so it reads as a
  * warning label rather than as the bottom of a to-do list.
  */
-.level { font-size: .7rem; text-transform: uppercase; letter-spacing: .06em; font-weight: 600; }
-.level-safe { color: var(--ok); }
-.level-review { color: var(--warn); }
-.level-dangerous { color: var(--crit); }
-.reach { font-size: .72rem; color: var(--muted); }
-.action-row { padding: 9px 0; border-bottom: 1px solid var(--line); }
-.action-row:last-child { border-bottom: 0; }
-.action-title { font-size: .9rem; font-weight: 600; margin: 2px 0; }
-.action-detail { font-size: .82rem; color: var(--muted); line-height: 1.5; max-width: 78ch; }
+.level {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+}
+.level-safe {
+  color: var(--ok);
+}
+.level-review {
+  color: var(--warn);
+}
+.level-dangerous {
+  color: var(--crit);
+}
+.reach {
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+.action-row {
+  padding: 9px 0;
+  border-bottom: 1px solid var(--line);
+}
+.action-row:last-child {
+  border-bottom: 0;
+}
+.action-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 2px 0;
+}
+.action-detail {
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.5;
+  max-width: 78ch;
+}
 .action-command {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: .78rem; background: #000; border: 1px solid var(--line);
-  border-radius: 6px; padding: 2px 6px; display: inline-block; margin-top: 4px;
+  font-size: 0.78rem;
+  background: #000;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 2px 6px;
+  display: inline-block;
+  margin-top: 4px;
 }
-.ratio-high { color: var(--warn); font-weight: 600; }
-
+.ratio-high {
+  color: var(--warn);
+  font-weight: 600;
+}
 
 /* =========================================================== application == */
 
@@ -834,14 +1347,21 @@ body {
   margin: 0;
   padding: 0;
   background:
-    radial-gradient(900px 500px at 78% -180px, rgba(76, 139, 224, .14), transparent 70%),
+    radial-gradient(
+      900px 500px at 78% -180px,
+      rgba(76, 139, 224, 0.14),
+      transparent 70%
+    ),
     var(--bg);
   max-width: none;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
 
-::selection { background: rgba(104, 167, 255, .32); color: var(--text); }
+::selection {
+  background: rgba(104, 167, 255, 0.32);
+  color: var(--text);
+}
 
 :focus-visible {
   outline: 2px solid var(--accent);
@@ -858,7 +1378,9 @@ body {
   z-index: 60;
   border-radius: 0 0 var(--radius) 0;
 }
-.skip-link:focus { left: 0; }
+.skip-link:focus {
+  left: 0;
+}
 
 .topbar {
   position: sticky;
@@ -869,20 +1391,49 @@ body {
   align-items: center;
   gap: 14px;
   padding: 0 16px;
-  background: rgba(11, 16, 24, .88);
+  background: rgba(11, 16, 24, 0.88);
   backdrop-filter: blur(16px) saturate(1.1);
   border-bottom: 1px solid var(--line);
 }
 
-.brand { display: flex; align-items: center; text-decoration: none; color: inherit; }
+.brand {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
 
-.brand-text { display: flex; flex-direction: column; line-height: 1.15; }
-.brand-text strong { font-size: 1.04rem; letter-spacing: -.02em; }
-.brand-text small { color: var(--dim); font-size: .7rem; letter-spacing: .01em; }
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+.brand-text strong {
+  font-size: 1.04rem;
+  letter-spacing: -0.02em;
+}
+.brand-text small {
+  color: var(--dim);
+  font-size: 0.7rem;
+  letter-spacing: 0.01em;
+}
 
-.topbar-controls { margin-left: auto; display: flex; align-items: center; gap: 10px; }
-.topbar-actions { display: flex; align-items: center; gap: 10px; }
-.control-label { color: var(--muted); font-size: .78rem; margin-right: 4px; }
+.topbar-controls {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.control-label {
+  color: var(--muted);
+  font-size: 0.78rem;
+  margin-right: 4px;
+}
 
 /* The page request belongs with the collector clock, not inside a panel that
    will be replaced by its result. This remains visible while the reader moves
@@ -893,7 +1444,7 @@ body {
   gap: 6px;
   min-width: 0;
   color: var(--muted);
-  font-size: .76rem;
+  font-size: 0.76rem;
   white-space: nowrap;
 }
 .fetch-state-dot {
@@ -901,15 +1452,24 @@ body {
   height: 7px;
   border-radius: 50%;
   background: var(--ok);
-  box-shadow: 0 0 0 3px rgba(86, 201, 138, .12);
+  box-shadow: 0 0 0 3px rgba(86, 201, 138, 0.12);
 }
-.fetch-state.is-loading { color: var(--text); }
+.fetch-state.is-loading {
+  color: var(--text);
+}
 .fetch-state.is-loading .fetch-state-dot {
   background: var(--accent);
   animation: fetchPulse 1s ease-in-out infinite;
 }
-.fetch-state.is-error .fetch-state-dot { background: var(--crit); box-shadow: 0 0 0 3px rgba(242, 97, 107, .12); }
-@keyframes fetchPulse { 50% { opacity: .35; } }
+.fetch-state.is-error .fetch-state-dot {
+  background: var(--crit);
+  box-shadow: 0 0 0 3px rgba(242, 97, 107, 0.12);
+}
+@keyframes fetchPulse {
+  50% {
+    opacity: 0.35;
+  }
+}
 
 .header-help {
   width: 30px;
@@ -923,10 +1483,17 @@ body {
 
 .icon-button {
   display: none;
-  background: none; border: 0; color: var(--text);
-  font-size: 1.15rem; padding: 6px 8px; cursor: pointer; border-radius: 8px;
+  background: none;
+  border: 0;
+  color: var(--text);
+  font-size: 1.15rem;
+  padding: 6px 8px;
+  cursor: pointer;
+  border-radius: 8px;
 }
-.icon-button:hover { background: var(--panel-hover); }
+.icon-button:hover {
+  background: var(--panel-hover);
+}
 
 .shell {
   display: grid;
@@ -942,27 +1509,47 @@ body {
   overflow-y: auto;
   padding: 14px 10px;
   border-right: 1px solid var(--line);
-  background: rgba(18, 26, 38, .8);
+  background: rgba(18, 26, 38, 0.8);
   display: flex;
   flex-direction: column;
   gap: 2px;
 }
 
 .nav-item {
-  display: flex; align-items: center; gap: 11px;
-  padding: 9px 12px; border-radius: 9px;
-  color: var(--muted); text-decoration: none;
-  font-size: .88rem; transition: background .12s, color .12s;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 9px 12px;
+  border-radius: 9px;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.88rem;
+  transition:
+    background 0.12s,
+    color 0.12s;
 }
-.nav-item:hover { background: var(--panel-hover); color: var(--text); }
+.nav-item:hover {
+  background: var(--panel-hover);
+  color: var(--text);
+}
 .nav-item.current {
-  background: linear-gradient(90deg, var(--accent-soft), rgba(104, 167, 255, .04));
+  background: linear-gradient(
+    90deg,
+    var(--accent-soft),
+    rgba(104, 167, 255, 0.04)
+  );
   box-shadow: inset 2px 0 0 var(--accent);
   color: var(--text);
   font-weight: 600;
 }
-.nav-icon { width: 1.1em; text-align: center; opacity: .85; }
-.nav-label { flex: 1; }
+.nav-icon {
+  width: 1.1em;
+  text-align: center;
+  opacity: 0.85;
+}
+.nav-label {
+  flex: 1;
+}
 
 /*
  * The badge is the reason one-view-at-a-time is safe.
@@ -972,22 +1559,43 @@ body {
  * looking. These are updated by the shared poll, wherever you are.
  */
 .nav-badge {
-  min-width: 20px; padding: 1px 6px; border-radius: 999px;
-  font-size: .68rem; font-weight: 700; text-align: center;
+  min-width: 20px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-align: center;
 }
-.badge-warn { background: rgba(240, 163, 94, .18); color: var(--warn); }
-.badge-crit { background: rgba(242, 97, 107, .2); color: var(--crit); }
+.badge-warn {
+  background: rgba(240, 163, 94, 0.18);
+  color: var(--warn);
+}
+.badge-crit {
+  background: rgba(242, 97, 107, 0.2);
+  color: var(--crit);
+}
 
 .nav-sub {
   padding-left: 30px;
-  font-size: .84rem;
+  font-size: 0.84rem;
 }
-.nav-sub .nav-icon { opacity: .5; font-size: .8em; }
-.nav-sub[hidden] { display: none; }
+.nav-sub .nav-icon {
+  opacity: 0.5;
+  font-size: 0.8em;
+}
+.nav-sub[hidden] {
+  display: none;
+}
 
-.nav-foot { margin-top: auto; padding: 10px 12px 4px; border-top: 1px solid var(--line-soft); }
+.nav-foot {
+  margin-top: auto;
+  padding: 10px 12px 4px;
+  border-top: 1px solid var(--line-soft);
+}
 
-.scrim { display: none; }
+.scrim {
+  display: none;
+}
 
 main {
   padding: 28px clamp(18px, 2.5vw, 36px) 42px;
@@ -995,27 +1603,61 @@ main {
   width: 100%;
 }
 
-.view { display: flex; flex-direction: column; gap: 20px; }
-.view[hidden] { display: none; }
+.view {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.view[hidden] {
+  display: none;
+}
 
 /* A signed-out visitor still gets a useful explanation of the destination.
    It is inserted by the router, so one authoritative description serves both
    this compact guide and the header Help control. */
 .view-guide {
   padding: 16px 18px;
-  border: 1px solid rgba(104, 167, 255, .28);
+  border: 1px solid rgba(104, 167, 255, 0.28);
   border-radius: 14px;
-  background: linear-gradient(110deg, rgba(104, 167, 255, .12), rgba(104, 167, 255, .035));
+  background: linear-gradient(
+    110deg,
+    rgba(104, 167, 255, 0.12),
+    rgba(104, 167, 255, 0.035)
+  );
 }
-.view-guide h2 { margin: 0 0 6px; }
-.view-guide p { max-width: 78ch; margin: 6px 0; color: var(--muted); }
-.view-guide .view-guide-auth { color: var(--text); }
-.view-guide-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+.view-guide h2 {
+  margin: 0 0 6px;
+}
+.view-guide p {
+  max-width: 78ch;
+  margin: 6px 0;
+  color: var(--muted);
+}
+.view-guide .view-guide-auth {
+  color: var(--text);
+}
+.view-guide-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
 
-.page-help-dialog { width: min(680px, calc(100vw - 28px)); max-height: min(780px, calc(100vh - 28px)); }
-.page-help-dialog::backdrop { background: rgba(2, 8, 18, .72); backdrop-filter: blur(3px); }
-.page-help-dialog p { line-height: 1.6; }
-.page-help-dialog h3 { margin: 20px 0 6px; font-size: .92rem; }
+.page-help-dialog {
+  width: min(680px, calc(100vw - 28px));
+  max-height: min(780px, calc(100vh - 28px));
+}
+.page-help-dialog::backdrop {
+  background: rgba(2, 8, 18, 0.72);
+  backdrop-filter: blur(3px);
+}
+.page-help-dialog p {
+  line-height: 1.6;
+}
+.page-help-dialog h3 {
+  margin: 20px 0 6px;
+  font-size: 0.92rem;
+}
 .page-help-commands {
   margin: 8px 0;
   padding: 10px 12px;
@@ -1024,11 +1666,20 @@ main {
   border-radius: 8px;
   background: var(--bg);
   color: var(--text);
-  font: .82rem/1.6 ui-monospace, SFMono-Regular, Menlo, monospace;
+  font:
+    0.82rem/1.6 ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    monospace;
   white-space: pre;
 }
-.page-help-links { margin: 8px 0 0; padding-left: 20px; }
-.page-help-links li + li { margin-top: 4px; }
+.page-help-links {
+  margin: 8px 0 0;
+  padding-left: 20px;
+}
+.page-help-links li + li {
+  margin-top: 4px;
+}
 
 .tool-extension {
   display: flex;
@@ -1043,17 +1694,33 @@ main {
 
 .poll {
   position: relative;
-  width: 30px; height: 30px; padding: 0;
-  background: none; border: 0; cursor: pointer;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
   flex: none;
 }
-.poll-brand { margin-right: -4px; }
-.poll svg { width: 30px; height: 30px; transform: rotate(-90deg); }
-.poll-track { fill: none; stroke: var(--line); stroke-width: 3; }
+.poll-brand {
+  margin-right: -4px;
+}
+.poll svg {
+  width: 30px;
+  height: 30px;
+  transform: rotate(-90deg);
+}
+.poll-track {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 3;
+}
 .poll-fill {
-  fill: none; stroke: var(--accent); stroke-width: 3;
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 3;
   stroke-linecap: round;
-  transition: stroke-dashoffset .25s linear;
+  transition: stroke-dashoffset 0.25s linear;
 }
 /*
  * The svg does not spin.
@@ -1063,14 +1730,22 @@ main {
  * cron had not run in an hour. A fetch by the browser is not either collector
  * doing work, and it is now shown by the account ring brightening instead.
  */
-.poll.busy .poll-fill { transition: none; }
+.poll.busy .poll-fill {
+  transition: none;
+}
 
 .poll-dot {
-  position: absolute; inset: 0; margin: auto;
-  width: 6px; height: 6px; border-radius: 50%;
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
   background: var(--muted);
 }
-.poll.busy .poll-dot { background: var(--accent); }
+.poll.busy .poll-dot {
+  background: var(--accent);
+}
 
 /*
  * The centre dot carries what has been asked of the host.
@@ -1090,13 +1765,23 @@ main {
   animation: dotAsked 1.6s ease-in-out infinite;
   cursor: pointer;
 }
-.poll.has-pending:hover .poll-dot { filter: brightness(1.5); }
+.poll.has-pending:hover .poll-dot {
+  filter: brightness(1.5);
+}
 @keyframes dotAsked {
-  0%, 100% { opacity: 1; }
-  50% { opacity: .25; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
-  .poll.has-pending .poll-dot { animation: none; opacity: .8; }
+  .poll.has-pending .poll-dot {
+    animation: none;
+    opacity: 0.8;
+  }
 }
 
 /* ------------------------------------------------------------ panels -- */
@@ -1106,11 +1791,18 @@ main {
   border: 1px solid var(--line);
   border-radius: 14px;
   padding: 18px 20px;
-  box-shadow: 0 8px 24px rgba(2, 8, 18, .12);
+  box-shadow: 0 8px 24px rgba(2, 8, 18, 0.12);
 }
 
-h1 { font-size: 1.15rem; letter-spacing: -.02em; }
-h2 { font-size: 1.04rem; margin: 0 0 10px; letter-spacing: -.015em; }
+h1 {
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
+}
+h2 {
+  font-size: 1.04rem;
+  margin: 0 0 10px;
+  letter-spacing: -0.015em;
+}
 
 button {
   font: inherit;
@@ -1120,18 +1812,43 @@ button {
   color: var(--text);
   padding: 6px 12px;
   cursor: pointer;
-  transition: background .12s, border-color .12s;
+  transition:
+    background 0.12s,
+    border-color 0.12s;
 }
-button:hover:not(:disabled) { background: var(--panel-hover); border-color: var(--accent); }
-button:disabled { opacity: .5; cursor: default; }
+button:hover:not(:disabled) {
+  background: var(--panel-hover);
+  border-color: var(--accent);
+}
+button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
 
-button.primary { background: var(--accent); border-color: var(--accent); color: #04101f; font-weight: 600; }
-button.primary:hover:not(:disabled) { filter: brightness(1.08); background: var(--accent); }
+button.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #04101f;
+  font-weight: 600;
+}
+button.primary:hover:not(:disabled) {
+  filter: brightness(1.08);
+  background: var(--accent);
+}
 
-button.link { background: none; border: 0; color: var(--accent); padding: 2px 4px; }
-button.link:hover:not(:disabled) { background: var(--accent-soft); border-color: transparent; }
+button.link {
+  background: none;
+  border: 0;
+  color: var(--accent);
+  padding: 2px 4px;
+}
+button.link:hover:not(:disabled) {
+  background: var(--accent-soft);
+  border-color: transparent;
+}
 
-select, input {
+select,
+input {
   font: inherit;
   background: var(--bg-raised);
   color: var(--text);
@@ -1140,10 +1857,20 @@ select, input {
   padding: 5px 8px;
 }
 
-select:hover, input:hover { border-color: #40526a; }
-select:focus, input:focus { border-color: var(--accent); outline: 0; box-shadow: 0 0 0 3px var(--accent-soft); }
+select:hover,
+input:hover {
+  border-color: #40526a;
+}
+select:focus,
+input:focus {
+  border-color: var(--accent);
+  outline: 0;
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
 
-table { font-size: .86rem; }
+table {
+  font-size: 0.86rem;
+}
 /*
  * Headings that stay put.
  *
@@ -1156,11 +1883,15 @@ table { font-size: .86rem; }
  * scrolling through it.
  */
 th {
-  position: sticky; top: var(--topbar-height);
+  position: sticky;
+  top: var(--topbar-height);
   z-index: 5;
   background: var(--panel);
-  font-weight: 600; color: var(--muted);
-  font-size: .76rem; text-transform: uppercase; letter-spacing: .05em;
+  font-weight: 600;
+  color: var(--muted);
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 /*
@@ -1170,9 +1901,19 @@ th {
  * over it - so the offset that is right everywhere else would push the
  * heading down by a top bar's height into the middle of the box.
  */
-dialog th, .scroll-list th, .raw-body th, .try-result th { top: 0; }
-td, th { border-bottom: 1px solid var(--line-soft); }
-tr.clickable:hover { background: var(--panel-hover); }
+dialog th,
+.scroll-list th,
+.raw-body th,
+.try-result th {
+  top: 0;
+}
+td,
+th {
+  border-bottom: 1px solid var(--line-soft);
+}
+tr.clickable:hover {
+  background: var(--panel-hover);
+}
 
 /* ------------------------------------------------------- responsive -- */
 
@@ -1183,8 +1924,12 @@ tr.clickable:hover { background: var(--panel-hover); }
  * of this application.
  */
 @media (max-width: 900px) {
-  .icon-button { display: block; }
-  .shell { grid-template-columns: minmax(0, 1fr); }
+  .icon-button {
+    display: block;
+  }
+  .shell {
+    grid-template-columns: minmax(0, 1fr);
+  }
 
   .sidebar {
     position: fixed;
@@ -1193,37 +1938,67 @@ tr.clickable:hover { background: var(--panel-hover); }
     width: var(--sidebar-width);
     z-index: 25;
     transform: translateX(-100%);
-    transition: transform .18s ease;
+    transition: transform 0.18s ease;
   }
-  body.nav-open .sidebar { transform: none; }
+  body.nav-open .sidebar {
+    transform: none;
+  }
 
   .scrim {
     display: block;
     position: fixed;
     inset: var(--topbar-height) 0 0 0;
-    background: rgba(0, 0, 0, .5);
+    background: rgba(0, 0, 0, 0.5);
     z-index: 20;
   }
 
-  main { padding: 14px; }
-  .brand-text small { display: none; }
-  .control-label { display: none; }
-  #lastSeen { display: none; }
-  .topbar { gap: 8px; padding: 0 10px; }
+  main {
+    padding: 14px;
+  }
+  .brand-text small {
+    display: none;
+  }
+  .control-label {
+    display: none;
+  }
+  #lastSeen {
+    display: none;
+  }
+  .topbar {
+    gap: 8px;
+    padding: 0 10px;
+  }
   /* The flexible space belongs before all of the controls. Giving it to the
      controls themselves pushed the Help and sign-in buttons beyond the edge. */
-  .brand { margin-right: auto; }
-  .topbar-controls { margin-left: 0; gap: 6px; min-width: 0; }
+  .brand {
+    margin-right: auto;
+  }
+  .topbar-controls {
+    margin-left: 0;
+    gap: 6px;
+    min-width: 0;
+  }
   /* The controls shrink before they overflow: a select running off the right
      edge of a phone is worse than a narrow one. */
-  .topbar-controls select { max-width: 116px; }
-  #live .dot + * , #live { font-size: .82rem; }
-  .fetch-state { display: none; }
-  .topbar-actions { flex: none; }
+  .topbar-controls select {
+    max-width: 116px;
+  }
+  #live .dot + *,
+  #live {
+    font-size: 0.82rem;
+  }
+  .fetch-state {
+    display: none;
+  }
+  .topbar-actions {
+    flex: none;
+  }
 }
 
 @media (max-width: 520px) {
-  :root { --topbar-height: 92px; }
+  :root {
+    --topbar-height: 92px;
+  }
   .topbar {
     height: var(--topbar-height);
     flex-wrap: wrap;
@@ -1231,34 +2006,76 @@ tr.clickable:hover { background: var(--panel-hover); }
     padding: 6px 10px;
     row-gap: 4px;
   }
-  .topbar-controls { order: 2; flex: 1 1 100%; margin-left: 0; }
+  .topbar-controls {
+    order: 2;
+    flex: 1 1 100%;
+    margin-left: 0;
+  }
   /* Anchored to the second row rather than taking part in the wrap: the page
      controls can never push Help or sign-in into an invisible third row. */
-  .topbar-actions { position: absolute; right: 10px; bottom: 7px; gap: 6px; }
+  .topbar-actions {
+    position: absolute;
+    right: 10px;
+    bottom: 7px;
+    gap: 6px;
+  }
   /* Percent-free and change-per-reading are refinements; on a phone the space
      goes to the range, which everything else depends on. */
-  #unitsWrap { display: none !important; }
+  #unitsWrap {
+    display: none !important;
+  }
   /* The range and Help control apply to every view; Live is a refinement.
      On a phone it gives up its space so Help never falls outside the header. */
-  #live { display: none; }
-  .brand-text strong { font-size: .95rem; }
-  #signInOut { padding: 5px 8px; font-size: .8rem; }
+  #live {
+    display: none;
+  }
+  .brand-text strong {
+    font-size: 0.95rem;
+  }
+  #signInOut {
+    padding: 5px 8px;
+    font-size: 0.8rem;
+  }
 }
 
 @media (max-width: 420px) {
-  .topbar { padding: 0 7px; gap: 4px; }
-  .topbar-actions { right: 7px; }
-  .topbar-controls { gap: 4px; }
-  .topbar-controls select { max-width: 94px; }
-  .brand { gap: 0; }
-  .poll, .poll svg { width: 27px; height: 27px; }
-  .header-help { width: 27px; height: 27px; }
-  main { padding: 14px 12px 28px; }
-  .view-guide { padding: 14px; }
+  .topbar {
+    padding: 0 7px;
+    gap: 4px;
+  }
+  .topbar-actions {
+    right: 7px;
+  }
+  .topbar-controls {
+    gap: 4px;
+  }
+  .topbar-controls select {
+    max-width: 94px;
+  }
+  .brand {
+    gap: 0;
+  }
+  .poll,
+  .poll svg {
+    width: 27px;
+    height: 27px;
+  }
+  .header-help {
+    width: 27px;
+    height: 27px;
+  }
+  main {
+    padding: 14px 12px 28px;
+  }
+  .view-guide {
+    padding: 14px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .fetch-state.is-loading .fetch-state-dot { animation: none; }
+  .fetch-state.is-loading .fetch-state-dot {
+    animation: none;
+  }
 }
 
 /*
@@ -1302,7 +2119,9 @@ tr.clickable:hover { background: var(--panel-hover); }
   max-height: calc(100vh - 220px);
 }
 /* Inside that box the top bar is not overhead, so the heading sits at its top. */
-.panel > div:has(> table).scrolls-x th { top: 0; }
+.panel > div:has(> table).scrolls-x th {
+  top: 0;
+}
 
 /*
  * The same rule for the other table wrapper.
@@ -1315,22 +2134,40 @@ tr.clickable:hover { background: var(--panel-hover); }
  * A .scroll-x that holds something other than a table - the process tree - is
  * left alone: it has no heading to keep and it genuinely does need to scroll.
  */
-.scroll-x { overflow-x: auto; }
-.scroll-x:has(> table) { overflow-x: visible; }
+.scroll-x {
+  overflow-x: auto;
+}
+.scroll-x:has(> table) {
+  overflow-x: visible;
+}
 .scroll-x:has(> table).scrolls-x {
   overflow: auto;
   max-height: calc(100vh - 220px);
 }
-.scroll-x:has(> table).scrolls-x th { top: 0; }
-
-@media (max-width: 620px) {
-  .cards { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
-  .panel { padding: 14px; border-radius: 10px; }
-  .panel-head { flex-wrap: wrap; gap: 8px; }
-  .panel-controls { flex-wrap: wrap; }
-  .panel > div > table, .scroll-x > table { min-width: 520px; }
+.scroll-x:has(> table).scrolls-x th {
+  top: 0;
 }
 
+@media (max-width: 620px) {
+  .cards {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  }
+  .panel {
+    padding: 14px;
+    border-radius: 10px;
+  }
+  .panel-head {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .panel-controls {
+    flex-wrap: wrap;
+  }
+  .panel > div > table,
+  .scroll-x > table {
+    min-width: 520px;
+  }
+}
 
 /* ------------------------------------------------------------- tables -- */
 
@@ -1343,89 +2180,192 @@ tr.clickable:hover { background: var(--panel-hover); }
  * rest is one click away.
  */
 .table-tools {
-  display: flex; align-items: center; gap: 8px;
-  margin-bottom: 6px; font-size: .78rem; color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+  font-size: 0.78rem;
+  color: var(--muted);
 }
-.table-tools .spacer { flex: 1; }
-.table-more { margin-top: 8px; }
+.table-tools .spacer {
+  flex: 1;
+}
+.table-more {
+  margin-top: 8px;
+}
 
-.nav-search { display: block; margin: 8px 10px 12px; }
-.nav-search input { width: 100%; min-width: 0; }
+.nav-search {
+  display: block;
+  margin: 8px 10px 12px;
+}
+.nav-search input {
+  width: 100%;
+  min-width: 0;
+}
 
-.chat-close { font-size: 1.35rem; line-height: 1; min-width: 1.75rem; padding: 0 .3rem; }
-.try-picture { display: block; max-width: min(100%, 720px); max-height: 70vh; border-radius: 10px; }
+.chat-close {
+  font-size: 1.35rem;
+  line-height: 1;
+  min-width: 1.75rem;
+  padding: 0 0.3rem;
+}
+.try-picture {
+  display: block;
+  max-width: min(100%, 720px);
+  max-height: 70vh;
+  border-radius: 10px;
+}
 
 /* Notes are an inbox, not a document editor. Keep the list compact and let the
    detail dialog carry the long prose, so one incident report cannot widen the panel. */
-#notesTable .note-preview { max-width: min(54vw, 680px); white-space: normal; overflow-wrap: anywhere; }
-.note-batch-tools { margin-bottom: 10px; }
+#notesTable .note-preview {
+  max-width: min(54vw, 680px);
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.note-batch-tools {
+  margin-bottom: 10px;
+}
 
 @media (max-width: 620px) {
-  #notesTable .note-preview { max-width: 42vw; }
+  #notesTable .note-preview {
+    max-width: 42vw;
+  }
 }
 
 /* Alerts ------------------------------------------------------------- */
 
-.panel-tools { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.panel-tools {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
 /* A checkbox and its words, kept on one line wherever one appears. It used to
    be scoped to .panel-tools, so the same control elsewhere fell apart. */
 .pill {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-size: .85rem; color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: var(--muted);
 }
-.link.danger { color: var(--crit); }
-.link[disabled] { opacity: .4; cursor: default; }
+.link.danger {
+  color: var(--crit);
+}
+.link[disabled] {
+  opacity: 0.4;
+  cursor: default;
+}
 
-.sev { margin-right: 6px; }
-tr.unread .alert-subject { font-weight: 600; }
-tr.read { opacity: .62; }
+.sev {
+  margin-right: 6px;
+}
+tr.unread .alert-subject {
+  font-weight: 600;
+}
+tr.read {
+  opacity: 0.62;
+}
 
 #alertBanner .dismiss {
-  position: absolute; top: 8px; right: 10px;
-  background: none; border: 0; color: inherit;
-  font-size: 1.1rem; line-height: 1; cursor: pointer; opacity: .6;
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: none;
+  border: 0;
+  color: inherit;
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.6;
 }
-#alertBanner .dismiss:hover { opacity: 1; }
-#alertBanner { position: relative; }
+#alertBanner .dismiss:hover {
+  opacity: 1;
+}
+#alertBanner {
+  position: relative;
+}
 
 /* Deletions ---------------------------------------------------------- */
 
 /* A summary above a log, not the headline of a page - so smaller than the
    cards the dashboard opens with. */
-.cards.small-cards { margin-bottom: 14px; }
-.cards.small-cards .value { font-size: 1.35rem; }
+.cards.small-cards {
+  margin-bottom: 14px;
+}
+.cards.small-cards .value {
+  font-size: 1.35rem;
+}
 
-tr.row-bad td:first-child { box-shadow: inset 2px 0 var(--warn); }
+tr.row-bad td:first-child {
+  box-shadow: inset 2px 0 var(--warn);
+}
 
 .panel-tools select {
-  background: var(--bg-raised); color: var(--text);
-  border: 1px solid var(--line); border-radius: 6px;
-  padding: 3px 6px; font: inherit; font-size: .85rem;
+  background: var(--bg-raised);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 3px 6px;
+  font: inherit;
+  font-size: 0.85rem;
 }
 
 /* Last busy ---------------------------------------------------------- */
 
-.busy-moment { border-top: 1px solid var(--line-soft); padding: 4px 0; }
-.busy-moment:first-child { border-top: 0; }
+.busy-moment {
+  border-top: 1px solid var(--line-soft);
+  padding: 4px 0;
+}
+.busy-moment:first-child {
+  border-top: 0;
+}
 .busy-moment > summary {
-  display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap;
-  padding: 10px 4px; cursor: pointer;
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding: 10px 4px;
+  cursor: pointer;
 }
 /* A flex summary loses its disclosure marker, and without one nothing on the
    row says it opens. Drawn rather than restored, so it turns with the state. */
-.busy-moment > summary { list-style: none; }
-.busy-moment > summary::-webkit-details-marker { display: none; }
-.busy-moment > summary::before {
-  content: "\203A"; color: var(--dim); width: 10px;
-  transition: transform .12s ease; display: inline-block;
+.busy-moment > summary {
+  list-style: none;
 }
-.busy-moment[open] > summary::before { transform: rotate(90deg); }
-.busy-moment > summary:hover { background: var(--panel-hover); }
-.busy-when { font-variant-numeric: tabular-nums; }
-.busy-level { color: var(--warn); font-weight: 600; }
-.busy-top { font-size: .88rem; }
-.busy-alert { font-size: .85rem; }
-.busy-moment table { margin: 0 0 14px 22px; }
+.busy-moment > summary::-webkit-details-marker {
+  display: none;
+}
+.busy-moment > summary::before {
+  content: '\203A';
+  color: var(--dim);
+  width: 10px;
+  transition: transform 0.12s ease;
+  display: inline-block;
+}
+.busy-moment[open] > summary::before {
+  transform: rotate(90deg);
+}
+.busy-moment > summary:hover {
+  background: var(--panel-hover);
+}
+.busy-when {
+  font-variant-numeric: tabular-nums;
+}
+.busy-level {
+  color: var(--warn);
+  font-weight: 600;
+}
+.busy-top {
+  font-size: 0.88rem;
+}
+.busy-alert {
+  font-size: 0.85rem;
+}
+.busy-moment table {
+  margin: 0 0 14px 22px;
+}
 
 /* What the space is made of ------------------------------------------ */
 
@@ -1433,33 +2373,65 @@ tr.row-bad td:first-child { box-shadow: inset 2px 0 var(--warn); }
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   margin-bottom: 16px;
 }
-.cards.type-cards .value { font-size: 1.25rem; }
-.cards.type-cards .card { padding: 12px 14px; }
+.cards.type-cards .value {
+  font-size: 1.25rem;
+}
+.cards.type-cards .card {
+  padding: 12px 14px;
+}
 /* The swatch ties a card to its wedge without a legend between them. */
 .cards.type-cards .label::before {
-  content: "●"; margin-right: 6px; color: var(--dot, var(--dim));
+  content: '●';
+  margin-right: 6px;
+  color: var(--dot, var(--dim));
 }
 
 /* Gauges ------------------------------------------------------------- */
 
 .gauges {
-  display: grid; gap: 14px; margin-bottom: 18px;
+  display: grid;
+  gap: 14px;
+  margin-bottom: 18px;
   grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
 }
 .gauge {
-  background: var(--panel); border: 1px solid var(--line);
-  border-radius: 10px; padding: 14px 14px 10px;
-  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 14px 14px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
 }
-.gauge canvas { width: 100%; max-width: 170px; }
-.gauge .gauge-label { color: var(--muted); font-size: .85rem; }
-.gauge .gauge-sub { color: var(--dim); font-size: .78rem; text-align: center; }
+.gauge canvas {
+  width: 100%;
+  max-width: 170px;
+}
+.gauge .gauge-label {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+.gauge .gauge-sub {
+  color: var(--dim);
+  font-size: 0.78rem;
+  text-align: center;
+}
 /* The band is named as well as coloured: a red arc and a green one are the
    same arc to anyone who cannot tell them apart. */
-.gauge .gauge-band { font-size: .78rem; font-weight: 600; }
-.band-ok { color: var(--ok); }
-.band-warn { color: var(--warn); }
-.band-crit { color: var(--crit); }
+.gauge .gauge-band {
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+.band-ok {
+  color: var(--ok);
+}
+.band-warn {
+  color: var(--warn);
+}
+.band-crit {
+  color: var(--crit);
+}
 
 /* Cores --------------------------------------------------------------- */
 
@@ -1471,192 +2443,409 @@ tr.row-bad td:first-child { box-shadow: inset 2px 0 var(--warn); }
    that thirty-two of them still fit on a laptop screen without scrolling, which
    is the case that matters - on a four-core box any layout works. */
 .cores {
-  display: grid; gap: 8px; margin: 12px 0 18px;
+  display: grid;
+  gap: 8px;
+  margin: 12px 0 18px;
   grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
 }
 .core {
-  background: var(--panel); border: 1px solid var(--line);
-  border-radius: 8px; padding: 8px 10px 9px;
-  display: flex; flex-direction: column; gap: 5px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 10px 9px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 .core-head {
-  display: flex; align-items: baseline; justify-content: space-between; gap: 6px;
-  font-size: .78rem; color: var(--muted);
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px;
+  font-size: 0.78rem;
+  color: var(--muted);
 }
-.core-value { font-variant-numeric: tabular-nums; color: var(--text); font-weight: 600; }
+.core-value {
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+  font-weight: 600;
+}
 .core-track {
-  height: 7px; border-radius: 4px; background: var(--line); overflow: hidden;
+  height: 7px;
+  border-radius: 4px;
+  background: var(--line);
+  overflow: hidden;
 }
-.core-fill { height: 100%; border-radius: 4px; background: var(--accent); }
-.core-fill.band-warn { background: var(--warn); }
-.core-fill.band-crit { background: var(--crit); }
+.core-fill {
+  height: 100%;
+  border-radius: 4px;
+  background: var(--accent);
+}
+.core-fill.band-warn {
+  background: var(--warn);
+}
+.core-fill.band-crit {
+  background: var(--crit);
+}
 /* A core with no measurement is drawn as an empty track and said in words, not
    left looking like a core that is doing nothing - those are different claims
    and the second one is a lie in the shape of a chart. */
-.core-none .core-value { color: var(--dim); font-weight: 400; }
-.core-sub { font-size: .72rem; color: var(--dim); font-variant-numeric: tabular-nums; }
+.core-none .core-value {
+  color: var(--dim);
+  font-weight: 400;
+}
+.core-sub {
+  font-size: 0.72rem;
+  color: var(--dim);
+  font-variant-numeric: tabular-nums;
+}
 
 /* What the host allows ----------------------------------------------- */
 
 .limit-row {
-  display: grid; gap: 4px 16px; padding: 12px 0;
+  display: grid;
+  gap: 4px 16px;
+  padding: 12px 0;
   grid-template-columns: 130px 1fr 1fr;
   border-top: 1px solid var(--line-soft);
 }
-.limit-row:first-child { border-top: 0; }
-.limit-name { font-weight: 600; }
-.limit-pair { font-variant-numeric: tabular-nums; }
-.limit-pair .muted { font-size: .82rem; }
-.limit-note { grid-column: 1 / -1; color: var(--muted); font-size: .85rem; max-width: 80ch; }
-@media (max-width: 620px) { .limit-row { grid-template-columns: 1fr; } }
+.limit-row:first-child {
+  border-top: 0;
+}
+.limit-name {
+  font-weight: 600;
+}
+.limit-pair {
+  font-variant-numeric: tabular-nums;
+}
+.limit-pair .muted {
+  font-size: 0.82rem;
+}
+.limit-note {
+  grid-column: 1 / -1;
+  color: var(--muted);
+  font-size: 0.85rem;
+  max-width: 80ch;
+}
+@media (max-width: 620px) {
+  .limit-row {
+    grid-template-columns: 1fr;
+  }
+}
 
 /* Heading and its one control, side by side rather than shoved to opposite
    ends of a full-width panel where the control runs off the edge. */
 .sub-head-row {
-  display: flex; align-items: baseline; gap: 18px;
-  flex-wrap: wrap; justify-content: flex-start;
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
   margin-top: 20px;
 }
-.sub-head-row .sub-head { margin: 0; }
+.sub-head-row .sub-head {
+  margin: 0;
+}
 
 /* Room for the ring, its inner ring and the list beside them. The default
    canvas height cut the circle off at the bottom. */
-#typePie { height: 420px; }
+#typePie {
+  height: 420px;
+}
 
 /* Path details ------------------------------------------------------- */
 
-.inspect-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
-.inspect-actions .muted { flex-basis: 100%; margin: 0; }
-button.danger {
-  background: transparent; color: var(--crit);
-  border: 1px solid var(--crit); border-radius: 6px;
-  padding: 6px 12px; cursor: pointer; font: inherit;
+.inspect-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
 }
-button.danger:hover { background: rgba(242, 97, 107, .12); }
+.inspect-actions .muted {
+  flex-basis: 100%;
+  margin: 0;
+}
+button.danger {
+  background: transparent;
+  color: var(--crit);
+  border: 1px solid var(--crit);
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font: inherit;
+}
+button.danger:hover {
+  background: rgba(242, 97, 107, 0.12);
+}
 
 /* Scaled by the browser, so it needs a ceiling in both directions - a 6000px
    photograph must not become a six-thousand-pixel page. */
 img.thumb {
-  max-width: min(100%, 460px); max-height: 340px;
-  border-radius: 8px; border: 1px solid var(--line);
-  background: var(--bg-raised); display: block;
+  max-width: min(100%, 460px);
+  max-height: 340px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--bg-raised);
+  display: block;
 }
-.ok { color: var(--ok); }
+.ok {
+  color: var(--ok);
+}
 
 /* Two pies, side by side, stacking when there is not room for both. */
 .pie-pair {
-  display: grid; gap: 20px;
+  display: grid;
+  gap: 20px;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
 }
-.pie-half h4 { margin: 0 0 8px; font-size: .92rem; }
-.pie-half canvas.pie.small { height: 260px; }
-.pie-half .muted { margin: 6px 0 0; font-size: .82rem; }
+.pie-half h4 {
+  margin: 0 0 8px;
+  font-size: 0.92rem;
+}
+.pie-half canvas.pie.small {
+  height: 260px;
+}
+.pie-half .muted {
+  margin: 6px 0 0;
+  font-size: 0.82rem;
+}
 
 /* Loading ------------------------------------------------------------ */
 
-.loading { display: flex; align-items: center; gap: 10px; color: var(--muted); }
-.loading-ring {
-  width: 14px; height: 14px; border-radius: 50%;
-  border: 2px solid var(--line); border-top-color: var(--accent);
-  animation: spin .8s linear infinite;
+.loading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
 }
-@keyframes spin { to { transform: rotate(360deg); } }
+.loading-ring {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid var(--line);
+  border-top-color: var(--accent);
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 /* Respect a reader who has asked the system to stop animating things. */
-@media (prefers-reduced-motion: reduce) { .loading-ring { animation-duration: 3s; } }
+@media (prefers-reduced-motion: reduce) {
+  .loading-ring {
+    animation-duration: 3s;
+  }
+}
 
 /* Settings forms ----------------------------------------------------- */
 
 .settings-row {
-  display: grid; grid-template-columns: 190px 1fr; gap: 10px 18px;
-  align-items: start; padding: 10px 0;
+  display: grid;
+  grid-template-columns: 190px 1fr;
+  gap: 10px 18px;
+  align-items: start;
+  padding: 10px 0;
   border-top: 1px solid var(--line-soft);
 }
-.settings-row:first-child { border-top: 0; }
+.settings-row:first-child {
+  border-top: 0;
+}
 
 /*
  * An author rule that sets display beats the browser's own [hidden], every
  * time. Without this line, hiding a settings row does nothing at all - which is
  * how "Which charts" stayed on screen under a scope that has no charts.
  */
-.settings-row[hidden] { display: none; }
-.settings-label { color: var(--muted); font-size: .9rem; padding-top: 4px; }
-.settings input[type="email"], .settings select {
-  background: var(--bg-raised); color: var(--text);
-  border: 1px solid var(--line); border-radius: 6px;
-  padding: 6px 8px; font: inherit;
+.settings-row[hidden] {
+  display: none;
 }
-@media (max-width: 620px) { .settings-row { grid-template-columns: 1fr; } }
+.settings-label {
+  color: var(--muted);
+  font-size: 0.9rem;
+  padding-top: 4px;
+}
+.settings input[type='email'],
+.settings select {
+  background: var(--bg-raised);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 6px 8px;
+  font: inherit;
+}
+@media (max-width: 620px) {
+  .settings-row {
+    grid-template-columns: 1fr;
+  }
+}
 
-.conditions { display: flex; flex-direction: column; gap: 12px; }
-.condition { display: grid; grid-template-columns: 20px 1fr; gap: 10px; align-items: start; }
-.condition strong { display: block; margin-bottom: 2px; }
+.conditions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.condition {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  gap: 10px;
+  align-items: start;
+}
+.condition strong {
+  display: block;
+  margin-bottom: 2px;
+}
 
 /* Setup steps -------------------------------------------------------- */
 
-ol.steps { margin: 0; padding-left: 22px; }
-ol.steps .step { margin-bottom: 14px; }
-ol.steps .step p { margin: 4px 0 0; }
-ol.steps .step.done strong { color: var(--ok); }
+ol.steps {
+  margin: 0;
+  padding-left: 22px;
+}
+ol.steps .step {
+  margin-bottom: 14px;
+}
+ol.steps .step p {
+  margin: 4px 0 0;
+}
+ol.steps .step.done strong {
+  color: var(--ok);
+}
 
-.compare { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
-.compare h4 { margin: 0 0 6px; font-size: .92rem; }
+.compare {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+.compare h4 {
+  margin: 0 0 6px;
+  font-size: 0.92rem;
+}
 
-.paste-wrap { display: flex; align-items: flex-start; gap: 10px; }
-.paste-wrap .paste { flex: 1; margin: 0; }
+.paste-wrap {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.paste-wrap .paste {
+  flex: 1;
+  margin: 0;
+}
 
 /* The most recent line of a log, in a cell that must not widen the table. */
 .lastline {
-  display: block; max-width: 46ch;
-  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .76rem;
+  display: block;
+  max-width: 46ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.76rem;
 }
 
 /* The monitor's own state -------------------------------------------- */
 
-.db-box { margin-bottom: 22px; }
-.db-box h4 { margin: 0 0 4px; font-size: .95rem; }
-.db-box .headline-sub { font-size: 1.1rem; color: var(--text); margin-bottom: 2px; }
-.db-box table { margin-top: 10px; }
-.card.crit .value { color: var(--crit); }
-.card.warn .value { color: var(--warn); }
+.db-box {
+  margin-bottom: 22px;
+}
+.db-box h4 {
+  margin: 0 0 4px;
+  font-size: 0.95rem;
+}
+.db-box .headline-sub {
+  font-size: 1.1rem;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+.db-box table {
+  margin-top: 10px;
+}
+.card.crit .value {
+  color: var(--crit);
+}
+.card.warn .value {
+  color: var(--warn);
+}
 
 /* Alert thresholds --------------------------------------------------- */
 
-.condition-block { border-top: 1px solid var(--line-soft); padding: 14px 0; }
-.condition-block:first-child { border-top: 0; padding-top: 0; }
+.condition-block {
+  border-top: 1px solid var(--line-soft);
+  padding: 14px 0;
+}
+.condition-block:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
 
 .condition-fields {
-  display: grid; gap: 10px 20px; margin: 10px 0 0 30px;
+  display: grid;
+  gap: 10px 20px;
+  margin: 10px 0 0 30px;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
 /* A threshold on a rule that is off is a memory of a setting, not a setting. */
-.condition-fields.off { opacity: .42; pointer-events: none; }
-
-.threshold { display: grid; grid-template-columns: 1fr 90px auto; gap: 8px; align-items: center; }
-.threshold input[type="number"] {
-  background: var(--bg-raised); color: var(--text);
-  border: 1px solid var(--line); border-radius: 6px;
-  padding: 5px 7px; font: inherit; width: 100%;
+.condition-fields.off {
+  opacity: 0.42;
+  pointer-events: none;
 }
-.threshold-unit { white-space: nowrap; }
-@media (max-width: 620px) { .threshold { grid-template-columns: 1fr 80px auto; } }
+
+.threshold {
+  display: grid;
+  grid-template-columns: 1fr 90px auto;
+  gap: 8px;
+  align-items: center;
+}
+.threshold input[type='number'] {
+  background: var(--bg-raised);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 5px 7px;
+  font: inherit;
+  width: 100%;
+}
+.threshold-unit {
+  white-space: nowrap;
+}
+@media (max-width: 620px) {
+  .threshold {
+    grid-template-columns: 1fr 80px auto;
+  }
+}
 
 /* Network ------------------------------------------------------------ */
 
-.dns-row { border-top: 1px solid var(--line-soft); padding: 12px 0; }
-.dns-row:first-child { border-top: 0; }
-.dns-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
-.dns-verdict {
-  font-size: .78rem; font-weight: 600; text-transform: uppercase;
-  letter-spacing: .04em; min-width: 8ch;
+.dns-row {
+  border-top: 1px solid var(--line-soft);
+  padding: 12px 0;
 }
-.band-ok { color: var(--ok); }
+.dns-row:first-child {
+  border-top: 0;
+}
+.dns-head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.dns-verdict {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  min-width: 8ch;
+}
+.band-ok {
+  color: var(--ok);
+}
 
 /* Merged log stream -------------------------------------------------- */
 
 .stream {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: .78rem; line-height: 1.6;
+  font-size: 0.78rem;
+  line-height: 1.6;
   overflow-x: auto;
 }
 /*
@@ -1683,17 +2872,32 @@ ol.steps .step.done strong { color: var(--ok); }
   white-space: nowrap;
   cursor: pointer;
 }
-.stream-line:first-child { border-top: 0; }
-.stream-line:hover { background: var(--panel-hover); }
-.stream-line:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.stream-line:first-child {
+  border-top: 0;
+}
+.stream-line:hover {
+  background: var(--panel-hover);
+}
+.stream-line:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
 
 /* The two that mean something is broken get a tint as well as an icon. */
-.stream-line.is-critical { background: rgba(242, 97, 107, .07); }
-.stream-line.is-error { background: rgba(242, 97, 107, .04); }
+.stream-line.is-critical {
+  background: rgba(242, 97, 107, 0.07);
+}
+.stream-line.is-error {
+  background: rgba(242, 97, 107, 0.04);
+}
 .stream-line.is-critical:hover,
-.stream-line.is-error:hover { background: rgba(242, 97, 107, .13); }
+.stream-line.is-error:hover {
+  background: rgba(242, 97, 107, 0.13);
+}
 
-.stream-mark { font-size: .8em; }
+.stream-mark {
+  font-size: 0.8em;
+}
 
 /*
  * Every column clips rather than overlapping its neighbour.
@@ -1715,20 +2919,39 @@ ol.steps .step.done strong { color: var(--ok); }
   z-index: 1;
   cursor: default;
   color: var(--muted);
-  font-size: .9em;
-  letter-spacing: .04em;
+  font-size: 0.9em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   background: var(--panel);
   border-bottom: 1px solid var(--line);
 }
-.stream-head:hover { background: var(--panel); }
-.stream-from { color: var(--accent); overflow: hidden; text-overflow: ellipsis; }
-.stream-who { overflow: hidden; text-overflow: ellipsis; }
-.stream-text { overflow: hidden; text-overflow: ellipsis; }
-.stream-frames { font-size: .85em; opacity: .8; }
+.stream-head:hover {
+  background: var(--panel);
+}
+.stream-from {
+  color: var(--accent);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.stream-who {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.stream-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.stream-frames {
+  font-size: 0.85em;
+  opacity: 0.8;
+}
 
-pre.log-message { white-space: pre-wrap; word-break: break-word; }
-pre.log-trace, pre.log-raw {
+pre.log-message {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+pre.log-trace,
+pre.log-raw {
   white-space: pre-wrap;
   word-break: break-all;
   max-height: 24vh;
@@ -1736,48 +2959,109 @@ pre.log-trace, pre.log-raw {
 }
 
 @media (max-width: 900px) {
-  .stream-line { grid-template-columns: 2.5ch 13ch 1fr auto; }
-  .stream-from, .stream-who { display: none; }
+  .stream-line {
+    grid-template-columns: 2.5ch 13ch 1fr auto;
+  }
+  .stream-from,
+  .stream-who {
+    display: none;
+  }
 }
 @media (max-width: 620px) {
-  .stream-line { grid-template-columns: 2.5ch 1fr; gap: 0 8px; white-space: normal; }
-  .stream-when { grid-column: 2; }
-  .stream-text { grid-column: 2; }
-  .stream-frames { display: none; }
+  .stream-line {
+    grid-template-columns: 2.5ch 1fr;
+    gap: 0 8px;
+    white-space: normal;
+  }
+  .stream-when {
+    grid-column: 2;
+  }
+  .stream-text {
+    grid-column: 2;
+  }
+  .stream-frames {
+    display: none;
+  }
 }
 
 /* What is wrong ------------------------------------------------------ */
 
-.diagnose-headline { font-size: 1.05rem; font-weight: 600; margin: 0 0 14px; }
-
-.finding { border-top: 1px solid var(--line-soft); padding: 14px 0; }
-.finding:first-of-type { border-top: 0; }
-.finding-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
-.finding-level {
-  font-size: .72rem; font-weight: 700; text-transform: uppercase;
-  letter-spacing: .06em; min-width: 11ch;
+.diagnose-headline {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 0 0 14px;
 }
-.finding-measured { margin: 4px 0 4px 0; font-variant-numeric: tabular-nums; }
-.finding .muted { margin: 0 0 6px; max-width: 90ch; }
+
+.finding {
+  border-top: 1px solid var(--line-soft);
+  padding: 14px 0;
+}
+.finding:first-of-type {
+  border-top: 0;
+}
+.finding-head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.finding-level {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  min-width: 11ch;
+}
+.finding-measured {
+  margin: 4px 0 4px 0;
+  font-variant-numeric: tabular-nums;
+}
+.finding .muted {
+  margin: 0 0 6px;
+  max-width: 90ch;
+}
 /* A left edge in the finding's own colour, so the shape of the list is
    readable before any of the words are. */
-.finding-critical { box-shadow: inset 3px 0 var(--crit); padding-left: 12px; }
-.finding-warning { box-shadow: inset 3px 0 var(--warn); padding-left: 12px; }
-.finding-watch, .finding-unknown { box-shadow: inset 3px 0 var(--line); padding-left: 12px; }
+.finding-critical {
+  box-shadow: inset 3px 0 var(--crit);
+  padding-left: 12px;
+}
+.finding-warning {
+  box-shadow: inset 3px 0 var(--warn);
+  padding-left: 12px;
+}
+.finding-watch,
+.finding-unknown {
+  box-shadow: inset 3px 0 var(--line);
+  padding-left: 12px;
+}
 
 /* Your own names for things ------------------------------------------ */
 
 /* The label rides beside the number, never instead of it. */
-.own-label { color: var(--accent); font-size: .88em; }
-.capture-detail { margin-top: 24px; }
+.own-label {
+  color: var(--accent);
+  font-size: 0.88em;
+}
+.capture-detail {
+  margin-top: 24px;
+}
 
 /* Two collectors, two rings ------------------------------------------ */
 
-.poll-host-track { fill: none; stroke: var(--line-soft); stroke-width: 2.5; }
+.poll-host-track {
+  fill: none;
+  stroke: var(--line-soft);
+  stroke-width: 2.5;
+}
 .poll-host-fill {
-  fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linecap: round;
-  transform: rotate(-90deg); transform-origin: 50% 50%;
-  transition: stroke-dashoffset .3s linear;
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+  transition: stroke-dashoffset 0.3s linear;
 }
 
 /*
@@ -1787,10 +3071,22 @@ pre.log-trace, pre.log-raw {
  * ring sitting full cannot say which. Each collector carries its own state, so
  * one being late never colours the other.
  */
-.poll.account-late .poll-fill { stroke: var(--warn); animation: ringLate 1.6s ease-in-out infinite; }
-.poll.account-stopped .poll-fill { stroke: var(--crit); animation: ringLate 1.1s ease-in-out infinite; }
-.poll.host-late .poll-host-fill { stroke: var(--warn); animation: ringLate 1.6s ease-in-out infinite; }
-.poll.host-stopped .poll-host-fill { stroke: var(--crit); animation: ringLate 1.1s ease-in-out infinite; }
+.poll.account-late .poll-fill {
+  stroke: var(--warn);
+  animation: ringLate 1.6s ease-in-out infinite;
+}
+.poll.account-stopped .poll-fill {
+  stroke: var(--crit);
+  animation: ringLate 1.1s ease-in-out infinite;
+}
+.poll.host-late .poll-host-fill {
+  stroke: var(--warn);
+  animation: ringLate 1.6s ease-in-out infinite;
+}
+.poll.host-stopped .poll-host-fill {
+  stroke: var(--crit);
+  animation: ringLate 1.1s ease-in-out infinite;
+}
 
 /*
  * Fetching brightens the account ring; it never moves an arc.
@@ -1799,167 +3095,374 @@ pre.log-trace, pre.log-raw {
  * asking the server again is not time passing. Spinning it on every fetch said
  * "something is happening" several times a minute while nothing had changed.
  */
-.poll.busy .poll-fill { filter: brightness(1.8); animation: ringBusy 1s ease-in-out infinite; }
+.poll.busy .poll-fill {
+  filter: brightness(1.8);
+  animation: ringBusy 1s ease-in-out infinite;
+}
 
-@keyframes ringLate { 0%, 100% { opacity: 1; } 50% { opacity: .25; } }
-@keyframes ringBusy { 0%, 100% { opacity: 1; } 50% { opacity: .55; } }
+@keyframes ringLate {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+@keyframes ringBusy {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
-  .poll-fill, .poll-host-fill { animation: none !important; }
+  .poll-fill,
+  .poll-host-fill {
+    animation: none !important;
+  }
 }
 
 /* Waiting for root --------------------------------------------------- */
 
 #pendingBanner {
-  background: var(--panel); border: 1px solid var(--line);
-  border-radius: 10px; padding: 12px 16px; margin-bottom: 16px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
 }
-.pending-item + .pending-item { margin-top: 12px; }
-.pending-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.pending-item + .pending-item {
+  margin-top: 12px;
+}
+.pending-head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
 .pending-track {
-  height: 4px; border-radius: 2px; background: var(--line-soft);
-  margin-top: 8px; overflow: hidden;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--line-soft);
+  margin-top: 8px;
+  overflow: hidden;
 }
 .pending-fill {
-  height: 100%; background: var(--accent);
-  transition: width .4s linear;
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.4s linear;
 }
 /* Past due it stops being progress and becomes a warning. */
-.pending-fill.late { background: var(--warn); }
+.pending-fill.late {
+  background: var(--warn);
+}
 
 .toasts {
-  position: fixed; right: 18px; bottom: 18px; z-index: 40;
-  display: flex; flex-direction: column; gap: 10px; max-width: min(420px, 90vw);
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: min(420px, 90vw);
 }
 .toast {
-  display: flex; align-items: center; gap: 12px;
-  background: var(--panel); border: 1px solid var(--accent);
-  border-radius: 10px; padding: 12px 14px;
-  box-shadow: 0 8px 28px rgba(0, 0, 0, .5);
-  animation: toastIn .18s ease-out;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--panel);
+  border: 1px solid var(--accent);
+  border-radius: 10px;
+  padding: 12px 14px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
+  animation: toastIn 0.18s ease-out;
 }
-@keyframes toastIn { from { opacity: 0; transform: translateY(8px); } }
-@media (prefers-reduced-motion: reduce) { .toast { animation: none; } }
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .toast {
+    animation: none;
+  }
+}
 .toast-close {
-  background: none; border: 0; color: var(--muted);
-  font-size: 1.1rem; line-height: 1; cursor: pointer; margin-left: auto;
+  background: none;
+  border: 0;
+  color: var(--muted);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  margin-left: auto;
 }
-.nav-badge.badge-new { background: var(--accent); color: #04121f; }
-.nav-item.has-new .nav-label { font-weight: 600; }
+.nav-badge.badge-new {
+  background: var(--accent);
+  color: #04121f;
+}
+.nav-item.has-new .nav-label {
+  font-weight: 600;
+}
 
 /* Calendar ----------------------------------------------------------- */
 
-.upcoming { display: flex; flex-direction: column; gap: 2px; }
-.upcoming-row {
-  display: grid; grid-template-columns: 10ch 1fr auto auto auto;
-  gap: 12px; align-items: baseline; padding: 7px 10px;
-  border-left: 3px solid var(--line); border-radius: 0 6px 6px 0;
+.upcoming {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
-.upcoming-when { color: var(--muted); font-size: .85rem; }
-.upcoming-priority { font-weight: 600; }
-.upcoming-row.level-error { border-left-color: var(--crit); background: rgba(242, 97, 107, .07); }
-.upcoming-row.level-warn { border-left-color: var(--warn); background: rgba(240, 163, 94, .06); }
-.upcoming-row.level-info { border-left-color: var(--accent); }
-@media (max-width: 760px) { .upcoming-row { grid-template-columns: 1fr; gap: 2px; } }
+.upcoming-row {
+  display: grid;
+  grid-template-columns: 10ch 1fr auto auto auto;
+  gap: 12px;
+  align-items: baseline;
+  padding: 7px 10px;
+  border-left: 3px solid var(--line);
+  border-radius: 0 6px 6px 0;
+}
+.upcoming-when {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+.upcoming-priority {
+  font-weight: 600;
+}
+.upcoming-row.level-error {
+  border-left-color: var(--crit);
+  background: rgba(242, 97, 107, 0.07);
+}
+.upcoming-row.level-warn {
+  border-left-color: var(--warn);
+  background: rgba(240, 163, 94, 0.06);
+}
+.upcoming-row.level-info {
+  border-left-color: var(--accent);
+}
+@media (max-width: 760px) {
+  .upcoming-row {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+}
 
 .months {
-  display: grid; gap: 18px; margin-top: 18px;
+  display: grid;
+  gap: 18px;
+  margin-top: 18px;
   grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
 }
-.month h4 { margin: 0 0 6px; font-size: .92rem; font-weight: 600; }
-.month-grid { width: 100%; border-collapse: collapse; font-size: .8rem; }
+.month h4 {
+  margin: 0 0 6px;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+.month-grid {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
 .month-grid th {
-  color: var(--dim); font-weight: 400; font-size: .72rem;
-  padding: 2px 0; text-align: center;
+  color: var(--dim);
+  font-weight: 400;
+  font-size: 0.72rem;
+  padding: 2px 0;
+  text-align: center;
 }
 .month-grid td {
-  text-align: center; padding: 4px 0; border: 0;
-  color: var(--muted); border-radius: 4px;
+  text-align: center;
+  padding: 4px 0;
+  border: 0;
+  color: var(--muted);
+  border-radius: 4px;
 }
-.month-grid td.empty { color: transparent; }
-.month-grid td.today { outline: 1px solid var(--accent); color: var(--text); }
+.month-grid td.empty {
+  color: transparent;
+}
+.month-grid td.today {
+  outline: 1px solid var(--accent);
+  color: var(--text);
+}
 /* A day with something on it is clickable and says so. */
-.month-grid td.has-entries { cursor: pointer; color: var(--text); font-weight: 600; }
-.month-grid td.has-entries:hover, .month-grid td.has-entries:focus-visible {
-  background: var(--panel-hover); outline: 1px solid var(--accent);
+.month-grid td.has-entries {
+  cursor: pointer;
+  color: var(--text);
+  font-weight: 600;
 }
-.month-grid td.level-error { background: rgba(242, 97, 107, .28); }
-.month-grid td.level-warn { background: rgba(240, 163, 94, .24); }
-.month-grid td.level-info { background: rgba(76, 154, 255, .20); }
-.month-grid td.level-done { background: rgba(86, 201, 138, .16); }
-.month-grid td.level-past { background: var(--line); }
+.month-grid td.has-entries:hover,
+.month-grid td.has-entries:focus-visible {
+  background: var(--panel-hover);
+  outline: 1px solid var(--accent);
+}
+.month-grid td.level-error {
+  background: rgba(242, 97, 107, 0.28);
+}
+.month-grid td.level-warn {
+  background: rgba(240, 163, 94, 0.24);
+}
+.month-grid td.level-info {
+  background: rgba(76, 154, 255, 0.2);
+}
+.month-grid td.level-done {
+  background: rgba(86, 201, 138, 0.16);
+}
+.month-grid td.level-past {
+  background: var(--line);
+}
 
-.day-entry { padding: 10px 0; border-top: 1px solid var(--line-soft); }
-.day-entry:first-child { border-top: 0; }
-.day-entry strong { display: block; }
-.dialog-body { display: flex; flex-direction: column; }
+.day-entry {
+  padding: 10px 0;
+  border-top: 1px solid var(--line-soft);
+}
+.day-entry:first-child {
+  border-top: 0;
+}
+.day-entry strong {
+  display: block;
+}
+.dialog-body {
+  display: flex;
+  flex-direction: column;
+}
 
 /* A number field that only ever holds two or three digits. Kept here rather
    than as a style attribute: the CSP has no style-src, so an inline one is
    blocked outright and the field renders full width with a console error. */
-input.narrow { width: 5em; }
+input.narrow {
+  width: 5em;
+}
 
 /* Ask for a page ----------------------------------------------------- */
 
-.raw-body { max-height: 60vh; overflow: auto; white-space: pre-wrap; word-break: break-word; }
+.raw-body {
+  max-height: 60vh;
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
 .preview-frame {
-  width: 100%; height: 60vh; border: 1px solid var(--line);
-  border-radius: 8px; background: #fff;
+  width: 100%;
+  height: 60vh;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
 }
 
 /* A record that has stopped resolving is kept and struck through, not removed:
    "the MX disappeared last Tuesday" needs the row to still be there. */
-.struck { text-decoration: line-through; }
+.struck {
+  text-decoration: line-through;
+}
 
 /* One DNS answer, with its explanation ------------------------------- */
 
-.dns-answer { padding: 8px 0 8px 14px; border-left: 2px solid var(--line-soft); margin: 8px 0; }
-.dns-value { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; word-break: break-all; }
-.txt-pairs {
-  display: grid; grid-template-columns: max-content 1fr; gap: 3px 12px;
-  margin: 8px 0 0; font-size: .85rem;
+.dns-answer {
+  padding: 8px 0 8px 14px;
+  border-left: 2px solid var(--line-soft);
+  margin: 8px 0;
 }
-.txt-pairs dt { color: var(--accent); font-family: ui-monospace, Menlo, monospace; }
-.txt-pairs dd { margin: 0; word-break: break-word; }
+.dns-value {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  word-break: break-all;
+}
+.txt-pairs {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 3px 12px;
+  margin: 8px 0 0;
+  font-size: 0.85rem;
+}
+.txt-pairs dt {
+  color: var(--accent);
+  font-family: ui-monospace, Menlo, monospace;
+}
+.txt-pairs dd {
+  margin: 0;
+  word-break: break-word;
+}
 
 /* Row actions kept on one line, so the name column is not squeezed. */
-td.row-actions { white-space: nowrap; }
-td.row-actions button { margin-right: 10px; }
-tr.row-off { opacity: .55; }
+td.row-actions {
+  white-space: nowrap;
+}
+td.row-actions button {
+  margin-right: 10px;
+}
+tr.row-off {
+  opacity: 0.55;
+}
 
 /* ---------------------------------------------------------- header views -- */
 
-table.headers { width: 100%; border-collapse: collapse; }
+table.headers {
+  width: 100%;
+  border-collapse: collapse;
+}
 table.headers > tbody > tr > td {
   vertical-align: top;
   padding: 6px 10px 6px 0;
   border-bottom: 1px solid var(--line);
   word-break: break-word;
 }
-table.headers > tbody > tr > td.name { white-space: nowrap; width: 1%; font-weight: 600; }
+table.headers > tbody > tr > td.name {
+  white-space: nowrap;
+  width: 1%;
+  font-weight: 600;
+}
 tr.header-break td {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: .85em;
+  font-size: 0.85em;
   color: var(--muted);
   padding-top: 14px;
 }
 
-.help-icon { margin-left: 6px; cursor: help; font-size: .8em; opacity: .75; }
-.help-icon:hover, .help-icon:focus { opacity: 1; }
+.help-icon {
+  margin-left: 6px;
+  cursor: help;
+  font-size: 0.8em;
+  opacity: 0.75;
+}
+.help-icon:hover,
+.help-icon:focus {
+  opacity: 1;
+}
 
 /* The breakdown of a structured value, indented under the value itself. */
 table.header-parts {
   margin: 6px 0 2px 14px;
   border-collapse: collapse;
-  font-size: .92em;
+  font-size: 0.92em;
   border-left: 2px solid var(--line);
 }
-table.header-parts td { padding: 2px 10px; vertical-align: top; }
-td.part-name { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; white-space: nowrap; color: var(--text); }
-td.part-value { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; word-break: break-all; }
-td.part-note { color: var(--muted); }
+table.header-parts td {
+  padding: 2px 10px;
+  vertical-align: top;
+}
+td.part-name {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  white-space: nowrap;
+  color: var(--text);
+}
+td.part-value {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  word-break: break-all;
+}
+td.part-note {
+  color: var(--muted);
+}
 
-p.page-title { font-size: 1.2em; margin: 0; }
-p.page-title.muted { font-size: 1em; color: var(--muted); }
+p.page-title {
+  font-size: 1.2em;
+  margin: 0;
+}
+p.page-title.muted {
+  font-size: 1em;
+  color: var(--muted);
+}
 
 /* ------------------------------------------------------------------ json -- */
 
@@ -1967,15 +3470,20 @@ pre.json-block {
   margin: 0;
   overflow-x: auto;
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: .88em;
+  font-size: 0.88em;
   line-height: 1.5;
   background: var(--bg);
   border: 1px solid var(--line);
   border-radius: 6px;
   padding: 8px 0;
 }
-.json-line { display: flex; white-space: pre; }
-.json-line:hover { background: var(--panel-hover); }
+.json-line {
+  display: flex;
+  white-space: pre;
+}
+.json-line:hover {
+  background: var(--panel-hover);
+}
 /*
  * The line number, painted rather than written.
  *
@@ -1983,7 +3491,9 @@ pre.json-block {
  * and cannot be copied. That is the whole point: a line number that ends up in
  * the clipboard turns copied JSON into something that will not parse.
  */
-.json-gutter::before { content: attr(data-n); }
+.json-gutter::before {
+  content: attr(data-n);
+}
 
 .json-gutter {
   flex: 0 0 auto;
@@ -1991,19 +3501,36 @@ pre.json-block {
   padding: 0 10px 0 4px;
   text-align: right;
   color: var(--muted);
-  opacity: .6;
+  opacity: 0.6;
   user-select: none;
   -webkit-user-select: none;
   user-select: none;
 }
-.json-text { flex: 1 1 auto; padding-right: 10px; }
-.json-key { color: var(--accent); }
-.json-string { color: var(--ok); }
-.json-number { color: var(--warn); }
-.json-atom { color: var(--muted); font-style: italic; }
+.json-text {
+  flex: 1 1 auto;
+  padding-right: 10px;
+}
+.json-key {
+  color: var(--accent);
+}
+.json-string {
+  color: var(--ok);
+}
+.json-number {
+  color: var(--warn);
+}
+.json-atom {
+  color: var(--muted);
+  font-style: italic;
+}
 
-.preview-frame { width: 100%; height: 62vh; border: 1px solid var(--line); border-radius: 6px;
-  background: #fff; }
+.preview-frame {
+  width: 100%;
+  height: 62vh;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
+}
 
 /* A value that is too long for its cell, offered as the button it becomes. */
 button.value-cell {
@@ -2015,17 +3542,27 @@ button.value-cell {
   text-align: left;
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
 }
-pre.record-value { white-space: pre-wrap; word-break: break-all; max-height: 30vh; overflow: auto; }
-.said { margin-left: 12px; }
+pre.record-value {
+  white-space: pre-wrap;
+  word-break: break-all;
+  max-height: 30vh;
+  overflow: auto;
+}
+.said {
+  margin-left: 12px;
+}
 
 /* ------------------------------------------------------------ keeping it -- */
 
-table.retention { width: 100%; border-collapse: collapse; }
+table.retention {
+  width: 100%;
+  border-collapse: collapse;
+}
 table.retention th {
   text-align: left;
   font-weight: 600;
-  font-size: .78rem;
-  letter-spacing: .04em;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--muted);
   padding: 6px 10px 6px 0;
@@ -2045,7 +3582,9 @@ input.days {
   padding: 4px 6px;
   font: inherit;
 }
-input.days:disabled { opacity: .5; }
+input.days:disabled {
+  opacity: 0.5;
+}
 
 /* ---------------------------------------------------- collector progress -- */
 
@@ -2056,25 +3595,52 @@ input.days:disabled { opacity: .5; }
  * is fine or alarming depending entirely on the interval. The ring does the
  * arithmetic.
  */
-svg.dial { display: block; margin: 2px auto 6px; }
-.dial-track { stroke: var(--line); }
-.dial-value { stroke: var(--ok); stroke-linecap: round; transition: stroke-dashoffset .4s ease; }
-.dial-due { stroke: var(--warn); }
-.dial-dead { stroke: var(--dim); opacity: .55; }
+svg.dial {
+  display: block;
+  margin: 2px auto 6px;
+}
+.dial-track {
+  stroke: var(--line);
+}
+.dial-value {
+  stroke: var(--ok);
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.4s ease;
+}
+.dial-due {
+  stroke: var(--warn);
+}
+.dial-dead {
+  stroke: var(--dim);
+  opacity: 0.55;
+}
 
 /* Due about now: the second before you would start wondering. */
-svg.dial.is-due { animation: dialDue 1.6s ease-in-out infinite; }
+svg.dial.is-due {
+  animation: dialDue 1.6s ease-in-out infinite;
+}
 @keyframes dialDue {
-  0%, 100% { opacity: 1; }
-  50% { opacity: .45; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
 }
 
 /* Stopped is not due, and must not pulse as though the next one were coming. */
-svg.dial.is-dead { animation: none; }
+svg.dial.is-dead {
+  animation: none;
+}
 
 @media (prefers-reduced-motion: reduce) {
-  svg.dial.is-due { animation: none; }
-  .dial-value { transition: none; }
+  svg.dial.is-due {
+    animation: none;
+  }
+  .dial-value {
+    transition: none;
+  }
 }
 
 /* Inputs in a dialog have the whole width to use; the form grid is elsewhere. */
@@ -2088,13 +3654,16 @@ svg.dial.is-dead { animation: none; }
   border-radius: 6px;
   padding: 6px 8px;
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: .9em;
+  font-size: 0.9em;
 }
-#listDialogBody textarea.wide { resize: vertical; min-height: 8em; }
+#listDialogBody textarea.wide {
+  resize: vertical;
+  min-height: 8em;
+}
 #listDialogBody textarea.terminal-editor {
   width: 100%;
   min-height: min(58vh, 34rem);
-  font: .82rem/1.5 var(--editor-font);
+  font: 0.82rem/1.5 var(--editor-font);
   tab-size: 2;
 }
 .terminal-editor-wrap {
@@ -2115,7 +3684,7 @@ svg.dial.is-dead { animation: none; }
   user-select: none;
   color: var(--dim);
   text-align: right;
-  font: .82rem/1.5 var(--editor-font);
+  font: 0.82rem/1.5 var(--editor-font);
   border-right: 1px solid var(--line-soft);
 }
 .terminal-editor-wrap textarea.terminal-editor {
@@ -2139,7 +3708,7 @@ svg.dial.is-dead { animation: none; }
   border: 1px solid var(--line);
   border-radius: 6px;
   background: var(--bg);
-  font: .82rem/1.5 var(--editor-font);
+  font: 0.82rem/1.5 var(--editor-font);
 }
 .terminal-editor-syntax {
   max-height: min(58vh, 34rem);
@@ -2152,23 +3721,58 @@ svg.dial.is-dead { animation: none; }
   border-radius: 6px;
   background: var(--bg);
   color: var(--text);
-  font: .82rem/1.5 var(--editor-font);
+  font: 0.82rem/1.5 var(--editor-font);
 }
-.syntax-comment { color: var(--dim); font-style: italic; }
-.syntax-string { color: var(--ok); }
-.syntax-number { color: var(--warn); }
-.syntax-keyword { color: var(--accent); font-weight: 600; }
-.editor-shortcuts { margin: -4px 0 8px; }
-.editor-browser { border-top: 1px solid var(--line-soft); }
-.editor-browser-row { display: flex; gap: 12px; align-items: baseline; justify-content: space-between;
-  padding: 7px 0; border-bottom: 1px solid var(--line-soft); }
-.editor-browser-row > :first-child { min-width: 0; overflow-wrap: anywhere; text-align: left; }
-.editor-browser-row > :last-child { flex: 0 0 auto; text-align: right; }
+.syntax-comment {
+  color: var(--dim);
+  font-style: italic;
+}
+.syntax-string {
+  color: var(--ok);
+}
+.syntax-number {
+  color: var(--warn);
+}
+.syntax-keyword {
+  color: var(--accent);
+  font-weight: 600;
+}
+.editor-shortcuts {
+  margin: -4px 0 8px;
+}
+.editor-browser {
+  border-top: 1px solid var(--line-soft);
+}
+.editor-browser-row {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--line-soft);
+}
+.editor-browser-row > :first-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  text-align: left;
+}
+.editor-browser-row > :last-child {
+  flex: 0 0 auto;
+  text-align: right;
+}
 @media (max-width: 520px) {
-  .editor-browser-row { display: block; }
-  .editor-browser-row > :last-child { display: block; margin-top: 2px; text-align: left; }
+  .editor-browser-row {
+    display: block;
+  }
+  .editor-browser-row > :last-child {
+    display: block;
+    margin-top: 2px;
+    text-align: left;
+  }
 }
-#listDialogBody .settings-row > div { min-width: 0; }
+#listDialogBody .settings-row > div {
+  min-width: 0;
+}
 
 /* ---------------------------------------------------------------- notes -- */
 
@@ -2192,13 +3796,22 @@ svg.dial.is-dead { animation: none; }
   font-size: 1.25rem;
   line-height: 1;
   cursor: pointer;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, .45);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
   z-index: 40;
 }
-.note-button:hover { background: var(--panel-hover); border-color: var(--accent); }
-.note-button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.note-button:hover {
+  background: var(--panel-hover);
+  border-color: var(--accent);
+}
+.note-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
 
-#noteDialog { max-width: 640px; width: calc(100vw - 48px); }
+#noteDialog {
+  max-width: 640px;
+  width: calc(100vw - 48px);
+}
 #noteFormBody textarea.wide,
 #noteFormBody input.wide {
   width: 100%;
@@ -2210,28 +3823,46 @@ svg.dial.is-dead { animation: none; }
   padding: 6px 8px;
   font: inherit;
 }
-#noteFormBody textarea.wide { resize: vertical; }
-#noteFormBody .settings-row > div { min-width: 0; }
+#noteFormBody textarea.wide {
+  resize: vertical;
+}
+#noteFormBody .settings-row > div {
+  min-width: 0;
+}
 
 /* Something a person said, not something the machine noticed. */
-.broadcast { border-left: 3px solid var(--accent); padding-left: 12px; margin: 6px 0; }
-.broadcast .who { color: var(--muted); font-size: .85em; }
+.broadcast {
+  border-left: 3px solid var(--accent);
+  padding-left: 12px;
+  margin: 6px 0;
+}
+.broadcast .who {
+  color: var(--muted);
+  font-size: 0.85em;
+}
 
 @media (max-width: 640px) {
-  .note-button { right: 14px; bottom: 14px; width: 42px; height: 42px; }
+  .note-button {
+    right: 14px;
+    bottom: 14px;
+    width: 42px;
+    height: 42px;
+  }
 }
 
 /* The amber square that marks a written note, named in the legend. */
 .legend-note::before {
-  content: "";
+  content: '';
   display: inline-block;
   width: 8px;
   height: 8px;
   margin-right: 6px;
-  background: rgba(240, 190, 110, .95);
+  background: rgba(240, 190, 110, 0.95);
   vertical-align: middle;
 }
-.legend-note { cursor: help; }
+.legend-note {
+  cursor: help;
+}
 
 /*
  * A strip of history under each gauge.
@@ -2248,16 +3879,30 @@ canvas.gauge-spark {
 }
 
 /* One line per collector, above the tracks they describe. */
-.track-line { margin: 0 0 8px; }
-.track-line strong { font-weight: 600; }
+.track-line {
+  margin: 0 0 8px;
+}
+.track-line strong {
+  font-weight: 600;
+}
 
 /* A name you gave an address, beside the address itself. */
-.own-name { color: var(--accent); }
+.own-name {
+  color: var(--accent);
+}
 
 /* What the internet calls an address, beside what you call it. */
-.rdns-name { opacity: .8; }
-button.link.tiny { font-size: .8em; padding: 0; opacity: .55; }
-button.link.tiny:hover { opacity: 1; }
+.rdns-name {
+  opacity: 0.8;
+}
+button.link.tiny {
+  font-size: 0.8em;
+  padding: 0;
+  opacity: 0.55;
+}
+button.link.tiny:hover {
+  opacity: 1;
+}
 
 /* -------------------------------------------------------- the assistant -- */
 
@@ -2268,8 +3913,17 @@ button.link.tiny:hover { opacity: 1; }
  * about now — and making one the button and the other a page somewhere means
  * nobody uses the second.
  */
-.corner-menu { position: fixed; right: 22px; bottom: 22px; z-index: 40; }
-.corner-menu .note-button { position: static; right: auto; bottom: auto; }
+.corner-menu {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 40;
+}
+.corner-menu .note-button {
+  position: static;
+  right: auto;
+  bottom: auto;
+}
 .corner-choices {
   position: absolute;
   right: 0;
@@ -2282,7 +3936,7 @@ button.link.tiny:hover { opacity: 1; }
   background: var(--panel);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  box-shadow: 0 8px 26px rgba(0, 0, 0, .5);
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.5);
 }
 .corner-choices button {
   border: 0;
@@ -2295,7 +3949,9 @@ button.link.tiny:hover { opacity: 1; }
   cursor: pointer;
   white-space: nowrap;
 }
-.corner-choices button:hover { background: var(--panel-hover); }
+.corner-choices button:hover {
+  background: var(--panel-hover);
+}
 
 /*
  * The chat is a panel, not a page.
@@ -2312,7 +3968,9 @@ button.link.tiny:hover { opacity: 1; }
  * loaded and the Hide button did nothing at all.
  */
 .chat-panel[hidden],
-.corner-choices[hidden] { display: none; }
+.corner-choices[hidden] {
+  display: none;
+}
 
 /*
  * Bigger than it was, because the things in it got bigger.
@@ -2334,7 +3992,7 @@ button.link.tiny:hover { opacity: 1; }
   background: var(--panel);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, .55);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
   z-index: 41;
   resize: both;
   overflow: hidden;
@@ -2357,10 +4015,20 @@ button.link.tiny:hover { opacity: 1; }
   padding: 10px 12px;
   border-bottom: 1px solid var(--line);
 }
-.chat-head strong { flex: 0 0 auto; }
-.chat-panel:not(.chat-wide) .chat-head { cursor: grab; user-select: none; }
-.chat-panel:not(.chat-wide) .chat-head:active { cursor: grabbing; }
-.chat-head button, .chat-head select { cursor: pointer; }
+.chat-head strong {
+  flex: 0 0 auto;
+}
+.chat-panel:not(.chat-wide) .chat-head {
+  cursor: grab;
+  user-select: none;
+}
+.chat-panel:not(.chat-wide) .chat-head:active {
+  cursor: grabbing;
+}
+.chat-head button,
+.chat-head select {
+  cursor: pointer;
+}
 
 /* The cost takes the whole second line rather than squeezing the buttons. */
 .chat-head .muted {
@@ -2387,8 +4055,16 @@ button.link.tiny:hover { opacity: 1; }
   word-break: break-word;
   line-height: 1.5;
 }
-.chat-user { background: var(--accent-soft); align-self: flex-end; max-width: 88%; }
-.chat-assistant { background: var(--panel-hover); align-self: flex-start; max-width: 96%; }
+.chat-user {
+  background: var(--accent-soft);
+  align-self: flex-end;
+  max-width: 88%;
+}
+.chat-assistant {
+  background: var(--panel-hover);
+  align-self: flex-start;
+  max-width: 96%;
+}
 .chat-system {
   align-self: center;
   max-width: 92%;
@@ -2396,13 +4072,13 @@ button.link.tiny:hover { opacity: 1; }
   color: var(--muted);
   background: transparent;
   border: 1px dashed var(--line);
-  font-size: .82em;
+  font-size: 0.82em;
   text-align: center;
 }
 
 /* A tool call is scaffolding, not conversation, and is styled as such. */
 .chat-tool {
-  font-size: .82em;
+  font-size: 0.82em;
   color: var(--muted);
   padding: 0 4px;
   cursor: help;
@@ -2420,32 +4096,56 @@ button.link.tiny:hover { opacity: 1; }
   flex: 0 0 auto;
   padding: 10px 12px;
   border-bottom: 1px solid var(--warn);
-  background: rgba(240, 163, 94, .10);
+  background: rgba(240, 163, 94, 0.1);
 }
 
-.chat-status { flex: 0 0 auto; padding: 0 12px 8px; font-size: .85em; min-height: 1em; }
-.chat-thinking { color: var(--accent); }
+.chat-status {
+  flex: 0 0 auto;
+  padding: 0 12px 8px;
+  font-size: 0.85em;
+  min-height: 1em;
+}
+.chat-thinking {
+  color: var(--accent);
+}
 .chat-thinking::after {
-  content: "";
+  content: '';
   animation: chatDots 1.4s steps(4, end) infinite;
 }
 @keyframes chatDots {
-  0% { content: ""; } 25% { content: "."; } 50% { content: ".."; } 75% { content: "..."; }
+  0% {
+    content: '';
+  }
+  25% {
+    content: '.';
+  }
+  50% {
+    content: '..';
+  }
+  75% {
+    content: '...';
+  }
 }
 @media (prefers-reduced-motion: reduce) {
-  .chat-thinking::after { animation: none; content: ""; }
+  .chat-thinking::after {
+    animation: none;
+    content: '';
+  }
 }
 
 .chat-permission {
   border: 1px solid var(--warn);
   border-radius: 8px;
   padding: 8px 10px;
-  background: rgba(240, 163, 94, .08);
+  background: rgba(240, 163, 94, 0.08);
 }
 
 .chat-say {
   flex: 0 0 auto;
-  display: flex; gap: 8px; padding: 10px 12px; border-top: 1px solid var(--line);
+  display: flex;
+  gap: 8px;
+  padding: 10px 12px;
+  border-top: 1px solid var(--line);
 }
 .chat-say textarea {
   flex: 1 1 auto;
@@ -2458,29 +4158,57 @@ button.link.tiny:hover { opacity: 1; }
   padding: 8px;
   font: inherit;
 }
-.chat-say button { flex: 0 0 auto; align-self: flex-end; }
+.chat-say button {
+  flex: 0 0 auto;
+  align-self: flex-end;
+}
 
-input.wide-field { width: 100%; max-width: 34em; }
-input.field-invalid { border-color: #d96666; outline: 2px solid rgba(217, 102, 102, .3); }
+input.wide-field {
+  width: 100%;
+  max-width: 34em;
+}
+input.field-invalid {
+  border-color: #d96666;
+  outline: 2px solid rgba(217, 102, 102, 0.3);
+}
 .path-hygiene-whitespace {
   color: var(--warn);
   background: color-mix(in srgb, var(--warn) 16%, transparent);
   border-radius: 3px;
   font-weight: 700;
 }
-#pathHygieneTable td.name { word-break: normal; }
-.path-hygiene-prefix { color: var(--dim); white-space: nowrap; }
-.path-hygiene-offending { color: var(--text); font-weight: 700; white-space: nowrap; }
-.path-hygiene-separator { color: var(--dim); padding-inline: .35ch; }
+#pathHygieneTable td.name {
+  word-break: normal;
+}
+.path-hygiene-prefix {
+  color: var(--dim);
+  white-space: nowrap;
+}
+.path-hygiene-offending {
+  color: var(--text);
+  font-weight: 700;
+  white-space: nowrap;
+}
+.path-hygiene-separator {
+  color: var(--dim);
+  padding-inline: 0.35ch;
+}
 
 @media (max-width: 620px) {
   .chat-panel {
-    right: 10px; left: 10px; width: auto; bottom: 74px;
-    min-height: 0; max-height: calc(100vh - 100px);
+    right: 10px;
+    left: 10px;
+    width: auto;
+    bottom: 74px;
+    min-height: 0;
+    max-height: calc(100vh - 100px);
     min-width: 0;
     resize: none;
   }
-  .corner-menu { right: 14px; bottom: 14px; }
+  .corner-menu {
+    right: 14px;
+    bottom: 14px;
+  }
 }
 
 /* ------------------------------------------------------------ chart names -- */
@@ -2493,19 +4221,25 @@ input.field-invalid { border-color: #d96666; outline: 2px solid rgba(217, 102, 1
  * identifiers is worse for the ninety-nine per cent of the time nobody is
  * talking about it. So: small, faint, in the corner, and legible on hover.
  */
-.holds-chart { position: relative; }
+.holds-chart {
+  position: relative;
+}
 .chart-id {
   position: absolute;
   top: 10px;
   right: 10px;
-  font-size: .8rem;
+  font-size: 0.8rem;
   line-height: 1;
   color: var(--dim);
   cursor: pointer;
-  opacity: .45;
+  opacity: 0.45;
   user-select: none;
 }
-.chart-id:hover, .chart-id:focus { opacity: 1; color: var(--accent); }
+.chart-id:hover,
+.chart-id:focus {
+  opacity: 1;
+  color: var(--accent);
+}
 
 /* ------------------------------------------------- pictures for the model -- */
 
@@ -2516,8 +4250,16 @@ input.field-invalid { border-color: #d96666; outline: 2px solid rgba(217, 102, 1
   padding: 8px;
   background: var(--bg);
 }
-.chat-chart-head { font-size: .85em; font-weight: 600; margin-bottom: 4px; }
-canvas.chat-chart-canvas { width: 100%; height: 150px; display: block; }
+.chat-chart-head {
+  font-size: 0.85em;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+canvas.chat-chart-canvas {
+  width: 100%;
+  height: 150px;
+  display: block;
+}
 
 /* Rendered for the model, never shown: off-screen but laid out, or a canvas
    with no width produces a stretched 300x150 default. */
@@ -2527,11 +4269,26 @@ canvas.chat-chart-canvas { width: 100%; height: 150px; display: block; }
   top: 0;
   width: 720px;
 }
-.offscreen-chart canvas { width: 720px; height: 300px; display: block; }
+.offscreen-chart canvas {
+  width: 720px;
+  height: 300px;
+  display: block;
+}
 
-.shot-dialog { max-width: min(96vw, 1100px); width: 96vw; }
-.shot-tools { display: flex; gap: 14px; align-items: baseline; margin: 6px 0; }
-.shot-tools button.chosen { color: var(--text); text-decoration: underline; }
+.shot-dialog {
+  max-width: min(96vw, 1100px);
+  width: 96vw;
+}
+.shot-tools {
+  display: flex;
+  gap: 14px;
+  align-items: baseline;
+  margin: 6px 0;
+}
+.shot-tools button.chosen {
+  color: var(--text);
+  text-decoration: underline;
+}
 .shot-stage {
   max-height: 62vh;
   overflow: auto;
@@ -2539,22 +4296,40 @@ canvas.chat-chart-canvas { width: 100%; height: 150px; display: block; }
   border-radius: 8px;
   background: #000;
 }
-#shotCanvas { display: block; width: 100%; height: auto; cursor: crosshair; touch-action: none; }
+#shotCanvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  cursor: crosshair;
+  touch-action: none;
+}
 
 /* A per-scan switch, under the interval it modifies. */
-.scan-toggle { display: block; margin-top: 4px; cursor: pointer; }
-.scan-toggle input { margin-right: 4px; }
+.scan-toggle {
+  display: block;
+  margin-top: 4px;
+  cursor: pointer;
+}
+.scan-toggle input {
+  margin-right: 4px;
+}
 
 /* --------------------------------------------------- things it can show -- */
 
-.chat-progress, .chat-reaction, .chat-picture {
+.chat-progress,
+.chat-reaction,
+.chat-picture {
   align-self: stretch;
   border: 1px solid var(--line);
   border-radius: 10px;
   padding: 8px;
   background: var(--bg);
 }
-.chat-progress-head { font-size: .9em; font-weight: 600; margin-bottom: 6px; }
+.chat-progress-head {
+  font-size: 0.9em;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
 .chat-progress-track {
   height: 8px;
   border-radius: 4px;
@@ -2567,10 +4342,12 @@ canvas.chat-chart-canvas { width: 100%; height: 150px; display: block; }
   width: var(--fill, 0%);
   background: var(--accent);
   border-radius: 4px;
-  transition: width .3s ease;
+  transition: width 0.3s ease;
 }
 @media (prefers-reduced-motion: reduce) {
-  .chat-progress-fill { transition: none; }
+  .chat-progress-fill {
+    transition: none;
+  }
 }
 
 /*
@@ -2590,16 +4367,23 @@ canvas.chat-chart-canvas { width: 100%; height: 150px; display: block; }
   animation: chatSweep 1.5s ease-in-out infinite;
 }
 @keyframes chatSweep {
-  0% { transform: translateX(-110%); }
-  100% { transform: translateX(320%); }
+  0% {
+    transform: translateX(-110%);
+  }
+  100% {
+    transform: translateX(320%);
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   .chat-progress-track.indeterminate .chat-progress-fill {
-    width: 100%; animation: none; opacity: .35;
+    width: 100%;
+    animation: none;
+    opacity: 0.35;
   }
 }
 
-.chat-reaction img, .chat-picture img {
+.chat-reaction img,
+.chat-picture img {
   display: block;
   width: 100%;
   max-height: 220px;
@@ -2607,7 +4391,9 @@ canvas.chat-chart-canvas { width: 100%; height: 150px; display: block; }
   border-radius: 6px;
   background: #000;
 }
-.chat-picture img { max-height: 300px; }
+.chat-picture img {
+  max-height: 300px;
+}
 
 /* The face, where it has drawn itself one. */
 .chat-face {
@@ -2617,7 +4403,9 @@ canvas.chat-chart-canvas { width: 100%; height: 150px; display: block; }
   object-fit: cover;
   vertical-align: -5px;
 }
-.chat-emoji { font-size: 1em; }
+.chat-emoji {
+  font-size: 1em;
+}
 
 /* The portrait, on the settings page. */
 img.portrait {
@@ -2638,12 +4426,21 @@ img.portrait {
  * still have to be there - it is where the file is - but they should not be
  * the first thing the eye lands on.
  */
-.path { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
-.path-dim { color: var(--dim); }
+.path {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+.path-dim {
+  color: var(--dim);
+}
 
 /* ------------------------------------------------------------- segmented -- */
 
-.seg-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
+.seg-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 12px;
+}
 
 .seg {
   padding: 5px 12px;
@@ -2651,13 +4448,23 @@ img.portrait {
   border-radius: 999px;
   background: transparent;
   color: var(--muted);
-  font-size: .85rem;
+  font-size: 0.85rem;
   cursor: pointer;
 }
 
-.seg:hover:not(:disabled) { color: var(--text); border-color: var(--dim); }
-.seg.on { background: var(--line); color: var(--text); border-color: var(--dim); }
-.seg:disabled { opacity: .4; cursor: default; }
+.seg:hover:not(:disabled) {
+  color: var(--text);
+  border-color: var(--dim);
+}
+.seg.on {
+  background: var(--line);
+  color: var(--text);
+  border-color: var(--dim);
+}
+.seg:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
 
 /* ------------------------------------------------------------ help bubble -- */
 
@@ -2679,16 +4486,23 @@ img.portrait {
   border-radius: 8px;
   background: var(--panel);
   color: var(--text);
-  font-size: .85rem;
+  font-size: 0.85rem;
   line-height: 1.45;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, .45);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
   pointer-events: none;
 }
 
-.help-bubble[data-pinned="yes"] { pointer-events: auto; user-select: text; }
-.help-bubble[hidden] { display: none; }
+.help-bubble[data-pinned='yes'] {
+  pointer-events: auto;
+  user-select: text;
+}
+.help-bubble[hidden] {
+  display: none;
+}
 
-.help-icon { cursor: pointer; }
+.help-icon {
+  cursor: pointer;
+}
 
 /* --------------------------------------------------------- tick lists etc -- */
 
@@ -2708,12 +4522,14 @@ img.portrait {
   grid-template-columns: auto 1fr;
   gap: 8px;
   align-items: baseline;
-  font-size: .9rem;
+  font-size: 0.9rem;
   color: var(--text);
   cursor: pointer;
 }
 
-.tick input { margin: 0; }
+.tick input {
+  margin: 0;
+}
 
 /* The whole-dashboard option, set apart from the individual charts under it. */
 .tick-wide {
@@ -2753,7 +4569,12 @@ img.portrait {
 
 /* ---------------------------------------------------------------- terminal -- */
 
-.term-form { display: flex; gap: 8px; align-items: flex-end; margin: 0 0 8px; }
+.term-form {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+  margin: 0 0 8px;
+}
 
 .term-form textarea {
   flex: 1 1 auto;
@@ -2765,7 +4586,7 @@ img.portrait {
   border-radius: 8px;
   padding: 8px;
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: .9rem;
+  font-size: 0.9rem;
 }
 
 /*
@@ -2784,7 +4605,7 @@ img.portrait {
   border: 1px solid var(--line);
   border-radius: 8px;
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: .85rem;
+  font-size: 0.85rem;
   line-height: 1.45;
   white-space: pre-wrap;
   word-break: break-word;
@@ -2805,21 +4626,30 @@ img.portrait {
   background: var(--bg);
   border-radius: 6px;
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: .85rem;
+  font-size: 0.85rem;
   white-space: pre-wrap;
   word-break: break-word;
   user-select: all;
 }
 
 /* The context ring and the thinking picker, both in the chat's title bar. */
-.chat-room { flex: 0 0 auto; cursor: pointer; line-height: 0; }
-.chat-room:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.chat-room svg { display: block; }
+.chat-room {
+  flex: 0 0 auto;
+  cursor: pointer;
+  line-height: 0;
+}
+.chat-room:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.chat-room svg {
+  display: block;
+}
 
 .chat-effort {
   flex: 0 0 auto;
   padding: 1px 4px;
-  font-size: .75rem;
+  font-size: 0.75rem;
   background: transparent;
   color: var(--muted);
   border: 1px solid var(--line);
@@ -2833,7 +4663,9 @@ img.portrait {
   gap: 12px;
 }
 
-.asset { margin: 0; }
+.asset {
+  margin: 0;
+}
 
 .asset img {
   display: block;
@@ -2866,7 +4698,10 @@ canvas.chart-empty {
 }
 
 /* A moment written short, with the whole of it on hover. */
-.when { cursor: help; white-space: nowrap; }
+.when {
+  cursor: help;
+  white-space: nowrap;
+}
 
 /*
  * A repeated line's message, given the width of the cell.
@@ -2878,7 +4713,7 @@ canvas.chart-empty {
  */
 .repeat-line {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: .76rem;
+  font-size: 0.76rem;
   overflow-wrap: anywhere;
 }
 
@@ -2890,33 +4725,44 @@ canvas.chart-empty {
  * Tight vertical rhythm: these sit in a 420-pixel panel and the default
  * paragraph margins would turn a three-sentence answer into a scroll.
  */
-.md-p { margin: 0 0 .6em; }
-.md-p:last-child { margin-bottom: 0; }
+.md-p {
+  margin: 0 0 0.6em;
+}
+.md-p:last-child {
+  margin-bottom: 0;
+}
 
 .md-head {
-  margin: .8em 0 .3em;
+  margin: 0.8em 0 0.3em;
   font-size: 1em;
   font-weight: 600;
   color: var(--text);
 }
-.md-head:first-child { margin-top: 0; }
+.md-head:first-child {
+  margin-top: 0;
+}
 
-.md-list { margin: 0 0 .6em; padding-left: 1.4em; }
-.md-list li { margin: .15em 0; }
+.md-list {
+  margin: 0 0 0.6em;
+  padding-left: 1.4em;
+}
+.md-list li {
+  margin: 0.15em 0;
+}
 
 .md-quote {
-  margin: 0 0 .6em;
-  padding-left: .8em;
+  margin: 0 0 0.6em;
+  padding-left: 0.8em;
   border-left: 2px solid var(--line);
   color: var(--muted);
 }
 
 .md-inline-code {
-  padding: .1em .35em;
+  padding: 0.1em 0.35em;
   border-radius: 4px;
   background: var(--bg);
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: .88em;
+  font-size: 0.88em;
   overflow-wrap: anywhere;
 }
 
@@ -2927,13 +4773,13 @@ canvas.chart-empty {
  * grows to fit one pushes everything else off the screen.
  */
 .md-code {
-  margin: 0 0 .6em;
+  margin: 0 0 0.6em;
   padding: 8px 10px;
   border-radius: 6px;
   background: var(--bg);
   border: 1px solid var(--line);
   overflow-x: auto;
-  font-size: .85em;
+  font-size: 0.85em;
 }
 .md-code code {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -2943,7 +4789,7 @@ canvas.chart-empty {
 .chat-line hr {
   border: 0;
   border-top: 1px solid var(--line);
-  margin: .7em 0;
+  margin: 0.7em 0;
 }
 
 /* The terminal's unlock countdown and the two buttons beside it. */
@@ -2966,11 +4812,19 @@ canvas.chart-empty {
  * you are already setting the assistant up, not places to be drawn into from
  * the top of the menu.
  */
-.nav-deep { padding-left: 34px; font-size: .88em; }
-.nav-deep .nav-icon { opacity: .5; }
+.nav-deep {
+  padding-left: 34px;
+  font-size: 0.88em;
+}
+.nav-deep .nav-icon {
+  opacity: 0.5;
+}
 
 /* A tool's answer, which can be long. It scrolls rather than the page. */
-.try-result { max-height: 460px; overflow: auto; }
+.try-result {
+  max-height: 460px;
+  overflow: auto;
+}
 
 /*
  * An alert the assistant held back.
@@ -2978,12 +4832,21 @@ canvas.chart-empty {
  * Dimmed rather than hidden: it is still an alert, still unread, and still
  * something that happened. It simply did not wake anybody.
  */
-tr.row-silenced { opacity: .62; }
-tr.row-silenced:hover { opacity: 1; }
+tr.row-silenced {
+  opacity: 0.62;
+}
+tr.row-silenced:hover {
+  opacity: 1;
+}
 
 /* Its note, which is markdown in a table cell. */
-.alert-opinion { max-width: 46em; font-size: .92em; }
-.alert-opinion .md-p { margin-bottom: .3em; }
+.alert-opinion {
+  max-width: 46em;
+  font-size: 0.92em;
+}
+.alert-opinion .md-p {
+  margin-bottom: 0.3em;
+}
 
 /* --------------------------------------------------------- the summaries -- */
 
@@ -3004,11 +4867,15 @@ tr.row-silenced:hover { opacity: 1; }
 }
 
 /* Prose, so it gets a readable measure rather than the panel's full width. */
-.report-body { max-width: 62em; }
+.report-body {
+  max-width: 62em;
+}
 
 /* --------------------------------------------------------------- services -- */
 
-.unit-filters { margin: 0 0 12px; }
+.unit-filters {
+  margin: 0 0 12px;
+}
 
 .unit-picks {
   display: flex;
@@ -3024,12 +4891,13 @@ tr.row-silenced:hover { opacity: 1; }
   border: 1px solid var(--line);
   border-radius: 6px;
   padding: 2px 4px;
-  font-size: .85rem;
+  font-size: 0.85rem;
 }
 
 /* The "first seen" row in a value history: context, not an event. */
-tr.muted-row { opacity: .7; }
-
+tr.muted-row {
+  opacity: 0.7;
+}
 
 /*
  * The way back down, shown only while somebody is holding their place.
@@ -3044,10 +4912,12 @@ tr.muted-row { opacity: .7; }
   border-radius: 999px;
   background: var(--panel-hover);
   color: var(--accent);
-  font-size: .8rem;
+  font-size: 0.8rem;
   cursor: pointer;
 }
-.chat-catchup:hover { background: var(--accent-soft); }
+.chat-catchup:hover {
+  background: var(--accent-soft);
+}
 
 /*
  * Where a conversation's older half was summarised.
@@ -3071,12 +4941,15 @@ tr.muted-row { opacity: .7; }
   background: none;
   color: var(--muted);
   font: inherit;
-  font-size: .8rem;
+  font-size: 0.8rem;
   text-align: center;
   cursor: pointer;
 }
 
-.chat-summary-head:hover { color: var(--text); background: var(--panel-hover); }
+.chat-summary-head:hover {
+  color: var(--text);
+  background: var(--panel-hover);
+}
 
 /* ------------------------------------------------------------ style picker -- */
 
@@ -3086,7 +4959,10 @@ tr.muted-row { opacity: .7; }
  * Fixed height and its own scroll: a list this long inside a settings page
  * either scrolls itself or buries everything below it.
  */
-.style-finder { display: grid; gap: 8px; }
+.style-finder {
+  display: grid;
+  gap: 8px;
+}
 
 .style-list {
   max-height: 280px;
@@ -3097,11 +4973,20 @@ tr.muted-row { opacity: .7; }
   background: var(--panel);
 }
 
-.style-row { display: flex; align-items: baseline; gap: 6px; }
-.style-row[hidden] { display: none; }
+.style-row {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+.style-row[hidden] {
+  display: none;
+}
 
 /* The identifier, which is what the model actually sends. */
-.style-row .muted { margin-left: auto; font-family: ui-monospace, Menlo, monospace; }
+.style-row .muted {
+  margin-left: auto;
+  font-family: ui-monospace, Menlo, monospace;
+}
 
 /*
  * A sent message, shown as it was sent.
@@ -3118,7 +5003,7 @@ tr.muted-row { opacity: .7; }
   border: 1px solid var(--line);
   border-radius: 8px;
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: .8rem;
+  font-size: 0.8rem;
   line-height: 1.5;
   white-space: pre-wrap;
   word-break: break-word;
@@ -3133,13 +5018,27 @@ tr.muted-row { opacity: .7; }
  * dismiss confirmations. The weight is in the sentences, which say what will
  * actually happen rather than "are you sure?".
  */
-#askDialog { max-width: min(94vw, 560px); }
-#askBody { gap: 10px; font-size: .9rem; line-height: 1.6; color: #cfcfcf; }
-#askBody p { margin: 0; }
-#askBody strong { color: var(--text); }
+#askDialog {
+  max-width: min(94vw, 560px);
+}
+#askBody {
+  gap: 10px;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #cfcfcf;
+}
+#askBody p {
+  margin: 0;
+}
+#askBody strong {
+  color: var(--text);
+}
 .dialog-actions {
-  display: flex; justify-content: flex-end; align-items: center;
-  gap: 14px; margin-top: 18px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 14px;
+  margin-top: 18px;
 }
 
 /* --------------------------------------------------- trying a tool out -- */
@@ -3152,12 +5051,20 @@ tr.muted-row { opacity: .7; }
  * the only question this page exists to answer.
  */
 .try-chart {
-  display: block; max-width: 100%; max-height: 420px;
-  border: 1px solid var(--line); border-radius: 10px; margin-top: 8px;
+  display: block;
+  max-width: 100%;
+  max-height: 420px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  margin-top: 8px;
 }
 .try-shown {
-  display: flex; flex-direction: column; gap: 8px;
-  font-size: .88rem; line-height: 1.6; color: #cfcfcf;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: #cfcfcf;
 }
 
 /* ------------------------------------------------------ a moment, in full -- */
@@ -3170,14 +5077,35 @@ tr.muted-row { opacity: .7; }
  * them. A table says which is which, and the bubble it sits in appears on
  * contact.
  */
-.when-detail { border-collapse: collapse; width: 100%; font-size: .82rem; }
-.when-detail td { padding: 3px 0; vertical-align: baseline; }
-.when-name { color: var(--muted); padding-right: 12px !important; white-space: nowrap; }
-.when-value { color: var(--text); }
+.when-detail {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.82rem;
+}
+.when-detail td {
+  padding: 3px 0;
+  vertical-align: baseline;
+}
+.when-name {
+  color: var(--muted);
+  padding-right: 12px !important;
+  white-space: nowrap;
+}
+.when-value {
+  color: var(--text);
+}
 /* The first row answers the question the rest are evidence for. */
-.when-detail tr:first-child .when-value { color: var(--text); font-weight: 600; }
-.when-detail tr:first-child td { padding-bottom: 7px; }
-.when-detail tr:nth-child(2) td { border-top: 1px solid var(--line); padding-top: 7px; }
+.when-detail tr:first-child .when-value {
+  color: var(--text);
+  font-weight: 600;
+}
+.when-detail tr:first-child td {
+  padding-bottom: 7px;
+}
+.when-detail tr:nth-child(2) td {
+  border-top: 1px solid var(--line);
+  padding-top: 7px;
+}
 
 /* ------------------------------------------------- what a thing is, and whose -- */
 
@@ -3187,13 +5115,26 @@ tr.muted-row { opacity: .7; }
  * inline-flex so the mark cannot wrap onto a line of its own, which is what a
  * plain span does in a narrow column and which reads as a stray character.
  */
-.named-thing { display: inline-flex; align-items: baseline; gap: 4px; }
+.named-thing {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+}
 /* The mark's own margin is for headers, where it follows a run of text. Here
    it sits inside a flex row that already spaces it, and doubling up put a
    visible gap between a name and the mark belonging to it. */
-.named-thing .help-icon { margin-left: 0; }
-.bubble-title { font-weight: 600; color: var(--text); margin-bottom: 4px; }
-.help-bubble .muted { margin-top: 6px; display: block; }
+.named-thing .help-icon {
+  margin-left: 0;
+}
+.bubble-title {
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.help-bubble .muted {
+  margin-top: 6px;
+  display: block;
+}
 
 /*
  * The two accounts worth picking out of a hundred rows.
@@ -3202,18 +5143,41 @@ tr.muted-row { opacity: .7; }
  * cannot. Both carry a title as well as a colour, because a colour on its own
  * says nothing to somebody who cannot tell it from the text around it.
  */
-.user-me { color: var(--accent); font-weight: 600; }
-.user-root { color: var(--warn); font-weight: 600; }
-
-#descriptionForm { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
-#descriptionForm textarea {
-  width: 100%; min-height: 68px; font: inherit;
-  background: var(--bg-raised); color: var(--text);
-  border: 1px solid var(--line); border-radius: 8px; padding: 7px 9px;
+.user-me {
+  color: var(--accent);
+  font-weight: 600;
 }
-#descriptionForm button { align-self: flex-start; }
-#descriptionName { min-width: 200px; }
-#descriptionLink { flex: 1; min-width: 240px; }
+.user-root {
+  color: var(--warn);
+  font-weight: 600;
+}
+
+#descriptionForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+#descriptionForm textarea {
+  width: 100%;
+  min-height: 68px;
+  font: inherit;
+  background: var(--bg-raised);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 7px 9px;
+}
+#descriptionForm button {
+  align-self: flex-start;
+}
+#descriptionName {
+  min-width: 200px;
+}
+#descriptionLink {
+  flex: 1;
+  min-width: 240px;
+}
 
 /* ------------------------------------------------------ who it is -- */
 
@@ -3229,16 +5193,30 @@ tr.muted-row { opacity: .7; }
   min-height: 420px;
   resize: vertical;
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: .82rem;
+  font-size: 0.82rem;
   line-height: 1.6;
 }
 
-.persona-picker { margin-bottom: 18px; }
-.persona-picker .pattern-row { align-items: center; }
-.persona-picker .muted { flex: 1; min-width: 220px; }
+.persona-picker {
+  margin-bottom: 18px;
+}
+.persona-picker .pattern-row {
+  align-items: center;
+}
+.persona-picker .muted {
+  flex: 1;
+  min-width: 220px;
+}
 
-.portrait-block { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
-.portrait-block button { align-self: flex-start; }
+.portrait-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+.portrait-block button {
+  align-self: flex-start;
+}
 
 /* --------------------------------------------------- the chat, full size -- */
 
@@ -3250,7 +5228,10 @@ tr.muted-row { opacity: .7; }
  * static, the corner offsets go, and the ceiling on its height becomes the
  * height of what is left of the window below the top bar.
  */
-.chat-full { display: flex; min-height: 0; }
+.chat-full {
+  display: flex;
+  min-height: 0;
+}
 
 .chat-panel.chat-wide {
   position: static;
@@ -3276,7 +5257,10 @@ tr.muted-row { opacity: .7; }
 }
 
 /* The log is the part that should grow, so it takes what the rest does not. */
-.chat-panel.chat-wide .chat-log { flex: 1; min-height: 0; }
+.chat-panel.chat-wide .chat-log {
+  flex: 1;
+  min-height: 0;
+}
 
 /* ------------------------------------------------ being pointed at -- */
 
@@ -3299,11 +5283,19 @@ tr.muted-row { opacity: .7; }
   animation: pointAt 1.1s ease-in-out 4;
 }
 @keyframes pointAt {
-  0%, 100% { background: transparent; }
-  50% { background: var(--accent-soft); }
+  0%,
+  100% {
+    background: transparent;
+  }
+  50% {
+    background: var(--accent-soft);
+  }
 }
 @media (prefers-reduced-motion: reduce) {
-  .pointed-at { animation: none; background: var(--accent-soft); }
+  .pointed-at {
+    animation: none;
+    background: var(--accent-soft);
+  }
 }
 
 /* -------------------------------------------- questions with a clock -- */
@@ -3316,22 +5308,51 @@ tr.muted-row { opacity: .7; }
  * that already happened once here.
  */
 .chat-question {
-  display: flex; flex-direction: column; gap: 8px;
-  font-size: .88rem; line-height: 1.55;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.88rem;
+  line-height: 1.55;
 }
-.chat-question-head { font-weight: 600; color: var(--text); }
-.chat-question-body { display: flex; flex-direction: column; gap: 6px; }
-.chat-question-body textarea { width: 100%; }
+.chat-question-head {
+  font-weight: 600;
+  color: var(--text);
+}
+.chat-question-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.chat-question-body textarea {
+  width: 100%;
+}
 
 .chat-choice {
-  display: flex; flex-direction: column; gap: 2px;
-  text-align: left; padding: 8px 10px;
-  background: var(--bg-raised); border: 1px solid var(--line); border-radius: 8px;
-  cursor: pointer; font: inherit; color: var(--muted);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: left;
+  padding: 8px 10px;
+  background: var(--bg-raised);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  cursor: pointer;
+  font: inherit;
+  color: var(--muted);
 }
-.chat-choice:hover { border-color: var(--dim); color: var(--text); }
-.chat-choice.on { border-color: var(--accent); background: var(--accent-soft); color: var(--text); }
-.chat-choice-label { font-weight: 600; color: var(--text); }
+.chat-choice:hover {
+  border-color: var(--dim);
+  color: var(--text);
+}
+.chat-choice.on {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--text);
+}
+.chat-choice-label {
+  font-weight: 600;
+  color: var(--text);
+}
 
 /*
  * The countdown is quiet until it is not.
@@ -3340,8 +5361,13 @@ tr.muted-row { opacity: .7; }
  * having said it would is a decision made behind somebody's back - but it
  * should not be shouting for the two minutes when there is plenty of time.
  */
-.chat-countdown { margin-left: auto; font-variant-numeric: tabular-nums; }
-.chat-countdown.soon { color: var(--warn); }
+.chat-countdown {
+  margin-left: auto;
+  font-variant-numeric: tabular-nums;
+}
+.chat-countdown.soon {
+  color: var(--warn);
+}
 
 /* ------------------------------------------------------ where it runs -- */
 
@@ -3353,10 +5379,19 @@ tr.muted-row { opacity: .7; }
  * no reason on screen.
  */
 .term-cwd {
-  display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;
-  margin-bottom: 6px; font-size: .82rem;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+  font-size: 0.82rem;
 }
-.term-cwd code { background: #111; padding: 2px 6px; border-radius: 4px; word-break: break-all; }
+.term-cwd code {
+  background: #111;
+  padding: 2px 6px;
+  border-radius: 4px;
+  word-break: break-all;
+}
 
 /*
  * Stop, beside the output rather than only in the header.
@@ -3365,10 +5400,16 @@ tr.muted-row { opacity: .7; }
  * button is a few hundred pixels above it.
  */
 .term-running {
-  display: flex; align-items: center; gap: 12px;
-  margin: 6px 0; font-size: .85rem; color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 6px 0;
+  font-size: 0.85rem;
+  color: var(--muted);
 }
-.term-running[hidden] { display: none; }
+.term-running[hidden] {
+  display: none;
+}
 
 /* ------------------------------------------------------ the transcript -- */
 
@@ -3387,7 +5428,7 @@ tr.muted-row { opacity: .7; }
   border: 1px solid var(--line);
   border-radius: 10px;
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: .82rem;
+  font-size: 0.82rem;
   line-height: 1.5;
   /* pre-wrap, so a long line folds rather than scrolling the whole box
      sideways, and so runs of spaces from column output survive. */
@@ -3396,8 +5437,14 @@ tr.muted-row { opacity: .7; }
   color: #d6d6d6;
 }
 
-.term-entry { padding: 2px 0 6px; }
-.term-entry + .term-entry { border-top: 1px solid #1c1c1c; margin-top: 6px; padding-top: 8px; }
+.term-entry {
+  padding: 2px 0 6px;
+}
+.term-entry + .term-entry {
+  border-top: 1px solid #1c1c1c;
+  margin-top: 6px;
+  padding-top: 8px;
+}
 
 /*
  * The command, found at a glance.
@@ -3407,39 +5454,77 @@ tr.muted-row { opacity: .7; }
  * whole request: finding what you ran in a sea of what it said.
  */
 .term-prompt {
-  display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
   border-left: 3px solid var(--accent);
   padding: 3px 0 3px 9px;
   margin-bottom: 4px;
   background: #131820;
 }
-.term-mark { color: var(--accent); font-weight: 700; }
-.term-command { color: var(--text); font-weight: 600; white-space: pre-wrap; }
+.term-mark {
+  color: var(--accent);
+  font-weight: 700;
+}
+.term-command {
+  color: var(--text);
+  font-weight: 600;
+  white-space: pre-wrap;
+}
 
-.term-entry.running .term-prompt { border-left-color: var(--warn); }
-.term-entry.running .term-mark { color: var(--warn); }
+.term-entry.running .term-prompt {
+  border-left-color: var(--warn);
+}
+.term-entry.running .term-mark {
+  color: var(--warn);
+}
 
 .term-chip {
-  margin-left: auto; font-size: .74rem; color: var(--muted);
-  white-space: nowrap; padding-left: 10px;
+  margin-left: auto;
+  font-size: 0.74rem;
+  color: var(--muted);
+  white-space: nowrap;
+  padding-left: 10px;
 }
-.term-chip.bad { color: var(--warn); }
-.term-chip.live { color: var(--warn); }
+.term-chip.bad {
+  color: var(--warn);
+}
+.term-chip.live {
+  color: var(--warn);
+}
 
-.term-body { padding-left: 12px; }
-.term-line { display: block; min-height: 1.5em; }
-.term-bell { opacity: .8; }
+.term-body {
+  padding-left: 12px;
+}
+.term-line {
+  display: block;
+  min-height: 1.5em;
+}
+.term-bell {
+  opacity: 0.8;
+}
 
 .term-folded {
-  color: var(--muted); font-style: italic;
-  padding: 4px 0 6px; font-size: .78rem;
+  color: var(--muted);
+  font-style: italic;
+  padding: 4px 0 6px;
+  font-size: 0.78rem;
 }
 
-.term-copy { display: flex; gap: 14px; flex-wrap: wrap; margin: 6px 0 2px; }
+.term-copy {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin: 6px 0 2px;
+}
 
 /* The session log reuses the transcript, but reads rather than follows, so it
    grows with its content instead of being a fixed window. */
-.term-out.session-log { height: auto; max-height: 70vh; }
+.term-out.session-log {
+  height: auto;
+  max-height: 70vh;
+}
 
 /* ------------------------------------------------------- how old it is -- */
 
@@ -3451,12 +5536,22 @@ tr.muted-row { opacity: .7; }
  * usually a daemon doing its job. The colour is a sorting aid for the eye, not
  * a judgement, so it is quieter than anything that is one.
  */
-.age-new { color: var(--accent); font-weight: 600; }
-.age-recent { color: #82c6ff; }
-.age-old { color: var(--muted); }
+.age-new {
+  color: var(--accent);
+  font-weight: 600;
+}
+.age-recent {
+  color: #82c6ff;
+}
+.age-old {
+  color: var(--muted);
+}
 
 /* A button that is waiting for something to happen elsewhere. */
-button.working { opacity: .75; cursor: progress; }
+button.working {
+  opacity: 0.75;
+  cursor: progress;
+}
 
 /* ------------------------------------------------- the biggest two -- */
 
@@ -3468,8 +5563,12 @@ button.working { opacity: .75; cursor: progress; }
  * the top row always looks like an alert is a table that cries wolf. Enough to
  * find with the eye, not enough to alarm.
  */
-.rank-first { color: #ff9a9a; }
-.rank-second { color: #ffc98a; }
+.rank-first {
+  color: #ff9a9a;
+}
+.rank-second {
+  color: #ffc98a;
+}
 
 /* ------------------------------------------------ copying a code block -- */
 
@@ -3481,23 +5580,52 @@ button.working { opacity: .75; cursor: progress; }
  * dim until the block is pointed at, so a conversation full of blocks is not
  * also full of buttons.
  */
-.md-code-wrap { position: relative; }
+.md-code-wrap {
+  position: relative;
+}
 .md-copy {
-  position: absolute; top: 6px; right: 6px;
-  padding: 2px 8px; font-size: .72rem;
-  background: var(--bg-raised); color: var(--muted);
-  border: 1px solid var(--line); border-radius: 6px;
-  opacity: 0; transition: opacity .12s ease;
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  padding: 2px 8px;
+  font-size: 0.72rem;
+  background: var(--bg-raised);
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  opacity: 0;
+  transition: opacity 0.12s ease;
 }
 .md-code-wrap:hover .md-copy,
-.md-copy:focus { opacity: 1; }
-.md-copy:hover { color: var(--text); border-color: var(--dim); }
+.md-copy:focus {
+  opacity: 1;
+}
+.md-copy:hover {
+  color: var(--text);
+  border-color: var(--dim);
+}
 
 /* Touch has no hover, so there the button is simply always there. */
-@media (hover: none) { .md-copy { opacity: 1; } }
+@media (hover: none) {
+  .md-copy {
+    opacity: 1;
+  }
+}
 
 /* A finished conversation reads rather than follows, so it grows with its
    content instead of being a fixed window with its own scrollbar. */
-.chat-log.past-chat { height: auto; max-height: 70vh; overflow: auto; }
-body.i18n-highlight .i18n-catalog { outline: 2px solid #18794e; outline-offset: 2px; background: color-mix(in srgb, #18794e 14%, transparent); }
-body.i18n-highlight .i18n-hardcoded { outline: 2px solid #b54708; outline-offset: 2px; background: color-mix(in srgb, #b54708 14%, transparent); }
+.chat-log.past-chat {
+  height: auto;
+  max-height: 70vh;
+  overflow: auto;
+}
+body.i18n-highlight .i18n-catalog {
+  outline: 2px solid #18794e;
+  outline-offset: 2px;
+  background: color-mix(in srgb, #18794e 14%, transparent);
+}
+body.i18n-highlight .i18n-hardcoded {
+  outline: 2px solid #b54708;
+  outline-offset: 2px;
+  background: color-mix(in srgb, #b54708 14%, transparent);
+}

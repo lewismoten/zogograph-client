@@ -18,11 +18,11 @@ plaintext.
 
 The initial remote-custody implementation is additive:
 
-| mechanism | required | role |
-| --- | --- | --- |
-| local private-key wrap | yes for the first remote release | portable primary recovery path and offline fallback |
-| remote custody envelope | optional, per artifact | independently authorized recovery path for the same DEK |
-| ciphertext replica | optional, separate package | availability copy of ciphertext only; never a DEK or unwrap authority |
+| mechanism               | required                         | role                                                                  |
+| ----------------------- | -------------------------------- | --------------------------------------------------------------------- |
+| local private-key wrap  | yes for the first remote release | portable primary recovery path and offline fallback                   |
+| remote custody envelope | optional, per artifact           | independently authorized recovery path for the same DEK               |
+| ciphertext replica      | optional, separate package       | availability copy of ciphertext only; never a DEK or unwrap authority |
 
 Remote custody must not replace the verified local recovery wrap during its
 first release. A remote outage, subscription change, account mistake, or

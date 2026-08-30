@@ -6,7 +6,7 @@
   "properties": {
     "stores": {
       "type": "array",
-      "items": {"enum": ["setup", "account", "host", "ai"]},
+      "items": { "enum": ["setup", "account", "host", "ai"] },
       "minItems": 1,
       "uniqueItems": true
     },

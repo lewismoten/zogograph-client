@@ -56,24 +56,28 @@ function noteScopes(): array
     return [
         'plain' => [
             'label' => 'Just a note',
-            'note' => 'Kept and listed, but never drawn on a chart. For a reminder, a '
-                . 'decision, or something that has no particular moment.',
+            'note' =>
+                'Kept and listed, but never drawn on a chart. For a reminder, a ' .
+                'decision, or something that has no particular moment.',
         ],
         'page' => [
             'label' => 'Mark it on this page',
-            'note' => 'Drawn on every chart on the page you were looking at. The usual '
-                . 'choice: "we moved the backup window" belongs on the disk charts and '
-                . 'nowhere else.',
+            'note' =>
+                'Drawn on every chart on the page you were looking at. The usual ' .
+                'choice: "we moved the backup window" belongs on the disk charts and ' .
+                'nowhere else.',
         ],
         'chart' => [
             'label' => 'Mark it on specific charts',
-            'note' => 'Drawn only on the charts you tick below. Worth it when a page has '
-                . 'several and only one or two of them bent.',
+            'note' =>
+                'Drawn only on the charts you tick below. Worth it when a page has ' .
+                'several and only one or two of them bent.',
         ],
         'site' => [
             'label' => 'Mark it everywhere',
-            'note' => 'Drawn on every chart in this dashboard. For something that affected '
-                . 'the whole machine - a kernel upgrade, a move to different hardware.',
+            'note' =>
+                'Drawn on every chart in this dashboard. For something that affected ' .
+                'the whole machine - a kernel upgrade, a move to different hardware.',
         ],
     ];
 }
@@ -88,19 +92,22 @@ function snapshotKinds(): array
         ],
         'page' => [
             'label' => 'The data behind this page',
-            'note' => 'What this page fetched to draw itself, exactly as it arrived. Small, '
-                . 'and enough to reconstruct what you were looking at.',
+            'note' =>
+                'What this page fetched to draw itself, exactly as it arrived. Small, ' .
+                'and enough to reconstruct what you were looking at.',
         ],
         'site' => [
             'label' => 'The data behind every page',
-            'note' => 'Every read-only view fetched in one go. Slower and larger, and the '
-                . 'right choice when you do not yet know which page held the answer.',
+            'note' =>
+                'Every read-only view fetched in one go. Slower and larger, and the ' .
+                'right choice when you do not yet know which page held the answer.',
         ],
         'databases' => [
             'label' => 'A copy of both databases',
-            'note' => 'A consistent copy of the account database, and the host one where it '
-                . 'can be read, written beside them on disk. For a forensic look later, '
-                . 'after retention has rolled up the readings this is about.',
+            'note' =>
+                'A consistent copy of the account database, and the host one where it ' .
+                'can be read, written beside them on disk. For a forensic look later, ' .
+                'after retention has rolled up the readings this is about.',
         ],
     ];
 }
@@ -115,7 +122,7 @@ function snapshotKinds(): array
  */
 function noteSave(PDO $pdo, array $config, array $input, string $who): array
 {
-    $body = trim((string)($input['body'] ?? ''));
+    $body = trim((string) ($input['body'] ?? ''));
     if ($body === '') {
         throw new ActionRefused('a note needs something in it');
     }
@@ -123,19 +130,21 @@ function noteSave(PDO $pdo, array $config, array $input, string $who): array
         throw new ActionRefused('that note is longer than this will hold');
     }
 
-    $scope = (string)($input['scope'] ?? 'page');
+    $scope = (string) ($input['scope'] ?? 'page');
     if (!isset(noteScopes()[$scope])) {
         throw new ActionRefused('that is not one of the scopes on offer');
     }
 
-    $view = trim((string)($input['view'] ?? ''));
-    $chart = trim((string)($input['chart'] ?? ''));
+    $view = trim((string) ($input['view'] ?? ''));
+    $chart = trim((string) ($input['chart'] ?? ''));
 
     if ($scope === 'chart' && $chart === '') {
         throw new ActionRefused('tick at least one chart this is about');
     }
     if (($scope === 'page' || $scope === 'chart') && $view === '') {
-        throw new ActionRefused('that scope needs to know which page this is about');
+        throw new ActionRefused(
+            'that scope needs to know which page this is about',
+        );
     }
 
     /*
@@ -145,27 +154,37 @@ function noteSave(PDO $pdo, array $config, array $input, string $who): array
      * mark ten years out is invisible on every chart rather than obviously
      * wrong - so it is refused where it can still be seen.
      */
-    $at = (int)($input['at'] ?? time());
+    $at = (int) ($input['at'] ?? time());
     if ($at < 946684800 || $at > time() + SPAN_YEAR) {
         throw new ActionRefused('that is not a date this can put on a chart');
     }
 
-    $count = (int)$pdo->query('SELECT COUNT(*) FROM notes')->fetchColumn();
+    $count = (int) $pdo->query('SELECT COUNT(*) FROM notes')->fetchColumn();
     if ($count >= NOTE_MAX) {
         throw new ActionRefused('that is as many notes as this will hold');
     }
 
-    $audience = array_values(array_unique(array_filter(
-        is_array($input['audience'] ?? null) ? $input['audience'] : [],
-        fn(mixed $group): bool => is_string($group) && isset(accessGroups($config)[$group])
-    )));
-    if (is_array($input['audience'] ?? null) && count($audience) !== count($input['audience'])) {
-        throw new ActionRefused('one of the selected note groups does not exist');
+    $audience = array_values(
+        array_unique(
+            array_filter(
+                is_array($input['audience'] ?? null) ? $input['audience'] : [],
+                fn(mixed $group): bool => is_string($group) &&
+                    isset(accessGroups($config)[$group]),
+            ),
+        ),
+    );
+    if (
+        is_array($input['audience'] ?? null) &&
+        count($audience) !== count($input['audience'])
+    ) {
+        throw new ActionRefused(
+            'one of the selected note groups does not exist',
+        );
     }
 
     $pdo->prepare(
         'INSERT INTO notes (at, written_at, body, scope, view, chart, link, broadcast, who, audience)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
     )->execute([
         $at,
         time(),
@@ -173,13 +192,13 @@ function noteSave(PDO $pdo, array $config, array $input, string $who): array
         $scope,
         $view === '' ? null : $view,
         $chart === '' ? null : $chart,
-        trim((string)($input['link'] ?? '')) ?: null,
+        trim((string) ($input['link'] ?? '')) ?: null,
         empty($input['broadcast']) ? 0 : 1,
         $who,
         json_encode($audience, JSON_UNESCAPED_SLASHES),
     ]);
 
-    return ['id' => (int)$pdo->lastInsertId(), 'at' => $at];
+    return ['id' => (int) $pdo->lastInsertId(), 'at' => $at];
 }
 
 /**
@@ -192,21 +211,26 @@ function noteSave(PDO $pdo, array $config, array $input, string $who): array
  */
 function noteVisibleTo(array $row, array $config): bool
 {
-    $audience = json_decode((string)($row['audience'] ?? '[]'), true);
+    $audience = json_decode((string) ($row['audience'] ?? '[]'), true);
     if (!is_array($audience) || $audience === []) {
         return true;
     }
     return array_intersect($audience, accessIdentity($config)['groups']) !== [];
 }
 
-function noteMarks(PDO $pdo, array $config, string $view, int $from, int $to): array
-{
+function noteMarks(
+    PDO $pdo,
+    array $config,
+    string $view,
+    int $from,
+    int $to,
+): array {
     try {
         $stmt = $pdo->prepare(
             "SELECT id, at, body, scope, chart, audience FROM notes
               WHERE at >= ? AND at <= ?
                 AND (scope = 'site' OR ((scope = 'page' OR scope = 'chart') AND view = ?))
-              ORDER BY at"
+              ORDER BY at",
         );
         $stmt->execute([$from, $to, $view]);
         $rows = $stmt->fetchAll();
@@ -214,14 +238,22 @@ function noteMarks(PDO $pdo, array $config, string $view, int $from, int $to): a
         return [];
     }
 
-    return array_map(fn(array $row): array => [
-        'id' => (int)$row['id'],
-        'at' => (int)$row['at'],
-        // Enough to read in a tooltip; the whole thing is on the Notes page.
-        'body' => mb_substr((string)$row['body'], 0, 200),
-        'scope' => (string)$row['scope'],
-        'chart' => $row['chart'],
-    ], array_values(array_filter($rows, fn(array $row): bool => noteVisibleTo($row, $config))));
+    return array_map(
+        fn(array $row): array => [
+            'id' => (int) $row['id'],
+            'at' => (int) $row['at'],
+            // Enough to read in a tooltip; the whole thing is on the Notes page.
+            'body' => mb_substr((string) $row['body'], 0, 200),
+            'scope' => (string) $row['scope'],
+            'chart' => $row['chart'],
+        ],
+        array_values(
+            array_filter(
+                $rows,
+                fn(array $row): bool => noteVisibleTo($row, $config),
+            ),
+        ),
+    );
 }
 
 /**
@@ -236,12 +268,19 @@ function noteMarks(PDO $pdo, array $config, string $view, int $from, int $to): a
 function noteBroadcasts(PDO $pdo, array $config): array
 {
     try {
-        $rows = $pdo->query(
-            'SELECT id, at, body, who, link, audience FROM notes
+        $rows = $pdo
+            ->query(
+                'SELECT id, at, body, who, link, audience FROM notes
               WHERE broadcast = 1 AND cleared_at IS NULL
-              ORDER BY at DESC LIMIT 10'
-        )->fetchAll();
-        return array_values(array_filter($rows, fn(array $row): bool => noteVisibleTo($row, $config)));
+              ORDER BY at DESC LIMIT 10',
+            )
+            ->fetchAll();
+        return array_values(
+            array_filter(
+                $rows,
+                fn(array $row): bool => noteVisibleTo($row, $config),
+            ),
+        );
     } catch (Throwable) {
         return [];
     }
@@ -255,23 +294,34 @@ function noteBroadcasts(PDO $pdo, array $config): array
 function noteList(PDO $pdo, array $config, int $limit = 300): array
 {
     try {
-        $rows = $pdo->query(
-            'SELECT n.*,
+        $rows = $pdo
+            ->query(
+                'SELECT n.*,
                     (SELECT COUNT(*) FROM note_snapshots s WHERE s.note_id = n.id) AS snapshots,
                     (SELECT COUNT(*) FROM note_snapshots s
                       WHERE s.note_id = n.id AND s.kind = \'image\') AS images,
                     (SELECT SUM(bytes) FROM note_snapshots s WHERE s.note_id = n.id) AS snapshot_bytes
-               FROM notes n ORDER BY n.at DESC LIMIT ' . max(1, $limit)
-        )->fetchAll();
+               FROM notes n ORDER BY n.at DESC LIMIT ' . max(1, $limit),
+            )
+            ->fetchAll();
     } catch (Throwable) {
-        return ['rows' => [], 'scopes' => noteScopes(), 'kinds' => snapshotKinds()];
+        return [
+            'rows' => [],
+            'scopes' => noteScopes(),
+            'kinds' => snapshotKinds(),
+        ];
     }
 
-    $rows = array_values(array_filter($rows, fn(array $row): bool => noteVisibleTo($row, $config)));
+    $rows = array_values(
+        array_filter(
+            $rows,
+            fn(array $row): bool => noteVisibleTo($row, $config),
+        ),
+    );
     foreach ($rows as &$row) {
-        $row['broadcast'] = (bool)$row['broadcast'];
-        $row['snapshots'] = (int)$row['snapshots'];
-        $row['snapshot_bytes'] = (int)($row['snapshot_bytes'] ?? 0);
+        $row['broadcast'] = (bool) $row['broadcast'];
+        $row['snapshots'] = (int) $row['snapshots'];
+        $row['snapshot_bytes'] = (int) ($row['snapshot_bytes'] ?? 0);
     }
     unset($row);
 
@@ -295,7 +345,7 @@ function noteList(PDO $pdo, array $config, int $limit = 300): array
 function noteForSnapshot(PDO $pdo, array $config, int $snapshotId): ?array
 {
     $visible = $pdo->prepare(
-        'SELECT n.* FROM note_snapshots s JOIN notes n ON n.id = s.note_id WHERE s.id = ?'
+        'SELECT n.* FROM note_snapshots s JOIN notes n ON n.id = s.note_id WHERE s.id = ?',
     );
     $visible->execute([$snapshotId]);
     $note = $visible->fetch();
@@ -311,7 +361,7 @@ function noteSnapshotList(PDO $pdo, array $config, int $noteId): array
         return [];
     }
     $stmt = $pdo->prepare(
-        'SELECT id, kind, label, bytes, at FROM note_snapshots WHERE note_id = ? ORDER BY id'
+        'SELECT id, kind, label, bytes, at FROM note_snapshots WHERE note_id = ? ORDER BY id',
     );
     $stmt->execute([$noteId]);
     return $stmt->fetchAll();
@@ -329,23 +379,25 @@ function noteSnapshotSave(
     int $noteId,
     string $kind,
     string $label,
-    string $payload
+    string $payload,
 ): int {
     if (strlen($payload) > NOTE_SNAPSHOT_MAX) {
-        throw new ActionRefused(sprintf(
-            'that snapshot is %s, and the limit is %s. Half a snapshot is not a smaller '
-            . 'one, so it is refused rather than cut short.',
-            humanBytes(strlen($payload)),
-            humanBytes(NOTE_SNAPSHOT_MAX)
-        ));
+        throw new ActionRefused(
+            sprintf(
+                'that snapshot is %s, and the limit is %s. Half a snapshot is not a smaller ' .
+                    'one, so it is refused rather than cut short.',
+                humanBytes(strlen($payload)),
+                humanBytes(NOTE_SNAPSHOT_MAX),
+            ),
+        );
     }
 
     $pdo->prepare(
         'INSERT INTO note_snapshots (note_id, kind, label, bytes, body, at)
-         VALUES (?, ?, ?, ?, ?, ?)'
+         VALUES (?, ?, ?, ?, ?, ?)',
     )->execute([$noteId, $kind, $label, strlen($payload), $payload, time()]);
 
-    return (int)$pdo->lastInsertId();
+    return (int) $pdo->lastInsertId();
 }
 
 /** Most pictures one note will hold. Enough for a page of charts, not a gallery. */
@@ -379,14 +431,17 @@ function noteImagesSave(PDO $pdo, int $noteId, string $json): array
 
     $items = json_decode($json, true);
     if (!is_array($items)) {
-        return ['kept' => [], 'problems' => ['the pictures did not arrive in one piece']];
+        return [
+            'kept' => [],
+            'problems' => ['the pictures did not arrive in one piece'],
+        ];
     }
 
     if (count($items) > NOTE_IMAGE_MAX) {
         $problems[] = sprintf(
             'only the first %d pictures were kept, of %d sent',
             NOTE_IMAGE_MAX,
-            count($items)
+            count($items),
         );
         $items = array_slice($items, 0, NOTE_IMAGE_MAX);
     }
@@ -396,11 +451,14 @@ function noteImagesSave(PDO $pdo, int $noteId, string $json): array
             continue;
         }
 
-        $name = trim((string)($item['name'] ?? 'a chart'));
-        $bytes = decodeDataImage((string)($item['data'] ?? ''));
+        $name = trim((string) ($item['name'] ?? 'a chart'));
+        $bytes = decodeDataImage((string) ($item['data'] ?? ''));
 
         if ($bytes === null) {
-            $problems[] = sprintf('%s was not a picture this could read', $name);
+            $problems[] = sprintf(
+                '%s was not a picture this could read',
+                $name,
+            );
             continue;
         }
         if (strlen($bytes) > NOTE_IMAGE_BYTES) {
@@ -408,7 +466,7 @@ function noteImagesSave(PDO $pdo, int $noteId, string $json): array
                 '%s is %s, and the limit for one picture is %s',
                 $name,
                 humanBytes(strlen($bytes)),
-                humanBytes(NOTE_IMAGE_BYTES)
+                humanBytes(NOTE_IMAGE_BYTES),
             );
             continue;
         }
@@ -438,7 +496,10 @@ function decodeDataImage(string $url): ?string
         return null;
     }
 
-    $bytes = base64_decode(substr($url, strlen('data:image/png;base64,')), true);
+    $bytes = base64_decode(
+        substr($url, strlen('data:image/png;base64,')),
+        true,
+    );
     if ($bytes === false || $bytes === '') {
         return null;
     }
@@ -469,15 +530,18 @@ function snapshotDatabase(PDO $pdo, string $into): array
     }
 
     $room = @disk_free_space($directory);
-    $size = (int)$pdo->query('PRAGMA page_count')->fetchColumn()
-        * (int)$pdo->query('PRAGMA page_size')->fetchColumn();
+    $size =
+        (int) $pdo->query('PRAGMA page_count')->fetchColumn() *
+        (int) $pdo->query('PRAGMA page_size')->fetchColumn();
 
     if ($room !== false && $room < $size * 1.2) {
-        throw new ActionRefused(sprintf(
-            'a copy needs about %s and there is %s free',
-            humanBytes($size),
-            humanBytes((int)$room)
-        ));
+        throw new ActionRefused(
+            sprintf(
+                'a copy needs about %s and there is %s free',
+                humanBytes($size),
+                humanBytes((int) $room),
+            ),
+        );
     }
 
     try {
@@ -491,13 +555,16 @@ function snapshotDatabase(PDO $pdo, string $into): array
     @chmod($into, 0600);
     clearstatcache(true, $into);
 
-    return ['path' => $into, 'bytes' => is_file($into) ? (int)filesize($into) : 0];
+    return [
+        'path' => $into,
+        'bytes' => is_file($into) ? (int) filesize($into) : 0,
+    ];
 }
 
 /** Where database snapshots are kept. Beside the databases, which .htaccess denies. */
 function snapshotDirectory(array $config): string
 {
-    return dirname((string)$config['database']) . '/snapshots';
+    return dirname((string) $config['database']) . '/snapshots';
 }
 
 /**
@@ -517,8 +584,8 @@ function databaseSnapshots(array $config): array
     foreach (@glob($directory . '/*.db') ?: [] as $file) {
         $out[] = [
             'name' => basename($file),
-            'bytes' => (int)filesize($file),
-            'at' => (int)filemtime($file),
+            'bytes' => (int) filesize($file),
+            'at' => (int) filemtime($file),
         ];
     }
 
@@ -548,7 +615,7 @@ function snapshotDelete(array $config, string $name): bool
 function noteClear(PDO $pdo, int $id, string $who): bool
 {
     $stmt = $pdo->prepare(
-        'UPDATE notes SET cleared_at = ?, cleared_by = ? WHERE id = ? AND cleared_at IS NULL'
+        'UPDATE notes SET cleared_at = ?, cleared_by = ? WHERE id = ? AND cleared_at IS NULL',
     );
     $stmt->execute([time(), $who, $id]);
     return $stmt->rowCount() > 0;

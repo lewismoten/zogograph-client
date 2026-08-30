@@ -54,18 +54,54 @@ function cronPresets(): array
             'every-10m' => ['label' => 'Every 10 minutes', 'minute_step' => 10],
             'every-15m' => ['label' => 'Every 15 minutes', 'minute_step' => 15],
             'every-30m' => ['label' => 'Every 30 minutes', 'minute_step' => 30],
-            'hourly' => ['label' => 'Hourly', 'minute_step' => 60, 'hour_step' => 1],
+            'hourly' => [
+                'label' => 'Hourly',
+                'minute_step' => 60,
+                'hour_step' => 1,
+            ],
         ],
         'scan' => [
             'off' => ['label' => 'Off', 'minute_step' => null],
-            'hourly' => ['label' => 'Every hour', 'minute_step' => 60, 'hour_step' => 1],
-            'every-2h' => ['label' => 'Every 2 hours', 'minute_step' => 60, 'hour_step' => 2],
-            'every-3h' => ['label' => 'Every 3 hours', 'minute_step' => 60, 'hour_step' => 3],
-            'every-4h' => ['label' => 'Every 4 hours', 'minute_step' => 60, 'hour_step' => 4],
-            'every-6h' => ['label' => 'Every 6 hours', 'minute_step' => 60, 'hour_step' => 6],
-            'every-8h' => ['label' => 'Every 8 hours', 'minute_step' => 60, 'hour_step' => 8],
-            'every-12h' => ['label' => 'Every 12 hours', 'minute_step' => 60, 'hour_step' => 12],
-            'daily' => ['label' => 'Once a day', 'minute_step' => 60, 'hour_step' => 24],
+            'hourly' => [
+                'label' => 'Every hour',
+                'minute_step' => 60,
+                'hour_step' => 1,
+            ],
+            'every-2h' => [
+                'label' => 'Every 2 hours',
+                'minute_step' => 60,
+                'hour_step' => 2,
+            ],
+            'every-3h' => [
+                'label' => 'Every 3 hours',
+                'minute_step' => 60,
+                'hour_step' => 3,
+            ],
+            'every-4h' => [
+                'label' => 'Every 4 hours',
+                'minute_step' => 60,
+                'hour_step' => 4,
+            ],
+            'every-6h' => [
+                'label' => 'Every 6 hours',
+                'minute_step' => 60,
+                'hour_step' => 6,
+            ],
+            'every-8h' => [
+                'label' => 'Every 8 hours',
+                'minute_step' => 60,
+                'hour_step' => 8,
+            ],
+            'every-12h' => [
+                'label' => 'Every 12 hours',
+                'minute_step' => 60,
+                'hour_step' => 12,
+            ],
+            'daily' => [
+                'label' => 'Once a day',
+                'minute_step' => 60,
+                'hour_step' => 24,
+            ],
         ],
     ];
 }
@@ -85,36 +121,74 @@ function cronEditorProfiles(?string $job = null): array
         'every-8m' => ['label' => 'Every 8 minutes', 'minute_step' => 8],
         'every-9m' => ['label' => 'Every 9 minutes', 'minute_step' => 9],
         'every-10m' => ['label' => 'Every 10 minutes', 'minute_step' => 10],
-        'custom' => ['label' => 'Custom five-field cron', 'minute_step' => 'custom'],
+        'custom' => [
+            'label' => 'Custom five-field cron',
+            'minute_step' => 'custom',
+        ],
     ];
     $scan = ['none' => ['label' => 'None', 'minute_step' => null]];
     foreach ([1, 2, 3, 4, 6, 8, 12, 24] as $hours) {
-        $scan['every-' . $hours . 'h'] = ['label' => 'Every ' . $hours . ' hour' . ($hours === 1 ? '' : 's'),
-            'minute_step' => 60, 'hour_step' => $hours];
+        $scan['every-' . $hours . 'h'] = [
+            'label' => 'Every ' . $hours . ' hour' . ($hours === 1 ? '' : 's'),
+            'minute_step' => 60,
+            'hour_step' => $hours,
+        ];
     }
-    $scan['custom'] = ['label' => 'Custom five-field cron', 'minute_step' => 'custom'];
-    if ($job === 'vitals') return $vitals;
-    if ($job === 'scan') return $scan;
+    $scan['custom'] = [
+        'label' => 'Custom five-field cron',
+        'minute_step' => 'custom',
+    ];
+    if ($job === 'vitals') {
+        return $vitals;
+    }
+    if ($job === 'scan') {
+        return $scan;
+    }
     return $vitals + $scan;
 }
 
 /** Produces a five-field cron expression for a safe profile or custom fields. */
-function cronEditorExpression(string $profile, array $custom = [], ?string $job = null, array $offset = []): ?string
-{
+function cronEditorExpression(
+    string $profile,
+    array $custom = [],
+    ?string $job = null,
+    array $offset = [],
+): ?string {
     $profiles = cronEditorProfiles($job);
-    if (!isset($profiles[$profile])) throw new ActionRefused('unknown cron editor profile');
-    if ($profile === 'none') return null;
+    if (!isset($profiles[$profile])) {
+        throw new ActionRefused('unknown cron editor profile');
+    }
+    if ($profile === 'none') {
+        return null;
+    }
     if ($profile !== 'custom') {
-        return cronExpressionFor($profiles[$profile], max(0, min(59, (int)($offset['minute'] ?? 0))), max(0, min(23, (int)($offset['hour'] ?? 0))));
+        return cronExpressionFor(
+            $profiles[$profile],
+            max(0, min(59, (int) ($offset['minute'] ?? 0))),
+            max(0, min(23, (int) ($offset['hour'] ?? 0))),
+        );
     }
     $fields = [];
-    foreach (['minute' => 59, 'hour' => 23, 'day' => 31, 'month' => 12, 'weekday' => 7] as $name => $maximum) {
-        $value = trim((string)($custom[$name] ?? '*'));
+    foreach (
+        [
+            'minute' => 59,
+            'hour' => 23,
+            'day' => 31,
+            'month' => 12,
+            'weekday' => 7,
+        ]
+        as $name => $maximum
+    ) {
+        $value = trim((string) ($custom[$name] ?? '*'));
         if (!preg_match('/^[0-9*,\/-]+$/', $value) || strlen($value) > 80) {
             throw new ActionRefused("invalid custom cron $name field");
         }
         foreach (preg_split('/[,*\/-]+/', $value) ?: [] as $number) {
-            if ($number !== '' && (int)$number > $maximum) throw new ActionRefused("custom cron $name field is out of range");
+            if ($number !== '' && (int) $number > $maximum) {
+                throw new ActionRefused(
+                    "custom cron $name field is out of range",
+                );
+            }
         }
         $fields[] = $value;
     }
@@ -141,7 +215,7 @@ function cronField(int $start, int $step, int $cycle): string
         return '*';
     }
     if ($step >= $cycle) {
-        return (string)($start % $cycle);
+        return (string) ($start % $cycle);
     }
 
     $values = [];
@@ -167,8 +241,8 @@ function cronExpressionFor(array $preset, int $minute, int $hour): ?string
 
     return sprintf(
         '%s %s * * *',
-        cronField($minute, (int)$minuteStep, 60),
-        cronField($hour, (int)$hourStep, 24)
+        cronField($minute, (int) $minuteStep, 60),
+        cronField($hour, (int) $hourStep, 24),
     );
 }
 
@@ -188,7 +262,7 @@ function cronBounds(array $choices): array
     $used = ['minute_used' => false, 'hour_used' => false];
 
     foreach (['vitals', 'scan'] as $job) {
-        $preset = $presets[$job][(string)($choices[$job] ?? 'off')] ?? null;
+        $preset = $presets[$job][(string) ($choices[$job] ?? 'off')] ?? null;
         $minuteStep = $preset['minute_step'] ?? null;
         if ($preset === null || $minuteStep === null) {
             continue;
@@ -196,7 +270,7 @@ function cronBounds(array $choices): array
         if ($minuteStep > 1) {
             $used['minute_used'] = true;
         }
-        if ((int)($preset['hour_step'] ?? 1) > 1) {
+        if ((int) ($preset['hour_step'] ?? 1) > 1) {
             $used['hour_used'] = true;
         }
     }
@@ -234,7 +308,7 @@ function systemTimezone(string $crontab = ''): array
     }
 
     if ($name === null && is_readable('/etc/timezone')) {
-        $candidate = trim((string)@file_get_contents('/etc/timezone'));
+        $candidate = trim((string) @file_get_contents('/etc/timezone'));
         if ($candidate !== '') {
             $name = $candidate;
             $source = '/etc/timezone';
@@ -252,10 +326,15 @@ function systemTimezone(string $crontab = ''): array
     $abbrev = null;
     $offset = null;
     $stamp = shellRead('date +%Z,%z 2>/dev/null');
-    if ($stamp !== null && preg_match('/^([A-Za-z+\-0-9]+),([+\-]\d{4})/', trim($stamp), $m)) {
+    if (
+        $stamp !== null &&
+        preg_match('/^([A-Za-z+\-0-9]+),([+\-]\d{4})/', trim($stamp), $m)
+    ) {
         $abbrev = $m[1];
         $sign = $m[2][0] === '-' ? -1 : 1;
-        $offset = $sign * ((int)substr($m[2], 1, 2) * 3600 + (int)substr($m[2], 3, 2) * 60);
+        $offset =
+            $sign *
+            ((int) substr($m[2], 1, 2) * 3600 + (int) substr($m[2], 3, 2) * 60);
         if ($source === 'unknown') {
             $source = 'date';
         }
@@ -270,7 +349,13 @@ function systemTimezone(string $crontab = ''): array
      */
     $cronTz = null;
     foreach (preg_split('/\R/', $crontab) ?: [] as $line) {
-        if (preg_match('/^\s*(?:CRON_TZ|TZ)\s*=\s*"?([A-Za-z0-9_+\-\/]+)"?/', $line, $m)) {
+        if (
+            preg_match(
+                '/^\s*(?:CRON_TZ|TZ)\s*=\s*"?([A-Za-z0-9_+\-\/]+)"?/',
+                $line,
+                $m,
+            )
+        ) {
             $cronTz = $m[1];
         }
     }
@@ -338,29 +423,41 @@ function phpBinaries(): array
 function readCrontab(): array
 {
     if (!function_exists('shell_exec')) {
-        return ['available' => false, 'raw' => '', 'reason' => 'shell_exec is disabled here.'];
+        return [
+            'available' => false,
+            'raw' => '',
+            'reason' => 'shell_exec is disabled here.',
+        ];
     }
-    $disabled = array_map('trim', explode(',', (string)ini_get('disable_functions')));
+    $disabled = array_map(
+        'trim',
+        explode(',', (string) ini_get('disable_functions')),
+    );
     if (in_array('shell_exec', $disabled, true)) {
-        return ['available' => false, 'raw' => '', 'reason' => 'shell_exec is disabled here.'];
+        return [
+            'available' => false,
+            'raw' => '',
+            'reason' => 'shell_exec is disabled here.',
+        ];
     }
 
     $output = @shell_exec('crontab -l 2>/dev/null');
     if ($output === null) {
         // Either there is no crontab yet, or there is no crontab command. The
         // second is the dangerous one, so it is checked for separately.
-        $which = trim((string)@shell_exec('command -v crontab 2>/dev/null'));
+        $which = trim((string) @shell_exec('command -v crontab 2>/dev/null'));
         if ($which === '') {
             return [
                 'available' => false,
                 'raw' => '',
-                'reason' => 'No crontab command on this host. Add the lines through your control panel.',
+                'reason' =>
+                    'No crontab command on this host. Add the lines through your control panel.',
             ];
         }
         return ['available' => true, 'raw' => '', 'reason' => null];
     }
 
-    return ['available' => true, 'raw' => (string)$output, 'reason' => null];
+    return ['available' => true, 'raw' => (string) $output, 'reason' => null];
 }
 
 /** The lines this dashboard manages, pulled out of a crontab. */
@@ -450,7 +547,9 @@ function buildCronLines(array $choices, string $php, string $scriptDir): array
     $jobs = cronJobs();
 
     if (!in_array($php, phpBinaries(), true)) {
-        throw new ActionRefused('that is not one of the PHP binaries found on this host');
+        throw new ActionRefused(
+            'that is not one of the PHP binaries found on this host',
+        );
     }
 
     $script = realpath($scriptDir . '/cron.php');
@@ -460,12 +559,12 @@ function buildCronLines(array $choices, string $php, string $scriptDir): array
 
     // Clamped to real clock values and nothing narrower. cronField folds a
     // start into its own cycle, and the resulting set always includes it.
-    $minute = max(0, min(59, (int)($choices['minute'] ?? 7)));
-    $hour = max(0, min(23, (int)($choices['hour'] ?? 2)));
+    $minute = max(0, min(59, (int) ($choices['minute'] ?? 7)));
+    $hour = max(0, min(23, (int) ($choices['hour'] ?? 2)));
 
     $lines = [];
     foreach ($jobs as $job => $flags) {
-        $pick = (string)($choices[$job] ?? 'off');
+        $pick = (string) ($choices[$job] ?? 'off');
         if (!isset($presets[$job][$pick])) {
             throw new ActionRefused("unknown schedule for $job");
         }
@@ -489,7 +588,7 @@ function buildCronLines(array $choices, string $php, string $scriptDir): array
             $expr,
             escapeshellarg($php),
             escapeshellarg($script),
-            implode(' ', $flags)
+            implode(' ', $flags),
         );
     }
 
@@ -503,25 +602,51 @@ function buildCronLines(array $choices, string $php, string $scriptDir): array
  * choose only one of cronEditorProfiles() and the five standard cron fields;
  * cronJobs() remains the sole owner of the commands that will be installed.
  */
-function cronEditorBuildLines(array $jobs, string $php, string $scriptDir): array
-{
-    return array_values(array_filter(cronEditorBuildJobLines($jobs, $php, $scriptDir)));
+function cronEditorBuildLines(
+    array $jobs,
+    string $php,
+    string $scriptDir,
+): array {
+    return array_values(
+        array_filter(cronEditorBuildJobLines($jobs, $php, $scriptDir)),
+    );
 }
 
 /** @return array<string, ?string> One approved command line per named job. */
-function cronEditorBuildJobLines(array $jobs, string $php, string $scriptDir): array
-{
+function cronEditorBuildJobLines(
+    array $jobs,
+    string $php,
+    string $scriptDir,
+): array {
     if (!in_array($php, phpBinaries(), true)) {
-        throw new ActionRefused('that is not one of the PHP binaries found on this host');
+        throw new ActionRefused(
+            'that is not one of the PHP binaries found on this host',
+        );
     }
     $script = realpath($scriptDir . '/cron.php');
-    if ($script === false) throw new ActionRefused('cannot find cron.php');
+    if ($script === false) {
+        throw new ActionRefused('cannot find cron.php');
+    }
 
     $lines = [];
     foreach (cronJobs() as $name => $flags) {
-        $choice = (array)($jobs[$name] ?? []);
-        $expr = cronEditorExpression((string)($choice['profile'] ?? 'none'), (array)($choice['custom'] ?? []), $name, (array)($choice['offset'] ?? []));
-        $lines[$name] = $expr === null ? null : sprintf('%s %s %s %s', $expr, escapeshellarg($php), escapeshellarg($script), implode(' ', $flags));
+        $choice = (array) ($jobs[$name] ?? []);
+        $expr = cronEditorExpression(
+            (string) ($choice['profile'] ?? 'none'),
+            (array) ($choice['custom'] ?? []),
+            $name,
+            (array) ($choice['offset'] ?? []),
+        );
+        $lines[$name] =
+            $expr === null
+                ? null
+                : sprintf(
+                    '%s %s %s %s',
+                    $expr,
+                    escapeshellarg($php),
+                    escapeshellarg($script),
+                    implode(' ', $flags),
+                );
     }
     return $lines;
 }
@@ -530,22 +655,41 @@ function cronEditorBuildJobLines(array $jobs, string $php, string $scriptDir): a
 function cronEditorInstalledJobLines(array $lines): array
 {
     $out = array_fill_keys(array_keys(cronJobs()), null);
-    foreach (cronJobs() as $job => $flags) foreach ($lines as $line) {
-        if (str_ends_with(trim((string)$line), implode(' ', $flags))) $out[$job] = (string)$line;
+    foreach (cronJobs() as $job => $flags) {
+        foreach ($lines as $line) {
+            if (str_ends_with(trim((string) $line), implode(' ', $flags))) {
+                $out[$job] = (string) $line;
+            }
+        };
     }
     return $out;
 }
 
 /** Replaces one approved job while preserving other managed Zogograph jobs. */
-function cronEditorApplyJob(string $job, array $choice, string $php, string $scriptDir): array
-{
-    if (!isset(cronJobs()[$job])) throw new ActionRefused('unknown cron job');
+function cronEditorApplyJob(
+    string $job,
+    array $choice,
+    string $php,
+    string $scriptDir,
+): array {
+    if (!isset(cronJobs()[$job])) {
+        throw new ActionRefused('unknown cron job');
+    }
     $current = readCrontab();
-    if (!$current['available']) throw new ActionRefused((string)$current['reason']);
+    if (!$current['available']) {
+        throw new ActionRefused((string) $current['reason']);
+    }
     $line = cronEditorBuildJobLines([$job => $choice], $php, $scriptDir)[$job];
     $suffix = implode(' ', cronJobs()[$job]);
-    $kept = array_values(array_filter(managedBlock($current['raw']), static fn(string $old): bool => !str_ends_with(trim($old), $suffix)));
-    if ($line !== null) $kept[] = $line;
+    $kept = array_values(
+        array_filter(
+            managedBlock($current['raw']),
+            static fn(string $old): bool => !str_ends_with(trim($old), $suffix),
+        ),
+    );
+    if ($line !== null) {
+        $kept[] = $line;
+    }
     writeCrontab(replaceManagedBlock($current['raw'], $kept));
     return ['installed' => $line, 'removed' => $line === null];
 }
@@ -554,16 +698,27 @@ function cronEditorApplyJob(string $job, array $choice, string $php, string $scr
 function cronEditorStatus(array $desired, string $scriptDir): array
 {
     $state = scheduleState($scriptDir);
-    if (!$state['available']) return $state + ['sync' => 'unavailable'];
-    $installed = (array)$state['lines'];
-    return $state + ['sync' => $installed === $desired ? 'in_sync' : ($installed === [] ? 'missing' : 'different')];
+    if (!$state['available']) {
+        return $state + ['sync' => 'unavailable'];
+    }
+    $installed = (array) $state['lines'];
+    return $state + [
+        'sync' =>
+            $installed === $desired
+                ? 'in_sync'
+                : ($installed === []
+                    ? 'missing'
+                    : 'different'),
+    ];
 }
 
 /** Applies only the Zogograph marked block, retaining all unrelated cron jobs. */
 function cronEditorApply(array $jobs, string $php, string $scriptDir): array
 {
     $current = readCrontab();
-    if (!$current['available']) throw new ActionRefused((string)$current['reason']);
+    if (!$current['available']) {
+        throw new ActionRefused((string) $current['reason']);
+    }
     $lines = cronEditorBuildLines($jobs, $php, $scriptDir);
     writeCrontab(replaceManagedBlock($current['raw'], $lines));
     return cronEditorStatus($lines, $scriptDir);
@@ -583,7 +738,9 @@ function cronEditorApply(array $jobs, string $php, string $scriptDir): array
 function startScan(string $scriptDir, string $php): array
 {
     if (!in_array($php, phpBinaries(), true)) {
-        throw new ActionRefused('that is not one of the PHP binaries found on this host');
+        throw new ActionRefused(
+            'that is not one of the PHP binaries found on this host',
+        );
     }
 
     $script = realpath($scriptDir . '/cron.php');
@@ -591,8 +748,14 @@ function startScan(string $scriptDir, string $php): array
         throw new ActionRefused('cannot find cron.php');
     }
 
-    if (shellRead('command -v nohup 2>/dev/null') === null && !function_exists('shell_exec')) {
-        return ['started' => false, 'reason' => 'This host does not allow starting background work.'];
+    if (
+        shellRead('command -v nohup 2>/dev/null') === null &&
+        !function_exists('shell_exec')
+    ) {
+        return [
+            'started' => false,
+            'reason' => 'This host does not allow starting background work.',
+        ];
     }
 
     /*
@@ -605,13 +768,16 @@ function startScan(string $scriptDir, string $php): array
     $command = sprintf(
         'nohup %s %s --scan --alerts --quiet > /dev/null 2>&1 &',
         escapeshellarg($php),
-        escapeshellarg($script)
+        escapeshellarg($script),
     );
 
     if (shellRead($command . ' echo started') === null) {
         // shell_exec returns null for empty output too, so the echo above is
         // what tells us the shell actually ran rather than being disabled.
-        return ['started' => false, 'reason' => 'The command could not be started.'];
+        return [
+            'started' => false,
+            'reason' => 'The command could not be started.',
+        ];
     }
 
     return ['started' => true, 'reason' => null];
@@ -637,8 +803,10 @@ function writeCrontab(string $content): void
         }
         @chmod($temporary, 0600);
 
-        $result = @shell_exec('crontab ' . escapeshellarg($temporary) . ' 2>&1');
-        $left = trim((string)$result);
+        $result = @shell_exec(
+            'crontab ' . escapeshellarg($temporary) . ' 2>&1',
+        );
+        $left = trim((string) $result);
         if ($left !== '') {
             throw new ActionRefused('crontab refused it: ' . $left);
         }
@@ -664,10 +832,17 @@ function scheduleState(string $scriptDir): array
         'php_timezone' => date_default_timezone_get(),
         'lines' => $crontab['available'] ? managedBlock($crontab['raw']) : [],
         'other_lines' => $crontab['available']
-            ? max(0, count(array_filter(
-                preg_split('/\R/', trim($crontab['raw'])) ?: [],
-                fn(string $l): bool => trim($l) !== ''
-            )) - count(managedBlock($crontab['raw'])) - 2)
+            ? max(
+                0,
+                count(
+                    array_filter(
+                        preg_split('/\R/', trim($crontab['raw'])) ?: [],
+                        fn(string $l): bool => trim($l) !== '',
+                    ),
+                ) -
+                    count(managedBlock($crontab['raw'])) -
+                    2,
+            )
             : 0,
         'binaries' => phpBinaries(),
         'presets' => cronPresets(),

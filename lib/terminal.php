@@ -62,11 +62,25 @@ function terminalEditorSensitiveFileReason(string $path): ?string
     if (preg_match('/^\.env(?:\..+)?$/', $name) === 1) {
         return 'environment files can contain credentials and are not opened in the web editor';
     }
-    if (preg_match('/\.(?:key|pem|p12|pfx|sqlite|sqlite3|db)$/', $name) === 1
-        || str_starts_with($name, 'id_')) {
+    if (
+        preg_match('/\.(?:key|pem|p12|pfx|sqlite|sqlite3|db)$/', $name) === 1 ||
+        str_starts_with($name, 'id_')
+    ) {
         return 'private keys and database files are not opened in the web editor';
     }
-    if (in_array($name, ['.htpasswd', 'config.php', 'wp-config.php', 'authorized_keys', 'shadow'], true)) {
+    if (
+        in_array(
+            $name,
+            [
+                '.htpasswd',
+                'config.php',
+                'wp-config.php',
+                'authorized_keys',
+                'shadow',
+            ],
+            true,
+        )
+    ) {
         return 'that credential-bearing configuration file is not opened in the web editor';
     }
     return null;
@@ -76,15 +90,31 @@ function terminalEditorSensitiveFileReason(string $path): ?string
 function terminalEditorBrowseDirectory(string $root, string $asked): string
 {
     $root = realpath($root);
-    if ($root === false) throw new ActionRefused('the watched root is not available');
+    if ($root === false) {
+        throw new ActionRefused('the watched root is not available');
+    }
     $asked = trim($asked);
-    $candidate = $asked === '' ? $root : (str_starts_with($asked, '/') ? $asked : $root . '/' . $asked);
+    $candidate =
+        $asked === ''
+            ? $root
+            : (str_starts_with($asked, '/')
+                ? $asked
+                : $root . '/' . $asked);
     $directory = realpath($candidate);
-    if ($directory === false || !is_dir($directory) || !is_readable($directory)) {
+    if (
+        $directory === false ||
+        !is_dir($directory) ||
+        !is_readable($directory)
+    ) {
         throw new ActionRefused('that directory cannot be opened');
     }
-    if ($directory !== $root && !str_starts_with($directory, rtrim($root, '/') . '/')) {
-        throw new ActionRefused('the web editor is limited to the watched directory');
+    if (
+        $directory !== $root &&
+        !str_starts_with($directory, rtrim($root, '/') . '/')
+    ) {
+        throw new ActionRefused(
+            'the web editor is limited to the watched directory',
+        );
     }
     return $directory;
 }
@@ -101,63 +131,118 @@ function terminalEditorBrowseDirectory(string $root, string $asked): string
 function terminalEditorBrowse(array $config, PDO $pdo, string $asked): array
 {
     $settings = terminalSettings($config, $pdo);
-    if (!$settings['enabled']) throw new ActionRefused('unlock the terminal before browsing its files');
-    $root = realpath((string)($config['scan_root'] ?? ''));
-    if ($root === false) throw new ActionRefused('the watched root is not available');
+    if (!$settings['enabled']) {
+        throw new ActionRefused(
+            'unlock the terminal before browsing its files',
+        );
+    }
+    $root = realpath((string) ($config['scan_root'] ?? ''));
+    if ($root === false) {
+        throw new ActionRefused('the watched root is not available');
+    }
     $directory = terminalEditorBrowseDirectory($root, $asked);
     $names = scandir($directory);
-    if ($names === false) throw new ActionRefused('that directory cannot be listed');
+    if ($names === false) {
+        throw new ActionRefused('that directory cannot be listed');
+    }
 
     $rows = [];
     foreach ($names as $name) {
-        if ($name === '.' || $name === '..') continue;
+        if ($name === '.' || $name === '..') {
+            continue;
+        }
         $path = $directory . '/' . $name;
         if (is_link($path)) {
-            $rows[] = ['name' => $name, 'path' => $path, 'kind' => 'link', 'bytes' => null,
-                'modified' => null, 'writable' => false];
+            $rows[] = [
+                'name' => $name,
+                'path' => $path,
+                'kind' => 'link',
+                'bytes' => null,
+                'modified' => null,
+                'writable' => false,
+            ];
             continue;
         }
         $directoryEntry = is_dir($path);
         $file = is_file($path);
-        $rows[] = ['name' => $name, 'path' => $path, 'kind' => $directoryEntry ? 'directory' : ($file ? 'file' : 'other'),
-            'bytes' => $file ? (int)filesize($path) : null,
-            'modified' => @filemtime($path) ?: null, 'writable' => is_writable($path)];
+        $rows[] = [
+            'name' => $name,
+            'path' => $path,
+            'kind' => $directoryEntry
+                ? 'directory'
+                : ($file
+                    ? 'file'
+                    : 'other'),
+            'bytes' => $file ? (int) filesize($path) : null,
+            'modified' => @filemtime($path) ?: null,
+            'writable' => is_writable($path),
+        ];
     }
-    usort($rows, fn(array $a, array $b): int =>
-        (($a['kind'] === 'directory') === ($b['kind'] === 'directory'))
+    usort(
+        $rows,
+        fn(array $a, array $b): int => ($a['kind'] === 'directory') ===
+        ($b['kind'] === 'directory')
             ? strnatcasecmp($a['name'], $b['name'])
-            : ($a['kind'] === 'directory' ? -1 : 1));
+            : ($a['kind'] === 'directory'
+                ? -1
+                : 1),
+    );
     $more = max(0, count($rows) - TERMINAL_EDITOR_BROWSE_LIMIT);
     $rows = array_slice($rows, 0, TERMINAL_EDITOR_BROWSE_LIMIT);
     $parent = $directory === $root ? null : dirname($directory);
-    return ['path' => $directory, 'parent' => $parent, 'rows' => $rows, 'more' => $more];
+    return [
+        'path' => $directory,
+        'parent' => $parent,
+        'rows' => $rows,
+        'more' => $more,
+    ];
 }
 
 /** Resolves one browser-editable file without letting a path escape scan_root. */
-function terminalEditorPath(array $config, PDO $pdo, string $asked, bool $forWrite = false): string
-{
+function terminalEditorPath(
+    array $config,
+    PDO $pdo,
+    string $asked,
+    bool $forWrite = false,
+): string {
     $settings = terminalSettings($config, $pdo);
     if (!$settings['enabled']) {
-        throw new ActionRefused('unlock the terminal before opening its web editor');
+        throw new ActionRefused(
+            'unlock the terminal before opening its web editor',
+        );
     }
     $asked = trim($asked);
-    if ($asked === '') throw new ActionRefused('name a file to edit');
+    if ($asked === '') {
+        throw new ActionRefused('name a file to edit');
+    }
 
-    $root = realpath((string)($config['scan_root'] ?? ''));
-    if ($root === false) throw new ActionRefused('the watched root is not available');
-    $candidate = str_starts_with($asked, '/') ? $asked : terminalCwd($config, $pdo) . '/' . $asked;
+    $root = realpath((string) ($config['scan_root'] ?? ''));
+    if ($root === false) {
+        throw new ActionRefused('the watched root is not available');
+    }
+    $candidate = str_starts_with($asked, '/')
+        ? $asked
+        : terminalCwd($config, $pdo) . '/' . $asked;
     $existing = realpath($candidate);
     if ($existing !== false) {
         $path = $existing;
     } else {
         $parent = realpath(dirname($candidate));
-        if ($parent === false) throw new ActionRefused('the file’s parent directory does not exist');
+        if ($parent === false) {
+            throw new ActionRefused(
+                'the file’s parent directory does not exist',
+            );
+        }
         $path = $parent . '/' . basename($candidate);
     }
     if ($path !== $root && !str_starts_with($path, rtrim($root, '/') . '/')) {
-        throw new ActionRefused('the web editor is limited to the watched directory');
+        throw new ActionRefused(
+            'the web editor is limited to the watched directory',
+        );
     }
-    if (file_exists($path) && !is_file($path)) throw new ActionRefused('that is not a regular file');
+    if (file_exists($path) && !is_file($path)) {
+        throw new ActionRefused('that is not a regular file');
+    }
     if (!$forWrite && (!is_file($path) || !is_readable($path))) {
         throw new ActionRefused('that file cannot be read');
     }
@@ -165,7 +250,9 @@ function terminalEditorPath(array $config, PDO $pdo, string $asked, bool $forWri
         throw new ActionRefused('that file is not writable by this account');
     }
     if ($forWrite && !is_file($path) && !is_writable(dirname($path))) {
-        throw new ActionRefused('its parent directory is not writable by this account');
+        throw new ActionRefused(
+            'its parent directory is not writable by this account',
+        );
     }
     if (($reason = terminalEditorSensitiveFileReason($path)) !== null) {
         throw new ActionRefused($reason);
@@ -181,14 +268,18 @@ function terminalEditorFingerprint(string $text): string
 /** A browser response must be valid UTF-8; name the accepted text encoding. */
 function terminalEditorEncoding(string $text): string
 {
-    if ($text === '' || preg_match('/^[\x01-\x7f\r\n\t]*$/D', $text) === 1) return 'ASCII';
+    if ($text === '' || preg_match('/^[\x01-\x7f\r\n\t]*$/D', $text) === 1) {
+        return 'ASCII';
+    }
     return preg_match('//u', $text) === 1 ? 'UTF-8' : 'legacy 8-bit';
 }
 
 /** @return 'lf'|'crlf'|'cr' */
 function terminalEditorLineEnding(string $text): string
 {
-    if (str_contains($text, "\r\n")) return 'crlf';
+    if (str_contains($text, "\r\n")) {
+        return 'crlf';
+    }
     return str_contains($text, "\r") ? 'cr' : 'lf';
 }
 
@@ -199,27 +290,52 @@ function terminalEditorWithLineEndings(string $text, string $lineEnding): string
         throw new ActionRefused('the editor line-ending marker is invalid');
     }
     $normalized = str_replace(["\r\n", "\r"], "\n", $text);
-    return $lineEnding === 'lf' ? $normalized : str_replace("\n", $lineEnding === 'crlf' ? "\r\n" : "\r", $normalized);
+    return $lineEnding === 'lf'
+        ? $normalized
+        : str_replace(
+            "\n",
+            $lineEnding === 'crlf' ? "\r\n" : "\r",
+            $normalized,
+        );
 }
 
 /** Keeps a private pre-save copy, bounded per file, beside terminal evidence. */
-function terminalEditorBackup(array $config, string $path, string $text): ?string
-{
+function terminalEditorBackup(
+    array $config,
+    string $path,
+    string $text,
+): ?string {
     $directory = terminalDirectory($config) . '/editor-backups';
-    if (!is_dir($directory) && !mkdir($directory, 0700, true) && !is_dir($directory)) return null;
+    if (
+        !is_dir($directory) &&
+        !mkdir($directory, 0700, true) &&
+        !is_dir($directory)
+    ) {
+        return null;
+    }
     @chmod($directory, 0700);
     $prefix = hash('sha256', $path) . '-';
-    $name = $prefix . gmdate('Ymd\THis\Z') . '-' . bin2hex(random_bytes(4)) . '.txt';
+    $name =
+        $prefix .
+        gmdate('Ymd\THis\Z') .
+        '-' .
+        bin2hex(random_bytes(4)) .
+        '.txt';
     $target = $directory . '/' . $name;
     $temporary = $target . '.tmp';
-    if (file_put_contents($temporary, $text, LOCK_EX) === false || !rename($temporary, $target)) {
+    if (
+        file_put_contents($temporary, $text, LOCK_EX) === false ||
+        !rename($temporary, $target)
+    ) {
         @unlink($temporary);
         return null;
     }
     @chmod($target, 0600);
     $old = glob($directory . '/' . $prefix . '*.txt') ?: [];
     sort($old, SORT_STRING);
-    foreach (array_slice($old, 0, max(0, count($old) - 10)) as $file) @unlink($file);
+    foreach (array_slice($old, 0, max(0, count($old) - 10)) as $file) {
+        @unlink($file);
+    }
     return $name;
 }
 
@@ -231,9 +347,17 @@ function terminalEditorBackups(array $config, string $path): array
     $rows = [];
     foreach (glob($directory . '/' . $prefix . '*.txt') ?: [] as $file) {
         $name = basename($file);
-        if (!str_starts_with($name, $prefix) || !preg_match('/\.txt$/', $name)) continue;
-        $rows[] = ['name' => $name, 'at' => (int)(@filemtime($file) ?: 0),
-            'bytes' => (int)(@filesize($file) ?: 0)];
+        if (
+            !str_starts_with($name, $prefix) ||
+            !preg_match('/\.txt$/', $name)
+        ) {
+            continue;
+        }
+        $rows[] = [
+            'name' => $name,
+            'at' => (int) (@filemtime($file) ?: 0),
+            'bytes' => (int) (@filesize($file) ?: 0),
+        ];
     }
     usort($rows, fn(array $a, array $b): int => $b['at'] <=> $a['at']);
     return $rows;
@@ -243,65 +367,128 @@ function terminalEditorBackups(array $config, string $path): array
 function terminalEditorRead(array $config, PDO $pdo, string $asked): array
 {
     $path = terminalEditorPath($config, $pdo, $asked);
-    $bytes = (int)filesize($path);
+    $bytes = (int) filesize($path);
     if ($bytes > TERMINAL_EDITOR_MAX_BYTES) {
-        throw new ActionRefused('that file is larger than the web editor limit of 1 MB');
+        throw new ActionRefused(
+            'that file is larger than the web editor limit of 1 MB',
+        );
     }
     $text = file_get_contents($path);
     if ($text === false || str_contains($text, "\0")) {
-        throw new ActionRefused('the web editor only opens readable text files');
+        throw new ActionRefused(
+            'the web editor only opens readable text files',
+        );
     }
     $encoding = terminalEditorEncoding($text);
     if ($encoding === 'legacy 8-bit') {
-        throw new ActionRefused('the web editor only opens ASCII or UTF-8 text files');
+        throw new ActionRefused(
+            'the web editor only opens ASCII or UTF-8 text files',
+        );
     }
-    return ['path' => $path, 'text' => $text, 'exists' => true, 'bytes' => $bytes,
-        'writable' => is_writable($path), 'fingerprint' => terminalEditorFingerprint($text),
-        'line_ending' => terminalEditorLineEnding($text), 'encoding' => $encoding,
-        'modified' => (int)(@filemtime($path) ?: 0),
-        'mode' => substr(sprintf('%04o', (int)(@fileperms($path) ?: 0)), -4),
-        'backups' => terminalEditorBackups($config, $path)];
+    return [
+        'path' => $path,
+        'text' => $text,
+        'exists' => true,
+        'bytes' => $bytes,
+        'writable' => is_writable($path),
+        'fingerprint' => terminalEditorFingerprint($text),
+        'line_ending' => terminalEditorLineEnding($text),
+        'encoding' => $encoding,
+        'modified' => (int) (@filemtime($path) ?: 0),
+        'mode' => substr(sprintf('%04o', (int) (@fileperms($path) ?: 0)), -4),
+        'backups' => terminalEditorBackups($config, $path),
+    ];
 }
 
 /** Restores one private editor copy, preserving a current-file recovery copy first. */
-function terminalEditorRestore(array $config, PDO $pdo, string $asked, string $backup, string $expected): array
-{
+function terminalEditorRestore(
+    array $config,
+    PDO $pdo,
+    string $asked,
+    string $backup,
+    string $expected,
+): array {
     $path = terminalEditorPath($config, $pdo, $asked, true);
     $allowed = array_column(terminalEditorBackups($config, $path), 'name');
-    if (!in_array($backup, $allowed, true)) throw new ActionRefused('that recovery copy does not belong to this file');
-    $text = file_get_contents(terminalDirectory($config) . '/editor-backups/' . $backup);
-    if ($text === false || str_contains($text, "\0")) throw new ActionRefused('the recovery copy cannot be read as text');
-    return terminalEditorSave($config, $pdo, $path, $text, $expected, terminalEditorLineEnding($text));
+    if (!in_array($backup, $allowed, true)) {
+        throw new ActionRefused(
+            'that recovery copy does not belong to this file',
+        );
+    }
+    $text = file_get_contents(
+        terminalDirectory($config) . '/editor-backups/' . $backup,
+    );
+    if ($text === false || str_contains($text, "\0")) {
+        throw new ActionRefused('the recovery copy cannot be read as text');
+    }
+    return terminalEditorSave(
+        $config,
+        $pdo,
+        $path,
+        $text,
+        $expected,
+        terminalEditorLineEnding($text),
+    );
 }
 
 /** @return array{path:string,bytes:int,backup:?string,fingerprint:string} */
-function terminalEditorSave(array $config, PDO $pdo, string $asked, string $text, string $expected, string $lineEnding): array
-{
+function terminalEditorSave(
+    array $config,
+    PDO $pdo,
+    string $asked,
+    string $text,
+    string $expected,
+    string $lineEnding,
+): array {
     if (strlen($text) > TERMINAL_EDITOR_MAX_BYTES) {
-        throw new ActionRefused('the web editor cannot save more than 1 MB at once');
+        throw new ActionRefused(
+            'the web editor cannot save more than 1 MB at once',
+        );
     }
-    if (str_contains($text, "\0")) throw new ActionRefused('text files cannot contain NUL bytes');
+    if (str_contains($text, "\0")) {
+        throw new ActionRefused('text files cannot contain NUL bytes');
+    }
     $path = terminalEditorPath($config, $pdo, $asked, true);
     $before = is_file($path) ? file_get_contents($path) : '';
-    if ($before === false) throw new ActionRefused('could not re-read that file before saving');
-    if (!preg_match('/^[a-f0-9]{64}$/', $expected) || !hash_equals(terminalEditorFingerprint($before), $expected)) {
-        throw new ActionRefused('that file changed after it was opened; re-open it and merge the changes before saving');
+    if ($before === false) {
+        throw new ActionRefused('could not re-read that file before saving');
+    }
+    if (
+        !preg_match('/^[a-f0-9]{64}$/', $expected) ||
+        !hash_equals(terminalEditorFingerprint($before), $expected)
+    ) {
+        throw new ActionRefused(
+            'that file changed after it was opened; re-open it and merge the changes before saving',
+        );
     }
     $text = terminalEditorWithLineEndings($text, $lineEnding);
     if (strlen($text) > TERMINAL_EDITOR_MAX_BYTES) {
-        throw new ActionRefused('the original line endings make this file larger than the web editor limit');
+        throw new ActionRefused(
+            'the original line endings make this file larger than the web editor limit',
+        );
     }
-    $backup = is_file($path) ? terminalEditorBackup($config, $path, $before) : null;
+    $backup = is_file($path)
+        ? terminalEditorBackup($config, $path, $before)
+        : null;
     if (is_file($path) && $backup === null) {
-        throw new ActionRefused('could not make a private recovery copy; the file was not changed');
+        throw new ActionRefused(
+            'could not make a private recovery copy; the file was not changed',
+        );
     }
     $temporary = $path . '.zogograph-edit-' . bin2hex(random_bytes(4));
-    if (file_put_contents($temporary, $text, LOCK_EX) === false || !rename($temporary, $path)) {
+    if (
+        file_put_contents($temporary, $text, LOCK_EX) === false ||
+        !rename($temporary, $path)
+    ) {
         @unlink($temporary);
         throw new ActionRefused('could not save that file');
     }
-    return ['path' => $path, 'bytes' => strlen($text), 'backup' => $backup,
-        'fingerprint' => terminalEditorFingerprint($text)];
+    return [
+        'path' => $path,
+        'bytes' => strlen($text),
+        'backup' => $backup,
+        'fingerprint' => terminalEditorFingerprint($text),
+    ];
 }
 
 /** Is it turned on, and can this machine actually do it? */
@@ -323,9 +510,8 @@ function terminalSettings(array $config, ?PDO $pdo = null): array
      * config file has not been overruled, which is not the same as false.
      */
     $stored = $pdo === null ? null : recallSetting($pdo, 'terminal_permitted');
-    $wanted = $stored === null
-        ? (bool)($set['enabled'] ?? false)
-        : $stored === '1';
+    $wanted =
+        $stored === null ? (bool) ($set['enabled'] ?? false) : $stored === '1';
 
     $permitted = $wanted && $can['ok'];
 
@@ -345,7 +531,7 @@ function terminalSettings(array $config, ?PDO $pdo = null): array
      */
     $until = 0;
     if ($permitted && $pdo !== null) {
-        $until = (int)(recallSetting($pdo, 'terminal_unlocked_until') ?? 0);
+        $until = (int) (recallSetting($pdo, 'terminal_unlocked_until') ?? 0);
     }
 
     $open = $permitted && $until > time();
@@ -358,13 +544,16 @@ function terminalSettings(array $config, ?PDO $pdo = null): array
         // turning it off here is enough or whether the config file will just
         // turn it back on.
         'from_config' => $stored === null,
-        'config_says' => (bool)($set['enabled'] ?? false),
+        'config_says' => (bool) ($set['enabled'] ?? false),
         'can' => $can['ok'],
         'why' => $can['why'],
         'unlocked_until' => $open ? $until : 0,
         'unlocked_for' => $open ? $until - time() : 0,
-        'max_seconds' => max(5, min(TERMINAL_MAX_SECONDS, (int)($set['max_seconds'] ?? 300))),
-        'shell' => (string)($set['shell'] ?? '/bin/sh'),
+        'max_seconds' => max(
+            5,
+            min(TERMINAL_MAX_SECONDS, (int) ($set['max_seconds'] ?? 300)),
+        ),
+        'shell' => (string) ($set['shell'] ?? '/bin/sh'),
         'spans' => terminalUnlockSpans(),
     ];
 }
@@ -390,9 +579,11 @@ const TERMINAL_TERM = 'xterm-256color';
  */
 function terminalMaxBytes(array $config): int
 {
-    $set = (int)($config['terminal']['max_output_bytes'] ?? 0);
+    $set = (int) ($config['terminal']['max_output_bytes'] ?? 0);
 
-    return $set > 0 ? max(64 * 1024, min(256 * 1024 * 1024, $set)) : 8 * 1024 * 1024;
+    return $set > 0
+        ? max(64 * 1024, min(256 * 1024 * 1024, $set))
+        : 8 * 1024 * 1024;
 }
 
 /**
@@ -409,9 +600,9 @@ function terminalExitCode(array $config, string $id): ?int
         return null;
     }
 
-    $said = trim((string)@file_get_contents($file));
+    $said = trim((string) @file_get_contents($file));
 
-    return $said === '' || !ctype_digit($said) ? null : (int)$said;
+    return $said === '' || !ctype_digit($said) ? null : (int) $said;
 }
 
 /**
@@ -458,9 +649,9 @@ function terminalUnlock(array $config, PDO $pdo, int $seconds, string $who): int
     if (!$settings['permitted']) {
         throw new ActionRefused(
             $settings['can']
-                ? 'the terminal is switched off in the configuration, so it cannot be '
-                  . 'unlocked from here'
-                : (string)$settings['why']
+                ? 'the terminal is switched off in the configuration, so it cannot be ' .
+                    'unlocked from here'
+                : (string) $settings['why'],
         );
     }
 
@@ -469,7 +660,7 @@ function terminalUnlock(array $config, PDO $pdo, int $seconds, string $who): int
     }
 
     $until = time() + $seconds;
-    rememberSetting($pdo, 'terminal_unlocked_until', (string)$until);
+    rememberSetting($pdo, 'terminal_unlocked_until', (string) $until);
 
     return $until;
 }
@@ -492,13 +683,17 @@ function terminalCanRun(): array
         return ['ok' => false, 'why' => 'PHP has no shell_exec on this host.'];
     }
 
-    $disabled = array_map('trim', explode(',', (string)ini_get('disable_functions')));
+    $disabled = array_map(
+        'trim',
+        explode(',', (string) ini_get('disable_functions')),
+    );
 
     if (in_array('shell_exec', $disabled, true)) {
         return [
             'ok' => false,
-            'why' => 'shell_exec is in disable_functions on this host, so no command can '
-                . 'be started. Nothing here can work around that, and nothing should try.',
+            'why' =>
+                'shell_exec is in disable_functions on this host, so no command can ' .
+                'be started. Nothing here can work around that, and nothing should try.',
         ];
     }
 
@@ -508,7 +703,7 @@ function terminalCanRun(): array
 /** Where the transcripts live: beside the databases, which .htaccess denies. */
 function terminalDirectory(array $config): string
 {
-    return dirname((string)$config['database']) . '/terminal';
+    return dirname((string) $config['database']) . '/terminal';
 }
 
 /**
@@ -538,11 +733,15 @@ function terminalMetaFiles(array $config): array
         return [];
     }
 
-    return array_values(array_filter(
-        glob($directory . '/*.json') ?: [],
-        static fn(string $file): bool
-            => (bool)preg_match('/^[0-9a-f]{16}\.json$/', basename($file))
-    ));
+    return array_values(
+        array_filter(
+            glob($directory . '/*.json') ?: [],
+            static fn(string $file): bool => (bool) preg_match(
+                '/^[0-9a-f]{16}\.json$/',
+                basename($file),
+            ),
+        ),
+    );
 }
 
 /* ------------------------------------------------------------------ *
@@ -585,7 +784,11 @@ function terminalSessions(array $config): array
         return [];
     }
 
-    usort($found, fn(array $a, array $b): int => ($b['started_at'] ?? 0) <=> ($a['started_at'] ?? 0));
+    usort(
+        $found,
+        fn(array $a, array $b): int => ($b['started_at'] ?? 0) <=>
+            ($a['started_at'] ?? 0),
+    );
 
     return array_values(array_filter($found, 'is_array'));
 }
@@ -594,7 +797,10 @@ function terminalSessions(array $config): array
 function terminalWriteSessions(array $config, array $sessions): void
 {
     $file = terminalSessionsFile($config);
-    @file_put_contents($file, json_encode(array_values($sessions), JSON_PRETTY_PRINT));
+    @file_put_contents(
+        $file,
+        json_encode(array_values($sessions), JSON_PRETTY_PRINT),
+    );
     @chmod($file, 0600);
 }
 
@@ -612,13 +818,16 @@ function terminalSessionFor(array $config, string $who): array
 
     if ($sessions !== []) {
         $newest = $sessions[0];
-        if ($now - (int)($newest['last_at'] ?? 0) < TERMINAL_SESSION_GAP) {
+        if ($now - (int) ($newest['last_at'] ?? 0) < TERMINAL_SESSION_GAP) {
             $newest['last_at'] = $now;
-            $newest['commands'] = (int)($newest['commands'] ?? 0) + 1;
+            $newest['commands'] = (int) ($newest['commands'] ?? 0) + 1;
             $sessions[0] = $newest;
             terminalWriteSessions($config, $sessions);
 
-            return ['id' => (string)$newest['id'], 'seq' => (int)$newest['commands']];
+            return [
+                'id' => (string) $newest['id'],
+                'seq' => (int) $newest['commands'],
+            ];
         }
     }
 
@@ -642,7 +851,7 @@ function terminalSessionFor(array $config, string $who): array
      */
     terminalWriteSessions($config, array_slice($sessions, 0, 100));
 
-    return ['id' => (string)$session['id'], 'seq' => 1];
+    return ['id' => (string) $session['id'], 'seq' => 1];
 }
 
 /**
@@ -674,7 +883,7 @@ function terminalNameSession(array $config, string $id, string $topic): bool
     $found = false;
 
     foreach ($sessions as $i => $session) {
-        if ((string)($session['id'] ?? '') === $id) {
+        if ((string) ($session['id'] ?? '') === $id) {
             $sessions[$i]['topic'] = $topic;
             $found = true;
         }
@@ -696,34 +905,42 @@ function terminalNameSession(array $config, string $id, string $topic): bool
  * file, a database dump or a customer's email address, and deserves its own
  * decision.
  */
-function terminalSessionLog(array $config, string $id, bool $withOutput, int $bytes = 65536): array
-{
+function terminalSessionLog(
+    array $config,
+    string $id,
+    bool $withOutput,
+    int $bytes = 65536,
+): array {
     $directory = terminalDirectory($config);
     $files = terminalMetaFiles($config);
     $rows = [];
 
     foreach ($files as $file) {
-        $meta = json_decode((string)@file_get_contents($file), true);
-        if (!is_array($meta) || (string)($meta['session'] ?? '') !== $id) {
+        $meta = json_decode((string) @file_get_contents($file), true);
+        if (!is_array($meta) || (string) ($meta['session'] ?? '') !== $id) {
             continue;
         }
 
         $outFile = $directory . '/' . $meta['id'] . '.out';
-        $size = is_file($outFile) ? (int)filesize($outFile) : 0;
+        $size = is_file($outFile) ? (int) filesize($outFile) : 0;
         $running = terminalRunning($meta);
-        $ended = !$running && is_file($outFile) ? (int)filemtime($outFile) : null;
+        $ended =
+            !$running && is_file($outFile) ? (int) filemtime($outFile) : null;
 
         $row = [
-            'id' => (string)$meta['id'],
-            'seq' => (int)($meta['seq'] ?? 0),
-            'command' => (string)$meta['command'],
-            'started_at' => (int)$meta['started_at'],
-            'who' => (string)($meta['who'] ?? ''),
+            'id' => (string) $meta['id'],
+            'seq' => (int) ($meta['seq'] ?? 0),
+            'command' => (string) $meta['command'],
+            'started_at' => (int) $meta['started_at'],
+            'who' => (string) ($meta['who'] ?? ''),
             'running' => $running,
             'bytes' => $size,
-            'took' => $ended === null ? null : max(0, $ended - (int)$meta['started_at']),
-            'exit_code' => terminalExitCode($config, (string)$meta['id']),
-            'timed_out' => (bool)($meta['timed_out'] ?? false),
+            'took' =>
+                $ended === null
+                    ? null
+                    : max(0, $ended - (int) $meta['started_at']),
+            'exit_code' => terminalExitCode($config, (string) $meta['id']),
+            'timed_out' => (bool) ($meta['timed_out'] ?? false),
             'stopped_by' => $meta['stopped_by'] ?? null,
         ];
 
@@ -739,7 +956,7 @@ function terminalSessionLog(array $config, string $id, bool $withOutput, int $by
                 if ($size > $bytes) {
                     fseek($handle, $size - $bytes);
                 }
-                $row['text'] = (string)fread($handle, $bytes);
+                $row['text'] = (string) fread($handle, $bytes);
                 $row['text_from_end'] = $size > $bytes;
                 fclose($handle);
             }
@@ -750,8 +967,13 @@ function terminalSessionLog(array $config, string $id, bool $withOutput, int $by
 
     // By position in the session, falling back to time for anything written
     // before positions were recorded.
-    usort($rows, fn(array $a, array $b): int =>
-        [$a['seq'], $a['started_at']] <=> [$b['seq'], $b['started_at']]);
+    usort(
+        $rows,
+        fn(array $a, array $b): int => [$a['seq'], $a['started_at']] <=> [
+            $b['seq'],
+            $b['started_at'],
+        ],
+    );
 
     return $rows;
 }
@@ -778,49 +1000,64 @@ function terminalSessionLog(array $config, string $id, bool $withOutput, int $by
 function terminalNeedsKeyboard(): array
 {
     return [
-        'nano' => 'To read a file, `cat file` or `sed -n 1,80p file`. To change one, '
-            . '`printf %s "new contents" > file`, or edit it somewhere with a keyboard.',
+        'nano' =>
+            'To read a file, `cat file` or `sed -n 1,80p file`. To change one, ' .
+            '`printf %s "new contents" > file`, or edit it somewhere with a keyboard.',
         'micro' => 'Use the browser editor for this file instead.',
         'joe' => 'Use the browser editor for this file instead.',
         'nvim' => 'Use the browser editor for this file instead.',
         'pico' => 'Same as nano: `cat` to read, a redirect to write.',
-        'vi' => 'To read a file, `sed -n 1,80p file` or `cat file`. For scripted edits, '
-            . '`sed -i` makes them without a screen, and `ex -s` runs vi commands from a '
-            . 'script.',
-        'vim' => 'For scripted edits `sed -i` or `ex -s` work without a screen. To read a '
-            . 'file, `cat` or `sed -n 1,80p`.',
+        'vi' =>
+            'To read a file, `sed -n 1,80p file` or `cat file`. For scripted edits, ' .
+            '`sed -i` makes them without a screen, and `ex -s` runs vi commands from a ' .
+            'script.',
+        'vim' =>
+            'For scripted edits `sed -i` or `ex -s` work without a screen. To read a ' .
+            'file, `cat` or `sed -n 1,80p`.',
         'emacs' => 'Not from here. `sed -i` for edits, `cat` to read.',
-        'top' => '`ps aux --sort=-%cpu | head -20` is the same information once, which is '
-            . 'what a transcript can hold. The Processes pages show it over time.',
+        'top' =>
+            '`ps aux --sort=-%cpu | head -20` is the same information once, which is ' .
+            'what a transcript can hold. The Processes pages show it over time.',
         'htop' => '`ps aux --sort=-%mem | head -20`, or the Processes pages.',
-        'watch' => 'Run the command once. To see it change over time, that is what this '
-            . "dashboard's charts are - a page that samples it on a schedule.",
-        'less' => '`sed -n 1,120p file` for the top, `tail -120 file` for the end.',
+        'watch' =>
+            'Run the command once. To see it change over time, that is what this ' .
+            "dashboard's charts are - a page that samples it on a schedule.",
+        'less' =>
+            '`sed -n 1,120p file` for the top, `tail -120 file` for the end.',
         'more' => '`head -120 file` or `tail -120 file`.',
-        'man' => '`command --help` usually prints without a pager. Otherwise `man foo | '
-            . 'cat` gives it all at once.',
-        'ssh' => 'This cannot hold an interactive session. `ssh -o BatchMode=yes host '
-            . "'command'` runs one command and returns, if keys are set up.",
-        'sftp' => 'Not interactively. `scp` or `rsync` with a key, one transfer at a time.',
-        'mysql' => "`mysql -e 'SELECT ...'` runs one statement and returns. Without -e it "
-            . 'waits for input that will never come.',
+        'man' =>
+            '`command --help` usually prints without a pager. Otherwise `man foo | ' .
+            'cat` gives it all at once.',
+        'ssh' =>
+            'This cannot hold an interactive session. `ssh -o BatchMode=yes host ' .
+            "'command'` runs one command and returns, if keys are set up.",
+        'sftp' =>
+            'Not interactively. `scp` or `rsync` with a key, one transfer at a time.',
+        'mysql' =>
+            "`mysql -e 'SELECT ...'` runs one statement and returns. Without -e it " .
+            'waits for input that will never come.',
         'psql' => "`psql -c 'SELECT ...'` for one statement.",
         'sqlite3' => "`sqlite3 file.db 'SELECT ...'` for one statement.",
-        'python' => '`python -c \'...\'` or `python script.py`. Bare `python` opens a '
-            . 'prompt and waits.',
+        'python' =>
+            '`python -c \'...\'` or `python script.py`. Bare `python` opens a ' .
+            'prompt and waits.',
         'python3' => '`python3 -c \'...\'` or `python3 script.py`.',
         'node' => '`node -e \'...\'` or `node script.js`.',
-        'php' => '`php -r \'...\'` or `php script.php`. Bare `php -a` is interactive.',
+        'php' =>
+            '`php -r \'...\'` or `php script.php`. Bare `php -a` is interactive.',
         'irb' => '`ruby -e \'...\'`.',
-        'telnet' => 'Not from here. `curl` or `nc -z` for a reachability check.',
+        'telnet' =>
+            'Not from here. `curl` or `nc -z` for a reachability check.',
         'ftp' => 'Not from here.',
         'screen' => 'There is no terminal for it to multiplex.',
         'tmux' => 'There is no terminal for it to multiplex.',
-        'passwd' => 'It asks for input with the echo turned off, which nothing here can '
-            . 'provide. Change a password where there is a keyboard.',
+        'passwd' =>
+            'It asks for input with the echo turned off, which nothing here can ' .
+            'provide. Change a password where there is a keyboard.',
         'su' => 'It asks for a password. Nothing here can answer.',
-        'sudo' => 'It may ask for a password, which nothing here can answer. `sudo -n` '
-            . 'fails immediately instead of waiting, if that is what you want to test.',
+        'sudo' =>
+            'It may ask for a password, which nothing here can answer. `sudo -n` ' .
+            'fails immediately instead of waiting, if that is what you want to test.',
     ];
 }
 
@@ -851,7 +1088,13 @@ function terminalProgramsIn(string $command): array
          * `TERM=dumb vi` is still vi, and `env vi` is still vi. Nothing here
          * tries to follow further than that.
          */
-        while (preg_match('/^(?:[A-Za-z_][A-Za-z0-9_]*=\S*|env|nohup|exec|command)\s+/', $piece, $m)) {
+        while (
+            preg_match(
+                '/^(?:[A-Za-z_][A-Za-z0-9_]*=\S*|env|nohup|exec|command)\s+/',
+                $piece,
+                $m,
+            )
+        ) {
             $piece = ltrim(substr($piece, strlen($m[0])));
         }
 
@@ -886,18 +1129,25 @@ function terminalRefuseInteractive(string $command): void
         $piece = $lines[$i] ?? '';
 
         // The flags that mean "do one thing and return" rather than "sit there".
-        if (preg_match('/(^|\s)(-e|-c|-r|--help|--version|-V|-es|-n|-batch|-N)(\s|$|=)/', $piece)) {
+        if (
+            preg_match(
+                '/(^|\s)(-e|-c|-r|--help|--version|-V|-es|-n|-batch|-N)(\s|$|=)/',
+                $piece,
+            )
+        ) {
             continue;
         }
 
-        throw new ActionRefused(sprintf(
-            '%s needs a terminal to type at, and there is not one here: this runs a '
-            . 'command detached and reads its output from a file, so nothing can answer '
-            . 'a prompt or press a key. Running it anyway produces a screenful of '
-            . 'control codes and an error about the wrong thing. %s',
-            $program,
-            $needs[$program]
-        ));
+        throw new ActionRefused(
+            sprintf(
+                '%s needs a terminal to type at, and there is not one here: this runs a ' .
+                    'command detached and reads its output from a file, so nothing can answer ' .
+                    'a prompt or press a key. Running it anyway produces a screenful of ' .
+                    'control codes and an error about the wrong thing. %s',
+                $program,
+                $needs[$program],
+            ),
+        );
     }
 }
 
@@ -911,17 +1161,21 @@ function terminalRefuseInteractive(string $command): void
  *
  * @return array{id: string, pid: int}
  */
-function terminalStart(array $config, PDO $pdo, string $command, string $who): array
-{
+function terminalStart(
+    array $config,
+    PDO $pdo,
+    string $command,
+    string $who,
+): array {
     $settings = terminalSettings($config, $pdo);
 
     if (!$settings['enabled']) {
         throw new ActionRefused(
             !$settings['can']
-                ? (string)$settings['why']
+                ? (string) $settings['why']
                 : ($settings['permitted']
                     ? 'the terminal has locked itself again. Unlock it and try again.'
-                    : 'the terminal is switched off in the configuration')
+                    : 'the terminal is switched off in the configuration'),
         );
     }
 
@@ -963,7 +1217,8 @@ function terminalStart(array $config, PDO $pdo, string $command, string $who): a
      * setsid where it exists, so the command leads its own process group and
      * stopping it takes the whole pipeline rather than just the first stage.
      */
-    $runner = shellRead('command -v setsid 2>/dev/null') !== null ? 'setsid ' : '';
+    $runner =
+        shellRead('command -v setsid 2>/dev/null') !== null ? 'setsid ' : '';
 
     /*
      * The working directory carries over, because people expect it to.
@@ -1033,8 +1288,12 @@ function terminalStart(array $config, PDO $pdo, string $command, string $who): a
          * A trap on EXIT fires in every one of those cases, and `$?` inside it
          * is the status the shell is leaving with.
          */
-        '__done() { __st=$?; pwd > ' . escapeshellarg($where) . ' 2>/dev/null; '
-            . 'printf %s "$__st" > ' . escapeshellarg($status) . ' 2>/dev/null; }',
+        '__done() { __st=$?; pwd > ' .
+        escapeshellarg($where) .
+        ' 2>/dev/null; ' .
+        'printf %s "$__st" > ' .
+        escapeshellarg($status) .
+        ' 2>/dev/null; }',
         'trap __done EXIT',
         'cd ' . escapeshellarg($cwd) . ' 2>/dev/null',
         '',
@@ -1056,32 +1315,50 @@ function terminalStart(array $config, PDO $pdo, string $command, string $who): a
      * on every command that never reaches it.
      */
     $cap = terminalMaxBytes($config);
-    $limiter = shellRead('command -v head 2>/dev/null') !== null
-        ? ' | head -c ' . (int)$cap
-        : '';
+    $limiter =
+        shellRead('command -v head 2>/dev/null') !== null
+            ? ' | head -c ' . (int) $cap
+            : '';
 
     $shell = escapeshellarg($settings['shell']);
-    $inner = sprintf('%s %s < /dev/null 2>&1%s > %s',
-        $shell, escapeshellarg($script), $limiter, escapeshellarg($out));
+    $inner = sprintf(
+        '%s %s < /dev/null 2>&1%s > %s',
+        $shell,
+        escapeshellarg($script),
+        $limiter,
+        escapeshellarg($out),
+    );
 
-    $said = shellRead(sprintf('%snohup %s -c %s > /dev/null 2>&1 & echo $!',
-        $runner, $shell, escapeshellarg($inner)));
+    $said = shellRead(
+        sprintf(
+            '%snohup %s -c %s > /dev/null 2>&1 & echo $!',
+            $runner,
+            $shell,
+            escapeshellarg($inner),
+        ),
+    );
 
-    $pid = (int)trim((string)$said);
+    $pid = (int) trim((string) $said);
 
     if ($pid <= 0) {
         throw new ActionRefused('the command could not be started');
     }
 
-    file_put_contents($directory . '/' . $id . '.json', json_encode([
-        'id' => $id,
-        'command' => $command,
-        'pid' => $pid,
-        'started_at' => time(),
-        'who' => $who,
-        'max_seconds' => $settings['max_seconds'],
-        'started_in' => $cwd,
-    ] + terminalOrdinal($config, $who), JSON_PRETTY_PRINT));
+    file_put_contents(
+        $directory . '/' . $id . '.json',
+        json_encode(
+            [
+                'id' => $id,
+                'command' => $command,
+                'pid' => $pid,
+                'started_at' => time(),
+                'who' => $who,
+                'max_seconds' => $settings['max_seconds'],
+                'started_in' => $cwd,
+            ] + terminalOrdinal($config, $who),
+            JSON_PRETTY_PRINT,
+        ),
+    );
 
     return ['id' => $id, 'pid' => $pid];
 }
@@ -1098,7 +1375,7 @@ function terminalStart(array $config, PDO $pdo, string $command, string $who): a
  */
 function terminalCwd(array $config, ?PDO $pdo): string
 {
-    $home = (string)($config['scan_root'] ?? '');
+    $home = (string) ($config['scan_root'] ?? '');
     if ($home === '' || !is_dir($home)) {
         $home = getcwd() ?: '/';
     }
@@ -1107,7 +1384,7 @@ function terminalCwd(array $config, ?PDO $pdo): string
         return $home;
     }
 
-    $stored = (string)(recallSetting($pdo, 'terminal_cwd') ?? '');
+    $stored = (string) (recallSetting($pdo, 'terminal_cwd') ?? '');
 
     return $stored !== '' && is_dir($stored) ? $stored : $home;
 }
@@ -1125,7 +1402,7 @@ function terminalTakeCwd(array $config, PDO $pdo, string $id): void
         return;
     }
 
-    $where = trim((string)@file_get_contents($file));
+    $where = trim((string) @file_get_contents($file));
     @unlink($file);
 
     /*
@@ -1145,7 +1422,7 @@ function terminalRead(array $config, string $id, int $from = 0): array
     $meta = terminalMeta($config, $id);
     $out = terminalDirectory($config) . '/' . $id . '.out';
 
-    $size = is_file($out) ? (int)filesize($out) : 0;
+    $size = is_file($out) ? (int) filesize($out) : 0;
     $from = max(0, min($from, $size));
 
     $text = '';
@@ -1153,13 +1430,13 @@ function terminalRead(array $config, string $id, int $from = 0): array
         $handle = @fopen($out, 'rb');
         if ($handle !== false) {
             fseek($handle, $from);
-            $text = (string)fread($handle, min($size - $from, 256 * 1024));
+            $text = (string) fread($handle, min($size - $from, 256 * 1024));
             fclose($handle);
         }
     }
 
     $running = terminalRunning($meta);
-    $ran = time() - (int)$meta['started_at'];
+    $ran = time() - (int) $meta['started_at'];
 
     /*
      * A command past its limit is stopped here rather than left going.
@@ -1168,7 +1445,7 @@ function terminalRead(array $config, string $id, int $from = 0): array
      * closed, and nothing else runs. Checked on read, which is the only moment
      * this code is alive.
      */
-    if ($running && $ran > (int)$meta['max_seconds']) {
+    if ($running && $ran > (int) $meta['max_seconds']) {
         terminalStop($config, $id);
         $running = false;
         $meta['timed_out'] = true;
@@ -1177,12 +1454,12 @@ function terminalRead(array $config, string $id, int $from = 0): array
 
     return [
         'id' => $id,
-        'command' => (string)$meta['command'],
-        'pid' => (int)$meta['pid'],
-        'started_at' => (int)$meta['started_at'],
-        'who' => (string)($meta['who'] ?? ''),
+        'command' => (string) $meta['command'],
+        'pid' => (int) $meta['pid'],
+        'started_at' => (int) $meta['started_at'],
+        'who' => (string) ($meta['who'] ?? ''),
         'running' => $running,
-        'timed_out' => (bool)($meta['timed_out'] ?? false),
+        'timed_out' => (bool) ($meta['timed_out'] ?? false),
         'stopped_by' => $meta['stopped_by'] ?? null,
         'ran_for' => $ran,
         // How long it took, once it is over. Live, `ran_for` is the same thing
@@ -1217,8 +1494,12 @@ function terminalRead(array $config, string $id, int $from = 0): array
  */
 function terminalRunning(array $meta): bool
 {
-    $pid = (int)($meta['pid'] ?? 0);
-    if ($pid <= 0 || !empty($meta['stopped_by']) || !empty($meta['timed_out'])) {
+    $pid = (int) ($meta['pid'] ?? 0);
+    if (
+        $pid <= 0 ||
+        !empty($meta['stopped_by']) ||
+        !empty($meta['timed_out'])
+    ) {
         return false;
     }
 
@@ -1243,28 +1524,31 @@ function terminalRunning(array $meta): bool
         return true;
     }
 
-    $after = substr($stat, (int)strrpos($stat, ')') + 2);
+    $after = substr($stat, (int) strrpos($stat, ')') + 2);
     $fields = explode(' ', $after);
-    $ticks = isset($fields[19]) ? (float)$fields[19] : 0.0;
+    $ticks = isset($fields[19]) ? (float) $fields[19] : 0.0;
 
     if ($ticks <= 0) {
         return true;
     }
 
     $hz = 100.0;
-    $uptime = (float)strtok((string)@file_get_contents('/proc/uptime'), ' ');
-    $startedAgo = $uptime - ($ticks / $hz);
+    $uptime = (float) strtok((string) @file_get_contents('/proc/uptime'), ' ');
+    $startedAgo = $uptime - $ticks / $hz;
 
     // Generous: clock ticks and wall seconds are not the same measurement, and
     // the question is only "is this obviously a different process".
-    return $startedAgo <= (time() - (int)$meta['started_at']) + 120;
+    return $startedAgo <= time() - (int) $meta['started_at'] + 120;
 }
 
 /** Kills a running command. */
-function terminalStop(array $config, string $id, string $who = 'the operator'): bool
-{
+function terminalStop(
+    array $config,
+    string $id,
+    string $who = 'the operator',
+): bool {
     $meta = terminalMeta($config, $id);
-    $pid = (int)$meta['pid'];
+    $pid = (int) $meta['pid'];
 
     if ($pid <= 0 || !terminalRunning($meta)) {
         return false;
@@ -1282,8 +1566,10 @@ function terminalStop(array $config, string $id, string $who = 'the operator'): 
     if (function_exists('posix_kill')) {
         $killed = @posix_kill(-$pid, SIGTERM) || @posix_kill($pid, SIGTERM);
     } else {
-        $killed = shellRead('kill -TERM -' . $pid . ' 2>&1 || kill -TERM ' . $pid . ' 2>&1')
-            !== null;
+        $killed =
+            shellRead(
+                'kill -TERM -' . $pid . ' 2>&1 || kill -TERM ' . $pid . ' 2>&1',
+            ) !== null;
     }
 
     $meta['stopped_by'] = $who;
@@ -1298,17 +1584,20 @@ function terminalHistory(array $config, int $limit = 20): array
 {
     $directory = terminalDirectory($config);
     $files = terminalMetaFiles($config);
-    usort($files, fn(string $a, string $b): int => filemtime($b) <=> filemtime($a));
+    usort(
+        $files,
+        fn(string $a, string $b): int => filemtime($b) <=> filemtime($a),
+    );
 
     $out = [];
     foreach (array_slice($files, 0, $limit) as $file) {
-        $meta = json_decode((string)@file_get_contents($file), true);
+        $meta = json_decode((string) @file_get_contents($file), true);
         if (!is_array($meta)) {
             continue;
         }
         $outFile = $directory . '/' . $meta['id'] . '.out';
         $running = terminalRunning($meta);
-        $bytes = is_file($outFile) ? (int)filesize($outFile) : 0;
+        $bytes = is_file($outFile) ? (int) filesize($outFile) : 0;
 
         /*
          * How long it took, from the file rather than from a clock.
@@ -1318,18 +1607,22 @@ function terminalHistory(array $config, int $limit = 20): array
          * a lower bound for anything that does not. A command still running has
          * no duration yet; it has an age.
          */
-        $ended = !$running && is_file($outFile) ? (int)filemtime($outFile) : null;
+        $ended =
+            !$running && is_file($outFile) ? (int) filemtime($outFile) : null;
 
         $out[] = [
-            'id' => (string)$meta['id'],
-            'command' => (string)$meta['command'],
-            'started_at' => (int)$meta['started_at'],
-            'who' => (string)($meta['who'] ?? ''),
+            'id' => (string) $meta['id'],
+            'command' => (string) $meta['command'],
+            'started_at' => (int) $meta['started_at'],
+            'who' => (string) ($meta['who'] ?? ''),
             'running' => $running,
             'bytes' => $bytes,
-            'took' => $ended === null ? null : max(0, $ended - (int)$meta['started_at']),
-            'exit_code' => terminalExitCode($config, (string)$meta['id']),
-            'timed_out' => (bool)($meta['timed_out'] ?? false),
+            'took' =>
+                $ended === null
+                    ? null
+                    : max(0, $ended - (int) $meta['started_at']),
+            'exit_code' => terminalExitCode($config, (string) $meta['id']),
+            'timed_out' => (bool) ($meta['timed_out'] ?? false),
             'stopped_by' => $meta['stopped_by'] ?? null,
             'capped' => $bytes >= terminalMaxBytes($config),
         ];
@@ -1346,7 +1639,9 @@ function terminalMeta(array $config, string $id): array
     }
 
     $file = terminalDirectory($config) . '/' . $id . '.json';
-    $meta = is_file($file) ? json_decode((string)file_get_contents($file), true) : null;
+    $meta = is_file($file)
+        ? json_decode((string) file_get_contents($file), true)
+        : null;
 
     if (!is_array($meta)) {
         throw new ActionRefused('no such command');
@@ -1359,7 +1654,7 @@ function terminalWriteMeta(array $config, string $id, array $meta): void
 {
     @file_put_contents(
         terminalDirectory($config) . '/' . $id . '.json',
-        json_encode($meta, JSON_PRETTY_PRINT)
+        json_encode($meta, JSON_PRETTY_PRINT),
     );
 }
 
@@ -1372,11 +1667,14 @@ function terminalSweep(array $config): int
         return 0;
     }
 
-    usort($files, fn(string $a, string $b): int => filemtime($a) <=> filemtime($b));
+    usort(
+        $files,
+        fn(string $a, string $b): int => filemtime($a) <=> filemtime($b),
+    );
     $gone = 0;
 
     foreach (array_slice($files, 0, count($files) - TERMINAL_KEEP) as $file) {
-        $meta = json_decode((string)@file_get_contents($file), true);
+        $meta = json_decode((string) @file_get_contents($file), true);
         if (is_array($meta) && terminalRunning($meta)) {
             continue;
         }

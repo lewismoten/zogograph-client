@@ -13,7 +13,7 @@ if (!is_file($configFile)) {
 
 require_once __DIR__ . '/lib/setupstore.php';
 $config = loadConfiguredSettings($configFile);
-define('DISKMON_LOG', dirname((string)$config['database']) . '/error.log');
+define('DISKMON_LOG', dirname((string) $config['database']) . '/error.log');
 require_once __DIR__ . '/lib/db.php';
 require_once __DIR__ . '/lib/auth.php';
 require_once __DIR__ . '/lib/access.php';
@@ -21,8 +21,12 @@ require_once __DIR__ . '/lib/actions.php';
 require_once __DIR__ . '/lib/entitlement.php';
 
 startSession($config);
-if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST' || !isSignedIn()
-    || !accessAllows($config, 'pages', 'system') || !csrfValid($_POST['csrf'] ?? null)) {
+if (
+    ($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST' ||
+    !isSignedIn() ||
+    !accessAllows($config, 'pages', 'system') ||
+    !csrfValid($_POST['csrf'] ?? null)
+) {
     http_response_code(403);
     exit('A current session with system access and form token are required.');
 }
@@ -30,7 +34,9 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST' || !isSignedIn()
 $pdo = db($config);
 $last = static function (string $table, string $column) use ($pdo): ?int {
     try {
-        $value = (int)$pdo->query("SELECT MAX({$column}) FROM {$table}")->fetchColumn();
+        $value = (int) $pdo
+            ->query("SELECT MAX({$column}) FROM {$table}")
+            ->fetchColumn();
         return $value > 0 ? $value : null;
     } catch (Throwable) {
         return null;
@@ -42,9 +48,11 @@ try {
 } catch (Throwable) {
     // The exported false state is actionable without exposing an internal error.
 }
-$database = (string)$config['database'];
+$database = (string) $config['database'];
 $bytes = 0;
-foreach (['', '-wal', '-shm'] as $suffix) $bytes += (int)(@filesize($database . $suffix) ?: 0);
+foreach (['', '-wal', '-shm'] as $suffix) {
+    $bytes += (int) (@filesize($database . $suffix) ?: 0);
+}
 $snapshot = [
     'format' => 'zogograph-diagnostic-v1',
     'generated_at' => gmdate('c'),
@@ -70,17 +78,32 @@ $snapshot = [
     ],
     'features' => [
         'host_collector_enabled' => !empty($config['host']['enabled']),
-        'remote_peer_count' => count((array)($config['peers'] ?? [])),
+        'remote_peer_count' => count((array) ($config['peers'] ?? [])),
         'assistant_enabled' => !empty($config['ai']['enabled']),
     ],
     'edition' => hostEntitlement($config) + [
-        'remote_hosts_configured' => count((array)($config['peers'] ?? [])),
+        'remote_hosts_configured' => count((array) ($config['peers'] ?? [])),
     ],
 ];
-logAction($pdo, 'diagnostic_export', 'sanitized support snapshot', 'ok', 0, 0, 'no credentials, paths, or hostnames');
+logAction(
+    $pdo,
+    'diagnostic_export',
+    'sanitized support snapshot',
+    'ok',
+    0,
+    0,
+    'no credentials, paths, or hostnames',
+);
 
 header('Content-Type: application/json; charset=utf-8');
-header('Content-Disposition: attachment; filename="zogograph-diagnostic-' . gmdate('Ymd-His') . '.json"');
+header(
+    'Content-Disposition: attachment; filename="zogograph-diagnostic-' .
+        gmdate('Ymd-His') .
+        '.json"',
+);
 header('Cache-Control: no-store');
 header('X-Content-Type-Options: nosniff');
-echo json_encode($snapshot, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR) . "\n";
+echo json_encode(
+    $snapshot,
+    JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR,
+) . "\n";

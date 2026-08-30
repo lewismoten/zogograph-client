@@ -6,7 +6,7 @@ enough. Before a row is marked complete, its routes must be declared in
 and any shared dashboard or assistant data path must be closed too.
 
 | Core package | Remaining routes | Boundary work still required |
-| --- | --- | --- |
+| ------------ | ---------------- | ---------------------------- |
 
 Completed groups are documented in `GOAL_AUDIT.md`. This file is deliberately
 kept as a conversion queue rather than a completion claim.

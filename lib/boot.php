@@ -47,15 +47,29 @@ function installErrorBoundary(string $format = 'json'): void
     ini_set('display_errors', '0');
     ini_set('log_errors', '1');
 
-    set_error_handler(static function (int $severity, string $message, string $file, int $line): bool {
+    set_error_handler(static function (
+        int $severity,
+        string $message,
+        string $file,
+        int $line,
+    ): bool {
         if (!(error_reporting() & $severity)) {
             return false;
         }
 
         // Warnings and notices are recorded and execution continues: a notice
         // is not a reason to fail a request that would otherwise work.
-        if (!in_array($severity, [E_ERROR, E_USER_ERROR, E_RECOVERABLE_ERROR], true)) {
-            logProblem('warning', sprintf('%s in %s:%d', $message, $file, $line));
+        if (
+            !in_array(
+                $severity,
+                [E_ERROR, E_USER_ERROR, E_RECOVERABLE_ERROR],
+                true,
+            )
+        ) {
+            logProblem(
+                'warning',
+                sprintf('%s in %s:%d', $message, $file, $line),
+            );
             return true;
         }
 
@@ -63,7 +77,13 @@ function installErrorBoundary(string $format = 'json'): void
     });
 
     set_exception_handler(static function (Throwable $e) use ($format): void {
-        respondWithFailure($format, $e->getMessage(), $e->getFile(), $e->getLine(), get_class($e));
+        respondWithFailure(
+            $format,
+            $e->getMessage(),
+            $e->getFile(),
+            $e->getLine(),
+            get_class($e),
+        );
     });
 
     register_shutdown_function(static function () use ($format): void {
@@ -71,11 +91,23 @@ function installErrorBoundary(string $format = 'json'): void
         if ($last === null) {
             return;
         }
-        if (!in_array($last['type'], [E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR], true)) {
+        if (
+            !in_array(
+                $last['type'],
+                [E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR],
+                true,
+            )
+        ) {
             return;
         }
 
-        respondWithFailure($format, $last['message'], $last['file'], $last['line'], 'FatalError');
+        respondWithFailure(
+            $format,
+            $last['message'],
+            $last['file'],
+            $last['line'],
+            'FatalError',
+        );
     });
 }
 
@@ -92,7 +124,7 @@ function respondWithFailure(
     string $message,
     string $file,
     int $line,
-    string $kind
+    string $kind,
 ): void {
     /*
      * One failure produces one entry, not two.
@@ -111,7 +143,17 @@ function respondWithFailure(
     $handled = true;
 
     $reference = substr(bin2hex(random_bytes(4)), 0, 8);
-    logProblem('error', sprintf('[%s] %s: %s in %s:%d', $reference, $kind, $message, $file, $line));
+    logProblem(
+        'error',
+        sprintf(
+            '[%s] %s: %s in %s:%d',
+            $reference,
+            $kind,
+            $message,
+            $file,
+            $line,
+        ),
+    );
 
     /*
      * Anything already half-written is thrown away.
@@ -127,27 +169,33 @@ function respondWithFailure(
     if (!headers_sent()) {
         http_response_code(500);
         header('Cache-Control: no-store');
-        header('Content-Type: ' . ($format === 'json' ? 'application/json' : 'text/html; charset=utf-8'));
+        header(
+            'Content-Type: ' .
+                ($format === 'json'
+                    ? 'application/json'
+                    : 'text/html; charset=utf-8'),
+        );
     }
 
     if ($format === 'json') {
         echo json_encode([
             'error' => 'Something went wrong on the server.',
             'reference' => $reference,
-            'hint' => 'Sign in and open "Recent problems" on the dashboard, '
-                . 'or read data/error.log, for the details behind this reference.',
+            'hint' =>
+                'Sign in and open "Recent problems" on the dashboard, ' .
+                'or read data/error.log, for the details behind this reference.',
         ]);
         return;
     }
 
     printf(
-        '<!doctype html><meta charset="utf-8"><title>Error</title>'
-        . '<body style="font-family:system-ui;background:#111;color:#eee;padding:24px;max-width:60ch">'
-        . '<h1 style="font-size:1.2rem">Something went wrong on the server.</h1>'
-        . '<p>Reference <code style="background:#000;padding:2px 6px;border-radius:4px">%s</code></p>'
-        . '<p style="color:#9a9a9a">The details are in <code>data/error.log</code>, '
-        . 'and on the dashboard under "Recent problems" once you are signed in.</p>',
-        htmlspecialchars($reference, ENT_QUOTES, 'UTF-8')
+        '<!doctype html><meta charset="utf-8"><title>Error</title>' .
+            '<body style="font-family:system-ui;background:#111;color:#eee;padding:24px;max-width:60ch">' .
+            '<h1 style="font-size:1.2rem">Something went wrong on the server.</h1>' .
+            '<p>Reference <code style="background:#000;padding:2px 6px;border-radius:4px">%s</code></p>' .
+            '<p style="color:#9a9a9a">The details are in <code>data/error.log</code>, ' .
+            'and on the dashboard under "Recent problems" once you are signed in.</p>',
+        htmlspecialchars($reference, ENT_QUOTES, 'UTF-8'),
     );
 }
 
@@ -168,7 +216,7 @@ function logProblem(string $level, string $message): void
         date('c'),
         $level,
         $_SERVER['REQUEST_URI'] ?? (PHP_SAPI === 'cli' ? 'cli' : '-'),
-        str_replace(["\r", "\n"], ' ', $message)
+        str_replace(["\r", "\n"], ' ', $message),
     );
 
     // Also to PHP's log, for whoever is reading that instead.
@@ -188,7 +236,7 @@ function logProblem(string $level, string $message): void
      * the recent entries are the ones anybody reads.
      */
     if (is_file($path) && filesize($path) > BOOT_LOG_MAX_BYTES) {
-        @file_put_contents($path, "-- truncated at " . date('c') . " --\n");
+        @file_put_contents($path, '-- truncated at ' . date('c') . " --\n");
     }
 
     @file_put_contents($path, $line, FILE_APPEND | LOCK_EX);
@@ -213,10 +261,20 @@ function recentProblems(string $path, int $limit = 60): array
     foreach (array_reverse($lines) as $line) {
         $parts = explode("\t", $line, 4);
         if (count($parts) < 4) {
-            $out[] = ['at' => '', 'level' => 'note', 'where' => '', 'message' => $line];
+            $out[] = [
+                'at' => '',
+                'level' => 'note',
+                'where' => '',
+                'message' => $line,
+            ];
             continue;
         }
-        $out[] = ['at' => $parts[0], 'level' => $parts[1], 'where' => $parts[2], 'message' => $parts[3]];
+        $out[] = [
+            'at' => $parts[0],
+            'level' => $parts[1],
+            'where' => $parts[2],
+            'message' => $parts[3],
+        ];
     }
 
     return $out;
@@ -255,8 +313,12 @@ function groupedProblems(string $path, int $scan = 4000): array
         }
         [$at, $level, $where, $message] = $parts;
 
-        $reference = preg_match('/\[([0-9a-f]{8})\]/', $message, $m) ? $m[1] : null;
-        $canonical = trim((string)preg_replace('/\[[0-9a-f]{8}\]\s*/', '', $message));
+        $reference = preg_match('/\[([0-9a-f]{8})\]/', $message, $m)
+            ? $m[1]
+            : null;
+        $canonical = trim(
+            (string) preg_replace('/\[[0-9a-f]{8}\]\s*/', '', $message),
+        );
 
         /*
          * Keyed on what went wrong, not on where it was noticed.
@@ -292,14 +354,21 @@ function groupedProblems(string $path, int $scan = 4000): array
         $endpoints = array_keys($group['endpoints']);
         unset($group['endpoints']);
         $rows[] = $group + [
-            'where' => count($endpoints) === 1
-                ? $endpoints[0]
-                : count($endpoints) . ' endpoints',
+            'where' =>
+                count($endpoints) === 1
+                    ? $endpoints[0]
+                    : count($endpoints) . ' endpoints',
             // Listed in full for the tooltip, so collapsing them hides nothing.
             'endpoint_list' => implode(', ', $endpoints),
         ];
     }
-    usort($rows, fn(array $a, array $b): int => strcmp((string)$b['last'], (string)$a['last']));
+    usort(
+        $rows,
+        fn(array $a, array $b): int => strcmp(
+            (string) $b['last'],
+            (string) $a['last'],
+        ),
+    );
 
     return ['rows' => $rows, 'lines' => $total];
 }

@@ -14229,6 +14229,23 @@ function visiblePathNode(path) {
 }
 
 function renderPathHygiene(data) {
+  if (window.ZogographPathHygieneCard) {
+    return renderCoreCardPackage(
+      ZogographPathHygieneCard,
+      'core-path-hygiene',
+      data,
+      {
+        target: $('pathHygieneBody'),
+        note,
+        factGrid,
+        renderTable,
+        humanTime,
+        visiblePathNode,
+        openRename: showPathHygieneRename,
+        i18n: ZogographI18n,
+      },
+    );
+  }
   const body = $('pathHygieneBody');
   if (!data.enabled) {
     body.replaceChildren(

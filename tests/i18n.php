@@ -88,6 +88,9 @@ $changeHistoryCard = i18nCardSource(
 $installedSoftwareCard = i18nCardSource(
     file_get_contents($root . '/cards/installed-software.js'),
 );
+$pathHygieneCard = i18nCardSource(
+    file_get_contents($root . '/cards/path-hygiene.js'),
+);
 $networkPeersCard = i18nCardSource(
     file_get_contents($root . '/cards/network-peers.js'),
 );
@@ -359,6 +362,22 @@ i18nExpect(
             'helpers.i18n.registerCatalog(locale, catalog, false, id)',
         ),
     'core card package catalogs are not namespace-registered before their first render',
+);
+i18nExpect(
+    $page !== false &&
+        str_contains($page, 'src="cards/path-hygiene.js"') &&
+        $pathHygieneCard !== false &&
+        str_contains($pathHygieneCard, 'window.ZogographPathHygieneCard') &&
+        str_contains($pathHygieneCard, 'id: "core-path-hygiene"') &&
+        str_contains($pathHygieneCard, 'locales: ["core-path-hygiene."]') &&
+        str_contains($pathHygieneCard, 'catalogs: Object.freeze({') &&
+        str_contains($pathHygieneCard, '"core-path-hygiene.enable"') &&
+        $script !== false &&
+        str_contains(
+            $script,
+            'renderCoreCardPackage(ZogographPathHygieneCard, "core-path-hygiene",',
+        ),
+    'path hygiene panel is not isolated behind its core card-module boundary',
 );
 i18nExpect(
     $page !== false &&

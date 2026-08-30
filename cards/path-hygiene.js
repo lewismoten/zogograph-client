@@ -1,0 +1,209 @@
+/* Core card package: path names that are surprising or unsafe at a shell. */
+window.ZogographPathHygieneCard = {
+  manifest: Object.freeze({
+    id: 'core-path-hygiene',
+    locales: ['core-path-hygiene.'],
+    helpers: [
+      'target',
+      'note',
+      'factGrid',
+      'renderTable',
+      'humanTime',
+      'visiblePathNode',
+      'openRename',
+      'i18n',
+    ],
+    catalogs: Object.freeze({
+      en: Object.freeze({
+        'core-path-hygiene.enable':
+          'Install and enable Path-name hygiene in the Marketplace to use this check.',
+        'core-path-hygiene.no_scan':
+          'Enabled, but no completed account disk scan has recorded path names yet.',
+        'core-path-hygiene.last_scan': 'Last scan',
+        'core-path-hygiene.found': 'Found',
+        'core-path-hygiene.stored': 'Stored',
+        'core-path-hygiene.none':
+          'No shell-confusing path names were found in the latest scan.',
+        'core-path-hygiene.exact_path': 'Exact path',
+        'core-path-hygiene.why': 'Why',
+        'core-path-hygiene.rename': 'Rename',
+        'core-path-hygiene.truncated':
+          'The scan found more names than this page retains. Rename these, then run another disk scan.',
+      }),
+      es: Object.freeze({
+        'core-path-hygiene.enable':
+          'Instale y active Higiene de nombres de ruta en Marketplace para usar esta comprobación.',
+        'core-path-hygiene.no_scan':
+          'Está activado, pero ningún análisis de disco completado ha registrado nombres de ruta aún.',
+        'core-path-hygiene.last_scan': 'Último análisis',
+        'core-path-hygiene.found': 'Encontrados',
+        'core-path-hygiene.stored': 'Guardados',
+        'core-path-hygiene.none':
+          'El último análisis no encontró nombres de ruta confusos para la shell.',
+        'core-path-hygiene.exact_path': 'Ruta exacta',
+        'core-path-hygiene.why': 'Por qué',
+        'core-path-hygiene.rename': 'Renombrar',
+        'core-path-hygiene.truncated':
+          'El análisis encontró más nombres de los que esta página conserva. Renombre estos y ejecute otro análisis de disco.',
+      }),
+      hi: Object.freeze({
+        'core-path-hygiene.enable':
+          'इस जाँच के लिए मार्केटप्लेस में Path-name hygiene इंस्टॉल और सक्षम करें।',
+        'core-path-hygiene.no_scan':
+          'सक्षम है, लेकिन किसी पूर्ण डिस्क स्कैन ने अभी पथ नाम रिकॉर्ड नहीं किए हैं।',
+        'core-path-hygiene.last_scan': 'पिछला स्कैन',
+        'core-path-hygiene.found': 'मिले',
+        'core-path-hygiene.stored': 'संग्रहीत',
+        'core-path-hygiene.none':
+          'नवीनतम स्कैन में शेल को भ्रमित करने वाले पथ नाम नहीं मिले।',
+        'core-path-hygiene.exact_path': 'सटीक पथ',
+        'core-path-hygiene.why': 'क्यों',
+        'core-path-hygiene.rename': 'नाम बदलें',
+        'core-path-hygiene.truncated':
+          'स्कैन को इस पृष्ठ से अधिक नाम मिले। इन्हें बदलें, फिर दूसरा डिस्क स्कैन चलाएँ।',
+      }),
+      ar: Object.freeze({
+        'core-path-hygiene.enable':
+          'ثبّت وفعّل فحص نظافة أسماء المسارات من المتجر لاستخدام هذا الفحص.',
+        'core-path-hygiene.no_scan':
+          'الفحص مفعّل، لكن لم يسجل أي فحص قرص مكتمل أسماء المسارات بعد.',
+        'core-path-hygiene.last_scan': 'آخر فحص',
+        'core-path-hygiene.found': 'تم العثور على',
+        'core-path-hygiene.stored': 'المحفوظة',
+        'core-path-hygiene.none':
+          'لم يعثر آخر فحص على أسماء مسارات مربكة للصدفة.',
+        'core-path-hygiene.exact_path': 'المسار الدقيق',
+        'core-path-hygiene.why': 'السبب',
+        'core-path-hygiene.rename': 'إعادة تسمية',
+        'core-path-hygiene.truncated':
+          'وجد الفحص أسماء أكثر مما تحتفظ به هذه الصفحة. أعد تسمية هذه ثم نفذ فحص قرص آخر.',
+      }),
+      zh: Object.freeze({
+        'core-path-hygiene.enable':
+          '请在市场中安装并启用“路径名卫生”以使用此检查。',
+        'core-path-hygiene.no_scan':
+          '已启用，但尚未有已完成的帐户磁盘扫描记录路径名。',
+        'core-path-hygiene.last_scan': '上次扫描',
+        'core-path-hygiene.found': '发现',
+        'core-path-hygiene.stored': '已保存',
+        'core-path-hygiene.none': '最新扫描未发现容易让 shell 混淆的路径名。',
+        'core-path-hygiene.exact_path': '精确路径',
+        'core-path-hygiene.why': '原因',
+        'core-path-hygiene.rename': '重命名',
+        'core-path-hygiene.truncated':
+          '扫描发现的名称多于此页面保留的数量。请重命名这些名称，然后再次运行磁盘扫描。',
+      }),
+    }),
+  }),
+
+  render(data, helpers) {
+    const {
+      target,
+      note,
+      factGrid,
+      renderTable,
+      humanTime,
+      visiblePathNode,
+      openRename,
+      i18n,
+    } = helpers;
+    const t = (key, values, fallback) => i18n.t(key, values, fallback);
+    if (!target) return;
+    if (!data.enabled) {
+      target.replaceChildren(
+        note(
+          t(
+            'core-path-hygiene.enable',
+            {},
+            'Install and enable Path-name hygiene in the Marketplace to use this check.',
+          ),
+        ),
+      );
+      return;
+    }
+    const last = data.last;
+    if (!last) {
+      target.replaceChildren(
+        note(
+          t(
+            'core-path-hygiene.no_scan',
+            {},
+            'Enabled, but no completed account disk scan has recorded path names yet.',
+          ),
+        ),
+      );
+      return;
+    }
+    const parts = [
+      factGrid([
+        [
+          t('core-path-hygiene.last_scan', {}, 'Last scan'),
+          humanTime(last.checked_at),
+        ],
+        [t('core-path-hygiene.found', {}, 'Found'), String(last.total)],
+        [
+          t('core-path-hygiene.stored', {}, 'Stored'),
+          String(last.findings.length),
+        ],
+      ]),
+    ];
+    if (!last.findings.length)
+      parts.push(
+        note(
+          t(
+            'core-path-hygiene.none',
+            {},
+            'No shell-confusing path names were found in the latest scan.',
+          ),
+        ),
+      );
+    else {
+      const holder = document.createElement('div');
+      holder.id = 'pathHygieneTable';
+      parts.push(holder);
+    }
+    target.replaceChildren(...parts);
+    if (last.findings.length) {
+      renderTable('pathHygieneTable', last.findings, [
+        {
+          label: t('core-path-hygiene.exact_path', {}, 'Exact path'),
+          className: 'name',
+          render: (row) => {
+            const code = document.createElement('code');
+            code.append(visiblePathNode(row.path));
+            code.title = row.path;
+            return code;
+          },
+        },
+        {
+          label: t('core-path-hygiene.why', {}, 'Why'),
+          render: (row) => row.reason,
+        },
+        {
+          label: '',
+          className: 'row-actions',
+          render: (row) => {
+            const wrap = document.createDocumentFragment();
+            if (!data.can_change) return wrap;
+            const rename = document.createElement('button');
+            rename.className = 'link';
+            rename.textContent = t('core-path-hygiene.rename', {}, 'Rename');
+            rename.addEventListener('click', () => openRename(row));
+            wrap.appendChild(rename);
+            return wrap;
+          },
+        },
+      ]);
+      if (last.truncated)
+        target.appendChild(
+          note(
+            t(
+              'core-path-hygiene.truncated',
+              {},
+              'The scan found more names than this page retains. Rename these, then run another disk scan.',
+            ),
+          ),
+        );
+    }
+  },
+};

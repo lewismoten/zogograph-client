@@ -34,6 +34,7 @@ export default [
         ZogographCalendarEventListCard: 'readonly',
         ZogographChangeHistoryCard: 'readonly',
         ZogographInstalledSoftwareCard: 'readonly',
+        ZogographPathHygieneCard: 'readonly',
         ZogographRoomChart: 'readonly',
         ZogographIoChart: 'readonly',
         ZogographCpuChart: 'readonly',

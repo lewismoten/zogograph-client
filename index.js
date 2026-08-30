@@ -5103,15 +5103,21 @@ function renderIoChart(rows) {
   // as a contradiction.
   if (has('io_read_rate') && has('own_read_rate')) {
     parts.push(
-      'The device lines cover every account on the machine; only the ' +
-        '\u201cthis account\u201d lines are yours.',
+      ZogographI18n.t(
+        'vitals.io_scope',
+        {},
+        'The device lines cover every account on the machine; only the “this account” lines are yours.',
+      ),
     );
   }
 
   if (latest && latest.io_util_percent != null) {
     parts.push(
-      `The device was busy ${Number(latest.io_util_percent).toFixed(0)}% of the ` +
-        `last interval.`,
+      ZogographI18n.t(
+        'vitals.io_busy',
+        { percent: Number(latest.io_util_percent).toFixed(0) },
+        'The device was busy {{percent}}% of the last interval.',
+      ),
     );
   }
   if (latest && latest.io_pressure_full != null) {
@@ -5121,9 +5127,14 @@ function renderIoChart(rows) {
      * bother nobody. This measures the opposite thing - time spent *waiting*.
      */
     parts.push(
-      `Tasks were stalled waiting on the disk ` +
-        `${Number(latest.io_pressure_some).toFixed(1)}% of the time, and nothing at all ` +
-        `could run for ${Number(latest.io_pressure_full).toFixed(1)}%.`,
+      ZogographI18n.t(
+        'vitals.io_stalled',
+        {
+          some: Number(latest.io_pressure_some).toFixed(1),
+          full: Number(latest.io_pressure_full).toFixed(1),
+        },
+        'Tasks were stalled waiting on the disk {{some}}% of the time, and nothing at all could run for {{full}}%.',
+      ),
     );
   }
   $('ioNote').textContent = parts.join(' ');

@@ -3416,6 +3416,7 @@
   "assistant.start_listening": "Empezar a escuchar",
   "assistant.listening": "Escuchando…",
   "assistant.stop_listening": "Dejar de escuchar",
+  "assistant.microphone_stopped": "La escucha del micrófono se detuvo: {{reason}}.",
   "host.open_setup": "Abrir configuración del host",
   "host_setup.what_has_to_happen": "Lo que tiene que suceder",
   "host_setup.line_to_paste_as_root": "La línea que se debe pegar como root",

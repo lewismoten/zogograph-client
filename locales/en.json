@@ -3502,6 +3502,7 @@
   "assistant.start_listening": "Start listening",
   "assistant.listening": "Listening…",
   "assistant.stop_listening": "Stop listening",
+  "assistant.microphone_stopped": "Microphone listening stopped: {{reason}}.",
   "host.open_setup": "Open Host setup",
   "host_setup.what_has_to_happen": "What has to happen",
   "host_setup.line_to_paste_as_root": "The line to paste, as root",

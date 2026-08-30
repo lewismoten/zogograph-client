@@ -3398,6 +3398,7 @@
   "assistant.start_listening": "开始听写",
   "assistant.listening": "正在听写…",
   "assistant.stop_listening": "停止听写",
+  "assistant.microphone_stopped": "麦克风听写已停止：{{reason}}。",
   "host.open_setup": "打开主机设置",
   "host_setup.what_has_to_happen": "必须发生什么",
   "host_setup.line_to_paste_as_root": "以 root 身份粘贴的行",

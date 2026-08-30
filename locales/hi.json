@@ -3412,6 +3412,7 @@
   "assistant.start_listening": "सुनना शुरू करें",
   "assistant.listening": "सुन रहा है…",
   "assistant.stop_listening": "सुनना बंद करें",
+  "assistant.microphone_stopped": "माइक्रोफ़ोन से सुनना बंद हो गया: {{reason}}।",
   "host.open_setup": "होस्ट सेटअप खोलें",
   "host_setup.what_has_to_happen": "क्या होना है",
   "host_setup.line_to_paste_as_root": "root के रूप में पेस्ट करने वाली लाइन",

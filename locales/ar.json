@@ -3398,6 +3398,7 @@
   "assistant.start_listening": "ابدأ الاستماع",
   "assistant.listening": "يستمع…",
   "assistant.stop_listening": "أوقف الاستماع",
+  "assistant.microphone_stopped": "توقف الاستماع إلى الميكروفون: {{reason}}.",
   "host.open_setup": "افتح إعداد المضيف",
   "host_setup.what_has_to_happen": "ما الذي يجب أن يحدث",
   "host_setup.line_to_paste_as_root": "السطر المراد لصقه بصفتك root",

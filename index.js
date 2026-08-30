@@ -10759,7 +10759,13 @@ function toggleRecognition() {
       voiceState.listenMode === 'push'
         ? ZogographI18n.t('assistant.hold_to_talk', {}, 'Hold to talk')
         : ZogographI18n.t('assistant.start_listening', {}, 'Start listening');
-    notice(`Microphone listening stopped: ${event.error || 'browser error'}.`);
+    notice(
+      ZogographI18n.t(
+        'assistant.microphone_stopped',
+        { reason: event.error || 'browser error' },
+        'Microphone listening stopped: {{reason}}.',
+      ),
+    );
   };
   voiceState.recognition = recognition;
   voiceState.listen = true;

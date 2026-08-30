@@ -46,6 +46,7 @@
   "url.follow_redirects_help": "Cada redirección se comprueba como un destino nuevo. Se rechaza una redirección a un host privado no aprobado en vez de seguirla.",
   "url.ask_if_changed_help": "Envía el último ETag, por lo que una página sin cambios responde 304 sin cuerpo. Un 304 cuenta como saludable y omite la comprobación de contenido porque no hay cuerpo que comprobar.",
   "url.expected_status_help": "0 acepta cualquier valor de 200 a 399. Una URL que debe redirigir, o un punto final que responde correctamente 401, funciona; insistir en 200 la marcaría como rota.",
+  "url.keep_group_help": "Qué parte entre paréntesis del patrón registrar. Casi siempre es 1: un patrón necesita contexto alrededor de la parte que importa. 0 conserva toda la coincidencia.",
   "url.method_get": "GET — obtener la página",
   "url.method_head": "HEAD — solo cabeceras, sin cuerpo",
   "url.method_options": "OPTIONS — lo que permite el servidor",

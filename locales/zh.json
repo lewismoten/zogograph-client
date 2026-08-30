@@ -46,6 +46,7 @@
   "url.follow_redirects_help": "每个重定向都会作为新目标检查。重定向到未经批准的私有主机将被拒绝，而不是跟随。",
   "url.ask_if_changed_help": "发送上次的 ETag，因此未更改的页面会在没有正文的情况下返回 304。304 视为正常，并跳过内容检查，因为没有可检查的正文。",
   "url.expected_status_help": "0 接受 200 到 399 的任何状态。应重定向的 URL，或正确返回 401 的端点，都在正常工作；坚持要求 200 会一直将它报告为故障。",
+  "url.keep_group_help": "记录模式中哪个括号部分。几乎总是 1——模式需要重要部分周围的上下文。0 会保留整个匹配项。",
   "url.method_get": "GET — 获取页面",
   "url.method_head": "HEAD — 仅标头，无正文",
   "url.method_options": "OPTIONS — 服务器允许的内容",

@@ -26027,8 +26027,8 @@ function openUrlForm(row = null) {
   group.value = String(row?.capture_group ?? 1);
   group.className = "days";
   const groupRow = field("urlGroup", ZogographI18n.t("url.keep_group", {}, "Keep group"), group,
-    "Which bracketed part of the pattern to record. Nearly always 1 \u2014 a pattern needs "
-    + "context around the part that matters. 0 keeps the whole match.");
+    ZogographI18n.t("url.keep_group_help", {}, "Which bracketed part of the pattern to record. Nearly always 1 \u2014 a pattern needs "
+    + "context around the part that matters. 0 keeps the whole match."));
 
   const notify = document.createElement("input");
   notify.type = "checkbox";

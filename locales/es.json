@@ -2242,6 +2242,7 @@
   "package.custody_check_confirmation": "¿Enviar una vez las dos credenciales de inscripción cifradas al entorno aislado restringido al extremo y configurado para la implementación?\n\nSolo leerá la disponibilidad de la suscripción de custodia. No puede crear un sobre, desenvolver una clave ni acceder a una base de datos de Zogograph.",
   "package.custody_check_result": "Comprobación de inscripción de custodia",
   "host.status.title": "Estado del recopilador del host",
+  "host.request_queued": "Solicitado. Se ejecutará en la siguiente pasada del recopilador del host.",
   "host.status.intro": "Estas comprobaciones usan la base de datos del host según puede leerla la cuenta del panel. La recopilación como root es necesaria para resultados de todo el host; un recopilador ejecutado por una cuenta solo registra el subconjunto que puede ver. Esta página puede inspeccionar el crontab de esta cuenta, pero no el de root.",
   "host.status.check": "Comprobación",
   "host.status.state": "Estado",

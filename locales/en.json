@@ -2348,6 +2348,7 @@
   "package.custody_check_confirmation": "Send the two encrypted enrollment credentials once to the deployment-configured, endpoint-restricted sandbox?\n\nIt will only read custody subscription readiness. It cannot create an envelope, unwrap a key, or access a Zogograph database.",
   "package.custody_check_result": "Custody enrollment check",
   "host.status.title": "Host collector status",
+  "host.request_queued": "Asked. It runs on the host collector's next pass.",
   "host.status.intro": "These checks use the host database as the dashboard account can read it. Root collection is required for host-wide results; an account-run collector records only its own visible subset. This page can inspect this account’s crontab, but cannot read root’s crontab.",
   "host.status.check": "Check",
   "host.status.state": "State",

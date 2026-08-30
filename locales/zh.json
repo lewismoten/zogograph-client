@@ -2224,6 +2224,7 @@
   "package.custody_check_confirmation": "要将两个加密的注册凭据一次性发送到部署配置的、端点受限的沙盒吗？\n\n它只会读取托管订阅就绪状态。它不能创建信封、解封密钥或访问 Zogograph 数据库。",
   "package.custody_check_result": "托管注册检查",
   "host.status.title": "主机采集器状态",
+  "host.request_queued": "已请求。它将在主机采集器的下一次运行中执行。",
   "host.status.intro": "这些检查使用仪表板账户能够读取的主机数据库。要获得全主机结果，必须由 root 采集；由普通账户运行的采集器只能记录其可见的部分。此页面可以检查当前账户的 crontab，但不能读取 root 的 crontab。",
   "host.status.check": "检查项",
   "host.status.state": "状态",

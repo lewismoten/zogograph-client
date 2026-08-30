@@ -10555,19 +10555,21 @@ function renderRdns(data) {
   if (waiting.length || taken.length) {
     const holder = document.createElement("div");
     holder.id = "rdnsQueue";
-    parts.push(section(
-      `${count(waiting.length, "address", "addresses")} waiting`
-      + (taken.length ? `, ${taken.length} in progress` : ""),
-      holder
-    ));
+    parts.push(section(ZogographI18n.t("rdns.queue_heading", {
+      waiting: waiting.length,
+      progress: taken.length
+        ? ZogographI18n.t("rdns.queue_progress", { count: taken.length }, ", {{count, number}} in progress")
+        : "",
+    }, "{{waiting, number}} addresses waiting{{progress}}"), holder));
 
-    parts.push(note(
-      `At ${data.per_run === 1 ? "one" : data.per_run} per collector run, the queue empties `
-      + `in about ${humanSpan(Math.ceil(waiting.length / Math.max(1, data.per_run)) * 300)}. `
-      + (data.host_enabled
-        ? "Both collectors take one, so it may be quicker than that."
-        : "")
-    ));
+    parts.push(note(ZogographI18n.t("rdns.queue_drain", {
+      perRun: data.per_run,
+      duration: humanSpan(Math.ceil(waiting.length / Math.max(1, data.per_run)) * 300),
+      both: data.host_enabled
+        ? ZogographI18n.t("rdns.queue_both_collectors", {},
+          " Both collectors take one, so it may be quicker than that.")
+        : "",
+    }, "At {{perRun, number}} per collector run, the queue empties in about {{duration}}.{{both}}")));
   } else {
     parts.push(note(ZogographI18n.t("rdns.nothing_waiting", {}, "Nothing was waiting.")));
   }

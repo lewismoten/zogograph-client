@@ -37755,15 +37755,11 @@ function renderLabels(data) {
   const body = $('labelsBody');
 
   if (!data.rows.length) {
-    body.replaceChildren(
-      note(
-        ZogographI18n.t(
-          'labels.none',
-          {},
-          "Nothing named yet. Start with this machine's own address and anything you recognise in a capture — those are the two that save the most reading.",
-        ),
-      ),
-    );
+    renderCoreCardPackage(ZogographLabelsEmptyCard, 'core-labels-empty', data, {
+      target: body,
+      note,
+      i18n: ZogographI18n,
+    });
     return;
   }
 

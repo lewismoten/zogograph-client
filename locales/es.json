@@ -1511,7 +1511,6 @@
   "duration.value": "{{value, unit}}",
   "time.range_to": "a",
   "labels.sign_in": "Inicie sesión para guardar sus propios nombres.",
-  "labels.none": "Aún no hay nada nombrado. Empiece por la propia dirección de esta máquina y cualquier cosa que reconozca en una captura: son las dos que más lectura ahorran.",
   "labels.kind": "Tipo",
   "labels.kind.address": "Dirección",
   "labels.kind.port": "Puerto",

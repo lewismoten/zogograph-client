@@ -1495,7 +1495,6 @@
   "duration.value": "{{value, unit}}",
   "time.range_to": "至",
   "labels.sign_in": "登录以保存您自己的名称。",
-  "labels.none": "尚未命名任何内容。请从此机器自己的地址和您在捕获记录中识别的内容开始——这两者最能减少阅读量。",
   "labels.kind": "类型",
   "labels.kind.address": "地址",
   "labels.kind.port": "端口",

@@ -177,6 +177,8 @@
   "pending.past_due": "{{duration}} past due — the collector may not be running",
   "pending.ready": "{{label}} is ready.",
   "pending.new": "new",
+  "notes.capture_size": "{{captures}} captures · {{size}}",
+  "notes.pictures_kept": "{{count}} pictures kept with this note",
   "action.stop": "Stop it",
   "action.show": "Show it",
   "action.rename": "Rename",

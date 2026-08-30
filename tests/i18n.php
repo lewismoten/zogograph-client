@@ -1394,6 +1394,8 @@ i18nExpect(
             $english['pending.past_due'],
             $english['pending.ready'],
             $english['pending.new'],
+            $english['notes.capture_size'],
+            $english['notes.pictures_kept'],
         ),
     'English fallback catalog is incomplete',
 );
@@ -1521,6 +1523,12 @@ i18nExpect(
         str_contains($script, 'pending.collector_overdue') &&
         str_contains($script, 'pending.ready'),
     'host request status retains direct user-visible text',
+);
+i18nExpect(
+    $script !== false &&
+        str_contains($script, 'notes.capture_size') &&
+        str_contains($script, 'notes.pictures_kept'),
+    'note attachment summary retains direct user-visible text',
 );
 i18nExpect(
     str_contains($runtime, 'data-i18n-rich') &&

@@ -177,6 +177,8 @@
   "pending.past_due": "{{duration}} से विलंबित — कलेक्टर शायद चल नहीं रहा है",
   "pending.ready": "{{label}} तैयार है।",
   "pending.new": "नया",
+  "notes.capture_size": "{{captures}} कैप्चर · {{size}}",
+  "notes.pictures_kept": "इस नोट के साथ {{count}} चित्र रखे गए",
   "action.stop": "इसे रोकें",
   "action.show": "इसे दिखाएँ",
   "action.rename": "नाम बदलें",

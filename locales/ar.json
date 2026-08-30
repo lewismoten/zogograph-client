@@ -177,6 +177,8 @@
   "pending.past_due": "متأخر {{duration}} — قد لا يكون المُجمّع قيد التشغيل",
   "pending.ready": "{{label}} جاهز.",
   "pending.new": "جديد",
+  "notes.capture_size": "{{captures}} لقطات · {{size}}",
+  "notes.pictures_kept": "{{count}} صور محفوظة مع هذه الملاحظة",
   "action.stop": "أوقفه",
   "action.show": "اعرضه",
   "action.rename": "أعِد التسمية",

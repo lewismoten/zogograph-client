@@ -17293,13 +17293,24 @@ function renderNotes(data) {
           render: (row) => {
             if (!row.snapshots) return '—';
             const said = document.createElement('span');
-            said.textContent = `${count(row.snapshots, 'capture')} · ${humanBytes(row.snapshot_bytes)}`;
+            said.textContent = ZogographI18n.t(
+              'notes.capture_size',
+              {
+                captures: humanCount(row.snapshots),
+                size: humanBytes(row.snapshot_bytes),
+              },
+              '{{captures}} captures · {{size}}',
+            );
             // A camera, so a note carrying pictures can be picked out of the list
             // without opening each one to find out.
             if (row.images) {
               const mark = document.createElement('span');
               mark.textContent = ` 📷${row.images > 1 ? `×${row.images}` : ''}`;
-              mark.title = `${count(row.images, 'picture')} kept with this note`;
+              mark.title = ZogographI18n.t(
+                'notes.pictures_kept',
+                { count: humanCount(row.images) },
+                '{{count}} pictures kept with this note',
+              );
               said.appendChild(mark);
             }
             return said;

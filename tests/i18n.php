@@ -115,6 +115,9 @@ $diagnosisResultsCard = i18nCardSource(
 $pendingWorkCard = i18nCardSource(
     file_get_contents($root . '/cards/pending-work.js'),
 );
+$updateBannerCard = i18nCardSource(
+    file_get_contents($root . '/cards/update-banner.js'),
+);
 $networkPeersCard = i18nCardSource(
     file_get_contents($root . '/cards/network-peers.js'),
 );
@@ -386,6 +389,22 @@ i18nExpect(
             'helpers.i18n.registerCatalog(locale, catalog, false, id)',
         ),
     'core card package catalogs are not namespace-registered before their first render',
+);
+i18nExpect(
+    $page !== false &&
+        str_contains($page, 'src="cards/update-banner.js"') &&
+        $updateBannerCard !== false &&
+        str_contains($updateBannerCard, 'window.ZogographUpdateBannerCard') &&
+        str_contains($updateBannerCard, 'id: "core-update-banner"') &&
+        str_contains($updateBannerCard, 'locales: ["core-update-banner."]') &&
+        str_contains($updateBannerCard, 'catalogs: Object.freeze({') &&
+        str_contains($updateBannerCard, '"core-update-banner.available"') &&
+        $script !== false &&
+        str_contains(
+            $script,
+            'renderCoreCardPackage(ZogographUpdateBannerCard, "core-update-banner",',
+        ),
+    'update banner is not isolated behind its core card-module boundary',
 );
 i18nExpect(
     $page !== false &&

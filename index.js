@@ -816,6 +816,22 @@ function showBuildUpdate(build) {
   const banner = $('updateBanner');
   if (!banner) return;
   const required = build.browserRefreshRequired === true;
+  if (window.ZogographUpdateBannerCard) {
+    return renderCoreCardPackage(
+      ZogographUpdateBannerCard,
+      'core-update-banner',
+      required,
+      {
+        target: banner,
+        reload: () => {
+          buildStorageSet(BUILD_IDENTITY_STORAGE_KEY, buildIdentity(build));
+          buildStorageRemove(BUILD_UPDATE_STORAGE_KEY);
+          location.reload();
+        },
+        i18n: ZogographI18n,
+      },
+    );
+  }
   const message = required
     ? ZogographI18n.t(
         'update.compatibility',

@@ -10191,43 +10191,36 @@ function renderChatStatus(session) {
    * somebody to work out which one stopped it, which the page already knows.
    */
   if (session.limit_hit) {
-    const more = document.createElement('button');
-    more.className = 'link';
-    more.textContent =
-      {
-        time: 'Give it longer',
-        spend: 'Let it spend more',
-        turns: 'Give it more turns',
-      }[session.limit_hit] ?? 'Raise the limit';
-
-    more.title = ZogographI18n.t(
-      'ai.extend_limit_help',
-      {},
-      'Doubles that one limit for THIS conversation only. The settings for every future conversation are not touched.',
+    status.appendChild(
+      renderCoreCardPackage(
+        ZogographChatExtendLimitCard,
+        'core-chat-extend-limit',
+        { which: session.limit_hit },
+        {
+          extend: async () => {
+            try {
+              const fresh = await post('ai-extend', {
+                session: session.id,
+                which: session.limit_hit,
+              });
+              chatState.session = fresh.session;
+              notice(
+                ZogographI18n.t(
+                  'ai.limit_raised',
+                  {},
+                  'Raised, for this conversation. Carry on.',
+                ),
+                true,
+              );
+              renderChat();
+            } catch (error) {
+              notice(String(error.message || error));
+            }
+          },
+          i18n: ZogographI18n,
+        },
+      ),
     );
-
-    more.addEventListener('click', async () => {
-      try {
-        const fresh = await post('ai-extend', {
-          session: session.id,
-          which: session.limit_hit,
-        });
-        chatState.session = fresh.session;
-        notice(
-          ZogographI18n.t(
-            'ai.limit_raised',
-            {},
-            'Raised, for this conversation. Carry on.',
-          ),
-          true,
-        );
-        renderChat();
-      } catch (error) {
-        notice(String(error.message || error));
-      }
-    });
-
-    status.appendChild(more);
   }
 
   const again = renderCoreCardPackage(

@@ -149,8 +149,9 @@ i18nExpect($page !== false && str_contains($page, 'src="cards/cpu-gauges.js"')
     && str_contains($script, 'sample: data.sample, accountVitals: state.overview?.vitals ?? {}'),
     'CPU gauges are not isolated behind their core card-module boundary');
 i18nExpect($cpuGaugesCard !== false && str_contains($cpuGaugesCard, 'catalogs: Object.freeze({')
-    && str_contains($cpuGaugesCard, '"core-cpu-gauges.host_cpu"'),
-    'CPU gauges do not own a package locale catalog');
+    && str_contains($cpuGaugesCard, '"core-cpu-gauges.host_cpu"')
+    && is_array($english) && !isset($english['cpu.gauge_host_cpu']),
+    'CPU gauges do not own their locale catalog exclusively');
 i18nExpect($cpuTimeCard !== false && str_contains($cpuTimeCard, 'locales: ["core-cpu-time."]')
     && str_contains($cpuTimeCard, '"core-cpu-time.average_over_range"')
     && is_array($english) && !isset($english['cpu.average_over_range']),

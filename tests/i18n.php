@@ -1094,6 +1094,14 @@ i18nExpect(
             $networkCaptureCard,
             '"core-network-capture.counted_unattributed"',
         ) &&
+        str_contains(
+            $networkCaptureCard,
+            '"core-network-capture.inferred_machine_detail"',
+        ) &&
+        str_contains(
+            $networkCaptureCard,
+            '"core-network-capture.stopped_early_detail"',
+        ) &&
         $script !== false &&
         str_contains(
             $script,

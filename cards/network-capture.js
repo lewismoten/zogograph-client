@@ -60,6 +60,13 @@ window.ZogographNetworkCaptureCard = {
           'Counted but not attributed',
         'core-network-capture.unparsed_detail':
           '{{count}} — ARP, ICMP and anything not in a shape this parses',
+        'core-network-capture.inferred_machine': 'This machine assumed to be',
+        'core-network-capture.inferred_machine_detail':
+          '{{address}} — inferred from appearing in most packets, because its addresses could not be read directly',
+        'core-network-capture.stopped_early': 'Stopped early',
+        'core-network-capture.stopped_early_detail':
+          'The packet ceiling was reached before the time ran out, so this covers the first part of the period rather than all of it.',
+        'core-network-capture.the_sample': 'The sample',
       }),
       es: Object.freeze({
         'core-network-capture.title': 'Qué hay en la red',
@@ -107,6 +114,14 @@ window.ZogographNetworkCaptureCard = {
         'core-network-capture.counted_unattributed': 'Contados sin atribuir',
         'core-network-capture.unparsed_detail':
           '{{count}} — ARP, ICMP y todo lo que no tiene una forma que esto pueda analizar',
+        'core-network-capture.inferred_machine':
+          'Se supone que esta máquina es',
+        'core-network-capture.inferred_machine_detail':
+          '{{address}} — inferida al aparecer en la mayoría de los paquetes, porque sus direcciones no pudieron leerse directamente',
+        'core-network-capture.stopped_early': 'Detenida antes de tiempo',
+        'core-network-capture.stopped_early_detail':
+          'Se alcanzó el límite de paquetes antes de que terminara el tiempo, por lo que esto cubre la primera parte del periodo, no todo él.',
+        'core-network-capture.the_sample': 'La muestra',
       }),
       hi: Object.freeze({
         'core-network-capture.title': 'नेटवर्क पर क्या है',
@@ -151,6 +166,13 @@ window.ZogographNetworkCaptureCard = {
           'गिने गए पर निर्धारित नहीं',
         'core-network-capture.unparsed_detail':
           '{{count}} — ARP, ICMP और वह सब जिसका आकार इसे पार्स नहीं होता',
+        'core-network-capture.inferred_machine': 'यह मशीन मानी गई',
+        'core-network-capture.inferred_machine_detail':
+          '{{address}} — अधिकांश पैकेटों में दिखने से अनुमानित, क्योंकि इसके पते सीधे नहीं पढ़े जा सके',
+        'core-network-capture.stopped_early': 'जल्दी रोका गया',
+        'core-network-capture.stopped_early_detail':
+          'समय समाप्त होने से पहले पैकेट सीमा पूरी हुई, इसलिए यह पूरे समय के बजाय अवधि का पहला भाग दिखाता है।',
+        'core-network-capture.the_sample': 'नमूना',
       }),
       ar: Object.freeze({
         'core-network-capture.title': 'ما الموجود على الشبكة',
@@ -192,6 +214,13 @@ window.ZogographNetworkCaptureCard = {
         'core-network-capture.counted_unattributed': 'معدودة دون إسناد',
         'core-network-capture.unparsed_detail':
           '{{count}} — ARP وICMP وأي شيء لا يأتي بشكل يستطيع هذا تحليله',
+        'core-network-capture.inferred_machine': 'يُفترض أن هذه الآلة هي',
+        'core-network-capture.inferred_machine_detail':
+          '{{address}} — استُنتج من ظهوره في معظم الحزم لأن عناوينه لم تُقرأ مباشرة',
+        'core-network-capture.stopped_early': 'توقفت مبكرًا',
+        'core-network-capture.stopped_early_detail':
+          'بلغ حد الحزم قبل انتهاء الوقت، لذا يغطي هذا الجزء الأول من الفترة بدلًا من كلها.',
+        'core-network-capture.the_sample': 'العينة',
       }),
       zh: Object.freeze({
         'core-network-capture.title': '线路上有什么',
@@ -232,6 +261,13 @@ window.ZogographNetworkCaptureCard = {
         'core-network-capture.counted_unattributed': '已统计但未归属',
         'core-network-capture.unparsed_detail':
           '{{count}} — ARP、ICMP 以及任何无法按此格式解析的内容',
+        'core-network-capture.inferred_machine': '此机器推定为',
+        'core-network-capture.inferred_machine_detail':
+          '{{address}} — 因其出现在大多数数据包中而推定，无法直接读取其地址',
+        'core-network-capture.stopped_early': '提前停止',
+        'core-network-capture.stopped_early_detail':
+          '数据包达到上限时尚未到时间，因此这仅涵盖该时段的前半部分，而不是全部。',
+        'core-network-capture.the_sample': '样本',
       }),
     }),
   }),
@@ -270,6 +306,11 @@ window.ZogographNetworkCaptureCard = {
         'distinct_names_asked',
         'counted_unattributed',
         'unparsed_detail',
+        'inferred_machine',
+        'inferred_machine_detail',
+        'stopped_early',
+        'stopped_early_detail',
+        'the_sample',
       ].includes(name)
         ? `core-network-capture.${name}`
         : key;

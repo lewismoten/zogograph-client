@@ -26228,6 +26228,12 @@ const HEALTH_LABELS = {
   ],
 };
 
+function healthShellText(key, values = {}) {
+  return ZogographSystemHealthShellCard.text(key, values, {
+    i18n: ZogographI18n,
+  });
+}
+
 async function refreshHealth() {
   let data;
   try {
@@ -26288,51 +26294,22 @@ async function refreshHealth() {
   const facts = document.createElement('p');
   facts.className = 'muted small';
   const bits = [
-    ZogographI18n.t(
-      'health.php_version',
-      { version: checks.php_version },
-      'PHP {{version}}',
-    ),
+    healthShellText('php_version', { version: checks.php_version }),
     ...(checks.kernel
-      ? [
-          ZogographI18n.t(
-            'health.kernel_version',
-            { version: checks.kernel },
-            'kernel {{version}}',
-          ),
-        ]
+      ? [healthShellText('kernel_version', { version: checks.kernel })]
       : []),
-    ZogographI18n.t(
-      'health.schema_version',
-      { version: checks.schema_version },
-      'schema v{{version}}',
-    ),
-    ZogographI18n.t(
+    healthShellText('schema_version', { version: checks.schema_version }),
+    healthShellText(
       checks.problem_log_entries === 1
-        ? 'health.problem_logged_one'
-        : 'health.problem_logged_many',
+        ? 'problem_logged_one'
+        : 'problem_logged_many',
       { count: checks.problem_log_entries },
-      checks.problem_log_entries === 1
-        ? '{{count, number}} problem logged'
-        : '{{count, number}} problems logged',
     ),
   ];
   if (checks.php_error_log)
-    bits.push(
-      ZogographI18n.t(
-        'health.php_logs_to',
-        { path: checks.php_error_log },
-        'PHP logs to {{path}}',
-      ),
-    );
+    bits.push(healthShellText('php_logs_to', { path: checks.php_error_log }));
   if (checks.problem_log)
-    bits.push(
-      ZogographI18n.t(
-        'health.this_log',
-        { path: checks.problem_log },
-        'this log: {{path}}',
-      ),
-    );
+    bits.push(healthShellText('this_log', { path: checks.problem_log }));
   facts.textContent = bits.join(' \u00b7 ');
 
   $('healthBody').replaceChildren(table, facts);

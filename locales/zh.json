@@ -983,6 +983,7 @@
   "openid.trusted_apps_intro": "每个应用都会获得一个准确的 HTTPS 回调 URL 和生成的机密客户端密钥。现有密钥绝不会再次显示；请删除并重新创建客户端以轮换密钥。",
   "schedule.build_error": "无法构建已保存的计划：",
   "schedule.no_php": "未找到可用的命令行 PHP 二进制文件，因此此主机无法从设置中应用计划。",
+  "schedule.crontab_unreadable": "无法在此处读取 crontab。",
   "deployment.last_test_result": "上次目标测试：{{detail}}（{{tested, date-time}}）",
   "deployment.last_copy_result": "上次版本复制：{{detail}}（{{files, number}} 个文件）",
   "language.label": "语言",

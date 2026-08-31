@@ -28561,7 +28561,13 @@ function drawSchedule(data) {
   holder.className = 'sched';
 
   if (!data.available) {
-    holder.textContent = data.reason || 'The crontab cannot be read here.';
+    holder.textContent =
+      data.reason ||
+      ZogographI18n.t(
+        'schedule.crontab_unreadable',
+        {},
+        'The crontab cannot be read here.',
+      );
     $('scheduleBody').replaceChildren(holder);
     return;
   }

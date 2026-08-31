@@ -2500,12 +2500,12 @@ function webPage(
         $out[] =
             '<p class="help" data-i18n="schedule.intro">Choose the account collector cadence and apply it here. Only Zogograph’s marked cron block is changed; every other account cron job stays untouched.</p>';
         if (!$schedule['available']) {
+            $scheduleReason = (string) ($schedule['reason'] ?? '');
             $out[] =
                 '<div class="banner warn">' .
-                h(
-                    (string) ($schedule['reason'] ??
-                        'The crontab cannot be read here.'),
-                ) .
+                ($scheduleReason !== ''
+                    ? h($scheduleReason)
+                    : '<span data-i18n="schedule.crontab_unreadable">The crontab cannot be read here.</span>') .
                 '</div>';
         } elseif ($php === '') {
             $out[] =

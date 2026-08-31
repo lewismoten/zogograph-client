@@ -1453,6 +1453,7 @@
   "schedule.run_ok": "ok",
   "schedule.run_failed": "failed",
   "schedule.no_php": "No usable command-line PHP binary was found, so this host cannot apply a schedule from Setup.",
+  "schedule.crontab_unreadable": "The crontab cannot be read here.",
   "schedule.in_sync": "Saved schedule is installed and in sync.",
   "schedule.missing": "Saved schedule is not installed yet.",
   "schedule.out_of_sync": "Installed schedule differs from the saved settings.",

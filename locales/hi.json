@@ -985,6 +985,7 @@
   "openid.trusted_apps_intro": "हर अनुप्रयोग को एक सटीक HTTPS कॉलबैक URL और बनाया गया गोपनीय-क्लाइंट सीक्रेट मिलता है। मौजूदा सीक्रेट फिर कभी नहीं दिखते; किसी को बदलने के लिए क्लाइंट हटाएं और फिर बनाएं।",
   "schedule.build_error": "सहेजा गया शेड्यूल नहीं बनाया जा सका:",
   "schedule.no_php": "कोई उपयोगी कमांड-लाइन PHP बाइनरी नहीं मिली, इसलिए यह होस्ट सेटअप से शेड्यूल लागू नहीं कर सकता।",
+  "schedule.crontab_unreadable": "यहाँ crontab नहीं पढ़ा जा सकता।",
   "deployment.last_test_result": "पिछला लक्ष्य परीक्षण: {{detail}} ({{tested, date-time}})",
   "deployment.last_copy_result": "पिछली रिलीज़ कॉपी: {{detail}} ({{files, number}} फ़ाइलें)",
   "language.label": "भाषा",

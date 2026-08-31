@@ -983,6 +983,7 @@
   "openid.trusted_apps_intro": "يحصل كل تطبيق على عنوان URL دقيق لرد HTTPS وسر عميل سري مُنشأ. لا تظهر الأسرار الحالية مرة أخرى أبدًا؛ أزل العميل وأعد إنشاءه لتدوير سر.",
   "schedule.build_error": "تعذر إنشاء الجدول المحفوظ:",
   "schedule.no_php": "لم يُعثر على برنامج PHP صالح لسطر الأوامر، لذلك لا يستطيع هذا المضيف تطبيق جدول من الإعداد.",
+  "schedule.crontab_unreadable": "لا يمكن قراءة crontab هنا.",
   "deployment.last_test_result": "آخر اختبار للهدف: {{detail}} ({{tested, date-time}})",
   "deployment.last_copy_result": "آخر نسخ للإصدار: {{detail}} ({{files, number}} ملفًا)",
   "language.label": "اللغة",

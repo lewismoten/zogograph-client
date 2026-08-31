@@ -985,6 +985,7 @@
   "openid.trusted_apps_intro": "Cada aplicación obtiene una URL de devolución de llamada HTTPS exacta y un secreto de cliente confidencial generado. Los secretos existentes nunca vuelven a mostrarse; elimine y vuelva a crear un cliente para rotar uno.",
   "schedule.build_error": "No se pudo crear la programación guardada:",
   "schedule.no_php": "No se encontró un binario de PHP de línea de comandos utilizable, por lo que este host no puede aplicar una programación desde Configuración.",
+  "schedule.crontab_unreadable": "El crontab no se puede leer aquí.",
   "deployment.last_test_result": "Última prueba del destino: {{detail}} ({{tested, date-time}})",
   "deployment.last_copy_result": "Última copia de la versión: {{detail}} ({{files, number}} archivos)",
   "language.label": "Idioma",

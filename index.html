@@ -41,6 +41,7 @@
     <script src="cards/host-disks.js" defer></script>
     <script src="cards/host-io-processes.js" defer></script>
     <script src="cards/host-io-shell.js" defer></script>
+    <script src="cards/host-layout-shell.js" defer></script>
     <script src="cards/host-files.js" defer></script>
     <script src="cards/host-walk-control.js" defer></script>
     <script src="cards/ldconfig-offer.js" defer></script>
@@ -2564,7 +2565,9 @@
         <section class="view" data-view="host-layout" hidden>
           <section class="panel" id="mountPanel">
             <div class="panel-head">
-              <h2 data-i18n="host.layout_title">Filesystem layout</h2>
+              <h2 data-i18n="core-host-layout-shell.title">
+                Filesystem layout
+              </h2>
             </div>
             <p class="muted small sub-note" data-i18n-rich="host.layout_help">
               Every mount the kernel reports, grouped by filesystem. Two paths

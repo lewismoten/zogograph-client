@@ -690,8 +690,6 @@
   "encryption.volume_policy_notice": "Zogograph records your host/VM protection policy but cannot verify it. The displayed evidence is your declaration, not a verified encrypted copy. Confirm that every selected database, SQLite WAL/SHM companion, configuration file, log, export, and backup destination is covered.",
   "encryption.mode_unavailable_notice": "The selected protection mode is not available in this Zogograph release. Keep the current data and recovery key safe while choosing a supported package or local mode.",
   "encryption.create_copies_confirm": "Create a fresh encrypted copy of every selected available store now? This does not encrypt the running database. Retention pruning may remove only expired, hash-verified copies and never the newest verified copy for a store.",
-  "encryption.copy_pruned": " Pruned {{count, number}} expired copy.",
-  "encryption.copies_pruned": " Pruned {{count, number}} expired copies.",
   "schedule.removed": "{{job}} schedule removed.",
   "schedule.none": "(none)",
   "schedule.saved_applied": "{{job}} schedule saved and applied.",

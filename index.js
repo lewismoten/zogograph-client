@@ -16043,14 +16043,9 @@ function renderEncryptionStatus(data) {
             count: result.created,
           });
           const pruned = result.pruned
-            ? ZogographI18n.t(
-                result.pruned === 1
-                  ? 'encryption.copy_pruned'
-                  : 'encryption.copies_pruned',
+            ? encryptionText(
+                result.pruned === 1 ? 'copy_pruned' : 'copies_pruned',
                 { count: result.pruned },
-                result.pruned === 1
-                  ? ' Pruned {{count, number}} expired copy.'
-                  : ' Pruned {{count, number}} expired copies.',
               )
             : '';
           notice(created + pruned, true);

@@ -26160,21 +26160,21 @@ document.addEventListener('zogograph-i18n-load', renderBootHistoryLabels);
 /** Plain-language names for the checks, and what a false one means. */
 const HEALTH_LABELS = {
   data_dir_writable: [
-    'health.data_dir_writable',
+    'data_dir_writable',
     'Data directory writable',
-    'health.data_dir_writable_help',
+    'data_dir_writable_help',
     'The database cannot be created or updated.',
   ],
   database_writable: [
-    'health.database_writable',
+    'database_writable',
     'Database writable',
-    'health.database_writable_help',
+    'database_writable_help',
     'Readings cannot be recorded.',
   ],
   scan_root_readable: [
-    'health.scan_root_readable',
+    'scan_root_readable',
     'Watched directory readable',
-    'health.scan_root_readable_help',
+    'scan_root_readable_help',
     'Scans will find nothing.',
   ],
   php_new_enough: [
@@ -26246,36 +26246,31 @@ async function refreshHealth() {
   const checks = data.checks;
   const rows = Object.entries(HEALTH_LABELS)
     .filter(([key]) => key in checks)
-    .map(
-      ([
-        key,
-        [labelKey, labelFallback, consequenceKey, consequenceFallback],
-      ]) => ({
-        label: ZogographI18n.t(labelKey, {}, labelFallback),
-        ok: Boolean(checks[key]),
-        consequence: ZogographI18n.t(consequenceKey, {}, consequenceFallback),
-        /*
-         * Some checks can say why, not merely that. "Needs kernel 4.20+ with
-         * CONFIG_PSI" leaves the reader to go and find out which of those they
-         * are missing, which is the work this panel exists to save.
-         */
-        reason:
-          checks[`${key.replace(/_available$|_readable$/, '')}_reason`] || '',
-        /*
-         * A host with no /proc and no mail() is limited, not broken.
-         *
-         * Painting those red would put two permanent failures on every shared
-         * host, which is how people learn to ignore the whole panel.
-         */
-        soft: [
-          'mail_available',
-          'shell_available',
-          'proc_readable',
-          'diskstats_readable',
-          'io_pressure_available',
-        ].includes(key),
-      }),
-    );
+    .map(([key, [labelKey, , consequenceKey]]) => ({
+      label: healthShellText(labelKey),
+      ok: Boolean(checks[key]),
+      consequence: healthShellText(consequenceKey),
+      /*
+       * Some checks can say why, not merely that. "Needs kernel 4.20+ with
+       * CONFIG_PSI" leaves the reader to go and find out which of those they
+       * are missing, which is the work this panel exists to save.
+       */
+      reason:
+        checks[`${key.replace(/_available$|_readable$/, '')}_reason`] || '',
+      /*
+       * A host with no /proc and no mail() is limited, not broken.
+       *
+       * Painting those red would put two permanent failures on every shared
+       * host, which is how people learn to ignore the whole panel.
+       */
+      soft: [
+        'mail_available',
+        'shell_available',
+        'proc_readable',
+        'diskstats_readable',
+        'io_pressure_available',
+      ].includes(key),
+    }));
 
   const table = document.createElement('table');
   const body = table.createTBody();

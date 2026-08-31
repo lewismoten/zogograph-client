@@ -106,6 +106,22 @@ foreach ($cardFiles as $cardFile) {
         $cardName . ' must be registered exactly once by index.html',
     );
 }
+preg_match_all(
+    '/<a\\b(?=[^>]*\\bdata-nav="([^"]+)")[^>]*>(.*?)<\\/a>/s',
+    (string) $page,
+    $navigationLinks,
+    PREG_SET_ORDER,
+);
+i18nExpect($navigationLinks !== [], 'core navigation routes are unavailable');
+foreach ($navigationLinks as $navigationLink) {
+    i18nExpect(
+        preg_match(
+            '/<span\\b(?=[^>]*\\bclass="[^"]*\\bnav-label\\b[^"]*")(?=[^>]*\\bdata-i18n="[^"]+")[^>]*>/',
+            $navigationLink[2],
+        ) === 1,
+        'navigation route ' . $navigationLink[1] . ' has no localized label',
+    );
+}
 if ($script !== false) {
     // Keep source-level contracts independent from the formatter's line wraps
     // and quote preference while retaining the original source for text checks.

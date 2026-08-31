@@ -2578,7 +2578,6 @@
   "storage.show_categories": "同时显示受监控类别",
   "storage.total_size": "总大小",
   "storage.change_since_scan": "自上次扫描后的变化",
-  "storage.categories_time_help": "每次完成扫描的总计。{{error_log}} 文件无论出现在哪里都会单独计数——其中一个就可能是全部问题。",
   "host.memory_overview_help": "来自由 root 运行的 {{cron}}。在 CageFS 中，此账户拥有自己的 {{proc}}，其中只有自己的进程，因此下方所有内容对本网站的其他面板都不可见。详细信息在下面的页面中；这里一眼显示机器内存的状态。磁盘位于 {{storage}}，守护进程是否存活位于 {{services}}。",
   "host.io_help": "由 root 读取的每个设备的吞吐量和饱和度，因此包含服务器上的所有账户。此处忙碌的线表示磁盘正在工作，并不表示由此账户造成；账户自身流量在 {{dashboard}}，{{processes}} 有单独页面。",
   "host.io_disks_help": "每个设备的吞吐量及接近饱和的程度。LVM 和 RAID 卷会显示但不计入总计：写入 {{dm0}} 会重新映射到下层磁盘并推进两个计数器，因此相加会报告两倍的流量。",

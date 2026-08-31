@@ -2141,6 +2141,9 @@ function renderCategoryChartLabels() {
     'core-category-chart.title',
     ZogographCategoryChart.text('title', helpers),
   );
+  ZogographI18n.applyRich(
+    document.querySelector('[data-i18n-rich="core-category-chart.help"]'),
+  );
 }
 
 document.addEventListener('zogograph-i18n-load', renderCategoryChartLabels);

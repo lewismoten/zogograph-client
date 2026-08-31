@@ -16601,6 +16601,12 @@ function peerText(key, values = {}, fallback = '') {
   return ZogographI18n.t(`peer.${key}`, values, fallback);
 }
 
+function peersShellText(key, values = {}) {
+  return ZogographSystemPeersShellCard.text(key, values, {
+    i18n: ZogographI18n,
+  });
+}
+
 function peerPercent(value) {
   return (
     new Intl.NumberFormat(document.documentElement.lang || undefined, {
@@ -16621,38 +16627,28 @@ function renderPeers(data) {
   };
   parts.push(
     note(
-      peerText(
-        'capacity',
-        {
-          edition: capacity.name,
-          limit: capacity.remote_host_limit,
-          used: capacity.used,
-          remaining: capacity.remaining,
-        },
-        `${capacity.name} edition: controller plus ${capacity.remote_host_limit} remote hosts. ${count(capacity.used, 'remote host')} configured; ${capacity.remaining} remaining.`,
-      ),
+      peersShellText('capacity', {
+        edition: capacity.name,
+        limit: capacity.remote_host_limit,
+        used: capacity.used,
+        remaining: capacity.remaining,
+      }),
     ),
   );
   const add = document.createElement('button');
   add.type = 'button';
   add.className = 'primary';
-  add.textContent = peerText('add', {}, 'Add trusted server');
+  add.textContent = peersShellText('add');
   add.disabled = !data.writable || capacity.remaining === 0;
   add.title =
     capacity.remaining === 0
-      ? peerText(
-          'capacity_reached',
-          {},
-          'This edition has reached its remote-host limit. Remove or replace a server to free a slot.',
-        )
-      : peerText('add_help', {}, 'Add a trusted remote Zogograph server.');
+      ? peersShellText('capacity_reached')
+      : peersShellText('add_help');
   add.addEventListener('click', () => showPeerDialog());
   parts.push(add);
 
   if (!data.rows.length) {
-    parts.push(
-      note(peerText('none', {}, 'No trusted servers are configured yet.')),
-    );
+    parts.push(note(peersShellText('none')));
   } else {
     const holder = document.createElement('div');
     holder.id = 'peerTable';

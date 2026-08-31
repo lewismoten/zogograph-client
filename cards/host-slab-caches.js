@@ -7,6 +7,8 @@ window.ZogographHostSlabCachesCard = {
     catalogs: Object.freeze({
       en: Object.freeze({
         'core-host-slab-caches.title': 'Kernel slab caches',
+        'core-host-slab-caches.summary':
+          'Memory the kernel holds for itself. It belongs to no process and no account, and it is the first place to look when the numbers do not add up — a quarter of a gigabyte of xfs_inode appears in nothing else on this site.',
         'core-host-slab-caches.cache': 'Cache',
         'core-host-slab-caches.holding': 'Holding',
         'core-host-slab-caches.objects': 'Objects',
@@ -14,6 +16,8 @@ window.ZogographHostSlabCachesCard = {
       }),
       es: Object.freeze({
         'core-host-slab-caches.title': 'Cachés slab del kernel',
+        'core-host-slab-caches.summary':
+          'Memoria que el kernel retiene para sí mismo. No pertenece a ningún proceso ni cuenta y es el primer lugar que revisar cuando los números no cuadran: un cuarto de gigabyte de xfs_inode no aparece en ningún otro lugar del sitio.',
         'core-host-slab-caches.cache': 'Caché',
         'core-host-slab-caches.holding': 'Almacenado',
         'core-host-slab-caches.objects': 'Objetos',
@@ -21,6 +25,8 @@ window.ZogographHostSlabCachesCard = {
       }),
       hi: Object.freeze({
         'core-host-slab-caches.title': 'कर्नेल स्लैब कैश',
+        'core-host-slab-caches.summary':
+          'मेमोरी जिसे कर्नेल अपने लिए रखता है। यह किसी प्रोसेस या खाते की नहीं होती और जब संख्याएँ मेल न खाएँ तो पहले यहीं देखें: xfs_inode का एक चौथाई गीगाबाइट इस साइट पर और कहीं नहीं दिखता।',
         'core-host-slab-caches.cache': 'कैश',
         'core-host-slab-caches.holding': 'रखा है',
         'core-host-slab-caches.objects': 'ऑब्जेक्ट',
@@ -28,6 +34,8 @@ window.ZogographHostSlabCachesCard = {
       }),
       ar: Object.freeze({
         'core-host-slab-caches.title': 'ذاكرات slab المؤقتة للنواة',
+        'core-host-slab-caches.summary':
+          'ذاكرة تحتفظ بها النواة لنفسها. لا تنتمي إلى عملية أو حساب، وهي أول مكان لفحصه عندما لا تتطابق الأرقام: لا يظهر ربع غيغابايت من xfs_inode في أي موضع آخر من الموقع.',
         'core-host-slab-caches.cache': 'ذاكرة مؤقتة',
         'core-host-slab-caches.holding': 'المحفوظ',
         'core-host-slab-caches.objects': 'الكائنات',
@@ -35,6 +43,8 @@ window.ZogographHostSlabCachesCard = {
       }),
       zh: Object.freeze({
         'core-host-slab-caches.title': '内核 slab 缓存',
+        'core-host-slab-caches.summary':
+          '内核为自己保留的内存。它不属于任何进程或账户；当数值对不上时应先查看这里：四分之一 GB 的 xfs_inode 不会出现在本网站的其他位置。',
         'core-host-slab-caches.cache': '缓存',
         'core-host-slab-caches.holding': '占用',
         'core-host-slab-caches.objects': '对象',

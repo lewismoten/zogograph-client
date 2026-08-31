@@ -2245,7 +2245,7 @@
             </div>
             <p
               class="muted small sub-note"
-              data-i18n="host.memory_by_user_help"
+              data-i18n="core-host-memory-users.summary"
             >
               The column CageFS hides. Inside a cage this account sees only its
               own processes, so who else is using the machine's memory is
@@ -2383,7 +2383,7 @@
             </div>
             <p
               class="muted small sub-note"
-              data-i18n="host.memory_processes_help"
+              data-i18n="core-host-memory-processes.summary"
             >
               Every process on the machine, not just this account's. This is the
               list that answers &ldquo;what is actually holding the
@@ -2410,7 +2410,10 @@
                 Refresh
               </button>
             </div>
-            <p class="muted small sub-note" data-i18n="host.kernel_slab_help">
+            <p
+              class="muted small sub-note"
+              data-i18n="core-host-slab-caches.summary"
+            >
               Memory the kernel holds for itself. It belongs to no process and
               no account, and it is the first place to look when the numbers do
               not add up — a quarter of a gigabyte of xfs_inode appears in

@@ -16,6 +16,8 @@ window.ZogographHostMemoryProcessesCard = {
     catalogs: Object.freeze({
       en: Object.freeze({
         'core-host-memory-processes.title': 'Biggest processes on the host',
+        'core-host-memory-processes.summary':
+          "Every process on the machine, not just this account's. This is the list that answers ‘what is actually holding the memory’ when the per-user totals only say whose it is.",
         'core-host-memory-processes.pid': 'PID',
         'core-host-memory-processes.user': 'User',
         'core-host-memory-processes.process': 'Process',
@@ -28,6 +30,8 @@ window.ZogographHostMemoryProcessesCard = {
       }),
       es: Object.freeze({
         'core-host-memory-processes.title': 'Procesos más grandes del host',
+        'core-host-memory-processes.summary':
+          'Todos los procesos de la máquina, no solo los de esta cuenta. Esta lista responde qué está ocupando realmente la memoria cuando los totales por usuario solo indican de quién es.',
         'core-host-memory-processes.pid': 'PID',
         'core-host-memory-processes.user': 'Usuario',
         'core-host-memory-processes.process': 'Proceso',
@@ -40,6 +44,8 @@ window.ZogographHostMemoryProcessesCard = {
       }),
       hi: Object.freeze({
         'core-host-memory-processes.title': 'होस्ट पर सबसे बड़े प्रोसेस',
+        'core-host-memory-processes.summary':
+          'मशीन के सभी प्रोसेस, केवल इस खाते के नहीं। जब उपयोगकर्ता-वार कुल केवल मालिक बताते हैं, तब यह सूची बताती है कि वास्तव में मेमोरी कौन पकड़े हुए है।',
         'core-host-memory-processes.pid': 'PID',
         'core-host-memory-processes.user': 'उपयोगकर्ता',
         'core-host-memory-processes.process': 'प्रोसेस',
@@ -52,6 +58,8 @@ window.ZogographHostMemoryProcessesCard = {
       }),
       ar: Object.freeze({
         'core-host-memory-processes.title': 'أكبر العمليات على المضيف',
+        'core-host-memory-processes.summary':
+          'كل عمليات الجهاز، وليس هذه الحساب فقط. تجيب هذه القائمة عن سؤال ما الذي يشغل الذاكرة بالفعل عندما لا تقول الإجماليات حسب المستخدم إلا لمن تعود.',
         'core-host-memory-processes.pid': 'PID',
         'core-host-memory-processes.user': 'المستخدم',
         'core-host-memory-processes.process': 'العملية',
@@ -64,6 +72,8 @@ window.ZogographHostMemoryProcessesCard = {
       }),
       zh: Object.freeze({
         'core-host-memory-processes.title': '主机上最大的进程',
+        'core-host-memory-processes.summary':
+          '机器上的所有进程，并非仅此账户的进程。当按用户汇总只能说明归属时，此列表能回答究竟是谁占用了内存。',
         'core-host-memory-processes.pid': 'PID',
         'core-host-memory-processes.user': '用户',
         'core-host-memory-processes.process': '进程',

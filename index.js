@@ -2301,14 +2301,16 @@ function renderHostMemoryProcessLabels() {
     { rows: [] },
     helpers,
   );
-  const title = document.querySelector(
-    '[data-i18n="core-host-memory-processes.title"]',
-  );
-  title.textContent = ZogographI18n.markSource(
-    title,
-    'core-host-memory-processes.title',
-    ZogographHostMemoryProcessesCard.text('title', helpers),
-  );
+  for (const key of ['title', 'summary']) {
+    const element = document.querySelector(
+      `[data-i18n="core-host-memory-processes.${key}"]`,
+    );
+    element.textContent = ZogographI18n.markSource(
+      element,
+      `core-host-memory-processes.${key}`,
+      ZogographHostMemoryProcessesCard.text(key, helpers),
+    );
+  }
 }
 
 document.addEventListener('zogograph-i18n-load', renderHostMemoryProcessLabels);
@@ -2330,14 +2332,16 @@ function renderHostMemoryUserLabels() {
     { rows: [] },
     helpers,
   );
-  const title = document.querySelector(
-    '[data-i18n="core-host-memory-users.title"]',
-  );
-  title.textContent = ZogographI18n.markSource(
-    title,
-    'core-host-memory-users.title',
-    ZogographHostMemoryUsersCard.text('title', helpers),
-  );
+  for (const key of ['title', 'summary']) {
+    const element = document.querySelector(
+      `[data-i18n="core-host-memory-users.${key}"]`,
+    );
+    element.textContent = ZogographI18n.markSource(
+      element,
+      `core-host-memory-users.${key}`,
+      ZogographHostMemoryUsersCard.text(key, helpers),
+    );
+  }
   ZogographI18n.applyRich(
     document.querySelector('[data-i18n-rich="core-host-memory-users.help"]'),
   );
@@ -2359,14 +2363,16 @@ function renderHostSlabCacheLabels() {
     { rows: [] },
     helpers,
   );
-  const title = document.querySelector(
-    '[data-i18n="core-host-slab-caches.title"]',
-  );
-  title.textContent = ZogographI18n.markSource(
-    title,
-    'core-host-slab-caches.title',
-    ZogographHostSlabCachesCard.text('title', helpers),
-  );
+  for (const key of ['title', 'summary']) {
+    const element = document.querySelector(
+      `[data-i18n="core-host-slab-caches.${key}"]`,
+    );
+    element.textContent = ZogographI18n.markSource(
+      element,
+      `core-host-slab-caches.${key}`,
+      ZogographHostSlabCachesCard.text(key, helpers),
+    );
+  }
 }
 
 document.addEventListener('zogograph-i18n-load', renderHostSlabCacheLabels);

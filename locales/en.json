@@ -2545,7 +2545,6 @@
   "ai.chat_ask": "Ask",
   "ai.chat_add_help": "It is working. This goes in now and it reads it on its next turn.",
   "ai.store_open_full": "Open it at full size",
-  "system.changed_title": "What changed underneath",
   "system.showing": "Showing",
   "system.changed_help": "Almost every {{working_yesterday}} turns out to be something changing underneath — a kernel that came with a package update, an OpenSSL bump that moved a default, a PHP point release that deprecated a function. None of it shows in any other chart here, and the machine does not keep a usable note of it either: the package log belongs to root, is not always present, and records what was {{installed}} rather than what is now answering. Every time on this page is when a change was {{noticed}}, not when it happened — this runs when capabilities are checked, so a weekly check turns a Tuesday upgrade into a Sunday event.",
   "system.changed_groups_title": "What changed, by group",

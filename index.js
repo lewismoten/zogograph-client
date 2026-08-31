@@ -3698,6 +3698,33 @@ document.addEventListener(
   renderSystemSnapshotsShellTitle,
 );
 
+function renderChangeHistoryTitle() {
+  const helpers = {
+    target: null,
+    note: () => null,
+    renderTable: () => null,
+    whenSpan: () => '',
+    ago: () => '',
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(
+    ZogographChangeHistoryCard,
+    'core-change-history',
+    {},
+    helpers,
+  );
+  const title = document.querySelector(
+    '[data-i18n="core-change-history.title"]',
+  );
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-change-history.title',
+    ZogographChangeHistoryCard.text('title', helpers),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderChangeHistoryTitle);
+
 /**
  * When the disk is projected to fill, as a date.
  *

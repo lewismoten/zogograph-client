@@ -6,6 +6,7 @@ window.ZogographChangeHistoryCard = {
     helpers: ['target', 'note', 'renderTable', 'whenSpan', 'ago', 'i18n'],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-change-history.title': 'What changed underneath',
         'core-change-history.empty_checked':
           'Nothing has changed in this range. Last checked {{when}}.',
         'core-change-history.empty_unchecked':
@@ -17,6 +18,7 @@ window.ZogographChangeHistoryCard = {
         'core-change-history.by_fingerprint': 'by fingerprint',
       }),
       es: Object.freeze({
+        'core-change-history.title': 'Qué cambió por debajo',
         'core-change-history.empty_checked':
           'No ha cambiado nada en este intervalo. Última comprobación {{when}}.',
         'core-change-history.empty_unchecked':
@@ -28,6 +30,7 @@ window.ZogographChangeHistoryCard = {
         'core-change-history.by_fingerprint': 'por huella digital',
       }),
       hi: Object.freeze({
+        'core-change-history.title': 'नीचे क्या बदला',
         'core-change-history.empty_checked':
           'इस अवधि में कुछ नहीं बदला। आखिरी जाँच {{when}}।',
         'core-change-history.empty_unchecked':
@@ -39,6 +42,7 @@ window.ZogographChangeHistoryCard = {
         'core-change-history.by_fingerprint': 'फिंगरप्रिंट द्वारा',
       }),
       ar: Object.freeze({
+        'core-change-history.title': 'ما الذي تغير في الأسفل',
         'core-change-history.empty_checked':
           'لم يتغير شيء في هذه المدة. آخر فحص {{when}}.',
         'core-change-history.empty_unchecked':
@@ -50,6 +54,7 @@ window.ZogographChangeHistoryCard = {
         'core-change-history.by_fingerprint': 'بالبصمة',
       }),
       zh: Object.freeze({
+        'core-change-history.title': '底层发生了什么变化',
         'core-change-history.empty_checked':
           '此时间范围内没有任何变化。上次检查 {{when}}。',
         'core-change-history.empty_unchecked':
@@ -62,6 +67,14 @@ window.ZogographChangeHistoryCard = {
       }),
     }),
   }),
+
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-change-history.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-change-history.${key}`],
+    );
+  },
 
   render(data, helpers) {
     const { target, note, renderTable, whenSpan, ago, i18n } = helpers;

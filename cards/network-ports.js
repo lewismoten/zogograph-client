@@ -6,6 +6,7 @@ window.ZogographNetworkPortsCard = {
     helpers: ['target', 'note', 'renderTable', 'labelled', 'i18n'],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-network-ports.title': 'Open ports',
         'core-network-ports.public_empty':
           'Nothing is listening on an address reachable from outside.',
         'core-network-ports.empty': 'No listening sockets recorded.',
@@ -22,6 +23,7 @@ window.ZogographNetworkPortsCard = {
         'core-network-ports.stack': 'Stack',
       }),
       es: Object.freeze({
+        'core-network-ports.title': 'Puertos abiertos',
         'core-network-ports.public_empty':
           'No hay nada escuchando en una dirección accesible desde fuera.',
         'core-network-ports.empty': 'No se registraron sockets en escucha.',
@@ -38,6 +40,7 @@ window.ZogographNetworkPortsCard = {
         'core-network-ports.stack': 'Pila',
       }),
       hi: Object.freeze({
+        'core-network-ports.title': 'खुले पोर्ट',
         'core-network-ports.public_empty':
           'बाहर से पहुंचने योग्य पते पर कुछ भी सुन नहीं रहा है।',
         'core-network-ports.empty': 'कोई सुनने वाला सॉकेट दर्ज नहीं है।',
@@ -54,6 +57,7 @@ window.ZogographNetworkPortsCard = {
         'core-network-ports.stack': 'स्टैक',
       }),
       ar: Object.freeze({
+        'core-network-ports.title': 'المنافذ المفتوحة',
         'core-network-ports.public_empty':
           'لا توجد خدمة تستمع على عنوان يمكن الوصول إليه من الخارج.',
         'core-network-ports.empty': 'لم تُسجل مقابس في وضع الاستماع.',
@@ -70,6 +74,7 @@ window.ZogographNetworkPortsCard = {
         'core-network-ports.stack': 'المكدس',
       }),
       zh: Object.freeze({
+        'core-network-ports.title': '开放端口',
         'core-network-ports.public_empty':
           '没有服务正在可从外部访问的地址上监听。',
         'core-network-ports.empty': '未记录监听套接字。',
@@ -87,6 +92,14 @@ window.ZogographNetworkPortsCard = {
       }),
     }),
   }),
+
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-network-ports.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-network-ports.${key}`],
+    );
+  },
 
   render(data, helpers) {
     const { target, note, renderTable, labelled, i18n } = helpers;

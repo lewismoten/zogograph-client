@@ -2360,7 +2360,6 @@
   "action.open_all": "Abrir todo",
   "network.intro": "Todas las demás páginas miden algo que se está agotando — disco, memoria, CPU — y ninguna puede decir por qué. Una máquina al 100 % porque responde cuatro mil consultas DNS por segundo parece exactamente igual que una máquina al 100 % por cualquier otra razón; la diferencia solo se ve en la red.",
   "network.interfaces": "Interfaces",
-  "network.open_ports_title": "Puertos abiertos",
   "network.ports_public_only": "Solo accesibles desde fuera",
   "network.open_ports_help": "Qué está escuchando y qué suele responder en cada puerto. Un número de puerto es una convención, no un hecho: cualquier cosa puede vincularse al 443. Por eso la columna de servicio es la expectativa y la de proceso es la realidad. Cuando no coinciden, esa discrepancia es lo interesante.",
   "network.peers_title": "Quién está conectado",

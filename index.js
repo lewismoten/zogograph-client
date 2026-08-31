@@ -2826,6 +2826,32 @@ function renderTreemapShellLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderTreemapShellLabels);
 
+function renderNetworkPortsTitle() {
+  const helpers = {
+    target: null,
+    note: () => null,
+    renderTable: () => null,
+    labelled: () => '',
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(
+    ZogographNetworkPortsCard,
+    'core-network-ports',
+    {},
+    helpers,
+  );
+  const title = document.querySelector(
+    '[data-i18n="core-network-ports.title"]',
+  );
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-network-ports.title',
+    ZogographNetworkPortsCard.text('title', helpers),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderNetworkPortsTitle);
+
 /**
  * When the disk is projected to fill, as a date.
  *

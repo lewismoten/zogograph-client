@@ -30,6 +30,25 @@ window.ZogographSystemEncryptionShellCard = {
         'core-system-encryption-shell.local_retention': 'Local retention',
         'core-system-encryption-shell.keep_every_copy': 'Keep every copy',
         'core-system-encryption-shell.retention_days': '{{days}} days{{tiers}}',
+        'core-system-encryption-shell.setup_configuration_at_rest':
+          'Setup configuration at rest',
+        'core-system-encryption-shell.encrypted_verified':
+          'Encrypted and verified',
+        'core-system-encryption-shell.verification_failed':
+          'Verification failed',
+        'core-system-encryption-shell.private_permissions_only':
+          'Private permissions only',
+        'core-system-encryption-shell.live_sqlcipher': 'Live SQLCipher option',
+        'core-system-encryption-shell.driver_detected_inactive':
+          'Driver detected; provider remains inactive',
+        'core-system-encryption-shell.driver_not_detected':
+          'Driver not detected',
+        'core-system-encryption-shell.free_space_unavailable':
+          'free space unavailable',
+        'core-system-encryption-shell.free_space': '{{amount}} free',
+        'core-system-encryption-shell.space_next_seal': 'Space for next seal',
+        'core-system-encryption-shell.space_estimated':
+          '{{amount}} estimated · {{free}}',
       }),
       es: Object.freeze({
         'core-system-encryption-shell.title': 'Protección de datos',
@@ -60,6 +79,27 @@ window.ZogographSystemEncryptionShellCard = {
         'core-system-encryption-shell.keep_every_copy':
           'Conservar todas las copias',
         'core-system-encryption-shell.retention_days': '{{days}} días{{tiers}}',
+        'core-system-encryption-shell.setup_configuration_at_rest':
+          'Configuración de Setup en reposo',
+        'core-system-encryption-shell.encrypted_verified':
+          'Cifrada y verificada',
+        'core-system-encryption-shell.verification_failed':
+          'Verificación fallida',
+        'core-system-encryption-shell.private_permissions_only':
+          'Solo permisos privados',
+        'core-system-encryption-shell.live_sqlcipher':
+          'Opción SQLCipher activa',
+        'core-system-encryption-shell.driver_detected_inactive':
+          'Controlador detectado; el proveedor sigue inactivo',
+        'core-system-encryption-shell.driver_not_detected':
+          'Controlador no detectado',
+        'core-system-encryption-shell.free_space_unavailable':
+          'espacio libre no disponible',
+        'core-system-encryption-shell.free_space': '{{amount}} libres',
+        'core-system-encryption-shell.space_next_seal':
+          'Espacio para el próximo sellado',
+        'core-system-encryption-shell.space_estimated':
+          '{{amount}} estimados · {{free}}',
       }),
       hi: Object.freeze({
         'core-system-encryption-shell.title': 'डेटा सुरक्षा',
@@ -85,6 +125,23 @@ window.ZogographSystemEncryptionShellCard = {
         'core-system-encryption-shell.local_retention': 'स्थानीय प्रतिधारण',
         'core-system-encryption-shell.keep_every_copy': 'हर प्रति रखें',
         'core-system-encryption-shell.retention_days': '{{days}} दिन{{tiers}}',
+        'core-system-encryption-shell.setup_configuration_at_rest':
+          'स्थिर सेटअप कॉन्फ़िगरेशन',
+        'core-system-encryption-shell.encrypted_verified':
+          'एन्क्रिप्टेड और सत्यापित',
+        'core-system-encryption-shell.verification_failed': 'सत्यापन विफल',
+        'core-system-encryption-shell.private_permissions_only':
+          'केवल निजी अनुमतियां',
+        'core-system-encryption-shell.live_sqlcipher': 'लाइव SQLCipher विकल्प',
+        'core-system-encryption-shell.driver_detected_inactive':
+          'ड्राइवर मिला; प्रदाता निष्क्रिय है',
+        'core-system-encryption-shell.driver_not_detected': 'ड्राइवर नहीं मिला',
+        'core-system-encryption-shell.free_space_unavailable':
+          'खाली स्थान उपलब्ध नहीं',
+        'core-system-encryption-shell.free_space': '{{amount}} खाली',
+        'core-system-encryption-shell.space_next_seal': 'अगले सील के लिए स्थान',
+        'core-system-encryption-shell.space_estimated':
+          '{{amount}} अनुमानित · {{free}}',
       }),
       ar: Object.freeze({
         'core-system-encryption-shell.title': 'حماية البيانات',
@@ -111,6 +168,23 @@ window.ZogographSystemEncryptionShellCard = {
         'core-system-encryption-shell.keep_every_copy': 'احتفظ بكل نسخة',
         'core-system-encryption-shell.retention_days':
           '{{days}} يوماً{{tiers}}',
+        'core-system-encryption-shell.setup_configuration_at_rest':
+          'تكوين الإعداد في وضع السكون',
+        'core-system-encryption-shell.encrypted_verified': 'مشفر ومتحقق منه',
+        'core-system-encryption-shell.verification_failed': 'فشل التحقق',
+        'core-system-encryption-shell.private_permissions_only':
+          'أذونات خاصة فقط',
+        'core-system-encryption-shell.live_sqlcipher': 'خيار SQLCipher المباشر',
+        'core-system-encryption-shell.driver_detected_inactive':
+          'اكتُشف برنامج التشغيل؛ يظل الموفر غير نشط',
+        'core-system-encryption-shell.driver_not_detected':
+          'لم يُكتشف برنامج التشغيل',
+        'core-system-encryption-shell.free_space_unavailable':
+          'المساحة الحرة غير متاحة',
+        'core-system-encryption-shell.free_space': '{{amount}} خالية',
+        'core-system-encryption-shell.space_next_seal': 'المساحة للختم التالي',
+        'core-system-encryption-shell.space_estimated':
+          '{{amount}} مقدرة · {{free}}',
       }),
       zh: Object.freeze({
         'core-system-encryption-shell.title': '数据保护',
@@ -135,6 +209,20 @@ window.ZogographSystemEncryptionShellCard = {
         'core-system-encryption-shell.local_retention': '本地保留',
         'core-system-encryption-shell.keep_every_copy': '保留每个副本',
         'core-system-encryption-shell.retention_days': '{{days}} 天{{tiers}}',
+        'core-system-encryption-shell.setup_configuration_at_rest':
+          '静态设置配置',
+        'core-system-encryption-shell.encrypted_verified': '已加密并验证',
+        'core-system-encryption-shell.verification_failed': '验证失败',
+        'core-system-encryption-shell.private_permissions_only': '仅私有权限',
+        'core-system-encryption-shell.live_sqlcipher': '实时 SQLCipher 选项',
+        'core-system-encryption-shell.driver_detected_inactive':
+          '已检测到驱动程序；提供程序仍未激活',
+        'core-system-encryption-shell.driver_not_detected': '未检测到驱动程序',
+        'core-system-encryption-shell.free_space_unavailable': '可用空间不可用',
+        'core-system-encryption-shell.free_space': '{{amount}} 可用',
+        'core-system-encryption-shell.space_next_seal': '下次密封所需空间',
+        'core-system-encryption-shell.space_estimated':
+          '预计 {{amount}} · {{free}}',
       }),
     }),
   }),

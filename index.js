@@ -15838,64 +15838,33 @@ function renderEncryptionStatus(data) {
   ];
   if (data.setup_configuration)
     overview.push([
-      ZogographI18n.t(
-        'encryption.setup_configuration_at_rest',
-        {},
-        'Setup configuration at rest',
-      ),
+      encryptionText('setup_configuration_at_rest'),
       data.setup_configuration.state === 'ok'
-        ? ZogographI18n.t(
-            'encryption.encrypted_verified',
-            {},
-            'Encrypted and verified',
-          )
+        ? encryptionText('encrypted_verified')
         : data.setup_configuration.state === 'error'
-          ? ZogographI18n.t(
-              'encryption.verification_failed',
-              {},
-              'Verification failed',
-            )
-          : ZogographI18n.t(
-              'encryption.private_permissions_only',
-              {},
-              'Private permissions only',
-            ),
+          ? encryptionText('verification_failed')
+          : encryptionText('private_permissions_only'),
     ]);
   if (data.sqlcipher)
     overview.push([
-      ZogographI18n.t('encryption.live_sqlcipher', {}, 'Live SQLCipher option'),
+      encryptionText('live_sqlcipher'),
       data.sqlcipher.state === 'driver-ready'
-        ? ZogographI18n.t(
-            'encryption.driver_detected_inactive',
-            {},
-            'Driver detected; provider remains inactive',
-          )
-        : ZogographI18n.t(
-            'encryption.driver_not_detected',
-            {},
-            'Driver not detected',
-          ),
+        ? encryptionText('driver_detected_inactive')
+        : encryptionText('driver_not_detected'),
     ]);
   if (data.storage_estimate?.required_bytes) {
     const free =
       data.storage_estimate.free_bytes == null
-        ? ZogographI18n.t(
-            'encryption.free_space_unavailable',
-            {},
-            'free space unavailable',
-          )
-        : ZogographI18n.t(
-            'encryption.free_space',
-            { amount: humanBytes(data.storage_estimate.free_bytes) },
-            '{{amount}} free',
-          );
+        ? encryptionText('free_space_unavailable')
+        : encryptionText('free_space', {
+            amount: humanBytes(data.storage_estimate.free_bytes),
+          });
     overview.push([
-      ZogographI18n.t('encryption.space_next_seal', {}, 'Space for next seal'),
-      ZogographI18n.t(
-        'encryption.space_estimated',
-        { amount: humanBytes(data.storage_estimate.required_bytes), free },
-        '{{amount}} estimated · {{free}}',
-      ),
+      encryptionText('space_next_seal'),
+      encryptionText('space_estimated', {
+        amount: humanBytes(data.storage_estimate.required_bytes),
+        free,
+      }),
     ]);
   }
   if (data.mode === 'sealed_copies_local' && data.policy) {

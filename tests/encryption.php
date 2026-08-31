@@ -31,6 +31,9 @@ $opened = $root . '/opened.db';
 try {
     $api = file_get_contents(__DIR__ . '/../api.php');
     $dashboard = file_get_contents(__DIR__ . '/../index.js');
+    $encryptionShell = file_get_contents(
+        __DIR__ . '/../cards/system-encryption-shell.js',
+    );
     $page = file_get_contents(__DIR__ . '/../index.html');
     $rotation = file_get_contents(
         __DIR__ . '/../scripts/rotate-sealed-copies.php',
@@ -67,8 +70,8 @@ try {
                 $api,
                 "'setup_configuration' => setupStoreConfigurationProtectionForSettings",
             ) &&
-            $dashboard !== false &&
-            str_contains($dashboard, 'Setup configuration at rest'),
+            $encryptionShell !== false &&
+            str_contains($encryptionShell, 'Setup configuration at rest'),
         'Protection dashboard does not report setup configuration at-rest status',
     );
     encryptionExpect(
@@ -85,9 +88,7 @@ try {
                 'Verified encrypted copies protect backup artifacts',
             ) &&
             str_contains(
-                (string) file_get_contents(
-                    dirname(__DIR__) . '/cards/system-encryption-shell.js',
-                ),
+                $encryptionShell,
                 'Operator-declared host/volume coverage (not verified)',
             ) &&
             str_contains($dashboard, 'Recovery-drill review') &&

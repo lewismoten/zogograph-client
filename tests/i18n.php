@@ -359,6 +359,8 @@ i18nExpect(
         $english['fetch.asking'],
         $english['fetch.no_response'],
         $english['fetch.response'],
+        $english['fetch.use_page'],
+        $english['fetch.enter_address'],
     ),
     'fetch response locales belong to its card package',
 );

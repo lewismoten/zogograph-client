@@ -3675,6 +3675,29 @@ function renderSystemMonitorShellTitle() {
 
 document.addEventListener('zogograph-i18n-load', renderSystemMonitorShellTitle);
 
+function renderSystemSnapshotsShellTitle() {
+  const helpers = { i18n: ZogographI18n };
+  renderCoreCardPackage(
+    ZogographSystemSnapshotsShellCard,
+    'core-system-snapshots-shell',
+    {},
+    helpers,
+  );
+  const title = document.querySelector(
+    '[data-i18n="core-system-snapshots-shell.title"]',
+  );
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-system-snapshots-shell.title',
+    ZogographSystemSnapshotsShellCard.text('title', helpers),
+  );
+}
+
+document.addEventListener(
+  'zogograph-i18n-load',
+  renderSystemSnapshotsShellTitle,
+);
+
 /**
  * When the disk is projected to fill, as a date.
  *

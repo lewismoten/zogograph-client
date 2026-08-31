@@ -2560,7 +2560,6 @@
   "notes.no_page_charts": "There are no charts on this page.",
   "notes.no_page_charts_help": "The note itself is saved either way, and a mark on this page will show on any chart added here later.",
   "notes.help": "Every chart here answers {{what}}. None of them answer {{why}}, and the why is almost never in the data — it is that somebody upgraded PHP on the Tuesday, or that the backup window moved. Six months later the chart still shows the step and nobody remembers the reason. A note is pinned to a moment and drawn on the charts it belongs to.",
-  "system.snapshots_title": "Database copies",
   "system.snapshots_help": "Forensic copies, written beside the databases and deliberately outside every retention rule — the point of one is to survive the roll-up that would otherwise discard the readings it is about. Which also means nothing expires them, so they are listed here for somebody to look at.",
   "system.snapshot_empty": "No copies have been made. One is written when a note asks for it — a consistent copy of both databases, for looking at after the readings it is about have been rolled up.",
   "system.snapshot_file": "File",

@@ -50,6 +50,7 @@ export default [
         ZogographSystemPackageRuntimeShellCard: 'readonly',
         ZogographSystemHealthShellCard: 'readonly',
         ZogographSystemMonitorShellCard: 'readonly',
+        ZogographSystemSnapshotsShellCard: 'readonly',
         ZogographFetchHeadersCard: 'readonly',
         ZogographFetchMetadataCard: 'readonly',
         ZogographFetchJsonCard: 'readonly',

@@ -2069,7 +2069,6 @@
   "backup.other_title": "Otras posibles copias de seguridad",
   "backup.jetbackup_title": "JetBackup",
   "backup.jetbackup_help": "La información que el sistema de copias de seguridad ofrece sobre sus propias copias es el único lugar donde se encuentra la cuenta y la fecha tras un directorio llamado files0000000005. Requiere la herramienta de línea de comandos JetBackup y normalmente ejecutarse como root.",
-  "host.memory_title": "Memoria",
   "network.interface": "Interfaz",
   "network.loopback": " · bucle local, nunca sale de la máquina",
   "network.state": "Estado",

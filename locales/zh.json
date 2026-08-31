@@ -2066,7 +2066,6 @@
   "backup.other_title": "其他可能的备份",
   "backup.jetbackup_title": "JetBackup",
   "backup.jetbackup_help": "备份系统对其自身备份的说明，是查找名为 files0000000005 的目录背后账户和日期的唯一途径。它需要 JetBackup 命令行工具，通常还需要以 root 身份运行。",
-  "host.memory_title": "内存",
   "network.interface": "接口",
   "network.loopback": " · 回环，不会离开此机器",
   "network.state": "状态",

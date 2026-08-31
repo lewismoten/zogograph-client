@@ -2084,7 +2084,6 @@
   "backup.other_title": "Other probable backups",
   "backup.jetbackup_title": "JetBackup",
   "backup.jetbackup_help": "What the backup system says about its own backups is the only place the account and date behind a directory called files0000000005 can be found. It needs the JetBackup command line tool and usually needs running as root.",
-  "host.memory_title": "Memory",
   "network.interface": "Interface",
   "network.loopback": " · loopback, never leaves the machine",
   "network.state": "State",

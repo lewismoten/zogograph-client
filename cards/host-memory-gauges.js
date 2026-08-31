@@ -6,6 +6,7 @@ window.ZogographHostMemoryGaugesCard = {
     helpers: ['target', 'buildGauge', 'humanBytes', 'i18n'],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-host-memory-gauges.title': 'Memory',
         'core-host-memory-gauges.memory_committed': 'Memory committed',
         'core-host-memory-gauges.swap_used': 'Swap used',
         'core-host-memory-gauges.account_memory_share': "This account's share",
@@ -26,6 +27,7 @@ window.ZogographHostMemoryGaugesCard = {
           'no swap configured on this machine',
       }),
       es: Object.freeze({
+        'core-host-memory-gauges.title': 'Memoria',
         'core-host-memory-gauges.memory_committed': 'Memoria comprometida',
         'core-host-memory-gauges.swap_used': 'Intercambio usado',
         'core-host-memory-gauges.account_memory_share': 'Parte de esta cuenta',
@@ -46,6 +48,7 @@ window.ZogographHostMemoryGaugesCard = {
           'no hay intercambio configurado en esta máquina',
       }),
       hi: Object.freeze({
+        'core-host-memory-gauges.title': 'मेमोरी',
         'core-host-memory-gauges.memory_committed': 'प्रतिबद्ध मेमोरी',
         'core-host-memory-gauges.swap_used': 'उपयोग किया गया स्वैप',
         'core-host-memory-gauges.account_memory_share': 'इस खाते का हिस्सा',
@@ -66,6 +69,7 @@ window.ZogographHostMemoryGaugesCard = {
           'इस मशीन पर कोई स्वैप कॉन्फ़िगर नहीं है',
       }),
       ar: Object.freeze({
+        'core-host-memory-gauges.title': 'الذاكرة',
         'core-host-memory-gauges.memory_committed': 'الذاكرة الملتزم بها',
         'core-host-memory-gauges.swap_used': 'التبديل المستخدم',
         'core-host-memory-gauges.account_memory_share': 'حصة هذا الحساب',
@@ -86,6 +90,7 @@ window.ZogographHostMemoryGaugesCard = {
           'لا توجد مساحة تبديل مهيأة على هذا الجهاز',
       }),
       zh: Object.freeze({
+        'core-host-memory-gauges.title': '内存',
         'core-host-memory-gauges.memory_committed': '已提交内存',
         'core-host-memory-gauges.swap_used': '已用交换空间',
         'core-host-memory-gauges.account_memory_share': '此账户的份额',
@@ -105,6 +110,13 @@ window.ZogographHostMemoryGaugesCard = {
       }),
     }),
   }),
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-host-memory-gauges.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-host-memory-gauges.${key}`],
+    );
+  },
   render(input, helpers) {
     const { sample, swapUsed, swap, accountVitals } = input;
     const { target, buildGauge, humanBytes, i18n } = helpers;

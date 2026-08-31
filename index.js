@@ -13672,11 +13672,9 @@ function renderRdns(data) {
           render: (row) => {
             const again = document.createElement('button');
             again.className = 'link';
-            again.textContent = ZogographI18n.t(
-              'action.ask_again',
-              {},
-              'Ask again',
-            );
+            again.textContent = ZogographNetworkRdnsCard.text('ask_again', {
+              i18n: ZogographI18n,
+            });
             again.title = ZogographI18n.t('network.rdns_ask_again_tip');
             again.addEventListener('click', async () => {
               again.disabled = true;

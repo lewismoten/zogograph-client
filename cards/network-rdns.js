@@ -33,6 +33,7 @@ window.ZogographNetworkRdnsCard = {
         'core-network-rdns.looked_up': '{{count, number}} addresses looked up',
         'core-network-rdns.resolve_next': 'Resolve the next one now',
         'core-network-rdns.lookup': 'Look these up',
+        'core-network-rdns.ask_again': 'Ask again',
         'core-network-rdns.placeholder':
           '78.174.88.104, 2001:db8::1 — or paste a whole column',
       }),
@@ -54,6 +55,7 @@ window.ZogographNetworkRdnsCard = {
           '{{count, number}} direcciones consultadas',
         'core-network-rdns.resolve_next': 'Resolver la siguiente ahora',
         'core-network-rdns.lookup': 'Buscar estas',
+        'core-network-rdns.ask_again': 'Preguntar de nuevo',
         'core-network-rdns.placeholder':
           '78.174.88.104, 2001:db8::1 — o pegue una columna completa',
       }),
@@ -74,6 +76,7 @@ window.ZogographNetworkRdnsCard = {
         'core-network-rdns.looked_up': '{{count, number}} पते देखे गए',
         'core-network-rdns.resolve_next': 'अगले को अभी रिज़ॉल्व करें',
         'core-network-rdns.lookup': 'इन्हें खोजें',
+        'core-network-rdns.ask_again': 'फिर से पूछें',
         'core-network-rdns.placeholder':
           '78.174.88.104, 2001:db8::1 — या पूरा स्तंभ चिपकाएँ',
       }),
@@ -94,6 +97,7 @@ window.ZogographNetworkRdnsCard = {
         'core-network-rdns.looked_up': 'تم البحث عن {{count, number}} عناوين',
         'core-network-rdns.resolve_next': 'حل التالي الآن',
         'core-network-rdns.lookup': 'ابحث عن هذه',
+        'core-network-rdns.ask_again': 'اطلب مرة أخرى',
         'core-network-rdns.placeholder':
           '78.174.88.104، 2001:db8::1 — أو الصق عمودًا كاملًا',
       }),
@@ -114,6 +118,7 @@ window.ZogographNetworkRdnsCard = {
         'core-network-rdns.looked_up': '已查询 {{count, number}} 个地址',
         'core-network-rdns.resolve_next': '立即解析下一个',
         'core-network-rdns.lookup': '查询这些',
+        'core-network-rdns.ask_again': '再次请求',
         'core-network-rdns.placeholder':
           '78.174.88.104, 2001:db8::1 — 或粘贴整列',
       }),
@@ -323,7 +328,11 @@ window.ZogographNetworkRdnsCard = {
             render: (row) => {
               const again = document.createElement('button');
               again.className = 'link';
-              again.textContent = t('action.ask_again', {}, 'Ask again');
+              again.textContent = t(
+                'core-network-rdns.ask_again',
+                {},
+                'Ask again',
+              );
               again.title = t('network.rdns_ask_again_tip');
               again.addEventListener('click', async () => {
                 again.disabled = true;

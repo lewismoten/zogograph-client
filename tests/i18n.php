@@ -2034,6 +2034,21 @@ i18nExpect(
     'host-memory PSS labels do not belong to their core packages',
 );
 i18nExpect(
+    !isset(
+        $english['peer.table_cpu'],
+        $english['peer.table_memory'],
+        $english['peer.table_disk_free'],
+        $english['peer.load'],
+    ) &&
+        isset(
+            $coreCardEnglish['core-busy-moments.cpu'],
+            $coreCardEnglish['core-busy-moments.memory'],
+            $coreCardEnglish['core-room-chart.chart_disk_free'],
+            $coreCardEnglish['core-overview-gauges.load'],
+        ),
+    'chart and gauge labels do not belong to the peer root catalog',
+);
+i18nExpect(
     $page !== false &&
         str_contains($page, 'src="cards/action-summary.js"') &&
         $actionSummaryCard !== false &&

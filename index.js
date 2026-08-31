@@ -2054,6 +2054,27 @@ function renderStorageScanLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderStorageScanLabels);
 
+function renderTypePieLabels() {
+  const helpers = {
+    withCategories: false,
+    canvas: null,
+    noteTarget: null,
+    typeColor: () => '',
+    categoryColors: {},
+    drawPieChart: () => null,
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(ZogographTypePieCard, 'core-type-pie', {}, helpers);
+  const title = document.querySelector('[data-i18n="core-type-pie.title"]');
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-type-pie.title',
+    ZogographTypePieCard.text('title', helpers),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderTypePieLabels);
+
 /**
  * When the disk is projected to fill, as a date.
  *

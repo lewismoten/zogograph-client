@@ -14,6 +14,7 @@ window.ZogographTypePieCard = {
     ],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-type-pie.title': 'What the space is made of',
         'core-type-pie.not_measured_yet': 'Not measured yet',
         'core-type-pie.watched_category': '{{name}} (watched)',
         'core-type-pie.types_categories_help':
@@ -22,6 +23,7 @@ window.ZogographTypePieCard = {
           'Every file counted once, so the slices are the whole account.',
       }),
       es: Object.freeze({
+        'core-type-pie.title': 'De qué está hecho el espacio',
         'core-type-pie.not_measured_yet': 'Aún no se ha medido',
         'core-type-pie.watched_category': '{{name}} (vigilado)',
         'core-type-pie.types_categories_help':
@@ -30,6 +32,7 @@ window.ZogographTypePieCard = {
           'Cada archivo se cuenta una vez, por lo que las porciones representan toda la cuenta.',
       }),
       hi: Object.freeze({
+        'core-type-pie.title': 'जगह किससे बनी है',
         'core-type-pie.not_measured_yet': 'अभी मापा नहीं गया',
         'core-type-pie.watched_category': '{{name}} (निगरानी में)',
         'core-type-pie.types_categories_help':
@@ -38,6 +41,7 @@ window.ZogographTypePieCard = {
           'हर फ़ाइल एक बार गिनी जाती है, इसलिए स्लाइस पूरा खाता हैं।',
       }),
       ar: Object.freeze({
+        'core-type-pie.title': 'ممّ تتكون المساحة',
         'core-type-pie.not_measured_yet': 'لم يُقَس بعد',
         'core-type-pie.watched_category': '{{name}} (مراقَب)',
         'core-type-pie.types_categories_help':
@@ -46,6 +50,7 @@ window.ZogographTypePieCard = {
           'يُحسب كل ملف مرة واحدة، ولذلك تمثل الشرائح الحساب كله.',
       }),
       zh: Object.freeze({
+        'core-type-pie.title': '空间由什么组成',
         'core-type-pie.not_measured_yet': '尚未测量',
         'core-type-pie.watched_category': '{{name}}（已监视）',
         'core-type-pie.types_categories_help':
@@ -55,6 +60,13 @@ window.ZogographTypePieCard = {
       }),
     }),
   }),
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-type-pie.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-type-pie.${key}`],
+    );
+  },
   render(scans, helpers) {
     const {
       withCategories,

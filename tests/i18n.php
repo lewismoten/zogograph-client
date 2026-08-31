@@ -457,6 +457,11 @@ i18nExpect(
         $english['ai.settings.forget_key_confirm'],
         $english['ai.settings.forget_key_title'],
         $english['ai.settings.sign_in_required'],
+        $english['ai.settings.daily_spend_label'],
+        $english['ai.settings.daily_spend_help'],
+        $english['ai.settings.monthly_spend_label'],
+        $english['ai.settings.monthly_spend_help'],
+        $english['ai.settings.shared_usage'],
     ),
     'AI card controls belong to their card packages',
 );

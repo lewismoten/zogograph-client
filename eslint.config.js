@@ -161,6 +161,7 @@ export default [
         ZogographAiConnectionTestCard: 'readonly',
         ZogographAiSettingsStatusCard: 'readonly',
         ZogographAiSettingsSignInCard: 'readonly',
+        ZogographAiSharedBudgetCard: 'readonly',
         ZogographAiKeyForgetCard: 'readonly',
         ZogographAiEnableToggleCard: 'readonly',
         ZogographAiReasoningEffortCard: 'readonly',

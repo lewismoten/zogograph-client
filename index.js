@@ -5855,57 +5855,14 @@ function renderAiSettings(data) {
     ),
   );
 
-  for (const [id, labelKey, label, value, noteKey, note_] of [
-    [
-      'aiDailyCents',
-      'daily_spend_label',
-      'Shared daily spend (cents)',
-      data.daily_cents,
-      'daily_spend_help',
-      'Across every conversation and automated alert investigation. Zero means no daily cap.',
-    ],
-    [
-      'aiSharedMonthlyCents',
-      'monthly_spend_label',
-      'Shared monthly spend (cents)',
-      data.monthly_cents,
-      'monthly_spend_help',
-      'UTC calendar month, across every conversation and automated alert investigation. Zero means no monthly cap.',
-    ],
-  ]) {
-    const input = document.createElement('input');
-    input.type = 'number';
-    input.id = id;
-    input.min = '0';
-    input.step = '1';
-    input.className = 'days';
-    input.value = String(value || 0);
-    limits.appendChild(
-      fieldRow(
-        aiSettingsText(labelKey, label),
-        input,
-        aiSettingsText(noteKey, note_),
-      ),
-    );
-  }
-  const shared = data.shared_budget || {};
-  const sharedUsage = ['daily', 'monthly'].flatMap((period) => {
-    const budget = shared[period];
-    if (!budget || !Number(budget.limit_millicents)) return [];
-    return [
-      `${period}: ${(Number(budget.used_millicents) / 1000).toFixed(2)} of ${(Number(budget.limit_millicents) / 1000).toFixed(2)} cents`,
-    ];
-  });
-  if (sharedUsage.length)
-    limits.appendChild(
-      note(
-        aiSettingsText(
-          'shared_usage',
-          `Shared AI usage — ${sharedUsage.join('; ')}.`,
-          { usage: sharedUsage.join('; ') },
-        ),
-      ),
-    );
+  limits.append(
+    ...renderCoreCardPackage(
+      ZogographAiSharedBudgetCard,
+      'core-ai-shared-budget',
+      data,
+      { fieldRow, note, i18n: ZogographI18n },
+    ),
+  );
 
   pages.limits.push(
     section(

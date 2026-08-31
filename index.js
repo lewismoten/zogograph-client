@@ -1097,36 +1097,24 @@ async function refreshCpu() {
       $('cpuBusyChart'),
       data.series ?? [],
       [
-        { key: 'busy', label: ZogographI18n.t('cpu.busy', {}, 'Busy') },
+        { key: 'busy', label: 'Busy' },
         {
           key: 'monitoring_cpu_percent',
-          label: ZogographI18n.t('cpu.monitoring_tree', {}, 'Monitoring tree'),
+          label: 'Monitoring tree',
         },
         {
           key: 'workload_cpu_percent',
-          label: ZogographI18n.t(
-            'cpu.workload_excluding_monitor',
-            {},
-            'Workload (excl. monitor)',
-          ),
+          label: 'Workload (excl. monitor)',
         },
-        { key: 'user', label: ZogographI18n.t('cpu.userland', {}, 'Userland') },
-        { key: 'system', label: ZogographI18n.t('cpu.kernel', {}, 'Kernel') },
+        { key: 'user', label: 'Userland' },
+        { key: 'system', label: 'Kernel' },
         {
           key: 'iowait',
-          label: ZogographI18n.t(
-            'cpu.waiting_for_storage',
-            {},
-            'Waiting for storage',
-          ),
+          label: 'Waiting for storage',
         },
         {
           key: 'steal',
-          label: ZogographI18n.t(
-            'cpu.stolen_by_host',
-            {},
-            'Stolen by the host',
-          ),
+          label: 'Stolen by the host',
         },
       ],
       {

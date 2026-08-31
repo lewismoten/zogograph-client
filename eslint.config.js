@@ -116,6 +116,7 @@ export default [
         ZogographProcessTrendCard: 'readonly',
         ZogographProcessListCard: 'readonly',
         ZogographTerminalBufferCard: 'readonly',
+        ZogographTerminalShellCard: 'readonly',
         ZogographTerminalSessionsCard: 'readonly',
         ZogographTerminalSessionLogCard: 'readonly',
         ZogographTerminalCopyControlsCard: 'readonly',

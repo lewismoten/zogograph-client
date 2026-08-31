@@ -3471,6 +3471,31 @@ function renderTerminalSessionLogTitle() {
 
 document.addEventListener('zogograph-i18n-load', renderTerminalSessionLogTitle);
 
+function renderTerminalShellLabels() {
+  const helpers = { i18n: ZogographI18n };
+  renderCoreCardPackage(
+    ZogographTerminalShellCard,
+    'core-terminal-shell',
+    {},
+    helpers,
+  );
+  const title = document.querySelector(
+    '[data-i18n="core-terminal-shell.title"]',
+  );
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-terminal-shell.title',
+    ZogographTerminalShellCard.text('title', helpers),
+  );
+  for (const key of ['help', 'interactive_help']) {
+    ZogographI18n.applyRich(
+      document.querySelector(`[data-i18n-rich="core-terminal-shell.${key}"]`),
+    );
+  }
+}
+
+document.addEventListener('zogograph-i18n-load', renderTerminalShellLabels);
+
 /**
  * When the disk is projected to fill, as a date.
  *

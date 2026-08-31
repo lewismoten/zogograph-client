@@ -128,6 +128,7 @@
     <script src="cards/process-trend.js" defer></script>
     <script src="cards/process-list.js" defer></script>
     <script src="cards/terminal-buffer.js" defer></script>
+    <script src="cards/terminal-shell.js" defer></script>
     <script src="cards/terminal-sessions.js" defer></script>
     <script src="cards/terminal-session-log.js" defer></script>
     <script src="cards/terminal-copy-controls.js" defer></script>
@@ -4527,7 +4528,7 @@
         <section class="view" data-view="sys-terminal" hidden>
           <section class="panel" id="terminalPanel">
             <div class="panel-head">
-              <h2 data-i18n="terminal.title">Terminal</h2>
+              <h2 data-i18n="core-terminal-shell.title">Terminal</h2>
               <div class="panel-controls">
                 <button
                   id="terminalStop"
@@ -4539,7 +4540,10 @@
                 </button>
               </div>
             </div>
-            <p class="muted small sub-note" data-i18n-rich="terminal.help">
+            <p
+              class="muted small sub-note"
+              data-i18n-rich="core-terminal-shell.help"
+            >
               This runs what you type, as the user the web server runs as, and
               shows the output. Be clear-eyed about what that means: anybody who
               has the dashboard password has this, so it stays off until
@@ -4554,7 +4558,7 @@
             </p>
             <p
               class="muted small sub-note"
-              data-i18n-rich="terminal.interactive_help"
+              data-i18n-rich="core-terminal-shell.interactive_help"
             >
               It is a transcript, not a screen. Colour, bold, tabs and progress
               lines that rewrite themselves all render. Text editors such as

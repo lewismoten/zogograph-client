@@ -223,6 +223,7 @@
     <script src="cards/chat-restart.js" defer></script>
     <script src="cards/chat-extend-limit.js" defer></script>
     <script src="cards/chat-context.js" defer></script>
+    <script src="cards/quick-actions.js" defer></script>
     <script src="cards/chat-cost.js" defer></script>
     <script src="cards/chat-summary-marker.js" defer></script>
     <script src="cards/chat-summary-dialog.js" defer></script>
@@ -4731,13 +4732,25 @@
   -->
       <div class="corner-menu" id="cornerMenu">
         <div class="corner-choices" id="cornerChoices" hidden>
-          <button type="button" id="cornerDiagnose" data-i18n="quick.diagnose">
+          <button
+            type="button"
+            id="cornerDiagnose"
+            data-i18n="core-quick-actions.diagnose"
+          >
             ⌁ Run diagnosis
           </button>
-          <button type="button" id="cornerNote" data-i18n="quick.write_note">
+          <button
+            type="button"
+            id="cornerNote"
+            data-i18n="core-quick-actions.write_note"
+          >
             ✎ Write a note
           </button>
-          <button type="button" id="cornerChat" data-i18n="quick.ask_assistant">
+          <button
+            type="button"
+            id="cornerChat"
+            data-i18n="core-quick-actions.ask_assistant"
+          >
             ✦ Ask assistant
           </button>
         </div>
@@ -4745,11 +4758,11 @@
           id="noteButton"
           class="note-button"
           title="Open quick actions"
-          data-i18n-title="quick.open_title"
+          data-i18n-title="core-quick-actions.open_title"
           aria-haspopup="true"
           aria-expanded="false"
           aria-label="Open quick actions"
-          data-i18n-aria-label="quick.open_title"
+          data-i18n-aria-label="core-quick-actions.open_title"
         >
           ☰
         </button>

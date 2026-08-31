@@ -11,8 +11,38 @@ function i18nCardSource(string|false $source): string|false
     return $source === false ? false : str_replace("'", '"', $source);
 }
 $cardFiles = glob(dirname(__DIR__) . '/cards/*.js') ?: [];
+$coreCardEnglish = [];
+$coreCardLocaleKeys = array_fill_keys(['en', 'es', 'hi', 'ar', 'zh'], []);
 foreach ($cardFiles as $cardFile) {
     $cardSource = file_get_contents($cardFile);
+    foreach (array_keys($coreCardLocaleKeys) as $locale) {
+        if (
+            preg_match(
+                '/\\n\\s*' .
+                    $locale .
+                    ': Object\\.freeze\\(\\{(.*?)\\n\\s*\\}\\),/s',
+                (string) $cardSource,
+                $localeCatalog,
+            )
+        ) {
+            preg_match_all("/'([^']+)'\\s*:/", $localeCatalog[1], $localeKeys);
+            foreach ($localeKeys[1] ?? [] as $localeKey) {
+                $coreCardLocaleKeys[$locale][$localeKey] = true;
+            }
+        }
+    }
+    if (
+        preg_match(
+            '/en:\\s*Object\\.freeze\\(\\{(.*?)\\}\\),\\s*es:/s',
+            (string) $cardSource,
+            $englishCatalog,
+        )
+    ) {
+        preg_match_all("/'([^']+)'\\s*:/", $englishCatalog[1], $englishKeys);
+        foreach ($englishKeys[1] ?? [] as $englishKey) {
+            $coreCardEnglish[$englishKey] = true;
+        }
+    }
     preg_match("/id:\\s*'([^']+)'/", (string) $cardSource, $cardId);
     i18nExpect(
         $cardSource !== false &&
@@ -2864,7 +2894,7 @@ preg_match_all(
 );
 foreach (array_unique($pageKeys[1] ?? []) as $key) {
     i18nExpect(
-        isset($english[$key]),
+        isset($english[$key]) || isset($coreCardEnglish[$key]),
         "dashboard i18n attribute key $key has no English fallback",
     );
 }
@@ -3494,7 +3524,10 @@ foreach (['en-US', 'en-GB', 'es', 'hi', 'zh', 'ar'] as $locale) {
         i18nExpect(
             array_diff(
                 array_unique($pageKeys[1] ?? []),
-                array_keys($catalog),
+                array_merge(
+                    array_keys($catalog),
+                    array_keys($coreCardLocaleKeys[$locale] ?? []),
+                ),
             ) === [],
             "locale catalog $locale falls back to English for a visible dashboard label",
         );

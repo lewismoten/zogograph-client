@@ -5749,6 +5749,31 @@ function renderAiDataPageShell() {
 }
 document.addEventListener('zogograph-i18n-load', renderAiDataPageShell);
 
+function renderQuickActions() {
+  const labels = renderCoreCardPackage(
+    ZogographQuickActionsCard,
+    'core-quick-actions',
+    {},
+    { i18n: ZogographI18n },
+  );
+  const setText = (id, key, fallback) => {
+    const node = $(id);
+    node.textContent = ZogographI18n.markSource(node, key, fallback);
+  };
+  setText('cornerDiagnose', 'core-quick-actions.diagnose', labels.diagnose);
+  setText('cornerNote', 'core-quick-actions.write_note', labels.writeNote);
+  setText(
+    'cornerChat',
+    'core-quick-actions.ask_assistant',
+    labels.askAssistant,
+  );
+  const menu = $('noteButton');
+  menu.title = labels.openTitle;
+  menu.setAttribute('aria-label', labels.openTitle);
+}
+
+document.addEventListener('zogograph-i18n-load', renderQuickActions);
+
 /** Every container the settings are split across. */
 const AI_SETTING_PAGES = [
   'aiIdentityBody',

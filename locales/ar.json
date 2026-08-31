@@ -67,7 +67,6 @@
   "action_log.changed_service_watch": "غيّر الخدمات التي تُراقب",
   "action_log.requested_host_walk": "طلب من المضيف فحص القرص",
   "action_log.checked_capabilities": "تحقق من البرامج المتاحة",
-  "action_log.address_identity_note": "توجد كلمة مرور واحدة، لذا توجد هوية واحدة. العنوان الذي جاء منه التغيير هو الشيء الوحيد الذي يميّز استخدامين لها — إنه مكان وليس شخصًا.",
   "encryption.status_sign_in": "سجّل الدخول لعرض حالة الحماية.",
   "setup.instructions_sign_in": "سجّل الدخول لرؤية تعليمات الإعداد.",
   "terminal.sessions_sign_in": "سجّل الدخول لرؤية جلسات الطرفية.",

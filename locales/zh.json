@@ -67,7 +67,6 @@
   "action_log.changed_service_watch": "更改了被监控的服务",
   "action_log.requested_host_walk": "请求主机扫描磁盘",
   "action_log.checked_capabilities": "检查了可用程序",
-  "action_log.address_identity_note": "只有一个密码，因此只有一个身份。一次更改来自哪个地址，是区分两次使用的唯一信息——它是一个位置，而不是一个人。",
   "encryption.status_sign_in": "登录后可查看保护状态。",
   "setup.instructions_sign_in": "登录后可查看设置说明。",
   "terminal.sessions_sign_in": "登录后可查看终端会话。",

@@ -31361,11 +31361,7 @@ async function refreshActionLog() {
   // the address fallback honest instead of presenting it as a person.
   $('actionWhoNote').textContent =
     data.identity === 'address'
-      ? ZogographI18n.t(
-          'action_log.address_identity_note',
-          {},
-          'There is one password, so there is one identity. The address a change came from is the only thing that tells two uses of it apart — it is a place, not a person.',
-        )
+      ? actionLogTableText('address_identity_note')
       : '';
 
   const rows = data.rows.filter(

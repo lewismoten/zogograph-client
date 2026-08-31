@@ -67,7 +67,6 @@
   "action_log.changed_service_watch": "cambió los servicios vigilados",
   "action_log.requested_host_walk": "pidió al host recorrer el disco",
   "action_log.checked_capabilities": "comprobó qué programas están disponibles",
-  "action_log.address_identity_note": "Hay una contraseña, por lo que hay una identidad. La dirección desde la que llegó un cambio es lo único que distingue dos usos de ella: es un lugar, no una persona.",
   "encryption.status_sign_in": "Inicie sesión para ver el estado de protección.",
   "setup.instructions_sign_in": "Inicie sesión para ver las instrucciones de configuración.",
   "terminal.sessions_sign_in": "Inicie sesión para ver las sesiones de terminal.",

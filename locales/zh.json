@@ -449,7 +449,6 @@
   "process.matches_all_protected": "{{scanned}} 个运行中的进程中有 {{matched}} 个匹配；全部受保护。",
   "process.matches_some_protected": "{{scanned}} 个运行中的进程中有 {{matched}} 个匹配；{{blocked}} 个受保护。",
   "process.all_matches_protected": "每个匹配项都受保护，因此这里没有可停止的内容。",
-  "storage.symlink_showing_capped": "显示 {{total}} 个问题中的 {{shown}} 个。其余问题真实存在且已计数——只有绘制受限。清理下方路径会作用于全部问题，不仅是屏幕上显示的问题。",
   "storage.symlink_walking_tree": "正在遍历目录树…",
   "action.stop": "停止它",
   "action.show": "显示它",

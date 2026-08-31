@@ -21715,14 +21715,10 @@ function renderSymlinks() {
   if (data.total > data.shown) {
     $('symlinkTable').appendChild(
       note(
-        ZogographI18n.t(
-          'storage.symlink_showing_capped',
-          {
-            shown: humanCount(data.shown),
-            total: humanCount(data.total),
-          },
-          `Showing ${humanCount(data.shown)} of ${humanCount(data.total)} problems. The rest are real and were counted — only the drawing is capped. Clearing out a path below works on all of them, not just the ones on screen.`,
-        ),
+        symlinkTableText('showing_capped', {
+          shown: humanCount(data.shown),
+          total: humanCount(data.total),
+        }),
       ),
     );
   }

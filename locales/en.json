@@ -449,7 +449,6 @@
   "process.matches_all_protected": "Matches {{matched}} of the {{scanned}} running processes; all are protected.",
   "process.matches_some_protected": "Matches {{matched}} of the {{scanned}} running processes; {{blocked}} are protected.",
   "process.all_matches_protected": "Every match is protected, so there is nothing here to stop.",
-  "storage.symlink_showing_capped": "Showing {{shown}} of {{total}} problems. The rest are real and were counted — only the drawing is capped. Clearing out a path below works on all of them, not just the ones on screen.",
   "storage.symlink_walking_tree": "Walking the tree…",
   "action.stop": "Stop it",
   "action.show": "Show it",

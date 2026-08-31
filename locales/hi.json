@@ -449,7 +449,6 @@
   "process.matches_all_protected": "{{scanned}} चल रही प्रक्रियाओं में से {{matched}} मेल खाती हैं; सभी सुरक्षित हैं।",
   "process.matches_some_protected": "{{scanned}} चल रही प्रक्रियाओं में से {{matched}} मेल खाती हैं; {{blocked}} सुरक्षित हैं।",
   "process.all_matches_protected": "हर मेल सुरक्षित है, इसलिए यहाँ रोकने के लिए कुछ नहीं है।",
-  "storage.symlink_showing_capped": "{{total}} समस्याओं में से {{shown}} दिखाई जा रही हैं। बाकी वास्तविक हैं और गिनी गई हैं — केवल चित्रण की सीमा है। नीचे पथ साफ़ करना केवल स्क्रीन वाली नहीं, सभी पर काम करता है।",
   "storage.symlink_walking_tree": "ट्री में चल रहा है…",
   "action.stop": "इसे रोकें",
   "action.show": "इसे दिखाएँ",

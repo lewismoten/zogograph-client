@@ -2640,7 +2640,6 @@ i18nExpect(
             $english['process.matches_all_protected'],
             $english['process.matches_some_protected'],
             $english['process.all_matches_protected'],
-            $english['storage.symlink_showing_capped'],
             $english['storage.symlink_walking_tree'],
         ),
     'English fallback catalog is incomplete',
@@ -3050,7 +3049,10 @@ i18nExpect(
             (string) file_get_contents($root . '/cards/symlink-filter.js'),
             'core-symlink-filter.empty',
         ) &&
-        str_contains($script, 'storage.symlink_showing_capped'),
+        str_contains(
+            (string) file_get_contents($root . '/cards/symlink-table.js'),
+            'core-symlink-table.showing_capped',
+        ),
     'symlink filters and tables retain package-owned user-visible text',
 );
 i18nExpect(

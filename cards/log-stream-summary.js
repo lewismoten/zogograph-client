@@ -59,6 +59,9 @@ window.ZogographLogStreamSummaryCard = {
           'The line itself, cut to fit — click any row for all of it',
         'core-log-stream-summary.skimming_note':
           'Click any line for the whole of it, taken apart. The columns here are cut short on purpose — this view is for skimming.',
+        'core-log-stream-summary.lines_20': '20 lines',
+        'core-log-stream-summary.lines_50': '50 lines',
+        'core-log-stream-summary.lines_100': '100 lines',
       }),
       es: Object.freeze({
         'core-log-stream-summary.title': 'Todos los registros a la vez',
@@ -116,6 +119,9 @@ window.ZogographLogStreamSummaryCard = {
           'La línea misma, recortada para caber; haz clic en cualquier fila para verla completa',
         'core-log-stream-summary.skimming_note':
           'Haga clic en cualquier línea para verla completa y desglosada. Las columnas se recortan a propósito: esta vista sirve para hojear.',
+        'core-log-stream-summary.lines_20': '20 líneas',
+        'core-log-stream-summary.lines_50': '50 líneas',
+        'core-log-stream-summary.lines_100': '100 líneas',
       }),
       hi: Object.freeze({
         'core-log-stream-summary.title': 'हर लॉग एक साथ',
@@ -171,6 +177,9 @@ window.ZogographLogStreamSummaryCard = {
           'लाइन स्वयं, फिट करने के लिए काटी गई — सब देखने के लिए किसी पंक्ति पर क्लिक करें',
         'core-log-stream-summary.skimming_note':
           'किसी भी पंक्ति को पूरी तरह और भागों में देखने के लिए उस पर क्लिक करें। यहाँ के कॉलम जानबूझकर छोटे रखे गए हैं — यह दृश्य जल्दी देखने के लिए है।',
+        'core-log-stream-summary.lines_20': '20 पंक्तियाँ',
+        'core-log-stream-summary.lines_50': '50 पंक्तियाँ',
+        'core-log-stream-summary.lines_100': '100 पंक्तियाँ',
       }),
       ar: Object.freeze({
         'core-log-stream-summary.title': 'كل السجلات معًا',
@@ -225,6 +234,9 @@ window.ZogographLogStreamSummaryCard = {
           'السطر نفسه، مقتطع ليتسع — انقر أي صف لرؤيته كاملًا',
         'core-log-stream-summary.skimming_note':
           'انقر أي سطر لرؤيته كاملًا ومفككًا. تُقصَّر الأعمدة هنا عمدًا — هذا العرض للتصفح السريع.',
+        'core-log-stream-summary.lines_20': '20 سطرًا',
+        'core-log-stream-summary.lines_50': '50 سطرًا',
+        'core-log-stream-summary.lines_100': '100 سطر',
       }),
       zh: Object.freeze({
         'core-log-stream-summary.title': '所有日志同时查看',
@@ -278,6 +290,9 @@ window.ZogographLogStreamSummaryCard = {
           '该行本身，已截短以适应显示——点击任意行查看完整内容',
         'core-log-stream-summary.skimming_note':
           '单击任意一行即可查看完整内容及其拆分。这里的列特意截短——此视图用于快速浏览。',
+        'core-log-stream-summary.lines_20': '20 行',
+        'core-log-stream-summary.lines_50': '50 行',
+        'core-log-stream-summary.lines_100': '100 行',
       }),
     }),
   }),

@@ -3770,6 +3770,24 @@ function renderLabelsTitle() {
 }
 document.addEventListener('zogograph-i18n-load', renderLabelsTitle);
 
+function renderNotesTitle() {
+  const helpers = { target: null, note: () => null, i18n: ZogographI18n };
+  renderCoreCardPackage(
+    ZogographNotesEmptyCard,
+    'core-notes-empty',
+    { rows: [] },
+    helpers,
+  );
+  const title = document.querySelector('[data-i18n="core-notes-empty.title"]');
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-notes-empty.title',
+    ZogographNotesEmptyCard.text('title', helpers),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderNotesTitle);
+
 /**
  * When the disk is projected to fill, as a date.
  *

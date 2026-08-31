@@ -2376,7 +2376,6 @@
   "metadata.label_kind_port": "端口",
   "metadata.label_kind_header": "HTTP 标头",
   "action.add": "添加",
-  "metadata.descriptions_title": "这些东西是什么",
   "metadata.description_kind_process": "一个进程",
   "metadata.description_kind_slab": "内核 slab 缓存",
   "action.save": "保存",

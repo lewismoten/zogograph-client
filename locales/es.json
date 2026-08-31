@@ -2379,7 +2379,6 @@
   "metadata.label_kind_port": "Puerto",
   "metadata.label_kind_header": "Encabezado HTTP",
   "action.add": "Añadir",
-  "metadata.descriptions_title": "Qué son las cosas",
   "metadata.description_kind_process": "Un proceso",
   "metadata.description_kind_slab": "Una caché slab del kernel",
   "action.save": "Guardar",

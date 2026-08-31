@@ -2378,7 +2378,6 @@
   "metadata.label_kind_port": "पोर्ट",
   "metadata.label_kind_header": "HTTP हेडर",
   "action.add": "जोड़ें",
-  "metadata.descriptions_title": "चीज़ें क्या हैं",
   "metadata.description_kind_process": "एक प्रोसेस",
   "metadata.description_kind_slab": "कर्नेल स्लैब कैश",
   "action.save": "सहेजें",

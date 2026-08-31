@@ -2376,7 +2376,6 @@
   "metadata.label_kind_port": "منفذ",
   "metadata.label_kind_header": "ترويسة HTTP",
   "action.add": "أضف",
-  "metadata.descriptions_title": "ما الأشياء",
   "metadata.description_kind_process": "عملية",
   "metadata.description_kind_slab": "ذاكرة slab مؤقتة للنواة",
   "action.save": "احفظ",

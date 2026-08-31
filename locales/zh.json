@@ -1633,8 +1633,6 @@
   "navigation.audit": "审计",
   "navigation.descriptions": "内容说明",
   "brand.tagline": "清晰的服务器监控",
-  "dashboard.refresh": "立即刷新",
-  "dashboard.refresh_status": "采集器状态；立即刷新",
   "dashboard.show": "显示",
   "dashboard.ready": "就绪",
   "help.page": "本页帮助",

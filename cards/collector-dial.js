@@ -13,6 +13,8 @@ window.ZogographCollectorDialCard = {
           'Nothing for {{age}}, on something that usually runs every {{interval}}.',
         'core-collector-dial.due_now': 'Due now — nothing for {{age}}.',
         'core-collector-dial.next_in': 'Next one in about {{duration}}.',
+        'core-collector-dial.refresh': 'Refresh now',
+        'core-collector-dial.refresh_status': 'Collector status; refresh now',
       }),
       es: Object.freeze({
         'core-collector-dial.insufficient_runs':
@@ -24,6 +26,9 @@ window.ZogographCollectorDialCard = {
           'Toca ahora; no ha habido nada desde hace {{age}}.',
         'core-collector-dial.next_in':
           'La siguiente será dentro de unos {{duration}}.',
+        'core-collector-dial.refresh': 'Actualizar ahora',
+        'core-collector-dial.refresh_status':
+          'Estado del recopilador; actualizar ahora',
       }),
       hi: Object.freeze({
         'core-collector-dial.insufficient_runs':
@@ -34,6 +39,9 @@ window.ZogographCollectorDialCard = {
         'core-collector-dial.due_now':
           'अब होना चाहिए — {{age}} से कुछ नहीं हुआ है।',
         'core-collector-dial.next_in': 'अगला लगभग {{duration}} में है।',
+        'core-collector-dial.refresh': 'अभी रीफ़्रेश करें',
+        'core-collector-dial.refresh_status':
+          'कलेक्टर स्थिति; अभी रीफ़्रेश करें',
       }),
       ar: Object.freeze({
         'core-collector-dial.insufficient_runs':
@@ -43,6 +51,8 @@ window.ZogographCollectorDialCard = {
           'لا شيء منذ {{age}}، رغم أنه يعمل عادةً كل {{interval}}.',
         'core-collector-dial.due_now': 'موعده الآن — لا شيء منذ {{age}}.',
         'core-collector-dial.next_in': 'التشغيل التالي بعد نحو {{duration}}.',
+        'core-collector-dial.refresh': 'تحديث الآن',
+        'core-collector-dial.refresh_status': 'حالة الجامع؛ تحديث الآن',
       }),
       zh: Object.freeze({
         'core-collector-dial.insufficient_runs':
@@ -52,6 +62,8 @@ window.ZogographCollectorDialCard = {
           '已有 {{age}} 没有运行，而它通常每 {{interval}} 运行一次。',
         'core-collector-dial.due_now': '现在该运行了——已有 {{age}} 没有运行。',
         'core-collector-dial.next_in': '下一次大约在 {{duration}} 后。',
+        'core-collector-dial.refresh': '立即刷新',
+        'core-collector-dial.refresh_status': '采集器状态；立即刷新',
       }),
     }),
   }),

@@ -5994,6 +5994,24 @@ function renderLiveToggle() {
 
 document.addEventListener('zogograph-i18n-load', renderLiveToggle);
 
+function renderCollectorDialControls() {
+  const render = (key, fallback) =>
+    renderCoreCardPackage(
+      ZogographCollectorDialCard,
+      'core-collector-dial',
+      { key },
+      { i18n: ZogographI18n },
+    ) || fallback;
+  const button = $('pollState');
+  button.title = render('refresh', 'Refresh now');
+  button.setAttribute(
+    'aria-label',
+    render('refresh_status', 'Collector status; refresh now'),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderCollectorDialControls);
+
 /** Every container the settings are split across. */
 const AI_SETTING_PAGES = [
   'aiIdentityBody',

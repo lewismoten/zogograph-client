@@ -1663,8 +1663,6 @@
   "navigation.descriptions": "Qué son las cosas",
   "update.available": "Hay una actualización más reciente de Zogograph disponible. Recargue cuando esté listo.",
   "brand.tagline": "monitorización clara del servidor",
-  "dashboard.refresh": "Actualizar ahora",
-  "dashboard.refresh_status": "Estado del recopilador; actualizar ahora",
   "help.page": "Ayuda para esta página",
   "display.label": "Pantalla",
   "display.change": "Cambiar el tamaño del texto y el movimiento",

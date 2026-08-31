@@ -1635,8 +1635,6 @@
   "navigation.audit": "ऑडिट",
   "navigation.descriptions": "चीज़ें क्या हैं",
   "brand.tagline": "स्पष्ट सर्वर निगरानी",
-  "dashboard.refresh": "अभी रीफ़्रेश करें",
-  "dashboard.refresh_status": "कलेक्टर स्थिति; अभी रीफ़्रेश करें",
   "dashboard.show": "दिखाएँ",
   "dashboard.ready": "तैयार",
   "help.page": "इस पृष्ठ के लिए सहायता",

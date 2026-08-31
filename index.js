@@ -41505,18 +41505,24 @@ document.addEventListener('click', async (event) => {
 });
 
 $('reportNow').addEventListener('click', async () => {
+  const reportText = (key, fallback) =>
+    renderCoreCardPackage(
+      ZogographAiReportActionCard,
+      'core-ai-report-action',
+      { key, fallback },
+      { i18n: ZogographI18n },
+    );
   const which = await askTextDialog(
-    'Write a summary',
-    'Period',
+    reportText('title', 'Write a summary'),
+    reportText('period', 'Period'),
     'daily',
-    'Choose daily, weekly, or monthly.',
+    reportText('help', 'Choose daily, weekly, or monthly.'),
   );
   if (!which) return;
 
   notice(
-    ZogographI18n.t(
-      'ai.report_writing',
-      {},
+    reportText(
+      'writing',
       'Writing it — this asks the model, so it takes a few seconds.',
     ),
   );
@@ -41525,7 +41531,7 @@ $('reportNow').addEventListener('click', async () => {
     renderReports(
       await post('ai-report-now', { period: which.trim().toLowerCase() }),
     );
-    notice(ZogographI18n.t('ai.report_written', {}, 'Written.'), true);
+    notice(reportText('written', 'Written.'), true);
   } catch (error) {
     notice(String(error.message || error));
   }

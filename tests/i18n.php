@@ -1605,8 +1605,9 @@ i18nExpect(
         str_contains(
             $script,
             'renderCoreCardPackage(ZogographCapabilitySummaryCard, "core-capability-summary",',
-        ),
-    'capability summary is not isolated behind its core card-module boundary',
+        ) &&
+        !str_contains($script, 'if (window.ZogographCapabilitySummaryCard)'),
+    'capability summary retains a core fallback instead of its package boundary',
 );
 i18nExpect(
     $page !== false &&

@@ -40587,70 +40587,17 @@ async function refreshCapabilities() {
 }
 
 function renderCapSummary(data) {
-  if (window.ZogographCapabilitySummaryCard) {
-    return renderCoreCardPackage(
-      ZogographCapabilitySummaryCard,
-      'core-capability-summary',
-      data,
-      {
-        target: $('capSummary'),
-        factGrid,
-        note,
-        ago,
-        i18n: ZogographI18n,
-      },
-    );
-  }
-  const s = data.summary;
-  const facts = [
-    ['Worth having', `${s.key_available} of ${s.key_total} available here`],
-    ['Whole catalogue', `${s.counts.available} of ${s.total} available here`],
-  ];
-  if (s.counts.host_only)
-    facts.push(['On the host, not reachable', String(s.counts.host_only)]);
-  if (s.counts.alternate)
-    facts.push(['Only under another path', String(s.counts.alternate)]);
-  if (s.counts.missing)
-    facts.push(['Not installed anywhere', String(s.counts.missing)]);
-  if (s.counts.unknown_host) {
-    facts.push([
-      'Host not asked',
-      `${s.counts.unknown_host} — press “Ask the host”`,
-    ]);
-  }
-
-  const when = [];
-  if (data.checked_at) when.push(`Account checked ${ago(data.checked_at)}`);
-  if (data.host_checked_at)
-    when.push(`host checked ${ago(data.host_checked_at)}`);
-
-  const frag = document.createDocumentFragment();
-  frag.appendChild(factGrid(facts));
-  if (when.length) frag.appendChild(note(when.join(', ') + '.'));
-
-  frag.appendChild(pendingHostNote(data));
-
-  $('capSummary').replaceChildren(frag);
-}
-
-/**
- * What is queued for root's collector, and whether it is ever going to run.
- *
- * This drew one line per pending request, which after a few rows of "Ask the
- * host" is a wall of near-identical sentences - seventeen hours of them was
- * what got reported. Worse, every one of them said "waiting for the host
- * collector's next run", which is true of a collector that runs every five
- * minutes and equally true of one that was never installed. Those are opposite
- * situations and they had the same words.
- *
- * So: one line, and it says which case this is.
- */
-function pendingHostNote(data) {
   return renderCoreCardPackage(
-    ZogographPendingHostTasksCard,
-    'core-pending-host-tasks',
+    ZogographCapabilitySummaryCard,
+    'core-capability-summary',
     data,
-    { count, ago, i18n: ZogographI18n },
+    {
+      target: $('capSummary'),
+      factGrid,
+      note,
+      ago,
+      i18n: ZogographI18n,
+    },
   );
 }
 

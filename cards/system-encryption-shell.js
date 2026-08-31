@@ -25,6 +25,11 @@ window.ZogographSystemEncryptionShellCard = {
         'core-system-encryption-shell.mode_sealed_copies':
           'Verified encrypted copies',
         'core-system-encryption-shell.mode_volume': 'Host/VM volume protection',
+        'core-system-encryption-shell.copy_schedule': 'Copy schedule',
+        'core-system-encryption-shell.manual': 'manual',
+        'core-system-encryption-shell.local_retention': 'Local retention',
+        'core-system-encryption-shell.keep_every_copy': 'Keep every copy',
+        'core-system-encryption-shell.retention_days': '{{days}} days{{tiers}}',
       }),
       es: Object.freeze({
         'core-system-encryption-shell.title': 'Protección de datos',
@@ -49,6 +54,12 @@ window.ZogographSystemEncryptionShellCard = {
           'Copias cifradas verificadas',
         'core-system-encryption-shell.mode_volume':
           'Protección de volumen de host/VM',
+        'core-system-encryption-shell.copy_schedule': 'Programación de copias',
+        'core-system-encryption-shell.manual': 'manual',
+        'core-system-encryption-shell.local_retention': 'Retención local',
+        'core-system-encryption-shell.keep_every_copy':
+          'Conservar todas las copias',
+        'core-system-encryption-shell.retention_days': '{{days}} días{{tiers}}',
       }),
       hi: Object.freeze({
         'core-system-encryption-shell.title': 'डेटा सुरक्षा',
@@ -69,6 +80,11 @@ window.ZogographSystemEncryptionShellCard = {
         'core-system-encryption-shell.mode_sealed_copies':
           'सत्यापित एन्क्रिप्टेड प्रतियां',
         'core-system-encryption-shell.mode_volume': 'होस्ट/VM वॉल्यूम सुरक्षा',
+        'core-system-encryption-shell.copy_schedule': 'कॉपी शेड्यूल',
+        'core-system-encryption-shell.manual': 'मैन्युअल',
+        'core-system-encryption-shell.local_retention': 'स्थानीय प्रतिधारण',
+        'core-system-encryption-shell.keep_every_copy': 'हर प्रति रखें',
+        'core-system-encryption-shell.retention_days': '{{days}} दिन{{tiers}}',
       }),
       ar: Object.freeze({
         'core-system-encryption-shell.title': 'حماية البيانات',
@@ -89,6 +105,12 @@ window.ZogographSystemEncryptionShellCard = {
         'core-system-encryption-shell.mode_sealed_copies': 'نسخ مشفرة مُتحققة',
         'core-system-encryption-shell.mode_volume':
           'حماية وحدة تخزين المضيف/VM',
+        'core-system-encryption-shell.copy_schedule': 'جدول النسخ',
+        'core-system-encryption-shell.manual': 'يدوياً',
+        'core-system-encryption-shell.local_retention': 'الاحتفاظ المحلي',
+        'core-system-encryption-shell.keep_every_copy': 'احتفظ بكل نسخة',
+        'core-system-encryption-shell.retention_days':
+          '{{days}} يوماً{{tiers}}',
       }),
       zh: Object.freeze({
         'core-system-encryption-shell.title': '数据保护',
@@ -108,13 +130,20 @@ window.ZogographSystemEncryptionShellCard = {
         'core-system-encryption-shell.needs_attention': '需要注意',
         'core-system-encryption-shell.mode_sealed_copies': '已验证的加密副本',
         'core-system-encryption-shell.mode_volume': '主机/虚拟机卷保护',
+        'core-system-encryption-shell.copy_schedule': '副本计划',
+        'core-system-encryption-shell.manual': '手动',
+        'core-system-encryption-shell.local_retention': '本地保留',
+        'core-system-encryption-shell.keep_every_copy': '保留每个副本',
+        'core-system-encryption-shell.retention_days': '{{days}} 天{{tiers}}',
       }),
     }),
   }),
-  text(key, helpers) {
+  text(key, valuesOrHelpers = {}, maybeHelpers = null) {
+    const helpers = maybeHelpers || valuesOrHelpers;
+    const values = maybeHelpers ? valuesOrHelpers : {};
     return helpers.i18n.t(
       `core-system-encryption-shell.${key}`,
-      {},
+      values,
       this.manifest.catalogs.en[`core-system-encryption-shell.${key}`],
     );
   },

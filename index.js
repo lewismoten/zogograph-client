@@ -15807,8 +15807,10 @@ function showPackageRuntimeRevoke(row) {
 }
 
 function renderEncryptionStatus(data) {
-  const encryptionText = (key) =>
-    ZogographSystemEncryptionShellCard.text(key, { i18n: ZogographI18n });
+  const encryptionText = (key, values = {}) =>
+    ZogographSystemEncryptionShellCard.text(key, values, {
+      i18n: ZogographI18n,
+    });
   const body = $('encryptionBody');
   const names = {
     none: encryptionText('mode_none'),
@@ -15898,25 +15900,20 @@ function renderEncryptionStatus(data) {
   }
   if (data.mode === 'sealed_copies_local' && data.policy) {
     overview.push([
-      ZogographI18n.t('encryption.copy_schedule', {}, 'Copy schedule'),
-      data.policy.backup_schedule ||
-        ZogographI18n.t('encryption.manual', {}, 'manual'),
+      encryptionText('copy_schedule'),
+      data.policy.backup_schedule || encryptionText('manual'),
     ]);
     const tiers = Object.entries(data.policy.retention_tiers || {})
       .filter(([, copies]) => Number(copies) > 0)
       .map(([tier, copies]) => `${copies} ${tier}`);
     overview.push([
-      ZogographI18n.t('encryption.local_retention', {}, 'Local retention'),
+      encryptionText('local_retention'),
       Number(data.policy.retention_days) === 0
-        ? ZogographI18n.t('encryption.keep_every_copy', {}, 'Keep every copy')
-        : ZogographI18n.t(
-            'encryption.retention_days',
-            {
-              days: data.policy.retention_days,
-              tiers: tiers.length ? ` · plus ${tiers.join(', ')}` : '',
-            },
-            '{{days}} days{{tiers}}',
-          ),
+        ? encryptionText('keep_every_copy')
+        : encryptionText('retention_days', {
+            days: data.policy.retention_days,
+            tiers: tiers.length ? ` · plus ${tiers.join(', ')}` : '',
+          }),
     ]);
     overview.push([
       ZogographI18n.t(

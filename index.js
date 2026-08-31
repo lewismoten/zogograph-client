@@ -40897,15 +40897,11 @@ $('rdnsNow').addEventListener('click', async () => {
       result.done.length
         ? result.done
             .map((one) =>
-              ZogographI18n.t(
-                'rdns.lookup_result',
-                {
-                  address: one.address,
-                  name: one.name || rdnsText('no_name'),
-                  milliseconds: one.ms,
-                },
-                '{{address}} → {{name}} ({{milliseconds, number}} ms)',
-              ),
+              rdnsText('lookup_result', {
+                address: one.address,
+                name: one.name || rdnsText('no_name'),
+                milliseconds: one.ms,
+              }),
             )
             .join('; ')
         : rdnsText('nothing_waiting'),
@@ -40916,11 +40912,7 @@ $('rdnsNow').addEventListener('click', async () => {
     notice(String(error.message || error));
   } finally {
     button.disabled = false;
-    button.textContent = ZogographI18n.t(
-      'rdns.resolve_next',
-      {},
-      'Resolve the next one now',
-    );
+    button.textContent = rdnsText('resolve_next');
   }
 });
 

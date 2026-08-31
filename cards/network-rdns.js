@@ -32,6 +32,8 @@ window.ZogographNetworkRdnsCard = {
         'core-network-rdns.empty': 'Nothing was waiting.',
         'core-network-rdns.looked_up': '{{count, number}} addresses looked up',
         'core-network-rdns.resolve_next': 'Resolve the next one now',
+        'core-network-rdns.lookup_result':
+          '{{address}} → {{name}} ({{milliseconds, number}} ms)',
         'core-network-rdns.lookup': 'Look these up',
         'core-network-rdns.ask_again': 'Ask again',
         'core-network-rdns.placeholder':
@@ -56,6 +58,8 @@ window.ZogographNetworkRdnsCard = {
         'core-network-rdns.looked_up':
           '{{count, number}} direcciones consultadas',
         'core-network-rdns.resolve_next': 'Resolver la siguiente ahora',
+        'core-network-rdns.lookup_result':
+          '{{address}} → {{name}} ({{milliseconds, number}} ms)',
         'core-network-rdns.lookup': 'Buscar estas',
         'core-network-rdns.ask_again': 'Preguntar de nuevo',
         'core-network-rdns.placeholder':
@@ -79,6 +83,8 @@ window.ZogographNetworkRdnsCard = {
         'core-network-rdns.empty': 'कुछ भी प्रतीक्षारत नहीं था।',
         'core-network-rdns.looked_up': '{{count, number}} पते देखे गए',
         'core-network-rdns.resolve_next': 'अगले को अभी रिज़ॉल्व करें',
+        'core-network-rdns.lookup_result':
+          '{{address}} → {{name}} ({{milliseconds, number}} ms)',
         'core-network-rdns.lookup': 'इन्हें खोजें',
         'core-network-rdns.ask_again': 'फिर से पूछें',
         'core-network-rdns.placeholder':
@@ -102,6 +108,8 @@ window.ZogographNetworkRdnsCard = {
         'core-network-rdns.empty': 'لم يكن هناك شيء ينتظر.',
         'core-network-rdns.looked_up': 'تم البحث عن {{count, number}} عناوين',
         'core-network-rdns.resolve_next': 'حل التالي الآن',
+        'core-network-rdns.lookup_result':
+          '{{address}} ← {{name}} ({{milliseconds, number}} مللي ثانية)',
         'core-network-rdns.lookup': 'ابحث عن هذه',
         'core-network-rdns.ask_again': 'اطلب مرة أخرى',
         'core-network-rdns.placeholder':
@@ -125,6 +133,8 @@ window.ZogographNetworkRdnsCard = {
         'core-network-rdns.empty': '没有等待中的项目。',
         'core-network-rdns.looked_up': '已查询 {{count, number}} 个地址',
         'core-network-rdns.resolve_next': '立即解析下一个',
+        'core-network-rdns.lookup_result':
+          '{{address}} → {{name}}（{{milliseconds, number}} 毫秒）',
         'core-network-rdns.lookup': '查询这些',
         'core-network-rdns.ask_again': '再次请求',
         'core-network-rdns.placeholder':

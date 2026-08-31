@@ -2373,7 +2373,6 @@
   "host.memory_breakdown_help": "The share of measured process memory each service holds, drawn from {{pss}} rather than {{rss}} — a pie claims its slices make a whole, and resident memory cannot: a page shared by ten processes would be counted ten times.",
   "host.memory_processes_help": "Every process on the machine, not just this account's. This is the list that answers ‘what is actually holding the memory’ when the per-user totals only say whose it is.",
   "host.kernel_slab_help": "Memory the kernel holds for itself. It belongs to no process and no account, and it is the first place to look when the numbers do not add up — a quarter of a gigabyte of xfs_inode appears in nothing else on this site.",
-  "host.services_alive_title": "Are the services alive?",
   "host.services_alive_help": "The one question the rest of this page cannot answer. A daemon that has died uses no memory, no CPU and no disk, so it vanishes from every chart above rather than standing out in one. {{not_installed}} is shown apart from {{stopped}} on purpose — a service this machine never ran is not a fault, and colouring it red would make the panel permanently alarming and therefore ignored.",
   "host.big_directories_title": "Biggest directories on the machine",
   "host.big_directories_help": "From root's walk of the whole disk, so this reaches the places the account cannot: other accounts' homes, /var, /backup, and anything mounted somewhere unexpected.",

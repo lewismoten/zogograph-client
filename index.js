@@ -2328,6 +2328,34 @@ function renderHostSlabCacheLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderHostSlabCacheLabels);
 
+function renderHostDaemonLabels() {
+  const helpers = {
+    target: null,
+    renderTable: () => null,
+    humanDuration: () => '',
+    whenSpan: () => '',
+    watch: () => null,
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(
+    ZogographHostDaemonsCard,
+    'core-host-daemons',
+    null,
+    helpers,
+  );
+  document
+    .querySelectorAll('[data-i18n="core-host-daemons.title"]')
+    .forEach((node) => {
+      node.textContent = ZogographI18n.markSource(
+        node,
+        'core-host-daemons.title',
+        ZogographHostDaemonsCard.text('title', helpers),
+      );
+    });
+}
+
+document.addEventListener('zogograph-i18n-load', renderHostDaemonLabels);
+
 /**
  * When the disk is projected to fill, as a date.
  *

@@ -13,21 +13,35 @@ window.ZogographHostDaemonsCard = {
     ],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-host-daemons.title': 'Are the services alive?',
         'core-host-daemons.empty': 'No service states recorded yet.',
       }),
       es: Object.freeze({
+        'core-host-daemons.title': '¿Están activos los servicios?',
         'core-host-daemons.empty':
           'Aún no se registraron estados de servicios.',
       }),
       hi: Object.freeze({
+        'core-host-daemons.title': 'क्या सेवाएँ चालू हैं?',
         'core-host-daemons.empty': 'अभी तक कोई सेवा स्थिति दर्ज नहीं हुई।',
       }),
       ar: Object.freeze({
+        'core-host-daemons.title': 'هل الخدمات تعمل؟',
         'core-host-daemons.empty': 'لم تُسجَّل حالات الخدمات بعد.',
       }),
-      zh: Object.freeze({ 'core-host-daemons.empty': '尚未记录服务状态。' }),
+      zh: Object.freeze({
+        'core-host-daemons.title': '服务是否正常运行？',
+        'core-host-daemons.empty': '尚未记录服务状态。',
+      }),
     }),
   }),
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-host-daemons.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-host-daemons.${key}`],
+    );
+  },
 
   render(daemons, helpers) {
     const { target, renderTable, humanDuration, whenSpan, watch, i18n } =

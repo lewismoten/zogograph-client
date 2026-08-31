@@ -2085,6 +2085,19 @@ i18nExpect(
     'marketplace-card labels do not belong to the root catalog',
 );
 i18nExpect(
+    !isset(
+        $english['setup.section.display'],
+        $english['setup.section.alerts'],
+        $english['setup.section.host'],
+    ) &&
+        isset(
+            $coreCardEnglish['core-application-shell-controls.display'],
+            $coreCardEnglish['core-alerts-shell.title'],
+            $coreCardEnglish['core-ai-tool-groups.host'],
+        ),
+    'setup-shell labels do not belong to the root catalog',
+);
+i18nExpect(
     $page !== false &&
         str_contains($page, 'src="cards/action-summary.js"') &&
         $actionSummaryCard !== false &&

@@ -227,6 +227,7 @@ export default [
         ZogographChatComposerCard: 'readonly',
         ZogographLiveToggleCard: 'readonly',
         ZogographNavigationControlsCard: 'readonly',
+        ZogographApplicationShellControlsCard: 'readonly',
         ZogographLanguageControlsCard: 'readonly',
         ZogographChatCostCard: 'readonly',
         ZogographChatSummaryMarkerCard: 'readonly',

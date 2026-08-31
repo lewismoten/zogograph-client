@@ -6095,6 +6095,44 @@ function renderNavigationControls() {
 
 document.addEventListener('zogograph-i18n-load', renderNavigationControls);
 
+function renderApplicationShellControls() {
+  const labels = renderCoreCardPackage(
+    ZogographApplicationShellControlsCard,
+    'core-application-shell-controls',
+    {},
+    { i18n: ZogographI18n },
+  );
+  const tagline = document.querySelector(
+    '[data-i18n="core-application-shell-controls.tagline"]',
+  );
+  tagline.textContent = ZogographI18n.markSource(
+    tagline,
+    'core-application-shell-controls.tagline',
+    labels.tagline,
+  );
+  const ready = document.querySelector(
+    '[data-i18n="core-application-shell-controls.ready"]',
+  );
+  ready.textContent = ZogographI18n.markSource(
+    ready,
+    'core-application-shell-controls.ready',
+    labels.ready,
+  );
+  $('pageHelp').setAttribute('aria-label', labels.help);
+  $('pageHelp').title = labels.help;
+  $('displayPreferences').textContent = ZogographI18n.markSource(
+    $('displayPreferences'),
+    'core-application-shell-controls.display',
+    labels.display,
+  );
+  $('displayPreferences').title = labels.displayTitle;
+}
+
+document.addEventListener(
+  'zogograph-i18n-load',
+  renderApplicationShellControls,
+);
+
 function renderLanguageControls() {
   const labels = renderCoreCardPackage(
     ZogographLanguageControlsCard,

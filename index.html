@@ -240,6 +240,7 @@
     <script src="cards/chat-composer.js" defer></script>
     <script src="cards/live-toggle.js" defer></script>
     <script src="cards/navigation-controls.js" defer></script>
+    <script src="cards/application-shell-controls.js" defer></script>
     <script src="cards/language-controls.js" defer></script>
     <script src="cards/chat-cost.js" defer></script>
     <script src="cards/chat-summary-marker.js" defer></script>
@@ -329,7 +330,9 @@
       <a class="brand" href="#/overview">
         <span class="brand-text">
           <strong data-brand>Zogograph</strong>
-          <small data-i18n="brand.tagline">clear server monitoring</small>
+          <small data-i18n="core-application-shell-controls.tagline"
+            >clear server monitoring</small
+          >
         </span>
       </a>
 
@@ -400,7 +403,7 @@
           aria-live="polite"
         >
           <span class="fetch-state-dot" aria-hidden="true"></span>
-          <span data-i18n="dashboard.ready">Ready</span>
+          <span data-i18n="core-application-shell-controls.ready">Ready</span>
         </span>
       </div>
 
@@ -453,8 +456,8 @@
           type="button"
           aria-label="Help for this page"
           title="Help for this page"
-          data-i18n-aria-label="help.page"
-          data-i18n-title="help.page"
+          data-i18n-aria-label="core-application-shell-controls.help"
+          data-i18n-title="core-application-shell-controls.help"
         >
           ?
         </button>
@@ -463,8 +466,8 @@
           class="link"
           type="button"
           title="Change text size and motion"
-          data-i18n="display.label"
-          data-i18n-title="display.change"
+          data-i18n="core-application-shell-controls.display"
+          data-i18n-title="core-application-shell-controls.display_title"
         >
           Display
         </button>

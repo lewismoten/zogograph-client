@@ -449,7 +449,6 @@
   "process.matches_all_protected": "Coinciden {{matched}} de los {{scanned}} procesos en ejecución; todos están protegidos.",
   "process.matches_some_protected": "Coinciden {{matched}} de los {{scanned}} procesos en ejecución; {{blocked}} están protegidos.",
   "process.all_matches_protected": "Todas las coincidencias están protegidas, por lo que no hay nada que detener.",
-  "storage.link_sweep_working_safe": "Los enlaces funcionales no se consideran en absoluto, diga lo que diga el patrón. Aquí solo se pueden eliminar enlaces que esta comprobación encontró colgando.",
   "storage.links_sign_in": "Inicie sesión para comprobar los enlaces simbólicos.",
   "storage.link_sweep_incomplete": "El recorrido se quedó sin tiempo antes de llegar al final del árbol, por lo que puede haber más enlaces coincidentes que nunca vio. Ejecútelo de nuevo después.",
   "storage.link_sweep_removing": "Eliminando…",

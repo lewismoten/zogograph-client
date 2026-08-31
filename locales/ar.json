@@ -449,7 +449,6 @@
   "process.matches_all_protected": "تطابق {{matched}} من عمليات التشغيل {{scanned}}؛ كلها محمية.",
   "process.matches_some_protected": "تطابق {{matched}} من عمليات التشغيل {{scanned}}؛ {{blocked}} منها محمية.",
   "process.all_matches_protected": "كل المطابقات محمية، لذلك لا شيء هنا لإيقافه.",
-  "storage.link_sweep_working_safe": "لا تُؤخذ الروابط العاملة في الاعتبار إطلاقًا، مهما قال النمط. لا يمكن حذف هنا إلا الروابط التي وجدها هذا الفحص معلقة.",
   "storage.links_sign_in": "سجّل الدخول لفحص الروابط الرمزية.",
   "storage.link_sweep_incomplete": "نفد وقت المسح قبل الوصول إلى نهاية الشجرة، لذلك قد تكون هناك روابط مطابقة أخرى لم يرها. شغّله مرة أخرى لاحقًا.",
   "storage.link_sweep_removing": "جارٍ الإزالة…",

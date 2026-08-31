@@ -22049,12 +22049,11 @@ async function sweepLinks(pattern, confirmed = false) {
 
   if (!confirmed) {
     parts.push(
-      note(
-        ZogographI18n.t(
-          'storage.link_sweep_working_safe',
-          {},
-          'Working links are not considered at all, whatever the pattern says. Only links this check found dangling can be removed here.',
-        ),
+      renderCoreCardPackage(
+        ZogographSymlinkSweepSafetyCard,
+        'core-symlink-sweep-safety',
+        {},
+        { i18n: ZogographI18n, note },
       ),
     );
   }

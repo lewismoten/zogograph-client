@@ -21370,7 +21370,7 @@ async function tryBrowserTool(tool, args) {
     const image = document.createElement('img');
     image.src = card.image;
     image.alt = ZogographI18n.t(
-      'image.chart_alt',
+      'core-ai-show-chart.try_chart_alt',
       { chart: args.chart },
       `the ${args.chart} chart`,
     );
@@ -21401,7 +21401,7 @@ async function tryBrowserTool(tool, args) {
     const image = document.createElement('img');
     image.src = url;
     image.alt = ZogographI18n.t(
-      'image.chart_alt',
+      'core-ai-get-chart-image.try_chart_alt',
       { chart: args.chart },
       `the ${args.chart} chart`,
     );

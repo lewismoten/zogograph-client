@@ -1302,7 +1302,6 @@
   "metadata.description_placeholder": "ما هو، والأكثر فائدة، ما الذي يجعله ينمو.",
   "storage.link_sweep_placeholder": "/home/your-user/public_html/previews",
   "processes.pattern_placeholder": "webalizer/bin/english.*ssl_log\\.bkup",
-  "image.chart_alt": "مخطط {{chart}}",
   "package.probe_sqlcipher": "شغّل فحص SQLCipher المبدئي",
   "package.probe_custody": "اختبر نقطة الحفظ",
   "package.probe_isolated": "شغّل فحصًا معزولًا",

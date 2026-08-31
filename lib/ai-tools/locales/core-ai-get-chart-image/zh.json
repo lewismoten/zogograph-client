@@ -1,4 +1,5 @@
 {
   "core-ai-get-chart-image.summary": "获取一个图表的图像。",
-  "core-ai-get-chart-image.activity": "查看了 {{chart}}"
+  "core-ai-get-chart-image.activity": "查看了 {{chart}}",
+  "core-ai-get-chart-image.try_chart_alt": "{{chart}} 图表"
 }

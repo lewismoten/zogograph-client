@@ -1,4 +1,5 @@
 {
   "core-ai-get-chart-image.summary": "Get a picture of one chart.",
-  "core-ai-get-chart-image.activity": "Looked at {{chart}}"
+  "core-ai-get-chart-image.activity": "Looked at {{chart}}",
+  "core-ai-get-chart-image.try_chart_alt": "the {{chart}} chart"
 }

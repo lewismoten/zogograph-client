@@ -1,4 +1,5 @@
 {
   "core-ai-show-chart.summary": "Dibuje un gráfico dentro de esta conversación.",
-  "core-ai-show-chart.activity": "Mostró un gráfico"
+  "core-ai-show-chart.activity": "Mostró un gráfico",
+  "core-ai-show-chart.try_chart_alt": "el gráfico de {{chart}}"
 }

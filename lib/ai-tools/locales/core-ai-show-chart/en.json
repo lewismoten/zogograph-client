@@ -1,4 +1,5 @@
 {
   "core-ai-show-chart.summary": "Draw a chart inside this conversation.",
-  "core-ai-show-chart.activity": "Showed a chart"
+  "core-ai-show-chart.activity": "Showed a chart",
+  "core-ai-show-chart.try_chart_alt": "the {{chart}} chart"
 }

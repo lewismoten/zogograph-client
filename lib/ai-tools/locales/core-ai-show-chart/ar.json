@@ -1,4 +1,5 @@
 {
   "core-ai-show-chart.summary": "ارسم مخططاً داخل هذه المحادثة.",
-  "core-ai-show-chart.activity": "عرض مخططًا"
+  "core-ai-show-chart.activity": "عرض مخططًا",
+  "core-ai-show-chart.try_chart_alt": "مخطط {{chart}}"
 }

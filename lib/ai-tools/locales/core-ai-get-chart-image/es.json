@@ -1,4 +1,5 @@
 {
   "core-ai-get-chart-image.summary": "Obtenga una imagen de un gráfico.",
-  "core-ai-get-chart-image.activity": "Revisó {{chart}}"
+  "core-ai-get-chart-image.activity": "Revisó {{chart}}",
+  "core-ai-get-chart-image.try_chart_alt": "el gráfico de {{chart}}"
 }

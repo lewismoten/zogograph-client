@@ -1200,7 +1200,6 @@
   "auth.verify": "Verify and enable authenticator",
   "auth.start": "Create authenticator secret",
   "auth.qr_alt": "Scan this QR code with your authenticator app",
-  "image.chart_alt": "the {{chart}} chart",
   "openid.provider": "OpenID Connect provider",
   "openid.provider_intro": "This installation can already act as an OpenID Connect provider for trusted applications. Enable it only after setting its public HTTPS issuer, a dedicated signing key, and registered client redirect URLs. The provider supports authorization code with PKCE, discovery, JWKS, and signed ID tokens.",
   "openid.provider_clients": "Client registrations are managed below as structured settings; each client needs an exact redirect URL and a private client secret.",

@@ -2704,9 +2704,15 @@ i18nExpect(
             (string) file_get_contents($root . '/cards/ai-portrait.js'),
             'core-ai-portrait.alt',
         ) &&
-        is_array($english) &&
-        isset($english['image.chart_alt']),
-    'dashboard image descriptions or failures do not use package-localized catalog messages',
+        str_contains(
+            $script,
+            'ZogographI18n.t("core-ai-show-chart.try_chart_alt"',
+        ) &&
+        str_contains(
+            $script,
+            'ZogographI18n.t("core-ai-get-chart-image.try_chart_alt"',
+        ),
+    'dashboard image descriptions do not use package-localized catalog messages',
 );
 i18nExpect(
     $script !== false &&

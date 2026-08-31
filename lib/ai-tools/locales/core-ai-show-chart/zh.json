@@ -1,4 +1,5 @@
 {
   "core-ai-show-chart.summary": "在此对话中绘制图表。",
-  "core-ai-show-chart.activity": "显示了图表"
+  "core-ai-show-chart.activity": "显示了图表",
+  "core-ai-show-chart.try_chart_alt": "{{chart}} 图表"
 }

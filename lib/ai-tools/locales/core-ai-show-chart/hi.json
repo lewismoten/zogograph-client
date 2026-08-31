@@ -1,4 +1,5 @@
 {
   "core-ai-show-chart.summary": "इस बातचीत में एक चार्ट बनाएं।",
-  "core-ai-show-chart.activity": "एक चार्ट दिखाया"
+  "core-ai-show-chart.activity": "एक चार्ट दिखाया",
+  "core-ai-show-chart.try_chart_alt": "{{chart}} चार्ट"
 }

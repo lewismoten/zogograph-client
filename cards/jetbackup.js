@@ -18,6 +18,8 @@ window.ZogographJetBackupCard = {
         'core-jetbackup.destination': 'Destination',
         'core-jetbackup.destinations': 'Destinations',
         'core-jetbackup.name': 'Name',
+        'core-jetbackup.size': 'Size',
+        'core-jetbackup.path': 'Path',
         'core-jetbackup.not_reported': 'not reported',
         'core-jetbackup.known': '{{count}} backups known to JetBackup',
         'core-jetbackup.empty':
@@ -30,6 +32,8 @@ window.ZogographJetBackupCard = {
         'core-jetbackup.destination': 'Destino',
         'core-jetbackup.destinations': 'Destinos',
         'core-jetbackup.name': 'Nombre',
+        'core-jetbackup.size': 'Tamaño',
+        'core-jetbackup.path': 'Ruta',
         'core-jetbackup.not_reported': 'sin informar',
         'core-jetbackup.known':
           '{{count}} copias de seguridad conocidas por JetBackup',
@@ -43,6 +47,8 @@ window.ZogographJetBackupCard = {
         'core-jetbackup.destination': 'गंतव्य',
         'core-jetbackup.destinations': 'गंतव्य',
         'core-jetbackup.name': 'नाम',
+        'core-jetbackup.size': 'आकार',
+        'core-jetbackup.path': 'पथ',
         'core-jetbackup.not_reported': 'रिपोर्ट नहीं किया गया',
         'core-jetbackup.known': 'JetBackup को {{count}} बैकअप की जानकारी है',
         'core-jetbackup.empty':
@@ -55,6 +61,8 @@ window.ZogographJetBackupCard = {
         'core-jetbackup.destination': 'الوجهة',
         'core-jetbackup.destinations': 'الوجهات',
         'core-jetbackup.name': 'الاسم',
+        'core-jetbackup.size': 'الحجم',
+        'core-jetbackup.path': 'المسار',
         'core-jetbackup.not_reported': 'غير مُبلّغ عنه',
         'core-jetbackup.known': 'يعرف JetBackup {{count}} نسخة احتياطية',
         'core-jetbackup.empty':
@@ -67,6 +75,8 @@ window.ZogographJetBackupCard = {
         'core-jetbackup.destination': '目标位置',
         'core-jetbackup.destinations': '目标位置',
         'core-jetbackup.name': '名称',
+        'core-jetbackup.size': '大小',
+        'core-jetbackup.path': '路径',
         'core-jetbackup.not_reported': '未报告',
         'core-jetbackup.known': 'JetBackup 已知 {{count}} 个备份',
         'core-jetbackup.empty':
@@ -89,7 +99,7 @@ window.ZogographJetBackupCard = {
               helpers.i18n.t('core-jetbackup.account', {}, 'Account'),
               helpers.i18n.t('core-jetbackup.when', {}, 'When'),
               helpers.i18n.t('core-jetbackup.type', {}, 'Type'),
-              helpers.i18n.t('storage.size', {}, 'Size'),
+              helpers.i18n.t('core-jetbackup.size', {}, 'Size'),
               helpers.i18n.t('core-jetbackup.destination', {}, 'Destination'),
             ],
             jet.backups.map((backup) => [
@@ -118,7 +128,7 @@ window.ZogographJetBackupCard = {
             [
               helpers.i18n.t('core-jetbackup.name', {}, 'Name'),
               helpers.i18n.t('core-jetbackup.type', {}, 'Type'),
-              helpers.i18n.t('storage.path', {}, 'Path'),
+              helpers.i18n.t('core-jetbackup.path', {}, 'Path'),
             ],
             jet.destinations.map((destination) => [
               destination.name ?? '—',

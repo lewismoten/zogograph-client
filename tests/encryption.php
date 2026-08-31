@@ -85,7 +85,9 @@ try {
                 'Verified encrypted copies protect backup artifacts',
             ) &&
             str_contains(
-                $dashboard,
+                (string) file_get_contents(
+                    dirname(__DIR__) . '/cards/system-encryption-shell.js',
+                ),
                 'Operator-declared host/volume coverage (not verified)',
             ) &&
             str_contains($dashboard, 'Recovery-drill review') &&

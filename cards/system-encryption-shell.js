@@ -14,6 +14,14 @@ window.ZogographSystemEncryptionShellCard = {
         'core-system-encryption-shell.unavailable': 'Unavailable',
         'core-system-encryption-shell.selected_stores': 'Selected stores',
         'core-system-encryption-shell.none': 'None',
+        'core-system-encryption-shell.evidence_none': 'No protection evidence',
+        'core-system-encryption-shell.evidence_operator_declared':
+          'Operator-declared host/volume coverage (not verified)',
+        'core-system-encryption-shell.evidence_verified_copies':
+          'Verified encrypted-copy and recovery evidence',
+        'core-system-encryption-shell.protection_evidence':
+          'Protection evidence',
+        'core-system-encryption-shell.needs_attention': 'Needs attention',
       }),
       es: Object.freeze({
         'core-system-encryption-shell.title': 'Protección de datos',
@@ -25,6 +33,15 @@ window.ZogographSystemEncryptionShellCard = {
         'core-system-encryption-shell.selected_stores':
           'Almacenes seleccionados',
         'core-system-encryption-shell.none': 'Ninguno',
+        'core-system-encryption-shell.evidence_none':
+          'Sin evidencia de protección',
+        'core-system-encryption-shell.evidence_operator_declared':
+          'Cobertura de host/volumen declarada por el operador (sin verificar)',
+        'core-system-encryption-shell.evidence_verified_copies':
+          'Evidencia de copias cifradas y recuperación verificadas',
+        'core-system-encryption-shell.protection_evidence':
+          'Evidencia de protección',
+        'core-system-encryption-shell.needs_attention': 'Necesita atención',
       }),
       hi: Object.freeze({
         'core-system-encryption-shell.title': 'डेटा सुरक्षा',
@@ -35,6 +52,13 @@ window.ZogographSystemEncryptionShellCard = {
         'core-system-encryption-shell.unavailable': 'अनुपलब्ध',
         'core-system-encryption-shell.selected_stores': 'चयनित स्टोर',
         'core-system-encryption-shell.none': 'कोई नहीं',
+        'core-system-encryption-shell.evidence_none': 'कोई सुरक्षा प्रमाण नहीं',
+        'core-system-encryption-shell.evidence_operator_declared':
+          'ऑपरेटर-घोषित होस्ट/वॉल्यूम कवरेज (सत्यापित नहीं)',
+        'core-system-encryption-shell.evidence_verified_copies':
+          'सत्यापित एन्क्रिप्टेड-कॉपी और रिकवरी प्रमाण',
+        'core-system-encryption-shell.protection_evidence': 'सुरक्षा प्रमाण',
+        'core-system-encryption-shell.needs_attention': 'ध्यान आवश्यक',
       }),
       ar: Object.freeze({
         'core-system-encryption-shell.title': 'حماية البيانات',
@@ -45,6 +69,13 @@ window.ZogographSystemEncryptionShellCard = {
         'core-system-encryption-shell.unavailable': 'غير متاح',
         'core-system-encryption-shell.selected_stores': 'المخازن المحددة',
         'core-system-encryption-shell.none': 'لا شيء',
+        'core-system-encryption-shell.evidence_none': 'لا يوجد دليل حماية',
+        'core-system-encryption-shell.evidence_operator_declared':
+          'تغطية مضيف/وحدة تخزين يعلنها المشغّل (غير متحققة)',
+        'core-system-encryption-shell.evidence_verified_copies':
+          'دليل نسخ مشفرة واسترداد متحقق منه',
+        'core-system-encryption-shell.protection_evidence': 'دليل الحماية',
+        'core-system-encryption-shell.needs_attention': 'يحتاج إلى اهتمام',
       }),
       zh: Object.freeze({
         'core-system-encryption-shell.title': '数据保护',
@@ -55,6 +86,13 @@ window.ZogographSystemEncryptionShellCard = {
         'core-system-encryption-shell.unavailable': '不可用',
         'core-system-encryption-shell.selected_stores': '选定的存储',
         'core-system-encryption-shell.none': '无',
+        'core-system-encryption-shell.evidence_none': '没有保护证据',
+        'core-system-encryption-shell.evidence_operator_declared':
+          '由操作员声明的主机/卷覆盖范围（未验证）',
+        'core-system-encryption-shell.evidence_verified_copies':
+          '已验证的加密副本和恢复证据',
+        'core-system-encryption-shell.protection_evidence': '保护证据',
+        'core-system-encryption-shell.needs_attention': '需要注意',
       }),
     }),
   }),

@@ -15824,21 +15824,9 @@ function renderEncryptionStatus(data) {
     ),
   };
   const evidence = {
-    none: ZogographI18n.t(
-      'encryption.evidence_none',
-      {},
-      'No protection evidence',
-    ),
-    operator_declared: ZogographI18n.t(
-      'encryption.evidence_operator_declared',
-      {},
-      'Operator-declared host/volume coverage (not verified)',
-    ),
-    verified_sealed_copies: ZogographI18n.t(
-      'encryption.evidence_verified_copies',
-      {},
-      'Verified encrypted-copy and recovery evidence',
-    ),
+    none: encryptionText('evidence_none'),
+    operator_declared: encryptionText('evidence_operator_declared'),
+    verified_sealed_copies: encryptionText('evidence_verified_copies'),
   };
   const overview = [
     [
@@ -15850,13 +15838,8 @@ function renderEncryptionStatus(data) {
       data.stores?.length ? data.stores.join(', ') : encryptionText('none'),
     ],
     [
-      ZogographI18n.t(
-        'encryption.protection_evidence',
-        {},
-        'Protection evidence',
-      ),
-      evidence[data.evidence] ||
-        ZogographI18n.t('encryption.needs_attention', {}, 'Needs attention'),
+      encryptionText('protection_evidence'),
+      evidence[data.evidence] || encryptionText('needs_attention'),
     ],
   ];
   if (data.setup_configuration)

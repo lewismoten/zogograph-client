@@ -85,6 +85,7 @@
     <script src="cards/reports-not-ready.js" defer></script>
     <script src="cards/reports-authorship.js" defer></script>
     <script src="cards/reports-shell.js" defer></script>
+    <script src="cards/system-problems-shell.js" defer></script>
     <script src="cards/fetch-headers.js" defer></script>
     <script src="cards/fetch-metadata.js" defer></script>
     <script src="cards/fetch-json.js" defer></script>
@@ -4483,19 +4484,24 @@
         <section class="view" data-view="sys-problems" hidden>
           <section class="panel" id="problemPanel">
             <div class="panel-head">
-              <h2 data-i18n="system.problems_title">Recent problems</h2>
+              <h2 data-i18n="core-system-problems-shell.title">
+                Recent problems
+              </h2>
               <div class="panel-controls">
                 <span class="muted small" id="problemPath"></span>
                 <button
                   id="problemClear"
                   class="danger small"
-                  data-i18n="system.clear_log"
+                  data-i18n="core-system-problems-shell.clear_log"
                 >
                   Clear the log
                 </button>
               </div>
             </div>
-            <p class="muted small sub-note" data-i18n="system.problems_help">
+            <p
+              class="muted small sub-note"
+              data-i18n="core-system-problems-shell.help"
+            >
               This dashboard's own log. When a request fails it shows you a
               reference — find the same reference here for what actually
               happened. Identical faults are counted together rather than listed

@@ -3521,6 +3521,31 @@ function renderReportsShellLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderReportsShellLabels);
 
+function renderSystemProblemsShellLabels() {
+  const helpers = { i18n: ZogographI18n };
+  renderCoreCardPackage(
+    ZogographSystemProblemsShellCard,
+    'core-system-problems-shell',
+    {},
+    helpers,
+  );
+  for (const key of ['title', 'clear_log', 'help']) {
+    const control = document.querySelector(
+      `[data-i18n="core-system-problems-shell.${key}"]`,
+    );
+    control.textContent = ZogographI18n.markSource(
+      control,
+      `core-system-problems-shell.${key}`,
+      ZogographSystemProblemsShellCard.text(key, helpers),
+    );
+  }
+}
+
+document.addEventListener(
+  'zogograph-i18n-load',
+  renderSystemProblemsShellLabels,
+);
+
 /**
  * When the disk is projected to fill, as a date.
  *

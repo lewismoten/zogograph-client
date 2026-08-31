@@ -2045,6 +2045,11 @@ function renderLoadNetworkChartLabels() {
         ZogographLoadNetworkCharts.text(key, helpers),
       );
     });
+  ZogographI18n.applyRich(
+    document.querySelector(
+      '[data-i18n-rich="core-host-disk-shell.deleted_help"]',
+    ),
+  );
 }
 
 document.addEventListener('zogograph-i18n-load', renderLoadNetworkChartLabels);

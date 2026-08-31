@@ -2342,7 +2342,6 @@
   "host.big_directories_help": "Procede del recorrido de root por todo el disco, así que alcanza lugares a los que la cuenta no puede llegar: los hogares de otras cuentas, /var, /backup y cualquier cosa montada en un lugar inesperado.",
   "host.disk_processes_help": "De qué procesos procede realmente el rendimiento de disco. La CPU puede permanecer baja mientras un trabajo hace que todo parezca lento al mantener ocupado un disco, y ese trabajo es invisible en los demás paneles del sitio.",
   "host.root_files_help": "Apache escribe los registros de cada dominio en /etc, propiedad de root. Un registro rotado allí ocupa exactamente el mismo disco que uno en el directorio personal y es invisible para todo lo que la cuenta puede ejecutar.",
-  "host.deleted_held_help": "Un archivo desvinculado mientras un proceso aún lo tiene abierto conserva sus bloques. {{df}} los cuenta; {{du}}, {{ls}}, {{find}} y el mapa de árbol no pueden verlos en absoluto. Es el único tipo de espacio perdido que ningún recorrido de directorios puede encontrar, y reiniciar el proceso indicado es lo que lo libera.",
   "host.processes_help": "Lo que se está ejecutando ahora, con procesos del mismo nombre sumados. «En ejecución desde» es el más antiguo del grupo: un grupo duradero cuyo miembro más reciente tiene segundos de vida se reinicia tan rápido como muere. Los argumentos que parecen contraseñas se ocultan.",
   "processes.by": "Por",
   "processes.cpu": "CPU",

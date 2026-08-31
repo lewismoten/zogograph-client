@@ -36,6 +36,12 @@ window.ZogographSystemHealthShellCard = {
         'core-system-health-shell.mail_available': 'mail() available',
         'core-system-health-shell.mail_available_help':
           'Alert emails cannot be sent from here.',
+        'core-system-health-shell.shell_available': 'shell_exec available',
+        'core-system-health-shell.shell_available_help':
+          'Inodes and the crontab editor are unavailable.',
+        'core-system-health-shell.proc_readable': '/proc readable',
+        'core-system-health-shell.proc_readable_help':
+          'CPU, memory and network stay empty.',
       }),
       es: Object.freeze({
         'core-system-health-shell.title': 'Estado',
@@ -70,6 +76,12 @@ window.ZogographSystemHealthShellCard = {
         'core-system-health-shell.mail_available': 'mail() disponible',
         'core-system-health-shell.mail_available_help':
           'No se pueden enviar correos de alerta desde aquí.',
+        'core-system-health-shell.shell_available': 'shell_exec disponible',
+        'core-system-health-shell.shell_available_help':
+          'Los inodos y el editor de crontab no están disponibles.',
+        'core-system-health-shell.proc_readable': '/proc legible',
+        'core-system-health-shell.proc_readable_help':
+          'CPU, memoria y red quedarán vacíos.',
       }),
       hi: Object.freeze({
         'core-system-health-shell.title': 'स्वास्थ्य',
@@ -105,6 +117,12 @@ window.ZogographSystemHealthShellCard = {
         'core-system-health-shell.mail_available': 'mail() उपलब्ध',
         'core-system-health-shell.mail_available_help':
           'यहाँ से अलर्ट ईमेल नहीं भेजे जा सकते।',
+        'core-system-health-shell.shell_available': 'shell_exec उपलब्ध',
+        'core-system-health-shell.shell_available_help':
+          'इनोड और क्रॉनटैब संपादक उपलब्ध नहीं हैं।',
+        'core-system-health-shell.proc_readable': '/proc पढ़ने योग्य',
+        'core-system-health-shell.proc_readable_help':
+          'CPU, मेमोरी और नेटवर्क खाली रहेंगे।',
       }),
       ar: Object.freeze({
         'core-system-health-shell.title': 'الحالة الصحية',
@@ -138,6 +156,12 @@ window.ZogographSystemHealthShellCard = {
         'core-system-health-shell.mail_available': 'mail() متاح',
         'core-system-health-shell.mail_available_help':
           'لا يمكن إرسال رسائل تنبيه من هنا.',
+        'core-system-health-shell.shell_available': 'shell_exec متاح',
+        'core-system-health-shell.shell_available_help':
+          'العقد ومحرر crontab غير متاحين.',
+        'core-system-health-shell.proc_readable': '/proc قابل للقراءة',
+        'core-system-health-shell.proc_readable_help':
+          'ستبقى وحدة المعالجة والذاكرة والشبكة فارغة.',
       }),
       zh: Object.freeze({
         'core-system-health-shell.title': '运行状况',
@@ -168,6 +192,12 @@ window.ZogographSystemHealthShellCard = {
         'core-system-health-shell.mail_available': 'mail() 可用',
         'core-system-health-shell.mail_available_help':
           '无法从此处发送警报邮件。',
+        'core-system-health-shell.shell_available': 'shell_exec 可用',
+        'core-system-health-shell.shell_available_help':
+          'Inode 和 crontab 编辑器不可用。',
+        'core-system-health-shell.proc_readable': '/proc 可读',
+        'core-system-health-shell.proc_readable_help':
+          'CPU、内存和网络将保持为空。',
       }),
     }),
   }),

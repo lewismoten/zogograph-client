@@ -26196,15 +26196,15 @@ const HEALTH_LABELS = {
     'Alert emails cannot be sent from here.',
   ],
   shell_available: [
-    'health.shell_available',
+    'shell_available',
     'shell_exec available',
-    'health.shell_available_help',
+    'shell_available_help',
     'Inodes and the crontab editor are unavailable.',
   ],
   proc_readable: [
-    'health.proc_readable',
+    'proc_readable',
     '/proc readable',
-    'health.proc_readable_help',
+    'proc_readable_help',
     'CPU, memory and network stay empty.',
   ],
   no_inline_styles: [

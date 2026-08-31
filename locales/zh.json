@@ -2756,8 +2756,6 @@
   "log.repeat_help": "占满磁盘的日志几乎从来不是由许多有趣且不同的事件组成；而是同一事件发生一万次。这里将相同行中可变的部分——数字、地址、路径和引号内字符串——剔除后计数，这是唯一可据以采取行动的呈现方式。",
   "calendar.saved_dates_title": "您保留的日期",
   "calendar.saved_dates_help": "标记为 {{important}} 表示它会在临近时显示在仪表板和警报邮件中，直到您将其标记为已处理。标记为已处理可随时撤销——这是某人作出的判断，也可能判断错误。",
-  "assistant.panel_label": "故障排查助手",
-  "assistant.drag_window": "拖动以移动此聊天窗口",
   "assistant.title": "助手",
   "assistant.effort_title": "思考强度",
   "assistant.speak": "朗读",

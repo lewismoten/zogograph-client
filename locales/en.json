@@ -2774,8 +2774,6 @@
   "log.repeat_help": "A log filling a disk is almost never full of interesting distinct events; it is one event ten thousand times. These are the same lines with their variable parts — numbers, addresses, paths, quoted strings — taken out and counted, which is the only presentation of that fact anybody can act on.",
   "calendar.saved_dates_title": "Dates you keep",
   "calendar.saved_dates_help": "Marked {{important}} means it appears on the dashboard and in the alert emails as it approaches, until you mark it dealt with. Marking it dealt with is reversible — it is a claim somebody makes, and sometimes makes wrongly.",
-  "assistant.panel_label": "The troubleshooting assistant",
-  "assistant.drag_window": "Drag to move this chat window",
   "assistant.title": "Assistant",
   "assistant.effort_title": "How hard to think",
   "assistant.speak": "Speak",

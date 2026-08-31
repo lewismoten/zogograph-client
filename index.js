@@ -5933,6 +5933,19 @@ function renderFilterControls() {
 
 document.addEventListener('zogograph-i18n-load', renderFilterControls);
 
+function renderChatShellAccessibility() {
+  const labels = renderCoreCardPackage(
+    ZogographChatShellAccessibilityCard,
+    'core-chat-shell-accessibility',
+    {},
+    { i18n: ZogographI18n },
+  );
+  $('chatPanel').setAttribute('aria-label', labels.panelLabel);
+  $('chatDragHandle').title = labels.dragWindow;
+}
+
+document.addEventListener('zogograph-i18n-load', renderChatShellAccessibility);
+
 /** Every container the settings are split across. */
 const AI_SETTING_PAGES = [
   'aiIdentityBody',

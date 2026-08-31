@@ -2762,6 +2762,26 @@ function renderSymlinkSweepShellLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderSymlinkSweepShellLabels);
 
+function renderJetBackupLabels() {
+  const helpers = {
+    note: () => null,
+    section: () => null,
+    simpleTable: () => null,
+    humanTime: () => '',
+    humanBytes: () => '',
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(ZogographJetBackupCard, 'core-jetbackup', {}, helpers);
+  const title = document.querySelector('[data-i18n="core-jetbackup.title"]');
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-jetbackup.title',
+    ZogographJetBackupCard.text('title', helpers),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderJetBackupLabels);
+
 /**
  * When the disk is projected to fill, as a date.
  *

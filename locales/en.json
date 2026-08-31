@@ -2082,7 +2082,6 @@
   "backup.actions_title": "What can be done about it",
   "backup.actions_help": "Sorted by how safe each one is, not by how much it would free. Anything marked destructive removes the only copy of something — the whole point of a backup is that it is there on the day nobody expected to need it.",
   "backup.other_title": "Other probable backups",
-  "backup.jetbackup_title": "JetBackup",
   "backup.jetbackup_help": "What the backup system says about its own backups is the only place the account and date behind a directory called files0000000005 can be found. It needs the JetBackup command line tool and usually needs running as root.",
   "network.interface": "Interface",
   "network.loopback": " · loopback, never leaves the machine",

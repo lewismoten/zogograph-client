@@ -12,6 +12,7 @@ window.ZogographJetBackupCard = {
     ],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-jetbackup.title': 'JetBackup',
         'core-jetbackup.account': 'Account',
         'core-jetbackup.when': 'When',
         'core-jetbackup.type': 'Type',
@@ -26,6 +27,7 @@ window.ZogographJetBackupCard = {
           'JetBackup answered, but listed no backups and no destinations.',
       }),
       es: Object.freeze({
+        'core-jetbackup.title': 'JetBackup',
         'core-jetbackup.account': 'Cuenta',
         'core-jetbackup.when': 'Cuándo',
         'core-jetbackup.type': 'Tipo',
@@ -41,6 +43,7 @@ window.ZogographJetBackupCard = {
           'JetBackup respondió, pero no enumeró copias de seguridad ni destinos.',
       }),
       hi: Object.freeze({
+        'core-jetbackup.title': 'JetBackup',
         'core-jetbackup.account': 'खाता',
         'core-jetbackup.when': 'कब',
         'core-jetbackup.type': 'प्रकार',
@@ -55,6 +58,7 @@ window.ZogographJetBackupCard = {
           'JetBackup ने जवाब दिया, लेकिन कोई बैकअप या गंतव्य सूचीबद्ध नहीं किया।',
       }),
       ar: Object.freeze({
+        'core-jetbackup.title': 'JetBackup',
         'core-jetbackup.account': 'الحساب',
         'core-jetbackup.when': 'متى',
         'core-jetbackup.type': 'النوع',
@@ -69,6 +73,7 @@ window.ZogographJetBackupCard = {
           'أجاب JetBackup، لكنه لم يسرد أي نسخ احتياطية أو وجهات.',
       }),
       zh: Object.freeze({
+        'core-jetbackup.title': 'JetBackup',
         'core-jetbackup.account': '账户',
         'core-jetbackup.when': '时间',
         'core-jetbackup.type': '类型',
@@ -84,6 +89,13 @@ window.ZogographJetBackupCard = {
       }),
     }),
   }),
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-jetbackup.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-jetbackup.${key}`],
+    );
+  },
   render(jet, helpers) {
     const out = document.createDocumentFragment();
     if (jet.backups?.length) {

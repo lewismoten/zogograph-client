@@ -1084,51 +1084,18 @@ async function refreshCpu() {
       i18n: ZogographI18n,
     },
   );
-  if (window.ZogographCpuBusyChartCard) {
-    renderCoreCardPackage(
-      ZogographCpuBusyChartCard,
-      'core-cpu-busy-chart',
-      { series: data.series ?? [] },
-      {
-        chart: $('cpuBusyChart'),
-        drawLineChart,
-        percentAxis,
-        empty: cpuEmptyWhy,
-        i18n: ZogographI18n,
-      },
-    );
-  } else
-    drawLineChart(
-      $('cpuBusyChart'),
-      data.series ?? [],
-      [
-        { key: 'busy', label: 'Busy' },
-        {
-          key: 'monitoring_cpu_percent',
-          label: 'Monitoring tree',
-        },
-        {
-          key: 'workload_cpu_percent',
-          label: 'Workload (excl. monitor)',
-        },
-        { key: 'user', label: 'Userland' },
-        { key: 'system', label: 'Kernel' },
-        {
-          key: 'iowait',
-          label: 'Waiting for storage',
-        },
-        {
-          key: 'steal',
-          label: 'Stolen by the host',
-        },
-      ],
-      {
-        axis: percentAxis,
-        zeroBased: true,
-        max: 100,
-        empty: cpuEmptyWhy(data),
-      },
-    );
+  renderCoreCardPackage(
+    ZogographCpuBusyChartCard,
+    'core-cpu-busy-chart',
+    { series: data.series ?? [] },
+    {
+      chart: $('cpuBusyChart'),
+      drawLineChart,
+      percentAxis,
+      empty: cpuEmptyWhy,
+      i18n: ZogographI18n,
+    },
+  );
 
   renderCpuTime(data);
   renderCpuCores(data);

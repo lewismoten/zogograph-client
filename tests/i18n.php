@@ -1222,7 +1222,8 @@ i18nExpect(
         str_contains(
             $script,
             'renderCoreCardPackage(ZogographCpuBusyChartCard, "core-cpu-busy-chart",',
-        ),
+        ) &&
+        !str_contains($script, 'if (window.ZogographCpuBusyChartCard)'),
     'CPU busy chart is not isolated behind its core card-module boundary',
 );
 i18nExpect(

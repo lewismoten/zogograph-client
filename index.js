@@ -6430,7 +6430,15 @@ async function saveAiSettings(extra = {}) {
       ...extra,
     });
 
-    notice(aiSettingsText('saved', 'Saved.'), true);
+    notice(
+      renderCoreCardPackage(
+        ZogographAiSettingsSavedCard,
+        'core-ai-settings-saved',
+        {},
+        { i18n: ZogographI18n },
+      ),
+      true,
+    );
     if (result.who) {
       chatState.who = {
         name: result.who.name,

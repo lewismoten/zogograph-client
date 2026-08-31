@@ -533,7 +533,6 @@
   "notes.discard_screenshot": "Do not keep it",
   "notes.screenshot": "Screenshot",
   "notes.screenshot_help": "This dialog closes while the picture is taken and everything you have typed comes back with it. You can crop and black out anything before it is kept.",
-  "ai.settings.saved": "Saved.",
   "chart.visual_item": "item",
   "chart.visual_series": "series",
   "chart.visual_pie_data_error": "Pie data needs numeric slices.",

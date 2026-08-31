@@ -1433,7 +1433,6 @@
   "storage.link_sweep_placeholder": "/home/you/public_html/previews",
   "processes.pattern_placeholder": "webalizer/bin/english.*ssl_log\\.bkup",
   "marketplace.no_matches": "No marketplace packages match that search.",
-  "marketplace.table_summary": "What it offers",
   "marketplace.table_trust": "Trust",
   "marketplace.table_compatibility": "Compatibility",
   "marketplace.table_license": "License",

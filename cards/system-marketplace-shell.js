@@ -15,6 +15,7 @@ window.ZogographSystemMarketplaceShellCard = {
           'Search packages, publishers, or capabilities',
         'core-system-marketplace-shell.table_package': 'Package',
         'core-system-marketplace-shell.table_publisher': 'Publisher',
+        'core-system-marketplace-shell.table_summary': 'What it offers',
       }),
       es: Object.freeze({
         'core-system-marketplace-shell.title': 'Mercado',
@@ -26,6 +27,7 @@ window.ZogographSystemMarketplaceShellCard = {
           'Buscar paquetes, editores o capacidades',
         'core-system-marketplace-shell.table_package': 'Paquete',
         'core-system-marketplace-shell.table_publisher': 'Editor',
+        'core-system-marketplace-shell.table_summary': 'Qué ofrece',
       }),
       hi: Object.freeze({
         'core-system-marketplace-shell.title': 'मार्केटप्लेस',
@@ -37,6 +39,7 @@ window.ZogographSystemMarketplaceShellCard = {
           'पैकेज, प्रकाशक या क्षमताएँ खोजें',
         'core-system-marketplace-shell.table_package': 'पैकेज',
         'core-system-marketplace-shell.table_publisher': 'प्रकाशक',
+        'core-system-marketplace-shell.table_summary': 'यह क्या देता है',
       }),
       ar: Object.freeze({
         'core-system-marketplace-shell.title': 'السوق',
@@ -47,6 +50,7 @@ window.ZogographSystemMarketplaceShellCard = {
           'ابحث عن الحزم أو الناشرين أو القدرات',
         'core-system-marketplace-shell.table_package': 'الحزمة',
         'core-system-marketplace-shell.table_publisher': 'الناشر',
+        'core-system-marketplace-shell.table_summary': 'ما تقدمه',
       }),
       zh: Object.freeze({
         'core-system-marketplace-shell.title': '市场',
@@ -57,6 +61,7 @@ window.ZogographSystemMarketplaceShellCard = {
           '搜索软件包、发布者或功能',
         'core-system-marketplace-shell.table_package': '软件包',
         'core-system-marketplace-shell.table_publisher': '发布者',
+        'core-system-marketplace-shell.table_summary': '提供的内容',
       }),
     }),
   }),

@@ -1391,7 +1391,6 @@
   "storage.link_sweep_placeholder": "/home/your-user/public_html/previews",
   "processes.pattern_placeholder": "webalizer/bin/english.*ssl_log\\.bkup",
   "marketplace.no_matches": "لا توجد حزم في السوق تطابق هذا البحث.",
-  "marketplace.table_summary": "ما تقدمه",
   "marketplace.table_trust": "الثقة",
   "marketplace.table_compatibility": "التوافق",
   "marketplace.table_license": "الترخيص",

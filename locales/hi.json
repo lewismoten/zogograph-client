@@ -1393,7 +1393,6 @@
   "storage.link_sweep_placeholder": "/home/user/public_html/previews",
   "processes.pattern_placeholder": "webalizer/bin/english.*ssl_log\\.bkup",
   "marketplace.no_matches": "इस खोज से कोई मार्केटप्लेस पैकेज मेल नहीं खाता।",
-  "marketplace.table_summary": "यह क्या देता है",
   "marketplace.table_trust": "विश्वास",
   "marketplace.table_compatibility": "अनुकूलता",
   "marketplace.table_license": "लाइसेंस",

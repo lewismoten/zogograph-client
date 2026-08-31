@@ -16432,7 +16432,7 @@ function renderMarketplace(data) {
           render: (row) => row.publisher,
         },
         {
-          label: marketplaceText('table_summary', {}, 'What it offers'),
+          label: marketplaceShellText('table_summary'),
           className: 'cmd',
           render: (row) => row.summary,
         },

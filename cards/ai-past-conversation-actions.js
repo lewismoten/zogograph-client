@@ -10,6 +10,9 @@ window.ZogographAiPastConversationActionsCard = {
           'Pinned. Retention will leave this one alone.',
         'core-ai-past-conversation-actions.unpinned':
           'Unpinned. It is subject to the retention rule again.',
+        'core-ai-past-conversation-actions.pin': 'Pin it',
+        'core-ai-past-conversation-actions.unpin': 'Unpin it',
+        'core-ai-past-conversation-actions.resume': 'Pick it up',
         'core-ai-past-conversation-actions.resume_title':
           'Pick this conversation up?',
         'core-ai-past-conversation-actions.resume_background':
@@ -26,6 +29,9 @@ window.ZogographAiPastConversationActionsCard = {
           'Fijada. La retención dejará esta intacta.',
         'core-ai-past-conversation-actions.unpinned':
           'Desfijada. Vuelve a estar sujeta a la regla de retención.',
+        'core-ai-past-conversation-actions.pin': 'Fijarla',
+        'core-ai-past-conversation-actions.unpin': 'Desfijar',
+        'core-ai-past-conversation-actions.resume': 'Retomarla',
         'core-ai-past-conversation-actions.resume_title':
           '¿Retomar esta conversación?',
         'core-ai-past-conversation-actions.resume_background':
@@ -42,6 +48,9 @@ window.ZogographAiPastConversationActionsCard = {
           'पिन किया गया। प्रतिधारण इसे अकेला छोड़ देगा।',
         'core-ai-past-conversation-actions.unpinned':
           'पिन हटाया गया। यह फिर से प्रतिधारण नियम के अधीन है।',
+        'core-ai-past-conversation-actions.pin': 'पिन करें',
+        'core-ai-past-conversation-actions.unpin': 'पिन हटाएँ',
+        'core-ai-past-conversation-actions.resume': 'फिर शुरू करें',
         'core-ai-past-conversation-actions.resume_title':
           'इस बातचीत को फिर से शुरू करें?',
         'core-ai-past-conversation-actions.resume_background':
@@ -58,6 +67,9 @@ window.ZogographAiPastConversationActionsCard = {
           'تم التثبيت. لن تحذف قاعدة الاحتفاظ هذه المحادثة.',
         'core-ai-past-conversation-actions.unpinned':
           'أُلغي التثبيت. تخضع الآن لقاعدة الاحتفاظ مجددًا.',
+        'core-ai-past-conversation-actions.pin': 'ثبّتها',
+        'core-ai-past-conversation-actions.unpin': 'إزالة التثبيت',
+        'core-ai-past-conversation-actions.resume': 'تابعها',
         'core-ai-past-conversation-actions.resume_title':
           'متابعة هذه المحادثة؟',
         'core-ai-past-conversation-actions.resume_background':
@@ -74,6 +86,9 @@ window.ZogographAiPastConversationActionsCard = {
           '已置顶。保留规则不会删除这条对话。',
         'core-ai-past-conversation-actions.unpinned':
           '已取消置顶。它再次受保留规则约束。',
+        'core-ai-past-conversation-actions.pin': '置顶',
+        'core-ai-past-conversation-actions.unpin': '取消固定',
+        'core-ai-past-conversation-actions.resume': '继续对话',
         'core-ai-past-conversation-actions.resume_title': '继续这段对话？',
         'core-ai-past-conversation-actions.resume_background':
           '会启动一段新对话，并将这段对话的内容作为背景携带。',

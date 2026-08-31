@@ -12841,9 +12841,15 @@ function renderPastChat() {
     { whenLabel, i18n: ZogographI18n },
   );
 
-  $('pastChatPin').textContent = row?.pinned
-    ? ZogographI18n.t('ai.unpin', {}, 'Unpin it')
-    : ZogographI18n.t('ai.pin', {}, 'Pin it');
+  $('pastChatPin').textContent = renderCoreCardPackage(
+    ZogographAiPastConversationActionsCard,
+    'core-ai-past-conversation-actions',
+    {
+      key: row?.pinned ? 'unpin' : 'pin',
+      fallback: row?.pinned ? 'Unpin it' : 'Pin it',
+    },
+    { i18n: ZogographI18n },
+  );
   $('pastChatResume').hidden = row ? !row.can_continue : false;
 
   /*
@@ -20334,7 +20340,12 @@ function renderMemories(data) {
                 {},
                 { i18n: ZogographI18n },
               )
-            : ZogographI18n.t('ai.pin', {}, 'Pin it');
+            : renderCoreCardPackage(
+                ZogographAiMemoryPinStateCard,
+                'core-ai-memory-pin-state',
+                { key: 'pin' },
+                { i18n: ZogographI18n },
+              );
           pin.addEventListener('click', async () => {
             try {
               renderMemories(
@@ -40584,7 +40595,12 @@ $('pastChatResume').addEventListener('click', async () => {
         { i18n: ZogographI18n },
       ),
     ],
-    ZogographI18n.t('ai.resume', {}, 'Pick it up'),
+    renderCoreCardPackage(
+      ZogographAiPastConversationActionsCard,
+      'core-ai-past-conversation-actions',
+      { key: 'resume', fallback: 'Pick it up' },
+      { i18n: ZogographI18n },
+    ),
   );
 
   if (!yes) return;

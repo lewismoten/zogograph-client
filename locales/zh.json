@@ -1624,8 +1624,6 @@
   "problems.path_entry_one": "{{path}} 中有 {{count, number}} 条记录",
   "problems.path_entry_many": "{{path}} 中有 {{count, number}} 条记录",
   "ai.conversation_title": "这段对话",
-  "ai.resume": "继续对话",
-  "ai.pin": "置顶",
   "system.showing": "正在显示",
   "system.changed_groups_title": "按组查看变化",
   "system.snapshot_empty": "尚未创建副本。当注释请求时会写入一个副本：两个数据库的一致副本，可在相关读数汇总后查看。",
@@ -1700,6 +1698,5 @@
   "terminal.locked_again": "它已再次锁定。",
   "terminal.open_for": "还可打开 {{duration}}。",
   "collector.settings_saved": "已保存。下一次采集器运行将使用这些设置。",
-  "ai.unpin": "取消固定",
   "ai.skip_question_help": "不回答而继续——这与让计时结束相同"
 }

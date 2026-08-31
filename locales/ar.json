@@ -1624,8 +1624,6 @@
   "problems.path_entry_one": "إدخال واحد في {{path}}",
   "problems.path_entry_many": "{{count, number}} إدخالات في {{path}}",
   "ai.conversation_title": "المحادثة",
-  "ai.resume": "تابعها",
-  "ai.pin": "ثبّتها",
   "system.showing": "يعرض",
   "system.changed_groups_title": "ما الذي تغير، حسب المجموعة",
   "system.snapshot_empty": "لم تُنشأ أي نسخ. تُكتب واحدة عندما تطلبها ملاحظة — نسخة متسقة من قاعدتي البيانات للنظر إليها بعد تجميع القراءات المتعلقة بها.",
@@ -1700,6 +1698,5 @@
   "terminal.locked_again": "لقد قفل نفسه مجددًا.",
   "terminal.open_for": "مفتوح لمدة {{duration}} أخرى.",
   "collector.settings_saved": "حُفظت. سيستخدمها تشغيل الجامع التالي.",
-  "ai.unpin": "إزالة التثبيت",
   "ai.skip_question_help": "تابع دون إجابة — وهو نفس ترك الوقت ينقضي"
 }

@@ -1626,8 +1626,6 @@
   "problems.path_entry_one": "{{path}} में {{count, number}} प्रविष्टि",
   "problems.path_entry_many": "{{path}} में {{count, number}} प्रविष्टियाँ",
   "ai.conversation_title": "बातचीत",
-  "ai.resume": "फिर शुरू करें",
-  "ai.pin": "पिन करें",
   "system.showing": "दिखा रहा है",
   "system.changed_groups_title": "समूह के अनुसार क्या बदला",
   "system.snapshot_empty": "अभी कोई प्रति नहीं बनाई गई है। नोट के मांगने पर एक लिखी जाती है — दोनों डेटाबेस की सुसंगत प्रति, संबंधित रीडिंग के रोल-अप होने के बाद देखने के लिए।",
@@ -1702,6 +1700,5 @@
   "terminal.locked_again": "यह फिर से लॉक हो गया है।",
   "terminal.open_for": "और {{duration}} के लिए खुला है।",
   "collector.settings_saved": "सहेजा गया। अगला कलेक्टर रन इनका उपयोग करेगा।",
-  "ai.unpin": "पिन हटाएँ",
   "ai.skip_question_help": "जवाब दिए बिना आगे बढ़ें — यह समय समाप्त होने देने जैसा ही है"
 }

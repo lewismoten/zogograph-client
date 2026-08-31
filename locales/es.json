@@ -1627,8 +1627,6 @@
   "problems.path_entry_one": "{{count, number}} entrada en {{path}}",
   "problems.path_entry_many": "{{count, number}} entradas en {{path}}",
   "ai.conversation_title": "La conversación",
-  "ai.resume": "Retomarla",
-  "ai.pin": "Fijarla",
   "system.showing": "Mostrando",
   "system.changed_groups_title": "Qué cambió, por grupo",
   "system.snapshot_empty": "No se han hecho copias. Se escribe una cuando una nota la pide: una copia coherente de ambas bases de datos para verla después de que se hayan consolidado las lecturas a las que se refiere.",
@@ -1703,6 +1701,5 @@
   "terminal.locked_again": "Se ha bloqueado de nuevo.",
   "terminal.open_for": "Abierto durante {{duration}} más.",
   "collector.settings_saved": "Guardado. La siguiente ejecución del recopilador usará estos valores.",
-  "ai.unpin": "Desfijar",
   "ai.skip_question_help": "Continúa sin responder; es igual que dejar que el tiempo se agote"
 }

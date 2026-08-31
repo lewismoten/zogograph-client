@@ -1642,8 +1642,6 @@
   "problems.path_entry_one": "{{count, number}} entry in {{path}}",
   "problems.path_entry_many": "{{count, number}} entries in {{path}}",
   "ai.conversation_title": "The conversation",
-  "ai.resume": "Pick it up",
-  "ai.pin": "Pin it",
   "system.showing": "Showing",
   "system.changed_groups_title": "What changed, by group",
   "system.snapshot_empty": "No copies have been made. One is written when a note asks for it — a consistent copy of both databases, for looking at after the readings it is about have been rolled up.",
@@ -1718,6 +1716,5 @@
   "terminal.locked_again": "It has locked itself again.",
   "terminal.open_for": "Open for another {{duration}}.",
   "collector.settings_saved": "Saved. The next collector run will use these.",
-  "ai.unpin": "Unpin it",
   "ai.skip_question_help": "Carry on without answering — the same as letting the clock run out"
 }

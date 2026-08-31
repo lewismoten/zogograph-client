@@ -2374,6 +2374,17 @@ i18nExpect(
     'Storage host-log guidance does not use the locale catalog',
 );
 i18nExpect(
+    !isset(
+        $english['host_log.log'],
+        $english['host_log.size'],
+        $english['host_log.last_written'],
+        $english['host_log.refused'],
+    ) &&
+        str_contains($script, "'core-host-logs'") &&
+        str_contains($script, 'window.ZogographHostLogsCard'),
+    'host-log table translations belong to its core package',
+);
+i18nExpect(
     str_contains(
         (string) file_get_contents($root . '/cards/storage-scan-status.js'),
         'core-storage-scan-status.running',

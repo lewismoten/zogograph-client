@@ -41358,84 +41358,19 @@ async function refreshHostLogs() {
   }
   panel.hidden = false;
 
-  if (window.ZogographHostLogsCard) {
-    return renderCoreCardPackage(
-      ZogographHostLogsCard,
-      'core-host-logs',
-      data.rows,
-      {
-        target: $('hostLogs'),
-        renderTable,
-        humanBytes,
-        humanTime,
-        view: showLogPath,
-        i18n: ZogographI18n,
-      },
-    );
-  }
-
-  renderTable('hostLogs', data.rows, [
+  return renderCoreCardPackage(
+    window.ZogographHostLogsCard,
+    'core-host-logs',
+    data.rows,
     {
-      label: ZogographI18n.t('host_log.log', {}, 'Log'),
-      className: 'name',
-      render: (row) => row.path,
+      target: $('hostLogs'),
+      renderTable,
+      humanBytes,
+      humanTime,
+      view: showLogPath,
+      i18n: ZogographI18n,
     },
-    {
-      label: ZogographI18n.t('host_log.size', {}, 'Size'),
-      className: 'size',
-      render: (row) => (row.exists ? humanBytes(row.bytes) : '\u2014'),
-    },
-    {
-      label: ZogographI18n.t('host_log.last_written', {}, 'Last written'),
-      render: (row) =>
-        row.modified_at ? humanTime(row.modified_at) : '\u2014',
-    },
-    {
-      label: ZogographI18n.t('host_log.state', {}, 'State'),
-      render: (row) => {
-        const span = document.createElement('span');
-        if (!row.exists) {
-          span.className = 'muted';
-          span.textContent = ZogographI18n.t(
-            'host_log.not_on_machine',
-            {},
-            'not on this machine',
-          );
-        } else if (row.readable) {
-          span.className = 'ok';
-          span.textContent = ZogographI18n.t(
-            'host_log.readable',
-            {},
-            'readable',
-          );
-        } else {
-          span.className = 'muted';
-          span.textContent = ZogographI18n.t(
-            'host_log.refused',
-            {},
-            'refused by the host',
-          );
-          span.title = ZogographI18n.t(
-            'host_log.refused_help',
-            {},
-            'The file is there and this account may not open it. That needs a group membership or an ACL granted by root — nothing in here can change it.',
-          );
-        }
-        return span;
-      },
-    },
-    {
-      label: '',
-      render: (row) => {
-        if (!row.readable) return '';
-        const button = document.createElement('button');
-        button.className = 'link';
-        button.textContent = ZogographI18n.t('action.view', {}, 'View');
-        button.addEventListener('click', () => showLogPath(row.path));
-        return button;
-      },
-    },
-  ]);
+  );
 }
 
 /* ------------------------------------------------------------ capabilities -- */

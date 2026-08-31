@@ -39,6 +39,11 @@ window.ZogographAlertsShellCard = {
         'core-alerts-shell.mail_message': 'The message',
         'core-alerts-shell.mail_headers': 'Headers',
         'core-alerts-shell.mail_dialog_title': 'What was sent',
+        'core-alerts-shell.mail_not_delivered_help':
+          'This message was written and not delivered. It is kept anyway: “the email failed” is a fact about the mail system, and the thing worth having next is what it would have said.',
+        'core-alerts-shell.mail_covered': '{{count}} alerts went out in it',
+        'core-alerts-shell.mail_dialog_help':
+          'Kept as it was sent. The wording depends on what else fired in the same minute and on the settings at the time, so it cannot be worked out again afterwards — which is why it is stored rather than rebuilt.',
       }),
       es: Object.freeze({
         'core-alerts-shell.timeline_title': 'Cuándo se activaron las alertas',
@@ -74,6 +79,11 @@ window.ZogographAlertsShellCard = {
         'core-alerts-shell.mail_message': 'El mensaje',
         'core-alerts-shell.mail_headers': 'Encabezados',
         'core-alerts-shell.mail_dialog_title': 'Lo que se envió',
+        'core-alerts-shell.mail_not_delivered_help':
+          'Este mensaje se escribió y no se entregó. Se conserva de todos modos: “el correo falló” es un hecho sobre el sistema de correo, y lo siguiente que conviene tener es lo que habría dicho.',
+        'core-alerts-shell.mail_covered': 'Salieron {{count}} alertas en él',
+        'core-alerts-shell.mail_dialog_help':
+          'Se conserva tal como se envió. La redacción depende de qué más se activó en el mismo minuto y de la configuración de entonces, por lo que no se puede calcular de nuevo después; por eso se almacena en vez de reconstruirse.',
       }),
       hi: Object.freeze({
         'core-alerts-shell.timeline_title': 'अलर्ट कब चालू हुए',
@@ -109,6 +119,11 @@ window.ZogographAlertsShellCard = {
         'core-alerts-shell.mail_message': 'संदेश',
         'core-alerts-shell.mail_headers': 'हेडर',
         'core-alerts-shell.mail_dialog_title': 'क्या भेजा गया था',
+        'core-alerts-shell.mail_not_delivered_help':
+          'यह संदेश लिखा गया था और भेजा नहीं गया। फिर भी इसे रखा जाता है: “ईमेल विफल हुआ” मेल प्रणाली का तथ्य है, और आगे उपयोगी चीज़ वह है जो उसमें कहा गया होता।',
+        'core-alerts-shell.mail_covered': 'इसमें {{count}} चेतावनियां भेजी गईं',
+        'core-alerts-shell.mail_dialog_help':
+          'इसे भेजे गए रूप में रखा जाता है। शब्दावली इस पर निर्भर करती है कि उसी मिनट और क्या ट्रिगर हुआ तथा उस समय कौन सी सेटिंग थी, इसलिए बाद में इसे फिर से निकाला नहीं जा सकता — इसी कारण इसे दोबारा बनाने के बजाय संग्रहीत किया जाता है।',
       }),
       ar: Object.freeze({
         'core-alerts-shell.timeline_title': 'متى أُطلقت التنبيهات',
@@ -143,6 +158,11 @@ window.ZogographAlertsShellCard = {
         'core-alerts-shell.mail_message': 'الرسالة',
         'core-alerts-shell.mail_headers': 'الرؤوس',
         'core-alerts-shell.mail_dialog_title': 'ما أُرسل',
+        'core-alerts-shell.mail_not_delivered_help':
+          'كُتبت هذه الرسالة ولم تُسلّم. تُحفظ مع ذلك: «فشل البريد الإلكتروني» حقيقة عن نظام البريد، والشيء المفيد التالي هو ما كانت ستقوله.',
+        'core-alerts-shell.mail_covered': 'خرجت فيه {{count}} تنبيهات',
+        'core-alerts-shell.mail_dialog_help':
+          'تُحفظ كما أُرسلت. تعتمد الصياغة على ما أُطلق أيضًا في الدقيقة نفسها وعلى الإعدادات في ذلك الوقت، لذلك لا يمكن استنتاجها مرة أخرى لاحقًا — ولهذا تُخزّن بدل أن يُعاد بناؤها.',
       }),
       zh: Object.freeze({
         'core-alerts-shell.timeline_title': '警报何时触发',
@@ -177,6 +197,11 @@ window.ZogographAlertsShellCard = {
         'core-alerts-shell.mail_message': '消息',
         'core-alerts-shell.mail_headers': '标头',
         'core-alerts-shell.mail_dialog_title': '发送的内容',
+        'core-alerts-shell.mail_not_delivered_help':
+          '此消息已写入但未投递。它仍会被保留：“邮件失败”是邮件系统的事实，接下来值得保留的是它原本会说什么。',
+        'core-alerts-shell.mail_covered': '其中发出了 {{count}} 个警报',
+        'core-alerts-shell.mail_dialog_help':
+          '它按发送时的样子保留。措辞取决于同一分钟还触发了什么以及当时的设置，因此事后无法再次推算——这就是存储它而非重建它的原因。',
       }),
     }),
   }),

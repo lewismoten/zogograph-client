@@ -27825,11 +27825,9 @@ async function showAlertEmail(row) {
   if (!mail.sent) {
     nodes.push(
       note(
-        ZogographI18n.t(
-          'alerts.mail_not_delivered_help',
-          {},
-          'This message was written and not delivered. It is kept anyway: “the email failed” is a fact about the mail system, and the thing worth having next is what it would have said.',
-        ),
+        ZogographAlertsShellCard.text('mail_not_delivered_help', {
+          i18n: ZogographI18n,
+        }),
       ),
     );
   }
@@ -27845,10 +27843,10 @@ async function showAlertEmail(row) {
     holder.id = 'alertEmailCovers';
     nodes.push(
       section(
-        ZogographI18n.t(
-          'alerts.mail_covered',
+        ZogographAlertsShellCard.text(
+          'mail_covered',
           { count: humanCount(mail.covered.length) },
-          '{{count}} alerts went out in it',
+          { i18n: ZogographI18n },
         ),
         holder,
       ),
@@ -27886,11 +27884,9 @@ async function showAlertEmail(row) {
       i18n: ZogographI18n,
     }),
     nodes,
-    ZogographI18n.t(
-      'alerts.mail_dialog_help',
-      {},
-      'Kept as it was sent. The wording depends on what else fired in the same minute and on the settings at the time, so it cannot be worked out again afterwards — which is why it is stored rather than rebuilt.',
-    ),
+    ZogographAlertsShellCard.text('mail_dialog_help', {
+      i18n: ZogographI18n,
+    }),
   );
 
   if (mail.covered.length > 1) {

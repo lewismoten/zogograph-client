@@ -2497,8 +2497,6 @@
   "system.changed_help": "Casi todo «{{working_yesterday}}» resulta ser algo que cambió por debajo: un kernel que llegó con una actualización de paquete, un aumento de OpenSSL que movió un valor predeterminado, una versión menor de PHP que dejó obsoleta una función. Nada de eso aparece en otro gráfico, y la máquina tampoco conserva una nota útil: el registro de paquetes pertenece a root, no siempre está presente y registra lo que se {{installed}}, no lo que responde ahora. Cada hora de esta página es cuando se {{noticed}} un cambio, no cuando sucedió: esto se ejecuta al comprobar capacidades, por lo que una comprobación semanal convierte una actualización del martes en un evento del domingo.",
   "system.changed_groups_title": "Qué cambió, por grupo",
   "system.changed_groups_help": "Cada barra cuenta los programas cuya disponibilidad o versión cambió, por color de grupo. Haga clic en una para ver exactamente qué. Esto estaba en {{capabilities}}, una página sobre lo que está disponible {{now}}; el historial de cambios pertenece junto al resto del historial.",
-  "system.installed_help": "Qué es cada cosa en este momento y desde hace cuánto tiempo lo es. Cuando un programa no ofrece una versión legible —y muchos no la ofrecen— ocupa su lugar una huella del archivo: un dato más débil que {{version}}, pero del mismo tipo y el único disponible.",
-  "system.installed_history_help": "Este es el presente de {{changed}} y ambos responden preguntas distintas: este dice lo que está ejecutando, aquel cuándo comenzó a serlo. Los dos se completan con la misma comprobación: {{capabilities}} es donde se ejecuta.",
   "notes.title": "Notas",
   "notes.add": "Escribir una",
   "notes.keep_pictures": "Conservar imágenes de",

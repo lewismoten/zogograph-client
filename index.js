@@ -3895,6 +3895,13 @@ function renderInstalledSoftwareTitle() {
     'core-installed-software.title',
     ZogographInstalledSoftwareCard.text('title', helpers),
   );
+  for (const key of ['help', 'history_help']) {
+    ZogographI18n.applyRich(
+      document.querySelector(
+        `[data-i18n-rich="core-installed-software.${key}"]`,
+      ),
+    );
+  }
 }
 
 document.addEventListener('zogograph-i18n-load', renderInstalledSoftwareTitle);

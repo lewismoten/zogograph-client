@@ -2512,8 +2512,6 @@
   "system.changed_help": "Almost every {{working_yesterday}} turns out to be something changing underneath — a kernel that came with a package update, an OpenSSL bump that moved a default, a PHP point release that deprecated a function. None of it shows in any other chart here, and the machine does not keep a usable note of it either: the package log belongs to root, is not always present, and records what was {{installed}} rather than what is now answering. Every time on this page is when a change was {{noticed}}, not when it happened — this runs when capabilities are checked, so a weekly check turns a Tuesday upgrade into a Sunday event.",
   "system.changed_groups_title": "What changed, by group",
   "system.changed_groups_help": "Each bar counts the programs whose availability or version moved, coloured by group. Click one to see exactly what. This was on {{capabilities}}, which is a page about what is available {{now}}; a history of changes belongs beside the rest of the history.",
-  "system.installed_help": "What each thing is at this moment, and how long it has been that way. Where a program offers no readable version — and plenty do not — a fingerprint of the file stands in: a weaker fact than {{version}}, but the same kind of fact, and the only one available.",
-  "system.installed_history_help": "This is the present tense of {{changed}}, and the two answer different questions: this one is what you are running, that one is when it started being that. Both are filled in by the same check — {{capabilities}} is where it runs.",
   "notes.title": "Notes",
   "notes.add": "Write one",
   "notes.keep_pictures": "Keep pictures of",

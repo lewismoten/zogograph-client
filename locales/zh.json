@@ -2494,8 +2494,6 @@
   "system.changed_help": "几乎每一句“{{working_yesterday}}”最后都会变成底层的某项变化：随软件包更新而来的内核、改变默认值的 OpenSSL 升级、弃用某个函数的 PHP 小版本更新。其他图表不会显示这些内容，机器也没有保留可用记录：软件包日志归 root 所有、不一定存在，而且记录的是已{{installed}}的内容，而不是当前正在响应的内容。本页的每个时间都是发现变化的{{noticed}}，而不是变化发生的时间——它在检查功能能力时运行，因此每周检查会把周二升级变成周日事件。",
   "system.changed_groups_title": "按组查看变化",
   "system.changed_groups_help": "每个柱形统计可用性或版本发生变化的程序，并按组着色。点击一个即可查看具体内容。这原本在{{capabilities}}上，它是关于当前{{now}}可用内容的页面；变化历史应放在其他历史内容旁边。",
-  "system.installed_help": "此刻每项内容是什么，以及保持该状态多久。当程序没有可读版本号——很多程序都没有——文件指纹会代替它：这是比 {{version}} 更弱的事实，但属于同一种事实，也是唯一可用的事实。",
-  "system.installed_history_help": "这是 {{changed}} 的现在时，两者回答不同问题：本页说明您正在运行什么，另一页说明它从何时开始如此。两者都由同一次检查填充——{{capabilities}} 是它运行的地方。",
   "notes.title": "备注",
   "notes.add": "写一条",
   "notes.keep_pictures": "保留以下项目的图片",

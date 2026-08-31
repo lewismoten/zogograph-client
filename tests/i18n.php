@@ -4221,11 +4221,11 @@ $translatedSecurityMessages = [
     'diagnosis.ignored_help',
     'diagnosis.reading_everything',
     'host.collector_loading',
-    'peer.field_secret',
 ];
 $translatedPeerPackageSecurityMessages = [
     'core-system-peers-shell.pairing_title',
     'core-system-peers-shell.oidc_peer_saved',
+    'core-system-peers-shell.field_secret',
 ];
 i18nExpect(
     $script !== false &&

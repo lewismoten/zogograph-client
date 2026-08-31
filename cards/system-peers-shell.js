@@ -100,6 +100,15 @@ window.ZogographSystemPeersShellCard = {
         'core-system-peers-shell.field_issuer': 'OpenID issuer',
         'core-system-peers-shell.field_issuer_help':
           'Optional HTTPS issuer whose discovery document will be checked.',
+        'core-system-peers-shell.field_client': 'Client ID',
+        'core-system-peers-shell.field_client_help':
+          'Optional OIDC client ID; needs every OIDC field.',
+        'core-system-peers-shell.field_secret': 'Client secret',
+        'core-system-peers-shell.field_secret_existing':
+          'Leave blank to keep the existing secret.',
+        'core-system-peers-shell.field_secret_help':
+          'Optional; kept only in local config.php. Supply it only with every OIDC field.',
+        'core-system-peers-shell.edit_trusted_server': 'Edit trusted server',
       }),
       es: Object.freeze({
         'core-system-peers-shell.title': 'Servidores Zogograph de confianza',
@@ -197,6 +206,16 @@ window.ZogographSystemPeersShellCard = {
         'core-system-peers-shell.field_issuer': 'Emisor OpenID',
         'core-system-peers-shell.field_issuer_help':
           'Emisor HTTPS opcional cuyo documento de descubrimiento se comprobará.',
+        'core-system-peers-shell.field_client': 'ID de cliente',
+        'core-system-peers-shell.field_client_help':
+          'ID de cliente OIDC opcional; requiere todos los campos OIDC.',
+        'core-system-peers-shell.field_secret': 'Secreto de cliente',
+        'core-system-peers-shell.field_secret_existing':
+          'Déjelo vacío para conservar el secreto existente.',
+        'core-system-peers-shell.field_secret_help':
+          'Opcional; se conserva solo en config.php local. Proporciónelo únicamente con todos los campos OIDC.',
+        'core-system-peers-shell.edit_trusted_server':
+          'Editar servidor de confianza',
       }),
       hi: Object.freeze({
         'core-system-peers-shell.title': 'विश्वसनीय Zogograph सर्वर',
@@ -292,6 +311,16 @@ window.ZogographSystemPeersShellCard = {
         'core-system-peers-shell.field_issuer': 'OpenID जारीकर्ता',
         'core-system-peers-shell.field_issuer_help':
           'वैकल्पिक HTTPS जारीकर्ता जिसके डिस्कवरी दस्तावेज़ की जाँच होगी।',
+        'core-system-peers-shell.field_client': 'क्लाइंट ID',
+        'core-system-peers-shell.field_client_help':
+          'वैकल्पिक OIDC क्लाइंट ID; हर OIDC फ़ील्ड आवश्यक है।',
+        'core-system-peers-shell.field_secret': 'क्लाइंट सीक्रेट',
+        'core-system-peers-shell.field_secret_existing':
+          'मौजूदा गुप्त रखने के लिए खाली छोड़ें।',
+        'core-system-peers-shell.field_secret_help':
+          'वैकल्पिक; केवल स्थानीय config.php में रखा जाता है। इसे सभी OIDC फ़ील्ड के साथ ही दें।',
+        'core-system-peers-shell.edit_trusted_server':
+          'विश्वसनीय सर्वर संपादित करें',
       }),
       ar: Object.freeze({
         'core-system-peers-shell.title': 'خوادم Zogograph الموثوقة',
@@ -386,6 +415,15 @@ window.ZogographSystemPeersShellCard = {
         'core-system-peers-shell.field_issuer': 'مُصدِر OpenID',
         'core-system-peers-shell.field_issuer_help':
           'مُصدِر HTTPS اختياري سيُفحص مستند اكتشافه.',
+        'core-system-peers-shell.field_client': 'معرّف العميل',
+        'core-system-peers-shell.field_client_help':
+          'معرّف عميل OIDC اختياري؛ يحتاج كل حقول OIDC.',
+        'core-system-peers-shell.field_secret': 'سر العميل',
+        'core-system-peers-shell.field_secret_existing':
+          'اتركه فارغًا للاحتفاظ بالسر الحالي.',
+        'core-system-peers-shell.field_secret_help':
+          'اختياري؛ يُحفظ في config.php المحلي فقط. قدّمه فقط مع كل حقول OIDC.',
+        'core-system-peers-shell.edit_trusted_server': 'حرّر الخادم الموثوق',
       }),
       zh: Object.freeze({
         'core-system-peers-shell.title': '受信任的 Zogograph 服务器',
@@ -480,6 +518,14 @@ window.ZogographSystemPeersShellCard = {
         'core-system-peers-shell.field_issuer': 'OpenID 颁发者',
         'core-system-peers-shell.field_issuer_help':
           '将检查其发现文档的可选 HTTPS 颁发者。',
+        'core-system-peers-shell.field_client': '客户端 ID',
+        'core-system-peers-shell.field_client_help':
+          '可选的 OIDC 客户端 ID；需要填写所有 OIDC 字段。',
+        'core-system-peers-shell.field_secret': '客户端密钥',
+        'core-system-peers-shell.field_secret_existing': '留空以保留现有密钥。',
+        'core-system-peers-shell.field_secret_help':
+          '可选；只保存在本地 config.php 中。仅在填写所有 OIDC 字段时提供。',
+        'core-system-peers-shell.edit_trusted_server': '编辑受信任服务器',
       }),
     }),
   }),

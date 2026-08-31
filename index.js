@@ -16947,34 +16947,20 @@ function showPeerDialog(row = null) {
     'url',
   );
   const client = input(
-    peerText('field_client', {}, 'Client ID'),
+    peersShellText('field_client'),
     row?.client_id,
-    peerText(
-      'field_client_help',
-      {},
-      'Optional OIDC client ID; needs every OIDC field.',
-    ),
+    peersShellText('field_client_help'),
   );
   const secret = input(
-    peerText('field_secret', {}, 'Client secret'),
+    peersShellText('field_secret'),
     '',
     row?.has_secret
-      ? peerText(
-          'field_secret_existing',
-          {},
-          'Leave blank to keep the existing secret.',
-        )
-      : peerText(
-          'field_secret_help',
-          {},
-          'Optional; kept only in local config.php. Supply it only with every OIDC field.',
-        ),
+      ? peersShellText('field_secret_existing')
+      : peersShellText('field_secret_help'),
     'password',
   );
   showFormDialog(
-    row
-      ? peerText('edit_trusted_server', {}, 'Edit trusted server')
-      : peerText('add', {}, 'Add trusted server'),
+    row ? peersShellText('edit_trusted_server') : peersShellText('add'),
     fields,
     async () => {
       const result = await post('peer-save', {

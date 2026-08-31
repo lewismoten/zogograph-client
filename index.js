@@ -17691,11 +17691,13 @@ async function batchNotes(kind) {
 }
 
 function showNoteDetails(row) {
+  const notesRecordsText = (key, values = {}) =>
+    ZogographNotesRecordsCard.text(key, values, { i18n: ZogographI18n });
   const nodes = [note(row.body)];
   const facts = [
-    [ZogographI18n.t('notes.about', {}, 'About'), whenSpan(row.at)],
+    [notesRecordsText('about'), whenSpan(row.at)],
     [
-      ZogographI18n.t('notes.written', {}, 'Written'),
+      notesRecordsText('written'),
       row.who
         ? ZogographI18n.t(
             'notes.written_by',
@@ -17705,11 +17707,11 @@ function showNoteDetails(row) {
         : ago(row.written_at),
     ],
     [
-      ZogographI18n.t('notes.page', {}, 'Page'),
+      notesRecordsText('page'),
       row.view ? (VIEWS[row.view]?.label ?? row.view) : '—',
     ],
     [
-      ZogographI18n.t('notes.holding', {}, 'Holding'),
+      notesRecordsText('holding'),
       row.snapshots
         ? `${count(row.snapshots, 'capture')} · ${humanBytes(row.snapshot_bytes)}`
         : '—',
@@ -17729,17 +17731,9 @@ function showNoteDetails(row) {
     nodes.push(captured);
   }
   showListDialog(
-    ZogographI18n.t(
-      'notes.from',
-      { when: whenSpan(row.at) },
-      'Note from {{when}}',
-    ),
+    notesRecordsText('from', { when: whenSpan(row.at) }),
     nodes,
-    ZogographI18n.t(
-      'notes.inbox_help',
-      {},
-      'Click a note in the inbox to read it without stretching the table.',
-    ),
+    notesRecordsText('inbox_help'),
   );
 }
 

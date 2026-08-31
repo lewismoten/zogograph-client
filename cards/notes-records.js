@@ -23,6 +23,13 @@ window.ZogographNotesRecordsCard = {
           'Was shown to everyone; cleared by {{actor}}.',
         'core-notes-records.broadcast_active':
           'Shown to everyone until it is cleared.',
+        'core-notes-records.about': 'About',
+        'core-notes-records.written': 'Written',
+        'core-notes-records.page': 'Page',
+        'core-notes-records.holding': 'Holding',
+        'core-notes-records.from': 'Note from {{when}}',
+        'core-notes-records.inbox_help':
+          'Click a note in the inbox to read it without stretching the table.',
       }),
       es: Object.freeze({
         'core-notes-records.table_time': 'Hora',
@@ -43,6 +50,13 @@ window.ZogographNotesRecordsCard = {
           'Se mostró a todos; {{actor}} la borró.',
         'core-notes-records.broadcast_active':
           'Se muestra a todos hasta que se borre.',
+        'core-notes-records.about': 'Acerca de',
+        'core-notes-records.written': 'Escrito',
+        'core-notes-records.page': 'Página',
+        'core-notes-records.holding': 'Contiene',
+        'core-notes-records.from': 'Nota de {{when}}',
+        'core-notes-records.inbox_help':
+          'Haga clic en una nota de la bandeja de entrada para leerla sin estirar la tabla.',
       }),
       hi: Object.freeze({
         'core-notes-records.table_time': 'समय',
@@ -62,6 +76,13 @@ window.ZogographNotesRecordsCard = {
           'सभी को दिखाया गया था; {{actor}} ने साफ़ किया।',
         'core-notes-records.broadcast_active':
           'साफ़ होने तक सभी को दिखाया जाता है।',
+        'core-notes-records.about': 'विषय',
+        'core-notes-records.written': 'लिखा गया',
+        'core-notes-records.page': 'पृष्ठ',
+        'core-notes-records.holding': 'इसमें है',
+        'core-notes-records.from': '{{when}} की टिप्पणी',
+        'core-notes-records.inbox_help':
+          'तालिका को फैलाए बिना पढ़ने के लिए इनबॉक्स में किसी टिप्पणी पर क्लिक करें।',
       }),
       ar: Object.freeze({
         'core-notes-records.table_time': 'الوقت',
@@ -80,6 +101,13 @@ window.ZogographNotesRecordsCard = {
         'core-notes-records.broadcast_cleared':
           'عُرضت للجميع؛ مسحها {{actor}}.',
         'core-notes-records.broadcast_active': 'تُعرض للجميع حتى تُمسح.',
+        'core-notes-records.about': 'حول',
+        'core-notes-records.written': 'كُتبت',
+        'core-notes-records.page': 'الصفحة',
+        'core-notes-records.holding': 'تحتوي',
+        'core-notes-records.from': 'ملاحظة من {{when}}',
+        'core-notes-records.inbox_help':
+          'انقر ملاحظة في صندوق الوارد لقراءتها دون تمديد الجدول.',
       }),
       zh: Object.freeze({
         'core-notes-records.table_time': '时间',
@@ -97,6 +125,13 @@ window.ZogographNotesRecordsCard = {
         'core-notes-records.broadcast_cleared':
           '曾向所有人显示；已由 {{actor}} 清除。',
         'core-notes-records.broadcast_active': '会向所有人显示，直到被清除。',
+        'core-notes-records.about': '关于',
+        'core-notes-records.written': '写于',
+        'core-notes-records.page': '页面',
+        'core-notes-records.holding': '包含',
+        'core-notes-records.from': '来自 {{when}} 的备注',
+        'core-notes-records.inbox_help':
+          '单击收件箱中的备注即可阅读，而不会拉长表格。',
       }),
     }),
   }),

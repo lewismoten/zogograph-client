@@ -849,8 +849,6 @@
   "dns.group.other": "Todo lo demás",
   "table.when": "Cuándo",
   "table.what": "Qué",
-  "network.your_note": "Su nota",
-  "network.resolves_to": "Resuelve a",
   "network.private_address_help": "Una dirección privada: está en la misma red que esta máquina o detrás de un proxy que sí lo está.",
   "network.connection": "Conexión",
   "network.encrypted": "Cifrada",

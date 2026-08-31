@@ -34354,12 +34354,16 @@ async function refreshWhoAmI() {
   ];
   if (you.label_note)
     yours.push([
-      ZogographI18n.t('network.your_note', {}, 'Your note'),
+      ZogographSystemWhoamiShellCard.text('your_note', {
+        i18n: ZogographI18n,
+      }),
       you.label_note,
     ]);
   if (you.reverse)
     yours.push([
-      ZogographI18n.t('network.resolves_to', {}, 'Resolves to'),
+      ZogographSystemWhoamiShellCard.text('resolves_to', {
+        i18n: ZogographI18n,
+      }),
       you.reverse,
     ]);
   if (you.private) {

@@ -218,6 +218,30 @@ try {
             ),
         'custody client does not enforce its secure transport defaults',
     );
+    $custodyProviderSource = file_get_contents(
+        __DIR__ .
+            '/../plugins/zogograph-key-custody/src/KeyCustodyProvider.php',
+    );
+    packageExpect(
+        $custodyProviderSource !== false &&
+            str_contains(
+                $custodyProviderSource,
+                '$client = new KeyCustodyHttpClient(',
+            ) &&
+            str_contains(
+                $custodyProviderSource,
+                '$entitlement = $client->envelopeEntitlement();',
+            ) &&
+            str_contains(
+                $custodyProviderSource,
+                '$key = $client->unwrap($keyId, $artifactId, 0);',
+            ) &&
+            preg_match(
+                '/new\\s+KeyCustodyHttpClient\\s*\\([\\s\\S]*?\\)\\s*->/',
+                $custodyProviderSource,
+            ) !== 1,
+        'key custody provider uses constructor method chaining that PHP 8.1 cannot parse',
+    );
     $custodyDirectory = __DIR__ . '/../plugins/zogograph-key-custody';
     $custodyManifest = json_decode(
         (string) file_get_contents($custodyDirectory . '/manifest.json'),

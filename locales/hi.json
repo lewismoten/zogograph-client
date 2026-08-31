@@ -338,8 +338,6 @@
   "log.detail_stack_trace": "स्टैक ट्रेस ({{count, number}} लाइनें)",
   "log.detail_trace_help": "ऊपर से पढ़ें: पहला फ्रेम वह जगह है जहाँ यह विफल हुआ, और उसके नीचे हर फ्रेम वह है जिसने इसे बुलाया। सबसे नीचे आम तौर पर अनुरोध आने की जगह होती है।",
   "log.detail_as_written": "जैसा लिखा गया था",
-  "log.newer_button": "‹ नया",
-  "log.older_button": "पुराना ›",
   "log.detail_title": "एक लॉग लाइन",
   "log.detail_entry_of": "{{label}} · प्रविष्टि {{current, number}} / {{total, number}}",
   "log.stream_severity_hint": "लाइन कितनी गंभीर है",

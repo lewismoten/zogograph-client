@@ -338,8 +338,6 @@
   "log.detail_stack_trace": "Stack trace ({{count, number}} lines)",
   "log.detail_trace_help": "Read from the top: the first frame is where it failed, and each one below is what called it. The bottom is usually where the request came in.",
   "log.detail_as_written": "As it was written",
-  "log.newer_button": "‹ Newer",
-  "log.older_button": "Older ›",
   "log.detail_title": "A log line",
   "log.detail_entry_of": "{{label}} · entry {{current, number}} of {{total, number}}",
   "log.stream_severity_hint": "How bad the line says it is",

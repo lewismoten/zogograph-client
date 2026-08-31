@@ -40149,8 +40149,8 @@ function showLogLine(row, index, rows) {
 
   // Stepping between entries without closing and re-opening.
   for (const [text, step] of [
-    [ZogographI18n.t('log.newer_button', {}, '‹ Newer'), -1],
-    [ZogographI18n.t('log.older_button', {}, 'Older ›'), 1],
+    [logStreamSummaryText('newer_button'), -1],
+    [logStreamSummaryText('older_button'), 1],
   ]) {
     const button = document.createElement('button');
     button.className = 'link';

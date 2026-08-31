@@ -338,8 +338,6 @@
   "log.detail_stack_trace": "تتبع المكدس ({{count, number}} سطرًا)",
   "log.detail_trace_help": "اقرأ من الأعلى: الإطار الأول هو مكان الفشل، وكل إطار أدناه هو ما استدعاه. يكون الأسفل عادةً هو مكان ورود الطلب.",
   "log.detail_as_written": "كما كُتب",
-  "log.newer_button": "‹ الأحدث",
-  "log.older_button": "الأقدم ›",
   "log.detail_title": "سطر سجل",
   "log.detail_entry_of": "{{label}} · الإدخال {{current, number}} من {{total, number}}",
   "log.stream_severity_hint": "مدى خطورة السطر كما يصفها",

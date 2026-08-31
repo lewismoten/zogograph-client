@@ -5832,6 +5832,33 @@ function renderSharedDialogs() {
 
 document.addEventListener('zogograph-i18n-load', renderSharedDialogs);
 
+function privacyControlText(key, fallback = '') {
+  return renderCoreCardPackage(
+    ZogographPrivacyControlsCard,
+    'core-privacy-controls',
+    { key, fallback },
+    { i18n: ZogographI18n },
+  );
+}
+
+function renderPrivacyControls() {
+  for (const [id, key, fallback] of [
+    ['ipPrivacy', 'hide_ips', 'Hide IPs'],
+    ['accountPrivacy', 'hide_account', 'Hide account'],
+  ]) {
+    const node = $(id);
+    const text = privacyControlText(key, fallback);
+    node.textContent = ZogographI18n.markSource(
+      node,
+      `core-privacy-controls.${key}`,
+      text,
+    );
+    node.title = privacyControlText(`${key}_title`, '');
+  }
+}
+
+document.addEventListener('zogograph-i18n-load', renderPrivacyControls);
+
 /** Every container the settings are split across. */
 const AI_SETTING_PAGES = [
   'aiIdentityBody',
@@ -28816,25 +28843,23 @@ function applyAccessChrome() {
   const privacy = $('ipPrivacy');
   if (privacy) {
     privacy.hidden = !state.signedIn || !state.access?.ips;
-    privacy.textContent = ZogographI18n.t(
-      state.access?.ip_privacy ? 'privacy.show_ips' : 'privacy.hide_ips',
+    privacy.textContent = privacyControlText(
+      state.access?.ip_privacy ? 'show_ips' : 'hide_ips',
     );
     privacy.title = state.access?.ip_privacy
-      ? ZogographI18n.t('privacy.show_ips_title')
-      : ZogographI18n.t('privacy.hide_ips_title');
+      ? privacyControlText('show_ips_title')
+      : privacyControlText('hide_ips_title');
   }
 
   const accountPrivacy = $('accountPrivacy');
   if (accountPrivacy) {
     accountPrivacy.hidden = !state.signedIn;
-    accountPrivacy.textContent = ZogographI18n.t(
-      state.access?.account_privacy
-        ? 'privacy.show_account'
-        : 'privacy.hide_account',
+    accountPrivacy.textContent = privacyControlText(
+      state.access?.account_privacy ? 'show_account' : 'hide_account',
     );
     accountPrivacy.title = state.access?.account_privacy
-      ? ZogographI18n.t('privacy.show_account_title')
-      : ZogographI18n.t('privacy.hide_account_title');
+      ? privacyControlText('show_account_title')
+      : privacyControlText('hide_account_title');
   }
 
   if (!mayUsePage(state.view)) {

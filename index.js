@@ -16086,7 +16086,14 @@ async function refreshStore() {
   if (!storeState.data) {
     for (const body of bodies)
       body.replaceChildren(
-        spinner(ZogographI18n.t('storage.measuring', {}, 'Measuring…')),
+        spinner(
+          renderCoreCardPackage(
+            ZogographStorageMeasuringCard,
+            'core-storage-measuring',
+            null,
+            { i18n: ZogographI18n },
+          ),
+        ),
       );
   }
 
@@ -20968,7 +20975,14 @@ async function refreshAiStore() {
 
   if (!aiStoreState.data)
     body.replaceChildren(
-      spinner(ZogographI18n.t('storage.measuring', {}, 'Measuring…')),
+      spinner(
+        renderCoreCardPackage(
+          ZogographStorageMeasuringCard,
+          'core-storage-measuring',
+          null,
+          { i18n: ZogographI18n },
+        ),
+      ),
     );
 
   try {

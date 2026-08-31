@@ -3201,7 +3201,6 @@ $translatedSecurityMessages = [
     'diagnosis.nothing_urgent',
     'diagnosis.ignored_title',
     'diagnosis.ignored_help',
-    'storage.measuring',
     'diagnosis.reading_everything',
     'host.collector_loading',
     'peer.field_secret',

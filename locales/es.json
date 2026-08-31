@@ -3283,7 +3283,6 @@
   "diagnosis.nothing_urgent": "Nada urgente.",
   "diagnosis.ignored_title": "Hallazgos ignorados",
   "diagnosis.ignored_help": "Son excepciones intencionales. Restaure uno para incluirlo en comprobaciones posteriores.",
-  "storage.measuring": "Midiendo…",
   "diagnosis.reading_everything": "Leyendo todo…",
   "host.collector_loading": "Leyendo el recolector del host…"
 }

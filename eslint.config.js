@@ -122,6 +122,7 @@ export default [
         ZogographStorageScanStatusCard: 'readonly',
         ZogographStorageRetentionCard: 'readonly',
         ZogographStoragePurgeCard: 'readonly',
+        ZogographStorageMeasuringCard: 'readonly',
         ZogographSymlinkFilterCard: 'readonly',
         ZogographSymlinkActionsCard: 'readonly',
         ZogographSymlinkSweepEmptyCard: 'readonly',

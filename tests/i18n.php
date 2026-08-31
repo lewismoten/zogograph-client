@@ -367,6 +367,7 @@ i18nExpect(
         $english['ai.pricing_input'],
         $english['ai.pricing_output'],
         $english['ai.pricing_cached'],
+        $english['ai.prices_title'],
         $english['ai.save_assistant_pages'],
         $english['ai.clear_portrait'],
         $english['ai.portrait_cleared'],

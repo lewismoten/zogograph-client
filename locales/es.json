@@ -2700,7 +2700,6 @@
   "ai.identity_security_help": "El modelo nunca puede escribir una consulta. Cada herramienta es una instrucción fija con parámetros tipados y enumerados vinculados a ella; todo lo que quede fuera de esos límites se rechaza antes de llegar a una base de datos. El resto de ajustes está en las páginas inferiores.",
   "ai.model_title": "Modelo",
   "ai.model_help": "Qué servicio usar, qué modelo y cuánto cuesta. Los precios son por millón de tokens, en céntimos, y opcionales: sin ellos todo sigue funcionando y el total acumulado informa conteos de tokens en vez de dinero, porque un precio incorrecto es peor que no tener precio.",
-  "ai.prices_title": "Precios recordados",
   "ai.selected_model_title": "Modelo seleccionado",
   "ai.providers_title": "Proveedores",
   "ai.providers_help": "Elija la plataforma, su dirección y las credenciales que necesita. Los servidores compatibles con Ollama pueden no usar clave; los remotos deben usar HTTPS.",

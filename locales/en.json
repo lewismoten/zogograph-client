@@ -10,7 +10,6 @@
   "common.ready": "Ready",
   "common.sign_in_to_see": "Sign in to see this.",
   "reports.sign_in": "Sign in to read the summaries.",
-  "network.sign_in": "Sign in to see the network.",
   "network.bytes": "Bytes",
   "network.captures_sign_in": "Sign in to see captures.",
   "setup.instructions_sign_in": "Sign in to see the setup instructions.",

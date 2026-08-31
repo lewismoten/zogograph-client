@@ -10,7 +10,6 @@
   "common.ready": "就绪",
   "common.sign_in_to_see": "登录后可查看此内容。",
   "reports.sign_in": "登录后可阅读摘要。",
-  "network.sign_in": "登录后可查看网络。",
   "network.bytes": "字节",
   "network.captures_sign_in": "登录后可查看捕获记录。",
   "setup.instructions_sign_in": "登录后可查看设置说明。",

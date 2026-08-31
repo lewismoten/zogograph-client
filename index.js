@@ -31092,11 +31092,9 @@ async function refreshNetwork() {
       if (el)
         el.replaceChildren(
           note(
-            ZogographI18n.t(
-              'network.sign_in',
-              {},
-              'Sign in to see the network.',
-            ),
+            ZogographNetworkShellCard.text('sign_in', {
+              i18n: ZogographI18n,
+            }),
           ),
         );
     }

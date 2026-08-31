@@ -17,6 +17,7 @@ window.ZogographCalendarEventListCard = {
     ],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-calendar-event-list.title': 'Dates you keep',
         'core-calendar-event-list.empty':
           'Nothing kept yet. Renewals, invoices, certificate purchases — anything with a date that this machine could not work out for itself.',
         'core-calendar-event-list.what': 'What',
@@ -33,6 +34,7 @@ window.ZogographCalendarEventListCard = {
         'core-calendar-event-list.remove_title': 'Remove event',
       }),
       es: Object.freeze({
+        'core-calendar-event-list.title': 'Fechas que conserva',
         'core-calendar-event-list.empty':
           'Aún no hay nada guardado. Renovaciones, facturas, compras de certificados: cualquier cosa con una fecha que esta máquina no pueda calcular por sí misma.',
         'core-calendar-event-list.what': 'Qué',
@@ -49,6 +51,7 @@ window.ZogographCalendarEventListCard = {
         'core-calendar-event-list.remove_title': 'Eliminar evento',
       }),
       hi: Object.freeze({
+        'core-calendar-event-list.title': 'वे तारीखें जिन्हें आप रखते हैं',
         'core-calendar-event-list.empty':
           'अभी कुछ रखा नहीं गया है। नवीनीकरण, इनवॉइस, प्रमाणपत्र खरीद — तारीख वाली कोई भी चीज़ जिसे यह मशीन स्वयं नहीं निकाल सकती।',
         'core-calendar-event-list.what': 'क्या',
@@ -65,6 +68,7 @@ window.ZogographCalendarEventListCard = {
         'core-calendar-event-list.remove_title': 'कार्यक्रम हटाएँ',
       }),
       ar: Object.freeze({
+        'core-calendar-event-list.title': 'التواريخ التي تحتفظ بها',
         'core-calendar-event-list.empty':
           'لا توجد عناصر محفوظة بعد. التجديدات والفواتير وشراء الشهادات — أي شيء له تاريخ لا تستطيع هذه الآلة حسابه بنفسها.',
         'core-calendar-event-list.what': 'ما هو',
@@ -81,6 +85,7 @@ window.ZogographCalendarEventListCard = {
         'core-calendar-event-list.remove_title': 'إزالة الحدث',
       }),
       zh: Object.freeze({
+        'core-calendar-event-list.title': '您保留的日期',
         'core-calendar-event-list.empty':
           '尚未记录任何事项。续订、账单、证书购买——任何这台机器无法自行推算日期的事项。',
         'core-calendar-event-list.what': '事项',
@@ -98,6 +103,14 @@ window.ZogographCalendarEventListCard = {
       }),
     }),
   }),
+
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-calendar-event-list.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-calendar-event-list.${key}`],
+    );
+  },
 
   render(data, helpers) {
     const {

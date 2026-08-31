@@ -3109,6 +3109,37 @@ function renderCalendarUpcomingTitle() {
 
 document.addEventListener('zogograph-i18n-load', renderCalendarUpcomingTitle);
 
+function renderCalendarEventListTitle() {
+  const helpers = {
+    target: null,
+    note: () => null,
+    renderTable: () => null,
+    humanTime: () => '',
+    openForm: () => null,
+    confirmDialog: () => Promise.resolve(false),
+    post: () => Promise.resolve(),
+    renderCalendar: () => null,
+    notice: () => null,
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(
+    ZogographCalendarEventListCard,
+    'core-calendar-event-list',
+    {},
+    helpers,
+  );
+  const title = document.querySelector(
+    '[data-i18n="core-calendar-event-list.title"]',
+  );
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-calendar-event-list.title',
+    ZogographCalendarEventListCard.text('title', helpers),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderCalendarEventListTitle);
+
 /**
  * When the disk is projected to fill, as a date.
  *

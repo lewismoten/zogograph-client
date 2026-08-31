@@ -21545,27 +21545,10 @@ const linkState = { data: null, sweep: null, at: null, show: 'all' };
  * links and never comes back - and splitting them makes the operator do the
  * translation.
  */
-const SYMLINK_VIEWS = {
-  all: { key: 'storage.symlink_view_all', label: 'All', kinds: null },
-  broken: {
-    key: 'storage.symlink_view_broken',
-    label: 'Broken',
-    kinds: ['broken'],
-  },
-  looped: {
-    key: 'storage.symlink_view_looped',
-    label: 'Looped',
-    kinds: ['loop', 'ancestor'],
-  },
-  external: {
-    key: 'storage.symlink_view_external',
-    label: 'External',
-    kinds: ['outside'],
-  },
-};
+const SYMLINK_VIEWS = ZogographSymlinkFilterCard.views;
 
 function symlinkViewLabel(view) {
-  return ZogographI18n.t(view.key, {}, view.label);
+  return ZogographSymlinkFilterCard.label(view, ZogographI18n);
 }
 
 /**
@@ -21734,7 +21717,21 @@ function renderSymlinks() {
     return;
   }
 
-  parts.push(symlinkFilter(data));
+  parts.push(
+    renderCoreCardPackage(
+      ZogographSymlinkFilterCard,
+      'core-symlink-filter',
+      {
+        data,
+        selected: linkState.show,
+        onSelect: (key) => {
+          linkState.show = key;
+          renderSymlinks();
+        },
+      },
+      { humanCount, i18n: ZogographI18n },
+    ),
+  );
 
   const table = document.createElement('div');
   table.id = 'symlinkTable';
@@ -21881,39 +21878,6 @@ function renderSymlinks() {
   $('linkSweepPanel').hidden = !data.problems.some(
     (problem) => problem.kind === 'broken',
   );
-}
-
-/**
- * The All / Broken / Looped / External buttons.
- *
- * With counts on them, because "External: 188" answers the question the button
- * was going to be pressed to ask. A kind with nothing in it is drawn disabled
- * rather than hidden - a button that comes and goes is worse than one that is
- * plainly empty.
- */
-function symlinkFilter(data) {
-  const wrap = document.createElement('div');
-  wrap.className = 'seg-row';
-
-  for (const [key, view] of Object.entries(SYMLINK_VIEWS)) {
-    const n =
-      view.kinds === null
-        ? data.problems.length
-        : view.kinds.reduce((sum, kind) => sum + (data.kinds?.[kind] ?? 0), 0);
-
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.className = 'seg' + (linkState.show === key ? ' on' : '');
-    button.textContent = `${symlinkViewLabel(view)} ${humanCount(n)}`;
-    button.disabled = n === 0 && key !== 'all';
-    button.addEventListener('click', () => {
-      linkState.show = key;
-      renderSymlinks();
-    });
-    wrap.appendChild(button);
-  }
-
-  return wrap;
 }
 
 /**

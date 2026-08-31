@@ -17,6 +17,10 @@ window.ZogographBusyMomentsCard = {
     catalogs: Object.freeze({
       en: Object.freeze({
         'core-busy-moments.title': 'When it was last busy',
+        'core-busy-moments.panel_help':
+          'Recorded automatically whenever a reading crosses the CPU or memory threshold — so an overnight spike still has an answer in the morning. The collector and the {{ps}} it runs are left out: a record of a busy moment listing the thing that looks at processes is noise by construction.',
+        'core-busy-moments.allowance_help':
+          "{{allowance}} Inside CageFS {{proc_stat}} is virtualised to the account's own CPU allowance, so one PHP request working hard can cross 70% while the server as a whole is idle. Raise {{threshold}} if these are too frequent to be interesting; {{whole_machine}} is where the server's own load lives.",
         'core-busy-moments.empty':
           'Nothing recorded — the machine has not been busy enough to bother.',
         'core-busy-moments.alert_help':
@@ -37,6 +41,10 @@ window.ZogographBusyMomentsCard = {
       }),
       es: Object.freeze({
         'core-busy-moments.title': 'Cuándo estuvo ocupado por última vez',
+        'core-busy-moments.panel_help':
+          'Se registra automáticamente cuando una lectura supera el umbral de CPU o memoria, de modo que un pico nocturno aún tiene una respuesta por la mañana. Se omiten el recopilador y el {{ps}} que ejecuta: un registro de actividad que enumera la herramienta que mira los procesos es ruido por construcción.',
+        'core-busy-moments.allowance_help':
+          '{{allowance}} Dentro de CageFS, {{proc_stat}} está virtualizado según la asignación de CPU de esta cuenta, por lo que una solicitud PHP trabajando mucho puede superar el 70 % mientras el servidor completo está inactivo. Aumente {{threshold}} si son demasiado frecuentes para resultar interesantes; {{whole_machine}} es donde vive la carga propia del servidor.',
         'core-busy-moments.empty':
           'No hay nada registrado: la máquina no ha estado lo bastante ocupada como para importarlo.',
         'core-busy-moments.alert_help':
@@ -57,6 +65,10 @@ window.ZogographBusyMomentsCard = {
       }),
       hi: Object.freeze({
         'core-busy-moments.title': 'यह आखिरी बार कब व्यस्त था',
+        'core-busy-moments.panel_help':
+          'जब कोई रीडिंग CPU या मेमोरी सीमा को पार करती है तो यह अपने-आप रिकॉर्ड होता है, इसलिए रात का स्पाइक सुबह भी उत्तर देता है। कलेक्टर और उसके चलाए {{ps}} को छोड़ दिया जाता है: व्यस्त समय का वह रिकॉर्ड जो प्रोसेस देखने वाले उपकरण को ही सूचीबद्ध करे, अपने स्वभाव से शोर है।',
+        'core-busy-moments.allowance_help':
+          '{{allowance}} CageFS के अंदर {{proc_stat}} इस खाते की अपनी CPU अनुमति के लिए वर्चुअलाइज्ड है, इसलिए कड़ी मेहनत करता एक PHP अनुरोध 70% पार कर सकता है जबकि पूरा सर्वर निष्क्रिय हो। यदि ये दिलचस्प होने के लिए बहुत बार आते हैं तो {{threshold}} बढ़ाएं; {{whole_machine}} वह जगह है जहां सर्वर का अपना लोड दिखता है।',
         'core-busy-moments.empty':
           'कुछ रिकॉर्ड नहीं हुआ — मशीन इतनी व्यस्त नहीं थी कि ध्यान दिया जाए।',
         'core-busy-moments.alert_help':
@@ -77,6 +89,10 @@ window.ZogographBusyMomentsCard = {
       }),
       ar: Object.freeze({
         'core-busy-moments.title': 'متى كان مشغولًا آخر مرة',
+        'core-busy-moments.panel_help':
+          'يُسجَّل تلقائيًا كلما تجاوزت قراءة عتبة المعالج أو الذاكرة، لذلك تبقى للذروة الليلية إجابة في الصباح. يُستبعد الجامع و{{ps}} الذي يشغله: فسجل لحظة انشغال يسرد الأداة التي تنظر إلى العمليات هو ضجيج بحكم تصميمه.',
+        'core-busy-moments.allowance_help':
+          '{{allowance}} داخل CageFS، يجري تمثيل {{proc_stat}} افتراضيًا وفق سماح CPU الخاص بهذا الحساب، لذلك قد يتجاوز طلب PHP يعمل بكثافة 70٪ بينما يكون الخادم كله خاملًا. ارفع {{threshold}} إذا كانت هذه الحالات متكررة أكثر من اللازم؛ {{whole_machine}} هو موضع حمل الخادم نفسه.',
         'core-busy-moments.empty':
           'لا شيء مسجل — لم يكن الجهاز مشغولًا بما يكفي للاهتمام.',
         'core-busy-moments.alert_help':
@@ -97,6 +113,10 @@ window.ZogographBusyMomentsCard = {
       }),
       zh: Object.freeze({
         'core-busy-moments.title': '上次繁忙是什么时候',
+        'core-busy-moments.panel_help':
+          '每当读数超过 CPU 或内存阈值时都会自动记录，因此夜间峰值在早晨仍有答案。采集器及其运行的 {{ps}} 会被排除：一份繁忙时刻的记录若把查看进程的工具本身列出来，按定义就是噪声。',
+        'core-busy-moments.allowance_help':
+          '{{allowance}} 在 CageFS 内，{{proc_stat}} 会按此帐户自己的 CPU 配额虚拟化，因此单个高负载 PHP 请求可以超过 70%，而整个服务器仍处于空闲状态。如果这些记录太频繁而不再有意义，请提高 {{threshold}}；{{whole_machine}} 显示服务器自身的负载。',
         'core-busy-moments.empty': '没有记录——机器没有忙到值得记录的程度。',
         'core-busy-moments.alert_help':
           '此事件两分钟内触发了警报——打开警报页面',

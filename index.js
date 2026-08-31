@@ -2612,6 +2612,11 @@ function renderBusyMomentLabels() {
     'core-busy-moments.title',
     ZogographBusyMomentsCard.text('title', helpers),
   );
+  for (const key of ['panel_help', 'allowance_help']) {
+    ZogographI18n.applyRich(
+      document.querySelector(`[data-i18n-rich="core-busy-moments.${key}"]`),
+    );
+  }
 }
 
 document.addEventListener('zogograph-i18n-load', renderBusyMomentLabels);

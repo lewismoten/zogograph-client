@@ -2364,8 +2364,6 @@
   "processes.stop_title": "Stop by command line",
   "processes.stop_help": "For when the name is not specific enough to aim with — twelve {{webalizer}} processes where one of them is chewing through one particular log. This is {{pkill}}, with the two differences that matter: the pattern is matched here rather than handed to a shell, and it shows you what it would hit before it hits anything.",
   "processes.show_matches": "Show matches",
-  "host.last_busy_help": "Recorded automatically whenever a reading crosses the CPU or memory threshold — so an overnight spike still has an answer in the morning. The collector and the {{ps}} it runs are left out: a record of a busy moment listing the thing that looks at processes is noise by construction.",
-  "host.last_busy_allowance_help": "{{allowance}} Inside CageFS {{proc_stat}} is virtualised to the account's own CPU allowance, so one PHP request working hard can cross 70% while the server as a whole is idle. Raise {{threshold}} if these are too frequent to be interesting; {{whole_machine}} is where the server's own load lives.",
   "action.open_all": "Open all",
   "network.intro": "Every other page here measures something being used up — disk, memory, CPU — and none of them can say why. A machine pinned at 100% because it is answering four thousand DNS queries a second looks exactly like a machine pinned at 100% for any other reason, and the difference is only visible on the wire.",
   "network.interfaces": "Interfaces",

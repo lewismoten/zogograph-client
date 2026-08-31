@@ -1,3 +1,4 @@
 {
-  "core-ai-get-uptime.summary": "Cuándo se reinició la máquina y cuándo se ejecutó cada recolector."
+  "core-ai-get-uptime.summary": "Cuándo se reinició la máquina y cuándo se ejecutó cada recolector.",
+  "core-ai-get-uptime.activity": "Comprobó el tiempo activo de la máquina y la actividad del recolector"
 }

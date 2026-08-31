@@ -1,3 +1,4 @@
 {
-  "core-ai-get-uptime.summary": "机器何时重启，以及每个收集器何时运行。"
+  "core-ai-get-uptime.summary": "机器何时重启，以及每个收集器何时运行。",
+  "core-ai-get-uptime.activity": "检查了机器运行时间和收集器活动"
 }

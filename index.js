@@ -22552,63 +22552,21 @@ function renderReports(data) {
  * is where somebody already is.
  */
 function renderLatestReport(report) {
-  if (window.ZogographLatestReportCard) {
-    return renderCoreCardPackage(
-      ZogographLatestReportCard,
-      'core-latest-report',
-      { report, assistant: chatState.who.name },
-      {
-        target: $('overviewReport'),
-        whenLabel,
-        whenTitle,
-        renderMarkdown,
-        openAll: () => {
-          location.hash = '#/sys-reports';
-        },
-        i18n: ZogographI18n,
+  return renderCoreCardPackage(
+    ZogographLatestReportCard,
+    'core-latest-report',
+    { report, assistant: chatState.who.name },
+    {
+      target: $('overviewReport'),
+      whenLabel,
+      whenTitle,
+      renderMarkdown,
+      openAll: () => {
+        location.hash = '#/sys-reports';
       },
-    );
-  }
-  const spot = $('overviewReport');
-  if (!spot) return;
-
-  if (!report) {
-    spot.hidden = true;
-    return;
-  }
-
-  spot.hidden = false;
-  spot.replaceChildren();
-
-  const head = document.createElement('div');
-  head.className = 'report-head';
-
-  const title = document.createElement('strong');
-  title.textContent = ZogographI18n.t('reports.latest', {
-    assistant: chatState.who.name,
-  });
-  head.appendChild(title);
-
-  const when = document.createElement('span');
-  when.className = 'muted small when';
-  when.textContent = whenLabel(report.at);
-  when.title = whenTitle(report.at);
-  head.appendChild(when);
-
-  const all = document.createElement('button');
-  all.className = 'link small';
-  all.textContent = ZogographI18n.t('reports.all');
-  all.addEventListener('click', () => {
-    location.hash = '#/sys-reports';
-  });
-  head.appendChild(all);
-
-  spot.appendChild(head);
-
-  const text = document.createElement('div');
-  text.className = 'report-body';
-  text.appendChild(renderMarkdown(report.body));
-  spot.appendChild(text);
+      i18n: ZogographI18n,
+    },
+  );
 }
 
 /* ------------------------------------------------------------ trying one -- */

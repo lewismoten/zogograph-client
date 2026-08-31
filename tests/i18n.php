@@ -977,7 +977,8 @@ i18nExpect(
         str_contains(
             $script,
             'renderCoreCardPackage(ZogographLatestReportCard, "core-latest-report",',
-        ),
+        ) &&
+        !str_contains($script, 'if (window.ZogographLatestReportCard)'),
     'latest report is not isolated behind its core card-module boundary',
 );
 i18nExpect(

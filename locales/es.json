@@ -1953,7 +1953,6 @@
   "host.days_7_ago": "Hace 7 d",
   "host.change_7d": "Cambio en 7 d",
   "host.swapped": "En intercambio",
-  "host.proportional_pss": "Proporcional (PSS)",
   "host.services_chart_empty": "Aún no hay suficiente historial de servicios para dibujar",
   "host.services_counter_rate_help": "Los contadores se diferenciaron en una tasa; una brecha significa que el servicio se reinició.",
   "host.io_read": "Leído",

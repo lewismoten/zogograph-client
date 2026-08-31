@@ -1952,7 +1952,6 @@
   "host.days_7_ago": "7दि. पहले",
   "host.change_7d": "7दि. बदलाव",
   "host.swapped": "स्वैप किया गया",
-  "host.proportional_pss": "आनुपातिक (PSS)",
   "host.services_chart_empty": "अभी बनाने के लिए पर्याप्त सेवा इतिहास नहीं है",
   "host.services_counter_rate_help": "काउंटरों को दर में बदला गया; अंतर का अर्थ है कि सेवा पुनः आरंभ हुई।",
   "host.io_read": "पढ़ा",

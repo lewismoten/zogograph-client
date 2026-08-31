@@ -1950,7 +1950,6 @@
   "host.days_7_ago": "7 天前",
   "host.change_7d": "7 天变化",
   "host.swapped": "已交换",
-  "host.proportional_pss": "按比例（PSS）",
   "host.services_chart_empty": "尚无足够的服务历史可供绘制",
   "host.services_counter_rate_help": "计数器已微分为速率；出现间隔意味着服务已重启。",
   "host.io_read": "读取",

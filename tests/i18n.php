@@ -2026,6 +2026,14 @@ i18nExpect(
     'storage-history labels do not belong to their core package',
 );
 i18nExpect(
+    !isset($english['host.proportional_pss']) &&
+        isset(
+            $coreCardEnglish['core-host-memory-processes.proportional_pss'],
+            $coreCardEnglish['core-host-memory-users.proportional_pss'],
+        ),
+    'host-memory PSS labels do not belong to their core packages',
+);
+i18nExpect(
     $page !== false &&
         str_contains($page, 'src="cards/action-summary.js"') &&
         $actionSummaryCard !== false &&

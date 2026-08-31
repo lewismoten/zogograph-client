@@ -34316,11 +34316,9 @@ async function refreshWhoAmI() {
   if (!state.signedIn) {
     body.replaceChildren(
       note(
-        ZogographI18n.t(
-          'network.sign_in_whoami',
-          {},
-          'Sign in to see who you are.',
-        ),
+        ZogographSystemWhoamiShellCard.text('sign_in', {
+          i18n: ZogographI18n,
+        }),
       ),
     );
     return;

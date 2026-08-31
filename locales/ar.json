@@ -353,7 +353,6 @@
   "action.continue": "متابعة",
   "display.preferences": "تفضيلات العرض",
   "display.apply": "طبّق خيارات العرض",
-  "peers.admin_only": "لا يمكن إدارة الخوادم الموثوقة إلا للمسؤولين.",
   "ai.nothing_chosen": "لم يُختر شيء بعد.",
   "database.unknown_table_what": "جدول SQLite تابع لـ {{collector}} محفوظ لهذا التثبيت.",
   "database.host_collector_data": "بيانات جامع المضيف",

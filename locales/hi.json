@@ -355,7 +355,6 @@
   "action.continue": "जारी रखें",
   "display.preferences": "डिस्प्ले प्राथमिकताएँ",
   "display.apply": "डिस्प्ले विकल्प लागू करें",
-  "peers.admin_only": "केवल व्यवस्थापक विश्वसनीय सर्वरों का प्रबंधन कर सकते हैं।",
   "ai.nothing_chosen": "अभी कुछ नहीं चुना गया है।",
   "database.unknown_table_what": "इस इंस्टॉलेशन के लिए रखा गया {{collector}} SQLite तालिका।",
   "database.host_collector_data": "होस्ट कलेक्टर डेटा",

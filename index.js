@@ -14289,15 +14289,7 @@ async function refreshPeers() {
   const body = $('peersAdminBody');
   if (!body) return;
   if (!state.signedIn || !state.access?.write) {
-    body.replaceChildren(
-      note(
-        ZogographI18n.t(
-          'peers.admin_only',
-          {},
-          'Only administrators can manage trusted servers.',
-        ),
-      ),
-    );
+    body.replaceChildren(note(peersShellText('admin_only')));
     return;
   }
   try {

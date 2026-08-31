@@ -7,6 +7,8 @@ window.ZogographSystemPeersShellCard = {
     catalogs: Object.freeze({
       en: Object.freeze({
         'core-system-peers-shell.title': 'Trusted Zogograph servers',
+        'core-system-peers-shell.admin_only':
+          'Only administrators can manage trusted servers.',
         'core-system-peers-shell.help':
           'A trusted server is explicitly configured here and checked through HTTPS OpenID Connect discovery. Saving it does not share data or sign anyone in; those authorization-code steps are deliberately separate.',
         'core-system-peers-shell.capacity':
@@ -112,6 +114,8 @@ window.ZogographSystemPeersShellCard = {
       }),
       es: Object.freeze({
         'core-system-peers-shell.title': 'Servidores Zogograph de confianza',
+        'core-system-peers-shell.admin_only':
+          'Solo los administradores pueden administrar servidores de confianza.',
         'core-system-peers-shell.help':
           'Un servidor de confianza se configura explícitamente aquí y se comprueba mediante descubrimiento HTTPS de OpenID Connect. Guardarlo no comparte datos ni inicia sesión a nadie; esos pasos de código de autorización son deliberadamente independientes.',
         'core-system-peers-shell.capacity':
@@ -219,6 +223,8 @@ window.ZogographSystemPeersShellCard = {
       }),
       hi: Object.freeze({
         'core-system-peers-shell.title': 'विश्वसनीय Zogograph सर्वर',
+        'core-system-peers-shell.admin_only':
+          'केवल व्यवस्थापक विश्वसनीय सर्वरों का प्रबंधन कर सकते हैं।',
         'core-system-peers-shell.help':
           'विश्वसनीय सर्वर यहाँ स्पष्ट रूप से कॉन्फ़िगर होता है और HTTPS OpenID Connect डिस्कवरी से जाँचा जाता है। इसे सहेजने से डेटा साझा नहीं होता और न किसी का साइन-इन होता है; वे authorization-code चरण जानबूझकर अलग हैं।',
         'core-system-peers-shell.capacity':
@@ -324,6 +330,8 @@ window.ZogographSystemPeersShellCard = {
       }),
       ar: Object.freeze({
         'core-system-peers-shell.title': 'خوادم Zogograph الموثوقة',
+        'core-system-peers-shell.admin_only':
+          'لا يمكن إدارة الخوادم الموثوقة إلا للمسؤولين.',
         'core-system-peers-shell.help':
           'يُضبط خادم موثوق صراحة هنا ويُفحص عبر اكتشاف HTTPS OpenID Connect. حفظه لا يشارك بيانات ولا يسجل دخول أحد؛ خطوات رمز التفويض تلك منفصلة عمدًا.',
         'core-system-peers-shell.capacity':
@@ -427,6 +435,8 @@ window.ZogographSystemPeersShellCard = {
       }),
       zh: Object.freeze({
         'core-system-peers-shell.title': '受信任的 Zogograph 服务器',
+        'core-system-peers-shell.admin_only':
+          '只有管理员可以管理受信任的服务器。',
         'core-system-peers-shell.help':
           '受信任服务器会在此明确配置，并通过 HTTPS OpenID Connect 发现进行检查。保存它不会共享数据或让任何人登录；这些授权代码步骤有意保持独立。',
         'core-system-peers-shell.capacity':

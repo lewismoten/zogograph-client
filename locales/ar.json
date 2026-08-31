@@ -2222,7 +2222,6 @@
   "host.memory_card_in_dev_shm": "{{amount}} في /dev/shm",
   "host.memory_card_swap": "التبديل",
   "host.memory_card_allocated": "{{percent}}% مخصص",
-  "host.memory_card_other_kernel_help": "غير ممثلة بالفئات أعلاه",
   "page.dashboard_title": "لوحة مراقبة البنية التحتية في Zogograph",
   "navigation.copy_link": "انسخ رابط هذه الصفحة",
   "auth.recovery_codes": "رموز الاسترداد",

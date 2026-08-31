@@ -1,6 +1,6 @@
 {
   "id": "zogograph-key-custody",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "name": "HostScope remote key custody",
   "publisher": "HostScope",
   "summary": "Optional client for the HostScope key-custody service using signed enrolled-client authentication and registered-envelope authorization.",

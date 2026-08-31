@@ -256,6 +256,9 @@ $hostIoProcessesCard = i18nCardSource(
 $terminalActionsCard = i18nCardSource(
     file_get_contents($root . '/cards/terminal-actions.js'),
 );
+$terminalVerdictSummaryCard = i18nCardSource(
+    file_get_contents($root . '/cards/terminal-verdict-summary.js'),
+);
 $hostFilesCard = i18nCardSource(
     file_get_contents($root . '/cards/host-files.js'),
 );
@@ -2513,10 +2516,6 @@ i18nExpect(
             $english['terminal.just_started'],
             $english['terminal.running_for_so_far'],
             $english['terminal.running_so_far'],
-            $english['terminal.verdict_timed_out'],
-            $english['terminal.verdict_stopped_by'],
-            $english['terminal.verdict_finished'],
-            $english['terminal.verdict_summary'],
             $english['url.editing'],
             $english['url.add_check'],
             $english['url.address_placeholder'],
@@ -2833,7 +2832,11 @@ i18nExpect(
 i18nExpect(
     $script !== false &&
         str_contains($script, 'terminal.running_for_so_far') &&
-        str_contains($script, 'terminal.verdict_summary') &&
+        $terminalVerdictSummaryCard !== false &&
+        str_contains(
+            $terminalVerdictSummaryCard,
+            'core-terminal-verdict-summary.summary',
+        ) &&
         $terminalActionsCard !== false &&
         str_contains(
             $terminalActionsCard,

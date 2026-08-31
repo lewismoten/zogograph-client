@@ -19515,28 +19515,11 @@ async function pollTerminal() {
 
 /** How a finished command is described. */
 function terminalVerdict(data) {
-  const how = data.timed_out
-    ? ZogographI18n.t(
-        'terminal.verdict_timed_out',
-        {},
-        'Stopped at the time limit',
-      )
-    : data.stopped_by
-      ? ZogographI18n.t(
-          'terminal.verdict_stopped_by',
-          { actor: data.stopped_by },
-          'Stopped by {{actor}}',
-        )
-      : ZogographI18n.t('terminal.verdict_finished', {}, 'Finished');
-
-  return ZogographI18n.t(
-    'terminal.verdict_summary',
-    {
-      state: how,
-      duration: humanSpan(data.ran_for, true),
-      size: humanBytes(data.size),
-    },
-    '{{state}} after {{duration}}, {{size}} of output.',
+  return renderCoreCardPackage(
+    ZogographTerminalVerdictSummaryCard,
+    'core-terminal-verdict-summary',
+    data,
+    { humanSpan, humanBytes, i18n: ZogographI18n },
   );
 }
 

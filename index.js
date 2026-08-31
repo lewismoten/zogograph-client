@@ -31318,31 +31318,16 @@ const ACTION_WORDS = {
   scan_now: 'ran_scan',
   schedule_save: 'changed_schedule',
   updates_policy: 'changed_update_policy',
-  test_email: ['action_log.sent_test_email', 'sent a test email'],
-  clear_problems: ['action_log.cleared_problem_log', 'cleared the problem log'],
-  diagnosis_ignore: [
-    'action_log.ignored_diagnostic',
-    'ignored a diagnostic finding',
-  ],
-  diagnosis_unignore: [
-    'action_log.restored_diagnostic',
-    'restored a diagnostic finding',
-  ],
-  audit_cleared: ['action_log.cleared_audit', 'cleared the audit trail'],
-  ack_alerts: ['action_log.marked_alerts_read', 'marked alerts read'],
-  delete_alerts: ['action_log.deleted_alerts', 'deleted alerts'],
-  daemon_watch: [
-    'action_log.changed_service_watch',
-    'changed which services are watched',
-  ],
-  request_host_walk: [
-    'action_log.requested_host_walk',
-    'asked the host to walk the disk',
-  ],
-  check_capabilities: [
-    'action_log.checked_capabilities',
-    'checked which programs are available',
-  ],
+  test_email: 'sent_test_email',
+  clear_problems: 'cleared_problem_log',
+  diagnosis_ignore: 'ignored_diagnostic',
+  diagnosis_unignore: 'restored_diagnostic',
+  audit_cleared: 'cleared_audit',
+  ack_alerts: 'marked_alerts_read',
+  delete_alerts: 'deleted_alerts',
+  daemon_watch: 'changed_service_watch',
+  request_host_walk: 'requested_host_walk',
+  check_capabilities: 'checked_capabilities',
 };
 
 function actionWord(value) {

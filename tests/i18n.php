@@ -2402,6 +2402,17 @@ i18nExpect(
         $english['action_log.emptied_directory'],
         $english['action_log.ran_scan'],
         $english['action_log.changed_schedule'],
+        $english['action_log.changed_update_policy'],
+        $english['action_log.sent_test_email'],
+        $english['action_log.cleared_problem_log'],
+        $english['action_log.ignored_diagnostic'],
+        $english['action_log.restored_diagnostic'],
+        $english['action_log.cleared_audit'],
+        $english['action_log.marked_alerts_read'],
+        $english['action_log.deleted_alerts'],
+        $english['action_log.changed_service_watch'],
+        $english['action_log.requested_host_walk'],
+        $english['action_log.checked_capabilities'],
     ) &&
         $page !== false &&
         str_contains($page, 'src="cards/action-log-actions.js"') &&

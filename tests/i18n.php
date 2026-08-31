@@ -3525,13 +3525,8 @@ i18nExpect(
             $english['notes.select_to_act'],
             $english['notes.dismiss_selected_help'],
             $english['notes.select_from'],
-            $english['notes.table_time'],
-            $english['notes.table_icons'],
             $english['notes.broadcast_cleared'],
             $english['notes.broadcast_active'],
-            $english['notes.somebody'],
-            $english['notes.table_note'],
-            $english['notes.table_size'],
             $english['process.ask'],
             $english['process.force'],
             $english['process.ask_stop'],
@@ -3829,8 +3824,12 @@ i18nExpect(
     $script !== false &&
         str_contains($script, 'notes.select_from') &&
         str_contains($script, 'notes.broadcast_cleared') &&
-        str_contains($script, 'notes.table_size'),
-    'note table retains direct user-visible text',
+        str_contains($script, "notesRecordsText('table_size')") &&
+        str_contains(
+            (string) file_get_contents($root . '/cards/notes-records.js'),
+            'core-notes-records.table_size',
+        ),
+    'note table labels are not package-owned',
 );
 i18nExpect(
     $script !== false &&
@@ -4638,6 +4637,23 @@ i18nExpect(
         $page !== false &&
         str_contains($page, 'src="cards/dns-record-group.js"'),
     'DNS record labels and TTL guidance belong to their core package',
+);
+i18nExpect(
+    $page !== false &&
+        str_contains($page, 'src="cards/notes-records.js"') &&
+        $script !== false &&
+        str_contains(
+            $script,
+            'ZogographNotesRecordsCard.text(key, values, {',
+        ) &&
+        !isset(
+            $english['notes.table_time'],
+            $english['notes.table_icons'],
+            $english['notes.table_note'],
+            $english['notes.table_size'],
+            $english['notes.somebody'],
+        ),
+    'Notes table labels belong to the notes records package',
 );
 i18nExpect(
     $hostDisksCard !== false &&

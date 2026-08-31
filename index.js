@@ -17493,6 +17493,8 @@ function showPeerDialog(row = null) {
 }
 
 function renderNotes(data) {
+  const notesRecordsText = (key, values = {}) =>
+    ZogographNotesRecordsCard.text(key, values, { i18n: ZogographI18n });
   noteState.data = data;
 
   const body = $('notesBody');
@@ -17576,11 +17578,11 @@ function renderNotes(data) {
           },
         },
         {
-          label: ZogographI18n.t('notes.table_time', {}, 'Time'),
+          label: notesRecordsText('table_time'),
           render: (row) => whenSpan(row.at),
         },
         {
-          label: ZogographI18n.t('notes.table_icons', {}, 'Icons'),
+          label: notesRecordsText('table_icons'),
           render: (row) => {
             const span = document.createElement('span');
             span.textContent = row.broadcast
@@ -17595,9 +17597,7 @@ function renderNotes(data) {
                 ? ZogographI18n.t(
                     'notes.broadcast_cleared',
                     {
-                      actor:
-                        row.cleared_by ||
-                        ZogographI18n.t('notes.somebody', {}, 'somebody'),
+                      actor: row.cleared_by || notesRecordsText('somebody'),
                     },
                     'Was shown to everyone; cleared by {{actor}}.',
                   )
@@ -17611,12 +17611,12 @@ function renderNotes(data) {
           },
         },
         {
-          label: ZogographI18n.t('notes.table_note', {}, 'Note'),
+          label: notesRecordsText('table_note'),
           className: 'note-preview',
           render: (row) => notePreview(row),
         },
         {
-          label: ZogographI18n.t('notes.table_size', {}, 'Size'),
+          label: notesRecordsText('table_size'),
           className: 'size',
           render: (row) => {
             if (!row.snapshots) return '—';

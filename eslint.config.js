@@ -120,6 +120,7 @@ export default [
         ZogographHostDisksCard: 'readonly',
         ZogographHostDiskShellCard: 'readonly',
         ZogographHostDiskGapCard: 'readonly',
+        ZogographHostDeletedFilesCard: 'readonly',
         ZogographHostDirectoriesCard: 'readonly',
         ZogographHostDaemonsCard: 'readonly',
         ZogographHostFilesCard: 'readonly',

@@ -2749,6 +2749,24 @@ function renderHostDiskGapLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderHostDiskGapLabels);
 
+function renderHostDeletedFilesLabels() {
+  renderCoreCardPackage(
+    ZogographHostDeletedFilesCard,
+    'core-host-deleted-files',
+    {},
+    {
+      target: null,
+      section: () => null,
+      note: () => null,
+      simpleTable: () => null,
+      humanBytes: () => '',
+      i18n: ZogographI18n,
+    },
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderHostDeletedFilesLabels);
+
 function renderHostDirectoriesLabels() {
   const helpers = {
     target: null,
@@ -26479,83 +26497,6 @@ async function refreshHostDisk() {
     );
   }
 
-  const deleted = document.createDocumentFragment();
-
-  if (data.deleted.length) {
-    /*
-     * Before the directories, deliberately.
-     *
-     * This is the one a directory walk can never find, so if there is anything
-     * here it is very likely the answer - and somebody scrolling a list of
-     * directories will not think to look further down for it.
-     */
-    deleted.appendChild(
-      section(
-        ZogographI18n.t(
-          'host.deleted_holding',
-          { amount: humanBytes(data.deleted_bytes) },
-          'Deleted, still holding {{amount}}',
-        ),
-        (() => {
-          const wrap = document.createDocumentFragment();
-          wrap.appendChild(
-            note(
-              ZogographI18n.t(
-                'host.deleted_open_help',
-                {},
-                'These files have been unlinked but a process still has them open, so the blocks stay allocated. df counts them; du, ls, find and the treemap cannot see them. Restarting the process listed frees the space.',
-              ),
-            ),
-          );
-          wrap.appendChild(
-            simpleTable(
-              [
-                'host.deleted_path',
-                'host.deleted_held_by',
-                'host.deleted_pid',
-                'host.deleted_size',
-              ].map((key, index) =>
-                ZogographI18n.t(
-                  key,
-                  {},
-                  ['Path', 'Held by', 'PID', 'Size'][index],
-                ),
-              ),
-              data.deleted.map((d) => [
-                d.path,
-                d.process + (d.holders > 1 ? ` (\u00d7${d.holders})` : ''),
-                String(d.pid),
-                humanBytes(d.bytes),
-              ]),
-              ['name', null, 'size', 'size'],
-            ),
-          );
-          return wrap;
-        })(),
-      ),
-    );
-  } else if (data.deleted_readable) {
-    deleted.appendChild(
-      note(
-        ZogographI18n.t(
-          'host.deleted_none',
-          {},
-          'None — no process is holding space in a deleted file.',
-        ),
-      ),
-    );
-  } else {
-    deleted.appendChild(
-      note(
-        ZogographI18n.t(
-          'host.deleted_root_only',
-          {},
-          'This needs /proc/<pid>/fd, which only root can read. Run the host collector to fill it in.',
-        ),
-      ),
-    );
-  }
-
   const when = [
     ZogographI18n.t(
       'host.walked_at',
@@ -26581,7 +26522,26 @@ async function refreshHostDisk() {
   // The same "when was this measured" line under each page built from it, so
   // no page can quietly show last week's walk as though it were current.
   into('hostDisk', body);
-  into('diskDeleted', deleted, note(when.join(' \u00b7 ')));
+  const deletedTarget = $('diskDeleted');
+  deletedTarget.replaceChildren();
+  renderCoreCardPackage(
+    ZogographHostDeletedFilesCard,
+    'core-host-deleted-files',
+    {
+      deleted: data.deleted ?? [],
+      deletedBytes: data.deleted_bytes,
+      deletedReadable: data.deleted_readable,
+    },
+    {
+      target: deletedTarget,
+      section,
+      note,
+      simpleTable,
+      humanBytes,
+      i18n: ZogographI18n,
+    },
+  );
+  deletedTarget.appendChild(note(when.join(' \u00b7 ')));
   renderCoreCardPackage(
     ZogographHostDirectoriesCard,
     'core-host-directories',

@@ -162,6 +162,7 @@ export default [
         ZogographAiSettingsStatusCard: 'readonly',
         ZogographAiSettingsSignInCard: 'readonly',
         ZogographAiSharedBudgetCard: 'readonly',
+        ZogographAiConversationTimeLimitCard: 'readonly',
         ZogographAiKeyForgetCard: 'readonly',
         ZogographAiEnableToggleCard: 'readonly',
         ZogographAiReasoningEffortCard: 'readonly',

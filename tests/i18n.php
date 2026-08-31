@@ -462,6 +462,13 @@ i18nExpect(
         $english['ai.settings.monthly_spend_label'],
         $english['ai.settings.monthly_spend_help'],
         $english['ai.settings.shared_usage'],
+        $english['ai.settings.stop_after_label'],
+        $english['ai.settings.stop_after_help'],
+        $english['ai.settings.limit_none'],
+        $english['ai.settings.limit_15_minutes'],
+        $english['ai.settings.limit_hour'],
+        $english['ai.settings.limit_4_hours'],
+        $english['ai.settings.limit_day'],
     ),
     'AI card controls belong to their card packages',
 );

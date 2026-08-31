@@ -5788,30 +5788,12 @@ function renderAiSettings(data) {
   const limits = document.createElement('div');
   limits.className = 'settings';
 
-  const seconds = document.createElement('select');
-  seconds.id = 'aiMaxSeconds';
-  for (const [value, label] of [
-    [0, aiSettingsText('limit_none', 'no limit')],
-    [900, aiSettingsText('limit_15_minutes', '15 minutes')],
-    [3600, aiSettingsText('limit_hour', 'an hour')],
-    [14400, aiSettingsText('limit_4_hours', 'four hours')],
-    [86400, aiSettingsText('limit_day', 'a day')],
-  ]) {
-    const option = document.createElement('option');
-    option.value = String(value);
-    option.textContent = label;
-    option.selected = Number(data.max_seconds) === value;
-    seconds.appendChild(option);
-  }
   limits.appendChild(
-    fieldRow(
-      aiSettingsText('stop_after_label', 'Stop a conversation after'),
-      seconds,
-      aiSettingsText(
-        'stop_after_help',
-        'Measured from when it started, not from the last message. A conversation left open ' +
-          'overnight cannot quietly resume in the morning and carry on spending.',
-      ),
+    renderCoreCardPackage(
+      ZogographAiConversationTimeLimitCard,
+      'core-ai-conversation-time-limit',
+      data,
+      { fieldRow, i18n: ZogographI18n },
     ),
   );
 

@@ -30408,7 +30408,12 @@ function inspectHistory(data) {
       xKey: 'started_at',
       axis: bytesAxis,
       zeroBased: true,
-      empty: ZogographI18n.t('storage.no_history', {}, 'No history'),
+      empty: renderCoreCardPackage(
+        ZogographStorageHistoryCard,
+        'core-storage-history',
+        { key: 'no_history' },
+        { i18n: ZogographI18n },
+      ),
     }),
   );
 

@@ -2172,7 +2172,6 @@
   "storage.what_it_is_made_of": "De qué está hecho",
   "storage.nothing_to_show": "Nada que mostrar",
   "storage.size_over_time": "Tamaño a lo largo del tiempo",
-  "storage.no_history": "Sin historial",
   "storage.history_recorded_once": "Se registró, pero solo una vez hasta ahora; todavía no hay cambios que dibujar.",
   "storage.history_not_recorded": "Esta ruta no es una de las que se conservan entre análisis. Cada vez solo se registran los archivos y directorios más grandes, y el mayor de cada categoría; todo lo demás se mide y no se almacena.",
   "storage.file": "archivo",

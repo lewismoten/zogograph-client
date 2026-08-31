@@ -1250,7 +1250,6 @@ function renderCpuTime(data) {
       bandOf,
       cpuStateLabel,
       cpuStateMeaning,
-      verdict: cpuTimeVerdict,
       emptyMessage: cpuEmptyWhy(data) + '.',
       i18n: ZogographI18n,
     },
@@ -1281,68 +1280,6 @@ function cpuStateMeaning(meta) {
   return key
     ? ZogographI18n.t(`cpu.state_meaning.${key}`, {}, meta.what)
     : meta.what;
-}
-
-/** One sentence saying which state the busy time actually went to. */
-function cpuTimeVerdict(now, cores) {
-  const busy = Number(now.busy);
-  const spread = ZogographI18n.t(
-    'cpu.time_verdict_spread',
-    {
-      cores: cores
-        ? count(cores, 'core')
-        : ZogographI18n.t('cpu.cores_unknown', {}, 'cores unknown'),
-    },
-    'Percentages are of all {{cores}} together, so 100% would be the whole machine occupied.',
-  );
-
-  if (busy < 5) {
-    return ZogographI18n.t(
-      'cpu.time_verdict_idle',
-      { busy: busy.toFixed(1), spread },
-      'The machine is idle — {{busy}}% busy over the last reading. {{spread}}',
-    );
-  }
-
-  const parts = [
-    ['user', 'ordinary work in userland'],
-    ['nice', 'low-priority work'],
-    ['system', 'kernel work on behalf of processes'],
-    ['iowait', 'waiting for storage'],
-    ['steal', 'time the hypervisor took away'],
-    ['softirq', 'deferred interrupt work'],
-    ['irq', 'hardware interrupts'],
-  ].map(([key, fallback]) => [
-    key,
-    ZogographI18n.t(`cpu.time_verdict_state.${key}`, {}, fallback),
-  ]);
-
-  const ranked = parts
-    .map(([key, words]) => [Number(now[key]) || 0, words])
-    .sort((a, b) => b[0] - a[0]);
-
-  const [top, topWords] = ranked[0];
-  const [second, secondWords] = ranked[1];
-
-  const next =
-    second >= top / 3
-      ? ZogographI18n.t(
-          'cpu.time_verdict_second',
-          { state: secondWords, percent: second.toFixed(1) },
-          ', then {{state}} ({{percent}}%)',
-        )
-      : '';
-  return ZogographI18n.t(
-    'cpu.time_verdict_busy',
-    {
-      busy: busy.toFixed(0),
-      state: topWords,
-      percent: top.toFixed(1),
-      next,
-      spread,
-    },
-    '{{busy}}% busy, and most of it is {{state}} ({{percent}}%){{next}}. {{spread}}',
-  );
 }
 
 /* ---------------------------------------------------------- each core -- */

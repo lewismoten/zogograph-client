@@ -16897,18 +16897,14 @@ function showPeerDialog(row = null) {
     peersShellText('field_description_help'),
   );
   const tags = input(
-    peerText('field_tags', {}, 'Tags'),
+    peersShellText('field_tags'),
     row?.tags?.join(', '),
-    peerText('field_tags_help', {}, 'Optional comma-separated fleet tags.'),
+    peersShellText('field_tags_help'),
   );
   const group = input(
-    peerText('field_group', {}, 'Group'),
+    peersShellText('field_group'),
     row?.group,
-    peerText(
-      'field_group_help',
-      {},
-      'Optional fleet group; organization only for now.',
-    ),
+    peersShellText('field_group_help'),
   );
   const environment = input(
     peerText('field_environment', {}, 'Environment'),

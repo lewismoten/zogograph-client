@@ -72,6 +72,12 @@ window.ZogographSystemPeersShellCard = {
         'core-system-peers-shell.field_description': 'Description',
         'core-system-peers-shell.field_description_help':
           'Optional operational context, such as the service it runs.',
+        'core-system-peers-shell.field_tags': 'Tags',
+        'core-system-peers-shell.field_tags_help':
+          'Optional comma-separated fleet tags.',
+        'core-system-peers-shell.field_group': 'Group',
+        'core-system-peers-shell.field_group_help':
+          'Optional fleet group; organization only for now.',
       }),
       es: Object.freeze({
         'core-system-peers-shell.title': 'Servidores Zogograph de confianza',
@@ -140,6 +146,12 @@ window.ZogographSystemPeersShellCard = {
         'core-system-peers-shell.field_description': 'Descripción',
         'core-system-peers-shell.field_description_help':
           'Contexto operativo opcional, como el servicio que ejecuta.',
+        'core-system-peers-shell.field_tags': 'Etiquetas',
+        'core-system-peers-shell.field_tags_help':
+          'Etiquetas opcionales de flota separadas por comas.',
+        'core-system-peers-shell.field_group': 'Grupo',
+        'core-system-peers-shell.field_group_help':
+          'Grupo opcional de flota; por ahora solo organiza.',
       }),
       hi: Object.freeze({
         'core-system-peers-shell.title': 'विश्वसनीय Zogograph सर्वर',
@@ -208,6 +220,12 @@ window.ZogographSystemPeersShellCard = {
         'core-system-peers-shell.field_description': 'विवरण',
         'core-system-peers-shell.field_description_help':
           'वैकल्पिक संचालन संदर्भ, जैसे इसके द्वारा चलाया जाने वाला सेवा।',
+        'core-system-peers-shell.field_tags': 'टैग',
+        'core-system-peers-shell.field_tags_help':
+          'वैकल्पिक अल्पविराम-विभाजित फ्लीट टैग।',
+        'core-system-peers-shell.field_group': 'समूह',
+        'core-system-peers-shell.field_group_help':
+          'वैकल्पिक फ्लीट समूह; अभी केवल संगठन के लिए।',
       }),
       ar: Object.freeze({
         'core-system-peers-shell.title': 'خوادم Zogograph الموثوقة',
@@ -275,6 +293,12 @@ window.ZogographSystemPeersShellCard = {
         'core-system-peers-shell.field_description': 'الوصف',
         'core-system-peers-shell.field_description_help':
           'سياق تشغيلي اختياري، مثل الخدمة التي يشغلها.',
+        'core-system-peers-shell.field_tags': 'الوسوم',
+        'core-system-peers-shell.field_tags_help':
+          'وسوم أسطول اختيارية مفصولة بفواصل.',
+        'core-system-peers-shell.field_group': 'المجموعة',
+        'core-system-peers-shell.field_group_help':
+          'مجموعة أسطول اختيارية؛ للتنظيم فقط حاليًا.',
       }),
       zh: Object.freeze({
         'core-system-peers-shell.title': '受信任的 Zogograph 服务器',
@@ -342,6 +366,12 @@ window.ZogographSystemPeersShellCard = {
         'core-system-peers-shell.field_description': '描述',
         'core-system-peers-shell.field_description_help':
           '可选的运行上下文，例如它运行的服务。',
+        'core-system-peers-shell.field_tags': '标记',
+        'core-system-peers-shell.field_tags_help':
+          '可选的、以逗号分隔的服务器群组标记。',
+        'core-system-peers-shell.field_group': '组',
+        'core-system-peers-shell.field_group_help':
+          '可选的服务器群组；目前仅用于组织。',
       }),
     }),
   }),

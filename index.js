@@ -21030,11 +21030,9 @@ async function refreshReports() {
   if (!state.signedIn) {
     body.replaceChildren(
       note(
-        ZogographI18n.t(
-          'reports.sign_in',
-          {},
-          'Sign in to read the summaries.',
-        ),
+        ZogographReportsShellCard.text('sign_in', {
+          i18n: ZogographI18n,
+        }),
       ),
     );
     return;

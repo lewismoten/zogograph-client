@@ -31,6 +31,7 @@ export default [
         ZogographBootHistoryCard: 'readonly',
         ZogographCategoryChart: 'readonly',
         ZogographCapabilitySummaryCard: 'readonly',
+        ZogographCapabilitiesShellCard: 'readonly',
         ZogographCalendarUpcomingCard: 'readonly',
         ZogographCalendarGridCard: 'readonly',
         ZogographCalendarEventListCard: 'readonly',

@@ -74,6 +74,7 @@
     <script src="cards/empty-categories.js" defer></script>
     <script src="cards/busy-moments.js" defer></script>
     <script src="cards/capability-summary.js" defer></script>
+    <script src="cards/capabilities-shell.js" defer></script>
     <script src="cards/calendar-upcoming.js" defer></script>
     <script src="cards/calendar-grid.js" defer></script>
     <script src="cards/calendar-event-list.js" defer></script>
@@ -3817,18 +3818,27 @@
         <section class="view" data-view="capabilities" hidden>
           <section class="panel" id="capabilityPanel">
             <div class="panel-head">
-              <h2 data-i18n="capabilities.title">Capabilities</h2>
+              <h2 data-i18n="core-capabilities-shell.title">Capabilities</h2>
               <div class="panel-controls">
                 <label class="inline">
-                  <span data-i18n="capabilities.show">Show</span>
+                  <span data-i18n="core-capabilities-shell.show">Show</span>
                   <select id="capFilter">
-                    <option value="key" data-i18n="capabilities.filter_key">
+                    <option
+                      value="key"
+                      data-i18n="core-capabilities-shell.filter_key"
+                    >
                       The ones worth having
                     </option>
-                    <option value="gap" data-i18n="capabilities.filter_gap">
+                    <option
+                      value="gap"
+                      data-i18n="core-capabilities-shell.filter_gap"
+                    >
                       Not available here
                     </option>
-                    <option value="all" data-i18n="capabilities.filter_all">
+                    <option
+                      value="all"
+                      data-i18n="core-capabilities-shell.filter_all"
+                    >
                       Everything
                     </option>
                   </select>
@@ -3839,13 +3849,16 @@
                 <button
                   id="capHostCheck"
                   class="link"
-                  data-i18n="capabilities.ask_host"
+                  data-i18n="core-capabilities-shell.ask_host"
                 >
                   Ask the host
                 </button>
               </div>
             </div>
-            <p class="muted small sub-note" data-i18n="capabilities.help">
+            <p
+              class="muted small sub-note"
+              data-i18n="core-capabilities-shell.help"
+            >
               What this account can actually run, and what the machine has that
               it cannot reach. Those are the same question on ordinary hosting
               and different ones here — see below.

@@ -8519,6 +8519,28 @@ function renderCapabilitySummaryLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderCapabilitySummaryLabels);
 
+function renderCapabilitiesShell() {
+  const helpers = { i18n: ZogographI18n };
+  renderCoreCardPackage(
+    ZogographCapabilitiesShellCard,
+    'core-capabilities-shell',
+    {},
+    helpers,
+  );
+  document
+    .querySelectorAll('[data-i18n^="core-capabilities-shell."]')
+    .forEach((node) => {
+      const key = node.dataset.i18n.replace('core-capabilities-shell.', '');
+      node.textContent = ZogographI18n.markSource(
+        node,
+        `core-capabilities-shell.${key}`,
+        ZogographCapabilitiesShellCard.text(key, helpers),
+      );
+    });
+}
+
+document.addEventListener('zogograph-i18n-load', renderCapabilitiesShell);
+
 function renderLanguageControls() {
   const labels = renderCoreCardPackage(
     ZogographLanguageControlsCard,

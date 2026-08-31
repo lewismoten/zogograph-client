@@ -21,6 +21,11 @@ window.ZogographHostFilesCard = {
         'core-host-files.names': 'Names',
         'core-host-files.owner': 'Owner',
         'core-host-files.last_written': 'Last written',
+        'core-host-files.empty': 'Nothing over the size threshold.',
+        'core-host-files.also_at': 'also at {{path}}',
+        'core-host-files.names_all': '{{shown}} paths, 1 file',
+        'core-host-files.names_some': '{{shown}} here of {{total}}, 1 file',
+        'core-host-files.total': '{{bytes}} across {{files}} files.',
       }),
       es: Object.freeze({
         'core-host-files.linked_total':
@@ -30,6 +35,11 @@ window.ZogographHostFilesCard = {
         'core-host-files.names': 'Nombres',
         'core-host-files.owner': 'Propietario',
         'core-host-files.last_written': 'Última escritura',
+        'core-host-files.empty': 'No hay nada por encima del umbral de tamaño.',
+        'core-host-files.also_at': 'también en {{path}}',
+        'core-host-files.names_all': '{{shown}} rutas, 1 archivo',
+        'core-host-files.names_some': '{{shown}} aquí de {{total}}, 1 archivo',
+        'core-host-files.total': '{{bytes}} entre {{files}} archivos.',
       }),
       hi: Object.freeze({
         'core-host-files.linked_total':
@@ -39,6 +49,12 @@ window.ZogographHostFilesCard = {
         'core-host-files.names': 'नाम',
         'core-host-files.owner': 'स्वामी',
         'core-host-files.last_written': 'अंतिम बार लिखा गया',
+        'core-host-files.empty': 'आकार सीमा से ऊपर कुछ नहीं है।',
+        'core-host-files.also_at': '{{path}} पर भी',
+        'core-host-files.names_all': '{{shown}} पथ, 1 फ़ाइल',
+        'core-host-files.names_some':
+          '{{total}} में से {{shown}} यहाँ, 1 फ़ाइल',
+        'core-host-files.total': '{{files}} फ़ाइलों में {{bytes}}।',
       }),
       ar: Object.freeze({
         'core-host-files.linked_total':
@@ -48,6 +64,11 @@ window.ZogographHostFilesCard = {
         'core-host-files.names': 'الأسماء',
         'core-host-files.owner': 'المالك',
         'core-host-files.last_written': 'آخر كتابة',
+        'core-host-files.empty': 'لا شيء يتجاوز حد الحجم.',
+        'core-host-files.also_at': 'أيضًا في {{path}}',
+        'core-host-files.names_all': '{{shown}} مسارات، ملف واحد',
+        'core-host-files.names_some': '{{shown}} هنا من {{total}}، ملف واحد',
+        'core-host-files.total': '{{bytes}} عبر {{files}} ملفات.',
       }),
       zh: Object.freeze({
         'core-host-files.linked_total':
@@ -57,6 +78,12 @@ window.ZogographHostFilesCard = {
         'core-host-files.names': '名称',
         'core-host-files.owner': '所有者',
         'core-host-files.last_written': '最后写入',
+        'core-host-files.empty': '没有内容超过大小阈值。',
+        'core-host-files.also_at': '也位于 {{path}}',
+        'core-host-files.names_all': '{{shown}} 条路径，1 个文件',
+        'core-host-files.names_some':
+          '共 {{total}} 条，此处 {{shown}} 条，1 个文件',
+        'core-host-files.total': '共 {{files}} 个文件，占用 {{bytes}}。',
       }),
     }),
   }),
@@ -78,7 +105,7 @@ window.ZogographHostFilesCard = {
         Object.assign(document.createElement('p'), {
           className: 'muted',
           textContent: i18n.t(
-            'host.files_empty',
+            'core-host-files.empty',
             {},
             'Nothing over the size threshold.',
           ),
@@ -112,7 +139,7 @@ window.ZogographHostFilesCard = {
                 Object.assign(document.createElement('div'), {
                   className: 'muted small',
                   textContent: i18n.t(
-                    'host.files_also_at',
+                    'core-host-files.also_at',
                     { path: other.path },
                     'also at {{path}}',
                   ),
@@ -134,8 +161,8 @@ window.ZogographHostFilesCard = {
             if (group.length === 1 && links <= 1) return '1';
             return i18n.t(
               group.length === links
-                ? 'host.files_names_all'
-                : 'host.files_names_some',
+                ? 'core-host-files.names_all'
+                : 'core-host-files.names_some',
               { shown: humanCount(group.length), total: humanCount(links) },
               group.length === links
                 ? `${humanCount(group.length)} paths, 1 file`
@@ -172,7 +199,7 @@ window.ZogographHostFilesCard = {
             '{{bytes}} across {{files}} files, reached by {{paths}} paths. {{linked}} extra paths are hard links to files already counted, so they use no additional disk.',
           )
         : i18n.t(
-            'host.files_total',
+            'core-host-files.total',
             values,
             '{{bytes}} across {{files}} files.',
           );

@@ -12059,15 +12059,17 @@ function renderChat() {
    */
   $('chatSend').disabled = finished;
   $('chatText').disabled = finished;
-  $('chatSend').textContent = busy
-    ? ZogographI18n.t('ai.chat_add', {}, 'Add')
-    : ZogographI18n.t('ai.chat_ask', {}, 'Ask');
+  $('chatSend').textContent = ZogographI18n.markSource(
+    $('chatSend'),
+    busy ? 'core-chat-composer.add' : 'core-chat-composer.ask',
+    ZogographChatComposerCard.text(busy ? 'add' : 'ask', {
+      i18n: ZogographI18n,
+    }),
+  );
   $('chatSend').title = busy
-    ? ZogographI18n.t(
-        'ai.chat_add_help',
-        {},
-        'It is working. This goes in now and it reads it on its next turn.',
-      )
+    ? ZogographChatComposerCard.text('add_help', {
+        i18n: ZogographI18n,
+      })
     : '';
   // Stop is meaningful only while PHP/the model is actually working. Leaving
   // it visible on an idle conversation made it look like a broken emergency

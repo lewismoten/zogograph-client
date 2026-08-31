@@ -2923,7 +2923,6 @@
   "scan.request_already_completed": "كان الجامع قد أجاب عن ذلك الطلب بالفعل.",
   "setup.config_not_writable": "لا يمكن الكتابة إلى lib/config.php، لذا لا يمكن تغيير هذه الإعدادات.",
   "action.clear": "مسح",
-  "ai.forget_key": "انسَ المفتاح",
   "terminal.locked_again": "لقد قفل نفسه مجددًا.",
   "terminal.open_for": "مفتوح لمدة {{duration}} أخرى.",
   "log.no_matching_lines": "لا توجد أسطر مطابقة هنا.",

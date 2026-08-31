@@ -2923,7 +2923,6 @@
   "scan.request_already_completed": "收集器已经处理了该请求。",
   "setup.config_not_writable": "lib/config.php 不可写，因此无法更改这些设置。",
   "action.clear": "清除",
-  "ai.forget_key": "忘记此密钥",
   "terminal.locked_again": "它已再次锁定。",
   "terminal.open_for": "还可打开 {{duration}}。",
   "log.no_matching_lines": "这里没有匹配的行。",

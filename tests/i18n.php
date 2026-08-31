@@ -453,6 +453,9 @@ i18nExpect(
         $english['ai.pricing_remove_dialog'],
         $english['ai.pricing_remove_action'],
         $english['ai.pricing_removed'],
+        $english['ai.forget_key'],
+        $english['ai.settings.forget_key_confirm'],
+        $english['ai.settings.forget_key_title'],
     ),
     'AI card controls belong to their card packages',
 );

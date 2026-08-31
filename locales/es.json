@@ -2925,7 +2925,6 @@
   "scan.request_already_completed": "El recolector ya había respondido a esa solicitud.",
   "setup.config_not_writable": "lib/config.php no permite escritura, por lo que no se pueden cambiar estos valores.",
   "action.clear": "Limpiar",
-  "ai.forget_key": "Olvidar la clave",
   "terminal.locked_again": "Se ha bloqueado de nuevo.",
   "terminal.open_for": "Abierto durante {{duration}} más.",
   "log.no_matching_lines": "No hay líneas coincidentes aquí.",

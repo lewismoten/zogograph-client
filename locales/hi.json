@@ -2925,7 +2925,6 @@
   "scan.request_already_completed": "कलेक्टर उस अनुरोध का जवाब पहले ही दे चुका था।",
   "setup.config_not_writable": "lib/config.php लिखने योग्य नहीं है, इसलिए इन्हें बदला नहीं जा सकता।",
   "action.clear": "साफ़ करें",
-  "ai.forget_key": "कुंजी हटाएँ",
   "terminal.locked_again": "यह फिर से लॉक हो गया है।",
   "terminal.open_for": "और {{duration}} के लिए खुला है।",
   "log.no_matching_lines": "यहाँ कोई मिलती हुई पंक्ति नहीं है।",

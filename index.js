@@ -5716,26 +5716,18 @@ function renderAiSettings(data) {
     ),
   );
 
-  if (data.has_key) {
-    const forget = document.createElement('button');
-    forget.type = 'button';
-    forget.className = 'link danger';
-    forget.textContent = ZogographI18n.t('ai.forget_key', {}, 'Forget the key');
-    forget.addEventListener('click', async () => {
-      if (
-        !(await confirmDialog(
-          aiSettingsText(
-            'forget_key_confirm',
-            'Remove the stored API key? The assistant will stop working until another is set.',
-          ),
-          aiSettingsText('forget_key_title', 'Forget key'),
-        ))
-      )
-        return;
-      await saveAiSettings({ forget_key: '1' });
-    });
-    form.appendChild(fieldRow('', forget, ''));
-  }
+  const forgetKey = renderCoreCardPackage(
+    ZogographAiKeyForgetCard,
+    'core-ai-key-forget',
+    { hasKey: data.has_key },
+    {
+      fieldRow,
+      confirmDialog,
+      onForget: () => saveAiSettings({ forget_key: '1' }),
+      i18n: ZogographI18n,
+    },
+  );
+  if (forgetKey) form.appendChild(forgetKey);
 
   /*
    * Six pages from one fetch.

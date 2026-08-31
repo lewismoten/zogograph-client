@@ -2599,6 +2599,27 @@ i18nExpect(
     'CPU process labels do not belong to their core package',
 );
 i18nExpect(
+    !isset(
+        $english['cpu.threads'],
+        $english['cpu.running_for'],
+        $english['cpu.resident'],
+        $english['cpu.command'],
+        $english['cpu.state'],
+        $english['cpu.in_proc_stat'],
+        $english['cpu.what_it_means'],
+    ) &&
+        isset(
+            $coreCardEnglish['core-cpu-processes.threads'],
+            $coreCardEnglish['core-busy-moments.running_for'],
+            $coreCardEnglish['core-cpu-processes.resident'],
+            $coreCardEnglish['core-process-list.command'],
+            $coreCardEnglish['core-cpu-time.state'],
+            $coreCardEnglish['core-cpu-time.in_proc_stat'],
+            $coreCardEnglish['core-cpu-time.what_it_means'],
+        ),
+    'CPU card labels do not belong to the root catalog',
+);
+i18nExpect(
     $script !== false &&
         str_contains($script, 'filterControlText("all", "All")') &&
         $page !== false &&

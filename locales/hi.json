@@ -2430,8 +2430,6 @@
   "uptime.table_until": "तक",
   "uptime.table_for": "अवधि",
   "uptime.table_meaning": "इसका अर्थ",
-  "uptime.boot_history_title": "यह क्यों रीस्टार्ट हुआ",
-  "uptime.boot_history_help": "होस्ट पर {{last}} से, जिसे केवल root पढ़ सकता है। जिस बूट से पहले बंद होना रिकॉर्ड है, उसे रुकने को कहा गया था; जिसके पास नहीं है उसमें पिछला सत्र बिना रिकॉर्ड किए समाप्त हुआ।",
   "uptime.no_boot_history": "कोई बूट इतिहास नहीं।",
   "uptime.came_up": "चालू हुआ",
   "uptime.kernel": "कर्नेल",

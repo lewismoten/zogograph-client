@@ -2428,8 +2428,6 @@
   "uptime.table_until": "حتى",
   "uptime.table_for": "لمدة",
   "uptime.table_meaning": "ما معناه",
-  "uptime.boot_history_title": "لماذا أعاد التشغيل",
-  "uptime.boot_history_help": "من {{last}} على المضيف، الذي لا يستطيع قراءته إلا root. إقلاع سُجل قبله إيقاف يعني أنه طُلب منه التوقف؛ وإقلاع بلا ذلك يعني أن الجلسة السابقة انتهت من دون تسجيل واحد.",
   "uptime.no_boot_history": "لا يوجد سجل إقلاع.",
   "uptime.came_up": "بدأ التشغيل",
   "uptime.kernel": "النواة",

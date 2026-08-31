@@ -27699,6 +27699,33 @@ function renderBootHistory(history) {
   ]);
 }
 
+function renderBootHistoryLabels() {
+  const helpers = {
+    wrap: null,
+    target: null,
+    renderTable: () => null,
+    whenSpan: () => null,
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(
+    ZogographBootHistoryCard,
+    'core-boot-history',
+    null,
+    helpers,
+  );
+  const title = document.querySelector('[data-i18n="core-boot-history.title"]');
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-boot-history.title',
+    ZogographBootHistoryCard.text('title', helpers),
+  );
+  ZogographI18n.applyRich(
+    document.querySelector('[data-i18n-rich="core-boot-history.help"]'),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderBootHistoryLabels);
+
 /* ----------------------------------------------------------------- health -- */
 
 /** Plain-language names for the checks, and what a false one means. */

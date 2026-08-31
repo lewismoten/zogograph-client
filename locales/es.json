@@ -2431,8 +2431,6 @@
   "uptime.table_until": "Hasta",
   "uptime.table_for": "Durante",
   "uptime.table_meaning": "Qué significa",
-  "uptime.boot_history_title": "Por qué se reinició",
-  "uptime.boot_history_help": "Desde {{last}} en el host, que solo root puede leer. Un arranque con apagado registrado ocurrió después de solicitarle que se detuviera; uno sin ello significa que la sesión anterior terminó sin registrar uno.",
   "uptime.no_boot_history": "No hay historial de arranques.",
   "uptime.came_up": "Arrancó",
   "uptime.kernel": "Kernel",

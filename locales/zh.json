@@ -2428,8 +2428,6 @@
   "uptime.table_until": "到",
   "uptime.table_for": "持续",
   "uptime.table_meaning": "含义",
-  "uptime.boot_history_title": "为何重启",
-  "uptime.boot_history_help": "来自主机上的 {{last}}，只有 root 能读取。一个启动若在被要求停止前记录了关机；没有记录的启动表示上一个会话结束时未记录关机。",
   "uptime.no_boot_history": "没有启动历史记录。",
   "uptime.came_up": "已启动",
   "uptime.kernel": "内核",

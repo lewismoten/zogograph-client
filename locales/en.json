@@ -2446,8 +2446,6 @@
   "uptime.table_until": "Until",
   "uptime.table_for": "For",
   "uptime.table_meaning": "What it means",
-  "uptime.boot_history_title": "Why it restarted",
-  "uptime.boot_history_help": "From {{last}} on the host, which only root can read. A boot with a shutdown recorded before it was asked to stop; a boot with none means the previous session ended without recording one.",
   "uptime.no_boot_history": "No boot history.",
   "uptime.came_up": "Came up",
   "uptime.kernel": "Kernel",

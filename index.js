@@ -16767,43 +16767,37 @@ function renderPeers(data) {
                 const result = await post('peer-read', { name: row.name });
                 const vital = result.vitals || {};
                 showListDialog(
-                  peerText(
-                    'overview_title',
-                    { name: result.host || row.label },
-                    `${result.host || row.label} overview`,
-                  ),
+                  peersShellText('overview_title', {
+                    name: result.host || row.label,
+                  }),
                   [
                     factGrid([
                       [
-                        peerText('collected', {}, 'Collected'),
+                        peersShellText('collected'),
                         result.taken_at
                           ? humanTime(result.taken_at)
-                          : peerText(
-                              'nothing_collected',
-                              {},
-                              'nothing collected',
-                            ),
+                          : peersShellText('nothing_collected'),
                       ],
                       [
-                        peerText('table_disk_free', {}, 'Disk free'),
+                        peersShellText('table_disk_free'),
                         vital.disk_free_bytes == null
                           ? '—'
                           : humanBytes(vital.disk_free_bytes),
                       ],
                       [
-                        peerText('table_cpu', {}, 'CPU'),
+                        peersShellText('table_cpu'),
                         vital.cpu_percent == null
                           ? '—'
                           : peerPercent(vital.cpu_percent),
                       ],
                       [
-                        peerText('table_memory', {}, 'Memory'),
+                        peersShellText('table_memory'),
                         vital.mem_used_percent == null
                           ? '—'
                           : peerPercent(vital.mem_used_percent),
                       ],
                       [
-                        peerText('load', {}, 'Load'),
+                        peersShellText('load'),
                         vital.load1 == null ? '—' : String(vital.load1),
                       ],
                     ]),

@@ -3045,15 +3045,15 @@ i18nExpect(
     $script !== false &&
         str_contains($script, 'function peerText(') &&
         str_contains($script, "peersShellText('table_transport'") &&
-        str_contains($script, 'peerText("overview_title"') &&
+        str_contains($script, "peersShellText('overview_title'") &&
         str_contains($script, 'peerText("field_endpoint"') &&
         str_contains($script, 'peerText("field_redirect_help"') &&
         str_contains($script, 'function peerPercent(') &&
         is_array($english) &&
         isset(
-            $english['peer.overview_title'],
             $coreCardEnglish['core-system-peers-shell.capacity'],
             $coreCardEnglish['core-system-peers-shell.table_transport'],
+            $coreCardEnglish['core-system-peers-shell.overview_title'],
         ),
     'trusted-server controls do not use locale-aware catalog messages',
 );

@@ -1082,6 +1082,18 @@ i18nExpect(
             $networkCaptureCard,
             '"core-network-capture.packets_rate"',
         ) &&
+        str_contains(
+            $networkCaptureCard,
+            '"core-network-capture.capture_direction_detail"',
+        ) &&
+        str_contains(
+            $networkCaptureCard,
+            '"core-network-capture.distinct_remote_addresses"',
+        ) &&
+        str_contains(
+            $networkCaptureCard,
+            '"core-network-capture.counted_unattributed"',
+        ) &&
         $script !== false &&
         str_contains(
             $script,

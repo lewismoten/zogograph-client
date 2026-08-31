@@ -51,6 +51,15 @@ window.ZogographNetworkCaptureCard = {
           'The capture of {{time}} did not run: {{reason}}',
         'core-network-capture.interface_filter': 'Interface and filter',
         'core-network-capture.packets_rate': '{{packets}} — {{rate}} a second',
+        'core-network-capture.capture_direction_detail':
+          '{{packets}} packets, {{bytes}}{{rate}}',
+        'core-network-capture.distinct_remote_addresses':
+          'Distinct remote addresses',
+        'core-network-capture.distinct_names_asked': 'Distinct names asked for',
+        'core-network-capture.counted_unattributed':
+          'Counted but not attributed',
+        'core-network-capture.unparsed_detail':
+          '{{count}} — ARP, ICMP and anything not in a shape this parses',
       }),
       es: Object.freeze({
         'core-network-capture.title': 'Qué hay en la red',
@@ -89,6 +98,15 @@ window.ZogographNetworkCaptureCard = {
         'core-network-capture.interface_filter': 'Interfaz y filtro',
         'core-network-capture.packets_rate':
           '{{packets}} — {{rate}} por segundo',
+        'core-network-capture.capture_direction_detail':
+          '{{packets}} paquetes, {{bytes}}{{rate}}',
+        'core-network-capture.distinct_remote_addresses':
+          'Direcciones remotas distintas',
+        'core-network-capture.distinct_names_asked':
+          'Nombres distintos solicitados',
+        'core-network-capture.counted_unattributed': 'Contados sin atribuir',
+        'core-network-capture.unparsed_detail':
+          '{{count}} — ARP, ICMP y todo lo que no tiene una forma que esto pueda analizar',
       }),
       hi: Object.freeze({
         'core-network-capture.title': 'नेटवर्क पर क्या है',
@@ -125,6 +143,14 @@ window.ZogographNetworkCaptureCard = {
         'core-network-capture.interface_filter': 'इंटरफ़ेस और फ़िल्टर',
         'core-network-capture.packets_rate':
           '{{packets}} — {{rate}} प्रति सेकंड',
+        'core-network-capture.capture_direction_detail':
+          '{{packets}} पैकेट, {{bytes}}{{rate}}',
+        'core-network-capture.distinct_remote_addresses': 'अलग दूरस्थ पते',
+        'core-network-capture.distinct_names_asked': 'पूछे गए अलग नाम',
+        'core-network-capture.counted_unattributed':
+          'गिने गए पर निर्धारित नहीं',
+        'core-network-capture.unparsed_detail':
+          '{{count}} — ARP, ICMP और वह सब जिसका आकार इसे पार्स नहीं होता',
       }),
       ar: Object.freeze({
         'core-network-capture.title': 'ما الموجود على الشبكة',
@@ -159,6 +185,13 @@ window.ZogographNetworkCaptureCard = {
         'core-network-capture.interface_filter': 'الواجهة والمرشح',
         'core-network-capture.packets_rate':
           '{{packets}} — {{rate}} في الثانية',
+        'core-network-capture.capture_direction_detail':
+          '{{packets}} حزمة، {{bytes}}{{rate}}',
+        'core-network-capture.distinct_remote_addresses': 'عناوين بعيدة مميزة',
+        'core-network-capture.distinct_names_asked': 'أسماء مميزة طُلبت',
+        'core-network-capture.counted_unattributed': 'معدودة دون إسناد',
+        'core-network-capture.unparsed_detail':
+          '{{count}} — ARP وICMP وأي شيء لا يأتي بشكل يستطيع هذا تحليله',
       }),
       zh: Object.freeze({
         'core-network-capture.title': '线路上有什么',
@@ -192,6 +225,13 @@ window.ZogographNetworkCaptureCard = {
           '{{time}} 的抓取未运行：{{reason}}',
         'core-network-capture.interface_filter': '接口和筛选器',
         'core-network-capture.packets_rate': '{{packets}} — 每秒 {{rate}}',
+        'core-network-capture.capture_direction_detail':
+          '{{packets}} 个数据包，{{bytes}}{{rate}}',
+        'core-network-capture.distinct_remote_addresses': '不同远程地址',
+        'core-network-capture.distinct_names_asked': '请求的不同名称',
+        'core-network-capture.counted_unattributed': '已统计但未归属',
+        'core-network-capture.unparsed_detail':
+          '{{count}} — ARP、ICMP 以及任何无法按此格式解析的内容',
       }),
     }),
   }),
@@ -225,6 +265,11 @@ window.ZogographNetworkCaptureCard = {
         'capture_failed',
         'interface_filter',
         'packets_rate',
+        'capture_direction_detail',
+        'distinct_remote_addresses',
+        'distinct_names_asked',
+        'counted_unattributed',
+        'unparsed_detail',
       ].includes(name)
         ? `core-network-capture.${name}`
         : key;

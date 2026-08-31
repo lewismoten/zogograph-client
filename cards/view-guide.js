@@ -27,6 +27,10 @@ window.ZogographViewGuideCard = {
           'Shows the network identity, connections, names, and external checks associated with this server.',
         'core-view-guide.network_useful':
           'Use it to investigate reachability, DNS changes, unexpected listeners, traffic, and domain expiry before they become outages.',
+        'core-view-guide.system_purpose':
+          'Shows how Zogograph itself is configured, scheduled, and retaining the data it collects.',
+        'core-view-guide.system_useful':
+          'Use it to verify that the monitor is healthy before drawing conclusions from its measurements or changing its configuration.',
       }),
       es: Object.freeze({
         'core-view-guide.access_page': 'Guía de acceso y página',
@@ -50,6 +54,10 @@ window.ZogographViewGuideCard = {
           'Muestra la identidad de red, conexiones, nombres y comprobaciones externas asociadas a este servidor.',
         'core-view-guide.network_useful':
           'Úsela para investigar accesibilidad, cambios de DNS, escuchas inesperadas, tráfico y vencimiento de dominios antes de que se conviertan en interrupciones.',
+        'core-view-guide.system_purpose':
+          'Muestra cómo se configura y programa Zogograph, y cómo conserva los datos que recopila.',
+        'core-view-guide.system_useful':
+          'Úsela para verificar que el monitor está en buen estado antes de extraer conclusiones de sus mediciones o cambiar su configuración.',
       }),
       hi: Object.freeze({
         'core-view-guide.access_page': 'पहुँच और पृष्ठ मार्गदर्शिका',
@@ -73,6 +81,10 @@ window.ZogographViewGuideCard = {
           'इस सर्वर से जुड़ी नेटवर्क पहचान, कनेक्शन, नाम और बाहरी जाँच दिखाता है।',
         'core-view-guide.network_useful':
           'पहुंच, DNS बदलाव, अनपेक्षित लिस्नर, ट्रैफ़िक और डोमेन समाप्ति की जाँच के लिए इसका उपयोग करें, इससे पहले कि वे आउटेज बनें।',
+        'core-view-guide.system_purpose':
+          'दिखाता है कि Zogograph स्वयं कैसे कॉन्फ़िगर और शेड्यूल किया गया है तथा यह एकत्र किए गए डेटा को कैसे रखता है।',
+        'core-view-guide.system_useful':
+          'मापों से निष्कर्ष निकालने या इसकी कॉन्फ़िगरेशन बदलने से पहले मॉनिटर स्वस्थ है या नहीं, यह जाँचने के लिए इसका उपयोग करें।',
       }),
       ar: Object.freeze({
         'core-view-guide.access_page': 'دليل الوصول والصفحة',
@@ -96,6 +108,10 @@ window.ZogographViewGuideCard = {
           'يعرض هوية الشبكة والاتصالات والأسماء والفحوصات الخارجية المرتبطة بهذا الخادم.',
         'core-view-guide.network_useful':
           'استخدمه للتحقيق في إمكانية الوصول وتغييرات DNS والمستمعات غير المتوقعة وحركة المرور وانتهاء النطاقات قبل أن تصبح أعطالًا.',
+        'core-view-guide.system_purpose':
+          'يعرض كيفية إعداد Zogograph نفسه وجدولته واحتفاظه بالبيانات التي يجمعها.',
+        'core-view-guide.system_useful':
+          'استخدمه للتحقق من سلامة المراقب قبل استخلاص نتائج من قياساته أو تغيير إعداداته.',
       }),
       zh: Object.freeze({
         'core-view-guide.access_page': '访问和页面指南',
@@ -119,6 +135,10 @@ window.ZogographViewGuideCard = {
           '显示与此服务器关联的网络身份、连接、名称和外部检查。',
         'core-view-guide.network_useful':
           '在可达性、DNS 变化、意外监听器、流量和域名过期演变为故障前，用它进行调查。',
+        'core-view-guide.system_purpose':
+          '显示 Zogograph 自身如何配置、调度以及保留其收集的数据。',
+        'core-view-guide.system_useful':
+          '在根据测量结果下结论或更改其配置前，用它确认监视器是否健康。',
       }),
     }),
   }),

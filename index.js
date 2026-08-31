@@ -39863,19 +39863,11 @@ function renderLogStream(data) {
     ],
     [
       logStreamSummaryText('stream_wrote_it'),
-      ZogographI18n.t(
-        'log.stream_wrote_it_hint',
-        {},
-        'Whatever the line names as its source',
-      ),
+      logStreamSummaryText('stream_wrote_it_hint'),
     ],
     [
       logStreamSummaryText('stream_message'),
-      ZogographI18n.t(
-        'log.stream_message_hint',
-        {},
-        'The line itself, cut to fit — click any row for all of it',
-      ),
+      logStreamSummaryText('stream_message_hint'),
     ],
     ['', ''],
   ]) {

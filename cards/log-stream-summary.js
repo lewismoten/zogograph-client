@@ -53,6 +53,10 @@ window.ZogographLogStreamSummaryCard = {
         'core-log-stream-summary.stream_when_hint':
           'When the line says it happened',
         'core-log-stream-summary.stream_log_hint': 'Which file it came from',
+        'core-log-stream-summary.stream_wrote_it_hint':
+          'Whatever the line names as its source',
+        'core-log-stream-summary.stream_message_hint':
+          'The line itself, cut to fit — click any row for all of it',
         'core-log-stream-summary.skimming_note':
           'Click any line for the whole of it, taken apart. The columns here are cut short on purpose — this view is for skimming.',
       }),
@@ -106,6 +110,10 @@ window.ZogographLogStreamSummaryCard = {
         'core-log-stream-summary.stream_when_hint':
           'Cuándo dice la línea que ocurrió',
         'core-log-stream-summary.stream_log_hint': 'De qué archivo procede',
+        'core-log-stream-summary.stream_wrote_it_hint':
+          'Lo que la línea nombra como su origen',
+        'core-log-stream-summary.stream_message_hint':
+          'La línea misma, recortada para caber; haz clic en cualquier fila para verla completa',
         'core-log-stream-summary.skimming_note':
           'Haga clic en cualquier línea para verla completa y desglosada. Las columnas se recortan a propósito: esta vista sirve para hojear.',
       }),
@@ -157,6 +165,10 @@ window.ZogographLogStreamSummaryCard = {
         'core-log-stream-summary.stream_severity_hint': 'लाइन कितनी गंभीर है',
         'core-log-stream-summary.stream_when_hint': 'लाइन के अनुसार यह कब हुआ',
         'core-log-stream-summary.stream_log_hint': 'यह किस फ़ाइल से आया',
+        'core-log-stream-summary.stream_wrote_it_hint':
+          'लाइन अपने स्रोत के रूप में जिसका नाम लेती है',
+        'core-log-stream-summary.stream_message_hint':
+          'लाइन स्वयं, फिट करने के लिए काटी गई — सब देखने के लिए किसी पंक्ति पर क्लिक करें',
         'core-log-stream-summary.skimming_note':
           'किसी भी पंक्ति को पूरी तरह और भागों में देखने के लिए उस पर क्लिक करें। यहाँ के कॉलम जानबूझकर छोटे रखे गए हैं — यह दृश्य जल्दी देखने के लिए है।',
       }),
@@ -208,6 +220,9 @@ window.ZogographLogStreamSummaryCard = {
           'مدى خطورة السطر كما يصفها',
         'core-log-stream-summary.stream_when_hint': 'متى يقول السطر إن ذلك حدث',
         'core-log-stream-summary.stream_log_hint': 'الملف الذي جاء منه',
+        'core-log-stream-summary.stream_wrote_it_hint': 'ما يسميه السطر مصدره',
+        'core-log-stream-summary.stream_message_hint':
+          'السطر نفسه، مقتطع ليتسع — انقر أي صف لرؤيته كاملًا',
         'core-log-stream-summary.skimming_note':
           'انقر أي سطر لرؤيته كاملًا ومفككًا. تُقصَّر الأعمدة هنا عمدًا — هذا العرض للتصفح السريع.',
       }),
@@ -258,6 +273,9 @@ window.ZogographLogStreamSummaryCard = {
         'core-log-stream-summary.stream_severity_hint': '该行表明的严重程度',
         'core-log-stream-summary.stream_when_hint': '该行所述发生的时间',
         'core-log-stream-summary.stream_log_hint': '它来自哪个文件',
+        'core-log-stream-summary.stream_wrote_it_hint': '该行所称的来源',
+        'core-log-stream-summary.stream_message_hint':
+          '该行本身，已截短以适应显示——点击任意行查看完整内容',
         'core-log-stream-summary.skimming_note':
           '单击任意一行即可查看完整内容及其拆分。这里的列特意截短——此视图用于快速浏览。',
       }),

@@ -18585,10 +18585,11 @@ function renderMemories(data) {
           pin.className = 'link';
           pin.textContent = row.pinned ? '📌' : '○';
           pin.title = row.pinned
-            ? ZogographI18n.t(
-                'ai.pinned_never_dropped',
+            ? renderCoreCardPackage(
+                ZogographAiMemoryPinStateCard,
+                'core-ai-memory-pin-state',
                 {},
-                'Pinned — never dropped',
+                { i18n: ZogographI18n },
               )
             : ZogographI18n.t('ai.pin', {}, 'Pin it');
           pin.addEventListener('click', async () => {

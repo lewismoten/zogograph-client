@@ -2942,7 +2942,6 @@
   "assistant.highlight_shown": "它会在几秒钟内显示轮廓并闪动。请在同一条消息中说明您指向的内容；没有句子的突出显示只是一次指点。",
   "ai.unpin": "取消固定",
   "ai.skip_question_help": "不回答而继续——这与让计时结束相同",
-  "ai.pinned_never_dropped": "已固定——永不丢弃",
   "diagnosis.nothing_to_report": "没有需要报告的内容。所有检查均已运行，且没有发现任何问题；这不同于未进行测量。",
   "diagnosis.critical_attention": "现在需要关注：{{count}}。",
   "diagnosis.warning_attention": "{{count}} 项值得查看。",

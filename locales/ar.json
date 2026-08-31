@@ -2942,7 +2942,6 @@
   "assistant.highlight_shown": "يظهر محددًا ونابضًا لبضع ثوانٍ. وضّح ما تشير إليه في الرسالة نفسها؛ فالإبراز بلا جملة مجرد نكزة.",
   "ai.unpin": "إزالة التثبيت",
   "ai.skip_question_help": "تابع دون إجابة — وهو نفس ترك الوقت ينقضي",
-  "ai.pinned_never_dropped": "مثبّت — لن يُسقط أبدًا",
   "diagnosis.nothing_to_report": "لا يوجد ما يُبلّغ عنه. عملت كل الفحوصات ولم يجد أي منها شيئًا، وهذا يختلف عن عدم قياس شيء.",
   "diagnosis.critical_attention": "تحتاج إلى اهتمام الآن: {{count}}.",
   "diagnosis.warning_attention": "{{count}} يستحق النظر إليه.",

@@ -274,7 +274,51 @@ jobs:
             "${DEPLOY_USER}@${DEPLOY_HOST}" \
             "bash '$remote_script' '$DEPLOY_PATH' '$SNAPSHOT_DIRECTORY' '$snapshot_id' site"
 
-      - name: Snapshot live SQLite databases
+      - name: Snapshot AI SQLite database
+        shell: bash
+        run: |
+          set -euo pipefail
+          snapshot_id="${{ steps.snapshot.outputs.id }}"
+          remote_script=".zogograph-snapshot-${GITHUB_RUN_ID}-${DEPLOY_TARGET}.sh"
+          timeout 1m ssh -i "$HOME/.ssh/zogograph_deploy_key" -p "${DEPLOY_PORT:-22}" \
+            -o BatchMode=yes -o IdentitiesOnly=yes -o ConnectTimeout=15 \
+            "${DEPLOY_USER}@${DEPLOY_HOST}" \
+            "bash '$remote_script' '$DEPLOY_PATH' '$SNAPSHOT_DIRECTORY' '$snapshot_id' database data/ai.db"
+
+      - name: Snapshot host SQLite database
+        shell: bash
+        run: |
+          set -euo pipefail
+          snapshot_id="${{ steps.snapshot.outputs.id }}"
+          remote_script=".zogograph-snapshot-${GITHUB_RUN_ID}-${DEPLOY_TARGET}.sh"
+          timeout 1m ssh -i "$HOME/.ssh/zogograph_deploy_key" -p "${DEPLOY_PORT:-22}" \
+            -o BatchMode=yes -o IdentitiesOnly=yes -o ConnectTimeout=15 \
+            "${DEPLOY_USER}@${DEPLOY_HOST}" \
+            "bash '$remote_script' '$DEPLOY_PATH' '$SNAPSHOT_DIRECTORY' '$snapshot_id' database data/host.db"
+
+      - name: Snapshot setup SQLite database
+        shell: bash
+        run: |
+          set -euo pipefail
+          snapshot_id="${{ steps.snapshot.outputs.id }}"
+          remote_script=".zogograph-snapshot-${GITHUB_RUN_ID}-${DEPLOY_TARGET}.sh"
+          timeout 1m ssh -i "$HOME/.ssh/zogograph_deploy_key" -p "${DEPLOY_PORT:-22}" \
+            -o BatchMode=yes -o IdentitiesOnly=yes -o ConnectTimeout=15 \
+            "${DEPLOY_USER}@${DEPLOY_HOST}" \
+            "bash '$remote_script' '$DEPLOY_PATH' '$SNAPSHOT_DIRECTORY' '$snapshot_id' database data/setup.db"
+
+      - name: Snapshot stats SQLite database
+        shell: bash
+        run: |
+          set -euo pipefail
+          snapshot_id="${{ steps.snapshot.outputs.id }}"
+          remote_script=".zogograph-snapshot-${GITHUB_RUN_ID}-${DEPLOY_TARGET}.sh"
+          timeout 1m ssh -i "$HOME/.ssh/zogograph_deploy_key" -p "${DEPLOY_PORT:-22}" \
+            -o BatchMode=yes -o IdentitiesOnly=yes -o ConnectTimeout=15 \
+            "${DEPLOY_USER}@${DEPLOY_HOST}" \
+            "bash '$remote_script' '$DEPLOY_PATH' '$SNAPSHOT_DIRECTORY' '$snapshot_id' database data/stats.db"
+
+      - name: Snapshot remaining SQLite databases
         shell: bash
         run: |
           set -euo pipefail

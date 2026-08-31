@@ -28,10 +28,10 @@ sqlite_argument() {
   printf '"%s"' "$value"
 }
 
-[ "$#" -eq 3 ] || [ "$#" -eq 4 ] || fail 'expected deploy path, snapshot path, snapshot ID, and optional phase'
+[ "$#" -eq 3 ] || [ "$#" -eq 4 ] || [ "$#" -eq 5 ] || fail 'expected deploy path, snapshot path, snapshot ID, optional phase, and optional database path'
 phase=${4:-snapshot}
 case "$phase" in
-  snapshot|prepare|site|databases|finalize|discard) ;;
+  snapshot|prepare|site|database|databases|finalize|discard) ;;
   *) fail "unknown snapshot phase: $phase" ;;
 esac
 valid_path 'deploy path' "$1"
@@ -42,6 +42,16 @@ test -d "$2" || fail "snapshot path does not exist: $2"
 site=$(resolve_path "$1") || fail 'deploy path cannot be resolved'
 snapshots=$(resolve_path "$2") || fail 'snapshot path cannot be resolved'
 snapshot_id=$3
+database_relative=${5:-}
+if [ "$phase" = database ]; then
+  case "$database_relative" in
+    data/*.db|data/*.sqlite|data/*.sqlite3) ;;
+    *) fail 'database path must be a SQLite file below data/' ;;
+  esac
+  case "$database_relative" in *'//'*|*/./*|*/../*|../*|*/..) fail 'database path is unsafe' ;; esac
+elif [ -n "$database_relative" ]; then
+  fail 'database path is only valid for the database phase'
+fi
 case "$snapshots" in "$site"|"$site"/*) fail 'snapshot path must be outside the deploy path';; esac
 test -r "$site" && test -x "$site" || fail "deploy path is not readable: $site"
 test -w "$snapshots" && test -x "$snapshots" || fail "snapshot path is not writable: $snapshots"
@@ -62,7 +72,7 @@ case "$phase" in
     test ! -e "$stage" || fail "snapshot staging path already exists: $stage"
     mkdir -p "$stage/site" "$stage/databases"
     ;;
-  site|databases|finalize|discard)
+  site|database|databases|finalize|discard)
     test -d "$stage" || fail "snapshot staging path does not exist: $stage"
     ;;
 esac
@@ -115,22 +125,42 @@ echo 'Snapshot phase: copying application files'
 rsync "${rsync_args[@]}" "$site/" "$stage/site/"
 fi
 
-if [ "$phase" = snapshot ] || [ "$phase" = databases ]; then
+backup_database() {
+  local database=$1 relative destination
+  relative=${database#"$site"/}
+  destination="$stage/databases/$relative"
+  test ! -e "$destination" || {
+    echo "Snapshot database already captured: $relative"
+    return 0
+  }
+  mkdir -p "$(dirname "$destination")"
+  echo "Snapshot database: $relative"
+  sqlite3 "$database" ".backup $(sqlite_argument "$destination")"
+}
+
+if [ "$phase" = snapshot ] || [ "$phase" = database ] || [ "$phase" = databases ]; then
 if [ -d "$site/data" ]; then
   if ! database_entry=$(find "$site/data" -type f \( -name '*.db' -o -name '*.sqlite' -o -name '*.sqlite3' \) ! -path "$site/data/migration-backups/*" -print -quit 2>/dev/null); then
     fail 'cannot inspect data directory'
   fi
-  [ -z "$database_entry" ] || command -v sqlite3 >/dev/null || fail 'sqlite3 is unavailable on the deployment server'
-  echo 'Snapshot phase: backing up SQLite databases'
-  find "$site/data" \
-    -path "$site/data/migration-backups" -prune -o \
-    -type f \( -name '*.db' -o -name '*.sqlite' -o -name '*.sqlite3' \) -print |
-  while IFS= read -r database; do
-    relative=${database#"$site"/}
-    destination="$stage/databases/$relative"
-    mkdir -p "$(dirname "$destination")"
-    sqlite3 "$database" ".backup $(sqlite_argument "$destination")"
-  done
+  if [ "$phase" = database ]; then
+    database="$site/$database_relative"
+    if [ ! -e "$database" ]; then
+      echo "Snapshot database not present: $database_relative"
+      exit 0
+    fi
+    test -f "$database" && test ! -L "$database" || fail "database is not a regular file: $database_relative"
+    command -v sqlite3 >/dev/null || fail 'sqlite3 is unavailable on the deployment server'
+    backup_database "$database"
+  else
+    [ -z "$database_entry" ] || command -v sqlite3 >/dev/null || fail 'sqlite3 is unavailable on the deployment server'
+    echo 'Snapshot phase: backing up remaining SQLite databases'
+    while IFS= read -r database; do
+      backup_database "$database"
+    done < <(find "$site/data" \
+      -path "$site/data/migration-backups" -prune -o \
+      -type f \( -name '*.db' -o -name '*.sqlite' -o -name '*.sqlite3' \) -print)
+  fi
 fi
 fi
 

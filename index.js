@@ -3725,6 +3725,34 @@ function renderChangeHistoryTitle() {
 
 document.addEventListener('zogograph-i18n-load', renderChangeHistoryTitle);
 
+function renderInstalledSoftwareTitle() {
+  const helpers = {
+    target: null,
+    note: () => null,
+    section: () => null,
+    simpleTable: () => null,
+    humanSpan: () => '',
+    ago: () => '',
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(
+    ZogographInstalledSoftwareCard,
+    'core-installed-software',
+    {},
+    helpers,
+  );
+  const title = document.querySelector(
+    '[data-i18n="core-installed-software.title"]',
+  );
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-installed-software.title',
+    ZogographInstalledSoftwareCard.text('title', helpers),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderInstalledSoftwareTitle);
+
 /**
  * When the disk is projected to fill, as a date.
  *

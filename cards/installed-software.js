@@ -14,6 +14,7 @@ window.ZogographInstalledSoftwareCard = {
     ],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-installed-software.title': 'What is installed now',
         'core-installed-software.last_checked': 'Last checked {{ago}}.',
         'core-installed-software.system': 'System software',
         'core-installed-software.what': 'What',
@@ -31,6 +32,7 @@ window.ZogographInstalledSoftwareCard = {
           'A file fingerprint changes when its contents change, even when the program cannot report a version.',
       }),
       es: Object.freeze({
+        'core-installed-software.title': 'Qué está instalado ahora',
         'core-installed-software.last_checked': 'Última comprobación {{ago}}.',
         'core-installed-software.system': 'Software del sistema',
         'core-installed-software.what': 'Qué',
@@ -48,6 +50,7 @@ window.ZogographInstalledSoftwareCard = {
           'La huella de un archivo cambia cuando cambia su contenido, incluso si el programa no puede indicar una versión.',
       }),
       hi: Object.freeze({
+        'core-installed-software.title': 'अभी क्या इंस्टॉल है',
         'core-installed-software.last_checked': 'आखिरी जाँच {{ago}}।',
         'core-installed-software.system': 'सिस्टम सॉफ़्टवेयर',
         'core-installed-software.what': 'क्या',
@@ -65,6 +68,7 @@ window.ZogographInstalledSoftwareCard = {
           'फ़ाइल की सामग्री बदलने पर उसका फिंगरप्रिंट बदलता है, भले प्रोग्राम संस्करण न बता सके।',
       }),
       ar: Object.freeze({
+        'core-installed-software.title': 'ما المثبت الآن',
         'core-installed-software.last_checked': 'آخر فحص {{ago}}.',
         'core-installed-software.system': 'برامج النظام',
         'core-installed-software.what': 'ما هو',
@@ -81,6 +85,7 @@ window.ZogographInstalledSoftwareCard = {
           'تتغير بصمة الملف عندما يتغير محتواه، حتى إن لم يتمكن البرنامج من الإبلاغ عن إصدار.',
       }),
       zh: Object.freeze({
+        'core-installed-software.title': '当前安装了什么',
         'core-installed-software.last_checked': '上次检查 {{ago}}。',
         'core-installed-software.system': '系统软件',
         'core-installed-software.what': '项目',
@@ -98,6 +103,14 @@ window.ZogographInstalledSoftwareCard = {
       }),
     }),
   }),
+
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-installed-software.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-installed-software.${key}`],
+    );
+  },
 
   render(data, helpers) {
     const { target, note, section, simpleTable, humanSpan, ago, i18n } =

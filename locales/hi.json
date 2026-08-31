@@ -1944,7 +1944,6 @@
   "action.save": "सहेजें",
   "action.recheck": "फिर जाँचें",
   "capabilities.check_now": "अभी जाँचें",
-  "capabilities.nothing_checked_yet": "अभी तक कुछ नहीं जांचा गया है।",
   "alerts.unread_only": "केवल अपठित",
   "alerts.mark_all_read": "सभी को पढ़ा चिह्नित करें",
   "action.delete": "हटाएँ",

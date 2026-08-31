@@ -29,6 +29,7 @@ window.ZogographCapabilitySummaryCard = {
           '{{count, number}} requests waiting. The collector has run since they were asked for ({{lastRun}}) without answering them, which usually means it cannot do what was asked rather than that it has not got to it yet.',
         'core-capability-summary.pending_waiting':
           '{{count, number}} requests are waiting for root’s collector, which last ran {{lastRun}}. The countdown is at the top of the page.',
+        'core-capability-summary.nothing_checked_yet': 'Nothing checked yet.',
       }),
       es: Object.freeze({
         'core-capability-summary.title': 'Lo que el host permite a esta cuenta',
@@ -54,6 +55,8 @@ window.ZogographCapabilitySummaryCard = {
           '{{count, number}} solicitudes esperando. El recopilador se ha ejecutado desde que se solicitaron ({{lastRun}}) sin responderlas, lo que normalmente significa que no puede hacer lo pedido en vez de que aún no haya llegado a ello.',
         'core-capability-summary.pending_waiting':
           '{{count, number}} solicitudes esperan al recopilador de root, que se ejecutó por última vez {{lastRun}}. La cuenta atrás está en la parte superior de la página.',
+        'core-capability-summary.nothing_checked_yet':
+          'Aún no se ha comprobado nada.',
       }),
       hi: Object.freeze({
         'core-capability-summary.title': 'होस्ट इस खाते को क्या अनुमति देता है',
@@ -79,6 +82,8 @@ window.ZogographCapabilitySummaryCard = {
           '{{count, number}} अनुरोध प्रतीक्षा में हैं। कलेक्टर अनुरोध के बाद ({{lastRun}}) चल चुका है लेकिन उनका उत्तर नहीं दिया, जिसका मतलब आमतौर पर यह है कि वह मांगा गया काम नहीं कर सकता, न कि उस तक अभी पहुंचा नहीं है।',
         'core-capability-summary.pending_waiting':
           '{{count, number}} अनुरोध root के कलेक्टर की प्रतीक्षा में हैं, जो आखिरी बार {{lastRun}} चला था। उलटी गिनती पृष्ठ के शीर्ष पर है।',
+        'core-capability-summary.nothing_checked_yet':
+          'अभी तक कुछ नहीं जांचा गया है।',
       }),
       ar: Object.freeze({
         'core-capability-summary.title': 'ما الذي يتيحه المضيف لهذا الحساب',
@@ -104,6 +109,7 @@ window.ZogographCapabilitySummaryCard = {
           '{{count, number}} طلبات تنتظر. شُغِّل الجامع منذ طلبها ({{lastRun}}) من دون الإجابة عنها، وهذا يعني عادة أنه لا يستطيع فعل المطلوب لا أنه لم يصل إليها بعد.',
         'core-capability-summary.pending_waiting':
           '{{count, number}} طلبات تنتظر جامع root، الذي شُغّل آخر مرة {{lastRun}}. العد التنازلي في أعلى الصفحة.',
+        'core-capability-summary.nothing_checked_yet': 'لم يُفحص شيء بعد.',
       }),
       zh: Object.freeze({
         'core-capability-summary.title': '主机允许此账户做什么',
@@ -129,6 +135,7 @@ window.ZogographCapabilitySummaryCard = {
           '有 {{count, number}} 个请求正在等待。采集器自请求之后已运行过（{{lastRun}}）却没有响应，这通常意味着它无法完成所请求的操作，而不是尚未处理到它们。',
         'core-capability-summary.pending_waiting':
           '有 {{count, number}} 个请求正在等待 root 的采集器，该采集器上次运行于 {{lastRun}}。倒计时位于页面顶部。',
+        'core-capability-summary.nothing_checked_yet': '尚未检查任何内容。',
       }),
     }),
   }),

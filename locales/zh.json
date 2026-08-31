@@ -1942,7 +1942,6 @@
   "action.save": "保存",
   "action.recheck": "重新检查",
   "capabilities.check_now": "立即检查",
-  "capabilities.nothing_checked_yet": "尚未检查任何内容。",
   "alerts.unread_only": "仅未读",
   "alerts.mark_all_read": "全部标为已读",
   "action.delete": "删除",

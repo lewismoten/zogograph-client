@@ -1942,7 +1942,6 @@
   "action.save": "احفظ",
   "action.recheck": "تحقق مجددًا",
   "capabilities.check_now": "تحقق الآن",
-  "capabilities.nothing_checked_yet": "لم يُفحص شيء بعد.",
   "alerts.unread_only": "غير المقروءة فقط",
   "alerts.mark_all_read": "علّم الكل كمقروء",
   "action.delete": "احذف",

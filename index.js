@@ -38339,11 +38339,9 @@ async function refreshCapabilities() {
     body.replaceChildren(
       note(
         data.reason ||
-          ZogographI18n.t(
-            'capabilities.nothing_checked_yet',
-            {},
-            'Nothing checked yet.',
-          ),
+          ZogographCapabilitySummaryCard.text('nothing_checked_yet', {
+            i18n: ZogographI18n,
+          }),
       ),
     );
     return;

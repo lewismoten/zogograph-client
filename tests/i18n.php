@@ -4641,14 +4641,17 @@ i18nExpect(
         ) &&
         $page !== false &&
         str_contains($page, 'src="cards/capability-list-status.js"') &&
-        str_contains($script, "'capabilities.nothing_checked_yet'") &&
+        str_contains(
+            $script,
+            "ZogographCapabilitySummaryCard.text('nothing_checked_yet'",
+        ) &&
         is_array($english) &&
         !isset($english['capabilities.short_alternate']) &&
         !isset($english['capabilities.short_host_only']) &&
         !isset($english['capabilities.short_unusable']) &&
         !isset($english['capabilities.short_missing']) &&
         !isset($english['capabilities.short_unknown_host']) &&
-        isset($english['capabilities.nothing_checked_yet']),
+        !isset($english['capabilities.nothing_checked_yet']),
     'capability states do not belong to their core package',
 );
 i18nExpect(

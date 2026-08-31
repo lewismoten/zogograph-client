@@ -1945,7 +1945,6 @@
   "action.save": "Guardar",
   "action.recheck": "Comprobar de nuevo",
   "capabilities.check_now": "Comprobar ahora",
-  "capabilities.nothing_checked_yet": "Aún no se ha comprobado nada.",
   "alerts.unread_only": "Solo sin leer",
   "alerts.mark_all_read": "Marcar todas como leídas",
   "action.delete": "Eliminar",

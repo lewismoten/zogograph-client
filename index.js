@@ -9936,6 +9936,9 @@ function renderPastChats() {
     { rows: pastChats.list, assistant: chatState.who.name },
     {
       target: $('pastChatsBody'),
+      heading: $('pastChatsTitle'),
+      help: $('pastChatsHelp'),
+      retention: $('pastChatsRetention'),
       note,
       renderTable,
       whenSpan,

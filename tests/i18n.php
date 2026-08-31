@@ -424,6 +424,9 @@ i18nExpect(
         $english['ai.past_kept'],
         $english['ai.past_pinned'],
         $english['ai.past_pinned_tip'],
+        $english['ai.past_title'],
+        $english['ai.past_help'],
+        $english['ai.past_retention_help'],
     ),
     'AI card controls belong to their card packages',
 );

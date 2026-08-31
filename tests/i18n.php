@@ -241,6 +241,9 @@ $calendarUpcomingCard = i18nCardSource(
 $calendarGridCard = i18nCardSource(
     file_get_contents($root . '/cards/calendar-grid.js'),
 );
+$calendarDayDialogCard = i18nCardSource(
+    file_get_contents($root . '/cards/calendar-day-dialog.js'),
+);
 $calendarEventListCard = i18nCardSource(
     file_get_contents($root . '/cards/calendar-event-list.js'),
 );
@@ -1332,6 +1335,35 @@ i18nExpect(
         ) &&
         !str_contains($script, 'if (window.ZogographCalendarUpcomingCard)'),
     'calendar upcoming list is not isolated behind its core card-module boundary',
+);
+i18nExpect(
+    $page !== false &&
+        str_contains($page, 'src="cards/calendar-day-dialog.js"') &&
+        $calendarDayDialogCard !== false &&
+        str_contains(
+            $calendarDayDialogCard,
+            'window.ZogographCalendarDayDialogCard',
+        ) &&
+        str_contains(
+            $calendarDayDialogCard,
+            'id: "core-calendar-day-dialog"',
+        ) &&
+        str_contains(
+            $calendarDayDialogCard,
+            'locales: ["core-calendar-day-dialog."]',
+        ) &&
+        str_contains($calendarDayDialogCard, 'catalogs: Object.freeze({') &&
+        str_contains(
+            $calendarDayDialogCard,
+            '"core-calendar-day-dialog.kind_event"',
+        ) &&
+        $script !== false &&
+        str_contains(
+            $script,
+            'renderCoreCardPackage(ZogographCalendarDayDialogCard, "core-calendar-day-dialog",',
+        ) &&
+        !str_contains($script, 'if (window.ZogographCalendarDayDialogCard)'),
+    'calendar day dialog is not isolated behind its core card-module boundary',
 );
 i18nExpect(
     $page !== false &&

@@ -2115,8 +2115,6 @@
   "ai.memory_written_in_conversation": "这是助手在对话 {{id}} 中写的。",
   "ai.memory_forget_confirm": "要忘记“{{subject}}”吗？",
   "ai.memory_forget_title": "忘记记忆",
-  "ai.memory_empty": "{{name}} 尚未记下任何内容。它在自行推断出下个月仍然成立的事情时会这样做——您也可以用上方按钮自行添加一条。",
-  "ai.memory_capacity": "{{maximum}} 条可用记忆中已有 {{count}} 条。超过后会丢弃最没用的内容——固定一条会始终保留它。",
   "ai.memory_subject_placeholder": "夜间 I/O 峰值",
   "ai.memory_subject_edit_help": "主题是键，因此无法更改——如果有误，请忘记此条并写一条新的。",
   "ai.memory_subject_help": "一个简短短语。再次写入相同主题会替换该主题下已存储的内容。",

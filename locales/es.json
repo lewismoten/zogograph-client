@@ -2117,8 +2117,6 @@
   "ai.memory_written_in_conversation": "Lo escribió el asistente en la conversación {{id}}.",
   "ai.memory_forget_confirm": "¿Olvidar «{{subject}}»?",
   "ai.memory_forget_title": "Olvidar memoria",
-  "ai.memory_empty": "{{name}} aún no ha anotado nada. Lo hace por sí solo cuando resuelve algo que seguirá siendo cierto el próximo mes, y usted puede añadir una con el botón de arriba.",
-  "ai.memory_capacity": "{{count}} memorias de un máximo de {{maximum}}. A partir de ahí se descartan las menos útiles; fijar una la conserva pase lo que pase.",
   "ai.memory_subject_placeholder": "el pico nocturno de E/S",
   "ai.memory_subject_edit_help": "El asunto es la clave, por lo que no se puede cambiar: olvide esta y escriba una nueva si es incorrecta.",
   "ai.memory_subject_help": "Una frase corta. Escribir de nuevo el mismo asunto reemplaza lo almacenado bajo él.",

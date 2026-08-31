@@ -180,6 +180,7 @@ export default [
         ZogographAiSettingsSavedCard: 'readonly',
         ZogographAiPastConversationsSignInCard: 'readonly',
         ZogographAiSettingsPageHeadingCard: 'readonly',
+        ZogographAiMemoryAvailabilityCard: 'readonly',
         ZogographAiKeyForgetCard: 'readonly',
         ZogographAiEnableToggleCard: 'readonly',
         ZogographAiReasoningEffortCard: 'readonly',

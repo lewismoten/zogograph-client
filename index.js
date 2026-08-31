@@ -18560,36 +18560,19 @@ async function refreshMemories() {
 function renderMemories(data) {
   memoryState.data = data;
   const body = $('memoryBody');
-  const parts = [];
-
+  const availability = renderCoreCardPackage(
+    ZogographAiMemoryAvailabilityCard,
+    'core-ai-memory-availability',
+    data,
+    { note, humanCount, i18n: ZogographI18n },
+  );
   if (!data.memories.length) {
-    parts.push(
-      note(
-        ZogographI18n.t(
-          'ai.memory_empty',
-          { name: data.who.name },
-          '{{name}} has not written anything down yet. It does that on its own when it works something out that will still be true next month — and you can add one yourself with the button above.',
-        ),
-      ),
-    );
-    body.replaceChildren(...parts);
+    body.replaceChildren(availability);
     return;
   }
-
-  const said = document.createElement('p');
-  said.className = 'muted small';
-  said.textContent = ZogographI18n.t(
-    'ai.memory_capacity',
-    { count: data.memories.length, maximum: humanCount(data.max) },
-    '{{count}} memories out of a possible {{maximum}}. Past that, the least useful are dropped — pinning one keeps it whatever happens.',
-  );
-  parts.push(said);
-
   const holder = document.createElement('div');
   holder.id = 'memoryTable';
-  parts.push(holder);
-
-  body.replaceChildren(...parts);
+  body.replaceChildren(availability, holder);
 
   renderTable(
     'memoryTable',

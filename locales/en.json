@@ -2133,8 +2133,6 @@
   "ai.memory_written_in_conversation": "Written by the assistant in conversation {{id}}.",
   "ai.memory_forget_confirm": "Forget “{{subject}}”?",
   "ai.memory_forget_title": "Forget memory",
-  "ai.memory_empty": "{{name}} has not written anything down yet. It does that on its own when it works something out that will still be true next month — and you can add one yourself with the button above.",
-  "ai.memory_capacity": "{{count}} memories out of a possible {{maximum}}. Past that, the least useful are dropped — pinning one keeps it whatever happens.",
   "ai.memory_subject_placeholder": "the nightly I/O spike",
   "ai.memory_subject_edit_help": "The subject is the key, so it cannot be changed — forget this one and write a new one if it is wrong.",
   "ai.memory_subject_help": "A short phrase. Writing the same subject again replaces what is stored under it.",

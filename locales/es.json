@@ -2684,7 +2684,6 @@
   "storage.categories_time_help": "Totales de cada análisis completado. Los archivos {{error_log}} se cuentan por separado, dondequiera que aparezcan: uno puede ser todo el problema.",
   "storage.path_hygiene_help": "Una comprobación opcional y orientativa que se ejecuta durante el recorrido de disco de la cuenta. No envía notificaciones. Cambie solo rutas que reconozca; el cambio es inmediato y queda registrado en la auditoría.",
   "host.memory_overview_help": "Desde {{cron}}, ejecutado como root. Dentro de CageFS esta cuenta tiene su propio {{proc}}, que contiene solo sus procesos, por lo que todo lo de abajo es invisible para cualquier otro panel del sitio. El detalle está en las páginas inferiores; aquí se muestra el estado de la memoria de la máquina de un vistazo. Sus discos están en {{storage}}, y el estado de sus demonios en {{services}}.",
-  "host.io_title": "Cuánto están trabajando los discos",
   "host.io_help": "Rendimiento y saturación por dispositivo, leídos por root; por tanto incluye todas las cuentas del servidor. Una línea ocupada indica que el disco trabaja, no que esta cuenta sea la causa; el tráfico de la cuenta está en {{dashboard}} y {{processes}} tiene su propia página.",
   "host.io_disks_help": "Rendimiento y cercanía a la saturación de cada dispositivo. Los volúmenes LVM y RAID se muestran pero no se suman: una escritura en {{dm0}} se reasigna al disco inferior y avanza ambos contadores, por lo que sumarlos informa el doble de tráfico.",
   "host.layout_title": "Disposición de sistemas de archivos",

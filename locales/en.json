@@ -2699,7 +2699,6 @@
   "storage.categories_time_help": "Totals from each completed scan. {{error_log}} files are counted on their own, wherever they turn up — one of them can be the whole problem.",
   "storage.path_hygiene_help": "An optional, advisory check that runs during the account disk walk. It does not send notifications. Rename only paths you recognize; the change is immediate and recorded in the audit log.",
   "host.memory_overview_help": "From {{cron}}, run by root. Inside CageFS this account gets its own {{proc}} holding only its own processes, so everything below is invisible to every other panel on this site. The detail sits on the pages beneath this one; what is here is the state of the machine's memory at a glance. Its disks are under {{storage}}, and whether its daemons are alive is under {{services}}.",
-  "host.io_title": "How hard the disks are working",
   "host.io_help": "Throughput and saturation per device, read by root — so this is every account on the server together. A busy line here says the disk is working, never that this account is the reason; the account's own traffic is on {{dashboard}}, and {{processes}} has its own page.",
   "host.io_disks_help": "Throughput and how close each device is to saturated. LVM and RAID volumes are shown but not added into any total: a write to {{dm0}} is remapped onto the disk underneath and advances both counters, so summing them reports twice the traffic that happened.",
   "host.layout_title": "Filesystem layout",

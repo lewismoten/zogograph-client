@@ -22,6 +22,9 @@ window.ZogographRoomChart = {
     ],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-room-chart.title': 'Room left',
+        'core-room-chart.help':
+          'Disk space and inodes. Either can run out on its own — a disk with free gigabytes and no inodes still refuses to create a file.',
         'core-room-chart.chart_disk_free': 'Disk free',
         'core-room-chart.chart_inodes_free_right': 'Inodes free (right)',
         'core-room-chart.room_note_bytes':
@@ -46,6 +49,9 @@ window.ZogographRoomChart = {
           'Largest single change: {{size}}.',
       }),
       es: Object.freeze({
+        'core-room-chart.title': 'Espacio restante',
+        'core-room-chart.help':
+          'Espacio de disco e inodos. Cualquiera de los dos puede agotarse por sí solo: un disco con gigabytes libres y sin inodos sigue negándose a crear un archivo.',
         'core-room-chart.chart_disk_free': 'Disco libre',
         'core-room-chart.chart_inodes_free_right': 'Inodos libres (derecha)',
         'core-room-chart.room_note_bytes':
@@ -72,6 +78,9 @@ window.ZogographRoomChart = {
           'Cambio individual más grande: {{size}}.',
       }),
       hi: Object.freeze({
+        'core-room-chart.title': 'बची जगह',
+        'core-room-chart.help':
+          'डिस्क जगह और inode। दोनों में से कोई भी अकेले खत्म हो सकता है—मुफ्त गीगाबाइट और inode न वाली डिस्क फिर भी फ़ाइल बनाने से मना करती है।',
         'core-room-chart.chart_disk_free': 'खाली डिस्क',
         'core-room-chart.chart_inodes_free_right': 'खाली इनोड (दायाँ)',
         'core-room-chart.room_note_bytes':
@@ -96,6 +105,9 @@ window.ZogographRoomChart = {
           'सबसे बड़ा एकल बदलाव: {{size}}।',
       }),
       ar: Object.freeze({
+        'core-room-chart.title': 'المساحة المتبقية',
+        'core-room-chart.help':
+          'مساحة القرص وinodes. يمكن أن ينفد أي منهما وحده — فقرص به غيغابايتات حرة بلا inodes يرفض إنشاء ملف مع ذلك.',
         'core-room-chart.chart_disk_free': 'المساحة الحرة',
         'core-room-chart.chart_inodes_free_right': 'عُقد حرة (يمين)',
         'core-room-chart.room_note_bytes':
@@ -120,6 +132,9 @@ window.ZogographRoomChart = {
           'أكبر تغير منفرد: {{size}}.',
       }),
       zh: Object.freeze({
+        'core-room-chart.title': '剩余空间',
+        'core-room-chart.help':
+          '磁盘空间和 inode。任一项都可能单独耗尽——一个有空闲千兆字节但没有 inode 的磁盘仍会拒绝创建文件。',
         'core-room-chart.chart_disk_free': '磁盘可用空间',
         'core-room-chart.chart_inodes_free_right': '可用 inode（右轴）',
         'core-room-chart.room_note_bytes':
@@ -144,6 +159,13 @@ window.ZogographRoomChart = {
       }),
     }),
   }),
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-room-chart.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-room-chart.${key}`],
+    );
+  },
   render(rows, helpers) {
     const {
       canvas,

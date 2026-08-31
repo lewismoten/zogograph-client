@@ -1908,6 +1908,40 @@ function renderOverviewVitalLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderOverviewVitalLabels);
 
+function renderRoomChartLabels() {
+  const helpers = {
+    canvas: null,
+    noteTarget: null,
+    mode: '',
+    range: 0,
+    uptime: [],
+    delta: () => 0,
+    deltaBucket: () => 0,
+    bucketDeltas: () => [],
+    bytesAxis: () => null,
+    countAxis: () => null,
+    percentAxis: () => null,
+    drawLineChart: () => null,
+    outageBands: () => [],
+    humanBytes: () => '',
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(ZogographRoomChart, 'core-room-chart', [], helpers);
+  document
+    .querySelectorAll('[data-i18n^="core-room-chart."]')
+    .forEach((node) => {
+      const key = node.dataset.i18n.replace('core-room-chart.', '');
+      if (!['title', 'help'].includes(key)) return;
+      node.textContent = ZogographI18n.markSource(
+        node,
+        `core-room-chart.${key}`,
+        ZogographRoomChart.text(key, helpers),
+      );
+    });
+}
+
+document.addEventListener('zogograph-i18n-load', renderRoomChartLabels);
+
 /**
  * When the disk is projected to fill, as a date.
  *

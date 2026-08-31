@@ -2688,8 +2688,6 @@
   "action.cancel": "Cancelar",
   "action.yes": "Sí",
   "charts.help": "Las cinco mediciones que describen la máquina completa en el intervalo seleccionado. Los indicadores de la vista general dicen dónde está cada una {{now}}; estas gráficas muestran cómo llegó ahí, la mitad que indica si será un problema.",
-  "charts.room_title": "Espacio restante",
-  "charts.room_help": "Espacio de disco e inodos. Cualquiera de los dos puede agotarse por sí solo: un disco con gigabytes libres y sin inodos sigue negándose a crear un archivo.",
   "charts.cpu_title": "CPU y memoria",
   "charts.cpu_help": "Parte de lo que esta cuenta puede usar desde la lectura anterior.",
   "charts.io_title": "E/S de disco",

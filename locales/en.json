@@ -2703,8 +2703,6 @@
   "action.cancel": "Cancel",
   "action.yes": "Yes",
   "charts.help": "The five measurements that describe the machine as a whole, over whatever range is selected. The gauges on the overview say where each one is {{now}}; these say how it got there, which is the half that tells you whether it is going to be a problem.",
-  "charts.room_title": "Room left",
-  "charts.room_help": "Disk space and inodes. Either can run out on its own — a disk with free gigabytes and no inodes still refuses to create a file.",
   "charts.cpu_title": "CPU and memory",
   "charts.cpu_help": "Share of what this account may use, since the previous reading.",
   "charts.io_title": "Disk I/O",

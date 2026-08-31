@@ -7845,19 +7845,27 @@ async function showLog(pathId, quiet = false) {
   const shown = data.lines.length;
   const parts = [];
   if (state.log.needle) {
-    parts.push(`${data.matched} match${data.matched === 1 ? '' : 'es'} found`);
-  }
-  parts.push(`${shown} line${shown === 1 ? '' : 's'}`);
-  if (state.log.page > 0)
-    parts.push(`page ${state.log.page + 1} back from the end`);
-  parts.push(`file is ${humanBytes(data.size)}`);
-  parts.push(`read ${humanBytes(data.scanned)} of it`);
-  if (data.truncated) {
     parts.push(
-      'stopped searching before the start of the file — narrow the search or look at the file directly',
+      storageLogText(data.matched === 1 ? 'matches_one' : 'matches_many', {
+        count: data.matched,
+      }),
     );
+  }
+  parts.push(
+    storageLogText(shown === 1 ? 'lines_one' : 'lines_many', {
+      count: shown,
+    }),
+  );
+  if (state.log.page > 0)
+    parts.push(storageLogText('page_back', { page: state.log.page + 1 }));
+  parts.push(storageLogText('file_size', { size: humanBytes(data.size) }));
+  parts.push(
+    storageLogText('read_of_file', { scanned: humanBytes(data.scanned) }),
+  );
+  if (data.truncated) {
+    parts.push(storageLogText('search_truncated'));
   } else if (data.reached_start) {
-    parts.push('this is the beginning of the file');
+    parts.push(storageLogText('beginning'));
   }
   $('logStatus').textContent = parts.join(' · ');
 

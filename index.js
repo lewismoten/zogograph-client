@@ -2534,14 +2534,16 @@ function renderHostIoProcessLabels() {
     {},
     helpers,
   );
-  const title = document.querySelector(
-    '[data-i18n="core-host-io-processes.title"]',
-  );
-  title.textContent = ZogographI18n.markSource(
-    title,
-    'core-host-io-processes.title',
-    ZogographHostIoProcessesCard.text('title', helpers),
-  );
+  for (const key of ['title', 'summary']) {
+    const element = document.querySelector(
+      `[data-i18n="core-host-io-processes.${key}"]`,
+    );
+    element.textContent = ZogographI18n.markSource(
+      element,
+      `core-host-io-processes.${key}`,
+      ZogographHostIoProcessesCard.text(key, helpers),
+    );
+  }
 }
 
 document.addEventListener('zogograph-i18n-load', renderHostIoProcessLabels);
@@ -2582,12 +2584,16 @@ function renderHostFileLabels() {
     i18n: ZogographI18n,
   };
   renderCoreCardPackage(ZogographHostFilesCard, 'core-host-files', {}, helpers);
-  const title = document.querySelector('[data-i18n="core-host-files.title"]');
-  title.textContent = ZogographI18n.markSource(
-    title,
-    'core-host-files.title',
-    ZogographHostFilesCard.text('title', helpers),
-  );
+  for (const key of ['title', 'summary']) {
+    const element = document.querySelector(
+      `[data-i18n="core-host-files.${key}"]`,
+    );
+    element.textContent = ZogographI18n.markSource(
+      element,
+      `core-host-files.${key}`,
+      ZogographHostFilesCard.text(key, helpers),
+    );
+  }
   ZogographI18n.applyRich(
     document.querySelector(
       '[data-i18n-rich="core-host-files.filesystems_help"]',

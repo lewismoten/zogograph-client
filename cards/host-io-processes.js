@@ -7,6 +7,8 @@ window.ZogographHostIoProcessesCard = {
     catalogs: Object.freeze({
       en: Object.freeze({
         'core-host-io-processes.title': 'Processes touching the disk',
+        'core-host-io-processes.summary':
+          'Which processes the throughput is actually coming from. CPU can sit low while one job makes everything else feel slow by keeping a disk busy, and that job is invisible in every other panel on this site.',
         'core-host-io-processes.empty':
           'No per-process disk I/O recorded yet. It needs the host collector, running as root.',
         'core-host-io-processes.process': 'Process',
@@ -24,6 +26,8 @@ window.ZogographHostIoProcessesCard = {
       }),
       es: Object.freeze({
         'core-host-io-processes.title': 'Procesos que usan el disco',
+        'core-host-io-processes.summary':
+          'De qué procesos procede realmente el rendimiento de disco. La CPU puede permanecer baja mientras un trabajo hace que todo parezca lento al mantener ocupado un disco, y ese trabajo es invisible en los demás paneles del sitio.',
         'core-host-io-processes.empty':
           'Aún no se ha registrado E/S de disco por proceso. Necesita el recopilador del host ejecutándose como root.',
         'core-host-io-processes.process': 'Proceso',
@@ -42,6 +46,8 @@ window.ZogographHostIoProcessesCard = {
       }),
       hi: Object.freeze({
         'core-host-io-processes.title': 'डिस्क उपयोग करने वाले प्रोसेस',
+        'core-host-io-processes.summary':
+          'डिस्क थ्रूपुट वास्तव में किन प्रोसेस से आ रहा है। CPU कम हो सकता है जबकि एक जॉब डिस्क को व्यस्त रखकर बाकी सबको धीमा महसूस कराता है, और वह जॉब इस साइट के हर दूसरे पैनल में अदृश्य है।',
         'core-host-io-processes.empty':
           'अभी तक प्रति-प्रक्रिया डिस्क I/O दर्ज नहीं है। इसके लिए root के रूप में चल रहे होस्ट कलेक्टर की आवश्यकता है।',
         'core-host-io-processes.process': 'प्रक्रिया',
@@ -59,6 +65,8 @@ window.ZogographHostIoProcessesCard = {
       }),
       ar: Object.freeze({
         'core-host-io-processes.title': 'العمليات التي تلمس القرص',
+        'core-host-io-processes.summary':
+          'من أي عمليات تأتي إنتاجية القرص فعلًا. قد يبقى المعالج منخفض الاستخدام بينما تجعل مهمة واحدة كل شيء بطيئًا بإبقاء القرص مشغولًا، وتكون تلك المهمة غير ظاهرة في كل لوحة أخرى على هذا الموقع.',
         'core-host-io-processes.empty':
           'لم تُسجَّل مدخلات/مخرجات القرص لكل عملية بعد. يتطلب ذلك جامع المضيف وهو يعمل بصفة root.',
         'core-host-io-processes.process': 'العملية',
@@ -76,6 +84,8 @@ window.ZogographHostIoProcessesCard = {
       }),
       zh: Object.freeze({
         'core-host-io-processes.title': '访问磁盘的进程',
+        'core-host-io-processes.summary':
+          '磁盘吞吐量实际来自哪些进程。CPU 使用率可能很低，但某个任务持续占用磁盘时，会让其他一切都变慢；而该任务在本站其他面板中都不可见。',
         'core-host-io-processes.empty':
           '尚未记录每个进程的磁盘 I/O。它需要以 root 身份运行的主机采集器。',
         'core-host-io-processes.process': '进程',

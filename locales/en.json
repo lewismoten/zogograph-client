@@ -2287,8 +2287,6 @@
   "auth.end_sessions_title": "End all signed-in browser sessions",
   "overview.network": "Network",
   "host.big_directories_help": "From root's walk of the whole disk, so this reaches the places the account cannot: other accounts' homes, /var, /backup, and anything mounted somewhere unexpected.",
-  "host.disk_processes_help": "Which processes the throughput is actually coming from. CPU can sit low while one job makes everything else feel slow by keeping a disk busy, and that job is invisible in every other panel on this site.",
-  "host.root_files_help": "Apache writes each domain's logs under /etc owned by root. A rotated log there costs exactly as much disk as one in the home directory and is invisible to everything the account can run.",
   "host.processes_help": "Running right now, with processes of the same name added together. ‘Running for’ is the oldest of the group — a long-lived pool whose newest member is seconds old is restarting as fast as it dies. Arguments that look like passwords are hidden.",
   "processes.by": "By",
   "processes.cpu": "CPU",

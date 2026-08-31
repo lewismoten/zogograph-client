@@ -15,6 +15,8 @@ window.ZogographHostFilesCard = {
     catalogs: Object.freeze({
       en: Object.freeze({
         'core-host-files.title': 'Files only root can see',
+        'core-host-files.summary':
+          "Apache writes each domain's logs under /etc owned by root. A rotated log there costs exactly as much disk as one in the home directory and is invisible to everything the account can run.",
         'core-host-files.filesystems_help':
           'For when {{df}} reports a number nothing else can explain. Every filesystem root can see, and the gap between what the filesystem says is used and what walking it actually found. The two usual explanations have pages of their own: {{deleted}} and {{directories}}.',
         'core-host-files.linked_total':
@@ -32,6 +34,8 @@ window.ZogographHostFilesCard = {
       }),
       es: Object.freeze({
         'core-host-files.title': 'Archivos que solo root puede ver',
+        'core-host-files.summary':
+          'Apache escribe los registros de cada dominio en /etc, propiedad de root. Un registro rotado allí ocupa exactamente el mismo disco que uno en el directorio personal y es invisible para todo lo que la cuenta puede ejecutar.',
         'core-host-files.filesystems_help':
           'Para cuando {{df}} informa una cifra que nada más puede explicar. Cada raíz de sistema de archivos que puede verse y la diferencia entre lo que el sistema de archivos dice que está usado y lo que el recorrido encontró realmente. Las dos explicaciones habituales tienen sus propias páginas: {{deleted}} y {{directories}}.',
         'core-host-files.linked_total':
@@ -49,6 +53,8 @@ window.ZogographHostFilesCard = {
       }),
       hi: Object.freeze({
         'core-host-files.title': 'फ़ाइलें जो केवल root देख सकता है',
+        'core-host-files.summary':
+          'Apache प्रत्येक डोमेन के लॉग root के स्वामित्व वाले /etc के अंतर्गत लिखता है। वहाँ का रोटेट किया गया लॉग होम डायरेक्टरी वाले लॉग जितनी ही डिस्क लेता है और खाते द्वारा चलाए जा सकने वाले हर साधन से अदृश्य है।',
         'core-host-files.filesystems_help':
           'जब {{df}} ऐसा अंक बताए जिसे और कुछ समझा न सके। हर दिखाई देने वाला फ़ाइल सिस्टम रूट, और फ़ाइल सिस्टम के इस्तेमाल बताए स्थान तथा स्कैन में वास्तव में मिले स्थान का अंतर। दो सामान्य कारणों के अपने पेज हैं: {{deleted}} और {{directories}}।',
         'core-host-files.linked_total':
@@ -67,6 +73,8 @@ window.ZogographHostFilesCard = {
       }),
       ar: Object.freeze({
         'core-host-files.title': 'ملفات لا يراها إلا root',
+        'core-host-files.summary':
+          'يكتب Apache سجلات كل نطاق تحت /etc الذي يملكه root. يستهلك السجل المُدوّر هناك مساحة القرص نفسها التي يستهلكها سجل في المجلد الرئيسي، ولا يظهر لأي شيء يستطيع الحساب تشغيله.',
         'core-host-files.filesystems_help':
           'عندما يبلّغ {{df}} عن رقم لا يفسره شيء آخر. كل جذر نظام ملفات يمكن رؤيته، والفجوة بين ما يقول نظام الملفات إنه مستخدم وما وجده المسح فعلًا. للسببين المعتادين صفحتان خاصتان: {{deleted}} و{{directories}}.',
         'core-host-files.linked_total':
@@ -84,6 +92,8 @@ window.ZogographHostFilesCard = {
       }),
       zh: Object.freeze({
         'core-host-files.title': '仅 root 可见的文件',
+        'core-host-files.summary':
+          'Apache 将每个域名的日志写入归 root 所有的 /etc。那里的轮转日志占用的磁盘空间与主目录中的日志完全相同，但账户能运行的所有工具都无法看到它。',
         'core-host-files.filesystems_help':
           '当 {{df}} 报告了其他内容无法解释的数值时，可查看这里。这里显示每个可见文件系统根目录，以及文件系统所称已用空间与实际扫描所发现空间之间的差额。两个常见原因各有独立页面：{{deleted}} 和 {{directories}}。',
         'core-host-files.linked_total':

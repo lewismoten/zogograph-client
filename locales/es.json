@@ -2272,8 +2272,6 @@
   "auth.end_sessions_title": "Cerrar todas las sesiones iniciadas en el navegador",
   "overview.network": "Red",
   "host.big_directories_help": "Procede del recorrido de root por todo el disco, así que alcanza lugares a los que la cuenta no puede llegar: los hogares de otras cuentas, /var, /backup y cualquier cosa montada en un lugar inesperado.",
-  "host.disk_processes_help": "De qué procesos procede realmente el rendimiento de disco. La CPU puede permanecer baja mientras un trabajo hace que todo parezca lento al mantener ocupado un disco, y ese trabajo es invisible en los demás paneles del sitio.",
-  "host.root_files_help": "Apache escribe los registros de cada dominio en /etc, propiedad de root. Un registro rotado allí ocupa exactamente el mismo disco que uno en el directorio personal y es invisible para todo lo que la cuenta puede ejecutar.",
   "host.processes_help": "Lo que se está ejecutando ahora, con procesos del mismo nombre sumados. «En ejecución desde» es el más antiguo del grupo: un grupo duradero cuyo miembro más reciente tiene segundos de vida se reinicia tan rápido como muere. Los argumentos que parecen contraseñas se ocultan.",
   "processes.by": "Por",
   "processes.cpu": "CPU",

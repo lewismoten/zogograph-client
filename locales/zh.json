@@ -2269,8 +2269,6 @@
   "auth.end_sessions_title": "结束所有已登录的浏览器会话",
   "overview.network": "网络",
   "host.big_directories_help": "来自 root 对整块磁盘的扫描，因此能到达此账户无法到达的位置：其他账户的主目录、/var、/backup，以及意外挂载的任何内容。",
-  "host.disk_processes_help": "磁盘吞吐量实际来自哪些进程。CPU 使用率可能很低，但某个任务持续占用磁盘时，会让其他一切都变慢；而该任务在本站其他面板中都不可见。",
-  "host.root_files_help": "Apache 将每个域名的日志写入归 root 所有的 /etc。那里的轮转日志占用的磁盘空间与主目录中的日志完全相同，但账户能运行的所有工具都无法看到它。",
   "host.processes_help": "当前正在运行的进程，同名进程会合并计算。“已运行”取组中最早的进程：若一个长期存在的池中最新成员只有几秒钟大，它正以死亡的速度重启。看似密码的参数会被隐藏。",
   "processes.by": "按",
   "processes.cpu": "CPU",

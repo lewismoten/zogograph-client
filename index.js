@@ -26443,29 +26443,24 @@ async function refreshHostDisk() {
       if (others.length) {
         const button = document.createElement('button');
         button.className = 'link more-link';
-        button.textContent = ZogographI18n.t(
-          'host.mount_points_more',
-          { count: others.length },
-          '+{{count, number}} mount points',
+        button.textContent = ZogographHostDiskShellCard.text(
+          'mount_points_more',
+          { count: others.length, i18n: ZogographI18n },
         );
-        button.title = ZogographI18n.t(
-          'host.mount_points_more_tip',
-          {},
-          'The same filesystem is mounted in these places too. Bind mounts, so the space is counted once.',
+        button.title = ZogographHostDiskShellCard.text(
+          'mount_points_more_tip',
+          { i18n: ZogographI18n },
         );
         button.addEventListener('click', () =>
           showPathList(
-            ZogographI18n.t(
-              'host.mount_also_at',
-              { mount: m.mount },
-              '{{mount}} is also mounted at',
-            ),
+            ZogographHostDiskShellCard.text('mount_also_at', {
+              mount: m.mount,
+              i18n: ZogographI18n,
+            }),
             others,
-            ZogographI18n.t(
-              'host.mount_points_help',
-              {},
-              'One filesystem, mounted in several places. The disk holds these bytes once — which is why this table shows one row rather than one per mount point.',
-            ),
+            ZogographHostDiskShellCard.text('mount_points_help', {
+              i18n: ZogographI18n,
+            }),
           ),
         );
         first.appendChild(button);

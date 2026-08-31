@@ -30103,12 +30103,7 @@ function renderInspect(data) {
     ]);
   }
 
-  parts.push(
-    section(
-      ZogographI18n.t('storage.what_it_is', {}, 'What it is'),
-      factGrid(facts),
-    ),
-  );
+  parts.push(section(factsText('what_it_is'), factGrid(facts)));
 
   if (data.kind === 'dir') parts.push(...inspectDirectory(data));
   if (data.image?.is_image) parts.push(inspectImage(data));
@@ -30204,7 +30199,12 @@ function inspectDirectory(data) {
   }
   out.push(
     section(
-      ZogographI18n.t('storage.what_is_in_it', {}, 'What is in it'),
+      renderCoreCardPackage(
+        ZogographStorageInspectorFactsCard,
+        'core-storage-inspector-facts',
+        { key: 'what_is_in_it' },
+        { i18n: ZogographI18n },
+      ),
       factGrid(facts),
     ),
   );

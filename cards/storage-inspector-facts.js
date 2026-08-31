@@ -29,6 +29,8 @@ window.ZogographStorageInspectorFactsCard = {
         'core-storage-inspector-facts.yes': 'yes',
         'core-storage-inspector-facts.no_link_broken':
           'no — this link is broken',
+        'core-storage-inspector-facts.what_it_is': 'What it is',
+        'core-storage-inspector-facts.what_is_in_it': 'What is in it',
       }),
       es: Object.freeze({
         'core-storage-inspector-facts.kind': 'Tipo',
@@ -55,6 +57,8 @@ window.ZogographStorageInspectorFactsCard = {
         'core-storage-inspector-facts.yes': 'sí',
         'core-storage-inspector-facts.no_link_broken':
           'no — este enlace está roto',
+        'core-storage-inspector-facts.what_it_is': 'Qué es',
+        'core-storage-inspector-facts.what_is_in_it': 'Qué contiene',
       }),
       hi: Object.freeze({
         'core-storage-inspector-facts.kind': 'प्रकार',
@@ -81,6 +85,8 @@ window.ZogographStorageInspectorFactsCard = {
         'core-storage-inspector-facts.yes': 'हाँ',
         'core-storage-inspector-facts.no_link_broken':
           'नहीं — यह लिंक टूटा हुआ है',
+        'core-storage-inspector-facts.what_it_is': 'यह क्या है',
+        'core-storage-inspector-facts.what_is_in_it': 'इसमें क्या है',
       }),
       ar: Object.freeze({
         'core-storage-inspector-facts.kind': 'النوع',
@@ -105,6 +111,8 @@ window.ZogographStorageInspectorFactsCard = {
         'core-storage-inspector-facts.target_exists': 'الهدف موجود',
         'core-storage-inspector-facts.yes': 'نعم',
         'core-storage-inspector-facts.no_link_broken': 'لا — هذا الرابط معطّل',
+        'core-storage-inspector-facts.what_it_is': 'ما هو',
+        'core-storage-inspector-facts.what_is_in_it': 'ما الذي فيه',
       }),
       zh: Object.freeze({
         'core-storage-inspector-facts.kind': '类型',
@@ -129,6 +137,8 @@ window.ZogographStorageInspectorFactsCard = {
         'core-storage-inspector-facts.target_exists': '目标存在',
         'core-storage-inspector-facts.yes': '是',
         'core-storage-inspector-facts.no_link_broken': '否 — 此链接已损坏',
+        'core-storage-inspector-facts.what_it_is': '它是什么',
+        'core-storage-inspector-facts.what_is_in_it': '其中有什么',
       }),
     }),
   }),

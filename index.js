@@ -4657,23 +4657,23 @@ async function refreshOffenders() {
 
   const columns = [
     {
-      label: ZogographI18n.t('storage.path'),
+      label: storageOffenderColumnText('path'),
       className: 'name',
       render: (row) => row.display,
     },
     {
-      label: ZogographI18n.t('storage.kind'),
+      label: storageOffenderColumnText('kind'),
       render: (row) =>
         row.kind === 'dir'
-          ? ZogographI18n.t('storage.directory')
-          : ZogographI18n.t('storage.file'),
+          ? storageOffenderColumnText('directory')
+          : storageOffenderColumnText('file'),
     },
     {
-      label: ZogographI18n.t('storage.category'),
+      label: storageOffenderColumnText('category'),
       render: (row) => row.category ?? '—',
     },
     {
-      label: ZogographI18n.t('storage.files'),
+      label: storageOffenderColumnText('files'),
       className: 'size',
       render: (row) => (row.kind === 'dir' ? humanCount(row.files) : ''),
     },
@@ -4827,6 +4827,14 @@ const storageOffenderStatusText = (key) =>
   renderCoreCardPackage(
     ZogographStorageOffenderStatusCard,
     'core-storage-offender-status',
+    { key },
+    { i18n: ZogographI18n },
+  );
+
+const storageOffenderColumnText = (key) =>
+  renderCoreCardPackage(
+    ZogographStorageOffenderColumnsCard,
+    'core-storage-offender-columns',
     { key },
     { i18n: ZogographI18n },
   );

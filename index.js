@@ -5859,6 +5859,33 @@ function renderPrivacyControls() {
 
 document.addEventListener('zogograph-i18n-load', renderPrivacyControls);
 
+function renderTimeRangeSelector() {
+  const labels = renderCoreCardPackage(
+    ZogographTimeRangeSelectorCard,
+    'core-time-range-selector',
+    {},
+    { i18n: ZogographI18n },
+  );
+  for (const [value, key] of Object.entries({
+    600: '10m',
+    3600: '1h',
+    21600: '6h',
+    86400: '1d',
+    604800: '1w',
+    2592000: '30d',
+    31536000: '1y',
+  })) {
+    const node = document.querySelector(`#range option[value="${value}"]`);
+    node.textContent = ZogographI18n.markSource(
+      node,
+      `core-time-range-selector.${key}`,
+      labels[key],
+    );
+  }
+}
+
+document.addEventListener('zogograph-i18n-load', renderTimeRangeSelector);
+
 /** Every container the settings are split across. */
 const AI_SETTING_PAGES = [
   'aiIdentityBody',

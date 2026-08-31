@@ -2665,7 +2665,6 @@ i18nExpect(
             $english['example.arabic_digits'],
             $english['example.eastern_arabic_digits'],
             $english['update.available'],
-            $english['range.10m'],
             $english['action.reload'],
             $english['navigation.storage'],
             $english['navigation.cpu'],

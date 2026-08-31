@@ -227,6 +227,7 @@
     <script src="cards/screenshot-controls.js" defer></script>
     <script src="cards/shared-dialogs.js" defer></script>
     <script src="cards/privacy-controls.js" defer></script>
+    <script src="cards/time-range-selector.js" defer></script>
     <script src="cards/chat-cost.js" defer></script>
     <script src="cards/chat-summary-marker.js" defer></script>
     <script src="cards/chat-summary-dialog.js" defer></script>
@@ -324,15 +325,31 @@
         <label class="inline">
           <span class="control-label" data-i18n="dashboard.range">Range</span>
           <select id="range">
-            <option value="600" data-i18n="range.10m">Last 10 minutes</option>
-            <option value="3600" data-i18n="range.1h">Last hour</option>
-            <option value="21600" data-i18n="range.6h">Last 6 hours</option>
-            <option value="86400" selected data-i18n="range.1d">
+            <option value="600" data-i18n="core-time-range-selector.10m">
+              Last 10 minutes
+            </option>
+            <option value="3600" data-i18n="core-time-range-selector.1h">
+              Last hour
+            </option>
+            <option value="21600" data-i18n="core-time-range-selector.6h">
+              Last 6 hours
+            </option>
+            <option
+              value="86400"
+              selected
+              data-i18n="core-time-range-selector.1d"
+            >
               Last day
             </option>
-            <option value="604800" data-i18n="range.1w">Last week</option>
-            <option value="2592000" data-i18n="range.30d">Last 30 days</option>
-            <option value="31536000" data-i18n="range.1y">Last year</option>
+            <option value="604800" data-i18n="core-time-range-selector.1w">
+              Last week
+            </option>
+            <option value="2592000" data-i18n="core-time-range-selector.30d">
+              Last 30 days
+            </option>
+            <option value="31536000" data-i18n="core-time-range-selector.1y">
+              Last year
+            </option>
           </select>
         </label>
 

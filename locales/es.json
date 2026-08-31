@@ -2357,7 +2357,6 @@
   "overview.losing_rate": "pierde {{rate}}/h, medido durante {{window}}",
   "host.memory_breakdown_help": "La parte de memoria de proceso medida que ocupa cada servicio, calculada con {{pss}} y no con {{rss}}: un gráfico circular supone que sus porciones forman un todo, y la memoria residente no puede hacerlo, pues una página compartida por diez procesos se contaría diez veces.",
   "host.memory_processes_help": "Todos los procesos de la máquina, no solo los de esta cuenta. Esta lista responde qué está ocupando realmente la memoria cuando los totales por usuario solo indican de quién es.",
-  "host.kernel_slab_title": "Cachés slab del kernel",
   "host.kernel_slab_help": "Memoria que el kernel retiene para sí mismo. No pertenece a ningún proceso ni cuenta y es el primer lugar que revisar cuando los números no cuadran: un cuarto de gigabyte de xfs_inode no aparece en ningún otro lugar del sitio.",
   "host.services_alive_title": "¿Están activos los servicios?",
   "host.services_alive_help": "La única pregunta que el resto de esta página no puede responder. Un demonio que ha muerto no usa memoria, CPU ni disco, así que desaparece de todos los gráficos en vez de destacar en uno. {{not_installed}} se muestra separado de {{stopped}} deliberadamente: un servicio que esta máquina nunca ejecutó no es un fallo, y colorearlo en rojo haría que el panel estuviera siempre alarmante y se ignorara.",

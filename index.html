@@ -47,6 +47,7 @@
     <script src="cards/boot-history.js" defer></script>
     <script src="cards/host-memory-pie.js" defer></script>
     <script src="cards/host-memory-users.js" defer></script>
+    <script src="cards/host-slab-caches.js" defer></script>
     <script src="cards/host-memory-processes.js" defer></script>
     <script src="cards/host-service-chart.js" defer></script>
     <script src="cards/uptime-events.js" defer></script>
@@ -2327,7 +2328,9 @@
         <section class="view" data-view="mem-slab" hidden>
           <section class="panel" id="memSlabPanel">
             <div class="panel-head">
-              <h2 data-i18n="host.kernel_slab_title">Kernel slab caches</h2>
+              <h2 data-i18n="core-host-slab-caches.title">
+                Kernel slab caches
+              </h2>
               <button
                 id="memSlabRefresh"
                 class="link"

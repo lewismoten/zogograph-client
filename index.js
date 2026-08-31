@@ -2302,6 +2302,32 @@ function renderHostMemoryUserLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderHostMemoryUserLabels);
 
+function renderHostSlabCacheLabels() {
+  const helpers = {
+    target: { id: 'hostSlab' },
+    renderTable: () => null,
+    namedThing: () => '',
+    humanBytes: () => '',
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(
+    ZogographHostSlabCachesCard,
+    'core-host-slab-caches',
+    { rows: [] },
+    helpers,
+  );
+  const title = document.querySelector(
+    '[data-i18n="core-host-slab-caches.title"]',
+  );
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-host-slab-caches.title',
+    ZogographHostSlabCachesCard.text('title', helpers),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderHostSlabCacheLabels);
+
 /**
  * When the disk is projected to fill, as a date.
  *
@@ -23543,11 +23569,9 @@ async function refreshHost() {
       },
       {
         key: 'slab',
-        label: ZogographI18n.t(
-          'host.kernel_slab_title',
-          {},
-          'Kernel slab caches',
-        ),
+        label: ZogographHostSlabCachesCard.text('title', {
+          i18n: ZogographI18n,
+        }),
       },
       {
         key: 'unaccounted',
@@ -23679,30 +23703,18 @@ async function refreshHost() {
   renderHostIoProcs(data.io_processes ?? null);
   renderHostDaemons(data.daemons ?? null);
 
-  renderTable('hostSlab', data.slab, [
+  renderCoreCardPackage(
+    ZogographHostSlabCachesCard,
+    'core-host-slab-caches',
+    { rows: data.slab ?? [] },
     {
-      label: ZogographI18n.t('host.slab_cache', {}, 'Cache'),
-      render: (r) => namedThing('slab', r.name),
+      target: $('hostSlab'),
+      renderTable,
+      namedThing,
+      humanBytes,
+      i18n: ZogographI18n,
     },
-    {
-      label: ZogographI18n.t('host.slab_holding', {}, 'Holding'),
-      className: 'size',
-      render: (r) => humanBytes(r.cache_bytes),
-    },
-    {
-      label: ZogographI18n.t('host.slab_objects', {}, 'Objects'),
-      className: 'size',
-      render: (r) =>
-        Number(r.objs).toLocaleString(
-          document.documentElement.lang || undefined,
-        ),
-    },
-    {
-      label: ZogographI18n.t('host.slab_each', {}, 'Each'),
-      className: 'size',
-      render: (r) => humanBytes(r.obj_bytes),
-    },
-  ]);
+  );
 
   renderHostFiles(data.files ?? [], data.file_totals ?? null);
 

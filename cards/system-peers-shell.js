@@ -49,6 +49,20 @@ window.ZogographSystemPeersShellCard = {
         'core-system-peers-shell.table_cpu': 'CPU',
         'core-system-peers-shell.table_memory': 'Memory',
         'core-system-peers-shell.load': 'Load',
+        'core-system-peers-shell.rotate_delivery_key': 'Rotate delivery key',
+        'core-system-peers-shell.rotate_confirmation':
+          'Rotate {{name}}’s remote-delivery credential?\n\nThe remote stops delivering until its configuration uses the new key.',
+        'core-system-peers-shell.rotated_credential_help':
+          'The previous credential is revoked. Copy this complete replacement into the remote Zogograph configuration within 24 hours; it activates on first delivery and is not shown again.',
+        'core-system-peers-shell.delivery_credential_rotated':
+          'Remote-delivery credential rotated.',
+        'core-system-peers-shell.pairing_title': 'Pair {{name}}',
+        'core-system-peers-shell.pairing_fragment_help':
+          'Copy this complete one-time pairing fragment into the remote Zogograph configuration within 24 hours. It activates on first delivery and is not shown again.',
+        'core-system-peers-shell.oidc_peer_saved':
+          'Trusted server saved. Test OIDC discovery before using the read connection.',
+        'core-system-peers-shell.delivery_peer_saved':
+          'Remote delivery peer saved. Copy its one-time pairing fragment to the remote Zogograph.',
       }),
       es: Object.freeze({
         'core-system-peers-shell.title': 'Servidores Zogograph de confianza',
@@ -94,6 +108,20 @@ window.ZogographSystemPeersShellCard = {
         'core-system-peers-shell.table_cpu': 'CPU',
         'core-system-peers-shell.table_memory': 'Memoria',
         'core-system-peers-shell.load': 'Carga',
+        'core-system-peers-shell.rotate_delivery_key': 'Rotar clave de entrega',
+        'core-system-peers-shell.rotate_confirmation':
+          '¿Rotar la credencial de entrega remota de {{name}}?\n\nEl remoto dejará de entregar hasta que su configuración use la nueva clave.',
+        'core-system-peers-shell.rotated_credential_help':
+          'La credencial anterior se revocó. Copie este reemplazo completo en la configuración remota de Zogograph en 24 horas; se activa en la primera entrega y no volverá a mostrarse.',
+        'core-system-peers-shell.delivery_credential_rotated':
+          'Credencial de entrega remota rotada.',
+        'core-system-peers-shell.pairing_title': 'Emparejar {{name}}',
+        'core-system-peers-shell.pairing_fragment_help':
+          'Copie este fragmento completo de emparejamiento de un solo uso en la configuración remota de Zogograph en 24 horas. Se activa en la primera entrega y no volverá a mostrarse.',
+        'core-system-peers-shell.oidc_peer_saved':
+          'Servidor de confianza guardado. Pruebe el descubrimiento OIDC antes de usar la conexión de lectura.',
+        'core-system-peers-shell.delivery_peer_saved':
+          'Par de entrega remota guardado. Copie su fragmento de emparejamiento de un solo uso en Zogograph remoto.',
       }),
       hi: Object.freeze({
         'core-system-peers-shell.title': 'विश्वसनीय Zogograph सर्वर',
@@ -139,6 +167,20 @@ window.ZogographSystemPeersShellCard = {
         'core-system-peers-shell.table_cpu': 'CPU',
         'core-system-peers-shell.table_memory': 'मेमोरी',
         'core-system-peers-shell.load': 'लोड',
+        'core-system-peers-shell.rotate_delivery_key': 'डिलीवरी कुंजी बदलें',
+        'core-system-peers-shell.rotate_confirmation':
+          '{{name}} का रिमोट-डिलीवरी क्रेडेंशियल बदलें?\n\nनया कुंजी कॉन्फ़िगरेशन में उपयोग होने तक रिमोट डिलीवरी बंद कर देगा।',
+        'core-system-peers-shell.rotated_credential_help':
+          'पिछला क्रेडेंशियल रद्द कर दिया गया है। इस पूरे प्रतिस्थापन को 24 घंटे के भीतर दूरस्थ Zogograph कॉन्फ़िगरेशन में कॉपी करें; यह पहली डिलीवरी पर सक्रिय होता है और फिर नहीं दिखाया जाता।',
+        'core-system-peers-shell.delivery_credential_rotated':
+          'रिमोट-डिलीवरी क्रेडेंशियल बदला गया।',
+        'core-system-peers-shell.pairing_title': '{{name}} को पेयर करें',
+        'core-system-peers-shell.pairing_fragment_help':
+          'इस पूरे एक-बार के पेयरिंग अंश को 24 घंटे के भीतर दूरस्थ Zogograph कॉन्फ़िगरेशन में कॉपी करें। यह पहली डिलीवरी पर सक्रिय होता है और फिर नहीं दिखाया जाता।',
+        'core-system-peers-shell.oidc_peer_saved':
+          'विश्वसनीय सर्वर सहेजा गया। रीड कनेक्शन उपयोग करने से पहले OIDC डिस्कवरी जाँचें।',
+        'core-system-peers-shell.delivery_peer_saved':
+          'रिमोट डिलीवरी पीयर सहेजा गया। इसके एक-बार के पेयरिंग अंश को दूरस्थ Zogograph में कॉपी करें।',
       }),
       ar: Object.freeze({
         'core-system-peers-shell.title': 'خوادم Zogograph الموثوقة',
@@ -183,6 +225,20 @@ window.ZogographSystemPeersShellCard = {
         'core-system-peers-shell.table_cpu': 'المعالج',
         'core-system-peers-shell.table_memory': 'الذاكرة',
         'core-system-peers-shell.load': 'الحمل',
+        'core-system-peers-shell.rotate_delivery_key': 'دوّر مفتاح التسليم',
+        'core-system-peers-shell.rotate_confirmation':
+          'هل تريد مداورة اعتماد التسليم البعيد لـ {{name}}؟\n\nسيتوقف البعيد عن التسليم إلى أن يستخدم إعداده المفتاح الجديد.',
+        'core-system-peers-shell.rotated_credential_help':
+          'أُلغي الاعتماد السابق. انسخ هذا البديل الكامل إلى إعداد Zogograph البعيد خلال 24 ساعة؛ يُفعّل عند أول تسليم ولا يظهر مرة أخرى.',
+        'core-system-peers-shell.delivery_credential_rotated':
+          'جرت مداورة اعتماد التسليم البعيد.',
+        'core-system-peers-shell.pairing_title': 'اقرن {{name}}',
+        'core-system-peers-shell.pairing_fragment_help':
+          'انسخ جزء الاقتران الكامل هذا ذي الاستخدام الواحد إلى إعداد Zogograph البعيد خلال 24 ساعة. يُفعّل عند أول تسليم ولا يظهر مرة أخرى.',
+        'core-system-peers-shell.oidc_peer_saved':
+          'حُفظ الخادم الموثوق. اختبر اكتشاف OIDC قبل استخدام اتصال القراءة.',
+        'core-system-peers-shell.delivery_peer_saved':
+          'حُفظ ند التسليم البعيد. انسخ جزء الاقتران ذي الاستخدام الواحد إلى Zogograph البعيد.',
       }),
       zh: Object.freeze({
         'core-system-peers-shell.title': '受信任的 Zogograph 服务器',
@@ -227,6 +283,20 @@ window.ZogographSystemPeersShellCard = {
         'core-system-peers-shell.table_cpu': 'CPU',
         'core-system-peers-shell.table_memory': '内存',
         'core-system-peers-shell.load': '负载',
+        'core-system-peers-shell.rotate_delivery_key': '轮换传递密钥',
+        'core-system-peers-shell.rotate_confirmation':
+          '要轮换 {{name}} 的远程传递凭据吗？\n\n在远程配置使用新密钥前，远程端将停止传递。',
+        'core-system-peers-shell.rotated_credential_help':
+          '先前的凭据已撤销。请在 24 小时内将完整替换凭据复制到远程 Zogograph 配置；它会在首次传递时启用，之后不再显示。',
+        'core-system-peers-shell.delivery_credential_rotated':
+          '远程传递凭据已轮换。',
+        'core-system-peers-shell.pairing_title': '配对 {{name}}',
+        'core-system-peers-shell.pairing_fragment_help':
+          '请在 24 小时内将完整的一次性配对片段复制到远程 Zogograph 配置。它会在首次传递时启用，之后不再显示。',
+        'core-system-peers-shell.oidc_peer_saved':
+          '已保存受信任服务器。请在使用读取连接前测试 OIDC 发现。',
+        'core-system-peers-shell.delivery_peer_saved':
+          '远程传递对端已保存。请将其一次性配对片段复制到远程 Zogograph。',
       }),
     }),
   }),

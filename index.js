@@ -16813,16 +16813,12 @@ function renderPeers(data) {
             edit.addEventListener('click', () => showPeerDialog(row));
             const rotate = document.createElement('button');
             rotate.className = 'link';
-            rotate.textContent = ZogographI18n.t(
-              'action.rotate_delivery_key',
-              {},
-              'Rotate delivery key',
-            );
+            rotate.textContent = peersShellText('rotate_delivery_key');
             rotate.addEventListener('click', async () => {
               if (
                 !(await confirmDialog(
-                  `Rotate ${row.label}’s remote-delivery credential?\n\nThe remote stops delivering until its configuration uses the new key.`,
-                  'Rotate delivery key',
+                  peersShellText('rotate_confirmation', { name: row.label }),
+                  peersShellText('rotate_delivery_key'),
                 ))
               )
                 return;
@@ -16831,11 +16827,14 @@ function renderPeers(data) {
                   name: row.name,
                 });
                 renderPeers(result);
-                showListDialog(`Pair ${row.label}`, [
-                  note(peerText('rotated_credential_help')),
-                  paste(result.transport_enrollment),
-                ]);
-                notice(peerText('delivery_credential_rotated'), true);
+                showListDialog(
+                  peersShellText('pairing_title', { name: row.label }),
+                  [
+                    note(peersShellText('rotated_credential_help')),
+                    paste(result.transport_enrollment),
+                  ],
+                );
+                notice(peersShellText('delivery_credential_rotated'), true);
               } catch (error) {
                 notice(String(error.message || error));
               }
@@ -17037,25 +17036,17 @@ function showPeerDialog(row = null) {
       renderPeers(result);
       if (result.transport_secret) {
         showListDialog(
-          peerText(
-            'pairing_title',
-            { name: label.value || name.value },
-            'Pair {{name}}',
-          ),
+          peersShellText('pairing_title', { name: label.value || name.value }),
           [
-            note(peerText('pairing_fragment_help')),
+            note(peersShellText('pairing_fragment_help')),
             paste(result.transport_enrollment),
           ],
         );
       }
       notice(
         result.rows.find((item) => item.name === name.value)?.has_oidc
-          ? peerText(
-              'oidc_peer_saved',
-              {},
-              'Trusted server saved. Test OIDC discovery before using the read connection.',
-            )
-          : peerText('delivery_peer_saved'),
+          ? peersShellText('oidc_peer_saved')
+          : peersShellText('delivery_peer_saved'),
         true,
       );
     },

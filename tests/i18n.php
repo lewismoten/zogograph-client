@@ -4220,8 +4220,10 @@ $translatedSecurityMessages = [
     'diagnosis.reading_everything',
     'host.collector_loading',
     'peer.field_secret',
-    'peer.pairing_title',
-    'peer.oidc_peer_saved',
+];
+$translatedPeerPackageSecurityMessages = [
+    'core-system-peers-shell.pairing_title',
+    'core-system-peers-shell.oidc_peer_saved',
 ];
 i18nExpect(
     $script !== false &&
@@ -4409,6 +4411,13 @@ foreach (['en-US', 'en-GB', 'es', 'hi', 'zh', 'ar'] as $locale) {
             array_diff($translatedSecurityMessages, array_keys($catalog)) ===
                 [],
             "locale catalog $locale lacks translated security-sensitive dashboard text",
+        );
+        i18nExpect(
+            array_diff(
+                $translatedPeerPackageSecurityMessages,
+                array_keys($coreCardLocaleKeys[$locale] ?? []),
+            ) === [],
+            "trusted-server package $locale falls back to English for security-sensitive text",
         );
         i18nExpect(
             array_diff(

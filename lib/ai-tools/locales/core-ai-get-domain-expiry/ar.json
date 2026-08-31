@@ -1,3 +1,4 @@
 {
-  "core-ai-get-domain-expiry.summary": "أسماء النطاقات المراقبة وموعد انتهاء كل منها."
+  "core-ai-get-domain-expiry.summary": "أسماء النطاقات المراقبة وموعد انتهاء كل منها.",
+  "core-ai-get-domain-expiry.activity": "تحقق من انتهاء أسماء النطاقات المراقبة"
 }

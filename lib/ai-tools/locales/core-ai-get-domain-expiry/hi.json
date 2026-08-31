@@ -1,3 +1,4 @@
 {
-  "core-ai-get-domain-expiry.summary": "निगरानी किए गए डोमेन नाम और हर एक कब समाप्त होता है।"
+  "core-ai-get-domain-expiry.summary": "निगरानी किए गए डोमेन नाम और हर एक कब समाप्त होता है।",
+  "core-ai-get-domain-expiry.activity": "निगरानी किए गए डोमेन की समाप्ति जाँची"
 }

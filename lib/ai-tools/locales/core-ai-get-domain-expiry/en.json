@@ -1,3 +1,4 @@
 {
-  "core-ai-get-domain-expiry.summary": "Watched domain names and when each expires."
+  "core-ai-get-domain-expiry.summary": "Watched domain names and when each expires.",
+  "core-ai-get-domain-expiry.activity": "Checked watched domain expirations"
 }

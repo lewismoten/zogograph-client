@@ -2482,7 +2482,6 @@
   "email.settings_sign_in": "请登录以更改电子邮件设置。",
   "system.download_diagnostic": "下载诊断信息",
   "system.monitor_help": "磁盘监控器应能说明自身的磁盘使用情况，并且绝不能悄悄停止收集。这两点在此站点其他位置都看不到：悄然增长到一千兆字节的数据库看起来与正常数据库完全一样，而上周二停止的 cron 任务只会让每张图表看起来都很平静。",
-  "system.health_title": "运行状况",
   "system.health_help": "此安装能够做什么以及不能做什么。前三项通常是全新部署返回错误的原因。",
   "health.data_dir_writable": "数据目录可写",
   "health.database_writable": "数据库可写",

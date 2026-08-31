@@ -3192,12 +3192,16 @@ function renderDomainQueueTitle() {
     'core-domain-queue.title',
     ZogographDomainQueueCard.text('title', helpers),
   );
-  const help = document.querySelector('[data-i18n="core-domain-queue.help"]');
-  help.textContent = ZogographI18n.markSource(
-    help,
-    'core-domain-queue.help',
-    ZogographDomainQueueCard.text('help', helpers),
-  );
+  for (const key of ['help', 'warn', 'days_before', 'watch']) {
+    const node = document.querySelector(
+      `[data-i18n="core-domain-queue.${key}"]`,
+    );
+    node.textContent = ZogographI18n.markSource(
+      node,
+      `core-domain-queue.${key}`,
+      ZogographDomainQueueCard.text(key, helpers),
+    );
+  }
 }
 
 document.addEventListener('zogograph-i18n-load', renderDomainQueueTitle);

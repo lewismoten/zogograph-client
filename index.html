@@ -196,6 +196,7 @@
     <script src="cards/ai-settings-page-heading.js" defer></script>
     <script src="cards/ai-identity-page-shell.js" defer></script>
     <script src="cards/ai-model-pages-shell.js" defer></script>
+    <script src="cards/ai-limits-images-shell.js" defer></script>
     <script src="cards/ai-memory-availability.js" defer></script>
     <script src="cards/ai-memory-provenance.js" defer></script>
     <script src="cards/ai-memory-pin-state.js" defer></script>
@@ -4047,9 +4048,9 @@
         <section class="view" data-view="sys-ai-limits" hidden>
           <section class="panel" id="aiLimitsPanel">
             <div class="panel-head">
-              <h2 data-i18n="ai.limits_title">Thresholds</h2>
+              <h2 id="aiLimitsTitle">Thresholds</h2>
             </div>
-            <p class="muted small sub-note" data-i18n="ai.limits_help">
+            <p id="aiLimitsHelp" class="muted small sub-note">
               What stops a conversation, and how much of one the model can hold
               at a time. Every limit here is checked before a request rather
               than after, so it stops the next call rather than being noticed
@@ -4064,9 +4065,9 @@
         <section class="view" data-view="sys-ai-images" hidden>
           <section class="panel" id="aiImagesPanel">
             <div class="panel-head">
-              <h2 data-i18n="ai.images_title">Images</h2>
+              <h2 id="aiImagesTitle">Images</h2>
             </div>
-            <p class="muted small sub-note" data-i18n="ai.images_help">
+            <p id="aiImagesHelp" class="muted small sub-note">
               Entirely optional, and off until keyed. Generating a picture costs
               money; searching for an animation is a free read against somebody
               else's quota. They are limited separately for that reason.

@@ -5673,6 +5673,27 @@ function renderAiModelPagesShell() {
 
 document.addEventListener('zogograph-i18n-load', renderAiModelPagesShell);
 
+function renderAiLimitsImagesShell() {
+  const render = (key, fallback) =>
+    renderCoreCardPackage(
+      ZogographAiLimitsImagesShellCard,
+      'core-ai-limits-images-shell',
+      { key, fallback },
+      { i18n: ZogographI18n },
+    );
+  $('aiLimitsTitle').textContent = render('limits_title', 'Thresholds');
+  $('aiLimitsHelp').textContent = render(
+    'limits_help',
+    'What stops a conversation, and how much of one the model can hold at a time. Every limit here is checked before a request rather than after, so it stops the next call rather than being noticed once the money is gone.',
+  );
+  $('aiImagesTitle').textContent = render('images_title', 'Images');
+  $('aiImagesHelp').textContent = render(
+    'images_help',
+    'Entirely optional, and off until keyed. Generating a picture costs money; searching for an animation is a free read against somebody else’s quota. They are limited separately for that reason.',
+  );
+}
+document.addEventListener('zogograph-i18n-load', renderAiLimitsImagesShell);
+
 /** Every container the settings are split across. */
 const AI_SETTING_PAGES = [
   'aiIdentityBody',

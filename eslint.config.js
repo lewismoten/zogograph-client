@@ -183,6 +183,7 @@ export default [
         ZogographAiSettingsPageHeadingCard: 'readonly',
         ZogographAiIdentityPageShellCard: 'readonly',
         ZogographAiModelPagesShellCard: 'readonly',
+        ZogographAiLimitsImagesShellCard: 'readonly',
         ZogographAiMemoryAvailabilityCard: 'readonly',
         ZogographAiMemoryProvenanceCard: 'readonly',
         ZogographAiMemoryPinStateCard: 'readonly',

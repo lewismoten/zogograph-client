@@ -2697,14 +2697,6 @@ i18nExpect(
             $english['storage.symlink_unchanged'],
             $english['storage.symlink_healthy'],
             $english['storage.symlink_healthy_partial'],
-            $english['storage.ldconfig_intro'],
-            $english['storage.ldconfig_ask'],
-            $english['storage.ldconfig_confirm'],
-            $english['storage.ldconfig_queued'],
-            $english['storage.ldconfig_nothing_yet'],
-            $english['storage.ldconfig_previous_finished'],
-            $english['storage.ldconfig_previous_failed'],
-            $english['storage.ldconfig_no_reason'],
         ),
     'English fallback catalog is incomplete',
 );
@@ -3070,11 +3062,11 @@ i18nExpect(
     'symlink check status retains direct user-visible text',
 );
 i18nExpect(
-    $script !== false &&
-        str_contains($script, 'storage.ldconfig_intro') &&
-        str_contains($script, 'storage.ldconfig_confirm') &&
-        str_contains($script, 'storage.ldconfig_previous_failed'),
-    'library-cache rebuild flow retains direct user-visible text',
+    str_contains(
+        (string) file_get_contents($root . '/cards/ldconfig-offer.js'),
+        'core-ldconfig-offer.previous_failed',
+    ),
+    'library-cache rebuild flow is owned by its localized card package',
 );
 i18nExpect(
     str_contains($runtime, 'data-i18n-rich') &&

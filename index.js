@@ -21898,112 +21898,20 @@ function renderSymlinks() {
  * and pretending otherwise would be the wrong habit to build.
  */
 function ldconfigOffer() {
-  const wrap = document.createElement('div');
-  wrap.className = 'sub-note muted small';
-
-  const said = document.createElement('p');
-  said.textContent = ZogographI18n.t(
-    'storage.ldconfig_intro',
+  return renderCoreCardPackage(
+    ZogographLdconfigOfferCard,
+    'core-ldconfig-offer',
     {},
-    'Repaired a link under a library directory and programs still cannot start? The dynamic linker reads a cache, not the directories, so it stays stale until something rebuilds it — and only root can. This asks the host collector to run ldconfig on its next pass.',
+    {
+      ago,
+      confirm: confirmDialog,
+      i18n: ZogographI18n,
+      notice,
+      note,
+      post,
+      refresh: refreshShared,
+    },
   );
-  wrap.appendChild(said);
-
-  const actions = document.createElement('div');
-  actions.className = 'inspect-actions';
-
-  const ask = document.createElement('button');
-  ask.className = 'link';
-  ask.textContent = ZogographI18n.t(
-    'storage.ldconfig_ask',
-    {},
-    'Ask the host to rebuild the library cache',
-  );
-  ask.addEventListener('click', async () => {
-    if (
-      !(await confirmDialog(
-        ZogographI18n.t(
-          'storage.ldconfig_confirm',
-          {},
-          "Ask root's collector to run ldconfig?\n\nUnlike everything else here, this changes something: it rewrites /etc/ld.so.cache from what is on disk. It is safe to repeat and cannot make the cache worse than the directories it is built from.\n\nIt runs on the collector's next pass, not now.",
-        ),
-      ))
-    )
-      return;
-
-    ask.disabled = true;
-    try {
-      const result = await post('ldconfig');
-      notice(
-        ZogographI18n.t(
-          'storage.ldconfig_queued',
-          {},
-          "Queued. It runs on the host collector's next pass.",
-        ),
-        true,
-      );
-      wrap.appendChild(ldconfigPrevious(result.previous, true));
-      await refreshShared();
-    } catch (error) {
-      notice(String(error.message || error));
-    } finally {
-      ask.disabled = false;
-    }
-  });
-  actions.appendChild(ask);
-  wrap.appendChild(actions);
-
-  return wrap;
-}
-
-/** What the last rebuild said, if there has been one. */
-function ldconfigPrevious(previous, justAsked = false) {
-  if (!previous || !previous.at) {
-    return note(
-      justAsked
-        ? ZogographI18n.t(
-            'storage.ldconfig_nothing_yet',
-            {},
-            'Nothing has run yet, so there is nothing to compare against.',
-          )
-        : '',
-    );
-  }
-
-  const wrap = document.createDocumentFragment();
-  wrap.appendChild(
-    note(
-      ZogographI18n.t(
-        previous.ok
-          ? 'storage.ldconfig_previous_finished'
-          : 'storage.ldconfig_previous_failed',
-        {
-          time: ago(previous.at),
-          reason:
-            previous.error ||
-            ZogographI18n.t(
-              'storage.ldconfig_no_reason',
-              {},
-              'no reason given',
-            ),
-        },
-        previous.ok
-          ? `The last rebuild was ${ago(previous.at)} and finished.`
-          : `The last rebuild was ${ago(previous.at)} and failed: ${previous.error || 'no reason given'}.`,
-      ),
-    ),
-  );
-
-  if (previous.text) {
-    const pre = document.createElement('pre');
-    pre.className = 'paste';
-    // The tail only: ldconfig -v names every directory it walks, and none of
-    // them are interesting unless one failed.
-    pre.textContent = previous.text;
-    wrap.appendChild(pre);
-  }
-
-  return wrap;
 }
 
 function linkActions(row) {

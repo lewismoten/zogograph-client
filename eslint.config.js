@@ -95,6 +95,7 @@ export default [
         ZogographHostFilesCard: 'readonly',
         ZogographHostLogsCard: 'readonly',
         ZogographHostWalkControl: 'readonly',
+        ZogographLdconfigOfferCard: 'readonly',
         ZogographHostIoProcessesCard: 'readonly',
         ZogographHostMemoryGaugesCard: 'readonly',
         ZogographNetworkGaugesCard: 'readonly',

@@ -1904,6 +1904,11 @@ function renderOverviewVitalLabels() {
         ZogographOverviewVitalsCards.text(key, helpers),
       );
     });
+  for (const key of ['help', 'history_help']) {
+    ZogographI18n.applyRich(
+      document.querySelector(`[data-i18n-rich="core-cpu-cores.${key}"]`),
+    );
+  }
 }
 
 document.addEventListener('zogograph-i18n-load', renderOverviewVitalLabels);

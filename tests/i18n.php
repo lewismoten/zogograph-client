@@ -2002,6 +2002,19 @@ i18nExpect(
     'overview gauge labels do not belong to their core package',
 );
 i18nExpect(
+    !isset(
+        $english['host.slab_holding'],
+        $english['host.slab_objects'],
+        $english['host.slab_each'],
+    ) &&
+        isset(
+            $coreCardEnglish['core-host-slab-caches.holding'],
+            $coreCardEnglish['core-host-slab-caches.objects'],
+            $coreCardEnglish['core-host-slab-caches.each'],
+        ),
+    'host slab-cache labels do not belong to their core package',
+);
+i18nExpect(
     $page !== false &&
         str_contains($page, 'src="cards/action-summary.js"') &&
         $actionSummaryCard !== false &&

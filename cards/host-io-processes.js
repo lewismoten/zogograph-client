@@ -6,6 +6,7 @@ window.ZogographHostIoProcessesCard = {
     helpers: ['target', 'renderTable', 'humanBytes', 'i18n'],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-host-io-processes.title': 'Processes touching the disk',
         'core-host-io-processes.empty':
           'No per-process disk I/O recorded yet. It needs the host collector, running as root.',
         'core-host-io-processes.process': 'Process',
@@ -22,6 +23,7 @@ window.ZogographHostIoProcessesCard = {
           'This process has only been seen once, so its total I/O is spread over how long it has been running. Accurate for a job that just started, much less so for a long-running daemon.',
       }),
       es: Object.freeze({
+        'core-host-io-processes.title': 'Procesos que usan el disco',
         'core-host-io-processes.empty':
           'Aún no se ha registrado E/S de disco por proceso. Necesita el recopilador del host ejecutándose como root.',
         'core-host-io-processes.process': 'Proceso',
@@ -39,6 +41,7 @@ window.ZogographHostIoProcessesCard = {
           'Este proceso solo se ha visto una vez, por lo que su E/S total se distribuye a lo largo de su tiempo de ejecución. Es preciso para un trabajo que acaba de empezar, mucho menos para un demonio de larga duración.',
       }),
       hi: Object.freeze({
+        'core-host-io-processes.title': 'डिस्क उपयोग करने वाले प्रोसेस',
         'core-host-io-processes.empty':
           'अभी तक प्रति-प्रक्रिया डिस्क I/O दर्ज नहीं है। इसके लिए root के रूप में चल रहे होस्ट कलेक्टर की आवश्यकता है।',
         'core-host-io-processes.process': 'प्रक्रिया',
@@ -55,6 +58,7 @@ window.ZogographHostIoProcessesCard = {
           'यह प्रक्रिया केवल एक बार देखी गई है, इसलिए इसका कुल I/O इसके चलने की अवधि में फैला है। अभी शुरू हुए काम के लिए सटीक, लंबे समय से चल रहे डेमन के लिए बहुत कम सटीक।',
       }),
       ar: Object.freeze({
+        'core-host-io-processes.title': 'العمليات التي تلمس القرص',
         'core-host-io-processes.empty':
           'لم تُسجَّل مدخلات/مخرجات القرص لكل عملية بعد. يتطلب ذلك جامع المضيف وهو يعمل بصفة root.',
         'core-host-io-processes.process': 'العملية',
@@ -71,6 +75,7 @@ window.ZogographHostIoProcessesCard = {
           'شوهدت هذه العملية مرة واحدة فقط، لذا موزع إجمالي مدخلاتها/مخرجاتها على مدة تشغيلها. دقيق لعمل بدأ للتو، وأقل دقة بكثير لخادم طويل التشغيل.',
       }),
       zh: Object.freeze({
+        'core-host-io-processes.title': '访问磁盘的进程',
         'core-host-io-processes.empty':
           '尚未记录每个进程的磁盘 I/O。它需要以 root 身份运行的主机采集器。',
         'core-host-io-processes.process': '进程',
@@ -88,6 +93,13 @@ window.ZogographHostIoProcessesCard = {
     }),
   }),
 
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-host-io-processes.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-host-io-processes.${key}`],
+    );
+  },
   render(io, helpers) {
     const { target, renderTable, humanBytes, i18n } = helpers;
     const t = (key, values, fallback) => i18n.t(key, values, fallback);

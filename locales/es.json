@@ -2359,7 +2359,6 @@
   "host.services_alive_help": "La única pregunta que el resto de esta página no puede responder. Un demonio que ha muerto no usa memoria, CPU ni disco, así que desaparece de todos los gráficos en vez de destacar en uno. {{not_installed}} se muestra separado de {{stopped}} deliberadamente: un servicio que esta máquina nunca ejecutó no es un fallo, y colorearlo en rojo haría que el panel estuviera siempre alarmante y se ignorara.",
   "host.big_directories_title": "Directorios más grandes de la máquina",
   "host.big_directories_help": "Procede del recorrido de root por todo el disco, así que alcanza lugares a los que la cuenta no puede llegar: los hogares de otras cuentas, /var, /backup y cualquier cosa montada en un lugar inesperado.",
-  "host.disk_processes_title": "Procesos que usan el disco",
   "host.disk_processes_help": "De qué procesos procede realmente el rendimiento de disco. La CPU puede permanecer baja mientras un trabajo hace que todo parezca lento al mantener ocupado un disco, y ese trabajo es invisible en los demás paneles del sitio.",
   "host.root_files_title": "Archivos que solo root puede ver",
   "host.root_files_help": "Apache escribe los registros de cada dominio en /etc, propiedad de root. Un registro rotado allí ocupa exactamente el mismo disco que uno en el directorio personal y es invisible para todo lo que la cuenta puede ejecutar.",

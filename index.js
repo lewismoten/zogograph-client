@@ -2456,6 +2456,31 @@ function renderCpuLimitLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderCpuLimitLabels);
 
+function renderHostIoProcessLabels() {
+  const helpers = {
+    target: null,
+    renderTable: () => null,
+    humanBytes: () => '',
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(
+    ZogographHostIoProcessesCard,
+    'core-host-io-processes',
+    {},
+    helpers,
+  );
+  const title = document.querySelector(
+    '[data-i18n="core-host-io-processes.title"]',
+  );
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-host-io-processes.title',
+    ZogographHostIoProcessesCard.text('title', helpers),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderHostIoProcessLabels);
+
 /**
  * When the disk is projected to fill, as a date.
  *

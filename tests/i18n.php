@@ -1130,6 +1130,11 @@ i18nExpect(
             $networkCaptureCard,
             '"core-network-capture.peer_endpoints"',
         ) &&
+        str_contains($networkCaptureCard, '"core-network-capture.looked_up"') &&
+        str_contains(
+            $networkCaptureCard,
+            '"core-network-capture.requested_from_peers"',
+        ) &&
         $script !== false &&
         str_contains(
             $script,

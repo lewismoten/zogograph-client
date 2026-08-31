@@ -2065,6 +2065,13 @@ i18nExpect(
     'assistant visual title does not belong to its core package',
 );
 i18nExpect(
+    !isset($english['capabilities.this_account_or_host']) &&
+        isset(
+            $coreCardEnglish['core-domain-whois-availability.account_or_host'],
+        ),
+    'WHOIS availability detail does not belong to its core package',
+);
+i18nExpect(
     $page !== false &&
         str_contains($page, 'src="cards/action-summary.js"') &&
         $actionSummaryCard !== false &&

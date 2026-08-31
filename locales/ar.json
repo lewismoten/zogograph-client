@@ -1003,7 +1003,6 @@
   "support.provider_message": "رسالة إلى مزود الاستضافة الخاص بك",
   "support.provider_message_help": "يوضح ما تم قياسه ويطلب الإجراءات الآمنة فقط. وهو لا يطلب عمدًا من أي شخص حذف أي شيء من دليل النسخ الاحتياطي.",
   "capabilities.this_account": "هذا الحساب",
-  "capabilities.this_account_or_host": "هذا الحساب أو المضيف",
   "capabilities.command_unavailable": "الأمر {{command}} غير متاح لـ {{where}}. بصفتك root:",
   "capabilities.recheck_after_install": "بعد تثبيته، أعد فحص الإمكانية. ",
   "capabilities.probe_not_automatic": " لا تتحقق لوحة المعلومات تلقائيًا، لأن إجراء مئة عملية بحث عن أوامر عند كل تحميل للصفحة سيكلف أكثر مما يوفر.",

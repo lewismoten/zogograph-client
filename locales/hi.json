@@ -1005,7 +1005,6 @@
   "support.provider_message": "अपने होस्टिंग प्रदाता के लिए संदेश",
   "support.provider_message_help": "यह बताता है कि क्या मापा गया था और केवल सुरक्षित कार्रवाई का अनुरोध करता है। इसमें जानबूझकर किसी से बैकअप निर्देशिका से कुछ भी हटाने के लिए नहीं कहा गया है।",
   "capabilities.this_account": "इस खाते",
-  "capabilities.this_account_or_host": "इस खाते या होस्ट",
   "capabilities.command_unavailable": "{{command}}, {{where}} के लिए उपलब्ध नहीं है। root के रूप में:",
   "capabilities.recheck_after_install": "इसे स्थापित करने के बाद क्षमता को फिर से जाँचें। ",
   "capabilities.probe_not_automatic": " डैशबोर्ड स्वचालित रूप से जाँच नहीं करता, क्योंकि प्रत्येक पृष्ठ लोड पर सौ कमांड लुकअप चलाने में बचत से अधिक लागत आएगी।",

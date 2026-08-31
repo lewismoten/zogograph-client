@@ -1007,7 +1007,6 @@
   "support.provider_message": "Mensaje para su proveedor de alojamiento",
   "support.provider_message_help": "Explica qué se midió y solicita únicamente acciones seguras. Deliberadamente no pide a nadie que elimine nada del directorio de copias de seguridad.",
   "capabilities.this_account": "esta cuenta",
-  "capabilities.this_account_or_host": "esta cuenta o el host",
   "capabilities.command_unavailable": "{{command}} no está disponible para {{where}}. Como root:",
   "capabilities.recheck_after_install": "Después de instalarlo, vuelva a comprobar la capacidad. ",
   "capabilities.probe_not_automatic": " El panel no realiza comprobaciones automáticamente, porque ejecutar cien búsquedas de comandos en cada carga de página costaría más de lo que ahorra.",

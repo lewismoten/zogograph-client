@@ -5924,26 +5924,12 @@ function renderAiSettings(data) {
     ),
   );
 
-  const reportTo = document.createElement('input');
-  reportTo.type = 'text';
-  reportTo.id = 'aiReportTo';
-  reportTo.className = 'wide-field';
-  reportTo.value = data.alerts?.report_to ?? '';
-  reportTo.placeholder = aiSettingsText(
-    'report_to_placeholder',
-    'leave blank to use the alert addresses',
-  );
   unattended.appendChild(
-    fieldRow(
-      aiSettingsText('report_to_label', 'Send summaries to'),
-      reportTo,
-      aiSettingsText(
-        'report_to_help',
-        'Semicolon-separated. A summary and an alert are different kinds of message and may ' +
-          'reasonably go to different places — but requiring a second address before the ' +
-          'feature works at all would be a needless step, so blank means the alert ' +
-          'addresses.',
-      ),
+    renderCoreCardPackage(
+      ZogographAiAlertRecipientsCard,
+      'core-ai-alert-recipients',
+      data,
+      { fieldRow, i18n: ZogographI18n },
     ),
   );
 

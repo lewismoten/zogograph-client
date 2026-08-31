@@ -5847,20 +5847,12 @@ function renderAiSettings(data) {
     ),
   );
 
-  const auto = document.createElement('input');
-  auto.type = 'checkbox';
-  auto.id = 'aiCompactAuto';
-  auto.checked = data.compact_automatically !== false;
   room.appendChild(
-    fieldRow(
-      aiSettingsText('compact_automatically_label', 'Summarise automatically'),
-      auto,
-      aiSettingsText(
-        'compact_automatically_help',
-        'On, it happens on the next turn after the mark is passed. Off, the ring in the chat ' +
-          'window goes amber and waits for you to click it — and the conversation will ' +
-          'eventually be refused by the provider if you never do.',
-      ),
+    renderCoreCardPackage(
+      ZogographAiContextAutoCompactCard,
+      'core-ai-context-auto-compact',
+      data,
+      { fieldRow, i18n: ZogographI18n },
     ),
   );
 

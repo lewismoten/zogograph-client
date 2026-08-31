@@ -4259,6 +4259,23 @@ function renderFetchPreviewLabels() {
     'core-fetch-preview.request_title',
     ZogographFetchPreviewCard.text('request_title', helpers),
   );
+  for (const key of ['follow_redirects', 'ask']) {
+    const element = document.querySelector(
+      `[data-i18n="core-fetch-preview.${key}"]`,
+    );
+    element.textContent = ZogographI18n.markSource(
+      element,
+      `core-fetch-preview.${key}`,
+      ZogographFetchPreviewCard.text(key, helpers),
+    );
+  }
+  const placeholder = document.querySelector(
+    '[data-i18n-placeholder="core-fetch-preview.placeholder"]',
+  );
+  placeholder.placeholder = ZogographFetchPreviewCard.text(
+    'placeholder',
+    helpers,
+  );
   ZogographI18n.applyRich(
     document.querySelector(
       '[data-i18n-rich="core-fetch-preview.request_help"]',

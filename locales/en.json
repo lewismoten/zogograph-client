@@ -2662,7 +2662,6 @@
   "storage.integrity_check": "Run full integrity check",
   "storage.rollup_now": "Roll up old readings now",
   "storage.account_help": "A monitor that fills the disk it is watching has failed in the most embarrassing way available to it. This is what this account’s database holds, what each part of it costs, and — the part that is usually missing — what the file will settle at if nobody touches the settings again. A table set to keep 400 days that has been collecting for thirty is at under a tenth of its eventual size, and nothing else here says so.",
-  "storage.host_title": "The host collector’s database",
   "storage.host_help": "Written by root’s collector, and read-only from here. This account can usually open it to read and should never be the thing that rewrites it — a rewrite started from here would leave a file the collector could no longer write. Where it cannot be opened at all, that is said rather than shown as zeros.",
   "storage.recommended_settings": "Use the recommended settings",
   "storage.retention_help": "Zero means {{forever}}, and for several of these that is the recommendation rather than an oversight — the note beside each one says what it is protecting. Readings are kept in tiers: full detail for the first stretch, then five-minute buckets, then hourly, then daily, each holding the worst moment in its bucket rather than an average. Nothing within a couple of hours of an alert is ever rolled up or cleared, whatever these say.",

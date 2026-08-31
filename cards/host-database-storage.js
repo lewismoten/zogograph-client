@@ -16,6 +16,7 @@ window.ZogographHostDatabaseStorageCard = {
     ],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-host-database-storage.title': 'The host collector’s database',
         'core-host-database-storage.unreadable':
           'Present but not readable by this account, or not there at all.',
         'core-host-database-storage.file': 'The file',
@@ -29,6 +30,8 @@ window.ZogographHostDatabaseStorageCard = {
           'Written by root’s collector, and read-only from here. This account can usually open it to read and should never be the thing that rewrites it — a rewrite started from here would leave a file the collector could no longer write. Where it cannot be opened at all, that is said rather than shown as zeros.',
       }),
       es: Object.freeze({
+        'core-host-database-storage.title':
+          'Base de datos del recolector del host',
         'core-host-database-storage.unreadable':
           'Está presente pero esta cuenta no puede leerla, o no existe.',
         'core-host-database-storage.file': 'El archivo',
@@ -42,6 +45,7 @@ window.ZogographHostDatabaseStorageCard = {
           'La escribe el recolector de root y aquí es de solo lectura. Esta cuenta nunca debe reescribirla; el recolector podría dejar de poder escribir el archivo.',
       }),
       hi: Object.freeze({
+        'core-host-database-storage.title': 'होस्ट कलेक्टर का डेटाबेस',
         'core-host-database-storage.unreadable':
           'यह मौजूद है लेकिन यह खाता इसे पढ़ नहीं सकता, या यह बिल्कुल मौजूद नहीं है।',
         'core-host-database-storage.file': 'फ़ाइल',
@@ -55,6 +59,7 @@ window.ZogographHostDatabaseStorageCard = {
           'इसे root का कलेक्टर लिखता है और यहाँ यह केवल पढ़ने योग्य है। इस खाते को इसे कभी फिर से नहीं लिखना चाहिए।',
       }),
       ar: Object.freeze({
+        'core-host-database-storage.title': 'قاعدة بيانات جامع المضيف',
         'core-host-database-storage.unreadable':
           'قد تكون موجودة لكن هذا الحساب لا يستطيع قراءتها، أو قد لا تكون موجودة أصلًا.',
         'core-host-database-storage.file': 'الملف',
@@ -68,6 +73,7 @@ window.ZogographHostDatabaseStorageCard = {
           'يكتبها جامع root، وهي للقراءة فقط من هنا. لا ينبغي لهذا الحساب إعادة كتابتها أبدًا.',
       }),
       zh: Object.freeze({
+        'core-host-database-storage.title': '主机收集器的数据库',
         'core-host-database-storage.unreadable':
           '该数据库存在但此帐户无法读取，或者根本不存在。',
         'core-host-database-storage.file': '文件',
@@ -83,6 +89,13 @@ window.ZogographHostDatabaseStorageCard = {
     }),
   }),
 
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-host-database-storage.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-host-database-storage.${key}`],
+    );
+  },
   render(data, helpers) {
     const {
       target,

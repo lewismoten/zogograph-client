@@ -2689,6 +2689,39 @@ document.addEventListener(
   renderAccountDatabaseStorageLabels,
 );
 
+function renderHostDatabaseStorageLabels() {
+  const helpers = {
+    target: null,
+    note: () => null,
+    section: () => null,
+    databaseStorageCard: () => null,
+    simpleTable: () => null,
+    databaseTableName: () => '',
+    humanCount: () => '',
+    humanBytes: () => '',
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(
+    ZogographHostDatabaseStorageCard,
+    'core-host-database-storage',
+    {},
+    helpers,
+  );
+  const title = document.querySelector(
+    '[data-i18n="core-host-database-storage.title"]',
+  );
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-host-database-storage.title',
+    ZogographHostDatabaseStorageCard.text('title', helpers),
+  );
+}
+
+document.addEventListener(
+  'zogograph-i18n-load',
+  renderHostDatabaseStorageLabels,
+);
+
 /**
  * When the disk is projected to fill, as a date.
  *

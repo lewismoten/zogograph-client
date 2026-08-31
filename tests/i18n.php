@@ -2462,6 +2462,25 @@ i18nExpect(
 );
 i18nExpect(
     $page !== false &&
+        str_contains($page, 'src="cards/boot-history.js"') &&
+        str_contains(
+            (string) file_get_contents($root . '/cards/boot-history.js'),
+            "id: 'core-boot-history'",
+        ) &&
+        str_contains(
+            (string) file_get_contents($root . '/cards/boot-history.js'),
+            "'core-boot-history.came_up'",
+        ) &&
+        $script !== false &&
+        str_contains(
+            $script,
+            'renderCoreCardPackage(ZogographBootHistoryCard, "core-boot-history",',
+        ) &&
+        !str_contains($script, 'if (window.ZogographBootHistoryCard)'),
+    'boot history retains a core fallback instead of its package boundary',
+);
+i18nExpect(
+    $page !== false &&
         str_contains($page, 'data-i18n="core-terminal-sessions.title"') &&
         str_contains(
             $page,

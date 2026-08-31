@@ -27203,83 +27203,18 @@ function trimPercent(value) {
 /** Why the machine restarted, where root could find out. */
 function renderBootHistory(history) {
   const wrap = $('bootHistoryWrap');
-  if (window.ZogographBootHistoryCard) {
-    return renderCoreCardPackage(
-      ZogographBootHistoryCard,
-      'core-boot-history',
-      history,
-      {
-        wrap,
-        target: $('bootHistory'),
-        renderTable,
-        whenSpan,
-        i18n: ZogographI18n,
-      },
-    );
-  }
-  if (!history) {
-    wrap.hidden = true;
-    return;
-  }
-  wrap.hidden = false;
-
-  if (!history.available) {
-    $('bootHistory').replaceChildren(
-      Object.assign(document.createElement('p'), {
-        className: 'muted',
-        textContent:
-          history.reason ||
-          ZogographI18n.t('uptime.no_boot_history', {}, 'No boot history.'),
-      }),
-    );
-    return;
-  }
-
-  renderTable('bootHistory', history.boots, [
+  return renderCoreCardPackage(
+    ZogographBootHistoryCard,
+    'core-boot-history',
+    history,
     {
-      label: ZogographI18n.t('uptime.came_up', {}, 'Came up'),
-      render: (row) => whenSpan(row.booted_at),
+      wrap,
+      target: $('bootHistory'),
+      renderTable,
+      whenSpan,
+      i18n: ZogographI18n,
     },
-    {
-      label: ZogographI18n.t('uptime.kernel', {}, 'Kernel'),
-      render: (row) => row.kernel || '—',
-    },
-    {
-      label: ZogographI18n.t(
-        'uptime.previous_session_ended',
-        {},
-        'Previous session ended',
-      ),
-      render: (row) => {
-        const span = document.createElement('span');
-        span.textContent =
-          row.ended === 'shutdown'
-            ? ZogographI18n.t('uptime.ended_cleanly', {}, 'cleanly')
-            : row.ended === 'unclean'
-              ? ZogographI18n.t(
-                  'uptime.ended_unclean',
-                  {},
-                  'without a shutdown',
-                )
-              : ZogographI18n.t('uptime.not_known', {}, 'not known');
-        // Only the unclean case is coloured: a clean shutdown is not news, and
-        // an unknown one is an absence of evidence rather than a fault.
-        if (row.ended === 'unclean') span.className = 'grew';
-        return span;
-      },
-    },
-    {
-      label: ZogographI18n.t('uptime.still_running', {}, 'Still running'),
-      className: 'size',
-      render: (row) =>
-        Number(row.still_running) ? ZogographI18n.t('form.yes', {}, 'yes') : '',
-    },
-    {
-      label: ZogographI18n.t('uptime.what_that_means', {}, 'What that means'),
-      className: 'name',
-      render: (row) => row.reason,
-    },
-  ]);
+  );
 }
 
 function renderBootHistoryLabels() {

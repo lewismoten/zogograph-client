@@ -38320,6 +38320,12 @@ function capabilityShortState(state) {
     : label || '';
 }
 
+function capabilityExposeText(key, values = {}) {
+  return ZogographCapabilityExposeDialogCard.text(key, values, {
+    i18n: ZogographI18n,
+  });
+}
+
 async function refreshCapabilities() {
   const body = $('capBody');
   if (!body) return;
@@ -38475,17 +38481,9 @@ function renderCapList(data) {
         open.textContent = '🔑';
         open.setAttribute(
           'aria-label',
-          ZogographI18n.t(
-            'capability.expose_help',
-            { name: row.name },
-            `How to expose ${row.name} to this account`,
-          ),
+          capabilityExposeText('expose_help', { name: row.name }),
         );
-        open.title = ZogographI18n.t(
-          'capability.expose_help',
-          { name: row.name },
-          `How to expose ${row.name} to this account`,
-        );
+        open.title = capabilityExposeText('expose_help', { name: row.name });
         open.addEventListener('click', () => showExposeDialog(row));
         prog.appendChild(open);
       }
@@ -38504,11 +38502,9 @@ function renderCapList(data) {
         help.target = '_blank';
         help.rel = 'noopener noreferrer';
         help.textContent = '?';
-        const title = ZogographI18n.t(
-          'capability.documentation',
-          { name: row.name },
-          `Documentation for ${row.name}`,
-        );
+        const title = capabilityExposeText('documentation', {
+          name: row.name,
+        });
         help.setAttribute('aria-label', title);
         help.title = title;
         prog.appendChild(help);
@@ -38675,11 +38671,9 @@ function renderCagefsMounts(data) {
  * something a web button should do quietly on somebody's behalf.
  */
 function showExposeDialog(row) {
-  $('listDialogTitle').textContent = ZogographI18n.t(
-    'capability.expose_title',
-    { name: row.name },
-    `Expose ${row.name} to this account`,
-  );
+  $('listDialogTitle').textContent = capabilityExposeText('expose_title', {
+    name: row.name,
+  });
   $('listDialogNote').textContent = row.reason || '';
 
   const body = $('listDialogBody');

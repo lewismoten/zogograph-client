@@ -13,6 +13,12 @@ window.ZogographCapabilityExposeDialogCard = {
           'Ask the collector to check afterwards',
         'core-capability-expose-dialog.queue_check_help':
           'Queues a capability sweep so the next host run confirms whether it worked.',
+        'core-capability-expose-dialog.expose_help':
+          'How to expose {{name}} to this account',
+        'core-capability-expose-dialog.documentation':
+          'Documentation for {{name}}',
+        'core-capability-expose-dialog.expose_title':
+          'Expose {{name}} to this account',
       }),
       es: Object.freeze({
         'core-capability-expose-dialog.intro':
@@ -23,6 +29,12 @@ window.ZogographCapabilityExposeDialogCard = {
           'Pedir al recopilador que lo compruebe después',
         'core-capability-expose-dialog.queue_check_help':
           'Encola una comprobación de capacidades para que la siguiente ejecución del host confirme si funcionó.',
+        'core-capability-expose-dialog.expose_help':
+          'Cómo exponer {{name}} a esta cuenta',
+        'core-capability-expose-dialog.documentation':
+          'Documentación de {{name}}',
+        'core-capability-expose-dialog.expose_title':
+          'Exponer {{name}} a esta cuenta',
       }),
       hi: Object.freeze({
         'core-capability-expose-dialog.intro':
@@ -33,6 +45,12 @@ window.ZogographCapabilityExposeDialogCard = {
           'कलेक्टर से बाद में जाँचने को कहें',
         'core-capability-expose-dialog.queue_check_help':
           'क्षमता जाँच को कतार में रखता है ताकि अगला होस्ट रन पुष्टि करे कि यह काम किया।',
+        'core-capability-expose-dialog.expose_help':
+          'इस खाते में {{name}} को कैसे उपलब्ध करें',
+        'core-capability-expose-dialog.documentation':
+          '{{name}} के लिए दस्तावेज़',
+        'core-capability-expose-dialog.expose_title':
+          'इस खाते में {{name}} उपलब्ध करें',
       }),
       ar: Object.freeze({
         'core-capability-expose-dialog.intro':
@@ -43,6 +61,11 @@ window.ZogographCapabilityExposeDialogCard = {
           'اطلب من الجامع التحقق لاحقًا',
         'core-capability-expose-dialog.queue_check_help':
           'يضع فحص القدرات في الطابور ليؤكد تشغيل المضيف التالي نجاحه.',
+        'core-capability-expose-dialog.expose_help':
+          'كيفية إتاحة {{name}} لهذا الحساب',
+        'core-capability-expose-dialog.documentation': 'توثيق {{name}}',
+        'core-capability-expose-dialog.expose_title':
+          'إتاحة {{name}} لهذا الحساب',
       }),
       zh: Object.freeze({
         'core-capability-expose-dialog.intro':
@@ -52,9 +75,21 @@ window.ZogographCapabilityExposeDialogCard = {
         'core-capability-expose-dialog.queue_check': '让采集器随后检查',
         'core-capability-expose-dialog.queue_check_help':
           '将能力扫描排入队列，以便下次主机运行确认是否生效。',
+        'core-capability-expose-dialog.expose_help':
+          '如何向此账户公开 {{name}}',
+        'core-capability-expose-dialog.documentation': '{{name}} 的文档',
+        'core-capability-expose-dialog.expose_title': '向此账户公开 {{name}}',
       }),
     }),
   }),
+  text(key, values, helpers) {
+    const localeKey = `core-capability-expose-dialog.${key}`;
+    return helpers.i18n.t(
+      localeKey,
+      values,
+      this.manifest.catalogs.en[localeKey],
+    );
+  },
   render(row, helpers) {
     const frag = document.createDocumentFragment();
     const intro = document.createElement('p');

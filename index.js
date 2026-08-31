@@ -5946,6 +5946,20 @@ function renderChatShellAccessibility() {
 
 document.addEventListener('zogograph-i18n-load', renderChatShellAccessibility);
 
+function renderChatShellControls() {
+  const labels = renderCoreCardPackage(
+    ZogographChatShellControlsCard,
+    'core-chat-shell-controls',
+    {},
+    { i18n: ZogographI18n },
+  );
+  $('chatEffort').title = labels.effortTitle;
+  $('chatClose').title = labels.hideTitle;
+  $('chatClose').setAttribute('aria-label', labels.close);
+}
+
+document.addEventListener('zogograph-i18n-load', renderChatShellControls);
+
 /** Every container the settings are split across. */
 const AI_SETTING_PAGES = [
   'aiIdentityBody',

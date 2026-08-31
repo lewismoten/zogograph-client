@@ -30383,9 +30383,14 @@ function inspectHistory(data) {
   holder.appendChild(
     note(
       change === 0
-        ? `Unchanged across ${count(history.rows.length, 'scan')}.`
-        : `${change > 0 ? 'Grew' : 'Shrank'} by ${humanBytes(Math.abs(change))} across ` +
-            `${count(history.rows.length, 'scan')}, from ${humanBytes(first)} to ${humanBytes(last)}.`,
+        ? text('unchanged', { scans: count(history.rows.length, 'scan') })
+        : text('changed', {
+            direction: text(change > 0 ? 'grew' : 'shrank'),
+            amount: humanBytes(Math.abs(change)),
+            scans: count(history.rows.length, 'scan'),
+            first: humanBytes(first),
+            last: humanBytes(last),
+          }),
     ),
   );
 

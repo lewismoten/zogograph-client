@@ -339,6 +339,19 @@ i18nExpect(
     'category chart empty state belongs to its card package',
 );
 i18nExpect(
+    $page !== false &&
+        str_contains($page, 'src="cards/url-monitor-actions.js"') &&
+        str_contains($page, 'src="cards/url-monitor-status.js"') &&
+        str_contains($page, 'src="cards/url-monitor-history.js"') &&
+        !isset(
+            $english['url.history'],
+            $english['url.checked_now'],
+            $english['url.switched_off'],
+            $english['url.history_summary'],
+        ),
+    'URL monitor action, status, and history locales belong to card packages',
+);
+i18nExpect(
     !isset(
         $english['ai.test_connection'],
         $english['ai.test_connection_title'],

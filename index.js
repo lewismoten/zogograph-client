@@ -3344,6 +3344,9 @@ function renderCpuFindingsTitle() {
     'core-cpu-findings.title',
     ZogographCpuFindingsCard.text('title', helpers),
   );
+  ZogographI18n.applyRich(
+    document.querySelector('[data-i18n-rich="core-cpu-findings.help"]'),
+  );
 }
 
 document.addEventListener('zogograph-i18n-load', renderCpuFindingsTitle);

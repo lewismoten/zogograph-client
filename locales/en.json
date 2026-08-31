@@ -2418,7 +2418,6 @@
   "system.whoami_help": "Two identities that get confused constantly: the browser at the other end, and the account this process runs as. The second is the one that answers permission questions — ‘this account cannot read that’ means nothing until you know which account it is.",
   "action.recheck": "Recheck",
   "cpu.help": "How hard the processor is working, and how much of it this account may use. Inside CageFS the account's own percentage is of its allowance rather than of the machine, so a pinned account and an idle server are the ordinary shape of hitting a limit rather than a contradiction.",
-  "cpu.findings_help": "Every line below is a measurement taken from this machine, with a link to the page it came from. Nothing here infers a cause it cannot see, and ‘nothing found’ is said in those words rather than as a clean bill of health.",
   "cpu.busy_help": "The total busy line is split into the states that make it up. The monitor tree and the remaining workload are also shown: together they explain the total, while alerts continue to use total host CPU. Percentages are of every core added together, so 100% is the whole machine occupied rather than one core of it.",
   "capabilities.title": "Capabilities",
   "capabilities.show": "Show",

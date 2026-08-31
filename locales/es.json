@@ -2403,7 +2403,6 @@
   "system.whoami_help": "Hay dos identidades que se confunden constantemente: el navegador del otro lado y la cuenta con la que se ejecuta este proceso. La segunda responde las preguntas de permisos: «esta cuenta no puede leer eso» no significa nada hasta saber de qué cuenta se trata.",
   "action.recheck": "Comprobar de nuevo",
   "cpu.help": "Cuánto trabaja el procesador y qué parte puede usar esta cuenta. Dentro de CageFS, el porcentaje propio de la cuenta corresponde a su asignación, no a la máquina; por eso una cuenta limitada y un servidor inactivo son la forma normal de alcanzar un límite, no una contradicción.",
-  "cpu.findings_help": "Cada línea de abajo es una medición tomada de esta máquina, con un enlace a la página de la que procede. Nada aquí deduce una causa que no puede ver, y «no se encontró nada» se dice así, en lugar de dar un certificado de buena salud.",
   "cpu.busy_help": "La línea total de ocupación se divide en los estados que la componen. También se muestran el árbol del monitor y la carga de trabajo restante: juntos explican el total, mientras que las alertas siguen usando la CPU total del host. Los porcentajes suman todos los núcleos, por lo que 100% significa que toda la máquina está ocupada, no un solo núcleo.",
   "capabilities.title": "Capacidades",
   "capabilities.show": "Mostrar",

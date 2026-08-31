@@ -2384,8 +2384,6 @@
   "network.domain_warn": "warn",
   "network.domain_days_before": "days before",
   "network.domain_watch": "Watch it",
-  "network.dns_domain": "Domain",
-  "network.dns_sweep": "Look it all up",
   "action.recheck": "Recheck",
   "capabilities.check_now": "Check now",
   "capabilities.nothing_checked_yet": "Nothing checked yet.",

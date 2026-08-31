@@ -3164,6 +3164,16 @@ function renderDnsRecordGroupTitle() {
     'core-dns-record-group.overview_help',
     ZogographDnsRecordGroupCard.text('overview_help', helpers),
   );
+  for (const key of ['domain', 'sweep']) {
+    const node = document.querySelector(
+      `[data-i18n="core-dns-record-group.${key}"]`,
+    );
+    node.textContent = ZogographI18n.markSource(
+      node,
+      `core-dns-record-group.${key}`,
+      ZogographDnsRecordGroupCard.text(key, helpers),
+    );
+  }
 }
 
 document.addEventListener('zogograph-i18n-load', renderDnsRecordGroupTitle);

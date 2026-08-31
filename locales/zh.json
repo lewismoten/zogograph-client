@@ -2366,8 +2366,6 @@
   "network.domain_warn": "警告",
   "network.domain_days_before": "天前",
   "network.domain_watch": "监视",
-  "network.dns_domain": "域名",
-  "network.dns_sweep": "全部查询",
   "action.recheck": "重新检查",
   "capabilities.check_now": "立即检查",
   "capabilities.nothing_checked_yet": "尚未检查任何内容。",

@@ -2368,8 +2368,6 @@
   "network.domain_warn": "चेतावनी",
   "network.domain_days_before": "दिन पहले",
   "network.domain_watch": "निगरानी करें",
-  "network.dns_domain": "डोमेन",
-  "network.dns_sweep": "सब कुछ खोजें",
   "action.recheck": "फिर जाँचें",
   "capabilities.check_now": "अभी जाँचें",
   "capabilities.nothing_checked_yet": "अभी तक कुछ नहीं जांचा गया है।",

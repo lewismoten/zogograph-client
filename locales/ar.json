@@ -2366,8 +2366,6 @@
   "network.domain_warn": "حذّر",
   "network.domain_days_before": "أيام قبل",
   "network.domain_watch": "راقبه",
-  "network.dns_domain": "النطاق",
-  "network.dns_sweep": "ابحث عن الكل",
   "action.recheck": "تحقق مجددًا",
   "capabilities.check_now": "تحقق الآن",
   "capabilities.nothing_checked_yet": "لم يُفحص شيء بعد.",

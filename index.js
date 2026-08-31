@@ -30315,6 +30315,13 @@ function inspectPie(title, slices, note_) {
  * what they just asked the connection to carry.
  */
 function inspectImage(data) {
+  const text = (key, values = {}) =>
+    renderCoreCardPackage(
+      ZogographStorageInspectorPreviewCard,
+      'core-storage-inspector-preview',
+      { key, values },
+      { i18n: ZogographI18n },
+    );
   const wrap = document.createElement('div');
 
   const img = document.createElement('img');
@@ -30336,27 +30343,19 @@ function inspectImage(data) {
   wrap.appendChild(img);
 
   const said = data.image.width
-    ? ZogographI18n.t(
-        'storage.image_preview_dimensions',
-        {
-          format: data.image.format.toUpperCase(),
-          width: data.image.width,
-          height: data.image.height,
-          size: humanBytes(data.facts.size_bytes),
-        },
-        '{{format}}, {{width, number}}×{{height, number}} pixels, {{size}} sent in full and scaled here.',
-      )
-    : ZogographI18n.t(
-        'storage.image_preview_size',
-        {
-          format: data.image.format.toUpperCase(),
-          size: humanBytes(data.facts.size_bytes),
-        },
-        '{{format}}, {{size}}.',
-      );
+    ? text('dimensions', {
+        format: data.image.format.toUpperCase(),
+        width: data.image.width,
+        height: data.image.height,
+        size: humanBytes(data.facts.size_bytes),
+      })
+    : text('size', {
+        format: data.image.format.toUpperCase(),
+        size: humanBytes(data.facts.size_bytes),
+      });
   wrap.appendChild(note(said));
 
-  return section(ZogographI18n.t('storage.preview', {}, 'Preview'), wrap);
+  return section(text('title'), wrap);
 }
 
 function inspectHistory(data) {

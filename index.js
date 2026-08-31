@@ -17510,16 +17510,10 @@ function renderNotes(data) {
     controls.className = 'table-tools note-batch-tools';
     const selected = document.createElement('span');
     selected.textContent = noteState.selected.size
-      ? ZogographI18n.t(
-          'notes.selected',
-          { count: humanCount(noteState.selected.size) },
-          '{{count}} selected',
-        )
-      : ZogographI18n.t(
-          'notes.select_to_act',
-          {},
-          'Select notes to dismiss or delete',
-        );
+      ? notesRecordsText('selected', {
+          count: humanCount(noteState.selected.size),
+        })
+      : notesRecordsText('select_to_act');
     controls.appendChild(selected);
     const clear = document.createElement('button');
     clear.className = 'link';
@@ -17529,11 +17523,7 @@ function renderNotes(data) {
       'Dismiss selected',
     );
     clear.disabled = !state.access?.write || !noteState.selected.size;
-    clear.title = ZogographI18n.t(
-      'notes.dismiss_selected_help',
-      {},
-      'Clears selected broadcast notes; ordinary notes are left alone.',
-    );
+    clear.title = notesRecordsText('dismiss_selected_help');
     clear.addEventListener('click', () => batchNotes('clear'));
     const remove = document.createElement('button');
     remove.className = 'link danger';
@@ -17561,11 +17551,7 @@ function renderNotes(data) {
             pick.checked = noteState.selected.has(row.id);
             pick.setAttribute(
               'aria-label',
-              ZogographI18n.t(
-                'notes.select_from',
-                { when: whenSpan(row.at) },
-                'Select note from {{when}}',
-              ),
+              notesRecordsText('select_from', { when: whenSpan(row.at) }),
             );
             pick.addEventListener('click', (event) => event.stopPropagation());
             pick.addEventListener('change', () => {

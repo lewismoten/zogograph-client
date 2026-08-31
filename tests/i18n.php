@@ -3521,10 +3521,6 @@ i18nExpect(
             $english['pending.new'],
             $english['notes.capture_size'],
             $english['notes.pictures_kept'],
-            $english['notes.selected'],
-            $english['notes.select_to_act'],
-            $english['notes.dismiss_selected_help'],
-            $english['notes.select_from'],
             $english['notes.broadcast_cleared'],
             $english['notes.broadcast_active'],
             $english['process.ask'],
@@ -3816,13 +3812,19 @@ i18nExpect(
 i18nExpect(
     $script !== false &&
         str_contains($notesEmptyCard, 'core-notes-empty.message') &&
-        str_contains($script, 'notes.selected') &&
-        str_contains($script, 'notes.dismiss_selected_help'),
-    'note selection controls retain direct user-visible text',
+        str_contains($script, "notesRecordsText('selected'") &&
+        str_contains($script, "notesRecordsText('dismiss_selected_help')") &&
+        !isset(
+            $english['notes.selected'],
+            $english['notes.select_to_act'],
+            $english['notes.dismiss_selected_help'],
+            $english['notes.select_from'],
+        ),
+    'note selection controls are not package-owned',
 );
 i18nExpect(
     $script !== false &&
-        str_contains($script, 'notes.select_from') &&
+        str_contains($script, "notesRecordsText('select_from'") &&
         str_contains($script, 'notes.broadcast_cleared') &&
         str_contains($script, "notesRecordsText('table_size')") &&
         str_contains(

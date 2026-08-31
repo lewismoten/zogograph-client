@@ -34782,6 +34782,14 @@ async function refreshCaptures() {
 
 const urlState = { data: null, selected: null, editing: null };
 
+const urlActionText = (key, values = {}) =>
+  renderCoreCardPackage(
+    window.ZogographUrlMonitorActionsCard,
+    'core-url-monitor-actions',
+    { key, values },
+    { i18n: ZogographI18n },
+  );
+
 async function refreshUrls() {
   const body = $('urlBody');
   if (!state.signedIn) {
@@ -34965,7 +34973,7 @@ function renderUrls(data) {
         render: (row) => {
           const wrap = document.createDocumentFragment();
 
-          for (const [key, text, title, run] of [
+          for (const [key, , , run] of [
             [
               'history',
               'History',
@@ -34985,8 +34993,8 @@ function renderUrls(data) {
                 const result = await post('url-run', { id: row.id });
                 notice(
                   result.result.ok
-                    ? ZogographI18n.t(
-                        'url.checked_now',
+                    ? urlActionText(
+                        'checked_now',
                         {
                           label: row.label,
                           status: result.result.status,
@@ -34994,8 +35002,8 @@ function renderUrls(data) {
                         },
                         '{{label}}: answered {{status}} in {{ms}} ms.',
                       )
-                    : ZogographI18n.t(
-                        'url.check_failed',
+                    : urlActionText(
+                        'check_failed',
                         {
                           label: row.label,
                           detail: result.result.error || 'failed',
@@ -35028,12 +35036,12 @@ function renderUrls(data) {
               async () => {
                 if (
                   !(await confirmDialog(
-                    ZogographI18n.t(
-                      'url.remove_confirmation',
+                    urlActionText(
+                      'remove_confirmation',
                       { label: row.label },
                       'Stop watching {{label}}? Its history goes with it.',
                     ),
-                    ZogographI18n.t('url.remove_title', {}, 'Stop watching'),
+                    urlActionText('remove_title'),
                   ))
                 )
                   return;
@@ -35043,8 +35051,8 @@ function renderUrls(data) {
           ]) {
             const button = document.createElement('button');
             button.className = key === 'remove' ? 'link danger' : 'link';
-            button.textContent = ZogographI18n.t(`url.${key}`, {}, text);
-            button.title = ZogographI18n.t(`url.${key}_help`, {}, title);
+            button.textContent = urlActionText(key);
+            button.title = urlActionText(`${key}_help`);
             if (
               key === 'history' &&
               Number(urlState.selected) === Number(row.id)

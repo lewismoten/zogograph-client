@@ -460,7 +460,6 @@
   "storage.link_sweep_left_alone": "{{count}} links left alone.",
   "storage.link_sweep_preview": "{{matched}} links with a problem are under that path. {{deleted}} broken links would be removed.",
   "storage.link_sweep_preview_skipped": "{{matched}} links with a problem are under that path. {{deleted}} broken links would be removed, and {{skipped}} with other problems left alone — a loop or an escape is never removed on a path alone.",
-  "storage.link_repoint_prompt": "Where should {{name}} point?",
   "storage.link_repoint_hint": "Use an absolute path or a path relative to the link's directory.",
   "storage.link_make_directory_confirm": "Replace {{path}} with a real, empty directory?\n\nThe link goes; whatever it pointed at is untouched.",
   "storage.link_remove_title": "Delete the link itself",

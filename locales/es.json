@@ -2130,7 +2130,6 @@
   "storage.files_right": "Archivos (derecha)",
   "storage.link": "Enlace",
   "storage.history_one_scan": "Esta ruta solo se ha visto en un análisis hasta ahora",
-  "storage.on_disk": "En disco",
   "storage.permission_owner": "propietario",
   "storage.permission_group": "grupo",
   "storage.permission_everyone_else": "todos los demás",

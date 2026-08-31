@@ -2202,7 +2202,6 @@
   "storage.files_right": "Files (right)",
   "storage.link": "Link",
   "storage.history_one_scan": "This path has only been seen in one scan so far",
-  "storage.on_disk": "On disk",
   "storage.permission_owner": "owner",
   "storage.permission_group": "group",
   "storage.permission_everyone_else": "everyone else",

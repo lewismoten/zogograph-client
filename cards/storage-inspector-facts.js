@@ -41,6 +41,9 @@ window.ZogographStorageInspectorFactsCard = {
           'The walk ran out of time. The size above is a lower bound — at least that much, not exactly that much.',
         'core-storage-inspector-facts.site_unknown':
           '🌐 a website, domain unknown',
+        'core-storage-inspector-facts.on_disk': 'On disk',
+        'core-storage-inspector-facts.block_padding': '(block padding)',
+        'core-storage-inspector-facts.sparse_file': '(sparse file)',
       }),
       es: Object.freeze({
         'core-storage-inspector-facts.kind': 'Tipo',
@@ -80,6 +83,9 @@ window.ZogographStorageInspectorFactsCard = {
           'El recorrido se quedó sin tiempo. El tamaño de arriba es un límite inferior: al menos eso, no exactamente eso.',
         'core-storage-inspector-facts.site_unknown':
           '🌐 un sitio web, dominio desconocido',
+        'core-storage-inspector-facts.on_disk': 'En disco',
+        'core-storage-inspector-facts.block_padding': '(relleno de bloque)',
+        'core-storage-inspector-facts.sparse_file': '(archivo disperso)',
       }),
       hi: Object.freeze({
         'core-storage-inspector-facts.kind': 'प्रकार',
@@ -118,6 +124,9 @@ window.ZogographStorageInspectorFactsCard = {
           'चलने का समय समाप्त हो गया। ऊपर का आकार एक निचली सीमा है — कम से कम उतना, ठीक उतना नहीं।',
         'core-storage-inspector-facts.site_unknown':
           '🌐 एक वेबसाइट, डोमेन अज्ञात',
+        'core-storage-inspector-facts.on_disk': 'डिस्क पर',
+        'core-storage-inspector-facts.block_padding': '(ब्लॉक पैडिंग)',
+        'core-storage-inspector-facts.sparse_file': '(स्पार्स फ़ाइल)',
       }),
       ar: Object.freeze({
         'core-storage-inspector-facts.kind': 'النوع',
@@ -154,6 +163,9 @@ window.ZogographStorageInspectorFactsCard = {
           'انتهى وقت الاجتياز. الحجم أعلاه حد أدنى — على الأقل هذا القدر، وليس بالضبط هذا القدر.',
         'core-storage-inspector-facts.site_unknown':
           '🌐 موقع ويب، النطاق غير معروف',
+        'core-storage-inspector-facts.on_disk': 'على القرص',
+        'core-storage-inspector-facts.block_padding': '(حشو الكتلة)',
+        'core-storage-inspector-facts.sparse_file': '(ملف متفرق)',
       }),
       zh: Object.freeze({
         'core-storage-inspector-facts.kind': '类型',
@@ -189,6 +201,9 @@ window.ZogographStorageInspectorFactsCard = {
         'core-storage-inspector-facts.measurement_incomplete':
           '遍历已超时。上方大小是下限——至少这么多，而非精确数值。',
         'core-storage-inspector-facts.site_unknown': '🌐 一个网站，域名未知',
+        'core-storage-inspector-facts.on_disk': '在磁盘上',
+        'core-storage-inspector-facts.block_padding': '（块填充）',
+        'core-storage-inspector-facts.sparse_file': '（稀疏文件）',
       }),
     }),
   }),

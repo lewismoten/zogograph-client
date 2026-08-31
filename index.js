@@ -30031,11 +30031,11 @@ function renderInspect(data) {
     Math.abs(data.allocated_bytes - f.size_bytes) > 4096
   ) {
     facts.push([
-      ZogographI18n.t('storage.on_disk', {}, 'On disk'),
+      factsText('on_disk'),
       `${humanBytes(data.allocated_bytes)} allocated ` +
         (data.allocated_bytes > f.size_bytes
-          ? '(block padding)'
-          : '(sparse file)'),
+          ? factsText('block_padding')
+          : factsText('sparse_file')),
     ]);
   }
 

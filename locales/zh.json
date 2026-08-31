@@ -2126,7 +2126,6 @@
   "storage.files_right": "文件（右侧）",
   "storage.link": "链接",
   "storage.history_one_scan": "此路径目前只在一次扫描中出现过",
-  "storage.on_disk": "在磁盘上",
   "storage.permission_owner": "所有者",
   "storage.permission_group": "组",
   "storage.permission_everyone_else": "其他所有人",

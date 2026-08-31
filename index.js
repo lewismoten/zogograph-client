@@ -3314,6 +3314,11 @@ function renderCpuProcessesTitle() {
     'core-cpu-processes.title',
     ZogographCpuProcessesCard.text('title', helpers),
   );
+  for (const key of ['help', 'visibility_help']) {
+    ZogographI18n.applyRich(
+      document.querySelector(`[data-i18n-rich="core-cpu-processes.${key}"]`),
+    );
+  }
 }
 
 document.addEventListener('zogograph-i18n-load', renderCpuProcessesTitle);

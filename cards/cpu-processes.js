@@ -16,6 +16,10 @@ window.ZogographCpuProcessesCard = {
     catalogs: Object.freeze({
       en: Object.freeze({
         'core-cpu-processes.title': 'What is burning it',
+        'core-cpu-processes.help':
+          'Processor use per process, read as root, so this is every account on the machine and not only this one. Percentages here are of {{core}}, the way {{top}} reports them — a process with four busy threads shows 400%, which is a fact about it rather than an error. That is the opposite convention to every other percentage on these pages, and the columns say so.',
+        'core-cpu-processes.visibility_help':
+          'A process is only here if it was alive for two consecutive readings or has burned real time since it started. Work that arrives and leaves inside one minute — a fork-per-request server, a tight cron loop — can hold a core permanently without a single one of its processes ever appearing in this table. If the machine is busy and this list is not, {{fork_rate}} is where that shows up.',
         'core-cpu-processes.empty':
           'No process has used measurable processor time between two readings.',
         'core-cpu-processes.summary':
@@ -43,6 +47,10 @@ window.ZogographCpuProcessesCard = {
       }),
       es: Object.freeze({
         'core-cpu-processes.title': 'Qué lo está consumiendo',
+        'core-cpu-processes.help':
+          'Uso de procesador por proceso, leído como root, así que incluye todas las cuentas de la máquina, no solo esta. Los porcentajes aquí son de {{core}}, como los informa {{top}}: un proceso con cuatro hilos ocupados muestra 400%, lo cual es un hecho y no un error. Es la convención opuesta a todos los demás porcentajes de estas páginas, y las columnas lo indican.',
+        'core-cpu-processes.visibility_help':
+          'Un proceso solo aparece aquí si estuvo vivo durante dos lecturas consecutivas o consumió tiempo real desde que comenzó. El trabajo que llega y se va en un minuto —un servidor que crea un proceso por solicitud, un cron ajustado— puede mantener un núcleo ocupado permanentemente sin que ninguno de sus procesos aparezca en esta tabla. Si la máquina está ocupada y esta lista no, {{fork_rate}} es donde se muestra.',
         'core-cpu-processes.empty':
           'Ningún proceso ha usado tiempo de procesador medible entre dos lecturas.',
         'core-cpu-processes.summary':
@@ -70,6 +78,10 @@ window.ZogographCpuProcessesCard = {
       }),
       hi: Object.freeze({
         'core-cpu-processes.title': 'इसे कौन जला रहा है',
+        'core-cpu-processes.help':
+          'प्रति प्रोसेस प्रोसेसर उपयोग, root के रूप में पढ़ा गया है, इसलिए इसमें केवल यह नहीं बल्कि मशीन का हर खाता है। यहाँ प्रतिशत {{core}} के हैं, जिस तरह {{top}} उन्हें बताता है—चार व्यस्त थ्रेड वाला प्रोसेस 400% दिखाता है; यह उसके बारे में तथ्य है, त्रुटि नहीं। यह इन पृष्ठों के हर दूसरे प्रतिशत की उलटी परंपरा है और कॉलम ऐसा बताते हैं।',
+        'core-cpu-processes.visibility_help':
+          'कोई प्रोसेस केवल तभी यहाँ है यदि वह लगातार दो रीडिंग तक जीवित था या शुरू होने के बाद से वास्तविक समय जला चुका है। एक मिनट के अंदर आने-जाने वाला काम—हर अनुरोध पर fork करने वाला सर्वर, तंग cron लूप—किसी एक प्रोसेस के इस तालिका में आए बिना भी कोर को स्थायी रूप से व्यस्त रख सकता है। मशीन व्यस्त हो और यह सूची न हो, तो {{fork_rate}} में वह दिखता है।',
         'core-cpu-processes.empty':
           'दो रीडिंग के बीच किसी प्रक्रिया ने मापने योग्य प्रोसेसर समय उपयोग नहीं किया।',
         'core-cpu-processes.summary':
@@ -96,6 +108,10 @@ window.ZogographCpuProcessesCard = {
       }),
       ar: Object.freeze({
         'core-cpu-processes.title': 'ما الذي يحرقه',
+        'core-cpu-processes.help':
+          'استخدام المعالج لكل عملية، مقروءًا بصلاحيات root، لذا يشمل كل حساب على الآلة لا هذا الحساب فقط. النسب هنا هي من {{core}}، بالطريقة التي يعرضها {{top}} — فالعملية ذات أربعة خيوط مشغولة تعرض 400%، وهذه حقيقة عنها لا خطأ. هذا عكس الاصطلاح في كل النسب الأخرى في هذه الصفحات، وتوضح الأعمدة ذلك.',
+        'core-cpu-processes.visibility_help':
+          'لا تظهر عملية هنا إلا إذا كانت حية في قراءتين متتاليتين أو استهلكت وقتًا فعليًا منذ بدايتها. العمل الذي يصل ويغادر خلال دقيقة — خادم يفرّع لكل طلب أو حلقة cron ضيقة — قد يشغل نواة باستمرار من دون أن تظهر أي من عملياته في هذا الجدول. إذا كانت الآلة مشغولة وليست هذه القائمة، فـ{{fork_rate}} هو المكان الذي يظهر فيه ذلك.',
         'core-cpu-processes.empty':
           'لم تستخدم أي عملية وقت معالجة قابلًا للقياس بين قراءتين.',
         'core-cpu-processes.summary':
@@ -122,6 +138,10 @@ window.ZogographCpuProcessesCard = {
       }),
       zh: Object.freeze({
         'core-cpu-processes.title': '是什么在消耗它',
+        'core-cpu-processes.help':
+          '按进程读取的处理器使用量，以 root 身份读取，因此这里显示机器上的所有账户，不仅是此账户。这里的百分比以 {{core}} 为单位，和 {{top}} 的报告方式一样——一个有四个忙碌线程的进程会显示 400%，这是事实而非错误。这与这些页面上所有其他百分比的惯例相反，列标题会说明这一点。',
+        'core-cpu-processes.visibility_help':
+          '一个进程只有在连续两次读数中都存活，或自启动后消耗过实际时间时才会出现在这里。在一分钟内到来又离开的工作——每个请求 fork 一次的服务器、紧密的 cron 循环——即使其任何进程从未出现在此表中，也能持续占用一个核心。如果机器很忙而此列表没有内容，请看 {{fork_rate}}。',
         'core-cpu-processes.empty':
           '两个读数之间没有进程使用可测量的处理器时间。',
         'core-cpu-processes.summary':

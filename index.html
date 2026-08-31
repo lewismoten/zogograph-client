@@ -228,6 +228,7 @@
     <script src="cards/shared-dialogs.js" defer></script>
     <script src="cards/privacy-controls.js" defer></script>
     <script src="cards/time-range-selector.js" defer></script>
+    <script src="cards/unit-selector.js" defer></script>
     <script src="cards/chat-cost.js" defer></script>
     <script src="cards/chat-summary-marker.js" defer></script>
     <script src="cards/chat-summary-dialog.js" defer></script>
@@ -356,13 +357,17 @@
         <label class="inline" id="unitsWrap">
           <span class="control-label" data-i18n="dashboard.show">Show</span>
           <select id="units">
-            <option value="bytes" selected data-i18n="units.absolute">
+            <option
+              value="bytes"
+              selected
+              data-i18n="core-unit-selector.absolute"
+            >
               Absolute
             </option>
-            <option value="percent" data-i18n="units.percent_free">
+            <option value="percent" data-i18n="core-unit-selector.percent_free">
               Percent free
             </option>
-            <option value="delta" data-i18n="units.change">
+            <option value="delta" data-i18n="core-unit-selector.change">
               Change per reading
             </option>
           </select>

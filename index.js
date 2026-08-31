@@ -3390,6 +3390,30 @@ function renderUptimeTitle() {
 
 document.addEventListener('zogograph-i18n-load', renderUptimeTitle);
 
+function renderTerminalSessionsTitle() {
+  const helpers = { i18n: ZogographI18n };
+  const title = document.querySelector(
+    '[data-i18n="core-terminal-sessions.title"]',
+  );
+  const label = renderCoreCardPackage(
+    ZogographTerminalSessionsCard,
+    'core-terminal-sessions',
+    {
+      kind: 'name',
+      key: 'title',
+      fallback: 'Terminal sessions',
+    },
+    helpers,
+  );
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-terminal-sessions.title',
+    label,
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderTerminalSessionsTitle);
+
 /**
  * When the disk is projected to fill, as a date.
  *

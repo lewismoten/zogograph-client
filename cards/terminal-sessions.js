@@ -6,6 +6,7 @@ window.ZogographTerminalSessionsCard = {
     helpers: ['target', 'note', 'renderTable', 'whenSpan', 'open', 'i18n'],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-terminal-sessions.title': 'Terminal sessions',
         'core-terminal-sessions.empty':
           'Nothing yet. A session starts the first time a command is run and stays open until an hour goes by without one.',
         'core-terminal-sessions.topic': 'Topic',
@@ -21,6 +22,7 @@ window.ZogographTerminalSessionsCard = {
         'core-terminal-sessions.named': 'Named.',
       }),
       es: Object.freeze({
+        'core-terminal-sessions.title': 'Sesiones de terminal',
         'core-terminal-sessions.empty':
           'Todavía no hay nada. Una sesión empieza al ejecutar el primer comando y permanece abierta hasta que pasa una hora sin otro.',
         'core-terminal-sessions.topic': 'Tema',
@@ -36,6 +38,7 @@ window.ZogographTerminalSessionsCard = {
         'core-terminal-sessions.named': 'Nombrada.',
       }),
       hi: Object.freeze({
+        'core-terminal-sessions.title': 'टर्मिनल सत्र',
         'core-terminal-sessions.empty':
           'अभी कुछ नहीं है। पहला कमांड चलने पर सत्र शुरू होता है और एक घंटे तक कोई कमांड न होने पर बंद होता है।',
         'core-terminal-sessions.topic': 'विषय',
@@ -51,6 +54,7 @@ window.ZogographTerminalSessionsCard = {
         'core-terminal-sessions.named': 'नाम दिया गया।',
       }),
       ar: Object.freeze({
+        'core-terminal-sessions.title': 'جلسات الطرفية',
         'core-terminal-sessions.empty':
           'لا شيء بعد. تبدأ الجلسة عند تشغيل أول أمر وتبقى مفتوحة حتى تمر ساعة بلا أمر آخر.',
         'core-terminal-sessions.topic': 'الموضوع',
@@ -66,6 +70,7 @@ window.ZogographTerminalSessionsCard = {
         'core-terminal-sessions.named': 'تمت التسمية.',
       }),
       zh: Object.freeze({
+        'core-terminal-sessions.title': '终端会话',
         'core-terminal-sessions.empty':
           '尚无内容。首次运行命令时会开始会话，一个小时没有命令后会话关闭。',
         'core-terminal-sessions.topic': '主题',

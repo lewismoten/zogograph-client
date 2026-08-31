@@ -2046,6 +2046,15 @@ i18nExpect(
     'uptime dashboard card is not isolated behind its core card-module boundary',
 );
 i18nExpect(
+    $page !== false &&
+        str_contains($page, 'data-i18n="core-terminal-sessions.title"') &&
+        is_array($coreCardEnglish) &&
+        isset($coreCardEnglish['core-terminal-sessions.title']) &&
+        is_array($english) &&
+        !isset($english['terminal.sessions_title']),
+    'terminal sessions heading does not use its core card package catalog',
+);
+i18nExpect(
     $actionSummaryCard !== false &&
         str_contains($actionSummaryCard, 'locales: ["core-action-summary."]') &&
         str_contains($actionSummaryCard, '"core-action-summary.things_done"') &&

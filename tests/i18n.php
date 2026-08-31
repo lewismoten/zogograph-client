@@ -253,6 +253,9 @@ $hostDisksCard = i18nCardSource(
 $hostIoProcessesCard = i18nCardSource(
     file_get_contents($root . '/cards/host-io-processes.js'),
 );
+$terminalActionsCard = i18nCardSource(
+    file_get_contents($root . '/cards/terminal-actions.js'),
+);
 $hostFilesCard = i18nCardSource(
     file_get_contents($root . '/cards/host-files.js'),
 );
@@ -2468,7 +2471,6 @@ i18nExpect(
             $english['page.title'],
             $english['terminal.suggestion_expectation'],
             $english['terminal.syntax_preview_title'],
-            $english['terminal.send_output_to'],
             $english['terminal.recovery_restore_selected'],
             $english['terminal.recovery_restore_title'],
             $english['terminal.recovery_restore_consequence'],
@@ -2515,7 +2517,6 @@ i18nExpect(
             $english['terminal.verdict_stopped_by'],
             $english['terminal.verdict_finished'],
             $english['terminal.verdict_summary'],
-            $english['terminal.send_output_help'],
             $english['url.editing'],
             $english['url.add_check'],
             $english['url.address_placeholder'],
@@ -2793,7 +2794,11 @@ i18nExpect(
     $script !== false &&
         str_contains($script, 'terminal.suggestion_expectation') &&
         str_contains($script, 'terminal.syntax_preview_title') &&
-        str_contains($script, 'terminal.send_output_to'),
+        $terminalActionsCard !== false &&
+        str_contains(
+            $terminalActionsCard,
+            'core-terminal-actions.send_output_to',
+        ),
     'terminal editor actions are not localized',
 );
 i18nExpect(
@@ -2829,7 +2834,11 @@ i18nExpect(
     $script !== false &&
         str_contains($script, 'terminal.running_for_so_far') &&
         str_contains($script, 'terminal.verdict_summary') &&
-        str_contains($script, 'terminal.send_output_help'),
+        $terminalActionsCard !== false &&
+        str_contains(
+            $terminalActionsCard,
+            'core-terminal-actions.send_output_help',
+        ),
     'terminal live output and send feedback are not localized',
 );
 i18nExpect(

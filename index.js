@@ -19542,61 +19542,21 @@ function terminalVerdict(data) {
 
 /** Send-to-the-assistant and the rest, redrawn as the state changes. */
 function renderTerminalActions() {
-  const actions = $('terminalActions');
-  if (!actions) return;
-
-  actions.replaceChildren();
-  const data = termState.last;
-  if (!data || termState.text === '') return;
-
-  const send = document.createElement('button');
-  send.className = 'link';
-  send.textContent = ZogographI18n.t(
-    'terminal.send_output_to',
-    { assistant: termState.data?.who?.name ?? 'the assistant' },
-    'Send this output to {{assistant}}',
+  renderCoreCardPackage(
+    ZogographTerminalActionsCard,
+    'core-terminal-actions',
+    {
+      data: termState.last,
+      text: termState.text,
+      assistant: termState.data?.who?.name ?? '',
+    },
+    {
+      target: $('terminalActions'),
+      sendOutput: sendOutputToChat,
+      notice,
+      i18n: ZogographI18n,
+    },
   );
-  send.title = ZogographI18n.t(
-    'terminal.send_output_help',
-    {},
-    'It goes into the conversation as a message from you.',
-  );
-  send.addEventListener('click', () => {
-    sendOutputToChat(data).catch((error) =>
-      notice(String(error.message || error)),
-    );
-  });
-  actions.appendChild(send);
-
-  const copy = document.createElement('button');
-  copy.className = 'link';
-  copy.textContent = ZogographI18n.t(
-    'terminal.copy_output',
-    {},
-    'Copy the output',
-  );
-  copy.addEventListener('click', async () => {
-    try {
-      await navigator.clipboard.writeText(termState.text);
-      copy.textContent = ZogographI18n.t('action.copied', {}, 'Copied');
-      setTimeout(() => {
-        copy.textContent = ZogographI18n.t(
-          'terminal.copy_output',
-          {},
-          'Copy the output',
-        );
-      }, 1400);
-    } catch {
-      notice(
-        ZogographI18n.t(
-          'terminal.copy_refused',
-          {},
-          'This browser would not let the page write to the clipboard.',
-        ),
-      );
-    }
-  });
-  actions.appendChild(copy);
 }
 
 /** How much output goes to the model in one message. */

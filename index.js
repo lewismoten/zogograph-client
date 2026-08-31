@@ -3066,6 +3066,10 @@ function renderUrlChecksShellLabels() {
         ZogographUrlsEmptyCard.text(key, helpers),
       );
     });
+  const help = document.querySelector(
+    '[data-i18n-rich="core-urls-empty.help"]',
+  );
+  ZogographI18n.applyRich(help);
 }
 
 document.addEventListener('zogograph-i18n-load', renderUrlChecksShellLabels);

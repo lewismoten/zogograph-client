@@ -330,6 +330,7 @@ function i18nClearPackageCatalogs() {
 window.ZogographI18n = {
   t,
   markSource: i18nMarkSource,
+  applyRich: i18nApplyRichNode,
   load: i18nLoad,
   loadPackageCatalogs: i18nLoadPackageCatalogs,
   clearPackageCatalogs: i18nClearPackageCatalogs,

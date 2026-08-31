@@ -30081,44 +30081,25 @@ function renderInspect(data) {
    */
   if (data.kind === 'file' && f.links > 1) {
     facts.push([
-      ZogographI18n.t('storage.hard_links', {}, 'Hard links'),
-      ZogographI18n.t(
-        'storage.hard_links_detail',
-        { count: f.links },
-        '{{count, number}} — the same bytes are reachable by {{count, number}} paths, and removing this one frees nothing until the last goes',
-      ),
+      factsText('hard_links'),
+      factsText('hard_links_detail', { count: f.links }),
     ]);
   } else if (data.kind === 'dir' && f.links > 2) {
     facts.push([
-      ZogographI18n.t('storage.subdirectories', {}, 'Subdirectories'),
-      ZogographI18n.t(
-        'storage.subdirectories_detail',
-        { count: f.links - 2 },
-        '{{count, number}}, counted from the link count',
-      ),
+      factsText('subdirectories'),
+      factsText('subdirectories_detail', { count: f.links - 2 }),
     ]);
   }
-  if (data.inode)
-    facts.push([
-      ZogographI18n.t('storage.inode', {}, 'Inode'),
-      String(data.inode),
-    ]);
+  if (data.inode) facts.push([factsText('inode'), String(data.inode)]);
 
   if (data.kind === 'link') {
     facts.push([
-      ZogographI18n.t('storage.points_at', {}, 'Points at'),
-      data.link_target ??
-        ZogographI18n.t('storage.unreadable', {}, 'unreadable'),
+      factsText('points_at'),
+      data.link_target ?? factsText('unreadable'),
     ]);
     facts.push([
-      ZogographI18n.t('storage.target_exists', {}, 'Target exists'),
-      data.link_resolves
-        ? ZogographI18n.t('storage.yes', {}, 'yes')
-        : ZogographI18n.t(
-            'storage.no_link_broken',
-            {},
-            'no — this link is broken',
-          ),
+      factsText('target_exists'),
+      data.link_resolves ? factsText('yes') : factsText('no_link_broken'),
     ]);
   }
 

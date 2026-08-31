@@ -17722,11 +17722,7 @@ function showNoteDetails(row) {
   if (row.snapshots) {
     const captured = document.createElement('button');
     captured.className = 'link';
-    captured.textContent = ZogographI18n.t(
-      'notes.what_captured',
-      {},
-      'What it captured',
-    );
+    captured.textContent = notesRecordsText('what_captured');
     captured.addEventListener('click', () => showNoteSnapshots(row));
     nodes.push(captured);
   }
@@ -17758,6 +17754,8 @@ function noteBody(row) {
 // Kept as a package-table helper. Package renderers may request it by name.
 // eslint-disable-next-line no-unused-vars
 function noteActions(row) {
+  const notesRecordsText = (key, values = {}) =>
+    ZogographNotesRecordsCard.text(key, values, { i18n: ZogographI18n });
   const wrap = document.createDocumentFragment();
 
   if (row.view && VIEWS[row.view]) {
@@ -17778,11 +17776,7 @@ function noteActions(row) {
   if (row.snapshots) {
     const get = document.createElement('button');
     get.className = 'link';
-    get.textContent = ZogographI18n.t(
-      'notes.what_captured',
-      {},
-      'What it captured',
-    );
+    get.textContent = notesRecordsText('what_captured');
     get.addEventListener('click', () => showNoteSnapshots(row));
     wrap.appendChild(get);
   }
@@ -17846,9 +17840,11 @@ function noteActions(row) {
 
 /** What one note captured, and a way to take it away. */
 async function showNoteSnapshots(row) {
+  const notesRecordsText = (key, values = {}) =>
+    ZogographNotesRecordsCard.text(key, values, { i18n: ZogographI18n });
   showListDialog(
-    ZogographI18n.t('notes.what_captured', {}, 'What it captured'),
-    [spinner(ZogographI18n.t('notes.capture_loading', {}, 'Looking…'))],
+    notesRecordsText('what_captured'),
+    [spinner(notesRecordsText('capture_loading'))],
     '',
   );
 
@@ -17857,7 +17853,7 @@ async function showNoteSnapshots(row) {
     data = await api('note-snapshots', { id: row.id });
   } catch (error) {
     showListDialog(
-      ZogographI18n.t('notes.what_captured', {}, 'What it captured'),
+      notesRecordsText('what_captured'),
       [note(String(error.message || error))],
       '',
     );
@@ -17867,20 +17863,8 @@ async function showNoteSnapshots(row) {
   const nodes = [note(row.body)];
 
   if (!data.rows.length) {
-    nodes.push(
-      note(
-        ZogographI18n.t(
-          'notes.capture_empty',
-          {},
-          'Nothing was captured with this one.',
-        ),
-      ),
-    );
-    showListDialog(
-      ZogographI18n.t('notes.what_captured', {}, 'What it captured'),
-      nodes,
-      '',
-    );
+    nodes.push(note(notesRecordsText('capture_empty')));
+    showListDialog(notesRecordsText('what_captured'), nodes, '');
     return;
   }
 
@@ -17987,14 +17971,9 @@ async function showNoteSnapshots(row) {
   }
 
   showListDialog(
-    ZogographI18n.t('notes.what_captured', {}, 'What it captured'),
+    notesRecordsText('what_captured'),
     nodes,
-    ZogographI18n.t(
-      'notes.capture_retention_help',
-      {},
-      'Captures are held outside every retention rule, which is the point of one — and ' +
-        'also means nothing expires them.',
-    ),
+    notesRecordsText('capture_retention_help'),
   );
 }
 

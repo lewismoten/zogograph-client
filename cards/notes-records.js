@@ -30,6 +30,12 @@ window.ZogographNotesRecordsCard = {
         'core-notes-records.from': 'Note from {{when}}',
         'core-notes-records.inbox_help':
           'Click a note in the inbox to read it without stretching the table.',
+        'core-notes-records.what_captured': 'What it captured',
+        'core-notes-records.capture_loading': 'Looking…',
+        'core-notes-records.capture_empty':
+          'Nothing was captured with this one.',
+        'core-notes-records.capture_retention_help':
+          'Captures are held outside every retention rule, which is the point of one — and also means nothing expires them.',
       }),
       es: Object.freeze({
         'core-notes-records.table_time': 'Hora',
@@ -57,6 +63,11 @@ window.ZogographNotesRecordsCard = {
         'core-notes-records.from': 'Nota de {{when}}',
         'core-notes-records.inbox_help':
           'Haga clic en una nota de la bandeja de entrada para leerla sin estirar la tabla.',
+        'core-notes-records.what_captured': 'Lo que capturó',
+        'core-notes-records.capture_loading': 'Buscando…',
+        'core-notes-records.capture_empty': 'No se capturó nada con esta nota.',
+        'core-notes-records.capture_retention_help':
+          'Las capturas se conservan fuera de toda regla de retención, que es su propósito, y también significa que nada las caduca.',
       }),
       hi: Object.freeze({
         'core-notes-records.table_time': 'समय',
@@ -83,6 +94,11 @@ window.ZogographNotesRecordsCard = {
         'core-notes-records.from': '{{when}} की टिप्पणी',
         'core-notes-records.inbox_help':
           'तालिका को फैलाए बिना पढ़ने के लिए इनबॉक्स में किसी टिप्पणी पर क्लिक करें।',
+        'core-notes-records.what_captured': 'इसने क्या कैप्चर किया',
+        'core-notes-records.capture_loading': 'देख रहे हैं…',
+        'core-notes-records.capture_empty': 'इसमें कुछ भी कैप्चर नहीं हुआ।',
+        'core-notes-records.capture_retention_help':
+          'कैप्चर हर प्रतिधारण नियम से बाहर रखे जाते हैं, जो उनका उद्देश्य है — और इसका अर्थ यह भी है कि कुछ भी उन्हें समाप्त नहीं करता।',
       }),
       ar: Object.freeze({
         'core-notes-records.table_time': 'الوقت',
@@ -108,6 +124,11 @@ window.ZogographNotesRecordsCard = {
         'core-notes-records.from': 'ملاحظة من {{when}}',
         'core-notes-records.inbox_help':
           'انقر ملاحظة في صندوق الوارد لقراءتها دون تمديد الجدول.',
+        'core-notes-records.what_captured': 'ما التقطه',
+        'core-notes-records.capture_loading': 'يجري البحث…',
+        'core-notes-records.capture_empty': 'لم يُلتقط شيء مع هذه الملاحظة.',
+        'core-notes-records.capture_retention_help':
+          'تُحفظ اللقطات خارج كل قاعدة احتفاظ، وهذا هو الغرض منها — ويعني أيضاً أنه لا شيء يُنهي صلاحيتها.',
       }),
       zh: Object.freeze({
         'core-notes-records.table_time': '时间',
@@ -132,6 +153,11 @@ window.ZogographNotesRecordsCard = {
         'core-notes-records.from': '来自 {{when}} 的备注',
         'core-notes-records.inbox_help':
           '单击收件箱中的备注即可阅读，而不会拉长表格。',
+        'core-notes-records.what_captured': '它捕获的内容',
+        'core-notes-records.capture_loading': '正在查看…',
+        'core-notes-records.capture_empty': '此注释没有捕获任何内容。',
+        'core-notes-records.capture_retention_help':
+          '捕获内容保留在所有保留规则之外，这正是它的用途——也意味着没有任何内容会使其过期。',
       }),
     }),
   }),

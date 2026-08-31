@@ -968,7 +968,6 @@
   "terminal.running_in": "Ejecutando en ",
   "terminal.return_home": "volver al inicio",
   "terminal.return_home_title": "Volver a {{home}}",
-  "diagnosis.whole_answer": "La respuesta completa",
   "filter.any": "cualquiera",
   "filter.clear": "Borrar los filtros",
   "regex.pattern": "Patrón",

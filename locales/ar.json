@@ -964,7 +964,6 @@
   "terminal.running_in": "يعمل في ",
   "terminal.return_home": "العودة إلى الأعلى",
   "terminal.return_home_title": "العودة إلى {{home}}",
-  "diagnosis.whole_answer": "الإجابة كاملة",
   "filter.any": "أيّ",
   "filter.clear": "امسح عوامل التصفية",
   "regex.pattern": "النمط",

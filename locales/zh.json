@@ -964,7 +964,6 @@
   "terminal.running_in": "正在运行于 ",
   "terminal.return_home": "返回顶部",
   "terminal.return_home_title": "返回 {{home}}",
-  "diagnosis.whole_answer": "完整答案",
   "filter.any": "任意",
   "filter.clear": "清除筛选条件",
   "regex.pattern": "模式",

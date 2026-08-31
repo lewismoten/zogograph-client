@@ -945,7 +945,6 @@
   "terminal.running_in": "Running in ",
   "terminal.return_home": "back to the top",
   "terminal.return_home_title": "Return to {{home}}",
-  "diagnosis.whole_answer": "The whole answer",
   "filter.any": "any",
   "filter.clear": "Clear the filters",
   "regex.pattern": "Pattern",

@@ -35210,11 +35210,9 @@ async function refreshWhois(name = '') {
 
   const raw = document.createElement('details');
   const summary = document.createElement('summary');
-  summary.textContent = ZogographI18n.t(
-    'diagnosis.whole_answer',
-    {},
-    'The whole answer',
-  );
+  summary.textContent = ZogographWhoisTermsCard.text('whole_answer', {
+    i18n: ZogographI18n,
+  });
   raw.appendChild(summary);
   const pre = document.createElement('pre');
   pre.className = 'paste';

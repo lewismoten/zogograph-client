@@ -6440,6 +6440,8 @@ function renderAiTools(data) {
         permissionCard: ZogographAiToolPermissionCard,
         descriptionCard: ZogographAiToolDescriptionCard,
         showListDialog,
+        heading: $('aiToolsTitle'),
+        help: $('aiToolsHelp'),
         i18n: ZogographI18n,
       },
     ),

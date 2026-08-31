@@ -2439,7 +2439,6 @@
   "audit.failed": "विफल",
   "email.settings_sign_in": "ईमेल सेटिंग बदलने के लिए साइन इन करें।",
   "system.download_diagnostic": "डायग्नोस्टिक डाउनलोड करें",
-  "system.health_help": "यह इंस्टॉलेशन क्या कर सकता है और क्या नहीं। पहले तीन नए डिप्लॉयमेंट के त्रुटियाँ लौटाने का सामान्य कारण हैं।",
   "health.data_dir_writable": "डेटा निर्देशिका लिखने योग्य",
   "health.database_writable": "डेटाबेस लिखने योग्य",
   "health.scan_root_readable": "निगरानी निर्देशिका पढ़ने योग्य",

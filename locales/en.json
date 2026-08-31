@@ -2455,7 +2455,6 @@
   "audit.failed": "failed",
   "email.settings_sign_in": "Sign in to change the email settings.",
   "system.download_diagnostic": "Download diagnostic",
-  "system.health_help": "What this install can and cannot do. The first three are the usual reason a fresh deployment returns errors.",
   "health.data_dir_writable": "Data directory writable",
   "health.database_writable": "Database writable",
   "health.scan_root_readable": "Watched directory readable",

@@ -3797,6 +3797,14 @@ function renderSystemHealthShellTitle() {
     'core-system-health-shell.title',
     ZogographSystemHealthShellCard.text('title', helpers),
   );
+  const help = document.querySelector(
+    '[data-i18n="core-system-health-shell.help"]',
+  );
+  help.textContent = ZogographI18n.markSource(
+    help,
+    'core-system-health-shell.help',
+    ZogographSystemHealthShellCard.text('help', helpers),
+  );
 }
 
 document.addEventListener('zogograph-i18n-load', renderSystemHealthShellTitle);

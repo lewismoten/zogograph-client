@@ -30041,14 +30041,10 @@ function renderInspect(data) {
 
   if (data.type)
     facts.push([
-      ZogographI18n.t('storage.type', {}, 'Type'),
+      factsText('type'),
       `${data.type}${data.extension ? ` (.${data.extension})` : ''}`,
     ]);
-  if (data.category)
-    facts.push([
-      ZogographI18n.t('storage.watched_as', {}, 'Watched as'),
-      data.category,
-    ]);
+  if (data.category) facts.push([factsText('watched_as'), data.category]);
 
   facts.push(
     [

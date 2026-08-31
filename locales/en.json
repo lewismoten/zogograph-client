@@ -2203,8 +2203,6 @@
   "storage.link": "Link",
   "storage.history_one_scan": "This path has only been seen in one scan so far",
   "storage.on_disk": "On disk",
-  "storage.type": "Type",
-  "storage.watched_as": "Watched as",
   "storage.last_modified": "Last modified",
   "storage.last_read": "Last read",
   "storage.inode_last_changed": "Inode last changed",

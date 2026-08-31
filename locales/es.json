@@ -2131,8 +2131,6 @@
   "storage.link": "Enlace",
   "storage.history_one_scan": "Esta ruta solo se ha visto en un análisis hasta ahora",
   "storage.on_disk": "En disco",
-  "storage.type": "Tipo",
-  "storage.watched_as": "Vigilado como",
   "storage.last_modified": "Última modificación",
   "storage.last_read": "Última lectura",
   "storage.inode_last_changed": "Último cambio de inodo",

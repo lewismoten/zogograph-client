@@ -2127,8 +2127,6 @@
   "storage.link": "链接",
   "storage.history_one_scan": "此路径目前只在一次扫描中出现过",
   "storage.on_disk": "在磁盘上",
-  "storage.type": "类型",
-  "storage.watched_as": "监控为",
   "storage.last_modified": "最后修改",
   "storage.last_read": "最后读取",
   "storage.inode_last_changed": "inode 最后更改",

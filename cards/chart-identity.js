@@ -14,6 +14,7 @@ window.ZogographChartIdentityCard = {
         'core-chart-identity.now': 'Up to now',
         'core-chart-identity.hint':
           'Click to copy the ID. You can tell {{assistant}} which chart you mean by name.',
+        'core-chart-identity.copy_failed': 'This chart is called {{id}}.',
       }),
       es: Object.freeze({
         'core-chart-identity.id': 'ID: {{id}}',
@@ -24,6 +25,7 @@ window.ZogographChartIdentityCard = {
         'core-chart-identity.now': 'Hasta ahora',
         'core-chart-identity.hint':
           'Haz clic para copiar el ID. Puedes decirle a {{assistant}} qué gráfico quieres decir por su nombre.',
+        'core-chart-identity.copy_failed': 'Este gráfico se llama {{id}}.',
       }),
       hi: Object.freeze({
         'core-chart-identity.id': 'आईडी: {{id}}',
@@ -34,6 +36,7 @@ window.ZogographChartIdentityCard = {
         'core-chart-identity.now': 'अभी तक',
         'core-chart-identity.hint':
           'आईडी कॉपी करने के लिए क्लिक करें। आप {{assistant}} को नाम से बता सकते हैं कि आपका मतलब कौन-सा चार्ट है।',
+        'core-chart-identity.copy_failed': 'इस चार्ट का नाम {{id}} है।',
       }),
       ar: Object.freeze({
         'core-chart-identity.id': 'المعرّف: {{id}}',
@@ -44,6 +47,7 @@ window.ZogographChartIdentityCard = {
         'core-chart-identity.now': 'حتى الآن',
         'core-chart-identity.hint':
           'انقر لنسخ المعرّف. يمكنك إخبار {{assistant}} باسم المخطط الذي تقصده.',
+        'core-chart-identity.copy_failed': 'اسم هذا الرسم هو {{id}}.',
       }),
       zh: Object.freeze({
         'core-chart-identity.id': 'ID：{{id}}',
@@ -54,9 +58,18 @@ window.ZogographChartIdentityCard = {
         'core-chart-identity.now': '截至现在',
         'core-chart-identity.hint':
           '点击复制 ID。您可以通过名称告诉 {{assistant}} 您指的是哪个图表。',
+        'core-chart-identity.copy_failed': '此图表名为 {{id}}。',
       }),
     }),
   }),
+
+  text(key, values, helpers) {
+    return helpers.i18n.t(
+      `core-chart-identity.${key}`,
+      values,
+      this.manifest.catalogs.en[`core-chart-identity.${key}`],
+    );
+  },
 
   render(input, helpers) {
     const { chart, id, pinned, assistant } = input;

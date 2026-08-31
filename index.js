@@ -10904,10 +10904,10 @@ function markCharts() {
         }, 1200);
       } catch {
         notice(
-          ZogographI18n.t(
-            'charts.identity_copy_failed',
+          ZogographChartIdentityCard.text(
+            'copy_failed',
             { id: canvas.id },
-            'This chart is called {{id}}.',
+            { i18n: ZogographI18n },
           ),
           true,
         );

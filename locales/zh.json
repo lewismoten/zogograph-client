@@ -636,7 +636,6 @@
   "auth.recovery_codes_create_help": "这会替换此前的所有恢复代码。请离线保存新的单次使用代码；Zogograph 只会显示一次。",
   "auth.recovery_codes_save_title": "保存这些恢复代码",
   "auth.recovery_codes_save_help": "每个代码可以代替验证器代码使用一次。这是 Zogograph 唯一能显示它们的机会；请离线保存，且不要将它们放在与登录密码共享的密码管理器中。",
-  "charts.identity_copy_failed": "此图表名为 {{id}}。",
   "problems.clear_confirm": "清除问题日志？\n\n条目将被永久移除。任何仍然存在的问题会在下一次失败时写入新条目；这正是目的：之后留下的就是仍有问题的内容。",
   "problems.clear_log": "清除日志",
   "problems.clear_result": "已清除 {{entries}}。",

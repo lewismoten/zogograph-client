@@ -3373,6 +3373,9 @@ function renderCpuBusyChartTitle() {
     'core-cpu-busy-chart.title',
     ZogographCpuBusyChartCard.text('title', helpers),
   );
+  ZogographI18n.applyRich(
+    document.querySelector('[data-i18n-rich="core-cpu-busy-chart.help"]'),
+  );
 }
 
 document.addEventListener('zogograph-i18n-load', renderCpuBusyChartTitle);

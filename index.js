@@ -16907,31 +16907,19 @@ function showPeerDialog(row = null) {
     peersShellText('field_group_help'),
   );
   const environment = input(
-    peerText('field_environment', {}, 'Environment'),
+    peersShellText('field_environment'),
     row?.environment,
-    peerText(
-      'field_environment_help',
-      {},
-      'Optional environment, such as production or staging.',
-    ),
+    peersShellText('field_environment_help'),
   );
   const timezone = input(
-    peerText('field_timezone', {}, 'Timezone'),
+    peersShellText('field_timezone'),
     row?.timezone,
-    peerText(
-      'field_timezone_help',
-      {},
-      'Optional IANA timezone, such as America/New_York.',
-    ),
+    peersShellText('field_timezone_help'),
   );
   const maintenance = input(
-    peerText('field_maintenance', {}, 'Maintenance note'),
+    peersShellText('field_maintenance'),
     row?.maintenance,
-    peerText(
-      'field_maintenance_help',
-      {},
-      'Optional expected-offline or maintenance context.',
-    ),
+    peersShellText('field_maintenance_help'),
   );
   const endpoint = input(
     peerText('field_endpoint', {}, 'Controller delivery endpoint'),

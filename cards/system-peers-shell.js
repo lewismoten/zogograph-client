@@ -78,6 +78,15 @@ window.ZogographSystemPeersShellCard = {
         'core-system-peers-shell.field_group': 'Group',
         'core-system-peers-shell.field_group_help':
           'Optional fleet group; organization only for now.',
+        'core-system-peers-shell.field_environment': 'Environment',
+        'core-system-peers-shell.field_environment_help':
+          'Optional environment, such as production or staging.',
+        'core-system-peers-shell.field_timezone': 'Timezone',
+        'core-system-peers-shell.field_timezone_help':
+          'Optional IANA timezone, such as America/New_York.',
+        'core-system-peers-shell.field_maintenance': 'Maintenance note',
+        'core-system-peers-shell.field_maintenance_help':
+          'Optional expected-offline or maintenance context.',
       }),
       es: Object.freeze({
         'core-system-peers-shell.title': 'Servidores Zogograph de confianza',
@@ -152,6 +161,15 @@ window.ZogographSystemPeersShellCard = {
         'core-system-peers-shell.field_group': 'Grupo',
         'core-system-peers-shell.field_group_help':
           'Grupo opcional de flota; por ahora solo organiza.',
+        'core-system-peers-shell.field_environment': 'Entorno',
+        'core-system-peers-shell.field_environment_help':
+          'Entorno opcional, como producción o preparación.',
+        'core-system-peers-shell.field_timezone': 'Zona horaria',
+        'core-system-peers-shell.field_timezone_help':
+          'Zona horaria IANA opcional, como America/New_York.',
+        'core-system-peers-shell.field_maintenance': 'Nota de mantenimiento',
+        'core-system-peers-shell.field_maintenance_help':
+          'Contexto opcional sobre mantenimiento o indisponibilidad esperada.',
       }),
       hi: Object.freeze({
         'core-system-peers-shell.title': 'विश्वसनीय Zogograph सर्वर',
@@ -226,6 +244,15 @@ window.ZogographSystemPeersShellCard = {
         'core-system-peers-shell.field_group': 'समूह',
         'core-system-peers-shell.field_group_help':
           'वैकल्पिक फ्लीट समूह; अभी केवल संगठन के लिए।',
+        'core-system-peers-shell.field_environment': 'परिवेश',
+        'core-system-peers-shell.field_environment_help':
+          'वैकल्पिक परिवेश, जैसे उत्पादन या स्टेजिंग।',
+        'core-system-peers-shell.field_timezone': 'समय क्षेत्र',
+        'core-system-peers-shell.field_timezone_help':
+          'वैकल्पिक IANA समय क्षेत्र, जैसे America/New_York।',
+        'core-system-peers-shell.field_maintenance': 'रखरखाव नोट',
+        'core-system-peers-shell.field_maintenance_help':
+          'अपेक्षित ऑफ़लाइन या रखरखाव का वैकल्पिक संदर्भ।',
       }),
       ar: Object.freeze({
         'core-system-peers-shell.title': 'خوادم Zogograph الموثوقة',
@@ -299,6 +326,15 @@ window.ZogographSystemPeersShellCard = {
         'core-system-peers-shell.field_group': 'المجموعة',
         'core-system-peers-shell.field_group_help':
           'مجموعة أسطول اختيارية؛ للتنظيم فقط حاليًا.',
+        'core-system-peers-shell.field_environment': 'البيئة',
+        'core-system-peers-shell.field_environment_help':
+          'بيئة اختيارية، مثل الإنتاج أو التجهيز.',
+        'core-system-peers-shell.field_timezone': 'المنطقة الزمنية',
+        'core-system-peers-shell.field_timezone_help':
+          'منطقة زمنية اختيارية وفق IANA، مثل America/New_York.',
+        'core-system-peers-shell.field_maintenance': 'ملاحظة صيانة',
+        'core-system-peers-shell.field_maintenance_help':
+          'سياق اختياري لتوقف متوقع أو صيانة.',
       }),
       zh: Object.freeze({
         'core-system-peers-shell.title': '受信任的 Zogograph 服务器',
@@ -372,6 +408,15 @@ window.ZogographSystemPeersShellCard = {
         'core-system-peers-shell.field_group': '组',
         'core-system-peers-shell.field_group_help':
           '可选的服务器群组；目前仅用于组织。',
+        'core-system-peers-shell.field_environment': '环境',
+        'core-system-peers-shell.field_environment_help':
+          '可选环境，例如生产或预发布。',
+        'core-system-peers-shell.field_timezone': '时区',
+        'core-system-peers-shell.field_timezone_help':
+          '可选 IANA 时区，例如 America/New_York。',
+        'core-system-peers-shell.field_maintenance': '维护说明',
+        'core-system-peers-shell.field_maintenance_help':
+          '有关预期离线或维护的可选上下文。',
       }),
     }),
   }),

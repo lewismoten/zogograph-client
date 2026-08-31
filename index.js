@@ -2273,6 +2273,35 @@ function renderHostMemoryProcessLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderHostMemoryProcessLabels);
 
+function renderHostMemoryUserLabels() {
+  const helpers = {
+    target: { id: 'hostUsers' },
+    renderTable: () => null,
+    userCell: () => '',
+    rankedCell: () => '',
+    humanBytes: () => '',
+    hostPss: () => '',
+    topTwo: () => ({}),
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(
+    ZogographHostMemoryUsersCard,
+    'core-host-memory-users',
+    { rows: [] },
+    helpers,
+  );
+  const title = document.querySelector(
+    '[data-i18n="core-host-memory-users.title"]',
+  );
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-host-memory-users.title',
+    ZogographHostMemoryUsersCard.text('title', helpers),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderHostMemoryUserLabels);
+
 /**
  * When the disk is projected to fill, as a date.
  *
@@ -23552,39 +23581,21 @@ async function refreshHost() {
    * Two, not one: the second is what says whether the first is an outlier or
    * just the top of a crowd, and that changes what to do about it.
    */
-  const rank = topTwo(data.users, ['rss_bytes', 'pss_bytes', 'swap_bytes']);
-
-  renderTable('hostUsers', data.users, [
+  renderCoreCardPackage(
+    ZogographHostMemoryUsersCard,
+    'core-host-memory-users',
+    { rows: data.users ?? [] },
     {
-      label: ZogographI18n.t('cpu.user', {}, 'User'),
-      render: (r) => userCell(r.user),
+      target: $('hostUsers'),
+      renderTable,
+      userCell,
+      rankedCell,
+      humanBytes,
+      hostPss,
+      topTwo,
+      i18n: ZogographI18n,
     },
-    {
-      label: ZogographI18n.t('host.processes', {}, 'Processes'),
-      className: 'size',
-      render: (r) => r.procs,
-    },
-    {
-      label: ZogographI18n.t('cpu.threads', {}, 'Threads'),
-      className: 'size',
-      render: (r) => r.threads,
-    },
-    {
-      label: ZogographI18n.t('cpu.resident', {}, 'Resident'),
-      className: 'size',
-      render: (r) => rankedCell(humanBytes(r.rss_bytes), rank.rss_bytes, r),
-    },
-    {
-      label: ZogographI18n.t('host.proportional_pss', {}, 'Proportional (PSS)'),
-      className: 'size',
-      render: (r) => rankedCell(hostPss(r.pss_bytes), rank.pss_bytes, r),
-    },
-    {
-      label: ZogographI18n.t('host.swapped', {}, 'Swapped'),
-      className: 'size',
-      render: (r) => rankedCell(humanBytes(r.swap_bytes), rank.swap_bytes, r),
-    },
-  ]);
+  );
 
   renderServices(
     data.services ?? [],

@@ -2325,7 +2325,6 @@
   "host.cloudlinux_help": "因达到 LVE 限制而被终止的进程不会留下其他痕迹。不断增加的故障计数就是证据。",
   "host.services_time": "服务随时间变化",
   "host.services_time_help": "主机采集器长期记录中，每项服务各占一行。此面板可查看六月的情况。",
-  "host.memory_by_user": "按用户划分的内存",
   "host.memory_by_user_help": "CageFS 隐藏的那一列。在隔离环境中，此账户只能看到自己的进程，因此除了这里，无法得知还有谁在使用机器内存。",
   "host.memory_by_user_pss_help": "这是 CageFS 隐藏的那一列。{{pss}} 会将进程的私有内存{{full}}计算，并将每个共享页面分摊给使用它的进程——因此，一份由一百个工作进程共享的 libc 会向每个进程贡献百分之一，而只有该进程持有的内容会完整计算。这使它成为可归因于一个进程的有效物理内存，也是唯一可以相加的数值。{{resident}} 会为每个进程计算一次每个共享页面，因此其总和始终高于机器拥有的内存。上方的 {{kernel_shared}} 卡片测量的是另一类内容——tmpfs 和 System V 段——不是此列的小计：某个进程映射的 tmpfs 页面会同时计入两边，而没有任何进程映射的页面只计入那里。",
   "page.dashboard_title": "Zogograph 基础设施观测仪表板",

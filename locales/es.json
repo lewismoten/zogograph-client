@@ -2328,7 +2328,6 @@
   "host.cloudlinux_help": "Un proceso finalizado por alcanzar un límite LVE no deja otro rastro. Un número creciente de fallos es la evidencia.",
   "host.services_time": "Servicios a lo largo del tiempo",
   "host.services_time_help": "Una línea por servicio, del registro duradero del recopilador del host. Este panel responde: «¿y cómo era en junio?»",
-  "host.memory_by_user": "Memoria por usuario",
   "host.memory_by_user_help": "La columna que CageFS oculta. Dentro de una jaula, esta cuenta solo ve sus propios procesos, así que no se puede saber desde otro lugar quién más usa la memoria de la máquina.",
   "host.memory_by_user_pss_help": "La columna que CageFS oculta. {{pss}} cuenta la memoria privada de un proceso {{full}} y divide cada página compartida entre los procesos que la usan: una copia de libc compartida por cien trabajadores aporta una centésima a cada uno, mientras que todo lo que solo posee ese proceso cuenta completo. Así representa la memoria física efectiva atribuible a un proceso, y la única cifra que se puede sumar. {{resident}} cuenta cada página compartida una vez por proceso, por lo que siempre suma más de lo que tiene la máquina. La tarjeta de {{kernel_shared}} de arriba mide otra cosa — segmentos tmpfs y System V — y no es un subtotal de esta columna: una página tmpfs que algún proceso mapea cuenta en ambas, y una que nadie mapea cuenta solo allí.",
   "page.dashboard_title": "Panel de observación de infraestructura de Zogograph",

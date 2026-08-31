@@ -31709,101 +31709,19 @@ async function refreshDiagnosis() {
     return;
   }
 
-  if (!data.findings.length) {
-    return renderCoreCardPackage(
-      ZogographDiagnosisResultsCard,
-      'core-diagnosis-results',
-      { findings: [], ignored: [], can_restore: false },
-      {
-        target: body,
-        section,
-        findingRow,
-        restore: () => {},
-        i18n: ZogographI18n,
-      },
-    );
-  }
-
-  const wrap = document.createDocumentFragment();
-
-  if (window.ZogographDiagnosisResultsCard) {
-    return renderCoreCardPackage(
-      ZogographDiagnosisResultsCard,
-      'core-diagnosis-results',
-      {
-        findings: data.findings,
-        ignored: data.ignored || [],
-        can_restore: Boolean(state.access?.write),
-      },
-      {
-        target: body,
-        section,
-        findingRow,
-        restore: async (finding) => {
-          try {
-            await post('diagnosis-unignore', { key: finding.key });
-            await refreshDiagnosis();
-            notice(
-              ZogographI18n.t(
-                'alert.finding_recheck_queued',
-                {},
-                'The finding will be checked again.',
-              ),
-              true,
-            );
-          } catch (error) {
-            notice(String(error.message || error));
-          }
-        },
-        i18n: ZogographI18n,
-      },
-    );
-  }
-
-  const worst = data.findings[0].level;
-  const headline = document.createElement('p');
-  headline.className =
-    'diagnose-headline band-' +
-    (worst === 'critical' ? 'crit' : worst === 'warning' ? 'warn' : 'ok');
-  headline.textContent =
-    worst === 'critical'
-      ? (() => {
-          // "4 things needs attention" - the verb has to agree with the count.
-          const urgent = data.findings.filter(
-            (f) => f.level === 'critical',
-          ).length;
-          return ZogographI18n.t(
-            'diagnosis.critical_attention',
-            { count: count(urgent, 'thing') },
-            'Attention needed now: {{count}}.',
-          );
-        })()
-      : worst === 'warning'
-        ? ZogographI18n.t(
-            'diagnosis.warning_attention',
-            {
-              count: count(
-                data.findings.filter((f) => f.level === 'warning').length,
-                'thing',
-              ),
-            },
-            '{{count}} worth looking at.',
-          )
-        : ZogographI18n.t('diagnosis.nothing_urgent', {}, 'Nothing urgent.');
-  wrap.appendChild(headline);
-
-  for (const f of data.findings) wrap.appendChild(findingRow(f));
-
-  if (state.access?.write && data.ignored?.length) {
-    const list = document.createElement('div');
-    for (const finding of data.ignored) {
-      const row = document.createElement('div');
-      row.className = 'inspect-actions';
-      row.appendChild(document.createTextNode(finding.title));
-      const restore = document.createElement('button');
-      restore.className = 'link';
-      restore.textContent = ZogographI18n.t('action.restore', {}, 'Restore');
-      restore.addEventListener('click', async () => {
+  return renderCoreCardPackage(
+    ZogographDiagnosisResultsCard,
+    'core-diagnosis-results',
+    {
+      findings: data.findings,
+      ignored: data.ignored || [],
+      can_restore: Boolean(state.access?.write),
+    },
+    {
+      target: body,
+      section,
+      findingRow,
+      restore: async (finding) => {
         try {
           await post('diagnosis-unignore', { key: finding.key });
           await refreshDiagnosis();
@@ -31818,24 +31736,10 @@ async function refreshDiagnosis() {
         } catch (error) {
           notice(String(error.message || error));
         }
-      });
-      row.appendChild(restore);
-      list.appendChild(row);
-    }
-    wrap.appendChild(
-      section(
-        ZogographI18n.t('diagnosis.ignored_title', {}, 'Ignored findings'),
-        list,
-        ZogographI18n.t(
-          'diagnosis.ignored_help',
-          {},
-          'These are intentional exceptions. Restore one to include it in later checks.',
-        ),
-      ),
-    );
-  }
-
-  body.replaceChildren(wrap);
+      },
+      i18n: ZogographI18n,
+    },
+  );
 }
 
 /* ------------------------------------------------------- waiting for root -- */

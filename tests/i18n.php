@@ -929,7 +929,8 @@ i18nExpect(
         str_contains(
             $script,
             'renderCoreCardPackage(ZogographDiagnosisResultsCard, "core-diagnosis-results",',
-        ),
+        ) &&
+        !str_contains($script, 'if (window.ZogographDiagnosisResultsCard)'),
     'diagnosis results are not isolated behind their core card-module boundary',
 );
 i18nExpect(

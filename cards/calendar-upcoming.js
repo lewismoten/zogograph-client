@@ -6,6 +6,7 @@ window.ZogographCalendarUpcomingCard = {
     helpers: ['target', 'note', 'humanTime', 'section', 'showView', 'i18n'],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-calendar-upcoming.title': 'What is coming up',
         'core-calendar-upcoming.empty': 'Nothing dated is coming up.',
         'core-calendar-upcoming.today': 'today',
         'core-calendar-upcoming.tomorrow': 'tomorrow',
@@ -15,6 +16,7 @@ window.ZogographCalendarUpcomingCard = {
         'core-calendar-upcoming.see': 'See',
       }),
       es: Object.freeze({
+        'core-calendar-upcoming.title': 'Qué viene',
         'core-calendar-upcoming.empty': 'No hay nada con fecha próxima.',
         'core-calendar-upcoming.today': 'hoy',
         'core-calendar-upcoming.tomorrow': 'mañana',
@@ -24,6 +26,7 @@ window.ZogographCalendarUpcomingCard = {
         'core-calendar-upcoming.see': 'Ver',
       }),
       hi: Object.freeze({
+        'core-calendar-upcoming.title': 'आगे क्या है',
         'core-calendar-upcoming.empty':
           'तारीख वाला कोई कार्यक्रम आने वाला नहीं है।',
         'core-calendar-upcoming.today': 'आज',
@@ -34,6 +37,7 @@ window.ZogographCalendarUpcomingCard = {
         'core-calendar-upcoming.see': 'देखें',
       }),
       ar: Object.freeze({
+        'core-calendar-upcoming.title': 'ما القادم',
         'core-calendar-upcoming.empty': 'لا يوجد شيء مؤرخ قادم.',
         'core-calendar-upcoming.today': 'اليوم',
         'core-calendar-upcoming.tomorrow': 'غدًا',
@@ -43,6 +47,7 @@ window.ZogographCalendarUpcomingCard = {
         'core-calendar-upcoming.see': 'عرض',
       }),
       zh: Object.freeze({
+        'core-calendar-upcoming.title': '即将发生什么',
         'core-calendar-upcoming.empty': '没有即将到来的已定日期事项。',
         'core-calendar-upcoming.today': '今天',
         'core-calendar-upcoming.tomorrow': '明天',
@@ -53,6 +58,14 @@ window.ZogographCalendarUpcomingCard = {
       }),
     }),
   }),
+
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-calendar-upcoming.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-calendar-upcoming.${key}`],
+    );
+  },
 
   render(data, helpers) {
     const { target, note, humanTime, section, showView, i18n } = helpers;

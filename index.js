@@ -3082,6 +3082,33 @@ function renderUrlChecksShellLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderUrlChecksShellLabels);
 
+function renderCalendarUpcomingTitle() {
+  const helpers = {
+    target: null,
+    note: () => null,
+    humanTime: () => '',
+    section: () => null,
+    showView: () => null,
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(
+    ZogographCalendarUpcomingCard,
+    'core-calendar-upcoming',
+    {},
+    helpers,
+  );
+  const title = document.querySelector(
+    '[data-i18n="core-calendar-upcoming.title"]',
+  );
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-calendar-upcoming.title',
+    ZogographCalendarUpcomingCard.text('title', helpers),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderCalendarUpcomingTitle);
+
 /**
  * When the disk is projected to fill, as a date.
  *

@@ -22,6 +22,7 @@
     <script src="cards/cpu-gauges.js" defer></script>
     <script src="cards/cpu-shell.js" defer></script>
     <script src="cards/audit-shell.js" defer></script>
+    <script src="cards/alerts-shell.js" defer></script>
     <script src="cards/network-gauges.js" defer></script>
     <script src="cards/network-interfaces.js" defer></script>
     <script src="cards/network-ports.js" defer></script>
@@ -3871,7 +3872,9 @@
         <section class="view" data-view="alerts" hidden>
           <section class="panel">
             <div class="panel-head">
-              <h2 data-i18n="alerts.timeline_title">When alerts fired</h2>
+              <h2 data-i18n="core-alerts-shell.timeline_title">
+                When alerts fired
+              </h2>
               <span class="muted" id="alertRange"></span>
             </div>
             <canvas id="alertTimeline"></canvas>
@@ -3880,7 +3883,7 @@
 
           <section class="panel">
             <div class="panel-head">
-              <h2 data-i18n="alerts.title">Alerts</h2>
+              <h2 data-i18n="core-alerts-shell.title">Alerts</h2>
               <div class="panel-tools">
                 <label class="pill"
                   ><input type="checkbox" id="alertUnreadOnly" />
@@ -3932,7 +3935,10 @@
 
           <section class="panel" id="incidentPanel" hidden>
             <div class="panel-head">
-              <h2 id="incidentTitle" data-i18n="alerts.incident_title">
+              <h2
+                id="incidentTitle"
+                data-i18n="core-alerts-shell.incident_title"
+              >
                 Why this fired
               </h2>
               <button id="incidentClose" class="link" data-i18n="action.close">

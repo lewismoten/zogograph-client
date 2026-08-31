@@ -3532,6 +3532,28 @@ function renderAuditShellLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderAuditShellLabels);
 
+function renderAlertsShellLabels() {
+  const helpers = { i18n: ZogographI18n };
+  renderCoreCardPackage(
+    ZogographAlertsShellCard,
+    'core-alerts-shell',
+    {},
+    helpers,
+  );
+  document
+    .querySelectorAll('[data-i18n^="core-alerts-shell."]')
+    .forEach((node) => {
+      const key = node.dataset.i18n.replace('core-alerts-shell.', '');
+      node.textContent = ZogographI18n.markSource(
+        node,
+        `core-alerts-shell.${key}`,
+        ZogographAlertsShellCard.text(key, helpers),
+      );
+    });
+}
+
+document.addEventListener('zogograph-i18n-load', renderAlertsShellLabels);
+
 function renderCpuGaugesTitle() {
   const helpers = {
     target: null,

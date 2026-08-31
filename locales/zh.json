@@ -2108,8 +2108,6 @@
   "ai.memory_about": "关于",
   "ai.memory_remembers": "记住的内容",
   "ai.memory_written": "写入时间",
-  "ai.memory_forget_confirm": "要忘记“{{subject}}”吗？",
-  "ai.memory_forget_title": "忘记记忆",
   "backup.growth": "增长",
   "backup.by_account": "按账户",
   "backup.no_suggestions": "此读数没有可提供的建议。",

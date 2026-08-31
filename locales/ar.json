@@ -2108,8 +2108,6 @@
   "ai.memory_about": "حول",
   "ai.memory_remembers": "ما يتذكره",
   "ai.memory_written": "كُتب",
-  "ai.memory_forget_confirm": "هل تريد نسيان «{{subject}}»؟",
-  "ai.memory_forget_title": "نسيان ذاكرة",
   "backup.growth": "النمو",
   "backup.by_account": "حسب الحساب",
   "backup.no_suggestions": "لا يوجد ما يُقترح من هذه القراءة.",

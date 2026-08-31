@@ -2126,8 +2126,6 @@
   "ai.memory_about": "About",
   "ai.memory_remembers": "What it remembers",
   "ai.memory_written": "Written",
-  "ai.memory_forget_confirm": "Forget “{{subject}}”?",
-  "ai.memory_forget_title": "Forget memory",
   "backup.growth": "Growth",
   "backup.by_account": "By account",
   "backup.no_suggestions": "Nothing to suggest from this reading.",

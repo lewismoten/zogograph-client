@@ -18683,16 +18683,13 @@ function renderMemories(data) {
           drop.className = 'link danger';
           drop.textContent = ZogographI18n.t('action.forget', {}, 'Forget');
           drop.addEventListener('click', async () => {
-            if (
-              !(await confirmDialog(
-                ZogographI18n.t(
-                  'ai.memory_forget_confirm',
-                  { subject: row.subject },
-                  'Forget “{{subject}}”?',
-                ),
-                ZogographI18n.t('ai.memory_forget_title', {}, 'Forget memory'),
-              ))
-            )
+            const forgetCopy = renderCoreCardPackage(
+              ZogographAiMemoryForgetDialogCard,
+              'core-ai-memory-forget-dialog',
+              { subject: row.subject },
+              { i18n: ZogographI18n },
+            );
+            if (!(await confirmDialog(forgetCopy.confirm, forgetCopy.title)))
               return;
             try {
               renderMemories(await post('ai-memory-forget', { id: row.id }));

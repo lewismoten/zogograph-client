@@ -30,6 +30,9 @@ window.ZogographBusyMomentsCard = {
         'core-busy-moments.cpu_burst':
           'The reading was {{value}}%, but nothing in the list was using measurable CPU: whatever caused it had already finished when the process list was taken. A burst rather than steady load.',
         'core-busy-moments.row_processes': '{{name}} ({{count}} processes)',
+        'core-busy-moments.cpu': 'CPU',
+        'core-busy-moments.memory': 'Memory',
+        'core-busy-moments.running_for': 'Running for',
       }),
       es: Object.freeze({
         'core-busy-moments.empty':
@@ -46,6 +49,9 @@ window.ZogographBusyMomentsCard = {
         'core-busy-moments.cpu_burst':
           'La lectura fue {{value}} %, pero nada de la lista usaba CPU medible: lo que la causó ya había terminado al tomar la lista de procesos. Una ráfaga, no carga constante.',
         'core-busy-moments.row_processes': '{{name}} ({{count}} procesos)',
+        'core-busy-moments.cpu': 'CPU',
+        'core-busy-moments.memory': 'Memoria',
+        'core-busy-moments.running_for': 'En ejecución desde',
       }),
       hi: Object.freeze({
         'core-busy-moments.empty':
@@ -62,6 +68,9 @@ window.ZogographBusyMomentsCard = {
         'core-busy-moments.cpu_burst':
           'रीडिंग {{value}}% थी, लेकिन सूची में कुछ भी मापने योग्य CPU उपयोग नहीं कर रहा था: प्रक्रिया सूची लेते समय कारण पहले ही समाप्त हो चुका था। स्थिर लोड के बजाय एक बर्स्ट।',
         'core-busy-moments.row_processes': '{{name}} ({{count}} प्रक्रियाएँ)',
+        'core-busy-moments.cpu': 'CPU',
+        'core-busy-moments.memory': 'मेमोरी',
+        'core-busy-moments.running_for': 'से चल रहा है',
       }),
       ar: Object.freeze({
         'core-busy-moments.empty':
@@ -78,6 +87,9 @@ window.ZogographBusyMomentsCard = {
         'core-busy-moments.cpu_burst':
           'كانت القراءة {{value}}٪، لكن لا شيء في القائمة كان يستخدم CPU قابلًا للقياس: كان ما تسبب فيها قد انتهى عند أخذ قائمة العمليات. دفعة لا حمل ثابت.',
         'core-busy-moments.row_processes': '{{name}} ({{count}} عمليات)',
+        'core-busy-moments.cpu': 'CPU',
+        'core-busy-moments.memory': 'الذاكرة',
+        'core-busy-moments.running_for': 'يعمل منذ',
       }),
       zh: Object.freeze({
         'core-busy-moments.empty': '没有记录——机器没有忙到值得记录的程度。',
@@ -93,6 +105,9 @@ window.ZogographBusyMomentsCard = {
         'core-busy-moments.cpu_burst':
           '读数为 {{value}}%，但列表中没有内容使用可测量的 CPU：导致该读数的内容在获取进程列表时已结束。这是突发而非持续负载。',
         'core-busy-moments.row_processes': '{{name}}（{{count}} 个进程）',
+        'core-busy-moments.cpu': 'CPU',
+        'core-busy-moments.memory': '内存',
+        'core-busy-moments.running_for': '已运行',
       }),
     }),
   }),
@@ -111,8 +126,6 @@ window.ZogographBusyMomentsCard = {
     if (!holder) return;
     const t = (key, values, fallback) =>
       i18n.t(`core-busy-moments.${key}`, values, fallback);
-    const process = (key, values, fallback) =>
-      i18n.t(`process.${key}`, values, fallback);
     if (!moments.length) {
       holder.replaceChildren(
         Object.assign(document.createElement('p'), {
@@ -199,15 +212,15 @@ window.ZogographBusyMomentsCard = {
         const head = table.createTHead().insertRow();
         for (const [key, fallback, cls] of [
           ['busy_table_what', 'What', ''],
-          ['table_cpu', 'CPU', 'size'],
-          ['table_memory', 'Memory', 'size'],
-          ['table_running_for', 'Running for', 'size'],
+          ['cpu', 'CPU', 'size'],
+          ['memory', 'Memory', 'size'],
+          ['running_for', 'Running for', 'size'],
         ]) {
           const th = document.createElement('th');
           th.textContent =
             key === 'busy_table_what'
               ? t('table_what', {}, fallback)
-              : process(key, {}, fallback);
+              : t(key, {}, fallback);
           if (cls) th.className = cls;
           head.appendChild(th);
         }

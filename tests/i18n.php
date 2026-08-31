@@ -2651,7 +2651,6 @@ i18nExpect(
             $english['storage.link_repoint_dialog_title'],
             $english['storage.link_repoint_prompt'],
             $english['storage.link_repoint_hint'],
-            $english['storage.link_make_directory_title'],
             $english['storage.link_make_directory_confirm'],
             $english['storage.link_remove_title'],
             $english['storage.link_remove_confirm'],

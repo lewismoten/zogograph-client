@@ -18,6 +18,8 @@ window.ZogographSymlinkActionsCard = {
         'core-symlink-actions.repoint': 'Repoint',
         'core-symlink-actions.repoint_title': 'Point this link somewhere else',
         'core-symlink-actions.make_directory': 'Make it a folder',
+        'core-symlink-actions.make_directory_title':
+          'Remove the link and create a real, empty directory in its place',
         'core-symlink-actions.remove': 'Remove',
       }),
       es: Object.freeze({
@@ -26,6 +28,8 @@ window.ZogographSymlinkActionsCard = {
         'core-symlink-actions.repoint_title':
           'Hacer que este enlace apunte a otro lugar',
         'core-symlink-actions.make_directory': 'Convertir en carpeta',
+        'core-symlink-actions.make_directory_title':
+          'Quitar el enlace y crear en su lugar un directorio real vacío',
         'core-symlink-actions.remove': 'Eliminar',
       }),
       hi: Object.freeze({
@@ -33,6 +37,8 @@ window.ZogographSymlinkActionsCard = {
         'core-symlink-actions.repoint': 'पुनः इंगित करें',
         'core-symlink-actions.repoint_title': 'इस लिंक को कहीं और इंगित करें',
         'core-symlink-actions.make_directory': 'इसे फ़ोल्डर बनाएँ',
+        'core-symlink-actions.make_directory_title':
+          'लिंक हटाएँ और उसकी जगह असली, खाली डायरेक्टरी बनाएँ',
         'core-symlink-actions.remove': 'हटाएँ',
       }),
       ar: Object.freeze({
@@ -41,6 +47,8 @@ window.ZogographSymlinkActionsCard = {
         'core-symlink-actions.repoint_title':
           'اجعل هذا الرابط يشير إلى مكان آخر',
         'core-symlink-actions.make_directory': 'تحويل إلى مجلد',
+        'core-symlink-actions.make_directory_title':
+          'أزل الرابط وأنشئ مكانه دليلًا حقيقيًا فارغًا',
         'core-symlink-actions.remove': 'إزالة',
       }),
       zh: Object.freeze({
@@ -48,6 +56,8 @@ window.ZogographSymlinkActionsCard = {
         'core-symlink-actions.repoint': '重新指向',
         'core-symlink-actions.repoint_title': '让此链接指向其他位置',
         'core-symlink-actions.make_directory': '改为文件夹',
+        'core-symlink-actions.make_directory_title':
+          '移除链接，并在原位置创建真实的空目录',
         'core-symlink-actions.remove': '移除',
       }),
     }),
@@ -135,7 +145,7 @@ window.ZogographSymlinkActionsCard = {
     add(
       t('core-symlink-actions.make_directory', {}, 'Make it a folder'),
       t(
-        'storage.link_make_directory_title',
+        'core-symlink-actions.make_directory_title',
         {},
         'Remove the link and create a real, empty directory in its place',
       ),

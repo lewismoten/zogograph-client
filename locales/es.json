@@ -1654,7 +1654,6 @@
   "marketplace.install_path_hygiene": "Instalar higiene de nombres de ruta",
   "marketplace.none_found": "No se encontraron manifiestos de paquetes locales válidos.",
   "marketplace.search_placeholder": "Buscar paquetes, editores o capacidades",
-  "log.search_placeholder": "texto que buscar",
   "network.domain_placeholder": "ejemplo.com",
   "metadata.label_match_placeholder": "1.2.3.4, 10.0.0.0/8, 8000 o x-ac",
   "metadata.label_text_placeholder": "Lewis: inicio",

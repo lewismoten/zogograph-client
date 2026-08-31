@@ -1653,7 +1653,6 @@
   "marketplace.install_path_hygiene": "पथ-नाम स्वच्छता स्थापित करें",
   "marketplace.none_found": "कोई मान्य स्थानीय पैकेज मैनिफ़ेस्ट नहीं मिला।",
   "marketplace.search_placeholder": "पैकेज, प्रकाशक या क्षमताएँ खोजें",
-  "log.search_placeholder": "खोजने के लिए पाठ",
   "network.domain_placeholder": "example.com",
   "metadata.label_match_placeholder": "1.2.3.4, 10.0.0.0/8, 8000 या x-ac",
   "metadata.label_text_placeholder": "Lewis: होम",

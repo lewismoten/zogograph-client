@@ -1651,7 +1651,6 @@
   "marketplace.install_path_hygiene": "安装路径名称规范检查",
   "marketplace.none_found": "未找到有效的本地软件包清单。",
   "marketplace.search_placeholder": "搜索软件包、发布者或功能",
-  "log.search_placeholder": "要查找的文本",
   "network.domain_placeholder": "example.com",
   "metadata.label_match_placeholder": "1.2.3.4、10.0.0.0/8、8000 或 x-ac",
   "metadata.label_text_placeholder": "Lewis：主页",

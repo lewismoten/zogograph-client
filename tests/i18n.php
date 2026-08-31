@@ -2388,6 +2388,10 @@ i18nExpect(
     $page !== false &&
         str_contains($page, 'data-i18n="storage.history"') &&
         str_contains($page, 'data-i18n="core-storage-log.search"') &&
+        str_contains(
+            $page,
+            'data-i18n-placeholder="core-storage-log.search_placeholder"',
+        ) &&
         str_contains($page, 'data-i18n="core-storage-log.newer"') &&
         $script !== false &&
         str_contains($script, "'core-storage-log'") &&
@@ -2396,6 +2400,7 @@ i18nExpect(
             $english['storage.history'],
             $english['action.close'],
             $coreCardEnglish['core-storage-log.search'],
+            $coreCardEnglish['core-storage-log.search_placeholder'],
             $coreCardEnglish['core-storage-log.lines'],
             $coreCardEnglish['core-storage-log.newer'],
             $coreCardEnglish['core-storage-log.older'],

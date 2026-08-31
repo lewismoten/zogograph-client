@@ -25,6 +25,7 @@ window.ZogographStorageLogCard = {
         'core-storage-log.lines': 'Lines',
         'core-storage-log.newer': 'Newer',
         'core-storage-log.older': 'Older',
+        'core-storage-log.search_placeholder': 'text to find',
       }),
       es: Object.freeze({
         'core-storage-log.last_line': 'Última línea',
@@ -48,6 +49,7 @@ window.ZogographStorageLogCard = {
         'core-storage-log.lines': 'Líneas',
         'core-storage-log.newer': 'Más reciente',
         'core-storage-log.older': 'Más antiguo',
+        'core-storage-log.search_placeholder': 'texto que buscar',
       }),
       hi: Object.freeze({
         'core-storage-log.last_line': 'अंतिम पंक्ति',
@@ -70,6 +72,7 @@ window.ZogographStorageLogCard = {
         'core-storage-log.lines': 'पंक्तियाँ',
         'core-storage-log.newer': 'नया',
         'core-storage-log.older': 'पुराना',
+        'core-storage-log.search_placeholder': 'खोजने के लिए पाठ',
       }),
       ar: Object.freeze({
         'core-storage-log.last_line': 'آخر سطر',
@@ -91,6 +94,7 @@ window.ZogographStorageLogCard = {
         'core-storage-log.lines': 'الأسطر',
         'core-storage-log.newer': 'الأحدث',
         'core-storage-log.older': 'الأقدم',
+        'core-storage-log.search_placeholder': 'النص المطلوب العثور عليه',
       }),
       zh: Object.freeze({
         'core-storage-log.last_line': '最后一行',
@@ -112,6 +116,7 @@ window.ZogographStorageLogCard = {
         'core-storage-log.lines': '行数',
         'core-storage-log.newer': '较新',
         'core-storage-log.older': '较旧',
+        'core-storage-log.search_placeholder': '要查找的文本',
       }),
     }),
   }),

@@ -3410,6 +3410,16 @@ function renderTerminalSessionsTitle() {
     'core-terminal-sessions.title',
     label,
   );
+  for (const key of ['grouping_help', 'topic_help']) {
+    const help = document.querySelector(
+      `[data-i18n="core-terminal-sessions.${key}"]`,
+    );
+    help.textContent = ZogographI18n.markSource(
+      help,
+      `core-terminal-sessions.${key}`,
+      ZogographTerminalSessionsCard.text(key, helpers),
+    );
+  }
 }
 
 document.addEventListener('zogograph-i18n-load', renderTerminalSessionsTitle);

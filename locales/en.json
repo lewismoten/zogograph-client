@@ -464,7 +464,6 @@
   "storage.link_repoint_dialog_title": "Repoint link",
   "storage.link_repoint_prompt": "Where should {{name}} point?",
   "storage.link_repoint_hint": "Use an absolute path or a path relative to the link's directory.",
-  "storage.link_make_directory": "Make it a folder",
   "storage.link_make_directory_title": "Remove the link and create a real, empty directory in its place",
   "storage.link_make_directory_confirm": "Replace {{path}} with a real, empty directory?\n\nThe link goes; whatever it pointed at is untouched.",
   "storage.link_remove": "Remove",

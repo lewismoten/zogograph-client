@@ -16,22 +16,27 @@ window.ZogographSymlinkActionsCard = {
       en: Object.freeze({
         'core-symlink-actions.group': 'Link actions',
         'core-symlink-actions.repoint': 'Repoint',
+        'core-symlink-actions.make_directory': 'Make it a folder',
       }),
       es: Object.freeze({
         'core-symlink-actions.group': 'Acciones de enlace',
         'core-symlink-actions.repoint': 'Redirigir',
+        'core-symlink-actions.make_directory': 'Convertir en carpeta',
       }),
       hi: Object.freeze({
         'core-symlink-actions.group': 'लिंक कार्रवाइयाँ',
         'core-symlink-actions.repoint': 'पुनः इंगित करें',
+        'core-symlink-actions.make_directory': 'इसे फ़ोल्डर बनाएँ',
       }),
       ar: Object.freeze({
         'core-symlink-actions.group': 'إجراءات الرابط',
         'core-symlink-actions.repoint': 'إعادة توجيه',
+        'core-symlink-actions.make_directory': 'تحويل إلى مجلد',
       }),
       zh: Object.freeze({
         'core-symlink-actions.group': '链接操作',
         'core-symlink-actions.repoint': '重新指向',
+        'core-symlink-actions.make_directory': '改为文件夹',
       }),
     }),
   }),
@@ -112,7 +117,7 @@ window.ZogographSymlinkActionsCard = {
       },
     );
     add(
-      t('storage.link_make_directory', {}, 'Make it a folder'),
+      t('core-symlink-actions.make_directory', {}, 'Make it a folder'),
       t(
         'storage.link_make_directory_title',
         {},

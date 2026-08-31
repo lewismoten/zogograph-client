@@ -464,7 +464,6 @@
   "storage.link_repoint_dialog_title": "Redirigir enlace",
   "storage.link_repoint_prompt": "¿A dónde debe apuntar {{name}}?",
   "storage.link_repoint_hint": "Use una ruta absoluta o una ruta relativa al directorio del enlace.",
-  "storage.link_make_directory": "Convertir en carpeta",
   "storage.link_make_directory_title": "Quitar el enlace y crear en su lugar un directorio real vacío",
   "storage.link_make_directory_confirm": "¿Reemplazar {{path}} por un directorio real vacío?\n\nEl enlace se elimina; lo que señalaba no se toca.",
   "storage.link_remove": "Eliminar",

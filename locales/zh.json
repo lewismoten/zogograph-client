@@ -464,7 +464,6 @@
   "storage.link_repoint_dialog_title": "重新指向链接",
   "storage.link_repoint_prompt": "{{name}} 应指向哪里？",
   "storage.link_repoint_hint": "使用绝对路径，或相对于链接目录的路径。",
-  "storage.link_make_directory": "改为文件夹",
   "storage.link_make_directory_title": "移除链接，并在原位置创建真实的空目录",
   "storage.link_make_directory_confirm": "要将 {{path}} 替换为真实的空目录吗？\n\n链接会被移除；其原来指向的内容不会被触及。",
   "storage.link_remove": "移除",

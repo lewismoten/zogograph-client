@@ -464,7 +464,6 @@
   "storage.link_repoint_dialog_title": "إعادة توجيه الرابط",
   "storage.link_repoint_prompt": "إلى أين ينبغي أن يشير {{name}}؟",
   "storage.link_repoint_hint": "استخدم مسارًا مطلقًا أو مسارًا نسبيًا إلى مجلد الرابط.",
-  "storage.link_make_directory": "تحويل إلى مجلد",
   "storage.link_make_directory_title": "أزل الرابط وأنشئ مكانه دليلًا حقيقيًا فارغًا",
   "storage.link_make_directory_confirm": "هل تريد استبدال {{path}} بدليل حقيقي فارغ؟\n\nسيُزال الرابط؛ ولن يُمس ما كان يشير إليه.",
   "storage.link_remove": "إزالة",

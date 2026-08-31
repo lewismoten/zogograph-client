@@ -464,7 +464,6 @@
   "storage.link_repoint_dialog_title": "लिंक पुनः इंगित करें",
   "storage.link_repoint_prompt": "{{name}} को कहाँ इंगित करना चाहिए?",
   "storage.link_repoint_hint": "पूर्ण पथ या लिंक की डायरेक्टरी के सापेक्ष पथ का उपयोग करें।",
-  "storage.link_make_directory": "इसे फ़ोल्डर बनाएँ",
   "storage.link_make_directory_title": "लिंक हटाएँ और उसकी जगह असली, खाली डायरेक्टरी बनाएँ",
   "storage.link_make_directory_confirm": "क्या {{path}} को असली, खाली डायरेक्टरी से बदलें?\n\nलिंक चला जाएगा; जिस पर वह इंगित करता था उसे नहीं छुआ जाएगा।",
   "storage.link_remove": "हटाएँ",

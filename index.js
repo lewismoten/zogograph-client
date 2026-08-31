@@ -3182,6 +3182,12 @@ function renderDomainQueueTitle() {
     'core-domain-queue.title',
     ZogographDomainQueueCard.text('title', helpers),
   );
+  const help = document.querySelector('[data-i18n="core-domain-queue.help"]');
+  help.textContent = ZogographI18n.markSource(
+    help,
+    'core-domain-queue.help',
+    ZogographDomainQueueCard.text('help', helpers),
+  );
 }
 
 document.addEventListener('zogograph-i18n-load', renderDomainQueueTitle);

@@ -2381,7 +2381,6 @@
   "log.lines_100": "100 lines",
   "calendar.add_date": "Add a date",
   "calendar.upcoming_help": "Three months back and twelve forward. Domain expiries and the projected full-disk date are worked out here; renewals, invoices and anything else only you know about are the ones you add. Behind us: the critical alerts that fired, so ‘what changed around then’ has an answer.",
-  "network.domains_help": "A domain expiring is the one outage nothing else here can see coming. Disk, memory, CPU and the HTTP checks all stay green right up to the moment the name stops resolving, and then everything fails at once for a reason that is in no log. Checked weekly — a registration does not change between Tuesdays, and whois servers throttle anybody who asks more often.",
   "network.domain_warn": "warn",
   "network.domain_days_before": "days before",
   "network.domain_watch": "Watch it",

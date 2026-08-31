@@ -336,7 +336,6 @@
   "chart.could_not_draw": "No se pudo dibujar ese gráfico",
   "chart.error": "No se pudo dibujar este elemento visual: {{error}}",
   "action.go_there": "Ir allí",
-  "notes.sign_in": "Inicie sesión para ver las notas.",
   "ai.settings.saved": "Guardado.",
   "chart.visual_item": "elemento",
   "chart.visual_series": "serie",

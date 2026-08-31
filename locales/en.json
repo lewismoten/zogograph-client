@@ -336,7 +336,6 @@
   "chart.could_not_draw": "That chart could not be drawn",
   "chart.error": "Could not draw this visual: {{error}}",
   "action.go_there": "Go there",
-  "notes.sign_in": "Sign in to see the notes.",
   "chart.visual_item": "item",
   "chart.visual_series": "series",
   "chart.visual_pie_data_error": "Pie data needs numeric slices.",

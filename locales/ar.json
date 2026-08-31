@@ -336,7 +336,6 @@
   "chart.could_not_draw": "تعذر رسم هذا المخطط",
   "chart.error": "تعذر رسم هذا العرض المرئي: {{error}}",
   "action.go_there": "اذهب إلى هناك",
-  "notes.sign_in": "سجّل الدخول لرؤية الملاحظات.",
   "ai.settings.saved": "تم الحفظ.",
   "chart.visual_item": "عنصر",
   "chart.visual_series": "سلسلة",

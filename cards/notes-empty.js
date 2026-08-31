@@ -8,26 +8,31 @@ window.ZogographNotesEmptyCard = {
         'core-notes-empty.title': 'What things are',
         'core-notes-empty.message':
           'Nothing written down yet. The button in the bottom corner writes one about whatever page you are on.',
+        'core-notes-empty.sign_in': 'Sign in to see the notes.',
       }),
       es: Object.freeze({
         'core-notes-empty.title': 'Qué son las cosas',
         'core-notes-empty.message':
           'Aún no hay nada escrito. El botón de la esquina inferior escribe una nota sobre la página en la que está.',
+        'core-notes-empty.sign_in': 'Inicie sesión para ver las notas.',
       }),
       hi: Object.freeze({
         'core-notes-empty.title': 'चीज़ें क्या हैं',
         'core-notes-empty.message':
           'अभी कुछ लिखा नहीं गया है। निचले कोने का बटन जिस पृष्ठ पर आप हैं उसके बारे में एक नोट लिखता है।',
+        'core-notes-empty.sign_in': 'नोट देखने के लिए साइन इन करें।',
       }),
       ar: Object.freeze({
         'core-notes-empty.title': 'ما الأشياء',
         'core-notes-empty.message':
           'لا شيء مكتوب بعد. يكتب الزر في الزاوية السفلية ملاحظة عن الصفحة التي أنت فيها.',
+        'core-notes-empty.sign_in': 'سجّل الدخول لرؤية الملاحظات.',
       }),
       zh: Object.freeze({
         'core-notes-empty.title': '这些东西是什么',
         'core-notes-empty.message':
           '还没有写下任何内容。右下角的按钮会写一条关于当前页面的注释。',
+        'core-notes-empty.sign_in': '登录后可查看备注。',
       }),
     }),
   }),

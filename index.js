@@ -14353,7 +14353,7 @@ async function refreshNotes() {
 
   if (!state.signedIn) {
     body.replaceChildren(
-      note(ZogographI18n.t('notes.sign_in', {}, 'Sign in to see the notes.')),
+      note(ZogographNotesEmptyCard.text('sign_in', { i18n: ZogographI18n })),
     );
     $('snapshotBody').replaceChildren();
     return;

@@ -336,7 +336,6 @@
   "chart.could_not_draw": "无法绘制该图表",
   "chart.error": "无法绘制此可视化内容：{{error}}",
   "action.go_there": "前往那里",
-  "notes.sign_in": "登录后可查看备注。",
   "ai.settings.saved": "已保存。",
   "chart.visual_item": "项目",
   "chart.visual_series": "系列",

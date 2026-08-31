@@ -6144,6 +6144,34 @@ document.addEventListener(
   renderApplicationShellControls,
 );
 
+function renderDiagnosisLabels() {
+  const helpers = {
+    target: null,
+    section: () => null,
+    findingRow: () => null,
+    restore: () => null,
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(
+    ZogographDiagnosisResultsCard,
+    'core-diagnosis-results',
+    { findings: [] },
+    helpers,
+  );
+  document
+    .querySelectorAll('[data-i18n^="core-diagnosis-results."]')
+    .forEach((node) => {
+      const key = node.dataset.i18n.replace('core-diagnosis-results.', '');
+      node.textContent = ZogographI18n.markSource(
+        node,
+        `core-diagnosis-results.${key}`,
+        ZogographDiagnosisResultsCard.text(key, helpers),
+      );
+    });
+}
+
+document.addEventListener('zogograph-i18n-load', renderDiagnosisLabels);
+
 function renderLanguageControls() {
   const labels = renderCoreCardPackage(
     ZogographLanguageControlsCard,

@@ -17875,22 +17875,10 @@ async function showNoteSnapshots(row) {
     const title = document.createElement('strong');
     title.textContent =
       {
-        page: ZogographI18n.t(
-          'notes.capture_page',
-          {},
-          'The data behind one page',
-        ),
-        site: ZogographI18n.t(
-          'notes.capture_site',
-          {},
-          'The data behind every page',
-        ),
-        databases: ZogographI18n.t(
-          'notes.capture_databases',
-          {},
-          'A copy of both databases',
-        ),
-        image: ZogographI18n.t('notes.capture_image', {}, 'A picture'),
+        page: notesRecordsText('capture_page'),
+        site: notesRecordsText('capture_site'),
+        databases: notesRecordsText('capture_databases'),
+        image: notesRecordsText('capture_image'),
       }[snapshot.kind] || snapshot.kind;
     item.appendChild(title);
 

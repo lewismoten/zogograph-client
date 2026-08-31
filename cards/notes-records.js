@@ -36,6 +36,10 @@ window.ZogographNotesRecordsCard = {
           'Nothing was captured with this one.',
         'core-notes-records.capture_retention_help':
           'Captures are held outside every retention rule, which is the point of one — and also means nothing expires them.',
+        'core-notes-records.capture_page': 'The data behind one page',
+        'core-notes-records.capture_site': 'The data behind every page',
+        'core-notes-records.capture_databases': 'A copy of both databases',
+        'core-notes-records.capture_image': 'A picture',
       }),
       es: Object.freeze({
         'core-notes-records.table_time': 'Hora',
@@ -68,6 +72,11 @@ window.ZogographNotesRecordsCard = {
         'core-notes-records.capture_empty': 'No se capturó nada con esta nota.',
         'core-notes-records.capture_retention_help':
           'Las capturas se conservan fuera de toda regla de retención, que es su propósito, y también significa que nada las caduca.',
+        'core-notes-records.capture_page': 'Los datos detrás de una página',
+        'core-notes-records.capture_site': 'Los datos detrás de cada página',
+        'core-notes-records.capture_databases':
+          'Una copia de ambas bases de datos',
+        'core-notes-records.capture_image': 'Una imagen',
       }),
       hi: Object.freeze({
         'core-notes-records.table_time': 'समय',
@@ -99,6 +108,10 @@ window.ZogographNotesRecordsCard = {
         'core-notes-records.capture_empty': 'इसमें कुछ भी कैप्चर नहीं हुआ।',
         'core-notes-records.capture_retention_help':
           'कैप्चर हर प्रतिधारण नियम से बाहर रखे जाते हैं, जो उनका उद्देश्य है — और इसका अर्थ यह भी है कि कुछ भी उन्हें समाप्त नहीं करता।',
+        'core-notes-records.capture_page': 'एक पृष्ठ के पीछे का डेटा',
+        'core-notes-records.capture_site': 'हर पृष्ठ के पीछे का डेटा',
+        'core-notes-records.capture_databases': 'दोनों डेटाबेस की एक प्रति',
+        'core-notes-records.capture_image': 'एक चित्र',
       }),
       ar: Object.freeze({
         'core-notes-records.table_time': 'الوقت',
@@ -129,6 +142,10 @@ window.ZogographNotesRecordsCard = {
         'core-notes-records.capture_empty': 'لم يُلتقط شيء مع هذه الملاحظة.',
         'core-notes-records.capture_retention_help':
           'تُحفظ اللقطات خارج كل قاعدة احتفاظ، وهذا هو الغرض منها — ويعني أيضاً أنه لا شيء يُنهي صلاحيتها.',
+        'core-notes-records.capture_page': 'البيانات وراء صفحة واحدة',
+        'core-notes-records.capture_site': 'البيانات وراء كل صفحة',
+        'core-notes-records.capture_databases': 'نسخة من قاعدتي البيانات',
+        'core-notes-records.capture_image': 'صورة',
       }),
       zh: Object.freeze({
         'core-notes-records.table_time': '时间',
@@ -158,6 +175,10 @@ window.ZogographNotesRecordsCard = {
         'core-notes-records.capture_empty': '此注释没有捕获任何内容。',
         'core-notes-records.capture_retention_help':
           '捕获内容保留在所有保留规则之外，这正是它的用途——也意味着没有任何内容会使其过期。',
+        'core-notes-records.capture_page': '一个页面背后的数据',
+        'core-notes-records.capture_site': '每个页面背后的数据',
+        'core-notes-records.capture_databases': '两个数据库的副本',
+        'core-notes-records.capture_image': '一张图片',
       }),
     }),
   }),

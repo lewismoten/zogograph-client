@@ -3708,6 +3708,14 @@ function renderSystemPeersShellTitle() {
     'core-system-peers-shell.title',
     ZogographSystemPeersShellCard.text('title', helpers),
   );
+  const help = document.querySelector(
+    '[data-i18n="core-system-peers-shell.help"]',
+  );
+  help.textContent = ZogographI18n.markSource(
+    help,
+    'core-system-peers-shell.help',
+    ZogographSystemPeersShellCard.text('help', helpers),
+  );
 }
 
 document.addEventListener('zogograph-i18n-load', renderSystemPeersShellTitle);

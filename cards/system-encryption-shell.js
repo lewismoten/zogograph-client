@@ -83,6 +83,8 @@ window.ZogographSystemEncryptionShellCard = {
           'Create encrypted copies',
         'core-system-encryption-shell.copies_created':
           'Created {{count, number}} verified encrypted copies.',
+        'core-system-encryption-shell.recovery_drill_title':
+          'Run recovery drill',
       }),
       es: Object.freeze({
         'core-system-encryption-shell.title': 'Protección de datos',
@@ -174,6 +176,8 @@ window.ZogographSystemEncryptionShellCard = {
           'Crear copias cifradas',
         'core-system-encryption-shell.copies_created':
           'Se crearon {{count, number}} copias cifradas verificadas.',
+        'core-system-encryption-shell.recovery_drill_title':
+          'Ejecutar prueba de recuperación',
       }),
       hi: Object.freeze({
         'core-system-encryption-shell.title': 'डेटा सुरक्षा',
@@ -253,6 +257,8 @@ window.ZogographSystemEncryptionShellCard = {
           'एन्क्रिप्टेड प्रतियां बनाएँ',
         'core-system-encryption-shell.copies_created':
           '{{count, number}} सत्यापित एन्क्रिप्टेड प्रतियां बनाई गईं।',
+        'core-system-encryption-shell.recovery_drill_title':
+          'रिकवरी जाँच चलाएँ',
       }),
       ar: Object.freeze({
         'core-system-encryption-shell.title': 'حماية البيانات',
@@ -328,6 +334,8 @@ window.ZogographSystemEncryptionShellCard = {
         'core-system-encryption-shell.create_copies_title': 'إنشاء نسخ مشفرة',
         'core-system-encryption-shell.copies_created':
           'تم إنشاء {{count, number}} نسخة مشفرة متحقق منها.',
+        'core-system-encryption-shell.recovery_drill_title':
+          'تشغيل تمرين الاسترداد',
       }),
       zh: Object.freeze({
         'core-system-encryption-shell.title': '数据保护',
@@ -397,6 +405,7 @@ window.ZogographSystemEncryptionShellCard = {
         'core-system-encryption-shell.create_copies_title': '创建加密副本',
         'core-system-encryption-shell.copies_created':
           '已创建 {{count, number}} 个经过验证的加密副本。',
+        'core-system-encryption-shell.recovery_drill_title': '运行恢复演练',
       }),
     }),
   }),

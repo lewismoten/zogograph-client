@@ -1426,7 +1426,6 @@
   "encryption.run_recovery_drill": "Run non-destructive recovery drill",
   "encryption.recovery_drill_unavailable": "Create verified encrypted copies before running a recovery drill.",
   "encryption.recovery_drill_confirm": "Decrypt and validate the latest verified copy of every selected store now? Live data is not changed and decrypted temporary files are removed.",
-  "encryption.recovery_drill_title": "Run recovery drill",
   "encryption.recovery_drill_verified_one": "Recovery drill verified {{count, number}} selected store.",
   "encryption.recovery_drill_verified_many": "Recovery drill verified {{count, number}} selected stores.",
   "encryption.add_remote_envelope": "Add optional remote custody envelope",

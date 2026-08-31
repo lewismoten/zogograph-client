@@ -16083,11 +16083,7 @@ function renderEncryptionStatus(data) {
               {},
               'Decrypt and validate the latest verified copy of every selected store now? Live data is not changed and decrypted temporary files are removed.',
             ),
-            ZogographI18n.t(
-              'encryption.recovery_drill_title',
-              {},
-              'Run recovery drill',
-            ),
+            encryptionText('recovery_drill_title'),
           ))
         )
           return;

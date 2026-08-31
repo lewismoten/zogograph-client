@@ -1386,7 +1386,6 @@
   "encryption.run_recovery_drill": "बिना नुकसान वाली पुनर्प्राप्ति जाँच चलाएँ",
   "encryption.recovery_drill_unavailable": "रिकवरी जाँच चलाने से पहले सत्यापित एन्क्रिप्टेड प्रतियां बनाएँ।",
   "encryption.recovery_drill_confirm": "क्या हर चुने गए स्टोर की नवीनतम सत्यापित प्रति को अभी डिक्रिप्ट और सत्यापित करें? लाइव डेटा नहीं बदलेगा और डिक्रिप्ट की गई अस्थायी फ़ाइलें हटा दी जाती हैं।",
-  "encryption.recovery_drill_title": "रिकवरी जाँच चलाएँ",
   "encryption.recovery_drill_verified_one": "रिकवरी जाँच ने {{count, number}} चुने गए स्टोर को सत्यापित किया।",
   "encryption.recovery_drill_verified_many": "रिकवरी जाँच ने {{count, number}} चुने गए स्टोरों को सत्यापित किया।",
   "encryption.add_remote_envelope": "वैकल्पिक दूरस्थ कस्टडी लिफ़ाफ़ा जोड़ें",

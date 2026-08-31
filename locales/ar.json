@@ -1384,7 +1384,6 @@
   "encryption.run_recovery_drill": "شغّل تمرين استرداد غير هدّام",
   "encryption.recovery_drill_unavailable": "أنشئ نسخاً مشفرة متحققاً منها قبل تشغيل تمرين استرداد.",
   "encryption.recovery_drill_confirm": "هل تريد فك تشفير أحدث نسخة متحققة من كل مخزن محدد والتحقق منها الآن؟ لا تتغير البيانات الحية وتُزال الملفات المؤقتة المفكوكة.",
-  "encryption.recovery_drill_title": "تشغيل تمرين الاسترداد",
   "encryption.recovery_drill_verified_one": "تحقق تمرين الاسترداد من {{count, number}} مخزن محدد.",
   "encryption.recovery_drill_verified_many": "تحقق تمرين الاسترداد من {{count, number}} مخازن محددة.",
   "encryption.add_remote_envelope": "أضف غلاف حفظ بعيد اختياري",

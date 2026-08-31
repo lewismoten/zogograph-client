@@ -2060,6 +2060,11 @@ i18nExpect(
     'AI tool parameter preview labels do not belong to their core package',
 );
 i18nExpect(
+    !isset($english['chart.assistant_visual']) &&
+        isset($coreCardEnglish['core-chat-assistant-visual.title']),
+    'assistant visual title does not belong to its core package',
+);
+i18nExpect(
     $page !== false &&
         str_contains($page, 'src="cards/action-summary.js"') &&
         $actionSummaryCard !== false &&

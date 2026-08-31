@@ -364,7 +364,6 @@
   "chart.no_data": "इस अवधि में कुछ भी दर्ज नहीं हुआ।",
   "chart.could_not_draw": "वह चार्ट नहीं बनाया जा सका",
   "chart.error": "यह दृश्य नहीं बनाया जा सका: {{error}}",
-  "chart.assistant_visual": "सहायक दृश्य",
   "notes.what_captured": "इसने क्या कैप्चर किया",
   "notes.capture_loading": "देख रहे हैं…",
   "notes.capture_empty": "इसमें कुछ भी कैप्चर नहीं हुआ।",

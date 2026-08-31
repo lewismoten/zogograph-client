@@ -364,7 +364,6 @@
   "chart.no_data": "لم يُسجَّل شيء خلال هذه الفترة.",
   "chart.could_not_draw": "تعذر رسم هذا المخطط",
   "chart.error": "تعذر رسم هذا العرض المرئي: {{error}}",
-  "chart.assistant_visual": "عرض مرئي للمساعد",
   "notes.what_captured": "ما التقطه",
   "notes.capture_loading": "يجري البحث…",
   "notes.capture_empty": "لم يُلتقط شيء مع هذه الملاحظة.",

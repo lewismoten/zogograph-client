@@ -364,7 +364,6 @@
   "chart.no_data": "Nothing was recorded in this period.",
   "chart.could_not_draw": "That chart could not be drawn",
   "chart.error": "Could not draw this visual: {{error}}",
-  "chart.assistant_visual": "Assistant visual",
   "notes.what_captured": "What it captured",
   "notes.capture_loading": "Looking…",
   "notes.capture_empty": "Nothing was captured with this one.",

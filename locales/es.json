@@ -364,7 +364,6 @@
   "chart.no_data": "No se registró nada en este período.",
   "chart.could_not_draw": "No se pudo dibujar ese gráfico",
   "chart.error": "No se pudo dibujar este elemento visual: {{error}}",
-  "chart.assistant_visual": "Visual del asistente",
   "notes.what_captured": "Lo que capturó",
   "notes.capture_loading": "Buscando…",
   "notes.capture_empty": "No se capturó nada con esta nota.",

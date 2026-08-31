@@ -364,7 +364,6 @@
   "chart.no_data": "此时间段内没有记录任何内容。",
   "chart.could_not_draw": "无法绘制该图表",
   "chart.error": "无法绘制此可视化内容：{{error}}",
-  "chart.assistant_visual": "助手可视化内容",
   "notes.what_captured": "它捕获的内容",
   "notes.capture_loading": "正在查看…",
   "notes.capture_empty": "此注释没有捕获任何内容。",

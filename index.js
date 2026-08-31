@@ -10584,9 +10584,15 @@ function renderPastChat() {
 
   const row = pastChats.list.find((one) => one.id === pastChats.open);
 
-  $('pastChatTitle').textContent =
-    row?.title ||
-    `Conversation of ${whenLabel(session.started_at ?? row?.started_at ?? 0)}`;
+  $('pastChatTitle').textContent = renderCoreCardPackage(
+    ZogographChatTranscriptTitleCard,
+    'core-chat-transcript-title',
+    {
+      title: row?.title,
+      startedAt: session.started_at ?? row?.started_at ?? 0,
+    },
+    { whenLabel, i18n: ZogographI18n },
+  );
 
   $('pastChatPin').textContent = row?.pinned
     ? ZogographI18n.t('ai.unpin', {}, 'Unpin it')

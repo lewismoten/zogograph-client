@@ -460,7 +460,6 @@
   "storage.link_sweep_left_alone": "{{count}} लिंक वैसे ही छोड़ दिए गए।",
   "storage.link_sweep_preview": "उस पथ के अंतर्गत समस्या वाले {{matched}} लिंक हैं। {{deleted}} टूटे लिंक हटाए जाएंगे।",
   "storage.link_sweep_preview_skipped": "उस पथ के अंतर्गत समस्या वाले {{matched}} लिंक हैं। {{deleted}} टूटे लिंक हटाए जाएंगे और अन्य समस्याओं वाले {{skipped}} वैसे ही छोड़ दिए जाएंगे — केवल पथ के आधार पर लूप या एस्केप कभी नहीं हटाया जाता।",
-  "storage.link_repoint_title": "इस लिंक को कहीं और इंगित करें",
   "storage.link_repoint_dialog_title": "लिंक पुनः इंगित करें",
   "storage.link_repoint_prompt": "{{name}} को कहाँ इंगित करना चाहिए?",
   "storage.link_repoint_hint": "पूर्ण पथ या लिंक की डायरेक्टरी के सापेक्ष पथ का उपयोग करें।",

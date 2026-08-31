@@ -26456,71 +26456,19 @@ async function refreshHostDisk() {
  */
 function renderWalkButton(data) {
   const holder = $('hostWalk');
-  if (window.ZogographHostWalkControl) {
-    return renderCoreCardPackage(
-      ZogographHostWalkControl,
-      'core-host-walk-control',
-      data,
-      {
-        target: holder,
-        ago,
-        post,
-        notice,
-        refresh: refreshHostDisk,
-        i18n: ZogographI18n,
-      },
-    );
-  }
-  if (holder) holder.replaceChildren(walkButton(data));
-}
-
-/*
- * Asks root to walk the disk on its next run.
- *
- * The dashboard cannot run anything as root, and the honest interface for that
- * is a button that says what it actually does: it leaves a request, and the
- * collector picks it up within a few minutes. A spinner implying work is
- * happening now would be a lie about who is doing it.
- */
-function walkButton(data) {
-  const box = document.createElement('p');
-
-  if (data.pending) {
-    box.className = 'muted small';
-    box.textContent = ZogographI18n.t(
-      'host.walk_pending',
-      {
-        ago: ago(data.requested_at),
-      },
-      "A walk was requested {{ago}} and is waiting for the next host collection. It runs on the collector's schedule — every five minutes with the suggested crontab line.",
-    );
-    return box;
-  }
-
-  const button = document.createElement('button');
-  button.textContent = data.taken_at
-    ? ZogographI18n.t('host.walk_disk_again', {}, 'Walk the disk again')
-    : ZogographI18n.t('host.walk_disk', {}, 'Walk the disk');
-  button.addEventListener('click', async () => {
-    button.disabled = true;
-    try {
-      await post('request-host-walk');
-      notice(
-        ZogographI18n.t(
-          'host.walk_requested',
-          {},
-          'Requested. The host collector will walk the disk on its next run.',
-        ),
-      );
-      await refreshHostDisk();
-    } catch (error) {
-      notice(String(error.message || error));
-      button.disabled = false;
-    }
-  });
-
-  box.appendChild(button);
-  return box;
+  return renderCoreCardPackage(
+    ZogographHostWalkControl,
+    'core-host-walk-control',
+    data,
+    {
+      target: holder,
+      ago,
+      post,
+      notice,
+      refresh: refreshHostDisk,
+      i18n: ZogographI18n,
+    },
+  );
 }
 
 /*

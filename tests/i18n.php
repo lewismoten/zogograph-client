@@ -2813,6 +2813,16 @@ i18nExpect(
     'Storage scan and analysis guidance does not use the locale catalog',
 );
 i18nExpect(
+    $script !== false &&
+        str_contains(
+            $script,
+            'renderCoreCardPackage(ZogographHostWalkControl, "core-host-walk-control",',
+        ) &&
+        !str_contains($script, 'if (window.ZogographHostWalkControl)') &&
+        !str_contains($script, 'function walkButton(data)'),
+    'host walk control is not isolated behind its core card-module boundary',
+);
+i18nExpect(
     $page !== false &&
         str_contains($page, 'data-i18n="auth.sign_in_help"') &&
         str_contains($page, 'data-i18n="auth.username"') &&

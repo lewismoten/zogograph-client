@@ -2402,7 +2402,6 @@
   "network.whois_title": "查询一个名称",
   "network.whois_help": "对未监视名称进行一次性查询：它是否已被注册、由谁持有、何时到期。不存储任何内容，也不会将域名添加到列表中；若查询结果让您想添加它，可以使用相应按钮。",
   "network.whois_ask": "查询",
-  "network.dns_records_title": "域名发布了什么",
   "network.dns_domain": "域名",
   "network.dns_sweep": "全部查询",
   "network.dns_records_help": "名称能够解析并不代表 DNS 区域设置正确。MX 记录被删或 SPF 被修改会让邮件停止送达；子域名会开始指向不属于您的地方；迁移期间被降至六十秒的 TTL 从未调回。这里其他地方都不会显示这些情况。名称来自您的名称服务器允许的区域传送、cPanel 对此账户域名自身的记录，以及上次查到的结果，而不是猜测名称。",

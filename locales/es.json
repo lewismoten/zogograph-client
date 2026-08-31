@@ -2405,7 +2405,6 @@
   "network.whois_title": "Buscar un nombre",
   "network.whois_help": "Una consulta puntual de un nombre que no está vigilando: si está ocupado, quién lo posee y cuándo vence. No se almacena nada ni se añade ningún dominio a la lista; hay un botón para ello si la respuesta hace que quiera añadirlo.",
   "network.whois_ask": "Consultar",
-  "network.dns_records_title": "Lo que publica un dominio",
   "network.dns_domain": "Dominio",
   "network.dns_sweep": "Consultar todo",
   "network.dns_records_help": "Que un nombre resuelva no significa que la zona sea correcta. El correo deja de llegar porque se eliminó un MX o se editó un SPF; un subdominio comienza a apuntar a un lugar que no es suyo; un TTL reducido a sesenta segundos durante una migración nunca se restablece. Nada de eso aparece en otra parte. Los nombres proceden de una transferencia de zona cuando su servidor de nombres la permite, del propio registro de cPanel de los dominios de esta cuenta y de lo encontrado la última vez, no de adivinar nombres.",

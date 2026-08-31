@@ -2420,7 +2420,6 @@
   "network.whois_title": "Look a name up",
   "network.whois_help": "A one-off lookup for a name you are not watching — whether it is taken, who holds it, when it expires. Nothing is stored and no domain is added to the list; there is a button for that if the answer makes you want one.",
   "network.whois_ask": "Ask",
-  "network.dns_records_title": "What a domain publishes",
   "network.dns_domain": "Domain",
   "network.dns_sweep": "Look it all up",
   "network.dns_records_help": "A name resolving is not the same as a zone being right. Mail stops arriving because an MX was dropped or an SPF edited; a subdomain starts pointing somewhere that is not yours; a TTL cut to sixty seconds during a migration is never put back. None of that shows anywhere else here. Names come from a zone transfer where your nameserver allows one, from cPanel's own record of this account's domains, and from what was found last time — not from guessing at names.",

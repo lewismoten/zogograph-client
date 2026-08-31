@@ -12,6 +12,7 @@ window.ZogographDnsRecordGroupCard = {
     ],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-dns-record-group.title': 'What a domain publishes',
         'core-dns-record-group.ttl': 'TTL',
         'core-dns-record-group.short_ttl_help':
           'A short TTL means resolvers re-ask constantly. Often left over from a migration.',
@@ -22,6 +23,7 @@ window.ZogographDnsRecordGroupCard = {
         'core-dns-record-group.value': 'Value',
       }),
       es: Object.freeze({
+        'core-dns-record-group.title': 'Lo que publica un dominio',
         'core-dns-record-group.ttl': 'TTL',
         'core-dns-record-group.short_ttl_help':
           'Un TTL corto hace que los resolutores vuelvan a consultar constantemente. Suele quedar de una migración.',
@@ -32,6 +34,7 @@ window.ZogographDnsRecordGroupCard = {
         'core-dns-record-group.value': 'Valor',
       }),
       hi: Object.freeze({
+        'core-dns-record-group.title': 'डोमेन क्या प्रकाशित करता है',
         'core-dns-record-group.ttl': 'TTL',
         'core-dns-record-group.short_ttl_help':
           'छोटे TTL का अर्थ है कि रिज़ॉल्वर लगातार फिर से पूछते हैं। यह अक्सर माइग्रेशन के बाद बचा रह जाता है।',
@@ -42,6 +45,7 @@ window.ZogographDnsRecordGroupCard = {
         'core-dns-record-group.value': 'मान',
       }),
       ar: Object.freeze({
+        'core-dns-record-group.title': 'ما الذي ينشره نطاق',
         'core-dns-record-group.ttl': 'TTL',
         'core-dns-record-group.short_ttl_help':
           'يعني TTL القصير أن المحلِّلات تعيد السؤال باستمرار. وغالبًا ما يكون متبقيًا من عملية ترحيل.',
@@ -52,6 +56,7 @@ window.ZogographDnsRecordGroupCard = {
         'core-dns-record-group.value': 'القيمة',
       }),
       zh: Object.freeze({
+        'core-dns-record-group.title': '域名发布了什么',
         'core-dns-record-group.ttl': 'TTL',
         'core-dns-record-group.short_ttl_help':
           'TTL 过短意味着解析器会不断重新查询。这通常是迁移后遗留下来的。',
@@ -63,6 +68,13 @@ window.ZogographDnsRecordGroupCard = {
       }),
     }),
   }),
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-dns-record-group.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-dns-record-group.${key}`],
+    );
+  },
   render(data, helpers) {
     if (!helpers.target) return;
     helpers.renderTable(

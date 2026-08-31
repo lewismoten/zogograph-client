@@ -2998,6 +2998,33 @@ function renderDnsChangesTitle() {
 
 document.addEventListener('zogograph-i18n-load', renderDnsChangesTitle);
 
+function renderDnsRecordGroupTitle() {
+  const helpers = {
+    target: null,
+    renderTable: () => null,
+    recordValueCell: () => null,
+    humanDuration: () => '',
+    humanTime: () => '',
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(
+    ZogographDnsRecordGroupCard,
+    'core-dns-record-group',
+    { rows: [] },
+    helpers,
+  );
+  const title = document.querySelector(
+    '[data-i18n="core-dns-record-group.title"]',
+  );
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-dns-record-group.title',
+    ZogographDnsRecordGroupCard.text('title', helpers),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderDnsRecordGroupTitle);
+
 /**
  * When the disk is projected to fill, as a date.
  *

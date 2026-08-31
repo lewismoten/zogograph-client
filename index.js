@@ -3453,6 +3453,11 @@ function renderUptimeTitle() {
     'core-uptime.title',
     ZogographUptimeCard.text('title', helpers),
   );
+  for (const key of ['gaps_help', 'restart_help']) {
+    ZogographI18n.applyRich(
+      document.querySelector(`[data-i18n-rich="core-uptime.${key}"]`),
+    );
+  }
 }
 
 document.addEventListener('zogograph-i18n-load', renderUptimeTitle);

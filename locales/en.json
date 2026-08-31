@@ -2433,8 +2433,6 @@
   "alerts.mark_all_read": "Mark all read",
   "alerts.incident_title": "Why this fired",
   "action.delete": "Delete",
-  "uptime.gaps_help": "A hole in the readings is not the same as the machine being off, and the charts distinguish them — {{restart_shading}} where the boot time moved, so it really did restart, and {{gap_shading}} where the boot time was unchanged either side and the collector simply was not running. Uptime counts only the first kind; a cron job that stops should not look like a server that keeps falling over.",
-  "uptime.restart_help": "A {{restart_line}} marks each restart the host knows about from {{last}}. Those need not leave a hole at all — a reboot the collector resumes after within a minute has nothing to shade — and they include restarts from before boot times were being recorded, which the readings alone cannot show.",
   "uptime.restarted": "Restarted",
   "uptime.reading_gap": "Reading gap",
   "uptime.restart_explanation": "Boot time moved, so the machine did restart. It came back at {{booted}}; it went down at some point after the last reading, so this is an upper bound rather than a measurement.",

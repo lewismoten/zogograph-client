@@ -39348,11 +39348,9 @@ function renderDnsAnswer(answer) {
   );
   if (Number(answer.ttl) > 0 && Number(answer.ttl) <= 300) {
     ttl.className = 'band-warn small';
-    ttl.title = ZogographI18n.t(
-      'dns.short_ttl_help',
-      {},
-      'A short TTL means resolvers re-ask constantly. Often left over from a migration.',
-    );
+    ttl.title = ZogographDnsRecordGroupCard.text('short_ttl_help', {
+      i18n: ZogographI18n,
+    });
   }
   head.appendChild(ttl);
 

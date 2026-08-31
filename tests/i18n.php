@@ -4092,6 +4092,22 @@ i18nExpect(
     'URL-monitor HTTP method labels belong to their core package',
 );
 i18nExpect(
+    !isset(
+        $english['dns.ttl'],
+        $english['dns.short_ttl_help'],
+        $english['dns.gone_since'],
+        $english['dns.seen_since'],
+    ) &&
+        $script !== false &&
+        str_contains(
+            $script,
+            "ZogographDnsRecordGroupCard.text('short_ttl_help'",
+        ) &&
+        $page !== false &&
+        str_contains($page, 'src="cards/dns-record-group.js"'),
+    'DNS record labels and TTL guidance belong to their core package',
+);
+i18nExpect(
     $hostDisksCard !== false &&
         str_contains($hostDisksCard, '"host.io_rate_per_second"') &&
         $hostIoProcessesCard !== false &&

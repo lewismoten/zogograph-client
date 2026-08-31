@@ -35906,23 +35906,22 @@ function renderUnits() {
     rows,
     [
       {
-        label: ZogographI18n.t('services.service', {}, 'Service'),
+        label: unitsShellText('service'),
         className: 'name',
         render: (row) => row.name,
       },
       {
-        label: ZogographI18n.t('services.for', {}, 'For'),
+        label: unitsShellText('for'),
         render: (row) => {
           const span = document.createElement('span');
           span.className = 'muted';
-          span.textContent =
-            row.category ?? ZogographI18n.t('services.other', {}, 'other');
+          span.textContent = row.category ?? unitsShellText('other');
           span.title = data.category_notes?.[row.category] ?? '';
           return span;
         },
       },
       {
-        label: ZogographI18n.t('services.state', {}, 'State'),
+        label: unitsShellText('state'),
         render: (row) => {
           const span = document.createElement('span');
           span.textContent =
@@ -35936,15 +35935,15 @@ function renderUnits() {
         },
       },
       {
-        label: ZogographI18n.t('services.at_boot', {}, 'At boot'),
+        label: unitsShellText('at_boot'),
         render: (row) => row.enabled || '\u2014',
       },
       {
-        label: ZogographI18n.t('services.systemd_says', {}, 'systemd says'),
+        label: unitsShellText('systemd_says'),
         render: (row) => `${row.active}/${row.sub}`,
       },
       {
-        label: ZogographI18n.t('services.what_it_is', {}, 'What it is'),
+        label: unitsShellText('what_it_is'),
         className: 'cmd',
         render: (row) => row.description || '',
       },

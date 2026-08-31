@@ -22,6 +22,13 @@ window.ZogographHostUnitsShellCard = {
           'Nothing is failed, masked, or running when it should not be. That is the answer this page exists to give.',
         'core-host-units-shell.empty_filters':
           'Nothing matches those filters. The services are still there — only what is drawn has changed.',
+        'core-host-units-shell.service': 'Service',
+        'core-host-units-shell.for': 'For',
+        'core-host-units-shell.state': 'State',
+        'core-host-units-shell.at_boot': 'At boot',
+        'core-host-units-shell.systemd_says': 'systemd says',
+        'core-host-units-shell.what_it_is': 'What it is',
+        'core-host-units-shell.other': 'other',
       }),
       es: Object.freeze({
         'core-host-units-shell.title': 'Todos los servicios',
@@ -43,6 +50,13 @@ window.ZogographHostUnitsShellCard = {
           'No hay nada fallido, enmascarado ni en ejecución cuando no debería estarlo. Esa es la respuesta que esta página existe para dar.',
         'core-host-units-shell.empty_filters':
           'Nada coincide con esos filtros. Los servicios siguen ahí; solo ha cambiado lo que se muestra.',
+        'core-host-units-shell.service': 'Servicio',
+        'core-host-units-shell.for': 'Para',
+        'core-host-units-shell.state': 'Estado',
+        'core-host-units-shell.at_boot': 'Al arrancar',
+        'core-host-units-shell.systemd_says': 'systemd indica',
+        'core-host-units-shell.what_it_is': 'Qué es',
+        'core-host-units-shell.other': 'otro',
       }),
       hi: Object.freeze({
         'core-host-units-shell.title': 'हर सेवा',
@@ -60,6 +74,13 @@ window.ZogographHostUnitsShellCard = {
           'कुछ भी विफल, मास्क या अपेक्षा के विपरीत चल नहीं रहा है। यही उत्तर देने के लिए यह पृष्ठ है।',
         'core-host-units-shell.empty_filters':
           'इन फ़िल्टरों से कुछ नहीं मिलता। सेवाएं अभी भी हैं — केवल दिखाई जाने वाली चीज़ बदली है।',
+        'core-host-units-shell.service': 'सेवा',
+        'core-host-units-shell.for': 'के लिए',
+        'core-host-units-shell.state': 'स्थिति',
+        'core-host-units-shell.at_boot': 'बूट पर',
+        'core-host-units-shell.systemd_says': 'systemd कहता है',
+        'core-host-units-shell.what_it_is': 'यह क्या है',
+        'core-host-units-shell.other': 'अन्य',
       }),
       ar: Object.freeze({
         'core-host-units-shell.title': 'كل خدمة',
@@ -77,6 +98,13 @@ window.ZogographHostUnitsShellCard = {
           'لا توجد خدمة فاشلة أو محجوبة أو تعمل حين لا ينبغي لها ذلك. هذه هي الإجابة التي وُجدت هذه الصفحة لتقديمها.',
         'core-host-units-shell.empty_filters':
           'لا شيء يطابق هذه المرشحات. الخدمات ما زالت موجودة — الذي تغيّر هو المعروض فقط.',
+        'core-host-units-shell.service': 'الخدمة',
+        'core-host-units-shell.for': 'لـ',
+        'core-host-units-shell.state': 'الحالة',
+        'core-host-units-shell.at_boot': 'عند الإقلاع',
+        'core-host-units-shell.systemd_says': 'يقول systemd',
+        'core-host-units-shell.what_it_is': 'ما هي',
+        'core-host-units-shell.other': 'أخرى',
       }),
       zh: Object.freeze({
         'core-host-units-shell.title': '每项服务',
@@ -94,6 +122,13 @@ window.ZogographHostUnitsShellCard = {
           '没有失败、被屏蔽或在不应运行时运行的服务。这正是此页面要回答的问题。',
         'core-host-units-shell.empty_filters':
           '没有内容匹配这些筛选条件。服务仍然存在——只改变了显示内容。',
+        'core-host-units-shell.service': '服务',
+        'core-host-units-shell.for': '用途',
+        'core-host-units-shell.state': '状态',
+        'core-host-units-shell.at_boot': '启动时',
+        'core-host-units-shell.systemd_says': 'systemd 显示',
+        'core-host-units-shell.what_it_is': '说明',
+        'core-host-units-shell.other': '其他',
       }),
     }),
   }),

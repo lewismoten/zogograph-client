@@ -120,6 +120,7 @@ export default [
         ZogographTreemapCrumbsCard: 'readonly',
         ZogographStorageHistoryCard: 'readonly',
         ZogographStorageScanStatusCard: 'readonly',
+        ZogographStorageRetentionCard: 'readonly',
         ZogographSymlinkFilterCard: 'readonly',
         ZogographSymlinkActionsCard: 'readonly',
         ZogographSymlinkSweepEmptyCard: 'readonly',

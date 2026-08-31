@@ -16562,25 +16562,20 @@ function renderRetention(data) {
   const body = $('retentionBody');
   const account = data.account;
   const parts = [];
+  const retentionText = (key, values = {}) =>
+    renderCoreCardPackage(
+      ZogographStorageRetentionCard,
+      'core-storage-retention',
+      { key, values },
+      { i18n: ZogographI18n },
+    );
   const retentionDuration = (days) =>
     Number(days) === 0
-      ? ZogographI18n.t('storage.retention_for_ever', {}, 'for ever')
-      : ZogographI18n.t(
-          'storage.retention_days_value',
-          { days },
-          '{{days}} days',
-        );
+      ? retentionText('for_ever')
+      : retentionText('days_value', { days });
 
   if (!data.writable) {
-    parts.push(
-      note(
-        ZogographI18n.t(
-          'storage.retention_not_writable',
-          {},
-          'lib/config.php is not writable by the web server, so these cannot be changed from here. Edit the file directly, or change it in setup.php.',
-        ),
-      ),
-    );
+    parts.push(note(retentionText('not_writable')));
   }
 
   const table = document.createElement('table');
@@ -16588,12 +16583,12 @@ function renderRetention(data) {
 
   const head = table.createTHead().insertRow();
   for (const label of [
-    ZogographI18n.t('storage.retention_what', {}, 'What'),
-    ZogographI18n.t('storage.retention_holding_now', {}, 'Holding now'),
-    ZogographI18n.t('storage.retention_covers', {}, 'Covers'),
-    ZogographI18n.t('storage.retention_keep_for', {}, 'Keep for'),
-    ZogographI18n.t('storage.retention_recommended', {}, 'Recommended'),
-    ZogographI18n.t('storage.retention_settles_at', {}, 'Settles at'),
+    retentionText('what'),
+    retentionText('holding_now'),
+    retentionText('covers'),
+    retentionText('keep_for'),
+    retentionText('recommended'),
+    retentionText('settles_at'),
     '',
   ]) {
     const th = document.createElement('th');
@@ -16624,11 +16619,7 @@ function renderRetention(data) {
         ? '—'
         : `${humanCount(entry.rows)}${entry.bytes === null ? '' : ` · ${humanBytes(entry.bytes)}`}`;
     if (entry.shares_table) {
-      holding.title = ZogographI18n.t(
-        'storage.retention_shared_table_help',
-        {},
-        'These tiers share one table, so their sizes are parts of it rather than separate files.',
-      );
+      holding.title = retentionText('shared_table_help');
     }
 
     const covers = row.insertCell();
@@ -16643,11 +16634,7 @@ function renderRetention(data) {
     input.name = entry.key;
     input.value = String(entry.days);
     input.disabled = !data.writable;
-    input.title = ZogographI18n.t(
-      'storage.retention_days_hint',
-      {},
-      'Days. 0 means keep for ever.',
-    );
+    input.title = retentionText('days_hint');
     keep.appendChild(input);
 
     const forever = document.createElement('span');
@@ -16670,20 +16657,12 @@ function renderRetention(data) {
      */
     if (entry.never_recommended) {
       suggested.className = 'band-ok';
-      suggested.title = ZogographI18n.t(
-        'storage.retention_forever_recommended_help',
-        { why: entry.why },
-        'Keeping this for ever is the recommendation, not an oversight. {{why}}',
-      );
+      suggested.title = retentionText('forever_recommended_help', {
+        why: entry.why,
+      });
     }
     if (entry.days !== entry.recommended) {
-      suggested.textContent +=
-        ' ' +
-        ZogographI18n.t(
-          'storage.retention_recommended_marker',
-          {},
-          '(recommended)',
-        );
+      suggested.textContent += ' ' + retentionText('recommended_marker');
     }
 
     const settles = row.insertCell();
@@ -16691,35 +16670,17 @@ function renderRetention(data) {
     if (entry.projected !== null) {
       settles.textContent = humanBytes(entry.projected);
       settles.title = entry.at_rest
-        ? ZogographI18n.t(
-            'storage.retention_settled_now',
-            {},
-            'Already holding its full window, so this is roughly what it is now.',
-          )
-        : ZogographI18n.t(
-            'storage.retention_grows_to',
-            {},
-            'Not full yet. This is what it grows to once it has been collecting long enough.',
-          );
+        ? retentionText('settled_now')
+        : retentionText('grows_to');
       if (!entry.at_rest) settles.className = 'size grew';
     } else if (entry.per_year) {
-      settles.textContent = ZogographI18n.t(
-        'storage.retention_yearly_growth',
-        { amount: humanBytes(entry.per_year) },
-        '+{{amount}}/yr',
-      );
-      settles.title = ZogographI18n.t(
-        'storage.retention_forever_growth',
-        {},
-        'Kept for ever, so it does not settle. This is what a year of it costs.',
-      );
+      settles.textContent = retentionText('yearly_growth', {
+        amount: humanBytes(entry.per_year),
+      });
+      settles.title = retentionText('forever_growth');
     } else {
       settles.textContent = '—';
-      settles.title = ZogographI18n.t(
-        'storage.retention_no_history',
-        {},
-        'Not enough history yet to measure a rate.',
-      );
+      settles.title = retentionText('no_history');
     }
 
     const clear = row.insertCell();
@@ -16732,19 +16693,13 @@ function renderRetention(data) {
   const total = document.createElement('p');
   total.className = 'muted small';
   total.textContent = account.projected_known
-    ? ZogographI18n.t(
-        'storage.retention_total_settles',
-        { amount: humanBytes(account.projected_total) },
-        'Left as it is, the database settles near {{amount}}.',
-      )
-    : ZogographI18n.t(
-        'storage.retention_total_grows',
-        {
-          amount: humanBytes(account.projected_total),
-          growth: humanBytes(account.growth_per_year),
-        },
-        'Left as it is, the database settles near {{amount}} plus about {{growth}} a year from the things set to be kept for ever.',
-      );
+    ? retentionText('total_settles', {
+        amount: humanBytes(account.projected_total),
+      })
+    : retentionText('total_grows', {
+        amount: humanBytes(account.projected_total),
+        growth: humanBytes(account.growth_per_year),
+      });
   parts.push(total);
 
   const actions = document.createElement('div');

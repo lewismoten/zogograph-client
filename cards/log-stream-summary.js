@@ -46,6 +46,8 @@ window.ZogographLogStreamSummaryCard = {
           'not stated on the line — placed by when the file was last written',
         'core-log-stream-summary.stream_when': 'When',
         'core-log-stream-summary.stream_log': 'Log',
+        'core-log-stream-summary.stream_wrote_it': 'Wrote it',
+        'core-log-stream-summary.stream_message': 'Message',
         'core-log-stream-summary.skimming_note':
           'Click any line for the whole of it, taken apart. The columns here are cut short on purpose — this view is for skimming.',
       }),
@@ -92,6 +94,8 @@ window.ZogographLogStreamSummaryCard = {
           'no se indica en la línea; se coloca según la última vez que se escribió el archivo',
         'core-log-stream-summary.stream_when': 'Cuándo',
         'core-log-stream-summary.stream_log': 'Registro',
+        'core-log-stream-summary.stream_wrote_it': 'Lo escribió',
+        'core-log-stream-summary.stream_message': 'Mensaje',
         'core-log-stream-summary.skimming_note':
           'Haga clic en cualquier línea para verla completa y desglosada. Las columnas se recortan a propósito: esta vista sirve para hojear.',
       }),
@@ -138,6 +142,8 @@ window.ZogographLogStreamSummaryCard = {
           'लाइन में नहीं बताया गया — फ़ाइल आखिरी बार लिखे जाने के समय के अनुसार रखा गया',
         'core-log-stream-summary.stream_when': 'कब',
         'core-log-stream-summary.stream_log': 'लॉग',
+        'core-log-stream-summary.stream_wrote_it': 'किसने लिखा',
+        'core-log-stream-summary.stream_message': 'संदेश',
         'core-log-stream-summary.skimming_note':
           'किसी भी पंक्ति को पूरी तरह और भागों में देखने के लिए उस पर क्लिक करें। यहाँ के कॉलम जानबूझकर छोटे रखे गए हैं — यह दृश्य जल्दी देखने के लिए है।',
       }),
@@ -183,6 +189,8 @@ window.ZogographLogStreamSummaryCard = {
           'غير مذكور في السطر — وُضع حسب وقت آخر كتابة للملف',
         'core-log-stream-summary.stream_when': 'متى',
         'core-log-stream-summary.stream_log': 'السجل',
+        'core-log-stream-summary.stream_wrote_it': 'كتبه',
+        'core-log-stream-summary.stream_message': 'الرسالة',
         'core-log-stream-summary.skimming_note':
           'انقر أي سطر لرؤيته كاملًا ومفككًا. تُقصَّر الأعمدة هنا عمدًا — هذا العرض للتصفح السريع.',
       }),
@@ -228,6 +236,8 @@ window.ZogographLogStreamSummaryCard = {
           '该行未说明时间——按文件最后写入的时间放置',
         'core-log-stream-summary.stream_when': '时间',
         'core-log-stream-summary.stream_log': '日志',
+        'core-log-stream-summary.stream_wrote_it': '写入者',
+        'core-log-stream-summary.stream_message': '消息',
         'core-log-stream-summary.skimming_note':
           '单击任意一行即可查看完整内容及其拆分。这里的列特意截短——此视图用于快速浏览。',
       }),

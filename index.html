@@ -30,6 +30,7 @@
     <script src="cards/network-capture-history.js" defer></script>
     <script src="cards/network-capture.js" defer></script>
     <script src="cards/network-rdns.js" defer></script>
+    <script src="cards/network-dns-shell.js" defer></script>
     <script src="cards/host-memory-gauges.js" defer></script>
     <script src="cards/overview-gauges.js" defer></script>
     <script src="cards/action-summary.js" defer></script>
@@ -2907,16 +2908,19 @@
         <section class="view" data-view="net-dns" hidden>
           <section class="panel" id="dnsPanel">
             <div class="panel-head">
-              <h2 data-i18n="network.dns_title">Name lookups</h2>
+              <h2 data-i18n="core-network-dns-shell.title">Name lookups</h2>
               <button
                 id="dnsRun"
                 class="link"
-                data-i18n="network.dns_run_again"
+                data-i18n="core-network-dns-shell.run_again"
               >
                 Run them again
               </button>
             </div>
-            <p class="muted small sub-note" data-i18n="network.dns_help">
+            <p
+              class="muted small sub-note"
+              data-i18n="core-network-dns-shell.help"
+            >
               Run when you open this page rather than read from a record —
               &ldquo;was it working five minutes ago&rdquo; is never the
               question. A nameserver that is busy <em>and</em> answering is a
@@ -2941,7 +2945,7 @@
                 placeholder="server (optional)"
                 data-i18n-placeholder="network.dns_server_placeholder"
               />
-              <button type="submit" data-i18n="network.dns_lookup">
+              <button type="submit" data-i18n="core-network-dns-shell.lookup">
                 Look it up
               </button>
             </form>

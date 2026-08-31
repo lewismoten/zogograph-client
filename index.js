@@ -3081,6 +3081,28 @@ function renderNetworkRdnsTitle() {
 
 document.addEventListener('zogograph-i18n-load', renderNetworkRdnsTitle);
 
+function renderNetworkDnsShell() {
+  const helpers = { i18n: ZogographI18n };
+  renderCoreCardPackage(
+    ZogographNetworkDnsShellCard,
+    'core-network-dns-shell',
+    {},
+    helpers,
+  );
+  for (const key of ['title', 'run_again', 'help', 'lookup']) {
+    const element = document.querySelector(
+      `[data-i18n="core-network-dns-shell.${key}"]`,
+    );
+    element.textContent = ZogographI18n.markSource(
+      element,
+      `core-network-dns-shell.${key}`,
+      ZogographNetworkDnsShellCard.text(key, helpers),
+    );
+  }
+}
+
+document.addEventListener('zogograph-i18n-load', renderNetworkDnsShell);
+
 function renderDnsChangesTitle() {
   const helpers = {
     target: null,

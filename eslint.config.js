@@ -306,6 +306,7 @@ export default [
         ZogographNetworkCaptureHistoryCard: 'readonly',
         ZogographNetworkCaptureCard: 'readonly',
         ZogographNetworkRdnsCard: 'readonly',
+        ZogographNetworkDnsShellCard: 'readonly',
         ZogographOtherExtensionsCard: 'readonly',
         ZogographOverviewGaugesCard: 'readonly',
         ZogographOverviewVitalsCards: 'readonly',

@@ -7104,67 +7104,11 @@ function chatSummaryCard(message, session) {
 
 /** The summary itself, and what it stands in for. */
 function showCompaction(message) {
-  const covers = message.covers ?? {};
-  const nodes = [];
-
-  const what = document.createElement('p');
-  what.className = 'muted small';
-  what.textContent = covers.messages
-    ? aiSettingsText(
-        'summary_replaced_count',
-        '{{messages}} earlier messages were replaced with the summary below, {{time}}.',
-        { messages: covers.messages, time: whenLabel(message.at) },
-      )
-    : aiSettingsText(
-        'summary_replaced',
-        'The older part of this conversation was replaced with the summary below, {{time}}.',
-        { time: whenLabel(message.at) },
-      );
-  what.textContent +=
-    ' ' +
-    aiSettingsText(
-      'summary_retained',
-      'They are all still above this point in the panel and still in the database — nothing was deleted. What changed is what the model is sent: from here on it gets this summary instead of those messages.',
-    );
-  nodes.push(what);
-
-  const body = document.createElement('div');
-  body.className = 'day-entry';
-  const title = document.createElement('strong');
-  title.textContent = aiSettingsText(
-    'summary_title',
-    'The summary the model now receives',
-  );
-  body.appendChild(title);
-  const text = document.createElement('div');
-  text.appendChild(renderMarkdown(message.content));
-  body.appendChild(text);
-  nodes.push(body);
-
-  /*
-   * The messages it stands for, by id range.
-   *
-   * Enough to find them in the panel above, and enough to check the summary
-   * against them - which is the point of being able to open this at all.
-   */
-  if (covers.from_message && covers.to_message) {
-    const which = document.createElement('p');
-    which.className = 'muted small';
-    which.textContent = aiSettingsText(
-      'summary_range',
-      'It covers messages {{from}} to {{to}} in this conversation.',
-      { from: covers.from_message, to: covers.to_message },
-    );
-    nodes.push(which);
-  }
-
-  showListDialog(
-    aiSettingsText('summary_dialog_title', 'What was summarised'),
-    nodes,
-    aiSettingsText(
-      'summary_dialog_help',
-      'Written by the model, from the messages it replaced. If it says something the conversation above does not, that is worth knowing — and is the reason this can be opened.',
-    ),
+  return renderCoreCardPackage(
+    ZogographChatSummaryDialogCard,
+    'core-chat-summary-dialog',
+    message,
+    { renderMarkdown, showListDialog, whenLabel, i18n: ZogographI18n },
   );
 }
 

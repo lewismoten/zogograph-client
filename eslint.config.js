@@ -47,6 +47,7 @@ export default [
         ZogographSystemPeersShellCard: 'readonly',
         ZogographSystemMarketplaceShellCard: 'readonly',
         ZogographSystemEncryptionShellCard: 'readonly',
+        ZogographSystemPackageRuntimeShellCard: 'readonly',
         ZogographFetchHeadersCard: 'readonly',
         ZogographFetchMetadataCard: 'readonly',
         ZogographFetchJsonCard: 'readonly',

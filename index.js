@@ -3612,6 +3612,29 @@ document.addEventListener(
   renderSystemEncryptionShellTitle,
 );
 
+function renderSystemPackageRuntimeShellTitle() {
+  const helpers = { i18n: ZogographI18n };
+  renderCoreCardPackage(
+    ZogographSystemPackageRuntimeShellCard,
+    'core-system-package-runtime-shell',
+    {},
+    helpers,
+  );
+  const title = document.querySelector(
+    '[data-i18n="core-system-package-runtime-shell.title"]',
+  );
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-system-package-runtime-shell.title',
+    ZogographSystemPackageRuntimeShellCard.text('title', helpers),
+  );
+}
+
+document.addEventListener(
+  'zogograph-i18n-load',
+  renderSystemPackageRuntimeShellTitle,
+);
+
 /**
  * When the disk is projected to fill, as a date.
  *

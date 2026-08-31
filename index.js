@@ -40020,19 +40020,13 @@ function showLogLine(row, index, rows) {
   if (row.n) facts.push([logStreamSummaryText('detail_line'), String(row.n)]);
   if (parsed.kind) {
     const [icon, meaning] = LOG_MARKS[parsed.kind] || ['', ''];
-    facts.push([
-      ZogographI18n.t('log.detail_level', {}, 'Level'),
-      `${icon} ${meaning}`,
-    ]);
+    facts.push([logStreamSummaryText('detail_level'), `${icon} ${meaning}`]);
   }
   if (parsed.where)
-    facts.push([
-      ZogographI18n.t('log.detail_written_by', {}, 'Written by'),
-      parsed.where,
-    ]);
+    facts.push([logStreamSummaryText('detail_written_by'), parsed.where]);
   if (parsed.file)
     facts.push([
-      ZogographI18n.t('log.detail_in', {}, 'In'),
+      logStreamSummaryText('detail_in'),
       ZogographI18n.t(
         'log.detail_file_line',
         { file: parsed.file, line: parsed.line },

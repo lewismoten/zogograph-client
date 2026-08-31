@@ -105,6 +105,8 @@ window.ZogographSystemEncryptionShellCard = {
           "Protection is off. Live SQLite databases and ordinary copies remain unencrypted unless your host protects their storage separately. Start with the setup wizard's Encryption section; Zogograph will not generate, upload, or store a private key from this page.",
         'core-system-encryption-shell.volume_policy_notice':
           'Zogograph records your host/VM protection policy but cannot verify it. The displayed evidence is your declaration, not a verified encrypted copy. Confirm that every selected database, SQLite WAL/SHM companion, configuration file, log, export, and backup destination is covered.',
+        'core-system-encryption-shell.sealed_copies_notice':
+          'Verified encrypted copies protect backup artifacts, not the running SQLite database. Run `php cron.php --seal` and then `php cron.php --recovery-drill` from the server after setup. The drill decrypts and validates current copies without touching live data; schedule seals separately. Recovery requires the private key outside the web root and an explicit CLI restore.',
       }),
       es: Object.freeze({
         'core-system-encryption-shell.title': 'Protección de datos',
@@ -218,6 +220,8 @@ window.ZogographSystemEncryptionShellCard = {
           'La protección está desactivada. Las bases de datos SQLite activas y las copias normales permanecen sin cifrar salvo que el host proteja su almacenamiento por separado. Comience en la sección Cifrado del asistente de configuración; Zogograph no generará, cargará ni almacenará una clave privada desde esta página.',
         'core-system-encryption-shell.volume_policy_notice':
           'Zogograph registra su política de protección de host/VM, pero no puede verificarla. La evidencia mostrada es su declaración, no una copia cifrada verificada. Confirme que estén cubiertos cada base de datos seleccionada, acompañante SQLite WAL/SHM, archivo de configuración, registro, exportación y destino de copia de seguridad.',
+        'core-system-encryption-shell.sealed_copies_notice':
+          'Las copias cifradas verificadas protegen los artefactos de respaldo, no la base de datos SQLite en ejecución. Ejecute `php cron.php --seal` y luego `php cron.php --recovery-drill` en el servidor después de la configuración. La prueba descifra y valida las copias actuales sin tocar datos activos; programe los sellados por separado. La recuperación requiere la clave privada fuera de la raíz web y una restauración explícita por CLI.',
       }),
       hi: Object.freeze({
         'core-system-encryption-shell.title': 'डेटा सुरक्षा',
@@ -319,6 +323,8 @@ window.ZogographSystemEncryptionShellCard = {
           'सुरक्षा बंद है। सक्रिय SQLite डेटाबेस और साधारण प्रतियां तब तक एन्क्रिप्ट नहीं रहतीं जब तक आपका होस्ट उनके संग्रहण को अलग से सुरक्षित न करे। सेटअप विज़ार्ड के एन्क्रिप्शन अनुभाग से शुरू करें; Zogograph इस पृष्ठ से निजी कुंजी न बनाएगा, न अपलोड करेगा, न संग्रहित करेगा।',
         'core-system-encryption-shell.volume_policy_notice':
           'Zogograph आपकी होस्ट/VM सुरक्षा नीति दर्ज करता है लेकिन उसे सत्यापित नहीं कर सकता। दिखाई गई जानकारी आपकी घोषणा है, सत्यापित एन्क्रिप्टेड प्रति नहीं। पुष्टि करें कि प्रत्येक चुना डेटाबेस, SQLite WAL/SHM सहयोगी, कॉन्फ़िगरेशन फ़ाइल, लॉग, निर्यात और बैकअप गंतव्य कवर है।',
+        'core-system-encryption-shell.sealed_copies_notice':
+          'सत्यापित एन्क्रिप्टेड प्रतियाँ बैकअप आर्टिफैक्ट की सुरक्षा करती हैं, चल रहे SQLite डेटाबेस की नहीं। सेटअप के बाद सर्वर से `php cron.php --seal` और फिर `php cron.php --recovery-drill` चलाएँ। ड्रिल लाइव डेटा को छुए बिना वर्तमान प्रतियों को डिक्रिप्ट और सत्यापित करती है; सील को अलग से शेड्यूल करें। पुनर्प्राप्ति के लिए वेब रूट के बाहर निजी कुंजी और स्पष्ट CLI रिस्टोर आवश्यक है।',
       }),
       ar: Object.freeze({
         'core-system-encryption-shell.title': 'حماية البيانات',
@@ -416,6 +422,8 @@ window.ZogographSystemEncryptionShellCard = {
           'الحماية متوقفة. تبقى قواعد بيانات SQLite النشطة والنسخ العادية غير مشفرة ما لم يحمِ المضيف تخزينها بشكل منفصل. ابدأ من قسم التشفير في معالج الإعداد؛ لن ينشئ Zogograph مفتاحاً خاصاً أو يرفعه أو يخزنه من هذه الصفحة.',
         'core-system-encryption-shell.volume_policy_notice':
           'يسجل Zogograph سياسة حماية المضيف/VM الخاصة بك لكنه لا يستطيع التحقق منها. الدليل المعروض هو إقرارك وليس نسخة مشفرة متحققة. أكد أن كل قاعدة بيانات محددة، وملف SQLite WAL/SHM المرافق، وملف التكوين، والسجل، والتصدير، ووجهة النسخ الاحتياطي مشمولة.',
+        'core-system-encryption-shell.sealed_copies_notice':
+          'تحمي النسخ المشفرة المتحقق منها عناصر النسخ الاحتياطي، لا قاعدة بيانات SQLite العاملة. شغّل `php cron.php --seal` ثم `php cron.php --recovery-drill` من الخادم بعد الإعداد. يفك التمرين تشفير النسخ الحالية ويتحقق منها دون لمس البيانات الحية؛ جدولة الختم منفصلة. يتطلب الاسترداد المفتاح الخاص خارج جذر الويب واستعادة CLI صريحة.',
       }),
       zh: Object.freeze({
         'core-system-encryption-shell.title': '数据保护',
@@ -506,6 +514,8 @@ window.ZogographSystemEncryptionShellCard = {
           '保护已关闭。除非主机单独保护其存储，否则活动 SQLite 数据库和普通副本仍未加密。请从设置向导的“加密”部分开始；Zogograph 不会在此页面生成、上传或存储私钥。',
         'core-system-encryption-shell.volume_policy_notice':
           'Zogograph 会记录您的主机/虚拟机保护策略，但无法验证它。显示的证据是您的声明，而不是经过验证的加密副本。请确认每个选定数据库、SQLite WAL/SHM 配套文件、配置文件、日志、导出文件和备份目标均已覆盖。',
+        'core-system-encryption-shell.sealed_copies_notice':
+          '已验证的加密副本保护的是备份工件，而不是正在运行的 SQLite 数据库。完成设置后，请在服务器上运行 `php cron.php --seal`，再运行 `php cron.php --recovery-drill`。演练会解密并验证当前副本而不触及实时数据；请单独安排封存任务。恢复需要位于 Web 根目录之外的私钥，以及明确的 CLI 还原操作。',
       }),
     }),
   }),

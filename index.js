@@ -15967,15 +15967,7 @@ function renderEncryptionStatus(data) {
   } else if (data.mode === 'operator_managed_volume') {
     parts.push(note(encryptionText('volume_policy_notice')));
   } else if (data.mode === 'sealed_copies_local') {
-    parts.push(
-      note(
-        ZogographI18n.t(
-          'encryption.sealed_copies_notice',
-          {},
-          'Verified encrypted copies protect backup artifacts, not the running SQLite database. Run `php cron.php --seal` and then `php cron.php --recovery-drill` from the server after setup. The drill decrypts and validates current copies without touching live data; schedule seals separately. Recovery requires the private key outside the web root and an explicit CLI restore.',
-        ),
-      ),
-    );
+    parts.push(note(encryptionText('sealed_copies_notice')));
     parts.push(
       note(
         ZogographI18n.t(

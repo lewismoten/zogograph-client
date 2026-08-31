@@ -84,7 +84,7 @@ try {
         $dashboard !== false &&
             str_contains($dashboard, 'function renderEncryptionStatus') &&
             str_contains(
-                $dashboard,
+                $encryptionShell,
                 'Verified encrypted copies protect backup artifacts',
             ) &&
             str_contains(

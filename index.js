@@ -30521,6 +30521,13 @@ function findingRow(f) {
  * policy.
  */
 function inspectActions(data) {
+  const text = (key) =>
+    renderCoreCardPackage(
+      ZogographStorageInspectorActionsCard,
+      'core-storage-inspector-actions',
+      { key },
+      { i18n: ZogographI18n },
+    );
   const wrap = document.createElement('div');
   wrap.className = 'inspect-actions';
 
@@ -30544,23 +30551,14 @@ function inspectActions(data) {
     const remove = document.createElement('button');
     remove.className = 'danger';
     remove.textContent =
-      data.kind === 'dir'
-        ? ZogographI18n.t(
-            'storage.delete_directory',
-            {},
-            'Delete this directory and everything in it',
-          )
-        : ZogographI18n.t('storage.delete_file', {}, 'Delete this file');
+      data.kind === 'dir' ? text('delete_directory') : text('delete_file');
     remove.addEventListener('click', () => deleteFromInspect(data));
     wrap.appendChild(remove);
   } else if (p.delete_reason) {
     wrap.appendChild(note(p.delete_reason));
   }
 
-  return section(
-    ZogographI18n.t('storage.what_you_can_do', {}, 'What you can do with it'),
-    wrap,
-  );
+  return section(text('what_you_can_do'), wrap);
 }
 
 async function deleteFromInspect(data) {

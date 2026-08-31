@@ -155,7 +155,6 @@
   "descriptions.saved": "已保存。现在起它会显示在该名称旁。",
   "action.see": "查看",
   "url.method_get": "GET — 获取页面",
-  "url.sign_in_to_watch": "请登录以监视 URL。",
   "url.method_head": "HEAD — 仅标头，无正文",
   "url.method_options": "OPTIONS — 服务器允许的内容",
   "url.ask_if_changed": "询问它是否变更",

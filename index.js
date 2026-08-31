@@ -34782,6 +34782,14 @@ async function refreshCaptures() {
 
 const urlState = { data: null, selected: null, editing: null };
 
+const urlsEmptyText = (key) =>
+  renderCoreCardPackage(
+    window.ZogographUrlsEmptyCard,
+    'core-urls-empty',
+    { key },
+    { target: null, hideHistory: () => {}, note, i18n: ZogographI18n },
+  );
+
 const urlActionText = (key, values = {}) =>
   renderCoreCardPackage(
     window.ZogographUrlMonitorActionsCard,
@@ -34809,11 +34817,7 @@ const urlHistoryText = (key, values = {}) =>
 async function refreshUrls() {
   const body = $('urlBody');
   if (!state.signedIn) {
-    body.replaceChildren(
-      note(
-        ZogographI18n.t('url.sign_in_to_watch', {}, 'Sign in to watch a URL.'),
-      ),
-    );
+    body.replaceChildren(note(urlsEmptyText('sign_in')));
     return;
   }
 

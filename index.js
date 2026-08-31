@@ -39813,11 +39813,11 @@ const LOG_MARKS = {
   info: ['⚪', 'Info', 'muted'],
 };
 
-const logStreamSummaryText = (key) =>
+const logStreamSummaryText = (key, values = {}) =>
   renderCoreCardPackage(
     window.ZogographLogStreamSummaryCard,
     'core-log-stream-summary',
-    { key },
+    { key, values },
     { note, count, i18n: ZogographI18n },
   );
 
@@ -39943,12 +39943,7 @@ function renderLogStream(data) {
      * untimed line from one file at a single moment - close enough to sort by,
      * not close enough to present as when it happened.
      */
-    if (!row.at)
-      when.title = ZogographI18n.t(
-        'log.timestamp_missing_hint',
-        {},
-        'This line carries no timestamp this recognises. It is placed by when its file was last written.',
-      );
+    if (!row.at) when.title = logStreamSummaryText('timestamp_missing_hint');
     line.appendChild(when);
 
     const from = document.createElement('span');
@@ -39978,11 +39973,9 @@ function renderLogStream(data) {
       const frames = document.createElement('span');
       frames.className = 'stream-frames muted';
       frames.textContent = `+${row.trace.length}`;
-      frames.title = ZogographI18n.t(
-        'log.stack_trace_folded',
-        { count: humanCount(row.trace.length) },
-        `${humanCount(row.trace.length)} stack-trace lines folded in. Click to read.`,
-      );
+      frames.title = logStreamSummaryText('stack_trace_folded', {
+        count: humanCount(row.trace.length),
+      });
       line.appendChild(frames);
     }
 

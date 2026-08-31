@@ -17,6 +17,10 @@ window.ZogographLogStreamSummaryCard = {
         'core-log-stream-summary.loading': 'Reading the end of every log…',
         'core-log-stream-summary.empty': 'Nothing in any of them.',
         'core-log-stream-summary.sign_in': 'Sign in to read log files.',
+        'core-log-stream-summary.stack_trace_folded':
+          '{{count}} stack-trace lines folded in. Click to read.',
+        'core-log-stream-summary.timestamp_missing_hint':
+          'This line carries no timestamp this recognises. It is placed by when its file was last written.',
         'core-log-stream-summary.skimming_note':
           'Click any line for the whole of it, taken apart. The columns here are cut short on purpose — this view is for skimming.',
       }),
@@ -34,6 +38,10 @@ window.ZogographLogStreamSummaryCard = {
         'core-log-stream-summary.empty': 'No hay nada en ninguno de ellos.',
         'core-log-stream-summary.sign_in':
           'Inicie sesión para leer archivos de registro.',
+        'core-log-stream-summary.stack_trace_folded':
+          '{{count}} líneas de seguimiento de pila ocultas. Haga clic para leer.',
+        'core-log-stream-summary.timestamp_missing_hint':
+          'Esta línea no contiene una marca de tiempo que se reconozca. Se coloca según cuándo se escribió por última vez su archivo.',
         'core-log-stream-summary.skimming_note':
           'Haga clic en cualquier línea para verla completa y desglosada. Las columnas se recortan a propósito: esta vista sirve para hojear.',
       }),
@@ -51,6 +59,10 @@ window.ZogographLogStreamSummaryCard = {
         'core-log-stream-summary.empty': 'इनमें से किसी में कुछ नहीं है।',
         'core-log-stream-summary.sign_in':
           'लॉग फ़ाइलें पढ़ने के लिए साइन इन करें।',
+        'core-log-stream-summary.stack_trace_folded':
+          '{{count}} स्टैक-ट्रेस पंक्तियाँ छिपी हैं। पढ़ने के लिए क्लिक करें।',
+        'core-log-stream-summary.timestamp_missing_hint':
+          'इस लाइन में कोई पहचाने जाने योग्य टाइमस्टैम्प नहीं है। इसे उसकी फ़ाइल के आखिरी बार लिखे जाने के समय के अनुसार रखा गया है।',
         'core-log-stream-summary.skimming_note':
           'किसी भी पंक्ति को पूरी तरह और भागों में देखने के लिए उस पर क्लिक करें। यहाँ के कॉलम जानबूझकर छोटे रखे गए हैं — यह दृश्य जल्दी देखने के लिए है।',
       }),
@@ -67,6 +79,10 @@ window.ZogographLogStreamSummaryCard = {
         'core-log-stream-summary.loading': 'يجري قراءة نهاية كل سجل…',
         'core-log-stream-summary.empty': 'لا شيء في أي منها.',
         'core-log-stream-summary.sign_in': 'سجّل الدخول لقراءة ملفات السجل.',
+        'core-log-stream-summary.stack_trace_folded':
+          '{{count}} سطور تتبع مكدس مطوية. انقر للقراءة.',
+        'core-log-stream-summary.timestamp_missing_hint':
+          'لا يحمل هذا السطر طابعًا زمنيًا يمكن التعرف عليه. وُضع حسب وقت آخر كتابة لملفه.',
         'core-log-stream-summary.skimming_note':
           'انقر أي سطر لرؤيته كاملًا ومفككًا. تُقصَّر الأعمدة هنا عمدًا — هذا العرض للتصفح السريع.',
       }),
@@ -83,20 +99,24 @@ window.ZogographLogStreamSummaryCard = {
         'core-log-stream-summary.loading': '正在读取每个日志的末尾…',
         'core-log-stream-summary.empty': '其中没有任何内容。',
         'core-log-stream-summary.sign_in': '登录后可读取日志文件。',
+        'core-log-stream-summary.stack_trace_folded':
+          '已折叠 {{count}} 行堆栈跟踪。点击阅读。',
+        'core-log-stream-summary.timestamp_missing_hint':
+          '该行没有可识别的时间戳。它按其文件最后写入的时间放置。',
         'core-log-stream-summary.skimming_note':
           '单击任意一行即可查看完整内容及其拆分。这里的列特意截短——此视图用于快速浏览。',
       }),
     }),
   }),
-  text(key, helpers) {
+  text(key, helpers, values = {}) {
     return helpers.i18n.t(
       `core-log-stream-summary.${key}`,
-      {},
+      values,
       this.manifest.catalogs.en[`core-log-stream-summary.${key}`],
     );
   },
   render(data, helpers) {
-    if (data?.key) return this.text(data.key, helpers);
+    if (data?.key) return this.text(data.key, helpers, data.values);
     const wrap = document.createDocumentFragment();
     const readable = (data.files || []).filter((file) => file.ok);
     const skipped = (data.files || []).filter((file) => !file.ok);

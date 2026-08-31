@@ -14,23 +14,33 @@ window.ZogographHostDaemonsCard = {
     catalogs: Object.freeze({
       en: Object.freeze({
         'core-host-daemons.title': 'Are the services alive?',
+        'core-host-daemons.help':
+          'The one question the rest of this page cannot answer. A daemon that has died uses no memory, no CPU and no disk, so it vanishes from every chart above rather than standing out in one. {{not_installed}} is shown apart from {{stopped}} on purpose — a service this machine never ran is not a fault, and colouring it red would make the panel permanently alarming and therefore ignored.',
         'core-host-daemons.empty': 'No service states recorded yet.',
       }),
       es: Object.freeze({
         'core-host-daemons.title': '¿Están activos los servicios?',
+        'core-host-daemons.help':
+          'La única pregunta que el resto de esta página no puede responder. Un demonio que ha muerto no usa memoria, CPU ni disco, así que desaparece de todos los gráficos en vez de destacar en uno. {{not_installed}} se muestra separado de {{stopped}} deliberadamente: un servicio que esta máquina nunca ejecutó no es un fallo, y colorearlo en rojo haría que el panel estuviera siempre alarmante y se ignorara.',
         'core-host-daemons.empty':
           'Aún no se registraron estados de servicios.',
       }),
       hi: Object.freeze({
         'core-host-daemons.title': 'क्या सेवाएँ चालू हैं?',
+        'core-host-daemons.help':
+          'यह वह एक प्रश्न है जिसका उत्तर इस पेज का बाकी हिस्सा नहीं दे सकता। बंद हो चुका डेमन मेमोरी, CPU या डिस्क उपयोग नहीं करता, इसलिए वह किसी एक चार्ट में उभरने के बजाय ऊपर के सभी चार्टों से गायब हो जाता है। {{not_installed}} को जानबूझकर {{stopped}} से अलग दिखाया गया है: जो सेवा इस मशीन पर कभी चली ही नहीं वह त्रुटि नहीं है, और उसे लाल दिखाने से पैनल हमेशा चेतावनी जैसा लगेगा और अनदेखा होगा।',
         'core-host-daemons.empty': 'अभी तक कोई सेवा स्थिति दर्ज नहीं हुई।',
       }),
       ar: Object.freeze({
         'core-host-daemons.title': 'هل الخدمات تعمل؟',
+        'core-host-daemons.help':
+          'هذا هو السؤال الوحيد الذي لا تجيب عنه بقية الصفحة. الخادم الذي توقف لا يستخدم ذاكرة أو معالجًا أو قرصًا، لذا يختفي من كل المخططات أعلاه بدل أن يبرز في واحد منها. يُعرض {{not_installed}} منفصلًا عن {{stopped}} عمدًا: فالخدمة التي لم يشغّلها هذا الجهاز قط ليست عطلًا، وتلوينها بالأحمر سيجعل اللوحة مقلقة دائمًا ثم تُهمَل.',
         'core-host-daemons.empty': 'لم تُسجَّل حالات الخدمات بعد.',
       }),
       zh: Object.freeze({
         'core-host-daemons.title': '服务是否正常运行？',
+        'core-host-daemons.help':
+          '这是本页其他部分无法回答的唯一问题。已停止的守护进程不使用内存、CPU 或磁盘，因此会从上方所有图表中消失，而不是在某一张图上突出显示。{{not_installed}} 会刻意与 {{stopped}} 分开显示：这台机器从未运行的服务并非故障；将其标红会使面板永远处于警报状态，反而被忽略。',
         'core-host-daemons.empty': '尚未记录服务状态。',
       }),
     }),

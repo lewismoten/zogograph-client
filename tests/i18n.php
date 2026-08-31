@@ -3855,18 +3855,13 @@ i18nExpect(
 );
 i18nExpect(
     $page !== false &&
-        str_contains($page, 'data-i18n-rich="host.services_alive_help"') &&
+        str_contains($page, 'data-i18n-rich="core-host-daemons.help"') &&
         str_contains($page, 'data-i18n-tag="not_installed"') &&
         str_contains($page, 'data-i18n-tag="stopped"') &&
-        is_array($english) &&
-        str_contains(
-            (string) ($english['host.services_alive_help'] ?? ''),
-            '{{not_installed}}',
-        ) &&
-        str_contains(
-            (string) ($english['host.services_alive_help'] ?? ''),
-            '{{stopped}}',
-        ),
+        $hostDaemonsCard !== false &&
+        str_contains($hostDaemonsCard, '"core-host-daemons.help"') &&
+        str_contains($hostDaemonsCard, '{{not_installed}}') &&
+        str_contains($hostDaemonsCard, '{{stopped}}'),
     'service-status guidance does not preserve translated emphasis',
 );
 i18nExpect(

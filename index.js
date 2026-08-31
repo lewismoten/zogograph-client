@@ -3347,6 +3347,24 @@ function renderCpuBusyChartTitle() {
 
 document.addEventListener('zogograph-i18n-load', renderCpuBusyChartTitle);
 
+function renderCpuGaugesTitle() {
+  const helpers = {
+    target: null,
+    buildGauge: () => null,
+    count: () => '',
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(ZogographCpuGaugesCard, 'core-cpu-gauges', {}, helpers);
+  const title = document.querySelector('[data-i18n="core-cpu-gauges.title"]');
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-cpu-gauges.title',
+    ZogographCpuGaugesCard.text('title', helpers),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderCpuGaugesTitle);
+
 /**
  * When the disk is projected to fill, as a date.
  *

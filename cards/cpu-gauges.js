@@ -6,6 +6,7 @@ window.ZogographCpuGaugesCard = {
     helpers: ['target', 'buildGauge', 'count', 'i18n'],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-cpu-gauges.title': 'CPU',
         'core-cpu-gauges.host_cpu': 'Host CPU',
         'core-cpu-gauges.collector_arc':
           'dark arc: collector tree {{percent}}%',
@@ -27,6 +28,7 @@ window.ZogographCpuGaugesCard = {
           "{{mine}} of the machine's {{total}}",
       }),
       es: Object.freeze({
+        'core-cpu-gauges.title': 'CPU',
         'core-cpu-gauges.host_cpu': 'CPU del host',
         'core-cpu-gauges.collector_arc':
           'arco oscuro: árbol del recopilador {{percent}}%',
@@ -48,6 +50,7 @@ window.ZogographCpuGaugesCard = {
           '{{mine}} de los {{total}} de la máquina',
       }),
       hi: Object.freeze({
+        'core-cpu-gauges.title': 'CPU',
         'core-cpu-gauges.host_cpu': 'होस्ट CPU',
         'core-cpu-gauges.collector_arc': 'गहरा चाप: कलेक्टर ट्री {{percent}}%',
         'core-cpu-gauges.host_total':
@@ -68,6 +71,7 @@ window.ZogographCpuGaugesCard = {
           'मशीन के {{total}} में से {{mine}}',
       }),
       ar: Object.freeze({
+        'core-cpu-gauges.title': 'المعالج',
         'core-cpu-gauges.host_cpu': 'معالج المضيف',
         'core-cpu-gauges.collector_arc': 'قوس داكن: شجرة الجامع {{percent}}%',
         'core-cpu-gauges.host_total':
@@ -87,6 +91,7 @@ window.ZogographCpuGaugesCard = {
         'core-cpu-gauges.core_share_summary': '{{mine}} من {{total}} للآلة',
       }),
       zh: Object.freeze({
+        'core-cpu-gauges.title': 'CPU',
         'core-cpu-gauges.host_cpu': '主机 CPU',
         'core-cpu-gauges.collector_arc': '深色弧：采集器树 {{percent}}%',
         'core-cpu-gauges.host_total':
@@ -107,6 +112,13 @@ window.ZogographCpuGaugesCard = {
       }),
     }),
   }),
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-cpu-gauges.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-cpu-gauges.${key}`],
+    );
+  },
   render(input, helpers) {
     const { sample, accountVitals } = input;
     const { target, buildGauge, count, i18n } = helpers;

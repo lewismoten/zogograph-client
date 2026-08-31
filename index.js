@@ -15807,9 +15807,11 @@ function showPackageRuntimeRevoke(row) {
 }
 
 function renderEncryptionStatus(data) {
+  const encryptionText = (key) =>
+    ZogographSystemEncryptionShellCard.text(key, { i18n: ZogographI18n });
   const body = $('encryptionBody');
   const names = {
-    none: ZogographI18n.t('encryption.mode_none', {}, 'Off'),
+    none: encryptionText('mode_none'),
     sealed_copies_local: ZogographI18n.t(
       'encryption.mode_sealed_copies',
       {},
@@ -15840,15 +15842,12 @@ function renderEncryptionStatus(data) {
   };
   const overview = [
     [
-      ZogographI18n.t('encryption.protection_mode', {}, 'Protection mode'),
-      names[data.mode] ||
-        ZogographI18n.t('encryption.unavailable', {}, 'Unavailable'),
+      encryptionText('protection_mode'),
+      names[data.mode] || encryptionText('unavailable'),
     ],
     [
-      ZogographI18n.t('encryption.selected_stores', {}, 'Selected stores'),
-      data.stores?.length
-        ? data.stores.join(', ')
-        : ZogographI18n.t('encryption.none', {}, 'None'),
+      encryptionText('selected_stores'),
+      data.stores?.length ? data.stores.join(', ') : encryptionText('none'),
     ],
     [
       ZogographI18n.t(

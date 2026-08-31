@@ -821,46 +821,20 @@ function showBuildUpdate(build) {
   const banner = $('updateBanner');
   if (!banner) return;
   const required = build.browserRefreshRequired === true;
-  if (window.ZogographUpdateBannerCard) {
-    return renderCoreCardPackage(
-      ZogographUpdateBannerCard,
-      'core-update-banner',
-      required,
-      {
-        target: banner,
-        reload: () => {
-          buildStorageSet(BUILD_IDENTITY_STORAGE_KEY, buildIdentity(build));
-          buildStorageRemove(BUILD_UPDATE_STORAGE_KEY);
-          location.reload();
-        },
-        i18n: ZogographI18n,
+  return renderCoreCardPackage(
+    ZogographUpdateBannerCard,
+    'core-update-banner',
+    required,
+    {
+      target: banner,
+      reload: () => {
+        buildStorageSet(BUILD_IDENTITY_STORAGE_KEY, buildIdentity(build));
+        buildStorageRemove(BUILD_UPDATE_STORAGE_KEY);
+        location.reload();
       },
-    );
-  }
-  const message = required
-    ? ZogographI18n.t(
-        'update.compatibility',
-        {},
-        'A compatibility update is ready. Reload before continuing so this browser uses the matching dashboard.',
-      )
-    : ZogographI18n.t(
-        'update.available',
-        {},
-        'A newer Zogograph update is available. Reload when you want to see it.',
-      );
-  banner.replaceChildren();
-  const text = document.createElement('span');
-  text.textContent = message;
-  const reload = document.createElement('button');
-  reload.type = 'button';
-  reload.textContent = ZogographI18n.t('action.reload', {}, 'Reload now');
-  reload.addEventListener('click', () => {
-    buildStorageSet(BUILD_IDENTITY_STORAGE_KEY, buildIdentity(build));
-    buildStorageRemove(BUILD_UPDATE_STORAGE_KEY);
-    location.reload();
-  });
-  banner.append(text, reload);
-  banner.hidden = false;
+      i18n: ZogographI18n,
+    },
+  );
 }
 
 async function checkForBuildUpdate() {

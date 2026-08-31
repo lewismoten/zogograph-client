@@ -838,7 +838,8 @@ i18nExpect(
         str_contains(
             $script,
             'renderCoreCardPackage(ZogographUpdateBannerCard, "core-update-banner",',
-        ),
+        ) &&
+        !str_contains($script, 'if (window.ZogographUpdateBannerCard)'),
     'update banner is not isolated behind its core card-module boundary',
 );
 i18nExpect(

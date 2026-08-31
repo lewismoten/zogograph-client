@@ -7,30 +7,38 @@ window.ZogographStorageInspectorPreviewCard = {
     catalogs: Object.freeze({
       en: Object.freeze({
         'core-storage-inspector-preview.title': 'Preview',
+        'core-storage-inspector-preview.unavailable':
+          'The preview could not be loaded.',
         'core-storage-inspector-preview.dimensions':
           '{{format}}, {{width, number}}×{{height, number}} pixels, {{size}} sent in full and scaled here.',
         'core-storage-inspector-preview.size': '{{format}}, {{size}}.',
       }),
       es: Object.freeze({
         'core-storage-inspector-preview.title': 'Vista previa',
+        'core-storage-inspector-preview.unavailable':
+          'No se pudo cargar la vista previa.',
         'core-storage-inspector-preview.dimensions':
           '{{format}}, {{width, number}}×{{height, number}} píxeles; se enviaron {{size}} completos y se escalaron aquí.',
         'core-storage-inspector-preview.size': '{{format}}, {{size}}.',
       }),
       hi: Object.freeze({
         'core-storage-inspector-preview.title': 'पूर्वावलोकन',
+        'core-storage-inspector-preview.unavailable':
+          'पूर्वावलोकन लोड नहीं हो सका।',
         'core-storage-inspector-preview.dimensions':
           '{{format}}, {{width, number}}×{{height, number}} पिक्सेल, {{size}} पूरा भेजा गया और यहाँ स्केल किया गया।',
         'core-storage-inspector-preview.size': '{{format}}, {{size}}।',
       }),
       ar: Object.freeze({
         'core-storage-inspector-preview.title': 'معاينة',
+        'core-storage-inspector-preview.unavailable': 'تعذر تحميل المعاينة.',
         'core-storage-inspector-preview.dimensions':
           '{{format}}، {{width, number}}×{{height, number}} بكسل، أُرسل {{size}} كاملًا وحُجّم هنا.',
         'core-storage-inspector-preview.size': '{{format}}، {{size}}.',
       }),
       zh: Object.freeze({
         'core-storage-inspector-preview.title': '预览',
+        'core-storage-inspector-preview.unavailable': '无法加载预览。',
         'core-storage-inspector-preview.dimensions':
           '{{format}}，{{width, number}}×{{height, number}} 像素，完整发送 {{size}} 并在此缩放。',
         'core-storage-inspector-preview.size': '{{format}}，{{size}}。',

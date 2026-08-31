@@ -1877,14 +1877,15 @@ i18nExpect(
     $script !== false &&
         str_contains($script, 'ZogographI18n.t("image.portrait_alt"') &&
         str_contains($script, 'ZogographI18n.t("image.note_picture_alt"') &&
-        str_contains($script, 'ZogographI18n.t("image.preview_unavailable"') &&
+        str_contains(
+            (string) file_get_contents(
+                $root . '/cards/storage-inspector-preview.js',
+            ),
+            'core-storage-inspector-preview.unavailable',
+        ) &&
         is_array($english) &&
-        isset(
-            $english['image.portrait_alt'],
-            $english['image.chart_alt'],
-            $english['image.preview_unavailable'],
-        ),
-    'dashboard image descriptions or failures do not use localized catalog messages',
+        isset($english['image.portrait_alt'], $english['image.chart_alt']),
+    'dashboard image descriptions or failures do not use package-localized catalog messages',
 );
 i18nExpect(
     $script !== false &&

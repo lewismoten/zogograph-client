@@ -2037,7 +2037,6 @@
   "image.portrait_alt": "{{name}}, अपने वर्णन के अनुसार",
   "image.note_picture_alt": "{{label}}, जैसा यह नोट लिखते समय बनाया गया था",
   "image.chart_alt": "{{chart}} चार्ट",
-  "image.preview_unavailable": "पूर्वावलोकन लोड नहीं हो सका।",
   "package.probe_sqlcipher": "SQLCipher पूर्व-जाँच चलाएँ",
   "package.probe_custody": "कस्टडी एंडपॉइंट जाँचें",
   "package.probe_isolated": "अलग जाँच चलाएँ",

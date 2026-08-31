@@ -2037,7 +2037,6 @@
   "image.portrait_alt": "{{name}}, según su propia descripción",
   "image.note_picture_alt": "{{label}}, tal como se dibujó al escribir esta nota",
   "image.chart_alt": "el gráfico de {{chart}}",
-  "image.preview_unavailable": "No se pudo cargar la vista previa.",
   "package.probe_sqlcipher": "Ejecutar comprobación previa de SQLCipher",
   "package.probe_custody": "Probar extremo de custodia",
   "package.probe_isolated": "Ejecutar prueba aislada",

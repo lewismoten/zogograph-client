@@ -30335,15 +30335,7 @@ function inspectImage(data) {
   img.alt = data.name;
   img.src = `thumb.php?path=${encodeURIComponent(data.path)}`;
   img.addEventListener('error', () => {
-    img.replaceWith(
-      note(
-        ZogographI18n.t(
-          'image.preview_unavailable',
-          {},
-          'The preview could not be loaded.',
-        ),
-      ),
-    );
+    img.replaceWith(note(text('unavailable')));
   });
   wrap.appendChild(img);
 

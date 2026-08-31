@@ -2033,7 +2033,6 @@
   "image.portrait_alt": "{{name}} كما يصف نفسه",
   "image.note_picture_alt": "{{label}} كما رُسم عند كتابة هذه الملاحظة",
   "image.chart_alt": "مخطط {{chart}}",
-  "image.preview_unavailable": "تعذر تحميل المعاينة.",
   "package.probe_sqlcipher": "شغّل فحص SQLCipher المبدئي",
   "package.probe_custody": "اختبر نقطة الحفظ",
   "package.probe_isolated": "شغّل فحصًا معزولًا",

@@ -1,3 +1,4 @@
 {
-  "core-ai-set-session-topic.summary": "为这次对话设置一个标题。"
+  "core-ai-set-session-topic.summary": "为这次对话设置一个标题。",
+  "core-ai-set-session-topic.activity": "为这次对话命名"
 }

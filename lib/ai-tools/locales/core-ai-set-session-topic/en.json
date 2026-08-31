@@ -1,3 +1,4 @@
 {
-  "core-ai-set-session-topic.summary": "Give this conversation a title."
+  "core-ai-set-session-topic.summary": "Give this conversation a title.",
+  "core-ai-set-session-topic.activity": "Named this conversation"
 }

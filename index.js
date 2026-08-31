@@ -28895,69 +28895,21 @@ function renderAlertBanner(unread) {
   }
 
   banner.hidden = false;
-  if (window.ZogographAlertBannerCard) {
-    return renderCoreCardPackage(
-      ZogographAlertBannerCard,
-      'core-alert-banner',
-      unread,
-      {
-        target: banner,
-        severityIcon,
-        showView,
-        dismiss: () => {
-          writeDismissed(newest);
-          banner.hidden = true;
-        },
-        i18n: ZogographI18n,
+  return renderCoreCardPackage(
+    ZogographAlertBannerCard,
+    'core-alert-banner',
+    unread,
+    {
+      target: banner,
+      severityIcon,
+      showView,
+      dismiss: () => {
+        writeDismissed(newest);
+        banner.hidden = true;
       },
-    );
-  }
-  banner.className = unread.some((r) => r.severity === 'critical')
-    ? 'crit'
-    : '';
-
-  const frag = document.createDocumentFragment();
-  const head = document.createElement('strong');
-  head.textContent = ZogographI18n.t(
-    'alerts.unread_count',
-    { count: unread.length },
-    '{{count, number}} unread alert(s)',
+      i18n: ZogographI18n,
+    },
   );
-  frag.appendChild(head);
-
-  const list = document.createElement('ul');
-  for (const row of unread.slice(0, 4)) {
-    const li = document.createElement('li');
-    li.textContent = `${severityIcon(row.severity)} ${row.subject}`;
-    list.appendChild(li);
-  }
-  frag.appendChild(list);
-
-  const go = document.createElement('button');
-  go.className = 'link';
-  go.textContent = ZogographI18n.t('alerts.see_all', {}, 'See all');
-  go.addEventListener('click', () => showView('alerts'));
-  frag.appendChild(go);
-
-  const close = document.createElement('button');
-  close.className = 'dismiss';
-  close.title = ZogographI18n.t(
-    'alerts.hide_until_new',
-    {},
-    'Hide this until something new fires',
-  );
-  close.setAttribute(
-    'aria-label',
-    ZogographI18n.t('alerts.dismiss', {}, 'Dismiss'),
-  );
-  close.textContent = '\u00d7';
-  close.addEventListener('click', () => {
-    writeDismissed(newest);
-    banner.hidden = true;
-  });
-  frag.appendChild(close);
-
-  banner.replaceChildren(frag);
 }
 
 /*

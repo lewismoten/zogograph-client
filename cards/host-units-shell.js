@@ -15,6 +15,13 @@ window.ZogographHostUnitsShellCard = {
         'core-host-units-shell.enabled_not_running': 'enabled, not running',
         'core-host-units-shell.running': 'running',
         'core-host-units-shell.stopped': 'stopped',
+        'core-host-units-shell.sign_in': 'Sign in to see the service list.',
+        'core-host-units-shell.host_reading':
+          'From the host reading of {{when}}.',
+        'core-host-units-shell.empty_attention':
+          'Nothing is failed, masked, or running when it should not be. That is the answer this page exists to give.',
+        'core-host-units-shell.empty_filters':
+          'Nothing matches those filters. The services are still there — only what is drawn has changed.',
       }),
       es: Object.freeze({
         'core-host-units-shell.title': 'Todos los servicios',
@@ -28,6 +35,14 @@ window.ZogographHostUnitsShellCard = {
           'habilitado, no en ejecución',
         'core-host-units-shell.running': 'en ejecución',
         'core-host-units-shell.stopped': 'detenido',
+        'core-host-units-shell.sign_in':
+          'Inicie sesión para ver la lista de servicios.',
+        'core-host-units-shell.host_reading':
+          'Según la lectura del host de {{when}}.',
+        'core-host-units-shell.empty_attention':
+          'No hay nada fallido, enmascarado ni en ejecución cuando no debería estarlo. Esa es la respuesta que esta página existe para dar.',
+        'core-host-units-shell.empty_filters':
+          'Nada coincide con esos filtros. Los servicios siguen ahí; solo ha cambiado lo que se muestra.',
       }),
       hi: Object.freeze({
         'core-host-units-shell.title': 'हर सेवा',
@@ -39,6 +54,12 @@ window.ZogographHostUnitsShellCard = {
         'core-host-units-shell.enabled_not_running': 'सक्षम है, चल नहीं रहा',
         'core-host-units-shell.running': 'चल रहा है',
         'core-host-units-shell.stopped': 'रुका हुआ',
+        'core-host-units-shell.sign_in': 'सेवा सूची देखने के लिए साइन इन करें।',
+        'core-host-units-shell.host_reading': '{{when}} के होस्ट रीडिंग से।',
+        'core-host-units-shell.empty_attention':
+          'कुछ भी विफल, मास्क या अपेक्षा के विपरीत चल नहीं रहा है। यही उत्तर देने के लिए यह पृष्ठ है।',
+        'core-host-units-shell.empty_filters':
+          'इन फ़िल्टरों से कुछ नहीं मिलता। सेवाएं अभी भी हैं — केवल दिखाई जाने वाली चीज़ बदली है।',
       }),
       ar: Object.freeze({
         'core-host-units-shell.title': 'كل خدمة',
@@ -50,6 +71,12 @@ window.ZogographHostUnitsShellCard = {
         'core-host-units-shell.enabled_not_running': 'مُمكّن، لا يعمل',
         'core-host-units-shell.running': 'يعمل',
         'core-host-units-shell.stopped': 'متوقف',
+        'core-host-units-shell.sign_in': 'سجّل الدخول لرؤية قائمة الخدمات.',
+        'core-host-units-shell.host_reading': 'من قراءة المضيف في {{when}}.',
+        'core-host-units-shell.empty_attention':
+          'لا توجد خدمة فاشلة أو محجوبة أو تعمل حين لا ينبغي لها ذلك. هذه هي الإجابة التي وُجدت هذه الصفحة لتقديمها.',
+        'core-host-units-shell.empty_filters':
+          'لا شيء يطابق هذه المرشحات. الخدمات ما زالت موجودة — الذي تغيّر هو المعروض فقط.',
       }),
       zh: Object.freeze({
         'core-host-units-shell.title': '每项服务',
@@ -61,6 +88,12 @@ window.ZogographHostUnitsShellCard = {
         'core-host-units-shell.enabled_not_running': '已启用，未运行',
         'core-host-units-shell.running': '正在运行',
         'core-host-units-shell.stopped': '已停止',
+        'core-host-units-shell.sign_in': '登录后可查看服务列表。',
+        'core-host-units-shell.host_reading': '来自 {{when}} 的主机读数。',
+        'core-host-units-shell.empty_attention':
+          '没有失败、被屏蔽或在不应运行时运行的服务。这正是此页面要回答的问题。',
+        'core-host-units-shell.empty_filters':
+          '没有内容匹配这些筛选条件。服务仍然存在——只改变了显示内容。',
       }),
     }),
   }),

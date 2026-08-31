@@ -35763,16 +35763,10 @@ const unitState = {
 
 async function refreshUnits() {
   const body = $('unitsBody');
+  const unitsShellText = (key, values = {}) =>
+    ZogographHostUnitsShellCard.text(key, values, { i18n: ZogographI18n });
   if (!state.signedIn) {
-    body.replaceChildren(
-      note(
-        ZogographI18n.t(
-          'services.sign_in',
-          {},
-          'Sign in to see the service list.',
-        ),
-      ),
-    );
+    body.replaceChildren(note(unitsShellText('sign_in')));
     return;
   }
 
@@ -35886,13 +35880,7 @@ function renderUnits() {
   }
   wrap.appendChild(cards);
   wrap.appendChild(
-    note(
-      ZogographI18n.t(
-        'services.host_reading',
-        { when: humanTime(data.taken_at) },
-        'From the host reading of {{when}}.',
-      ),
-    ),
+    note(unitsShellText('host_reading', { when: humanTime(data.taken_at) })),
   );
 
   wrap.appendChild(unitFilters(data, problems));
@@ -35906,16 +35894,8 @@ function renderUnits() {
     $('unitsTable').replaceChildren(
       note(
         unitState.show === 'attention'
-          ? ZogographI18n.t(
-              'services.empty_attention',
-              {},
-              'Nothing is failed, masked, or running when it should not be. That is the answer this page exists to give.',
-            )
-          : ZogographI18n.t(
-              'services.empty_filters',
-              {},
-              'Nothing matches those filters. The services are still there — only what is drawn has changed.',
-            ),
+          ? unitsShellText('empty_attention')
+          : unitsShellText('empty_filters'),
       ),
     );
     return;

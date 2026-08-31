@@ -36318,7 +36318,7 @@ function renderEventList(data) {
     holder.replaceChildren(
       note(
         ZogographI18n.t(
-          'calendar.no_tracked_events',
+          'core-calendar-event-list.empty',
           {},
           'Nothing kept yet. Renewals, invoices, certificate purchases ' +
             '\u2014 anything with a date that this machine could not work out for itself.',
@@ -36337,16 +36337,20 @@ function renderEventList(data) {
     data.events,
     [
       {
-        label: ZogographI18n.t('calendar.what', {}, 'What'),
+        label: ZogographI18n.t('core-calendar-event-list.what', {}, 'What'),
         className: 'name',
         render: (row) => row.title,
       },
       {
-        label: ZogographI18n.t('calendar.when', {}, 'When'),
+        label: ZogographI18n.t('core-calendar-event-list.when', {}, 'When'),
         render: (row) => humanTime(row.at).split(',')[0],
       },
       {
-        label: ZogographI18n.t('calendar.repeats', {}, 'Repeats'),
+        label: ZogographI18n.t(
+          'core-calendar-event-list.repeats',
+          {},
+          'Repeats',
+        ),
         render: (row) => data.repeats[row.repeats] || row.repeats,
       },
       {
@@ -36356,12 +36360,12 @@ function renderEventList(data) {
           const span = document.createElement('span');
           span.className = 'band-warn small';
           span.textContent = ZogographI18n.t(
-            'calendar.important',
+            'core-calendar-event-list.important',
             {},
             'important',
           );
           span.title = ZogographI18n.t(
-            'calendar.important_help',
+            'core-calendar-event-list.important_help',
             {},
             'Appears on the dashboard and in the alert emails as it approaches.',
           );
@@ -36369,12 +36373,16 @@ function renderEventList(data) {
         },
       },
       {
-        label: ZogographI18n.t('calendar.dealt_with', {}, 'Dealt with'),
+        label: ZogographI18n.t(
+          'core-calendar-event-list.dealt_with',
+          {},
+          'Dealt with',
+        ),
         render: (row) =>
           row.resolved_at ? humanTime(row.resolved_at).split(',')[0] : '\u2014',
       },
       {
-        label: ZogographI18n.t('calendar.note', {}, 'Note'),
+        label: ZogographI18n.t('core-calendar-event-list.note', {}, 'Note'),
         className: 'cmd',
         render: (row) => row.note || '',
       },
@@ -36396,11 +36404,15 @@ function renderEventList(data) {
             if (
               !(await confirmDialog(
                 ZogographI18n.t(
-                  'calendar.remove_confirm',
+                  'core-calendar-event-list.remove_confirm',
                   { title: row.title },
                   'Remove "{{title}}"?',
                 ),
-                ZogographI18n.t('calendar.remove_title', {}, 'Remove event'),
+                ZogographI18n.t(
+                  'core-calendar-event-list.remove_title',
+                  {},
+                  'Remove event',
+                ),
               ))
             )
               return;

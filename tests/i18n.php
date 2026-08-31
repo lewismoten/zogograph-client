@@ -2958,6 +2958,7 @@ preg_match_all(
 foreach (array_unique($dynamicDashboardKeys[1] ?? []) as $key) {
     i18nExpect(
         isset($english[$key]) ||
+            isset($coreCardEnglish[$key]) ||
             isset($toolEnglish[$key]) ||
             (in_array(
                 $key,
@@ -3615,7 +3616,11 @@ foreach (['en-US', 'en-GB', 'es', 'hi', 'zh', 'ar'] as $locale) {
                     ),
                 ),
                 array_keys(
-                    array_replace($catalog, $toolCatalogs[$locale] ?? []),
+                    array_replace(
+                        $catalog,
+                        $toolCatalogs[$locale] ?? [],
+                        $coreCardLocaleKeys[$locale] ?? [],
+                    ),
                 ),
             ) === [],
             "locale catalog $locale falls back to English for a visible dashboard message",

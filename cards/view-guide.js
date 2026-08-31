@@ -23,6 +23,10 @@ window.ZogographViewGuideCard = {
           'Shows how processor, memory, processes, and services are behaving on the host.',
         'core-view-guide.host_useful':
           'Use it to distinguish an account limit from host-wide pressure and to find the process or service behind a spike.',
+        'core-view-guide.network_purpose':
+          'Shows the network identity, connections, names, and external checks associated with this server.',
+        'core-view-guide.network_useful':
+          'Use it to investigate reachability, DNS changes, unexpected listeners, traffic, and domain expiry before they become outages.',
       }),
       es: Object.freeze({
         'core-view-guide.access_page': 'Guía de acceso y página',
@@ -42,6 +46,10 @@ window.ZogographViewGuideCard = {
           'Muestra cómo se comportan el procesador, la memoria, los procesos y los servicios en el host.',
         'core-view-guide.host_useful':
           'Úsela para distinguir un límite de cuenta de la presión en todo el host y encontrar el proceso o servicio detrás de un pico.',
+        'core-view-guide.network_purpose':
+          'Muestra la identidad de red, conexiones, nombres y comprobaciones externas asociadas a este servidor.',
+        'core-view-guide.network_useful':
+          'Úsela para investigar accesibilidad, cambios de DNS, escuchas inesperadas, tráfico y vencimiento de dominios antes de que se conviertan en interrupciones.',
       }),
       hi: Object.freeze({
         'core-view-guide.access_page': 'पहुँच और पृष्ठ मार्गदर्शिका',
@@ -61,6 +69,10 @@ window.ZogographViewGuideCard = {
           'दिखाता है कि होस्ट पर प्रोसेसर, मेमोरी, प्रक्रियाएँ और सेवाएँ कैसे व्यवहार कर रही हैं।',
         'core-view-guide.host_useful':
           'इससे खाता सीमा और पूरे होस्ट के दबाव में अंतर करें और किसी उछाल के पीछे की प्रक्रिया या सेवा खोजें।',
+        'core-view-guide.network_purpose':
+          'इस सर्वर से जुड़ी नेटवर्क पहचान, कनेक्शन, नाम और बाहरी जाँच दिखाता है।',
+        'core-view-guide.network_useful':
+          'पहुंच, DNS बदलाव, अनपेक्षित लिस्नर, ट्रैफ़िक और डोमेन समाप्ति की जाँच के लिए इसका उपयोग करें, इससे पहले कि वे आउटेज बनें।',
       }),
       ar: Object.freeze({
         'core-view-guide.access_page': 'دليل الوصول والصفحة',
@@ -80,6 +92,10 @@ window.ZogographViewGuideCard = {
           'يعرض كيفية عمل المعالج والذاكرة والعمليات والخدمات على المضيف.',
         'core-view-guide.host_useful':
           'استخدمه لتمييز حد الحساب عن الضغط على المضيف كله وللعثور على العملية أو الخدمة وراء ذروة ما.',
+        'core-view-guide.network_purpose':
+          'يعرض هوية الشبكة والاتصالات والأسماء والفحوصات الخارجية المرتبطة بهذا الخادم.',
+        'core-view-guide.network_useful':
+          'استخدمه للتحقيق في إمكانية الوصول وتغييرات DNS والمستمعات غير المتوقعة وحركة المرور وانتهاء النطاقات قبل أن تصبح أعطالًا.',
       }),
       zh: Object.freeze({
         'core-view-guide.access_page': '访问和页面指南',
@@ -99,6 +115,10 @@ window.ZogographViewGuideCard = {
           '显示处理器、内存、进程和服务在主机上的运行情况。',
         'core-view-guide.host_useful':
           '用它区分帐户限制与全主机压力，并找出峰值背后的进程或服务。',
+        'core-view-guide.network_purpose':
+          '显示与此服务器关联的网络身份、连接、名称和外部检查。',
+        'core-view-guide.network_useful':
+          '在可达性、DNS 变化、意外监听器、流量和域名过期演变为故障前，用它进行调查。',
       }),
     }),
   }),

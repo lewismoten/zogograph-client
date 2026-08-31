@@ -18,6 +18,7 @@ window.ZogographReportRowCard = {
         'core-report-row.cost_tip': 'What writing it cost.',
         'core-report-row.delete_confirm': 'Delete this summary?',
         'core-report-row.delete_title': 'Delete summary',
+        'core-report-row.delete': 'Delete',
       }),
       es: Object.freeze({
         'core-report-row.period_summary': 'Resumen de {{period}}',
@@ -26,6 +27,7 @@ window.ZogographReportRowCard = {
         'core-report-row.cost_tip': 'Lo que costó escribirlo.',
         'core-report-row.delete_confirm': '¿Eliminar este resumen?',
         'core-report-row.delete_title': 'Eliminar resumen',
+        'core-report-row.delete': 'Eliminar',
       }),
       hi: Object.freeze({
         'core-report-row.period_summary': '{{period}} सारांश',
@@ -34,6 +36,7 @@ window.ZogographReportRowCard = {
         'core-report-row.cost_tip': 'इसे लिखने की लागत।',
         'core-report-row.delete_confirm': 'क्या यह सारांश हटाना है?',
         'core-report-row.delete_title': 'सारांश हटाएँ',
+        'core-report-row.delete': 'हटाएँ',
       }),
       ar: Object.freeze({
         'core-report-row.period_summary': 'ملخص {{period}}',
@@ -42,6 +45,7 @@ window.ZogographReportRowCard = {
         'core-report-row.cost_tip': 'ما كلفته كتابته.',
         'core-report-row.delete_confirm': 'هل تريد حذف هذا الملخص؟',
         'core-report-row.delete_title': 'حذف الملخص',
+        'core-report-row.delete': 'احذف',
       }),
       zh: Object.freeze({
         'core-report-row.period_summary': '{{period}}摘要',
@@ -50,6 +54,7 @@ window.ZogographReportRowCard = {
         'core-report-row.cost_tip': '撰写此摘要的成本。',
         'core-report-row.delete_confirm': '删除此摘要？',
         'core-report-row.delete_title': '删除摘要',
+        'core-report-row.delete': '删除',
       }),
     }),
   }),
@@ -98,7 +103,7 @@ window.ZogographReportRowCard = {
     }
     const drop = document.createElement('button');
     drop.className = 'link danger small';
-    drop.textContent = helpers.i18n.t('action.delete', {}, 'Delete');
+    drop.textContent = helpers.i18n.t('core-report-row.delete', {}, 'Delete');
     drop.addEventListener('click', () =>
       helpers.remove(
         report,

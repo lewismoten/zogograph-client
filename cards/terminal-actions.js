@@ -14,6 +14,7 @@ window.ZogographTerminalActionsCard = {
         'core-terminal-actions.copy_refused':
           'This browser would not let the page write to the clipboard.',
         'core-terminal-actions.assistant_fallback': 'the assistant',
+        'core-terminal-actions.copied': 'Copied',
       }),
       es: Object.freeze({
         'core-terminal-actions.send_output_to':
@@ -24,6 +25,7 @@ window.ZogographTerminalActionsCard = {
         'core-terminal-actions.copy_refused':
           'Este navegador no permitió que la página escribiera en el portapapeles.',
         'core-terminal-actions.assistant_fallback': 'el asistente',
+        'core-terminal-actions.copied': 'Copiado',
       }),
       hi: Object.freeze({
         'core-terminal-actions.send_output_to':
@@ -34,6 +36,7 @@ window.ZogographTerminalActionsCard = {
         'core-terminal-actions.copy_refused':
           'इस ब्राउज़र ने पृष्ठ को क्लिपबोर्ड में लिखने नहीं दिया।',
         'core-terminal-actions.assistant_fallback': 'सहायक',
+        'core-terminal-actions.copied': 'कॉपी हो गया',
       }),
       ar: Object.freeze({
         'core-terminal-actions.send_output_to':
@@ -44,6 +47,7 @@ window.ZogographTerminalActionsCard = {
         'core-terminal-actions.copy_refused':
           'لم يسمح هذا المتصفح للصفحة بالكتابة إلى الحافظة.',
         'core-terminal-actions.assistant_fallback': 'المساعد',
+        'core-terminal-actions.copied': 'تم النسخ',
       }),
       zh: Object.freeze({
         'core-terminal-actions.send_output_to': '将此输出发送给 {{assistant}}',
@@ -52,6 +56,7 @@ window.ZogographTerminalActionsCard = {
         'core-terminal-actions.copy_output': '复制输出',
         'core-terminal-actions.copy_refused': '此浏览器不允许页面写入剪贴板。',
         'core-terminal-actions.assistant_fallback': '助手',
+        'core-terminal-actions.copied': '已复制',
       }),
     }),
   }),
@@ -91,7 +96,7 @@ window.ZogographTerminalActionsCard = {
     copy.addEventListener('click', async () => {
       try {
         await navigator.clipboard.writeText(text);
-        copy.textContent = i18n.t('action.copied', {}, 'Copied');
+        copy.textContent = i18n.t('core-terminal-actions.copied', {}, 'Copied');
         setTimeout(() => {
           copy.textContent = copyLabel();
         }, 1400);

@@ -26407,24 +26407,17 @@ async function refreshHostDisk() {
 
     const table = document.createElement('table');
     const head = table.createTHead().insertRow();
-    [
-      'host.filesystem_mounted_at',
-      'host.filesystem_device',
-      'host.filesystem_type',
-      'host.filesystem_used',
-      'host.filesystem_free',
-      'host.filesystem_full',
-    ].forEach((key, i) => {
-      const th = document.createElement('th');
-      th.textContent = ZogographI18n.t(
-        key,
-        {},
-        ['Mounted at', 'Device', 'Type', 'Used', 'Free', 'Full'][i],
-      );
-      if (i === 0) th.className = 'name';
-      if (i >= 3) th.className = 'size';
-      head.appendChild(th);
-    });
+    ['mounted_at', 'device', 'type', 'used', 'free', 'full'].forEach(
+      (key, i) => {
+        const th = document.createElement('th');
+        th.textContent = ZogographHostDiskShellCard.text(key, {
+          i18n: ZogographI18n,
+        });
+        if (i === 0) th.className = 'name';
+        if (i >= 3) th.className = 'size';
+        head.appendChild(th);
+      },
+    );
 
     const tbody = table.createTBody();
     for (const m of data.mounts) {
@@ -26493,7 +26486,12 @@ async function refreshHostDisk() {
 
     wrap.appendChild(table);
     body.appendChild(
-      section(ZogographI18n.t('host.filesystems', {}, 'Filesystems'), wrap),
+      section(
+        ZogographHostDiskShellCard.text('filesystems', {
+          i18n: ZogographI18n,
+        }),
+        wrap,
+      ),
     );
   }
 

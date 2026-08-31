@@ -8,6 +8,13 @@ window.ZogographHostDiskShellCard = {
       en: Object.freeze({
         'core-host-disk-shell.filesystems_title':
           'Filesystems, and the space nothing accounts for',
+        'core-host-disk-shell.filesystems': 'Filesystems',
+        'core-host-disk-shell.mounted_at': 'Mounted at',
+        'core-host-disk-shell.device': 'Device',
+        'core-host-disk-shell.type': 'Type',
+        'core-host-disk-shell.used': 'Used',
+        'core-host-disk-shell.free': 'Free',
+        'core-host-disk-shell.full': 'Full',
         'core-host-disk-shell.deleted_title': 'Deleted, still holding space',
         'core-host-disk-shell.deleted_help':
           'A file that has been unlinked while a process still has it open keeps its blocks. {{df}} counts them; {{du}}, {{ls}}, {{find}} and the tree map cannot see them at all. This is the one kind of missing space no directory walk can ever find, and restarting the process listed is what frees it.',
@@ -17,6 +24,13 @@ window.ZogographHostDiskShellCard = {
       es: Object.freeze({
         'core-host-disk-shell.filesystems_title':
           'Sistemas de archivos y el espacio que no se explica',
+        'core-host-disk-shell.filesystems': 'Sistemas de archivos',
+        'core-host-disk-shell.mounted_at': 'Montado en',
+        'core-host-disk-shell.device': 'Dispositivo',
+        'core-host-disk-shell.type': 'Tipo',
+        'core-host-disk-shell.used': 'Usado',
+        'core-host-disk-shell.free': 'Libre',
+        'core-host-disk-shell.full': 'Lleno',
         'core-host-disk-shell.deleted_title':
           'Eliminado, pero aún ocupa espacio',
         'core-host-disk-shell.deleted_help':
@@ -27,6 +41,13 @@ window.ZogographHostDiskShellCard = {
       hi: Object.freeze({
         'core-host-disk-shell.filesystems_title':
           'फ़ाइल सिस्टम और वह स्थान जिसका कोई हिसाब नहीं',
+        'core-host-disk-shell.filesystems': 'फाइल सिस्टम',
+        'core-host-disk-shell.mounted_at': 'माउंट स्थान',
+        'core-host-disk-shell.device': 'डिवाइस',
+        'core-host-disk-shell.type': 'प्रकार',
+        'core-host-disk-shell.used': 'उपयोग हुआ',
+        'core-host-disk-shell.free': 'खाली',
+        'core-host-disk-shell.full': 'भरा',
         'core-host-disk-shell.deleted_title':
           'हटाया गया, फिर भी जगह घेर रहा है',
         'core-host-disk-shell.deleted_help':
@@ -37,6 +58,13 @@ window.ZogographHostDiskShellCard = {
       ar: Object.freeze({
         'core-host-disk-shell.filesystems_title':
           'أنظمة الملفات والمساحة التي لا يفسرها شيء',
+        'core-host-disk-shell.filesystems': 'أنظمة الملفات',
+        'core-host-disk-shell.mounted_at': 'مركب في',
+        'core-host-disk-shell.device': 'الجهاز',
+        'core-host-disk-shell.type': 'النوع',
+        'core-host-disk-shell.used': 'المستخدم',
+        'core-host-disk-shell.free': 'المتاح',
+        'core-host-disk-shell.full': 'ممتلئ',
         'core-host-disk-shell.deleted_title': 'محذوف، لكنه ما زال يشغل مساحة',
         'core-host-disk-shell.deleted_help':
           'يحتفظ الملف الذي أُلغي ارتباطه بينما ما زالت عملية تفتحه بكتله. يحسبها {{df}}؛ ولا يستطيع {{du}} أو {{ls}} أو {{find}} أو خريطة الشجرة رؤيتها إطلاقًا. هذا هو النوع الوحيد من المساحة المفقودة الذي لا يمكن لأي مسح للمجلدات إيجاده، وإعادة تشغيل العملية المذكورة هي ما يحررها.',
@@ -45,6 +73,13 @@ window.ZogographHostDiskShellCard = {
       zh: Object.freeze({
         'core-host-disk-shell.filesystems_title':
           '文件系统，以及无从解释的空间',
+        'core-host-disk-shell.filesystems': '文件系统',
+        'core-host-disk-shell.mounted_at': '挂载于',
+        'core-host-disk-shell.device': '设备',
+        'core-host-disk-shell.type': '类型',
+        'core-host-disk-shell.used': '已用',
+        'core-host-disk-shell.free': '可用',
+        'core-host-disk-shell.full': '已满',
         'core-host-disk-shell.deleted_title': '已删除，但仍占用空间',
         'core-host-disk-shell.deleted_help':
           '文件虽已取消链接，但只要进程仍将其打开，它的块就会保留。{{df}} 会统计它们；{{du}}、{{ls}}、{{find}} 和树状图完全看不到它们。这是目录扫描永远找不到的唯一一种丢失空间；重启列出的进程即可释放它。',

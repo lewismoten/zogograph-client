@@ -26684,7 +26684,7 @@ function renderHostDaemons(daemons) {
         textContent:
           daemons?.reason ||
           ZogographI18n.t(
-            'host.daemons_no_states',
+            'core-host-daemons.empty',
             {},
             'No service states recorded yet.',
           ),

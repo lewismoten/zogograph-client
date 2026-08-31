@@ -2158,7 +2158,6 @@
   "host.walk_disk": "Recorrer el disco",
   "host.walk_disk_again": "Recorrer el disco otra vez",
   "host.walk_requested": "Solicitado. El recopilador del host recorrerá el disco en su próxima ejecución.",
-  "host.daemons_no_states": "Aún no se han registrado estados de servicios.",
   "host.collector_loading": "Leyendo el recopilador del host…",
   "host.sees_kernel": "Kernel {{kernel}}",
   "host.sees_device_readable": "contadores de dispositivo legibles",

@@ -2038,6 +2038,7 @@ i18nExpect(
         str_contains($hostDaemonsCard, 'key.startsWith("host.daemon_")') &&
         str_contains($hostDaemonsCard, '"watch"') &&
         is_array($english) &&
+        !isset($english['host.daemons_no_states']) &&
         array_filter(
             array_keys($english),
             static fn(string $key): bool => str_starts_with(

@@ -6,6 +6,7 @@ window.ZogographOnboardingCard = {
     helpers: ['panel', 'body', 'i18n'],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-onboarding.title': 'Finish setting up Zogograph',
         'core-onboarding.intro':
           'Zogograph is configured but does not yet have enough local evidence to show its full dashboard.',
         'core-onboarding.vitals_missing':
@@ -22,6 +23,7 @@ window.ZogographOnboardingCard = {
         'core-onboarding.review_storage': 'Review storage',
       }),
       es: Object.freeze({
+        'core-onboarding.title': 'Terminar de configurar Zogograph',
         'core-onboarding.intro':
           'Zogograph está configurado, pero aún no tiene suficientes datos locales para mostrar el panel completo.',
         'core-onboarding.vitals_missing':
@@ -38,6 +40,7 @@ window.ZogographOnboardingCard = {
         'core-onboarding.review_storage': 'Revisar almacenamiento',
       }),
       hi: Object.freeze({
+        'core-onboarding.title': 'Zogograph सेट करना पूरा करें',
         'core-onboarding.intro':
           'Zogograph कॉन्फ़िगर है, लेकिन पूरा डैशबोर्ड दिखाने के लिए अभी पर्याप्त स्थानीय डेटा नहीं है।',
         'core-onboarding.vitals_missing':
@@ -54,6 +57,7 @@ window.ZogographOnboardingCard = {
         'core-onboarding.review_storage': 'स्टोरेज देखें',
       }),
       ar: Object.freeze({
+        'core-onboarding.title': 'أكمل إعداد Zogograph',
         'core-onboarding.intro':
           'تم إعداد Zogograph، لكنه لا يملك بعد بيانات محلية كافية لعرض لوحة المعلومات كاملة.',
         'core-onboarding.vitals_missing':
@@ -70,6 +74,7 @@ window.ZogographOnboardingCard = {
         'core-onboarding.review_storage': 'راجع التخزين',
       }),
       zh: Object.freeze({
+        'core-onboarding.title': '完成 Zogograph 设置',
         'core-onboarding.intro':
           'Zogograph 已配置完成，但尚无足够的本地数据来显示完整仪表板。',
         'core-onboarding.vitals_missing':
@@ -87,19 +92,23 @@ window.ZogographOnboardingCard = {
       }),
     }),
   }),
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-onboarding.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-onboarding.${key}`],
+    );
+  },
   render(overview, helpers) {
     const { panel, body, i18n } = helpers;
-    const t = (key, fallback) => i18n.t(`core-onboarding.${key}`, {}, fallback);
+    const t = (key) => this.text(key, { i18n });
     const missingVitals = !overview.vitals;
     const missingScan = !overview.scan;
     panel.hidden = !missingVitals && !missingScan;
     if (panel.hidden) return;
     const intro = document.createElement('p');
     intro.className = 'muted small';
-    intro.textContent = t(
-      'intro',
-      'Zogograph is configured but does not yet have enough local evidence to show its full dashboard.',
-    );
+    intro.textContent = t('intro');
     const list = document.createElement('ol');
     list.className = 'onboarding-list';
     const step = (text, href, label) => {

@@ -2353,7 +2353,6 @@
   "auth.recovery_codes": "Recovery codes",
   "auth.recovery_codes_title": "Create new one-time recovery codes after confirming your authenticator",
   "auth.end_sessions_title": "End all signed-in browser sessions",
-  "onboarding.title": "Finish setting up Zogograph",
   "diagnostics.title": "What is wrong",
   "diagnostics.check_again": "Check again",
   "diagnostics.help": "There are forty pages here, each answering one question well — which helps when you already know the question. This reads all of them at once. Every line carries the measurement it came from and a link to the page that shows it in full, and nothing here is inferred from a correlation.",

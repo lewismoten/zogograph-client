@@ -3851,11 +3851,22 @@ function syncCategoryOptions() {
 
 /** First-run guidance vanishes only once the underlying evidence exists. */
 function renderOnboarding(overview) {
+  const helpers = {
+    panel: $('onboarding'),
+    body: $('onboardingBody'),
+    i18n: ZogographI18n,
+  };
   renderCoreCardPackage(
     window.ZogographOnboardingCard,
     'core-onboarding',
     overview,
-    { panel: $('onboarding'), body: $('onboardingBody'), i18n: ZogographI18n },
+    helpers,
+  );
+  const title = $('onboardingTitle');
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-onboarding.title',
+    window.ZogographOnboardingCard.text('title', helpers),
   );
 }
 

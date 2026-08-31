@@ -2338,7 +2338,6 @@
   "auth.recovery_codes": "Códigos de recuperación",
   "auth.recovery_codes_title": "Crear nuevos códigos de recuperación de un solo uso tras confirmar el autenticador",
   "auth.end_sessions_title": "Cerrar todas las sesiones iniciadas en el navegador",
-  "onboarding.title": "Terminar de configurar Zogograph",
   "diagnostics.title": "Qué está mal",
   "diagnostics.check_again": "Comprobar de nuevo",
   "diagnostics.help": "Hay cuarenta páginas aquí y cada una responde bien a una pregunta, lo que ayuda cuando ya conoce la pregunta. Esta las lee todas de una vez. Cada línea incluye la medición de la que procede y un enlace a la página que la muestra completa; aquí no se infiere nada de una correlación.",

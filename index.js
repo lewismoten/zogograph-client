@@ -34323,20 +34323,25 @@ function renderCapture(capture, target = 'captureBody') {
      * quietly becomes wrong.
      */
     facts.push([
-      ZogographI18n.t('network.inferred_machine'),
-      ZogographI18n.t('network.inferred_machine_detail', {
+      ZogographI18n.t('core-network-capture.inferred_machine'),
+      ZogographI18n.t('core-network-capture.inferred_machine_detail', {
         address: capture.inferred_local,
       }),
     ]);
   }
   if (capture.hit_limit) {
     facts.push([
-      ZogographI18n.t('network.stopped_early'),
-      ZogographI18n.t('network.stopped_early_detail'),
+      ZogographI18n.t('core-network-capture.stopped_early'),
+      ZogographI18n.t('core-network-capture.stopped_early_detail'),
     ]);
   }
 
-  parts.push(section(ZogographI18n.t('network.the_sample'), factGrid(facts)));
+  parts.push(
+    section(
+      ZogographI18n.t('core-network-capture.the_sample'),
+      factGrid(facts),
+    ),
+  );
 
   /*
    * The flags, because they say what kind of busy this is.

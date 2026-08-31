@@ -1092,6 +1092,11 @@ i18nExpect(
         !isset($english['network.distinct_names_asked']) &&
         !isset($english['network.counted_unattributed']) &&
         !isset($english['network.unparsed_detail']) &&
+        !isset($english['network.inferred_machine']) &&
+        !isset($english['network.inferred_machine_detail']) &&
+        !isset($english['network.stopped_early']) &&
+        !isset($english['network.stopped_early_detail']) &&
+        !isset($english['network.the_sample']) &&
         str_contains(
             $networkCaptureCard,
             '"core-network-capture.capture_direction_detail"',

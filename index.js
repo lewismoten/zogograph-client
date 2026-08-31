@@ -34503,12 +34503,16 @@ function renderCapture(capture, target = 'captureBody') {
   if ((capture.asked || []).length) {
     parts.push(
       section(
-        ZogographI18n.t('network.looked_up', {}, 'What was looked up'),
+        ZogographI18n.t(
+          'core-network-capture.looked_up',
+          {},
+          'What was looked up',
+        ),
         simpleTable(
           [
-            ZogographI18n.t('network.record', {}, 'Record'),
-            ZogographI18n.t('network.name', {}, 'Name'),
-            ZogographI18n.t('network.queries', {}, 'Queries'),
+            ZogographI18n.t('core-network-capture.record', {}, 'Record'),
+            ZogographI18n.t('core-network-capture.name', {}, 'Name'),
+            ZogographI18n.t('core-network-capture.queries', {}, 'Queries'),
           ],
           capture.asked
             .slice(0, 40)
@@ -34531,14 +34535,14 @@ function renderCapture(capture, target = 'captureBody') {
     parts.push(
       section(
         ZogographI18n.t(
-          'network.requested_from_peers',
+          'core-network-capture.requested_from_peers',
           {},
           'What it was asking them for',
         ),
         simpleTable(
           [
-            ZogographI18n.t('network.how', {}, 'How'),
-            ZogographI18n.t('network.what', {}, 'What'),
+            ZogographI18n.t('core-network-capture.how', {}, 'How'),
+            ZogographI18n.t('core-network-capture.what', {}, 'What'),
             ZogographI18n.t('network.packets', {}, 'Packets'),
           ],
           rows,
@@ -34571,8 +34575,8 @@ function renderCapture(capture, target = 'captureBody') {
         'Names asked for',
         simpleTable(
           [
-            ZogographI18n.t('network.name', {}, 'Name'),
-            ZogographI18n.t('network.queries', {}, 'Queries'),
+            ZogographI18n.t('core-network-capture.name', {}, 'Name'),
+            ZogographI18n.t('core-network-capture.queries', {}, 'Queries'),
           ],
           capture.names
             .slice(0, 25)

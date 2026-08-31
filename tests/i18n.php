@@ -1102,6 +1102,13 @@ i18nExpect(
         !isset($english['network.traffic_kind']) &&
         !isset($english['network.peer_endpoints']) &&
         !isset($english['network.which_service']) &&
+        !isset($english['network.looked_up']) &&
+        !isset($english['network.record']) &&
+        !isset($english['network.name']) &&
+        !isset($english['network.queries']) &&
+        !isset($english['network.requested_from_peers']) &&
+        !isset($english['network.how']) &&
+        !isset($english['network.what']) &&
         str_contains(
             $networkCaptureCard,
             '"core-network-capture.capture_direction_detail"',

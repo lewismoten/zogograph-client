@@ -450,7 +450,6 @@
   "process.matches_some_protected": "Coinciden {{matched}} de los {{scanned}} procesos en ejecución; {{blocked}} están protegidos.",
   "process.all_matches_protected": "Todas las coincidencias están protegidas, por lo que no hay nada que detener.",
   "storage.links_sign_in": "Inicie sesión para comprobar los enlaces simbólicos.",
-  "storage.link_sweep_failed_reason": "No se pudieron eliminar {{count}} enlaces: {{reason}}.",
   "storage.link_sweep_remove_broken": "Eliminar {{count}} enlaces rotos",
   "storage.link_sweep_remove_confirm": "¿Eliminar {{count}} enlaces simbólicos rotos?\n\nSolo se eliminan los enlaces. No se toca nada de lo que señalan: no señalan a nada, por eso están en esta lista.",
   "storage.link_sweep_why_not": "Por qué no",

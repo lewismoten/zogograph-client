@@ -22028,12 +22028,11 @@ async function sweepLinks(pattern, confirmed = false) {
 
     for (const [reason, howMany] of why) {
       parts.push(
-        note(
-          ZogographI18n.t(
-            'storage.link_sweep_failed_reason',
-            { count: humanCount(howMany), reason },
-            `${humanCount(howMany)} links could not be removed: ${reason}.`,
-          ),
+        renderCoreCardPackage(
+          ZogographSymlinkSweepFailureCard,
+          'core-symlink-sweep-failure',
+          { count: humanCount(howMany), reason },
+          { i18n: ZogographI18n, note },
         ),
       );
     }

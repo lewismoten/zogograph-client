@@ -2638,7 +2638,6 @@ i18nExpect(
             $english['process.matches_all_protected'],
             $english['process.matches_some_protected'],
             $english['process.all_matches_protected'],
-            $english['storage.link_sweep_failed_reason'],
             $english['storage.link_sweep_remove_broken'],
             $english['storage.link_sweep_remove_confirm'],
             $english['storage.link_sweep_why_not'],
@@ -3014,6 +3013,12 @@ i18nExpect(
                 $root . '/cards/symlink-sweep-status.js',
             ),
             'core-symlink-sweep-status.preview_skipped',
+        ) &&
+        str_contains(
+            (string) file_get_contents(
+                $root . '/cards/symlink-sweep-failure.js',
+            ),
+            'core-symlink-sweep-failure.message',
         ),
     'broken-link sweep safety and result text retain direct user-visible text',
 );

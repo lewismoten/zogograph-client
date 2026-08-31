@@ -39852,14 +39852,7 @@ function renderLogStream(data) {
   const head = document.createElement('div');
   head.className = 'stream-line stream-head';
   for (const [label, hint] of [
-    [
-      '',
-      ZogographI18n.t(
-        'log.stream_severity_hint',
-        {},
-        'How bad the line says it is',
-      ),
-    ],
+    ['', logStreamSummaryText('stream_severity_hint')],
     [
       logStreamSummaryText('stream_when'),
       ZogographI18n.t(

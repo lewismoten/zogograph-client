@@ -325,7 +325,6 @@
   "process.age_started_hour": "在一小时内启动。",
   "process.age_started_today": "今天启动。",
   "process.age_long_running": "运行已超过一天——可能是守护进程，也可能是从未结束的内容。",
-  "log.stream_severity_hint": "该行表明的严重程度",
   "log.stream_when_hint": "该行所述发生的时间",
   "log.stream_log_hint": "它来自哪个文件",
   "log.stream_wrote_it_hint": "该行所称的来源",

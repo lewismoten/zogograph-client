@@ -4219,7 +4219,6 @@ i18nExpect(
     'visible loading messages must use i18n keys rather than literal spinner text',
 );
 $translatedEncryptionRecoveryActions = [
-    'encryption.run_recovery_drill',
     'encryption.add_remote_envelope',
     'encryption.run_remote_recovery_drill',
     'encryption.remote_envelope_dialog',
@@ -4234,6 +4233,7 @@ $translatedEncryptionPackageActions = [
     'core-system-encryption-shell.create_verified_copies',
     'core-system-encryption-shell.create_copies_title',
     'core-system-encryption-shell.copies_created',
+    'core-system-encryption-shell.run_recovery_drill',
 ];
 $translatedOperationalControls = [
     'action.copy',

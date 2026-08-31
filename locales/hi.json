@@ -1381,7 +1381,6 @@
   "gauge.no_ceiling": "मापने के लिए कोई सीमा नहीं",
   "gauge.not_measured": "अभी नहीं मापा गया",
   "gauge.monitoring": "निगरानी: {{value}}",
-  "encryption.run_recovery_drill": "बिना नुकसान वाली पुनर्प्राप्ति जाँच चलाएँ",
   "encryption.recovery_drill_verified_one": "रिकवरी जाँच ने {{count, number}} चुने गए स्टोर को सत्यापित किया।",
   "encryption.recovery_drill_verified_many": "रिकवरी जाँच ने {{count, number}} चुने गए स्टोरों को सत्यापित किया।",
   "encryption.add_remote_envelope": "वैकल्पिक दूरस्थ कस्टडी लिफ़ाफ़ा जोड़ें",

@@ -1379,7 +1379,6 @@
   "gauge.no_ceiling": "لا يوجد حد للمقارنة",
   "gauge.not_measured": "لم يُقَس بعد",
   "gauge.monitoring": "المراقبة: {{value}}",
-  "encryption.run_recovery_drill": "شغّل تمرين استرداد غير هدّام",
   "encryption.recovery_drill_verified_one": "تحقق تمرين الاسترداد من {{count, number}} مخزن محدد.",
   "encryption.recovery_drill_verified_many": "تحقق تمرين الاسترداد من {{count, number}} مخازن محددة.",
   "encryption.add_remote_envelope": "أضف غلاف حفظ بعيد اختياري",

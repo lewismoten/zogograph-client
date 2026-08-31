@@ -15806,11 +15806,14 @@ function showPackageRuntimeRevoke(row) {
   );
 }
 
+function encryptionCardText(key, values = {}) {
+  return ZogographSystemEncryptionShellCard.text(key, values, {
+    i18n: ZogographI18n,
+  });
+}
+
 function renderEncryptionStatus(data) {
-  const encryptionText = (key, values = {}) =>
-    ZogographSystemEncryptionShellCard.text(key, values, {
-      i18n: ZogographI18n,
-    });
+  const encryptionText = encryptionCardText;
   const body = $('encryptionBody');
   const names = {
     none: encryptionText('mode_none'),
@@ -16057,11 +16060,7 @@ function renderEncryptionStatus(data) {
       });
       const drill = document.createElement('button');
       drill.type = 'button';
-      drill.textContent = ZogographI18n.t(
-        'encryption.run_recovery_drill',
-        {},
-        'Run non-destructive recovery drill',
-      );
+      drill.textContent = encryptionText('run_recovery_drill');
       drill.disabled = !data.artifacts?.length;
       drill.title = drill.disabled
         ? encryptionText('recovery_drill_unavailable')
@@ -16364,7 +16363,7 @@ function showCustodyRecoveryDrillDialog(candidates) {
       );
       await refreshEncryptionStatus();
     },
-    ZogographI18n.t('encryption.run_recovery_drill', {}, 'Run recovery drill'),
+    encryptionCardText('run_recovery_drill'),
   );
 }
 

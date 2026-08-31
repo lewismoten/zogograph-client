@@ -102,7 +102,10 @@ try {
                 $encryptionShell,
                 'Create verified encrypted copies',
             ) &&
-            str_contains($dashboard, 'Run non-destructive recovery drill'),
+            str_contains(
+                $encryptionShell,
+                'Run non-destructive recovery drill',
+            ),
         'dashboard does not explain encrypted-copy limitations',
     );
     encryptionExpect(

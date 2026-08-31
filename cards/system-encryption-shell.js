@@ -93,6 +93,8 @@ window.ZogographSystemEncryptionShellCard = {
           ' Pruned {{count, number}} expired copy.',
         'core-system-encryption-shell.copies_pruned':
           ' Pruned {{count, number}} expired copies.',
+        'core-system-encryption-shell.run_recovery_drill':
+          'Run non-destructive recovery drill',
       }),
       es: Object.freeze({
         'core-system-encryption-shell.title': 'Protección de datos',
@@ -194,6 +196,8 @@ window.ZogographSystemEncryptionShellCard = {
           ' Se eliminó {{count, number}} copia vencida.',
         'core-system-encryption-shell.copies_pruned':
           ' Se eliminaron {{count, number}} copias vencidas.',
+        'core-system-encryption-shell.run_recovery_drill':
+          'Ejecutar prueba de recuperación no destructiva',
       }),
       hi: Object.freeze({
         'core-system-encryption-shell.title': 'डेटा सुरक्षा',
@@ -283,6 +287,8 @@ window.ZogographSystemEncryptionShellCard = {
           ' {{count, number}} समाप्त प्रति हटाई गई।',
         'core-system-encryption-shell.copies_pruned':
           ' {{count, number}} समाप्त प्रतियां हटाई गईं।',
+        'core-system-encryption-shell.run_recovery_drill':
+          'बिना नुकसान वाली पुनर्प्राप्ति जाँच चलाएँ',
       }),
       ar: Object.freeze({
         'core-system-encryption-shell.title': 'حماية البيانات',
@@ -368,6 +374,8 @@ window.ZogographSystemEncryptionShellCard = {
           ' أزيلت {{count, number}} نسخة منتهية.',
         'core-system-encryption-shell.copies_pruned':
           ' أزيلت {{count, number}} نسخ منتهية.',
+        'core-system-encryption-shell.run_recovery_drill':
+          'شغّل تمرين استرداد غير هدّام',
       }),
       zh: Object.freeze({
         'core-system-encryption-shell.title': '数据保护',
@@ -446,6 +454,8 @@ window.ZogographSystemEncryptionShellCard = {
           '已清理 {{count, number}} 个过期副本。',
         'core-system-encryption-shell.copies_pruned':
           '已清理 {{count, number}} 个过期副本。',
+        'core-system-encryption-shell.run_recovery_drill':
+          '运行非破坏性恢复演练',
       }),
     }),
   }),

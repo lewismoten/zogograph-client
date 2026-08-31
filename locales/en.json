@@ -1421,7 +1421,6 @@
   "gauge.no_ceiling": "no ceiling to measure against",
   "gauge.not_measured": "not measured",
   "gauge.monitoring": "Monitoring: {{value}}",
-  "encryption.run_recovery_drill": "Run non-destructive recovery drill",
   "encryption.recovery_drill_verified_one": "Recovery drill verified {{count, number}} selected store.",
   "encryption.recovery_drill_verified_many": "Recovery drill verified {{count, number}} selected stores.",
   "encryption.add_remote_envelope": "Add optional remote custody envelope",

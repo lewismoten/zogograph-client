@@ -34630,144 +34630,22 @@ function openCalendarDay(key, entries) {
 }
 
 function renderEventList(data) {
-  if (window.ZogographCalendarEventListCard) {
-    return renderCoreCardPackage(
-      ZogographCalendarEventListCard,
-      'core-calendar-event-list',
-      data,
-      {
-        target: $('eventList'),
-        note,
-        renderTable,
-        humanTime,
-        openForm: openEventForm,
-        confirmDialog,
-        post,
-        renderCalendar,
-        notice,
-        i18n: ZogographI18n,
-      },
-    );
-  }
-  const holder = $('eventList');
-
-  if (!data.events.length) {
-    holder.replaceChildren(
-      note(
-        ZogographI18n.t(
-          'core-calendar-event-list.empty',
-          {},
-          'Nothing kept yet. Renewals, invoices, certificate purchases ' +
-            '\u2014 anything with a date that this machine could not work out for itself.',
-        ),
-      ),
-    );
-    return;
-  }
-
-  const box = document.createElement('div');
-  box.id = 'eventTable';
-  holder.replaceChildren(box);
-
-  renderTable(
-    'eventTable',
-    data.events,
-    [
-      {
-        label: ZogographI18n.t('core-calendar-event-list.what', {}, 'What'),
-        className: 'name',
-        render: (row) => row.title,
-      },
-      {
-        label: ZogographI18n.t('core-calendar-event-list.when', {}, 'When'),
-        render: (row) => humanTime(row.at).split(',')[0],
-      },
-      {
-        label: ZogographI18n.t(
-          'core-calendar-event-list.repeats',
-          {},
-          'Repeats',
-        ),
-        render: (row) => data.repeats[row.repeats] || row.repeats,
-      },
-      {
-        label: '',
-        render: (row) => {
-          if (!Number(row.priority)) return '';
-          const span = document.createElement('span');
-          span.className = 'band-warn small';
-          span.textContent = ZogographI18n.t(
-            'core-calendar-event-list.important',
-            {},
-            'important',
-          );
-          span.title = ZogographI18n.t(
-            'core-calendar-event-list.important_help',
-            {},
-            'Appears on the dashboard and in the alert emails as it approaches.',
-          );
-          return span;
-        },
-      },
-      {
-        label: ZogographI18n.t(
-          'core-calendar-event-list.dealt_with',
-          {},
-          'Dealt with',
-        ),
-        render: (row) =>
-          row.resolved_at ? humanTime(row.resolved_at).split(',')[0] : '\u2014',
-      },
-      {
-        label: ZogographI18n.t('core-calendar-event-list.note', {}, 'Note'),
-        className: 'cmd',
-        render: (row) => row.note || '',
-      },
-      {
-        label: '',
-        render: (row) => {
-          const wrap = document.createDocumentFragment();
-
-          const edit = document.createElement('button');
-          edit.className = 'link';
-          edit.textContent = ZogographI18n.t('action.edit', {}, 'Edit');
-          edit.addEventListener('click', () => openEventForm(row));
-          wrap.appendChild(edit);
-
-          const remove = document.createElement('button');
-          remove.className = 'link danger';
-          remove.textContent = ZogographI18n.t('action.remove', {}, 'Remove');
-          remove.addEventListener('click', async () => {
-            if (
-              !(await confirmDialog(
-                ZogographI18n.t(
-                  'core-calendar-event-list.remove_confirm',
-                  { title: row.title },
-                  'Remove "{{title}}"?',
-                ),
-                ZogographI18n.t(
-                  'core-calendar-event-list.remove_title',
-                  {},
-                  'Remove event',
-                ),
-              ))
-            )
-              return;
-            try {
-              renderCalendar(await post('event-delete', { id: row.id }));
-            } catch (error) {
-              notice(String(error.message || error));
-            }
-          });
-          wrap.appendChild(remove);
-
-          return wrap;
-        },
-      },
-    ],
-    null,
-    null,
-    (row) => String(row.id),
+  return renderCoreCardPackage(
+    ZogographCalendarEventListCard,
+    'core-calendar-event-list',
+    data,
+    {
+      target: $('eventList'),
+      note,
+      renderTable,
+      humanTime,
+      openForm: openEventForm,
+      confirmDialog,
+      post,
+      renderCalendar,
+      notice,
+      i18n: ZogographI18n,
+    },
   );
 }
 

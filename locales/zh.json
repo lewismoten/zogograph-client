@@ -2505,7 +2505,6 @@
   "database.indexes": "索引",
   "database.total": "总计",
   "database.indexes_note": "索引计入其所属的表。对于繁忙的表，一个索引的大小可能接近总大小的一半；单独列出它们会让每个表看起来比实际更小。",
-  "system.encryption_help": "此页报告 Zogograph 证据，而非假设。它绝不显示密钥路径或密钥材料。在设置向导中更改保护选择；恢复和封存仅限 CLI，因此浏览器会话无法处理私钥。",
   "system.package_runtime_help": "任何未来运行时使用签名软件包之前都会在此进行审查。启用会记录明确的功能授权和私有软件包设置；本 Zogograph 版本不会执行软件包 PHP。",
   "reports.latest": "{{assistant}} 的最新摘要",
   "reports.all": "全部",

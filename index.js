@@ -3767,6 +3767,14 @@ function renderSystemEncryptionShellTitle() {
     'core-system-encryption-shell.title',
     ZogographSystemEncryptionShellCard.text('title', helpers),
   );
+  const help = document.querySelector(
+    '[data-i18n="core-system-encryption-shell.help"]',
+  );
+  help.textContent = ZogographI18n.markSource(
+    help,
+    'core-system-encryption-shell.help',
+    ZogographSystemEncryptionShellCard.text('help', helpers),
+  );
 }
 
 document.addEventListener(

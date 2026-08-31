@@ -2450,7 +2450,8 @@ i18nExpect(
         str_contains(
             $script,
             'renderCoreCardPackage(ZogographHostDaemonsCard, "core-host-daemons",',
-        ),
+        ) &&
+        !str_contains($script, 'if (window.ZogographHostDaemonsCard)'),
     'host daemons are not isolated behind their core card-module boundary',
 );
 i18nExpect(

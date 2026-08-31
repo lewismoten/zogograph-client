@@ -14,6 +14,8 @@ window.ZogographTypeGrowthCard = {
     catalogs: Object.freeze({
       en: Object.freeze({
         'core-type-growth.title': 'How each type has grown',
+        'core-type-growth.help':
+          'One line per type across every completed scan in this range. A type with no line had nothing of that kind at the time — the line starts where the first file did, rather than running along the axis from the beginning.',
         'core-type-growth.no_scans_in_range_yet':
           'No completed scans in this range yet',
         'core-type-growth.two_scans_for_change':
@@ -21,6 +23,8 @@ window.ZogographTypeGrowthCard = {
       }),
       es: Object.freeze({
         'core-type-growth.title': 'Cómo ha crecido cada tipo',
+        'core-type-growth.help':
+          'Una línea por tipo en cada análisis completado de este intervalo. Un tipo sin línea no tenía nada de ese tipo entonces: la línea empieza donde apareció el primer archivo, en vez de seguir el eje desde el inicio.',
         'core-type-growth.no_scans_in_range_yet':
           'Aún no hay análisis completados en este intervalo',
         'core-type-growth.two_scans_for_change':
@@ -28,6 +32,8 @@ window.ZogographTypeGrowthCard = {
       }),
       hi: Object.freeze({
         'core-type-growth.title': 'हर प्रकार कैसे बढ़ा है',
+        'core-type-growth.help':
+          'इस सीमा में प्रत्येक पूर्ण स्कैन पर हर प्रकार की एक लाइन। जिस प्रकार की लाइन नहीं है, उस समय उस प्रकार की कोई फ़ाइल नहीं थी — लाइन पहली फ़ाइल के स्थान से शुरू होती है।',
         'core-type-growth.no_scans_in_range_yet':
           'इस दायरे में अभी कोई पूरा स्कैन नहीं है',
         'core-type-growth.two_scans_for_change':
@@ -35,6 +41,8 @@ window.ZogographTypeGrowthCard = {
       }),
       ar: Object.freeze({
         'core-type-growth.title': 'كيف نما كل نوع',
+        'core-type-growth.help':
+          'سطر واحد لكل نوع عبر كل فحص مكتمل ضمن هذا النطاق. النوع الذي لا يظهر له سطر لم يكن منه شيء حينها — يبدأ السطر حيث ظهر أول ملف.',
         'core-type-growth.no_scans_in_range_yet':
           'لا توجد فحوصات مكتملة في هذا النطاق بعد',
         'core-type-growth.two_scans_for_change':
@@ -42,6 +50,8 @@ window.ZogographTypeGrowthCard = {
       }),
       zh: Object.freeze({
         'core-type-growth.title': '各类型如何增长',
+        'core-type-growth.help':
+          '此范围内每次完成扫描中每个类型一条线。没有线的类型当时没有此类内容——线从第一个文件出现的位置开始。',
         'core-type-growth.no_scans_in_range_yet': '此范围内尚无完成的扫描',
         'core-type-growth.two_scans_for_change':
           '至少需要两次完成的扫描才能绘制变化',

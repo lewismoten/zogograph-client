@@ -9,7 +9,6 @@ window.ZogographCpuTimeCard = {
       'tableTarget',
       'renderTable',
       'bandOf',
-      'cpuStateMeaning',
       'emptyMessage',
       'i18n',
     ],
@@ -30,6 +29,22 @@ window.ZogographCpuTimeCard = {
         'core-cpu-time.state_label.user': 'Userland',
         'core-cpu-time.state_label.nice': 'Userland, low priority',
         'core-cpu-time.state_label.idle': 'Idle',
+        'core-cpu-time.state_meaning.steal':
+          'Time this machine was ready to run and the hypervisor gave the physical core to somebody else. Not work being done here, and not something any change on this machine can reduce. On shared or virtualised hosting this is the figure that explains ‘it is slow and nothing is running’.',
+        'core-cpu-time.state_meaning.iowait':
+          'The core had nothing to run and something was blocked on a disk. This is idle time, not CPU being consumed — the processor is the victim here rather than the problem. High iowait means go and look at the disks; adding CPU would change nothing.',
+        'core-cpu-time.state_meaning.softirq':
+          'The second half of interrupt handling, done outside the interrupt itself. On a server this is mostly the network stack. A whole core of it is a finding: it usually means packet volume rather than anything a process is doing.',
+        'core-cpu-time.state_meaning.irq':
+          'Servicing devices. Ordinarily a fraction of a percent; anything visible on this chart points at a device or a driver.',
+        'core-cpu-time.state_meaning.system':
+          'Time in the kernel on some process’s behalf: system calls, page faults, memory being mapped. More of this than userland time means the work is syscall-heavy — lots of small reads and writes, lots of process creation — rather than computation.',
+        'core-cpu-time.state_meaning.user':
+          'Ordinary work at normal priority: the thing you actually asked the machine to do. A machine busy in userland and nothing else is a machine working, which may be entirely correct.',
+        'core-cpu-time.state_meaning.nice':
+          'The same, at lowered priority — backups, batch jobs, anything run under nice. It yields to everything else, so a machine that is busy only here is not a machine anybody is waiting on.',
+        'core-cpu-time.state_meaning.idle':
+          'Nothing to run, and nothing waiting on a disk either.',
         'core-cpu-time.cores_count':
           '{{count}} core{{count, plural, one {} other {s}}}',
         'core-cpu-time.time_verdict_spread':
@@ -65,6 +80,22 @@ window.ZogographCpuTimeCard = {
         'core-cpu-time.state_label.user': 'Espacio de usuario',
         'core-cpu-time.state_label.nice': 'Espacio de usuario, baja prioridad',
         'core-cpu-time.state_label.idle': 'Inactivo',
+        'core-cpu-time.state_meaning.steal':
+          'Tiempo en que esta máquina estaba lista para ejecutarse y el hipervisor entregó el núcleo físico a otra persona. No es trabajo realizado aquí ni algo que un cambio en esta máquina pueda reducir. En alojamiento compartido o virtualizado, esta cifra explica «va lento y no se está ejecutando nada».',
+        'core-cpu-time.state_meaning.iowait':
+          'El núcleo no tenía nada que ejecutar y algo estaba bloqueado en un disco. Es tiempo inactivo, no CPU consumida: aquí el procesador es la víctima, no el problema. Un iowait alto indica que debe revisar los discos; añadir CPU no cambiaría nada.',
+        'core-cpu-time.state_meaning.softirq':
+          'La segunda mitad de la gestión de interrupciones, realizada fuera de la propia interrupción. En un servidor suele ser la pila de red. Un núcleo completo aquí es un hallazgo: normalmente significa volumen de paquetes, no trabajo de un proceso.',
+        'core-cpu-time.state_meaning.irq':
+          'Atención a dispositivos. Normalmente es una fracción de un porcentaje; cualquier valor visible en este gráfico apunta a un dispositivo o controlador.',
+        'core-cpu-time.state_meaning.system':
+          'Tiempo en el kernel en nombre de algún proceso: llamadas al sistema, fallos de página, asignación de memoria. Más de esto que de tiempo de usuario significa un trabajo intensivo en llamadas al sistema — muchas lecturas y escrituras pequeñas, mucha creación de procesos — y no cálculo.',
+        'core-cpu-time.state_meaning.user':
+          'Trabajo normal con prioridad normal: lo que realmente pidió a la máquina que hiciera. Una máquina ocupada en espacio de usuario y nada más está trabajando, y puede ser completamente correcto.',
+        'core-cpu-time.state_meaning.nice':
+          'Lo mismo, con prioridad reducida: copias de seguridad, trabajos por lotes o cualquier cosa ejecutada con nice. Cede ante todo lo demás, así que una máquina ocupada solo aquí no mantiene a nadie esperando.',
+        'core-cpu-time.state_meaning.idle':
+          'Nada que ejecutar y nada esperando en un disco.',
         'core-cpu-time.cores_count':
           '{{count}} núcleo{{count, plural, one {} other {s}}}',
         'core-cpu-time.time_verdict_spread':
@@ -101,6 +132,22 @@ window.ZogographCpuTimeCard = {
         'core-cpu-time.state_label.user': 'यूज़र स्पेस',
         'core-cpu-time.state_label.nice': 'यूज़र स्पेस, निम्न प्राथमिकता',
         'core-cpu-time.state_label.idle': 'निष्क्रिय',
+        'core-cpu-time.state_meaning.steal':
+          'यह वह समय है जब मशीन चलने के लिए तैयार थी लेकिन हाइपरवाइज़र ने भौतिक कोर किसी और को दे दिया। यह यहाँ हो रहा काम नहीं है और न ही ऐसा कुछ है जिसे इस मशीन में बदलाव करके कम किया जा सकता है। साझा या वर्चुअल होस्टिंग में यही आंकड़ा बताता है कि «धीमा है और कुछ चल नहीं रहा»।',
+        'core-cpu-time.state_meaning.iowait':
+          'कोर के पास चलाने के लिए कुछ नहीं था और कोई चीज़ डिस्क पर रुकी हुई थी। यह निष्क्रिय समय है, CPU खपत नहीं—यहाँ प्रोसेसर समस्या नहीं बल्कि पीड़ित है। iowait अधिक हो तो डिस्क देखें; CPU जोड़ने से कुछ नहीं बदलेगा।',
+        'core-cpu-time.state_meaning.softirq':
+          'इंटरप्ट हैंडलिंग का दूसरा भाग, जो स्वयं इंटरप्ट के बाहर किया जाता है। सर्वर पर यह अधिकतर नेटवर्क स्टैक होता है। इसमें एक पूरा कोर होना एक संकेत है: यह आमतौर पर पैकेट की मात्रा दर्शाता है, किसी प्रक्रिया का काम नहीं।',
+        'core-cpu-time.state_meaning.irq':
+          'उपकरणों की सेवा। सामान्यतः प्रतिशत का एक अंश; इस चार्ट में दिखने वाला कोई भी मान किसी उपकरण या ड्राइवर की ओर संकेत करता है।',
+        'core-cpu-time.state_meaning.system':
+          'किसी प्रक्रिया की ओर से कर्नेल में बिताया समय: सिस्टम कॉल, पेज फॉल्ट, मेमोरी मैप करना। यूज़र स्पेस समय से अधिक होने का अर्थ है कि कार्य सिस्टम कॉल-प्रधान है—बहुत छोटे पढ़ने-लिखने और प्रक्रियाएँ बनाने वाला—न कि गणना-प्रधान।',
+        'core-cpu-time.state_meaning.user':
+          'सामान्य प्राथमिकता पर सामान्य काम: जो आपने वास्तव में मशीन से करवाने को कहा। केवल यूज़र स्पेस में व्यस्त मशीन काम कर रही है, और यह पूरी तरह सही हो सकता है।',
+        'core-cpu-time.state_meaning.nice':
+          'वही काम कम प्राथमिकता पर—बैकअप, बैच जॉब या nice के अंतर्गत चलने वाला कुछ भी। यह बाकी सबको रास्ता देता है, इसलिए केवल इसमें व्यस्त मशीन किसी को प्रतीक्षा नहीं करा रही है।',
+        'core-cpu-time.state_meaning.idle':
+          'चलाने के लिए कुछ नहीं और डिस्क पर भी कुछ प्रतीक्षा नहीं कर रहा।',
         'core-cpu-time.cores_count': '{{count}} कोर',
         'core-cpu-time.time_verdict_spread':
           'प्रतिशत सभी {{cores}} का कुल है, इसलिए 100% पूरी मशीन व्यस्त है।',
@@ -133,6 +180,22 @@ window.ZogographCpuTimeCard = {
         'core-cpu-time.state_label.user': 'مساحة المستخدم',
         'core-cpu-time.state_label.nice': 'مساحة المستخدم، أولوية منخفضة',
         'core-cpu-time.state_label.idle': 'خامل',
+        'core-cpu-time.state_meaning.steal':
+          'وقت كانت فيه هذه الآلة مستعدة للتشغيل لكن المشرف الافتراضي منح النواة الفعلية لشخص آخر. هذا ليس عملاً يُنجز هنا ولا شيئًا يمكن لتغيير على هذه الآلة تقليله. في الاستضافة المشتركة أو الافتراضية، يفسر هذا الرقم «الجهاز بطيء ولا يعمل شيء».',
+        'core-cpu-time.state_meaning.iowait':
+          'لم يكن لدى النواة ما تشغله وكان شيء ما محجوبًا على قرص. هذا وقت خمول لا استهلاك للمعالج — فالمعالج هنا ضحية لا المشكلة. ارتفاع iowait يعني فحص الأقراص؛ إضافة معالج لن تغير شيئًا.',
+        'core-cpu-time.state_meaning.softirq':
+          'النصف الثاني من معالجة المقاطعة، ويتم خارج المقاطعة نفسها. على الخادم يكون غالبًا مكدس الشبكة. امتلاء نواة كاملة به نتيجة تستحق الانتباه: فهو يعني عادة حجم الحزم لا عملاً تؤديه عملية ما.',
+        'core-cpu-time.state_meaning.irq':
+          'خدمة الأجهزة. يكون عادة جزءًا ضئيلاً من نسبة مئوية؛ وأي قيمة مرئية على هذا الرسم تشير إلى جهاز أو برنامج تشغيل.',
+        'core-cpu-time.state_meaning.system':
+          'وقت في النواة بالنيابة عن عملية ما: استدعاءات نظام، وأخطاء صفحات، وربط ذاكرة. زيادته عن وقت مساحة المستخدم تعني أن العمل كثيف باستدعاءات النظام — قراءات وكتابات صغيرة كثيرة وإنشاء عمليات كثير — لا حسابات.',
+        'core-cpu-time.state_meaning.user':
+          'عمل عادي بأولوية عادية: ما طلبت فعلاً من الآلة القيام به. آلة مشغولة في مساحة المستخدم فقط تعمل كما ينبغي، وقد يكون ذلك طبيعيًا تمامًا.',
+        'core-cpu-time.state_meaning.nice':
+          'العمل نفسه بأولوية مخفضة — نسخ احتياطية أو مهام مجمعة أو أي شيء يعمل تحت nice. يفسح المجال لكل ما عداه، لذلك فالآلة المشغولة هنا وحده لا تجعل أحدًا ينتظر.',
+        'core-cpu-time.state_meaning.idle':
+          'لا شيء للتشغيل ولا شيء ينتظر قرصًا أيضًا.',
         'core-cpu-time.cores_count': '{{count}} نواة',
         'core-cpu-time.time_verdict_spread':
           'النسب تخص {{cores}} كلها معاً، لذا تعني 100٪ انشغال الآلة كاملة.',
@@ -164,6 +227,22 @@ window.ZogographCpuTimeCard = {
         'core-cpu-time.state_label.user': '用户态',
         'core-cpu-time.state_label.nice': '低优先级用户态',
         'core-cpu-time.state_label.idle': '空闲',
+        'core-cpu-time.state_meaning.steal':
+          '这台机器本已准备好运行，但虚拟机监控程序将物理核心分配给了别人。这不是本机正在完成的工作，也不是改动本机就能减少的事情。在共享或虚拟化主机上，它解释了“机器很慢却没有程序在运行”。',
+        'core-cpu-time.state_meaning.iowait':
+          '核心没有可运行的任务，而某项工作被磁盘阻塞。这是空闲时间，不是 CPU 消耗——处理器在这里是受害者而非问题。iowait 很高时应查看磁盘；增加 CPU 不会改变任何事情。',
+        'core-cpu-time.state_meaning.softirq':
+          '中断处理的后半部分，在中断本身之外完成。在服务器上，它大多是网络协议栈。占满一个核心是值得关注的信号：它通常意味着数据包量，而不是某个进程正在做的工作。',
+        'core-cpu-time.state_meaning.irq':
+          '为设备提供服务。通常只占很小的百分比；此图表上任何可见的值都指向某个设备或驱动程序。',
+        'core-cpu-time.state_meaning.system':
+          '代表某个进程在内核中花费的时间：系统调用、缺页、映射内存。它多于用户态时间，说明工作以系统调用为主——大量小型读写和进程创建——而不是计算。',
+        'core-cpu-time.state_meaning.user':
+          '正常优先级下的普通工作：您实际要求机器完成的事情。一台只在用户态繁忙的机器正在工作，这可能完全正常。',
+        'core-cpu-time.state_meaning.nice':
+          '同样的工作，但以较低优先级运行——备份、批处理作业或任何以 nice 运行的内容。它会让出资源给其他工作，因此只在这里繁忙的机器不会让任何人等待。',
+        'core-cpu-time.state_meaning.idle':
+          '没有要运行的任务，也没有任务在等待磁盘。',
         'core-cpu-time.cores_count': '{{count}} 个核心',
         'core-cpu-time.time_verdict_spread':
           '百分比是所有 {{cores}} 合计的结果，因此 100% 表示整台机器都被占用。',
@@ -191,7 +270,6 @@ window.ZogographCpuTimeCard = {
       tableTarget,
       renderTable,
       bandOf,
-      cpuStateMeaning,
       emptyMessage,
       i18n,
     } = helpers;
@@ -200,6 +278,12 @@ window.ZogographCpuTimeCard = {
       return key
         ? i18n.t(`core-cpu-time.state_label.${key}`, {}, meta.label)
         : meta.label;
+    };
+    const stateMeaning = (meta) => {
+      const key = String(meta?.short || '').trim();
+      return key
+        ? i18n.t(`core-cpu-time.state_meaning.${key}`, {}, meta.what)
+        : meta.what;
     };
     const chartLabels = Object.fromEntries(
       Object.entries(states).map(([key, meta]) => [key, stateLabel(meta)]),
@@ -246,7 +330,7 @@ window.ZogographCpuTimeCard = {
         key,
         label: stateLabel(meta),
         now: now ? Number(now[key]) : null,
-        what: cpuStateMeaning(meta),
+        what: stateMeaning(meta),
       })),
       [
         {

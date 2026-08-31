@@ -1248,7 +1248,6 @@ function renderCpuTime(data) {
       tableTarget: $('cpuStateTable'),
       renderTable,
       bandOf,
-      cpuStateMeaning,
       emptyMessage: cpuEmptyWhy(data) + '.',
       i18n: ZogographI18n,
     },
@@ -1268,13 +1267,6 @@ function renderCpuTime(data) {
       })),
     { axis: percentAxis, zeroBased: true, empty: cpuEmptyWhy(data) },
   );
-}
-
-function cpuStateMeaning(meta) {
-  const key = String(meta?.short || '').trim();
-  return key
-    ? ZogographI18n.t(`cpu.state_meaning.${key}`, {}, meta.what)
-    : meta.what;
 }
 
 /* ---------------------------------------------------------- each core -- */

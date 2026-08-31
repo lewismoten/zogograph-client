@@ -2644,11 +2644,6 @@ i18nExpect(
             $english['storage.symlink_showing_capped'],
             $english['storage.symlink_walking_tree'],
             $english['storage.symlink_not_checked'],
-            $english['storage.symlink_summary_complete'],
-            $english['storage.symlink_summary_incomplete'],
-            $english['storage.symlink_checked_ago'],
-            $english['storage.symlink_stored'],
-            $english['storage.symlink_stale'],
             $english['storage.symlink_first_walk'],
             $english['storage.symlink_new_problems'],
             $english['storage.symlink_gone'],
@@ -3066,9 +3061,14 @@ i18nExpect(
 i18nExpect(
     $script !== false &&
         str_contains($script, 'storage.symlink_walking_tree') &&
-        str_contains($script, 'storage.symlink_summary_complete') &&
+        str_contains(
+            (string) file_get_contents(
+                $root . '/cards/symlink-check-summary.js',
+            ),
+            'core-symlink-check-summary.complete',
+        ) &&
         str_contains($script, 'storage.symlink_healthy_partial'),
-    'symlink check status retains direct user-visible text',
+    'symlink check status retains package-owned user-visible text',
 );
 i18nExpect(
     str_contains(

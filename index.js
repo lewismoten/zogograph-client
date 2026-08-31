@@ -21441,6 +21441,14 @@ const symlinkTableText = (key, values = {}) =>
     { i18n: ZogographI18n },
   );
 
+const symlinkCheckSummaryText = (key, values = {}) =>
+  renderCoreCardPackage(
+    ZogographSymlinkCheckSummaryCard,
+    'core-symlink-check-summary',
+    { key, values },
+    { i18n: ZogographI18n },
+  );
+
 /**
  * Checks the tree for symlinks that will send something into a loop.
  *
@@ -21519,49 +21527,26 @@ function renderSymlinks() {
 
   const summary = document.createElement('p');
   summary.className = 'muted small';
-  summary.textContent = ZogographI18n.t(
-    data.complete
-      ? 'storage.symlink_summary_complete'
-      : 'storage.symlink_summary_incomplete',
+  summary.textContent = symlinkCheckSummaryText(
+    data.complete ? 'complete' : 'incomplete',
     {
       links: humanCount(data.links),
       dirs: humanCount(data.dirs),
       seconds: humanCount(data.seconds),
     },
-    data.complete
-      ? `${humanCount(data.links)} links across ${humanCount(data.dirs)} directories in ${humanCount(data.seconds)}s. The whole tree was checked.`
-      : `${humanCount(data.links)} links across ${humanCount(data.dirs)} directories in ${humanCount(data.seconds)}s. Stopped before the end of the tree — there may be more.`,
   );
   if (linkState.at) {
     summary.append(
-      ZogographI18n.t(
-        'storage.symlink_checked_ago',
-        { time: ago(linkState.at) },
-        ` Checked ${ago(linkState.at)}.`,
-      ),
+      symlinkCheckSummaryText('checked_ago', { time: ago(linkState.at) }),
     );
   }
   if (data.stored) {
-    summary.append(
-      ZogographI18n.t(
-        'storage.symlink_stored',
-        {},
-        ' This is the stored result of that check, not a new one.',
-      ),
-    );
+    summary.append(symlinkCheckSummaryText('stored'));
   }
   parts.push(summary);
 
   if (linkState.at && Date.now() / 1000 - linkState.at > 900) {
-    parts.push(
-      note(
-        ZogographI18n.t(
-          'storage.symlink_stale',
-          {},
-          'This is the last check, not a fresh one — the walk takes seconds and is not run on a timer. Press Check again for the current state.',
-        ),
-      ),
-    );
+    parts.push(note(symlinkCheckSummaryText('stale')));
   }
 
   /*

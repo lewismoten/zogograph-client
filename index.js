@@ -1361,7 +1361,7 @@ function cpuTimeVerdict(now, cores) {
 
 function renderCpuCores(data) {
   const spread = data.spread ?? {};
-  renderCoreCardPackage(
+  const cores = renderCoreCardPackage(
     ZogographCpuCoresCard,
     'core-cpu-cores',
     data.cores ?? [],
@@ -1372,6 +1372,7 @@ function renderCpuCores(data) {
       i18n: ZogographI18n,
     },
   );
+  const labels = cores?.chartLabels ?? {};
 
   $('cpuSpreadNote').textContent = cpuSpreadVerdict(spread);
 
@@ -1381,22 +1382,22 @@ function renderCpuCores(data) {
     [
       {
         key: 'hottest',
-        label: ZogographI18n.t('cpu.busiest_core', {}, 'Busiest core'),
+        label: labels.busiest ?? 'Busiest core',
       },
       {
         key: 'mean',
-        label: ZogographI18n.t('cpu.average_core', {}, 'Average core'),
+        label: labels.average ?? 'Average core',
       },
       {
         key: 'coolest',
-        label: ZogographI18n.t('cpu.quietest_core', {}, 'Quietest core'),
+        label: labels.quietest ?? 'Quietest core',
       },
       // On the other axis with its own scale: a count of cores forced onto a
       // percentage scale would be a flat line along the bottom, and pinning the
       // percentage axis to 100 would drag the core count up with it.
       {
         key: 'pinned',
-        label: ZogographI18n.t('cpu.cores_at_90', {}, 'Cores at 90%+'),
+        label: labels.atNinety ?? 'Cores at 90%+',
         axis: 'right',
       },
     ],

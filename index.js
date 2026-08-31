@@ -9369,19 +9369,14 @@ function renderAiSettings(data) {
  * The catalogue's own keys are lower-case single words because they are keys.
  * These are what a person reads.
  */
-const TOOL_GROUP_NAMES = {
-  diagnostic: 'Diagnostic',
-  navigation: 'Navigation',
-  terminal: 'Terminal',
-  host: 'Host',
-  memory: 'Memory',
-  pictures: 'Pictures',
-};
 function toolGroupLabel(group) {
-  return ZogographI18n.t(
-    `ai.tool_group.${group}`,
-    {},
-    TOOL_GROUP_NAMES[group] ?? group,
+  return (
+    renderCoreCardPackage(
+      window.ZogographAiToolGroupsCard,
+      'core-ai-tool-groups',
+      { group },
+      { i18n: ZogographI18n },
+    ) ?? group
   );
 }
 /*

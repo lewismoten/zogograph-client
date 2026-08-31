@@ -4062,8 +4062,18 @@ i18nExpect(
         $aiToolsToolbarCard !== false &&
         str_contains($aiToolsToolbarCard, '"core-ai-tools-toolbar.tab"') &&
         str_contains($aiToolsToolbarCard, 'toolGroupLabel(group)') &&
-        is_array($english) &&
-        isset($english['ai.tool_group.diagnostic']) &&
+        $page !== false &&
+        str_contains($page, 'src="cards/ai-tool-groups.js"') &&
+        !isset(
+            $english['ai.tool_group.diagnostic'],
+            $english['ai.tool_group.navigation'],
+            $english['ai.tool_group.terminal'],
+            $english['ai.tool_group.host'],
+            $english['ai.tool_group.memory'],
+            $english['ai.tool_group.pictures'],
+        ) &&
+        $script !== false &&
+        str_contains($script, "'core-ai-tool-groups'") &&
         !isset($english['ai.tool_group_tab']),
     'AI tool-group labels and tab formatters are not owned by their proper packages',
 );

@@ -30161,11 +30161,11 @@ function modeInWords(mode, isDir) {
 }
 
 function inspectDirectory(data) {
-  const text = (key) =>
+  const text = (key, values = {}) =>
     renderCoreCardPackage(
       ZogographStorageInspectorFactsCard,
       'core-storage-inspector-facts',
-      { key },
+      { key, values },
       { i18n: ZogographI18n },
     );
   const c = data.contents;
@@ -30180,22 +30180,18 @@ function inspectDirectory(data) {
     ],
     [
       text('files_below_here'),
-      `${humanCount(c.files)}${c.complete ? '' : ' so far'}`,
+      `${humanCount(c.files)}${c.complete ? '' : text('so_far')}`,
     ],
   ];
   if (!c.complete) {
-    facts.push([
-      text('measurement'),
-      'The walk ran out of time. The size above is a lower ' +
-        'bound \u2014 at least that much, not exactly that much.',
-    ]);
+    facts.push([text('measurement'), text('measurement_incomplete')]);
   }
   if (data.site?.is_site) {
     facts.push([
       text('serves'),
       data.site.domains.length
         ? `\u{1F310} ${data.site.domains.join(', ')}`
-        : '\u{1F310} a website, domain unknown',
+        : text('site_unknown'),
     ]);
     // Whether this is read from cPanel's own record or inferred from the name,
     // because those are very different levels of certainty.

@@ -36,6 +36,11 @@ window.ZogographStorageInspectorFactsCard = {
         'core-storage-inspector-facts.measurement': 'Measurement',
         'core-storage-inspector-facts.serves': 'Serves',
         'core-storage-inspector-facts.how_known': 'How that is known',
+        'core-storage-inspector-facts.so_far': ' so far',
+        'core-storage-inspector-facts.measurement_incomplete':
+          'The walk ran out of time. The size above is a lower bound — at least that much, not exactly that much.',
+        'core-storage-inspector-facts.site_unknown':
+          '🌐 a website, domain unknown',
       }),
       es: Object.freeze({
         'core-storage-inspector-facts.kind': 'Tipo',
@@ -70,6 +75,11 @@ window.ZogographStorageInspectorFactsCard = {
         'core-storage-inspector-facts.measurement': 'Medición',
         'core-storage-inspector-facts.serves': 'Sirve',
         'core-storage-inspector-facts.how_known': 'Cómo se sabe',
+        'core-storage-inspector-facts.so_far': ' hasta ahora',
+        'core-storage-inspector-facts.measurement_incomplete':
+          'El recorrido se quedó sin tiempo. El tamaño de arriba es un límite inferior: al menos eso, no exactamente eso.',
+        'core-storage-inspector-facts.site_unknown':
+          '🌐 un sitio web, dominio desconocido',
       }),
       hi: Object.freeze({
         'core-storage-inspector-facts.kind': 'प्रकार',
@@ -103,6 +113,11 @@ window.ZogographStorageInspectorFactsCard = {
         'core-storage-inspector-facts.measurement': 'मापन',
         'core-storage-inspector-facts.serves': 'सेवा देता है',
         'core-storage-inspector-facts.how_known': 'यह कैसे ज्ञात है',
+        'core-storage-inspector-facts.so_far': ' अब तक',
+        'core-storage-inspector-facts.measurement_incomplete':
+          'चलने का समय समाप्त हो गया। ऊपर का आकार एक निचली सीमा है — कम से कम उतना, ठीक उतना नहीं।',
+        'core-storage-inspector-facts.site_unknown':
+          '🌐 एक वेबसाइट, डोमेन अज्ञात',
       }),
       ar: Object.freeze({
         'core-storage-inspector-facts.kind': 'النوع',
@@ -134,6 +149,11 @@ window.ZogographStorageInspectorFactsCard = {
         'core-storage-inspector-facts.measurement': 'القياس',
         'core-storage-inspector-facts.serves': 'يخدم',
         'core-storage-inspector-facts.how_known': 'كيف عُرف ذلك',
+        'core-storage-inspector-facts.so_far': ' حتى الآن',
+        'core-storage-inspector-facts.measurement_incomplete':
+          'انتهى وقت الاجتياز. الحجم أعلاه حد أدنى — على الأقل هذا القدر، وليس بالضبط هذا القدر.',
+        'core-storage-inspector-facts.site_unknown':
+          '🌐 موقع ويب، النطاق غير معروف',
       }),
       zh: Object.freeze({
         'core-storage-inspector-facts.kind': '类型',
@@ -165,6 +185,10 @@ window.ZogographStorageInspectorFactsCard = {
         'core-storage-inspector-facts.measurement': '测量',
         'core-storage-inspector-facts.serves': '服务于',
         'core-storage-inspector-facts.how_known': '如何得知',
+        'core-storage-inspector-facts.so_far': ' 目前为止',
+        'core-storage-inspector-facts.measurement_incomplete':
+          '遍历已超时。上方大小是下限——至少这么多，而非精确数值。',
+        'core-storage-inspector-facts.site_unknown': '🌐 一个网站，域名未知',
       }),
     }),
   }),

@@ -14407,6 +14407,8 @@ function renderPathHygiene(data) {
 }
 
 function showPathHygieneRename(row) {
+  const pathHygieneText = (key, values = {}) =>
+    ZogographPathHygieneCard.text(key, values, { i18n: ZogographI18n });
   const name = document.createElement('input');
   name.id = 'pathHygieneRenameName';
   name.className = 'wide-field';
@@ -14414,17 +14416,15 @@ function showPathHygieneRename(row) {
   const feedback = document.createElement('div');
   feedback.className = 'small';
   const rowField = fieldRow(
-    ZogographI18n.t('path_hygiene.new_name', {}, 'New name'),
+    pathHygieneText('new_name'),
     name,
-    ZogographI18n.t(
-      'path_hygiene.current_name',
-      { name: visiblePathName(row.path) },
-      'Current: {{name}}',
-    ),
+    pathHygieneText('current_name', {
+      name: visiblePathName(row.path),
+    }),
   );
   rowField.lastElementChild.appendChild(feedback);
   showFormDialog(
-    ZogographI18n.t('path_hygiene.rename_path', {}, 'Rename path'),
+    pathHygieneText('rename_path'),
     [rowField],
     async () => {
       const result = await post('path-hygiene-rename', {
@@ -14433,14 +14433,7 @@ function showPathHygieneRename(row) {
       });
       $('noteDialog').close();
       renderPathHygiene({ enabled: true, last: result.last, can_change: true });
-      notice(
-        ZogographI18n.t(
-          'path_hygiene.renamed_to',
-          { path: result.result.to },
-          'Renamed to {{path}}.',
-        ),
-        true,
-      );
+      notice(pathHygieneText('renamed_to', { path: result.result.to }), true);
     },
     ZogographI18n.t('action.rename', {}, 'Rename'),
   );

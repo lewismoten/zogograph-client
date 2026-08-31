@@ -42,6 +42,17 @@ window.ZogographSystemHealthShellCard = {
         'core-system-health-shell.proc_readable': '/proc readable',
         'core-system-health-shell.proc_readable_help':
           'CPU, memory and network stay empty.',
+        'core-system-health-shell.no_inline_styles':
+          'Dashboard has no inline styles',
+        'core-system-health-shell.no_inline_styles_help':
+          'index.html carries a style="" attribute, which the content security policy blocks — the rule silently does not apply. Move it into index.css.',
+        'core-system-health-shell.diskstats_readable': 'Disk counters readable',
+        'core-system-health-shell.diskstats_readable_help':
+          'Disk I/O throughput and utilisation stay empty.',
+        'core-system-health-shell.io_pressure_available':
+          'I/O pressure available',
+        'core-system-health-shell.io_pressure_available_help':
+          'Stall percentages stay empty.',
       }),
       es: Object.freeze({
         'core-system-health-shell.title': 'Estado',
@@ -82,6 +93,18 @@ window.ZogographSystemHealthShellCard = {
         'core-system-health-shell.proc_readable': '/proc legible',
         'core-system-health-shell.proc_readable_help':
           'CPU, memoria y red quedarán vacíos.',
+        'core-system-health-shell.no_inline_styles':
+          'El panel no tiene estilos en línea',
+        'core-system-health-shell.no_inline_styles_help':
+          'index.html contiene un atributo style="" que bloquea la política de seguridad de contenido; la regla no se aplica silenciosamente. Muévalo a index.css.',
+        'core-system-health-shell.diskstats_readable':
+          'Contadores de disco legibles',
+        'core-system-health-shell.diskstats_readable_help':
+          'El rendimiento y uso de E/S de disco quedarán vacíos.',
+        'core-system-health-shell.io_pressure_available':
+          'Presión de E/S disponible',
+        'core-system-health-shell.io_pressure_available_help':
+          'Los porcentajes de bloqueo quedarán vacíos.',
       }),
       hi: Object.freeze({
         'core-system-health-shell.title': 'स्वास्थ्य',
@@ -123,6 +146,17 @@ window.ZogographSystemHealthShellCard = {
         'core-system-health-shell.proc_readable': '/proc पढ़ने योग्य',
         'core-system-health-shell.proc_readable_help':
           'CPU, मेमोरी और नेटवर्क खाली रहेंगे।',
+        'core-system-health-shell.no_inline_styles':
+          'डैशबोर्ड में इनलाइन स्टाइल नहीं हैं',
+        'core-system-health-shell.no_inline_styles_help':
+          'index.html में style="" एट्रिब्यूट है जिसे कंटेंट सुरक्षा नीति रोकती है; नियम चुपचाप लागू नहीं होता। इसे index.css में ले जाएँ।',
+        'core-system-health-shell.diskstats_readable':
+          'डिस्क काउंटर पढ़ने योग्य',
+        'core-system-health-shell.diskstats_readable_help':
+          'डिस्क I/O थ्रूपुट और उपयोग खाली रहेंगे।',
+        'core-system-health-shell.io_pressure_available': 'I/O दबाव उपलब्ध',
+        'core-system-health-shell.io_pressure_available_help':
+          'स्टॉल प्रतिशत खाली रहेंगे।',
       }),
       ar: Object.freeze({
         'core-system-health-shell.title': 'الحالة الصحية',
@@ -162,6 +196,18 @@ window.ZogographSystemHealthShellCard = {
         'core-system-health-shell.proc_readable': '/proc قابل للقراءة',
         'core-system-health-shell.proc_readable_help':
           'ستبقى وحدة المعالجة والذاكرة والشبكة فارغة.',
+        'core-system-health-shell.no_inline_styles':
+          'لوحة المعلومات بلا أنماط مضمنة',
+        'core-system-health-shell.no_inline_styles_help':
+          'يحمل index.html سمة style="" تحظرها سياسة أمان المحتوى؛ لا تطبق القاعدة بصمت. انقلها إلى index.css.',
+        'core-system-health-shell.diskstats_readable':
+          'عدادات القرص قابلة للقراءة',
+        'core-system-health-shell.diskstats_readable_help':
+          'سيبقى معدل استخدام وإنتاجية إدخال/إخراج القرص فارغاً.',
+        'core-system-health-shell.io_pressure_available':
+          'ضغط الإدخال/الإخراج متاح',
+        'core-system-health-shell.io_pressure_available_help':
+          'ستبقى نسب التوقف فارغة.',
       }),
       zh: Object.freeze({
         'core-system-health-shell.title': '运行状况',
@@ -198,6 +244,15 @@ window.ZogographSystemHealthShellCard = {
         'core-system-health-shell.proc_readable': '/proc 可读',
         'core-system-health-shell.proc_readable_help':
           'CPU、内存和网络将保持为空。',
+        'core-system-health-shell.no_inline_styles': '仪表板没有内联样式',
+        'core-system-health-shell.no_inline_styles_help':
+          'index.html 带有内容安全策略阻止的 style="" 属性；该规则会悄悄失效。请将其移到 index.css。',
+        'core-system-health-shell.diskstats_readable': '磁盘计数器可读',
+        'core-system-health-shell.diskstats_readable_help':
+          '磁盘 I/O 吞吐量和利用率将保持为空。',
+        'core-system-health-shell.io_pressure_available': 'I/O 压力可用',
+        'core-system-health-shell.io_pressure_available_help':
+          '停顿百分比将保持为空。',
       }),
     }),
   }),

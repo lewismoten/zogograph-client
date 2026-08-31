@@ -26208,22 +26208,22 @@ const HEALTH_LABELS = {
     'CPU, memory and network stay empty.',
   ],
   no_inline_styles: [
-    'health.no_inline_styles',
+    'no_inline_styles',
     'Dashboard has no inline styles',
-    'health.no_inline_styles_help',
+    'no_inline_styles_help',
     'index.html carries a style="" attribute, which the content security policy ' +
       'blocks — the rule silently does not apply. Move it into index.css.',
   ],
   diskstats_readable: [
-    'health.diskstats_readable',
+    'diskstats_readable',
     'Disk counters readable',
-    'health.diskstats_readable_help',
+    'diskstats_readable_help',
     'Disk I/O throughput and utilisation stay empty.',
   ],
   io_pressure_available: [
-    'health.io_pressure_available',
+    'io_pressure_available',
     'I/O pressure available',
-    'health.io_pressure_available_help',
+    'io_pressure_available_help',
     'Stall percentages stay empty.',
   ],
 };

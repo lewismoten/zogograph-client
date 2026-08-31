@@ -6,6 +6,7 @@ window.ZogographCpuQueueCard = {
     helpers: ['setCard', 'humanCount', 'count', 'i18n'],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-cpu-queue.title': 'Waiting to run',
         'core-cpu-queue.wanting_to_run': 'Wanting to run',
         'core-cpu-queue.across_cores': 'across {{count, number}} cores',
         'core-cpu-queue.cores_unknown': 'cores unknown',
@@ -42,6 +43,7 @@ window.ZogographCpuQueueCard = {
         'core-cpu-queue.queue_unknown_count': 'an unknown number of',
       }),
       es: Object.freeze({
+        'core-cpu-queue.title': 'Esperando para ejecutarse',
         'core-cpu-queue.wanting_to_run': 'Esperando ejecutar',
         'core-cpu-queue.across_cores': 'en {{count, number}} núcleos',
         'core-cpu-queue.cores_unknown': 'núcleos desconocidos',
@@ -80,6 +82,7 @@ window.ZogographCpuQueueCard = {
         'core-cpu-queue.queue_unknown_count': 'un número desconocido de',
       }),
       hi: Object.freeze({
+        'core-cpu-queue.title': 'चलने की प्रतीक्षा',
         'core-cpu-queue.wanting_to_run': 'चलने की प्रतीक्षा',
         'core-cpu-queue.across_cores': '{{count, number}} कोर में',
         'core-cpu-queue.cores_unknown': 'कोर अज्ञात',
@@ -116,6 +119,7 @@ window.ZogographCpuQueueCard = {
         'core-cpu-queue.queue_unknown_count': 'अज्ञात संख्या में',
       }),
       ar: Object.freeze({
+        'core-cpu-queue.title': 'بانتظار التشغيل',
         'core-cpu-queue.wanting_to_run': 'يريد التشغيل',
         'core-cpu-queue.across_cores': 'عبر {{count, number}} نوى',
         'core-cpu-queue.cores_unknown': 'عدد النوى غير معروف',
@@ -152,6 +156,7 @@ window.ZogographCpuQueueCard = {
         'core-cpu-queue.queue_unknown_count': 'عدد غير معروف من',
       }),
       zh: Object.freeze({
+        'core-cpu-queue.title': '等待运行',
         'core-cpu-queue.wanting_to_run': '等待运行',
         'core-cpu-queue.across_cores': '跨 {{count, number}} 个核心',
         'core-cpu-queue.cores_unknown': '核心数未知',
@@ -187,6 +192,13 @@ window.ZogographCpuQueueCard = {
       }),
     }),
   }),
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-cpu-queue.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-cpu-queue.${key}`],
+    );
+  },
   render(input, helpers) {
     const { now, sample } = input;
     const { setCard, humanCount, count, i18n } = helpers;

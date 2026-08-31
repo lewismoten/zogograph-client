@@ -3065,7 +3065,7 @@ i18nExpect(
     $script !== false &&
         str_contains($script, 'function copyButtonLabel(state)') &&
         str_contains($script, 'ZogographI18n.t("store.rollup_result"') &&
-        str_contains($script, 'ZogographI18n.t("capabilities.checked_changes"'),
+        str_contains($script, "capabilitiesShellText('checked_changes'"),
     'shared operational controls do not use the locale catalog',
 );
 i18nExpect(
@@ -4234,9 +4234,6 @@ $translatedOperationalControls = [
     'delivery.could_not_send',
     'telegram.test_sent',
     'telegram.test_failed',
-    'capabilities.checked',
-    'capabilities.checked_changes',
-    'capabilities.host_requested',
 ];
 $translatedMarketplace = array_keys(
     array_filter(

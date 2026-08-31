@@ -38319,6 +38319,12 @@ function capabilityExposeText(key, values = {}) {
   });
 }
 
+function capabilitiesShellText(key, values = {}) {
+  return ZogographCapabilitiesShellCard.text(key, values, {
+    i18n: ZogographI18n,
+  });
+}
+
 async function refreshCapabilities() {
   const body = $('capBody');
   if (!body) return;
@@ -42102,16 +42108,8 @@ $('capCheck').addEventListener('click', async () => {
     const result = await post('check-capabilities');
     notice(
       result.changes
-        ? ZogographI18n.t(
-            'capabilities.checked_changes',
-            result,
-            '{{total, number}} programs checked in {{seconds, number}} seconds; {{changes, number}} changed since last time.',
-          )
-        : ZogographI18n.t(
-            'capabilities.checked',
-            result,
-            '{{total, number}} programs checked in {{seconds, number}} seconds.',
-          ),
+        ? capabilitiesShellText('checked_changes', result)
+        : capabilitiesShellText('checked', result),
     );
     await refreshCapabilities();
     await refreshMounts();
@@ -42127,13 +42125,7 @@ $('capCheck').addEventListener('click', async () => {
 $('capHostCheck').addEventListener('click', async () => {
   try {
     await post('request-host-task', { task: 'capabilities' });
-    notice(
-      ZogographI18n.t(
-        'capabilities.host_requested',
-        {},
-        'Requested. The host collector will check on its next run.',
-      ),
-    );
+    notice(capabilitiesShellText('host_requested'));
     await refreshCapabilities();
   } catch (error) {
     notice(String(error.message || error));

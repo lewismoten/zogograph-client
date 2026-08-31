@@ -2406,7 +2406,6 @@
   "uptime.not_known": "غير معروف",
   "uptime.still_running": "ما زال يعمل",
   "uptime.what_that_means": "ما يعنيه ذلك",
-  "audit.title": "كل ما فعله هذا المراقب",
   "audit.download_csv": "نزّل CSV",
   "audit.clear": "امسح التدقيق",
   "audit.what": "ماذا",

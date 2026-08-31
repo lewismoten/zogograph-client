@@ -2406,7 +2406,6 @@
   "uptime.not_known": "未知",
   "uptime.still_running": "仍在运行",
   "uptime.what_that_means": "这意味着什么",
-  "audit.title": "此监控器完成的所有操作",
   "audit.download_csv": "下载 CSV",
   "audit.clear": "清除审计记录",
   "audit.what": "内容",

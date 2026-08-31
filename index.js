@@ -3517,6 +3517,14 @@ function renderAuditShellLabels() {
     {},
     helpers,
   );
+  const title = document.querySelector('[data-i18n="core-audit-shell.title"]');
+  if (title) {
+    title.textContent = ZogographI18n.markSource(
+      title,
+      'core-audit-shell.title',
+      ZogographAuditShellCard.text('title', helpers),
+    );
+  }
   ZogographI18n.applyRich(
     document.querySelector('[data-i18n-rich="core-audit-shell.help"]'),
   );

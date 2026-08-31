@@ -2408,7 +2408,6 @@
   "uptime.not_known": "ज्ञात नहीं",
   "uptime.still_running": "अभी भी चल रहा है",
   "uptime.what_that_means": "इसका अर्थ",
-  "audit.title": "इस मॉनिटर ने जो कुछ किया",
   "audit.download_csv": "CSV डाउनलोड करें",
   "audit.clear": "ऑडिट साफ़ करें",
   "audit.what": "क्या",

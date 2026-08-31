@@ -2409,7 +2409,6 @@
   "uptime.not_known": "no se sabe",
   "uptime.still_running": "Sigue en ejecución",
   "uptime.what_that_means": "Qué significa",
-  "audit.title": "Todo lo que ha hecho este monitor",
   "audit.download_csv": "Descargar CSV",
   "audit.clear": "Limpiar auditoría",
   "audit.what": "Qué",

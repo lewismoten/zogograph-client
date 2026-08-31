@@ -2424,7 +2424,6 @@
   "uptime.not_known": "not known",
   "uptime.still_running": "Still running",
   "uptime.what_that_means": "What that means",
-  "audit.title": "Everything this monitor has done",
   "audit.download_csv": "Download CSV",
   "audit.clear": "Clear audit",
   "audit.what": "What",

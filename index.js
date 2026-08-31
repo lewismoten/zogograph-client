@@ -40027,11 +40027,10 @@ function showLogLine(row, index, rows) {
   if (parsed.file)
     facts.push([
       logStreamSummaryText('detail_in'),
-      ZogographI18n.t(
-        'log.detail_file_line',
-        { file: parsed.file, line: parsed.line },
-        '{{file}}, line {{line, number}}',
-      ),
+      logStreamSummaryText('detail_file_line', {
+        file: parsed.file,
+        line: parsed.line,
+      }),
     ]);
 
   nodes.push(
@@ -40049,23 +40048,13 @@ function showLogLine(row, index, rows) {
     trace.textContent = row.trace.join('\n');
     nodes.push(
       section(
-        ZogographI18n.t(
-          'log.detail_stack_trace',
-          { count: row.trace.length },
-          'Stack trace ({{count, number}} lines)',
-        ),
+        logStreamSummaryText('detail_stack_trace', {
+          count: row.trace.length,
+        }),
         trace,
       ),
     );
-    nodes.push(
-      note(
-        ZogographI18n.t(
-          'log.detail_trace_help',
-          {},
-          'Read from the top: the first frame is where it failed, and each one below is what called it. The bottom is usually where the request came in.',
-        ),
-      ),
-    );
+    nodes.push(note(logStreamSummaryText('detail_trace_help')));
   }
 
   /*

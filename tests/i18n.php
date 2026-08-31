@@ -2541,6 +2541,39 @@ i18nExpect(
     'CPU queue metrics do not belong to their core package',
 );
 i18nExpect(
+    !isset(
+        $english['cpu.process_state.R'],
+        $english['cpu.process_state.S'],
+        $english['cpu.process_state.D'],
+        $english['cpu.process_state.Z'],
+        $english['cpu.process_state.T'],
+        $english['cpu.process_state.I'],
+        $english['cpu.no_measurable_process'],
+        $english['cpu.process_summary'],
+        $english['cpu.process_summary_machine'],
+        $english['cpu.process_summary_busy'],
+        $english['cpu.pid'],
+        $english['cpu.now_one_core'],
+        $english['cpu.average_since_started'],
+    ) &&
+        isset(
+            $coreCardEnglish['core-cpu-processes.state.R'],
+            $coreCardEnglish['core-cpu-processes.state.S'],
+            $coreCardEnglish['core-cpu-processes.state.D'],
+            $coreCardEnglish['core-cpu-processes.state.Z'],
+            $coreCardEnglish['core-cpu-processes.state.T'],
+            $coreCardEnglish['core-cpu-processes.state.I'],
+            $coreCardEnglish['core-cpu-processes.empty'],
+            $coreCardEnglish['core-cpu-processes.summary'],
+            $coreCardEnglish['core-cpu-processes.machine'],
+            $coreCardEnglish['core-cpu-processes.busy'],
+            $coreCardEnglish['core-cpu-processes.pid'],
+            $coreCardEnglish['core-cpu-processes.now_one_core'],
+            $coreCardEnglish['core-cpu-processes.average_since_started'],
+        ),
+    'CPU process labels do not belong to their core package',
+);
+i18nExpect(
     $script !== false &&
         str_contains($script, 'filterControlText("all", "All")') &&
         $page !== false &&

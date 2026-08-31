@@ -21,6 +21,10 @@ window.ZogographStorageLogCard = {
           'stopped searching before the start of the file — narrow the search or look at the file directly',
         'core-storage-log.beginning': 'this is the beginning of the file',
         'core-storage-log.no_matching_lines': 'No matching lines here.',
+        'core-storage-log.search': 'Search',
+        'core-storage-log.lines': 'Lines',
+        'core-storage-log.newer': 'Newer',
+        'core-storage-log.older': 'Older',
       }),
       es: Object.freeze({
         'core-storage-log.last_line': 'Última línea',
@@ -40,6 +44,10 @@ window.ZogographStorageLogCard = {
         'core-storage-log.beginning': 'este es el inicio del archivo',
         'core-storage-log.no_matching_lines':
           'No hay líneas coincidentes aquí.',
+        'core-storage-log.search': 'Buscar',
+        'core-storage-log.lines': 'Líneas',
+        'core-storage-log.newer': 'Más reciente',
+        'core-storage-log.older': 'Más antiguo',
       }),
       hi: Object.freeze({
         'core-storage-log.last_line': 'अंतिम पंक्ति',
@@ -58,6 +66,10 @@ window.ZogographStorageLogCard = {
         'core-storage-log.beginning': 'यह फ़ाइल की शुरुआत है',
         'core-storage-log.no_matching_lines':
           'यहाँ कोई मिलती हुई पंक्ति नहीं है।',
+        'core-storage-log.search': 'खोजें',
+        'core-storage-log.lines': 'पंक्तियाँ',
+        'core-storage-log.newer': 'नया',
+        'core-storage-log.older': 'पुराना',
       }),
       ar: Object.freeze({
         'core-storage-log.last_line': 'آخر سطر',
@@ -75,6 +87,10 @@ window.ZogographStorageLogCard = {
           'توقف البحث قبل بداية الملف — ضيّق البحث أو اعرض الملف مباشرةً',
         'core-storage-log.beginning': 'هذه بداية الملف',
         'core-storage-log.no_matching_lines': 'لا توجد أسطر مطابقة هنا.',
+        'core-storage-log.search': 'بحث',
+        'core-storage-log.lines': 'الأسطر',
+        'core-storage-log.newer': 'الأحدث',
+        'core-storage-log.older': 'الأقدم',
       }),
       zh: Object.freeze({
         'core-storage-log.last_line': '最后一行',
@@ -92,6 +108,10 @@ window.ZogographStorageLogCard = {
           '搜索在到达文件开头前停止——请缩小搜索范围或直接查看文件',
         'core-storage-log.beginning': '这是文件开头',
         'core-storage-log.no_matching_lines': '这里没有匹配的行。',
+        'core-storage-log.search': '搜索',
+        'core-storage-log.lines': '行数',
+        'core-storage-log.newer': '较新',
+        'core-storage-log.older': '较旧',
       }),
     }),
   }),

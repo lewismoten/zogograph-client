@@ -2387,18 +2387,18 @@ i18nExpect(
 i18nExpect(
     $page !== false &&
         str_contains($page, 'data-i18n="storage.history"') &&
-        str_contains($page, 'data-i18n="log.search"') &&
-        str_contains($page, 'data-i18n="log.newer"') &&
+        str_contains($page, 'data-i18n="core-storage-log.search"') &&
+        str_contains($page, 'data-i18n="core-storage-log.newer"') &&
         $script !== false &&
         str_contains($script, "'core-storage-log'") &&
         is_array($english) &&
         isset(
             $english['storage.history'],
             $english['action.close'],
-            $english['log.search'],
-            $english['log.lines'],
-            $english['log.newer'],
-            $english['log.older'],
+            $coreCardEnglish['core-storage-log.search'],
+            $coreCardEnglish['core-storage-log.lines'],
+            $coreCardEnglish['core-storage-log.newer'],
+            $coreCardEnglish['core-storage-log.older'],
         ),
     'Storage history and log controls do not use the locale catalog',
 );

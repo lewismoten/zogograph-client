@@ -30244,7 +30244,12 @@ function inspectDirectory(data) {
   if (pair.children.length)
     out.push(
       section(
-        ZogographI18n.t('storage.what_it_is_made_of', {}, 'What it is made of'),
+        renderCoreCardPackage(
+          ZogographStorageInspectorBreakdownCard,
+          'core-storage-inspector-breakdown',
+          { key: 'title' },
+          { i18n: ZogographI18n },
+        ),
         pair,
       ),
     );

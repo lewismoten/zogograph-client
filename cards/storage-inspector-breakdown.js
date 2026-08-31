@@ -7,26 +7,31 @@ window.ZogographStorageInspectorBreakdownCard = {
     catalogs: Object.freeze({
       en: Object.freeze({
         'core-storage-inspector-breakdown.empty': 'Nothing to show',
+        'core-storage-inspector-breakdown.title': 'What it is made of',
       }),
       es: Object.freeze({
         'core-storage-inspector-breakdown.empty': 'Nada que mostrar',
+        'core-storage-inspector-breakdown.title': 'De qué está hecho',
       }),
       hi: Object.freeze({
         'core-storage-inspector-breakdown.empty': 'दिखाने के लिए कुछ नहीं',
+        'core-storage-inspector-breakdown.title': 'यह किससे बना है',
       }),
       ar: Object.freeze({
         'core-storage-inspector-breakdown.empty': 'لا شيء لعرضه',
+        'core-storage-inspector-breakdown.title': 'ممّ يتكون',
       }),
       zh: Object.freeze({
         'core-storage-inspector-breakdown.empty': '没有可显示的内容',
+        'core-storage-inspector-breakdown.title': '它由什么构成',
       }),
     }),
   }),
-  render(_input, { i18n }) {
+  render({ key = 'empty' } = {}, { i18n }) {
     return i18n.t(
-      'core-storage-inspector-breakdown.empty',
+      `core-storage-inspector-breakdown.${key}`,
       {},
-      this.manifest.catalogs.en['core-storage-inspector-breakdown.empty'],
+      this.manifest.catalogs.en[`core-storage-inspector-breakdown.${key}`],
     );
   },
 };

@@ -18622,33 +18622,29 @@ function renderMemories(data) {
       },
       {
         label: ZogographI18n.t('ai.memory_written', {}, 'Written'),
-        render: (row) => {
-          const span = document.createElement('span');
-          span.textContent = ago(row.updated_at);
-          span.title =
-            row.written_by === 'you'
-              ? ZogographI18n.t('ai.memory_you_wrote', {}, 'You wrote this.')
-              : row.source_session
-                ? ZogographI18n.t(
-                    'ai.memory_written_in_conversation',
-                    { id: row.source_session },
-                    'Written by the assistant in conversation {{id}}.',
-                  )
-                : ZogographI18n.t(
-                    'ai.memory_written_by_assistant',
-                    {},
-                    'Written by the assistant.',
-                  );
-          return span;
-        },
+        render: (row) =>
+          renderCoreCardPackage(
+            ZogographAiMemoryProvenanceCard,
+            'core-ai-memory-provenance',
+            { kind: 'written', row },
+            { ago, humanCount, i18n: ZogographI18n },
+          ),
       },
       {
-        label: ZogographI18n.t('ai.memory_used', {}, 'Used'),
+        label: renderCoreCardPackage(
+          ZogographAiMemoryProvenanceCard,
+          'core-ai-memory-provenance',
+          { kind: 'used-label' },
+          { ago, humanCount, i18n: ZogographI18n },
+        ),
         className: 'size',
         render: (row) =>
-          row.used
-            ? `${humanCount(row.used)}×`
-            : ZogographI18n.t('ai.memory_never', {}, 'never'),
+          renderCoreCardPackage(
+            ZogographAiMemoryProvenanceCard,
+            'core-ai-memory-provenance',
+            { kind: 'used', row },
+            { ago, humanCount, i18n: ZogographI18n },
+          ),
       },
       {
         label: '',

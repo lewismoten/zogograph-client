@@ -17,6 +17,7 @@ window.ZogographProcessListCard = {
     ],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-process-list.title': 'What is using the machine',
         'core-process-list.process': 'Process',
         'core-process-list.how_many': 'How many',
         'core-process-list.user': 'User',
@@ -30,6 +31,7 @@ window.ZogographProcessListCard = {
         'core-process-list.stop': 'Stop',
       }),
       es: Object.freeze({
+        'core-process-list.title': 'Qué está usando la máquina',
         'core-process-list.process': 'Proceso',
         'core-process-list.how_many': 'Cantidad',
         'core-process-list.user': 'Usuario',
@@ -43,6 +45,7 @@ window.ZogographProcessListCard = {
         'core-process-list.stop': 'Detener',
       }),
       hi: Object.freeze({
+        'core-process-list.title': 'मशीन का उपयोग क्या कर रहा है',
         'core-process-list.process': 'प्रक्रिया',
         'core-process-list.how_many': 'कितनी',
         'core-process-list.user': 'उपयोगकर्ता',
@@ -56,6 +59,7 @@ window.ZogographProcessListCard = {
         'core-process-list.stop': 'रोकें',
       }),
       ar: Object.freeze({
+        'core-process-list.title': 'ما الذي يستخدم الجهاز',
         'core-process-list.process': 'العملية',
         'core-process-list.how_many': 'العدد',
         'core-process-list.user': 'المستخدم',
@@ -69,6 +73,7 @@ window.ZogographProcessListCard = {
         'core-process-list.stop': 'إيقاف',
       }),
       zh: Object.freeze({
+        'core-process-list.title': '什么在使用这台机器',
         'core-process-list.process': '进程',
         'core-process-list.how_many': '数量',
         'core-process-list.user': '用户',
@@ -83,6 +88,13 @@ window.ZogographProcessListCard = {
       }),
     }),
   }),
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-process-list.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-process-list.${key}`],
+    );
+  },
 
   render(data, helpers) {
     const {

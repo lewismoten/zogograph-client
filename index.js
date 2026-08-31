@@ -2197,6 +2197,26 @@ function renderStorageInspectorLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderStorageInspectorLabels);
 
+function renderStorageRetentionLabels() {
+  const helpers = { i18n: ZogographI18n };
+  renderCoreCardPackage(
+    ZogographStorageRetentionCard,
+    'core-storage-retention',
+    {},
+    helpers,
+  );
+  const title = document.querySelector(
+    '[data-i18n="core-storage-retention.title"]',
+  );
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-storage-retention.title',
+    ZogographStorageRetentionCard.text('title', helpers),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderStorageRetentionLabels);
+
 /**
  * When the disk is projected to fill, as a date.
  *

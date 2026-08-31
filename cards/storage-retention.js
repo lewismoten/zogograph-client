@@ -6,6 +6,7 @@ window.ZogographStorageRetentionCard = {
     helpers: ['i18n'],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-storage-retention.title': 'How long it keeps things',
         'core-storage-retention.not_writable':
           'lib/config.php is not writable by the web server, so these cannot be changed from here. Edit the file directly, or change it in setup.php.',
         'core-storage-retention.what': 'What',
@@ -37,6 +38,7 @@ window.ZogographStorageRetentionCard = {
         'core-storage-retention.yearly_growth': '+{{amount}}/yr',
       }),
       es: Object.freeze({
+        'core-storage-retention.title': 'Cuánto tiempo conserva las cosas',
         'core-storage-retention.not_writable':
           'lib/config.php no se puede escribir desde el servidor web, por lo que no se pueden cambiar estos valores desde aquí. Edite el archivo directamente o cámbielo en setup.php.',
         'core-storage-retention.what': 'Qué',
@@ -69,6 +71,7 @@ window.ZogographStorageRetentionCard = {
         'core-storage-retention.yearly_growth': '+{{amount}}/año',
       }),
       hi: Object.freeze({
+        'core-storage-retention.title': 'यह चीज़ें कितने समय रखता है',
         'core-storage-retention.not_writable':
           'lib/config.php वेब सर्वर द्वारा लिखने योग्य नहीं है, इसलिए इन्हें यहाँ से बदला नहीं जा सकता। फ़ाइल को सीधे संपादित करें या setup.php में बदलें।',
         'core-storage-retention.what': 'क्या',
@@ -101,6 +104,7 @@ window.ZogographStorageRetentionCard = {
         'core-storage-retention.yearly_growth': '+{{amount}}/वर्ष',
       }),
       ar: Object.freeze({
+        'core-storage-retention.title': 'مدة الاحتفاظ بالأشياء',
         'core-storage-retention.not_writable':
           'لا يمكن لخادم الويب الكتابة إلى lib/config.php، لذا لا يمكن تغيير هذه القيم من هنا. حرّر الملف مباشرة أو غيّرها في setup.php.',
         'core-storage-retention.what': 'ما',
@@ -133,6 +137,7 @@ window.ZogographStorageRetentionCard = {
         'core-storage-retention.yearly_growth': '+{{amount}}/سنة',
       }),
       zh: Object.freeze({
+        'core-storage-retention.title': '保留内容的时长',
         'core-storage-retention.not_writable':
           'Web 服务器无法写入 lib/config.php，因此无法在此处更改这些设置。请直接编辑该文件，或在 setup.php 中更改。',
         'core-storage-retention.what': '内容',
@@ -164,6 +169,13 @@ window.ZogographStorageRetentionCard = {
       }),
     }),
   }),
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-storage-retention.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-storage-retention.${key}`],
+    );
+  },
   render({ key, values = {} }, { i18n }) {
     const fallback = this.manifest.catalogs.en[`core-storage-retention.${key}`];
     return i18n.t(`core-storage-retention.${key}`, values, fallback);

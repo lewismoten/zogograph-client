@@ -5856,21 +5856,12 @@ function renderAiSettings(data) {
     ),
   );
 
-  const explain = document.createElement('input');
-  explain.type = 'checkbox';
-  explain.id = 'aiExplain';
-  explain.checked = data.explain_commands !== false;
   room.appendChild(
-    fieldRow(
-      aiSettingsText('explain_commands_label', 'Explain its commands'),
-      explain,
-      aiSettingsText(
-        'explain_commands_help',
-        'When it suggests a terminal command, it comments each part, says what the output ' +
-          'should look like, and links to the documentation. Worth leaving on: somebody ' +
-          'pasting a command they have not understood is the thing this is meant to prevent. ' +
-          'Turn it off if you read shell fluently and find the commentary noise.',
-      ),
+    renderCoreCardPackage(
+      ZogographAiCommandExplanationsCard,
+      'core-ai-command-explanations',
+      data,
+      { fieldRow, i18n: ZogographI18n },
     ),
   );
 

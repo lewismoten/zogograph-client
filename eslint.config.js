@@ -168,6 +168,7 @@ export default [
         ZogographAiContextWindowCard: 'readonly',
         ZogographAiContextCompactionThresholdCard: 'readonly',
         ZogographAiContextAutoCompactCard: 'readonly',
+        ZogographAiCommandExplanationsCard: 'readonly',
         ZogographAiKeyForgetCard: 'readonly',
         ZogographAiEnableToggleCard: 'readonly',
         ZogographAiReasoningEffortCard: 'readonly',

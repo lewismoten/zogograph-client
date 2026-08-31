@@ -13,36 +13,48 @@ window.ZogographTypeGrowthCard = {
     ],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-type-growth.title': 'How each type has grown',
         'core-type-growth.no_scans_in_range_yet':
           'No completed scans in this range yet',
         'core-type-growth.two_scans_for_change':
           'Two completed scans are needed before there is a change to draw',
       }),
       es: Object.freeze({
+        'core-type-growth.title': 'Cómo ha crecido cada tipo',
         'core-type-growth.no_scans_in_range_yet':
           'Aún no hay análisis completados en este intervalo',
         'core-type-growth.two_scans_for_change':
           'Se necesitan dos análisis completados antes de dibujar un cambio',
       }),
       hi: Object.freeze({
+        'core-type-growth.title': 'हर प्रकार कैसे बढ़ा है',
         'core-type-growth.no_scans_in_range_yet':
           'इस दायरे में अभी कोई पूरा स्कैन नहीं है',
         'core-type-growth.two_scans_for_change':
           'बदलाव दिखाने से पहले दो पूरे स्कैन चाहिए',
       }),
       ar: Object.freeze({
+        'core-type-growth.title': 'كيف نما كل نوع',
         'core-type-growth.no_scans_in_range_yet':
           'لا توجد فحوصات مكتملة في هذا النطاق بعد',
         'core-type-growth.two_scans_for_change':
           'يلزم فحصان مكتملان قبل رسم تغيير',
       }),
       zh: Object.freeze({
+        'core-type-growth.title': '各类型如何增长',
         'core-type-growth.no_scans_in_range_yet': '此范围内尚无完成的扫描',
         'core-type-growth.two_scans_for_change':
           '至少需要两次完成的扫描才能绘制变化',
       }),
     }),
   }),
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-type-growth.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-type-growth.${key}`],
+    );
+  },
   render(scans, helpers) {
     const { canvas, mode, drawLineChart, bytesAxis, typeColor, i18n } = helpers;
     const history = scans.file_type_history ?? [];

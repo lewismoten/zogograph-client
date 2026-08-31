@@ -2709,7 +2709,6 @@
   "storage.show_categories": "Show watched categories too",
   "storage.other_title": "What is inside {{other}}",
   "storage.other_help": "The extensions that matched no group, heaviest first. This is where a backup convention nobody documented turns up — {{bkup}}, {{old}}, a date-stamped copy of a database. {{none}} is files with no extension at all.",
-  "storage.type_growth_title": "How each type has grown",
   "storage.total_size": "total size",
   "storage.change_since_scan": "change since the previous scan",
   "storage.type_growth_help": "One line per type across every completed scan in this range. A type with no line had nothing of that kind at the time — the line starts where the first file did, rather than running along the axis from the beginning.",

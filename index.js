@@ -2077,6 +2077,31 @@ function renderTypePieLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderTypePieLabels);
 
+function renderTypeGrowthLabels() {
+  const helpers = {
+    canvas: null,
+    mode: '',
+    drawLineChart: () => null,
+    bytesAxis: () => null,
+    typeColor: () => '',
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(
+    ZogographTypeGrowthCard,
+    'core-type-growth',
+    {},
+    helpers,
+  );
+  const title = document.querySelector('[data-i18n="core-type-growth.title"]');
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-type-growth.title',
+    ZogographTypeGrowthCard.text('title', helpers),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderTypeGrowthLabels);
+
 /**
  * When the disk is projected to fill, as a date.
  *

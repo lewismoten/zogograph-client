@@ -1327,7 +1327,8 @@ i18nExpect(
         str_contains(
             $script,
             'renderCoreCardPackage(ZogographCalendarUpcomingCard, "core-calendar-upcoming",',
-        ),
+        ) &&
+        !str_contains($script, 'if (window.ZogographCalendarUpcomingCard)'),
     'calendar upcoming list is not isolated behind its core card-module boundary',
 );
 i18nExpect(

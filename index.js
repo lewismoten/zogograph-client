@@ -34229,99 +34229,24 @@ function renderCalendar(data) {
  * squares is worse than reading four lines.
  */
 function renderUpcoming(data) {
-  if (window.ZogographCalendarUpcomingCard) {
-    return renderCoreCardPackage(
-      ZogographCalendarUpcomingCard,
-      'core-calendar-upcoming',
-      {
-        now: data.now,
-        upcoming: (data.upcoming || []).map((entry) => ({
-          ...entry,
-          viewLabel: VIEWS[entry.view]?.label,
-        })),
-      },
-      {
-        target: $('calendarUpcoming'),
-        note,
-        humanTime,
-        section,
-        showView,
-        i18n: ZogographI18n,
-      },
-    );
-  }
-  const holder = $('calendarUpcoming');
-
-  if (!data.upcoming.length) {
-    holder.replaceChildren(
-      note(
-        ZogographI18n.t(
-          'core-calendar-upcoming.empty',
-          {},
-          'Nothing dated is coming up.',
-        ),
-      ),
-    );
-    return;
-  }
-
-  const list = document.createElement('div');
-  list.className = 'upcoming';
-
-  for (const entry of data.upcoming.slice(0, 8)) {
-    const days = Math.round((entry.at - data.now) / 86400);
-
-    const row = document.createElement('div');
-    row.className = 'upcoming-row level-' + entry.level;
-
-    const when = document.createElement('span');
-    when.className = 'upcoming-when';
-    when.textContent =
-      days === 0
-        ? ZogographI18n.t('core-calendar-upcoming.today', {}, 'today')
-        : days === 1
-          ? ZogographI18n.t('core-calendar-upcoming.tomorrow', {}, 'tomorrow')
-          : ZogographI18n.t(
-              'core-calendar-upcoming.in_days',
-              { count: days },
-              'in {{count, number}} days',
-            );
-    row.appendChild(when);
-
-    const what = document.createElement('span');
-    what.textContent = entry.title;
-    if (entry.priority) what.className = 'upcoming-priority';
-    row.appendChild(what);
-
-    const on = document.createElement('span');
-    on.className = 'muted small';
-    on.textContent = humanTime(entry.at).split(',')[0];
-    row.appendChild(on);
-
-    if (entry.link) {
-      const go = document.createElement('a');
-      go.href = entry.link;
-      go.target = '_blank';
-      go.rel = 'noopener noreferrer';
-      go.className = 'link';
-      go.textContent = ZogographI18n.t('action.open', {}, 'Open');
-      row.appendChild(go);
-    }
-    if (entry.view) {
-      const go = document.createElement('button');
-      go.className = 'link';
-      go.textContent = VIEWS[entry.view]
-        ? VIEWS[entry.view].label
-        : ZogographI18n.t('action.see', {}, 'See');
-      go.addEventListener('click', () => showView(entry.view));
-      row.appendChild(go);
-    }
-
-    list.appendChild(row);
-  }
-
-  holder.replaceChildren(
-    section(ZogographI18n.t('core-calendar-upcoming.next', {}, 'Next'), list),
+  return renderCoreCardPackage(
+    ZogographCalendarUpcomingCard,
+    'core-calendar-upcoming',
+    {
+      now: data.now,
+      upcoming: (data.upcoming || []).map((entry) => ({
+        ...entry,
+        viewLabel: VIEWS[entry.view]?.label,
+      })),
+    },
+    {
+      target: $('calendarUpcoming'),
+      note,
+      humanTime,
+      section,
+      showView,
+      i18n: ZogographI18n,
+    },
   );
 }
 

@@ -6,6 +6,7 @@ window.ZogographHostDisksCard = {
     helpers: ['target', 'renderTable', 'humanBytes', 'i18n'],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-host-disks.title': 'Disks',
         'core-host-disks.old_collector':
           'The reading was written by an older build of the collector that did not record disk counters. Upload host-cron.php and lib/, then let it run twice.',
         'core-host-disks.unreadable':
@@ -16,6 +17,7 @@ window.ZogographHostDisksCard = {
           'No devices were recorded in the latest reading.',
       }),
       es: Object.freeze({
+        'core-host-disks.title': 'Discos',
         'core-host-disks.old_collector':
           'La lectura la escribió una versión antigua del recopilador que no registraba contadores de disco. Cargue host-cron.php y lib/, y déjelo ejecutarse dos veces.',
         'core-host-disks.unreadable':
@@ -26,6 +28,7 @@ window.ZogographHostDisksCard = {
           'No se registraron dispositivos en la lectura más reciente.',
       }),
       hi: Object.freeze({
+        'core-host-disks.title': 'डिस्क',
         'core-host-disks.old_collector':
           'रीडिंग कलेक्टर के पुराने बिल्ड से लिखी गई थी, जिसमें डिस्क काउंटर दर्ज नहीं होते थे। host-cron.php और lib/ अपलोड करें, फिर इसे दो बार चलने दें।',
         'core-host-disks.unreadable':
@@ -35,6 +38,7 @@ window.ZogographHostDisksCard = {
         'core-host-disks.empty': 'नवीनतम रीडिंग में कोई डिवाइस दर्ज नहीं हुआ।',
       }),
       ar: Object.freeze({
+        'core-host-disks.title': 'الأقراص',
         'core-host-disks.old_collector':
           'كُتبت القراءة بواسطة إصدار أقدم من الجامع لا يسجل عدادات القرص. ارفع host-cron.php وlib/، ثم اتركه يعمل مرتين.',
         'core-host-disks.unreadable':
@@ -44,6 +48,7 @@ window.ZogographHostDisksCard = {
         'core-host-disks.empty': 'لم تُسجَّل أجهزة في أحدث قراءة.',
       }),
       zh: Object.freeze({
+        'core-host-disks.title': '磁盘',
         'core-host-disks.old_collector':
           '该读数由较旧的采集器版本写入，该版本未记录磁盘计数器。请上传 host-cron.php 和 lib/，然后让它运行两次。',
         'core-host-disks.unreadable':
@@ -54,6 +59,13 @@ window.ZogographHostDisksCard = {
       }),
     }),
   }),
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-host-disks.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-host-disks.${key}`],
+    );
+  },
 
   render(input, helpers) {
     const { rows, sample, sampleCount } = input;

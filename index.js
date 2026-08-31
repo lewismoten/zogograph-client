@@ -2356,6 +2356,29 @@ function renderHostDaemonLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderHostDaemonLabels);
 
+function renderHostDiskLabels() {
+  const helpers = {
+    target: null,
+    renderTable: () => null,
+    humanBytes: () => '',
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(
+    ZogographHostDisksCard,
+    'core-host-disks',
+    { rows: [], sample: {}, sampleCount: 0 },
+    helpers,
+  );
+  const title = document.querySelector('[data-i18n="core-host-disks.title"]');
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-host-disks.title',
+    ZogographHostDisksCard.text('title', helpers),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderHostDiskLabels);
+
 /**
  * When the disk is projected to fill, as a date.
  *

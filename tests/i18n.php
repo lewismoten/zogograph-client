@@ -469,6 +469,7 @@ i18nExpect(
         $english['ai.settings.limit_hour'],
         $english['ai.settings.limit_4_hours'],
         $english['ai.settings.limit_day'],
+        $english['ai.settings.limits_title'],
     ),
     'AI card controls belong to their card packages',
 );

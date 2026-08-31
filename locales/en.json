@@ -574,7 +574,6 @@
   "ai.settings.alert_floor_label": "Except",
   "ai.settings.alert_per_run_label": "At most, per run",
   "ai.settings.report_to_label": "Send summaries to",
-  "ai.settings.limits_title": "Conversation and shared limits",
   "ai.settings.compact_automatically_help": "On, it happens on the next turn after the mark is passed. Off, the ring in the chat window goes amber and waits for you to click it — and the conversation will eventually be refused by the provider if you never do.",
   "ai.settings.explain_commands_help": "When it suggests a terminal command, it comments each part, says what the output should look like, and links to the documentation. Worth leaving on: somebody pasting a command they have not understood is the thing this is meant to prevent. Turn it off if you read shell fluently and find the commentary noise.",
   "ai.settings.host_commands_help": "The host collector already records which programs exist and which this account can reach. With this on, the assistant can see the difference and may suggest asking your host to run one and send back the output — which is an ordinary support request and often the fastest route to an answer. It is told to suggest reading only, never changes to a shared server. Off by default because it changes the kind of advice you get.",

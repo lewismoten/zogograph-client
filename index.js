@@ -5816,9 +5816,11 @@ function renderAiSettings(data) {
   );
 
   pages.limits.push(
-    section(
-      aiSettingsText('limits_title', 'Conversation and shared limits'),
-      limits,
+    renderCoreCardPackage(
+      ZogographAiLimitsSectionCard,
+      'core-ai-limits-section',
+      { content: limits },
+      { section, i18n: ZogographI18n },
     ),
   );
 

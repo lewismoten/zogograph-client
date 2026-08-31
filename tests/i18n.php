@@ -2510,6 +2510,37 @@ i18nExpect(
     'CPU limit metrics and explanations do not belong to their core package',
 );
 i18nExpect(
+    !isset(
+        $english['cpu.blocked_in_kernel'],
+        $english['cpu.uninterruptible_storage'],
+        $english['cpu.queue_not_cpu'],
+        $english['cpu.waiting_for_core'],
+        $english['cpu.no_pressure_stall'],
+        $english['cpu.last_ten_seconds'],
+        $english['cpu.context_switches'],
+        $english['cpu.scheduler_change'],
+        $english['cpu.interrupts'],
+        $english['cpu.devices_attention'],
+        $english['cpu.new_processes'],
+        $english['cpu.forks_execs_second'],
+    ) &&
+        isset(
+            $coreCardEnglish['core-cpu-queue.blocked_in_kernel'],
+            $coreCardEnglish['core-cpu-queue.uninterruptible_storage'],
+            $coreCardEnglish['core-cpu-queue.queue_not_cpu'],
+            $coreCardEnglish['core-cpu-queue.waiting_for_core'],
+            $coreCardEnglish['core-cpu-queue.no_pressure_stall'],
+            $coreCardEnglish['core-cpu-queue.last_ten_seconds'],
+            $coreCardEnglish['core-cpu-queue.context_switches'],
+            $coreCardEnglish['core-cpu-queue.scheduler_change'],
+            $coreCardEnglish['core-cpu-queue.interrupts'],
+            $coreCardEnglish['core-cpu-queue.devices_attention'],
+            $coreCardEnglish['core-cpu-queue.new_processes'],
+            $coreCardEnglish['core-cpu-queue.forks_execs_second'],
+        ),
+    'CPU queue metrics do not belong to their core package',
+);
+i18nExpect(
     $script !== false &&
         str_contains($script, 'filterControlText("all", "All")') &&
         $page !== false &&

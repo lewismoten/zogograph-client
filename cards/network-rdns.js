@@ -18,6 +18,8 @@ window.ZogographNetworkRdnsCard = {
     catalogs: Object.freeze({
       en: Object.freeze({
         'core-network-rdns.title': 'What the internet calls an address',
+        'core-network-rdns.help':
+          'A capture or an access log is a wall of numbers, and the same number means nothing on Monday and something on Friday once somebody has looked it up. This is not {{labels}} — that is what you decided an address means, and is small, hand-written and permanent. This is what the internet says it is: automatic, occasionally wrong, and stale within months.',
         'core-network-rdns.released':
           '{{count, number}} requests had been taken by a collector that never came back — a run killed mid-lookup — and have been put back in the queue.',
         'core-network-rdns.queue_heading':
@@ -32,6 +34,8 @@ window.ZogographNetworkRdnsCard = {
       }),
       es: Object.freeze({
         'core-network-rdns.title': 'Cómo llama Internet a una dirección',
+        'core-network-rdns.help':
+          'Una captura o un registro de acceso es un muro de números, y el mismo número no significa nada el lunes y sí algo el viernes después de que alguien lo haya consultado. Esto no son {{labels}}: son lo que usted decidió que significa una dirección, pequeñas, escritas a mano y permanentes. Esto es lo que dice Internet que es: automático, ocasionalmente incorrecto y obsoleto en meses.',
         'core-network-rdns.released':
           '{{count, number}} solicitudes fueron tomadas por un recolector que no volvió y se han devuelto a la cola.',
         'core-network-rdns.queue_heading':
@@ -47,6 +51,8 @@ window.ZogographNetworkRdnsCard = {
       }),
       hi: Object.freeze({
         'core-network-rdns.title': 'इंटरनेट किसी पते को क्या कहता है',
+        'core-network-rdns.help':
+          'कैप्चर या एक्सेस लॉग संख्याओं की दीवार है और वही संख्या सोमवार को कुछ नहीं कहती, पर किसी के देखने के बाद शुक्रवार को कुछ बताती है। यह {{labels}} नहीं है—वह वह है जो आपने किसी पते के अर्थ के लिए तय किया है, छोटा, हाथ से लिखा और स्थायी। यह इंटरनेट के अनुसार उसका नाम है: स्वचालित, कभी-कभी गलत और महीनों में पुराना।',
         'core-network-rdns.released':
           '{{count, number}} अनुरोध ऐसे कलेक्टर ने लिए थे जो वापस नहीं आया; उन्हें कतार में वापस रखा गया है।',
         'core-network-rdns.queue_heading':
@@ -61,6 +67,8 @@ window.ZogographNetworkRdnsCard = {
       }),
       ar: Object.freeze({
         'core-network-rdns.title': 'ما الذي يسميه الإنترنت عنوانًا',
+        'core-network-rdns.help':
+          'الالتقاط أو سجل الوصول جدار من الأرقام، والرقم نفسه لا يعني شيئًا يوم الاثنين ثم يعني شيئًا يوم الجمعة بعدما يبحث عنه أحد. هذا ليس {{labels}} — فهو ما قررتَ أن يعنيه عنوان ما، وهو صغير ومكتوب يدويًا ودائم. هذا ما يقول الإنترنت إنه: تلقائي وخاطئ أحيانًا وقديم خلال أشهر.',
         'core-network-rdns.released':
           'أُعيد {{count, number}} طلبًا إلى الطابور بعد أن أخذه جامع لم يعد.',
         'core-network-rdns.queue_heading':
@@ -75,6 +83,8 @@ window.ZogographNetworkRdnsCard = {
       }),
       zh: Object.freeze({
         'core-network-rdns.title': '互联网如何称呼一个地址',
+        'core-network-rdns.help':
+          '捕获或访问日志是一堵数字墙；同一个数字在周一毫无意义，但有人查过后到了周五就有了意义。这并非 {{labels}}——那是您决定某地址含义的自定义名称，规模小、手写且永久。这是互联网所说的名称：自动生成、偶尔错误，并会在数月内过时。',
         'core-network-rdns.released':
           '{{count, number}} 个请求曾被未返回的采集器取走，现已放回队列。',
         'core-network-rdns.queue_heading':

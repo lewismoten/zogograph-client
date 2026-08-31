@@ -2387,7 +2387,6 @@
   "network.fetch_follow_redirects": "Follow redirects",
   "network.fetch_ask": "Ask",
   "network.rdns_resolve_next": "Resolve the next one now",
-  "network.rdns_help": "A capture or an access log is a wall of numbers, and the same number means nothing on Monday and something on Friday once somebody has looked it up. This is not {{labels}} — that is what you decided an address means, and is small, hand-written and permanent. This is what the internet says it is: automatic, occasionally wrong, and stale within months.",
   "network.rdns_lookup": "Look these up",
   "metadata.label_kind_address": "Address or network",
   "metadata.label_kind_port": "Port",

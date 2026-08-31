@@ -2372,7 +2372,6 @@
   "network.fetch_follow_redirects": "Seguir redirecciones",
   "network.fetch_ask": "Consultar",
   "network.rdns_resolve_next": "Resolver la siguiente ahora",
-  "network.rdns_help": "Una captura o un registro de acceso es un muro de números, y el mismo número no significa nada el lunes y sí algo el viernes después de que alguien lo haya consultado. Esto no son {{labels}}: son lo que usted decidió que significa una dirección, pequeñas, escritas a mano y permanentes. Esto es lo que dice Internet que es: automático, ocasionalmente incorrecto y obsoleto en meses.",
   "network.rdns_lookup": "Buscar estas",
   "metadata.label_kind_address": "Dirección o red",
   "metadata.label_kind_port": "Puerto",

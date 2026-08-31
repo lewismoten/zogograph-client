@@ -1978,6 +1978,11 @@ function renderCpuChartLabels() {
         ZogographCpuChart.text(key, helpers),
       );
     });
+  for (const key of ['help', 'lve_help']) {
+    ZogographI18n.applyRich(
+      document.querySelector(`[data-i18n-rich="core-cpu-limits.${key}"]`),
+    );
+  }
 }
 
 document.addEventListener('zogograph-i18n-load', renderCpuChartLabels);

@@ -26337,11 +26337,7 @@ async function refreshHostDisk() {
     if (el && !el.childElementCount)
       el.replaceChildren(
         spinner(
-          ZogographI18n.t(
-            'host.walk_loading',
-            {},
-            'Reading the last walk\u2026',
-          ),
+          ZogographHostWalkControl.text('loading', { i18n: ZogographI18n }),
         ),
       );
   }
@@ -26357,7 +26353,7 @@ async function refreshHostDisk() {
   if (!data.available) {
     everywhere(
       data.reason ||
-        ZogographI18n.t('host.no_disk_walk', {}, 'No disk walk recorded.'),
+        ZogographHostWalkControl.text('none', { i18n: ZogographI18n }),
     );
     renderWalkButton(data);
     return;

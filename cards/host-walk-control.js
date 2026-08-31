@@ -6,6 +6,8 @@ window.ZogographHostWalkControl = {
     helpers: ['target', 'ago', 'post', 'notice', 'refresh', 'i18n'],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-host-walk-control.loading': 'Reading the last walk…',
+        'core-host-walk-control.none': 'No disk walk recorded.',
         'core-host-walk-control.pending':
           "A walk was requested {{ago}} and is waiting for the next host collection. It runs on the collector's schedule — every five minutes with the suggested crontab line.",
         'core-host-walk-control.walk': 'Walk the disk',
@@ -17,6 +19,9 @@ window.ZogographHostWalkControl = {
           'A second walk, run by root, that reaches everything this account cannot — other accounts, {{var}}, {{backup}}, and space held by deleted files still open. It takes tens of seconds, so it is not part of the per-minute collection: pressing this leaves a request that the host collector picks up on its next run. The results are under {{filesystems}}, {{directories}} and {{deleted}}.',
       }),
       es: Object.freeze({
+        'core-host-walk-control.loading': 'Leyendo el último recorrido…',
+        'core-host-walk-control.none':
+          'No se ha registrado ningún recorrido de disco.',
         'core-host-walk-control.pending':
           'Se solicitó un recorrido {{ago}} y está esperando la siguiente recopilación del host. Se ejecuta según el horario del recopilador: cada cinco minutos con la línea de crontab sugerida.',
         'core-host-walk-control.walk': 'Recorrer el disco',
@@ -28,6 +33,8 @@ window.ZogographHostWalkControl = {
           'Un segundo recorrido, ejecutado como root, que alcanza todo lo que esta cuenta no puede: otras cuentas, {{var}}, {{backup}} y espacio ocupado por archivos eliminados que siguen abiertos. Tarda decenas de segundos, por lo que no forma parte de la recopilación por minuto: al pulsar esto queda una solicitud que el recolector del host atenderá en su próxima ejecución. Los resultados están en {{filesystems}}, {{directories}} y {{deleted}}.',
       }),
       hi: Object.freeze({
+        'core-host-walk-control.loading': 'पिछला वॉक पढ़ा जा रहा है…',
+        'core-host-walk-control.none': 'कोई डिस्क वॉक दर्ज नहीं है।',
         'core-host-walk-control.pending':
           '{{ago}} एक वॉक का अनुरोध किया गया था और वह अगले होस्ट संग्रह की प्रतीक्षा में है। यह कलेक्टर के समय-सारणी पर चलता है — सुझाई गई crontab लाइन के साथ हर पाँच मिनट में।',
         'core-host-walk-control.walk': 'डिस्क वॉक करें',
@@ -39,6 +46,8 @@ window.ZogographHostWalkControl = {
           'root द्वारा चलाया गया दूसरा वॉक, जो इस खाते की पहुँच से बाहर हर चीज़ तक पहुँचता है—दूसरे खाते, {{var}}, {{backup}} और अब भी खुले हटाए गए फ़ाइलों की जगह। इसमें दर्जनों सेकंड लगते हैं, इसलिए यह प्रति-मिनट संग्रह का भाग नहीं: इसे दबाने पर अनुरोध रहता है जिसे होस्ट कलेक्टर अपनी अगली रन में उठाता है। परिणाम {{filesystems}}, {{directories}} और {{deleted}} के अंतर्गत हैं।',
       }),
       ar: Object.freeze({
+        'core-host-walk-control.loading': 'تجري قراءة الجولة الأخيرة…',
+        'core-host-walk-control.none': 'لم تُسجَّل جولة على القرص.',
         'core-host-walk-control.pending':
           'طُلبت جولة منذ {{ago}} وهي تنتظر جمع المضيف التالي. تعمل وفق جدول الجامع — كل خمس دقائق مع سطر crontab المقترح.',
         'core-host-walk-control.walk': 'افحص القرص',
@@ -50,6 +59,8 @@ window.ZogographHostWalkControl = {
           'مرور ثانٍ يديره root ويصل إلى كل ما لا يستطيع هذا الحساب الوصول إليه — حسابات أخرى و{{var}} و{{backup}} والمساحة التي تشغلها ملفات محذوفة ما زالت مفتوحة. يستغرق عشرات الثواني، لذا ليس جزءًا من الجمع كل دقيقة: الضغط هنا يترك طلبًا يلتقطه جامع المضيف في تشغيله التالي. النتائج تحت {{filesystems}} و{{directories}} و{{deleted}}.',
       }),
       zh: Object.freeze({
+        'core-host-walk-control.loading': '正在读取上次遍历…',
+        'core-host-walk-control.none': '没有已记录的磁盘遍历。',
         'core-host-walk-control.pending':
           '{{ago}}前已请求一次遍历，正在等待下一次主机采集。它会按采集器的计划运行——使用建议的 crontab 行时每五分钟一次。',
         'core-host-walk-control.walk': '遍历磁盘',

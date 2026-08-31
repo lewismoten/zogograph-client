@@ -2157,8 +2157,6 @@
   "host.io_counter_restarts": "تعذر تحويل {{readings, number}} قراءة إلى معدل لأن العدادات أعيد تشغيلها — وهذا يعني إعادة تشغيل.",
   "host.walked_at": "جرت الجولة {{at}} ({{ago}})",
   "host.walked_directories": "{{directories, number}} مجلدات في {{seconds, number}} ث.",
-  "host.walk_loading": "تجري قراءة الجولة الأخيرة…",
-  "host.no_disk_walk": "لم تُسجَّل جولة على القرص.",
   "host.walk_pending": "طُلبت جولة منذ {{ago}} وهي تنتظر جمع المضيف التالي. تعمل وفق جدول الجامع — كل خمس دقائق مع سطر crontab المقترح.",
   "host.walk_disk": "افحص القرص",
   "host.walk_disk_again": "افحص القرص مرة أخرى",

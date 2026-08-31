@@ -2157,8 +2157,6 @@
   "host.io_counter_restarts": "{{readings, number}} 次读数无法转换为速率，因为计数器已重置——这意味着发生了重启。",
   "host.walked_at": "遍历于 {{at}}（{{ago}}）",
   "host.walked_directories": "{{directories, number}} 个目录，耗时 {{seconds, number}} 秒。",
-  "host.walk_loading": "正在读取上次遍历…",
-  "host.no_disk_walk": "没有已记录的磁盘遍历。",
   "host.walk_pending": "{{ago}}前已请求一次遍历，正在等待下一次主机采集。它会按采集器的计划运行——使用建议的 crontab 行时每五分钟一次。",
   "host.walk_disk": "遍历磁盘",
   "host.walk_disk_again": "再次遍历磁盘",

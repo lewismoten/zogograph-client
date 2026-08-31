@@ -2175,8 +2175,6 @@
   "host.io_counter_restarts": "{{readings, number}} readings could not be turned into a rate, because the counters restarted — that is a reboot.",
   "host.walked_at": "Walked {{at}} ({{ago}})",
   "host.walked_directories": "{{directories, number}} directories in {{seconds, number}}s.",
-  "host.walk_loading": "Reading the last walk…",
-  "host.no_disk_walk": "No disk walk recorded.",
   "host.walk_pending": "A walk was requested {{ago}} and is waiting for the next host collection. It runs on the collector's schedule — every five minutes with the suggested crontab line.",
   "host.walk_disk": "Walk the disk",
   "host.walk_disk_again": "Walk the disk again",

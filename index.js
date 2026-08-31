@@ -18034,117 +18034,39 @@ async function showNoteSnapshots(row) {
 
 /** The database copies on disk. */
 function renderSnapshotFiles(data) {
-  if (window.ZogographDatabaseSnapshotsCard) {
-    return renderCoreCardPackage(
-      ZogographDatabaseSnapshotsCard,
-      'core-database-snapshots',
-      { files: data.files || [], can_change: Boolean(state.access?.write) },
-      {
-        target: $('snapshotBody'),
-        note,
-        renderTable,
-        whenSpan,
-        humanBytes,
-        remove: async (row) => {
-          if (
-            !(await confirmDialog(
-              ZogographI18n.t(
-                'system.snapshot_delete_confirm',
-                { name: row.name, size: humanBytes(row.bytes) },
-                'Delete {{name}}?\n\nIt is {{size}} and nothing else has a copy.',
-              ),
-            ))
-          )
-            return;
-          try {
-            renderNotes(await post('snapshot-delete', { name: row.name }));
-            notice(
-              ZogographI18n.t('system.snapshot_removed', {}, 'Removed.'),
-              true,
-            );
-          } catch (error) {
-            notice(String(error.message || error));
-          }
-        },
-        i18n: ZogographI18n,
+  return renderCoreCardPackage(
+    ZogographDatabaseSnapshotsCard,
+    'core-database-snapshots',
+    { files: data.files || [], can_change: Boolean(state.access?.write) },
+    {
+      target: $('snapshotBody'),
+      note,
+      renderTable,
+      whenSpan,
+      humanBytes,
+      remove: async (row) => {
+        if (
+          !(await confirmDialog(
+            ZogographI18n.t(
+              'system.snapshot_delete_confirm',
+              { name: row.name, size: humanBytes(row.bytes) },
+              'Delete {{name}}?\n\nIt is {{size}} and nothing else has a copy.',
+            ),
+          ))
+        )
+          return;
+        try {
+          renderNotes(await post('snapshot-delete', { name: row.name }));
+          notice(
+            ZogographI18n.t('system.snapshot_removed', {}, 'Removed.'),
+            true,
+          );
+        } catch (error) {
+          notice(String(error.message || error));
+        }
       },
-    );
-  }
-  const body = $('snapshotBody');
-  const files = data.files || [];
-
-  if (!files.length) {
-    body.replaceChildren(
-      note(
-        ZogographI18n.t(
-          'system.snapshot_empty',
-          {},
-          'No copies have been made. One is written when a note asks for it — a consistent copy ' +
-            'of both databases, for looking at after the readings it is about have been rolled up.',
-        ),
-      ),
-    );
-    return;
-  }
-
-  const holder = document.createElement('div');
-  holder.id = 'snapshotTable';
-  body.replaceChildren(holder);
-
-  renderTable(
-    'snapshotTable',
-    files,
-    [
-      {
-        label: ZogographI18n.t('system.snapshot_file', {}, 'File'),
-        className: 'name',
-        render: (row) => row.name,
-      },
-      {
-        label: ZogographI18n.t('system.snapshot_made', {}, 'Made'),
-        render: (row) => whenSpan(row.at),
-      },
-      {
-        label: ZogographI18n.t('system.snapshot_size', {}, 'Size'),
-        className: 'size',
-        render: (row) => humanBytes(row.bytes),
-      },
-      {
-        label: '',
-        className: 'row-actions',
-        render: (row) => {
-          const remove = document.createElement('button');
-          remove.className = 'link danger';
-          remove.textContent = ZogographI18n.t('action.delete', {}, 'Delete');
-          remove.disabled = !state.access?.write;
-          remove.addEventListener('click', async () => {
-            if (
-              !(await confirmDialog(
-                ZogographI18n.t(
-                  'system.snapshot_delete_confirm',
-                  { name: row.name, size: humanBytes(row.bytes) },
-                  'Delete {{name}}?\n\nIt is {{size}} and nothing else has a copy.',
-                ),
-              ))
-            )
-              return;
-            try {
-              renderNotes(await post('snapshot-delete', { name: row.name }));
-              notice(
-                ZogographI18n.t('system.snapshot_removed', {}, 'Removed.'),
-                true,
-              );
-            } catch (error) {
-              notice(String(error.message || error));
-            }
-          });
-          return remove;
-        },
-      },
-    ],
-    null,
-    null,
-    (row) => row.name,
+      i18n: ZogographI18n,
+    },
   );
 }
 

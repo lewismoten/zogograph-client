@@ -1018,8 +1018,9 @@ i18nExpect(
         str_contains(
             $script,
             'renderCoreCardPackage(ZogographDatabaseSnapshotsCard, "core-database-snapshots",',
-        ),
-    'database snapshots are not isolated behind their core card-module boundary',
+        ) &&
+        !str_contains($script, 'if (window.ZogographDatabaseSnapshotsCard)'),
+    'database snapshots retain a core fallback instead of their package boundary',
 );
 i18nExpect(
     $page !== false &&

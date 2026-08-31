@@ -19,6 +19,10 @@ window.ZogographViewGuideCard = {
           'Explains where filesystem space is being used, what changed, and what can safely be investigated next.',
         'core-view-guide.storage_useful':
           'Use it when capacity is shrinking, a scan or log is growing, or a path needs to be traced before any cleanup.',
+        'core-view-guide.host_purpose':
+          'Shows how processor, memory, processes, and services are behaving on the host.',
+        'core-view-guide.host_useful':
+          'Use it to distinguish an account limit from host-wide pressure and to find the process or service behind a spike.',
       }),
       es: Object.freeze({
         'core-view-guide.access_page': 'Guía de acceso y página',
@@ -34,6 +38,10 @@ window.ZogographViewGuideCard = {
           'Explica dónde se utiliza el espacio del sistema de archivos, qué cambió y qué se puede investigar con seguridad a continuación.',
         'core-view-guide.storage_useful':
           'Úsela cuando la capacidad se reduzca, un análisis o registro crezca, o sea necesario rastrear una ruta antes de limpiar nada.',
+        'core-view-guide.host_purpose':
+          'Muestra cómo se comportan el procesador, la memoria, los procesos y los servicios en el host.',
+        'core-view-guide.host_useful':
+          'Úsela para distinguir un límite de cuenta de la presión en todo el host y encontrar el proceso o servicio detrás de un pico.',
       }),
       hi: Object.freeze({
         'core-view-guide.access_page': 'पहुँच और पृष्ठ मार्गदर्शिका',
@@ -49,6 +57,10 @@ window.ZogographViewGuideCard = {
           'बताता है कि फ़ाइल सिस्टम स्थान कहाँ उपयोग हो रहा है, क्या बदला है और आगे क्या सुरक्षित रूप से जाँचा जा सकता है।',
         'core-view-guide.storage_useful':
           'इसे तब उपयोग करें जब क्षमता घट रही हो, कोई स्कैन या लॉग बढ़ रहा हो, या सफाई से पहले किसी पथ का पता लगाना हो।',
+        'core-view-guide.host_purpose':
+          'दिखाता है कि होस्ट पर प्रोसेसर, मेमोरी, प्रक्रियाएँ और सेवाएँ कैसे व्यवहार कर रही हैं।',
+        'core-view-guide.host_useful':
+          'इससे खाता सीमा और पूरे होस्ट के दबाव में अंतर करें और किसी उछाल के पीछे की प्रक्रिया या सेवा खोजें।',
       }),
       ar: Object.freeze({
         'core-view-guide.access_page': 'دليل الوصول والصفحة',
@@ -64,6 +76,10 @@ window.ZogographViewGuideCard = {
           'يشرح أين تُستخدم مساحة نظام الملفات، وما الذي تغيّر، وما الذي يمكن فحصه بأمان بعد ذلك.',
         'core-view-guide.storage_useful':
           'استخدمه عندما تتقلص السعة أو يكبر فحص أو سجل أو يلزم تتبع مسار قبل أي تنظيف.',
+        'core-view-guide.host_purpose':
+          'يعرض كيفية عمل المعالج والذاكرة والعمليات والخدمات على المضيف.',
+        'core-view-guide.host_useful':
+          'استخدمه لتمييز حد الحساب عن الضغط على المضيف كله وللعثور على العملية أو الخدمة وراء ذروة ما.',
       }),
       zh: Object.freeze({
         'core-view-guide.access_page': '访问和页面指南',
@@ -79,6 +95,10 @@ window.ZogographViewGuideCard = {
           '说明文件系统空间的使用位置、发生了什么变化，以及下一步可安全调查的内容。',
         'core-view-guide.storage_useful':
           '当容量缩减、扫描或日志增长，或需要在清理前追踪路径时使用它。',
+        'core-view-guide.host_purpose':
+          '显示处理器、内存、进程和服务在主机上的运行情况。',
+        'core-view-guide.host_useful':
+          '用它区分帐户限制与全主机压力，并找出峰值背后的进程或服务。',
       }),
     }),
   }),

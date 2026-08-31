@@ -8519,6 +8519,36 @@ function renderCapabilitySummaryLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderCapabilitySummaryLabels);
 
+function renderProcessTrendLabels() {
+  const helpers = {
+    chart: () => null,
+    note: document.querySelector('#processTrendNote'),
+    state: {},
+    humanCount: () => '',
+    bytesAxis: {},
+    percentAxis: {},
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(
+    ZogographProcessTrendCard,
+    'core-process-trend',
+    {},
+    helpers,
+  );
+  for (const key of ['title', 'initial_help']) {
+    const element = document.querySelector(
+      `[data-i18n="core-process-trend.${key}"]`,
+    );
+    element.textContent = ZogographI18n.markSource(
+      element,
+      `core-process-trend.${key}`,
+      ZogographProcessTrendCard.text(key, helpers),
+    );
+  }
+}
+
+document.addEventListener('zogograph-i18n-load', renderProcessTrendLabels);
+
 function renderCapabilitiesShell() {
   const helpers = { i18n: ZogographI18n };
   renderCoreCardPackage(

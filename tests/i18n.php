@@ -3883,9 +3883,8 @@ i18nExpect(
 );
 i18nExpect(
     $page !== false &&
-        str_contains($page, 'data-i18n="processes.trend_initial_help"') &&
-        is_array($english) &&
-        isset($english['processes.trend_initial_help']),
+        str_contains($page, 'data-i18n="core-process-trend.initial_help"') &&
+        isset($coreCardEnglish['core-process-trend.initial_help']),
     'process trend initial guidance is not localized',
 );
 echo "i18n checks passed\n";

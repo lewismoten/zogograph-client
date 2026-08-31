@@ -2359,8 +2359,6 @@
   "processes.cpu": "CPU",
   "processes.memory": "Memory",
   "processes.group_by_name": "Group by name",
-  "processes.trend_title": "Reported process load over this range",
-  "processes.trend_initial_help": "The newest reported processes lead this list, with high peaks retained so a process that has settled down is still visible. Names group replacement workers together; PIDs are intentionally not a chart identity.",
   "processes.stop_title": "Stop by command line",
   "processes.show_matches": "Show matches",
   "action.open_all": "Open all",

@@ -2344,8 +2344,6 @@
   "processes.cpu": "CPU",
   "processes.memory": "Memoria",
   "processes.group_by_name": "Agrupar por nombre",
-  "processes.trend_title": "Carga de procesos notificada en este periodo",
-  "processes.trend_initial_help": "Los procesos informados más recientes encabezan esta lista, y se conservan los picos altos para que un proceso que ya se calmó siga visible. Los nombres agrupan trabajadores de reemplazo; los PID no son deliberadamente una identidad del gráfico.",
   "processes.stop_title": "Detener por línea de comandos",
   "processes.show_matches": "Mostrar coincidencias",
   "action.open_all": "Abrir todo",

@@ -14,6 +14,9 @@ window.ZogographProcessTrendCard = {
     ],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-process-trend.title': 'Reported process load over this range',
+        'core-process-trend.initial_help':
+          'The newest reported processes lead this list, with high peaks retained so a process that has settled down is still visible. Names group replacement workers together; PIDs are intentionally not a chart identity.',
         'core-process-trend.summary':
           'Top {{count}} recorded process groups for the selected range. Recent reporters lead; peak {{metric}} users fill the remaining slots, so a resolved problem remains visible. Names join replacement PIDs into one line.',
         'core-process-trend.empty_help':
@@ -23,6 +26,10 @@ window.ZogographProcessTrendCard = {
         'core-process-trend.cpu': 'CPU',
       }),
       es: Object.freeze({
+        'core-process-trend.title':
+          'Carga de procesos notificada en este periodo',
+        'core-process-trend.initial_help':
+          'Los procesos informados más recientes encabezan esta lista, y se conservan los picos altos para que un proceso que ya se calmó siga visible. Los nombres agrupan trabajadores de reemplazo; los PID no son deliberadamente una identidad del gráfico.',
         'core-process-trend.summary':
           'Los {{count}} principales grupos de procesos registrados para el rango seleccionado. Los informantes recientes van primero; los usuarios máximos de {{metric}} ocupan los espacios restantes, de modo que un problema resuelto sigue visible. Los nombres unen los PID de reemplazo en una línea.',
         'core-process-trend.empty_help':
@@ -33,6 +40,9 @@ window.ZogographProcessTrendCard = {
         'core-process-trend.cpu': 'CPU',
       }),
       hi: Object.freeze({
+        'core-process-trend.title': 'इस सीमा में रिपोर्ट किया गया प्रोसेस लोड',
+        'core-process-trend.initial_help':
+          'सबसे हाल में रिपोर्ट की गई प्रक्रियाएं इस सूची में आगे हैं और ऊंचे शिखर रखे जाते हैं ताकि शांत हो चुकी प्रक्रिया भी दिखती रहे। नाम प्रतिस्थापन वर्करों को एक साथ समूहित करते हैं; PID जानबूझकर चार्ट की पहचान नहीं हैं।',
         'core-process-trend.summary':
           'चुनी गई सीमा के लिए शीर्ष {{count}} रिकॉर्ड किए गए प्रक्रिया समूह। हाल के रिपोर्टर पहले हैं; अधिकतम {{metric}} उपयोगकर्ता शेष स्थान भरते हैं, इसलिए हल की गई समस्या दिखाई देती रहती है। नाम प्रतिस्थापन PID को एक पंक्ति में जोड़ते हैं।',
         'core-process-trend.empty_help':
@@ -43,6 +53,9 @@ window.ZogographProcessTrendCard = {
         'core-process-trend.cpu': 'CPU',
       }),
       ar: Object.freeze({
+        'core-process-trend.title': 'حمل العملية المُبلّغ عنه خلال هذا النطاق',
+        'core-process-trend.initial_help':
+          'تتقدم العمليات التي أُبلغ عنها مؤخرًا هذه القائمة، وتُحتفظ بالذروات العالية حتى تبقى العملية التي هدأت ظاهرة. تجمع الأسماء العاملين البدلاء معًا؛ ولا تُعد معرّفات PID هوية للرسم عمدًا.',
         'core-process-trend.summary':
           'أهم {{count}} مجموعات عمليات مسجلة للنطاق المحدد. تتقدم التقارير الأحدث؛ ويملأ مستخدمو {{metric}} الأعلى الخانات المتبقية، لذلك تبقى المشكلة المحلولة ظاهرة. تجمع الأسماء معرّفات PID البديلة في سطر واحد.',
         'core-process-trend.empty_help':
@@ -52,6 +65,9 @@ window.ZogographProcessTrendCard = {
         'core-process-trend.cpu': 'CPU',
       }),
       zh: Object.freeze({
+        'core-process-trend.title': '此范围内报告的进程负载',
+        'core-process-trend.initial_help':
+          '最新报告的进程排在列表前面，并保留高峰值，因此已经平静下来的进程仍然可见。名称会将替换工作进程归在一起；PID 有意不作为图表身份标识。',
         'core-process-trend.summary':
           '所选范围内排名前 {{count}} 的已记录进程组。最近报告的组优先；{{metric}} 使用峰值的组填补其余位置，因此已解决的问题仍会显示。名称会将替换 PID 合并为一行。',
         'core-process-trend.empty_help':
@@ -62,6 +78,14 @@ window.ZogographProcessTrendCard = {
       }),
     }),
   }),
+
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-process-trend.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-process-trend.${key}`],
+    );
+  },
 
   render(trend, helpers) {
     const {

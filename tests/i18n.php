@@ -2029,6 +2029,13 @@ i18nExpect(
         str_contains($hostDaemonsCard, 'id: "core-host-daemons"') &&
         str_contains($hostDaemonsCard, 'locales: ["core-host-daemons."]') &&
         str_contains($hostDaemonsCard, '"core-host-daemons.empty"') &&
+        str_contains($hostDaemonsCard, '"core-host-daemons.stopped_lower"') &&
+        str_contains($hostDaemonsCard, '"core-host-daemons.stop_watching"') &&
+        str_contains(
+            $hostDaemonsCard,
+            '"core-host-daemons.stop_watching_notice"',
+        ) &&
+        str_contains($hostDaemonsCard, 'key.startsWith("host.daemon_")') &&
         str_contains($hostDaemonsCard, '"watch"') &&
         $script !== false &&
         str_contains(

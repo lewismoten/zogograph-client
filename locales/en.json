@@ -449,7 +449,6 @@
   "process.matches_all_protected": "Matches {{matched}} of the {{scanned}} running processes; all are protected.",
   "process.matches_some_protected": "Matches {{matched}} of the {{scanned}} running processes; {{blocked}} are protected.",
   "process.all_matches_protected": "Every match is protected, so there is nothing here to stop.",
-  "storage.symlink_walking_tree": "Walking the tree…",
   "action.stop": "Stop it",
   "action.show": "Show it",
   "action.rename": "Rename",

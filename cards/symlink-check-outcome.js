@@ -6,6 +6,7 @@ window.ZogographSymlinkCheckOutcomeCard = {
     helpers: ['i18n'],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-symlink-check-outcome.walking_tree': 'Walking the tree…',
         'core-symlink-check-outcome.not_checked':
           'Nothing has been checked yet. This walks the whole watched directory, which takes a few seconds, so it runs when you ask rather than on every poll.',
         'core-symlink-check-outcome.first_walk':
@@ -22,6 +23,7 @@ window.ZogographSymlinkCheckOutcomeCard = {
           'Nothing wrong in the part that was checked.',
       }),
       es: Object.freeze({
+        'core-symlink-check-outcome.walking_tree': 'Recorriendo el árbol…',
         'core-symlink-check-outcome.not_checked':
           'Aún no se ha comprobado nada. Esto recorre todo el directorio vigilado, tarda unos segundos, por lo que se ejecuta cuando lo solicita y no en cada sondeo.',
         'core-symlink-check-outcome.first_walk':
@@ -38,6 +40,7 @@ window.ZogographSymlinkCheckOutcomeCard = {
           'No hay nada incorrecto en la parte que se comprobó.',
       }),
       hi: Object.freeze({
+        'core-symlink-check-outcome.walking_tree': 'ट्री में चल रहा है…',
         'core-symlink-check-outcome.not_checked':
           'अभी तक कुछ जांचा नहीं गया है। यह पूरे देखे जा रहे डायरेक्टरी को चलकर जांचता है, जिसमें कुछ सेकंड लगते हैं, इसलिए यह हर पोल पर नहीं बल्कि आपके कहने पर चलता है।',
         'core-symlink-check-outcome.first_walk':
@@ -54,6 +57,7 @@ window.ZogographSymlinkCheckOutcomeCard = {
           'जिस हिस्से की जांच हुई उसमें कुछ गलत नहीं है।',
       }),
       ar: Object.freeze({
+        'core-symlink-check-outcome.walking_tree': 'جارٍ اجتياز الشجرة…',
         'core-symlink-check-outcome.not_checked':
           'لم يُفحص شيء بعد. يفحص هذا الدليل المراقَب كله، ويستغرق بضع ثوانٍ، لذا يعمل عند طلبك لا في كل استطلاع.',
         'core-symlink-check-outcome.first_walk':
@@ -69,6 +73,7 @@ window.ZogographSymlinkCheckOutcomeCard = {
           'لا شيء خاطئ في الجزء الذي فُحص.',
       }),
       zh: Object.freeze({
+        'core-symlink-check-outcome.walking_tree': '正在遍历目录树…',
         'core-symlink-check-outcome.not_checked':
           '尚未执行检查。这会遍历整个受监视目录，需几秒钟，因此只会在您请求时运行，而不是每次轮询都运行。',
         'core-symlink-check-outcome.first_walk':

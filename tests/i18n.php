@@ -2640,7 +2640,6 @@ i18nExpect(
             $english['process.matches_all_protected'],
             $english['process.matches_some_protected'],
             $english['process.all_matches_protected'],
-            $english['storage.symlink_walking_tree'],
         ),
     'English fallback catalog is incomplete',
 );
@@ -3057,7 +3056,6 @@ i18nExpect(
 );
 i18nExpect(
     $script !== false &&
-        str_contains($script, 'storage.symlink_walking_tree') &&
         str_contains(
             (string) file_get_contents(
                 $root . '/cards/symlink-check-summary.js',

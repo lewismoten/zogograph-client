@@ -21491,11 +21491,7 @@ async function checkSymlinks() {
 
   button.disabled = true;
   button.textContent = ZogographI18n.t('action.checking', {}, 'Checking…');
-  holder.replaceChildren(
-    spinner(
-      ZogographI18n.t('storage.symlink_walking_tree', {}, 'Walking the tree…'),
-    ),
-  );
+  holder.replaceChildren(spinner(symlinkCheckOutcomeText('walking_tree')));
 
   try {
     linkState.data = await api('symlinks', { budget: 15, fresh: '1' });

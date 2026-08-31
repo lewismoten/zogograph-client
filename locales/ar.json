@@ -449,7 +449,6 @@
   "process.matches_all_protected": "تطابق {{matched}} من عمليات التشغيل {{scanned}}؛ كلها محمية.",
   "process.matches_some_protected": "تطابق {{matched}} من عمليات التشغيل {{scanned}}؛ {{blocked}} منها محمية.",
   "process.all_matches_protected": "كل المطابقات محمية، لذلك لا شيء هنا لإيقافه.",
-  "storage.symlink_walking_tree": "جارٍ اجتياز الشجرة…",
   "action.stop": "أوقفه",
   "action.show": "اعرضه",
   "action.rename": "أعِد التسمية",

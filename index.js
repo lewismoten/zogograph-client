@@ -4999,6 +4999,14 @@ const storageBulkDeleteText = (key, values = {}) =>
     { i18n: ZogographI18n },
   );
 
+const storageDeleteResultText = (key, values = {}) =>
+  renderCoreCardPackage(
+    ZogographStorageDeleteResultsCard,
+    'core-storage-delete-results',
+    { key, values },
+    { i18n: ZogographI18n },
+  );
+
 function offenderPicker(row) {
   if (!mayDelete(row)) return '';
 
@@ -5133,12 +5141,10 @@ function rowButtons(row) {
   if (row.kind === 'file' && row.deleted_at) {
     const gone = document.createElement('span');
     gone.className = 'muted small';
-    gone.textContent = ZogographI18n.t('storage.deleted', {}, 'deleted');
-    gone.title = ZogographI18n.t(
-      'storage.deleted_row_help',
-      { at: humanTime(row.deleted_at) },
-      'Deleted {{at}}. Still listed because the last scan found it; the next scan will drop it.',
-    );
+    gone.textContent = storageDeleteResultText('deleted');
+    gone.title = storageDeleteResultText('deleted_row_help', {
+      at: humanTime(row.deleted_at),
+    });
     return gone;
   }
 
@@ -5229,23 +5235,15 @@ function deleteButton(row) {
       if (directory) {
         notice(
           result.skipped?.length
-            ? ZogographI18n.t(
-                'storage.removed_directory_with_skipped',
-                {
-                  size: humanBytes(result.bytes),
-                  files: count(result.files, 'file'),
-                  skipped: count(result.skipped.length, 'path'),
-                },
-                'Removed {{size}} in {{files}}. {{skipped}} could not be removed.',
-              )
-            : ZogographI18n.t(
-                'storage.removed_directory',
-                {
-                  size: humanBytes(result.bytes),
-                  files: count(result.files, 'file'),
-                },
-                'Removed {{size}} in {{files}}.',
-              ),
+            ? storageDeleteResultText('removed_directory_with_skipped', {
+                size: humanBytes(result.bytes),
+                files: count(result.files, 'file'),
+                skipped: count(result.skipped.length, 'path'),
+              })
+            : storageDeleteResultText('removed_directory', {
+                size: humanBytes(result.bytes),
+                files: count(result.files, 'file'),
+              }),
           !result.skipped?.length,
         );
         await refreshAll();
@@ -5253,19 +5251,13 @@ function deleteButton(row) {
       }
       notice(
         result.bytes_freed > 0
-          ? ZogographI18n.t(
-              'storage.removed_file',
-              { size: humanBytes(result.bytes_freed) },
-              'Removed {{size}}.',
-            )
-          : ZogographI18n.t(
-              'storage.deleted_not_freed',
-              {
-                links: count(result.links, 'other name'),
-                size: humanBytes(result.bytes),
-              },
-              'Deleted, but nothing was freed: {{links}} still point at those {{size}}.',
-            ),
+          ? storageDeleteResultText('removed_file', {
+              size: humanBytes(result.bytes_freed),
+            })
+          : storageDeleteResultText('deleted_not_freed', {
+              links: count(result.links, 'other name'),
+              size: humanBytes(result.bytes),
+            }),
         true,
       );
       await refreshAll();
@@ -30689,28 +30681,23 @@ async function deleteFromInspect(data) {
 
     if (data.kind === 'dir') {
       notice(
-        ZogographI18n.t(
+        storageDeleteResultText(
           result.skipped?.length
-            ? 'storage.removed_directory_with_skipped'
-            : 'storage.removed_directory',
+            ? 'removed_directory_with_skipped'
+            : 'removed_directory',
           {
             size: humanBytes(result.bytes),
             files: count(result.files, 'file'),
             skipped: count(result.skipped?.length || 0, 'path'),
           },
-          result.skipped?.length
-            ? 'Removed {{size}} in {{files}}. {{skipped}} could not be removed.'
-            : 'Removed {{size}} in {{files}}.',
         ),
         !result.skipped?.length,
       );
     } else {
       notice(
-        ZogographI18n.t(
-          'storage.removed_file',
-          { size: humanBytes(result.bytes_freed ?? data.facts.size_bytes) },
-          'Removed {{size}}.',
-        ),
+        storageDeleteResultText('removed_file', {
+          size: humanBytes(result.bytes_freed ?? data.facts.size_bytes),
+        }),
         true,
       );
     }

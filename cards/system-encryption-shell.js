@@ -99,6 +99,8 @@ window.ZogographSystemEncryptionShellCard = {
           'Add optional remote custody envelope',
         'core-system-encryption-shell.run_remote_recovery_drill':
           'Run remote custody recovery drill',
+        'core-system-encryption-shell.mode_unavailable_notice':
+          'The selected protection mode is not available in this Zogograph release. Keep the current data and recovery key safe while choosing a supported package or local mode.',
       }),
       es: Object.freeze({
         'core-system-encryption-shell.title': 'Protección de datos',
@@ -206,6 +208,8 @@ window.ZogographSystemEncryptionShellCard = {
           'Añadir sobre de custodia remota opcional',
         'core-system-encryption-shell.run_remote_recovery_drill':
           'Ejecutar prueba de recuperación de custodia remota',
+        'core-system-encryption-shell.mode_unavailable_notice':
+          'El modo de protección seleccionado no está disponible en esta versión de Zogograph. Mantenga seguros los datos actuales y la clave de recuperación mientras elige un paquete o modo local compatible.',
       }),
       hi: Object.freeze({
         'core-system-encryption-shell.title': 'डेटा सुरक्षा',
@@ -301,6 +305,8 @@ window.ZogographSystemEncryptionShellCard = {
           'वैकल्पिक दूरस्थ कस्टडी लिफ़ाफ़ा जोड़ें',
         'core-system-encryption-shell.run_remote_recovery_drill':
           'दूरस्थ कस्टडी पुनर्प्राप्ति जाँच चलाएँ',
+        'core-system-encryption-shell.mode_unavailable_notice':
+          'चुना गया सुरक्षा मोड इस Zogograph रिलीज़ में उपलब्ध नहीं है। समर्थित पैकेज या स्थानीय मोड चुनते समय वर्तमान डेटा और रिकवरी कुंजी सुरक्षित रखें।',
       }),
       ar: Object.freeze({
         'core-system-encryption-shell.title': 'حماية البيانات',
@@ -392,6 +398,8 @@ window.ZogographSystemEncryptionShellCard = {
           'أضف غلاف حفظ بعيد اختياري',
         'core-system-encryption-shell.run_remote_recovery_drill':
           'شغّل تمرين استرداد الحفظ البعيد',
+        'core-system-encryption-shell.mode_unavailable_notice':
+          'وضع الحماية المحدد غير متاح في إصدار Zogograph هذا. حافظ على أمان البيانات الحالية ومفتاح الاسترداد أثناء اختيار حزمة أو وضع محلي مدعوم.',
       }),
       zh: Object.freeze({
         'core-system-encryption-shell.title': '数据保护',
@@ -476,6 +484,8 @@ window.ZogographSystemEncryptionShellCard = {
           '添加可选远程托管信封',
         'core-system-encryption-shell.run_remote_recovery_drill':
           '运行远程托管恢复演练',
+        'core-system-encryption-shell.mode_unavailable_notice':
+          '此 Zogograph 版本中无法使用所选保护模式。选择受支持的软件包或本地模式时，请妥善保管当前数据和恢复密钥。',
       }),
     }),
   }),

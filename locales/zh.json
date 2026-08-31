@@ -689,7 +689,6 @@
   "encryption.private_key_created": "已创建新的私有本地密钥文件。其内容未在浏览器中显示或保存。启用加密副本前，请记录一份离线恢复副本。",
   "encryption.protection_disabled_notice": "保护已关闭。除非主机单独保护其存储，否则活动 SQLite 数据库和普通副本仍未加密。请从设置向导的“加密”部分开始；Zogograph 不会在此页面生成、上传或存储私钥。",
   "encryption.volume_policy_notice": "Zogograph 会记录您的主机/虚拟机保护策略，但无法验证它。显示的证据是您的声明，而不是经过验证的加密副本。请确认每个选定数据库、SQLite WAL/SHM 配套文件、配置文件、日志、导出文件和备份目标均已覆盖。",
-  "encryption.mode_unavailable_notice": "此 Zogograph 版本中无法使用所选保护模式。选择受支持的软件包或本地模式时，请妥善保管当前数据和恢复密钥。",
   "encryption.create_copies_confirm": "现在为每个选定的可用存储创建新的加密副本吗？这不会加密正在运行的数据库。保留期清理只能删除已过期且通过哈希验证的副本，绝不会删除某个存储的最新已验证副本。",
   "schedule.removed": "已删除 {{job}} 计划。",
   "schedule.none": "（无）",

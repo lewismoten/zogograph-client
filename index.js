@@ -16135,15 +16135,7 @@ function renderEncryptionStatus(data) {
       parts.push(actions);
     }
   } else {
-    parts.push(
-      note(
-        ZogographI18n.t(
-          'encryption.mode_unavailable_notice',
-          {},
-          'The selected protection mode is not available in this Zogograph release. Keep the current data and recovery key safe while choosing a supported package or local mode.',
-        ),
-      ),
-    );
+    parts.push(note(encryptionText('mode_unavailable_notice')));
   }
   const artifacts = data.artifacts?.length ? data.artifacts : null;
   if (artifacts) {

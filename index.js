@@ -39861,7 +39861,7 @@ function renderLogStream(data) {
       ),
     ],
     [
-      ZogographI18n.t('log.stream_when', {}, 'When'),
+      logStreamSummaryText('stream_when'),
       ZogographI18n.t(
         'log.stream_when_hint',
         {},
@@ -39869,7 +39869,7 @@ function renderLogStream(data) {
       ),
     ],
     [
-      ZogographI18n.t('log.stream_log', {}, 'Log'),
+      logStreamSummaryText('stream_log'),
       ZogographI18n.t('log.stream_log_hint', {}, 'Which file it came from'),
     ],
     [

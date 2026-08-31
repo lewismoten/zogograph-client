@@ -1306,7 +1306,6 @@
   "metadata.description_placeholder": "Qué es y, aún más útil, qué hace que crezca.",
   "storage.link_sweep_placeholder": "/home/usted/public_html/previews",
   "processes.pattern_placeholder": "webalizer/bin/english.*ssl_log\\.bkup",
-  "image.portrait_alt": "{{name}}, según su propia descripción",
   "image.chart_alt": "el gráfico de {{chart}}",
   "package.probe_sqlcipher": "Ejecutar comprobación previa de SQLCipher",
   "package.probe_custody": "Probar extremo de custodia",

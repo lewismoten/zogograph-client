@@ -9458,18 +9458,8 @@ function personaFields(data) {
       post,
       renderAiSettings,
       notice,
-      aiPortraitAlt,
       i18n: ZogographI18n,
     },
-  );
-}
-
-/* Shared image description kept in the shell for image-accessibility tooling. */
-function aiPortraitAlt(name) {
-  return ZogographI18n.t(
-    'image.portrait_alt',
-    { name },
-    `${name}, as it describes itself`,
   );
 }
 

@@ -10,7 +10,6 @@ window.ZogographAiPortraitCard = {
       'post',
       'renderAiSettings',
       'notice',
-      'aiPortraitAlt',
       'i18n',
     ],
     catalogs: Object.freeze({
@@ -19,6 +18,7 @@ window.ZogographAiPortraitCard = {
         'core-ai-portrait.clear_action': 'Clear it',
         'core-ai-portrait.cleared': 'Cleared.',
         'core-ai-portrait.label': 'Portrait',
+        'core-ai-portrait.alt': '{{name}}, as it describes itself',
         'core-ai-portrait.help':
           'It drew this itself, the last time it was asked to. Turning off self-portraits below stops it drawing another; this one stays until it does.',
         'core-ai-portrait.caption':
@@ -34,6 +34,7 @@ window.ZogographAiPortraitCard = {
         'core-ai-portrait.clear_action': 'Borrarlo',
         'core-ai-portrait.cleared': 'Borrado.',
         'core-ai-portrait.label': 'Retrato',
+        'core-ai-portrait.alt': '{{name}}, según su propia descripción',
         'core-ai-portrait.help':
           'Lo dibujó por sí mismo la última vez que se lo pidieron. Desactivar los autorretratos a continuación evita que dibuje otro; este se conserva hasta entonces.',
         'core-ai-portrait.caption':
@@ -49,6 +50,7 @@ window.ZogographAiPortraitCard = {
         'core-ai-portrait.clear_action': 'इसे साफ़ करें',
         'core-ai-portrait.cleared': 'हटा दिया गया।',
         'core-ai-portrait.label': 'चित्र',
+        'core-ai-portrait.alt': '{{name}}, अपने वर्णन के अनुसार',
         'core-ai-portrait.help':
           'पिछली बार कहने पर इसने इसे स्वयं बनाया था। नीचे स्वयं-चित्र बंद करने से यह दूसरा नहीं बनाएगा; यह तब तक रहेगा।',
         'core-ai-portrait.caption':
@@ -64,6 +66,7 @@ window.ZogographAiPortraitCard = {
         'core-ai-portrait.clear_action': 'امسحه',
         'core-ai-portrait.cleared': 'تم المسح.',
         'core-ai-portrait.label': 'صورة شخصية',
+        'core-ai-portrait.alt': '{{name}} كما يصف نفسه',
         'core-ai-portrait.help':
           'رسم هذه الصورة لنفسه في آخر مرة طُلب منه ذلك. إيقاف الصور الذاتية أدناه يمنعه من رسم أخرى؛ وتبقى هذه حتى يفعل ذلك.',
         'core-ai-portrait.caption': 'رُسم {{elapsed}}، من: “{{description}}”',
@@ -78,6 +81,7 @@ window.ZogographAiPortraitCard = {
         'core-ai-portrait.clear_action': '清除它',
         'core-ai-portrait.cleared': '已清除。',
         'core-ai-portrait.label': '肖像',
+        'core-ai-portrait.alt': '{{name}}，按其自我描述',
         'core-ai-portrait.help':
           '这是它上次被要求时为自己绘制的。关闭下面的自画像会阻止它再画一张；在那之前这张会保留。',
         'core-ai-portrait.caption':
@@ -92,23 +96,19 @@ window.ZogographAiPortraitCard = {
   }),
   render(input, helpers) {
     const { who } = input;
-    const {
-      fieldRow,
-      ago,
-      askFirst,
-      post,
-      renderAiSettings,
-      notice,
-      aiPortraitAlt,
-      i18n,
-    } = helpers;
+    const { fieldRow, ago, askFirst, post, renderAiSettings, notice, i18n } =
+      helpers;
     const portrait = who.portrait;
     const face = document.createElement('div');
     face.className = 'portrait-block';
     const image = document.createElement('img');
     image.className = 'portrait';
     image.src = portrait.url;
-    image.alt = aiPortraitAlt(who.name);
+    image.alt = i18n.t(
+      'core-ai-portrait.alt',
+      { name: who.name },
+      '{{name}}, as it describes itself',
+    );
     face.appendChild(image);
     const caption = document.createElement('div');
     caption.className = 'muted small';

@@ -97,6 +97,8 @@
   "url.interval": "كم مرة",
   "url.method": "الطريقة",
   "url.follow_redirects": "اتبع عمليات إعادة التوجيه",
+  "url.no_redirects": "بدون إعادة توجيه",
+  "url.conditional": "مشروط",
   "url.expected_status": "الحالة المتوقعة",
   "url.also_check": "تحقق أيضًا من",
   "url.address": "العنوان",

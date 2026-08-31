@@ -97,6 +97,8 @@
   "url.interval": "How often",
   "url.method": "Method",
   "url.follow_redirects": "Follow redirects",
+  "url.no_redirects": "no redirects",
+  "url.conditional": "conditional",
   "url.expected_status": "Expected status",
   "url.also_check": "Also check",
   "url.address": "Address",

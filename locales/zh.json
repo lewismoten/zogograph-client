@@ -97,6 +97,8 @@
   "url.interval": "频率",
   "url.method": "方法",
   "url.follow_redirects": "跟随重定向",
+  "url.no_redirects": "不跟随重定向",
+  "url.conditional": "条件请求",
   "url.expected_status": "预期状态",
   "url.also_check": "同时检查",
   "url.address": "地址",

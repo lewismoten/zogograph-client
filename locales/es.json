@@ -97,6 +97,8 @@
   "url.interval": "Frecuencia",
   "url.method": "Método",
   "url.follow_redirects": "Seguir redirecciones",
+  "url.no_redirects": "sin redirecciones",
+  "url.conditional": "condicional",
   "url.expected_status": "Estado esperado",
   "url.also_check": "Comprobar también",
   "url.address": "Dirección",

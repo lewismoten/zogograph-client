@@ -34873,8 +34873,15 @@ function renderUrls(data) {
           }
 
           parts.push(
-            `${row.method || 'GET'}${Number(row.follow_redirects) ? '' : ', no redirects'}` +
-              `${Number(row.send_etag) ? ', conditional' : ''}.`,
+            `${row.method || 'GET'}${
+              Number(row.follow_redirects)
+                ? ''
+                : `, ${ZogographI18n.t('url.no_redirects', {}, 'no redirects')}`
+            }${
+              Number(row.send_etag)
+                ? `, ${ZogographI18n.t('url.conditional', {}, 'conditional')}`
+                : ''
+            }.`,
           );
           if (row.last_at)
             parts.push(

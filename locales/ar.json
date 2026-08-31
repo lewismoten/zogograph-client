@@ -2209,7 +2209,6 @@
   "host.add_root_collector_cron": "بصفة root — سجّل الدخول عبر SSH أو استخدم Terminal في WHM — أضف هذا إلى crontab الخاص بـ root باستخدام crontab -e:",
   "host.run_collector_once": "ثم شغّله يدويًا مرة واحدة لترى ما يجده: {{command}}",
   "action.refresh": "تحديث",
-  "host.memory_card_monitoring_footprint": "بصمة المراقبة",
   "host.memory_card_collector_processes": "{{count, number}} عملية لشجرة الجامع",
   "host.memory_card_available": "متاح",
   "host.memory_card_available_help": "تقدير النواة لما تبقى",

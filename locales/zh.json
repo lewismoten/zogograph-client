@@ -2209,7 +2209,6 @@
   "host.add_root_collector_cron": "以 root 身份通过 SSH 登录或使用 WHM 的终端，将此项用 crontab -e 加入 root 的 crontab：",
   "host.run_collector_once": "然后手动运行一次，查看它会发现什么：{{command}}",
   "action.refresh": "刷新",
-  "host.memory_card_monitoring_footprint": "监控占用量",
   "host.memory_card_collector_processes": "{{count, number}} 个采集器树进程",
   "host.memory_card_available": "可用",
   "host.memory_card_available_help": "内核对剩余内存的估计",

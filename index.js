@@ -27734,39 +27734,39 @@ function alertEmailed(row, interactive = state.signedIn) {
 
 function showAlertMuteReason(row) {
   showListDialog(
-    ZogographI18n.t('alerts.notification_held', {}, 'Notification held'),
+    ZogographAlertsShellCard.text('notification_held', {
+      i18n: ZogographI18n,
+    }),
     [
       factGrid([
         [
-          ZogographI18n.t('alerts.delivery', {}, 'Delivery'),
-          ZogographI18n.t(
-            'alerts.held_by_operator_mute',
-            {},
-            'Held by a temporary operator mute',
-          ),
+          ZogographAlertsShellCard.text('delivery', {
+            i18n: ZogographI18n,
+          }),
+          ZogographAlertsShellCard.text('held_by_operator_mute', {
+            i18n: ZogographI18n,
+          }),
         ],
         [
           ZogographI18n.t('alerts.until', {}, 'Until'),
           row.notification_muted_until
             ? whenLabel(row.notification_muted_until)
-            : ZogographI18n.t('alerts.unknown', {}, 'unknown'),
+            : ZogographAlertsShellCard.text('unknown', {
+                i18n: ZogographI18n,
+              }),
         ],
         [
           ZogographI18n.t('alerts.mute_reason', {}, 'Reason'),
           row.notification_reason ||
-            ZogographI18n.t(
-              'alerts.no_reason_recorded',
-              {},
-              'No reason recorded',
-            ),
+            ZogographAlertsShellCard.text('no_reason_recorded', {
+              i18n: ZogographI18n,
+            }),
         ],
       ]),
     ],
-    ZogographI18n.t(
-      'alerts.mute_detail_help',
-      {},
-      'The event and its evidence were recorded normally. Error and Critical alerts bypass temporary mutes.',
-    ),
+    ZogographAlertsShellCard.text('mute_detail_help', {
+      i18n: ZogographI18n,
+    }),
   );
 }
 

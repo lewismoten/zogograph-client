@@ -22,6 +22,14 @@ window.ZogographAlertsShellCard = {
         'core-alerts-shell.muted': 'muted',
         'core-alerts-shell.why_not': 'why not',
         'core-alerts-shell.failed': 'it failed',
+        'core-alerts-shell.notification_held': 'Notification held',
+        'core-alerts-shell.delivery': 'Delivery',
+        'core-alerts-shell.held_by_operator_mute':
+          'Held by a temporary operator mute',
+        'core-alerts-shell.unknown': 'unknown',
+        'core-alerts-shell.no_reason_recorded': 'No reason recorded',
+        'core-alerts-shell.mute_detail_help':
+          'The event and its evidence were recorded normally. Error and Critical alerts bypass temporary mutes.',
       }),
       es: Object.freeze({
         'core-alerts-shell.timeline_title': 'Cuándo se activaron las alertas',
@@ -40,6 +48,14 @@ window.ZogographAlertsShellCard = {
         'core-alerts-shell.muted': 'silenciada',
         'core-alerts-shell.why_not': 'por qué no',
         'core-alerts-shell.failed': 'falló',
+        'core-alerts-shell.notification_held': 'Notificación retenida',
+        'core-alerts-shell.delivery': 'Entrega',
+        'core-alerts-shell.held_by_operator_mute':
+          'Retenida por un silencio temporal del operador',
+        'core-alerts-shell.unknown': 'desconocido',
+        'core-alerts-shell.no_reason_recorded': 'No se registró ningún motivo',
+        'core-alerts-shell.mute_detail_help':
+          'El evento y sus evidencias se registraron normalmente. Las alertas de Error y Crítica omiten los silencios temporales.',
       }),
       hi: Object.freeze({
         'core-alerts-shell.timeline_title': 'अलर्ट कब चालू हुए',
@@ -58,6 +74,14 @@ window.ZogographAlertsShellCard = {
         'core-alerts-shell.muted': 'म्यूट',
         'core-alerts-shell.why_not': 'क्यों नहीं',
         'core-alerts-shell.failed': 'विफल',
+        'core-alerts-shell.notification_held': 'सूचना रोकी गई',
+        'core-alerts-shell.delivery': 'डिलीवरी',
+        'core-alerts-shell.held_by_operator_mute':
+          'अस्थायी ऑपरेटर म्यूट द्वारा रोकी गई',
+        'core-alerts-shell.unknown': 'अज्ञात',
+        'core-alerts-shell.no_reason_recorded': 'कोई कारण दर्ज नहीं है',
+        'core-alerts-shell.mute_detail_help':
+          'घटना और उसका साक्ष्य सामान्य रूप से दर्ज किए गए। Error और Critical चेतावनियां अस्थायी म्यूट को बायपास करती हैं।',
       }),
       ar: Object.freeze({
         'core-alerts-shell.timeline_title': 'متى أُطلقت التنبيهات',
@@ -76,6 +100,13 @@ window.ZogographAlertsShellCard = {
         'core-alerts-shell.muted': 'مكتوم',
         'core-alerts-shell.why_not': 'لماذا لا',
         'core-alerts-shell.failed': 'فشل',
+        'core-alerts-shell.notification_held': 'إشعار محجوب',
+        'core-alerts-shell.delivery': 'التسليم',
+        'core-alerts-shell.held_by_operator_mute': 'حُجب بكتم مؤقت من المشغّل',
+        'core-alerts-shell.unknown': 'غير معروف',
+        'core-alerts-shell.no_reason_recorded': 'لا يوجد سبب مسجل',
+        'core-alerts-shell.mute_detail_help':
+          'سُجل الحدث ودليله بصورة طبيعية. تتجاوز تنبيهات Error وCritical عمليات الكتم المؤقتة.',
       }),
       zh: Object.freeze({
         'core-alerts-shell.timeline_title': '警报何时触发',
@@ -94,6 +125,13 @@ window.ZogographAlertsShellCard = {
         'core-alerts-shell.muted': '已静音',
         'core-alerts-shell.why_not': '原因',
         'core-alerts-shell.failed': '失败',
+        'core-alerts-shell.notification_held': '通知已拦截',
+        'core-alerts-shell.delivery': '投递',
+        'core-alerts-shell.held_by_operator_mute': '被临时操作员静音拦截',
+        'core-alerts-shell.unknown': '未知',
+        'core-alerts-shell.no_reason_recorded': '未记录原因',
+        'core-alerts-shell.mute_detail_help':
+          '事件及其证据照常记录。Error 和 Critical 警报会绕过临时静音。',
       }),
     }),
   }),

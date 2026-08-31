@@ -34717,55 +34717,19 @@ function colourJson(into, text) {
  * not always the command name - dig lives in bind-utils on Red Hat and dnsutils
  * on Debian - so the right one for this machine is worked out and printed.
  */
-function missingCommandNote(
-  missing,
-  where = ZogographI18n.t('capabilities.this_account', {}, 'this account'),
-) {
-  const wrap = document.createDocumentFragment();
-
-  wrap.appendChild(
-    note(
-      ZogographI18n.t(
-        'capabilities.command_unavailable',
-        { command: missing.command, where },
-        '{{command}} is not available to {{where}}. As root:',
-      ),
-    ),
+function missingCommandNote(missing, where) {
+  return renderCoreCardPackage(
+    ZogographMissingCommandNoteCard,
+    'core-missing-command-note',
+    { missing, where },
+    {
+      note,
+      paste,
+      showCapabilities: () => showView('capabilities'),
+      checkNow: ZogographI18n.t('action.check_now', {}, 'Check now'),
+      i18n: ZogographI18n,
+    },
   );
-  wrap.appendChild(paste(missing.install));
-
-  if (missing.note) wrap.appendChild(note(missing.note));
-
-  const after = document.createElement('p');
-  after.className = 'muted small';
-  after.append(
-    document.createTextNode(
-      ZogographI18n.t(
-        'capabilities.recheck_after_install',
-        {},
-        'After installing it, recheck the capability. ',
-      ),
-    ),
-  );
-
-  const go = document.createElement('button');
-  go.className = 'link';
-  go.textContent = ZogographI18n.t('action.check_now', {}, 'Check now');
-  go.addEventListener('click', () => showView('capabilities'));
-  after.appendChild(go);
-
-  after.append(
-    document.createTextNode(
-      ZogographI18n.t(
-        'capabilities.probe_not_automatic',
-        {},
-        ' The dashboard does not probe automatically, because running a hundred command lookups on every page load would cost more than it saves.',
-      ),
-    ),
-  );
-  wrap.appendChild(after);
-
-  return wrap;
 }
 
 /* --------------------------------------------------------- dns records -- */

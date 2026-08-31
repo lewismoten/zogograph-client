@@ -165,6 +165,7 @@ export default [
         ZogographAiConversationTimeLimitCard: 'readonly',
         ZogographAiConversationCapsCard: 'readonly',
         ZogographAiLimitsSectionCard: 'readonly',
+        ZogographAiContextWindowCard: 'readonly',
         ZogographAiKeyForgetCard: 'readonly',
         ZogographAiEnableToggleCard: 'readonly',
         ZogographAiReasoningEffortCard: 'readonly',

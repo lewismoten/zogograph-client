@@ -5829,24 +5829,12 @@ function renderAiSettings(data) {
   const room = document.createElement('div');
   room.className = 'settings';
 
-  const window_ = document.createElement('input');
-  window_.type = 'number';
-  window_.id = 'aiContextTokens';
-  window_.min = '4000';
-  window_.step = '1000';
-  window_.className = 'days';
-  window_.value = String(data.context_tokens ?? 128000);
   room.appendChild(
-    fieldRow(
-      aiSettingsText('context_window_label', 'Context window (tokens)'),
-      window_,
-      aiSettingsText(
-        'context_window_help',
-        'How much the chosen model can hold at once. It is a fact about the model, not ' +
-          "something the API will tell us, so it is typed in — check the model's own " +
-          'documentation. Guessing high is the worse mistake: the provider rejects the ' +
-          'request outright, which ends the conversation.',
-      ),
+    renderCoreCardPackage(
+      ZogographAiContextWindowCard,
+      'core-ai-context-window',
+      data,
+      { fieldRow, i18n: ZogographI18n },
     ),
   );
 

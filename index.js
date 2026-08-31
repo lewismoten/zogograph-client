@@ -3171,6 +3171,28 @@ function renderLogRepeatsShellLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderLogRepeatsShellLabels);
 
+function renderLogStreamShellLabels() {
+  const helpers = { note: () => null, count: () => '', i18n: ZogographI18n };
+  renderCoreCardPackage(
+    ZogographLogStreamSummaryCard,
+    'core-log-stream-summary',
+    { files: [], rows: [] },
+    helpers,
+  );
+  document
+    .querySelectorAll('[data-i18n^="core-log-stream-summary."]')
+    .forEach((node) => {
+      const key = node.dataset.i18n.replace('core-log-stream-summary.', '');
+      node.textContent = ZogographI18n.markSource(
+        node,
+        `core-log-stream-summary.${key}`,
+        ZogographLogStreamSummaryCard.text(key, helpers),
+      );
+    });
+}
+
+document.addEventListener('zogograph-i18n-load', renderLogStreamShellLabels);
+
 /**
  * When the disk is projected to fill, as a date.
  *

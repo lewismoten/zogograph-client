@@ -5,6 +5,9 @@ window.ZogographLogStreamSummaryCard = {
     helpers: ['note', 'count', 'i18n'],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-log-stream-summary.title': 'Every log at once',
+        'core-log-stream-summary.help':
+          'A machine misbehaving does not tell you which log to open. This is all of them merged, newest first, because the line that explains it is the most recent one somewhere.',
         'core-log-stream-summary.read':
           '{{logs}} read. Ordered by {{ordering}}.',
         'core-log-stream-summary.read_skipped':
@@ -13,6 +16,9 @@ window.ZogographLogStreamSummaryCard = {
           '{{lines}} folded into the {{errors}} they belong to. A fatal writes one line for the error and a dozen for the trace, so without this the twenty newest lines are one error and nineteen fragments of it.',
       }),
       es: Object.freeze({
+        'core-log-stream-summary.title': 'Todos los registros a la vez',
+        'core-log-stream-summary.help':
+          'Una máquina que se comporta mal no dice qué registro abrir. Aquí se reúnen todos, primero los más recientes, porque la línea que lo explica es la más reciente en algún lugar.',
         'core-log-stream-summary.read':
           '{{logs}} leídos. Ordenados por {{ordering}}.',
         'core-log-stream-summary.read_skipped':
@@ -21,6 +27,9 @@ window.ZogographLogStreamSummaryCard = {
           '{{lines}} se integraron en los {{errors}} a los que pertenecen. Un error fatal escribe una línea para el error y una docena para el seguimiento; sin esto, las veinte líneas más recientes serían un error y diecinueve fragmentos.',
       }),
       hi: Object.freeze({
+        'core-log-stream-summary.title': 'हर लॉग एक साथ',
+        'core-log-stream-summary.help':
+          'गलत व्यवहार करती मशीन यह नहीं बताती कि कौन सा लॉग खोलें। यहाँ सभी लॉग सबसे नए पहले मिलाए गए हैं, क्योंकि उसे समझाने वाली पंक्ति कहीं न कहीं सबसे हाल की होती है।',
         'core-log-stream-summary.read':
           '{{logs}} पढ़े गए। {{ordering}} के अनुसार क्रमित।',
         'core-log-stream-summary.read_skipped':
@@ -29,6 +38,9 @@ window.ZogographLogStreamSummaryCard = {
           '{{lines}} को उन {{errors}} में समेट दिया गया जिनसे वे संबंधित हैं। एक फेटल त्रुटि के लिए एक पंक्ति और ट्रेस के लिए दर्जन भर पंक्तियाँ लिखती है; इसके बिना नवीनतम बीस पंक्तियाँ एक त्रुटि और उसके उन्नीस अंश होंगी।',
       }),
       ar: Object.freeze({
+        'core-log-stream-summary.title': 'كل السجلات معًا',
+        'core-log-stream-summary.help':
+          'لا تخبرك آلة تتصرف بشكل خاطئ بأي سجل تفتحه. هذه كلها مدمجة، الأحدث أولًا، لأن السطر الذي يفسرها هو الأحدث في مكان ما.',
         'core-log-stream-summary.read':
           'قُرئ {{logs}}. مرتبة حسب {{ordering}}.',
         'core-log-stream-summary.read_skipped':
@@ -37,6 +49,9 @@ window.ZogographLogStreamSummaryCard = {
           'دُمج {{lines}} في {{errors}} التي تنتمي إليها. يكتب الخطأ الفادح سطرًا للخطأ وعشرات للتتبّع؛ وبدون ذلك تكون أحدث عشرين سطرًا خطأً واحدًا وتسعة عشر جزءًا منه.',
       }),
       zh: Object.freeze({
+        'core-log-stream-summary.title': '所有日志同时查看',
+        'core-log-stream-summary.help':
+          '行为异常的机器不会告诉您该打开哪个日志。这里将所有日志合并并按最新优先排列，因为能解释问题的那一行，往往在某处是最新的一行。',
         'core-log-stream-summary.read':
           '已读取 {{logs}}。按 {{ordering}} 排序。',
         'core-log-stream-summary.read_skipped':
@@ -46,6 +61,13 @@ window.ZogographLogStreamSummaryCard = {
       }),
     }),
   }),
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-log-stream-summary.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-log-stream-summary.${key}`],
+    );
+  },
   render(data, helpers) {
     const wrap = document.createDocumentFragment();
     const readable = (data.files || []).filter((file) => file.ok);

@@ -3260,7 +3260,9 @@
         <section class="view" data-view="log-stream" hidden>
           <section class="panel" id="streamPanel">
             <div class="panel-head">
-              <h2 data-i18n="log.stream_title">Every log at once</h2>
+              <h2 data-i18n="core-log-stream-summary.title">
+                Every log at once
+              </h2>
               <label class="inline">
                 <span data-i18n="core-filter-controls.show">Show</span>
                 <select id="streamLines">
@@ -3274,7 +3276,10 @@
                 </select>
               </label>
             </div>
-            <p class="muted small sub-note" data-i18n="log.stream_help">
+            <p
+              class="muted small sub-note"
+              data-i18n="core-log-stream-summary.help"
+            >
               A machine misbehaving does not tell you which log to open. This is
               all of them merged, newest first, because the line that explains
               it is the most recent one <em>somewhere</em>.

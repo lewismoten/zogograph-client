@@ -17,26 +17,31 @@ window.ZogographSymlinkActionsCard = {
         'core-symlink-actions.group': 'Link actions',
         'core-symlink-actions.repoint': 'Repoint',
         'core-symlink-actions.make_directory': 'Make it a folder',
+        'core-symlink-actions.remove': 'Remove',
       }),
       es: Object.freeze({
         'core-symlink-actions.group': 'Acciones de enlace',
         'core-symlink-actions.repoint': 'Redirigir',
         'core-symlink-actions.make_directory': 'Convertir en carpeta',
+        'core-symlink-actions.remove': 'Eliminar',
       }),
       hi: Object.freeze({
         'core-symlink-actions.group': 'लिंक कार्रवाइयाँ',
         'core-symlink-actions.repoint': 'पुनः इंगित करें',
         'core-symlink-actions.make_directory': 'इसे फ़ोल्डर बनाएँ',
+        'core-symlink-actions.remove': 'हटाएँ',
       }),
       ar: Object.freeze({
         'core-symlink-actions.group': 'إجراءات الرابط',
         'core-symlink-actions.repoint': 'إعادة توجيه',
         'core-symlink-actions.make_directory': 'تحويل إلى مجلد',
+        'core-symlink-actions.remove': 'إزالة',
       }),
       zh: Object.freeze({
         'core-symlink-actions.group': '链接操作',
         'core-symlink-actions.repoint': '重新指向',
         'core-symlink-actions.make_directory': '改为文件夹',
+        'core-symlink-actions.remove': '移除',
       }),
     }),
   }),
@@ -137,7 +142,7 @@ window.ZogographSymlinkActionsCard = {
       },
     );
     add(
-      t('storage.link_remove', {}, 'Remove'),
+      t('core-symlink-actions.remove', {}, 'Remove'),
       t('storage.link_remove_title', {}, 'Delete the link itself'),
       async () => {
         if (

@@ -466,7 +466,6 @@
   "storage.link_repoint_hint": "पूर्ण पथ या लिंक की डायरेक्टरी के सापेक्ष पथ का उपयोग करें।",
   "storage.link_make_directory_title": "लिंक हटाएँ और उसकी जगह असली, खाली डायरेक्टरी बनाएँ",
   "storage.link_make_directory_confirm": "क्या {{path}} को असली, खाली डायरेक्टरी से बदलें?\n\nलिंक चला जाएगा; जिस पर वह इंगित करता था उसे नहीं छुआ जाएगा।",
-  "storage.link_remove": "हटाएँ",
   "storage.link_remove_title": "लिंक को ही हटाएँ",
   "storage.link_remove_confirm": "क्या लिंक {{path}} को हटाएँ?\n\nकेवल लिंक हटाया जाएगा। जिस पर वह इंगित करता है उसे नहीं छुआ जाएगा।",
   "storage.link_repointed": "अब {{target}} पर इंगित करता है।",

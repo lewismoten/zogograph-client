@@ -15981,11 +15981,7 @@ function renderEncryptionStatus(data) {
       seal.addEventListener('click', async () => {
         if (
           !(await confirmDialog(
-            ZogographI18n.t(
-              'encryption.create_copies_confirm',
-              {},
-              'Create a fresh encrypted copy of every selected available store now? This does not encrypt the running database. Retention pruning may remove only expired, hash-verified copies and never the newest verified copy for a store.',
-            ),
+            encryptionText('create_copies_confirm'),
             encryptionText('create_copies_title'),
           ))
         )

@@ -117,6 +117,8 @@ window.ZogographSystemEncryptionShellCard = {
           'Recovery drill verified {{count, number}} selected store.',
         'core-system-encryption-shell.recovery_drill_verified_many':
           'Recovery drill verified {{count, number}} selected stores.',
+        'core-system-encryption-shell.create_copies_confirm':
+          'Create a fresh encrypted copy of every selected available store now? This does not encrypt the running database. Retention pruning may remove only expired, hash-verified copies and never the newest verified copy for a store.',
       }),
       es: Object.freeze({
         'core-system-encryption-shell.title': 'Protección de datos',
@@ -242,6 +244,8 @@ window.ZogographSystemEncryptionShellCard = {
           'La prueba de recuperación verificó {{count, number}} almacén seleccionado.',
         'core-system-encryption-shell.recovery_drill_verified_many':
           'La prueba de recuperación verificó {{count, number}} almacenes seleccionados.',
+        'core-system-encryption-shell.create_copies_confirm':
+          '¿Crear ahora una copia cifrada nueva de cada almacén disponible seleccionado? Esto no cifra la base de datos en ejecución. La depuración de retención solo puede eliminar copias vencidas y verificadas por hash, y nunca la copia verificada más reciente de un almacén.',
       }),
       hi: Object.freeze({
         'core-system-encryption-shell.title': 'डेटा सुरक्षा',
@@ -355,6 +359,8 @@ window.ZogographSystemEncryptionShellCard = {
           'रिकवरी जाँच ने {{count, number}} चुने गए स्टोर को सत्यापित किया।',
         'core-system-encryption-shell.recovery_drill_verified_many':
           'रिकवरी जाँच ने {{count, number}} चुने गए स्टोरों को सत्यापित किया।',
+        'core-system-encryption-shell.create_copies_confirm':
+          'क्या हर चुने गए उपलब्ध स्टोर की नई एन्क्रिप्टेड प्रति अभी बनाई जाए? इससे चल रहा डेटाबेस एन्क्रिप्ट नहीं होता। रिटेंशन छँटाई केवल समाप्त और हैश-सत्यापित प्रतियों को हटा सकती है, और किसी स्टोर की नवीनतम सत्यापित प्रति को कभी नहीं हटाती।',
       }),
       ar: Object.freeze({
         'core-system-encryption-shell.title': 'حماية البيانات',
@@ -464,6 +470,8 @@ window.ZogographSystemEncryptionShellCard = {
           'تحقق تمرين الاسترداد من {{count, number}} مخزن محدد.',
         'core-system-encryption-shell.recovery_drill_verified_many':
           'تحقق تمرين الاسترداد من {{count, number}} مخازن محددة.',
+        'core-system-encryption-shell.create_copies_confirm':
+          'هل تريد إنشاء نسخة مشفرة جديدة الآن من كل مخزن متاح محدد؟ لا يؤدي ذلك إلى تشفير قاعدة البيانات العاملة. لا يجوز لتنقية الاحتفاظ إزالة سوى النسخ المنتهية والمتحقق من تجزئتها، ولن تزيل أحدث نسخة متحققة لأي مخزن.',
       }),
       zh: Object.freeze({
         'core-system-encryption-shell.title': '数据保护',
@@ -566,6 +574,8 @@ window.ZogographSystemEncryptionShellCard = {
           '恢复演练验证了 {{count, number}} 个选定存储。',
         'core-system-encryption-shell.recovery_drill_verified_many':
           '恢复演练验证了 {{count, number}} 个选定存储。',
+        'core-system-encryption-shell.create_copies_confirm':
+          '现在为每个选定的可用存储创建新的加密副本吗？这不会加密正在运行的数据库。保留期清理只能删除已过期且通过哈希验证的副本，绝不会删除某个存储的最新已验证副本。',
       }),
     }),
   }),

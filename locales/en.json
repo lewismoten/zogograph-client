@@ -683,7 +683,6 @@
   "openid.secret_acknowledged": "OpenID client secret acknowledgement saved.",
   "encryption.package_key_created": "A separate private package-secrets key file was created. Its contents were not shown or saved in the browser. Enter its path in Package secrets key file and save that setting before storing package secrets.",
   "encryption.private_key_created": "A new private local key file was created. Its contents were not shown or saved in the browser. Record an offline recovery copy before enabling encrypted copies.",
-  "encryption.create_copies_confirm": "Create a fresh encrypted copy of every selected available store now? This does not encrypt the running database. Retention pruning may remove only expired, hash-verified copies and never the newest verified copy for a store.",
   "schedule.removed": "{{job}} schedule removed.",
   "schedule.none": "(none)",
   "schedule.saved_applied": "{{job}} schedule saved and applied.",

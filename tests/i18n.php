@@ -354,6 +354,10 @@ i18nExpect(
         $english['ai.settings.provider_save_unavailable_config'],
         $english['ai.settings.provider_save_unavailable_role'],
         $english['ai.settings.provider_save_ready'],
+        $english['ai.save_settings'],
+        $english['ai.save_all_pages'],
+        $english['ai.settings.config_read_only'],
+        $english['ai.settings.role_read_only'],
     ),
     'AI card controls belong to their card packages',
 );

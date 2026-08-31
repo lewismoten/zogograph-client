@@ -6196,70 +6196,45 @@ function renderAiSettings(data) {
     const holder = $(id);
     if (!holder) continue;
 
-    const actions = document.createElement('div');
-    actions.className = 'inspect-actions';
-
-    const save = document.createElement('button');
-    save.type = 'submit';
-    save.textContent = ZogographI18n.t(
-      'ai.save_settings',
-      {},
-      'Save these settings',
+    const providerMessage =
+      key !== 'providers'
+        ? ''
+        : !data.writable
+          ? providerText(
+              'provider_save_unavailable_config',
+              {},
+              'Connection saving is unavailable because PHP cannot write the configuration store.',
+            )
+          : !data.can_change
+            ? providerText(
+                'provider_save_unavailable_role',
+                {},
+                'Connection saving is unavailable for your current account. An administrator can save it.',
+              )
+            : providerText(
+                'provider_save_ready',
+                {},
+                'This connection can be saved without an API key. Saving also keeps the settings on the other Assistant pages.',
+              );
+    const providerHint =
+      key === 'providers'
+        ? providerText(
+            'compatible_keyless_save_help',
+            {},
+            'An Ollama or OpenAI-compatible connection can be saved without an API key.',
+          )
+        : '';
+    const actions = renderCoreCardPackage(
+      ZogographAiSettingsSaveCard,
+      'core-ai-settings-save',
+      {
+        writable: data.writable,
+        canChange: data.can_change,
+        providerMessage,
+        providerHint,
+      },
+      { i18n: ZogographI18n },
     );
-    save.disabled = !data.writable || !data.can_change;
-    /*
-     * A compatible endpoint deliberately needs no credential.  Keep the
-     * reason this button is unavailable separate from connection validation:
-     * otherwise an administrator sees a disabled Save after choosing Ollama
-     * and reasonably assumes the empty key is the problem.
-     */
-    if (!data.writable) {
-      save.title = aiSettingsText(
-        'config_read_only',
-        'lib/config.php is not writable by the web server, so this page can show the settings but not change them.',
-      );
-    } else if (!data.can_change) {
-      save.title = aiSettingsText(
-        'role_read_only',
-        'Your signed-in role can use the assistant but cannot change its configuration. Sign in with an administrator account to save provider credentials or model settings.',
-      );
-    } else if (key === 'providers') {
-      save.title = aiSettingsText(
-        'compatible_keyless_save_help',
-        'An Ollama or OpenAI-compatible connection can be saved without an API key.',
-      );
-    }
-    actions.appendChild(save);
-
-    const said = document.createElement('span');
-    said.className = 'muted small';
-    if (key === 'providers' && !data.writable) {
-      said.textContent = providerText(
-        'provider_save_unavailable_config',
-        {},
-        'Connection saving is unavailable because PHP cannot write the configuration store.',
-      );
-    } else if (key === 'providers' && !data.can_change) {
-      said.textContent = providerText(
-        'provider_save_unavailable_role',
-        {},
-        'Connection saving is unavailable for your current account. An administrator can save it.',
-      );
-    } else if (key === 'providers') {
-      said.textContent = providerText(
-        'provider_save_ready',
-        {},
-        'This connection can be saved without an API key. Saving also keeps the settings on the other Assistant pages.',
-      );
-    } else {
-      said.textContent = ZogographI18n.t(
-        'ai.save_all_pages',
-        {},
-        'Saves everything on all of these pages.',
-      );
-    }
-    actions.appendChild(said);
-
     holder.replaceChildren(...pages[key], actions);
     markFormRendered(holder);
   }

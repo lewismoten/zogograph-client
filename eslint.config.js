@@ -196,6 +196,7 @@ export default [
         ZogographAiToolPermissionCard: 'readonly',
         ZogographAiToolAvailabilityCard: 'readonly',
         ZogographAiToolsSaveCard: 'readonly',
+        ZogographAiSettingsSaveCard: 'readonly',
         ZogographAiToolsetActionsCard: 'readonly',
         ZogographAiPortraitCard: 'readonly',
         ZogographAiStyleFinderCard: 'readonly',

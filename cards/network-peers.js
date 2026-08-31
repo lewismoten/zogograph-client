@@ -15,6 +15,8 @@ window.ZogographNetworkPeersCard = {
     catalogs: Object.freeze({
       en: Object.freeze({
         'core-network-peers.title': 'Who is connected',
+        'core-network-peers.help':
+          'Established connections grouped by the address at the other end. Grouped because the useful shape is ‘one address is holding nine hundred sockets’, which a flat list of nine hundred rows states without showing.',
         'core-network-peers.empty':
           'No established connections were recorded. Either the machine is idle, or ss could not be run by the collector.',
         'core-network-peers.summary':
@@ -27,6 +29,8 @@ window.ZogographNetworkPeersCard = {
       }),
       es: Object.freeze({
         'core-network-peers.title': 'Quién está conectado',
+        'core-network-peers.help':
+          'Conexiones establecidas agrupadas por la dirección del otro extremo. Se agrupan porque la forma útil es «una dirección mantiene novecientos sockets», algo que una lista plana de novecientas filas declara sin mostrar.',
         'core-network-peers.empty':
           'No se registraron conexiones establecidas. La máquina está inactiva o el recopilador no pudo ejecutar ss.',
         'core-network-peers.summary':
@@ -39,6 +43,8 @@ window.ZogographNetworkPeersCard = {
       }),
       hi: Object.freeze({
         'core-network-peers.title': 'कौन जुड़ा है',
+        'core-network-peers.help':
+          'दूसरे सिरे के पते के अनुसार समूहित स्थापित कनेक्शन। समूहित इसलिए कि उपयोगी रूप यह है कि ‘एक पता नौ सौ सॉकेट पकड़े हुए है’, जिसे नौ सौ पंक्तियों की सपाट सूची बताती तो है लेकिन दिखाती नहीं।',
         'core-network-peers.empty':
           'कोई स्थापित कनेक्शन दर्ज नहीं था। मशीन निष्क्रिय है या कलेक्टर ss नहीं चला सका।',
         'core-network-peers.summary':
@@ -51,6 +57,8 @@ window.ZogographNetworkPeersCard = {
       }),
       ar: Object.freeze({
         'core-network-peers.title': 'من المتصل',
+        'core-network-peers.help':
+          'اتصالات قائمة مجمعة حسب العنوان في الطرف الآخر. تُجمع لأن الشكل المفيد هو «عنوان واحد يحتفظ بتسعمائة مقبس»، وهو ما تذكره قائمة مسطحة من تسعمائة صف من دون أن تُظهره.',
         'core-network-peers.empty':
           'لم تُسجل اتصالات قائمة. إما أن الآلة خاملة أو لم يتمكن الجامع من تشغيل ss.',
         'core-network-peers.summary':
@@ -63,6 +71,8 @@ window.ZogographNetworkPeersCard = {
       }),
       zh: Object.freeze({
         'core-network-peers.title': '谁已连接',
+        'core-network-peers.help':
+          '按另一端地址分组的已建立连接。之所以分组，是因为“一个地址占用了九百个套接字”才是有用的形态；九百行的平面列表虽然会陈述这一点，却无法呈现出来。',
         'core-network-peers.empty':
           '未记录已建立的连接。机器可能空闲，或采集器无法运行 ss。',
         'core-network-peers.summary':

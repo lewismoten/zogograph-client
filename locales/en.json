@@ -325,7 +325,6 @@
   "process.age_started_hour": "Started within the hour.",
   "process.age_started_today": "Started today.",
   "process.age_long_running": "Running for more than a day - a daemon, or something that never finished.",
-  "log.detail_timestamp_missing": "not stated on the line — placed by when the file was last written",
   "log.stream_severity_hint": "How bad the line says it is",
   "log.stream_when": "When",
   "log.stream_when_hint": "When the line says it happened",

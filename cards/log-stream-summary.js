@@ -42,6 +42,8 @@ window.ZogographLogStreamSummaryCard = {
           'Stack trace ({{count, number}} lines)',
         'core-log-stream-summary.detail_trace_help':
           'Read from the top: the first frame is where it failed, and each one below is what called it. The bottom is usually where the request came in.',
+        'core-log-stream-summary.detail_timestamp_missing':
+          'not stated on the line — placed by when the file was last written',
         'core-log-stream-summary.skimming_note':
           'Click any line for the whole of it, taken apart. The columns here are cut short on purpose — this view is for skimming.',
       }),
@@ -84,6 +86,8 @@ window.ZogographLogStreamSummaryCard = {
           'Traza de pila ({{count, number}} líneas)',
         'core-log-stream-summary.detail_trace_help':
           'Lee desde arriba: el primer marco es donde falló y cada uno debajo es quien lo llamó. El final suele ser donde entró la solicitud.',
+        'core-log-stream-summary.detail_timestamp_missing':
+          'no se indica en la línea; se coloca según la última vez que se escribió el archivo',
         'core-log-stream-summary.skimming_note':
           'Haga clic en cualquier línea para verla completa y desglosada. Las columnas se recortan a propósito: esta vista sirve para hojear.',
       }),
@@ -126,6 +130,8 @@ window.ZogographLogStreamSummaryCard = {
           'स्टैक ट्रेस ({{count, number}} लाइनें)',
         'core-log-stream-summary.detail_trace_help':
           'ऊपर से पढ़ें: पहला फ्रेम वह जगह है जहाँ यह विफल हुआ, और उसके नीचे हर फ्रेम वह है जिसने इसे बुलाया। सबसे नीचे आम तौर पर अनुरोध आने की जगह होती है।',
+        'core-log-stream-summary.detail_timestamp_missing':
+          'लाइन में नहीं बताया गया — फ़ाइल आखिरी बार लिखे जाने के समय के अनुसार रखा गया',
         'core-log-stream-summary.skimming_note':
           'किसी भी पंक्ति को पूरी तरह और भागों में देखने के लिए उस पर क्लिक करें। यहाँ के कॉलम जानबूझकर छोटे रखे गए हैं — यह दृश्य जल्दी देखने के लिए है।',
       }),
@@ -167,6 +173,8 @@ window.ZogographLogStreamSummaryCard = {
           'تتبع المكدس ({{count, number}} سطرًا)',
         'core-log-stream-summary.detail_trace_help':
           'اقرأ من الأعلى: الإطار الأول هو مكان الفشل، وكل إطار أدناه هو ما استدعاه. يكون الأسفل عادةً هو مكان ورود الطلب.',
+        'core-log-stream-summary.detail_timestamp_missing':
+          'غير مذكور في السطر — وُضع حسب وقت آخر كتابة للملف',
         'core-log-stream-summary.skimming_note':
           'انقر أي سطر لرؤيته كاملًا ومفككًا. تُقصَّر الأعمدة هنا عمدًا — هذا العرض للتصفح السريع.',
       }),
@@ -208,6 +216,8 @@ window.ZogographLogStreamSummaryCard = {
           '堆栈跟踪（{{count, number}} 行）',
         'core-log-stream-summary.detail_trace_help':
           '从顶部开始阅读：第一帧是失败的位置，下面每一帧都是调用它的内容。底部通常是请求进入的位置。',
+        'core-log-stream-summary.detail_timestamp_missing':
+          '该行未说明时间——按文件最后写入的时间放置',
         'core-log-stream-summary.skimming_note':
           '单击任意一行即可查看完整内容及其拆分。这里的列特意截短——此视图用于快速浏览。',
       }),

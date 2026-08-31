@@ -325,7 +325,6 @@
   "process.age_started_hour": "एक घंटे के भीतर शुरू हुआ।",
   "process.age_started_today": "आज शुरू हुआ।",
   "process.age_long_running": "एक दिन से अधिक समय से चल रहा है — डेमन, या कुछ जो कभी समाप्त नहीं हुआ।",
-  "log.detail_timestamp_missing": "लाइन में नहीं बताया गया — फ़ाइल आखिरी बार लिखे जाने के समय के अनुसार रखा गया",
   "log.stream_severity_hint": "लाइन कितनी गंभीर है",
   "log.stream_when": "कब",
   "log.stream_when_hint": "लाइन के अनुसार यह कब हुआ",

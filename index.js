@@ -40010,11 +40010,7 @@ function showLogLine(row, index, rows) {
     logStreamSummaryText('detail_when'),
     row.at
       ? `${humanTime(row.at)} (${humanWhen(row.at - Math.floor(Date.now() / 1000))})`
-      : ZogographI18n.t(
-          'log.detail_timestamp_missing',
-          {},
-          'not stated on the line — placed by when the file was last written',
-        ),
+      : logStreamSummaryText('detail_timestamp_missing'),
   ]);
   facts.push([logStreamSummaryText('detail_from'), row.path || row.label]);
   if (row.n) facts.push([logStreamSummaryText('detail_line'), String(row.n)]);

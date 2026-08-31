@@ -101,7 +101,11 @@ releaseExpect(
         ) &&
         str_contains($workflow, 'Prepare remote snapshot directory') &&
         str_contains($workflow, 'Upload snapshot helper') &&
-        str_contains($workflow, 'Create application and SQLite snapshot') &&
+        str_contains($workflow, 'Initialize live-site snapshot') &&
+        str_contains($workflow, 'Snapshot live application files') &&
+        str_contains($workflow, 'Snapshot live SQLite databases') &&
+        str_contains($workflow, 'Verify and finalize live-site snapshot') &&
+        str_contains($workflow, 'Discard incomplete live-site snapshot') &&
         str_contains(
             $restoreWorkflow,
             'remote_script=".zogograph-restore-${GITHUB_RUN_ID}-${DEPLOY_TARGET}.sh"',

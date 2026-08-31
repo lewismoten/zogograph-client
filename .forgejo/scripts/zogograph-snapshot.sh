@@ -28,7 +28,12 @@ sqlite_argument() {
   printf '"%s"' "$value"
 }
 
-[ "$#" -eq 3 ] || fail 'expected deploy path, snapshot path, and snapshot ID'
+[ "$#" -eq 3 ] || [ "$#" -eq 4 ] || fail 'expected deploy path, snapshot path, snapshot ID, and optional phase'
+phase=${4:-snapshot}
+case "$phase" in
+  snapshot|prepare|site|databases|finalize|discard) ;;
+  *) fail "unknown snapshot phase: $phase" ;;
+esac
 valid_path 'deploy path' "$1"
 valid_path 'snapshot path' "$2"
 valid_id "$3"
@@ -47,24 +52,38 @@ fi
 test -n "$source_entry" || fail "deploy path is empty: $site"
 command -v rsync >/dev/null || fail 'rsync is unavailable on the deployment server'
 command -v sha256sum >/dev/null || fail 'sha256sum is unavailable on the deployment server'
-database_entry=''
-if [ -d "$site/data" ]; then
-  if ! database_entry=$(find "$site/data" -type f \( -name '*.db' -o -name '*.sqlite' -o -name '*.sqlite3' \) ! -path "$site/data/migration-backups/*" -print -quit 2>/dev/null); then
-    fail 'cannot inspect data directory'
-  fi
-  [ -z "$database_entry" ] || command -v sqlite3 >/dev/null || fail 'sqlite3 is unavailable on the deployment server'
+snapshot="$snapshots/$snapshot_id"
+# The stage name is deterministic so separate workflow steps can safely
+# prepare, copy, back up databases, and finalize the same atomic snapshot.
+stage="$snapshots/.zogograph-snapshot-${snapshot_id}"
+case "$phase" in
+  snapshot|prepare)
+    test ! -e "$snapshot" || fail "snapshot already exists: $snapshot"
+    test ! -e "$stage" || fail "snapshot staging path already exists: $stage"
+    mkdir -p "$stage/site" "$stage/databases"
+    ;;
+  site|databases|finalize|discard)
+    test -d "$stage" || fail "snapshot staging path does not exist: $stage"
+    ;;
+esac
+if [ "$phase" = snapshot ]; then
+  cleanup() { rm -rf -- "$stage"; }
+  trap cleanup EXIT
 fi
 
-snapshot="$snapshots/$snapshot_id"
-test ! -e "$snapshot" || fail "snapshot already exists: $snapshot"
-stage="$snapshots/.zogograph-snapshot-${snapshot_id}-$$"
-test ! -e "$stage" || fail "snapshot staging path already exists: $stage"
-cleanup() { rm -rf -- "$stage"; }
-trap cleanup EXIT
-mkdir -p "$stage/site" "$stage/databases"
+if [ "$phase" = prepare ]; then
+  echo "Snapshot stage ready: $stage"
+  exit 0
+fi
+if [ "$phase" = discard ]; then
+  rm -rf -- "$stage"
+  echo "Snapshot stage discarded: $stage"
+  exit 0
+fi
 
 previous_snapshot=''
 previous_mtime=0
+if [ "$phase" = snapshot ] || [ "$phase" = site ]; then
 while IFS= read -r -d '' candidate; do
   name=${candidate##*/}
   valid_id "$name" || continue
@@ -94,7 +113,14 @@ else
 fi
 echo 'Snapshot phase: copying application files'
 rsync "${rsync_args[@]}" "$site/" "$stage/site/"
+fi
+
+if [ "$phase" = snapshot ] || [ "$phase" = databases ]; then
 if [ -d "$site/data" ]; then
+  if ! database_entry=$(find "$site/data" -type f \( -name '*.db' -o -name '*.sqlite' -o -name '*.sqlite3' \) ! -path "$site/data/migration-backups/*" -print -quit 2>/dev/null); then
+    fail 'cannot inspect data directory'
+  fi
+  [ -z "$database_entry" ] || command -v sqlite3 >/dev/null || fail 'sqlite3 is unavailable on the deployment server'
   echo 'Snapshot phase: backing up SQLite databases'
   find "$site/data" \
     -path "$site/data/migration-backups" -prune -o \
@@ -106,7 +132,9 @@ if [ -d "$site/data" ]; then
     sqlite3 "$database" ".backup $(sqlite_argument "$destination")"
   done
 fi
+fi
 
+if [ "$phase" = snapshot ] || [ "$phase" = finalize ]; then
 echo 'Snapshot phase: verifying and finalizing files'
 if ! captured=$(find "$stage/site" "$stage/databases" -type f -print -quit); then
   fail 'cannot verify staged snapshot'
@@ -123,5 +151,8 @@ EOF
 printf '%s\n' "$snapshot_id" > "$stage/SNAPSHOT_ID"
 
 mv -- "$stage" "$snapshot"
-trap - EXIT
+if [ "$phase" = snapshot ]; then
+  trap - EXIT
+fi
 echo "Snapshot ready: $snapshot ($app_files application files, $database_files database files)"
+fi

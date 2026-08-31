@@ -23720,27 +23720,12 @@ async function refreshHost() {
 
   $('hostLveWrap').hidden = !data.lve.length;
   if (data.lve.length) {
-    renderTable('hostLve', data.lve, [
-      {
-        label: ZogographI18n.t('cpu.account', {}, 'Account'),
-        render: (r) => r.user,
-      },
-      {
-        label: ZogographI18n.t('cpu.cpu_faults', {}, 'CPU faults'),
-        className: 'size',
-        render: (r) => r.faults_cpu,
-      },
-      {
-        label: ZogographI18n.t('cpu.memory_faults', {}, 'Memory faults'),
-        className: 'size',
-        render: (r) => r.faults_mem,
-      },
-      {
-        label: ZogographI18n.t('cpu.process_faults', {}, 'Process faults'),
-        className: 'size',
-        render: (r) => r.faults_procs,
-      },
-    ]);
+    renderCoreCardPackage(
+      ZogographHostLveFaultsCard,
+      'core-host-lve-faults',
+      { rows: data.lve },
+      { target: $('hostLve'), renderTable, i18n: ZogographI18n },
+    );
   }
 }
 

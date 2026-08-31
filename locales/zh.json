@@ -2447,7 +2447,6 @@
   "audit.succeeded": "成功",
   "audit.refused": "已拒绝",
   "audit.failed": "失败",
-  "audit.help": "每一次删除、扫描、向主机收集器发出的请求、发送的电子邮件、配置变更和登录，不论是否成功。拒绝记录和成功记录一样被仔细保留：了解什么{{not}}做，是了解发生了什么的一半。",
   "email.title": "电子邮件警报",
   "email.test_email": "发送测试邮件",
   "email.test_telegram": "发送测试 Telegram",

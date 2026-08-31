@@ -2465,7 +2465,6 @@
   "audit.succeeded": "succeeded",
   "audit.refused": "refused",
   "audit.failed": "failed",
-  "audit.help": "Every deletion, every scan, every request to the host collector, every email it sent, every configuration change and every sign-in — whether each worked or not. A refusal is kept as carefully as a success: knowing what was {{not}} done is half of knowing what happened.",
   "email.title": "Email alerts",
   "email.test_email": "Send a test email",
   "email.test_telegram": "Send a test Telegram",

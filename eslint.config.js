@@ -17,6 +17,7 @@ export default [
       globals: {
         ...globals.browser,
         ZogographI18n: 'readonly',
+        ZogographAuditShellCard: 'readonly',
         ZogographActionSummaryCard: 'readonly',
         ZogographCpuCoresCard: 'readonly',
         ZogographCpuFindingsCard: 'readonly',

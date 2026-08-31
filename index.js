@@ -3414,6 +3414,21 @@ function renderCpuShellLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderCpuShellLabels);
 
+function renderAuditShellLabels() {
+  const helpers = { i18n: ZogographI18n };
+  renderCoreCardPackage(
+    ZogographAuditShellCard,
+    'core-audit-shell',
+    {},
+    helpers,
+  );
+  ZogographI18n.applyRich(
+    document.querySelector('[data-i18n-rich="core-audit-shell.help"]'),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderAuditShellLabels);
+
 function renderCpuGaugesTitle() {
   const helpers = {
     target: null,

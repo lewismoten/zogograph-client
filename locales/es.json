@@ -2450,7 +2450,6 @@
   "audit.succeeded": "correcto",
   "audit.refused": "rechazado",
   "audit.failed": "fallido",
-  "audit.help": "Cada eliminación, cada análisis, cada solicitud al recolector del host, cada correo que envió, cada cambio de configuración y cada inicio de sesión, funcionaran o no. Una negativa se conserva con tanto cuidado como un éxito: saber qué no se hizo es la mitad de saber lo que ocurrió.",
   "email.title": "Alertas por correo",
   "email.test_email": "Enviar correo de prueba",
   "email.test_telegram": "Enviar Telegram de prueba",

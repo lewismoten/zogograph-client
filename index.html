@@ -21,6 +21,7 @@
     <script src="cards/cpu-queue.js" defer></script>
     <script src="cards/cpu-gauges.js" defer></script>
     <script src="cards/cpu-shell.js" defer></script>
+    <script src="cards/audit-shell.js" defer></script>
     <script src="cards/network-gauges.js" defer></script>
     <script src="cards/network-interfaces.js" defer></script>
     <script src="cards/network-ports.js" defer></script>
@@ -4017,7 +4018,10 @@
                 </label>
               </div>
             </div>
-            <p class="muted small sub-note" data-i18n-rich="audit.help">
+            <p
+              class="muted small sub-note"
+              data-i18n-rich="core-audit-shell.help"
+            >
               Every deletion, every scan, every request to the host collector,
               every email it sent, every configuration change and every sign-in
               — whether each worked or not. A refusal is kept as carefully as a

@@ -6034,6 +6034,28 @@ function renderNavigationControls() {
 
 document.addEventListener('zogograph-i18n-load', renderNavigationControls);
 
+function renderLanguageControls() {
+  const labels = renderCoreCardPackage(
+    ZogographLanguageControlsCard,
+    'core-language-controls',
+    {},
+    { i18n: ZogographI18n },
+  );
+  const nodes = document.querySelectorAll(
+    '[data-i18n^="core-language-controls."]',
+  );
+  nodes.forEach((node) => {
+    const key = node.dataset.i18n.endsWith('.keys') ? 'keys' : 'highlight';
+    node.textContent = ZogographI18n.markSource(
+      node,
+      `core-language-controls.${key}`,
+      labels[key],
+    );
+  });
+}
+
+document.addEventListener('zogograph-i18n-load', renderLanguageControls);
+
 /** Every container the settings are split across. */
 const AI_SETTING_PAGES = [
   'aiIdentityBody',

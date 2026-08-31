@@ -34369,11 +34369,9 @@ async function refreshWhoAmI() {
   if (you.private) {
     yours.push([
       '',
-      ZogographI18n.t(
-        'network.private_address_help',
-        {},
-        'A private address — you are on the same network as this machine, or behind a proxy that is.',
-      ),
+      ZogographSystemWhoamiShellCard.text('private_address_help', {
+        i18n: ZogographI18n,
+      }),
     ]);
   }
   yours.push([
@@ -34388,12 +34386,17 @@ async function refreshWhoAmI() {
   ]);
   if (you.agent)
     yours.push([
-      ZogographI18n.t('network.browser_says', {}, 'Browser says'),
+      ZogographSystemWhoamiShellCard.text('browser_says', {
+        i18n: ZogographI18n,
+      }),
       you.agent,
     ]);
 
   parts.push(
-    section(ZogographI18n.t('network.you', {}, 'You'), factGrid(yours)),
+    section(
+      ZogographSystemWhoamiShellCard.text('you', { i18n: ZogographI18n }),
+      factGrid(yours),
+    ),
   );
 
   if (!you.label && you.address) {
@@ -34407,11 +34410,9 @@ async function refreshWhoAmI() {
     wrap.className = 'inspect-actions';
     wrap.appendChild(
       note(
-        ZogographI18n.t(
-          'network.unlabelled_address_help',
-          {},
-          'This address has no name yet. Naming it means it is recognised wherever it appears — in captures, in the connection list, in the ports table.',
-        ),
+        ZogographSystemWhoamiShellCard.text('unlabelled_address_help', {
+          i18n: ZogographI18n,
+        }),
       ),
     );
     const go = document.createElement('button');
@@ -34431,11 +34432,9 @@ async function refreshWhoAmI() {
   if (you.claims.length) {
     parts.push(
       section(
-        ZogographI18n.t(
-          'network.proxy_claims_title',
-          {},
-          'What the proxy chain claims',
-        ),
+        ZogographSystemWhoamiShellCard.text('proxy_claims_title', {
+          i18n: ZogographI18n,
+        }),
         (() => {
           const wrap = document.createDocumentFragment();
           wrap.appendChild(
@@ -34457,11 +34456,9 @@ async function refreshWhoAmI() {
            */
           wrap.appendChild(
             note(
-              ZogographI18n.t(
-                'network.proxy_claims_help',
-                {},
-                'These are set by whatever spoke to the web server last. Behind a proxy they carry the real address; sent straight to the server they can say anything at all. The address above is the only one this process observed.',
-              ),
+              ZogographSystemWhoamiShellCard.text('proxy_claims_help', {
+                i18n: ZogographI18n,
+              }),
             ),
           );
           return wrap;

@@ -3262,6 +3262,35 @@ function renderCpuQueueTitle() {
 
 document.addEventListener('zogograph-i18n-load', renderCpuQueueTitle);
 
+function renderCpuProcessesTitle() {
+  const helpers = {
+    noteTarget: null,
+    tableTarget: null,
+    renderTable: () => null,
+    userCell: () => null,
+    namedThing: () => '',
+    humanDuration: () => '',
+    humanBytes: () => '',
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(
+    ZogographCpuProcessesCard,
+    'core-cpu-processes',
+    {},
+    helpers,
+  );
+  const title = document.querySelector(
+    '[data-i18n="core-cpu-processes.title"]',
+  );
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-cpu-processes.title',
+    ZogographCpuProcessesCard.text('title', helpers),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderCpuProcessesTitle);
+
 /**
  * When the disk is projected to fill, as a date.
  *

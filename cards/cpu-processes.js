@@ -15,6 +15,7 @@ window.ZogographCpuProcessesCard = {
     ],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-cpu-processes.title': 'What is burning it',
         'core-cpu-processes.empty':
           'No process has used measurable processor time between two readings.',
         'core-cpu-processes.summary':
@@ -41,6 +42,7 @@ window.ZogographCpuProcessesCard = {
         'core-cpu-processes.state.I': 'idle kernel thread',
       }),
       es: Object.freeze({
+        'core-cpu-processes.title': 'Qué lo está consumiendo',
         'core-cpu-processes.empty':
           'Ningún proceso ha usado tiempo de procesador medible entre dos lecturas.',
         'core-cpu-processes.summary':
@@ -67,6 +69,7 @@ window.ZogographCpuProcessesCard = {
         'core-cpu-processes.state.I': 'hilo de kernel inactivo',
       }),
       hi: Object.freeze({
+        'core-cpu-processes.title': 'इसे कौन जला रहा है',
         'core-cpu-processes.empty':
           'दो रीडिंग के बीच किसी प्रक्रिया ने मापने योग्य प्रोसेसर समय उपयोग नहीं किया।',
         'core-cpu-processes.summary':
@@ -92,6 +95,7 @@ window.ZogographCpuProcessesCard = {
         'core-cpu-processes.state.I': 'निष्क्रिय कर्नेल थ्रेड',
       }),
       ar: Object.freeze({
+        'core-cpu-processes.title': 'ما الذي يحرقه',
         'core-cpu-processes.empty':
           'لم تستخدم أي عملية وقت معالجة قابلًا للقياس بين قراءتين.',
         'core-cpu-processes.summary':
@@ -117,6 +121,7 @@ window.ZogographCpuProcessesCard = {
         'core-cpu-processes.state.I': 'خيط نواة خامل',
       }),
       zh: Object.freeze({
+        'core-cpu-processes.title': '是什么在消耗它',
         'core-cpu-processes.empty':
           '两个读数之间没有进程使用可测量的处理器时间。',
         'core-cpu-processes.summary':
@@ -143,6 +148,13 @@ window.ZogographCpuProcessesCard = {
       }),
     }),
   }),
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-cpu-processes.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-cpu-processes.${key}`],
+    );
+  },
   render(data, helpers) {
     const {
       noteTarget,

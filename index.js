@@ -41610,7 +41610,12 @@ $('sessionName').addEventListener('click', async () => {
 $('memoryAdd').addEventListener('click', () => {
   if (!memoryState.data) {
     notice(
-      ZogographI18n.t('ai.memory_open_first', {}, 'Open this page first.'),
+      renderCoreCardPackage(
+        ZogographAiMemoryActionsCard,
+        'core-ai-memory-actions',
+        { key: 'open_first', fallback: 'Open this page first.' },
+        { i18n: ZogographI18n },
+      ),
     );
     return;
   }
@@ -41620,10 +41625,15 @@ $('memoryAdd').addEventListener('click', () => {
 $('memoryClear').addEventListener('click', async () => {
   if (
     !(await confirmDialog(
-      ZogographI18n.t(
-        'ai.memory_clear_confirm',
-        {},
-        'Forget everything it has remembered?\n\nEvery conversation starts from nothing again. This cannot be undone from here.',
+      renderCoreCardPackage(
+        ZogographAiMemoryActionsCard,
+        'core-ai-memory-actions',
+        {
+          key: 'clear_confirm',
+          fallback:
+            'Forget everything it has remembered?\n\nEvery conversation starts from nothing again. This cannot be undone from here.',
+        },
+        { i18n: ZogographI18n },
       ),
     ))
   )
@@ -41632,10 +41642,15 @@ $('memoryClear').addEventListener('click', async () => {
   try {
     const result = await post('ai-memory-clear');
     notice(
-      ZogographI18n.t(
-        'ai.memory_clear_result',
-        { memories: count(result.forgotten, 'memory', 'memories') },
-        '{{memories}} forgotten.',
+      renderCoreCardPackage(
+        ZogographAiMemoryActionsCard,
+        'core-ai-memory-actions',
+        {
+          key: 'clear_result',
+          values: { memories: count(result.forgotten, 'memory', 'memories') },
+          fallback: '{{memories}} forgotten.',
+        },
+        { i18n: ZogographI18n },
       ),
       true,
     );

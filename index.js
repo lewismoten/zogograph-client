@@ -5977,6 +5977,23 @@ function renderChatComposer() {
 
 document.addEventListener('zogograph-i18n-load', renderChatComposer);
 
+function renderLiveToggle() {
+  const label = renderCoreCardPackage(
+    ZogographLiveToggleCard,
+    'core-live-toggle',
+    {},
+    { i18n: ZogographI18n },
+  );
+  const node = $('live').querySelector('span:not(.dot)');
+  node.textContent = ZogographI18n.markSource(
+    node,
+    'core-live-toggle.label',
+    label,
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderLiveToggle);
+
 /** Every container the settings are split across. */
 const AI_SETTING_PAGES = [
   'aiIdentityBody',

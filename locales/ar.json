@@ -1531,7 +1531,6 @@
   "merge.reviewed_title": "دمج الجامع الذي تمت مراجعته",
   "merge.apply": "تطبيق دمج الجامع الذي تمت مراجعته",
   "dashboard.range": "النطاق الزمني",
-  "dashboard.live": "مباشر",
   "auth.sign_in": "تسجيل الدخول",
   "auth.create_password": "إنشاء كلمة مرور",
   "auth.create_sign_in_password": "إنشاء كلمة مرور لتسجيل الدخول",

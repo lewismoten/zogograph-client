@@ -1531,7 +1531,6 @@
   "merge.reviewed_title": "已审查的采集器合并",
   "merge.apply": "应用已审查的采集器合并",
   "dashboard.range": "时间范围",
-  "dashboard.live": "实时",
   "auth.sign_in": "登录",
   "auth.create_password": "创建密码",
   "auth.create_sign_in_password": "创建登录密码",

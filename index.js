@@ -7068,93 +7068,21 @@ async function drawChatChart(args) {
  * rate would be absurd. The element is simply moved back into place.
  */
 function chatChartCard(message) {
-  const cached = chatState.charts.get(message.id);
-  if (cached) return cached;
-
-  const card = document.createElement('div');
-  card.className = 'chat-chart';
-  card.dataset.message = String(message.id);
-
-  const head = document.createElement('div');
-  head.className = 'chat-chart-head';
-  head.textContent = '…';
-  card.appendChild(head);
-
-  const canvas = document.createElement('canvas');
-  canvas.className = 'chat-chart-canvas';
-  card.appendChild(canvas);
-
-  const caption = document.createElement('div');
-  caption.className = 'muted small';
-  caption.textContent = message.arguments.why || '';
-  card.appendChild(caption);
-
-  chatState.charts.set(message.id, card);
-
-  /*
-   * Drawn after it is in the document.
-   *
-   * drawLineChart measures the element, and a canvas with no width produces a
-   * 300x150 default that is then stretched - the one mistake this codebase has
-   * made four times now.
-   */
-  requestAnimationFrame(async () => {
-    try {
-      const drawn = await renderNamedChart(
-        canvas,
-        message.arguments.chart,
-        Number(message.arguments.hours) || 24,
-      );
-      head.textContent =
-        `${drawn.name} · ` +
-        `${humanSpan(Number(message.arguments.hours) * 3600, true)}`;
-
-      /*
-       * Where this chart actually lives.
-       *
-       * A picture in a chat window is a dead end: it cannot be hovered for a
-       * value, ranged, or compared against the one below it. The page it came
-       * from can do all three, and is one click away.
-       */
-      if (drawn.page && VIEWS[drawn.page]) {
-        const go = document.createElement('button');
-        go.className = 'link small';
-        go.textContent = ZogographI18n.t(
-          'chart.open_on_page',
-          { page: VIEWS[drawn.page].label },
-          'Open it on {{page}}',
-        );
-        go.addEventListener('click', () => {
-          location.hash = `#/${drawn.page}?range=${state.range}`;
-        });
-        card.appendChild(go);
-      }
-
-      if (!drawn.points) {
-        caption.textContent =
-          ZogographI18n.t(
-            'chart.no_data',
-            {},
-            'Nothing was recorded in this period.',
-          ) +
-          ' ' +
-          (caption.textContent || '');
-      }
-    } catch (error) {
-      head.textContent = ZogographI18n.t(
-        'chart.could_not_draw',
-        {},
-        'That chart could not be drawn',
-      );
-      caption.textContent = ZogographI18n.t(
-        'chart.error',
-        { error: String(error.message || error) },
-        'Could not draw this visual: {{error}}',
-      );
-    }
-  });
-
-  return card;
+  return renderCoreCardPackage(
+    ZogographChatChartCard,
+    'core-chat-chart',
+    message,
+    {
+      charts: chatState.charts,
+      humanSpan,
+      renderChart: renderNamedChart,
+      viewLabel: (page) => VIEWS[page]?.label || '',
+      openView: (page) => {
+        location.hash = `#/${page}?range=${state.range}`;
+      },
+      i18n: ZogographI18n,
+    },
+  );
 }
 
 /** A visual whose numbers came from the assistant, rather than a built-in chart. */

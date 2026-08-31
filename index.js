@@ -16437,7 +16437,7 @@ function renderMarketplace(data) {
           render: (row) => row.summary,
         },
         {
-          label: marketplaceText('table_capabilities', {}, 'Capabilities'),
+          label: marketplaceShellText('table_capabilities'),
           render: (row) => row.capabilities.join(', '),
         },
         {
@@ -16455,7 +16455,7 @@ function renderMarketplace(data) {
           render: (row) => row.license,
         },
         {
-          label: marketplaceText('table_status', {}, 'Status'),
+          label: marketplaceShellText('table_status'),
           render: (row) =>
             row.requires_reapproval
               ? marketplaceText('review_required', {}, 'review required')

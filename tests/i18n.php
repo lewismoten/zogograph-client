@@ -3030,9 +3030,13 @@ i18nExpect(
             ],
             $coreCardEnglish['core-system-marketplace-shell.table_trust'],
             $coreCardEnglish[
+                'core-system-marketplace-shell.table_capabilities'
+            ],
+            $coreCardEnglish[
                 'core-system-marketplace-shell.table_compatibility'
             ],
             $coreCardEnglish['core-system-marketplace-shell.table_license'],
+            $coreCardEnglish['core-system-marketplace-shell.table_status'],
         ),
     'marketplace controls do not use translatable catalog messages',
 );

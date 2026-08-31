@@ -540,7 +540,6 @@
   "chart.visual_gauge_data_error": "تحتاج بيانات المقياس إلى قيمة وحد أقصى موجب.",
   "chart.visual_line_data_error": "تحتاج بيانات الخط إلى سلاسل ونقاط.",
   "chart.screenshot_unsupported": "لا يستطيع هذا المتصفح أخذ لقطة شاشة من صفحة.",
-  "ai.settings.sign_in_required": "سجّل الدخول لرؤية هذه الإعدادات.",
   "ai.preview_no_parameters": "لا يحتاج هذا إلى أي معلمات.",
   "ai.preview_leave_out": "— اتركه خارجًا —",
   "ai.settings.past_conversations_sign_in": "سجّل الدخول لرؤية المحادثات السابقة.",

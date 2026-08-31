@@ -5628,8 +5628,11 @@ async function refreshAiSettings() {
   if (!state.signedIn) {
     for (const body of bodies)
       body.replaceChildren(
-        note(
-          aiSettingsText('sign_in_required', 'Sign in to see these settings.'),
+        renderCoreCardPackage(
+          ZogographAiSettingsSignInCard,
+          'core-ai-settings-sign-in',
+          {},
+          { note, i18n: ZogographI18n },
         ),
       );
     return;

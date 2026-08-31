@@ -160,6 +160,7 @@ export default [
         ZogographAiToolTryCard: 'readonly',
         ZogographAiConnectionTestCard: 'readonly',
         ZogographAiSettingsStatusCard: 'readonly',
+        ZogographAiSettingsSignInCard: 'readonly',
         ZogographAiKeyForgetCard: 'readonly',
         ZogographAiEnableToggleCard: 'readonly',
         ZogographAiReasoningEffortCard: 'readonly',

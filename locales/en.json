@@ -540,7 +540,6 @@
   "chart.visual_gauge_data_error": "Gauge data needs a value and a positive maximum.",
   "chart.visual_line_data_error": "Line data needs series and points.",
   "chart.screenshot_unsupported": "This browser cannot take a screenshot from a page.",
-  "ai.settings.sign_in_required": "Sign in to see these settings.",
   "ai.preview_no_parameters": "This one takes no parameters.",
   "ai.preview_leave_out": "— leave it out —",
   "ai.settings.past_conversations_sign_in": "Sign in to see past conversations.",

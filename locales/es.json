@@ -540,7 +540,6 @@
   "chart.visual_gauge_data_error": "Los datos del indicador necesitan un valor y un máximo positivo.",
   "chart.visual_line_data_error": "Los datos de línea necesitan series y puntos.",
   "chart.screenshot_unsupported": "Este navegador no puede tomar una captura de pantalla desde una página.",
-  "ai.settings.sign_in_required": "Inicie sesión para ver estos ajustes.",
   "ai.preview_no_parameters": "Este no admite parámetros.",
   "ai.preview_leave_out": "— no incluirlo —",
   "ai.settings.past_conversations_sign_in": "Inicie sesión para ver conversaciones anteriores.",

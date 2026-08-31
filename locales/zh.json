@@ -540,7 +540,6 @@
   "chart.visual_gauge_data_error": "仪表数据需要一个值和正的最大值。",
   "chart.visual_line_data_error": "折线数据需要系列和数据点。",
   "chart.screenshot_unsupported": "此浏览器无法从页面截取屏幕截图。",
-  "ai.settings.sign_in_required": "登录后可查看这些设置。",
   "ai.preview_no_parameters": "此项不接受参数。",
   "ai.preview_leave_out": "— 不包含此项 —",
   "ai.settings.past_conversations_sign_in": "登录后可查看过去的对话。",

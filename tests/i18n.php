@@ -456,6 +456,7 @@ i18nExpect(
         $english['ai.forget_key'],
         $english['ai.settings.forget_key_confirm'],
         $english['ai.settings.forget_key_title'],
+        $english['ai.settings.sign_in_required'],
     ),
     'AI card controls belong to their card packages',
 );

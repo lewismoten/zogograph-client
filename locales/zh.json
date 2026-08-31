@@ -590,7 +590,6 @@
   "ai.portrait_cleared": "已清除。",
   "ai.data_page": "助手数据",
   "ai.apply_toolset": "应用工具集",
-  "ai.toolset_applied": "已应用 {{label}}。请保存这些设置以使其生效。",
   "ai.tool_column": "工具",
   "ai.runs_column": "运行位置",
   "ai.may_use_column": "可以使用",

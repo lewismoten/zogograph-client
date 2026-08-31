@@ -647,7 +647,6 @@
   "ai.portrait_cleared": "Cleared.",
   "ai.data_page": "Assistant data",
   "ai.apply_toolset": "Apply toolset",
-  "ai.toolset_applied": "Applied {{label}}. Save these settings to make it active.",
   "ai.tool_column": "Tool",
   "ai.runs_column": "Runs",
   "ai.may_use_column": "May use it",

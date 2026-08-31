@@ -18,6 +18,8 @@ window.ZogographAiToolsToolbarCard = {
           '{{enabled, number}} of {{count, number}} switched on.',
         'core-ai-tools-toolbar.saved': '{{label}} (saved)',
         'core-ai-tools-toolbar.apply': 'Apply toolset',
+        'core-ai-tools-toolbar.applied':
+          'Applied {{label}}. Save these settings to make it active.',
       }),
       es: Object.freeze({
         'core-ai-tools-toolbar.tab': '{{group}} ({{count, number}})',
@@ -26,6 +28,8 @@ window.ZogographAiToolsToolbarCard = {
           '{{enabled, number}} de {{count, number}} activadas.',
         'core-ai-tools-toolbar.saved': '{{label}} (guardado)',
         'core-ai-tools-toolbar.apply': 'Aplicar conjunto',
+        'core-ai-tools-toolbar.applied':
+          'Se aplicó {{label}}. Guarde estos ajustes para activarlo.',
       }),
       hi: Object.freeze({
         'core-ai-tools-toolbar.tab': '{{group}} ({{count, number}})',
@@ -34,6 +38,8 @@ window.ZogographAiToolsToolbarCard = {
           '{{count, number}} में से {{enabled, number}} चालू हैं।',
         'core-ai-tools-toolbar.saved': '{{label}} (सहेजा गया)',
         'core-ai-tools-toolbar.apply': 'टूलसेट लागू करें',
+        'core-ai-tools-toolbar.applied':
+          '{{label}} लागू किया गया। इसे सक्रिय करने के लिए इन सेटिंग को सहेजें।',
       }),
       ar: Object.freeze({
         'core-ai-tools-toolbar.tab': '{{group}} ({{count, number}})',
@@ -42,6 +48,8 @@ window.ZogographAiToolsToolbarCard = {
           '{{enabled, number}} من {{count, number}} مفعّلة.',
         'core-ai-tools-toolbar.saved': '{{label}} (محفوظ)',
         'core-ai-tools-toolbar.apply': 'طبّق مجموعة الأدوات',
+        'core-ai-tools-toolbar.applied':
+          'طُبقت {{label}}. احفظ هذه الإعدادات لتصبح نشطة.',
       }),
       zh: Object.freeze({
         'core-ai-tools-toolbar.tab': '{{group}}（{{count, number}}）',
@@ -50,6 +58,8 @@ window.ZogographAiToolsToolbarCard = {
           '{{count, number}} 个中有 {{enabled, number}} 个已启用。',
         'core-ai-tools-toolbar.saved': '{{label}}（已保存）',
         'core-ai-tools-toolbar.apply': '应用工具集',
+        'core-ai-tools-toolbar.applied':
+          '已应用 {{label}}。请保存这些设置以使其生效。',
       }),
     }),
   }),
@@ -103,7 +113,15 @@ window.ZogographAiToolsToolbarCard = {
     apply.disabled = !input.writable;
     apply.addEventListener('click', () => {
       const set = input.toolsets.find((item) => item.name === select.value);
-      if (set) applyToolset(set);
+      if (set)
+        applyToolset(
+          set,
+          t(
+            'core-ai-tools-toolbar.applied',
+            { label: set.label },
+            'Applied {{label}}. Save these settings to make it active.',
+          ),
+        );
     });
     presets.append(select, apply);
     parts.push(presets);

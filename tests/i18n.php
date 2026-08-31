@@ -306,8 +306,9 @@ i18nExpect(
     !isset(
         $english['ai.test_connection'],
         $english['ai.test_connection_title'],
+        $english['ai.toolset_applied'],
     ),
-    'connection-test controls belong to their card package',
+    'AI card controls belong to their card packages',
 );
 i18nExpect(
     !isset(

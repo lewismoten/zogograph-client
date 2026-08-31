@@ -6419,21 +6419,14 @@ function renderAiTools(data) {
           toolTab = group;
           renderAiTools(data);
         },
-        applyToolset(set) {
+        applyToolset(set, appliedMessage) {
           for (const [name, setting] of Object.entries(set.tools || {})) {
             const enabled = body.querySelector(`.tool-on[data-tool="${name}"]`);
             const ask = body.querySelector(`.tool-ask[data-tool="${name}"]`);
             if (enabled) enabled.checked = Boolean(setting.enabled);
             if (ask) ask.checked = Boolean(setting.permission);
           }
-          notice(
-            ZogographI18n.t(
-              'ai.toolset_applied',
-              { label: set.label },
-              'Applied {{label}}. Save these settings to make it active.',
-            ),
-            true,
-          );
+          notice(appliedMessage, true);
         },
         i18n: ZogographI18n,
       },

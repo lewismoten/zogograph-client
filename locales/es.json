@@ -594,7 +594,6 @@
   "ai.portrait_cleared": "Quitado.",
   "ai.data_page": "Datos del asistente",
   "ai.apply_toolset": "Aplicar conjunto de herramientas",
-  "ai.toolset_applied": "Se aplicó {{label}}. Guarde esta configuración para activarlo.",
   "ai.tool_column": "Herramienta",
   "ai.runs_column": "Se ejecuta",
   "ai.may_use_column": "Puede usarla",

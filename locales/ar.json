@@ -590,7 +590,6 @@
   "ai.portrait_cleared": "مُسحت.",
   "ai.data_page": "بيانات المساعد",
   "ai.apply_toolset": "طبّق مجموعة الأدوات",
-  "ai.toolset_applied": "طُبقت {{label}}. احفظ هذه الإعدادات لتصبح نشطة.",
   "ai.tool_column": "الأداة",
   "ai.runs_column": "تعمل",
   "ai.may_use_column": "يجوز استخدامها",

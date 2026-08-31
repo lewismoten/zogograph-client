@@ -4035,6 +4035,31 @@ function renderFetchPreviewLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderFetchPreviewLabels);
 
+function renderEmailShell() {
+  const helpers = { i18n: ZogographI18n };
+  renderCoreCardPackage(
+    ZogographEmailShellCard,
+    'core-email-shell',
+    {},
+    helpers,
+  );
+  for (const key of ['title', 'test_email', 'test_telegram']) {
+    const element = document.querySelector(
+      `[data-i18n="core-email-shell.${key}"]`,
+    );
+    element.textContent = ZogographI18n.markSource(
+      element,
+      `core-email-shell.${key}`,
+      ZogographEmailShellCard.text(key, helpers),
+    );
+  }
+  ZogographI18n.applyRich(
+    document.querySelector('[data-i18n-rich="core-email-shell.help"]'),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderEmailShell);
+
 /**
  * When the disk is projected to fill, as a date.
  *

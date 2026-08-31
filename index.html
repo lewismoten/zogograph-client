@@ -129,6 +129,7 @@
     <script src="cards/email-delivery-history.js" defer></script>
     <script src="cards/email-save-controls.js" defer></script>
     <script src="cards/email-rule-intro.js" defer></script>
+    <script src="cards/email-shell.js" defer></script>
     <script src="cards/dns-changes.js" defer></script>
     <script src="cards/dns-record-group.js" defer></script>
     <script src="cards/report-row.js" defer></script>
@@ -4056,15 +4057,21 @@
         <section class="view" data-view="email" hidden>
           <section class="panel" id="emailPanel">
             <div class="panel-head">
-              <h2 data-i18n="email.title">Email alerts</h2>
-              <button id="testEmail" data-i18n="email.test_email">
+              <h2 data-i18n="core-email-shell.title">Email alerts</h2>
+              <button id="testEmail" data-i18n="core-email-shell.test_email">
                 Send a test email
               </button>
-              <button id="testTelegram" data-i18n="email.test_telegram">
+              <button
+                id="testTelegram"
+                data-i18n="core-email-shell.test_telegram"
+              >
                 Send a test Telegram
               </button>
             </div>
-            <p class="muted small sub-note" data-i18n-rich="email.help">
+            <p
+              class="muted small sub-note"
+              data-i18n-rich="core-email-shell.help"
+            >
               Mail goes out through PHP's
               <code data-i18n-tag="mail">mail()</code>, which on a cPanel host
               means the server's own mail queue. One message per alerting run

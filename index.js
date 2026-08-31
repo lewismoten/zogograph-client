@@ -18215,118 +18215,23 @@ function renderStore(data) {
  * together can answer that.
  */
 function renderAccountData(data) {
-  if (window.ZogographAccountDatabaseStorageCard) {
-    return renderCoreCardPackage(
-      ZogographAccountDatabaseStorageCard,
-      'core-account-database-storage',
-      data,
-      {
-        target: $('accountDataBody'),
-        note,
-        section,
-        databaseStorageCard,
-        simpleTable,
-        databaseTableName,
-        tableFactsFor,
-        humanCount,
-        humanBytes,
-        i18n: ZogographI18n,
-      },
-    );
-  }
-  const parts = [];
-  const account = data.account;
-
-  parts.push(
-    section(
-      ZogographI18n.t(
-        'database.account_database',
-        {},
-        "This account's database",
-      ),
-      databaseStorageCard(account.file, {
-        projected: account.projected_total,
-        known: account.projected_known,
-        growth: account.growth_per_year,
-      }),
-    ),
+  return renderCoreCardPackage(
+    ZogographAccountDatabaseStorageCard,
+    'core-account-database-storage',
+    data,
+    {
+      target: $('accountDataBody'),
+      note,
+      section,
+      databaseStorageCard,
+      simpleTable,
+      databaseTableName,
+      tableFactsFor,
+      humanCount,
+      humanBytes,
+      i18n: ZogographI18n,
+    },
   );
-
-  if (!account.measured) parts.push(note(account.why));
-
-  /*
-   * Every table, not just the ones with a retention setting.
-   *
-   * Leaving the rest out meant the parts of the page never added up to the
-   * file size, and an accounting that does not add up is one nobody trusts the
-   * rest of.
-   */
-  if (account.measured) {
-    const rows = [
-      ...account.entries
-        .filter((entry) => !entry.shares_table || entry.key === 'raw_days')
-        .map((entry) => [
-          entry.shares_table ? 'vitals' : entry.table,
-          entry.shares_table
-            ? ZogographI18n.t(
-                'database.all_reading_tiers',
-                {},
-                'all reading tiers',
-              )
-            : entry.label,
-        ]),
-      ...account.others.map((other) => [other.table, '']),
-    ];
-
-    const byTable = new Map();
-    for (const [table] of rows) byTable.set(table, true);
-
-    const table = [...byTable.keys()]
-      .map((name) => {
-        const other = account.others.find((row) => row.table === name);
-        const facts = other || tableFactsFor(account, name);
-        return facts;
-      })
-      .filter(Boolean);
-
-    parts.push(
-      section(
-        ZogographI18n.t('database.space_breakdown', {}, 'Where the space goes'),
-        simpleTable(
-          [
-            ZogographI18n.t('database.table', {}, 'Table'),
-            ZogographI18n.t('database.rows', {}, 'Rows'),
-            ZogographI18n.t('database.data', {}, 'Data'),
-            ZogographI18n.t('database.indexes', {}, 'Indexes'),
-            ZogographI18n.t('database.total', {}, 'Total'),
-          ],
-          table
-            .sort((a, b) => b.total_bytes - a.total_bytes)
-            .map((row) => [
-              databaseTableName(row.table, false),
-              humanCount(row.rows ?? 0),
-              humanBytes(row.bytes),
-              humanBytes(row.index_bytes),
-              humanBytes(row.total_bytes),
-            ]),
-          ['name', 'size', 'size', 'size', 'size'],
-        ),
-      ),
-    );
-
-    parts.push(
-      note(
-        ZogographI18n.t(
-          'database.indexes_note',
-          {},
-          'Indexes are counted against the table they belong to. On a busy table an index can be close to half the total, and listing them separately makes every table look cheaper than it is.',
-        ),
-      ),
-    );
-  }
-
-  const target = $('accountDataBody');
-  if (target) target.replaceChildren(...parts);
 }
 
 /** The host collector's database, which this account reads and never writes. */

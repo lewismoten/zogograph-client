@@ -960,8 +960,12 @@ i18nExpect(
         str_contains(
             $script,
             'renderCoreCardPackage(ZogographAccountDatabaseStorageCard, "core-account-database-storage",',
+        ) &&
+        !str_contains(
+            $script,
+            'if (window.ZogographAccountDatabaseStorageCard)',
         ),
-    'account database storage is not isolated behind its core card-module boundary',
+    'account database storage retains a core fallback instead of its package boundary',
 );
 i18nExpect(
     $page !== false &&

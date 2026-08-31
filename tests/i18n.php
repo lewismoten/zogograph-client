@@ -4472,9 +4472,17 @@ i18nExpect(
     $hostFilesCard !== false &&
         str_contains($hostFilesCard, '"core-host-files.also_at"') &&
         str_contains($hostFilesCard, '"core-host-files.linked_total"') &&
+        str_contains($hostFilesCard, '"core-host-files.empty"') &&
+        str_contains($hostFilesCard, '"core-host-files.names_all"') &&
+        str_contains($hostFilesCard, '"core-host-files.names_some"') &&
+        str_contains($hostFilesCard, '"core-host-files.total"') &&
         is_array($english) &&
         !isset($english['host.files_also_at']) &&
-        !isset($english['host.files_linked_total']),
+        !isset($english['host.files_linked_total']) &&
+        !isset($english['host.files_empty']) &&
+        !isset($english['host.files_names_all']) &&
+        !isset($english['host.files_names_some']) &&
+        !isset($english['host.files_total']),
     'host file hard-link labels and summary are not package-owned',
 );
 i18nExpect(

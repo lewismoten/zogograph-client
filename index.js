@@ -34790,6 +34790,14 @@ const urlActionText = (key, values = {}) =>
     { i18n: ZogographI18n },
   );
 
+const urlStatusText = (key, values = {}) =>
+  renderCoreCardPackage(
+    window.ZogographUrlMonitorStatusCard,
+    'core-url-monitor-status',
+    { key, values },
+    { i18n: ZogographI18n },
+  );
+
 async function refreshUrls() {
   const body = $('urlBody');
   if (!state.signedIn) {
@@ -34859,19 +34867,15 @@ function renderUrls(data) {
 
           if (!row.enabled) {
             span.textContent = '\u23f8\ufe0f';
-            parts.push(
-              ZogographI18n.t('url.switched_off', {}, 'Switched off.'),
-            );
+            parts.push(urlStatusText('switched_off'));
           } else if (row.last_ok === null) {
             span.textContent = '\u2b1c';
-            parts.push(
-              ZogographI18n.t('url.not_checked_yet', {}, 'Not checked yet.'),
-            );
+            parts.push(urlStatusText('not_checked_yet'));
           } else if (Number(row.last_ok) === 1) {
             span.textContent = '\u2705';
             parts.push(
-              ZogographI18n.t(
-                'url.answered_expected',
+              urlStatusText(
+                'answered_expected',
                 { status: row.last_status },
                 'Answered {{status, number}} as expected.',
               ),
@@ -34880,8 +34884,8 @@ function renderUrls(data) {
             span.textContent = '\u274c';
             parts.push(
               row.last_error ||
-                ZogographI18n.t(
-                  'url.answered',
+                urlStatusText(
+                  'answered',
                   { status: row.last_status },
                   'Answered {{status, number}}.',
                 ),
@@ -34892,17 +34896,15 @@ function renderUrls(data) {
             `${row.method || 'GET'}${
               Number(row.follow_redirects)
                 ? ''
-                : `, ${ZogographI18n.t('url.no_redirects', {}, 'no redirects')}`
+                : `, ${urlStatusText('no_redirects')}`
             }${
-              Number(row.send_etag)
-                ? `, ${ZogographI18n.t('url.conditional', {}, 'conditional')}`
-                : ''
+              Number(row.send_etag) ? `, ${urlStatusText('conditional')}` : ''
             }.`,
           );
           if (row.last_at)
             parts.push(
-              ZogographI18n.t(
-                'url.last_checked',
+              urlStatusText(
+                'last_checked',
                 { ago: ago(row.last_at) },
                 'Last checked {{ago}}.',
               ),
@@ -34913,7 +34915,7 @@ function renderUrls(data) {
         },
       },
       {
-        label: ZogographI18n.t('url.what', {}, 'What'),
+        label: urlStatusText('what'),
         className: 'name',
         render: (row) => {
           const span = document.createElement('span');
@@ -34945,24 +34947,20 @@ function renderUrls(data) {
         },
       },
       {
-        label: ZogographI18n.t('url.how_often', {}, 'How often'),
+        label: urlStatusText('how_often'),
         render: (row) => row.interval_label,
       },
       {
-        label: ZogographI18n.t('url.last_checked_label', {}, 'Last checked'),
+        label: urlStatusText('last_checked_label'),
         render: (row) => {
-          if (!row.last_at) return ZogographI18n.t('url.never', {}, 'never');
+          if (!row.last_at) return urlStatusText('never');
           const span = document.createElement('span');
           span.textContent = ago(row.last_at);
           // Overdue means the cron is not running, which is a different failure
           // from the site being down and must not look like one.
           if (row.overdue) {
             span.className = 'band-warn';
-            span.title = ZogographI18n.t(
-              'url.overdue_cron',
-              {},
-              "Due before now. The account's cron may not be running.",
-            );
+            span.title = urlStatusText('overdue_cron');
           }
           return span;
         },

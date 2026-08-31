@@ -2291,6 +2291,12 @@ i18nExpect(
             $english['terminal.sessions_grouping_help'],
             $english['terminal.sessions_topic_help'],
             $english['terminal.sessions_output_help'],
+            $english['terminal.sessions_empty'],
+            $english['terminal.sessions_no_topic'],
+            $english['terminal.sessions_started'],
+            $english['terminal.sessions_last_command'],
+            $english['terminal.sessions_commands'],
+            $english['terminal.sessions_who'],
         ),
     'terminal sessions heading does not use its core card package catalog',
 );

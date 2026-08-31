@@ -4010,6 +4010,31 @@ function renderHostWalkControlLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderHostWalkControlLabels);
 
+function renderFetchPreviewLabels() {
+  const helpers = { i18n: ZogographI18n };
+  renderCoreCardPackage(
+    ZogographFetchPreviewCard,
+    'core-fetch-preview',
+    null,
+    helpers,
+  );
+  const title = document.querySelector(
+    '[data-i18n="core-fetch-preview.request_title"]',
+  );
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-fetch-preview.request_title',
+    ZogographFetchPreviewCard.text('request_title', helpers),
+  );
+  ZogographI18n.applyRich(
+    document.querySelector(
+      '[data-i18n-rich="core-fetch-preview.request_help"]',
+    ),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderFetchPreviewLabels);
+
 /**
  * When the disk is projected to fill, as a date.
  *

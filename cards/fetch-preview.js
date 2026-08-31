@@ -5,6 +5,9 @@ window.ZogographFetchPreviewCard = {
     helpers: ['note', 'toggleImages', 'i18n'],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-fetch-preview.request_title': 'Ask for a page',
+        'core-fetch-preview.request_help':
+          'One request, made now, reported in full — what the server actually sends, which is the question while you are setting a check up or arguing with a cache. Type an address with or without {{https}}. The body is shown as text and never inserted as markup; the preview runs in a sandboxed frame of its own, which can neither read this page nor act as you. The body is kept for an hour so the preview can load it, then discarded.',
         'core-fetch-preview.title': 'Preview of the response',
         'core-fetch-preview.too_large':
           'That body is too large to preview. The raw view still has all of it.',
@@ -23,6 +26,9 @@ window.ZogographFetchPreviewCard = {
           'Rendered in a sandbox with no scripts, no forms and no access to this page, so it will not look exactly as it does in a browser — anything the page draws with JavaScript will be missing.',
       }),
       es: Object.freeze({
+        'core-fetch-preview.request_title': 'Pedir una página',
+        'core-fetch-preview.request_help':
+          'Una solicitud realizada ahora e informada completa: lo que el servidor envía realmente, que es la pregunta al configurar una comprobación o discutir con una caché. Escriba una dirección con o sin {{https}}. El cuerpo se muestra como texto y nunca se inserta como marcado; la vista previa se ejecuta en su propio marco aislado, que no puede leer esta página ni actuar como usted. El cuerpo se conserva una hora para que la vista previa pueda cargarlo y luego se descarta.',
         'core-fetch-preview.title': 'Vista previa de la respuesta',
         'core-fetch-preview.too_large':
           'Ese cuerpo es demasiado grande para obtener una vista previa. La vista sin procesar aún lo contiene completo.',
@@ -41,6 +47,9 @@ window.ZogographFetchPreviewCard = {
           'Se muestra en una zona aislada sin scripts, formularios ni acceso a esta página, por lo que no se verá exactamente como en un navegador: faltará todo lo que la página dibuje con JavaScript.',
       }),
       hi: Object.freeze({
+        'core-fetch-preview.request_title': 'एक पेज माँगें',
+        'core-fetch-preview.request_help':
+          'एक अनुरोध, अभी किया गया और पूरा बताया गया—सर्वर वास्तव में क्या भेजता है, जो जाँच सेट करते समय या कैश पर बहस करते समय महत्वपूर्ण है। {{https}} के साथ या बिना पता लिखें। बॉडी को टेक्स्ट के रूप में दिखाया जाता है और कभी मार्कअप के रूप में नहीं डाला जाता; प्रीव्यू अपने सैंडबॉक्स फ्रेम में चलता है, जो न इस पेज को पढ़ सकता है न आपके रूप में कार्य कर सकता है। प्रीव्यू लोड करने के लिए बॉडी एक घंटे रखी जाती है, फिर हटा दी जाती है।',
         'core-fetch-preview.title': 'प्रतिक्रिया का पूर्वावलोकन',
         'core-fetch-preview.too_large':
           'यह मुख्य भाग पूर्वावलोकन के लिए बहुत बड़ा है। कच्चे दृश्य में अभी भी यह पूरा है।',
@@ -59,6 +68,9 @@ window.ZogographFetchPreviewCard = {
           'यह बिना स्क्रिप्ट, फ़ॉर्म या इस पेज तक पहुँच वाले सैंडबॉक्स में रेंडर होता है, इसलिए यह ब्राउज़र जैसा बिल्कुल नहीं दिखेगा — पेज JavaScript से जो भी बनाता है वह गायब होगा।',
       }),
       ar: Object.freeze({
+        'core-fetch-preview.request_title': 'اطلب صفحة',
+        'core-fetch-preview.request_help':
+          'طلب واحد يُجرى الآن ويُبلَّغ كاملًا — ما يرسله الخادم فعلًا، وهو السؤال عند إعداد فحص أو مناقشة ذاكرة مؤقتة. اكتب عنوانًا مع {{https}} أو بدونه. يُعرض النص كنص ولا يُدرج قط كترميز؛ تعمل المعاينة في إطار معزول خاص بها فلا تقرأ هذه الصفحة ولا تتصرف بصفتك. يُحتفظ بالنص ساعة كي تحمّله المعاينة ثم يُتلف.',
         'core-fetch-preview.title': 'معاينة الاستجابة',
         'core-fetch-preview.too_large':
           'هذا المحتوى كبير جدًا للمعاينة. ما زالت العرض الخام يحتوي عليه كله.',
@@ -76,6 +88,9 @@ window.ZogographFetchPreviewCard = {
           'يُعرض في بيئة معزولة بلا برامج نصية أو نماذج أو وصول إلى هذه الصفحة، لذلك لن يبدو تمامًا كما في المتصفح — أي شيء يرسمه الموقع بـ JavaScript سيكون مفقودًا.',
       }),
       zh: Object.freeze({
+        'core-fetch-preview.request_title': '请求一个页面',
+        'core-fetch-preview.request_help':
+          '一项现在发出的请求，并完整报告服务器实际发送的内容；这正是在配置检查或与缓存争论时需要知道的。输入带或不带 {{https}} 的地址。正文会以文本显示，绝不会作为标记插入；预览在独立的沙盒框架中运行，既不能读取本页，也不能以您的身份操作。正文会保留一小时以供预览加载，然后被丢弃。',
         'core-fetch-preview.title': '响应预览',
         'core-fetch-preview.too_large':
           '该正文过大，无法预览。原始视图仍包含全部内容。',
@@ -94,6 +109,13 @@ window.ZogographFetchPreviewCard = {
       }),
     }),
   }),
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-fetch-preview.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-fetch-preview.${key}`],
+    );
+  },
   render(data, helpers) {
     const wrap = document.createDocumentFragment();
     if (!data.preview_token) {

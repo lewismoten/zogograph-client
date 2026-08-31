@@ -2356,8 +2356,6 @@
   "network.dns_run_again": "Ejecutarlas de nuevo",
   "network.dns_help": "Se ejecutan al abrir esta página, no se leen de un registro: «¿funcionaba hace cinco minutos?» nunca es la pregunta. Un servidor de nombres ocupado que responde es muy distinto de uno ocupado que agota el tiempo de espera; solo al preguntarle se distinguen.",
   "network.dns_lookup": "Buscar",
-  "network.fetch_title": "Pedir una página",
-  "network.fetch_help": "Una solicitud realizada ahora e informada completa: lo que el servidor envía realmente, que es la pregunta al configurar una comprobación o discutir con una caché. Escriba una dirección con o sin {{https}}. El cuerpo se muestra como texto y nunca se inserta como marcado; la vista previa se ejecuta en su propio marco aislado, que no puede leer esta página ni actuar como usted. El cuerpo se conserva una hora para que la vista previa pueda cargarlo y luego se descarta.",
   "network.fetch_follow_redirects": "Seguir redirecciones",
   "network.fetch_ask": "Consultar",
   "network.rdns_resolve_next": "Resolver la siguiente ahora",

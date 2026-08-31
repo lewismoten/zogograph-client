@@ -2371,8 +2371,6 @@
   "network.dns_run_again": "Run them again",
   "network.dns_help": "Run when you open this page rather than read from a record — ‘was it working five minutes ago’ is never the question. A nameserver that is busy and answering is a completely different situation from one that is busy and timing out, and only asking it can tell them apart.",
   "network.dns_lookup": "Look it up",
-  "network.fetch_title": "Ask for a page",
-  "network.fetch_help": "One request, made now, reported in full — what the server actually sends, which is the question while you are setting a check up or arguing with a cache. Type an address with or without {{https}}. The body is shown as text and never inserted as markup; the preview runs in a sandboxed frame of its own, which can neither read this page nor act as you. The body is kept for an hour so the preview can load it, then discarded.",
   "network.fetch_follow_redirects": "Follow redirects",
   "network.fetch_ask": "Ask",
   "network.rdns_resolve_next": "Resolve the next one now",

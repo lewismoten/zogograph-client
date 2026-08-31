@@ -18507,11 +18507,9 @@ async function refreshTerminal() {
   if (!state.signedIn) {
     body.replaceChildren(
       note(
-        ZogographI18n.t(
-          'terminal.use_sign_in',
-          {},
-          'Sign in to use the terminal.',
-        ),
+        ZogographTerminalShellCard.text('sign_in', {
+          i18n: ZogographI18n,
+        }),
       ),
     );
     return;

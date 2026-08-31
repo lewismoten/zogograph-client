@@ -6016,6 +6016,24 @@ function renderCollectorDialControls() {
 
 document.addEventListener('zogograph-i18n-load', renderCollectorDialControls);
 
+function renderNavigationControls() {
+  const labels = renderCoreCardPackage(
+    ZogographNavigationControlsCard,
+    'core-navigation-controls',
+    {},
+    { i18n: ZogographI18n },
+  );
+  const skip = document.querySelector('.skip-link');
+  skip.textContent = ZogographI18n.markSource(
+    skip,
+    'core-navigation-controls.skip_content',
+    labels.skip,
+  );
+  $('navToggle').setAttribute('aria-label', labels.menu);
+}
+
+document.addEventListener('zogograph-i18n-load', renderNavigationControls);
+
 /** Every container the settings are split across. */
 const AI_SETTING_PAGES = [
   'aiIdentityBody',

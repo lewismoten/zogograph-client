@@ -2358,8 +2358,6 @@
   "host.memory_by_user": "Memory by user",
   "host.memory_by_user_help": "The column CageFS hides. Inside a cage this account sees only its own processes, so who else is using the machine's memory is unanswerable from anywhere but here.",
   "host.memory_by_user_pss_help": "The column CageFS hides. {{pss}} counts a process's private memory {{full}} and divides each shared page among the processes using it — so one copy of libc shared by a hundred workers contributes a hundredth to each, while everything that process alone holds counts whole. That makes it the effective physical memory attributable to a process, and the one figure you can add up. {{resident}} counts every shared page once per process, so it always totals more than the machine has. The {{kernel_shared}} card above measures something else again — tmpfs and System V segments — and is not a subtotal of this column: a tmpfs page some process maps is counted in both, and one that nothing maps is counted only there.",
-  "dashboard.skip_content": "Skip to content",
-  "dashboard.menu": "Menu",
   "page.dashboard_title": "Zogograph infrastructure observation dashboard",
   "navigation.copy_link": "Copy link to this view",
   "auth.recovery_codes": "Recovery codes",

@@ -34472,71 +34472,90 @@ async function refreshWhoAmI() {
 
   const mine = [
     [
-      ZogographI18n.t('network.this_machine', {}, 'This machine'),
+      ZogographSystemWhoamiShellCard.text('this_machine', {
+        i18n: ZogographI18n,
+      }),
       server.hostname,
     ],
     [
-      ZogographI18n.t('network.running_as', {}, 'Running as'),
+      ZogographSystemWhoamiShellCard.text('running_as', {
+        i18n: ZogographI18n,
+      }),
       running
-        ? `${running.name}${running.display ? ` (${running.display})` : ''} — ${ZogographI18n.t('network.uid', { uid: running.uid }, 'UID {{uid, number}}')}`
-        : ZogographI18n.t('network.unknown', {}, 'Unknown'),
+        ? `${running.name}${running.display ? ` (${running.display})` : ''} — ${ZogographSystemWhoamiShellCard.text(
+            'uid',
+            { uid: running.uid },
+            { i18n: ZogographI18n },
+          )}`
+        : ZogographSystemWhoamiShellCard.text('unknown', {
+            i18n: ZogographI18n,
+          }),
     ],
     [
-      ZogographI18n.t('network.files_owned_by', {}, 'Files owned by'),
+      ZogographSystemWhoamiShellCard.text('files_owned_by', {
+        i18n: ZogographI18n,
+      }),
       owner
         ? `${owner.name}${owner.display ? ` (${owner.display})` : ''}`
-        : ZogographI18n.t('network.unknown', {}, 'Unknown'),
+        : ZogographSystemWhoamiShellCard.text('unknown', {
+            i18n: ZogographI18n,
+          }),
     ],
   ];
 
   if (running && owner && !server.same_user) {
     mine.push([
       '',
-      ZogographI18n.t(
-        'network.owner_mismatch_help',
-        {},
-        'These differ. Every “permission denied” on this install traces back to that: the process cannot write what the other account owns.',
-      ),
+      ZogographSystemWhoamiShellCard.text('owner_mismatch_help', {
+        i18n: ZogographI18n,
+      }),
     ]);
   }
 
   mine.push(
-    [ZogographI18n.t('network.watching', {}, 'Watching'), server.scan_root],
     [
-      ZogographI18n.t('network.data_in', {}, 'Its data in'),
-      `${server.data_dir}${server.data_writable ? '' : ZogographI18n.t('network.not_writable_suffix', {}, ' — not writable')}`,
+      ZogographSystemWhoamiShellCard.text('watching', {
+        i18n: ZogographI18n,
+      }),
+      server.scan_root,
+    ],
+    [
+      ZogographSystemWhoamiShellCard.text('data_in', {
+        i18n: ZogographI18n,
+      }),
+      `${server.data_dir}${server.data_writable ? '' : ZogographSystemWhoamiShellCard.text('not_writable_suffix', { i18n: ZogographI18n })}`,
     ],
     ['PHP', `${server.php} via ${server.sapi}`],
   );
   if (server.server_software)
     mine.push([
-      ZogographI18n.t('network.web_server', {}, 'Web server'),
+      ZogographSystemWhoamiShellCard.text('web_server', {
+        i18n: ZogographI18n,
+      }),
       server.server_software,
     ]);
   if (server.host_owner) {
     mine.push([
-      ZogographI18n.t(
-        'network.host_collector_writes_for',
-        {},
-        'Host collector writes for',
-      ),
+      ZogographSystemWhoamiShellCard.text('host_collector_writes_for', {
+        i18n: ZogographI18n,
+      }),
       server.host_owner,
     ]);
   }
   if (server.server_addresses?.length) {
     mine.push([
-      ZogographI18n.t(
-        'network.machine_addresses',
-        {},
-        "This machine's addresses",
-      ),
+      ZogographSystemWhoamiShellCard.text('machine_addresses', {
+        i18n: ZogographI18n,
+      }),
       server.server_addresses.join(', '),
     ]);
   }
 
   parts.push(
     section(
-      ZogographI18n.t('network.this_install', {}, 'This install'),
+      ZogographSystemWhoamiShellCard.text('this_install', {
+        i18n: ZogographI18n,
+      }),
       factGrid(mine),
     ),
   );

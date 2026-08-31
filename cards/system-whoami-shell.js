@@ -24,6 +24,22 @@ window.ZogographSystemWhoamiShellCard = {
           'What the proxy chain claims',
         'core-system-whoami-shell.proxy_claims_help':
           'These are set by whatever spoke to the web server last. Behind a proxy they carry the real address; sent straight to the server they can say anything at all. The address above is the only one this process observed.',
+        'core-system-whoami-shell.this_machine': 'This machine',
+        'core-system-whoami-shell.running_as': 'Running as',
+        'core-system-whoami-shell.uid': 'UID {{uid, number}}',
+        'core-system-whoami-shell.unknown': 'unknown',
+        'core-system-whoami-shell.files_owned_by': 'Files owned by',
+        'core-system-whoami-shell.owner_mismatch_help':
+          'These differ. Every “permission denied” on this install traces back to that: the process cannot write what the other account owns.',
+        'core-system-whoami-shell.watching': 'Watching',
+        'core-system-whoami-shell.data_in': 'Its data in',
+        'core-system-whoami-shell.not_writable_suffix': ' — not writable',
+        'core-system-whoami-shell.web_server': 'Web server',
+        'core-system-whoami-shell.host_collector_writes_for':
+          'Host collector writes for',
+        'core-system-whoami-shell.machine_addresses':
+          "This machine's addresses",
+        'core-system-whoami-shell.this_install': 'This install',
         'core-system-whoami-shell.help':
           'Two identities that get confused constantly: the browser at the other end, and the account this process runs as. The second is the one that answers permission questions — ‘this account cannot read that’ means nothing until you know which account it is.',
       }),
@@ -46,6 +62,23 @@ window.ZogographSystemWhoamiShellCard = {
           'Lo que afirma la cadena de proxy',
         'core-system-whoami-shell.proxy_claims_help':
           'Los establece quien haya hablado por última vez con el servidor web. Detrás de un proxy contienen la dirección real; enviados directamente al servidor pueden decir cualquier cosa. La dirección de arriba es la única que observó este proceso.',
+        'core-system-whoami-shell.this_machine': 'Esta máquina',
+        'core-system-whoami-shell.running_as': 'Se ejecuta como',
+        'core-system-whoami-shell.uid': 'UID {{uid, number}}',
+        'core-system-whoami-shell.unknown': 'desconocido',
+        'core-system-whoami-shell.files_owned_by': 'Archivos propiedad de',
+        'core-system-whoami-shell.owner_mismatch_help':
+          'Son diferentes. Todos los errores de «permiso denegado» de esta instalación se deben a ello: el proceso no puede escribir lo que pertenece a la otra cuenta.',
+        'core-system-whoami-shell.watching': 'Vigilando',
+        'core-system-whoami-shell.data_in': 'Sus datos en',
+        'core-system-whoami-shell.not_writable_suffix':
+          ' — no se puede escribir',
+        'core-system-whoami-shell.web_server': 'Servidor web',
+        'core-system-whoami-shell.host_collector_writes_for':
+          'El recopilador del host escribe para',
+        'core-system-whoami-shell.machine_addresses':
+          'Direcciones de esta máquina',
+        'core-system-whoami-shell.this_install': 'Esta instalación',
         'core-system-whoami-shell.help':
           'Hay dos identidades que se confunden constantemente: el navegador del otro lado y la cuenta con la que se ejecuta este proceso. La segunda responde las preguntas de permisos: «esta cuenta no puede leer eso» no significa nada hasta saber de qué cuenta se trata.',
       }),
@@ -69,6 +102,21 @@ window.ZogographSystemWhoamiShellCard = {
           'प्रॉक्सी श्रृंखला क्या दावा करती है',
         'core-system-whoami-shell.proxy_claims_help':
           'इन्हें उस चीज़ ने सेट किया है जिसने वेब सर्वर से आखिरी बार बात की थी। प्रॉक्सी के पीछे इनमें वास्तविक पता होता है; सीधे सर्वर पर भेजने पर ये कुछ भी कह सकते हैं। ऊपर का पता ही एकमात्र पता है जिसे इस प्रक्रिया ने देखा।',
+        'core-system-whoami-shell.this_machine': 'यह मशीन',
+        'core-system-whoami-shell.running_as': 'इसके रूप में चल रहा है',
+        'core-system-whoami-shell.uid': 'UID {{uid, number}}',
+        'core-system-whoami-shell.unknown': 'अज्ञात',
+        'core-system-whoami-shell.files_owned_by': 'फ़ाइलों का स्वामी',
+        'core-system-whoami-shell.owner_mismatch_help':
+          'ये अलग हैं। इस इंस्टॉल में प्रत्येक “अनुमति अस्वीकृत” का कारण यही है: प्रक्रिया उस चीज़ को नहीं लिख सकती जिसका स्वामी दूसरा खाता है।',
+        'core-system-whoami-shell.watching': 'निगरानी',
+        'core-system-whoami-shell.data_in': 'इसका डेटा यहाँ है',
+        'core-system-whoami-shell.not_writable_suffix': ' — लिखने योग्य नहीं',
+        'core-system-whoami-shell.web_server': 'वेब सर्वर',
+        'core-system-whoami-shell.host_collector_writes_for':
+          'होस्ट कलेक्टर इसके लिए लिखता है',
+        'core-system-whoami-shell.machine_addresses': 'इस मशीन के पते',
+        'core-system-whoami-shell.this_install': 'यह इंस्टॉल',
         'core-system-whoami-shell.help':
           'दो पहचानें लगातार भ्रमित होती हैं: दूसरे छोर का ब्राउज़र और वह खाता जिससे यह प्रक्रिया चलती है। दूसरी ही अनुमति के प्रश्नों का उत्तर देती है—‘यह खाता उसे पढ़ नहीं सकता’ का कोई मतलब नहीं, जब तक आपको पता न हो कि वह कौन सा खाता है।',
       }),
@@ -90,6 +138,21 @@ window.ZogographSystemWhoamiShellCard = {
         'core-system-whoami-shell.proxy_claims_title': 'ما تدّعيه سلسلة الوكيل',
         'core-system-whoami-shell.proxy_claims_help':
           'يضبطها آخر ما تواصل مع خادم الويب. خلف وكيل تحمل العنوان الحقيقي؛ أما عند إرسالها مباشرةً إلى الخادم فيمكنها قول أي شيء. العنوان أعلاه هو الوحيد الذي لاحظته هذه العملية.',
+        'core-system-whoami-shell.this_machine': 'هذه الآلة',
+        'core-system-whoami-shell.running_as': 'يعمل بصفة',
+        'core-system-whoami-shell.uid': 'المعرّف UID {{uid, number}}',
+        'core-system-whoami-shell.unknown': 'غير معروف',
+        'core-system-whoami-shell.files_owned_by': 'مالك الملفات',
+        'core-system-whoami-shell.owner_mismatch_help':
+          'يختلف هذان. يرجع كل خطأ «تم رفض الإذن» في هذا التثبيت إلى ذلك: لا تستطيع العملية الكتابة إلى ما يملكه الحساب الآخر.',
+        'core-system-whoami-shell.watching': 'يراقب',
+        'core-system-whoami-shell.data_in': 'بياناته في',
+        'core-system-whoami-shell.not_writable_suffix': ' — غير قابل للكتابة',
+        'core-system-whoami-shell.web_server': 'خادم الويب',
+        'core-system-whoami-shell.host_collector_writes_for':
+          'جامع المضيف يكتب لصالح',
+        'core-system-whoami-shell.machine_addresses': 'عناوين هذه الآلة',
+        'core-system-whoami-shell.this_install': 'هذا التثبيت',
         'core-system-whoami-shell.help':
           'تختلط هويتان باستمرار: المتصفح في الطرف الآخر، والحساب الذي تعمل به هذه العملية. الثانية هي التي تجيب عن أسئلة الأذونات — «لا يستطيع هذا الحساب قراءة ذلك» لا تعني شيئًا حتى تعرف أي حساب هو.',
       }),
@@ -111,15 +174,32 @@ window.ZogographSystemWhoamiShellCard = {
         'core-system-whoami-shell.proxy_claims_title': '代理链的声明',
         'core-system-whoami-shell.proxy_claims_help':
           '它们由最后与 Web 服务器通信的对象设置。在代理后面，它们携带真实地址；直接发送到服务器时，它们可以声称任何内容。上方地址是此进程唯一观察到的地址。',
+        'core-system-whoami-shell.this_machine': '此机器',
+        'core-system-whoami-shell.running_as': '运行身份',
+        'core-system-whoami-shell.uid': 'UID {{uid, number}}',
+        'core-system-whoami-shell.unknown': '未知',
+        'core-system-whoami-shell.files_owned_by': '文件所有者',
+        'core-system-whoami-shell.owner_mismatch_help':
+          '两者不同。此安装中每个“权限被拒绝”问题都源于此：该进程无法写入另一个账户拥有的内容。',
+        'core-system-whoami-shell.watching': '监测范围',
+        'core-system-whoami-shell.data_in': '数据位置',
+        'core-system-whoami-shell.not_writable_suffix': ' — 不可写',
+        'core-system-whoami-shell.web_server': 'Web 服务器',
+        'core-system-whoami-shell.host_collector_writes_for':
+          '主机采集器写入给',
+        'core-system-whoami-shell.machine_addresses': '此机器的地址',
+        'core-system-whoami-shell.this_install': '此安装',
         'core-system-whoami-shell.help':
           '有两种身份总是容易混淆：另一端的浏览器，以及运行此进程的账户。后者才是权限问题的答案——“此账户无法读取那个内容”在您知道它是哪个账户之前毫无意义。',
       }),
     }),
   }),
-  text(key, helpers) {
+  text(key, valuesOrHelpers = {}, maybeHelpers = null) {
+    const helpers = maybeHelpers || valuesOrHelpers;
+    const values = maybeHelpers ? valuesOrHelpers : {};
     return helpers.i18n.t(
       `core-system-whoami-shell.${key}`,
-      {},
+      values,
       this.manifest.catalogs.en[`core-system-whoami-shell.${key}`],
     );
   },

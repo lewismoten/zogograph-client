@@ -185,6 +185,7 @@ export default [
         ZogographAiMemoryPinStateCard: 'readonly',
         ZogographAiMemoryTableColumnsCard: 'readonly',
         ZogographAiMemoryEditorTitleCard: 'readonly',
+        ZogographAiMemorySubjectFieldCard: 'readonly',
         ZogographAiKeyForgetCard: 'readonly',
         ZogographAiEnableToggleCard: 'readonly',
         ZogographAiReasoningEffortCard: 'readonly',

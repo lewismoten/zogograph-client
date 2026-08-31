@@ -18735,25 +18735,36 @@ function showMemoryDialog(row) {
   subject.className = 'wide';
   subject.value = row?.subject ?? '';
   subject.disabled = Boolean(row);
-  subject.placeholder = ZogographI18n.t(
-    'ai.memory_subject_placeholder',
-    {},
-    'the nightly I/O spike',
+  subject.placeholder = renderCoreCardPackage(
+    ZogographAiMemorySubjectFieldCard,
+    'core-ai-memory-subject-field',
+    { key: 'placeholder', fallback: 'the nightly I/O spike' },
+    { i18n: ZogographI18n },
   );
   parts.push(
     fieldRow(
       ZogographI18n.t('ai.memory_about', {}, 'About'),
       subject,
       row
-        ? ZogographI18n.t(
-            'ai.memory_subject_edit_help',
-            {},
-            'The subject is the key, so it cannot be changed — forget this one and write a new one if it is wrong.',
+        ? renderCoreCardPackage(
+            ZogographAiMemorySubjectFieldCard,
+            'core-ai-memory-subject-field',
+            {
+              key: 'edit_help',
+              fallback:
+                'The subject is the key, so it cannot be changed — forget this one and write a new one if it is wrong.',
+            },
+            { i18n: ZogographI18n },
           )
-        : ZogographI18n.t(
-            'ai.memory_subject_help',
-            {},
-            'A short phrase. Writing the same subject again replaces what is stored under it.',
+        : renderCoreCardPackage(
+            ZogographAiMemorySubjectFieldCard,
+            'core-ai-memory-subject-field',
+            {
+              key: 'help',
+              fallback:
+                'A short phrase. Writing the same subject again replaces what is stored under it.',
+            },
+            { i18n: ZogographI18n },
           ),
     ),
   );

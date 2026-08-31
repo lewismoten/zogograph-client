@@ -4688,11 +4688,7 @@ async function refreshOffenders() {
        */
       label:
         view === 'deleted'
-          ? ZogographI18n.t(
-              'storage.size_when_last_seen',
-              {},
-              'Size when last seen',
-            )
+          ? storageOffenderSizeText('last_seen')
           : ZogographI18n.t('table.size', {}, 'Size'),
       className: 'size',
       render: (row) => {
@@ -4710,16 +4706,12 @@ async function refreshOffenders() {
         box.appendChild(document.createTextNode(humanBytes(row.bytes)));
         const note = document.createElement('span');
         note.className = 'muted small';
-        note.textContent = ZogographI18n.t(
-          'storage.link_count',
-          { count: links },
-          ' · {{count, number}} links',
-        );
-        note.title = ZogographI18n.t(
-          'storage.link_count_help',
-          { count: links },
-          'This file has {{count, number}} names. Removing one frees nothing until the last one goes.',
-        );
+        note.textContent = storageOffenderSizeText('link_count', {
+          count: links,
+        });
+        note.title = storageOffenderSizeText('link_count_help', {
+          count: links,
+        });
         box.appendChild(note);
         return box;
       },
@@ -4836,6 +4828,14 @@ const storageOffenderColumnText = (key) =>
     ZogographStorageOffenderColumnsCard,
     'core-storage-offender-columns',
     { key },
+    { i18n: ZogographI18n },
+  );
+
+const storageOffenderSizeText = (key, values = {}) =>
+  renderCoreCardPackage(
+    ZogographStorageOffenderSizeCard,
+    'core-storage-offender-size',
+    { key, values },
     { i18n: ZogographI18n },
   );
 

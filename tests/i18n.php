@@ -4216,13 +4216,9 @@ i18nExpect(
     'visible loading messages must use i18n keys rather than literal spinner text',
 );
 $translatedEncryptionRecoveryActions = [
-    'encryption.remote_envelope_dialog',
     'encryption.verified_local_artifact',
-    'encryption.store_optional_envelope',
     'encryption.remote_recovery_dialog',
     'encryption.artifact_with_envelope',
-    'encryption.remote_envelope_stored',
-    'encryption.remote_recovery_verified',
 ];
 $translatedEncryptionPackageActions = [
     'core-system-encryption-shell.create_verified_copies',

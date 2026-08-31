@@ -37,5 +37,8 @@
   "zogograph-key-custody.artifact_with_envelope_help": "所选工件必须已经有已存储的托管信封。Zogograph 会在请求临时密钥释放前重新检查其密文。",
   "zogograph-key-custody.remote_drill_safety": "托管密钥只会通过隔离工作进程的私有进程管道返回，在内存中用于验证临时恢复文件后即被丢弃。临时文件会被删除。密钥和明文都不会出现在此浏览器中。",
   "zogograph-key-custody.run_remote_drill_confirm": "要对此工件运行非破坏性的远程托管恢复演练吗？\n\n这会要求托管服务仅释放一个临时数据密钥，以验证现有的封装副本。密钥和临时明文都会被丢弃。",
-  "zogograph-key-custody.run_remote_drill_title": "运行远程恢复演练"
+  "zogograph-key-custody.run_remote_drill_title": "运行远程恢复演练",
+  "zogograph-key-custody.remote_envelope_stored": "远程托管信封已存储",
+  "zogograph-key-custody.store_optional_envelope": "存储可选信封",
+  "zogograph-key-custody.remote_recovery_verified": "远程托管恢复已验证"
 }

@@ -37,5 +37,8 @@
   "zogograph-key-custody.artifact_with_envelope_help": "يجب أن يكون للعنصر المحدد مظروف حفظ مخزن بالفعل. سيعيد Zogograph التحقق من نصه المشفر قبل طلب إصدار مفتاح مؤقت.",
   "zogograph-key-custody.remote_drill_safety": "يُعاد مفتاح الحفظ فقط عبر أنبوب العملية الخاص بالعامل المعزول، ويُستخدم في الذاكرة لمصادقة ملف مسترد مؤقت ثم يُتلف. يُزال الملف المؤقت. لا يظهر المفتاح ولا النص الصريح في هذا المتصفح.",
   "zogograph-key-custody.run_remote_drill_confirm": "هل تريد تشغيل تمرين استرداد حفظ بعيد غير هدّام لهذا العنصر؟\n\nيطلب هذا من الحفظ إصدار مفتاح بيانات مؤقت واحد فقط لمصادقة النسخة المختومة الموجودة. يُتلف المفتاح والنص الصريح المؤقت.",
-  "zogograph-key-custody.run_remote_drill_title": "تشغيل تمرين الاسترداد البعيد"
+  "zogograph-key-custody.run_remote_drill_title": "تشغيل تمرين الاسترداد البعيد",
+  "zogograph-key-custody.remote_envelope_stored": "حُفظ غلاف الحفظ البعيد",
+  "zogograph-key-custody.store_optional_envelope": "احفظ الغلاف الاختياري",
+  "zogograph-key-custody.remote_recovery_verified": "تم التحقق من استرداد الحفظ البعيد"
 }

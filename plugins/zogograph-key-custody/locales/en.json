@@ -37,5 +37,8 @@
   "zogograph-key-custody.artifact_with_envelope_help": "The selected artifact must already have a stored custody envelope. Zogograph will recheck its ciphertext before requesting a temporary key release.",
   "zogograph-key-custody.remote_drill_safety": "The custody key is returned only through the isolated worker’s private process pipe, used in memory to authenticate a temporary recovered file, then discarded. The temporary file is removed. Neither key nor plaintext appears in this browser.",
   "zogograph-key-custody.run_remote_drill_confirm": "Run a non-destructive remote custody recovery drill for this artifact?\n\nThis asks custody to release one temporary data key solely to authenticate the existing sealed copy. The key and temporary plaintext are discarded.",
-  "zogograph-key-custody.run_remote_drill_title": "Run remote recovery drill"
+  "zogograph-key-custody.run_remote_drill_title": "Run remote recovery drill",
+  "zogograph-key-custody.remote_envelope_stored": "Remote custody envelope stored",
+  "zogograph-key-custody.store_optional_envelope": "Store optional envelope",
+  "zogograph-key-custody.remote_recovery_verified": "Remote custody recovery verified"
 }

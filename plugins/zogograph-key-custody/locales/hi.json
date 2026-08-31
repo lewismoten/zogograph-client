@@ -37,5 +37,8 @@
   "zogograph-key-custody.artifact_with_envelope_help": "चुने गए आर्टिफैक्ट में पहले से संग्रहीत कस्टडी एनवेलप होना चाहिए। Zogograph अस्थायी कुंजी रिलीज़ माँगने से पहले इसके सिफरटेक्स्ट की फिर से जाँच करेगा।",
   "zogograph-key-custody.remote_drill_safety": "कस्टडी कुंजी केवल अलग किए गए वर्कर की निजी प्रोसेस पाइप से लौटती है, अस्थायी पुनर्प्राप्त फ़ाइल को प्रमाणित करने के लिए मेमोरी में इस्तेमाल होती है, फिर त्याग दी जाती है। अस्थायी फ़ाइल हटा दी जाती है। न कुंजी न प्लेनटेक्स्ट इस ब्राउज़र में दिखता है।",
   "zogograph-key-custody.run_remote_drill_confirm": "क्या इस आर्टिफैक्ट के लिए गैर-विनाशकारी रिमोट कस्टडी रिकवरी जाँच चलाएँ?\n\nयह मौजूदा सील प्रति को प्रमाणित करने के लिए केवल एक अस्थायी डेटा कुंजी रिलीज़ करने को कस्टडी से कहता है। कुंजी और अस्थायी प्लेनटेक्स्ट त्याग दिए जाते हैं।",
-  "zogograph-key-custody.run_remote_drill_title": "रिमोट रिकवरी जाँच चलाएँ"
+  "zogograph-key-custody.run_remote_drill_title": "रिमोट रिकवरी जाँच चलाएँ",
+  "zogograph-key-custody.remote_envelope_stored": "दूरस्थ कस्टडी लिफ़ाफ़ा सहेजा गया",
+  "zogograph-key-custody.store_optional_envelope": "वैकल्पिक लिफ़ाफ़ा सहेजें",
+  "zogograph-key-custody.remote_recovery_verified": "दूरस्थ कस्टडी पुनर्प्राप्ति सत्यापित हुई"
 }

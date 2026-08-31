@@ -16251,8 +16251,8 @@ function showCustodyEnvelopeDialog(candidates) {
         confirm: 'store-remote-envelope',
       });
       showListDialog(
-        ZogographI18n.t(
-          'encryption.remote_envelope_stored',
+        packageText(
+          'zogograph-key-custody.remote_envelope_stored',
           {},
           'Remote custody envelope stored',
         ),
@@ -16270,8 +16270,8 @@ function showCustodyEnvelopeDialog(candidates) {
       );
       await refreshEncryptionStatus();
     },
-    ZogographI18n.t(
-      'encryption.store_optional_envelope',
+    packageText(
+      'zogograph-key-custody.store_optional_envelope',
       {},
       'Store optional envelope',
     ),
@@ -16336,8 +16336,8 @@ function showCustodyRecoveryDrillDialog(candidates) {
         confirm: 'run-remote-recovery-drill',
       });
       showListDialog(
-        ZogographI18n.t(
-          'encryption.remote_recovery_verified',
+        packageText(
+          'zogograph-key-custody.remote_recovery_verified',
           {},
           'Remote custody recovery verified',
         ),

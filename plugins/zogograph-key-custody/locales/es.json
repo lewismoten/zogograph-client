@@ -37,5 +37,8 @@
   "zogograph-key-custody.artifact_with_envelope_help": "El artefacto seleccionado ya debe tener un sobre de custodia guardado. Zogograph volverá a comprobar su texto cifrado antes de solicitar una liberación temporal de clave.",
   "zogograph-key-custody.remote_drill_safety": "La clave de custodia se devuelve solo a través de la tubería privada del proceso del trabajador aislado, se usa en memoria para autenticar un archivo recuperado temporal y después se descarta. El archivo temporal se elimina. Ni la clave ni el texto plano aparecen en este navegador.",
   "zogograph-key-custody.run_remote_drill_confirm": "¿Ejecutar una prueba de recuperación de custodia remota no destructiva para este artefacto?\n\nEsto pide a custodia que libere una clave de datos temporal únicamente para autenticar la copia sellada existente. La clave y el texto plano temporal se descartan.",
-  "zogograph-key-custody.run_remote_drill_title": "Ejecutar prueba de recuperación remota"
+  "zogograph-key-custody.run_remote_drill_title": "Ejecutar prueba de recuperación remota",
+  "zogograph-key-custody.remote_envelope_stored": "Sobre de custodia remota guardado",
+  "zogograph-key-custody.store_optional_envelope": "Guardar sobre opcional",
+  "zogograph-key-custody.remote_recovery_verified": "Recuperación de custodia remota verificada"
 }

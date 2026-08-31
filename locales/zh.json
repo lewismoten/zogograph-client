@@ -2685,8 +2685,6 @@
   "action.cancel": "取消",
   "action.yes": "是",
   "charts.help": "在所选范围内描述整台机器的五项测量。概览中的仪表说明每项目前{{now}}处于何处；这些图表说明它是如何到达那里，这一半能告诉您它是否会成为问题。",
-  "charts.cpu_title": "CPU 和内存",
-  "charts.cpu_help": "自上次读数以来此账户可使用份额的占比。",
   "charts.io_title": "磁盘 I/O",
   "charts.io_help": "实际到达磁盘的字节，而非从缓存提供的字节。",
   "charts.load_title": "负载平均值",

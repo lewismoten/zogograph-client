@@ -18,6 +18,9 @@ window.ZogographCpuChart = {
     ],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-cpu-chart.title': 'CPU and memory',
+        'core-cpu-chart.help':
+          'Share of what this account may use, since the previous reading.',
         'core-cpu-chart.ready': 'CPU chart',
         'core-cpu-chart.cpu_percent': 'CPU %',
         'core-cpu-chart.memory_used_right': 'Memory used (right)',
@@ -29,6 +32,9 @@ window.ZogographCpuChart = {
           'Share of what this account may use, since the previous reading.{{hostNote}}',
       }),
       es: Object.freeze({
+        'core-cpu-chart.title': 'CPU y memoria',
+        'core-cpu-chart.help':
+          'Parte de lo que esta cuenta puede usar desde la lectura anterior.',
         'core-cpu-chart.ready': 'Gráfico de CPU',
         'core-cpu-chart.cpu_percent': 'CPU %',
         'core-cpu-chart.memory_used_right': 'Memoria usada (derecha)',
@@ -41,6 +47,9 @@ window.ZogographCpuChart = {
           'Parte de lo que esta cuenta puede usar desde la lectura anterior.{{hostNote}}',
       }),
       hi: Object.freeze({
+        'core-cpu-chart.title': 'CPU और मेमोरी',
+        'core-cpu-chart.help':
+          'पिछली रीडिंग से इस खाते के उपयोग योग्य हिस्से का भाग।',
         'core-cpu-chart.ready': 'CPU चार्ट',
         'core-cpu-chart.cpu_percent': 'CPU %',
         'core-cpu-chart.memory_used_right': 'उपयोग की गई मेमोरी (दायाँ)',
@@ -53,6 +62,9 @@ window.ZogographCpuChart = {
           'पिछली रीडिंग के बाद से यह खाता जितना उपयोग कर सकता है उसका हिस्सा।{{hostNote}}',
       }),
       ar: Object.freeze({
+        'core-cpu-chart.title': 'المعالج والذاكرة',
+        'core-cpu-chart.help':
+          'حصة مما يستطيع هذا الحساب استخدامه منذ القراءة السابقة.',
         'core-cpu-chart.ready': 'مخطط المعالج',
         'core-cpu-chart.cpu_percent': 'المعالج %',
         'core-cpu-chart.memory_used_right': 'الذاكرة المستخدمة (يمين)',
@@ -64,6 +76,8 @@ window.ZogographCpuChart = {
           'حصة مما يمكن لهذا الحساب استخدامه منذ القراءة السابقة.{{hostNote}}',
       }),
       zh: Object.freeze({
+        'core-cpu-chart.title': 'CPU 和内存',
+        'core-cpu-chart.help': '自上次读数以来此账户可使用份额的占比。',
         'core-cpu-chart.ready': 'CPU 图表',
         'core-cpu-chart.cpu_percent': 'CPU %',
         'core-cpu-chart.memory_used_right': '已用内存（右轴）',
@@ -76,6 +90,13 @@ window.ZogographCpuChart = {
       }),
     }),
   }),
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-cpu-chart.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-cpu-chart.${key}`],
+    );
+  },
   render(rows, helpers) {
     const {
       canvas,

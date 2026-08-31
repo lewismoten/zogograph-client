@@ -36,6 +36,8 @@ window.ZogographNotesShellCard = {
           'The note itself is saved either way, and a mark on this page will show on any chart added here later.',
         'core-notes-shell.saving': 'Saving…',
         'core-notes-shell.saving_and_capturing': 'Saving and capturing…',
+        'core-notes-shell.page_label': 'Page',
+        'core-notes-shell.page_help': 'Where the mark will be drawn.',
       }),
       es: Object.freeze({
         'core-notes-shell.title': 'Notas',
@@ -68,6 +70,8 @@ window.ZogographNotesShellCard = {
           'La nota se guarda de todos modos, y una marca en esta página aparecerá en cualquier gráfico que se agregue después.',
         'core-notes-shell.saving': 'Guardando…',
         'core-notes-shell.saving_and_capturing': 'Guardando y capturando…',
+        'core-notes-shell.page_label': 'Página',
+        'core-notes-shell.page_help': 'Dónde se dibujará la marca.',
       }),
       hi: Object.freeze({
         'core-notes-shell.title': 'नोट्स',
@@ -101,6 +105,8 @@ window.ZogographNotesShellCard = {
         'core-notes-shell.saving': 'सहेजा जा रहा है…',
         'core-notes-shell.saving_and_capturing':
           'सहेजा और कैप्चर किया जा रहा है…',
+        'core-notes-shell.page_label': 'पृष्ठ',
+        'core-notes-shell.page_help': 'जहाँ निशान बनाया जाएगा।',
       }),
       ar: Object.freeze({
         'core-notes-shell.title': 'الملاحظات',
@@ -133,6 +139,8 @@ window.ZogographNotesShellCard = {
           'تُحفظ الملاحظة على أي حال، وستظهر علامة في هذه الصفحة على أي مخطط يضاف هنا لاحقًا.',
         'core-notes-shell.saving': 'يجري الحفظ…',
         'core-notes-shell.saving_and_capturing': 'يجري الحفظ والالتقاط…',
+        'core-notes-shell.page_label': 'الصفحة',
+        'core-notes-shell.page_help': 'حيث سيُرسم التمييز.',
       }),
       zh: Object.freeze({
         'core-notes-shell.title': '备注',
@@ -165,6 +173,8 @@ window.ZogographNotesShellCard = {
           '便笺仍会保存，且此页面上的标记会显示在之后添加到这里的任何图表中。',
         'core-notes-shell.saving': '正在保存…',
         'core-notes-shell.saving_and_capturing': '正在保存并捕获…',
+        'core-notes-shell.page_label': '页面',
+        'core-notes-shell.page_help': '标记将绘制在此处。',
       }),
     }),
   }),

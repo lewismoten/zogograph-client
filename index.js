@@ -14120,14 +14120,14 @@ async function showNoteDialog(preset = {}) {
    * belong in the middle of a sentence. It is a row like every other row now.
    */
   const where = fieldRow(
-    ZogographI18n.t('notes.page_label', {}, 'Page'),
+    notesShellText('page_label'),
     (() => {
       const said = document.createElement('div');
       said.className = 'muted';
       said.textContent = VIEWS[view]?.label ?? view;
       return said;
     })(),
-    ZogographI18n.t('notes.page_help', {}, 'Where the mark will be drawn.'),
+    notesShellText('page_help'),
   );
   parts.push(where);
 

@@ -449,7 +449,6 @@
   "process.matches_all_protected": "Matches {{matched}} of the {{scanned}} running processes; all are protected.",
   "process.matches_some_protected": "Matches {{matched}} of the {{scanned}} running processes; {{blocked}} are protected.",
   "process.all_matches_protected": "Every match is protected, so there is nothing here to stop.",
-  "storage.links_sign_in": "Sign in to check symlinks.",
   "storage.symlink_kind_loop": "Loop",
   "storage.symlink_kind_ancestor": "Endless directory",
   "storage.symlink_kind_outside": "Leaves the tree",

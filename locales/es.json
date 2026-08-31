@@ -449,7 +449,6 @@
   "process.matches_all_protected": "Coinciden {{matched}} de los {{scanned}} procesos en ejecución; todos están protegidos.",
   "process.matches_some_protected": "Coinciden {{matched}} de los {{scanned}} procesos en ejecución; {{blocked}} están protegidos.",
   "process.all_matches_protected": "Todas las coincidencias están protegidas, por lo que no hay nada que detener.",
-  "storage.links_sign_in": "Inicie sesión para comprobar los enlaces simbólicos.",
   "storage.symlink_kind_loop": "Bucle",
   "storage.symlink_kind_ancestor": "Directorio infinito",
   "storage.symlink_kind_outside": "Sale del árbol",

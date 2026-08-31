@@ -22166,12 +22166,11 @@ async function sweepLinks(pattern, confirmed = false) {
 async function refreshLinks() {
   if (!state.signedIn) {
     $('symlinkBody').replaceChildren(
-      note(
-        ZogographI18n.t(
-          'storage.links_sign_in',
-          {},
-          'Sign in to check symlinks.',
-        ),
+      renderCoreCardPackage(
+        ZogographSymlinkSignInCard,
+        'core-symlink-sign-in',
+        {},
+        { i18n: ZogographI18n, note },
       ),
     );
     $('linkSweepPanel').hidden = true;

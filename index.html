@@ -139,6 +139,7 @@
     <script src="cards/chart-identity.js" defer></script>
     <script src="cards/navigation-badge.js" defer></script>
     <script src="cards/treemap-legend.js" defer></script>
+    <script src="cards/treemap-shell.js" defer></script>
     <script src="cards/treemap-note.js" defer></script>
     <script src="cards/treemap-crumbs.js" defer></script>
     <script src="cards/storage-history.js" defer></script>
@@ -1991,44 +1992,62 @@
         <section class="view" data-view="storage-map" hidden>
           <section class="panel" id="treemapPanel">
             <div class="panel-head">
-              <h2 data-i18n="storage.tree_title">Where the space is</h2>
+              <h2 data-i18n="core-treemap-shell.title">Where the space is</h2>
               <div class="panel-controls">
                 <label class="inline">
-                  <span data-i18n="tree.source">Source</span>
+                  <span data-i18n="core-treemap-shell.source">Source</span>
                   <select id="treeSource">
-                    <option value="account" data-i18n="tree.source_account">
+                    <option
+                      value="account"
+                      data-i18n="core-treemap-shell.source_account"
+                    >
                       This account
                     </option>
-                    <option value="host" data-i18n="tree.source_host">
+                    <option
+                      value="host"
+                      data-i18n="core-treemap-shell.source_host"
+                    >
                       Host (root only)
                     </option>
                   </select>
                 </label>
                 <label class="inline">
-                  <span data-i18n="tree.colour_by">Colour by</span>
+                  <span data-i18n="core-treemap-shell.colour_by"
+                    >Colour by</span
+                  >
                   <select id="treeColourBy">
-                    <option value="type" data-i18n="tree.colour_type">
+                    <option
+                      value="type"
+                      data-i18n="core-treemap-shell.colour_type"
+                    >
                       File type
                     </option>
-                    <option value="age" data-i18n="tree.colour_age">
+                    <option
+                      value="age"
+                      data-i18n="core-treemap-shell.colour_age"
+                    >
                       How recently touched
                     </option>
                   </select>
                 </label>
                 <label class="inline">
-                  <span data-i18n="tree.only">Only</span>
+                  <span data-i18n="core-treemap-shell.only">Only</span>
                   <select id="treeTypeFilter">
-                    <option value="" data-i18n="tree.every_type">
+                    <option value="" data-i18n="core-treemap-shell.every_type">
                       every type
                     </option>
                   </select>
                 </label>
-                <button id="treeUp" class="link" data-i18n="tree.up">
+                <button
+                  id="treeUp"
+                  class="link"
+                  data-i18n="core-treemap-shell.up"
+                >
                   Up one level
                 </button>
               </div>
             </div>
-            <p class="muted small sub-note" data-i18n="tree.help">
+            <p class="muted small sub-note" data-i18n="core-treemap-shell.help">
               Area is size. A directory full of small files is invisible in a
               list of the biggest paths and obvious here, because forty thousand
               session files add up to a large rectangle even though not one of

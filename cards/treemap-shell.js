@@ -1,0 +1,88 @@
+/* Core card package: static controls and guidance for the storage treemap. */
+window.ZogographTreemapShellCard = {
+  manifest: Object.freeze({
+    id: 'core-treemap-shell',
+    locales: ['core-treemap-shell.'],
+    helpers: ['i18n'],
+    catalogs: Object.freeze({
+      en: Object.freeze({
+        'core-treemap-shell.title': 'Where the space is',
+        'core-treemap-shell.source': 'Source',
+        'core-treemap-shell.source_account': 'This account',
+        'core-treemap-shell.source_host': 'Host (root only)',
+        'core-treemap-shell.colour_by': 'Colour by',
+        'core-treemap-shell.colour_type': 'File type',
+        'core-treemap-shell.colour_age': 'How recently touched',
+        'core-treemap-shell.only': 'Only',
+        'core-treemap-shell.every_type': 'every type',
+        'core-treemap-shell.up': 'Up one level',
+        'core-treemap-shell.help':
+          'Area is size. A directory full of small files is invisible in a list of the biggest paths and obvious here, because forty thousand session files add up to a large rectangle even though not one of them is large. Click a rectangle for its details, double-click a directory to go into it, hover for a quick summary. Filtering to one type shrinks every directory to just the files of that kind inside it, which is how you find where the audio is.',
+      }),
+      es: Object.freeze({
+        'core-treemap-shell.title': 'Dónde está el espacio',
+        'core-treemap-shell.source': 'Origen',
+        'core-treemap-shell.source_account': 'Esta cuenta',
+        'core-treemap-shell.source_host': 'Host (solo root)',
+        'core-treemap-shell.colour_by': 'Colorear por',
+        'core-treemap-shell.colour_type': 'Tipo de archivo',
+        'core-treemap-shell.colour_age': 'Cuándo se modificó',
+        'core-treemap-shell.only': 'Solo',
+        'core-treemap-shell.every_type': 'todos los tipos',
+        'core-treemap-shell.up': 'Subir un nivel',
+        'core-treemap-shell.help':
+          'El área representa el tamaño. Un directorio lleno de archivos pequeños es invisible en una lista de las rutas más grandes y aquí resulta evidente: cuarenta mil archivos de sesión forman un rectángulo grande aunque ninguno lo sea. Haga clic en un rectángulo para ver detalles, doble clic en un directorio para abrirlo y pase el cursor para un resumen. Al filtrar por un tipo, cada directorio se reduce a los archivos de ese tipo.',
+      }),
+      hi: Object.freeze({
+        'core-treemap-shell.title': 'जगह कहाँ है',
+        'core-treemap-shell.source': 'स्रोत',
+        'core-treemap-shell.source_account': 'यह खाता',
+        'core-treemap-shell.source_host': 'होस्ट (केवल root)',
+        'core-treemap-shell.colour_by': 'रंग का आधार',
+        'core-treemap-shell.colour_type': 'फ़ाइल प्रकार',
+        'core-treemap-shell.colour_age': 'कब बदली गई',
+        'core-treemap-shell.only': 'केवल',
+        'core-treemap-shell.every_type': 'हर प्रकार',
+        'core-treemap-shell.up': 'एक स्तर ऊपर',
+        'core-treemap-shell.help':
+          'क्षेत्र आकार दिखाता है। छोटे फ़ाइलों से भरी डायरेक्टरी सबसे बड़े पथों की सूची में नहीं दिखती, पर यहाँ स्पष्ट होती है। विवरण के लिए आयत पर क्लिक करें, खोलने के लिए डायरेक्टरी पर डबल-क्लिक करें और सारांश के लिए होवर करें।',
+      }),
+      ar: Object.freeze({
+        'core-treemap-shell.title': 'أين توجد المساحة',
+        'core-treemap-shell.source': 'المصدر',
+        'core-treemap-shell.source_account': 'هذا الحساب',
+        'core-treemap-shell.source_host': 'المضيف (root فقط)',
+        'core-treemap-shell.colour_by': 'لوّن حسب',
+        'core-treemap-shell.colour_type': 'نوع الملف',
+        'core-treemap-shell.colour_age': 'وقت آخر تعديل',
+        'core-treemap-shell.only': 'فقط',
+        'core-treemap-shell.every_type': 'كل الأنواع',
+        'core-treemap-shell.up': 'اصعد مستوى',
+        'core-treemap-shell.help':
+          'تمثل المساحة الحجم. قد لا يظهر مجلد مليء بملفات صغيرة في قائمة أكبر المسارات، لكنه يكون واضحًا هنا. انقر المستطيل للتفاصيل، وانقر المجلد مرتين للدخول إليه، ومرر المؤشر للملخص. تصفية نوع واحد تُبقي ملفات ذلك النوع فقط.',
+      }),
+      zh: Object.freeze({
+        'core-treemap-shell.title': '空间在哪里',
+        'core-treemap-shell.source': '来源',
+        'core-treemap-shell.source_account': '此账户',
+        'core-treemap-shell.source_host': '主机（仅 root）',
+        'core-treemap-shell.colour_by': '着色依据',
+        'core-treemap-shell.colour_type': '文件类型',
+        'core-treemap-shell.colour_age': '最近修改时间',
+        'core-treemap-shell.only': '仅',
+        'core-treemap-shell.every_type': '所有类型',
+        'core-treemap-shell.up': '向上一层',
+        'core-treemap-shell.help':
+          '面积表示大小。装满小文件的目录在最大路径列表中并不显眼，但在这里会很明显。单击矩形查看详情，双击目录进入，悬停可看摘要。按类型筛选时，每个目录只保留该类型的文件。',
+      }),
+    }),
+  }),
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-treemap-shell.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-treemap-shell.${key}`],
+    );
+  },
+  render() {},
+};

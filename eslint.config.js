@@ -127,6 +127,7 @@ export default [
         ZogographChartIdentityCard: 'readonly',
         ZogographNavigationBadgeCard: 'readonly',
         ZogographTreemapLegendCard: 'readonly',
+        ZogographTreemapShellCard: 'readonly',
         ZogographTreemapNoteCard: 'readonly',
         ZogographTreemapCrumbsCard: 'readonly',
         ZogographStorageHistoryCard: 'readonly',

@@ -2804,6 +2804,28 @@ function renderBackupShellLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderBackupShellLabels);
 
+function renderTreemapShellLabels() {
+  const helpers = { i18n: ZogographI18n };
+  renderCoreCardPackage(
+    ZogographTreemapShellCard,
+    'core-treemap-shell',
+    {},
+    helpers,
+  );
+  document
+    .querySelectorAll('[data-i18n^="core-treemap-shell."]')
+    .forEach((node) => {
+      const key = node.dataset.i18n.replace('core-treemap-shell.', '');
+      node.textContent = ZogographI18n.markSource(
+        node,
+        `core-treemap-shell.${key}`,
+        ZogographTreemapShellCard.text(key, helpers),
+      );
+    });
+}
+
+document.addEventListener('zogograph-i18n-load', renderTreemapShellLabels);
+
 /**
  * When the disk is projected to fill, as a date.
  *

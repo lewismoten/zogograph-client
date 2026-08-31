@@ -1,3 +1,4 @@
 {
-  "core-ai-get-backups.summary": "What backups exist and how old each one is."
+  "core-ai-get-backups.summary": "What backups exist and how old each one is.",
+  "core-ai-get-backups.activity": "Checked the available backups"
 }

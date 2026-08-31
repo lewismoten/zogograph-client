@@ -1,3 +1,4 @@
 {
-  "core-ai-get-backups.summary": "有哪些备份以及每个备份的保存时间。"
+  "core-ai-get-backups.summary": "有哪些备份以及每个备份的保存时间。",
+  "core-ai-get-backups.activity": "检查了可用备份"
 }

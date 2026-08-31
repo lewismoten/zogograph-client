@@ -1,3 +1,4 @@
 {
-  "core-ai-get-backups.summary": "कौन से बैकअप मौजूद हैं और हर एक कितना पुराना है।"
+  "core-ai-get-backups.summary": "कौन से बैकअप मौजूद हैं और हर एक कितना पुराना है।",
+  "core-ai-get-backups.activity": "उपलब्ध बैकअप जाँचे"
 }

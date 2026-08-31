@@ -1,3 +1,4 @@
 {
-  "core-ai-get-backups.summary": "Qué copias de seguridad existen y la antigüedad de cada una."
+  "core-ai-get-backups.summary": "Qué copias de seguridad existen y la antigüedad de cada una.",
+  "core-ai-get-backups.activity": "Comprobó las copias de seguridad disponibles"
 }

@@ -3096,6 +3096,23 @@ function renderNetworkRdnsTitle() {
     'core-network-rdns.title',
     ZogographNetworkRdnsCard.text('title', helpers),
   );
+  for (const key of ['resolve_next', 'lookup']) {
+    const element = document.querySelector(
+      `[data-i18n="core-network-rdns.${key}"]`,
+    );
+    element.textContent = ZogographI18n.markSource(
+      element,
+      `core-network-rdns.${key}`,
+      ZogographNetworkRdnsCard.text(key, helpers),
+    );
+  }
+  const placeholder = document.querySelector(
+    '[data-i18n-placeholder="core-network-rdns.placeholder"]',
+  );
+  placeholder.placeholder = ZogographNetworkRdnsCard.text(
+    'placeholder',
+    helpers,
+  );
   ZogographI18n.applyRich(
     document.querySelector('[data-i18n-rich="core-network-rdns.help"]'),
   );

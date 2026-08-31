@@ -24238,6 +24238,8 @@ function processCpuCell(percent, cores) {
 }
 
 function processAge(row) {
+  const processTrendText = (key, values = {}) =>
+    ZogographProcessTrendCard.text(key, values, { i18n: ZogographI18n });
   // Grouped rows carry the span of the group; a single process carries its own
   // age under a different name, and the ungrouped table is made of those.
   const oldest = row.oldest_seconds ?? row.elapsed_seconds;
@@ -24249,11 +24251,10 @@ function processAge(row) {
   const said = document.createElement('span');
   said.textContent =
     row.procs > 1 && newest != null && newest * 8 < oldest && oldest > 600
-      ? ZogographI18n.t(
-          'process.age_with_newest',
-          { age, newest: humanDuration(newest) },
-          `${age} · newest ${humanDuration(newest)}`,
-        )
+      ? processTrendText('age_with_newest', {
+          age,
+          newest: humanDuration(newest),
+        })
       : age;
 
   /*
@@ -24268,36 +24269,12 @@ function processAge(row) {
    */
   const [band, why] =
     oldest < 5
-      ? [
-          'age-new',
-          ZogographI18n.t('process.age_started_now', {}, 'Started just now.'),
-        ]
+      ? ['age-new', processTrendText('age_started_now')]
       : oldest < 3600
-        ? [
-            'age-recent',
-            ZogographI18n.t(
-              'process.age_started_hour',
-              {},
-              'Started within the hour.',
-            ),
-          ]
+        ? ['age-recent', processTrendText('age_started_hour')]
         : oldest < 86400
-          ? [
-              '',
-              ZogographI18n.t(
-                'process.age_started_today',
-                {},
-                'Started today.',
-              ),
-            ]
-          : [
-              'age-old',
-              ZogographI18n.t(
-                'process.age_long_running',
-                {},
-                'Running for more than a day - a daemon, or something that never finished.',
-              ),
-            ];
+          ? ['', processTrendText('age_started_today')]
+          : ['age-old', processTrendText('age_long_running')];
 
   if (band) said.className = band;
   said.title = why;

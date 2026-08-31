@@ -3614,11 +3614,6 @@ i18nExpect(
             $english['process.cpu_cores'],
             $english['process.cpu_cores_worth'],
             $english['process.cpu_help'],
-            $english['process.age_with_newest'],
-            $english['process.age_started_now'],
-            $english['process.age_started_hour'],
-            $english['process.age_started_today'],
-            $english['process.age_long_running'],
             $english['process.unavailable'],
             $english['process.no_matches'],
             $english['process.matches_summary'],
@@ -3920,7 +3915,35 @@ i18nExpect(
 i18nExpect(
     $script !== false &&
         str_contains($script, 'process.cpu_help') &&
-        str_contains($script, 'process.age_with_newest') &&
+        str_contains($script, "processTrendText('age_with_newest'") &&
+        $processTrendCard !== false &&
+        str_contains(
+            $processTrendCard,
+            '"core-process-trend.age_with_newest"',
+        ) &&
+        str_contains(
+            $processTrendCard,
+            '"core-process-trend.age_started_now"',
+        ) &&
+        str_contains(
+            $processTrendCard,
+            '"core-process-trend.age_started_hour"',
+        ) &&
+        str_contains(
+            $processTrendCard,
+            '"core-process-trend.age_started_today"',
+        ) &&
+        str_contains(
+            $processTrendCard,
+            '"core-process-trend.age_long_running"',
+        ) &&
+        !isset(
+            $english['process.age_with_newest'],
+            $english['process.age_started_now'],
+            $english['process.age_started_hour'],
+            $english['process.age_started_today'],
+            $english['process.age_long_running'],
+        ) &&
         str_contains($script, 'process.rank_second_largest'),
     'process row explanations retain direct user-visible text',
 );

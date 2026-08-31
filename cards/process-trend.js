@@ -24,6 +24,12 @@ window.ZogographProcessTrendCard = {
         'core-process-trend.empty': 'No recorded process load in this range',
         'core-process-trend.memory': 'memory',
         'core-process-trend.cpu': 'CPU',
+        'core-process-trend.age_with_newest': '{{age}} · newest {{newest}}',
+        'core-process-trend.age_started_now': 'Started just now.',
+        'core-process-trend.age_started_hour': 'Started within the hour.',
+        'core-process-trend.age_started_today': 'Started today.',
+        'core-process-trend.age_long_running':
+          'Running for more than a day - a daemon, or something that never finished.',
       }),
       es: Object.freeze({
         'core-process-trend.title':
@@ -38,6 +44,14 @@ window.ZogographProcessTrendCard = {
           'No hay carga de proceso registrada en este rango',
         'core-process-trend.memory': 'memoria',
         'core-process-trend.cpu': 'CPU',
+        'core-process-trend.age_with_newest':
+          '{{age}} · más reciente {{newest}}',
+        'core-process-trend.age_started_now': 'Iniciado ahora mismo.',
+        'core-process-trend.age_started_hour':
+          'Iniciado durante la última hora.',
+        'core-process-trend.age_started_today': 'Iniciado hoy.',
+        'core-process-trend.age_long_running':
+          'Lleva más de un día en ejecución: un daemon o algo que nunca terminó.',
       }),
       hi: Object.freeze({
         'core-process-trend.title': 'इस सीमा में रिपोर्ट किया गया प्रोसेस लोड',
@@ -51,6 +65,12 @@ window.ZogographProcessTrendCard = {
           'इस सीमा में कोई रिकॉर्ड किया गया प्रक्रिया लोड नहीं है',
         'core-process-trend.memory': 'मेमोरी',
         'core-process-trend.cpu': 'CPU',
+        'core-process-trend.age_with_newest': '{{age}} · सबसे नया {{newest}}',
+        'core-process-trend.age_started_now': 'अभी शुरू हुआ।',
+        'core-process-trend.age_started_hour': 'एक घंटे के भीतर शुरू हुआ।',
+        'core-process-trend.age_started_today': 'आज शुरू हुआ।',
+        'core-process-trend.age_long_running':
+          'एक दिन से अधिक समय से चल रहा है — डेमन, या कुछ जो कभी समाप्त नहीं हुआ।',
       }),
       ar: Object.freeze({
         'core-process-trend.title': 'حمل العملية المُبلّغ عنه خلال هذا النطاق',
@@ -63,6 +83,12 @@ window.ZogographProcessTrendCard = {
         'core-process-trend.empty': 'لا يوجد حمل عمليات مسجل في هذا النطاق',
         'core-process-trend.memory': 'الذاكرة',
         'core-process-trend.cpu': 'CPU',
+        'core-process-trend.age_with_newest': '{{age}} · الأحدث {{newest}}',
+        'core-process-trend.age_started_now': 'بدأ للتو.',
+        'core-process-trend.age_started_hour': 'بدأ خلال الساعة.',
+        'core-process-trend.age_started_today': 'بدأ اليوم.',
+        'core-process-trend.age_long_running':
+          'يعمل لأكثر من يوم — خدمة، أو شيء لم ينتهِ أبدًا.',
       }),
       zh: Object.freeze({
         'core-process-trend.title': '此范围内报告的进程负载',
@@ -75,14 +101,22 @@ window.ZogographProcessTrendCard = {
         'core-process-trend.empty': '此范围内没有已记录的进程负载',
         'core-process-trend.memory': '内存',
         'core-process-trend.cpu': 'CPU',
+        'core-process-trend.age_with_newest': '{{age}} · 最新 {{newest}}',
+        'core-process-trend.age_started_now': '刚刚启动。',
+        'core-process-trend.age_started_hour': '在一小时内启动。',
+        'core-process-trend.age_started_today': '今天启动。',
+        'core-process-trend.age_long_running':
+          '运行已超过一天——可能是守护进程，也可能是从未结束的内容。',
       }),
     }),
   }),
 
-  text(key, helpers) {
+  text(key, valuesOrHelpers = {}, maybeHelpers = null) {
+    const helpers = maybeHelpers || valuesOrHelpers;
+    const values = maybeHelpers ? valuesOrHelpers : {};
     return helpers.i18n.t(
       `core-process-trend.${key}`,
-      {},
+      values,
       this.manifest.catalogs.en[`core-process-trend.${key}`],
     );
   },

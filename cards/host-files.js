@@ -15,6 +15,8 @@ window.ZogographHostFilesCard = {
     catalogs: Object.freeze({
       en: Object.freeze({
         'core-host-files.title': 'Files only root can see',
+        'core-host-files.filesystems_help':
+          'For when {{df}} reports a number nothing else can explain. Every filesystem root can see, and the gap between what the filesystem says is used and what walking it actually found. The two usual explanations have pages of their own: {{deleted}} and {{directories}}.',
         'core-host-files.linked_total':
           '{{bytes}} across {{files}} files, reached by {{paths}} paths. {{linked}} extra paths are hard links to files already counted, so they use no additional disk.',
         'core-host-files.path': 'Path',
@@ -30,6 +32,8 @@ window.ZogographHostFilesCard = {
       }),
       es: Object.freeze({
         'core-host-files.title': 'Archivos que solo root puede ver',
+        'core-host-files.filesystems_help':
+          'Para cuando {{df}} informa una cifra que nada más puede explicar. Cada raíz de sistema de archivos que puede verse y la diferencia entre lo que el sistema de archivos dice que está usado y lo que el recorrido encontró realmente. Las dos explicaciones habituales tienen sus propias páginas: {{deleted}} y {{directories}}.',
         'core-host-files.linked_total':
           '{{bytes}} entre {{files}} archivos, alcanzados por {{paths}} rutas. {{linked}} rutas adicionales son enlaces duros a archivos ya contados, así que no usan disco adicional.',
         'core-host-files.path': 'Ruta',
@@ -45,6 +49,8 @@ window.ZogographHostFilesCard = {
       }),
       hi: Object.freeze({
         'core-host-files.title': 'फ़ाइलें जो केवल root देख सकता है',
+        'core-host-files.filesystems_help':
+          'जब {{df}} ऐसा अंक बताए जिसे और कुछ समझा न सके। हर दिखाई देने वाला फ़ाइल सिस्टम रूट, और फ़ाइल सिस्टम के इस्तेमाल बताए स्थान तथा स्कैन में वास्तव में मिले स्थान का अंतर। दो सामान्य कारणों के अपने पेज हैं: {{deleted}} और {{directories}}।',
         'core-host-files.linked_total':
           '{{files}} फ़ाइलों में {{bytes}}, जिन तक {{paths}} पथों से पहुँचा गया। {{linked}} अतिरिक्त पथ पहले से गिनी गई फ़ाइलों के हार्ड लिंक हैं, इसलिए वे अतिरिक्त डिस्क नहीं लेते।',
         'core-host-files.path': 'पथ',
@@ -61,6 +67,8 @@ window.ZogographHostFilesCard = {
       }),
       ar: Object.freeze({
         'core-host-files.title': 'ملفات لا يراها إلا root',
+        'core-host-files.filesystems_help':
+          'عندما يبلّغ {{df}} عن رقم لا يفسره شيء آخر. كل جذر نظام ملفات يمكن رؤيته، والفجوة بين ما يقول نظام الملفات إنه مستخدم وما وجده المسح فعلًا. للسببين المعتادين صفحتان خاصتان: {{deleted}} و{{directories}}.',
         'core-host-files.linked_total':
           '{{bytes}} عبر {{files}} ملفات، يمكن الوصول إليها من {{paths}} مسارات. {{linked}} مسارات إضافية هي روابط صلبة لملفات محسوبة بالفعل، لذا لا تستخدم مساحة قرص إضافية.',
         'core-host-files.path': 'المسار',
@@ -76,6 +84,8 @@ window.ZogographHostFilesCard = {
       }),
       zh: Object.freeze({
         'core-host-files.title': '仅 root 可见的文件',
+        'core-host-files.filesystems_help':
+          '当 {{df}} 报告了其他内容无法解释的数值时，可查看这里。这里显示每个可见文件系统根目录，以及文件系统所称已用空间与实际扫描所发现空间之间的差额。两个常见原因各有独立页面：{{deleted}} 和 {{directories}}。',
         'core-host-files.linked_total':
           '共 {{files}} 个文件，占用 {{bytes}}，可通过 {{paths}} 条路径访问。另有 {{linked}} 条路径是已统计文件的硬链接，因此不占用额外磁盘空间。',
         'core-host-files.path': '路径',

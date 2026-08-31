@@ -2560,6 +2560,11 @@ function renderHostFileLabels() {
     'core-host-files.title',
     ZogographHostFilesCard.text('title', helpers),
   );
+  ZogographI18n.applyRich(
+    document.querySelector(
+      '[data-i18n-rich="core-host-files.filesystems_help"]',
+    ),
+  );
 }
 
 document.addEventListener('zogograph-i18n-load', renderHostFileLabels);

@@ -2590,7 +2590,6 @@
   "terminal.sessions_last_command": "最后一条命令",
   "terminal.sessions_commands": "命令",
   "terminal.sessions_who": "执行者",
-  "terminal.sessions_output_help": "打开会话会显示运行了什么。每条命令{{printed}}的内容放在单独的开关后，因为这是两个不同的问题，有两个不同的答案：您输入的内容在任何屏幕上都安全，而返回的内容可能是含有密码的配置文件。",
   "ai.reclaim_space": "回收空闲空间",
   "storage.safe_export": "下载安全导出",
   "storage.integrity_check": "运行完整完整性检查",

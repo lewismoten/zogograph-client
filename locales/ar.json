@@ -2590,7 +2590,6 @@
   "terminal.sessions_last_command": "آخر أمر",
   "terminal.sessions_commands": "الأوامر",
   "terminal.sessions_who": "من",
-  "terminal.sessions_output_help": "فتح جلسة يعرض ما شُغّل. ما {{printed}} كل أمر خلف مفتاحه الخاص، لأنهما سؤالان مختلفان بإجابتين مختلفتين: ما كتبته آمن على أي شاشة، وما عاد قد يكون ملف إعداد به كلمة مرور.",
   "ai.reclaim_space": "استعد المساحة الفارغة",
   "storage.safe_export": "نزّل تصديرًا آمنًا",
   "storage.integrity_check": "شغّل فحص سلامة كاملًا",

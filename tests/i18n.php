@@ -2053,17 +2053,23 @@ i18nExpect(
             'data-i18n="core-terminal-sessions.grouping_help"',
         ) &&
         str_contains($page, 'data-i18n="core-terminal-sessions.topic_help"') &&
+        str_contains(
+            $page,
+            'data-i18n-rich="core-terminal-sessions.output_help"',
+        ) &&
         is_array($coreCardEnglish) &&
         isset(
             $coreCardEnglish['core-terminal-sessions.title'],
             $coreCardEnglish['core-terminal-sessions.grouping_help'],
             $coreCardEnglish['core-terminal-sessions.topic_help'],
+            $coreCardEnglish['core-terminal-sessions.output_help'],
         ) &&
         is_array($english) &&
         !isset(
             $english['terminal.sessions_title'],
             $english['terminal.sessions_grouping_help'],
             $english['terminal.sessions_topic_help'],
+            $english['terminal.sessions_output_help'],
         ),
     'terminal sessions heading does not use its core card package catalog',
 );

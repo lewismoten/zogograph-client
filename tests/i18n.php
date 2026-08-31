@@ -1087,6 +1087,11 @@ i18nExpect(
         !isset($english['network.capture_failed']) &&
         !isset($english['network.interface_filter']) &&
         !isset($english['network.packets_rate']) &&
+        !isset($english['network.capture_direction_detail']) &&
+        !isset($english['network.distinct_remote_addresses']) &&
+        !isset($english['network.distinct_names_asked']) &&
+        !isset($english['network.counted_unattributed']) &&
+        !isset($english['network.unparsed_detail']) &&
         str_contains(
             $networkCaptureCard,
             '"core-network-capture.capture_direction_detail"',

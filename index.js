@@ -34277,7 +34277,7 @@ function renderCapture(capture, target = 'captureBody') {
     ],
     [
       ZogographI18n.t('network.arriving'),
-      ZogographI18n.t('network.capture_direction_detail', {
+      ZogographI18n.t('core-network-capture.capture_direction_detail', {
         packets: humanCount(capture.in_packets),
         bytes: humanBytes(capture.in_bytes),
         rate:
@@ -34286,7 +34286,7 @@ function renderCapture(capture, target = 'captureBody') {
     ],
     [
       ZogographI18n.t('network.leaving'),
-      ZogographI18n.t('network.capture_direction_detail', {
+      ZogographI18n.t('core-network-capture.capture_direction_detail', {
         packets: humanCount(capture.out_packets),
         bytes: humanBytes(capture.out_bytes),
         rate:
@@ -34294,21 +34294,21 @@ function renderCapture(capture, target = 'captureBody') {
       }),
     ],
     [
-      ZogographI18n.t('network.distinct_remote_addresses'),
+      ZogographI18n.t('core-network-capture.distinct_remote_addresses'),
       humanCount(capture.distinct_peers),
     ],
   ];
 
   if (Number(capture.distinct_names) > 0) {
     facts.push([
-      ZogographI18n.t('network.distinct_names_asked'),
+      ZogographI18n.t('core-network-capture.distinct_names_asked'),
       humanCount(capture.distinct_names),
     ]);
   }
   if (capture.unparsed > 0) {
     facts.push([
-      ZogographI18n.t('network.counted_unattributed'),
-      ZogographI18n.t('network.unparsed_detail', {
+      ZogographI18n.t('core-network-capture.counted_unattributed'),
+      ZogographI18n.t('core-network-capture.unparsed_detail', {
         count: humanCount(capture.unparsed),
       }),
     ]);

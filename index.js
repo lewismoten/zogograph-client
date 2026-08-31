@@ -30048,34 +30048,27 @@ function renderInspect(data) {
 
   facts.push(
     [
-      ZogographI18n.t('storage.last_modified', {}, 'Last modified'),
+      factsText('last_modified'),
       f.modified_at
         ? `${humanTime(f.modified_at)} (${humanDuration(Date.now() / 1000 - f.modified_at)} ago)`
-        : 'unknown',
+        : factsText('unknown'),
     ],
     [
-      ZogographI18n.t('storage.last_read', {}, 'Last read'),
-      f.accessed_at
-        ? humanTime(f.accessed_at)
-        : ZogographI18n.t('storage.unknown', {}, 'unknown'),
+      factsText('last_read'),
+      f.accessed_at ? humanTime(f.accessed_at) : factsText('unknown'),
     ],
     // Named for what it is: Unix does not record a creation time, and every
     // file manager that labels ctime "created" is repeating the same mistake.
     [
-      ZogographI18n.t('storage.inode_last_changed', {}, 'Inode last changed'),
-      f.changed_at
-        ? humanTime(f.changed_at)
-        : ZogographI18n.t('storage.unknown', {}, 'unknown'),
+      factsText('inode_last_changed'),
+      f.changed_at ? humanTime(f.changed_at) : factsText('unknown'),
     ],
+    [factsText('owner'), f.owner ?? factsText('unknown')],
     [
-      ZogographI18n.t('storage.owner', {}, 'Owner'),
-      f.owner ?? ZogographI18n.t('storage.unknown', {}, 'unknown'),
-    ],
-    [
-      ZogographI18n.t('storage.permissions', {}, 'Permissions'),
+      factsText('permissions'),
       f.mode
         ? `${f.mode} \u2014 ${modeInWords(f.mode, data.kind === 'dir')}`
-        : ZogographI18n.t('storage.unknown', {}, 'unknown'),
+        : factsText('unknown'),
     ],
   );
 

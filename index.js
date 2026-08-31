@@ -5865,26 +5865,12 @@ function renderAiSettings(data) {
     ),
   );
 
-  const hostCommands = document.createElement('input');
-  hostCommands.type = 'checkbox';
-  hostCommands.id = 'aiHostCommands';
-  hostCommands.checked = data.host_commands === true;
   room.appendChild(
-    fieldRow(
-      aiSettingsText(
-        'host_commands_label',
-        'Let it see what only root can run',
-      ),
-      hostCommands,
-      aiSettingsText(
-        'host_commands_help',
-        'The host collector already records which programs exist and which this account can ' +
-          'reach. With this on, the assistant can see the difference and may suggest asking ' +
-          'your host to run one and send back the output — which is an ordinary support ' +
-          'request and often the fastest route to an answer. It is told to suggest reading ' +
-          'only, never changes to a shared server. Off by default because it changes the kind ' +
-          'of advice you get.',
-      ),
+    renderCoreCardPackage(
+      ZogographAiHostCommandVisibilityCard,
+      'core-ai-host-command-visibility',
+      data,
+      { fieldRow, i18n: ZogographI18n },
     ),
   );
 

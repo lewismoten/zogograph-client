@@ -450,8 +450,6 @@
   "process.matches_some_protected": "{{scanned}} चल रही प्रक्रियाओं में से {{matched}} मेल खाती हैं; {{blocked}} सुरक्षित हैं।",
   "process.all_matches_protected": "हर मेल सुरक्षित है, इसलिए यहाँ रोकने के लिए कुछ नहीं है।",
   "storage.links_sign_in": "सिमलिंक जाँचने के लिए साइन इन करें।",
-  "storage.link_sweep_why_not": "क्यों नहीं",
-  "storage.link_sweep_pointed_at": "इंगित था",
   "storage.symlink_kind_loop": "लूप",
   "storage.symlink_kind_ancestor": "अनंत डायरेक्टरी",
   "storage.symlink_kind_outside": "ट्री से बाहर जाता है",

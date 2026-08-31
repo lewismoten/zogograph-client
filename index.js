@@ -22119,7 +22119,12 @@ async function sweepLinks(pattern, confirmed = false) {
           render: (row) => dimmedPath(row.path, root),
         },
         {
-          label: ZogographI18n.t('storage.link_sweep_why_not', {}, 'Why not'),
+          label: renderCoreCardPackage(
+            ZogographSymlinkSweepTableLabelsCard,
+            'core-symlink-sweep-table-labels',
+            { label: 'why_not' },
+            { i18n: ZogographI18n },
+          ),
           className: 'muted',
           render: (row) => row.why,
         },
@@ -22141,10 +22146,11 @@ async function sweepLinks(pattern, confirmed = false) {
           render: (row) => dimmedPath(row.path, root),
         },
         {
-          label: ZogographI18n.t(
-            'storage.link_sweep_pointed_at',
-            {},
-            'Pointed at',
+          label: renderCoreCardPackage(
+            ZogographSymlinkSweepTableLabelsCard,
+            'core-symlink-sweep-table-labels',
+            { label: 'pointed_at' },
+            { i18n: ZogographI18n },
           ),
           className: 'name',
           render: (row) => targetPath(row),

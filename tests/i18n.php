@@ -2638,8 +2638,6 @@ i18nExpect(
             $english['process.matches_all_protected'],
             $english['process.matches_some_protected'],
             $english['process.all_matches_protected'],
-            $english['storage.link_sweep_why_not'],
-            $english['storage.link_sweep_pointed_at'],
             $english['storage.symlink_kind_loop'],
             $english['storage.symlink_kind_ancestor'],
             $english['storage.symlink_kind_outside'],
@@ -3053,7 +3051,12 @@ i18nExpect(
             ),
             'core-symlink-sweep-actions.confirm',
         ) &&
-        str_contains($script, 'storage.link_sweep_pointed_at'),
+        str_contains(
+            (string) file_get_contents(
+                $root . '/cards/symlink-sweep-table-labels.js',
+            ),
+            'core-symlink-sweep-table-labels.pointed_at',
+        ),
     'broken-link sweep limits and result table retain direct user-visible text',
 );
 i18nExpect(

@@ -1402,6 +1402,8 @@ i18nExpect(
         str_contains($viewGuideCard, '"core-view-guide.sign_in_help"') &&
         str_contains($viewGuideCard, '"core-view-guide.vitals_purpose"') &&
         str_contains($viewGuideCard, '"core-view-guide.vitals_useful"') &&
+        str_contains($viewGuideCard, '"core-view-guide.storage_purpose"') &&
+        str_contains($viewGuideCard, '"core-view-guide.storage_useful"') &&
         str_contains($script, 'function localizedHelpProfile(profile)') &&
         str_contains($script, 'core-view-guide.${profile.id}_purpose') &&
         str_contains($script, 'ZogographViewGuideCard,'),

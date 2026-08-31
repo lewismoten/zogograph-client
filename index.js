@@ -5838,23 +5838,12 @@ function renderAiSettings(data) {
     ),
   );
 
-  const at = document.createElement('input');
-  at.type = 'number';
-  at.id = 'aiCompactAt';
-  at.min = '30';
-  at.max = '85';
-  at.className = 'days';
-  at.value = String(data.compact_at ?? 70);
   room.appendChild(
-    fieldRow(
-      aiSettingsText('compact_at_label', 'Summarise at (%)'),
-      at,
-      aiSettingsText(
-        'compact_at_help',
-        'How full it gets before the older part of a conversation is replaced with a summary. ' +
-          'Deliberately not near 100: summarising means sending the part being summarised, so ' +
-          'a limit that fires when the window is already full is a limit that cannot act.',
-      ),
+    renderCoreCardPackage(
+      ZogographAiContextCompactionThresholdCard,
+      'core-ai-context-compaction-threshold',
+      data,
+      { fieldRow, i18n: ZogographI18n },
     ),
   );
 

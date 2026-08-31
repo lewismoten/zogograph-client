@@ -25,6 +25,12 @@ window.ZogographAiProviderConnectionCard = {
           'No available models yet — add one on Available Models',
         'core-ai-provider-connection.compatible_keyless_save_help':
           'An Ollama or OpenAI-compatible connection can be saved without an API key.',
+        'core-ai-provider-connection.provider_save_unavailable_config':
+          'Connection saving is unavailable because PHP cannot write the configuration store.',
+        'core-ai-provider-connection.provider_save_unavailable_role':
+          'Connection saving is unavailable for your current account. An administrator can save it.',
+        'core-ai-provider-connection.provider_save_ready':
+          'This connection can be saved without an API key. Saving also keeps the settings on the other Assistant pages.',
       }),
       es: Object.freeze({
         'core-ai-provider-connection.provider_label': 'Proveedor',
@@ -48,6 +54,12 @@ window.ZogographAiProviderConnectionCard = {
           'Aún no hay modelos disponibles; añada uno en Modelos disponibles',
         'core-ai-provider-connection.compatible_keyless_save_help':
           'Una conexión Ollama o compatible con OpenAI se puede guardar sin una clave de API.',
+        'core-ai-provider-connection.provider_save_unavailable_config':
+          'No se puede guardar la conexión porque PHP no puede escribir en el almacén de configuración.',
+        'core-ai-provider-connection.provider_save_unavailable_role':
+          'No puede guardar conexiones con su cuenta actual. Un administrador puede guardarla.',
+        'core-ai-provider-connection.provider_save_ready':
+          'Esta conexión se puede guardar sin una clave de API. Al guardarla también se conservan los ajustes de las otras páginas del asistente.',
       }),
       hi: Object.freeze({
         'core-ai-provider-connection.provider_label': 'प्रदाता',
@@ -70,6 +82,12 @@ window.ZogographAiProviderConnectionCard = {
           'अभी कोई उपलब्ध मॉडल नहीं है — उपलब्ध मॉडल में एक जोड़ें',
         'core-ai-provider-connection.compatible_keyless_save_help':
           'Ollama या OpenAI-संगत कनेक्शन API कुंजी के बिना सहेजा जा सकता है।',
+        'core-ai-provider-connection.provider_save_unavailable_config':
+          'कनेक्शन सहेजा नहीं जा सकता क्योंकि PHP कॉन्फ़िगरेशन स्टोर में लिख नहीं सकता।',
+        'core-ai-provider-connection.provider_save_unavailable_role':
+          'आपके वर्तमान खाते से कनेक्शन सहेजा नहीं जा सकता। कोई व्यवस्थापक इसे सहेज सकता है।',
+        'core-ai-provider-connection.provider_save_ready':
+          'इस कनेक्शन को API कुंजी के बिना सहेजा जा सकता है। सहेजने से सहायक के अन्य पृष्ठों की सेटिंग भी बनी रहती हैं।',
       }),
       ar: Object.freeze({
         'core-ai-provider-connection.provider_label': 'الموفّر',
@@ -91,6 +109,12 @@ window.ZogographAiProviderConnectionCard = {
           'لا توجد نماذج متاحة بعد — أضف نموذجًا في النماذج المتاحة',
         'core-ai-provider-connection.compatible_keyless_save_help':
           'يمكن حفظ اتصال Ollama أو اتصال متوافق مع OpenAI من دون مفتاح API.',
+        'core-ai-provider-connection.provider_save_unavailable_config':
+          'يتعذر حفظ الاتصال لأن PHP لا يستطيع الكتابة إلى مخزن الإعدادات.',
+        'core-ai-provider-connection.provider_save_unavailable_role':
+          'لا يمكن لحسابك الحالي حفظ الاتصالات. يمكن للمسؤول حفظه.',
+        'core-ai-provider-connection.provider_save_ready':
+          'يمكن حفظ هذا الاتصال من دون مفتاح API. الحفظ يبقي أيضاً إعدادات صفحات المساعد الأخرى.',
       }),
       zh: Object.freeze({
         'core-ai-provider-connection.provider_label': '提供商',
@@ -112,6 +136,12 @@ window.ZogographAiProviderConnectionCard = {
           '尚无可用模型——请在“可用模型”中添加一个',
         'core-ai-provider-connection.compatible_keyless_save_help':
           '无需 API 密钥即可保存 Ollama 或 OpenAI 兼容连接。',
+        'core-ai-provider-connection.provider_save_unavailable_config':
+          '无法保存连接，因为 PHP 无法写入配置存储区。',
+        'core-ai-provider-connection.provider_save_unavailable_role':
+          '您当前的帐户不能保存连接。管理员可以保存它。',
+        'core-ai-provider-connection.provider_save_ready':
+          '无需 API 密钥即可保存此连接。保存还会保留其他助手页面上的设置。',
       }),
     }),
   }),

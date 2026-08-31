@@ -36212,27 +36212,43 @@ function openCalendarDay(key, entries) {
     const kind = document.createElement('span');
     kind.className = 'muted small';
     const kinds = {
-      domain: ZogographI18n.t('calendar.kind_domain', {}, 'domain expiry'),
+      domain: ZogographI18n.t(
+        'core-calendar-day-dialog.kind_domain',
+        {},
+        'domain expiry',
+      ),
       certificate: ZogographI18n.t(
-        'calendar.kind_certificate',
+        'core-calendar-day-dialog.kind_certificate',
         {},
         'HTTPS certificate expiry',
       ),
       event:
         entry.repeats && entry.repeats !== 'once'
           ? ZogographI18n.t(
-              'calendar.kind_repeats',
+              'core-calendar-day-dialog.kind_repeats',
               { repeats: entry.repeats },
               'repeats {{repeats}}',
             )
-          : ZogographI18n.t('calendar.kind_event', {}, 'a date you keep'),
+          : ZogographI18n.t(
+              'core-calendar-day-dialog.kind_event',
+              {},
+              'a date you keep',
+            ),
       projection: ZogographI18n.t(
-        'calendar.kind_projection',
+        'core-calendar-day-dialog.kind_projection',
         {},
         'projected from the trend',
       ),
-      alert: ZogographI18n.t('calendar.kind_alert', {}, 'an alert that fired'),
-      reset: ZogographI18n.t('calendar.kind_reset', {}, 'the host restarted'),
+      alert: ZogographI18n.t(
+        'core-calendar-day-dialog.kind_alert',
+        {},
+        'an alert that fired',
+      ),
+      reset: ZogographI18n.t(
+        'core-calendar-day-dialog.kind_reset',
+        {},
+        'the host restarted',
+      ),
     };
     kind.textContent = kinds[entry.kind] || entry.kind;
     row.appendChild(kind);
@@ -36248,7 +36264,7 @@ function openCalendarDay(key, entries) {
       const done = document.createElement('div');
       done.className = 'band-ok small';
       done.textContent = ZogographI18n.t(
-        'calendar.marked_dealt',
+        'core-calendar-day-dialog.marked_dealt',
         {},
         'marked dealt with',
       );
@@ -36265,7 +36281,7 @@ function openCalendarDay(key, entries) {
       go.rel = 'noopener noreferrer';
       go.className = 'link';
       go.textContent = ZogographI18n.t(
-        'calendar.open_link',
+        'core-calendar-day-dialog.open_link',
         {},
         'Open the link',
       );
@@ -36275,7 +36291,7 @@ function openCalendarDay(key, entries) {
       const go = document.createElement('button');
       go.className = 'link';
       go.textContent = ZogographI18n.t(
-        'calendar.go_to',
+        'core-calendar-day-dialog.go_to',
         { page: VIEWS[entry.view].label },
         'Go to {{page}}',
       );
@@ -36289,8 +36305,12 @@ function openCalendarDay(key, entries) {
       const mark = document.createElement('button');
       mark.className = 'link';
       mark.textContent = entry.resolved
-        ? ZogographI18n.t('calendar.reopen', {}, 'Reopen it')
-        : ZogographI18n.t('calendar.mark_dealt', {}, 'Mark it dealt with');
+        ? ZogographI18n.t('core-calendar-day-dialog.reopen', {}, 'Reopen it')
+        : ZogographI18n.t(
+            'core-calendar-day-dialog.mark_dealt',
+            {},
+            'Mark it dealt with',
+          );
       mark.addEventListener('click', async () => {
         try {
           const result = await post('event-resolve', {

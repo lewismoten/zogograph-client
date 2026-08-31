@@ -202,6 +202,7 @@ export default [
         ZogographAiEnableToggleCard: 'readonly',
         ZogographAiReasoningEffortCard: 'readonly',
         ZogographChatUnavailableCard: 'readonly',
+        ZogographChatPageReviewCard: 'readonly',
         ZogographAuthSignInMessageCard: 'readonly',
         ZogographChatTitleCard: 'readonly',
         ZogographChatActivityCard: 'readonly',

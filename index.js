@@ -8782,6 +8782,13 @@ async function runBrowserTool(run) {
 
 /** Lets the user inspect and redact page structure before it reaches a model. */
 function reviewCurrentPageHtml(why) {
+  const reviewText = (key, values, fallback) =>
+    renderCoreCardPackage(
+      ZogographChatPageReviewCard,
+      'core-chat-page-review',
+      { key, values, fallback },
+      { i18n: ZogographI18n },
+    );
   return new Promise((resolve) => {
     const clone = $('main').cloneNode(true);
     // The conversation and transient controls are not part of the page being diagnosed.
@@ -8792,20 +8799,20 @@ function reviewCurrentPageHtml(why) {
     const said = document.createElement('p');
     said.className = 'muted small';
     said.textContent = why
-      ? ZogographI18n.t(
-          'ai.review_page_requested_reason',
+      ? reviewText(
+          'requested_reason',
           { assistant: chatState.who.name, reason: why },
           '{{assistant}} asked for the page structure: {{reason}}',
         )
-      : ZogographI18n.t(
-          'ai.review_page_requested',
+      : reviewText(
+          'requested',
           { assistant: chatState.who.name },
           '{{assistant}} asked for the current page structure.',
         );
     const help = document.createElement('p');
     help.className = 'muted small';
-    help.textContent = ZogographI18n.t(
-      'ai.review_page_help',
+    help.textContent = reviewText(
+      'help',
       {},
       'Review this before sending it. Delete or replace any element or text you do not want shared.',
     );
@@ -8815,7 +8822,7 @@ function reviewCurrentPageHtml(why) {
     text.spellcheck = false;
     text.value = clone.outerHTML.slice(0, 300 * 1024);
     showFormDialog(
-      ZogographI18n.t('ai.review_page_title', {}, 'Review page HTML'),
+      reviewText('title', {}, 'Review page HTML'),
       [said, help, text],
       async () => resolve(text.value),
     );
@@ -8851,7 +8858,12 @@ function redactReviewedPageHtml(root) {
         node.removeAttribute(attribute.name),
       );
       node.replaceChildren(
-        ZogographI18n.t('ai.review_redacted', {}, '[redacted]'),
+        renderCoreCardPackage(
+          ZogographChatPageReviewCard,
+          'core-chat-page-review',
+          { key: 'redacted', fallback: '[redacted]' },
+          { i18n: ZogographI18n },
+        ),
       );
       node.setAttribute('data-review-redacted', 'sensitive-content');
     });

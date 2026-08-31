@@ -2506,6 +2506,27 @@ function renderHostMemoryGaugeLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderHostMemoryGaugeLabels);
 
+function renderHostFileLabels() {
+  const helpers = {
+    target: null,
+    totalTarget: null,
+    renderTable: () => null,
+    humanBytes: () => '',
+    humanCount: () => '',
+    whenSpan: () => '',
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(ZogographHostFilesCard, 'core-host-files', {}, helpers);
+  const title = document.querySelector('[data-i18n="core-host-files.title"]');
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-host-files.title',
+    ZogographHostFilesCard.text('title', helpers),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderHostFileLabels);
+
 /**
  * When the disk is projected to fill, as a date.
  *

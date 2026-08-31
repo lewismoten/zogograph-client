@@ -2359,7 +2359,6 @@
   "host.big_directories_title": "Directorios más grandes de la máquina",
   "host.big_directories_help": "Procede del recorrido de root por todo el disco, así que alcanza lugares a los que la cuenta no puede llegar: los hogares de otras cuentas, /var, /backup y cualquier cosa montada en un lugar inesperado.",
   "host.disk_processes_help": "De qué procesos procede realmente el rendimiento de disco. La CPU puede permanecer baja mientras un trabajo hace que todo parezca lento al mantener ocupado un disco, y ese trabajo es invisible en los demás paneles del sitio.",
-  "host.root_files_title": "Archivos que solo root puede ver",
   "host.root_files_help": "Apache escribe los registros de cada dominio en /etc, propiedad de root. Un registro rotado allí ocupa exactamente el mismo disco que uno en el directorio personal y es invisible para todo lo que la cuenta puede ejecutar.",
   "host.filesystems_title": "Sistemas de archivos y el espacio que no se explica",
   "host.filesystems_help": "Para cuando {{df}} informa una cifra que nada más puede explicar. Cada raíz de sistema de archivos que puede verse y la diferencia entre lo que el sistema de archivos dice que está usado y lo que el recorrido encontró realmente. Las dos explicaciones habituales tienen sus propias páginas: {{deleted}} y {{directories}}.",

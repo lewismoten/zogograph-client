@@ -14,6 +14,7 @@ window.ZogographHostFilesCard = {
     ],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-host-files.title': 'Files only root can see',
         'core-host-files.linked_total':
           '{{bytes}} across {{files}} files, reached by {{paths}} paths. {{linked}} extra paths are hard links to files already counted, so they use no additional disk.',
         'core-host-files.path': 'Path',
@@ -28,6 +29,7 @@ window.ZogographHostFilesCard = {
         'core-host-files.total': '{{bytes}} across {{files}} files.',
       }),
       es: Object.freeze({
+        'core-host-files.title': 'Archivos que solo root puede ver',
         'core-host-files.linked_total':
           '{{bytes}} entre {{files}} archivos, alcanzados por {{paths}} rutas. {{linked}} rutas adicionales son enlaces duros a archivos ya contados, así que no usan disco adicional.',
         'core-host-files.path': 'Ruta',
@@ -42,6 +44,7 @@ window.ZogographHostFilesCard = {
         'core-host-files.total': '{{bytes}} entre {{files}} archivos.',
       }),
       hi: Object.freeze({
+        'core-host-files.title': 'फ़ाइलें जो केवल root देख सकता है',
         'core-host-files.linked_total':
           '{{files}} फ़ाइलों में {{bytes}}, जिन तक {{paths}} पथों से पहुँचा गया। {{linked}} अतिरिक्त पथ पहले से गिनी गई फ़ाइलों के हार्ड लिंक हैं, इसलिए वे अतिरिक्त डिस्क नहीं लेते।',
         'core-host-files.path': 'पथ',
@@ -57,6 +60,7 @@ window.ZogographHostFilesCard = {
         'core-host-files.total': '{{files}} फ़ाइलों में {{bytes}}।',
       }),
       ar: Object.freeze({
+        'core-host-files.title': 'ملفات لا يراها إلا root',
         'core-host-files.linked_total':
           '{{bytes}} عبر {{files}} ملفات، يمكن الوصول إليها من {{paths}} مسارات. {{linked}} مسارات إضافية هي روابط صلبة لملفات محسوبة بالفعل، لذا لا تستخدم مساحة قرص إضافية.',
         'core-host-files.path': 'المسار',
@@ -71,6 +75,7 @@ window.ZogographHostFilesCard = {
         'core-host-files.total': '{{bytes}} عبر {{files}} ملفات.',
       }),
       zh: Object.freeze({
+        'core-host-files.title': '仅 root 可见的文件',
         'core-host-files.linked_total':
           '共 {{files}} 个文件，占用 {{bytes}}，可通过 {{paths}} 条路径访问。另有 {{linked}} 条路径是已统计文件的硬链接，因此不占用额外磁盘空间。',
         'core-host-files.path': '路径',
@@ -88,6 +93,13 @@ window.ZogographHostFilesCard = {
     }),
   }),
 
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-host-files.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-host-files.${key}`],
+    );
+  },
   render(input, helpers) {
     const { rows, totals } = input;
     const {

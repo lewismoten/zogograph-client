@@ -2938,6 +2938,14 @@ function renderNetworkCaptureHistoryTitle() {
     'core-network-capture-history.title',
     ZogographNetworkCaptureHistoryCard.text('title', helpers),
   );
+  const help = document.querySelector(
+    '[data-i18n="core-network-capture-history.help"]',
+  );
+  help.textContent = ZogographI18n.markSource(
+    help,
+    'core-network-capture-history.help',
+    ZogographNetworkCaptureHistoryCard.text('help', helpers),
+  );
 }
 
 document.addEventListener(

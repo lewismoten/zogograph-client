@@ -404,7 +404,6 @@
   "database.forensic_views": "数据库和取证视图",
   "database.dashboard_collector": "由仪表板收集器维护",
   "database.table_metadata": "用途：{{where}}。收集方式：{{collected}}。检查：sqlite3 <database> \"SELECT COUNT(*) FROM {{name}};\"",
-  "encryption.bootstrap_recovery_notice": "引导配置恢复被刻意限制为仅 CLI：`scripts/restore-config.php` 会对封存的 PHP 进行验证和解析而不执行它，以原子方式替换 `lib/config.php`，并将原配置保留为封存的回滚工件。删除该工件前请测试恢复后的设置。",
   "encryption.superseded_copies_notice": "轮换后，被取代的副本仍使用较早的本地密钥加密。完成替换密钥恢复演练前请保留该密钥；它们不会自动删除。",
   "network.nothing_recorded": "没有已记录的内容。",
   "scan.host_collector_disabled": "主机收集器未启用，因此这些任务都不会运行。 ",

@@ -403,7 +403,6 @@
   "database.forensic_views": "Database and forensic views",
   "database.dashboard_collector": "maintained by the dashboard collector",
   "database.table_metadata": "Used by: {{where}}. Collected by: {{collected}}. Inspect: sqlite3 <database> \"SELECT COUNT(*) FROM {{name}};\"",
-  "encryption.bootstrap_recovery_notice": "Bootstrap configuration recovery is deliberately CLI-only: `scripts/restore-config.php` authenticates and parses the sealed PHP without executing it, atomically replaces `lib/config.php`, and leaves the prior configuration as a sealed rollback artifact. Test the recovered settings before deleting that artifact.",
   "encryption.superseded_copies_notice": "Superseded copies remain encrypted with an earlier local key after rotation. Keep that key until you have completed a replacement-key recovery drill; they are not deleted automatically.",
   "network.nothing_recorded": "Nothing recorded.",
   "scan.host_collector_disabled": "The host collector is not enabled, so none of these run. ",

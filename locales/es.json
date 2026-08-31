@@ -406,7 +406,6 @@
   "database.forensic_views": "Base de datos y vistas forenses",
   "database.dashboard_collector": "mantenida por el recopilador del panel",
   "database.table_metadata": "Usado por: {{where}}. Recopilado por: {{collected}}. Inspeccione: sqlite3 <database> \"SELECT COUNT(*) FROM {{name}};\"",
-  "encryption.bootstrap_recovery_notice": "La recuperación de la configuración de arranque es deliberadamente solo por CLI: `scripts/restore-config.php` autentica y analiza el PHP sellado sin ejecutarlo, reemplaza atómicamente `lib/config.php` y deja la configuración anterior como artefacto de reversión sellado. Pruebe los ajustes recuperados antes de eliminar ese artefacto.",
   "encryption.superseded_copies_notice": "Las copias sustituidas siguen cifradas con una clave local anterior tras la rotación. Conserve esa clave hasta completar una prueba de recuperación con clave de reemplazo; no se eliminan automáticamente.",
   "network.nothing_recorded": "No hay nada registrado.",
   "scan.host_collector_disabled": "El recopilador del host no está activado, así que ninguna de estas tareas se ejecuta. ",

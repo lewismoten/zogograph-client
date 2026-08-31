@@ -93,7 +93,7 @@ try {
             ) &&
             str_contains($encryptionShell, 'Recovery-drill review') &&
             str_contains(
-                $dashboard,
+                $encryptionShell,
                 'Bootstrap configuration recovery is deliberately CLI-only',
             ) &&
             str_contains(

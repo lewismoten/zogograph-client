@@ -404,7 +404,6 @@
   "database.forensic_views": "قاعدة البيانات والعروض الجنائية",
   "database.dashboard_collector": "تديره أداة جمع لوحة المعلومات",
   "database.table_metadata": "يُستخدم بواسطة: {{where}}. جُمع بواسطة: {{collected}}. افحص: sqlite3 <database> \"SELECT COUNT(*) FROM {{name}};\"",
-  "encryption.bootstrap_recovery_notice": "استرداد إعدادات التمهيد مقصور عمدًا على CLI: يتحقق `scripts/restore-config.php` من PHP المختوم ويحلله دون تنفيذه، ويستبدل `lib/config.php` ذريًا، ويترك الإعداد السابق كعنصر تراجع مختوم. اختبر الإعدادات المستردة قبل حذف ذلك العنصر.",
   "encryption.superseded_copies_notice": "تبقى النسخ المستبدلة مشفرة بمفتاح محلي أقدم بعد التدوير. احتفظ بذلك المفتاح حتى تكمل تمرين استرداد بمفتاح بديل؛ لا تُحذف تلقائيًا.",
   "network.nothing_recorded": "لم يُسجل شيء.",
   "scan.host_collector_disabled": "جامع المضيف غير مفعّل، لذا لا يعمل أي من هذه. ",

@@ -15968,15 +15968,7 @@ function renderEncryptionStatus(data) {
     parts.push(note(encryptionText('volume_policy_notice')));
   } else if (data.mode === 'sealed_copies_local') {
     parts.push(note(encryptionText('sealed_copies_notice')));
-    parts.push(
-      note(
-        ZogographI18n.t(
-          'encryption.bootstrap_recovery_notice',
-          {},
-          'Bootstrap configuration recovery is deliberately CLI-only: `scripts/restore-config.php` authenticates and parses the sealed PHP without executing it, atomically replaces `lib/config.php`, and leaves the prior configuration as a sealed rollback artifact. Test the recovered settings before deleting that artifact.',
-        ),
-      ),
-    );
+    parts.push(note(encryptionText('bootstrap_recovery_notice')));
     parts.push(
       note(
         ZogographI18n.t(

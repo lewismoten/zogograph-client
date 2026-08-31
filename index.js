@@ -28847,88 +28847,22 @@ function renderBroadcasts(rows) {
   }
 
   banner.hidden = false;
-  if (window.ZogographBroadcastBannerCard) {
-    return renderCoreCardPackage(
-      ZogographBroadcastBannerCard,
-      'core-broadcast-banner',
-      rows,
-      {
-        target: banner,
-        ago,
-        externalLink,
-        clear: async (id) => {
-          await post('note-clear', { id });
-          await refreshShared();
-        },
-        notice,
-        i18n: ZogographI18n,
-      },
-    );
-  }
-
-  const frag = document.createDocumentFragment();
-
-  const head = document.createElement('strong');
-  head.textContent =
-    rows.length === 1
-      ? ZogographI18n.t(
-          'broadcast.one',
-          {},
-          'A message from whoever was here last',
-        )
-      : ZogographI18n.t(
-          'broadcast.many',
-          { count: rows.length },
-          '{{count, number}} messages from whoever was here last',
-        );
-  frag.appendChild(head);
-
-  for (const row of rows) {
-    const item = document.createElement('div');
-    item.className = 'broadcast';
-
-    const text = document.createElement('div');
-    text.textContent = row.body;
-    item.appendChild(text);
-
-    const who = document.createElement('div');
-    who.className = 'who';
-    who.textContent = ZogographI18n.t(
-      'broadcast.who',
-      {
-        who: row.who || ZogographI18n.t('broadcast.somebody', {}, 'somebody'),
-        ago: ago(row.at),
-      },
-      '{{who}}, {{ago}}',
-    );
-    item.appendChild(who);
-
-    if (row.link) item.appendChild(externalLink(row.link));
-
-    const clear = document.createElement('button');
-    clear.className = 'link';
-    clear.textContent = ZogographI18n.t('broadcast.clear', {}, 'Clear it');
-    clear.title = ZogographI18n.t(
-      'broadcast.clear_help',
-      {},
-      'Stop showing this to everyone',
-    );
-    clear.addEventListener('click', async () => {
-      clear.disabled = true;
-      try {
-        await post('note-clear', { id: row.id });
+  return renderCoreCardPackage(
+    ZogographBroadcastBannerCard,
+    'core-broadcast-banner',
+    rows,
+    {
+      target: banner,
+      ago,
+      externalLink,
+      clear: async (id) => {
+        await post('note-clear', { id });
         await refreshShared();
-      } catch (error) {
-        notice(String(error.message || error));
-        clear.disabled = false;
-      }
-    });
-    item.appendChild(clear);
-
-    frag.appendChild(item);
-  }
-
-  banner.replaceChildren(frag);
+      },
+      notice,
+      i18n: ZogographI18n,
+    },
+  );
 }
 
 function renderAlertBanner(unread) {

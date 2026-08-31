@@ -13943,14 +13943,9 @@ async function showNoteDialog(preset = {}) {
     );
     parts.push(
       fieldRow(
-        ZogographI18n.t('notes.keep_pictures', {}, 'Keep pictures of'),
+        notesShellText('keep_pictures'),
         shots.node,
-        ZogographI18n.t(
-          'notes.keep_pictures_help',
-          {},
-          'Saved with the note exactly as they are drawn now, so the picture still shows ' +
-            'what you saw after retention has rolled the readings up underneath it.',
-        ),
+        notesShellText('keep_pictures_help'),
       ),
     );
   } else {
@@ -13963,23 +13958,14 @@ async function showNoteDialog(preset = {}) {
      */
     parts.push(
       fieldRow(
-        ZogographI18n.t('notes.keep_pictures', {}, 'Keep pictures of'),
+        notesShellText('keep_pictures'),
         (() => {
           const said = document.createElement('div');
           said.className = 'muted';
-          said.textContent = ZogographI18n.t(
-            'notes.no_page_charts',
-            {},
-            'There are no charts on this page.',
-          );
+          said.textContent = notesShellText('no_page_charts');
           return said;
         })(),
-        ZogographI18n.t(
-          'notes.no_page_charts_help',
-          {},
-          'The note itself is saved either way, and a mark on this page will show on ' +
-            'any chart added here later.',
-        ),
+        notesShellText('no_page_charts_help'),
       ),
     );
   }

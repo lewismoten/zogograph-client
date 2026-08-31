@@ -28,6 +28,12 @@ window.ZogographNotesShellCard = {
         'core-notes-shell.screenshot': 'Screenshot',
         'core-notes-shell.screenshot_help':
           'This dialog closes while the picture is taken and everything you have typed comes back with it. You can crop and black out anything before it is kept.',
+        'core-notes-shell.keep_pictures': 'Keep pictures of',
+        'core-notes-shell.keep_pictures_help':
+          'Saved with the note exactly as they are drawn now, so the picture still shows what you saw after retention has rolled the readings up underneath it.',
+        'core-notes-shell.no_page_charts': 'There are no charts on this page.',
+        'core-notes-shell.no_page_charts_help':
+          'The note itself is saved either way, and a mark on this page will show on any chart added here later.',
       }),
       es: Object.freeze({
         'core-notes-shell.title': 'Notas',
@@ -52,6 +58,12 @@ window.ZogographNotesShellCard = {
         'core-notes-shell.screenshot': 'Captura de pantalla',
         'core-notes-shell.screenshot_help':
           'Este diálogo se cierra mientras se toma la imagen y todo lo que haya escrito vuelve con él. Puede recortar y tachar cualquier elemento antes de conservarla.',
+        'core-notes-shell.keep_pictures': 'Conservar imágenes de',
+        'core-notes-shell.keep_pictures_help':
+          'Se guardan con la nota exactamente como se dibujan ahora, para que la imagen siga mostrando lo que vio tras consolidarse las lecturas por retención.',
+        'core-notes-shell.no_page_charts': 'No hay gráficos en esta página.',
+        'core-notes-shell.no_page_charts_help':
+          'La nota se guarda de todos modos, y una marca en esta página aparecerá en cualquier gráfico que se agregue después.',
       }),
       hi: Object.freeze({
         'core-notes-shell.title': 'नोट्स',
@@ -76,6 +88,12 @@ window.ZogographNotesShellCard = {
         'core-notes-shell.screenshot': 'स्क्रीनशॉट',
         'core-notes-shell.screenshot_help':
           'चित्र लेते समय यह संवाद बंद हो जाता है और आपका लिखा हुआ सब कुछ इसके साथ वापस आता है। रखने से पहले आप किसी भी चीज़ को काट या काला कर सकते हैं।',
+        'core-notes-shell.keep_pictures': 'इनके चित्र रखें',
+        'core-notes-shell.keep_pictures_help':
+          'ये नोट के साथ ठीक वैसे ही सहेजे जाते हैं जैसे अभी दिख रहे हैं, इसलिए रिटेंशन द्वारा रीडिंग समेटे जाने के बाद भी चित्र वही दिखाता है जो आपने देखा था।',
+        'core-notes-shell.no_page_charts': 'इस पेज पर कोई चार्ट नहीं है।',
+        'core-notes-shell.no_page_charts_help':
+          'नोट फिर भी सहेजा जाता है, और इस पेज का चिह्न बाद में जोड़े जाने वाले किसी भी चार्ट पर दिखेगा।',
       }),
       ar: Object.freeze({
         'core-notes-shell.title': 'الملاحظات',
@@ -100,6 +118,12 @@ window.ZogographNotesShellCard = {
         'core-notes-shell.screenshot': 'لقطة شاشة',
         'core-notes-shell.screenshot_help':
           'يُغلق هذا الحوار أثناء التقاط الصورة ويعود كل ما كتبته معه. يمكنك اقتصاص أي شيء أو طمسه قبل الاحتفاظ به.',
+        'core-notes-shell.keep_pictures': 'احتفظ بصور لـ',
+        'core-notes-shell.keep_pictures_help':
+          'تُحفظ مع الملاحظة تمامًا كما تُرسم الآن، لذا تظل الصورة تعرض ما رأيته بعد أن يدمج الاحتفاظ القراءات تحتها.',
+        'core-notes-shell.no_page_charts': 'لا توجد مخططات في هذه الصفحة.',
+        'core-notes-shell.no_page_charts_help':
+          'تُحفظ الملاحظة على أي حال، وستظهر علامة في هذه الصفحة على أي مخطط يضاف هنا لاحقًا.',
       }),
       zh: Object.freeze({
         'core-notes-shell.title': '备注',
@@ -124,6 +148,12 @@ window.ZogographNotesShellCard = {
         'core-notes-shell.screenshot': '屏幕截图',
         'core-notes-shell.screenshot_help':
           '截取图片时此对话框会关闭，您输入的所有内容都会随之恢复。保留前，您可以裁剪或涂黑任何内容。',
+        'core-notes-shell.keep_pictures': '保留以下项目的图片',
+        'core-notes-shell.keep_pictures_help':
+          '图片会按当前绘制的样子与便笺一起保存，因此即使保留策略汇总了下面的读数，图片仍会显示您当时所见的内容。',
+        'core-notes-shell.no_page_charts': '此页面没有图表。',
+        'core-notes-shell.no_page_charts_help':
+          '便笺仍会保存，且此页面上的标记会显示在之后添加到这里的任何图表中。',
       }),
     }),
   }),

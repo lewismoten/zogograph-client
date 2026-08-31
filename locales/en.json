@@ -2496,7 +2496,6 @@
   "email.test_email": "Send a test email",
   "email.test_telegram": "Send a test Telegram",
   "email.help": "Mail goes out through PHP’s {{mail}}, which on a cPanel host means the server’s own mail queue. One message per alerting run rather than one per rule — a disk filling up trips several rules at once, and five separate emails about the same event is how people learn to ignore them. The message takes the volume of its loudest line, lists them loudest first, links each one to the page that answers it, and ends with the commands to diagnose the same thing from a shell — because the most likely moment for this dashboard to be unreachable is the moment the disk is full, which is exactly when its email arrives.",
-  "system.monitor_title": "The monitor itself",
   "email.settings_sign_in": "Sign in to change the email settings.",
   "system.download_diagnostic": "Download diagnostic",
   "system.monitor_help": "A disk monitor should be able to answer for its own disk use, and should never stop collecting without saying so. Neither is visible anywhere else on this site: a database quietly growing to a gigabyte looks exactly like one that is fine, and a cron job that stopped last Tuesday just makes every chart look quiet.",

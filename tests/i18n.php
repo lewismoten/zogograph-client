@@ -1971,6 +1971,37 @@ i18nExpect(
     'overview gauges do not own a package locale catalog',
 );
 i18nExpect(
+    !isset(
+        $english['gauge.nothing_collected'],
+        $english['gauge.disk_used'],
+        $english['gauge.free_of_total'],
+        $english['gauge.inodes_used'],
+        $english['gauge.cpu'],
+        $english['gauge.no_proc_stat'],
+        $english['gauge.account_allowance'],
+        $english['gauge.allowance_host'],
+        $english['gauge.memory'],
+        $english['gauge.available_of_total'],
+        $english['gauge.load_over_cores'],
+        $english['gauge.load_cores_unknown'],
+    ) &&
+        isset(
+            $coreCardEnglish['core-overview-gauges.nothing_collected'],
+            $coreCardEnglish['core-overview-gauges.disk_used'],
+            $coreCardEnglish['core-overview-gauges.free_of_total'],
+            $coreCardEnglish['core-overview-gauges.inodes_used'],
+            $coreCardEnglish['core-overview-gauges.cpu'],
+            $coreCardEnglish['core-overview-gauges.no_proc_stat'],
+            $coreCardEnglish['core-overview-gauges.account_allowance'],
+            $coreCardEnglish['core-overview-gauges.allowance_host'],
+            $coreCardEnglish['core-overview-gauges.memory'],
+            $coreCardEnglish['core-overview-gauges.available_of_total'],
+            $coreCardEnglish['core-overview-gauges.load_over_cores'],
+            $coreCardEnglish['core-overview-gauges.load_cores_unknown'],
+        ),
+    'overview gauge labels do not belong to their core package',
+);
+i18nExpect(
     $page !== false &&
         str_contains($page, 'src="cards/action-summary.js"') &&
         $actionSummaryCard !== false &&

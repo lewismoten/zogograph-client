@@ -8617,18 +8617,20 @@ function markCharts() {
 function chartIdentity(id, chart) {
   const to = state.frozenAt || Math.floor(Date.now() / 1000);
   const from = to - state.range;
-
-  return [
-    `${chart.name}`,
-    `id: ${id}`,
-    `showing: ${humanTime(from)} to ${humanTime(to)} (${humanSpan(state.range, true)})`,
-    `units: ${chart.units}`,
-    state.frozenAt ? 'pinned to a moment' : 'up to now',
-    '',
-    chart.what,
-    '',
-    `Click to copy the id. You can tell ${chatState.who.name} which chart you mean by name.`,
-  ].join('\n');
+  return renderCoreCardPackage(
+    ZogographChartIdentityCard,
+    'core-chart-identity',
+    {
+      assistant: chatState.who.name,
+      chart,
+      from,
+      id,
+      pinned: Boolean(state.frozenAt),
+      range: state.range,
+      to,
+    },
+    { humanSpan, humanTime, i18n: ZogographI18n },
+  );
 }
 
 /**

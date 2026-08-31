@@ -16,6 +16,7 @@ window.ZogographAiPortraitCard = {
     catalogs: Object.freeze({
       en: Object.freeze({
         'core-ai-portrait.clear': 'Clear this portrait',
+        'core-ai-portrait.clear_action': 'Clear it',
         'core-ai-portrait.cleared': 'Cleared.',
         'core-ai-portrait.label': 'Portrait',
         'core-ai-portrait.help':
@@ -30,6 +31,7 @@ window.ZogographAiPortraitCard = {
       }),
       es: Object.freeze({
         'core-ai-portrait.clear': 'Borrar este retrato',
+        'core-ai-portrait.clear_action': 'Borrarlo',
         'core-ai-portrait.cleared': 'Borrado.',
         'core-ai-portrait.label': 'Retrato',
         'core-ai-portrait.help':
@@ -44,6 +46,7 @@ window.ZogographAiPortraitCard = {
       }),
       hi: Object.freeze({
         'core-ai-portrait.clear': 'यह चित्र हटाएँ',
+        'core-ai-portrait.clear_action': 'इसे साफ़ करें',
         'core-ai-portrait.cleared': 'हटा दिया गया।',
         'core-ai-portrait.label': 'चित्र',
         'core-ai-portrait.help':
@@ -58,6 +61,7 @@ window.ZogographAiPortraitCard = {
       }),
       ar: Object.freeze({
         'core-ai-portrait.clear': 'امسح هذه الصورة',
+        'core-ai-portrait.clear_action': 'امسحه',
         'core-ai-portrait.cleared': 'تم المسح.',
         'core-ai-portrait.label': 'صورة شخصية',
         'core-ai-portrait.help':
@@ -71,6 +75,7 @@ window.ZogographAiPortraitCard = {
       }),
       zh: Object.freeze({
         'core-ai-portrait.clear': '清除此肖像',
+        'core-ai-portrait.clear_action': '清除它',
         'core-ai-portrait.cleared': '已清除。',
         'core-ai-portrait.label': '肖像',
         'core-ai-portrait.help':
@@ -136,7 +141,7 @@ window.ZogographAiPortraitCard = {
             'The record of it stays in the image log — it was generated and it cost something, and that is worth keeping whether or not the picture is shown.',
           ),
         ],
-        i18n.t('notes.clear', {}, 'Clear it'),
+        i18n.t('core-ai-portrait.clear_action', {}, 'Clear it'),
         true,
       );
       if (!yes) return;

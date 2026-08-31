@@ -2265,7 +2265,6 @@
   "host.memory_card_allocated": "{{percent}}% asignado",
   "host.memory_card_other_kernel": "Otra memoria de kernel/sistema",
   "host.memory_card_other_kernel_help": "no representada por las categorías anteriores",
-  "host.cloudlinux_help": "Un proceso finalizado por alcanzar un límite LVE no deja otro rastro. Un número creciente de fallos es la evidencia.",
   "host.memory_by_user_help": "La columna que CageFS oculta. Dentro de una jaula, esta cuenta solo ve sus propios procesos, así que no se puede saber desde otro lugar quién más usa la memoria de la máquina.",
   "page.dashboard_title": "Panel de observación de infraestructura de Zogograph",
   "navigation.copy_link": "Copiar enlace a esta vista",

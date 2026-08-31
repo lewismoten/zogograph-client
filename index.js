@@ -2965,6 +2965,30 @@ function renderHostServiceChartLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderHostServiceChartLabels);
 
+function renderHostLveFaultsLabels() {
+  const helpers = {
+    target: { id: 'hostLve' },
+    renderTable: () => null,
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(
+    ZogographHostLveFaultsCard,
+    'core-host-lve-faults',
+    { rows: [] },
+    helpers,
+  );
+  const help = document.querySelector(
+    '[data-i18n="core-host-lve-faults.help"]',
+  );
+  help.textContent = ZogographI18n.markSource(
+    help,
+    'core-host-lve-faults.help',
+    ZogographHostLveFaultsCard.text('help', helpers),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderHostLveFaultsLabels);
+
 function renderNetworkPortsTitle() {
   const helpers = {
     target: null,

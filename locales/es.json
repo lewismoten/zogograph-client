@@ -344,8 +344,6 @@
   "log.older_button": "Más antiguo ›",
   "log.detail_title": "Una línea de registro",
   "log.detail_entry_of": "{{label}} · entrada {{current, number}} de {{total, number}}",
-  "log.stream_loading": "Leyendo el final de cada registro…",
-  "log.stream_empty": "No hay nada en ninguno de ellos.",
   "log.stream_severity_hint": "Qué tan grave dice la línea que es",
   "log.stream_when": "Cuándo",
   "log.stream_when_hint": "Cuándo dice la línea que ocurrió",

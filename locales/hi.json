@@ -344,8 +344,6 @@
   "log.older_button": "पुराना ›",
   "log.detail_title": "एक लॉग लाइन",
   "log.detail_entry_of": "{{label}} · प्रविष्टि {{current, number}} / {{total, number}}",
-  "log.stream_loading": "हर लॉग का अंत पढ़ा जा रहा है…",
-  "log.stream_empty": "इनमें से किसी में भी कुछ नहीं है।",
   "log.stream_severity_hint": "लाइन कितनी गंभीर है",
   "log.stream_when": "कब",
   "log.stream_when_hint": "लाइन के अनुसार यह कब हुआ",

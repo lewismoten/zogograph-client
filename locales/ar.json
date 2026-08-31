@@ -344,8 +344,6 @@
   "log.older_button": "الأقدم ›",
   "log.detail_title": "سطر سجل",
   "log.detail_entry_of": "{{label}} · الإدخال {{current, number}} من {{total, number}}",
-  "log.stream_loading": "تجري قراءة نهاية كل سجل…",
-  "log.stream_empty": "لا شيء في أيٍّ منها.",
   "log.stream_severity_hint": "مدى خطورة السطر كما يصفها",
   "log.stream_when": "متى",
   "log.stream_when_hint": "متى يقول السطر إن ذلك حدث",

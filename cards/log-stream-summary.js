@@ -14,6 +14,8 @@ window.ZogographLogStreamSummaryCard = {
           '{{logs}} read, {{skipped, number}} skipped (compressed, unreadable or not text). Ordered by {{ordering}}.',
         'core-log-stream-summary.folded':
           '{{lines}} folded into the {{errors}} they belong to. A fatal writes one line for the error and a dozen for the trace, so without this the twenty newest lines are one error and nineteen fragments of it.',
+        'core-log-stream-summary.loading': 'Reading the end of every log…',
+        'core-log-stream-summary.empty': 'Nothing in any of them.',
       }),
       es: Object.freeze({
         'core-log-stream-summary.title': 'Todos los registros a la vez',
@@ -25,6 +27,8 @@ window.ZogographLogStreamSummaryCard = {
           '{{logs}} leídos y {{skipped, number}} omitidos (comprimidos, ilegibles o no textuales). Ordenados por {{ordering}}.',
         'core-log-stream-summary.folded':
           '{{lines}} se integraron en los {{errors}} a los que pertenecen. Un error fatal escribe una línea para el error y una docena para el seguimiento; sin esto, las veinte líneas más recientes serían un error y diecinueve fragmentos.',
+        'core-log-stream-summary.loading': 'Leyendo el final de cada registro…',
+        'core-log-stream-summary.empty': 'No hay nada en ninguno de ellos.',
       }),
       hi: Object.freeze({
         'core-log-stream-summary.title': 'हर लॉग एक साथ',
@@ -36,6 +40,8 @@ window.ZogographLogStreamSummaryCard = {
           '{{logs}} पढ़े गए, {{skipped, number}} छोड़े गए (संपीड़ित, अपठनीय या टेक्स्ट नहीं)। {{ordering}} के अनुसार क्रमित।',
         'core-log-stream-summary.folded':
           '{{lines}} को उन {{errors}} में समेट दिया गया जिनसे वे संबंधित हैं। एक फेटल त्रुटि के लिए एक पंक्ति और ट्रेस के लिए दर्जन भर पंक्तियाँ लिखती है; इसके बिना नवीनतम बीस पंक्तियाँ एक त्रुटि और उसके उन्नीस अंश होंगी।',
+        'core-log-stream-summary.loading': 'हर लॉग का अंत पढ़ रहे हैं…',
+        'core-log-stream-summary.empty': 'इनमें से किसी में कुछ नहीं है।',
       }),
       ar: Object.freeze({
         'core-log-stream-summary.title': 'كل السجلات معًا',
@@ -47,6 +53,8 @@ window.ZogographLogStreamSummaryCard = {
           'قُرئ {{logs}} وتُخطي {{skipped, number}} (مضغوط أو غير مقروء أو ليس نصًا). مرتبة حسب {{ordering}}.',
         'core-log-stream-summary.folded':
           'دُمج {{lines}} في {{errors}} التي تنتمي إليها. يكتب الخطأ الفادح سطرًا للخطأ وعشرات للتتبّع؛ وبدون ذلك تكون أحدث عشرين سطرًا خطأً واحدًا وتسعة عشر جزءًا منه.',
+        'core-log-stream-summary.loading': 'يجري قراءة نهاية كل سجل…',
+        'core-log-stream-summary.empty': 'لا شيء في أي منها.',
       }),
       zh: Object.freeze({
         'core-log-stream-summary.title': '所有日志同时查看',
@@ -58,6 +66,8 @@ window.ZogographLogStreamSummaryCard = {
           '已读取 {{logs}}，跳过 {{skipped, number}} 个（压缩、不可读或非文本）。按 {{ordering}} 排序。',
         'core-log-stream-summary.folded':
           '{{lines}} 行已折叠到所属的 {{errors}} 中。一次致命错误会为错误写一行、为堆栈写十多行；没有此处理，最新二十行会是一条错误和它的十九个片段。',
+        'core-log-stream-summary.loading': '正在读取每个日志的末尾…',
+        'core-log-stream-summary.empty': '其中没有任何内容。',
       }),
     }),
   }),
@@ -69,6 +79,7 @@ window.ZogographLogStreamSummaryCard = {
     );
   },
   render(data, helpers) {
+    if (data?.key) return this.text(data.key, helpers);
     const wrap = document.createDocumentFragment();
     const readable = (data.files || []).filter((file) => file.ok);
     const skipped = (data.files || []).filter((file) => !file.ok);

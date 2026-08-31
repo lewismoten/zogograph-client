@@ -344,8 +344,6 @@
   "log.older_button": "更早 ›",
   "log.detail_title": "一条日志行",
   "log.detail_entry_of": "{{label}} · 第 {{current, number}} 条，共 {{total, number}} 条",
-  "log.stream_loading": "正在读取每个日志的末尾…",
-  "log.stream_empty": "其中任何一个都没有内容。",
   "log.stream_severity_hint": "该行表明的严重程度",
   "log.stream_when": "时间",
   "log.stream_when_hint": "该行所述发生的时间",

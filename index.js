@@ -39785,15 +39785,7 @@ async function refreshLogStream() {
   }
 
   if (!body.childElementCount)
-    body.replaceChildren(
-      spinner(
-        ZogographI18n.t(
-          'log.stream_loading',
-          {},
-          'Reading the end of every log…',
-        ),
-      ),
-    );
+    body.replaceChildren(spinner(logStreamSummaryText('loading')));
 
   let data;
   try {
@@ -39823,6 +39815,14 @@ const LOG_MARKS = {
   info: ['⚪', 'Info', 'muted'],
 };
 
+const logStreamSummaryText = (key) =>
+  renderCoreCardPackage(
+    window.ZogographLogStreamSummaryCard,
+    'core-log-stream-summary',
+    { key },
+    { note, count, i18n: ZogographI18n },
+  );
+
 function renderLogStream(data) {
   const body = $('streamBody');
   const wrap = document.createDocumentFragment();
@@ -39836,9 +39836,7 @@ function renderLogStream(data) {
   );
 
   if (!data.rows.length) {
-    wrap.appendChild(
-      note(ZogographI18n.t('log.stream_empty', {}, 'Nothing in any of them.')),
-    );
+    wrap.appendChild(note(logStreamSummaryText('empty')));
     body.replaceChildren(wrap);
     return;
   }

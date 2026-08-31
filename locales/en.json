@@ -344,8 +344,6 @@
   "log.older_button": "Older ›",
   "log.detail_title": "A log line",
   "log.detail_entry_of": "{{label}} · entry {{current, number}} of {{total, number}}",
-  "log.stream_loading": "Reading the end of every log…",
-  "log.stream_empty": "Nothing in any of them.",
   "log.stream_severity_hint": "How bad the line says it is",
   "log.stream_when": "When",
   "log.stream_when_hint": "When the line says it happened",

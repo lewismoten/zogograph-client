@@ -2665,7 +2665,6 @@
   "storage.host_help": "Written by root’s collector, and read-only from here. This account can usually open it to read and should never be the thing that rewrites it — a rewrite started from here would leave a file the collector could no longer write. Where it cannot be opened at all, that is said rather than shown as zeros.",
   "storage.recommended_settings": "Use the recommended settings",
   "storage.retention_help": "Zero means {{forever}}, and for several of these that is the recommendation rather than an oversight — the note beside each one says what it is protecting. Readings are kept in tiers: full detail for the first stretch, then five-minute buckets, then hourly, then daily, each holding the worst moment in its bucket rather than an average. Nothing within a couple of hours of an alert is ever rolled up or cleared, whatever these say.",
-  "storage.symlinks_title": "Symlinks that eat things",
   "storage.check_symlinks": "Check the symlinks",
   "storage.symlinks_help": "The scanner steps over every symlink it meets, deliberately — following one double-counts at best and walks out of the watched directory at worst. The consequence is that a bad link is invisible to this tool while still being the thing that ruins everything else: a link pointing at one of its own ancestors is an infinitely deep directory to anything that {{does}} follow links, and backups, {{du}}, {{tar}} and web crawlers all do. That is how a disk fills up with one file copied ten thousand times.",
   "storage.link_sweep_title": "Clear out a whole path",

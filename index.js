@@ -2722,6 +2722,26 @@ document.addEventListener(
   renderHostDatabaseStorageLabels,
 );
 
+function renderSymlinkShellLabels() {
+  const helpers = { i18n: ZogographI18n };
+  renderCoreCardPackage(
+    ZogographSymlinkShellCard,
+    'core-symlink-shell',
+    {},
+    helpers,
+  );
+  const title = document.querySelector(
+    '[data-i18n="core-symlink-shell.title"]',
+  );
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-symlink-shell.title',
+    ZogographSymlinkShellCard.text('title', helpers),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderSymlinkShellLabels);
+
 /**
  * When the disk is projected to fill, as a date.
  *

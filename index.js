@@ -36794,6 +36794,8 @@ async function refreshEmail() {
  * easiest possible way to miss the one that mattered.
  */
 function ruleSettings(data) {
+  const emailRuleText = (key, values = {}) =>
+    ZogographEmailRuleIntroCard.text(key, values, { i18n: ZogographI18n });
   const wrap = document.createDocumentFragment();
 
   wrap.appendChild(
@@ -36872,11 +36874,9 @@ function ruleSettings(data) {
     if (![...cooldown.options].some((option) => option.selected)) {
       const option = document.createElement('option');
       option.value = String(rule.cooldown);
-      option.textContent = ZogographI18n.t(
-        'email.set_by_hand',
-        { duration: humanSpan(rule.cooldown) },
-        '{{duration}} (set by hand)',
-      );
+      option.textContent = emailRuleText('set_by_hand', {
+        duration: humanSpan(rule.cooldown),
+      });
       option.selected = true;
       cooldown.appendChild(option);
     }
@@ -36887,34 +36887,26 @@ function ruleSettings(data) {
     const bits = [];
     if (rule.severity !== rule.recommended_severity) {
       bits.push(
-        ZogographI18n.t(
-          'email.recommended',
-          {
-            value:
-              data.levels[rule.recommended_severity]?.label ??
-              rule.recommended_severity,
-          },
-          'recommended {{value}}',
-        ),
+        emailRuleText('recommended', {
+          value:
+            data.levels[rule.recommended_severity]?.label ??
+            rule.recommended_severity,
+        }),
       );
     }
     if (Number(rule.cooldown) !== Number(rule.recommended_cooldown)) {
       bits.push(
-        ZogographI18n.t(
-          'email.recommended',
-          {
-            value:
-              rule.recommended_cooldown === 0
-                ? ZogographI18n.t('email.every_time', {}, 'every time')
-                : humanSpan(rule.recommended_cooldown),
-          },
-          'recommended {{value}}',
-        ),
+        emailRuleText('recommended', {
+          value:
+            rule.recommended_cooldown === 0
+              ? emailRuleText('every_time')
+              : humanSpan(rule.recommended_cooldown),
+        }),
       );
     }
     said.textContent = bits.length
       ? bits.join(', ')
-      : ZogographI18n.t('email.as_recommended', {}, 'as recommended');
+      : emailRuleText('as_recommended');
     if (!bits.length) said.className = 'muted small band-ok';
 
     /*
@@ -36926,13 +36918,9 @@ function ruleSettings(data) {
     const go = document.createElement('button');
     go.type = 'button';
     go.className = 'link';
-    go.textContent = ZogographI18n.t('email.show_me', {}, 'Show me');
+    go.textContent = emailRuleText('show_me');
     go.title = VIEWS[rule.view]
-      ? ZogographI18n.t(
-          'email.open_view',
-          { view: VIEWS[rule.view].label },
-          'Open {{view}}',
-        )
+      ? emailRuleText('open_view', { view: VIEWS[rule.view].label })
       : rule.view;
     go.addEventListener('click', () => {
       location.hash = `#/${rule.view}?range=${state.range}`;

@@ -2621,6 +2621,9 @@ function renderHostUnitsShellLabels() {
     'core-host-units-shell.title',
     ZogographHostUnitsShellCard.text('title', helpers),
   );
+  ZogographI18n.applyRich(
+    document.querySelector('[data-i18n-rich="core-host-units-shell.help"]'),
+  );
 }
 
 document.addEventListener('zogograph-i18n-load', renderHostUnitsShellLabels);

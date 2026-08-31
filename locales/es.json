@@ -2375,7 +2375,6 @@
   "metadata.description_kind_process": "Un proceso",
   "metadata.description_kind_slab": "Una caché slab del kernel",
   "action.save": "Guardar",
-  "host.units_help": "La lista completa, no solo los vigilados. {{failed}} y {{masked}} se destacan porque son los dos estados silenciosamente incorrectos: una unidad fallida no usa memoria ni CPU, por lo que falta en todos los demás paneles en vez de resaltar en uno, y una unidad enmascarada no puede iniciarse hasta que alguien la desenmascare.",
   "log.lines_20": "20 líneas",
   "log.lines_50": "50 líneas",
   "log.lines_100": "100 líneas",

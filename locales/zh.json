@@ -2372,7 +2372,6 @@
   "metadata.description_kind_process": "一个进程",
   "metadata.description_kind_slab": "内核 slab 缓存",
   "action.save": "保存",
-  "host.units_help": "完整列表，而不只是受监视的服务。{{failed}} 和 {{masked}} 会被特别标出，因为它们是两种悄然出错的状态：失败的单元不使用内存或 CPU，因此不会在某个面板中突出，而是从这里的其他所有面板中消失；被屏蔽的单元在有人解除屏蔽前根本无法启动。",
   "log.lines_20": "20 行",
   "log.lines_50": "50 行",
   "log.lines_100": "100 行",

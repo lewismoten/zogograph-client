@@ -463,7 +463,6 @@
   "storage.link_remove_confirm": "¿Eliminar el enlace {{path}}?\n\nSolo se elimina el enlace. Lo que señala no se toca.",
   "storage.link_repointed": "Ahora apunta a {{target}}.",
   "storage.link_repointed_missing": "Ahora apunta a {{target}}. Aún no existe, lo que puede ser intencional.",
-  "storage.link_removed": "Se eliminó el enlace. Lo que señalaba no se tocó.",
   "storage.link_sweep_failed_reason": "No se pudieron eliminar {{count}} enlaces: {{reason}}.",
   "storage.link_sweep_capped": "El límite es {{deleted}} enlaces por operación. Quedarían {{remaining}} más; ejecútelo de nuevo.",
   "storage.link_sweep_showing_first": "Se muestran los primeros 200 de {{count}}.",

@@ -463,7 +463,6 @@
   "storage.link_remove_confirm": "क्या लिंक {{path}} को हटाएँ?\n\nकेवल लिंक हटाया जाएगा। जिस पर वह इंगित करता है उसे नहीं छुआ जाएगा।",
   "storage.link_repointed": "अब {{target}} पर इंगित करता है।",
   "storage.link_repointed_missing": "अब {{target}} पर इंगित करता है। वह अभी मौजूद नहीं है, जो जानबूझकर हो सकता है।",
-  "storage.link_removed": "लिंक हटा दिया गया। जिस पर वह इंगित करता था उसे नहीं छुआ गया।",
   "storage.link_sweep_failed_reason": "{{count}} लिंक नहीं हटाए जा सके: {{reason}}।",
   "storage.link_sweep_capped": "एक बार में {{deleted}} लिंक की सीमा है। {{remaining}} और रह जाएंगे — इसे फिर चलाएँ।",
   "storage.link_sweep_showing_first": "{{count}} में से पहले 200 दिखाए जा रहे हैं।",

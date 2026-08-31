@@ -463,7 +463,6 @@
   "storage.link_remove_confirm": "Delete the link {{path}}?\n\nOnly the link is removed. Whatever it points at is not touched.",
   "storage.link_repointed": "Now points at {{target}}.",
   "storage.link_repointed_missing": "Now points at {{target}}. That is not there yet, which may be deliberate.",
-  "storage.link_removed": "Link removed. What it pointed at was not touched.",
   "storage.link_sweep_failed_reason": "{{count}} links could not be removed: {{reason}}.",
   "storage.link_sweep_capped": "Capped at {{deleted}} links in one go. {{remaining}} more would be left — run it again.",
   "storage.link_sweep_showing_first": "Showing the first 200 of {{count}}.",

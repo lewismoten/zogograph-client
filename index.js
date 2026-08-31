@@ -40035,21 +40035,13 @@ function showLogLine(row, index, rows) {
     ]);
 
   nodes.push(
-    section(
-      ZogographI18n.t('log.detail_what_it_is', {}, 'What it is'),
-      factGrid(facts),
-    ),
+    section(logStreamSummaryText('detail_what_it_is'), factGrid(facts)),
   );
 
   const message = document.createElement('pre');
   message.className = 'paste log-message';
   message.textContent = parsed.message || row.text;
-  nodes.push(
-    section(
-      ZogographI18n.t('log.detail_what_it_says', {}, 'What it says'),
-      message,
-    ),
-  );
+  nodes.push(section(logStreamSummaryText('detail_what_it_says'), message));
 
   if (row.trace?.length) {
     const trace = document.createElement('pre');
@@ -40086,12 +40078,7 @@ function showLogLine(row, index, rows) {
   const raw = document.createElement('pre');
   raw.className = 'paste log-raw';
   raw.textContent = row.text;
-  nodes.push(
-    section(
-      ZogographI18n.t('log.detail_as_written', {}, 'As it was written'),
-      raw,
-    ),
-  );
+  nodes.push(section(logStreamSummaryText('detail_as_written'), raw));
 
   const tools = document.createElement('div');
   tools.className = 'inspect-actions';

@@ -33,6 +33,9 @@ window.ZogographLogStreamSummaryCard = {
         'core-log-stream-summary.detail_level': 'Level',
         'core-log-stream-summary.detail_written_by': 'Written by',
         'core-log-stream-summary.detail_in': 'In',
+        'core-log-stream-summary.detail_what_it_is': 'What it is',
+        'core-log-stream-summary.detail_what_it_says': 'What it says',
+        'core-log-stream-summary.detail_as_written': 'As it was written',
         'core-log-stream-summary.skimming_note':
           'Click any line for the whole of it, taken apart. The columns here are cut short on purpose — this view is for skimming.',
       }),
@@ -66,6 +69,9 @@ window.ZogographLogStreamSummaryCard = {
         'core-log-stream-summary.detail_level': 'Nivel',
         'core-log-stream-summary.detail_written_by': 'Escrito por',
         'core-log-stream-summary.detail_in': 'En',
+        'core-log-stream-summary.detail_what_it_is': 'Qué es',
+        'core-log-stream-summary.detail_what_it_says': 'Qué dice',
+        'core-log-stream-summary.detail_as_written': 'Tal como se escribió',
         'core-log-stream-summary.skimming_note':
           'Haga clic en cualquier línea para verla completa y desglosada. Las columnas se recortan a propósito: esta vista sirve para hojear.',
       }),
@@ -99,6 +105,9 @@ window.ZogographLogStreamSummaryCard = {
         'core-log-stream-summary.detail_level': 'स्तर',
         'core-log-stream-summary.detail_written_by': 'द्वारा लिखा गया',
         'core-log-stream-summary.detail_in': 'में',
+        'core-log-stream-summary.detail_what_it_is': 'यह क्या है',
+        'core-log-stream-summary.detail_what_it_says': 'यह क्या कहता है',
+        'core-log-stream-summary.detail_as_written': 'जैसा लिखा गया था',
         'core-log-stream-summary.skimming_note':
           'किसी भी पंक्ति को पूरी तरह और भागों में देखने के लिए उस पर क्लिक करें। यहाँ के कॉलम जानबूझकर छोटे रखे गए हैं — यह दृश्य जल्दी देखने के लिए है।',
       }),
@@ -131,6 +140,9 @@ window.ZogographLogStreamSummaryCard = {
         'core-log-stream-summary.detail_level': 'المستوى',
         'core-log-stream-summary.detail_written_by': 'كتبه',
         'core-log-stream-summary.detail_in': 'في',
+        'core-log-stream-summary.detail_what_it_is': 'ما هو',
+        'core-log-stream-summary.detail_what_it_says': 'ما الذي يقوله',
+        'core-log-stream-summary.detail_as_written': 'كما كُتب',
         'core-log-stream-summary.skimming_note':
           'انقر أي سطر لرؤيته كاملًا ومفككًا. تُقصَّر الأعمدة هنا عمدًا — هذا العرض للتصفح السريع.',
       }),
@@ -163,6 +175,9 @@ window.ZogographLogStreamSummaryCard = {
         'core-log-stream-summary.detail_level': '级别',
         'core-log-stream-summary.detail_written_by': '写入者',
         'core-log-stream-summary.detail_in': '在',
+        'core-log-stream-summary.detail_what_it_is': '它是什么',
+        'core-log-stream-summary.detail_what_it_says': '它说了什么',
+        'core-log-stream-summary.detail_as_written': '原样内容',
         'core-log-stream-summary.skimming_note':
           '单击任意一行即可查看完整内容及其拆分。这里的列特意截短——此视图用于快速浏览。',
       }),

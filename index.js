@@ -27439,21 +27439,23 @@ function syncAlertTools() {
         { count: chosen },
         'Mark {{count, number}} read',
       )
-    : ZogographI18n.t('alerts.mark_read_none', {}, 'Mark read');
+    : ZogographAlertsShellCard.text('mark_read', { i18n: ZogographI18n });
   $('alertUnackSome').textContent = chosen
     ? ZogographI18n.t(
         'alerts.mark_unread',
         { count: chosen },
         'Mark {{count, number}} unread',
       )
-    : ZogographI18n.t('alerts.mark_unread_none', {}, 'Mark unread');
+    : ZogographAlertsShellCard.text('mark_unread', {
+        i18n: ZogographI18n,
+      });
   $('alertDeleteSome').textContent = chosen
     ? ZogographI18n.t(
         'alerts.delete_selected',
         { count: chosen },
         'Delete {{count, number}}',
       )
-    : ZogographI18n.t('alerts.delete_none', {}, 'Delete');
+    : ZogographAlertsShellCard.text('delete', { i18n: ZogographI18n });
 }
 
 async function refreshAlerts() {
@@ -27520,20 +27522,24 @@ async function refreshAlerts() {
   }
   columns.push(
     {
-      label: ZogographI18n.t('alerts.when', {}, 'When'),
+      label: ZogographAlertsShellCard.text('when', { i18n: ZogographI18n }),
       render: (row) => whenSpan(row.raised_at),
     },
     {
-      label: ZogographI18n.t('alerts.severity', {}, 'Severity'),
+      label: ZogographAlertsShellCard.text('severity', {
+        i18n: ZogographI18n,
+      }),
       render: alertSeverity,
     },
     {
-      label: ZogographI18n.t('alerts.what', {}, 'What'),
+      label: ZogographAlertsShellCard.text('what', { i18n: ZogographI18n }),
       className: 'name',
       render: (row) => alertWhat(row, state.signedIn),
     },
     {
-      label: ZogographI18n.t('alerts.emailed', {}, 'Emailed'),
+      label: ZogographAlertsShellCard.text('emailed', {
+        i18n: ZogographI18n,
+      }),
       render: (row) => alertEmailed(row, state.signedIn),
     },
   );
@@ -27609,7 +27615,9 @@ function alertSeverity(row) {
     icon.textContent = '🔇';
     span.appendChild(icon);
     span.appendChild(
-      document.createTextNode(ZogographI18n.t('alerts.ignored', {}, 'ignored')),
+      document.createTextNode(
+        ZogographAlertsShellCard.text('ignored', { i18n: ZogographI18n }),
+      ),
     );
     span.title = ZogographI18n.t(
       'alerts.ignored_help',
@@ -27636,10 +27644,9 @@ function alertSeverity(row) {
 function alertEmailed(row, interactive = state.signedIn) {
   if (!interactive) {
     const said = document.createElement('span');
-    said.textContent = ZogographI18n.t(
-      row.emailed_at ? 'alerts.yes' : 'alerts.no',
-      {},
+    said.textContent = ZogographAlertsShellCard.text(
       row.emailed_at ? 'yes' : 'no',
+      { i18n: ZogographI18n },
     );
     return said;
   }
@@ -27656,7 +27663,9 @@ function alertEmailed(row, interactive = state.signedIn) {
     if (row.email_id) {
       const open = document.createElement('button');
       open.className = 'link';
-      open.textContent = ZogographI18n.t('alerts.yes', {}, 'yes');
+      open.textContent = ZogographAlertsShellCard.text('yes', {
+        i18n: ZogographI18n,
+      });
       open.title = ZogographI18n.t(
         'alerts.sent_open_title',
         { when: whenTitle(row.emailed_at) },
@@ -27667,7 +27676,9 @@ function alertEmailed(row, interactive = state.signedIn) {
     }
 
     const span = document.createElement('span');
-    span.textContent = ZogographI18n.t('alerts.yes', {}, 'yes');
+    span.textContent = ZogographAlertsShellCard.text('yes', {
+      i18n: ZogographI18n,
+    });
     span.className = 'when';
     span.title = ZogographI18n.t(
       'alerts.sent_legacy_title',
@@ -27681,7 +27692,9 @@ function alertEmailed(row, interactive = state.signedIn) {
   if (row.notification_disposition === 'suppressed') {
     const muted = document.createElement('button');
     muted.className = 'link small';
-    muted.textContent = ZogographI18n.t('alerts.muted', {}, 'muted');
+    muted.textContent = ZogographAlertsShellCard.text('muted', {
+      i18n: ZogographI18n,
+    });
     muted.title = ZogographI18n.t(
       'alerts.muted_title',
       {},
@@ -27692,19 +27705,25 @@ function alertEmailed(row, interactive = state.signedIn) {
     return wrap;
   }
   wrap.appendChild(
-    document.createTextNode(ZogographI18n.t('alerts.no', {}, 'no')),
+    document.createTextNode(
+      ZogographAlertsShellCard.text('no', { i18n: ZogographI18n }),
+    ),
   );
 
   if (row.silenced && row.ai_reason) {
     const why = document.createElement('button');
     why.className = 'link small';
-    why.textContent = ZogographI18n.t('alerts.why_not', {}, 'why not');
+    why.textContent = ZogographAlertsShellCard.text('why_not', {
+      i18n: ZogographI18n,
+    });
     why.addEventListener('click', () => showAlertVerdict(row));
     wrap.appendChild(why);
   } else if (row.email_error) {
     const why = document.createElement('button');
     why.className = 'link small danger';
-    why.textContent = ZogographI18n.t('alerts.failed', {}, 'it failed');
+    why.textContent = ZogographAlertsShellCard.text('failed', {
+      i18n: ZogographI18n,
+    });
     why.title = row.email_error;
     why.addEventListener('click', () => notice(row.email_error));
     wrap.appendChild(why);
@@ -27990,17 +28009,17 @@ function alertRowActions(row) {
   if (!row.acknowledged_at) {
     const ack = document.createElement('button');
     ack.className = 'link';
-    ack.textContent = ZogographI18n.t('alerts.mark_read_none', {}, 'Mark read');
+    ack.textContent = ZogographAlertsShellCard.text('mark_read', {
+      i18n: ZogographI18n,
+    });
     ack.addEventListener('click', () => alertAction('ack', [row.id]));
     cell.appendChild(ack);
   } else {
     const unack = document.createElement('button');
     unack.className = 'link';
-    unack.textContent = ZogographI18n.t(
-      'alerts.mark_unread_none',
-      {},
-      'Mark unread',
-    );
+    unack.textContent = ZogographAlertsShellCard.text('mark_unread', {
+      i18n: ZogographI18n,
+    });
     unack.addEventListener('click', () => alertAction('unack', [row.id]));
     cell.appendChild(unack);
   }

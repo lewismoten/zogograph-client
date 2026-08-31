@@ -4737,7 +4737,7 @@ async function refreshOffenders() {
      * "deleted".
      */
     columns.push({
-      label: ZogographI18n.t('storage.what_happened', {}, 'What happened'),
+      label: storageOffenderStatusText('what_happened'),
       render: (row) => {
         const span = document.createElement('span');
         if (!row.gone) {
@@ -4766,7 +4766,7 @@ async function refreshOffenders() {
           );
         } else {
           span.className = 'shrank';
-          span.textContent = ZogographI18n.t('storage.gone', {}, 'Gone');
+          span.textContent = storageOffenderStatusText('gone');
           span.title = ZogographI18n.t(
             'storage.gone_help',
             {},
@@ -4778,12 +4778,12 @@ async function refreshOffenders() {
     });
   } else if (view === 'new') {
     columns.push({
-      label: ZogographI18n.t('storage.first_seen', {}, 'First seen'),
+      label: storageOffenderStatusText('first_seen'),
       render: (row) => {
         const span = document.createElement('span');
         if (row.never_seen_before) {
           span.className = 'grew';
-          span.textContent = ZogographI18n.t('storage.new', {}, 'New');
+          span.textContent = storageOffenderStatusText('new');
           span.title = ZogographI18n.t(
             'storage.new_help',
             {},
@@ -4852,6 +4852,14 @@ async function refreshOffenders() {
   syncOffenderTools(data.rows);
   fetchLastLines(data.rows);
 }
+
+const storageOffenderStatusText = (key) =>
+  renderCoreCardPackage(
+    ZogographStorageOffenderStatusCard,
+    'core-storage-offender-status',
+    { key },
+    { i18n: ZogographI18n },
+  );
 
 /*
  * A change in size, with which way it went shown as well as said.

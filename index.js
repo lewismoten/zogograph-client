@@ -5805,6 +5805,33 @@ function renderScreenshotControls() {
 
 document.addEventListener('zogograph-i18n-load', renderScreenshotControls);
 
+function dialogText(key, values = {}, fallback = '') {
+  return renderCoreCardPackage(
+    ZogographSharedDialogsCard,
+    'core-shared-dialogs',
+    { key, values, fallback },
+    { i18n: ZogographI18n },
+  );
+}
+
+function renderSharedDialogs() {
+  for (const [id, key, fallback] of [
+    ['inspectTitle', 'details', 'Details'],
+    ['listDialogTitle', 'details', 'Details'],
+    ['pageHelpTitle', 'page_help', 'Page help'],
+    ['askTitle', 'are_you_sure', 'Are you sure?'],
+  ]) {
+    const node = $(id);
+    node.textContent = ZogographI18n.markSource(
+      node,
+      `core-shared-dialogs.${key}`,
+      dialogText(key, {}, fallback),
+    );
+  }
+}
+
+document.addEventListener('zogograph-i18n-load', renderSharedDialogs);
+
 /** Every container the settings are split across. */
 const AI_SETTING_PAGES = [
   'aiIdentityBody',
@@ -19468,8 +19495,8 @@ function confirmDialog(
     go.textContent = submitLabel;
     actions.appendChild(go);
     $('noteFormBody').replaceChildren(text, actions);
-    $('noteDialogTitle').textContent = ZogographI18n.t(
-      'dialog.please_confirm',
+    $('noteDialogTitle').textContent = dialogText(
+      'please_confirm',
       {},
       'Please confirm',
     );
@@ -40682,13 +40709,8 @@ function showPageHelp() {
   const body = $('pageHelpBody');
   if (!dialog || !title || !body) return;
   const view =
-    VIEWS[state.view]?.label ??
-    ZogographI18n.t('dialog.this_page', {}, 'This page');
-  title.textContent = ZogographI18n.t(
-    'dialog.view_help',
-    { view },
-    '{{view}} help',
-  );
+    VIEWS[state.view]?.label ?? dialogText('this_page', {}, 'This page');
+  title.textContent = dialogText('view_help', { view }, '{{view}} help');
   body.replaceChildren(buildPageHelp(state.view));
   dialog.showModal();
 }
@@ -40702,9 +40724,7 @@ function renderViewGuide(view) {
   const profile = helpProfileFor(view);
   renderCoreCardPackage(ZogographViewGuideCard, 'core-view-guide', profile, {
     target: section,
-    heading:
-      VIEWS[view]?.label ??
-      ZogographI18n.t('dialog.this_page', {}, 'This page'),
+    heading: VIEWS[view]?.label ?? dialogText('this_page', {}, 'This page'),
     onSignIn: () => $('signInOut')?.click(),
     onHelp: showPageHelp,
     i18n: ZogographI18n,

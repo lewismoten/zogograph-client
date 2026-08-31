@@ -225,6 +225,7 @@
     <script src="cards/chat-context.js" defer></script>
     <script src="cards/quick-actions.js" defer></script>
     <script src="cards/screenshot-controls.js" defer></script>
+    <script src="cards/shared-dialogs.js" defer></script>
     <script src="cards/chat-cost.js" defer></script>
     <script src="cards/chat-summary-marker.js" defer></script>
     <script src="cards/chat-summary-dialog.js" defer></script>
@@ -1964,7 +1965,9 @@
 
           <section class="panel" id="inspectPanel" hidden>
             <div class="panel-head">
-              <h2 id="inspectTitle" data-i18n="dialog.details">Details</h2>
+              <h2 id="inspectTitle" data-i18n="core-shared-dialogs.details">
+                Details
+              </h2>
               <button id="inspectClose" class="link" data-i18n="action.close">
                 Close
               </button>
@@ -4982,7 +4985,9 @@
 
     <dialog id="listDialog">
       <div class="panel-head">
-        <h2 id="listDialogTitle" data-i18n="dialog.details">Details</h2>
+        <h2 id="listDialogTitle" data-i18n="core-shared-dialogs.details">
+          Details
+        </h2>
         <button id="listDialogClose" class="link" data-i18n="action.close">
           Close
         </button>
@@ -4997,7 +5002,9 @@
       aria-labelledby="pageHelpTitle"
     >
       <div class="panel-head">
-        <h2 id="pageHelpTitle" data-i18n="dialog.page_help">Page help</h2>
+        <h2 id="pageHelpTitle" data-i18n="core-shared-dialogs.page_help">
+          Page help
+        </h2>
         <button
           id="pageHelpClose"
           class="link"
@@ -5012,7 +5019,9 @@
 
     <dialog id="askDialog">
       <div class="panel-head">
-        <h2 id="askTitle" data-i18n="dialog.are_you_sure">Are you sure?</h2>
+        <h2 id="askTitle" data-i18n="core-shared-dialogs.are_you_sure">
+          Are you sure?
+        </h2>
       </div>
       <div id="askBody" class="dialog-body"></div>
       <div class="dialog-actions">

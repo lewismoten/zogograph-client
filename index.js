@@ -1972,6 +1972,31 @@ function renderCpuChartLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderCpuChartLabels);
 
+function renderIoChartLabels() {
+  const helpers = {
+    canvas: null,
+    noteTarget: null,
+    uptime: [],
+    drawLineChart: () => null,
+    outageBands: () => [],
+    rateAxis: () => null,
+    percentAxis: () => null,
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(ZogographIoChart, 'core-io-chart', [], helpers);
+  document.querySelectorAll('[data-i18n^="core-io-chart."]').forEach((node) => {
+    const key = node.dataset.i18n.replace('core-io-chart.', '');
+    if (!['title', 'help'].includes(key)) return;
+    node.textContent = ZogographI18n.markSource(
+      node,
+      `core-io-chart.${key}`,
+      ZogographIoChart.text(key, helpers),
+    );
+  });
+}
+
+document.addEventListener('zogograph-i18n-load', renderIoChartLabels);
+
 /**
  * When the disk is projected to fill, as a date.
  *

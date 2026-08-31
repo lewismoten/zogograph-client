@@ -2703,8 +2703,6 @@
   "action.cancel": "Cancel",
   "action.yes": "Yes",
   "charts.help": "The five measurements that describe the machine as a whole, over whatever range is selected. The gauges on the overview say where each one is {{now}}; these say how it got there, which is the half that tells you whether it is going to be a problem.",
-  "charts.io_title": "Disk I/O",
-  "charts.io_help": "Bytes actually reaching a disk, not bytes served from cache.",
   "charts.load_title": "Load average",
   "charts.load_help": "Not a percentage: it is how many processes wanted to run at once. Compare it to the core count — at one per core the machine is busy, above that work is queueing.",
   "charts.network_title": "Network",

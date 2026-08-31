@@ -15,6 +15,9 @@ window.ZogographIoChart = {
     ],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-io-chart.title': 'Disk I/O',
+        'core-io-chart.help':
+          'Bytes actually reaching a disk, not bytes served from cache.',
         'core-io-chart.ready': 'I/O chart',
         'core-io-chart.account_read': 'This account, read',
         'core-io-chart.account_written': 'This account, written',
@@ -39,6 +42,9 @@ window.ZogographIoChart = {
           'Tasks were stalled waiting on the disk {{some}}% of the time, and nothing at all could run for {{full}}%.',
       }),
       es: Object.freeze({
+        'core-io-chart.title': 'E/S de disco',
+        'core-io-chart.help':
+          'Bytes que llegan realmente a un disco, no bytes servidos desde caché.',
         'core-io-chart.ready': 'Gráfico de E/S',
         'core-io-chart.account_read': 'Esta cuenta, leído',
         'core-io-chart.account_written': 'Esta cuenta, escrito',
@@ -63,6 +69,9 @@ window.ZogographIoChart = {
           'Las tareas estuvieron detenidas esperando al disco el {{some}}% del tiempo, y no pudo ejecutarse nada durante el {{full}}%.',
       }),
       hi: Object.freeze({
+        'core-io-chart.title': 'डिस्क I/O',
+        'core-io-chart.help':
+          'वास्तव में डिस्क तक पहुँचने वाले बाइट, कैश से दिए बाइट नहीं।',
         'core-io-chart.ready': 'I/O चार्ट',
         'core-io-chart.account_read': 'यह खाता, पढ़ा',
         'core-io-chart.account_written': 'यह खाता, लिखा',
@@ -87,6 +96,9 @@ window.ZogographIoChart = {
           'कार्य {{some}}% समय डिस्क की प्रतीक्षा में रुके रहे, और {{full}}% समय कुछ भी नहीं चल सका।',
       }),
       ar: Object.freeze({
+        'core-io-chart.title': 'إدخال/إخراج القرص',
+        'core-io-chart.help':
+          'البايتات التي تصل فعلًا إلى قرص، لا البايتات المقدمة من الذاكرة المؤقتة.',
         'core-io-chart.ready': 'مخطط الإدخال/الإخراج',
         'core-io-chart.account_read': 'هذا الحساب، قراءة',
         'core-io-chart.account_written': 'هذا الحساب، كتابة',
@@ -110,6 +122,8 @@ window.ZogographIoChart = {
           'توقفت المهام بانتظار القرص {{some}}% من الوقت، ولم يكن شيء قادراً على التشغيل لمدة {{full}}%.',
       }),
       zh: Object.freeze({
+        'core-io-chart.title': '磁盘 I/O',
+        'core-io-chart.help': '实际到达磁盘的字节，而非从缓存提供的字节。',
         'core-io-chart.ready': 'I/O 图表',
         'core-io-chart.account_read': '此帐户，读取',
         'core-io-chart.account_written': '此帐户，写入',
@@ -133,6 +147,13 @@ window.ZogographIoChart = {
       }),
     }),
   }),
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-io-chart.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-io-chart.${key}`],
+    );
+  },
   render(rows, helpers) {
     const {
       canvas,

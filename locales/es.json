@@ -2688,8 +2688,6 @@
   "action.cancel": "Cancelar",
   "action.yes": "Sí",
   "charts.help": "Las cinco mediciones que describen la máquina completa en el intervalo seleccionado. Los indicadores de la vista general dicen dónde está cada una {{now}}; estas gráficas muestran cómo llegó ahí, la mitad que indica si será un problema.",
-  "charts.io_title": "E/S de disco",
-  "charts.io_help": "Bytes que llegan realmente a un disco, no bytes servidos desde caché.",
   "charts.load_title": "Promedio de carga",
   "charts.load_help": "No es un porcentaje: es cuántos procesos querían ejecutarse a la vez. Compárelo con el número de núcleos: a uno por núcleo la máquina está ocupada; por encima, el trabajo hace cola.",
   "charts.network_title": "Red",

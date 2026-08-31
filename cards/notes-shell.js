@@ -26,6 +26,8 @@ window.ZogographNotesShellCard = {
         'core-notes-shell.take_screenshot': 'Take a screenshot',
         'core-notes-shell.discard_screenshot': 'Do not keep it',
         'core-notes-shell.screenshot': 'Screenshot',
+        'core-notes-shell.screenshot_alt':
+          'The screenshot that will be saved with this note',
         'core-notes-shell.screenshot_help':
           'This dialog closes while the picture is taken and everything you have typed comes back with it. You can crop and black out anything before it is kept.',
         'core-notes-shell.keep_pictures': 'Keep pictures of',
@@ -70,6 +72,8 @@ window.ZogographNotesShellCard = {
         'core-notes-shell.take_screenshot': 'Tomar una captura de pantalla',
         'core-notes-shell.discard_screenshot': 'No conservarla',
         'core-notes-shell.screenshot': 'Captura de pantalla',
+        'core-notes-shell.screenshot_alt':
+          'La captura de pantalla que se guardará con esta nota',
         'core-notes-shell.screenshot_help':
           'Este diálogo se cierra mientras se toma la imagen y todo lo que haya escrito vuelve con él. Puede recortar y tachar cualquier elemento antes de conservarla.',
         'core-notes-shell.keep_pictures': 'Conservar imágenes de',
@@ -115,6 +119,8 @@ window.ZogographNotesShellCard = {
         'core-notes-shell.take_screenshot': 'स्क्रीनशॉट लें',
         'core-notes-shell.discard_screenshot': 'इसे न रखें',
         'core-notes-shell.screenshot': 'स्क्रीनशॉट',
+        'core-notes-shell.screenshot_alt':
+          'इस नोट के साथ सहेजा जाने वाला स्क्रीनशॉट',
         'core-notes-shell.screenshot_help':
           'चित्र लेते समय यह संवाद बंद हो जाता है और आपका लिखा हुआ सब कुछ इसके साथ वापस आता है। रखने से पहले आप किसी भी चीज़ को काट या काला कर सकते हैं।',
         'core-notes-shell.keep_pictures': 'इनके चित्र रखें',
@@ -160,6 +166,8 @@ window.ZogographNotesShellCard = {
         'core-notes-shell.take_screenshot': 'التقط لقطة شاشة',
         'core-notes-shell.discard_screenshot': 'لا تحتفظ بها',
         'core-notes-shell.screenshot': 'لقطة شاشة',
+        'core-notes-shell.screenshot_alt':
+          'لقطة الشاشة التي ستُحفظ مع هذه الملاحظة',
         'core-notes-shell.screenshot_help':
           'يُغلق هذا الحوار أثناء التقاط الصورة ويعود كل ما كتبته معه. يمكنك اقتصاص أي شيء أو طمسه قبل الاحتفاظ به.',
         'core-notes-shell.keep_pictures': 'احتفظ بصور لـ',
@@ -204,6 +212,7 @@ window.ZogographNotesShellCard = {
         'core-notes-shell.take_screenshot': '截取屏幕截图',
         'core-notes-shell.discard_screenshot': '不保留它',
         'core-notes-shell.screenshot': '屏幕截图',
+        'core-notes-shell.screenshot_alt': '将随此笔记保存的屏幕截图',
         'core-notes-shell.screenshot_help':
           '截取图片时此对话框会关闭，您输入的所有内容都会随之恢复。保留前，您可以裁剪或涂黑任何内容。',
         'core-notes-shell.keep_pictures': '保留以下项目的图片',

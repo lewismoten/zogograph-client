@@ -13964,11 +13964,7 @@ async function showNoteDialog(preset = {}) {
     const thumb = document.createElement('img');
     thumb.className = 'note-shot';
     thumb.src = pageShot;
-    thumb.alt = ZogographI18n.t(
-      'image.note_screenshot',
-      {},
-      'The screenshot that will be saved with this note',
-    );
+    thumb.alt = notesShellText('screenshot_alt');
     shotHolder.appendChild(thumb);
 
     const drop = document.createElement('button');

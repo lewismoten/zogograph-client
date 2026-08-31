@@ -179,6 +179,7 @@ export default [
         ZogographAiUnattendedSectionCard: 'readonly',
         ZogographAiSettingsSavedCard: 'readonly',
         ZogographAiPastConversationsSignInCard: 'readonly',
+        ZogographAiPastConversationActionsCard: 'readonly',
         ZogographAiSettingsPageHeadingCard: 'readonly',
         ZogographAiMemoryAvailabilityCard: 'readonly',
         ZogographAiMemoryProvenanceCard: 'readonly',

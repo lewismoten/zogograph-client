@@ -41530,15 +41530,23 @@ $('pastChatPin').addEventListener('click', async () => {
     renderPastChat();
     notice(
       pinned
-        ? ZogographI18n.t(
-            'ai.conversation_pinned',
-            {},
-            'Pinned. Retention will leave this one alone.',
+        ? renderCoreCardPackage(
+            ZogographAiPastConversationActionsCard,
+            'core-ai-past-conversation-actions',
+            {
+              key: 'pinned',
+              fallback: 'Pinned. Retention will leave this one alone.',
+            },
+            { i18n: ZogographI18n },
           )
-        : ZogographI18n.t(
-            'ai.conversation_unpinned',
-            {},
-            'Unpinned. It is subject to the retention rule again.',
+        : renderCoreCardPackage(
+            ZogographAiPastConversationActionsCard,
+            'core-ai-past-conversation-actions',
+            {
+              key: 'unpinned',
+              fallback: 'Unpinned. It is subject to the retention rule again.',
+            },
+            { i18n: ZogographI18n },
           ),
       true,
     );
@@ -41551,22 +41559,42 @@ $('pastChatResume').addEventListener('click', async () => {
   if (!pastChats.open) return;
 
   const yes = await askFirst(
-    ZogographI18n.t('ai.resume_dialog_title', {}, 'Pick this conversation up?'),
+    renderCoreCardPackage(
+      ZogographAiPastConversationActionsCard,
+      'core-ai-past-conversation-actions',
+      { key: 'resume_title', fallback: 'Pick this conversation up?' },
+      { i18n: ZogographI18n },
+    ),
     [
-      ZogographI18n.t(
-        'ai.resume_dialog_background',
-        {},
-        'A new conversation starts, carrying what was said in this one as background.',
+      renderCoreCardPackage(
+        ZogographAiPastConversationActionsCard,
+        'core-ai-past-conversation-actions',
+        {
+          key: 'resume_background',
+          fallback:
+            'A new conversation starts, carrying what was said in this one as background.',
+        },
+        { i18n: ZogographI18n },
       ),
-      ZogographI18n.t(
-        'ai.resume_dialog_history',
-        {},
-        'It is carried as history rather than replayed, and the assistant is told so: anything about the state of the machine has to be measured again before it is relied on. A tool result from last week read as a reading from now is the one thing it is told never to do.',
+      renderCoreCardPackage(
+        ZogographAiPastConversationActionsCard,
+        'core-ai-past-conversation-actions',
+        {
+          key: 'resume_history',
+          fallback:
+            'It is carried as history rather than replayed, and the assistant is told so: anything about the state of the machine has to be measured again before it is relied on. A tool result from last week read as a reading from now is the one thing it is told never to do.',
+        },
+        { i18n: ZogographI18n },
       ),
-      ZogographI18n.t(
-        'ai.resume_dialog_limits',
-        {},
-        'The limits that ended the old one - turns, spend, time - do not come with it. A conversation still open will be stopped.',
+      renderCoreCardPackage(
+        ZogographAiPastConversationActionsCard,
+        'core-ai-past-conversation-actions',
+        {
+          key: 'resume_limits',
+          fallback:
+            'The limits that ended the old one - turns, spend, time - do not come with it. A conversation still open will be stopped.',
+        },
+        { i18n: ZogographI18n },
       ),
     ],
     ZogographI18n.t('ai.resume', {}, 'Pick it up'),
@@ -41578,10 +41606,14 @@ $('pastChatResume').addEventListener('click', async () => {
     const fresh = await post('ai-resume', { session: pastChats.open });
     chatState.session = fresh.session;
     notice(
-      ZogographI18n.t(
-        'ai.conversation_resumed',
-        {},
-        'Picked up. It is the open conversation now.',
+      renderCoreCardPackage(
+        ZogographAiPastConversationActionsCard,
+        'core-ai-past-conversation-actions',
+        {
+          key: 'resumed',
+          fallback: 'Picked up. It is the open conversation now.',
+        },
+        { i18n: ZogographI18n },
       ),
       true,
     );

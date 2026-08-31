@@ -5915,17 +5915,14 @@ function renderAiSettings(data) {
     ),
   );
 
-  for (const [id, key, labelKey, label] of [
-    ['aiDaily', 'daily', 'daily_summary', 'Write a daily summary'],
-    ['aiWeekly', 'weekly', 'weekly_summary', '…a weekly one'],
-    ['aiMonthly', 'monthly', 'monthly_summary', '…a monthly one'],
-  ]) {
-    const box = document.createElement('input');
-    box.type = 'checkbox';
-    box.id = id;
-    box.checked = data.alerts?.[key] === true;
-    unattended.appendChild(fieldRow(aiSettingsText(labelKey, label), box, ''));
-  }
+  unattended.append(
+    ...renderCoreCardPackage(
+      ZogographAiAlertSummariesCard,
+      'core-ai-alert-summaries',
+      data,
+      { fieldRow, i18n: ZogographI18n },
+    ),
+  );
 
   const reportTo = document.createElement('input');
   reportTo.type = 'text';

@@ -3837,6 +3837,14 @@ function renderSystemSnapshotsShellTitle() {
     'core-system-snapshots-shell.title',
     ZogographSystemSnapshotsShellCard.text('title', helpers),
   );
+  const help = document.querySelector(
+    '[data-i18n="core-system-snapshots-shell.help"]',
+  );
+  help.textContent = ZogographI18n.markSource(
+    help,
+    'core-system-snapshots-shell.help',
+    ZogographSystemSnapshotsShellCard.text('help', helpers),
+  );
 }
 
 document.addEventListener(

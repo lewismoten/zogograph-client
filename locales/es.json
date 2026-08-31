@@ -2493,7 +2493,6 @@
   "notes.keep_pictures_help": "Se guardan con la nota exactamente como se dibujan ahora, para que la imagen siga mostrando lo que vio tras consolidarse las lecturas por retención.",
   "notes.no_page_charts": "No hay gráficos en esta página.",
   "notes.no_page_charts_help": "La nota se guarda de todos modos, y una marca en esta página aparecerá en cualquier gráfico que se agregue después.",
-  "system.snapshots_help": "Copias forenses escritas junto a las bases de datos y deliberadamente fuera de toda regla de retención: el propósito es sobrevivir a la consolidación que de otro modo descartaría las lecturas de las que tratan. Eso también significa que nada las vence, por lo que aparecen aquí para que alguien las revise.",
   "system.snapshot_empty": "No se han hecho copias. Se escribe una cuando una nota la pide: una copia coherente de ambas bases de datos para verla después de que se hayan consolidado las lecturas a las que se refiere.",
   "system.snapshot_file": "Archivo",
   "system.snapshot_made": "Creada",

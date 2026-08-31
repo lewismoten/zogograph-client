@@ -23,6 +23,7 @@
     <script src="cards/cpu-shell.js" defer></script>
     <script src="cards/audit-shell.js" defer></script>
     <script src="cards/alerts-shell.js" defer></script>
+    <script src="cards/network-shell.js" defer></script>
     <script src="cards/network-gauges.js" defer></script>
     <script src="cards/network-interfaces.js" defer></script>
     <script src="cards/network-ports.js" defer></script>
@@ -2827,7 +2828,10 @@
                 Refresh
               </button>
             </div>
-            <p class="muted small sub-note" data-i18n="network.intro">
+            <p
+              class="muted small sub-note"
+              data-i18n="core-network-shell.intro"
+            >
               Every other page here measures something being used up — disk,
               memory, CPU — and none of them can say why. A machine pinned at
               100% because it is answering four thousand DNS queries a second
@@ -2837,7 +2841,7 @@
             <div id="networkBody"></div>
             <div id="networkContent" hidden>
               <div class="gauges" id="networkGauges"></div>
-              <h3 class="sub-head" data-i18n="network.interfaces">
+              <h3 class="sub-head" data-i18n="core-network-shell.interfaces">
                 Interfaces
               </h3>
               <div id="networkInterfaces"></div>
@@ -2851,7 +2855,7 @@
               <h2 data-i18n="core-network-ports.title">Open ports</h2>
               <label class="pill"
                 ><input type="checkbox" id="portsPublicOnly" /><span
-                  data-i18n="network.ports_public_only"
+                  data-i18n="core-network-shell.ports_public_only"
                   >Reachable from outside only</span
                 ></label
               >

@@ -129,6 +129,7 @@ export default [
         ZogographHostLayoutShellCard: 'readonly',
         ZogographHostMemoryGaugesCard: 'readonly',
         ZogographNetworkGaugesCard: 'readonly',
+        ZogographNetworkShellCard: 'readonly',
         ZogographNetworkInterfacesCard: 'readonly',
         ZogographNetworkPortsCard: 'readonly',
         ZogographNetworkPeersCard: 'readonly',

@@ -2913,6 +2913,28 @@ function renderTreemapShellLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderTreemapShellLabels);
 
+function renderNetworkShellLabels() {
+  const helpers = { i18n: ZogographI18n };
+  renderCoreCardPackage(
+    ZogographNetworkShellCard,
+    'core-network-shell',
+    {},
+    helpers,
+  );
+  document
+    .querySelectorAll('[data-i18n^="core-network-shell."]')
+    .forEach((node) => {
+      const key = node.dataset.i18n.replace('core-network-shell.', '');
+      node.textContent = ZogographI18n.markSource(
+        node,
+        `core-network-shell.${key}`,
+        ZogographNetworkShellCard.text(key, helpers),
+      );
+    });
+}
+
+document.addEventListener('zogograph-i18n-load', renderNetworkShellLabels);
+
 function renderNetworkPortsTitle() {
   const helpers = {
     target: null,

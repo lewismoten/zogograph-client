@@ -2174,6 +2174,29 @@ function renderHostLogLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderHostLogLabels);
 
+function renderStorageInspectorLabels() {
+  const helpers = { i18n: ZogographI18n };
+  renderCoreCardPackage(
+    ZogographStorageInspectorBreakdownCard,
+    'core-storage-inspector-breakdown',
+    { key: 'empty' },
+    helpers,
+  );
+  const title = document.querySelector(
+    '[data-i18n="core-storage-inspector-breakdown.inspector_title"]',
+  );
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-storage-inspector-breakdown.inspector_title',
+    ZogographStorageInspectorBreakdownCard.render(
+      { key: 'inspector_title' },
+      helpers,
+    ),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderStorageInspectorLabels);
+
 /**
  * When the disk is projected to fill, as a date.
  *

@@ -25754,7 +25754,9 @@ async function refreshHost() {
     [
       {
         key: 'used_bytes',
-        label: ZogographI18n.t('host.memory_card_in_use', {}, 'Memory in use'),
+        label: ZogographHostMemoryCard.text('in_use', {
+          i18n: ZogographI18n,
+        }),
       },
       {
         key: 'cache_bytes',
@@ -25768,11 +25770,9 @@ async function refreshHost() {
       },
       {
         key: 'unaccounted',
-        label: ZogographI18n.t(
-          'host.memory_card_other_kernel',
-          {},
-          'Other kernel/system memory',
-        ),
+        label: ZogographHostMemoryCard.text('other_kernel', {
+          i18n: ZogographI18n,
+        }),
       },
     ],
     {

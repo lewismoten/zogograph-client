@@ -13,7 +13,6 @@
   "network.sign_in": "Sign in to see the network.",
   "network.bytes": "Bytes",
   "network.captures_sign_in": "Sign in to see captures.",
-  "encryption.status_sign_in": "Sign in to view protection status.",
   "setup.instructions_sign_in": "Sign in to see the setup instructions.",
   "terminal.sessions_sign_in": "Sign in to see terminal sessions.",
   "terminal.use_sign_in": "Sign in to use the terminal.",

@@ -14491,15 +14491,7 @@ async function refreshEncryptionStatus() {
   const body = $('encryptionBody');
   if (!body) return;
   if (!state.signedIn) {
-    body.replaceChildren(
-      note(
-        ZogographI18n.t(
-          'encryption.status_sign_in',
-          {},
-          'Sign in to view protection status.',
-        ),
-      ),
-    );
+    body.replaceChildren(note(encryptionCardText('sign_in')));
     return;
   }
   try {

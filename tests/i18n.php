@@ -4635,15 +4635,21 @@ i18nExpect(
 i18nExpect(
     $script !== false &&
         str_contains($script, 'function capabilityShortState') &&
+        str_contains(
+            $script,
+            'renderCoreCardPackage(ZogographCapabilityListStatusCard, "core-capability-list-status",',
+        ) &&
+        $page !== false &&
+        str_contains($page, 'src="cards/capability-list-status.js"') &&
         str_contains($script, "'capabilities.nothing_checked_yet'") &&
         is_array($english) &&
-        isset($english['capabilities.short_alternate']) &&
-        isset($english['capabilities.short_host_only']) &&
-        isset($english['capabilities.short_unusable']) &&
-        isset($english['capabilities.short_missing']) &&
-        isset($english['capabilities.short_unknown_host']) &&
+        !isset($english['capabilities.short_alternate']) &&
+        !isset($english['capabilities.short_host_only']) &&
+        !isset($english['capabilities.short_unusable']) &&
+        !isset($english['capabilities.short_missing']) &&
+        !isset($english['capabilities.short_unknown_host']) &&
         isset($english['capabilities.nothing_checked_yet']),
-    'capability states and empty fallback are not localized',
+    'capability states do not belong to their core package',
 );
 i18nExpect(
     $page !== false &&

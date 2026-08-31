@@ -38304,20 +38304,13 @@ const CAP_MARKS = {
   unknown_host: { mark: '—', className: 'cap-no' },
 };
 
-const CAP_SHORT = {
-  available: '',
-  alternate: ['capabilities.short_alternate', 'alternate path'],
-  host_only: ['capabilities.short_host_only', 'host-only'],
-  unusable: ['capabilities.short_unusable', 'not executable'],
-  missing: ['capabilities.short_missing', 'not installed'],
-  unknown_host: ['capabilities.short_unknown_host', 'not here'],
-};
-
 function capabilityShortState(state) {
-  const label = CAP_SHORT[state];
-  return Array.isArray(label)
-    ? ZogographI18n.t(label[0], {}, label[1])
-    : label || '';
+  return renderCoreCardPackage(
+    ZogographCapabilityListStatusCard,
+    'core-capability-list-status',
+    { state },
+    { i18n: ZogographI18n },
+  );
 }
 
 function capabilityExposeText(key, values = {}) {

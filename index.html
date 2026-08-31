@@ -139,6 +139,7 @@
     <script src="cards/log-repeats.js" defer></script>
     <script src="cards/log-stream-summary.js" defer></script>
     <script src="cards/capability-list-empty.js" defer></script>
+    <script src="cards/capability-list-status.js" defer></script>
     <script src="cards/pending-host-tasks.js" defer></script>
     <script src="cards/missing-command-note.js" defer></script>
     <script src="cards/capability-expose-dialog.js" defer></script>
@@ -2015,8 +2016,12 @@
                     <option>1000</option>
                   </select>
                 </label>
-                <button id="logNewer" data-i18n="core-storage-log.newer">Newer</button>
-                <button id="logOlder" data-i18n="core-storage-log.older">Older</button>
+                <button id="logNewer" data-i18n="core-storage-log.newer">
+                  Newer
+                </button>
+                <button id="logOlder" data-i18n="core-storage-log.older">
+                  Older
+                </button>
                 <button id="logClose" class="link" data-i18n="action.close">
                   Close
                 </button>
@@ -3349,11 +3354,23 @@
               <label class="inline">
                 <span data-i18n="core-filter-controls.show">Show</span>
                 <select id="streamLines">
-                  <option value="20" selected data-i18n="core-log-stream-summary.lines_20">
+                  <option
+                    value="20"
+                    selected
+                    data-i18n="core-log-stream-summary.lines_20"
+                  >
                     20 lines
                   </option>
-                  <option value="50" data-i18n="core-log-stream-summary.lines_50">50 lines</option>
-                  <option value="100" data-i18n="core-log-stream-summary.lines_100">
+                  <option
+                    value="50"
+                    data-i18n="core-log-stream-summary.lines_50"
+                  >
+                    50 lines
+                  </option>
+                  <option
+                    value="100"
+                    data-i18n="core-log-stream-summary.lines_100"
+                  >
                     100 lines
                   </option>
                 </select>

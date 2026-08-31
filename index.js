@@ -4184,10 +4184,17 @@ async function refreshBadges() {
 
       const badge = document.querySelector('[data-badge="alerts"]');
       if (badge && silenced) {
-        badge.title =
-          `${count(unread.length, 'unread alert')}, ` +
-          `${silenced} of which ${silenced === 1 ? 'was' : 'were'} held back by ` +
-          `${chatState.who.name}.`;
+        badge.title = renderCoreCardPackage(
+          ZogographNavigationBadgeCard,
+          'core-navigation-badge',
+          {
+            kind: 'alerts',
+            assistant: chatState.who.name,
+            silenced,
+            unread: unread.length,
+          },
+          { i18n: ZogographI18n },
+        );
       }
       renderAlertBanner(unread);
     } catch {
@@ -4208,11 +4215,18 @@ async function refreshBadges() {
   try {
     const problems = await api('problems', { limit: 1 });
     const total = Number(problems.total || 0);
-    const [tone, icon, meaning] = PROBLEM_MARKS[problems.worst] ?? [
-      'warn',
-      '',
-      '',
-    ];
+    const badgeInfo = renderCoreCardPackage(
+      ZogographNavigationBadgeCard,
+      'core-navigation-badge',
+      {
+        kind: 'problems',
+        byLevel: problems.by_level,
+        count: total,
+        worst: problems.worst,
+      },
+      { i18n: ZogographI18n },
+    );
+    const { tone, icon, title } = badgeInfo;
 
     setBadge('system', total, tone, icon);
     // And on the page itself, which is where somebody goes to act on it.
@@ -4220,16 +4234,7 @@ async function refreshBadges() {
 
     for (const view of ['system', 'sys-problems']) {
       const el = document.querySelector(`[data-badge="${view}"]`);
-      if (el && total) {
-        el.title =
-          `${count(total, 'kind of problem', 'kinds of problem')} in the log` +
-          (meaning ? `, the worst being ${meaning}` : '') +
-          (problems.by_level
-            ? `.\n${Object.entries(problems.by_level)
-                .map(([name, n]) => `${n} ${name}`)
-                .join(', ')}`
-            : '.');
-      }
+      if (el && total) el.title = title;
     }
   } catch {
     setBadge('system', 0);
@@ -42498,15 +42503,6 @@ function setBadge(view, count, level = 'warn', icon = '') {
     (icon ? `${icon} ` : '') + (count > 99 ? '99+' : String(count));
   el.className = `nav-badge badge-${level}`;
 }
-
-/** The colour and mark for a problem level. */
-const PROBLEM_MARKS = {
-  critical: ['crit', '🔴', 'something failed outright'],
-  error: ['crit', '🔴', 'an error'],
-  warning: ['warn', '🟡', 'a warning'],
-  notice: ['warn', '🔵', 'a notice'],
-  info: ['warn', '🔵', 'a note'],
-};
 
 /* ----------------------------------------------------------------- polling -- */
 

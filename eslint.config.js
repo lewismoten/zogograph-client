@@ -113,6 +113,7 @@ export default [
         ZogographTerminalVerdictCard: 'readonly',
         ZogographTerminalVerdictSummaryCard: 'readonly',
         ZogographChartIdentityCard: 'readonly',
+        ZogographNavigationBadgeCard: 'readonly',
         ZogographTreemapLegendCard: 'readonly',
         ZogographTreemapNoteCard: 'readonly',
         ZogographTreemapCrumbsCard: 'readonly',

@@ -10682,7 +10682,11 @@ function chatToolPhrase({ tool, arguments: args, localeNamespace = '' }) {
                         : tool === 'request_tool_group'
                           ? { group: toolGroupLabel(args.subject) }
                           : {};
-    return ZogographI18n.t(activityKey, values, said ?? tool);
+    return ZogographI18n.t(
+      activityKey,
+      values,
+      localeNamespace ? tool : (said ?? tool),
+    );
   }
   return said ?? tool;
 }

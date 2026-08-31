@@ -565,8 +565,6 @@
   "path_hygiene.scan_truncated": "The scan found more names than this page retains. Rename these, then run another disk scan.",
   "ai.settings.provider_connection": "Provider connection",
   "ai.settings.which_model": "Which model",
-  "ai.settings.unattended_title": "What it does without being asked",
-  "ai.settings.unattended_help": "Everything in this section costs money on a schedule, with nobody watching. The per-conversation limits above do not apply to it — those are about one conversation, and this is not one.",
   "ai.settings.identity_title": "Identity",
   "ai.data_page": "Assistant data",
   "ai.tool_group_requested": "{{assistant}} requested {{group}} tools — review and save the choice.",

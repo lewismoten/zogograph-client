@@ -5934,19 +5934,11 @@ function renderAiSettings(data) {
   );
 
   pages.limits.push(
-    section(
-      aiSettingsText('unattended_title', 'What it does without being asked'),
-      unattended,
-    ),
-  );
-  pages.limits.push(
-    note(
-      aiSettingsText(
-        'unattended_help',
-        'Everything in this section costs money on a schedule, with nobody watching. The ' +
-          'per-conversation limits above do not apply to it — those are about one ' +
-          'conversation, and this is not one.',
-      ),
+    ...renderCoreCardPackage(
+      ZogographAiUnattendedSectionCard,
+      'core-ai-unattended-section',
+      { content: unattended },
+      { section, note, i18n: ZogographI18n },
     ),
   );
   pages.images.push(pictureFields(data));

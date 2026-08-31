@@ -18608,21 +18608,41 @@ function renderMemories(data) {
         },
       },
       {
-        label: ZogographI18n.t('ai.memory_kind', {}, 'Kind'),
+        label: renderCoreCardPackage(
+          ZogographAiMemoryTableColumnsCard,
+          'core-ai-memory-table-columns',
+          { key: 'kind', fallback: 'Kind' },
+          { i18n: ZogographI18n },
+        ),
         render: (row) => data.kinds[row.kind]?.label ?? row.kind,
       },
       {
-        label: ZogographI18n.t('ai.memory_about', {}, 'About'),
+        label: renderCoreCardPackage(
+          ZogographAiMemoryTableColumnsCard,
+          'core-ai-memory-table-columns',
+          { key: 'about', fallback: 'About' },
+          { i18n: ZogographI18n },
+        ),
         className: 'name',
         render: (row) => row.subject,
       },
       {
-        label: ZogographI18n.t('ai.memory_remembers', {}, 'What it remembers'),
+        label: renderCoreCardPackage(
+          ZogographAiMemoryTableColumnsCard,
+          'core-ai-memory-table-columns',
+          { key: 'remembers', fallback: 'What it remembers' },
+          { i18n: ZogographI18n },
+        ),
         className: 'cmd',
         render: (row) => row.body,
       },
       {
-        label: ZogographI18n.t('ai.memory_written', {}, 'Written'),
+        label: renderCoreCardPackage(
+          ZogographAiMemoryTableColumnsCard,
+          'core-ai-memory-table-columns',
+          { key: 'written', fallback: 'Written' },
+          { i18n: ZogographI18n },
+        ),
         render: (row) =>
           renderCoreCardPackage(
             ZogographAiMemoryProvenanceCard,

@@ -449,7 +449,6 @@
   "process.matches_all_protected": "Coinciden {{matched}} de los {{scanned}} procesos en ejecución; todos están protegidos.",
   "process.matches_some_protected": "Coinciden {{matched}} de los {{scanned}} procesos en ejecución; {{blocked}} están protegidos.",
   "process.all_matches_protected": "Todas las coincidencias están protegidas, por lo que no hay nada que detener.",
-  "storage.symlink_filter_empty": "No hay nada {{view}} en esta comprobación. Los otros tipos siguen ahí: los botones de arriba solo cambian lo que se dibuja.",
   "storage.symlink_showing_capped": "Se muestran {{shown}} de {{total}} problemas. El resto son reales y se contaron; solo se limita el dibujo. Limpiar una ruta más abajo funciona con todos ellos, no solo con los que aparecen en pantalla.",
   "storage.symlink_walking_tree": "Recorriendo el árbol…",
   "action.stop": "Detenerlo",

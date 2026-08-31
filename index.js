@@ -21647,10 +21647,10 @@ function renderSymlinks() {
   if (!rows.length) {
     $('symlinkTable').replaceChildren(
       note(
-        ZogographI18n.t(
-          'storage.symlink_filter_empty',
+        ZogographSymlinkFilterCard.text(
+          'empty',
           { view: symlinkViewLabel(SYMLINK_VIEWS[linkState.show]) },
-          `Nothing in this check is ${symlinkViewLabel(SYMLINK_VIEWS[linkState.show]).toLowerCase()}. The other kinds are still there — the buttons above only change what is drawn.`,
+          ZogographI18n,
         ),
       ),
     );

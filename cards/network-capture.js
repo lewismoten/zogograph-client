@@ -67,6 +67,11 @@ window.ZogographNetworkCaptureCard = {
         'core-network-capture.stopped_early_detail':
           'The packet ceiling was reached before the time ran out, so this covers the first part of the period rather than all of it.',
         'core-network-capture.the_sample': 'The sample',
+        'core-network-capture.flag': 'Flag',
+        'core-network-capture.what_it_is': 'What it is',
+        'core-network-capture.traffic_kind': 'What kind of traffic',
+        'core-network-capture.peer_endpoints': 'Who is on the other end',
+        'core-network-capture.which_service': 'Which service',
       }),
       es: Object.freeze({
         'core-network-capture.title': 'Qué hay en la red',
@@ -122,6 +127,11 @@ window.ZogographNetworkCaptureCard = {
         'core-network-capture.stopped_early_detail':
           'Se alcanzó el límite de paquetes antes de que terminara el tiempo, por lo que esto cubre la primera parte del periodo, no todo él.',
         'core-network-capture.the_sample': 'La muestra',
+        'core-network-capture.flag': 'Indicador',
+        'core-network-capture.what_it_is': 'Qué es',
+        'core-network-capture.traffic_kind': 'Qué tipo de tráfico',
+        'core-network-capture.peer_endpoints': 'Quién está al otro lado',
+        'core-network-capture.which_service': 'Qué servicio',
       }),
       hi: Object.freeze({
         'core-network-capture.title': 'नेटवर्क पर क्या है',
@@ -173,6 +183,11 @@ window.ZogographNetworkCaptureCard = {
         'core-network-capture.stopped_early_detail':
           'समय समाप्त होने से पहले पैकेट सीमा पूरी हुई, इसलिए यह पूरे समय के बजाय अवधि का पहला भाग दिखाता है।',
         'core-network-capture.the_sample': 'नमूना',
+        'core-network-capture.flag': 'फ़्लैग',
+        'core-network-capture.what_it_is': 'यह क्या है',
+        'core-network-capture.traffic_kind': 'किस तरह का ट्रैफ़िक',
+        'core-network-capture.peer_endpoints': 'दूसरे छोर पर कौन है',
+        'core-network-capture.which_service': 'कौन सी सेवा',
       }),
       ar: Object.freeze({
         'core-network-capture.title': 'ما الموجود على الشبكة',
@@ -221,6 +236,11 @@ window.ZogographNetworkCaptureCard = {
         'core-network-capture.stopped_early_detail':
           'بلغ حد الحزم قبل انتهاء الوقت، لذا يغطي هذا الجزء الأول من الفترة بدلًا من كلها.',
         'core-network-capture.the_sample': 'العينة',
+        'core-network-capture.flag': 'العلم',
+        'core-network-capture.what_it_is': 'ما هو',
+        'core-network-capture.traffic_kind': 'ما نوع حركة المرور',
+        'core-network-capture.peer_endpoints': 'من على الطرف الآخر',
+        'core-network-capture.which_service': 'أي خدمة',
       }),
       zh: Object.freeze({
         'core-network-capture.title': '线路上有什么',
@@ -268,6 +288,11 @@ window.ZogographNetworkCaptureCard = {
         'core-network-capture.stopped_early_detail':
           '数据包达到上限时尚未到时间，因此这仅涵盖该时段的前半部分，而不是全部。',
         'core-network-capture.the_sample': '样本',
+        'core-network-capture.flag': '标志',
+        'core-network-capture.what_it_is': '它是什么',
+        'core-network-capture.traffic_kind': '流量类型',
+        'core-network-capture.peer_endpoints': '另一端是谁',
+        'core-network-capture.which_service': '哪个服务',
       }),
     }),
   }),
@@ -311,6 +336,11 @@ window.ZogographNetworkCaptureCard = {
         'stopped_early',
         'stopped_early_detail',
         'the_sample',
+        'flag',
+        'what_it_is',
+        'traffic_kind',
+        'peer_endpoints',
+        'which_service',
       ].includes(name)
         ? `core-network-capture.${name}`
         : key;

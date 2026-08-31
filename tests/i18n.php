@@ -1117,6 +1117,14 @@ i18nExpect(
             $networkCaptureCard,
             '"core-network-capture.stopped_early_detail"',
         ) &&
+        str_contains(
+            $networkCaptureCard,
+            '"core-network-capture.traffic_kind"',
+        ) &&
+        str_contains(
+            $networkCaptureCard,
+            '"core-network-capture.peer_endpoints"',
+        ) &&
         $script !== false &&
         str_contains(
             $script,

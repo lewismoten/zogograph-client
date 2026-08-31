@@ -21427,11 +21427,19 @@ function targetPath(row) {
 }
 
 const SYMLINK_KINDS = {
-  loop: ['storage.symlink_kind_loop', 'Loop', 'grew'],
-  ancestor: ['storage.symlink_kind_ancestor', 'Endless directory', 'grew'],
-  outside: ['storage.symlink_kind_outside', 'Leaves the tree', ''],
-  broken: ['storage.symlink_kind_broken', 'Broken', 'muted'],
+  loop: ['kind_loop', 'grew'],
+  ancestor: ['kind_ancestor', 'grew'],
+  outside: ['kind_outside', ''],
+  broken: ['kind_broken', 'muted'],
 };
+
+const symlinkTableText = (key, values = {}) =>
+  renderCoreCardPackage(
+    ZogographSymlinkTableCard,
+    'core-symlink-table',
+    { key, values },
+    { i18n: ZogographI18n },
+  );
 
 /**
  * Checks the tree for symlinks that will send something into a loop.
@@ -21704,21 +21712,15 @@ function renderSymlinks() {
       {
         label: '',
         render: (row) => {
-          const [key, fallback, tone] = SYMLINK_KINDS[row.kind] ?? [
-            '',
-            row.kind,
-            '',
-          ];
+          const [key, tone] = SYMLINK_KINDS[row.kind] ?? ['', ''];
           const span = document.createElement('span');
-          span.textContent = key
-            ? ZogographI18n.t(key, {}, fallback)
-            : fallback;
+          span.textContent = key ? symlinkTableText(key) : row.kind;
           span.className = tone;
           return span;
         },
       },
       {
-        label: ZogographI18n.t('storage.symlink_link', {}, 'Link'),
+        label: symlinkTableText('link'),
         className: 'name',
         render: (row) => {
           const span = document.createElement('span');
@@ -21728,27 +21730,19 @@ function renderSymlinks() {
           if (fresh.has(`${row.path} ${row.kind}`)) {
             const mark = document.createElement('span');
             mark.className = 'band-crit small';
-            mark.textContent = ZogographI18n.t(
-              'storage.symlink_new_marker',
-              {},
-              ' new',
-            );
+            mark.textContent = symlinkTableText('new_marker');
             span.appendChild(mark);
           }
           return span;
         },
       },
       {
-        label: ZogographI18n.t('storage.symlink_points_at', {}, 'Points at'),
+        label: symlinkTableText('points_at'),
         className: 'name',
         render: (row) => targetPath(row),
       },
       {
-        label: ZogographI18n.t(
-          'storage.symlink_why_matters',
-          {},
-          'Why it matters',
-        ),
+        label: symlinkTableText('why_matters'),
         className: 'muted',
         render: (row) => row.note,
       },

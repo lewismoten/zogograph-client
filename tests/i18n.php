@@ -2640,15 +2640,7 @@ i18nExpect(
             $english['process.matches_all_protected'],
             $english['process.matches_some_protected'],
             $english['process.all_matches_protected'],
-            $english['storage.symlink_kind_loop'],
-            $english['storage.symlink_kind_ancestor'],
-            $english['storage.symlink_kind_outside'],
-            $english['storage.symlink_kind_broken'],
             $english['storage.symlink_filter_empty'],
-            $english['storage.symlink_link'],
-            $english['storage.symlink_new_marker'],
-            $english['storage.symlink_points_at'],
-            $english['storage.symlink_why_matters'],
             $english['storage.symlink_showing_capped'],
             $english['storage.symlink_walking_tree'],
             $english['storage.symlink_not_checked'],
@@ -3063,10 +3055,13 @@ i18nExpect(
 );
 i18nExpect(
     $script !== false &&
-        str_contains($script, 'storage.symlink_kind_loop') &&
+        str_contains(
+            (string) file_get_contents($root . '/cards/symlink-table.js'),
+            'core-symlink-table.kind_loop',
+        ) &&
         str_contains($script, 'storage.symlink_filter_empty') &&
         str_contains($script, 'storage.symlink_showing_capped'),
-    'symlink filters and tables retain direct user-visible text',
+    'symlink filters and tables retain package-owned user-visible text',
 );
 i18nExpect(
     $script !== false &&

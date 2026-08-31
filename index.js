@@ -15965,15 +15965,7 @@ function renderEncryptionStatus(data) {
   if (data.mode === 'none') {
     parts.push(note(encryptionText('protection_disabled_notice')));
   } else if (data.mode === 'operator_managed_volume') {
-    parts.push(
-      note(
-        ZogographI18n.t(
-          'encryption.volume_policy_notice',
-          {},
-          'Zogograph records your host/VM protection policy but cannot verify it. The displayed evidence is your declaration, not a verified encrypted copy. Confirm that every selected database, SQLite WAL/SHM companion, configuration file, log, export, and backup destination is covered.',
-        ),
-      ),
-    );
+    parts.push(note(encryptionText('volume_policy_notice')));
   } else if (data.mode === 'sealed_copies_local') {
     parts.push(
       note(

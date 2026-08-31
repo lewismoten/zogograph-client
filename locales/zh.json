@@ -687,7 +687,6 @@
   "openid.secret_acknowledged": "已保存 OpenID 客户端密钥确认。",
   "encryption.package_key_created": "已创建单独的私有软件包密钥文件。其内容未在浏览器中显示或保存。存储软件包密钥前，请在“软件包密钥文件”中输入其路径并保存该设置。",
   "encryption.private_key_created": "已创建新的私有本地密钥文件。其内容未在浏览器中显示或保存。启用加密副本前，请记录一份离线恢复副本。",
-  "encryption.volume_policy_notice": "Zogograph 会记录您的主机/虚拟机保护策略，但无法验证它。显示的证据是您的声明，而不是经过验证的加密副本。请确认每个选定数据库、SQLite WAL/SHM 配套文件、配置文件、日志、导出文件和备份目标均已覆盖。",
   "encryption.create_copies_confirm": "现在为每个选定的可用存储创建新的加密副本吗？这不会加密正在运行的数据库。保留期清理只能删除已过期且通过哈希验证的副本，绝不会删除某个存储的最新已验证副本。",
   "schedule.removed": "已删除 {{job}} 计划。",
   "schedule.none": "（无）",

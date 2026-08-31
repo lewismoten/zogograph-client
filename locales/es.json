@@ -679,7 +679,6 @@
   "audit.export_preparing": "Se está preparando el CSV completo de auditoría…",
   "network.label_saved": "Guardado. Se mostrará donde aparezcan esa dirección o ese puerto.",
   "diagnostic.export_preparing": "Se está preparando la instantánea de diagnóstico depurada…",
-  "ai.prices_open_model": "Abra primero la página Modelo para que esto sepa qué proveedores hay.",
   "ai.session_named": "Nombrada.",
   "ai.limit_raised": "Aumentado para esta conversación. Continúe.",
   "ai.context_added": "Añadido. Lo leerá en su siguiente turno.",

@@ -677,7 +677,6 @@
   "audit.export_preparing": "جارٍ إعداد ملف CSV الكامل للتدقيق…",
   "network.label_saved": "تم الحفظ. سيظهر حيثما يظهر ذلك العنوان أو المنفذ.",
   "diagnostic.export_preparing": "جارٍ إعداد لقطة التشخيص المنقّحة…",
-  "ai.prices_open_model": "افتح صفحة النموذج أولاً كي يعرف هذا المزودين المتاحين.",
   "ai.session_named": "تمت التسمية.",
   "ai.limit_raised": "رُفع لهذه المحادثة. تابع.",
   "ai.context_added": "أُضيف. سيقرأ ذلك في دوره التالي.",

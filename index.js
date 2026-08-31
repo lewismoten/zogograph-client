@@ -41540,10 +41540,11 @@ $('reportNow').addEventListener('click', async () => {
 $('aiPriceAdd').addEventListener('click', () => {
   if (!aiSetState.data) {
     notice(
-      ZogographI18n.t(
-        'ai.prices_open_model',
-        {},
-        'Open the Model page first so this knows what providers there are.',
+      renderCoreCardPackage(
+        ZogographAiPriceSectionsCard,
+        'core-ai-price-sections',
+        { kind: 'open-model' },
+        { i18n: ZogographI18n },
       ),
     );
     return;

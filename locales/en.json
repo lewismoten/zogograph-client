@@ -676,7 +676,6 @@
   "audit.export_preparing": "Preparing the full audit CSV…",
   "network.label_saved": "Saved. It will show wherever that address or port appears.",
   "diagnostic.export_preparing": "Preparing the sanitized diagnostic snapshot…",
-  "ai.prices_open_model": "Open the Model page first so this knows what providers there are.",
   "ai.session_named": "Named.",
   "ai.limit_raised": "Raised, for this conversation. Carry on.",
   "ai.context_added": "Added. It will read that on its next turn.",

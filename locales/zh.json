@@ -677,7 +677,6 @@
   "audit.export_preparing": "正在准备完整审计 CSV…",
   "network.label_saved": "已保存。它会在该地址或端口出现的任何位置显示。",
   "diagnostic.export_preparing": "正在准备已清理的诊断快照…",
-  "ai.prices_open_model": "请先打开“模型”页面，以便这里知道有哪些提供商。",
   "ai.session_named": "已命名。",
   "ai.limit_raised": "已为此对话提高限制。请继续。",
   "ai.context_added": "已添加。它会在下一轮阅读它。",

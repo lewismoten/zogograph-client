@@ -3985,13 +3985,17 @@ function syncScanButton(overview) {
 
   const running = overview.scan_running;
   button.disabled = Boolean(running);
-  button.textContent = running
-    ? ZogographI18n.t(
-        'storage.scanning',
-        { elapsed: humanDuration(Date.now() / 1000 - running.started_at) },
-        'Scanning… ({{elapsed}})',
-      )
-    : ZogographI18n.t('storage.scan_now', {}, 'Scan now');
+  button.textContent = renderCoreCardPackage(
+    ZogographStorageScanStatusCard,
+    'core-storage-scan-status',
+    running
+      ? {
+          state: 'running',
+          elapsed: humanDuration(Date.now() / 1000 - running.started_at),
+        }
+      : { state: 'now' },
+    { i18n: ZogographI18n },
+  );
 }
 
 /** Keeps the category filter in step with the rules the server is using. */
@@ -4131,7 +4135,12 @@ async function refreshShared() {
 
   if (wasScanning && !state.scanRunning) {
     notice(
-      ZogographI18n.t('storage.scan_finished', {}, 'Scan finished.'),
+      renderCoreCardPackage(
+        ZogographStorageScanStatusCard,
+        'core-storage-scan-status',
+        { state: 'finished' },
+        { i18n: ZogographI18n },
+      ),
       true,
     );
     // A finished scan changes what Storage shows, wherever you are standing.

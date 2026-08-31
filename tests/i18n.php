@@ -1956,11 +1956,14 @@ i18nExpect(
     'Storage host-log guidance does not use the locale catalog',
 );
 i18nExpect(
-    $script !== false &&
-        str_contains($script, 'ZogographI18n.t("storage.scanning"') &&
-        str_contains($script, 'ZogographI18n.t("storage.scan_now"') &&
-        is_array($english) &&
-        isset($english['storage.scan_now'], $english['storage.scanning']),
+    str_contains(
+        (string) file_get_contents($root . '/cards/storage-scan-status.js'),
+        'core-storage-scan-status.running',
+    ) &&
+        str_contains(
+            (string) file_get_contents($root . '/cards/storage-scan-status.js'),
+            'core-storage-scan-status.finished',
+        ),
     'Storage scan status does not use the locale catalog',
 );
 i18nExpect(

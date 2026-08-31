@@ -132,6 +132,7 @@
     <script src="cards/treemap-note.js" defer></script>
     <script src="cards/treemap-crumbs.js" defer></script>
     <script src="cards/storage-history.js" defer></script>
+    <script src="cards/storage-scan-status.js" defer></script>
     <script src="cards/symlink-filter.js" defer></script>
     <script src="cards/symlink-actions.js" defer></script>
     <script src="cards/symlink-sweep-empty.js" defer></script>
@@ -1534,9 +1535,7 @@
             <section class="panel wide" id="scanPanel">
               <div class="panel-head">
                 <h2 data-i18n="storage.last_scan_title">The last scan</h2>
-                <button id="scanNow" data-i18n="storage.scan_now">
-                  Scan now
-                </button>
+                <button id="scanNow">Scan now</button>
               </div>
               <div id="scanFacts" class="cards small-cards"></div>
               <p class="muted small sub-note" id="scanNote"></p>

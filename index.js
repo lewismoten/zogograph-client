@@ -3221,6 +3221,24 @@ function renderCpuTimeShellLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderCpuTimeShellLabels);
 
+function renderCpuCoresTitle() {
+  const helpers = {
+    target: null,
+    buildGauge: () => null,
+    cpuCoreShare: () => '',
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(ZogographCpuCoresCard, 'core-cpu-cores', [], helpers);
+  const title = document.querySelector('[data-i18n="core-cpu-cores.title"]');
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-cpu-cores.title',
+    ZogographCpuCoresCard.text('title', helpers),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderCpuCoresTitle);
+
 /**
  * When the disk is projected to fill, as a date.
  *

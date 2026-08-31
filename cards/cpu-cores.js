@@ -6,6 +6,7 @@ window.ZogographCpuCoresCard = {
     helpers: ['target', 'buildGauge', 'cpuCoreShare', 'i18n'],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-cpu-cores.title': 'Each core',
         'core-cpu-cores.no_per_core_lines':
           'No per-core lines in this reading. /proc/stat on this kernel did not break the counters down by core, so only the whole-machine figure exists.',
         'core-cpu-cores.core_label': 'Core {{core, number}}',
@@ -16,6 +17,7 @@ window.ZogographCpuCoresCard = {
         'core-cpu-cores.cores_at_90': 'Cores at 90%+',
       }),
       es: Object.freeze({
+        'core-cpu-cores.title': 'Cada núcleo',
         'core-cpu-cores.no_per_core_lines':
           'No hay líneas por núcleo en esta lectura. /proc/stat de este kernel no desglosa los contadores por núcleo, por lo que solo existe la cifra de toda la máquina.',
         'core-cpu-cores.core_label': 'Núcleo {{core, number}}',
@@ -26,6 +28,7 @@ window.ZogographCpuCoresCard = {
         'core-cpu-cores.cores_at_90': 'Núcleos al 90%+',
       }),
       hi: Object.freeze({
+        'core-cpu-cores.title': 'हर कोर',
         'core-cpu-cores.no_per_core_lines':
           'इस रीडिंग में प्रति-कोर पंक्तियाँ नहीं हैं। इस कर्नेल का /proc/stat काउंटरों को कोर के अनुसार नहीं बाँटता, इसलिए केवल पूरी मशीन का आंकड़ा उपलब्ध है।',
         'core-cpu-cores.core_label': 'कोर {{core, number}}',
@@ -36,6 +39,7 @@ window.ZogographCpuCoresCard = {
         'core-cpu-cores.cores_at_90': '90%+ पर कोर',
       }),
       ar: Object.freeze({
+        'core-cpu-cores.title': 'كل نواة',
         'core-cpu-cores.no_per_core_lines':
           'لا توجد أسطر لكل نواة في هذه القراءة. لم يقسم ‎/proc/stat في هذه النواة العدادات حسب النواة، لذا لا يوجد سوى رقم الجهاز كله.',
         'core-cpu-cores.core_label': 'النواة {{core, number}}',
@@ -46,6 +50,7 @@ window.ZogographCpuCoresCard = {
         'core-cpu-cores.cores_at_90': 'أنوية عند 90%+',
       }),
       zh: Object.freeze({
+        'core-cpu-cores.title': '每个核心',
         'core-cpu-cores.no_per_core_lines':
           '此读数没有按核心划分的数据。该内核中的 /proc/stat 没有按核心拆分计数器，因此只有整台机器的数据。',
         'core-cpu-cores.core_label': '核心 {{core, number}}',
@@ -57,6 +62,13 @@ window.ZogographCpuCoresCard = {
       }),
     }),
   }),
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-cpu-cores.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-cpu-cores.${key}`],
+    );
+  },
   render(cores, helpers) {
     const { target, buildGauge, cpuCoreShare, i18n } = helpers;
     const chartLabels = {

@@ -21796,7 +21796,11 @@ async function runAiTry(tool) {
       picture.src = result.picture.url;
       picture.alt =
         result.picture.prompt ||
-        ZogographI18n.t('image.generated', {}, 'A generated picture');
+        ZogographI18n.t(
+          'core-ai-tool-try.generated_picture_alt',
+          {},
+          'A generated picture',
+        );
       picture.loading = 'lazy';
       parts.push(
         section(

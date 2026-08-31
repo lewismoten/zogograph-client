@@ -1169,7 +1169,6 @@
   "auth.new_password": "كلمة المرور الجديدة",
   "auth.password_again": "مرة أخرى",
   "auth.qr_alt": "امسح رمز QR هذا باستخدام تطبيق المصادقة",
-  "image.generated": "صورة مُنشأة",
   "image.note_screenshot": "لقطة الشاشة التي ستُحفظ مع هذه الملاحظة",
   "image.send_screenshot": "لقطة الشاشة كما ستُرسل",
   "navigation.overview": "نظرة عامة",

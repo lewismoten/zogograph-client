@@ -31,6 +31,7 @@ window.ZogographAiToolTryCard = {
           'Refused before it ran: {{reason}}\n\n{{note}}',
         'core-ai-tool-try.server_timing': '{{ms}} ms, {{size}} back',
         'core-ai-tool-try.generated_picture': 'Generated picture',
+        'core-ai-tool-try.generated_picture_alt': 'A generated picture',
         'core-ai-tool-try.picture_note':
           'Style: {{style}}. This is the image the tool just made.',
         'core-ai-tool-try.not_reported': 'not reported',
@@ -63,6 +64,7 @@ window.ZogographAiToolTryCard = {
           'Se rechazó antes de ejecutarse: {{reason}}\n\n{{note}}',
         'core-ai-tool-try.server_timing': '{{ms}} ms, {{size}} de vuelta',
         'core-ai-tool-try.generated_picture': 'Imagen generada',
+        'core-ai-tool-try.generated_picture_alt': 'Una imagen generada',
         'core-ai-tool-try.picture_note':
           'Estilo: {{style}}. Esta es la imagen que acaba de crear la herramienta.',
         'core-ai-tool-try.not_reported': 'no informado',
@@ -94,6 +96,7 @@ window.ZogographAiToolTryCard = {
           'चलने से पहले अस्वीकार किया गया: {{reason}}\n\n{{note}}',
         'core-ai-tool-try.server_timing': '{{ms}} ms, {{size}} वापस',
         'core-ai-tool-try.generated_picture': 'बनाया गया चित्र',
+        'core-ai-tool-try.generated_picture_alt': 'बनाया गया चित्र',
         'core-ai-tool-try.picture_note':
           'शैली: {{style}}। यह वह चित्र है जो टूल ने अभी बनाया है।',
         'core-ai-tool-try.not_reported': 'रिपोर्ट नहीं किया गया',
@@ -124,6 +127,7 @@ window.ZogographAiToolTryCard = {
         'core-ai-tool-try.refused': 'رُفض قبل أن يعمل: {{reason}}\n\n{{note}}',
         'core-ai-tool-try.server_timing': '{{ms}} مللي ثانية، {{size}} عادت',
         'core-ai-tool-try.generated_picture': 'صورة مولدة',
+        'core-ai-tool-try.generated_picture_alt': 'صورة مُنشأة',
         'core-ai-tool-try.picture_note':
           'الأسلوب: {{style}}. هذه هي الصورة التي أنشأتها الأداة للتو.',
         'core-ai-tool-try.not_reported': 'لم يُبلّغ عنه',
@@ -152,6 +156,7 @@ window.ZogographAiToolTryCard = {
         'core-ai-tool-try.refused': '运行前被拒绝：{{reason}}\n\n{{note}}',
         'core-ai-tool-try.server_timing': '{{ms}} 毫秒，返回 {{size}}',
         'core-ai-tool-try.generated_picture': '生成的图片',
+        'core-ai-tool-try.generated_picture_alt': '一张生成的图片',
         'core-ai-tool-try.picture_note':
           '样式：{{style}}。这是该工具刚刚生成的图片。',
         'core-ai-tool-try.not_reported': '未报告',

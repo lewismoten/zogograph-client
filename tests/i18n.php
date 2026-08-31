@@ -3457,7 +3457,6 @@ i18nExpect(
             $english['installation.checks'],
             $english['auth.qr_alt'],
             $english['auth.open_account'],
-            $english['image.generated'],
             $english['package.save_settings'],
             $english['package.runtime_intro'],
             $english['package.installed_for_review'],

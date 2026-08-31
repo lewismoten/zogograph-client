@@ -3442,7 +3442,6 @@ i18nExpect(
             $english['example.changed'],
             $english['example.arabic_digits'],
             $english['example.eastern_arabic_digits'],
-            $english['update.available'],
             $english['action.reload'],
             $english['navigation.storage'],
             $english['navigation.cpu'],

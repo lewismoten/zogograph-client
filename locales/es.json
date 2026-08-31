@@ -1298,8 +1298,6 @@
   "navigation.custom_names": "Sus propios nombres",
   "navigation.audit": "Auditoría",
   "navigation.descriptions": "Qué son las cosas",
-  "update.available": "Hay una actualización más reciente de Zogograph disponible. Recargue cuando esté listo.",
-  "update.compatibility": "Hay una actualización de compatibilidad lista. Recargue antes de continuar para que este navegador use el panel correspondiente.",
   "action.reload": "Recargar ahora",
   "gauge.band_ok": "normal",
   "gauge.band_warn": "vigilar",

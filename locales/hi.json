@@ -1297,8 +1297,6 @@
   "openid.redirect_url": "सटीक HTTPS रीडायरेक्ट URL",
   "openid.redirect_url_placeholder": "https://ऐप.उदाहरण/कॉलबैक",
   "openid.create_client": "विश्वसनीय क्लाइंट बनाएँ",
-  "update.available": "Zogograph का नया अपडेट उपलब्ध है। तैयार होने पर पुनः लोड करें।",
-  "update.compatibility": "अनुकूलता अपडेट तैयार है। आगे बढ़ने से पहले पुनः लोड करें ताकि यह ब्राउज़र मिलान वाला डैशबोर्ड उपयोग करे।",
   "action.reload": "अभी पुनः लोड करें",
   "gauge.band_ok": "सामान्य",
   "gauge.band_warn": "नज़र रखें",

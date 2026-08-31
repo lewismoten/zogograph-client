@@ -329,14 +329,14 @@ function i18nClearPackageCatalogs() {
 }
 
 function i18nRegisterCoreCatalogs() {
-  for (const cardPackage of [
-    window.ZogographStorageLogCard,
-    window.ZogographLogStreamSummaryCard,
-  ]) {
+  for (const globalName of Object.getOwnPropertyNames(window)) {
+    if (!globalName.startsWith('Zogograph')) continue;
+    const cardPackage = window[globalName];
     const manifest = cardPackage?.manifest;
     if (
       !manifest ||
       typeof manifest.id !== 'string' ||
+      !manifest.id.startsWith('core-') ||
       !manifest.catalogs ||
       typeof manifest.catalogs !== 'object'
     )

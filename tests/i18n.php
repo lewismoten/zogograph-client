@@ -1079,6 +1079,13 @@ i18nExpect(
     'network reverse-DNS panel is not isolated behind its core card-module boundary',
 );
 i18nExpect(
+    $runtime !== false &&
+        str_contains($runtime, 'Object.getOwnPropertyNames(window)') &&
+        str_contains($runtime, "globalName.startsWith('Zogograph')") &&
+        str_contains($runtime, "manifest.id.startsWith('core-')"),
+    'static core-card catalogs are not registered before the first translation pass',
+);
+i18nExpect(
     !isset($english['action.ask_again']) &&
         $script !== false &&
         str_contains($script, "ZogographNetworkRdnsCard.text('ask_again'"),

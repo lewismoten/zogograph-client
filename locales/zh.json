@@ -338,8 +338,6 @@
   "log.detail_stack_trace": "堆栈跟踪（{{count, number}} 行）",
   "log.detail_trace_help": "从顶部开始阅读：第一帧是失败的位置，下面每一帧都是调用它的内容。底部通常是请求进入的位置。",
   "log.detail_as_written": "原样内容",
-  "log.detail_title": "一条日志行",
-  "log.detail_entry_of": "{{label}} · 第 {{current, number}} 条，共 {{total, number}} 条",
   "log.stream_severity_hint": "该行表明的严重程度",
   "log.stream_when": "时间",
   "log.stream_when_hint": "该行所述发生的时间",

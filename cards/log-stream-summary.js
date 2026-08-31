@@ -24,6 +24,9 @@ window.ZogographLogStreamSummaryCard = {
         'core-log-stream-summary.open_whole_file': 'Open the whole file',
         'core-log-stream-summary.newer_button': '‹ Newer',
         'core-log-stream-summary.older_button': 'Older ›',
+        'core-log-stream-summary.detail_title': 'A log line',
+        'core-log-stream-summary.detail_entry_of':
+          '{{label}} · entry {{current, number}} of {{total, number}}',
         'core-log-stream-summary.skimming_note':
           'Click any line for the whole of it, taken apart. The columns here are cut short on purpose — this view is for skimming.',
       }),
@@ -48,6 +51,9 @@ window.ZogographLogStreamSummaryCard = {
         'core-log-stream-summary.open_whole_file': 'Abrir el archivo completo',
         'core-log-stream-summary.newer_button': '‹ Más reciente',
         'core-log-stream-summary.older_button': 'Más antiguo ›',
+        'core-log-stream-summary.detail_title': 'Una línea de registro',
+        'core-log-stream-summary.detail_entry_of':
+          '{{label}} · entrada {{current, number}} de {{total, number}}',
         'core-log-stream-summary.skimming_note':
           'Haga clic en cualquier línea para verla completa y desglosada. Las columnas se recortan a propósito: esta vista sirve para hojear.',
       }),
@@ -72,6 +78,9 @@ window.ZogographLogStreamSummaryCard = {
         'core-log-stream-summary.open_whole_file': 'पूरी फ़ाइल खोलें',
         'core-log-stream-summary.newer_button': '‹ नया',
         'core-log-stream-summary.older_button': 'पुराना ›',
+        'core-log-stream-summary.detail_title': 'एक लॉग लाइन',
+        'core-log-stream-summary.detail_entry_of':
+          '{{label}} · प्रविष्टि {{current, number}} / {{total, number}}',
         'core-log-stream-summary.skimming_note':
           'किसी भी पंक्ति को पूरी तरह और भागों में देखने के लिए उस पर क्लिक करें। यहाँ के कॉलम जानबूझकर छोटे रखे गए हैं — यह दृश्य जल्दी देखने के लिए है।',
       }),
@@ -95,6 +104,9 @@ window.ZogographLogStreamSummaryCard = {
         'core-log-stream-summary.open_whole_file': 'افتح الملف كاملًا',
         'core-log-stream-summary.newer_button': '‹ الأحدث',
         'core-log-stream-summary.older_button': 'الأقدم ›',
+        'core-log-stream-summary.detail_title': 'سطر سجل',
+        'core-log-stream-summary.detail_entry_of':
+          '{{label}} · الإدخال {{current, number}} من {{total, number}}',
         'core-log-stream-summary.skimming_note':
           'انقر أي سطر لرؤيته كاملًا ومفككًا. تُقصَّر الأعمدة هنا عمدًا — هذا العرض للتصفح السريع.',
       }),
@@ -118,6 +130,9 @@ window.ZogographLogStreamSummaryCard = {
         'core-log-stream-summary.open_whole_file': '打开整个文件',
         'core-log-stream-summary.newer_button': '‹ 更新',
         'core-log-stream-summary.older_button': '更早 ›',
+        'core-log-stream-summary.detail_title': '一条日志行',
+        'core-log-stream-summary.detail_entry_of':
+          '{{label}} · 第 {{current, number}} 条，共 {{total, number}} 条',
         'core-log-stream-summary.skimming_note':
           '单击任意一行即可查看完整内容及其拆分。这里的列特意截短——此视图用于快速浏览。',
       }),

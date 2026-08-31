@@ -40167,13 +40167,13 @@ function showLogLine(row, index, rows) {
   showListDialog(
     parsed.kind
       ? `${(LOG_MARKS[parsed.kind] || [])[0] ?? ''} ${parsed.where || parsed.kind}`
-      : ZogographI18n.t('log.detail_title', {}, 'A log line'),
+      : logStreamSummaryText('detail_title'),
     nodes,
-    ZogographI18n.t(
-      'log.detail_entry_of',
-      { label: row.label, current: index + 1, total: rows.length },
-      '{{label}} · entry {{current, number}} of {{total, number}}',
-    ),
+    logStreamSummaryText('detail_entry_of', {
+      label: row.label,
+      current: index + 1,
+      total: rows.length,
+    }),
   );
 }
 

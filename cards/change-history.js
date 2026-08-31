@@ -30,7 +30,7 @@ window.ZogographChangeHistoryCard = {
         'core-change-history.noticed': 'Detectado',
         'core-change-history.what': 'Qué',
         'core-change-history.was': 'Era',
-        'core-change-history.became': 'Pasó a ser',
+        'core-change-history.became': 'Se convirtió en',
         'core-change-history.by_fingerprint': 'por huella digital',
         'core-change-history.help':
           'Casi todo «{{working_yesterday}}» resulta ser algo que cambió por debajo: un kernel que llegó con una actualización de paquete, un aumento de OpenSSL que movió un valor predeterminado, una versión menor de PHP que dejó obsoleta una función. Nada de eso aparece en otro gráfico, y la máquina tampoco conserva una nota útil: el registro de paquetes pertenece a root, no siempre está presente y registra lo que se {{installed}}, no lo que responde ahora. Cada hora de esta página es cuando se {{noticed}} un cambio, no cuando sucedió: esto se ejecuta al comprobar capacidades, por lo que una comprobación semanal convierte una actualización del martes en un evento del domingo.',
@@ -46,8 +46,8 @@ window.ZogographChangeHistoryCard = {
         'core-change-history.noticed': 'देखा गया',
         'core-change-history.what': 'क्या',
         'core-change-history.was': 'था',
-        'core-change-history.became': 'बन गया',
-        'core-change-history.by_fingerprint': 'फिंगरप्रिंट द्वारा',
+        'core-change-history.became': 'बना',
+        'core-change-history.by_fingerprint': 'फ़िंगरप्रिंट द्वारा',
         'core-change-history.help':
           'लगभग हर {{working_yesterday}} के पीछे नीचे कुछ बदलना निकलता है—पैकेज अपडेट के साथ आया कर्नेल, डिफ़ॉल्ट बदलने वाला OpenSSL बंप, किसी फ़ंक्शन को deprecated करने वाला PHP पॉइंट रिलीज़। यह किसी दूसरे चार्ट में नहीं दिखता और मशीन इसका उपयोगी नोट भी नहीं रखती: पैकेज लॉग root का है, हमेशा मौजूद नहीं और बताता है क्या {{installed}} था, न कि अब क्या उत्तर दे रहा है। इस पृष्ठ का हर समय वह है जब बदलाव {{noticed}} हुआ, न कि जब हुआ—यह क्षमताएँ जाँचने पर चलता है, इसलिए साप्ताहिक जाँच मंगलवार का अपग्रेड रविवार की घटना बना देती है।',
         'core-change-history.groups_help':
@@ -59,11 +59,11 @@ window.ZogographChangeHistoryCard = {
           'لم يتغير شيء في هذه المدة. آخر فحص {{when}}.',
         'core-change-history.empty_unchecked':
           'لم يُفحص شيء بعد. اضغط افحص الآن أو افتح ما يسمح به المضيف.',
-        'core-change-history.noticed': 'تمت ملاحظته',
-        'core-change-history.what': 'ما هو',
+        'core-change-history.noticed': 'لوحظ',
+        'core-change-history.what': 'ما',
         'core-change-history.was': 'كان',
         'core-change-history.became': 'أصبح',
-        'core-change-history.by_fingerprint': 'بالبصمة',
+        'core-change-history.by_fingerprint': 'بصمة الملف',
         'core-change-history.help':
           'يكاد كل {{working_yesterday}} يتبين أنه شيء يتغير في الأسفل — نواة جاءت مع تحديث حزمة، أو ترقية OpenSSL غيرت افتراضيًا، أو إصدار PHP نقطي أهمل دالة. لا يظهر شيء من ذلك في أي مخطط آخر هنا، ولا تحتفظ الآلة بملاحظة قابلة للاستخدام عنه: سجل الحزم يخص root وليس موجودًا دائمًا، ويسجل ما {{installed}} بدل ما يجيب الآن. كل وقت في هذه الصفحة هو حين كان التغيير {{noticed}}، لا حين حدث — فهذا يعمل عند فحص القدرات، لذا يحول فحص أسبوعي ترقية الثلاثاء إلى حدث يوم الأحد.',
         'core-change-history.groups_help':
@@ -76,10 +76,10 @@ window.ZogographChangeHistoryCard = {
         'core-change-history.empty_unchecked':
           '尚未进行检查。请按“立即检查”，或打开“主机允许的内容”。',
         'core-change-history.noticed': '发现时间',
-        'core-change-history.what': '项目',
-        'core-change-history.was': '原来是',
+        'core-change-history.what': '内容',
+        'core-change-history.was': '原为',
         'core-change-history.became': '变为',
-        'core-change-history.by_fingerprint': '按指纹识别',
+        'core-change-history.by_fingerprint': '通过指纹发现',
         'core-change-history.help':
           '几乎每一句“{{working_yesterday}}”最后都会变成底层的某项变化：随软件包更新而来的内核、改变默认值的 OpenSSL 升级、弃用某个函数的 PHP 小版本更新。其他图表不会显示这些内容，机器也没有保留可用记录：软件包日志归 root 所有、不一定存在，而且记录的是已{{installed}}的内容，而不是当前正在响应的内容。本页的每个时间都是发现变化的{{noticed}}，而不是变化发生的时间——它在检查功能能力时运行，因此每周检查会把周二升级变成周日事件。',
         'core-change-history.groups_help':

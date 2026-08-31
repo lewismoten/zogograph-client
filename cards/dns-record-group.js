@@ -25,6 +25,12 @@ window.ZogographDnsRecordGroupCard = {
         'core-dns-record-group.name': 'Name',
         'core-dns-record-group.type': 'Type',
         'core-dns-record-group.value': 'Value',
+        'core-dns-record-group.show_whole': 'Show the whole value',
+        'core-dns-record-group.show_whole_with_parts':
+          'Show the whole value, broken into its parts',
+        'core-dns-record-group.what_it_means': 'What it means',
+        'core-dns-record-group.dialog_title': '{{type}} record for {{name}}',
+        'core-dns-record-group.kind_note': 'This is a {{kind}} record.',
       }),
       es: Object.freeze({
         'core-dns-record-group.title': 'Lo que publica un dominio',
@@ -40,6 +46,13 @@ window.ZogographDnsRecordGroupCard = {
         'core-dns-record-group.name': 'Nombre',
         'core-dns-record-group.type': 'Tipo',
         'core-dns-record-group.value': 'Valor',
+        'core-dns-record-group.show_whole': 'Mostrar el valor completo',
+        'core-dns-record-group.show_whole_with_parts':
+          'Mostrar el valor completo, desglosado en sus partes',
+        'core-dns-record-group.what_it_means': 'Qué significa',
+        'core-dns-record-group.dialog_title': 'Registro {{type}} para {{name}}',
+        'core-dns-record-group.kind_note':
+          'Este es un registro de tipo {{kind}}.',
       }),
       hi: Object.freeze({
         'core-dns-record-group.title': 'डोमेन क्या प्रकाशित करता है',
@@ -55,6 +68,13 @@ window.ZogographDnsRecordGroupCard = {
         'core-dns-record-group.name': 'नाम',
         'core-dns-record-group.type': 'प्रकार',
         'core-dns-record-group.value': 'मान',
+        'core-dns-record-group.show_whole': 'पूरा मान दिखाएँ',
+        'core-dns-record-group.show_whole_with_parts':
+          'पूरा मान उसके भागों में बाँटकर दिखाएँ',
+        'core-dns-record-group.what_it_means': 'इसका अर्थ',
+        'core-dns-record-group.dialog_title':
+          '{{name}} के लिए {{type}} रिकॉर्ड',
+        'core-dns-record-group.kind_note': 'यह {{kind}} रिकॉर्ड है।',
       }),
       ar: Object.freeze({
         'core-dns-record-group.title': 'ما الذي ينشره نطاق',
@@ -70,6 +90,12 @@ window.ZogographDnsRecordGroupCard = {
         'core-dns-record-group.name': 'الاسم',
         'core-dns-record-group.type': 'النوع',
         'core-dns-record-group.value': 'القيمة',
+        'core-dns-record-group.show_whole': 'اعرض القيمة كاملة',
+        'core-dns-record-group.show_whole_with_parts':
+          'اعرض القيمة كاملةً مقسّمة إلى أجزائها',
+        'core-dns-record-group.what_it_means': 'ما الذي يعنيه',
+        'core-dns-record-group.dialog_title': 'سجل {{type}} لـ {{name}}',
+        'core-dns-record-group.kind_note': 'هذا سجل {{kind}}.',
       }),
       zh: Object.freeze({
         'core-dns-record-group.title': '域名发布了什么',
@@ -85,13 +111,21 @@ window.ZogographDnsRecordGroupCard = {
         'core-dns-record-group.name': '名称',
         'core-dns-record-group.type': '类型',
         'core-dns-record-group.value': '值',
+        'core-dns-record-group.show_whole': '显示完整值',
+        'core-dns-record-group.show_whole_with_parts':
+          '显示完整值，并分解为各部分',
+        'core-dns-record-group.what_it_means': '含义',
+        'core-dns-record-group.dialog_title': '{{name}} 的 {{type}} 记录',
+        'core-dns-record-group.kind_note': '这是 {{kind}} 记录。',
       }),
     }),
   }),
-  text(key, helpers) {
+  text(key, valuesOrHelpers = {}, maybeHelpers = null) {
+    const helpers = maybeHelpers || valuesOrHelpers;
+    const values = maybeHelpers ? valuesOrHelpers : {};
     return helpers.i18n.t(
       `core-dns-record-group.${key}`,
-      {},
+      values,
       this.manifest.catalogs.en[`core-dns-record-group.${key}`],
     );
   },

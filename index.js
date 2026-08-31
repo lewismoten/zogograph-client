@@ -34901,6 +34901,8 @@ function renderDnsGroup(id, rows) {
  * the one thing anybody is reading it to find out.
  */
 function recordValueCell(row) {
+  const dnsRecordText = (key, values = {}) =>
+    ZogographDnsRecordGroupCard.text(key, values, { i18n: ZogographI18n });
   const value = String(row.value ?? '');
   const detailed = row.detail && (row.detail.fields.length || row.detail.note);
 
@@ -34911,18 +34913,16 @@ function recordValueCell(row) {
   button.className = 'link value-cell';
   button.textContent = value;
   button.title = detailed
-    ? ZogographI18n.t(
-        'record.show_whole_with_parts',
-        {},
-        'Show the whole value, broken into its parts',
-      )
-    : ZogographI18n.t('record.show_whole', {}, 'Show the whole value');
+    ? dnsRecordText('show_whole_with_parts')
+    : dnsRecordText('show_whole');
   button.addEventListener('click', () => showRecordDialog(row));
   return button;
 }
 
 /** The whole of one record value, its parts, and a way to copy it. */
 function showRecordDialog(row) {
+  const dnsRecordText = (key, values = {}) =>
+    ZogographDnsRecordGroupCard.text(key, values, { i18n: ZogographI18n });
   const nodes = [];
   const value = String(row.value ?? '');
 
@@ -34973,7 +34973,7 @@ function showRecordDialog(row) {
           [
             '',
             ZogographI18n.t('table.value', {}, 'Value'),
-            ZogographI18n.t('record.what_it_means', {}, 'What it means'),
+            dnsRecordText('what_it_means'),
           ],
           row.detail.fields.map((field) => [
             field.name,
@@ -34987,18 +34987,10 @@ function showRecordDialog(row) {
   }
 
   showListDialog(
-    ZogographI18n.t(
-      'record.dialog_title',
-      { type: row.type, name: row.name },
-      '{{type}} record for {{name}}',
-    ),
+    dnsRecordText('dialog_title', { type: row.type, name: row.name }),
     nodes,
     row.detail && row.detail.kind && row.detail.kind !== 'text'
-      ? ZogographI18n.t(
-          'record.kind_note',
-          { kind: row.detail.kind },
-          'This is a {{kind}} record.',
-        )
+      ? dnsRecordText('kind_note', { kind: row.detail.kind })
       : '',
   );
 }

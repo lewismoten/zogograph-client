@@ -1391,8 +1391,6 @@
   "storage.link_sweep_placeholder": "/home/your-user/public_html/previews",
   "processes.pattern_placeholder": "webalizer/bin/english.*ssl_log\\.bkup",
   "marketplace.no_matches": "没有市场软件包符合该搜索条件。",
-  "marketplace.table_package": "软件包",
-  "marketplace.table_publisher": "发布者",
   "marketplace.table_summary": "提供的内容",
   "marketplace.table_trust": "信任",
   "marketplace.table_compatibility": "兼容性",

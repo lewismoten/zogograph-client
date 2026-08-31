@@ -16423,12 +16423,12 @@ function renderMarketplace(data) {
       rows,
       [
         {
-          label: marketplaceText('table_package', {}, 'Package'),
+          label: marketplaceShellText('table_package'),
           className: 'name',
           render: (row) => `${row.name} · ${row.version}`,
         },
         {
-          label: marketplaceText('table_publisher', {}, 'Publisher'),
+          label: marketplaceShellText('table_publisher'),
           render: (row) => row.publisher,
         },
         {

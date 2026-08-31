@@ -13,6 +13,8 @@ window.ZogographSystemMarketplaceShellCard = {
           'Search marketplace packages',
         'core-system-marketplace-shell.search_placeholder':
           'Search packages, publishers, or capabilities',
+        'core-system-marketplace-shell.table_package': 'Package',
+        'core-system-marketplace-shell.table_publisher': 'Publisher',
       }),
       es: Object.freeze({
         'core-system-marketplace-shell.title': 'Mercado',
@@ -22,6 +24,8 @@ window.ZogographSystemMarketplaceShellCard = {
           'Buscar paquetes del mercado',
         'core-system-marketplace-shell.search_placeholder':
           'Buscar paquetes, editores o capacidades',
+        'core-system-marketplace-shell.table_package': 'Paquete',
+        'core-system-marketplace-shell.table_publisher': 'Editor',
       }),
       hi: Object.freeze({
         'core-system-marketplace-shell.title': 'मार्केटप्लेस',
@@ -31,6 +35,8 @@ window.ZogographSystemMarketplaceShellCard = {
           'मार्केटप्लेस पैकेज खोजें',
         'core-system-marketplace-shell.search_placeholder':
           'पैकेज, प्रकाशक या क्षमताएँ खोजें',
+        'core-system-marketplace-shell.table_package': 'पैकेज',
+        'core-system-marketplace-shell.table_publisher': 'प्रकाशक',
       }),
       ar: Object.freeze({
         'core-system-marketplace-shell.title': 'السوق',
@@ -39,6 +45,8 @@ window.ZogographSystemMarketplaceShellCard = {
         'core-system-marketplace-shell.search_label': 'ابحث في حزم السوق',
         'core-system-marketplace-shell.search_placeholder':
           'ابحث عن الحزم أو الناشرين أو القدرات',
+        'core-system-marketplace-shell.table_package': 'الحزمة',
+        'core-system-marketplace-shell.table_publisher': 'الناشر',
       }),
       zh: Object.freeze({
         'core-system-marketplace-shell.title': '市场',
@@ -47,6 +55,8 @@ window.ZogographSystemMarketplaceShellCard = {
         'core-system-marketplace-shell.search_label': '搜索市场软件包',
         'core-system-marketplace-shell.search_placeholder':
           '搜索软件包、发布者或功能',
+        'core-system-marketplace-shell.table_package': '软件包',
+        'core-system-marketplace-shell.table_publisher': '发布者',
       }),
     }),
   }),

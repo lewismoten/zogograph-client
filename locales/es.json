@@ -1394,8 +1394,6 @@
   "storage.link_sweep_placeholder": "/home/usted/public_html/previews",
   "processes.pattern_placeholder": "webalizer/bin/english.*ssl_log\\.bkup",
   "marketplace.no_matches": "Ningún paquete del mercado coincide con esa búsqueda.",
-  "marketplace.table_package": "Paquete",
-  "marketplace.table_publisher": "Editor",
   "marketplace.table_summary": "Qué ofrece",
   "marketplace.table_trust": "Confianza",
   "marketplace.table_compatibility": "Compatibilidad",

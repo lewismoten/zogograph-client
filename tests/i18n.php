@@ -2876,9 +2876,14 @@ i18nExpect(
 );
 i18nExpect(
     $script !== false &&
-        str_contains($script, 'ai.permission_wants') &&
-        str_contains($script, 'ai.permission_allow') &&
-        str_contains($script, 'ai.permission_decline'),
+        str_contains(
+            (string) file_get_contents($root . '/cards/chat-permission.js'),
+            'core-chat-permission.wants',
+        ) &&
+        str_contains(
+            (string) file_get_contents($root . '/cards/chat-permission.js'),
+            'core-chat-permission.timeout_notice',
+        ),
     'assistant permission card retains direct user-visible text',
 );
 i18nExpect(

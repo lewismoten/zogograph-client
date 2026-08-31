@@ -10574,130 +10574,27 @@ function chatMessageNode(message, session) {
  * numbers" is.
  */
 function chatPermissionPrompt(run) {
-  const wrap = document.createElement('div');
-  wrap.className = 'chat-permission';
-
-  const what = document.createElement('div');
-  what.textContent = ZogographI18n.t(
-    'ai.permission_wants',
-    { action: run.summary.replace(/\.$/, '') },
-    'It wants to {{action}}.',
+  return renderCoreCardPackage(
+    ZogographChatPermissionCard,
+    'core-chat-permission',
+    { run, assistant: chatState.who.name },
+    {
+      deadlines: chatState.deadlines,
+      getPermissionId: () => chatState.session?.permission?.id,
+      humanSpan,
+      notice,
+      permit: async (request, allow) => {
+        chatState.session = (
+          await post('ai-permit', { run: request.id, allow })
+        ).session;
+        renderChat();
+        await driveChat();
+        scheduleChatPoll();
+      },
+      seconds: PERMISSION_SECONDS,
+      i18n: ZogographI18n,
+    },
   );
-  wrap.appendChild(what);
-
-  if (run.why) {
-    const why = document.createElement('div');
-    why.className = 'muted small';
-    why.textContent = `“${run.why}”`;
-    wrap.appendChild(why);
-  }
-
-  const actions = document.createElement('div');
-  actions.className = 'inspect-actions';
-
-  for (const [key, fallback, allow, className] of [
-    ['ai.permission_allow', 'Allow', '1', ''],
-    ['ai.permission_decline', 'Not this time', '0', 'danger'],
-  ]) {
-    const button = document.createElement('button');
-    button.className = `link ${className}`;
-    button.textContent = ZogographI18n.t(key, {}, fallback);
-    button.addEventListener('click', async () => {
-      for (const other of actions.querySelectorAll('button'))
-        other.disabled = true;
-      try {
-        chatState.session = (
-          await post('ai-permit', { run: run.id, allow })
-        ).session;
-        renderChat();
-        await driveChat();
-        scheduleChatPoll();
-      } catch (error) {
-        notice(String(error.message || error));
-      }
-    });
-    actions.appendChild(button);
-  }
-
-  /*
-   * A permission question that nobody answers is a refusal, eventually.
-   *
-   * Not immediately, and not silently: the countdown is visible from the first
-   * second so that somebody who is reading it knows how long they have. But it
-   * has to end, because a turn stuck waiting for a person who left is a
-   * conversation that has to be started again from nothing - and every tool
-   * that asks first is one the model can do without.
-   *
-   * Refuse rather than allow, always. The tools behind this question take
-   * screenshots and spend money; the safe direction when nobody is there is
-   * the one that does neither.
-   */
-  const clock = document.createElement('span');
-  clock.className = 'muted small chat-countdown';
-  actions.appendChild(clock);
-
-  /*
-   * A deadline, not a counter.
-   *
-   * This prompt is rebuilt on every poll - several times a second while a turn
-   * is in flight - so a countdown that started at 180 each time would never
-   * reach zero. The deadline is set once, the first time this question is seen,
-   * and every rebuild reads the same clock.
-   */
-  if (!chatState.deadlines.has(run.id)) {
-    chatState.deadlines.set(run.id, Date.now() + PERMISSION_SECONDS * 1000);
-  }
-  const deadline = chatState.deadlines.get(run.id);
-
-  const tick = async () => {
-    // Answered by hand, replaced by a later render, or the question moved on.
-    if (!wrap.isConnected || chatState.session?.permission?.id !== run.id) {
-      clearInterval(timer);
-      return;
-    }
-
-    const left = Math.max(0, Math.round((deadline - Date.now()) / 1000));
-
-    clock.textContent = ZogographI18n.t(
-      left > 0 ? 'ai.permission_countdown' : 'ai.permission_timed_out',
-      { duration: humanSpan(left) },
-      left > 0
-        ? 'Treated as no in {{duration}}'
-        : 'No answer — carrying on without it',
-    );
-    clock.classList.toggle('soon', left <= 15);
-
-    if (left <= 0) {
-      clearInterval(timer);
-      for (const other of actions.querySelectorAll('button'))
-        other.disabled = true;
-      try {
-        chatState.session = (
-          await post('ai-permit', { run: run.id, allow: '0' })
-        ).session;
-        notice(
-          ZogographI18n.t(
-            'ai.permission_timeout_notice',
-            { assistant: chatState.who.name },
-            'Nobody answered, so {{assistant}} was told no. It carries on without whatever that would have told it.',
-          ),
-          true,
-        );
-        renderChat();
-        await driveChat();
-        scheduleChatPoll();
-      } catch (error) {
-        notice(String(error.message || error));
-      }
-      chatState.deadlines.delete(run.id);
-    }
-  };
-
-  const timer = setInterval(tick, 1000);
-  tick();
-
-  wrap.appendChild(actions);
-  return wrap;
 }
 
 /**

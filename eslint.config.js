@@ -216,6 +216,7 @@ export default [
         ZogographPrivacyControlsCard: 'readonly',
         ZogographTimeRangeSelectorCard: 'readonly',
         ZogographUnitSelectorCard: 'readonly',
+        ZogographFilterControlsCard: 'readonly',
         ZogographChatCostCard: 'readonly',
         ZogographChatSummaryMarkerCard: 'readonly',
         ZogographChatSummaryDialogCard: 'readonly',

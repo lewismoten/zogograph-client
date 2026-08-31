@@ -2154,12 +2154,12 @@ i18nExpect(
 );
 i18nExpect(
     $script !== false &&
-        str_contains($script, 'ZogographI18n.t("filter.all"') &&
+        str_contains($script, 'filterControlText("all", "All")') &&
         $page !== false &&
-        substr_count($page, 'data-i18n="filter.all"') === 2 &&
+        substr_count($page, 'data-i18n="core-filter-controls.all"') === 2 &&
         is_array($english) &&
-        isset($english['filter.all']),
-    'shared filter default does not use the locale catalog',
+        !isset($english['filter.all']),
+    'shared filter default does not use its package catalog',
 );
 i18nExpect(
     $page !== false &&

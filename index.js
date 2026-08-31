@@ -3841,7 +3841,7 @@ function syncCategoryOptions() {
       option.value = value;
       option.textContent =
         value === ''
-          ? ZogographI18n.t('filter.all', {}, 'All')
+          ? filterControlText('all', 'All')
           : value.charAt(0).toUpperCase() + value.slice(1);
       return option;
     }),
@@ -5908,6 +5908,30 @@ function renderUnitSelector() {
 }
 
 document.addEventListener('zogograph-i18n-load', renderUnitSelector);
+
+function filterControlText(key, fallback = '') {
+  return renderCoreCardPackage(
+    ZogographFilterControlsCard,
+    'core-filter-controls',
+    { key, fallback },
+    { i18n: ZogographI18n },
+  );
+}
+
+function renderFilterControls() {
+  document
+    .querySelectorAll('[data-i18n^="core-filter-controls."]')
+    .forEach((node) => {
+      const key = node.dataset.i18n.replace('core-filter-controls.', '');
+      node.textContent = ZogographI18n.markSource(
+        node,
+        `core-filter-controls.${key}`,
+        filterControlText(key, node.textContent),
+      );
+    });
+}
+
+document.addEventListener('zogograph-i18n-load', renderFilterControls);
 
 /** Every container the settings are split across. */
 const AI_SETTING_PAGES = [

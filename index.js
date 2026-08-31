@@ -7061,26 +7061,12 @@ function chatProgressCard(message) {
  * caption under it is worse than the aside simply not happening.
  */
 function chatReactionCard(message) {
-  const card = document.createElement('div');
-  card.className = 'chat-reaction';
-
-  const image = document.createElement('img');
-  image.src = message.url;
-  image.alt = String(
-    message.arguments?.mood ||
-      ZogographI18n.t('image.reaction', {}, 'A reaction'),
+  return renderCoreCardPackage(
+    ZogographChatReactionCard,
+    'core-chat-reaction',
+    message,
+    { i18n: ZogographI18n },
   );
-  image.loading = 'lazy';
-  card.appendChild(image);
-
-  if (message.arguments?.why) {
-    const caption = document.createElement('div');
-    caption.className = 'muted small';
-    caption.textContent = message.arguments.why;
-    card.appendChild(caption);
-  }
-
-  return card;
 }
 
 /**

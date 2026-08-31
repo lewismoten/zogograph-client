@@ -31709,31 +31709,18 @@ async function refreshDiagnosis() {
   }
 
   if (!data.findings.length) {
-    if (window.ZogographDiagnosisResultsCard) {
-      return renderCoreCardPackage(
-        ZogographDiagnosisResultsCard,
-        'core-diagnosis-results',
-        { findings: [], ignored: [], can_restore: false },
-        {
-          target: body,
-          section,
-          findingRow,
-          restore: () => {},
-          i18n: ZogographI18n,
-        },
-      );
-    }
-    body.replaceChildren(
-      Object.assign(document.createElement('p'), {
-        className: 'band-ok',
-        textContent: ZogographI18n.t(
-          'diagnosis.nothing_to_report',
-          {},
-          'Nothing to report. Every check ran and none of them found anything — which is a different statement from nothing having been measured.',
-        ),
-      }),
+    return renderCoreCardPackage(
+      ZogographDiagnosisResultsCard,
+      'core-diagnosis-results',
+      { findings: [], ignored: [], can_restore: false },
+      {
+        target: body,
+        section,
+        findingRow,
+        restore: () => {},
+        i18n: ZogographI18n,
+      },
     );
-    return;
   }
 
   const wrap = document.createDocumentFragment();

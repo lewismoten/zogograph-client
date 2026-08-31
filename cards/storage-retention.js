@@ -7,6 +7,8 @@ window.ZogographStorageRetentionCard = {
     catalogs: Object.freeze({
       en: Object.freeze({
         'core-storage-retention.title': 'How long it keeps things',
+        'core-storage-retention.help':
+          'Zero means {{forever}}, and for several of these that is the recommendation rather than an oversight — the note beside each one says what it is protecting. Readings are kept in tiers: full detail for the first stretch, then five-minute buckets, then hourly, then daily, each holding the worst moment in its bucket rather than an average. Nothing within a couple of hours of an alert is ever rolled up or cleared, whatever these say.',
         'core-storage-retention.not_writable':
           'lib/config.php is not writable by the web server, so these cannot be changed from here. Edit the file directly, or change it in setup.php.',
         'core-storage-retention.what': 'What',
@@ -39,6 +41,8 @@ window.ZogographStorageRetentionCard = {
       }),
       es: Object.freeze({
         'core-storage-retention.title': 'Cuánto tiempo conserva las cosas',
+        'core-storage-retention.help':
+          'Cero significa {{forever}} y, para varios de estos elementos, esa es la recomendación y no un descuido: la nota junto a cada uno indica qué protege. Las lecturas se conservan por niveles: detalle completo al principio, luego grupos de cinco minutos, luego por horas y después por días; cada uno conserva el peor momento de su grupo, no un promedio. Nunca se consolidan ni eliminan datos dentro de unas horas de una alerta, digan lo que digan estas opciones.',
         'core-storage-retention.not_writable':
           'lib/config.php no se puede escribir desde el servidor web, por lo que no se pueden cambiar estos valores desde aquí. Edite el archivo directamente o cámbielo en setup.php.',
         'core-storage-retention.what': 'Qué',
@@ -72,6 +76,8 @@ window.ZogographStorageRetentionCard = {
       }),
       hi: Object.freeze({
         'core-storage-retention.title': 'यह चीज़ें कितने समय रखता है',
+        'core-storage-retention.help':
+          'शून्य का अर्थ {{forever}} है और इनमें से कई के लिए यह भूल नहीं, अनुशंसा है—हर एक के पास नोट बताता है कि वह क्या बचा रहा है। रीडिंग स्तरों में रखी जाती हैं: पहले पूरे विवरण, फिर पाँच-मिनट बकेट, फिर घंटे और फिर दिन; हर बकेट औसत के बजाय अपना सबसे बुरा क्षण रखता है। अलर्ट के कुछ घंटे के भीतर कुछ भी रोल-अप या साफ़ नहीं होता, चाहे ये कुछ भी कहें।',
         'core-storage-retention.not_writable':
           'lib/config.php वेब सर्वर द्वारा लिखने योग्य नहीं है, इसलिए इन्हें यहाँ से बदला नहीं जा सकता। फ़ाइल को सीधे संपादित करें या setup.php में बदलें।',
         'core-storage-retention.what': 'क्या',
@@ -105,6 +111,8 @@ window.ZogographStorageRetentionCard = {
       }),
       ar: Object.freeze({
         'core-storage-retention.title': 'مدة الاحتفاظ بالأشياء',
+        'core-storage-retention.help':
+          'الصفر يعني {{forever}}، وهو لعدة من هذه توصية لا سهو — فالملاحظة بجانب كل واحدة تقول ما تحميه. تُحفظ القراءات في طبقات: تفاصيل كاملة في البداية، ثم دلاء خمس دقائق، ثم كل ساعة، ثم يوميًا، يحتفظ كل منها بأسوأ لحظة في دلوه لا بمتوسط. لا يُجمع أو يمسح أي شيء خلال بضع ساعات من تنبيه، مهما قالت هذه الخيارات.',
         'core-storage-retention.not_writable':
           'لا يمكن لخادم الويب الكتابة إلى lib/config.php، لذا لا يمكن تغيير هذه القيم من هنا. حرّر الملف مباشرة أو غيّرها في setup.php.',
         'core-storage-retention.what': 'ما',
@@ -138,6 +146,8 @@ window.ZogographStorageRetentionCard = {
       }),
       zh: Object.freeze({
         'core-storage-retention.title': '保留内容的时长',
+        'core-storage-retention.help':
+          '零表示{{forever}}；对其中几项而言，这是推荐做法而非疏忽——每项旁的说明会写明它在保护什么。读数按层级保留：先是完整细节，然后是五分钟桶、每小时桶、每日桶，每个桶保留其中最差的时刻而不是平均值。无论这些设置如何表述，警报前后几个小时内的内容都绝不会被汇总或清除。',
         'core-storage-retention.not_writable':
           'Web 服务器无法写入 lib/config.php，因此无法在此处更改这些设置。请直接编辑该文件，或在 setup.php 中更改。',
         'core-storage-retention.what': '内容',

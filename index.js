@@ -2245,6 +2245,9 @@ function renderStorageRetentionLabels() {
     'core-storage-retention.title',
     ZogographStorageRetentionCard.text('title', helpers),
   );
+  ZogographI18n.applyRich(
+    document.querySelector('[data-i18n-rich="core-storage-retention.help"]'),
+  );
 }
 
 document.addEventListener('zogograph-i18n-load', renderStorageRetentionLabels);

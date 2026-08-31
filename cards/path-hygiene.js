@@ -16,6 +16,8 @@ window.ZogographPathHygieneCard = {
     catalogs: Object.freeze({
       en: Object.freeze({
         'core-path-hygiene.title': 'Path-name hygiene',
+        'core-path-hygiene.help':
+          'An optional, advisory check that runs during the account disk walk. It does not send notifications. Rename only paths you recognize; the change is immediate and recorded in the audit log.',
         'core-path-hygiene.enable':
           'Install and enable Path-name hygiene in the Marketplace to use this check.',
         'core-path-hygiene.no_scan':
@@ -33,6 +35,8 @@ window.ZogographPathHygieneCard = {
       }),
       es: Object.freeze({
         'core-path-hygiene.title': 'Higiene de nombres de ruta',
+        'core-path-hygiene.help':
+          'Una comprobación opcional y orientativa que se ejecuta durante el recorrido de disco de la cuenta. No envía notificaciones. Cambie solo rutas que reconozca; el cambio es inmediato y queda registrado en la auditoría.',
         'core-path-hygiene.enable':
           'Instale y active Higiene de nombres de ruta en Marketplace para usar esta comprobación.',
         'core-path-hygiene.no_scan':
@@ -50,6 +54,8 @@ window.ZogographPathHygieneCard = {
       }),
       hi: Object.freeze({
         'core-path-hygiene.title': 'पथ-नाम स्वच्छता',
+        'core-path-hygiene.help':
+          'खाते के डिस्क वॉक के दौरान चलने वाली वैकल्पिक, सलाहकारी जाँच। यह सूचना नहीं भेजती। केवल पहचाने गए पथों का नाम बदलें; बदलाव तुरंत होता है और ऑडिट लॉग में दर्ज होता है।',
         'core-path-hygiene.enable':
           'इस जाँच के लिए मार्केटप्लेस में Path-name hygiene इंस्टॉल और सक्षम करें।',
         'core-path-hygiene.no_scan':
@@ -67,6 +73,8 @@ window.ZogographPathHygieneCard = {
       }),
       ar: Object.freeze({
         'core-path-hygiene.title': 'سلامة أسماء المسارات',
+        'core-path-hygiene.help':
+          'فحص اختياري إرشادي يعمل أثناء مسح قرص الحساب. لا يرسل إشعارات. أعد تسمية المسارات التي تعرفها فقط؛ التغيير فوري ويُسجل في سجل التدقيق.',
         'core-path-hygiene.enable':
           'ثبّت وفعّل فحص نظافة أسماء المسارات من المتجر لاستخدام هذا الفحص.',
         'core-path-hygiene.no_scan':
@@ -84,6 +92,8 @@ window.ZogographPathHygieneCard = {
       }),
       zh: Object.freeze({
         'core-path-hygiene.title': '路径名称检查',
+        'core-path-hygiene.help':
+          '账户磁盘遍历期间运行的可选建议性检查。它不会发送通知。只重命名您认识的路径；更改会立即生效并记录在审计日志中。',
         'core-path-hygiene.enable':
           '请在市场中安装并启用“路径名卫生”以使用此检查。',
         'core-path-hygiene.no_scan':

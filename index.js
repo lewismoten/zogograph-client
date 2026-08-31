@@ -2651,6 +2651,9 @@ function renderHostLayoutShellLabels() {
     'core-host-layout-shell.title',
     ZogographHostLayoutShellCard.text('title', helpers),
   );
+  ZogographI18n.applyRich(
+    document.querySelector('[data-i18n-rich="core-host-layout-shell.help"]'),
+  );
 }
 
 document.addEventListener('zogograph-i18n-load', renderHostLayoutShellLabels);

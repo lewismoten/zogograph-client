@@ -2572,7 +2572,6 @@
   "storage.show_categories": "同时显示受监控类别",
   "storage.total_size": "总大小",
   "storage.change_since_scan": "自上次扫描后的变化",
-  "host.layout_help": "内核报告的每个挂载点，按文件系统分组。同一设备上的两条路径是同一磁盘；绑定挂载会使一个目录看起来像两个，汇总挂载点会将同一空间计算两次。骨架自身的挂载现在位于 {{cagefs}}。",
   "auth.sign_in_help": "显示真实路径并允许删除。",
   "auth.username": "用户名",
   "auth.username_optional": "（管理员密码时可选）",

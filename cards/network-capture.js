@@ -18,6 +18,7 @@ window.ZogographNetworkCaptureCard = {
     ],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-network-capture.title': 'What is on the wire',
         'core-network-capture.flags_new':
           'Mostly connection attempts rather than established traffic. From a few addresses that is a client reconnecting in a loop; from many changing ones it is scanning or a flood — the remote list below says which.',
         'core-network-capture.flags_established':
@@ -45,6 +46,7 @@ window.ZogographNetworkCaptureCard = {
         'core-network-capture.flag_rst': 'a connection refused or aborted',
       }),
       es: Object.freeze({
+        'core-network-capture.title': 'Qué hay en la red',
         'core-network-capture.flags_new':
           'Predominan los intentos de conexión en lugar del tráfico establecido. Desde pocas direcciones puede ser un cliente reconectándose; desde muchas cambiantes puede ser un escaneo o una inundación.',
         'core-network-capture.flags_established':
@@ -73,6 +75,7 @@ window.ZogographNetworkCaptureCard = {
           'una conexión fue rechazada o cancelada',
       }),
       hi: Object.freeze({
+        'core-network-capture.title': 'नेटवर्क पर क्या है',
         'core-network-capture.flags_new':
           'स्थापित ट्रैफ़िक की तुलना में कनेक्शन प्रयास अधिक हैं। बदलते बहुत से पतों से यह स्कैन या बाढ़ हो सकती है।',
         'core-network-capture.flags_established':
@@ -99,6 +102,7 @@ window.ZogographNetworkCaptureCard = {
         'core-network-capture.flag_rst': 'कनेक्शन अस्वीकृत या रद्द किया गया',
       }),
       ar: Object.freeze({
+        'core-network-capture.title': 'ما الموجود على الشبكة',
         'core-network-capture.flags_new':
           'معظم الحركة محاولات اتصال وليست حركة قائمة. من عناوين متغيرة كثيرة قد يكون ذلك مسحًا أو إغراقًا.',
         'core-network-capture.flags_established':
@@ -124,6 +128,7 @@ window.ZogographNetworkCaptureCard = {
         'core-network-capture.flag_rst': 'اتصال رُفض أو أُلغي',
       }),
       zh: Object.freeze({
+        'core-network-capture.title': '线路上有什么',
         'core-network-capture.flags_new':
           '连接尝试多于已建立连接的流量。来自许多不断变化的地址时，可能是扫描或洪泛。',
         'core-network-capture.flags_established':
@@ -150,6 +155,14 @@ window.ZogographNetworkCaptureCard = {
       }),
     }),
   }),
+
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-network-capture.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-network-capture.${key}`],
+    );
+  },
 
   render(capture, helpers) {
     const {

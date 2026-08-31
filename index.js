@@ -2880,6 +2880,38 @@ function renderNetworkPeersTitle() {
 
 document.addEventListener('zogograph-i18n-load', renderNetworkPeersTitle);
 
+function renderNetworkCaptureTitle() {
+  const helpers = {
+    target: null,
+    note: () => null,
+    humanTime: () => '',
+    ago: () => '',
+    humanCount: () => '',
+    humanBytes: () => '',
+    section: () => null,
+    factGrid: () => null,
+    simpleTable: () => null,
+    labelled: () => '',
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(
+    ZogographNetworkCaptureCard,
+    'core-network-capture',
+    {},
+    helpers,
+  );
+  const title = document.querySelector(
+    '[data-i18n="core-network-capture.title"]',
+  );
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-network-capture.title',
+    ZogographNetworkCaptureCard.text('title', helpers),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderNetworkCaptureTitle);
+
 /**
  * When the disk is projected to fill, as a date.
  *

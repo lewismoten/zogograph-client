@@ -46,6 +46,29 @@ window.ZogographSystemMarketplaceShellCard = {
         'core-system-marketplace-shell.toggle_success': '{{name}} {{status}}.',
         'core-system-marketplace-shell.history': 'History',
         'core-system-marketplace-shell.disabled': 'disabled',
+        'core-system-marketplace-shell.install_dialog':
+          'Install local marketplace manifest',
+        'core-system-marketplace-shell.manifest_json': 'Manifest JSON',
+        'core-system-marketplace-shell.manifest_help':
+          'This saves only validated JSON, up to 64 KiB, in the local catalog. It cannot upload or execute code.',
+        'core-system-marketplace-shell.manifest_installed':
+          'Local package manifest installed for review.',
+        'core-system-marketplace-shell.install_for_review':
+          'Install for review',
+        'core-system-marketplace-shell.history_title': '{{name}} history',
+        'core-system-marketplace-shell.no_history':
+          'No prior local revisions are available.',
+        'core-system-marketplace-shell.saved_revision':
+          '{{version}} · saved {{saved}}',
+        'core-system-marketplace-shell.restore_for_review':
+          'Restore for review',
+        'core-system-marketplace-shell.restore_confirmation':
+          'Restore {{name}} {{version}}? The restored package remains disabled until reviewed again.',
+        'core-system-marketplace-shell.restore_package': 'Restore package',
+        'core-system-marketplace-shell.restore_success':
+          '{{name}} restored for review.',
+        'core-system-marketplace-shell.history_boundary':
+          'Restoring a prior revision preserves administrator control: it stays disabled until explicitly enabled again.',
         'core-system-marketplace-shell.table_package': 'Package',
         'core-system-marketplace-shell.table_publisher': 'Publisher',
         'core-system-marketplace-shell.table_summary': 'What it offers',
@@ -98,6 +121,29 @@ window.ZogographSystemMarketplaceShellCard = {
         'core-system-marketplace-shell.toggle_success': '{{name}}: {{status}}.',
         'core-system-marketplace-shell.history': 'Historial',
         'core-system-marketplace-shell.disabled': 'desactivado',
+        'core-system-marketplace-shell.install_dialog':
+          'Instalar manifiesto local del mercado',
+        'core-system-marketplace-shell.manifest_json': 'JSON del manifiesto',
+        'core-system-marketplace-shell.manifest_help':
+          'Esto guarda solo JSON validado, de hasta 64 KiB, en el catálogo local. No puede cargar ni ejecutar código.',
+        'core-system-marketplace-shell.manifest_installed':
+          'El manifiesto local del paquete se instaló para revisión.',
+        'core-system-marketplace-shell.install_for_review':
+          'Instalar para revisión',
+        'core-system-marketplace-shell.history_title': 'Historial de {{name}}',
+        'core-system-marketplace-shell.no_history':
+          'No hay revisiones locales anteriores disponibles.',
+        'core-system-marketplace-shell.saved_revision':
+          '{{version}} · guardado {{saved}}',
+        'core-system-marketplace-shell.restore_for_review':
+          'Restaurar para revisión',
+        'core-system-marketplace-shell.restore_confirmation':
+          '¿Restaurar {{name}} {{version}}? El paquete restaurado permanecerá desactivado hasta revisarlo de nuevo.',
+        'core-system-marketplace-shell.restore_package': 'Restaurar paquete',
+        'core-system-marketplace-shell.restore_success':
+          '{{name}} se restauró para revisión.',
+        'core-system-marketplace-shell.history_boundary':
+          'Restaurar una revisión anterior preserva el control del administrador: permanece desactivada hasta activarla explícitamente de nuevo.',
         'core-system-marketplace-shell.table_package': 'Paquete',
         'core-system-marketplace-shell.table_publisher': 'Editor',
         'core-system-marketplace-shell.table_summary': 'Qué ofrece',
@@ -149,6 +195,30 @@ window.ZogographSystemMarketplaceShellCard = {
         'core-system-marketplace-shell.toggle_success': '{{name}} {{status}}।',
         'core-system-marketplace-shell.history': 'इतिहास',
         'core-system-marketplace-shell.disabled': 'अक्षम',
+        'core-system-marketplace-shell.install_dialog':
+          'स्थानीय मार्केटप्लेस मैनिफ़ेस्ट स्थापित करें',
+        'core-system-marketplace-shell.manifest_json': 'मैनिफ़ेस्ट JSON',
+        'core-system-marketplace-shell.manifest_help':
+          'यह स्थानीय कैटलॉग में केवल 64 KiB तक का मान्य JSON सहेजता है। यह कोड अपलोड या निष्पादित नहीं कर सकता।',
+        'core-system-marketplace-shell.manifest_installed':
+          'स्थानीय पैकेज मैनिफ़ेस्ट समीक्षा के लिए स्थापित किया गया।',
+        'core-system-marketplace-shell.install_for_review':
+          'समीक्षा के लिए स्थापित करें',
+        'core-system-marketplace-shell.history_title': '{{name}} इतिहास',
+        'core-system-marketplace-shell.no_history':
+          'कोई पिछला स्थानीय संशोधन उपलब्ध नहीं है।',
+        'core-system-marketplace-shell.saved_revision':
+          '{{version}} · सहेजा गया {{saved}}',
+        'core-system-marketplace-shell.restore_for_review':
+          'समीक्षा के लिए पुनर्स्थापित करें',
+        'core-system-marketplace-shell.restore_confirmation':
+          '{{name}} {{version}} पुनर्स्थापित करें? पुनर्स्थापित पैकेज फिर से समीक्षा होने तक अक्षम रहेगा।',
+        'core-system-marketplace-shell.restore_package':
+          'पैकेज पुनर्स्थापित करें',
+        'core-system-marketplace-shell.restore_success':
+          '{{name}} को समीक्षा के लिए पुनर्स्थापित किया गया।',
+        'core-system-marketplace-shell.history_boundary':
+          'पुराना संशोधन पुनर्स्थापित करने पर व्यवस्थापक का नियंत्रण बना रहता है: स्पष्ट रूप से फिर से सक्षम करने तक यह अक्षम रहता है।',
         'core-system-marketplace-shell.table_package': 'पैकेज',
         'core-system-marketplace-shell.table_publisher': 'प्रकाशक',
         'core-system-marketplace-shell.table_summary': 'यह क्या देता है',
@@ -197,6 +267,27 @@ window.ZogographSystemMarketplaceShellCard = {
         'core-system-marketplace-shell.toggle_success': '{{name}} {{status}}.',
         'core-system-marketplace-shell.history': 'السجل',
         'core-system-marketplace-shell.disabled': 'معطلة',
+        'core-system-marketplace-shell.install_dialog':
+          'ثبّت بيان السوق المحلي',
+        'core-system-marketplace-shell.manifest_json': 'JSON للبيان',
+        'core-system-marketplace-shell.manifest_help':
+          'يحفظ هذا JSON مُتحققًا منه فقط، حتى 64 KiB، في الفهرس المحلي. لا يمكنه رفع التعليمات البرمجية أو تشغيلها.',
+        'core-system-marketplace-shell.manifest_installed':
+          'ثُبّت بيان الحزمة المحلية للمراجعة.',
+        'core-system-marketplace-shell.install_for_review': 'ثبّت للمراجعة',
+        'core-system-marketplace-shell.history_title': 'سجل {{name}}',
+        'core-system-marketplace-shell.no_history':
+          'لا تتوفر مراجعات محلية سابقة.',
+        'core-system-marketplace-shell.saved_revision':
+          '{{version}} · حُفظ {{saved}}',
+        'core-system-marketplace-shell.restore_for_review': 'استعد للمراجعة',
+        'core-system-marketplace-shell.restore_confirmation':
+          'هل تريد استعادة {{name}} {{version}}؟ ستبقى الحزمة المستعادة معطلة حتى تُراجع مرة أخرى.',
+        'core-system-marketplace-shell.restore_package': 'استعد الحزمة',
+        'core-system-marketplace-shell.restore_success':
+          'استُعيدت {{name}} للمراجعة.',
+        'core-system-marketplace-shell.history_boundary':
+          'تُبقي استعادة مراجعة سابقة تحكم المسؤول قائمًا: تبقى الحزمة معطلة حتى تُفعّل صراحةً مرة أخرى.',
         'core-system-marketplace-shell.table_package': 'الحزمة',
         'core-system-marketplace-shell.table_publisher': 'الناشر',
         'core-system-marketplace-shell.table_summary': 'ما تقدمه',
@@ -245,6 +336,26 @@ window.ZogographSystemMarketplaceShellCard = {
           '{{name}}已{{status}}。',
         'core-system-marketplace-shell.history': '历史记录',
         'core-system-marketplace-shell.disabled': '已禁用',
+        'core-system-marketplace-shell.install_dialog': '安装本地市场清单',
+        'core-system-marketplace-shell.manifest_json': '清单 JSON',
+        'core-system-marketplace-shell.manifest_help':
+          '这只会将经过验证的 JSON（最多 64 KiB）保存到本地目录中；它不能上传或执行代码。',
+        'core-system-marketplace-shell.manifest_installed':
+          '已安装本地软件包清单，等待审核。',
+        'core-system-marketplace-shell.install_for_review': '安装以供审核',
+        'core-system-marketplace-shell.history_title': '{{name}} 历史记录',
+        'core-system-marketplace-shell.no_history':
+          '没有可用的先前本地修订版。',
+        'core-system-marketplace-shell.saved_revision':
+          '{{version}} · 保存于 {{saved}}',
+        'core-system-marketplace-shell.restore_for_review': '恢复以供审核',
+        'core-system-marketplace-shell.restore_confirmation':
+          '要恢复 {{name}} {{version}} 吗？恢复的软件包会保持禁用状态，直到再次审核。',
+        'core-system-marketplace-shell.restore_package': '恢复软件包',
+        'core-system-marketplace-shell.restore_success':
+          '{{name}} 已恢复以供审核。',
+        'core-system-marketplace-shell.history_boundary':
+          '恢复先前修订版可保留管理员控制：软件包会保持禁用，直到明确再次启用。',
         'core-system-marketplace-shell.table_package': '软件包',
         'core-system-marketplace-shell.table_publisher': '发布者',
         'core-system-marketplace-shell.table_summary': '提供的内容',

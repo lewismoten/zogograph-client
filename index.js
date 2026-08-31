@@ -16288,10 +16288,6 @@ function showCustodyRecoveryDrillDialog(candidates) {
   );
 }
 
-function marketplaceText(key, values = {}, fallback = '') {
-  return ZogographI18n.t(`marketplace.${key}`, values, fallback);
-}
-
 function marketplaceShellText(key, values = {}) {
   return ZogographSystemMarketplaceShellCard.text(key, values, {
     i18n: ZogographI18n,
@@ -16522,31 +16518,20 @@ function showMarketplaceInstallDialog() {
   manifest.placeholder =
     '{\n  "id": "uptime-guidance",\n  "version": "1.0.0"\n}';
   showFormDialog(
-    marketplaceText('install_dialog', {}, 'Install local marketplace manifest'),
+    marketplaceShellText('install_dialog'),
     [
       fieldRow(
-        marketplaceText('manifest_json', {}, 'Manifest JSON'),
+        marketplaceShellText('manifest_json'),
         manifest,
-        marketplaceText(
-          'manifest_help',
-          {},
-          'This saves only validated JSON, up to 64 KiB, in the local catalog. It cannot upload or execute code.',
-        ),
+        marketplaceShellText('manifest_help'),
       ),
     ],
     async () => {
       await post('marketplace-install', { manifest: manifest.value });
       await refreshMarketplace();
-      notice(
-        marketplaceText(
-          'manifest_installed',
-          {},
-          'Local package manifest installed for review.',
-        ),
-        true,
-      );
+      notice(marketplaceShellText('manifest_installed'), true);
     },
-    marketplaceText('install_for_review', {}, 'Install for review'),
+    marketplaceShellText('install_for_review'),
   );
 }
 
@@ -16555,20 +16540,8 @@ async function showMarketplaceHistory(row) {
     const data = await post('marketplace-history', { id: row.id });
     if (!data.history.length) {
       showListDialog(
-        marketplaceText(
-          'history_title',
-          { name: row.name },
-          `${row.name} history`,
-        ),
-        [
-          note(
-            marketplaceText(
-              'no_history',
-              {},
-              'No prior local revisions are available.',
-            ),
-          ),
-        ],
+        marketplaceShellText('history_title', { name: row.name }),
+        [note(marketplaceShellText('no_history'))],
       );
       return;
     }
@@ -16578,27 +16551,21 @@ async function showMarketplaceHistory(row) {
       const item = document.createElement('div');
       item.className = 'list-row';
       const label = document.createElement('span');
-      label.textContent = marketplaceText(
-        'saved_revision',
-        { version: revision.version, saved: whenSpan(revision.stored_at) },
-        `${revision.version} · saved ${whenSpan(revision.stored_at)}`,
-      );
+      label.textContent = marketplaceShellText('saved_revision', {
+        version: revision.version,
+        saved: whenSpan(revision.stored_at),
+      });
       const restore = document.createElement('button');
       restore.className = 'link';
-      restore.textContent = marketplaceText(
-        'restore_for_review',
-        {},
-        'Restore for review',
-      );
+      restore.textContent = marketplaceShellText('restore_for_review');
       restore.addEventListener('click', async () => {
         if (
           !(await confirmDialog(
-            marketplaceText(
-              'restore_confirmation',
-              { name: row.name, version: revision.version },
-              `Restore ${row.name} ${revision.version}? The restored package remains disabled until reviewed again.`,
-            ),
-            marketplaceText('restore_package', {}, 'Restore package'),
+            marketplaceShellText('restore_confirmation', {
+              name: row.name,
+              version: revision.version,
+            }),
+            marketplaceShellText('restore_package'),
           ))
         )
           return;
@@ -16610,11 +16577,7 @@ async function showMarketplaceHistory(row) {
           $('noteDialog').close();
           await refreshMarketplace();
           notice(
-            marketplaceText(
-              'restore_success',
-              { name: row.name },
-              `${row.name} restored for review.`,
-            ),
+            marketplaceShellText('restore_success', { name: row.name }),
             true,
           );
         } catch (error) {
@@ -16625,17 +16588,9 @@ async function showMarketplaceHistory(row) {
       list.appendChild(item);
     }
     showListDialog(
-      marketplaceText(
-        'history_title',
-        { name: row.name },
-        `${row.name} history`,
-      ),
+      marketplaceShellText('history_title', { name: row.name }),
       [list],
-      marketplaceText(
-        'history_boundary',
-        {},
-        'Restoring a prior revision preserves administrator control: it stays disabled until explicitly enabled again.',
-      ),
+      marketplaceShellText('history_boundary'),
     );
   } catch (error) {
     notice(String(error.message || error));

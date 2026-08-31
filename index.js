@@ -2727,6 +2727,33 @@ function renderHostDiskShellLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderHostDiskShellLabels);
 
+function renderHostDirectoriesLabels() {
+  const helpers = {
+    target: null,
+    simpleTable: () => null,
+    note: () => null,
+    humanBytes: () => '',
+    humanCount: () => '',
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(
+    ZogographHostDirectoriesCard,
+    'core-host-directories',
+    { dirs: [] },
+    helpers,
+  );
+  const summary = document.querySelector(
+    '[data-i18n="core-host-directories.summary"]',
+  );
+  summary.textContent = ZogographI18n.markSource(
+    summary,
+    'core-host-directories.summary',
+    ZogographHostDirectoriesCard.text('summary', helpers),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderHostDirectoriesLabels);
+
 function renderCagefsShellLabels() {
   const helpers = { i18n: ZogographI18n };
   renderCoreCardPackage(
@@ -26470,7 +26497,6 @@ async function refreshHostDisk() {
   }
 
   const deleted = document.createDocumentFragment();
-  const dirs = document.createDocumentFragment();
 
   if (data.deleted.length) {
     /*
@@ -26547,33 +26573,6 @@ async function refreshHostDisk() {
     );
   }
 
-  if (data.dirs.length) {
-    dirs.appendChild(
-      simpleTable(
-        ['host.directory', 'host.deleted_size', 'host.files'].map(
-          (key, index) =>
-            ZogographI18n.t(key, {}, ['Directory', 'Size', 'Files'][index]),
-        ),
-        data.dirs.map((d) => [
-          d.path,
-          humanBytes(d.bytes),
-          humanCount(d.files),
-        ]),
-        ['name', 'size', 'size'],
-      ),
-    );
-  } else {
-    dirs.appendChild(
-      note(
-        ZogographI18n.t(
-          'host.directories_none',
-          {},
-          'Nothing recorded. Ask for a walk from the Storage page.',
-        ),
-      ),
-    );
-  }
-
   const when = [
     ZogographI18n.t(
       'host.walked_at',
@@ -26600,7 +26599,20 @@ async function refreshHostDisk() {
   // no page can quietly show last week's walk as though it were current.
   into('hostDisk', body);
   into('diskDeleted', deleted, note(when.join(' \u00b7 ')));
-  into('diskDirs', dirs, note(when.join(' \u00b7 ')));
+  renderCoreCardPackage(
+    ZogographHostDirectoriesCard,
+    'core-host-directories',
+    { dirs: data.dirs ?? [] },
+    {
+      target: $('diskDirs'),
+      simpleTable,
+      note,
+      humanBytes,
+      humanCount,
+      i18n: ZogographI18n,
+    },
+  );
+  $('diskDirs').appendChild(note(when.join(' \u00b7 ')));
   renderWalkButton(data);
 }
 

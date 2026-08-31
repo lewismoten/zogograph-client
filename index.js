@@ -35794,6 +35794,8 @@ function renderUnits() {
   const data = unitState.data;
   const body = $('unitsBody');
   if (!data) return;
+  const unitsShellText = (key, values = {}) =>
+    ZogographHostUnitsShellCard.text(key, values, { i18n: ZogographI18n });
 
   if (!data.available) {
     body.replaceChildren(note(data.reason));
@@ -35807,20 +35809,12 @@ function renderUnits() {
     'enabled-not-running',
   ];
   const stateLabels = {
-    failed: ZogographI18n.t('services.failed', {}, 'failed'),
-    masked: ZogographI18n.t('services.masked', {}, 'masked'),
-    'running-not-enabled': ZogographI18n.t(
-      'services.running_not_enabled',
-      {},
-      'running, not enabled',
-    ),
-    'enabled-not-running': ZogographI18n.t(
-      'services.enabled_not_running',
-      {},
-      'enabled, not running',
-    ),
-    running: ZogographI18n.t('services.running', {}, 'running'),
-    stopped: ZogographI18n.t('services.stopped', {}, 'stopped'),
+    failed: unitsShellText('failed'),
+    masked: unitsShellText('masked'),
+    'running-not-enabled': unitsShellText('running_not_enabled'),
+    'enabled-not-running': unitsShellText('enabled_not_running'),
+    running: unitsShellText('running'),
+    stopped: unitsShellText('stopped'),
   };
 
   /*

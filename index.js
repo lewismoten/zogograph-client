@@ -36171,6 +36171,32 @@ function openCalendarDay(key, entries) {
   const dialog = $('listDialog');
   if (!dialog) return;
 
+  if (window.ZogographCalendarDayDialogCard) {
+    return renderCoreCardPackage(
+      ZogographCalendarDayDialogCard,
+      'core-calendar-day-dialog',
+      {
+        title: new Date(key + 'T00:00:00').toLocaleDateString(undefined, {
+          weekday: 'long',
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric',
+        }),
+        entries,
+      },
+      {
+        showListDialog,
+        close: () => dialog.close(),
+        showView,
+        post,
+        renderCalendar,
+        notice,
+        views: VIEWS,
+        i18n: ZogographI18n,
+      },
+    );
+  }
+
   const parts = [];
   for (const entry of entries) {
     const row = document.createElement('div');

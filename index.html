@@ -84,6 +84,7 @@
     <script src="cards/reports-empty.js" defer></script>
     <script src="cards/reports-not-ready.js" defer></script>
     <script src="cards/reports-authorship.js" defer></script>
+    <script src="cards/reports-shell.js" defer></script>
     <script src="cards/fetch-headers.js" defer></script>
     <script src="cards/fetch-metadata.js" defer></script>
     <script src="cards/fetch-json.js" defer></script>
@@ -4508,12 +4509,19 @@
         <section class="view" data-view="sys-reports" hidden>
           <section class="panel" id="reportsPanel">
             <div class="panel-head">
-              <h2 data-i18n="reports.title">Summaries</h2>
-              <button id="reportNow" class="link" data-i18n="reports.write_now">
+              <h2 data-i18n="core-reports-shell.title">Summaries</h2>
+              <button
+                id="reportNow"
+                class="link"
+                data-i18n="core-reports-shell.write_now"
+              >
                 Write one now
               </button>
             </div>
-            <p class="muted small sub-note" data-i18n-rich="reports.help">
+            <p
+              class="muted small sub-note"
+              data-i18n-rich="core-reports-shell.help"
+            >
               Written on a schedule by
               <span class="ai-name" data-i18n-tag="assistant">Assistant</span>
               from a fixed set of figures for the period — the same questions

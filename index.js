@@ -3496,6 +3496,31 @@ function renderTerminalShellLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderTerminalShellLabels);
 
+function renderReportsShellLabels() {
+  const helpers = { i18n: ZogographI18n };
+  renderCoreCardPackage(
+    ZogographReportsShellCard,
+    'core-reports-shell',
+    {},
+    helpers,
+  );
+  for (const key of ['title', 'write_now']) {
+    const control = document.querySelector(
+      `[data-i18n="core-reports-shell.${key}"]`,
+    );
+    control.textContent = ZogographI18n.markSource(
+      control,
+      `core-reports-shell.${key}`,
+      ZogographReportsShellCard.text(key, helpers),
+    );
+  }
+  ZogographI18n.applyRich(
+    document.querySelector('[data-i18n-rich="core-reports-shell.help"]'),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderReportsShellLabels);
+
 /**
  * When the disk is projected to fill, as a date.
  *

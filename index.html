@@ -194,6 +194,7 @@
     <script src="cards/ai-settings-saved.js" defer></script>
     <script src="cards/ai-past-conversations-sign-in.js" defer></script>
     <script src="cards/ai-settings-page-heading.js" defer></script>
+    <script src="cards/ai-identity-page-shell.js" defer></script>
     <script src="cards/ai-memory-availability.js" defer></script>
     <script src="cards/ai-memory-provenance.js" defer></script>
     <script src="cards/ai-memory-pin-state.js" defer></script>
@@ -3967,11 +3968,11 @@
         <section class="view" data-view="sys-ai-identity" hidden>
           <section class="panel" id="aiSettingsPanel">
             <div class="panel-head">
-              <h2 data-i18n-rich="ai.identity_title">
+              <h2 id="aiIdentityTitle">
                 <span class="ai-name" data-i18n-tag="assistant">Assistant</span>
               </h2>
             </div>
-            <p class="muted small sub-note" data-i18n-rich="ai.identity_help">
+            <p id="aiIdentityHelp" class="muted small sub-note">
               <span class="ai-name" data-i18n-tag="assistant">Assistant</span>
               is a model you configure, given a fixed set of read-only tools for
               looking at this machine — the name is the job: somebody on watch
@@ -3981,10 +3982,7 @@
               — which is worth deciding deliberately rather than discovering. A
               local model needs no key and nothing leaves the machine.
             </p>
-            <p
-              class="muted small sub-note"
-              data-i18n="ai.identity_security_help"
-            >
+            <p id="aiIdentitySecurity" class="muted small sub-note">
               The model can never write a query. Every tool is a fixed statement
               with typed, enumerated parameters bound to it, and anything
               outside those bounds is refused before it reaches a database. The

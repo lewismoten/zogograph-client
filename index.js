@@ -5611,6 +5611,40 @@ function startDialTicker() {
 
 const aiSetState = { data: null };
 
+function replaceAssistantText(node, text, assistant) {
+  const marker = '\uE000assistant\uE001';
+  const parts = text.split(marker);
+  if (parts.length === 1) {
+    node.textContent = text;
+    return;
+  }
+  node.replaceChildren(
+    document.createTextNode(parts[0]),
+    Object.assign(document.createElement('span'), {
+      className: 'ai-name',
+      textContent: assistant,
+    }),
+    document.createTextNode(parts.slice(1).join(marker)),
+  );
+}
+
+function renderAiIdentityPageShell() {
+  const title = $('aiIdentityTitle');
+  const existingName =
+    title.querySelector('.ai-name')?.textContent || 'Assistant';
+  const shell = renderCoreCardPackage(
+    ZogographAiIdentityPageShellCard,
+    'core-ai-identity-page-shell',
+    { assistant: chatState.who?.name || existingName },
+    { i18n: ZogographI18n },
+  );
+  replaceAssistantText(title, shell.title, shell.assistant);
+  replaceAssistantText($('aiIdentityHelp'), shell.help, shell.assistant);
+  $('aiIdentitySecurity').textContent = shell.security;
+}
+
+document.addEventListener('zogograph-i18n-load', renderAiIdentityPageShell);
+
 /** Every container the settings are split across. */
 const AI_SETTING_PAGES = [
   'aiIdentityBody',
@@ -18542,18 +18576,7 @@ function renderMemoryPageShell() {
     { assistant: chatState.who?.name || existingName },
     { i18n: ZogographI18n },
   );
-  const marker = '\uE000assistant\uE001';
-  const titleParts = shell.title.split(marker);
-  if (titleParts.length === 1) title.textContent = shell.title;
-  else
-    title.replaceChildren(
-      document.createTextNode(titleParts[0]),
-      Object.assign(document.createElement('span'), {
-        className: 'ai-name',
-        textContent: shell.assistant,
-      }),
-      document.createTextNode(titleParts.slice(1).join(marker)),
-    );
+  replaceAssistantText(title, shell.title, shell.assistant);
   $('memoryAdd').textContent = shell.add;
   $('memoryClear').textContent = shell.forget;
   $('memoryHelp').textContent = shell.help;

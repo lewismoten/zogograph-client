@@ -71,6 +71,7 @@ export default [
         ZogographLabelsEmptyCard: 'readonly',
         ZogographDnsEmptyCard: 'readonly',
         ZogographNotesEmptyCard: 'readonly',
+        ZogographNotesShellCard: 'readonly',
         ZogographUrlsEmptyCard: 'readonly',
         ZogographAiSessionsCard: 'readonly',
         ZogographAiPastConversationsCard: 'readonly',

@@ -3946,6 +3946,31 @@ function renderNotesTitle() {
 
 document.addEventListener('zogograph-i18n-load', renderNotesTitle);
 
+function renderNotesShell() {
+  const helpers = { i18n: ZogographI18n };
+  renderCoreCardPackage(
+    ZogographNotesShellCard,
+    'core-notes-shell',
+    {},
+    helpers,
+  );
+  for (const key of ['title', 'add']) {
+    const element = document.querySelector(
+      `[data-i18n="core-notes-shell.${key}"]`,
+    );
+    element.textContent = ZogographI18n.markSource(
+      element,
+      `core-notes-shell.${key}`,
+      ZogographNotesShellCard.text(key, helpers),
+    );
+  }
+  ZogographI18n.applyRich(
+    document.querySelector('[data-i18n-rich="core-notes-shell.help"]'),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderNotesShell);
+
 /**
  * When the disk is projected to fill, as a date.
  *

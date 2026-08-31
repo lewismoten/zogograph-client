@@ -113,6 +113,7 @@
     <script src="cards/labels-empty.js" defer></script>
     <script src="cards/dns-empty.js" defer></script>
     <script src="cards/notes-empty.js" defer></script>
+    <script src="cards/notes-shell.js" defer></script>
     <script src="cards/urls-empty.js" defer></script>
     <script src="cards/ai-sessions.js" defer></script>
     <script src="cards/cagefs-mounts.js" defer></script>
@@ -4452,12 +4453,19 @@
         <section class="view" data-view="sys-notes" hidden>
           <section class="panel" id="notesPanel">
             <div class="panel-head">
-              <h2 data-i18n="notes.title">Notes</h2>
-              <button id="noteAdd" class="link" data-i18n="notes.add">
+              <h2 data-i18n="core-notes-shell.title">Notes</h2>
+              <button
+                id="noteAdd"
+                class="link"
+                data-i18n="core-notes-shell.add"
+              >
                 Write one
               </button>
             </div>
-            <p class="muted small sub-note" data-i18n-rich="notes.help">
+            <p
+              class="muted small sub-note"
+              data-i18n-rich="core-notes-shell.help"
+            >
               Every chart here answers
               <em data-i18n-tag="what">what happened</em>. None of them answer
               <em data-i18n-tag="why">why</em>, and the why is almost never in

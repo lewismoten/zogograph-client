@@ -1997,6 +1997,43 @@ function renderIoChartLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderIoChartLabels);
 
+function renderLoadNetworkChartLabels() {
+  const helpers = {
+    loadCanvas: null,
+    networkCanvas: null,
+    uptime: [],
+    drawLineChart: () => null,
+    outageBands: () => [],
+    tickPrecision: () => 0,
+    rateAxis: () => null,
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(
+    ZogographLoadNetworkCharts,
+    'core-load-network-charts',
+    [],
+    helpers,
+  );
+  document
+    .querySelectorAll('[data-i18n^="core-load-network-charts."]')
+    .forEach((node) => {
+      const key = node.dataset.i18n.replace('core-load-network-charts.', '');
+      if (
+        !['load_title', 'load_help', 'network_title', 'network_help'].includes(
+          key,
+        )
+      )
+        return;
+      node.textContent = ZogographI18n.markSource(
+        node,
+        `core-load-network-charts.${key}`,
+        ZogographLoadNetworkCharts.text(key, helpers),
+      );
+    });
+}
+
+document.addEventListener('zogograph-i18n-load', renderLoadNetworkChartLabels);
+
 /**
  * When the disk is projected to fill, as a date.
  *

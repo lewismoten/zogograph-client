@@ -13,6 +13,8 @@ window.ZogographOverviewVitalsCards = {
     ],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-overview-vitals.up_for': 'Up for',
+        'core-overview-vitals.projected_full': 'Projected full',
         'core-overview-vitals.nothing_collected': 'nothing collected yet',
         'core-overview-vitals.free_of': '{{percent}}% free of {{total}}',
         'core-overview-vitals.not_available': 'n/a',
@@ -39,6 +41,8 @@ window.ZogographOverviewVitalsCards = {
           'losing {{rate}}/h, measured over {{window}}',
       }),
       es: Object.freeze({
+        'core-overview-vitals.up_for': 'Activo desde hace',
+        'core-overview-vitals.projected_full': 'Lleno previsto',
         'core-overview-vitals.nothing_collected':
           'todavía no se ha recogido nada',
         'core-overview-vitals.free_of': '{{percent}}% libre de {{total}}',
@@ -69,6 +73,8 @@ window.ZogographOverviewVitalsCards = {
           'pierde {{rate}}/h, medido durante {{window}}',
       }),
       hi: Object.freeze({
+        'core-overview-vitals.up_for': 'चल रहा है',
+        'core-overview-vitals.projected_full': 'अनुमानित भराव',
         'core-overview-vitals.nothing_collected': 'अभी तक कुछ एकत्र नहीं हुआ',
         'core-overview-vitals.free_of': '{{total}} में से {{percent}}% खाली',
         'core-overview-vitals.not_available': 'उपलब्ध नहीं',
@@ -95,6 +101,8 @@ window.ZogographOverviewVitalsCards = {
           '{{rate}}/घंटा कम हो रहा है, {{window}} में मापा गया',
       }),
       ar: Object.freeze({
+        'core-overview-vitals.up_for': 'قيد التشغيل منذ',
+        'core-overview-vitals.projected_full': 'الامتلاء المتوقع',
         'core-overview-vitals.nothing_collected': 'لم تُجمع بيانات بعد',
         'core-overview-vitals.free_of': '{{percent}}% متاح من {{total}}',
         'core-overview-vitals.not_available': 'غير متاح',
@@ -121,6 +129,8 @@ window.ZogographOverviewVitalsCards = {
           'يفقد {{rate}}/ساعة، مقاسًا على {{window}}',
       }),
       zh: Object.freeze({
+        'core-overview-vitals.up_for': '已运行',
+        'core-overview-vitals.projected_full': '预计填满',
         'core-overview-vitals.nothing_collected': '尚未收集到数据',
         'core-overview-vitals.free_of': '{{total}} 中有 {{percent}}% 可用',
         'core-overview-vitals.not_available': '不适用',
@@ -146,6 +156,13 @@ window.ZogographOverviewVitalsCards = {
       }),
     }),
   }),
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-overview-vitals.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-overview-vitals.${key}`],
+    );
+  },
   render(overview, helpers) {
     const {
       setCard,

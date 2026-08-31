@@ -2337,8 +2337,6 @@
   "auth.recovery_codes": "पुनर्प्राप्ति कोड",
   "auth.recovery_codes_title": "ऑथेंटिकेटर की पुष्टि के बाद नए एक-बार उपयोग होने वाले पुनर्प्राप्ति कोड बनाएँ",
   "auth.end_sessions_title": "सभी साइन-इन ब्राउज़र सत्र समाप्त करें",
-  "overview.up_for": "चल रहा है",
-  "overview.projected_full": "अनुमानित भराव",
   "overview.network": "नेटवर्क",
   "overview.nothing_collected": "अभी तक कुछ एकत्र नहीं हुआ",
   "overview.free_of": "{{total}} में से {{percent}}% खाली",

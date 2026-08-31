@@ -2338,8 +2338,6 @@
   "auth.recovery_codes": "Códigos de recuperación",
   "auth.recovery_codes_title": "Crear nuevos códigos de recuperación de un solo uso tras confirmar el autenticador",
   "auth.end_sessions_title": "Cerrar todas las sesiones iniciadas en el navegador",
-  "overview.up_for": "Activo desde hace",
-  "overview.projected_full": "Lleno previsto",
   "overview.network": "Red",
   "overview.nothing_collected": "todavía no se ha recogido nada",
   "overview.free_of": "{{percent}}% libre de {{total}}",

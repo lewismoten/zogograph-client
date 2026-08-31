@@ -1878,6 +1878,36 @@ function renderCards(overview) {
   );
 }
 
+function renderOverviewVitalLabels() {
+  const helpers = {
+    setCard: () => null,
+    humanBytes: () => '',
+    humanCount: () => '',
+    humanDuration: () => '',
+    projectedDate: () => '',
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(
+    ZogographOverviewVitalsCards,
+    'core-overview-vitals',
+    { vitals: null },
+    helpers,
+  );
+  document
+    .querySelectorAll('[data-i18n^="core-overview-vitals."]')
+    .forEach((node) => {
+      const key = node.dataset.i18n.replace('core-overview-vitals.', '');
+      if (!['up_for', 'projected_full'].includes(key)) return;
+      node.textContent = ZogographI18n.markSource(
+        node,
+        `core-overview-vitals.${key}`,
+        ZogographOverviewVitalsCards.text(key, helpers),
+      );
+    });
+}
+
+document.addEventListener('zogograph-i18n-load', renderOverviewVitalLabels);
+
 /**
  * When the disk is projected to fill, as a date.
  *

@@ -2335,8 +2335,6 @@
   "auth.recovery_codes": "恢复代码",
   "auth.recovery_codes_title": "确认身份验证器后创建新的一次性恢复代码",
   "auth.end_sessions_title": "结束所有已登录的浏览器会话",
-  "overview.up_for": "已运行",
-  "overview.projected_full": "预计填满",
   "overview.network": "网络",
   "overview.nothing_collected": "尚未收集到数据",
   "overview.free_of": "{{total}} 中有 {{percent}}% 可用",

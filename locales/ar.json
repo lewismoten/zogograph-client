@@ -2335,8 +2335,6 @@
   "auth.recovery_codes": "رموز الاسترداد",
   "auth.recovery_codes_title": "أنشئ رموز استرداد جديدة تستخدم مرة واحدة بعد تأكيد تطبيق المصادقة",
   "auth.end_sessions_title": "إنهاء كل جلسات المتصفح المسجّل دخولها",
-  "overview.up_for": "قيد التشغيل منذ",
-  "overview.projected_full": "الامتلاء المتوقع",
   "overview.network": "الشبكة",
   "overview.nothing_collected": "لم تُجمع بيانات بعد",
   "overview.free_of": "{{percent}}% متاح من {{total}}",

@@ -15885,31 +15885,17 @@ function renderEncryptionStatus(data) {
           }),
     ]);
     overview.push([
-      ZogographI18n.t(
-        'encryption.recovery_drill_review',
-        {},
-        'Recovery-drill review',
-      ),
+      encryptionText('recovery_drill_review'),
       Number(data.policy.recovery_drill_review_days) === 0
-        ? ZogographI18n.t(
-            'encryption.initial_drill_only',
-            {},
-            'Initial drill only',
-          )
-        : ZogographI18n.t(
-            'encryption.every_days',
-            { days: data.policy.recovery_drill_review_days },
-            'Every {{days}} days',
-          ),
+        ? encryptionText('initial_drill_only')
+        : encryptionText('every_days', {
+            days: data.policy.recovery_drill_review_days,
+          }),
     ]);
   }
   if (data.waiting_stores?.length)
     overview.push([
-      ZogographI18n.t(
-        'encryption.waiting_until_present',
-        {},
-        'Waiting until present',
-      ),
+      encryptionText('waiting_until_present'),
       data.waiting_stores.join(', '),
     ]);
   const drilled = (data.artifacts || []).filter(
@@ -15917,18 +15903,13 @@ function renderEncryptionStatus(data) {
   ).length;
   if (data.mode === 'sealed_copies_local')
     overview.push([
-      ZogographI18n.t('encryption.recovery_drill', {}, 'Recovery drill'),
+      encryptionText('recovery_drill'),
       data.artifacts?.length
-        ? ZogographI18n.t(
-            'encryption.recovery_stores_recorded',
-            { drilled, total: data.artifacts.length },
-            '{{drilled, number}}/{{total, number}} stores recorded',
-          )
-        : ZogographI18n.t(
-            'encryption.recovery_after_first_seal',
-            {},
-            'Run after the first seal',
-          ),
+        ? encryptionText('recovery_stores_recorded', {
+            drilled,
+            total: data.artifacts.length,
+          })
+        : encryptionText('recovery_after_first_seal'),
     ]);
   const superseded = (data.superseded_artifacts || []).reduce(
     (total, row) => total + Number(row.copies || 0),
@@ -15936,11 +15917,7 @@ function renderEncryptionStatus(data) {
   );
   if (superseded)
     overview.push([
-      ZogographI18n.t(
-        'encryption.superseded_recovery_copies',
-        {},
-        'Superseded recovery copies',
-      ),
+      encryptionText('superseded_recovery_copies'),
       String(superseded),
     ]);
   const retired = (data.retired_artifacts || []).reduce(
@@ -15948,24 +15925,13 @@ function renderEncryptionStatus(data) {
     0,
   );
   if (retired)
-    overview.push([
-      ZogographI18n.t(
-        'encryption.retired_recovery_copies',
-        {},
-        'Retired recovery copies',
-      ),
-      String(retired),
-    ]);
+    overview.push([encryptionText('retired_recovery_copies'), String(retired)]);
   const remoteEnvelopes = (data.remote_envelopes || [])
     .map((row) => `${row.provider_package}: ${row.copies} ${row.state}`)
     .join(' · ');
   if (remoteEnvelopes)
     overview.push([
-      ZogographI18n.t(
-        'encryption.optional_remote_envelopes',
-        {},
-        'Optional remote envelopes',
-      ),
+      encryptionText('optional_remote_envelopes'),
       remoteEnvelopes,
     ]);
   const parts = [factGrid(overview)];
@@ -16270,11 +16236,7 @@ function renderEncryptionStatus(data) {
             : ZogographI18n.t('encryption.not_rechecked', {}, 'not rechecked'),
       },
       {
-        label: ZogographI18n.t(
-          'encryption.recovery_drill',
-          {},
-          'Recovery drill',
-        ),
+        label: encryptionText('recovery_drill'),
         render: (row) =>
           row.last_recovery_drill_at
             ? whenSpan(row.last_recovery_drill_at)

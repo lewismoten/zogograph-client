@@ -49,6 +49,23 @@ window.ZogographSystemEncryptionShellCard = {
         'core-system-encryption-shell.space_next_seal': 'Space for next seal',
         'core-system-encryption-shell.space_estimated':
           '{{amount}} estimated · {{free}}',
+        'core-system-encryption-shell.recovery_drill_review':
+          'Recovery-drill review',
+        'core-system-encryption-shell.initial_drill_only': 'Initial drill only',
+        'core-system-encryption-shell.every_days': 'Every {{days}} days',
+        'core-system-encryption-shell.waiting_until_present':
+          'Waiting until present',
+        'core-system-encryption-shell.recovery_drill': 'Recovery drill',
+        'core-system-encryption-shell.recovery_stores_recorded':
+          '{{drilled, number}}/{{total, number}} stores recorded',
+        'core-system-encryption-shell.recovery_after_first_seal':
+          'Run after the first seal',
+        'core-system-encryption-shell.superseded_recovery_copies':
+          'Superseded recovery copies',
+        'core-system-encryption-shell.retired_recovery_copies':
+          'Retired recovery copies',
+        'core-system-encryption-shell.optional_remote_envelopes':
+          'Optional remote envelopes',
       }),
       es: Object.freeze({
         'core-system-encryption-shell.title': 'Protección de datos',
@@ -100,6 +117,25 @@ window.ZogographSystemEncryptionShellCard = {
           'Espacio para el próximo sellado',
         'core-system-encryption-shell.space_estimated':
           '{{amount}} estimados · {{free}}',
+        'core-system-encryption-shell.recovery_drill_review':
+          'Revisión del simulacro de recuperación',
+        'core-system-encryption-shell.initial_drill_only':
+          'Solo simulacro inicial',
+        'core-system-encryption-shell.every_days': 'Cada {{days}} días',
+        'core-system-encryption-shell.waiting_until_present':
+          'En espera hasta estar presentes',
+        'core-system-encryption-shell.recovery_drill':
+          'Simulacro de recuperación',
+        'core-system-encryption-shell.recovery_stores_recorded':
+          '{{drilled, number}}/{{total, number}} almacenes registrados',
+        'core-system-encryption-shell.recovery_after_first_seal':
+          'Ejecutar después del primer sellado',
+        'core-system-encryption-shell.superseded_recovery_copies':
+          'Copias de recuperación reemplazadas',
+        'core-system-encryption-shell.retired_recovery_copies':
+          'Copias de recuperación retiradas',
+        'core-system-encryption-shell.optional_remote_envelopes':
+          'Sobres remotos opcionales',
       }),
       hi: Object.freeze({
         'core-system-encryption-shell.title': 'डेटा सुरक्षा',
@@ -142,6 +178,24 @@ window.ZogographSystemEncryptionShellCard = {
         'core-system-encryption-shell.space_next_seal': 'अगले सील के लिए स्थान',
         'core-system-encryption-shell.space_estimated':
           '{{amount}} अनुमानित · {{free}}',
+        'core-system-encryption-shell.recovery_drill_review':
+          'रिकवरी ड्रिल समीक्षा',
+        'core-system-encryption-shell.initial_drill_only':
+          'केवल प्रारंभिक ड्रिल',
+        'core-system-encryption-shell.every_days': 'हर {{days}} दिन',
+        'core-system-encryption-shell.waiting_until_present':
+          'मौजूद होने तक प्रतीक्षा',
+        'core-system-encryption-shell.recovery_drill': 'रिकवरी ड्रिल',
+        'core-system-encryption-shell.recovery_stores_recorded':
+          '{{drilled, number}}/{{total, number}} स्टोर दर्ज हैं',
+        'core-system-encryption-shell.recovery_after_first_seal':
+          'पहली सील के बाद चलाएँ',
+        'core-system-encryption-shell.superseded_recovery_copies':
+          'प्रतिस्थापित रिकवरी प्रतियां',
+        'core-system-encryption-shell.retired_recovery_copies':
+          'सेवानिवृत्त रिकवरी प्रतियां',
+        'core-system-encryption-shell.optional_remote_envelopes':
+          'वैकल्पिक रिमोट एनवेलप',
       }),
       ar: Object.freeze({
         'core-system-encryption-shell.title': 'حماية البيانات',
@@ -185,6 +239,22 @@ window.ZogographSystemEncryptionShellCard = {
         'core-system-encryption-shell.space_next_seal': 'المساحة للختم التالي',
         'core-system-encryption-shell.space_estimated':
           '{{amount}} مقدرة · {{free}}',
+        'core-system-encryption-shell.recovery_drill_review':
+          'مراجعة تمرين الاسترداد',
+        'core-system-encryption-shell.initial_drill_only': 'التمرين الأولي فقط',
+        'core-system-encryption-shell.every_days': 'كل {{days}} يوم',
+        'core-system-encryption-shell.waiting_until_present': 'بانتظار توفرها',
+        'core-system-encryption-shell.recovery_drill': 'تمرين الاسترداد',
+        'core-system-encryption-shell.recovery_stores_recorded':
+          '{{drilled, number}}/{{total, number}} مخازن مسجلة',
+        'core-system-encryption-shell.recovery_after_first_seal':
+          'شغّل بعد أول ختم',
+        'core-system-encryption-shell.superseded_recovery_copies':
+          'نسخ استرداد مستبدلة',
+        'core-system-encryption-shell.retired_recovery_copies':
+          'نسخ استرداد متقاعدة',
+        'core-system-encryption-shell.optional_remote_envelopes':
+          'مغلفات بعيدة اختيارية',
       }),
       zh: Object.freeze({
         'core-system-encryption-shell.title': '数据保护',
@@ -223,6 +293,21 @@ window.ZogographSystemEncryptionShellCard = {
         'core-system-encryption-shell.space_next_seal': '下次密封所需空间',
         'core-system-encryption-shell.space_estimated':
           '预计 {{amount}} · {{free}}',
+        'core-system-encryption-shell.recovery_drill_review': '恢复演练审查',
+        'core-system-encryption-shell.initial_drill_only': '仅初始演练',
+        'core-system-encryption-shell.every_days': '每 {{days}} 天',
+        'core-system-encryption-shell.waiting_until_present': '等待可用',
+        'core-system-encryption-shell.recovery_drill': '恢复演练',
+        'core-system-encryption-shell.recovery_stores_recorded':
+          '已记录 {{drilled, number}}/{{total, number}} 个存储',
+        'core-system-encryption-shell.recovery_after_first_seal':
+          '首次封装后运行',
+        'core-system-encryption-shell.superseded_recovery_copies':
+          '已替换的恢复副本',
+        'core-system-encryption-shell.retired_recovery_copies':
+          '已退役的恢复副本',
+        'core-system-encryption-shell.optional_remote_envelopes':
+          '可选远程信封',
       }),
     }),
   }),

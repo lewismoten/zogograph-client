@@ -75,8 +75,8 @@ try {
         'Protection dashboard does not report setup configuration at-rest status',
     );
     encryptionExpect(
-        $dashboard !== false &&
-            str_contains($dashboard, 'Live SQLCipher option') &&
+        $encryptionShell !== false &&
+            str_contains($encryptionShell, 'Live SQLCipher option') &&
             encryptionSqlcipherCapability()['state'] !== '',
         'Protection dashboard does not report SQLCipher driver readiness',
     );
@@ -91,7 +91,7 @@ try {
                 $encryptionShell,
                 'Operator-declared host/volume coverage (not verified)',
             ) &&
-            str_contains($dashboard, 'Recovery-drill review') &&
+            str_contains($encryptionShell, 'Recovery-drill review') &&
             str_contains(
                 $dashboard,
                 'Bootstrap configuration recovery is deliberately CLI-only',

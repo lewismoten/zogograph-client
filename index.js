@@ -13818,6 +13818,8 @@ function marksForChart(chartId) {
  * note.
  */
 async function showNoteDialog(preset = {}) {
+  const notesShellText = (key, values = {}) =>
+    ZogographNotesShellCard.text(key, values, { i18n: ZogographI18n });
   /*
    * The scopes and capture kinds come from the server, and until now they only
    * arrived when somebody opened the Notes page.
@@ -13842,19 +13844,9 @@ async function showNoteDialog(preset = {}) {
   const body = document.createElement('textarea');
   body.rows = 5;
   body.className = 'wide';
-  body.placeholder = ZogographI18n.t(
-    'notes.body_placeholder',
-    {},
-    'Upgraded PHP to 8.4 on the host. The memory step at 14:20 is that.',
-  );
+  body.placeholder = notesShellText('body_placeholder');
   body.value = preset.body ?? '';
-  parts.push(
-    fieldRow(
-      ZogographI18n.t('notes.body_label', {}, 'What happened'),
-      body,
-      '',
-    ),
-  );
+  parts.push(fieldRow(notesShellText('body_label'), body, ''));
 
   /*
    * When it is about, which is not always now.
@@ -13867,16 +13859,7 @@ async function showNoteDialog(preset = {}) {
   when.type = 'datetime-local';
   when.value = localDateTimeValue(preset.at ?? Math.floor(Date.now() / 1000));
   parts.push(
-    fieldRow(
-      ZogographI18n.t('notes.when_label', {}, 'When'),
-      when,
-      ZogographI18n.t(
-        'notes.when_help',
-        {},
-        'Defaults to now. Move it back if you are writing up something that already happened ' +
-          '— the mark belongs where the event was, not where the typing was.',
-      ),
-    ),
+    fieldRow(notesShellText('when_label'), when, notesShellText('when_help')),
   );
 
   const scope = document.createElement('select');
@@ -13897,13 +13880,7 @@ async function showNoteDialog(preset = {}) {
     option.selected = (preset.scope ?? 'page') === key;
     scope.appendChild(option);
   }
-  parts.push(
-    fieldRow(
-      ZogographI18n.t('notes.scope_label', {}, 'Where it shows'),
-      scope,
-      '',
-    ),
-  );
+  parts.push(fieldRow(notesShellText('scope_label'), scope, ''));
   parts.push(scopeNote);
 
   /*
@@ -13927,13 +13904,9 @@ async function showNoteDialog(preset = {}) {
         : [],
   );
   const chartRow = fieldRow(
-    ZogographI18n.t('notes.charts_label', {}, 'Which charts'),
+    notesShellText('charts_label'),
     chartPick.node,
-    ZogographI18n.t(
-      'notes.charts_help',
-      {},
-      'Ticking more than one puts the same mark on each of them.',
-    ),
+    notesShellText('charts_help'),
   );
   parts.push(chartRow);
 
@@ -13949,13 +13922,7 @@ async function showNoteDialog(preset = {}) {
     option.selected = (preset.snapshot ?? 'none') === key;
     snapshot.appendChild(option);
   }
-  parts.push(
-    fieldRow(
-      ZogographI18n.t('notes.capture_label', {}, 'Also capture'),
-      snapshot,
-      '',
-    ),
-  );
+  parts.push(fieldRow(notesShellText('capture_label'), snapshot, ''));
   parts.push(snapshotNote);
 
   /*

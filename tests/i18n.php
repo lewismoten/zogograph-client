@@ -988,8 +988,9 @@ i18nExpect(
         str_contains(
             $script,
             'renderCoreCardPackage(ZogographHostDatabaseStorageCard, "core-host-database-storage",',
-        ),
-    'host database storage is not isolated behind its core card-module boundary',
+        ) &&
+        !str_contains($script, 'if (window.ZogographHostDatabaseStorageCard)'),
+    'host database storage retains a core fallback instead of its package boundary',
 );
 i18nExpect(
     $page !== false &&

@@ -18331,90 +18331,22 @@ function renderAccountData(data) {
 
 /** The host collector's database, which this account reads and never writes. */
 function renderHostData(data) {
-  if (window.ZogographHostDatabaseStorageCard) {
-    return renderCoreCardPackage(
-      ZogographHostDatabaseStorageCard,
-      'core-host-database-storage',
-      data,
-      {
-        target: $('hostDataBody'),
-        note,
-        section,
-        databaseStorageCard,
-        simpleTable,
-        databaseTableName,
-        humanCount,
-        humanBytes,
-        i18n: ZogographI18n,
-      },
-    );
-  }
-  const body = $('hostDataBody');
-  if (!body) return;
-
-  if (!data.host) {
-    body.replaceChildren(
-      note(
-        data.host_why ||
-          ZogographI18n.t(
-            'database.host_unreadable',
-            {},
-            'Present but not readable by this account, or not there at all.',
-          ),
-      ),
-    );
-    return;
-  }
-
-  const parts = [
-    section(
-      ZogographI18n.t('database.file', {}, 'The file'),
-      databaseStorageCard(data.host.file, null),
-    ),
-  ];
-
-  if (!data.host.measured) {
-    parts.push(note(data.host.why));
-  } else {
-    const tables = Object.entries(data.host.tables)
-      .map(([name, facts]) => ({ table: name, ...facts }))
-      .sort((a, b) => b.total_bytes - a.total_bytes);
-
-    parts.push(
-      section(
-        ZogographI18n.t('database.space_breakdown', {}, 'Where the space goes'),
-        simpleTable(
-          [
-            ZogographI18n.t('database.table', {}, 'Table'),
-            ZogographI18n.t('database.rows', {}, 'Rows'),
-            ZogographI18n.t('database.data', {}, 'Data'),
-            ZogographI18n.t('database.indexes', {}, 'Indexes'),
-            ZogographI18n.t('database.total', {}, 'Total'),
-          ],
-          tables.map((row) => [
-            databaseTableName(row.table, true),
-            humanCount(row.rows ?? 0),
-            humanBytes(row.bytes),
-            humanBytes(row.index_bytes),
-            humanBytes(row.total_bytes),
-          ]),
-          ['name', 'size', 'size', 'size', 'size'],
-        ),
-      ),
-    );
-  }
-
-  parts.push(
-    note(
-      ZogographI18n.t(
-        'storage.host_help',
-        {},
-        'Written by root’s collector, and read-only from here. This account can usually open it to read and should never be the thing that rewrites it — a rewrite started from here would leave a file the collector could no longer write. Where it cannot be opened at all, that is said rather than shown as zeros.',
-      ),
-    ),
+  return renderCoreCardPackage(
+    ZogographHostDatabaseStorageCard,
+    'core-host-database-storage',
+    data,
+    {
+      target: $('hostDataBody'),
+      note,
+      section,
+      databaseStorageCard,
+      simpleTable,
+      databaseTableName,
+      humanCount,
+      humanBytes,
+      i18n: ZogographI18n,
+    },
   );
-
-  body.replaceChildren(...parts);
 }
 
 /** Per-table figures for a table named in the catalogue. */

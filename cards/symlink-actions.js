@@ -19,6 +19,8 @@ window.ZogographSymlinkActionsCard = {
         'core-symlink-actions.repoint_title': 'Point this link somewhere else',
         'core-symlink-actions.repoint_dialog_title': 'Repoint link',
         'core-symlink-actions.repoint_prompt': 'Where should {{name}} point?',
+        'core-symlink-actions.repoint_hint':
+          "Use an absolute path or a path relative to the link's directory.",
         'core-symlink-actions.make_directory': 'Make it a folder',
         'core-symlink-actions.make_directory_title':
           'Remove the link and create a real, empty directory in its place',
@@ -32,6 +34,8 @@ window.ZogographSymlinkActionsCard = {
         'core-symlink-actions.repoint_dialog_title': 'Redirigir enlace',
         'core-symlink-actions.repoint_prompt':
           '¿A dónde debe apuntar {{name}}?',
+        'core-symlink-actions.repoint_hint':
+          'Use una ruta absoluta o una ruta relativa al directorio del enlace.',
         'core-symlink-actions.make_directory': 'Convertir en carpeta',
         'core-symlink-actions.make_directory_title':
           'Quitar el enlace y crear en su lugar un directorio real vacío',
@@ -44,6 +48,8 @@ window.ZogographSymlinkActionsCard = {
         'core-symlink-actions.repoint_dialog_title': 'लिंक पुनः इंगित करें',
         'core-symlink-actions.repoint_prompt':
           '{{name}} को कहाँ इंगित करना चाहिए?',
+        'core-symlink-actions.repoint_hint':
+          'पूर्ण पथ या लिंक की डायरेक्टरी के सापेक्ष पथ का उपयोग करें।',
         'core-symlink-actions.make_directory': 'इसे फ़ोल्डर बनाएँ',
         'core-symlink-actions.make_directory_title':
           'लिंक हटाएँ और उसकी जगह असली, खाली डायरेक्टरी बनाएँ',
@@ -57,6 +63,8 @@ window.ZogographSymlinkActionsCard = {
         'core-symlink-actions.repoint_dialog_title': 'إعادة توجيه الرابط',
         'core-symlink-actions.repoint_prompt':
           'إلى أين ينبغي أن يشير {{name}}؟',
+        'core-symlink-actions.repoint_hint':
+          'استخدم مسارًا مطلقًا أو مسارًا نسبيًا إلى مجلد الرابط.',
         'core-symlink-actions.make_directory': 'تحويل إلى مجلد',
         'core-symlink-actions.make_directory_title':
           'أزل الرابط وأنشئ مكانه دليلًا حقيقيًا فارغًا',
@@ -68,6 +76,8 @@ window.ZogographSymlinkActionsCard = {
         'core-symlink-actions.repoint_title': '让此链接指向其他位置',
         'core-symlink-actions.repoint_dialog_title': '重新指向链接',
         'core-symlink-actions.repoint_prompt': '{{name}} 应指向哪里？',
+        'core-symlink-actions.repoint_hint':
+          '使用绝对路径，或相对于链接目录的路径。',
         'core-symlink-actions.make_directory': '改为文件夹',
         'core-symlink-actions.make_directory_title':
           '移除链接，并在原位置创建真实的空目录',
@@ -146,7 +156,7 @@ window.ZogographSymlinkActionsCard = {
           ),
           row.target || '',
           t(
-            'storage.link_repoint_hint',
+            'core-symlink-actions.repoint_hint',
             {},
             "Use an absolute path or a path relative to the link's directory.",
           ),

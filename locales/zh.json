@@ -460,7 +460,6 @@
   "storage.link_sweep_left_alone": "已保留 {{count}} 个链接。",
   "storage.link_sweep_preview": "该路径下有 {{matched}} 个有问题的链接。将移除 {{deleted}} 个损坏链接。",
   "storage.link_sweep_preview_skipped": "该路径下有 {{matched}} 个有问题的链接。将移除 {{deleted}} 个损坏链接，而 {{skipped}} 个有其他问题的链接会保持不变——绝不会只根据路径移除循环或逃逸链接。",
-  "storage.link_repoint_hint": "使用绝对路径，或相对于链接目录的路径。",
   "storage.link_make_directory_confirm": "要将 {{path}} 替换为真实的空目录吗？\n\n链接会被移除；其原来指向的内容不会被触及。",
   "storage.link_remove_title": "删除链接本身",
   "storage.link_remove_confirm": "要删除链接 {{path}} 吗？\n\n只会移除链接。其指向的内容不会被触及。",

@@ -13,6 +13,9 @@ window.ZogographNetworkGaugesCard = {
           '{{connections}} open, busiest peer holds {{busiest}}',
         'core-network-gauges.none_recorded': 'none recorded',
         'core-network-gauges.listening_ports': 'Listening ports',
+        'core-network-gauges.in': 'In',
+        'core-network-gauges.out': 'Out',
+        'core-network-gauges.connections': 'Connections',
         'core-network-gauges.ports_reachable_summary':
           '{{exposed}} of {{open}} reachable from outside',
       }),
@@ -25,6 +28,9 @@ window.ZogographNetworkGaugesCard = {
           '{{connections}} abiertas; el par más ocupado tiene {{busiest}}',
         'core-network-gauges.none_recorded': 'sin registros',
         'core-network-gauges.listening_ports': 'Puertos en escucha',
+        'core-network-gauges.in': 'Entrada',
+        'core-network-gauges.out': 'Salida',
+        'core-network-gauges.connections': 'Conexiones',
         'core-network-gauges.ports_reachable_summary':
           '{{exposed}} de {{open}} accesibles desde fuera',
       }),
@@ -36,6 +42,9 @@ window.ZogographNetworkGaugesCard = {
           '{{connections}} खुले हैं, सबसे व्यस्त पीयर के पास {{busiest}} हैं',
         'core-network-gauges.none_recorded': 'कोई रिकॉर्ड नहीं',
         'core-network-gauges.listening_ports': 'सुनने वाले पोर्ट',
+        'core-network-gauges.in': 'अंदर',
+        'core-network-gauges.out': 'बाहर',
+        'core-network-gauges.connections': 'कनेक्शन',
         'core-network-gauges.ports_reachable_summary':
           '{{open}} में से {{exposed}} बाहर से पहुंच योग्य',
       }),
@@ -47,6 +56,9 @@ window.ZogographNetworkGaugesCard = {
           '{{connections}} مفتوحة، ويحتفظ أكثر الأقران انشغالاً بـ {{busiest}}',
         'core-network-gauges.none_recorded': 'لا سجلات',
         'core-network-gauges.listening_ports': 'منافذ الاستماع',
+        'core-network-gauges.in': 'وارد',
+        'core-network-gauges.out': 'صادر',
+        'core-network-gauges.connections': 'الاتصالات',
         'core-network-gauges.ports_reachable_summary':
           '{{exposed}} من {{open}} يمكن الوصول إليها من الخارج',
       }),
@@ -58,6 +70,9 @@ window.ZogographNetworkGaugesCard = {
           '{{connections}} 个打开连接，最繁忙的对端占 {{busiest}} 个',
         'core-network-gauges.none_recorded': '未记录',
         'core-network-gauges.listening_ports': '监听端口',
+        'core-network-gauges.in': '入站',
+        'core-network-gauges.out': '出站',
+        'core-network-gauges.connections': '连接',
         'core-network-gauges.ports_reachable_summary':
           '{{open}} 个中有 {{exposed}} 个可从外部访问',
       }),
@@ -83,8 +98,8 @@ window.ZogographNetworkGaugesCard = {
     if (busiest && busiest.speed_mbit) {
       const capacity = busiest.speed_mbit * 125000;
       for (const [label, rate] of [
-        [i18n.t('network.in'), busiest.rx_rate],
-        [i18n.t('network.out'), busiest.tx_rate],
+        [t('in'), busiest.rx_rate],
+        [t('out'), busiest.tx_rate],
       ]) {
         dials.push({
           label: t('rate_on_interface', { label, interface: busiest.name }),
@@ -108,7 +123,7 @@ window.ZogographNetworkGaugesCard = {
     );
     const top = (data.peers || [])[0];
     dials.push({
-      label: i18n.t('network.connections'),
+      label: t('connections'),
       value: null,
       warn: 0,
       crit: 0,

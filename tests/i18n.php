@@ -2257,6 +2257,30 @@ i18nExpect(
     'terminal session-log heading does not use its core card package catalog',
 );
 i18nExpect(
+    is_array($english) &&
+        !isset(
+            $english['terminal.copy_entry'],
+            $english['terminal.copy_entry_output'],
+            $english['terminal.copy_last_output'],
+            $english['terminal.copy_everything'],
+            $english['terminal.copy_commands'],
+            $english['terminal.copy_nothing'],
+            $english['terminal.output_truncated'],
+            $english['terminal.output_tail'],
+            $english['terminal.session_empty'],
+        ) &&
+        isset(
+            $coreCardEnglish['core-terminal-entry.output_truncated'],
+            $coreCardEnglish['core-terminal-session-log.copy_entry'],
+            $coreCardEnglish['core-terminal-session-log.copy_entry_output'],
+            $coreCardEnglish['core-terminal-session-log.copy_commands'],
+            $coreCardEnglish['core-terminal-session-log.output_tail'],
+            $coreCardEnglish['core-terminal-session-log.empty'],
+            $coreCardEnglish['core-terminal-copy-controls.everything'],
+        ),
+    'terminal copy and session labels do not belong to their core packages',
+);
+i18nExpect(
     $actionSummaryCard !== false &&
         str_contains($actionSummaryCard, 'locales: ["core-action-summary."]') &&
         str_contains($actionSummaryCard, '"core-action-summary.things_done"') &&

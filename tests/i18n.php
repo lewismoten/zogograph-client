@@ -3013,7 +3013,7 @@ i18nExpect(
     $script !== false &&
         str_contains($script, 'marketplaceText("discovery_notice"') &&
         str_contains($script, "marketplaceShellText('search_label'") &&
-        str_contains($script, 'marketplaceText("table_compatibility"') &&
+        str_contains($script, "marketplaceShellText('table_compatibility'") &&
         str_contains($script, 'marketplaceText("toggle_confirmation"') &&
         str_contains($script, 'marketplaceText("restore_confirmation"') &&
         is_array($english) &&
@@ -3028,6 +3028,11 @@ i18nExpect(
             $coreCardEnglish[
                 'core-system-marketplace-shell.search_placeholder'
             ],
+            $coreCardEnglish['core-system-marketplace-shell.table_trust'],
+            $coreCardEnglish[
+                'core-system-marketplace-shell.table_compatibility'
+            ],
+            $coreCardEnglish['core-system-marketplace-shell.table_license'],
         ),
     'marketplace controls do not use translatable catalog messages',
 );

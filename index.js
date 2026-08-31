@@ -16441,17 +16441,17 @@ function renderMarketplace(data) {
           render: (row) => row.capabilities.join(', '),
         },
         {
-          label: marketplaceText('table_trust', {}, 'Trust'),
+          label: marketplaceShellText('table_trust'),
           render: (row) => row.provenance.status,
         },
         {
-          label: marketplaceText('table_compatibility', {}, 'Compatibility'),
+          label: marketplaceShellText('table_compatibility'),
           render: (row) =>
             row.compatibility?.status ||
             marketplaceText('server_will_verify', {}, 'server will verify'),
         },
         {
-          label: marketplaceText('table_license', {}, 'License'),
+          label: marketplaceShellText('table_license'),
           render: (row) => row.license,
         },
         {

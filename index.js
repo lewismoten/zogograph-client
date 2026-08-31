@@ -3237,12 +3237,16 @@ function renderCpuCoresTitle() {
     i18n: ZogographI18n,
   };
   renderCoreCardPackage(ZogographCpuCoresCard, 'core-cpu-cores', [], helpers);
-  const title = document.querySelector('[data-i18n="core-cpu-cores.title"]');
-  title.textContent = ZogographI18n.markSource(
-    title,
-    'core-cpu-cores.title',
-    ZogographCpuCoresCard.text('title', helpers),
-  );
+  document
+    .querySelectorAll('[data-i18n^="core-cpu-cores."]')
+    .forEach((node) => {
+      const key = node.dataset.i18n.replace('core-cpu-cores.', '');
+      node.textContent = ZogographI18n.markSource(
+        node,
+        `core-cpu-cores.${key}`,
+        ZogographCpuCoresCard.text(key, helpers),
+      );
+    });
 }
 
 document.addEventListener('zogograph-i18n-load', renderCpuCoresTitle);

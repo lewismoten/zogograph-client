@@ -7,6 +7,8 @@ window.ZogographCpuCoresCard = {
     catalogs: Object.freeze({
       en: Object.freeze({
         'core-cpu-cores.title': 'Each core',
+        'core-cpu-cores.history_title':
+          'Hottest, coolest and average, over time',
         'core-cpu-cores.no_per_core_lines':
           'No per-core lines in this reading. /proc/stat on this kernel did not break the counters down by core, so only the whole-machine figure exists.',
         'core-cpu-cores.core_label': 'Core {{core, number}}',
@@ -18,6 +20,8 @@ window.ZogographCpuCoresCard = {
       }),
       es: Object.freeze({
         'core-cpu-cores.title': 'Cada núcleo',
+        'core-cpu-cores.history_title':
+          'El más caliente, el más frío y el promedio a lo largo del tiempo',
         'core-cpu-cores.no_per_core_lines':
           'No hay líneas por núcleo en esta lectura. /proc/stat de este kernel no desglosa los contadores por núcleo, por lo que solo existe la cifra de toda la máquina.',
         'core-cpu-cores.core_label': 'Núcleo {{core, number}}',
@@ -29,6 +33,8 @@ window.ZogographCpuCoresCard = {
       }),
       hi: Object.freeze({
         'core-cpu-cores.title': 'हर कोर',
+        'core-cpu-cores.history_title':
+          'समय के साथ सबसे गर्म, सबसे ठंडा और औसत',
         'core-cpu-cores.no_per_core_lines':
           'इस रीडिंग में प्रति-कोर पंक्तियाँ नहीं हैं। इस कर्नेल का /proc/stat काउंटरों को कोर के अनुसार नहीं बाँटता, इसलिए केवल पूरी मशीन का आंकड़ा उपलब्ध है।',
         'core-cpu-cores.core_label': 'कोर {{core, number}}',
@@ -40,6 +46,8 @@ window.ZogographCpuCoresCard = {
       }),
       ar: Object.freeze({
         'core-cpu-cores.title': 'كل نواة',
+        'core-cpu-cores.history_title':
+          'الأكثر سخونة وبرودة والمتوسط عبر الزمن',
         'core-cpu-cores.no_per_core_lines':
           'لا توجد أسطر لكل نواة في هذه القراءة. لم يقسم ‎/proc/stat في هذه النواة العدادات حسب النواة، لذا لا يوجد سوى رقم الجهاز كله.',
         'core-cpu-cores.core_label': 'النواة {{core, number}}',
@@ -51,6 +59,7 @@ window.ZogographCpuCoresCard = {
       }),
       zh: Object.freeze({
         'core-cpu-cores.title': '每个核心',
+        'core-cpu-cores.history_title': '随时间变化的最热、最冷和平均值',
         'core-cpu-cores.no_per_core_lines':
           '此读数没有按核心划分的数据。该内核中的 /proc/stat 没有按核心拆分计数器，因此只有整台机器的数据。',
         'core-cpu-cores.core_label': '核心 {{core, number}}',

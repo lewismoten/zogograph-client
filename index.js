@@ -21946,14 +21946,11 @@ function basenameOf(path) {
 async function sweepLinks(pattern, confirmed = false) {
   const body = $('linkSweepBody');
   body.replaceChildren(
-    spinner(
-      ZogographI18n.t(
-        confirmed
-          ? 'storage.link_sweep_removing'
-          : 'storage.link_sweep_looking',
-        {},
-        confirmed ? 'Removing…' : 'Looking…',
-      ),
+    renderCoreCardPackage(
+      ZogographSymlinkSweepStatusCard,
+      'core-symlink-sweep-status',
+      { confirmed, mode: 'loading' },
+      { i18n: ZogographI18n, spinner },
     ),
   );
 
@@ -21985,67 +21982,24 @@ async function sweepLinks(pattern, confirmed = false) {
     return;
   }
 
-  const said = document.createElement('p');
   const failed = result.failed ?? [];
-  said.className = confirmed
-    ? failed.length
-      ? 'band-crit'
-      : 'band-ok'
-    : 'muted small';
-  if (confirmed) {
-    const summary = [
-      ZogographI18n.t(
-        'storage.link_sweep_removed',
-        { count: humanCount(result.deleted.length) },
-        `${humanCount(result.deleted.length)} links removed.`,
-      ),
-    ];
-    if (failed.length) {
-      summary.push(
-        ZogographI18n.t(
-          'storage.link_sweep_failed',
-          { count: humanCount(failed.length) },
-          `${humanCount(failed.length)} could not be removed.`,
-        ),
-      );
-    }
-    if (result.skipped) {
-      summary.push(
-        ZogographI18n.t(
-          'storage.link_sweep_left_alone',
-          { count: humanCount(result.skipped) },
-          `${humanCount(result.skipped)} links left alone.`,
-        ),
-      );
-    }
-    said.textContent = summary.join(' ');
-  } else {
-    /*
-     * "Matched" means matched among the problems, not among all links.
-     *
-     * The sweep only ever looks at what the check found wrong, so a healthy
-     * link under the same pattern is never a candidate and is never counted.
-     * Saying "6 links match" would imply the pattern had been tested against
-     * every link in the tree, which it has not been.
-     */
-    const values = {
-      matched: humanCount(result.matched),
-      deleted: humanCount(result.deleted.length),
-      skipped: humanCount(result.skipped),
-    };
-    said.textContent = result.skipped
-      ? ZogographI18n.t(
-          'storage.link_sweep_preview_skipped',
-          values,
-          `${values.matched} links with a problem are under that path. ${values.deleted} broken links would be removed, and ${values.skipped} with other problems left alone — a loop or an escape is never removed on a path alone.`,
-        )
-      : ZogographI18n.t(
-          'storage.link_sweep_preview',
-          values,
-          `${values.matched} links with a problem are under that path. ${values.deleted} broken links would be removed.`,
-        );
-  }
-  parts.push(said);
+  parts.push(
+    renderCoreCardPackage(
+      ZogographSymlinkSweepStatusCard,
+      'core-symlink-sweep-status',
+      {
+        confirmed,
+        deleted: humanCount(result.deleted.length),
+        failed: humanCount(failed.length),
+        hasFailed: failed.length > 0,
+        hasSkipped: result.skipped > 0,
+        matched: humanCount(result.matched),
+        mode: 'result',
+        skipped: humanCount(result.skipped),
+      },
+      { i18n: ZogographI18n, spinner },
+    ),
+  );
 
   if (!confirmed) {
     parts.push(

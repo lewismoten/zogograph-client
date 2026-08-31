@@ -30,6 +30,9 @@ window.ZogographSymlinkActionsCard = {
           'Replaced with an empty directory.',
         'core-symlink-actions.removed':
           'Link removed. What it pointed at was not touched.',
+        'core-symlink-actions.repointed': 'Now points at {{target}}.',
+        'core-symlink-actions.repointed_missing':
+          'Now points at {{target}}. That is not there yet, which may be deliberate.',
         'core-symlink-actions.remove': 'Remove',
         'core-symlink-actions.remove_title': 'Delete the link itself',
       }),
@@ -52,6 +55,9 @@ window.ZogographSymlinkActionsCard = {
           'Se reemplazó por un directorio vacío.',
         'core-symlink-actions.removed':
           'Se eliminó el enlace. Lo que señalaba no se tocó.',
+        'core-symlink-actions.repointed': 'Ahora apunta a {{target}}.',
+        'core-symlink-actions.repointed_missing':
+          'Ahora apunta a {{target}}. Aún no existe, lo que puede ser intencional.',
         'core-symlink-actions.remove': 'Eliminar',
         'core-symlink-actions.remove_title': 'Eliminar el propio enlace',
       }),
@@ -73,6 +79,9 @@ window.ZogographSymlinkActionsCard = {
           'खाली डायरेक्टरी से बदल दिया गया।',
         'core-symlink-actions.removed':
           'लिंक हटा दिया गया। जिस पर वह इंगित करता था उसे नहीं छुआ गया।',
+        'core-symlink-actions.repointed': 'अब {{target}} पर इंगित करता है।',
+        'core-symlink-actions.repointed_missing':
+          'अब {{target}} पर इंगित करता है। वह अभी मौजूद नहीं है, जो जानबूझकर हो सकता है।',
         'core-symlink-actions.remove': 'हटाएँ',
         'core-symlink-actions.remove_title': 'लिंक को ही हटाएँ',
       }),
@@ -94,6 +103,9 @@ window.ZogographSymlinkActionsCard = {
         'core-symlink-actions.made_directory': 'استُبدل بدليل فارغ.',
         'core-symlink-actions.removed':
           'أُزيل الرابط. لم يُمس ما كان يشير إليه.',
+        'core-symlink-actions.repointed': 'يشير الآن إلى {{target}}.',
+        'core-symlink-actions.repointed_missing':
+          'يشير الآن إلى {{target}}. هذا غير موجود بعد، وقد يكون ذلك مقصودًا.',
         'core-symlink-actions.remove': 'إزالة',
         'core-symlink-actions.remove_title': 'احذف الرابط نفسه',
       }),
@@ -113,6 +125,9 @@ window.ZogographSymlinkActionsCard = {
         'core-symlink-actions.made_directory': '已替换为空目录。',
         'core-symlink-actions.removed':
           '已移除链接。其原来指向的内容未被触及。',
+        'core-symlink-actions.repointed': '现指向 {{target}}。',
+        'core-symlink-actions.repointed_missing':
+          '现指向 {{target}}。该位置尚不存在，这可能是有意的。',
         'core-symlink-actions.remove': '移除',
         'core-symlink-actions.remove_title': '删除链接本身',
       }),
@@ -122,8 +137,8 @@ window.ZogographSymlinkActionsCard = {
     if (how === 'repoint')
       return i18n.t(
         result.exists
-          ? 'storage.link_repointed'
-          : 'storage.link_repointed_missing',
+          ? 'core-symlink-actions.repointed'
+          : 'core-symlink-actions.repointed_missing',
         { target: result.now },
         result.exists
           ? `Now points at ${result.now}.`

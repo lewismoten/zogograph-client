@@ -2649,8 +2649,6 @@ i18nExpect(
             $english['storage.link_sweep_preview'],
             $english['storage.link_sweep_preview_skipped'],
             $english['storage.link_remove_confirm'],
-            $english['storage.link_repointed'],
-            $english['storage.link_repointed_missing'],
             $english['storage.link_sweep_failed_reason'],
             $english['storage.link_sweep_capped'],
             $english['storage.link_sweep_showing_first'],
@@ -3031,7 +3029,7 @@ i18nExpect(
         ) &&
         str_contains(
             (string) file_get_contents($root . '/cards/symlink-actions.js'),
-            'storage.link_repointed_missing',
+            'core-symlink-actions.repointed_missing',
         ),
     'broken-link remediation controls are owned by their card package',
 );

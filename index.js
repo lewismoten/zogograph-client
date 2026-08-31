@@ -26178,21 +26178,21 @@ const HEALTH_LABELS = {
     'Scans will find nothing.',
   ],
   php_new_enough: [
-    'health.php_new_enough',
+    'php_new_enough',
     'PHP 8.1 or newer',
-    'health.php_new_enough_help',
+    'php_new_enough_help',
     'This code will not run correctly.',
   ],
   sqlite: [
-    'health.sqlite',
+    'sqlite',
     'SQLite driver',
-    'health.sqlite_help',
+    'sqlite_help',
     'Nothing can be stored at all.',
   ],
   mail_available: [
-    'health.mail_available',
+    'mail_available',
     'mail() available',
-    'health.mail_available_help',
+    'mail_available_help',
     'Alert emails cannot be sent from here.',
   ],
   shell_available: [

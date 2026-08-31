@@ -28,6 +28,14 @@ window.ZogographSystemHealthShellCard = {
           'Watched directory readable',
         'core-system-health-shell.scan_root_readable_help':
           'Scans will find nothing.',
+        'core-system-health-shell.php_new_enough': 'PHP 8.1 or newer',
+        'core-system-health-shell.php_new_enough_help':
+          'This code will not run correctly.',
+        'core-system-health-shell.sqlite': 'SQLite driver',
+        'core-system-health-shell.sqlite_help': 'Nothing can be stored at all.',
+        'core-system-health-shell.mail_available': 'mail() available',
+        'core-system-health-shell.mail_available_help':
+          'Alert emails cannot be sent from here.',
       }),
       es: Object.freeze({
         'core-system-health-shell.title': 'Estado',
@@ -54,6 +62,14 @@ window.ZogographSystemHealthShellCard = {
           'Directorio vigilado legible',
         'core-system-health-shell.scan_root_readable_help':
           'Los escaneos no encontrarán nada.',
+        'core-system-health-shell.php_new_enough': 'PHP 8.1 o posterior',
+        'core-system-health-shell.php_new_enough_help':
+          'Este código no funcionará correctamente.',
+        'core-system-health-shell.sqlite': 'Controlador SQLite',
+        'core-system-health-shell.sqlite_help': 'No se puede guardar nada.',
+        'core-system-health-shell.mail_available': 'mail() disponible',
+        'core-system-health-shell.mail_available_help':
+          'No se pueden enviar correos de alerta desde aquí.',
       }),
       hi: Object.freeze({
         'core-system-health-shell.title': 'स्वास्थ्य',
@@ -80,6 +96,15 @@ window.ZogographSystemHealthShellCard = {
           'निगरानी निर्देशिका पढ़ने योग्य',
         'core-system-health-shell.scan_root_readable_help':
           'स्कैन को कुछ नहीं मिलेगा।',
+        'core-system-health-shell.php_new_enough': 'PHP 8.1 या नया',
+        'core-system-health-shell.php_new_enough_help':
+          'यह कोड सही ढंग से नहीं चलेगा।',
+        'core-system-health-shell.sqlite': 'SQLite ड्राइवर',
+        'core-system-health-shell.sqlite_help':
+          'कुछ भी संग्रहीत नहीं किया जा सकता।',
+        'core-system-health-shell.mail_available': 'mail() उपलब्ध',
+        'core-system-health-shell.mail_available_help':
+          'यहाँ से अलर्ट ईमेल नहीं भेजे जा सकते।',
       }),
       ar: Object.freeze({
         'core-system-health-shell.title': 'الحالة الصحية',
@@ -105,6 +130,14 @@ window.ZogographSystemHealthShellCard = {
           'دليل المراقبة قابل للقراءة',
         'core-system-health-shell.scan_root_readable_help':
           'لن تعثر عمليات المسح على شيء.',
+        'core-system-health-shell.php_new_enough': 'PHP 8.1 أو أحدث',
+        'core-system-health-shell.php_new_enough_help':
+          'لن يعمل هذا الرمز بشكل صحيح.',
+        'core-system-health-shell.sqlite': 'مشغل SQLite',
+        'core-system-health-shell.sqlite_help': 'لا يمكن تخزين أي شيء إطلاقاً.',
+        'core-system-health-shell.mail_available': 'mail() متاح',
+        'core-system-health-shell.mail_available_help':
+          'لا يمكن إرسال رسائل تنبيه من هنا.',
       }),
       zh: Object.freeze({
         'core-system-health-shell.title': '运行状况',
@@ -127,6 +160,14 @@ window.ZogographSystemHealthShellCard = {
         'core-system-health-shell.scan_root_readable': '受监视目录可读',
         'core-system-health-shell.scan_root_readable_help':
           '扫描将找不到任何内容。',
+        'core-system-health-shell.php_new_enough': 'PHP 8.1 或更高版本',
+        'core-system-health-shell.php_new_enough_help':
+          '此代码将无法正确运行。',
+        'core-system-health-shell.sqlite': 'SQLite 驱动程序',
+        'core-system-health-shell.sqlite_help': '根本无法存储任何内容。',
+        'core-system-health-shell.mail_available': 'mail() 可用',
+        'core-system-health-shell.mail_available_help':
+          '无法从此处发送警报邮件。',
       }),
     }),
   }),

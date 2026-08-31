@@ -24599,62 +24599,18 @@ async function refreshProcesses() {
 
 /** The top recorded process groups across the selected time range. */
 function renderProcessTrend(trend) {
-  if (window.ZogographProcessTrendCard) {
-    return renderCoreCardPackage(
-      ZogographProcessTrendCard,
-      'core-process-trend',
-      trend,
-      {
-        chart: $('processTrendChart'),
-        note: $('processTrendNote'),
-        drawLineChart,
-        humanCount,
-        bytesAxis,
-        percentAxis,
-        i18n: ZogographI18n,
-      },
-    );
-  }
-  const chart = $('processTrendChart');
-  const note = $('processTrendNote');
-  if (!chart || !note) return;
-
-  const memory = trend.metric === 'memory';
-  const names = Array.isArray(trend.names) ? trend.names.slice(0, 10) : [];
-  note.textContent = names.length
-    ? ZogographI18n.t(
-        'process.trend_summary',
-        {
-          count: humanCount(names.length),
-          metric: ZogographI18n.t(
-            memory ? 'process.metric_memory' : 'process.table_cpu',
-            {},
-            memory ? 'memory' : 'CPU',
-          ),
-        },
-        `Top ${humanCount(names.length)} recorded process groups for the selected range. Recent reporters lead; peak ${memory ? 'memory' : 'CPU'} users fill the remaining slots, so a resolved problem remains visible. Names join replacement PIDs into one line.`,
-      )
-    : ZogographI18n.t(
-        'process.trend_empty_help',
-        {},
-        'No busy process snapshots fall inside this range. Process history is recorded only when the configured CPU or memory threshold is crossed.',
-      );
-
-  drawLineChart(
-    chart,
-    Array.isArray(trend.rows) ? trend.rows : [],
-    names.map((name) => ({
-      key: name,
-      label: name,
-    })),
+  return renderCoreCardPackage(
+    ZogographProcessTrendCard,
+    'core-process-trend',
+    trend,
     {
-      axis: memory ? bytesAxis : percentAxis,
-      zeroBased: true,
-      empty: ZogographI18n.t(
-        'process.trend_empty',
-        {},
-        'No recorded process load in this range',
-      ),
+      chart: $('processTrendChart'),
+      note: $('processTrendNote'),
+      drawLineChart,
+      humanCount,
+      bytesAxis,
+      percentAxis,
+      i18n: ZogographI18n,
     },
   );
 }

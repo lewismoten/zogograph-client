@@ -1563,7 +1563,8 @@ i18nExpect(
         str_contains(
             $script,
             'renderCoreCardPackage(ZogographProcessTrendCard, "core-process-trend",',
-        ),
+        ) &&
+        !str_contains($script, 'if (window.ZogographProcessTrendCard)'),
     'process trend is not isolated behind its core card-module boundary',
 );
 i18nExpect(
@@ -3742,7 +3743,8 @@ i18nExpect(
         $processListCard !== false &&
         str_contains($processListCard, '"core-process-list.process"') &&
         str_contains($processListCard, '"core-process-list.biggest_pid"') &&
-        str_contains($script, 'process.trend_summary'),
+        $processTrendCard !== false &&
+        str_contains($processTrendCard, '"core-process-trend.summary"'),
     'live process table and trend retain direct user-visible text',
 );
 i18nExpect(

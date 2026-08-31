@@ -1532,8 +1532,6 @@
   "merge.review": "Revisar combinación del recopilador",
   "merge.reviewed_title": "Combinación del recopilador revisada",
   "merge.apply": "Aplicar combinación del recopilador revisada",
-  "dashboard.range": "Periodo",
-  "dashboard.show": "Mostrar",
   "dashboard.ready": "Listo",
   "auth.sign_in": "Iniciar sesión",
   "auth.sign_out": "Cerrar sesión",

@@ -6,6 +6,7 @@ window.ZogographTimeRangeSelectorCard = {
     helpers: ['i18n'],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-time-range-selector.label': 'Range',
         'core-time-range-selector.10m': 'Last 10 minutes',
         'core-time-range-selector.1h': 'Last hour',
         'core-time-range-selector.6h': 'Last 6 hours',
@@ -15,6 +16,7 @@ window.ZogographTimeRangeSelectorCard = {
         'core-time-range-selector.1y': 'Last year',
       }),
       es: Object.freeze({
+        'core-time-range-selector.label': 'Periodo',
         'core-time-range-selector.10m': 'Últimos 10 minutos',
         'core-time-range-selector.1h': 'Última hora',
         'core-time-range-selector.6h': 'Últimas 6 horas',
@@ -24,6 +26,7 @@ window.ZogographTimeRangeSelectorCard = {
         'core-time-range-selector.1y': 'Último año',
       }),
       hi: Object.freeze({
+        'core-time-range-selector.label': 'अवधि',
         'core-time-range-selector.10m': 'पिछले 10 मिनट',
         'core-time-range-selector.1h': 'पिछला घंटा',
         'core-time-range-selector.6h': 'पिछले 6 घंटे',
@@ -33,6 +36,7 @@ window.ZogographTimeRangeSelectorCard = {
         'core-time-range-selector.1y': 'पिछला वर्ष',
       }),
       ar: Object.freeze({
+        'core-time-range-selector.label': 'النطاق الزمني',
         'core-time-range-selector.10m': 'آخر 10 دقائق',
         'core-time-range-selector.1h': 'الساعة الماضية',
         'core-time-range-selector.6h': 'آخر 6 ساعات',
@@ -42,6 +46,7 @@ window.ZogographTimeRangeSelectorCard = {
         'core-time-range-selector.1y': 'السنة الماضية',
       }),
       zh: Object.freeze({
+        'core-time-range-selector.label': '时间范围',
         'core-time-range-selector.10m': '最近 10 分钟',
         'core-time-range-selector.1h': '最近 1 小时',
         'core-time-range-selector.6h': '最近 6 小时',
@@ -56,6 +61,7 @@ window.ZogographTimeRangeSelectorCard = {
     const t = (key, fallback) =>
       helpers.i18n.t(`core-time-range-selector.${key}`, {}, fallback);
     return {
+      label: t('label', 'Range'),
       '10m': t('10m', 'Last 10 minutes'),
       '1h': t('1h', 'Last hour'),
       '6h': t('6h', 'Last 6 hours'),

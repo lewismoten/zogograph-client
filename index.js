@@ -5866,6 +5866,8 @@ function renderTimeRangeSelector() {
     {},
     { i18n: ZogographI18n },
   );
+  document.querySelector('#range').previousElementSibling.textContent =
+    labels.label;
   for (const [value, key] of Object.entries({
     600: '10m',
     3600: '1h',
@@ -5893,6 +5895,8 @@ function renderUnitSelector() {
     {},
     { i18n: ZogographI18n },
   );
+  document.querySelector('#units').previousElementSibling.textContent =
+    labels.label;
   for (const [value, key] of Object.entries({
     bytes: 'absolute',
     percent: 'percent_free',

@@ -1550,8 +1550,6 @@
   "merge.allow_overlap": "I understand overlapping vitals and scans are deduplicated by timestamp.",
   "merge.last_result": "Last collector merge: {{paths, number}} paths, {{vitals, number}} vitals, and {{scans, number}} scans added. A private rollback snapshot was retained.",
   "brand.tagline": "clear server monitoring",
-  "dashboard.range": "Range",
-  "dashboard.show": "Show",
   "dashboard.ready": "Ready",
   "help.page": "Help for this page",
   "display.label": "Display",

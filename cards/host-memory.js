@@ -42,6 +42,8 @@ window.ZogographHostMemoryCard = {
         'core-host-memory.allocated': '{{percent}}% allocated',
         'core-host-memory.other_kernel_help':
           'not represented by the categories above',
+        'core-host-memory.in_use': 'Memory in use',
+        'core-host-memory.other_kernel': 'Other kernel/system memory',
       }),
       es: Object.freeze({
         'core-host-memory.summary_counts':
@@ -73,6 +75,8 @@ window.ZogographHostMemoryCard = {
         'core-host-memory.allocated': '{{percent}}% asignado',
         'core-host-memory.other_kernel_help':
           'no representada por las categorías anteriores',
+        'core-host-memory.in_use': 'Memoria en uso',
+        'core-host-memory.other_kernel': 'Otra memoria de kernel/sistema',
       }),
       hi: Object.freeze({
         'core-host-memory.summary_counts':
@@ -103,6 +107,8 @@ window.ZogographHostMemoryCard = {
         'core-host-memory.allocated': '{{percent}}% आवंटित',
         'core-host-memory.other_kernel_help':
           'ऊपर की श्रेणियों में प्रदर्शित नहीं',
+        'core-host-memory.in_use': 'उपयोग में मेमोरी',
+        'core-host-memory.other_kernel': 'अन्य कर्नेल/सिस्टम मेमोरी',
       }),
       ar: Object.freeze({
         'core-host-memory.summary_counts':
@@ -131,6 +137,8 @@ window.ZogographHostMemoryCard = {
         'core-host-memory.swap': 'التبديل',
         'core-host-memory.allocated': '{{percent}}% مخصص',
         'core-host-memory.other_kernel_help': 'غير ممثلة بالفئات أعلاه',
+        'core-host-memory.in_use': 'الذاكرة المستخدمة',
+        'core-host-memory.other_kernel': 'ذاكرة نواة/نظام أخرى',
       }),
       zh: Object.freeze({
         'core-host-memory.summary_counts':
@@ -159,6 +167,8 @@ window.ZogographHostMemoryCard = {
         'core-host-memory.swap': '交换空间',
         'core-host-memory.allocated': '已分配 {{percent}}%',
         'core-host-memory.other_kernel_help': '未包含在上述类别中',
+        'core-host-memory.in_use': '已用内存',
+        'core-host-memory.other_kernel': '其他内核/系统内存',
       }),
     }),
   }),
@@ -168,7 +178,7 @@ window.ZogographHostMemoryCard = {
     const t = (key, values, fallback) =>
       i18n.t(`core-host-memory.${key}`, values, fallback);
     setCard(
-      i18n.t('host.memory_card_in_use', {}, 'Memory in use'),
+      t('in_use', {}, 'Memory in use'),
       humanBytes(sample.used_bytes),
       t('of_total', { total: humanBytes(sample.mem_total) }, 'of {{total}}'),
     );
@@ -231,7 +241,7 @@ window.ZogographHostMemoryCard = {
       'pair',
     );
     setCard(
-      i18n.t('host.memory_card_other_kernel', {}, 'Other kernel/system memory'),
+      t('other_kernel', {}, 'Other kernel/system memory'),
       humanBytes(sample.unaccounted),
       t('other_kernel_help', {}, 'not represented by the categories above'),
     );

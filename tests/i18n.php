@@ -1689,7 +1689,7 @@ i18nExpect(
         str_contains($hostMemoryCard, '"count"') &&
         str_contains($hostMemoryCard, '"num"') &&
         str_contains($hostMemoryCard, 'i18n.t(`core-host-memory.${key}`') &&
-        str_contains($hostMemoryCard, 'i18n.t("host.memory_card_in_use"') &&
+        str_contains($hostMemoryCard, '"core-host-memory.in_use"') &&
         is_array($english) &&
         isset($english['host.memory_card_in_use']) &&
         !isset($english['host.memory_summary_counts']) &&

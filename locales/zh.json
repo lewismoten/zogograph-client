@@ -2399,7 +2399,6 @@
   "system.whoami_title": "我是谁？",
   "system.whoami_help": "有两种身份总是容易混淆：另一端的浏览器，以及运行此进程的账户。后者才是权限问题的答案——“此账户无法读取那个内容”在您知道它是哪个账户之前毫无意义。",
   "action.recheck": "重新检查",
-  "cpu.help": "处理器的工作强度，以及此账户可使用多少。CageFS 内账户自身的百分比是其配额的百分比，而不是整台机器的百分比；因此账户被限制而服务器空闲，是碰到限制的正常表现，并不矛盾。",
   "capabilities.title": "功能能力",
   "capabilities.show": "显示",
   "capabilities.filter_key": "值得拥有的功能",

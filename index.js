@@ -3380,6 +3380,16 @@ function renderCpuBusyChartTitle() {
 
 document.addEventListener('zogograph-i18n-load', renderCpuBusyChartTitle);
 
+function renderCpuShellLabels() {
+  const helpers = { i18n: ZogographI18n };
+  renderCoreCardPackage(ZogographCpuShellCard, 'core-cpu-shell', {}, helpers);
+  ZogographI18n.applyRich(
+    document.querySelector('[data-i18n-rich="core-cpu-shell.help"]'),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderCpuShellLabels);
+
 function renderCpuGaugesTitle() {
   const helpers = {
     target: null,

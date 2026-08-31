@@ -5897,29 +5897,12 @@ function renderAiSettings(data) {
     ),
   );
 
-  const floor = document.createElement('select');
-  floor.id = 'aiAlertFloor';
-  for (const [value, labelKey, label] of [
-    ['error', 'alert_floor_error', 'never for error or critical'],
-    ['warning', 'alert_floor_warning', 'never for warning and above'],
-    ['critical', 'alert_floor_critical', 'never for critical'],
-    ['none', 'alert_floor_none', 'any of them, including critical'],
-  ]) {
-    const option = document.createElement('option');
-    option.value = value;
-    option.textContent = aiSettingsText(labelKey, label);
-    option.selected = (data.alerts?.never_above ?? 'error') === value;
-    floor.appendChild(option);
-  }
   unattended.appendChild(
-    fieldRow(
-      aiSettingsText('alert_floor_label', 'Except'),
-      floor,
-      aiSettingsText(
-        'alert_floor_help',
-        "A critical alert is the one case where a delay and a model's opinion are both worse " +
-          'than a plain fast message. Left at the default it never touches those.',
-      ),
+    renderCoreCardPackage(
+      ZogographAiAlertSafetyFloorCard,
+      'core-ai-alert-safety-floor',
+      data,
+      { fieldRow, i18n: ZogographI18n },
     ),
   );
 

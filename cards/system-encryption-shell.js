@@ -109,6 +109,8 @@ window.ZogographSystemEncryptionShellCard = {
           'Verified encrypted copies protect backup artifacts, not the running SQLite database. Run `php cron.php --seal` and then `php cron.php --recovery-drill` from the server after setup. The drill decrypts and validates current copies without touching live data; schedule seals separately. Recovery requires the private key outside the web root and an explicit CLI restore.',
         'core-system-encryption-shell.bootstrap_recovery_notice':
           'Bootstrap configuration recovery is deliberately CLI-only: `scripts/restore-config.php` authenticates and parses the sealed PHP without executing it, atomically replaces `lib/config.php`, and leaves the prior configuration as a sealed rollback artifact. Test the recovered settings before deleting that artifact.',
+        'core-system-encryption-shell.superseded_copies_notice':
+          'Superseded copies remain encrypted with an earlier local key after rotation. Keep that key until you have completed a replacement-key recovery drill; they are not deleted automatically.',
       }),
       es: Object.freeze({
         'core-system-encryption-shell.title': 'Protección de datos',
@@ -226,6 +228,8 @@ window.ZogographSystemEncryptionShellCard = {
           'Las copias cifradas verificadas protegen los artefactos de respaldo, no la base de datos SQLite en ejecución. Ejecute `php cron.php --seal` y luego `php cron.php --recovery-drill` en el servidor después de la configuración. La prueba descifra y valida las copias actuales sin tocar datos activos; programe los sellados por separado. La recuperación requiere la clave privada fuera de la raíz web y una restauración explícita por CLI.',
         'core-system-encryption-shell.bootstrap_recovery_notice':
           'La recuperación de la configuración de arranque es deliberadamente solo por CLI: `scripts/restore-config.php` autentica y analiza el PHP sellado sin ejecutarlo, reemplaza atómicamente `lib/config.php` y deja la configuración anterior como artefacto de reversión sellado. Pruebe los ajustes recuperados antes de eliminar ese artefacto.',
+        'core-system-encryption-shell.superseded_copies_notice':
+          'Las copias sustituidas siguen cifradas con una clave local anterior tras la rotación. Conserve esa clave hasta completar una prueba de recuperación con clave de reemplazo; no se eliminan automáticamente.',
       }),
       hi: Object.freeze({
         'core-system-encryption-shell.title': 'डेटा सुरक्षा',
@@ -331,6 +335,8 @@ window.ZogographSystemEncryptionShellCard = {
           'सत्यापित एन्क्रिप्टेड प्रतियाँ बैकअप आर्टिफैक्ट की सुरक्षा करती हैं, चल रहे SQLite डेटाबेस की नहीं। सेटअप के बाद सर्वर से `php cron.php --seal` और फिर `php cron.php --recovery-drill` चलाएँ। ड्रिल लाइव डेटा को छुए बिना वर्तमान प्रतियों को डिक्रिप्ट और सत्यापित करती है; सील को अलग से शेड्यूल करें। पुनर्प्राप्ति के लिए वेब रूट के बाहर निजी कुंजी और स्पष्ट CLI रिस्टोर आवश्यक है।',
         'core-system-encryption-shell.bootstrap_recovery_notice':
           'बूटस्ट्रैप कॉन्फ़िगरेशन पुनर्प्राप्ति जानबूझकर केवल CLI है: `scripts/restore-config.php` सील किए गए PHP को निष्पादित किए बिना प्रमाणित और पार्स करता है, `lib/config.php` को परमाणु रूप से बदलता है और पिछली कॉन्फ़िगरेशन को सील किए रोलबैक आर्टिफैक्ट के रूप में रखता है। उस आर्टिफैक्ट को हटाने से पहले पुनर्प्राप्त सेटिंग्स जाँचें।',
+        'core-system-encryption-shell.superseded_copies_notice':
+          'रोटेशन के बाद बदली गई प्रतियाँ पुराने स्थानीय कुंजी से एन्क्रिप्टेड रहती हैं। प्रतिस्थापन-कुंजी पुनर्प्राप्ति ड्रिल पूरी होने तक उस कुंजी को रखें; वे अपने-आप नहीं हटतीं।',
       }),
       ar: Object.freeze({
         'core-system-encryption-shell.title': 'حماية البيانات',
@@ -432,6 +438,8 @@ window.ZogographSystemEncryptionShellCard = {
           'تحمي النسخ المشفرة المتحقق منها عناصر النسخ الاحتياطي، لا قاعدة بيانات SQLite العاملة. شغّل `php cron.php --seal` ثم `php cron.php --recovery-drill` من الخادم بعد الإعداد. يفك التمرين تشفير النسخ الحالية ويتحقق منها دون لمس البيانات الحية؛ جدولة الختم منفصلة. يتطلب الاسترداد المفتاح الخاص خارج جذر الويب واستعادة CLI صريحة.',
         'core-system-encryption-shell.bootstrap_recovery_notice':
           'استرداد إعدادات التمهيد مقصور عمدًا على CLI: يتحقق `scripts/restore-config.php` من PHP المختوم ويحلله دون تنفيذه، ويستبدل `lib/config.php` ذريًا، ويترك الإعداد السابق كعنصر تراجع مختوم. اختبر الإعدادات المستردة قبل حذف ذلك العنصر.',
+        'core-system-encryption-shell.superseded_copies_notice':
+          'تبقى النسخ المستبدلة مشفرة بمفتاح محلي أقدم بعد التدوير. احتفظ بذلك المفتاح حتى تكمل تمرين استرداد بمفتاح بديل؛ لا تُحذف تلقائيًا.',
       }),
       zh: Object.freeze({
         'core-system-encryption-shell.title': '数据保护',
@@ -526,6 +534,8 @@ window.ZogographSystemEncryptionShellCard = {
           '已验证的加密副本保护的是备份工件，而不是正在运行的 SQLite 数据库。完成设置后，请在服务器上运行 `php cron.php --seal`，再运行 `php cron.php --recovery-drill`。演练会解密并验证当前副本而不触及实时数据；请单独安排封存任务。恢复需要位于 Web 根目录之外的私钥，以及明确的 CLI 还原操作。',
         'core-system-encryption-shell.bootstrap_recovery_notice':
           '引导配置恢复被刻意限制为仅 CLI：`scripts/restore-config.php` 会对封存的 PHP 进行验证和解析而不执行它，以原子方式替换 `lib/config.php`，并将原配置保留为封存的回滚工件。删除该工件前请测试恢复后的设置。',
+        'core-system-encryption-shell.superseded_copies_notice':
+          '轮换后，被取代的副本仍使用较早的本地密钥加密。完成替换密钥恢复演练前请保留该密钥；它们不会自动删除。',
       }),
     }),
   }),

@@ -15979,15 +15979,7 @@ function renderEncryptionStatus(data) {
       ),
     );
     if (superseded)
-      parts.push(
-        note(
-          ZogographI18n.t(
-            'encryption.superseded_copies_notice',
-            {},
-            'Superseded copies remain encrypted with an earlier local key after rotation. Keep that key until you have completed a replacement-key recovery drill; they are not deleted automatically.',
-          ),
-        ),
-      );
+      parts.push(note(encryptionText('superseded_copies_notice')));
     if (data.can_change) {
       const actions = document.createElement('div');
       actions.className = 'row-actions';

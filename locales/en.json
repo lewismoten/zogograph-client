@@ -403,7 +403,6 @@
   "database.forensic_views": "Database and forensic views",
   "database.dashboard_collector": "maintained by the dashboard collector",
   "database.table_metadata": "Used by: {{where}}. Collected by: {{collected}}. Inspect: sqlite3 <database> \"SELECT COUNT(*) FROM {{name}};\"",
-  "encryption.superseded_copies_notice": "Superseded copies remain encrypted with an earlier local key after rotation. Keep that key until you have completed a replacement-key recovery drill; they are not deleted automatically.",
   "network.nothing_recorded": "Nothing recorded.",
   "scan.host_collector_disabled": "The host collector is not enabled, so none of these run. ",
   "scan.dashboard_browsing": "Somebody has the dashboard open right now (last seen {{when}}), so anything set to speed up while browsing is currently on its shorter interval.",

@@ -404,7 +404,6 @@
   "database.forensic_views": "数据库和取证视图",
   "database.dashboard_collector": "由仪表板收集器维护",
   "database.table_metadata": "用途：{{where}}。收集方式：{{collected}}。检查：sqlite3 <database> \"SELECT COUNT(*) FROM {{name}};\"",
-  "encryption.superseded_copies_notice": "轮换后，被取代的副本仍使用较早的本地密钥加密。完成替换密钥恢复演练前请保留该密钥；它们不会自动删除。",
   "network.nothing_recorded": "没有已记录的内容。",
   "scan.host_collector_disabled": "主机收集器未启用，因此这些任务都不会运行。 ",
   "scan.dashboard_browsing": "目前有人打开了仪表板（最后一次看到是在 {{when}}），因此设置为浏览时加快的所有项目当前都在较短间隔运行。",

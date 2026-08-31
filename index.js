@@ -7240,34 +7240,16 @@ function chatChartCard(message) {
 
 /** A visual whose numbers came from the assistant, rather than a built-in chart. */
 function chatAssistantVisualCard(message) {
-  const cached = chatState.charts.get(message.id);
-  if (cached) return cached;
-  const card = document.createElement('div');
-  card.className = 'chat-chart';
-  const head = document.createElement('div');
-  head.className = 'chat-chart-head';
-  head.textContent =
-    message.arguments.title ||
-    ZogographI18n.t('chart.assistant_visual', {}, 'Assistant visual');
-  const canvas = document.createElement('canvas');
-  canvas.className = 'chat-chart-canvas';
-  const caption = document.createElement('div');
-  caption.className = 'muted small';
-  caption.textContent = message.arguments.why || '';
-  card.append(head, canvas, caption);
-  chatState.charts.set(message.id, card);
-  requestAnimationFrame(() => {
-    try {
-      drawAssistantVisual(canvas, message.arguments);
-    } catch (error) {
-      caption.textContent = ZogographI18n.t(
-        'chart.error',
-        { error: String(error.message || error) },
-        'Could not draw this visual: {{error}}',
-      );
-    }
-  });
-  return card;
+  return renderCoreCardPackage(
+    ZogographChatAssistantVisualCard,
+    'core-chat-assistant-visual',
+    message,
+    {
+      charts: chatState.charts,
+      draw: drawAssistantVisual,
+      i18n: ZogographI18n,
+    },
+  );
 }
 
 function drawAssistantVisual(canvas, args) {

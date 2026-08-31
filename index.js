@@ -1943,6 +1943,11 @@ function renderRoomChartLabels() {
         ZogographRoomChart.text(key, helpers),
       );
     });
+  for (const key of ['help', 'rates_help']) {
+    ZogographI18n.applyRich(
+      document.querySelector(`[data-i18n-rich="core-cpu-queue.${key}"]`),
+    );
+  }
 }
 
 document.addEventListener('zogograph-i18n-load', renderRoomChartLabels);

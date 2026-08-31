@@ -11,6 +11,10 @@ window.ZogographCpuQueueCard = {
           'The queue, and the load average beside it',
         'core-cpu-queue.rates_title':
           'Context switches, interrupts and new processes',
+        'core-cpu-queue.help':
+          'Why a load average of 40 can sit on a machine that is 5% busy. Load is a queue length, not a processor reading: it counts everything runnable {{and}} everything stuck in uninterruptible sleep waiting on storage, so a hung disk drives it into the dozens while the cores idle. These are the figures that tell those two apart.',
+        'core-cpu-queue.rates_help':
+          'The counters that explain a machine which is busy while nothing on it looks busy. A high fork rate with an empty process table means the work is arriving and leaving between readings. Context switches climbing without more work arriving means time is going into scheduling rather than into the jobs being scheduled.',
         'core-cpu-queue.wanting_to_run': 'Wanting to run',
         'core-cpu-queue.across_cores': 'across {{count, number}} cores',
         'core-cpu-queue.cores_unknown': 'cores unknown',
@@ -52,6 +56,10 @@ window.ZogographCpuQueueCard = {
           'La cola y el promedio de carga junto a ella',
         'core-cpu-queue.rates_title':
           'Cambios de contexto, interrupciones y procesos nuevos',
+        'core-cpu-queue.help':
+          'Por qué un promedio de carga de 40 puede estar en una máquina ocupada solo al 5%. La carga es una longitud de cola, no una lectura del procesador: cuenta todo lo ejecutable {{and}} todo lo bloqueado en suspensión ininterrumpible a la espera de almacenamiento, por lo que un disco bloqueado la eleva a decenas mientras los núcleos permanecen inactivos. Estas son las cifras que distinguen ambas situaciones.',
+        'core-cpu-queue.rates_help':
+          'Los contadores que explican una máquina ocupada mientras nada en ella parece estarlo. Una alta tasa de forks con una tabla de procesos vacía significa que el trabajo llega y se va entre lecturas. Que aumenten los cambios de contexto sin que llegue más trabajo significa que el tiempo se dedica a planificar, no a los trabajos planificados.',
         'core-cpu-queue.wanting_to_run': 'Esperando ejecutar',
         'core-cpu-queue.across_cores': 'en {{count, number}} núcleos',
         'core-cpu-queue.cores_unknown': 'núcleos desconocidos',
@@ -94,6 +102,10 @@ window.ZogographCpuQueueCard = {
         'core-cpu-queue.chart_title': 'कतार और उसके पास लोड औसत',
         'core-cpu-queue.rates_title':
           'कॉन्टेक्स्ट स्विच, इंटरप्ट और नए प्रोसेस',
+        'core-cpu-queue.help':
+          '40 का लोड औसत ऐसी मशीन पर क्यों हो सकता है जो केवल 5% व्यस्त है। लोड प्रोसेसर रीडिंग नहीं, कतार की लंबाई है: यह चल सकने वाली हर चीज़ {{and}} संग्रहण की प्रतीक्षा में uninterruptible sleep में अटकी हर चीज़ गिनता है; इसलिए अटका हुआ डिस्क कोरों के निष्क्रिय रहते हुए इसे दर्जनों तक ले जाता है। ये आंकड़े उन दोनों को अलग बताते हैं।',
+        'core-cpu-queue.rates_help':
+          'वे काउंटर जो ऐसी मशीन समझाते हैं जो व्यस्त है पर उस पर कुछ व्यस्त नहीं दिखता। खाली प्रोसेस तालिका के साथ ऊँची fork दर का अर्थ है काम रीडिंग के बीच आता-जाता है। अधिक काम आए बिना बढ़ते कॉन्टेक्स्ट स्विच का अर्थ है समय शेड्यूल किए जा रहे कार्यों के बजाय शेड्यूलिंग में जा रहा है।',
         'core-cpu-queue.wanting_to_run': 'चलने की प्रतीक्षा',
         'core-cpu-queue.across_cores': '{{count, number}} कोर में',
         'core-cpu-queue.cores_unknown': 'कोर अज्ञात',
@@ -134,6 +146,10 @@ window.ZogographCpuQueueCard = {
         'core-cpu-queue.chart_title': 'الطابور ومتوسط الحمل بجانبه',
         'core-cpu-queue.rates_title':
           'تبديلات السياق والمقاطعات والعمليات الجديدة',
+        'core-cpu-queue.help':
+          'لماذا قد يكون متوسط حمل 40 على آلة مشغولة بنسبة 5% فقط. الحمل طول طابور لا قراءة للمعالج: فهو يحسب كل ما يمكن تشغيله {{and}} كل ما علق في نوم غير قابل للمقاطعة منتظرًا التخزين، لذا يدفعه قرص معلق إلى العشرات بينما الأنوية خاملة. هذه هي الأرقام التي تفرق بين الحالتين.',
+        'core-cpu-queue.rates_help':
+          'العدادات التي تفسر آلة مشغولة بينما لا يبدو شيء فيها مشغولًا. معدل fork مرتفع مع جدول عمليات فارغ يعني أن العمل يصل ويغادر بين القراءات. ارتفاع تبديلات السياق دون وصول عمل أكثر يعني أن الوقت يذهب إلى الجدولة لا إلى الوظائف التي تُجدول.',
         'core-cpu-queue.wanting_to_run': 'يريد التشغيل',
         'core-cpu-queue.across_cores': 'عبر {{count, number}} نوى',
         'core-cpu-queue.cores_unknown': 'عدد النوى غير معروف',
@@ -173,6 +189,10 @@ window.ZogographCpuQueueCard = {
         'core-cpu-queue.title': '等待运行',
         'core-cpu-queue.chart_title': '队列及其旁边的负载平均值',
         'core-cpu-queue.rates_title': '上下文切换、中断和新进程',
+        'core-cpu-queue.help':
+          '为什么负载平均值为 40 的机器可能只忙了 5%。负载是队列长度，而非处理器读数：它统计所有可运行的任务 {{and}} 所有在不可中断睡眠中等待存储的任务，因此卡住的磁盘会在核心空闲时把它推到几十。这些数值可区分这两种情况。',
+        'core-cpu-queue.rates_help':
+          '这些计数器解释了机器很忙但其上看起来没有任何东西在忙的情况。进程表为空而 fork 率很高，表示工作在两次读数之间到来又离开。没有更多工作到来时上下文切换持续增长，表示时间花在调度而非被调度的作业上。',
         'core-cpu-queue.wanting_to_run': '等待运行',
         'core-cpu-queue.across_cores': '跨 {{count, number}} 个核心',
         'core-cpu-queue.cores_unknown': '核心数未知',

@@ -26327,7 +26327,7 @@ function drawUptimeChart(from, to) {
   const rows = [
     {
       key: 'machine',
-      label: ZogographI18n.t('uptime.machine', {}, 'The machine'),
+      label: ZogographUptimeCard.text('machine', { i18n: ZogographI18n }),
       height: 34,
     },
     ...tracks.map((track) => ({
@@ -26622,7 +26622,9 @@ function renderUptime() {
 
   const bands = [
     ...(a.outages || []).map((o) => ({
-      kind: ZogographI18n.t('uptime.restarted', {}, 'Restarted'),
+      kind: ZogographUptimeEventsCard.text('restarted', {
+        i18n: ZogographI18n,
+      }),
       from: o.from,
       to: o.to,
       seconds: o.seconds_at_most,
@@ -26642,7 +26644,9 @@ function renderUptime() {
      * rather than in the label.
      */
     ...(a.gaps || []).map((g) => ({
-      kind: ZogographI18n.t('uptime.reading_gap', {}, 'Reading gap'),
+      kind: ZogographUptimeEventsCard.text('reading_gap', {
+        i18n: ZogographI18n,
+      }),
       from: g.from,
       to: g.to,
       seconds: g.seconds,

@@ -14,6 +14,7 @@ window.ZogographUptimeEventsCard = {
         'core-uptime-events.until': 'Until',
         'core-uptime-events.for': 'For',
         'core-uptime-events.meaning': 'What it means',
+        'core-uptime-events.reading_gap': 'Reading gap',
       }),
       es: Object.freeze({
         'core-uptime-events.empty':
@@ -24,6 +25,7 @@ window.ZogographUptimeEventsCard = {
         'core-uptime-events.until': 'Hasta',
         'core-uptime-events.for': 'Durante',
         'core-uptime-events.meaning': 'Qué significa',
+        'core-uptime-events.reading_gap': 'Hueco de lecturas',
       }),
       hi: Object.freeze({
         'core-uptime-events.empty':
@@ -34,6 +36,7 @@ window.ZogographUptimeEventsCard = {
         'core-uptime-events.until': 'तक',
         'core-uptime-events.for': 'अवधि',
         'core-uptime-events.meaning': 'इसका अर्थ',
+        'core-uptime-events.reading_gap': 'रीडिंग अंतराल',
       }),
       ar: Object.freeze({
         'core-uptime-events.empty':
@@ -44,6 +47,7 @@ window.ZogographUptimeEventsCard = {
         'core-uptime-events.until': 'حتى',
         'core-uptime-events.for': 'لمدة',
         'core-uptime-events.meaning': 'ما معناه',
+        'core-uptime-events.reading_gap': 'فجوة في القراءات',
       }),
       zh: Object.freeze({
         'core-uptime-events.empty':
@@ -54,6 +58,7 @@ window.ZogographUptimeEventsCard = {
         'core-uptime-events.until': '到',
         'core-uptime-events.for': '持续',
         'core-uptime-events.meaning': '含义',
+        'core-uptime-events.reading_gap': '读数缺口',
       }),
     }),
   }),

@@ -30,6 +30,7 @@ window.ZogographUptimeCard = {
         'core-uptime.down_at_most': 'at most {{duration}} down',
         'core-uptime.not_recorded': '{{duration}} not recorded',
         'core-uptime.no_readings_window': 'No readings in this window.',
+        'core-uptime.machine': 'The machine',
       }),
       es: Object.freeze({
         'core-uptime.title': 'Tiempo de actividad e interrupciones',
@@ -48,6 +49,7 @@ window.ZogographUptimeCard = {
         'core-uptime.down_at_most': 'caído como máximo {{duration}}',
         'core-uptime.not_recorded': '{{duration}} sin registrar',
         'core-uptime.no_readings_window': 'No hay lecturas en esta ventana.',
+        'core-uptime.machine': 'La máquina',
       }),
       hi: Object.freeze({
         'core-uptime.title': 'अपटाइम और आउटेज',
@@ -65,6 +67,7 @@ window.ZogographUptimeCard = {
         'core-uptime.down_at_most': 'अधिकतम {{duration}} बंद',
         'core-uptime.not_recorded': '{{duration}} दर्ज नहीं',
         'core-uptime.no_readings_window': 'इस अवधि में कोई रीडिंग नहीं है।',
+        'core-uptime.machine': 'मशीन',
       }),
       ar: Object.freeze({
         'core-uptime.title': 'مدة التشغيل والانقطاعات',
@@ -83,6 +86,7 @@ window.ZogographUptimeCard = {
         'core-uptime.down_at_most': 'متوقف لمدة {{duration}} على الأكثر',
         'core-uptime.not_recorded': '{{duration}} غير مسجلة',
         'core-uptime.no_readings_window': 'لا توجد قراءات في هذه النافذة.',
+        'core-uptime.machine': 'الجهاز',
       }),
       zh: Object.freeze({
         'core-uptime.title': '运行时间与中断',
@@ -99,13 +103,16 @@ window.ZogographUptimeCard = {
         'core-uptime.down_at_most': '最多停机 {{duration}}',
         'core-uptime.not_recorded': '有 {{duration}} 未记录',
         'core-uptime.no_readings_window': '此窗口中没有读数。',
+        'core-uptime.machine': '此机器',
       }),
     }),
   }),
-  text(key, helpers) {
+  text(key, valuesOrHelpers = {}, maybeHelpers = null) {
+    const helpers = maybeHelpers || valuesOrHelpers;
+    const values = maybeHelpers ? valuesOrHelpers : {};
     return helpers.i18n.t(
       `core-uptime.${key}`,
-      {},
+      values,
       this.manifest.catalogs.en[`core-uptime.${key}`],
     );
   },

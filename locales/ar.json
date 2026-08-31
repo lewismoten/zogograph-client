@@ -2122,8 +2122,6 @@
   "storage.kind_files": "ملفات",
   "storage.kind_directories": "مجلدات",
   "storage.path": "المسار",
-  "storage.kind": "النوع",
-  "storage.directory": "مجلد",
   "storage.size": "الحجم",
   "storage.files_right": "الملفات (يمين)",
   "storage.link": "الرابط",

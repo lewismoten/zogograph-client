@@ -2126,8 +2126,6 @@
   "storage.kind_files": "Archivos",
   "storage.kind_directories": "Directorios",
   "storage.path": "Ruta",
-  "storage.kind": "Tipo",
-  "storage.directory": "directorio",
   "storage.size": "Tamaño",
   "storage.files_right": "Archivos (derecha)",
   "storage.link": "Enlace",

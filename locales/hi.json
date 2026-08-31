@@ -2126,8 +2126,6 @@
   "storage.kind_files": "फ़ाइलें",
   "storage.kind_directories": "डायरेक्टरी",
   "storage.path": "पथ",
-  "storage.kind": "प्रकार",
-  "storage.directory": "डायरेक्टरी",
   "storage.size": "आकार",
   "storage.files_right": "फ़ाइलें (दायां)",
   "storage.link": "लिंक",

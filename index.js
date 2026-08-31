@@ -29990,6 +29990,13 @@ async function inspect(path) {
 }
 
 function renderInspect(data) {
+  const factsText = (key) =>
+    renderCoreCardPackage(
+      ZogographStorageInspectorFactsCard,
+      'core-storage-inspector-facts',
+      { key },
+      { i18n: ZogographI18n },
+    );
   const body = $('inspectBody');
   const parts = [];
 
@@ -29999,10 +30006,8 @@ function renderInspect(data) {
   const f = data.facts;
   const facts = [
     [
-      ZogographI18n.t('storage.kind', {}, 'Kind'),
-      data.kind === 'dir'
-        ? ZogographI18n.t('storage.directory', {}, 'directory')
-        : data.kind,
+      factsText('kind'),
+      data.kind === 'dir' ? factsText('directory') : data.kind,
     ],
     [
       ZogographI18n.t('storage.size', {}, 'Size'),

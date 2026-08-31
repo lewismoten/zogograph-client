@@ -2198,8 +2198,6 @@
   "storage.kind_files": "Files",
   "storage.kind_directories": "Directories",
   "storage.path": "Path",
-  "storage.kind": "Kind",
-  "storage.directory": "directory",
   "storage.size": "Size",
   "storage.files_right": "Files (right)",
   "storage.link": "Link",

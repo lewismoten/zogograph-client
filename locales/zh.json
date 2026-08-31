@@ -2122,8 +2122,6 @@
   "storage.kind_files": "文件",
   "storage.kind_directories": "目录",
   "storage.path": "路径",
-  "storage.kind": "类型",
-  "storage.directory": "目录",
   "storage.size": "大小",
   "storage.files_right": "文件（右侧）",
   "storage.link": "链接",

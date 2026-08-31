@@ -1,3 +1,4 @@
 {
-  "core-ai-request-from-host.summary": "请求 root 收集器在下次运行时执行操作。"
+  "core-ai-request-from-host.summary": "请求 root 收集器在下次运行时执行操作。",
+  "core-ai-request-from-host.activity": "向主机收集器请求了任务"
 }

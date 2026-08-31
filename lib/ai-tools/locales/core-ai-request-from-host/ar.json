@@ -1,3 +1,4 @@
 {
-  "core-ai-request-from-host.summary": "اطلب من جامع root أن يفعل شيئاً عند تشغيله التالي."
+  "core-ai-request-from-host.summary": "اطلب من جامع root أن يفعل شيئاً عند تشغيله التالي.",
+  "core-ai-request-from-host.activity": "طلب عملاً من جامع المضيف"
 }

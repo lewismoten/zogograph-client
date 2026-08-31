@@ -1,3 +1,4 @@
 {
-  "core-ai-request-from-host.summary": "Ask root's collector to do something on its next run."
+  "core-ai-request-from-host.summary": "Ask root's collector to do something on its next run.",
+  "core-ai-request-from-host.activity": "Requested work from the host collector"
 }

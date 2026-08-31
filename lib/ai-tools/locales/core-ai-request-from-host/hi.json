@@ -1,3 +1,4 @@
 {
-  "core-ai-request-from-host.summary": "रूट के कलेक्टर से उसके अगले रन पर कुछ करने को कहें।"
+  "core-ai-request-from-host.summary": "रूट के कलेक्टर से उसके अगले रन पर कुछ करने को कहें।",
+  "core-ai-request-from-host.activity": "होस्ट कलेक्टर से काम का अनुरोध किया"
 }

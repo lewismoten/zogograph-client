@@ -1,3 +1,4 @@
 {
-  "core-ai-request-from-host.summary": "Pida al recolector de root que haga algo en su próxima ejecución."
+  "core-ai-request-from-host.summary": "Pida al recolector de root que haga algo en su próxima ejecución.",
+  "core-ai-request-from-host.activity": "Solicitó trabajo al recolector del host"
 }

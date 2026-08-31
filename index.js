@@ -34905,7 +34905,13 @@ function renderUrls(data) {
           const secure = String(row.url || '').startsWith('https:');
           const mark = document.createElement('span');
           mark.textContent = secure ? '\u{1F512} ' : '\u{1F513} ';
-          mark.title = secure ? 'https' : 'http \u2014 not encrypted';
+          mark.title = secure
+            ? 'https'
+            : `http \u2014 ${ZogographI18n.t(
+                'network.not_encrypted',
+                {},
+                'not encrypted',
+              )}`;
           span.appendChild(mark);
 
           const name = document.createElement('span');

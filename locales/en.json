@@ -2398,8 +2398,6 @@
   "network.dns_sweep": "Look it all up",
   "network.dns_records_help": "A name resolving is not the same as a zone being right. Mail stops arriving because an MX was dropped or an SPF edited; a subdomain starts pointing somewhere that is not yours; a TTL cut to sixty seconds during a migration is never put back. None of that shows anywhere else here. Names come from a zone transfer where your nameserver allows one, from cPanel's own record of this account's domains, and from what was found last time — not from guessing at names.",
   "network.dns_change_help": "A record that stops resolving is kept and marked gone rather than deleted — ‘the MX disappeared last Tuesday’ is the question somebody asks a week later, and a deleted row cannot answer it.",
-  "system.whoami_title": "Who am I?",
-  "system.whoami_help": "Two identities that get confused constantly: the browser at the other end, and the account this process runs as. The second is the one that answers permission questions — ‘this account cannot read that’ means nothing until you know which account it is.",
   "action.recheck": "Recheck",
   "capabilities.title": "Capabilities",
   "capabilities.show": "Show",

@@ -3900,6 +3900,28 @@ document.addEventListener(
   renderSystemSnapshotsShellTitle,
 );
 
+function renderSystemWhoamiShellTitle() {
+  const helpers = { i18n: ZogographI18n };
+  renderCoreCardPackage(
+    ZogographSystemWhoamiShellCard,
+    'core-system-whoami-shell',
+    {},
+    helpers,
+  );
+  for (const key of ['title', 'help']) {
+    const element = document.querySelector(
+      `[data-i18n="core-system-whoami-shell.${key}"]`,
+    );
+    element.textContent = ZogographI18n.markSource(
+      element,
+      `core-system-whoami-shell.${key}`,
+      ZogographSystemWhoamiShellCard.text(key, helpers),
+    );
+  }
+}
+
+document.addEventListener('zogograph-i18n-load', renderSystemWhoamiShellTitle);
+
 function renderChangeHistoryTitle() {
   const helpers = {
     target: null,

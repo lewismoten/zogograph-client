@@ -95,6 +95,7 @@
     <script src="cards/system-health-shell.js" defer></script>
     <script src="cards/system-monitor-shell.js" defer></script>
     <script src="cards/system-snapshots-shell.js" defer></script>
+    <script src="cards/system-whoami-shell.js" defer></script>
     <script src="cards/fetch-headers.js" defer></script>
     <script src="cards/fetch-metadata.js" defer></script>
     <script src="cards/fetch-json.js" defer></script>
@@ -3524,7 +3525,7 @@
         <section class="view" data-view="whoami" hidden>
           <section class="panel" id="whoamiPanel">
             <div class="panel-head">
-              <h2 data-i18n="system.whoami_title">Who am I?</h2>
+              <h2 data-i18n="core-system-whoami-shell.title">Who am I?</h2>
               <button
                 id="whoamiRefresh"
                 class="link"
@@ -3533,7 +3534,10 @@
                 Recheck
               </button>
             </div>
-            <p class="muted small sub-note" data-i18n="system.whoami_help">
+            <p
+              class="muted small sub-note"
+              data-i18n="core-system-whoami-shell.help"
+            >
               Two identities that get confused constantly: the browser at the
               other end, and the account this process runs as. The second is the
               one that answers permission questions — &ldquo;this account cannot

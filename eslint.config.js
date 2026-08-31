@@ -53,6 +53,7 @@ export default [
         ZogographSystemHealthShellCard: 'readonly',
         ZogographSystemMonitorShellCard: 'readonly',
         ZogographSystemSnapshotsShellCard: 'readonly',
+        ZogographSystemWhoamiShellCard: 'readonly',
         ZogographFetchHeadersCard: 'readonly',
         ZogographFetchMetadataCard: 'readonly',
         ZogographFetchJsonCard: 'readonly',

@@ -9780,25 +9780,12 @@ function renderChatRoom(session) {
    * to find out what it does, which on this particular control is the one thing
    * they should not do by accident.
    */
-  const left = Math.max(0, room.soft - room.tokens);
-  const towards =
-    room.soft > 0 ? Math.round((room.tokens / room.soft) * 100) : 0;
-
-  const explains = room.full
-    ? room.automatic
-      ? `Full. The older half gets summarised on the next turn, automatically.\n\n` +
-        `Click to do it now instead.`
-      : `Full, and automatic summarising is switched off — so this conversation will ` +
-        `eventually be refused by the provider.\n\nClick to summarise it now.`
-    : `About ${towards}% of the way to the point where the older half is summarised — ` +
-      `roughly ${humanCount(left)} more tokens.\n\nClick to summarise it now instead ` +
-      `of waiting.`;
-
-  const full =
-    `${explains}\n\nNothing is deleted: the messages stay in the panel and in ` +
-    `the record, and a marker shows where the model's view begins. ` +
-    `About ${humanCount(room.tokens)} of ${humanCount(room.window)} tokens are in use, ` +
-    `estimated from the length of the conversation rather than reported by the provider.`;
+  const full = renderCoreCardPackage(
+    ZogographChatContextCard,
+    'core-chat-context',
+    { kind: 'context', room },
+    { count, humanCount, i18n: ZogographI18n },
+  );
 
   spot.setAttribute('aria-label', full);
   spot.tabIndex = 0;
@@ -9828,9 +9815,12 @@ function renderChatRoom(session) {
        * to look at, so the message points at it.
        */
       notice(
-        `${count(result.compacted, 'message')} summarised. They are still in the ` +
-          "conversation — the dashed line shows where the model's view now begins, and " +
-          'opens onto the summary.',
+        renderCoreCardPackage(
+          ZogographChatContextCard,
+          'core-chat-context',
+          { kind: 'compacted', compacted: result.compacted },
+          { count, humanCount, i18n: ZogographI18n },
+        ),
         true,
       );
       renderChat();

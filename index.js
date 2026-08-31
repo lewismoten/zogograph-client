@@ -3025,6 +3025,24 @@ function renderDnsRecordGroupTitle() {
 
 document.addEventListener('zogograph-i18n-load', renderDnsRecordGroupTitle);
 
+function renderDomainQueueTitle() {
+  const helpers = { note: () => null, i18n: ZogographI18n };
+  renderCoreCardPackage(
+    ZogographDomainQueueCard,
+    'core-domain-queue',
+    { queue: null, rows: [] },
+    helpers,
+  );
+  const title = document.querySelector('[data-i18n="core-domain-queue.title"]');
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-domain-queue.title',
+    ZogographDomainQueueCard.text('title', helpers),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderDomainQueueTitle);
+
 /**
  * When the disk is projected to fill, as a date.
  *

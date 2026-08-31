@@ -2397,7 +2397,6 @@
   "calendar.upcoming_title": "Qué viene",
   "calendar.add_date": "Añadir una fecha",
   "calendar.upcoming_help": "Tres meses atrás y doce adelante. Aquí se calculan los vencimientos de dominios y la fecha prevista de disco lleno; las renovaciones, facturas y todo lo demás que solo usted sabe son lo que añade. Detrás quedan las alertas críticas que se activaron, de modo que «qué cambió entonces» tiene respuesta.",
-  "network.domains_title": "Nombres de dominio",
   "network.domains_help": "El vencimiento de un dominio es la avería que nada más aquí puede anticipar. Disco, memoria, CPU y comprobaciones HTTP siguen en verde hasta que el nombre deja de resolverse; entonces todo falla a la vez por una causa que no aparece en ningún registro. Se comprueba semanalmente: un registro no cambia entre martes y los servidores whois limitan a quien pregunta más a menudo.",
   "network.domain_warn": "avisar",
   "network.domain_days_before": "días antes",

@@ -42843,13 +42843,12 @@ document.addEventListener('click', async (event) => {
 
     if (result.ok) {
       said.className = 'band-ok small';
-      said.textContent =
-        `It answered \u201c${result.said}\u201d in ${result.ms} ms` +
-        ` and accepted the tools. ${humanCount(result.tokens.in + result.tokens.out)} tokens` +
-        (result.tokens.reasoning
-          ? `, ${humanCount(result.tokens.reasoning)} of them thinking`
-          : '') +
-        `, about ${result.cost}.`;
+      said.textContent = renderCoreCardPackage(
+        ZogographAiConnectionTestCard,
+        'core-ai-connection-test',
+        { kind: 'success', result, humanCount },
+        { note, i18n: ZogographI18n },
+      );
     } else {
       said.className = 'band-crit small';
       said.textContent = `${result.error}${result.hint ? ' — ' + result.hint : ''}`;

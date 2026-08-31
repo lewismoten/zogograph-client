@@ -21974,12 +21974,11 @@ async function sweepLinks(pattern, confirmed = false) {
 
   if (!result.matched) {
     parts.push(
-      note(
-        ZogographI18n.t(
-          'storage.link_sweep_no_match',
-          {},
-          'No link with a problem is under that path. Everything below what you type is included, however deep, so there is no need to add — or count — any stars. Healthy links are never matched, so a path over a directory of working links finds nothing here by design.',
-        ),
+      renderCoreCardPackage(
+        ZogographSymlinkSweepEmptyCard,
+        'core-symlink-sweep-empty',
+        {},
+        { i18n: ZogographI18n, note },
       ),
     );
     body.replaceChildren(...parts);

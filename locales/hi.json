@@ -2322,7 +2322,6 @@
   "host.memory_card_allocated": "{{percent}}% आवंटित",
   "host.memory_card_other_kernel": "अन्य कर्नेल/सिस्टम मेमोरी",
   "host.memory_card_other_kernel_help": "ऊपर की श्रेणियों में प्रदर्शित नहीं",
-  "host.cloudlinux_limits": "CloudLinux सीमाएँ",
   "host.cloudlinux_help": "LVE सीमा पर समाप्त किया गया प्रोसेस कोई अन्य निशान नहीं छोड़ता। बढ़ती fault संख्या इसका प्रमाण है।",
   "host.services_time": "समय के साथ सेवाएँ",
   "host.services_time_help": "होस्ट कलेक्टर के लंबे समय तक चलने वाले रिकॉर्ड से हर सेवा के लिए एक पंक्ति। यह पैनल बताता है कि जून में स्थिति क्या थी।",

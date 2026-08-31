@@ -2338,7 +2338,6 @@
   "host.memory_card_allocated": "{{percent}}% allocated",
   "host.memory_card_other_kernel": "Other kernel/system memory",
   "host.memory_card_other_kernel_help": "not represented by the categories above",
-  "host.cloudlinux_limits": "CloudLinux limits",
   "host.cloudlinux_help": "A process killed for hitting an LVE limit leaves no other trace. A rising fault count is the evidence.",
   "host.services_time": "Services over time",
   "host.services_time_help": "One line per service, from the host collector's own longer-lived record. This is the panel that answers “and what was it in June?”",

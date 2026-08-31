@@ -1304,7 +1304,6 @@
   "storage.link_sweep_placeholder": "/home/your-user/public_html/previews",
   "processes.pattern_placeholder": "webalizer/bin/english.*ssl_log\\.bkup",
   "image.portrait_alt": "{{name}}，按其自我描述",
-  "image.note_picture_alt": "{{label}}，如同写下此笔记时所绘制",
   "image.chart_alt": "{{chart}} 图表",
   "package.probe_sqlcipher": "运行 SQLCipher 预检",
   "package.probe_custody": "测试托管端点",

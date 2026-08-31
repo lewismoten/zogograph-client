@@ -17349,11 +17349,9 @@ async function showNoteSnapshots(row) {
       const picture = document.createElement('img');
       picture.className = 'note-picture';
       picture.src = `noteimage.php?id=${encodeURIComponent(snapshot.id)}`;
-      picture.alt = ZogographI18n.t(
-        'image.note_picture_alt',
-        { label: snapshot.label },
-        `${snapshot.label}, as it was drawn when this note was written`,
-      );
+      picture.alt = notesRecordsText('capture_image_alt', {
+        label: snapshot.label,
+      });
       picture.loading = 'lazy';
       item.appendChild(picture);
 

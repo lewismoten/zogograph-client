@@ -1306,7 +1306,6 @@
   "storage.link_sweep_placeholder": "/home/user/public_html/previews",
   "processes.pattern_placeholder": "webalizer/bin/english.*ssl_log\\.bkup",
   "image.portrait_alt": "{{name}}, अपने वर्णन के अनुसार",
-  "image.note_picture_alt": "{{label}}, जैसा यह नोट लिखते समय बनाया गया था",
   "image.chart_alt": "{{chart}} चार्ट",
   "package.probe_sqlcipher": "SQLCipher पूर्व-जाँच चलाएँ",
   "package.probe_custody": "कस्टडी एंडपॉइंट जाँचें",

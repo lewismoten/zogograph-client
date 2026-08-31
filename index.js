@@ -15969,15 +15969,7 @@ function renderEncryptionStatus(data) {
   } else if (data.mode === 'sealed_copies_local') {
     parts.push(note(encryptionText('sealed_copies_notice')));
     parts.push(note(encryptionText('bootstrap_recovery_notice')));
-    parts.push(
-      note(
-        ZogographI18n.t(
-          'encryption.custody_notice',
-          {},
-          'Optional remote key custody adds a separately authorized recovery envelope; it is not live-database encryption and does not upload a database or ciphertext. Before using it, configure the signed custody package, verify its endpoint and enrolled credential, review its dedicated sandbox launcher, and keep local recovery enabled. Ciphertext replica storage remains a separate future capability. Never enter a custody or relay management token, billing credential, plaintext database, or recovery key into this client.',
-        ),
-      ),
-    );
+    parts.push(note(encryptionText('custody_notice')));
     if (superseded)
       parts.push(note(encryptionText('superseded_copies_notice')));
     if (data.can_change) {

@@ -1349,7 +1349,6 @@
   "update.available": "Hay una actualización más reciente de Zogograph disponible. Recargue cuando esté listo.",
   "update.compatibility": "Hay una actualización de compatibilidad lista. Recargue antes de continuar para que este navegador use el panel correspondiente.",
   "action.reload": "Recargar ahora",
-  "encryption.custody_notice": "La custodia remota opcional de claves añade un sobre de recuperación autorizado por separado; no cifra la base de datos activa ni carga una base de datos o texto cifrado. Antes de usarla, configure el paquete de custodia firmado, verifique su punto de conexión y credencial inscrita, revise su iniciador de zona aislada y mantenga activada la recuperación local. El almacenamiento de réplicas de texto cifrado sigue siendo una capacidad independiente. Nunca introduzca en este cliente un token de administración de custodia o retransmisión, una credencial de facturación, una base de datos en texto sin cifrar ni una clave de recuperación.",
   "cpu.limit_faults": "Se registraron {{faults, number}} fallos de CPU en la última lectura de {{accounts, number}} cuenta(s). Un fallo indica que una cuenta pide más procesador del que permite su LVE y está siendo retenida: se está limitando ahora, no solo acercándose a un límite. El porcentaje de una cuenta limitada puede permanecer tranquilo en su tope; por eso debe vigilarse el número de fallos y no el porcentaje.",
   "cpu.user": "Usuario",
   "cpu.process": "Proceso",

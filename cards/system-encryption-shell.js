@@ -111,6 +111,8 @@ window.ZogographSystemEncryptionShellCard = {
           'Bootstrap configuration recovery is deliberately CLI-only: `scripts/restore-config.php` authenticates and parses the sealed PHP without executing it, atomically replaces `lib/config.php`, and leaves the prior configuration as a sealed rollback artifact. Test the recovered settings before deleting that artifact.',
         'core-system-encryption-shell.superseded_copies_notice':
           'Superseded copies remain encrypted with an earlier local key after rotation. Keep that key until you have completed a replacement-key recovery drill; they are not deleted automatically.',
+        'core-system-encryption-shell.custody_notice':
+          'Optional remote key custody adds a separately authorized recovery envelope; it is not live-database encryption and does not upload a database or ciphertext. Before using it, configure the signed custody package, verify its endpoint and enrolled credential, review its dedicated sandbox launcher, and keep local recovery enabled. Ciphertext replica storage remains a separate future capability. Never enter a custody or relay management token, billing credential, plaintext database, or recovery key into this client.',
       }),
       es: Object.freeze({
         'core-system-encryption-shell.title': 'Protección de datos',
@@ -230,6 +232,8 @@ window.ZogographSystemEncryptionShellCard = {
           'La recuperación de la configuración de arranque es deliberadamente solo por CLI: `scripts/restore-config.php` autentica y analiza el PHP sellado sin ejecutarlo, reemplaza atómicamente `lib/config.php` y deja la configuración anterior como artefacto de reversión sellado. Pruebe los ajustes recuperados antes de eliminar ese artefacto.',
         'core-system-encryption-shell.superseded_copies_notice':
           'Las copias sustituidas siguen cifradas con una clave local anterior tras la rotación. Conserve esa clave hasta completar una prueba de recuperación con clave de reemplazo; no se eliminan automáticamente.',
+        'core-system-encryption-shell.custody_notice':
+          'La custodia remota opcional de claves añade un sobre de recuperación autorizado por separado; no cifra la base de datos activa ni carga una base de datos o texto cifrado. Antes de usarla, configure el paquete de custodia firmado, verifique su punto de conexión y credencial inscrita, revise su iniciador de zona aislada y mantenga activada la recuperación local. El almacenamiento de réplicas de texto cifrado sigue siendo una capacidad independiente. Nunca introduzca en este cliente un token de administración de custodia o retransmisión, una credencial de facturación, una base de datos en texto sin cifrar ni una clave de recuperación.',
       }),
       hi: Object.freeze({
         'core-system-encryption-shell.title': 'डेटा सुरक्षा',
@@ -337,6 +341,8 @@ window.ZogographSystemEncryptionShellCard = {
           'बूटस्ट्रैप कॉन्फ़िगरेशन पुनर्प्राप्ति जानबूझकर केवल CLI है: `scripts/restore-config.php` सील किए गए PHP को निष्पादित किए बिना प्रमाणित और पार्स करता है, `lib/config.php` को परमाणु रूप से बदलता है और पिछली कॉन्फ़िगरेशन को सील किए रोलबैक आर्टिफैक्ट के रूप में रखता है। उस आर्टिफैक्ट को हटाने से पहले पुनर्प्राप्त सेटिंग्स जाँचें।',
         'core-system-encryption-shell.superseded_copies_notice':
           'रोटेशन के बाद बदली गई प्रतियाँ पुराने स्थानीय कुंजी से एन्क्रिप्टेड रहती हैं। प्रतिस्थापन-कुंजी पुनर्प्राप्ति ड्रिल पूरी होने तक उस कुंजी को रखें; वे अपने-आप नहीं हटतीं।',
+        'core-system-encryption-shell.custody_notice':
+          'वैकल्पिक रिमोट कुंजी अभिरक्षा अलग से अधिकृत पुनर्प्राप्ति आवरण जोड़ती है; यह लाइव डेटाबेस एन्क्रिप्शन नहीं है और डेटाबेस या सिफरटेक्स्ट अपलोड नहीं करती। उपयोग से पहले हस्ताक्षरित अभिरक्षा पैकेज कॉन्फ़िगर करें, उसके एंडपॉइंट और नामांकित क्रेडेंशियल सत्यापित करें, उसके समर्पित सैंडबॉक्स लॉन्चर की समीक्षा करें और स्थानीय पुनर्प्राप्ति चालू रखें। सिफरटेक्स्ट प्रतिकृति भंडारण एक अलग क्षमता है। इस क्लाइंट में अभिरक्षा या रिले प्रबंधन टोकन, बिलिंग क्रेडेंशियल, सादा डेटाबेस या पुनर्प्राप्ति कुंजी कभी दर्ज न करें।',
       }),
       ar: Object.freeze({
         'core-system-encryption-shell.title': 'حماية البيانات',
@@ -440,6 +446,8 @@ window.ZogographSystemEncryptionShellCard = {
           'استرداد إعدادات التمهيد مقصور عمدًا على CLI: يتحقق `scripts/restore-config.php` من PHP المختوم ويحلله دون تنفيذه، ويستبدل `lib/config.php` ذريًا، ويترك الإعداد السابق كعنصر تراجع مختوم. اختبر الإعدادات المستردة قبل حذف ذلك العنصر.',
         'core-system-encryption-shell.superseded_copies_notice':
           'تبقى النسخ المستبدلة مشفرة بمفتاح محلي أقدم بعد التدوير. احتفظ بذلك المفتاح حتى تكمل تمرين استرداد بمفتاح بديل؛ لا تُحذف تلقائيًا.',
+        'core-system-encryption-shell.custody_notice':
+          'تضيف حضانة المفاتيح البعيدة الاختيارية غلاف استرداد مخولًا بشكل منفصل؛ وليست تشفيرًا لقاعدة البيانات العاملة ولا ترفع قاعدة بيانات أو نصًا مشفرًا. قبل استخدامها، اضبط حزمة الحضانة الموقعة وتحقق من نقطة نهايتها وبيانات اعتمادها المسجلة وراجع مشغل صندوق الرمل المخصص لها وأبق الاسترداد المحلي مفعلاً. يظل تخزين نسخة النص المشفر قدرة منفصلة. لا تدخل أبدًا في هذا العميل رمز إدارة الحضانة أو الترحيل أو بيانات اعتماد الفوترة أو قاعدة بيانات بنص عادي أو مفتاح استرداد.',
       }),
       zh: Object.freeze({
         'core-system-encryption-shell.title': '数据保护',
@@ -536,6 +544,8 @@ window.ZogographSystemEncryptionShellCard = {
           '引导配置恢复被刻意限制为仅 CLI：`scripts/restore-config.php` 会对封存的 PHP 进行验证和解析而不执行它，以原子方式替换 `lib/config.php`，并将原配置保留为封存的回滚工件。删除该工件前请测试恢复后的设置。',
         'core-system-encryption-shell.superseded_copies_notice':
           '轮换后，被取代的副本仍使用较早的本地密钥加密。完成替换密钥恢复演练前请保留该密钥；它们不会自动删除。',
+        'core-system-encryption-shell.custody_notice':
+          '可选的远程密钥托管会增加一个单独授权的恢复信封；它不是活动数据库加密，也不会上传数据库或密文。使用前，请配置已签名的托管软件包，验证其端点和注册凭据，审查专用沙盒启动器，并保留本地恢复功能。密文副本存储仍是一项独立能力。切勿在此客户端输入托管或中继管理令牌、计费凭据、数据库明文或恢复密钥。',
       }),
     }),
   }),

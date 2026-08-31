@@ -25107,159 +25107,20 @@ function swapVerdict(swap, swapUsed) {
  * once.
  */
 function renderHostFiles(rows, totals) {
-  if (window.ZogographHostFilesCard) {
-    return renderCoreCardPackage(
-      ZogographHostFilesCard,
-      'core-host-files',
-      { rows, totals },
-      {
-        target: $('hostFiles'),
-        totalTarget: $('hostFilesTotal'),
-        renderTable,
-        humanBytes,
-        humanCount,
-        whenSpan,
-        i18n: ZogographI18n,
-      },
-    );
-  }
-  const holder = $('hostFiles');
-
-  if (!rows.length) {
-    holder.replaceChildren(
-      Object.assign(document.createElement('p'), {
-        className: 'muted',
-        textContent: ZogographI18n.t(
-          'host.files_empty',
-          {},
-          'Nothing over the size threshold.',
-        ),
-      }),
-    );
-    return;
-  }
-
-  // Grouped in order, so the biggest physical file stays first.
-  const byInode = new Map();
-  for (const row of rows) {
-    const key = row.inode ? `${row.device}:${row.inode}` : `path:${row.path}`;
-    if (!byInode.has(key)) byInode.set(key, []);
-    byInode.get(key).push(row);
-  }
-
-  const groups = [...byInode.values()];
-
-  renderTable(
-    'hostFiles',
-    groups,
-    [
-      {
-        label: ZogographI18n.t('host.files_path', {}, 'Path'),
-        className: 'name',
-        render: (group) => {
-          const box = document.createElement('div');
-          box.appendChild(
-            Object.assign(document.createElement('div'), {
-              textContent: group[0].path,
-            }),
-          );
-          // The other names for the same file, marked as such rather than
-          // listed as if they were more files.
-          for (const other of group.slice(1)) {
-            box.appendChild(
-              Object.assign(document.createElement('div'), {
-                className: 'muted small',
-                textContent: ZogographI18n.t(
-                  'host.files_also_at',
-                  { path: other.path },
-                  'also at {{path}}',
-                ),
-              }),
-            );
-          }
-          return box;
-        },
-      },
-      {
-        label: ZogographI18n.t('host.files_size', {}, 'Size'),
-        className: 'size',
-        render: (group) => humanBytes(group[0].bytes),
-      },
-      {
-        label: ZogographI18n.t('host.files_names', {}, 'Names'),
-        className: 'size',
-        render: (group) => {
-          const links = Number(group[0].links ?? 1);
-          if (group.length === 1 && links <= 1) return '1';
-          /*
-           * Two counts, because they answer different questions. `group.length`
-           * is how many of the names are inside the watch list; `links` is how
-           * many exist anywhere on the filesystem. When links is higher, deleting
-           * every path shown here still would not free the space.
-           */
-          return ZogographI18n.t(
-            group.length === links
-              ? 'host.files_names_all'
-              : 'host.files_names_some',
-            { shown: humanCount(group.length), total: humanCount(links) },
-            group.length === links
-              ? `${humanCount(group.length)} paths, 1 file`
-              : `${humanCount(group.length)} here of ${humanCount(links)}, 1 file`,
-          );
-        },
-      },
-      {
-        label: ZogographI18n.t('host.files_owner', {}, 'Owner'),
-        render: (group) => group[0].owner ?? '—',
-      },
-      {
-        label: ZogographI18n.t('host.files_last_written', {}, 'Last written'),
-        className: 'size',
-        render: (group) => whenSpan(group[0].mtime),
-      },
-      // Keyed on the path, so a poll that only changes a size patches the cells
-      // rather than rebuilding the table under the reader.
-    ],
-    null,
-    null,
-    (group) => group[0].path,
+  return renderCoreCardPackage(
+    ZogographHostFilesCard,
+    'core-host-files',
+    { rows, totals },
+    {
+      target: $('hostFiles'),
+      totalTarget: $('hostFilesTotal'),
+      renderTable,
+      humanBytes,
+      humanCount,
+      whenSpan,
+      i18n: ZogographI18n,
+    },
   );
-
-  /*
-   * The summary goes in its own element, not appended to the table's.
-   *
-   * renderTable skips the rebuild when the data has not changed, so its
-   * replaceChildren no longer runs every poll - and anything appended after it
-   * survived into the next render and the one after that. This line was
-   * accumulating a fresh copy every couple of seconds, which is also what made
-   * the panel grow and the page jump.
-   */
-  if (totals) {
-    const line =
-      totals.linked > 0
-        ? ZogographI18n.t(
-            'host.files_linked_total',
-            {
-              bytes: humanBytes(totals.bytes),
-              files: humanCount(totals.files),
-              paths: humanCount(totals.paths),
-              linked: humanCount(totals.linked),
-            },
-            '{{bytes}} across {{files}} files, reached by {{paths}} paths. {{linked}} extra paths are hard links to files already counted, so they use no additional disk.',
-          )
-        : ZogographI18n.t(
-            'host.files_total',
-            {
-              bytes: humanBytes(totals.bytes),
-              files: humanCount(totals.files),
-            },
-            `${humanBytes(totals.bytes)} across ${humanCount(totals.files)} files.`,
-          );
-
-    const box = $('hostFilesTotal');
-    // Only touched when it actually changes, so it cannot flicker either.
-    if (box && box.textContent !== line) box.textContent = line;
-  }
 }
 
 /** Per-device throughput, utilisation and queue depth. */

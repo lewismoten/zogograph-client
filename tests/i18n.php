@@ -2402,8 +2402,9 @@ i18nExpect(
         str_contains(
             $script,
             'renderCoreCardPackage(ZogographHostFilesCard, "core-host-files",',
-        ),
-    'watched files are not isolated behind their core card-module boundary',
+        ) &&
+        !str_contains($script, 'if (window.ZogographHostFilesCard)'),
+    'watched files retain a core fallback instead of their package boundary',
 );
 i18nExpect(
     $page !== false &&
@@ -4468,13 +4469,11 @@ foreach (
     );
 }
 i18nExpect(
-    $script !== false &&
-        str_contains($script, "'host.files_also_at'") &&
-        str_contains($script, "'host.files_linked_total'") &&
-        is_array($english) &&
-        isset($english['host.files_also_at']) &&
-        isset($english['host.files_linked_total']),
-    'host file hard-link labels and summary are not localized',
+    $hostFilesCard !== false &&
+        str_contains($hostFilesCard, '"core-host-files.also_at"') &&
+        str_contains($hostFilesCard, '"core-host-files.linked_total"') &&
+        is_array($english),
+    'host file hard-link labels and summary are not localized by their package',
 );
 i18nExpect(
     $script !== false &&

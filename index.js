@@ -3987,6 +3987,29 @@ function renderChartsShell() {
 
 document.addEventListener('zogograph-i18n-load', renderChartsShell);
 
+function renderHostWalkControlLabels() {
+  const helpers = { i18n: ZogographI18n };
+  renderCoreCardPackage(
+    ZogographHostWalkControl,
+    'core-host-walk-control',
+    null,
+    helpers,
+  );
+  const title = document.querySelector(
+    '[data-i18n="core-host-walk-control.title"]',
+  );
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-host-walk-control.title',
+    ZogographHostWalkControl.text('title', helpers),
+  );
+  ZogographI18n.applyRich(
+    document.querySelector('[data-i18n-rich="core-host-walk-control.help"]'),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderHostWalkControlLabels);
+
 /**
  * When the disk is projected to fill, as a date.
  *

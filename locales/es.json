@@ -2549,8 +2549,6 @@
   "host_request.asked_unknown_cadence": "Se solicitó {{time}}. Aún no se conoce la programación del recolector.",
   "action.cancel": "Cancelar",
   "action.yes": "Sí",
-  "storage.whole_machine_title": "Toda la máquina",
-  "storage.whole_machine_help": "Un segundo recorrido, ejecutado como root, que alcanza todo lo que esta cuenta no puede: otras cuentas, {{var}}, {{backup}} y espacio ocupado por archivos eliminados que siguen abiertos. Tarda decenas de segundos, por lo que no forma parte de la recopilación por minuto: al pulsar esto queda una solicitud que el recolector del host atenderá en su próxima ejecución. Los resultados están en {{filesystems}}, {{directories}} y {{deleted}}.",
   "storage.show_categories": "Mostrar también las categorías vigiladas",
   "storage.total_size": "tamaño total",
   "storage.change_since_scan": "cambio desde el análisis anterior",

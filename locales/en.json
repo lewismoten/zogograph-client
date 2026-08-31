@@ -2564,8 +2564,6 @@
   "host_request.asked_unknown_cadence": "Asked {{time}}. The collector's schedule is not known yet.",
   "action.cancel": "Cancel",
   "action.yes": "Yes",
-  "storage.whole_machine_title": "The whole machine",
-  "storage.whole_machine_help": "A second walk, run by root, that reaches everything this account cannot — other accounts, {{var}}, {{backup}}, and space held by deleted files still open. It takes tens of seconds, so it is not part of the per-minute collection: pressing this leaves a request that the host collector picks up on its next run. The results are under {{filesystems}}, {{directories}} and {{deleted}}.",
   "storage.show_categories": "Show watched categories too",
   "storage.total_size": "total size",
   "storage.change_since_scan": "change since the previous scan",

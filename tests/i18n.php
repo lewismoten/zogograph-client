@@ -2256,14 +2256,15 @@ i18nExpect(
 i18nExpect(
     $page !== false &&
         str_contains($page, 'data-i18n="core-storage-scan-status.title"') &&
-        str_contains($page, 'data-i18n-rich="storage.whole_machine_help"') &&
+        str_contains($page, 'data-i18n="core-host-walk-control.title"') &&
+        str_contains($page, 'data-i18n-rich="core-host-walk-control.help"') &&
         str_contains($page, 'data-i18n="core-type-pie.title"') &&
         str_contains($page, 'data-i18n-rich="core-type-pie.help"') &&
         str_contains($page, 'data-i18n="core-path-hygiene.title"') &&
-        is_array($english) &&
-        isset($english['storage.whole_machine_help']) &&
         isset(
             $coreCardEnglish['core-storage-scan-status.title'],
+            $coreCardEnglish['core-host-walk-control.title'],
+            $coreCardEnglish['core-host-walk-control.help'],
             $coreCardEnglish['core-type-pie.title'],
             $coreCardEnglish['core-type-pie.help'],
             $coreCardEnglish['core-path-hygiene.title'],

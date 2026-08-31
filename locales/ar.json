@@ -2546,8 +2546,6 @@
   "host_request.asked_unknown_cadence": "طُلب {{time}}. جدول الجامع غير معروف بعد.",
   "action.cancel": "إلغاء",
   "action.yes": "نعم",
-  "storage.whole_machine_title": "الآلة كلها",
-  "storage.whole_machine_help": "مرور ثانٍ يديره root ويصل إلى كل ما لا يستطيع هذا الحساب الوصول إليه — حسابات أخرى و{{var}} و{{backup}} والمساحة التي تشغلها ملفات محذوفة ما زالت مفتوحة. يستغرق عشرات الثواني، لذا ليس جزءًا من الجمع كل دقيقة: الضغط هنا يترك طلبًا يلتقطه جامع المضيف في تشغيله التالي. النتائج تحت {{filesystems}} و{{directories}} و{{deleted}}.",
   "storage.show_categories": "أظهر الفئات المراقبة أيضًا",
   "storage.total_size": "الحجم الكلي",
   "storage.change_since_scan": "التغير منذ الفحص السابق",

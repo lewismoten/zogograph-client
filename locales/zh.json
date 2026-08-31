@@ -2546,8 +2546,6 @@
   "host_request.asked_unknown_cadence": "请求于 {{time}} 提出。尚不清楚收集器的计划。",
   "action.cancel": "取消",
   "action.yes": "是",
-  "storage.whole_machine_title": "整台机器",
-  "storage.whole_machine_help": "由 root 运行的第二次遍历，可到达此账户无法到达的所有内容——其他账户、{{var}}、{{backup}}以及仍被打开的已删除文件占用的空间。它需要数十秒，因此不属于每分钟收集：按下此按钮会留下一个请求，主机收集器会在下次运行时处理。结果位于 {{filesystems}}、{{directories}} 和 {{deleted}} 中。",
   "storage.show_categories": "同时显示受监控类别",
   "storage.total_size": "总大小",
   "storage.change_since_scan": "自上次扫描后的变化",

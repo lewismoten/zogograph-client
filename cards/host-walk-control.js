@@ -12,6 +12,9 @@ window.ZogographHostWalkControl = {
         'core-host-walk-control.walk_again': 'Walk the disk again',
         'core-host-walk-control.requested':
           'Requested. The host collector will walk the disk on its next run.',
+        'core-host-walk-control.title': 'The whole machine',
+        'core-host-walk-control.help':
+          'A second walk, run by root, that reaches everything this account cannot — other accounts, {{var}}, {{backup}}, and space held by deleted files still open. It takes tens of seconds, so it is not part of the per-minute collection: pressing this leaves a request that the host collector picks up on its next run. The results are under {{filesystems}}, {{directories}} and {{deleted}}.',
       }),
       es: Object.freeze({
         'core-host-walk-control.pending':
@@ -20,6 +23,9 @@ window.ZogographHostWalkControl = {
         'core-host-walk-control.walk_again': 'Recorrer el disco otra vez',
         'core-host-walk-control.requested':
           'Solicitado. El recopilador del host recorrerá el disco en su próxima ejecución.',
+        'core-host-walk-control.title': 'Toda la máquina',
+        'core-host-walk-control.help':
+          'Un segundo recorrido, ejecutado como root, que alcanza todo lo que esta cuenta no puede: otras cuentas, {{var}}, {{backup}} y espacio ocupado por archivos eliminados que siguen abiertos. Tarda decenas de segundos, por lo que no forma parte de la recopilación por minuto: al pulsar esto queda una solicitud que el recolector del host atenderá en su próxima ejecución. Los resultados están en {{filesystems}}, {{directories}} y {{deleted}}.',
       }),
       hi: Object.freeze({
         'core-host-walk-control.pending':
@@ -28,6 +34,9 @@ window.ZogographHostWalkControl = {
         'core-host-walk-control.walk_again': 'डिस्क फिर से वॉक करें',
         'core-host-walk-control.requested':
           'अनुरोध किया गया। होस्ट कलेक्टर अपने अगले रन में डिस्क वॉक करेगा।',
+        'core-host-walk-control.title': 'पूरी मशीन',
+        'core-host-walk-control.help':
+          'root द्वारा चलाया गया दूसरा वॉक, जो इस खाते की पहुँच से बाहर हर चीज़ तक पहुँचता है—दूसरे खाते, {{var}}, {{backup}} और अब भी खुले हटाए गए फ़ाइलों की जगह। इसमें दर्जनों सेकंड लगते हैं, इसलिए यह प्रति-मिनट संग्रह का भाग नहीं: इसे दबाने पर अनुरोध रहता है जिसे होस्ट कलेक्टर अपनी अगली रन में उठाता है। परिणाम {{filesystems}}, {{directories}} और {{deleted}} के अंतर्गत हैं।',
       }),
       ar: Object.freeze({
         'core-host-walk-control.pending':
@@ -36,6 +45,9 @@ window.ZogographHostWalkControl = {
         'core-host-walk-control.walk_again': 'افحص القرص مرة أخرى',
         'core-host-walk-control.requested':
           'تم الطلب. سيفحص جامع المضيف القرص في تشغيله التالي.',
+        'core-host-walk-control.title': 'الآلة كلها',
+        'core-host-walk-control.help':
+          'مرور ثانٍ يديره root ويصل إلى كل ما لا يستطيع هذا الحساب الوصول إليه — حسابات أخرى و{{var}} و{{backup}} والمساحة التي تشغلها ملفات محذوفة ما زالت مفتوحة. يستغرق عشرات الثواني، لذا ليس جزءًا من الجمع كل دقيقة: الضغط هنا يترك طلبًا يلتقطه جامع المضيف في تشغيله التالي. النتائج تحت {{filesystems}} و{{directories}} و{{deleted}}.',
       }),
       zh: Object.freeze({
         'core-host-walk-control.pending':
@@ -44,9 +56,20 @@ window.ZogographHostWalkControl = {
         'core-host-walk-control.walk_again': '再次遍历磁盘',
         'core-host-walk-control.requested':
           '已请求。主机采集器将在下次运行时遍历磁盘。',
+        'core-host-walk-control.title': '整台机器',
+        'core-host-walk-control.help':
+          '由 root 运行的第二次遍历，可到达此账户无法到达的所有内容——其他账户、{{var}}、{{backup}}以及仍被打开的已删除文件占用的空间。它需要数十秒，因此不属于每分钟收集：按下此按钮会留下一个请求，主机收集器会在下次运行时处理。结果位于 {{filesystems}}、{{directories}} 和 {{deleted}} 中。',
       }),
     }),
   }),
+
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-host-walk-control.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-host-walk-control.${key}`],
+    );
+  },
 
   render(data, helpers) {
     const { target, ago, post, notice, refresh, i18n } = helpers;

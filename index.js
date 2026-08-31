@@ -3192,6 +3192,28 @@ function renderDomainQueueTitle() {
 
 document.addEventListener('zogograph-i18n-load', renderDomainQueueTitle);
 
+function renderWhoisShellLabels() {
+  const helpers = { i18n: ZogographI18n };
+  renderCoreCardPackage(
+    ZogographWhoisShellCard,
+    'core-whois-shell',
+    {},
+    helpers,
+  );
+  document
+    .querySelectorAll('[data-i18n^="core-whois-shell."]')
+    .forEach((node) => {
+      const key = node.dataset.i18n.replace('core-whois-shell.', '');
+      node.textContent = ZogographI18n.markSource(
+        node,
+        `core-whois-shell.${key}`,
+        ZogographWhoisShellCard.text(key, helpers),
+      );
+    });
+}
+
+document.addEventListener('zogograph-i18n-load', renderWhoisShellLabels);
+
 function renderUrlChecksShellLabels() {
   const helpers = {
     target: null,

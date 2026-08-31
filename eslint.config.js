@@ -69,6 +69,7 @@ export default [
         ZogographCagefsExplainerCard: 'readonly',
         ZogographCagefsShellCard: 'readonly',
         ZogographWhoisTermsCard: 'readonly',
+        ZogographWhoisShellCard: 'readonly',
         ZogographDomainQueueCard: 'readonly',
         ZogographDomainWhoisAvailabilityCard: 'readonly',
         ZogographLabelsEmptyCard: 'readonly',

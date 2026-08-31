@@ -112,6 +112,7 @@
     <script src="cards/cagefs-explainer.js" defer></script>
     <script src="cards/cagefs-shell.js" defer></script>
     <script src="cards/whois-terms.js" defer></script>
+    <script src="cards/whois-shell.js" defer></script>
     <script src="cards/domain-queue.js" defer></script>
     <script src="cards/domain-whois-availability.js" defer></script>
     <script src="cards/labels-empty.js" defer></script>
@@ -3443,7 +3444,7 @@
 
           <section class="panel" id="domainWhoisPanel" hidden>
             <div class="panel-head">
-              <h2 id="domainWhoisTitle" data-i18n="network.whois_title">
+              <h2 id="domainWhoisTitle" data-i18n="core-whois-shell.title">
                 whois
               </h2>
               <button
@@ -3461,9 +3462,9 @@
         <section class="view" data-view="whois" hidden>
           <section class="panel" id="whoisPanel">
             <div class="panel-head">
-              <h2 data-i18n="network.whois_title">Look a name up</h2>
+              <h2 data-i18n="core-whois-shell.title">Look a name up</h2>
             </div>
-            <p class="muted small sub-note" data-i18n="network.whois_help">
+            <p class="muted small sub-note" data-i18n="core-whois-shell.help">
               A one-off lookup for a name you are not watching — whether it is
               taken, who holds it, when it expires. Nothing is stored and no
               domain is added to the list; there is a button for that if the
@@ -3478,7 +3479,9 @@
                 placeholder="example.com"
                 data-i18n-placeholder="network.domain_placeholder"
               />
-              <button type="submit" data-i18n="network.whois_ask">Ask</button>
+              <button type="submit" data-i18n="core-whois-shell.ask">
+                Ask
+              </button>
             </form>
             <div id="whoisBody"></div>
           </section>

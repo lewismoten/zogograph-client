@@ -2615,6 +2615,28 @@ function renderHostLayoutShellLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderHostLayoutShellLabels);
 
+function renderHostDiskShellLabels() {
+  const helpers = { i18n: ZogographI18n };
+  renderCoreCardPackage(
+    ZogographHostDiskShellCard,
+    'core-host-disk-shell',
+    {},
+    helpers,
+  );
+  document
+    .querySelectorAll('[data-i18n^="core-host-disk-shell."]')
+    .forEach((node) => {
+      const key = node.dataset.i18n.replace('core-host-disk-shell.', '');
+      node.textContent = ZogographI18n.markSource(
+        node,
+        `core-host-disk-shell.${key}`,
+        ZogographHostDiskShellCard.text(key, helpers),
+      );
+    });
+}
+
+document.addEventListener('zogograph-i18n-load', renderHostDiskShellLabels);
+
 /**
  * When the disk is projected to fill, as a date.
  *

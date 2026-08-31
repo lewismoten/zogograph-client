@@ -39,6 +39,7 @@
     <script src="cards/host-memory.js" defer></script>
     <script src="cards/host-logs.js" defer></script>
     <script src="cards/host-disks.js" defer></script>
+    <script src="cards/host-disk-shell.js" defer></script>
     <script src="cards/host-io-processes.js" defer></script>
     <script src="cards/host-io-shell.js" defer></script>
     <script src="cards/host-layout-shell.js" defer></script>
@@ -2448,7 +2449,7 @@
 
         <section class="view" data-view="host-disk" hidden>
           <section class="panel" id="hostDiskPanel">
-            <h2 data-i18n="host.filesystems_title">
+            <h2 data-i18n="core-host-disk-shell.filesystems_title">
               Filesystems, and the space nothing accounts for
             </h2>
             <p
@@ -2474,7 +2475,7 @@
 
         <section class="view" data-view="disk-deleted" hidden>
           <section class="panel">
-            <h2 data-i18n="host.deleted_held_title">
+            <h2 data-i18n="core-host-disk-shell.deleted_title">
               Deleted, still holding space
             </h2>
             <p
@@ -2496,7 +2497,7 @@
 
         <section class="view" data-view="disk-dirs" hidden>
           <section class="panel">
-            <h2 data-i18n="host.big_directories_title">
+            <h2 data-i18n="core-host-disk-shell.directories_title">
               Biggest directories on the machine
             </h2>
             <p

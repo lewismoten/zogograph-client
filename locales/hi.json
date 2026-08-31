@@ -2893,6 +2893,5 @@
   "diagnosis.nothing_urgent": "कुछ भी तत्काल नहीं है।",
   "diagnosis.ignored_title": "अनदेखे निष्कर्ष",
   "diagnosis.ignored_help": "ये जानबूझकर किए गए अपवाद हैं। बाद की जाँचों में शामिल करने के लिए एक को पुनर्स्थापित करें।",
-  "diagnosis.reading_everything": "सब कुछ पढ़ा जा रहा है…",
-  "host.collector_loading": "होस्ट कलेक्टर पढ़ा जा रहा है…"
+  "diagnosis.reading_everything": "सब कुछ पढ़ा जा रहा है…"
 }

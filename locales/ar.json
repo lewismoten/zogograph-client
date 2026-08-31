@@ -2891,6 +2891,5 @@
   "diagnosis.nothing_urgent": "لا شيء عاجل.",
   "diagnosis.ignored_title": "نتائج متجاهلة",
   "diagnosis.ignored_help": "هذه استثناءات مقصودة. استعد واحدة لإدراجها في الفحوصات اللاحقة.",
-  "diagnosis.reading_everything": "جارٍ قراءة كل شيء…",
-  "host.collector_loading": "جارٍ قراءة جامع المضيف…"
+  "diagnosis.reading_everything": "جارٍ قراءة كل شيء…"
 }

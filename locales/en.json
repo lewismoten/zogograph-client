@@ -2132,8 +2132,6 @@
   "ai.memory_subject_edit_help": "The subject is the key, so it cannot be changed — forget this one and write a new one if it is wrong.",
   "ai.memory_subject_help": "A short phrase. Writing the same subject again replaces what is stored under it.",
   "ai.memory_remember_help": "Written for somebody with none of the conversation it came from — no “as we discussed”, and say what it was based on.",
-  "ai.memory_edit_title": "Edit a memory",
-  "ai.memory_write_title": "Write a memory",
   "backup.growth": "Growth",
   "backup.by_account": "By account",
   "backup.no_suggestions": "Nothing to suggest from this reading.",

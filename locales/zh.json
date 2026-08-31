@@ -2114,8 +2114,6 @@
   "ai.memory_subject_edit_help": "主题是键，因此无法更改——如果有误，请忘记此条并写一条新的。",
   "ai.memory_subject_help": "一个简短短语。再次写入相同主题会替换该主题下已存储的内容。",
   "ai.memory_remember_help": "要为不了解其来源对话的人而写——不要说“如我们讨论过的”，并说明它基于什么。",
-  "ai.memory_edit_title": "编辑一条记忆",
-  "ai.memory_write_title": "写一条记忆",
   "backup.growth": "增长",
   "backup.by_account": "按账户",
   "backup.no_suggestions": "此读数没有可提供的建议。",

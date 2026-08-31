@@ -2116,8 +2116,6 @@
   "ai.memory_subject_edit_help": "El asunto es la clave, por lo que no se puede cambiar: olvide esta y escriba una nueva si es incorrecta.",
   "ai.memory_subject_help": "Una frase corta. Escribir de nuevo el mismo asunto reemplaza lo almacenado bajo él.",
   "ai.memory_remember_help": "Escrito para alguien que no conoce la conversación de la que proviene: no diga «como comentamos» e indique en qué se basó.",
-  "ai.memory_edit_title": "Editar una memoria",
-  "ai.memory_write_title": "Escribir una memoria",
   "backup.growth": "Crecimiento",
   "backup.by_account": "Por cuenta",
   "backup.no_suggestions": "No hay nada que sugerir a partir de esta lectura.",

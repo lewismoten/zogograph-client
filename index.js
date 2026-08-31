@@ -18781,9 +18781,12 @@ function showMemoryDialog(row) {
   sync();
 
   showFormDialog(
-    row
-      ? ZogographI18n.t('ai.memory_edit_title', {}, 'Edit a memory')
-      : ZogographI18n.t('ai.memory_write_title', {}, 'Write a memory'),
+    renderCoreCardPackage(
+      ZogographAiMemoryEditorTitleCard,
+      'core-ai-memory-editor-title',
+      { editing: Boolean(row) },
+      { i18n: ZogographI18n },
+    ),
     parts,
     async () => {
       renderMemories(

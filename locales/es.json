@@ -2356,7 +2356,6 @@
   "overview.steady": "estable",
   "overview.free_space_steady": "el espacio libre no está disminuyendo",
   "overview.losing_rate": "pierde {{rate}}/h, medido durante {{window}}",
-  "host.memory_breakdown_title": "Adónde va la memoria",
   "host.memory_breakdown_help": "La parte de memoria de proceso medida que ocupa cada servicio, calculada con {{pss}} y no con {{rss}}: un gráfico circular supone que sus porciones forman un todo, y la memoria residente no puede hacerlo, pues una página compartida por diez procesos se contaría diez veces.",
   "host.memory_processes_title": "Procesos más grandes del host",
   "host.memory_processes_help": "Todos los procesos de la máquina, no solo los de esta cuenta. Esta lista responde qué está ocupando realmente la memoria cuando los totales por usuario solo indican de quién es.",

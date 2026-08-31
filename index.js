@@ -2217,6 +2217,33 @@ function renderStorageRetentionLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderStorageRetentionLabels);
 
+function renderHostMemoryPieLabels() {
+  const helpers = {
+    chart: null,
+    note: null,
+    memorySlices: () => [],
+    drawPieChart: () => null,
+    humanBytes: () => '',
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(
+    ZogographHostMemoryPieCard,
+    'core-host-memory-pie',
+    { services: [], sample: {} },
+    helpers,
+  );
+  const title = document.querySelector(
+    '[data-i18n="core-host-memory-pie.title"]',
+  );
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-host-memory-pie.title',
+    ZogographHostMemoryPieCard.text('title', helpers),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderHostMemoryPieLabels);
+
 /**
  * When the disk is projected to fill, as a date.
  *

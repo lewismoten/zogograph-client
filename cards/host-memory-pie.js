@@ -13,6 +13,7 @@ window.ZogographHostMemoryPieCard = {
     ],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-host-memory-pie.title': 'Where the memory goes',
         'core-host-memory-pie.empty':
           'No measured process memory in the latest reading.',
         'core-host-memory-pie.help':
@@ -21,6 +22,7 @@ window.ZogographHostMemoryPieCard = {
           ' Total {{amount}} across the {{processes, number}} biggest processes. The ten largest services get a slice; everything under 1%, and everything past the tenth, is folded into one.',
       }),
       es: Object.freeze({
+        'core-host-memory-pie.title': 'Adónde va la memoria',
         'core-host-memory-pie.empty':
           'No hay memoria de proceso medida en la lectura más reciente.',
         'core-host-memory-pie.help':
@@ -29,6 +31,7 @@ window.ZogographHostMemoryPieCard = {
           ' {{amount}} en los {{processes, number}} procesos más grandes. Los diez servicios más grandes reciben una porción; todo lo que esté por debajo del 1%, y todo lo que quede después del décimo, se agrupa en una sola.',
       }),
       hi: Object.freeze({
+        'core-host-memory-pie.title': 'मेमोरी कहाँ जाती है',
         'core-host-memory-pie.empty':
           'नवीनतम रीडिंग में मापी गई प्रक्रिया मेमोरी नहीं है।',
         'core-host-memory-pie.help':
@@ -37,6 +40,7 @@ window.ZogographHostMemoryPieCard = {
           ' सबसे बड़ी {{processes, number}} प्रक्रियाओं में कुल {{amount}}। दस सबसे बड़ी सेवाओं को स्लाइस मिलती है; 1% से कम और दसवीं के बाद की हर चीज़ एक में जोड़ी जाती है।',
       }),
       ar: Object.freeze({
+        'core-host-memory-pie.title': 'أين تذهب الذاكرة',
         'core-host-memory-pie.empty':
           'لا توجد ذاكرة عمليات مقاسة في أحدث قراءة.',
         'core-host-memory-pie.help':
@@ -45,6 +49,7 @@ window.ZogographHostMemoryPieCard = {
           ' {{amount}} عبر أكبر {{processes, number}} عملية. تحصل أكبر عشر خدمات على شريحة؛ وكل ما دون 1% وكل ما بعد العاشرة يُطوى في شريحة واحدة.',
       }),
       zh: Object.freeze({
+        'core-host-memory-pie.title': '内存去了哪里',
         'core-host-memory-pie.empty': '最新读数中没有测得的进程内存。',
         'core-host-memory-pie.help':
           '已测量进程内存的份额。采用 PSS 绘制，因为饼图意味着各部分构成整体，而常驻内存无法如此：被十个进程共享的一页会被计算十次，每一块都会被放大。',
@@ -53,6 +58,13 @@ window.ZogographHostMemoryPieCard = {
       }),
     }),
   }),
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-host-memory-pie.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-host-memory-pie.${key}`],
+    );
+  },
   render(input, helpers) {
     const { services, sample } = input;
     const { chart, note, memorySlices, drawPieChart, humanBytes, i18n } =

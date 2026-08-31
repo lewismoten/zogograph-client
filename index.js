@@ -964,21 +964,17 @@ function cpuCoresText(key, values = {}) {
   return ZogographCpuCoresCard.text(key, values, { i18n: ZogographI18n });
 }
 
+function cpuShellText(key, values = {}) {
+  return ZogographCpuShellCard.text(key, values, { i18n: ZogographI18n });
+}
+
 async function refreshCpu() {
   if (!WHAT_IS.loaded) await loadWhatIs();
 
   for (const id of CPU_BODIES) {
     const el = $(id);
     if (el && !el.childElementCount)
-      el.replaceChildren(
-        spinner(
-          ZogographI18n.t(
-            'cpu.reading_collector',
-            {},
-            'Reading the host collector…',
-          ),
-        ),
-      );
+      el.replaceChildren(spinner(cpuShellText('reading_collector')));
   }
 
   const show = (hidden) =>
@@ -1021,10 +1017,7 @@ async function refreshCpu() {
   }
 
   if (!data.available) {
-    sayAll(
-      data.reason ||
-        ZogographI18n.t('cpu.no_host_readings', {}, 'No host readings.'),
-    );
+    sayAll(data.reason || cpuShellText('no_host_readings'));
     // The instruction goes on the page somebody is most likely to have opened
     // first, once, rather than five times down the sidebar.
     collectorInstructions($('cpuBody'), data);
@@ -1120,17 +1113,9 @@ function cpuEmptyWhy(data) {
   if (data.schema_reason) return data.schema_reason;
 
   if (!data.series?.length && Number(data.sample_count ?? 0) > 1) {
-    return ZogographI18n.t(
-      'cpu.no_breakdown',
-      {},
-      'No processor breakdown in this range yet — the collector records it from the version that added these pages onward',
-    );
+    return cpuShellText('no_breakdown');
   }
-  return ZogographI18n.t(
-    'cpu.only_one_reading',
-    {},
-    'Only one reading so far — a percentage needs two',
-  );
+  return cpuShellText('only_one_reading');
 }
 
 /**
@@ -1147,11 +1132,7 @@ function collectorInstructions(holder, data) {
   holder.appendChild(
     Object.assign(document.createElement('p'), {
       className: 'muted small',
-      textContent: ZogographI18n.t(
-        'cpu.add_root_cron',
-        {},
-        "As root — ssh in or use WHM's Terminal — add this to root's crontab with crontab -e:",
-      ),
+      textContent: cpuShellText('add_root_cron'),
     }),
   );
   const pre = document.createElement('pre');
@@ -1161,11 +1142,7 @@ function collectorInstructions(holder, data) {
   holder.appendChild(
     Object.assign(document.createElement('p'), {
       className: 'muted small',
-      textContent: ZogographI18n.t(
-        'cpu.run_root_once',
-        { command: data.command },
-        'Then run it once by hand to see what it finds: {{command}}',
-      ),
+      textContent: cpuShellText('run_root_once', { command: data.command }),
     }),
   );
 }

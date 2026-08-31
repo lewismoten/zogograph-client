@@ -16881,28 +16881,20 @@ function showPeerDialog(row = null) {
     return field;
   };
   const name = input(
-    peerText('field_name', {}, 'Short name'),
+    peersShellText('field_name'),
     row?.name,
-    peerText(
-      'field_name_help',
-      {},
-      'Lowercase letters, numbers, hyphens, and underscores.',
-    ),
+    peersShellText('field_name_help'),
   );
   name.disabled = Boolean(row);
   const label = input(
-    peerText('field_label', {}, 'Label'),
+    peersShellText('field_label'),
     row?.label,
-    peerText('field_label_help', {}, 'What people see in this dashboard.'),
+    peersShellText('field_label_help'),
   );
   const description = input(
-    peerText('field_description', {}, 'Description'),
+    peersShellText('field_description'),
     row?.description,
-    peerText(
-      'field_description_help',
-      {},
-      'Optional operational context, such as the service it runs.',
-    ),
+    peersShellText('field_description_help'),
   );
   const tags = input(
     peerText('field_tags', {}, 'Tags'),

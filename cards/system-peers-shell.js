@@ -63,6 +63,15 @@ window.ZogographSystemPeersShellCard = {
           'Trusted server saved. Test OIDC discovery before using the read connection.',
         'core-system-peers-shell.delivery_peer_saved':
           'Remote delivery peer saved. Copy its one-time pairing fragment to the remote Zogograph.',
+        'core-system-peers-shell.field_name': 'Short name',
+        'core-system-peers-shell.field_name_help':
+          'Lowercase letters, numbers, hyphens, and underscores.',
+        'core-system-peers-shell.field_label': 'Label',
+        'core-system-peers-shell.field_label_help':
+          'What people see in this dashboard.',
+        'core-system-peers-shell.field_description': 'Description',
+        'core-system-peers-shell.field_description_help':
+          'Optional operational context, such as the service it runs.',
       }),
       es: Object.freeze({
         'core-system-peers-shell.title': 'Servidores Zogograph de confianza',
@@ -122,6 +131,15 @@ window.ZogographSystemPeersShellCard = {
           'Servidor de confianza guardado. Pruebe el descubrimiento OIDC antes de usar la conexión de lectura.',
         'core-system-peers-shell.delivery_peer_saved':
           'Par de entrega remota guardado. Copie su fragmento de emparejamiento de un solo uso en Zogograph remoto.',
+        'core-system-peers-shell.field_name': 'Nombre corto',
+        'core-system-peers-shell.field_name_help':
+          'Letras minúsculas, números, guiones y guiones bajos.',
+        'core-system-peers-shell.field_label': 'Etiqueta',
+        'core-system-peers-shell.field_label_help':
+          'Lo que la gente ve en este panel.',
+        'core-system-peers-shell.field_description': 'Descripción',
+        'core-system-peers-shell.field_description_help':
+          'Contexto operativo opcional, como el servicio que ejecuta.',
       }),
       hi: Object.freeze({
         'core-system-peers-shell.title': 'विश्वसनीय Zogograph सर्वर',
@@ -181,6 +199,15 @@ window.ZogographSystemPeersShellCard = {
           'विश्वसनीय सर्वर सहेजा गया। रीड कनेक्शन उपयोग करने से पहले OIDC डिस्कवरी जाँचें।',
         'core-system-peers-shell.delivery_peer_saved':
           'रिमोट डिलीवरी पीयर सहेजा गया। इसके एक-बार के पेयरिंग अंश को दूरस्थ Zogograph में कॉपी करें।',
+        'core-system-peers-shell.field_name': 'संक्षिप्त नाम',
+        'core-system-peers-shell.field_name_help':
+          'छोटे अक्षर, संख्याएँ, हाइफ़न और अंडरस्कोर।',
+        'core-system-peers-shell.field_label': 'लेबल',
+        'core-system-peers-shell.field_label_help':
+          'लोग इस डैशबोर्ड में इसे देखते हैं।',
+        'core-system-peers-shell.field_description': 'विवरण',
+        'core-system-peers-shell.field_description_help':
+          'वैकल्पिक संचालन संदर्भ, जैसे इसके द्वारा चलाया जाने वाला सेवा।',
       }),
       ar: Object.freeze({
         'core-system-peers-shell.title': 'خوادم Zogograph الموثوقة',
@@ -239,6 +266,15 @@ window.ZogographSystemPeersShellCard = {
           'حُفظ الخادم الموثوق. اختبر اكتشاف OIDC قبل استخدام اتصال القراءة.',
         'core-system-peers-shell.delivery_peer_saved':
           'حُفظ ند التسليم البعيد. انسخ جزء الاقتران ذي الاستخدام الواحد إلى Zogograph البعيد.',
+        'core-system-peers-shell.field_name': 'اسم مختصر',
+        'core-system-peers-shell.field_name_help':
+          'أحرف صغيرة وأرقام وشرطات وشرطات سفلية.',
+        'core-system-peers-shell.field_label': 'التسمية',
+        'core-system-peers-shell.field_label_help':
+          'ما يراه الأشخاص في لوحة المعلومات هذه.',
+        'core-system-peers-shell.field_description': 'الوصف',
+        'core-system-peers-shell.field_description_help':
+          'سياق تشغيلي اختياري، مثل الخدمة التي يشغلها.',
       }),
       zh: Object.freeze({
         'core-system-peers-shell.title': '受信任的 Zogograph 服务器',
@@ -297,6 +333,15 @@ window.ZogographSystemPeersShellCard = {
           '已保存受信任服务器。请在使用读取连接前测试 OIDC 发现。',
         'core-system-peers-shell.delivery_peer_saved':
           '远程传递对端已保存。请将其一次性配对片段复制到远程 Zogograph。',
+        'core-system-peers-shell.field_name': '简称',
+        'core-system-peers-shell.field_name_help':
+          '小写字母、数字、连字符和下划线。',
+        'core-system-peers-shell.field_label': '标签',
+        'core-system-peers-shell.field_label_help':
+          '人们在此仪表板中看到的名称。',
+        'core-system-peers-shell.field_description': '描述',
+        'core-system-peers-shell.field_description_help':
+          '可选的运行上下文，例如它运行的服务。',
       }),
     }),
   }),

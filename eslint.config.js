@@ -44,6 +44,7 @@ export default [
         ZogographReportsAuthorshipCard: 'readonly',
         ZogographReportsShellCard: 'readonly',
         ZogographSystemProblemsShellCard: 'readonly',
+        ZogographSystemPeersShellCard: 'readonly',
         ZogographFetchHeadersCard: 'readonly',
         ZogographFetchMetadataCard: 'readonly',
         ZogographFetchJsonCard: 'readonly',

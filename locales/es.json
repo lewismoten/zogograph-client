@@ -2566,7 +2566,6 @@
   "database.indexes": "Índices",
   "database.total": "Total",
   "database.indexes_note": "Los índices se cuentan en la tabla a la que pertenecen. En una tabla ocupada, un índice puede acercarse a la mitad del total; listarlos por separado hace que cada tabla parezca más barata de lo que es.",
-  "system.peers_title": "Servidores Zogograph de confianza",
   "system.peers_help": "Un servidor de confianza se configura explícitamente aquí y se comprueba mediante descubrimiento HTTPS de OpenID Connect. Guardarlo no comparte datos ni inicia sesión a nadie; esos pasos de código de autorización son deliberadamente independientes.",
   "system.marketplace_title": "Mercado",
   "system.marketplace_help": "Solo manifiestos de paquetes locales. Activarlos nunca ejecuta código de paquetes. Pueden autorizarse unas pocas capacidades fijas propiedad del núcleo; las capacidades solicitadas siguen visibles para su revisión.",

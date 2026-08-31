@@ -2581,7 +2581,6 @@
   "database.indexes": "Indexes",
   "database.total": "Total",
   "database.indexes_note": "Indexes are counted against the table they belong to. On a busy table an index can be close to half the total, and listing them separately makes every table look cheaper than it is.",
-  "system.peers_title": "Trusted Zogograph servers",
   "system.peers_help": "A trusted server is explicitly configured here and checked through HTTPS OpenID Connect discovery. Saving it does not share data or sign anyone in; those authorization-code steps are deliberately separate.",
   "system.marketplace_title": "Marketplace",
   "system.marketplace_help": "Local package manifests only. Enabling never executes package code. A few fixed, core-owned capabilities may be authorized; requested capabilities remain visible for review.",

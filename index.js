@@ -3546,6 +3546,26 @@ document.addEventListener(
   renderSystemProblemsShellLabels,
 );
 
+function renderSystemPeersShellTitle() {
+  const helpers = { i18n: ZogographI18n };
+  renderCoreCardPackage(
+    ZogographSystemPeersShellCard,
+    'core-system-peers-shell',
+    {},
+    helpers,
+  );
+  const title = document.querySelector(
+    '[data-i18n="core-system-peers-shell.title"]',
+  );
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-system-peers-shell.title',
+    ZogographSystemPeersShellCard.text('title', helpers),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderSystemPeersShellTitle);
+
 /**
  * When the disk is projected to fill, as a date.
  *

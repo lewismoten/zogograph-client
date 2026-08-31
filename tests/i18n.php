@@ -2098,6 +2098,19 @@ i18nExpect(
     'setup-shell labels do not belong to the root catalog',
 );
 i18nExpect(
+    !isset(
+        $english['table.type'],
+        $english['peer.edit'],
+        $english['peer.field_label'],
+    ) &&
+        isset(
+            $coreCardEnglish['core-dns-record-group.type'],
+            $coreCardEnglish['core-url-monitor-actions.edit'],
+            $coreCardEnglish['core-ai-toolset-actions.label'],
+        ),
+    'shared card labels do not belong to the root catalog',
+);
+i18nExpect(
     $page !== false &&
         str_contains($page, 'src="cards/action-summary.js"') &&
         $actionSummaryCard !== false &&

@@ -26655,12 +26655,12 @@ function renderHostDaemons(daemons) {
             notice(
               row.watched
                 ? ZogographI18n.t(
-                    'host.daemon_stop_watching_notice',
+                    'core-host-daemons.stop_watching_notice',
                     { service: row.label },
                     '{{service}} will stop being recorded at the next host reading.',
                   )
                 : ZogographI18n.t(
-                    'host.daemon_watch_notice',
+                    'core-host-daemons.watch_notice',
                     { service: row.label },
                     '{{service}} will be recorded again at the next host reading.',
                   ),
@@ -26921,12 +26921,12 @@ function renderHostDaemons(daemons) {
             notice(
               row.watched
                 ? ZogographI18n.t(
-                    'host.daemon_stop_watching_notice',
+                    'core-host-daemons.stop_watching_notice',
                     { service: row.label },
                     '{{service}} will stop being recorded at the next host reading.',
                   )
                 : ZogographI18n.t(
-                    'host.daemon_watch_notice',
+                    'core-host-daemons.watch_notice',
                     { service: row.label },
                     '{{service}} will be recorded again at the next host reading.',
                   ),

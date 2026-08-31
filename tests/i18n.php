@@ -2037,6 +2037,14 @@ i18nExpect(
         ) &&
         str_contains($hostDaemonsCard, 'key.startsWith("host.daemon_")') &&
         str_contains($hostDaemonsCard, '"watch"') &&
+        is_array($english) &&
+        array_filter(
+            array_keys($english),
+            static fn(string $key): bool => str_starts_with(
+                $key,
+                'host.daemon_',
+            ),
+        ) === [] &&
         $script !== false &&
         str_contains(
             $script,
@@ -2979,6 +2987,11 @@ foreach (array_unique($dynamicDashboardKeys[1] ?? []) as $key) {
         isset($english[$key]) ||
             isset($coreCardEnglish[$key]) ||
             isset($toolEnglish[$key]) ||
+            // The daemon package's no-script fallback has inline English for
+            // every one of these labels. Its translated catalog is package
+            // owned, so accepting this legacy-only namespace here must not
+            // allow it back into the root locale files.
+            str_starts_with($key, 'host.daemon_') ||
             (in_array(
                 $key,
                 [
@@ -3607,32 +3620,36 @@ foreach (['en-US', 'en-GB', 'es', 'hi', 'zh', 'ar'] as $locale) {
             array_diff(
                 array_filter(
                     array_unique($dynamicDashboardKeys[1] ?? []),
-                    static fn(string $key): bool => !in_array(
+                    static fn(string $key): bool => !str_starts_with(
                         $key,
-                        [
-                            'core-ai-tool-try.unknown_tool',
-                            'core-ai-tool-try.browser_shown',
-                            'core-ai-tool-try.arguments',
-                            'core-ai-tool-try.browser_result',
-                            'core-ai-tool-try.browser_help',
-                            'core-ai-tool-try.browser_timing',
-                            'core-ai-tool-try.refused',
-                            'core-ai-tool-try.server_timing',
-                            'core-ai-tool-try.generated_picture',
-                            'core-ai-tool-try.picture_note',
-                            'core-ai-tool-try.not_reported',
-                            'core-ai-tool-try.result',
-                            'core-ai-tool-try.result_help',
-                            'core-terminal-verdict.stopped',
-                            'core-terminal-verdict.timed_out',
-                            'core-terminal-verdict.output_ceiling',
-                            'core-terminal-verdict.ok',
-                            'core-terminal-verdict.killed',
-                            'core-terminal-verdict.signal',
-                            'core-terminal-verdict.exit',
-                        ],
-                        true,
-                    ),
+                        'host.daemon_',
+                    ) &&
+                        !in_array(
+                            $key,
+                            [
+                                'core-ai-tool-try.unknown_tool',
+                                'core-ai-tool-try.browser_shown',
+                                'core-ai-tool-try.arguments',
+                                'core-ai-tool-try.browser_result',
+                                'core-ai-tool-try.browser_help',
+                                'core-ai-tool-try.browser_timing',
+                                'core-ai-tool-try.refused',
+                                'core-ai-tool-try.server_timing',
+                                'core-ai-tool-try.generated_picture',
+                                'core-ai-tool-try.picture_note',
+                                'core-ai-tool-try.not_reported',
+                                'core-ai-tool-try.result',
+                                'core-ai-tool-try.result_help',
+                                'core-terminal-verdict.stopped',
+                                'core-terminal-verdict.timed_out',
+                                'core-terminal-verdict.output_ceiling',
+                                'core-terminal-verdict.ok',
+                                'core-terminal-verdict.killed',
+                                'core-terminal-verdict.signal',
+                                'core-terminal-verdict.exit',
+                            ],
+                            true,
+                        ),
                 ),
                 array_keys(
                     array_replace(

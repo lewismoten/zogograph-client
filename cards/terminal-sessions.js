@@ -7,6 +7,7 @@ window.ZogographTerminalSessionsCard = {
     catalogs: Object.freeze({
       en: Object.freeze({
         'core-terminal-sessions.title': 'Terminal sessions',
+        'core-terminal-sessions.sign_in': 'Sign in to see terminal sessions.',
         'core-terminal-sessions.grouping_help':
           'Commands that were run close together, grouped the way the work actually happened — an hour’s gap starts a new one, because somebody who ran three commands, went to lunch and came back was doing two different things.',
         'core-terminal-sessions.topic_help':
@@ -29,6 +30,8 @@ window.ZogographTerminalSessionsCard = {
       }),
       es: Object.freeze({
         'core-terminal-sessions.title': 'Sesiones de terminal',
+        'core-terminal-sessions.sign_in':
+          'Inicie sesión para ver las sesiones de terminal.',
         'core-terminal-sessions.grouping_help':
           'Comandos ejecutados juntos, agrupados como realmente ocurrió el trabajo: una pausa de una hora inicia otra sesión, porque alguien que ejecutó tres comandos, fue a comer y regresó estaba haciendo dos cosas diferentes.',
         'core-terminal-sessions.topic_help':
@@ -51,6 +54,8 @@ window.ZogographTerminalSessionsCard = {
       }),
       hi: Object.freeze({
         'core-terminal-sessions.title': 'टर्मिनल सत्र',
+        'core-terminal-sessions.sign_in':
+          'टर्मिनल सत्र देखने के लिए साइन इन करें।',
         'core-terminal-sessions.grouping_help':
           'साथ चलाए गए कमांड, काम वास्तव में जैसे हुआ वैसे समूहित—एक घंटे का अंतर नया सत्र शुरू करता है, क्योंकि जिसने तीन कमांड चलाए, लंच पर गया और वापस आया वह दो अलग काम कर रहा था।',
         'core-terminal-sessions.topic_help':
@@ -73,6 +78,7 @@ window.ZogographTerminalSessionsCard = {
       }),
       ar: Object.freeze({
         'core-terminal-sessions.title': 'جلسات الطرفية',
+        'core-terminal-sessions.sign_in': 'سجّل الدخول لرؤية جلسات الطرفية.',
         'core-terminal-sessions.grouping_help':
           'الأوامر التي شُغلت متقاربة، مجمعة بالطريقة التي حدث بها العمل فعلًا — فجوة ساعة تبدأ واحدة جديدة، لأن من شغّل ثلاثة أوامر وذهب إلى الغداء وعاد كان يفعل شيئين مختلفين.',
         'core-terminal-sessions.topic_help':
@@ -95,6 +101,7 @@ window.ZogographTerminalSessionsCard = {
       }),
       zh: Object.freeze({
         'core-terminal-sessions.title': '终端会话',
+        'core-terminal-sessions.sign_in': '登录后可查看终端会话。',
         'core-terminal-sessions.grouping_help':
           '按实际工作方式将相近时间运行的命令分组——间隔一小时会开始一个新会话，因为运行三条命令、去吃午饭再回来的人是在做两件不同的事。',
         'core-terminal-sessions.topic_help':

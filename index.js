@@ -17985,11 +17985,9 @@ async function refreshSessions() {
   if (!state.signedIn) {
     body.replaceChildren(
       note(
-        ZogographI18n.t(
-          'terminal.sessions_sign_in',
-          {},
-          'Sign in to see terminal sessions.',
-        ),
+        ZogographTerminalSessionsCard.text('sign_in', {
+          i18n: ZogographI18n,
+        }),
       ),
     );
     return;

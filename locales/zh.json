@@ -12,7 +12,6 @@
   "reports.sign_in": "登录后可阅读摘要。",
   "network.bytes": "字节",
   "setup.instructions_sign_in": "登录后可查看设置说明。",
-  "terminal.sessions_sign_in": "登录后可查看终端会话。",
   "terminal.use_sign_in": "登录后可使用终端。",
   "action.open": "打开",
   "action.request_capture": "请求抓包",

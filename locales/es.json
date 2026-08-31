@@ -12,7 +12,6 @@
   "reports.sign_in": "Inicie sesión para leer los resúmenes.",
   "network.bytes": "Bytes",
   "setup.instructions_sign_in": "Inicie sesión para ver las instrucciones de configuración.",
-  "terminal.sessions_sign_in": "Inicie sesión para ver las sesiones de terminal.",
   "terminal.use_sign_in": "Inicie sesión para usar la terminal.",
   "action.open": "Abrir",
   "action.request_capture": "Solicitar una captura",

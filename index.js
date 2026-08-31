@@ -3753,6 +3753,23 @@ function renderInstalledSoftwareTitle() {
 
 document.addEventListener('zogograph-i18n-load', renderInstalledSoftwareTitle);
 
+function renderLabelsTitle() {
+  const helpers = { target: null, note: () => null, i18n: ZogographI18n };
+  renderCoreCardPackage(
+    ZogographLabelsEmptyCard,
+    'core-labels-empty',
+    { rows: [] },
+    helpers,
+  );
+  const title = document.querySelector('[data-i18n="core-labels-empty.title"]');
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-labels-empty.title',
+    ZogographLabelsEmptyCard.text('title', helpers),
+  );
+}
+document.addEventListener('zogograph-i18n-load', renderLabelsTitle);
+
 /**
  * When the disk is projected to fill, as a date.
  *

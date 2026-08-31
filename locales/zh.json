@@ -2372,7 +2372,6 @@
   "network.rdns_resolve_next": "立即解析下一个",
   "network.rdns_help": "捕获或访问日志是一堵数字墙；同一个数字在周一毫无意义，但有人查过后到了周五就有了意义。这并非 {{labels}}——那是您决定某地址含义的自定义名称，规模小、手写且永久。这是互联网所说的名称：自动生成、偶尔错误，并会在数月内过时。",
   "network.rdns_lookup": "查询这些",
-  "metadata.labels_title": "您自己的名称",
   "metadata.label_kind_address": "地址或网络",
   "metadata.label_kind_port": "端口",
   "metadata.label_kind_header": "HTTP 标头",

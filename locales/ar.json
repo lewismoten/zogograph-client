@@ -2372,7 +2372,6 @@
   "network.rdns_resolve_next": "حل التالي الآن",
   "network.rdns_help": "الالتقاط أو سجل الوصول جدار من الأرقام، والرقم نفسه لا يعني شيئًا يوم الاثنين ثم يعني شيئًا يوم الجمعة بعدما يبحث عنه أحد. هذا ليس {{labels}} — فهو ما قررتَ أن يعنيه عنوان ما، وهو صغير ومكتوب يدويًا ودائم. هذا ما يقول الإنترنت إنه: تلقائي وخاطئ أحيانًا وقديم خلال أشهر.",
   "network.rdns_lookup": "ابحث عن هذه",
-  "metadata.labels_title": "أسماءك الخاصة",
   "metadata.label_kind_address": "عنوان أو شبكة",
   "metadata.label_kind_port": "منفذ",
   "metadata.label_kind_header": "ترويسة HTTP",

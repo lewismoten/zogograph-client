@@ -92,8 +92,10 @@ if [ -n "$previous_snapshot" ]; then
 else
   echo 'Snapshot baseline: none (first full snapshot)'
 fi
+echo 'Snapshot phase: copying application files'
 rsync "${rsync_args[@]}" "$site/" "$stage/site/"
 if [ -d "$site/data" ]; then
+  echo 'Snapshot phase: backing up SQLite databases'
   find "$site/data" \
     -path "$site/data/migration-backups" -prune -o \
     -type f \( -name '*.db' -o -name '*.sqlite' -o -name '*.sqlite3' \) -print |
@@ -105,6 +107,7 @@ if [ -d "$site/data" ]; then
   done
 fi
 
+echo 'Snapshot phase: verifying and finalizing files'
 if ! captured=$(find "$stage/site" "$stage/databases" -type f -print -quit); then
   fail 'cannot verify staged snapshot'
 fi

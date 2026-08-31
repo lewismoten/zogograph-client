@@ -231,21 +231,33 @@ jobs:
           set -euo pipefail
           command -v rsync >/dev/null || { timeout 1m apt-get update; timeout 1m apt-get install -y rsync; }
 
-      - name: Snapshot the live site and SQLite databases
+      - name: Prepare remote snapshot directory
         id: snapshot
         shell: bash
         run: |
           set -euo pipefail
           snapshot_id="${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT:-1}"
           printf 'id=%s\n' "$snapshot_id" >> "$GITHUB_OUTPUT"
-          remote_script=".zogograph-snapshot-${GITHUB_RUN_ID}-${DEPLOY_TARGET}.sh"
           timeout 1m ssh -i "$HOME/.ssh/zogograph_deploy_key" -p "${DEPLOY_PORT:-22}" \
             -o BatchMode=yes -o IdentitiesOnly=yes -o ConnectTimeout=15 \
             "${DEPLOY_USER}@${DEPLOY_HOST}" "mkdir -p '$SNAPSHOT_DIRECTORY'"
+
+      - name: Upload snapshot helper
+        shell: bash
+        run: |
+          set -euo pipefail
+          remote_script=".zogograph-snapshot-${GITHUB_RUN_ID}-${DEPLOY_TARGET}.sh"
           timeout 1m rsync -az \
             -e "ssh -i $HOME/.ssh/zogograph_deploy_key -p ${DEPLOY_PORT:-22} -o BatchMode=yes -o IdentitiesOnly=yes" \
             .forgejo/scripts/zogograph-snapshot.sh \
             "${DEPLOY_USER}@${DEPLOY_HOST}:${remote_script}"
+
+      - name: Create application and SQLite snapshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          snapshot_id="${{ steps.snapshot.outputs.id }}"
+          remote_script=".zogograph-snapshot-${GITHUB_RUN_ID}-${DEPLOY_TARGET}.sh"
           timeout 1m ssh -i "$HOME/.ssh/zogograph_deploy_key" -p "${DEPLOY_PORT:-22}" \
             -o BatchMode=yes -o IdentitiesOnly=yes -o ConnectTimeout=15 \
             "${DEPLOY_USER}@${DEPLOY_HOST}" \

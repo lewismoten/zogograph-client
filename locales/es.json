@@ -1392,8 +1392,6 @@
   "storage.still_on_disk_help": "El archivo no se ha ido. Algo más creció y lo sacó de las rutas que registra este análisis.",
   "storage.deleted_here": "Eliminado aquí {{at}}",
   "storage.deleted_here_help": "Eliminado desde este panel, según el registro de acciones.",
-  "storage.gone_help": "Ya no está en disco y este panel no lo eliminó; lo quitó otra cosa: rotación de registros, una tarea cron o una persona.",
-  "storage.new_help": "Esta ruta nunca se había registrado.",
   "storage.back_in_list": "De vuelta en la lista",
   "storage.back_in_list_help": "Se registró antes, faltó en el análisis anterior y volvió ahora: creció lo suficiente para registrarse.",
   "table.change": "Cambio",

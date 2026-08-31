@@ -127,6 +127,7 @@ export default [
         ZogographStorageBulkDeleteCard: 'readonly',
         ZogographStorageDeleteResultsCard: 'readonly',
         ZogographStorageOffenderStatusCard: 'readonly',
+        ZogographStorageOffenderStatusHelpCard: 'readonly',
         ZogographStorageGrowthStatusCard: 'readonly',
         ZogographSymlinkFilterCard: 'readonly',
         ZogographSymlinkActionsCard: 'readonly',

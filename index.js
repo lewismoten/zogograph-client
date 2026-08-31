@@ -4767,11 +4767,7 @@ async function refreshOffenders() {
         } else {
           span.className = 'shrank';
           span.textContent = storageOffenderStatusText('gone');
-          span.title = ZogographI18n.t(
-            'storage.gone_help',
-            {},
-            'Not on disk any more, and not deleted through this dashboard — so something else removed it: log rotation, a cron job, or a person.',
-          );
+          span.title = storageOffenderStatusHelpText('gone');
         }
         return span;
       },
@@ -4784,11 +4780,7 @@ async function refreshOffenders() {
         if (row.never_seen_before) {
           span.className = 'grew';
           span.textContent = storageOffenderStatusText('new');
-          span.title = ZogographI18n.t(
-            'storage.new_help',
-            {},
-            'This path has never been recorded before.',
-          );
+          span.title = storageOffenderStatusHelpText('new');
         } else {
           span.className = 'muted';
           span.textContent = ZogographI18n.t(
@@ -4857,6 +4849,14 @@ const storageOffenderStatusText = (key) =>
   renderCoreCardPackage(
     ZogographStorageOffenderStatusCard,
     'core-storage-offender-status',
+    { key },
+    { i18n: ZogographI18n },
+  );
+
+const storageOffenderStatusHelpText = (key) =>
+  renderCoreCardPackage(
+    ZogographStorageOffenderStatusHelpCard,
+    'core-storage-offender-status-help',
     { key },
     { i18n: ZogographI18n },
   );

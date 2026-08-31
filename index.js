@@ -5875,7 +5875,12 @@ function renderAiSettings(data) {
   );
 
   pages.limits.push(
-    section(aiSettingsText('context_title', 'How much it can hold'), room),
+    renderCoreCardPackage(
+      ZogographAiContextSectionCard,
+      'core-ai-context-section',
+      { content: room },
+      { section, i18n: ZogographI18n },
+    ),
   );
 
   /* ---- what it does without being asked ---- */

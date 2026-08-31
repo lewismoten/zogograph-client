@@ -569,7 +569,6 @@
   "ai.settings.alert_floor_label": "Except",
   "ai.settings.alert_per_run_label": "At most, per run",
   "ai.settings.report_to_label": "Send summaries to",
-  "ai.settings.context_title": "How much it can hold",
   "ai.settings.alert_mode_off": "nothing — alerts behave exactly as they always have",
   "ai.settings.alert_mode_comment": "read each alert and write a note on it",
   "ai.settings.alert_mode_look": "…and look things up first, so the note is informed",

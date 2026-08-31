@@ -4870,16 +4870,19 @@ const storageOffenderStatusText = (key) =>
  * elsewhere would be reading a share price, not a disk.
  */
 function growthCell(growth) {
+  const growthText = (key, values = {}) =>
+    renderCoreCardPackage(
+      ZogographStorageGrowthStatusCard,
+      'core-storage-growth-status',
+      { key, values },
+      { i18n: ZogographI18n },
+    );
   const span = document.createElement('span');
 
   if (!growth) {
     span.className = 'muted';
     span.textContent = '\u2014';
-    span.title = ZogographI18n.t(
-      'storage.no_measurable_change',
-      {},
-      'No measurable change since the previous scan.',
-    );
+    span.title = growthText('none');
     return span;
   }
 
@@ -4887,16 +4890,8 @@ function growthCell(growth) {
   span.className = up ? 'grew' : 'shrank';
   span.textContent = `${up ? '\u25b2' : '\u25bc'} ${humanBytes(Math.abs(growth))}`;
   span.title = up
-    ? ZogographI18n.t(
-        'storage.grew_since_scan',
-        { bytes: humanBytes(growth) },
-        'Grew by {{bytes}} since the previous scan — this is taking space.',
-      )
-    : ZogographI18n.t(
-        'storage.shrank_since_scan',
-        { bytes: humanBytes(-growth) },
-        'Shrank by {{bytes}} since the previous scan — this gave space back.',
-      );
+    ? growthText('grew', { bytes: humanBytes(growth) })
+    : growthText('shrank', { bytes: humanBytes(-growth) });
   return span;
 }
 

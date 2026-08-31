@@ -3101,6 +3101,12 @@ function renderDnsChangesTitle() {
     'core-dns-changes.title',
     ZogographDnsChangesCard.text('title', helpers),
   );
+  const help = document.querySelector('[data-i18n="core-dns-changes.help"]');
+  help.textContent = ZogographI18n.markSource(
+    help,
+    'core-dns-changes.help',
+    ZogographDnsChangesCard.text('help', helpers),
+  );
 }
 
 document.addEventListener('zogograph-i18n-load', renderDnsChangesTitle);
@@ -3127,6 +3133,14 @@ function renderDnsRecordGroupTitle() {
     title,
     'core-dns-record-group.title',
     ZogographDnsRecordGroupCard.text('title', helpers),
+  );
+  const help = document.querySelector(
+    '[data-i18n="core-dns-record-group.overview_help"]',
+  );
+  help.textContent = ZogographI18n.markSource(
+    help,
+    'core-dns-record-group.overview_help',
+    ZogographDnsRecordGroupCard.text('overview_help', helpers),
   );
 }
 

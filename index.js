@@ -3043,6 +3043,33 @@ function renderDomainQueueTitle() {
 
 document.addEventListener('zogograph-i18n-load', renderDomainQueueTitle);
 
+function renderUrlChecksShellLabels() {
+  const helpers = {
+    target: null,
+    hideHistory: () => null,
+    note: () => null,
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(
+    ZogographUrlsEmptyCard,
+    'core-urls-empty',
+    { rows: [] },
+    helpers,
+  );
+  document
+    .querySelectorAll('[data-i18n^="core-urls-empty."]')
+    .forEach((node) => {
+      const key = node.dataset.i18n.replace('core-urls-empty.', '');
+      node.textContent = ZogographI18n.markSource(
+        node,
+        `core-urls-empty.${key}`,
+        ZogographUrlsEmptyCard.text(key, helpers),
+      );
+    });
+}
+
+document.addEventListener('zogograph-i18n-load', renderUrlChecksShellLabels);
+
 /**
  * When the disk is projected to fill, as a date.
  *

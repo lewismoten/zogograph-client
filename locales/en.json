@@ -2594,8 +2594,6 @@
   "storage.whole_machine_help": "A second walk, run by root, that reaches everything this account cannot — other accounts, {{var}}, {{backup}}, and space held by deleted files still open. It takes tens of seconds, so it is not part of the per-minute collection: pressing this leaves a request that the host collector picks up on its next run. The results are under {{filesystems}}, {{directories}} and {{deleted}}.",
   "storage.type_help": "Every file counted once, by extension, from the last completed scan. This is a different question from the categories below: those are the rules that raise alerts and let you empty things, and most files match none of them. These add up to the whole account, which is what makes the pie mean anything. {{other}} is files with no extension or an unfamiliar one, and on most accounts it is large.",
   "storage.show_categories": "Show watched categories too",
-  "storage.other_title": "What is inside {{other}}",
-  "storage.other_help": "The extensions that matched no group, heaviest first. This is where a backup convention nobody documented turns up — {{bkup}}, {{old}}, a date-stamped copy of a database. {{none}} is files with no extension at all.",
   "storage.total_size": "total size",
   "storage.change_since_scan": "change since the previous scan",
   "storage.type_growth_help": "One line per type across every completed scan in this range. A type with no line had nothing of that kind at the time — the line starts where the first file did, rather than running along the axis from the beginning.",

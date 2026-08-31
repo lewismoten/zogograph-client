@@ -6240,6 +6240,29 @@ function renderOtherExtensions(rows) {
   );
 }
 
+function renderOtherExtensionsLabels() {
+  const helpers = {
+    target: null,
+    renderTable: () => null,
+    humanBytes: () => '',
+    humanCount: () => '',
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(
+    ZogographOtherExtensionsCard,
+    'core-other-extensions',
+    [],
+    helpers,
+  );
+  for (const key of ['title', 'help']) {
+    ZogographI18n.applyRich(
+      document.querySelector(`[data-i18n-rich="core-other-extensions.${key}"]`),
+    );
+  }
+}
+
+document.addEventListener('zogograph-i18n-load', renderOtherExtensionsLabels);
+
 /*
  * Each type over time.
  *

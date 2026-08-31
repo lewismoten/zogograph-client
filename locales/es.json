@@ -2579,8 +2579,6 @@
   "storage.whole_machine_help": "Un segundo recorrido, ejecutado como root, que alcanza todo lo que esta cuenta no puede: otras cuentas, {{var}}, {{backup}} y espacio ocupado por archivos eliminados que siguen abiertos. Tarda decenas de segundos, por lo que no forma parte de la recopilación por minuto: al pulsar esto queda una solicitud que el recolector del host atenderá en su próxima ejecución. Los resultados están en {{filesystems}}, {{directories}} y {{deleted}}.",
   "storage.type_help": "Cada archivo se cuenta una vez, por extensión, desde el último análisis completado. Es una pregunta distinta de las categorías de abajo: esas son las reglas que generan alertas y permiten vaciar cosas, y la mayoría de los archivos no coincide con ninguna. Estos valores suman toda la cuenta, que es lo que da sentido al gráfico circular. {{other}} son archivos sin extensión o con una desconocida, y en la mayoría de las cuentas ocupan mucho.",
   "storage.show_categories": "Mostrar también las categorías vigiladas",
-  "storage.other_title": "Qué hay dentro de {{other}}",
-  "storage.other_help": "Las extensiones que no coincidieron con ningún grupo, primero las más pesadas. Aquí aparece una convención de copias de seguridad que nadie documentó: {{bkup}}, {{old}} o una copia de base de datos con fecha. {{none}} son archivos sin extensión.",
   "storage.total_size": "tamaño total",
   "storage.change_since_scan": "cambio desde el análisis anterior",
   "storage.type_growth_help": "Una línea por tipo en cada análisis completado de este intervalo. Un tipo sin línea no tenía nada de ese tipo entonces: la línea empieza donde apareció el primer archivo, en vez de seguir el eje desde el inicio.",

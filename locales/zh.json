@@ -2576,8 +2576,6 @@
   "storage.whole_machine_help": "由 root 运行的第二次遍历，可到达此账户无法到达的所有内容——其他账户、{{var}}、{{backup}}以及仍被打开的已删除文件占用的空间。它需要数十秒，因此不属于每分钟收集：按下此按钮会留下一个请求，主机收集器会在下次运行时处理。结果位于 {{filesystems}}、{{directories}} 和 {{deleted}} 中。",
   "storage.type_help": "按扩展名从最近一次完成的扫描中对每个文件计数一次。这与下方的类别不同：类别是触发警报和允许清理的规则，大多数文件不符合其中任何一项。这些数值合计为整个账户，因此饼图才有意义。{{other}} 是没有扩展名或扩展名不熟悉的文件，在大多数账户中它很大。",
   "storage.show_categories": "同时显示受监控类别",
-  "storage.other_title": "{{other}} 中有什么",
-  "storage.other_help": "不属于任何分组的扩展名，先列出占用最多的。这里会发现无人记录的备份惯例——{{bkup}}、{{old}} 或带日期的数据库副本。{{none}} 是完全没有扩展名的文件。",
   "storage.total_size": "总大小",
   "storage.change_since_scan": "自上次扫描后的变化",
   "storage.type_growth_help": "此范围内每次完成扫描中每个类型一条线。没有线的类型当时没有此类内容——线从第一个文件出现的位置开始。",

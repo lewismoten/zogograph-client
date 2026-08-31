@@ -18,6 +18,8 @@ window.ZogographProcessListCard = {
     catalogs: Object.freeze({
       en: Object.freeze({
         'core-process-list.title': 'What is using the machine',
+        'core-process-list.stop_help':
+          'For when the name is not specific enough to aim with — twelve {{webalizer}} processes where one of them is chewing through one particular log. This is {{pkill}}, with the two differences that matter: the pattern is matched here rather than handed to a shell, and it shows you what it would hit before it hits anything.',
         'core-process-list.process': 'Process',
         'core-process-list.how_many': 'How many',
         'core-process-list.user': 'User',
@@ -32,6 +34,8 @@ window.ZogographProcessListCard = {
       }),
       es: Object.freeze({
         'core-process-list.title': 'Qué está usando la máquina',
+        'core-process-list.stop_help':
+          'Para cuando el nombre no es lo bastante específico: doce procesos de {{webalizer}} y uno de ellos consume un registro concreto. Esto es {{pkill}}, con dos diferencias importantes: el patrón se compara aquí en lugar de pasarse a un shell, y muestra qué afectaría antes de afectar nada.',
         'core-process-list.process': 'Proceso',
         'core-process-list.how_many': 'Cantidad',
         'core-process-list.user': 'Usuario',
@@ -46,6 +50,8 @@ window.ZogographProcessListCard = {
       }),
       hi: Object.freeze({
         'core-process-list.title': 'मशीन का उपयोग क्या कर रहा है',
+        'core-process-list.stop_help':
+          'जब नाम निशाना लगाने के लिए पर्याप्त विशिष्ट न हो—{{webalizer}} के बारह प्रोसेस और उनमें से एक किसी खास लॉग को खा रहा हो। यह {{pkill}} है, पर दो अहम अंतर हैं: पैटर्न को शेल को देने के बजाय यहीं मिलाया जाता है, और कुछ करने से पहले यह दिखाता है कि किस पर असर होगा।',
         'core-process-list.process': 'प्रक्रिया',
         'core-process-list.how_many': 'कितनी',
         'core-process-list.user': 'उपयोगकर्ता',
@@ -60,6 +66,8 @@ window.ZogographProcessListCard = {
       }),
       ar: Object.freeze({
         'core-process-list.title': 'ما الذي يستخدم الجهاز',
+        'core-process-list.stop_help':
+          'عندما لا يكون الاسم محددًا بما يكفي للاستهداف — اثنتا عشرة عملية {{webalizer}} وإحداها تعمل على سجل معين. هذا هو {{pkill}} مع فارقين مهمين: يُطابق النمط هنا بدل تمريره إلى shell، ويعرض ما سيصيبه قبل أن يصيب أي شيء.',
         'core-process-list.process': 'العملية',
         'core-process-list.how_many': 'العدد',
         'core-process-list.user': 'المستخدم',
@@ -74,6 +82,8 @@ window.ZogographProcessListCard = {
       }),
       zh: Object.freeze({
         'core-process-list.title': '什么在使用这台机器',
+        'core-process-list.stop_help':
+          '当名称不足以精确定位时，例如有十二个 {{webalizer}} 进程，其中一个正在处理某个特定日志。这是 {{pkill}}，但有两个重要区别：模式在此处匹配，而不会交给 shell；它会在执行前显示将要命中的内容。',
         'core-process-list.process': '进程',
         'core-process-list.how_many': '数量',
         'core-process-list.user': '用户',

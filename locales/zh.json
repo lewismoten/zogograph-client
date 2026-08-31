@@ -2344,7 +2344,6 @@
   "processes.trend_title": "此范围内报告的进程负载",
   "processes.trend_initial_help": "最新报告的进程排在列表前面，并保留高峰值，因此已经平静下来的进程仍然可见。名称会将替换工作进程归在一起；PID 有意不作为图表身份标识。",
   "processes.stop_title": "按命令行停止",
-  "processes.stop_help": "当名称不足以精确定位时，例如有十二个 {{webalizer}} 进程，其中一个正在处理某个特定日志。这是 {{pkill}}，但有两个重要区别：模式在此处匹配，而不会交给 shell；它会在执行前显示将要命中的内容。",
   "processes.show_matches": "显示匹配项",
   "action.open_all": "全部展开",
   "network.intro": "这里的其他页面都在测量某种正在消耗的资源——磁盘、内存、CPU——但没有一个能说明原因。因每秒响应四千个 DNS 查询而占满 100% 的机器，看起来和因任何其他原因占满 100% 的机器完全一样；区别只能在线路上看到。",

@@ -2347,7 +2347,6 @@
   "processes.trend_title": "Carga de procesos notificada en este periodo",
   "processes.trend_initial_help": "Los procesos informados más recientes encabezan esta lista, y se conservan los picos altos para que un proceso que ya se calmó siga visible. Los nombres agrupan trabajadores de reemplazo; los PID no son deliberadamente una identidad del gráfico.",
   "processes.stop_title": "Detener por línea de comandos",
-  "processes.stop_help": "Para cuando el nombre no es lo bastante específico: doce procesos de {{webalizer}} y uno de ellos consume un registro concreto. Esto es {{pkill}}, con dos diferencias importantes: el patrón se compara aquí en lugar de pasarse a un shell, y muestra qué afectaría antes de afectar nada.",
   "processes.show_matches": "Mostrar coincidencias",
   "action.open_all": "Abrir todo",
   "network.intro": "Todas las demás páginas miden algo que se está agotando — disco, memoria, CPU — y ninguna puede decir por qué. Una máquina al 100 % porque responde cuatro mil consultas DNS por segundo parece exactamente igual que una máquina al 100 % por cualquier otra razón; la diferencia solo se ve en la red.",

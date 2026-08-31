@@ -5,6 +5,7 @@ window.ZogographDnsChangesCard = {
     helpers: ['target', 'note', 'renderTable', 'whenSpan', 'i18n'],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-dns-changes.title': 'What changed',
         'core-dns-changes.empty':
           'Nothing has changed since this started watching.',
         'core-dns-changes.appeared': 'Appeared',
@@ -16,6 +17,7 @@ window.ZogographDnsChangesCard = {
         'core-dns-changes.value': 'Value',
       }),
       es: Object.freeze({
+        'core-dns-changes.title': 'Qué cambió',
         'core-dns-changes.empty':
           'No ha cambiado nada desde que se inició la vigilancia.',
         'core-dns-changes.appeared': 'Apareció',
@@ -27,6 +29,7 @@ window.ZogographDnsChangesCard = {
         'core-dns-changes.value': 'Valor',
       }),
       hi: Object.freeze({
+        'core-dns-changes.title': 'क्या बदला',
         'core-dns-changes.empty':
           'निगरानी शुरू होने के बाद से कुछ भी नहीं बदला है।',
         'core-dns-changes.appeared': 'दिखाई दिया',
@@ -38,6 +41,7 @@ window.ZogographDnsChangesCard = {
         'core-dns-changes.value': 'मान',
       }),
       ar: Object.freeze({
+        'core-dns-changes.title': 'ما الذي تغير',
         'core-dns-changes.empty': 'لم يتغير شيء منذ بدء المراقبة.',
         'core-dns-changes.appeared': 'ظهر',
         'core-dns-changes.disappeared': 'اختفى',
@@ -48,6 +52,7 @@ window.ZogographDnsChangesCard = {
         'core-dns-changes.value': 'القيمة',
       }),
       zh: Object.freeze({
+        'core-dns-changes.title': '发生了什么变化',
         'core-dns-changes.empty': '自开始监测以来没有任何变化。',
         'core-dns-changes.appeared': '已出现',
         'core-dns-changes.disappeared': '已消失',
@@ -59,6 +64,13 @@ window.ZogographDnsChangesCard = {
       }),
     }),
   }),
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-dns-changes.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-dns-changes.${key}`],
+    );
+  },
   render(data, helpers) {
     if (!data.changes.length) {
       helpers.target.replaceChildren(

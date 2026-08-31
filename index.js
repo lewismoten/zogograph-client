@@ -2974,6 +2974,30 @@ function renderNetworkRdnsTitle() {
 
 document.addEventListener('zogograph-i18n-load', renderNetworkRdnsTitle);
 
+function renderDnsChangesTitle() {
+  const helpers = {
+    target: null,
+    note: () => null,
+    renderTable: () => null,
+    whenSpan: () => null,
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(
+    ZogographDnsChangesCard,
+    'core-dns-changes',
+    { changes: [] },
+    helpers,
+  );
+  const title = document.querySelector('[data-i18n="core-dns-changes.title"]');
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-dns-changes.title',
+    ZogographDnsChangesCard.text('title', helpers),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderDnsChangesTitle);
+
 /**
  * When the disk is projected to fill, as a date.
  *

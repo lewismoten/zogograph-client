@@ -2362,7 +2362,6 @@
   "network.interfaces": "Interfaces",
   "network.ports_public_only": "Solo accesibles desde fuera",
   "network.open_ports_help": "Qué está escuchando y qué suele responder en cada puerto. Un número de puerto es una convención, no un hecho: cualquier cosa puede vincularse al 443. Por eso la columna de servicio es la expectativa y la de proceso es la realidad. Cuando no coinciden, esa discrepancia es lo interesante.",
-  "network.peers_title": "Quién está conectado",
   "network.peers_help": "Conexiones establecidas agrupadas por la dirección del otro extremo. Se agrupan porque la forma útil es «una dirección mantiene novecientos sockets», algo que una lista plana de novecientas filas declara sin mostrar.",
   "network.capture_title": "Qué hay en la red",
   "network.capture_help": "La herramienta de último recurso, tratada como tal: abre una interfaz activa como root, se ejecuta durante el tiempo indicado y es lo único que hace este recopilador que podría notarse en una máquina ocupada. Solo registra conteos y extremos: cuántos paquetes, entre qué direcciones, en qué puertos y, para DNS, los nombres consultados. Nunca se guarda el contenido de paquetes.",

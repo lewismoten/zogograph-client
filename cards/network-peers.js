@@ -14,6 +14,7 @@ window.ZogographNetworkPeersCard = {
     ],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-network-peers.title': 'Who is connected',
         'core-network-peers.empty':
           'No established connections were recorded. Either the machine is idle, or ss could not be run by the collector.',
         'core-network-peers.summary':
@@ -25,6 +26,7 @@ window.ZogographNetworkPeersCard = {
           'a private address — another machine on this network',
       }),
       es: Object.freeze({
+        'core-network-peers.title': 'Quién está conectado',
         'core-network-peers.empty':
           'No se registraron conexiones establecidas. La máquina está inactiva o el recopilador no pudo ejecutar ss.',
         'core-network-peers.summary':
@@ -36,6 +38,7 @@ window.ZogographNetworkPeersCard = {
           'una dirección privada — otra máquina de esta red',
       }),
       hi: Object.freeze({
+        'core-network-peers.title': 'कौन जुड़ा है',
         'core-network-peers.empty':
           'कोई स्थापित कनेक्शन दर्ज नहीं था। मशीन निष्क्रिय है या कलेक्टर ss नहीं चला सका।',
         'core-network-peers.summary':
@@ -47,6 +50,7 @@ window.ZogographNetworkPeersCard = {
           'निजी पता — इस नेटवर्क की दूसरी मशीन',
       }),
       ar: Object.freeze({
+        'core-network-peers.title': 'من المتصل',
         'core-network-peers.empty':
           'لم تُسجل اتصالات قائمة. إما أن الآلة خاملة أو لم يتمكن الجامع من تشغيل ss.',
         'core-network-peers.summary':
@@ -58,6 +62,7 @@ window.ZogographNetworkPeersCard = {
           'عنوان خاص — آلة أخرى على هذه الشبكة',
       }),
       zh: Object.freeze({
+        'core-network-peers.title': '谁已连接',
         'core-network-peers.empty':
           '未记录已建立的连接。机器可能空闲，或采集器无法运行 ss。',
         'core-network-peers.summary':
@@ -69,6 +74,14 @@ window.ZogographNetworkPeersCard = {
       }),
     }),
   }),
+
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-network-peers.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-network-peers.${key}`],
+    );
+  },
 
   render(data, helpers) {
     const { target, note, renderTable, humanCount, humanTime, labelled, i18n } =

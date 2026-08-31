@@ -2852,6 +2852,34 @@ function renderNetworkPortsTitle() {
 
 document.addEventListener('zogograph-i18n-load', renderNetworkPortsTitle);
 
+function renderNetworkPeersTitle() {
+  const helpers = {
+    target: null,
+    note: () => null,
+    renderTable: () => null,
+    humanCount: () => '',
+    humanTime: () => '',
+    labelled: () => '',
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(
+    ZogographNetworkPeersCard,
+    'core-network-peers',
+    {},
+    helpers,
+  );
+  const title = document.querySelector(
+    '[data-i18n="core-network-peers.title"]',
+  );
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-network-peers.title',
+    ZogographNetworkPeersCard.text('title', helpers),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderNetworkPeersTitle);
+
 /**
  * When the disk is projected to fill, as a date.
  *

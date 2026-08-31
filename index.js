@@ -16205,42 +16205,30 @@ function renderEncryptionStatus(data) {
   if (artifacts)
     renderTable('encryptionArtifacts', artifacts, [
       {
-        label: ZogographI18n.t('encryption.table_store', {}, 'Store'),
+        label: encryptionText('table_store'),
         render: (row) => row.store,
       },
       {
-        label: ZogographI18n.t(
-          'encryption.table_verified_copies',
-          {},
-          'Verified copies',
-        ),
+        label: encryptionText('table_verified_copies'),
         render: (row) => String(row.copies),
       },
       {
-        label: ZogographI18n.t(
-          'encryption.table_newest_proof',
-          {},
-          'Newest proof',
-        ),
+        label: encryptionText('table_newest_proof'),
         render: (row) => whenSpan(row.created_at),
       },
       {
-        label: ZogographI18n.t(
-          'encryption.table_last_recheck',
-          {},
-          'Last re-check',
-        ),
+        label: encryptionText('table_last_recheck'),
         render: (row) =>
           row.last_verified_at
             ? whenSpan(row.last_verified_at)
-            : ZogographI18n.t('encryption.not_rechecked', {}, 'not rechecked'),
+            : encryptionText('not_rechecked'),
       },
       {
         label: encryptionText('recovery_drill'),
         render: (row) =>
           row.last_recovery_drill_at
             ? whenSpan(row.last_recovery_drill_at)
-            : ZogographI18n.t('encryption.required', {}, 'required'),
+            : encryptionText('required'),
       },
     ]);
 }

@@ -66,6 +66,12 @@ window.ZogographSystemEncryptionShellCard = {
           'Retired recovery copies',
         'core-system-encryption-shell.optional_remote_envelopes':
           'Optional remote envelopes',
+        'core-system-encryption-shell.table_store': 'Store',
+        'core-system-encryption-shell.table_verified_copies': 'Verified copies',
+        'core-system-encryption-shell.table_newest_proof': 'Newest proof',
+        'core-system-encryption-shell.table_last_recheck': 'Last re-check',
+        'core-system-encryption-shell.not_rechecked': 'not rechecked',
+        'core-system-encryption-shell.required': 'required',
       }),
       es: Object.freeze({
         'core-system-encryption-shell.title': 'Protección de datos',
@@ -136,6 +142,15 @@ window.ZogographSystemEncryptionShellCard = {
           'Copias de recuperación retiradas',
         'core-system-encryption-shell.optional_remote_envelopes':
           'Sobres remotos opcionales',
+        'core-system-encryption-shell.table_store': 'Almacén',
+        'core-system-encryption-shell.table_verified_copies':
+          'Copias verificadas',
+        'core-system-encryption-shell.table_newest_proof':
+          'Prueba más reciente',
+        'core-system-encryption-shell.table_last_recheck':
+          'Última comprobación',
+        'core-system-encryption-shell.not_rechecked': 'sin volver a comprobar',
+        'core-system-encryption-shell.required': 'obligatorio',
       }),
       hi: Object.freeze({
         'core-system-encryption-shell.title': 'डेटा सुरक्षा',
@@ -196,6 +211,13 @@ window.ZogographSystemEncryptionShellCard = {
           'सेवानिवृत्त रिकवरी प्रतियां',
         'core-system-encryption-shell.optional_remote_envelopes':
           'वैकल्पिक रिमोट एनवेलप',
+        'core-system-encryption-shell.table_store': 'स्टोर',
+        'core-system-encryption-shell.table_verified_copies':
+          'सत्यापित प्रतियां',
+        'core-system-encryption-shell.table_newest_proof': 'नवीनतम प्रमाण',
+        'core-system-encryption-shell.table_last_recheck': 'अंतिम पुनः जाँच',
+        'core-system-encryption-shell.not_rechecked': 'पुनः जाँचा नहीं गया',
+        'core-system-encryption-shell.required': 'आवश्यक',
       }),
       ar: Object.freeze({
         'core-system-encryption-shell.title': 'حماية البيانات',
@@ -255,6 +277,12 @@ window.ZogographSystemEncryptionShellCard = {
           'نسخ استرداد متقاعدة',
         'core-system-encryption-shell.optional_remote_envelopes':
           'مغلفات بعيدة اختيارية',
+        'core-system-encryption-shell.table_store': 'المخزن',
+        'core-system-encryption-shell.table_verified_copies': 'نسخ متحقق منها',
+        'core-system-encryption-shell.table_newest_proof': 'أحدث دليل',
+        'core-system-encryption-shell.table_last_recheck': 'آخر إعادة فحص',
+        'core-system-encryption-shell.not_rechecked': 'لم يُفحص مجدداً',
+        'core-system-encryption-shell.required': 'مطلوب',
       }),
       zh: Object.freeze({
         'core-system-encryption-shell.title': '数据保护',
@@ -308,6 +336,12 @@ window.ZogographSystemEncryptionShellCard = {
           '已退役的恢复副本',
         'core-system-encryption-shell.optional_remote_envelopes':
           '可选远程信封',
+        'core-system-encryption-shell.table_store': '存储',
+        'core-system-encryption-shell.table_verified_copies': '已验证副本',
+        'core-system-encryption-shell.table_newest_proof': '最新证明',
+        'core-system-encryption-shell.table_last_recheck': '上次重新检查',
+        'core-system-encryption-shell.not_rechecked': '未重新检查',
+        'core-system-encryption-shell.required': '必需',
       }),
     }),
   }),

@@ -21449,6 +21449,14 @@ const symlinkCheckSummaryText = (key, values = {}) =>
     { i18n: ZogographI18n },
   );
 
+const symlinkCheckOutcomeText = (key, values = {}) =>
+  renderCoreCardPackage(
+    ZogographSymlinkCheckOutcomeCard,
+    'core-symlink-check-outcome',
+    { key, values },
+    { i18n: ZogographI18n },
+  );
+
 /**
  * Checks the tree for symlinks that will send something into a loop.
  *
@@ -21510,15 +21518,7 @@ function renderSymlinks() {
   const data = linkState.data;
 
   if (!data) {
-    holder.replaceChildren(
-      note(
-        ZogographI18n.t(
-          'storage.symlink_not_checked',
-          {},
-          'Nothing has been checked yet. This walks the whole watched directory, which takes a few seconds, so it runs when you ask rather than on every poll.',
-        ),
-      ),
-    );
+    holder.replaceChildren(note(symlinkCheckOutcomeText('not_checked')));
     $('linkSweepPanel').hidden = true;
     return;
   }
@@ -21556,57 +21556,27 @@ function renderSymlinks() {
    * was three yesterday, and the count on its own cannot tell you which.
    */
   if (data.first_walk) {
-    parts.push(
-      note(
-        ZogographI18n.t(
-          'storage.symlink_first_walk',
-          {},
-          'This is the first complete check, so nothing counts as new. From now on anything that appears will be called out here and will raise an alert.',
-        ),
-      ),
-    );
+    parts.push(note(symlinkCheckOutcomeText('first_walk')));
   } else if (data.new && data.new.length) {
     const said = document.createElement('p');
     said.className = 'band-crit';
-    said.textContent = ZogographI18n.t(
-      'storage.symlink_new_problems',
-      { count: humanCount(data.new.length) },
-      `${humanCount(data.new.length)} problems here for the first time. An alert has been raised.`,
-    );
+    said.textContent = symlinkCheckOutcomeText('new_problems', {
+      count: humanCount(data.new.length),
+    });
     parts.push(said);
   } else if (data.gone > 0) {
     parts.push(
-      note(
-        ZogographI18n.t(
-          'storage.symlink_gone',
-          { count: humanCount(data.gone) },
-          `Nothing new, and ${humanCount(data.gone)} problems gone since last time.`,
-        ),
-      ),
+      note(symlinkCheckOutcomeText('gone', { count: humanCount(data.gone) })),
     );
   } else if (data.problems.length) {
-    parts.push(
-      note(
-        ZogographI18n.t(
-          'storage.symlink_unchanged',
-          {},
-          'Nothing new since the last check.',
-        ),
-      ),
-    );
+    parts.push(note(symlinkCheckOutcomeText('unchanged')));
   }
 
   if (!data.problems.length) {
     const good = document.createElement('p');
     good.className = 'shrank';
-    good.textContent = ZogographI18n.t(
-      data.complete
-        ? 'storage.symlink_healthy'
-        : 'storage.symlink_healthy_partial',
-      {},
-      data.complete
-        ? 'No symlink loops, dangling links or escapes found.'
-        : 'Nothing wrong in the part that was checked.',
+    good.textContent = symlinkCheckOutcomeText(
+      data.complete ? 'healthy' : 'healthy_partial',
     );
     parts.push(good);
     holder.replaceChildren(...parts);

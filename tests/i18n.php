@@ -2643,13 +2643,6 @@ i18nExpect(
             $english['storage.symlink_filter_empty'],
             $english['storage.symlink_showing_capped'],
             $english['storage.symlink_walking_tree'],
-            $english['storage.symlink_not_checked'],
-            $english['storage.symlink_first_walk'],
-            $english['storage.symlink_new_problems'],
-            $english['storage.symlink_gone'],
-            $english['storage.symlink_unchanged'],
-            $english['storage.symlink_healthy'],
-            $english['storage.symlink_healthy_partial'],
         ),
     'English fallback catalog is incomplete',
 );
@@ -3067,7 +3060,12 @@ i18nExpect(
             ),
             'core-symlink-check-summary.complete',
         ) &&
-        str_contains($script, 'storage.symlink_healthy_partial'),
+        str_contains(
+            (string) file_get_contents(
+                $root . '/cards/symlink-check-outcome.js',
+            ),
+            'core-symlink-check-outcome.healthy_partial',
+        ),
     'symlink check status retains package-owned user-visible text',
 );
 i18nExpect(

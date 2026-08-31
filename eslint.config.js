@@ -135,6 +135,7 @@ export default [
         ZogographSymlinkFilterCard: 'readonly',
         ZogographSymlinkTableCard: 'readonly',
         ZogographSymlinkCheckSummaryCard: 'readonly',
+        ZogographSymlinkCheckOutcomeCard: 'readonly',
         ZogographSymlinkActionsCard: 'readonly',
         ZogographSymlinkSweepEmptyCard: 'readonly',
         ZogographSymlinkSweepSafetyCard: 'readonly',

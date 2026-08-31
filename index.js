@@ -2782,6 +2782,28 @@ function renderJetBackupLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderJetBackupLabels);
 
+function renderBackupShellLabels() {
+  const helpers = { i18n: ZogographI18n };
+  renderCoreCardPackage(
+    ZogographBackupShellCard,
+    'core-backup-shell',
+    {},
+    helpers,
+  );
+  document
+    .querySelectorAll('[data-i18n^="core-backup-shell."]')
+    .forEach((node) => {
+      const key = node.dataset.i18n.replace('core-backup-shell.', '');
+      node.textContent = ZogographI18n.markSource(
+        node,
+        `core-backup-shell.${key}`,
+        ZogographBackupShellCard.text(key, helpers),
+      );
+    });
+}
+
+document.addEventListener('zogograph-i18n-load', renderBackupShellLabels);
+
 /**
  * When the disk is projected to fill, as a date.
  *

@@ -51,6 +51,7 @@ export default [
         ZogographFetchTabsCard: 'readonly',
         ZogographCapabilityChangeNoteCard: 'readonly',
         ZogographJetBackupCard: 'readonly',
+        ZogographBackupShellCard: 'readonly',
         ZogographCagefsExplainerCard: 'readonly',
         ZogographCagefsShellCard: 'readonly',
         ZogographWhoisTermsCard: 'readonly',

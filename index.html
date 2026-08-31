@@ -93,6 +93,7 @@
     <script src="cards/fetch-tabs.js" defer></script>
     <script src="cards/capability-change-note.js" defer></script>
     <script src="cards/jetbackup.js" defer></script>
+    <script src="cards/backup-shell.js" defer></script>
     <script src="cards/cagefs-explainer.js" defer></script>
     <script src="cards/cagefs-shell.js" defer></script>
     <script src="cards/whois-terms.js" defer></script>
@@ -2061,8 +2062,11 @@
 
         <section class="view" data-view="backups" hidden>
           <section class="panel" id="backupPanel">
-            <h2 data-i18n="backup.storage_title">Backup storage</h2>
-            <p class="muted small sub-note" data-i18n="backup.storage_help">
+            <h2 data-i18n="core-backup-shell.storage_title">Backup storage</h2>
+            <p
+              class="muted small sub-note"
+              data-i18n="core-backup-shell.storage_help"
+            >
               Backups are usually the largest thing on a server and the last
               place anybody looks, because they are not in /home. This asks four
               questions: how much space, whose, how old, and what is safe to do
@@ -2074,8 +2078,13 @@
 
         <section class="view" data-view="backups-actions" hidden>
           <section class="panel">
-            <h2 data-i18n="backup.actions_title">What can be done about it</h2>
-            <p class="muted small sub-note" data-i18n="backup.actions_help">
+            <h2 data-i18n="core-backup-shell.actions_title">
+              What can be done about it
+            </h2>
+            <p
+              class="muted small sub-note"
+              data-i18n="core-backup-shell.actions_help"
+            >
               Sorted by how safe each one is, not by how much it would free.
               Anything marked destructive removes the only copy of something —
               the whole point of a backup is that it is there on the day nobody
@@ -2087,8 +2096,13 @@
 
         <section class="view" data-view="backups-other" hidden>
           <section class="panel">
-            <h2 data-i18n="backup.other_title">Other probable backups</h2>
-            <p class="muted small sub-note" data-i18n="backup.other_help">
+            <h2 data-i18n="core-backup-shell.other_title">
+              Other probable backups
+            </h2>
+            <p
+              class="muted small sub-note"
+              data-i18n="core-backup-shell.other_help"
+            >
               Directories that look like backups but are not managed by
               anything: a tar.gz somebody made before an upgrade, a dated copy
               of a site, a database dump. Nothing rotates these, so they stay

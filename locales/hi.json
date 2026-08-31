@@ -450,7 +450,6 @@
   "process.matches_some_protected": "{{scanned}} चल रही प्रक्रियाओं में से {{matched}} मेल खाती हैं; {{blocked}} सुरक्षित हैं।",
   "process.all_matches_protected": "हर मेल सुरक्षित है, इसलिए यहाँ रोकने के लिए कुछ नहीं है।",
   "storage.links_sign_in": "सिमलिंक जाँचने के लिए साइन इन करें।",
-  "storage.link_sweep_incomplete": "ट्री के अंत तक पहुँचने से पहले वॉक का समय समाप्त हो गया, इसलिए और मेल खाते लिंक हो सकते हैं जिन्हें उसने नहीं देखा। बाद में इसे फिर चलाएँ।",
   "storage.link_sweep_removing": "हटाया जा रहा है…",
   "storage.link_sweep_looking": "देखा जा रहा है…",
   "storage.link_sweep_removed": "{{count}} लिंक हटाए गए।",

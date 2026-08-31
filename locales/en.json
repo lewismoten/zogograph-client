@@ -450,7 +450,6 @@
   "process.matches_some_protected": "Matches {{matched}} of the {{scanned}} running processes; {{blocked}} are protected.",
   "process.all_matches_protected": "Every match is protected, so there is nothing here to stop.",
   "storage.links_sign_in": "Sign in to check symlinks.",
-  "storage.link_sweep_incomplete": "The walk ran out of time before reaching the end of the tree, so there may be more matching links it never saw. Run it again afterwards.",
   "storage.link_sweep_removing": "Removing…",
   "storage.link_sweep_looking": "Looking…",
   "storage.link_sweep_removed": "{{count}} links removed.",

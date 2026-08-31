@@ -22091,12 +22091,11 @@ async function sweepLinks(pattern, confirmed = false) {
 
   if (!result.complete) {
     parts.push(
-      note(
-        ZogographI18n.t(
-          'storage.link_sweep_incomplete',
-          {},
-          'The walk ran out of time before reaching the end of the tree, so there may be more matching links it never saw. Run it again afterwards.',
-        ),
+      renderCoreCardPackage(
+        ZogographSymlinkSweepIncompleteCard,
+        'core-symlink-sweep-incomplete',
+        {},
+        { i18n: ZogographI18n, note },
       ),
     );
   }

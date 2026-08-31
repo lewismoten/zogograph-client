@@ -2638,7 +2638,6 @@ i18nExpect(
             $english['process.matches_all_protected'],
             $english['process.matches_some_protected'],
             $english['process.all_matches_protected'],
-            $english['storage.link_sweep_incomplete'],
             $english['storage.link_sweep_removing'],
             $english['storage.link_sweep_looking'],
             $english['storage.link_sweep_removed'],
@@ -3013,7 +3012,12 @@ i18nExpect(
             ),
             'core-symlink-sweep-safety.message',
         ) &&
-        str_contains($script, 'storage.link_sweep_incomplete') &&
+        str_contains(
+            (string) file_get_contents(
+                $root . '/cards/symlink-sweep-incomplete.js',
+            ),
+            'core-symlink-sweep-incomplete.message',
+        ) &&
         str_contains($script, 'storage.link_sweep_removing') &&
         str_contains($script, 'storage.link_sweep_preview_skipped') &&
         str_contains($script, 'storage.link_sweep_left_alone'),

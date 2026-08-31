@@ -2523,7 +2523,6 @@
   "database.indexes": "Indexes",
   "database.total": "Total",
   "database.indexes_note": "Indexes are counted against the table they belong to. On a busy table an index can be close to half the total, and listing them separately makes every table look cheaper than it is.",
-  "system.package_runtime_help": "Signed packages are reviewed here before any future runtime can use them. Enabling records explicit capability grants and private-package settings; it does not execute package PHP in this Zogograph release.",
   "reports.latest": "{{assistant}}'s latest summary",
   "reports.all": "All of them",
   "terminal.stop": "Stop it",

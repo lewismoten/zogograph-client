@@ -3798,6 +3798,14 @@ function renderSystemPackageRuntimeShellTitle() {
     'core-system-package-runtime-shell.title',
     ZogographSystemPackageRuntimeShellCard.text('title', helpers),
   );
+  const help = document.querySelector(
+    '[data-i18n="core-system-package-runtime-shell.help"]',
+  );
+  help.textContent = ZogographI18n.markSource(
+    help,
+    'core-system-package-runtime-shell.help',
+    ZogographSystemPackageRuntimeShellCard.text('help', helpers),
+  );
 }
 
 document.addEventListener(

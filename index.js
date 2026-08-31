@@ -41759,18 +41759,20 @@ $('sessionClose').addEventListener('click', () => {
 
 $('sessionName').addEventListener('click', async () => {
   if (!sessionState.open) return;
+  const sessionText = (key, fallback) =>
+    renderCoreCardPackage(
+      ZogographTerminalSessionsCard,
+      'core-terminal-sessions',
+      { kind: 'name', key, fallback },
+      { i18n: ZogographI18n },
+    );
 
   const topic = await askTextDialog(
-    ZogographI18n.t('ai.session_name_title', {}, 'Name session'),
-    ZogographI18n.t(
-      'ai.session_name_label',
-      {},
-      'What was this session about?',
-    ),
+    sessionText('name_title', 'Name session'),
+    sessionText('name_label', 'What was this session about?'),
     sessionState.log?.session?.topic || '',
-    ZogographI18n.t(
-      'ai.session_name_help',
-      {},
+    sessionText(
+      'name_help',
       'Name the path, service, or symptom specifically.',
     ),
   );
@@ -41785,7 +41787,7 @@ $('sessionName').addEventListener('click', async () => {
     renderSessionList();
     if (sessionState.log?.session) sessionState.log.session.topic = topic;
     renderSessionLog();
-    notice(ZogographI18n.t('ai.session_named', {}, 'Named.'), true);
+    notice(sessionText('named', 'Named.'), true);
   } catch (error) {
     notice(String(error.message || error));
   }

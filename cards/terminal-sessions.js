@@ -14,6 +14,11 @@ window.ZogographTerminalSessionsCard = {
         'core-terminal-sessions.last_command': 'Last command',
         'core-terminal-sessions.commands': 'Commands',
         'core-terminal-sessions.who': 'Who',
+        'core-terminal-sessions.name_title': 'Name session',
+        'core-terminal-sessions.name_label': 'What was this session about?',
+        'core-terminal-sessions.name_help':
+          'Name the path, service, or symptom specifically.',
+        'core-terminal-sessions.named': 'Named.',
       }),
       es: Object.freeze({
         'core-terminal-sessions.empty':
@@ -24,6 +29,11 @@ window.ZogographTerminalSessionsCard = {
         'core-terminal-sessions.last_command': 'Último comando',
         'core-terminal-sessions.commands': 'Comandos',
         'core-terminal-sessions.who': 'Quién',
+        'core-terminal-sessions.name_title': 'Nombrar sesión',
+        'core-terminal-sessions.name_label': '¿De qué trató esta sesión?',
+        'core-terminal-sessions.name_help':
+          'Nombre específicamente la ruta, el servicio o el síntoma.',
+        'core-terminal-sessions.named': 'Nombrada.',
       }),
       hi: Object.freeze({
         'core-terminal-sessions.empty':
@@ -34,6 +44,11 @@ window.ZogographTerminalSessionsCard = {
         'core-terminal-sessions.last_command': 'अंतिम कमांड',
         'core-terminal-sessions.commands': 'कमांड',
         'core-terminal-sessions.who': 'कौन',
+        'core-terminal-sessions.name_title': 'सत्र का नाम दें',
+        'core-terminal-sessions.name_label': 'यह सत्र किस बारे में था?',
+        'core-terminal-sessions.name_help':
+          'पथ, सेवा या लक्षण का नाम विशेष रूप से दें।',
+        'core-terminal-sessions.named': 'नाम दिया गया।',
       }),
       ar: Object.freeze({
         'core-terminal-sessions.empty':
@@ -44,6 +59,11 @@ window.ZogographTerminalSessionsCard = {
         'core-terminal-sessions.last_command': 'آخر أمر',
         'core-terminal-sessions.commands': 'الأوامر',
         'core-terminal-sessions.who': 'من',
+        'core-terminal-sessions.name_title': 'تسمية الجلسة',
+        'core-terminal-sessions.name_label': 'عن ماذا كانت هذه الجلسة؟',
+        'core-terminal-sessions.name_help':
+          'سمِّ المسار أو الخدمة أو العَرَض تحديدًا.',
+        'core-terminal-sessions.named': 'تمت التسمية.',
       }),
       zh: Object.freeze({
         'core-terminal-sessions.empty':
@@ -54,12 +74,18 @@ window.ZogographTerminalSessionsCard = {
         'core-terminal-sessions.last_command': '最后命令',
         'core-terminal-sessions.commands': '命令',
         'core-terminal-sessions.who': '执行者',
+        'core-terminal-sessions.name_title': '命名会话',
+        'core-terminal-sessions.name_label': '此会话是关于什么的？',
+        'core-terminal-sessions.name_help': '请具体命名路径、服务或症状。',
+        'core-terminal-sessions.named': '已命名。',
       }),
     }),
   }),
 
   render(rows, helpers) {
     const { target, note, renderTable, whenSpan, open, i18n } = helpers;
+    if (rows?.kind === 'name')
+      return i18n.t(`core-terminal-sessions.${rows.key}`, {}, rows.fallback);
     if (!target) return;
     const t = (key, values, fallback) => i18n.t(key, values, fallback);
     if (!rows.length) {

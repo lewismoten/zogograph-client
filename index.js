@@ -26389,48 +26389,19 @@ async function refreshServiceChart() {
  * all - not merely the ones below the threshold that were.
  */
 function renderMemoryPie(services, sample) {
-  if (window.ZogographHostMemoryPieCard) {
-    return renderCoreCardPackage(
-      ZogographHostMemoryPieCard,
-      'core-host-memory-pie',
-      { services, sample },
-      {
-        chart: $('hostPie'),
-        note: $('hostPieNote'),
-        memorySlices,
-        drawPieChart,
-        humanBytes,
-        i18n: ZogographI18n,
-      },
-    );
-  }
-  const measured = Number(sample?.pss_sum_bytes) || 0;
-  const slices = memorySlices(services, measured);
-
-  drawPieChart($('hostPie'), slices, {
-    empty: ZogographI18n.t(
-      'host.memory_pie_empty',
-      {},
-      'No measured process memory in the latest reading',
-    ),
-  });
-
-  $('hostPieNote').textContent =
-    ZogographI18n.t(
-      'host.memory_pie_help',
-      {},
-      'Share of measured process memory. Drawn from PSS because a pie claims its slices make a whole, and resident memory cannot — a page shared by ten processes would be counted ten times and every slice inflated.',
-    ) +
-    (measured
-      ? ZogographI18n.t(
-          'host.memory_pie_total',
-          {
-            amount: humanBytes(measured),
-            processes: sample.pss_procs,
-          },
-          ' Total {{amount}} across the {{processes, number}} biggest processes. The ten largest services get a slice; everything under 1%, and everything past the tenth, is folded into one.',
-        )
-      : '');
+  return renderCoreCardPackage(
+    ZogographHostMemoryPieCard,
+    'core-host-memory-pie',
+    { services, sample },
+    {
+      chart: $('hostPie'),
+      note: $('hostPieNote'),
+      memorySlices,
+      drawPieChart,
+      humanBytes,
+      i18n: ZogographI18n,
+    },
+  );
 }
 
 /**

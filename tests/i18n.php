@@ -4570,8 +4570,14 @@ i18nExpect(
         str_contains($page, 'data-i18n-tag="rss"') &&
         $hostMemoryPieCard !== false &&
         str_contains($hostMemoryPieCard, '{{pss}}') &&
-        str_contains($hostMemoryPieCard, '{{rss}}'),
-    'service-memory guidance does not preserve translated metric emphasis',
+        str_contains($hostMemoryPieCard, '{{rss}}') &&
+        $script !== false &&
+        str_contains(
+            $script,
+            'renderCoreCardPackage(ZogographHostMemoryPieCard, "core-host-memory-pie",',
+        ) &&
+        !str_contains($script, 'if (window.ZogographHostMemoryPieCard)'),
+    'service-memory guidance retains a core fallback instead of its package boundary',
 );
 i18nExpect(
     $page !== false &&

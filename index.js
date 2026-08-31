@@ -30359,24 +30359,19 @@ function inspectImage(data) {
 }
 
 function inspectHistory(data) {
+  const text = (key, values = {}) =>
+    renderCoreCardPackage(
+      ZogographStorageHistoryCard,
+      'core-storage-history',
+      { key, values },
+      { i18n: ZogographI18n },
+    );
   const history = data.history;
 
   if (!history.recorded || history.rows.length < 2) {
     return section(
-      ZogographI18n.t('storage.size_over_time', {}, 'Size over time'),
-      note(
-        history.recorded
-          ? ZogographI18n.t(
-              'storage.history_recorded_once',
-              {},
-              'Recorded, but only once so far — there is no change to draw yet.',
-            )
-          : ZogographI18n.t(
-              'storage.history_not_recorded',
-              {},
-              'This path is not one of the ones kept between scans. Only the biggest files and directories, and the biggest of each category, are recorded each time; everything else is measured and not stored.',
-            ),
-      ),
+      text('title'),
+      note(history.recorded ? text('recorded_once') : text('not_recorded')),
     );
   }
 
@@ -30397,10 +30392,7 @@ function inspectHistory(data) {
     ),
   );
 
-  const wrap = section(
-    ZogographI18n.t('storage.size_over_time', {}, 'Size over time'),
-    holder,
-  );
+  const wrap = section(text('title'), holder);
 
   // Drawn after it is in the document, or the canvas has no width to size to.
   requestAnimationFrame(() =>

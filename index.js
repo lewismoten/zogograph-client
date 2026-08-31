@@ -16670,9 +16670,7 @@ function renderPeers(data) {
           label: peersShellText('table_issuer'),
           className: 'cmd',
           render: (row) =>
-            row.has_oidc
-              ? row.issuer
-              : peerText('not_configured', {}, 'not configured'),
+            row.has_oidc ? row.issuer : peersShellText('not_configured'),
         },
         {
           label: peersShellText('table_client'),
@@ -16682,28 +16680,26 @@ function renderPeers(data) {
           label: peersShellText('table_secret'),
           render: (row) =>
             row.has_oidc
-              ? peerText('configured', {}, 'configured')
-              : peerText('not_needed', {}, 'not needed'),
+              ? peersShellText('configured')
+              : peersShellText('not_needed'),
         },
         {
           label: peersShellText('table_transport'),
           render: (row) =>
             !row.transport_configured
-              ? peerText('not_paired', {}, 'not paired')
+              ? peersShellText('not_paired')
               : row.transport_pending_until
-                ? peerText(
-                    'awaiting_delivery',
-                    { elapsed: ago(row.transport_pending_until) },
-                    `awaiting first delivery (${ago(row.transport_pending_until)})`,
-                  )
-                : peerText('paired', {}, 'paired'),
+                ? peersShellText('awaiting_delivery', {
+                    elapsed: ago(row.transport_pending_until),
+                  })
+                : peersShellText('paired'),
         },
         {
-          label: peerText('table_last_delivery', {}, 'Last delivery'),
+          label: peersShellText('table_last_delivery'),
           render: (row) =>
             row.last_received_at
               ? ago(row.last_received_at)
-              : peerText('none_yet', {}, 'none yet'),
+              : peersShellText('none_yet'),
         },
         {
           label: peerText('table_cpu', {}, 'CPU'),
@@ -16727,9 +16723,8 @@ function renderPeers(data) {
               : humanBytes(row.remote_vitals.vitals.disk_free_bytes),
         },
         {
-          label: peerText('table_connected', {}, 'Connected'),
-          render: (row) =>
-            row.connected_as || peerText('not_connected', {}, 'not connected'),
+          label: peersShellText('table_connected'),
+          render: (row) => row.connected_as || peersShellText('not_connected'),
         },
         {
           label: '',

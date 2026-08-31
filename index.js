@@ -2625,6 +2625,9 @@ function renderHostIoShellLabels() {
     'core-host-io-shell.title',
     ZogographHostIoShellCard.text('title', helpers),
   );
+  ZogographI18n.applyRich(
+    document.querySelector('[data-i18n-rich="core-host-io-shell.help"]'),
+  );
 }
 
 document.addEventListener('zogograph-i18n-load', renderHostIoShellLabels);

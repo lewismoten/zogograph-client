@@ -4472,8 +4472,10 @@ i18nExpect(
     $hostFilesCard !== false &&
         str_contains($hostFilesCard, '"core-host-files.also_at"') &&
         str_contains($hostFilesCard, '"core-host-files.linked_total"') &&
-        is_array($english),
-    'host file hard-link labels and summary are not localized by their package',
+        is_array($english) &&
+        !isset($english['host.files_also_at']) &&
+        !isset($english['host.files_linked_total']),
+    'host file hard-link labels and summary are not package-owned',
 );
 i18nExpect(
     $script !== false &&

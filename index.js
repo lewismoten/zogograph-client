@@ -6172,6 +6172,34 @@ function renderDiagnosisLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderDiagnosisLabels);
 
+function renderCapabilitySummaryLabels() {
+  const helpers = {
+    target: null,
+    factGrid: () => null,
+    note: () => null,
+    ago: () => '',
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(
+    ZogographCapabilitySummaryCard,
+    'core-capability-summary',
+    {},
+    helpers,
+  );
+  document
+    .querySelectorAll('[data-i18n^="core-capability-summary."]')
+    .forEach((node) => {
+      const key = node.dataset.i18n.replace('core-capability-summary.', '');
+      node.textContent = ZogographI18n.markSource(
+        node,
+        `core-capability-summary.${key}`,
+        ZogographCapabilitySummaryCard.text(key, helpers),
+      );
+    });
+}
+
+document.addEventListener('zogograph-i18n-load', renderCapabilitySummaryLabels);
+
 function renderLanguageControls() {
   const labels = renderCoreCardPackage(
     ZogographLanguageControlsCard,

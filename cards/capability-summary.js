@@ -6,6 +6,9 @@ window.ZogographCapabilitySummaryCard = {
     helpers: ['target', 'factGrid', 'note', 'ago', 'i18n'],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-capability-summary.title': 'What the host allows this account',
+        'core-capability-summary.help':
+          "On a shared host the numbers above are the cage's answers. Inside CageFS this account is shown a /proc written for it: its CPU allowance looks like the machine's cores and its memory limit looks like the machine's RAM. Comparing both readings is the only way to tell a limit from the size of the server.",
         'core-capability-summary.worth_having': 'Worth having',
         'core-capability-summary.whole_catalogue': 'Whole catalogue',
         'core-capability-summary.available_here':
@@ -28,6 +31,9 @@ window.ZogographCapabilitySummaryCard = {
           '{{count, number}} requests are waiting for root’s collector, which last ran {{lastRun}}. The countdown is at the top of the page.',
       }),
       es: Object.freeze({
+        'core-capability-summary.title': 'Lo que el host permite a esta cuenta',
+        'core-capability-summary.help':
+          'En un host compartido, los números de arriba son las respuestas de la jaula. Dentro de CageFS esta cuenta recibe un /proc escrito para ella: su asignación de CPU parece los núcleos de la máquina y su límite de memoria parece la RAM del servidor. Comparar ambas lecturas es la única forma de distinguir un límite del tamaño del servidor.',
         'core-capability-summary.worth_having': 'Conviene tener',
         'core-capability-summary.whole_catalogue': 'Catálogo completo',
         'core-capability-summary.available_here':
@@ -50,6 +56,9 @@ window.ZogographCapabilitySummaryCard = {
           '{{count, number}} solicitudes esperan al recopilador de root, que se ejecutó por última vez {{lastRun}}. La cuenta atrás está en la parte superior de la página.',
       }),
       hi: Object.freeze({
+        'core-capability-summary.title': 'होस्ट इस खाते को क्या अनुमति देता है',
+        'core-capability-summary.help':
+          'साझा होस्ट पर ऊपर के अंक क़ैद के उत्तर हैं। CageFS के भीतर इस खाते को उसके लिए लिखा हुआ /proc दिखता है: इसकी CPU अनुमति मशीन के कोर जैसी और मेमोरी सीमा मशीन की RAM जैसी दिखती है। दोनों रीडिंग की तुलना ही सीमा को सर्वर के आकार से अलग पहचानने का एकमात्र तरीका है।',
         'core-capability-summary.worth_having': 'रखना उपयोगी',
         'core-capability-summary.whole_catalogue': 'पूरा कैटलॉग',
         'core-capability-summary.available_here':
@@ -72,6 +81,9 @@ window.ZogographCapabilitySummaryCard = {
           '{{count, number}} अनुरोध root के कलेक्टर की प्रतीक्षा में हैं, जो आखिरी बार {{lastRun}} चला था। उलटी गिनती पृष्ठ के शीर्ष पर है।',
       }),
       ar: Object.freeze({
+        'core-capability-summary.title': 'ما الذي يتيحه المضيف لهذا الحساب',
+        'core-capability-summary.help':
+          'في مضيف مشترك، الأرقام أعلاه هي إجابات البيئة المعزولة. داخل CageFS يرى هذا الحساب ملف /proc مكتوبًا له: تبدو حصة المعالج مثل أنوية الجهاز ويبدو حد الذاكرة مثل RAM الخادم. مقارنة القراءتين هي الطريقة الوحيدة للتمييز بين حدٍ وحجم الخادم.',
         'core-capability-summary.worth_having': 'مفيد توفره',
         'core-capability-summary.whole_catalogue': 'الفهرس بالكامل',
         'core-capability-summary.available_here':
@@ -94,6 +106,9 @@ window.ZogographCapabilitySummaryCard = {
           '{{count, number}} طلبات تنتظر جامع root، الذي شُغّل آخر مرة {{lastRun}}. العد التنازلي في أعلى الصفحة.',
       }),
       zh: Object.freeze({
+        'core-capability-summary.title': '主机允许此账户做什么',
+        'core-capability-summary.help':
+          '在共享主机上，上方数字是隔离环境给出的答案。在 CageFS 中，此账户看到的是为它生成的 /proc：其 CPU 配额看似机器的核心数，内存限制看似机器的 RAM。比较这两项读数，才是区分限制与服务器实际大小的唯一方法。',
         'core-capability-summary.worth_having': '值得具备',
         'core-capability-summary.whole_catalogue': '完整目录',
         'core-capability-summary.available_here':
@@ -117,6 +132,14 @@ window.ZogographCapabilitySummaryCard = {
       }),
     }),
   }),
+
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-capability-summary.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-capability-summary.${key}`],
+    );
+  },
 
   render(data, helpers) {
     const { target, factGrid, note, ago, i18n } = helpers;

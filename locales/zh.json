@@ -2335,8 +2335,6 @@
   "auth.recovery_codes": "恢复代码",
   "auth.recovery_codes_title": "确认身份验证器后创建新的一次性恢复代码",
   "auth.end_sessions_title": "结束所有已登录的浏览器会话",
-  "host.capabilities_title": "主机允许此账户做什么",
-  "host.capabilities_help": "在共享主机上，上方数字是隔离环境给出的答案。在 CageFS 中，此账户看到的是为它生成的 /proc：其 CPU 配额看似机器的核心数，内存限制看似机器的 RAM。比较这两项读数，才是区分限制与服务器实际大小的唯一方法。",
   "overview.up_for": "已运行",
   "overview.projected_full": "预计填满",
   "overview.network": "网络",

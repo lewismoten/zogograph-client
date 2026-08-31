@@ -3264,12 +3264,16 @@ function renderCpuQueueTitle() {
     { now: null, sample: {} },
     helpers,
   );
-  const title = document.querySelector('[data-i18n="core-cpu-queue.title"]');
-  title.textContent = ZogographI18n.markSource(
-    title,
-    'core-cpu-queue.title',
-    ZogographCpuQueueCard.text('title', helpers),
-  );
+  document
+    .querySelectorAll('[data-i18n^="core-cpu-queue."]')
+    .forEach((node) => {
+      const key = node.dataset.i18n.replace('core-cpu-queue.', '');
+      node.textContent = ZogographI18n.markSource(
+        node,
+        `core-cpu-queue.${key}`,
+        ZogographCpuQueueCard.text(key, helpers),
+      );
+    });
 }
 
 document.addEventListener('zogograph-i18n-load', renderCpuQueueTitle);

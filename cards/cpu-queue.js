@@ -7,6 +7,10 @@ window.ZogographCpuQueueCard = {
     catalogs: Object.freeze({
       en: Object.freeze({
         'core-cpu-queue.title': 'Waiting to run',
+        'core-cpu-queue.chart_title':
+          'The queue, and the load average beside it',
+        'core-cpu-queue.rates_title':
+          'Context switches, interrupts and new processes',
         'core-cpu-queue.wanting_to_run': 'Wanting to run',
         'core-cpu-queue.across_cores': 'across {{count, number}} cores',
         'core-cpu-queue.cores_unknown': 'cores unknown',
@@ -44,6 +48,10 @@ window.ZogographCpuQueueCard = {
       }),
       es: Object.freeze({
         'core-cpu-queue.title': 'Esperando para ejecutarse',
+        'core-cpu-queue.chart_title':
+          'La cola y el promedio de carga junto a ella',
+        'core-cpu-queue.rates_title':
+          'Cambios de contexto, interrupciones y procesos nuevos',
         'core-cpu-queue.wanting_to_run': 'Esperando ejecutar',
         'core-cpu-queue.across_cores': 'en {{count, number}} núcleos',
         'core-cpu-queue.cores_unknown': 'núcleos desconocidos',
@@ -83,6 +91,9 @@ window.ZogographCpuQueueCard = {
       }),
       hi: Object.freeze({
         'core-cpu-queue.title': 'चलने की प्रतीक्षा',
+        'core-cpu-queue.chart_title': 'कतार और उसके पास लोड औसत',
+        'core-cpu-queue.rates_title':
+          'कॉन्टेक्स्ट स्विच, इंटरप्ट और नए प्रोसेस',
         'core-cpu-queue.wanting_to_run': 'चलने की प्रतीक्षा',
         'core-cpu-queue.across_cores': '{{count, number}} कोर में',
         'core-cpu-queue.cores_unknown': 'कोर अज्ञात',
@@ -120,6 +131,9 @@ window.ZogographCpuQueueCard = {
       }),
       ar: Object.freeze({
         'core-cpu-queue.title': 'بانتظار التشغيل',
+        'core-cpu-queue.chart_title': 'الطابور ومتوسط الحمل بجانبه',
+        'core-cpu-queue.rates_title':
+          'تبديلات السياق والمقاطعات والعمليات الجديدة',
         'core-cpu-queue.wanting_to_run': 'يريد التشغيل',
         'core-cpu-queue.across_cores': 'عبر {{count, number}} نوى',
         'core-cpu-queue.cores_unknown': 'عدد النوى غير معروف',
@@ -157,6 +171,8 @@ window.ZogographCpuQueueCard = {
       }),
       zh: Object.freeze({
         'core-cpu-queue.title': '等待运行',
+        'core-cpu-queue.chart_title': '队列及其旁边的负载平均值',
+        'core-cpu-queue.rates_title': '上下文切换、中断和新进程',
         'core-cpu-queue.wanting_to_run': '等待运行',
         'core-cpu-queue.across_cores': '跨 {{count, number}} 个核心',
         'core-cpu-queue.cores_unknown': '核心数未知',

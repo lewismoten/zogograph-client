@@ -6,6 +6,10 @@ window.ZogographStorageDeleteResultsCard = {
     helpers: ['i18n'],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-storage-delete-results.delete_directory_confirm':
+          'Delete {{path}} and everything inside it? That is {{size}} in {{files}} files, and it cannot be undone.',
+        'core-storage-delete-results.delete_file_confirm':
+          'Delete {{path}}? That is {{size}}, and it cannot be undone.',
         'core-storage-delete-results.deleted': 'deleted',
         'core-storage-delete-results.deleted_row_help':
           'Deleted {{at}}. Still listed because the last scan found it; the next scan will drop it.',
@@ -18,6 +22,10 @@ window.ZogographStorageDeleteResultsCard = {
         'core-storage-delete-results.removed_file': 'Removed {{size}}.',
       }),
       es: Object.freeze({
+        'core-storage-delete-results.delete_directory_confirm':
+          '¿Eliminar {{path}} y todo lo que contiene? Son {{size}} en {{files}} archivos y no se puede deshacer.',
+        'core-storage-delete-results.delete_file_confirm':
+          '¿Eliminar {{path}}? Son {{size}} y no se puede deshacer.',
         'core-storage-delete-results.deleted': 'eliminado',
         'core-storage-delete-results.deleted_row_help':
           'Se eliminó {{at}}. Aún aparece porque lo encontró el último análisis; el siguiente lo quitará.',
@@ -30,6 +38,10 @@ window.ZogographStorageDeleteResultsCard = {
         'core-storage-delete-results.removed_file': 'Se eliminaron {{size}}.',
       }),
       hi: Object.freeze({
+        'core-storage-delete-results.delete_directory_confirm':
+          '{{path}} और इसके अंदर सब कुछ हटाएँ? यह {{files}} फ़ाइलों में {{size}} है और इसे पूर्ववत नहीं किया जा सकता।',
+        'core-storage-delete-results.delete_file_confirm':
+          '{{path}} हटाएँ? यह {{size}} है और इसे पूर्ववत नहीं किया जा सकता।',
         'core-storage-delete-results.deleted': 'हटाई गई',
         'core-storage-delete-results.deleted_row_help':
           '{{at}} को हटाई गई। यह अभी भी सूची में है क्योंकि पिछले स्कैन में मिली थी; अगला स्कैन इसे हटा देगा।',
@@ -42,6 +54,10 @@ window.ZogographStorageDeleteResultsCard = {
         'core-storage-delete-results.removed_file': '{{size}} हटाया गया।',
       }),
       ar: Object.freeze({
+        'core-storage-delete-results.delete_directory_confirm':
+          'هل تريد حذف {{path}} وكل ما بداخله؟ حجمه {{size}} في {{files}} من الملفات، ولا يمكن التراجع عن ذلك.',
+        'core-storage-delete-results.delete_file_confirm':
+          'هل تريد حذف {{path}}؟ حجمه {{size}}، ولا يمكن التراجع عن ذلك.',
         'core-storage-delete-results.deleted': 'محذوف',
         'core-storage-delete-results.deleted_row_help':
           'حُذف {{at}}. ما زال مُدرجًا لأن آخر فحص وجده؛ وسيزيله الفحص التالي.',
@@ -54,6 +70,10 @@ window.ZogographStorageDeleteResultsCard = {
         'core-storage-delete-results.removed_file': 'أُزيل {{size}}.',
       }),
       zh: Object.freeze({
+        'core-storage-delete-results.delete_directory_confirm':
+          '删除 {{path}} 及其中的所有内容？它包含 {{files}} 个文件，共 {{size}}，且无法撤销。',
+        'core-storage-delete-results.delete_file_confirm':
+          '删除 {{path}}？大小为 {{size}}，且无法撤销。',
         'core-storage-delete-results.deleted': '已删除',
         'core-storage-delete-results.deleted_row_help':
           '已于 {{at}} 删除。它仍在列表中，因为上次扫描找到了它；下次扫描会将其移除。',

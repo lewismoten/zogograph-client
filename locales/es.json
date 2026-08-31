@@ -2210,8 +2210,6 @@
   "storage.delete_directory": "Eliminar este directorio y todo lo que contiene",
   "storage.delete_file": "Eliminar este archivo",
   "storage.what_you_can_do": "Lo que puedes hacer con ello",
-  "storage.delete_directory_confirm": "¿Eliminar {{path}} y todo lo que contiene? Son {{size}} en {{files}} archivos y no se puede deshacer.",
-  "storage.delete_file_confirm": "¿Eliminar {{path}}? Son {{size}} y no se puede deshacer.",
   "storage.file": "archivo",
   "storage.category": "Categoría",
   "filter.show": "Mostrar",

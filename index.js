@@ -5198,20 +5198,15 @@ function deleteButton(row) {
   button.addEventListener('click', async () => {
     const directory = row.kind === 'dir';
     const question = directory
-      ? ZogographI18n.t(
-          'storage.delete_directory_confirm',
-          {
-            path: row.display,
-            size: humanBytes(row.bytes),
-            files: count(row.files || 0, 'file'),
-          },
-          'Delete {{path}} and everything inside it? That is {{size}} in {{files}} files, and it cannot be undone.',
-        )
-      : ZogographI18n.t(
-          'storage.delete_file_confirm',
-          { path: row.display, size: humanBytes(row.bytes) },
-          'Delete {{path}}? That is {{size}}, and it cannot be undone.',
-        );
+      ? storageDeleteResultText('delete_directory_confirm', {
+          path: row.display,
+          size: humanBytes(row.bytes),
+          files: count(row.files || 0, 'file'),
+        })
+      : storageDeleteResultText('delete_file_confirm', {
+          path: row.display,
+          size: humanBytes(row.bytes),
+        });
     if (!(await confirmDialog(question, 'Delete'))) return;
     button.disabled = true;
     try {
@@ -30642,20 +30637,15 @@ function inspectActions(data) {
 async function deleteFromInspect(data) {
   const what =
     data.kind === 'dir'
-      ? ZogographI18n.t(
-          'storage.delete_directory_confirm',
-          {
-            path: data.path,
-            size: humanBytes(data.contents.bytes),
-            files: humanCount(data.contents.files),
-          },
-          'Delete {{path}} and everything inside it? That is {{size}} in {{files}} files, and it cannot be undone.',
-        )
-      : ZogographI18n.t(
-          'storage.delete_file_confirm',
-          { path: data.path, size: humanBytes(data.facts.size_bytes) },
-          'Delete {{path}}? That is {{size}}, and it cannot be undone.',
-        );
+      ? storageDeleteResultText('delete_directory_confirm', {
+          path: data.path,
+          size: humanBytes(data.contents.bytes),
+          files: humanCount(data.contents.files),
+        })
+      : storageDeleteResultText('delete_file_confirm', {
+          path: data.path,
+          size: humanBytes(data.facts.size_bytes),
+        });
 
   if (
     !(await confirmDialog(what, ZogographI18n.t('action.delete', {}, 'Delete')))

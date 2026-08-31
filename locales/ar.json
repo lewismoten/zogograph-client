@@ -2206,8 +2206,6 @@
   "storage.delete_directory": "احذف هذا الدليل وكل ما فيه",
   "storage.delete_file": "احذف هذا الملف",
   "storage.what_you_can_do": "ما يمكنك فعله به",
-  "storage.delete_directory_confirm": "هل تريد حذف {{path}} وكل ما بداخله؟ حجمه {{size}} في {{files}} من الملفات، ولا يمكن التراجع عن ذلك.",
-  "storage.delete_file_confirm": "هل تريد حذف {{path}}؟ حجمه {{size}}، ولا يمكن التراجع عن ذلك.",
   "storage.file": "ملف",
   "storage.category": "الفئة",
   "filter.show": "اعرض",

@@ -2210,8 +2210,6 @@
   "storage.delete_directory": "इस निर्देशिका और इसमें मौजूद सब कुछ हटाएँ",
   "storage.delete_file": "इस फ़ाइल को हटाएँ",
   "storage.what_you_can_do": "इसके साथ आप क्या कर सकते हैं",
-  "storage.delete_directory_confirm": "{{path}} और इसके अंदर सब कुछ हटाएँ? यह {{files}} फ़ाइलों में {{size}} है और इसे पूर्ववत नहीं किया जा सकता।",
-  "storage.delete_file_confirm": "{{path}} हटाएँ? यह {{size}} है और इसे पूर्ववत नहीं किया जा सकता।",
   "storage.file": "फ़ाइल",
   "storage.category": "श्रेणी",
   "filter.show": "दिखाएँ",

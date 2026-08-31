@@ -2206,8 +2206,6 @@
   "storage.delete_directory": "删除此目录及其中的所有内容",
   "storage.delete_file": "删除此文件",
   "storage.what_you_can_do": "你可以对它做什么",
-  "storage.delete_directory_confirm": "删除 {{path}} 及其中的所有内容？它包含 {{files}} 个文件，共 {{size}}，且无法撤销。",
-  "storage.delete_file_confirm": "删除 {{path}}？大小为 {{size}}，且无法撤销。",
   "storage.file": "文件",
   "storage.category": "类别",
   "filter.show": "显示",

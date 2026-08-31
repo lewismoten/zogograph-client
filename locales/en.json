@@ -2282,8 +2282,6 @@
   "storage.delete_directory": "Delete this directory and everything in it",
   "storage.delete_file": "Delete this file",
   "storage.what_you_can_do": "What you can do with it",
-  "storage.delete_directory_confirm": "Delete {{path}} and everything inside it? That is {{size}} in {{files}} files, and it cannot be undone.",
-  "storage.delete_file_confirm": "Delete {{path}}? That is {{size}}, and it cannot be undone.",
   "storage.file": "file",
   "storage.category": "Category",
   "filter.show": "Show",

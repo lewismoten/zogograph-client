@@ -3051,10 +3051,7 @@ i18nExpect(
 );
 i18nExpect(
     $script !== false &&
-        str_contains(
-            $script,
-            'ZogographI18n.t("encryption.create_verified_copies"',
-        ) &&
+        str_contains($script, "encryptionText('create_verified_copies'") &&
         str_contains(
             $script,
             'ZogographI18n.t("encryption.run_remote_recovery_drill"',
@@ -4222,7 +4219,6 @@ i18nExpect(
     'visible loading messages must use i18n keys rather than literal spinner text',
 );
 $translatedEncryptionRecoveryActions = [
-    'encryption.create_verified_copies',
     'encryption.run_recovery_drill',
     'encryption.add_remote_envelope',
     'encryption.run_remote_recovery_drill',
@@ -4233,6 +4229,11 @@ $translatedEncryptionRecoveryActions = [
     'encryption.artifact_with_envelope',
     'encryption.remote_envelope_stored',
     'encryption.remote_recovery_verified',
+];
+$translatedEncryptionPackageActions = [
+    'core-system-encryption-shell.create_verified_copies',
+    'core-system-encryption-shell.create_copies_title',
+    'core-system-encryption-shell.copies_created',
 ];
 $translatedOperationalControls = [
     'action.copy',
@@ -4408,6 +4409,13 @@ foreach (['en-US', 'en-GB', 'es', 'hi', 'zh', 'ar'] as $locale) {
                 array_keys($catalog),
             ) === [],
             "locale catalog $locale falls back to English for encryption recovery actions",
+        );
+        i18nExpect(
+            array_diff(
+                $translatedEncryptionPackageActions,
+                array_keys($coreCardLocaleKeys[$locale] ?? []),
+            ) === [],
+            "encryption package $locale falls back to English for copy actions",
         );
         i18nExpect(
             array_diff($translatedOperationalControls, array_keys($catalog)) ===

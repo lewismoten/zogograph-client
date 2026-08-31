@@ -16022,11 +16022,7 @@ function renderEncryptionStatus(data) {
       actions.className = 'row-actions';
       const seal = document.createElement('button');
       seal.type = 'button';
-      seal.textContent = ZogographI18n.t(
-        'encryption.create_verified_copies',
-        {},
-        'Create verified encrypted copies',
-      );
+      seal.textContent = encryptionText('create_verified_copies');
       seal.addEventListener('click', async () => {
         if (
           !(await confirmDialog(
@@ -16035,11 +16031,7 @@ function renderEncryptionStatus(data) {
               {},
               'Create a fresh encrypted copy of every selected available store now? This does not encrypt the running database. Retention pruning may remove only expired, hash-verified copies and never the newest verified copy for a store.',
             ),
-            ZogographI18n.t(
-              'encryption.create_copies_title',
-              {},
-              'Create encrypted copies',
-            ),
+            encryptionText('create_copies_title'),
           ))
         )
           return;
@@ -16047,11 +16039,9 @@ function renderEncryptionStatus(data) {
         try {
           const result = await post('encryption-seal');
           await refreshEncryptionStatus();
-          const created = ZogographI18n.t(
-            'encryption.copies_created',
-            { count: result.created },
-            'Created {{count, number}} verified encrypted copies.',
-          );
+          const created = encryptionText('copies_created', {
+            count: result.created,
+          });
           const pruned = result.pruned
             ? ZogographI18n.t(
                 result.pruned === 1

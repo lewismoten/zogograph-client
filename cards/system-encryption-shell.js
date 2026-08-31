@@ -77,6 +77,12 @@ window.ZogographSystemEncryptionShellCard = {
         'core-system-encryption-shell.status_unavailable': 'status unavailable',
         'core-system-encryption-shell.live_sqlcipher_status':
           'Live SQLCipher option: {{detail}}',
+        'core-system-encryption-shell.create_verified_copies':
+          'Create verified encrypted copies',
+        'core-system-encryption-shell.create_copies_title':
+          'Create encrypted copies',
+        'core-system-encryption-shell.copies_created':
+          'Created {{count, number}} verified encrypted copies.',
       }),
       es: Object.freeze({
         'core-system-encryption-shell.title': 'Protección de datos',
@@ -162,6 +168,12 @@ window.ZogographSystemEncryptionShellCard = {
           'estado no disponible',
         'core-system-encryption-shell.live_sqlcipher_status':
           'Opción SQLCipher activa: {{detail}}',
+        'core-system-encryption-shell.create_verified_copies':
+          'Crear copias cifradas verificadas',
+        'core-system-encryption-shell.create_copies_title':
+          'Crear copias cifradas',
+        'core-system-encryption-shell.copies_created':
+          'Se crearon {{count, number}} copias cifradas verificadas.',
       }),
       hi: Object.freeze({
         'core-system-encryption-shell.title': 'डेटा सुरक्षा',
@@ -235,6 +247,12 @@ window.ZogographSystemEncryptionShellCard = {
           'स्थिति उपलब्ध नहीं है',
         'core-system-encryption-shell.live_sqlcipher_status':
           'लाइव SQLCipher विकल्प: {{detail}}',
+        'core-system-encryption-shell.create_verified_copies':
+          'सत्यापित एन्क्रिप्टेड प्रतियाँ बनाएँ',
+        'core-system-encryption-shell.create_copies_title':
+          'एन्क्रिप्टेड प्रतियां बनाएँ',
+        'core-system-encryption-shell.copies_created':
+          '{{count, number}} सत्यापित एन्क्रिप्टेड प्रतियां बनाई गईं।',
       }),
       ar: Object.freeze({
         'core-system-encryption-shell.title': 'حماية البيانات',
@@ -305,6 +323,11 @@ window.ZogographSystemEncryptionShellCard = {
         'core-system-encryption-shell.status_unavailable': 'الحالة غير متاحة',
         'core-system-encryption-shell.live_sqlcipher_status':
           'خيار SQLCipher المباشر: {{detail}}',
+        'core-system-encryption-shell.create_verified_copies':
+          'أنشئ نُسخًا مشفرة متحققًا منها',
+        'core-system-encryption-shell.create_copies_title': 'إنشاء نسخ مشفرة',
+        'core-system-encryption-shell.copies_created':
+          'تم إنشاء {{count, number}} نسخة مشفرة متحقق منها.',
       }),
       zh: Object.freeze({
         'core-system-encryption-shell.title': '数据保护',
@@ -369,6 +392,11 @@ window.ZogographSystemEncryptionShellCard = {
         'core-system-encryption-shell.status_unavailable': '状态不可用',
         'core-system-encryption-shell.live_sqlcipher_status':
           '实时 SQLCipher 选项：{{detail}}',
+        'core-system-encryption-shell.create_verified_copies':
+          '创建已验证的加密副本',
+        'core-system-encryption-shell.create_copies_title': '创建加密副本',
+        'core-system-encryption-shell.copies_created':
+          '已创建 {{count, number}} 个经过验证的加密副本。',
       }),
     }),
   }),

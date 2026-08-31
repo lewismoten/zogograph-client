@@ -156,6 +156,7 @@ export default [
         ZogographAiPriceSectionsCard: 'readonly',
         ZogographAiPriceTableCard: 'readonly',
         ZogographAiPriceEntryCard: 'readonly',
+        ZogographAiPriceDialogCard: 'readonly',
         ZogographAiToolTryCard: 'readonly',
         ZogographAiConnectionTestCard: 'readonly',
         ZogographAiSettingsStatusCard: 'readonly',

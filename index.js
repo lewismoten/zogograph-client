@@ -20462,156 +20462,21 @@ function renderPriceTable(target, rows, sort) {
 /** Adding or editing one set of prices by hand. */
 function showPriceDialog(row) {
   const data = aiSetState.data;
-  const parts = [];
-
-  const provider = document.createElement('select');
-  for (const [key, meta] of Object.entries(data.providers)) {
-    const option = document.createElement('option');
-    option.value = key;
-    option.textContent = meta.label ?? key;
-    option.selected = (row?.provider ?? data.provider) === key;
-    provider.appendChild(option);
-  }
-  parts.push(
-    fieldRow(
-      ZogographI18n.t('ai.pricing_provider', {}, 'Provider'),
-      provider,
-      '',
-    ),
-  );
-
-  const model = document.createElement('input');
-  model.type = 'text';
-  model.className = 'wide-field';
-  model.spellcheck = false;
-  model.value = row?.model ?? data.model ?? '';
-  parts.push(
-    fieldRow(
-      ZogographI18n.t('ai.pricing_model', {}, 'Model'),
-      model,
-      ZogographI18n.t(
-        'ai.pricing_model_help',
-        {},
-        'Exactly as the provider names it — this is matched against what is sent.',
-      ),
-    ),
-  );
-
-  const boxes = {};
-  for (const [key, label, hint] of [
-    [
-      'in',
-      'pricing_input_per_million',
-      'Input, per million',
-      'pricing_cents_help',
-      'In cents.',
-    ],
-    [
-      'out',
-      'pricing_output_per_million',
-      'Output, per million',
-      'pricing_output_help',
-      'In cents. Usually several times the input price.',
-    ],
-    [
-      'cached',
-      'pricing_cached_per_million',
-      'Cached input, per million',
-      'pricing_cached_help',
-      'In cents. Usually about a tenth of the input price, and most of the bill on a long conversation.',
-    ],
-    [
-      'cache_write_5m',
-      'pricing_cache_write_5m',
-      'Cache write (5 minutes), per million',
-      'pricing_cache_write_5m_help',
-      'Anthropic prompt-cache write price, in cents.',
-    ],
-    [
-      'cache_write_1h',
-      'pricing_cache_write_1h',
-      'Cache write (1 hour), per million',
-      'pricing_cache_write_1h_help',
-      'Anthropic long prompt-cache write price, in cents.',
-    ],
-    [
-      'cache_refresh',
-      'pricing_cache_refresh',
-      'Cache hit / refresh, per million',
-      'pricing_cache_refresh_help',
-      'Provider cache-hit or refresh price, in cents.',
-    ],
-  ]) {
-    const box = document.createElement('input');
-    box.type = 'number';
-    box.min = '0';
-    box.step = '0.01';
-    box.className = 'days';
-    box.value = String(row?.[key] ?? 0);
-    boxes[key] = box;
-    parts.push(
-      fieldRow(
-        ZogographI18n.t(`ai.${label}`, {}, label),
-        box,
-        ZogographI18n.t(`ai.${hint}`, {}, hint),
-      ),
-    );
-  }
-
-  const from = document.createElement('input');
-  from.type = 'date';
-  from.value = row?.active_from ?? new Date().toISOString().slice(0, 10);
-  parts.push(
-    fieldRow(
-      ZogographI18n.t('ai.pricing_active_from', {}, 'Active from'),
-      from,
-      ZogographI18n.t(
-        'ai.pricing_active_from_help',
-        {},
-        'Prices apply from this date.',
-      ),
-    ),
-  );
-  const retired = document.createElement('input');
-  retired.type = 'date';
-  retired.value = row?.retired_on ?? '';
-  parts.push(
-    fieldRow(
-      ZogographI18n.t('ai.pricing_retired_on', {}, 'Retired on'),
-      retired,
-      ZogographI18n.t(
-        'ai.pricing_retired_on_help',
-        {},
-        'Leave blank until this price is retired.',
-      ),
-    ),
-  );
-
-  showFormDialog(
-    row
-      ? ZogographI18n.t('ai.pricing_edit_dialog', {}, 'Edit remembered prices')
-      : ZogographI18n.t(
-          'ai.pricing_add_dialog',
-          {},
-          'Remember prices for a model',
-        ),
-    parts,
-    async () => {
-      renderAiPrices(
-        await post('ai-price-save', {
-          price_id: row?.key ?? '',
-          provider: provider.value,
-          model: model.value.trim(),
-          price_in: boxes.in.value,
-          price_out: boxes.out.value,
-          price_cached: boxes.cached.value,
-          cache_write_5m: boxes.cache_write_5m.value,
-          cache_write_1h: boxes.cache_write_1h.value,
-          cache_refresh: boxes.cache_refresh.value,
-          active_from: from.value,
-          retired_on: retired.value,
-        }),
-      );
+  return renderCoreCardPackage(
+    ZogographAiPriceDialogCard,
+    'core-ai-price-dialog',
+    {
+      row,
+      providers: data.providers,
+      selectedProvider: data.provider,
+      selectedModel: data.model,
+    },
+    {
+      fieldRow,
+      showFormDialog,
+      onSave: async (values) =>
+        renderAiPrices(await post('ai-price-save', values)),
+      i18n: ZogographI18n,
     },
   );
 }

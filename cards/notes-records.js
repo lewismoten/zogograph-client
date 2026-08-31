@@ -42,6 +42,7 @@ window.ZogographNotesRecordsCard = {
         'core-notes-records.capture_image': 'A picture',
         'core-notes-records.capture_image_alt':
           '{{label}}, as it was drawn when this note was written',
+        'core-notes-records.capture_open_full': 'Open it at full size',
         'core-notes-records.open_view': 'Open {{view}}',
         'core-notes-records.clear': 'Clear it',
         'core-notes-records.clear_title': 'Stop showing this to everyone',
@@ -92,6 +93,7 @@ window.ZogographNotesRecordsCard = {
         'core-notes-records.capture_image': 'Una imagen',
         'core-notes-records.capture_image_alt':
           '{{label}}, tal como se dibujó al escribir esta nota',
+        'core-notes-records.capture_open_full': 'Abrir a tamaño completo',
         'core-notes-records.open_view': 'Abrir {{view}}',
         'core-notes-records.clear': 'Borrarlo',
         'core-notes-records.clear_title': 'Dejar de mostrar esto a todos',
@@ -140,6 +142,7 @@ window.ZogographNotesRecordsCard = {
         'core-notes-records.capture_image': 'एक चित्र',
         'core-notes-records.capture_image_alt':
           '{{label}}, जैसा यह नोट लिखते समय बनाया गया था',
+        'core-notes-records.capture_open_full': 'पूरे आकार में खोलें',
         'core-notes-records.open_view': '{{view}} खोलें',
         'core-notes-records.clear': 'इसे साफ़ करें',
         'core-notes-records.clear_title': 'इसे सभी को दिखाना बंद करें',
@@ -187,6 +190,7 @@ window.ZogographNotesRecordsCard = {
         'core-notes-records.capture_image': 'صورة',
         'core-notes-records.capture_image_alt':
           '{{label}} كما رُسم عند كتابة هذه الملاحظة',
+        'core-notes-records.capture_open_full': 'فتح بالحجم الكامل',
         'core-notes-records.open_view': 'افتح {{view}}',
         'core-notes-records.clear': 'امسحه',
         'core-notes-records.clear_title': 'توقف عن إظهار هذا للجميع',
@@ -233,6 +237,7 @@ window.ZogographNotesRecordsCard = {
         'core-notes-records.capture_image': '一张图片',
         'core-notes-records.capture_image_alt':
           '{{label}}，如同写下此笔记时所绘制',
+        'core-notes-records.capture_open_full': '以完整尺寸打开',
         'core-notes-records.open_view': '打开 {{view}}',
         'core-notes-records.clear': '清除它',
         'core-notes-records.clear_title': '不再向所有人显示此内容',

@@ -17350,11 +17350,7 @@ async function showNoteSnapshots(row) {
       full.href = picture.src;
       full.target = '_blank';
       full.rel = 'noopener';
-      full.textContent = ZogographI18n.t(
-        'ai.store_open_full',
-        {},
-        'Open it at full size',
-      );
+      full.textContent = notesRecordsText('capture_open_full');
       actions.appendChild(full);
     } else {
       const open = document.createElement('a');

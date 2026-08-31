@@ -1647,7 +1647,6 @@
   "ai.chat_add": "Add",
   "ai.chat_ask": "Ask",
   "ai.chat_add_help": "It is working. This goes in now and it reads it on its next turn.",
-  "ai.store_open_full": "Open it at full size",
   "system.showing": "Showing",
   "system.changed_groups_title": "What changed, by group",
   "system.snapshot_empty": "No copies have been made. One is written when a note asks for it — a consistent copy of both databases, for looking at after the readings it is about have been rolled up.",

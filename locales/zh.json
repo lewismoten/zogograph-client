@@ -1,5 +1,4 @@
 {
-  "accessibility.skip_to_content": "跳至内容",
   "package.page_summary": "此软件包提供一个由核心渲染的仪表板页面。",
   "package.page_boundary": "此页面由 Zogograph 外壳根据软件包的已签名元数据渲染。它不会加载软件包 HTML、样式或浏览器代码。",
   "package.open_settings": "打开软件包设置",
@@ -1633,7 +1632,6 @@
   "help.page": "本页帮助",
   "display.label": "显示",
   "display.change": "更改文字大小和动效",
-  "navigation.search": "搜索页面",
   "auth.sign_out": "退出登录",
   "auth.app": "身份验证器应用",
   "auth.app_intro": "使用 Google Authenticator、1Password 或 Authy 等身份验证器应用提供六位数第二验证因素。只有应用证明能生成正确代码后，才会保存此密钥。",
@@ -2744,7 +2742,6 @@
   "log.repeat_help": "占满磁盘的日志几乎从来不是由许多有趣且不同的事件组成；而是同一事件发生一万次。这里将相同行中可变的部分——数字、地址、路径和引号内字符串——剔除后计数，这是唯一可据以采取行动的呈现方式。",
   "calendar.saved_dates_title": "您保留的日期",
   "calendar.saved_dates_help": "标记为 {{important}} 表示它会在临近时显示在仪表板和警报邮件中，直到您将其标记为已处理。标记为已处理可随时撤销——这是某人作出的判断，也可能判断错误。",
-  "navigation.sections": "栏目",
   "audit.download_csv_title": "将完整审计历史下载为 CSV 文件",
   "audit.clear_title": "删除较早的审计记录并保留本次重置的记录",
   "host.open_setup": "打开主机设置",

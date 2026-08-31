@@ -6088,6 +6088,9 @@ function renderNavigationControls() {
     labels.skip,
   );
   $('navToggle').setAttribute('aria-label', labels.menu);
+  $('sidebar').setAttribute('aria-label', labels.sections);
+  document.querySelector('.nav-search .sr-only').textContent = labels.search;
+  $('navSearch').placeholder = labels.search;
 }
 
 document.addEventListener('zogograph-i18n-load', renderNavigationControls);

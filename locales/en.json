@@ -1126,8 +1126,6 @@
   "record.show_whole_with_parts": "Show the whole value, broken into its parts",
   "action.fetching": "Fetching…",
   "rdns.lookup_result": "{{address}} → {{name}} ({{milliseconds, number}} ms)",
-  "rdns.no_name": "no name",
-  "rdns.nothing_waiting": "Nothing was waiting.",
   "rdns.queue_heading": "{{waiting, number}} addresses waiting{{progress}}",
   "rdns.queue_progress": ", {{count, number}} in progress",
   "rdns.queue_drain": "At {{perRun, number}} per collector run, the queue empties in about {{duration}}.{{both}}",

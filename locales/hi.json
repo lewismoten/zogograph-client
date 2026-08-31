@@ -1147,8 +1147,6 @@
   "record.show_whole_with_parts": "पूरा मान उसके भागों में बाँटकर दिखाएँ",
   "action.fetching": "लाया जा रहा है…",
   "rdns.lookup_result": "{{address}} → {{name}} ({{milliseconds, number}} ms)",
-  "rdns.no_name": "कोई नाम नहीं",
-  "rdns.nothing_waiting": "कोई भी प्रतीक्षा में नहीं था।",
   "rdns.queue_heading": "{{waiting, number}} पते प्रतीक्षा में हैं{{progress}}",
   "rdns.queue_progress": ", {{count, number}} प्रगति पर",
   "rdns.queue_drain": "हर कलेक्टर रन में {{perRun, number}} पर, कतार लगभग {{duration}} में खाली हो जाएगी।{{both}}",

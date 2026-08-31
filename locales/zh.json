@@ -1145,8 +1145,6 @@
   "record.show_whole_with_parts": "显示完整值，并分解为各部分",
   "action.fetching": "正在获取…",
   "rdns.lookup_result": "{{address}} → {{name}}（{{milliseconds, number}} 毫秒）",
-  "rdns.no_name": "无名称",
-  "rdns.nothing_waiting": "没有等待中的项目。",
   "rdns.queue_heading": "{{waiting, number}} 个地址等待处理{{progress}}",
   "rdns.queue_progress": "，{{count, number}} 个正在处理",
   "rdns.queue_drain": "每次采集器运行处理 {{perRun, number}} 个，队列约在 {{duration}} 后清空。{{both}}",

@@ -36,6 +36,8 @@ window.ZogographNetworkRdnsCard = {
         'core-network-rdns.ask_again': 'Ask again',
         'core-network-rdns.placeholder':
           '78.174.88.104, 2001:db8::1 — or paste a whole column',
+        'core-network-rdns.no_name': 'no name',
+        'core-network-rdns.nothing_waiting': 'Nothing was waiting.',
       }),
       es: Object.freeze({
         'core-network-rdns.title': 'Cómo llama Internet a una dirección',
@@ -58,6 +60,8 @@ window.ZogographNetworkRdnsCard = {
         'core-network-rdns.ask_again': 'Preguntar de nuevo',
         'core-network-rdns.placeholder':
           '78.174.88.104, 2001:db8::1 — o pegue una columna completa',
+        'core-network-rdns.no_name': 'sin nombre',
+        'core-network-rdns.nothing_waiting': 'No había nada en espera.',
       }),
       hi: Object.freeze({
         'core-network-rdns.title': 'इंटरनेट किसी पते को क्या कहता है',
@@ -79,6 +83,8 @@ window.ZogographNetworkRdnsCard = {
         'core-network-rdns.ask_again': 'फिर से पूछें',
         'core-network-rdns.placeholder':
           '78.174.88.104, 2001:db8::1 — या पूरा स्तंभ चिपकाएँ',
+        'core-network-rdns.no_name': 'कोई नाम नहीं',
+        'core-network-rdns.nothing_waiting': 'कोई भी प्रतीक्षा में नहीं था।',
       }),
       ar: Object.freeze({
         'core-network-rdns.title': 'ما الذي يسميه الإنترنت عنوانًا',
@@ -100,6 +106,8 @@ window.ZogographNetworkRdnsCard = {
         'core-network-rdns.ask_again': 'اطلب مرة أخرى',
         'core-network-rdns.placeholder':
           '78.174.88.104، 2001:db8::1 — أو الصق عمودًا كاملًا',
+        'core-network-rdns.no_name': 'بلا اسم',
+        'core-network-rdns.nothing_waiting': 'لم يكن هناك شيء قيد الانتظار.',
       }),
       zh: Object.freeze({
         'core-network-rdns.title': '互联网如何称呼一个地址',
@@ -121,14 +129,18 @@ window.ZogographNetworkRdnsCard = {
         'core-network-rdns.ask_again': '再次请求',
         'core-network-rdns.placeholder':
           '78.174.88.104, 2001:db8::1 — 或粘贴整列',
+        'core-network-rdns.no_name': '无名称',
+        'core-network-rdns.nothing_waiting': '没有等待中的项目。',
       }),
     }),
   }),
 
-  text(key, helpers) {
+  text(key, valuesOrHelpers = {}, maybeHelpers = null) {
+    const helpers = maybeHelpers || valuesOrHelpers;
+    const values = maybeHelpers ? valuesOrHelpers : {};
     return helpers.i18n.t(
       `core-network-rdns.${key}`,
-      {},
+      values,
       this.manifest.catalogs.en[`core-network-rdns.${key}`],
     );
   },

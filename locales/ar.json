@@ -1145,8 +1145,6 @@
   "record.show_whole_with_parts": "اعرض القيمة كاملةً مقسّمة إلى أجزائها",
   "action.fetching": "جارٍ الجلب…",
   "rdns.lookup_result": "{{address}} ← {{name}} ({{milliseconds, number}} مللي ثانية)",
-  "rdns.no_name": "بلا اسم",
-  "rdns.nothing_waiting": "لم يكن هناك شيء قيد الانتظار.",
   "rdns.queue_heading": "{{waiting, number}} عنوانًا بانتظار المعالجة{{progress}}",
   "rdns.queue_progress": "، {{count, number}} قيد التنفيذ",
   "rdns.queue_drain": "بمعدل {{perRun, number}} لكل تشغيل للجامع، تفرغ القائمة في نحو {{duration}}.{{both}}",

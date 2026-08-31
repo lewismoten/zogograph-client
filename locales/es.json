@@ -1149,8 +1149,6 @@
   "record.show_whole_with_parts": "Mostrar el valor completo, desglosado en sus partes",
   "action.fetching": "Obteniendo…",
   "rdns.lookup_result": "{{address}} → {{name}} ({{milliseconds, number}} ms)",
-  "rdns.no_name": "sin nombre",
-  "rdns.nothing_waiting": "No había nada en espera.",
   "rdns.queue_heading": "{{waiting, number}} direcciones en espera{{progress}}",
   "rdns.queue_progress": ", {{count, number}} en curso",
   "rdns.queue_drain": "A {{perRun, number}} por ejecución del recopilador, la cola se vacía en unos {{duration}}.{{both}}",

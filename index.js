@@ -41724,6 +41724,8 @@ $('rdnsForm').addEventListener('submit', async (event) => {
 
 $('rdnsNow').addEventListener('click', async () => {
   const button = $('rdnsNow');
+  const rdnsText = (key, values = {}) =>
+    ZogographNetworkRdnsCard.text(key, values, { i18n: ZogographI18n });
   button.disabled = true;
   button.textContent = ZogographI18n.t('action.looking', {}, 'Looking…');
 
@@ -41737,15 +41739,14 @@ $('rdnsNow').addEventListener('click', async () => {
                 'rdns.lookup_result',
                 {
                   address: one.address,
-                  name:
-                    one.name || ZogographI18n.t('rdns.no_name', {}, 'no name'),
+                  name: one.name || rdnsText('no_name'),
                   milliseconds: one.ms,
                 },
                 '{{address}} → {{name}} ({{milliseconds, number}} ms)',
               ),
             )
             .join('; ')
-        : ZogographI18n.t('rdns.nothing_waiting', {}, 'Nothing was waiting.'),
+        : rdnsText('nothing_waiting'),
       result.done.length > 0,
     );
     renderRdns(result);

@@ -1,3 +1,4 @@
 {
-  "core-ai-wait-for-new-readings.summary": "等待新的测量结果到达。"
+  "core-ai-wait-for-new-readings.summary": "等待新的测量结果到达。",
+  "core-ai-wait-for-new-readings.activity": "等待了新的测量结果"
 }

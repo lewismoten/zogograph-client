@@ -1,3 +1,4 @@
 {
-  "core-ai-wait-for-new-readings.summary": "Wait until fresh measurements arrive."
+  "core-ai-wait-for-new-readings.summary": "Wait until fresh measurements arrive.",
+  "core-ai-wait-for-new-readings.activity": "Waited for fresh measurements"
 }

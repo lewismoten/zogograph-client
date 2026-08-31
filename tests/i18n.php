@@ -1972,11 +1972,10 @@ i18nExpect(
         str_contains($page, 'data-i18n="log.search"') &&
         str_contains($page, 'data-i18n="log.newer"') &&
         $script !== false &&
-        str_contains($script, 'ZogographI18n.t("storage.log"') &&
+        str_contains($script, "'core-storage-log'") &&
         is_array($english) &&
         isset(
             $english['storage.history'],
-            $english['storage.log'],
             $english['action.close'],
             $english['log.search'],
             $english['log.lines'],

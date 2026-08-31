@@ -4821,7 +4821,7 @@ async function refreshOffenders() {
    * between a glance and a decision.
    */
   columns.push({
-    label: ZogographI18n.t('storage.last_line', {}, 'Last line'),
+    label: storageLogText('last_line'),
     className: 'cmd',
     render: (row) => lastLineCell(row),
   });
@@ -4902,6 +4902,14 @@ function growthCell(growth) {
  */
 const lastLines = new Map();
 
+const storageLogText = (key, values = {}) =>
+  renderCoreCardPackage(
+    ZogographStorageLogCard,
+    'core-storage-log',
+    { key, values },
+    { i18n: ZogographI18n },
+  );
+
 async function fetchLastLines(rows) {
   const wanted = rows
     .filter((r) => r.viewable && r.path_id && !lastLines.has(r.path_id))
@@ -4947,21 +4955,16 @@ function paintLastLines() {
     }
     if (!row.line) {
       cell.className = 'lastline muted';
-      cell.textContent = ZogographI18n.t(
-        'storage.last_line_empty',
-        {},
-        'Empty',
-      );
+      cell.textContent = storageLogText('empty');
       continue;
     }
 
     cell.className = 'lastline';
     cell.textContent = row.line;
-    cell.title = ZogographI18n.t(
-      'storage.last_line_number',
-      { number: row.line_number, line: row.line },
-      'Line {{number, number}}: {{line}}',
-    );
+    cell.title = storageLogText('line_number', {
+      number: row.line_number,
+      line: row.line,
+    });
   }
 }
 
@@ -4974,9 +4977,7 @@ function lastLineCell(row) {
 
   const known = lastLines.get(row.path_id);
   span.textContent = known
-    ? (known.line ??
-      known.error ??
-      ZogographI18n.t('storage.last_line_empty', {}, 'Empty'))
+    ? (known.line ?? known.error ?? storageLogText('empty'))
     : '\u2026';
   return span;
 }
@@ -5450,7 +5451,7 @@ async function showLog(pathId, quiet = false) {
     }
 
     panel.hidden = false;
-    $('logTitle').textContent = ZogographI18n.t('storage.log', {}, 'Log');
+    $('logTitle').textContent = storageLogText('title');
     $('logStatus').textContent = said;
     body.replaceChildren();
     return;

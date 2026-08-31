@@ -2677,12 +2677,15 @@ i18nExpect(
 i18nExpect(
     $script !== false &&
         str_contains($script, "notesShellText('screenshot_alt')") &&
-        str_contains($script, 'ZogographI18n.t("image.send_screenshot"') &&
+        str_contains(
+            $script,
+            'ZogographI18n.t("core-ai-take-screenshot.try_preview_alt"',
+        ) &&
         str_contains(
             (string) file_get_contents($root . '/cards/notes-shell.js'),
             'core-notes-shell.screenshot_alt',
         ),
-    'dashboard fixed image descriptions do not use their locale catalogs',
+    'dashboard fixed image descriptions do not use their package locale catalogs',
 );
 i18nExpect(
     $script !== false &&

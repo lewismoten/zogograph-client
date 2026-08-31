@@ -21581,7 +21581,7 @@ async function tryBrowserTool(tool, args) {
     const image = document.createElement('img');
     image.src = edited;
     image.alt = ZogographI18n.t(
-      'image.send_screenshot',
+      'core-ai-take-screenshot.try_preview_alt',
       {},
       'The screenshot as it would be sent',
     );

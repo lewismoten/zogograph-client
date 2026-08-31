@@ -1186,7 +1186,6 @@
   "auth.verify": "Verificar y activar el autenticador",
   "auth.start": "Crear secreto del autenticador",
   "auth.qr_alt": "Escanee este código QR con su aplicación de autenticación",
-  "image.send_screenshot": "La captura de pantalla tal como se enviaría",
   "openid.provider": "Proveedor de OpenID Connect",
   "openid.generate_key": "Generar clave de firma RSA dedicada",
   "openid.trusted_apps": "Aplicaciones de confianza",

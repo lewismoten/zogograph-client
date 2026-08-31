@@ -5797,43 +5797,12 @@ function renderAiSettings(data) {
     ),
   );
 
-  const cents = document.createElement('input');
-  cents.type = 'number';
-  cents.id = 'aiMaxCents';
-  cents.min = '0';
-  cents.step = '1';
-  cents.className = 'days';
-  cents.value = String(data.max_cents || 0);
-  limits.appendChild(
-    fieldRow(
-      aiSettingsText('spend_limit_label', 'Or after spending (cents)'),
-      cents,
-      aiSettingsText(
-        'spend_limit_help',
-        'Checked before each request rather than after, so the limit stops the next call ' +
-          'rather than being noticed once the money is gone. Zero means no limit — ' +
-          'which, with prices set, means no limit on the bill either.',
-      ),
-    ),
-  );
-
-  const turns = document.createElement('input');
-  turns.type = 'number';
-  turns.id = 'aiMaxTurns';
-  turns.min = '0';
-  turns.max = '500';
-  turns.className = 'days';
-  turns.value = String(data.max_turns || 0);
-  limits.appendChild(
-    fieldRow(
-      aiSettingsText('turn_limit_label', 'Or after this many turns'),
-      turns,
-      aiSettingsText(
-        'turn_limit_help',
-        'One turn is one request to the model. A conversation that needs forty is usually ' +
-          'one that has gone in a circle, so this is the limit most likely to catch a ' +
-          'problem rather than a long investigation.',
-      ),
+  limits.append(
+    ...renderCoreCardPackage(
+      ZogographAiConversationCapsCard,
+      'core-ai-conversation-caps',
+      data,
+      { fieldRow, i18n: ZogographI18n },
     ),
   );
 

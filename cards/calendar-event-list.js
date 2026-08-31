@@ -34,6 +34,18 @@ window.ZogographCalendarEventListCard = {
         'core-calendar-event-list.remove': 'Remove',
         'core-calendar-event-list.remove_confirm': 'Remove "{{title}}"?',
         'core-calendar-event-list.remove_title': 'Remove event',
+        'core-calendar-event-list.editing': 'Editing {{title}}',
+        'core-calendar-event-list.title_placeholder': 'VPS renews',
+        'core-calendar-event-list.repeats_help':
+          'A monthly date set for the 31st falls on the last day of shorter months, not the 3rd of the next one.',
+        'core-calendar-event-list.link': 'Link',
+        'core-calendar-event-list.link_placeholder':
+          'https://billing.example.com/',
+        'core-calendar-event-list.link_help':
+          'Optional. Where you go to deal with it.',
+        'core-calendar-event-list.important_until_dealt':
+          'Appears on the dashboard and in the alert emails as it approaches, until it is marked dealt with.',
+        'core-calendar-event-list.saved': 'Saved.',
       }),
       es: Object.freeze({
         'core-calendar-event-list.title': 'Fechas que conserva',
@@ -53,6 +65,18 @@ window.ZogographCalendarEventListCard = {
         'core-calendar-event-list.remove': 'Eliminar',
         'core-calendar-event-list.remove_confirm': '¿Eliminar "{{title}}"?',
         'core-calendar-event-list.remove_title': 'Eliminar evento',
+        'core-calendar-event-list.editing': 'Editando {{title}}',
+        'core-calendar-event-list.title_placeholder': 'Renovación del VPS',
+        'core-calendar-event-list.repeats_help':
+          'Una fecha mensual fijada para el día 31 cae el último día de los meses más cortos, no el día 3 del mes siguiente.',
+        'core-calendar-event-list.link': 'Enlace',
+        'core-calendar-event-list.link_placeholder':
+          'https://facturacion.ejemplo.com/',
+        'core-calendar-event-list.link_help':
+          'Opcional. Adonde va para resolverlo.',
+        'core-calendar-event-list.important_until_dealt':
+          'Aparece en el panel y en los correos de alerta a medida que se acerca, hasta que lo marque como resuelto.',
+        'core-calendar-event-list.saved': 'Guardado.',
       }),
       hi: Object.freeze({
         'core-calendar-event-list.title': 'वे तारीखें जिन्हें आप रखते हैं',
@@ -72,6 +96,18 @@ window.ZogographCalendarEventListCard = {
         'core-calendar-event-list.remove': 'हटाएँ',
         'core-calendar-event-list.remove_confirm': '"{{title}}" हटाएँ?',
         'core-calendar-event-list.remove_title': 'कार्यक्रम हटाएँ',
+        'core-calendar-event-list.editing': '{{title}} संपादित कर रहे हैं',
+        'core-calendar-event-list.title_placeholder': 'VPS नवीनीकृत होता है',
+        'core-calendar-event-list.repeats_help':
+          'महीने की 31 तारीख पर रखी गई तारीख छोटे महीनों के अंतिम दिन पर होगी, अगले महीने की 3 तारीख पर नहीं।',
+        'core-calendar-event-list.link': 'लिंक',
+        'core-calendar-event-list.link_placeholder':
+          'https://billing.example.com/',
+        'core-calendar-event-list.link_help':
+          'वैकल्पिक। इसे निपटाने के लिए जहाँ जाते हैं।',
+        'core-calendar-event-list.important_until_dealt':
+          'यह निकट आने पर डैशबोर्ड और अलर्ट ईमेल में दिखाई देता है, जब तक इसे निपटाया हुआ चिह्नित न कर दिया जाए।',
+        'core-calendar-event-list.saved': 'सहेजा गया।',
       }),
       ar: Object.freeze({
         'core-calendar-event-list.title': 'التواريخ التي تحتفظ بها',
@@ -91,6 +127,18 @@ window.ZogographCalendarEventListCard = {
         'core-calendar-event-list.remove': 'إزالة',
         'core-calendar-event-list.remove_confirm': 'إزالة "{{title}}"؟',
         'core-calendar-event-list.remove_title': 'إزالة الحدث',
+        'core-calendar-event-list.editing': 'تحرير {{title}}',
+        'core-calendar-event-list.title_placeholder': 'تجديد الخادم الافتراضي',
+        'core-calendar-event-list.repeats_help':
+          'التاريخ الشهري المحدد في اليوم 31 يقع في آخر يوم من الأشهر الأقصر، لا في اليوم الثالث من الشهر التالي.',
+        'core-calendar-event-list.link': 'رابط',
+        'core-calendar-event-list.link_placeholder':
+          'https://billing.example.com/',
+        'core-calendar-event-list.link_help':
+          'اختياري. المكان الذي تذهب إليه لمعالجته.',
+        'core-calendar-event-list.important_until_dealt':
+          'يظهر في لوحة المعلومات ورسائل التنبيه الإلكترونية مع اقترابه، حتى يتم وضع علامة تمت معالجته.',
+        'core-calendar-event-list.saved': 'تم الحفظ.',
       }),
       zh: Object.freeze({
         'core-calendar-event-list.title': '您保留的日期',
@@ -110,6 +158,17 @@ window.ZogographCalendarEventListCard = {
         'core-calendar-event-list.remove': '移除',
         'core-calendar-event-list.remove_confirm': '移除“{{title}}”？',
         'core-calendar-event-list.remove_title': '移除事项',
+        'core-calendar-event-list.editing': '正在编辑 {{title}}',
+        'core-calendar-event-list.title_placeholder': 'VPS 续订',
+        'core-calendar-event-list.repeats_help':
+          '每月设为 31 日的日期会落在较短月份的最后一天，而不是下个月的 3 日。',
+        'core-calendar-event-list.link': '链接',
+        'core-calendar-event-list.link_placeholder':
+          'https://billing.example.com/',
+        'core-calendar-event-list.link_help': '可选。用于处理此事的链接。',
+        'core-calendar-event-list.important_until_dealt':
+          '随着日期临近，它会显示在仪表板和警报电子邮件中，直到被标记为已处理。',
+        'core-calendar-event-list.saved': '已保存。',
       }),
     }),
   }),

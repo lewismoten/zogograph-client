@@ -36422,17 +36422,22 @@ function renderEventList(data) {
   );
 }
 
+function calendarEventListText(key, values = {}) {
+  const packageKey = `core-calendar-event-list.${key}`;
+  return ZogographI18n.t(
+    packageKey,
+    values,
+    ZogographCalendarEventListCard.manifest.catalogs.en[packageKey],
+  );
+}
+
 function openEventForm(row = null) {
   const data = calendarState.data;
   if (!data) return;
 
   $('eventFormPanel').hidden = false;
   $('eventFormTitle').textContent = row
-    ? ZogographI18n.t(
-        'calendar.editing',
-        { title: row.title },
-        'Editing {{title}}',
-      )
+    ? calendarEventListText('editing', { title: row.title })
     : ZogographCalendarUpcomingCard.text('add_date', {
         i18n: ZogographI18n,
       });
@@ -36448,17 +36453,13 @@ function openEventForm(row = null) {
   title.type = 'text';
   title.size = 40;
   title.value = row?.title ?? '';
-  title.placeholder = ZogographI18n.t(
-    'calendar.title_placeholder',
-    {},
-    'VPS renews',
-  );
-  field('eventTitle', ZogographI18n.t('calendar.what', {}, 'What'), title, '');
+  title.placeholder = calendarEventListText('title_placeholder');
+  field('eventTitle', calendarEventListText('what'), title, '');
 
   const when = document.createElement('input');
   when.type = 'date';
   when.value = row ? new Date(row.at * 1000).toISOString().slice(0, 10) : '';
-  field('eventAt', ZogographI18n.t('calendar.when', {}, 'When'), when, '');
+  field('eventAt', calendarEventListText('when'), when, '');
 
   const repeats = document.createElement('select');
   for (const [key, text] of Object.entries(data.repeats)) {
@@ -36470,55 +36471,37 @@ function openEventForm(row = null) {
   }
   field(
     'eventRepeats',
-    ZogographI18n.t('calendar.repeats', {}, 'Repeats'),
+    calendarEventListText('repeats'),
     repeats,
-    ZogographI18n.t(
-      'calendar.repeats_help',
-      {},
-      'A monthly date set for the 31st falls on the last day of shorter months, not the 3rd ' +
-        'of the next one.',
-    ),
+    calendarEventListText('repeats_help'),
   );
 
   const link = document.createElement('input');
   link.type = 'url';
   link.size = 40;
   link.value = row?.link ?? '';
-  link.placeholder = ZogographI18n.t(
-    'calendar.link_placeholder',
-    {},
-    'https://billing.example.com/',
-  );
+  link.placeholder = calendarEventListText('link_placeholder');
   field(
     'eventLink',
-    ZogographI18n.t('calendar.link', {}, 'Link'),
+    calendarEventListText('link'),
     link,
-    ZogographI18n.t(
-      'calendar.link_help',
-      {},
-      'Optional. Where you go to deal with it.',
-    ),
+    calendarEventListText('link_help'),
   );
 
   const note_ = document.createElement('input');
   note_.type = 'text';
   note_.size = 40;
   note_.value = row?.note ?? '';
-  field('eventNote', ZogographI18n.t('calendar.note', {}, 'Note'), note_, '');
+  field('eventNote', calendarEventListText('note'), note_, '');
 
   const priority = document.createElement('input');
   priority.type = 'checkbox';
   priority.checked = row ? Boolean(Number(row.priority)) : false;
   field(
     'eventPriority',
-    ZogographI18n.t('calendar.important', {}, 'Important'),
+    calendarEventListText('important'),
     priority,
-    ZogographI18n.t(
-      'calendar.important_until_dealt',
-      {},
-      'Appears on the dashboard and in the alert emails as it approaches, until it is marked ' +
-        'dealt with.',
-    ),
+    calendarEventListText('important_until_dealt'),
   );
 
   const actions = document.createElement('div');
@@ -36541,7 +36524,7 @@ function openEventForm(row = null) {
       });
       $('eventFormPanel').hidden = true;
       renderCalendar(result);
-      notice(ZogographI18n.t('calendar.saved', {}, 'Saved.'), true);
+      notice(calendarEventListText('saved'), true);
     } catch (error) {
       notice(String(error.message || error));
       save.disabled = false;

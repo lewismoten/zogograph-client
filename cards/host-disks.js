@@ -7,6 +7,8 @@ window.ZogographHostDisksCard = {
     catalogs: Object.freeze({
       en: Object.freeze({
         'core-host-disks.title': 'Disks',
+        'core-host-disks.help':
+          'Throughput and how close each device is to saturated. LVM and RAID volumes are shown but not added into any total: a write to {{dm0}} is remapped onto the disk underneath and advances both counters, so summing them reports twice the traffic that happened.',
         'core-host-disks.old_collector':
           'The reading was written by an older build of the collector that did not record disk counters. Upload host-cron.php and lib/, then let it run twice.',
         'core-host-disks.unreadable':
@@ -18,6 +20,8 @@ window.ZogographHostDisksCard = {
       }),
       es: Object.freeze({
         'core-host-disks.title': 'Discos',
+        'core-host-disks.help':
+          'Rendimiento y cercanía a la saturación de cada dispositivo. Los volúmenes LVM y RAID se muestran pero no se suman: una escritura en {{dm0}} se reasigna al disco inferior y avanza ambos contadores, por lo que sumarlos informa el doble de tráfico.',
         'core-host-disks.old_collector':
           'La lectura la escribió una versión antigua del recopilador que no registraba contadores de disco. Cargue host-cron.php y lib/, y déjelo ejecutarse dos veces.',
         'core-host-disks.unreadable':
@@ -29,6 +33,8 @@ window.ZogographHostDisksCard = {
       }),
       hi: Object.freeze({
         'core-host-disks.title': 'डिस्क',
+        'core-host-disks.help':
+          'थ्रूपुट और हर डिवाइस के संतृप्त होने की निकटता। LVM और RAID वॉल्यूम दिखते हैं पर कुल में नहीं जोड़े जाते: {{dm0}} पर लिखना नीचे की डिस्क पर पुनर्निर्देशित होता है और दोनों काउंटर बढ़ते हैं।',
         'core-host-disks.old_collector':
           'रीडिंग कलेक्टर के पुराने बिल्ड से लिखी गई थी, जिसमें डिस्क काउंटर दर्ज नहीं होते थे। host-cron.php और lib/ अपलोड करें, फिर इसे दो बार चलने दें।',
         'core-host-disks.unreadable':
@@ -39,6 +45,8 @@ window.ZogographHostDisksCard = {
       }),
       ar: Object.freeze({
         'core-host-disks.title': 'الأقراص',
+        'core-host-disks.help':
+          'معدل النقل ومدى قرب كل جهاز من التشبع. تظهر وحدات LVM وRAID لكنها لا تدخل في المجموع: الكتابة إلى {{dm0}} يعاد تعيينها إلى القرص أسفله فتزيد العدادين، وجمعهما يبلّغ عن ضعف الحركة.',
         'core-host-disks.old_collector':
           'كُتبت القراءة بواسطة إصدار أقدم من الجامع لا يسجل عدادات القرص. ارفع host-cron.php وlib/، ثم اتركه يعمل مرتين.',
         'core-host-disks.unreadable':
@@ -49,6 +57,8 @@ window.ZogographHostDisksCard = {
       }),
       zh: Object.freeze({
         'core-host-disks.title': '磁盘',
+        'core-host-disks.help':
+          '每个设备的吞吐量及接近饱和的程度。LVM 和 RAID 卷会显示但不计入总计：写入 {{dm0}} 会重新映射到下层磁盘并推进两个计数器，因此相加会报告两倍的流量。',
         'core-host-disks.old_collector':
           '该读数由较旧的采集器版本写入，该版本未记录磁盘计数器。请上传 host-cron.php 和 lib/，然后让它运行两次。',
         'core-host-disks.unreadable':

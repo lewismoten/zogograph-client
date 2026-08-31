@@ -2590,7 +2590,6 @@
   "storage.show_categories": "Show watched categories too",
   "storage.total_size": "total size",
   "storage.change_since_scan": "change since the previous scan",
-  "host.io_disks_help": "Throughput and how close each device is to saturated. LVM and RAID volumes are shown but not added into any total: a write to {{dm0}} is remapped onto the disk underneath and advances both counters, so summing them reports twice the traffic that happened.",
   "host.layout_help": "Every mount the kernel reports, grouped by filesystem. Two paths on the same device are the same disk however different they look, which is why a bind mount can make one directory appear to be two — and why summing mount points reports the same space twice. The skeleton's own mounts used to be the second half of this page and are now on {{cagefs}}, which is where somebody looking for them goes.",
   "auth.sign_in_help": "Reveals real paths and enables deleting.",
   "auth.username": "Username",

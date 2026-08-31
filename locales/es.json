@@ -2575,7 +2575,6 @@
   "storage.show_categories": "Mostrar también las categorías vigiladas",
   "storage.total_size": "tamaño total",
   "storage.change_since_scan": "cambio desde el análisis anterior",
-  "host.io_disks_help": "Rendimiento y cercanía a la saturación de cada dispositivo. Los volúmenes LVM y RAID se muestran pero no se suman: una escritura en {{dm0}} se reasigna al disco inferior y avanza ambos contadores, por lo que sumarlos informa el doble de tráfico.",
   "host.layout_help": "Cada montaje que informa el kernel, agrupado por sistema de archivos. Dos rutas del mismo dispositivo son el mismo disco aunque parezcan distintas; por eso un montaje bind puede hacer que un directorio parezca dos y sumar puntos de montaje informa el mismo espacio dos veces. Los montajes del esqueleto ahora están en {{cagefs}}, donde se buscan.",
   "auth.sign_in_help": "Muestra las rutas reales y permite eliminar.",
   "auth.username": "Nombre de usuario",

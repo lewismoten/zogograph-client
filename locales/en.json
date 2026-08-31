@@ -2283,7 +2283,6 @@
   "auth.recovery_codes_title": "Create new one-time recovery codes after confirming your authenticator",
   "auth.end_sessions_title": "End all signed-in browser sessions",
   "overview.network": "Network",
-  "host.processes_help": "Running right now, with processes of the same name added together. ‘Running for’ is the oldest of the group — a long-lived pool whose newest member is seconds old is restarting as fast as it dies. Arguments that look like passwords are hidden.",
   "processes.by": "By",
   "processes.cpu": "CPU",
   "processes.memory": "Memory",

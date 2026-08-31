@@ -18,6 +18,8 @@ window.ZogographProcessListCard = {
     catalogs: Object.freeze({
       en: Object.freeze({
         'core-process-list.title': 'What is using the machine',
+        'core-process-list.summary':
+          'Running right now, with processes of the same name added together. ‘Running for’ is the oldest of the group — a long-lived pool whose newest member is seconds old is restarting as fast as it dies. Arguments that look like passwords are hidden.',
         'core-process-list.stop_help':
           'For when the name is not specific enough to aim with — twelve {{webalizer}} processes where one of them is chewing through one particular log. This is {{pkill}}, with the two differences that matter: the pattern is matched here rather than handed to a shell, and it shows you what it would hit before it hits anything.',
         'core-process-list.process': 'Process',
@@ -34,6 +36,8 @@ window.ZogographProcessListCard = {
       }),
       es: Object.freeze({
         'core-process-list.title': 'Qué está usando la máquina',
+        'core-process-list.summary':
+          'Lo que se está ejecutando ahora, con procesos del mismo nombre sumados. «En ejecución desde» es el más antiguo del grupo: un grupo duradero cuyo miembro más reciente tiene segundos de vida se reinicia tan rápido como muere. Los argumentos que parecen contraseñas se ocultan.',
         'core-process-list.stop_help':
           'Para cuando el nombre no es lo bastante específico: doce procesos de {{webalizer}} y uno de ellos consume un registro concreto. Esto es {{pkill}}, con dos diferencias importantes: el patrón se compara aquí en lugar de pasarse a un shell, y muestra qué afectaría antes de afectar nada.',
         'core-process-list.process': 'Proceso',
@@ -50,6 +54,8 @@ window.ZogographProcessListCard = {
       }),
       hi: Object.freeze({
         'core-process-list.title': 'मशीन का उपयोग क्या कर रहा है',
+        'core-process-list.summary':
+          'इस समय चल रहे प्रोसेस, जिनमें समान नाम वाले प्रोसेस जोड़े गए हैं। ‘चल रहा है’ समूह का सबसे पुराना प्रोसेस है—जिस लंबे समय से चल रहे पूल का सबसे नया सदस्य कुछ सेकंड पुराना है, वह जितनी तेजी से मरता है उतनी तेजी से रीस्टार्ट हो रहा है। पासवर्ड जैसे दिखने वाले आर्ग्युमेंट छिपाए जाते हैं।',
         'core-process-list.stop_help':
           'जब नाम निशाना लगाने के लिए पर्याप्त विशिष्ट न हो—{{webalizer}} के बारह प्रोसेस और उनमें से एक किसी खास लॉग को खा रहा हो। यह {{pkill}} है, पर दो अहम अंतर हैं: पैटर्न को शेल को देने के बजाय यहीं मिलाया जाता है, और कुछ करने से पहले यह दिखाता है कि किस पर असर होगा।',
         'core-process-list.process': 'प्रक्रिया',
@@ -66,6 +72,8 @@ window.ZogographProcessListCard = {
       }),
       ar: Object.freeze({
         'core-process-list.title': 'ما الذي يستخدم الجهاز',
+        'core-process-list.summary':
+          'العمليات التي تعمل الآن مع جمع العمليات ذات الاسم نفسه. «قيد التشغيل منذ» هي أقدم عملية في المجموعة؛ فالمجموعة طويلة العمر التي لا يتجاوز عمر أحدث عضو فيها ثوانيًا تُعاد تشغيلها بالسرعة التي تموت بها. تُخفى الوسائط التي تبدو كلمات مرور.',
         'core-process-list.stop_help':
           'عندما لا يكون الاسم محددًا بما يكفي للاستهداف — اثنتا عشرة عملية {{webalizer}} وإحداها تعمل على سجل معين. هذا هو {{pkill}} مع فارقين مهمين: يُطابق النمط هنا بدل تمريره إلى shell، ويعرض ما سيصيبه قبل أن يصيب أي شيء.',
         'core-process-list.process': 'العملية',
@@ -82,6 +90,8 @@ window.ZogographProcessListCard = {
       }),
       zh: Object.freeze({
         'core-process-list.title': '什么在使用这台机器',
+        'core-process-list.summary':
+          '当前正在运行的进程，同名进程会合并计算。“已运行”取组中最早的进程：若一个长期存在的池中最新成员只有几秒钟大，它正以死亡的速度重启。看似密码的参数会被隐藏。',
         'core-process-list.stop_help':
           '当名称不足以精确定位时，例如有十二个 {{webalizer}} 进程，其中一个正在处理某个特定日志。这是 {{pkill}}，但有两个重要区别：模式在此处匹配，而不会交给 shell；它会在执行前显示将要命中的内容。',
         'core-process-list.process': '进程',

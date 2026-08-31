@@ -2453,12 +2453,16 @@ function renderProcessListLabels() {
     {},
     helpers,
   );
-  const title = document.querySelector('[data-i18n="core-process-list.title"]');
-  title.textContent = ZogographI18n.markSource(
-    title,
-    'core-process-list.title',
-    ZogographProcessListCard.text('title', helpers),
-  );
+  for (const key of ['title', 'summary']) {
+    const element = document.querySelector(
+      `[data-i18n="core-process-list.${key}"]`,
+    );
+    element.textContent = ZogographI18n.markSource(
+      element,
+      `core-process-list.${key}`,
+      ZogographProcessListCard.text(key, helpers),
+    );
+  }
   ZogographI18n.applyRich(
     document.querySelector('[data-i18n-rich="core-process-list.stop_help"]'),
   );

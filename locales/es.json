@@ -2268,7 +2268,6 @@
   "auth.recovery_codes_title": "Crear nuevos códigos de recuperación de un solo uso tras confirmar el autenticador",
   "auth.end_sessions_title": "Cerrar todas las sesiones iniciadas en el navegador",
   "overview.network": "Red",
-  "host.processes_help": "Lo que se está ejecutando ahora, con procesos del mismo nombre sumados. «En ejecución desde» es el más antiguo del grupo: un grupo duradero cuyo miembro más reciente tiene segundos de vida se reinicia tan rápido como muere. Los argumentos que parecen contraseñas se ocultan.",
   "processes.by": "Por",
   "processes.cpu": "CPU",
   "processes.memory": "Memoria",

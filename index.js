@@ -25559,6 +25559,24 @@ function renderWalkButton(data) {
  */
 function renderHostDaemons(daemons) {
   const holder = $('hostDaemons');
+  if (!holder) return;
+
+  if (!daemons || !daemons.available || !daemons.rows?.length) {
+    return renderCoreCardPackage(
+      ZogographHostDaemonsCard,
+      'core-host-daemons',
+      daemons,
+      {
+        target: holder,
+        renderTable,
+        humanDuration,
+        whenSpan,
+        watch: () => {},
+        i18n: ZogographI18n,
+      },
+    );
+  }
+
   if (window.ZogographHostDaemonsCard) {
     return renderCoreCardPackage(
       ZogographHostDaemonsCard,
@@ -25598,23 +25616,6 @@ function renderHostDaemons(daemons) {
         i18n: ZogographI18n,
       },
     );
-  }
-  if (!holder) return;
-
-  if (!daemons || !daemons.available || !daemons.rows?.length) {
-    holder.replaceChildren(
-      Object.assign(document.createElement('p'), {
-        className: 'muted',
-        textContent:
-          daemons?.reason ||
-          ZogographI18n.t(
-            'core-host-daemons.empty',
-            {},
-            'No service states recorded yet.',
-          ),
-      }),
-    );
-    return;
   }
 
   const now = Date.now() / 1000;

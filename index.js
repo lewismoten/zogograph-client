@@ -5645,6 +5645,34 @@ function renderAiIdentityPageShell() {
 
 document.addEventListener('zogograph-i18n-load', renderAiIdentityPageShell);
 
+function renderAiModelPagesShell() {
+  const render = (key, fallback) =>
+    renderCoreCardPackage(
+      ZogographAiModelPagesShellCard,
+      'core-ai-model-pages-shell',
+      { key, fallback },
+      { i18n: ZogographI18n },
+    );
+  $('aiModelTitle').textContent = render('model_title', 'Selected model');
+  $('aiModelHelp').textContent = render(
+    'model_help',
+    'Choose a platform and an available model. Prices are per million tokens, in cents, and optional — without them everything still works and the running total reports token counts rather than money, because a wrong price is worse than no price.',
+  );
+  $('aiProvidersTitle').textContent = render('providers_title', 'Providers');
+  $('aiProvidersHelp').textContent = render(
+    'providers_help',
+    'Choose the platform, its endpoint, and any credentials it needs. Ollama-compatible servers may use no key; remote ones must use HTTPS.',
+  );
+  $('aiPricesTitle').textContent = render('prices_title', 'Available models');
+  $('aiPriceAdd').textContent = render('add', 'Add a model');
+  $('aiPricesHelp').textContent = render(
+    'prices_help',
+    'Models and prices this install has been told about, per provider. Changing the selected model fills its price boxes from here rather than making you look them up again — and a model you have used before keeps whatever you set for it. Nothing here is fetched from anywhere: these are the numbers you were quoted, which is the only honest source for them.',
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderAiModelPagesShell);
+
 /** Every container the settings are split across. */
 const AI_SETTING_PAGES = [
   'aiIdentityBody',

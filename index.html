@@ -195,6 +195,7 @@
     <script src="cards/ai-past-conversations-sign-in.js" defer></script>
     <script src="cards/ai-settings-page-heading.js" defer></script>
     <script src="cards/ai-identity-page-shell.js" defer></script>
+    <script src="cards/ai-model-pages-shell.js" defer></script>
     <script src="cards/ai-memory-availability.js" defer></script>
     <script src="cards/ai-memory-provenance.js" defer></script>
     <script src="cards/ai-memory-pin-state.js" defer></script>
@@ -3997,9 +3998,9 @@
         <section class="view" data-view="sys-ai-model" hidden>
           <section class="panel" id="aiModelPanel">
             <div class="panel-head">
-              <h2 data-i18n="ai.selected_model_title">Selected model</h2>
+              <h2 id="aiModelTitle">Selected model</h2>
             </div>
-            <p class="muted small sub-note" data-i18n="ai.model_help">
+            <p id="aiModelHelp" class="muted small sub-note">
               Choose a platform and an available model. Prices are per million
               tokens, in cents, and are optional — without them everything still
               works and the running total reports token counts rather than
@@ -4014,9 +4015,9 @@
         <section class="view" data-view="sys-ai-providers" hidden>
           <section class="panel" id="aiProvidersPanel">
             <div class="panel-head">
-              <h2 data-i18n="ai.providers_title">Providers</h2>
+              <h2 id="aiProvidersTitle">Providers</h2>
             </div>
-            <p class="muted small sub-note" data-i18n="ai.providers_help">
+            <p id="aiProvidersHelp" class="muted small sub-note">
               Choose the platform, its endpoint, and any credentials it needs.
               Ollama-compatible servers may use no key; remote ones must use
               HTTPS.
@@ -4028,12 +4029,10 @@
         <section class="view" data-view="sys-ai-prices" hidden>
           <section class="panel" id="aiPricesPanel">
             <div class="panel-head">
-              <h2 data-i18n="ai.available_models_title">Available models</h2>
-              <button id="aiPriceAdd" class="link" data-i18n="ai.add_model">
-                Add a model
-              </button>
+              <h2 id="aiPricesTitle">Available models</h2>
+              <button id="aiPriceAdd" class="link">Add a model</button>
             </div>
-            <p class="muted small sub-note" data-i18n="ai.prices_help">
+            <p id="aiPricesHelp" class="muted small sub-note">
               Prices this install has been told about, per provider and model.
               Changing the model on the Model page fills the price boxes from
               here rather than making you look them up again — and a model you

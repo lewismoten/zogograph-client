@@ -182,6 +182,7 @@ export default [
         ZogographAiPastConversationActionsCard: 'readonly',
         ZogographAiSettingsPageHeadingCard: 'readonly',
         ZogographAiIdentityPageShellCard: 'readonly',
+        ZogographAiModelPagesShellCard: 'readonly',
         ZogographAiMemoryAvailabilityCard: 'readonly',
         ZogographAiMemoryProvenanceCard: 'readonly',
         ZogographAiMemoryPinStateCard: 'readonly',

@@ -15812,16 +15812,8 @@ function renderEncryptionStatus(data) {
   const body = $('encryptionBody');
   const names = {
     none: encryptionText('mode_none'),
-    sealed_copies_local: ZogographI18n.t(
-      'encryption.mode_sealed_copies',
-      {},
-      'Verified encrypted copies',
-    ),
-    operator_managed_volume: ZogographI18n.t(
-      'encryption.mode_volume',
-      {},
-      'Host/VM volume protection',
-    ),
+    sealed_copies_local: encryptionText('mode_sealed_copies'),
+    operator_managed_volume: encryptionText('mode_volume'),
   };
   const evidence = {
     none: encryptionText('evidence_none'),

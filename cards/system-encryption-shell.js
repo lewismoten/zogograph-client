@@ -22,6 +22,9 @@ window.ZogographSystemEncryptionShellCard = {
         'core-system-encryption-shell.protection_evidence':
           'Protection evidence',
         'core-system-encryption-shell.needs_attention': 'Needs attention',
+        'core-system-encryption-shell.mode_sealed_copies':
+          'Verified encrypted copies',
+        'core-system-encryption-shell.mode_volume': 'Host/VM volume protection',
       }),
       es: Object.freeze({
         'core-system-encryption-shell.title': 'Protección de datos',
@@ -42,6 +45,10 @@ window.ZogographSystemEncryptionShellCard = {
         'core-system-encryption-shell.protection_evidence':
           'Evidencia de protección',
         'core-system-encryption-shell.needs_attention': 'Necesita atención',
+        'core-system-encryption-shell.mode_sealed_copies':
+          'Copias cifradas verificadas',
+        'core-system-encryption-shell.mode_volume':
+          'Protección de volumen de host/VM',
       }),
       hi: Object.freeze({
         'core-system-encryption-shell.title': 'डेटा सुरक्षा',
@@ -59,6 +66,9 @@ window.ZogographSystemEncryptionShellCard = {
           'सत्यापित एन्क्रिप्टेड-कॉपी और रिकवरी प्रमाण',
         'core-system-encryption-shell.protection_evidence': 'सुरक्षा प्रमाण',
         'core-system-encryption-shell.needs_attention': 'ध्यान आवश्यक',
+        'core-system-encryption-shell.mode_sealed_copies':
+          'सत्यापित एन्क्रिप्टेड प्रतियां',
+        'core-system-encryption-shell.mode_volume': 'होस्ट/VM वॉल्यूम सुरक्षा',
       }),
       ar: Object.freeze({
         'core-system-encryption-shell.title': 'حماية البيانات',
@@ -76,6 +86,9 @@ window.ZogographSystemEncryptionShellCard = {
           'دليل نسخ مشفرة واسترداد متحقق منه',
         'core-system-encryption-shell.protection_evidence': 'دليل الحماية',
         'core-system-encryption-shell.needs_attention': 'يحتاج إلى اهتمام',
+        'core-system-encryption-shell.mode_sealed_copies': 'نسخ مشفرة مُتحققة',
+        'core-system-encryption-shell.mode_volume':
+          'حماية وحدة تخزين المضيف/VM',
       }),
       zh: Object.freeze({
         'core-system-encryption-shell.title': '数据保护',
@@ -93,6 +106,8 @@ window.ZogographSystemEncryptionShellCard = {
           '已验证的加密副本和恢复证据',
         'core-system-encryption-shell.protection_evidence': '保护证据',
         'core-system-encryption-shell.needs_attention': '需要注意',
+        'core-system-encryption-shell.mode_sealed_copies': '已验证的加密副本',
+        'core-system-encryption-shell.mode_volume': '主机/虚拟机卷保护',
       }),
     }),
   }),

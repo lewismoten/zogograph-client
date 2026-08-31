@@ -211,6 +211,7 @@ export default [
         ZogographChatExtendLimitCard: 'readonly',
         ZogographChatContextCard: 'readonly',
         ZogographQuickActionsCard: 'readonly',
+        ZogographScreenshotControlsCard: 'readonly',
         ZogographChatCostCard: 'readonly',
         ZogographChatSummaryMarkerCard: 'readonly',
         ZogographChatSummaryDialogCard: 'readonly',

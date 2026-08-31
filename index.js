@@ -5774,6 +5774,37 @@ function renderQuickActions() {
 
 document.addEventListener('zogograph-i18n-load', renderQuickActions);
 
+function screenshotText(key, values = {}, fallback = '') {
+  return renderCoreCardPackage(
+    ZogographScreenshotControlsCard,
+    'core-screenshot-controls',
+    { key, values, fallback },
+    { i18n: ZogographI18n },
+  );
+}
+
+function renderScreenshotControls() {
+  for (const [id, key, fallback] of [
+    ['shotDialog', 'before_send', 'Before this is sent'],
+    ['shotCancel', 'do_not_send', 'Do not send it'],
+    ['shotRedactMode', 'redact', 'Black something out'],
+    ['shotCropMode', 'crop', 'Keep only part of it'],
+    ['shotDrop', 'remove', 'Remove this one'],
+    ['shotUncrop', 'uncrop', 'Show all of it again'],
+    ['shotSend', 'send', 'Send this'],
+  ]) {
+    const node =
+      id === 'shotDialog' ? $('shotDialog').querySelector('h2') : $(id);
+    node.textContent = ZogographI18n.markSource(
+      node,
+      `core-screenshot-controls.${key}`,
+      screenshotText(key, {}, fallback),
+    );
+  }
+}
+
+document.addEventListener('zogograph-i18n-load', renderScreenshotControls);
+
 /** Every container the settings are split across. */
 const AI_SETTING_PAGES = [
   'aiIdentityBody',
@@ -7283,33 +7314,33 @@ function editScreenshot(source, why) {
       $('shotHint').textContent =
         shot.mode === 'redact'
           ? shot.chosen >= 0
-            ? ZogographI18n.t(
-                'screenshot.drag_selected',
+            ? screenshotText(
+                'drag_selected',
                 {},
                 'Drag it to move, drag a corner to resize, or press Delete to remove it.',
               )
-            : ZogographI18n.t(
-                'screenshot.drag_redact',
+            : screenshotText(
+                'drag_redact',
                 {},
                 'Drag a box over anything that should not be sent. You can move, resize or remove it afterwards — nothing is fixed until you send.',
               )
-          : ZogographI18n.t(
-              'screenshot.drag_crop',
+          : screenshotText(
+              'drag_crop',
               {},
               'Drag a box around the part worth sending. Everything outside it is left out, and you can undo it.',
             );
 
       $('shotCount').textContent = [
         shot.boxes.length
-          ? ZogographI18n.t(
-              'screenshot.areas_redacted',
+          ? screenshotText(
+              'areas_redacted',
               { count: shot.boxes.length },
               '{{count, number}} area blacked out',
             )
           : '',
         cropped
-          ? ZogographI18n.t(
-              'screenshot.cropped_dimensions',
+          ? screenshotText(
+              'cropped_dimensions',
               {
                 width: Math.round(shot.crop.w),
                 height: Math.round(shot.crop.h),
@@ -7465,7 +7496,7 @@ function paintRedaction(ctx, box) {
   // Only where it fits; a label spilling out of its box is worse than none.
   const size = Math.min(16, Math.max(9, box.h * 0.4));
   ctx.font = `${size}px system-ui, sans-serif`;
-  const label = ZogographI18n.t('screenshot.redacted', {}, 'Redacted');
+  const label = screenshotText('redacted', {}, 'Redacted');
 
   if (ctx.measureText(label).width + 10 < box.w && box.h > size + 4) {
     ctx.fillStyle = '#f2616b';

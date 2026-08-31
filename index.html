@@ -224,6 +224,7 @@
     <script src="cards/chat-extend-limit.js" defer></script>
     <script src="cards/chat-context.js" defer></script>
     <script src="cards/quick-actions.js" defer></script>
+    <script src="cards/screenshot-controls.js" defer></script>
     <script src="cards/chat-cost.js" defer></script>
     <script src="cards/chat-summary-marker.js" defer></script>
     <script src="cards/chat-summary-dialog.js" defer></script>
@@ -4895,11 +4896,13 @@
 -->
     <dialog id="shotDialog" class="shot-dialog">
       <div class="panel-head">
-        <h2 data-i18n="screenshot.before_send">Before this is sent</h2>
+        <h2 data-i18n="core-screenshot-controls.before_send">
+          Before this is sent
+        </h2>
         <button
           id="shotCancel"
           class="link danger"
-          data-i18n="screenshot.do_not_send"
+          data-i18n="core-screenshot-controls.do_not_send"
         >
           Do not send it
         </button>
@@ -4910,7 +4913,7 @@
           type="button"
           id="shotRedactMode"
           class="link chosen"
-          data-i18n="screenshot.redact"
+          data-i18n="core-screenshot-controls.redact"
         >
           Black something out
         </button>
@@ -4918,7 +4921,7 @@
           type="button"
           id="shotCropMode"
           class="link"
-          data-i18n="screenshot.crop"
+          data-i18n="core-screenshot-controls.crop"
         >
           Keep only part of it
         </button>
@@ -4935,7 +4938,7 @@
           id="shotDrop"
           class="link danger"
           hidden
-          data-i18n="screenshot.remove"
+          data-i18n="core-screenshot-controls.remove"
         >
           Remove this one
         </button>
@@ -4944,7 +4947,7 @@
           id="shotUncrop"
           class="link"
           hidden
-          data-i18n="screenshot.uncrop"
+          data-i18n="core-screenshot-controls.uncrop"
         >
           Show all of it again
         </button>
@@ -4955,7 +4958,11 @@
         <canvas id="shotCanvas"></canvas>
       </div>
       <div class="inspect-actions">
-        <button type="button" id="shotSend" data-i18n="screenshot.send">
+        <button
+          type="button"
+          id="shotSend"
+          data-i18n="core-screenshot-controls.send"
+        >
           Send this
         </button>
       </div>

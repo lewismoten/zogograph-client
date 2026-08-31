@@ -17580,18 +17580,10 @@ function renderNotes(data) {
                 ] || '';
             span.title = row.broadcast
               ? row.cleared_at
-                ? ZogographI18n.t(
-                    'notes.broadcast_cleared',
-                    {
-                      actor: row.cleared_by || notesRecordsText('somebody'),
-                    },
-                    'Was shown to everyone; cleared by {{actor}}.',
-                  )
-                : ZogographI18n.t(
-                    'notes.broadcast_active',
-                    {},
-                    'Shown to everyone until it is cleared.',
-                  )
+                ? notesRecordsText('broadcast_cleared', {
+                    actor: row.cleared_by || notesRecordsText('somebody'),
+                  })
+                : notesRecordsText('broadcast_active')
               : (data.scopes[row.scope]?.label ?? row.scope);
             return span;
           },
@@ -17607,24 +17599,18 @@ function renderNotes(data) {
           render: (row) => {
             if (!row.snapshots) return '—';
             const said = document.createElement('span');
-            said.textContent = ZogographI18n.t(
-              'notes.capture_size',
-              {
-                captures: humanCount(row.snapshots),
-                size: humanBytes(row.snapshot_bytes),
-              },
-              '{{captures}} captures · {{size}}',
-            );
+            said.textContent = notesRecordsText('capture_size', {
+              captures: humanCount(row.snapshots),
+              size: humanBytes(row.snapshot_bytes),
+            });
             // A camera, so a note carrying pictures can be picked out of the list
             // without opening each one to find out.
             if (row.images) {
               const mark = document.createElement('span');
               mark.textContent = ` 📷${row.images > 1 ? `×${row.images}` : ''}`;
-              mark.title = ZogographI18n.t(
-                'notes.pictures_kept',
-                { count: humanCount(row.images) },
-                '{{count}} pictures kept with this note',
-              );
+              mark.title = notesRecordsText('pictures_kept', {
+                count: humanCount(row.images),
+              });
               said.appendChild(mark);
             }
             return said;

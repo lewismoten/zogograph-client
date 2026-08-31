@@ -3519,10 +3519,6 @@ i18nExpect(
             $english['pending.past_due'],
             $english['pending.ready'],
             $english['pending.new'],
-            $english['notes.capture_size'],
-            $english['notes.pictures_kept'],
-            $english['notes.broadcast_cleared'],
-            $english['notes.broadcast_active'],
             $english['process.ask'],
             $english['process.force'],
             $english['process.ask_stop'],
@@ -3805,9 +3801,10 @@ i18nExpect(
 );
 i18nExpect(
     $script !== false &&
-        str_contains($script, 'notes.capture_size') &&
-        str_contains($script, 'notes.pictures_kept'),
-    'note attachment summary retains direct user-visible text',
+        str_contains($script, "notesRecordsText('capture_size'") &&
+        str_contains($script, "notesRecordsText('pictures_kept'") &&
+        !isset($english['notes.capture_size'], $english['notes.pictures_kept']),
+    'note attachment summary is not package-owned',
 );
 i18nExpect(
     $script !== false &&
@@ -3825,8 +3822,12 @@ i18nExpect(
 i18nExpect(
     $script !== false &&
         str_contains($script, "notesRecordsText('select_from'") &&
-        str_contains($script, 'notes.broadcast_cleared') &&
+        str_contains($script, "notesRecordsText('broadcast_cleared'") &&
         str_contains($script, "notesRecordsText('table_size')") &&
+        !isset(
+            $english['notes.broadcast_cleared'],
+            $english['notes.broadcast_active'],
+        ) &&
         str_contains(
             (string) file_get_contents($root . '/cards/notes-records.js'),
             'core-notes-records.table_size',

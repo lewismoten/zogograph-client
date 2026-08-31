@@ -16,6 +16,13 @@ window.ZogographNotesRecordsCard = {
         'core-notes-records.dismiss_selected_help':
           'Clears selected broadcast notes; ordinary notes are left alone.',
         'core-notes-records.select_from': 'Select note from {{when}}',
+        'core-notes-records.capture_size': '{{captures}} captures · {{size}}',
+        'core-notes-records.pictures_kept':
+          '{{count}} pictures kept with this note',
+        'core-notes-records.broadcast_cleared':
+          'Was shown to everyone; cleared by {{actor}}.',
+        'core-notes-records.broadcast_active':
+          'Shown to everyone until it is cleared.',
       }),
       es: Object.freeze({
         'core-notes-records.table_time': 'Hora',
@@ -29,6 +36,13 @@ window.ZogographNotesRecordsCard = {
         'core-notes-records.dismiss_selected_help':
           'Borra las notas de difusión seleccionadas; las notas normales se dejan intactas.',
         'core-notes-records.select_from': 'Seleccionar nota de {{when}}',
+        'core-notes-records.capture_size': '{{captures}} capturas · {{size}}',
+        'core-notes-records.pictures_kept':
+          '{{count}} imágenes guardadas con esta nota',
+        'core-notes-records.broadcast_cleared':
+          'Se mostró a todos; {{actor}} la borró.',
+        'core-notes-records.broadcast_active':
+          'Se muestra a todos hasta que se borre.',
       }),
       hi: Object.freeze({
         'core-notes-records.table_time': 'समय',
@@ -41,6 +55,13 @@ window.ZogographNotesRecordsCard = {
         'core-notes-records.dismiss_selected_help':
           'चुने गए प्रसारण नोट साफ़ करता है; सामान्य नोट वैसे ही रहते हैं।',
         'core-notes-records.select_from': '{{when}} का नोट चुनें',
+        'core-notes-records.capture_size': '{{captures}} कैप्चर · {{size}}',
+        'core-notes-records.pictures_kept':
+          'इस नोट के साथ {{count}} चित्र रखे गए',
+        'core-notes-records.broadcast_cleared':
+          'सभी को दिखाया गया था; {{actor}} ने साफ़ किया।',
+        'core-notes-records.broadcast_active':
+          'साफ़ होने तक सभी को दिखाया जाता है।',
       }),
       ar: Object.freeze({
         'core-notes-records.table_time': 'الوقت',
@@ -53,6 +74,12 @@ window.ZogographNotesRecordsCard = {
         'core-notes-records.dismiss_selected_help':
           'يمسح ملاحظات البث المحددة؛ تُترك الملاحظات العادية كما هي.',
         'core-notes-records.select_from': 'حدد ملاحظة من {{when}}',
+        'core-notes-records.capture_size': '{{captures}} لقطات · {{size}}',
+        'core-notes-records.pictures_kept':
+          '{{count}} صور محفوظة مع هذه الملاحظة',
+        'core-notes-records.broadcast_cleared':
+          'عُرضت للجميع؛ مسحها {{actor}}.',
+        'core-notes-records.broadcast_active': 'تُعرض للجميع حتى تُمسح.',
       }),
       zh: Object.freeze({
         'core-notes-records.table_time': '时间',
@@ -65,6 +92,11 @@ window.ZogographNotesRecordsCard = {
         'core-notes-records.dismiss_selected_help':
           '清除选定的广播注释；普通注释保持不变。',
         'core-notes-records.select_from': '选择 {{when}} 的注释',
+        'core-notes-records.capture_size': '{{captures}} 个捕获 · {{size}}',
+        'core-notes-records.pictures_kept': '此注释保留了 {{count}} 张图片',
+        'core-notes-records.broadcast_cleared':
+          '曾向所有人显示；已由 {{actor}} 清除。',
+        'core-notes-records.broadcast_active': '会向所有人显示，直到被清除。',
       }),
     }),
   }),

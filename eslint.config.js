@@ -60,6 +60,7 @@ export default [
         ZogographNotesEmptyCard: 'readonly',
         ZogographUrlsEmptyCard: 'readonly',
         ZogographAiSessionsCard: 'readonly',
+        ZogographAiPastConversationsCard: 'readonly',
         ZogographCagefsMountsCard: 'readonly',
         ZogographLogRepeatsCard: 'readonly',
         ZogographLogStreamSummaryCard: 'readonly',

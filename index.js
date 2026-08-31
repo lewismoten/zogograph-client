@@ -9930,77 +9930,18 @@ async function refreshPastChats() {
 }
 
 function renderPastChats() {
-  const body = $('pastChatsBody');
-
-  if (!pastChats.list.length) {
-    body.replaceChildren(note(ZogographI18n.t('ai.past_empty')));
-    return;
-  }
-
-  const holder = document.createElement('div');
-  holder.id = 'pastChatsTable';
-  body.replaceChildren(holder);
-
-  renderTable(
-    'pastChatsTable',
-    pastChats.list,
-    [
-      {
-        label: ZogographI18n.t('ai.past_topic'),
-        className: 'name',
-        render: (row) => {
-          if (row.title) {
-            const said = document.createElement('span');
-            said.textContent = row.title;
-            if (row.title_by === 'assistant') {
-              said.title = ZogographI18n.t('ai.past_named_by', {
-                assistant: chatState.who.name,
-              });
-            }
-            return said;
-          }
-          const said = document.createElement('span');
-          said.className = 'muted';
-          said.textContent = ZogographI18n.t('ai.past_no_topic');
-          return said;
-        },
-      },
-      {
-        label: ZogographI18n.t('ai.past_started'),
-        render: (row) => whenSpan(row.started_at),
-      },
-      {
-        label: ZogographI18n.t('ai.past_turns'),
-        className: 'size',
-        render: (row) => row.turns,
-      },
-      {
-        label: ZogographI18n.t('ai.past_cost'),
-        className: 'size',
-        render: (row) => row.spent?.said ?? '',
-      },
-      {
-        label: ZogographI18n.t('ai.past_ended'),
-        render: (row) =>
-          row.state === 'ended' || row.state === 'stopped'
-            ? row.why_stopped || row.state
-            : row.state,
-      },
-      {
-        label: ZogographI18n.t('ai.past_kept'),
-        render: (row) => {
-          if (!row.pinned) return '';
-          const said = document.createElement('span');
-          said.textContent = ZogographI18n.t('ai.past_pinned');
-          said.className = 'own-label';
-          said.title = ZogographI18n.t('ai.past_pinned_tip');
-          return said;
-        },
-      },
-    ],
-    (row) => openPastChat(row.id),
-    null,
-    (row) => String(row.id),
+  renderCoreCardPackage(
+    ZogographAiPastConversationsCard,
+    'core-ai-past-conversations',
+    { rows: pastChats.list, assistant: chatState.who.name },
+    {
+      target: $('pastChatsBody'),
+      note,
+      renderTable,
+      whenSpan,
+      open: openPastChat,
+      i18n: ZogographI18n,
+    },
   );
 }
 

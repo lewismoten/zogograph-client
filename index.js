@@ -30299,7 +30299,12 @@ function inspectPie(title, slices, note_) {
 
   requestAnimationFrame(() =>
     drawPieChart(canvas, slices, {
-      empty: ZogographI18n.t('storage.nothing_to_show', {}, 'Nothing to show'),
+      empty: renderCoreCardPackage(
+        ZogographStorageInspectorBreakdownCard,
+        'core-storage-inspector-breakdown',
+        {},
+        { i18n: ZogographI18n },
+      ),
     }),
   );
   return box;

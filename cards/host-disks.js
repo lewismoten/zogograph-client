@@ -17,6 +17,13 @@ window.ZogographHostDisksCard = {
           'Needs two host readings before a rate can be worked out — there {{readings, number}} so far.',
         'core-host-disks.empty':
           'No devices were recorded in the latest reading.',
+        'core-host-disks.device': 'Device',
+        'core-host-disks.stacked': ' · stacked',
+        'core-host-disks.stacked_tip':
+          'A volume mapped onto another device. Its traffic is already counted there, so it is not added into any total.',
+        'core-host-disks.busy': 'Busy',
+        'core-host-disks.queue': 'Queue',
+        'core-host-disks.in_flight': 'In flight',
       }),
       es: Object.freeze({
         'core-host-disks.title': 'Discos',
@@ -30,6 +37,13 @@ window.ZogographHostDisksCard = {
           'Se necesitan dos lecturas del host para calcular una tasa; hay {{readings, number}} hasta ahora.',
         'core-host-disks.empty':
           'No se registraron dispositivos en la lectura más reciente.',
+        'core-host-disks.device': 'Dispositivo',
+        'core-host-disks.stacked': ' · apilado',
+        'core-host-disks.stacked_tip':
+          'Un volumen asignado sobre otro dispositivo. Su tráfico ya se cuenta allí, por lo que no se añade a ningún total.',
+        'core-host-disks.busy': 'Ocupado',
+        'core-host-disks.queue': 'Cola',
+        'core-host-disks.in_flight': 'En curso',
       }),
       hi: Object.freeze({
         'core-host-disks.title': 'डिस्क',
@@ -42,6 +56,13 @@ window.ZogographHostDisksCard = {
         'core-host-disks.needs_readings':
           'दर निकालने से पहले दो होस्ट रीडिंग चाहिए — अभी {{readings, number}} हैं।',
         'core-host-disks.empty': 'नवीनतम रीडिंग में कोई डिवाइस दर्ज नहीं हुआ।',
+        'core-host-disks.device': 'डिवाइस',
+        'core-host-disks.stacked': ' · स्टैक्ड',
+        'core-host-disks.stacked_tip':
+          'दूसरे डिवाइस पर मैप किया गया वॉल्यूम। इसका ट्रैफ़िक वहाँ पहले ही गिना जाता है, इसलिए इसे किसी कुल में नहीं जोड़ा जाता।',
+        'core-host-disks.busy': 'व्यस्त',
+        'core-host-disks.queue': 'कतार',
+        'core-host-disks.in_flight': 'प्रगति पर',
       }),
       ar: Object.freeze({
         'core-host-disks.title': 'الأقراص',
@@ -54,6 +75,13 @@ window.ZogographHostDisksCard = {
         'core-host-disks.needs_readings':
           'يلزم قراءتان للمضيف قبل احتساب المعدل — يوجد {{readings, number}} حتى الآن.',
         'core-host-disks.empty': 'لم تُسجَّل أجهزة في أحدث قراءة.',
+        'core-host-disks.device': 'الجهاز',
+        'core-host-disks.stacked': ' · مكدس',
+        'core-host-disks.stacked_tip':
+          'وحدة تخزين معيّنة فوق جهاز آخر. حركتها محسوبة هناك بالفعل، لذا لا تضاف إلى أي إجمالي.',
+        'core-host-disks.busy': 'مشغول',
+        'core-host-disks.queue': 'الطابور',
+        'core-host-disks.in_flight': 'قيد التنفيذ',
       }),
       zh: Object.freeze({
         'core-host-disks.title': '磁盘',
@@ -66,6 +94,13 @@ window.ZogographHostDisksCard = {
         'core-host-disks.needs_readings':
           '需要两次主机读数才能计算速率——目前有 {{readings, number}} 次。',
         'core-host-disks.empty': '最新读数中没有记录设备。',
+        'core-host-disks.device': '设备',
+        'core-host-disks.stacked': ' · 堆叠',
+        'core-host-disks.stacked_tip':
+          '映射到另一设备的卷。其流量已在该设备中统计，因此不会加入任何总计。',
+        'core-host-disks.busy': '繁忙',
+        'core-host-disks.queue': '队列',
+        'core-host-disks.in_flight': '进行中',
       }),
     }),
   }),
@@ -129,16 +164,16 @@ window.ZogographHostDisksCard = {
           );
     renderTable(target.id, rows, [
       {
-        label: t('host.io_device', {}, 'Device'),
+        label: t('core-host-disks.device', {}, 'Device'),
         render: (row) => {
           if (!row.stacked) return row.name;
           const box = document.createElement('span');
           box.appendChild(document.createTextNode(row.name));
           const note = document.createElement('span');
           note.className = 'muted small';
-          note.textContent = t('host.io_stacked', {}, ' · stacked');
+          note.textContent = t('core-host-disks.stacked', {}, ' · stacked');
           note.title = t(
-            'host.io_stacked_tip',
+            'core-host-disks.stacked_tip',
             {},
             'A volume mapped onto another device. Its traffic is already counted there, so it is not added into any total.',
           );
@@ -157,7 +192,7 @@ window.ZogographHostDisksCard = {
         render: (row) => rate(row.write_rate),
       },
       {
-        label: t('host.io_busy', {}, 'Busy'),
+        label: t('core-host-disks.busy', {}, 'Busy'),
         className: 'size',
         render: (row) => {
           if (row.util_percent == null) return '—';
@@ -168,13 +203,13 @@ window.ZogographHostDisksCard = {
         },
       },
       {
-        label: t('host.io_queue', {}, 'Queue'),
+        label: t('core-host-disks.queue', {}, 'Queue'),
         className: 'size',
         render: (row) =>
           row.queue_depth == null ? '—' : Number(row.queue_depth).toFixed(2),
       },
       {
-        label: t('host.io_in_flight', {}, 'In flight'),
+        label: t('core-host-disks.in_flight', {}, 'In flight'),
         className: 'size',
         render: (row) => row.in_flight,
       },

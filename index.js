@@ -38391,18 +38391,26 @@ async function refreshCapabilities() {
 }
 
 function renderCapSummary(data) {
-  return renderCoreCardPackage(
+  const target = $('capSummary');
+  renderCoreCardPackage(
     ZogographCapabilitySummaryCard,
     'core-capability-summary',
     data,
     {
-      target: $('capSummary'),
+      target,
       factGrid,
       note,
       ago,
       i18n: ZogographI18n,
     },
   );
+  const pending = renderCoreCardPackage(
+    ZogographPendingHostTasksCard,
+    'core-pending-host-tasks',
+    data,
+    { count, ago, i18n: ZogographI18n },
+  );
+  if (pending?.childElementCount) target.appendChild(pending);
 }
 
 function renderCapList(data) {

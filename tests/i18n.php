@@ -331,6 +331,9 @@ $diagnosisResultsCard = i18nCardSource(
 $pendingWorkCard = i18nCardSource(
     file_get_contents($root . '/cards/pending-work.js'),
 );
+$pendingHostTasksCard = i18nCardSource(
+    file_get_contents($root . '/cards/pending-host-tasks.js'),
+);
 $updateBannerCard = i18nCardSource(
     file_get_contents($root . '/cards/update-banner.js'),
 );
@@ -912,6 +915,31 @@ i18nExpect(
         ) &&
         !str_contains($script, 'if (window.ZogographPendingWorkCard)'),
     'pending work retains a core fallback instead of its package boundary',
+);
+i18nExpect(
+    $page !== false &&
+        str_contains($page, 'src="cards/pending-host-tasks.js"') &&
+        $pendingHostTasksCard !== false &&
+        str_contains(
+            $pendingHostTasksCard,
+            'window.ZogographPendingHostTasksCard',
+        ) &&
+        str_contains($pendingHostTasksCard, 'id: "core-pending-host-tasks"') &&
+        str_contains(
+            $pendingHostTasksCard,
+            'locales: ["core-pending-host-tasks."]',
+        ) &&
+        str_contains($pendingHostTasksCard, 'catalogs: Object.freeze({') &&
+        str_contains(
+            $pendingHostTasksCard,
+            '"core-pending-host-tasks.never_ran"',
+        ) &&
+        $script !== false &&
+        str_contains(
+            $script,
+            'renderCoreCardPackage(ZogographPendingHostTasksCard, "core-pending-host-tasks",',
+        ),
+    'pending host tasks are not rendered through their core card package',
 );
 i18nExpect(
     $page !== false &&

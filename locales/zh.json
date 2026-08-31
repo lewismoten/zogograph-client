@@ -846,8 +846,6 @@
   "table.when": "时间",
   "table.what": "内容",
   "network.private_address_help": "这是一个私有地址——您与此机器位于同一网络，或位于这样的代理之后。",
-  "network.connection": "连接",
-  "network.encrypted": "已加密",
   "network.not_encrypted": "未加密",
   "network.browser_says": "浏览器显示",
   "network.you": "您",

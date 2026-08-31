@@ -846,8 +846,6 @@
   "table.when": "متى",
   "table.what": "ما الذي",
   "network.private_address_help": "عنوان خاص — أنت على نفس الشبكة التي توجد عليها هذه الآلة، أو خلف وكيل موجود عليها.",
-  "network.connection": "الاتصال",
-  "network.encrypted": "مشفّر",
   "network.not_encrypted": "غير مشفّر",
   "network.browser_says": "يقول المتصفح",
   "network.you": "أنت",

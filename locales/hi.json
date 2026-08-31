@@ -848,8 +848,6 @@
   "table.when": "कब",
   "table.what": "क्या",
   "network.private_address_help": "निजी पता — आप इस मशीन के समान नेटवर्क पर हैं या ऐसे प्रॉक्सी के पीछे हैं।",
-  "network.connection": "कनेक्शन",
-  "network.encrypted": "एन्क्रिप्टेड",
   "network.not_encrypted": "एन्क्रिप्टेड नहीं",
   "network.browser_says": "ब्राउज़र बताता है",
   "network.you": "आप",

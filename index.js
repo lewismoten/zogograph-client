@@ -34377,9 +34377,13 @@ async function refreshWhoAmI() {
     ]);
   }
   yours.push([
-    ZogographI18n.t('network.connection', {}, 'Connection'),
+    ZogographSystemWhoamiShellCard.text('connection', {
+      i18n: ZogographI18n,
+    }),
     you.secure
-      ? ZogographI18n.t('network.encrypted', {}, 'Encrypted')
+      ? ZogographSystemWhoamiShellCard.text('encrypted', {
+          i18n: ZogographI18n,
+        })
       : ZogographI18n.t('network.not_encrypted', {}, 'Not encrypted'),
   ]);
   if (you.agent)

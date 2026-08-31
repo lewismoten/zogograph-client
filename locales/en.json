@@ -827,8 +827,6 @@
   "table.when": "When",
   "table.what": "What",
   "network.private_address_help": "A private address — you are on the same network as this machine, or behind a proxy that is.",
-  "network.connection": "Connection",
-  "network.encrypted": "Encrypted",
   "network.not_encrypted": "Not encrypted",
   "network.browser_says": "Browser says",
   "network.you": "You",

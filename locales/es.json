@@ -460,7 +460,6 @@
   "storage.link_sweep_left_alone": "Se dejaron intactos {{count}} enlaces.",
   "storage.link_sweep_preview": "Hay {{matched}} enlaces con problemas bajo esa ruta. Se eliminarían {{deleted}} enlaces rotos.",
   "storage.link_sweep_preview_skipped": "Hay {{matched}} enlaces con problemas bajo esa ruta. Se eliminarían {{deleted}} enlaces rotos y se dejarían intactos {{skipped}} con otros problemas: nunca se elimina un bucle o un escape solo por una ruta.",
-  "storage.link_make_directory_confirm": "¿Reemplazar {{path}} por un directorio real vacío?\n\nEl enlace se elimina; lo que señalaba no se toca.",
   "storage.link_remove_title": "Eliminar el propio enlace",
   "storage.link_remove_confirm": "¿Eliminar el enlace {{path}}?\n\nSolo se elimina el enlace. Lo que señala no se toca.",
   "storage.link_repointed": "Ahora apunta a {{target}}.",

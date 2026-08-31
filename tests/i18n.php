@@ -2648,7 +2648,6 @@ i18nExpect(
             $english['storage.link_sweep_left_alone'],
             $english['storage.link_sweep_preview'],
             $english['storage.link_sweep_preview_skipped'],
-            $english['storage.link_make_directory_confirm'],
             $english['storage.link_remove_title'],
             $english['storage.link_remove_confirm'],
             $english['storage.link_repointed'],
@@ -3027,7 +3026,7 @@ i18nExpect(
     ) &&
         str_contains(
             (string) file_get_contents($root . '/cards/symlink-actions.js'),
-            'storage.link_make_directory_confirm',
+            'core-symlink-actions.make_directory_confirm',
         ) &&
         str_contains(
             (string) file_get_contents($root . '/cards/symlink-actions.js'),

@@ -14,6 +14,8 @@ window.ZogographCpuTimeCard = {
     ],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-cpu-time.title': 'Where the time goes',
+        'core-cpu-time.meaning_title': 'What each of them means',
         'core-cpu-time.average_over_range':
           '{{percent}}% on average over this range',
         'core-cpu-time.state': 'State',
@@ -65,6 +67,8 @@ window.ZogographCpuTimeCard = {
         'core-cpu-time.time_verdict_state.irq': 'hardware interrupts',
       }),
       es: Object.freeze({
+        'core-cpu-time.title': 'Dónde se va el tiempo',
+        'core-cpu-time.meaning_title': 'Qué significa cada uno',
         'core-cpu-time.average_over_range':
           '{{percent}}% de promedio en este intervalo',
         'core-cpu-time.state': 'Estado',
@@ -118,6 +122,8 @@ window.ZogographCpuTimeCard = {
         'core-cpu-time.time_verdict_state.irq': 'interrupciones de hardware',
       }),
       hi: Object.freeze({
+        'core-cpu-time.title': 'समय कहाँ जाता है',
+        'core-cpu-time.meaning_title': 'हर एक का क्या अर्थ है',
         'core-cpu-time.average_over_range': 'इस अवधि में औसतन {{percent}}%',
         'core-cpu-time.state': 'स्थिति',
         'core-cpu-time.in_proc_stat': '/proc/stat में',
@@ -165,6 +171,8 @@ window.ZogographCpuTimeCard = {
         'core-cpu-time.time_verdict_state.irq': 'हार्डवेयर इंटरप्ट',
       }),
       ar: Object.freeze({
+        'core-cpu-time.title': 'إلى أين يذهب الوقت',
+        'core-cpu-time.meaning_title': 'ماذا يعني كل منها',
         'core-cpu-time.average_over_range':
           'متوسط {{percent}}% خلال هذا النطاق',
         'core-cpu-time.state': 'الحالة',
@@ -213,6 +221,8 @@ window.ZogographCpuTimeCard = {
         'core-cpu-time.time_verdict_state.irq': 'مقاطعات العتاد',
       }),
       zh: Object.freeze({
+        'core-cpu-time.title': '时间都用在哪里',
+        'core-cpu-time.meaning_title': '它们各自代表什么',
         'core-cpu-time.average_over_range': '此范围内平均 {{percent}}%',
         'core-cpu-time.state': '状态',
         'core-cpu-time.in_proc_stat': '在 /proc/stat 中',
@@ -262,6 +272,13 @@ window.ZogographCpuTimeCard = {
       }),
     }),
   }),
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-cpu-time.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-cpu-time.${key}`],
+    );
+  },
   render(input, helpers) {
     const { now, states, series, cores } = input;
     const {

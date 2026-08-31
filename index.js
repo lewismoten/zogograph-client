@@ -3193,6 +3193,34 @@ function renderLogStreamShellLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderLogStreamShellLabels);
 
+function renderCpuTimeShellLabels() {
+  const helpers = {
+    setCard: () => null,
+    note: null,
+    tableTarget: null,
+    renderTable: () => null,
+    bandOf: () => '',
+    emptyMessage: '',
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(
+    ZogographCpuTimeCard,
+    'core-cpu-time',
+    { now: null, states: {}, series: [], cores: 0 },
+    helpers,
+  );
+  document.querySelectorAll('[data-i18n^="core-cpu-time."]').forEach((node) => {
+    const key = node.dataset.i18n.replace('core-cpu-time.', '');
+    node.textContent = ZogographI18n.markSource(
+      node,
+      `core-cpu-time.${key}`,
+      ZogographCpuTimeCard.text(key, helpers),
+    );
+  });
+}
+
+document.addEventListener('zogograph-i18n-load', renderCpuTimeShellLabels);
+
 /**
  * When the disk is projected to fill, as a date.
  *

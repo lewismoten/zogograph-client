@@ -34,7 +34,6 @@
   "monitor.retention_action_log": "سجل الإجراءات",
   "monitor.retention_incident_evidence": "دليل الحادثة",
   "monitor.retention_scans": "الفحوصات",
-  "logs.sign_in": "سجّل الدخول لقراءة ملفات السجل.",
   "services.sign_in": "سجّل الدخول لرؤية قائمة الخدمات.",
   "services.failed": "فاشل",
   "services.masked": "محجوب",

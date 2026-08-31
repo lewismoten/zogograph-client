@@ -34,7 +34,6 @@
   "monitor.retention_action_log": "El registro de acciones",
   "monitor.retention_incident_evidence": "Evidencia del incidente",
   "monitor.retention_scans": "Análisis",
-  "logs.sign_in": "Inicie sesión para leer archivos de registro.",
   "services.sign_in": "Inicie sesión para ver la lista de servicios.",
   "services.failed": "fallido",
   "services.masked": "enmascarado",

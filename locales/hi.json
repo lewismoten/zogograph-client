@@ -34,7 +34,6 @@
   "monitor.retention_action_log": "कार्य लॉग",
   "monitor.retention_incident_evidence": "घटना प्रमाण",
   "monitor.retention_scans": "स्कैन",
-  "logs.sign_in": "लॉग फ़ाइलें पढ़ने के लिए साइन इन करें।",
   "services.sign_in": "सेवा सूची देखने के लिए साइन इन करें।",
   "services.failed": "विफल",
   "services.masked": "मास्क किया गया",

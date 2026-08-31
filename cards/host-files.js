@@ -16,22 +16,47 @@ window.ZogographHostFilesCard = {
       en: Object.freeze({
         'core-host-files.linked_total':
           '{{bytes}} across {{files}} files, reached by {{paths}} paths. {{linked}} extra paths are hard links to files already counted, so they use no additional disk.',
+        'core-host-files.path': 'Path',
+        'core-host-files.size': 'Size',
+        'core-host-files.names': 'Names',
+        'core-host-files.owner': 'Owner',
+        'core-host-files.last_written': 'Last written',
       }),
       es: Object.freeze({
         'core-host-files.linked_total':
           '{{bytes}} entre {{files}} archivos, alcanzados por {{paths}} rutas. {{linked}} rutas adicionales son enlaces duros a archivos ya contados, así que no usan disco adicional.',
+        'core-host-files.path': 'Ruta',
+        'core-host-files.size': 'Tamaño',
+        'core-host-files.names': 'Nombres',
+        'core-host-files.owner': 'Propietario',
+        'core-host-files.last_written': 'Última escritura',
       }),
       hi: Object.freeze({
         'core-host-files.linked_total':
           '{{files}} फ़ाइलों में {{bytes}}, जिन तक {{paths}} पथों से पहुँचा गया। {{linked}} अतिरिक्त पथ पहले से गिनी गई फ़ाइलों के हार्ड लिंक हैं, इसलिए वे अतिरिक्त डिस्क नहीं लेते।',
+        'core-host-files.path': 'पथ',
+        'core-host-files.size': 'आकार',
+        'core-host-files.names': 'नाम',
+        'core-host-files.owner': 'स्वामी',
+        'core-host-files.last_written': 'अंतिम बार लिखा गया',
       }),
       ar: Object.freeze({
         'core-host-files.linked_total':
           '{{bytes}} عبر {{files}} ملفات، يمكن الوصول إليها من {{paths}} مسارات. {{linked}} مسارات إضافية هي روابط صلبة لملفات محسوبة بالفعل، لذا لا تستخدم مساحة قرص إضافية.',
+        'core-host-files.path': 'المسار',
+        'core-host-files.size': 'الحجم',
+        'core-host-files.names': 'الأسماء',
+        'core-host-files.owner': 'المالك',
+        'core-host-files.last_written': 'آخر كتابة',
       }),
       zh: Object.freeze({
         'core-host-files.linked_total':
           '共 {{files}} 个文件，占用 {{bytes}}，可通过 {{paths}} 条路径访问。另有 {{linked}} 条路径是已统计文件的硬链接，因此不占用额外磁盘空间。',
+        'core-host-files.path': '路径',
+        'core-host-files.size': '大小',
+        'core-host-files.names': '名称',
+        'core-host-files.owner': '所有者',
+        'core-host-files.last_written': '最后写入',
       }),
     }),
   }),
@@ -73,7 +98,7 @@ window.ZogographHostFilesCard = {
       groups,
       [
         {
-          label: i18n.t('host.files_path', {}, 'Path'),
+          label: i18n.t('core-host-files.path', {}, 'Path'),
           className: 'name',
           render: (group) => {
             const box = document.createElement('div');
@@ -97,12 +122,12 @@ window.ZogographHostFilesCard = {
           },
         },
         {
-          label: i18n.t('host.files_size', {}, 'Size'),
+          label: i18n.t('core-host-files.size', {}, 'Size'),
           className: 'size',
           render: (group) => humanBytes(group[0].bytes),
         },
         {
-          label: i18n.t('host.files_names', {}, 'Names'),
+          label: i18n.t('core-host-files.names', {}, 'Names'),
           className: 'size',
           render: (group) => {
             const links = Number(group[0].links ?? 1);
@@ -119,11 +144,11 @@ window.ZogographHostFilesCard = {
           },
         },
         {
-          label: i18n.t('host.files_owner', {}, 'Owner'),
+          label: i18n.t('core-host-files.owner', {}, 'Owner'),
           render: (group) => group[0].owner ?? '—',
         },
         {
-          label: i18n.t('host.files_last_written', {}, 'Last written'),
+          label: i18n.t('core-host-files.last_written', {}, 'Last written'),
           className: 'size',
           render: (group) => whenSpan(group[0].mtime),
         },

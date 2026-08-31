@@ -1,3 +1,4 @@
 {
-  "core-ai-get-terminal-commands.summary": "देखें कि उपयोगकर्ता ने टर्मिनल में कौन से आदेश चलाए हैं।"
+  "core-ai-get-terminal-commands.summary": "देखें कि उपयोगकर्ता ने टर्मिनल में कौन से आदेश चलाए हैं।",
+  "core-ai-get-terminal-commands.activity": "हाल के टर्मिनल आदेश जाँचे"
 }

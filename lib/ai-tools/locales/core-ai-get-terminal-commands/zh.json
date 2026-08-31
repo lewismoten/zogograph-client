@@ -1,3 +1,4 @@
 {
-  "core-ai-get-terminal-commands.summary": "查看用户在终端中运行了哪些命令。"
+  "core-ai-get-terminal-commands.summary": "查看用户在终端中运行了哪些命令。",
+  "core-ai-get-terminal-commands.activity": "检查了最近的终端命令"
 }

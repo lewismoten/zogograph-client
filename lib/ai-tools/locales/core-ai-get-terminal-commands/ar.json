@@ -1,3 +1,4 @@
 {
-  "core-ai-get-terminal-commands.summary": "اطّلع على الأوامر التي شغّلها المستخدم في الطرفية."
+  "core-ai-get-terminal-commands.summary": "اطّلع على الأوامر التي شغّلها المستخدم في الطرفية.",
+  "core-ai-get-terminal-commands.activity": "تحقق من أوامر الطرفية الأخيرة"
 }

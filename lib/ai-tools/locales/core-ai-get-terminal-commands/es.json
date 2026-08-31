@@ -1,3 +1,4 @@
 {
-  "core-ai-get-terminal-commands.summary": "Vea qué comandos ha ejecutado el usuario en la terminal."
+  "core-ai-get-terminal-commands.summary": "Vea qué comandos ha ejecutado el usuario en la terminal.",
+  "core-ai-get-terminal-commands.activity": "Comprobó los comandos recientes de la terminal"
 }

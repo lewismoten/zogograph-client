@@ -19,6 +19,8 @@ window.ZogographTerminalSessionLogCard = {
     catalogs: Object.freeze({
       en: Object.freeze({
         'core-terminal-session-log.title': 'The session',
+        'core-terminal-session-log.show_output': 'Show what each one printed',
+        'core-terminal-session-log.give_topic': 'Give it a topic',
         'core-terminal-session-log.session_of': 'Session of {{when}}',
         'core-terminal-session-log.copy_commands': 'Copy just the commands',
         'core-terminal-session-log.copy_log': 'Copy the whole log',
@@ -34,6 +36,9 @@ window.ZogographTerminalSessionLogCard = {
       }),
       es: Object.freeze({
         'core-terminal-session-log.title': 'La sesión',
+        'core-terminal-session-log.show_output':
+          'Mostrar lo que imprimió cada uno',
+        'core-terminal-session-log.give_topic': 'Darle un tema',
         'core-terminal-session-log.session_of': 'Sesión de {{when}}',
         'core-terminal-session-log.copy_commands': 'Copiar solo los comandos',
         'core-terminal-session-log.copy_log': 'Copiar todo el registro',
@@ -50,6 +55,9 @@ window.ZogographTerminalSessionLogCard = {
       }),
       hi: Object.freeze({
         'core-terminal-session-log.title': 'सत्र',
+        'core-terminal-session-log.show_output':
+          'हर एक ने क्या प्रिंट किया दिखाएँ',
+        'core-terminal-session-log.give_topic': 'इसे विषय दें',
         'core-terminal-session-log.session_of': '{{when}} का सत्र',
         'core-terminal-session-log.copy_commands': 'केवल कमांड कॉपी करें',
         'core-terminal-session-log.copy_log': 'पूरा लॉग कॉपी करें',
@@ -66,6 +74,8 @@ window.ZogographTerminalSessionLogCard = {
       }),
       ar: Object.freeze({
         'core-terminal-session-log.title': 'الجلسة',
+        'core-terminal-session-log.show_output': 'اعرض ما طبعه كل واحد',
+        'core-terminal-session-log.give_topic': 'أعطها موضوعًا',
         'core-terminal-session-log.session_of': 'جلسة {{when}}',
         'core-terminal-session-log.copy_commands': 'نسخ الأوامر فقط',
         'core-terminal-session-log.copy_log': 'نسخ السجل كاملًا',
@@ -80,6 +90,8 @@ window.ZogographTerminalSessionLogCard = {
       }),
       zh: Object.freeze({
         'core-terminal-session-log.title': '该会话',
+        'core-terminal-session-log.show_output': '显示每条命令的输出',
+        'core-terminal-session-log.give_topic': '添加主题',
         'core-terminal-session-log.session_of': '{{when}} 的会话',
         'core-terminal-session-log.copy_commands': '仅复制命令',
         'core-terminal-session-log.copy_log': '复制完整日志',

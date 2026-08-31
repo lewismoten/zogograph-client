@@ -2058,9 +2058,17 @@ i18nExpect(
     $page !== false &&
         str_contains($page, 'data-i18n="core-terminal-session-log.title"') &&
         is_array($coreCardEnglish) &&
-        isset($coreCardEnglish['core-terminal-session-log.title']) &&
+        isset(
+            $coreCardEnglish['core-terminal-session-log.title'],
+            $coreCardEnglish['core-terminal-session-log.show_output'],
+            $coreCardEnglish['core-terminal-session-log.give_topic'],
+        ) &&
         is_array($english) &&
-        !isset($english['terminal.session_title']),
+        !isset(
+            $english['terminal.session_title'],
+            $english['terminal.show_output'],
+            $english['terminal.give_topic'],
+        ),
     'terminal session-log heading does not use its core card package catalog',
 );
 i18nExpect(

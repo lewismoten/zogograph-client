@@ -2596,8 +2596,6 @@
   "terminal.sessions_commands": "Comandos",
   "terminal.sessions_who": "Quién",
   "terminal.sessions_output_help": "Abrir una sesión muestra qué se ejecutó. Lo que cada comando {{printed}} está detrás de su propio interruptor porque son dos preguntas distintas con dos respuestas distintas: lo que escribió es seguro en cualquier pantalla, y lo que volvió puede ser un archivo de configuración con una contraseña.",
-  "terminal.show_output": "Mostrar lo que imprimió cada uno",
-  "terminal.give_topic": "Darle un tema",
   "ai.reclaim_space": "Recuperar espacio vacío",
   "storage.safe_export": "Descargar exportación segura",
   "storage.integrity_check": "Ejecutar comprobación de integridad completa",

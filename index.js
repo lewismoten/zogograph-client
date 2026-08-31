@@ -3442,6 +3442,16 @@ function renderTerminalSessionLogTitle() {
     'core-terminal-session-log.title',
     ZogographTerminalSessionLogCard.text('title', helpers),
   );
+  for (const key of ['show_output', 'give_topic']) {
+    const control = document.querySelector(
+      `[data-i18n="core-terminal-session-log.${key}"]`,
+    );
+    control.textContent = ZogographI18n.markSource(
+      control,
+      `core-terminal-session-log.${key}`,
+      ZogographTerminalSessionLogCard.text(key, helpers),
+    );
+  }
 }
 
 document.addEventListener('zogograph-i18n-load', renderTerminalSessionLogTitle);

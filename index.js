@@ -3867,6 +3867,11 @@ function renderChangeHistoryTitle() {
     'core-change-history.title',
     ZogographChangeHistoryCard.text('title', helpers),
   );
+  for (const key of ['help', 'groups_help']) {
+    ZogographI18n.applyRich(
+      document.querySelector(`[data-i18n-rich="core-change-history.${key}"]`),
+    );
+  }
 }
 
 document.addEventListener('zogograph-i18n-load', renderChangeHistoryTitle);

@@ -16,6 +16,8 @@ window.ZogographLogStreamSummaryCard = {
           '{{lines}} folded into the {{errors}} they belong to. A fatal writes one line for the error and a dozen for the trace, so without this the twenty newest lines are one error and nineteen fragments of it.',
         'core-log-stream-summary.loading': 'Reading the end of every log…',
         'core-log-stream-summary.empty': 'Nothing in any of them.',
+        'core-log-stream-summary.skimming_note':
+          'Click any line for the whole of it, taken apart. The columns here are cut short on purpose — this view is for skimming.',
       }),
       es: Object.freeze({
         'core-log-stream-summary.title': 'Todos los registros a la vez',
@@ -29,6 +31,8 @@ window.ZogographLogStreamSummaryCard = {
           '{{lines}} se integraron en los {{errors}} a los que pertenecen. Un error fatal escribe una línea para el error y una docena para el seguimiento; sin esto, las veinte líneas más recientes serían un error y diecinueve fragmentos.',
         'core-log-stream-summary.loading': 'Leyendo el final de cada registro…',
         'core-log-stream-summary.empty': 'No hay nada en ninguno de ellos.',
+        'core-log-stream-summary.skimming_note':
+          'Haga clic en cualquier línea para verla completa y desglosada. Las columnas se recortan a propósito: esta vista sirve para hojear.',
       }),
       hi: Object.freeze({
         'core-log-stream-summary.title': 'हर लॉग एक साथ',
@@ -42,6 +46,8 @@ window.ZogographLogStreamSummaryCard = {
           '{{lines}} को उन {{errors}} में समेट दिया गया जिनसे वे संबंधित हैं। एक फेटल त्रुटि के लिए एक पंक्ति और ट्रेस के लिए दर्जन भर पंक्तियाँ लिखती है; इसके बिना नवीनतम बीस पंक्तियाँ एक त्रुटि और उसके उन्नीस अंश होंगी।',
         'core-log-stream-summary.loading': 'हर लॉग का अंत पढ़ रहे हैं…',
         'core-log-stream-summary.empty': 'इनमें से किसी में कुछ नहीं है।',
+        'core-log-stream-summary.skimming_note':
+          'किसी भी पंक्ति को पूरी तरह और भागों में देखने के लिए उस पर क्लिक करें। यहाँ के कॉलम जानबूझकर छोटे रखे गए हैं — यह दृश्य जल्दी देखने के लिए है।',
       }),
       ar: Object.freeze({
         'core-log-stream-summary.title': 'كل السجلات معًا',
@@ -55,6 +61,8 @@ window.ZogographLogStreamSummaryCard = {
           'دُمج {{lines}} في {{errors}} التي تنتمي إليها. يكتب الخطأ الفادح سطرًا للخطأ وعشرات للتتبّع؛ وبدون ذلك تكون أحدث عشرين سطرًا خطأً واحدًا وتسعة عشر جزءًا منه.',
         'core-log-stream-summary.loading': 'يجري قراءة نهاية كل سجل…',
         'core-log-stream-summary.empty': 'لا شيء في أي منها.',
+        'core-log-stream-summary.skimming_note':
+          'انقر أي سطر لرؤيته كاملًا ومفككًا. تُقصَّر الأعمدة هنا عمدًا — هذا العرض للتصفح السريع.',
       }),
       zh: Object.freeze({
         'core-log-stream-summary.title': '所有日志同时查看',
@@ -68,6 +76,8 @@ window.ZogographLogStreamSummaryCard = {
           '{{lines}} 行已折叠到所属的 {{errors}} 中。一次致命错误会为错误写一行、为堆栈写十多行；没有此处理，最新二十行会是一条错误和它的十九个片段。',
         'core-log-stream-summary.loading': '正在读取每个日志的末尾…',
         'core-log-stream-summary.empty': '其中没有任何内容。',
+        'core-log-stream-summary.skimming_note':
+          '单击任意一行即可查看完整内容及其拆分。这里的列特意截短——此视图用于快速浏览。',
       }),
     }),
   }),

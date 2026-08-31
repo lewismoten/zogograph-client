@@ -39992,12 +39992,7 @@ function renderLogStream(data) {
   });
 
   wrap.appendChild(list);
-  wrap.appendChild(
-    note(
-      'Click any line for the whole of it, taken apart. The columns here are cut short on ' +
-        'purpose — this view is for skimming.',
-    ),
-  );
+  wrap.appendChild(note(logStreamSummaryText('skimming_note')));
   body.replaceChildren(wrap);
 }
 

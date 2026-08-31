@@ -31289,6 +31289,14 @@ function processTree(nodes) {
 
 const actionState = { kind: '', who: '', result: '' };
 
+const actionLogTableText = (key) =>
+  renderCoreCardPackage(
+    window.ZogographActionLogTableCard,
+    'core-action-log-table',
+    { key },
+    { i18n: ZogographI18n },
+  );
+
 /*
  * What a raw action name means in words.
  *
@@ -31387,34 +31395,34 @@ async function refreshActionLog() {
     rows,
     [
       {
-        label: ZogographI18n.t('action_log.when', {}, 'When'),
+        label: actionLogTableText('when'),
         render: (row) => whenSpan(row.at),
       },
       {
-        label: ZogographI18n.t('action_log.what', {}, 'What'),
+        label: actionLogTableText('what'),
         render: (row) => actionWord(row.action),
       },
       {
-        label: ZogographI18n.t('action_log.target', {}, 'Target'),
+        label: actionLogTableText('target'),
         className: 'name',
         render: (row) => row.target ?? '',
       },
       {
-        label: ZogographI18n.t('action_log.outcome', {}, 'Outcome'),
+        label: actionLogTableText('outcome'),
         render: (row) =>
           row.outcome + (row.detail ? ` \u2014 ${row.detail}` : ''),
       },
       {
-        label: ZogographI18n.t('action_log.freed', {}, 'Freed'),
+        label: actionLogTableText('freed'),
         className: 'size',
         render: (row) => humanBytes(row.bytes_freed),
       },
       {
-        label: ZogographI18n.t('action_log.actor', {}, 'Actor'),
+        label: actionLogTableText('actor'),
         render: (row) => row.actor || '\u2014',
       },
       {
-        label: ZogographI18n.t('action_log.from', {}, 'From'),
+        label: actionLogTableText('from'),
         render: (row) => row.remote_addr || '\u2014',
       },
     ],

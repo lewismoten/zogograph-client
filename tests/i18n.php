@@ -2385,6 +2385,18 @@ i18nExpect(
     'host-log table translations belong to its core package',
 );
 i18nExpect(
+    !isset(
+        $english['action_log.when'],
+        $english['action_log.what'],
+        $english['action_log.target'],
+        $english['action_log.outcome'],
+    ) &&
+        $page !== false &&
+        str_contains($page, 'src="cards/action-log-table.js"') &&
+        str_contains($script, "'core-action-log-table'"),
+    'action-log table translations belong to their core package',
+);
+i18nExpect(
     str_contains(
         (string) file_get_contents($root . '/cards/storage-scan-status.js'),
         'core-storage-scan-status.running',

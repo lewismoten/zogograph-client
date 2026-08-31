@@ -3561,17 +3561,8 @@ i18nExpect(
             $english['alerts.sent_open_title'],
             $english['alerts.sent_legacy_title'],
             $english['alerts.muted_title'],
-            $english['alerts.mail_sent'],
-            $english['alerts.mail_not_sent'],
-            $english['alerts.mail_to'],
-            $english['alerts.mail_nobody'],
-            $english['alerts.mail_subject'],
-            $english['alerts.mail_error'],
             $english['alerts.mail_not_delivered_help'],
             $english['alerts.mail_covered'],
-            $english['alerts.mail_message'],
-            $english['alerts.mail_headers'],
-            $english['alerts.mail_dialog_title'],
             $english['alerts.mail_dialog_help'],
             $english['alert.verdict_timing'],
             $english['alert.verdict_reviewed_at'],
@@ -3905,17 +3896,33 @@ i18nExpect(
 );
 i18nExpect(
     $script !== false &&
-        str_contains($script, 'alerts.mail_sent') &&
-        str_contains($script, 'alerts.mail_error') &&
-        str_contains($script, 'alerts.mail_not_delivered_help'),
-    'alert email facts retain direct user-visible text',
+        str_contains($script, "ZogographAlertsShellCard.text('mail_sent'") &&
+        str_contains($script, "ZogographAlertsShellCard.text('mail_error'") &&
+        str_contains($script, 'alerts.mail_not_delivered_help') &&
+        isset(
+            $coreCardEnglish['core-alerts-shell.mail_sent'],
+            $coreCardEnglish['core-alerts-shell.mail_not_sent'],
+            $coreCardEnglish['core-alerts-shell.mail_to'],
+            $coreCardEnglish['core-alerts-shell.mail_nobody'],
+            $coreCardEnglish['core-alerts-shell.mail_subject'],
+            $coreCardEnglish['core-alerts-shell.mail_error'],
+        ),
+    'alert email facts do not belong to the alerts package',
 );
 i18nExpect(
     $script !== false &&
         str_contains($script, 'alerts.mail_covered') &&
-        str_contains($script, 'alerts.mail_dialog_title') &&
-        str_contains($script, 'alerts.mail_dialog_help'),
-    'alert email dialog retains direct user-visible text',
+        str_contains(
+            $script,
+            "ZogographAlertsShellCard.text('mail_dialog_title'",
+        ) &&
+        str_contains($script, 'alerts.mail_dialog_help') &&
+        isset(
+            $coreCardEnglish['core-alerts-shell.mail_message'],
+            $coreCardEnglish['core-alerts-shell.mail_headers'],
+            $coreCardEnglish['core-alerts-shell.mail_dialog_title'],
+        ),
+    'alert email dialog labels do not belong to the alerts package',
 );
 i18nExpect(
     $script !== false &&

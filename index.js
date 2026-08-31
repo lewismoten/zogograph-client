@@ -27792,20 +27792,32 @@ async function showAlertEmail(row) {
 
   const facts = [
     [
-      ZogographI18n.t('alerts.mail_sent', {}, 'Sent'),
+      ZogographAlertsShellCard.text('mail_sent', { i18n: ZogographI18n }),
       mail.sent
         ? whenLabel(mail.at)
-        : ZogographI18n.t('alerts.mail_not_sent', {}, 'it was not'),
+        : ZogographAlertsShellCard.text('mail_not_sent', {
+            i18n: ZogographI18n,
+          }),
     ],
     [
-      ZogographI18n.t('alerts.mail_to', {}, 'To'),
-      mail.recipients || ZogographI18n.t('alerts.mail_nobody', {}, 'nobody'),
+      ZogographAlertsShellCard.text('mail_to', { i18n: ZogographI18n }),
+      mail.recipients ||
+        ZogographAlertsShellCard.text('mail_nobody', {
+          i18n: ZogographI18n,
+        }),
     ],
-    [ZogographI18n.t('alerts.mail_subject', {}, 'Subject'), mail.subject],
+    [
+      ZogographAlertsShellCard.text('mail_subject', {
+        i18n: ZogographI18n,
+      }),
+      mail.subject,
+    ],
   ];
   if (mail.error)
     facts.push([
-      ZogographI18n.t('alerts.mail_error', {}, 'What went wrong'),
+      ZogographAlertsShellCard.text('mail_error', {
+        i18n: ZogographI18n,
+      }),
       mail.error,
     ]);
   nodes.push(factGrid(facts));
@@ -27847,7 +27859,12 @@ async function showAlertEmail(row) {
   body.className = 'sent-mail';
   body.textContent = mail.body;
   nodes.push(
-    section(ZogographI18n.t('alerts.mail_message', {}, 'The message'), body),
+    section(
+      ZogographAlertsShellCard.text('mail_message', {
+        i18n: ZogographI18n,
+      }),
+      body,
+    ),
   );
 
   if (mail.headers) {
@@ -27855,12 +27872,19 @@ async function showAlertEmail(row) {
     headers.className = 'sent-mail muted';
     headers.textContent = mail.headers;
     nodes.push(
-      section(ZogographI18n.t('alerts.mail_headers', {}, 'Headers'), headers),
+      section(
+        ZogographAlertsShellCard.text('mail_headers', {
+          i18n: ZogographI18n,
+        }),
+        headers,
+      ),
     );
   }
 
   showListDialog(
-    ZogographI18n.t('alerts.mail_dialog_title', {}, 'What was sent'),
+    ZogographAlertsShellCard.text('mail_dialog_title', {
+      i18n: ZogographI18n,
+    }),
     nodes,
     ZogographI18n.t(
       'alerts.mail_dialog_help',

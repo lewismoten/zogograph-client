@@ -30004,7 +30004,7 @@ function renderInspect(data) {
     [
       ZogographI18n.t('storage.size', {}, 'Size'),
       data.kind === 'dir'
-        ? `${humanBytes(data.contents.bytes)}${data.contents.complete ? '' : ' or more'}`
+        ? `${humanBytes(data.contents.bytes)}${data.contents.complete ? '' : factsText('or_more')}`
         : humanBytes(f.size_bytes),
     ],
   ];

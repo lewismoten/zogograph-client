@@ -460,7 +460,6 @@
   "storage.link_sweep_left_alone": "Se dejaron intactos {{count}} enlaces.",
   "storage.link_sweep_preview": "Hay {{matched}} enlaces con problemas bajo esa ruta. Se eliminarían {{deleted}} enlaces rotos.",
   "storage.link_sweep_preview_skipped": "Hay {{matched}} enlaces con problemas bajo esa ruta. Se eliminarían {{deleted}} enlaces rotos y se dejarían intactos {{skipped}} con otros problemas: nunca se elimina un bucle o un escape solo por una ruta.",
-  "storage.link_repoint": "Redirigir",
   "storage.link_repoint_title": "Hacer que este enlace apunte a otro lugar",
   "storage.link_repoint_dialog_title": "Redirigir enlace",
   "storage.link_repoint_prompt": "¿A dónde debe apuntar {{name}}?",

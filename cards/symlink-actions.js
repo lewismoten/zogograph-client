@@ -13,11 +13,26 @@ window.ZogographSymlinkActionsCard = {
       'refresh',
     ],
     catalogs: Object.freeze({
-      en: Object.freeze({ 'core-symlink-actions.group': 'Link actions' }),
-      es: Object.freeze({ 'core-symlink-actions.group': 'Acciones de enlace' }),
-      hi: Object.freeze({ 'core-symlink-actions.group': 'लिंक कार्रवाइयाँ' }),
-      ar: Object.freeze({ 'core-symlink-actions.group': 'إجراءات الرابط' }),
-      zh: Object.freeze({ 'core-symlink-actions.group': '链接操作' }),
+      en: Object.freeze({
+        'core-symlink-actions.group': 'Link actions',
+        'core-symlink-actions.repoint': 'Repoint',
+      }),
+      es: Object.freeze({
+        'core-symlink-actions.group': 'Acciones de enlace',
+        'core-symlink-actions.repoint': 'Redirigir',
+      }),
+      hi: Object.freeze({
+        'core-symlink-actions.group': 'लिंक कार्रवाइयाँ',
+        'core-symlink-actions.repoint': 'पुनः इंगित करें',
+      }),
+      ar: Object.freeze({
+        'core-symlink-actions.group': 'إجراءات الرابط',
+        'core-symlink-actions.repoint': 'إعادة توجيه',
+      }),
+      zh: Object.freeze({
+        'core-symlink-actions.group': '链接操作',
+        'core-symlink-actions.repoint': '重新指向',
+      }),
     }),
   }),
   said(how, result, i18n) {
@@ -75,7 +90,7 @@ window.ZogographSymlinkActionsCard = {
       wrap.appendChild(button);
     };
     add(
-      t('storage.link_repoint', {}, 'Repoint'),
+      t('core-symlink-actions.repoint', {}, 'Repoint'),
       t('storage.link_repoint_title', {}, 'Point this link somewhere else'),
       async () => {
         const target = await ask(

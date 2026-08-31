@@ -460,7 +460,6 @@
   "storage.link_sweep_left_alone": "تُركت {{count}} روابط كما هي.",
   "storage.link_sweep_preview": "توجد {{matched}} روابط بها مشكلة تحت ذلك المسار. ستُزال {{deleted}} روابط معطلة.",
   "storage.link_sweep_preview_skipped": "توجد {{matched}} روابط بها مشكلة تحت ذلك المسار. ستُزال {{deleted}} روابط معطلة وتُترك {{skipped}} ذات مشكلات أخرى — لا يُزال رابط حلقي أو هروب بناء على مسار وحده أبدًا.",
-  "storage.link_repoint": "إعادة توجيه",
   "storage.link_repoint_title": "اجعل هذا الرابط يشير إلى مكان آخر",
   "storage.link_repoint_dialog_title": "إعادة توجيه الرابط",
   "storage.link_repoint_prompt": "إلى أين ينبغي أن يشير {{name}}؟",

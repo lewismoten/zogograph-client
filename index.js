@@ -32281,98 +32281,17 @@ function renderInterfaces(rows) {
 }
 
 function renderPorts(data) {
-  if (window.ZogographNetworkPortsCard) {
-    return renderCoreCardPackage(
-      ZogographNetworkPortsCard,
-      'core-network-ports',
-      { ports: data.ports || [], publicOnly: networkState.publicOnly },
-      {
-        target: $('portsBody'),
-        note,
-        renderTable,
-        labelled,
-        i18n: ZogographI18n,
-      },
-    );
-  }
-  const rows = (data.ports || []).filter(
-    (p) => !networkState.publicOnly || p.public,
-  );
-
-  if (!rows.length) {
-    $('portsBody').replaceChildren(
-      note(
-        networkState.publicOnly
-          ? ZogographI18n.t('network.ports_public_empty')
-          : ZogographI18n.t('network.ports_empty'),
-      ),
-    );
-    return;
-  }
-
-  renderTable(
-    'portsBody',
-    rows,
-    [
-      {
-        label: ZogographI18n.t('network.port'),
-        className: 'size',
-        render: (row) => labelled(`${row.port}/${row.protocol}`, row.own_label),
-      },
-      {
-        label: ZogographI18n.t('network.usually'),
-        className: 'name',
-        render: (row) => {
-          const span = document.createElement('span');
-          span.textContent = row.service.name;
-          if (!row.service.known) span.className = 'muted';
-          if (row.service.note) span.title = row.service.note;
-          return span;
-        },
-      },
-      {
-        label: ZogographI18n.t('network.held_by'),
-        render: (row) =>
-          row.process || ZogographI18n.t('network.not_attributed'),
-      },
-      {
-        label: ZogographI18n.t('network.reachable'),
-        render: (row) => {
-          const span = document.createElement('span');
-          span.textContent = row.public
-            ? ZogographI18n.t('network.from_anywhere')
-            : ZogographI18n.t('network.this_machine_only');
-          /*
-           * The exposed database is the finding this column exists for.
-           *
-           * A service on 127.0.0.1 is internal plumbing; the same service on
-           * 0.0.0.0 is open to whoever can route here. Redis, Memcached, MySQL
-           * and MongoDB have no authentication worth the name by default, so a
-           * public one of those is not a warning, it is a finding.
-           */
-          const risky = [3306, 5432, 6379, 11211, 27017, 9200];
-          if (row.public && risky.includes(Number(row.port))) {
-            span.className = 'band-crit';
-            span.title = ZogographI18n.t('network.public_risky_port_tip');
-          } else if (row.public) {
-            span.className = 'muted';
-          }
-          return span;
-        },
-      },
-      {
-        label: ZogographI18n.t('network.addresses'),
-        className: 'cmd',
-        render: (row) => (row.addresses || []).join(', '),
-      },
-      {
-        label: ZogographI18n.t('network.stack'),
-        render: (row) => (row.families || []).join(' + '),
-      },
-    ],
-    null,
-    null,
-    (row) => `${row.protocol}:${row.port}`,
+  return renderCoreCardPackage(
+    ZogographNetworkPortsCard,
+    'core-network-ports',
+    { ports: data.ports || [], publicOnly: networkState.publicOnly },
+    {
+      target: $('portsBody'),
+      note,
+      renderTable,
+      labelled,
+      i18n: ZogographI18n,
+    },
   );
 }
 

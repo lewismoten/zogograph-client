@@ -16097,11 +16097,7 @@ function renderEncryptionStatus(data) {
       });
       const remote = document.createElement('button');
       remote.type = 'button';
-      remote.textContent = ZogographI18n.t(
-        'encryption.add_remote_envelope',
-        {},
-        'Add optional remote custody envelope',
-      );
+      remote.textContent = encryptionText('add_remote_envelope');
       remote.disabled = !data.remote_envelope_candidates?.length;
       remote.title = remote.disabled
         ? packageText(
@@ -16119,11 +16115,7 @@ function renderEncryptionStatus(data) {
       );
       const remoteDrill = document.createElement('button');
       remoteDrill.type = 'button';
-      remoteDrill.textContent = ZogographI18n.t(
-        'encryption.run_remote_recovery_drill',
-        {},
-        'Run remote custody recovery drill',
-      );
+      remoteDrill.textContent = encryptionText('run_remote_recovery_drill');
       remoteDrill.disabled = !data.remote_recovery_candidates?.length;
       remoteDrill.title = remoteDrill.disabled
         ? packageText(

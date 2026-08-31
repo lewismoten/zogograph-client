@@ -1423,8 +1423,6 @@
   "gauge.monitoring": "Monitoring: {{value}}",
   "encryption.recovery_drill_verified_one": "Recovery drill verified {{count, number}} selected store.",
   "encryption.recovery_drill_verified_many": "Recovery drill verified {{count, number}} selected stores.",
-  "encryption.add_remote_envelope": "Add optional remote custody envelope",
-  "encryption.run_remote_recovery_drill": "Run remote custody recovery drill",
   "encryption.remote_envelope_dialog": "Add remote custody recovery envelope",
   "encryption.verified_local_artifact": "Verified local artifact",
   "encryption.store_optional_envelope": "Store optional envelope",

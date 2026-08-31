@@ -95,6 +95,10 @@ window.ZogographSystemEncryptionShellCard = {
           ' Pruned {{count, number}} expired copies.',
         'core-system-encryption-shell.run_recovery_drill':
           'Run non-destructive recovery drill',
+        'core-system-encryption-shell.add_remote_envelope':
+          'Add optional remote custody envelope',
+        'core-system-encryption-shell.run_remote_recovery_drill':
+          'Run remote custody recovery drill',
       }),
       es: Object.freeze({
         'core-system-encryption-shell.title': 'Protección de datos',
@@ -198,6 +202,10 @@ window.ZogographSystemEncryptionShellCard = {
           ' Se eliminaron {{count, number}} copias vencidas.',
         'core-system-encryption-shell.run_recovery_drill':
           'Ejecutar prueba de recuperación no destructiva',
+        'core-system-encryption-shell.add_remote_envelope':
+          'Añadir sobre de custodia remota opcional',
+        'core-system-encryption-shell.run_remote_recovery_drill':
+          'Ejecutar prueba de recuperación de custodia remota',
       }),
       hi: Object.freeze({
         'core-system-encryption-shell.title': 'डेटा सुरक्षा',
@@ -289,6 +297,10 @@ window.ZogographSystemEncryptionShellCard = {
           ' {{count, number}} समाप्त प्रतियां हटाई गईं।',
         'core-system-encryption-shell.run_recovery_drill':
           'बिना नुकसान वाली पुनर्प्राप्ति जाँच चलाएँ',
+        'core-system-encryption-shell.add_remote_envelope':
+          'वैकल्पिक दूरस्थ कस्टडी लिफ़ाफ़ा जोड़ें',
+        'core-system-encryption-shell.run_remote_recovery_drill':
+          'दूरस्थ कस्टडी पुनर्प्राप्ति जाँच चलाएँ',
       }),
       ar: Object.freeze({
         'core-system-encryption-shell.title': 'حماية البيانات',
@@ -376,6 +388,10 @@ window.ZogographSystemEncryptionShellCard = {
           ' أزيلت {{count, number}} نسخ منتهية.',
         'core-system-encryption-shell.run_recovery_drill':
           'شغّل تمرين استرداد غير هدّام',
+        'core-system-encryption-shell.add_remote_envelope':
+          'أضف غلاف حفظ بعيد اختياري',
+        'core-system-encryption-shell.run_remote_recovery_drill':
+          'شغّل تمرين استرداد الحفظ البعيد',
       }),
       zh: Object.freeze({
         'core-system-encryption-shell.title': '数据保护',
@@ -456,6 +472,10 @@ window.ZogographSystemEncryptionShellCard = {
           '已清理 {{count, number}} 个过期副本。',
         'core-system-encryption-shell.run_recovery_drill':
           '运行非破坏性恢复演练',
+        'core-system-encryption-shell.add_remote_envelope':
+          '添加可选远程托管信封',
+        'core-system-encryption-shell.run_remote_recovery_drill':
+          '运行远程托管恢复演练',
       }),
     }),
   }),

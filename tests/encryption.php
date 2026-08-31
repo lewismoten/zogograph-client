@@ -96,7 +96,10 @@ try {
                 $dashboard,
                 'Bootstrap configuration recovery is deliberately CLI-only',
             ) &&
-            str_contains($dashboard, 'Add optional remote custody envelope') &&
+            str_contains(
+                $encryptionShell,
+                'Add optional remote custody envelope',
+            ) &&
             str_contains($dashboard, 'Local recovery remains required') &&
             str_contains(
                 $encryptionShell,

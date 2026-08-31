@@ -1383,8 +1383,6 @@
   "gauge.monitoring": "निगरानी: {{value}}",
   "encryption.recovery_drill_verified_one": "रिकवरी जाँच ने {{count, number}} चुने गए स्टोर को सत्यापित किया।",
   "encryption.recovery_drill_verified_many": "रिकवरी जाँच ने {{count, number}} चुने गए स्टोरों को सत्यापित किया।",
-  "encryption.add_remote_envelope": "वैकल्पिक दूरस्थ कस्टडी लिफ़ाफ़ा जोड़ें",
-  "encryption.run_remote_recovery_drill": "दूरस्थ कस्टडी पुनर्प्राप्ति जाँच चलाएँ",
   "encryption.remote_envelope_dialog": "दूरस्थ कस्टडी पुनर्प्राप्ति लिफ़ाफ़ा जोड़ें",
   "encryption.verified_local_artifact": "सत्यापित स्थानीय आर्टिफ़ैक्ट",
   "encryption.store_optional_envelope": "वैकल्पिक लिफ़ाफ़ा सहेजें",

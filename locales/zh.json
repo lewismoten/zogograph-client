@@ -1381,8 +1381,6 @@
   "gauge.monitoring": "监控：{{value}}",
   "encryption.recovery_drill_verified_one": "恢复演练验证了 {{count, number}} 个选定存储。",
   "encryption.recovery_drill_verified_many": "恢复演练验证了 {{count, number}} 个选定存储。",
-  "encryption.add_remote_envelope": "添加可选远程托管信封",
-  "encryption.run_remote_recovery_drill": "运行远程托管恢复演练",
   "encryption.remote_envelope_dialog": "添加远程托管恢复信封",
   "encryption.verified_local_artifact": "已验证的本地工件",
   "encryption.store_optional_envelope": "存储可选信封",

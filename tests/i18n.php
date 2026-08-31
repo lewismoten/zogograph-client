@@ -3052,10 +3052,7 @@ i18nExpect(
 i18nExpect(
     $script !== false &&
         str_contains($script, "encryptionText('create_verified_copies'") &&
-        str_contains(
-            $script,
-            'ZogographI18n.t("encryption.run_remote_recovery_drill"',
-        ),
+        str_contains($script, "encryptionText('run_remote_recovery_drill'"),
     'encryption recovery actions do not use the locale catalog',
 );
 i18nExpect(
@@ -4219,8 +4216,6 @@ i18nExpect(
     'visible loading messages must use i18n keys rather than literal spinner text',
 );
 $translatedEncryptionRecoveryActions = [
-    'encryption.add_remote_envelope',
-    'encryption.run_remote_recovery_drill',
     'encryption.remote_envelope_dialog',
     'encryption.verified_local_artifact',
     'encryption.store_optional_envelope',
@@ -4234,6 +4229,8 @@ $translatedEncryptionPackageActions = [
     'core-system-encryption-shell.create_copies_title',
     'core-system-encryption-shell.copies_created',
     'core-system-encryption-shell.run_recovery_drill',
+    'core-system-encryption-shell.add_remote_envelope',
+    'core-system-encryption-shell.run_remote_recovery_drill',
 ];
 $translatedOperationalControls = [
     'action.copy',

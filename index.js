@@ -4783,16 +4783,8 @@ async function refreshOffenders() {
           span.title = storageOffenderStatusHelpText('new');
         } else {
           span.className = 'muted';
-          span.textContent = ZogographI18n.t(
-            'storage.back_in_list',
-            {},
-            'Back in the list',
-          );
-          span.title = ZogographI18n.t(
-            'storage.back_in_list_help',
-            {},
-            'Recorded before, absent from the previous scan, and back now — it grew past the size that gets a path recorded rather than being created.',
-          );
+          span.textContent = storageOffenderStatusHelpText('back_in_list');
+          span.title = storageOffenderStatusHelpText('back_in_list_detail');
         }
         return span;
       },

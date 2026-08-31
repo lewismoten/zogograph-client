@@ -1386,8 +1386,6 @@
   "storage.still_on_disk_help": "文件没有消失。其他内容增长并使其不再出现在此次扫描记录的路径中。",
   "storage.deleted_here": "已于 {{at}} 在此删除",
   "storage.deleted_here_help": "根据操作日志，此仪表板已将其删除。",
-  "storage.back_in_list": "重新出现在列表中",
-  "storage.back_in_list_help": "以前记录过，上次扫描时缺失，现在又回来了：它增长到足以被记录。",
   "table.change": "变化",
   "table.name": "名称",
   "table.header": "标头",

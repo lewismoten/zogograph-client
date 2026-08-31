@@ -1426,8 +1426,6 @@
   "storage.still_on_disk_help": "The file has not gone anywhere. Something else grew past it, so it dropped out of the paths this scan records.",
   "storage.deleted_here": "Deleted from here {{at}}",
   "storage.deleted_here_help": "Deleted through this dashboard, from the action log.",
-  "storage.back_in_list": "Back in the list",
-  "storage.back_in_list_help": "Recorded before, absent from the previous scan, and back now — it grew past the size that gets a path recorded rather than being created.",
   "table.change": "Change",
   "table.name": "Name",
   "table.header": "Header",

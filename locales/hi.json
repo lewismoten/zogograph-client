@@ -1390,8 +1390,6 @@
   "storage.still_on_disk_help": "फ़ाइल कहीं नहीं गई। कुछ और बढ़ गया, इसलिए यह इस स्कैन में दर्ज पथों से बाहर हो गई।",
   "storage.deleted_here": "यहाँ से {{at}} हटाई गई",
   "storage.deleted_here_help": "कार्रवाई लॉग के अनुसार इस डैशबोर्ड से हटाई गई।",
-  "storage.back_in_list": "सूची में वापस",
-  "storage.back_in_list_help": "पहले दर्ज था, पिछले स्कैन में अनुपस्थित था और अब वापस है: यह दर्ज होने लायक बढ़ा है।",
   "table.change": "बदलाव",
   "table.name": "नाम",
   "table.header": "हेडर",

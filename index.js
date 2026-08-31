@@ -14327,11 +14327,9 @@ async function refreshPathHygiene() {
   if (!state.signedIn) {
     body.replaceChildren(
       note(
-        ZogographI18n.t(
-          'path_hygiene.sign_in',
-          {},
-          'Sign in to review path names.',
-        ),
+        ZogographPathHygieneCard.text('sign_in', {
+          i18n: ZogographI18n,
+        }),
       ),
     );
     return;

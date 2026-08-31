@@ -295,7 +295,6 @@
   "chart.visual_gauge_data_error": "仪表数据需要一个值和正的最大值。",
   "chart.visual_line_data_error": "折线数据需要系列和数据点。",
   "chart.screenshot_unsupported": "此浏览器无法从页面截取屏幕截图。",
-  "path_hygiene.sign_in": "登录后可检查路径名称。",
   "path_hygiene.install_enable": "在 Marketplace 中安装并启用 Path-name hygiene 以使用此检查。",
   "path_hygiene.no_completed_scan": "已启用，但尚无已完成的账户磁盘扫描记录路径名称。",
   "path_hygiene.none_found": "最新扫描未发现会使 shell 混淆的路径名称。",

@@ -16,6 +16,7 @@ window.ZogographPathHygieneCard = {
     catalogs: Object.freeze({
       en: Object.freeze({
         'core-path-hygiene.title': 'Path-name hygiene',
+        'core-path-hygiene.sign_in': 'Sign in to review path names.',
         'core-path-hygiene.help':
           'An optional, advisory check that runs during the account disk walk. It does not send notifications. Rename only paths you recognize; the change is immediate and recorded in the audit log.',
         'core-path-hygiene.enable':
@@ -35,6 +36,8 @@ window.ZogographPathHygieneCard = {
       }),
       es: Object.freeze({
         'core-path-hygiene.title': 'Higiene de nombres de ruta',
+        'core-path-hygiene.sign_in':
+          'Inicie sesión para revisar los nombres de ruta.',
         'core-path-hygiene.help':
           'Una comprobación opcional y orientativa que se ejecuta durante el recorrido de disco de la cuenta. No envía notificaciones. Cambie solo rutas que reconozca; el cambio es inmediato y queda registrado en la auditoría.',
         'core-path-hygiene.enable':
@@ -54,6 +57,8 @@ window.ZogographPathHygieneCard = {
       }),
       hi: Object.freeze({
         'core-path-hygiene.title': 'पथ-नाम स्वच्छता',
+        'core-path-hygiene.sign_in':
+          'पथ नामों की समीक्षा करने के लिए साइन इन करें।',
         'core-path-hygiene.help':
           'खाते के डिस्क वॉक के दौरान चलने वाली वैकल्पिक, सलाहकारी जाँच। यह सूचना नहीं भेजती। केवल पहचाने गए पथों का नाम बदलें; बदलाव तुरंत होता है और ऑडिट लॉग में दर्ज होता है।',
         'core-path-hygiene.enable':
@@ -73,6 +78,7 @@ window.ZogographPathHygieneCard = {
       }),
       ar: Object.freeze({
         'core-path-hygiene.title': 'سلامة أسماء المسارات',
+        'core-path-hygiene.sign_in': 'سجّل الدخول لمراجعة أسماء المسارات.',
         'core-path-hygiene.help':
           'فحص اختياري إرشادي يعمل أثناء مسح قرص الحساب. لا يرسل إشعارات. أعد تسمية المسارات التي تعرفها فقط؛ التغيير فوري ويُسجل في سجل التدقيق.',
         'core-path-hygiene.enable':
@@ -92,6 +98,7 @@ window.ZogographPathHygieneCard = {
       }),
       zh: Object.freeze({
         'core-path-hygiene.title': '路径名称检查',
+        'core-path-hygiene.sign_in': '登录后可检查路径名称。',
         'core-path-hygiene.help':
           '账户磁盘遍历期间运行的可选建议性检查。它不会发送通知。只重命名您认识的路径；更改会立即生效并记录在审计日志中。',
         'core-path-hygiene.enable':

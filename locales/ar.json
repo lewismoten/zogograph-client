@@ -295,7 +295,6 @@
   "chart.visual_gauge_data_error": "تحتاج بيانات المقياس إلى قيمة وحد أقصى موجب.",
   "chart.visual_line_data_error": "تحتاج بيانات الخط إلى سلاسل ونقاط.",
   "chart.screenshot_unsupported": "لا يستطيع هذا المتصفح أخذ لقطة شاشة من صفحة.",
-  "path_hygiene.sign_in": "سجّل الدخول لمراجعة أسماء المسارات.",
   "path_hygiene.install_enable": "ثبّت وفعّل Path-name hygiene في Marketplace لاستخدام هذا الفحص.",
   "path_hygiene.no_completed_scan": "الميزة مفعّلة، لكن لم يسجل أي فحص قرص مكتمل للحساب أسماء المسارات بعد.",
   "path_hygiene.none_found": "لم يُعثر على أسماء مسارات تربك shell في أحدث فحص.",

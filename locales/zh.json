@@ -1372,8 +1372,6 @@
   "gauge.no_ceiling": "没有可供比较的上限",
   "gauge.not_measured": "尚未测量",
   "gauge.monitoring": "监控：{{value}}",
-  "encryption.recovery_drill_verified_one": "恢复演练验证了 {{count, number}} 个选定存储。",
-  "encryption.recovery_drill_verified_many": "恢复演练验证了 {{count, number}} 个选定存储。",
   "encryption.verified_local_artifact": "已验证的本地工件",
   "encryption.remote_recovery_dialog": "远程托管恢复演练",
   "encryption.artifact_with_envelope": "具有已存储远程信封的工件",

@@ -1375,8 +1375,6 @@
   "gauge.no_ceiling": "sin límite con el que comparar",
   "gauge.not_measured": "sin medir",
   "gauge.monitoring": "Supervisión: {{value}}",
-  "encryption.recovery_drill_verified_one": "La prueba de recuperación verificó {{count, number}} almacén seleccionado.",
-  "encryption.recovery_drill_verified_many": "La prueba de recuperación verificó {{count, number}} almacenes seleccionados.",
   "encryption.verified_local_artifact": "Artefacto local verificado",
   "encryption.remote_recovery_dialog": "Prueba de recuperación de custodia remota",
   "encryption.artifact_with_envelope": "Artefacto con sobre remoto guardado",

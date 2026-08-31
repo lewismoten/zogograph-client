@@ -1372,8 +1372,6 @@
   "gauge.no_ceiling": "لا يوجد حد للمقارنة",
   "gauge.not_measured": "لم يُقَس بعد",
   "gauge.monitoring": "المراقبة: {{value}}",
-  "encryption.recovery_drill_verified_one": "تحقق تمرين الاسترداد من {{count, number}} مخزن محدد.",
-  "encryption.recovery_drill_verified_many": "تحقق تمرين الاسترداد من {{count, number}} مخازن محددة.",
   "encryption.verified_local_artifact": "عنصر محلي متحقق منه",
   "encryption.remote_recovery_dialog": "تمرين استرداد الحفظ البعيد",
   "encryption.artifact_with_envelope": "عنصر له غلاف بعيد محفوظ",

@@ -16030,14 +16030,11 @@ function renderEncryptionStatus(data) {
           const result = await post('encryption-recovery-drill');
           await refreshEncryptionStatus();
           notice(
-            ZogographI18n.t(
+            encryptionText(
               result.tested === 1
-                ? 'encryption.recovery_drill_verified_one'
-                : 'encryption.recovery_drill_verified_many',
+                ? 'recovery_drill_verified_one'
+                : 'recovery_drill_verified_many',
               { count: result.tested },
-              result.tested === 1
-                ? 'Recovery drill verified {{count, number}} selected store.'
-                : 'Recovery drill verified {{count, number}} selected stores.',
             ),
             true,
           );

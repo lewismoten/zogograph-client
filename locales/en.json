@@ -1414,8 +1414,6 @@
   "gauge.no_ceiling": "no ceiling to measure against",
   "gauge.not_measured": "not measured",
   "gauge.monitoring": "Monitoring: {{value}}",
-  "encryption.recovery_drill_verified_one": "Recovery drill verified {{count, number}} selected store.",
-  "encryption.recovery_drill_verified_many": "Recovery drill verified {{count, number}} selected stores.",
   "encryption.verified_local_artifact": "Verified local artifact",
   "encryption.remote_recovery_dialog": "Remote custody recovery drill",
   "encryption.artifact_with_envelope": "Artifact with stored remote envelope",

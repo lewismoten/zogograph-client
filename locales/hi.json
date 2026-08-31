@@ -1374,8 +1374,6 @@
   "gauge.no_ceiling": "मापने के लिए कोई सीमा नहीं",
   "gauge.not_measured": "अभी नहीं मापा गया",
   "gauge.monitoring": "निगरानी: {{value}}",
-  "encryption.recovery_drill_verified_one": "रिकवरी जाँच ने {{count, number}} चुने गए स्टोर को सत्यापित किया।",
-  "encryption.recovery_drill_verified_many": "रिकवरी जाँच ने {{count, number}} चुने गए स्टोरों को सत्यापित किया।",
   "encryption.verified_local_artifact": "सत्यापित स्थानीय आर्टिफ़ैक्ट",
   "encryption.remote_recovery_dialog": "दूरस्थ कस्टडी पुनर्प्राप्ति जाँच",
   "encryption.artifact_with_envelope": "सहेजे दूरस्थ लिफ़ाफ़े वाला आर्टिफ़ैक्ट",

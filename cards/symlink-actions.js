@@ -27,6 +27,7 @@ window.ZogographSymlinkActionsCard = {
         'core-symlink-actions.make_directory_confirm':
           'Replace {{path}} with a real, empty directory?\n\nThe link goes; whatever it pointed at is untouched.',
         'core-symlink-actions.remove': 'Remove',
+        'core-symlink-actions.remove_title': 'Delete the link itself',
       }),
       es: Object.freeze({
         'core-symlink-actions.group': 'Acciones de enlace',
@@ -44,6 +45,7 @@ window.ZogographSymlinkActionsCard = {
         'core-symlink-actions.make_directory_confirm':
           '¿Reemplazar {{path}} por un directorio real vacío?\n\nEl enlace se elimina; lo que señalaba no se toca.',
         'core-symlink-actions.remove': 'Eliminar',
+        'core-symlink-actions.remove_title': 'Eliminar el propio enlace',
       }),
       hi: Object.freeze({
         'core-symlink-actions.group': 'लिंक कार्रवाइयाँ',
@@ -60,6 +62,7 @@ window.ZogographSymlinkActionsCard = {
         'core-symlink-actions.make_directory_confirm':
           'क्या {{path}} को असली, खाली डायरेक्टरी से बदलें?\n\nलिंक चला जाएगा; जिस पर वह इंगित करता था उसे नहीं छुआ जाएगा।',
         'core-symlink-actions.remove': 'हटाएँ',
+        'core-symlink-actions.remove_title': 'लिंक को ही हटाएँ',
       }),
       ar: Object.freeze({
         'core-symlink-actions.group': 'إجراءات الرابط',
@@ -77,6 +80,7 @@ window.ZogographSymlinkActionsCard = {
         'core-symlink-actions.make_directory_confirm':
           'هل تريد استبدال {{path}} بدليل حقيقي فارغ؟\n\nسيُزال الرابط؛ ولن يُمس ما كان يشير إليه.',
         'core-symlink-actions.remove': 'إزالة',
+        'core-symlink-actions.remove_title': 'احذف الرابط نفسه',
       }),
       zh: Object.freeze({
         'core-symlink-actions.group': '链接操作',
@@ -92,6 +96,7 @@ window.ZogographSymlinkActionsCard = {
         'core-symlink-actions.make_directory_confirm':
           '要将 {{path}} 替换为真实的空目录吗？\n\n链接会被移除；其原来指向的内容不会被触及。',
         'core-symlink-actions.remove': '移除',
+        'core-symlink-actions.remove_title': '删除链接本身',
       }),
     }),
   }),
@@ -197,7 +202,7 @@ window.ZogographSymlinkActionsCard = {
     );
     add(
       t('core-symlink-actions.remove', {}, 'Remove'),
-      t('storage.link_remove_title', {}, 'Delete the link itself'),
+      t('core-symlink-actions.remove_title', {}, 'Delete the link itself'),
       async () => {
         if (
           await confirm(

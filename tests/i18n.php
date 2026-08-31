@@ -2648,7 +2648,6 @@ i18nExpect(
             $english['storage.link_sweep_left_alone'],
             $english['storage.link_sweep_preview'],
             $english['storage.link_sweep_preview_skipped'],
-            $english['storage.link_remove_title'],
             $english['storage.link_remove_confirm'],
             $english['storage.link_repointed'],
             $english['storage.link_repointed_missing'],

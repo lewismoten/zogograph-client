@@ -460,7 +460,6 @@
   "storage.link_sweep_left_alone": "{{count}} links left alone.",
   "storage.link_sweep_preview": "{{matched}} links with a problem are under that path. {{deleted}} broken links would be removed.",
   "storage.link_sweep_preview_skipped": "{{matched}} links with a problem are under that path. {{deleted}} broken links would be removed, and {{skipped}} with other problems left alone — a loop or an escape is never removed on a path alone.",
-  "storage.link_remove_title": "Delete the link itself",
   "storage.link_remove_confirm": "Delete the link {{path}}?\n\nOnly the link is removed. Whatever it points at is not touched.",
   "storage.link_repointed": "Now points at {{target}}.",
   "storage.link_repointed_missing": "Now points at {{target}}. That is not there yet, which may be deliberate.",

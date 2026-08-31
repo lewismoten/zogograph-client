@@ -460,7 +460,6 @@
   "storage.link_sweep_left_alone": "{{count}} लिंक वैसे ही छोड़ दिए गए।",
   "storage.link_sweep_preview": "उस पथ के अंतर्गत समस्या वाले {{matched}} लिंक हैं। {{deleted}} टूटे लिंक हटाए जाएंगे।",
   "storage.link_sweep_preview_skipped": "उस पथ के अंतर्गत समस्या वाले {{matched}} लिंक हैं। {{deleted}} टूटे लिंक हटाए जाएंगे और अन्य समस्याओं वाले {{skipped}} वैसे ही छोड़ दिए जाएंगे — केवल पथ के आधार पर लूप या एस्केप कभी नहीं हटाया जाता।",
-  "storage.link_remove_title": "लिंक को ही हटाएँ",
   "storage.link_remove_confirm": "क्या लिंक {{path}} को हटाएँ?\n\nकेवल लिंक हटाया जाएगा। जिस पर वह इंगित करता है उसे नहीं छुआ जाएगा।",
   "storage.link_repointed": "अब {{target}} पर इंगित करता है।",
   "storage.link_repointed_missing": "अब {{target}} पर इंगित करता है। वह अभी मौजूद नहीं है, जो जानबूझकर हो सकता है।",

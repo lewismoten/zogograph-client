@@ -3033,12 +3033,23 @@ i18nExpect(
     'broken-link sweep safety and result text retain direct user-visible text',
 );
 i18nExpect(
-    $script !== false &&
-        str_contains($script, 'storage.link_repoint_dialog_title') &&
-        str_contains($script, 'storage.link_make_directory_confirm') &&
-        str_contains($script, 'storage.link_remove_confirm') &&
-        str_contains($script, 'storage.link_repointed_missing'),
-    'broken-link remediation controls retain direct user-visible text',
+    str_contains(
+        (string) file_get_contents($root . '/cards/symlink-actions.js'),
+        'storage.link_repoint_dialog_title',
+    ) &&
+        str_contains(
+            (string) file_get_contents($root . '/cards/symlink-actions.js'),
+            'storage.link_make_directory_confirm',
+        ) &&
+        str_contains(
+            (string) file_get_contents($root . '/cards/symlink-actions.js'),
+            'storage.link_remove_confirm',
+        ) &&
+        str_contains(
+            (string) file_get_contents($root . '/cards/symlink-actions.js'),
+            'storage.link_repointed_missing',
+        ),
+    'broken-link remediation controls are owned by their card package',
 );
 i18nExpect(
     $script !== false &&

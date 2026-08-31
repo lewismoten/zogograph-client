@@ -21915,134 +21915,19 @@ function ldconfigOffer() {
 }
 
 function linkActions(row) {
-  const wrap = document.createDocumentFragment();
-
-  const act = async (how, extra = {}) => {
-    const result = await post('link-fix', { path: row.path, how, ...extra });
-    notice(linkSaid(how, result.result), true);
-    await checkSymlinks();
-  };
-
-  for (const [text, title, run, danger] of [
-    [
-      ZogographI18n.t('storage.link_repoint', {}, 'Repoint'),
-      ZogographI18n.t(
-        'storage.link_repoint_title',
-        {},
-        'Point this link somewhere else',
-      ),
-      async () => {
-        const target = await askTextDialog(
-          ZogographI18n.t(
-            'storage.link_repoint_dialog_title',
-            {},
-            'Repoint link',
-          ),
-          ZogographI18n.t(
-            'storage.link_repoint_prompt',
-            { name: basenameOf(row.path) },
-            `Where should ${basenameOf(row.path)} point?`,
-          ),
-          row.target || '',
-          ZogographI18n.t(
-            'storage.link_repoint_hint',
-            {},
-            "Use an absolute path or a path relative to the link's directory.",
-          ),
-        );
-        if (target === null || target.trim() === '') return;
-        await act('repoint', { target: target.trim() });
-      },
-      false,
-    ],
-    [
-      ZogographI18n.t('storage.link_make_directory', {}, 'Make it a folder'),
-      ZogographI18n.t(
-        'storage.link_make_directory_title',
-        {},
-        'Remove the link and create a real, empty directory in its place',
-      ),
-      async () => {
-        if (
-          !(await confirmDialog(
-            ZogographI18n.t(
-              'storage.link_make_directory_confirm',
-              { path: row.path },
-              `Replace ${row.path} with a real, empty directory?\n\nThe link goes; whatever it pointed at is untouched.`,
-            ),
-          ))
-        )
-          return;
-        await act('directory');
-      },
-      false,
-    ],
-    [
-      ZogographI18n.t('storage.link_remove', {}, 'Remove'),
-      ZogographI18n.t(
-        'storage.link_remove_title',
-        {},
-        'Delete the link itself',
-      ),
-      async () => {
-        if (
-          !(await confirmDialog(
-            ZogographI18n.t(
-              'storage.link_remove_confirm',
-              { path: row.path },
-              `Delete the link ${row.path}?\n\nOnly the link is removed. Whatever it points at is not touched.`,
-            ),
-          ))
-        )
-          return;
-        await act('delete');
-      },
-      true,
-    ],
-  ]) {
-    const button = document.createElement('button');
-    button.className = danger ? 'link danger' : 'link';
-    button.textContent = text;
-    button.title = title;
-    button.addEventListener('click', async () => {
-      button.disabled = true;
-      try {
-        await run();
-      } catch (error) {
-        notice(String(error.message || error));
-      } finally {
-        button.disabled = false;
-      }
-    });
-    wrap.appendChild(button);
-  }
-
-  return wrap;
-}
-
-function linkSaid(how, result) {
-  if (how === 'repoint') {
-    return ZogographI18n.t(
-      result.exists
-        ? 'storage.link_repointed'
-        : 'storage.link_repointed_missing',
-      { target: result.now },
-      result.exists
-        ? `Now points at ${result.now}.`
-        : `Now points at ${result.now}. That is not there yet, which may be deliberate.`,
-    );
-  }
-  if (how === 'directory') {
-    return ZogographI18n.t(
-      'storage.link_made_directory',
-      {},
-      'Replaced with an empty directory.',
-    );
-  }
-  return ZogographI18n.t(
-    'storage.link_removed',
-    {},
-    'Link removed. What it pointed at was not touched.',
+  return renderCoreCardPackage(
+    ZogographSymlinkActionsCard,
+    'core-symlink-actions',
+    row,
+    {
+      ask: askTextDialog,
+      basename: basenameOf,
+      confirm: confirmDialog,
+      i18n: ZogographI18n,
+      notice,
+      post,
+      refresh: checkSymlinks,
+    },
   );
 }
 

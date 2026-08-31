@@ -12,7 +12,6 @@
   "reports.sign_in": "Inicie sesión para leer los resúmenes.",
   "network.sign_in": "Inicie sesión para ver la red.",
   "network.bytes": "Bytes",
-  "diagnosis.sign_in": "Inicie sesión para ver el diagnóstico.",
   "network.captures_sign_in": "Inicie sesión para ver las capturas.",
   "services.sign_in": "Inicie sesión para ver la lista de servicios.",
   "services.failed": "fallido",
@@ -1759,12 +1758,5 @@
   "terminal.open_for": "Abierto durante {{duration}} más.",
   "collector.settings_saved": "Guardado. La siguiente ejecución del recopilador usará estos valores.",
   "ai.unpin": "Desfijar",
-  "ai.skip_question_help": "Continúa sin responder; es igual que dejar que el tiempo se agote",
-  "diagnosis.nothing_to_report": "No hay nada que informar. Se ejecutaron todas las comprobaciones y ninguna encontró nada; eso es distinto de no haber medido nada.",
-  "diagnosis.critical_attention": "Se necesita atención ahora: {{count}}.",
-  "diagnosis.warning_attention": "{{count}} merece atención.",
-  "diagnosis.nothing_urgent": "Nada urgente.",
-  "diagnosis.ignored_title": "Hallazgos ignorados",
-  "diagnosis.ignored_help": "Son excepciones intencionales. Restaure uno para incluirlo en comprobaciones posteriores.",
-  "diagnosis.reading_everything": "Leyendo todo…"
+  "ai.skip_question_help": "Continúa sin responder; es igual que dejar que el tiempo se agote"
 }

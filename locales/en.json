@@ -12,7 +12,6 @@
   "reports.sign_in": "Sign in to read the summaries.",
   "network.sign_in": "Sign in to see the network.",
   "network.bytes": "Bytes",
-  "diagnosis.sign_in": "Sign in to see the diagnosis.",
   "network.captures_sign_in": "Sign in to see captures.",
   "services.sign_in": "Sign in to see the service list.",
   "services.failed": "failed",
@@ -1774,12 +1773,5 @@
   "terminal.open_for": "Open for another {{duration}}.",
   "collector.settings_saved": "Saved. The next collector run will use these.",
   "ai.unpin": "Unpin it",
-  "ai.skip_question_help": "Carry on without answering — the same as letting the clock run out",
-  "diagnosis.nothing_to_report": "Nothing to report. Every check ran and none of them found anything — which is a different statement from nothing having been measured.",
-  "diagnosis.critical_attention": "Attention needed now: {{count}}.",
-  "diagnosis.warning_attention": "{{count}} worth looking at.",
-  "diagnosis.nothing_urgent": "Nothing urgent.",
-  "diagnosis.ignored_title": "Ignored findings",
-  "diagnosis.ignored_help": "These are intentional exceptions. Restore one to include it in later checks.",
-  "diagnosis.reading_everything": "Reading everything…"
+  "ai.skip_question_help": "Carry on without answering — the same as letting the clock run out"
 }

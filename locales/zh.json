@@ -12,7 +12,6 @@
   "reports.sign_in": "登录后可阅读摘要。",
   "network.sign_in": "登录后可查看网络。",
   "network.bytes": "字节",
-  "diagnosis.sign_in": "登录后可查看诊断结果。",
   "network.captures_sign_in": "登录后可查看捕获记录。",
   "services.sign_in": "登录后可查看服务列表。",
   "services.failed": "失败",
@@ -1756,12 +1755,5 @@
   "terminal.open_for": "还可打开 {{duration}}。",
   "collector.settings_saved": "已保存。下一次采集器运行将使用这些设置。",
   "ai.unpin": "取消固定",
-  "ai.skip_question_help": "不回答而继续——这与让计时结束相同",
-  "diagnosis.nothing_to_report": "没有需要报告的内容。所有检查均已运行，且没有发现任何问题；这不同于未进行测量。",
-  "diagnosis.critical_attention": "现在需要关注：{{count}}。",
-  "diagnosis.warning_attention": "{{count}} 项值得查看。",
-  "diagnosis.nothing_urgent": "没有紧急事项。",
-  "diagnosis.ignored_title": "已忽略的发现",
-  "diagnosis.ignored_help": "这些是有意设定的例外。恢复其中一项即可将其纳入后续检查。",
-  "diagnosis.reading_everything": "正在读取全部内容…"
+  "ai.skip_question_help": "不回答而继续——这与让计时结束相同"
 }

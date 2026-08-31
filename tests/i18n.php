@@ -4212,15 +4212,16 @@ $translatedNavigation = [
     'navigation.audit',
     'navigation.descriptions',
 ];
-$translatedSecurityMessages = [
-    'diagnosis.nothing_to_report',
-    'diagnosis.critical_attention',
-    'diagnosis.warning_attention',
-    'diagnosis.nothing_urgent',
-    'diagnosis.ignored_title',
-    'diagnosis.ignored_help',
-    'diagnosis.reading_everything',
-    'host.collector_loading',
+$translatedSecurityMessages = ['host.collector_loading'];
+$translatedDiagnosisPackageSecurityMessages = [
+    'core-diagnosis-results.sign_in',
+    'core-diagnosis-results.reading_everything',
+    'core-diagnosis-results.none',
+    'core-diagnosis-results.critical',
+    'core-diagnosis-results.warning',
+    'core-diagnosis-results.ok',
+    'core-diagnosis-results.ignored',
+    'core-diagnosis-results.ignored_help',
 ];
 $translatedPeerPackageSecurityMessages = [
     'core-system-peers-shell.pairing_title',
@@ -4413,6 +4414,13 @@ foreach (['en-US', 'en-GB', 'es', 'hi', 'zh', 'ar'] as $locale) {
             array_diff($translatedSecurityMessages, array_keys($catalog)) ===
                 [],
             "locale catalog $locale lacks translated security-sensitive dashboard text",
+        );
+        i18nExpect(
+            array_diff(
+                $translatedDiagnosisPackageSecurityMessages,
+                array_keys($coreCardLocaleKeys[$locale] ?? []),
+            ) === [],
+            "diagnosis package $locale falls back to English for security-sensitive text",
         );
         i18nExpect(
             array_diff(

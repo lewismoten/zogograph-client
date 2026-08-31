@@ -30721,11 +30721,9 @@ async function refreshDiagnosis() {
   if (!state.signedIn) {
     body.replaceChildren(
       note(
-        ZogographI18n.t(
-          'diagnosis.sign_in',
-          {},
-          'Sign in to see the diagnosis.',
-        ),
+        ZogographDiagnosisResultsCard.text('sign_in', {
+          i18n: ZogographI18n,
+        }),
       ),
     );
     return;
@@ -30734,11 +30732,9 @@ async function refreshDiagnosis() {
   if (!body.childElementCount)
     body.replaceChildren(
       spinner(
-        ZogographI18n.t(
-          'diagnosis.reading_everything',
-          {},
-          'Reading everything…',
-        ),
+        ZogographDiagnosisResultsCard.text('reading_everything', {
+          i18n: ZogographI18n,
+        }),
       ),
     );
 

@@ -8,6 +8,8 @@ window.ZogographDiagnosisResultsCard = {
       en: Object.freeze({
         'core-diagnosis-results.title': 'What is wrong',
         'core-diagnosis-results.check_again': 'Check again',
+        'core-diagnosis-results.sign_in': 'Sign in to see the diagnosis.',
+        'core-diagnosis-results.reading_everything': 'Reading everything…',
         'core-diagnosis-results.help':
           'There are forty pages here, each answering one question well — which helps when you already know the question. This reads all of them at once. Every line carries the measurement it came from and a link to the page that shows it in full, and nothing here is inferred from a correlation.',
         'core-diagnosis-results.none':
@@ -31,6 +33,9 @@ window.ZogographDiagnosisResultsCard = {
       es: Object.freeze({
         'core-diagnosis-results.title': 'Qué está mal',
         'core-diagnosis-results.check_again': 'Comprobar de nuevo',
+        'core-diagnosis-results.sign_in':
+          'Inicie sesión para ver el diagnóstico.',
+        'core-diagnosis-results.reading_everything': 'Leyendo todo…',
         'core-diagnosis-results.help':
           'Hay cuarenta páginas aquí y cada una responde bien a una pregunta, lo que ayuda cuando ya conoce la pregunta. Esta las lee todas de una vez. Cada línea incluye la medición de la que procede y un enlace a la página que la muestra completa; aquí no se infiere nada de una correlación.',
         'core-diagnosis-results.none':
@@ -55,6 +60,8 @@ window.ZogographDiagnosisResultsCard = {
       hi: Object.freeze({
         'core-diagnosis-results.title': 'क्या गलत है',
         'core-diagnosis-results.check_again': 'फिर जाँचें',
+        'core-diagnosis-results.sign_in': 'निदान देखने के लिए साइन इन करें।',
+        'core-diagnosis-results.reading_everything': 'सब कुछ पढ़ा जा रहा है…',
         'core-diagnosis-results.help':
           'यहाँ चालीस पेज हैं और हर पेज एक प्रश्न का अच्छा उत्तर देता है, जो तब मदद करता है जब आप प्रश्न पहले से जानते हों। यह उन सबको एक साथ पढ़ता है। हर पंक्ति में उसकी माप और उसे पूरा दिखाने वाले पेज का लिंक है; यहाँ किसी सहसंबंध से कोई निष्कर्ष नहीं निकाला जाता।',
         'core-diagnosis-results.none':
@@ -78,6 +85,8 @@ window.ZogographDiagnosisResultsCard = {
       ar: Object.freeze({
         'core-diagnosis-results.title': 'ما الخطأ',
         'core-diagnosis-results.check_again': 'تحقق مجددًا',
+        'core-diagnosis-results.sign_in': 'سجّل الدخول لرؤية التشخيص.',
+        'core-diagnosis-results.reading_everything': 'جارٍ قراءة كل شيء…',
         'core-diagnosis-results.help':
           'توجد هنا أربعون صفحة، تجيب كل واحدة منها عن سؤال بصورة جيدة، وهذا مفيد حين تعرف السؤال مسبقًا. تقرأ هذه الصفحة كلها دفعة واحدة. يحمل كل سطر القياس الذي أتى منه ورابطًا للصفحة التي تعرضه كاملًا، ولا يُستنتج هنا أي شيء من مجرد ارتباط.',
         'core-diagnosis-results.none':
@@ -101,6 +110,8 @@ window.ZogographDiagnosisResultsCard = {
       zh: Object.freeze({
         'core-diagnosis-results.title': '出了什么问题',
         'core-diagnosis-results.check_again': '再次检查',
+        'core-diagnosis-results.sign_in': '登录后可查看诊断结果。',
+        'core-diagnosis-results.reading_everything': '正在读取全部内容…',
         'core-diagnosis-results.help':
           '这里有四十个页面，每个页面都能很好地回答一个问题——当您已经知道问题时很有帮助。此处会一次读取全部页面。每一行都带有来源读数及完整页面的链接，这里不会根据相关性作出推断。',
         'core-diagnosis-results.none':

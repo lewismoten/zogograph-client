@@ -12,7 +12,6 @@
   "reports.sign_in": "सारांश पढ़ने के लिए साइन इन करें।",
   "network.sign_in": "नेटवर्क देखने के लिए साइन इन करें।",
   "network.bytes": "बाइट",
-  "diagnosis.sign_in": "निदान देखने के लिए साइन इन करें।",
   "network.captures_sign_in": "कैप्चर देखने के लिए साइन इन करें।",
   "services.sign_in": "सेवा सूची देखने के लिए साइन इन करें।",
   "services.failed": "विफल",
@@ -1758,12 +1757,5 @@
   "terminal.open_for": "और {{duration}} के लिए खुला है।",
   "collector.settings_saved": "सहेजा गया। अगला कलेक्टर रन इनका उपयोग करेगा।",
   "ai.unpin": "पिन हटाएँ",
-  "ai.skip_question_help": "जवाब दिए बिना आगे बढ़ें — यह समय समाप्त होने देने जैसा ही है",
-  "diagnosis.nothing_to_report": "रिपोर्ट करने के लिए कुछ नहीं है। हर जाँच चली और किसी को कुछ नहीं मिला; यह कुछ भी न मापे जाने से अलग है।",
-  "diagnosis.critical_attention": "अभी ध्यान चाहिए: {{count}}।",
-  "diagnosis.warning_attention": "{{count}} पर ध्यान देना उचित है।",
-  "diagnosis.nothing_urgent": "कुछ भी तत्काल नहीं है।",
-  "diagnosis.ignored_title": "अनदेखे निष्कर्ष",
-  "diagnosis.ignored_help": "ये जानबूझकर किए गए अपवाद हैं। बाद की जाँचों में शामिल करने के लिए एक को पुनर्स्थापित करें।",
-  "diagnosis.reading_everything": "सब कुछ पढ़ा जा रहा है…"
+  "ai.skip_question_help": "जवाब दिए बिना आगे बढ़ें — यह समय समाप्त होने देने जैसा ही है"
 }

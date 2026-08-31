@@ -12,7 +12,6 @@
   "reports.sign_in": "سجّل الدخول لقراءة الملخصات.",
   "network.sign_in": "سجّل الدخول لرؤية الشبكة.",
   "network.bytes": "بايت",
-  "diagnosis.sign_in": "سجّل الدخول لرؤية التشخيص.",
   "network.captures_sign_in": "سجّل الدخول لرؤية اللقطات.",
   "services.sign_in": "سجّل الدخول لرؤية قائمة الخدمات.",
   "services.failed": "فاشل",
@@ -1756,12 +1755,5 @@
   "terminal.open_for": "مفتوح لمدة {{duration}} أخرى.",
   "collector.settings_saved": "حُفظت. سيستخدمها تشغيل الجامع التالي.",
   "ai.unpin": "إزالة التثبيت",
-  "ai.skip_question_help": "تابع دون إجابة — وهو نفس ترك الوقت ينقضي",
-  "diagnosis.nothing_to_report": "لا يوجد ما يُبلّغ عنه. عملت كل الفحوصات ولم يجد أي منها شيئًا، وهذا يختلف عن عدم قياس شيء.",
-  "diagnosis.critical_attention": "تحتاج إلى اهتمام الآن: {{count}}.",
-  "diagnosis.warning_attention": "{{count}} يستحق النظر إليه.",
-  "diagnosis.nothing_urgent": "لا شيء عاجل.",
-  "diagnosis.ignored_title": "نتائج متجاهلة",
-  "diagnosis.ignored_help": "هذه استثناءات مقصودة. استعد واحدة لإدراجها في الفحوصات اللاحقة.",
-  "diagnosis.reading_everything": "جارٍ قراءة كل شيء…"
+  "ai.skip_question_help": "تابع دون إجابة — وهو نفس ترك الوقت ينقضي"
 }

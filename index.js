@@ -36411,17 +36411,13 @@ function renderRepeats(data) {
  * data that stopped arriving looks like a machine that went quiet.
  */
 async function refreshSelf() {
+  const monitorShellText = (key, values = {}) =>
+    ZogographSystemMonitorShellCard.text(key, values, {
+      i18n: ZogographI18n,
+    });
   const body = $('selfBody');
   if (!state.signedIn) {
-    body.replaceChildren(
-      note(
-        ZogographI18n.t(
-          'monitor.sign_in',
-          {},
-          "Sign in to see the monitor's own state.",
-        ),
-      ),
-    );
+    body.replaceChildren(note(monitorShellText('sign_in')));
     return;
   }
 
@@ -36455,12 +36451,8 @@ async function refreshSelf() {
     const value = document.createElement('div');
     value.className = 'value';
     value.textContent = c.last_at
-      ? ZogographI18n.t(
-          'monitor.ago',
-          { duration: humanDuration(c.age) },
-          '{{duration}} ago',
-        )
-      : ZogographI18n.t('monitor.never', {}, 'never');
+      ? monitorShellText('ago', { duration: humanDuration(c.age) })
+      : monitorShellText('never');
     if (c.last_at) value.dataset.agoFrom = String(c.last_at);
     card.appendChild(value);
 
@@ -36469,13 +36461,11 @@ async function refreshSelf() {
     sub.textContent = c.last_at
       ? humanTime(c.last_at) +
         (c.interval
-          ? ZogographI18n.t(
-              'monitor.usually_every',
-              { duration: humanDuration(c.interval) },
-              ' · usually every {{duration}}',
-            )
+          ? monitorShellText('usually_every', {
+              duration: humanDuration(c.interval),
+            })
           : '')
-      : ZogographI18n.t('monitor.has_not_run', {}, 'has not run');
+      : monitorShellText('has_not_run');
     card.appendChild(sub);
 
     /*
@@ -36491,28 +36481,15 @@ async function refreshSelf() {
         'sub ' + (c.state === 'stopped' ? 'band-crit' : 'band-warn');
       said.textContent =
         c.state === 'stopped'
-          ? ZogographI18n.t(
-              'monitor.not_running_check_crontab',
-              {},
-              'not running — check the crontab',
-            )
-          : ZogographI18n.t('monitor.later_than_usual', {}, 'later than usual');
+          ? monitorShellText('not_running_check_crontab')
+          : monitorShellText('later_than_usual');
       card.appendChild(said);
     }
 
     card.title = `${c.what}\nRun by ${c.who}.`;
     cards.appendChild(card);
   }
-  parts.push(
-    section(
-      ZogographI18n.t(
-        'monitor.is_still_collecting',
-        {},
-        'Is it still collecting?',
-      ),
-      cards,
-    ),
-  );
+  parts.push(section(monitorShellText('is_still_collecting'), cards));
   parts.push(
     note(
       'The ring fills as the next run approaches. A ring that has filled and is pulsing means ' +
@@ -36523,10 +36500,7 @@ async function refreshSelf() {
   );
 
   parts.push(
-    section(
-      ZogographI18n.t('monitor.what_it_is_using', {}, 'What it is using'),
-      databaseFacts(data),
-    ),
+    section(monitorShellText('what_it_is_using'), databaseFacts(data)),
   );
 
   if (data.retention) {

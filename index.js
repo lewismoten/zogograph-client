@@ -5970,6 +5970,12 @@ function chatSpeechText(key, variables = {}) {
   });
 }
 
+function signInMessage(key, variables = {}) {
+  return ZogographAuthSignInMessageCard.text(key, variables, {
+    i18n: ZogographI18n,
+  });
+}
+
 function renderChatSpeechControls() {
   const labels = renderCoreCardPackage(
     ZogographChatSpeechControlsCard,
@@ -8636,13 +8642,7 @@ function chatPollDelay(state) {
 
 function openChat() {
   if (!state.signedIn) {
-    notice(
-      ZogographI18n.t(
-        'assistant.sign_in_to_ask',
-        { assistant: chatState.who.name },
-        'Sign in to ask {{assistant}}.',
-      ),
-    );
+    notice(signInMessage('ask', { assistant: chatState.who.name }));
     return;
   }
 
@@ -41742,13 +41742,7 @@ $('noteButton').addEventListener('click', (event) => {
   event.stopPropagation();
 
   if (!state.signedIn) {
-    notice(
-      ZogographI18n.t(
-        'assistant.sign_in_to_note_or_ask',
-        { assistant: chatState.who.name },
-        'Sign in to write a note or ask {{assistant}}.',
-      ),
-    );
+    notice(signInMessage('note_or_ask', { assistant: chatState.who.name }));
     return;
   }
 

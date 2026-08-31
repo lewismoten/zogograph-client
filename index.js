@@ -9984,31 +9984,21 @@ function highlightOnPage(args) {
  * during a busy hour.
  */
 async function runRequestFromHost(args) {
+  const labels = renderCoreCardPackage(
+    ZogographChatHostJobsCard,
+    'core-chat-host-jobs',
+    {},
+    { i18n: ZogographI18n },
+  );
   const jobs = {
     capabilities: {
-      label: ZogographI18n.t(
-        'assistant.host_job_capabilities',
-        {},
-        'Re-check what is installed on the host',
-      ),
-      cost: ZogographI18n.t(
-        'assistant.host_job_capabilities_cost',
-        {},
-        'Quick. Runs a handful of version checks.',
-      ),
+      label: labels.capabilities,
+      cost: labels.capabilitiesCost,
       task: 'capabilities',
     },
     'disk-walk': {
-      label: ZogographI18n.t(
-        'assistant.host_job_disk_walk',
-        {},
-        'Walk the whole filesystem as root',
-      ),
-      cost: ZogographI18n.t(
-        'assistant.host_job_disk_walk_cost',
-        {},
-        'Expensive — minutes on a large disk, and it reads the whole time.',
-      ),
+      label: labels.diskWalk,
+      cost: labels.diskWalkCost,
       task: 'disk-walk',
     },
   };

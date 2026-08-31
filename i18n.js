@@ -327,6 +327,22 @@ function i18nClearPackageCatalogs() {
   i18n.extensions = {};
   i18nLoad(i18n.locale);
 }
+
+function i18nRegisterCoreCatalogs() {
+  for (const cardPackage of [window.ZogographStorageLogCard]) {
+    const manifest = cardPackage?.manifest;
+    if (
+      !manifest ||
+      typeof manifest.id !== 'string' ||
+      !manifest.catalogs ||
+      typeof manifest.catalogs !== 'object'
+    )
+      continue;
+    for (const [locale, catalog] of Object.entries(manifest.catalogs))
+      i18nRegisterCatalog(locale, catalog, false, manifest.id);
+  }
+}
+
 window.ZogographI18n = {
   t,
   markSource: i18nMarkSource,
@@ -347,6 +363,10 @@ window.ZogographI18n = {
   },
 };
 document.addEventListener('DOMContentLoaded', () => {
+  // Static shell nodes translate during the first locale load. Register the
+  // core cards that own such nodes before that pass, rather than keeping a
+  // duplicate root-catalog key solely for the initial render.
+  i18nRegisterCoreCatalogs();
   document
     .querySelector('#languagePicker')
     ?.addEventListener('change', (event) => {

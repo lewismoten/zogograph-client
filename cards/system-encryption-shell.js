@@ -87,6 +87,8 @@ window.ZogographSystemEncryptionShellCard = {
           'Run recovery drill',
         'core-system-encryption-shell.recovery_drill_unavailable':
           'Create verified encrypted copies before running a recovery drill.',
+        'core-system-encryption-shell.recovery_drill_confirm':
+          'Decrypt and validate the latest verified copy of every selected store now? Live data is not changed and decrypted temporary files are removed.',
       }),
       es: Object.freeze({
         'core-system-encryption-shell.title': 'Protección de datos',
@@ -182,6 +184,8 @@ window.ZogographSystemEncryptionShellCard = {
           'Ejecutar prueba de recuperación',
         'core-system-encryption-shell.recovery_drill_unavailable':
           'Cree copias cifradas verificadas antes de ejecutar una prueba de recuperación.',
+        'core-system-encryption-shell.recovery_drill_confirm':
+          '¿Descifrar y validar ahora la última copia verificada de cada almacén seleccionado? Los datos activos no cambian y los archivos temporales descifrados se eliminan.',
       }),
       hi: Object.freeze({
         'core-system-encryption-shell.title': 'डेटा सुरक्षा',
@@ -265,6 +269,8 @@ window.ZogographSystemEncryptionShellCard = {
           'रिकवरी जाँच चलाएँ',
         'core-system-encryption-shell.recovery_drill_unavailable':
           'रिकवरी जाँच चलाने से पहले सत्यापित एन्क्रिप्टेड प्रतियां बनाएँ।',
+        'core-system-encryption-shell.recovery_drill_confirm':
+          'क्या हर चुने गए स्टोर की नवीनतम सत्यापित प्रति को अभी डिक्रिप्ट और सत्यापित करें? लाइव डेटा नहीं बदलेगा और डिक्रिप्ट की गई अस्थायी फ़ाइलें हटा दी जाती हैं।',
       }),
       ar: Object.freeze({
         'core-system-encryption-shell.title': 'حماية البيانات',
@@ -344,6 +350,8 @@ window.ZogographSystemEncryptionShellCard = {
           'تشغيل تمرين الاسترداد',
         'core-system-encryption-shell.recovery_drill_unavailable':
           'أنشئ نسخاً مشفرة متحققاً منها قبل تشغيل تمرين استرداد.',
+        'core-system-encryption-shell.recovery_drill_confirm':
+          'هل تريد فك تشفير أحدث نسخة متحققة من كل مخزن محدد والتحقق منها الآن؟ لا تتغير البيانات الحية وتُزال الملفات المؤقتة المفكوكة.',
       }),
       zh: Object.freeze({
         'core-system-encryption-shell.title': '数据保护',
@@ -416,6 +424,8 @@ window.ZogographSystemEncryptionShellCard = {
         'core-system-encryption-shell.recovery_drill_title': '运行恢复演练',
         'core-system-encryption-shell.recovery_drill_unavailable':
           '请先创建经过验证的加密副本，再运行恢复演练。',
+        'core-system-encryption-shell.recovery_drill_confirm':
+          '现在要解密并验证每个选定存储的最新已验证副本吗？不会更改实时数据，并且会移除已解密的临时文件。',
       }),
     }),
   }),

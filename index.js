@@ -16074,11 +16074,7 @@ function renderEncryptionStatus(data) {
       drill.addEventListener('click', async () => {
         if (
           !(await confirmDialog(
-            ZogographI18n.t(
-              'encryption.recovery_drill_confirm',
-              {},
-              'Decrypt and validate the latest verified copy of every selected store now? Live data is not changed and decrypted temporary files are removed.',
-            ),
+            encryptionText('recovery_drill_confirm'),
             encryptionText('recovery_drill_title'),
           ))
         )

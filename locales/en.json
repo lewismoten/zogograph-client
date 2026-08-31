@@ -1985,8 +1985,6 @@
   "storage.check_symlinks": "Check the symlinks",
   "storage.show_matches": "Show me what matches",
   "action.undo": "Undo",
-  "notes.saving": "Saving…",
-  "notes.saving_and_capturing": "Saving and capturing…",
   "action.cancel": "Cancel",
   "action.yes": "Yes",
   "storage.show_categories": "Show watched categories too",

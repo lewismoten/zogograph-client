@@ -34,6 +34,8 @@ window.ZogographNotesShellCard = {
         'core-notes-shell.no_page_charts': 'There are no charts on this page.',
         'core-notes-shell.no_page_charts_help':
           'The note itself is saved either way, and a mark on this page will show on any chart added here later.',
+        'core-notes-shell.saving': 'Saving…',
+        'core-notes-shell.saving_and_capturing': 'Saving and capturing…',
       }),
       es: Object.freeze({
         'core-notes-shell.title': 'Notas',
@@ -64,6 +66,8 @@ window.ZogographNotesShellCard = {
         'core-notes-shell.no_page_charts': 'No hay gráficos en esta página.',
         'core-notes-shell.no_page_charts_help':
           'La nota se guarda de todos modos, y una marca en esta página aparecerá en cualquier gráfico que se agregue después.',
+        'core-notes-shell.saving': 'Guardando…',
+        'core-notes-shell.saving_and_capturing': 'Guardando y capturando…',
       }),
       hi: Object.freeze({
         'core-notes-shell.title': 'नोट्स',
@@ -94,6 +98,9 @@ window.ZogographNotesShellCard = {
         'core-notes-shell.no_page_charts': 'इस पेज पर कोई चार्ट नहीं है।',
         'core-notes-shell.no_page_charts_help':
           'नोट फिर भी सहेजा जाता है, और इस पेज का चिह्न बाद में जोड़े जाने वाले किसी भी चार्ट पर दिखेगा।',
+        'core-notes-shell.saving': 'सहेजा जा रहा है…',
+        'core-notes-shell.saving_and_capturing':
+          'सहेजा और कैप्चर किया जा रहा है…',
       }),
       ar: Object.freeze({
         'core-notes-shell.title': 'الملاحظات',
@@ -124,6 +131,8 @@ window.ZogographNotesShellCard = {
         'core-notes-shell.no_page_charts': 'لا توجد مخططات في هذه الصفحة.',
         'core-notes-shell.no_page_charts_help':
           'تُحفظ الملاحظة على أي حال، وستظهر علامة في هذه الصفحة على أي مخطط يضاف هنا لاحقًا.',
+        'core-notes-shell.saving': 'يجري الحفظ…',
+        'core-notes-shell.saving_and_capturing': 'يجري الحفظ والالتقاط…',
       }),
       zh: Object.freeze({
         'core-notes-shell.title': '备注',
@@ -154,6 +163,8 @@ window.ZogographNotesShellCard = {
         'core-notes-shell.no_page_charts': '此页面没有图表。',
         'core-notes-shell.no_page_charts_help':
           '便笺仍会保存，且此页面上的标记会显示在之后添加到这里的任何图表中。',
+        'core-notes-shell.saving': '正在保存…',
+        'core-notes-shell.saving_and_capturing': '正在保存并捕获…',
       }),
     }),
   }),

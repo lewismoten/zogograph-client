@@ -1970,8 +1970,6 @@
   "storage.check_symlinks": "Comprobar enlaces simbólicos",
   "storage.show_matches": "Mostrar coincidencias",
   "action.undo": "Deshacer",
-  "notes.saving": "Guardando…",
-  "notes.saving_and_capturing": "Guardando y capturando…",
   "action.cancel": "Cancelar",
   "action.yes": "Sí",
   "storage.show_categories": "Mostrar también las categorías vigiladas",

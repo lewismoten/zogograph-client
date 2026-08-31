@@ -14162,8 +14162,8 @@ async function showNoteDialog(preset = {}) {
     save.disabled = true;
     save.textContent =
       snapshot.value === 'none'
-        ? ZogographI18n.t('notes.saving')
-        : ZogographI18n.t('notes.saving_and_capturing');
+        ? notesShellText('saving')
+        : notesShellText('saving_and_capturing');
 
     try {
       /*

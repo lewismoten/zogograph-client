@@ -1967,8 +1967,6 @@
   "storage.check_symlinks": "检查符号链接",
   "storage.show_matches": "显示匹配项",
   "action.undo": "撤销",
-  "notes.saving": "正在保存…",
-  "notes.saving_and_capturing": "正在保存并捕获…",
   "action.cancel": "取消",
   "action.yes": "是",
   "storage.show_categories": "同时显示受监控类别",

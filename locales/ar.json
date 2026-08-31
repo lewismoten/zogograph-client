@@ -542,7 +542,6 @@
   "chart.screenshot_unsupported": "لا يستطيع هذا المتصفح أخذ لقطة شاشة من صفحة.",
   "ai.preview_no_parameters": "لا يحتاج هذا إلى أي معلمات.",
   "ai.preview_leave_out": "— اتركه خارجًا —",
-  "ai.settings.past_conversations_sign_in": "سجّل الدخول لرؤية المحادثات السابقة.",
   "path_hygiene.sign_in": "سجّل الدخول لمراجعة أسماء المسارات.",
   "path_hygiene.install_enable": "ثبّت وفعّل Path-name hygiene في Marketplace لاستخدام هذا الفحص.",
   "path_hygiene.no_completed_scan": "الميزة مفعّلة، لكن لم يسجل أي فحص قرص مكتمل للحساب أسماء المسارات بعد.",

@@ -9691,11 +9691,11 @@ async function refreshPastChats() {
   const body = $('pastChatsBody');
   if (!state.signedIn) {
     body.replaceChildren(
-      note(
-        aiSettingsText(
-          'past_conversations_sign_in',
-          'Sign in to see past conversations.',
-        ),
+      renderCoreCardPackage(
+        ZogographAiPastConversationsSignInCard,
+        'core-ai-past-conversations-sign-in',
+        {},
+        { note, i18n: ZogographI18n },
       ),
     );
     return;

@@ -541,7 +541,6 @@
   "chart.screenshot_unsupported": "This browser cannot take a screenshot from a page.",
   "ai.preview_no_parameters": "This one takes no parameters.",
   "ai.preview_leave_out": "— leave it out —",
-  "ai.settings.past_conversations_sign_in": "Sign in to see past conversations.",
   "path_hygiene.sign_in": "Sign in to review path names.",
   "path_hygiene.install_enable": "Install and enable Path-name hygiene in the Marketplace to use this check.",
   "path_hygiene.no_completed_scan": "Enabled, but no completed account disk scan has recorded path names yet.",

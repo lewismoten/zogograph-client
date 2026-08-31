@@ -34258,129 +34258,21 @@ function renderUpcoming(data) {
  * own find - is exactly what makes this usable.
  */
 function renderMonths(data) {
-  if (window.ZogographCalendarGridCard) {
-    return renderCoreCardPackage(
-      ZogographCalendarGridCard,
-      'core-calendar-grid',
-      {
-        from: data.from,
-        back_months: data.back_months,
-        forward_months: data.forward_months,
-        days: data.days || {},
-      },
-      {
-        target: $('calendarGrid'),
-        openDay: openCalendarDay,
-        i18n: ZogographI18n,
-      },
-    );
-  }
-  const grid = $('calendarGrid');
-  const frag = document.createDocumentFragment();
-
-  const start = new Date(data.from * 1000);
-  start.setDate(1);
-  const months = data.back_months + data.forward_months + 1;
-  const today = new Date();
-
-  for (let i = 0; i < months; i++) {
-    const month = new Date(start.getFullYear(), start.getMonth() + i, 1);
-    frag.appendChild(renderMonth(month, data, today));
-  }
-
-  grid.replaceChildren(
-    Object.assign(document.createElement('div'), {
-      className: 'months',
-    }),
+  return renderCoreCardPackage(
+    ZogographCalendarGridCard,
+    'core-calendar-grid',
+    {
+      from: data.from,
+      back_months: data.back_months,
+      forward_months: data.forward_months,
+      days: data.days || {},
+    },
+    {
+      target: $('calendarGrid'),
+      openDay: openCalendarDay,
+      i18n: ZogographI18n,
+    },
   );
-  grid.firstChild.appendChild(frag);
-}
-
-function renderMonth(month, data, today) {
-  const box = document.createElement('div');
-  box.className = 'month';
-
-  const heading = document.createElement('h4');
-  heading.textContent = month.toLocaleDateString(undefined, {
-    month: 'long',
-    year: 'numeric',
-  });
-  box.appendChild(heading);
-
-  const table = document.createElement('table');
-  table.className = 'month-grid';
-
-  const head = table.createTHead().insertRow();
-  // Weekday initials from the browser's own locale, so a week starting on
-  // Monday or Sunday is whatever the reader's system says it is.
-  const sample = new Date(2026, 1, 1);
-  for (let d = 0; d < 7; d++) {
-    const th = document.createElement('th');
-    const day = new Date(
-      sample.getFullYear(),
-      sample.getMonth(),
-      sample.getDate() + d,
-    );
-    th.textContent = day.toLocaleDateString(undefined, { weekday: 'narrow' });
-    head.appendChild(th);
-  }
-
-  const body = table.createTBody();
-  const first = new Date(month.getFullYear(), month.getMonth(), 1);
-  const lead = first.getDay();
-  const days = new Date(month.getFullYear(), month.getMonth() + 1, 0).getDate();
-
-  let row = body.insertRow();
-  for (let i = 0; i < lead; i++) row.insertCell().className = 'empty';
-
-  for (let day = 1; day <= days; day++) {
-    if (row.cells.length === 7) row = body.insertRow();
-
-    const cell = row.insertCell();
-    const date = new Date(month.getFullYear(), month.getMonth(), day);
-    const key =
-      `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-` +
-      String(day).padStart(2, '0');
-    const entries = data.days[key] || [];
-
-    cell.textContent = String(day);
-
-    if (date.toDateString() === today.toDateString())
-      cell.classList.add('today');
-
-    if (entries.length) {
-      /*
-       * The worst thing on a day decides its colour.
-       *
-       * A day with a routine renewal and an expired domain on it is an expired
-       * domain day; averaging them or taking the first would bury it.
-       */
-      const rank = { error: 0, warn: 1, info: 2, done: 3, past: 4 };
-      const worst = entries.reduce(
-        (w, e) => (rank[e.level] < rank[w] ? e.level : w),
-        'past',
-      );
-
-      cell.classList.add('has-entries', 'level-' + worst);
-      cell.tabIndex = 0;
-      cell.setAttribute('role', 'button');
-      cell.title = entries.map((e) => e.title).join('\n');
-
-      const open = () => openCalendarDay(key, entries);
-      cell.addEventListener('click', open);
-      cell.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter' || event.key === ' ') {
-          event.preventDefault();
-          open();
-        }
-      });
-    }
-  }
-
-  while (row.cells.length < 7) row.insertCell().className = 'empty';
-
-  box.appendChild(table);
-  return box;
 }
 
 function openCalendarDay(key, entries) {

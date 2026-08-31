@@ -2698,7 +2698,6 @@
   "ai.identity_title": "{{assistant}}",
   "ai.identity_help": "{{assistant}} es un modelo que usted configura y al que se le da un conjunto fijo de herramientas de solo lectura para mirar esta máquina: el nombre es el trabajo, alguien de guardia que le dice lo que puede ver. Está apagado hasta que lo configure y, cuando está activado, esta herramienta envía partes de sus registros, cifras de disco y lista de procesos al servicio que usted indique; es mejor decidirlo deliberadamente que descubrirlo después. Un modelo local no necesita clave y nada sale de la máquina.",
   "ai.identity_security_help": "El modelo nunca puede escribir una consulta. Cada herramienta es una instrucción fija con parámetros tipados y enumerados vinculados a ella; todo lo que quede fuera de esos límites se rechaza antes de llegar a una base de datos. El resto de ajustes está en las páginas inferiores.",
-  "ai.model_title": "Modelo",
   "ai.model_help": "Qué servicio usar, qué modelo y cuánto cuesta. Los precios son por millón de tokens, en céntimos, y opcionales: sin ellos todo sigue funcionando y el total acumulado informa conteos de tokens en vez de dinero, porque un precio incorrecto es peor que no tener precio.",
   "ai.selected_model_title": "Modelo seleccionado",
   "ai.providers_title": "Proveedores",

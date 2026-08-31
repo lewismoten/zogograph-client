@@ -33151,119 +33151,27 @@ async function refreshCaptures() {
     return;
   }
 
-  if (window.ZogographNetworkCaptureHistoryCard) {
-    return renderCoreCardPackage(
-      ZogographNetworkCaptureHistoryCard,
-      'core-network-capture-history',
-      { rows: data.rows, capture: data.capture },
-      {
-        target: body,
-        note,
-        renderTable,
-        whenSpan,
-        humanCount,
-        humanBytes,
-        open: (id) => {
-          captureHistoryState.showing = id;
-          refreshCaptures().catch((error) =>
-            notice(String(error.message || error)),
-          );
-        },
-        renderCapture,
-        i18n: ZogographI18n,
+  return renderCoreCardPackage(
+    ZogographNetworkCaptureHistoryCard,
+    'core-network-capture-history',
+    { rows: data.rows, capture: data.capture },
+    {
+      target: body,
+      note,
+      renderTable,
+      whenSpan,
+      humanCount,
+      humanBytes,
+      open: (id) => {
+        captureHistoryState.showing = id;
+        refreshCaptures().catch((error) =>
+          notice(String(error.message || error)),
+        );
       },
-    );
-  }
-
-  const wrap = document.createDocumentFragment();
-  const holder = document.createElement('div');
-  holder.id = 'captureList';
-  wrap.appendChild(holder);
-  body.replaceChildren(wrap);
-
-  renderTable(
-    'captureList',
-    data.rows,
-    [
-      {
-        label: ZogographI18n.t('network.taken'),
-        render: (row) => whenSpan(row.taken_at),
-      },
-      {
-        label: ZogographI18n.t('network.interface'),
-        render: (row) => row.interface,
-      },
-      {
-        label: ZogographI18n.t('network.filter'),
-        render: (row) => row.filter_label,
-      },
-      {
-        label: ZogographI18n.t('network.over'),
-        className: 'size',
-        render: (row) => `${row.seconds}s`,
-      },
-      {
-        label: ZogographI18n.t('network.packets_per_second'),
-        className: 'size',
-        render: (row) =>
-          row.packets_per_second == null
-            ? '\u2014'
-            : humanCount(row.packets_per_second),
-      },
-      {
-        label: ZogographI18n.t('network.bytes_per_second'),
-        className: 'size',
-        render: (row) =>
-          row.bytes_per_second == null
-            ? '\u2014'
-            : `${humanBytes(row.bytes_per_second)}/s`,
-      },
-      {
-        label: ZogographI18n.t('network.arriving'),
-        className: 'size',
-        render: (row) => humanBytes(row.in_bytes),
-      },
-      {
-        label: ZogographI18n.t('network.leaving'),
-        className: 'size',
-        render: (row) => humanBytes(row.out_bytes),
-      },
-      {
-        label: ZogographI18n.t('network.peers'),
-        className: 'size',
-        render: (row) => humanCount(row.distinct_peers),
-      },
-      {
-        label: '',
-        render: (row) => {
-          const button = document.createElement('button');
-          button.className = 'link';
-          const showing = Number(data.capture?.id) === Number(row.id);
-          button.textContent = showing
-            ? ZogographI18n.t('network.shown_below')
-            : ZogographI18n.t('action.open');
-          button.disabled = showing;
-          button.addEventListener('click', () => {
-            captureHistoryState.showing = Number(row.id);
-            refreshCaptures().catch((error) =>
-              notice(String(error.message || error)),
-            );
-          });
-          return button;
-        },
-      },
-    ],
-    null,
-    null,
-    (row) => String(row.id),
+      renderCapture,
+      i18n: ZogographI18n,
+    },
   );
-
-  const detail = document.createElement('div');
-  detail.className = 'capture-detail';
-  body.appendChild(detail);
-
-  // The same renderer the live page uses, pointed at a different element.
-  renderCapture(data.capture, detail);
 }
 
 /* ------------------------------------------------------------ url checks -- */

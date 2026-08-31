@@ -1657,6 +1657,10 @@ i18nExpect(
         str_contains(
             $script,
             'renderCoreCardPackage(ZogographNetworkCaptureHistoryCard, "core-network-capture-history",',
+        ) &&
+        !str_contains(
+            $script,
+            'if (window.ZogographNetworkCaptureHistoryCard)',
         ),
     'network capture history is not isolated behind its core card-module boundary',
 );

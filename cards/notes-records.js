@@ -46,6 +46,11 @@ window.ZogographNotesRecordsCard = {
         'core-notes-records.delete_confirm': 'Delete this note?',
         'core-notes-records.delete_with_captures_confirm':
           'Delete this note?\n\nWhatever it captured goes with it.',
+        'core-notes-records.written_by': '{{time}} by {{who}}',
+        'core-notes-records.capture_databases_location':
+          'Written beside the databases. Listed under Database copies below.',
+        'core-notes-records.capture_open_title':
+          'The captured data, exactly as it arrived',
       }),
       es: Object.freeze({
         'core-notes-records.table_time': 'Hora',
@@ -89,6 +94,11 @@ window.ZogographNotesRecordsCard = {
         'core-notes-records.delete_confirm': '¿Eliminar esta nota?',
         'core-notes-records.delete_with_captures_confirm':
           '¿Eliminar esta nota?\n\nTodo lo que capturó se irá con ella.',
+        'core-notes-records.written_by': '{{time}} por {{who}}',
+        'core-notes-records.capture_databases_location':
+          'Se escribió junto a las bases de datos. Se muestra abajo en Copias de bases de datos.',
+        'core-notes-records.capture_open_title':
+          'Los datos capturados, exactamente como llegaron',
       }),
       hi: Object.freeze({
         'core-notes-records.table_time': 'समय',
@@ -130,6 +140,11 @@ window.ZogographNotesRecordsCard = {
         'core-notes-records.delete_confirm': 'यह नोट हटाएँ?',
         'core-notes-records.delete_with_captures_confirm':
           'यह नोट हटाएँ?\n\nइसमें कैप्चर की गई हर चीज़ भी इसके साथ हट जाएगी।',
+        'core-notes-records.written_by': '{{who}} द्वारा {{time}}',
+        'core-notes-records.capture_databases_location':
+          'डेटाबेस के पास लिखा गया। नीचे डेटाबेस प्रतियों में सूचीबद्ध है।',
+        'core-notes-records.capture_open_title':
+          'कैप्चर किया गया डेटा, जैसा वह आया था',
       }),
       ar: Object.freeze({
         'core-notes-records.table_time': 'الوقت',
@@ -170,6 +185,11 @@ window.ZogographNotesRecordsCard = {
         'core-notes-records.delete_confirm': 'حذف هذه الملاحظة؟',
         'core-notes-records.delete_with_captures_confirm':
           'حذف هذه الملاحظة؟\n\nكل ما التقطته سيُحذف معها.',
+        'core-notes-records.written_by': 'كتبها {{who}} {{time}}',
+        'core-notes-records.capture_databases_location':
+          'كُتبت بجانب قواعد البيانات. وهي مدرجة أدناه تحت نسخ قواعد البيانات.',
+        'core-notes-records.capture_open_title':
+          'البيانات الملتقطة، تماماً كما وصلت',
       }),
       zh: Object.freeze({
         'core-notes-records.table_time': '时间',
@@ -209,6 +229,10 @@ window.ZogographNotesRecordsCard = {
         'core-notes-records.delete_confirm': '删除此备注？',
         'core-notes-records.delete_with_captures_confirm':
           '删除此备注？\n\n它捕获的所有内容也会一并删除。',
+        'core-notes-records.written_by': '{{who}} 写于 {{time}}',
+        'core-notes-records.capture_databases_location':
+          '已写在数据库旁边。列在下方的“数据库副本”中。',
+        'core-notes-records.capture_open_title': '捕获的数据，与到达时完全一致',
       }),
     }),
   }),

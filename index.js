@@ -17699,11 +17699,10 @@ function showNoteDetails(row) {
     [
       notesRecordsText('written'),
       row.who
-        ? ZogographI18n.t(
-            'notes.written_by',
-            { time: ago(row.written_at), who: row.who },
-            '{{time}} by {{who}}',
-          )
+        ? notesRecordsText('written_by', {
+            time: ago(row.written_at),
+            who: row.who,
+          })
         : ago(row.written_at),
     ],
     [
@@ -17890,11 +17889,7 @@ async function showNoteSnapshots(row) {
        */
       const where = document.createElement('span');
       where.className = 'muted small';
-      where.textContent = ZogographI18n.t(
-        'notes.capture_databases_location',
-        {},
-        'Written beside the databases. Listed under Database copies below.',
-      );
+      where.textContent = notesRecordsText('capture_databases_location');
       actions.appendChild(where);
     } else if (snapshot.kind === 'image') {
       /*
@@ -17934,11 +17929,7 @@ async function showNoteSnapshots(row) {
       open.target = '_blank';
       open.rel = 'noopener';
       open.textContent = ZogographI18n.t('action.open', {}, 'Open');
-      open.title = ZogographI18n.t(
-        'notes.capture_open_title',
-        {},
-        'The captured data, exactly as it arrived',
-      );
+      open.title = notesRecordsText('capture_open_title');
       actions.appendChild(open);
     }
 

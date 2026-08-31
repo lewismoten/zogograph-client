@@ -13710,101 +13710,18 @@ function drawChangedChart(data) {
 }
 
 function renderChangedList(data) {
-  if (window.ZogographChangeHistoryCard) {
-    return renderCoreCardPackage(
-      ZogographChangeHistoryCard,
-      'core-change-history',
-      data,
-      {
-        target: $('changedBody'),
-        note,
-        renderTable,
-        whenSpan,
-        ago,
-        i18n: ZogographI18n,
-      },
-    );
-  }
-  const body = $('changedBody');
-
-  if (!data.events.length) {
-    body.replaceChildren(
-      note(
-        data.last_checked
-          ? changeHistoryChartText('nothing_changed_last_checked', {
-              when: ago(data.last_checked),
-            })
-          : changeHistoryChartText('nothing_checked_yet'),
-      ),
-    );
-    return;
-  }
-
-  const holder = document.createElement('div');
-  holder.id = 'changedTable';
-  body.replaceChildren(holder);
-
-  renderTable(
-    'changedTable',
-    data.events,
-    [
-      {
-        label: ZogographI18n.t('changed.noticed', {}, 'Noticed'),
-        render: (row) => whenSpan(row.at),
-      },
-      {
-        label: ZogographI18n.t('changed.what', {}, 'What'),
-        className: 'name',
-        render: (row) => {
-          const span = document.createElement('span');
-          span.textContent = row.label;
-          span.title =
-            row.kind === 'software'
-              ? ZogographI18n.t('installed.system_software_tip')
-              : ZogographI18n.t('installed.watched_program_tip', {
-                  group: row.group ? ` (${row.group})` : '',
-                });
-          return span;
-        },
-      },
-      {
-        label: ZogographI18n.t('changed.was', {}, 'Was'),
-        className: 'cmd',
-        render: (row) => row.from ?? '—',
-      },
-      {
-        label: ZogographI18n.t('changed.became', {}, 'Became'),
-        className: 'cmd',
-        render: (row) => row.to,
-      },
-      {
-        label: '',
-        render: (row) => {
-          if (row.state_from && row.state_from !== row.state_to) {
-            const span = document.createElement('span');
-            span.className =
-              row.state_to === 'absent' ? 'band-crit' : 'band-ok';
-            span.textContent = `${row.state_from} → ${row.state_to}`;
-            return span;
-          }
-          if (row.by_fingerprint) {
-            const span = document.createElement('span');
-            span.className = 'muted small';
-            span.textContent = ZogographI18n.t(
-              'changed.by_fingerprint',
-              {},
-              'by fingerprint',
-            );
-            span.title = ZogographI18n.t('installed.fingerprint_change_tip');
-            return span;
-          }
-          return '';
-        },
-      },
-    ],
-    null,
-    null,
-    (row) => `${row.at}|${row.name}`,
+  return renderCoreCardPackage(
+    ZogographChangeHistoryCard,
+    'core-change-history',
+    data,
+    {
+      target: $('changedBody'),
+      note,
+      renderTable,
+      whenSpan,
+      ago,
+      i18n: ZogographI18n,
+    },
   );
 }
 

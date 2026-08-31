@@ -458,7 +458,6 @@
   "storage.link_sweep_preview": "{{matched}} links with a problem are under that path. {{deleted}} broken links would be removed.",
   "storage.link_sweep_preview_skipped": "{{matched}} links with a problem are under that path. {{deleted}} broken links would be removed, and {{skipped}} with other problems left alone — a loop or an escape is never removed on a path alone.",
   "storage.link_sweep_failed_reason": "{{count}} links could not be removed: {{reason}}.",
-  "storage.link_sweep_capped": "Capped at {{deleted}} links in one go. {{remaining}} more would be left — run it again.",
   "storage.link_sweep_showing_first": "Showing the first 200 of {{count}}.",
   "storage.link_sweep_remove_broken": "Remove {{count}} broken links",
   "storage.link_sweep_remove_confirm": "Delete {{count}} broken symlinks?\n\nOnly the links are removed. Nothing they point at is touched — they point at nothing, which is why they are on this list.",

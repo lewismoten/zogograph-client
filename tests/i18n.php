@@ -2646,7 +2646,6 @@ i18nExpect(
             $english['storage.link_sweep_preview'],
             $english['storage.link_sweep_preview_skipped'],
             $english['storage.link_sweep_failed_reason'],
-            $english['storage.link_sweep_capped'],
             $english['storage.link_sweep_showing_first'],
             $english['storage.link_sweep_remove_broken'],
             $english['storage.link_sweep_remove_confirm'],
@@ -3044,7 +3043,12 @@ i18nExpect(
 );
 i18nExpect(
     $script !== false &&
-        str_contains($script, 'storage.link_sweep_capped') &&
+        str_contains(
+            (string) file_get_contents(
+                $root . '/cards/symlink-sweep-capped.js',
+            ),
+            'core-symlink-sweep-capped.message',
+        ) &&
         str_contains($script, 'storage.link_sweep_remove_confirm') &&
         str_contains($script, 'storage.link_sweep_pointed_at'),
     'broken-link sweep limits and result table retain direct user-visible text',

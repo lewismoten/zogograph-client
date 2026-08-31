@@ -458,7 +458,6 @@
   "storage.link_sweep_preview": "उस पथ के अंतर्गत समस्या वाले {{matched}} लिंक हैं। {{deleted}} टूटे लिंक हटाए जाएंगे।",
   "storage.link_sweep_preview_skipped": "उस पथ के अंतर्गत समस्या वाले {{matched}} लिंक हैं। {{deleted}} टूटे लिंक हटाए जाएंगे और अन्य समस्याओं वाले {{skipped}} वैसे ही छोड़ दिए जाएंगे — केवल पथ के आधार पर लूप या एस्केप कभी नहीं हटाया जाता।",
   "storage.link_sweep_failed_reason": "{{count}} लिंक नहीं हटाए जा सके: {{reason}}।",
-  "storage.link_sweep_capped": "एक बार में {{deleted}} लिंक की सीमा है। {{remaining}} और रह जाएंगे — इसे फिर चलाएँ।",
   "storage.link_sweep_showing_first": "{{count}} में से पहले 200 दिखाए जा रहे हैं।",
   "storage.link_sweep_remove_broken": "{{count}} टूटे लिंक हटाएँ",
   "storage.link_sweep_remove_confirm": "क्या {{count}} टूटे सिमलिंक हटाएँ?\n\nकेवल लिंक हटाए जाते हैं। जिस पर वे इंगित करते हैं उसे नहीं छुआ जाता — वे किसी चीज़ पर इंगित नहीं करते, इसीलिए वे इस सूची में हैं।",

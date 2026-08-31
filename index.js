@@ -22102,15 +22102,14 @@ async function sweepLinks(pattern, confirmed = false) {
 
   if (result.remaining > 0) {
     parts.push(
-      note(
-        ZogographI18n.t(
-          'storage.link_sweep_capped',
-          {
-            deleted: humanCount(result.deleted.length),
-            remaining: humanCount(result.remaining),
-          },
-          `Capped at ${humanCount(result.deleted.length)} links in one go. ${humanCount(result.remaining)} more would be left — run it again.`,
-        ),
+      renderCoreCardPackage(
+        ZogographSymlinkSweepCappedCard,
+        'core-symlink-sweep-capped',
+        {
+          deleted: humanCount(result.deleted.length),
+          remaining: humanCount(result.remaining),
+        },
+        { i18n: ZogographI18n, note },
       ),
     );
   }

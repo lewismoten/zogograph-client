@@ -9,7 +9,7 @@ window.ZogographTerminalSessionLogCard = {
       'copies',
       'body',
       'whenLabel',
-      'sessionEntryText',
+      'humanSpan',
       'stripAnsi',
       'copyText',
       'note',
@@ -27,6 +27,9 @@ window.ZogographTerminalSessionLogCard = {
         'core-terminal-session-log.copy_entry': 'Copy this one',
         'core-terminal-session-log.copy_entry_output': 'Copy only its output',
         'core-terminal-session-log.output_tail': 'the end of a longer output',
+        'core-terminal-session-log.stopped': 'stopped',
+        'core-terminal-session-log.timed_out': 'timed out',
+        'core-terminal-session-log.exit': 'exit {{code}}',
       }),
       es: Object.freeze({
         'core-terminal-session-log.session_of': 'Sesión de {{when}}',
@@ -39,6 +42,9 @@ window.ZogographTerminalSessionLogCard = {
         'core-terminal-session-log.copy_entry_output': 'Copiar solo su salida',
         'core-terminal-session-log.output_tail':
           'el final de una salida más larga',
+        'core-terminal-session-log.stopped': 'detenido',
+        'core-terminal-session-log.timed_out': 'tiempo agotado',
+        'core-terminal-session-log.exit': 'salida {{code}}',
       }),
       hi: Object.freeze({
         'core-terminal-session-log.session_of': '{{when}} का सत्र',
@@ -51,6 +57,9 @@ window.ZogographTerminalSessionLogCard = {
         'core-terminal-session-log.copy_entry_output':
           'केवल इसका आउटपुट कॉपी करें',
         'core-terminal-session-log.output_tail': 'लंबे आउटपुट का अंतिम भाग',
+        'core-terminal-session-log.stopped': 'रुका हुआ',
+        'core-terminal-session-log.timed_out': 'समय समाप्त',
+        'core-terminal-session-log.exit': 'निकास {{code}}',
       }),
       ar: Object.freeze({
         'core-terminal-session-log.session_of': 'جلسة {{when}}',
@@ -61,6 +70,9 @@ window.ZogographTerminalSessionLogCard = {
         'core-terminal-session-log.copy_entry': 'نسخ هذا',
         'core-terminal-session-log.copy_entry_output': 'نسخ مخرجاته فقط',
         'core-terminal-session-log.output_tail': 'نهاية مخرجات أطول',
+        'core-terminal-session-log.stopped': 'متوقف',
+        'core-terminal-session-log.timed_out': 'انتهت المهلة',
+        'core-terminal-session-log.exit': 'خروج {{code}}',
       }),
       zh: Object.freeze({
         'core-terminal-session-log.session_of': '{{when}} 的会话',
@@ -72,6 +84,9 @@ window.ZogographTerminalSessionLogCard = {
         'core-terminal-session-log.copy_entry': '复制此项',
         'core-terminal-session-log.copy_entry_output': '仅复制其输出',
         'core-terminal-session-log.output_tail': '较长输出的末尾',
+        'core-terminal-session-log.stopped': '已停止',
+        'core-terminal-session-log.timed_out': '已超时',
+        'core-terminal-session-log.exit': '退出 {{code}}',
       }),
     }),
   }),
@@ -83,7 +98,7 @@ window.ZogographTerminalSessionLogCard = {
       copies,
       body,
       whenLabel,
-      sessionEntryText,
+      humanSpan,
       stripAnsi,
       copyText,
       note,
@@ -106,6 +121,32 @@ window.ZogographTerminalSessionLogCard = {
         'Session of {{when}}',
       );
     const commands = data.commands || [];
+    const entryAsText = (command) => {
+      const bits = [
+        command.took === null || command.took === undefined
+          ? ''
+          : humanSpan(command.took),
+        command.stopped_by
+          ? t('core-terminal-session-log.stopped', {}, 'stopped')
+          : '',
+        command.timed_out
+          ? t('core-terminal-session-log.timed_out', {}, 'timed out')
+          : '',
+        command.exit_code === null || command.exit_code === undefined
+          ? ''
+          : t(
+              'core-terminal-session-log.exit',
+              { code: command.exit_code },
+              'exit {{code}}',
+            ),
+      ]
+        .filter(Boolean)
+        .join(' · ');
+      return (
+        `$ ${command.command}${bits ? `   [${bits}]` : ''}\n` +
+        stripAnsi(command.text || '')
+      );
+    };
     const copyOptions = [
       [
         t(
@@ -117,7 +158,7 @@ window.ZogographTerminalSessionLogCard = {
       ],
       [
         t('core-terminal-session-log.copy_log', {}, 'Copy the whole log'),
-        () => commands.map(sessionEntryText).join('\n\n'),
+        () => commands.map(entryAsText).join('\n\n'),
       ],
       [
         t(
@@ -170,7 +211,7 @@ window.ZogographTerminalSessionLogCard = {
         {},
         'Copy this one',
       );
-      one.addEventListener('click', () => copyText(sessionEntryText(command)));
+      one.addEventListener('click', () => copyText(entryAsText(command)));
       tools.appendChild(one);
       if (command.text) {
         const output = document.createElement('button');

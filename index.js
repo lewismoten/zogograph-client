@@ -17332,34 +17332,13 @@ function renderSessionLog() {
       copies: $('sessionLogCopy'),
       body: $('sessionLogBody'),
       whenLabel,
-      sessionEntryText,
+      humanSpan,
       stripAnsi,
       copyText,
       note,
       terminalEntry,
       i18n: ZogographI18n,
     },
-  );
-}
-
-/** One command as it reads in a copied log. */
-function sessionEntryText(command) {
-  const bits = [
-    command.took === null || command.took === undefined
-      ? ''
-      : humanSpan(command.took),
-    command.stopped_by ? 'stopped' : '',
-    command.timed_out ? 'timed out' : '',
-    command.exit_code === null || command.exit_code === undefined
-      ? ''
-      : `exit ${command.exit_code}`,
-  ]
-    .filter(Boolean)
-    .join(' · ');
-
-  return (
-    `$ ${command.command}${bits ? `   [${bits}]` : ''}\n` +
-    stripAnsi(command.text || '')
   );
 }
 

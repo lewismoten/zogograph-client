@@ -1492,8 +1492,6 @@
   "help.command_references": "مراجع الأوامر الرسمية",
   "help.terminal_commands": "أوامر طرفية ذات صلة",
   "host_log.refused_help": "الملف موجود، لكن قد لا يتمكن هذا الحساب من فتحه. يتطلب ذلك عضوية مجموعة أو ACL يمنحها root — ولا يمكن لأي شيء هنا تغيير ذلك.",
-  "capabilities.queue_check": "اطلب من الجامع التحقق لاحقًا",
-  "capabilities.queue_check_help": "يضع فحص القدرات في الطابور ليؤكد تشغيل المضيف التالي نجاحه.",
   "capabilities.queued_confirmation": "وُضع في الطابور. سيؤكد جامع المضيف {{program}} في تشغيله التالي.",
   "host_log.not_on_machine": "ليس على هذه الآلة",
   "host_log.readable": "يمكن قراءته",

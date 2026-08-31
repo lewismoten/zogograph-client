@@ -1492,8 +1492,6 @@
   "help.command_references": "官方命令参考",
   "help.terminal_commands": "相关终端命令",
   "host_log.refused_help": "文件存在，但此账户可能无法打开它。需要由 root 授予组成员资格或 ACL；这里无法更改此设置。",
-  "capabilities.queue_check": "让采集器随后检查",
-  "capabilities.queue_check_help": "将能力扫描排入队列，以便下次主机运行确认是否生效。",
   "capabilities.queued_confirmation": "已排队。主机采集器将在下次运行时确认 {{program}}。",
   "host_log.not_on_machine": "不在此机器上",
   "host_log.readable": "可读取",

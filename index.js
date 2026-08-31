@@ -16922,24 +16922,16 @@ function showPeerDialog(row = null) {
     peersShellText('field_maintenance_help'),
   );
   const endpoint = input(
-    peerText('field_endpoint', {}, 'Controller delivery endpoint'),
+    peersShellText('field_endpoint'),
     row?.transport_endpoint ||
       new URL('peer-push.php', window.location.href).href,
-    peerText(
-      'field_endpoint_help',
-      {},
-      'HTTPS peer-push.php address the remote will deliver signed readings to.',
-    ),
+    peersShellText('field_endpoint_help'),
     'url',
   );
   const base = input(
-    peerText('field_dashboard_url', {}, 'Dashboard URL'),
+    peersShellText('field_dashboard_url'),
     row?.base_url,
-    peerText(
-      'field_dashboard_url_help',
-      {},
-      'Optional: HTTPS base address for the OIDC read connection.',
-    ),
+    peersShellText('field_dashboard_url_help'),
     'url',
   );
   const redirect = input(

@@ -87,6 +87,13 @@ window.ZogographSystemPeersShellCard = {
         'core-system-peers-shell.field_maintenance': 'Maintenance note',
         'core-system-peers-shell.field_maintenance_help':
           'Optional expected-offline or maintenance context.',
+        'core-system-peers-shell.field_endpoint':
+          'Controller delivery endpoint',
+        'core-system-peers-shell.field_endpoint_help':
+          'HTTPS peer-push.php address the remote will deliver signed readings to.',
+        'core-system-peers-shell.field_dashboard_url': 'Dashboard URL',
+        'core-system-peers-shell.field_dashboard_url_help':
+          'Optional: HTTPS base address for the OIDC read connection.',
       }),
       es: Object.freeze({
         'core-system-peers-shell.title': 'Servidores Zogograph de confianza',
@@ -170,6 +177,13 @@ window.ZogographSystemPeersShellCard = {
         'core-system-peers-shell.field_maintenance': 'Nota de mantenimiento',
         'core-system-peers-shell.field_maintenance_help':
           'Contexto opcional sobre mantenimiento o indisponibilidad esperada.',
+        'core-system-peers-shell.field_endpoint':
+          'Extremo de entrega del controlador',
+        'core-system-peers-shell.field_endpoint_help':
+          'Dirección HTTPS peer-push.php a la que el remoto enviará lecturas firmadas.',
+        'core-system-peers-shell.field_dashboard_url': 'URL del panel',
+        'core-system-peers-shell.field_dashboard_url_help':
+          'Opcional: dirección base HTTPS para la conexión de lectura OIDC.',
       }),
       hi: Object.freeze({
         'core-system-peers-shell.title': 'विश्वसनीय Zogograph सर्वर',
@@ -253,6 +267,12 @@ window.ZogographSystemPeersShellCard = {
         'core-system-peers-shell.field_maintenance': 'रखरखाव नोट',
         'core-system-peers-shell.field_maintenance_help':
           'अपेक्षित ऑफ़लाइन या रखरखाव का वैकल्पिक संदर्भ।',
+        'core-system-peers-shell.field_endpoint': 'नियंत्रक डिलीवरी एंडपॉइंट',
+        'core-system-peers-shell.field_endpoint_help':
+          'HTTPS peer-push.php पता जिस पर रिमोट हस्ताक्षरित रीडिंग भेजेगा।',
+        'core-system-peers-shell.field_dashboard_url': 'डैशबोर्ड URL',
+        'core-system-peers-shell.field_dashboard_url_help':
+          'वैकल्पिक: OIDC रीड कनेक्शन के लिए HTTPS आधार पता।',
       }),
       ar: Object.freeze({
         'core-system-peers-shell.title': 'خوادم Zogograph الموثوقة',
@@ -335,6 +355,12 @@ window.ZogographSystemPeersShellCard = {
         'core-system-peers-shell.field_maintenance': 'ملاحظة صيانة',
         'core-system-peers-shell.field_maintenance_help':
           'سياق اختياري لتوقف متوقع أو صيانة.',
+        'core-system-peers-shell.field_endpoint': 'نقطة تسليم وحدة التحكم',
+        'core-system-peers-shell.field_endpoint_help':
+          'عنوان HTTPS لـ peer-push.php الذي سترسل إليه العقدة البعيدة قراءات موقعة.',
+        'core-system-peers-shell.field_dashboard_url': 'عنوان لوحة المعلومات',
+        'core-system-peers-shell.field_dashboard_url_help':
+          'اختياري: عنوان HTTPS الأساسي لاتصال قراءة OIDC.',
       }),
       zh: Object.freeze({
         'core-system-peers-shell.title': '受信任的 Zogograph 服务器',
@@ -417,6 +443,12 @@ window.ZogographSystemPeersShellCard = {
         'core-system-peers-shell.field_maintenance': '维护说明',
         'core-system-peers-shell.field_maintenance_help':
           '有关预期离线或维护的可选上下文。',
+        'core-system-peers-shell.field_endpoint': '控制器传送端点',
+        'core-system-peers-shell.field_endpoint_help':
+          '远程节点将向其传送签名读数的 HTTPS peer-push.php 地址。',
+        'core-system-peers-shell.field_dashboard_url': '仪表板 URL',
+        'core-system-peers-shell.field_dashboard_url_help':
+          '可选：用于 OIDC 读取连接的 HTTPS 基础地址。',
       }),
     }),
   }),

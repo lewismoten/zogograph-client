@@ -4742,28 +4742,14 @@ async function refreshOffenders() {
         const span = document.createElement('span');
         if (!row.gone) {
           span.className = 'muted';
-          span.textContent = ZogographI18n.t(
-            'storage.still_on_disk',
-            {},
-            'Still on disk — no longer among the largest',
-          );
-          span.title = ZogographI18n.t(
-            'storage.still_on_disk_help',
-            {},
-            'The file has not gone anywhere. Something else grew past it, so it dropped out of the paths this scan records.',
-          );
+          span.textContent = storageOffenderStatusHelpText('still');
+          span.title = storageOffenderStatusHelpText('still_detail');
         } else if (row.deleted_at) {
           span.className = 'shrank';
-          span.textContent = ZogographI18n.t(
-            'storage.deleted_here',
-            { at: humanTime(row.deleted_at) },
-            'Deleted from here {{at}}',
-          );
-          span.title = ZogographI18n.t(
-            'storage.deleted_here_help',
-            {},
-            'Deleted through this dashboard, from the action log.',
-          );
+          span.textContent = storageOffenderStatusHelpText('deleted_here', {
+            at: humanTime(row.deleted_at),
+          });
+          span.title = storageOffenderStatusHelpText('deleted_here_detail');
         } else {
           span.className = 'shrank';
           span.textContent = storageOffenderStatusText('gone');

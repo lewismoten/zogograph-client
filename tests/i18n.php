@@ -1468,9 +1468,13 @@ i18nExpect(
     $cpuQueueCard !== false &&
         str_contains($cpuQueueCard, 'catalogs: Object.freeze({') &&
         str_contains($cpuQueueCard, '"core-cpu-queue.wanting_to_run"') &&
+        str_contains($cpuQueueCard, '"core-cpu-queue.queue_verdict_storage"') &&
         is_array($english) &&
-        isset($english['cpu.wanting_to_run']),
-    'CPU queue card has no package locale catalog or removed a shared chart label',
+        !isset(
+            $english['cpu.wanting_to_run'],
+            $english['cpu.queue_verdict_storage'],
+        ),
+    'CPU queue card does not own its chart and diagnostic locale catalog',
 );
 i18nExpect(
     $cpuFindingsCard !== false &&

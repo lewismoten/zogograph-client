@@ -3,7 +3,7 @@ window.ZogographCpuQueueCard = {
   manifest: Object.freeze({
     id: 'core-cpu-queue',
     locales: ['core-cpu-queue.'],
-    helpers: ['setCard', 'humanCount', 'i18n'],
+    helpers: ['setCard', 'humanCount', 'count', 'i18n'],
     catalogs: Object.freeze({
       en: Object.freeze({
         'core-cpu-queue.wanting_to_run': 'Wanting to run',
@@ -24,6 +24,22 @@ window.ZogographCpuQueueCard = {
         'core-cpu-queue.devices_attention': 'devices asking for attention',
         'core-cpu-queue.new_processes': 'New processes',
         'core-cpu-queue.forks_execs_second': 'forks and execs per second',
+        'core-cpu-queue.blocked_on_io': 'Blocked on I/O',
+        'core-cpu-queue.waiting_for_core_percent': 'Waiting for a core (%)',
+        'core-cpu-queue.context_switches_second': 'Context switches/s',
+        'core-cpu-queue.interrupts_second': 'Interrupts/s',
+        'core-cpu-queue.new_processes_second': 'New processes/s',
+        'core-cpu-queue.queue_verdict_waiting':
+          'Nothing to compare yet — the queue is read from two consecutive collections.',
+        'core-cpu-queue.queue_verdict_storage':
+          'Load is {{load}} on {{cores}}, but only {{running}} task(s) want a core and {{blocked}} are blocked in the kernel. That load is storage, not processor: blocked tasks count towards it and use no CPU at all. A faster processor would change nothing here.',
+        'core-cpu-queue.queue_verdict_runnable':
+          '{{running}} runnable across {{cores}}. Nothing is stalled — everything gets a turn — but each turn is shorter, and every job takes longer than it would on an idle machine. This is what “slow but nothing is broken” looks like from underneath.',
+        'core-cpu-queue.queue_verdict_blocked':
+          '{{blocked}} in uninterruptible sleep. They are waiting on I/O, cannot be killed while they wait, and are inflating the load average without touching the processor.',
+        'core-cpu-queue.queue_verdict_clear':
+          'Nothing is queueing: {{running}} tasks runnable {{cores}}, {{blocked}} blocked.',
+        'core-cpu-queue.queue_unknown_count': 'an unknown number of',
       }),
       es: Object.freeze({
         'core-cpu-queue.wanting_to_run': 'Esperando ejecutar',
@@ -46,6 +62,22 @@ window.ZogographCpuQueueCard = {
         'core-cpu-queue.devices_attention': 'dispositivos pidiendo atención',
         'core-cpu-queue.new_processes': 'Procesos nuevos',
         'core-cpu-queue.forks_execs_second': 'forks y execs por segundo',
+        'core-cpu-queue.blocked_on_io': 'Bloqueado en E/S',
+        'core-cpu-queue.waiting_for_core_percent': 'Esperando un núcleo (%)',
+        'core-cpu-queue.context_switches_second': 'Cambios de contexto/s',
+        'core-cpu-queue.interrupts_second': 'Interrupciones/s',
+        'core-cpu-queue.new_processes_second': 'Procesos nuevos/s',
+        'core-cpu-queue.queue_verdict_waiting':
+          'Aún no hay nada que comparar: la cola se lee de dos recopilaciones consecutivas.',
+        'core-cpu-queue.queue_verdict_storage':
+          'La carga es {{load}} en {{cores}}, pero solo {{running}} tarea(s) quieren un núcleo y {{blocked}} están bloqueadas en el kernel. Esa carga es almacenamiento, no procesador.',
+        'core-cpu-queue.queue_verdict_runnable':
+          '{{running}} ejecutables en {{cores}}. Nada está detenido, pero cada turno es más corto y cada trabajo tarda más.',
+        'core-cpu-queue.queue_verdict_blocked':
+          '{{blocked}} en suspensión ininterrumpible. Esperan E/S y aumentan la carga sin tocar el procesador.',
+        'core-cpu-queue.queue_verdict_clear':
+          'Nada está haciendo cola: {{running}} tareas ejecutables {{cores}}, {{blocked}} bloqueadas.',
+        'core-cpu-queue.queue_unknown_count': 'un número desconocido de',
       }),
       hi: Object.freeze({
         'core-cpu-queue.wanting_to_run': 'चलने की प्रतीक्षा',
@@ -66,6 +98,22 @@ window.ZogographCpuQueueCard = {
         'core-cpu-queue.devices_attention': 'उपकरण ध्यान माँग रहे हैं',
         'core-cpu-queue.new_processes': 'नई प्रक्रियाएँ',
         'core-cpu-queue.forks_execs_second': 'प्रति सेकंड forks और execs',
+        'core-cpu-queue.blocked_on_io': 'I/O पर अवरुद्ध',
+        'core-cpu-queue.waiting_for_core_percent': 'कोर की प्रतीक्षा (%)',
+        'core-cpu-queue.context_switches_second': 'कॉन्टेक्स्ट स्विच/से',
+        'core-cpu-queue.interrupts_second': 'इंटरप्ट/से',
+        'core-cpu-queue.new_processes_second': 'नई प्रक्रियाएँ/से',
+        'core-cpu-queue.queue_verdict_waiting':
+          'तुलना के लिए अभी कुछ नहीं है — कतार लगातार दो संग्रहों से पढ़ी जाती है।',
+        'core-cpu-queue.queue_verdict_storage':
+          'लोड {{cores}} पर {{load}} है, लेकिन केवल {{running}} कार्य को कोर चाहिए और {{blocked}} कर्नेल में ब्लॉक हैं। यह स्टोरेज लोड है, प्रोसेसर नहीं।',
+        'core-cpu-queue.queue_verdict_runnable':
+          '{{cores}} में {{running}} चलने योग्य हैं। कुछ अटका नहीं है, पर हर बारी छोटी है और हर काम अधिक समय लेता है।',
+        'core-cpu-queue.queue_verdict_blocked':
+          '{{blocked}} I/O की प्रतीक्षा कर रहे हैं और CPU छुए बिना लोड बढ़ा रहे हैं।',
+        'core-cpu-queue.queue_verdict_clear':
+          'कुछ कतार में नहीं है: {{running}} कार्य चलने योग्य {{cores}}, {{blocked}} ब्लॉक हैं।',
+        'core-cpu-queue.queue_unknown_count': 'अज्ञात संख्या में',
       }),
       ar: Object.freeze({
         'core-cpu-queue.wanting_to_run': 'يريد التشغيل',
@@ -86,6 +134,22 @@ window.ZogographCpuQueueCard = {
         'core-cpu-queue.devices_attention': 'أجهزة تطلب الانتباه',
         'core-cpu-queue.new_processes': 'عمليات جديدة',
         'core-cpu-queue.forks_execs_second': 'fork وexec في الثانية',
+        'core-cpu-queue.blocked_on_io': 'محجوب على إدخال/إخراج',
+        'core-cpu-queue.waiting_for_core_percent': 'ينتظر نواة (%)',
+        'core-cpu-queue.context_switches_second': 'تبديلات السياق/ث',
+        'core-cpu-queue.interrupts_second': 'مقاطعات/ث',
+        'core-cpu-queue.new_processes_second': 'عمليات جديدة/ث',
+        'core-cpu-queue.queue_verdict_waiting':
+          'لا شيء للمقارنة بعد — تُقرأ القائمة من مجموعتين متتاليتين.',
+        'core-cpu-queue.queue_verdict_storage':
+          'الحمل {{load}} على {{cores}}، لكن {{running}} مهمة فقط تريد نواة و{{blocked}} محجوبة في النواة. هذا حمل تخزين لا معالج.',
+        'core-cpu-queue.queue_verdict_runnable':
+          '{{running}} جاهزة للتشغيل عبر {{cores}}. لا شيء متعطل، لكن كل دور أقصر وكل عمل يستغرق أطول.',
+        'core-cpu-queue.queue_verdict_blocked':
+          '{{blocked}} تنتظر الإدخال/الإخراج وتزيد الحمل من دون لمس المعالج.',
+        'core-cpu-queue.queue_verdict_clear':
+          'لا شيء في الطابور: {{running}} مهمة قابلة للتشغيل {{cores}}، و{{blocked}} محجوبة.',
+        'core-cpu-queue.queue_unknown_count': 'عدد غير معروف من',
       }),
       zh: Object.freeze({
         'core-cpu-queue.wanting_to_run': '等待运行',
@@ -104,12 +168,28 @@ window.ZogographCpuQueueCard = {
         'core-cpu-queue.devices_attention': '设备请求关注',
         'core-cpu-queue.new_processes': '新进程',
         'core-cpu-queue.forks_execs_second': '每秒 fork 和 exec',
+        'core-cpu-queue.blocked_on_io': '在 I/O 上阻塞',
+        'core-cpu-queue.waiting_for_core_percent': '等待核心 (%)',
+        'core-cpu-queue.context_switches_second': '上下文切换/秒',
+        'core-cpu-queue.interrupts_second': '中断/秒',
+        'core-cpu-queue.new_processes_second': '新进程/秒',
+        'core-cpu-queue.queue_verdict_waiting':
+          '尚无内容可比较——队列由连续两次采集读取。',
+        'core-cpu-queue.queue_verdict_storage':
+          '{{cores}} 上的负载为 {{load}}，但只有 {{running}} 个任务想要核心，{{blocked}} 个在内核中阻塞。这是存储负载而不是处理器负载。',
+        'core-cpu-queue.queue_verdict_runnable':
+          '{{cores}} 上有 {{running}} 个可运行任务。没有任何任务停滞，但每次轮转更短，每项工作都更久。',
+        'core-cpu-queue.queue_verdict_blocked':
+          '{{blocked}} 个正在等待 I/O，并且在不使用处理器的情况下抬高负载。',
+        'core-cpu-queue.queue_verdict_clear':
+          '没有排队：{{running}} 个可运行任务 {{cores}}，{{blocked}} 个被阻塞。',
+        'core-cpu-queue.queue_unknown_count': '未知数量的',
       }),
     }),
   }),
   render(input, helpers) {
     const { now, sample } = input;
-    const { setCard, humanCount, i18n } = helpers;
+    const { setCard, humanCount, count, i18n } = helpers;
     const t = (key, values, fallback) =>
       i18n.t(`core-cpu-queue.${key}`, values, fallback);
     const cores = Number(sample.cpu_cores) || 0;
@@ -161,5 +241,89 @@ window.ZogographCpuQueueCard = {
       now?.fork_rate == null ? '—' : `${humanCount(now.fork_rate)}/s`,
       t('forks_execs_second', {}, 'forks and execs per second'),
     );
+
+    const verdict = (() => {
+      if (!now) {
+        return t(
+          'queue_verdict_waiting',
+          {},
+          'Nothing to compare yet — the queue is read from two consecutive collections.',
+        );
+      }
+      if (
+        load != null &&
+        cores > 0 &&
+        load > cores &&
+        Number.isFinite(blocked) &&
+        blocked >= 2 &&
+        Number.isFinite(running) &&
+        running <= cores
+      ) {
+        return t(
+          'queue_verdict_storage',
+          {
+            load: load.toFixed(2),
+            cores: count(cores, 'core'),
+            running,
+            blocked: count(blocked, 'task'),
+          },
+          'Load is {{load}} on {{cores}}, but only {{running}} task(s) want a core and {{blocked}} are blocked in the kernel. That load is storage, not processor: blocked tasks count towards it and use no CPU at all. A faster processor would change nothing here.',
+        );
+      }
+      if (Number.isFinite(running) && cores > 0 && running > cores * 2) {
+        return t(
+          'queue_verdict_runnable',
+          { running: count(running, 'task'), cores: count(cores, 'core') },
+          '{{running}} runnable across {{cores}}. Nothing is stalled — everything gets a turn — but each turn is shorter, and every job takes longer than it would on an idle machine. This is what “slow but nothing is broken” looks like from underneath.',
+        );
+      }
+      if (Number.isFinite(blocked) && blocked >= 4) {
+        return t(
+          'queue_verdict_blocked',
+          { blocked: count(blocked, 'task') },
+          '{{blocked}} in uninterruptible sleep. They are waiting on I/O, cannot be killed while they wait, and are inflating the load average without touching the processor.',
+        );
+      }
+      return t(
+        'queue_verdict_clear',
+        {
+          running: Number.isFinite(running)
+            ? running
+            : t('queue_unknown_count', {}, 'an unknown number of'),
+          cores: cores
+            ? t(
+                'across_cores',
+                { count: cores },
+                'across {{count, number}} cores',
+              )
+            : '',
+          blocked: Number.isFinite(blocked)
+            ? blocked
+            : t('queue_unknown_count', {}, 'an unknown number of'),
+        },
+        'Nothing is queueing: {{running}} tasks runnable {{cores}}, {{blocked}} blocked.',
+      );
+    })();
+
+    return {
+      verdict,
+      chartLabels: {
+        wantingToRun: t('wanting_to_run', {}, 'Wanting to run'),
+        blockedOnIo: t('blocked_on_io', {}, 'Blocked on I/O'),
+        loadOneMinute: t('load_one_minute', {}, 'Load, one minute'),
+        waitingForCorePercent: t(
+          'waiting_for_core_percent',
+          {},
+          'Waiting for a core (%)',
+        ),
+        contextSwitchesSecond: t(
+          'context_switches_second',
+          {},
+          'Context switches/s',
+        ),
+        interruptsSecond: t('interrupts_second', {}, 'Interrupts/s'),
+        newProcessesSecond: t('new_processes_second', {}, 'New processes/s'),
+      },
+    };
   },
 };

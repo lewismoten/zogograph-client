@@ -1515,12 +1515,10 @@ function cpuSpreadVerdict(spread) {
 function renderCpuQueue(data) {
   const now = data.now;
   const sample = data.sample ?? {};
-  const cores = Number(sample.cpu_cores) || 0;
 
   const holder = $('cpuQueueCards');
   if (holder) holder.replaceChildren();
-  const load = sample.load1 == null ? null : Number(sample.load1);
-  renderCoreCardPackage(
+  const queue = renderCoreCardPackage(
     ZogographCpuQueueCard,
     'core-cpu-queue',
     { now, sample },
@@ -1528,11 +1526,13 @@ function renderCpuQueue(data) {
       setCard: (label, value, sub, level = '') =>
         setHostCard(label, value, sub, level, '', 'cpuQueueCards'),
       humanCount,
+      count,
       i18n: ZogographI18n,
     },
   );
+  const labels = queue?.chartLabels ?? {};
 
-  $('cpuQueueNote').textContent = cpuQueueVerdict(now, load, cores);
+  $('cpuQueueNote').textContent = queue?.verdict ?? '';
 
   drawLineChart(
     $('cpuQueueChart'),
@@ -1540,23 +1540,19 @@ function renderCpuQueue(data) {
     [
       {
         key: 'procs_running',
-        label: ZogographI18n.t('cpu.wanting_to_run', {}, 'Wanting to run'),
+        label: labels.wantingToRun ?? 'Wanting to run',
       },
       {
         key: 'procs_blocked',
-        label: ZogographI18n.t('cpu.blocked_on_io', {}, 'Blocked on I/O'),
+        label: labels.blockedOnIo ?? 'Blocked on I/O',
       },
       {
         key: 'load1',
-        label: ZogographI18n.t('cpu.load_one_minute', {}, 'Load, one minute'),
+        label: labels.loadOneMinute ?? 'Load, one minute',
       },
       {
         key: 'cpu_pressure_some',
-        label: ZogographI18n.t(
-          'cpu.waiting_for_core_percent',
-          {},
-          'Waiting for a core (%)',
-        ),
+        label: labels.waitingForCorePercent ?? 'Waiting for a core (%)',
         axis: 'right',
       },
     ],
@@ -1574,25 +1570,17 @@ function renderCpuQueue(data) {
     [
       {
         key: 'ctxt_rate',
-        label: ZogographI18n.t(
-          'cpu.context_switches_second',
-          {},
-          'Context switches/s',
-        ),
+        label: labels.contextSwitchesSecond ?? 'Context switches/s',
       },
       {
         key: 'intr_rate',
-        label: ZogographI18n.t('cpu.interrupts_second', {}, 'Interrupts/s'),
+        label: labels.interruptsSecond ?? 'Interrupts/s',
       },
       // Two or three orders of magnitude below the other two, so it gets the
       // other axis or it is a flat line along the bottom of its own chart.
       {
         key: 'fork_rate',
-        label: ZogographI18n.t(
-          'cpu.new_processes_second',
-          {},
-          'New processes/s',
-        ),
+        label: labels.newProcessesSecond ?? 'New processes/s',
         axis: 'right',
       },
     ],
@@ -1602,91 +1590,6 @@ function renderCpuQueue(data) {
       zeroBased: true,
       empty: cpuEmptyWhy(data),
     },
-  );
-}
-
-/**
- * The sentence that stops somebody buying a faster processor for a disk fault.
- *
- * A high load average with an empty run queue and a pile of blocked tasks is
- * storage, every time, and it is the single most common misreading of any of
- * these numbers.
- */
-function cpuQueueVerdict(now, load, cores) {
-  if (!now) {
-    return ZogographI18n.t(
-      'cpu.queue_verdict_waiting',
-      {},
-      'Nothing to compare yet — the queue is read from two consecutive collections.',
-    );
-  }
-
-  const running = Number(now.procs_running);
-  const blocked = Number(now.procs_blocked);
-
-  if (
-    load != null &&
-    cores > 0 &&
-    load > cores &&
-    Number.isFinite(blocked) &&
-    blocked >= 2 &&
-    Number.isFinite(running) &&
-    running <= cores
-  ) {
-    return ZogographI18n.t(
-      'cpu.queue_verdict_storage',
-      {
-        load: load.toFixed(2),
-        cores: count(cores, 'core'),
-        running,
-        blocked: count(blocked, 'task'),
-      },
-      'Load is {{load}} on {{cores}}, but only {{running}} task(s) want a core and {{blocked}} are blocked in the kernel. That load is storage, not processor: blocked tasks count towards it and use no CPU at all. A faster processor would change nothing here.',
-    );
-  }
-
-  if (Number.isFinite(running) && cores > 0 && running > cores * 2) {
-    return ZogographI18n.t(
-      'cpu.queue_verdict_runnable',
-      { running: count(running, 'task'), cores: count(cores, 'core') },
-      '{{running}} runnable across {{cores}}. Nothing is stalled — everything gets a turn — but each turn is shorter, and every job takes longer than it would on an idle machine. This is what “slow but nothing is broken” looks like from underneath.',
-    );
-  }
-
-  if (Number.isFinite(blocked) && blocked >= 4) {
-    return ZogographI18n.t(
-      'cpu.queue_verdict_blocked',
-      { blocked: count(blocked, 'task') },
-      '{{blocked}} in uninterruptible sleep. They are waiting on I/O, cannot be killed while they wait, and are inflating the load average without touching the processor.',
-    );
-  }
-
-  return ZogographI18n.t(
-    'cpu.queue_verdict_clear',
-    {
-      running: Number.isFinite(running)
-        ? running
-        : ZogographI18n.t(
-            'cpu.queue_unknown_count',
-            {},
-            'an unknown number of',
-          ),
-      cores: cores
-        ? ZogographI18n.t(
-            'cpu.across_cores',
-            { count: cores },
-            'across {{count, number}} cores',
-          )
-        : '',
-      blocked: Number.isFinite(blocked)
-        ? blocked
-        : ZogographI18n.t(
-            'cpu.queue_unknown_count',
-            {},
-            'an unknown number of',
-          ),
-    },
-    'Nothing is queueing: {{running}} tasks runnable {{cores}}, {{blocked}} blocked.',
   );
 }
 

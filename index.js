@@ -2088,6 +2088,9 @@ function renderTypePieLabels() {
       ZogographTypePieCard.text(key, helpers),
     );
   });
+  ZogographI18n.applyRich(
+    document.querySelector('[data-i18n-rich="core-type-pie.help"]'),
+  );
 }
 
 document.addEventListener('zogograph-i18n-load', renderTypePieLabels);

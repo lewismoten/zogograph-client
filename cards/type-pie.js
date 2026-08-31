@@ -16,6 +16,8 @@ window.ZogographTypePieCard = {
       en: Object.freeze({
         'core-type-pie.composition_title': 'Storage composition',
         'core-type-pie.title': 'What the space is made of',
+        'core-type-pie.help':
+          'Every file counted once, by extension, from the last completed scan. This is a different question from the categories below: those are the rules that raise alerts and let you empty things, and most files match none of them. These add up to the whole account, which is what makes the pie mean anything. {{other}} is files with no extension or an unfamiliar one, and on most accounts it is large.',
         'core-type-pie.not_measured_yet': 'Not measured yet',
         'core-type-pie.watched_category': '{{name}} (watched)',
         'core-type-pie.types_categories_help':
@@ -26,6 +28,8 @@ window.ZogographTypePieCard = {
       es: Object.freeze({
         'core-type-pie.composition_title': 'Composición del almacenamiento',
         'core-type-pie.title': 'De qué está hecho el espacio',
+        'core-type-pie.help':
+          'Cada archivo se cuenta una vez, por extensión, desde el último análisis completado. Es una pregunta distinta de las categorías de abajo: esas son las reglas que generan alertas y permiten vaciar cosas, y la mayoría de los archivos no coincide con ninguna. Estos valores suman toda la cuenta, que es lo que da sentido al gráfico circular. {{other}} son archivos sin extensión o con una desconocida, y en la mayoría de las cuentas ocupan mucho.',
         'core-type-pie.not_measured_yet': 'Aún no se ha medido',
         'core-type-pie.watched_category': '{{name}} (vigilado)',
         'core-type-pie.types_categories_help':
@@ -36,6 +40,8 @@ window.ZogographTypePieCard = {
       hi: Object.freeze({
         'core-type-pie.composition_title': 'भंडारण संरचना',
         'core-type-pie.title': 'जगह किससे बनी है',
+        'core-type-pie.help':
+          'पिछले पूर्ण स्कैन से हर फ़ाइल को एक्सटेंशन के आधार पर एक बार गिना जाता है। यह नीचे की श्रेणियों से अलग प्रश्न है: वे अलर्ट उठाने और चीज़ें खाली करने के नियम हैं और अधिकांश फ़ाइलें उनमें नहीं आतीं। ये पूरे खाते का योग हैं, इसलिए पाई चार्ट का अर्थ बनता है। {{other}} बिना एक्सटेंशन या अपरिचित एक्सटेंशन वाली फ़ाइलें हैं, और अधिकांश खातों में इनका आकार बड़ा होता है।',
         'core-type-pie.not_measured_yet': 'अभी मापा नहीं गया',
         'core-type-pie.watched_category': '{{name}} (निगरानी में)',
         'core-type-pie.types_categories_help':
@@ -46,6 +52,8 @@ window.ZogographTypePieCard = {
       ar: Object.freeze({
         'core-type-pie.composition_title': 'تركيب التخزين',
         'core-type-pie.title': 'ممّ تتكون المساحة',
+        'core-type-pie.help':
+          'يُحسب كل ملف مرة واحدة بحسب امتداده من آخر فحص مكتمل. وهذا يختلف عن الفئات أدناه: فهي قواعد تطلق التنبيهات وتتيح إفراغ الأشياء، ومعظم الملفات لا تطابق أيًا منها. هذه القيم تجمع الحساب كله، ولذلك يصبح المخطط الدائري ذا معنى. {{other}} هي ملفات بلا امتداد أو بامتداد غير مألوف، وتكون كبيرة في معظم الحسابات.',
         'core-type-pie.not_measured_yet': 'لم يُقَس بعد',
         'core-type-pie.watched_category': '{{name}} (مراقَب)',
         'core-type-pie.types_categories_help':
@@ -56,6 +64,8 @@ window.ZogographTypePieCard = {
       zh: Object.freeze({
         'core-type-pie.composition_title': '存储构成',
         'core-type-pie.title': '空间由什么组成',
+        'core-type-pie.help':
+          '按扩展名从最近一次完成的扫描中对每个文件计数一次。这与下方的类别不同：类别是触发警报和允许清理的规则，大多数文件不符合其中任何一项。这些数值合计为整个账户，因此饼图才有意义。{{other}} 是没有扩展名或扩展名不熟悉的文件，在大多数账户中它很大。',
         'core-type-pie.not_measured_yet': '尚未测量',
         'core-type-pie.watched_category': '{{name}}（已监视）',
         'core-type-pie.types_categories_help':

@@ -2945,6 +2945,35 @@ document.addEventListener(
   renderNetworkCaptureHistoryTitle,
 );
 
+function renderNetworkRdnsTitle() {
+  const helpers = {
+    target: null,
+    note: () => null,
+    section: () => null,
+    renderTable: () => null,
+    humanSpan: () => '',
+    ago: () => '',
+    post: () => Promise.resolve(),
+    render: () => null,
+    notice: () => null,
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(
+    ZogographNetworkRdnsCard,
+    'core-network-rdns',
+    {},
+    helpers,
+  );
+  const title = document.querySelector('[data-i18n="core-network-rdns.title"]');
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-network-rdns.title',
+    ZogographNetworkRdnsCard.text('title', helpers),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderNetworkRdnsTitle);
+
 /**
  * When the disk is projected to fill, as a date.
  *

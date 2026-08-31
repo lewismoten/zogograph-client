@@ -17,6 +17,7 @@ window.ZogographNetworkRdnsCard = {
     ],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-network-rdns.title': 'What the internet calls an address',
         'core-network-rdns.released':
           '{{count, number}} requests had been taken by a collector that never came back — a run killed mid-lookup — and have been put back in the queue.',
         'core-network-rdns.queue_heading':
@@ -30,6 +31,7 @@ window.ZogographNetworkRdnsCard = {
         'core-network-rdns.looked_up': '{{count, number}} addresses looked up',
       }),
       es: Object.freeze({
+        'core-network-rdns.title': 'Cómo llama Internet a una dirección',
         'core-network-rdns.released':
           '{{count, number}} solicitudes fueron tomadas por un recolector que no volvió y se han devuelto a la cola.',
         'core-network-rdns.queue_heading':
@@ -44,6 +46,7 @@ window.ZogographNetworkRdnsCard = {
           '{{count, number}} direcciones consultadas',
       }),
       hi: Object.freeze({
+        'core-network-rdns.title': 'इंटरनेट किसी पते को क्या कहता है',
         'core-network-rdns.released':
           '{{count, number}} अनुरोध ऐसे कलेक्टर ने लिए थे जो वापस नहीं आया; उन्हें कतार में वापस रखा गया है।',
         'core-network-rdns.queue_heading':
@@ -57,6 +60,7 @@ window.ZogographNetworkRdnsCard = {
         'core-network-rdns.looked_up': '{{count, number}} पते देखे गए',
       }),
       ar: Object.freeze({
+        'core-network-rdns.title': 'ما الذي يسميه الإنترنت عنوانًا',
         'core-network-rdns.released':
           'أُعيد {{count, number}} طلبًا إلى الطابور بعد أن أخذه جامع لم يعد.',
         'core-network-rdns.queue_heading':
@@ -70,6 +74,7 @@ window.ZogographNetworkRdnsCard = {
         'core-network-rdns.looked_up': 'تم البحث عن {{count, number}} عناوين',
       }),
       zh: Object.freeze({
+        'core-network-rdns.title': '互联网如何称呼一个地址',
         'core-network-rdns.released':
           '{{count, number}} 个请求曾被未返回的采集器取走，现已放回队列。',
         'core-network-rdns.queue_heading':
@@ -84,6 +89,14 @@ window.ZogographNetworkRdnsCard = {
       }),
     }),
   }),
+
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-network-rdns.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-network-rdns.${key}`],
+    );
+  },
 
   render(data, helpers) {
     const {

@@ -42412,6 +42412,10 @@ $('pollState').addEventListener('click', () => {
  */
 function showPendingDialog() {
   const nodes = [];
+  const pendingText = (key, values = {}) =>
+    ZogographPendingHostTasksCard.text(key, values, {
+      i18n: ZogographI18n,
+    });
 
   for (const row of pendingState.rows) {
     const item = document.createElement('div');
@@ -42423,17 +42427,14 @@ function showPendingDialog() {
 
     const when = document.createElement('div');
     when.className = 'muted small';
-    when.textContent = ZogographI18n.t(
+    when.textContent = pendingText(
       hostClock.lastAt && hostClock.interval
-        ? 'host_request.asked_with_cadence'
-        : 'host_request.asked_unknown_cadence',
+        ? 'asked_with_cadence'
+        : 'asked_unknown_cadence',
       {
         time: ago(row.requested_at),
         cadence: humanDuration(hostClock.interval),
       },
-      hostClock.lastAt && hostClock.interval
-        ? `Asked ${ago(row.requested_at)}. The collector runs about every ${humanDuration(hostClock.interval)}.`
-        : `Asked ${ago(row.requested_at)}. The collector's schedule is not known yet.`,
     );
     item.appendChild(when);
 
@@ -42443,11 +42444,9 @@ function showPendingDialog() {
     if (row.view && VIEWS[row.view]) {
       const go = document.createElement('button');
       go.className = 'link';
-      go.textContent = ZogographI18n.t(
-        'host_request.where_it_will_appear',
-        { view: VIEWS[row.view].label },
-        `Where it will appear: ${VIEWS[row.view].label}`,
-      );
+      go.textContent = pendingText('where_it_will_appear', {
+        view: VIEWS[row.view].label,
+      });
       go.addEventListener('click', () => {
         $('listDialog').close();
         showView(row.view);

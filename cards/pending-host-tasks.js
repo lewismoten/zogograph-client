@@ -13,6 +13,12 @@ window.ZogographPendingHostTasksCard = {
           '{{requests}} waiting. The collector has run since they were asked for ({{last}}) without answering them, which usually means it cannot do what was asked rather than that it has not got to it yet.',
         'core-pending-host-tasks.waiting':
           '{{requests}} waiting for root’s collector, which last ran {{last}}. The countdown is at the top of the page.',
+        'core-pending-host-tasks.where_it_will_appear':
+          'Where it will appear: {{view}}',
+        'core-pending-host-tasks.asked_with_cadence':
+          'Asked {{time}}. The collector runs about every {{cadence}}.',
+        'core-pending-host-tasks.asked_unknown_cadence':
+          "Asked {{time}}. The collector's schedule is not known yet.",
       }),
       es: Object.freeze({
         'core-pending-host-tasks.never_ran':
@@ -23,6 +29,12 @@ window.ZogographPendingHostTasksCard = {
           '{{requests}} en espera. El recopilador se ha ejecutado desde que se solicitaron ({{last}}) sin responderlas, lo que normalmente significa que no puede hacer lo pedido y no que aún no haya llegado a ello.',
         'core-pending-host-tasks.waiting':
           '{{requests}} en espera del recopilador de root, que se ejecutó por última vez {{last}}. La cuenta atrás está en la parte superior de la página.',
+        'core-pending-host-tasks.where_it_will_appear':
+          'Dónde aparecerá: {{view}}',
+        'core-pending-host-tasks.asked_with_cadence':
+          'Se solicitó {{time}}. El recolector se ejecuta aproximadamente cada {{cadence}}.',
+        'core-pending-host-tasks.asked_unknown_cadence':
+          'Se solicitó {{time}}. Aún no se conoce la programación del recolector.',
       }),
       hi: Object.freeze({
         'core-pending-host-tasks.never_ran':
@@ -33,6 +45,12 @@ window.ZogographPendingHostTasksCard = {
           '{{requests}} प्रतीक्षा में हैं। कलेक्टर इनके अनुरोध के बाद ({{last}}) चला है पर उत्तर नहीं दिया, जिसका अर्थ आमतौर पर यह है कि वह माँगा गया काम नहीं कर सकता, न कि वह अभी तक वहाँ पहुँचा नहीं है।',
         'core-pending-host-tasks.waiting':
           '{{requests}} root के कलेक्टर की प्रतीक्षा में हैं, जो आखिरी बार {{last}} चला था। उलटी गिनती पृष्ठ के शीर्ष पर है।',
+        'core-pending-host-tasks.where_it_will_appear':
+          'यहाँ दिखाई देगा: {{view}}',
+        'core-pending-host-tasks.asked_with_cadence':
+          '{{time}} अनुरोध किया गया। कलेक्टर लगभग हर {{cadence}} चलता है।',
+        'core-pending-host-tasks.asked_unknown_cadence':
+          '{{time}} अनुरोध किया गया। कलेक्टर का शेड्यूल अभी ज्ञात नहीं है।',
       }),
       ar: Object.freeze({
         'core-pending-host-tasks.never_ran':
@@ -43,6 +61,11 @@ window.ZogographPendingHostTasksCard = {
           '{{requests}} قيد الانتظار. شغّل الجامع منذ طلبها ({{last}}) دون الإجابة عنها، وهذا يعني عادة أنه لا يستطيع فعل المطلوب لا أنه لم يصل إليه بعد.',
         'core-pending-host-tasks.waiting':
           '{{requests}} بانتظار جامع root، الذي شُغّل آخر مرة {{last}}. العد التنازلي في أعلى الصفحة.',
+        'core-pending-host-tasks.where_it_will_appear': 'مكان ظهوره: {{view}}',
+        'core-pending-host-tasks.asked_with_cadence':
+          'طُلب {{time}}. يعمل الجامع كل {{cadence}} تقريبًا.',
+        'core-pending-host-tasks.asked_unknown_cadence':
+          'طُلب {{time}}. جدول الجامع غير معروف بعد.',
       }),
       zh: Object.freeze({
         'core-pending-host-tasks.never_ran':
@@ -53,9 +76,23 @@ window.ZogographPendingHostTasksCard = {
           '{{requests}} 个请求正在等待。收集器自请求提出后（{{last}}）已运行但没有答复，这通常表示它无法完成所请求的任务，而不是尚未处理到它。',
         'core-pending-host-tasks.waiting':
           '{{requests}} 个请求正在等待 root 收集器，其最后一次运行于 {{last}}。倒计时位于页面顶部。',
+        'core-pending-host-tasks.where_it_will_appear':
+          '将在此处显示：{{view}}',
+        'core-pending-host-tasks.asked_with_cadence':
+          '请求于 {{time}} 提出。收集器大约每 {{cadence}} 运行一次。',
+        'core-pending-host-tasks.asked_unknown_cadence':
+          '请求于 {{time}} 提出。尚不清楚收集器的计划。',
       }),
     }),
   }),
+  text(key, values, helpers) {
+    const localeKey = `core-pending-host-tasks.${key}`;
+    return helpers.i18n.t(
+      localeKey,
+      values,
+      this.manifest.catalogs.en[localeKey],
+    );
+  },
   render(data, helpers) {
     const waiting = (data.tasks || []).filter((task) => task.pending);
     if (!waiting.length) return document.createDocumentFragment();

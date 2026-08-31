@@ -36762,35 +36762,29 @@ function openEventForm(row = null) {
 
 const fetchState = { data: null, showing: 'headers', images: false };
 
+const fetchResponseText = (key, values = {}) =>
+  renderCoreCardPackage(
+    window.ZogographFetchResponseCard,
+    'core-fetch-response',
+    { key, values },
+    { i18n: ZogographI18n },
+  );
+
 async function refreshFetch(params = null) {
   const body = $('fetchBody');
   if (!state.signedIn) {
-    body.replaceChildren(
-      note(
-        ZogographI18n.t(
-          'fetch.sign_in_request',
-          {},
-          'Sign in to make a request.',
-        ),
-      ),
-    );
+    body.replaceChildren(note(fetchResponseText('sign_in_request')));
     return;
   }
 
   if (params === null) {
     if (!fetchState.data)
-      body.replaceChildren(
-        note(
-          ZogographI18n.t('fetch.type_address', {}, 'Type an address above.'),
-        ),
-      );
+      body.replaceChildren(note(fetchResponseText('type_address')));
     else renderFetch(fetchState.data);
     return;
   }
 
-  body.replaceChildren(
-    spinner(ZogographI18n.t('fetch.asking', {}, 'Asking\u2026')),
-  );
+  body.replaceChildren(spinner(fetchResponseText('asking')));
 
   let data;
   try {
@@ -36808,23 +36802,17 @@ function renderFetch(data) {
   const body = $('fetchBody');
 
   if (!data.asked) {
-    body.replaceChildren(
-      note(ZogographI18n.t('fetch.type_address', {}, 'Type an address above.')),
-    );
+    body.replaceChildren(note(fetchResponseText('type_address')));
     return;
   }
 
   if (!data.ok) {
     body.replaceChildren(
       note(
-        ZogographI18n.t(
-          'fetch.no_response',
-          {
-            ms: data.ms,
-            error: data.error,
-          },
-          'Nothing came back after {{ms, number}} ms: {{error}}',
-        ),
+        fetchResponseText('no_response', {
+          ms: data.ms,
+          error: data.error,
+        }),
       ),
     );
     return;
@@ -36833,33 +36821,24 @@ function renderFetch(data) {
   const parts = [];
 
   const facts = [
-    [ZogographI18n.t('fetch.status', {}, 'Status'), String(data.status)],
+    [fetchResponseText('status'), String(data.status)],
+    [fetchResponseText('took'), fetchResponseText('took_ms', { ms: data.ms })],
+    [fetchResponseText('method'), data.method],
     [
-      ZogographI18n.t('fetch.took', {}, 'Took'),
-      ZogographI18n.t('fetch.took_ms', { ms: data.ms }, '{{ms, number}} ms'),
-    ],
-    [ZogographI18n.t('fetch.method', {}, 'Method'), data.method],
-    [
-      ZogographI18n.t('fetch.body', {}, 'Body'),
+      fetchResponseText('body'),
       `${humanBytes(data.bytes)}${data.content_type ? ' \u00b7 ' + data.content_type : ''}`,
     ],
   ];
   if (data.hops > 0) {
     facts.push([
-      ZogographI18n.t('fetch.redirects', {}, 'Redirects'),
-      ZogographI18n.t(
-        'fetch.redirected_to',
-        { count: data.hops, landed: data.landed },
-        '{{count, number}} redirects \u2014 ended at {{landed}}',
-      ),
+      fetchResponseText('redirects'),
+      fetchResponseText('redirected_to', {
+        count: data.hops,
+        landed: data.landed,
+      }),
     ]);
   }
-  parts.push(
-    section(
-      ZogographI18n.t('fetch.response', {}, 'The response'),
-      factGrid(facts),
-    ),
-  );
+  parts.push(section(fetchResponseText('response'), factGrid(facts)));
 
   const availableViews = ['headers', 'raw'];
   if (data.previewable) availableViews.push('preview');

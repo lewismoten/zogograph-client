@@ -340,6 +340,7 @@ i18nExpect(
 );
 i18nExpect(
     $page !== false &&
+        str_contains($page, 'src="cards/fetch-response.js"') &&
         str_contains($page, 'src="cards/url-monitor-actions.js"') &&
         str_contains($page, 'src="cards/url-monitor-status.js"') &&
         str_contains($page, 'src="cards/url-monitor-history.js"') &&
@@ -350,6 +351,16 @@ i18nExpect(
             $english['url.history_summary'],
         ),
     'URL monitor action, status, and history locales belong to card packages',
+);
+i18nExpect(
+    !isset(
+        $english['fetch.sign_in_request'],
+        $english['fetch.type_address'],
+        $english['fetch.asking'],
+        $english['fetch.no_response'],
+        $english['fetch.response'],
+    ),
+    'fetch response locales belong to its card package',
 );
 i18nExpect(
     !isset(

@@ -9,7 +9,6 @@ window.ZogographCpuTimeCard = {
       'tableTarget',
       'renderTable',
       'bandOf',
-      'cpuStateLabel',
       'cpuStateMeaning',
       'emptyMessage',
       'i18n',
@@ -23,6 +22,14 @@ window.ZogographCpuTimeCard = {
         'core-cpu-time.now': 'Now',
         'core-cpu-time.what_it_means': 'What it means',
         'core-cpu-time.cores_unknown': 'cores unknown',
+        'core-cpu-time.state_label.steal': 'Stolen by the host',
+        'core-cpu-time.state_label.iowait': 'Waiting for storage',
+        'core-cpu-time.state_label.softirq': 'Deferred interrupt work',
+        'core-cpu-time.state_label.irq': 'Hardware interrupts',
+        'core-cpu-time.state_label.system': 'Kernel, for a process',
+        'core-cpu-time.state_label.user': 'Userland',
+        'core-cpu-time.state_label.nice': 'Userland, low priority',
+        'core-cpu-time.state_label.idle': 'Idle',
         'core-cpu-time.cores_count':
           '{{count}} core{{count, plural, one {} other {s}}}',
         'core-cpu-time.time_verdict_spread':
@@ -50,6 +57,14 @@ window.ZogographCpuTimeCard = {
         'core-cpu-time.now': 'Ahora',
         'core-cpu-time.what_it_means': 'Qué significa',
         'core-cpu-time.cores_unknown': 'núcleos desconocidos',
+        'core-cpu-time.state_label.steal': 'Robado por el host',
+        'core-cpu-time.state_label.iowait': 'Esperando almacenamiento',
+        'core-cpu-time.state_label.softirq': 'Trabajo de interrupción diferida',
+        'core-cpu-time.state_label.irq': 'Interrupciones de hardware',
+        'core-cpu-time.state_label.system': 'Kernel, para un proceso',
+        'core-cpu-time.state_label.user': 'Espacio de usuario',
+        'core-cpu-time.state_label.nice': 'Espacio de usuario, baja prioridad',
+        'core-cpu-time.state_label.idle': 'Inactivo',
         'core-cpu-time.cores_count':
           '{{count}} núcleo{{count, plural, one {} other {s}}}',
         'core-cpu-time.time_verdict_spread':
@@ -78,6 +93,14 @@ window.ZogographCpuTimeCard = {
         'core-cpu-time.now': 'अभी',
         'core-cpu-time.what_it_means': 'इसका अर्थ',
         'core-cpu-time.cores_unknown': 'कोर अज्ञात',
+        'core-cpu-time.state_label.steal': 'होस्ट द्वारा लिया गया',
+        'core-cpu-time.state_label.iowait': 'स्टोरेज की प्रतीक्षा',
+        'core-cpu-time.state_label.softirq': 'स्थगित इंटरप्ट कार्य',
+        'core-cpu-time.state_label.irq': 'हार्डवेयर इंटरप्ट',
+        'core-cpu-time.state_label.system': 'प्रोसेस के लिए कर्नेल',
+        'core-cpu-time.state_label.user': 'यूज़र स्पेस',
+        'core-cpu-time.state_label.nice': 'यूज़र स्पेस, निम्न प्राथमिकता',
+        'core-cpu-time.state_label.idle': 'निष्क्रिय',
         'core-cpu-time.cores_count': '{{count}} कोर',
         'core-cpu-time.time_verdict_spread':
           'प्रतिशत सभी {{cores}} का कुल है, इसलिए 100% पूरी मशीन व्यस्त है।',
@@ -102,6 +125,14 @@ window.ZogographCpuTimeCard = {
         'core-cpu-time.now': 'الآن',
         'core-cpu-time.what_it_means': 'ما يعنيه',
         'core-cpu-time.cores_unknown': 'عدد النوى غير معروف',
+        'core-cpu-time.state_label.steal': 'استولى عليه المضيف',
+        'core-cpu-time.state_label.iowait': 'ينتظر التخزين',
+        'core-cpu-time.state_label.softirq': 'عمل مقاطعة مؤجل',
+        'core-cpu-time.state_label.irq': 'مقاطعات العتاد',
+        'core-cpu-time.state_label.system': 'النواة، نيابة عن عملية',
+        'core-cpu-time.state_label.user': 'مساحة المستخدم',
+        'core-cpu-time.state_label.nice': 'مساحة المستخدم، أولوية منخفضة',
+        'core-cpu-time.state_label.idle': 'خامل',
         'core-cpu-time.cores_count': '{{count}} نواة',
         'core-cpu-time.time_verdict_spread':
           'النسب تخص {{cores}} كلها معاً، لذا تعني 100٪ انشغال الآلة كاملة.',
@@ -125,6 +156,14 @@ window.ZogographCpuTimeCard = {
         'core-cpu-time.now': '现在',
         'core-cpu-time.what_it_means': '含义',
         'core-cpu-time.cores_unknown': '核心数未知',
+        'core-cpu-time.state_label.steal': '被主机占用',
+        'core-cpu-time.state_label.iowait': '正在等待存储',
+        'core-cpu-time.state_label.softirq': '延迟中断处理',
+        'core-cpu-time.state_label.irq': '硬件中断',
+        'core-cpu-time.state_label.system': '内核（代表进程）',
+        'core-cpu-time.state_label.user': '用户态',
+        'core-cpu-time.state_label.nice': '低优先级用户态',
+        'core-cpu-time.state_label.idle': '空闲',
         'core-cpu-time.cores_count': '{{count}} 个核心',
         'core-cpu-time.time_verdict_spread':
           '百分比是所有 {{cores}} 合计的结果，因此 100% 表示整台机器都被占用。',
@@ -152,11 +191,19 @@ window.ZogographCpuTimeCard = {
       tableTarget,
       renderTable,
       bandOf,
-      cpuStateLabel,
       cpuStateMeaning,
       emptyMessage,
       i18n,
     } = helpers;
+    const stateLabel = (meta) => {
+      const key = String(meta?.short || '').trim();
+      return key
+        ? i18n.t(`core-cpu-time.state_label.${key}`, {}, meta.label)
+        : meta.label;
+    };
+    const chartLabels = Object.fromEntries(
+      Object.entries(states).map(([key, meta]) => [key, stateLabel(meta)]),
+    );
     const bands = {
       steal: [5, 20],
       iowait: [15, 35],
@@ -178,7 +225,7 @@ window.ZogographCpuTimeCard = {
           ? bandOf(value, bands[key][0], bands[key][1])
           : null;
         setCard(
-          cpuStateLabel(meta),
+          stateLabel(meta),
           Number.isFinite(value) ? `${value.toFixed(1)}%` : '—',
           average == null
             ? ''
@@ -192,12 +239,12 @@ window.ZogographCpuTimeCard = {
       }
     }
     if (now && note) note.textContent = cpuTimeVerdict(now, cores, i18n);
-    if (!tableTarget) return;
+    if (!tableTarget) return { chartLabels };
     renderTable(
       tableTarget.id,
       Object.entries(states).map(([key, meta]) => ({
         key,
-        label: cpuStateLabel(meta),
+        label: stateLabel(meta),
         now: now ? Number(now[key]) : null,
         what: cpuStateMeaning(meta),
       })),
@@ -225,6 +272,7 @@ window.ZogographCpuTimeCard = {
         },
       ],
     );
+    return { chartLabels };
   },
 };
 

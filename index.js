@@ -1232,7 +1232,7 @@ function collectorInstructions(holder, data) {
 function renderCpuTime(data) {
   const now = data.now;
   const states = data.states ?? {};
-  renderCoreCardPackage(
+  const cpuTime = renderCoreCardPackage(
     ZogographCpuTimeCard,
     'core-cpu-time',
     {
@@ -1248,7 +1248,6 @@ function renderCpuTime(data) {
       tableTarget: $('cpuStateTable'),
       renderTable,
       bandOf,
-      cpuStateLabel,
       cpuStateMeaning,
       emptyMessage: cpuEmptyWhy(data) + '.',
       i18n: ZogographI18n,
@@ -1263,16 +1262,12 @@ function renderCpuTime(data) {
       // plotting it adds a line that carries no information and dominates the
       // chart on any machine that is not in trouble.
       .filter(([key]) => key !== 'idle')
-      .map(([key, meta]) => ({ key, label: cpuStateLabel(meta) })),
+      .map(([key, meta]) => ({
+        key,
+        label: cpuTime?.chartLabels?.[key] ?? meta.label,
+      })),
     { axis: percentAxis, zeroBased: true, empty: cpuEmptyWhy(data) },
   );
-}
-
-function cpuStateLabel(meta) {
-  const key = String(meta?.short || '').trim();
-  return key
-    ? ZogographI18n.t(`cpu.state_label.${key}`, {}, meta.label)
-    : meta.label;
 }
 
 function cpuStateMeaning(meta) {

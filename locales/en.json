@@ -989,7 +989,6 @@
   "action.reclaim_empty_space": "Reclaim empty space",
   "action.checking": "Checking…",
   "action.check_now": "Check now",
-  "changed.checked": "Checked. Anything that moved since last time is listed above.",
   "installed.system_software_tip": "Part of the system software",
   "installed.watched_program_tip": "A program this tool watches{{group}}",
   "installed.fingerprint_change_tip": "This program offers no readable version, so the change was noticed by the file being different. It says something moved, not what.",

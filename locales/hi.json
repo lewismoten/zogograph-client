@@ -1010,7 +1010,6 @@
   "action.reclaim_empty_space": "खाली स्थान वापस लें",
   "action.checking": "जाँच हो रही है…",
   "action.check_now": "अभी जाँचें",
-  "changed.checked": "जाँच हो गई। पिछली बार से बदली हर चीज़ ऊपर सूचीबद्ध है।",
   "action.testing": "जाँच हो रही है…",
   "action.test_connection": "कनेक्शन जाँचें",
   "unit.percent": "%",

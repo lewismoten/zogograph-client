@@ -40940,11 +40940,9 @@ $('changedCheck').addEventListener('click', async () => {
     await post('check-capabilities', { versions: '1' });
     await refreshChanged();
     notice(
-      ZogographI18n.t(
-        'changed.checked',
-        {},
-        'Checked. Anything that moved since last time is listed above.',
-      ),
+      ZogographChangeHistoryCard.text('checked', {
+        i18n: ZogographI18n,
+      }),
       true,
     );
   } catch (error) {

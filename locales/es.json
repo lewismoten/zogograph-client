@@ -1012,7 +1012,6 @@
   "action.reclaim_empty_space": "Recuperar espacio vacío",
   "action.checking": "Comprobando…",
   "action.check_now": "Comprobar ahora",
-  "changed.checked": "Comprobado. Todo lo que cambió desde la última vez aparece arriba.",
   "action.testing": "Probando…",
   "action.test_connection": "Probar la conexión",
   "unit.percent": "%",

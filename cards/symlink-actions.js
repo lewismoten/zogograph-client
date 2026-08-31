@@ -35,6 +35,8 @@ window.ZogographSymlinkActionsCard = {
           'Now points at {{target}}. That is not there yet, which may be deliberate.',
         'core-symlink-actions.remove': 'Remove',
         'core-symlink-actions.remove_title': 'Delete the link itself',
+        'core-symlink-actions.remove_confirm':
+          'Delete the link {{path}}?\n\nOnly the link is removed. Whatever it points at is not touched.',
       }),
       es: Object.freeze({
         'core-symlink-actions.group': 'Acciones de enlace',
@@ -60,6 +62,8 @@ window.ZogographSymlinkActionsCard = {
           'Ahora apunta a {{target}}. Aún no existe, lo que puede ser intencional.',
         'core-symlink-actions.remove': 'Eliminar',
         'core-symlink-actions.remove_title': 'Eliminar el propio enlace',
+        'core-symlink-actions.remove_confirm':
+          '¿Eliminar el enlace {{path}}?\n\nSolo se elimina el enlace. Lo que señala no se toca.',
       }),
       hi: Object.freeze({
         'core-symlink-actions.group': 'लिंक कार्रवाइयाँ',
@@ -84,6 +88,8 @@ window.ZogographSymlinkActionsCard = {
           'अब {{target}} पर इंगित करता है। वह अभी मौजूद नहीं है, जो जानबूझकर हो सकता है।',
         'core-symlink-actions.remove': 'हटाएँ',
         'core-symlink-actions.remove_title': 'लिंक को ही हटाएँ',
+        'core-symlink-actions.remove_confirm':
+          'क्या लिंक {{path}} को हटाएँ?\n\nकेवल लिंक हटाया जाएगा। जिस पर वह इंगित करता है उसे नहीं छुआ जाएगा।',
       }),
       ar: Object.freeze({
         'core-symlink-actions.group': 'إجراءات الرابط',
@@ -108,6 +114,8 @@ window.ZogographSymlinkActionsCard = {
           'يشير الآن إلى {{target}}. هذا غير موجود بعد، وقد يكون ذلك مقصودًا.',
         'core-symlink-actions.remove': 'إزالة',
         'core-symlink-actions.remove_title': 'احذف الرابط نفسه',
+        'core-symlink-actions.remove_confirm':
+          'هل تريد حذف الرابط {{path}}؟\n\nسيُحذف الرابط فقط. ولن يُمس ما يشير إليه.',
       }),
       zh: Object.freeze({
         'core-symlink-actions.group': '链接操作',
@@ -130,6 +138,8 @@ window.ZogographSymlinkActionsCard = {
           '现指向 {{target}}。该位置尚不存在，这可能是有意的。',
         'core-symlink-actions.remove': '移除',
         'core-symlink-actions.remove_title': '删除链接本身',
+        'core-symlink-actions.remove_confirm':
+          '要删除链接 {{path}} 吗？\n\n只会移除链接。其指向的内容不会被触及。',
       }),
     }),
   }),
@@ -240,7 +250,7 @@ window.ZogographSymlinkActionsCard = {
         if (
           await confirm(
             t(
-              'storage.link_remove_confirm',
+              'core-symlink-actions.remove_confirm',
               { path: row.path },
               `Delete the link ${row.path}?\n\nOnly the link is removed. Whatever it points at is not touched.`,
             ),

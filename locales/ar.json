@@ -460,7 +460,6 @@
   "storage.link_sweep_left_alone": "تُركت {{count}} روابط كما هي.",
   "storage.link_sweep_preview": "توجد {{matched}} روابط بها مشكلة تحت ذلك المسار. ستُزال {{deleted}} روابط معطلة.",
   "storage.link_sweep_preview_skipped": "توجد {{matched}} روابط بها مشكلة تحت ذلك المسار. ستُزال {{deleted}} روابط معطلة وتُترك {{skipped}} ذات مشكلات أخرى — لا يُزال رابط حلقي أو هروب بناء على مسار وحده أبدًا.",
-  "storage.link_remove_confirm": "هل تريد حذف الرابط {{path}}؟\n\nسيُحذف الرابط فقط. ولن يُمس ما يشير إليه.",
   "storage.link_sweep_failed_reason": "تعذر إزالة {{count}} روابط: {{reason}}.",
   "storage.link_sweep_capped": "الحد هو {{deleted}} روابط في المرة الواحدة. ستبقى {{remaining}} أخرى — شغّله مجددًا.",
   "storage.link_sweep_showing_first": "يُعرض أول 200 من {{count}}.",

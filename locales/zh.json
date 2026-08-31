@@ -460,7 +460,6 @@
   "storage.link_sweep_left_alone": "已保留 {{count}} 个链接。",
   "storage.link_sweep_preview": "该路径下有 {{matched}} 个有问题的链接。将移除 {{deleted}} 个损坏链接。",
   "storage.link_sweep_preview_skipped": "该路径下有 {{matched}} 个有问题的链接。将移除 {{deleted}} 个损坏链接，而 {{skipped}} 个有其他问题的链接会保持不变——绝不会只根据路径移除循环或逃逸链接。",
-  "storage.link_remove_confirm": "要删除链接 {{path}} 吗？\n\n只会移除链接。其指向的内容不会被触及。",
   "storage.link_sweep_failed_reason": "无法移除 {{count}} 个链接：{{reason}}。",
   "storage.link_sweep_capped": "单次最多 {{deleted}} 个链接。还会剩下 {{remaining}} 个——请再次运行。",
   "storage.link_sweep_showing_first": "显示 {{count}} 个中的前 200 个。",

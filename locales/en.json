@@ -9,7 +9,6 @@
   "common.refresh_failed": "Could not refresh",
   "common.ready": "Ready",
   "common.sign_in_to_see": "Sign in to see this.",
-  "network.bytes": "Bytes",
   "setup.instructions_sign_in": "Sign in to see the setup instructions.",
   "action.open": "Open",
   "action.request_capture": "Ask for a capture",

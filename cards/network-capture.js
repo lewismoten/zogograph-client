@@ -696,7 +696,7 @@ window.ZogographNetworkCaptureCard = {
               t('network.port', {}, 'Port'),
               t('network.packets', {}, 'Packets'),
               t('network.share', {}, 'Share'),
-              t('network.bytes', {}, 'Bytes'),
+              t('core-network-capture.bytes', {}, 'Bytes'),
               t('network.usually', {}, 'Usually'),
             ],
             capture.ports

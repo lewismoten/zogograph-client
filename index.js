@@ -34965,8 +34965,9 @@ function renderUrls(data) {
         render: (row) => {
           const wrap = document.createDocumentFragment();
 
-          for (const [text, title, run] of [
+          for (const [key, text, title, run] of [
             [
+              'history',
               'History',
               "Show this check's history below",
               () => {
@@ -34977,35 +34978,62 @@ function renderUrls(data) {
               },
             ],
             [
+              'check',
               'Check',
               'Run it now',
               async () => {
                 const result = await post('url-run', { id: row.id });
                 notice(
                   result.result.ok
-                    ? `${row.label}: answered ${result.result.status} in ${result.result.ms} ms.`
-                    : `${row.label}: ${result.result.error || 'failed'}.`,
+                    ? ZogographI18n.t(
+                        'url.checked_now',
+                        {
+                          label: row.label,
+                          status: result.result.status,
+                          ms: result.result.ms,
+                        },
+                        '{{label}}: answered {{status}} in {{ms}} ms.',
+                      )
+                    : ZogographI18n.t(
+                        'url.check_failed',
+                        {
+                          label: row.label,
+                          detail: result.result.error || 'failed',
+                        },
+                        '{{label}}: {{detail}}.',
+                      ),
                   result.result.ok,
                 );
                 renderUrls(result);
               },
             ],
             [
+              row.enabled ? 'pause' : 'resume',
               row.enabled ? 'Pause' : 'Resume',
               row.enabled
                 ? 'Stop checking, keeping the history'
                 : 'Start checking again',
               async () => renderUrls(await post('url-toggle', { id: row.id })),
             ],
-            ['Edit', 'Change how it is checked', () => openUrlForm(row)],
             [
+              'edit',
+              'Edit',
+              'Change how it is checked',
+              () => openUrlForm(row),
+            ],
+            [
+              'remove',
               'Remove',
               'Stop watching it and discard its history',
               async () => {
                 if (
                   !(await confirmDialog(
-                    `Stop watching ${row.label}? Its history goes with it.`,
-                    'Stop watching',
+                    ZogographI18n.t(
+                      'url.remove_confirmation',
+                      { label: row.label },
+                      'Stop watching {{label}}? Its history goes with it.',
+                    ),
+                    ZogographI18n.t('url.remove_title', {}, 'Stop watching'),
                   ))
                 )
                   return;
@@ -35014,11 +35042,11 @@ function renderUrls(data) {
             ],
           ]) {
             const button = document.createElement('button');
-            button.className = text === 'Remove' ? 'link danger' : 'link';
-            button.textContent = text;
-            button.title = title;
+            button.className = key === 'remove' ? 'link danger' : 'link';
+            button.textContent = ZogographI18n.t(`url.${key}`, {}, text);
+            button.title = ZogographI18n.t(`url.${key}_help`, {}, title);
             if (
-              text === 'History' &&
+              key === 'history' &&
               Number(urlState.selected) === Number(row.id)
             ) {
               button.disabled = true;

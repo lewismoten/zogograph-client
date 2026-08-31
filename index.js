@@ -19508,31 +19508,12 @@ const TERMINAL_TO_CHAT = 24000;
  * error, which is almost always the point.
  */
 async function sendOutputToChat(data) {
-  let text = termState.text;
-  let note = '';
-
-  if (text.length > TERMINAL_TO_CHAT) {
-    const half = Math.floor(TERMINAL_TO_CHAT / 2);
-    const dropped = text.length - TERMINAL_TO_CHAT;
-    text =
-      text.slice(0, half) +
-      `\n\n… ${humanCount(dropped)} characters from the middle are not shown …\n\n` +
-      text.slice(-half);
-    note = ` The middle was left out; ${humanBytes(data.size)} in total.`;
-  }
-
-  const message =
-    `I ran this in the terminal:\n\n$ ${data.command}\n\n` +
-    `It ${
-      data.running
-        ? 'is still going'
-        : data.timed_out
-          ? 'hit the time limit'
-          : data.stopped_by
-            ? 'was stopped'
-            : 'finished'
-    }` +
-    ` after ${humanSpan(data.ran_for, true)}.${note}\n\nOutput:\n\n${text}`;
+  const message = renderCoreCardPackage(
+    ZogographTerminalChatTransferCard,
+    'core-terminal-chat-transfer',
+    { data, limit: TERMINAL_TO_CHAT, text: termState.text },
+    { humanCount, humanBytes, humanSpan, i18n: ZogographI18n },
+  );
 
   openChat();
   await sayToChat(message);

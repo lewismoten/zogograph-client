@@ -32455,51 +32455,10 @@ function renderPending(rows) {
   }
 
   banner.hidden = false;
-
-  if (window.ZogographPendingWorkCard) {
-    renderCoreCardPackage(ZogographPendingWorkCard, 'core-pending-work', here, {
-      target: banner,
-      i18n: ZogographI18n,
-    });
-    cancelAnimationFrame(pendingState.raf);
-    tickPending();
-    return;
-  }
-
-  const frag = document.createDocumentFragment();
-  for (const row of here) {
-    const item = document.createElement('div');
-    item.className = 'pending-item';
-    item.dataset.task = row.task;
-
-    const head = document.createElement('div');
-    head.className = 'pending-head';
-
-    const what = document.createElement('strong');
-    what.textContent = ZogographI18n.t(
-      'pending.waiting_on_root',
-      { label: row.label },
-      'Waiting on root for {{label}}',
-    );
-    head.appendChild(what);
-
-    const when = document.createElement('span');
-    when.className = 'pending-when muted small';
-    head.appendChild(when);
-
-    item.appendChild(head);
-
-    const track = document.createElement('div');
-    track.className = 'pending-track';
-    const fill = document.createElement('div');
-    fill.className = 'pending-fill';
-    track.appendChild(fill);
-    item.appendChild(track);
-
-    frag.appendChild(item);
-  }
-  banner.replaceChildren(frag);
-
+  renderCoreCardPackage(ZogographPendingWorkCard, 'core-pending-work', here, {
+    target: banner,
+    i18n: ZogographI18n,
+  });
   cancelAnimationFrame(pendingState.raf);
   tickPending();
 }

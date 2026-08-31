@@ -906,8 +906,9 @@ i18nExpect(
         str_contains(
             $script,
             'renderCoreCardPackage(ZogographPendingWorkCard, "core-pending-work",',
-        ),
-    'pending work is not isolated behind its core card-module boundary',
+        ) &&
+        !str_contains($script, 'if (window.ZogographPendingWorkCard)'),
+    'pending work retains a core fallback instead of its package boundary',
 );
 i18nExpect(
     $page !== false &&
@@ -3706,10 +3707,11 @@ i18nExpect(
 );
 i18nExpect(
     $script !== false &&
-        str_contains($script, 'pending.waiting_on_root') &&
+        $pendingWorkCard !== false &&
+        str_contains($pendingWorkCard, '"core-pending-work.waiting"') &&
         str_contains($script, 'pending.collector_overdue') &&
         str_contains($script, 'pending.ready'),
-    'host request status retains direct user-visible text',
+    'host request status retains a core-owned pending-work label',
 );
 i18nExpect(
     $script !== false &&

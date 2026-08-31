@@ -2163,15 +2163,15 @@ i18nExpect(
 );
 i18nExpect(
     $page !== false &&
-        str_contains($page, 'data-i18n="storage.host_logs_title"') &&
+        str_contains($page, 'data-i18n="core-host-logs.title"') &&
         str_contains($page, 'data-i18n="storage.check_again"') &&
         str_contains($page, 'data-i18n="storage.host_logs_help"') &&
         is_array($english) &&
         isset(
-            $english['storage.host_logs_title'],
             $english['storage.check_again'],
             $english['storage.host_logs_help'],
-        ),
+        ) &&
+        isset($coreCardEnglish['core-host-logs.title']),
     'Storage host-log guidance does not use the locale catalog',
 );
 i18nExpect(

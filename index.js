@@ -2154,6 +2154,26 @@ function renderPathHygieneLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderPathHygieneLabels);
 
+function renderHostLogLabels() {
+  const helpers = {
+    target: null,
+    renderTable: () => null,
+    humanBytes: () => '',
+    humanTime: () => '',
+    view: () => null,
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(ZogographHostLogsCard, 'core-host-logs', [], helpers);
+  const title = document.querySelector('[data-i18n="core-host-logs.title"]');
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-host-logs.title',
+    ZogographHostLogsCard.text('title', helpers),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderHostLogLabels);
+
 /**
  * When the disk is projected to fill, as a date.
  *

@@ -1984,7 +1984,6 @@
   "chart.everything_else_count": "Everything else ({{count, number}} services)",
   "chart.nothing_collected_range": "Nothing collected for this range yet",
   "chart.nothing_to_show_yet": "Nothing to show yet",
-  "storage.host_logs_title": "The server's own logs",
   "storage.check_again": "Check again",
   "storage.host_logs_help": "The logs named in host_log_paths belong to root and live outside this account. On most shared servers they will be listed and refused, which is itself the answer. Where the host grants read access, they open in the same viewer as the account's own logs.",
   "storage.files": "Files",

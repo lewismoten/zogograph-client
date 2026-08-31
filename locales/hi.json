@@ -1947,7 +1947,6 @@
   "chart.everything_else_count": "बाकी सब ({{count, number}} सेवाएँ)",
   "chart.nothing_collected_range": "इस अवधि के लिए अभी तक कोई डेटा एकत्र नहीं किया गया है",
   "chart.nothing_to_show_yet": "अभी दिखाने के लिए कुछ नहीं है",
-  "storage.host_logs_title": "सर्वर के अपने लॉग",
   "storage.check_again": "फिर जाँचें",
   "storage.host_logs_help": "host_log_paths में दिए गए लॉग root के हैं और इस खाते के बाहर रहते हैं। अधिकांश साझा सर्वरों पर वे सूचीबद्ध होंगे और उन तक पहुँच अस्वीकार होगी; यही अपने-आप में उत्तर है। जहाँ होस्ट पढ़ने की अनुमति देता है, वे खाते के अपने लॉग के समान व्यूअर में खुलते हैं।",
   "changed.noticed": "देखा गया",

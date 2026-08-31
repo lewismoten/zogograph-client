@@ -13,6 +13,7 @@ window.ZogographHostLogsCard = {
     ],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-host-logs.title': "The server's own logs",
         'core-host-logs.log': 'Log',
         'core-host-logs.size': 'Size',
         'core-host-logs.last_written': 'Last written',
@@ -25,6 +26,7 @@ window.ZogographHostLogsCard = {
         'core-host-logs.view': 'View',
       }),
       es: Object.freeze({
+        'core-host-logs.title': 'Los registros del propio servidor',
         'core-host-logs.log': 'Registro',
         'core-host-logs.size': 'Tamaño',
         'core-host-logs.last_written': 'Última escritura',
@@ -37,6 +39,7 @@ window.ZogographHostLogsCard = {
         'core-host-logs.view': 'Ver',
       }),
       hi: Object.freeze({
+        'core-host-logs.title': 'सर्वर के अपने लॉग',
         'core-host-logs.log': 'लॉग',
         'core-host-logs.size': 'आकार',
         'core-host-logs.last_written': 'अंतिम लेखन',
@@ -49,6 +52,7 @@ window.ZogographHostLogsCard = {
         'core-host-logs.view': 'देखें',
       }),
       ar: Object.freeze({
+        'core-host-logs.title': 'سجلات الخادم نفسه',
         'core-host-logs.log': 'السجل',
         'core-host-logs.size': 'الحجم',
         'core-host-logs.last_written': 'آخر كتابة',
@@ -61,6 +65,7 @@ window.ZogographHostLogsCard = {
         'core-host-logs.view': 'عرض',
       }),
       zh: Object.freeze({
+        'core-host-logs.title': '服务器自身的日志',
         'core-host-logs.log': '日志',
         'core-host-logs.size': '大小',
         'core-host-logs.last_written': '最后写入',
@@ -74,6 +79,13 @@ window.ZogographHostLogsCard = {
       }),
     }),
   }),
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-host-logs.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-host-logs.${key}`],
+    );
+  },
 
   render(rows, helpers) {
     const { target, renderTable, humanBytes, humanTime, view, i18n } = helpers;

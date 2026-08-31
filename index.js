@@ -18532,6 +18532,35 @@ async function sendOutputToChat(data) {
 
 const memoryState = { data: null };
 
+function renderMemoryPageShell() {
+  const title = $('memoryTitle');
+  const existingName =
+    title.querySelector('.ai-name')?.textContent || 'Assistant';
+  const shell = renderCoreCardPackage(
+    ZogographAiMemoryPageShellCard,
+    'core-ai-memory-page-shell',
+    { assistant: chatState.who?.name || existingName },
+    { i18n: ZogographI18n },
+  );
+  const marker = '\uE000assistant\uE001';
+  const titleParts = shell.title.split(marker);
+  if (titleParts.length === 1) title.textContent = shell.title;
+  else
+    title.replaceChildren(
+      document.createTextNode(titleParts[0]),
+      Object.assign(document.createElement('span'), {
+        className: 'ai-name',
+        textContent: shell.assistant,
+      }),
+      document.createTextNode(titleParts.slice(1).join(marker)),
+    );
+  $('memoryAdd').textContent = shell.add;
+  $('memoryClear').textContent = shell.forget;
+  $('memoryHelp').textContent = shell.help;
+}
+
+document.addEventListener('zogograph-i18n-load', renderMemoryPageShell);
+
 async function refreshMemories() {
   const body = $('memoryBody');
 

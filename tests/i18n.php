@@ -2390,6 +2390,31 @@ i18nExpect(
     'onboarding and limits card text must remain package-local',
 );
 i18nExpect(
+    !isset(
+        $english['cpu.limit_throttled'],
+        $english['cpu.limit_comparison'],
+        $english['cpu.limit_missing_side'],
+        $english['cpu.account'],
+        $english['cpu.cpu_faults'],
+        $english['cpu.memory_faults'],
+        $english['cpu.process_faults'],
+        $english['cpu.cpu_in_use'],
+        $english['cpu.no_lve_readings'],
+    ) &&
+        isset(
+            $coreCardEnglish['core-cpu-limits.throttled'],
+            $coreCardEnglish['core-cpu-limits.comparison'],
+            $coreCardEnglish['core-cpu-limits.missing_side'],
+            $coreCardEnglish['core-cpu-limits.account'],
+            $coreCardEnglish['core-cpu-limits.cpu_faults'],
+            $coreCardEnglish['core-cpu-limits.memory_faults'],
+            $coreCardEnglish['core-cpu-limits.process_faults'],
+            $coreCardEnglish['core-cpu-limits.cpu_in_use'],
+            $coreCardEnglish['core-cpu-limits.no_lve_readings'],
+        ),
+    'CPU limit metrics and explanations do not belong to their core package',
+);
+i18nExpect(
     $script !== false &&
         str_contains($script, 'filterControlText("all", "All")') &&
         $page !== false &&

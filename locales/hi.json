@@ -399,8 +399,6 @@
   "chart.visual_gauge_data_error": "गेज डेटा में एक मान और धनात्मक अधिकतम होना चाहिए।",
   "chart.visual_line_data_error": "लाइन डेटा में श्रृंखला और बिंदु होने चाहिए।",
   "chart.screenshot_unsupported": "यह ब्राउज़र किसी पृष्ठ से स्क्रीनशॉट नहीं ले सकता।",
-  "ai.preview_no_parameters": "इसमें कोई पैरामीटर नहीं है।",
-  "ai.preview_leave_out": "— इसे छोड़ दें —",
   "path_hygiene.sign_in": "पथ नामों की समीक्षा करने के लिए साइन इन करें।",
   "path_hygiene.install_enable": "इस जाँच का उपयोग करने के लिए Marketplace में Path-name hygiene स्थापित और सक्षम करें।",
   "path_hygiene.no_completed_scan": "सक्षम है, लेकिन किसी पूर्ण खाता डिस्क स्कैन ने अभी तक पथ नाम रिकॉर्ड नहीं किए हैं।",

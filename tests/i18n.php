@@ -2049,6 +2049,17 @@ i18nExpect(
     'chart and gauge labels do not belong to the peer root catalog',
 );
 i18nExpect(
+    !isset(
+        $english['ai.preview_no_parameters'],
+        $english['ai.preview_leave_out'],
+    ) &&
+        isset(
+            $coreCardEnglish['core-ai-tool-parameters.none'],
+            $coreCardEnglish['core-ai-tool-parameters.leave_out'],
+        ),
+    'AI tool parameter preview labels do not belong to their core package',
+);
+i18nExpect(
     $page !== false &&
         str_contains($page, 'src="cards/action-summary.js"') &&
         $actionSummaryCard !== false &&

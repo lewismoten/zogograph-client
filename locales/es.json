@@ -399,8 +399,6 @@
   "chart.visual_gauge_data_error": "Los datos del indicador necesitan un valor y un máximo positivo.",
   "chart.visual_line_data_error": "Los datos de línea necesitan series y puntos.",
   "chart.screenshot_unsupported": "Este navegador no puede tomar una captura de pantalla desde una página.",
-  "ai.preview_no_parameters": "Este no admite parámetros.",
-  "ai.preview_leave_out": "— no incluirlo —",
   "path_hygiene.sign_in": "Inicie sesión para revisar los nombres de ruta.",
   "path_hygiene.install_enable": "Instale y habilite Higiene de nombres de ruta en el Marketplace para usar esta comprobación.",
   "path_hygiene.no_completed_scan": "Está habilitada, pero ningún análisis de disco de cuenta terminado ha registrado nombres de ruta todavía.",

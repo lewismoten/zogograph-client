@@ -2110,7 +2110,6 @@
   "ai.memory_written": "كُتب",
   "ai.memory_forget_confirm": "هل تريد نسيان «{{subject}}»؟",
   "ai.memory_forget_title": "نسيان ذاكرة",
-  "ai.memory_remember_help": "اكتبها لشخص لا يعرف شيئًا عن المحادثة التي جاءت منها — لا تقل «كما ناقشنا»، واذكر ما استندت إليه.",
   "backup.growth": "النمو",
   "backup.by_account": "حسب الحساب",
   "backup.no_suggestions": "لا يوجد ما يُقترح من هذه القراءة.",

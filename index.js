@@ -18777,10 +18777,11 @@ function showMemoryDialog(row) {
     fieldRow(
       ZogographI18n.t('ai.memory_remembers', {}, 'What it remembers'),
       body,
-      ZogographI18n.t(
-        'ai.memory_remember_help',
+      renderCoreCardPackage(
+        ZogographAiMemoryBodyFieldCard,
+        'core-ai-memory-body-field',
         {},
-        'Written for somebody with none of the conversation it came from — no “as we discussed”, and say what it was based on.',
+        { i18n: ZogographI18n },
       ),
     ),
   );

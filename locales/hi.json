@@ -2112,7 +2112,6 @@
   "ai.memory_written": "लिखा गया",
   "ai.memory_forget_confirm": "“{{subject}}” को भूलें?",
   "ai.memory_forget_title": "मेमोरी भूलें",
-  "ai.memory_remember_help": "उस व्यक्ति के लिए लिखें जिसे इसकी मूल बातचीत की कोई जानकारी नहीं है — “जैसा हमने चर्चा की” न लिखें और बताएं कि यह किस पर आधारित था।",
   "backup.growth": "वृद्धि",
   "backup.by_account": "खाते के अनुसार",
   "backup.no_suggestions": "इस रीडिंग से सुझाव देने के लिए कुछ नहीं है।",

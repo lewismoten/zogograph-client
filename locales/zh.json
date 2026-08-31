@@ -2361,8 +2361,6 @@
   "log.lines_20": "20 行",
   "log.lines_50": "50 行",
   "log.lines_100": "100 行",
-  "calendar.add_date": "添加日期",
-  "calendar.upcoming_help": "向前十二个月、向后回看三个月。域名到期日和预计磁盘满载日会在此计算；续订、发票和只有您知道的其他事项由您添加。后方显示已触发的关键警报，因此“当时发生了什么变化”也有答案。",
   "action.recheck": "重新检查",
   "capabilities.check_now": "立即检查",
   "capabilities.nothing_checked_yet": "尚未检查任何内容。",

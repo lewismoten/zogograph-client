@@ -3274,14 +3274,16 @@ function renderCalendarUpcomingTitle() {
     {},
     helpers,
   );
-  const title = document.querySelector(
-    '[data-i18n="core-calendar-upcoming.title"]',
-  );
-  title.textContent = ZogographI18n.markSource(
-    title,
-    'core-calendar-upcoming.title',
-    ZogographCalendarUpcomingCard.text('title', helpers),
-  );
+  document
+    .querySelectorAll('[data-i18n^="core-calendar-upcoming."]')
+    .forEach((node) => {
+      const key = node.dataset.i18n.replace('core-calendar-upcoming.', '');
+      node.textContent = ZogographI18n.markSource(
+        node,
+        `core-calendar-upcoming.${key}`,
+        ZogographCalendarUpcomingCard.text(key, helpers),
+      );
+    });
 }
 
 document.addEventListener('zogograph-i18n-load', renderCalendarUpcomingTitle);
@@ -36431,7 +36433,9 @@ function openEventForm(row = null) {
         { title: row.title },
         'Editing {{title}}',
       )
-    : ZogographI18n.t('calendar.add_date', {}, 'Add a date');
+    : ZogographCalendarUpcomingCard.text('add_date', {
+        i18n: ZogographI18n,
+      });
 
   const parts = [];
   const field = (id, label, control, hint) => {

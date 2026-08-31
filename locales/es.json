@@ -2364,8 +2364,6 @@
   "log.lines_20": "20 líneas",
   "log.lines_50": "50 líneas",
   "log.lines_100": "100 líneas",
-  "calendar.add_date": "Añadir una fecha",
-  "calendar.upcoming_help": "Tres meses atrás y doce adelante. Aquí se calculan los vencimientos de dominios y la fecha prevista de disco lleno; las renovaciones, facturas y todo lo demás que solo usted sabe son lo que añade. Detrás quedan las alertas críticas que se activaron, de modo que «qué cambió entonces» tiene respuesta.",
   "action.recheck": "Comprobar de nuevo",
   "capabilities.check_now": "Comprobar ahora",
   "capabilities.nothing_checked_yet": "Aún no se ha comprobado nada.",

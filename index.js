@@ -43322,6 +43322,7 @@ const DEFAULT_VIEW = 'overview';
  */
 const HELP_PROFILES = {
   vitals: {
+    id: 'vitals',
     purpose:
       'Shows the current health of this account and how its capacity has changed over time.',
     useful:
@@ -43343,6 +43344,7 @@ const HELP_PROFILES = {
     ],
   },
   storage: {
+    id: 'storage',
     purpose:
       'Explains where filesystem space is being used, what changed, and what can safely be investigated next.',
     useful:
@@ -43369,6 +43371,7 @@ const HELP_PROFILES = {
     ],
   },
   host: {
+    id: 'host',
     purpose:
       'Shows how processor, memory, processes, and services are behaving on the host.',
     useful:
@@ -43390,6 +43393,7 @@ const HELP_PROFILES = {
     ],
   },
   network: {
+    id: 'network',
     purpose:
       'Shows the network identity, connections, names, and external checks associated with this server.',
     useful:
@@ -43410,6 +43414,7 @@ const HELP_PROFILES = {
     ],
   },
   system: {
+    id: 'system',
     purpose:
       'Shows how Zogograph itself is configured, scheduled, and retaining the data it collects.',
     useful:
@@ -43427,6 +43432,7 @@ const HELP_PROFILES = {
     ],
   },
   assistant: {
+    id: 'assistant',
     purpose:
       'Lets the assistant investigate the monitored machine using only the tools this installation has made available.',
     useful:
@@ -43449,10 +43455,28 @@ const HELP_PROFILES = {
   },
 };
 
+function localizedHelpProfile(profile) {
+  if (!profile?.id) return profile;
+  return {
+    ...profile,
+    purpose: ZogographI18n.t(
+      `core-view-guide.${profile.id}_purpose`,
+      {},
+      profile.purpose,
+    ),
+    useful: ZogographI18n.t(
+      `core-view-guide.${profile.id}_useful`,
+      {},
+      profile.useful,
+    ),
+  };
+}
+
 function helpProfileFor(view) {
+  let profile;
   if (['overview', 'charts', 'alerts', 'uptime', 'calendar'].includes(view))
-    return HELP_PROFILES.vitals;
-  if (
+    profile = HELP_PROFILES.vitals;
+  else if (
     view.startsWith('storage') ||
     view.startsWith('disk-') ||
     view === 'host-disk' ||
@@ -43460,23 +43484,24 @@ function helpProfileFor(view) {
     view === 'host-layout' ||
     view.startsWith('backups')
   )
-    return HELP_PROFILES.storage;
-  if (
+    profile = HELP_PROFILES.storage;
+  else if (
     view === 'cpu' ||
     view.startsWith('cpu-') ||
     view === 'host' ||
     view.startsWith('mem-') ||
     ['processes', 'services', 'busy', 'units'].includes(view)
   )
-    return HELP_PROFILES.host;
-  if (
+    profile = HELP_PROFILES.host;
+  else if (
     ['network', 'domains', 'whois', 'whoami'].includes(view) ||
     view.startsWith('net-') ||
     view.startsWith('dns')
   )
-    return HELP_PROFILES.network;
-  if (view.startsWith('sys-ai')) return HELP_PROFILES.assistant;
-  return HELP_PROFILES.system;
+    profile = HELP_PROFILES.network;
+  else if (view.startsWith('sys-ai')) profile = HELP_PROFILES.assistant;
+  else profile = HELP_PROFILES.system;
+  return localizedHelpProfile(profile);
 }
 
 function appendHelpLink(list, label, href) {

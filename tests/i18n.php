@@ -1400,6 +1400,10 @@ i18nExpect(
         str_contains($viewGuideCard, 'locales: ["core-view-guide."]') &&
         str_contains($viewGuideCard, 'catalogs: Object.freeze({') &&
         str_contains($viewGuideCard, '"core-view-guide.sign_in_help"') &&
+        str_contains($viewGuideCard, '"core-view-guide.vitals_purpose"') &&
+        str_contains($viewGuideCard, '"core-view-guide.vitals_useful"') &&
+        str_contains($script, 'function localizedHelpProfile(profile)') &&
+        str_contains($script, 'core-view-guide.${profile.id}_purpose') &&
         str_contains($script, 'ZogographViewGuideCard,'),
     'view access guide is not isolated behind its core card-module boundary',
 );

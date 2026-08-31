@@ -171,6 +171,7 @@ export default [
         ZogographAiCommandExplanationsCard: 'readonly',
         ZogographAiHostCommandVisibilityCard: 'readonly',
         ZogographAiContextSectionCard: 'readonly',
+        ZogographAiAlertModeCard: 'readonly',
         ZogographAiKeyForgetCard: 'readonly',
         ZogographAiEnableToggleCard: 'readonly',
         ZogographAiReasoningEffortCard: 'readonly',

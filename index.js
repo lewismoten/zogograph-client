@@ -5888,43 +5888,12 @@ function renderAiSettings(data) {
   const unattended = document.createElement('div');
   unattended.className = 'settings';
 
-  const mode = document.createElement('select');
-  mode.id = 'aiAlertMode';
-  for (const [value, labelKey, label] of [
-    [
-      'off',
-      'alert_mode_off',
-      'nothing — alerts behave exactly as they always have',
-    ],
-    ['comment', 'alert_mode_comment', 'read each alert and write a note on it'],
-    [
-      'look',
-      'alert_mode_look',
-      '…and look things up first, so the note is informed',
-    ],
-    [
-      'decide',
-      'alert_mode_decide',
-      '…and may conclude one did not warrant sending',
-    ],
-  ]) {
-    const option = document.createElement('option');
-    option.value = value;
-    option.textContent = aiSettingsText(labelKey, label);
-    option.selected = (data.alerts?.mode ?? 'off') === value;
-    mode.appendChild(option);
-  }
   unattended.appendChild(
-    fieldRow(
-      aiSettingsText('alert_mode_label', 'When an alert fires'),
-      mode,
-      aiSettingsText(
-        'alert_mode_help',
-        'This runs from cron with nobody watching, so it only ever gets the read-only tools ' +
-          'that need no permission. Anything it cannot do — reach the model, parse an answer ' +
-          '— leaves the alert exactly as it would have been, because a thing standing between ' +
-          'a machine noticing a problem and you being told has one acceptable failure mode.',
-      ),
+    renderCoreCardPackage(
+      ZogographAiAlertModeCard,
+      'core-ai-alert-mode',
+      data,
+      { fieldRow, i18n: ZogographI18n },
     ),
   );
 

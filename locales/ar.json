@@ -2475,7 +2475,6 @@
   "storage.check_symlinks": "افحص الروابط الرمزية",
   "storage.show_matches": "أرني ما يطابق",
   "action.undo": "تراجع",
-  "notes.write_title": "اكتب ملاحظة",
   "notes.saving": "يجري الحفظ…",
   "notes.saving_and_capturing": "يجري الحفظ والالتقاط…",
   "host_request.where_it_will_appear": "مكان ظهوره: {{view}}",

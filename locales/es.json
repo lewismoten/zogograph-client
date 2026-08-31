@@ -2478,7 +2478,6 @@
   "storage.check_symlinks": "Comprobar enlaces simbólicos",
   "storage.show_matches": "Mostrar coincidencias",
   "action.undo": "Deshacer",
-  "notes.write_title": "Escribir una nota",
   "notes.saving": "Guardando…",
   "notes.saving_and_capturing": "Guardando y capturando…",
   "host_request.where_it_will_appear": "Dónde aparecerá: {{view}}",

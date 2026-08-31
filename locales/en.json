@@ -2493,7 +2493,6 @@
   "storage.check_symlinks": "Check the symlinks",
   "storage.show_matches": "Show me what matches",
   "action.undo": "Undo",
-  "notes.write_title": "Write a note",
   "notes.saving": "Saving…",
   "notes.saving_and_capturing": "Saving and capturing…",
   "host_request.where_it_will_appear": "Where it will appear: {{view}}",

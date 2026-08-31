@@ -2475,7 +2475,6 @@
   "storage.check_symlinks": "检查符号链接",
   "storage.show_matches": "显示匹配项",
   "action.undo": "撤销",
-  "notes.write_title": "写一条备注",
   "notes.saving": "正在保存…",
   "notes.saving_and_capturing": "正在保存并捕获…",
   "host_request.where_it_will_appear": "将在此处显示：{{view}}",

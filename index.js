@@ -14475,7 +14475,10 @@ async function showNoteDialog(preset = {}) {
   sync();
 
   $('noteFormBody').replaceChildren(...parts);
-  $('noteDialogTitle').textContent = ZogographI18n.t('notes.write_title');
+  $('noteDialogTitle').textContent = ZogographNotesShellCard.text(
+    'write_title',
+    { i18n: ZogographI18n },
+  );
 
   const form = $('noteForm');
   form.onsubmit = async (event) => {

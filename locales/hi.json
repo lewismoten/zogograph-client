@@ -2477,7 +2477,6 @@
   "storage.check_symlinks": "सिमलिंक जाँचें",
   "storage.show_matches": "दिखाएँ क्या मेल खाता है",
   "action.undo": "पूर्ववत करें",
-  "notes.write_title": "नोट लिखें",
   "notes.saving": "सहेजा जा रहा है…",
   "notes.saving_and_capturing": "सहेजा और कैप्चर किया जा रहा है…",
   "host_request.where_it_will_appear": "यहाँ दिखाई देगा: {{view}}",

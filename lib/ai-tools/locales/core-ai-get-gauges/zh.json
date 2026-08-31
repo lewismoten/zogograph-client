@@ -1,3 +1,4 @@
 {
-  "core-ai-get-gauges.summary": "读取首页上的五个仪表。"
+  "core-ai-get-gauges.summary": "读取首页上的五个仪表。",
+  "core-ai-get-gauges.activity": "读取了仪表板仪表"
 }

@@ -1,3 +1,4 @@
 {
-  "core-ai-get-services.summary": "وحدات systemd، مع الوحدات المعطلة أولاً."
+  "core-ai-get-services.summary": "وحدات systemd، مع الوحدات المعطلة أولاً.",
+  "core-ai-get-services.activity": "تحقق من خدمات النظام"
 }

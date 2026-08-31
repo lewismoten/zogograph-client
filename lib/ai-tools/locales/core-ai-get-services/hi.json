@@ -1,3 +1,4 @@
 {
-  "core-ai-get-services.summary": "systemd इकाइयाँ, जिनमें खराब इकाइयाँ पहले हैं।"
+  "core-ai-get-services.summary": "systemd इकाइयाँ, जिनमें खराब इकाइयाँ पहले हैं।",
+  "core-ai-get-services.activity": "सिस्टम सेवाएँ जाँचीं"
 }

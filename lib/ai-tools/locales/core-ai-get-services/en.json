@@ -1,3 +1,4 @@
 {
-  "core-ai-get-services.summary": "Systemd units, with the broken ones first."
+  "core-ai-get-services.summary": "Systemd units, with the broken ones first.",
+  "core-ai-get-services.activity": "Checked system services"
 }

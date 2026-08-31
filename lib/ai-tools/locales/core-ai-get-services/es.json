@@ -1,3 +1,4 @@
 {
-  "core-ai-get-services.summary": "Unidades de systemd, con las averiadas primero."
+  "core-ai-get-services.summary": "Unidades de systemd, con las averiadas primero.",
+  "core-ai-get-services.activity": "Comprobó los servicios del sistema"
 }

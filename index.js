@@ -27120,72 +27120,18 @@ function renderUptime() {
     })),
   ].sort((x, y) => y.from - x.from);
 
-  if (window.ZogographUptimeEventsCard) {
-    renderCoreCardPackage(
-      ZogographUptimeEventsCard,
-      'core-uptime-events',
-      bands,
-      {
-        target: $('uptimeBody'),
-        renderTable,
-        whenSpan,
-        humanDuration,
-        i18n: ZogographI18n,
-      },
-    );
-    renderBootHistory(data.history);
-    return;
-  }
-
-  if (!bands.length) {
-    $('uptimeBody').replaceChildren(
-      Object.assign(document.createElement('p'), {
-        className: 'muted',
-        textContent: ZogographI18n.t(
-          'uptime.no_gaps_or_restarts',
-          {},
-          'Every reading in this window is present and the machine never restarted. Nothing to explain.',
-        ),
-      }),
-    );
-  } else {
-    renderTable('uptimeBody', bands, [
-      {
-        label: ZogographI18n.t('table.what', {}, 'What'),
-        render: (row) => {
-          const span = document.createElement('span');
-          span.textContent = row.kind;
-          // Only a restart is coloured. A gap in the readings is not a fault of
-          // the machine's, and colouring it the same invites reading it as one.
-          if (row.kind === ZogographI18n.t('uptime.restarted', {}, 'Restarted'))
-            span.className = 'grew';
-          else span.className = 'muted';
-          return span;
-        },
-      },
-      {
-        label: ZogographI18n.t('uptime.table_from', {}, 'From'),
-        render: (row) => whenSpan(row.from),
-      },
-      {
-        label: ZogographI18n.t('uptime.table_until', {}, 'Until'),
-        render: (row) => whenSpan(row.to),
-      },
-      {
-        label: ZogographI18n.t('uptime.table_for', {}, 'For'),
-        className: 'size',
-        render: (row) =>
-          (row.kind === ZogographI18n.t('uptime.restarted', {}, 'Restarted')
-            ? '≤ '
-            : '') + humanDuration(row.seconds),
-      },
-      {
-        label: ZogographI18n.t('uptime.table_meaning', {}, 'What it means'),
-        className: 'name',
-        render: (row) => row.note,
-      },
-    ]);
-  }
+  renderCoreCardPackage(
+    ZogographUptimeEventsCard,
+    'core-uptime-events',
+    bands,
+    {
+      target: $('uptimeBody'),
+      renderTable,
+      whenSpan,
+      humanDuration,
+      i18n: ZogographI18n,
+    },
+  );
 
   renderBootHistory(data.history);
 }

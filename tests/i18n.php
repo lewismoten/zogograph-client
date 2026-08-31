@@ -2347,7 +2347,8 @@ i18nExpect(
         str_contains(
             $script,
             'renderCoreCardPackage(ZogographNetworkPeersCard, "core-network-peers",',
-        ),
+        ) &&
+        !str_contains($script, 'if (window.ZogographNetworkPeersCard)'),
     'network peers are not isolated behind their core card-module boundary',
 );
 i18nExpect(

@@ -32296,87 +32296,24 @@ function renderPorts(data) {
 }
 
 function renderNetworkPeers(data) {
-  if (window.ZogographNetworkPeersCard) {
-    return renderCoreCardPackage(
-      ZogographNetworkPeersCard,
-      'core-network-peers',
-      {
-        peers: data.peers || [],
-        reason: data.reason,
-        taken_at: data.taken_at,
-        peerCount: count((data.peers || []).length, 'peer'),
-      },
-      {
-        target: $('peersBody'),
-        note,
-        renderTable,
-        humanCount,
-        humanTime,
-        labelled,
-        i18n: ZogographI18n,
-      },
-    );
-  }
-  const rows = data.peers || [];
-  if (!rows.length) {
-    $('peersBody').replaceChildren(
-      note(ZogographI18n.t('network.peers_empty')),
-    );
-    return;
-  }
-
-  const total = rows.reduce((sum, r) => sum + Number(r.connections || 0), 0);
-
-  const wrap = document.createDocumentFragment();
-  wrap.appendChild(
-    note(
-      ZogographI18n.t('network.peers_summary', {
-        connections: humanCount(total),
-        peers: count(rows.length, 'peer'),
-        at: humanTime(data.taken_at),
-      }),
-    ),
-  );
-  $('peersBody').replaceChildren(wrap);
-
-  const holder = document.createElement('div');
-  holder.id = 'peersTable';
-  $('peersBody').appendChild(holder);
-
-  renderTable(
-    'peersTable',
-    rows,
-    [
-      {
-        label: ZogographI18n.t('network.address'),
-        className: 'name',
-        render: (row) => labelled(row.address, row.own_label, row),
-      },
-      {
-        label: ZogographI18n.t('network.connections'),
-        className: 'size',
-        render: (row) => humanCount(row.connections),
-      },
-      {
-        label: ZogographI18n.t('network.share'),
-        className: 'size',
-        render: (row) =>
-          total ? `${((row.connections / total) * 100).toFixed(1)}%` : '\u2014',
-      },
-      {
-        label: '',
-        render: (row) => {
-          if (!row.private) return '';
-          const span = document.createElement('span');
-          span.className = 'muted small';
-          span.textContent = ZogographI18n.t('network.private_address');
-          return span;
-        },
-      },
-    ],
-    null,
-    null,
-    (row) => row.address,
+  return renderCoreCardPackage(
+    ZogographNetworkPeersCard,
+    'core-network-peers',
+    {
+      peers: data.peers || [],
+      reason: data.reason,
+      taken_at: data.taken_at,
+      peerCount: count((data.peers || []).length, 'peer'),
+    },
+    {
+      target: $('peersBody'),
+      note,
+      renderTable,
+      humanCount,
+      humanTime,
+      labelled,
+      i18n: ZogographI18n,
+    },
   );
 }
 

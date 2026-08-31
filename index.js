@@ -2102,6 +2102,31 @@ function renderTypeGrowthLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderTypeGrowthLabels);
 
+function renderCategoryChartLabels() {
+  const helpers = {
+    canvas: null,
+    drawLineChart: () => null,
+    bytesAxis: () => null,
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(
+    ZogographCategoryChart,
+    'core-category-chart',
+    { rows: [] },
+    helpers,
+  );
+  const title = document.querySelector(
+    '[data-i18n="core-category-chart.title"]',
+  );
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-category-chart.title',
+    ZogographCategoryChart.text('title', helpers),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderCategoryChartLabels);
+
 /**
  * When the disk is projected to fill, as a date.
  *

@@ -2712,7 +2712,6 @@
   "storage.total_size": "total size",
   "storage.change_since_scan": "change since the previous scan",
   "storage.type_growth_help": "One line per type across every completed scan in this range. A type with no line had nothing of that kind at the time — the line starts where the first file did, rather than running along the axis from the beginning.",
-  "storage.categories_time_title": "Categories over time",
   "storage.categories_time_help": "Totals from each completed scan. {{error_log}} files are counted on their own, wherever they turn up — one of them can be the whole problem.",
   "storage.path_hygiene_title": "Path-name hygiene",
   "storage.path_hygiene_help": "An optional, advisory check that runs during the account disk walk. It does not send notifications. Rename only paths you recognize; the change is immediate and recorded in the audit log.",

@@ -2694,7 +2694,6 @@
   "storage.total_size": "总大小",
   "storage.change_since_scan": "自上次扫描后的变化",
   "storage.type_growth_help": "此范围内每次完成扫描中每个类型一条线。没有线的类型当时没有此类内容——线从第一个文件出现的位置开始。",
-  "storage.categories_time_title": "随时间变化的类别",
   "storage.categories_time_help": "每次完成扫描的总计。{{error_log}} 文件无论出现在哪里都会单独计数——其中一个就可能是全部问题。",
   "storage.path_hygiene_title": "路径名称检查",
   "storage.path_hygiene_help": "账户磁盘遍历期间运行的可选建议性检查。它不会发送通知。只重命名您认识的路径；更改会立即生效并记录在审计日志中。",

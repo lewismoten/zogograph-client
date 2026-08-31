@@ -2527,6 +2527,34 @@ function renderHostFileLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderHostFileLabels);
 
+function renderBusyMomentLabels() {
+  const helpers = {
+    holder: null,
+    busyOpen: () => null,
+    humanTime: () => '',
+    humanCount: () => '',
+    humanBytes: () => '',
+    processAge: () => '',
+    severityIcon: () => '',
+    showView: () => null,
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(
+    ZogographBusyMomentsCard,
+    'core-busy-moments',
+    [],
+    helpers,
+  );
+  const title = document.querySelector('[data-i18n="core-busy-moments.title"]');
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-busy-moments.title',
+    ZogographBusyMomentsCard.text('title', helpers),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderBusyMomentLabels);
+
 /**
  * When the disk is projected to fill, as a date.
  *

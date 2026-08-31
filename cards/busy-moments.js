@@ -16,6 +16,7 @@ window.ZogographBusyMomentsCard = {
     ],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-busy-moments.title': 'When it was last busy',
         'core-busy-moments.empty':
           'Nothing recorded — the machine has not been busy enough to bother.',
         'core-busy-moments.alert_help':
@@ -35,6 +36,7 @@ window.ZogographBusyMomentsCard = {
         'core-busy-moments.running_for': 'Running for',
       }),
       es: Object.freeze({
+        'core-busy-moments.title': 'Cuándo estuvo ocupado por última vez',
         'core-busy-moments.empty':
           'No hay nada registrado: la máquina no ha estado lo bastante ocupada como para importarlo.',
         'core-busy-moments.alert_help':
@@ -54,6 +56,7 @@ window.ZogographBusyMomentsCard = {
         'core-busy-moments.running_for': 'En ejecución desde',
       }),
       hi: Object.freeze({
+        'core-busy-moments.title': 'यह आखिरी बार कब व्यस्त था',
         'core-busy-moments.empty':
           'कुछ रिकॉर्ड नहीं हुआ — मशीन इतनी व्यस्त नहीं थी कि ध्यान दिया जाए।',
         'core-busy-moments.alert_help':
@@ -73,6 +76,7 @@ window.ZogographBusyMomentsCard = {
         'core-busy-moments.running_for': 'से चल रहा है',
       }),
       ar: Object.freeze({
+        'core-busy-moments.title': 'متى كان مشغولًا آخر مرة',
         'core-busy-moments.empty':
           'لا شيء مسجل — لم يكن الجهاز مشغولًا بما يكفي للاهتمام.',
         'core-busy-moments.alert_help':
@@ -92,6 +96,7 @@ window.ZogographBusyMomentsCard = {
         'core-busy-moments.running_for': 'يعمل منذ',
       }),
       zh: Object.freeze({
+        'core-busy-moments.title': '上次繁忙是什么时候',
         'core-busy-moments.empty': '没有记录——机器没有忙到值得记录的程度。',
         'core-busy-moments.alert_help':
           '此事件两分钟内触发了警报——打开警报页面',
@@ -111,6 +116,13 @@ window.ZogographBusyMomentsCard = {
       }),
     }),
   }),
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-busy-moments.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-busy-moments.${key}`],
+    );
+  },
   render(moments, helpers) {
     const {
       holder,

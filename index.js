@@ -6965,93 +6965,12 @@ async function refreshAiSessions() {
  * so the number shown is always the number the model actually said.
  */
 function chatProgressCard(message) {
-  const args = message.arguments || {};
-  const kind = ['time', 'count', 'working'].includes(args.kind)
-    ? args.kind
-    : 'time';
-
-  const card = document.createElement('div');
-  card.className = 'chat-progress';
-
-  const head = document.createElement('div');
-  head.className = 'chat-progress-head';
-  head.textContent = String(
-    args.what || aiSettingsText('progress_working', 'Working'),
+  return renderCoreCardPackage(
+    ZogographChatProgressCard,
+    'core-chat-progress',
+    message,
+    { humanSpan, humanTime, i18n: ZogographI18n },
   );
-  card.appendChild(head);
-
-  const track = document.createElement('div');
-  track.className = 'chat-progress-track';
-  const fill = document.createElement('div');
-  fill.className = 'chat-progress-fill';
-  track.appendChild(fill);
-  card.appendChild(track);
-
-  const said = document.createElement('div');
-  said.className = 'muted small';
-
-  if (kind === 'working') {
-    /*
-     * No number at all, because there is not one.
-     *
-     * A bar that sweeps says "something is happening and I cannot tell you how
-     * much is left", which is a true statement and the whole reason this mode
-     * exists. Filling it to some invented fraction would be a lie with a
-     * picture attached.
-     */
-    track.classList.add('indeterminate');
-    said.textContent = aiSettingsText(
-      'progress_unknown',
-      'Working — the size of this job is not known.',
-    );
-  } else if (kind === 'count') {
-    const total = Math.max(1, Number(args.total) || 1);
-    const done = Math.max(0, Math.min(total, Number(args.done) || 0));
-    const unit = String(args.unit || aiSettingsText('progress_steps', 'steps'));
-
-    fill.style.setProperty('--fill', `${Math.round((done / total) * 100)}%`);
-    said.textContent = aiSettingsText(
-      'progress_count',
-      '{{done}} of {{total}} {{unit}} done',
-      { done, total, unit },
-    );
-  } else {
-    const percent = Math.max(0, Math.min(100, Number(args.percent) || 0));
-    const left = Number(args.seconds_left);
-
-    fill.style.setProperty('--fill', `${percent}%`);
-    said.textContent =
-      `${percent}%` +
-      (Number.isFinite(left) && left > 0
-        ? aiSettingsText('progress_time_left', ' · about {{duration}} left', {
-            duration: humanSpan(left, true),
-          })
-        : '');
-  }
-
-  /*
-   * A drawn bar is a moment, not a live thing.
-   *
-   * It does not animate and the model has to call the tool again to move it,
-   * so the time it was drawn is worth saying - otherwise a bar from four
-   * minutes ago reads as current. The sweeping one is exempt: it is honestly
-   * saying nothing about how far along anything is.
-   */
-  said.title =
-    kind === 'working'
-      ? aiSettingsText(
-          'progress_indeterminate_title',
-          'Started {{time}}. The sweep is decoration; it does not track anything.',
-          { time: humanTime(message.at) },
-        )
-      : aiSettingsText(
-          'progress_drawn_title',
-          'Drawn {{time}}. It does not move on its own.',
-          { time: humanTime(message.at) },
-        );
-  card.appendChild(said);
-
-  return card;
 }
 
 /**

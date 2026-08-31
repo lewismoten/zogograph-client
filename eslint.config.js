@@ -140,6 +140,7 @@ export default [
         ZogographChatPictureCard: 'readonly',
         ZogographChatReactionCard: 'readonly',
         ZogographChatAssistantVisualCard: 'readonly',
+        ZogographChatProgressCard: 'readonly',
         ZogographChatTranscriptTitleCard: 'readonly',
         ZogographChatEffortCard: 'readonly',
         ZogographChatCatchUpCard: 'readonly',

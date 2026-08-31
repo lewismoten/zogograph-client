@@ -14374,15 +14374,7 @@ async function refreshMarketplace() {
   const body = $('marketplaceBody');
   if (!body) return;
   if (!state.signedIn) {
-    body.replaceChildren(
-      note(
-        ZogographI18n.t(
-          'marketplace.sign_in',
-          {},
-          'Sign in to view local marketplace packages.',
-        ),
-      ),
-    );
+    body.replaceChildren(note(marketplaceShellText('sign_in')));
     return;
   }
   try {
@@ -16308,57 +16300,32 @@ function marketplaceShellText(key, values = {}) {
 
 function renderMarketplace(data) {
   const body = $('marketplaceBody');
-  const parts = [
-    note(
-      marketplaceText(
-        'discovery_notice',
-        {},
-        'Packages are discovered from the configured local marketplace directory. Remote downloads and executable hooks are not supported. A package can only authorize a documented core-owned capability.',
-      ),
-    ),
-  ];
+  const parts = [note(marketplaceShellText('discovery_notice'))];
   if (data.errors?.length)
     parts.push(
       note(
-        marketplaceText(
-          'ignored_manifests',
-          { detail: data.errors.join('; ') },
-          `Ignored manifests: ${data.errors.join('; ')}`,
-        ),
+        marketplaceShellText('ignored_manifests', {
+          detail: data.errors.join('; '),
+        }),
       ),
     );
   if (data.can_change) {
     const install = document.createElement('button');
     install.type = 'button';
     install.className = 'primary';
-    install.textContent = marketplaceText(
-      'install_local',
-      {},
-      'Install local manifest',
-    );
+    install.textContent = marketplaceShellText('install_local');
     install.addEventListener('click', showMarketplaceInstallDialog);
     parts.push(install);
     if (!data.packages.some((row) => row.id === 'zogograph-path-hygiene')) {
       const bundled = document.createElement('button');
       bundled.type = 'button';
       bundled.className = 'link';
-      bundled.textContent = marketplaceText(
-        'install_path_hygiene',
-        {},
-        'Install Path-name hygiene',
-      );
+      bundled.textContent = marketplaceShellText('install_path_hygiene');
       bundled.addEventListener('click', async () => {
         try {
           await post('marketplace-install-path-hygiene');
           await refreshMarketplace();
-          notice(
-            marketplaceText(
-              'path_hygiene_installed',
-              {},
-              'Path-name hygiene installed for review. Enable it, then run a disk scan.',
-            ),
-            true,
-          );
+          notice(marketplaceShellText('path_hygiene_installed'), true);
         } catch (error) {
           notice(String(error.message || error));
         }
@@ -16367,15 +16334,7 @@ function renderMarketplace(data) {
     }
   }
   if (!data.packages.length) {
-    parts.push(
-      note(
-        marketplaceText(
-          'none_found',
-          {},
-          'No valid local package manifests were found.',
-        ),
-      ),
-    );
+    parts.push(note(marketplaceShellText('none_found')));
     body.replaceChildren(...parts);
     return;
   }
@@ -16407,15 +16366,7 @@ function renderMarketplace(data) {
     );
     holder.replaceChildren();
     if (!rows.length) {
-      holder.append(
-        note(
-          marketplaceText(
-            'no_matches',
-            {},
-            'No marketplace packages match that search.',
-          ),
-        ),
-      );
+      holder.append(note(marketplaceShellText('no_matches')));
       return;
     }
     renderTable(

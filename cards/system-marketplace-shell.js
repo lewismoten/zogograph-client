@@ -13,6 +13,21 @@ window.ZogographSystemMarketplaceShellCard = {
           'Search marketplace packages',
         'core-system-marketplace-shell.search_placeholder':
           'Search packages, publishers, or capabilities',
+        'core-system-marketplace-shell.sign_in':
+          'Sign in to view local marketplace packages.',
+        'core-system-marketplace-shell.discovery_notice':
+          'Packages are discovered from the configured local marketplace directory. Remote downloads and executable hooks are not supported. A package can only authorize a documented core-owned capability.',
+        'core-system-marketplace-shell.ignored_manifests':
+          'Ignored manifests: {{detail}}',
+        'core-system-marketplace-shell.install_local': 'Install local manifest',
+        'core-system-marketplace-shell.install_path_hygiene':
+          'Install Path-name hygiene',
+        'core-system-marketplace-shell.path_hygiene_installed':
+          'Path-name hygiene installed for review. Enable it, then run a disk scan.',
+        'core-system-marketplace-shell.none_found':
+          'No valid local package manifests were found.',
+        'core-system-marketplace-shell.no_matches':
+          'No marketplace packages match that search.',
         'core-system-marketplace-shell.table_package': 'Package',
         'core-system-marketplace-shell.table_publisher': 'Publisher',
         'core-system-marketplace-shell.table_summary': 'What it offers',
@@ -30,6 +45,22 @@ window.ZogographSystemMarketplaceShellCard = {
           'Buscar paquetes del mercado',
         'core-system-marketplace-shell.search_placeholder':
           'Buscar paquetes, editores o capacidades',
+        'core-system-marketplace-shell.sign_in':
+          'Inicie sesión para ver los paquetes locales del mercado.',
+        'core-system-marketplace-shell.discovery_notice':
+          'Los paquetes se descubren en el directorio local del mercado configurado. No se admiten descargas remotas ni enlaces ejecutables. Un paquete solo puede autorizar una capacidad documentada y propiedad del núcleo.',
+        'core-system-marketplace-shell.ignored_manifests':
+          'Manifiestos ignorados: {{detail}}',
+        'core-system-marketplace-shell.install_local':
+          'Instalar manifiesto local',
+        'core-system-marketplace-shell.install_path_hygiene':
+          'Instalar higiene de nombres de ruta',
+        'core-system-marketplace-shell.path_hygiene_installed':
+          'La higiene de nombres de ruta se instaló para revisión. Actívela y ejecute después un análisis de disco.',
+        'core-system-marketplace-shell.none_found':
+          'No se encontraron manifiestos de paquetes locales válidos.',
+        'core-system-marketplace-shell.no_matches':
+          'Ningún paquete del mercado coincide con esa búsqueda.',
         'core-system-marketplace-shell.table_package': 'Paquete',
         'core-system-marketplace-shell.table_publisher': 'Editor',
         'core-system-marketplace-shell.table_summary': 'Qué ofrece',
@@ -47,6 +78,22 @@ window.ZogographSystemMarketplaceShellCard = {
           'मार्केटप्लेस पैकेज खोजें',
         'core-system-marketplace-shell.search_placeholder':
           'पैकेज, प्रकाशक या क्षमताएँ खोजें',
+        'core-system-marketplace-shell.sign_in':
+          'स्थानीय मार्केटप्लेस पैकेज देखने के लिए साइन इन करें।',
+        'core-system-marketplace-shell.discovery_notice':
+          'पैकेज कॉन्फ़िगर की गई स्थानीय मार्केटप्लेस निर्देशिका से खोजे जाते हैं। रिमोट डाउनलोड और निष्पादित हुक समर्थित नहीं हैं। कोई पैकेज केवल दस्तावेज़ित, कोर-स्वामित्व वाली क्षमता को अधिकृत कर सकता है।',
+        'core-system-marketplace-shell.ignored_manifests':
+          'अनदेखे मैनिफ़ेस्ट: {{detail}}',
+        'core-system-marketplace-shell.install_local':
+          'स्थानीय मैनिफ़ेस्ट स्थापित करें',
+        'core-system-marketplace-shell.install_path_hygiene':
+          'पथ-नाम स्वच्छता स्थापित करें',
+        'core-system-marketplace-shell.path_hygiene_installed':
+          'पथ-नाम स्वच्छता समीक्षा के लिए स्थापित की गई। इसे सक्षम करें, फिर डिस्क स्कैन चलाएँ।',
+        'core-system-marketplace-shell.none_found':
+          'कोई मान्य स्थानीय पैकेज मैनिफ़ेस्ट नहीं मिला।',
+        'core-system-marketplace-shell.no_matches':
+          'इस खोज से कोई मार्केटप्लेस पैकेज मेल नहीं खाता।',
         'core-system-marketplace-shell.table_package': 'पैकेज',
         'core-system-marketplace-shell.table_publisher': 'प्रकाशक',
         'core-system-marketplace-shell.table_summary': 'यह क्या देता है',
@@ -63,6 +110,21 @@ window.ZogographSystemMarketplaceShellCard = {
         'core-system-marketplace-shell.search_label': 'ابحث في حزم السوق',
         'core-system-marketplace-shell.search_placeholder':
           'ابحث عن الحزم أو الناشرين أو القدرات',
+        'core-system-marketplace-shell.sign_in':
+          'سجّل الدخول لعرض حزم السوق المحلية.',
+        'core-system-marketplace-shell.discovery_notice':
+          'تُكتشف الحزم من دليل السوق المحلي المُعَدّ. لا تُدعم التنزيلات البعيدة أو الخطافات التنفيذية. لا تستطيع الحزمة إلا تفويض قدرة موثقة يملكها النظام الأساسي.',
+        'core-system-marketplace-shell.ignored_manifests':
+          'بيانات الحزم التي تم تجاهلها: {{detail}}',
+        'core-system-marketplace-shell.install_local': 'ثبّت بيانًا محليًا',
+        'core-system-marketplace-shell.install_path_hygiene':
+          'ثبّت فحص سلامة أسماء المسارات',
+        'core-system-marketplace-shell.path_hygiene_installed':
+          'ثُبّت فحص سلامة أسماء المسارات للمراجعة. فعّله ثم شغّل فحص القرص.',
+        'core-system-marketplace-shell.none_found':
+          'لم يُعثر على بيانات حزم محلية صالحة.',
+        'core-system-marketplace-shell.no_matches':
+          'لا توجد حزم في السوق تطابق هذا البحث.',
         'core-system-marketplace-shell.table_package': 'الحزمة',
         'core-system-marketplace-shell.table_publisher': 'الناشر',
         'core-system-marketplace-shell.table_summary': 'ما تقدمه',
@@ -79,6 +141,20 @@ window.ZogographSystemMarketplaceShellCard = {
         'core-system-marketplace-shell.search_label': '搜索市场软件包',
         'core-system-marketplace-shell.search_placeholder':
           '搜索软件包、发布者或功能',
+        'core-system-marketplace-shell.sign_in': '登录以查看本地市场软件包。',
+        'core-system-marketplace-shell.discovery_notice':
+          '软件包从已配置的本地市场目录中发现。不支持远程下载和可执行钩子。软件包只能授权有文档说明且由核心拥有的功能。',
+        'core-system-marketplace-shell.ignored_manifests':
+          '已忽略的清单：{{detail}}',
+        'core-system-marketplace-shell.install_local': '安装本地清单',
+        'core-system-marketplace-shell.install_path_hygiene':
+          '安装路径名称规范检查',
+        'core-system-marketplace-shell.path_hygiene_installed':
+          '已安装路径名称规范检查，等待审核。请启用它，然后运行磁盘扫描。',
+        'core-system-marketplace-shell.none_found':
+          '未找到有效的本地软件包清单。',
+        'core-system-marketplace-shell.no_matches':
+          '没有市场软件包符合该搜索条件。',
         'core-system-marketplace-shell.table_package': '软件包',
         'core-system-marketplace-shell.table_publisher': '发布者',
         'core-system-marketplace-shell.table_summary': '提供的内容',

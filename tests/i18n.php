@@ -3011,20 +3011,20 @@ i18nExpect(
 );
 i18nExpect(
     $script !== false &&
-        str_contains($script, 'marketplaceText("discovery_notice"') &&
+        str_contains($script, "marketplaceShellText('discovery_notice'") &&
         str_contains($script, "marketplaceShellText('search_label'") &&
         str_contains($script, "marketplaceShellText('table_compatibility'") &&
         str_contains($script, 'marketplaceText("toggle_confirmation"') &&
         str_contains($script, 'marketplaceText("restore_confirmation"') &&
         is_array($english) &&
         isset(
-            $english['marketplace.discovery_notice'],
-            $english['marketplace.ignored_manifests'],
             $english['marketplace.toggle_confirmation'],
             $english['marketplace.restore_confirmation'],
         ) &&
         isset(
             $coreCardEnglish['core-system-marketplace-shell.search_label'],
+            $coreCardEnglish['core-system-marketplace-shell.sign_in'],
+            $coreCardEnglish['core-system-marketplace-shell.discovery_notice'],
             $coreCardEnglish[
                 'core-system-marketplace-shell.search_placeholder'
             ],

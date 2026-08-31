@@ -20,29 +20,29 @@ window.ZogographAiImageSettingsCard = {
     ],
     catalogs: Object.freeze({
       en: Object.freeze({
-        'core-ai-image-settings.styles': 'Styles it may use',
-        'core-ai-image-settings.styles_help':
-          'Tick the ones it may choose from. There are over a hundred, and a model offered twelve will use twelve — most of them are wrong for a monitoring dashboard, so two or three is plenty. Type to narrow the list; the ones you have ticked stay at the top whatever you search for.',
+        'core-ai-image-settings.title': 'Images',
+        'core-ai-image-settings.help':
+          'Entirely optional, and off until keyed. Generating a picture costs money; searching for an animation is a free read against somebody else’s quota. They are limited separately for that reason.',
       }),
       es: Object.freeze({
-        'core-ai-image-settings.styles': 'Estilos que puede usar',
-        'core-ai-image-settings.styles_help':
-          'Marque los estilos que puede elegir. Escriba para filtrar; los marcados permanecen arriba.',
+        'core-ai-image-settings.title': 'Imágenes',
+        'core-ai-image-settings.help':
+          'Es totalmente opcional y permanece apagado hasta configurarlo. Generar una imagen cuesta dinero; buscar una animación es una lectura gratuita contra la cuota de otra persona. Por eso se limitan por separado.',
       }),
       hi: Object.freeze({
-        'core-ai-image-settings.styles': 'शैलियाँ जो यह उपयोग कर सकता है',
-        'core-ai-image-settings.styles_help':
-          'चुनने योग्य शैलियों को टिक करें। खोजने के लिए लिखें; चुनी हुई शैलियाँ ऊपर रहती हैं।',
+        'core-ai-image-settings.title': 'छवियाँ',
+        'core-ai-image-settings.help':
+          'पूरी तरह वैकल्पिक और कुंजी देने तक बंद। चित्र बनाना पैसे लेता है; एनीमेशन खोजना किसी और की कोटा के विरुद्ध मुफ्त रीड है। इसी कारण उन्हें अलग-अलग सीमित किया जाता है।',
       }),
       ar: Object.freeze({
-        'core-ai-image-settings.styles': 'الأنماط التي يمكنها استخدامها',
-        'core-ai-image-settings.styles_help':
-          'حدد الأنماط المسموح بها. اكتب للتصفية وتبقى المحددة في الأعلى.',
+        'core-ai-image-settings.title': 'الصور',
+        'core-ai-image-settings.help':
+          'اختياري تمامًا ومعطل إلى أن يُدخل المفتاح. إنشاء صورة يكلف مالًا؛ والبحث عن رسم متحرك قراءة مجانية مقابل حصة شخص آخر. لذلك يُحدّ كل منهما منفصلًا.',
       }),
       zh: Object.freeze({
-        'core-ai-image-settings.styles': '可使用的风格',
-        'core-ai-image-settings.styles_help':
-          '勾选它可选择的风格。输入可筛选；已勾选的风格始终位于顶部。',
+        'core-ai-image-settings.title': '图像',
+        'core-ai-image-settings.help':
+          '完全可选，在配置密钥前处于关闭状态。生成图片需要花钱；搜索动画则是对他人配额的一次免费读取。因此两者分别受到限制。',
       }),
     }),
   }),
@@ -67,6 +67,17 @@ window.ZogographAiImageSettingsCard = {
       renderCard(card, id, data, { fieldRow, section, note, i18n, ...extra });
     const form = document.createElement('div');
     form.className = 'settings';
+    const panel = document.querySelector('#aiImagesPanel');
+    const title = panel?.querySelector('.panel-head h2');
+    if (title)
+      title.textContent = i18n.t('core-ai-image-settings.title', {}, 'Images');
+    const help = panel?.querySelector('.sub-note');
+    if (help)
+      help.textContent = i18n.t(
+        'core-ai-image-settings.help',
+        {},
+        'Entirely optional, and off until keyed. Generating a picture costs money; searching for an animation is a free read against somebody else’s quota. They are limited separately for that reason.',
+      );
     form.append(...call(providerCard, 'core-ai-image-provider', { pictures }));
     form.appendChild(
       call(stylesCard, 'core-ai-image-styles', { pictures }, { styleFinder }),

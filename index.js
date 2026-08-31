@@ -35968,7 +35968,7 @@ function renderUpcoming(data) {
     holder.replaceChildren(
       note(
         ZogographI18n.t(
-          'calendar.nothing_upcoming',
+          'core-calendar-upcoming.empty',
           {},
           'Nothing dated is coming up.',
         ),
@@ -35990,11 +35990,11 @@ function renderUpcoming(data) {
     when.className = 'upcoming-when';
     when.textContent =
       days === 0
-        ? ZogographI18n.t('calendar.today', {}, 'today')
+        ? ZogographI18n.t('core-calendar-upcoming.today', {}, 'today')
         : days === 1
-          ? ZogographI18n.t('calendar.tomorrow', {}, 'tomorrow')
+          ? ZogographI18n.t('core-calendar-upcoming.tomorrow', {}, 'tomorrow')
           : ZogographI18n.t(
-              'calendar.in_days',
+              'core-calendar-upcoming.in_days',
               { count: days },
               'in {{count, number}} days',
             );
@@ -36033,7 +36033,7 @@ function renderUpcoming(data) {
   }
 
   holder.replaceChildren(
-    section(ZogographI18n.t('calendar.next', {}, 'Next'), list),
+    section(ZogographI18n.t('core-calendar-upcoming.next', {}, 'Next'), list),
   );
 }
 

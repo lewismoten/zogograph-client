@@ -5964,6 +5964,39 @@ function renderChatShellControls() {
 
 document.addEventListener('zogograph-i18n-load', renderChatShellControls);
 
+function chatSpeechText(key, variables = {}) {
+  return ZogographChatSpeechControlsCard.text(key, variables, {
+    i18n: ZogographI18n,
+  });
+}
+
+function renderChatSpeechControls() {
+  const labels = renderCoreCardPackage(
+    ZogographChatSpeechControlsCard,
+    'core-chat-speech-controls',
+    {},
+    { i18n: ZogographI18n },
+  );
+  const controls = [
+    ['chatSpeak', 'speak', 'speakTitle'],
+    ['chatListen', 'listen', 'listenTitle'],
+    ['chatNew', 'new', 'newTitle'],
+    ['chatInterrupt', 'interrupt', 'interruptTitle'],
+    ['chatStop', 'stop', 'stopTitle'],
+  ];
+  controls.forEach(([id, key, titleKey]) => {
+    const node = $(id);
+    node.textContent = ZogographI18n.markSource(
+      node,
+      `core-chat-speech-controls.${key}`,
+      labels[key],
+    );
+    node.title = labels[titleKey];
+  });
+}
+
+document.addEventListener('zogograph-i18n-load', renderChatSpeechControls);
+
 function renderChatComposer() {
   const labels = renderCoreCardPackage(
     ZogographChatComposerCard,
@@ -8513,22 +8546,11 @@ function speakAssistantReply(session) {
 function toggleRecognition() {
   const Recognition =
     window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!Recognition)
-    throw new Error(
-      ZogographI18n.t(
-        'assistant.microphone_unavailable',
-        {},
-        'Speech recognition is not available in this browser.',
-      ),
-    );
+  if (!Recognition) throw new Error(chatSpeechText('microphone_unavailable'));
   if (voiceState.listen) {
     voiceState.listen = false;
     voiceState.recognition?.stop();
-    $('chatListen').textContent = ZogographI18n.t(
-      'assistant.listen',
-      {},
-      'Listen',
-    );
+    $('chatListen').textContent = chatSpeechText('listen');
     return;
   }
   const recognition = voiceState.recognition ?? new Recognition();
@@ -8548,14 +8570,12 @@ function toggleRecognition() {
     voiceState.listen = false;
     $('chatListen').textContent =
       voiceState.listenMode === 'push'
-        ? ZogographI18n.t('assistant.hold_to_talk', {}, 'Hold to talk')
-        : ZogographI18n.t('assistant.start_listening', {}, 'Start listening');
+        ? chatSpeechText('hold_to_talk')
+        : chatSpeechText('start_listening');
     notice(
-      ZogographI18n.t(
-        'assistant.microphone_stopped',
-        { reason: event.error || 'browser error' },
-        'Microphone listening stopped: {{reason}}.',
-      ),
+      chatSpeechText('microphone_stopped', {
+        reason: event.error || 'browser error',
+      }),
     );
   };
   voiceState.recognition = recognition;
@@ -8563,8 +8583,8 @@ function toggleRecognition() {
   recognition.start();
   $('chatListen').textContent =
     voiceState.listenMode === 'push'
-      ? ZogographI18n.t('assistant.listening', {}, 'Listening…')
-      : ZogographI18n.t('assistant.stop_listening', {}, 'Stop listening');
+      ? chatSpeechText('listening')
+      : chatSpeechText('stop_listening');
 }
 
 function applyVoicePreferences(preferences) {
@@ -8581,13 +8601,13 @@ function applyVoicePreferences(preferences) {
   )
     toggleRecognition();
   $('chatSpeak').textContent = voiceState.speak
-    ? ZogographI18n.t('assistant.speaking', {}, 'Speaking')
-    : ZogographI18n.t('assistant.speak', {}, 'Speak');
+    ? chatSpeechText('speaking')
+    : chatSpeechText('speak');
   $('chatListen').hidden = preferences.listening === 'never';
   $('chatListen').textContent =
     preferences.listening === 'push'
-      ? ZogographI18n.t('assistant.hold_to_talk', {}, 'Hold to talk')
-      : ZogographI18n.t('assistant.start_listening', {}, 'Start listening');
+      ? chatSpeechText('hold_to_talk')
+      : chatSpeechText('start_listening');
 }
 
 /** How often to ask, by what the session is doing. */
@@ -42187,8 +42207,8 @@ $('chatNew').addEventListener('click', () => startChat());
 $('chatSpeak').addEventListener('click', () => {
   voiceState.speak = !voiceState.speak;
   $('chatSpeak').textContent = voiceState.speak
-    ? ZogographI18n.t('assistant.speaking', {}, 'Speaking')
-    : ZogographI18n.t('assistant.speak', {}, 'Speak');
+    ? chatSpeechText('speaking')
+    : chatSpeechText('speak');
   if (!voiceState.speak) window.speechSynthesis?.cancel();
 });
 $('chatListen').addEventListener('click', () => {

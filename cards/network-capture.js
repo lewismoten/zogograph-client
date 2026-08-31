@@ -46,6 +46,11 @@ window.ZogographNetworkCaptureCard = {
           'application data on an established connection',
         'core-network-capture.flag_fin': 'a connection closing tidily',
         'core-network-capture.flag_rst': 'a connection refused or aborted',
+        'core-network-capture.capture_empty': 'No capture has been taken yet.',
+        'core-network-capture.capture_failed':
+          'The capture of {{time}} did not run: {{reason}}',
+        'core-network-capture.interface_filter': 'Interface and filter',
+        'core-network-capture.packets_rate': '{{packets}} — {{rate}} a second',
       }),
       es: Object.freeze({
         'core-network-capture.title': 'Qué hay en la red',
@@ -77,6 +82,13 @@ window.ZogographNetworkCaptureCard = {
         'core-network-capture.flag_fin': 'una conexión se cierra correctamente',
         'core-network-capture.flag_rst':
           'una conexión fue rechazada o cancelada',
+        'core-network-capture.capture_empty':
+          'Aún no se ha tomado ninguna captura.',
+        'core-network-capture.capture_failed':
+          'La captura de {{time}} no se ejecutó: {{reason}}',
+        'core-network-capture.interface_filter': 'Interfaz y filtro',
+        'core-network-capture.packets_rate':
+          '{{packets}} — {{rate}} por segundo',
       }),
       hi: Object.freeze({
         'core-network-capture.title': 'नेटवर्क पर क्या है',
@@ -106,6 +118,13 @@ window.ZogographNetworkCaptureCard = {
           'स्थापित कनेक्शन पर अनुप्रयोग डेटा',
         'core-network-capture.flag_fin': 'कनेक्शन ठीक से बंद हो रहा है',
         'core-network-capture.flag_rst': 'कनेक्शन अस्वीकृत या रद्द किया गया',
+        'core-network-capture.capture_empty':
+          'अभी तक कोई कैप्चर नहीं लिया गया है।',
+        'core-network-capture.capture_failed':
+          '{{time}} का कैप्चर नहीं चला: {{reason}}',
+        'core-network-capture.interface_filter': 'इंटरफ़ेस और फ़िल्टर',
+        'core-network-capture.packets_rate':
+          '{{packets}} — {{rate}} प्रति सेकंड',
       }),
       ar: Object.freeze({
         'core-network-capture.title': 'ما الموجود على الشبكة',
@@ -134,6 +153,12 @@ window.ZogographNetworkCaptureCard = {
         'core-network-capture.flag_psh_ack': 'بيانات تطبيق لاتصال قائم',
         'core-network-capture.flag_fin': 'اتصال يُغلق بشكل سليم',
         'core-network-capture.flag_rst': 'اتصال رُفض أو أُلغي',
+        'core-network-capture.capture_empty': 'لم تُؤخذ لقطة بعد.',
+        'core-network-capture.capture_failed':
+          'لم تُشغّل لقطة {{time}}: {{reason}}',
+        'core-network-capture.interface_filter': 'الواجهة والمرشح',
+        'core-network-capture.packets_rate':
+          '{{packets}} — {{rate}} في الثانية',
       }),
       zh: Object.freeze({
         'core-network-capture.title': '线路上有什么',
@@ -162,6 +187,11 @@ window.ZogographNetworkCaptureCard = {
         'core-network-capture.flag_psh_ack': '已建立连接上的应用数据',
         'core-network-capture.flag_fin': '连接正常关闭',
         'core-network-capture.flag_rst': '连接被拒绝或中止',
+        'core-network-capture.capture_empty': '尚未进行抓取。',
+        'core-network-capture.capture_failed':
+          '{{time}} 的抓取未运行：{{reason}}',
+        'core-network-capture.interface_filter': '接口和筛选器',
+        'core-network-capture.packets_rate': '{{packets}} — 每秒 {{rate}}',
       }),
     }),
   }),
@@ -188,7 +218,18 @@ window.ZogographNetworkCaptureCard = {
       labelled,
       i18n,
     } = helpers;
-    const t = (key, values, fallback) => i18n.t(key, values, fallback);
+    const t = (key, values, fallback) => {
+      const name = key.slice('network.'.length);
+      const packageKey = [
+        'capture_empty',
+        'capture_failed',
+        'interface_filter',
+        'packets_rate',
+      ].includes(name)
+        ? `core-network-capture.${name}`
+        : key;
+      return i18n.t(packageKey, values, fallback);
+    };
     if (!target) return;
     if (!capture) {
       target.replaceChildren(note(t('network.capture_empty')));

@@ -1066,6 +1066,22 @@ i18nExpect(
         ) &&
         str_contains($networkCaptureCard, 'catalogs: Object.freeze({') &&
         str_contains($networkCaptureCard, '"core-network-capture.flags_new"') &&
+        str_contains(
+            $networkCaptureCard,
+            '"core-network-capture.capture_empty"',
+        ) &&
+        str_contains(
+            $networkCaptureCard,
+            '"core-network-capture.capture_failed"',
+        ) &&
+        str_contains(
+            $networkCaptureCard,
+            '"core-network-capture.interface_filter"',
+        ) &&
+        str_contains(
+            $networkCaptureCard,
+            '"core-network-capture.packets_rate"',
+        ) &&
         $script !== false &&
         str_contains(
             $script,

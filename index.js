@@ -34363,10 +34363,10 @@ function renderCapture(capture, target = 'captureBody') {
     wrap.appendChild(
       simpleTable(
         [
-          ZogographI18n.t('network.flag', {}, 'Flag'),
+          ZogographI18n.t('core-network-capture.flag', {}, 'Flag'),
           ZogographI18n.t('network.packets', {}, 'Packets'),
           ZogographI18n.t('network.share', {}, 'Share'),
-          ZogographI18n.t('network.what_it_is', {}, 'What it is'),
+          ZogographI18n.t('core-network-capture.what_it_is', {}, 'What it is'),
         ],
         capture.flags.map((f) => [
           f.label,
@@ -34392,7 +34392,11 @@ function renderCapture(capture, target = 'captureBody') {
     }
     parts.push(
       section(
-        ZogographI18n.t('network.traffic_kind', {}, 'What kind of traffic'),
+        ZogographI18n.t(
+          'core-network-capture.traffic_kind',
+          {},
+          'What kind of traffic',
+        ),
         wrap,
       ),
     );
@@ -34448,7 +34452,7 @@ function renderCapture(capture, target = 'captureBody') {
     parts.push(
       section(
         ZogographI18n.t(
-          'network.peer_endpoints',
+          'core-network-capture.peer_endpoints',
           {},
           'Who is on the other end',
         ),
@@ -34461,7 +34465,11 @@ function renderCapture(capture, target = 'captureBody') {
     const total = capture.ports.reduce((sum, p) => sum + Number(p.packets), 0);
     parts.push(
       section(
-        ZogographI18n.t('network.which_service', {}, 'Which service'),
+        ZogographI18n.t(
+          'core-network-capture.which_service',
+          {},
+          'Which service',
+        ),
         simpleTable(
           [
             ZogographI18n.t('network.port', {}, 'Port'),

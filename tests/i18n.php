@@ -1097,6 +1097,11 @@ i18nExpect(
         !isset($english['network.stopped_early']) &&
         !isset($english['network.stopped_early_detail']) &&
         !isset($english['network.the_sample']) &&
+        !isset($english['network.flag']) &&
+        !isset($english['network.what_it_is']) &&
+        !isset($english['network.traffic_kind']) &&
+        !isset($english['network.peer_endpoints']) &&
+        !isset($english['network.which_service']) &&
         str_contains(
             $networkCaptureCard,
             '"core-network-capture.capture_direction_detail"',

@@ -5976,6 +5976,12 @@ function signInMessage(key, variables = {}) {
   });
 }
 
+function chatWaitingText(key, variables = {}) {
+  return ZogographChatWaitingCard.text(key, variables, {
+    i18n: ZogographI18n,
+  });
+}
+
 function renderChatSpeechControls() {
   const labels = renderCoreCardPackage(
     ZogographChatSpeechControlsCard,
@@ -10106,11 +10112,7 @@ async function runWaitForReadings(args) {
     return {
       arrived: false,
       which,
-      note: ZogographI18n.t(
-        'assistant.waiting_unavailable',
-        {},
-        'Collector waiting is unavailable while the System health feature is disabled.',
-      ),
+      note: chatWaitingText('unavailable'),
     };
   }
 
@@ -10139,11 +10141,7 @@ async function runWaitForReadings(args) {
 
   const waiting = document.createElement('div');
   waiting.className = 'chat-question';
-  waiting.textContent = ZogographI18n.t(
-    'assistant.waiting_collector',
-    { collector: which },
-    'Waiting for the {{collector}} collector…',
-  );
+  waiting.textContent = chatWaitingText('collector', { collector: which });
   chatState.prompt = waiting;
   $('chatAsk').replaceChildren(waiting);
   $('chatAsk').hidden = false;
@@ -10151,15 +10149,11 @@ async function runWaitForReadings(args) {
   try {
     while (Date.now() < until) {
       const left = Math.round((until - Date.now()) / 1000);
-      waiting.textContent = ZogographI18n.t(
-        'assistant.waiting_collector_for',
-        {
-          assistant: chatState.who.name,
-          collector: which,
-          duration: humanSpan(left),
-        },
-        '{{assistant}} is waiting for the {{collector}} collector — up to {{duration}} more.',
-      );
+      waiting.textContent = chatWaitingText('collector_for', {
+        assistant: chatState.who.name,
+        collector: which,
+        duration: humanSpan(left),
+      });
 
       await new Promise((resolve) => setTimeout(resolve, 5000));
 
@@ -10169,11 +10163,7 @@ async function runWaitForReadings(args) {
           arrived: true,
           which,
           waited: humanSpan(Math.round(seconds - (until - Date.now()) / 1000)),
-          note: ZogographI18n.t(
-            'assistant.waiting_arrived',
-            {},
-            'New readings have landed. Anything you read before this is from before them — call the tools again rather than reasoning from the old answers.',
-          ),
+          note: chatWaitingText('arrived'),
         };
       }
     }
@@ -10182,11 +10172,7 @@ async function runWaitForReadings(args) {
       arrived: false,
       which,
       waited: humanSpan(seconds),
-      note: ZogographI18n.t(
-        'assistant.waiting_timed_out',
-        { collector: which },
-        'Nothing new arrived from the {{collector}} collector in that time. That is a finding: it is not running as often as it should, or at all. Say so rather than waiting again.',
-      ),
+      note: chatWaitingText('timed_out', { collector: which }),
     };
   } finally {
     chatState.prompt = null;

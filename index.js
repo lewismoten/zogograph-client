@@ -5960,6 +5960,23 @@ function renderChatShellControls() {
 
 document.addEventListener('zogograph-i18n-load', renderChatShellControls);
 
+function renderChatComposer() {
+  const labels = renderCoreCardPackage(
+    ZogographChatComposerCard,
+    'core-chat-composer',
+    {},
+    { i18n: ZogographI18n },
+  );
+  $('chatText').placeholder = labels.placeholder;
+  $('chatSend').textContent = ZogographI18n.markSource(
+    $('chatSend'),
+    'core-chat-composer.ask',
+    labels.ask,
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderChatComposer);
+
 /** Every container the settings are split across. */
 const AI_SETTING_PAGES = [
   'aiIdentityBody',

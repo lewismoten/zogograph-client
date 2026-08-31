@@ -232,6 +232,7 @@
     <script src="cards/filter-controls.js" defer></script>
     <script src="cards/chat-shell-accessibility.js" defer></script>
     <script src="cards/chat-shell-controls.js" defer></script>
+    <script src="cards/chat-composer.js" defer></script>
     <script src="cards/chat-cost.js" defer></script>
     <script src="cards/chat-summary-marker.js" defer></script>
     <script src="cards/chat-summary-dialog.js" defer></script>
@@ -4911,10 +4912,14 @@
               id="chatText"
               rows="2"
               placeholder="What is going wrong?"
-              data-i18n-placeholder="assistant.prompt_placeholder"
+              data-i18n-placeholder="core-chat-composer.prompt_placeholder"
               spellcheck="false"
             ></textarea>
-            <button type="submit" id="chatSend" data-i18n="assistant.ask">
+            <button
+              type="submit"
+              id="chatSend"
+              data-i18n="core-chat-composer.ask"
+            >
               Ask
             </button>
           </form>

@@ -2637,6 +2637,24 @@ function renderHostDiskShellLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderHostDiskShellLabels);
 
+function renderCagefsShellLabels() {
+  const helpers = { i18n: ZogographI18n };
+  renderCoreCardPackage(
+    ZogographCagefsShellCard,
+    'core-cagefs-shell',
+    {},
+    helpers,
+  );
+  const title = document.querySelector('[data-i18n="core-cagefs-shell.title"]');
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-cagefs-shell.title',
+    ZogographCagefsShellCard.text('title', helpers),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderCagefsShellLabels);
+
 /**
  * When the disk is projected to fill, as a date.
  *

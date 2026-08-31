@@ -16717,59 +16717,46 @@ function renderRetention(data) {
 
 /** Clearing one kind of record, which always asks first. */
 function purgeButton(entry) {
+  const purgeText = (key, values = {}) =>
+    renderCoreCardPackage(
+      ZogographStoragePurgeCard,
+      'core-storage-purge',
+      { key, values },
+      { i18n: ZogographI18n },
+    );
   const button = document.createElement('button');
   button.type = 'button';
   button.className = 'link danger';
   button.textContent = ZogographI18n.t('action.clear', {}, 'Clear');
-  button.title = ZogographI18n.t(
-    'storage.purge_button_title',
-    { label: entry.label.toLowerCase() },
-    'Delete {{label}} older than a given age',
-  );
+  button.title = purgeText('button_title', {
+    label: entry.label.toLowerCase(),
+  });
 
   button.addEventListener('click', async () => {
     const asked = await askTextDialog(
-      ZogographI18n.t('storage.purge_title', {}, 'Clear old records'),
-      ZogographI18n.t('storage.purge_age_in_days', {}, 'Age in days'),
+      purgeText('title'),
+      purgeText('age_in_days'),
       String(entry.days || 30),
-      ZogographI18n.t(
-        'storage.purge_zero_help',
-        {
-          label: entry.label.toLowerCase(),
-          protected:
-            entry.table === 'vitals'
-              ? ZogographI18n.t(
-                  'storage.purge_protected_help',
-                  {},
-                  ' Readings near an alert are always kept.',
-                )
-              : '',
-        },
-        '0 deletes all {{label}}.{{protected}}',
-      ),
+      purgeText('zero_help', {
+        label: entry.label.toLowerCase(),
+        protected: entry.table === 'vitals' ? purgeText('protected_help') : '',
+      }),
     );
     if (asked === null) return;
 
     const days = Number(asked);
     if (!Number.isInteger(days) || days < 0) {
-      notice(
-        ZogographI18n.t(
-          'storage.purge_invalid_days',
-          {},
-          'That is not a number of days.',
-        ),
-      );
+      notice(purgeText('invalid_days'));
       return;
     }
 
     if (
       days === 0 &&
       !(await confirmDialog(
-        ZogographI18n.t(
-          'storage.purge_confirm',
-          { label: entry.label.toLowerCase(), why: entry.why },
-          'Delete every one of {{label}}?\n\n{{why}}\n\nThis cannot be undone.',
-        ),
+        purgeText('confirm', {
+          label: entry.label.toLowerCase(),
+          why: entry.why,
+        }),
       ))
     )
       return;
@@ -16778,21 +16765,15 @@ function purgeButton(entry) {
     try {
       const result = await post('store-purge', { key: entry.key, days });
       notice(
-        ZogographI18n.t(
-          'storage.purge_removed',
-          {
-            count: humanCount(result.result.removed),
-            label: result.result.label,
-            protected: result.result.protected
-              ? ZogographI18n.t(
-                  'storage.purge_protected',
-                  { count: humanCount(result.result.protected) },
-                  ' {{count}} kept because they sit beside an alert.',
-                )
-              : '',
-          },
-          '{{count}} removed from {{label}}.{{protected}}',
-        ),
+        purgeText('removed', {
+          count: humanCount(result.result.removed),
+          label: result.result.label,
+          protected: result.result.protected
+            ? purgeText('protected', {
+                count: humanCount(result.result.protected),
+              })
+            : '',
+        }),
         true,
       );
       renderStore(result);

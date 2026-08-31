@@ -137,6 +137,7 @@
     <script src="cards/storage-purge.js" defer></script>
     <script src="cards/storage-measuring.js" defer></script>
     <script src="cards/storage-log.js" defer></script>
+    <script src="cards/storage-bulk-delete.js" defer></script>
     <script src="cards/symlink-filter.js" defer></script>
     <script src="cards/symlink-actions.js" defer></script>
     <script src="cards/symlink-sweep-empty.js" defer></script>
@@ -1747,13 +1748,7 @@
                     </option>
                   </select>
                 </label>
-                <button
-                  id="offenderDelete"
-                  class="danger"
-                  disabled
-                  hidden
-                  data-i18n="storage.delete_selected"
-                >
+                <button id="offenderDelete" class="danger" disabled hidden>
                   Delete selected
                 </button>
                 <label class="inline">

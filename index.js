@@ -4991,6 +4991,14 @@ function lastLineCell(row) {
  */
 const offenderPicked = new Set();
 
+const storageBulkDeleteText = (key, values = {}) =>
+  renderCoreCardPackage(
+    ZogographStorageBulkDeleteCard,
+    'core-storage-bulk-delete',
+    { key, values },
+    { i18n: ZogographI18n },
+  );
+
 function offenderPicker(row) {
   if (!mayDelete(row)) return '';
 
@@ -4999,11 +5007,7 @@ function offenderPicker(row) {
   box.checked = offenderPicked.has(row.path);
   box.setAttribute(
     'aria-label',
-    ZogographI18n.t(
-      'storage.select_row',
-      { name: row.display },
-      'Select {{name}}',
-    ),
+    storageBulkDeleteText('select_row', { name: row.display }),
   );
   box.addEventListener('click', (event) => event.stopPropagation());
   box.addEventListener('change', () => {
@@ -5031,12 +5035,8 @@ function syncOffenderTools(rows) {
   button.hidden = !state.signedIn;
   button.disabled = !picked;
   button.textContent = picked
-    ? ZogographI18n.t(
-        'storage.delete_selected_count',
-        { count: picked },
-        'Delete {{count, number}} selected',
-      )
-    : ZogographI18n.t('storage.delete_selected', {}, 'Delete selected');
+    ? storageBulkDeleteText('delete_selected_count', { count: picked })
+    : storageBulkDeleteText('delete_selected');
 }
 
 /*
@@ -5057,40 +5057,22 @@ async function deletePicked() {
   const dirs = rows.filter((r) => r.kind === 'dir').length;
 
   const question =
-    ZogographI18n.t(
-      'storage.delete_permanently',
-      { count: rows.length },
-      'Delete {{count, number}} permanently?',
-    ) +
+    storageBulkDeleteText('delete_permanently', { count: rows.length }) +
     '\n\n' +
     rows
       .slice(0, 12)
       .map((r) => `${r.kind === 'dir' ? '[dir] ' : ''}${r.display}`)
       .join('\n') +
     (rows.length > 12
-      ? '\n' +
-        ZogographI18n.t(
-          'storage.delete_more',
-          { count: rows.length - 12 },
-          '…and {{count, number}} more',
-        )
+      ? '\n' + storageBulkDeleteText('delete_more', { count: rows.length - 12 })
       : '') +
     '\n\n' +
-    ZogographI18n.t(
-      'storage.delete_size',
-      { bytes: humanBytes(bytes) },
-      'That is {{bytes}}',
-    ) +
+    storageBulkDeleteText('delete_size', { bytes: humanBytes(bytes) }) +
     (dirs
-      ? ', ' +
-        ZogographI18n.t(
-          'storage.delete_recursive',
-          { count: dirs },
-          'and {{count, number}} will be emptied recursively',
-        )
+      ? ', ' + storageBulkDeleteText('delete_recursive', { count: dirs })
       : '') +
     '. ' +
-    ZogographI18n.t('storage.cannot_undo', {}, 'This cannot be undone.');
+    storageBulkDeleteText('cannot_undo');
 
   if (!(await confirmDialog(question, 'Delete'))) return;
 
@@ -5117,18 +5099,16 @@ async function deletePicked() {
   }
 
   notice(
-    ZogographI18n.t(
-      'storage.removed',
-      { count: done, bytes: humanBytes(freed) },
-      'Removed {{count, number}}, freeing {{bytes}}.',
-    ) +
+    storageBulkDeleteText('removed', {
+      count: done,
+      bytes: humanBytes(freed),
+    }) +
       (failed.length
         ? ' ' +
-          ZogographI18n.t(
-            'storage.remove_failed',
-            { count: failed.length, detail: failed[0] },
-            '{{count, number}} could not be removed: {{detail}}',
-          )
+          storageBulkDeleteText('remove_failed', {
+            count: failed.length,
+            detail: failed[0],
+          })
         : ''),
     !failed.length,
   );

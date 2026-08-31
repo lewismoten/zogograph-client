@@ -9664,16 +9664,14 @@ function renderChat() {
   renderChatStatus(session);
   speakAssistantReply(session);
 
-  $('chatCost').textContent = session.spent.known
-    ? `${session.spent.said} · ${humanCount(session.tokens.in + session.tokens.out)} tokens`
-    : `${humanCount(session.tokens.in + session.tokens.out)} tokens`;
-  $('chatCost').title =
-    `In ${humanCount(session.tokens.in)}, out ` +
-    `${humanCount(session.tokens.out)}, of which ${humanCount(session.tokens.cached)} ` +
-    'was cached input.' +
-    (session.spent.known
-      ? ''
-      : ' No prices are set, so the cost is not known.');
+  const chatCost = renderCoreCardPackage(
+    ZogographChatCostCard,
+    'core-chat-cost',
+    session,
+    { humanCount, i18n: ZogographI18n },
+  );
+  $('chatCost').textContent = chatCost.value;
+  $('chatCost').title = chatCost.title;
 
   renderChatRoom(session);
   renderChatEffort(session);

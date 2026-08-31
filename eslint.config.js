@@ -133,6 +133,7 @@ export default [
         ZogographChatRestartCard: 'readonly',
         ZogographChatExtendLimitCard: 'readonly',
         ZogographChatContextCard: 'readonly',
+        ZogographChatCostCard: 'readonly',
         ZogographChatEffortCard: 'readonly',
         ZogographChatCatchUpCard: 'readonly',
         ZogographChatPlaceholderCard: 'readonly',

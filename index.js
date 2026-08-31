@@ -3140,6 +3140,37 @@ function renderCalendarEventListTitle() {
 
 document.addEventListener('zogograph-i18n-load', renderCalendarEventListTitle);
 
+function renderLogRepeatsShellLabels() {
+  const helpers = {
+    target: null,
+    note: () => null,
+    humanCount: () => '',
+    count: () => '',
+    renderTable: () => null,
+    whenSpan: () => null,
+    logMarks: {},
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(
+    ZogographLogRepeatsCard,
+    'core-log-repeats',
+    {},
+    helpers,
+  );
+  document
+    .querySelectorAll('[data-i18n^="core-log-repeats."]')
+    .forEach((node) => {
+      const key = node.dataset.i18n.replace('core-log-repeats.', '');
+      node.textContent = ZogographI18n.markSource(
+        node,
+        `core-log-repeats.${key}`,
+        ZogographLogRepeatsCard.text(key, helpers),
+      );
+    });
+}
+
+document.addEventListener('zogograph-i18n-load', renderLogRepeatsShellLabels);
+
 /**
  * When the disk is projected to fill, as a date.
  *

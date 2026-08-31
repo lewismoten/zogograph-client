@@ -2238,10 +2238,12 @@ i18nExpect(
 );
 i18nExpect(
     $page !== false &&
-        str_contains($page, 'data-i18n="log.repeat_title"') &&
-        str_contains($page, 'data-i18n="log.repeat_help"') &&
-        is_array($english) &&
-        isset($english['log.repeat_title'], $english['log.repeat_help']),
+        str_contains($page, 'data-i18n="core-log-repeats.title"') &&
+        str_contains($page, 'data-i18n="core-log-repeats.help"') &&
+        isset(
+            $coreCardEnglish['core-log-repeats.title'],
+            $coreCardEnglish['core-log-repeats.help'],
+        ),
     'Repeated-log guidance does not use the locale catalog',
 );
 i18nExpect(

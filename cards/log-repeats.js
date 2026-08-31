@@ -14,6 +14,9 @@ window.ZogographLogRepeatsCard = {
     ],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-log-repeats.title': 'What keeps repeating',
+        'core-log-repeats.help':
+          'A log filling a disk is almost never full of interesting distinct events; it is one event ten thousand times. These are the same lines with their variable parts — numbers, addresses, paths, quoted strings — taken out and counted, which is the only presentation of that fact anybody can act on.',
         'core-log-repeats.summary':
           '{{lines}} recent lines across every log fall into {{shapes}}.',
         'core-log-repeats.per_minute': '{{rate}}/min',
@@ -26,6 +29,9 @@ window.ZogographLogRepeatsCard = {
         'core-log-repeats.what_it_says': 'What it says',
       }),
       es: Object.freeze({
+        'core-log-repeats.title': 'Lo que se repite',
+        'core-log-repeats.help':
+          'Un registro que llena un disco casi nunca contiene eventos distintos e interesantes; es un evento diez mil veces. Aquí se agrupan y cuentan las mismas líneas quitando sus partes variables — números, direcciones, rutas y cadenas entre comillas —, la única presentación sobre la que se puede actuar.',
         'core-log-repeats.summary':
           '{{lines}} líneas recientes de todos los registros se agrupan en {{shapes}}.',
         'core-log-repeats.per_minute': '{{rate}}/min',
@@ -38,6 +44,9 @@ window.ZogographLogRepeatsCard = {
         'core-log-repeats.what_it_says': 'Qué dice',
       }),
       hi: Object.freeze({
+        'core-log-repeats.title': 'क्या बार-बार दोहराता है',
+        'core-log-repeats.help':
+          'डिस्क भरने वाला लॉग शायद ही अलग रोचक घटनाओं से भरा होता है; वह एक घटना दस हज़ार बार होती है। ये वही पंक्तियाँ हैं जिनके बदलने वाले भाग — संख्या, पते, पथ और उद्धृत स्ट्रिंग — हटाकर गिने गए हैं।',
         'core-log-repeats.summary':
           'सभी लॉग की {{lines}} हाल की पंक्तियाँ {{shapes}} में आती हैं।',
         'core-log-repeats.per_minute': '{{rate}}/मिनट',
@@ -50,6 +59,9 @@ window.ZogographLogRepeatsCard = {
         'core-log-repeats.what_it_says': 'यह क्या कहता है',
       }),
       ar: Object.freeze({
+        'core-log-repeats.title': 'ما الذي يتكرر',
+        'core-log-repeats.help':
+          'يكاد السجل الذي يملأ قرصًا لا يكون مليئًا بأحداث مثيرة ومختلفة؛ بل حدث واحد عشرة آلاف مرة. هذه هي السطور نفسها بعد إزالة أجزائها المتغيرة — الأرقام والعناوين والمسارات والسلاسل المقتبسة — وعدّها، وهو العرض الوحيد الذي يمكن التصرف بناءً عليه.',
         'core-log-repeats.summary':
           'تقع {{lines}} أسطر حديثة من كل السجلات ضمن {{shapes}}.',
         'core-log-repeats.per_minute': '{{rate}}/دقيقة',
@@ -62,6 +74,9 @@ window.ZogographLogRepeatsCard = {
         'core-log-repeats.what_it_says': 'ما الذي يقوله',
       }),
       zh: Object.freeze({
+        'core-log-repeats.title': '反复出现的内容',
+        'core-log-repeats.help':
+          '占满磁盘的日志几乎从来不是由许多有趣且不同的事件组成；而是同一事件发生一万次。这里将相同行中可变的部分——数字、地址、路径和引号内字符串——剔除后计数，这是唯一可据以采取行动的呈现方式。',
         'core-log-repeats.summary':
           '所有日志中最近的 {{lines}} 行归入 {{shapes}}。',
         'core-log-repeats.per_minute': '{{rate}}/分钟',
@@ -75,6 +90,13 @@ window.ZogographLogRepeatsCard = {
       }),
     }),
   }),
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-log-repeats.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-log-repeats.${key}`],
+    );
+  },
   render(data, helpers) {
     const repeats = data.repeats;
     if (!repeats?.groups.length) {

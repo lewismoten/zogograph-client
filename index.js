@@ -2244,6 +2244,35 @@ function renderHostMemoryPieLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderHostMemoryPieLabels);
 
+function renderHostMemoryProcessLabels() {
+  const helpers = {
+    target: { id: 'hostProcesses' },
+    renderTable: () => null,
+    userCell: () => '',
+    namedThing: () => '',
+    humanBytes: () => '',
+    hostPss: () => '',
+    humanDuration: () => '',
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(
+    ZogographHostMemoryProcessesCard,
+    'core-host-memory-processes',
+    { rows: [] },
+    helpers,
+  );
+  const title = document.querySelector(
+    '[data-i18n="core-host-memory-processes.title"]',
+  );
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-host-memory-processes.title',
+    ZogographHostMemoryProcessesCard.text('title', helpers),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderHostMemoryProcessLabels);
+
 /**
  * When the disk is projected to fill, as a date.
  *
@@ -23566,52 +23595,21 @@ async function refreshHost() {
   );
   renderMemoryPie(data.services ?? [], s);
 
-  renderTable('hostProcesses', data.processes, [
+  renderCoreCardPackage(
+    ZogographHostMemoryProcessesCard,
+    'core-host-memory-processes',
+    { rows: data.processes ?? [] },
     {
-      label: ZogographI18n.t('cpu.pid', {}, 'PID'),
-      className: 'size',
-      render: (r) => r.pid,
+      target: $('hostProcesses'),
+      renderTable,
+      userCell,
+      namedThing,
+      humanBytes,
+      hostPss,
+      humanDuration,
+      i18n: ZogographI18n,
     },
-    {
-      label: ZogographI18n.t('cpu.user', {}, 'User'),
-      render: (r) => userCell(r.user),
-    },
-    {
-      label: ZogographI18n.t('cpu.process', {}, 'Process'),
-      render: (r) => namedThing('process', r.name),
-    },
-    {
-      label: ZogographI18n.t('cpu.resident', {}, 'Resident'),
-      className: 'size',
-      render: (r) => humanBytes(r.rss_bytes),
-    },
-    {
-      label: ZogographI18n.t('host.proportional_pss', {}, 'Proportional (PSS)'),
-      className: 'size',
-      render: (r) => hostPss(r.pss_bytes),
-    },
-    {
-      label: ZogographI18n.t('host.swapped', {}, 'Swapped'),
-      className: 'size',
-      render: (r) => humanBytes(r.swap_bytes),
-    },
-    {
-      label: ZogographI18n.t('cpu.threads', {}, 'Threads'),
-      className: 'size',
-      render: (r) => r.threads,
-    },
-    {
-      label: ZogographI18n.t('cpu.running_for', {}, 'Running for'),
-      className: 'size',
-      render: (r) =>
-        r.elapsed_seconds == null ? '—' : humanDuration(r.elapsed_seconds),
-    },
-    {
-      label: ZogographI18n.t('cpu.command', {}, 'Command'),
-      className: 'cmd',
-      render: (r) => r.command,
-    },
-  ]);
+  );
 
   /*
    * What the collector could see, which is a different machine from the one the

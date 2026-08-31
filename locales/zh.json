@@ -2354,7 +2354,6 @@
   "overview.free_space_steady": "可用空间没有下降",
   "overview.losing_rate": "每小时减少 {{rate}}，统计窗口为 {{window}}",
   "host.memory_breakdown_help": "每项服务占用的已测量进程内存份额，采用 {{pss}} 而非 {{rss}}。饼图要求各分块构成整体，而常驻内存做不到：被十个进程共享的一页会被计算十次。",
-  "host.memory_processes_title": "主机上最大的进程",
   "host.memory_processes_help": "机器上的所有进程，并非仅此账户的进程。当按用户汇总只能说明归属时，此列表能回答究竟是谁占用了内存。",
   "host.kernel_slab_title": "内核 slab 缓存",
   "host.kernel_slab_help": "内核为自己保留的内存。它不属于任何进程或账户；当数值对不上时应先查看这里：四分之一 GB 的 xfs_inode 不会出现在本网站的其他位置。",

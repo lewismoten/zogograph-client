@@ -7094,33 +7094,12 @@ function chatReactionCard(message) {
  * stops trusting.
  */
 function chatSummaryCard(message, session) {
-  const wrap = document.createElement('div');
-  wrap.className = 'chat-summary';
-
-  const head = document.createElement('button');
-  head.type = 'button';
-  head.className = 'chat-summary-head';
-
-  const covers = message.covers ?? {};
-  head.textContent = covers.messages
-    ? aiSettingsText(
-        'summary_marker_count',
-        '— everything above here was summarised ({{messages}} messages) —',
-        { messages: covers.messages },
-      )
-    : aiSettingsText(
-        'summary_marker',
-        '— everything above here was summarised —',
-      );
-  head.title = aiSettingsText(
-    'summary_marker_title',
-    'Still yours to read. From here on the model receives the summary instead. Click to see it.',
+  return renderCoreCardPackage(
+    ZogographChatSummaryMarkerCard,
+    'core-chat-summary-marker',
+    { message, session },
+    { openSummary: showCompaction, i18n: ZogographI18n },
   );
-
-  head.addEventListener('click', () => showCompaction(message, session));
-  wrap.appendChild(head);
-
-  return wrap;
 }
 
 /** The summary itself, and what it stands in for. */

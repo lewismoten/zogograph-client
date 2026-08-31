@@ -15,6 +15,8 @@ window.ZogographCpuTimeCard = {
     catalogs: Object.freeze({
       en: Object.freeze({
         'core-cpu-time.title': 'Where the time goes',
+        'core-cpu-time.help':
+          'A processor is never simply ‘busy’. Every jiffy it spends is charged to one of eight states, and which one decides what to do next — work in userland is the machine earning its keep, time in the kernel is a syscall-heavy workload, iowait is a disk problem wearing a CPU costume, and steal is the hypervisor and not you at all. The single busy percentage everywhere else on this dashboard is all of these added up and is the reason the question usually gets asked twice.',
         'core-cpu-time.meaning_title': 'What each of them means',
         'core-cpu-time.average_over_range':
           '{{percent}}% on average over this range',
@@ -68,6 +70,8 @@ window.ZogographCpuTimeCard = {
       }),
       es: Object.freeze({
         'core-cpu-time.title': 'Dónde se va el tiempo',
+        'core-cpu-time.help':
+          'Un procesador nunca está simplemente «ocupado». Cada jiffy que consume se asigna a uno de ocho estados, y cuál sea determina qué hacer después: el trabajo en espacio de usuario hace que la máquina produzca, el tiempo en el kernel es una carga intensiva en llamadas al sistema, iowait es un problema de disco disfrazado de CPU y steal pertenece al hipervisor, no a usted. El único porcentaje de ocupación del resto del panel es la suma de todos ellos, por eso la pregunta suele hacerse dos veces.',
         'core-cpu-time.meaning_title': 'Qué significa cada uno',
         'core-cpu-time.average_over_range':
           '{{percent}}% de promedio en este intervalo',
@@ -123,6 +127,8 @@ window.ZogographCpuTimeCard = {
       }),
       hi: Object.freeze({
         'core-cpu-time.title': 'समय कहाँ जाता है',
+        'core-cpu-time.help':
+          'प्रोसेसर कभी केवल ‘व्यस्त’ नहीं होता। उसका हर jiffy आठ अवस्थाओं में से एक को दिया जाता है, और वही अगला कदम तय करती है—यूज़रस्पेस का काम मशीन का उपयोगी काम है, कर्नेल समय syscall-भारी कार्यभार है, iowait CPU के वेश में डिस्क समस्या है, और steal हाइपरवाइज़र का है, आपका बिल्कुल नहीं। डैशबोर्ड में हर जगह का एकल व्यस्त प्रतिशत इन सबका योग है, इसलिए सवाल अक्सर दो बार पूछा जाता है।',
         'core-cpu-time.meaning_title': 'हर एक का क्या अर्थ है',
         'core-cpu-time.average_over_range': 'इस अवधि में औसतन {{percent}}%',
         'core-cpu-time.state': 'स्थिति',
@@ -172,6 +178,8 @@ window.ZogographCpuTimeCard = {
       }),
       ar: Object.freeze({
         'core-cpu-time.title': 'إلى أين يذهب الوقت',
+        'core-cpu-time.help':
+          'لا يكون المعالج «مشغولًا» فحسب. كل jiffy يقضيه يُحمّل على واحدة من ثماني حالات، وهي التي تقرر ما يلي — العمل في مساحة المستخدم هو ما تكسب به الآلة قوتها، والوقت في النواة عبء كثيف باستدعاءات النظام، وiowait مشكلة قرص ترتدي زي المعالج، وsteal خاص بمدير الأجهزة الافتراضية لا بك مطلقًا. نسبة الانشغال الوحيدة في بقية لوحة المعلومات هي مجموع كل هذه الحالات، ولهذا يُطرح السؤال عادة مرتين.',
         'core-cpu-time.meaning_title': 'ماذا يعني كل منها',
         'core-cpu-time.average_over_range':
           'متوسط {{percent}}% خلال هذا النطاق',
@@ -222,6 +230,8 @@ window.ZogographCpuTimeCard = {
       }),
       zh: Object.freeze({
         'core-cpu-time.title': '时间都用在哪里',
+        'core-cpu-time.help':
+          '处理器从不会只是“忙碌”。它消耗的每个 jiffy 都会记入八种状态之一，而哪一种决定下一步该做什么：用户态工作是机器在做正事，内核时间是系统调用密集型负载，iowait 是披着 CPU 外衣的磁盘问题，steal 则是虚拟机监控程序的问题，完全不是您的问题。仪表板其他位置的单一忙碌百分比正是这些数值的总和，因此这个问题通常要问两遍。',
         'core-cpu-time.meaning_title': '它们各自代表什么',
         'core-cpu-time.average_over_range': '此范围内平均 {{percent}}%',
         'core-cpu-time.state': '状态',

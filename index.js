@@ -3236,6 +3236,9 @@ function renderCpuTimeShellLabels() {
       ZogographCpuTimeCard.text(key, helpers),
     );
   });
+  ZogographI18n.applyRich(
+    document.querySelector('[data-i18n-rich="core-cpu-time.help"]'),
+  );
 }
 
 document.addEventListener('zogograph-i18n-load', renderCpuTimeShellLabels);

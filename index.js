@@ -13727,91 +13727,20 @@ function renderChangedList(data) {
 
 /** What everything is at right now, and how long it has been that way. */
 function renderInstalled(data) {
-  if (window.ZogographInstalledSoftwareCard) {
-    return renderCoreCardPackage(
-      ZogographInstalledSoftwareCard,
-      'core-installed-software',
-      data,
-      {
-        target: $('installedBody'),
-        note,
-        section,
-        simpleTable,
-        humanSpan,
-        ago,
-        i18n: ZogographI18n,
-      },
-    );
-  }
-  const body = $('installedBody');
-  const parts = [];
-
-  if (data.last_checked) {
-    parts.push(
-      note(
-        ZogographI18n.t('installed.last_checked', {
-          ago: ago(data.last_checked),
-        }),
-      ),
-    );
-  }
-
-  if (data.now.length) {
-    parts.push(
-      section(
-        ZogographI18n.t('installed.system_software'),
-        simpleTable(
-          [
-            ZogographI18n.t('installed.what'),
-            ZogographI18n.t('installed.is'),
-            ZogographI18n.t('installed.unchanged_for'),
-            ZogographI18n.t('installed.why_it_matters'),
-          ],
-          data.now.map((row) => [
-            row.label,
-            row.value,
-            humanSpan(row.age),
-            row.note || '',
-          ]),
-          ['name', 'cmd', null, 'muted'],
-        ),
-      ),
-    );
-  } else {
-    parts.push(note(ZogographI18n.t('installed.empty')));
-  }
-
-  const watched = (data.capabilities || []).filter(
-    (row) => row.version || row.fingerprint,
+  return renderCoreCardPackage(
+    ZogographInstalledSoftwareCard,
+    'core-installed-software',
+    data,
+    {
+      target: $('installedBody'),
+      note,
+      section,
+      simpleTable,
+      humanSpan,
+      ago,
+      i18n: ZogographI18n,
+    },
   );
-  if (watched.length) {
-    parts.push(
-      section(
-        ZogographI18n.t('installed.watched_programs'),
-        simpleTable(
-          [
-            ZogographI18n.t('installed.program'),
-            ZogographI18n.t('installed.version'),
-            ZogographI18n.t('installed.where'),
-          ],
-          watched.map((row) => [
-            row.name,
-            row.version ||
-              (row.fingerprint
-                ? ZogographI18n.t('installed.file_fingerprint', {
-                    fingerprint: row.fingerprint,
-                  })
-                : '—'),
-            row.path,
-          ]),
-          ['name', 'cmd', 'cmd'],
-        ),
-      ),
-    );
-    parts.push(note(ZogographI18n.t('installed.fingerprint_note')));
-  }
-
-  body.replaceChildren(...parts);
 }
 
 /* ---------------------------------------------------------------- notes -- */

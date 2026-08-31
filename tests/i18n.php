@@ -2072,6 +2072,19 @@ i18nExpect(
     'WHOIS availability detail does not belong to its core package',
 );
 i18nExpect(
+    !isset(
+        $english['marketplace.table_capabilities'],
+        $english['marketplace.table_status'],
+        $english['marketplace.history'],
+    ) &&
+        isset(
+            $coreCardEnglish['core-capabilities-shell.title'],
+            $coreCardEnglish['core-fetch-response.status'],
+            $coreCardEnglish['core-url-monitor-actions.history'],
+        ),
+    'marketplace-card labels do not belong to the root catalog',
+);
+i18nExpect(
     $page !== false &&
         str_contains($page, 'src="cards/action-summary.js"') &&
         $actionSummaryCard !== false &&

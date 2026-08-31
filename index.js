@@ -3817,6 +3817,14 @@ function renderSystemMonitorShellTitle() {
     'core-system-monitor-shell.title',
     ZogographSystemMonitorShellCard.text('title', helpers),
   );
+  const help = document.querySelector(
+    '[data-i18n="core-system-monitor-shell.help"]',
+  );
+  help.textContent = ZogographI18n.markSource(
+    help,
+    'core-system-monitor-shell.help',
+    ZogographSystemMonitorShellCard.text('help', helpers),
+  );
 }
 
 document.addEventListener('zogograph-i18n-load', renderSystemMonitorShellTitle);

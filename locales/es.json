@@ -2440,7 +2440,6 @@
   "audit.failed": "fallido",
   "email.settings_sign_in": "Inicie sesión para cambiar la configuración de correo.",
   "system.download_diagnostic": "Descargar diagnóstico",
-  "system.monitor_help": "Un monitor de disco debe poder responder sobre su propio uso del disco y nunca dejar de recopilar sin decirlo. Nada de eso es visible en otro lugar de este sitio: una base de datos que crece silenciosamente hasta un gigabyte parece exactamente igual que una que está bien, y un trabajo cron que se detuvo el martes pasado solo hace que todos los gráficos parezcan tranquilos.",
   "system.health_help": "Lo que esta instalación puede y no puede hacer. Los tres primeros son la razón habitual por la que una implementación nueva devuelve errores.",
   "health.data_dir_writable": "Directorio de datos escribible",
   "health.database_writable": "Base de datos escribible",

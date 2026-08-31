@@ -160,6 +160,7 @@ export default [
         ZogographSymlinkSweepStatusCard: 'readonly',
         ZogographSymlinkSweepFailureCard: 'readonly',
         ZogographSymlinkSweepActionsCard: 'readonly',
+        ZogographSymlinkSweepShellCard: 'readonly',
         ZogographSymlinkSweepTableLabelsCard: 'readonly',
         ZogographSymlinkSignInCard: 'readonly',
         ZogographSymlinkShellCard: 'readonly',

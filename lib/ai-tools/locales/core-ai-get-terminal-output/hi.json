@@ -1,3 +1,4 @@
 {
-  "core-ai-get-terminal-output.summary": "उपयोगकर्ता के चलाए आदेश ने क्या आउटपुट दिया, उसे पढ़ें।"
+  "core-ai-get-terminal-output.summary": "उपयोगकर्ता के चलाए आदेश ने क्या आउटपुट दिया, उसे पढ़ें।",
+  "core-ai-get-terminal-output.activity": "टर्मिनल आदेश का आउटपुट पढ़ा"
 }

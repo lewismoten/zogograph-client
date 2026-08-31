@@ -1,3 +1,4 @@
 {
-  "core-ai-get-terminal-output.summary": "读取用户运行的命令输出了什么。"
+  "core-ai-get-terminal-output.summary": "读取用户运行的命令输出了什么。",
+  "core-ai-get-terminal-output.activity": "读取了终端命令输出"
 }

@@ -1,3 +1,4 @@
 {
-  "core-ai-get-terminal-output.summary": "اقرأ ما طبعه أمر شغّله المستخدم."
+  "core-ai-get-terminal-output.summary": "اقرأ ما طبعه أمر شغّله المستخدم.",
+  "core-ai-get-terminal-output.activity": "قرأ مخرجات أمر من الطرفية"
 }

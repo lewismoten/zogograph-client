@@ -1,3 +1,4 @@
 {
-  "core-ai-get-terminal-output.summary": "Read what a command the user ran printed back."
+  "core-ai-get-terminal-output.summary": "Read what a command the user ran printed back.",
+  "core-ai-get-terminal-output.activity": "Read terminal command output"
 }

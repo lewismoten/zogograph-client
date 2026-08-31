@@ -1,3 +1,4 @@
 {
-  "core-ai-get-terminal-output.summary": "Lea lo que imprimió un comando que ejecutó el usuario."
+  "core-ai-get-terminal-output.summary": "Lea lo que imprimió un comando que ejecutó el usuario.",
+  "core-ai-get-terminal-output.activity": "Leyó la salida de un comando de terminal"
 }

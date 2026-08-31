@@ -2420,7 +2420,6 @@
   "cpu.queue_chart_title": "La cola y el promedio de carga junto a ella",
   "cpu.rates_title": "Cambios de contexto, interrupciones y procesos nuevos",
   "cpu.rates_help": "Los contadores que explican una máquina ocupada mientras nada en ella parece estarlo. Una alta tasa de forks con una tabla de procesos vacía significa que el trabajo llega y se va entre lecturas. Que aumenten los cambios de contexto sin que llegue más trabajo significa que el tiempo se dedica a planificar, no a los trabajos planificados.",
-  "cpu.limits_title": "Límites y estrangulamiento",
   "cpu.limits_help": "La página para «la CPU está al límite y el servidor está inactivo», que no es una contradicción ni una lectura rota. En alojamiento compartido a esta cuenta se le da una parte de la máquina y se le indica, mediante un porcentaje de su propia asignación, cuánto de esa parte está usando. Ambos números son correctos y miden cosas distintas; compararles como una proporción no aporta nada, por eso esta página los muestra juntos.",
   "cpu.lve_title": "Dónde se alcanzó realmente el límite",
   "cpu.lve_help": "CloudLinux registra un fallo cada vez que una cuenta pide más procesador del que permite su LVE y se la contiene. Esa es la diferencia entre «estamos cerca del límite» y «nos están limitando ahora mismo», y es la única cifra aquí que lo dice directamente: el porcentaje de CPU de una cuenta limitada se queda en su techo y parece tranquilo.",

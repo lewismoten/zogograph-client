@@ -2452,6 +2452,14 @@ function renderCpuLimitLabels() {
     'core-cpu-limits.title',
     ZogographCpuLimitsCard.text('title', helpers),
   );
+  const pageTitle = document.querySelector(
+    '[data-i18n="core-cpu-limits.page_title"]',
+  );
+  pageTitle.textContent = ZogographI18n.markSource(
+    pageTitle,
+    'core-cpu-limits.page_title',
+    ZogographCpuLimitsCard.text('page_title', helpers),
+  );
 }
 
 document.addEventListener('zogograph-i18n-load', renderCpuLimitLabels);

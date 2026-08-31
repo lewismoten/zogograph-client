@@ -2435,7 +2435,6 @@
   "cpu.queue_chart_title": "The queue, and the load average beside it",
   "cpu.rates_title": "Context switches, interrupts and new processes",
   "cpu.rates_help": "The counters that explain a machine which is busy while nothing on it looks busy. A high fork rate with an empty process table means the work is arriving and leaving between readings. Context switches climbing without more work arriving means time is going into scheduling rather than into the jobs being scheduled.",
-  "cpu.limits_title": "Ceilings and throttling",
   "cpu.limits_help": "The page for ‘the CPU is pinned and the server is idle’, which is not a contradiction and not a broken reading. On shared hosting this account is given a slice of the machine and told, through a percentage of its own allowance, how much of that slice it is using. Both numbers are correct and they measure different things; nothing useful comes of comparing them as a ratio, so this page puts them side by side instead.",
   "cpu.lve_title": "Where the ceiling was actually hit",
   "cpu.lve_help": "CloudLinux records a fault every time an account asks for more processor than its LVE allows and is held back. This is the difference between ‘we are near the limit’ and ‘we are being throttled right now’, and it is the only figure here that says so directly — a throttled account’s own CPU percentage sits at its ceiling and looks calm.",

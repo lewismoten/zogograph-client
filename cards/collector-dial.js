@@ -15,6 +15,18 @@ window.ZogographCollectorDialCard = {
         'core-collector-dial.next_in': 'Next one in about {{duration}}.',
         'core-collector-dial.refresh': 'Refresh now',
         'core-collector-dial.refresh_status': 'Collector status; refresh now',
+        'core-collector-dial.account': 'This account',
+        'core-collector-dial.host': 'The host collector',
+        'core-collector-dial.nothing_recorded':
+          '{{collector}}: nothing recorded.',
+        'core-collector-dial.last_reading':
+          '{{collector}}: last reading {{age}} ago.',
+        'core-collector-dial.next_expected':
+          '{{collector}}: last reading {{age}} ago, next expected in {{duration}}.',
+        'core-collector-dial.late':
+          '{{collector}}: {{age}} late — it usually runs every {{interval}}.',
+        'core-collector-dial.asking': 'Asking the server now.',
+        'core-collector-dial.ask': 'Click to ask the server now.',
       }),
       es: Object.freeze({
         'core-collector-dial.insufficient_runs':
@@ -29,6 +41,19 @@ window.ZogographCollectorDialCard = {
         'core-collector-dial.refresh': 'Actualizar ahora',
         'core-collector-dial.refresh_status':
           'Estado del recopilador; actualizar ahora',
+        'core-collector-dial.account': 'Esta cuenta',
+        'core-collector-dial.host': 'El recopilador del host',
+        'core-collector-dial.nothing_recorded':
+          '{{collector}}: no hay nada registrado.',
+        'core-collector-dial.last_reading':
+          '{{collector}}: última lectura hace {{age}}.',
+        'core-collector-dial.next_expected':
+          '{{collector}}: última lectura hace {{age}}; la siguiente se espera dentro de {{duration}}.',
+        'core-collector-dial.late':
+          '{{collector}}: {{age}} de retraso; normalmente se ejecuta cada {{interval}}.',
+        'core-collector-dial.asking': 'Consultando al servidor ahora.',
+        'core-collector-dial.ask':
+          'Haga clic para consultar al servidor ahora.',
       }),
       hi: Object.freeze({
         'core-collector-dial.insufficient_runs':
@@ -42,6 +67,18 @@ window.ZogographCollectorDialCard = {
         'core-collector-dial.refresh': 'अभी रीफ़्रेश करें',
         'core-collector-dial.refresh_status':
           'कलेक्टर स्थिति; अभी रीफ़्रेश करें',
+        'core-collector-dial.account': 'यह खाता',
+        'core-collector-dial.host': 'होस्ट कलेक्टर',
+        'core-collector-dial.nothing_recorded':
+          '{{collector}}: कुछ भी दर्ज नहीं है।',
+        'core-collector-dial.last_reading':
+          '{{collector}}: पिछली रीडिंग {{age}} पहले हुई।',
+        'core-collector-dial.next_expected':
+          '{{collector}}: पिछली रीडिंग {{age}} पहले हुई; अगली {{duration}} में अपेक्षित है।',
+        'core-collector-dial.late':
+          '{{collector}}: {{age}} देरी; यह आम तौर पर हर {{interval}} में चलता है।',
+        'core-collector-dial.asking': 'अभी सर्वर से पूछ रहे हैं।',
+        'core-collector-dial.ask': 'अभी सर्वर से पूछने के लिए क्लिक करें।',
       }),
       ar: Object.freeze({
         'core-collector-dial.insufficient_runs':
@@ -53,6 +90,18 @@ window.ZogographCollectorDialCard = {
         'core-collector-dial.next_in': 'التشغيل التالي بعد نحو {{duration}}.',
         'core-collector-dial.refresh': 'تحديث الآن',
         'core-collector-dial.refresh_status': 'حالة الجامع؛ تحديث الآن',
+        'core-collector-dial.account': 'هذا الحساب',
+        'core-collector-dial.host': 'جامع المضيف',
+        'core-collector-dial.nothing_recorded':
+          '{{collector}}: لا توجد قراءة مسجلة.',
+        'core-collector-dial.last_reading':
+          '{{collector}}: آخر قراءة منذ {{age}}.',
+        'core-collector-dial.next_expected':
+          '{{collector}}: آخر قراءة منذ {{age}}، والمتوقع التالي خلال {{duration}}.',
+        'core-collector-dial.late':
+          '{{collector}}: متأخر {{age}} — ويعمل عادةً كل {{interval}}.',
+        'core-collector-dial.asking': 'يُسأل الخادم الآن.',
+        'core-collector-dial.ask': 'انقر لسؤال الخادم الآن.',
       }),
       zh: Object.freeze({
         'core-collector-dial.insufficient_runs':
@@ -64,6 +113,17 @@ window.ZogographCollectorDialCard = {
         'core-collector-dial.next_in': '下一次大约在 {{duration}} 后。',
         'core-collector-dial.refresh': '立即刷新',
         'core-collector-dial.refresh_status': '采集器状态；立即刷新',
+        'core-collector-dial.account': '此账户',
+        'core-collector-dial.host': '主机采集器',
+        'core-collector-dial.nothing_recorded': '{{collector}}：没有记录。',
+        'core-collector-dial.last_reading':
+          '{{collector}}：上一次读数在 {{age}} 前。',
+        'core-collector-dial.next_expected':
+          '{{collector}}：上一次读数在 {{age}} 前，预计 {{duration}} 后进行下一次。',
+        'core-collector-dial.late':
+          '{{collector}}：已延迟 {{age}}——它通常每 {{interval}} 运行一次。',
+        'core-collector-dial.asking': '正在请求服务器。',
+        'core-collector-dial.ask': '点击以立即请求服务器。',
       }),
     }),
   }),

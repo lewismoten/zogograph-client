@@ -1699,6 +1699,30 @@ i18nExpect(
 );
 i18nExpect(
     $script !== false &&
+        str_contains(
+            $script,
+            'function collectorDialText(key, values = {}, fallback = \'\')',
+        ) &&
+        str_contains(
+            $script,
+            "collectorDialText('nothing_recorded', { collector: name })",
+        ) &&
+        str_contains($script, "collectorDialText('next_expected', {") &&
+        str_contains(
+            $script,
+            "collectorDialText(poll.busy ? 'asking' : 'ask')",
+        ) &&
+        isset(
+            $coreCardEnglish['core-collector-dial.nothing_recorded'],
+            $coreCardEnglish['core-collector-dial.next_expected'],
+            $coreCardEnglish['core-collector-dial.late'],
+            $coreCardEnglish['core-collector-dial.asking'],
+            $coreCardEnglish['core-collector-dial.ask'],
+        ),
+    'collector poll-status copy does not belong to the collector-dial package',
+);
+i18nExpect(
+    $script !== false &&
         str_contains($script, 'manifest.locales.length === 0') &&
         str_contains($script, 'manifest.locales.every(') &&
         str_contains($script, "typeof prefix === 'string'"),

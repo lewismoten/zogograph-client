@@ -8018,14 +8018,18 @@ function collectorDial(collector) {
  * "due" for twenty minutes, and leaving it pulsing would say the next one is
  * imminent when nothing is coming.
  */
-function paintDial(svg) {
-  const text = (key, values = {}) =>
+function collectorDialText(key, values = {}, fallback = '') {
+  return (
     renderCoreCardPackage(
       ZogographCollectorDialCard,
       'core-collector-dial',
       { key, values },
       { i18n: ZogographI18n },
-    );
+    ) || fallback
+  );
+}
+
+function paintDial(svg) {
   const size = 46;
   const radius = (size - 5) / 2;
   const circumference = 2 * Math.PI * radius;
@@ -8047,7 +8051,9 @@ function paintDial(svg) {
     progress.setAttribute('class', 'dial-value dial-dead');
     progress.setAttribute('stroke-dasharray', '4 5');
     progress.removeAttribute('stroke-dashoffset');
-    said.textContent = at ? text('insufficient_runs') : text('never_run');
+    said.textContent = at
+      ? collectorDialText('insufficient_runs')
+      : collectorDialText('never_run');
     return;
   }
 
@@ -8062,7 +8068,7 @@ function paintDial(svg) {
     progress.setAttribute('class', 'dial-value dial-dead');
     progress.setAttribute('stroke-dasharray', '4 5');
     progress.removeAttribute('stroke-dashoffset');
-    said.textContent = text('stopped', {
+    said.textContent = collectorDialText('stopped', {
       age: humanSpan(age),
       interval: humanSpan(interval),
     });
@@ -8076,8 +8082,8 @@ function paintDial(svg) {
     String(circumference * (1 - Math.min(1, age / interval))),
   );
   said.textContent = due
-    ? text('due_now', { age: humanSpan(age) })
-    : text('next_in', { duration: humanSpan(interval - age) });
+    ? collectorDialText('due_now', { age: humanSpan(age) })
+    : collectorDialText('next_in', { duration: humanSpan(interval - age) });
 }
 
 /* ------------------------------------------------------- forms being used -- */
@@ -8664,18 +8670,11 @@ function renderLiveToggle() {
 document.addEventListener('zogograph-i18n-load', renderLiveToggle);
 
 function renderCollectorDialControls() {
-  const render = (key, fallback) =>
-    renderCoreCardPackage(
-      ZogographCollectorDialCard,
-      'core-collector-dial',
-      { key },
-      { i18n: ZogographI18n },
-    ) || fallback;
   const button = $('pollState');
-  button.title = render('refresh', 'Refresh now');
+  button.title = collectorDialText('refresh', {}, 'Refresh now');
   button.setAttribute(
     'aria-label',
-    render('refresh_status', 'Collector status; refresh now'),
+    collectorDialText('refresh_status', {}, 'Collector status; refresh now'),
   );
 }
 
@@ -43810,12 +43809,18 @@ function setPollTitle() {
   const said = [];
   const clocks = [];
   if (benefitsFromCollector('account'))
-    clocks.push(['This account', accountClock]);
+    clocks.push([
+      collectorDialText('account', {}, 'This account'),
+      accountClock,
+    ]);
   if (benefitsFromCollector('host'))
-    clocks.push(['The host collector', hostClock]);
+    clocks.push([
+      collectorDialText('host', {}, 'The host collector'),
+      hostClock,
+    ]);
   for (const [name, clock] of clocks) {
     if (!clock.lastAt) {
-      said.push(`${name}: nothing recorded.`);
+      said.push(collectorDialText('nothing_recorded', { collector: name }));
       continue;
     }
     const age = Date.now() / 1000 - clock.lastAt;
@@ -43825,17 +43830,25 @@ function setPollTitle() {
 
     said.push(
       left === null
-        ? `${name}: last reading ${humanDuration(age)} ago.`
+        ? collectorDialText('last_reading', {
+            collector: name,
+            age: humanDuration(age),
+          })
         : left > 0
-          ? `${name}: last reading ${humanDuration(age)} ago, next expected in ${humanDuration(left)}.`
-          : `${name}: ${humanDuration(-left)} late \u2014 it usually runs every ` +
-            `${humanDuration(clock.interval)}.`,
+          ? collectorDialText('next_expected', {
+              collector: name,
+              age: humanDuration(age),
+              duration: humanDuration(left),
+            })
+          : collectorDialText('late', {
+              collector: name,
+              age: humanDuration(-left),
+              interval: humanDuration(clock.interval),
+            }),
     );
   }
 
-  said.push(
-    poll.busy ? 'Asking the server now.' : 'Click to ask the server now.',
-  );
+  said.push(collectorDialText(poll.busy ? 'asking' : 'ask'));
   button.title = said.join('\n');
 }
 

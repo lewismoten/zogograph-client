@@ -17,6 +17,9 @@ window.ZogographDnsRecordGroupCard = {
           'A short TTL means resolvers re-ask constantly. Often left over from a migration.',
         'core-dns-record-group.gone_since': 'Gone since {{date}}',
         'core-dns-record-group.seen_since': 'Seen since {{date}}',
+        'core-dns-record-group.name': 'Name',
+        'core-dns-record-group.type': 'Type',
+        'core-dns-record-group.value': 'Value',
       }),
       es: Object.freeze({
         'core-dns-record-group.ttl': 'TTL',
@@ -24,6 +27,9 @@ window.ZogographDnsRecordGroupCard = {
           'Un TTL corto hace que los resolutores vuelvan a consultar constantemente. Suele quedar de una migración.',
         'core-dns-record-group.gone_since': 'Eliminado desde {{date}}',
         'core-dns-record-group.seen_since': 'Visto desde {{date}}',
+        'core-dns-record-group.name': 'Nombre',
+        'core-dns-record-group.type': 'Tipo',
+        'core-dns-record-group.value': 'Valor',
       }),
       hi: Object.freeze({
         'core-dns-record-group.ttl': 'TTL',
@@ -31,6 +37,9 @@ window.ZogographDnsRecordGroupCard = {
           'छोटे TTL का अर्थ है कि रिज़ॉल्वर लगातार फिर से पूछते हैं। यह अक्सर माइग्रेशन के बाद बचा रह जाता है।',
         'core-dns-record-group.gone_since': '{{date}} से अनुपस्थित',
         'core-dns-record-group.seen_since': '{{date}} से देखा गया',
+        'core-dns-record-group.name': 'नाम',
+        'core-dns-record-group.type': 'प्रकार',
+        'core-dns-record-group.value': 'मान',
       }),
       ar: Object.freeze({
         'core-dns-record-group.ttl': 'TTL',
@@ -38,6 +47,9 @@ window.ZogographDnsRecordGroupCard = {
           'يعني TTL القصير أن المحلِّلات تعيد السؤال باستمرار. وغالبًا ما يكون متبقيًا من عملية ترحيل.',
         'core-dns-record-group.gone_since': 'غائب منذ {{date}}',
         'core-dns-record-group.seen_since': 'شوهد منذ {{date}}',
+        'core-dns-record-group.name': 'الاسم',
+        'core-dns-record-group.type': 'النوع',
+        'core-dns-record-group.value': 'القيمة',
       }),
       zh: Object.freeze({
         'core-dns-record-group.ttl': 'TTL',
@@ -45,6 +57,9 @@ window.ZogographDnsRecordGroupCard = {
           'TTL 过短意味着解析器会不断重新查询。这通常是迁移后遗留下来的。',
         'core-dns-record-group.gone_since': '自 {{date}} 起已消失',
         'core-dns-record-group.seen_since': '自 {{date}} 起已发现',
+        'core-dns-record-group.name': '名称',
+        'core-dns-record-group.type': '类型',
+        'core-dns-record-group.value': '值',
       }),
     }),
   }),
@@ -55,7 +70,7 @@ window.ZogographDnsRecordGroupCard = {
       data.rows,
       [
         {
-          label: helpers.i18n.t('table.name', {}, 'Name'),
+          label: helpers.i18n.t('core-dns-record-group.name', {}, 'Name'),
           className: 'name',
           render: (row) => {
             const span = document.createElement('span');
@@ -65,11 +80,11 @@ window.ZogographDnsRecordGroupCard = {
           },
         },
         {
-          label: helpers.i18n.t('table.type', {}, 'Type'),
+          label: helpers.i18n.t('core-dns-record-group.type', {}, 'Type'),
           render: (row) => row.type,
         },
         {
-          label: helpers.i18n.t('table.value', {}, 'Value'),
+          label: helpers.i18n.t('core-dns-record-group.value', {}, 'Value'),
           className: 'cmd',
           render: helpers.recordValueCell,
         },

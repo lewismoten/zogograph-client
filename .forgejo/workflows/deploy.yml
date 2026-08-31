@@ -263,7 +263,18 @@ jobs:
             "${DEPLOY_USER}@${DEPLOY_HOST}" \
             "bash '$remote_script' '$DEPLOY_PATH' '$SNAPSHOT_DIRECTORY' '$snapshot_id' prepare"
 
-      - name: Snapshot live application files
+      - name: Select live-site snapshot baseline
+        shell: bash
+        run: |
+          set -euo pipefail
+          snapshot_id="${{ steps.snapshot.outputs.id }}"
+          remote_script=".zogograph-snapshot-${GITHUB_RUN_ID}-${DEPLOY_TARGET}.sh"
+          timeout 1m ssh -i "$HOME/.ssh/zogograph_deploy_key" -p "${DEPLOY_PORT:-22}" \
+            -o BatchMode=yes -o IdentitiesOnly=yes -o ConnectTimeout=15 \
+            "${DEPLOY_USER}@${DEPLOY_HOST}" \
+            "bash '$remote_script' '$DEPLOY_PATH' '$SNAPSHOT_DIRECTORY' '$snapshot_id' baseline"
+
+      - name: Copy live application files to snapshot
         shell: bash
         run: |
           set -euo pipefail
@@ -318,7 +329,7 @@ jobs:
             "${DEPLOY_USER}@${DEPLOY_HOST}" \
             "bash '$remote_script' '$DEPLOY_PATH' '$SNAPSHOT_DIRECTORY' '$snapshot_id' database data/stats.db"
 
-      - name: Snapshot remaining SQLite databases
+      - name: Snapshot additional SQLite databases
         shell: bash
         run: |
           set -euo pipefail

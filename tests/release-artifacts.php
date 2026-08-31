@@ -102,12 +102,13 @@ releaseExpect(
         str_contains($workflow, 'Prepare remote snapshot directory') &&
         str_contains($workflow, 'Upload snapshot helper') &&
         str_contains($workflow, 'Initialize live-site snapshot') &&
-        str_contains($workflow, 'Snapshot live application files') &&
+        str_contains($workflow, 'Select live-site snapshot baseline') &&
+        str_contains($workflow, 'Copy live application files to snapshot') &&
         str_contains($workflow, 'Snapshot AI SQLite database') &&
         str_contains($workflow, 'Snapshot host SQLite database') &&
         str_contains($workflow, 'Snapshot setup SQLite database') &&
         str_contains($workflow, 'Snapshot stats SQLite database') &&
-        str_contains($workflow, 'Snapshot remaining SQLite databases') &&
+        str_contains($workflow, 'Snapshot additional SQLite databases') &&
         str_contains($workflow, 'Verify and finalize live-site snapshot') &&
         str_contains($workflow, 'Discard incomplete live-site snapshot') &&
         str_contains(

@@ -31,7 +31,7 @@ sqlite_argument() {
 [ "$#" -eq 3 ] || [ "$#" -eq 4 ] || [ "$#" -eq 5 ] || fail 'expected deploy path, snapshot path, snapshot ID, optional phase, and optional database path'
 phase=${4:-snapshot}
 case "$phase" in
-  snapshot|prepare|site|database|databases|finalize|discard) ;;
+  snapshot|prepare|baseline|site|database|databases|finalize|discard) ;;
   *) fail "unknown snapshot phase: $phase" ;;
 esac
 valid_path 'deploy path' "$1"
@@ -72,7 +72,7 @@ case "$phase" in
     test ! -e "$stage" || fail "snapshot staging path already exists: $stage"
     mkdir -p "$stage/site" "$stage/databases"
     ;;
-  site|database|databases|finalize|discard)
+  baseline|site|database|databases|finalize|discard)
     test -d "$stage" || fail "snapshot staging path does not exist: $stage"
     ;;
 esac
@@ -91,9 +91,8 @@ if [ "$phase" = discard ]; then
   exit 0
 fi
 
-previous_snapshot=''
-previous_mtime=0
-if [ "$phase" = snapshot ] || [ "$phase" = site ]; then
+find_snapshot_baseline() {
+local previous_snapshot='' previous_mtime=0
 while IFS= read -r -d '' candidate; do
   name=${candidate##*/}
   valid_id "$name" || continue
@@ -110,6 +109,27 @@ while IFS= read -r -d '' candidate; do
   fi
 done < <(find "$snapshots" -mindepth 1 -maxdepth 1 -type d ! -name '.*' -print0)
 
+printf '%s\n' "$previous_snapshot" > "$stage/.baseline"
+if [ -n "$previous_snapshot" ]; then
+  echo "Snapshot baseline: ${previous_snapshot##*/}"
+else
+  echo 'Snapshot baseline: none (first full snapshot)'
+fi
+}
+
+if [ "$phase" = baseline ]; then
+find_snapshot_baseline
+exit 0
+fi
+
+if [ "$phase" = snapshot ] || [ "$phase" = site ]; then
+if [ "$phase" = site ]; then
+  test -f "$stage/.baseline" || fail 'snapshot baseline has not been selected'
+  previous_snapshot=$(cat "$stage/.baseline")
+else
+  find_snapshot_baseline
+fi
+
 rsync_args=(-a --delete
   --exclude='node_modules/'
   --exclude='*.db' --exclude='*.db-*'
@@ -117,12 +137,10 @@ rsync_args=(-a --delete
   --exclude='*.sqlite3' --exclude='*.sqlite3-*')
 if [ -n "$previous_snapshot" ]; then
   rsync_args+=("--link-dest=$previous_snapshot/site")
-  echo "Snapshot baseline: ${previous_snapshot##*/}"
-else
-  echo 'Snapshot baseline: none (first full snapshot)'
 fi
 echo 'Snapshot phase: copying application files'
 rsync "${rsync_args[@]}" "$site/" "$stage/site/"
+echo 'Snapshot phase complete: application files copied'
 fi
 
 backup_database() {
@@ -134,8 +152,9 @@ backup_database() {
     return 0
   }
   mkdir -p "$(dirname "$destination")"
-  echo "Snapshot database: $relative"
+  echo "Snapshot database starting: $relative"
   sqlite3 "$database" ".backup $(sqlite_argument "$destination")"
+  echo "Snapshot database complete: $relative"
 }
 
 if [ "$phase" = snapshot ] || [ "$phase" = database ] || [ "$phase" = databases ]; then

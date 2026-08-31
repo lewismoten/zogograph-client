@@ -6,6 +6,7 @@ window.ZogographCpuBusyChartCard = {
     helpers: ['chart', 'drawLineChart', 'percentAxis', 'empty', 'i18n'],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-cpu-busy-chart.title': 'Busy, and what it was busy with',
         'core-cpu-busy-chart.empty': 'No CPU readings.',
         'core-cpu-busy-chart.busy': 'Busy',
         'core-cpu-busy-chart.monitoring_tree': 'Monitoring tree',
@@ -17,6 +18,7 @@ window.ZogographCpuBusyChartCard = {
         'core-cpu-busy-chart.stolen_by_host': 'Stolen by the host',
       }),
       es: Object.freeze({
+        'core-cpu-busy-chart.title': 'Ocupación y en qué estuvo ocupada',
         'core-cpu-busy-chart.empty': 'No hay lecturas de CPU.',
         'core-cpu-busy-chart.busy': 'Ocupado',
         'core-cpu-busy-chart.monitoring_tree': 'Árbol de supervisión',
@@ -28,6 +30,7 @@ window.ZogographCpuBusyChartCard = {
         'core-cpu-busy-chart.stolen_by_host': 'Robado por el host',
       }),
       hi: Object.freeze({
+        'core-cpu-busy-chart.title': 'व्यस्तता और उसका कारण',
         'core-cpu-busy-chart.empty': 'कोई CPU रीडिंग नहीं है।',
         'core-cpu-busy-chart.busy': 'व्यस्त',
         'core-cpu-busy-chart.monitoring_tree': 'निगरानी ट्री',
@@ -39,6 +42,7 @@ window.ZogographCpuBusyChartCard = {
         'core-cpu-busy-chart.stolen_by_host': 'होस्ट द्वारा लिया गया',
       }),
       ar: Object.freeze({
+        'core-cpu-busy-chart.title': 'الانشغال وما كان مشغولًا به',
         'core-cpu-busy-chart.empty': 'لا توجد قراءات للمعالج.',
         'core-cpu-busy-chart.busy': 'مشغول',
         'core-cpu-busy-chart.monitoring_tree': 'شجرة المراقبة',
@@ -50,6 +54,7 @@ window.ZogographCpuBusyChartCard = {
         'core-cpu-busy-chart.stolen_by_host': 'استولى عليه المضيف',
       }),
       zh: Object.freeze({
+        'core-cpu-busy-chart.title': '忙碌程度及其原因',
         'core-cpu-busy-chart.empty': '没有 CPU 读数。',
         'core-cpu-busy-chart.busy': '繁忙',
         'core-cpu-busy-chart.monitoring_tree': '监控树',
@@ -62,6 +67,14 @@ window.ZogographCpuBusyChartCard = {
       }),
     }),
   }),
+
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-cpu-busy-chart.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-cpu-busy-chart.${key}`],
+    );
+  },
 
   render(data, helpers) {
     const { chart, drawLineChart, percentAxis, empty, i18n } = helpers;

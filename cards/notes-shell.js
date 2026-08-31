@@ -22,6 +22,12 @@ window.ZogographNotesShellCard = {
         'core-notes-shell.charts_help':
           'Ticking more than one puts the same mark on each of them.',
         'core-notes-shell.capture_label': 'Also capture',
+        'core-notes-shell.take_another_screenshot': 'Take another',
+        'core-notes-shell.take_screenshot': 'Take a screenshot',
+        'core-notes-shell.discard_screenshot': 'Do not keep it',
+        'core-notes-shell.screenshot': 'Screenshot',
+        'core-notes-shell.screenshot_help':
+          'This dialog closes while the picture is taken and everything you have typed comes back with it. You can crop and black out anything before it is kept.',
       }),
       es: Object.freeze({
         'core-notes-shell.title': 'Notas',
@@ -40,6 +46,12 @@ window.ZogographNotesShellCard = {
         'core-notes-shell.charts_help':
           'Marcar más de uno coloca la misma marca en cada uno.',
         'core-notes-shell.capture_label': 'Capturar también',
+        'core-notes-shell.take_another_screenshot': 'Tomar otra',
+        'core-notes-shell.take_screenshot': 'Tomar una captura de pantalla',
+        'core-notes-shell.discard_screenshot': 'No conservarla',
+        'core-notes-shell.screenshot': 'Captura de pantalla',
+        'core-notes-shell.screenshot_help':
+          'Este diálogo se cierra mientras se toma la imagen y todo lo que haya escrito vuelve con él. Puede recortar y tachar cualquier elemento antes de conservarla.',
       }),
       hi: Object.freeze({
         'core-notes-shell.title': 'नोट्स',
@@ -58,6 +70,12 @@ window.ZogographNotesShellCard = {
         'core-notes-shell.charts_help':
           'एक से अधिक चुनने पर हर एक पर वही निशान लगता है।',
         'core-notes-shell.capture_label': 'यह भी कैप्चर करें',
+        'core-notes-shell.take_another_screenshot': 'एक और लें',
+        'core-notes-shell.take_screenshot': 'स्क्रीनशॉट लें',
+        'core-notes-shell.discard_screenshot': 'इसे न रखें',
+        'core-notes-shell.screenshot': 'स्क्रीनशॉट',
+        'core-notes-shell.screenshot_help':
+          'चित्र लेते समय यह संवाद बंद हो जाता है और आपका लिखा हुआ सब कुछ इसके साथ वापस आता है। रखने से पहले आप किसी भी चीज़ को काट या काला कर सकते हैं।',
       }),
       ar: Object.freeze({
         'core-notes-shell.title': 'الملاحظات',
@@ -76,6 +94,12 @@ window.ZogographNotesShellCard = {
         'core-notes-shell.charts_help':
           'تحديد أكثر من واحد يضع العلامة نفسها على كل واحد منها.',
         'core-notes-shell.capture_label': 'التقاط أيضاً',
+        'core-notes-shell.take_another_screenshot': 'التقط أخرى',
+        'core-notes-shell.take_screenshot': 'التقط لقطة شاشة',
+        'core-notes-shell.discard_screenshot': 'لا تحتفظ بها',
+        'core-notes-shell.screenshot': 'لقطة شاشة',
+        'core-notes-shell.screenshot_help':
+          'يُغلق هذا الحوار أثناء التقاط الصورة ويعود كل ما كتبته معه. يمكنك اقتصاص أي شيء أو طمسه قبل الاحتفاظ به.',
       }),
       zh: Object.freeze({
         'core-notes-shell.title': '备注',
@@ -94,6 +118,12 @@ window.ZogographNotesShellCard = {
         'core-notes-shell.charts_help':
           '勾选多个会在每一个图表上放置相同的标记。',
         'core-notes-shell.capture_label': '同时捕获',
+        'core-notes-shell.take_another_screenshot': '再拍一张',
+        'core-notes-shell.take_screenshot': '截取屏幕截图',
+        'core-notes-shell.discard_screenshot': '不保留它',
+        'core-notes-shell.screenshot': '屏幕截图',
+        'core-notes-shell.screenshot_help':
+          '截取图片时此对话框会关闭，您输入的所有内容都会随之恢复。保留前，您可以裁剪或涂黑任何内容。',
       }),
     }),
   }),

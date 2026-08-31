@@ -14000,8 +14000,8 @@ async function showNoteDialog(preset = {}) {
   const takeShot = document.createElement('button');
   takeShot.type = 'button';
   takeShot.textContent = pageShot
-    ? ZogographI18n.t('notes.take_another_screenshot', {}, 'Take another')
-    : ZogographI18n.t('notes.take_screenshot', {}, 'Take a screenshot');
+    ? notesShellText('take_another_screenshot')
+    : notesShellText('take_screenshot');
   takeShot.addEventListener('click', async () => {
     const typed = {
       body: body.value,
@@ -14045,38 +14045,26 @@ async function showNoteDialog(preset = {}) {
     const drop = document.createElement('button');
     drop.type = 'button';
     drop.className = 'link danger';
-    drop.textContent = ZogographI18n.t(
-      'notes.discard_screenshot',
-      {},
-      'Do not keep it',
-    );
+    drop.textContent = notesShellText('discard_screenshot');
     drop.addEventListener('click', () => {
       pageShot = null;
       thumb.remove();
       drop.remove();
-      takeShot.textContent = ZogographI18n.t(
-        'notes.take_screenshot',
-        {},
-        'Take a screenshot',
-      );
+      takeShot.textContent = notesShellText('take_screenshot');
     });
     shotHolder.appendChild(drop);
   }
 
   const shotLabel = document.createElement('label');
   shotLabel.className = 'settings-label';
-  shotLabel.textContent = ZogographI18n.t('notes.screenshot', {}, 'Screenshot');
+  shotLabel.textContent = notesShellText('screenshot');
   shotRow.appendChild(shotLabel);
 
   const shotWrap = document.createElement('div');
   shotWrap.appendChild(shotHolder);
   const shotHint = document.createElement('div');
   shotHint.className = 'muted small';
-  shotHint.textContent = ZogographI18n.t(
-    'notes.screenshot_help',
-    {},
-    'This dialog closes while the picture is taken and everything you have typed comes back with it. You can crop and black out anything before it is kept.',
-  );
+  shotHint.textContent = notesShellText('screenshot_help');
   shotWrap.appendChild(shotHint);
   shotRow.appendChild(shotWrap);
   parts.push(shotRow);

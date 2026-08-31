@@ -40007,7 +40007,7 @@ function showLogLine(row, index, rows) {
    * been corrected - all real, and ago() renders every one of them as a dash.
    */
   facts.push([
-    ZogographI18n.t('log.detail_when', {}, 'When'),
+    logStreamSummaryText('detail_when'),
     row.at
       ? `${humanTime(row.at)} (${humanWhen(row.at - Math.floor(Date.now() / 1000))})`
       : ZogographI18n.t(
@@ -40016,12 +40016,8 @@ function showLogLine(row, index, rows) {
           'not stated on the line — placed by when the file was last written',
         ),
   ]);
-  facts.push([
-    ZogographI18n.t('log.detail_from', {}, 'From'),
-    row.path || row.label,
-  ]);
-  if (row.n)
-    facts.push([ZogographI18n.t('log.detail_line', {}, 'Line'), String(row.n)]);
+  facts.push([logStreamSummaryText('detail_from'), row.path || row.label]);
+  if (row.n) facts.push([logStreamSummaryText('detail_line'), String(row.n)]);
   if (parsed.kind) {
     const [icon, meaning] = LOG_MARKS[parsed.kind] || ['', ''];
     facts.push([

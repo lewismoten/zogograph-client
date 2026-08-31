@@ -1910,6 +1910,17 @@ i18nExpect(
         is_array($english) &&
         !isset($english['host.memory_card_in_use']) &&
         !isset($english['host.memory_card_other_kernel']) &&
+        !isset($english['host.memory_card_collector_processes']) &&
+        !isset($english['host.memory_card_available']) &&
+        !isset($english['host.memory_card_available_help']) &&
+        !isset($english['host.memory_card_cache_buffers']) &&
+        !isset($english['host.memory_card_cache_help']) &&
+        !isset($english['host.memory_card_kernel_slab']) &&
+        !isset($english['host.memory_card_unreclaimable']) &&
+        !isset($english['host.memory_card_shared_tmpfs']) &&
+        !isset($english['host.memory_card_in_dev_shm']) &&
+        !isset($english['host.memory_card_swap']) &&
+        !isset($english['host.memory_card_allocated']) &&
         !isset($english['host.memory_summary_counts']) &&
         str_contains($hostMemoryCard, '"core-host-memory.summary_counts"') &&
         str_contains($hostMemoryCard, 'render(input, helpers)') &&

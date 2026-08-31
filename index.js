@@ -36764,16 +36764,10 @@ function paste(text) {
  */
 async function refreshEmail() {
   const body = $('emailBody');
+  const emailShellText = (key, values = {}) =>
+    ZogographEmailShellCard.text(key, values, { i18n: ZogographI18n });
   if (!state.signedIn) {
-    body.replaceChildren(
-      note(
-        ZogographI18n.t(
-          'email.settings_sign_in',
-          {},
-          'Sign in to change the email settings.',
-        ),
-      ),
-    );
+    body.replaceChildren(note(emailShellText('settings_sign_in')));
     return;
   }
 
@@ -37437,11 +37431,9 @@ async function saveEmailSettings() {
       conditions,
     });
     notice(
-      ZogographI18n.t(
-        'email.settings_saved',
-        {},
-        'Saved. New settings apply from the next alerting run.',
-      ),
+      ZogographEmailShellCard.text('settings_saved', {
+        i18n: ZogographI18n,
+      }),
       true,
     );
     // Rendered from what the save wrote, not from a fresh read - see the note
@@ -41258,10 +41250,10 @@ $('testEmail').addEventListener('click', async () => {
     const result = await post('test-email');
     notice(
       result.sent
-        ? ZogographI18n.t(
-            'email.test_sent',
+        ? ZogographEmailShellCard.text(
+            'test_sent',
             { recipient: result.to },
-            "Test email sent to {{recipient}}. If it does not arrive, check the spam folder and the host's mail log.",
+            { i18n: ZogographI18n },
           )
         : result.error ||
             ZogographI18n.t('delivery.could_not_send', {}, 'Could not send.'),

@@ -4264,11 +4264,11 @@ $translatedOperationalControls = [
     'store.rollup_result',
     'store.rollup_protected',
     'store.rollup_space',
-    'email.test_sent',
     'delivery.could_not_send',
     'telegram.test_sent',
     'telegram.test_failed',
 ];
+$translatedEmailPackageOperationalMessages = ['core-email-shell.test_sent'];
 $translatedMarketplace = array_keys(
     array_filter(
         $english,
@@ -4447,6 +4447,13 @@ foreach (['en-US', 'en-GB', 'es', 'hi', 'zh', 'ar'] as $locale) {
             array_diff($translatedOperationalControls, array_keys($catalog)) ===
                 [],
             "locale catalog $locale falls back to English for shared operational controls",
+        );
+        i18nExpect(
+            array_diff(
+                $translatedEmailPackageOperationalMessages,
+                array_keys($coreCardLocaleKeys[$locale] ?? []),
+            ) === [],
+            "email package $locale falls back to English for operational text",
         );
         i18nExpect(
             array_diff($translatedMarketplace, array_keys($catalog)) === [],

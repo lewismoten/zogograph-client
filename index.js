@@ -30161,41 +30161,45 @@ function modeInWords(mode, isDir) {
 }
 
 function inspectDirectory(data) {
+  const text = (key) =>
+    renderCoreCardPackage(
+      ZogographStorageInspectorFactsCard,
+      'core-storage-inspector-facts',
+      { key },
+      { i18n: ZogographI18n },
+    );
   const c = data.contents;
   const out = [];
 
   const facts = [
     [
-      ZogographI18n.t('storage.directly_inside', {}, 'Directly inside'),
+      text('directly_inside'),
       `${count(c.entries.files, 'file')}, ` +
         `${count(c.entries.dirs, 'directory', 'directories')}, ` +
         `${count(c.entries.links, 'symlink')}`,
     ],
     [
-      ZogographI18n.t('storage.files_below_here', {}, 'Files below here'),
+      text('files_below_here'),
       `${humanCount(c.files)}${c.complete ? '' : ' so far'}`,
     ],
   ];
   if (!c.complete) {
     facts.push([
-      ZogographI18n.t('storage.measurement', {}, 'Measurement'),
+      text('measurement'),
       'The walk ran out of time. The size above is a lower ' +
         'bound \u2014 at least that much, not exactly that much.',
     ]);
   }
   if (data.site?.is_site) {
     facts.push([
-      ZogographI18n.t('storage.serves', {}, 'Serves'),
+      text('serves'),
       data.site.domains.length
         ? `\u{1F310} ${data.site.domains.join(', ')}`
         : '\u{1F310} a website, domain unknown',
     ]);
     // Whether this is read from cPanel's own record or inferred from the name,
     // because those are very different levels of certainty.
-    facts.push([
-      ZogographI18n.t('storage.how_known', {}, 'How that is known'),
-      data.site.why,
-    ]);
+    facts.push([text('how_known'), data.site.why]);
   }
   out.push(
     section(

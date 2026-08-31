@@ -30107,7 +30107,15 @@ async function doSignIn(password, username = '', totp = '') {
   });
   const parsed = await response.json().catch(() => ({}));
   if (!response.ok || !parsed.signed_in) {
-    throw new Error(parsed.error || 'Incorrect password.');
+    throw new Error(
+      parsed.error ||
+        renderCoreCardPackage(
+          ZogographAuthSignInMessageCard,
+          'core-auth-sign-in-message',
+          {},
+          { i18n: ZogographI18n },
+        ),
+    );
   }
   state.signedIn = true;
   state.csrf = parsed.csrf;

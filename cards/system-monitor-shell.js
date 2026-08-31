@@ -22,6 +22,21 @@ window.ZogographSystemMonitorShellCard = {
         'core-system-monitor-shell.is_still_collecting':
           'Is it still collecting?',
         'core-system-monitor-shell.what_it_is_using': 'What it is using',
+        'core-system-monitor-shell.collection_dial_help':
+          'The ring fills as the next run approaches. A ring that has filled and is pulsing means one is due about now; a dashed grey one means nothing is arriving and the schedule is a guess from the gaps between the last few runs, not from a crontab this account can read.',
+        'core-system-monitor-shell.retention_days': '{{days, number}} days',
+        'core-system-monitor-shell.retention_indefinitely': 'kept indefinitely',
+        'core-system-monitor-shell.retention_title': 'How long it keeps things',
+        'core-system-monitor-shell.retention_readings': 'Readings, full detail',
+        'core-system-monitor-shell.retention_five_minutes':
+          'Rolled up to 5 minutes',
+        'core-system-monitor-shell.retention_hour': 'Rolled up to an hour',
+        'core-system-monitor-shell.retention_day': 'Rolled up to a day',
+        'core-system-monitor-shell.retention_alerts': 'Alerts',
+        'core-system-monitor-shell.retention_action_log': 'The action log',
+        'core-system-monitor-shell.retention_incident_evidence':
+          'Incident evidence',
+        'core-system-monitor-shell.retention_scans': 'Scans',
       }),
       es: Object.freeze({
         'core-system-monitor-shell.title': 'El propio monitor',
@@ -40,6 +55,25 @@ window.ZogographSystemMonitorShellCard = {
           'más tarde de lo habitual',
         'core-system-monitor-shell.is_still_collecting': '¿Sigue recopilando?',
         'core-system-monitor-shell.what_it_is_using': 'Qué está usando',
+        'core-system-monitor-shell.collection_dial_help':
+          'El anillo se llena al acercarse la próxima ejecución. Un anillo lleno y pulsante significa que una ejecución corresponde aproximadamente ahora; uno gris discontinuo significa que no llega nada y el horario es una estimación de los intervalos entre las últimas ejecuciones, no de un crontab que esta cuenta pueda leer.',
+        'core-system-monitor-shell.retention_days': '{{days, number}} días',
+        'core-system-monitor-shell.retention_indefinitely':
+          'se conserva indefinidamente',
+        'core-system-monitor-shell.retention_title':
+          'Cuánto tiempo conserva las cosas',
+        'core-system-monitor-shell.retention_readings':
+          'Lecturas, detalle completo',
+        'core-system-monitor-shell.retention_five_minutes':
+          'Agrupado a 5 minutos',
+        'core-system-monitor-shell.retention_hour': 'Agrupado a una hora',
+        'core-system-monitor-shell.retention_day': 'Agrupado a un día',
+        'core-system-monitor-shell.retention_alerts': 'Alertas',
+        'core-system-monitor-shell.retention_action_log':
+          'El registro de acciones',
+        'core-system-monitor-shell.retention_incident_evidence':
+          'Evidencia del incidente',
+        'core-system-monitor-shell.retention_scans': 'Análisis',
       }),
       hi: Object.freeze({
         'core-system-monitor-shell.title': 'मॉनिटर स्वयं',
@@ -58,6 +92,21 @@ window.ZogographSystemMonitorShellCard = {
         'core-system-monitor-shell.is_still_collecting':
           'क्या यह अभी भी एकत्र कर रहा है?',
         'core-system-monitor-shell.what_it_is_using': 'यह क्या उपयोग कर रहा है',
+        'core-system-monitor-shell.collection_dial_help':
+          'अगला रन नज़दीक आने पर रिंग भरती है। भरी और धड़कती रिंग का मतलब है कि एक रन अभी होना चाहिए; धूसर टूटी रिंग का मतलब है कि कुछ नहीं आ रहा और शेड्यूल अंतिम कुछ रनों के बीच के अंतर से अनुमान है, उस crontab से नहीं जिसे यह खाता पढ़ सकता है।',
+        'core-system-monitor-shell.retention_days': '{{days, number}} दिन',
+        'core-system-monitor-shell.retention_indefinitely':
+          'अनिश्चित काल तक रखा जाता है',
+        'core-system-monitor-shell.retention_title':
+          'यह चीज़ों को कितने समय तक रखता है',
+        'core-system-monitor-shell.retention_readings': 'रीडिंग, पूरा विवरण',
+        'core-system-monitor-shell.retention_five_minutes': '5 मिनट तक रोल अप',
+        'core-system-monitor-shell.retention_hour': 'एक घंटे तक रोल अप',
+        'core-system-monitor-shell.retention_day': 'एक दिन तक रोल अप',
+        'core-system-monitor-shell.retention_alerts': 'चेतावनियाँ',
+        'core-system-monitor-shell.retention_action_log': 'कार्य लॉग',
+        'core-system-monitor-shell.retention_incident_evidence': 'घटना प्रमाण',
+        'core-system-monitor-shell.retention_scans': 'स्कैन',
       }),
       ar: Object.freeze({
         'core-system-monitor-shell.title': 'المراقب نفسه',
@@ -74,6 +123,22 @@ window.ZogographSystemMonitorShellCard = {
         'core-system-monitor-shell.later_than_usual': 'متأخر عن المعتاد',
         'core-system-monitor-shell.is_still_collecting': 'هل ما زال يجمع؟',
         'core-system-monitor-shell.what_it_is_using': 'ما الذي يستخدمه',
+        'core-system-monitor-shell.collection_dial_help':
+          'تمتلئ الحلقة مع اقتراب التشغيل التالي. الحلقة الممتلئة والنابضة تعني أن تشغيلًا مستحق تقريبًا الآن؛ والحلقة الرمادية المتقطعة تعني أن لا شيء يصل وأن الجدول تخمين من الفجوات بين آخر تشغيلات قليلة، وليس من crontab يستطيع هذا الحساب قراءته.',
+        'core-system-monitor-shell.retention_days': '{{days, number}} يومًا',
+        'core-system-monitor-shell.retention_indefinitely':
+          'يُحتفظ به إلى أجل غير مسمى',
+        'core-system-monitor-shell.retention_title': 'مدة احتفاظه بالأشياء',
+        'core-system-monitor-shell.retention_readings':
+          'القراءات، التفاصيل الكاملة',
+        'core-system-monitor-shell.retention_five_minutes':
+          'مُجمّعة إلى 5 دقائق',
+        'core-system-monitor-shell.retention_hour': 'مُجمّعة إلى ساعة',
+        'core-system-monitor-shell.retention_day': 'مُجمّعة إلى يوم',
+        'core-system-monitor-shell.retention_alerts': 'التنبيهات',
+        'core-system-monitor-shell.retention_action_log': 'سجل الإجراءات',
+        'core-system-monitor-shell.retention_incident_evidence': 'دليل الحادثة',
+        'core-system-monitor-shell.retention_scans': 'الفحوصات',
       }),
       zh: Object.freeze({
         'core-system-monitor-shell.title': '监控器自身',
@@ -89,6 +154,19 @@ window.ZogographSystemMonitorShellCard = {
         'core-system-monitor-shell.later_than_usual': '比通常更晚',
         'core-system-monitor-shell.is_still_collecting': '它仍在收集吗？',
         'core-system-monitor-shell.what_it_is_using': '它正在使用什么',
+        'core-system-monitor-shell.collection_dial_help':
+          '随着下一次运行临近，圆环会逐渐填满。填满且脉动的圆环表示现在大约应当运行一次；虚线灰环表示没有内容到达，而计划是根据最近几次运行之间的间隔推测的，并非来自此账户能够读取的 crontab。',
+        'core-system-monitor-shell.retention_days': '{{days, number}} 天',
+        'core-system-monitor-shell.retention_indefinitely': '无限期保留',
+        'core-system-monitor-shell.retention_title': '保留内容的时长',
+        'core-system-monitor-shell.retention_readings': '读数，完整详细信息',
+        'core-system-monitor-shell.retention_five_minutes': '汇总为 5 分钟',
+        'core-system-monitor-shell.retention_hour': '汇总为一小时',
+        'core-system-monitor-shell.retention_day': '汇总为一天',
+        'core-system-monitor-shell.retention_alerts': '警报',
+        'core-system-monitor-shell.retention_action_log': '操作日志',
+        'core-system-monitor-shell.retention_incident_evidence': '事件证据',
+        'core-system-monitor-shell.retention_scans': '扫描',
       }),
     }),
   }),

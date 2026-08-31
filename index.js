@@ -36490,14 +36490,7 @@ async function refreshSelf() {
     cards.appendChild(card);
   }
   parts.push(section(monitorShellText('is_still_collecting'), cards));
-  parts.push(
-    note(
-      'The ring fills as the next run approaches. A ring that has filled and is pulsing means ' +
-        'one is due about now; a dashed grey one means nothing is arriving and the schedule is ' +
-        'a guess from the gaps between the last few runs, not from a crontab this account can ' +
-        'read.',
-    ),
-  );
+  parts.push(note(monitorShellText('collection_dial_help')));
 
   parts.push(
     section(monitorShellText('what_it_is_using'), databaseFacts(data)),
@@ -36507,76 +36500,26 @@ async function refreshSelf() {
     const r = data.retention;
     const forever = (days) =>
       Number(days) > 0
-        ? ZogographI18n.t(
-            'monitor.retention_days',
-            { days: Number(days) },
-            '{{days, number}} days',
-          )
-        : ZogographI18n.t(
-            'monitor.retention_indefinitely',
-            {},
-            'kept indefinitely',
-          );
+        ? monitorShellText('retention_days', { days: Number(days) })
+        : monitorShellText('retention_indefinitely');
     parts.push(
       section(
-        ZogographI18n.t(
-          'monitor.retention_title',
-          {},
-          'How long it keeps things',
-        ),
+        monitorShellText('retention_title'),
         factGrid([
+          [monitorShellText('retention_readings'), forever(r.raw_days)],
           [
-            ZogographI18n.t(
-              'monitor.retention_readings',
-              {},
-              'Readings, full detail',
-            ),
-            forever(r.raw_days),
-          ],
-          [
-            ZogographI18n.t(
-              'monitor.retention_five_minutes',
-              {},
-              'Rolled up to 5 minutes',
-            ),
+            monitorShellText('retention_five_minutes'),
             forever(r.five_minute_days),
           ],
+          [monitorShellText('retention_hour'), forever(r.hourly_days)],
+          [monitorShellText('retention_day'), forever(r.daily_days)],
+          [monitorShellText('retention_alerts'), forever(r.alert_days)],
+          [monitorShellText('retention_action_log'), forever(r.action_days)],
           [
-            ZogographI18n.t(
-              'monitor.retention_hour',
-              {},
-              'Rolled up to an hour',
-            ),
-            forever(r.hourly_days),
-          ],
-          [
-            ZogographI18n.t('monitor.retention_day', {}, 'Rolled up to a day'),
-            forever(r.daily_days),
-          ],
-          [
-            ZogographI18n.t('monitor.retention_alerts', {}, 'Alerts'),
-            forever(r.alert_days),
-          ],
-          [
-            ZogographI18n.t(
-              'monitor.retention_action_log',
-              {},
-              'The action log',
-            ),
-            forever(r.action_days),
-          ],
-          [
-            ZogographI18n.t(
-              'monitor.retention_incident_evidence',
-              {},
-              'Incident evidence',
-            ),
+            monitorShellText('retention_incident_evidence'),
             forever(r.incident_days),
           ],
-          [
-            ZogographI18n.t('monitor.retention_scans', {}, 'Scans'),
-            forever(r.scan_days),
-          ],
+          [monitorShellText('retention_scans'), forever(r.scan_days)],
         ]),
       ),
     );

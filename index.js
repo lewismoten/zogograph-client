@@ -5694,6 +5694,27 @@ function renderAiLimitsImagesShell() {
 }
 document.addEventListener('zogograph-i18n-load', renderAiLimitsImagesShell);
 
+function renderAiTryBillingShell() {
+  const render = (key, fallback) =>
+    renderCoreCardPackage(
+      ZogographAiTryBillingShellCard,
+      'core-ai-try-billing-shell',
+      { key, fallback },
+      { i18n: ZogographI18n },
+    );
+  $('aiTryTitle').textContent = render('try_title', 'Try a tool');
+  $('aiTryHelp').textContent = render(
+    'try_help',
+    'Runs one tool with parameters you choose and shows exactly what comes back — the same thing the model would receive, in the same shape. Useful for two things: seeing whether a tool actually works on this install before switching it on, and reading what the model is being told when its answer looks wrong. Nothing here involves the model and nothing leaves the machine.',
+  );
+  $('aiBillingTitle').textContent = render('billing_title', 'Billing');
+  $('aiBillingHelp').textContent = render(
+    'billing_help',
+    'Every conversation, with the tokens it used and what that came to. Costs are shown only when prices are set — without them this reports token counts and no money, because a wrong price is worse than no price.',
+  );
+}
+document.addEventListener('zogograph-i18n-load', renderAiTryBillingShell);
+
 /** Every container the settings are split across. */
 const AI_SETTING_PAGES = [
   'aiIdentityBody',

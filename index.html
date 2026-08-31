@@ -197,6 +197,7 @@
     <script src="cards/ai-identity-page-shell.js" defer></script>
     <script src="cards/ai-model-pages-shell.js" defer></script>
     <script src="cards/ai-limits-images-shell.js" defer></script>
+    <script src="cards/ai-try-billing-shell.js" defer></script>
     <script src="cards/ai-memory-availability.js" defer></script>
     <script src="cards/ai-memory-provenance.js" defer></script>
     <script src="cards/ai-memory-pin-state.js" defer></script>
@@ -4100,9 +4101,9 @@
         <section class="view" data-view="sys-ai-try" hidden>
           <section class="panel" id="aiTryPanel">
             <div class="panel-head">
-              <h2 data-i18n="ai.try_title">Try a tool</h2>
+              <h2 id="aiTryTitle">Try a tool</h2>
             </div>
-            <p class="muted small sub-note" data-i18n="ai.try_help">
+            <p id="aiTryHelp" class="muted small sub-note">
               Runs one tool with parameters you choose and shows exactly what
               comes back — the same thing the model would receive, in the same
               shape. Useful for two things: seeing whether a tool actually works
@@ -4117,7 +4118,7 @@
         <section class="view" data-view="sys-ai-billing" hidden>
           <section class="panel" id="aiSessionsPanel">
             <div class="panel-head">
-              <h2 data-i18n="ai.billing_title">Billing</h2>
+              <h2 id="aiBillingTitle">Billing</h2>
               <button
                 id="aiSessionsRefresh"
                 class="link"
@@ -4126,7 +4127,7 @@
                 Refresh
               </button>
             </div>
-            <p class="muted small sub-note" data-i18n="ai.billing_help">
+            <p id="aiBillingHelp" class="muted small sub-note">
               Every conversation, with the tokens it used and what that came to.
               Costs are shown only when prices are set — without them this
               reports token counts and no money, because a wrong price is worse

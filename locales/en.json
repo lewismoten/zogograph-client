@@ -2429,7 +2429,6 @@
   "metadata.description_kind_process": "A process",
   "metadata.description_kind_slab": "A kernel slab cache",
   "action.save": "Save it",
-  "host.units_title": "Every service",
   "host.units_help": "The whole list, not just the watched ones. {{failed}} and {{masked}} are called out because they are the two states that are silently wrong: a failed unit uses no memory and no CPU, so it is absent from every other panel here rather than standing out in one, and a masked one cannot be started at all until somebody unmasks it.",
   "log.stream_title": "Every log at once",
   "log.lines_20": "20 lines",

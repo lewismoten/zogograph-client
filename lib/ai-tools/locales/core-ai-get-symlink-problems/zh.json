@@ -1,3 +1,4 @@
 {
-  "core-ai-get-symlink-problems.summary": "已损坏、循环或离开账户范围的符号链接。"
+  "core-ai-get-symlink-problems.summary": "已损坏、循环或离开账户范围的符号链接。",
+  "core-ai-get-symlink-problems.activity": "检查了有问题的符号链接"
 }

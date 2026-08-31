@@ -1,3 +1,4 @@
 {
-  "core-ai-get-symlink-problems.summary": "Enlaces simbólicos rotos, en bucle o que salen de la cuenta."
+  "core-ai-get-symlink-problems.summary": "Enlaces simbólicos rotos, en bucle o que salen de la cuenta.",
+  "core-ai-get-symlink-problems.activity": "Comprobó enlaces simbólicos problemáticos"
 }

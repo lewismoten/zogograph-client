@@ -1,3 +1,4 @@
 {
-  "core-ai-get-symlink-problems.summary": "Symlinks that are broken, looping or leave the account."
+  "core-ai-get-symlink-problems.summary": "Symlinks that are broken, looping or leave the account.",
+  "core-ai-get-symlink-problems.activity": "Checked for problematic symbolic links"
 }

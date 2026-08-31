@@ -1,3 +1,4 @@
 {
-  "core-ai-get-symlink-problems.summary": "टूटे, लूप वाले या खाते से बाहर जाने वाले सिमलिंक।"
+  "core-ai-get-symlink-problems.summary": "टूटे, लूप वाले या खाते से बाहर जाने वाले सिमलिंक।",
+  "core-ai-get-symlink-problems.activity": "समस्याग्रस्त प्रतीकात्मक लिंक जाँचे"
 }

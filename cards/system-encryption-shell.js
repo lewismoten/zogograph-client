@@ -72,6 +72,11 @@ window.ZogographSystemEncryptionShellCard = {
         'core-system-encryption-shell.table_last_recheck': 'Last re-check',
         'core-system-encryption-shell.not_rechecked': 'not rechecked',
         'core-system-encryption-shell.required': 'required',
+        'core-system-encryption-shell.setup_configuration_status':
+          'Setup configuration: {{detail}}',
+        'core-system-encryption-shell.status_unavailable': 'status unavailable',
+        'core-system-encryption-shell.live_sqlcipher_status':
+          'Live SQLCipher option: {{detail}}',
       }),
       es: Object.freeze({
         'core-system-encryption-shell.title': 'Protección de datos',
@@ -151,6 +156,12 @@ window.ZogographSystemEncryptionShellCard = {
           'Última comprobación',
         'core-system-encryption-shell.not_rechecked': 'sin volver a comprobar',
         'core-system-encryption-shell.required': 'obligatorio',
+        'core-system-encryption-shell.setup_configuration_status':
+          'Configuración de instalación: {{detail}}',
+        'core-system-encryption-shell.status_unavailable':
+          'estado no disponible',
+        'core-system-encryption-shell.live_sqlcipher_status':
+          'Opción SQLCipher activa: {{detail}}',
       }),
       hi: Object.freeze({
         'core-system-encryption-shell.title': 'डेटा सुरक्षा',
@@ -218,6 +229,12 @@ window.ZogographSystemEncryptionShellCard = {
         'core-system-encryption-shell.table_last_recheck': 'अंतिम पुनः जाँच',
         'core-system-encryption-shell.not_rechecked': 'पुनः जाँचा नहीं गया',
         'core-system-encryption-shell.required': 'आवश्यक',
+        'core-system-encryption-shell.setup_configuration_status':
+          'सेटअप कॉन्फ़िगरेशन: {{detail}}',
+        'core-system-encryption-shell.status_unavailable':
+          'स्थिति उपलब्ध नहीं है',
+        'core-system-encryption-shell.live_sqlcipher_status':
+          'लाइव SQLCipher विकल्प: {{detail}}',
       }),
       ar: Object.freeze({
         'core-system-encryption-shell.title': 'حماية البيانات',
@@ -283,6 +300,11 @@ window.ZogographSystemEncryptionShellCard = {
         'core-system-encryption-shell.table_last_recheck': 'آخر إعادة فحص',
         'core-system-encryption-shell.not_rechecked': 'لم يُفحص مجدداً',
         'core-system-encryption-shell.required': 'مطلوب',
+        'core-system-encryption-shell.setup_configuration_status':
+          'إعداد التكوين: {{detail}}',
+        'core-system-encryption-shell.status_unavailable': 'الحالة غير متاحة',
+        'core-system-encryption-shell.live_sqlcipher_status':
+          'خيار SQLCipher المباشر: {{detail}}',
       }),
       zh: Object.freeze({
         'core-system-encryption-shell.title': '数据保护',
@@ -342,6 +364,11 @@ window.ZogographSystemEncryptionShellCard = {
         'core-system-encryption-shell.table_last_recheck': '上次重新检查',
         'core-system-encryption-shell.not_rechecked': '未重新检查',
         'core-system-encryption-shell.required': '必需',
+        'core-system-encryption-shell.setup_configuration_status':
+          '安装配置：{{detail}}',
+        'core-system-encryption-shell.status_unavailable': '状态不可用',
+        'core-system-encryption-shell.live_sqlcipher_status':
+          '实时 SQLCipher 选项：{{detail}}',
       }),
     }),
   }),

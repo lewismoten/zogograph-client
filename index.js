@@ -15938,16 +15938,12 @@ function renderEncryptionStatus(data) {
   if (data.setup_configuration?.state !== 'ok')
     parts.push(
       note(
-        ZogographI18n.t(
-          'encryption.setup_configuration_status',
+        encryptionText(
+          'setup_configuration_status',
           {
             detail:
               data.setup_configuration?.detail ||
-              ZogographI18n.t(
-                'encryption.status_unavailable',
-                {},
-                'status unavailable',
-              ),
+              encryptionText('status_unavailable'),
           },
           'Setup configuration: {{detail}}',
         ),
@@ -15956,8 +15952,8 @@ function renderEncryptionStatus(data) {
   if (data.sqlcipher)
     parts.push(
       note(
-        ZogographI18n.t(
-          'encryption.live_sqlcipher_status',
+        encryptionText(
+          'live_sqlcipher_status',
           { detail: data.sqlcipher.detail },
           'Live SQLCipher option: {{detail}}',
         ),

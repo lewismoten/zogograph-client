@@ -128,6 +128,7 @@ export default [
         ZogographSymlinkSweepShowingFirstCard: 'readonly',
         ZogographSymlinkSweepStatusCard: 'readonly',
         ZogographSymlinkSweepFailureCard: 'readonly',
+        ZogographSymlinkSweepActionsCard: 'readonly',
         ZogographAiPriceSectionsCard: 'readonly',
         ZogographAiPriceTableCard: 'readonly',
         ZogographAiPriceEntryCard: 'readonly',

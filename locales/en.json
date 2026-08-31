@@ -450,8 +450,6 @@
   "process.matches_some_protected": "Matches {{matched}} of the {{scanned}} running processes; {{blocked}} are protected.",
   "process.all_matches_protected": "Every match is protected, so there is nothing here to stop.",
   "storage.links_sign_in": "Sign in to check symlinks.",
-  "storage.link_sweep_remove_broken": "Remove {{count}} broken links",
-  "storage.link_sweep_remove_confirm": "Delete {{count}} broken symlinks?\n\nOnly the links are removed. Nothing they point at is touched — they point at nothing, which is why they are on this list.",
   "storage.link_sweep_why_not": "Why not",
   "storage.link_sweep_pointed_at": "Pointed at",
   "storage.symlink_kind_loop": "Loop",

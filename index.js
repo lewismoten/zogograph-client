@@ -22091,33 +22091,19 @@ async function sweepLinks(pattern, confirmed = false) {
   }
 
   if (!confirmed && result.deleted.length) {
-    const actions = document.createElement('div');
-    actions.className = 'inspect-actions';
-
-    const go = document.createElement('button');
-    go.className = 'danger';
-    go.textContent = ZogographI18n.t(
-      'storage.link_sweep_remove_broken',
-      { count: humanCount(result.deleted.length) },
-      `Remove ${humanCount(result.deleted.length)} broken links`,
+    parts.push(
+      renderCoreCardPackage(
+        ZogographSymlinkSweepActionsCard,
+        'core-symlink-sweep-actions',
+        { count: humanCount(result.deleted.length) },
+        {
+          confirm: confirmDialog,
+          i18n: ZogographI18n,
+          refresh: checkSymlinks,
+          run: () => sweepLinks(pattern, true),
+        },
+      ),
     );
-    go.addEventListener('click', async () => {
-      if (
-        !(await confirmDialog(
-          ZogographI18n.t(
-            'storage.link_sweep_remove_confirm',
-            { count: humanCount(result.deleted.length) },
-            `Delete ${humanCount(result.deleted.length)} broken symlinks?\n\nOnly the links are removed. Nothing they point at is touched — they point at nothing, which is why they are on this list.`,
-          ),
-        ))
-      )
-        return;
-      go.disabled = true;
-      await sweepLinks(pattern, true);
-      await checkSymlinks();
-    });
-    actions.appendChild(go);
-    parts.push(actions);
   }
 
   body.replaceChildren(...parts);

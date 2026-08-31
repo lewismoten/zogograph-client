@@ -2638,8 +2638,6 @@ i18nExpect(
             $english['process.matches_all_protected'],
             $english['process.matches_some_protected'],
             $english['process.all_matches_protected'],
-            $english['storage.link_sweep_remove_broken'],
-            $english['storage.link_sweep_remove_confirm'],
             $english['storage.link_sweep_why_not'],
             $english['storage.link_sweep_pointed_at'],
             $english['storage.symlink_kind_loop'],
@@ -3049,7 +3047,12 @@ i18nExpect(
             ),
             'core-symlink-sweep-capped.message',
         ) &&
-        str_contains($script, 'storage.link_sweep_remove_confirm') &&
+        str_contains(
+            (string) file_get_contents(
+                $root . '/cards/symlink-sweep-actions.js',
+            ),
+            'core-symlink-sweep-actions.confirm',
+        ) &&
         str_contains($script, 'storage.link_sweep_pointed_at'),
     'broken-link sweep limits and result table retain direct user-visible text',
 );

@@ -450,8 +450,6 @@
   "process.matches_some_protected": "تطابق {{matched}} من عمليات التشغيل {{scanned}}؛ {{blocked}} منها محمية.",
   "process.all_matches_protected": "كل المطابقات محمية، لذلك لا شيء هنا لإيقافه.",
   "storage.links_sign_in": "سجّل الدخول لفحص الروابط الرمزية.",
-  "storage.link_sweep_remove_broken": "إزالة {{count}} روابط معطلة",
-  "storage.link_sweep_remove_confirm": "هل تريد حذف {{count}} روابط رمزية معطلة؟\n\nلا تُزال إلا الروابط. لا يُمس ما تشير إليه — فهي لا تشير إلى شيء، ولهذا هي في هذه القائمة.",
   "storage.link_sweep_why_not": "لماذا لا",
   "storage.link_sweep_pointed_at": "كان يشير إلى",
   "storage.symlink_kind_loop": "حلقة",

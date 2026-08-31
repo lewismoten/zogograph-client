@@ -26,6 +26,8 @@ window.ZogographSymlinkActionsCard = {
           'Remove the link and create a real, empty directory in its place',
         'core-symlink-actions.make_directory_confirm':
           'Replace {{path}} with a real, empty directory?\n\nThe link goes; whatever it pointed at is untouched.',
+        'core-symlink-actions.made_directory':
+          'Replaced with an empty directory.',
         'core-symlink-actions.remove': 'Remove',
         'core-symlink-actions.remove_title': 'Delete the link itself',
       }),
@@ -44,6 +46,8 @@ window.ZogographSymlinkActionsCard = {
           'Quitar el enlace y crear en su lugar un directorio real vacío',
         'core-symlink-actions.make_directory_confirm':
           '¿Reemplazar {{path}} por un directorio real vacío?\n\nEl enlace se elimina; lo que señalaba no se toca.',
+        'core-symlink-actions.made_directory':
+          'Se reemplazó por un directorio vacío.',
         'core-symlink-actions.remove': 'Eliminar',
         'core-symlink-actions.remove_title': 'Eliminar el propio enlace',
       }),
@@ -61,6 +65,8 @@ window.ZogographSymlinkActionsCard = {
           'लिंक हटाएँ और उसकी जगह असली, खाली डायरेक्टरी बनाएँ',
         'core-symlink-actions.make_directory_confirm':
           'क्या {{path}} को असली, खाली डायरेक्टरी से बदलें?\n\nलिंक चला जाएगा; जिस पर वह इंगित करता था उसे नहीं छुआ जाएगा।',
+        'core-symlink-actions.made_directory':
+          'खाली डायरेक्टरी से बदल दिया गया।',
         'core-symlink-actions.remove': 'हटाएँ',
         'core-symlink-actions.remove_title': 'लिंक को ही हटाएँ',
       }),
@@ -79,6 +85,7 @@ window.ZogographSymlinkActionsCard = {
           'أزل الرابط وأنشئ مكانه دليلًا حقيقيًا فارغًا',
         'core-symlink-actions.make_directory_confirm':
           'هل تريد استبدال {{path}} بدليل حقيقي فارغ؟\n\nسيُزال الرابط؛ ولن يُمس ما كان يشير إليه.',
+        'core-symlink-actions.made_directory': 'استُبدل بدليل فارغ.',
         'core-symlink-actions.remove': 'إزالة',
         'core-symlink-actions.remove_title': 'احذف الرابط نفسه',
       }),
@@ -95,6 +102,7 @@ window.ZogographSymlinkActionsCard = {
           '移除链接，并在原位置创建真实的空目录',
         'core-symlink-actions.make_directory_confirm':
           '要将 {{path}} 替换为真实的空目录吗？\n\n链接会被移除；其原来指向的内容不会被触及。',
+        'core-symlink-actions.made_directory': '已替换为空目录。',
         'core-symlink-actions.remove': '移除',
         'core-symlink-actions.remove_title': '删除链接本身',
       }),
@@ -113,7 +121,7 @@ window.ZogographSymlinkActionsCard = {
       );
     if (how === 'directory')
       return i18n.t(
-        'storage.link_made_directory',
+        'core-symlink-actions.made_directory',
         {},
         'Replaced with an empty directory.',
       );

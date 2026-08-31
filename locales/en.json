@@ -2611,7 +2611,6 @@
   "terminal.sessions_last_command": "Last command",
   "terminal.sessions_commands": "Commands",
   "terminal.sessions_who": "Who",
-  "terminal.session_title": "The session",
   "terminal.show_output": "Show what each one printed",
   "terminal.give_topic": "Give it a topic",
   "ai.reclaim_space": "Reclaim empty space",

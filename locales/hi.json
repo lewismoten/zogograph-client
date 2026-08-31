@@ -2595,7 +2595,6 @@
   "terminal.sessions_commands": "कमांड",
   "terminal.sessions_who": "कौन",
   "terminal.sessions_output_help": "सत्र खोलने पर दिखता है क्या चलाया गया। हर कमांड ने क्या {{printed}} उसके अलग स्विच के पीछे है, क्योंकि वे दो अलग सवाल और दो अलग जवाब हैं: जो आपने टाइप किया वह किसी भी स्क्रीन पर सुरक्षित है, और जो वापस आया वह पासवर्ड वाली कॉन्फ़िग फ़ाइल हो सकती है।",
-  "terminal.session_title": "सत्र",
   "terminal.show_output": "हर एक ने क्या प्रिंट किया दिखाएँ",
   "terminal.give_topic": "इसे विषय दें",
   "ai.reclaim_space": "खाली जगह वापस लें",

@@ -18,6 +18,7 @@ window.ZogographTerminalSessionLogCard = {
     ],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-terminal-session-log.title': 'The session',
         'core-terminal-session-log.session_of': 'Session of {{when}}',
         'core-terminal-session-log.copy_commands': 'Copy just the commands',
         'core-terminal-session-log.copy_log': 'Copy the whole log',
@@ -32,6 +33,7 @@ window.ZogographTerminalSessionLogCard = {
         'core-terminal-session-log.exit': 'exit {{code}}',
       }),
       es: Object.freeze({
+        'core-terminal-session-log.title': 'La sesión',
         'core-terminal-session-log.session_of': 'Sesión de {{when}}',
         'core-terminal-session-log.copy_commands': 'Copiar solo los comandos',
         'core-terminal-session-log.copy_log': 'Copiar todo el registro',
@@ -47,6 +49,7 @@ window.ZogographTerminalSessionLogCard = {
         'core-terminal-session-log.exit': 'salida {{code}}',
       }),
       hi: Object.freeze({
+        'core-terminal-session-log.title': 'सत्र',
         'core-terminal-session-log.session_of': '{{when}} का सत्र',
         'core-terminal-session-log.copy_commands': 'केवल कमांड कॉपी करें',
         'core-terminal-session-log.copy_log': 'पूरा लॉग कॉपी करें',
@@ -62,6 +65,7 @@ window.ZogographTerminalSessionLogCard = {
         'core-terminal-session-log.exit': 'निकास {{code}}',
       }),
       ar: Object.freeze({
+        'core-terminal-session-log.title': 'الجلسة',
         'core-terminal-session-log.session_of': 'جلسة {{when}}',
         'core-terminal-session-log.copy_commands': 'نسخ الأوامر فقط',
         'core-terminal-session-log.copy_log': 'نسخ السجل كاملًا',
@@ -75,6 +79,7 @@ window.ZogographTerminalSessionLogCard = {
         'core-terminal-session-log.exit': 'خروج {{code}}',
       }),
       zh: Object.freeze({
+        'core-terminal-session-log.title': '该会话',
         'core-terminal-session-log.session_of': '{{when}} 的会话',
         'core-terminal-session-log.copy_commands': '仅复制命令',
         'core-terminal-session-log.copy_log': '复制完整日志',
@@ -90,6 +95,14 @@ window.ZogographTerminalSessionLogCard = {
       }),
     }),
   }),
+
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-terminal-session-log.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-terminal-session-log.${key}`],
+    );
+  },
 
   render(data, helpers) {
     const {

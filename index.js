@@ -3414,6 +3414,38 @@ function renderTerminalSessionsTitle() {
 
 document.addEventListener('zogograph-i18n-load', renderTerminalSessionsTitle);
 
+function renderTerminalSessionLogTitle() {
+  const helpers = {
+    panel: null,
+    title: null,
+    copies: null,
+    body: null,
+    whenLabel: () => '',
+    humanSpan: () => '',
+    stripAnsi: () => '',
+    copyText: () => null,
+    note: () => null,
+    terminalEntry: () => null,
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(
+    ZogographTerminalSessionLogCard,
+    'core-terminal-session-log',
+    null,
+    helpers,
+  );
+  const title = document.querySelector(
+    '[data-i18n="core-terminal-session-log.title"]',
+  );
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-terminal-session-log.title',
+    ZogographTerminalSessionLogCard.text('title', helpers),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderTerminalSessionLogTitle);
+
 /**
  * When the disk is projected to fill, as a date.
  *

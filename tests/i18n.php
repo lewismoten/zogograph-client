@@ -2055,6 +2055,15 @@ i18nExpect(
     'terminal sessions heading does not use its core card package catalog',
 );
 i18nExpect(
+    $page !== false &&
+        str_contains($page, 'data-i18n="core-terminal-session-log.title"') &&
+        is_array($coreCardEnglish) &&
+        isset($coreCardEnglish['core-terminal-session-log.title']) &&
+        is_array($english) &&
+        !isset($english['terminal.session_title']),
+    'terminal session-log heading does not use its core card package catalog',
+);
+i18nExpect(
     $actionSummaryCard !== false &&
         str_contains($actionSummaryCard, 'locales: ["core-action-summary."]') &&
         str_contains($actionSummaryCard, '"core-action-summary.things_done"') &&

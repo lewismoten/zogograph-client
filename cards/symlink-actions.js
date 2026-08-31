@@ -17,6 +17,7 @@ window.ZogographSymlinkActionsCard = {
         'core-symlink-actions.group': 'Link actions',
         'core-symlink-actions.repoint': 'Repoint',
         'core-symlink-actions.repoint_title': 'Point this link somewhere else',
+        'core-symlink-actions.repoint_dialog_title': 'Repoint link',
         'core-symlink-actions.make_directory': 'Make it a folder',
         'core-symlink-actions.make_directory_title':
           'Remove the link and create a real, empty directory in its place',
@@ -27,6 +28,7 @@ window.ZogographSymlinkActionsCard = {
         'core-symlink-actions.repoint': 'Redirigir',
         'core-symlink-actions.repoint_title':
           'Hacer que este enlace apunte a otro lugar',
+        'core-symlink-actions.repoint_dialog_title': 'Redirigir enlace',
         'core-symlink-actions.make_directory': 'Convertir en carpeta',
         'core-symlink-actions.make_directory_title':
           'Quitar el enlace y crear en su lugar un directorio real vacío',
@@ -36,6 +38,7 @@ window.ZogographSymlinkActionsCard = {
         'core-symlink-actions.group': 'लिंक कार्रवाइयाँ',
         'core-symlink-actions.repoint': 'पुनः इंगित करें',
         'core-symlink-actions.repoint_title': 'इस लिंक को कहीं और इंगित करें',
+        'core-symlink-actions.repoint_dialog_title': 'लिंक पुनः इंगित करें',
         'core-symlink-actions.make_directory': 'इसे फ़ोल्डर बनाएँ',
         'core-symlink-actions.make_directory_title':
           'लिंक हटाएँ और उसकी जगह असली, खाली डायरेक्टरी बनाएँ',
@@ -46,6 +49,7 @@ window.ZogographSymlinkActionsCard = {
         'core-symlink-actions.repoint': 'إعادة توجيه',
         'core-symlink-actions.repoint_title':
           'اجعل هذا الرابط يشير إلى مكان آخر',
+        'core-symlink-actions.repoint_dialog_title': 'إعادة توجيه الرابط',
         'core-symlink-actions.make_directory': 'تحويل إلى مجلد',
         'core-symlink-actions.make_directory_title':
           'أزل الرابط وأنشئ مكانه دليلًا حقيقيًا فارغًا',
@@ -55,6 +59,7 @@ window.ZogographSymlinkActionsCard = {
         'core-symlink-actions.group': '链接操作',
         'core-symlink-actions.repoint': '重新指向',
         'core-symlink-actions.repoint_title': '让此链接指向其他位置',
+        'core-symlink-actions.repoint_dialog_title': '重新指向链接',
         'core-symlink-actions.make_directory': '改为文件夹',
         'core-symlink-actions.make_directory_title':
           '移除链接，并在原位置创建真实的空目录',
@@ -125,7 +130,7 @@ window.ZogographSymlinkActionsCard = {
       ),
       async () => {
         const target = await ask(
-          t('storage.link_repoint_dialog_title', {}, 'Repoint link'),
+          t('core-symlink-actions.repoint_dialog_title', {}, 'Repoint link'),
           t(
             'storage.link_repoint_prompt',
             { name: basename(row.path) },

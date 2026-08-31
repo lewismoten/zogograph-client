@@ -2648,7 +2648,6 @@ i18nExpect(
             $english['storage.link_sweep_left_alone'],
             $english['storage.link_sweep_preview'],
             $english['storage.link_sweep_preview_skipped'],
-            $english['storage.link_repoint_dialog_title'],
             $english['storage.link_repoint_prompt'],
             $english['storage.link_repoint_hint'],
             $english['storage.link_make_directory_confirm'],
@@ -3026,7 +3025,7 @@ i18nExpect(
 i18nExpect(
     str_contains(
         (string) file_get_contents($root . '/cards/symlink-actions.js'),
-        'storage.link_repoint_dialog_title',
+        'core-symlink-actions.repoint_dialog_title',
     ) &&
         str_contains(
             (string) file_get_contents($root . '/cards/symlink-actions.js'),

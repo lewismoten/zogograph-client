@@ -94,6 +94,12 @@ window.ZogographSystemPeersShellCard = {
         'core-system-peers-shell.field_dashboard_url': 'Dashboard URL',
         'core-system-peers-shell.field_dashboard_url_help':
           'Optional: HTTPS base address for the OIDC read connection.',
+        'core-system-peers-shell.field_redirect': 'Registered callback URL',
+        'core-system-peers-shell.field_redirect_help':
+          'Optional OIDC callback URL. Configure all OIDC fields together.',
+        'core-system-peers-shell.field_issuer': 'OpenID issuer',
+        'core-system-peers-shell.field_issuer_help':
+          'Optional HTTPS issuer whose discovery document will be checked.',
       }),
       es: Object.freeze({
         'core-system-peers-shell.title': 'Servidores Zogograph de confianza',
@@ -184,6 +190,13 @@ window.ZogographSystemPeersShellCard = {
         'core-system-peers-shell.field_dashboard_url': 'URL del panel',
         'core-system-peers-shell.field_dashboard_url_help':
           'Opcional: dirección base HTTPS para la conexión de lectura OIDC.',
+        'core-system-peers-shell.field_redirect':
+          'URL de devolución registrada',
+        'core-system-peers-shell.field_redirect_help':
+          'URL de devolución OIDC opcional. Configure todos los campos OIDC juntos.',
+        'core-system-peers-shell.field_issuer': 'Emisor OpenID',
+        'core-system-peers-shell.field_issuer_help':
+          'Emisor HTTPS opcional cuyo documento de descubrimiento se comprobará.',
       }),
       hi: Object.freeze({
         'core-system-peers-shell.title': 'विश्वसनीय Zogograph सर्वर',
@@ -273,6 +286,12 @@ window.ZogographSystemPeersShellCard = {
         'core-system-peers-shell.field_dashboard_url': 'डैशबोर्ड URL',
         'core-system-peers-shell.field_dashboard_url_help':
           'वैकल्पिक: OIDC रीड कनेक्शन के लिए HTTPS आधार पता।',
+        'core-system-peers-shell.field_redirect': 'पंजीकृत कॉलबैक URL',
+        'core-system-peers-shell.field_redirect_help':
+          'वैकल्पिक OIDC कॉलबैक URL। सभी OIDC फ़ील्ड साथ कॉन्फ़िगर करें।',
+        'core-system-peers-shell.field_issuer': 'OpenID जारीकर्ता',
+        'core-system-peers-shell.field_issuer_help':
+          'वैकल्पिक HTTPS जारीकर्ता जिसके डिस्कवरी दस्तावेज़ की जाँच होगी।',
       }),
       ar: Object.freeze({
         'core-system-peers-shell.title': 'خوادم Zogograph الموثوقة',
@@ -361,6 +380,12 @@ window.ZogographSystemPeersShellCard = {
         'core-system-peers-shell.field_dashboard_url': 'عنوان لوحة المعلومات',
         'core-system-peers-shell.field_dashboard_url_help':
           'اختياري: عنوان HTTPS الأساسي لاتصال قراءة OIDC.',
+        'core-system-peers-shell.field_redirect': 'عنوان رد الاتصال المسجل',
+        'core-system-peers-shell.field_redirect_help':
+          'عنوان رد اتصال OIDC اختياري. اضبط كل حقول OIDC معًا.',
+        'core-system-peers-shell.field_issuer': 'مُصدِر OpenID',
+        'core-system-peers-shell.field_issuer_help':
+          'مُصدِر HTTPS اختياري سيُفحص مستند اكتشافه.',
       }),
       zh: Object.freeze({
         'core-system-peers-shell.title': '受信任的 Zogograph 服务器',
@@ -449,6 +474,12 @@ window.ZogographSystemPeersShellCard = {
         'core-system-peers-shell.field_dashboard_url': '仪表板 URL',
         'core-system-peers-shell.field_dashboard_url_help':
           '可选：用于 OIDC 读取连接的 HTTPS 基础地址。',
+        'core-system-peers-shell.field_redirect': '已注册回调 URL',
+        'core-system-peers-shell.field_redirect_help':
+          '可选的 OIDC 回调 URL。请一同配置所有 OIDC 字段。',
+        'core-system-peers-shell.field_issuer': 'OpenID 颁发者',
+        'core-system-peers-shell.field_issuer_help':
+          '将检查其发现文档的可选 HTTPS 颁发者。',
       }),
     }),
   }),

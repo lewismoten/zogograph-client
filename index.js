@@ -16935,23 +16935,15 @@ function showPeerDialog(row = null) {
     'url',
   );
   const redirect = input(
-    peerText('field_redirect', {}, 'Registered callback URL'),
+    peersShellText('field_redirect'),
     row?.redirect_uri,
-    peerText(
-      'field_redirect_help',
-      {},
-      'Optional OIDC callback URL. Configure all OIDC fields together.',
-    ),
+    peersShellText('field_redirect_help'),
     'url',
   );
   const issuer = input(
-    peerText('field_issuer', {}, 'OpenID issuer'),
+    peersShellText('field_issuer'),
     row?.issuer,
-    peerText(
-      'field_issuer_help',
-      {},
-      'Optional HTTPS issuer whose discovery document will be checked.',
-    ),
+    peersShellText('field_issuer_help'),
     'url',
   );
   const client = input(

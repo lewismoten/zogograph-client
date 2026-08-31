@@ -4263,7 +4263,6 @@ $translatedOperationalControls = [
     'store.rollup_result',
     'store.rollup_protected',
     'store.rollup_space',
-    'delivery.could_not_send',
     'telegram.test_sent',
     'telegram.test_failed',
 ];

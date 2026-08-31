@@ -998,7 +998,6 @@
   "rdns.resolve_next": "حلّ التالي الآن",
   "dns.look_up_all": "ابحث عنها كلها",
   "store.preparing_export": "جارٍ إعداد تصدير قاعدة البيانات الآمن…",
-  "delivery.could_not_send": "تعذّر الإرسال.",
   "telegram.test_sent": "أُرسل Telegram تجريبي إلى {{recipient}}.",
   "telegram.test_failed": "تعذّر إرسال اختبار Telegram.",
   "store.rollup_result": "دُمجت {{removed, number}} قراءة في {{compacted, number}}.",

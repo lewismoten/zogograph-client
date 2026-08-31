@@ -1000,7 +1000,6 @@
   "rdns.resolve_next": "अगला अभी रिज़ॉल्व करें",
   "dns.look_up_all": "सब कुछ देखें",
   "store.preparing_export": "सुरक्षित डेटाबेस निर्यात तैयार किया जा रहा है…",
-  "delivery.could_not_send": "भेजा नहीं जा सका।",
   "telegram.test_sent": "{{recipient}} को परीक्षण Telegram भेज दिया गया है।",
   "telegram.test_failed": "परीक्षण Telegram नहीं भेजा जा सका।",
   "store.rollup_result": "{{removed, number}} रीडिंग को {{compacted, number}} में समेट दिया गया।",

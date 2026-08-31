@@ -1002,7 +1002,6 @@
   "rdns.resolve_next": "Resolver ahora el siguiente",
   "dns.look_up_all": "Buscarlo todo",
   "store.preparing_export": "Preparando la exportación segura de la base de datos…",
-  "delivery.could_not_send": "No se pudo enviar.",
   "telegram.test_sent": "Se envió un Telegram de prueba a {{recipient}}.",
   "telegram.test_failed": "No se pudo enviar la prueba de Telegram.",
   "store.rollup_result": "{{removed, number}} lecturas se agruparon en {{compacted, number}}.",

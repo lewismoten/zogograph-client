@@ -998,7 +998,6 @@
   "rdns.resolve_next": "立即解析下一个",
   "dns.look_up_all": "全部查询",
   "store.preparing_export": "正在准备安全的数据库导出…",
-  "delivery.could_not_send": "无法发送。",
   "telegram.test_sent": "测试 Telegram 已发送至 {{recipient}}。",
   "telegram.test_failed": "无法发送 Telegram 测试。",
   "store.rollup_result": "{{removed, number}} 条读数已汇总为 {{compacted, number}} 条。",

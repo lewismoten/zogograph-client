@@ -41215,7 +41215,9 @@ $('testEmail').addEventListener('click', async () => {
             { i18n: ZogographI18n },
           )
         : result.error ||
-            ZogographI18n.t('delivery.could_not_send', {}, 'Could not send.'),
+            ZogographEmailShellCard.text('could_not_send', {
+              i18n: ZogographI18n,
+            }),
       result.sent,
     );
   } catch (error) {

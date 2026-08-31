@@ -979,7 +979,6 @@
   "rdns.resolve_next": "Resolve the next one now",
   "dns.look_up_all": "Look it all up",
   "store.preparing_export": "Preparing the safe database export…",
-  "delivery.could_not_send": "Could not send.",
   "telegram.test_sent": "Test Telegram sent to {{recipient}}.",
   "telegram.test_failed": "Could not send the Telegram test.",
   "store.rollup_result": "{{removed, number}} readings merged into {{compacted, number}}.",

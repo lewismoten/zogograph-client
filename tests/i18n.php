@@ -1142,6 +1142,11 @@ i18nExpect(
             $networkCaptureCard,
             '"core-network-capture.requested_from_peers"',
         ) &&
+        str_contains($networkCaptureCard, '"core-network-capture.packets"') &&
+        str_contains(
+            $networkCaptureCard,
+            '"core-network-capture.private_address"',
+        ) &&
         $script !== false &&
         str_contains(
             $script,

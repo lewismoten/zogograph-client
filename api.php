@@ -43,6 +43,7 @@ define('DISKMON_LOG', dirname((string) $config['database']) . '/error.log');
 
 require_once __DIR__ . '/lib/db.php';
 require_once __DIR__ . '/lib/auth.php';
+require_once __DIR__ . '/lib/client-problems.php';
 require_once __DIR__ . '/lib/access.php';
 require_once __DIR__ . '/lib/branding.php';
 require_once __DIR__ . '/lib/core-features.php';
@@ -242,7 +243,7 @@ function route(array $config, PDO $pdo, string $action, bool $post): array
         'ai-toolset-delete' => doAiToolsetDelete($config, $pdo, $post),
         'ai-price-save' => doAiPriceSave($config, $pdo, $post),
         'ai-price-forget' => doAiPriceForget($config, $pdo, $post),
-        'client-problem' => doClientProblem($post),
+        'client-problem' => doClientProblem($config, $pdo, $post),
         'ai-try' => doAiTry($config, $pdo, $post),
         'ai-reports' => aiReportsView($config, $pdo, $signedIn),
         'ai-report-now' => doAiReportNow($config, $pdo, $post),
@@ -8185,22 +8186,29 @@ function requireWrite(bool $post): void
 }
 
 /** Records a browser failure in the same log as server failures. */
-function doClientProblem(bool $post): array
+function doClientProblem(array $config, PDO $pdo, bool $post): array
 {
-    // This is diagnostic data written to a durable server log. Leaving it open
-    // would make an otherwise harmless browser error endpoint a way to fill
-    // that log with forged reports, so it has the same protection as every
-    // other administrative write.
-    requireWrite($post);
+    if (!$post) {
+        throw new ActionRefused('that must be a POST');
+    }
+    $signedIn = isSignedIn();
+    if ($signedIn) {
+        requireWrite($post);
+    } elseif (!anonymousClientProblemAllowed($pdo, $config)) {
+        // Do not tell an anonymous caller whether a prior report exists.
+        return ['ok' => true, 'reported' => false];
+    }
     $message = trim((string) ($_POST['message'] ?? ''));
-    $stack = trim((string) ($_POST['stack'] ?? ''));
+    $stack = $signedIn ? trim((string) ($_POST['stack'] ?? '')) : '';
     if ($message === '') {
         return ['ok' => true];
     }
     logProblem(
         'client-error',
         substr(
-            'Browser: ' . $message . ($stack === '' ? '' : ' | ' . $stack),
+            ($signedIn ? 'Browser: ' : 'Browser (anonymous): ') .
+                $message .
+                ($stack === '' ? '' : ' | ' . $stack),
             0,
             8000,
         ),

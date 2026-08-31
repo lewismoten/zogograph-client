@@ -9,15 +9,20 @@
 const API = './api.php';
 
 let reportingClientProblem = false;
+const reportedClientProblems = new Set();
 
 function reportClientProblem(message, stack = '') {
-  if (reportingClientProblem) return;
+  const safeMessage = String(message || 'Unknown browser error').slice(0, 4000);
+  const safeStack = String(stack || '').slice(0, 4000);
+  const fingerprint = `${safeMessage}\n${safeStack}`;
+  if (reportingClientProblem || reportedClientProblems.has(fingerprint)) return;
   reportingClientProblem = true;
+  reportedClientProblems.add(fingerprint);
   const body = new URLSearchParams({
     action: 'client-problem',
     csrf: state?.csrf ?? '',
-    message: String(message || 'Unknown browser error').slice(0, 4000),
-    stack: String(stack || '').slice(0, 4000),
+    message: safeMessage,
+    stack: safeStack,
   });
   fetch(API, {
     method: 'POST',
@@ -1825,6 +1830,7 @@ function renderCoreCardPackage(cardPackage, id, input, helpers) {
     )
   ) {
     console.error(`Core card package ${id} has an invalid manifest.`);
+    reportClientProblem(`Core card package ${id} has an invalid manifest.`);
     return;
   }
   if (manifest.catalogs !== undefined) {
@@ -1836,11 +1842,17 @@ function renderCoreCardPackage(cardPackage, id, input, helpers) {
       typeof helpers.i18n.registerCatalog !== 'function'
     ) {
       console.error(`Core card package ${id} has invalid locale catalogs.`);
+      reportClientProblem(
+        `Core card package ${id} has invalid locale catalogs.`,
+      );
       return;
     }
     for (const [locale, catalog] of Object.entries(manifest.catalogs)) {
       if (!helpers.i18n.registerCatalog(locale, catalog, false, id)) {
         console.error(
+          `Core card package ${id} has an invalid ${locale} locale catalog.`,
+        );
+        reportClientProblem(
           `Core card package ${id} has an invalid ${locale} locale catalog.`,
         );
         return;

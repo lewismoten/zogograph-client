@@ -15,6 +15,8 @@ function migrationTestExpect(bool $condition, string $message): void
     }
 }
 
+$currentMigrationVersion = max(array_keys(migrations()));
+
 $directory =
     sys_get_temp_dir() . '/zogograph-migration-' . bin2hex(random_bytes(8));
 migrationTestExpect(
@@ -120,7 +122,7 @@ try {
     migrationTestExpect(
         (int) $partial
             ->query('SELECT MAX(version) FROM schema_version')
-            ->fetchColumn() === 57,
+            ->fetchColumn() === $currentMigrationVersion,
         'interrupted migration did not recover to the current schema version',
     );
     migrationTestExpect(

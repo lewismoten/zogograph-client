@@ -230,6 +230,15 @@ function migrationStatementApplied(PDO $pdo, string $sql): bool
 function migrations(): array
 {
     return [
+        58 => [
+            /* An anonymous browser error gets one short diagnostic allowance.
+             * The keyed source hash is retained only for the one-hour window. */
+            'CREATE TABLE client_problem_rate_limits (
+                reporter_hash TEXT PRIMARY KEY,
+                reported_at INTEGER NOT NULL
+            )',
+            'CREATE INDEX client_problem_rate_limits_reported ON client_problem_rate_limits (reported_at)',
+        ],
         57 => [
             /* A bounded record of the opt-in path hygiene pass. The scan
              * already visits every directory entry, so this adds no walk. */

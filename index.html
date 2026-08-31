@@ -198,6 +198,7 @@
     <script src="cards/ai-model-pages-shell.js" defer></script>
     <script src="cards/ai-limits-images-shell.js" defer></script>
     <script src="cards/ai-try-billing-shell.js" defer></script>
+    <script src="cards/ai-data-page-shell.js" defer></script>
     <script src="cards/ai-memory-availability.js" defer></script>
     <script src="cards/ai-memory-provenance.js" defer></script>
     <script src="cards/ai-memory-pin-state.js" defer></script>
@@ -4520,7 +4521,7 @@
         <section class="view" data-view="sys-ai-data" hidden>
           <section class="panel" id="aiDataPanel">
             <div class="panel-head">
-              <h2 data-i18n-rich="ai.data_title">
+              <h2 id="aiDataTitle">
                 <span class="ai-name" data-i18n-tag="assistant">Assistant</span
                 >&rsquo;s database
               </h2>
@@ -4534,7 +4535,7 @@
                 </button>
               </div>
             </div>
-            <p class="muted small sub-note" data-i18n="ai.data_help">
+            <p id="aiDataHelp" class="muted small sub-note">
               Kept apart from the account&rsquo;s own database on purpose:
               everything here is a record of what was sent to somebody
               else&rsquo;s service and what came back, and that is worth being

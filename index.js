@@ -5715,6 +5715,29 @@ function renderAiTryBillingShell() {
 }
 document.addEventListener('zogograph-i18n-load', renderAiTryBillingShell);
 
+function renderAiDataPageShell() {
+  const title = $('aiDataTitle');
+  const existingName =
+    title.querySelector('.ai-name')?.textContent || 'Assistant';
+  const render = (key, fallback) =>
+    renderCoreCardPackage(
+      ZogographAiDataPageShellCard,
+      'core-ai-data-page-shell',
+      { key, fallback, assistant: chatState.who?.name || existingName },
+      { i18n: ZogographI18n },
+    );
+  replaceAssistantText(
+    title,
+    render('title', '{{assistant}}’s database'),
+    chatState.who?.name || existingName,
+  );
+  $('aiDataHelp').textContent = render(
+    'help',
+    'Kept apart from the account’s own database on purpose: everything here is a record of what was sent to somebody else’s service and what came back, and that is worth being able to read, export or delete without touching the readings. It is also the one database here that grows by conversation rather than by schedule — a long session with a few screenshots in it can outweigh a week of measurements — so what it is holding is worth being able to see.',
+  );
+}
+document.addEventListener('zogograph-i18n-load', renderAiDataPageShell);
+
 /** Every container the settings are split across. */
 const AI_SETTING_PAGES = [
   'aiIdentityBody',

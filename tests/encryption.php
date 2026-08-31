@@ -98,7 +98,10 @@ try {
             ) &&
             str_contains($dashboard, 'Add optional remote custody envelope') &&
             str_contains($dashboard, 'Local recovery remains required') &&
-            str_contains($dashboard, 'Create verified encrypted copies') &&
+            str_contains(
+                $encryptionShell,
+                'Create verified encrypted copies',
+            ) &&
             str_contains($dashboard, 'Run non-destructive recovery drill'),
         'dashboard does not explain encrypted-copy limitations',
     );

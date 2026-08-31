@@ -1385,7 +1385,6 @@
   "gauge.not_measured": "sin medir",
   "gauge.monitoring": "Supervisión: {{value}}",
   "encryption.run_recovery_drill": "Ejecutar prueba de recuperación no destructiva",
-  "encryption.recovery_drill_unavailable": "Cree copias cifradas verificadas antes de ejecutar una prueba de recuperación.",
   "encryption.recovery_drill_confirm": "¿Descifrar y validar ahora la última copia verificada de cada almacén seleccionado? Los datos activos no cambian y los archivos temporales descifrados se eliminan.",
   "encryption.recovery_drill_verified_one": "La prueba de recuperación verificó {{count, number}} almacén seleccionado.",
   "encryption.recovery_drill_verified_many": "La prueba de recuperación verificó {{count, number}} almacenes seleccionados.",

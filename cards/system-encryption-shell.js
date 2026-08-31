@@ -85,6 +85,8 @@ window.ZogographSystemEncryptionShellCard = {
           'Created {{count, number}} verified encrypted copies.',
         'core-system-encryption-shell.recovery_drill_title':
           'Run recovery drill',
+        'core-system-encryption-shell.recovery_drill_unavailable':
+          'Create verified encrypted copies before running a recovery drill.',
       }),
       es: Object.freeze({
         'core-system-encryption-shell.title': 'Protección de datos',
@@ -178,6 +180,8 @@ window.ZogographSystemEncryptionShellCard = {
           'Se crearon {{count, number}} copias cifradas verificadas.',
         'core-system-encryption-shell.recovery_drill_title':
           'Ejecutar prueba de recuperación',
+        'core-system-encryption-shell.recovery_drill_unavailable':
+          'Cree copias cifradas verificadas antes de ejecutar una prueba de recuperación.',
       }),
       hi: Object.freeze({
         'core-system-encryption-shell.title': 'डेटा सुरक्षा',
@@ -259,6 +263,8 @@ window.ZogographSystemEncryptionShellCard = {
           '{{count, number}} सत्यापित एन्क्रिप्टेड प्रतियां बनाई गईं।',
         'core-system-encryption-shell.recovery_drill_title':
           'रिकवरी जाँच चलाएँ',
+        'core-system-encryption-shell.recovery_drill_unavailable':
+          'रिकवरी जाँच चलाने से पहले सत्यापित एन्क्रिप्टेड प्रतियां बनाएँ।',
       }),
       ar: Object.freeze({
         'core-system-encryption-shell.title': 'حماية البيانات',
@@ -336,6 +342,8 @@ window.ZogographSystemEncryptionShellCard = {
           'تم إنشاء {{count, number}} نسخة مشفرة متحقق منها.',
         'core-system-encryption-shell.recovery_drill_title':
           'تشغيل تمرين الاسترداد',
+        'core-system-encryption-shell.recovery_drill_unavailable':
+          'أنشئ نسخاً مشفرة متحققاً منها قبل تشغيل تمرين استرداد.',
       }),
       zh: Object.freeze({
         'core-system-encryption-shell.title': '数据保护',
@@ -406,6 +414,8 @@ window.ZogographSystemEncryptionShellCard = {
         'core-system-encryption-shell.copies_created':
           '已创建 {{count, number}} 个经过验证的加密副本。',
         'core-system-encryption-shell.recovery_drill_title': '运行恢复演练',
+        'core-system-encryption-shell.recovery_drill_unavailable':
+          '请先创建经过验证的加密副本，再运行恢复演练。',
       }),
     }),
   }),

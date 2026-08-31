@@ -16069,11 +16069,7 @@ function renderEncryptionStatus(data) {
       );
       drill.disabled = !data.artifacts?.length;
       drill.title = drill.disabled
-        ? ZogographI18n.t(
-            'encryption.recovery_drill_unavailable',
-            {},
-            'Create verified encrypted copies before running a recovery drill.',
-          )
+        ? encryptionText('recovery_drill_unavailable')
         : '';
       drill.addEventListener('click', async () => {
         if (

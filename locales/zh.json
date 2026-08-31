@@ -2685,7 +2685,6 @@
   "action.cancel": "取消",
   "action.yes": "是",
   "charts.help": "在所选范围内描述整台机器的五项测量。概览中的仪表说明每项目前{{now}}处于何处；这些图表说明它是如何到达那里，这一半能告诉您它是否会成为问题。",
-  "storage.last_scan_title": "上次扫描",
   "storage.whole_machine_title": "整台机器",
   "storage.whole_machine_help": "由 root 运行的第二次遍历，可到达此账户无法到达的所有内容——其他账户、{{var}}、{{backup}}以及仍被打开的已删除文件占用的空间。它需要数十秒，因此不属于每分钟收集：按下此按钮会留下一个请求，主机收集器会在下次运行时处理。结果位于 {{filesystems}}、{{directories}} 和 {{deleted}} 中。",
   "storage.type_title": "空间由什么组成",

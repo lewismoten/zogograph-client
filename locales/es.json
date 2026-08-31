@@ -2688,7 +2688,6 @@
   "action.cancel": "Cancelar",
   "action.yes": "Sí",
   "charts.help": "Las cinco mediciones que describen la máquina completa en el intervalo seleccionado. Los indicadores de la vista general dicen dónde está cada una {{now}}; estas gráficas muestran cómo llegó ahí, la mitad que indica si será un problema.",
-  "storage.last_scan_title": "El último análisis",
   "storage.whole_machine_title": "Toda la máquina",
   "storage.whole_machine_help": "Un segundo recorrido, ejecutado como root, que alcanza todo lo que esta cuenta no puede: otras cuentas, {{var}}, {{backup}} y espacio ocupado por archivos eliminados que siguen abiertos. Tarda decenas de segundos, por lo que no forma parte de la recopilación por minuto: al pulsar esto queda una solicitud que el recolector del host atenderá en su próxima ejecución. Los resultados están en {{filesystems}}, {{directories}} y {{deleted}}.",
   "storage.type_title": "De qué está hecho el espacio",

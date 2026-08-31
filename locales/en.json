@@ -2703,7 +2703,6 @@
   "action.cancel": "Cancel",
   "action.yes": "Yes",
   "charts.help": "The five measurements that describe the machine as a whole, over whatever range is selected. The gauges on the overview say where each one is {{now}}; these say how it got there, which is the half that tells you whether it is going to be a problem.",
-  "storage.last_scan_title": "The last scan",
   "storage.whole_machine_title": "The whole machine",
   "storage.whole_machine_help": "A second walk, run by root, that reaches everything this account cannot — other accounts, {{var}}, {{backup}}, and space held by deleted files still open. It takes tens of seconds, so it is not part of the per-minute collection: pressing this leaves a request that the host collector picks up on its next run. The results are under {{filesystems}}, {{directories}} and {{deleted}}.",
   "storage.type_title": "What the space is made of",

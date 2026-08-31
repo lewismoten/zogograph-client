@@ -2034,6 +2034,26 @@ function renderLoadNetworkChartLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderLoadNetworkChartLabels);
 
+function renderStorageScanLabels() {
+  const helpers = { i18n: ZogographI18n };
+  renderCoreCardPackage(
+    ZogographStorageScanStatusCard,
+    'core-storage-scan-status',
+    { state: 'now' },
+    helpers,
+  );
+  const title = document.querySelector(
+    '[data-i18n="core-storage-scan-status.title"]',
+  );
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-storage-scan-status.title',
+    ZogographStorageScanStatusCard.text('title', helpers),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderStorageScanLabels);
+
 /**
  * When the disk is projected to fill, as a date.
  *

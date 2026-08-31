@@ -2397,6 +2397,18 @@ i18nExpect(
     'action-log table translations belong to their core package',
 );
 i18nExpect(
+    !isset(
+        $english['action_log.deleted_file'],
+        $english['action_log.emptied_directory'],
+        $english['action_log.ran_scan'],
+        $english['action_log.changed_schedule'],
+    ) &&
+        $page !== false &&
+        str_contains($page, 'src="cards/action-log-actions.js"') &&
+        str_contains($script, "'core-action-log-actions'"),
+    'action-log vocabulary belongs to its core package',
+);
+i18nExpect(
     str_contains(
         (string) file_get_contents($root . '/cards/storage-scan-status.js'),
         'core-storage-scan-status.running',

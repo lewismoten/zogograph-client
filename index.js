@@ -31289,6 +31289,14 @@ function processTree(nodes) {
 
 const actionState = { kind: '', who: '', result: '' };
 
+const actionLogActionText = (key) =>
+  renderCoreCardPackage(
+    window.ZogographActionLogActionsCard,
+    'core-action-log-actions',
+    { key },
+    { i18n: ZogographI18n },
+  );
+
 const actionLogTableText = (key) =>
   renderCoreCardPackage(
     window.ZogographActionLogTableCard,
@@ -31305,14 +31313,11 @@ const actionLogTableText = (key) =>
  * `empty` into "emptied a directory" in their head.
  */
 const ACTION_WORDS = {
-  delete_file: ['action_log.deleted_file', 'deleted a file'],
-  empty: ['action_log.emptied_directory', 'emptied a directory'],
-  scan_now: ['action_log.ran_scan', 'ran a scan'],
-  schedule_save: ['action_log.changed_schedule', 'changed the schedule'],
-  updates_policy: [
-    'action_log.changed_update_policy',
-    'changed the system update policy',
-  ],
+  delete_file: 'deleted_file',
+  empty: 'emptied_directory',
+  scan_now: 'ran_scan',
+  schedule_save: 'changed_schedule',
+  updates_policy: 'changed_update_policy',
   test_email: ['action_log.sent_test_email', 'sent a test email'],
   clear_problems: ['action_log.cleared_problem_log', 'cleared the problem log'],
   diagnosis_ignore: [
@@ -31342,7 +31347,7 @@ const ACTION_WORDS = {
 
 function actionWord(value) {
   const word = ACTION_WORDS[value];
-  return word ? ZogographI18n.t(word[0], {}, word[1]) : value;
+  return word ? actionLogActionText(word) : value;
 }
 
 async function refreshActionLog() {

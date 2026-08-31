@@ -23,6 +23,12 @@ window.ZogographCpuLimitsCard = {
           'This account is using {{account, number}}% of what it is allowed; the machine as a whole is {{host, number}}% busy. Neither number is a share of the other, and dividing them produces nothing meaningful.',
         'core-cpu-limits.missing_side':
           'Both halves of this comparison need a reading — one from this account and one from the host collector running as root.',
+        'core-cpu-limits.account': 'Account',
+        'core-cpu-limits.cpu_faults': 'CPU faults',
+        'core-cpu-limits.memory_faults': 'Memory faults',
+        'core-cpu-limits.process_faults': 'Process faults',
+        'core-cpu-limits.cpu_in_use': 'CPU in use',
+        'core-cpu-limits.no_lve_readings': 'No LVE readings in this range',
       }),
       es: Object.freeze({
         'core-cpu-limits.faults':
@@ -33,6 +39,13 @@ window.ZogographCpuLimitsCard = {
           'Esta cuenta usa el {{account, number}}% de lo que tiene permitido; la máquina completa está ocupada al {{host, number}}%. Ninguno de los valores es una parte del otro y dividirlos no produce nada significativo.',
         'core-cpu-limits.missing_side':
           'Ambas partes de esta comparación necesitan una lectura: una de esta cuenta y otra del recolector del host que se ejecuta como root.',
+        'core-cpu-limits.account': 'Cuenta',
+        'core-cpu-limits.cpu_faults': 'Fallos de CPU',
+        'core-cpu-limits.memory_faults': 'Fallos de memoria',
+        'core-cpu-limits.process_faults': 'Fallos de proceso',
+        'core-cpu-limits.cpu_in_use': 'CPU en uso',
+        'core-cpu-limits.no_lve_readings':
+          'No hay lecturas LVE en este intervalo',
       }),
       hi: Object.freeze({
         'core-cpu-limits.faults':
@@ -43,6 +56,12 @@ window.ZogographCpuLimitsCard = {
           'यह खाता अपनी अनुमति का {{account, number}}% उपयोग कर रहा है; पूरी मशीन {{host, number}}% व्यस्त है। कोई भी संख्या दूसरी का हिस्सा नहीं है, इसलिए उन्हें विभाजित करना अर्थपूर्ण नहीं है।',
         'core-cpu-limits.missing_side':
           'इस तुलना के दोनों भागों के लिए रीडिंग चाहिए — एक इस खाते से और एक root के रूप में चल रहे होस्ट कलेक्टर से।',
+        'core-cpu-limits.account': 'खाता',
+        'core-cpu-limits.cpu_faults': 'CPU त्रुटियाँ',
+        'core-cpu-limits.memory_faults': 'मेमोरी त्रुटियाँ',
+        'core-cpu-limits.process_faults': 'प्रक्रिया त्रुटियाँ',
+        'core-cpu-limits.cpu_in_use': 'प्रयुक्त CPU',
+        'core-cpu-limits.no_lve_readings': 'इस अवधि में कोई LVE रीडिंग नहीं',
       }),
       ar: Object.freeze({
         'core-cpu-limits.faults':
@@ -53,6 +72,12 @@ window.ZogographCpuLimitsCard = {
           'يستخدم هذا الحساب {{account, number}}٪ مما يسمح له به؛ وانشغال الجهاز كله {{host, number}}٪. لا يمثل أي من الرقمين حصة من الآخر، ولا معنى مفيدًا لقسمتهما.',
         'core-cpu-limits.missing_side':
           'يحتاج طرفا هذه المقارنة إلى قراءة: واحدة من هذا الحساب وأخرى من جامع المضيف الذي يعمل بصلاحية root.',
+        'core-cpu-limits.account': 'الحساب',
+        'core-cpu-limits.cpu_faults': 'أخطاء المعالج',
+        'core-cpu-limits.memory_faults': 'أخطاء الذاكرة',
+        'core-cpu-limits.process_faults': 'أخطاء العمليات',
+        'core-cpu-limits.cpu_in_use': 'المعالج المستخدم',
+        'core-cpu-limits.no_lve_readings': 'لا توجد قراءات LVE في هذا النطاق',
       }),
       zh: Object.freeze({
         'core-cpu-limits.faults':
@@ -63,6 +88,12 @@ window.ZogographCpuLimitsCard = {
           '此帐户使用了允许量的 {{account, number}}%；整台机器忙碌度为 {{host, number}}%。两个数值都不是另一个的份额，将它们相除没有实际意义。',
         'core-cpu-limits.missing_side':
           '这项比较的两部分都需要读数：一个来自此帐户，另一个来自以 root 身份运行的主机收集器。',
+        'core-cpu-limits.account': '帐户',
+        'core-cpu-limits.cpu_faults': 'CPU 故障',
+        'core-cpu-limits.memory_faults': '内存故障',
+        'core-cpu-limits.process_faults': '进程故障',
+        'core-cpu-limits.cpu_in_use': '正在使用的 CPU',
+        'core-cpu-limits.no_lve_readings': '此范围内没有 LVE 读数',
       }),
     }),
   }),
@@ -90,8 +121,6 @@ window.ZogographCpuLimitsCard = {
     );
     const t = (key, values, fallback) =>
       i18n.t(`core-cpu-limits.${key}`, values, fallback);
-    const cpu = (key, values, fallback) =>
-      i18n.t(`cpu.${key}`, values, fallback);
     noteTarget.textContent =
       faults > 0
         ? t(
@@ -119,24 +148,24 @@ window.ZogographCpuLimitsCard = {
     lveWrap.hidden = rows.length === 0;
     if (!rows.length) return;
     renderTable('cpuLve', rows, [
-      { label: cpu('account', {}, 'Account'), render: (row) => row.user },
+      { label: t('account', {}, 'Account'), render: (row) => row.user },
       {
-        label: cpu('cpu_faults', {}, 'CPU faults'),
+        label: t('cpu_faults', {}, 'CPU faults'),
         className: 'size',
         render: (row) => humanCount(row.faults_cpu),
       },
       {
-        label: cpu('memory_faults', {}, 'Memory faults'),
+        label: t('memory_faults', {}, 'Memory faults'),
         className: 'size',
         render: (row) => humanCount(row.faults_mem),
       },
       {
-        label: cpu('process_faults', {}, 'Process faults'),
+        label: t('process_faults', {}, 'Process faults'),
         className: 'size',
         render: (row) => humanCount(row.faults_procs),
       },
       {
-        label: cpu('cpu_in_use', {}, 'CPU in use'),
+        label: t('cpu_in_use', {}, 'CPU in use'),
         className: 'size',
         render: (row) =>
           row.cpu_percent == null
@@ -148,13 +177,13 @@ window.ZogographCpuLimitsCard = {
       document.querySelector('#cpuLveChart'),
       data.lve_series ?? [],
       [
-        { key: 'faults_cpu', label: cpu('cpu_faults', {}, 'CPU faults') },
-        { key: 'faults_mem', label: cpu('memory_faults', {}, 'Memory faults') },
+        { key: 'faults_cpu', label: t('cpu_faults', {}, 'CPU faults') },
+        { key: 'faults_mem', label: t('memory_faults', {}, 'Memory faults') },
       ],
       {
         axis: countAxis,
         zeroBased: true,
-        empty: cpu('no_lve_readings', {}, 'No LVE readings in this range'),
+        empty: t('no_lve_readings', {}, 'No LVE readings in this range'),
       },
     );
   },

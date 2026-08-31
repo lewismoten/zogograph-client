@@ -9,7 +9,9 @@ window.ZogographAiPriceTableCard = {
       'useRecord',
       'editRecord',
       'duplicateRecord',
-      'removeRecord',
+      'note',
+      'showFormDialog',
+      'forgetRecord',
       'i18n',
     ],
     catalogs: Object.freeze({
@@ -28,6 +30,13 @@ window.ZogographAiPriceTableCard = {
           'Duplicate this price record, then choose its next active date.',
         'core-ai-price-table.remove_title':
           'Remove the {{date}} price record for {{model}} permanently.',
+        'core-ai-price-table.filled':
+          'Prices for {{model}} filled in. Save on the Model page to keep them.',
+        'core-ai-price-table.remove_warning':
+          'Remove the {{date}} price record for {{provider}}/{{model}}? This cannot be undone.',
+        'core-ai-price-table.remove_dialog': 'Remove price record',
+        'core-ai-price-table.remove_action': 'Remove record',
+        'core-ai-price-table.removed': 'Removed.',
       }),
       es: Object.freeze({
         'core-ai-price-table.provider': 'Proveedor',
@@ -42,6 +51,13 @@ window.ZogographAiPriceTableCard = {
         'core-ai-price-table.duplicate_title': 'Duplicar este precio.',
         'core-ai-price-table.remove_title':
           'Eliminar el precio de {{model}} del {{date}}.',
+        'core-ai-price-table.filled':
+          'Se rellenaron los precios de {{model}}. Guarde en la página Modelo para conservarlos.',
+        'core-ai-price-table.remove_warning':
+          '¿Eliminar el precio de {{provider}}/{{model}} del {{date}}? No se puede deshacer.',
+        'core-ai-price-table.remove_dialog': 'Eliminar precio',
+        'core-ai-price-table.remove_action': 'Eliminar precio',
+        'core-ai-price-table.removed': 'Eliminado.',
       }),
       hi: Object.freeze({
         'core-ai-price-table.provider': 'प्रदाता',
@@ -58,6 +74,13 @@ window.ZogographAiPriceTableCard = {
           'इस मूल्य रिकॉर्ड को डुप्लिकेट करें।',
         'core-ai-price-table.remove_title':
           '{{model}} का {{date}} मूल्य हटाएँ।',
+        'core-ai-price-table.filled':
+          '{{model}} की कीमतें भर दी गईं। उन्हें रखने के लिए मॉडल पृष्ठ पर सहेजें।',
+        'core-ai-price-table.remove_warning':
+          '{{provider}}/{{model}} का {{date}} मूल्य रिकॉर्ड हटाएं? इसे पूर्ववत नहीं किया जा सकता।',
+        'core-ai-price-table.remove_dialog': 'मूल्य रिकॉर्ड हटाएं',
+        'core-ai-price-table.remove_action': 'रिकॉर्ड हटाएं',
+        'core-ai-price-table.removed': 'हटा दिया गया।',
       }),
       ar: Object.freeze({
         'core-ai-price-table.provider': 'المزوّد',
@@ -72,6 +95,13 @@ window.ZogographAiPriceTableCard = {
         'core-ai-price-table.duplicate_title': 'انسخ سجل السعر هذا.',
         'core-ai-price-table.remove_title':
           'أزل سعر {{model}} بتاريخ {{date}}.',
+        'core-ai-price-table.filled':
+          'مُلئت أسعار {{model}}. احفظ في صفحة النموذج للاحتفاظ بها.',
+        'core-ai-price-table.remove_warning':
+          'أزل سجل سعر {{provider}}/{{model}} بتاريخ {{date}}؟ لا يمكن التراجع عن ذلك.',
+        'core-ai-price-table.remove_dialog': 'إزالة سجل السعر',
+        'core-ai-price-table.remove_action': 'إزالة السجل',
+        'core-ai-price-table.removed': 'أُزيل.',
       }),
       zh: Object.freeze({
         'core-ai-price-table.provider': '提供商',
@@ -85,6 +115,13 @@ window.ZogographAiPriceTableCard = {
         'core-ai-price-table.duplicate_title': '复制此价格记录。',
         'core-ai-price-table.remove_title':
           '永久移除 {{date}} 的 {{model}} 价格记录。',
+        'core-ai-price-table.filled':
+          '已填入 {{model}} 的价格。请在“模型”页面保存以保留它们。',
+        'core-ai-price-table.remove_warning':
+          '移除 {{provider}}/{{model}} 在 {{date}} 的价格记录？此操作无法撤销。',
+        'core-ai-price-table.remove_dialog': '移除价格记录',
+        'core-ai-price-table.remove_action': '移除记录',
+        'core-ai-price-table.removed': '已移除。',
       }),
     }),
   }),
@@ -95,7 +132,9 @@ window.ZogographAiPriceTableCard = {
       useRecord,
       editRecord,
       duplicateRecord,
-      removeRecord,
+      note,
+      showFormDialog,
+      forgetRecord,
       i18n,
     } = helpers;
     const t = (key, vars, fallback) => i18n.t(key, vars, fallback);
@@ -166,7 +205,15 @@ window.ZogographAiPriceTableCard = {
                 {},
                 'Use this active price record on the Model page.',
               ),
-              useRecord,
+              (record) =>
+                useRecord(
+                  record,
+                  t(
+                    'core-ai-price-table.filled',
+                    { model: record.model },
+                    'Prices for {{model}} filled in. Save on the Model page to keep them.',
+                  ),
+                ),
             );
           }
           button(
@@ -194,7 +241,33 @@ window.ZogographAiPriceTableCard = {
               { date: row.active_from, model: row.model },
               'Remove the {{date}} price record for {{model}} permanently.',
             ),
-            removeRecord,
+            (record) => {
+              const warning = note(
+                t(
+                  'core-ai-price-table.remove_warning',
+                  {
+                    date: record.active_from,
+                    provider: record.provider,
+                    model: record.model,
+                  },
+                  'Remove the {{date}} price record for {{provider}}/{{model}}? This cannot be undone.',
+                ),
+              );
+              showFormDialog(
+                t(
+                  'core-ai-price-table.remove_dialog',
+                  {},
+                  'Remove price record',
+                ),
+                [warning],
+                () =>
+                  forgetRecord(
+                    record,
+                    t('core-ai-price-table.removed', {}, 'Removed.'),
+                  ),
+                t('core-ai-price-table.remove_action', {}, 'Remove record'),
+              );
+            },
             'link danger icon-action',
           );
           return wrap;

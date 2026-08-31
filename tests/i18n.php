@@ -448,6 +448,11 @@ i18nExpect(
         $english['ai.pricing_retired_on_help'],
         $english['ai.pricing_edit_dialog'],
         $english['ai.pricing_add_dialog'],
+        $english['ai.pricing_filled'],
+        $english['ai.pricing_remove_warning'],
+        $english['ai.pricing_remove_dialog'],
+        $english['ai.pricing_remove_action'],
+        $english['ai.pricing_removed'],
     ),
     'AI card controls belong to their card packages',
 );

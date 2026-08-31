@@ -20409,18 +20409,11 @@ function renderPriceTable(target, rows, sort) {
     {
       renderTable,
       sort,
-      useRecord(row) {
+      useRecord(row, filledMessage) {
         $('aiPriceIn').value = String(row.in);
         $('aiPriceOut').value = String(row.out);
         $('aiPriceCached').value = String(row.cached);
-        notice(
-          ZogographI18n.t(
-            'ai.pricing_filled',
-            { model: row.model },
-            'Prices for {{model}} filled in. Save on the Model page to keep them.',
-          ),
-          true,
-        );
+        notice(filledMessage, true);
         location.hash = '#/sys-ai-model';
       },
       editRecord: showPriceDialog,
@@ -20432,27 +20425,9 @@ function renderPriceTable(target, rows, sort) {
           retired_on: null,
         });
       },
-      removeRecord(row) {
-        const warning = note(
-          ZogographI18n.t(
-            'ai.pricing_remove_warning',
-            { date: row.active_from, provider: row.provider, model: row.model },
-            'Remove the {{date}} price record for {{provider}}/{{model}}? This cannot be undone.',
-          ),
-        );
-        showFormDialog(
-          ZogographI18n.t(
-            'ai.pricing_remove_dialog',
-            {},
-            'Remove price record',
-          ),
-          [warning],
-          async () => {
-            renderAiPrices(await post('ai-price-forget', { key: row.key }));
-            notice(ZogographI18n.t('ai.pricing_removed', {}, 'Removed.'), true);
-          },
-          ZogographI18n.t('ai.pricing_remove_action', {}, 'Remove record'),
-        );
+      async forgetRecord(row, removedMessage) {
+        renderAiPrices(await post('ai-price-forget', { key: row.key }));
+        notice(removedMessage, true);
       },
       i18n: ZogographI18n,
     },

@@ -173,6 +173,7 @@ export default [
         ZogographAiContextSectionCard: 'readonly',
         ZogographAiAlertModeCard: 'readonly',
         ZogographAiAlertSafetyFloorCard: 'readonly',
+        ZogographAiAlertRunCapCard: 'readonly',
         ZogographAiKeyForgetCard: 'readonly',
         ZogographAiEnableToggleCard: 'readonly',
         ZogographAiReasoningEffortCard: 'readonly',

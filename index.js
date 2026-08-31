@@ -5906,22 +5906,12 @@ function renderAiSettings(data) {
     ),
   );
 
-  const perRun = document.createElement('input');
-  perRun.type = 'number';
-  perRun.id = 'aiAlertPerRun';
-  perRun.min = '1';
-  perRun.max = '20';
-  perRun.className = 'days';
-  perRun.value = String(data.alerts?.per_run ?? 5);
   unattended.appendChild(
-    fieldRow(
-      aiSettingsText('alert_per_run_label', 'At most, per run'),
-      perRun,
-      aiSettingsText(
-        'alert_per_run_help',
-        'A disk filling up trips several rules at once. This is what stops a storm becoming ' +
-          'a bill.',
-      ),
+    renderCoreCardPackage(
+      ZogographAiAlertRunCapCard,
+      'core-ai-alert-run-cap',
+      data,
+      { fieldRow, i18n: ZogographI18n },
     ),
   );
 

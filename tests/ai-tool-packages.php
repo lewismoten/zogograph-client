@@ -93,6 +93,7 @@ foreach ($toolPackages as $package) {
         !isset($english[$package . '.summary']),
         "$package still owns its summary in the shared catalog",
     );
+    $referenceKeys = null;
     foreach (['en', 'es', 'hi', 'ar', 'zh'] as $locale) {
         $file = $directory . '/' . $locale . '.json';
         $catalog = is_file($file)
@@ -103,6 +104,26 @@ foreach ($toolPackages as $package) {
                 is_string($catalog[$package . '.summary'] ?? null),
             "$package does not provide its $locale summary in its own package catalog",
         );
+        $keys = array_keys($catalog ?? []);
+        sort($keys, SORT_STRING);
+        aiToolPackageExpect(
+            $keys !== [] &&
+                array_reduce(
+                    $keys,
+                    static fn(bool $valid, string $key): bool => $valid &&
+                        str_starts_with($key, $package . '.'),
+                    true,
+                ),
+            "$package has a $locale locale key outside its package namespace",
+        );
+        if ($referenceKeys === null) {
+            $referenceKeys = $keys;
+        } else {
+            aiToolPackageExpect(
+                $keys === $referenceKeys,
+                "$package does not provide the same locale keys in $locale",
+            );
+        }
     }
 }
 

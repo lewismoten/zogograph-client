@@ -144,8 +144,6 @@
   "pending.past_due": "已逾期 {{duration}}——收集器可能没有运行",
   "pending.ready": "{{label}} 已就绪。",
   "pending.new": "新",
-  "notes.broadcast_label": "通知所有人",
-  "notes.broadcast_help": "这会显示在每个打开仪表板的人的每个页面顶部，直到有人将其清除。",
   "notes.audience_label": "对群组可见",
   "notes.audience_help": "不选择任何群组即可与所有能阅读注释的人共享。选择群组会限制此注释以及由它创建的任何广播。",
   "process.ask": "请求",

@@ -42,6 +42,9 @@ window.ZogographNotesShellCard = {
         'core-notes-shell.link_placeholder': 'https://your-tracker/issue/412',
         'core-notes-shell.link_help':
           'Optional. A ticket, a changelog, a pull request.',
+        'core-notes-shell.broadcast_label': 'Tell everyone',
+        'core-notes-shell.broadcast_help':
+          'Shows this at the top of every page for anyone who opens the dashboard, until somebody clears it.',
       }),
       es: Object.freeze({
         'core-notes-shell.title': 'Notas',
@@ -81,6 +84,9 @@ window.ZogographNotesShellCard = {
           'https://su-rastreador/incidencia/412',
         'core-notes-shell.link_help':
           'Opcional. Un ticket, un registro de cambios o una solicitud de extracción.',
+        'core-notes-shell.broadcast_label': 'Avisar a todos',
+        'core-notes-shell.broadcast_help':
+          'Muestra esto al principio de cada página para cualquiera que abra el panel, hasta que alguien lo borre.',
       }),
       hi: Object.freeze({
         'core-notes-shell.title': 'नोट्स',
@@ -120,6 +126,9 @@ window.ZogographNotesShellCard = {
         'core-notes-shell.link_placeholder': 'https://आपका-ट्रैकर/issue/412',
         'core-notes-shell.link_help':
           'वैकल्पिक। एक टिकट, चेंजलॉग या पुल अनुरोध।',
+        'core-notes-shell.broadcast_label': 'सभी को बताएँ',
+        'core-notes-shell.broadcast_help':
+          'इसे डैशबोर्ड खोलने वाले हर व्यक्ति के लिए हर पृष्ठ के शीर्ष पर दिखाता है, जब तक कोई इसे साफ़ नहीं करता।',
       }),
       ar: Object.freeze({
         'core-notes-shell.title': 'الملاحظات',
@@ -158,6 +167,9 @@ window.ZogographNotesShellCard = {
         'core-notes-shell.link_placeholder': 'https://متتبعك/issue/412',
         'core-notes-shell.link_help':
           'اختياري. تذكرة أو سجل تغييرات أو طلب سحب.',
+        'core-notes-shell.broadcast_label': 'أخبر الجميع',
+        'core-notes-shell.broadcast_help':
+          'يعرض هذا أعلى كل صفحة لكل من يفتح لوحة المعلومات، حتى يمسحه شخص ما.',
       }),
       zh: Object.freeze({
         'core-notes-shell.title': '备注',
@@ -195,6 +207,9 @@ window.ZogographNotesShellCard = {
         'core-notes-shell.link_label': '链接',
         'core-notes-shell.link_placeholder': 'https://您的跟踪器/issue/412',
         'core-notes-shell.link_help': '可选。工单、更新日志或拉取请求。',
+        'core-notes-shell.broadcast_label': '通知所有人',
+        'core-notes-shell.broadcast_help':
+          '这会显示在每个打开仪表板的人的每个页面顶部，直到有人将其清除。',
       }),
     }),
   }),

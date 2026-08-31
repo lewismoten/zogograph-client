@@ -14060,13 +14060,9 @@ async function showNoteDialog(preset = {}) {
   broadcast.checked = preset.broadcast === true;
   parts.push(
     fieldRow(
-      ZogographI18n.t('notes.broadcast_label', {}, 'Tell everyone'),
+      notesShellText('broadcast_label'),
       broadcast,
-      ZogographI18n.t(
-        'notes.broadcast_help',
-        {},
-        'Shows this at the top of every page for anyone who opens the dashboard, until somebody clears it. This is the difference between one person knowing about the disk and three people finding out separately at two in the morning.',
-      ),
+      notesShellText('broadcast_help'),
     ),
   );
 

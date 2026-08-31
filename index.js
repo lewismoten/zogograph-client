@@ -34798,6 +34798,14 @@ const urlStatusText = (key, values = {}) =>
     { i18n: ZogographI18n },
   );
 
+const urlHistoryText = (key, values = {}) =>
+  renderCoreCardPackage(
+    window.ZogographUrlMonitorHistoryCard,
+    'core-url-monitor-history',
+    { key, values },
+    { i18n: ZogographI18n },
+  );
+
 async function refreshUrls() {
   const body = $('urlBody');
   if (!state.signedIn) {
@@ -35117,13 +35125,13 @@ function renderUrlHistory(data) {
   $('urlHistoryTitle').textContent = check.label;
   $('urlHistorySummary').textContent =
     history.checks === 0
-      ? ZogographI18n.t(
-          'url.nothing_recorded_range',
+      ? urlHistoryText(
+          'nothing_recorded_range',
           {},
           'Nothing recorded in this range yet.',
         )
-      : ZogographI18n.t(
-          'url.history_summary',
+      : urlHistoryText(
+          'history_summary',
           {
             checks: humanCount(history.checks),
             uptime: history.uptime_percent,
@@ -35165,19 +35173,15 @@ function renderUrlHistory(data) {
     [
       {
         key: 'ms',
-        label: ZogographI18n.t('url.response_time', {}, 'Response time'),
+        label: urlHistoryText('response_time'),
       },
-      { key: 'failed', label: ZogographI18n.t('url.failed', {}, 'Failed') },
+      { key: 'failed', label: urlHistoryText('failed') },
     ],
     {
       xKey: 'at',
       axis: msAxis,
       zeroBased: true,
-      empty: ZogographI18n.t(
-        'url.no_checks',
-        {},
-        'No checks in this range yet',
-      ),
+      empty: urlHistoryText('no_checks', {}, 'No checks in this range yet'),
       // Blue marks are the moments the watched value changed, which is usually
       // the explanation for whatever the response time does next.
       notes: marks,
@@ -35185,12 +35189,12 @@ function renderUrlHistory(data) {
   );
 
   $('urlChartNote').textContent = history.checks
-    ? ZogographI18n.t(
-        'url.chart_note',
+    ? urlHistoryText(
+        'chart_note',
         {
           changes: changes.length
-            ? ZogographI18n.t(
-                'url.chart_note_changes',
+            ? urlHistoryText(
+                'chart_note_changes',
                 {},
                 ' Blue marks are where what this check records changed.',
               )
@@ -35239,13 +35243,13 @@ function renderUrlHistory(data) {
     changeBox.replaceChildren(
       section(
         changes.length
-          ? ZogographI18n.t(
-              'url.changes_in_range',
+          ? urlHistoryText(
+              'changes_in_range',
               { count: changes.length },
               '{{count}} changes in this range',
             )
-          : ZogographI18n.t(
-              'url.reporting_history',
+          : urlHistoryText(
+              'reporting_history',
               {},
               'What it has been reporting',
             ),
@@ -35258,7 +35262,7 @@ function renderUrlHistory(data) {
       [...rows].reverse().slice(0, 60),
       [
         {
-          label: ZogographI18n.t('url.when', {}, 'When'),
+          label: urlHistoryText('when'),
           render: (row) => whenSpan(row.at),
         },
         {
@@ -35267,11 +35271,11 @@ function renderUrlHistory(data) {
             const span = document.createElement('span');
             span.className = 'muted small';
             span.textContent = row.first
-              ? ZogographI18n.t('url.first_seen', {}, 'first seen')
-              : ZogographI18n.t('url.changed', {}, 'changed');
+              ? urlHistoryText('first_seen')
+              : urlHistoryText('changed');
             if (row.first) {
-              span.title = ZogographI18n.t(
-                'url.first_seen_tip',
+              span.title = urlHistoryText(
+                'first_seen_tip',
                 {},
                 'The earliest reading in this range, not something that happened — it may have been saying this for far longer.',
               );
@@ -35280,12 +35284,12 @@ function renderUrlHistory(data) {
           },
         },
         {
-          label: ZogographI18n.t('url.was', {}, 'Was'),
+          label: urlHistoryText('was'),
           className: 'cmd',
           render: (row) => row.from ?? '—',
         },
         {
-          label: ZogographI18n.t('url.became', {}, 'Became'),
+          label: urlHistoryText('became'),
           className: 'cmd',
           render: (row) => row.to,
         },

@@ -2127,6 +2127,33 @@ function renderCategoryChartLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderCategoryChartLabels);
 
+function renderPathHygieneLabels() {
+  const helpers = {
+    target: null,
+    note: () => null,
+    factGrid: () => null,
+    renderTable: () => null,
+    humanTime: () => '',
+    visiblePathNode: () => null,
+    openRename: () => null,
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(
+    ZogographPathHygieneCard,
+    'core-path-hygiene',
+    {},
+    helpers,
+  );
+  const title = document.querySelector('[data-i18n="core-path-hygiene.title"]');
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-path-hygiene.title',
+    ZogographPathHygieneCard.text('title', helpers),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderPathHygieneLabels);
+
 /**
  * When the disk is projected to fill, as a date.
  *

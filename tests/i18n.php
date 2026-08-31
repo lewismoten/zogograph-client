@@ -2209,16 +2209,16 @@ i18nExpect(
         str_contains($page, 'data-i18n-rich="storage.whole_machine_help"') &&
         str_contains($page, 'data-i18n="core-type-pie.title"') &&
         str_contains($page, 'data-i18n-rich="storage.type_help"') &&
-        str_contains($page, 'data-i18n="storage.path_hygiene_title"') &&
+        str_contains($page, 'data-i18n="core-path-hygiene.title"') &&
         is_array($english) &&
         isset(
             $english['storage.whole_machine_help'],
             $english['storage.type_help'],
-            $english['storage.path_hygiene_title'],
         ) &&
         isset(
             $coreCardEnglish['core-storage-scan-status.title'],
             $coreCardEnglish['core-type-pie.title'],
+            $coreCardEnglish['core-path-hygiene.title'],
         ),
     'Storage scan and analysis guidance does not use the locale catalog',
 );

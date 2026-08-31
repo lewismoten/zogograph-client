@@ -15,6 +15,7 @@ window.ZogographPathHygieneCard = {
     ],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-path-hygiene.title': 'Path-name hygiene',
         'core-path-hygiene.enable':
           'Install and enable Path-name hygiene in the Marketplace to use this check.',
         'core-path-hygiene.no_scan':
@@ -31,6 +32,7 @@ window.ZogographPathHygieneCard = {
           'The scan found more names than this page retains. Rename these, then run another disk scan.',
       }),
       es: Object.freeze({
+        'core-path-hygiene.title': 'Higiene de nombres de ruta',
         'core-path-hygiene.enable':
           'Instale y active Higiene de nombres de ruta en Marketplace para usar esta comprobación.',
         'core-path-hygiene.no_scan':
@@ -47,6 +49,7 @@ window.ZogographPathHygieneCard = {
           'El análisis encontró más nombres de los que esta página conserva. Renombre estos y ejecute otro análisis de disco.',
       }),
       hi: Object.freeze({
+        'core-path-hygiene.title': 'पथ-नाम स्वच्छता',
         'core-path-hygiene.enable':
           'इस जाँच के लिए मार्केटप्लेस में Path-name hygiene इंस्टॉल और सक्षम करें।',
         'core-path-hygiene.no_scan':
@@ -63,6 +66,7 @@ window.ZogographPathHygieneCard = {
           'स्कैन को इस पृष्ठ से अधिक नाम मिले। इन्हें बदलें, फिर दूसरा डिस्क स्कैन चलाएँ।',
       }),
       ar: Object.freeze({
+        'core-path-hygiene.title': 'سلامة أسماء المسارات',
         'core-path-hygiene.enable':
           'ثبّت وفعّل فحص نظافة أسماء المسارات من المتجر لاستخدام هذا الفحص.',
         'core-path-hygiene.no_scan':
@@ -79,6 +83,7 @@ window.ZogographPathHygieneCard = {
           'وجد الفحص أسماء أكثر مما تحتفظ به هذه الصفحة. أعد تسمية هذه ثم نفذ فحص قرص آخر.',
       }),
       zh: Object.freeze({
+        'core-path-hygiene.title': '路径名称检查',
         'core-path-hygiene.enable':
           '请在市场中安装并启用“路径名卫生”以使用此检查。',
         'core-path-hygiene.no_scan':
@@ -95,6 +100,13 @@ window.ZogographPathHygieneCard = {
       }),
     }),
   }),
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-path-hygiene.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-path-hygiene.${key}`],
+    );
+  },
 
   render(data, helpers) {
     const {

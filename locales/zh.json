@@ -2695,7 +2695,6 @@
   "storage.change_since_scan": "自上次扫描后的变化",
   "storage.type_growth_help": "此范围内每次完成扫描中每个类型一条线。没有线的类型当时没有此类内容——线从第一个文件出现的位置开始。",
   "storage.categories_time_help": "每次完成扫描的总计。{{error_log}} 文件无论出现在哪里都会单独计数——其中一个就可能是全部问题。",
-  "storage.path_hygiene_title": "路径名称检查",
   "storage.path_hygiene_help": "账户磁盘遍历期间运行的可选建议性检查。它不会发送通知。只重命名您认识的路径；更改会立即生效并记录在审计日志中。",
   "host.memory_overview_help": "来自由 root 运行的 {{cron}}。在 CageFS 中，此账户拥有自己的 {{proc}}，其中只有自己的进程，因此下方所有内容对本网站的其他面板都不可见。详细信息在下面的页面中；这里一眼显示机器内存的状态。磁盘位于 {{storage}}，守护进程是否存活位于 {{services}}。",
   "host.io_title": "磁盘工作负载",

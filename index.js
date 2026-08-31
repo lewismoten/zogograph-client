@@ -34227,14 +34227,16 @@ function renderCapture(capture, target = 'captureBody') {
   if (!body) return;
 
   if (!capture) {
-    body.replaceChildren(note(ZogographI18n.t('network.capture_empty')));
+    body.replaceChildren(
+      note(ZogographI18n.t('core-network-capture.capture_empty')),
+    );
     return;
   }
 
   if (!capture.ok) {
     body.replaceChildren(
       note(
-        ZogographI18n.t('network.capture_failed', {
+        ZogographI18n.t('core-network-capture.capture_failed', {
           time: humanTime(capture.taken_at),
           reason: capture.reason,
         }),
@@ -34260,14 +34262,14 @@ function renderCapture(capture, target = 'captureBody') {
       `${humanTime(capture.taken_at)} (${ago(capture.taken_at)})`,
     ],
     [
-      ZogographI18n.t('network.interface_filter'),
+      ZogographI18n.t('core-network-capture.interface_filter'),
       `${capture.interface} \u00b7 ${capture.filter_label || capture.filter}`,
     ],
     [ZogographI18n.t('network.over'), `${seconds}s`],
     [
       ZogographI18n.t('network.packets'),
       seconds > 0
-        ? ZogographI18n.t('network.packets_rate', {
+        ? ZogographI18n.t('core-network-capture.packets_rate', {
             packets: humanCount(packets),
             rate: humanCount(Math.round(packets / seconds)),
           })

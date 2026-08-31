@@ -1082,6 +1082,11 @@ i18nExpect(
             $networkCaptureCard,
             '"core-network-capture.packets_rate"',
         ) &&
+        is_array($english) &&
+        !isset($english['network.capture_empty']) &&
+        !isset($english['network.capture_failed']) &&
+        !isset($english['network.interface_filter']) &&
+        !isset($english['network.packets_rate']) &&
         str_contains(
             $networkCaptureCard,
             '"core-network-capture.capture_direction_detail"',

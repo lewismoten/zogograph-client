@@ -14094,22 +14094,10 @@ async function showNoteDialog(preset = {}) {
   const link = document.createElement('input');
   link.type = 'text';
   link.className = 'wide';
-  link.placeholder = ZogographI18n.t(
-    'notes.link_placeholder',
-    {},
-    'https://your-tracker/issue/412',
-  );
+  link.placeholder = notesShellText('link_placeholder');
   link.value = preset.link ?? '';
   parts.push(
-    fieldRow(
-      ZogographI18n.t('notes.link_label', {}, 'Link'),
-      link,
-      ZogographI18n.t(
-        'notes.link_help',
-        {},
-        'Optional. A ticket, a changelog, a pull request.',
-      ),
-    ),
+    fieldRow(notesShellText('link_label'), link, notesShellText('link_help')),
   );
 
   /*

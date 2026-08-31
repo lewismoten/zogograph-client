@@ -38,6 +38,10 @@ window.ZogographNotesShellCard = {
         'core-notes-shell.saving_and_capturing': 'Saving and capturing…',
         'core-notes-shell.page_label': 'Page',
         'core-notes-shell.page_help': 'Where the mark will be drawn.',
+        'core-notes-shell.link_label': 'Link',
+        'core-notes-shell.link_placeholder': 'https://your-tracker/issue/412',
+        'core-notes-shell.link_help':
+          'Optional. A ticket, a changelog, a pull request.',
       }),
       es: Object.freeze({
         'core-notes-shell.title': 'Notas',
@@ -72,6 +76,11 @@ window.ZogographNotesShellCard = {
         'core-notes-shell.saving_and_capturing': 'Guardando y capturando…',
         'core-notes-shell.page_label': 'Página',
         'core-notes-shell.page_help': 'Dónde se dibujará la marca.',
+        'core-notes-shell.link_label': 'Enlace',
+        'core-notes-shell.link_placeholder':
+          'https://su-rastreador/incidencia/412',
+        'core-notes-shell.link_help':
+          'Opcional. Un ticket, un registro de cambios o una solicitud de extracción.',
       }),
       hi: Object.freeze({
         'core-notes-shell.title': 'नोट्स',
@@ -107,6 +116,10 @@ window.ZogographNotesShellCard = {
           'सहेजा और कैप्चर किया जा रहा है…',
         'core-notes-shell.page_label': 'पृष्ठ',
         'core-notes-shell.page_help': 'जहाँ निशान बनाया जाएगा।',
+        'core-notes-shell.link_label': 'लिंक',
+        'core-notes-shell.link_placeholder': 'https://आपका-ट्रैकर/issue/412',
+        'core-notes-shell.link_help':
+          'वैकल्पिक। एक टिकट, चेंजलॉग या पुल अनुरोध।',
       }),
       ar: Object.freeze({
         'core-notes-shell.title': 'الملاحظات',
@@ -141,6 +154,10 @@ window.ZogographNotesShellCard = {
         'core-notes-shell.saving_and_capturing': 'يجري الحفظ والالتقاط…',
         'core-notes-shell.page_label': 'الصفحة',
         'core-notes-shell.page_help': 'حيث سيُرسم التمييز.',
+        'core-notes-shell.link_label': 'رابط',
+        'core-notes-shell.link_placeholder': 'https://متتبعك/issue/412',
+        'core-notes-shell.link_help':
+          'اختياري. تذكرة أو سجل تغييرات أو طلب سحب.',
       }),
       zh: Object.freeze({
         'core-notes-shell.title': '备注',
@@ -175,6 +192,9 @@ window.ZogographNotesShellCard = {
         'core-notes-shell.saving_and_capturing': '正在保存并捕获…',
         'core-notes-shell.page_label': '页面',
         'core-notes-shell.page_help': '标记将绘制在此处。',
+        'core-notes-shell.link_label': '链接',
+        'core-notes-shell.link_placeholder': 'https://您的跟踪器/issue/412',
+        'core-notes-shell.link_help': '可选。工单、更新日志或拉取请求。',
       }),
     }),
   }),

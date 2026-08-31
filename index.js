@@ -16733,25 +16733,17 @@ function renderPeers(data) {
             const wrap = document.createDocumentFragment();
             const test = document.createElement('button');
             test.className = 'link';
-            test.textContent = peerText('test', {}, 'Test');
+            test.textContent = peersShellText('test');
             test.disabled = !row.has_oidc;
             test.title = row.has_oidc
-              ? peerText('test_oidc', {}, 'Test OIDC discovery')
-              : peerText(
-                  'delivery_separate',
-                  {},
-                  'Remote delivery is configured separately from OIDC.',
-                );
+              ? peersShellText('test_oidc')
+              : peersShellText('delivery_separate');
             test.addEventListener('click', async () => {
               try {
                 const result = await post('peer-test', { name: row.name });
                 notice(
                   result.ok
-                    ? peerText(
-                        'connected_to',
-                        { issuer: result.issuer },
-                        `Connected to ${result.issuer}.`,
-                      )
+                    ? peersShellText('connected_to', { issuer: result.issuer })
                     : result.error,
                   result.ok,
                 );
@@ -16763,12 +16755,12 @@ function renderPeers(data) {
             connect.className = 'link';
             connect.href = `peer-connect.php?peer=${encodeURIComponent(row.name)}`;
             connect.textContent = row.connected_as
-              ? peerText('reconnect', {}, 'Reconnect')
-              : peerText('connect', {}, 'Connect');
+              ? peersShellText('reconnect')
+              : peersShellText('connect');
             connect.hidden = !row.has_oidc;
             const read = document.createElement('button');
             read.className = 'link';
-            read.textContent = peerText('view_data', {}, 'View data');
+            read.textContent = peersShellText('view_data');
             read.disabled = !row.connected_as;
             read.addEventListener('click', async () => {
               try {

@@ -9984,6 +9984,14 @@ function highlightOnPage(args) {
  * during a busy hour.
  */
 async function runRequestFromHost(args) {
+  renderCoreCardPackage(
+    ZogographChatHostRequestCard,
+    'core-chat-host-request',
+    {},
+    { i18n: ZogographI18n },
+  );
+  const hostText = (key, variables = {}) =>
+    ZogographChatHostRequestCard.text(key, variables, { i18n: ZogographI18n });
   const labels = renderCoreCardPackage(
     ZogographChatHostJobsCard,
     'core-chat-host-jobs',
@@ -10007,49 +10015,21 @@ async function runRequestFromHost(args) {
   if (!job)
     return {
       queued: false,
-      error: ZogographI18n.t(
-        'assistant.host_request_unknown',
-        { job: args.job },
-        'There is no host job called “{{job}}”.',
-      ),
+      error: hostText('unknown', { job: args.job }),
     };
 
   const answer = await chatAsk({
-    title: ZogographI18n.t(
-      'assistant.host_request_title',
-      { assistant: chatState.who.name, job: job.label },
-      "{{assistant}} wants to ask root's collector: {{job}}",
-    ),
+    title: hostText('title', { assistant: chatState.who.name, job: job.label }),
     why: args.why
-      ? ZogographI18n.t(
-          'assistant.host_request_why_reason',
-          { reason: args.why, cost: job.cost },
-          "“{{reason}}” — {{cost}} It runs on the collector's next pass, not now.",
-        )
-      : ZogographI18n.t(
-          'assistant.host_request_why',
-          { cost: job.cost },
-          "{{cost}} It runs on the collector's next pass, not now.",
-        ),
+      ? hostText('why_reason', { reason: args.why, cost: job.cost })
+      : hostText('why', { cost: job.cost }),
     seconds: args.seconds ?? 120,
-    defaultLabel: ZogographI18n.t(
-      'assistant.host_request_decline',
-      {},
-      'Treated as no',
-    ),
-    confirmLabel: ZogographI18n.t(
-      'assistant.host_request_confirm',
-      {},
-      'Ask the host',
-    ),
+    defaultLabel: hostText('decline'),
+    confirmLabel: hostText('confirm'),
     build: (holder) => {
       const said = document.createElement('div');
       said.className = 'muted small';
-      said.textContent = ZogographI18n.t(
-        'assistant.host_request_explainer',
-        {},
-        'This queues a job for the process running as root. Nothing runs in this window and nothing runs now.',
-      );
+      said.textContent = hostText('explainer');
       holder.appendChild(said);
       // Nothing to fill in: pressing the button is the answer.
       return () => 'yes';
@@ -10059,11 +10039,7 @@ async function runRequestFromHost(args) {
   if (!answer.answered) {
     return {
       queued: false,
-      note: ZogographI18n.t(
-        'assistant.host_request_not_approved',
-        {},
-        'Not approved — either declined or nobody answered. Treat it as a no, carry on with what you can see from this account, and say what you cannot answer because of it.',
-      ),
+      note: hostText('not_approved'),
     };
   }
 
@@ -10075,13 +10051,7 @@ async function runRequestFromHost(args) {
     return {
       queued: true,
       job: job.task,
-      note:
-        queued.note ||
-        ZogographI18n.t(
-          'assistant.host_request_queued',
-          {},
-          "Queued. It runs on the collector's next pass — use get_pending_host_requests to see whether it has landed, or wait_for_new_readings to wait for it. Do not assume the answer is available yet.",
-        ),
+      note: queued.note || hostText('queued'),
     };
   } catch (error) {
     return { queued: false, error: String(error.message || error) };

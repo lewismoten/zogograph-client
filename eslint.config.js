@@ -208,6 +208,7 @@ export default [
         ZogographChatActivityCard: 'readonly',
         ZogographChatWaitingCard: 'readonly',
         ZogographChatHostJobsCard: 'readonly',
+        ZogographChatHostRequestCard: 'readonly',
         ZogographChatTerminalStateCard: 'readonly',
         ZogographChatRestartCard: 'readonly',
         ZogographChatExtendLimitCard: 'readonly',

@@ -16300,6 +16300,12 @@ function marketplaceText(key, values = {}, fallback = '') {
   return ZogographI18n.t(`marketplace.${key}`, values, fallback);
 }
 
+function marketplaceShellText(key, values = {}) {
+  return ZogographSystemMarketplaceShellCard.text(key, values, {
+    i18n: ZogographI18n,
+  });
+}
+
 function renderMarketplace(data) {
   const body = $('marketplaceBody');
   const parts = [
@@ -16376,15 +16382,8 @@ function renderMarketplace(data) {
   const filter = document.createElement('input');
   filter.type = 'search';
   filter.className = 'wide-field';
-  filter.placeholder = marketplaceText(
-    'search_placeholder',
-    {},
-    'Search packages, publishers, or capabilities',
-  );
-  filter.setAttribute(
-    'aria-label',
-    marketplaceText('search_label', {}, 'Search marketplace packages'),
-  );
+  filter.placeholder = marketplaceShellText('search_placeholder');
+  filter.setAttribute('aria-label', marketplaceShellText('search_label'));
   const holder = document.createElement('div');
   holder.id = 'marketplaceTable';
   parts.push(filter, holder);

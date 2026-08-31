@@ -3012,7 +3012,7 @@ i18nExpect(
 i18nExpect(
     $script !== false &&
         str_contains($script, 'marketplaceText("discovery_notice"') &&
-        str_contains($script, 'marketplaceText("search_label"') &&
+        str_contains($script, "marketplaceShellText('search_label'") &&
         str_contains($script, 'marketplaceText("table_compatibility"') &&
         str_contains($script, 'marketplaceText("toggle_confirmation"') &&
         str_contains($script, 'marketplaceText("restore_confirmation"') &&
@@ -3020,9 +3020,14 @@ i18nExpect(
         isset(
             $english['marketplace.discovery_notice'],
             $english['marketplace.ignored_manifests'],
-            $english['marketplace.search_label'],
             $english['marketplace.toggle_confirmation'],
             $english['marketplace.restore_confirmation'],
+        ) &&
+        isset(
+            $coreCardEnglish['core-system-marketplace-shell.search_label'],
+            $coreCardEnglish[
+                'core-system-marketplace-shell.search_placeholder'
+            ],
         ),
     'marketplace controls do not use translatable catalog messages',
 );

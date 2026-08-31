@@ -32584,144 +32584,25 @@ function renderNetworkPeers(data) {
  * happening now would be a lie about that.
  */
 function renderCaptureRequest(data) {
-  if (window.ZogographNetworkCaptureRequestCard) {
-    return renderCoreCardPackage(
-      ZogographNetworkCaptureRequestCard,
-      'core-network-capture-request',
-      {
-        interfaces: data.interfaces || [],
-        filters: data.filters || [],
-        pending: data.pending || [],
-        signedIn: state.signedIn,
-      },
-      {
-        target: $('captureRequest'),
-        note,
-        post,
-        notice,
-        refreshNetwork,
-        ago,
-        i18n: ZogographI18n,
-      },
-    );
-  }
-  const holder = $('captureRequest');
-  if (!holder) return;
-
-  if (!state.signedIn) {
-    holder.replaceChildren();
-    return;
-  }
-
-  const wrap = document.createDocumentFragment();
-  const form = document.createElement('div');
-  form.className = 'pattern-row';
-
-  const interfaces = (data.interfaces || []).filter((i) => !i.loopback);
-  const picker = document.createElement('select');
-  picker.id = 'captureInterface';
-  for (const row of interfaces.length ? interfaces : [{ name: 'eth0' }]) {
-    const option = document.createElement('option');
-    option.value = row.name;
-    option.textContent = row.name;
-    picker.appendChild(option);
-  }
-  form.appendChild(picker);
-
-  const filter = document.createElement('select');
-  filter.id = 'captureFilter';
-  for (const f of data.filters || []) {
-    const option = document.createElement('option');
-    option.value = f.key;
-    option.textContent = f.label;
-    option.title = f.about;
-    filter.appendChild(option);
-  }
-  form.appendChild(filter);
-
-  const go = document.createElement('button');
-  go.textContent = ZogographI18n.t(
-    'action.request_capture',
-    {},
-    'Ask for a capture',
+  return renderCoreCardPackage(
+    ZogographNetworkCaptureRequestCard,
+    'core-network-capture-request',
+    {
+      interfaces: data.interfaces || [],
+      filters: data.filters || [],
+      pending: data.pending || [],
+      signedIn: state.signedIn,
+    },
+    {
+      target: $('captureRequest'),
+      note,
+      post,
+      notice,
+      refreshNetwork,
+      ago,
+      i18n: ZogographI18n,
+    },
   );
-  go.addEventListener('click', async () => {
-    go.disabled = true;
-    try {
-      await post('request-capture', {
-        interface: picker.value,
-        filter: filter.value,
-        read_asked: $('captureReadAsked').checked ? '1' : '0',
-      });
-      notice(
-        'Asked for. The host collector takes it on its next run — every five ' +
-          'minutes with the suggested crontab line.',
-        true,
-      );
-      await refreshNetwork();
-    } catch (error) {
-      notice(String(error.message || error));
-      go.disabled = false;
-    }
-  });
-  form.appendChild(go);
-  wrap.appendChild(form);
-
-  /*
-   * Reading what the traffic asked for, which is off by default and says why.
-   *
-   * Everything else a capture does is count packets and addresses. This one
-   * option makes tcpdump print packet contents so that a TLS server name and
-   * an HTTP Host and path can be read out of them - which is the only way to
-   * answer "what is all that traffic on 443", and does mean looking at the
-   * beginning of other people's traffic on a shared machine. That is a
-   * decision, so it is a decision somebody makes, per capture.
-   */
-  const deeper = document.createElement('label');
-  deeper.className = 'pill';
-
-  const readAsked = document.createElement('input');
-  readAsked.type = 'checkbox';
-  readAsked.id = 'captureReadAsked';
-  deeper.appendChild(readAsked);
-  deeper.appendChild(
-    document.createTextNode(' Read what the traffic asked for'),
-  );
-  wrap.appendChild(deeper);
-
-  const warning = document.createElement('p');
-  warning.className = 'muted small';
-  warning.textContent =
-    'Counting packets tells you there were 748 on port 443 and nothing about what they ' +
-    'wanted. This reads three things that travel in the clear — the host name in a TLS ' +
-    'handshake, and the Host and page of an HTTP request — and counts them like ' +
-    'everything else. It does mean tcpdump prints the first 512 bytes of each packet ' +
-    'for this run, on a machine you may be sharing. Nothing decrypts, no payload is ' +
-    'stored, and query strings are cut off before counting: a path says which page, ' +
-    'and a query string is where tokens and search terms live.';
-  wrap.appendChild(warning);
-
-  // What the chosen filter is actually for, which is the useful half.
-  const about = document.createElement('p');
-  about.className = 'muted small';
-  const describe = () => {
-    const chosen = (data.filters || []).find((f) => f.key === filter.value);
-    about.textContent = chosen ? chosen.about : '';
-  };
-  filter.addEventListener('change', describe);
-  describe();
-  wrap.appendChild(about);
-
-  for (const pending of data.pending || []) {
-    wrap.appendChild(
-      note(
-        `A ${pending.filter} capture on ${pending.interface} was asked for ` +
-          `${ago(pending.requested_at)} and is waiting for the next host collection.`,
-      ),
-    );
-  }
-
-  holder.replaceChildren(wrap);
 }
 
 /*

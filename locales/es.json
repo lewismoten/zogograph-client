@@ -2749,7 +2749,6 @@
   "log.repeat_help": "Un registro que llena un disco casi nunca contiene eventos distintos e interesantes; es un evento diez mil veces. Aquí se agrupan y cuentan las mismas líneas quitando sus partes variables — números, direcciones, rutas y cadenas entre comillas —, la única presentación sobre la que se puede actuar.",
   "calendar.saved_dates_title": "Fechas que conserva",
   "calendar.saved_dates_help": "Marcado como {{important}} significa que aparece en el tablero y en los correos de alerta a medida que se acerca, hasta que lo marque como resuelto. Marcarlo como resuelto es reversible: es una afirmación que alguien hace, y a veces hace erróneamente.",
-  "assistant.title": "Asistente",
   "navigation.sections": "Secciones",
   "audit.download_csv_title": "Descargar todo el historial de auditoría como archivo CSV",
   "audit.clear_title": "Eliminar entradas anteriores de auditoría y conservar un registro de este restablecimiento",

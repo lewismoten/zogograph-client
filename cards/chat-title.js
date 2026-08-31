@@ -6,27 +6,35 @@ window.ZogographChatTitleCard = {
     helpers: ['i18n'],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-chat-title.label': 'Assistant',
         'core-chat-title.portrait_title':
           '{{name}}, as it describes itself: "{{description}}"',
       }),
       es: Object.freeze({
+        'core-chat-title.label': 'Asistente',
         'core-chat-title.portrait_title':
           '{{name}}, como se describe: "{{description}}"',
       }),
       hi: Object.freeze({
+        'core-chat-title.label': 'सहायक',
         'core-chat-title.portrait_title':
           '{{name}}, जैसा यह स्वयं को बताता है: "{{description}}"',
       }),
       ar: Object.freeze({
+        'core-chat-title.label': 'المساعد',
         'core-chat-title.portrait_title':
           '{{name}}، كما يصف نفسه: "{{description}}"',
       }),
       zh: Object.freeze({
+        'core-chat-title.label': '助手',
         'core-chat-title.portrait_title':
           '{{name}}，按其自我描述：“{{description}}”',
       }),
     }),
   }),
+  label(helpers) {
+    return helpers.i18n.t('core-chat-title.label', {}, 'Assistant');
+  },
   render(input, helpers) {
     const { i18n } = helpers;
     const wrap = document.createDocumentFragment();

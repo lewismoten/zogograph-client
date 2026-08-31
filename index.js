@@ -5997,6 +5997,19 @@ function renderChatSpeechControls() {
 
 document.addEventListener('zogograph-i18n-load', renderChatSpeechControls);
 
+function renderChatTitleFallback() {
+  const title = $('chatTitle');
+  if (!title || title.childElementCount) return;
+  const label = ZogographChatTitleCard.label({ i18n: ZogographI18n });
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-chat-title.label',
+    label,
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderChatTitleFallback);
+
 function renderChatComposer() {
   const labels = renderCoreCardPackage(
     ZogographChatComposerCard,

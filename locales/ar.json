@@ -468,7 +468,6 @@
   "database.forensic_views": "قاعدة البيانات والعروض الجنائية",
   "database.dashboard_collector": "تديره أداة جمع لوحة المعلومات",
   "database.table_metadata": "يُستخدم بواسطة: {{where}}. جُمع بواسطة: {{collected}}. افحص: sqlite3 <database> \"SELECT COUNT(*) FROM {{name}};\"",
-  "database.all_reading_tiers": "كل طبقات القراءات",
   "database.file": "الملف",
   "notes.delete_confirm": "حذف هذه الملاحظة؟",
   "notes.delete_with_captures_confirm": "حذف هذه الملاحظة؟\n\nكل ما التقطته سيُحذف معها.",

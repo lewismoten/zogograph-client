@@ -470,7 +470,6 @@
   "database.forensic_views": "Base de datos y vistas forenses",
   "database.dashboard_collector": "mantenida por el recopilador del panel",
   "database.table_metadata": "Usado por: {{where}}. Recopilado por: {{collected}}. Inspeccione: sqlite3 <database> \"SELECT COUNT(*) FROM {{name}};\"",
-  "database.all_reading_tiers": "todos los niveles de lecturas",
   "database.file": "El archivo",
   "notes.delete_confirm": "¿Eliminar esta nota?",
   "notes.delete_with_captures_confirm": "¿Eliminar esta nota?\n\nTodo lo que capturó se irá con ella.",

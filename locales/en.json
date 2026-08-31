@@ -467,7 +467,6 @@
   "database.forensic_views": "Database and forensic views",
   "database.dashboard_collector": "maintained by the dashboard collector",
   "database.table_metadata": "Used by: {{where}}. Collected by: {{collected}}. Inspect: sqlite3 <database> \"SELECT COUNT(*) FROM {{name}};\"",
-  "database.all_reading_tiers": "all reading tiers",
   "database.file": "The file",
   "notes.delete_confirm": "Delete this note?",
   "notes.delete_with_captures_confirm": "Delete this note?\n\nWhatever it captured goes with it.",

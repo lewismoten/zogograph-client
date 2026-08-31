@@ -470,7 +470,6 @@
   "database.forensic_views": "डेटाबेस और फोरेंसिक दृश्य",
   "database.dashboard_collector": "डैशबोर्ड कलेक्टर द्वारा रखा गया",
   "database.table_metadata": "इसका उपयोग: {{where}}। संग्रह: {{collected}}। निरीक्षण करें: sqlite3 <database> \"SELECT COUNT(*) FROM {{name}};\"",
-  "database.all_reading_tiers": "सभी रीडिंग स्तर",
   "database.file": "फ़ाइल",
   "notes.delete_confirm": "यह नोट हटाएँ?",
   "notes.delete_with_captures_confirm": "यह नोट हटाएँ?\n\nइसमें कैप्चर की गई हर चीज़ भी इसके साथ हट जाएगी।",

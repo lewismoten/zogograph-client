@@ -468,7 +468,6 @@
   "database.forensic_views": "数据库和取证视图",
   "database.dashboard_collector": "由仪表板收集器维护",
   "database.table_metadata": "用途：{{where}}。收集方式：{{collected}}。检查：sqlite3 <database> \"SELECT COUNT(*) FROM {{name}};\"",
-  "database.all_reading_tiers": "所有读数层级",
   "database.file": "文件",
   "notes.delete_confirm": "删除此备注？",
   "notes.delete_with_captures_confirm": "删除此备注？\n\n它捕获的所有内容也会一并删除。",

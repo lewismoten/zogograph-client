@@ -2333,6 +2333,9 @@ function renderHostMemoryUserLabels() {
     'core-host-memory-users.title',
     ZogographHostMemoryUsersCard.text('title', helpers),
   );
+  ZogographI18n.applyRich(
+    document.querySelector('[data-i18n-rich="core-host-memory-users.help"]'),
+  );
 }
 
 document.addEventListener('zogograph-i18n-load', renderHostMemoryUserLabels);

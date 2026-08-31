@@ -18724,7 +18724,18 @@ function showMemoryDialog(row) {
   }
   const kindNote = document.createElement('div');
   kindNote.className = 'muted small';
-  parts.push(fieldRow(ZogographI18n.t('ai.memory_kind', {}, 'Kind'), kind, ''));
+  parts.push(
+    fieldRow(
+      renderCoreCardPackage(
+        ZogographAiMemoryEditorLabelsCard,
+        'core-ai-memory-editor-labels',
+        { key: 'kind', fallback: 'Kind' },
+        { i18n: ZogographI18n },
+      ),
+      kind,
+      '',
+    ),
+  );
   parts.push(kindNote);
 
   const subject = document.createElement('input');
@@ -18740,7 +18751,12 @@ function showMemoryDialog(row) {
   );
   parts.push(
     fieldRow(
-      ZogographI18n.t('ai.memory_about', {}, 'About'),
+      renderCoreCardPackage(
+        ZogographAiMemoryEditorLabelsCard,
+        'core-ai-memory-editor-labels',
+        { key: 'about', fallback: 'About' },
+        { i18n: ZogographI18n },
+      ),
       subject,
       row
         ? renderCoreCardPackage(
@@ -18772,7 +18788,12 @@ function showMemoryDialog(row) {
   body.value = row?.body ?? '';
   parts.push(
     fieldRow(
-      ZogographI18n.t('ai.memory_remembers', {}, 'What it remembers'),
+      renderCoreCardPackage(
+        ZogographAiMemoryEditorLabelsCard,
+        'core-ai-memory-editor-labels',
+        { key: 'remembers', fallback: 'What it remembers' },
+        { i18n: ZogographI18n },
+      ),
       body,
       renderCoreCardPackage(
         ZogographAiMemoryBodyFieldCard,

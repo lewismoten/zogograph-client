@@ -188,6 +188,7 @@ export default [
         ZogographAiMemorySubjectFieldCard: 'readonly',
         ZogographAiMemoryBodyFieldCard: 'readonly',
         ZogographAiMemoryForgetDialogCard: 'readonly',
+        ZogographAiMemoryEditorLabelsCard: 'readonly',
         ZogographAiKeyForgetCard: 'readonly',
         ZogographAiEnableToggleCard: 'readonly',
         ZogographAiReasoningEffortCard: 'readonly',

@@ -307,6 +307,10 @@ i18nExpect(
         $english['ai.test_connection'],
         $english['ai.test_connection_title'],
         $english['ai.toolset_applied'],
+        $english['ai.tool_column'],
+        $english['ai.runs_column'],
+        $english['ai.may_use_column'],
+        $english['ai.ask_first_column'],
     ),
     'AI card controls belong to their card packages',
 );

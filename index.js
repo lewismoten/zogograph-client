@@ -30123,38 +30123,32 @@ function renderInspect(data) {
  * directory without x lists the names and opens none of them.
  */
 function modeInWords(mode, isDir) {
+  const text = (key, values = {}) =>
+    renderCoreCardPackage(
+      ZogographStorageInspectorFactsCard,
+      'core-storage-inspector-facts',
+      { key, values },
+      { i18n: ZogographI18n },
+    );
   const digits = String(mode).padStart(4, '0').slice(-3);
   const who = [
-    ZogographI18n.t('storage.permission_owner', {}, 'owner'),
-    ZogographI18n.t('storage.permission_group', {}, 'group'),
-    ZogographI18n.t('storage.permission_everyone_else', {}, 'everyone else'),
+    text('permission_owner'),
+    text('permission_group'),
+    text('permission_everyone_else'),
   ];
 
   const said = [...digits].map((d, i) => {
     const bits = Number(d);
     const can = [];
-    if (bits & 4)
-      can.push(ZogographI18n.t('storage.permission_read', {}, 'read'));
-    if (bits & 2)
-      can.push(ZogographI18n.t('storage.permission_write', {}, 'write'));
-    if (bits & 1)
-      can.push(
-        ZogographI18n.t(
-          isDir ? 'storage.permission_enter' : 'storage.permission_run',
-          {},
-          isDir ? 'enter' : 'run',
-        ),
-      );
-    return ZogographI18n.t(
-      'storage.permission_detail',
-      {
-        who: who[i],
-        permissions: can.length
-          ? can.join(ZogographI18n.t('storage.permission_and', {}, ' and '))
-          : ZogographI18n.t('storage.permission_nothing', {}, 'nothing'),
-      },
-      '{{who}}: {{permissions}}',
-    );
+    if (bits & 4) can.push(text('permission_read'));
+    if (bits & 2) can.push(text('permission_write'));
+    if (bits & 1) can.push(text(isDir ? 'permission_enter' : 'permission_run'));
+    return text('permission_detail', {
+      who: who[i],
+      permissions: can.length
+        ? can.join(text('permission_and'))
+        : text('permission_nothing'),
+    });
   });
 
   return said.join(', ');

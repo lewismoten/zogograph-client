@@ -2376,7 +2376,6 @@
   "network.intro": "Every other page here measures something being used up — disk, memory, CPU — and none of them can say why. A machine pinned at 100% because it is answering four thousand DNS queries a second looks exactly like a machine pinned at 100% for any other reason, and the difference is only visible on the wire.",
   "network.interfaces": "Interfaces",
   "network.ports_public_only": "Reachable from outside only",
-  "network.open_ports_help": "What is listening, and what usually answers on each port. A port number is a convention rather than a fact — anything may bind 443 — so the service column is the expectation and the process column is the reality. Where they disagree, that disagreement is the interesting thing.",
   "network.capture_help": "The tool of last resort, and treated as one: it opens a live interface as root, runs for as long as you ask, and is the only thing this collector does that could itself be felt on a busy machine. It records counts and endpoints only — how many packets, between which addresses, on which ports, and for DNS the names asked for. No packet contents are stored, ever.",
   "network.dns_title": "Name lookups",
   "network.dns_run_again": "Run them again",

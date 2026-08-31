@@ -7,6 +7,8 @@ window.ZogographNetworkPortsCard = {
     catalogs: Object.freeze({
       en: Object.freeze({
         'core-network-ports.title': 'Open ports',
+        'core-network-ports.help':
+          'What is listening, and what usually answers on each port. A port number is a convention rather than a fact — anything may bind 443 — so the service column is the expectation and the process column is the reality. Where they disagree, that disagreement is the interesting thing.',
         'core-network-ports.public_empty':
           'Nothing is listening on an address reachable from outside.',
         'core-network-ports.empty': 'No listening sockets recorded.',
@@ -24,6 +26,8 @@ window.ZogographNetworkPortsCard = {
       }),
       es: Object.freeze({
         'core-network-ports.title': 'Puertos abiertos',
+        'core-network-ports.help':
+          'Qué está escuchando y qué suele responder en cada puerto. Un número de puerto es una convención, no un hecho: cualquier cosa puede vincularse al 443. Por eso la columna de servicio es la expectativa y la de proceso es la realidad. Cuando no coinciden, esa discrepancia es lo interesante.',
         'core-network-ports.public_empty':
           'No hay nada escuchando en una dirección accesible desde fuera.',
         'core-network-ports.empty': 'No se registraron sockets en escucha.',
@@ -41,6 +45,8 @@ window.ZogographNetworkPortsCard = {
       }),
       hi: Object.freeze({
         'core-network-ports.title': 'खुले पोर्ट',
+        'core-network-ports.help':
+          'क्या सुन रहा है और हर पोर्ट पर आमतौर पर क्या जवाब देता है। पोर्ट नंबर तथ्य नहीं, एक प्रथा है—कोई भी चीज़ 443 पर बाइंड हो सकती है। इसलिए सेवा कॉलम अपेक्षा है और प्रोसेस कॉलम वास्तविकता। जहाँ वे असहमत हों, वही अंतर दिलचस्प है।',
         'core-network-ports.public_empty':
           'बाहर से पहुंचने योग्य पते पर कुछ भी सुन नहीं रहा है।',
         'core-network-ports.empty': 'कोई सुनने वाला सॉकेट दर्ज नहीं है।',
@@ -58,6 +64,8 @@ window.ZogographNetworkPortsCard = {
       }),
       ar: Object.freeze({
         'core-network-ports.title': 'المنافذ المفتوحة',
+        'core-network-ports.help':
+          'ما الذي يستمع وما الذي يجيب عادةً على كل منفذ. رقم المنفذ اصطلاح لا حقيقة — يمكن لأي شيء الارتباط بالمنفذ 443. لذا يكون عمود الخدمة هو التوقع وعمود العملية هو الواقع. وحيث يختلفان، يكون ذلك الاختلاف هو المثير للاهتمام.',
         'core-network-ports.public_empty':
           'لا توجد خدمة تستمع على عنوان يمكن الوصول إليه من الخارج.',
         'core-network-ports.empty': 'لم تُسجل مقابس في وضع الاستماع.',
@@ -75,6 +83,8 @@ window.ZogographNetworkPortsCard = {
       }),
       zh: Object.freeze({
         'core-network-ports.title': '开放端口',
+        'core-network-ports.help':
+          '哪些内容正在监听，以及每个端口通常由什么响应。端口号是惯例而非事实——任何内容都可能绑定 443。因此，服务列是预期，进程列才是现实；两者不一致时，那个差异才值得关注。',
         'core-network-ports.public_empty':
           '没有服务正在可从外部访问的地址上监听。',
         'core-network-ports.empty': '未记录监听套接字。',

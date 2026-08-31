@@ -331,6 +331,9 @@ $english = json_decode(
     (string) file_get_contents($root . '/locales/en.json'),
     true,
 );
+$hostMemoryPieCard = i18nCardSource(
+    file_get_contents($root . '/cards/host-memory-pie.js'),
+);
 i18nExpect(
     !isset($english['storage.no_scan_finished_range']),
     'category chart empty state belongs to its card package',
@@ -3866,18 +3869,15 @@ i18nExpect(
 );
 i18nExpect(
     $page !== false &&
-        str_contains($page, 'data-i18n-rich="host.memory_breakdown_help"') &&
+        str_contains(
+            $page,
+            'data-i18n-rich="core-host-memory-pie.panel_help"',
+        ) &&
         str_contains($page, 'data-i18n-tag="pss"') &&
         str_contains($page, 'data-i18n-tag="rss"') &&
-        is_array($english) &&
-        str_contains(
-            (string) ($english['host.memory_breakdown_help'] ?? ''),
-            '{{pss}}',
-        ) &&
-        str_contains(
-            (string) ($english['host.memory_breakdown_help'] ?? ''),
-            '{{rss}}',
-        ),
+        $hostMemoryPieCard !== false &&
+        str_contains($hostMemoryPieCard, '{{pss}}') &&
+        str_contains($hostMemoryPieCard, '{{rss}}'),
     'service-memory guidance does not preserve translated metric emphasis',
 );
 i18nExpect(

@@ -14,6 +14,8 @@ window.ZogographHostMemoryPieCard = {
     catalogs: Object.freeze({
       en: Object.freeze({
         'core-host-memory-pie.title': 'Where the memory goes',
+        'core-host-memory-pie.panel_help':
+          'The share of measured process memory each service holds, drawn from {{pss}} rather than {{rss}} — a pie claims its slices make a whole, and resident memory cannot: a page shared by ten processes would be counted ten times.',
         'core-host-memory-pie.empty':
           'No measured process memory in the latest reading.',
         'core-host-memory-pie.help':
@@ -23,6 +25,8 @@ window.ZogographHostMemoryPieCard = {
       }),
       es: Object.freeze({
         'core-host-memory-pie.title': 'Adónde va la memoria',
+        'core-host-memory-pie.panel_help':
+          'La parte de memoria de proceso medida que ocupa cada servicio, calculada con {{pss}} y no con {{rss}}: un gráfico circular supone que sus porciones forman un todo, y la memoria residente no puede hacerlo, pues una página compartida por diez procesos se contaría diez veces.',
         'core-host-memory-pie.empty':
           'No hay memoria de proceso medida en la lectura más reciente.',
         'core-host-memory-pie.help':
@@ -32,6 +36,8 @@ window.ZogographHostMemoryPieCard = {
       }),
       hi: Object.freeze({
         'core-host-memory-pie.title': 'मेमोरी कहाँ जाती है',
+        'core-host-memory-pie.panel_help':
+          'हर सेवा के पास मापी गई प्रक्रिया मेमोरी का हिस्सा, {{rss}} की जगह {{pss}} से लिया गया है। पाई चार्ट मानता है कि उसके हिस्से पूरा बनाते हैं, जबकि रेज़िडेंट मेमोरी ऐसा नहीं कर सकती: दस प्रक्रियाओं के बीच साझा पेज को दस बार गिना जाएगा।',
         'core-host-memory-pie.empty':
           'नवीनतम रीडिंग में मापी गई प्रक्रिया मेमोरी नहीं है।',
         'core-host-memory-pie.help':
@@ -41,6 +47,8 @@ window.ZogographHostMemoryPieCard = {
       }),
       ar: Object.freeze({
         'core-host-memory-pie.title': 'أين تذهب الذاكرة',
+        'core-host-memory-pie.panel_help':
+          'حصة ذاكرة العمليات المقاسة التي يشغلها كلّ خادم، مأخوذة من {{pss}} بدل {{rss}}. يفترض المخطط الدائري أن شرائحه تكوّن الكل، أما الذاكرة المقيمة فلا يمكنها ذلك: فالصفحة المشتركة بين عشر عمليات ستُحسب عشر مرات.',
         'core-host-memory-pie.empty':
           'لا توجد ذاكرة عمليات مقاسة في أحدث قراءة.',
         'core-host-memory-pie.help':
@@ -50,6 +58,8 @@ window.ZogographHostMemoryPieCard = {
       }),
       zh: Object.freeze({
         'core-host-memory-pie.title': '内存去了哪里',
+        'core-host-memory-pie.panel_help':
+          '每项服务占用的已测量进程内存份额，采用 {{pss}} 而非 {{rss}}。饼图要求各分块构成整体，而常驻内存做不到：被十个进程共享的一页会被计算十次。',
         'core-host-memory-pie.empty': '最新读数中没有测得的进程内存。',
         'core-host-memory-pie.help':
           '已测量进程内存的份额。采用 PSS 绘制，因为饼图意味着各部分构成整体，而常驻内存无法如此：被十个进程共享的一页会被计算十次，每一块都会被放大。',

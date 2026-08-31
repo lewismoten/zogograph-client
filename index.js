@@ -2275,6 +2275,11 @@ function renderHostMemoryPieLabels() {
     'core-host-memory-pie.title',
     ZogographHostMemoryPieCard.text('title', helpers),
   );
+  ZogographI18n.applyRich(
+    document.querySelector(
+      '[data-i18n-rich="core-host-memory-pie.panel_help"]',
+    ),
+  );
 }
 
 document.addEventListener('zogograph-i18n-load', renderHostMemoryPieLabels);

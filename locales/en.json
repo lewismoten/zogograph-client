@@ -2349,7 +2349,6 @@
   "overview.steady": "steady",
   "overview.free_space_steady": "free space is not falling",
   "overview.losing_rate": "losing {{rate}}/h, measured over {{window}}",
-  "host.memory_breakdown_help": "The share of measured process memory each service holds, drawn from {{pss}} rather than {{rss}} — a pie claims its slices make a whole, and resident memory cannot: a page shared by ten processes would be counted ten times.",
   "host.memory_processes_help": "Every process on the machine, not just this account's. This is the list that answers ‘what is actually holding the memory’ when the per-user totals only say whose it is.",
   "host.kernel_slab_help": "Memory the kernel holds for itself. It belongs to no process and no account, and it is the first place to look when the numbers do not add up — a quarter of a gigabyte of xfs_inode appears in nothing else on this site.",
   "host.big_directories_help": "From root's walk of the whole disk, so this reaches the places the account cannot: other accounts' homes, /var, /backup, and anything mounted somewhere unexpected.",

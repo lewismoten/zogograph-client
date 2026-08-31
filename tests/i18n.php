@@ -15,8 +15,16 @@ $coreCardEnglish = [];
 $coreCardLocaleKeys = array_fill_keys(['en', 'es', 'hi', 'ar', 'zh'], []);
 foreach ($cardFiles as $cardFile) {
     $cardSource = file_get_contents($cardFile);
+    $cardCatalogKeys = [];
     foreach (array_keys($coreCardLocaleKeys) as $locale) {
         if (
+            preg_match(
+                '/\\b' .
+                    $locale .
+                    ': Object\\.freeze\\(\\{([^\\r\\n]*?)\\}\\),/',
+                (string) $cardSource,
+                $localeCatalog,
+            ) ||
             preg_match(
                 '/\\n\\s*' .
                     $locale .
@@ -26,6 +34,7 @@ foreach ($cardFiles as $cardFile) {
             )
         ) {
             preg_match_all("/'([^']+)'\\s*:/", $localeCatalog[1], $localeKeys);
+            $cardCatalogKeys[$locale] = $localeKeys[1] ?? [];
             foreach ($localeKeys[1] ?? [] as $localeKey) {
                 $coreCardLocaleKeys[$locale][$localeKey] = true;
             }
@@ -44,6 +53,20 @@ foreach ($cardFiles as $cardFile) {
         }
     }
     preg_match("/id:\\s*'([^']+)'/", (string) $cardSource, $cardId);
+    if (
+        isset($cardId[1]) &&
+        ($cardCatalogKeys['en'] ?? []) === [] &&
+        preg_match_all(
+            "/'(" . preg_quote($cardId[1], '/') . "\\.[^']+)'/",
+            (string) $cardSource,
+            $manifestKeys,
+        )
+    ) {
+        $packageKeys = array_values(array_unique($manifestKeys[1] ?? []));
+        foreach (array_keys($coreCardLocaleKeys) as $locale) {
+            $cardCatalogKeys[$locale] = $packageKeys;
+        }
+    }
     i18nExpect(
         $cardSource !== false &&
             str_contains($cardSource, 'catalogs: Object.freeze({') &&
@@ -72,6 +95,34 @@ foreach ($cardFiles as $cardFile) {
             str_contains($cardSource, "locales: ['" . $cardId[1] . ".']"),
         basename($cardFile) . ' must declare its own locale namespace',
     );
+    $normalizeCatalogKeys = static fn(array $keys): array => array_map(
+        static fn(string $key): string => str_starts_with(
+            $key,
+            $cardId[1] . '.',
+        )
+            ? $key
+            : $cardId[1] . '.' . $key,
+        $keys,
+    );
+    $referenceCatalogKeys = $normalizeCatalogKeys($cardCatalogKeys['en'] ?? []);
+    sort($referenceCatalogKeys, SORT_STRING);
+    foreach (array_keys($coreCardLocaleKeys) as $locale) {
+        $catalogKeys = $normalizeCatalogKeys($cardCatalogKeys[$locale] ?? []);
+        sort($catalogKeys, SORT_STRING);
+        i18nExpect(
+            isset($cardId[1]) &&
+                $catalogKeys !== [] &&
+                $catalogKeys === $referenceCatalogKeys &&
+                array_reduce(
+                    $catalogKeys,
+                    static fn(bool $valid, string $key): bool => $valid &&
+                        str_starts_with($key, $cardId[1] . '.'),
+                    true,
+                ),
+            basename($cardFile) .
+                " must provide the same package-owned locale keys in $locale",
+        );
+    }
     i18nExpect(
         !str_contains($cardSource, 'aiSettingsText'),
         basename($cardFile) .

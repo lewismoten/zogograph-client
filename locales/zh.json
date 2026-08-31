@@ -1736,8 +1736,6 @@
   "marketplace.none_found": "未找到有效的本地软件包清单。",
   "marketplace.search_placeholder": "搜索软件包、发布者或功能",
   "log.search_placeholder": "要查找的文本",
-  "network.dns_name_placeholder": "git.example.com",
-  "network.dns_server_placeholder": "服务器（可选）",
   "network.fetch_placeholder": "example.com 或 https://example.com/",
   "network.domain_placeholder": "example.com",
   "network.rdns_placeholder": "78.174.88.104, 2001:db8::1 — 或粘贴整列",

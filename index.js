@@ -3121,6 +3121,12 @@ function renderNetworkDnsShell() {
       ZogographNetworkDnsShellCard.text(key, helpers),
     );
   }
+  for (const key of ['name_placeholder', 'server_placeholder']) {
+    const element = document.querySelector(
+      `[data-i18n-placeholder="core-network-dns-shell.${key}"]`,
+    );
+    element.placeholder = ZogographNetworkDnsShellCard.text(key, helpers);
+  }
 }
 
 document.addEventListener('zogograph-i18n-load', renderNetworkDnsShell);

@@ -1738,8 +1738,6 @@
   "marketplace.none_found": "कोई मान्य स्थानीय पैकेज मैनिफ़ेस्ट नहीं मिला।",
   "marketplace.search_placeholder": "पैकेज, प्रकाशक या क्षमताएँ खोजें",
   "log.search_placeholder": "खोजने के लिए पाठ",
-  "network.dns_name_placeholder": "git.example.com",
-  "network.dns_server_placeholder": "सर्वर (वैकल्पिक)",
   "network.fetch_placeholder": "example.com या https://example.com/",
   "network.domain_placeholder": "example.com",
   "network.rdns_placeholder": "78.174.88.104, 2001:db8::1 — या पूरा स्तंभ चिपकाएँ",

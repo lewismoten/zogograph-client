@@ -1739,8 +1739,6 @@
   "marketplace.none_found": "No se encontraron manifiestos de paquetes locales válidos.",
   "marketplace.search_placeholder": "Buscar paquetes, editores o capacidades",
   "log.search_placeholder": "texto que buscar",
-  "network.dns_name_placeholder": "git.example.com",
-  "network.dns_server_placeholder": "servidor (opcional)",
   "network.fetch_placeholder": "ejemplo.com o https://ejemplo.com/",
   "network.domain_placeholder": "ejemplo.com",
   "network.rdns_placeholder": "78.174.88.104, 2001:db8::1 — o pegue una columna completa",

@@ -136,6 +136,7 @@ export default [
         ZogographStorageOffenderSizeCard: 'readonly',
         ZogographStorageGrowthStatusCard: 'readonly',
         ZogographChangeHistoryChartCard: 'readonly',
+        ZogographCollectorDialCard: 'readonly',
         ZogographSymlinkFilterCard: 'readonly',
         ZogographSymlinkTableCard: 'readonly',
         ZogographSymlinkCheckSummaryCard: 'readonly',

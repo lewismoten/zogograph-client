@@ -5585,6 +5585,13 @@ function collectorDial(collector) {
  * imminent when nothing is coming.
  */
 function paintDial(svg) {
+  const text = (key, values = {}) =>
+    renderCoreCardPackage(
+      ZogographCollectorDialCard,
+      'core-collector-dial',
+      { key, values },
+      { i18n: ZogographI18n },
+    );
   const size = 46;
   const radius = (size - 5) / 2;
   const circumference = 2 * Math.PI * radius;
@@ -5606,13 +5613,7 @@ function paintDial(svg) {
     progress.setAttribute('class', 'dial-value dial-dead');
     progress.setAttribute('stroke-dasharray', '4 5');
     progress.removeAttribute('stroke-dashoffset');
-    said.textContent = at
-      ? ZogographI18n.t(
-          'collector.insufficient_runs',
-          {},
-          'Not enough runs yet to know how often this should happen.',
-        )
-      : ZogographI18n.t('collector.never_run', {}, 'This has never run.');
+    said.textContent = at ? text('insufficient_runs') : text('never_run');
     return;
   }
 
@@ -5627,11 +5628,10 @@ function paintDial(svg) {
     progress.setAttribute('class', 'dial-value dial-dead');
     progress.setAttribute('stroke-dasharray', '4 5');
     progress.removeAttribute('stroke-dashoffset');
-    said.textContent = ZogographI18n.t(
-      'collector.stopped',
-      { age: humanSpan(age), interval: humanSpan(interval) },
-      'Nothing for {{age}}, on something that usually runs every {{interval}}.',
-    );
+    said.textContent = text('stopped', {
+      age: humanSpan(age),
+      interval: humanSpan(interval),
+    });
     return;
   }
 
@@ -5642,16 +5642,8 @@ function paintDial(svg) {
     String(circumference * (1 - Math.min(1, age / interval))),
   );
   said.textContent = due
-    ? ZogographI18n.t(
-        'collector.due_now',
-        { age: humanSpan(age) },
-        'Due now — nothing for {{age}}.',
-      )
-    : ZogographI18n.t(
-        'collector.next_in',
-        { duration: humanSpan(interval - age) },
-        'Next one in about {{duration}}.',
-      );
+    ? text('due_now', { age: humanSpan(age) })
+    : text('next_in', { duration: humanSpan(interval - age) });
 }
 
 /* ------------------------------------------------------- forms being used -- */

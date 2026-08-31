@@ -3971,6 +3971,22 @@ function renderNotesShell() {
 
 document.addEventListener('zogograph-i18n-load', renderNotesShell);
 
+function renderChartsShell() {
+  renderCoreCardPackage(
+    ZogographChartsShellCard,
+    'core-charts-shell',
+    {},
+    {
+      i18n: ZogographI18n,
+    },
+  );
+  ZogographI18n.applyRich(
+    document.querySelector('[data-i18n-rich="core-charts-shell.help"]'),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderChartsShell);
+
 /**
  * When the disk is projected to fill, as a date.
  *

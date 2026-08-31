@@ -3014,13 +3014,10 @@ i18nExpect(
         str_contains($script, "marketplaceShellText('discovery_notice'") &&
         str_contains($script, "marketplaceShellText('search_label'") &&
         str_contains($script, "marketplaceShellText('table_compatibility'") &&
-        str_contains($script, 'marketplaceText("toggle_confirmation"') &&
+        str_contains($script, "marketplaceShellText('toggle_confirmation'") &&
         str_contains($script, 'marketplaceText("restore_confirmation"') &&
         is_array($english) &&
-        isset(
-            $english['marketplace.toggle_confirmation'],
-            $english['marketplace.restore_confirmation'],
-        ) &&
+        isset($english['marketplace.restore_confirmation']) &&
         isset(
             $coreCardEnglish['core-system-marketplace-shell.search_label'],
             $coreCardEnglish['core-system-marketplace-shell.sign_in'],
@@ -3037,6 +3034,9 @@ i18nExpect(
             ],
             $coreCardEnglish['core-system-marketplace-shell.table_license'],
             $coreCardEnglish['core-system-marketplace-shell.table_status'],
+            $coreCardEnglish[
+                'core-system-marketplace-shell.toggle_confirmation'
+            ],
         ),
     'marketplace controls do not use translatable catalog messages',
 );

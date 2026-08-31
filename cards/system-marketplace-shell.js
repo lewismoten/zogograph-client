@@ -28,6 +28,24 @@ window.ZogographSystemMarketplaceShellCard = {
           'No valid local package manifests were found.',
         'core-system-marketplace-shell.no_matches':
           'No marketplace packages match that search.',
+        'core-system-marketplace-shell.server_will_verify':
+          'server will verify',
+        'core-system-marketplace-shell.review_required': 'review required',
+        'core-system-marketplace-shell.enabled': 'enabled',
+        'core-system-marketplace-shell.not_enabled': 'not enabled',
+        'core-system-marketplace-shell.review_guidance': 'Review guidance',
+        'core-system-marketplace-shell.guidance_title': '{{name}} guidance',
+        'core-system-marketplace-shell.guidance_boundary':
+          'Recommendations are advisory only. This package cannot change alert settings or run code.',
+        'core-system-marketplace-shell.disable': 'Disable',
+        'core-system-marketplace-shell.enable': 'Enable',
+        'core-system-marketplace-shell.toggle_confirmation':
+          '{{verb}} {{name}}?\n\nCapabilities: {{capabilities}}',
+        'core-system-marketplace-shell.disable_package': 'Disable package',
+        'core-system-marketplace-shell.enable_package': 'Enable package',
+        'core-system-marketplace-shell.toggle_success': '{{name}} {{status}}.',
+        'core-system-marketplace-shell.history': 'History',
+        'core-system-marketplace-shell.disabled': 'disabled',
         'core-system-marketplace-shell.table_package': 'Package',
         'core-system-marketplace-shell.table_publisher': 'Publisher',
         'core-system-marketplace-shell.table_summary': 'What it offers',
@@ -61,6 +79,25 @@ window.ZogographSystemMarketplaceShellCard = {
           'No se encontraron manifiestos de paquetes locales válidos.',
         'core-system-marketplace-shell.no_matches':
           'Ningún paquete del mercado coincide con esa búsqueda.',
+        'core-system-marketplace-shell.server_will_verify':
+          'el servidor lo verificará',
+        'core-system-marketplace-shell.review_required': 'requiere revisión',
+        'core-system-marketplace-shell.enabled': 'activado',
+        'core-system-marketplace-shell.not_enabled': 'sin activar',
+        'core-system-marketplace-shell.review_guidance': 'Revisar orientación',
+        'core-system-marketplace-shell.guidance_title':
+          'Orientación de {{name}}',
+        'core-system-marketplace-shell.guidance_boundary':
+          'Las recomendaciones son solo orientativas. Este paquete no puede cambiar la configuración de alertas ni ejecutar código.',
+        'core-system-marketplace-shell.disable': 'Desactivar',
+        'core-system-marketplace-shell.enable': 'Activar',
+        'core-system-marketplace-shell.toggle_confirmation':
+          '¿{{verb}} {{name}}?\n\nCapacidades: {{capabilities}}',
+        'core-system-marketplace-shell.disable_package': 'Desactivar paquete',
+        'core-system-marketplace-shell.enable_package': 'Activar paquete',
+        'core-system-marketplace-shell.toggle_success': '{{name}}: {{status}}.',
+        'core-system-marketplace-shell.history': 'Historial',
+        'core-system-marketplace-shell.disabled': 'desactivado',
         'core-system-marketplace-shell.table_package': 'Paquete',
         'core-system-marketplace-shell.table_publisher': 'Editor',
         'core-system-marketplace-shell.table_summary': 'Qué ofrece',
@@ -94,6 +131,24 @@ window.ZogographSystemMarketplaceShellCard = {
           'कोई मान्य स्थानीय पैकेज मैनिफ़ेस्ट नहीं मिला।',
         'core-system-marketplace-shell.no_matches':
           'इस खोज से कोई मार्केटप्लेस पैकेज मेल नहीं खाता।',
+        'core-system-marketplace-shell.server_will_verify':
+          'सर्वर सत्यापित करेगा',
+        'core-system-marketplace-shell.review_required': 'समीक्षा आवश्यक',
+        'core-system-marketplace-shell.enabled': 'सक्षम',
+        'core-system-marketplace-shell.not_enabled': 'सक्षम नहीं',
+        'core-system-marketplace-shell.review_guidance': 'मार्गदर्शन देखें',
+        'core-system-marketplace-shell.guidance_title': '{{name}} मार्गदर्शन',
+        'core-system-marketplace-shell.guidance_boundary':
+          'सिफारिशें केवल सलाह हैं। यह पैकेज चेतावनी सेटिंग नहीं बदल सकता या कोड नहीं चला सकता।',
+        'core-system-marketplace-shell.disable': 'अक्षम करें',
+        'core-system-marketplace-shell.enable': 'सक्षम करें',
+        'core-system-marketplace-shell.toggle_confirmation':
+          '{{verb}} {{name}}?\n\nक्षमताएँ: {{capabilities}}',
+        'core-system-marketplace-shell.disable_package': 'पैकेज अक्षम करें',
+        'core-system-marketplace-shell.enable_package': 'पैकेज सक्षम करें',
+        'core-system-marketplace-shell.toggle_success': '{{name}} {{status}}।',
+        'core-system-marketplace-shell.history': 'इतिहास',
+        'core-system-marketplace-shell.disabled': 'अक्षम',
         'core-system-marketplace-shell.table_package': 'पैकेज',
         'core-system-marketplace-shell.table_publisher': 'प्रकाशक',
         'core-system-marketplace-shell.table_summary': 'यह क्या देता है',
@@ -125,6 +180,23 @@ window.ZogographSystemMarketplaceShellCard = {
           'لم يُعثر على بيانات حزم محلية صالحة.',
         'core-system-marketplace-shell.no_matches':
           'لا توجد حزم في السوق تطابق هذا البحث.',
+        'core-system-marketplace-shell.server_will_verify': 'سيتحقق الخادم',
+        'core-system-marketplace-shell.review_required': 'تتطلب مراجعة',
+        'core-system-marketplace-shell.enabled': 'مفعلة',
+        'core-system-marketplace-shell.not_enabled': 'غير مفعلة',
+        'core-system-marketplace-shell.review_guidance': 'راجع الإرشادات',
+        'core-system-marketplace-shell.guidance_title': 'إرشادات {{name}}',
+        'core-system-marketplace-shell.guidance_boundary':
+          'التوصيات إرشادية فقط. لا تستطيع هذه الحزمة تغيير إعدادات التنبيهات أو تشغيل التعليمات البرمجية.',
+        'core-system-marketplace-shell.disable': 'عطّل',
+        'core-system-marketplace-shell.enable': 'فعّل',
+        'core-system-marketplace-shell.toggle_confirmation':
+          'هل تريد {{verb}} {{name}}؟\n\nالقدرات: {{capabilities}}',
+        'core-system-marketplace-shell.disable_package': 'عطّل الحزمة',
+        'core-system-marketplace-shell.enable_package': 'فعّل الحزمة',
+        'core-system-marketplace-shell.toggle_success': '{{name}} {{status}}.',
+        'core-system-marketplace-shell.history': 'السجل',
+        'core-system-marketplace-shell.disabled': 'معطلة',
         'core-system-marketplace-shell.table_package': 'الحزمة',
         'core-system-marketplace-shell.table_publisher': 'الناشر',
         'core-system-marketplace-shell.table_summary': 'ما تقدمه',
@@ -155,6 +227,24 @@ window.ZogographSystemMarketplaceShellCard = {
           '未找到有效的本地软件包清单。',
         'core-system-marketplace-shell.no_matches':
           '没有市场软件包符合该搜索条件。',
+        'core-system-marketplace-shell.server_will_verify': '服务器将验证',
+        'core-system-marketplace-shell.review_required': '需要审核',
+        'core-system-marketplace-shell.enabled': '已启用',
+        'core-system-marketplace-shell.not_enabled': '未启用',
+        'core-system-marketplace-shell.review_guidance': '查看建议',
+        'core-system-marketplace-shell.guidance_title': '{{name}} 建议',
+        'core-system-marketplace-shell.guidance_boundary':
+          '建议仅供参考。此软件包不能更改告警设置或运行代码。',
+        'core-system-marketplace-shell.disable': '禁用',
+        'core-system-marketplace-shell.enable': '启用',
+        'core-system-marketplace-shell.toggle_confirmation':
+          '要{{verb}}{{name}}吗？\n\n功能：{{capabilities}}',
+        'core-system-marketplace-shell.disable_package': '禁用软件包',
+        'core-system-marketplace-shell.enable_package': '启用软件包',
+        'core-system-marketplace-shell.toggle_success':
+          '{{name}}已{{status}}。',
+        'core-system-marketplace-shell.history': '历史记录',
+        'core-system-marketplace-shell.disabled': '已禁用',
         'core-system-marketplace-shell.table_package': '软件包',
         'core-system-marketplace-shell.table_publisher': '发布者',
         'core-system-marketplace-shell.table_summary': '提供的内容',

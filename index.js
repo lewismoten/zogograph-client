@@ -16399,7 +16399,7 @@ function renderMarketplace(data) {
           label: marketplaceShellText('table_compatibility'),
           render: (row) =>
             row.compatibility?.status ||
-            marketplaceText('server_will_verify', {}, 'server will verify'),
+            marketplaceShellText('server_will_verify'),
         },
         {
           label: marketplaceShellText('table_license'),
@@ -16409,10 +16409,10 @@ function renderMarketplace(data) {
           label: marketplaceShellText('table_status'),
           render: (row) =>
             row.requires_reapproval
-              ? marketplaceText('review_required', {}, 'review required')
+              ? marketplaceShellText('review_required')
               : row.enabled
-                ? marketplaceText('enabled', {}, 'enabled')
-                : marketplaceText('not_enabled', {}, 'not enabled'),
+                ? marketplaceShellText('enabled')
+                : marketplaceShellText('not_enabled'),
         },
         {
           label: '',
@@ -16422,18 +16422,10 @@ function renderMarketplace(data) {
             if (row.recommendations?.length) {
               const review = document.createElement('button');
               review.className = 'link';
-              review.textContent = marketplaceText(
-                'review_guidance',
-                {},
-                'Review guidance',
-              );
+              review.textContent = marketplaceShellText('review_guidance');
               review.addEventListener('click', () =>
                 showListDialog(
-                  marketplaceText(
-                    'guidance_title',
-                    { name: row.name },
-                    `${row.name} guidance`,
-                  ),
+                  marketplaceShellText('guidance_title', { name: row.name }),
                   [
                     factGrid(
                       row.recommendations.flatMap((item) => [
@@ -16441,11 +16433,7 @@ function renderMarketplace(data) {
                       ]),
                     ),
                   ],
-                  marketplaceText(
-                    'guidance_boundary',
-                    {},
-                    'Recommendations are advisory only. This package cannot change alert settings or run code.',
-                  ),
+                  marketplaceShellText('guidance_boundary'),
                 ),
               );
               wrap.appendChild(review);
@@ -16453,7 +16441,7 @@ function renderMarketplace(data) {
             if (!data.can_change) return wrap;
             const history = document.createElement('button');
             history.className = 'link';
-            history.textContent = marketplaceText('history', {}, 'History');
+            history.textContent = marketplaceShellText('history');
             history.addEventListener('click', () =>
               showMarketplaceHistory(row),
             );
@@ -16461,8 +16449,8 @@ function renderMarketplace(data) {
             const button = document.createElement('button');
             button.className = row.enabled ? 'link danger' : 'link';
             button.textContent = row.enabled
-              ? marketplaceText('disable', {}, 'Disable')
-              : marketplaceText('enable', {}, 'Enable');
+              ? marketplaceShellText('disable')
+              : marketplaceShellText('enable');
             // The API validates again on POST. An older cached API response can lack
             // compatibility evidence, which is not a reason to hide an otherwise
             // valid enable request from its authoritative server-side check.
@@ -16477,22 +16465,18 @@ function renderMarketplace(data) {
                   .join(' ');
             button.addEventListener('click', async () => {
               const verb = row.enabled
-                ? marketplaceText('disable', {}, 'Disable')
-                : marketplaceText('enable', {}, 'Enable');
+                ? marketplaceShellText('disable')
+                : marketplaceShellText('enable');
               if (
                 !(await confirmDialog(
-                  marketplaceText(
-                    'toggle_confirmation',
-                    {
-                      verb,
-                      name: row.name,
-                      capabilities: row.capabilities.join(', '),
-                    },
-                    `${verb} ${row.name}?\n\nCapabilities: ${row.capabilities.join(', ')}`,
-                  ),
+                  marketplaceShellText('toggle_confirmation', {
+                    verb,
+                    name: row.name,
+                    capabilities: row.capabilities.join(', '),
+                  }),
                   row.enabled
-                    ? marketplaceText('disable_package', {}, 'Disable package')
-                    : marketplaceText('enable_package', {}, 'Enable package'),
+                    ? marketplaceShellText('disable_package')
+                    : marketplaceShellText('enable_package'),
                 ))
               )
                 return;
@@ -16503,16 +16487,12 @@ function renderMarketplace(data) {
                 });
                 await refreshMarketplace();
                 notice(
-                  marketplaceText(
-                    'toggle_success',
-                    {
-                      name: row.name,
-                      status: row.enabled
-                        ? marketplaceText('disabled', {}, 'disabled')
-                        : marketplaceText('enabled', {}, 'enabled'),
-                    },
-                    `${row.name} ${row.enabled ? 'disabled' : 'enabled'}.`,
-                  ),
+                  marketplaceShellText('toggle_success', {
+                    name: row.name,
+                    status: row.enabled
+                      ? marketplaceShellText('disabled')
+                      : marketplaceShellText('enabled'),
+                  }),
                   true,
                 );
               } catch (error) {

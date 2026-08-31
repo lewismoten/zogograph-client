@@ -325,8 +325,6 @@
   "process.age_started_hour": "एक घंटे के भीतर शुरू हुआ।",
   "process.age_started_today": "आज शुरू हुआ।",
   "process.age_long_running": "एक दिन से अधिक समय से चल रहा है — डेमन, या कुछ जो कभी समाप्त नहीं हुआ।",
-  "log.stream_when_hint": "लाइन के अनुसार यह कब हुआ",
-  "log.stream_log_hint": "यह किस फ़ाइल से आया",
   "log.stream_wrote_it_hint": "लाइन अपने स्रोत के रूप में जिसका नाम लेती है",
   "log.stream_message_hint": "लाइन स्वयं, फिट करने के लिए काटी गई — सब देखने के लिए किसी पंक्ति पर क्लिक करें",
   "capability.expose_help": "इस खाते में {{name}} को कैसे उपलब्ध करें",

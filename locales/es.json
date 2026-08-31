@@ -325,8 +325,6 @@
   "process.age_started_hour": "Iniciado durante la última hora.",
   "process.age_started_today": "Iniciado hoy.",
   "process.age_long_running": "Lleva más de un día en ejecución: un daemon o algo que nunca terminó.",
-  "log.stream_when_hint": "Cuándo dice la línea que ocurrió",
-  "log.stream_log_hint": "De qué archivo procede",
   "log.stream_wrote_it_hint": "Lo que la línea nombra como su origen",
   "log.stream_message_hint": "La línea misma, recortada para caber; haz clic en cualquier fila para verla completa",
   "capability.expose_help": "Cómo exponer {{name}} a esta cuenta",

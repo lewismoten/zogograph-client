@@ -325,8 +325,6 @@
   "process.age_started_hour": "Started within the hour.",
   "process.age_started_today": "Started today.",
   "process.age_long_running": "Running for more than a day - a daemon, or something that never finished.",
-  "log.stream_when_hint": "When the line says it happened",
-  "log.stream_log_hint": "Which file it came from",
   "log.stream_wrote_it_hint": "Whatever the line names as its source",
   "log.stream_message_hint": "The line itself, cut to fit — click any row for all of it",
   "capability.expose_help": "How to expose {{name}} to this account",

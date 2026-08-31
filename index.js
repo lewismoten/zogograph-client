@@ -39855,15 +39855,11 @@ function renderLogStream(data) {
     ['', logStreamSummaryText('stream_severity_hint')],
     [
       logStreamSummaryText('stream_when'),
-      ZogographI18n.t(
-        'log.stream_when_hint',
-        {},
-        'When the line says it happened',
-      ),
+      logStreamSummaryText('stream_when_hint'),
     ],
     [
       logStreamSummaryText('stream_log'),
-      ZogographI18n.t('log.stream_log_hint', {}, 'Which file it came from'),
+      logStreamSummaryText('stream_log_hint'),
     ],
     [
       logStreamSummaryText('stream_wrote_it'),

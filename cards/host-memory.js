@@ -15,6 +15,8 @@ window.ZogographHostMemoryCard = {
     catalogs: Object.freeze({
       en: Object.freeze({
         'core-host-memory.title': 'Where the memory went',
+        'core-host-memory.overview_help':
+          "From {{cron}}, run by root. Inside CageFS this account gets its own {{proc}} holding only its own processes, so everything below is invisible to every other panel on this site. The detail sits on the pages beneath this one; what is here is the state of the machine's memory at a glance. Its disks are under {{storage}}, and whether its daemons are alive is under {{services}}.",
         'core-host-memory.summary_counts':
           '{{processes}} processes {{users}} {{threads}}.',
         'core-host-memory.summary_counts_missing':
@@ -48,6 +50,8 @@ window.ZogographHostMemoryCard = {
       }),
       es: Object.freeze({
         'core-host-memory.title': 'Dónde se fue la memoria',
+        'core-host-memory.overview_help':
+          'Desde {{cron}}, ejecutado como root. Dentro de CageFS esta cuenta tiene su propio {{proc}}, que contiene solo sus procesos, por lo que todo lo de abajo es invisible para cualquier otro panel del sitio. El detalle está en las páginas inferiores; aquí se muestra el estado de la memoria de la máquina de un vistazo. Sus discos están en {{storage}}, y el estado de sus demonios en {{services}}.',
         'core-host-memory.summary_counts':
           '{{processes}} procesos {{users}} {{threads}}.',
         'core-host-memory.summary_counts_missing':
@@ -82,6 +86,8 @@ window.ZogographHostMemoryCard = {
       }),
       hi: Object.freeze({
         'core-host-memory.title': 'मेमोरी कहाँ गई',
+        'core-host-memory.overview_help':
+          '{{cron}} से, root द्वारा चलाया गया। CageFS में इस खाते को केवल अपने प्रोसेस वाला {{proc}} मिलता है, इसलिए नीचे की हर चीज़ इस साइट के अन्य पैनल से अदृश्य है। विवरण नीचे के पृष्ठों में है; यहाँ मशीन की मेमोरी की स्थिति एक नज़र में है। इसकी डिस्क {{storage}} में हैं और डेमन जीवित हैं या नहीं {{services}} में।',
         'core-host-memory.summary_counts':
           '{{processes}} प्रोसेस {{users}} {{threads}}।',
         'core-host-memory.summary_counts_missing':
@@ -115,6 +121,8 @@ window.ZogographHostMemoryCard = {
       }),
       ar: Object.freeze({
         'core-host-memory.title': 'أين ذهبت الذاكرة',
+        'core-host-memory.overview_help':
+          'من {{cron}} الذي يشغله root. داخل CageFS يحصل هذا الحساب على {{proc}} خاص به لا يحوي إلا عملياته، لذا فكل ما أدناه غير مرئي لأي لوحة أخرى في هذا الموقع. التفاصيل في الصفحات أدناه؛ وهنا حالة ذاكرة الآلة بنظرة سريعة. أقراصها تحت {{storage}}، وحالة برامجها الخدمية تحت {{services}}.',
         'core-host-memory.summary_counts':
           '{{processes}} عملية {{users}} {{threads}}.',
         'core-host-memory.summary_counts_missing':
@@ -146,6 +154,8 @@ window.ZogographHostMemoryCard = {
       }),
       zh: Object.freeze({
         'core-host-memory.title': '内存去了哪里',
+        'core-host-memory.overview_help':
+          '来自由 root 运行的 {{cron}}。在 CageFS 中，此账户拥有自己的 {{proc}}，其中只有自己的进程，因此下方所有内容对本网站的其他面板都不可见。详细信息在下面的页面中；这里一眼显示机器内存的状态。磁盘位于 {{storage}}，守护进程是否存活位于 {{services}}。',
         'core-host-memory.summary_counts':
           '{{processes}} 个进程 {{users}} {{threads}}。',
         'core-host-memory.summary_counts_missing':

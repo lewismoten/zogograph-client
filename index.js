@@ -2457,6 +2457,9 @@ function renderHostMemoryLabels() {
     'core-host-memory.title',
     ZogographHostMemoryCard.text('title', helpers),
   );
+  ZogographI18n.applyRich(
+    document.querySelector('[data-i18n-rich="core-host-memory.overview_help"]'),
+  );
 }
 
 document.addEventListener('zogograph-i18n-load', renderHostMemoryLabels);

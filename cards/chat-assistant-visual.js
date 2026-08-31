@@ -7,15 +7,28 @@ window.ZogographChatAssistantVisualCard = {
     catalogs: Object.freeze({
       en: Object.freeze({
         'core-chat-assistant-visual.title': 'Assistant visual',
+        'core-chat-assistant-visual.error':
+          'Could not draw this visual: {{error}}',
       }),
       es: Object.freeze({
         'core-chat-assistant-visual.title': 'Visual del asistente',
+        'core-chat-assistant-visual.error':
+          'No se pudo dibujar este elemento visual: {{error}}',
       }),
       hi: Object.freeze({
         'core-chat-assistant-visual.title': 'सहायक का दृश्य',
+        'core-chat-assistant-visual.error':
+          'यह दृश्य नहीं बनाया जा सका: {{error}}',
       }),
-      ar: Object.freeze({ 'core-chat-assistant-visual.title': 'مرئي المساعد' }),
-      zh: Object.freeze({ 'core-chat-assistant-visual.title': '助手图表' }),
+      ar: Object.freeze({
+        'core-chat-assistant-visual.title': 'مرئي المساعد',
+        'core-chat-assistant-visual.error':
+          'تعذر رسم هذا العرض المرئي: {{error}}',
+      }),
+      zh: Object.freeze({
+        'core-chat-assistant-visual.title': '助手图表',
+        'core-chat-assistant-visual.error': '无法绘制此可视化内容：{{error}}',
+      }),
     }),
   }),
   render(message, helpers) {
@@ -44,7 +57,7 @@ window.ZogographChatAssistantVisualCard = {
         helpers.draw(canvas, message.arguments);
       } catch (error) {
         caption.textContent = helpers.i18n.t(
-          'chart.error',
+          'core-chat-assistant-visual.error',
           { error: String(error.message || error) },
           'Could not draw this visual: {{error}}',
         );

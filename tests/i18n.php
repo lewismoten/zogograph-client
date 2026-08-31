@@ -47,6 +47,18 @@ foreach ($cardFiles as $cardFile) {
         basename($cardFile) .
             ' must not depend on the root AI-settings locale formatter',
     );
+    preg_match_all(
+        '/(?:helpers\\.)?i18n\\.t\\(\\s*[\'\"]([^\'\"]+)/',
+        (string) $cardSource,
+        $cardLocaleCalls,
+    );
+    foreach ($cardLocaleCalls[1] ?? [] as $localeKey) {
+        i18nExpect(
+            isset($cardId[1]) && str_starts_with($localeKey, $cardId[1] . '.'),
+            basename($cardFile) .
+                ' must use its own locale namespace instead of the root catalog',
+        );
+    }
 }
 $root = dirname(__DIR__);
 $runtime = file_get_contents($root . '/i18n.js');

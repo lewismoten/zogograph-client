@@ -12,11 +12,42 @@ window.ZogographChatChartCard = {
       'i18n',
     ],
     catalogs: Object.freeze({
-      en: Object.freeze({ 'core-chat-chart.loading': 'Loading chart…' }),
-      es: Object.freeze({ 'core-chat-chart.loading': 'Cargando gráfico…' }),
-      hi: Object.freeze({ 'core-chat-chart.loading': 'चार्ट लोड हो रहा है…' }),
-      ar: Object.freeze({ 'core-chat-chart.loading': 'جارٍ تحميل المخطط…' }),
-      zh: Object.freeze({ 'core-chat-chart.loading': '正在加载图表…' }),
+      en: Object.freeze({
+        'core-chat-chart.loading': 'Loading chart…',
+        'core-chat-chart.open_on_page': 'Open it on {{page}}',
+        'core-chat-chart.no_data': 'Nothing was recorded in this period.',
+        'core-chat-chart.could_not_draw': 'That chart could not be drawn',
+        'core-chat-chart.error': 'Could not draw this visual: {{error}}',
+      }),
+      es: Object.freeze({
+        'core-chat-chart.loading': 'Cargando gráfico…',
+        'core-chat-chart.open_on_page': 'Abrir en {{page}}',
+        'core-chat-chart.no_data': 'No se registró nada en este período.',
+        'core-chat-chart.could_not_draw': 'No se pudo dibujar ese gráfico',
+        'core-chat-chart.error':
+          'No se pudo dibujar este elemento visual: {{error}}',
+      }),
+      hi: Object.freeze({
+        'core-chat-chart.loading': 'चार्ट लोड हो रहा है…',
+        'core-chat-chart.open_on_page': 'इसे {{page}} पर खोलें',
+        'core-chat-chart.no_data': 'इस अवधि में कुछ भी दर्ज नहीं हुआ।',
+        'core-chat-chart.could_not_draw': 'वह चार्ट नहीं बनाया जा सका',
+        'core-chat-chart.error': 'यह दृश्य नहीं बनाया जा सका: {{error}}',
+      }),
+      ar: Object.freeze({
+        'core-chat-chart.loading': 'جارٍ تحميل المخطط…',
+        'core-chat-chart.open_on_page': 'افتحه في {{page}}',
+        'core-chat-chart.no_data': 'لم يُسجَّل شيء خلال هذه الفترة.',
+        'core-chat-chart.could_not_draw': 'تعذر رسم هذا المخطط',
+        'core-chat-chart.error': 'تعذر رسم هذا العرض المرئي: {{error}}',
+      }),
+      zh: Object.freeze({
+        'core-chat-chart.loading': '正在加载图表…',
+        'core-chat-chart.open_on_page': '在 {{page}} 中打开',
+        'core-chat-chart.no_data': '此时间段内没有记录任何内容。',
+        'core-chat-chart.could_not_draw': '无法绘制该图表',
+        'core-chat-chart.error': '无法绘制此可视化内容：{{error}}',
+      }),
     }),
   }),
   render(message, helpers) {
@@ -51,7 +82,7 @@ window.ZogographChatChartCard = {
           const go = document.createElement('button');
           go.className = 'link small';
           go.textContent = helpers.i18n.t(
-            'chart.open_on_page',
+            'core-chat-chart.open_on_page',
             { page: helpers.viewLabel(drawn.page) },
             'Open it on {{page}}',
           );
@@ -61,7 +92,7 @@ window.ZogographChatChartCard = {
         if (!drawn.points)
           caption.textContent =
             helpers.i18n.t(
-              'chart.no_data',
+              'core-chat-chart.no_data',
               {},
               'Nothing was recorded in this period.',
             ) +
@@ -69,12 +100,12 @@ window.ZogographChatChartCard = {
             (caption.textContent || '');
       } catch (error) {
         head.textContent = helpers.i18n.t(
-          'chart.could_not_draw',
+          'core-chat-chart.could_not_draw',
           {},
           'That chart could not be drawn',
         );
         caption.textContent = helpers.i18n.t(
-          'chart.error',
+          'core-chat-chart.error',
           { error: String(error.message || error) },
           'Could not draw this visual: {{error}}',
         );

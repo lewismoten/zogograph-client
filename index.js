@@ -37225,6 +37225,10 @@ async function refreshSelf() {
  * disk, which is exactly the mistake this page exists to catch elsewhere.
  */
 function databaseFacts(data) {
+  const databaseText = (key, values = {}) =>
+    ZogographDatabaseStorageCard.text(key, values, {
+      i18n: ZogographI18n,
+    });
   const wrap = document.createDocumentFragment();
 
   for (const [title, db, extra] of [
@@ -37261,11 +37265,7 @@ function databaseFacts(data) {
     box.appendChild(heading);
 
     if (!db.size.exists) {
-      box.appendChild(
-        note(
-          extra || ZogographI18n.t('database.not_on_disk', {}, 'Not on disk.'),
-        ),
-      );
+      box.appendChild(note(extra || databaseText('not_on_disk')));
       wrap.appendChild(box);
       continue;
     }
@@ -37289,10 +37289,7 @@ function databaseFacts(data) {
     if (db.tables.length) {
       box.appendChild(
         simpleTable(
-          [
-            ZogographI18n.t('database.table', {}, 'Table'),
-            ZogographI18n.t('database.rows', {}, 'Rows'),
-          ],
+          [databaseText('table'), databaseText('rows')],
           db.tables.map((t) => [t.table, humanCount(t.rows)]),
           ['name', 'size'],
         ),

@@ -100,6 +100,7 @@ export default [
         ZogographDnsRecordGroupCard: 'readonly',
         ZogographReportRowCard: 'readonly',
         ZogographDatabaseSnapshotsCard: 'readonly',
+        ZogographDatabaseStorageCard: 'readonly',
         ZogographHostDatabaseStorageCard: 'readonly',
         ZogographAccountDatabaseStorageCard: 'readonly',
         ZogographDiagnosisResultsCard: 'readonly',

@@ -48,6 +48,9 @@ window.ZogographDatabaseStorageCard = {
         'core-database-storage.wal_link': 'How SQLite WAL works ↗',
         'core-database-storage.wal_larger_warning':
           'The write-ahead log is larger than the database itself, which means it has not been checkpointed for a while. It is not lost data — it is the database — but it is worth knowing when comparing this page against what ls says.',
+        'core-database-storage.not_on_disk': 'Not on disk.',
+        'core-database-storage.table': 'Table',
+        'core-database-storage.rows': 'Rows',
       }),
       es: Object.freeze({
         'core-database-storage.percent': '{{percent, number}}%',
@@ -86,6 +89,9 @@ window.ZogographDatabaseStorageCard = {
         'core-database-storage.wal_link': 'Cómo funciona SQLite WAL ↗',
         'core-database-storage.wal_larger_warning':
           'El registro de escritura anticipada es mayor que la propia base de datos, lo que significa que no se ha realizado un punto de control desde hace un tiempo. No son datos perdidos: es la base de datos, pero conviene saberlo al comparar esta página con lo que dice ls.',
+        'core-database-storage.not_on_disk': 'No está en el disco.',
+        'core-database-storage.table': 'Tabla',
+        'core-database-storage.rows': 'Filas',
       }),
       hi: Object.freeze({
         'core-database-storage.percent': '{{percent, number}}%',
@@ -121,6 +127,9 @@ window.ZogographDatabaseStorageCard = {
         'core-database-storage.wal_link': 'SQLite WAL कैसे काम करता है ↗',
         'core-database-storage.wal_larger_warning':
           'राइट-अहेड लॉग डेटाबेस से बड़ा है, जिसका अर्थ है कि कुछ समय से इसका चेकपॉइंट नहीं हुआ है। यह खोया हुआ डेटा नहीं है — यह डेटाबेस ही है — लेकिन इस पृष्ठ की ls के परिणाम से तुलना करते समय यह जानना उपयोगी है।',
+        'core-database-storage.not_on_disk': 'डिस्क पर नहीं है।',
+        'core-database-storage.table': 'तालिका',
+        'core-database-storage.rows': 'पंक्तियाँ',
       }),
       ar: Object.freeze({
         'core-database-storage.percent': '{{percent, number}}%',
@@ -156,6 +165,9 @@ window.ZogographDatabaseStorageCard = {
         'core-database-storage.wal_link': 'كيف يعمل SQLite WAL ↗',
         'core-database-storage.wal_larger_warning':
           'سجل الكتابة المسبقة أكبر من قاعدة البيانات نفسها، ما يعني أنه لم يُنفذ له نقطة تحقق منذ فترة. ليست بيانات مفقودة — إنه قاعدة البيانات — لكن من المفيد معرفة ذلك عند مقارنة هذه الصفحة بما يقوله ls.',
+        'core-database-storage.not_on_disk': 'ليست على القرص.',
+        'core-database-storage.table': 'الجدول',
+        'core-database-storage.rows': 'الصفوف',
       }),
       zh: Object.freeze({
         'core-database-storage.percent': '{{percent, number}}%',
@@ -188,6 +200,9 @@ window.ZogographDatabaseStorageCard = {
         'core-database-storage.wal_link': 'SQLite WAL 的工作方式 ↗',
         'core-database-storage.wal_larger_warning':
           '预写式日志比数据库本身更大，这意味着已有一段时间没有检查点了。这不是丢失的数据——它就是数据库——但将此页面与 ls 的结果进行比较时，了解这一点很重要。',
+        'core-database-storage.not_on_disk': '不在磁盘上。',
+        'core-database-storage.table': '表',
+        'core-database-storage.rows': '行',
       }),
     }),
   }),

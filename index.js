@@ -9880,17 +9880,21 @@ function buildAnswerField(shape, options, args, holder) {
  * first, and outlining a table to point at one row points at nothing.
  */
 function highlightOnPage(args) {
+  renderCoreCardPackage(
+    ZogographChatHighlightCard,
+    'core-chat-highlight',
+    {},
+    { i18n: ZogographI18n },
+  );
+  const highlightText = (key, variables = {}) =>
+    ZogographChatHighlightCard.text(key, variables, { i18n: ZogographI18n });
   const find = String(args.find || '')
     .trim()
     .toLowerCase();
   if (!find) {
     return {
       found: false,
-      note: ZogographI18n.t(
-        'assistant.highlight_no_query',
-        {},
-        'Nothing to look for.',
-      ),
+      note: highlightText('no_query'),
     };
   }
 
@@ -9898,11 +9902,7 @@ function highlightOnPage(args) {
   if (!view) {
     return {
       found: false,
-      note: ZogographI18n.t(
-        'assistant.highlight_no_page',
-        {},
-        'No page is open.',
-      ),
+      note: highlightText('no_page'),
     };
   }
 
@@ -9920,11 +9920,9 @@ function highlightOnPage(args) {
     return {
       found: false,
       page: state.view,
-      note: ZogographI18n.t(
-        'assistant.highlight_not_found',
-        { page: VIEWS[state.view]?.label ?? state.view },
-        'Nothing on the {{page}} page contains that text, so nothing was highlighted. The user may be on a different page — open_page first — or it may not be shown there at all. Do not describe a highlight that did not happen.',
-      ),
+      note: highlightText('not_found', {
+        page: VIEWS[state.view]?.label ?? state.view,
+      }),
     };
   }
 
@@ -9949,11 +9947,10 @@ function highlightOnPage(args) {
 
   if (args.why) {
     notice(
-      ZogographI18n.t(
-        'assistant.highlight_reason',
-        { assistant: chatState.who.name, reason: args.why },
-        '{{assistant}}: {{reason}}',
-      ),
+      highlightText('reason', {
+        assistant: chatState.who.name,
+        reason: args.why,
+      }),
       true,
     );
   }
@@ -9967,11 +9964,7 @@ function highlightOnPage(args) {
       .replace(/\s+/g, ' ')
       .trim()
       .slice(0, 160),
-    note: ZogographI18n.t(
-      'assistant.highlight_shown',
-      {},
-      'It is outlined and pulsing for a few seconds. Say what you are pointing at in the same message; a highlight with no sentence is a poke.',
-    ),
+    note: highlightText('shown'),
   };
 }
 

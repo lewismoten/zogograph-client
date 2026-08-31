@@ -2935,6 +2935,36 @@ function renderNetworkShellLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderNetworkShellLabels);
 
+function renderHostServiceChartLabels() {
+  const helpers = {
+    chart: null,
+    note: null,
+    drawLineChart: () => null,
+    bytesAxis: () => null,
+    countAxis: () => null,
+    rateAxis: () => null,
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(
+    ZogographHostServiceChart,
+    'core-host-service-chart',
+    { series: [], charted: [], metric: '' },
+    helpers,
+  );
+  for (const key of ['title', 'help']) {
+    const element = document.querySelector(
+      `[data-i18n="core-host-service-chart.${key}"]`,
+    );
+    element.textContent = ZogographI18n.markSource(
+      element,
+      `core-host-service-chart.${key}`,
+      ZogographHostServiceChart.text(key, helpers),
+    );
+  }
+}
+
+document.addEventListener('zogograph-i18n-load', renderHostServiceChartLabels);
+
 function renderNetworkPortsTitle() {
   const helpers = {
     target: null,

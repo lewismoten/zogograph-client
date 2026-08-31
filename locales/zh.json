@@ -2263,8 +2263,6 @@
   "host.memory_card_other_kernel": "其他内核/系统内存",
   "host.memory_card_other_kernel_help": "未包含在上述类别中",
   "host.cloudlinux_help": "因达到 LVE 限制而被终止的进程不会留下其他痕迹。不断增加的故障计数就是证据。",
-  "host.services_time": "服务随时间变化",
-  "host.services_time_help": "主机采集器长期记录中，每项服务各占一行。此面板可查看六月的情况。",
   "host.memory_by_user_help": "CageFS 隐藏的那一列。在隔离环境中，此账户只能看到自己的进程，因此除了这里，无法得知还有谁在使用机器内存。",
   "page.dashboard_title": "Zogograph 基础设施观测仪表板",
   "navigation.copy_link": "复制此视图的链接",

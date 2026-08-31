@@ -826,8 +826,6 @@
   "dns.group.other": "Everything else",
   "table.when": "When",
   "table.what": "What",
-  "network.your_address": "Your address",
-  "network.not_reported": "not reported",
   "network.your_note": "Your note",
   "network.resolves_to": "Resolves to",
   "network.private_address_help": "A private address — you are on the same network as this machine, or behind a proxy that is.",

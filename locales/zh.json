@@ -845,8 +845,6 @@
   "dns.group.other": "其他所有内容",
   "table.when": "时间",
   "table.what": "内容",
-  "network.your_address": "您的地址",
-  "network.not_reported": "未报告",
   "network.your_note": "您的备注",
   "network.resolves_to": "解析为",
   "network.private_address_help": "这是一个私有地址——您与此机器位于同一网络，或位于这样的代理之后。",

@@ -34340,12 +34340,16 @@ async function refreshWhoAmI() {
 
   const yours = [
     [
-      ZogographI18n.t('network.your_address', {}, 'Your address'),
+      ZogographSystemWhoamiShellCard.text('your_address', {
+        i18n: ZogographI18n,
+      }),
       you.address
         ? you.label
           ? `${you.address} \u2014 ${you.label}`
           : you.address
-        : ZogographI18n.t('network.not_reported', {}, 'Not reported'),
+        : ZogographSystemWhoamiShellCard.text('not_reported', {
+            i18n: ZogographI18n,
+          }),
     ],
   ];
   if (you.label_note)

@@ -845,8 +845,6 @@
   "dns.group.other": "كل شيء آخر",
   "table.when": "متى",
   "table.what": "ما الذي",
-  "network.your_address": "عنوانك",
-  "network.not_reported": "غير مُبلّغ عنه",
   "network.your_note": "ملاحظتك",
   "network.resolves_to": "يُحل إلى",
   "network.private_address_help": "عنوان خاص — أنت على نفس الشبكة التي توجد عليها هذه الآلة، أو خلف وكيل موجود عليها.",

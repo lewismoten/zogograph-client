@@ -19,6 +19,7 @@ window.ZogographNetworkCaptureCard = {
     catalogs: Object.freeze({
       en: Object.freeze({
         'core-network-capture.title': 'What is on the wire',
+        'core-network-capture.sign_in': 'Sign in to see captures.',
         'core-network-capture.help':
           'The tool of last resort, and treated as one: it opens a live interface as root, runs for as long as you ask, and is the only thing this collector does that could itself be felt on a busy machine. It records counts and endpoints only — how many packets, between which addresses, on which ports, and for DNS the names asked for. No packet contents are stored, ever.',
         'core-network-capture.flags_new':
@@ -94,6 +95,7 @@ window.ZogographNetworkCaptureCard = {
       }),
       es: Object.freeze({
         'core-network-capture.title': 'Qué hay en la red',
+        'core-network-capture.sign_in': 'Inicie sesión para ver las capturas.',
         'core-network-capture.help':
           'La herramienta de último recurso, tratada como tal: abre una interfaz activa como root, se ejecuta durante el tiempo indicado y es lo único que hace este recopilador que podría notarse en una máquina ocupada. Solo registra conteos y extremos: cuántos paquetes, entre qué direcciones, en qué puertos y, para DNS, los nombres consultados. Nunca se guarda el contenido de paquetes.',
         'core-network-capture.flags_new':
@@ -172,6 +174,7 @@ window.ZogographNetworkCaptureCard = {
       }),
       hi: Object.freeze({
         'core-network-capture.title': 'नेटवर्क पर क्या है',
+        'core-network-capture.sign_in': 'कैप्चर देखने के लिए साइन इन करें।',
         'core-network-capture.help':
           'अंतिम उपाय का उपकरण, और वैसा ही माना जाता है: यह root के रूप में लाइव इंटरफ़ेस खोलता है, आपके कहे समय तक चलता है और इस कलेक्टर का एकमात्र कार्य है जो व्यस्त मशीन पर स्वयं महसूस हो सकता है। यह केवल गिनती और एंडपॉइंट रिकॉर्ड करता है—कितने पैकेट, किन पतों के बीच, किन पोर्ट पर और DNS के लिए पूछे गए नाम। पैकेट सामग्री कभी संग्रहीत नहीं होती।',
         'core-network-capture.flags_new':
@@ -246,6 +249,7 @@ window.ZogographNetworkCaptureCard = {
       }),
       ar: Object.freeze({
         'core-network-capture.title': 'ما الموجود على الشبكة',
+        'core-network-capture.sign_in': 'سجّل الدخول لرؤية اللقطات.',
         'core-network-capture.help':
           'أداة الملاذ الأخير، وتُعامل على هذا الأساس: تفتح واجهة حية بصلاحية root وتعمل للمدة التي تطلبها، وهي الشيء الوحيد الذي يفعله هذا الجامع وقد يُحَسّ أثره على جهاز مشغول. تسجل الأعداد والنهايات فقط — كم حزمة، وبين أي عناوين، وعلى أي منافذ، وبالنسبة إلى DNS الأسماء المطلوبة. لا يُخزن محتوى الحزم أبدًا.',
         'core-network-capture.flags_new':
@@ -317,6 +321,7 @@ window.ZogographNetworkCaptureCard = {
       }),
       zh: Object.freeze({
         'core-network-capture.title': '线路上有什么',
+        'core-network-capture.sign_in': '登录后可查看捕获记录。',
         'core-network-capture.help':
           '最后手段的工具，也应按最后手段对待：它以 root 身份打开实时接口，按您指定的时间运行，是此采集器中唯一可能在繁忙机器上自身也产生影响的操作。它只记录计数和端点——多少数据包、在哪些地址之间、使用哪些端口，以及对 DNS 而言所查询的名称。绝不存储数据包内容。',
         'core-network-capture.flags_new':

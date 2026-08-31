@@ -31384,11 +31384,9 @@ async function refreshCaptures() {
   if (!state.signedIn) {
     body.replaceChildren(
       note(
-        ZogographI18n.t(
-          'network.captures_sign_in',
-          {},
-          'Sign in to see captures.',
-        ),
+        ZogographNetworkCaptureCard.text('sign_in', {
+          i18n: ZogographI18n,
+        }),
       ),
     );
     return;

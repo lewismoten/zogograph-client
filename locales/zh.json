@@ -11,7 +11,6 @@
   "common.sign_in_to_see": "登录后可查看此内容。",
   "reports.sign_in": "登录后可阅读摘要。",
   "network.bytes": "字节",
-  "network.captures_sign_in": "登录后可查看捕获记录。",
   "setup.instructions_sign_in": "登录后可查看设置说明。",
   "terminal.sessions_sign_in": "登录后可查看终端会话。",
   "terminal.use_sign_in": "登录后可使用终端。",

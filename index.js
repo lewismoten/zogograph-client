@@ -16659,7 +16659,7 @@ function renderPeers(data) {
       data.rows,
       [
         {
-          label: peerText('table_server', {}, 'Server'),
+          label: peersShellText('table_server'),
           className: 'name',
           render: (row) =>
             row.description || row.tags?.length
@@ -16667,7 +16667,7 @@ function renderPeers(data) {
               : row.label,
         },
         {
-          label: peerText('table_issuer', {}, 'Issuer'),
+          label: peersShellText('table_issuer'),
           className: 'cmd',
           render: (row) =>
             row.has_oidc
@@ -16675,18 +16675,18 @@ function renderPeers(data) {
               : peerText('not_configured', {}, 'not configured'),
         },
         {
-          label: peerText('table_client', {}, 'Client'),
+          label: peersShellText('table_client'),
           render: (row) => (row.has_oidc ? row.client_id : '—'),
         },
         {
-          label: peerText('table_secret', {}, 'Secret'),
+          label: peersShellText('table_secret'),
           render: (row) =>
             row.has_oidc
               ? peerText('configured', {}, 'configured')
               : peerText('not_needed', {}, 'not needed'),
         },
         {
-          label: peerText('table_transport', {}, 'Transport'),
+          label: peersShellText('table_transport'),
           render: (row) =>
             !row.transport_configured
               ? peerText('not_paired', {}, 'not paired')

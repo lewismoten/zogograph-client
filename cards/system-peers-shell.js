@@ -18,6 +18,11 @@ window.ZogographSystemPeersShellCard = {
           'Add a trusted remote Zogograph server.',
         'core-system-peers-shell.none':
           'No trusted servers are configured yet.',
+        'core-system-peers-shell.table_server': 'Server',
+        'core-system-peers-shell.table_issuer': 'Issuer',
+        'core-system-peers-shell.table_client': 'Client',
+        'core-system-peers-shell.table_secret': 'Secret',
+        'core-system-peers-shell.table_transport': 'Transport',
       }),
       es: Object.freeze({
         'core-system-peers-shell.title': 'Servidores Zogograph de confianza',
@@ -32,6 +37,11 @@ window.ZogographSystemPeersShellCard = {
           'Añada un servidor remoto Zogograph de confianza.',
         'core-system-peers-shell.none':
           'Aún no hay servidores de confianza configurados.',
+        'core-system-peers-shell.table_server': 'Servidor',
+        'core-system-peers-shell.table_issuer': 'Emisor',
+        'core-system-peers-shell.table_client': 'Cliente',
+        'core-system-peers-shell.table_secret': 'Secreto',
+        'core-system-peers-shell.table_transport': 'Transporte',
       }),
       hi: Object.freeze({
         'core-system-peers-shell.title': 'विश्वसनीय Zogograph सर्वर',
@@ -46,6 +56,11 @@ window.ZogographSystemPeersShellCard = {
           'विश्वसनीय दूरस्थ Zogograph सर्वर जोड़ें।',
         'core-system-peers-shell.none':
           'अभी कोई विश्वसनीय सर्वर कॉन्फ़िगर नहीं है।',
+        'core-system-peers-shell.table_server': 'सर्वर',
+        'core-system-peers-shell.table_issuer': 'जारीकर्ता',
+        'core-system-peers-shell.table_client': 'क्लाइंट',
+        'core-system-peers-shell.table_secret': 'गुप्त',
+        'core-system-peers-shell.table_transport': 'परिवहन',
       }),
       ar: Object.freeze({
         'core-system-peers-shell.title': 'خوادم Zogograph الموثوقة',
@@ -59,6 +74,11 @@ window.ZogographSystemPeersShellCard = {
         'core-system-peers-shell.add_help':
           'أضف خادم Zogograph بعيدًا موثوقًا.',
         'core-system-peers-shell.none': 'لا توجد خوادم موثوقة مُعَدّة بعد.',
+        'core-system-peers-shell.table_server': 'الخادم',
+        'core-system-peers-shell.table_issuer': 'المُصدِر',
+        'core-system-peers-shell.table_client': 'العميل',
+        'core-system-peers-shell.table_secret': 'السر',
+        'core-system-peers-shell.table_transport': 'النقل',
       }),
       zh: Object.freeze({
         'core-system-peers-shell.title': '受信任的 Zogograph 服务器',
@@ -72,6 +92,11 @@ window.ZogographSystemPeersShellCard = {
         'core-system-peers-shell.add_help':
           '添加受信任的远程 Zogograph 服务器。',
         'core-system-peers-shell.none': '尚未配置受信任的服务器。',
+        'core-system-peers-shell.table_server': '服务器',
+        'core-system-peers-shell.table_issuer': '颁发者',
+        'core-system-peers-shell.table_client': '客户端',
+        'core-system-peers-shell.table_secret': '密钥',
+        'core-system-peers-shell.table_transport': '传输',
       }),
     }),
   }),

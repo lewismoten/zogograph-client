@@ -1,4 +1,5 @@
 {
+  "accessibility.skip_to_content": "跳至内容",
   "package.page_summary": "此软件包提供一个由核心渲染的仪表板页面。",
   "package.page_boundary": "此页面由 Zogograph 外壳根据软件包的已签名元数据渲染。它不会加载软件包 HTML、样式或浏览器代码。",
   "package.open_settings": "打开软件包设置",

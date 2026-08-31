@@ -1,4 +1,5 @@
 {
+  "accessibility.skip_to_content": "सामग्री पर जाएँ",
   "package.page_summary": "यह पैकेज कोर द्वारा रेंडर किया गया डैशबोर्ड पृष्ठ जोड़ता है।",
   "package.page_boundary": "यह पृष्ठ पैकेज के हस्ताक्षरित मेटाडेटा से Zogograph शेल द्वारा रेंडर होता है। यह पैकेज HTML, शैली या ब्राउज़र कोड लोड नहीं करता।",
   "package.open_settings": "पैकेज सेटिंग खोलें",

@@ -1,4 +1,5 @@
 {
+  "accessibility.skip_to_content": "Saltar al contenido",
   "package.page_summary": "Este paquete aporta una página del panel renderizada por el núcleo.",
   "package.page_boundary": "Esta página la renderiza la capa de Zogograph a partir de los metadatos firmados del paquete. No carga HTML, estilos ni código de navegador del paquete.",
   "package.open_settings": "Abrir configuración del paquete",

@@ -1,4 +1,5 @@
 {
+  "accessibility.skip_to_content": "انتقل إلى المحتوى",
   "package.page_summary": "تضيف هذه الحزمة صفحة لوحة معلومات يعرضها النواة.",
   "package.page_boundary": "تعرض قشرة Zogograph هذه الصفحة من بيانات الحزمة الوصفية الموقّعة. ولا تحمّل HTML أو الأنماط أو رمز المتصفح الخاص بالحزمة.",
   "package.open_settings": "فتح إعدادات الحزمة",

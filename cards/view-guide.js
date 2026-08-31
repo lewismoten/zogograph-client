@@ -31,6 +31,10 @@ window.ZogographViewGuideCard = {
           'Shows how Zogograph itself is configured, scheduled, and retaining the data it collects.',
         'core-view-guide.system_useful':
           'Use it to verify that the monitor is healthy before drawing conclusions from its measurements or changing its configuration.',
+        'core-view-guide.assistant_purpose':
+          'Lets the assistant investigate the monitored machine using only the tools this installation has made available.',
+        'core-view-guide.assistant_useful':
+          'Start with a question in plain language. Read-only diagnostic tools are available first; anything that changes data, runs a command, or shares material asks for permission before it happens.',
       }),
       es: Object.freeze({
         'core-view-guide.access_page': 'Guía de acceso y página',
@@ -58,6 +62,10 @@ window.ZogographViewGuideCard = {
           'Muestra cómo se configura y programa Zogograph, y cómo conserva los datos que recopila.',
         'core-view-guide.system_useful':
           'Úsela para verificar que el monitor está en buen estado antes de extraer conclusiones de sus mediciones o cambiar su configuración.',
+        'core-view-guide.assistant_purpose':
+          'Permite que el asistente investigue la máquina supervisada usando solo las herramientas que esta instalación puso a su disposición.',
+        'core-view-guide.assistant_useful':
+          'Empiece con una pregunta en lenguaje sencillo. Primero están disponibles las herramientas de diagnóstico de solo lectura; todo lo que cambie datos, ejecute un comando o comparta material pide permiso antes de ocurrir.',
       }),
       hi: Object.freeze({
         'core-view-guide.access_page': 'पहुँच और पृष्ठ मार्गदर्शिका',
@@ -85,6 +93,10 @@ window.ZogographViewGuideCard = {
           'दिखाता है कि Zogograph स्वयं कैसे कॉन्फ़िगर और शेड्यूल किया गया है तथा यह एकत्र किए गए डेटा को कैसे रखता है।',
         'core-view-guide.system_useful':
           'मापों से निष्कर्ष निकालने या इसकी कॉन्फ़िगरेशन बदलने से पहले मॉनिटर स्वस्थ है या नहीं, यह जाँचने के लिए इसका उपयोग करें।',
+        'core-view-guide.assistant_purpose':
+          'सहायक को केवल उन टूल का उपयोग करके निगरानी की जा रही मशीन की जाँच करने देता है जो इस इंस्टॉलेशन ने उपलब्ध कराए हैं।',
+        'core-view-guide.assistant_useful':
+          'सादे शब्दों में प्रश्न से शुरू करें। केवल-पढ़ने वाले निदान टूल पहले उपलब्ध होते हैं; डेटा बदलने, कमांड चलाने या सामग्री साझा करने वाली हर चीज़ होने से पहले अनुमति माँगती है।',
       }),
       ar: Object.freeze({
         'core-view-guide.access_page': 'دليل الوصول والصفحة',
@@ -112,6 +124,10 @@ window.ZogographViewGuideCard = {
           'يعرض كيفية إعداد Zogograph نفسه وجدولته واحتفاظه بالبيانات التي يجمعها.',
         'core-view-guide.system_useful':
           'استخدمه للتحقق من سلامة المراقب قبل استخلاص نتائج من قياساته أو تغيير إعداداته.',
+        'core-view-guide.assistant_purpose':
+          'يتيح للمساعد فحص الجهاز المراقَب باستخدام الأدوات التي أتاحها هذا التثبيت فقط.',
+        'core-view-guide.assistant_useful':
+          'ابدأ بسؤال بلغة واضحة. تتوفر أدوات التشخيص للقراءة فقط أولًا؛ وكل ما يغيّر البيانات أو يشغّل أمرًا أو يشارك مادة يطلب الإذن قبل حدوثه.',
       }),
       zh: Object.freeze({
         'core-view-guide.access_page': '访问和页面指南',
@@ -139,6 +155,10 @@ window.ZogographViewGuideCard = {
           '显示 Zogograph 自身如何配置、调度以及保留其收集的数据。',
         'core-view-guide.system_useful':
           '在根据测量结果下结论或更改其配置前，用它确认监视器是否健康。',
+        'core-view-guide.assistant_purpose':
+          '让助手只能使用此安装已提供的工具调查受监视的机器。',
+        'core-view-guide.assistant_useful':
+          '先用自然语言提问。只读诊断工具优先可用；任何会更改数据、运行命令或共享材料的操作都会在发生前请求许可。',
       }),
     }),
   }),

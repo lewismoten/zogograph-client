@@ -5610,8 +5610,6 @@ function startDialTicker() {
 /* --------------------------------------------------------- setting lookout -- */
 
 const aiSetState = { data: null };
-const aiSettingsText = (key, fallback, values = {}) =>
-  ZogographI18n.t(`ai.settings.${key}`, values, fallback);
 
 /** Every container the settings are split across. */
 const AI_SETTING_PAGES = [
@@ -5754,13 +5752,37 @@ function renderAiSettings(data) {
     pages[key].push(...parts.map((node) => node.cloneNode(true)));
 
   pages.identity.push(
-    section(aiSettingsText('identity_title', 'Identity'), personaFields(data)),
+    section(
+      renderCoreCardPackage(
+        ZogographAiSettingsPageHeadingCard,
+        'core-ai-settings-page-heading',
+        { page: 'identity', fallback: 'Identity' },
+        { i18n: ZogographI18n },
+      ),
+      personaFields(data),
+    ),
   );
   pages.providers.push(
-    section(aiSettingsText('provider_connection', 'Provider connection'), form),
+    section(
+      renderCoreCardPackage(
+        ZogographAiSettingsPageHeadingCard,
+        'core-ai-settings-page-heading',
+        { page: 'provider', fallback: 'Provider connection' },
+        { i18n: ZogographI18n },
+      ),
+      form,
+    ),
   );
   pages.model.push(
-    section(aiSettingsText('which_model', 'Which model'), selected),
+    section(
+      renderCoreCardPackage(
+        ZogographAiSettingsPageHeadingCard,
+        'core-ai-settings-page-heading',
+        { page: 'model', fallback: 'Which model' },
+        { i18n: ZogographI18n },
+      ),
+      selected,
+    ),
   );
 
   pages.model.push(

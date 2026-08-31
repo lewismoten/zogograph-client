@@ -1,3 +1,4 @@
 {
-  "core-ai-get-filesystems.summary": "每个已挂载的文件系统及其使用情况。"
+  "core-ai-get-filesystems.summary": "每个已挂载的文件系统及其使用情况。",
+  "core-ai-get-filesystems.activity": "检查了已挂载的文件系统"
 }

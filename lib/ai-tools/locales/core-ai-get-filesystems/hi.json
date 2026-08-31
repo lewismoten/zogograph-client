@@ -1,3 +1,4 @@
 {
-  "core-ai-get-filesystems.summary": "हर माउंट किया गया फ़ाइल सिस्टम और वह कितना भरा है।"
+  "core-ai-get-filesystems.summary": "हर माउंट किया गया फ़ाइल सिस्टम और वह कितना भरा है।",
+  "core-ai-get-filesystems.activity": "माउंट किए गए फ़ाइल सिस्टम जाँचे"
 }

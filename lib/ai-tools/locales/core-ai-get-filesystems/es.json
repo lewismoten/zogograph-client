@@ -1,3 +1,4 @@
 {
-  "core-ai-get-filesystems.summary": "Cada sistema de archivos montado y cuánto está lleno."
+  "core-ai-get-filesystems.summary": "Cada sistema de archivos montado y cuánto está lleno.",
+  "core-ai-get-filesystems.activity": "Comprobó los sistemas de archivos montados"
 }

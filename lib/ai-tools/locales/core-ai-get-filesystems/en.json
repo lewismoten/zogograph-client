@@ -1,3 +1,4 @@
 {
-  "core-ai-get-filesystems.summary": "Every mounted filesystem and how full it is."
+  "core-ai-get-filesystems.summary": "Every mounted filesystem and how full it is.",
+  "core-ai-get-filesystems.activity": "Checked mounted filesystems"
 }

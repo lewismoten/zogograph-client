@@ -1734,7 +1734,8 @@ i18nExpect(
         str_contains(
             $script,
             'renderCoreCardPackage(ZogographNetworkInterfacesCard, "core-network-interfaces",',
-        ),
+        ) &&
+        !str_contains($script, 'if (window.ZogographNetworkInterfacesCard)'),
     'network interfaces are not isolated behind their core card-module boundary',
 );
 i18nExpect(

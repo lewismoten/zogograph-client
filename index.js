@@ -32265,131 +32265,18 @@ async function refreshNetwork() {
  * known it is used and said; where it is not, the rate is a card and not a dial.
  */
 function renderInterfaces(rows) {
-  if (window.ZogographNetworkInterfacesCard) {
-    return renderCoreCardPackage(
-      ZogographNetworkInterfacesCard,
-      'core-network-interfaces',
-      rows,
-      {
-        target: $('networkInterfaces'),
-        note,
-        renderTable,
-        humanBytes,
-        humanCount,
-        i18n: ZogographI18n,
-      },
-    );
-  }
-  if (!rows.length) {
-    $('networkInterfaces').replaceChildren(
-      note(ZogographI18n.t('network.interfaces_empty')),
-    );
-    return;
-  }
-
-  renderTable(
-    'networkInterfaces',
+  return renderCoreCardPackage(
+    ZogographNetworkInterfacesCard,
+    'core-network-interfaces',
     rows,
-    [
-      {
-        label: ZogographI18n.t('network.interface', {}, 'Interface'),
-        className: 'name',
-        render: (row) => {
-          const span = document.createElement('span');
-          span.textContent = row.name;
-          if (row.loopback) {
-            const tag = document.createElement('span');
-            tag.className = 'muted small';
-            // Reported rather than dropped: a machine doing a gigabyte a second
-            // over lo says something real about a local database, and it is also
-            // why a naive total looks impossible.
-            tag.textContent = ZogographI18n.t(
-              'network.loopback',
-              {},
-              ' \u00b7 loopback, never leaves the machine',
-            );
-            span.appendChild(tag);
-          }
-          return span;
-        },
-      },
-      {
-        label: ZogographI18n.t('network.state', {}, 'State'),
-        render: (row) => {
-          const span = document.createElement('span');
-          span.textContent =
-            row.up === null
-              ? ZogographI18n.t('network.unknown', {}, 'unknown')
-              : row.up
-                ? ZogographI18n.t('network.up', {}, 'up')
-                : ZogographI18n.t('network.down', {}, 'down');
-          if (row.up === false) span.className = 'band-crit';
-          return span;
-        },
-      },
-      {
-        label: ZogographI18n.t('network.in', {}, 'In'),
-        className: 'size',
-        render: (row) =>
-          row.rx_rate == null ? '\u2014' : `${humanBytes(row.rx_rate)}/s`,
-      },
-      {
-        label: ZogographI18n.t('network.out', {}, 'Out'),
-        className: 'size',
-        render: (row) =>
-          row.tx_rate == null ? '\u2014' : `${humanBytes(row.tx_rate)}/s`,
-      },
-      {
-        label: ZogographI18n.t('network.packets_per_second', {}, 'Packets/s'),
-        className: 'size',
-        render: (row) =>
-          row.rx_packet_rate == null
-            ? '\u2014'
-            : ZogographI18n.t(
-                'network.packets_in_out',
-                {
-                  incoming: Math.round(row.rx_packet_rate),
-                  outgoing: Math.round(row.tx_packet_rate),
-                },
-                '{{incoming, number}} in, {{outgoing, number}} out',
-              ),
-      },
-      {
-        label: ZogographI18n.t('network.link', {}, 'Link'),
-        className: 'size',
-        render: (row) =>
-          row.speed_mbit
-            ? `${row.speed_mbit} Mbit`
-            : ZogographI18n.t('network.not_reported', {}, 'not reported'),
-      },
-      {
-        label: ZogographI18n.t('network.errors_drops', {}, 'Errors / drops'),
-        className: 'size',
-        render: (row) => {
-          const span = document.createElement('span');
-          span.textContent = `${humanCount(row.errors)} / ${humanCount(row.dropped)}`;
-          // Usually zero, and the non-zero case is the whole reason to show it.
-          if (row.errors > 0 || row.dropped > 0) span.className = 'grew';
-          return span;
-        },
-      },
-      {
-        label: ZogographI18n.t('network.since_boot', {}, 'Since boot'),
-        className: 'size',
-        render: (row) =>
-          ZogographI18n.t(
-            'network.bytes_in_out',
-            {
-              incoming: humanBytes(row.rx_bytes),
-              outgoing: humanBytes(row.tx_bytes),
-            },
-            '{{incoming}} in, {{outgoing}} out',
-          ),
-      },
-    ],
-    null,
-    null,
-    (row) => row.name,
+    {
+      target: $('networkInterfaces'),
+      note,
+      renderTable,
+      humanBytes,
+      humanCount,
+      i18n: ZogographI18n,
+    },
   );
 }
 

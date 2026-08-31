@@ -2523,7 +2523,6 @@
   "database.indexes": "Indexes",
   "database.total": "Total",
   "database.indexes_note": "Indexes are counted against the table they belong to. On a busy table an index can be close to half the total, and listing them separately makes every table look cheaper than it is.",
-  "system.marketplace_help": "Local package manifests only. Enabling never executes package code. A few fixed, core-owned capabilities may be authorized; requested capabilities remain visible for review.",
   "system.encryption_help": "This page reports Zogograph evidence, not assumptions. It never shows key paths or key material. Change protection choices in the setup wizard; recovery and sealing stay CLI-only so a browser session cannot handle a private key.",
   "system.package_runtime_help": "Signed packages are reviewed here before any future runtime can use them. Enabling records explicit capability grants and private-package settings; it does not execute package PHP in this Zogograph release.",
   "reports.latest": "{{assistant}}'s latest summary",

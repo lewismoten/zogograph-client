@@ -3736,6 +3736,14 @@ function renderSystemMarketplaceShellTitle() {
     'core-system-marketplace-shell.title',
     ZogographSystemMarketplaceShellCard.text('title', helpers),
   );
+  const help = document.querySelector(
+    '[data-i18n="core-system-marketplace-shell.help"]',
+  );
+  help.textContent = ZogographI18n.markSource(
+    help,
+    'core-system-marketplace-shell.help',
+    ZogographSystemMarketplaceShellCard.text('help', helpers),
+  );
 }
 
 document.addEventListener(

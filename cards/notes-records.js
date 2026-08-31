@@ -40,6 +40,12 @@ window.ZogographNotesRecordsCard = {
         'core-notes-records.capture_site': 'The data behind every page',
         'core-notes-records.capture_databases': 'A copy of both databases',
         'core-notes-records.capture_image': 'A picture',
+        'core-notes-records.open_view': 'Open {{view}}',
+        'core-notes-records.clear': 'Clear it',
+        'core-notes-records.clear_title': 'Stop showing this to everyone',
+        'core-notes-records.delete_confirm': 'Delete this note?',
+        'core-notes-records.delete_with_captures_confirm':
+          'Delete this note?\n\nWhatever it captured goes with it.',
       }),
       es: Object.freeze({
         'core-notes-records.table_time': 'Hora',
@@ -77,6 +83,12 @@ window.ZogographNotesRecordsCard = {
         'core-notes-records.capture_databases':
           'Una copia de ambas bases de datos',
         'core-notes-records.capture_image': 'Una imagen',
+        'core-notes-records.open_view': 'Abrir {{view}}',
+        'core-notes-records.clear': 'Borrarlo',
+        'core-notes-records.clear_title': 'Dejar de mostrar esto a todos',
+        'core-notes-records.delete_confirm': '¿Eliminar esta nota?',
+        'core-notes-records.delete_with_captures_confirm':
+          '¿Eliminar esta nota?\n\nTodo lo que capturó se irá con ella.',
       }),
       hi: Object.freeze({
         'core-notes-records.table_time': 'समय',
@@ -112,6 +124,12 @@ window.ZogographNotesRecordsCard = {
         'core-notes-records.capture_site': 'हर पृष्ठ के पीछे का डेटा',
         'core-notes-records.capture_databases': 'दोनों डेटाबेस की एक प्रति',
         'core-notes-records.capture_image': 'एक चित्र',
+        'core-notes-records.open_view': '{{view}} खोलें',
+        'core-notes-records.clear': 'इसे साफ़ करें',
+        'core-notes-records.clear_title': 'इसे सभी को दिखाना बंद करें',
+        'core-notes-records.delete_confirm': 'यह नोट हटाएँ?',
+        'core-notes-records.delete_with_captures_confirm':
+          'यह नोट हटाएँ?\n\nइसमें कैप्चर की गई हर चीज़ भी इसके साथ हट जाएगी।',
       }),
       ar: Object.freeze({
         'core-notes-records.table_time': 'الوقت',
@@ -146,6 +164,12 @@ window.ZogographNotesRecordsCard = {
         'core-notes-records.capture_site': 'البيانات وراء كل صفحة',
         'core-notes-records.capture_databases': 'نسخة من قاعدتي البيانات',
         'core-notes-records.capture_image': 'صورة',
+        'core-notes-records.open_view': 'افتح {{view}}',
+        'core-notes-records.clear': 'امسحه',
+        'core-notes-records.clear_title': 'توقف عن إظهار هذا للجميع',
+        'core-notes-records.delete_confirm': 'حذف هذه الملاحظة؟',
+        'core-notes-records.delete_with_captures_confirm':
+          'حذف هذه الملاحظة؟\n\nكل ما التقطته سيُحذف معها.',
       }),
       zh: Object.freeze({
         'core-notes-records.table_time': '时间',
@@ -179,6 +203,12 @@ window.ZogographNotesRecordsCard = {
         'core-notes-records.capture_site': '每个页面背后的数据',
         'core-notes-records.capture_databases': '两个数据库的副本',
         'core-notes-records.capture_image': '一张图片',
+        'core-notes-records.open_view': '打开 {{view}}',
+        'core-notes-records.clear': '清除它',
+        'core-notes-records.clear_title': '不再向所有人显示此内容',
+        'core-notes-records.delete_confirm': '删除此备注？',
+        'core-notes-records.delete_with_captures_confirm':
+          '删除此备注？\n\n它捕获的所有内容也会一并删除。',
       }),
     }),
   }),

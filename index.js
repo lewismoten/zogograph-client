@@ -17762,11 +17762,9 @@ function noteActions(row) {
     const go = document.createElement('button');
     go.className = 'link';
     go.textContent = ZogographI18n.t('action.go_there', {}, 'Go there');
-    go.title = ZogographI18n.t(
-      'notes.open_view',
-      { view: VIEWS[row.view].label },
-      'Open {{view}}',
-    );
+    go.title = notesRecordsText('open_view', {
+      view: VIEWS[row.view].label,
+    });
     go.addEventListener('click', () => {
       location.hash = `#/${row.view}?range=${state.range}`;
     });
@@ -17784,12 +17782,8 @@ function noteActions(row) {
   if (row.broadcast && !row.cleared_at) {
     const clear = document.createElement('button');
     clear.className = 'link';
-    clear.textContent = ZogographI18n.t('notes.clear', {}, 'Clear it');
-    clear.title = ZogographI18n.t(
-      'notes.clear_title',
-      {},
-      'Stop showing this to everyone',
-    );
+    clear.textContent = notesRecordsText('clear');
+    clear.title = notesRecordsText('clear_title');
     clear.addEventListener('click', async () => {
       try {
         await post('note-clear', { id: row.id });
@@ -17812,14 +17806,8 @@ function noteActions(row) {
   remove.addEventListener('click', async () => {
     if (
       !(await confirmDialog(
-        ZogographI18n.t(
-          row.snapshots
-            ? 'notes.delete_with_captures_confirm'
-            : 'notes.delete_confirm',
-          {},
-          row.snapshots
-            ? 'Delete this note?\n\nWhatever it captured goes with it.'
-            : 'Delete this note?',
+        notesRecordsText(
+          row.snapshots ? 'delete_with_captures_confirm' : 'delete_confirm',
         ),
       ))
     )
@@ -31650,10 +31638,10 @@ function toast(text, view = '') {
   if (view && VIEWS[view]) {
     const go = document.createElement('button');
     go.className = 'link';
-    go.textContent = ZogographI18n.t(
-      'notes.open_view',
+    go.textContent = ZogographNotesRecordsCard.text(
+      'open_view',
       { view: VIEWS[view].label },
-      'Open {{view}}',
+      { i18n: ZogographI18n },
     );
     go.addEventListener('click', () => {
       showView(view);

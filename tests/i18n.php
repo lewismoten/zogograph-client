@@ -3045,8 +3045,8 @@ i18nExpect(
 i18nExpect(
     $script !== false &&
         str_contains($script, 'ZogographI18n.t("encryption.custody_notice"') &&
-        str_contains($script, 'ZogographI18n.t("diagnosis.ignore_confirm"') &&
-        str_contains($script, 'ZogographI18n.t("diagnosis.ignore_success"'),
+        str_contains($script, "diagnosisText('ignore_confirm'") &&
+        str_contains($script, "diagnosisText('ignore_success'"),
     'security-sensitive dashboard notices do not use the locale catalog',
 );
 i18nExpect(
@@ -4201,10 +4201,6 @@ $translatedNavigation = [
 ];
 $translatedSecurityMessages = [
     'encryption.custody_notice',
-    'diagnosis.ignore_action',
-    'diagnosis.ignore_title',
-    'diagnosis.ignore_confirm',
-    'diagnosis.ignore_success',
     'diagnosis.nothing_to_report',
     'diagnosis.critical_attention',
     'diagnosis.warning_attention',

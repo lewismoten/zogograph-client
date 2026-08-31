@@ -19,6 +19,14 @@ window.ZogographDiagnosisResultsCard = {
         'core-diagnosis-results.ignored_help':
           'These are intentional exceptions. Restore one to include it in later checks.',
         'core-diagnosis-results.restore': 'Restore',
+        'core-diagnosis-results.not_measured': 'not measured',
+        'core-diagnosis-results.ignore_action': 'Ignore this finding',
+        'core-diagnosis-results.ignore_title':
+          'Hide this exact diagnostic on future checks until the configuration is changed.',
+        'core-diagnosis-results.ignore_confirm':
+          'Ignore “{{title}}” now and on future checks?\n\nUse this only for an intentional configuration.',
+        'core-diagnosis-results.ignore_success':
+          'Ignored for future checks. The decision is in the audit log.',
       }),
       es: Object.freeze({
         'core-diagnosis-results.title': 'Qué está mal',
@@ -35,6 +43,14 @@ window.ZogographDiagnosisResultsCard = {
         'core-diagnosis-results.ignored_help':
           'Son excepciones intencionales. Restaure uno para incluirlo en comprobaciones posteriores.',
         'core-diagnosis-results.restore': 'Restaurar',
+        'core-diagnosis-results.not_measured': 'no medido',
+        'core-diagnosis-results.ignore_action': 'Ignorar este hallazgo',
+        'core-diagnosis-results.ignore_title':
+          'Oculta este diagnóstico exacto en comprobaciones futuras hasta que cambie la configuración.',
+        'core-diagnosis-results.ignore_confirm':
+          '¿Ignorar “{{title}}” ahora y en comprobaciones futuras?\n\nÚselo solo para una configuración intencional.',
+        'core-diagnosis-results.ignore_success':
+          'Se ignorará en comprobaciones futuras. La decisión queda en el registro de auditoría.',
       }),
       hi: Object.freeze({
         'core-diagnosis-results.title': 'क्या गलत है',
@@ -50,6 +66,14 @@ window.ZogographDiagnosisResultsCard = {
         'core-diagnosis-results.ignored_help':
           'ये जानबूझकर किए गए अपवाद हैं। बाद की जाँचों में शामिल करने के लिए एक को पुनर्स्थापित करें।',
         'core-diagnosis-results.restore': 'पुनर्स्थापित करें',
+        'core-diagnosis-results.not_measured': 'मापा नहीं गया',
+        'core-diagnosis-results.ignore_action': 'इस निष्कर्ष को अनदेखा करें',
+        'core-diagnosis-results.ignore_title':
+          'कॉन्फ़िगरेशन बदलने तक भविष्य की जाँचों में इस सटीक निदान को छिपाएँ।',
+        'core-diagnosis-results.ignore_confirm':
+          '“{{title}}” को अभी और भविष्य की जाँचों में अनदेखा करें?\n\nइसे केवल जानबूझकर की गई कॉन्फ़िगरेशन के लिए उपयोग करें।',
+        'core-diagnosis-results.ignore_success':
+          'भविष्य की जाँचों के लिए अनदेखा किया गया। निर्णय ऑडिट लॉग में है।',
       }),
       ar: Object.freeze({
         'core-diagnosis-results.title': 'ما الخطأ',
@@ -65,6 +89,14 @@ window.ZogographDiagnosisResultsCard = {
         'core-diagnosis-results.ignored_help':
           'هذه استثناءات مقصودة. استعد واحدة لإدراجها في الفحوصات اللاحقة.',
         'core-diagnosis-results.restore': 'استعادة',
+        'core-diagnosis-results.not_measured': 'غير مقاس',
+        'core-diagnosis-results.ignore_action': 'تجاهل هذه النتيجة',
+        'core-diagnosis-results.ignore_title':
+          'إخفاء هذا التشخيص الدقيق في الفحوصات القادمة إلى أن يتغير الإعداد.',
+        'core-diagnosis-results.ignore_confirm':
+          'هل تريد تجاهل “{{title}}” الآن وفي الفحوصات القادمة؟\n\nاستخدم ذلك فقط لإعداد مقصود.',
+        'core-diagnosis-results.ignore_success':
+          'سيتجاهل هذا في الفحوصات القادمة. القرار موجود في سجل التدقيق.',
       }),
       zh: Object.freeze({
         'core-diagnosis-results.title': '出了什么问题',
@@ -80,14 +112,24 @@ window.ZogographDiagnosisResultsCard = {
         'core-diagnosis-results.ignored_help':
           '这些是有意设定的例外。恢复其中一项即可将其纳入后续检查。',
         'core-diagnosis-results.restore': '恢复',
+        'core-diagnosis-results.not_measured': '未测量',
+        'core-diagnosis-results.ignore_action': '忽略此发现',
+        'core-diagnosis-results.ignore_title':
+          '在配置更改前的后续检查中隐藏这一确切诊断。',
+        'core-diagnosis-results.ignore_confirm':
+          '现在以及在后续检查中忽略“{{title}}”？\n\n仅对有意作出的配置使用此操作。',
+        'core-diagnosis-results.ignore_success':
+          '后续检查将忽略此项。该决定已记录在审计日志中。',
       }),
     }),
   }),
 
-  text(key, helpers) {
+  text(key, valuesOrHelpers = {}, maybeHelpers = null) {
+    const helpers = maybeHelpers || valuesOrHelpers;
+    const values = maybeHelpers ? valuesOrHelpers : {};
     return helpers.i18n.t(
       `core-diagnosis-results.${key}`,
-      {},
+      values,
       this.manifest.catalogs.en[`core-diagnosis-results.${key}`],
     );
   },

@@ -31187,6 +31187,10 @@ function inspectHistory(data) {
  * get right once and easy to let drift in a second copy.
  */
 function findingRow(f) {
+  const diagnosisText = (key, values = {}) =>
+    ZogographDiagnosisResultsCard.text(key, values, {
+      i18n: ZogographI18n,
+    });
   const row = document.createElement('div');
   row.className = 'finding finding-' + f.level;
 
@@ -31198,9 +31202,7 @@ function findingRow(f) {
     'finding-level band-' +
     (f.level === 'critical' ? 'crit' : f.level === 'warning' ? 'warn' : 'ok');
   level.textContent =
-    f.level === 'unknown'
-      ? ZogographI18n.t('diagnosis.not_measured', {}, 'not measured')
-      : f.level;
+    f.level === 'unknown' ? diagnosisText('not_measured') : f.level;
   head.appendChild(level);
 
   const title = document.createElement('strong');
@@ -31230,39 +31232,20 @@ function findingRow(f) {
   if (state.access?.write && f.key) {
     const ignore = document.createElement('button');
     ignore.className = 'link muted';
-    ignore.textContent = ZogographI18n.t(
-      'diagnosis.ignore_action',
-      {},
-      'Ignore this finding',
-    );
-    ignore.title = ZogographI18n.t(
-      'diagnosis.ignore_title',
-      {},
-      'Hide this exact diagnostic on future checks until the configuration is changed.',
-    );
+    ignore.textContent = diagnosisText('ignore_action');
+    ignore.title = diagnosisText('ignore_title');
     ignore.addEventListener('click', async () => {
       if (
         !(await confirmDialog(
-          ZogographI18n.t(
-            'diagnosis.ignore_confirm',
-            { title: f.title },
-            'Ignore “{{title}}” now and on future checks?\n\nUse this only for an intentional configuration.',
-          ),
-          ZogographI18n.t('diagnosis.ignore_action', {}, 'Ignore this finding'),
+          diagnosisText('ignore_confirm', { title: f.title }),
+          diagnosisText('ignore_action'),
         ))
       )
         return;
       try {
         await post('diagnosis-ignore', { key: f.key });
         await refreshDiagnosis();
-        notice(
-          ZogographI18n.t(
-            'diagnosis.ignore_success',
-            {},
-            'Ignored for future checks. The decision is in the audit log.',
-          ),
-          true,
-        );
+        notice(diagnosisText('ignore_success'), true);
       } catch (error) {
         notice(String(error.message || error));
       }

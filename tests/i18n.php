@@ -2015,6 +2015,17 @@ i18nExpect(
     'host slab-cache labels do not belong to their core package',
 );
 i18nExpect(
+    !isset(
+        $english['storage.files_right'],
+        $english['storage.history_one_scan'],
+    ) &&
+        isset(
+            $coreCardEnglish['core-storage-history.files'],
+            $coreCardEnglish['core-storage-history.one_scan'],
+        ),
+    'storage-history labels do not belong to their core package',
+);
+i18nExpect(
     $page !== false &&
         str_contains($page, 'src="cards/action-summary.js"') &&
         $actionSummaryCard !== false &&

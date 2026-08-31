@@ -18,6 +18,8 @@ window.ZogographCalendarEventListCard = {
     catalogs: Object.freeze({
       en: Object.freeze({
         'core-calendar-event-list.title': 'Dates you keep',
+        'core-calendar-event-list.help':
+          'Marked {{important}} means it appears on the dashboard and in the alert emails as it approaches, until you mark it dealt with. Marking it dealt with is reversible — it is a claim somebody makes, and sometimes makes wrongly.',
         'core-calendar-event-list.empty':
           'Nothing kept yet. Renewals, invoices, certificate purchases — anything with a date that this machine could not work out for itself.',
         'core-calendar-event-list.what': 'What',
@@ -35,6 +37,8 @@ window.ZogographCalendarEventListCard = {
       }),
       es: Object.freeze({
         'core-calendar-event-list.title': 'Fechas que conserva',
+        'core-calendar-event-list.help':
+          'Marcado como {{important}} significa que aparece en el tablero y en los correos de alerta a medida que se acerca, hasta que lo marque como resuelto. Marcarlo como resuelto es reversible: es una afirmación que alguien hace, y a veces hace erróneamente.',
         'core-calendar-event-list.empty':
           'Aún no hay nada guardado. Renovaciones, facturas, compras de certificados: cualquier cosa con una fecha que esta máquina no pueda calcular por sí misma.',
         'core-calendar-event-list.what': 'Qué',
@@ -52,6 +56,8 @@ window.ZogographCalendarEventListCard = {
       }),
       hi: Object.freeze({
         'core-calendar-event-list.title': 'वे तारीखें जिन्हें आप रखते हैं',
+        'core-calendar-event-list.help':
+          '{{important}} चिह्नित होने का अर्थ है कि वह नज़दीक आने पर डैशबोर्ड और अलर्ट ईमेल में दिखाई देगा, जब तक आप उसे निपटा हुआ चिह्नित नहीं करते। उसे निपटा हुआ चिह्नित करना पलटा जा सकता है — यह किसी का दावा है, जो कभी गलत भी हो सकता है।',
         'core-calendar-event-list.empty':
           'अभी कुछ रखा नहीं गया है। नवीनीकरण, इनवॉइस, प्रमाणपत्र खरीद — तारीख वाली कोई भी चीज़ जिसे यह मशीन स्वयं नहीं निकाल सकती।',
         'core-calendar-event-list.what': 'क्या',
@@ -69,6 +75,8 @@ window.ZogographCalendarEventListCard = {
       }),
       ar: Object.freeze({
         'core-calendar-event-list.title': 'التواريخ التي تحتفظ بها',
+        'core-calendar-event-list.help':
+          'تعني علامة {{important}} أنه سيظهر في لوحة المعلومات ورسائل التنبيه عند اقترابه، إلى أن تضع علامة تمت معالجته. يمكن التراجع عن وضع العلامة؛ فهي ادعاء يقدمه شخص وقد يكون خاطئًا أحيانًا.',
         'core-calendar-event-list.empty':
           'لا توجد عناصر محفوظة بعد. التجديدات والفواتير وشراء الشهادات — أي شيء له تاريخ لا تستطيع هذه الآلة حسابه بنفسها.',
         'core-calendar-event-list.what': 'ما هو',
@@ -86,6 +94,8 @@ window.ZogographCalendarEventListCard = {
       }),
       zh: Object.freeze({
         'core-calendar-event-list.title': '您保留的日期',
+        'core-calendar-event-list.help':
+          '标记为 {{important}} 表示它会在临近时显示在仪表板和警报邮件中，直到您将其标记为已处理。标记为已处理可随时撤销——这是某人作出的判断，也可能判断错误。',
         'core-calendar-event-list.empty':
           '尚未记录任何事项。续订、账单、证书购买——任何这台机器无法自行推算日期的事项。',
         'core-calendar-event-list.what': '事项',

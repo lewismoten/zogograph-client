@@ -2582,7 +2582,6 @@
   "auth.password_label": "密码",
   "auth.verification_code": "验证码",
   "auth.verification_optional": "（启用时）",
-  "calendar.saved_dates_help": "标记为 {{important}} 表示它会在临近时显示在仪表板和警报邮件中，直到您将其标记为已处理。标记为已处理可随时撤销——这是某人作出的判断，也可能判断错误。",
   "audit.download_csv_title": "将完整审计历史下载为 CSV 文件",
   "audit.clear_title": "删除较早的审计记录并保留本次重置的记录",
   "host.open_setup": "打开主机设置",

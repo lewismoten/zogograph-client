@@ -3179,6 +3179,9 @@ function renderCalendarEventListTitle() {
     'core-calendar-event-list.title',
     ZogographCalendarEventListCard.text('title', helpers),
   );
+  ZogographI18n.applyRich(
+    document.querySelector('[data-i18n-rich="core-calendar-event-list.help"]'),
+  );
 }
 
 document.addEventListener('zogograph-i18n-load', renderCalendarEventListTitle);

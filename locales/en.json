@@ -2600,7 +2600,6 @@
   "auth.password_label": "Password",
   "auth.verification_code": "Verification code",
   "auth.verification_optional": "(if enabled)",
-  "calendar.saved_dates_help": "Marked {{important}} means it appears on the dashboard and in the alert emails as it approaches, until you mark it dealt with. Marking it dealt with is reversible — it is a claim somebody makes, and sometimes makes wrongly.",
   "audit.download_csv_title": "Download the full audit history as a CSV file",
   "audit.clear_title": "Remove earlier audit entries and retain a record of this reset",
   "host.open_setup": "Open Host setup",

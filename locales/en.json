@@ -691,7 +691,6 @@
   "encryption.status_unavailable": "status unavailable",
   "encryption.setup_configuration_status": "Setup configuration: {{detail}}",
   "encryption.live_sqlcipher_status": "Live SQLCipher option: {{detail}}",
-  "ai.settings.not_ready": "Not ready: {{reason}}",
   "network.nothing_recorded": "Nothing recorded.",
   "scan.host_collector_disabled": "The host collector is not enabled, so none of these run. ",
   "scan.dashboard_browsing": "Somebody has the dashboard open right now (last seen {{when}}), so anything set to speed up while browsing is currently on its shorter interval.",

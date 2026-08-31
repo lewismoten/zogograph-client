@@ -638,7 +638,6 @@
   "encryption.status_unavailable": "स्थिति उपलब्ध नहीं है",
   "encryption.setup_configuration_status": "सेटअप कॉन्फ़िगरेशन: {{detail}}",
   "encryption.live_sqlcipher_status": "लाइव SQLCipher विकल्प: {{detail}}",
-  "ai.settings.not_ready": "तैयार नहीं: {{reason}}",
   "network.nothing_recorded": "कुछ भी दर्ज नहीं है।",
   "scan.host_collector_disabled": "होस्ट कलेक्टर सक्षम नहीं है, इसलिए इनमें से कोई भी नहीं चलता। ",
   "scan.dashboard_browsing": "अभी किसी ने डैशबोर्ड खोला हुआ है (अंतिम बार {{when}} देखा गया), इसलिए ब्राउज़ करते समय तेज़ होने के लिए सेट हर चीज़ इस समय अपने छोटे अंतराल पर है।",

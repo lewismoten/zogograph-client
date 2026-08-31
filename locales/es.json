@@ -638,7 +638,6 @@
   "encryption.status_unavailable": "estado no disponible",
   "encryption.setup_configuration_status": "Configuración de instalación: {{detail}}",
   "encryption.live_sqlcipher_status": "Opción SQLCipher activa: {{detail}}",
-  "ai.settings.not_ready": "No está listo: {{reason}}",
   "network.nothing_recorded": "No hay nada registrado.",
   "scan.host_collector_disabled": "El recopilador del host no está activado, así que ninguna de estas tareas se ejecuta. ",
   "scan.dashboard_browsing": "Alguien tiene abierto el panel ahora mismo (visto por última vez {{when}}), así que todo lo configurado para acelerarse al navegar usa actualmente su intervalo más corto.",

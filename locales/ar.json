@@ -636,7 +636,6 @@
   "encryption.status_unavailable": "الحالة غير متاحة",
   "encryption.setup_configuration_status": "إعداد التكوين: {{detail}}",
   "encryption.live_sqlcipher_status": "خيار SQLCipher المباشر: {{detail}}",
-  "ai.settings.not_ready": "غير جاهز: {{reason}}",
   "network.nothing_recorded": "لم يُسجل شيء.",
   "scan.host_collector_disabled": "جامع المضيف غير مفعّل، لذا لا يعمل أي من هذه. ",
   "scan.dashboard_browsing": "هناك من فتح لوحة المعلومات الآن (شوهد آخر مرة {{when}})، لذا فإن كل ما يسرع أثناء التصفح يعمل حاليًا بفاصل أقصر.",

@@ -358,6 +358,7 @@ i18nExpect(
         $english['ai.save_all_pages'],
         $english['ai.settings.config_read_only'],
         $english['ai.settings.role_read_only'],
+        $english['ai.settings.not_ready'],
         $english['ai.save_assistant_pages'],
         $english['ai.clear_portrait'],
         $english['ai.portrait_cleared'],

@@ -652,6 +652,14 @@ foreach (glob($root . '/cards/*.js') ?: [] as $cardFile) {
     }
 }
 i18nExpect(
+    $script !== false &&
+        str_contains(
+            $script,
+            'typeof prefix === \'string\' && /^[a-z][\\w-]*\\.$/i.test(prefix)',
+        ),
+    'core card package localization namespaces are rejected by the browser manifest validator',
+);
+i18nExpect(
     $runtime !== false &&
         str_contains($runtime, 'Intl.NumberFormat') &&
         str_contains($runtime, 'I18N_RTL') &&

@@ -1817,8 +1817,7 @@ function renderCoreCardPackage(cardPackage, id, input, helpers) {
     !Array.isArray(manifest.locales) ||
     manifest.locales.length === 0 ||
     !manifest.locales.every(
-      (prefix) =>
-        typeof prefix === 'string' && /^[a-z][\\w-]*\.$/i.test(prefix),
+      (prefix) => typeof prefix === 'string' && /^[a-z][\w-]*\.$/i.test(prefix),
     ) ||
     !Array.isArray(manifest.helpers) ||
     !manifest.helpers.every(

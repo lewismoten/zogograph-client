@@ -2446,20 +2446,16 @@ function renderCpuLimitLabels() {
     i18n: ZogographI18n,
   };
   renderCoreCardPackage(ZogographCpuLimitsCard, 'core-cpu-limits', {}, helpers);
-  const title = document.querySelector('[data-i18n="core-cpu-limits.title"]');
-  title.textContent = ZogographI18n.markSource(
-    title,
-    'core-cpu-limits.title',
-    ZogographCpuLimitsCard.text('title', helpers),
-  );
-  const pageTitle = document.querySelector(
-    '[data-i18n="core-cpu-limits.page_title"]',
-  );
-  pageTitle.textContent = ZogographI18n.markSource(
-    pageTitle,
-    'core-cpu-limits.page_title',
-    ZogographCpuLimitsCard.text('page_title', helpers),
-  );
+  document
+    .querySelectorAll('[data-i18n^="core-cpu-limits."]')
+    .forEach((node) => {
+      const key = node.dataset.i18n.replace('core-cpu-limits.', '');
+      node.textContent = ZogographI18n.markSource(
+        node,
+        `core-cpu-limits.${key}`,
+        ZogographCpuLimitsCard.text(key, helpers),
+      );
+    });
 }
 
 document.addEventListener('zogograph-i18n-load', renderCpuLimitLabels);

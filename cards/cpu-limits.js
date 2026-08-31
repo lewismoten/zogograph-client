@@ -17,6 +17,7 @@ window.ZogographCpuLimitsCard = {
       en: Object.freeze({
         'core-cpu-limits.title': 'CloudLinux limits',
         'core-cpu-limits.page_title': 'Ceilings and throttling',
+        'core-cpu-limits.lve_title': 'Where the ceiling was actually hit',
         'core-cpu-limits.faults':
           "{{faults, number}} CPU fault(s) recorded at the last reading across {{accounts, number}} account(s). A fault is an account asking for more processor than its LVE allows and being held back — this is being throttled now, not being near a limit. A throttled account's own percentage sits calmly at its ceiling, which is why the fault count is the figure to watch and not the percentage.",
         'core-cpu-limits.throttled':
@@ -35,6 +36,7 @@ window.ZogographCpuLimitsCard = {
       es: Object.freeze({
         'core-cpu-limits.title': 'Límites de CloudLinux',
         'core-cpu-limits.page_title': 'Límites y estrangulamiento',
+        'core-cpu-limits.lve_title': 'Dónde se alcanzó realmente el límite',
         'core-cpu-limits.faults':
           'Se registraron {{faults, number}} fallos de CPU en la última lectura de {{accounts, number}} cuenta(s). Un fallo indica que una cuenta pide más procesador del que permite su LVE y está siendo retenida: se está limitando ahora, no solo acercándose a un límite. El porcentaje de una cuenta limitada puede permanecer tranquilo en su tope; por eso debe vigilarse el número de fallos y no el porcentaje.',
         'core-cpu-limits.throttled':
@@ -54,6 +56,7 @@ window.ZogographCpuLimitsCard = {
       hi: Object.freeze({
         'core-cpu-limits.title': 'CloudLinux सीमाएँ',
         'core-cpu-limits.page_title': 'सीमाएँ और थ्रॉटलिंग',
+        'core-cpu-limits.lve_title': 'सीमा वास्तव में कहाँ लगी',
         'core-cpu-limits.faults':
           'अंतिम रीडिंग में {{accounts, number}} खाते में {{faults, number}} CPU दोष दर्ज हुए। दोष का अर्थ है कि कोई खाता अपने LVE की अनुमति से अधिक प्रोसेसर मांग रहा है और उसे रोका जा रहा है — यह अभी थ्रॉटलिंग है, केवल सीमा के पास होना नहीं। थ्रॉटल खाते का प्रतिशत अपनी सीमा पर शांत दिख सकता है, इसलिए प्रतिशत के बजाय दोष संख्या देखें।',
         'core-cpu-limits.throttled':
@@ -72,6 +75,7 @@ window.ZogographCpuLimitsCard = {
       ar: Object.freeze({
         'core-cpu-limits.title': 'حدود CloudLinux',
         'core-cpu-limits.page_title': 'السقوف والخنق',
+        'core-cpu-limits.lve_title': 'الموضع الذي بلغ فيه السقف فعليًا',
         'core-cpu-limits.faults':
           'سُجلت {{faults, number}} أعطال لوحدة المعالجة في آخر قراءة عبر {{accounts, number}} حسابًا. يعني العطل أن حسابًا يطلب معالجًا أكثر مما يسمح به حد LVE الخاص به ويجري تقييده الآن؛ فهذه حالة خنق فعلية وليست مجرد اقتراب من الحد. قد تبدو نسبة الحساب المخنوق ثابتة عند سقفها، لذا راقب عدد الأعطال لا النسبة المئوية.',
         'core-cpu-limits.throttled':
@@ -90,6 +94,7 @@ window.ZogographCpuLimitsCard = {
       zh: Object.freeze({
         'core-cpu-limits.title': 'CloudLinux 限制',
         'core-cpu-limits.page_title': '上限与限速',
+        'core-cpu-limits.lve_title': '实际上撞到上限的位置',
         'core-cpu-limits.faults':
           '最近一次读数中，{{accounts, number}} 个帐户共记录了 {{faults, number}} 次 CPU 故障。故障表示帐户请求的处理器超过其 LVE 允许值，正在被限制；这表示当前已受节流，而不仅是接近限制。受节流帐户自身的百分比可能平静地停在上限，因此应关注故障次数而不是百分比。',
         'core-cpu-limits.throttled':

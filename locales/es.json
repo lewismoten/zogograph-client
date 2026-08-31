@@ -2568,7 +2568,6 @@
   "database.indexes_note": "Los índices se cuentan en la tabla a la que pertenecen. En una tabla ocupada, un índice puede acercarse a la mitad del total; listarlos por separado hace que cada tabla parezca más barata de lo que es.",
   "system.peers_help": "Un servidor de confianza se configura explícitamente aquí y se comprueba mediante descubrimiento HTTPS de OpenID Connect. Guardarlo no comparte datos ni inicia sesión a nadie; esos pasos de código de autorización son deliberadamente independientes.",
   "system.marketplace_help": "Solo manifiestos de paquetes locales. Activarlos nunca ejecuta código de paquetes. Pueden autorizarse unas pocas capacidades fijas propiedad del núcleo; las capacidades solicitadas siguen visibles para su revisión.",
-  "system.encryption_title": "Protección de datos",
   "system.encryption_help": "Esta página informa evidencia de Zogograph, no suposiciones. Nunca muestra rutas ni material de claves. Cambie las opciones de protección en el asistente de configuración; la recuperación y el sellado siguen siendo solo de CLI para que una sesión de navegador no pueda manejar una clave privada.",
   "system.package_runtime_title": "Entorno de paquetes ejecutables",
   "system.package_runtime_help": "Aquí se revisan paquetes firmados antes de que cualquier entorno futuro pueda usarlos. Activarlos registra concesiones explícitas de capacidades y ajustes de paquetes privados; no ejecuta PHP de paquetes en esta versión de Zogograph.",

@@ -1083,8 +1083,9 @@ i18nExpect(
         str_contains(
             $script,
             'renderCoreCardPackage(ZogographPathHygieneCard, "core-path-hygiene",',
-        ),
-    'path hygiene panel is not isolated behind its core card-module boundary',
+        ) &&
+        !str_contains($script, 'if (window.ZogographPathHygieneCard)'),
+    'path hygiene retains a core fallback instead of its package boundary',
 );
 i18nExpect(
     $page !== false &&

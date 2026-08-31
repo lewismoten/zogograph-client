@@ -14541,119 +14541,21 @@ function visiblePathNode(path) {
 }
 
 function renderPathHygiene(data) {
-  if (window.ZogographPathHygieneCard) {
-    return renderCoreCardPackage(
-      ZogographPathHygieneCard,
-      'core-path-hygiene',
-      data,
-      {
-        target: $('pathHygieneBody'),
-        note,
-        factGrid,
-        renderTable,
-        humanTime,
-        visiblePathNode,
-        openRename: showPathHygieneRename,
-        i18n: ZogographI18n,
-      },
-    );
-  }
-  const body = $('pathHygieneBody');
-  if (!data.enabled) {
-    body.replaceChildren(
-      note(
-        ZogographI18n.t(
-          'path_hygiene.install_enable',
-          {},
-          'Install and enable Path-name hygiene in the Marketplace to use this check.',
-        ),
-      ),
-    );
-    return;
-  }
-  const last = data.last;
-  if (!last) {
-    body.replaceChildren(
-      note(
-        ZogographI18n.t(
-          'path_hygiene.no_completed_scan',
-          {},
-          'Enabled, but no completed account disk scan has recorded path names yet.',
-        ),
-      ),
-    );
-    return;
-  }
-  const parts = [
-    factGrid([
-      [
-        ZogographI18n.t('path_hygiene.last_scan', {}, 'Last scan'),
-        humanTime(last.checked_at),
-      ],
-      [ZogographI18n.t('path_hygiene.found', {}, 'Found'), String(last.total)],
-      [
-        ZogographI18n.t('path_hygiene.stored', {}, 'Stored'),
-        String(last.findings.length),
-      ],
-    ]),
-  ];
-  if (!last.findings.length)
-    parts.push(
-      note(
-        ZogographI18n.t(
-          'path_hygiene.none_found',
-          {},
-          'No shell-confusing path names were found in the latest scan.',
-        ),
-      ),
-    );
-  else {
-    const holder = document.createElement('div');
-    holder.id = 'pathHygieneTable';
-    parts.push(holder);
-    body.replaceChildren(...parts);
-    renderTable('pathHygieneTable', last.findings, [
-      {
-        label: ZogographI18n.t('path_hygiene.exact_path', {}, 'Exact path'),
-        className: 'name',
-        render: (row) => {
-          const code = document.createElement('code');
-          code.append(visiblePathNode(row.path));
-          code.title = row.path;
-          return code;
-        },
-      },
-      {
-        label: ZogographI18n.t('path_hygiene.why', {}, 'Why'),
-        render: (row) => row.reason,
-      },
-      {
-        label: '',
-        className: 'row-actions',
-        render: (row) => {
-          const wrap = document.createDocumentFragment();
-          if (!data.can_change) return wrap;
-          const rename = document.createElement('button');
-          rename.className = 'link';
-          rename.textContent = ZogographI18n.t('action.rename', {}, 'Rename');
-          rename.addEventListener('click', () => showPathHygieneRename(row));
-          wrap.appendChild(rename);
-          return wrap;
-        },
-      },
-    ]);
-    if (last.truncated)
-      parts.push(
-        note(
-          ZogographI18n.t(
-            'path_hygiene.scan_truncated',
-            {},
-            'The scan found more names than this page retains. Rename these, then run another disk scan.',
-          ),
-        ),
-      );
-  }
-  body.replaceChildren(...parts);
+  return renderCoreCardPackage(
+    ZogographPathHygieneCard,
+    'core-path-hygiene',
+    data,
+    {
+      target: $('pathHygieneBody'),
+      note,
+      factGrid,
+      renderTable,
+      humanTime,
+      visiblePathNode,
+      openRename: showPathHygieneRename,
+      i18n: ZogographI18n,
+    },
+  );
 }
 
 function showPathHygieneRename(row) {

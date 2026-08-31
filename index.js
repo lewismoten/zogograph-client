@@ -2933,6 +2933,9 @@ function renderNetworkCaptureTitle() {
     'core-network-capture.title',
     ZogographNetworkCaptureCard.text('title', helpers),
   );
+  ZogographI18n.applyRich(
+    document.querySelector('[data-i18n-rich="core-network-capture.help"]'),
+  );
 }
 
 document.addEventListener('zogograph-i18n-load', renderNetworkCaptureTitle);

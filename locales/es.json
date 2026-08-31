@@ -2361,7 +2361,6 @@
   "network.intro": "Todas las demás páginas miden algo que se está agotando — disco, memoria, CPU — y ninguna puede decir por qué. Una máquina al 100 % porque responde cuatro mil consultas DNS por segundo parece exactamente igual que una máquina al 100 % por cualquier otra razón; la diferencia solo se ve en la red.",
   "network.interfaces": "Interfaces",
   "network.ports_public_only": "Solo accesibles desde fuera",
-  "network.capture_help": "La herramienta de último recurso, tratada como tal: abre una interfaz activa como root, se ejecuta durante el tiempo indicado y es lo único que hace este recopilador que podría notarse en una máquina ocupada. Solo registra conteos y extremos: cuántos paquetes, entre qué direcciones, en qué puertos y, para DNS, los nombres consultados. Nunca se guarda el contenido de paquetes.",
   "network.dns_title": "Consultas de nombres",
   "network.dns_run_again": "Ejecutarlas de nuevo",
   "network.dns_help": "Se ejecutan al abrir esta página, no se leen de un registro: «¿funcionaba hace cinco minutos?» nunca es la pregunta. Un servidor de nombres ocupado que responde es muy distinto de uno ocupado que agota el tiempo de espera; solo al preguntarle se distinguen.",

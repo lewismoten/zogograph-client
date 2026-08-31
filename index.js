@@ -22127,12 +22127,11 @@ async function sweepLinks(pattern, confirmed = false) {
 
     if (result.deleted.length > 200) {
       parts.push(
-        note(
-          ZogographI18n.t(
-            'storage.link_sweep_showing_first',
-            { count: humanCount(result.deleted.length) },
-            `Showing the first 200 of ${humanCount(result.deleted.length)}.`,
-          ),
+        renderCoreCardPackage(
+          ZogographSymlinkSweepShowingFirstCard,
+          'core-symlink-sweep-showing-first',
+          { count: humanCount(result.deleted.length) },
+          { i18n: ZogographI18n, note },
         ),
       );
     }

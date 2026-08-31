@@ -1186,7 +1186,6 @@
   "auth.verify": "Verificar y activar el autenticador",
   "auth.start": "Crear secreto del autenticador",
   "auth.qr_alt": "Escanee este código QR con su aplicación de autenticación",
-  "image.reaction": "Una reacción",
   "image.generated": "Una imagen generada",
   "image.note_screenshot": "La captura de pantalla que se guardará con esta nota",
   "image.send_screenshot": "La captura de pantalla tal como se enviaría",

@@ -21365,7 +21365,8 @@ async function tryBrowserTool(tool, args) {
     const image = document.createElement('img');
     image.src = found.url;
     image.alt = String(
-      args.mood || ZogographI18n.t('image.reaction', {}, 'A reaction'),
+      args.mood ||
+        ZogographChatReactionCard.text('alt', { i18n: ZogographI18n }),
     );
     wrap.appendChild(image);
     if (args.why) {

@@ -1200,7 +1200,6 @@
   "auth.verify": "Verify and enable authenticator",
   "auth.start": "Create authenticator secret",
   "auth.qr_alt": "Scan this QR code with your authenticator app",
-  "image.reaction": "A reaction",
   "image.generated": "A generated picture",
   "image.note_screenshot": "The screenshot that will be saved with this note",
   "image.send_screenshot": "The screenshot as it would be sent",

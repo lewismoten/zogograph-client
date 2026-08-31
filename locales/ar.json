@@ -2285,7 +2285,6 @@
   "action.clear": "مسح",
   "terminal.locked_again": "لقد قفل نفسه مجددًا.",
   "terminal.open_for": "مفتوح لمدة {{duration}} أخرى.",
-  "log.no_matching_lines": "لا توجد أسطر مطابقة هنا.",
   "collector.settings_saved": "حُفظت. سيستخدمها تشغيل الجامع التالي.",
   "ai.unpin": "إزالة التثبيت",
   "ai.skip_question_help": "تابع دون إجابة — وهو نفس ترك الوقت ينقضي",

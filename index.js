@@ -7890,7 +7890,7 @@ async function showLog(pathId, quiet = false) {
 
   if (!shown) {
     body.textContent = state.log.needle
-      ? ZogographI18n.t('log.no_matching_lines', {}, 'No matching lines here.')
+      ? storageLogText('no_matching_lines')
       : ZogographI18n.t('table.nothing_to_show', {}, 'Nothing to show.');
   }
 

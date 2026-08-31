@@ -20,6 +20,7 @@ window.ZogographStorageLogCard = {
         'core-storage-log.search_truncated':
           'stopped searching before the start of the file — narrow the search or look at the file directly',
         'core-storage-log.beginning': 'this is the beginning of the file',
+        'core-storage-log.no_matching_lines': 'No matching lines here.',
       }),
       es: Object.freeze({
         'core-storage-log.last_line': 'Última línea',
@@ -37,6 +38,8 @@ window.ZogographStorageLogCard = {
         'core-storage-log.search_truncated':
           'la búsqueda se detuvo antes del inicio del archivo; limite la búsqueda o consulte el archivo directamente',
         'core-storage-log.beginning': 'este es el inicio del archivo',
+        'core-storage-log.no_matching_lines':
+          'No hay líneas coincidentes aquí.',
       }),
       hi: Object.freeze({
         'core-storage-log.last_line': 'अंतिम पंक्ति',
@@ -53,6 +56,8 @@ window.ZogographStorageLogCard = {
         'core-storage-log.search_truncated':
           'खोज फ़ाइल की शुरुआत तक पहुँचने से पहले रुक गई — खोज सीमित करें या फ़ाइल सीधे देखें',
         'core-storage-log.beginning': 'यह फ़ाइल की शुरुआत है',
+        'core-storage-log.no_matching_lines':
+          'यहाँ कोई मिलती हुई पंक्ति नहीं है।',
       }),
       ar: Object.freeze({
         'core-storage-log.last_line': 'آخر سطر',
@@ -69,6 +74,7 @@ window.ZogographStorageLogCard = {
         'core-storage-log.search_truncated':
           'توقف البحث قبل بداية الملف — ضيّق البحث أو اعرض الملف مباشرةً',
         'core-storage-log.beginning': 'هذه بداية الملف',
+        'core-storage-log.no_matching_lines': 'لا توجد أسطر مطابقة هنا.',
       }),
       zh: Object.freeze({
         'core-storage-log.last_line': '最后一行',
@@ -85,6 +91,7 @@ window.ZogographStorageLogCard = {
         'core-storage-log.search_truncated':
           '搜索在到达文件开头前停止——请缩小搜索范围或直接查看文件',
         'core-storage-log.beginning': '这是文件开头',
+        'core-storage-log.no_matching_lines': '这里没有匹配的行。',
       }),
     }),
   }),

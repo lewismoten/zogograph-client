@@ -2303,7 +2303,6 @@
   "action.clear": "Clear",
   "terminal.locked_again": "It has locked itself again.",
   "terminal.open_for": "Open for another {{duration}}.",
-  "log.no_matching_lines": "No matching lines here.",
   "collector.settings_saved": "Saved. The next collector run will use these.",
   "ai.unpin": "Unpin it",
   "ai.skip_question_help": "Carry on without answering — the same as letting the clock run out",

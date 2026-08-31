@@ -2288,7 +2288,6 @@
   "action.clear": "Limpiar",
   "terminal.locked_again": "Se ha bloqueado de nuevo.",
   "terminal.open_for": "Abierto durante {{duration}} más.",
-  "log.no_matching_lines": "No hay líneas coincidentes aquí.",
   "collector.settings_saved": "Guardado. La siguiente ejecución del recopilador usará estos valores.",
   "ai.unpin": "Desfijar",
   "ai.skip_question_help": "Continúa sin responder; es igual que dejar que el tiempo se agote",

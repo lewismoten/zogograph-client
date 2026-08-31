@@ -2285,7 +2285,6 @@
   "action.clear": "清除",
   "terminal.locked_again": "它已再次锁定。",
   "terminal.open_for": "还可打开 {{duration}}。",
-  "log.no_matching_lines": "这里没有匹配的行。",
   "collector.settings_saved": "已保存。下一次采集器运行将使用这些设置。",
   "ai.unpin": "取消固定",
   "ai.skip_question_help": "不回答而继续——这与让计时结束相同",

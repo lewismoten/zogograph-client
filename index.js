@@ -7114,42 +7114,12 @@ function showCompaction(message) {
 
 /** A generated picture, with what was asked for underneath it. */
 function chatPictureCard(message) {
-  const card = document.createElement('div');
-  card.className = 'chat-picture';
-
-  const image = document.createElement('img');
-  image.src = message.url;
-  image.alt = String(
-    message.arguments?.description ||
-      ZogographI18n.t('image.generated', {}, 'A generated picture'),
+  return renderCoreCardPackage(
+    ZogographChatPictureCard,
+    'core-chat-picture',
+    { message, assistant: chatState.who.name },
+    { i18n: ZogographI18n },
   );
-  image.loading = 'lazy';
-  card.appendChild(image);
-
-  const caption = document.createElement('div');
-  caption.className = 'muted small';
-  /*
-   * The prompt is shown, always.
-   *
-   * A generated image is not evidence of anything, and somebody who cannot see
-   * what was asked for has no way to tell an illustration from a hallucination
-   * with a frame around it.
-   */
-  caption.textContent = message.arguments?.portrait
-    ? aiSettingsText(
-        'picture_portrait_caption',
-        '{{name}}, as it describes itself: "{{description}}"',
-        {
-          name: chatState.who.name,
-          description: message.arguments.description,
-        },
-      )
-    : aiSettingsText('picture_caption', 'Drawn from: "{{description}}"', {
-        description: message.arguments?.description ?? '',
-      });
-  card.appendChild(caption);
-
-  return card;
 }
 
 /* ------------------------------------------------- pictures for the model -- */

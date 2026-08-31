@@ -4078,6 +4078,20 @@ i18nExpect(
     'AI tool-group labels and tab formatters are not owned by their proper packages',
 );
 i18nExpect(
+    $page !== false &&
+        str_contains($page, 'src="cards/url-monitor-methods.js"') &&
+        !isset(
+            $english['url.method'],
+            $english['url.method_help'],
+            $english['url.method_get'],
+            $english['url.method_head'],
+            $english['url.method_options'],
+        ) &&
+        $script !== false &&
+        str_contains($script, "'core-url-monitor-methods'"),
+    'URL-monitor HTTP method labels belong to their core package',
+);
+i18nExpect(
     $hostDisksCard !== false &&
         str_contains($hostDisksCard, '"host.io_rate_per_second"') &&
         $hostIoProcessesCard !== false &&

@@ -35758,25 +35758,36 @@ function openUrlForm(row = null) {
   );
 
   const method = document.createElement('select');
-  for (const [value, key, fallback] of [
-    ['GET', 'method_get', 'GET \u2014 fetch the page'],
-    ['HEAD', 'method_head', 'HEAD \u2014 headers only, no body'],
-    ['OPTIONS', 'method_options', 'OPTIONS \u2014 what the server allows'],
+  for (const [value, key] of [
+    ['GET', 'get'],
+    ['HEAD', 'head'],
+    ['OPTIONS', 'options'],
   ]) {
     const option = document.createElement('option');
     option.value = value;
-    option.textContent = ZogographI18n.t(`url.${key}`, {}, fallback);
+    option.textContent = renderCoreCardPackage(
+      window.ZogographUrlMonitorMethodsCard,
+      'core-url-monitor-methods',
+      { key },
+      { i18n: ZogographI18n },
+    );
     option.selected = (row?.method ?? 'GET') === value;
     method.appendChild(option);
   }
   field(
     'urlMethod',
-    ZogographI18n.t('url.method', {}, 'Method'),
+    renderCoreCardPackage(
+      window.ZogographUrlMonitorMethodsCard,
+      'core-url-monitor-methods',
+      { key: 'label' },
+      { i18n: ZogographI18n },
+    ),
     method,
-    ZogographI18n.t(
-      'url.method_help',
-      {},
-      'HEAD is cheaper and has no body, so it cannot be combined with a content check.',
+    renderCoreCardPackage(
+      window.ZogographUrlMonitorMethodsCard,
+      'core-url-monitor-methods',
+      { key: 'help' },
+      { i18n: ZogographI18n },
     ),
   );
 

@@ -10541,28 +10541,12 @@ function chatMessageNode(message, session) {
     );
   }
 
-  const bubble = document.createElement('div');
-  bubble.className = `chat-line chat-${message.role}`;
-
-  /*
-   * Rendered as markdown, and still never as markup.
-   *
-   * Models write markdown whether or not you ask them to, so a plain-text
-   * bubble showed literal asterisks and backticks around everything it meant
-   * to emphasise - and a command it wanted somebody to run came out
-   * indistinguishable from the prose around it.
-   *
-   * renderMarkdown builds nodes and never touches innerHTML, so the original
-   * reasoning here still holds exactly: this is text from a model, a model
-   * can be talked into producing anything, and nothing it produces becomes
-   * markup. Only elements this code decided to create exist.
-   */
-  if (message.role === 'assistant') {
-    bubble.appendChild(renderMarkdown(message.content));
-  } else {
-    bubble.textContent = message.content;
-  }
-  return bubble;
+  return renderCoreCardPackage(
+    ZogographChatMessageCard,
+    'core-chat-message',
+    message,
+    { renderMarkdown, i18n: ZogographI18n },
+  );
 }
 
 /**

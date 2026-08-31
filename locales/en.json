@@ -144,8 +144,6 @@
   "pending.past_due": "{{duration}} past due — the collector may not be running",
   "pending.ready": "{{label}} is ready.",
   "pending.new": "new",
-  "notes.audience_label": "Visible to groups",
-  "notes.audience_help": "Leave every group unticked to share with everyone who may read notes. Ticking groups limits this note and any broadcast made from it.",
   "process.ask": "Ask",
   "process.force": "Force",
   "process.ask_stop": "Ask {{count}} processes to stop",

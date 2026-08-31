@@ -144,8 +144,6 @@
   "pending.past_due": "متأخر {{duration}} — قد لا يكون المُجمّع قيد التشغيل",
   "pending.ready": "{{label}} جاهز.",
   "pending.new": "جديد",
-  "notes.audience_label": "مرئي للمجموعات",
-  "notes.audience_help": "اترك كل المجموعات دون تحديد للمشاركة مع كل من يستطيع قراءة الملاحظات. تحديد المجموعات يقيد هذه الملاحظة وأي بث صادر منها.",
   "process.ask": "اطلب",
   "process.force": "افرض الإيقاف",
   "process.ask_stop": "اطلب من {{count}} عمليات أن تتوقف",

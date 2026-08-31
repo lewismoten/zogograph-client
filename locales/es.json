@@ -144,8 +144,6 @@
   "pending.past_due": "Vencido hace {{duration}}; es posible que el recopilador no esté ejecutándose",
   "pending.ready": "{{label}} está listo.",
   "pending.new": "nuevo",
-  "notes.audience_label": "Visible para grupos",
-  "notes.audience_help": "Deje todos los grupos sin marcar para compartir con cualquiera que pueda leer notas. Marcar grupos limita esta nota y cualquier difusión hecha desde ella.",
   "process.ask": "Pedir",
   "process.force": "Forzar",
   "process.ask_stop": "Pedir detener {{count}} procesos",

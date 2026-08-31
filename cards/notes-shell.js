@@ -45,6 +45,9 @@ window.ZogographNotesShellCard = {
         'core-notes-shell.broadcast_label': 'Tell everyone',
         'core-notes-shell.broadcast_help':
           'Shows this at the top of every page for anyone who opens the dashboard, until somebody clears it.',
+        'core-notes-shell.audience_label': 'Visible to groups',
+        'core-notes-shell.audience_help':
+          'Leave every group unticked to share with everyone who may read notes. Ticking groups limits this note and any broadcast made from it.',
       }),
       es: Object.freeze({
         'core-notes-shell.title': 'Notas',
@@ -87,6 +90,9 @@ window.ZogographNotesShellCard = {
         'core-notes-shell.broadcast_label': 'Avisar a todos',
         'core-notes-shell.broadcast_help':
           'Muestra esto al principio de cada página para cualquiera que abra el panel, hasta que alguien lo borre.',
+        'core-notes-shell.audience_label': 'Visible para grupos',
+        'core-notes-shell.audience_help':
+          'Deje todos los grupos sin marcar para compartir con cualquiera que pueda leer notas. Marcar grupos limita esta nota y cualquier difusión hecha desde ella.',
       }),
       hi: Object.freeze({
         'core-notes-shell.title': 'नोट्स',
@@ -129,6 +135,9 @@ window.ZogographNotesShellCard = {
         'core-notes-shell.broadcast_label': 'सभी को बताएँ',
         'core-notes-shell.broadcast_help':
           'इसे डैशबोर्ड खोलने वाले हर व्यक्ति के लिए हर पृष्ठ के शीर्ष पर दिखाता है, जब तक कोई इसे साफ़ नहीं करता।',
+        'core-notes-shell.audience_label': 'समूहों को दिखाई दे',
+        'core-notes-shell.audience_help':
+          'नोट पढ़ सकने वाले सभी लोगों से साझा करने के लिए हर समूह को अनचेक छोड़ें। समूह चुनने से यह नोट और इससे बना कोई भी प्रसारण सीमित हो जाता है।',
       }),
       ar: Object.freeze({
         'core-notes-shell.title': 'الملاحظات',
@@ -170,6 +179,9 @@ window.ZogographNotesShellCard = {
         'core-notes-shell.broadcast_label': 'أخبر الجميع',
         'core-notes-shell.broadcast_help':
           'يعرض هذا أعلى كل صفحة لكل من يفتح لوحة المعلومات، حتى يمسحه شخص ما.',
+        'core-notes-shell.audience_label': 'مرئي للمجموعات',
+        'core-notes-shell.audience_help':
+          'اترك كل المجموعات دون تحديد للمشاركة مع كل من يستطيع قراءة الملاحظات. تحديد المجموعات يقيد هذه الملاحظة وأي بث صادر منها.',
       }),
       zh: Object.freeze({
         'core-notes-shell.title': '备注',
@@ -210,6 +222,9 @@ window.ZogographNotesShellCard = {
         'core-notes-shell.broadcast_label': '通知所有人',
         'core-notes-shell.broadcast_help':
           '这会显示在每个打开仪表板的人的每个页面顶部，直到有人将其清除。',
+        'core-notes-shell.audience_label': '对群组可见',
+        'core-notes-shell.audience_help':
+          '不选择任何群组即可与所有能阅读注释的人共享。选择群组会限制此注释以及由它创建的任何广播。',
       }),
     }),
   }),

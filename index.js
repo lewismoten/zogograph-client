@@ -14077,13 +14077,9 @@ async function showNoteDialog(preset = {}) {
   );
   parts.push(
     fieldRow(
-      ZogographI18n.t('notes.audience_label', {}, 'Visible to groups'),
+      notesShellText('audience_label'),
       audience.node,
-      ZogographI18n.t(
-        'notes.audience_help',
-        {},
-        'Leave every group unticked to share with everyone who may read notes. Ticking one or more groups limits both this note and any broadcast made from it.',
-      ),
+      notesShellText('audience_help'),
     ),
   );
 

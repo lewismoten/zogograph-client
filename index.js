@@ -2731,6 +2731,24 @@ function renderHostDiskShellLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderHostDiskShellLabels);
 
+function renderHostDiskGapLabels() {
+  renderCoreCardPackage(
+    ZogographHostDiskGapCard,
+    'core-host-disk-gap',
+    { gap: null },
+    {
+      target: null,
+      section: () => null,
+      factGrid: () => null,
+      note: () => null,
+      humanBytes: () => '',
+      i18n: ZogographI18n,
+    },
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderHostDiskGapLabels);
+
 function renderHostDirectoriesLabels() {
   const helpers = {
     target: null,
@@ -26351,58 +26369,19 @@ async function refreshHostDisk() {
    * for" is a fact somebody can chase, and it is the whole reason this panel
    * exists.
    */
-  const gap = data.unaccounted;
-  if (gap) {
-    const facts = [
-      [
-        ZogographI18n.t(
-          'host.gap_mount_used',
-          { mount: gap.mount },
-          '{{mount}} says used',
-        ),
-        humanBytes(gap.used_bytes),
-      ],
-      [
-        ZogographI18n.t('host.gap_found_by_walking', {}, 'Found by walking'),
-        humanBytes(gap.found_bytes) +
-          (gap.complete
-            ? ''
-            : ZogographI18n.t(
-                'host.gap_walk_stopped_early',
-                {},
-                ' (walk stopped early)',
-              )),
-      ],
-    ];
-    if (gap.deleted_bytes > 0) {
-      facts.push([
-        ZogographI18n.t('host.gap_deleted_open', {}, 'Deleted but still open'),
-        humanBytes(gap.deleted_bytes),
-      ]);
-    }
-    facts.push([
-      ZogographI18n.t('host.gap_unaccounted', {}, 'Still unaccounted for'),
-      humanBytes(gap.missing_bytes),
-    ]);
-    body.appendChild(
-      section(
-        ZogographI18n.t('host.gap_title', {}, 'The gap'),
-        factGrid(facts),
-      ),
-    );
-
-    if (!gap.complete) {
-      body.appendChild(
-        note(
-          ZogographI18n.t(
-            'host.gap_incomplete_help',
-            {},
-            'The walk ran out of time, so “found” is a lower bound and the gap is an upper one. Raise host.walk_seconds and run it again before chasing the difference.',
-          ),
-        ),
-      );
-    }
-  }
+  renderCoreCardPackage(
+    ZogographHostDiskGapCard,
+    'core-host-disk-gap',
+    { gap: data.unaccounted },
+    {
+      target: body,
+      section,
+      factGrid,
+      note,
+      humanBytes,
+      i18n: ZogographI18n,
+    },
+  );
 
   if (data.mounts.length) {
     const wrap = document.createElement('div');

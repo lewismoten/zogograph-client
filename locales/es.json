@@ -2368,7 +2368,6 @@
   "network.dns_run_again": "Ejecutarlas de nuevo",
   "network.dns_help": "Se ejecutan al abrir esta página, no se leen de un registro: «¿funcionaba hace cinco minutos?» nunca es la pregunta. Un servidor de nombres ocupado que responde es muy distinto de uno ocupado que agota el tiempo de espera; solo al preguntarle se distinguen.",
   "network.dns_lookup": "Buscar",
-  "network.capture_history_title": "Qué había en la red",
   "network.capture_history_help": "Todas las capturas realizadas. Un informe responde «qué ocurre ahora»; dos separados por una hora responden «¿está empeorando?», que suele ser la verdadera pregunta. Se muestran tasas en vez de totales porque dos muestras de distinta duración no se pueden comparar de otro modo.",
   "network.url_checks_title": "¿Responde el sitio?",
   "network.url_add_check": "Añadir una comprobación",

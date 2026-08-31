@@ -2365,7 +2365,6 @@
   "network.dns_run_again": "再次运行",
   "network.dns_help": "打开本页时会立即运行，而不是读取历史记录——“它五分钟前是否可用？”从来不是问题。繁忙但仍在响应的名称服务器，与繁忙且超时的名称服务器完全不同；只有实际查询才能分辨二者。",
   "network.dns_lookup": "查询",
-  "network.capture_history_title": "线路上曾有什么",
   "network.capture_history_help": "已进行的每一次捕获。一份报告回答“现在发生了什么”；相隔一小时的两份报告回答“情况是否在恶化”，这通常才是真正的问题。显示的是速率而非总量，因为不同持续时间的两个样本无法以其他方式比较。",
   "network.url_checks_title": "网站有响应吗？",
   "network.url_add_check": "添加检查",

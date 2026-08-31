@@ -2912,6 +2912,39 @@ function renderNetworkCaptureTitle() {
 
 document.addEventListener('zogograph-i18n-load', renderNetworkCaptureTitle);
 
+function renderNetworkCaptureHistoryTitle() {
+  const helpers = {
+    target: null,
+    note: () => null,
+    renderTable: () => null,
+    whenSpan: () => null,
+    humanCount: () => '',
+    humanBytes: () => '',
+    open: () => null,
+    renderCapture: () => null,
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(
+    ZogographNetworkCaptureHistoryCard,
+    'core-network-capture-history',
+    {},
+    helpers,
+  );
+  const title = document.querySelector(
+    '[data-i18n="core-network-capture-history.title"]',
+  );
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-network-capture-history.title',
+    ZogographNetworkCaptureHistoryCard.text('title', helpers),
+  );
+}
+
+document.addEventListener(
+  'zogograph-i18n-load',
+  renderNetworkCaptureHistoryTitle,
+);
+
 /**
  * When the disk is projected to fill, as a date.
  *

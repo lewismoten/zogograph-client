@@ -2383,7 +2383,6 @@
   "network.dns_run_again": "Run them again",
   "network.dns_help": "Run when you open this page rather than read from a record — ‘was it working five minutes ago’ is never the question. A nameserver that is busy and answering is a completely different situation from one that is busy and timing out, and only asking it can tell them apart.",
   "network.dns_lookup": "Look it up",
-  "network.capture_history_title": "What was on the wire",
   "network.capture_history_help": "Every capture that has been taken. One report answers ‘what is happening now’; two an hour apart answer ‘is this getting worse’, which is usually the real question. Rates are shown rather than totals, because two samples of different lengths cannot be compared any other way.",
   "network.url_checks_title": "Is the site answering?",
   "network.url_add_check": "Add a check",

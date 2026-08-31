@@ -16,6 +16,7 @@ window.ZogographNetworkCaptureHistoryCard = {
     ],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-network-capture-history.title': 'What was on the wire',
         'core-network-capture-history.empty':
           'No captures have been taken yet. Ask for one on What is on the wire.',
         'core-network-capture-history.taken': 'Taken',
@@ -31,6 +32,7 @@ window.ZogographNetworkCaptureHistoryCard = {
         'core-network-capture-history.open': 'Open',
       }),
       es: Object.freeze({
+        'core-network-capture-history.title': 'Qué había en la red',
         'core-network-capture-history.empty':
           'Aún no se han tomado capturas. Solicite una en Qué hay en el cable.',
         'core-network-capture-history.taken': 'Tomada',
@@ -46,6 +48,7 @@ window.ZogographNetworkCaptureHistoryCard = {
         'core-network-capture-history.open': 'Abrir',
       }),
       hi: Object.freeze({
+        'core-network-capture-history.title': 'नेटवर्क पर क्या था',
         'core-network-capture-history.empty':
           'अभी तक कोई कैप्चर नहीं लिया गया है। वायर पर क्या है में एक के लिए कहें।',
         'core-network-capture-history.taken': 'लिया गया',
@@ -61,6 +64,7 @@ window.ZogographNetworkCaptureHistoryCard = {
         'core-network-capture-history.open': 'खोलें',
       }),
       ar: Object.freeze({
+        'core-network-capture-history.title': 'ما الذي كان على الشبكة',
         'core-network-capture-history.empty':
           'لم تؤخذ لقطات بعد. اطلب واحدة من قسم ما الموجود على الشبكة.',
         'core-network-capture-history.taken': 'أُخذت',
@@ -76,6 +80,7 @@ window.ZogographNetworkCaptureHistoryCard = {
         'core-network-capture-history.open': 'فتح',
       }),
       zh: Object.freeze({
+        'core-network-capture-history.title': '线路上曾有什么',
         'core-network-capture-history.empty':
           '尚未进行抓取。请在“线路上有什么”中请求一次抓取。',
         'core-network-capture-history.taken': '采集时间',
@@ -92,6 +97,14 @@ window.ZogographNetworkCaptureHistoryCard = {
       }),
     }),
   }),
+
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-network-capture-history.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-network-capture-history.${key}`],
+    );
+  },
 
   render(data, helpers) {
     const {

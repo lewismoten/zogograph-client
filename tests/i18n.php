@@ -1144,8 +1144,9 @@ i18nExpect(
         str_contains(
             $script,
             'renderCoreCardPackage(ZogographNetworkRdnsCard, "core-network-rdns",',
-        ),
-    'network reverse-DNS panel is not isolated behind its core card-module boundary',
+        ) &&
+        !str_contains($script, 'if (window.ZogographNetworkRdnsCard)'),
+    'network reverse-DNS panel retains a core fallback instead of its package boundary',
 );
 i18nExpect(
     $runtime !== false &&
@@ -1156,8 +1157,8 @@ i18nExpect(
 );
 i18nExpect(
     !isset($english['action.ask_again']) &&
-        $script !== false &&
-        str_contains($script, "ZogographNetworkRdnsCard.text('ask_again'"),
+        $networkRdnsCard !== false &&
+        str_contains($networkRdnsCard, '"core-network-rdns.ask_again"'),
     'reverse-DNS retry action belongs to its core package',
 );
 i18nExpect(

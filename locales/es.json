@@ -2643,7 +2643,6 @@
   "terminal.show_output": "Mostrar lo que imprimió cada uno",
   "terminal.give_topic": "Darle un tema",
   "ai.reclaim_space": "Recuperar espacio vacío",
-  "storage.account_title": "Base de datos de la cuenta",
   "storage.safe_export": "Descargar exportación segura",
   "storage.integrity_check": "Ejecutar comprobación de integridad completa",
   "storage.rollup_now": "Consolidar lecturas antiguas ahora",

@@ -2658,7 +2658,6 @@
   "terminal.show_output": "Show what each one printed",
   "terminal.give_topic": "Give it a topic",
   "ai.reclaim_space": "Reclaim empty space",
-  "storage.account_title": "The account’s database",
   "storage.safe_export": "Download safe export",
   "storage.integrity_check": "Run full integrity check",
   "storage.rollup_now": "Roll up old readings now",

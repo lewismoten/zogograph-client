@@ -81,6 +81,13 @@ window.ZogographAccountDatabaseStorageCard = {
     }),
   }),
 
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-account-database-storage.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-account-database-storage.${key}`],
+    );
+  },
   render(data, helpers) {
     const {
       target,

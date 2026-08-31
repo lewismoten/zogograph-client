@@ -2640,7 +2640,6 @@
   "terminal.show_output": "显示每条命令的输出",
   "terminal.give_topic": "添加主题",
   "ai.reclaim_space": "回收空闲空间",
-  "storage.account_title": "账户的数据库",
   "storage.safe_export": "下载安全导出",
   "storage.integrity_check": "运行完整完整性检查",
   "storage.rollup_now": "立即汇总旧读数",

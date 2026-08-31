@@ -2640,7 +2640,6 @@
   "terminal.show_output": "اعرض ما طبعه كل واحد",
   "terminal.give_topic": "أعطها موضوعًا",
   "ai.reclaim_space": "استعد المساحة الفارغة",
-  "storage.account_title": "قاعدة بيانات الحساب",
   "storage.safe_export": "نزّل تصديرًا آمنًا",
   "storage.integrity_check": "شغّل فحص سلامة كاملًا",
   "storage.rollup_now": "جمّع القراءات القديمة الآن",

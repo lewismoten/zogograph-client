@@ -2655,6 +2655,40 @@ function renderCagefsShellLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderCagefsShellLabels);
 
+function renderAccountDatabaseStorageLabels() {
+  const helpers = {
+    target: null,
+    note: () => null,
+    section: () => null,
+    databaseStorageCard: () => null,
+    simpleTable: () => null,
+    databaseTableName: () => '',
+    tableFactsFor: () => [],
+    humanCount: () => '',
+    humanBytes: () => '',
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(
+    ZogographAccountDatabaseStorageCard,
+    'core-account-database-storage',
+    {},
+    helpers,
+  );
+  const title = document.querySelector(
+    '[data-i18n="core-account-database-storage.title"]',
+  );
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-account-database-storage.title',
+    ZogographAccountDatabaseStorageCard.text('title', helpers),
+  );
+}
+
+document.addEventListener(
+  'zogograph-i18n-load',
+  renderAccountDatabaseStorageLabels,
+);
+
 /**
  * When the disk is projected to fill, as a date.
  *

@@ -13,6 +13,7 @@ window.ZogographUptimeCard = {
     ],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-uptime.title': 'Uptime and outages',
         'core-uptime.no_boot_time': 'no boot time recorded yet',
         'core-uptime.since': 'since {{time}}',
         'core-uptime.measured_window_up':
@@ -27,6 +28,7 @@ window.ZogographUptimeCard = {
         'core-uptime.no_readings_window': 'No readings in this window.',
       }),
       es: Object.freeze({
+        'core-uptime.title': 'Tiempo de actividad e interrupciones',
         'core-uptime.no_boot_time': 'aún no se registró la hora de arranque',
         'core-uptime.since': 'desde {{time}}',
         'core-uptime.measured_window_up':
@@ -40,6 +42,7 @@ window.ZogographUptimeCard = {
         'core-uptime.no_readings_window': 'No hay lecturas en esta ventana.',
       }),
       hi: Object.freeze({
+        'core-uptime.title': 'अपटाइम और आउटेज',
         'core-uptime.no_boot_time': 'अभी कोई बूट समय दर्ज नहीं है',
         'core-uptime.since': '{{time}} से',
         'core-uptime.measured_window_up': 'मापी गई अवधि का {{percent}}% चालू',
@@ -52,6 +55,7 @@ window.ZogographUptimeCard = {
         'core-uptime.no_readings_window': 'इस अवधि में कोई रीडिंग नहीं है।',
       }),
       ar: Object.freeze({
+        'core-uptime.title': 'مدة التشغيل والانقطاعات',
         'core-uptime.no_boot_time': 'لم يُسجل وقت إقلاع بعد',
         'core-uptime.since': 'منذ {{time}}',
         'core-uptime.measured_window_up':
@@ -65,6 +69,7 @@ window.ZogographUptimeCard = {
         'core-uptime.no_readings_window': 'لا توجد قراءات في هذه النافذة.',
       }),
       zh: Object.freeze({
+        'core-uptime.title': '运行时间与中断',
         'core-uptime.no_boot_time': '尚未记录启动时间',
         'core-uptime.since': '自 {{time}} 起',
         'core-uptime.measured_window_up': '在测量窗口内运行了 {{percent}}%',
@@ -77,6 +82,13 @@ window.ZogographUptimeCard = {
       }),
     }),
   }),
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-uptime.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-uptime.${key}`],
+    );
+  },
   render(input, helpers) {
     const { upFor, bootAt, analysis = {} } = input;
     const { setCard, summary, humanDuration, humanTime, trimPercent, i18n } =

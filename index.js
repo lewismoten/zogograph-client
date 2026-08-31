@@ -3365,6 +3365,31 @@ function renderCpuGaugesTitle() {
 
 document.addEventListener('zogograph-i18n-load', renderCpuGaugesTitle);
 
+function renderUptimeTitle() {
+  const helpers = {
+    setCard: () => null,
+    summary: null,
+    humanDuration: () => '',
+    humanTime: () => '',
+    trimPercent: () => '',
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(
+    ZogographUptimeCard,
+    'core-uptime',
+    { upFor: null },
+    helpers,
+  );
+  const title = document.querySelector('[data-i18n="core-uptime.title"]');
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-uptime.title',
+    ZogographUptimeCard.text('title', helpers),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderUptimeTitle);
+
 /**
  * When the disk is projected to fill, as a date.
  *

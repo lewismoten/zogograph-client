@@ -2437,7 +2437,6 @@
   "alerts.mark_all_read": "全部标为已读",
   "alerts.incident_title": "为何触发",
   "action.delete": "删除",
-  "uptime.title": "运行时间与中断",
   "uptime.gaps_help": "读数中的空档不等于机器关机，图表会将两者区分开来——启动时间发生变化的位置为{{restart_shading}}，表示它确实重启了；两侧启动时间未变而收集器根本未运行的位置为{{gap_shading}}。运行时间只统计前一种；停止运行的 cron 任务不应看起来像不断宕机的服务器。",
   "uptime.restart_help": "主机从 {{last}} 得知的每次重启都会以{{restart_line}}标记。它们不一定会留下空档——收集器在一分钟内恢复的重启没有需要着色的内容——还包括在开始记录启动时间之前的重启，单靠读数无法显示这些重启。",
   "uptime.restarted": "已重启",

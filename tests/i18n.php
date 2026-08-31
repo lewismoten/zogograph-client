@@ -2029,9 +2029,11 @@ i18nExpect(
         str_contains($uptimeCard, 'id: "core-uptime"') &&
         str_contains($uptimeCard, 'locales: ["core-uptime."]') &&
         str_contains($uptimeCard, 'catalogs: Object.freeze({') &&
+        str_contains($uptimeCard, '"core-uptime.title"') &&
         str_contains($uptimeCard, '"core-uptime.no_boot_time"') &&
         str_contains($uptimeCard, '"core-uptime.measured_window_up"') &&
         is_array($english) &&
+        !isset($english['uptime.title']) &&
         !isset($english['uptime.no_boot_time']) &&
         !isset($english['uptime.measured_window_up']) &&
         str_contains($uptimeCard, '"summary"') &&

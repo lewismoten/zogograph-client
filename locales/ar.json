@@ -1212,7 +1212,6 @@
   "terminal.return_home": "العودة إلى الأعلى",
   "terminal.return_home_title": "العودة إلى {{home}}",
   "diagnosis.whole_answer": "الإجابة كاملة",
-  "log.open_whole_file": "افتح الملف كاملًا",
   "filter.any": "أيّ",
   "filter.clear": "امسح عوامل التصفية",
   "regex.pattern": "النمط",

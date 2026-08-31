@@ -1214,7 +1214,6 @@
   "terminal.return_home": "शीर्ष पर वापस जाएँ",
   "terminal.return_home_title": "{{home}} पर लौटें",
   "diagnosis.whole_answer": "पूरा उत्तर",
-  "log.open_whole_file": "पूरी फ़ाइल खोलें",
   "filter.any": "कोई भी",
   "filter.clear": "फ़िल्टर साफ़ करें",
   "regex.pattern": "पैटर्न",

@@ -2322,7 +2322,6 @@
   "host.add_root_collector_cron": "As root — SSH in or use WHM's Terminal — add this to root's crontab with crontab -e:",
   "host.run_collector_once": "Then run it once by hand to see what it finds: {{command}}",
   "action.refresh": "Refresh",
-  "host.memory_where": "Where the memory went",
   "host.memory_card_in_use": "Memory in use",
   "host.memory_card_of_total": "of {{total}}",
   "host.memory_card_monitoring_footprint": "Monitoring footprint",

@@ -2408,6 +2408,32 @@ function renderProcessListLabels() {
 
 document.addEventListener('zogograph-i18n-load', renderProcessListLabels);
 
+function renderHostMemoryLabels() {
+  const helpers = {
+    setCard: () => null,
+    note: null,
+    humanBytes: () => '',
+    humanCount: () => '',
+    count: () => '',
+    num: () => 0,
+    i18n: ZogographI18n,
+  };
+  renderCoreCardPackage(
+    ZogographHostMemoryCard,
+    'core-host-memory',
+    { sample: {}, swap: {}, swapUsed: 0, swapPercent: 0 },
+    helpers,
+  );
+  const title = document.querySelector('[data-i18n="core-host-memory.title"]');
+  title.textContent = ZogographI18n.markSource(
+    title,
+    'core-host-memory.title',
+    ZogographHostMemoryCard.text('title', helpers),
+  );
+}
+
+document.addEventListener('zogograph-i18n-load', renderHostMemoryLabels);
+
 /**
  * When the disk is projected to fill, as a date.
  *

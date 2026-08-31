@@ -14,6 +14,7 @@ window.ZogographHostMemoryCard = {
     ],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-host-memory.title': 'Where the memory went',
         'core-host-memory.summary_counts':
           '{{processes}} processes {{users}} {{threads}}.',
         'core-host-memory.summary_counts_missing':
@@ -46,6 +47,7 @@ window.ZogographHostMemoryCard = {
         'core-host-memory.other_kernel': 'Other kernel/system memory',
       }),
       es: Object.freeze({
+        'core-host-memory.title': 'Dónde se fue la memoria',
         'core-host-memory.summary_counts':
           '{{processes}} procesos {{users}} {{threads}}.',
         'core-host-memory.summary_counts_missing':
@@ -79,6 +81,7 @@ window.ZogographHostMemoryCard = {
         'core-host-memory.other_kernel': 'Otra memoria de kernel/sistema',
       }),
       hi: Object.freeze({
+        'core-host-memory.title': 'मेमोरी कहाँ गई',
         'core-host-memory.summary_counts':
           '{{processes}} प्रोसेस {{users}} {{threads}}।',
         'core-host-memory.summary_counts_missing':
@@ -111,6 +114,7 @@ window.ZogographHostMemoryCard = {
         'core-host-memory.other_kernel': 'अन्य कर्नेल/सिस्टम मेमोरी',
       }),
       ar: Object.freeze({
+        'core-host-memory.title': 'أين ذهبت الذاكرة',
         'core-host-memory.summary_counts':
           '{{processes}} عملية {{users}} {{threads}}.',
         'core-host-memory.summary_counts_missing':
@@ -141,6 +145,7 @@ window.ZogographHostMemoryCard = {
         'core-host-memory.other_kernel': 'ذاكرة نواة/نظام أخرى',
       }),
       zh: Object.freeze({
+        'core-host-memory.title': '内存去了哪里',
         'core-host-memory.summary_counts':
           '{{processes}} 个进程 {{users}} {{threads}}。',
         'core-host-memory.summary_counts_missing':
@@ -172,6 +177,13 @@ window.ZogographHostMemoryCard = {
       }),
     }),
   }),
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-host-memory.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-host-memory.${key}`],
+    );
+  },
   render(input, helpers) {
     const { sample, swap, swapUsed, swapPercent, users = [] } = input;
     const { setCard, note, humanBytes, humanCount, count, num, i18n } = helpers;

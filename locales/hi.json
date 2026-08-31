@@ -2306,7 +2306,6 @@
   "host.add_root_collector_cron": "root के रूप में — SSH से साइन इन करें या WHM का Terminal इस्तेमाल करें — इसे crontab -e से root के crontab में जोड़ें:",
   "host.run_collector_once": "फिर यह क्या ढूँढता है, देखने के लिए इसे एक बार हाथ से चलाएँ: {{command}}",
   "action.refresh": "रीफ़्रेश करें",
-  "host.memory_where": "मेमोरी कहाँ गई",
   "host.memory_card_in_use": "उपयोग में मेमोरी",
   "host.memory_card_of_total": "{{total}} में से",
   "host.memory_card_monitoring_footprint": "निगरानी पदचिह्न",

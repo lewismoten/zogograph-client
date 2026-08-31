@@ -21,6 +21,23 @@ window.ZogographCpuCoresCard = {
         'core-cpu-cores.average_core': 'Average core',
         'core-cpu-cores.quietest_core': 'Quietest core',
         'core-cpu-cores.cores_at_90': 'Cores at 90%+',
+        'core-cpu-cores.stolen_since_boot': '{{percent}}% stolen since boot',
+        'core-cpu-cores.iowait_since_boot': '{{percent}}% iowait since boot',
+        'core-cpu-cores.user_since_boot': '{{percent}}% user since boot',
+        'core-cpu-cores.spread_not_measured':
+          'No per-core percentages yet. Each one is a difference between two readings, so the first collection after this feature was added has nothing to compare against.',
+        'core-cpu-cores.spread_one_core':
+          "One core, so there is no distribution to look at — the whole-machine figure is the core's figure.",
+        'core-cpu-cores.spread_shape':
+          'Busiest core {{busiest, number}}%, quietest {{quietest, number}}%, {{average, number}}% on average across {{cores, number}} cores.',
+        'core-cpu-cores.spread_all_pinned':
+          '{{shape}} Every core is pinned: the machine has no processor headroom at all. Unlike a single busy core this does respond to more cores — but it is worth checking first that the work is work you wanted done.',
+        'core-cpu-cores.spread_single_threaded':
+          '{{shape}} That is the shape of a single-threaded bottleneck: one piece of work that cannot be split, holding things up while the machine looks mostly free. The whole-machine percentage will never look alarming however stuck it gets, and more cores would not move it.',
+        'core-cpu-cores.spread_even':
+          '{{shape}} The work is spreading evenly, so the only question left is how much of it there is.',
+        'core-cpu-cores.spread_uneven':
+          '{{shape}} Uneven, but not one core carrying everything — normal on a machine running a mixture of jobs, and worth a second look if the gap keeps widening.',
       }),
       es: Object.freeze({
         'core-cpu-cores.title': 'Cada núcleo',
@@ -38,6 +55,26 @@ window.ZogographCpuCoresCard = {
         'core-cpu-cores.average_core': 'Núcleo promedio',
         'core-cpu-cores.quietest_core': 'Núcleo menos ocupado',
         'core-cpu-cores.cores_at_90': 'Núcleos al 90%+',
+        'core-cpu-cores.stolen_since_boot':
+          '{{percent}}% robado desde el arranque',
+        'core-cpu-cores.iowait_since_boot':
+          '{{percent}}% de espera de E/S desde el arranque',
+        'core-cpu-cores.user_since_boot':
+          '{{percent}}% de usuario desde el arranque',
+        'core-cpu-cores.spread_not_measured':
+          'Aún no hay porcentajes por núcleo. Cada uno es la diferencia entre dos lecturas, por lo que la primera recopilación tras añadir esta función no tiene nada con qué compararse.',
+        'core-cpu-cores.spread_one_core':
+          'Hay un núcleo, por lo que no existe una distribución que observar: la cifra de toda la máquina es la de ese núcleo.',
+        'core-cpu-cores.spread_shape':
+          'Núcleo más ocupado {{busiest, number}}%, más tranquilo {{quietest, number}}%, promedio de {{average, number}}% en {{cores, number}} núcleos.',
+        'core-cpu-cores.spread_all_pinned':
+          '{{shape}} Todos los núcleos están saturados: la máquina no tiene margen de procesador. A diferencia de un único núcleo ocupado, esto sí responde a más núcleos; pero primero conviene comprobar que el trabajo sea el que quería ejecutar.',
+        'core-cpu-cores.spread_single_threaded':
+          '{{shape}} Esta es la forma de un cuello de botella de un solo hilo: una tarea que no se puede dividir retiene todo mientras la máquina parece mayormente libre. El porcentaje de toda la máquina nunca parecerá alarmante, por atascado que esté, y más núcleos no lo resolverían.',
+        'core-cpu-cores.spread_even':
+          '{{shape}} El trabajo se reparte de forma uniforme, por lo que solo queda preguntar cuánto hay.',
+        'core-cpu-cores.spread_uneven':
+          '{{shape}} Es desigual, pero no hay un núcleo que cargue con todo; es normal en una máquina con una mezcla de trabajos y merece revisarse de nuevo si la diferencia sigue creciendo.',
       }),
       hi: Object.freeze({
         'core-cpu-cores.title': 'हर कोर',
@@ -55,6 +92,26 @@ window.ZogographCpuCoresCard = {
         'core-cpu-cores.average_core': 'औसत कोर',
         'core-cpu-cores.quietest_core': 'सबसे शांत कोर',
         'core-cpu-cores.cores_at_90': '90%+ पर कोर',
+        'core-cpu-cores.stolen_since_boot':
+          'बूट के बाद से {{percent}}% लिया गया',
+        'core-cpu-cores.iowait_since_boot':
+          'बूट के बाद से {{percent}}% I/O प्रतीक्षा',
+        'core-cpu-cores.user_since_boot':
+          'बूट के बाद से {{percent}}% उपयोगकर्ता समय',
+        'core-cpu-cores.spread_not_measured':
+          'अभी प्रति-कोर प्रतिशत नहीं हैं। हर प्रतिशत दो रीडिंग के अंतर से बनता है, इसलिए इस सुविधा के जुड़ने के बाद के पहले संग्रह के पास तुलना के लिए कुछ नहीं है।',
+        'core-cpu-cores.spread_one_core':
+          'एक कोर है, इसलिए देखने के लिए कोई वितरण नहीं है—पूरी मशीन का आंकड़ा उसी कोर का आंकड़ा है।',
+        'core-cpu-cores.spread_shape':
+          'सबसे व्यस्त कोर {{busiest, number}}%, सबसे शांत {{quietest, number}}%, {{cores, number}} कोर में औसत {{average, number}}%।',
+        'core-cpu-cores.spread_all_pinned':
+          '{{shape}} हर कोर भरा हुआ है: मशीन में प्रोसेसर की कोई क्षमता शेष नहीं है। एक व्यस्त कोर के विपरीत यह अधिक कोर से सुधरता है, लेकिन पहले यह देखना उचित है कि चल रहा काम वही है जो आप चाहते थे।',
+        'core-cpu-cores.spread_single_threaded':
+          '{{shape}} यह सिंगल-थ्रेडेड अड़चन का रूप है: एक ऐसा काम जिसे बाँटा नहीं जा सकता, सबको रोके रखता है जबकि मशीन अधिकतर खाली दिखती है। पूरी मशीन का प्रतिशत कभी चिंताजनक नहीं दिखेगा, चाहे वह कितना भी अटका हो, और अधिक कोर इसे नहीं बदलेंगे।',
+        'core-cpu-cores.spread_even':
+          '{{shape}} काम समान रूप से फैल रहा है, इसलिए केवल यह प्रश्न बचता है कि काम कितना है।',
+        'core-cpu-cores.spread_uneven':
+          '{{shape}} असमान है, पर एक कोर सब कुछ नहीं उठा रहा। अलग-अलग काम चलाने वाली मशीन पर यह सामान्य है और अंतर बढ़ता रहे तो फिर से देखना चाहिए।',
       }),
       ar: Object.freeze({
         'core-cpu-cores.title': 'كل نواة',
@@ -72,6 +129,24 @@ window.ZogographCpuCoresCard = {
         'core-cpu-cores.average_core': 'متوسط النواة',
         'core-cpu-cores.quietest_core': 'أهدأ نواة',
         'core-cpu-cores.cores_at_90': 'أنوية عند 90%+',
+        'core-cpu-cores.stolen_since_boot': '{{percent}}% مسروق منذ الإقلاع',
+        'core-cpu-cores.iowait_since_boot':
+          '{{percent}}% انتظار إدخال/إخراج منذ الإقلاع',
+        'core-cpu-cores.user_since_boot': '{{percent}}% مستخدم منذ الإقلاع',
+        'core-cpu-cores.spread_not_measured':
+          'لا توجد نسب مئوية لكل نواة بعد. كل منها فرق بين قراءتين، لذلك لا توجد مقارنة للقراءة الأولى بعد إضافة هذه الميزة.',
+        'core-cpu-cores.spread_one_core':
+          'هناك نواة واحدة، فلا يوجد توزيع للنظر إليه؛ رقم الجهاز كله هو رقم تلك النواة.',
+        'core-cpu-cores.spread_shape':
+          'أكثر نواة انشغالاً {{busiest, number}}%، وأهدؤها {{quietest, number}}%، ومتوسط {{average, number}}% عبر {{cores, number}} أنوية.',
+        'core-cpu-cores.spread_all_pinned':
+          '{{shape}} كل النوى مثبّتة عند الحد: لا توجد سعة معالجة متبقية في الجهاز. بخلاف نواة مشغولة واحدة، تستجيب هذه الحالة لإضافة نوى، لكن من المفيد أولاً التأكد أن العمل هو ما أردت تشغيله.',
+        'core-cpu-cores.spread_single_threaded':
+          '{{shape}} هذا شكل اختناق أحادي الخيط: عمل واحد لا يمكن تقسيمه يعطل الأشياء بينما يبدو الجهاز خاليًا في معظمه. لن تبدو نسبة الجهاز كله مقلقة مهما اشتد التعطل، ولن تغير النوى الإضافية ذلك.',
+        'core-cpu-cores.spread_even':
+          '{{shape}} يتوزع العمل بالتساوي، لذا لا يبقى إلا سؤال مقدار العمل الموجود.',
+        'core-cpu-cores.spread_uneven':
+          '{{shape}} التوزيع غير متساوٍ، لكن نواة واحدة لا تحمل كل شيء؛ وهذا طبيعي على جهاز يشغل مزيجًا من الأعمال ويستحق نظرة ثانية إذا استمرت الفجوة في الاتساع.',
       }),
       zh: Object.freeze({
         'core-cpu-cores.title': '每个核心',
@@ -88,13 +163,32 @@ window.ZogographCpuCoresCard = {
         'core-cpu-cores.average_core': '平均核心',
         'core-cpu-cores.quietest_core': '最空闲核心',
         'core-cpu-cores.cores_at_90': '90%+ 的核心',
+        'core-cpu-cores.stolen_since_boot': '自启动以来被占用 {{percent}}%',
+        'core-cpu-cores.iowait_since_boot': '自启动以来 I/O 等待 {{percent}}%',
+        'core-cpu-cores.user_since_boot': '自启动以来用户态 {{percent}}%',
+        'core-cpu-cores.spread_not_measured':
+          '尚无按核心划分的百分比。每个百分比都来自两个读数之间的差异，因此添加此功能后的第一次收集没有可比较的数据。',
+        'core-cpu-cores.spread_one_core':
+          '只有一个核心，因此没有可查看的分布；整台机器的数据就是该核心的数据。',
+        'core-cpu-cores.spread_shape':
+          '最繁忙核心 {{busiest, number}}%，最空闲 {{quietest, number}}%，{{cores, number}} 个核心平均 {{average, number}}%。',
+        'core-cpu-cores.spread_all_pinned':
+          '{{shape}} 每个核心都已满载：机器完全没有处理器余量。与单个忙碌核心不同，这种情况会因增加核心而改善；但应先确认这些工作确实是您想要执行的。',
+        'core-cpu-cores.spread_single_threaded':
+          '{{shape}} 这是单线程瓶颈的特征：一项无法拆分的工作拖住了其他内容，而机器看上去大多空闲。无论它卡得多严重，整机百分比都不会显得惊人，增加核心也不会改善它。',
+        'core-cpu-cores.spread_even':
+          '{{shape}} 工作分布均匀，因此唯一剩下的问题是工作量有多大。',
+        'core-cpu-cores.spread_uneven':
+          '{{shape}} 分布不均，但并非一个核心承担全部工作；在混合运行多种作业的机器上这很正常，如果差距持续扩大则值得再次查看。',
       }),
     }),
   }),
-  text(key, helpers) {
+  text(key, valuesOrHelpers = {}, maybeHelpers = null) {
+    const helpers = maybeHelpers || valuesOrHelpers;
+    const values = maybeHelpers ? valuesOrHelpers : {};
     return helpers.i18n.t(
       `core-cpu-cores.${key}`,
-      {},
+      values,
       this.manifest.catalogs.en[`core-cpu-cores.${key}`],
     );
   },

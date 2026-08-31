@@ -960,6 +960,10 @@ const CPU_CONTENTS = [
   'cpuLimitsContent',
 ];
 
+function cpuCoresText(key, values = {}) {
+  return ZogographCpuCoresCard.text(key, values, { i18n: ZogographI18n });
+}
+
 async function refreshCpu() {
   if (!WHAT_IS.loaded) await loadWhatIs();
 
@@ -1286,58 +1290,32 @@ function cpuCoreShare(core) {
 
   // Only the two that mean something is wrong, and only when they are visible.
   if (steal >= 1)
-    return ZogographI18n.t(
-      'cpu.stolen_since_boot',
-      { percent: steal.toFixed(1) },
-      '{{percent}}% stolen since boot',
-    );
+    return cpuCoresText('stolen_since_boot', { percent: steal.toFixed(1) });
   if (iowait >= 5)
-    return ZogographI18n.t(
-      'cpu.iowait_since_boot',
-      { percent: iowait.toFixed(0) },
-      '{{percent}}% iowait since boot',
-    );
-  return ZogographI18n.t(
-    'cpu.user_since_boot',
-    { percent: share('user_ticks').toFixed(0) },
-    '{{percent}}% user since boot',
-  );
+    return cpuCoresText('iowait_since_boot', { percent: iowait.toFixed(0) });
+  return cpuCoresText('user_since_boot', {
+    percent: share('user_ticks').toFixed(0),
+  });
 }
 
 function cpuSpreadVerdict(spread) {
   if (!spread || !spread.measured) {
-    return ZogographI18n.t(
-      'cpu.spread_not_measured',
-      {},
-      'No per-core percentages yet. Each one is a difference between two readings, so the first collection after this feature was added has nothing to compare against.',
-    );
+    return cpuCoresText('spread_not_measured');
   }
 
   if (spread.measured === 1) {
-    return ZogographI18n.t(
-      'cpu.spread_one_core',
-      {},
-      "One core, so there is no distribution to look at — the whole-machine figure is the core's figure.",
-    );
+    return cpuCoresText('spread_one_core');
   }
 
-  const shape = ZogographI18n.t(
-    'cpu.spread_shape',
-    {
-      busiest: Math.round(spread.max),
-      quietest: Math.round(spread.min),
-      average: Math.round(spread.mean),
-      cores: spread.measured,
-    },
-    'Busiest core {{busiest, number}}%, quietest {{quietest, number}}%, {{average, number}}% on average across {{cores, number}} cores.',
-  );
+  const shape = cpuCoresText('spread_shape', {
+    busiest: Math.round(spread.max),
+    quietest: Math.round(spread.min),
+    average: Math.round(spread.mean),
+    cores: spread.measured,
+  });
 
   if (spread.pinned === spread.measured) {
-    return ZogographI18n.t(
-      'cpu.spread_all_pinned',
-      { shape },
-      '{{shape}} Every core is pinned: the machine has no processor headroom at all. Unlike a single busy core this does respond to more cores — but it is worth checking first that the work is work you wanted done.',
-    );
+    return cpuCoresText('spread_all_pinned', { shape });
   }
 
   if (
@@ -1345,26 +1323,14 @@ function cpuSpreadVerdict(spread) {
     spread.mean < 50 &&
     spread.idle >= spread.measured / 2
   ) {
-    return ZogographI18n.t(
-      'cpu.spread_single_threaded',
-      { shape },
-      '{{shape}} That is the shape of a single-threaded bottleneck: one piece of work that cannot be split, holding things up while the machine looks mostly free. The whole-machine percentage will never look alarming however stuck it gets, and more cores would not move it.',
-    );
+    return cpuCoresText('spread_single_threaded', { shape });
   }
 
   if (spread.spread < 25) {
-    return ZogographI18n.t(
-      'cpu.spread_even',
-      { shape },
-      '{{shape}} The work is spreading evenly, so the only question left is how much of it there is.',
-    );
+    return cpuCoresText('spread_even', { shape });
   }
 
-  return ZogographI18n.t(
-    'cpu.spread_uneven',
-    { shape },
-    '{{shape}} Uneven, but not one core carrying everything — normal on a machine running a mixture of jobs, and worth a second look if the gap keeps widening.',
-  );
+  return cpuCoresText('spread_uneven', { shape });
 }
 
 /* ------------------------------------------------- what is burning it -- */

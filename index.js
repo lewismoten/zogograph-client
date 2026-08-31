@@ -15963,15 +15963,7 @@ function renderEncryptionStatus(data) {
       ),
     );
   if (data.mode === 'none') {
-    parts.push(
-      note(
-        ZogographI18n.t(
-          'encryption.protection_disabled_notice',
-          {},
-          "Protection is off. Live SQLite databases and ordinary copies remain unencrypted unless your host protects their storage separately. Start with the setup wizard's Encryption section; Zogograph will not generate, upload, or store a private key from this page.",
-        ),
-      ),
-    );
+    parts.push(note(encryptionText('protection_disabled_notice')));
   } else if (data.mode === 'operator_managed_volume') {
     parts.push(
       note(

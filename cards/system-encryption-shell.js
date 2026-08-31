@@ -101,6 +101,8 @@ window.ZogographSystemEncryptionShellCard = {
           'Run remote custody recovery drill',
         'core-system-encryption-shell.mode_unavailable_notice':
           'The selected protection mode is not available in this Zogograph release. Keep the current data and recovery key safe while choosing a supported package or local mode.',
+        'core-system-encryption-shell.protection_disabled_notice':
+          "Protection is off. Live SQLite databases and ordinary copies remain unencrypted unless your host protects their storage separately. Start with the setup wizard's Encryption section; Zogograph will not generate, upload, or store a private key from this page.",
       }),
       es: Object.freeze({
         'core-system-encryption-shell.title': 'Protección de datos',
@@ -210,6 +212,8 @@ window.ZogographSystemEncryptionShellCard = {
           'Ejecutar prueba de recuperación de custodia remota',
         'core-system-encryption-shell.mode_unavailable_notice':
           'El modo de protección seleccionado no está disponible en esta versión de Zogograph. Mantenga seguros los datos actuales y la clave de recuperación mientras elige un paquete o modo local compatible.',
+        'core-system-encryption-shell.protection_disabled_notice':
+          'La protección está desactivada. Las bases de datos SQLite activas y las copias normales permanecen sin cifrar salvo que el host proteja su almacenamiento por separado. Comience en la sección Cifrado del asistente de configuración; Zogograph no generará, cargará ni almacenará una clave privada desde esta página.',
       }),
       hi: Object.freeze({
         'core-system-encryption-shell.title': 'डेटा सुरक्षा',
@@ -307,6 +311,8 @@ window.ZogographSystemEncryptionShellCard = {
           'दूरस्थ कस्टडी पुनर्प्राप्ति जाँच चलाएँ',
         'core-system-encryption-shell.mode_unavailable_notice':
           'चुना गया सुरक्षा मोड इस Zogograph रिलीज़ में उपलब्ध नहीं है। समर्थित पैकेज या स्थानीय मोड चुनते समय वर्तमान डेटा और रिकवरी कुंजी सुरक्षित रखें।',
+        'core-system-encryption-shell.protection_disabled_notice':
+          'सुरक्षा बंद है। सक्रिय SQLite डेटाबेस और साधारण प्रतियां तब तक एन्क्रिप्ट नहीं रहतीं जब तक आपका होस्ट उनके संग्रहण को अलग से सुरक्षित न करे। सेटअप विज़ार्ड के एन्क्रिप्शन अनुभाग से शुरू करें; Zogograph इस पृष्ठ से निजी कुंजी न बनाएगा, न अपलोड करेगा, न संग्रहित करेगा।',
       }),
       ar: Object.freeze({
         'core-system-encryption-shell.title': 'حماية البيانات',
@@ -400,6 +406,8 @@ window.ZogographSystemEncryptionShellCard = {
           'شغّل تمرين استرداد الحفظ البعيد',
         'core-system-encryption-shell.mode_unavailable_notice':
           'وضع الحماية المحدد غير متاح في إصدار Zogograph هذا. حافظ على أمان البيانات الحالية ومفتاح الاسترداد أثناء اختيار حزمة أو وضع محلي مدعوم.',
+        'core-system-encryption-shell.protection_disabled_notice':
+          'الحماية متوقفة. تبقى قواعد بيانات SQLite النشطة والنسخ العادية غير مشفرة ما لم يحمِ المضيف تخزينها بشكل منفصل. ابدأ من قسم التشفير في معالج الإعداد؛ لن ينشئ Zogograph مفتاحاً خاصاً أو يرفعه أو يخزنه من هذه الصفحة.',
       }),
       zh: Object.freeze({
         'core-system-encryption-shell.title': '数据保护',
@@ -486,6 +494,8 @@ window.ZogographSystemEncryptionShellCard = {
           '运行远程托管恢复演练',
         'core-system-encryption-shell.mode_unavailable_notice':
           '此 Zogograph 版本中无法使用所选保护模式。选择受支持的软件包或本地模式时，请妥善保管当前数据和恢复密钥。',
+        'core-system-encryption-shell.protection_disabled_notice':
+          '保护已关闭。除非主机单独保护其存储，否则活动 SQLite 数据库和普通副本仍未加密。请从设置向导的“加密”部分开始；Zogograph 不会在此页面生成、上传或存储私钥。',
       }),
     }),
   }),

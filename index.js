@@ -2065,12 +2065,14 @@ function renderTypePieLabels() {
     i18n: ZogographI18n,
   };
   renderCoreCardPackage(ZogographTypePieCard, 'core-type-pie', {}, helpers);
-  const title = document.querySelector('[data-i18n="core-type-pie.title"]');
-  title.textContent = ZogographI18n.markSource(
-    title,
-    'core-type-pie.title',
-    ZogographTypePieCard.text('title', helpers),
-  );
+  ['title', 'composition_title'].forEach((key) => {
+    const node = document.querySelector(`[data-i18n="core-type-pie.${key}"]`);
+    node.textContent = ZogographI18n.markSource(
+      node,
+      `core-type-pie.${key}`,
+      ZogographTypePieCard.text(key, helpers),
+    );
+  });
 }
 
 document.addEventListener('zogograph-i18n-load', renderTypePieLabels);

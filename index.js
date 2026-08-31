@@ -6352,15 +6352,6 @@ function toolGroupLabel(group) {
     TOOL_GROUP_NAMES[group] ?? group,
   );
 }
-// Kept as the shared compatibility formatter for package-owned tool tabs.
-function toolGroupTabLabel(group, count_) {
-  return ZogographI18n.t(
-    'ai.tool_group_tab',
-    { group: toolGroupLabel(group), count: count_ },
-    '{{group}} ({{count, number}})',
-  );
-}
-
 /*
  * Which group of tools the page is showing.
  *
@@ -6414,7 +6405,6 @@ function renderAiTools(data) {
       },
       {
         toolGroupLabel,
-        toolGroupTabLabel,
         selectGroup(group) {
           toolTab = group;
           renderAiTools(data);

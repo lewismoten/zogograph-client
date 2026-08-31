@@ -3,13 +3,7 @@ window.ZogographAiToolsToolbarCard = {
   manifest: Object.freeze({
     id: 'core-ai-tools-toolbar',
     locales: ['core-ai-tools-toolbar.'],
-    helpers: [
-      'toolGroupLabel',
-      'toolGroupTabLabel',
-      'selectGroup',
-      'applyToolset',
-      'i18n',
-    ],
+    helpers: ['toolGroupLabel', 'selectGroup', 'applyToolset', 'i18n'],
     catalogs: Object.freeze({
       en: Object.freeze({
         'core-ai-tools-toolbar.tab': '{{group}} ({{count, number}})',
@@ -64,7 +58,7 @@ window.ZogographAiToolsToolbarCard = {
     }),
   }),
   render(input, helpers) {
-    const { toolGroupTabLabel, selectGroup, applyToolset, i18n } = helpers;
+    const { toolGroupLabel, selectGroup, applyToolset, i18n } = helpers;
     const t = (key, vars, fallback) => i18n.t(key, vars, fallback);
     const parts = [];
     const tabs = document.createElement('div');
@@ -73,7 +67,11 @@ window.ZogographAiToolsToolbarCard = {
       const tab = document.createElement('button');
       tab.type = 'button';
       tab.className = group === input.selected ? 'seg on' : 'seg';
-      tab.textContent = toolGroupTabLabel(group, list.length);
+      tab.textContent = t(
+        'core-ai-tools-toolbar.tab',
+        { group: toolGroupLabel(group), count: list.length },
+        '{{group}} ({{count, number}})',
+      );
       const enabled = list.filter((tool) => tool.enabled).length;
       tab.title =
         enabled === list.length

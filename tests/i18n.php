@@ -268,6 +268,9 @@ $hostIoProcessesCard = i18nCardSource(
 $terminalActionsCard = i18nCardSource(
     file_get_contents($root . '/cards/terminal-actions.js'),
 );
+$aiToolsToolbarCard = i18nCardSource(
+    file_get_contents($root . '/cards/ai-tools-toolbar.js'),
+);
 $terminalVerdictSummaryCard = i18nCardSource(
     file_get_contents($root . '/cards/terminal-verdict-summary.js'),
 );
@@ -338,6 +341,14 @@ i18nExpect(
         $english['ai.delete_toolset_title'],
         $english['ai.toolset_deleted'],
         $english['ai.apply_toolset'],
+        $english['ai.tool_subject_intro'],
+        $english['ai.tool_group_tab'],
+        $english['ai.tool_group_all_enabled'],
+        $english['ai.tool_group_some_enabled'],
+        $english['ai.tool_subject_all_enabled'],
+        $english['ai.enable_subject'],
+        $english['ai.subject_enabled_save'],
+        $english['ai.tool_subject_available_after_save'],
     ),
     'AI card controls belong to their card packages',
 );
@@ -3602,11 +3613,13 @@ i18nExpect(
 i18nExpect(
     $script !== false &&
         str_contains($script, 'function toolGroupLabel') &&
-        str_contains($script, "'ai.tool_group_tab'") &&
+        $aiToolsToolbarCard !== false &&
+        str_contains($aiToolsToolbarCard, '"core-ai-tools-toolbar.tab"') &&
+        str_contains($aiToolsToolbarCard, 'toolGroupLabel(group)') &&
         is_array($english) &&
         isset($english['ai.tool_group.diagnostic']) &&
-        isset($english['ai.tool_group_tab']),
-    'AI tool-group labels are not localized through their shared helper',
+        !isset($english['ai.tool_group_tab']),
+    'AI tool-group labels and tab formatters are not owned by their proper packages',
 );
 i18nExpect(
     $hostDisksCard !== false &&

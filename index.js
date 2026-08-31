@@ -11185,6 +11185,14 @@ function syncChangedFilter(data) {
  * actually look for visible - several things moving on the same afternoon,
  * which is a package update rather than a coincidence.
  */
+const changeHistoryChartText = (key, values = {}) =>
+  renderCoreCardPackage(
+    ZogographChangeHistoryChartCard,
+    'core-change-history-chart',
+    { key, values },
+    { i18n: ZogographI18n },
+  );
+
 function drawChangedChart(data) {
   const canvas = $('changedChart');
   if (!canvas) return;
@@ -11247,11 +11255,7 @@ function drawChangedChart(data) {
     ctx.fillStyle = '#66717f';
     ctx.textAlign = 'left';
     ctx.fillText(
-      ZogographI18n.t(
-        'storage.nothing_changed_range',
-        {},
-        'Nothing changed in this range.',
-      ),
+      changeHistoryChartText('nothing_changed_range'),
       pad.left + 8,
       pad.top + 20,
     );
@@ -11304,26 +11308,16 @@ function drawChangedChart(data) {
 
   const hidden = new Set(events.map((event) => event.name)).size - lanes.length;
   $('changedChartNote').textContent =
-    ZogographI18n.t(
-      'storage.changed_summary',
-      {
-        changes: count(events.length, 'change'),
-        things: count(lanes.length, 'thing'),
-      },
-      '{{changes}} across {{things}}.',
-    ) +
+    changeHistoryChartText('changed_summary', {
+      changes: count(events.length, 'change'),
+      things: count(lanes.length, 'thing'),
+    }) +
     (hidden > 0
-      ? ` ${ZogographI18n.t(
-          'storage.changed_hidden',
-          { count: count(hidden, 'other') },
-          '{{count}} not shown — use the filter.',
-        )}`
+      ? ` ${changeHistoryChartText('changed_hidden', {
+          count: count(hidden, 'other'),
+        })}`
       : '') +
-    ` ${ZogographI18n.t(
-      'storage.changed_chart_legend',
-      {},
-      'Blue is the system software, green a program this tool watches, and a hollow ring means the change was noticed by fingerprint rather than by version.',
-    )}`;
+    ` ${changeHistoryChartText('changed_chart_legend')}`;
 }
 
 function renderChangedList(data) {
@@ -11348,16 +11342,10 @@ function renderChangedList(data) {
     body.replaceChildren(
       note(
         data.last_checked
-          ? ZogographI18n.t(
-              'storage.nothing_changed_last_checked',
-              { when: ago(data.last_checked) },
-              'Nothing has changed in this range. Last checked {{when}}.',
-            )
-          : ZogographI18n.t(
-              'storage.nothing_checked_yet',
-              {},
-              'Nothing has been checked yet. Press Check now, or open What the host allows.',
-            ),
+          ? changeHistoryChartText('nothing_changed_last_checked', {
+              when: ago(data.last_checked),
+            })
+          : changeHistoryChartText('nothing_checked_yet'),
       ),
     );
     return;

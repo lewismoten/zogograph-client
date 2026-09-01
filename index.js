@@ -11176,6 +11176,15 @@ const chatState = {
   who: { name: 'Assistant', emoji: '✦', portrait: null },
 };
 
+function aiChatNoticesText(key, values = {}) {
+  return renderCoreCardPackage(
+    ZogographAiChatNoticesCard,
+    'core-ai-chat-notices',
+    { key, values },
+    { i18n: ZogographI18n },
+  );
+}
+
 const voiceState = {
   speak: false,
   listen: false,
@@ -11752,11 +11761,10 @@ async function runBrowserTool(run) {
       const subject = String(run.arguments.subject || '');
       const label = toolGroupLabel(subject);
       notice(
-        ZogographI18n.t(
-          'ai.tool_group_requested',
-          { assistant: chatState.who.name, group: label },
-          '{{assistant}} requested {{group}} tools — review and save the choice.',
-        ),
+        aiChatNoticesText('tool_group_requested', {
+          assistant: chatState.who.name,
+          group: label,
+        }),
         true,
       );
       location.hash = '#/sys-ai-tools';
@@ -12371,14 +12379,7 @@ function renderChatStatus(session) {
                 which: session.limit_hit,
               });
               chatState.session = fresh.session;
-              notice(
-                ZogographI18n.t(
-                  'ai.limit_raised',
-                  {},
-                  'Raised, for this conversation. Carry on.',
-                ),
-                true,
-              );
+              notice(aiChatNoticesText('limit_raised'), true);
               renderChat();
             } catch (error) {
               notice(String(error.message || error));
@@ -13002,7 +13003,7 @@ function chatAsk({
       // A question with nothing filled in is not an answer; the countdown
       // carries on rather than sending an empty one as if it were.
       if (value === null || value === undefined || value === '') {
-        notice(ZogographI18n.t('ai.nothing_chosen', {}, 'Nothing chosen yet.'));
+        notice(aiChatNoticesText('nothing_chosen'));
         return;
       }
       finish({ answered: true, value });
@@ -13013,11 +13014,7 @@ function chatAsk({
     skip.type = 'button';
     skip.className = 'link';
     skip.textContent = actionCommonText('skip');
-    skip.title = ZogographI18n.t(
-      'ai.skip_question_help',
-      {},
-      'Carry on without answering — the same as letting the clock run out',
-    );
+    skip.title = aiChatNoticesText('skip_question_help');
     skip.addEventListener('click', () =>
       finish({ answered: false, value: null }),
     );
@@ -13323,14 +13320,7 @@ async function sayToChat(text) {
      * alongside the one in flight.
      */
     if (result.queued) {
-      notice(
-        ZogographI18n.t(
-          'ai.context_added',
-          {},
-          'Added. It will read that on its next turn.',
-        ),
-        true,
-      );
+      notice(aiChatNoticesText('context_added'), true);
       scheduleChatPoll();
       return;
     }
@@ -40185,16 +40175,10 @@ $('chatInterrupt').addEventListener('click', async () => {
     }
     notice(
       result.runs
-        ? ZogographI18n.t(
-            'ai.interrupted_with_runs',
-            { runs: count(result.runs, 'thing') },
-            'Stopped. {{runs}} it had started was dropped.',
-          )
-        : ZogographI18n.t(
-            'ai.interrupted',
-            {},
-            'Stopped. Tell it what you want it to do instead.',
-          ),
+        ? aiChatNoticesText('interrupted_with_runs', {
+            runs: count(result.runs, 'thing'),
+          })
+        : aiChatNoticesText('interrupted'),
       true,
     );
   } catch (error) {

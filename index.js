@@ -24657,7 +24657,6 @@ async function refreshHostDisk() {
     const walk = $('hostWalk');
     if (walk) walk.replaceChildren();
   };
-
   for (const id of ['hostDisk', 'diskDeleted', 'diskDirs']) {
     const el = $(id);
     // Only when there is nothing there yet: replacing a drawn page with a
@@ -38048,6 +38047,16 @@ async function refreshBackups() {
       if (el) el.replaceChildren(note(text));
     }
   };
+  const backupShellText = (key) => {
+    const helpers = { i18n: ZogographI18n };
+    renderCoreCardPackage(
+      ZogographBackupShellCard,
+      'core-backup-shell',
+      {},
+      helpers,
+    );
+    return ZogographBackupShellCard.text(key, helpers);
+  };
 
   for (const id of targets) {
     const el = $(id);
@@ -38268,9 +38277,9 @@ async function refreshBackups() {
     wrap.appendChild(
       simpleTable(
         [
-          ZogographI18n.t('storage.path', {}, 'Path'),
-          ZogographI18n.t('storage.size', {}, 'Size'),
-          ZogographI18n.t('storage.files', {}, 'Files'),
+          backupShellText('path'),
+          backupShellText('size'),
+          backupShellText('files'),
         ],
         root.children.map((c) => [
           c.name,
@@ -38327,9 +38336,9 @@ async function refreshBackups() {
     wrap.appendChild(
       simpleTable(
         [
-          ZogographI18n.t('storage.path', {}, 'Path'),
-          ZogographI18n.t('storage.size', {}, 'Size'),
-          ZogographI18n.t('storage.files', {}, 'Files'),
+          backupShellText('path'),
+          backupShellText('size'),
+          backupShellText('files'),
           ZogographI18n.t('backup.matched', {}, 'Matched'),
         ],
         data.other.map((r) => [

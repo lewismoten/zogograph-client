@@ -15,6 +15,9 @@ window.ZogographBackupShellCard = {
         'core-backup-shell.other_title': 'Other probable backups',
         'core-backup-shell.other_help':
           'Directories that look like backups but are not managed by anything: a tar.gz somebody made before an upgrade, a dated copy of a site, a database dump. Nothing rotates these, so they stay for ever and are usually the oldest large thing on the disk. Probable is the operative word — each is a guess from the name and shape, and worth looking at before acting.',
+        'core-backup-shell.path': 'Path',
+        'core-backup-shell.size': 'Size',
+        'core-backup-shell.files': 'Files',
       }),
       es: Object.freeze({
         'core-backup-shell.storage_title':
@@ -27,6 +30,9 @@ window.ZogographBackupShellCard = {
         'core-backup-shell.other_title': 'Otras posibles copias de seguridad',
         'core-backup-shell.other_help':
           'Directorios que parecen copias de seguridad pero que no gestiona nada: un tar.gz creado antes de una actualización, una copia fechada de un sitio o un volcado de base de datos. No se rotan, por lo que suelen ser lo más antiguo y grande del disco. Probable es la palabra clave: cada uno es una conjetura basada en su nombre y forma, y conviene revisarlo antes de actuar.',
+        'core-backup-shell.path': 'Ruta',
+        'core-backup-shell.size': 'Tamaño',
+        'core-backup-shell.files': 'Archivos',
       }),
       hi: Object.freeze({
         'core-backup-shell.storage_title': 'बैकअप स्टोरेज',
@@ -38,6 +44,9 @@ window.ZogographBackupShellCard = {
         'core-backup-shell.other_title': 'अन्य संभावित बैकअप',
         'core-backup-shell.other_help':
           'ऐसी डायरेक्टरियाँ जो बैकअप जैसी दिखती हैं लेकिन किसी के द्वारा प्रबंधित नहीं हैं: अपग्रेड से पहले बना tar.gz, साइट की दिनांकित कॉपी या डेटाबेस डंप। इन्हें कोई नहीं घुमाता, इसलिए वे अक्सर डिस्क की सबसे पुरानी बड़ी चीज़ होती हैं। संभावित शब्द महत्वपूर्ण है: हर एक नाम और आकार के आधार पर अनुमान है, इसलिए कार्रवाई से पहले जाँचें।',
+        'core-backup-shell.path': 'पथ',
+        'core-backup-shell.size': 'आकार',
+        'core-backup-shell.files': 'फ़ाइलें',
       }),
       ar: Object.freeze({
         'core-backup-shell.storage_title': 'تخزين النسخ الاحتياطية',
@@ -49,6 +58,9 @@ window.ZogographBackupShellCard = {
         'core-backup-shell.other_title': 'نسخ احتياطية محتملة أخرى',
         'core-backup-shell.other_help':
           'مجلدات تبدو كنسخ احتياطية لكن لا يديرها شيء: ملف tar.gz أُنشئ قبل ترقية أو نسخة مؤرخة من موقع أو تفريغ قاعدة بيانات. لا شيء يدوّرها، لذا غالبًا ما تكون أقدم الأشياء الكبيرة على القرص. كلمة محتملة مهمة: كل منها تخمين من الاسم والشكل ويستحق المراجعة قبل الإجراء.',
+        'core-backup-shell.path': 'المسار',
+        'core-backup-shell.size': 'الحجم',
+        'core-backup-shell.files': 'الملفات',
       }),
       zh: Object.freeze({
         'core-backup-shell.storage_title': '备份存储',
@@ -60,6 +72,9 @@ window.ZogographBackupShellCard = {
         'core-backup-shell.other_title': '其他可能的备份',
         'core-backup-shell.other_help':
           '看起来像备份、但没有任何管理程序处理的目录：升级前创建的 tar.gz、带日期的网站副本或数据库转储。没有任何机制轮换它们，因此它们常是磁盘上最老的大型内容。可能是关键词：每项都只是根据名称和形状做出的猜测，操作前值得检查。',
+        'core-backup-shell.path': '路径',
+        'core-backup-shell.size': '大小',
+        'core-backup-shell.files': '文件',
       }),
     }),
   }),

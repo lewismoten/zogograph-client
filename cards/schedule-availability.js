@@ -17,6 +17,8 @@ window.ZogographScheduleAvailabilityCard = {
           'This is a root-only host-collector policy. The dashboard records your choices and shows the result; it never runs a package command itself.',
         'core-schedule-availability.update_manager':
           'Host package manager: {{manager}}. Download and Auto-Update always detect first.',
+        'core-schedule-availability.never': 'never',
+        'core-schedule-availability.due_now': 'due now',
       }),
       es: Object.freeze({
         'core-schedule-availability.crontab_unreadable':
@@ -31,6 +33,8 @@ window.ZogographScheduleAvailabilityCard = {
           'Esta es una política del recopilador del host que solo puede ejecutar root. El panel registra sus elecciones y muestra el resultado; nunca ejecuta por sí mismo un comando de paquetes.',
         'core-schedule-availability.update_manager':
           'Gestor de paquetes del host: {{manager}}. Descargar y Actualización automática siempre detectan primero.',
+        'core-schedule-availability.never': 'nunca',
+        'core-schedule-availability.due_now': 'vence ahora',
       }),
       hi: Object.freeze({
         'core-schedule-availability.crontab_unreadable':
@@ -45,6 +49,8 @@ window.ZogographScheduleAvailabilityCard = {
           'यह केवल root के लिए होस्ट-कलेक्टर नीति है। डैशबोर्ड आपके विकल्प दर्ज करता और परिणाम दिखाता है; यह स्वयं पैकेज कमांड कभी नहीं चलाता।',
         'core-schedule-availability.update_manager':
           'होस्ट पैकेज प्रबंधक: {{manager}}। डाउनलोड और स्वचालित अपडेट हमेशा पहले पता लगाते हैं।',
+        'core-schedule-availability.never': 'कभी नहीं',
+        'core-schedule-availability.due_now': 'अभी देय',
       }),
       ar: Object.freeze({
         'core-schedule-availability.crontab_unreadable':
@@ -59,6 +65,8 @@ window.ZogographScheduleAvailabilityCard = {
           'هذه سياسة لجامع المضيف تعمل بصلاحية root فقط. تسجل اللوحة اختياراتك وتعرض النتيجة؛ ولا تنفذ أمر حزم بنفسها أبدًا.',
         'core-schedule-availability.update_manager':
           'مدير حزم المضيف: {{manager}}. يبدأ التنزيل والتحديث التلقائي بالكشف دائمًا.',
+        'core-schedule-availability.never': 'أبدًا',
+        'core-schedule-availability.due_now': 'مستحق الآن',
       }),
       zh: Object.freeze({
         'core-schedule-availability.crontab_unreadable':
@@ -73,6 +81,8 @@ window.ZogographScheduleAvailabilityCard = {
           '这是仅供 root 使用的主机收集器策略。仪表板会记录您的选择并显示结果；它本身绝不会运行软件包命令。',
         'core-schedule-availability.update_manager':
           '主机软件包管理器：{{manager}}。下载和自动更新始终先进行检测。',
+        'core-schedule-availability.never': '从未',
+        'core-schedule-availability.due_now': '现在到期',
       }),
     }),
   }),

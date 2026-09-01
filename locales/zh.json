@@ -1333,8 +1333,6 @@
   "scan.last_run": "上次运行",
   "scan.next": "下次",
   "scan.as_recommended": "按建议设置",
-  "scan.never": "从未",
-  "scan.due_now": "现在到期",
   "scan.boost_while_browsing": "有人查看时加快至每 {{interval}} 一次",
   "scan.only_while_browsing": "仅在有人查看时",
   "scan.requested": "已请求 {{when}}",

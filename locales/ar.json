@@ -1333,8 +1333,6 @@
   "scan.last_run": "آخر تشغيل",
   "scan.next": "التالي",
   "scan.as_recommended": "كما هو موصى به",
-  "scan.never": "أبدًا",
-  "scan.due_now": "مستحق الآن",
   "scan.boost_while_browsing": "سرّع إلى كل {{interval}} أثناء وجود شخص يشاهد",
   "scan.only_while_browsing": "فقط أثناء وجود شخص يشاهد",
   "scan.requested": "طُلب {{when}}",

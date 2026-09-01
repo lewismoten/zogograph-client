@@ -1336,8 +1336,6 @@
   "scan.last_run": "Última ejecución",
   "scan.next": "Siguiente",
   "scan.as_recommended": "según lo recomendado",
-  "scan.never": "nunca",
-  "scan.due_now": "vence ahora",
   "scan.boost_while_browsing": "acelerar a cada {{interval}} mientras alguien está mirando",
   "scan.only_while_browsing": "solo mientras alguien está mirando",
   "scan.requested": "solicitado {{when}}",

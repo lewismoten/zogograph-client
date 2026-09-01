@@ -10716,13 +10716,23 @@ function scanTable(rows, data) {
     const last = row.insertCell();
     last.textContent = scan.last_at
       ? ago(scan.last_at)
-      : ZogographI18n.t('scan.never', {}, 'never');
+      : renderCoreCardPackage(
+          ZogographScheduleAvailabilityCard,
+          'core-schedule-availability',
+          { key: 'never' },
+          { i18n: ZogographI18n },
+        );
     if (scan.last_at) last.title = humanTime(scan.last_at);
 
     const next = row.insertCell();
     next.className = 'muted';
     next.textContent = scan.due
-      ? ZogographI18n.t('scan.due_now', {}, 'due now')
+      ? renderCoreCardPackage(
+          ZogographScheduleAvailabilityCard,
+          'core-schedule-availability',
+          { key: 'due_now' },
+          { i18n: ZogographI18n },
+        )
       : scan.due_why;
     if (scan.due) next.className = 'band-warn';
 

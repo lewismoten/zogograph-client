@@ -1351,8 +1351,6 @@
   "scan.last_run": "Last run",
   "scan.next": "Next",
   "scan.as_recommended": "as recommended",
-  "scan.never": "never",
-  "scan.due_now": "due now",
   "scan.boost_while_browsing": "speed up to every {{interval}} while somebody is looking",
   "scan.only_while_browsing": "only while somebody is looking",
   "scan.requested": "asked {{when}}",

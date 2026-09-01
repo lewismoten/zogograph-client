@@ -1335,8 +1335,6 @@
   "scan.last_run": "पिछली रन",
   "scan.next": "अगला",
   "scan.as_recommended": "अनुशंसा के अनुसार",
-  "scan.never": "कभी नहीं",
-  "scan.due_now": "अभी देय",
   "scan.boost_while_browsing": "कोई देख रहा हो तो हर {{interval}} पर तेज़ करें",
   "scan.only_while_browsing": "केवल जब कोई देख रहा हो",
   "scan.requested": "अनुरोध किया गया {{when}}",

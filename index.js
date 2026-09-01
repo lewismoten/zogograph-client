@@ -32094,14 +32094,19 @@ function renderRegexResult(out, groupInput) {
     const nav = document.createElement('div');
     nav.className = 'inspect-actions';
 
-    for (const [key, fallback, step] of [
-      ['regex.previous', '‹ Previous', -1],
-      ['regex.next', 'Next ›', 1],
+    for (const [key, step] of [
+      ['previous', -1],
+      ['next', 1],
     ]) {
       const button = document.createElement('button');
       button.type = 'button';
       button.className = 'link';
-      button.textContent = ZogographI18n.t(key, {}, fallback);
+      button.textContent = renderCoreCardPackage(
+        ZogographRegexResultsCard,
+        'core-regex-results',
+        { key },
+        { i18n: ZogographI18n },
+      );
       button.disabled =
         step < 0
           ? regexState.at === 0
@@ -32115,13 +32120,14 @@ function renderRegexResult(out, groupInput) {
 
     const which = document.createElement('span');
     which.className = 'muted small';
-    which.textContent = ZogographI18n.t(
-      'regex.match_position',
+    which.textContent = renderCoreCardPackage(
+      ZogographRegexResultsCard,
+      'core-regex-results',
       {
-        current: regexState.at + 1,
-        total: result.matches.length,
+        key: 'match_position',
+        values: { current: regexState.at + 1, total: result.matches.length },
       },
-      'Match {{current, number}} of {{total, number}}',
+      { i18n: ZogographI18n },
     );
     nav.appendChild(which);
     parts.push(nav);
@@ -32132,20 +32138,27 @@ function renderRegexResult(out, groupInput) {
     const keep = document.createElement('button');
     keep.type = 'button';
     keep.className = 'link';
-    keep.textContent = ZogographI18n.t('regex.keep_group', {}, 'Keep this one');
-    keep.title = ZogographI18n.t(
-      'regex.record_group',
-      { group: group.n },
-      'Record group {{group, number}} on every run',
+    keep.textContent = renderCoreCardPackage(
+      ZogographRegexResultsCard,
+      'core-regex-results',
+      { key: 'keep_group' },
+      { i18n: ZogographI18n },
+    );
+    keep.title = renderCoreCardPackage(
+      ZogographRegexResultsCard,
+      'core-regex-results',
+      { key: 'record_group', values: { group: group.n } },
+      { i18n: ZogographI18n },
     );
     keep.disabled = !groupInput || Number(groupInput.value) === group.n;
     keep.addEventListener('click', () => {
       groupInput.value = String(group.n);
       notice(
-        ZogographI18n.t(
-          'regex.group_recorded',
-          { group: group.n },
-          'This check will record group {{group, number}}.',
+        renderCoreCardPackage(
+          ZogographRegexResultsCard,
+          'core-regex-results',
+          { key: 'group_recorded', values: { group: group.n } },
+          { i18n: ZogographI18n },
         ),
         true,
       );
@@ -32154,14 +32167,20 @@ function renderRegexResult(out, groupInput) {
 
     return [
       group.n === 0
-        ? ZogographI18n.t('regex.whole_match', {}, 'whole match')
+        ? renderCoreCardPackage(
+            ZogographRegexResultsCard,
+            'core-regex-results',
+            { key: 'whole_match' },
+            { i18n: ZogographI18n },
+          )
         : String(group.n),
       group.matched
         ? group.text
-        : ZogographI18n.t(
-            'regex.group_absent',
-            {},
-            '— did not take part in this match',
+        : renderCoreCardPackage(
+            ZogographRegexResultsCard,
+            'core-regex-results',
+            { key: 'group_absent' },
+            { i18n: ZogographI18n },
           ),
       keep,
     ];
@@ -32170,8 +32189,18 @@ function renderRegexResult(out, groupInput) {
   parts.push(
     simpleTable(
       [
-        ZogographI18n.t('regex.group', {}, 'Group'),
-        ZogographI18n.t('regex.took', {}, 'Took'),
+        renderCoreCardPackage(
+          ZogographRegexResultsCard,
+          'core-regex-results',
+          { key: 'group' },
+          { i18n: ZogographI18n },
+        ),
+        renderCoreCardPackage(
+          ZogographRegexResultsCard,
+          'core-regex-results',
+          { key: 'took' },
+          { i18n: ZogographI18n },
+        ),
         '',
       ],
       rows,
@@ -32181,10 +32210,11 @@ function renderRegexResult(out, groupInput) {
 
   parts.push(
     note(
-      ZogographI18n.t(
-        'regex.group_absence_help',
-        {},
-        'A group that did not take part is not the same as one that matched nothing — an optional group is simply absent, and the check would record nothing on that run.',
+      renderCoreCardPackage(
+        ZogographRegexResultsCard,
+        'core-regex-results',
+        { key: 'group_absence_help' },
+        { i18n: ZogographI18n },
       ),
     ),
   );

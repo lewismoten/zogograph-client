@@ -28681,16 +28681,13 @@ async function showIncident(id) {
     );
     body.appendChild(
       section(
-        ZogographI18n.t('incident.disk', {}, 'Disk'),
+        incidentText('disk'),
         factGrid([
           [
-            ZogographI18n.t('incident.used', {}, 'Used'),
+            incidentText('used'),
             `${humanBytes(disk.used_bytes)} of ${humanBytes(disk.total_bytes)} (${disk.used_percent.toFixed(1)}%)`,
           ],
-          [
-            ZogographI18n.t('incident.free', {}, 'Free'),
-            humanBytes(disk.free_bytes),
-          ],
+          [incidentText('free'), humanBytes(disk.free_bytes)],
           ...growth,
         ]),
       ),

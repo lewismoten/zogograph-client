@@ -33,6 +33,9 @@ window.ZogographIncidentDetailsCard = {
         'core-incident-details.resident': 'Resident',
         'core-incident-details.processes': 'Processes',
         'core-incident-details.oldest': 'Oldest',
+        'core-incident-details.disk': 'Disk',
+        'core-incident-details.used': 'Used',
+        'core-incident-details.free': 'Free',
       }),
       es: Object.freeze({
         'core-incident-details.alerts_fired_together':
@@ -62,6 +65,9 @@ window.ZogographIncidentDetailsCard = {
         'core-incident-details.resident': 'Residente',
         'core-incident-details.processes': 'Procesos',
         'core-incident-details.oldest': 'Más antiguo',
+        'core-incident-details.disk': 'Disco',
+        'core-incident-details.used': 'Usado',
+        'core-incident-details.free': 'Libre',
       }),
       hi: Object.freeze({
         'core-incident-details.alerts_fired_together':
@@ -91,6 +97,9 @@ window.ZogographIncidentDetailsCard = {
         'core-incident-details.resident': 'रेज़िडेंट',
         'core-incident-details.processes': 'प्रक्रियाएँ',
         'core-incident-details.oldest': 'सबसे पुराना',
+        'core-incident-details.disk': 'डिस्क',
+        'core-incident-details.used': 'प्रयुक्त',
+        'core-incident-details.free': 'मुक्त',
       }),
       ar: Object.freeze({
         'core-incident-details.alerts_fired_together':
@@ -119,6 +128,9 @@ window.ZogographIncidentDetailsCard = {
         'core-incident-details.resident': 'المقيمة',
         'core-incident-details.processes': 'العمليات',
         'core-incident-details.oldest': 'الأقدم',
+        'core-incident-details.disk': 'القرص',
+        'core-incident-details.used': 'المستخدم',
+        'core-incident-details.free': 'الحر',
       }),
       zh: Object.freeze({
         'core-incident-details.alerts_fired_together':
@@ -147,6 +159,9 @@ window.ZogographIncidentDetailsCard = {
         'core-incident-details.resident': '常驻',
         'core-incident-details.processes': '进程',
         'core-incident-details.oldest': '最早',
+        'core-incident-details.disk': '磁盘',
+        'core-incident-details.used': '已用',
+        'core-incident-details.free': '空闲',
       }),
     }),
   }),

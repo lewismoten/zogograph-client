@@ -75,6 +75,7 @@ window.ZogographAlertsShellCard = {
           'Muted Information and Warning events remain visible with their delivery reason. Error and Critical alerts always bypass a mute.',
         'core-alerts-shell.rule': 'Rule',
         'core-alerts-shell.until': 'Until',
+        'core-alerts-shell.timeline_empty': 'Nothing has fired yet.',
       }),
       es: Object.freeze({
         'core-alerts-shell.timeline_title': 'Cuándo se activaron las alertas',
@@ -149,6 +150,7 @@ window.ZogographAlertsShellCard = {
           'Los eventos de Información y Advertencia silenciados siguen visibles con su motivo de entrega. Error y Crítica siempre omiten un silencio.',
         'core-alerts-shell.rule': 'Regla',
         'core-alerts-shell.until': 'Hasta',
+        'core-alerts-shell.timeline_empty': 'Aún no se ha activado nada.',
       }),
       hi: Object.freeze({
         'core-alerts-shell.timeline_title': 'अलर्ट कब चालू हुए',
@@ -221,6 +223,7 @@ window.ZogographAlertsShellCard = {
           'म्यूट की गई सूचना और चेतावनी घटनाएँ उनके डिलीवरी कारण के साथ दिखती रहती हैं। त्रुटि और गंभीर हमेशा म्यूट को बायपास करते हैं।',
         'core-alerts-shell.rule': 'नियम',
         'core-alerts-shell.until': 'तक',
+        'core-alerts-shell.timeline_empty': 'अभी तक कुछ नहीं हुआ है।',
       }),
       ar: Object.freeze({
         'core-alerts-shell.timeline_title': 'متى أُطلقت التنبيهات',
@@ -291,6 +294,7 @@ window.ZogographAlertsShellCard = {
           'تبقى أحداث المعلومات والتحذير المكتومة مرئية مع سبب التسليم. يتجاوز الخطأ والحرج الكتم دائمًا.',
         'core-alerts-shell.rule': 'القاعدة',
         'core-alerts-shell.until': 'حتى',
+        'core-alerts-shell.timeline_empty': 'لم يُطلق شيء بعد.',
       }),
       zh: Object.freeze({
         'core-alerts-shell.timeline_title': '警报何时触发',
@@ -359,6 +363,7 @@ window.ZogographAlertsShellCard = {
           '静音的信息和警告事件仍会显示其投递原因。错误和严重警报始终会绕过静音。',
         'core-alerts-shell.rule': '规则',
         'core-alerts-shell.until': '截止',
+        'core-alerts-shell.timeline_empty': '尚未触发任何内容。',
       }),
     }),
   }),

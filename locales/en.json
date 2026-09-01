@@ -973,7 +973,6 @@
   "alerts.timeline_hour": "hour",
   "alerts.timeline_range": "{{count, number}} alert(s), one bar per {{period}}",
   "alerts.timeline_held_back": " — {{count, number}} held back by {{assistant}}, still counted here",
-  "alerts.timeline_empty": "Nothing has fired yet.",
   "alerts.mute_explainer": "Mute “{{rule}}”? Matching Information and Warning alerts stay recorded but are not sent. Error and Critical always bypass this mute.",
   "alerts.delete_title": "Delete alert",
   "alerts.ignored_help": "The rule called this {{severity}}. {{assistant}} concluded it did not warrant sending.",

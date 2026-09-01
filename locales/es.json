@@ -980,7 +980,6 @@
   "alerts.timeline_hour": "hora",
   "alerts.timeline_range": "{{count, number}} alertas, una barra por {{period}}",
   "alerts.timeline_held_back": " — {{count, number}} retenidas por {{assistant}}, aún contadas aquí",
-  "alerts.timeline_empty": "Aún no se ha activado nada.",
   "alerts.mute_explainer": "¿Silenciar “{{rule}}”? Las alertas de Información y Advertencia coincidentes se siguen registrando pero no se envían. Error y Crítica siempre omiten este silencio.",
   "alerts.delete_title": "Eliminar alerta",
   "alerts.ignored_help": "La regla llamó a esto {{severity}}. {{assistant}} concluyó que no justificaba enviarlo.",

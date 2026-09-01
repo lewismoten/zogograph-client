@@ -28335,7 +28335,9 @@ function drawAlertTimeline(rows) {
     ctx.font = '13px system-ui, sans-serif';
     ctx.textAlign = 'center';
     ctx.fillText(
-      ZogographI18n.t('alerts.timeline_empty', {}, 'Nothing has fired yet.'),
+      ZogographAlertsShellCard.text('timeline_empty', {
+        i18n: ZogographI18n,
+      }),
       width / 2,
       height / 2,
     );

@@ -26748,7 +26748,12 @@ function describeTimes(jobs, data, minute, hour) {
   const said = [];
 
   for (const [job, pick] of jobs) {
-    const jobLabel = ZogographI18n.t(`schedule.job.${job}`, {}, job);
+    const jobLabel = renderCoreCardPackage(
+      ZogographScheduleJobControlsCard,
+      'core-schedule-job-controls',
+      { key: job },
+      { i18n: ZogographI18n },
+    );
     const preset = data.presets[job]?.[pick];
     if (!preset || preset.minute_step == null) continue;
 

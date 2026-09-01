@@ -10,30 +10,35 @@ window.ZogographTimeFormattingCard = {
         'core-time-formatting.ago': '{{duration}} ago',
         'core-time-formatting.date_with_duration_ago':
           '{{date}} — {{duration}} ago',
+        'core-time-formatting.duration_value': '{{value, unit}}',
       }),
       es: Object.freeze({
         'core-time-formatting.range_to': 'a',
         'core-time-formatting.ago': 'hace {{duration}}',
         'core-time-formatting.date_with_duration_ago':
           '{{date}} — hace {{duration}}',
+        'core-time-formatting.duration_value': '{{value, unit}}',
       }),
       hi: Object.freeze({
         'core-time-formatting.range_to': 'से',
         'core-time-formatting.ago': '{{duration}} पहले',
         'core-time-formatting.date_with_duration_ago':
           '{{date}} — {{duration}} पहले',
+        'core-time-formatting.duration_value': '{{value, unit}}',
       }),
       ar: Object.freeze({
         'core-time-formatting.range_to': 'إلى',
         'core-time-formatting.ago': 'منذ {{duration}}',
         'core-time-formatting.date_with_duration_ago':
           '{{date}} — منذ {{duration}}',
+        'core-time-formatting.duration_value': '{{value, unit}}',
       }),
       zh: Object.freeze({
         'core-time-formatting.range_to': '至',
         'core-time-formatting.ago': '{{duration}}前',
         'core-time-formatting.date_with_duration_ago':
           '{{date}} — {{duration}}前',
+        'core-time-formatting.duration_value': '{{value, unit}}',
       }),
     }),
   }),

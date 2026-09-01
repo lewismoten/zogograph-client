@@ -2678,10 +2678,9 @@ i18nExpect(
 i18nExpect(
     $script !== false &&
         str_contains($script, 'function humanDuration(seconds)') &&
-        str_contains($script, '"duration.value"') &&
-        is_array($english) &&
-        isset($english['duration.value']),
-    'duration values do not honor the selected locale',
+        str_contains($script, "timeFormattingText('duration_value'") &&
+        isset($coreCardEnglish['core-time-formatting.duration_value']),
+    'duration values do not use the time-formatting package locale catalog',
 );
 i18nExpect(
     $script !== false &&

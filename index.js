@@ -404,11 +404,11 @@ function humanDuration(seconds) {
         : seconds < 172800
           ? [Number((seconds / 3600).toFixed(1)), 'hour']
           : [Number((seconds / 86400).toFixed(1)), 'day'];
-  return ZogographI18n.t(
-    'duration.value',
-    { value, valueUnit: unit, valueUnitDisplay: 'short' },
-    '{{value, unit}}',
-  );
+  return timeFormattingText('duration_value', {
+    value,
+    valueUnit: unit,
+    valueUnitDisplay: 'short',
+  });
 }
 
 function humanTime(epoch) {
@@ -35081,11 +35081,11 @@ async function refreshDns(params = {}) {
 
     const took = document.createElement('span');
     took.className = 'muted small';
-    took.textContent = ZogographI18n.t(
-      'duration.value',
-      { value: row.ms, valueUnit: 'millisecond', valueUnitDisplay: 'short' },
-      '{{value, unit}}',
-    );
+    took.textContent = timeFormattingText('duration_value', {
+      value: row.ms,
+      valueUnit: 'millisecond',
+      valueUnitDisplay: 'short',
+    });
     head.appendChild(took);
 
     block.appendChild(head);

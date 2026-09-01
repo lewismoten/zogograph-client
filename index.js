@@ -31357,6 +31357,14 @@ const urlHistoryText = (key, values = {}) =>
     { i18n: ZogographI18n },
   );
 
+const urlEditorText = (key, values = {}) =>
+  renderCoreCardPackage(
+    window.ZogographUrlMonitorEditorCard,
+    'core-url-monitor-editor',
+    { key, values },
+    { i18n: ZogographI18n },
+  );
+
 async function refreshUrls() {
   const body = $('urlBody');
   if (!state.signedIn) {
@@ -32245,8 +32253,8 @@ function openUrlForm(row = null) {
   urlState.editing = row;
   $('urlFormPanel').hidden = false;
   $('urlFormTitle').textContent = row
-    ? ZogographI18n.t('url.editing', { label: row.label }, 'Editing {{label}}')
-    : ZogographI18n.t('url.add_check', {}, 'Add a check');
+    ? urlEditorText('editing', { label: row.label })
+    : urlEditorText('add_check');
 
   const form = $('urlForm');
   const parts = [];
@@ -32260,22 +32268,9 @@ function openUrlForm(row = null) {
   const url = document.createElement('input');
   url.type = 'url';
   url.size = 46;
-  url.placeholder = ZogographI18n.t(
-    'url.address_placeholder',
-    {},
-    'https://example.com/',
-  );
+  url.placeholder = urlEditorText('address_placeholder');
   url.value = row?.url ?? '';
-  field(
-    'urlUrl',
-    ZogographI18n.t('url.address', {}, 'Address'),
-    url,
-    ZogographI18n.t(
-      'url.address_help',
-      {},
-      'The address somebody would actually type.',
-    ),
-  );
+  field('urlUrl', urlEditorText('address'), url, urlEditorText('address_help'));
 
   const label = document.createElement('input');
   label.type = 'text';

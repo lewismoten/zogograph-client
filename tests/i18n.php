@@ -410,6 +410,9 @@ $english = json_decode(
 $hostMemoryPieCard = i18nCardSource(
     file_get_contents($root . '/cards/host-memory-pie.js'),
 );
+$urlMonitorEditorCard = file_get_contents(
+    $root . '/cards/url-monitor-editor.js',
+);
 i18nExpect(
     !isset($english['storage.no_scan_finished_range']),
     'category chart empty state belongs to its card package',
@@ -3773,10 +3776,15 @@ i18nExpect(
 );
 i18nExpect(
     $script !== false &&
-        str_contains($script, 'url.editing') &&
-        str_contains($script, 'url.address_placeholder') &&
-        str_contains($script, 'url.notify_change_help'),
-    'URL check editor retains direct user-visible text',
+        str_contains($script, 'core-url-monitor-editor') &&
+        str_contains($script, "urlEditorText('editing'") &&
+        str_contains($script, "urlEditorText('address_placeholder'") &&
+        $urlMonitorEditorCard !== false &&
+        str_contains(
+            $urlMonitorEditorCard,
+            'core-url-monitor-editor.address_help',
+        ),
+    'URL check editor package is not localized',
 );
 i18nExpect(
     $script !== false &&

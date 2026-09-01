@@ -14102,7 +14102,7 @@ async function showNoteDialog(preset = {}) {
 
   const save = document.createElement('button');
   save.type = 'submit';
-  save.textContent = ZogographI18n.t('action.save', {}, 'Save it');
+  save.textContent = actionCommonText('save');
   actions.appendChild(save);
   parts.push(actions);
 
@@ -14200,7 +14200,7 @@ async function showNoteDialog(preset = {}) {
       notice(String(error.message || error));
     } finally {
       save.disabled = false;
-      save.textContent = ZogographI18n.t('action.save', {}, 'Save it');
+      save.textContent = actionCommonText('save');
     }
   };
 
@@ -32833,9 +32833,7 @@ function openEventForm(row = null) {
   const actions = document.createElement('div');
   actions.className = 'inspect-actions';
   const save = document.createElement('button');
-  save.textContent = row
-    ? ZogographI18n.t('action.save', {}, 'Save it')
-    : ZogographI18n.t('action.add', {}, 'Add it');
+  save.textContent = row ? actionCommonText('save') : actionCommonText('add');
   save.addEventListener('click', async () => {
     save.disabled = true;
     try {

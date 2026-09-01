@@ -11,6 +11,8 @@ window.ZogographScheduleAvailabilityCard = {
           "{{job}}: {{expression}} in the server's timezone, which could not be determined",
         'core-schedule-availability.times_frequent':
           '{{job}}: {{profile}}, next at {{next}}',
+        'core-schedule-availability.update_policy_readonly':
+          'You can view this policy but need write access to change it.',
       }),
       es: Object.freeze({
         'core-schedule-availability.crontab_unreadable':
@@ -19,6 +21,8 @@ window.ZogographScheduleAvailabilityCard = {
           '{{job}}: {{expression}} en la zona horaria del servidor, que no se pudo determinar',
         'core-schedule-availability.times_frequent':
           '{{job}}: {{profile}}, próxima vez a las {{next}}',
+        'core-schedule-availability.update_policy_readonly':
+          'Puede ver esta política, pero necesita acceso de escritura para cambiarla.',
       }),
       hi: Object.freeze({
         'core-schedule-availability.crontab_unreadable':
@@ -27,6 +31,8 @@ window.ZogographScheduleAvailabilityCard = {
           '{{job}}: {{expression}} सर्वर के समय क्षेत्र में, जिसे निर्धारित नहीं किया जा सका',
         'core-schedule-availability.times_frequent':
           '{{job}}: {{profile}}, अगला {{next}} पर',
+        'core-schedule-availability.update_policy_readonly':
+          'आप इस नीति को देख सकते हैं, लेकिन इसे बदलने के लिए लिखने की अनुमति चाहिए।',
       }),
       ar: Object.freeze({
         'core-schedule-availability.crontab_unreadable':
@@ -35,6 +41,8 @@ window.ZogographScheduleAvailabilityCard = {
           '{{job}}: ‏{{expression}} في المنطقة الزمنية للخادم التي تعذر تحديدها',
         'core-schedule-availability.times_frequent':
           '{{job}}: ‏{{profile}}، التشغيل التالي عند {{next}}',
+        'core-schedule-availability.update_policy_readonly':
+          'يمكنك عرض هذه السياسة، لكنك تحتاج إلى صلاحية كتابة لتغييرها.',
       }),
       zh: Object.freeze({
         'core-schedule-availability.crontab_unreadable':
@@ -43,6 +51,8 @@ window.ZogographScheduleAvailabilityCard = {
           '{{job}}：{{expression}} 使用无法确定的服务器时区',
         'core-schedule-availability.times_frequent':
           '{{job}}：{{profile}}，下次为 {{next}}',
+        'core-schedule-availability.update_policy_readonly':
+          '您可以查看此策略，但需要写入权限才能更改它。',
       }),
     }),
   }),

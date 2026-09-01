@@ -26224,10 +26224,11 @@ function drawSchedule(data) {
   } else {
     updateBox.appendChild(
       note(
-        ZogographI18n.t(
-          'schedule.update_policy_readonly',
-          {},
-          'You can view this policy but need write access to change it.',
+        renderCoreCardPackage(
+          ZogographScheduleAvailabilityCard,
+          'core-schedule-availability',
+          { key: 'update_policy_readonly' },
+          { i18n: ZogographI18n },
         ),
       ),
     );

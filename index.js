@@ -23822,11 +23822,7 @@ async function refreshHost() {
       holder.appendChild(
         Object.assign(document.createElement('p'), {
           className: 'muted small',
-          textContent: ZogographI18n.t(
-            'host.add_root_collector_cron',
-            {},
-            "As root — SSH in or use WHM's Terminal — add this to root's crontab with crontab -e:",
-          ),
+          textContent: hostCollectorRuntimeText('add_root_cron'),
         }),
       );
       const pre = document.createElement('pre');

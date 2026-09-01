@@ -18950,10 +18950,11 @@ function renderTerminal(data) {
 
             const again = document.createElement('button');
             again.className = 'link';
-            again.textContent = ZogographI18n.t(
-              'terminal.run_again',
-              {},
-              'Run it again',
+            again.textContent = renderCoreCardPackage(
+              ZogographTerminalHistoryCard,
+              'core-terminal-history',
+              { key: 'run_again' },
+              { i18n: ZogographI18n },
             );
             again.addEventListener('click', () => {
               $('terminalInput').value = row.command;

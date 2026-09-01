@@ -12,6 +12,7 @@ window.ZogographTerminalHistoryCard = {
         'core-terminal-history.took': 'Took',
         'core-terminal-history.how_it_ended': 'How it ended',
         'core-terminal-history.earlier_commands': 'Earlier commands',
+        'core-terminal-history.run_again': 'Run it again',
       }),
       es: Object.freeze({
         'core-terminal-history.command': 'Comando',
@@ -20,6 +21,7 @@ window.ZogographTerminalHistoryCard = {
         'core-terminal-history.took': 'Duró',
         'core-terminal-history.how_it_ended': 'Cómo terminó',
         'core-terminal-history.earlier_commands': 'Comandos anteriores',
+        'core-terminal-history.run_again': 'Ejecutarlo de nuevo',
       }),
       hi: Object.freeze({
         'core-terminal-history.command': 'कमांड',
@@ -28,6 +30,7 @@ window.ZogographTerminalHistoryCard = {
         'core-terminal-history.took': 'लगा',
         'core-terminal-history.how_it_ended': 'कैसे समाप्त हुआ',
         'core-terminal-history.earlier_commands': 'पिछले कमांड',
+        'core-terminal-history.run_again': 'इसे फिर चलाएँ',
       }),
       ar: Object.freeze({
         'core-terminal-history.command': 'الأمر',
@@ -36,6 +39,7 @@ window.ZogographTerminalHistoryCard = {
         'core-terminal-history.took': 'استغرق',
         'core-terminal-history.how_it_ended': 'كيف انتهى',
         'core-terminal-history.earlier_commands': 'الأوامر السابقة',
+        'core-terminal-history.run_again': 'شغّله مجددًا',
       }),
       zh: Object.freeze({
         'core-terminal-history.command': '命令',
@@ -44,6 +48,7 @@ window.ZogographTerminalHistoryCard = {
         'core-terminal-history.took': '耗时',
         'core-terminal-history.how_it_ended': '结束方式',
         'core-terminal-history.earlier_commands': '较早的命令',
+        'core-terminal-history.run_again': '再次运行它',
       }),
     }),
   }),

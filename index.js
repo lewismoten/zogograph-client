@@ -34978,14 +34978,16 @@ function renderWhoisTerms(terms, onAccept) {
   );
 }
 
+function whoisText(key, values = {}) {
+  return ZogographWhoisShellCard.text(key, values, {
+    i18n: ZogographI18n,
+  });
+}
+
 async function refreshWhois(name = '') {
   const body = $('whoisBody');
   if (!state.signedIn) {
-    body.replaceChildren(
-      note(
-        ZogographI18n.t('whois.sign_in_lookup', {}, 'Sign in to run a lookup.'),
-      ),
-    );
+    body.replaceChildren(note(whoisText('sign_in_lookup')));
     return;
   }
 
@@ -34996,11 +34998,7 @@ async function refreshWhois(name = '') {
         if (terms) {
           body.replaceChildren(
             renderWhoisTerms(terms, () => {
-              body.replaceChildren(
-                note(
-                  ZogographI18n.t('whois.type_name', {}, 'Type a name above.'),
-                ),
-              );
+              body.replaceChildren(note(whoisText('type_name')));
             }),
           );
           return;
@@ -35010,9 +35008,7 @@ async function refreshWhois(name = '') {
         // statement, not a gate this should fail closed on.
       }
     }
-    body.replaceChildren(
-      note(ZogographI18n.t('whois.type_name', {}, 'Type a name above.')),
-    );
+    body.replaceChildren(note(whoisText('type_name')));
     return;
   }
 
@@ -35028,15 +35024,7 @@ async function refreshWhois(name = '') {
     }
   }
 
-  body.replaceChildren(
-    spinner(
-      ZogographI18n.t(
-        'whois.asking_registry',
-        {},
-        'Asking the registry… this can take a few seconds.',
-      ),
-    ),
-  );
+  body.replaceChildren(spinner(whoisText('asking_registry')));
 
   let data;
   try {
@@ -35065,24 +35053,16 @@ async function refreshWhois(name = '') {
     if (data.from_host?.pending) {
       parts.push(
         note(
-          ZogographI18n.t(
+          whoisText(
             data.from_host.previous_error
-              ? 'whois.host_pending_with_error'
-              : 'whois.host_pending',
+              ? 'host_pending_with_error'
+              : 'host_pending',
             { error: data.from_host.previous_error },
-            data.from_host.previous_error
-              ? "WHOIS is not available to this account, so root's collector has been asked to run it. It answers on its next run — the countdown is at the top of the page, and this page will have the answer once it lands. The last attempt on the host said: {{error}}"
-              : "WHOIS is not available to this account, so root's collector has been asked to run it. It answers on its next run — the countdown is at the top of the page, and this page will have the answer once it lands.",
           ),
         ),
       );
     } else {
-      parts.push(
-        note(
-          data.error ||
-            ZogographI18n.t('whois.lookup_failed', {}, 'The lookup failed.'),
-        ),
-      );
+      parts.push(note(data.error || whoisText('lookup_failed')));
     }
     body.replaceChildren(...parts);
     return;
@@ -35091,11 +35071,7 @@ async function refreshWhois(name = '') {
   if (data.from_host?.answered_at) {
     parts.push(
       note(
-        ZogographI18n.t(
-          'whois.host_answered',
-          { when: ago(data.from_host.answered_at) },
-          "Answered by root's collector {{when}}, because WHOIS is not available to this account.",
-        ),
+        whoisText('host_answered', { when: ago(data.from_host.answered_at) }),
       ),
     );
   }
@@ -35112,11 +35088,7 @@ async function refreshWhois(name = '') {
     parts.push(
       Object.assign(document.createElement('p'), {
         className: 'band-ok',
-        textContent: ZogographI18n.t(
-          'whois.available_name',
-          { name: data.name },
-          '{{name}} appears to be unregistered. The registry has no record of it, which is what an available name looks like — though a registry that is simply not answering can look the same, so check with a registrar before celebrating.',
-        ),
+        textContent: whoisText('available_name', { name: data.name }),
       }),
     );
   } else {

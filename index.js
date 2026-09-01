@@ -17510,6 +17510,15 @@ function tableFactsFor(account, name) {
  * still get an honest generic explanation, which matters after a migration
  * adds a table before this UI learns its friendlier wording.
  */
+function databaseTableHelpText(key, values = {}) {
+  return renderCoreCardPackage(
+    ZogographDatabaseTableHelpCard,
+    'core-database-table-help',
+    { key, values },
+    { i18n: ZogographI18n },
+  );
+}
+
 function databaseTableName(name, host) {
   const known = {
     vitals: [
@@ -17659,40 +17668,26 @@ function databaseTableName(name, host) {
     ],
   };
   const [what, where, collected] = known[name] || [
-    ZogographI18n.t(
-      'database.unknown_table_what',
-      { collector: host ? 'root collector' : 'dashboard' },
-      'A {{collector}} SQLite table retained for this installation.',
-    ),
+    databaseTableHelpText('unknown_table_what', {
+      collector: host ? 'root collector' : 'dashboard',
+    }),
     host
-      ? ZogographI18n.t(
-          'database.host_collector_data',
-          {},
-          'Host collector data',
-        )
-      : ZogographI18n.t(
-          'database.forensic_views',
-          {},
-          'Database and forensic views',
-        ),
+      ? databaseTableHelpText('host_collector_data')
+      : databaseTableHelpText('forensic_views'),
     host
       ? 'php host-cron.php --collect'
-      : ZogographI18n.t(
-          'database.dashboard_collector',
-          {},
-          'maintained by the dashboard collector',
-        ),
+      : databaseTableHelpText('dashboard_collector'),
   ];
   const label = document.createElement('span');
   label.append(
     document.createTextNode(name),
     helpIcon({
       title: what,
-      note: ZogographI18n.t(
-        'database.table_metadata',
-        { where, collected, name },
-        'Used by: {{where}}. Collected by: {{collected}}. Inspect: sqlite3 <database> "SELECT COUNT(*) FROM {{name}};"',
-      ),
+      note: databaseTableHelpText('table_metadata', {
+        where,
+        collected,
+        name,
+      }),
       mine: false,
     }),
   );

@@ -30941,10 +30941,9 @@ function noticeHostArrival() {
 
   for (const row of settled) {
     toast(
-      ZogographI18n.t(
-        'pending.ready',
-        { label: row.label },
-        '{{label}} is ready.',
+      ZogographNavigationBadgeCard.render(
+        { kind: 'pending_ready', label: row.label },
+        { i18n: ZogographI18n },
       ),
       row.view,
     );
@@ -30973,9 +30972,18 @@ function markUnseen(view, unseen) {
 
   if (unseen) {
     badge.hidden = false;
-    badge.textContent = ZogographI18n.t('pending.new', {}, 'new');
+    badge.textContent = ZogographNavigationBadgeCard.render(
+      { kind: 'pending_new' },
+      { i18n: ZogographI18n },
+    );
     badge.className = 'nav-badge badge-new';
-  } else if (badge.textContent === ZogographI18n.t('pending.new', {}, 'new')) {
+  } else if (
+    badge.textContent ===
+    ZogographNavigationBadgeCard.render(
+      { kind: 'pending_new' },
+      { i18n: ZogographI18n },
+    )
+  ) {
     badge.hidden = true;
     badge.textContent = '';
   }

@@ -96,8 +96,6 @@
   "pending.expected_in": "Previsto en {{duration}}",
   "pending.due_now": "Vence ahora",
   "pending.past_due": "Vencido hace {{duration}}; es posible que el recopilador no esté ejecutándose",
-  "pending.ready": "{{label}} está listo.",
-  "pending.new": "nuevo",
   "process.ask": "Pedir",
   "process.force": "Forzar",
   "process.ask_stop": "Pedir detener {{count}} procesos",

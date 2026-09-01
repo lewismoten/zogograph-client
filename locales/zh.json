@@ -96,8 +96,6 @@
   "pending.expected_in": "预计在 {{duration}} 后",
   "pending.due_now": "现在到期",
   "pending.past_due": "已逾期 {{duration}}——收集器可能没有运行",
-  "pending.ready": "{{label}} 已就绪。",
-  "pending.new": "新",
   "process.ask": "请求",
   "process.force": "强制",
   "process.ask_stop": "请求 {{count}} 个进程停止",

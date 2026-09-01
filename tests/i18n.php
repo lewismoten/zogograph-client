@@ -3569,8 +3569,6 @@ i18nExpect(
             $english['pending.expected_in'],
             $english['pending.due_now'],
             $english['pending.past_due'],
-            $english['pending.ready'],
-            $english['pending.new'],
             $english['process.ask'],
             $english['process.force'],
             $english['process.ask_stop'],
@@ -3822,7 +3820,10 @@ i18nExpect(
         $pendingWorkCard !== false &&
         str_contains($pendingWorkCard, '"core-pending-work.waiting"') &&
         str_contains($script, 'pending.collector_overdue') &&
-        str_contains($script, 'pending.ready'),
+        str_contains(
+            (string) file_get_contents($root . '/cards/navigation-badge.js'),
+            'core-navigation-badge.pending_ready',
+        ),
     'host request status retains a core-owned pending-work label',
 );
 i18nExpect(

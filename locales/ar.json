@@ -96,8 +96,6 @@
   "pending.expected_in": "متوقع خلال {{duration}}",
   "pending.due_now": "مستحق الآن",
   "pending.past_due": "متأخر {{duration}} — قد لا يكون المُجمّع قيد التشغيل",
-  "pending.ready": "{{label}} جاهز.",
-  "pending.new": "جديد",
   "process.ask": "اطلب",
   "process.force": "افرض الإيقاف",
   "process.ask_stop": "اطلب من {{count}} عمليات أن تتوقف",

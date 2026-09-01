@@ -20,6 +20,8 @@ window.ZogographNavigationBadgeCard = {
         'core-navigation-badge.warning': 'a warning',
         'core-navigation-badge.notice': 'a notice',
         'core-navigation-badge.info': 'a note',
+        'core-navigation-badge.pending_ready': '{{label}} is ready.',
+        'core-navigation-badge.pending_new': 'new',
       }),
       es: Object.freeze({
         'core-navigation-badge.alerts':
@@ -36,6 +38,8 @@ window.ZogographNavigationBadgeCard = {
         'core-navigation-badge.warning': 'una advertencia',
         'core-navigation-badge.notice': 'un aviso',
         'core-navigation-badge.info': 'una nota',
+        'core-navigation-badge.pending_ready': '{{label}} está listo.',
+        'core-navigation-badge.pending_new': 'nuevo',
       }),
       hi: Object.freeze({
         'core-navigation-badge.alerts':
@@ -53,6 +57,8 @@ window.ZogographNavigationBadgeCard = {
         'core-navigation-badge.warning': 'एक चेतावनी',
         'core-navigation-badge.notice': 'एक सूचना',
         'core-navigation-badge.info': 'एक टिप्पणी',
+        'core-navigation-badge.pending_ready': '{{label}} तैयार है।',
+        'core-navigation-badge.pending_new': 'नया',
       }),
       ar: Object.freeze({
         'core-navigation-badge.alerts':
@@ -69,6 +75,8 @@ window.ZogographNavigationBadgeCard = {
         'core-navigation-badge.warning': 'تحذير',
         'core-navigation-badge.notice': 'إشعار',
         'core-navigation-badge.info': 'ملاحظة',
+        'core-navigation-badge.pending_ready': '{{label}} جاهز.',
+        'core-navigation-badge.pending_new': 'جديد',
       }),
       zh: Object.freeze({
         'core-navigation-badge.alerts':
@@ -85,6 +93,8 @@ window.ZogographNavigationBadgeCard = {
         'core-navigation-badge.warning': '警告',
         'core-navigation-badge.notice': '通知',
         'core-navigation-badge.info': '提示',
+        'core-navigation-badge.pending_ready': '{{label}} 已就绪。',
+        'core-navigation-badge.pending_new': '新',
       }),
     }),
   }),
@@ -92,6 +102,14 @@ window.ZogographNavigationBadgeCard = {
   render(input, helpers) {
     const { i18n } = helpers;
     const t = (key, values, fallback) => i18n.t(key, values, fallback);
+    if (input.kind === 'pending_ready')
+      return t(
+        'core-navigation-badge.pending_ready',
+        { label: input.label },
+        '{{label}} is ready.',
+      );
+    if (input.kind === 'pending_new')
+      return t('core-navigation-badge.pending_new', {}, 'new');
     if (input.kind === 'alerts') {
       return t(
         'core-navigation-badge.alerts',

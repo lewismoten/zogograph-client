@@ -96,8 +96,6 @@
   "pending.expected_in": "{{duration}} में अपेक्षित",
   "pending.due_now": "अब देय",
   "pending.past_due": "{{duration}} से विलंबित — कलेक्टर शायद चल नहीं रहा है",
-  "pending.ready": "{{label}} तैयार है।",
-  "pending.new": "नया",
   "process.ask": "अनुरोध करें",
   "process.force": "बलपूर्वक रोकें",
   "process.ask_stop": "{{count}} प्रक्रियाओं को रुकने का अनुरोध करें",

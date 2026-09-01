@@ -96,8 +96,6 @@
   "pending.expected_in": "Expected in {{duration}}",
   "pending.due_now": "Due now",
   "pending.past_due": "{{duration}} past due — the collector may not be running",
-  "pending.ready": "{{label}} is ready.",
-  "pending.new": "new",
   "process.ask": "Ask",
   "process.force": "Force",
   "process.ask_stop": "Ask {{count}} processes to stop",

@@ -19,6 +19,7 @@ export default [
         ZogographI18n: 'readonly',
         ZogographAuditShellCard: 'readonly',
         ZogographAlertsShellCard: 'readonly',
+        ZogographAlertRecheckStatusCard: 'readonly',
         ZogographActionSummaryCard: 'readonly',
         ZogographCpuCoresCard: 'readonly',
         ZogographCpuFindingsCard: 'readonly',

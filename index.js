@@ -30374,10 +30374,11 @@ async function refreshDiagnosis() {
           await post('diagnosis-unignore', { key: finding.key });
           await refreshDiagnosis();
           notice(
-            ZogographI18n.t(
-              'alert.finding_recheck_queued',
-              {},
-              'The finding will be checked again.',
+            renderCoreCardPackage(
+              ZogographAlertRecheckStatusCard,
+              'core-alert-recheck-status',
+              { key: 'queued' },
+              { i18n: ZogographI18n },
             ),
             true,
           );

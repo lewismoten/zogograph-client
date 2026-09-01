@@ -7505,7 +7505,7 @@ function rowButtons(row) {
    */
   if (row.viewable) {
     const view = document.createElement('button');
-    view.textContent = ZogographI18n.t('action.view', {}, 'View');
+    view.textContent = actionCommonText('view');
     view.addEventListener('click', () => showLog(row.path_id));
     holder.appendChild(view);
   }
@@ -7549,7 +7549,7 @@ function deleteButton(row) {
 
   const button = document.createElement('button');
   button.className = 'danger';
-  button.textContent = ZogographI18n.t('action.delete', {}, 'Delete');
+  button.textContent = actionCommonText('delete');
   button.addEventListener('click', async () => {
     const directory = row.kind === 'dir';
     const question = directory
@@ -10745,7 +10745,7 @@ function scanTable(rows, data) {
       const cancel = document.createElement('button');
       cancel.type = 'button';
       cancel.className = 'link danger';
-      cancel.textContent = ZogographI18n.t('action.cancel', {}, 'Cancel');
+      cancel.textContent = actionCommonText('cancel');
       cancel.addEventListener('click', async () => {
         cancel.disabled = true;
         try {
@@ -17082,7 +17082,7 @@ function notePreview(row) {
 function noteDeleteButton(row) {
   const remove = document.createElement('button');
   remove.className = 'link danger';
-  remove.textContent = ZogographI18n.t('action.delete', {}, 'Delete');
+  remove.textContent = actionCommonText('delete');
   remove.disabled = !state.access?.write;
   remove.addEventListener('click', async (event) => {
     event.stopPropagation();
@@ -17242,7 +17242,7 @@ function noteActions(row) {
 
   const remove = document.createElement('button');
   remove.className = 'link danger';
-  remove.textContent = ZogographI18n.t('action.delete', {}, 'Delete');
+  remove.textContent = actionCommonText('delete');
   remove.addEventListener('click', async () => {
     if (
       !(await confirmDialog(
@@ -28097,7 +28097,7 @@ function alertRowActions(row) {
 
   const remove = document.createElement('button');
   remove.className = 'link danger';
-  remove.textContent = ZogographI18n.t('action.delete', {}, 'Delete');
+  remove.textContent = actionCommonText('delete');
   remove.addEventListener('click', async () => {
     if (
       await confirmDialog(
@@ -30645,7 +30645,7 @@ function inspectActions(data) {
 
   if (p.view) {
     const view = document.createElement('button');
-    view.textContent = ZogographI18n.t('action.view', {}, 'View');
+    view.textContent = actionCommonText('view');
     view.addEventListener('click', () => {
       showView('storage-files');
       showLogPath(data.path);
@@ -30684,10 +30684,7 @@ async function deleteFromInspect(data) {
           size: humanBytes(data.facts.size_bytes),
         });
 
-  if (
-    !(await confirmDialog(what, ZogographI18n.t('action.delete', {}, 'Delete')))
-  )
-    return;
+  if (!(await confirmDialog(what, actionCommonText('delete')))) return;
 
   try {
     const result =
@@ -38039,6 +38036,15 @@ function backupContentDetailsText(key, values = {}) {
   );
 }
 
+function actionCommonText(key, values = {}) {
+  return renderCoreCardPackage(
+    ZogographActionCommonCard,
+    'core-action-common',
+    { key, values },
+    { i18n: ZogographI18n },
+  );
+}
+
 async function refreshBackups() {
   const holder = $('backupBody');
   if (!holder) return;
@@ -41373,7 +41379,7 @@ function showPendingDialog() {
 
     const cancel = document.createElement('button');
     cancel.className = 'link danger';
-    cancel.textContent = ZogographI18n.t('action.cancel', {}, 'Cancel');
+    cancel.textContent = actionCommonText('cancel');
     cancel.addEventListener('click', async () => {
       cancel.disabled = true;
       try {

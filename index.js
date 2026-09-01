@@ -250,12 +250,8 @@ function redactAccountNodes(root) {
       const mine = match[1] === account;
       span.className = mine ? 'user-me' : 'user-root';
       span.title = mine
-        ? ZogographI18n.t(
-            'account.this_account',
-            {},
-            'This account — the one this dashboard runs as.',
-          )
-        : ZogographI18n.t('account.root', {}, 'root');
+        ? accountIdentityLabelText('this_account')
+        : accountIdentityLabelText('root');
       span.textContent =
         mine && state.access?.account_privacy ? '[self]' : match[1];
       fragment.append(span);
@@ -32901,6 +32897,15 @@ function markWideTables(within = document) {
  * Colour is not the only signal. Each carries a word on hover, since a colour
  * alone tells somebody who cannot distinguish it nothing at all.
  */
+function accountIdentityLabelText(key) {
+  return renderCoreCardPackage(
+    ZogographAccountIdentityLabelsCard,
+    'core-account-identity-labels',
+    { key },
+    { i18n: ZogographI18n },
+  );
+}
+
 function userCell(user) {
   const span = document.createElement('span');
   const mine = user === state.account;
@@ -32908,18 +32913,10 @@ function userCell(user) {
 
   if (mine) {
     span.className = 'user-me';
-    span.title = ZogographI18n.t(
-      'account.this_account',
-      {},
-      'This account — the one this dashboard runs as.',
-    );
+    span.title = accountIdentityLabelText('this_account');
   } else if (user === 'root') {
     span.className = 'user-root';
-    span.title = ZogographI18n.t(
-      'account.root_unmanaged',
-      {},
-      'root. This dashboard cannot stop or change these.',
-    );
+    span.title = accountIdentityLabelText('root_unmanaged');
   }
 
   return span;

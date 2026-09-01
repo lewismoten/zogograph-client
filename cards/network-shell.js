@@ -12,6 +12,7 @@ window.ZogographNetworkShellCard = {
         'core-network-shell.network': 'Network',
         'core-network-shell.interfaces': 'Interfaces',
         'core-network-shell.ports_public_only': 'Reachable from outside only',
+        'core-network-shell.nothing_recorded': 'Nothing recorded.',
       }),
       es: Object.freeze({
         'core-network-shell.intro':
@@ -20,6 +21,7 @@ window.ZogographNetworkShellCard = {
         'core-network-shell.network': 'Red',
         'core-network-shell.interfaces': 'Interfaces',
         'core-network-shell.ports_public_only': 'Solo accesibles desde fuera',
+        'core-network-shell.nothing_recorded': 'No hay nada registrado.',
       }),
       hi: Object.freeze({
         'core-network-shell.intro':
@@ -28,6 +30,7 @@ window.ZogographNetworkShellCard = {
         'core-network-shell.network': 'नेटवर्क',
         'core-network-shell.interfaces': 'इंटरफ़ेस',
         'core-network-shell.ports_public_only': 'केवल बाहर से पहुँच योग्य',
+        'core-network-shell.nothing_recorded': 'कुछ भी दर्ज नहीं है।',
       }),
       ar: Object.freeze({
         'core-network-shell.intro':
@@ -37,6 +40,7 @@ window.ZogographNetworkShellCard = {
         'core-network-shell.interfaces': 'الواجهات',
         'core-network-shell.ports_public_only':
           'يمكن الوصول إليها من الخارج فقط',
+        'core-network-shell.nothing_recorded': 'لم يُسجل شيء.',
       }),
       zh: Object.freeze({
         'core-network-shell.intro':
@@ -45,6 +49,7 @@ window.ZogographNetworkShellCard = {
         'core-network-shell.network': '网络',
         'core-network-shell.interfaces': '接口',
         'core-network-shell.ports_public_only': '仅可从外部访问',
+        'core-network-shell.nothing_recorded': '没有已记录的内容。',
       }),
     }),
   }),

@@ -30839,11 +30839,9 @@ async function refreshNetwork() {
         el.replaceChildren(
           note(
             data.reason ||
-              ZogographI18n.t(
-                'network.nothing_recorded',
-                {},
-                'Nothing recorded.',
-              ),
+              ZogographNetworkShellCard.text('nothing_recorded', {
+                i18n: ZogographI18n,
+              }),
           ),
         );
     }

@@ -17,6 +17,8 @@ window.ZogographScheduleUpdateStagesCard = {
         'core-schedule-update-stages.interval': 'Check every (hours)',
         'core-schedule-update-stages.not_detected': 'not detected',
         'core-schedule-update-stages.save': 'Save update policy',
+        'core-schedule-update-stages.saved':
+          'Saved the update policy. The root collector will apply it on its next run.',
       }),
       es: Object.freeze({
         'core-schedule-update-stages.stages': 'Fases de actualización',
@@ -30,6 +32,8 @@ window.ZogographScheduleUpdateStagesCard = {
         'core-schedule-update-stages.interval': 'Comprobar cada (horas)',
         'core-schedule-update-stages.not_detected': 'no detectado',
         'core-schedule-update-stages.save': 'Guardar política de actualización',
+        'core-schedule-update-stages.saved':
+          'Se guardó la política de actualización. El recopilador root la aplicará en su próxima ejecución.',
       }),
       hi: Object.freeze({
         'core-schedule-update-stages.stages': 'अपडेट चरण',
@@ -43,6 +47,8 @@ window.ZogographScheduleUpdateStagesCard = {
         'core-schedule-update-stages.interval': 'हर (घंटे) जाँचें',
         'core-schedule-update-stages.not_detected': 'पता नहीं चला',
         'core-schedule-update-stages.save': 'अपडेट नीति सहेजें',
+        'core-schedule-update-stages.saved':
+          'अपडेट नीति सहेजी गई। root कलेक्टर इसे अपने अगले रन पर लागू करेगा।',
       }),
       ar: Object.freeze({
         'core-schedule-update-stages.stages': 'مراحل التحديث',
@@ -56,6 +62,8 @@ window.ZogographScheduleUpdateStagesCard = {
         'core-schedule-update-stages.interval': 'تحقق كل (ساعات)',
         'core-schedule-update-stages.not_detected': 'لم يُكتشف',
         'core-schedule-update-stages.save': 'حفظ سياسة التحديث',
+        'core-schedule-update-stages.saved':
+          'حُفظت سياسة التحديث. سيطبقها جامع root في تشغيله التالي.',
       }),
       zh: Object.freeze({
         'core-schedule-update-stages.stages': '更新阶段',
@@ -68,6 +76,8 @@ window.ZogographScheduleUpdateStagesCard = {
         'core-schedule-update-stages.interval': '每隔（小时）检查',
         'core-schedule-update-stages.not_detected': '未检测到',
         'core-schedule-update-stages.save': '保存更新策略',
+        'core-schedule-update-stages.saved':
+          '更新策略已保存。root 收集器会在下次运行时应用它。',
       }),
     }),
   }),

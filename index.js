@@ -26558,10 +26558,11 @@ function drawSchedule(data) {
         state.scheduleDirty = false;
         await refreshSchedule();
         notice(
-          ZogographI18n.t(
-            'schedule.update_policy_saved',
-            {},
-            'Saved the update policy. The root collector will apply it on its next run.',
+          renderCoreCardPackage(
+            window.ZogographScheduleUpdateStagesCard,
+            'core-schedule-update-stages',
+            { key: 'saved' },
+            { i18n: ZogographI18n },
           ),
           true,
         );

@@ -10586,7 +10586,7 @@ function renderScans(data) {
     actions.className = 'inspect-actions';
     const save = document.createElement('button');
     save.type = 'submit';
-    save.textContent = ZogographI18n.t('setup.save', {}, 'Save');
+    save.textContent = collectorSaveStatusText('save');
     save.disabled = !data.writable;
     actions.appendChild(save);
 
@@ -10883,7 +10883,7 @@ function renderThrottles(data) {
   actions.className = 'inspect-actions';
   const save = document.createElement('button');
   save.type = 'submit';
-  save.textContent = ZogographI18n.t('setup.save', {}, 'Save');
+  save.textContent = collectorSaveStatusText('save');
   save.disabled = !data.writable;
   actions.appendChild(save);
   parts.push(actions);
@@ -10907,7 +10907,7 @@ function collectorSaveStatusText() {
     {},
     helpers,
   );
-  return ZogographCollectorSaveStatusCard.text(helpers);
+  return ZogographCollectorSaveStatusCard.text('saved', helpers);
 }
 
 // eslint-disable-next-line no-unused-vars
@@ -17899,7 +17899,7 @@ function renderRetention(data) {
 
   const save = document.createElement('button');
   save.type = 'submit';
-  save.textContent = ZogographI18n.t('setup.save', {}, 'Save');
+  save.textContent = collectorSaveStatusText('save');
   save.disabled = !data.writable;
   actions.appendChild(save);
   parts.push(actions);

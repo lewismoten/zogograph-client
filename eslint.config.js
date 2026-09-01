@@ -112,6 +112,7 @@ export default [
         ZogographHostDatabaseStorageCard: 'readonly',
         ZogographHostSetupStatusCard: 'readonly',
         ZogographHostCollectorRuntimeCard: 'readonly',
+        ZogographSettingsFormStatusCard: 'readonly',
         ZogographAccountDatabaseStorageCard: 'readonly',
         ZogographAccountIdentityLabelsCard: 'readonly',
         ZogographDiagnosisResultsCard: 'readonly',

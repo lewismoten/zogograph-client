@@ -8091,10 +8091,11 @@ function keepIfEditing(containerId, draw) {
     if (!said) {
       said = document.createElement('p');
       said.className = 'form-held muted small';
-      said.textContent = ZogographI18n.t(
-        'setup.form_held',
-        {},
-        'Not refreshed while you are editing. Save, or move away and come back, to see what is stored.',
+      said.textContent = renderCoreCardPackage(
+        ZogographSettingsFormStatusCard,
+        'core-settings-form-status',
+        { key: 'form_held' },
+        { i18n: ZogographI18n },
       );
       container.prepend(said);
     }
@@ -10588,10 +10589,11 @@ function renderScans(data) {
     if (!data.writable) {
       actions.appendChild(
         note(
-          ZogographI18n.t(
-            'setup.config_not_writable',
-            {},
-            'lib/config.php is not writable, so these cannot change.',
+          renderCoreCardPackage(
+            ZogographSettingsFormStatusCard,
+            'core-settings-form-status',
+            { key: 'config_not_writable' },
+            { i18n: ZogographI18n },
           ),
         ),
       );

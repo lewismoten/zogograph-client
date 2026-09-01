@@ -19407,6 +19407,15 @@ function terminalEditorDetailsText(key, values = {}) {
   );
 }
 
+function terminalEditorReviewText(key, values = {}) {
+  return renderCoreCardPackage(
+    ZogographTerminalEditorReviewCard,
+    'core-terminal-editor-review',
+    { key, values },
+    { i18n: ZogographI18n },
+  );
+}
+
 async function openTerminalEditor(path) {
   const data = await api('terminal-editor', { path });
   const editable = Boolean(data.writable && state.access?.write);
@@ -19665,22 +19674,12 @@ async function openTerminalEditor(path) {
     review.type = 'button';
     review.className = 'link';
     review.textContent = terminalEditorRecoveryText('review_changes');
-    review.title = ZogographI18n.t(
-      'editor.review_title',
-      {},
-      'Show a bounded line-by-line preview before saving (Ctrl/Cmd+Shift+D)',
-    );
+    review.title = terminalEditorReviewText('review_title');
     const preview = () => {
       const diff = terminalEditorDiff(data.text, text.value);
       if (!diff) {
         showListDialog(terminalEditorRecoveryText('review_changes'), [
-          note(
-            ZogographI18n.t(
-              'editor.review_no_changes',
-              {},
-              'No changes since this file was opened.',
-            ),
-          ),
+          note(terminalEditorReviewText('review_no_changes')),
         ]);
         return;
       }
@@ -19688,17 +19687,11 @@ async function openTerminalEditor(path) {
       output.className = 'terminal-editor-diff';
       output.textContent = diff;
       showListDialog(
-        ZogographI18n.t(
-          'editor.review_dialog_title',
-          { name: data.path.split('/').pop() },
-          'Review changes · {{name}}',
-        ),
+        terminalEditorReviewText('review_dialog_title', {
+          name: data.path.split('/').pop(),
+        }),
         [output],
-        ZogographI18n.t(
-          'editor.review_help',
-          {},
-          'Removed lines start with − and added lines start with +. This is a review only; saving still uses the protected atomic write.',
-        ),
+        terminalEditorReviewText('review_help'),
       );
     };
     review.addEventListener('click', preview);
@@ -19717,26 +19710,18 @@ async function openTerminalEditor(path) {
   parts.push(editor);
   if (!editable) {
     showListDialog(
-      ZogographI18n.t(
-        'editor.view_dialog_title',
-        { name: data.path.split('/').pop() },
-        'View {{name}}',
-      ),
+      terminalEditorReviewText('view_dialog_title', {
+        name: data.path.split('/').pop(),
+      }),
       parts,
-      ZogographI18n.t(
-        'editor.view_help',
-        {},
-        'This file is shown for review only. Find works locally; no text is sent back to the server.',
-      ),
+      terminalEditorReviewText('view_help'),
     );
     return;
   }
   showFormDialog(
-    ZogographI18n.t(
-      'editor.edit_dialog_title',
-      { name: data.path.split('/').pop() },
-      'Edit {{name}}',
-    ),
+    terminalEditorReviewText('edit_dialog_title', {
+      name: data.path.split('/').pop(),
+    }),
     parts,
     async () => {
       const saved = await post('terminal-editor-save', {
@@ -19746,17 +19731,14 @@ async function openTerminalEditor(path) {
         line_ending: data.line_ending,
       });
       notice(
-        ZogographI18n.t(
-          saved.backup ? 'editor.saved_with_recovery' : 'editor.saved',
+        terminalEditorReviewText(
+          saved.backup ? 'saved_with_recovery' : 'saved',
           { path: saved.path, size: humanBytes(saved.bytes) },
-          saved.backup
-            ? 'Saved {{path}} ({{size}}); recovery copy made.'
-            : 'Saved {{path}} ({{size}}).',
         ),
         true,
       );
     },
-    ZogographI18n.t('editor.save', {}, 'Save it'),
+    terminalEditorReviewText('save'),
     () => text.value !== openedText,
   );
 }

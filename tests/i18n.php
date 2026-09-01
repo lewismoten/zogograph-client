@@ -380,6 +380,9 @@ $terminalEditorRecoveryCard = i18nCardSource(
 $terminalEditorDetailsCard = i18nCardSource(
     file_get_contents($root . '/cards/terminal-editor-details.js'),
 );
+$terminalEditorReviewCard = i18nCardSource(
+    file_get_contents($root . '/cards/terminal-editor-review.js'),
+);
 $terminalShellCard = i18nCardSource(
     file_get_contents($root . '/cards/terminal-shell.js'),
 );
@@ -3795,9 +3798,13 @@ i18nExpect(
 );
 i18nExpect(
     $script !== false &&
-        str_contains($script, 'editor.review_title') &&
-        str_contains($script, 'editor.view_dialog_title') &&
-        str_contains($script, 'editor.saved_with_recovery'),
+        $terminalEditorReviewCard !== false &&
+        str_contains($script, "terminalEditorReviewText('review_title'") &&
+        str_contains($script, "terminalEditorReviewText('view_dialog_title'") &&
+        str_contains(
+            $terminalEditorReviewCard,
+            'core-terminal-editor-review.saved_with_recovery',
+        ),
     'terminal editor review and save dialogs are not localized',
 );
 i18nExpect(

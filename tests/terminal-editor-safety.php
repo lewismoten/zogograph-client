@@ -54,9 +54,13 @@ $editorUi = file_get_contents(__DIR__ . '/../index.js');
 $editorDetailsCard = file_get_contents(
     __DIR__ . '/../cards/terminal-editor-details.js',
 );
+$editorReviewCard = file_get_contents(
+    __DIR__ . '/../cards/terminal-editor-review.js',
+);
 editorExpect(
     is_string($editorUi) &&
         is_string($editorDetailsCard) &&
+        is_string($editorReviewCard) &&
         str_contains($editorUi, 'terminal-editor-lines') &&
         str_contains($editorUi, 'aria-hidden') &&
         str_contains($editorUi, "text.addEventListener('scroll'") &&
@@ -76,7 +80,7 @@ editorExpect(
             "displayPreferencesFieldsText('colour_vision'",
         ) &&
         str_contains($editorDetailsCard, 'Undo: Ctrl/Cmd+Z') &&
-        str_contains($editorUi, 'Review changes'),
+        str_contains($editorReviewCard, 'Review changes'),
     'browser editor is missing its accessible gutter, syntax reader, display choices, discard guard, or protected change preview',
 );
 

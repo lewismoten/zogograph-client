@@ -28468,10 +28468,10 @@ function drawAlertTimeline(rows) {
   if (boots.length) {
     const span = document.createElement('span');
     span.style.setProperty('--dot', '#5ecbd6');
-    span.textContent = ZogographI18n.t(
-      'alerts.timeline_restarts',
+    span.textContent = ZogographAlertsShellCard.text(
+      'timeline_restarts',
       { count: boots.length },
-      '{{count, number}} restart(s) (dashed)',
+      { i18n: ZogographI18n },
     );
     legend.appendChild(span);
   }
@@ -28488,19 +28488,23 @@ function drawAlertTimeline(rows) {
 
   const period =
     bucket === 86400
-      ? ZogographI18n.t('alerts.timeline_day', {}, 'day')
-      : ZogographI18n.t('alerts.timeline_hour', {}, 'hour');
+      ? ZogographAlertsShellCard.text('timeline_day', {
+          i18n: ZogographI18n,
+        })
+      : ZogographAlertsShellCard.text('timeline_hour', {
+          i18n: ZogographI18n,
+        });
   $('alertRange').textContent =
-    ZogographI18n.t(
-      'alerts.timeline_range',
+    ZogographAlertsShellCard.text(
+      'timeline_range',
       { count: rows.length, period },
-      '{{count, number}} alert(s), one bar per {{period}}',
+      { i18n: ZogographI18n },
     ) +
     (silenced
-      ? ZogographI18n.t(
-          'alerts.timeline_held_back',
+      ? ZogographAlertsShellCard.text(
+          'timeline_held_back',
           { count: silenced, assistant: chatState.who.name },
-          ' — {{count, number}} held back by {{assistant}}, still counted here',
+          { i18n: ZogographI18n },
         )
       : '');
 }

@@ -77,6 +77,14 @@ window.ZogographAlertsShellCard = {
         'core-alerts-shell.until': 'Until',
         'core-alerts-shell.timeline_empty': 'Nothing has fired yet.',
         'core-alerts-shell.timeline_level': '{{level}} ({{total, number}})',
+        'core-alerts-shell.timeline_restarts':
+          '{{count, number}} restart(s) (dashed)',
+        'core-alerts-shell.timeline_day': 'day',
+        'core-alerts-shell.timeline_hour': 'hour',
+        'core-alerts-shell.timeline_range':
+          '{{count, number}} alert(s), one bar per {{period}}',
+        'core-alerts-shell.timeline_held_back':
+          ' — {{count, number}} held back by {{assistant}}, still counted here',
       }),
       es: Object.freeze({
         'core-alerts-shell.timeline_title': 'Cuándo se activaron las alertas',
@@ -153,6 +161,14 @@ window.ZogographAlertsShellCard = {
         'core-alerts-shell.until': 'Hasta',
         'core-alerts-shell.timeline_empty': 'Aún no se ha activado nada.',
         'core-alerts-shell.timeline_level': '{{level}} ({{total, number}})',
+        'core-alerts-shell.timeline_restarts':
+          '{{count, number}} reinicio(s) (discontinuo)',
+        'core-alerts-shell.timeline_day': 'día',
+        'core-alerts-shell.timeline_hour': 'hora',
+        'core-alerts-shell.timeline_range':
+          '{{count, number}} alertas, una barra por {{period}}',
+        'core-alerts-shell.timeline_held_back':
+          ' — {{count, number}} retenidas por {{assistant}}, aún contadas aquí',
       }),
       hi: Object.freeze({
         'core-alerts-shell.timeline_title': 'अलर्ट कब चालू हुए',
@@ -227,6 +243,14 @@ window.ZogographAlertsShellCard = {
         'core-alerts-shell.until': 'तक',
         'core-alerts-shell.timeline_empty': 'अभी तक कुछ नहीं हुआ है।',
         'core-alerts-shell.timeline_level': '{{level}} ({{total, number}})',
+        'core-alerts-shell.timeline_restarts':
+          '{{count, number}} पुनरारंभ (धराशायी)',
+        'core-alerts-shell.timeline_day': 'दिन',
+        'core-alerts-shell.timeline_hour': 'घंटा',
+        'core-alerts-shell.timeline_range':
+          '{{count, number}} चेतावनियाँ, प्रति {{period}} एक बार',
+        'core-alerts-shell.timeline_held_back':
+          ' — {{assistant}} ने {{count, number}} रोकीं, फिर भी यहाँ गिनी गईं',
       }),
       ar: Object.freeze({
         'core-alerts-shell.timeline_title': 'متى أُطلقت التنبيهات',
@@ -299,6 +323,14 @@ window.ZogographAlertsShellCard = {
         'core-alerts-shell.until': 'حتى',
         'core-alerts-shell.timeline_empty': 'لم يُطلق شيء بعد.',
         'core-alerts-shell.timeline_level': '{{level}} ({{total, number}})',
+        'core-alerts-shell.timeline_restarts':
+          '{{count, number}} إعادة تشغيل (متقطع)',
+        'core-alerts-shell.timeline_day': 'يوم',
+        'core-alerts-shell.timeline_hour': 'ساعة',
+        'core-alerts-shell.timeline_range':
+          '{{count, number}} تنبيه، شريط لكل {{period}}',
+        'core-alerts-shell.timeline_held_back':
+          ' — حجب {{assistant}} {{count, number}} ولا تزال محسوبة هنا',
       }),
       zh: Object.freeze({
         'core-alerts-shell.timeline_title': '警报何时触发',
@@ -369,6 +401,14 @@ window.ZogographAlertsShellCard = {
         'core-alerts-shell.until': '截止',
         'core-alerts-shell.timeline_empty': '尚未触发任何内容。',
         'core-alerts-shell.timeline_level': '{{level}}（{{total, number}}）',
+        'core-alerts-shell.timeline_restarts':
+          '{{count, number}} 次重启（虚线）',
+        'core-alerts-shell.timeline_day': '天',
+        'core-alerts-shell.timeline_hour': '小时',
+        'core-alerts-shell.timeline_range':
+          '{{count, number}} 条警报，每 {{period}} 一根柱',
+        'core-alerts-shell.timeline_held_back':
+          ' — {{assistant}} 拦截了 {{count, number}} 条，仍计入此处',
       }),
     }),
   }),

@@ -61,6 +61,11 @@ window.ZogographAlertsShellCard = {
         'core-alerts-shell.mute_reason': 'Reason',
         'core-alerts-shell.mute_reason_help':
           'Stored on held events and in the audit trail.',
+        'core-alerts-shell.muted_until': 'Muted {{rule}} until {{until}}.',
+        'core-alerts-shell.mute_rule': 'Mute rule',
+        'core-alerts-shell.end_mute': 'End mute',
+        'core-alerts-shell.end_mute_confirm': 'End the mute for {{rule}}?',
+        'core-alerts-shell.mute_ended': 'The mute for {{rule}} ended.',
       }),
       es: Object.freeze({
         'core-alerts-shell.timeline_title': 'Cuándo se activaron las alertas',
@@ -120,6 +125,12 @@ window.ZogographAlertsShellCard = {
         'core-alerts-shell.mute_reason': 'Motivo',
         'core-alerts-shell.mute_reason_help':
           'Se guarda en los eventos retenidos y en el registro de auditoría.',
+        'core-alerts-shell.muted_until': '{{rule}} silenciada hasta {{until}}.',
+        'core-alerts-shell.mute_rule': 'Silenciar regla',
+        'core-alerts-shell.end_mute': 'Terminar silencio',
+        'core-alerts-shell.end_mute_confirm':
+          '¿Terminar el silencio de {{rule}}?',
+        'core-alerts-shell.mute_ended': 'Terminó el silencio de {{rule}}.',
       }),
       hi: Object.freeze({
         'core-alerts-shell.timeline_title': 'अलर्ट कब चालू हुए',
@@ -178,6 +189,11 @@ window.ZogographAlertsShellCard = {
         'core-alerts-shell.mute_reason': 'कारण',
         'core-alerts-shell.mute_reason_help':
           'रुके हुए इवेंट और ऑडिट ट्रेल में संग्रहीत।',
+        'core-alerts-shell.muted_until': '{{rule}} को {{until}} तक म्यूट किया।',
+        'core-alerts-shell.mute_rule': 'नियम म्यूट करें',
+        'core-alerts-shell.end_mute': 'म्यूट समाप्त करें',
+        'core-alerts-shell.end_mute_confirm': '{{rule}} का म्यूट समाप्त करें?',
+        'core-alerts-shell.mute_ended': '{{rule}} का म्यूट समाप्त हुआ।',
       }),
       ar: Object.freeze({
         'core-alerts-shell.timeline_title': 'متى أُطلقت التنبيهات',
@@ -234,6 +250,11 @@ window.ZogographAlertsShellCard = {
         'core-alerts-shell.mute_reason': 'السبب',
         'core-alerts-shell.mute_reason_help':
           'يُحفظ في الأحداث المحتجزة ومسار التدقيق.',
+        'core-alerts-shell.muted_until': 'كُتم {{rule}} حتى {{until}}.',
+        'core-alerts-shell.mute_rule': 'اكتم القاعدة',
+        'core-alerts-shell.end_mute': 'إنهاء الكتم',
+        'core-alerts-shell.end_mute_confirm': 'إنهاء كتم {{rule}}؟',
+        'core-alerts-shell.mute_ended': 'انتهى كتم {{rule}}.',
       }),
       zh: Object.freeze({
         'core-alerts-shell.timeline_title': '警报何时触发',
@@ -289,6 +310,11 @@ window.ZogographAlertsShellCard = {
         'core-alerts-shell.mute_expires': '自动到期。',
         'core-alerts-shell.mute_reason': '原因',
         'core-alerts-shell.mute_reason_help': '存储在保留事件和审计记录中。',
+        'core-alerts-shell.muted_until': '已将 {{rule}} 静音至 {{until}}。',
+        'core-alerts-shell.mute_rule': '静音规则',
+        'core-alerts-shell.end_mute': '结束静音',
+        'core-alerts-shell.end_mute_confirm': '结束 {{rule}} 的静音吗？',
+        'core-alerts-shell.mute_ended': '{{rule}} 的静音已结束。',
       }),
     }),
   }),

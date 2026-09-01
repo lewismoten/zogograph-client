@@ -28047,7 +28047,9 @@ function alertRowActions(row) {
   if (!['error', 'critical'].includes(row.severity)) {
     const mute = document.createElement('button');
     mute.className = 'link';
-    mute.textContent = ZogographI18n.t('alerts.mute_rule', {}, 'Mute rule');
+    mute.textContent = ZogographAlertsShellCard.text('mute_rule', {
+      i18n: ZogographI18n,
+    });
     mute.addEventListener('click', () => openAlertMute(row));
     cell.appendChild(mute);
   }
@@ -28140,20 +28142,22 @@ function openAlertMute(row) {
       await refreshAlerts();
       await refreshBadges();
       notice(
-        ZogographI18n.t(
-          'alerts.muted_until',
+        ZogographAlertsShellCard.text(
+          'muted_until',
           {
             rule: row.rule,
             until: whenLabel(
               Math.floor(Date.now() / 1000) + Number(duration.value),
             ),
           },
-          'Muted {{rule}} until {{until}}.',
+          { i18n: ZogographI18n },
         ),
         true,
       );
     },
-    ZogographI18n.t('alerts.mute_rule', {}, 'Mute rule'),
+    ZogographAlertsShellCard.text('mute_rule', {
+      i18n: ZogographI18n,
+    }),
   );
 }
 
@@ -28214,16 +28218,20 @@ function showAlertMutes() {
         render: (row) => {
           const end = document.createElement('button');
           end.className = 'link danger';
-          end.textContent = ZogographI18n.t('alerts.end_mute', {}, 'End mute');
+          end.textContent = ZogographAlertsShellCard.text('end_mute', {
+            i18n: ZogographI18n,
+          });
           end.addEventListener('click', async () => {
             if (
               !(await confirmDialog(
-                ZogographI18n.t(
-                  'alerts.end_mute_confirm',
+                ZogographAlertsShellCard.text(
+                  'end_mute_confirm',
                   { rule: row.rule },
-                  'End the mute for {{rule}}?',
+                  { i18n: ZogographI18n },
                 ),
-                ZogographI18n.t('alerts.end_mute', {}, 'End mute'),
+                ZogographAlertsShellCard.text('end_mute', {
+                  i18n: ZogographI18n,
+                }),
               ))
             )
               return;
@@ -28233,10 +28241,10 @@ function showAlertMutes() {
               await refreshBadges();
               $('noteDialog').close();
               notice(
-                ZogographI18n.t(
-                  'alerts.mute_ended',
+                ZogographAlertsShellCard.text(
+                  'mute_ended',
                   { rule: row.rule },
-                  'The mute for {{rule}} ended.',
+                  { i18n: ZogographI18n },
                 ),
                 true,
               );

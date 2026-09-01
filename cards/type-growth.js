@@ -20,6 +20,8 @@ window.ZogographTypeGrowthCard = {
           'No completed scans in this range yet',
         'core-type-growth.two_scans_for_change':
           'Two completed scans are needed before there is a change to draw',
+        'core-type-growth.total_size': 'total size',
+        'core-type-growth.change_since_scan': 'change since the previous scan',
       }),
       es: Object.freeze({
         'core-type-growth.title': 'Cómo ha crecido cada tipo',
@@ -29,6 +31,9 @@ window.ZogographTypeGrowthCard = {
           'Aún no hay análisis completados en este intervalo',
         'core-type-growth.two_scans_for_change':
           'Se necesitan dos análisis completados antes de dibujar un cambio',
+        'core-type-growth.total_size': 'tamaño total',
+        'core-type-growth.change_since_scan':
+          'cambio desde el análisis anterior',
       }),
       hi: Object.freeze({
         'core-type-growth.title': 'हर प्रकार कैसे बढ़ा है',
@@ -38,6 +43,8 @@ window.ZogographTypeGrowthCard = {
           'इस दायरे में अभी कोई पूरा स्कैन नहीं है',
         'core-type-growth.two_scans_for_change':
           'बदलाव दिखाने से पहले दो पूरे स्कैन चाहिए',
+        'core-type-growth.total_size': 'कुल आकार',
+        'core-type-growth.change_since_scan': 'पिछले स्कैन के बाद बदलाव',
       }),
       ar: Object.freeze({
         'core-type-growth.title': 'كيف نما كل نوع',
@@ -47,6 +54,8 @@ window.ZogographTypeGrowthCard = {
           'لا توجد فحوصات مكتملة في هذا النطاق بعد',
         'core-type-growth.two_scans_for_change':
           'يلزم فحصان مكتملان قبل رسم تغيير',
+        'core-type-growth.total_size': 'الحجم الكلي',
+        'core-type-growth.change_since_scan': 'التغير منذ الفحص السابق',
       }),
       zh: Object.freeze({
         'core-type-growth.title': '各类型如何增长',
@@ -55,6 +64,8 @@ window.ZogographTypeGrowthCard = {
         'core-type-growth.no_scans_in_range_yet': '此范围内尚无完成的扫描',
         'core-type-growth.two_scans_for_change':
           '至少需要两次完成的扫描才能绘制变化',
+        'core-type-growth.total_size': '总大小',
+        'core-type-growth.change_since_scan': '自上次扫描后的变化',
       }),
     }),
   }),

@@ -1969,8 +1969,8 @@ function renderTypePieLabels() {
     i18n: ZogographI18n,
   };
   renderCoreCardPackage(ZogographTypePieCard, 'core-type-pie', {}, helpers);
-  ['title', 'composition_title'].forEach((key) => {
-    const node = document.querySelector(`[data-i18n="core-type-pie.${key}"]`);
+  document.querySelectorAll('[data-i18n^="core-type-pie."]').forEach((node) => {
+    const key = node.dataset.i18n.replace('core-type-pie.', '');
     node.textContent = ZogographI18n.markSource(
       node,
       `core-type-pie.${key}`,
@@ -1999,12 +1999,16 @@ function renderTypeGrowthLabels() {
     {},
     helpers,
   );
-  const title = document.querySelector('[data-i18n="core-type-growth.title"]');
-  title.textContent = ZogographI18n.markSource(
-    title,
-    'core-type-growth.title',
-    ZogographTypeGrowthCard.text('title', helpers),
-  );
+  document
+    .querySelectorAll('[data-i18n^="core-type-growth."]')
+    .forEach((node) => {
+      const key = node.dataset.i18n.replace('core-type-growth.', '');
+      node.textContent = ZogographI18n.markSource(
+        node,
+        `core-type-growth.${key}`,
+        ZogographTypeGrowthCard.text(key, helpers),
+      );
+    });
   ZogographI18n.applyRich(
     document.querySelector('[data-i18n-rich="core-type-growth.help"]'),
   );

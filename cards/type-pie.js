@@ -24,6 +24,7 @@ window.ZogographTypePieCard = {
           'Outer ring: every file by type, each counted once, so it is the whole account. Inner ring: the categories the alert rules watch, against that same total — the dark remainder is everything they do not cover. The two rings measure some of the same bytes twice, since a log file is in both, so read each ring against the whole rather than against the other.',
         'core-type-pie.types_help':
           'Every file counted once, so the slices are the whole account.',
+        'core-type-pie.show_categories': 'Show watched categories too',
       }),
       es: Object.freeze({
         'core-type-pie.composition_title': 'Composición del almacenamiento',
@@ -36,6 +37,8 @@ window.ZogographTypePieCard = {
           'Anillo exterior: cada archivo por tipo, contado una vez, por lo que representa toda la cuenta. Anillo interior: las categorías que vigilan las reglas de alerta, frente al mismo total; el resto oscuro es lo que no cubren. Ambos anillos miden algunos de los mismos bytes dos veces, pues un archivo de registro está en ambos; lea cada anillo frente al total, no frente al otro.',
         'core-type-pie.types_help':
           'Cada archivo se cuenta una vez, por lo que las porciones representan toda la cuenta.',
+        'core-type-pie.show_categories':
+          'Mostrar también las categorías vigiladas',
       }),
       hi: Object.freeze({
         'core-type-pie.composition_title': 'भंडारण संरचना',
@@ -48,6 +51,7 @@ window.ZogographTypePieCard = {
           'बाहरी वलय: प्रकार के अनुसार हर फ़ाइल एक बार गिनी जाती है, इसलिए यह पूरा खाता है। भीतरी वलय: अलर्ट नियम जिन श्रेणियों को देखते हैं, उसी कुल के विरुद्ध; गहरा शेष वे चीज़ें हैं जिन्हें वे नहीं कवर करतीं। दोनों वलय कुछ बाइट दो बार मापते हैं, क्योंकि लॉग फ़ाइल दोनों में है; हर वलय को पूरे के विरुद्ध पढ़ें, दूसरे के विरुद्ध नहीं।',
         'core-type-pie.types_help':
           'हर फ़ाइल एक बार गिनी जाती है, इसलिए स्लाइस पूरा खाता हैं।',
+        'core-type-pie.show_categories': 'निगरानी वाली श्रेणियाँ भी दिखाएँ',
       }),
       ar: Object.freeze({
         'core-type-pie.composition_title': 'تركيب التخزين',
@@ -60,6 +64,7 @@ window.ZogographTypePieCard = {
           'الحلقة الخارجية: كل ملف حسب النوع يُحسب مرة واحدة، ولذلك تمثل الحساب كله. الحلقة الداخلية: الفئات التي تراقبها قواعد التنبيه مقابل المجموع نفسه؛ والباقي الداكن ما لا تغطيه. تقيس الحلقتان بعض البايتات نفسها مرتين لأن ملف السجل يقع في كلتيهما؛ فاقرأ كل حلقة نسبة إلى المجموع لا إلى الأخرى.',
         'core-type-pie.types_help':
           'يُحسب كل ملف مرة واحدة، ولذلك تمثل الشرائح الحساب كله.',
+        'core-type-pie.show_categories': 'أظهر الفئات المراقبة أيضًا',
       }),
       zh: Object.freeze({
         'core-type-pie.composition_title': '存储构成',
@@ -72,6 +77,7 @@ window.ZogographTypePieCard = {
           '外环：每种类型的每个文件只计算一次，因此代表整个账户。内环：警报规则监视的类别，以同一总数为基准；深色余量是它们未覆盖的内容。由于日志文件同时属于两者，两个环会重复计算部分字节；请分别相对于总数阅读每个环，而不是相互比较。',
         'core-type-pie.types_help':
           '每个文件只计算一次，因此各扇区代表整个账户。',
+        'core-type-pie.show_categories': '同时显示受监控类别',
       }),
     }),
   }),

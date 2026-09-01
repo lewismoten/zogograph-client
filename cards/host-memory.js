@@ -47,6 +47,8 @@ window.ZogographHostMemoryCard = {
           'not represented by the categories above',
         'core-host-memory.in_use': 'Memory in use',
         'core-host-memory.other_kernel': 'Other kernel/system memory',
+        'core-host-memory.slab_cache': 'Cache',
+        'core-host-memory.one_reading': 'Only one host reading so far',
         'core-host-memory.swap_verdict_clear': 'Nothing is swapped.',
         'core-host-memory.swap_verdict_pressure':
           'Swap is climbing ({{swap}}) while available memory falls ({{available}}). Those two together are real pressure rather than leftover cold pages — the machine is paying for memory with disk. This is the one worth acting on.',
@@ -92,6 +94,9 @@ window.ZogographHostMemoryCard = {
           'no representada por las categorías anteriores',
         'core-host-memory.in_use': 'Memoria en uso',
         'core-host-memory.other_kernel': 'Otra memoria de kernel/sistema',
+        'core-host-memory.slab_cache': 'Caché',
+        'core-host-memory.one_reading':
+          'Solo hay una lectura del host hasta ahora',
         'core-host-memory.swap_verdict_clear': 'No se está usando intercambio.',
         'core-host-memory.swap_verdict_pressure':
           'El intercambio sube ({{swap}}) mientras baja la memoria disponible ({{available}}). Juntos son presión real, no páginas frías restantes: la máquina está pagando memoria con disco.',
@@ -136,6 +141,8 @@ window.ZogographHostMemoryCard = {
           'ऊपर की श्रेणियों में प्रदर्शित नहीं',
         'core-host-memory.in_use': 'उपयोग में मेमोरी',
         'core-host-memory.other_kernel': 'अन्य कर्नेल/सिस्टम मेमोरी',
+        'core-host-memory.slab_cache': 'कैश',
+        'core-host-memory.one_reading': 'अभी केवल एक होस्ट रीडिंग है',
         'core-host-memory.swap_verdict_clear': 'कोई स्वैप उपयोग में नहीं है।',
         'core-host-memory.swap_verdict_pressure':
           'स्वैप बढ़ रहा है ({{swap}}) जबकि उपलब्ध मेमोरी गिर रही है ({{available}})। साथ में यह वास्तविक दबाव है, बची हुई ठंडी पेज नहीं।',
@@ -178,6 +185,8 @@ window.ZogographHostMemoryCard = {
         'core-host-memory.other_kernel_help': 'غير ممثلة بالفئات أعلاه',
         'core-host-memory.in_use': 'الذاكرة المستخدمة',
         'core-host-memory.other_kernel': 'ذاكرة نواة/نظام أخرى',
+        'core-host-memory.slab_cache': 'الذاكرة المؤقتة',
+        'core-host-memory.one_reading': 'توجد قراءة مضيف واحدة فقط حتى الآن',
         'core-host-memory.swap_verdict_clear': 'لا توجد صفحات مبدلة.',
         'core-host-memory.swap_verdict_pressure':
           'التبديل يتصاعد ({{swap}}) بينما تنخفض الذاكرة المتاحة ({{available}}). معاً هذا ضغط حقيقي لا صفحات باردة باقية.',
@@ -220,6 +229,8 @@ window.ZogographHostMemoryCard = {
         'core-host-memory.other_kernel_help': '未包含在上述类别中',
         'core-host-memory.in_use': '已用内存',
         'core-host-memory.other_kernel': '其他内核/系统内存',
+        'core-host-memory.slab_cache': '缓存',
+        'core-host-memory.one_reading': '目前只有一个主机读数',
         'core-host-memory.swap_verdict_clear': '没有正在交换的内容。',
         'core-host-memory.swap_verdict_pressure':
           '交换空间正在增加（{{swap}}），而可用内存正在减少（{{available}}）。两者同时出现是实际压力，而非残留的冷页。',

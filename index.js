@@ -24054,7 +24054,9 @@ async function refreshHost() {
       },
       {
         key: 'cache_bytes',
-        label: ZogographI18n.t('host.slab_cache', {}, 'Cache'),
+        label: ZogographHostMemoryCard.text('slab_cache', {
+          i18n: ZogographI18n,
+        }),
       },
       {
         key: 'slab',
@@ -24072,11 +24074,9 @@ async function refreshHost() {
     {
       axis: bytesAxis,
       zeroBased: true,
-      empty: ZogographI18n.t(
-        'host.one_reading',
-        {},
-        'Only one host reading so far',
-      ),
+      empty: ZogographHostMemoryCard.text('one_reading', {
+        i18n: ZogographI18n,
+      }),
     },
   );
 

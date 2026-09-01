@@ -32363,23 +32363,13 @@ function openUrlForm(row = null) {
     option.selected = (row?.check_kind ?? 'none') === key;
     kind.appendChild(option);
   }
-  field(
-    'urlKind',
-    ZogographI18n.t('url.also_check', {}, 'Also check'),
-    kind,
-    '',
-  );
+  field('urlKind', urlEditorText('also_check'), kind, '');
 
   const value = document.createElement('input');
   value.type = 'text';
   value.size = 46;
   value.value = row?.check_value ?? '';
-  field(
-    'urlValue',
-    ZogographI18n.t('url.looking_for', {}, 'Looking for'),
-    value,
-    '',
-  );
+  field('urlValue', urlEditorText('looking_for'), value, '');
 
   /*
    * A pattern is easy to get subtly wrong and impossible to check by reading.

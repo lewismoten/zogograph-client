@@ -25159,19 +25159,21 @@ function showCompactionNote(vitals) {
    */
   if (bucket > 0) {
     parts.push(
-      ZogographI18n.t(
-        'chart.compaction_bucket',
-        { duration: humanDuration(bucket) },
-        'Each point covers {{duration}} and shows the worst value in that period, not an average.',
+      renderCoreCardPackage(
+        ZogographChartCompactionNoteCard,
+        'core-chart-compaction-note',
+        { key: 'bucket', values: { duration: humanDuration(bucket) } },
+        { i18n: ZogographI18n },
       ),
     );
   }
   if (Number.isFinite(perPoint) && perPoint > 1) {
     parts.push(
-      ZogographI18n.t(
-        'chart.compaction_disk',
-        { readings: perPoint },
-        'The oldest readings here are also compacted on disk, up to {{readings, number}} readings to a row. Readings from around an alert are never compacted.',
+      renderCoreCardPackage(
+        ZogographChartCompactionNoteCard,
+        'core-chart-compaction-note',
+        { key: 'disk', values: { readings: perPoint } },
+        { i18n: ZogographI18n },
       ),
     );
   }

@@ -1543,7 +1543,6 @@
   "auth.verification_code": "Verification code",
   "auth.verification_optional": "(if enabled)",
   "audit.download_csv_title": "Download the full audit history as a CSV file",
-  "audit.clear_title": "Remove earlier audit entries and retain a record of this reset",
   "host.open_setup": "Open Host setup",
   "host_setup.what_has_to_happen": "What has to happen",
   "host_setup.line_to_paste_as_root": "The line to paste, as root",

@@ -1527,7 +1527,6 @@
   "auth.verification_code": "सत्यापन कोड",
   "auth.verification_optional": "(सक्षम होने पर)",
   "audit.download_csv_title": "पूरा ऑडिट इतिहास CSV फ़ाइल के रूप में डाउनलोड करें",
-  "audit.clear_title": "पुरानी ऑडिट प्रविष्टियाँ हटाएँ और इस रीसेट का रिकॉर्ड रखें",
   "host.open_setup": "होस्ट सेटअप खोलें",
   "host_setup.what_has_to_happen": "क्या होना है",
   "host_setup.line_to_paste_as_root": "root के रूप में पेस्ट करने वाली लाइन",

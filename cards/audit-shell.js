@@ -29,6 +29,8 @@ window.ZogographAuditShellCard = {
         'core-audit-shell.download_csv': 'Download CSV',
         'core-audit-shell.download_csv_title':
           'Download the full audit history as a CSV file',
+        'core-audit-shell.clear_title':
+          'Remove earlier audit entries and retain a record of this reset',
       }),
       es: Object.freeze({
         'core-audit-shell.title': 'Todo lo que ha hecho este monitor',
@@ -55,6 +57,8 @@ window.ZogographAuditShellCard = {
         'core-audit-shell.download_csv': 'Descargar CSV',
         'core-audit-shell.download_csv_title':
           'Descargar todo el historial de auditoría como archivo CSV',
+        'core-audit-shell.clear_title':
+          'Eliminar entradas anteriores de auditoría y conservar un registro de este restablecimiento',
       }),
       hi: Object.freeze({
         'core-audit-shell.title': 'इस मॉनिटर ने जो कुछ किया',
@@ -81,6 +85,8 @@ window.ZogographAuditShellCard = {
         'core-audit-shell.download_csv': 'CSV डाउनलोड करें',
         'core-audit-shell.download_csv_title':
           'पूरा ऑडिट इतिहास CSV फ़ाइल के रूप में डाउनलोड करें',
+        'core-audit-shell.clear_title':
+          'पुरानी ऑडिट प्रविष्टियाँ हटाएँ और इस रीसेट का रिकॉर्ड रखें',
       }),
       ar: Object.freeze({
         'core-audit-shell.title': 'كل ما فعله هذا المراقب',
@@ -107,6 +113,8 @@ window.ZogographAuditShellCard = {
         'core-audit-shell.download_csv': 'نزّل CSV',
         'core-audit-shell.download_csv_title':
           'نزّل سجل التدقيق الكامل كملف CSV',
+        'core-audit-shell.clear_title':
+          'أزل إدخالات التدقيق الأقدم واحتفظ بسجل عملية إعادة الضبط',
       }),
       zh: Object.freeze({
         'core-audit-shell.title': '此监控器完成的所有操作',
@@ -130,6 +138,8 @@ window.ZogographAuditShellCard = {
         'core-audit-shell.export_preparing': '正在准备完整审计 CSV…',
         'core-audit-shell.download_csv': '下载 CSV',
         'core-audit-shell.download_csv_title': '将完整审计历史下载为 CSV 文件',
+        'core-audit-shell.clear_title':
+          '删除较早的审计记录并保留本次重置的记录',
       }),
     }),
   }),

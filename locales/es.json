@@ -1528,7 +1528,6 @@
   "auth.verification_code": "Código de verificación",
   "auth.verification_optional": "(si está activado)",
   "audit.download_csv_title": "Descargar todo el historial de auditoría como archivo CSV",
-  "audit.clear_title": "Eliminar entradas anteriores de auditoría y conservar un registro de este restablecimiento",
   "host.open_setup": "Abrir configuración del host",
   "host_setup.what_has_to_happen": "Lo que tiene que suceder",
   "host_setup.line_to_paste_as_root": "La línea que se debe pegar como root",

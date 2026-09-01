@@ -1525,7 +1525,6 @@
   "auth.verification_code": "رمز التحقق",
   "auth.verification_optional": "(إذا كان مفعّلًا)",
   "audit.download_csv_title": "نزّل سجل التدقيق الكامل كملف CSV",
-  "audit.clear_title": "أزل إدخالات التدقيق الأقدم واحتفظ بسجل عملية إعادة الضبط",
   "host.open_setup": "افتح إعداد المضيف",
   "host_setup.what_has_to_happen": "ما الذي يجب أن يحدث",
   "host_setup.line_to_paste_as_root": "السطر المراد لصقه بصفتك root",

@@ -1525,7 +1525,6 @@
   "auth.verification_code": "验证码",
   "auth.verification_optional": "（启用时）",
   "audit.download_csv_title": "将完整审计历史下载为 CSV 文件",
-  "audit.clear_title": "删除较早的审计记录并保留本次重置的记录",
   "host.open_setup": "打开主机设置",
   "host_setup.what_has_to_happen": "必须发生什么",
   "host_setup.line_to_paste_as_root": "以 root 身份粘贴的行",

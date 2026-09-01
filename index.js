@@ -17372,10 +17372,10 @@ function renderSnapshotFiles(data) {
       remove: async (row) => {
         if (
           !(await confirmDialog(
-            ZogographI18n.t(
-              'system.snapshot_delete_confirm',
+            ZogographDatabaseSnapshotsCard.text(
+              'delete_confirm',
               { name: row.name, size: humanBytes(row.bytes) },
-              'Delete {{name}}?\n\nIt is {{size}} and nothing else has a copy.',
+              { i18n: ZogographI18n },
             ),
           ))
         )
@@ -17383,7 +17383,9 @@ function renderSnapshotFiles(data) {
         try {
           renderNotes(await post('snapshot-delete', { name: row.name }));
           notice(
-            ZogographI18n.t('system.snapshot_removed', {}, 'Removed.'),
+            ZogographDatabaseSnapshotsCard.text('removed', {
+              i18n: ZogographI18n,
+            }),
             true,
           );
         } catch (error) {

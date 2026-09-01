@@ -20,6 +20,9 @@ window.ZogographDatabaseSnapshotsCard = {
         'core-database-snapshots.made': 'Made',
         'core-database-snapshots.size': 'Size',
         'core-database-snapshots.delete': 'Delete',
+        'core-database-snapshots.delete_confirm':
+          'Delete {{name}}?\n\nIt is {{size}} and nothing else has a copy.',
+        'core-database-snapshots.removed': 'Removed.',
       }),
       es: Object.freeze({
         'core-database-snapshots.empty':
@@ -28,6 +31,9 @@ window.ZogographDatabaseSnapshotsCard = {
         'core-database-snapshots.made': 'Creada',
         'core-database-snapshots.size': 'Tamaño',
         'core-database-snapshots.delete': 'Eliminar',
+        'core-database-snapshots.delete_confirm':
+          '¿Eliminar {{name}}?\n\nMide {{size}} y no hay ninguna otra copia.',
+        'core-database-snapshots.removed': 'Eliminada.',
       }),
       hi: Object.freeze({
         'core-database-snapshots.empty':
@@ -36,6 +42,9 @@ window.ZogographDatabaseSnapshotsCard = {
         'core-database-snapshots.made': 'बनाई गई',
         'core-database-snapshots.size': 'आकार',
         'core-database-snapshots.delete': 'हटाएँ',
+        'core-database-snapshots.delete_confirm':
+          '{{name}} हटाएँ?\n\nयह {{size}} है और इसकी कोई दूसरी प्रति नहीं है।',
+        'core-database-snapshots.removed': 'हटा दिया गया।',
       }),
       ar: Object.freeze({
         'core-database-snapshots.empty':
@@ -44,6 +53,9 @@ window.ZogographDatabaseSnapshotsCard = {
         'core-database-snapshots.made': 'وقت الإنشاء',
         'core-database-snapshots.size': 'الحجم',
         'core-database-snapshots.delete': 'حذف',
+        'core-database-snapshots.delete_confirm':
+          'حذف {{name}}؟\n\nحجمه {{size}} ولا توجد له نسخة أخرى.',
+        'core-database-snapshots.removed': 'أُزيلت.',
       }),
       zh: Object.freeze({
         'core-database-snapshots.empty':
@@ -52,22 +64,30 @@ window.ZogographDatabaseSnapshotsCard = {
         'core-database-snapshots.made': '创建时间',
         'core-database-snapshots.size': '大小',
         'core-database-snapshots.delete': '删除',
+        'core-database-snapshots.delete_confirm':
+          '要删除 {{name}} 吗？\n\n它是 {{size}}，并且没有其他副本。',
+        'core-database-snapshots.removed': '已移除。',
       }),
     }),
   }),
 
+  text(key, valuesOrHelpers = {}, maybeHelpers = null) {
+    const helpers = maybeHelpers || valuesOrHelpers;
+    const values = maybeHelpers ? valuesOrHelpers : {};
+    return helpers.i18n.t(
+      `core-database-snapshots.${key}`,
+      values,
+      this.manifest.catalogs.en[`core-database-snapshots.${key}`],
+    );
+  },
+
   render(data, helpers) {
-    const { target, note, renderTable, whenSpan, humanBytes, remove, i18n } =
-      helpers;
-    const t = (key, values, fallback) => i18n.t(key, values, fallback);
+    const { target, note, renderTable, whenSpan, humanBytes, remove } = helpers;
+    const t = (key, values = {}) => this.text(key, values, helpers);
     if (!target) return;
     const files = data.files || [];
     if (!files.length) {
-      target.replaceChildren(
-        note(
-          t('core-database-snapshots.empty', {}, 'No copies have been made.'),
-        ),
-      );
+      target.replaceChildren(note(t('empty')));
       return;
     }
     const holder = document.createElement('div');
@@ -78,16 +98,16 @@ window.ZogographDatabaseSnapshotsCard = {
       files,
       [
         {
-          label: t('core-database-snapshots.file', {}, 'File'),
+          label: t('file'),
           className: 'name',
           render: (row) => row.name,
         },
         {
-          label: t('core-database-snapshots.made', {}, 'Made'),
+          label: t('made'),
           render: (row) => whenSpan(row.at),
         },
         {
-          label: t('core-database-snapshots.size', {}, 'Size'),
+          label: t('size'),
           className: 'size',
           render: (row) => humanBytes(row.bytes),
         },
@@ -97,11 +117,7 @@ window.ZogographDatabaseSnapshotsCard = {
           render: (row) => {
             const button = document.createElement('button');
             button.className = 'link danger';
-            button.textContent = t(
-              'core-database-snapshots.delete',
-              {},
-              'Delete',
-            );
+            button.textContent = t('delete');
             button.disabled = !data.can_change;
             button.addEventListener('click', () => remove(row));
             return button;

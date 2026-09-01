@@ -40,6 +40,14 @@ window.ZogographIncidentDetailsCard = {
           'What could not be seen',
         'core-incident-details.grew_over': 'Grew over {{label}}',
         'core-incident-details.not_enough_history': 'not enough history',
+        'core-incident-details.by_category_since_scan':
+          'By category, since the previous scan',
+        'core-incident-details.category': 'Category',
+        'core-incident-details.size': 'Size',
+        'core-incident-details.change': 'Change',
+        'core-incident-details.files_grew_most_since_scan':
+          'Files that grew most, since the previous scan',
+        'core-incident-details.path': 'Path',
       }),
       es: Object.freeze({
         'core-incident-details.alerts_fired_together':
@@ -76,6 +84,14 @@ window.ZogographIncidentDetailsCard = {
         'core-incident-details.grew_over': 'Creció durante {{label}}',
         'core-incident-details.not_enough_history':
           'no hay suficiente historial',
+        'core-incident-details.by_category_since_scan':
+          'Por categoría, desde el análisis anterior',
+        'core-incident-details.category': 'Categoría',
+        'core-incident-details.size': 'Tamaño',
+        'core-incident-details.change': 'Cambio',
+        'core-incident-details.files_grew_most_since_scan':
+          'Archivos que más crecieron desde el análisis anterior',
+        'core-incident-details.path': 'Ruta',
       }),
       hi: Object.freeze({
         'core-incident-details.alerts_fired_together':
@@ -111,6 +127,14 @@ window.ZogographIncidentDetailsCard = {
         'core-incident-details.what_could_not_be_seen': 'क्या नहीं देखा जा सका',
         'core-incident-details.grew_over': '{{label}} में बढ़ा',
         'core-incident-details.not_enough_history': 'पर्याप्त इतिहास नहीं है',
+        'core-incident-details.by_category_since_scan':
+          'पिछले स्कैन के बाद श्रेणी के अनुसार',
+        'core-incident-details.category': 'श्रेणी',
+        'core-incident-details.size': 'आकार',
+        'core-incident-details.change': 'बदलाव',
+        'core-incident-details.files_grew_most_since_scan':
+          'पिछले स्कैन के बाद सबसे अधिक बढ़ी फ़ाइलें',
+        'core-incident-details.path': 'पथ',
       }),
       ar: Object.freeze({
         'core-incident-details.alerts_fired_together':
@@ -145,6 +169,14 @@ window.ZogographIncidentDetailsCard = {
         'core-incident-details.what_could_not_be_seen': 'ما الذي تعذر رؤيته',
         'core-incident-details.grew_over': 'نما خلال {{label}}',
         'core-incident-details.not_enough_history': 'لا يوجد سجل كافٍ',
+        'core-incident-details.by_category_since_scan':
+          'حسب الفئة، منذ الفحص السابق',
+        'core-incident-details.category': 'الفئة',
+        'core-incident-details.size': 'الحجم',
+        'core-incident-details.change': 'التغيير',
+        'core-incident-details.files_grew_most_since_scan':
+          'الملفات التي نمت أكثر منذ الفحص السابق',
+        'core-incident-details.path': 'المسار',
       }),
       zh: Object.freeze({
         'core-incident-details.alerts_fired_together':
@@ -179,6 +211,14 @@ window.ZogographIncidentDetailsCard = {
         'core-incident-details.what_could_not_be_seen': '无法看到的内容',
         'core-incident-details.grew_over': '在 {{label}} 内增长',
         'core-incident-details.not_enough_history': '历史记录不足',
+        'core-incident-details.by_category_since_scan':
+          '按类别，自上次扫描以来',
+        'core-incident-details.category': '类别',
+        'core-incident-details.size': '大小',
+        'core-incident-details.change': '变化',
+        'core-incident-details.files_grew_most_since_scan':
+          '自上次扫描以来增长最多的文件',
+        'core-incident-details.path': '路径',
       }),
     }),
   }),

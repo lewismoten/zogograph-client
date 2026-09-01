@@ -28690,16 +28690,12 @@ async function showIncident(id) {
     if (disk.categories?.length) {
       body.appendChild(
         section(
-          ZogographI18n.t(
-            'incident.by_category_since_scan',
-            {},
-            'By category, since the previous scan',
-          ),
+          incidentText('by_category_since_scan'),
           simpleTable(
             [
-              ZogographI18n.t('incident.category', {}, 'Category'),
-              ZogographI18n.t('incident.size', {}, 'Size'),
-              ZogographI18n.t('incident.change', {}, 'Change'),
+              incidentText('category'),
+              incidentText('size'),
+              incidentText('change'),
             ],
             disk.categories.map((c) => [
               c.category,
@@ -28717,17 +28713,9 @@ async function showIncident(id) {
   if (files && files.rows?.length) {
     body.appendChild(
       section(
-        ZogographI18n.t(
-          'incident.files_grew_most_since_scan',
-          {},
-          'Files that grew most, since the previous scan',
-        ),
+        incidentText('files_grew_most_since_scan'),
         simpleTable(
-          [
-            ZogographI18n.t('incident.path', {}, 'Path'),
-            ZogographI18n.t('incident.size', {}, 'Size'),
-            ZogographI18n.t('incident.change', {}, 'Change'),
-          ],
+          [incidentText('path'), incidentText('size'), incidentText('change')],
           files.rows.map((f) => [
             f.path,
             humanBytes(f.bytes),

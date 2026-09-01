@@ -14,6 +14,8 @@ window.ZogographTimeRangeSelectorCard = {
         'core-time-range-selector.1w': 'Last week',
         'core-time-range-selector.30d': 'Last 30 days',
         'core-time-range-selector.1y': 'Last year',
+        'core-time-range-selector.link_copied':
+          'Link copied. It opens this view over this exact window.',
       }),
       es: Object.freeze({
         'core-time-range-selector.label': 'Periodo',
@@ -24,6 +26,8 @@ window.ZogographTimeRangeSelectorCard = {
         'core-time-range-selector.1w': 'Última semana',
         'core-time-range-selector.30d': 'Últimos 30 días',
         'core-time-range-selector.1y': 'Último año',
+        'core-time-range-selector.link_copied':
+          'Enlace copiado. Abre esta vista sobre esta ventana exacta.',
       }),
       hi: Object.freeze({
         'core-time-range-selector.label': 'अवधि',
@@ -34,6 +38,8 @@ window.ZogographTimeRangeSelectorCard = {
         'core-time-range-selector.1w': 'पिछला सप्ताह',
         'core-time-range-selector.30d': 'पिछले 30 दिन',
         'core-time-range-selector.1y': 'पिछला वर्ष',
+        'core-time-range-selector.link_copied':
+          'लिंक कॉपी हो गया। यह दृश्य को इसी सटीक समय-खंड पर खोलता है।',
       }),
       ar: Object.freeze({
         'core-time-range-selector.label': 'النطاق الزمني',
@@ -44,6 +50,8 @@ window.ZogographTimeRangeSelectorCard = {
         'core-time-range-selector.1w': 'الأسبوع الماضي',
         'core-time-range-selector.30d': 'آخر 30 يومًا',
         'core-time-range-selector.1y': 'السنة الماضية',
+        'core-time-range-selector.link_copied':
+          'تم نسخ الرابط. يفتح هذا العرض على هذه النافذة الزمنية نفسها.',
       }),
       zh: Object.freeze({
         'core-time-range-selector.label': '时间范围',
@@ -54,9 +62,18 @@ window.ZogographTimeRangeSelectorCard = {
         'core-time-range-selector.1w': '最近一周',
         'core-time-range-selector.30d': '最近 30 天',
         'core-time-range-selector.1y': '最近一年',
+        'core-time-range-selector.link_copied':
+          '链接已复制。它会在这个确切时间窗口中打开此视图。',
       }),
     }),
   }),
+  text(key, helpers) {
+    return helpers.i18n.t(
+      `core-time-range-selector.${key}`,
+      {},
+      this.manifest.catalogs.en[`core-time-range-selector.${key}`],
+    );
+  },
   render(_input, helpers) {
     const t = (key, fallback) =>
       helpers.i18n.t(`core-time-range-selector.${key}`, {}, fallback);

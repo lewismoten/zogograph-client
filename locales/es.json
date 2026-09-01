@@ -332,7 +332,6 @@
   "terminal.stopped": "Detenido.",
   "terminal.already_finished": "Ya había terminado.",
   "action.close_all": "Cerrar todo",
-  "share.link_copied": "Enlace copiado. Abre esta vista sobre esta ventana exacta.",
   "auth.sessions_ended": "Se han cerrado todas las sesiones iniciadas.",
   "auth.recovery_codes_ready": "Ocho códigos nuevos de recuperación de un solo uso están listos para guardar.",
   "network.label_saved": "Guardado. Se mostrará donde aparezcan esa dirección o ese puerto.",

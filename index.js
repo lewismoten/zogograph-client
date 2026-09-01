@@ -41763,11 +41763,9 @@ $('shareLink').addEventListener('click', async () => {
   try {
     await navigator.clipboard.writeText(location.href);
     notice(
-      ZogographI18n.t(
-        'share.link_copied',
-        {},
-        'Link copied. It opens this view over this exact window.',
-      ),
+      ZogographTimeRangeSelectorCard.text('link_copied', {
+        i18n: ZogographI18n,
+      }),
       true,
     );
   } catch {

@@ -329,7 +329,6 @@
   "terminal.stopped": "Stopped.",
   "terminal.already_finished": "It had already finished.",
   "action.close_all": "Close all",
-  "share.link_copied": "Link copied. It opens this view over this exact window.",
   "auth.sessions_ended": "Every signed-in session has been ended.",
   "auth.recovery_codes_ready": "Eight new one-time recovery codes are ready to save.",
   "network.label_saved": "Saved. It will show wherever that address or port appears.",

@@ -330,7 +330,6 @@
   "terminal.stopped": "已停止。",
   "terminal.already_finished": "它已结束。",
   "action.close_all": "全部关闭",
-  "share.link_copied": "链接已复制。它会在这个确切时间窗口中打开此视图。",
   "auth.sessions_ended": "已结束所有已登录会话。",
   "auth.recovery_codes_ready": "八个新的单次使用恢复代码已可保存。",
   "network.label_saved": "已保存。它会在该地址或端口出现的任何位置显示。",

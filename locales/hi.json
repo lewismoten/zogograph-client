@@ -1448,6 +1448,5 @@
   "action.clear": "साफ़ करें",
   "terminal.locked_again": "यह फिर से लॉक हो गया है।",
   "terminal.open_for": "और {{duration}} के लिए खुला है।",
-  "collector.settings_saved": "सहेजा गया। अगला कलेक्टर रन इनका उपयोग करेगा।",
   "ai.skip_question_help": "जवाब दिए बिना आगे बढ़ें — यह समय समाप्त होने देने जैसा ही है"
 }

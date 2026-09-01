@@ -1446,6 +1446,5 @@
   "action.clear": "مسح",
   "terminal.locked_again": "لقد قفل نفسه مجددًا.",
   "terminal.open_for": "مفتوح لمدة {{duration}} أخرى.",
-  "collector.settings_saved": "حُفظت. سيستخدمها تشغيل الجامع التالي.",
   "ai.skip_question_help": "تابع دون إجابة — وهو نفس ترك الوقت ينقضي"
 }

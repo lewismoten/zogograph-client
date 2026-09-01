@@ -10854,6 +10854,17 @@ function renderThrottles(data) {
  * silently revert it.
  */
 // Retained for package-provided scan controls that use the core save path.
+function collectorSaveStatusText() {
+  const helpers = { i18n: ZogographI18n };
+  renderCoreCardPackage(
+    ZogographCollectorSaveStatusCard,
+    'core-collector-save-status',
+    {},
+    helpers,
+  );
+  return ZogographCollectorSaveStatusCard.text(helpers);
+}
+
 // eslint-disable-next-line no-unused-vars
 async function saveScans() {
   const values = {};
@@ -10880,14 +10891,7 @@ async function saveScans() {
 
   try {
     renderScans(await post('scan-schedule-save', values));
-    notice(
-      ZogographI18n.t(
-        'collector.settings_saved',
-        {},
-        'Saved. The next collector run will use these.',
-      ),
-      true,
-    );
+    notice(collectorSaveStatusText(), true);
   } catch (error) {
     notice(String(error.message || error));
   }
@@ -40743,14 +40747,7 @@ $('retentionForm').addEventListener('submit', async (event) => {
 
   try {
     const result = await post('store-save', values);
-    notice(
-      ZogographI18n.t(
-        'collector.settings_saved',
-        {},
-        'Saved. The next collector run will use these.',
-      ),
-      true,
-    );
+    notice(collectorSaveStatusText(), true);
     renderStore(result);
   } catch (error) {
     notice(String(error.message || error));

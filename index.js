@@ -32822,6 +32822,15 @@ const WHAT_IS = {
   loaded: false,
 };
 
+function descriptionsBubbleText(key, values = {}) {
+  return renderCoreCardPackage(
+    ZogographDescriptionsBubbleCard,
+    'core-descriptions-bubble',
+    { key, values },
+    { i18n: ZogographI18n },
+  );
+}
+
 async function loadWhatIs() {
   try {
     const data = await api('descriptions');
@@ -32947,22 +32956,10 @@ function whatIsBubble(name, entry) {
   const more = document.createElement('div');
   more.className = 'muted small';
   more.textContent = entry.mine
-    ? ZogographI18n.t(
-        'descriptions.bubble_own',
-        {},
-        'Your own note. Click for the link and to edit it.',
-      )
+    ? descriptionsBubbleText('bubble_own')
     : entry.link
-      ? ZogographI18n.t(
-          'descriptions.bubble_link',
-          {},
-          'Click to open this, with a link to more.',
-        )
-      : ZogographI18n.t(
-          'descriptions.bubble_keep',
-          {},
-          'Click to keep this open.',
-        );
+      ? descriptionsBubbleText('bubble_link')
+      : descriptionsBubbleText('bubble_keep');
   wrap.appendChild(more);
 
   return wrap;
@@ -32997,17 +32994,8 @@ function showWhatIsDialog(kind, name, entry) {
   const whose = document.createElement('p');
   whose.className = 'muted small';
   whose.textContent = entry.mine
-    ? ZogographI18n.t(
-        'descriptions.owned_here',
-        {},
-        'Written on this machine, about this machine.',
-      )
-    : ZogographI18n.t(
-        'descriptions.built_in_help',
-        {},
-        'From the built-in list, which is guessing from the name. If you know better ' +
-          'for this machine, write your own — it will replace this everywhere.',
-      );
+    ? descriptionsBubbleText('owned_here')
+    : descriptionsBubbleText('built_in_help');
   parts.push(whose);
 
   if (WHAT_IS.writable) {
@@ -33015,8 +33003,8 @@ function showWhatIsDialog(kind, name, entry) {
     edit.type = 'button';
     edit.className = 'link';
     edit.textContent = entry.mine
-      ? ZogographI18n.t('descriptions.edit_note', {}, 'Edit this note')
-      : ZogographI18n.t('descriptions.write_own', {}, 'Write your own');
+      ? descriptionsBubbleText('edit_note')
+      : descriptionsBubbleText('write_own');
     edit.addEventListener('click', () => {
       $('listDialog').close();
       showView('sys-descriptions');
@@ -33033,16 +33021,8 @@ function showWhatIsDialog(kind, name, entry) {
     name,
     parts,
     kind === 'slab'
-      ? ZogographI18n.t(
-          'descriptions.slab_help',
-          {},
-          'A kernel slab cache — memory the kernel itself is holding.',
-        )
-      : ZogographI18n.t(
-          'descriptions.process_help',
-          {},
-          'A process running on this machine.',
-        ),
+      ? descriptionsBubbleText('slab_help')
+      : descriptionsBubbleText('process_help'),
   );
 }
 

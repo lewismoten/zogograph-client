@@ -22,6 +22,9 @@ window.ZogographUrlMonitorEditorCard = {
         'core-url-monitor-editor.ask_if_changed': 'Ask if it changed',
         'core-url-monitor-editor.ask_if_changed_help':
           'Sends the last ETag, so an unchanged page answers 304 with no body. A 304 counts as healthy and skips the content check, because there is no body to check.',
+        'core-url-monitor-editor.expected_status': 'Expected status',
+        'core-url-monitor-editor.expected_status_help':
+          '0 accepts anything from 200 to 399. A URL that should redirect, or an endpoint that correctly answers 401, is working — insisting on 200 would report it broken for ever.',
       }),
       es: Object.freeze({
         'core-url-monitor-editor.editing': 'Editando {{label}}',
@@ -40,6 +43,9 @@ window.ZogographUrlMonitorEditorCard = {
         'core-url-monitor-editor.ask_if_changed': 'Preguntar si cambió',
         'core-url-monitor-editor.ask_if_changed_help':
           'Envía el último ETag, por lo que una página sin cambios responde 304 sin cuerpo. Un 304 cuenta como saludable y omite la comprobación de contenido porque no hay cuerpo que comprobar.',
+        'core-url-monitor-editor.expected_status': 'Estado esperado',
+        'core-url-monitor-editor.expected_status_help':
+          '0 acepta cualquier valor de 200 a 399. Una URL que debe redirigir, o un punto final que responde correctamente 401, funciona; insistir en 200 la marcaría como rota.',
       }),
       hi: Object.freeze({
         'core-url-monitor-editor.editing': '{{label}} संपादित किया जा रहा है',
@@ -58,6 +64,9 @@ window.ZogographUrlMonitorEditorCard = {
         'core-url-monitor-editor.ask_if_changed': 'बदला है या नहीं पूछें',
         'core-url-monitor-editor.ask_if_changed_help':
           'पिछला ETag भेजता है, इसलिए अपरिवर्तित पेज बिना बॉडी के 304 लौटाता है। 304 को स्वस्थ माना जाता है और सामग्री जाँच छोड़ दी जाती है क्योंकि जाँचने के लिए बॉडी नहीं है।',
+        'core-url-monitor-editor.expected_status': 'अपेक्षित स्थिति',
+        'core-url-monitor-editor.expected_status_help':
+          '0, 200 से 399 तक किसी भी स्थिति को स्वीकार करता है। जिस URL को रीडायरेक्ट करना चाहिए या जो एंडपॉइंट सही रूप से 401 लौटाता है वह कार्य कर रहा है; 200 पर अड़ने से वह हमेशा टूटा दिखेगा।',
       }),
       ar: Object.freeze({
         'core-url-monitor-editor.editing': 'تحرير {{label}}',
@@ -76,6 +85,9 @@ window.ZogographUrlMonitorEditorCard = {
         'core-url-monitor-editor.ask_if_changed': 'اسأل إن كان قد تغير',
         'core-url-monitor-editor.ask_if_changed_help':
           'يرسل آخر ETag، لذا تستجيب الصفحة غير المتغيرة بـ 304 بلا متن. يعد 304 سليمًا ويتخطى فحص المحتوى لأنه لا يوجد متن لفحصه.',
+        'core-url-monitor-editor.expected_status': 'الحالة المتوقعة',
+        'core-url-monitor-editor.expected_status_help':
+          'يقبل 0 أي حالة من 200 إلى 399. يعمل عنوان URL الذي يفترض أن يعيد التوجيه أو نقطة النهاية التي تجيب بـ 401 بشكل صحيح؛ الإصرار على 200 سيبلغ عنه معطلاً دائمًا.',
       }),
       zh: Object.freeze({
         'core-url-monitor-editor.editing': '正在编辑 {{label}}',
@@ -92,6 +104,9 @@ window.ZogographUrlMonitorEditorCard = {
         'core-url-monitor-editor.ask_if_changed': '询问它是否变更',
         'core-url-monitor-editor.ask_if_changed_help':
           '发送上次的 ETag，因此未更改的页面会在没有正文的情况下返回 304。304 视为正常，并跳过内容检查，因为没有可检查的正文。',
+        'core-url-monitor-editor.expected_status': '预期状态',
+        'core-url-monitor-editor.expected_status_help':
+          '0 接受 200 到 399 的任何状态。应重定向的 URL，或正确返回 401 的端点，都在正常工作；坚持要求 200 会一直将它报告为故障。',
       }),
     }),
   }),

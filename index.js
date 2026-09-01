@@ -32350,14 +32350,9 @@ function openUrlForm(row = null) {
   expect.value = String(row?.expect_status ?? 200);
   field(
     'urlExpect',
-    ZogographI18n.t('url.expected_status', {}, 'Expected status'),
+    urlEditorText('expected_status'),
     expect,
-    ZogographI18n.t(
-      'url.expected_status_help',
-      {},
-      '0 accepts anything from 200 to 399. A URL that should redirect, or an endpoint that ' +
-        'correctly answers 401, is working \u2014 insisting on 200 would report it broken for ever.',
-    ),
+    urlEditorText('expected_status_help'),
   );
 
   const kind = document.createElement('select');

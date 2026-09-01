@@ -40128,7 +40128,9 @@ document.addEventListener('click', async (event) => {
   const said = $('aiTestResult');
 
   button.disabled = true;
-  button.textContent = ZogographI18n.t('action.testing', {}, 'Testing…');
+  button.textContent = ZogographAiConnectionTestCard.text('testing', {
+    i18n: ZogographI18n,
+  });
   said.className = 'muted small';
   said.textContent = '';
 
@@ -40158,11 +40160,9 @@ document.addEventListener('click', async (event) => {
     said.textContent = String(error.message || error);
   } finally {
     button.disabled = false;
-    button.textContent = ZogographI18n.t(
-      'action.test_connection',
-      {},
-      'Test the connection',
-    );
+    button.textContent = ZogographAiConnectionTestCard.text('action', {
+      i18n: ZogographI18n,
+    });
   }
 });
 

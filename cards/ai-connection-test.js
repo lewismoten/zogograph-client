@@ -7,6 +7,7 @@ window.ZogographAiConnectionTestCard = {
     catalogs: Object.freeze({
       en: Object.freeze({
         'core-ai-connection-test.action': 'Test the connection',
+        'core-ai-connection-test.testing': 'Testing…',
         'core-ai-connection-test.title':
           'One real request, with a tool attached, using whatever is in the boxes above — including a key you have typed but not saved',
         'core-ai-connection-test.help':
@@ -17,6 +18,7 @@ window.ZogographAiConnectionTestCard = {
       }),
       es: Object.freeze({
         'core-ai-connection-test.action': 'Probar la conexión',
+        'core-ai-connection-test.testing': 'Probando…',
         'core-ai-connection-test.title':
           'Una solicitud real, con una herramienta adjunta, usando lo que esté en los campos anteriores, incluida una clave escrita sin guardar',
         'core-ai-connection-test.help':
@@ -27,6 +29,7 @@ window.ZogographAiConnectionTestCard = {
       }),
       hi: Object.freeze({
         'core-ai-connection-test.action': 'कनेक्शन जाँचें',
+        'core-ai-connection-test.testing': 'जाँच हो रही है…',
         'core-ai-connection-test.title':
           'ऊपर के बॉक्स में जो है उसका उपयोग करके एक टूल के साथ वास्तविक अनुरोध, सहेजी न गई कुंजी सहित',
         'core-ai-connection-test.help':
@@ -37,6 +40,7 @@ window.ZogographAiConnectionTestCard = {
       }),
       ar: Object.freeze({
         'core-ai-connection-test.action': 'اختبر الاتصال',
+        'core-ai-connection-test.testing': 'جارٍ الاختبار…',
         'core-ai-connection-test.title':
           'طلب حقيقي واحد مع أداة مرفقة، باستخدام ما في الحقول أعلاه بما في ذلك مفتاح لم يُحفظ',
         'core-ai-connection-test.help':
@@ -47,6 +51,7 @@ window.ZogographAiConnectionTestCard = {
       }),
       zh: Object.freeze({
         'core-ai-connection-test.action': '测试连接',
+        'core-ai-connection-test.testing': '正在测试…',
         'core-ai-connection-test.title':
           '使用上方字段中的内容（包括尚未保存的密钥）发出一次附带工具的真实请求',
         'core-ai-connection-test.help':
@@ -57,6 +62,10 @@ window.ZogographAiConnectionTestCard = {
       }),
     }),
   }),
+  text(key, { i18n }) {
+    const id = `core-ai-connection-test.${key}`;
+    return i18n.t(id, {}, this.manifest.catalogs.en[id]);
+  },
   render(input, helpers) {
     const { note, i18n } = helpers;
     const t = (key, fallback) => i18n.t(key, {}, fallback);

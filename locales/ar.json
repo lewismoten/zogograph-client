@@ -3,8 +3,6 @@
   "package.page_boundary": "تعرض قشرة Zogograph هذه الصفحة من بيانات الحزمة الوصفية الموقّعة. ولا تحمّل HTML أو الأنماط أو رمز المتصفح الخاص بالحزمة.",
   "package.open_settings": "فتح إعدادات الحزمة",
   "action.copy": "نسخ",
-  "markdown.copy_block": "انسخ هذه الكتلة",
-  "markdown.copy_language_block": "انسخ كتلة {{language}} هذه",
   "common.looking": "يجري البحث…",
   "common.refresh_failed": "تعذر التحديث",
   "common.ready": "جاهز",

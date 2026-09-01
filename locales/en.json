@@ -3,8 +3,6 @@
   "package.page_boundary": "This page is rendered by the Zogograph shell from the package’s signed metadata. It does not load package HTML, styles, or browser code.",
   "package.open_settings": "Open package settings",
   "action.copy": "Copy",
-  "markdown.copy_block": "Copy this block",
-  "markdown.copy_language_block": "Copy this {{language}} block",
   "common.looking": "Looking…",
   "common.refresh_failed": "Could not refresh",
   "common.ready": "Ready",

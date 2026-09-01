@@ -22134,13 +22134,18 @@ function renderMarkdown(text) {
       copy.type = 'button';
       copy.className = 'md-copy';
       copy.textContent = ZogographI18n.t('action.copy', {}, 'Copy');
-      copy.title = language
-        ? ZogographI18n.t(
-            'markdown.copy_language_block',
-            { language },
-            'Copy this {{language}} block',
-          )
-        : ZogographI18n.t('markdown.copy_block', {}, 'Copy this block');
+      copy.title = renderCoreCardPackage(
+        ZogographMarkdownCopyControlsCard,
+        'core-markdown-copy-controls',
+        language
+          ? {
+              key: 'language_block',
+              values: { language },
+              fallback: 'Copy this {{language}} block',
+            }
+          : { key: 'block', fallback: 'Copy this block' },
+        { i18n: ZogographI18n },
+      );
       copy.addEventListener('click', async (event) => {
         // The block may be inside something clickable; taking a copy of it is
         // not asking to open whatever that is.

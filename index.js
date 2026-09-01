@@ -5033,6 +5033,13 @@ function drawTimeAxis(ctx, ticks, pad, plotW, h, cssH) {
 }
 
 function drawLineChart(canvas, rows, series, options = {}) {
+  const chartText = (key, values = {}) =>
+    renderCoreCardPackage(
+      ZogographChartCommonCard,
+      'core-chart-common',
+      { key, values },
+      { i18n: ZogographI18n },
+    );
   rememberDraw(canvas, () => drawLineChart(canvas, rows, series, options));
 
   /*
@@ -5080,12 +5087,7 @@ function drawLineChart(canvas, rows, series, options = {}) {
      */
     canvas.classList.add('chart-empty');
     ctx.fillText(
-      options.empty ||
-        ZogographI18n.t(
-          'chart.nothing_collected_range',
-          {},
-          'Nothing collected for this range yet',
-        ),
+      options.empty || chartText('nothing_collected_range'),
       pad.left,
       pad.top + 20,
     );
@@ -5215,12 +5217,7 @@ function drawLineChart(canvas, rows, series, options = {}) {
     // Shrunk to the message; see the note in drawLineChart.
     canvas.classList.add('chart-empty');
     ctx.fillText(
-      options.empty ||
-        ZogographI18n.t(
-          'chart.nothing_collected_range',
-          {},
-          'Nothing collected for this range yet',
-        ),
+      options.empty || chartText('nothing_collected_range'),
       pad.left,
       pad.top + 20,
     );
@@ -5616,6 +5613,13 @@ function inkOn(hex) {
  * place.
  */
 function drawPieChart(canvas, slices, options = {}) {
+  const chartText = (key, values = {}) =>
+    renderCoreCardPackage(
+      ZogographChartCommonCard,
+      'core-chart-common',
+      { key, values },
+      { i18n: ZogographI18n },
+    );
   /*
    * Remembered like every other chart.
    *
@@ -5642,12 +5646,7 @@ function drawPieChart(canvas, slices, options = {}) {
   const total = slices.reduce((sum, s) => sum + Math.max(0, s.value), 0);
   if (!slices.length || total <= 0) {
     ctx.fillStyle = '#9a9a9a';
-    ctx.fillText(
-      options.empty ||
-        ZogographI18n.t('chart.nothing_to_show_yet', {}, 'Nothing to show yet'),
-      12,
-      24,
-    );
+    ctx.fillText(options.empty || chartText('nothing_to_show_yet'), 12, 24);
     drawLegend(canvas, []);
     return;
   }
@@ -5825,7 +5824,7 @@ function drawPieChart(canvas, slices, options = {}) {
     const parts = [
       ...inner,
       {
-        label: ZogographI18n.t('chart.everything_else'),
+        label: chartText('everything_else'),
         value: Math.max(0, total - named),
         quiet: true,
       },
@@ -5915,12 +5914,18 @@ function memorySlices(services, measuredTotal, options = {}) {
     slices.push({
       label:
         hidden > 0
-          ? ZogographI18n.t(
-              'chart.everything_else_count',
-              { count: hidden },
-              'Everything else ({{count, number}} services)',
+          ? renderCoreCardPackage(
+              ZogographChartCommonCard,
+              'core-chart-common',
+              { key: 'everything_else_count', values: { count: hidden } },
+              { i18n: ZogographI18n },
             )
-          : ZogographI18n.t('chart.everything_else', {}, 'Everything else'),
+          : renderCoreCardPackage(
+              ZogographChartCommonCard,
+              'core-chart-common',
+              { key: 'everything_else' },
+              { i18n: ZogographI18n },
+            ),
       value: rest,
       // Deliberately grey: it is the part with no answer in it, and colouring
       // it like a service invites reading it as one.

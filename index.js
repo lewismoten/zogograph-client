@@ -23701,6 +23701,15 @@ const HOST_PANELS = [
   'memSlabPanel',
 ];
 
+function hostCollectorRuntimeText(key, values = {}) {
+  return renderCoreCardPackage(
+    ZogographHostCollectorRuntimeCard,
+    'core-host-collector-runtime',
+    { key, values },
+    { i18n: ZogographI18n },
+  );
+}
+
 async function refreshHost() {
   if (!WHAT_IS.loaded) await loadWhatIs();
 
@@ -30666,15 +30675,7 @@ async function refreshNetwork() {
   for (const id of bodies) {
     const el = $(id);
     if (el && !el.childElementCount)
-      el.replaceChildren(
-        spinner(
-          ZogographI18n.t(
-            'host.collector_loading',
-            {},
-            'Reading the host collector…',
-          ),
-        ),
-      );
+      el.replaceChildren(spinner(hostCollectorRuntimeText('loading')));
   }
 
   if (!state.signedIn) {

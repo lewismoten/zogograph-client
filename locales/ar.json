@@ -124,7 +124,6 @@
   "incident.files_grew_most_since_scan": "الملفات التي نمت أكثر منذ الفحص السابق",
   "incident.path": "المسار",
   "alert.verdict_reviewed_at": "راجعه {{assistant}} {{when}}.",
-  "alert.held_back_title": "محجوب",
   "alert.verdict_dialog_title": "ما قاله {{assistant}}",
   "alert.verdict_dialog_help": "هذه هي رأي نموذج لغوي في تنبيه أنشأته آلة. ما زال التنبيه هنا وغير مقروء، ويمكن تعليمه مقروءًا أو حذفه كأي تنبيه آخر — لم يُرم شيء.",
   "process.table_pid": "PID",

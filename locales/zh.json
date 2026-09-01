@@ -124,7 +124,6 @@
   "incident.files_grew_most_since_scan": "自上次扫描以来增长最多的文件",
   "incident.path": "路径",
   "alert.verdict_reviewed_at": "{{assistant}} 于 {{when}} 查看了它。",
-  "alert.held_back_title": "已拦截",
   "alert.verdict_dialog_title": "{{assistant}} 所说的内容",
   "alert.verdict_dialog_help": "这是语言模型对机器生成警报的意见。警报本身仍在这里、仍未读，并且可以像其他警报一样标为已读或删除——没有丢弃任何内容。",
   "process.table_pid": "PID",

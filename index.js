@@ -27686,7 +27686,9 @@ function showAlertVerdict(row) {
 
   showListDialog(
     row.silenced
-      ? ZogographI18n.t('alert.held_back_title', {}, 'Held back')
+      ? ZogographAlertsShellCard.text('held_back_title', {
+          i18n: ZogographI18n,
+        })
       : ZogographI18n.t(
           'alert.verdict_dialog_title',
           { assistant: chatState.who.name },

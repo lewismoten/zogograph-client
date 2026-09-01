@@ -124,7 +124,6 @@
   "incident.files_grew_most_since_scan": "पिछले स्कैन के बाद सबसे अधिक बढ़ी फ़ाइलें",
   "incident.path": "पथ",
   "alert.verdict_reviewed_at": "{{assistant}} ने इसे {{when}} देखा।",
-  "alert.held_back_title": "रोक दिया गया",
   "alert.verdict_dialog_title": "{{assistant}} ने क्या कहा",
   "alert.verdict_dialog_help": "यह मशीन द्वारा बनाई गई चेतावनी पर भाषा मॉडल की राय है। चेतावनी अभी भी यहाँ है, अपठित है, और किसी अन्य की तरह पढ़ी हुई चिह्नित या हटाई जा सकती है — कुछ भी फेंका नहीं गया।",
   "process.table_pid": "PID",

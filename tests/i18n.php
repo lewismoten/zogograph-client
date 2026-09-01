@@ -3607,7 +3607,6 @@ i18nExpect(
             $english['process.failed_count'],
             $english['alert.verdict_timing'],
             $english['alert.verdict_reviewed_at'],
-            $english['alert.held_back_title'],
             $english['alert.verdict_dialog_title'],
             $english['alert.verdict_dialog_help'],
             $english['process.table_pid'],
@@ -4037,7 +4036,11 @@ i18nExpect(
 i18nExpect(
     $script !== false &&
         str_contains($script, 'alert.verdict_timing') &&
-        str_contains($script, 'alert.held_back_title') &&
+        str_contains(
+            $script,
+            "ZogographAlertsShellCard.text('held_back_title'",
+        ) &&
+        isset($coreCardEnglish['core-alerts-shell.held_back_title']) &&
         str_contains($script, 'alert.verdict_dialog_help'),
     'alert verdict dialog retains direct user-visible text',
 );

@@ -124,7 +124,6 @@
   "incident.files_grew_most_since_scan": "Files that grew most, since the previous scan",
   "incident.path": "Path",
   "alert.verdict_reviewed_at": "{{assistant}} looked at it {{when}}.",
-  "alert.held_back_title": "Held back",
   "alert.verdict_dialog_title": "What {{assistant}} said",
   "alert.verdict_dialog_help": "This is a language model’s opinion of a machine-generated alert. The alert itself is still here, still unread, and can be marked read or deleted like any other — nothing was thrown away.",
   "process.table_pid": "PID",

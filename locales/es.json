@@ -124,7 +124,6 @@
   "incident.files_grew_most_since_scan": "Archivos que más crecieron desde el análisis anterior",
   "incident.path": "Ruta",
   "alert.verdict_reviewed_at": "{{assistant}} lo examinó {{when}}.",
-  "alert.held_back_title": "Retenido",
   "alert.verdict_dialog_title": "Lo que dijo {{assistant}}",
   "alert.verdict_dialog_help": "Esta es la opinión de un modelo de lenguaje sobre una alerta generada por una máquina. La alerta sigue aquí, sin leer, y puede marcarse como leída o eliminarse como cualquier otra; no se descartó nada.",
   "process.table_pid": "PID",

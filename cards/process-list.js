@@ -41,6 +41,14 @@ window.ZogographProcessListCard = {
           'webalizer/bin/english.*ssl_log\\.bkup',
         'core-process-list.stop_unavailable':
           'This one cannot be stopped from here.',
+        'core-process-list.stop_subject_many':
+          'all {{count}} processes named “{{name}}”',
+        'core-process-list.stop_subject_one': '“{{name}}” (pid {{pid}})',
+        'core-process-list.stop_group_stopped':
+          '{{stopped}} of {{total}} stopped',
+        'core-process-list.stop_group_remaining': '{{count}} still running',
+        'core-process-list.stop_group_refused': '{{count}} refused',
+        'core-process-list.stop_group_failed': '{{count}} failed',
       }),
       es: Object.freeze({
         'core-process-list.title': 'Qué está usando la máquina',
@@ -66,6 +74,14 @@ window.ZogographProcessListCard = {
         'core-process-list.pattern_placeholder':
           'webalizer/bin/english.*ssl_log\\.bkup',
         'core-process-list.stop_unavailable': 'No se puede detener desde aquí.',
+        'core-process-list.stop_subject_many':
+          'los {{count}} procesos llamados “{{name}}”',
+        'core-process-list.stop_subject_one': '“{{name}}” (pid {{pid}})',
+        'core-process-list.stop_group_stopped':
+          '{{stopped}} de {{total}} detenidos',
+        'core-process-list.stop_group_remaining': '{{count}} aún en ejecución',
+        'core-process-list.stop_group_refused': '{{count}} rechazaron',
+        'core-process-list.stop_group_failed': '{{count}} fallaron',
       }),
       hi: Object.freeze({
         'core-process-list.title': 'मशीन का उपयोग क्या कर रहा है',
@@ -91,6 +107,14 @@ window.ZogographProcessListCard = {
         'core-process-list.pattern_placeholder':
           'webalizer/bin/english.*ssl_log\\.bkup',
         'core-process-list.stop_unavailable': 'इसे यहाँ से रोका नहीं जा सकता।',
+        'core-process-list.stop_subject_many':
+          '“{{name}}” नाम की सभी {{count}} प्रक्रियाएँ',
+        'core-process-list.stop_subject_one': '“{{name}}” (pid {{pid}})',
+        'core-process-list.stop_group_stopped':
+          '{{total}} में से {{stopped}} रुके',
+        'core-process-list.stop_group_remaining': '{{count}} अभी भी चल रहे हैं',
+        'core-process-list.stop_group_refused': '{{count}} ने मना किया',
+        'core-process-list.stop_group_failed': '{{count}} विफल हुए',
       }),
       ar: Object.freeze({
         'core-process-list.title': 'ما الذي يستخدم الجهاز',
@@ -116,6 +140,14 @@ window.ZogographProcessListCard = {
         'core-process-list.pattern_placeholder':
           'webalizer/bin/english.*ssl_log\\.bkup',
         'core-process-list.stop_unavailable': 'لا يمكن إيقاف هذه من هنا.',
+        'core-process-list.stop_subject_many':
+          'كل العمليات {{count}} المسماة “{{name}}”',
+        'core-process-list.stop_subject_one': '“{{name}}” (pid {{pid}})',
+        'core-process-list.stop_group_stopped': 'توقف {{stopped}} من {{total}}',
+        'core-process-list.stop_group_remaining':
+          'لا يزال {{count}} قيد التشغيل',
+        'core-process-list.stop_group_refused': 'رفض {{count}}',
+        'core-process-list.stop_group_failed': 'فشل {{count}}',
       }),
       zh: Object.freeze({
         'core-process-list.title': '什么在使用这台机器',
@@ -141,13 +173,21 @@ window.ZogographProcessListCard = {
         'core-process-list.pattern_placeholder':
           'webalizer/bin/english.*ssl_log\\.bkup',
         'core-process-list.stop_unavailable': '无法在此处停止它。',
+        'core-process-list.stop_subject_many':
+          '名为“{{name}}”的全部 {{count}} 个进程',
+        'core-process-list.stop_subject_one': '“{{name}}”(pid {{pid}})',
+        'core-process-list.stop_group_stopped':
+          '{{total}} 个中有 {{stopped}} 个已停止',
+        'core-process-list.stop_group_remaining': '{{count}} 个仍在运行',
+        'core-process-list.stop_group_refused': '{{count}} 个拒绝',
+        'core-process-list.stop_group_failed': '{{count}} 个失败',
       }),
     }),
   }),
-  text(key, helpers) {
+  text(key, helpers, values = {}) {
     return helpers.i18n.t(
       `core-process-list.${key}`,
-      {},
+      values,
       this.manifest.catalogs.en[`core-process-list.${key}`],
     );
   },

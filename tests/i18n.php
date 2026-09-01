@@ -4088,7 +4088,11 @@ i18nExpect(
     $script !== false &&
         str_contains($script, 'process.stop_force_many_help') &&
         str_contains($script, 'process.stop_force_confirm') &&
-        str_contains($script, 'process.stop_group_failed'),
+        str_contains(
+            $script,
+            "ZogographProcessListCard.text(\n        'stop_group_failed'",
+        ) &&
+        str_contains($processListCard, '"core-process-list.stop_group_failed"'),
     'process stop controls retain direct user-visible text',
 );
 i18nExpect(

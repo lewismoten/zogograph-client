@@ -23162,15 +23162,15 @@ async function waitForProcessToGo(row, many) {
 async function confirmStop(row, grouped, force) {
   const many = grouped && row.procs > 1;
   const what = many
-    ? ZogographI18n.t(
-        'process.stop_subject_many',
+    ? ZogographProcessListCard.text(
+        'stop_subject_many',
+        { i18n: ZogographI18n },
         { count: humanCount(row.procs), name: row.name },
-        `all ${humanCount(row.procs)} processes named “${row.name}”`,
       )
-    : ZogographI18n.t(
-        'process.stop_subject_one',
+    : ZogographProcessListCard.text(
+        'stop_subject_one',
+        { i18n: ZogographI18n },
         { name: row.name, pid: row.pid },
-        `“${row.name}” (pid ${row.pid})`,
       );
 
   return confirmDialog(
@@ -23198,36 +23198,36 @@ function describeStop(result, row, many) {
   }
 
   const parts = [
-    ZogographI18n.t(
-      'process.stop_group_stopped',
+    ZogographProcessListCard.text(
+      'stop_group_stopped',
+      { i18n: ZogographI18n },
       { stopped: humanCount(result.stopped), total: humanCount(row.procs) },
-      `${humanCount(result.stopped)} of ${humanCount(row.procs)} stopped`,
     ),
   ];
   if (result.remaining) {
     parts.push(
-      ZogographI18n.t(
-        'process.stop_group_remaining',
+      ZogographProcessListCard.text(
+        'stop_group_remaining',
+        { i18n: ZogographI18n },
         { count: humanCount(result.remaining) },
-        `${humanCount(result.remaining)} still running`,
       ),
     );
   }
   if (result.refused) {
     parts.push(
-      ZogographI18n.t(
-        'process.stop_group_refused',
+      ZogographProcessListCard.text(
+        'stop_group_refused',
+        { i18n: ZogographI18n },
         { count: humanCount(result.refused) },
-        `${humanCount(result.refused)} refused`,
       ),
     );
   }
   if (result.failed) {
     parts.push(
-      ZogographI18n.t(
-        'process.stop_group_failed',
+      ZogographProcessListCard.text(
+        'stop_group_failed',
+        { i18n: ZogographI18n },
         { count: humanCount(result.failed) },
-        `${humanCount(result.failed)} failed`,
       ),
     );
   }

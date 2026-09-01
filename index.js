@@ -21674,7 +21674,7 @@ async function runAiTry(tool) {
         : raw;
   }
 
-  said.textContent = ZogographI18n.t('action.running', {}, 'Running…');
+  said.textContent = actionCommonText('running');
   showTryResult([]);
 
   /*
@@ -22607,7 +22607,7 @@ async function checkSymlinks() {
   const holder = $('symlinkBody');
 
   button.disabled = true;
-  button.textContent = ZogographI18n.t('action.checking', {}, 'Checking…');
+  button.textContent = actionCommonText('checking');
   holder.replaceChildren(spinner(symlinkCheckOutcomeText('walking_tree')));
 
   try {
@@ -40681,7 +40681,7 @@ $('rdnsNow').addEventListener('click', async () => {
   const rdnsText = (key, values = {}) =>
     ZogographNetworkRdnsCard.text(key, values, { i18n: ZogographI18n });
   button.disabled = true;
-  button.textContent = ZogographI18n.t('action.looking', {}, 'Looking…');
+  button.textContent = actionCommonText('looking');
 
   try {
     const result = await post('rdns-now');
@@ -40716,7 +40716,7 @@ $('changedOnly').addEventListener('change', (event) => {
 $('changedCheck').addEventListener('click', async () => {
   const button = $('changedCheck');
   button.disabled = true;
-  button.textContent = ZogographI18n.t('action.checking', {}, 'Checking…');
+  button.textContent = actionCommonText('checking');
 
   try {
     /*
@@ -40886,7 +40886,7 @@ $('storeIntegrity').addEventListener('click', async () => {
 
   const button = $('storeIntegrity');
   button.disabled = true;
-  button.textContent = ZogographI18n.t('action.checking', {}, 'Checking…');
+  button.textContent = actionCommonText('checking');
   try {
     const result = await post('store-integrity');
     notice(result.result.messages.join(' '), result.ok);
@@ -41030,7 +41030,7 @@ $('capFilter').addEventListener('change', () => {
 $('capCheck').addEventListener('click', async () => {
   const button = $('capCheck');
   button.disabled = true;
-  button.textContent = ZogographI18n.t('action.checking', {}, 'Checking…');
+  button.textContent = actionCommonText('checking');
   try {
     const result = await post('check-capabilities');
     notice(
@@ -41494,7 +41494,7 @@ $('dnsSweep').addEventListener('click', async () => {
   if (!domain) return;
 
   button.disabled = true;
-  button.textContent = ZogographI18n.t('action.looking', {}, 'Looking…');
+  button.textContent = actionCommonText('looking');
   try {
     const result = await post('dns-sweep', { domain });
     const r = result.result;

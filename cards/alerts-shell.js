@@ -11,6 +11,10 @@ window.ZogographAlertsShellCard = {
           'Delete this alert? The history goes with it.',
         'core-alerts-shell.dismiss': 'Dismiss',
         'core-alerts-shell.details': 'details',
+        'core-alerts-shell.held_back': 'It held this back',
+        'core-alerts-shell.verdict': 'What it made of it',
+        'core-alerts-shell.not_sent_why': 'Why it was not sent',
+        'core-alerts-shell.verdict_why': 'Why it said that',
         'core-alerts-shell.telegram_test_sent':
           'Test Telegram sent to {{recipient}}.',
         'core-alerts-shell.telegram_test_failed':
@@ -115,6 +119,10 @@ window.ZogographAlertsShellCard = {
           '¿Eliminar esta alerta? Su historial se eliminará con ella.',
         'core-alerts-shell.dismiss': 'Descartar',
         'core-alerts-shell.details': 'detalles',
+        'core-alerts-shell.held_back': 'Lo retuvo',
+        'core-alerts-shell.verdict': 'Qué concluyó',
+        'core-alerts-shell.not_sent_why': 'Por qué no se envió',
+        'core-alerts-shell.verdict_why': 'Por qué dijo eso',
         'core-alerts-shell.telegram_test_sent':
           'Se envió un Telegram de prueba a {{recipient}}.',
         'core-alerts-shell.telegram_test_failed':
@@ -222,6 +230,10 @@ window.ZogographAlertsShellCard = {
           'इस चेतावनी को हटाएँ? इसका इतिहास भी हट जाएगा।',
         'core-alerts-shell.dismiss': 'खारिज करें',
         'core-alerts-shell.details': 'विवरण',
+        'core-alerts-shell.held_back': 'इसे रोका गया',
+        'core-alerts-shell.verdict': 'इसका निष्कर्ष',
+        'core-alerts-shell.not_sent_why': 'इसे क्यों नहीं भेजा गया',
+        'core-alerts-shell.verdict_why': 'ऐसा क्यों कहा गया',
         'core-alerts-shell.telegram_test_sent':
           '{{recipient}} को परीक्षण Telegram भेज दिया गया है।',
         'core-alerts-shell.telegram_test_failed':
@@ -326,6 +338,10 @@ window.ZogographAlertsShellCard = {
         'core-alerts-shell.delete_confirm': 'حذف هذا التنبيه؟ سيُحذف سجله معه.',
         'core-alerts-shell.dismiss': 'تجاهل',
         'core-alerts-shell.details': 'التفاصيل',
+        'core-alerts-shell.held_back': 'احتجزه',
+        'core-alerts-shell.verdict': 'ما خلص إليه',
+        'core-alerts-shell.not_sent_why': 'لماذا لم يُرسل',
+        'core-alerts-shell.verdict_why': 'لماذا قال ذلك',
         'core-alerts-shell.telegram_test_sent':
           'أُرسل Telegram تجريبي إلى {{recipient}}.',
         'core-alerts-shell.telegram_test_failed':
@@ -429,6 +445,10 @@ window.ZogographAlertsShellCard = {
           '删除此警报吗？其历史记录也将一并删除。',
         'core-alerts-shell.dismiss': '关闭',
         'core-alerts-shell.details': '详情',
+        'core-alerts-shell.held_back': '它将此项拦下了',
+        'core-alerts-shell.verdict': '它对此的判断',
+        'core-alerts-shell.not_sent_why': '未发送的原因',
+        'core-alerts-shell.verdict_why': '它这样判断的原因',
         'core-alerts-shell.telegram_test_sent':
           '测试 Telegram 已发送至 {{recipient}}。',
         'core-alerts-shell.telegram_test_failed': '无法发送 Telegram 测试。',

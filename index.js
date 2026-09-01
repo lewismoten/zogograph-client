@@ -27620,8 +27620,8 @@ function showAlertVerdict(row) {
   said.className = 'day-entry';
   const head = document.createElement('strong');
   head.textContent = row.silenced
-    ? ZogographI18n.t('alert.held_back', {}, 'It held this back')
-    : ZogographI18n.t('alert.verdict', {}, 'What it made of it');
+    ? ZogographAlertsShellCard.text('held_back', { i18n: ZogographI18n })
+    : ZogographAlertsShellCard.text('verdict', { i18n: ZogographI18n });
   said.appendChild(head);
   const body = document.createElement('div');
   body.appendChild(renderMarkdown(row.ai_summary || ''));
@@ -27633,8 +27633,12 @@ function showAlertVerdict(row) {
     why.className = 'day-entry';
     const title = document.createElement('strong');
     title.textContent = row.silenced
-      ? ZogographI18n.t('alert.not_sent_why', {}, 'Why it was not sent')
-      : ZogographI18n.t('alert.verdict_why', {}, 'Why it said that');
+      ? ZogographAlertsShellCard.text('not_sent_why', {
+          i18n: ZogographI18n,
+        })
+      : ZogographAlertsShellCard.text('verdict_why', {
+          i18n: ZogographI18n,
+        });
     why.appendChild(title);
     const text = document.createElement('div');
     text.appendChild(renderMarkdown(row.ai_reason));

@@ -491,7 +491,7 @@ function whenRange(from, to) {
   // A translated label's length says nothing about how much calendar detail it
   // contains. Keep the compact form only when both values are on one local day.
   if (fromDate.toDateString() === toDate.toDateString()) {
-    return `${a} ${ZogographI18n.t('time.range_to', {}, 'to')} ${b}`;
+    return `${a} ${timeFormattingText('range_to')} ${b}`;
   }
 
   const wordy = (at) => {
@@ -509,7 +509,7 @@ function whenRange(from, to) {
       : `${day} ${when.getFullYear()} ${clock}`;
   };
 
-  return `${wordy(from)} ${ZogographI18n.t('time.range_to', {}, 'to')} ${wordy(to)}`;
+  return `${wordy(from)} ${timeFormattingText('range_to')} ${wordy(to)}`;
 }
 
 /**
@@ -653,10 +653,17 @@ function withWhenBubble(element, epoch) {
 
 function ago(epoch) {
   if (!epoch) return '';
-  return ZogographI18n.t(
-    'time.ago',
-    { duration: humanDuration(Date.now() / 1000 - epoch) },
-    '{{duration}} ago',
+  return timeFormattingText('ago', {
+    duration: humanDuration(Date.now() / 1000 - epoch),
+  });
+}
+
+function timeFormattingText(key, values = {}) {
+  return renderCoreCardPackage(
+    ZogographTimeFormattingCard,
+    'core-time-formatting',
+    { key, values },
+    { i18n: ZogographI18n },
   );
 }
 
@@ -34881,14 +34888,10 @@ async function refreshWhois(name = '') {
     if (p.updated_at) {
       facts.push([
         whoisText('record_last_changed'),
-        ZogographI18n.t(
-          'time.date_with_duration_ago',
-          {
-            date: humanTime(p.updated_at).split(',')[0],
-            duration: humanDuration(Date.now() / 1000 - p.updated_at),
-          },
-          '{{date}} — {{duration}} ago',
-        ),
+        timeFormattingText('date_with_duration_ago', {
+          date: humanTime(p.updated_at).split(',')[0],
+          duration: humanDuration(Date.now() / 1000 - p.updated_at),
+        }),
       ]);
     }
     if (p.registrar)

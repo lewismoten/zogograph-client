@@ -64,6 +64,7 @@ export default [
         ZogographFetchPreviewCard: 'readonly',
         ZogographFetchRawCard: 'readonly',
         ZogographFetchTabsCard: 'readonly',
+        ZogographRegexPatternInputCard: 'readonly',
         ZogographCapabilityChangeNoteCard: 'readonly',
         ZogographJetBackupCard: 'readonly',
         ZogographBackupShellCard: 'readonly',

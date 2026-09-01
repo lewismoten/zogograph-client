@@ -31885,12 +31885,18 @@ function showRegexTester(patternInput, groupInput) {
   pattern.value = regexState.pattern;
   nodes.push(
     fieldRow(
-      ZogographI18n.t('regex.pattern', {}, 'Pattern'),
+      renderCoreCardPackage(
+        ZogographRegexPatternInputCard,
+        'core-regex-pattern-input',
+        { key: 'pattern' },
+        { i18n: ZogographI18n },
+      ),
       pattern,
-      ZogographI18n.t(
-        'regex.pattern_help',
-        {},
-        'Written without slashes around it — they are added for you, so a / in the pattern needs no escaping.',
+      renderCoreCardPackage(
+        ZogographRegexPatternInputCard,
+        'core-regex-pattern-input',
+        { key: 'pattern_help' },
+        { i18n: ZogographI18n },
       ),
     ),
   );
@@ -31899,14 +31905,24 @@ function showRegexTester(patternInput, groupInput) {
   sample.rows = 8;
   sample.className = 'wide';
   sample.spellcheck = false;
-  sample.placeholder = ZogographI18n.t(
-    'regex.sample_placeholder',
-    {},
-    'Paste some of the page here — view source and take the part you are matching against.',
+  sample.placeholder = renderCoreCardPackage(
+    ZogographRegexPatternInputCard,
+    'core-regex-pattern-input',
+    { key: 'sample_placeholder' },
+    { i18n: ZogographI18n },
   );
   sample.value = regexState.text;
   nodes.push(
-    fieldRow(ZogographI18n.t('regex.against', {}, 'Against'), sample, ''),
+    fieldRow(
+      renderCoreCardPackage(
+        ZogographRegexPatternInputCard,
+        'core-regex-pattern-input',
+        { key: 'against' },
+        { i18n: ZogographI18n },
+      ),
+      sample,
+      '',
+    ),
   );
 
   const tools = document.createElement('div');

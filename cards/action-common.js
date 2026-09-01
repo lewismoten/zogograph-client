@@ -39,6 +39,10 @@ window.ZogographActionCommonCard = {
         'core-action-common.rename': 'Rename',
         'core-action-common.remove': 'Remove',
         'core-action-common.go_there': 'Go there',
+        'core-action-common.reclaim_empty_space': 'Reclaim empty space',
+        'core-action-common.run_full_integrity_check':
+          'Run full integrity check',
+        'core-action-common.roll_up_old_readings': 'Roll up old readings now',
       }),
       es: Object.freeze({
         'core-action-common.view': 'Ver',
@@ -74,6 +78,11 @@ window.ZogographActionCommonCard = {
         'core-action-common.rename': 'Cambiar nombre',
         'core-action-common.remove': 'Quitar',
         'core-action-common.go_there': 'Ir allí',
+        'core-action-common.reclaim_empty_space': 'Recuperar espacio vacío',
+        'core-action-common.run_full_integrity_check':
+          'Ejecutar comprobación de integridad completa',
+        'core-action-common.roll_up_old_readings':
+          'Agrupar ahora las lecturas antiguas',
       }),
       hi: Object.freeze({
         'core-action-common.view': 'देखें',
@@ -109,6 +118,10 @@ window.ZogographActionCommonCard = {
         'core-action-common.rename': 'नाम बदलें',
         'core-action-common.remove': 'हटाएँ',
         'core-action-common.go_there': 'वहाँ जाएँ',
+        'core-action-common.reclaim_empty_space': 'खाली स्थान वापस लें',
+        'core-action-common.run_full_integrity_check':
+          'पूर्ण अखंडता जाँच चलाएँ',
+        'core-action-common.roll_up_old_readings': 'पुरानी रीडिंग अभी समेटें',
       }),
       ar: Object.freeze({
         'core-action-common.view': 'عرض',
@@ -144,6 +157,10 @@ window.ZogographActionCommonCard = {
         'core-action-common.rename': 'أعِد التسمية',
         'core-action-common.remove': 'أزل',
         'core-action-common.go_there': 'اذهب إلى هناك',
+        'core-action-common.reclaim_empty_space': 'استعد المساحة الفارغة',
+        'core-action-common.run_full_integrity_check':
+          'شغّل فحص السلامة الكامل',
+        'core-action-common.roll_up_old_readings': 'لخّص القراءات القديمة الآن',
       }),
       zh: Object.freeze({
         'core-action-common.view': '查看',
@@ -178,6 +195,9 @@ window.ZogographActionCommonCard = {
         'core-action-common.rename': '重命名',
         'core-action-common.remove': '移除',
         'core-action-common.go_there': '前往那里',
+        'core-action-common.reclaim_empty_space': '回收空闲空间',
+        'core-action-common.run_full_integrity_check': '运行完整性检查',
+        'core-action-common.roll_up_old_readings': '立即汇总旧读数',
       }),
     }),
   }),

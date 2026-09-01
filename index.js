@@ -40648,11 +40648,7 @@ $('aiCompact').addEventListener('click', async () => {
     notice(String(error.message || error));
   } finally {
     button.disabled = false;
-    button.textContent = ZogographI18n.t(
-      'action.reclaim_empty_space',
-      {},
-      'Reclaim empty space',
-    );
+    button.textContent = actionCommonText('reclaim_empty_space');
   }
 });
 
@@ -40684,11 +40680,7 @@ $('storeCompact').addEventListener('click', async () => {
     notice(String(error.message || error));
   } finally {
     button.disabled = false;
-    button.textContent = ZogographI18n.t(
-      'action.reclaim_empty_space',
-      {},
-      'Reclaim empty space',
-    );
+    button.textContent = actionCommonText('reclaim_empty_space');
   }
 });
 
@@ -40712,11 +40704,7 @@ $('storeIntegrity').addEventListener('click', async () => {
     notice(String(error.message || error));
   } finally {
     button.disabled = false;
-    button.textContent = ZogographI18n.t(
-      'action.run_full_integrity_check',
-      {},
-      'Run full integrity check',
-    );
+    button.textContent = actionCommonText('run_full_integrity_check');
   }
 });
 
@@ -40770,11 +40758,7 @@ $('storeRollup').addEventListener('click', async () => {
     notice(String(error.message || error));
   } finally {
     button.disabled = false;
-    button.textContent = ZogographI18n.t(
-      'action.roll_up_old_readings',
-      {},
-      'Roll up old readings now',
-    );
+    button.textContent = actionCommonText('roll_up_old_readings');
   }
 });
 

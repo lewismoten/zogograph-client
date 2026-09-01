@@ -1105,7 +1105,6 @@
   "metadata.description_link_placeholder": "https://… 更多信息链接（可选）",
   "metadata.description_placeholder": "它是什么，以及更有用的是，是什么让它增长。",
   "storage.link_sweep_placeholder": "/home/your-user/public_html/previews",
-  "processes.pattern_placeholder": "webalizer/bin/english.*ssl_log\\.bkup",
   "package.probe_sqlcipher": "运行 SQLCipher 预检",
   "package.probe_custody": "测试托管端点",
   "package.probe_isolated": "运行隔离探测",

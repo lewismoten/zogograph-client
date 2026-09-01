@@ -1108,7 +1108,6 @@
   "metadata.description_link_placeholder": "https://… un enlace con más información (opcional)",
   "metadata.description_placeholder": "Qué es y, aún más útil, qué hace que crezca.",
   "storage.link_sweep_placeholder": "/home/usted/public_html/previews",
-  "processes.pattern_placeholder": "webalizer/bin/english.*ssl_log\\.bkup",
   "package.probe_sqlcipher": "Ejecutar comprobación previa de SQLCipher",
   "package.probe_custody": "Probar extremo de custodia",
   "package.probe_isolated": "Ejecutar prueba aislada",

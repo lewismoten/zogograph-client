@@ -1123,7 +1123,6 @@
   "metadata.description_link_placeholder": "https://… a link to more (optional)",
   "metadata.description_placeholder": "What it is, and — more usefully — what makes it grow.",
   "storage.link_sweep_placeholder": "/home/you/public_html/previews",
-  "processes.pattern_placeholder": "webalizer/bin/english.*ssl_log\\.bkup",
   "package.probe_sqlcipher": "Run SQLCipher preflight",
   "package.probe_custody": "Test custody endpoint",
   "package.probe_isolated": "Run isolated probe",

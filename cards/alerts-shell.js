@@ -44,6 +44,11 @@ window.ZogographAlertsShellCard = {
         'core-alerts-shell.mail_covered': '{{count}} alerts went out in it',
         'core-alerts-shell.mail_dialog_help':
           'Kept as it was sent. The wording depends on what else fired in the same minute and on the settings at the time, so it cannot be worked out again afterwards — which is why it is stored rather than rebuilt.',
+        'core-alerts-shell.sent_open_title': 'Sent {{when}}. Click to read it.',
+        'core-alerts-shell.sent_legacy_title':
+          'Sent {{when}}. This one went out before messages were kept, so there is nothing to open.',
+        'core-alerts-shell.muted_title':
+          'Delivery was held by a temporary operator mute. Click for details.',
       }),
       es: Object.freeze({
         'core-alerts-shell.timeline_title': 'Cuándo se activaron las alertas',
@@ -84,6 +89,12 @@ window.ZogographAlertsShellCard = {
         'core-alerts-shell.mail_covered': 'Salieron {{count}} alertas en él',
         'core-alerts-shell.mail_dialog_help':
           'Se conserva tal como se envió. La redacción depende de qué más se activó en el mismo minuto y de la configuración de entonces, por lo que no se puede calcular de nuevo después; por eso se almacena en vez de reconstruirse.',
+        'core-alerts-shell.sent_open_title':
+          'Enviado {{when}}. Haga clic para leerlo.',
+        'core-alerts-shell.sent_legacy_title':
+          'Enviado {{when}}. Este se envió antes de que se conservaran los mensajes, por lo que no hay nada que abrir.',
+        'core-alerts-shell.muted_title':
+          'La entrega fue retenida por un silencio temporal del operador. Haga clic para ver los detalles.',
       }),
       hi: Object.freeze({
         'core-alerts-shell.timeline_title': 'अलर्ट कब चालू हुए',
@@ -124,6 +135,12 @@ window.ZogographAlertsShellCard = {
         'core-alerts-shell.mail_covered': 'इसमें {{count}} चेतावनियां भेजी गईं',
         'core-alerts-shell.mail_dialog_help':
           'इसे भेजे गए रूप में रखा जाता है। शब्दावली इस पर निर्भर करती है कि उसी मिनट और क्या ट्रिगर हुआ तथा उस समय कौन सी सेटिंग थी, इसलिए बाद में इसे फिर से निकाला नहीं जा सकता — इसी कारण इसे दोबारा बनाने के बजाय संग्रहीत किया जाता है।',
+        'core-alerts-shell.sent_open_title':
+          '{{when}} पर भेजा गया। इसे पढ़ने के लिए क्लिक करें।',
+        'core-alerts-shell.sent_legacy_title':
+          '{{when}} पर भेजा गया। यह संदेश सहेजे जाने से पहले भेजा गया था, इसलिए खोलने के लिए कुछ नहीं है।',
+        'core-alerts-shell.muted_title':
+          'डिलीवरी अस्थायी ऑपरेटर म्यूट द्वारा रोकी गई थी। विवरण के लिए क्लिक करें।',
       }),
       ar: Object.freeze({
         'core-alerts-shell.timeline_title': 'متى أُطلقت التنبيهات',
@@ -163,6 +180,11 @@ window.ZogographAlertsShellCard = {
         'core-alerts-shell.mail_covered': 'خرجت فيه {{count}} تنبيهات',
         'core-alerts-shell.mail_dialog_help':
           'تُحفظ كما أُرسلت. تعتمد الصياغة على ما أُطلق أيضًا في الدقيقة نفسها وعلى الإعدادات في ذلك الوقت، لذلك لا يمكن استنتاجها مرة أخرى لاحقًا — ولهذا تُخزّن بدل أن يُعاد بناؤها.',
+        'core-alerts-shell.sent_open_title': 'أُرسل {{when}}. انقر لقراءته.',
+        'core-alerts-shell.sent_legacy_title':
+          'أُرسل {{when}}. أُرسل هذا قبل الاحتفاظ بالرسائل، لذلك لا يوجد ما يمكن فتحه.',
+        'core-alerts-shell.muted_title':
+          'حُجبت عملية التسليم بكتم مؤقت من المشغّل. انقر للتفاصيل.',
       }),
       zh: Object.freeze({
         'core-alerts-shell.timeline_title': '警报何时触发',
@@ -202,6 +224,11 @@ window.ZogographAlertsShellCard = {
         'core-alerts-shell.mail_covered': '其中发出了 {{count}} 个警报',
         'core-alerts-shell.mail_dialog_help':
           '它按发送时的样子保留。措辞取决于同一分钟还触发了什么以及当时的设置，因此事后无法再次推算——这就是存储它而非重建它的原因。',
+        'core-alerts-shell.sent_open_title': '发送于 {{when}}。点击阅读。',
+        'core-alerts-shell.sent_legacy_title':
+          '发送于 {{when}}。此消息在保留消息之前就已发出，因此没有可打开的内容。',
+        'core-alerts-shell.muted_title':
+          '投递被临时操作员静音拦截。点击查看详情。',
       }),
     }),
   }),

@@ -27666,10 +27666,10 @@ function alertEmailed(row, interactive = state.signedIn) {
       open.textContent = ZogographAlertsShellCard.text('yes', {
         i18n: ZogographI18n,
       });
-      open.title = ZogographI18n.t(
-        'alerts.sent_open_title',
+      open.title = ZogographAlertsShellCard.text(
+        'sent_open_title',
         { when: whenTitle(row.emailed_at) },
-        'Sent {{when}}. Click to read it.',
+        { i18n: ZogographI18n },
       );
       open.addEventListener('click', () => showAlertEmail(row));
       return open;
@@ -27680,10 +27680,10 @@ function alertEmailed(row, interactive = state.signedIn) {
       i18n: ZogographI18n,
     });
     span.className = 'when';
-    span.title = ZogographI18n.t(
-      'alerts.sent_legacy_title',
+    span.title = ZogographAlertsShellCard.text(
+      'sent_legacy_title',
       { when: whenTitle(row.emailed_at) },
-      'Sent {{when}}. This one went out before messages were kept, so there is nothing to open.',
+      { i18n: ZogographI18n },
     );
     return span;
   }
@@ -27695,11 +27695,9 @@ function alertEmailed(row, interactive = state.signedIn) {
     muted.textContent = ZogographAlertsShellCard.text('muted', {
       i18n: ZogographI18n,
     });
-    muted.title = ZogographI18n.t(
-      'alerts.muted_title',
-      {},
-      'Delivery was held by a temporary operator mute. Click for details.',
-    );
+    muted.title = ZogographAlertsShellCard.text('muted_title', {
+      i18n: ZogographI18n,
+    });
     muted.addEventListener('click', () => showAlertMuteReason(row));
     wrap.appendChild(muted);
     return wrap;

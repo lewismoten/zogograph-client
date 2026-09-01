@@ -3558,9 +3558,6 @@ i18nExpect(
             $english['process.still_running_count'],
             $english['process.protected_count'],
             $english['process.failed_count'],
-            $english['alerts.sent_open_title'],
-            $english['alerts.sent_legacy_title'],
-            $english['alerts.muted_title'],
             $english['alert.verdict_timing'],
             $english['alert.verdict_reviewed_at'],
             $english['alert.held_back_title'],
@@ -3862,10 +3859,15 @@ i18nExpect(
 );
 i18nExpect(
     $script !== false &&
-        str_contains($script, 'alerts.sent_open_title') &&
-        str_contains($script, 'alerts.sent_legacy_title') &&
-        str_contains($script, 'alerts.muted_title'),
-    'alert delivery row retains direct user-visible text',
+        str_contains($script, "'sent_open_title'") &&
+        str_contains($script, "'sent_legacy_title'") &&
+        str_contains($script, "ZogographAlertsShellCard.text('muted_title'") &&
+        isset(
+            $coreCardEnglish['core-alerts-shell.sent_open_title'],
+            $coreCardEnglish['core-alerts-shell.sent_legacy_title'],
+            $coreCardEnglish['core-alerts-shell.muted_title'],
+        ),
+    'alert delivery-row copy does not belong to the alerts package',
 );
 i18nExpect(
     $script !== false &&

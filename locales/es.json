@@ -808,7 +808,6 @@
   "table.when": "Cuándo",
   "table.what": "Qué",
   "network.not_encrypted": "No cifrada",
-  "domain.sign_in_watch": "Inicie sesión para vigilar un dominio.",
   "table.domain": "Dominio",
   "domain.expires": "Caduca",
   "domain.lookup_failed": "Falló la consulta",

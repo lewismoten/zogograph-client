@@ -785,7 +785,6 @@
   "table.when": "When",
   "table.what": "What",
   "network.not_encrypted": "Not encrypted",
-  "domain.sign_in_watch": "Sign in to watch a domain.",
   "table.domain": "Domain",
   "domain.expires": "Expires",
   "domain.lookup_failed": "Lookup failed",

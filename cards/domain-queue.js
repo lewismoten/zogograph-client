@@ -11,6 +11,7 @@ window.ZogographDomainQueueCard = {
         'core-domain-queue.warn': 'warn',
         'core-domain-queue.days_before': 'days before',
         'core-domain-queue.watch': 'Watch it',
+        'core-domain-queue.sign_in_watch': 'Sign in to watch a domain.',
         'core-domain-queue.waiting':
           '{{due, number}} domains are due, with {{perRun, number}} looked up per run — registries rate-limit anyone who asks faster, and a blocked address reports every domain as unknown. The oldest waits least.',
         'core-domain-queue.empty': 'No domains are being watched.',
@@ -22,6 +23,8 @@ window.ZogographDomainQueueCard = {
         'core-domain-queue.warn': 'avisar',
         'core-domain-queue.days_before': 'días antes',
         'core-domain-queue.watch': 'Vigilar',
+        'core-domain-queue.sign_in_watch':
+          'Inicie sesión para vigilar un dominio.',
         'core-domain-queue.waiting':
           'Hay {{due, number}} dominios pendientes y se consulta {{perRun, number}} en cada ejecución: los registros limitan las consultas rápidas y una dirección bloqueada informa de todos los dominios como desconocidos. Los más antiguos esperan menos.',
         'core-domain-queue.empty': 'No se está vigilando ningún dominio.',
@@ -33,6 +36,7 @@ window.ZogographDomainQueueCard = {
         'core-domain-queue.warn': 'चेतावनी',
         'core-domain-queue.days_before': 'दिन पहले',
         'core-domain-queue.watch': 'निगरानी करें',
+        'core-domain-queue.sign_in_watch': 'डोमेन देखने के लिए साइन इन करें।',
         'core-domain-queue.waiting':
           '{{due, number}} डोमेन देय हैं और हर रन में {{perRun, number}} देखे जाते हैं — रजिस्ट्रियाँ तेज़ी से पूछने वालों को सीमित करती हैं और ब्लॉक किया गया पता हर डोमेन को अज्ञात बताता है। सबसे पुराने को सबसे कम इंतज़ार है।',
         'core-domain-queue.empty': 'कोई डोमेन नहीं देखा जा रहा है।',
@@ -44,6 +48,7 @@ window.ZogographDomainQueueCard = {
         'core-domain-queue.warn': 'حذّر',
         'core-domain-queue.days_before': 'أيام قبل',
         'core-domain-queue.watch': 'راقبه',
+        'core-domain-queue.sign_in_watch': 'سجّل الدخول لمراقبة نطاق.',
         'core-domain-queue.waiting':
           'هناك {{due, number}} نطاقات مستحقة، ويُبحث عن {{perRun, number}} في كل تشغيل — تقيد السجلات من يسأل بسرعة أكبر، والعنوان المحظور يبلغ عن كل نطاق بأنه غير معروف. الأقدم ينتظر أقل.',
         'core-domain-queue.empty': 'لا توجد نطاقات قيد المراقبة.',
@@ -55,6 +60,7 @@ window.ZogographDomainQueueCard = {
         'core-domain-queue.warn': '警告',
         'core-domain-queue.days_before': '天前',
         'core-domain-queue.watch': '监视',
+        'core-domain-queue.sign_in_watch': '登录以监测域名。',
         'core-domain-queue.waiting':
           '有 {{due, number}} 个域名待处理，每次运行查询 {{perRun, number}} 个——注册机构会限制查询过快的请求，而被阻止的地址会将每个域名报告为未知。最早的等待时间最短。',
         'core-domain-queue.empty': '尚未监测任何域名。',

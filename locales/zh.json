@@ -804,7 +804,6 @@
   "table.when": "时间",
   "table.what": "内容",
   "network.not_encrypted": "未加密",
-  "domain.sign_in_watch": "登录以监测域名。",
   "table.domain": "域名",
   "domain.expires": "到期",
   "domain.lookup_failed": "查询失败",

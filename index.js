@@ -34469,11 +34469,9 @@ async function refreshDomains() {
   if (!state.signedIn) {
     body.replaceChildren(
       note(
-        ZogographI18n.t(
-          'domain.sign_in_watch',
-          {},
-          'Sign in to watch a domain.',
-        ),
+        ZogographDomainQueueCard.text('sign_in_watch', {
+          i18n: ZogographI18n,
+        }),
       ),
     );
     return;

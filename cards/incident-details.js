@@ -38,6 +38,8 @@ window.ZogographIncidentDetailsCard = {
         'core-incident-details.free': 'Free',
         'core-incident-details.what_could_not_be_seen':
           'What could not be seen',
+        'core-incident-details.grew_over': 'Grew over {{label}}',
+        'core-incident-details.not_enough_history': 'not enough history',
       }),
       es: Object.freeze({
         'core-incident-details.alerts_fired_together':
@@ -71,6 +73,9 @@ window.ZogographIncidentDetailsCard = {
         'core-incident-details.used': 'Usado',
         'core-incident-details.free': 'Libre',
         'core-incident-details.what_could_not_be_seen': 'Lo que no se pudo ver',
+        'core-incident-details.grew_over': 'Creció durante {{label}}',
+        'core-incident-details.not_enough_history':
+          'no hay suficiente historial',
       }),
       hi: Object.freeze({
         'core-incident-details.alerts_fired_together':
@@ -104,6 +109,8 @@ window.ZogographIncidentDetailsCard = {
         'core-incident-details.used': 'प्रयुक्त',
         'core-incident-details.free': 'मुक्त',
         'core-incident-details.what_could_not_be_seen': 'क्या नहीं देखा जा सका',
+        'core-incident-details.grew_over': '{{label}} में बढ़ा',
+        'core-incident-details.not_enough_history': 'पर्याप्त इतिहास नहीं है',
       }),
       ar: Object.freeze({
         'core-incident-details.alerts_fired_together':
@@ -136,6 +143,8 @@ window.ZogographIncidentDetailsCard = {
         'core-incident-details.used': 'المستخدم',
         'core-incident-details.free': 'الحر',
         'core-incident-details.what_could_not_be_seen': 'ما الذي تعذر رؤيته',
+        'core-incident-details.grew_over': 'نما خلال {{label}}',
+        'core-incident-details.not_enough_history': 'لا يوجد سجل كافٍ',
       }),
       zh: Object.freeze({
         'core-incident-details.alerts_fired_together':
@@ -168,6 +177,8 @@ window.ZogographIncidentDetailsCard = {
         'core-incident-details.used': '已用',
         'core-incident-details.free': '空闲',
         'core-incident-details.what_could_not_be_seen': '无法看到的内容',
+        'core-incident-details.grew_over': '在 {{label}} 内增长',
+        'core-incident-details.not_enough_history': '历史记录不足',
       }),
     }),
   }),

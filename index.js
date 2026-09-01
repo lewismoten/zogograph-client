@@ -28669,14 +28669,8 @@ async function showIncident(id) {
   if (disk) {
     const growth = Object.entries(disk.growth_bytes || {}).map(
       ([label, bytes]) => [
-        ZogographI18n.t('incident.grew_over', { label }, 'Grew over {{label}}'),
-        bytes === null
-          ? ZogographI18n.t(
-              'incident.not_enough_history',
-              {},
-              'not enough history',
-            )
-          : humanBytes(bytes),
+        incidentText('grew_over', { label }),
+        bytes === null ? incidentText('not_enough_history') : humanBytes(bytes),
       ],
     );
     body.appendChild(

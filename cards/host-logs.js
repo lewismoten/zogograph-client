@@ -24,6 +24,9 @@ window.ZogographHostLogsCard = {
         'core-host-logs.refused_help':
           'The file is there and this account may not open it. That needs a group membership or an ACL granted by root — nothing in here can change it.',
         'core-host-logs.view': 'View',
+        'core-host-logs.check_again': 'Check again',
+        'core-host-logs.help':
+          'The logs named in host_log_paths belong to root and live outside this account. On most shared servers they will be listed and refused, which is itself the answer. Where the host grants read access, they open in the same viewer as the account’s own logs.',
       }),
       es: Object.freeze({
         'core-host-logs.title': 'Los registros del propio servidor',
@@ -37,6 +40,9 @@ window.ZogographHostLogsCard = {
         'core-host-logs.refused_help':
           'El archivo existe, pero esta cuenta no puede abrirlo. Necesita pertenecer a un grupo o una ACL concedida por root; nada aquí puede cambiarlo.',
         'core-host-logs.view': 'Ver',
+        'core-host-logs.check_again': 'Comprobar de nuevo',
+        'core-host-logs.help':
+          'Los registros indicados en host_log_paths pertenecen a root y se encuentran fuera de esta cuenta. En la mayoría de los servidores compartidos se mostrarán y se denegará el acceso; eso ya es una respuesta. Cuando el host concede acceso de lectura, se abren en el mismo visor que los registros de la cuenta.',
       }),
       hi: Object.freeze({
         'core-host-logs.title': 'सर्वर के अपने लॉग',
@@ -50,6 +56,9 @@ window.ZogographHostLogsCard = {
         'core-host-logs.refused_help':
           'फ़ाइल मौजूद है, लेकिन यह खाता इसे नहीं खोल सकता। इसके लिए root द्वारा दी गई समूह सदस्यता या ACL चाहिए — यहाँ कुछ भी इसे बदल नहीं सकता।',
         'core-host-logs.view': 'देखें',
+        'core-host-logs.check_again': 'फिर जाँचें',
+        'core-host-logs.help':
+          'host_log_paths में दिए गए लॉग root के हैं और इस खाते के बाहर रहते हैं। अधिकांश साझा सर्वरों पर वे सूचीबद्ध होंगे और उन तक पहुँच अस्वीकार होगी; यही अपने-आप में उत्तर है। जहाँ होस्ट पढ़ने की अनुमति देता है, वे खाते के अपने लॉग के समान व्यूअर में खुलते हैं।',
       }),
       ar: Object.freeze({
         'core-host-logs.title': 'سجلات الخادم نفسه',
@@ -63,6 +72,9 @@ window.ZogographHostLogsCard = {
         'core-host-logs.refused_help':
           'الملف موجود، لكن قد لا يتمكن هذا الحساب من فتحه. يتطلب ذلك عضوية مجموعة أو ACL يمنحها root — ولا يمكن لأي شيء هنا تغيير ذلك.',
         'core-host-logs.view': 'عرض',
+        'core-host-logs.check_again': 'تحقق مجددًا',
+        'core-host-logs.help':
+          'السجلات المسماة في host_log_paths تخص root وتوجد خارج هذا الحساب. في معظم الخوادم المشتركة ستُدرج ثم يُرفض الوصول إليها، وهذه إجابة بحد ذاتها. عندما يمنح المضيف إذن القراءة، تُفتح في العارض نفسه المستخدم لسجلات الحساب.',
       }),
       zh: Object.freeze({
         'core-host-logs.title': '服务器自身的日志',
@@ -76,6 +88,9 @@ window.ZogographHostLogsCard = {
         'core-host-logs.refused_help':
           '文件存在，但此账户可能无法打开它。需要由 root 授予组成员资格或 ACL；这里无法更改此设置。',
         'core-host-logs.view': '查看',
+        'core-host-logs.check_again': '再次检查',
+        'core-host-logs.help':
+          'host_log_paths 中列出的日志属于 root，位于此账户之外。在大多数共享服务器上，它们会被列出但拒绝访问；这本身就是答案。主机授予读取权限时，它们会在与账户自身日志相同的查看器中打开。',
       }),
     }),
   }),

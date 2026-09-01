@@ -2080,12 +2080,17 @@ function renderHostLogLabels() {
     i18n: ZogographI18n,
   };
   renderCoreCardPackage(ZogographHostLogsCard, 'core-host-logs', [], helpers);
-  const title = document.querySelector('[data-i18n="core-host-logs.title"]');
-  title.textContent = ZogographI18n.markSource(
-    title,
-    'core-host-logs.title',
-    ZogographHostLogsCard.text('title', helpers),
-  );
+  document
+    .querySelectorAll('[data-i18n^="core-host-logs."]')
+    .forEach((element) => {
+      const key = element.dataset.i18n;
+      const suffix = key.replace('core-host-logs.', '');
+      element.textContent = ZogographI18n.markSource(
+        element,
+        key,
+        ZogographHostLogsCard.text(suffix, helpers),
+      );
+    });
 }
 
 document.addEventListener('zogograph-i18n-load', renderHostLogLabels);
@@ -22560,6 +22565,17 @@ function symlinkViewLabel(view) {
   return ZogographSymlinkFilterCard.label(view, ZogographI18n);
 }
 
+function symlinkShellText(key) {
+  const helpers = { i18n: ZogographI18n };
+  renderCoreCardPackage(
+    ZogographSymlinkShellCard,
+    'core-symlink-shell',
+    {},
+    helpers,
+  );
+  return ZogographSymlinkShellCard.text(key, helpers);
+}
+
 /**
  * Checks the tree for symlinks that will send something into a loop.
  *
@@ -22582,11 +22598,7 @@ async function checkSymlinks() {
     holder.replaceChildren(note(String(error.message || error)));
   } finally {
     button.disabled = false;
-    button.textContent = ZogographI18n.t(
-      'storage.check_again',
-      {},
-      'Check again',
-    );
+    button.textContent = symlinkShellText('check_again');
   }
 }
 

@@ -1152,8 +1152,6 @@
   "chart.everything_else_count": "Todo lo demás ({{count, number}} servicios)",
   "chart.nothing_collected_range": "Aún no se recopilaron datos para este intervalo",
   "chart.nothing_to_show_yet": "Aún no hay nada que mostrar",
-  "storage.check_again": "Comprobar de nuevo",
-  "storage.host_logs_help": "Los registros indicados en host_log_paths pertenecen a root y se encuentran fuera de esta cuenta. En la mayoría de los servidores compartidos se mostrarán y se denegará el acceso; eso ya es una respuesta. Cuando el host concede acceso de lectura, se abren en el mismo visor que los registros de la cuenta.",
   "storage.files": "Archivos",
   "storage.history": "Historial",
   "action.close": "Cerrar",

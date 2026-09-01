@@ -1149,8 +1149,6 @@
   "chart.everything_else_count": "其余内容（{{count, number}} 个服务）",
   "chart.nothing_collected_range": "此时间范围尚未收集到数据",
   "chart.nothing_to_show_yet": "目前没有可显示的内容",
-  "storage.check_again": "再次检查",
-  "storage.host_logs_help": "host_log_paths 中列出的日志属于 root，位于此账户之外。在大多数共享服务器上，它们会被列出但拒绝访问；这本身就是答案。主机授予读取权限时，它们会在与账户自身日志相同的查看器中打开。",
   "storage.files": "文件",
   "storage.history": "历史记录",
   "action.close": "关闭",

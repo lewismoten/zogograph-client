@@ -31862,9 +31862,7 @@ function renderUrlHistory(data) {
       [
         {
           key: 'value',
-          label:
-            check.check_value ||
-            ZogographI18n.t('url.extracted_value', {}, 'extracted value'),
+          label: check.check_value || urlHistoryText('extracted_value'),
         },
       ],
       // Whatever was extracted is a number in somebody else's unit; this chart
@@ -31872,19 +31870,13 @@ function renderUrlHistory(data) {
       {
         xKey: 'at',
         axis: plainAxis,
-        empty: ZogographI18n.t(
-          'url.nothing_extracted',
-          {},
-          'Nothing extracted yet',
-        ),
+        empty: urlHistoryText('nothing_extracted'),
       },
     );
 
-    $('urlValueNote').textContent = ZogographI18n.t(
-      'url.value_note',
-      { rule: check.check_kind },
-      'Taken from the response by the {{rule}} rule. This is the check that catches a page returning 200 with the wrong content, which nothing else here can see.',
-    );
+    $('urlValueNote').textContent = urlHistoryText('value_note', {
+      rule: check.check_kind,
+    });
   } else {
     valueChart.hidden = true;
     $('urlValueNote').textContent = '';
@@ -31900,23 +31892,21 @@ function renderUrlHistory(data) {
       failures.slice(-40).reverse(),
       [
         {
-          label: ZogographI18n.t('url.when', {}, 'When'),
+          label: urlHistoryText('when'),
           render: (row) => whenSpan(row.at),
         },
         {
-          label: ZogographI18n.t('url.status_label', {}, 'Status'),
+          label: urlHistoryText('status_label'),
           className: 'size',
-          render: (row) =>
-            row.status || ZogographI18n.t('url.no_answer', {}, 'no answer'),
+          render: (row) => row.status || urlHistoryText('no_answer'),
         },
         {
-          label: ZogographI18n.t('url.took', {}, 'Took'),
+          label: urlHistoryText('took'),
           className: 'size',
-          render: (row) =>
-            ZogographI18n.t('url.took_ms', { ms: row.ms }, '{{ms}} ms'),
+          render: (row) => urlHistoryText('took_ms', { ms: row.ms }),
         },
         {
-          label: ZogographI18n.t('url.why', {}, 'Why'),
+          label: urlHistoryText('why'),
           className: 'cmd',
           render: (row) => row.error || '',
         },

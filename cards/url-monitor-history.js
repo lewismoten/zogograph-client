@@ -28,6 +28,15 @@ window.ZogographUrlMonitorHistoryCard = {
         'core-url-monitor-history.changed': 'changed',
         'core-url-monitor-history.was': 'Was',
         'core-url-monitor-history.became': 'Became',
+        'core-url-monitor-history.extracted_value': 'extracted value',
+        'core-url-monitor-history.nothing_extracted': 'Nothing extracted yet',
+        'core-url-monitor-history.value_note':
+          'Taken from the response by the {{rule}} rule. This is the check that catches a page returning 200 with the wrong content, which nothing else here can see.',
+        'core-url-monitor-history.status_label': 'Status',
+        'core-url-monitor-history.no_answer': 'no answer',
+        'core-url-monitor-history.took': 'Took',
+        'core-url-monitor-history.took_ms': '{{ms}} ms',
+        'core-url-monitor-history.why': 'Why',
       }),
       es: Object.freeze({
         'core-url-monitor-history.nothing_recorded_range':
@@ -53,6 +62,16 @@ window.ZogographUrlMonitorHistoryCard = {
         'core-url-monitor-history.changed': 'cambió',
         'core-url-monitor-history.was': 'Era',
         'core-url-monitor-history.became': 'Pasó a ser',
+        'core-url-monitor-history.extracted_value': 'valor extraído',
+        'core-url-monitor-history.nothing_extracted':
+          'Aún no se ha extraído nada',
+        'core-url-monitor-history.value_note':
+          'Se obtuvo de la respuesta mediante la regla {{rule}}. Esta es la comprobación que detecta una página que devuelve 200 con contenido incorrecto, algo que nada más aquí puede ver.',
+        'core-url-monitor-history.status_label': 'Estado',
+        'core-url-monitor-history.no_answer': 'sin respuesta',
+        'core-url-monitor-history.took': 'Tardó',
+        'core-url-monitor-history.took_ms': '{{ms}} ms',
+        'core-url-monitor-history.why': 'Motivo',
       }),
       hi: Object.freeze({
         'core-url-monitor-history.nothing_recorded_range':
@@ -78,6 +97,16 @@ window.ZogographUrlMonitorHistoryCard = {
         'core-url-monitor-history.changed': 'बदला',
         'core-url-monitor-history.was': 'था',
         'core-url-monitor-history.became': 'बन गया',
+        'core-url-monitor-history.extracted_value': 'निकाला गया मान',
+        'core-url-monitor-history.nothing_extracted':
+          'अभी कुछ भी नहीं निकाला गया',
+        'core-url-monitor-history.value_note':
+          '{{rule}} नियम से प्रतिक्रिया से लिया गया। यह जांच उस पृष्ठ को पकड़ती है जो गलत सामग्री के साथ 200 लौटाता है, जिसे यहाँ और कुछ नहीं देख सकता।',
+        'core-url-monitor-history.status_label': 'स्थिति',
+        'core-url-monitor-history.no_answer': 'कोई उत्तर नहीं',
+        'core-url-monitor-history.took': 'लगा समय',
+        'core-url-monitor-history.took_ms': '{{ms}} ms',
+        'core-url-monitor-history.why': 'कारण',
       }),
       ar: Object.freeze({
         'core-url-monitor-history.nothing_recorded_range':
@@ -102,6 +131,15 @@ window.ZogographUrlMonitorHistoryCard = {
         'core-url-monitor-history.changed': 'تغيّر',
         'core-url-monitor-history.was': 'كان',
         'core-url-monitor-history.became': 'أصبح',
+        'core-url-monitor-history.extracted_value': 'القيمة المستخرجة',
+        'core-url-monitor-history.nothing_extracted': 'لم يُستخرج شيء بعد',
+        'core-url-monitor-history.value_note':
+          'أُخذت من الاستجابة بواسطة قاعدة {{rule}}. هذا هو الفحص الذي يلتقط صفحة تُرجع 200 بمحتوى خاطئ، وهو ما لا يمكن لشيء آخر هنا رؤيته.',
+        'core-url-monitor-history.status_label': 'الحالة',
+        'core-url-monitor-history.no_answer': 'لا إجابة',
+        'core-url-monitor-history.took': 'استغرق',
+        'core-url-monitor-history.took_ms': '{{ms}} مللي ثانية',
+        'core-url-monitor-history.why': 'السبب',
       }),
       zh: Object.freeze({
         'core-url-monitor-history.nothing_recorded_range':
@@ -125,6 +163,15 @@ window.ZogographUrlMonitorHistoryCard = {
         'core-url-monitor-history.changed': '已更改',
         'core-url-monitor-history.was': '原为',
         'core-url-monitor-history.became': '变为',
+        'core-url-monitor-history.extracted_value': '提取的值',
+        'core-url-monitor-history.nothing_extracted': '尚未提取任何内容',
+        'core-url-monitor-history.value_note':
+          '由 {{rule}} 规则从响应中获取。此检查可捕获返回 200 但内容错误的页面，这是此处其他检查无法发现的情况。',
+        'core-url-monitor-history.status_label': '状态',
+        'core-url-monitor-history.no_answer': '没有响应',
+        'core-url-monitor-history.took': '耗时',
+        'core-url-monitor-history.took_ms': '{{ms}} 毫秒',
+        'core-url-monitor-history.why': '原因',
       }),
     }),
   }),

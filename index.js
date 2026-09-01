@@ -18968,12 +18968,12 @@ function renderTerminal(data) {
                   const result = await post('terminal-stop', { id: row.id });
                   notice(
                     result.killed
-                      ? ZogographI18n.t('terminal.stopped', {}, 'Stopped.')
-                      : ZogographI18n.t(
-                          'terminal.already_finished',
-                          {},
-                          'It had already finished.',
-                        ),
+                      ? ZogographTerminalVerdictCard.text('stopped_complete', {
+                          i18n: ZogographI18n,
+                        })
+                      : ZogographTerminalVerdictCard.text('already_finished', {
+                          i18n: ZogographI18n,
+                        }),
                     true,
                   );
                   await refreshTerminal();
@@ -40284,12 +40284,12 @@ async function stopTerminal() {
     const result = await post('terminal-stop', { id: termState.running });
     notice(
       result.killed
-        ? ZogographI18n.t('terminal.stopped', {}, 'Stopped.')
-        : ZogographI18n.t(
-            'terminal.already_finished',
-            {},
-            'It had already finished.',
-          ),
+        ? ZogographTerminalVerdictCard.text('stopped_complete', {
+            i18n: ZogographI18n,
+          })
+        : ZogographTerminalVerdictCard.text('already_finished', {
+            i18n: ZogographI18n,
+          }),
       true,
     );
     await pollTerminal();

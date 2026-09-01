@@ -14,6 +14,8 @@ window.ZogographTerminalVerdictCard = {
         'core-terminal-verdict.killed': 'killed ({{signal}})',
         'core-terminal-verdict.signal': 'signal {{number}}',
         'core-terminal-verdict.exit': 'exit {{code}}',
+        'core-terminal-verdict.stopped_complete': 'Stopped.',
+        'core-terminal-verdict.already_finished': 'It had already finished.',
       }),
       es: Object.freeze({
         'core-terminal-verdict.running': 'en ejecución',
@@ -24,6 +26,8 @@ window.ZogographTerminalVerdictCard = {
         'core-terminal-verdict.killed': 'terminado ({{signal}})',
         'core-terminal-verdict.signal': 'señal {{number}}',
         'core-terminal-verdict.exit': 'salida {{code}}',
+        'core-terminal-verdict.stopped_complete': 'Detenido.',
+        'core-terminal-verdict.already_finished': 'Ya había terminado.',
       }),
       hi: Object.freeze({
         'core-terminal-verdict.running': 'चल रहा है',
@@ -34,6 +38,9 @@ window.ZogographTerminalVerdictCard = {
         'core-terminal-verdict.killed': 'समाप्त किया गया ({{signal}})',
         'core-terminal-verdict.signal': 'सिग्नल {{number}}',
         'core-terminal-verdict.exit': 'निकास {{code}}',
+        'core-terminal-verdict.stopped_complete': 'रोक दिया गया।',
+        'core-terminal-verdict.already_finished':
+          'यह पहले ही समाप्त हो चुका था।',
       }),
       ar: Object.freeze({
         'core-terminal-verdict.running': 'قيد التشغيل',
@@ -44,6 +51,8 @@ window.ZogographTerminalVerdictCard = {
         'core-terminal-verdict.killed': 'تم إيقافه ({{signal}})',
         'core-terminal-verdict.signal': 'إشارة {{number}}',
         'core-terminal-verdict.exit': 'خروج {{code}}',
+        'core-terminal-verdict.stopped_complete': 'تم الإيقاف.',
+        'core-terminal-verdict.already_finished': 'كان قد انتهى بالفعل.',
       }),
       zh: Object.freeze({
         'core-terminal-verdict.running': '正在运行',
@@ -54,9 +63,16 @@ window.ZogographTerminalVerdictCard = {
         'core-terminal-verdict.killed': '已终止（{{signal}}）',
         'core-terminal-verdict.signal': '信号 {{number}}',
         'core-terminal-verdict.exit': '退出 {{code}}',
+        'core-terminal-verdict.stopped_complete': '已停止。',
+        'core-terminal-verdict.already_finished': '它已结束。',
       }),
     }),
   }),
+
+  text(key, { i18n }) {
+    const id = `core-terminal-verdict.${key}`;
+    return i18n.t(id, {}, this.manifest.catalogs.en[id]);
+  },
 
   render(entry, helpers) {
     const { humanSpan, signalNames, i18n } = helpers;

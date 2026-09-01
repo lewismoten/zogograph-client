@@ -7306,6 +7306,17 @@ const storageDeleteResultText = (key, values = {}) =>
     { i18n: ZogographI18n },
   );
 
+const storageOperationsText = (key, values = {}) => {
+  const helpers = { i18n: ZogographI18n };
+  renderCoreCardPackage(
+    ZogographStorageOperationsCard,
+    'core-storage-operations',
+    {},
+    helpers,
+  );
+  return ZogographStorageOperationsCard.text(key, values, helpers);
+};
+
 function offenderPicker(row) {
   if (!mayDelete(row)) return '';
 
@@ -40906,14 +40917,7 @@ $('storeExport').addEventListener('click', async () => {
   document.body.appendChild(form);
   form.submit();
   form.remove();
-  notice(
-    ZogographI18n.t(
-      'store.preparing_export',
-      {},
-      'Preparing the safe database export…',
-    ),
-    true,
-  );
+  notice(storageOperationsText('preparing_export'), true);
 });
 
 $('storeRollup').addEventListener('click', async () => {
@@ -40925,18 +40929,14 @@ $('storeRollup').addEventListener('click', async () => {
     const result = await post('store-rollup');
     const said = result.result;
     notice(
-      ZogographI18n.t(
-        'store.rollup_result',
-        {
-          removed: said.removed,
-          compacted: said.compacted,
-        },
-        '{{removed, number}} readings merged into {{compacted, number}}.',
-      ) +
+      storageOperationsText('rollup_result', {
+        removed: said.removed,
+        compacted: said.compacted,
+      }) +
         (said.protected
-          ? ` ${ZogographI18n.t('store.rollup_protected', { count: said.protected }, '{{count, number}} left at full detail because they sit beside an alert.')}`
+          ? ` ${storageOperationsText('rollup_protected', { count: said.protected })}`
           : '') +
-        ` ${ZogographI18n.t('store.rollup_space', {}, 'The space they used is inside the file until you reclaim it.')}`,
+        ` ${storageOperationsText('rollup_space')}`,
       true,
     );
     renderStore(result);

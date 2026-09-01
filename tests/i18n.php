@@ -3118,7 +3118,7 @@ i18nExpect(
 i18nExpect(
     $script !== false &&
         str_contains($script, 'function copyButtonLabel(state)') &&
-        str_contains($script, 'ZogographI18n.t("store.rollup_result"') &&
+        str_contains($script, "storageOperationsText('rollup_result'") &&
         str_contains($script, "capabilitiesShellText('checked_changes'"),
     'shared operational controls do not use the locale catalog',
 );
@@ -4334,10 +4334,12 @@ $translatedOperationalControls = [
     'action.roll_up_old_readings',
     'action.reclaim_empty_space',
     'action.run_full_integrity_check',
-    'store.preparing_export',
-    'store.rollup_result',
-    'store.rollup_protected',
-    'store.rollup_space',
+];
+$translatedStorageOperationsPackageMessages = [
+    'core-storage-operations.preparing_export',
+    'core-storage-operations.rollup_result',
+    'core-storage-operations.rollup_protected',
+    'core-storage-operations.rollup_space',
 ];
 $translatedEmailPackageOperationalMessages = ['core-email-shell.test_sent'];
 $translatedAlertsPackageOperationalMessages = [
@@ -4522,6 +4524,13 @@ foreach (['en-US', 'en-GB', 'es', 'hi', 'zh', 'ar'] as $locale) {
             array_diff($translatedOperationalControls, array_keys($catalog)) ===
                 [],
             "locale catalog $locale falls back to English for shared operational controls",
+        );
+        i18nExpect(
+            array_diff(
+                $translatedStorageOperationsPackageMessages,
+                array_keys($coreCardLocaleKeys[$locale] ?? []),
+            ) === [],
+            "storage operations package $locale falls back to English for operational text",
         );
         i18nExpect(
             array_diff(

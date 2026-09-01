@@ -23,6 +23,12 @@ window.ZogographAuditShellCard = {
         'core-audit-shell.succeeded': 'succeeded',
         'core-audit-shell.refused': 'refused',
         'core-audit-shell.failed': 'failed',
+        'core-audit-shell.export_confirm':
+          'Download the full audit history as CSV?\n\nIt can contain private paths and client addresses. Store the file securely.',
+        'core-audit-shell.export_preparing': 'Preparing the full audit CSV…',
+        'core-audit-shell.download_csv': 'Download CSV',
+        'core-audit-shell.download_csv_title':
+          'Download the full audit history as a CSV file',
       }),
       es: Object.freeze({
         'core-audit-shell.title': 'Todo lo que ha hecho este monitor',
@@ -42,6 +48,13 @@ window.ZogographAuditShellCard = {
         'core-audit-shell.succeeded': 'correcto',
         'core-audit-shell.refused': 'rechazado',
         'core-audit-shell.failed': 'fallido',
+        'core-audit-shell.export_confirm':
+          '¿Descargar el historial completo de auditoría como CSV?\n\nPuede contener rutas privadas y direcciones de clientes. Guarde el archivo de forma segura.',
+        'core-audit-shell.export_preparing':
+          'Se está preparando el CSV completo de auditoría…',
+        'core-audit-shell.download_csv': 'Descargar CSV',
+        'core-audit-shell.download_csv_title':
+          'Descargar todo el historial de auditoría como archivo CSV',
       }),
       hi: Object.freeze({
         'core-audit-shell.title': 'इस मॉनिटर ने जो कुछ किया',
@@ -61,6 +74,13 @@ window.ZogographAuditShellCard = {
         'core-audit-shell.succeeded': 'सफल',
         'core-audit-shell.refused': 'अस्वीकृत',
         'core-audit-shell.failed': 'विफल',
+        'core-audit-shell.export_confirm':
+          'पूर्ण ऑडिट इतिहास CSV के रूप में डाउनलोड करें?\n\nइसमें निजी पथ और क्लाइंट पते हो सकते हैं। फ़ाइल को सुरक्षित रखें।',
+        'core-audit-shell.export_preparing':
+          'पूरा ऑडिट CSV तैयार किया जा रहा है…',
+        'core-audit-shell.download_csv': 'CSV डाउनलोड करें',
+        'core-audit-shell.download_csv_title':
+          'पूरा ऑडिट इतिहास CSV फ़ाइल के रूप में डाउनलोड करें',
       }),
       ar: Object.freeze({
         'core-audit-shell.title': 'كل ما فعله هذا المراقب',
@@ -80,6 +100,13 @@ window.ZogographAuditShellCard = {
         'core-audit-shell.succeeded': 'نجح',
         'core-audit-shell.refused': 'رُفض',
         'core-audit-shell.failed': 'فشل',
+        'core-audit-shell.export_confirm':
+          'تنزيل سجل التدقيق الكامل بصيغة CSV؟\n\nقد يحتوي مسارات خاصة وعناوين عملاء. احفظ الملف بأمان.',
+        'core-audit-shell.export_preparing':
+          'جارٍ إعداد ملف CSV الكامل للتدقيق…',
+        'core-audit-shell.download_csv': 'نزّل CSV',
+        'core-audit-shell.download_csv_title':
+          'نزّل سجل التدقيق الكامل كملف CSV',
       }),
       zh: Object.freeze({
         'core-audit-shell.title': '此监控器完成的所有操作',
@@ -98,6 +125,11 @@ window.ZogographAuditShellCard = {
         'core-audit-shell.succeeded': '成功',
         'core-audit-shell.refused': '已拒绝',
         'core-audit-shell.failed': '失败',
+        'core-audit-shell.export_confirm':
+          '将完整审计历史下载为 CSV？\n\n其中可能包含私有路径和客户端地址。请妥善保存文件。',
+        'core-audit-shell.export_preparing': '正在准备完整审计 CSV…',
+        'core-audit-shell.download_csv': '下载 CSV',
+        'core-audit-shell.download_csv_title': '将完整审计历史下载为 CSV 文件',
       }),
     }),
   }),

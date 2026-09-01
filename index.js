@@ -41559,11 +41559,9 @@ $('actionClear')?.addEventListener('click', async () => {
 $('actionExport')?.addEventListener('click', async () => {
   if (
     !(await confirmDialog(
-      ZogographI18n.t(
-        'audit.export_confirm',
-        {},
-        'Download the full audit history as CSV?\n\nIt can contain private paths and client addresses. Store the file securely.',
-      ),
+      ZogographAuditShellCard.text('export_confirm', {
+        i18n: ZogographI18n,
+      }),
     ))
   )
     return;
@@ -41581,11 +41579,9 @@ $('actionExport')?.addEventListener('click', async () => {
   form.submit();
   form.remove();
   notice(
-    ZogographI18n.t(
-      'audit.export_preparing',
-      {},
-      'Preparing the full audit CSV…',
-    ),
+    ZogographAuditShellCard.text('export_preparing', {
+      i18n: ZogographI18n,
+    }),
     true,
   );
 });

@@ -371,6 +371,9 @@ $hostIoProcessesCard = i18nCardSource(
 $terminalActionsCard = i18nCardSource(
     file_get_contents($root . '/cards/terminal-actions.js'),
 );
+$terminalShellCard = i18nCardSource(
+    file_get_contents($root . '/cards/terminal-shell.js'),
+);
 $aiToolsToolbarCard = i18nCardSource(
     file_get_contents($root . '/cards/ai-tools-toolbar.js'),
 );
@@ -3761,7 +3764,11 @@ i18nExpect(
 );
 i18nExpect(
     $script !== false &&
-        str_contains($script, 'terminal.running_for_so_far') &&
+        $terminalShellCard !== false &&
+        str_contains(
+            $terminalShellCard,
+            'core-terminal-shell.running_for_so_far',
+        ) &&
         $terminalVerdictSummaryCard !== false &&
         str_contains(
             $terminalVerdictSummaryCard,

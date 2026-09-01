@@ -18266,11 +18266,9 @@ function ansiToNodes(text) {
       const bell = document.createElement('span');
       bell.className = 'term-bell';
       bell.textContent = '\u{1F514}';
-      bell.title = ZogographI18n.t(
-        'terminal.bell_title',
-        {},
-        'The command rang the terminal bell',
-      );
+      bell.title = ZogographTerminalShellCard.text('bell_title', {
+        i18n: ZogographI18n,
+      });
       line.appendChild(bell);
       continue;
     }
@@ -18528,10 +18526,10 @@ function renderTerminal(data) {
   if (!data.can) {
     parts.push(
       note(
-        ZogographI18n.t(
-          'terminal.unavailable_reason',
+        ZogographTerminalShellCard.text(
+          'unavailable_reason',
+          { i18n: ZogographI18n },
           { reason: data.why },
-          '{{reason}} There is nothing this page can do about that, and nothing it should try — a host that has taken shell functions away has taken them away on purpose.',
         ),
       ),
     );
@@ -18720,14 +18718,14 @@ function renderTerminal(data) {
   const said = document.createElement('p');
   said.className = 'muted small';
   said.id = 'terminalSaid';
-  said.textContent = ZogographI18n.t(
-    'terminal.limits',
+  said.textContent = ZogographTerminalShellCard.text(
+    'limits',
+    { i18n: ZogographI18n },
     {
       shell: data.shell,
       duration: humanSpan(data.max_seconds, true),
       output: humanBytes(data.cap || 8388608),
     },
-    'Runs as this account with {{shell}}. Anything still going after {{duration}} is stopped, and output stops at {{output}}.',
   );
   parts.push(said);
 
@@ -19954,7 +19952,9 @@ async function browseTerminalEditor(path = '') {
       ),
     );
   showListDialog(
-    ZogographI18n.t('terminal.browse_watched', {}, 'Browse watched files'),
+    ZogographTerminalShellCard.text('browse_watched', {
+      i18n: ZogographI18n,
+    }),
     nodes,
     ZogographI18n.t(
       'editor.browser_help',
@@ -20053,14 +20053,16 @@ async function pollTerminal() {
       ? data.ran_for < 2
         ? // "Running for no time at all" is what humanSpan says about zero, and
           // it is a strange thing to read about something that has just begun.
-          ZogographI18n.t('terminal.just_started', {}, 'Just started…')
-        : ZogographI18n.t(
-            'terminal.running_for_so_far',
+          ZogographTerminalShellCard.text('just_started', {
+            i18n: ZogographI18n,
+          })
+        : ZogographTerminalShellCard.text(
+            'running_for_so_far',
+            { i18n: ZogographI18n },
             {
               duration: humanSpan(data.ran_for, true),
               size: humanBytes(data.size),
             },
-            'Running for {{duration}} — {{size}} so far.',
           )
       : terminalVerdict(data);
   }
@@ -20075,18 +20077,18 @@ async function pollTerminal() {
       line.textContent = !data.running
         ? ''
         : data.ran_for >= 2
-          ? ZogographI18n.t(
-              'terminal.running_for_so_far',
+          ? ZogographTerminalShellCard.text(
+              'running_for_so_far',
+              { i18n: ZogographI18n },
               {
                 duration: humanSpan(data.ran_for, true),
                 size: humanBytes(data.size),
               },
-              'Running for {{duration}} — {{size}} so far.',
             )
-          : ZogographI18n.t(
-              'terminal.running_so_far',
+          : ZogographTerminalShellCard.text(
+              'running_so_far',
+              { i18n: ZogographI18n },
               { size: humanBytes(data.size) },
-              'Running — {{size}} so far.',
             );
     }
   }
@@ -40166,7 +40168,9 @@ function showTerminalCwd(cwd) {
 
   const label = document.createElement('span');
   label.className = 'muted small';
-  label.textContent = ZogographI18n.t('terminal.running_in', {}, 'Running in ');
+  label.textContent = ZogographTerminalShellCard.text('running_in', {
+    i18n: ZogographI18n,
+  });
   where.appendChild(label);
 
   const path = document.createElement('code');
@@ -40178,15 +40182,13 @@ function showTerminalCwd(cwd) {
     const back = document.createElement('button');
     back.type = 'button';
     back.className = 'link';
-    back.textContent = ZogographI18n.t(
-      'terminal.return_home',
-      {},
-      'back to the top',
-    );
-    back.title = ZogographI18n.t(
-      'terminal.return_home_title',
+    back.textContent = ZogographTerminalShellCard.text('return_home', {
+      i18n: ZogographI18n,
+    });
+    back.title = ZogographTerminalShellCard.text(
+      'return_home_title',
+      { i18n: ZogographI18n },
       { home },
-      'Return to {{home}}',
     );
     back.addEventListener('click', () => {
       runTerminal(`cd ${home}`).catch((error) =>

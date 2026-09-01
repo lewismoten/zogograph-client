@@ -27652,11 +27652,9 @@ function showAlertVerdict(row) {
           { assistant: chatState.who.name },
         ),
     nodes,
-    ZogographI18n.t(
-      'alert.verdict_dialog_help',
-      {},
-      'This is a language model’s opinion of a machine-generated alert. The alert itself is still here, still unread, and can be marked read or deleted like any other — nothing was thrown away.',
-    ),
+    ZogographAlertsShellCard.text('verdict_dialog_help', {
+      i18n: ZogographI18n,
+    }),
   );
 }
 

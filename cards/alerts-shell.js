@@ -118,6 +118,8 @@ window.ZogographAlertsShellCard = {
           '{{assistant}} looked at it {{when}}.',
         'core-alerts-shell.verdict_timing':
           'The rule called this {{severity}} and raised it {{raised}}. {{assistant}}',
+        'core-alerts-shell.verdict_dialog_help':
+          'This is a language model’s opinion of a machine-generated alert. The alert itself is still here, still unread, and can be marked read or deleted like any other — nothing was thrown away.',
         'core-alerts-shell.mute_explainer':
           'Mute “{{rule}}”? Matching Information and Warning alerts stay recorded but are not sent. Error and Critical always bypass this mute.',
       }),
@@ -237,6 +239,8 @@ window.ZogographAlertsShellCard = {
           '{{assistant}} lo examinó {{when}}.',
         'core-alerts-shell.verdict_timing':
           'La regla llamó a esto {{severity}} y lo elevó {{raised}}. {{assistant}}',
+        'core-alerts-shell.verdict_dialog_help':
+          'Esta es la opinión de un modelo de lenguaje sobre una alerta generada por una máquina. La alerta sigue aquí, sin leer, y puede marcarse como leída o eliminarse como cualquier otra; no se descartó nada.',
         'core-alerts-shell.mute_explainer':
           '¿Silenciar “{{rule}}”? Las alertas de Información y Advertencia coincidentes se siguen registrando pero no se envían. Error y Crítica siempre omiten este silencio.',
       }),
@@ -353,6 +357,8 @@ window.ZogographAlertsShellCard = {
           '{{assistant}} ने इसे {{when}} देखा।',
         'core-alerts-shell.verdict_timing':
           'नियम ने इसे {{severity}} कहा और {{raised}} पर उठाया। {{assistant}}',
+        'core-alerts-shell.verdict_dialog_help':
+          'यह मशीन द्वारा बनाई गई चेतावनी पर भाषा मॉडल की राय है। चेतावनी अभी भी यहाँ है, अपठित है, और किसी अन्य की तरह पढ़ी हुई चिह्नित या हटाई जा सकती है — कुछ भी फेंका नहीं गया।',
         'core-alerts-shell.mute_explainer':
           '“{{rule}}” को म्यूट करें? मिलती हुई सूचना और चेतावनी रिकॉर्ड रहेंगी लेकिन भेजी नहीं जाएँगी। त्रुटि और गंभीर हमेशा इस म्यूट को बायपास करते हैं।',
       }),
@@ -467,6 +473,8 @@ window.ZogographAlertsShellCard = {
           'راجعه {{assistant}} {{when}}.',
         'core-alerts-shell.verdict_timing':
           'صنّفت القاعدة هذا على أنه {{severity}} ورفعته {{raised}}. {{assistant}}',
+        'core-alerts-shell.verdict_dialog_help':
+          'هذه هي رأي نموذج لغوي في تنبيه أنشأته آلة. ما زال التنبيه هنا وغير مقروء، ويمكن تعليمه مقروءًا أو حذفه كأي تنبيه آخر — لم يُرم شيء.',
         'core-alerts-shell.mute_explainer':
           'كتم “{{rule}}”؟ تظل تنبيهات المعلومات والتحذير المطابقة مسجلة لكنها لا تُرسل. يتجاوز الخطأ والحرج هذا الكتم دائمًا.',
       }),
@@ -578,6 +586,8 @@ window.ZogographAlertsShellCard = {
           '{{assistant}} 于 {{when}} 查看了它。',
         'core-alerts-shell.verdict_timing':
           '规则将此判为 {{severity}}，并于 {{raised}} 提出。{{assistant}}',
+        'core-alerts-shell.verdict_dialog_help':
+          '这是语言模型对机器生成警报的意见。警报本身仍在这里、仍未读，并且可以像其他警报一样标为已读或删除——没有丢弃任何内容。',
         'core-alerts-shell.mute_explainer':
           '静音“{{rule}}”？匹配的信息和警告警报仍会被记录，但不会发送。错误和严重警报始终会绕过此静音。',
       }),

@@ -4024,7 +4024,11 @@ i18nExpect(
         ) &&
         isset($coreCardEnglish['core-alerts-shell.held_back_title']) &&
         isset($coreCardEnglish['core-alerts-shell.verdict_timing']) &&
-        str_contains($script, 'alert.verdict_dialog_help'),
+        isset($coreCardEnglish['core-alerts-shell.verdict_dialog_help']) &&
+        str_contains(
+            $script,
+            "ZogographAlertsShellCard.text('verdict_dialog_help'",
+        ),
     'alert verdict dialog retains direct user-visible text',
 );
 i18nExpect(

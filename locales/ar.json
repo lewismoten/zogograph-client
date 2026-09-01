@@ -970,7 +970,6 @@
   "email.what_to_send": "ما الذي يرسل ومتى",
   "alerts.why_fired": "لماذا اشتعل هذا التنبيه؟",
   "common.loading": "جارٍ التحميل…",
-  "alerts.timeline_level": "{{level}} ({{total, number}})",
   "alerts.timeline_restarts": "{{count, number}} إعادة تشغيل (متقطع)",
   "alerts.timeline_day": "يوم",
   "alerts.timeline_hour": "ساعة",

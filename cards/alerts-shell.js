@@ -76,6 +76,7 @@ window.ZogographAlertsShellCard = {
         'core-alerts-shell.rule': 'Rule',
         'core-alerts-shell.until': 'Until',
         'core-alerts-shell.timeline_empty': 'Nothing has fired yet.',
+        'core-alerts-shell.timeline_level': '{{level}} ({{total, number}})',
       }),
       es: Object.freeze({
         'core-alerts-shell.timeline_title': 'Cuándo se activaron las alertas',
@@ -151,6 +152,7 @@ window.ZogographAlertsShellCard = {
         'core-alerts-shell.rule': 'Regla',
         'core-alerts-shell.until': 'Hasta',
         'core-alerts-shell.timeline_empty': 'Aún no se ha activado nada.',
+        'core-alerts-shell.timeline_level': '{{level}} ({{total, number}})',
       }),
       hi: Object.freeze({
         'core-alerts-shell.timeline_title': 'अलर्ट कब चालू हुए',
@@ -224,6 +226,7 @@ window.ZogographAlertsShellCard = {
         'core-alerts-shell.rule': 'नियम',
         'core-alerts-shell.until': 'तक',
         'core-alerts-shell.timeline_empty': 'अभी तक कुछ नहीं हुआ है।',
+        'core-alerts-shell.timeline_level': '{{level}} ({{total, number}})',
       }),
       ar: Object.freeze({
         'core-alerts-shell.timeline_title': 'متى أُطلقت التنبيهات',
@@ -295,6 +298,7 @@ window.ZogographAlertsShellCard = {
         'core-alerts-shell.rule': 'القاعدة',
         'core-alerts-shell.until': 'حتى',
         'core-alerts-shell.timeline_empty': 'لم يُطلق شيء بعد.',
+        'core-alerts-shell.timeline_level': '{{level}} ({{total, number}})',
       }),
       zh: Object.freeze({
         'core-alerts-shell.timeline_title': '警报何时触发',
@@ -364,6 +368,7 @@ window.ZogographAlertsShellCard = {
         'core-alerts-shell.rule': '规则',
         'core-alerts-shell.until': '截止',
         'core-alerts-shell.timeline_empty': '尚未触发任何内容。',
+        'core-alerts-shell.timeline_level': '{{level}}（{{total, number}}）',
       }),
     }),
   }),

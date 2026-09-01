@@ -972,7 +972,6 @@
   "email.what_to_send": "क्या और कब भेजें",
   "alerts.why_fired": "यह क्यों हुआ?",
   "common.loading": "लोड हो रहा है…",
-  "alerts.timeline_level": "{{level}} ({{total, number}})",
   "alerts.timeline_restarts": "{{count, number}} पुनरारंभ (धराशायी)",
   "alerts.timeline_day": "दिन",
   "alerts.timeline_hour": "घंटा",

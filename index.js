@@ -28458,10 +28458,10 @@ function drawAlertTimeline(rows) {
     if (!total) continue;
     const span = document.createElement('span');
     span.style.setProperty('--dot', colour[level]);
-    span.textContent = ZogographI18n.t(
-      'alerts.timeline_level',
+    span.textContent = ZogographAlertsShellCard.text(
+      'timeline_level',
       { level, total },
-      '{{level}} ({{total, number}})',
+      { i18n: ZogographI18n },
     );
     legend.appendChild(span);
   }

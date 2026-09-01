@@ -967,7 +967,6 @@
   "email.what_to_send": "What to send about, and when",
   "alerts.why_fired": "Why did this fire?",
   "common.loading": "Loading…",
-  "alerts.timeline_level": "{{level}} ({{total, number}})",
   "alerts.timeline_restarts": "{{count, number}} restart(s) (dashed)",
   "alerts.timeline_day": "day",
   "alerts.timeline_hour": "hour",

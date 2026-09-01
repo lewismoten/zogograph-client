@@ -970,7 +970,6 @@
   "email.what_to_send": "发送什么及何时发送",
   "alerts.why_fired": "为何触发此警报？",
   "common.loading": "正在加载…",
-  "alerts.timeline_level": "{{level}}（{{total, number}}）",
   "alerts.timeline_restarts": "{{count, number}} 次重启（虚线）",
   "alerts.timeline_day": "天",
   "alerts.timeline_hour": "小时",

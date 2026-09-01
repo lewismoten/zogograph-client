@@ -10550,13 +10550,7 @@ function renderScans(data) {
     const parts = [];
 
     if (side === 'host' && !data.host_enabled) {
-      const warning = note(
-        ZogographI18n.t(
-          'scan.host_collector_disabled',
-          {},
-          'The host collector is not enabled, so none of these run. ',
-        ),
-      );
+      const warning = note(scheduleAvailabilityText('host_collector_disabled'));
       const link = document.createElement('a');
       link.href = './setup.php?section=host';
       link.textContent = hostCollectorRuntimeText('open_setup');
@@ -10567,11 +10561,9 @@ function renderScans(data) {
     if (side === 'account' && data.browsing) {
       parts.push(
         note(
-          ZogographI18n.t(
-            'scan.dashboard_browsing',
-            { when: ago(data.last_browsed_at) },
-            'Somebody has the dashboard open right now (last seen {{when}}), so anything set to speed up while browsing is currently on its shorter interval.',
-          ),
+          scheduleAvailabilityText('dashboard_browsing', {
+            when: ago(data.last_browsed_at),
+          }),
         ),
       );
     }
@@ -10606,21 +10598,30 @@ function renderScans(data) {
   renderThrottles(data);
 }
 
+function scheduleAvailabilityText(key, values = {}) {
+  return renderCoreCardPackage(
+    ZogographScheduleAvailabilityCard,
+    'core-schedule-availability',
+    { key, values },
+    { i18n: ZogographI18n },
+  );
+}
+
 function scanTable(rows, data) {
   const table = document.createElement('table');
   table.className = 'retention';
 
   const head = table.createTHead().insertRow();
   for (const [key, fallback] of [
-    ['scan.what', 'What'],
-    ['scan.how_often', 'How often'],
-    ['scan.recommended', 'Recommended'],
-    ['scan.last_run', 'Last run'],
-    ['scan.next', 'Next'],
+    ['what', 'What'],
+    ['how_often', 'How often'],
+    ['recommended', 'Recommended'],
+    ['last_run', 'Last run'],
+    ['next', 'Next'],
     ['', ''],
   ]) {
     const th = document.createElement('th');
-    th.textContent = key ? ZogographI18n.t(key, {}, fallback) : fallback;
+    th.textContent = key ? scheduleAvailabilityText(key) : fallback;
     head.appendChild(th);
   }
 
@@ -10669,11 +10670,9 @@ function scanTable(rows, data) {
           'boost',
           scan,
           data,
-          ZogographI18n.t(
-            'scan.boost_while_browsing',
-            { interval: humanSpan(scan.browse_boost) },
-            'speed up to every {{interval}} while somebody is looking',
-          ),
+          scheduleAvailabilityText('boost_while_browsing', {
+            interval: humanSpan(scan.browse_boost),
+          }),
         ),
       );
     }
@@ -10683,11 +10682,7 @@ function scanTable(rows, data) {
           'live_only',
           scan,
           data,
-          ZogographI18n.t(
-            'scan.only_while_browsing',
-            {},
-            'only while somebody is looking',
-          ),
+          scheduleAvailabilityText('only_while_browsing'),
         ),
       );
     }
@@ -10697,11 +10692,7 @@ function scanTable(rows, data) {
     suggested.textContent = data.intervals[scan.recommended] ?? '';
     if (Number(scan.every) === Number(scan.recommended)) {
       suggested.className = 'muted band-ok';
-      suggested.textContent = ZogographI18n.t(
-        'scan.as_recommended',
-        {},
-        'as recommended',
-      );
+      suggested.textContent = scheduleAvailabilityText('as_recommended');
     }
     /*
      * "Only when asked" as a recommendation needs its reason attached.
@@ -10742,11 +10733,9 @@ function scanTable(rows, data) {
     if (scan.pending) {
       const waiting = document.createElement('span');
       waiting.className = 'band-warn small';
-      waiting.textContent = ZogographI18n.t(
-        'scan.requested',
-        { when: ago(scan.pending.requested_at) },
-        'asked {{when}}',
-      );
+      waiting.textContent = scheduleAvailabilityText('requested', {
+        when: ago(scan.pending.requested_at),
+      });
       actions.appendChild(waiting);
 
       const cancel = document.createElement('button');
@@ -10757,14 +10746,7 @@ function scanTable(rows, data) {
         cancel.disabled = true;
         try {
           await post('cancel-task', { task: scan.pending.task });
-          notice(
-            ZogographI18n.t(
-              'scan.request_withdrawn',
-              {},
-              'Request withdrawn. The collector will not run it.',
-            ),
-            true,
-          );
+          notice(scheduleAvailabilityText('request_withdrawn'), true);
           await refreshScanSchedule(scan.side);
         } catch (error) {
           notice(String(error.message || error));
@@ -10776,12 +10758,8 @@ function scanTable(rows, data) {
       const go = document.createElement('button');
       go.type = 'button';
       go.className = 'link';
-      go.textContent = ZogographI18n.t('scan.set_up', {}, 'Set one up');
-      go.title = ZogographI18n.t(
-        'scan.set_up_title',
-        {},
-        'This one needs choosing before it can be asked for',
-      );
+      go.textContent = scheduleAvailabilityText('set_up');
+      go.title = scheduleAvailabilityText('set_up_title');
       go.addEventListener('click', () => {
         location.hash = `#/${scan.goes_to}?range=${state.range}`;
       });
@@ -10790,12 +10768,8 @@ function scanTable(rows, data) {
       const ask = document.createElement('button');
       ask.type = 'button';
       ask.className = 'link';
-      ask.textContent = ZogographI18n.t('scan.ask', {}, 'Ask for one');
-      ask.title = ZogographI18n.t(
-        'scan.ask_title',
-        {},
-        "It happens on the collector's next pass, not now",
-      );
+      ask.textContent = scheduleAvailabilityText('ask');
+      ask.title = scheduleAvailabilityText('ask_title');
       ask.addEventListener('click', async () => {
         ask.disabled = true;
         try {
@@ -39478,14 +39452,7 @@ $('scanNow').addEventListener('click', async () => {
   button.disabled = true;
   try {
     await post('scan-now');
-    notice(
-      ZogographI18n.t(
-        'scan.started',
-        {},
-        'Scan started. It runs in the background — the tables update when it finishes.',
-      ),
-      true,
-    );
+    notice(scheduleAvailabilityText('started'), true);
     /*
      * Polled faster while it runs.
      *
@@ -40839,16 +40806,8 @@ function showPendingDialog() {
         const result = await post('cancel-task', { task: row.task });
         notice(
           result.already
-            ? ZogographI18n.t(
-                'scan.request_already_completed',
-                {},
-                'The collector had already answered that one.',
-              )
-            : ZogographI18n.t(
-                'scan.request_withdrawn',
-                {},
-                'Request withdrawn. The collector will not run it.',
-              ),
+            ? scheduleAvailabilityText('request_already_completed')
+            : scheduleAvailabilityText('request_withdrawn'),
           true,
         );
         $('listDialog').close();

@@ -26511,14 +26511,24 @@ function drawSchedule(data) {
   });
   updateBox.appendChild(
     fieldRow(
-      ZogographI18n.t('schedule.update_interval', {}, 'Check every (hours)'),
+      renderCoreCardPackage(
+        window.ZogographScheduleUpdateStagesCard,
+        'core-schedule-update-stages',
+        { key: 'interval' },
+        { i18n: ZogographI18n },
+      ),
       interval,
       ZogographI18n.t(
         'schedule.update_manager',
         {
           manager:
             updates.manager ||
-            ZogographI18n.t('schedule.not_detected', {}, 'not detected'),
+            renderCoreCardPackage(
+              window.ZogographScheduleUpdateStagesCard,
+              'core-schedule-update-stages',
+              { key: 'not_detected' },
+              { i18n: ZogographI18n },
+            ),
         },
         'Host package manager: {{manager}}. Download and Auto-Update always detect first.',
       ),

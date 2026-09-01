@@ -28627,11 +28627,8 @@ async function showIncident(id) {
   } else if (procs) {
     body.appendChild(
       section(
-        ZogographI18n.t('incident.top_processes', {}, 'Top processes'),
-        note(
-          procs.missing?.processes ||
-            ZogographI18n.t('incident.not_available', {}, 'Not available.'),
-        ),
+        incidentText('top_processes'),
+        note(procs.missing?.processes || incidentText('not_available')),
       ),
     );
   }

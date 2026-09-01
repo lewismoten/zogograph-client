@@ -23,6 +23,8 @@ window.ZogographIncidentDetailsCard = {
         'core-incident-details.swap_used': 'Swap used',
         'core-incident-details.reading_own_io': 'Reading own I/O',
         'core-incident-details.writing_own_io': 'Writing own I/O',
+        'core-incident-details.top_processes': 'Top processes',
+        'core-incident-details.not_available': 'Not available.',
       }),
       es: Object.freeze({
         'core-incident-details.alerts_fired_together':
@@ -42,6 +44,8 @@ window.ZogographIncidentDetailsCard = {
         'core-incident-details.swap_used': 'Intercambio usado',
         'core-incident-details.reading_own_io': 'Lectura de E/S propia',
         'core-incident-details.writing_own_io': 'Escritura de E/S propia',
+        'core-incident-details.top_processes': 'Procesos principales',
+        'core-incident-details.not_available': 'No disponible.',
       }),
       hi: Object.freeze({
         'core-incident-details.alerts_fired_together':
@@ -61,6 +65,8 @@ window.ZogographIncidentDetailsCard = {
         'core-incident-details.swap_used': 'प्रयुक्त स्वैप',
         'core-incident-details.reading_own_io': 'अपना I/O पढ़ना',
         'core-incident-details.writing_own_io': 'अपना I/O लिखना',
+        'core-incident-details.top_processes': 'शीर्ष प्रक्रियाएँ',
+        'core-incident-details.not_available': 'उपलब्ध नहीं है।',
       }),
       ar: Object.freeze({
         'core-incident-details.alerts_fired_together':
@@ -79,6 +85,8 @@ window.ZogographIncidentDetailsCard = {
         'core-incident-details.swap_used': 'مساحة التبديل المستخدمة',
         'core-incident-details.reading_own_io': 'قراءة إدخال/إخراج الحساب',
         'core-incident-details.writing_own_io': 'كتابة إدخال/إخراج الحساب',
+        'core-incident-details.top_processes': 'أهم العمليات',
+        'core-incident-details.not_available': 'غير متاح.',
       }),
       zh: Object.freeze({
         'core-incident-details.alerts_fired_together':
@@ -97,6 +105,8 @@ window.ZogographIncidentDetailsCard = {
         'core-incident-details.swap_used': '已用交换空间',
         'core-incident-details.reading_own_io': '读取自身 I/O',
         'core-incident-details.writing_own_io': '写入自身 I/O',
+        'core-incident-details.top_processes': '热门进程',
+        'core-incident-details.not_available': '不可用。',
       }),
     }),
   }),

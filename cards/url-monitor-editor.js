@@ -40,6 +40,9 @@ window.ZogographUrlMonitorEditorCard = {
         'core-url-monitor-editor.saved_failed':
           'Saved, but the first check failed: {{detail}}.',
         'core-url-monitor-editor.status': 'status {{status}}',
+        'core-url-monitor-editor.notify_change': 'Tell me when it changes',
+        'core-url-monitor-editor.notify_change_help':
+          'Raises an alert the moment the captured text is different from last time. This is how you watch a version string: what matters is not its value but when it moved. The alert obeys the usual cooldown, so a value that flaps does not flood — but every change is marked on the chart and listed under it either way.',
       }),
       es: Object.freeze({
         'core-url-monitor-editor.editing': 'Editando {{label}}',
@@ -76,6 +79,9 @@ window.ZogographUrlMonitorEditorCard = {
         'core-url-monitor-editor.saved_failed':
           'Guardado, pero falló la primera comprobación: {{detail}}.',
         'core-url-monitor-editor.status': 'estado {{status}}',
+        'core-url-monitor-editor.notify_change': 'Avisarme cuando cambie',
+        'core-url-monitor-editor.notify_change_help':
+          'Genera una alerta en cuanto el texto capturado difiere de la vez anterior. Así se vigila una cadena de versión: no importa su valor, sino cuándo cambió. La alerta respeta el enfriamiento habitual, de modo que un valor inestable no inunda, pero cada cambio se marca en el gráfico y se lista debajo de todos modos.',
       }),
       hi: Object.freeze({
         'core-url-monitor-editor.editing': '{{label}} संपादित किया जा रहा है',
@@ -112,6 +118,9 @@ window.ZogographUrlMonitorEditorCard = {
         'core-url-monitor-editor.saved_failed':
           'सहेजा गया, लेकिन पहली जाँच विफल रही: {{detail}}.',
         'core-url-monitor-editor.status': 'स्थिति {{status}}',
+        'core-url-monitor-editor.notify_change': 'बदलने पर मुझे बताएँ',
+        'core-url-monitor-editor.notify_change_help':
+          'कैप्चर किया गया पाठ पिछली बार से अलग होते ही चेतावनी देता है। संस्करण स्ट्रिंग को ऐसे देखा जाता है: इसका मान नहीं, बल्कि उसके बदलने का समय महत्वपूर्ण है। चेतावनी सामान्य कूलडाउन का पालन करती है, इसलिए बार-बार बदलने वाला मान बाढ़ नहीं लाता, फिर भी हर बदलाव चार्ट पर चिह्नित और उसके नीचे सूचीबद्ध होता है।',
       }),
       ar: Object.freeze({
         'core-url-monitor-editor.editing': 'تحرير {{label}}',
@@ -148,6 +157,9 @@ window.ZogographUrlMonitorEditorCard = {
         'core-url-monitor-editor.saved_failed':
           'حُفظ، لكن الفحص الأول أخفق: {{detail}}.',
         'core-url-monitor-editor.status': 'الحالة {{status}}',
+        'core-url-monitor-editor.notify_change': 'أخبرني عندما يتغير',
+        'core-url-monitor-editor.notify_change_help':
+          'يرفع تنبيهًا فور اختلاف النص الملتقط عن المرة السابقة. هكذا تراقب سلسلة إصدار: ليست قيمتها ما يهم، بل وقت تحركها. يلتزم التنبيه بفترة التهدئة المعتادة، فلا يغمرك قيمة متذبذبة، لكن كل تغيير يُعلّم على المخطط ويُدرج تحته على أي حال.',
       }),
       zh: Object.freeze({
         'core-url-monitor-editor.editing': '正在编辑 {{label}}',
@@ -182,6 +194,9 @@ window.ZogographUrlMonitorEditorCard = {
         'core-url-monitor-editor.saved_failed':
           '已保存，但首次检查失败：{{detail}}。',
         'core-url-monitor-editor.status': '状态 {{status}}',
+        'core-url-monitor-editor.notify_change': '变更时通知我',
+        'core-url-monitor-editor.notify_change_help':
+          '捕获的文本与上次不同时会立即发出警报。这就是监视版本字符串的方式：重要的不是它的值，而是它何时变动。警报遵循通常的冷却时间，因此反复变动的值不会泛滥，但每次更改仍会在图表上标记并在其下方列出。',
       }),
     }),
   }),

@@ -32403,13 +32403,9 @@ function openUrlForm(row = null) {
   notify.checked = row ? Boolean(Number(row.notify_change)) : false;
   const notifyRow = field(
     'urlNotify',
-    ZogographI18n.t('url.notify_change', {}, 'Tell me when it changes'),
+    urlEditorText('notify_change'),
     notify,
-    ZogographI18n.t(
-      'url.notify_change_help',
-      {},
-      'Raises an alert the moment the captured text is different from last time. This is how you watch a version string: what matters is not its value but when it moved. The alert obeys the usual cooldown, so a value that flaps does not flood — but every change is marked on the chart and listed under it either way.',
-    ),
+    urlEditorText('notify_change_help'),
   );
 
   const enabled = document.createElement('input');

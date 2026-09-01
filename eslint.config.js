@@ -141,6 +141,7 @@ export default [
         ZogographLoadNetworkCharts: 'readonly',
         ZogographEmptyCategoriesCard: 'readonly',
         ZogographHostMemoryCard: 'readonly',
+        ZogographHostCollectorVisibilityCard: 'readonly',
         ZogographHostMemoryPieCard: 'readonly',
         ZogographHostMemoryUsersCard: 'readonly',
         ZogographHostSlabCachesCard: 'readonly',

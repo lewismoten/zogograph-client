@@ -24140,46 +24140,31 @@ async function refreshHost() {
    * machine have PSI".
    */
   const seen = [];
-  if (s.kernel)
-    seen.push(
-      ZogographI18n.t(
-        'host.sees_kernel',
-        { kernel: s.kernel },
-        'Kernel {{kernel}}',
-      ),
+  const collectorVisibilityText = (key, values = {}) =>
+    renderCoreCardPackage(
+      ZogographHostCollectorVisibilityCard,
+      'core-host-collector-visibility',
+      { key, values },
+      { i18n: ZogographI18n },
     );
+  if (s.kernel)
+    seen.push(collectorVisibilityText('kernel', { kernel: s.kernel }));
   if (s.diskstats_available != null) {
     seen.push(
-      ZogographI18n.t(
-        Number(s.diskstats_available)
-          ? 'host.sees_device_readable'
-          : 'host.sees_device_unreadable',
-        {},
-        Number(s.diskstats_available)
-          ? 'device counters readable'
-          : 'device counters unreadable',
+      collectorVisibilityText(
+        Number(s.diskstats_available) ? 'device_readable' : 'device_unreadable',
       ),
     );
   }
   if (s.psi_available != null) {
     seen.push(
-      ZogographI18n.t(
-        Number(s.psi_available)
-          ? 'host.sees_psi_available'
-          : 'host.sees_psi_unavailable',
-        {},
-        Number(s.psi_available)
-          ? 'pressure stall info available'
-          : 'pressure stall info unavailable',
+      collectorVisibilityText(
+        Number(s.psi_available) ? 'psi_available' : 'psi_unavailable',
       ),
     );
   }
   $('hostSeesNote').textContent = seen.length
-    ? ZogographI18n.t(
-        'host.sees_summary',
-        { values: seen.join(', ') },
-        'As root, the collector sees: {{values}}.',
-      ) +
+    ? collectorVisibilityText('summary', { values: seen.join(', ') }) +
       // The reason, from the collector rather than from here: this page runs as
       // the account and cannot read /boot/config to find out.
       (s.psi_reason ? ` ${s.psi_reason}` : '')

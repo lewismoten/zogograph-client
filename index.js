@@ -28582,33 +28582,29 @@ async function showIncident(id) {
               : `${vitals.cpu_percent.toFixed(1)}%`,
           ],
           [
-            ZogographI18n.t(
-              'incident.memory_available',
-              {},
-              'Memory available',
-            ),
+            incidentText('memory_available'),
             humanBytes(vitals.memory.available_bytes),
           ],
           [
-            ZogographI18n.t('incident.memory_used', {}, 'Memory used'),
+            incidentText('memory_used'),
             vitals.memory.used_percent === null
               ? '—'
               : `${vitals.memory.used_percent.toFixed(1)}%`,
           ],
           [
-            ZogographI18n.t('incident.swap_used', {}, 'Swap used'),
+            incidentText('swap_used'),
             `${humanBytes(vitals.memory.swap_used_bytes)} of ${humanBytes(vitals.memory.swap_total_bytes)}`,
           ],
           [
-            ZogographI18n.t('incident.reading_own_io', {}, 'Reading own I/O'),
+            incidentText('reading_own_io'),
             vitals.io.own_read_rate === null
-              ? ZogographI18n.t('incident.not_reported', {}, 'not reported')
+              ? incidentText('not_reported')
               : `${humanBytes(vitals.io.own_read_rate)}/s`,
           ],
           [
-            ZogographI18n.t('incident.writing_own_io', {}, 'Writing own I/O'),
+            incidentText('writing_own_io'),
             vitals.io.own_write_rate === null
-              ? ZogographI18n.t('incident.not_reported', {}, 'not reported')
+              ? incidentText('not_reported')
               : `${humanBytes(vitals.io.own_write_rate)}/s`,
           ],
         ]),

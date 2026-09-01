@@ -18,6 +18,11 @@ window.ZogographIncidentDetailsCard = {
         'core-incident-details.not_reported': 'not reported',
         'core-incident-details.load_per_core': 'Load per core',
         'core-incident-details.cpu': 'CPU',
+        'core-incident-details.memory_available': 'Memory available',
+        'core-incident-details.memory_used': 'Memory used',
+        'core-incident-details.swap_used': 'Swap used',
+        'core-incident-details.reading_own_io': 'Reading own I/O',
+        'core-incident-details.writing_own_io': 'Writing own I/O',
       }),
       es: Object.freeze({
         'core-incident-details.alerts_fired_together':
@@ -32,6 +37,11 @@ window.ZogographIncidentDetailsCard = {
         'core-incident-details.not_reported': 'no informado',
         'core-incident-details.load_per_core': 'Carga por núcleo',
         'core-incident-details.cpu': 'CPU',
+        'core-incident-details.memory_available': 'Memoria disponible',
+        'core-incident-details.memory_used': 'Memoria usada',
+        'core-incident-details.swap_used': 'Intercambio usado',
+        'core-incident-details.reading_own_io': 'Lectura de E/S propia',
+        'core-incident-details.writing_own_io': 'Escritura de E/S propia',
       }),
       hi: Object.freeze({
         'core-incident-details.alerts_fired_together':
@@ -46,6 +56,11 @@ window.ZogographIncidentDetailsCard = {
         'core-incident-details.not_reported': 'रिपोर्ट नहीं किया गया',
         'core-incident-details.load_per_core': 'प्रति कोर लोड',
         'core-incident-details.cpu': 'CPU',
+        'core-incident-details.memory_available': 'उपलब्ध मेमोरी',
+        'core-incident-details.memory_used': 'प्रयुक्त मेमोरी',
+        'core-incident-details.swap_used': 'प्रयुक्त स्वैप',
+        'core-incident-details.reading_own_io': 'अपना I/O पढ़ना',
+        'core-incident-details.writing_own_io': 'अपना I/O लिखना',
       }),
       ar: Object.freeze({
         'core-incident-details.alerts_fired_together':
@@ -59,6 +74,11 @@ window.ZogographIncidentDetailsCard = {
         'core-incident-details.not_reported': 'غير مُبلّغ عنه',
         'core-incident-details.load_per_core': 'الحمل لكل نواة',
         'core-incident-details.cpu': 'CPU',
+        'core-incident-details.memory_available': 'الذاكرة المتاحة',
+        'core-incident-details.memory_used': 'الذاكرة المستخدمة',
+        'core-incident-details.swap_used': 'مساحة التبديل المستخدمة',
+        'core-incident-details.reading_own_io': 'قراءة إدخال/إخراج الحساب',
+        'core-incident-details.writing_own_io': 'كتابة إدخال/إخراج الحساب',
       }),
       zh: Object.freeze({
         'core-incident-details.alerts_fired_together':
@@ -72,6 +92,11 @@ window.ZogographIncidentDetailsCard = {
         'core-incident-details.not_reported': '未报告',
         'core-incident-details.load_per_core': '每个核心的负载',
         'core-incident-details.cpu': 'CPU',
+        'core-incident-details.memory_available': '可用内存',
+        'core-incident-details.memory_used': '已用内存',
+        'core-incident-details.swap_used': '已用交换空间',
+        'core-incident-details.reading_own_io': '读取自身 I/O',
+        'core-incident-details.writing_own_io': '写入自身 I/O',
       }),
     }),
   }),

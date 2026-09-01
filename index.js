@@ -17363,7 +17363,7 @@ async function showNoteSnapshots(row) {
       open.href = `api.php?action=note-snapshot&id=${encodeURIComponent(snapshot.id)}`;
       open.target = '_blank';
       open.rel = 'noopener';
-      open.textContent = ZogographI18n.t('action.open', {}, 'Open');
+      open.textContent = actionCommonText('open');
       open.title = notesRecordsText('capture_open_title');
       actions.appendChild(open);
     }
@@ -20424,13 +20424,13 @@ function renderMemories(data) {
 
           const edit = document.createElement('button');
           edit.className = 'link';
-          edit.textContent = ZogographI18n.t('action.edit', {}, 'Edit');
+          edit.textContent = actionCommonText('edit');
           edit.addEventListener('click', () => showMemoryDialog(row));
           wrap.appendChild(edit);
 
           const drop = document.createElement('button');
           drop.className = 'link danger';
-          drop.textContent = ZogographI18n.t('action.forget', {}, 'Forget');
+          drop.textContent = actionCommonText('forget');
           drop.addEventListener('click', async () => {
             const forgetCopy = renderCoreCardPackage(
               ZogographAiMemoryForgetDialogCard,
@@ -33400,7 +33400,7 @@ function renderDescriptions() {
           if (!row.link) return '';
           const link = document.createElement('a');
           link.href = row.link;
-          link.textContent = ZogographI18n.t('action.open', {}, 'Open');
+          link.textContent = actionCommonText('open');
           link.target = '_blank';
           link.rel = 'noopener noreferrer';
           return link;
@@ -33418,7 +33418,7 @@ function renderDescriptions() {
           const edit = document.createElement('button');
           edit.type = 'button';
           edit.className = 'link';
-          edit.textContent = ZogographI18n.t('action.edit', {}, 'Edit');
+          edit.textContent = actionCommonText('edit');
           edit.addEventListener('click', () =>
             fillDescriptionForm(row.kind, row.name, row),
           );
@@ -33427,7 +33427,7 @@ function renderDescriptions() {
           const gone = document.createElement('button');
           gone.type = 'button';
           gone.className = 'link danger';
-          gone.textContent = ZogographI18n.t('action.forget', {}, 'Forget');
+          gone.textContent = actionCommonText('forget');
           gone.addEventListener('click', async () => {
             const yes = await askFirst(
               ZogographI18n.t(
@@ -34325,7 +34325,7 @@ async function refreshWhoAmI() {
       ),
     );
     const go = document.createElement('button');
-    go.textContent = ZogographI18n.t('action.edit', {}, 'Edit');
+    go.textContent = actionCommonText('edit');
     go.addEventListener('click', () => {
       showView('net-labels');
       const field = $('labelMatch');

@@ -20772,7 +20772,12 @@ function openDisplayPreferences() {
     window.speechSynthesis?.speak(utterance);
   });
   showFormDialog(
-    ZogographI18n.t('display.preferences', {}, 'Display preferences'),
+    renderCoreCardPackage(
+      ZogographDisplayPreferencesDialogCard,
+      'core-display-preferences-dialog',
+      { key: 'preferences' },
+      { i18n: ZogographI18n },
+    ),
     [
       fieldRow(
         ZogographI18n.t('display.text_size', {}, 'Text size'),
@@ -20873,7 +20878,12 @@ function openDisplayPreferences() {
       });
       redrawCharts(document);
     },
-    ZogographI18n.t('display.apply', {}, 'Apply display choices'),
+    renderCoreCardPackage(
+      ZogographDisplayPreferencesDialogCard,
+      'core-display-preferences-dialog',
+      { key: 'apply' },
+      { i18n: ZogographI18n },
+    ),
   );
 }
 

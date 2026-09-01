@@ -1340,7 +1340,6 @@
   "backup.no_suggestions": "Nothing to suggest from this reading.",
   "backup.matched": "Matched",
   "backup.inside_path": "Inside {{path}}",
-  "backup.jetbackup_help": "What the backup system says about its own backups is the only place the account and date behind a directory called files0000000005 can be found. It needs the JetBackup command line tool and usually needs running as root.",
   "network.interface": "Interface",
   "network.loopback": " · loopback, never leaves the machine",
   "network.state": "State",

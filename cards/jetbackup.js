@@ -13,6 +13,8 @@ window.ZogographJetBackupCard = {
     catalogs: Object.freeze({
       en: Object.freeze({
         'core-jetbackup.title': 'JetBackup',
+        'core-jetbackup.help':
+          'What the backup system says about its own backups is the only place the account and date behind a directory called files0000000005 can be found. It needs the JetBackup command line tool and usually needs running as root.',
         'core-jetbackup.account': 'Account',
         'core-jetbackup.when': 'When',
         'core-jetbackup.type': 'Type',
@@ -28,6 +30,8 @@ window.ZogographJetBackupCard = {
       }),
       es: Object.freeze({
         'core-jetbackup.title': 'JetBackup',
+        'core-jetbackup.help':
+          'La información que el sistema de copias de seguridad ofrece sobre sus propias copias es el único lugar donde se encuentra la cuenta y la fecha tras un directorio llamado files0000000005. Requiere la herramienta de línea de comandos JetBackup y normalmente ejecutarse como root.',
         'core-jetbackup.account': 'Cuenta',
         'core-jetbackup.when': 'Cuándo',
         'core-jetbackup.type': 'Tipo',
@@ -44,6 +48,8 @@ window.ZogographJetBackupCard = {
       }),
       hi: Object.freeze({
         'core-jetbackup.title': 'JetBackup',
+        'core-jetbackup.help':
+          'बैकअप सिस्टम अपने बैकअप के बारे में जो बताता है, वही files0000000005 नाम की डायरेक्टरी के पीछे का खाता और तारीख जानने का एकमात्र स्थान है। इसके लिए JetBackup कमांड लाइन टूल और सामान्यतः root के रूप में चलाना आवश्यक है।',
         'core-jetbackup.account': 'खाता',
         'core-jetbackup.when': 'कब',
         'core-jetbackup.type': 'प्रकार',
@@ -59,6 +65,8 @@ window.ZogographJetBackupCard = {
       }),
       ar: Object.freeze({
         'core-jetbackup.title': 'JetBackup',
+        'core-jetbackup.help':
+          'ما يقوله نظام النسخ الاحتياطي عن نسخه هو المكان الوحيد لمعرفة الحساب والتاريخ خلف مجلد اسمه files0000000005. يتطلب أداة سطر أوامر JetBackup، وعادةً التشغيل بصفة root.',
         'core-jetbackup.account': 'الحساب',
         'core-jetbackup.when': 'متى',
         'core-jetbackup.type': 'النوع',
@@ -74,6 +82,8 @@ window.ZogographJetBackupCard = {
       }),
       zh: Object.freeze({
         'core-jetbackup.title': 'JetBackup',
+        'core-jetbackup.help':
+          '备份系统对其自身备份的说明，是查找名为 files0000000005 的目录背后账户和日期的唯一途径。它需要 JetBackup 命令行工具，通常还需要以 root 身份运行。',
         'core-jetbackup.account': '账户',
         'core-jetbackup.when': '时间',
         'core-jetbackup.type': '类型',

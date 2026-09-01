@@ -1322,7 +1322,6 @@
   "backup.no_suggestions": "لا يوجد ما يُقترح من هذه القراءة.",
   "backup.matched": "متطابق",
   "backup.inside_path": "داخل {{path}}",
-  "backup.jetbackup_help": "ما يقوله نظام النسخ الاحتياطي عن نسخه هو المكان الوحيد لمعرفة الحساب والتاريخ خلف مجلد اسمه files0000000005. يتطلب أداة سطر أوامر JetBackup، وعادةً التشغيل بصفة root.",
   "network.interface": "الواجهة",
   "network.loopback": " · حلقة محلية، لا يغادر الجهاز",
   "network.state": "الحالة",

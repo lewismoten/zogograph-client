@@ -38023,6 +38023,15 @@ function backupGrowthText(key, values = {}) {
   );
 }
 
+function backupActionGuidanceText(key, values = {}) {
+  return renderCoreCardPackage(
+    ZogographBackupActionGuidanceCard,
+    'core-backup-action-guidance',
+    { key, values },
+    { i18n: ZogographI18n },
+  );
+}
+
 async function refreshBackups() {
   const holder = $('backupBody');
   if (!holder) return;
@@ -38346,13 +38355,7 @@ async function refreshBackups() {
     actionsBody.replaceChildren(
       data.actions
         ? backupActionList(data)
-        : note(
-            ZogographI18n.t(
-              'backup.no_suggestions',
-              {},
-              'Nothing to suggest from this reading.',
-            ),
-          ),
+        : note(backupActionGuidanceText('no_suggestions')),
     );
   }
 
@@ -38372,11 +38375,7 @@ function backupActionList(data) {
   const reachByLevel = {
     here: backupProtectionText('reach_here'),
     root: backupProtectionText('reach_root'),
-    provider: ZogographI18n.t(
-      'backup.reach_provider',
-      {},
-      'ask your hosting provider',
-    ),
+    provider: backupActionGuidanceText('reach_provider'),
   };
 
   const labelByLevel = {
@@ -38386,21 +38385,9 @@ function backupActionList(data) {
   };
 
   const headingByLevel = {
-    safe: ZogographI18n.t(
-      'backup.safe_actions',
-      {},
-      'Safe — returns space the backup system already considers disposable',
-    ),
-    review: ZogographI18n.t(
-      'backup.review_actions',
-      {},
-      'Worth reviewing — a decision, not a chore',
-    ),
-    dangerous: ZogographI18n.t(
-      'backup.dangerous_actions',
-      {},
-      'Dangerous — listed so it can be named, not recommended',
-    ),
+    safe: backupActionGuidanceText('safe_actions'),
+    review: backupActionGuidanceText('review_actions'),
+    dangerous: backupActionGuidanceText('dangerous_actions'),
   };
 
   for (const level of ['safe', 'review', 'dangerous']) {

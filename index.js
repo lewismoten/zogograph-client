@@ -27434,17 +27434,17 @@ function syncAlertTools() {
   $('alertUnackSome').disabled = !chosen;
   $('alertDeleteSome').disabled = !chosen;
   $('alertAckSome').textContent = chosen
-    ? ZogographI18n.t(
-        'alerts.mark_read',
+    ? ZogographAlertsShellCard.text(
+        'toolbar_mark_read',
         { count: chosen },
-        'Mark {{count, number}} read',
+        { i18n: ZogographI18n },
       )
     : ZogographAlertsShellCard.text('mark_read', { i18n: ZogographI18n });
   $('alertUnackSome').textContent = chosen
-    ? ZogographI18n.t(
-        'alerts.mark_unread',
+    ? ZogographAlertsShellCard.text(
+        'toolbar_mark_unread',
         { count: chosen },
-        'Mark {{count, number}} unread',
+        { i18n: ZogographI18n },
       )
     : ZogographAlertsShellCard.text('mark_unread', {
         i18n: ZogographI18n,

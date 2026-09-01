@@ -23817,9 +23817,7 @@ async function refreshHost() {
         el.replaceChildren(
           Object.assign(document.createElement('p'), {
             className: 'muted',
-            textContent:
-              data.reason ||
-              ZogographI18n.t('host.no_readings', {}, 'No host readings.'),
+            textContent: data.reason || hostCollectorRuntimeText('no_readings'),
           }),
         );
       }
@@ -23827,9 +23825,7 @@ async function refreshHost() {
     holder.replaceChildren(
       Object.assign(document.createElement('p'), {
         className: 'muted',
-        textContent:
-          data.reason ||
-          ZogographI18n.t('host.no_readings', {}, 'No host readings.'),
+        textContent: data.reason || hostCollectorRuntimeText('no_readings'),
       }),
     );
 

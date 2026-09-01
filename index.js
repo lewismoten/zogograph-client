@@ -19715,11 +19715,7 @@ async function openTerminalEditor(path) {
     const review = document.createElement('button');
     review.type = 'button';
     review.className = 'link';
-    review.textContent = ZogographI18n.t(
-      'action.review_changes',
-      {},
-      'Review changes',
-    );
+    review.textContent = terminalEditorRecoveryText('review_changes');
     review.title = ZogographI18n.t(
       'editor.review_title',
       {},
@@ -19728,18 +19724,15 @@ async function openTerminalEditor(path) {
     const preview = () => {
       const diff = terminalEditorDiff(data.text, text.value);
       if (!diff) {
-        showListDialog(
-          ZogographI18n.t('action.review_changes', {}, 'Review changes'),
-          [
-            note(
-              ZogographI18n.t(
-                'editor.review_no_changes',
-                {},
-                'No changes since this file was opened.',
-              ),
+        showListDialog(terminalEditorRecoveryText('review_changes'), [
+          note(
+            ZogographI18n.t(
+              'editor.review_no_changes',
+              {},
+              'No changes since this file was opened.',
             ),
-          ],
-        );
+          ),
+        ]);
         return;
       }
       const output = document.createElement('pre');

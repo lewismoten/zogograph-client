@@ -866,7 +866,6 @@
   "rdns.queue_both_collectors": " Both collectors take one, so it may be quicker than that.",
   "rdns.released_requests": "{{count, number}} requests had been taken by a collector that never came back — a run killed mid-lookup — and have been put back in the queue.",
   "rdns.looked_up": "{{count, number}} addresses looked up",
-  "domain.watching": "Watching it. The expiry was looked up straight away.",
   "action.looking": "Looking…",
   "dns.look_up_all": "Look it all up",
   "store.preparing_export": "Preparing the safe database export…",

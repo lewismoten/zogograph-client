@@ -41504,11 +41504,9 @@ $('domainForm').addEventListener('submit', async (event) => {
     $('domainName').value = '';
     renderDomains(result);
     notice(
-      ZogographI18n.t(
-        'domain.watching',
-        {},
-        'Watching it. The expiry was looked up straight away.',
-      ),
+      ZogographDomainQueueCard.text('watching', {
+        i18n: ZogographI18n,
+      }),
       true,
     );
   } catch (error) {

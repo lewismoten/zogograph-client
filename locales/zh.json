@@ -885,7 +885,6 @@
   "rdns.queue_both_collectors": " 两个采集器都会各处理一个，因此可能更快。",
   "rdns.released_requests": "有 {{count, number}} 个请求被未返回的采集器取走——一次在查询途中被终止的运行——现已放回队列。",
   "rdns.looked_up": "已查询 {{count, number}} 个地址",
-  "domain.watching": "现已开始监控。到期时间已立即查询。",
   "action.looking": "正在查询…",
   "dns.look_up_all": "全部查询",
   "store.preparing_export": "正在准备安全的数据库导出…",

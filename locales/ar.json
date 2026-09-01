@@ -885,7 +885,6 @@
   "rdns.queue_both_collectors": " يأخذ الجامعان واحدًا لكل منهما، لذا قد يكون أسرع من ذلك.",
   "rdns.released_requests": "أخذ جامع لم يعد {{count, number}} من الطلبات — تشغيل قُتل أثناء البحث — وأُعيدت إلى قائمة الانتظار.",
   "rdns.looked_up": "{{count, number}} عنوانًا تم البحث عنها",
-  "domain.watching": "تجري مراقبته الآن. جرى البحث عن تاريخ الانتهاء فورًا.",
   "action.looking": "جارٍ البحث…",
   "dns.look_up_all": "ابحث عنها كلها",
   "store.preparing_export": "جارٍ إعداد تصدير قاعدة البيانات الآمن…",

@@ -17927,7 +17927,7 @@ function purgeButton(entry) {
   const button = document.createElement('button');
   button.type = 'button';
   button.className = 'link danger';
-  button.textContent = ZogographI18n.t('action.clear', {}, 'Clear');
+  button.textContent = actionCommonText('clear');
   button.title = purgeText('button_title', {
     label: entry.label.toLowerCase(),
   });
@@ -20970,10 +20970,7 @@ function openDisplayPreferences() {
 applyDisplayPreferences(displayPreferences(), false);
 
 /** A themed, asynchronous confirmation in place of the browser's bare prompt. */
-function confirmDialog(
-  message,
-  submitLabel = ZogographI18n.t('action.continue', {}, 'Continue'),
-) {
+function confirmDialog(message, submitLabel = actionCommonText('continue')) {
   return new Promise((resolve) => {
     const text = document.createElement('p');
     text.className = 'note';
@@ -21028,7 +21025,7 @@ function askTextDialog(title, label, initial = '', hint = '') {
     actions.className = 'inspect-actions';
     const go = document.createElement('button');
     go.type = 'submit';
-    go.textContent = ZogographI18n.t('action.continue', {}, 'Continue');
+    go.textContent = actionCommonText('continue');
     actions.appendChild(go);
     $('noteFormBody').replaceChildren(field, actions);
     $('noteDialogTitle').textContent = title;
@@ -34698,7 +34695,7 @@ function renderDomains(data) {
 
           const raw = document.createElement('button');
           raw.className = 'link';
-          raw.textContent = ZogographI18n.t('action.details', {}, 'Details');
+          raw.textContent = actionCommonText('details');
           raw.title = ZogographI18n.t(
             'domain.details_title',
             {},

@@ -27627,13 +27627,13 @@ function showAlertVerdict(row) {
       severity: row.severity,
       raised: whenLabel(row.raised_at),
       assistant: row.ai_at
-        ? ZogographI18n.t(
-            'alert.verdict_reviewed_at',
+        ? ZogographAlertsShellCard.text(
+            'verdict_reviewed_at',
+            { i18n: ZogographI18n },
             {
               assistant: chatState.who.name,
               when: whenLabel(row.ai_at),
             },
-            '{{assistant}} looked at it {{when}}.',
           )
         : '',
     },

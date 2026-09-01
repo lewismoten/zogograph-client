@@ -26751,10 +26751,14 @@ function describeTimes(jobs, data, minute, hour) {
 
     if (!zone) {
       said.push(
-        ZogographI18n.t(
-          'schedule.times_unknown_zone',
-          { job: jobLabel, expression: expr },
-          "{{job}}: {{expression}} in the server's timezone, which could not be determined",
+        renderCoreCardPackage(
+          ZogographScheduleAvailabilityCard,
+          'core-schedule-availability',
+          {
+            key: 'times_unknown_zone',
+            values: { job: jobLabel, expression: expr },
+          },
+          { i18n: ZogographI18n },
         ),
       );
       continue;
@@ -26783,10 +26787,18 @@ function describeTimes(jobs, data, minute, hour) {
      */
     if (perDay > 24) {
       said.push(
-        ZogographI18n.t(
-          'schedule.times_frequent',
-          { job: jobLabel, profile: preset.label, next: clock[0] ?? '—' },
-          '{{job}}: {{profile}}, next at {{next}}',
+        renderCoreCardPackage(
+          ZogographScheduleAvailabilityCard,
+          'core-schedule-availability',
+          {
+            key: 'times_frequent',
+            values: {
+              job: jobLabel,
+              profile: preset.label,
+              next: clock[0] ?? '—',
+            },
+          },
+          { i18n: ZogographI18n },
         ),
       );
       continue;

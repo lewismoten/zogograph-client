@@ -229,6 +229,9 @@ $processTrendCard = i18nCardSource(
 $processListCard = i18nCardSource(
     file_get_contents($root . '/cards/process-list.js'),
 );
+$processMetricsCard = i18nCardSource(
+    file_get_contents($root . '/cards/process-metrics.js'),
+);
 $capabilitySummaryCard = i18nCardSource(
     file_get_contents($root . '/cards/capability-summary.js'),
 );
@@ -4092,7 +4095,8 @@ i18nExpect(
 );
 i18nExpect(
     $script !== false &&
-        str_contains($script, 'process.cpu_help') &&
+        $processMetricsCard !== false &&
+        str_contains($script, "processMetricsText('cpu_help'") &&
         str_contains($script, "processTrendText('age_with_newest'") &&
         $processTrendCard !== false &&
         str_contains(
@@ -4122,7 +4126,8 @@ i18nExpect(
             $english['process.age_started_today'],
             $english['process.age_long_running'],
         ) &&
-        str_contains($script, 'process.rank_second_largest'),
+        str_contains($script, "processMetricsText('rank_second_largest'") &&
+        str_contains($processMetricsCard, 'core-process-metrics.rank_largest'),
     'process row explanations retain direct user-visible text',
 );
 i18nExpect(
@@ -4154,7 +4159,8 @@ i18nExpect(
 );
 i18nExpect(
     $script !== false &&
-        str_contains($script, 'process.unavailable') &&
+        $processMetricsCard !== false &&
+        str_contains($script, "processMetricsText('unavailable'") &&
         str_contains($script, 'process.matches_all_protected') &&
         str_contains($script, 'process.all_matches_protected'),
     'process preview status retains direct user-visible text',

@@ -22950,12 +22950,7 @@ async function refreshProcesses() {
 
   if (!data.available) {
     $('processBody').textContent =
-      data.reason ||
-      ZogographI18n.t(
-        'process.unavailable',
-        {},
-        'Cannot read the process list here.',
-      );
+      data.reason || processMetricsText('unavailable');
   } else {
     renderCoreCardPackage(ZogographProcessListCard, 'core-process-list', data, {
       target: $('processBody'),
@@ -22972,6 +22967,15 @@ async function refreshProcesses() {
   }
 
   renderProcessTrend(data.trend || { metric: data.by, names: [], rows: [] });
+}
+
+function processMetricsText(key, values = {}) {
+  return renderCoreCardPackage(
+    ZogographProcessMetricsCard,
+    'core-process-metrics',
+    { key, values },
+    { i18n: ZogographI18n },
+  );
 }
 
 /** The top recorded process groups across the selected time range. */
@@ -23297,18 +23301,10 @@ function rankedCell(text, rank, row) {
 
   if (rank?.first === row) {
     span.className = 'rank-first';
-    span.title = ZogographI18n.t(
-      'process.rank_largest',
-      {},
-      'The largest in this column.',
-    );
+    span.title = processMetricsText('rank_largest');
   } else if (rank?.second === row) {
     span.className = 'rank-second';
-    span.title = ZogographI18n.t(
-      'process.rank_second_largest',
-      {},
-      'The second largest in this column.',
-    );
+    span.title = processMetricsText('rank_second_largest');
   }
 
   return span;
@@ -23333,21 +23329,14 @@ function processCpuCell(percent, cores) {
 
     const of = document.createElement('div');
     of.className = 'muted small';
-    of.textContent = ZogographI18n.t(
-      cores ? 'process.cpu_cores' : 'process.cpu_cores_worth',
+    of.textContent = processMetricsText(
+      cores ? 'cpu_cores' : 'cpu_cores_worth',
       {
         share: (percent / 100).toFixed(1),
         cores: humanCount(cores),
       },
-      cores
-        ? `${(percent / 100).toFixed(1)} of ${humanCount(cores)} cores`
-        : `${(percent / 100).toFixed(1)} cores' worth`,
     );
-    of.title = ZogographI18n.t(
-      'process.cpu_help',
-      {},
-      'ps measures each process against one core, so anything threaded can pass 100%. The CPU figure on the overview is a share of the whole machine and is a different measurement.',
-    );
+    of.title = processMetricsText('cpu_help');
     wrap.appendChild(of);
   }
 

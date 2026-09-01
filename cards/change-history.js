@@ -18,6 +18,12 @@ window.ZogographChangeHistoryCard = {
         'core-change-history.was': 'Was',
         'core-change-history.became': 'Became',
         'core-change-history.by_fingerprint': 'by fingerprint',
+        'core-change-history.system_software_tip':
+          'Part of the system software',
+        'core-change-history.watched_program_tip':
+          'A program this tool watches{{group}}',
+        'core-change-history.fingerprint_change_tip':
+          'This program offers no readable version, so the change was noticed by the file being different. It says something moved, not what.',
         'core-change-history.checked':
           'Checked. Anything that moved since last time is listed above.',
         'core-change-history.help':
@@ -38,6 +44,12 @@ window.ZogographChangeHistoryCard = {
         'core-change-history.was': 'Era',
         'core-change-history.became': 'Se convirtió en',
         'core-change-history.by_fingerprint': 'por huella digital',
+        'core-change-history.system_software_tip':
+          'Parte del software del sistema',
+        'core-change-history.watched_program_tip':
+          'Un programa que esta herramienta vigila{{group}}',
+        'core-change-history.fingerprint_change_tip':
+          'Este programa no ofrece una versión legible, por lo que el cambio se detectó porque el archivo es diferente. Indica que algo cambió, no qué.',
         'core-change-history.checked':
           'Comprobado. Todo lo que cambió desde la última vez aparece arriba.',
         'core-change-history.help':
@@ -58,6 +70,11 @@ window.ZogographChangeHistoryCard = {
         'core-change-history.was': 'था',
         'core-change-history.became': 'बना',
         'core-change-history.by_fingerprint': 'फ़िंगरप्रिंट द्वारा',
+        'core-change-history.system_software_tip': 'सिस्टम सॉफ़्टवेयर का भाग',
+        'core-change-history.watched_program_tip':
+          'एक प्रोग्राम जिसे यह टूल देखता है{{group}}',
+        'core-change-history.fingerprint_change_tip':
+          'यह प्रोग्राम पढ़ने योग्य संस्करण नहीं देता, इसलिए बदलाव फ़ाइल के अलग होने से देखा गया। यह बताता है कि कुछ बदला, क्या बदला नहीं।',
         'core-change-history.checked':
           'जाँच हो गई। पिछली बार से बदली हर चीज़ ऊपर सूचीबद्ध है।',
         'core-change-history.help':
@@ -78,6 +95,11 @@ window.ZogographChangeHistoryCard = {
         'core-change-history.was': 'كان',
         'core-change-history.became': 'أصبح',
         'core-change-history.by_fingerprint': 'بصمة الملف',
+        'core-change-history.system_software_tip': 'جزء من برمجيات النظام',
+        'core-change-history.watched_program_tip':
+          'برنامج تراقبه هذه الأداة{{group}}',
+        'core-change-history.fingerprint_change_tip':
+          'لا يقدم هذا البرنامج إصدارًا مقروءًا، لذلك لوحظ التغيير لأن الملف مختلف. هذا يعني أن شيئًا تحرك، لا ما هو.',
         'core-change-history.checked':
           'اكتمل التحقق. كل ما تغير منذ المرة السابقة مدرج أعلاه.',
         'core-change-history.help':
@@ -98,6 +120,10 @@ window.ZogographChangeHistoryCard = {
         'core-change-history.was': '原为',
         'core-change-history.became': '变为',
         'core-change-history.by_fingerprint': '通过指纹发现',
+        'core-change-history.system_software_tip': '系统软件的一部分',
+        'core-change-history.watched_program_tip': '此工具监视的程序{{group}}',
+        'core-change-history.fingerprint_change_tip':
+          '此程序不提供可读版本，因此是通过文件不同发现了更改。它说明有内容变动，但不说明是什么。',
         'core-change-history.checked':
           '已检查。自上次以来发生变化的所有内容均列在上方。',
         'core-change-history.help':
@@ -157,8 +183,8 @@ window.ZogographChangeHistoryCard = {
             span.textContent = row.label;
             span.title =
               row.kind === 'software'
-                ? t('installed.system_software_tip')
-                : t('installed.watched_program_tip', {
+                ? t('core-change-history.system_software_tip')
+                : t('core-change-history.watched_program_tip', {
                     group: row.group ? ` (${row.group})` : '',
                   });
             return span;
@@ -192,7 +218,7 @@ window.ZogographChangeHistoryCard = {
                 {},
                 'by fingerprint',
               );
-              span.title = t('installed.fingerprint_change_tip');
+              span.title = t('core-change-history.fingerprint_change_tip');
               return span;
             }
             return '';

@@ -750,7 +750,6 @@
   "dns.group.other": "Everything else",
   "table.when": "When",
   "table.what": "What",
-  "network.not_encrypted": "Not encrypted",
   "table.domain": "Domain",
   "domain.expires": "Expires",
   "domain.lookup_failed": "Lookup failed",

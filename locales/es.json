@@ -773,7 +773,6 @@
   "dns.group.other": "Todo lo demás",
   "table.when": "Cuándo",
   "table.what": "Qué",
-  "network.not_encrypted": "No cifrada",
   "table.domain": "Dominio",
   "domain.expires": "Caduca",
   "domain.lookup_failed": "Falló la consulta",

@@ -769,7 +769,6 @@
   "dns.group.other": "其他所有内容",
   "table.when": "时间",
   "table.what": "内容",
-  "network.not_encrypted": "未加密",
   "table.domain": "域名",
   "domain.expires": "到期",
   "domain.lookup_failed": "查询失败",

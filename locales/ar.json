@@ -769,7 +769,6 @@
   "dns.group.other": "كل شيء آخر",
   "table.when": "متى",
   "table.what": "ما الذي",
-  "network.not_encrypted": "غير مشفّر",
   "table.domain": "النطاق",
   "domain.expires": "ينتهي",
   "domain.lookup_failed": "فشل البحث",

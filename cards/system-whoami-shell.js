@@ -14,6 +14,7 @@ window.ZogographSystemWhoamiShellCard = {
         'core-system-whoami-shell.resolves_to': 'Resolves to',
         'core-system-whoami-shell.connection': 'Connection',
         'core-system-whoami-shell.encrypted': 'Encrypted',
+        'core-system-whoami-shell.not_encrypted': 'Not encrypted',
         'core-system-whoami-shell.private_address_help':
           'A private address — you are on the same network as this machine, or behind a proxy that is.',
         'core-system-whoami-shell.browser_says': 'Browser says',
@@ -52,6 +53,7 @@ window.ZogographSystemWhoamiShellCard = {
         'core-system-whoami-shell.resolves_to': 'Resuelve a',
         'core-system-whoami-shell.connection': 'Conexión',
         'core-system-whoami-shell.encrypted': 'Cifrada',
+        'core-system-whoami-shell.not_encrypted': 'No cifrada',
         'core-system-whoami-shell.private_address_help':
           'Una dirección privada: está en la misma red que esta máquina o detrás de un proxy que sí lo está.',
         'core-system-whoami-shell.browser_says': 'El navegador indica',
@@ -92,6 +94,7 @@ window.ZogographSystemWhoamiShellCard = {
         'core-system-whoami-shell.resolves_to': 'इस पर हल होता है',
         'core-system-whoami-shell.connection': 'कनेक्शन',
         'core-system-whoami-shell.encrypted': 'एन्क्रिप्टेड',
+        'core-system-whoami-shell.not_encrypted': 'एन्क्रिप्टेड नहीं',
         'core-system-whoami-shell.private_address_help':
           'निजी पता — आप इस मशीन के समान नेटवर्क पर हैं या ऐसे प्रॉक्सी के पीछे हैं।',
         'core-system-whoami-shell.browser_says': 'ब्राउज़र बताता है',
@@ -129,6 +132,7 @@ window.ZogographSystemWhoamiShellCard = {
         'core-system-whoami-shell.resolves_to': 'يُحل إلى',
         'core-system-whoami-shell.connection': 'الاتصال',
         'core-system-whoami-shell.encrypted': 'مشفّر',
+        'core-system-whoami-shell.not_encrypted': 'غير مشفّر',
         'core-system-whoami-shell.private_address_help':
           'عنوان خاص — أنت على نفس الشبكة التي توجد عليها هذه الآلة، أو خلف وكيل موجود عليها.',
         'core-system-whoami-shell.browser_says': 'يقول المتصفح',
@@ -165,6 +169,7 @@ window.ZogographSystemWhoamiShellCard = {
         'core-system-whoami-shell.resolves_to': '解析为',
         'core-system-whoami-shell.connection': '连接',
         'core-system-whoami-shell.encrypted': '已加密',
+        'core-system-whoami-shell.not_encrypted': '未加密',
         'core-system-whoami-shell.private_address_help':
           '这是一个私有地址——您与此机器位于同一网络，或位于这样的代理之后。',
         'core-system-whoami-shell.browser_says': '浏览器显示',

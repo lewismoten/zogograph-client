@@ -31213,11 +31213,7 @@ function renderUrls(data) {
           mark.textContent = secure ? '\u{1F512} ' : '\u{1F513} ';
           mark.title = secure
             ? 'https'
-            : `http \u2014 ${ZogographI18n.t(
-                'network.not_encrypted',
-                {},
-                'not encrypted',
-              )}`;
+            : `http \u2014 ${urlStatusText('not_encrypted')}`;
           span.appendChild(mark);
 
           const name = document.createElement('span');
@@ -33895,7 +33891,9 @@ async function refreshWhoAmI() {
       ? ZogographSystemWhoamiShellCard.text('encrypted', {
           i18n: ZogographI18n,
         })
-      : ZogographI18n.t('network.not_encrypted', {}, 'Not encrypted'),
+      : ZogographSystemWhoamiShellCard.text('not_encrypted', {
+          i18n: ZogographI18n,
+        }),
   ]);
   if (you.agent)
     yours.push([

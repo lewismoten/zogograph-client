@@ -26536,10 +26536,11 @@ function drawSchedule(data) {
   );
   if (state.access?.write) {
     const saveUpdates = document.createElement('button');
-    saveUpdates.textContent = ZogographI18n.t(
-      'schedule.save_update_policy',
-      {},
-      'Save update policy',
+    saveUpdates.textContent = renderCoreCardPackage(
+      window.ZogographScheduleUpdateStagesCard,
+      'core-schedule-update-stages',
+      { key: 'save' },
+      { i18n: ZogographI18n },
     );
     saveUpdates.addEventListener('click', async () => {
       saveUpdates.disabled = true;

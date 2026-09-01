@@ -18860,16 +18860,31 @@ function renderTerminal(data) {
       data.history,
       [
         {
-          label: ZogographI18n.t('terminal.command', {}, 'Command'),
+          label: renderCoreCardPackage(
+            ZogographTerminalHistoryCard,
+            'core-terminal-history',
+            { key: 'command' },
+            { i18n: ZogographI18n },
+          ),
           className: 'cmd',
           render: (row) => row.command,
         },
         {
-          label: ZogographI18n.t('terminal.when', {}, 'When'),
+          label: renderCoreCardPackage(
+            ZogographTerminalHistoryCard,
+            'core-terminal-history',
+            { key: 'when' },
+            { i18n: ZogographI18n },
+          ),
           render: (row) => ago(row.started_at),
         },
         {
-          label: ZogographI18n.t('terminal.output', {}, 'Output'),
+          label: renderCoreCardPackage(
+            ZogographTerminalHistoryCard,
+            'core-terminal-history',
+            { key: 'output' },
+            { i18n: ZogographI18n },
+          ),
           className: 'size',
           // "0 B" is a size; "nothing" is what actually happened, and the two
           // read differently when you are scanning a column for the odd one out.
@@ -18881,7 +18896,12 @@ function renderTerminal(data) {
                 }),
         },
         {
-          label: ZogographI18n.t('terminal.took', {}, 'Took'),
+          label: renderCoreCardPackage(
+            ZogographTerminalHistoryCard,
+            'core-terminal-history',
+            { key: 'took' },
+            { i18n: ZogographI18n },
+          ),
           className: 'size',
           render: (row) =>
             row.took === null || row.took === undefined
@@ -18889,7 +18909,12 @@ function renderTerminal(data) {
               : humanSpan(row.took),
         },
         {
-          label: ZogographI18n.t('terminal.how_it_ended', {}, 'How it ended'),
+          label: renderCoreCardPackage(
+            ZogographTerminalHistoryCard,
+            'core-terminal-history',
+            { key: 'how_it_ended' },
+            { i18n: ZogographI18n },
+          ),
           render: (row) =>
             terminalVerdictChip({
               running: row.running,

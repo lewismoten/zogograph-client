@@ -336,7 +336,6 @@
   "auth.sessions_ended": "Se han cerrado todas las sesiones iniciadas.",
   "auth.recovery_codes_ready": "Ocho códigos nuevos de recuperación de un solo uso están listos para guardar.",
   "network.label_saved": "Guardado. Se mostrará donde aparezcan esa dirección o ese puerto.",
-  "diagnostic.export_preparing": "Se está preparando la instantánea de diagnóstico depurada…",
   "ai.limit_raised": "Aumentado para esta conversación. Continúe.",
   "ai.context_added": "Añadido. Lo leerá en su siguiente turno.",
   "terminal.suggestion_expectation": "Qué buscar: {{expectation}}",

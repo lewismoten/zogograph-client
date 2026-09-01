@@ -41680,11 +41680,9 @@ $('selfDiagnosticExport')?.addEventListener('click', async () => {
   form.submit();
   form.remove();
   notice(
-    ZogographI18n.t(
-      'diagnostic.export_preparing',
-      {},
-      'Preparing the sanitized diagnostic snapshot…',
-    ),
+    ZogographDiagnosisResultsCard.text('export_preparing', {
+      i18n: ZogographI18n,
+    }),
     true,
   );
 });

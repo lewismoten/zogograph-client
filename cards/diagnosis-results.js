@@ -29,6 +29,8 @@ window.ZogographDiagnosisResultsCard = {
           'Ignore “{{title}}” now and on future checks?\n\nUse this only for an intentional configuration.',
         'core-diagnosis-results.ignore_success':
           'Ignored for future checks. The decision is in the audit log.',
+        'core-diagnosis-results.export_preparing':
+          'Preparing the sanitized diagnostic snapshot…',
       }),
       es: Object.freeze({
         'core-diagnosis-results.title': 'Qué está mal',
@@ -56,6 +58,8 @@ window.ZogographDiagnosisResultsCard = {
           '¿Ignorar “{{title}}” ahora y en comprobaciones futuras?\n\nÚselo solo para una configuración intencional.',
         'core-diagnosis-results.ignore_success':
           'Se ignorará en comprobaciones futuras. La decisión queda en el registro de auditoría.',
+        'core-diagnosis-results.export_preparing':
+          'Se está preparando la instantánea de diagnóstico depurada…',
       }),
       hi: Object.freeze({
         'core-diagnosis-results.title': 'क्या गलत है',
@@ -81,6 +85,8 @@ window.ZogographDiagnosisResultsCard = {
           '“{{title}}” को अभी और भविष्य की जाँचों में अनदेखा करें?\n\nइसे केवल जानबूझकर की गई कॉन्फ़िगरेशन के लिए उपयोग करें।',
         'core-diagnosis-results.ignore_success':
           'भविष्य की जाँचों के लिए अनदेखा किया गया। निर्णय ऑडिट लॉग में है।',
+        'core-diagnosis-results.export_preparing':
+          'स्वच्छ निदान स्नैपशॉट तैयार किया जा रहा है…',
       }),
       ar: Object.freeze({
         'core-diagnosis-results.title': 'ما الخطأ',
@@ -106,6 +112,8 @@ window.ZogographDiagnosisResultsCard = {
           'هل تريد تجاهل “{{title}}” الآن وفي الفحوصات القادمة؟\n\nاستخدم ذلك فقط لإعداد مقصود.',
         'core-diagnosis-results.ignore_success':
           'سيتجاهل هذا في الفحوصات القادمة. القرار موجود في سجل التدقيق.',
+        'core-diagnosis-results.export_preparing':
+          'جارٍ إعداد لقطة التشخيص المنقّحة…',
       }),
       zh: Object.freeze({
         'core-diagnosis-results.title': '出了什么问题',
@@ -131,6 +139,7 @@ window.ZogographDiagnosisResultsCard = {
           '现在以及在后续检查中忽略“{{title}}”？\n\n仅对有意作出的配置使用此操作。',
         'core-diagnosis-results.ignore_success':
           '后续检查将忽略此项。该决定已记录在审计日志中。',
+        'core-diagnosis-results.export_preparing': '正在准备已清理的诊断快照…',
       }),
     }),
   }),

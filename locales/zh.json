@@ -334,7 +334,6 @@
   "auth.sessions_ended": "已结束所有已登录会话。",
   "auth.recovery_codes_ready": "八个新的单次使用恢复代码已可保存。",
   "network.label_saved": "已保存。它会在该地址或端口出现的任何位置显示。",
-  "diagnostic.export_preparing": "正在准备已清理的诊断快照…",
   "ai.limit_raised": "已为此对话提高限制。请继续。",
   "ai.context_added": "已添加。它会在下一轮阅读它。",
   "terminal.suggestion_expectation": "要查找的内容：{{expectation}}",

@@ -336,7 +336,6 @@
   "auth.sessions_ended": "सभी साइन-इन सत्र समाप्त कर दिए गए हैं।",
   "auth.recovery_codes_ready": "आठ नए एक-बार उपयोग वाले पुनर्प्राप्ति कोड सहेजने के लिए तैयार हैं।",
   "network.label_saved": "सहेजा गया। यह वहाँ दिखेगा जहाँ वह पता या पोर्ट दिखाई देता है।",
-  "diagnostic.export_preparing": "स्वच्छ निदान स्नैपशॉट तैयार किया जा रहा है…",
   "ai.limit_raised": "इस बातचीत के लिए बढ़ाया गया। जारी रखें।",
   "ai.context_added": "जोड़ा गया। यह अपने अगले टर्न में इसे पढ़ेगा।",
   "terminal.suggestion_expectation": "क्या देखना है: {{expectation}}",

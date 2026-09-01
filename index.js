@@ -10514,11 +10514,7 @@ async function refreshScanSchedule(side) {
   const body = $(side === 'host' ? 'hostScansBody' : 'accountScansBody');
 
   if (!state.signedIn) {
-    body.replaceChildren(
-      note(
-        ZogographI18n.t('common.sign_in_to_see', {}, 'Sign in to see this.'),
-      ),
-    );
+    body.replaceChildren(note(commonStatusText('sign_in_to_see')));
     return;
   }
 
@@ -13351,11 +13347,7 @@ async function refreshRdns() {
   const body = $('rdnsBody');
 
   if (!state.signedIn) {
-    body.replaceChildren(
-      note(
-        ZogographI18n.t('common.sign_in_to_see', {}, 'Sign in to see this.'),
-      ),
-    );
+    body.replaceChildren(note(commonStatusText('sign_in_to_see')));
     return;
   }
 
@@ -13454,11 +13446,7 @@ async function refreshInstalled() {
   const body = $('installedBody');
 
   if (!state.signedIn) {
-    body.replaceChildren(
-      note(
-        ZogographI18n.t('common.sign_in_to_see', {}, 'Sign in to see this.'),
-      ),
-    );
+    body.replaceChildren(note(commonStatusText('sign_in_to_see')));
     return;
   }
 
@@ -13488,11 +13476,7 @@ async function refreshChanged() {
   const body = $('changedBody');
 
   if (!state.signedIn) {
-    body.replaceChildren(
-      note(
-        ZogographI18n.t('common.sign_in_to_see', {}, 'Sign in to see this.'),
-      ),
-    );
+    body.replaceChildren(note(commonStatusText('sign_in_to_see')));
     return;
   }
 
@@ -17423,11 +17407,7 @@ async function refreshStore() {
 
   if (!state.signedIn) {
     for (const body of bodies)
-      body.replaceChildren(
-        note(
-          ZogographI18n.t('common.sign_in_to_see', {}, 'Sign in to see this.'),
-        ),
-      );
+      body.replaceChildren(note(commonStatusText('sign_in_to_see')));
     return;
   }
 
@@ -20203,11 +20183,7 @@ async function refreshMemories() {
   const body = $('memoryBody');
 
   if (!state.signedIn) {
-    body.replaceChildren(
-      note(
-        ZogographI18n.t('common.sign_in_to_see', {}, 'Sign in to see this.'),
-      ),
-    );
+    body.replaceChildren(note(commonStatusText('sign_in_to_see')));
     return;
   }
 
@@ -21942,11 +21918,7 @@ async function refreshAiStore() {
   if (!body) return;
 
   if (!state.signedIn) {
-    body.replaceChildren(
-      note(
-        ZogographI18n.t('common.sign_in_to_see', {}, 'Sign in to see this.'),
-      ),
-    );
+    body.replaceChildren(note(commonStatusText('sign_in_to_see')));
     return;
   }
 
@@ -28786,7 +28758,7 @@ function section(title, contents) {
  * announces its change without adding a spinner that shifts the page just
  * before the answer appears.
  */
-function spinner(text = ZogographI18n.t('common.loading', {}, 'Loading…')) {
+function spinner(text = commonStatusText('loading')) {
   const wrap = document.createElement('p');
   wrap.className = 'loading sr-only';
   wrap.appendChild(document.createTextNode(text));
@@ -37960,6 +37932,15 @@ function actionCommonText(key, values = {}) {
   );
 }
 
+function commonStatusText(key, values = {}) {
+  return renderCoreCardPackage(
+    ZogographCommonStatusCard,
+    'core-common-status',
+    { key, values },
+    { i18n: ZogographI18n },
+  );
+}
+
 async function refreshBackups() {
   const holder = $('backupBody');
   if (!holder) return;
@@ -39464,10 +39445,10 @@ function setFetchState(kind) {
   if (label)
     label.textContent =
       kind === 'loading'
-        ? ZogographI18n.t('common.loading', {}, 'Loading…')
+        ? commonStatusText('loading')
         : kind === 'error'
-          ? ZogographI18n.t('common.refresh_failed', {}, 'Could not refresh')
-          : ZogographI18n.t('common.ready', {}, 'Ready');
+          ? commonStatusText('refresh_failed')
+          : commonStatusText('ready');
 }
 
 /*

@@ -38014,6 +38014,15 @@ function backupProtectionText(key, values = {}) {
   );
 }
 
+function backupGrowthText(key, values = {}) {
+  return renderCoreCardPackage(
+    ZogographBackupGrowthStatusCard,
+    'core-backup-growth-status',
+    { key, values },
+    { i18n: ZogographI18n },
+  );
+}
+
 async function refreshBackups() {
   const holder = $('backupBody');
   if (!holder) return;
@@ -38065,10 +38074,7 @@ async function refreshBackups() {
   }
 
   if (!data.available) {
-    everywhere(
-      data.reason ||
-        ZogographI18n.t('backup.nothing_recorded', {}, 'Nothing recorded.'),
-    );
+    everywhere(data.reason || backupGrowthText('nothing_recorded'));
     return;
   }
 
@@ -38083,37 +38089,19 @@ async function refreshBackups() {
   sub.className = 'headline-sub';
   sub.textContent =
     data.share_percent != null
-      ? ZogographI18n.t(
-          'backup.used_space_on',
-          {
-            percent: data.share_percent,
-            filesystem:
-              data.mount ||
-              ZogographI18n.t('backup.this_filesystem', {}, 'this filesystem'),
-          },
-          '{{percent}}% of the used space on {{filesystem}}',
-        )
-      : ZogographI18n.t(
-          'backup.share_unknown',
-          {},
-          'Share of the disk unknown — no filesystem reading recorded.',
-        );
+      ? backupGrowthText('used_space_on', {
+          percent: data.share_percent,
+          filesystem: data.mount || backupGrowthText('this_filesystem'),
+        })
+      : backupGrowthText('share_unknown');
   body.appendChild(sub);
 
   if (!data.complete || data.unmeasured) {
     body.appendChild(
       note(
-        ZogographI18n.t(
-          'backup.walk_incomplete',
-          {},
-          'The disk walk ran out of time, so this total is a lower bound.',
-        ) +
+        backupGrowthText('walk_incomplete') +
           (data.unmeasured
-            ? ` — ${ZogographI18n.t(
-                'backup.directories_not_opened',
-                { count: data.unmeasured },
-                '{{count}} directories under the backup roots were never opened.',
-              )}`
+            ? ` — ${backupGrowthText('directories_not_opened', { count: data.unmeasured })}`
             : ''),
       ),
     );
@@ -38126,8 +38114,8 @@ async function refreshBackups() {
   } else if (growth) {
     const rows = [];
     for (const [label, point] of [
-      [ZogographI18n.t('backup.day_ago', {}, '24 hours ago'), growth.day],
-      [ZogographI18n.t('backup.week_ago', {}, '7 days ago'), growth.week],
+      [backupGrowthText('day_ago'), growth.day],
+      [backupGrowthText('week_ago'), growth.week],
     ]) {
       if (!point) continue;
       /*
@@ -38139,20 +38127,14 @@ async function refreshBackups() {
       rows.push([
         label,
         `${humanBytes(point.bytes)} — ${point.grew >= 0 ? '+' : ''}` +
-          ZogographI18n.t(
-            'backup.grew_over',
-            {
-              bytes: humanBytes(point.grew),
-              duration: humanDuration(point.span),
-            },
-            '{{bytes}} over {{duration}}',
-          ),
+          backupGrowthText('grew_over', {
+            bytes: humanBytes(point.grew),
+            duration: humanDuration(point.span),
+          }),
       ]);
     }
     if (rows.length)
-      body.appendChild(
-        section(ZogographI18n.t('backup.growth', {}, 'Growth'), factGrid(rows)),
-      );
+      body.appendChild(section(backupGrowthText('growth'), factGrid(rows)));
   }
 
   if (data.accounts.length) {

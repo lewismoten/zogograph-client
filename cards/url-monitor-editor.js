@@ -32,6 +32,8 @@ window.ZogographUrlMonitorEditorCard = {
         'core-url-monitor-editor.keep_group_help':
           'Which bracketed part of the pattern to record. Nearly always 1 — a pattern needs context around the part that matters. 0 keeps the whole match.',
         'core-url-monitor-editor.enabled': 'Run it',
+        'core-url-monitor-editor.save': 'Save it',
+        'core-url-monitor-editor.add': 'Add it',
       }),
       es: Object.freeze({
         'core-url-monitor-editor.editing': 'Editando {{label}}',
@@ -60,6 +62,8 @@ window.ZogographUrlMonitorEditorCard = {
         'core-url-monitor-editor.keep_group_help':
           'Qué parte entre paréntesis del patrón registrar. Casi siempre es 1: un patrón necesita contexto alrededor de la parte que importa. 0 conserva toda la coincidencia.',
         'core-url-monitor-editor.enabled': 'Ejecutarlo',
+        'core-url-monitor-editor.save': 'Guardarlo',
+        'core-url-monitor-editor.add': 'Añadirlo',
       }),
       hi: Object.freeze({
         'core-url-monitor-editor.editing': '{{label}} संपादित किया जा रहा है',
@@ -88,6 +92,8 @@ window.ZogographUrlMonitorEditorCard = {
         'core-url-monitor-editor.keep_group_help':
           'पैटर्न के किस कोष्ठक वाले भाग को रिकॉर्ड करना है। लगभग हमेशा 1 — पैटर्न को महत्वपूर्ण भाग के आसपास संदर्भ चाहिए। 0 पूरा मिलान रखता है।',
         'core-url-monitor-editor.enabled': 'इसे चलाएँ',
+        'core-url-monitor-editor.save': 'इसे सहेजें',
+        'core-url-monitor-editor.add': 'इसे जोड़ें',
       }),
       ar: Object.freeze({
         'core-url-monitor-editor.editing': 'تحرير {{label}}',
@@ -116,6 +122,8 @@ window.ZogographUrlMonitorEditorCard = {
         'core-url-monitor-editor.keep_group_help':
           'أي جزء بين قوسين من النمط يجب تسجيله. غالبًا ما يكون 1؛ فالنمط يحتاج إلى سياق حول الجزء المهم. يحتفظ 0 بالمطابقة كاملة.',
         'core-url-monitor-editor.enabled': 'شغّله',
+        'core-url-monitor-editor.save': 'احفظه',
+        'core-url-monitor-editor.add': 'أضفه',
       }),
       zh: Object.freeze({
         'core-url-monitor-editor.editing': '正在编辑 {{label}}',
@@ -142,6 +150,8 @@ window.ZogographUrlMonitorEditorCard = {
         'core-url-monitor-editor.keep_group_help':
           '记录模式中哪个括号部分。几乎总是 1——模式需要重要部分周围的上下文。0 会保留整个匹配项。',
         'core-url-monitor-editor.enabled': '运行它',
+        'core-url-monitor-editor.save': '保存它',
+        'core-url-monitor-editor.add': '添加它',
       }),
     }),
   }),

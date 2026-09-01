@@ -32463,9 +32463,7 @@ function openUrlForm(row = null) {
   actions.className = 'inspect-actions';
 
   const save = document.createElement('button');
-  save.textContent = row
-    ? ZogographI18n.t('url.save', {}, 'Save it')
-    : ZogographI18n.t('url.add', {}, 'Add it');
+  save.textContent = row ? urlEditorText('save') : urlEditorText('add');
   save.addEventListener('click', async () => {
     save.disabled = true;
     try {

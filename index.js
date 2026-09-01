@@ -34219,20 +34219,22 @@ function renderDomains(data) {
           span.title =
             meanings.join('; ') ||
             row.status ||
-            ZogographI18n.t(
-              'domain.no_lock_status',
-              {},
-              'No registry lock status was returned.',
-            );
+            ZogographDomainQueueCard.text('no_lock_status', {
+              i18n: ZogographI18n,
+            });
           return span;
         },
       },
       {
-        label: ZogographI18n.t('domain.checked', {}, 'Checked'),
+        label: ZogographDomainQueueCard.text('checked', {
+          i18n: ZogographI18n,
+        }),
         render: (row) =>
           row.last_checked_at
             ? ago(row.last_checked_at)
-            : ZogographI18n.t('domain.never', {}, 'Never'),
+            : ZogographDomainQueueCard.text('never', {
+                i18n: ZogographI18n,
+              }),
       },
       {
         label: '',
@@ -34242,11 +34244,9 @@ function renderDomains(data) {
           const now = document.createElement('button');
           now.className = 'link';
           now.textContent = actionCommonText('check_now');
-          now.title = ZogographI18n.t(
-            'domain.fresh_lookup_title',
-            {},
-            'Run a fresh registry lookup now',
-          );
+          now.title = ZogographDomainQueueCard.text('fresh_lookup_title', {
+            i18n: ZogographI18n,
+          });
           now.addEventListener('click', async () => {
             now.disabled = true;
             try {
@@ -34254,20 +34254,20 @@ function renderDomains(data) {
               notice(
                 result.result.ok
                   ? result.result.expires_at
-                    ? ZogographI18n.t(
-                        'domain.lookup_expiry',
+                    ? ZogographDomainQueueCard.text(
+                        'lookup_expiry',
+                        { i18n: ZogographI18n },
                         {
                           name: row.name,
                           date: humanTime(result.result.expires_at).split(
                             ',',
                           )[0],
                         },
-                        '{{name}}: expires {{date}}',
                       )
-                    : ZogographI18n.t(
-                        'domain.lookup_no_expiry',
+                    : ZogographDomainQueueCard.text(
+                        'lookup_no_expiry',
+                        { i18n: ZogographI18n },
                         { name: row.name },
-                        '{{name}}: the answer had no expiry date in it',
                       )
                   : `${row.name}: ${result.result.error}`,
                 result.result.ok,
@@ -34283,27 +34283,23 @@ function renderDomains(data) {
           const raw = document.createElement('button');
           raw.className = 'link';
           raw.textContent = actionCommonText('details');
-          raw.title = ZogographI18n.t(
-            'domain.details_title',
-            {},
-            'Show the last saved registry answer; this does not run a lookup',
-          );
+          raw.title = ZogographDomainQueueCard.text('details_title', {
+            i18n: ZogographI18n,
+          });
           raw.addEventListener('click', async () => {
             try {
               const result = await api('domains', { id: row.id });
               $('domainWhoisPanel').hidden = false;
-              $('domainWhoisTitle').textContent = ZogographI18n.t(
-                'domain.details_heading',
+              $('domainWhoisTitle').textContent = ZogographDomainQueueCard.text(
+                'details_heading',
+                { i18n: ZogographI18n },
                 { name: row.name },
-                'WHOIS {{name}}',
               );
               $('domainWhoisText').textContent =
                 result.whois ||
-                ZogographI18n.t(
-                  'domain.no_stored_whois',
-                  {},
-                  'Nothing stored. Press Check now to fetch it.',
-                );
+                ZogographDomainQueueCard.text('no_stored_whois', {
+                  i18n: ZogographI18n,
+                });
               $('domainWhoisPanel').scrollIntoView({
                 behavior: 'smooth',
                 block: 'nearest',
@@ -34317,20 +34313,20 @@ function renderDomains(data) {
           const remove = document.createElement('button');
           remove.className = 'link danger';
           remove.textContent = actionCommonText('stop');
-          remove.title = ZogographI18n.t(
-            'domain.stop_watching_title',
-            {},
-            'Stop watching this domain',
-          );
+          remove.title = ZogographDomainQueueCard.text('stop_watching_title', {
+            i18n: ZogographI18n,
+          });
           remove.addEventListener('click', async () => {
             if (
               !(await confirmDialog(
-                ZogographI18n.t(
-                  'domain.stop_watching_confirm',
+                ZogographDomainQueueCard.text(
+                  'stop_watching_confirm',
+                  { i18n: ZogographI18n },
                   { name: row.name },
-                  'Stop watching {{name}}?',
                 ),
-                ZogographI18n.t('domain.stop_watching', {}, 'Stop watching'),
+                ZogographDomainQueueCard.text('stop_watching', {
+                  i18n: ZogographI18n,
+                }),
               ))
             )
               return;

@@ -23,6 +23,23 @@ window.ZogographDomainQueueCard = {
         'core-domain-queue.left': 'Left',
         'core-domain-queue.registrar': 'Registrar',
         'core-domain-queue.lock': 'Lock',
+        'core-domain-queue.no_lock_status':
+          'No registry lock status was returned.',
+        'core-domain-queue.checked': 'Checked',
+        'core-domain-queue.never': 'Never',
+        'core-domain-queue.fresh_lookup_title':
+          'Run a fresh registry lookup now',
+        'core-domain-queue.lookup_expiry': '{{name}}: expires {{date}}',
+        'core-domain-queue.lookup_no_expiry':
+          '{{name}}: the answer had no expiry date in it',
+        'core-domain-queue.details_title':
+          'Show the last saved registry answer; this does not run a lookup',
+        'core-domain-queue.details_heading': 'WHOIS {{name}}',
+        'core-domain-queue.no_stored_whois':
+          'Nothing stored. Press Check now to fetch it.',
+        'core-domain-queue.stop_watching_title': 'Stop watching this domain',
+        'core-domain-queue.stop_watching_confirm': 'Stop watching {{name}}?',
+        'core-domain-queue.stop_watching': 'Stop watching',
       }),
       es: Object.freeze({
         'core-domain-queue.title': 'Nombres de dominio',
@@ -44,6 +61,25 @@ window.ZogographDomainQueueCard = {
         'core-domain-queue.left': 'Restante',
         'core-domain-queue.registrar': 'Registrador',
         'core-domain-queue.lock': 'Bloqueo',
+        'core-domain-queue.no_lock_status':
+          'No se devolvió ningún estado de bloqueo del registro.',
+        'core-domain-queue.checked': 'Comprobado',
+        'core-domain-queue.never': 'Nunca',
+        'core-domain-queue.fresh_lookup_title':
+          'Ejecutar ahora una consulta nueva al registro',
+        'core-domain-queue.lookup_expiry': '{{name}}: caduca {{date}}',
+        'core-domain-queue.lookup_no_expiry':
+          '{{name}}: la respuesta no contiene fecha de caducidad',
+        'core-domain-queue.details_title':
+          'Muestra la última respuesta del registro guardada; no ejecuta una consulta',
+        'core-domain-queue.details_heading': 'WHOIS {{name}}',
+        'core-domain-queue.no_stored_whois':
+          'No hay nada guardado. Pulse Comprobar ahora para obtenerlo.',
+        'core-domain-queue.stop_watching_title':
+          'Dejar de vigilar este dominio',
+        'core-domain-queue.stop_watching_confirm':
+          '¿Dejar de vigilar {{name}}?',
+        'core-domain-queue.stop_watching': 'Dejar de vigilar',
       }),
       hi: Object.freeze({
         'core-domain-queue.title': 'डोमेन नाम',
@@ -64,6 +100,25 @@ window.ZogographDomainQueueCard = {
         'core-domain-queue.left': 'शेष',
         'core-domain-queue.registrar': 'रजिस्ट्रार',
         'core-domain-queue.lock': 'लॉक',
+        'core-domain-queue.no_lock_status':
+          'कोई रजिस्ट्री लॉक स्थिति नहीं लौटाई गई।',
+        'core-domain-queue.checked': 'जाँचा गया',
+        'core-domain-queue.never': 'कभी नहीं',
+        'core-domain-queue.fresh_lookup_title':
+          'अभी एक नया रजिस्ट्री लुकअप चलाएँ',
+        'core-domain-queue.lookup_expiry':
+          '{{name}}: {{date}} को समाप्त होता है',
+        'core-domain-queue.lookup_no_expiry':
+          '{{name}}: उत्तर में समाप्ति तिथि नहीं थी',
+        'core-domain-queue.details_title':
+          'अंतिम सहेजा गया रजिस्ट्री उत्तर दिखाएँ; इससे लुकअप नहीं चलता',
+        'core-domain-queue.details_heading': 'WHOIS {{name}}',
+        'core-domain-queue.no_stored_whois':
+          'कुछ भी सहेजा नहीं है। इसे पाने के लिए अभी जाँचें दबाएँ।',
+        'core-domain-queue.stop_watching_title': 'इस डोमेन को देखना बंद करें',
+        'core-domain-queue.stop_watching_confirm':
+          '{{name}} को देखना बंद करें?',
+        'core-domain-queue.stop_watching': 'देखना बंद करें',
       }),
       ar: Object.freeze({
         'core-domain-queue.title': 'أسماء النطاقات',
@@ -84,6 +139,22 @@ window.ZogographDomainQueueCard = {
         'core-domain-queue.left': 'المتبقي',
         'core-domain-queue.registrar': 'المسجّل',
         'core-domain-queue.lock': 'القفل',
+        'core-domain-queue.no_lock_status': 'لم تُرجع حالة قفل من السجل.',
+        'core-domain-queue.checked': 'تم التحقق',
+        'core-domain-queue.never': 'أبدًا',
+        'core-domain-queue.fresh_lookup_title':
+          'شغّل بحثًا جديدًا في السجل الآن',
+        'core-domain-queue.lookup_expiry': '{{name}}: ينتهي في {{date}}',
+        'core-domain-queue.lookup_no_expiry':
+          '{{name}}: لم تتضمن الإجابة تاريخ انتهاء',
+        'core-domain-queue.details_title':
+          'اعرض آخر إجابة محفوظة من السجل؛ لا يُشغّل هذا بحثًا',
+        'core-domain-queue.details_heading': 'WHOIS {{name}}',
+        'core-domain-queue.no_stored_whois':
+          'لا يوجد شيء مخزّن. اضغط تحقق الآن لجلبه.',
+        'core-domain-queue.stop_watching_title': 'أوقف مراقبة هذا النطاق',
+        'core-domain-queue.stop_watching_confirm': 'أوقف مراقبة {{name}}؟',
+        'core-domain-queue.stop_watching': 'أوقف المراقبة',
       }),
       zh: Object.freeze({
         'core-domain-queue.title': '域名',
@@ -103,13 +174,27 @@ window.ZogographDomainQueueCard = {
         'core-domain-queue.left': '剩余',
         'core-domain-queue.registrar': '注册商',
         'core-domain-queue.lock': '锁定',
+        'core-domain-queue.no_lock_status': '未返回注册机构锁定状态。',
+        'core-domain-queue.checked': '已检查',
+        'core-domain-queue.never': '从不',
+        'core-domain-queue.fresh_lookup_title': '立即运行新的注册机构查询',
+        'core-domain-queue.lookup_expiry': '{{name}}：于 {{date}} 到期',
+        'core-domain-queue.lookup_no_expiry': '{{name}}：答复中没有到期日期',
+        'core-domain-queue.details_title':
+          '显示上次保存的注册机构答复；这不会运行查询',
+        'core-domain-queue.details_heading': 'WHOIS {{name}}',
+        'core-domain-queue.no_stored_whois':
+          '未存储任何内容。按“立即检查”以获取它。',
+        'core-domain-queue.stop_watching_title': '停止监测此域名',
+        'core-domain-queue.stop_watching_confirm': '停止监测 {{name}}？',
+        'core-domain-queue.stop_watching': '停止监测',
       }),
     }),
   }),
-  text(key, helpers) {
+  text(key, helpers, values = {}) {
     return helpers.i18n.t(
       `core-domain-queue.${key}`,
-      {},
+      values,
       this.manifest.catalogs.en[`core-domain-queue.${key}`],
     );
   },

@@ -28518,6 +28518,16 @@ function alertWhat(row, detailed = state.signedIn) {
  * a process or a file rather than the load average that triggered the mail.
  */
 async function showIncident(id) {
+  const incidentText = (key, values = {}) => {
+    const helpers = { i18n: ZogographI18n };
+    renderCoreCardPackage(
+      ZogographIncidentDetailsCard,
+      'core-incident-details',
+      {},
+      helpers,
+    );
+    return ZogographIncidentDetailsCard.text(key, values, helpers);
+  };
   const data = await api('incident', { id });
   const evidence = data.evidence;
 
@@ -28525,29 +28535,15 @@ async function showIncident(id) {
   $('incidentTitle').textContent =
     data.alerts.length === 1
       ? data.alerts[0].subject
-      : ZogographI18n.t(
-          'incident.alerts_fired_together',
-          { count: data.alerts.length },
-          '{{count, number}} alerts fired together',
-        );
-  $('incidentWhen').textContent = ZogographI18n.t(
-    'incident.captured_at',
-    { time: humanTime(data.captured_at) },
-    'Captured {{time}} — the machine as it stood at that moment.',
-  );
+      : incidentText('alerts_fired_together', { count: data.alerts.length });
+  $('incidentWhen').textContent = incidentText('captured_at', {
+    time: humanTime(data.captured_at),
+  });
 
   const body = document.createDocumentFragment();
 
   if (!evidence) {
-    body.appendChild(
-      note(
-        ZogographI18n.t(
-          'incident.unreadable',
-          {},
-          'This record could not be read back.',
-        ),
-      ),
-    );
+    body.appendChild(note(incidentText('unreadable')));
     $('incidentBody').replaceChildren(body);
     return;
   }
@@ -28555,7 +28551,7 @@ async function showIncident(id) {
   if (data.alerts.length > 1) {
     body.appendChild(
       section(
-        ZogographI18n.t('incident.what_fired', {}, 'What fired'),
+        incidentText('what_fired'),
         listOf(data.alerts.map((a) => a.subject)),
       ),
     );

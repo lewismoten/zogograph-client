@@ -88,6 +88,8 @@ window.ZogographProcessListCard = {
           'Every match is protected, so there is nothing here to stop.',
         'core-process-list.ask': 'Ask',
         'core-process-list.force': 'Force',
+        'core-process-list.ask_stop': 'Ask {{count}} processes to stop',
+        'core-process-list.force_stop': 'Force {{count}} processes to stop',
         'core-process-list.stopped_count': '{{count}} stopped',
         'core-process-list.still_running_count': '{{count}} still running',
         'core-process-list.protected_count': '{{count}} protected',
@@ -164,6 +166,9 @@ window.ZogographProcessListCard = {
           'Todas las coincidencias están protegidas, por lo que no hay nada que detener.',
         'core-process-list.ask': 'Pedir',
         'core-process-list.force': 'Forzar',
+        'core-process-list.ask_stop': 'Pedir detener {{count}} procesos',
+        'core-process-list.force_stop':
+          'Forzar la detención de {{count}} procesos',
         'core-process-list.stopped_count': '{{count}} detenidos',
         'core-process-list.still_running_count':
           '{{count}} siguen ejecutándose',
@@ -241,6 +246,10 @@ window.ZogographProcessListCard = {
           'हर मेल सुरक्षित है, इसलिए यहाँ रोकने के लिए कुछ नहीं है।',
         'core-process-list.ask': 'अनुरोध करें',
         'core-process-list.force': 'बलपूर्वक रोकें',
+        'core-process-list.ask_stop':
+          '{{count}} प्रक्रियाओं को रुकने का अनुरोध करें',
+        'core-process-list.force_stop':
+          '{{count}} प्रक्रियाओं को बलपूर्वक रोकें',
         'core-process-list.stopped_count': '{{count}} रोकी गईं',
         'core-process-list.still_running_count': '{{count}} अभी भी चल रही हैं',
         'core-process-list.protected_count': '{{count}} सुरक्षित हैं',
@@ -317,6 +326,8 @@ window.ZogographProcessListCard = {
           'كل المطابقات محمية، لذلك لا شيء هنا لإيقافه.',
         'core-process-list.ask': 'اطلب',
         'core-process-list.force': 'افرض الإيقاف',
+        'core-process-list.ask_stop': 'اطلب من {{count}} عمليات أن تتوقف',
+        'core-process-list.force_stop': 'افرض إيقاف {{count}} عمليات',
         'core-process-list.stopped_count': 'توقفت {{count}}',
         'core-process-list.still_running_count': 'ما زالت {{count}} تعمل',
         'core-process-list.protected_count': '{{count}} محمية',
@@ -393,6 +404,8 @@ window.ZogographProcessListCard = {
           '每个匹配项都受保护，因此这里没有可停止的内容。',
         'core-process-list.ask': '请求',
         'core-process-list.force': '强制',
+        'core-process-list.ask_stop': '请求 {{count}} 个进程停止',
+        'core-process-list.force_stop': '强制 {{count}} 个进程停止',
         'core-process-list.stopped_count': '已停止 {{count}} 个',
         'core-process-list.still_running_count': '仍在运行 {{count}} 个',
         'core-process-list.protected_count': '受保护 {{count}} 个',

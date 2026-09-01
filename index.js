@@ -23487,12 +23487,10 @@ async function previewPattern() {
   for (const force of [false, true]) {
     const button = document.createElement('button');
     button.className = force ? 'danger' : '';
-    button.textContent = ZogographI18n.t(
-      force ? 'process.force_stop' : 'process.ask_stop',
+    button.textContent = ZogographProcessListCard.text(
+      force ? 'force_stop' : 'ask_stop',
+      { i18n: ZogographI18n },
       { count: humanCount(eligible.length) },
-      force
-        ? 'Force {{count}} processes to stop'
-        : 'Ask {{count}} processes to stop',
     );
 
     button.addEventListener('click', async () => {

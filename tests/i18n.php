@@ -4338,10 +4338,12 @@ $translatedOperationalControls = [
     'store.rollup_result',
     'store.rollup_protected',
     'store.rollup_space',
-    'telegram.test_sent',
-    'telegram.test_failed',
 ];
 $translatedEmailPackageOperationalMessages = ['core-email-shell.test_sent'];
+$translatedAlertsPackageOperationalMessages = [
+    'core-alerts-shell.telegram_test_sent',
+    'core-alerts-shell.telegram_test_failed',
+];
 $translatedMarketplace = array_keys(
     array_filter(
         $english,
@@ -4527,6 +4529,13 @@ foreach (['en-US', 'en-GB', 'es', 'hi', 'zh', 'ar'] as $locale) {
                 array_keys($coreCardLocaleKeys[$locale] ?? []),
             ) === [],
             "email package $locale falls back to English for operational text",
+        );
+        i18nExpect(
+            array_diff(
+                $translatedAlertsPackageOperationalMessages,
+                array_keys($coreCardLocaleKeys[$locale] ?? []),
+            ) === [],
+            "alerts package $locale falls back to English for Telegram test text",
         );
         i18nExpect(
             array_diff($translatedMarketplace, array_keys($catalog)) === [],

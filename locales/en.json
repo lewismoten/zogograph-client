@@ -841,8 +841,6 @@
   "action.looking": "Looking…",
   "dns.look_up_all": "Look it all up",
   "store.preparing_export": "Preparing the safe database export…",
-  "telegram.test_sent": "Test Telegram sent to {{recipient}}.",
-  "telegram.test_failed": "Could not send the Telegram test.",
   "store.rollup_result": "{{removed, number}} readings merged into {{compacted, number}}.",
   "store.rollup_protected": "{{count, number}} left at full detail because they sit beside an alert.",
   "store.rollup_space": "The space they used is inside the file until you reclaim it.",

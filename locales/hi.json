@@ -862,8 +862,6 @@
   "action.looking": "खोजा जा रहा है…",
   "dns.look_up_all": "सब कुछ देखें",
   "store.preparing_export": "सुरक्षित डेटाबेस निर्यात तैयार किया जा रहा है…",
-  "telegram.test_sent": "{{recipient}} को परीक्षण Telegram भेज दिया गया है।",
-  "telegram.test_failed": "परीक्षण Telegram नहीं भेजा जा सका।",
   "store.rollup_result": "{{removed, number}} रीडिंग को {{compacted, number}} में समेट दिया गया।",
   "store.rollup_protected": "{{count, number}} को पूर्ण विवरण में रखा गया क्योंकि वे किसी चेतावनी के पास हैं।",
   "store.rollup_space": "उनके उपयोग का स्थान फ़ाइल में तब तक रहेगा जब तक आप उसे वापस नहीं लेते।",

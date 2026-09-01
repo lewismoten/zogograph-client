@@ -860,8 +860,6 @@
   "action.looking": "جارٍ البحث…",
   "dns.look_up_all": "ابحث عنها كلها",
   "store.preparing_export": "جارٍ إعداد تصدير قاعدة البيانات الآمن…",
-  "telegram.test_sent": "أُرسل Telegram تجريبي إلى {{recipient}}.",
-  "telegram.test_failed": "تعذّر إرسال اختبار Telegram.",
   "store.rollup_result": "دُمجت {{removed, number}} قراءة في {{compacted, number}}.",
   "store.rollup_protected": "أُبقيت {{count, number}} بتفاصيل كاملة لأنها بجانب تنبيه.",
   "store.rollup_space": "تبقى المساحة التي كانت تستخدمها داخل الملف إلى أن تستعيدها.",

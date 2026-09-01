@@ -40988,17 +40988,15 @@ $('testTelegram').addEventListener('click', async () => {
     const result = await post('test-telegram');
     notice(
       result.sent
-        ? ZogographI18n.t(
-            'telegram.test_sent',
+        ? ZogographAlertsShellCard.text(
+            'telegram_test_sent',
             { recipient: result.to },
-            'Test Telegram sent to {{recipient}}.',
+            { i18n: ZogographI18n },
           )
         : result.error ||
-            ZogographI18n.t(
-              'telegram.test_failed',
-              {},
-              'Could not send the Telegram test.',
-            ),
+            ZogographAlertsShellCard.text('telegram_test_failed', {
+              i18n: ZogographI18n,
+            }),
       result.sent,
     );
   } catch (error) {

@@ -7,6 +7,10 @@ window.ZogographAlertsShellCard = {
     catalogs: Object.freeze({
       en: Object.freeze({
         'core-alerts-shell.timeline_title': 'When alerts fired',
+        'core-alerts-shell.telegram_test_sent':
+          'Test Telegram sent to {{recipient}}.',
+        'core-alerts-shell.telegram_test_failed':
+          'Could not send the Telegram test.',
         'core-alerts-shell.title': 'Alerts',
         'core-alerts-shell.incident_title': 'Why this fired',
         'core-alerts-shell.mark_read': 'Mark read',
@@ -103,6 +107,10 @@ window.ZogographAlertsShellCard = {
       }),
       es: Object.freeze({
         'core-alerts-shell.timeline_title': 'Cuándo se activaron las alertas',
+        'core-alerts-shell.telegram_test_sent':
+          'Se envió un Telegram de prueba a {{recipient}}.',
+        'core-alerts-shell.telegram_test_failed':
+          'No se pudo enviar la prueba de Telegram.',
         'core-alerts-shell.title': 'Alertas',
         'core-alerts-shell.incident_title': 'Por qué se activó',
         'core-alerts-shell.mark_read': 'Marcar como leídas',
@@ -202,6 +210,10 @@ window.ZogographAlertsShellCard = {
       }),
       hi: Object.freeze({
         'core-alerts-shell.timeline_title': 'अलर्ट कब चालू हुए',
+        'core-alerts-shell.telegram_test_sent':
+          '{{recipient}} को परीक्षण Telegram भेज दिया गया है।',
+        'core-alerts-shell.telegram_test_failed':
+          'परीक्षण Telegram नहीं भेजा जा सका।',
         'core-alerts-shell.title': 'अलर्ट',
         'core-alerts-shell.incident_title': 'यह क्यों चला',
         'core-alerts-shell.mark_read': 'पढ़ा हुआ चिह्नित करें',
@@ -299,6 +311,10 @@ window.ZogographAlertsShellCard = {
       }),
       ar: Object.freeze({
         'core-alerts-shell.timeline_title': 'متى أُطلقت التنبيهات',
+        'core-alerts-shell.telegram_test_sent':
+          'أُرسل Telegram تجريبي إلى {{recipient}}.',
+        'core-alerts-shell.telegram_test_failed':
+          'تعذّر إرسال اختبار Telegram.',
         'core-alerts-shell.title': 'التنبيهات',
         'core-alerts-shell.incident_title': 'لماذا أُطلق هذا',
         'core-alerts-shell.mark_read': 'علّم كمقروءة',
@@ -394,6 +410,9 @@ window.ZogographAlertsShellCard = {
       }),
       zh: Object.freeze({
         'core-alerts-shell.timeline_title': '警报何时触发',
+        'core-alerts-shell.telegram_test_sent':
+          '测试 Telegram 已发送至 {{recipient}}。',
+        'core-alerts-shell.telegram_test_failed': '无法发送 Telegram 测试。',
         'core-alerts-shell.title': '警报',
         'core-alerts-shell.incident_title': '为何触发',
         'core-alerts-shell.mark_read': '标为已读',

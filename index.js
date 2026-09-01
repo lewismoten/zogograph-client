@@ -18580,11 +18580,9 @@ function renderTerminal(data) {
   const browse = document.createElement('button');
   browse.type = 'button';
   browse.className = 'link';
-  browse.textContent = ZogographI18n.t(
-    'terminal.browse_watched',
-    {},
-    'Browse watched files',
-  );
+  browse.textContent = ZogographTerminalShellCard.text('browse_watched', {
+    i18n: ZogographI18n,
+  });
   browse.addEventListener('click', () =>
     browseTerminalEditor().catch((error) =>
       notice(String(error.message || error)),

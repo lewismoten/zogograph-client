@@ -1380,7 +1380,6 @@
   "auth.recovery_codes": "رموز الاسترداد",
   "auth.recovery_codes_title": "أنشئ رموز استرداد جديدة تستخدم مرة واحدة بعد تأكيد تطبيق المصادقة",
   "auth.end_sessions_title": "إنهاء كل جلسات المتصفح المسجّل دخولها",
-  "overview.network": "الشبكة",
   "processes.by": "حسب",
   "processes.cpu": "المعالج",
   "processes.memory": "الذاكرة",

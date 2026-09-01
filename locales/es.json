@@ -1383,7 +1383,6 @@
   "auth.recovery_codes": "Códigos de recuperación",
   "auth.recovery_codes_title": "Crear nuevos códigos de recuperación de un solo uso tras confirmar el autenticador",
   "auth.end_sessions_title": "Cerrar todas las sesiones iniciadas en el navegador",
-  "overview.network": "Red",
   "processes.by": "Por",
   "processes.cpu": "CPU",
   "processes.memory": "Memoria",

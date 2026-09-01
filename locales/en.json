@@ -1398,7 +1398,6 @@
   "auth.recovery_codes": "Recovery codes",
   "auth.recovery_codes_title": "Create new one-time recovery codes after confirming your authenticator",
   "auth.end_sessions_title": "End all signed-in browser sessions",
-  "overview.network": "Network",
   "processes.by": "By",
   "processes.cpu": "CPU",
   "processes.memory": "Memory",

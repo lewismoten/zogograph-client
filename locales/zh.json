@@ -1380,7 +1380,6 @@
   "auth.recovery_codes": "恢复代码",
   "auth.recovery_codes_title": "确认身份验证器后创建新的一次性恢复代码",
   "auth.end_sessions_title": "结束所有已登录的浏览器会话",
-  "overview.network": "网络",
   "processes.by": "按",
   "processes.cpu": "CPU",
   "processes.memory": "内存",

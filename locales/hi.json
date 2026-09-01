@@ -1121,8 +1121,6 @@
   "host.status.needs_attention": "ध्यान आवश्यक",
   "host.status.run_root": "होस्ट सेटिंग सहेजने के बाद इसे एक बार root के रूप में चलाएँ:",
   "host.status.add_root_cron": "फिर इसे root के crontab में जोड़ें:",
-  "page.document_title": "{{page}} · {{brand}}",
-  "page.title": "{{page}} — {{brand}} अवसंरचना अवलोकन",
   "table.download_rows": "{{count, number}} पंक्तियाँ {{format}} के रूप में डाउनलोड करें",
   "table.nothing_to_show": "दिखाने के लिए कुछ नहीं है।",
   "table.sort_by": "{{label}} के अनुसार क्रमित करें",

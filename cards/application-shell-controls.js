@@ -12,6 +12,10 @@ window.ZogographApplicationShellControlsCard = {
         'core-application-shell-controls.display': 'Display',
         'core-application-shell-controls.display_title':
           'Change text size and motion',
+        'core-application-shell-controls.document_title':
+          '{{page}} · {{brand}}',
+        'core-application-shell-controls.page_title':
+          '{{page}} — {{brand}} infrastructure observation',
       }),
       es: Object.freeze({
         'core-application-shell-controls.tagline':
@@ -21,6 +25,10 @@ window.ZogographApplicationShellControlsCard = {
         'core-application-shell-controls.display': 'Pantalla',
         'core-application-shell-controls.display_title':
           'Cambiar el tamaño del texto y el movimiento',
+        'core-application-shell-controls.document_title':
+          '{{page}} · {{brand}}',
+        'core-application-shell-controls.page_title':
+          '{{page}} — observación de infraestructura de {{brand}}',
       }),
       hi: Object.freeze({
         'core-application-shell-controls.tagline': 'स्पष्ट सर्वर निगरानी',
@@ -29,6 +37,10 @@ window.ZogographApplicationShellControlsCard = {
         'core-application-shell-controls.display': 'प्रदर्शन',
         'core-application-shell-controls.display_title':
           'पाठ आकार और गति बदलें',
+        'core-application-shell-controls.document_title':
+          '{{page}} · {{brand}}',
+        'core-application-shell-controls.page_title':
+          '{{page}} — {{brand}} अवसंरचना अवलोकन',
       }),
       ar: Object.freeze({
         'core-application-shell-controls.tagline': 'مراقبة خوادم واضحة',
@@ -37,6 +49,10 @@ window.ZogographApplicationShellControlsCard = {
         'core-application-shell-controls.display': 'العرض',
         'core-application-shell-controls.display_title':
           'تغيير حجم النص والحركة',
+        'core-application-shell-controls.document_title':
+          '{{brand}} · {{page}}',
+        'core-application-shell-controls.page_title':
+          '{{page}} — مراقبة البنية التحتية لـ {{brand}}',
       }),
       zh: Object.freeze({
         'core-application-shell-controls.tagline': '清晰的服务器监控',
@@ -44,18 +60,32 @@ window.ZogographApplicationShellControlsCard = {
         'core-application-shell-controls.help': '本页帮助',
         'core-application-shell-controls.display': '显示',
         'core-application-shell-controls.display_title': '更改文字大小和动效',
+        'core-application-shell-controls.document_title':
+          '{{page}} · {{brand}}',
+        'core-application-shell-controls.page_title':
+          '{{page}} — {{brand}} 基础设施观测',
       }),
     }),
   }),
-  render(_input, helpers) {
-    const t = (key, fallback) =>
-      helpers.i18n.t(`core-application-shell-controls.${key}`, {}, fallback);
+  render({ page = '' } = {}, helpers) {
+    const t = (key, fallback, values = {}) =>
+      helpers.i18n.t(
+        `core-application-shell-controls.${key}`,
+        values,
+        fallback,
+      );
     return {
       tagline: t('tagline', 'clear server monitoring'),
       ready: t('ready', 'Ready'),
       help: t('help', 'Help for this page'),
       display: t('display', 'Display'),
       displayTitle: t('display_title', 'Change text size and motion'),
+      documentTitle: t('document_title', '{{page}} · {{brand}}', { page }),
+      pageTitle: t(
+        'page_title',
+        '{{page}} — {{brand}} infrastructure observation',
+        { page },
+      ),
     };
   },
 };

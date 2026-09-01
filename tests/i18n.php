@@ -1857,8 +1857,9 @@ i18nExpect(
         str_contains($script, 'function syncViewLabelsFromNavigation()') &&
         str_contains($script, 'syncViewLabelsFromNavigation();') &&
         str_contains($script, 'function renderViewTitles(view)') &&
-        str_contains($script, "ZogographI18n.t(\n    'page.document_title'") &&
-        str_contains($script, "'page.title'"),
+        str_contains($script, 'ZogographApplicationShellControlsCard') &&
+        str_contains($script, "'core-application-shell-controls'") &&
+        str_contains($script, "{ page: label },\n    { i18n: ZogographI18n },"),
     'dashboard value formatting ignores the selected locale or refreshes manual views',
 );
 i18nExpect(
@@ -3542,8 +3543,6 @@ i18nExpect(
             $english['setup.search_results'],
             $english['openid.provider_intro'],
             $english['openid.secret_copy'],
-            $english['page.document_title'],
-            $english['page.title'],
             $english['terminal.suggestion_expectation'],
             $english['terminal.syntax_preview_title'],
             $english['terminal.recovery_restore_selected'],

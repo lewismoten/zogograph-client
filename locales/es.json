@@ -1122,8 +1122,6 @@
   "host.status.needs_attention": "Necesita atención",
   "host.status.run_root": "Ejecute esto una vez como root después de guardar los ajustes del host:",
   "host.status.add_root_cron": "Después añádalo al crontab de root:",
-  "page.document_title": "{{page}} · {{brand}}",
-  "page.title": "{{page}} — observación de infraestructura de {{brand}}",
   "table.download_rows": "Descargar {{count, number}} filas como {{format}}",
   "table.nothing_to_show": "No hay nada que mostrar.",
   "table.sort_by": "Ordenar por {{label}}",

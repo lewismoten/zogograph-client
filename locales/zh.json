@@ -1119,8 +1119,6 @@
   "host.status.needs_attention": "需要处理",
   "host.status.run_root": "保存主机设置后，请以 root 身份运行一次：",
   "host.status.add_root_cron": "然后将它加入 root 的 crontab：",
-  "page.document_title": "{{page}} · {{brand}}",
-  "page.title": "{{page}} — {{brand}} 基础设施观测",
   "table.download_rows": "将 {{count, number}} 行下载为 {{format}}",
   "table.nothing_to_show": "没有可显示的内容。",
   "table.sort_by": "按 {{label}} 排序",

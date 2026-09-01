@@ -1119,8 +1119,6 @@
   "host.status.needs_attention": "يحتاج إلى اهتمام",
   "host.status.run_root": "شغّل هذا مرة واحدة بصفة root بعد حفظ إعدادات المضيف:",
   "host.status.add_root_cron": "ثم أضفه إلى crontab الخاص بـ root:",
-  "page.document_title": "{{brand}} · {{page}}",
-  "page.title": "{{page}} — مراقبة البنية التحتية لـ {{brand}}",
   "table.download_rows": "نزّل {{count, number}} صفًا بصيغة {{format}}",
   "table.nothing_to_show": "لا يوجد ما يمكن عرضه.",
   "table.sort_by": "فرز حسب {{label}}",

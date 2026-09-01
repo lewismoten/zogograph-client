@@ -28856,19 +28856,15 @@ function syncViewLabelsFromNavigation() {
 
 function renderViewTitles(view) {
   const label = VIEWS[view]?.label || VIEWS[DEFAULT_VIEW].label;
-  document.title = ZogographI18n.t(
-    'page.document_title',
+  const titles = renderCoreCardPackage(
+    ZogographApplicationShellControlsCard,
+    'core-application-shell-controls',
     { page: label },
-    '{{page}} · Zogograph',
+    { i18n: ZogographI18n },
   );
+  document.title = titles.documentTitle;
   const pageTitle = $('pageTitle');
-  if (pageTitle) {
-    pageTitle.textContent = ZogographI18n.t(
-      'page.title',
-      { page: label },
-      '{{page}} — Zogograph infrastructure observation',
-    );
-  }
+  if (pageTitle) pageTitle.textContent = titles.pageTitle;
 }
 
 document.addEventListener('zogograph-i18n-load', () => {

@@ -841,7 +841,6 @@
   "table.means": "Significado",
   "duration.value": "{{value, unit}}",
   "time.range_to": "a",
-  "labels.sign_in": "Inicie sesión para guardar sus propios nombres.",
   "labels.kind": "Tipo",
   "labels.kind.address": "Dirección",
   "labels.kind.port": "Puerto",

@@ -837,7 +837,6 @@
   "table.means": "يعني",
   "duration.value": "{{value, unit}}",
   "time.range_to": "إلى",
-  "labels.sign_in": "سجّل الدخول للاحتفاظ بأسماءك الخاصة.",
   "labels.kind": "النوع",
   "labels.kind.address": "العنوان",
   "labels.kind.port": "المنفذ",

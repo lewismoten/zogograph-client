@@ -35149,11 +35149,9 @@ async function refreshLabels() {
   if (!state.signedIn) {
     body.replaceChildren(
       note(
-        ZogographI18n.t(
-          'labels.sign_in',
-          {},
-          'Sign in to keep your own names.',
-        ),
+        ZogographLabelsEmptyCard.text('sign_in', {
+          i18n: ZogographI18n,
+        }),
       ),
     );
     return;

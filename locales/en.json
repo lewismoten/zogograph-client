@@ -818,7 +818,6 @@
   "table.means": "Means",
   "duration.value": "{{value, unit}}",
   "time.range_to": "to",
-  "labels.sign_in": "Sign in to keep your own names.",
   "labels.kind": "Kind",
   "labels.kind.address": "Address",
   "labels.kind.port": "Port",

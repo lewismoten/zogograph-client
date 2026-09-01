@@ -837,7 +837,6 @@
   "table.means": "含义",
   "duration.value": "{{value, unit}}",
   "time.range_to": "至",
-  "labels.sign_in": "登录以保存您自己的名称。",
   "labels.kind": "类型",
   "labels.kind.address": "地址",
   "labels.kind.port": "端口",

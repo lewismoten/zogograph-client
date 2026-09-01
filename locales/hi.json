@@ -839,7 +839,6 @@
   "table.means": "अर्थ",
   "duration.value": "{{value, unit}}",
   "time.range_to": "से",
-  "labels.sign_in": "अपने नाम रखने के लिए साइन इन करें।",
   "labels.kind": "प्रकार",
   "labels.kind.address": "पता",
   "labels.kind.port": "पोर्ट",

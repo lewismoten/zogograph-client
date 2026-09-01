@@ -39203,43 +39203,36 @@ function appendHelpLink(list, label, href) {
 
 function buildPageHelp(view) {
   const profile = helpProfileFor(view);
+  const pageHelpText = (key) => {
+    const helpers = { i18n: ZogographI18n };
+    renderCoreCardPackage(ZogographPageHelpCard, 'core-page-help', {}, helpers);
+    return ZogographPageHelpCard.text(key, helpers);
+  };
   const fragment = document.createDocumentFragment();
 
-  for (const [key, fallback, text] of [
-    ['help.page_purpose', 'What this page is for', profile.purpose],
-    ['help.page_useful', 'Why it is useful', profile.useful],
+  for (const [key, text] of [
+    ['purpose', profile.purpose],
+    ['useful', profile.useful],
   ]) {
     const title = document.createElement('h3');
-    title.textContent = ZogographI18n.t(key, {}, fallback);
+    title.textContent = pageHelpText(key);
     const paragraph = document.createElement('p');
     paragraph.textContent = text;
     fragment.append(title, paragraph);
   }
 
   const commandsTitle = document.createElement('h3');
-  commandsTitle.textContent = ZogographI18n.t(
-    'help.terminal_commands',
-    {},
-    'Related terminal commands',
-  );
+  commandsTitle.textContent = pageHelpText('commands');
   const commands = document.createElement('pre');
   commands.className = 'page-help-commands';
   commands.textContent = profile.commands.join('\n');
   const commandsNote = document.createElement('p');
   commandsNote.className = 'muted small';
-  commandsNote.textContent = ZogographI18n.t(
-    'help.terminal_commands_note',
-    {},
-    'These are read-only checks or the collectors that supply this dashboard. Run only commands appropriate for this host and account.',
-  );
+  commandsNote.textContent = pageHelpText('commands_note');
   fragment.append(commandsTitle, commands, commandsNote);
 
   const linksTitle = document.createElement('h3');
-  linksTitle.textContent = ZogographI18n.t(
-    'help.command_references',
-    {},
-    'Official command references',
-  );
+  linksTitle.textContent = pageHelpText('references');
   const links = document.createElement('ul');
   links.className = 'page-help-links';
   for (const [label, href] of profile.links) appendHelpLink(links, label, href);

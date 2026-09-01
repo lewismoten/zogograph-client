@@ -107,6 +107,7 @@ export default [
         ZogographAccountDatabaseStorageCard: 'readonly',
         ZogographDiagnosisResultsCard: 'readonly',
         ZogographMarkdownCopyControlsCard: 'readonly',
+        ZogographPageHelpCard: 'readonly',
         ZogographCollectorSaveStatusCard: 'readonly',
         ZogographBackupProviderMessageCard: 'readonly',
         ZogographPendingWorkCard: 'readonly',

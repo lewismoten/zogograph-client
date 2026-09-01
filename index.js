@@ -26333,12 +26333,18 @@ function drawSchedule(data) {
         className: 'muted small',
         textContent:
           data.other_lines > 0
-            ? ZogographI18n.t(
-                'schedule.installed_with_other',
-                { count: data.other_lines },
-                'Installed now, alongside {{count, number}} other line(s) this dashboard does not touch:',
+            ? renderCoreCardPackage(
+                window.ZogographScheduleInstalledStateCard,
+                'core-schedule-installed-state',
+                { key: 'with_other', values: { count: data.other_lines } },
+                { i18n: ZogographI18n },
               )
-            : ZogographI18n.t('schedule.installed_only', {}, 'Installed now:'),
+            : renderCoreCardPackage(
+                window.ZogographScheduleInstalledStateCard,
+                'core-schedule-installed-state',
+                { key: 'only' },
+                { i18n: ZogographI18n },
+              ),
       }),
       pre,
     );
@@ -26346,10 +26352,11 @@ function drawSchedule(data) {
     current.append(
       Object.assign(document.createElement('p'), {
         className: 'muted small',
-        textContent: ZogographI18n.t(
-          'schedule.nothing_scheduled',
-          {},
-          'Nothing is scheduled. The dashboard will only show whatever you collect by hand.',
+        textContent: renderCoreCardPackage(
+          window.ZogographScheduleInstalledStateCard,
+          'core-schedule-installed-state',
+          { key: 'none' },
+          { i18n: ZogographI18n },
         ),
       }),
     );

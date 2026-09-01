@@ -2107,17 +2107,19 @@ function renderStorageInspectorLabels() {
     { key: 'empty' },
     helpers,
   );
-  const title = document.querySelector(
-    '[data-i18n="core-storage-inspector-breakdown.inspector_title"]',
-  );
-  title.textContent = ZogographI18n.markSource(
-    title,
-    'core-storage-inspector-breakdown.inspector_title',
-    ZogographStorageInspectorBreakdownCard.render(
-      { key: 'inspector_title' },
-      helpers,
-    ),
-  );
+  document
+    .querySelectorAll('[data-i18n^="core-storage-inspector-breakdown."]')
+    .forEach((element) => {
+      const key = element.dataset.i18n.replace(
+        'core-storage-inspector-breakdown.',
+        '',
+      );
+      element.textContent = ZogographI18n.markSource(
+        element,
+        `core-storage-inspector-breakdown.${key}`,
+        ZogographStorageInspectorBreakdownCard.render({ key }, helpers),
+      );
+    });
 }
 
 document.addEventListener('zogograph-i18n-load', renderStorageInspectorLabels);

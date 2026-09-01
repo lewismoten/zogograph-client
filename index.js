@@ -8132,22 +8132,16 @@ function startDialTicker() {
         Number(spot.dataset.untilFrom || 0) - Math.floor(Date.now() / 1000);
 
       if (left <= 0) {
-        spot.textContent = ZogographI18n.t(
-          'terminal.locked_again',
-          {},
-          'It has locked itself again.',
-        );
+        spot.textContent = terminalAccessText('locked_again');
         // Redrawn once, so the unlock form replaces the countdown.
         if (!spot.dataset.saidSo) {
           spot.dataset.saidSo = '1';
           refreshTerminal().catch(() => {});
         }
       } else {
-        spot.textContent = ZogographI18n.t(
-          'terminal.open_for',
-          { duration: humanSpan(left, true) },
-          'Open for another {{duration}}.',
-        );
+        spot.textContent = terminalAccessText('open_for', {
+          duration: humanSpan(left, true),
+        });
         if (left < 120) spot.className = 'band-crit small';
       }
     }
@@ -18546,15 +18540,7 @@ function renderTerminal(data) {
   }
 
   if (!data.permitted) {
-    parts.push(
-      note(
-        ZogographI18n.t(
-          'terminal.switched_off_help',
-          {},
-          'The terminal is switched off. It is off by default because it runs whatever is typed into it — that is not a reason to avoid it, but it is a reason for the decision to be deliberate rather than inherited from a sample file.',
-        ),
-      ),
-    );
+    parts.push(note(terminalAccessText('switched_off_help')));
     parts.push(permitForm(data));
     body.replaceChildren(...parts);
     return;
@@ -18760,31 +18746,15 @@ function renderTerminal(data) {
   const off = document.createElement('button');
   off.type = 'button';
   off.className = 'link danger';
-  off.textContent = ZogographI18n.t(
-    'terminal.switch_off',
-    {},
-    'Switch the terminal off',
-  );
+  off.textContent = terminalAccessText('switch_off');
   off.addEventListener('click', async () => {
     const yes = await askFirst(
-      ZogographI18n.t(
-        'terminal.switch_off_title',
-        {},
-        'Switch the terminal off?',
-      ),
+      terminalAccessText('switch_off_title'),
       [
-        ZogographI18n.t(
-          'terminal.switch_off_consequence',
-          {},
-          'This withdraws the permission, not just the unlock. Anything running now is stopped and the page goes back to offering a switch.',
-        ),
-        ZogographI18n.t(
-          'terminal.switch_off_retention',
-          {},
-          'Nothing is lost - the transcript of what has been run stays in the action log, and you can switch it on again whenever you want it.',
-        ),
+        terminalAccessText('switch_off_consequence'),
+        terminalAccessText('switch_off_retention'),
       ],
-      ZogographI18n.t('terminal.switch_off_action', {}, 'Switch it off'),
+      terminalAccessText('switch_off_action'),
       true,
     );
 
@@ -18792,13 +18762,7 @@ function renderTerminal(data) {
 
     try {
       renderTerminal(await post('terminal-permit', { allowed: '0' }));
-      notice(
-        ZogographI18n.t(
-          'terminal.switched_off',
-          {},
-          'The terminal is switched off.',
-        ),
-      );
+      notice(terminalAccessText('switched_off'));
     } catch (error) {
       notice(String(error.message || error));
     }
@@ -19008,6 +18972,15 @@ function renderTerminal(data) {
   }
 }
 
+function terminalAccessText(key, values = {}) {
+  return renderCoreCardPackage(
+    ZogographTerminalAccessCard,
+    'core-terminal-access',
+    { key, values },
+    { i18n: ZogographI18n },
+  );
+}
+
 /** The "open it for a while" form, shown when the terminal is locked. */
 /**
  * The switch that decides whether this install may have a shell at all.
@@ -19024,15 +18997,7 @@ function permitForm(data) {
   const wrap = document.createElement('div');
 
   if (!state.signedIn) {
-    wrap.appendChild(
-      note(
-        ZogographI18n.t(
-          'terminal.sign_in_to_enable',
-          {},
-          'Sign in to switch it on.',
-        ),
-      ),
-    );
+    wrap.appendChild(note(terminalAccessText('sign_in_to_enable')));
     return wrap;
   }
 
@@ -19041,37 +19006,17 @@ function permitForm(data) {
 
   const go = document.createElement('button');
   go.type = 'button';
-  go.textContent = ZogographI18n.t('terminal.switch_on', {}, 'Switch it on');
+  go.textContent = terminalAccessText('switch_on');
   go.addEventListener('click', async () => {
     const yes = await askFirst(
-      ZogographI18n.t(
-        'terminal.enable_title',
-        {},
-        'Allow a shell in this web page?',
-      ),
+      terminalAccessText('enable_title'),
       [
-        ZogographI18n.t(
-          'terminal.enable_warning_execution',
-          {},
-          'This runs whatever is typed into it, as the user the web server runs as, and shows the output. It is a web shell.',
-        ),
-        ZogographI18n.t(
-          'terminal.enable_warning_password',
-          {},
-          "That means anybody who has this dashboard's password has it too. If that password is shared, or is the only thing between the internet and this machine, decide about that first.",
-        ),
-        ZogographI18n.t(
-          'terminal.enable_warning_audit',
-          {},
-          'Every command is written to the action log before it runs, so a command that hangs the machine still appears in the record. It stays locked until you open it, and it locks itself again after the time you choose.',
-        ),
-        ZogographI18n.t(
-          'terminal.enable_warning_disable',
-          {},
-          'You can switch it off again here at any time.',
-        ),
+        terminalAccessText('enable_warning_execution'),
+        terminalAccessText('enable_warning_password'),
+        terminalAccessText('enable_warning_audit'),
+        terminalAccessText('enable_warning_disable'),
       ],
-      ZogographI18n.t('terminal.switch_on', {}, 'Switch it on'),
+      terminalAccessText('switch_on'),
       true,
     );
 
@@ -19079,13 +19024,7 @@ function permitForm(data) {
 
     try {
       renderTerminal(await post('terminal-permit', { allowed: '1' }));
-      notice(
-        ZogographI18n.t(
-          'terminal.enabled_locked',
-          {},
-          'The terminal is switched on. It is still locked until you open it.',
-        ),
-      );
+      notice(terminalAccessText('enabled_locked'));
     } catch (error) {
       notice(String(error.message || error));
     }
@@ -19103,11 +19042,7 @@ function permitForm(data) {
   if (data.config_says === false && data.from_config) {
     const said = document.createElement('p');
     said.className = 'muted small';
-    said.textContent = ZogographI18n.t(
-      'terminal.config_disabled',
-      {},
-      'lib/config.php has it off, which is the default. Switching it on here overrules that and is remembered; the config file is not rewritten.',
-    );
+    said.textContent = terminalAccessText('config_disabled');
     wrap.appendChild(said);
   }
 
@@ -19119,11 +19054,7 @@ function unlockForm(data) {
 
   const said = document.createElement('p');
   said.className = 'muted small';
-  said.textContent = ZogographI18n.t(
-    'terminal.locked_help',
-    {},
-    'The terminal is locked. It locks itself after a while on purpose — an always-open shell is one that whoever gets this password inherits. Open it for as long as you need and it will close on its own.',
-  );
+  said.textContent = terminalAccessText('locked_help');
   wrap.appendChild(said);
 
   const row = document.createElement('div');
@@ -19142,7 +19073,7 @@ function unlockForm(data) {
 
   const go = document.createElement('button');
   go.type = 'button';
-  go.textContent = ZogographI18n.t('terminal.unlock', {}, 'Unlock it');
+  go.textContent = terminalAccessText('unlock');
   go.addEventListener('click', () => unlockTerminal(Number(howLong.value)));
   row.appendChild(go);
 
@@ -19164,26 +19095,24 @@ function openForNow(data) {
    * and this one has a decision attached to it.
    */
   said.dataset.untilFrom = String(data.unlocked_until);
-  said.textContent = ZogographI18n.t(
-    'terminal.open_for',
-    { duration: humanSpan(data.unlocked_for, true) },
-    'Open for another {{duration}}.',
-  );
+  said.textContent = terminalAccessText('open_for', {
+    duration: humanSpan(data.unlocked_for, true),
+  });
   wrap.appendChild(said);
 
   const extend = document.createElement('button');
   extend.className = 'link';
-  extend.textContent = ZogographI18n.t('terminal.extend', {}, 'Give it longer');
+  extend.textContent = terminalAccessText('extend');
   extend.addEventListener('click', () => unlockTerminal(1800));
   wrap.appendChild(extend);
 
   const lock = document.createElement('button');
   lock.className = 'link danger';
-  lock.textContent = ZogographI18n.t('terminal.lock_now', {}, 'Lock it now');
+  lock.textContent = terminalAccessText('lock_now');
   lock.addEventListener('click', async () => {
     try {
       renderTerminal(await post('terminal-lock'));
-      notice(ZogographI18n.t('terminal.locked', {}, 'Locked.'), true);
+      notice(terminalAccessText('locked'), true);
     } catch (error) {
       notice(String(error.message || error));
     }
@@ -19198,11 +19127,7 @@ async function unlockTerminal(seconds) {
     const data = await post('terminal-unlock', { seconds });
     renderTerminal(data);
     notice(
-      ZogographI18n.t(
-        'terminal.open_until',
-        { when: whenLabel(data.until) },
-        'Open until {{when}}.',
-      ),
+      terminalAccessText('open_until', { when: whenLabel(data.until) }),
       true,
     );
   } catch (error) {

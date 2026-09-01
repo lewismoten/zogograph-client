@@ -16,6 +16,11 @@ window.ZogographSystemProblemsShellCard = {
         'core-system-problems-shell.where': 'Where',
         'core-system-problems-shell.what_happened': 'What happened',
         'core-system-problems-shell.reference': 'Reference',
+        'core-system-problems-shell.none': 'Nothing has gone wrong. Good.',
+        'core-system-problems-shell.path_entry_one':
+          '{{count, number}} entry in {{path}}',
+        'core-system-problems-shell.path_entry_many':
+          '{{count, number}} entries in {{path}}',
       }),
       es: Object.freeze({
         'core-system-problems-shell.title': 'Problemas recientes',
@@ -28,6 +33,11 @@ window.ZogographSystemProblemsShellCard = {
         'core-system-problems-shell.where': 'Dónde',
         'core-system-problems-shell.what_happened': 'Qué ocurrió',
         'core-system-problems-shell.reference': 'Referencia',
+        'core-system-problems-shell.none': 'No ha salido nada mal. Bien.',
+        'core-system-problems-shell.path_entry_one':
+          '{{count, number}} entrada en {{path}}',
+        'core-system-problems-shell.path_entry_many':
+          '{{count, number}} entradas en {{path}}',
       }),
       hi: Object.freeze({
         'core-system-problems-shell.title': 'हाल की समस्याएँ',
@@ -40,6 +50,11 @@ window.ZogographSystemProblemsShellCard = {
         'core-system-problems-shell.where': 'कहाँ',
         'core-system-problems-shell.what_happened': 'क्या हुआ',
         'core-system-problems-shell.reference': 'संदर्भ',
+        'core-system-problems-shell.none': 'कुछ गलत नहीं हुआ। अच्छा।',
+        'core-system-problems-shell.path_entry_one':
+          '{{path}} में {{count, number}} प्रविष्टि',
+        'core-system-problems-shell.path_entry_many':
+          '{{path}} में {{count, number}} प्रविष्टियाँ',
       }),
       ar: Object.freeze({
         'core-system-problems-shell.title': 'المشكلات الأخيرة',
@@ -52,6 +67,10 @@ window.ZogographSystemProblemsShellCard = {
         'core-system-problems-shell.where': 'المكان',
         'core-system-problems-shell.what_happened': 'ما حدث',
         'core-system-problems-shell.reference': 'المرجع',
+        'core-system-problems-shell.none': 'لم يحدث أي خطأ. جيد.',
+        'core-system-problems-shell.path_entry_one': 'إدخال واحد في {{path}}',
+        'core-system-problems-shell.path_entry_many':
+          '{{count, number}} إدخالات في {{path}}',
       }),
       zh: Object.freeze({
         'core-system-problems-shell.title': '最近的问题',
@@ -64,13 +83,20 @@ window.ZogographSystemProblemsShellCard = {
         'core-system-problems-shell.where': '位置',
         'core-system-problems-shell.what_happened': '发生了什么',
         'core-system-problems-shell.reference': '参考',
+        'core-system-problems-shell.none': '没有出现任何问题。很好。',
+        'core-system-problems-shell.path_entry_one':
+          '{{path}} 中有 {{count, number}} 条记录',
+        'core-system-problems-shell.path_entry_many':
+          '{{path}} 中有 {{count, number}} 条记录',
       }),
     }),
   }),
-  text(key, helpers) {
+  text(key, valuesOrHelpers = {}, maybeHelpers = null) {
+    const helpers = maybeHelpers || valuesOrHelpers;
+    const values = maybeHelpers ? valuesOrHelpers : {};
     return helpers.i18n.t(
       `core-system-problems-shell.${key}`,
-      {},
+      values,
       this.manifest.catalogs.en[`core-system-problems-shell.${key}`],
     );
   },

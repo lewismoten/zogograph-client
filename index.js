@@ -26254,14 +26254,10 @@ async function refreshProblems() {
   }
 
   $('problemPath').textContent = data.lines
-    ? ZogographI18n.t(
-        data.lines === 1
-          ? 'problems.path_entry_one'
-          : 'problems.path_entry_many',
+    ? ZogographSystemProblemsShellCard.text(
+        data.lines === 1 ? 'path_entry_one' : 'path_entry_many',
         { count: data.lines, path: data.path },
-        data.lines === 1
-          ? '{{count, number}} entry in {{path}}'
-          : '{{count, number}} entries in {{path}}',
+        { i18n: ZogographI18n },
       )
     : data.path;
   $('problemClear').hidden = !data.lines;
@@ -26270,11 +26266,9 @@ async function refreshProblems() {
     $('problemBody').replaceChildren(
       Object.assign(document.createElement('p'), {
         className: 'muted',
-        textContent: ZogographI18n.t(
-          'problems.none',
-          {},
-          'Nothing has gone wrong. Good.',
-        ),
+        textContent: ZogographSystemProblemsShellCard.text('none', {
+          i18n: ZogographI18n,
+        }),
       }),
     );
     return;

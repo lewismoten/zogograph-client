@@ -123,6 +123,7 @@ export default [
         ZogographBackupProtectionStatusCard: 'readonly',
         ZogographBackupGrowthStatusCard: 'readonly',
         ZogographBackupActionGuidanceCard: 'readonly',
+        ZogographBackupContentDetailsCard: 'readonly',
         ZogographPendingWorkCard: 'readonly',
         ZogographPendingStatusCard: 'readonly',
         ZogographUpdateBannerCard: 'readonly',

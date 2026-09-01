@@ -38032,6 +38032,15 @@ function backupActionGuidanceText(key, values = {}) {
   );
 }
 
+function backupContentDetailsText(key, values = {}) {
+  return renderCoreCardPackage(
+    ZogographBackupContentDetailsCard,
+    'core-backup-content-details',
+    { key, values },
+    { i18n: ZogographI18n },
+  );
+}
+
 async function refreshBackups() {
   const holder = $('backupBody');
   if (!holder) return;
@@ -38064,13 +38073,7 @@ async function refreshBackups() {
     // Something has to be on screen while a walk of /backup is being read.
     if (el && !el.childElementCount)
       el.replaceChildren(
-        spinner(
-          ZogographI18n.t(
-            'backup.reading_last_walk',
-            {},
-            'Reading the last walk…',
-          ),
-        ),
+        spinner(backupContentDetailsText('reading_last_walk')),
       );
   }
 
@@ -38149,26 +38152,12 @@ async function refreshBackups() {
   if (data.accounts.length) {
     const wrap = document.createDocumentFragment();
     if (data.accounts.some((r) => r.unattributed)) {
-      wrap.appendChild(
-        note(
-          ZogographI18n.t(
-            'backup.unattributed_help',
-            {},
-            "Some of this could not be tied to an account. Nothing under the backup root carried a name matching a directory in /home, and JetBackup's own records were not readable — so it is reported as unattributed rather than assigned to the only account on the machine, which would be a guess.",
-          ),
-        ),
-      );
+      wrap.appendChild(note(backupContentDetailsText('unattributed_help')));
     }
 
     if (data.accounts[0].inferred) {
       wrap.appendChild(
-        note(
-          ZogographI18n.t(
-            'backup.inferred_accounts_help',
-            {},
-            "Accounts inferred from directory names under the backup root — JetBackup's own metadata was not readable, so these are a reasonable guess rather than its records.",
-          ),
-        ),
+        note(backupContentDetailsText('inferred_accounts_help')),
       );
     }
 
@@ -38261,11 +38250,9 @@ async function refreshBackups() {
        */
       wrap.appendChild(
         note(
-          ZogographI18n.t(
-            'backup.unmeasured_entries_help',
-            { count: missed },
-            '{{count}} entries here could not be measured before the walk ran out of time. They are listed with no size rather than omitted. Raise host.walk_seconds and run it again for a complete figure.',
-          ),
+          backupContentDetailsText('unmeasured_entries_help', {
+            count: missed,
+          }),
         ),
       );
     }
@@ -38290,11 +38277,9 @@ async function refreshBackups() {
           c.measured
             ? humanBytes(c.bytes)
             : c.bytes > 0
-              ? ZogographI18n.t(
-                  'backup.at_least',
-                  { size: humanBytes(c.bytes) },
-                  'at least {{size}}',
-                )
+              ? backupContentDetailsText('at_least', {
+                  size: humanBytes(c.bytes),
+                })
               : backupProtectionText('not_measured'),
           c.measured
             ? humanCount(c.files)
@@ -38308,11 +38293,7 @@ async function refreshBackups() {
 
     body.appendChild(
       section(
-        ZogographI18n.t(
-          'backup.inside_path',
-          { path: root.path },
-          'Inside {{path}}',
-        ),
+        backupContentDetailsText('inside_path', { path: root.path }),
         wrap,
       ),
     );
@@ -38320,15 +38301,7 @@ async function refreshBackups() {
 
   if (data.other.length) {
     const wrap = document.createDocumentFragment();
-    wrap.appendChild(
-      note(
-        ZogographI18n.t(
-          'backup.other_help',
-          {},
-          'These are outside the backup system, so no retention policy will ever remove them. Matched on their names, which is evidence rather than proof — a directory called “archive” might be a live dataset.',
-        ),
-      ),
-    );
+    wrap.appendChild(note(backupContentDetailsText('other_help')));
     wrap.appendChild(
       simpleTable(
         [

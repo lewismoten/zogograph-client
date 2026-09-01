@@ -7040,7 +7040,7 @@ async function refreshOffenders() {
       label:
         view === 'deleted'
           ? storageOffenderSizeText('last_seen')
-          : ZogographI18n.t('table.size', {}, 'Size'),
+          : tableCommonText('size'),
       className: 'size',
       render: (row) => {
         const links = Number(row.links ?? 1);
@@ -7120,7 +7120,7 @@ async function refreshOffenders() {
     });
   } else {
     columns.push({
-      label: ZogographI18n.t('table.change', {}, 'Change'),
+      label: tableCommonText('change'),
       className: 'size',
       render: (row) => growthCell(Number(row.growth || 0)),
     });
@@ -7827,7 +7827,7 @@ async function showLog(pathId, quiet = false) {
   if (!shown) {
     body.textContent = state.log.needle
       ? storageLogText('no_matching_lines')
-      : ZogographI18n.t('table.nothing_to_show', {}, 'Nothing to show.');
+      : tableCommonText('nothing_to_show');
   }
 
   $('logNewer').disabled = state.log.page === 0;
@@ -33194,7 +33194,7 @@ function renderDescriptions() {
             : ZogographI18n.t('descriptions.process', {}, 'Process'),
       },
       {
-        label: ZogographI18n.t('table.name', {}, 'Name'),
+        label: tableCommonText('name'),
         className: 'cmd',
         render: (row) => row.name,
       },
@@ -33991,11 +33991,7 @@ function showRecordDialog(row) {
     if (row.detail.fields.length) {
       nodes.push(
         simpleTable(
-          [
-            '',
-            ZogographI18n.t('table.value', {}, 'Value'),
-            dnsRecordText('what_it_means'),
-          ],
+          ['', tableCommonText('value'), dnsRecordText('what_it_means')],
           row.detail.fields.map((field) => [
             field.name,
             field.value,
@@ -34156,10 +34152,7 @@ async function refreshWhoAmI() {
           const wrap = document.createDocumentFragment();
           wrap.appendChild(
             simpleTable(
-              [
-                ZogographI18n.t('table.header', {}, 'Header'),
-                ZogographI18n.t('table.says', {}, 'Says'),
-              ],
+              [tableCommonText('header'), tableCommonText('says')],
               you.claims.map((c) => [c.header, c.value]),
               ['name', 'cmd'],
             ),
@@ -34366,7 +34359,7 @@ function renderDomains(data) {
         },
       },
       {
-        label: ZogographI18n.t('table.domain', {}, 'Domain'),
+        label: tableCommonText('domain'),
         className: 'name',
         render: (row) => row.name,
       },
@@ -34808,7 +34801,7 @@ async function refreshWhois(name = '') {
           simpleTable(
             [
               whoisText('status'),
-              ZogographI18n.t('table.means', {}, 'Means'),
+              tableCommonText('means'),
               whoisText('registry_wording'),
             ],
             data.status_plain
@@ -37824,6 +37817,15 @@ function actionCommonText(key, values = {}) {
   return renderCoreCardPackage(
     ZogographActionCommonCard,
     'core-action-common',
+    { key, values },
+    { i18n: ZogographI18n },
+  );
+}
+
+function tableCommonText(key, values = {}) {
+  return renderCoreCardPackage(
+    ZogographTableCommonCard,
+    'core-table-common',
     { key, values },
     { i18n: ZogographI18n },
   );

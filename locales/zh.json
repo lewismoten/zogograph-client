@@ -1370,7 +1370,6 @@
   "terminal.stop": "停止它",
   "terminal.sessions_topic": "主题",
   "ai.reclaim_space": "回收空闲空间",
-  "storage.host_help": "它由 root 的收集器写入，在这里为只读。此账户通常可以打开它进行读取，绝不应由此账户重写它——从这里启动的重写会留下收集器无法再写入的文件。完全无法打开时会直接说明，而不会显示为零。",
   "storage.recommended_settings": "使用推荐设置",
   "storage.check_symlinks": "检查符号链接",
   "storage.show_matches": "显示匹配项",

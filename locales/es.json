@@ -1373,7 +1373,6 @@
   "terminal.stop": "Detenerlo",
   "terminal.sessions_topic": "Tema",
   "ai.reclaim_space": "Recuperar espacio vacío",
-  "storage.host_help": "La escribe el recolector de root y desde aquí es de solo lectura. Esta cuenta normalmente puede abrirla para leerla y nunca debe reescribirla: una reescritura iniciada desde aquí dejaría un archivo que el recolector ya no podría escribir. Cuando no se puede abrir en absoluto, se dice así en vez de mostrar ceros.",
   "storage.recommended_settings": "Usar la configuración recomendada",
   "storage.check_symlinks": "Comprobar enlaces simbólicos",
   "storage.show_matches": "Mostrar coincidencias",

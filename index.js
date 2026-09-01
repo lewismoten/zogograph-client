@@ -2754,14 +2754,17 @@ function renderHostDatabaseStorageLabels() {
     {},
     helpers,
   );
-  const title = document.querySelector(
-    '[data-i18n="core-host-database-storage.title"]',
-  );
-  title.textContent = ZogographI18n.markSource(
-    title,
-    'core-host-database-storage.title',
-    ZogographHostDatabaseStorageCard.text('title', helpers),
-  );
+  document
+    .querySelectorAll('[data-i18n^="core-host-database-storage."]')
+    .forEach((element) => {
+      const key = element.dataset.i18n;
+      const suffix = key.replace('core-host-database-storage.', '');
+      element.textContent = ZogographI18n.markSource(
+        element,
+        key,
+        ZogographHostDatabaseStorageCard.text(suffix, helpers),
+      );
+    });
 }
 
 document.addEventListener(

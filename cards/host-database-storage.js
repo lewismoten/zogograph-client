@@ -42,7 +42,7 @@ window.ZogographHostDatabaseStorageCard = {
         'core-host-database-storage.indexes': 'Índices',
         'core-host-database-storage.total': 'Total',
         'core-host-database-storage.help':
-          'La escribe el recolector de root y aquí es de solo lectura. Esta cuenta nunca debe reescribirla; el recolector podría dejar de poder escribir el archivo.',
+          'La escribe el recolector de root y desde aquí es de solo lectura. Esta cuenta normalmente puede abrirla para leerla y nunca debe reescribirla: una reescritura iniciada desde aquí dejaría un archivo que el recolector ya no podría escribir. Cuando no se puede abrir en absoluto, se dice así en vez de mostrar ceros.',
       }),
       hi: Object.freeze({
         'core-host-database-storage.title': 'होस्ट कलेक्टर का डेटाबेस',
@@ -56,7 +56,7 @@ window.ZogographHostDatabaseStorageCard = {
         'core-host-database-storage.indexes': 'इंडेक्स',
         'core-host-database-storage.total': 'कुल',
         'core-host-database-storage.help':
-          'इसे root का कलेक्टर लिखता है और यहाँ यह केवल पढ़ने योग्य है। इस खाते को इसे कभी फिर से नहीं लिखना चाहिए।',
+          'इसे root का कलेक्टर लिखता है और यहाँ से केवल पढ़ा जा सकता है। यह खाता सामान्यतः इसे पढ़ने के लिए खोल सकता है और इसे फिर से लिखने वाली चीज़ कभी नहीं होना चाहिए—यहाँ से शुरू किया पुनर्लेखन ऐसी फ़ाइल छोड़ देगा जिसमें कलेक्टर फिर नहीं लिख सकेगा। जहाँ इसे बिल्कुल खोला नहीं जा सकता, वहाँ शून्य दिखाने के बजाय ऐसा कहा जाता है।',
       }),
       ar: Object.freeze({
         'core-host-database-storage.title': 'قاعدة بيانات جامع المضيف',
@@ -70,7 +70,7 @@ window.ZogographHostDatabaseStorageCard = {
         'core-host-database-storage.indexes': 'الفهارس',
         'core-host-database-storage.total': 'الإجمالي',
         'core-host-database-storage.help':
-          'يكتبها جامع root، وهي للقراءة فقط من هنا. لا ينبغي لهذا الحساب إعادة كتابتها أبدًا.',
+          'يكتبها جامع root وهي للقراءة فقط من هنا. يستطيع هذا الحساب عادة فتحها للقراءة ولا ينبغي أن يكون هو ما يعيد كتابتها أبدًا — فإعادة كتابة تبدأ من هنا ستترك ملفًا لا يستطيع الجامع الكتابة فيه بعد ذلك. وحين لا يمكن فتحها مطلقًا، يُقال ذلك بدل عرض أصفار.',
       }),
       zh: Object.freeze({
         'core-host-database-storage.title': '主机收集器的数据库',
@@ -84,7 +84,7 @@ window.ZogographHostDatabaseStorageCard = {
         'core-host-database-storage.indexes': '索引',
         'core-host-database-storage.total': '总计',
         'core-host-database-storage.help':
-          '该数据库由 root 采集器写入，在此处为只读。此帐户不应重写它。',
+          '它由 root 的收集器写入，在这里为只读。此账户通常可以打开它进行读取，绝不应由此账户重写它——从这里启动的重写会留下收集器无法再写入的文件。完全无法打开时会直接说明，而不会显示为零。',
       }),
     }),
   }),

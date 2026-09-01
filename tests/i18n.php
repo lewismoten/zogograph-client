@@ -2764,9 +2764,11 @@ i18nExpect(
             (string) file_get_contents($root . '/cards/chart-common.js'),
             'core-chart-common.nothing_collected_range',
         ) &&
-        str_contains($script, 'ZogographI18n.t("chart.your_notes"') &&
-        is_array($english) &&
-        isset($english['chart.your_notes']),
+        str_contains($script, "ZogographNotesShellCard.text('chart_legend'") &&
+        str_contains(
+            (string) file_get_contents($root . '/cards/notes-shell.js'),
+            'core-notes-shell.chart_legend',
+        ),
     'shared dashboard table controls or chart-note labels do not use their package catalog',
 );
 i18nExpect(

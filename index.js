@@ -4438,7 +4438,9 @@ function drawLegend(canvas, series) {
   ) {
     const span = document.createElement('span');
     span.className = 'legend-note';
-    span.textContent = ZogographI18n.t('chart.your_notes', {}, 'Your notes');
+    span.textContent = ZogographNotesShellCard.text('chart_legend', {
+      i18n: ZogographI18n,
+    });
     span.title = marksForChart(canvas.id)
       .map((mark) => mark.label)
       .join('\n\n');

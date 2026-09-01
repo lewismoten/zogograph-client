@@ -7,6 +7,7 @@ window.ZogographNotesShellCard = {
     catalogs: Object.freeze({
       en: Object.freeze({
         'core-notes-shell.title': 'Notes',
+        'core-notes-shell.chart_legend': 'Your notes',
         'core-notes-shell.add': 'Write one',
         'core-notes-shell.write_title': 'Write a note',
         'core-notes-shell.help':
@@ -53,6 +54,7 @@ window.ZogographNotesShellCard = {
       }),
       es: Object.freeze({
         'core-notes-shell.title': 'Notas',
+        'core-notes-shell.chart_legend': 'Tus notas',
         'core-notes-shell.add': 'Escribir una',
         'core-notes-shell.write_title': 'Escribir una nota',
         'core-notes-shell.help':
@@ -100,6 +102,7 @@ window.ZogographNotesShellCard = {
       }),
       hi: Object.freeze({
         'core-notes-shell.title': 'नोट्स',
+        'core-notes-shell.chart_legend': 'आपके नोट',
         'core-notes-shell.add': 'एक लिखें',
         'core-notes-shell.write_title': 'नोट लिखें',
         'core-notes-shell.help':
@@ -147,6 +150,7 @@ window.ZogographNotesShellCard = {
       }),
       ar: Object.freeze({
         'core-notes-shell.title': 'الملاحظات',
+        'core-notes-shell.chart_legend': 'ملاحظاتك',
         'core-notes-shell.add': 'اكتب واحدة',
         'core-notes-shell.write_title': 'اكتب ملاحظة',
         'core-notes-shell.help':
@@ -193,6 +197,7 @@ window.ZogographNotesShellCard = {
       }),
       zh: Object.freeze({
         'core-notes-shell.title': '备注',
+        'core-notes-shell.chart_legend': '你的笔记',
         'core-notes-shell.add': '写一条',
         'core-notes-shell.write_title': '写一条备注',
         'core-notes-shell.help':

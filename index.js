@@ -36572,7 +36572,7 @@ function renderEmail(data) {
 
   form.appendChild(
     fieldRow(
-      ZogographI18n.t('email.send_to', {}, 'Send to'),
+      ZogographEmailShellCard.text('send_to', { i18n: ZogographI18n }),
       (() => {
         /*
          * Text rather than email, because several addresses go in here.
@@ -36584,19 +36584,14 @@ function renderEmail(data) {
         input.type = 'text';
         input.id = 'emailTo';
         input.value = data.to;
-        input.placeholder = ZogographI18n.t(
-          'email.send_to_placeholder',
-          {},
-          'you@example.com; oncall@example.com',
+        input.placeholder = ZogographEmailShellCard.text(
+          'send_to_placeholder',
+          { i18n: ZogographI18n },
         );
         input.size = 44;
         return input;
       })(),
-      ZogographI18n.t(
-        'email.send_to_help',
-        {},
-        'Several addresses, separated by semicolons. Each gets its own message rather than one with everybody in the To — a single send fails as a unit, so one bad mailbox would mean nobody hears.',
-      ),
+      ZogographEmailShellCard.text('send_to_help', { i18n: ZogographI18n }),
     ),
   );
 

@@ -7,6 +7,11 @@ window.ZogographEmailShellCard = {
     catalogs: Object.freeze({
       en: Object.freeze({
         'core-email-shell.title': 'Email alerts',
+        'core-email-shell.send_to': 'Send to',
+        'core-email-shell.send_to_placeholder':
+          'you@example.com; oncall@example.com',
+        'core-email-shell.send_to_help':
+          'Several addresses, separated by semicolons. Each gets its own message rather than one with everybody in the To — a single send fails as a unit, so one bad mailbox would mean nobody hears.',
         'core-email-shell.enabled': 'Send alerts by email',
         'core-email-shell.enabled_help':
           'Nothing is sent while this is off, however bad things get.',
@@ -27,6 +32,11 @@ window.ZogographEmailShellCard = {
       }),
       es: Object.freeze({
         'core-email-shell.title': 'Alertas por correo',
+        'core-email-shell.send_to': 'Enviar a',
+        'core-email-shell.send_to_placeholder':
+          'usted@ejemplo.com; guardia@ejemplo.com',
+        'core-email-shell.send_to_help':
+          'Varias direcciones separadas por punto y coma. Cada una recibe su propio mensaje; un envío con todas falla como unidad, así que un buzón malo impediría que todos reciban avisos.',
         'core-email-shell.enabled': 'Enviar alertas por correo',
         'core-email-shell.enabled_help':
           'No se envía nada mientras esté desactivado, por graves que sean los problemas.',
@@ -47,6 +57,11 @@ window.ZogographEmailShellCard = {
       }),
       hi: Object.freeze({
         'core-email-shell.title': 'ईमेल अलर्ट',
+        'core-email-shell.send_to': 'को भेजें',
+        'core-email-shell.send_to_placeholder':
+          'you@example.com; oncall@example.com',
+        'core-email-shell.send_to_help':
+          'सेमीकोलन से अलग कई पते। हर एक को अपना संदेश मिलता है; एक भेजना एक इकाई के रूप में विफल होता है, इसलिए एक खराब मेलबॉक्स का अर्थ होगा कि किसी को नहीं सुनाई देगा।',
         'core-email-shell.enabled': 'ईमेल से चेतावनी भेजें',
         'core-email-shell.enabled_help':
           'यह बंद रहने पर, समस्याएँ कितनी भी खराब हों, कुछ नहीं भेजा जाता।',
@@ -67,6 +82,11 @@ window.ZogographEmailShellCard = {
       }),
       ar: Object.freeze({
         'core-email-shell.title': 'تنبيهات البريد',
+        'core-email-shell.send_to': 'أرسل إلى',
+        'core-email-shell.send_to_placeholder':
+          'you@example.com; oncall@example.com',
+        'core-email-shell.send_to_help':
+          'عدة عناوين تفصلها فاصلة منقوطة. يتلقى كل عنوان رسالته الخاصة؛ يفشل الإرسال الواحد كوحدة، لذا سيعني صندوق بريد سيئ عدم تلقي أحد للرسالة.',
         'core-email-shell.enabled': 'أرسل التنبيهات بالبريد',
         'core-email-shell.enabled_help':
           'لا يُرسل شيء أثناء إيقاف هذا الخيار مهما ساءت الأمور.',
@@ -87,6 +107,11 @@ window.ZogographEmailShellCard = {
       }),
       zh: Object.freeze({
         'core-email-shell.title': '电子邮件警报',
+        'core-email-shell.send_to': '发送给',
+        'core-email-shell.send_to_placeholder':
+          'you@example.com; oncall@example.com',
+        'core-email-shell.send_to_help':
+          '多个地址以分号分隔。每个地址都会收到自己的邮件；一次发送会作为整体失败，因此一个坏邮箱会导致所有人都收不到通知。',
         'core-email-shell.enabled': '通过电子邮件发送警报',
         'core-email-shell.enabled_help':
           '关闭此选项时，无论问题多么严重都不会发送任何内容。',

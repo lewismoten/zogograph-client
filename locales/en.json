@@ -814,8 +814,6 @@
   "terminal.running_in": "Running in ",
   "terminal.return_home": "back to the top",
   "terminal.return_home_title": "Return to {{home}}",
-  "filter.any": "any",
-  "filter.clear": "Clear the filters",
   "regex.pattern": "Pattern",
   "regex.summary": "Matches: {{matches, number}}; groups in pattern: {{groups, number}}.",
   "regex.whole_match": "whole match",

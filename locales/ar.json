@@ -833,8 +833,6 @@
   "terminal.running_in": "يعمل في ",
   "terminal.return_home": "العودة إلى الأعلى",
   "terminal.return_home_title": "العودة إلى {{home}}",
-  "filter.any": "أيّ",
-  "filter.clear": "امسح عوامل التصفية",
   "regex.pattern": "النمط",
   "regex.summary": "المطابقات: {{matches, number}}؛ المجموعات في النمط: {{groups, number}}.",
   "regex.whole_match": "المطابقة كاملة",

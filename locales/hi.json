@@ -835,8 +835,6 @@
   "terminal.running_in": "इसमें चल रहा है ",
   "terminal.return_home": "शीर्ष पर वापस जाएँ",
   "terminal.return_home_title": "{{home}} पर लौटें",
-  "filter.any": "कोई भी",
-  "filter.clear": "फ़िल्टर साफ़ करें",
   "regex.pattern": "पैटर्न",
   "regex.summary": "मिलान: {{matches, number}}; पैटर्न में समूह: {{groups, number}}।",
   "regex.whole_match": "पूरा मिलान",

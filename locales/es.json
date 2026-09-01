@@ -837,8 +837,6 @@
   "terminal.running_in": "Ejecutando en ",
   "terminal.return_home": "volver al inicio",
   "terminal.return_home_title": "Volver a {{home}}",
-  "filter.any": "cualquiera",
-  "filter.clear": "Borrar los filtros",
   "regex.pattern": "Patrón",
   "regex.summary": "Coincidencias: {{matches, number}}; grupos en el patrón: {{groups, number}}.",
   "regex.whole_match": "coincidencia completa",

@@ -833,8 +833,6 @@
   "terminal.running_in": "正在运行于 ",
   "terminal.return_home": "返回顶部",
   "terminal.return_home_title": "返回 {{home}}",
-  "filter.any": "任意",
-  "filter.clear": "清除筛选条件",
   "regex.pattern": "模式",
   "regex.summary": "匹配项：{{matches, number}}；模式中的分组：{{groups, number}}。",
   "regex.whole_match": "完整匹配",

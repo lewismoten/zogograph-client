@@ -35443,7 +35443,12 @@ function unitFilters(data, problems) {
 
     const any = document.createElement('option');
     any.value = '';
-    any.textContent = ZogographI18n.t('filter.any', {}, 'any');
+    any.textContent = renderCoreCardPackage(
+      ZogographFilterControlsCard,
+      'core-filter-controls',
+      { key: 'any', fallback: 'any' },
+      { i18n: ZogographI18n },
+    );
     select.appendChild(any);
 
     for (const [value, n] of Object.entries(values)) {
@@ -35490,7 +35495,12 @@ function unitFilters(data, problems) {
   const clear = document.createElement('button');
   clear.type = 'button';
   clear.className = 'link';
-  clear.textContent = ZogographI18n.t('filter.clear', {}, 'Clear the filters');
+  clear.textContent = renderCoreCardPackage(
+    ZogographFilterControlsCard,
+    'core-filter-controls',
+    { key: 'clear', fallback: 'Clear the filters' },
+    { i18n: ZogographI18n },
+  );
   clear.hidden = !unitState.category && !unitState.boot && !unitState.says;
   clear.addEventListener('click', () => {
     unitState.category = '';

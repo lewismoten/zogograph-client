@@ -1240,7 +1240,6 @@
   "alert.when": "Cuándo",
   "alert.severity": "Gravedad",
   "alert.what": "Qué",
-  "alert.details": "detalles",
   "alert.held_back": "Lo retuvo",
   "alert.verdict": "Qué concluyó",
   "alert.not_sent_why": "Por qué no se envió",

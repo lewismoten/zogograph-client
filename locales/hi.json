@@ -1239,7 +1239,6 @@
   "alert.when": "कब",
   "alert.severity": "गंभीरता",
   "alert.what": "क्या",
-  "alert.details": "विवरण",
   "alert.held_back": "इसे रोका गया",
   "alert.verdict": "इसका निष्कर्ष",
   "alert.not_sent_why": "इसे क्यों नहीं भेजा गया",

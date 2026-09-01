@@ -27597,7 +27597,9 @@ function alertOpinion(row) {
 
   const more = document.createElement('button');
   more.className = 'link small';
-  more.textContent = ZogographI18n.t('alert.details', {}, 'details');
+  more.textContent = ZogographAlertsShellCard.text('details', {
+    i18n: ZogographI18n,
+  });
   more.addEventListener('click', () => showAlertVerdict(row));
   wrap.appendChild(more);
 

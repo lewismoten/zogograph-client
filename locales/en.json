@@ -1255,7 +1255,6 @@
   "alert.when": "When",
   "alert.severity": "Severity",
   "alert.what": "What",
-  "alert.details": "details",
   "alert.held_back": "It held this back",
   "alert.verdict": "What it made of it",
   "alert.not_sent_why": "Why it was not sent",

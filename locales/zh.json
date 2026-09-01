@@ -1237,7 +1237,6 @@
   "alert.when": "时间",
   "alert.severity": "严重程度",
   "alert.what": "内容",
-  "alert.details": "详情",
   "alert.held_back": "它将此项拦下了",
   "alert.verdict": "它对此的判断",
   "alert.not_sent_why": "未发送的原因",

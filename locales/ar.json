@@ -1237,7 +1237,6 @@
   "alert.when": "متى",
   "alert.severity": "الخطورة",
   "alert.what": "ما",
-  "alert.details": "التفاصيل",
   "alert.held_back": "احتجزه",
   "alert.verdict": "ما خلص إليه",
   "alert.not_sent_why": "لماذا لم يُرسل",

@@ -21,6 +21,9 @@ window.ZogographSystemProblemsShellCard = {
           '{{count, number}} entry in {{path}}',
         'core-system-problems-shell.path_entry_many':
           '{{count, number}} entries in {{path}}',
+        'core-system-problems-shell.clear_confirm':
+          'Clear the problem log?\n\nThe entries are removed for good. Anything still broken will write a fresh one on its next failure, which is the point: what is left afterwards is what is still wrong.',
+        'core-system-problems-shell.clear_result': 'Cleared {{entries}}.',
       }),
       es: Object.freeze({
         'core-system-problems-shell.title': 'Problemas recientes',
@@ -38,6 +41,9 @@ window.ZogographSystemProblemsShellCard = {
           '{{count, number}} entrada en {{path}}',
         'core-system-problems-shell.path_entry_many':
           '{{count, number}} entradas en {{path}}',
+        'core-system-problems-shell.clear_confirm':
+          '¿Borrar el registro de problemas?\n\nLas entradas se eliminan definitivamente. Todo lo que siga roto escribirá una nueva al fallar otra vez; ese es el objetivo: lo que queda después es lo que aún está mal.',
+        'core-system-problems-shell.clear_result': 'Se borraron {{entries}}.',
       }),
       hi: Object.freeze({
         'core-system-problems-shell.title': 'हाल की समस्याएँ',
@@ -55,6 +61,9 @@ window.ZogographSystemProblemsShellCard = {
           '{{path}} में {{count, number}} प्रविष्टि',
         'core-system-problems-shell.path_entry_many':
           '{{path}} में {{count, number}} प्रविष्टियाँ',
+        'core-system-problems-shell.clear_confirm':
+          'समस्या लॉग साफ़ करें?\n\nप्रविष्टियाँ स्थायी रूप से हटा दी जाएँगी। जो भी अभी भी टूटा है वह अगली विफलता पर नई प्रविष्टि लिखेगा; उद्देश्य यही है: बाद में जो बचा है वही अभी भी गलत है।',
+        'core-system-problems-shell.clear_result': '{{entries}} साफ़ की गईं।',
       }),
       ar: Object.freeze({
         'core-system-problems-shell.title': 'المشكلات الأخيرة',
@@ -71,6 +80,9 @@ window.ZogographSystemProblemsShellCard = {
         'core-system-problems-shell.path_entry_one': 'إدخال واحد في {{path}}',
         'core-system-problems-shell.path_entry_many':
           '{{count, number}} إدخالات في {{path}}',
+        'core-system-problems-shell.clear_confirm':
+          'مسح سجل المشكلات؟\n\nتُزال الإدخالات نهائيًا. أي شيء ما زال معطلاً سيكتب إدخالاً جديدًا عند فشله التالي؛ وهذا هو المقصود: ما يبقى بعد ذلك هو ما لا يزال خطأ.',
+        'core-system-problems-shell.clear_result': 'تم مسح {{entries}}.',
       }),
       zh: Object.freeze({
         'core-system-problems-shell.title': '最近的问题',
@@ -88,6 +100,9 @@ window.ZogographSystemProblemsShellCard = {
           '{{path}} 中有 {{count, number}} 条记录',
         'core-system-problems-shell.path_entry_many':
           '{{path}} 中有 {{count, number}} 条记录',
+        'core-system-problems-shell.clear_confirm':
+          '清除问题日志？\n\n条目将被永久移除。任何仍然存在的问题会在下一次失败时写入新条目；这正是目的：之后留下的就是仍有问题的内容。',
+        'core-system-problems-shell.clear_result': '已清除 {{entries}}。',
       }),
     }),
   }),

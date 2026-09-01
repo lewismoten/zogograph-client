@@ -40275,12 +40275,12 @@ $('hostMetric').addEventListener('change', () => {
 $('problemClear').addEventListener('click', async () => {
   if (
     !(await confirmDialog(
-      ZogographI18n.t(
-        'problems.clear_confirm',
-        {},
-        'Clear the problem log?\n\nThe entries are removed for good. Anything still broken will write a fresh one on its next failure, which is the point: what is left afterwards is what is still wrong.',
-      ),
-      ZogographI18n.t('problems.clear_log', {}, 'Clear log'),
+      ZogographSystemProblemsShellCard.text('clear_confirm', {
+        i18n: ZogographI18n,
+      }),
+      ZogographSystemProblemsShellCard.text('clear_log', {
+        i18n: ZogographI18n,
+      }),
     ))
   )
     return;
@@ -40288,10 +40288,10 @@ $('problemClear').addEventListener('click', async () => {
   try {
     const result = await post('clear-problems');
     notice(
-      ZogographI18n.t(
-        'problems.clear_result',
+      ZogographSystemProblemsShellCard.text(
+        'clear_result',
         { entries: count(result.removed, 'entry', 'entries') },
-        'Cleared {{entries}}.',
+        { i18n: ZogographI18n },
       ),
       true,
     );

@@ -19259,13 +19259,13 @@ function suggestionList(suggestions) {
 
     const copy = document.createElement('button');
     copy.className = 'link';
-    copy.textContent = ZogographI18n.t('action.copy', {}, 'Copy');
+    copy.textContent = actionCommonText('copy');
     copy.addEventListener('click', async () => {
       try {
         await navigator.clipboard.writeText(one.command);
-        copy.textContent = ZogographI18n.t('action.copied', {}, 'Copied');
+        copy.textContent = actionCommonText('copied');
         setTimeout(() => {
-          copy.textContent = ZogographI18n.t('action.copy', {}, 'Copy');
+          copy.textContent = actionCommonText('copy');
         }, 1400);
       } catch {
         notice(
@@ -22178,7 +22178,7 @@ function renderMarkdown(text) {
       const copy = document.createElement('button');
       copy.type = 'button';
       copy.className = 'md-copy';
-      copy.textContent = ZogographI18n.t('action.copy', {}, 'Copy');
+      copy.textContent = actionCommonText('copy');
       copy.title = renderCoreCardPackage(
         ZogographMarkdownCopyControlsCard,
         'core-markdown-copy-controls',

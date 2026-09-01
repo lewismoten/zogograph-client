@@ -21,6 +21,8 @@ window.ZogographActionCommonCard = {
         'core-action-common.run': 'Run it',
         'core-action-common.stop': 'Stop it',
         'core-action-common.show': 'Show it',
+        'core-action-common.copy': 'Copy',
+        'core-action-common.copied': 'Copied',
       }),
       es: Object.freeze({
         'core-action-common.view': 'Ver',
@@ -38,6 +40,8 @@ window.ZogographActionCommonCard = {
         'core-action-common.run': 'Ejecutarlo',
         'core-action-common.stop': 'Detenerlo',
         'core-action-common.show': 'Mostrarlo',
+        'core-action-common.copy': 'Copiar',
+        'core-action-common.copied': 'Copiado',
       }),
       hi: Object.freeze({
         'core-action-common.view': 'देखें',
@@ -55,6 +59,8 @@ window.ZogographActionCommonCard = {
         'core-action-common.run': 'इसे चलाएँ',
         'core-action-common.stop': 'इसे रोकें',
         'core-action-common.show': 'इसे दिखाएँ',
+        'core-action-common.copy': 'कॉपी करें',
+        'core-action-common.copied': 'कॉपी हो गया',
       }),
       ar: Object.freeze({
         'core-action-common.view': 'عرض',
@@ -72,6 +78,8 @@ window.ZogographActionCommonCard = {
         'core-action-common.run': 'شغّله',
         'core-action-common.stop': 'أوقفه',
         'core-action-common.show': 'اعرضه',
+        'core-action-common.copy': 'نسخ',
+        'core-action-common.copied': 'تم النسخ',
       }),
       zh: Object.freeze({
         'core-action-common.view': '查看',
@@ -89,6 +97,8 @@ window.ZogographActionCommonCard = {
         'core-action-common.run': '运行它',
         'core-action-common.stop': '停止它',
         'core-action-common.show': '显示它',
+        'core-action-common.copy': '复制',
+        'core-action-common.copied': '已复制',
       }),
     }),
   }),

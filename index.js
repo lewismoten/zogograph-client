@@ -38175,19 +38175,33 @@ async function refreshBackups() {
     wrap.appendChild(
       simpleTable(
         [
-          ZogographI18n.t('backup.account', {}, 'Account'),
-          ZogographI18n.t('backup.live_data', {}, 'Live data'),
-          ZogographI18n.t('backup.backups', {}, 'Backups'),
-          ZogographI18n.t('backup.ratio', {}, 'Ratio'),
-          ZogographI18n.t('backup.copies', {}, 'Copies'),
-          ZogographI18n.t('backup.oldest', {}, 'Oldest'),
-          ZogographI18n.t('backup.newest', {}, 'Newest'),
+          ...[
+            'account',
+            'live_data',
+            'backups',
+            'ratio',
+            'copies',
+            'oldest',
+            'newest',
+          ].map((key) =>
+            renderCoreCardPackage(
+              window.ZogographBackupAccountSummaryCard,
+              'core-backup-account-summary',
+              { key },
+              { i18n: ZogographI18n },
+            ),
+          ),
         ],
         data.accounts.map((row) => [
           // The unattributed remainder has no account, and an empty cell reads
           // as a missing value rather than as the deliberate refusal it is.
           row.unattributed
-            ? ZogographI18n.t('backup.not_attributed', {}, 'not attributed')
+            ? renderCoreCardPackage(
+                window.ZogographBackupAccountSummaryCard,
+                'core-backup-account-summary',
+                { key: 'not_attributed' },
+                { i18n: ZogographI18n },
+              )
             : row.account,
           row.live_bytes == null ? '—' : humanBytes(row.live_bytes),
           humanBytes(row.backup_bytes),
@@ -38209,7 +38223,15 @@ async function refreshBackups() {
     }
 
     body.appendChild(
-      section(ZogographI18n.t('backup.by_account', {}, 'By account'), wrap),
+      section(
+        renderCoreCardPackage(
+          window.ZogographBackupAccountSummaryCard,
+          'core-backup-account-summary',
+          { key: 'by_account' },
+          { i18n: ZogographI18n },
+        ),
+        wrap,
+      ),
     );
   }
 

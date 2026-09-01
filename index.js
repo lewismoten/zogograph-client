@@ -26282,23 +26282,31 @@ async function refreshProblems() {
 
   renderTable('problemBody', data.rows, [
     {
-      label: ZogographI18n.t('problems.last_seen', {}, 'Last seen'),
+      label: ZogographSystemProblemsShellCard.text('last_seen', {
+        i18n: ZogographI18n,
+      }),
       render: (row) => (row.last ? new Date(row.last).toLocaleString() : ''),
     },
     {
       // One row per distinct fault, so a number here is repetition rather than
       // separate problems - which is the difference between "89 things are
       // broken" and "three things are broken, one of them noisily".
-      label: ZogographI18n.t('problems.times', {}, 'Times'),
+      label: ZogographSystemProblemsShellCard.text('times', {
+        i18n: ZogographI18n,
+      }),
       className: 'size',
       render: (row) => (row.count > 1 ? row.count : ''),
     },
     {
-      label: ZogographI18n.t('problems.level', {}, 'Level'),
+      label: ZogographSystemProblemsShellCard.text('level', {
+        i18n: ZogographI18n,
+      }),
       render: (row) => row.level,
     },
     {
-      label: ZogographI18n.t('problems.where', {}, 'Where'),
+      label: ZogographSystemProblemsShellCard.text('where', {
+        i18n: ZogographI18n,
+      }),
       render: (row) => {
         const span = document.createElement('span');
         span.textContent = row.where;
@@ -26312,12 +26320,16 @@ async function refreshProblems() {
       },
     },
     {
-      label: ZogographI18n.t('problems.what_happened', {}, 'What happened'),
+      label: ZogographSystemProblemsShellCard.text('what_happened', {
+        i18n: ZogographI18n,
+      }),
       className: 'name',
       render: (row) => row.message,
     },
     {
-      label: ZogographI18n.t('problems.reference', {}, 'Reference'),
+      label: ZogographSystemProblemsShellCard.text('reference', {
+        i18n: ZogographI18n,
+      }),
       className: 'size',
       render: (row) => (row.reference ? row.reference : ''),
     },

@@ -21527,10 +21527,10 @@ async function tryBrowserTool(tool, args) {
   }
 
   throw new Error(
-    ZogographI18n.t(
-      'core-ai-tool-try.unknown_tool',
+    ZogographAiToolTryCard.text(
+      'unknown_tool',
+      { i18n: ZogographI18n },
       { tool: name },
-      'This page does not know how to try {{tool}}.',
     ),
   );
 }

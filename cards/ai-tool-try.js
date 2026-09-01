@@ -166,6 +166,12 @@ window.ZogographAiToolTryCard = {
       }),
     }),
   }),
+
+  text(key, { i18n }, values = {}) {
+    const id = `core-ai-tool-try.${key}`;
+    return i18n.t(id, values, this.manifest.catalogs.en[id]);
+  },
+
   render(input, helpers) {
     const { body, fieldRow, note, tryFields, runAiTry, i18n } = helpers;
     const t = (key, vars, fallback) => i18n.t(key, vars, fallback);

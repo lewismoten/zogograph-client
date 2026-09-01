@@ -19416,6 +19416,15 @@ function terminalEditorReviewText(key, values = {}) {
   );
 }
 
+function terminalEditorBrowserText(key, values = {}) {
+  return renderCoreCardPackage(
+    ZogographTerminalEditorBrowserCard,
+    'core-terminal-editor-browser',
+    { key, values },
+    { i18n: ZogographI18n },
+  );
+}
+
 async function openTerminalEditor(path) {
   const data = await api('terminal-editor', { path });
   const editable = Boolean(data.writable && state.access?.write);
@@ -19755,11 +19764,7 @@ async function browseTerminalEditor(path = '') {
     const up = document.createElement('button');
     up.type = 'button';
     up.className = 'link';
-    up.textContent = ZogographI18n.t(
-      'editor.parent_directory',
-      {},
-      '↑ Parent directory',
-    );
+    up.textContent = terminalEditorBrowserText('parent_directory');
     up.addEventListener('click', () =>
       browseTerminalEditor(data.parent).catch((error) =>
         notice(String(error.message || error)),
@@ -19798,41 +19803,19 @@ async function browseTerminalEditor(path = '') {
     facts.className = 'muted small';
     facts.textContent =
       row.kind === 'link'
-        ? ZogographI18n.t(
-            'editor.symbolic_link_unfollowed',
-            {},
-            'symbolic link — not followed',
-          )
+        ? terminalEditorBrowserText('symbolic_link_unfollowed')
         : row.kind === 'directory'
           ? row.writable
-            ? ZogographI18n.t(
-                'editor.directory_writable',
-                {},
-                'directory · writable',
-              )
-            : ZogographI18n.t(
-                'editor.directory_read_only',
-                {},
-                'directory · read-only',
-              )
+            ? terminalEditorBrowserText('directory_writable')
+            : terminalEditorBrowserText('directory_read_only')
           : row.kind === 'file'
-            ? ZogographI18n.t(
-                'editor.file_access',
-                {
-                  size: humanBytes(row.bytes || 0),
-                  access: ZogographI18n.t(
-                    row.writable ? 'editor.writable' : 'editor.read_only',
-                    {},
-                    row.writable ? 'writable' : 'read-only',
-                  ),
-                },
-                '{{size}} · {{access}}',
-              )
-            : ZogographI18n.t(
-                'editor.not_regular_file',
-                {},
-                'not a regular file',
-              );
+            ? terminalEditorBrowserText('file_access', {
+                size: humanBytes(row.bytes || 0),
+                access: terminalEditorBrowserText(
+                  row.writable ? 'writable' : 'read_only',
+                ),
+              })
+            : terminalEditorBrowserText('not_regular_file');
     entry.appendChild(facts);
     list.appendChild(entry);
   }
@@ -19840,11 +19823,9 @@ async function browseTerminalEditor(path = '') {
   if (data.more)
     nodes.push(
       note(
-        ZogographI18n.t(
-          'editor.browser_more',
-          { count: humanCount(data.more) },
-          '{{count}} additional entries not shown. Open a narrower directory to keep browsing responsive.',
-        ),
+        terminalEditorBrowserText('browser_more', {
+          count: humanCount(data.more),
+        }),
       ),
     );
   showListDialog(
@@ -19852,11 +19833,7 @@ async function browseTerminalEditor(path = '') {
       i18n: ZogographI18n,
     }),
     nodes,
-    ZogographI18n.t(
-      'editor.browser_help',
-      {},
-      'Only direct children are shown. Symbolic links are never followed here, and opening a file repeats its path and access checks.',
-    ),
+    terminalEditorBrowserText('browser_help'),
   );
 }
 

@@ -383,6 +383,9 @@ $terminalEditorDetailsCard = i18nCardSource(
 $terminalEditorReviewCard = i18nCardSource(
     file_get_contents($root . '/cards/terminal-editor-review.js'),
 );
+$terminalEditorBrowserCard = i18nCardSource(
+    file_get_contents($root . '/cards/terminal-editor-browser.js'),
+);
 $terminalShellCard = i18nCardSource(
     file_get_contents($root . '/cards/terminal-shell.js'),
 );
@@ -3809,9 +3812,13 @@ i18nExpect(
 );
 i18nExpect(
     $script !== false &&
-        str_contains($script, 'editor.parent_directory') &&
-        str_contains($script, 'editor.file_access') &&
-        str_contains($script, 'editor.browser_help'),
+        $terminalEditorBrowserCard !== false &&
+        str_contains($script, "terminalEditorBrowserText('parent_directory'") &&
+        str_contains($script, "terminalEditorBrowserText('file_access'") &&
+        str_contains(
+            $terminalEditorBrowserCard,
+            'core-terminal-editor-browser.browser_help',
+        ),
     'terminal editor browser is not localized',
 );
 i18nExpect(

@@ -35180,63 +35180,20 @@ function renderLabels(data) {
     return;
   }
 
-  const holder = document.createElement('div');
-  holder.id = 'labelsTable';
-  body.replaceChildren(holder);
-
-  renderTable(
-    'labelsTable',
-    data.rows,
-    [
-      {
-        label: ZogographI18n.t('labels.kind', {}, 'Kind'),
-        render: (row) =>
-          ({
-            address: ZogographI18n.t('labels.kind.address', {}, 'Address'),
-            port: ZogographI18n.t('labels.kind.port', {}, 'Port'),
-            header: ZogographI18n.t('labels.kind.header', {}, 'HTTP header'),
-          })[row.kind] || row.kind,
-      },
-      {
-        label: ZogographI18n.t('labels.matches', {}, 'Matches'),
-        className: 'name',
-        render: (row) => row.match,
-      },
-      {
-        label: ZogographI18n.t('labels.shown_as', {}, 'Shown as'),
-        className: 'name',
-        render: (row) => row.label,
-      },
-      {
-        label: ZogographI18n.t('labels.note', {}, 'Note'),
-        className: 'cmd',
-        render: (row) => row.note || '',
-      },
-      {
-        label: '',
-        render: (row) => {
-          const button = document.createElement('button');
-          button.className = 'link danger';
-          button.textContent = ZogographI18n.t('action.remove', {}, 'Remove');
-          button.addEventListener('click', async () => {
-            try {
-              const result = await post('label-delete', { id: row.id });
-              renderLabels(result);
-              // Everything that shows an address or a port has to be redrawn, or
-              // a name that has just been removed stays on screen.
-              if (networkState.data) await refreshNetwork();
-            } catch (error) {
-              notice(String(error.message || error));
-            }
-          });
-          return button;
-        },
-      },
-    ],
-    null,
-    null,
-    (row) => String(row.id),
-  );
+  renderCoreCardPackage(ZogographLabelsTableCard, 'core-labels-table', data, {
+    target: body,
+    renderTable,
+    remove: async (row) => {
+      try {
+        const result = await post('label-delete', { id: row.id });
+        renderLabels(result);
+        if (networkState.data) await refreshNetwork();
+      } catch (error) {
+        notice(String(error.message || error));
+      }
+    },
+    i18n: ZogographI18n,
+  });
 }
 
 /* ------------------------------------------------------------------- DNS -- */

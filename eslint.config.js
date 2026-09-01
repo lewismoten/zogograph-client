@@ -74,6 +74,7 @@ export default [
         ZogographDomainQueueCard: 'readonly',
         ZogographDomainWhoisAvailabilityCard: 'readonly',
         ZogographLabelsEmptyCard: 'readonly',
+        ZogographLabelsTableCard: 'readonly',
         ZogographDnsEmptyCard: 'readonly',
         ZogographNotesEmptyCard: 'readonly',
         ZogographNotesRecordsCard: 'readonly',

@@ -13012,7 +13012,7 @@ function chatAsk({
     const skip = document.createElement('button');
     skip.type = 'button';
     skip.className = 'link';
-    skip.textContent = ZogographI18n.t('action.skip', {}, 'Skip');
+    skip.textContent = actionCommonText('skip');
     skip.title = ZogographI18n.t(
       'ai.skip_question_help',
       {},
@@ -14476,7 +14476,7 @@ function showPathHygieneRename(row) {
       renderPathHygiene({ enabled: true, last: result.last, can_change: true });
       notice(pathHygieneText('renamed_to', { path: result.result.to }), true);
     },
-    ZogographI18n.t('action.rename', {}, 'Rename'),
+    actionCommonText('rename'),
   );
   const button = $('noteForm').querySelector('button[type=submit]');
   const validate = () => {
@@ -16775,7 +16775,7 @@ function renderPeers(data) {
             });
             const drop = document.createElement('button');
             drop.className = 'link danger';
-            drop.textContent = ZogographI18n.t('action.remove', {}, 'Remove');
+            drop.textContent = actionCommonText('remove');
             drop.addEventListener('click', async () => {
               if (
                 !(await confirmDialog(
@@ -17193,7 +17193,7 @@ function noteActions(row) {
   if (row.view && VIEWS[row.view]) {
     const go = document.createElement('button');
     go.className = 'link';
-    go.textContent = ZogographI18n.t('action.go_there', {}, 'Go there');
+    go.textContent = actionCommonText('go_there');
     go.title = notesRecordsText('open_view', {
       view: VIEWS[row.view].label,
     });

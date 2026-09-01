@@ -28810,11 +28810,18 @@ function escapeHtml(text) {
 
 /* ------------------------------------------------------------- sign in/out -- */
 
+function authSessionSecurityText(key, values = {}) {
+  return renderCoreCardPackage(
+    ZogographAuthSessionSecurityCard,
+    'core-auth-session-security',
+    { key, values },
+    { i18n: ZogographI18n },
+  );
+}
+
 function applySignedInChrome() {
-  $('signInOut').textContent = ZogographI18n.t(
-    state.signedIn ? 'auth.sign_out' : 'auth.sign_in',
-    {},
-    state.signedIn ? 'Sign out' : 'Sign in',
+  $('signInOut').textContent = authSessionSecurityText(
+    state.signedIn ? 'sign_out' : 'sign_in',
   );
   $('totpRecoveryCodes').hidden = !state.signedIn || !state.access?.write;
   $('revokeSessions').hidden = !state.signedIn || !state.access?.write;
@@ -40636,12 +40643,8 @@ $('revokeSessions').addEventListener('click', async () => {
   if (!state.signedIn || !state.access?.write) return;
   if (
     !(await confirmDialog(
-      ZogographI18n.t(
-        'auth.end_sessions_confirm',
-        {},
-        'End every signed-in session? This immediately signs out every browser, including this one. Use it if a device is lost or access may be compromised.',
-      ),
-      ZogographI18n.t('auth.end_sessions', {}, 'End all sessions'),
+      authSessionSecurityText('end_sessions_confirm'),
+      authSessionSecurityText('end_sessions'),
     ))
   )
     return;
@@ -40649,14 +40652,7 @@ $('revokeSessions').addEventListener('click', async () => {
   state.signedIn = false;
   state.csrf = null;
   applySignedInChrome();
-  notice(
-    ZogographI18n.t(
-      'auth.sessions_ended',
-      {},
-      'Every signed-in session has been ended.',
-    ),
-    true,
-  );
+  notice(authSessionSecurityText('sessions_ended'), true);
   refreshShared().catch(() => {});
 });
 
@@ -40665,22 +40661,10 @@ $('displayPreferences').addEventListener('click', openDisplayPreferences);
 $('totpRecoveryCodes').addEventListener('click', async () => {
   if (!state.signedIn || !state.access?.write) return;
   const code = await askTextDialog(
-    ZogographI18n.t(
-      'auth.recovery_codes_create_title',
-      {},
-      'Create recovery codes',
-    ),
-    ZogographI18n.t(
-      'auth.current_verification_code',
-      {},
-      'Current verification code',
-    ),
+    authSessionSecurityText('recovery_codes_create_title'),
+    authSessionSecurityText('current_verification_code'),
     '',
-    ZogographI18n.t(
-      'auth.recovery_codes_create_help',
-      {},
-      'This replaces every previous recovery code. Store the new one-time codes offline; Zogograph will show them only once.',
-    ),
+    authSessionSecurityText('recovery_codes_create_help'),
   );
   if (code === null) return;
   try {
@@ -40689,26 +40673,11 @@ $('totpRecoveryCodes').addEventListener('click', async () => {
     list.className = 'terminal-editor-diff';
     list.textContent = result.codes.join('\n');
     showListDialog(
-      ZogographI18n.t(
-        'auth.recovery_codes_save_title',
-        {},
-        'Save these recovery codes',
-      ),
+      authSessionSecurityText('recovery_codes_save_title'),
       [list],
-      ZogographI18n.t(
-        'auth.recovery_codes_save_help',
-        {},
-        'Each code works once in place of the authenticator code. This is the only time Zogograph can display them; store them offline and do not put them in a password manager shared with your sign-in password.',
-      ),
+      authSessionSecurityText('recovery_codes_save_help'),
     );
-    notice(
-      ZogographI18n.t(
-        'auth.recovery_codes_ready',
-        {},
-        'Eight new one-time recovery codes are ready to save.',
-      ),
-      true,
-    );
+    notice(authSessionSecurityText('recovery_codes_ready'), true);
   } catch (error) {
     notice(String(error.message || error));
   }

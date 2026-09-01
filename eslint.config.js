@@ -297,6 +297,7 @@ export default [
         ZogographChatUnavailableCard: 'readonly',
         ZogographChatPageReviewCard: 'readonly',
         ZogographAuthSignInMessageCard: 'readonly',
+        ZogographAuthSessionSecurityCard: 'readonly',
         ZogographChatTitleCard: 'readonly',
         ZogographChatActivityCard: 'readonly',
         ZogographChatWaitingCard: 'readonly',

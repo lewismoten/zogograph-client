@@ -27,6 +27,8 @@ window.ZogographUrlMonitorEditorCard = {
           '0 accepts anything from 200 to 399. A URL that should redirect, or an endpoint that correctly answers 401, is working — insisting on 200 would report it broken for ever.',
         'core-url-monitor-editor.also_check': 'Also check',
         'core-url-monitor-editor.looking_for': 'Looking for',
+        'core-url-monitor-editor.try_text': 'Try it against some text',
+        'core-url-monitor-editor.keep_group': 'Keep group',
       }),
       es: Object.freeze({
         'core-url-monitor-editor.editing': 'Editando {{label}}',
@@ -50,6 +52,8 @@ window.ZogographUrlMonitorEditorCard = {
           '0 acepta cualquier valor de 200 a 399. Una URL que debe redirigir, o un punto final que responde correctamente 401, funciona; insistir en 200 la marcaría como rota.',
         'core-url-monitor-editor.also_check': 'Comprobar también',
         'core-url-monitor-editor.looking_for': 'Buscar',
+        'core-url-monitor-editor.try_text': 'Probarlo con texto',
+        'core-url-monitor-editor.keep_group': 'Conservar grupo',
       }),
       hi: Object.freeze({
         'core-url-monitor-editor.editing': '{{label}} संपादित किया जा रहा है',
@@ -73,6 +77,8 @@ window.ZogographUrlMonitorEditorCard = {
           '0, 200 से 399 तक किसी भी स्थिति को स्वीकार करता है। जिस URL को रीडायरेक्ट करना चाहिए या जो एंडपॉइंट सही रूप से 401 लौटाता है वह कार्य कर रहा है; 200 पर अड़ने से वह हमेशा टूटा दिखेगा।',
         'core-url-monitor-editor.also_check': 'यह भी जाँचें',
         'core-url-monitor-editor.looking_for': 'खोजें',
+        'core-url-monitor-editor.try_text': 'इसे कुछ पाठ पर आज़माएँ',
+        'core-url-monitor-editor.keep_group': 'समूह रखें',
       }),
       ar: Object.freeze({
         'core-url-monitor-editor.editing': 'تحرير {{label}}',
@@ -96,6 +102,8 @@ window.ZogographUrlMonitorEditorCard = {
           'يقبل 0 أي حالة من 200 إلى 399. يعمل عنوان URL الذي يفترض أن يعيد التوجيه أو نقطة النهاية التي تجيب بـ 401 بشكل صحيح؛ الإصرار على 200 سيبلغ عنه معطلاً دائمًا.',
         'core-url-monitor-editor.also_check': 'تحقق أيضًا من',
         'core-url-monitor-editor.looking_for': 'البحث عن',
+        'core-url-monitor-editor.try_text': 'جرّبه على نص',
+        'core-url-monitor-editor.keep_group': 'احتفظ بالمجموعة',
       }),
       zh: Object.freeze({
         'core-url-monitor-editor.editing': '正在编辑 {{label}}',
@@ -117,6 +125,8 @@ window.ZogographUrlMonitorEditorCard = {
           '0 接受 200 到 399 的任何状态。应重定向的 URL，或正确返回 401 的端点，都在正常工作；坚持要求 200 会一直将它报告为故障。',
         'core-url-monitor-editor.also_check': '同时检查',
         'core-url-monitor-editor.looking_for': '查找内容',
+        'core-url-monitor-editor.try_text': '用一些文本试用',
+        'core-url-monitor-editor.keep_group': '保留分组',
       }),
     }),
   }),

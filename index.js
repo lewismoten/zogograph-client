@@ -32381,11 +32381,7 @@ function openUrlForm(row = null) {
   const tryIt = document.createElement('button');
   tryIt.type = 'button';
   tryIt.className = 'link';
-  tryIt.textContent = ZogographI18n.t(
-    'url.try_text',
-    {},
-    'Try it against some text',
-  );
+  tryIt.textContent = urlEditorText('try_text');
   tryIt.addEventListener('click', () => showRegexTester(value, group));
   const tryRow = field('urlTry', '', tryIt, '');
 
@@ -32397,7 +32393,7 @@ function openUrlForm(row = null) {
   group.className = 'days';
   const groupRow = field(
     'urlGroup',
-    ZogographI18n.t('url.keep_group', {}, 'Keep group'),
+    urlEditorText('keep_group'),
     group,
     ZogographI18n.t(
       'url.keep_group_help',

@@ -32275,13 +32275,9 @@ function openUrlForm(row = null) {
   const label = document.createElement('input');
   label.type = 'text';
   label.size = 30;
-  label.placeholder = ZogographI18n.t(
-    'url.label_placeholder',
-    {},
-    'left blank, the host is used',
-  );
+  label.placeholder = urlEditorText('label_placeholder');
   label.value = row?.label ?? '';
-  field('urlLabel', ZogographI18n.t('url.label', {}, 'Called'), label, '');
+  field('urlLabel', urlEditorText('label'), label, '');
 
   const interval = document.createElement('select');
   for (const [seconds, text] of Object.entries(data.intervals)) {
@@ -32291,12 +32287,7 @@ function openUrlForm(row = null) {
     option.selected = Number(row?.interval_seconds ?? 300) === Number(seconds);
     interval.appendChild(option);
   }
-  field(
-    'urlInterval',
-    ZogographI18n.t('url.interval', {}, 'How often'),
-    interval,
-    '',
-  );
+  field('urlInterval', urlEditorText('interval'), interval, '');
 
   const method = document.createElement('select');
   for (const [value, key] of [

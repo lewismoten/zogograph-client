@@ -3769,11 +3769,17 @@ i18nExpect(
 );
 i18nExpect(
     $script !== false &&
-        str_contains($script, 'editor.contents_of') &&
+        str_contains($script, "terminalEditorFindText('contents_of'") &&
+        str_contains(
+            (string) file_get_contents(
+                $root . '/cards/terminal-editor-find.js',
+            ),
+            'core-terminal-editor-find.replace_all',
+        ) &&
         str_contains($script, 'editor.shortcuts_editable') &&
         str_contains($script, 'editor.writable_note') &&
         str_contains($script, 'editor.permissions'),
-    'terminal editor metadata and accessibility text are not localized',
+    'terminal editor metadata and accessibility text are not package-localized',
 );
 i18nExpect(
     $script !== false &&

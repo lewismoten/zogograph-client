@@ -175,6 +175,7 @@ export default [
         ZogographTerminalHistoryCard: 'readonly',
         ZogographTerminalCommandDetailsCard: 'readonly',
         ZogographTerminalEditorRecoveryCard: 'readonly',
+        ZogographTerminalEditorFindCard: 'readonly',
         ZogographDisplayVoiceControlsCard: 'readonly',
         ZogographDisplayPreferencesDialogCard: 'readonly',
         ZogographDisplayPreferencesFieldsCard: 'readonly',

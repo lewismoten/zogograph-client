@@ -19387,6 +19387,15 @@ function terminalEditorRecoveryText(key, values = {}) {
   );
 }
 
+function terminalEditorFindText(key, values = {}) {
+  return renderCoreCardPackage(
+    ZogographTerminalEditorFindCard,
+    'core-terminal-editor-find',
+    { key, values },
+    { i18n: ZogographI18n },
+  );
+}
+
 async function openTerminalEditor(path) {
   const data = await api('terminal-editor', { path });
   const editable = Boolean(data.writable && state.access?.write);
@@ -19399,11 +19408,7 @@ async function openTerminalEditor(path) {
   text.readOnly = !editable;
   text.setAttribute(
     'aria-label',
-    ZogographI18n.t(
-      'editor.contents_of',
-      { path: data.path },
-      'Contents of {{path}}',
-    ),
+    terminalEditorFindText('contents_of', { path: data.path }),
   );
   text.value = data.text;
   const openedText = text.value;
@@ -19426,21 +19431,14 @@ async function openTerminalEditor(path) {
   editor.append(lines, text);
   const find = document.createElement('input');
   find.type = 'search';
-  find.placeholder = ZogographI18n.t('editor.find', {}, 'Find');
-  find.setAttribute(
-    'aria-label',
-    ZogographI18n.t('editor.find_text', {}, 'Find text in file'),
-  );
+  find.placeholder = terminalEditorFindText('find');
+  find.setAttribute('aria-label', terminalEditorFindText('find_text'));
   const replace = document.createElement('input');
   replace.type = 'text';
-  replace.placeholder = ZogographI18n.t(
-    'editor.replace_with',
-    {},
-    'Replace with',
-  );
+  replace.placeholder = terminalEditorFindText('replace_with');
   replace.setAttribute(
     'aria-label',
-    ZogographI18n.t('editor.replacement_text', {}, 'Replacement text'),
+    terminalEditorFindText('replacement_text'),
   );
   const searchStatus = document.createElement('span');
   searchStatus.className = 'muted small';
@@ -19539,22 +19537,18 @@ async function openTerminalEditor(path) {
   const findButton = document.createElement('button');
   findButton.type = 'button';
   findButton.className = 'link';
-  findButton.textContent = ZogographI18n.t('editor.find_next', {}, 'Find next');
+  findButton.textContent = terminalEditorFindText('find_next');
   findButton.addEventListener('click', findNext);
   const replaceButton = document.createElement('button');
   replaceButton.type = 'button';
   replaceButton.className = 'link';
-  replaceButton.textContent = ZogographI18n.t('editor.replace', {}, 'Replace');
+  replaceButton.textContent = terminalEditorFindText('replace');
   replaceButton.disabled = !editable;
   replaceButton.addEventListener('click', replaceNext);
   const allButton = document.createElement('button');
   allButton.type = 'button';
   allButton.className = 'link';
-  allButton.textContent = ZogographI18n.t(
-    'editor.replace_all',
-    {},
-    'Replace all',
-  );
+  allButton.textContent = terminalEditorFindText('replace_all');
   allButton.disabled = !editable;
   allButton.addEventListener('click', replaceAll);
   find.addEventListener('keydown', (event) => {

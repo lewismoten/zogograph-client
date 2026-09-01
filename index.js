@@ -32831,6 +32831,15 @@ function descriptionsBubbleText(key, values = {}) {
   );
 }
 
+function descriptionsTableText(key, values = {}) {
+  return renderCoreCardPackage(
+    ZogographDescriptionsTableCard,
+    'core-descriptions-table',
+    { key, values },
+    { i18n: ZogographI18n },
+  );
+}
+
 async function loadWhatIs() {
   try {
     const data = await api('descriptions');
@@ -33040,31 +33049,17 @@ function renderDescriptions() {
 
   form.hidden = !WHAT_IS.writable;
   if (!WHAT_IS.writable) {
-    body.replaceChildren(
-      note(
-        ZogographI18n.t(
-          'descriptions.sign_in_to_write',
-          {},
-          'Sign in to write your own.',
-        ),
-      ),
-    );
+    body.replaceChildren(note(descriptionsTableText('sign_in_to_write')));
     return;
   }
 
   if (!WHAT_IS.mine.length) {
     body.replaceChildren(
       note(
-        ZogographI18n.t(
-          'descriptions.empty',
-          {
-            processes: Object.keys(WHAT_IS.process).length,
-            slabs: Object.keys(WHAT_IS.slab).length,
-          },
-          'Nothing written yet. The built-in list covers {{processes, number}} processes and ' +
-            '{{slabs, number}} slab caches; anything on this machine it does not know about shows ' +
-            'its name with no mark beside it, which is how to find the ones worth writing down.',
-        ),
+        descriptionsTableText('empty', {
+          processes: Object.keys(WHAT_IS.process).length,
+          slabs: Object.keys(WHAT_IS.slab).length,
+        }),
       ),
     );
     return;
@@ -33079,11 +33074,11 @@ function renderDescriptions() {
     WHAT_IS.mine,
     [
       {
-        label: ZogographI18n.t('descriptions.kind', {}, 'Kind'),
+        label: descriptionsTableText('kind'),
         render: (row) =>
           row.kind === 'slab'
-            ? ZogographI18n.t('descriptions.slab_cache', {}, 'Slab cache')
-            : ZogographI18n.t('descriptions.process', {}, 'Process'),
+            ? descriptionsTableText('slab_cache')
+            : descriptionsTableText('process'),
       },
       {
         label: tableCommonText('name'),
@@ -33091,11 +33086,11 @@ function renderDescriptions() {
         render: (row) => row.name,
       },
       {
-        label: ZogographI18n.t('descriptions.what', {}, 'What it is'),
+        label: descriptionsTableText('what'),
         render: (row) => row.what,
       },
       {
-        label: ZogographI18n.t('descriptions.link', {}, 'Link'),
+        label: descriptionsTableText('link'),
         render: (row) => {
           if (!row.link) return '';
           const link = document.createElement('a');
@@ -33107,7 +33102,7 @@ function renderDescriptions() {
         },
       },
       {
-        label: ZogographI18n.t('descriptions.written', {}, 'Written'),
+        label: descriptionsTableText('written'),
         render: (row) => whenSpan(row.added_at),
       },
       {
@@ -33130,22 +33125,9 @@ function renderDescriptions() {
           gone.textContent = actionCommonText('forget');
           gone.addEventListener('click', async () => {
             const yes = await askFirst(
-              ZogographI18n.t(
-                'descriptions.forget_prompt',
-                {
-                  name: row.name,
-                },
-                'Forget what {{name}} is?',
-              ),
-              [
-                ZogographI18n.t(
-                  'descriptions.forget_help',
-                  {},
-                  'The note goes; the built-in description takes over again if there is one ' +
-                    'for that name, and otherwise the name appears with nothing beside it.',
-                ),
-              ],
-              ZogographI18n.t('descriptions.forget_action', {}, 'Forget it'),
+              descriptionsTableText('forget_prompt', { name: row.name }),
+              [descriptionsTableText('forget_help')],
+              descriptionsTableText('forget_action'),
               true,
             );
             if (!yes) return;
@@ -41206,14 +41188,7 @@ $('descriptionForm').addEventListener('submit', async (event) => {
     $('descriptionWhat').value = '';
     $('descriptionLink').value = '';
     renderDescriptions();
-    notice(
-      ZogographI18n.t(
-        'descriptions.saved',
-        {},
-        'Saved. It shows beside that name from now on.',
-      ),
-      true,
-    );
+    notice(descriptionsTableText('saved'), true);
   } catch (error) {
     notice(String(error.message || error));
   }

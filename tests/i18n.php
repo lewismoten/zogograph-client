@@ -3819,10 +3819,18 @@ i18nExpect(
 );
 i18nExpect(
     $script !== false &&
-        str_contains($script, 'regex.group') &&
-        str_contains($script, 'regex.took') &&
-        str_contains($script, 'regex.group_absence_help'),
-    'URL check regex tester retains direct user-visible text',
+        str_contains($script, 'ZogographRegexDialogCard,') &&
+        str_contains($script, "{ key: 'dialog_title' }") &&
+        str_contains($script, "key: 'summary'") &&
+        str_contains(
+            (string) file_get_contents($root . '/cards/regex-dialog.js'),
+            'core-regex-dialog.dialog_help',
+        ) &&
+        str_contains(
+            (string) file_get_contents($root . '/cards/regex-dialog.js'),
+            'core-regex-dialog.showing_first',
+        ),
+    'URL check regex tester dialog text is not owned by its card package',
 );
 i18nExpect(
     $script !== false &&

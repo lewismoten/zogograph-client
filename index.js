@@ -32000,12 +32000,18 @@ function showRegexTester(patternInput, groupInput) {
   });
 
   showListDialog(
-    ZogographI18n.t('regex.dialog_title', {}, 'Try a pattern'),
+    renderCoreCardPackage(
+      ZogographRegexDialogCard,
+      'core-regex-dialog',
+      { key: 'dialog_title' },
+      { i18n: ZogographI18n },
+    ),
     nodes,
-    ZogographI18n.t(
-      'regex.dialog_help',
-      {},
-      'Nothing here is saved or requested on a schedule. It runs the pattern exactly the way the check will, against whatever you paste.',
+    renderCoreCardPackage(
+      ZogographRegexDialogCard,
+      'core-regex-dialog',
+      { key: 'dialog_help' },
+      { i18n: ZogographI18n },
     ),
   );
 
@@ -32018,10 +32024,11 @@ function renderRegexResult(out, groupInput) {
   if (!result) {
     out.replaceChildren(
       note(
-        ZogographI18n.t(
-          'regex.initial_help',
-          {},
-          'Paste some text and press Test it. Every match is shown with its groups numbered, so you can see which number to keep.',
+        renderCoreCardPackage(
+          ZogographRegexDialogCard,
+          'core-regex-dialog',
+          { key: 'initial_help' },
+          { i18n: ZogographI18n },
         ),
       ),
     );
@@ -32038,10 +32045,11 @@ function renderRegexResult(out, groupInput) {
   if (!result.total) {
     parts.push(
       note(
-        ZogographI18n.t(
-          'regex.no_match',
-          {},
-          'The pattern is valid but matched nothing in that text. Which is worth knowing now rather than as a check that fails every five minutes.',
+        renderCoreCardPackage(
+          ZogographRegexDialogCard,
+          'core-regex-dialog',
+          { key: 'no_match' },
+          { i18n: ZogographI18n },
         ),
       ),
     );
@@ -32051,23 +32059,25 @@ function renderRegexResult(out, groupInput) {
 
   const said = document.createElement('p');
   said.className = 'band-ok';
-  said.textContent = ZogographI18n.t(
-    'regex.summary',
+  said.textContent = renderCoreCardPackage(
+    ZogographRegexDialogCard,
+    'core-regex-dialog',
     {
-      matches: result.total,
-      groups: result.groups,
+      key: 'summary',
+      values: { matches: result.total, groups: result.groups },
     },
-    'Matches: {{matches, number}}; groups in pattern: {{groups, number}}.',
+    { i18n: ZogographI18n },
   );
   parts.push(said);
 
   if (result.truncated) {
     parts.push(
       note(
-        ZogographI18n.t(
-          'regex.showing_first',
-          { count: result.matches.length },
-          'Showing the first {{count, number}}.',
+        renderCoreCardPackage(
+          ZogographRegexDialogCard,
+          'core-regex-dialog',
+          { key: 'showing_first', values: { count: result.matches.length } },
+          { i18n: ZogographI18n },
         ),
       ),
     );

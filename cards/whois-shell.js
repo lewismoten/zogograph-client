@@ -23,6 +23,16 @@ window.ZogographWhoisShellCard = {
           "Answered by root's collector {{when}}, because WHOIS is not available to this account.",
         'core-whois-shell.available_name':
           '{{name}} appears to be unregistered. The registry has no record of it, which is what an available name looks like — though a registry that is simply not answering can look the same, so check with a registrar before celebrating.',
+        'core-whois-shell.no_recognized_date':
+          'The answer contained no date this dashboard recognizes',
+        'core-whois-shell.registered': 'Registered',
+        'core-whois-shell.record_last_changed': 'Record last changed',
+        'core-whois-shell.status': 'Status',
+        'core-whois-shell.nameservers': 'Nameservers',
+        'core-whois-shell.auto_renew': 'Auto renew',
+        'core-whois-shell.registry_facts': 'What the registry says',
+        'core-whois-shell.lock_meanings': 'What those locks mean',
+        'core-whois-shell.registry_wording': 'As the registry writes it',
       }),
       es: Object.freeze({
         'core-whois-shell.title': 'Buscar un nombre',
@@ -43,6 +53,16 @@ window.ZogographWhoisShellCard = {
           'Respondido por el recopilador de root {{when}}, porque WHOIS no está disponible para esta cuenta.',
         'core-whois-shell.available_name':
           '{{name}} parece no estar registrado. El registro no tiene constancia de él, que es el aspecto de un nombre disponible; aunque un registro que simplemente no responde puede parecer igual, así que compruébelo con un registrador antes de celebrarlo.',
+        'core-whois-shell.no_recognized_date':
+          'La respuesta no contiene una fecha que este panel reconozca',
+        'core-whois-shell.registered': 'Registrado',
+        'core-whois-shell.record_last_changed': 'Último cambio del registro',
+        'core-whois-shell.status': 'Estado',
+        'core-whois-shell.nameservers': 'Servidores de nombres',
+        'core-whois-shell.auto_renew': 'Renovación automática',
+        'core-whois-shell.registry_facts': 'Lo que dice el registro',
+        'core-whois-shell.lock_meanings': 'Qué significan esos bloqueos',
+        'core-whois-shell.registry_wording': 'Como lo escribe el registro',
       }),
       hi: Object.freeze({
         'core-whois-shell.title': 'नाम खोजें',
@@ -62,6 +82,16 @@ window.ZogographWhoisShellCard = {
           'root के कलेक्टर ने {{when}} उत्तर दिया, क्योंकि WHOIS इस खाते के लिए उपलब्ध नहीं है।',
         'core-whois-shell.available_name':
           '{{name}} पंजीकृत नहीं लगता है। रजिस्ट्री में इसका कोई रिकॉर्ड नहीं है, जो उपलब्ध नाम जैसा दिखता है — हालांकि जो रजिस्ट्री जवाब नहीं दे रही हो वह भी ऐसी दिख सकती है, इसलिए उत्सव मनाने से पहले रजिस्ट्रार से जाँचें।',
+        'core-whois-shell.no_recognized_date':
+          'उत्तर में ऐसी कोई तारीख नहीं थी जिसे यह डैशबोर्ड पहचानता है',
+        'core-whois-shell.registered': 'पंजीकृत',
+        'core-whois-shell.record_last_changed': 'रिकॉर्ड अंतिम बार बदला',
+        'core-whois-shell.status': 'स्थिति',
+        'core-whois-shell.nameservers': 'नेमसर्वर',
+        'core-whois-shell.auto_renew': 'स्वतः नवीनीकरण',
+        'core-whois-shell.registry_facts': 'रजिस्ट्री क्या कहती है',
+        'core-whois-shell.lock_meanings': 'इन लॉक का अर्थ',
+        'core-whois-shell.registry_wording': 'जैसा रजिस्ट्री लिखती है',
       }),
       ar: Object.freeze({
         'core-whois-shell.title': 'ابحث عن اسم',
@@ -81,6 +111,16 @@ window.ZogographWhoisShellCard = {
           'أجاب جامع root {{when}} لأن WHOIS غير متاح لهذا الحساب.',
         'core-whois-shell.available_name':
           'يبدو أن {{name}} غير مسجّل. لا يملك السجل أي قيد له، وهذا ما يبدو عليه الاسم المتاح — لكن سجلًا لا يجيب قد يبدو كذلك أيضًا، لذا تحقق مع مسجّل قبل الاحتفال.',
+        'core-whois-shell.no_recognized_date':
+          'لم تتضمن الإجابة تاريخًا تتعرف عليه لوحة المعلومات هذه',
+        'core-whois-shell.registered': 'مسجّل',
+        'core-whois-shell.record_last_changed': 'آخر تغيير للسجل',
+        'core-whois-shell.status': 'الحالة',
+        'core-whois-shell.nameservers': 'خوادم الأسماء',
+        'core-whois-shell.auto_renew': 'التجديد التلقائي',
+        'core-whois-shell.registry_facts': 'ما يقوله السجل',
+        'core-whois-shell.lock_meanings': 'ما تعنيه هذه الأقفال',
+        'core-whois-shell.registry_wording': 'كما يكتبه السجل',
       }),
       zh: Object.freeze({
         'core-whois-shell.title': '查询一个名称',
@@ -99,6 +139,15 @@ window.ZogographWhoisShellCard = {
           '由于此账户无法使用 WHOIS，root 采集器已于 {{when}} 答复。',
         'core-whois-shell.available_name':
           '{{name}} 似乎未注册。注册机构没有其记录，这正是可用名称的样子——不过未响应的注册机构也可能看起来相同，因此请先向注册商确认。',
+        'core-whois-shell.no_recognized_date': '答复中没有此仪表板可识别的日期',
+        'core-whois-shell.registered': '已注册',
+        'core-whois-shell.record_last_changed': '记录上次更改',
+        'core-whois-shell.status': '状态',
+        'core-whois-shell.nameservers': '名称服务器',
+        'core-whois-shell.auto_renew': '自动续订',
+        'core-whois-shell.registry_facts': '注册机构的答复',
+        'core-whois-shell.lock_meanings': '这些锁定的含义',
+        'core-whois-shell.registry_wording': '注册机构的原文',
       }),
     }),
   }),

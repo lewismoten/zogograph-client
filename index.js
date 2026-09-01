@@ -35113,21 +35113,17 @@ async function refreshWhois(name = '') {
     } else {
       facts.push([
         ZogographI18n.t('domain.expires', {}, 'Expires'),
-        ZogographI18n.t(
-          'whois.no_recognized_date',
-          {},
-          'The answer contained no date this dashboard recognizes',
-        ),
+        whoisText('no_recognized_date'),
       ]);
     }
     if (p.created_at)
       facts.push([
-        ZogographI18n.t('whois.registered', {}, 'Registered'),
+        whoisText('registered'),
         humanTime(p.created_at).split(',')[0],
       ]);
     if (p.updated_at) {
       facts.push([
-        ZogographI18n.t('whois.record_last_changed', {}, 'Record last changed'),
+        whoisText('record_last_changed'),
         ZogographI18n.t(
           'time.date_with_duration_ago',
           {
@@ -35152,44 +35148,35 @@ async function refreshWhois(name = '') {
        * domain away from you, and seeing it should be reassuring.
        */
       facts.push([
-        ZogographI18n.t('whois.status', {}, 'Status'),
+        whoisText('status'),
         (data.status_plain || []).map((s) => s.plain).join(', ') || p.status,
       ]);
     }
     if (p.nameservers)
       facts.push([
-        ZogographI18n.t('whois.nameservers', {}, 'Nameservers'),
+        whoisText('nameservers'),
         p.nameservers.split(' ').join(', '),
       ]);
     if (p.auto_renew !== null && p.auto_renew !== undefined) {
       facts.push([
-        ZogographI18n.t('whois.auto_renew', {}, 'Auto renew'),
+        whoisText('auto_renew'),
         p.auto_renew
           ? ZogographI18n.t('state.on', {}, 'On')
           : ZogographI18n.t('state.off', {}, 'Off'),
       ]);
     }
 
-    parts.push(
-      section(
-        ZogographI18n.t('whois.registry_facts', {}, 'What the registry says'),
-        factGrid(facts),
-      ),
-    );
+    parts.push(section(whoisText('registry_facts'), factGrid(facts)));
 
     if ((data.status_plain || []).some((entry) => entry.note)) {
       parts.push(
         section(
-          ZogographI18n.t('whois.lock_meanings', {}, 'What those locks mean'),
+          whoisText('lock_meanings'),
           simpleTable(
             [
-              ZogographI18n.t('whois.status', {}, 'Status'),
+              whoisText('status'),
               ZogographI18n.t('table.means', {}, 'Means'),
-              ZogographI18n.t(
-                'whois.registry_wording',
-                {},
-                'As the registry writes it',
-              ),
+              whoisText('registry_wording'),
             ],
             data.status_plain
               .filter((entry) => entry.note)

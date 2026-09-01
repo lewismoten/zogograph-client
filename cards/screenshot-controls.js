@@ -24,6 +24,8 @@ window.ZogographScreenshotControlsCard = {
         'core-screenshot-controls.cropped_dimensions':
           'cropped to {{width, number}}×{{height, number}}',
         'core-screenshot-controls.redacted': 'Redacted',
+        'core-screenshot-controls.unsupported':
+          'This browser cannot take a screenshot from a page.',
       }),
       es: Object.freeze({
         'core-screenshot-controls.before_send': 'Antes de enviar esto',
@@ -44,6 +46,8 @@ window.ZogographScreenshotControlsCard = {
         'core-screenshot-controls.cropped_dimensions':
           'recortado a {{width, number}}×{{height, number}}',
         'core-screenshot-controls.redacted': 'Censurado',
+        'core-screenshot-controls.unsupported':
+          'Este navegador no puede tomar una captura de pantalla desde una página.',
       }),
       hi: Object.freeze({
         'core-screenshot-controls.before_send': 'इसे भेजने से पहले',
@@ -64,6 +68,8 @@ window.ZogographScreenshotControlsCard = {
         'core-screenshot-controls.cropped_dimensions':
           '{{width, number}}×{{height, number}} तक काटा गया',
         'core-screenshot-controls.redacted': 'गोपित',
+        'core-screenshot-controls.unsupported':
+          'यह ब्राउज़र किसी पृष्ठ से स्क्रीनशॉट नहीं ले सकता।',
       }),
       ar: Object.freeze({
         'core-screenshot-controls.before_send': 'قبل إرسال هذا',
@@ -84,6 +90,8 @@ window.ZogographScreenshotControlsCard = {
         'core-screenshot-controls.cropped_dimensions':
           'اقتصّت إلى {{width, number}}×{{height, number}}',
         'core-screenshot-controls.redacted': 'منقح',
+        'core-screenshot-controls.unsupported':
+          'لا يستطيع هذا المتصفح أخذ لقطة شاشة من صفحة.',
       }),
       zh: Object.freeze({
         'core-screenshot-controls.before_send': '发送前',
@@ -104,6 +112,8 @@ window.ZogographScreenshotControlsCard = {
         'core-screenshot-controls.cropped_dimensions':
           '已裁剪为 {{width, number}}×{{height, number}}',
         'core-screenshot-controls.redacted': '已涂黑',
+        'core-screenshot-controls.unsupported':
+          '此浏览器无法从页面截取屏幕截图。',
       }),
     }),
   }),

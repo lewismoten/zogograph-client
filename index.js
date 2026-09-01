@@ -9922,10 +9922,11 @@ async function renderChartImage(args) {
 async function captureScreen() {
   if (!navigator.mediaDevices?.getDisplayMedia) {
     throw new Error(
-      ZogographI18n.t(
-        'chart.screenshot_unsupported',
-        {},
-        'This browser cannot take a screenshot from a page.',
+      renderCoreCardPackage(
+        ZogographScreenshotControlsCard,
+        'core-screenshot-controls',
+        { key: 'unsupported' },
+        { i18n: ZogographI18n },
       ),
     );
   }

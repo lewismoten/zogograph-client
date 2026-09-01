@@ -7,6 +7,9 @@ window.ZogographEmailShellCard = {
     catalogs: Object.freeze({
       en: Object.freeze({
         'core-email-shell.title': 'Email alerts',
+        'core-email-shell.where_to_send': 'Where to send',
+        'core-email-shell.how_loud': 'How loud, and how often',
+        'core-email-shell.what_to_send': 'What to send about, and when',
         'core-email-shell.test_email': 'Send a test email',
         'core-email-shell.test_telegram': 'Send a test Telegram',
         'core-email-shell.settings_sign_in':
@@ -21,6 +24,9 @@ window.ZogographEmailShellCard = {
       }),
       es: Object.freeze({
         'core-email-shell.title': 'Alertas por correo',
+        'core-email-shell.where_to_send': 'Dónde enviar',
+        'core-email-shell.how_loud': 'Con qué intensidad y frecuencia',
+        'core-email-shell.what_to_send': 'Qué enviar y cuándo',
         'core-email-shell.test_email': 'Enviar correo de prueba',
         'core-email-shell.test_telegram': 'Enviar Telegram de prueba',
         'core-email-shell.settings_sign_in':
@@ -35,6 +41,9 @@ window.ZogographEmailShellCard = {
       }),
       hi: Object.freeze({
         'core-email-shell.title': 'ईमेल अलर्ट',
+        'core-email-shell.where_to_send': 'कहाँ भेजें',
+        'core-email-shell.how_loud': 'कितनी चेतावनी और कितनी बार',
+        'core-email-shell.what_to_send': 'क्या और कब भेजें',
         'core-email-shell.test_email': 'परीक्षण ईमेल भेजें',
         'core-email-shell.test_telegram': 'परीक्षण Telegram भेजें',
         'core-email-shell.settings_sign_in':
@@ -49,6 +58,9 @@ window.ZogographEmailShellCard = {
       }),
       ar: Object.freeze({
         'core-email-shell.title': 'تنبيهات البريد',
+        'core-email-shell.where_to_send': 'إلى أين يُرسل',
+        'core-email-shell.how_loud': 'مدى الإلحاح والتكرار',
+        'core-email-shell.what_to_send': 'ما الذي يرسل ومتى',
         'core-email-shell.test_email': 'أرسل رسالة اختبار',
         'core-email-shell.test_telegram': 'أرسل Telegram اختباريًا',
         'core-email-shell.settings_sign_in':
@@ -63,6 +75,9 @@ window.ZogographEmailShellCard = {
       }),
       zh: Object.freeze({
         'core-email-shell.title': '电子邮件警报',
+        'core-email-shell.where_to_send': '发送到哪里',
+        'core-email-shell.how_loud': '提醒强度和频率',
+        'core-email-shell.what_to_send': '发送什么及何时发送',
         'core-email-shell.test_email': '发送测试邮件',
         'core-email-shell.test_telegram': '发送测试 Telegram',
         'core-email-shell.settings_sign_in': '请登录以更改电子邮件设置。',

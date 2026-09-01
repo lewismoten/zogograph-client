@@ -36666,11 +36666,14 @@ function renderEmail(data) {
   );
 
   parts.push(
-    section(ZogographI18n.t('email.where_to_send', {}, 'Where to send'), form),
+    section(
+      ZogographEmailShellCard.text('where_to_send', { i18n: ZogographI18n }),
+      form,
+    ),
   );
   parts.push(
     section(
-      ZogographI18n.t('email.how_loud', {}, 'How loud, and how often'),
+      ZogographEmailShellCard.text('how_loud', { i18n: ZogographI18n }),
       ruleSettings(data),
     ),
   );
@@ -36682,7 +36685,7 @@ function renderEmail(data) {
   }
   parts.push(
     section(
-      ZogographI18n.t('email.what_to_send', {}, 'What to send about, and when'),
+      ZogographEmailShellCard.text('what_to_send', { i18n: ZogographI18n }),
       list,
     ),
   );

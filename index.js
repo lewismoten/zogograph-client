@@ -30043,11 +30043,7 @@ async function inspect(path) {
   panel.hidden = false;
   treeState.selected = path;
 
-  $('inspectTitle').textContent = ZogographI18n.t(
-    'action.details',
-    {},
-    'Details',
-  );
+  $('inspectTitle').textContent = actionCommonText('details');
   $('inspectPath').textContent = path;
   $('inspectBody').replaceChildren(
     note(ZogographI18n.t('common.looking', {}, 'Looking…')),
@@ -34584,11 +34580,7 @@ function renderDomains(data) {
 
           const now = document.createElement('button');
           now.className = 'link';
-          now.textContent = ZogographI18n.t(
-            'action.check_now',
-            {},
-            'Check now',
-          );
+          now.textContent = actionCommonText('check_now');
           now.title = ZogographI18n.t(
             'domain.fresh_lookup_title',
             {},

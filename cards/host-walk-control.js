@@ -17,6 +17,9 @@ window.ZogographHostWalkControl = {
         'core-host-walk-control.title': 'The whole machine',
         'core-host-walk-control.help':
           'A second walk, run by root, that reaches everything this account cannot — other accounts, {{var}}, {{backup}}, and space held by deleted files still open. It takes tens of seconds, so it is not part of the per-minute collection: pressing this leaves a request that the host collector picks up on its next run. The results are under {{filesystems}}, {{directories}} and {{deleted}}.',
+        'core-host-walk-control.walked_at': 'Walked {{at}} ({{ago}})',
+        'core-host-walk-control.walked_directories':
+          '{{directories, number}} directories in {{seconds, number}}s.',
       }),
       es: Object.freeze({
         'core-host-walk-control.loading': 'Leyendo el último recorrido…',
@@ -31,6 +34,9 @@ window.ZogographHostWalkControl = {
         'core-host-walk-control.title': 'Toda la máquina',
         'core-host-walk-control.help':
           'Un segundo recorrido, ejecutado como root, que alcanza todo lo que esta cuenta no puede: otras cuentas, {{var}}, {{backup}} y espacio ocupado por archivos eliminados que siguen abiertos. Tarda decenas de segundos, por lo que no forma parte de la recopilación por minuto: al pulsar esto queda una solicitud que el recolector del host atenderá en su próxima ejecución. Los resultados están en {{filesystems}}, {{directories}} y {{deleted}}.',
+        'core-host-walk-control.walked_at': 'Recorrido {{at}} ({{ago}})',
+        'core-host-walk-control.walked_directories':
+          '{{directories, number}} directorios en {{seconds, number}} s.',
       }),
       hi: Object.freeze({
         'core-host-walk-control.loading': 'पिछला वॉक पढ़ा जा रहा है…',
@@ -44,6 +50,9 @@ window.ZogographHostWalkControl = {
         'core-host-walk-control.title': 'पूरी मशीन',
         'core-host-walk-control.help':
           'root द्वारा चलाया गया दूसरा वॉक, जो इस खाते की पहुँच से बाहर हर चीज़ तक पहुँचता है—दूसरे खाते, {{var}}, {{backup}} और अब भी खुले हटाए गए फ़ाइलों की जगह। इसमें दर्जनों सेकंड लगते हैं, इसलिए यह प्रति-मिनट संग्रह का भाग नहीं: इसे दबाने पर अनुरोध रहता है जिसे होस्ट कलेक्टर अपनी अगली रन में उठाता है। परिणाम {{filesystems}}, {{directories}} और {{deleted}} के अंतर्गत हैं।',
+        'core-host-walk-control.walked_at': 'वॉक किया गया {{at}} ({{ago}})',
+        'core-host-walk-control.walked_directories':
+          '{{directories, number}} डायरेक्टरी {{seconds, number}}से. में।',
       }),
       ar: Object.freeze({
         'core-host-walk-control.loading': 'تجري قراءة الجولة الأخيرة…',
@@ -57,6 +66,9 @@ window.ZogographHostWalkControl = {
         'core-host-walk-control.title': 'الآلة كلها',
         'core-host-walk-control.help':
           'مرور ثانٍ يديره root ويصل إلى كل ما لا يستطيع هذا الحساب الوصول إليه — حسابات أخرى و{{var}} و{{backup}} والمساحة التي تشغلها ملفات محذوفة ما زالت مفتوحة. يستغرق عشرات الثواني، لذا ليس جزءًا من الجمع كل دقيقة: الضغط هنا يترك طلبًا يلتقطه جامع المضيف في تشغيله التالي. النتائج تحت {{filesystems}} و{{directories}} و{{deleted}}.',
+        'core-host-walk-control.walked_at': 'جرت الجولة {{at}} ({{ago}})',
+        'core-host-walk-control.walked_directories':
+          '{{directories, number}} مجلدات في {{seconds, number}} ث.',
       }),
       zh: Object.freeze({
         'core-host-walk-control.loading': '正在读取上次遍历…',
@@ -70,14 +82,17 @@ window.ZogographHostWalkControl = {
         'core-host-walk-control.title': '整台机器',
         'core-host-walk-control.help':
           '由 root 运行的第二次遍历，可到达此账户无法到达的所有内容——其他账户、{{var}}、{{backup}}以及仍被打开的已删除文件占用的空间。它需要数十秒，因此不属于每分钟收集：按下此按钮会留下一个请求，主机收集器会在下次运行时处理。结果位于 {{filesystems}}、{{directories}} 和 {{deleted}} 中。',
+        'core-host-walk-control.walked_at': '遍历于 {{at}}（{{ago}}）',
+        'core-host-walk-control.walked_directories':
+          '{{directories, number}} 个目录，耗时 {{seconds, number}} 秒。',
       }),
     }),
   }),
 
-  text(key, helpers) {
+  text(key, helpers, values = {}) {
     return helpers.i18n.t(
       `core-host-walk-control.${key}`,
-      {},
+      values,
       this.manifest.catalogs.en[`core-host-walk-control.${key}`],
     );
   },

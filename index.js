@@ -24632,21 +24632,21 @@ async function refreshHostDisk() {
   }
 
   const when = [
-    ZogographI18n.t(
-      'host.walked_at',
+    ZogographHostWalkControl.text(
+      'walked_at',
+      { i18n: ZogographI18n },
       { at: humanTime(data.taken_at), ago: ago(data.taken_at) },
-      'Walked {{at}} ({{ago}})',
     ),
   ];
   if (data.dirs_scanned)
     when.push(
-      ZogographI18n.t(
-        'host.walked_directories',
+      ZogographHostWalkControl.text(
+        'walked_directories',
+        { i18n: ZogographI18n },
         {
           directories: data.dirs_scanned,
           seconds: data.seconds,
         },
-        '{{directories, number}} directories in {{seconds, number}}s.',
       ),
     );
   if (data.note) when.push(data.note);

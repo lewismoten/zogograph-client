@@ -28635,10 +28635,7 @@ async function showIncident(id) {
 
   if (evidence.tree && evidence.tree.length) {
     body.appendChild(
-      section(
-        ZogographI18n.t('incident.how_started', {}, 'How they were started'),
-        processTree(evidence.tree),
-      ),
+      section(incidentText('how_started'), processTree(evidence.tree)),
     );
   }
 
@@ -28646,22 +28643,14 @@ async function showIncident(id) {
   if (host && host.available && host.services?.length) {
     body.appendChild(
       section(
-        ZogographI18n.t(
-          'incident.memory_by_service',
-          {},
-          'Memory by service (PSS, from the host collector)',
-        ),
+        incidentText('memory_by_service'),
         simpleTable(
           [
-            ZogographI18n.t('incident.service', {}, 'Service'),
-            ZogographI18n.t(
-              'incident.proportional_pss',
-              {},
-              'Proportional (PSS)',
-            ),
-            ZogographI18n.t('incident.resident', {}, 'Resident'),
-            ZogographI18n.t('incident.processes', {}, 'Processes'),
-            ZogographI18n.t('incident.oldest', {}, 'Oldest'),
+            incidentText('service'),
+            incidentText('proportional_pss'),
+            incidentText('resident'),
+            incidentText('processes'),
+            incidentText('oldest'),
           ],
           host.services.map((s) => [
             s.name,

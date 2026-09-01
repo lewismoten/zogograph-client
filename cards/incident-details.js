@@ -25,6 +25,14 @@ window.ZogographIncidentDetailsCard = {
         'core-incident-details.writing_own_io': 'Writing own I/O',
         'core-incident-details.top_processes': 'Top processes',
         'core-incident-details.not_available': 'Not available.',
+        'core-incident-details.how_started': 'How they were started',
+        'core-incident-details.memory_by_service':
+          'Memory by service (PSS, from the host collector)',
+        'core-incident-details.service': 'Service',
+        'core-incident-details.proportional_pss': 'Proportional (PSS)',
+        'core-incident-details.resident': 'Resident',
+        'core-incident-details.processes': 'Processes',
+        'core-incident-details.oldest': 'Oldest',
       }),
       es: Object.freeze({
         'core-incident-details.alerts_fired_together':
@@ -46,6 +54,14 @@ window.ZogographIncidentDetailsCard = {
         'core-incident-details.writing_own_io': 'Escritura de E/S propia',
         'core-incident-details.top_processes': 'Procesos principales',
         'core-incident-details.not_available': 'No disponible.',
+        'core-incident-details.how_started': 'Cómo se iniciaron',
+        'core-incident-details.memory_by_service':
+          'Memoria por servicio (PSS, del recopilador del host)',
+        'core-incident-details.service': 'Servicio',
+        'core-incident-details.proportional_pss': 'Proporcional (PSS)',
+        'core-incident-details.resident': 'Residente',
+        'core-incident-details.processes': 'Procesos',
+        'core-incident-details.oldest': 'Más antiguo',
       }),
       hi: Object.freeze({
         'core-incident-details.alerts_fired_together':
@@ -67,6 +83,14 @@ window.ZogographIncidentDetailsCard = {
         'core-incident-details.writing_own_io': 'अपना I/O लिखना',
         'core-incident-details.top_processes': 'शीर्ष प्रक्रियाएँ',
         'core-incident-details.not_available': 'उपलब्ध नहीं है।',
+        'core-incident-details.how_started': 'वे कैसे शुरू हुए',
+        'core-incident-details.memory_by_service':
+          'सेवा के अनुसार मेमोरी (होस्ट कलेक्टर से PSS)',
+        'core-incident-details.service': 'सेवा',
+        'core-incident-details.proportional_pss': 'आनुपातिक (PSS)',
+        'core-incident-details.resident': 'रेज़िडेंट',
+        'core-incident-details.processes': 'प्रक्रियाएँ',
+        'core-incident-details.oldest': 'सबसे पुराना',
       }),
       ar: Object.freeze({
         'core-incident-details.alerts_fired_together':
@@ -87,6 +111,14 @@ window.ZogographIncidentDetailsCard = {
         'core-incident-details.writing_own_io': 'كتابة إدخال/إخراج الحساب',
         'core-incident-details.top_processes': 'أهم العمليات',
         'core-incident-details.not_available': 'غير متاح.',
+        'core-incident-details.how_started': 'كيف بدأت',
+        'core-incident-details.memory_by_service':
+          'الذاكرة حسب الخدمة (PSS، من جامع المضيف)',
+        'core-incident-details.service': 'الخدمة',
+        'core-incident-details.proportional_pss': 'التناسبية (PSS)',
+        'core-incident-details.resident': 'المقيمة',
+        'core-incident-details.processes': 'العمليات',
+        'core-incident-details.oldest': 'الأقدم',
       }),
       zh: Object.freeze({
         'core-incident-details.alerts_fired_together':
@@ -107,6 +139,14 @@ window.ZogographIncidentDetailsCard = {
         'core-incident-details.writing_own_io': '写入自身 I/O',
         'core-incident-details.top_processes': '热门进程',
         'core-incident-details.not_available': '不可用。',
+        'core-incident-details.how_started': '它们是如何启动的',
+        'core-incident-details.memory_by_service':
+          '按服务划分的内存（PSS，来自主机采集器）',
+        'core-incident-details.service': '服务',
+        'core-incident-details.proportional_pss': '比例（PSS）',
+        'core-incident-details.resident': '常驻',
+        'core-incident-details.processes': '进程',
+        'core-incident-details.oldest': '最早',
       }),
     }),
   }),

@@ -20636,6 +20636,15 @@ function applyDisplayPreferences(preferences, remember = true) {
   }
 }
 
+function displayPreferencesFieldsText(key, values = {}) {
+  return renderCoreCardPackage(
+    ZogographDisplayPreferencesFieldsCard,
+    'core-display-preferences-fields',
+    { key, values },
+    { i18n: ZogographI18n },
+  );
+}
+
 function openDisplayPreferences() {
   const current = displayPreferences();
   const textSize = document.createElement('select');
@@ -20791,87 +20800,59 @@ function openDisplayPreferences() {
     ),
     [
       fieldRow(
-        ZogographI18n.t('display.text_size', {}, 'Text size'),
+        displayPreferencesFieldsText('text_size'),
         textSize,
-        ZogographI18n.t(
-          'display.text_size_help',
-          {},
-          'Applies to this browser only.',
-        ),
+        displayPreferencesFieldsText('text_size_help'),
       ),
       fieldRow(
-        ZogographI18n.t('display.motion', {}, 'Motion'),
+        displayPreferencesFieldsText('motion'),
         motion,
-        ZogographI18n.t(
-          'display.motion_help',
-          {},
-          'Reduce motion disables decorative animation and transitions in this browser.',
-        ),
+        displayPreferencesFieldsText('motion_help'),
       ),
       fieldRow(
-        ZogographI18n.t('display.editor_typeface', {}, 'Editor typeface'),
+        displayPreferencesFieldsText('editor_typeface'),
         editorFont,
-        ZogographI18n.t(
-          'display.editor_typeface_help',
-          {},
-          'Changes only local code, diff, and syntax readers. No file content leaves this browser.',
-        ),
+        displayPreferencesFieldsText('editor_typeface_help'),
       ),
       fieldRow(
-        ZogographI18n.t('display.colour_vision', {}, 'Colour vision'),
+        displayPreferencesFieldsText('colour_vision'),
         colorVision,
-        ZogographI18n.t(
-          'display.colour_vision_help',
-          {},
-          'High distinction uses a blue, orange, and violet status palette. Status words and symbols remain visible in every mode.',
-        ),
+        displayPreferencesFieldsText('colour_vision_help'),
       ),
       section(
-        ZogographI18n.t('display.voice_section', {}, 'Voice'),
+        displayPreferencesFieldsText('voice_section'),
         document.createElement('div'),
       ),
       fieldRow(
-        ZogographI18n.t('display.speaking', {}, 'Speaking'),
+        displayPreferencesFieldsText('speaking'),
         speaking,
-        ZogographI18n.t(
-          'display.speaking_help',
-          {},
-          'Browser speech synthesis; replies are read aloud only when enabled.',
-        ),
+        displayPreferencesFieldsText('speaking_help'),
       ),
       fieldRow(
-        ZogographI18n.t('display.voice', {}, 'Voice'),
+        displayPreferencesFieldsText('voice'),
         voice,
-        ZogographI18n.t(
-          'display.voice_help',
-          {},
-          'Available voices come from this browser and device.',
-        ),
+        displayPreferencesFieldsText('voice_help'),
       ),
       fieldRow(
-        ZogographI18n.t('display.voice_speed', {}, 'Speed'),
+        displayPreferencesFieldsText('voice_speed'),
         rate,
-        ZogographI18n.t('display.voice_speed_help', {}, '0.5× to 2×.'),
+        displayPreferencesFieldsText('voice_speed_help'),
       ),
       fieldRow(
-        ZogographI18n.t('display.voice_pitch', {}, 'Pitch'),
+        displayPreferencesFieldsText('voice_pitch'),
         pitch,
-        ZogographI18n.t('display.voice_pitch_help', {}, '0 to 2.'),
+        displayPreferencesFieldsText('voice_pitch_help'),
       ),
       fieldRow(
-        ZogographI18n.t('display.voice_volume', {}, 'Volume'),
+        displayPreferencesFieldsText('voice_volume'),
         volume,
-        ZogographI18n.t('display.voice_volume_help', {}, '0 to 100%.'),
+        displayPreferencesFieldsText('voice_volume_help'),
       ),
       test,
       fieldRow(
-        ZogographI18n.t('display.listening', {}, 'Listening'),
+        displayPreferencesFieldsText('listening'),
         listening,
-        ZogographI18n.t(
-          'display.listening_help',
-          {},
-          'After applying, click Start listening to grant microphone permission. Push to talk requires holding the Listen button; Always on restarts recognition until stopped.',
-        ),
+        displayPreferencesFieldsText('listening_help'),
       ),
     ],
     async () => {

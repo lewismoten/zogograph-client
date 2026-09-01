@@ -60,8 +60,14 @@ editorExpect(
         str_contains($editorUi, 'terminalEditorSyntaxPreview') &&
         str_contains($editorUi, 'Syntax preview') &&
         str_contains($editorUi, 'Discard unsaved editor changes?') &&
-        str_contains($editorUi, 'Editor typeface') &&
-        str_contains($editorUi, 'Colour vision') &&
+        str_contains(
+            $editorUi,
+            "displayPreferencesFieldsText('editor_typeface'",
+        ) &&
+        str_contains(
+            $editorUi,
+            "displayPreferencesFieldsText('colour_vision'",
+        ) &&
         str_contains($editorUi, 'Undo: Ctrl/Cmd+Z') &&
         str_contains($editorUi, 'Review changes'),
     'browser editor is missing its accessible gutter, syntax reader, display choices, discard guard, or protected change preview',

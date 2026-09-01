@@ -51,6 +51,11 @@ window.ZogographDatabaseStorageCard = {
         'core-database-storage.not_on_disk': 'Not on disk.',
         'core-database-storage.table': 'Table',
         'core-database-storage.rows': 'Rows',
+        'core-database-storage.account_database': "This account's database",
+        'core-database-storage.host_collector_database':
+          "The host collector's database",
+        'core-database-storage.host_unreadable':
+          'Present but not readable by this account, or not there at all.',
       }),
       es: Object.freeze({
         'core-database-storage.percent': '{{percent, number}}%',
@@ -92,6 +97,12 @@ window.ZogographDatabaseStorageCard = {
         'core-database-storage.not_on_disk': 'No está en el disco.',
         'core-database-storage.table': 'Tabla',
         'core-database-storage.rows': 'Filas',
+        'core-database-storage.account_database':
+          'Base de datos de esta cuenta',
+        'core-database-storage.host_collector_database':
+          'Base de datos del recopilador del host',
+        'core-database-storage.host_unreadable':
+          'Está presente pero esta cuenta no puede leerla, o no existe en absoluto.',
       }),
       hi: Object.freeze({
         'core-database-storage.percent': '{{percent, number}}%',
@@ -130,6 +141,11 @@ window.ZogographDatabaseStorageCard = {
         'core-database-storage.not_on_disk': 'डिस्क पर नहीं है।',
         'core-database-storage.table': 'तालिका',
         'core-database-storage.rows': 'पंक्तियाँ',
+        'core-database-storage.account_database': 'इस खाते का डेटाबेस',
+        'core-database-storage.host_collector_database':
+          'होस्ट कलेक्टर का डेटाबेस',
+        'core-database-storage.host_unreadable':
+          'मौजूद है लेकिन यह खाता इसे पढ़ नहीं सकता, या यह बिल्कुल नहीं है।',
       }),
       ar: Object.freeze({
         'core-database-storage.percent': '{{percent, number}}%',
@@ -168,6 +184,11 @@ window.ZogographDatabaseStorageCard = {
         'core-database-storage.not_on_disk': 'ليست على القرص.',
         'core-database-storage.table': 'الجدول',
         'core-database-storage.rows': 'الصفوف',
+        'core-database-storage.account_database': 'قاعدة بيانات هذا الحساب',
+        'core-database-storage.host_collector_database':
+          'قاعدة بيانات جامع المضيف',
+        'core-database-storage.host_unreadable':
+          'موجودة لكن هذا الحساب لا يستطيع قراءتها، أو أنها غير موجودة أصلًا.',
       }),
       zh: Object.freeze({
         'core-database-storage.percent': '{{percent, number}}%',
@@ -203,9 +224,17 @@ window.ZogographDatabaseStorageCard = {
         'core-database-storage.not_on_disk': '不在磁盘上。',
         'core-database-storage.table': '表',
         'core-database-storage.rows': '行',
+        'core-database-storage.account_database': '此账户的数据库',
+        'core-database-storage.host_collector_database': '主机采集器的数据库',
+        'core-database-storage.host_unreadable':
+          '数据库存在但此账户无法读取，或根本不存在。',
       }),
     }),
   }),
+  text(key, values = {}, helpers) {
+    const id = `core-database-storage.${key}`;
+    return helpers.i18n.t(id, values, this.manifest.catalogs.en[id]);
+  },
   render({ file, projection = null }, helpers) {
     const { bandOf, humanBytes, humanCount, count, ago, note, factGrid, i18n } =
       helpers;

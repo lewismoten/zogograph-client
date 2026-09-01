@@ -35825,29 +35825,11 @@ function databaseFacts(data) {
   const wrap = document.createDocumentFragment();
 
   for (const [title, db, extra] of [
+    [databaseText('account_database'), data.account_db, null],
     [
-      ZogographI18n.t(
-        'database.account_database',
-        {},
-        "This account's database",
-      ),
-      data.account_db,
-      null,
-    ],
-    [
-      ZogographI18n.t(
-        'database.host_collector_database',
-        {},
-        "The host collector's database",
-      ),
+      databaseText('host_collector_database'),
       data.host_db,
-      data.host_readable
-        ? null
-        : ZogographI18n.t(
-            'database.host_unreadable',
-            {},
-            'Present but not readable by this account, or not there at all.',
-          ),
+      data.host_readable ? null : databaseText('host_unreadable'),
     ],
   ]) {
     const box = document.createElement('div');

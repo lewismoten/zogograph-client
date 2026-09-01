@@ -16958,21 +16958,13 @@ function renderNotes(data) {
     controls.appendChild(selected);
     const clear = document.createElement('button');
     clear.className = 'link';
-    clear.textContent = ZogographI18n.t(
-      'action.dismiss_selected',
-      {},
-      'Dismiss selected',
-    );
+    clear.textContent = notesRecordsText('dismiss_selected');
     clear.disabled = !state.access?.write || !noteState.selected.size;
     clear.title = notesRecordsText('dismiss_selected_help');
     clear.addEventListener('click', () => batchNotes('clear'));
     const remove = document.createElement('button');
     remove.className = 'link danger';
-    remove.textContent = ZogographI18n.t(
-      'action.delete_selected',
-      {},
-      'Delete selected',
-    );
+    remove.textContent = notesRecordsText('delete_selected');
     remove.disabled = !state.access?.write || !noteState.selected.size;
     remove.addEventListener('click', () => batchNotes('delete'));
     controls.append(clear, remove);

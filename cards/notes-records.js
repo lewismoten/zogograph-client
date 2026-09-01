@@ -12,6 +12,8 @@ window.ZogographNotesRecordsCard = {
         'core-notes-records.table_size': 'Size',
         'core-notes-records.somebody': 'somebody',
         'core-notes-records.selected': '{{count}} selected',
+        'core-notes-records.dismiss_selected': 'Dismiss selected',
+        'core-notes-records.delete_selected': 'Delete selected',
         'core-notes-records.select_to_act': 'Select notes to dismiss or delete',
         'core-notes-records.dismiss_selected_help':
           'Clears selected broadcast notes; ordinary notes are left alone.',
@@ -62,6 +64,8 @@ window.ZogographNotesRecordsCard = {
         'core-notes-records.table_size': 'Tamaño',
         'core-notes-records.somebody': 'alguien',
         'core-notes-records.selected': '{{count}} seleccionadas',
+        'core-notes-records.dismiss_selected': 'Descartar seleccionados',
+        'core-notes-records.delete_selected': 'Eliminar seleccionados',
         'core-notes-records.select_to_act':
           'Seleccione notas para descartarlas o eliminarlas',
         'core-notes-records.dismiss_selected_help':
@@ -113,6 +117,8 @@ window.ZogographNotesRecordsCard = {
         'core-notes-records.table_size': 'आकार',
         'core-notes-records.somebody': 'किसी ने',
         'core-notes-records.selected': '{{count}} चुनी गईं',
+        'core-notes-records.dismiss_selected': 'चुने हुए हटाएँ',
+        'core-notes-records.delete_selected': 'चुने हुए मिटाएँ',
         'core-notes-records.select_to_act': 'खारिज या हटाने के लिए नोट चुनें',
         'core-notes-records.dismiss_selected_help':
           'चुने गए प्रसारण नोट साफ़ करता है; सामान्य नोट वैसे ही रहते हैं।',
@@ -162,6 +168,8 @@ window.ZogographNotesRecordsCard = {
         'core-notes-records.table_size': 'الحجم',
         'core-notes-records.somebody': 'شخص ما',
         'core-notes-records.selected': '{{count}} محددة',
+        'core-notes-records.dismiss_selected': 'ارفض المحدد',
+        'core-notes-records.delete_selected': 'احذف المحدد',
         'core-notes-records.select_to_act': 'حدد ملاحظات لمسحها أو حذفها',
         'core-notes-records.dismiss_selected_help':
           'يمسح ملاحظات البث المحددة؛ تُترك الملاحظات العادية كما هي.',
@@ -210,6 +218,8 @@ window.ZogographNotesRecordsCard = {
         'core-notes-records.table_size': '大小',
         'core-notes-records.somebody': '某人',
         'core-notes-records.selected': '已选 {{count}} 项',
+        'core-notes-records.dismiss_selected': '关闭所选项',
+        'core-notes-records.delete_selected': '删除所选项',
         'core-notes-records.select_to_act': '选择要关闭或删除的注释',
         'core-notes-records.dismiss_selected_help':
           '清除选定的广播注释；普通注释保持不变。',

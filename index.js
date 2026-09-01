@@ -32395,12 +32395,7 @@ function openUrlForm(row = null) {
     'urlGroup',
     urlEditorText('keep_group'),
     group,
-    ZogographI18n.t(
-      'url.keep_group_help',
-      {},
-      'Which bracketed part of the pattern to record. Nearly always 1 \u2014 a pattern needs ' +
-        'context around the part that matters. 0 keeps the whole match.',
-    ),
+    urlEditorText('keep_group_help'),
   );
 
   const notify = document.createElement('input');

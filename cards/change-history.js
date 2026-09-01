@@ -7,6 +7,8 @@ window.ZogographChangeHistoryCard = {
     catalogs: Object.freeze({
       en: Object.freeze({
         'core-change-history.title': 'What changed underneath',
+        'core-change-history.showing': 'Showing',
+        'core-change-history.groups_title': 'What changed, by group',
         'core-change-history.empty_checked':
           'Nothing has changed in this range. Last checked {{when}}.',
         'core-change-history.empty_unchecked':
@@ -25,6 +27,8 @@ window.ZogographChangeHistoryCard = {
       }),
       es: Object.freeze({
         'core-change-history.title': 'Qué cambió por debajo',
+        'core-change-history.showing': 'Mostrando',
+        'core-change-history.groups_title': 'Qué cambió, por grupo',
         'core-change-history.empty_checked':
           'No ha cambiado nada en este intervalo. Última comprobación {{when}}.',
         'core-change-history.empty_unchecked':
@@ -43,6 +47,8 @@ window.ZogographChangeHistoryCard = {
       }),
       hi: Object.freeze({
         'core-change-history.title': 'नीचे क्या बदला',
+        'core-change-history.showing': 'दिखा रहा है',
+        'core-change-history.groups_title': 'समूह के अनुसार क्या बदला',
         'core-change-history.empty_checked':
           'इस अवधि में कुछ नहीं बदला। आखिरी जाँच {{when}}।',
         'core-change-history.empty_unchecked':
@@ -61,6 +67,8 @@ window.ZogographChangeHistoryCard = {
       }),
       ar: Object.freeze({
         'core-change-history.title': 'ما الذي تغير في الأسفل',
+        'core-change-history.showing': 'يعرض',
+        'core-change-history.groups_title': 'ما الذي تغير، حسب المجموعة',
         'core-change-history.empty_checked':
           'لم يتغير شيء في هذه المدة. آخر فحص {{when}}.',
         'core-change-history.empty_unchecked':
@@ -79,6 +87,8 @@ window.ZogographChangeHistoryCard = {
       }),
       zh: Object.freeze({
         'core-change-history.title': '底层发生了什么变化',
+        'core-change-history.showing': '正在显示',
+        'core-change-history.groups_title': '按组查看变化',
         'core-change-history.empty_checked':
           '此时间范围内没有任何变化。上次检查 {{when}}。',
         'core-change-history.empty_unchecked':

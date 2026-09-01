@@ -39,6 +39,8 @@ window.ZogographProcessListCard = {
         'core-process-list.show_matches': 'Show matches',
         'core-process-list.pattern_placeholder':
           'webalizer/bin/english.*ssl_log\\.bkup',
+        'core-process-list.stop_unavailable':
+          'This one cannot be stopped from here.',
       }),
       es: Object.freeze({
         'core-process-list.title': 'Qué está usando la máquina',
@@ -63,6 +65,7 @@ window.ZogographProcessListCard = {
         'core-process-list.show_matches': 'Mostrar coincidencias',
         'core-process-list.pattern_placeholder':
           'webalizer/bin/english.*ssl_log\\.bkup',
+        'core-process-list.stop_unavailable': 'No se puede detener desde aquí.',
       }),
       hi: Object.freeze({
         'core-process-list.title': 'मशीन का उपयोग क्या कर रहा है',
@@ -87,6 +90,7 @@ window.ZogographProcessListCard = {
         'core-process-list.show_matches': 'मिलान दिखाएँ',
         'core-process-list.pattern_placeholder':
           'webalizer/bin/english.*ssl_log\\.bkup',
+        'core-process-list.stop_unavailable': 'इसे यहाँ से रोका नहीं जा सकता।',
       }),
       ar: Object.freeze({
         'core-process-list.title': 'ما الذي يستخدم الجهاز',
@@ -111,6 +115,7 @@ window.ZogographProcessListCard = {
         'core-process-list.show_matches': 'إظهار المطابقات',
         'core-process-list.pattern_placeholder':
           'webalizer/bin/english.*ssl_log\\.bkup',
+        'core-process-list.stop_unavailable': 'لا يمكن إيقاف هذه من هنا.',
       }),
       zh: Object.freeze({
         'core-process-list.title': '什么在使用这台机器',
@@ -135,6 +140,7 @@ window.ZogographProcessListCard = {
         'core-process-list.show_matches': '显示匹配项',
         'core-process-list.pattern_placeholder':
           'webalizer/bin/english.*ssl_log\\.bkup',
+        'core-process-list.stop_unavailable': '无法在此处停止它。',
       }),
     }),
   }),

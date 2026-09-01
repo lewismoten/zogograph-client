@@ -3627,7 +3627,6 @@ i18nExpect(
             $english['process.trend_empty'],
             $english['process.stop_force'],
             $english['process.stop_ask'],
-            $english['process.stop_unavailable'],
             $english['process.stop_force_one_help'],
             $english['process.stop_force_many_help'],
             $english['process.stop_ask_one_help'],

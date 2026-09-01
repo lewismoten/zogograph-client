@@ -23005,11 +23005,9 @@ function stopButtons(row, grouped) {
       button.disabled = true;
       button.title =
         row.reason ||
-        ZogographI18n.t(
-          'process.stop_unavailable',
-          {},
-          'This one cannot be stopped from here.',
-        );
+        ZogographProcessListCard.text('stop_unavailable', {
+          i18n: ZogographI18n,
+        });
       holder.appendChild(button);
       continue;
     }

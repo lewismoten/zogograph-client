@@ -144,7 +144,6 @@
   "process.trend_empty": "No recorded process load in this range",
   "process.stop_force": "Force",
   "process.stop_ask": "Ask",
-  "process.stop_unavailable": "This one cannot be stopped from here.",
   "process.stop_force_one_help": "SIGKILL — it is killed outright, with no chance to finish writing anything",
   "process.stop_force_many_help": "SIGKILL — all {{count}} are killed outright, with no chance to finish writing anything",
   "process.stop_ask_one_help": "SIGTERM — it is asked to exit and can tidy up first",

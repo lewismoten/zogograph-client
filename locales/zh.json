@@ -144,7 +144,6 @@
   "process.trend_empty": "此范围内没有已记录的进程负载",
   "process.stop_force": "强制",
   "process.stop_ask": "请求",
-  "process.stop_unavailable": "无法在此处停止它。",
   "process.stop_force_one_help": "SIGKILL — 会立即终止它，无法完成任何正在写入的内容",
   "process.stop_force_many_help": "SIGKILL — 会立即终止全部 {{count}} 个，无法完成任何正在写入的内容",
   "process.stop_ask_one_help": "SIGTERM — 会请求它退出，并可先完成清理",

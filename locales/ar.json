@@ -144,7 +144,6 @@
   "process.trend_empty": "لا يوجد حمل عمليات مسجل في هذا النطاق",
   "process.stop_force": "إجبار",
   "process.stop_ask": "طلب",
-  "process.stop_unavailable": "لا يمكن إيقاف هذه من هنا.",
   "process.stop_force_one_help": "SIGKILL — تُقتل فورًا، بلا فرصة لإكمال كتابة أي شيء",
   "process.stop_force_many_help": "SIGKILL — تُقتل {{count}} كلها فورًا، بلا فرصة لإكمال كتابة أي شيء",
   "process.stop_ask_one_help": "SIGTERM — يُطلب منها الخروج ويمكنها ترتيب الأمور أولًا",

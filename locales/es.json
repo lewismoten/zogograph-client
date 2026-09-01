@@ -144,7 +144,6 @@
   "process.trend_empty": "No hay carga de proceso registrada en este rango",
   "process.stop_force": "Forzar",
   "process.stop_ask": "Pedir",
-  "process.stop_unavailable": "No se puede detener desde aquí.",
   "process.stop_force_one_help": "SIGKILL: se elimina de inmediato, sin oportunidad de terminar de escribir nada",
   "process.stop_force_many_help": "SIGKILL: los {{count}} se eliminan de inmediato, sin oportunidad de terminar de escribir nada",
   "process.stop_ask_one_help": "SIGTERM: se le pide salir y puede ordenar todo antes",

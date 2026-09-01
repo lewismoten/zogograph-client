@@ -144,7 +144,6 @@
   "process.trend_empty": "इस सीमा में कोई रिकॉर्ड किया गया प्रक्रिया लोड नहीं है",
   "process.stop_force": "बलपूर्वक",
   "process.stop_ask": "कहें",
-  "process.stop_unavailable": "इसे यहाँ से रोका नहीं जा सकता।",
   "process.stop_force_one_help": "SIGKILL — इसे तुरंत समाप्त कर दिया जाता है, लिखना पूरा करने का कोई अवसर नहीं",
   "process.stop_force_many_help": "SIGKILL — सभी {{count}} को तुरंत समाप्त कर दिया जाता है, लिखना पूरा करने का कोई अवसर नहीं",
   "process.stop_ask_one_help": "SIGTERM — इसे बाहर निकलने के लिए कहा जाता है और पहले साफ़ कर सकता है",

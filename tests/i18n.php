@@ -3563,11 +3563,6 @@ i18nExpect(
             $english['alert.held_back_title'],
             $english['alert.verdict_dialog_title'],
             $english['alert.verdict_dialog_help'],
-            $english['alerts.mute_duration_15m'],
-            $english['alerts.mute_duration_1h'],
-            $english['alerts.mute_duration_4h'],
-            $english['alerts.mute_duration_1d'],
-            $english['alerts.mute_duration_7d'],
             $english['process.table_pid'],
             $english['process.table_user'],
             $english['process.table_running_for'],
@@ -3941,10 +3936,24 @@ i18nExpect(
 );
 i18nExpect(
     $script !== false &&
-        str_contains($script, 'alerts.mute_duration_15m') &&
-        str_contains($script, 'alerts.mute_duration_4h') &&
-        str_contains($script, 'alerts.mute_duration_7d'),
-    'alert mute duration choices retain direct user-visible text',
+        str_contains($script, "'mute_duration_15m'") &&
+        str_contains($script, "'mute_duration_4h'") &&
+        str_contains($script, "'mute_duration_7d'") &&
+        str_contains($script, "ZogographAlertsShellCard.text('mute_title'") &&
+        isset(
+            $coreCardEnglish['core-alerts-shell.mute_duration_15m'],
+            $coreCardEnglish['core-alerts-shell.mute_duration_1h'],
+            $coreCardEnglish['core-alerts-shell.mute_duration_4h'],
+            $coreCardEnglish['core-alerts-shell.mute_duration_1d'],
+            $coreCardEnglish['core-alerts-shell.mute_duration_7d'],
+            $coreCardEnglish['core-alerts-shell.mute_reason_placeholder'],
+            $coreCardEnglish['core-alerts-shell.mute_title'],
+            $coreCardEnglish['core-alerts-shell.mute_for'],
+            $coreCardEnglish['core-alerts-shell.mute_expires'],
+            $coreCardEnglish['core-alerts-shell.mute_reason'],
+            $coreCardEnglish['core-alerts-shell.mute_reason_help'],
+        ),
+    'alert mute form copy does not belong to the alerts package',
 );
 i18nExpect(
     $script !== false &&

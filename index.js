@@ -27754,7 +27754,9 @@ function showAlertMuteReason(row) {
               }),
         ],
         [
-          ZogographI18n.t('alerts.mute_reason', {}, 'Reason'),
+          ZogographAlertsShellCard.text('mute_reason', {
+            i18n: ZogographI18n,
+          }),
           row.notification_reason ||
             ZogographAlertsShellCard.text('no_reason_recorded', {
               i18n: ZogographI18n,
@@ -28074,16 +28076,18 @@ function alertRowActions(row) {
 
 function openAlertMute(row) {
   const duration = document.createElement('select');
-  for (const [seconds, key, fallback] of [
-    [900, 'alerts.mute_duration_15m', '15 minutes'],
-    [3600, 'alerts.mute_duration_1h', '1 hour'],
-    [14400, 'alerts.mute_duration_4h', '4 hours'],
-    [86400, 'alerts.mute_duration_1d', '1 day'],
-    [604800, 'alerts.mute_duration_7d', '7 days'],
+  for (const [seconds, key] of [
+    [900, 'mute_duration_15m'],
+    [3600, 'mute_duration_1h'],
+    [14400, 'mute_duration_4h'],
+    [86400, 'mute_duration_1d'],
+    [604800, 'mute_duration_7d'],
   ]) {
     const option = document.createElement('option');
     option.value = String(seconds);
-    option.textContent = ZogographI18n.t(key, {}, fallback);
+    option.textContent = ZogographAlertsShellCard.text(key, {
+      i18n: ZogographI18n,
+    });
     option.selected = seconds === 3600;
     duration.appendChild(option);
   }
@@ -28092,13 +28096,14 @@ function openAlertMute(row) {
   reason.className = 'wide';
   reason.maxLength = 240;
   reason.required = true;
-  reason.placeholder = ZogographI18n.t(
-    'alerts.mute_reason_placeholder',
-    {},
-    'planned maintenance',
+  reason.placeholder = ZogographAlertsShellCard.text(
+    'mute_reason_placeholder',
+    { i18n: ZogographI18n },
   );
   showFormDialog(
-    ZogographI18n.t('alerts.mute_title', {}, 'Temporarily mute this rule'),
+    ZogographAlertsShellCard.text('mute_title', {
+      i18n: ZogographI18n,
+    }),
     [
       note(
         ZogographI18n.t(
@@ -28108,18 +28113,22 @@ function openAlertMute(row) {
         ),
       ),
       fieldRow(
-        ZogographI18n.t('alerts.mute_for', {}, 'For'),
+        ZogographAlertsShellCard.text('mute_for', {
+          i18n: ZogographI18n,
+        }),
         duration,
-        ZogographI18n.t('alerts.mute_expires', {}, 'Expires automatically.'),
+        ZogographAlertsShellCard.text('mute_expires', {
+          i18n: ZogographI18n,
+        }),
       ),
       fieldRow(
-        ZogographI18n.t('alerts.mute_reason', {}, 'Reason'),
+        ZogographAlertsShellCard.text('mute_reason', {
+          i18n: ZogographI18n,
+        }),
         reason,
-        ZogographI18n.t(
-          'alerts.mute_reason_help',
-          {},
-          'Stored on held events and in the audit trail.',
-        ),
+        ZogographAlertsShellCard.text('mute_reason_help', {
+          i18n: ZogographI18n,
+        }),
       ),
     ],
     async () => {
@@ -28194,7 +28203,9 @@ function showAlertMutes() {
         render: (row) => whenSpan(row.expires_at),
       },
       {
-        label: ZogographI18n.t('alerts.mute_reason', {}, 'Reason'),
+        label: ZogographAlertsShellCard.text('mute_reason', {
+          i18n: ZogographI18n,
+        }),
         className: 'name',
         render: (row) => row.reason,
       },

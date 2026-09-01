@@ -49,6 +49,18 @@ window.ZogographAlertsShellCard = {
           'Sent {{when}}. This one went out before messages were kept, so there is nothing to open.',
         'core-alerts-shell.muted_title':
           'Delivery was held by a temporary operator mute. Click for details.',
+        'core-alerts-shell.mute_duration_15m': '15 minutes',
+        'core-alerts-shell.mute_duration_1h': '1 hour',
+        'core-alerts-shell.mute_duration_4h': '4 hours',
+        'core-alerts-shell.mute_duration_1d': '1 day',
+        'core-alerts-shell.mute_duration_7d': '7 days',
+        'core-alerts-shell.mute_reason_placeholder': 'planned maintenance',
+        'core-alerts-shell.mute_title': 'Temporarily mute this rule',
+        'core-alerts-shell.mute_for': 'For',
+        'core-alerts-shell.mute_expires': 'Expires automatically.',
+        'core-alerts-shell.mute_reason': 'Reason',
+        'core-alerts-shell.mute_reason_help':
+          'Stored on held events and in the audit trail.',
       }),
       es: Object.freeze({
         'core-alerts-shell.timeline_title': 'Cuándo se activaron las alertas',
@@ -95,6 +107,19 @@ window.ZogographAlertsShellCard = {
           'Enviado {{when}}. Este se envió antes de que se conservaran los mensajes, por lo que no hay nada que abrir.',
         'core-alerts-shell.muted_title':
           'La entrega fue retenida por un silencio temporal del operador. Haga clic para ver los detalles.',
+        'core-alerts-shell.mute_duration_15m': '15 minutos',
+        'core-alerts-shell.mute_duration_1h': '1 hora',
+        'core-alerts-shell.mute_duration_4h': '4 horas',
+        'core-alerts-shell.mute_duration_1d': '1 día',
+        'core-alerts-shell.mute_duration_7d': '7 días',
+        'core-alerts-shell.mute_reason_placeholder':
+          'mantenimiento planificado',
+        'core-alerts-shell.mute_title': 'Silenciar esta regla temporalmente',
+        'core-alerts-shell.mute_for': 'Durante',
+        'core-alerts-shell.mute_expires': 'Caduca automáticamente.',
+        'core-alerts-shell.mute_reason': 'Motivo',
+        'core-alerts-shell.mute_reason_help':
+          'Se guarda en los eventos retenidos y en el registro de auditoría.',
       }),
       hi: Object.freeze({
         'core-alerts-shell.timeline_title': 'अलर्ट कब चालू हुए',
@@ -141,6 +166,18 @@ window.ZogographAlertsShellCard = {
           '{{when}} पर भेजा गया। यह संदेश सहेजे जाने से पहले भेजा गया था, इसलिए खोलने के लिए कुछ नहीं है।',
         'core-alerts-shell.muted_title':
           'डिलीवरी अस्थायी ऑपरेटर म्यूट द्वारा रोकी गई थी। विवरण के लिए क्लिक करें।',
+        'core-alerts-shell.mute_duration_15m': '15 मिनट',
+        'core-alerts-shell.mute_duration_1h': '1 घंटा',
+        'core-alerts-shell.mute_duration_4h': '4 घंटे',
+        'core-alerts-shell.mute_duration_1d': '1 दिन',
+        'core-alerts-shell.mute_duration_7d': '7 दिन',
+        'core-alerts-shell.mute_reason_placeholder': 'नियोजित रखरखाव',
+        'core-alerts-shell.mute_title': 'इस नियम को अस्थायी रूप से म्यूट करें',
+        'core-alerts-shell.mute_for': 'अवधि',
+        'core-alerts-shell.mute_expires': 'स्वचालित रूप से समाप्त होता है।',
+        'core-alerts-shell.mute_reason': 'कारण',
+        'core-alerts-shell.mute_reason_help':
+          'रुके हुए इवेंट और ऑडिट ट्रेल में संग्रहीत।',
       }),
       ar: Object.freeze({
         'core-alerts-shell.timeline_title': 'متى أُطلقت التنبيهات',
@@ -185,6 +222,18 @@ window.ZogographAlertsShellCard = {
           'أُرسل {{when}}. أُرسل هذا قبل الاحتفاظ بالرسائل، لذلك لا يوجد ما يمكن فتحه.',
         'core-alerts-shell.muted_title':
           'حُجبت عملية التسليم بكتم مؤقت من المشغّل. انقر للتفاصيل.',
+        'core-alerts-shell.mute_duration_15m': '15 دقيقة',
+        'core-alerts-shell.mute_duration_1h': 'ساعة واحدة',
+        'core-alerts-shell.mute_duration_4h': '4 ساعات',
+        'core-alerts-shell.mute_duration_1d': 'يوم واحد',
+        'core-alerts-shell.mute_duration_7d': '7 أيام',
+        'core-alerts-shell.mute_reason_placeholder': 'صيانة مخططة',
+        'core-alerts-shell.mute_title': 'اكتم هذه القاعدة مؤقتًا',
+        'core-alerts-shell.mute_for': 'لمدة',
+        'core-alerts-shell.mute_expires': 'تنتهي تلقائيًا.',
+        'core-alerts-shell.mute_reason': 'السبب',
+        'core-alerts-shell.mute_reason_help':
+          'يُحفظ في الأحداث المحتجزة ومسار التدقيق.',
       }),
       zh: Object.freeze({
         'core-alerts-shell.timeline_title': '警报何时触发',
@@ -229,6 +278,17 @@ window.ZogographAlertsShellCard = {
           '发送于 {{when}}。此消息在保留消息之前就已发出，因此没有可打开的内容。',
         'core-alerts-shell.muted_title':
           '投递被临时操作员静音拦截。点击查看详情。',
+        'core-alerts-shell.mute_duration_15m': '15 分钟',
+        'core-alerts-shell.mute_duration_1h': '1 小时',
+        'core-alerts-shell.mute_duration_4h': '4 小时',
+        'core-alerts-shell.mute_duration_1d': '1 天',
+        'core-alerts-shell.mute_duration_7d': '7 天',
+        'core-alerts-shell.mute_reason_placeholder': '计划维护',
+        'core-alerts-shell.mute_title': '暂时静音此规则',
+        'core-alerts-shell.mute_for': '时长',
+        'core-alerts-shell.mute_expires': '自动到期。',
+        'core-alerts-shell.mute_reason': '原因',
+        'core-alerts-shell.mute_reason_help': '存储在保留事件和审计记录中。',
       }),
     }),
   }),

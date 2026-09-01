@@ -2727,19 +2727,25 @@
               </h2>
               <div class="panel-controls">
                 <label class="inline">
-                  <span data-i18n="processes.by">By</span>
+                  <span data-i18n="core-process-list.by">By</span>
                   <select id="procBy">
-                    <option value="cpu" selected data-i18n="processes.cpu">
+                    <option
+                      value="cpu"
+                      selected
+                      data-i18n="core-process-list.cpu"
+                    >
                       CPU
                     </option>
-                    <option value="memory" data-i18n="processes.memory">
+                    <option value="memory" data-i18n="core-process-list.memory">
                       Memory
                     </option>
                   </select>
                 </label>
                 <label class="inline">
                   <input type="checkbox" id="procGroup" checked />
-                  <span data-i18n="processes.group_by_name">Group by name</span>
+                  <span data-i18n="core-process-list.group_by_name"
+                    >Group by name</span
+                  >
                 </label>
                 <button
                   id="procRefresh"
@@ -2777,7 +2783,7 @@
             </p>
             <canvas id="processTrendChart"></canvas>
 
-            <h3 class="sub-head" data-i18n="processes.stop_title">
+            <h3 class="sub-head" data-i18n="core-process-list.stop_title">
               Stop by command line
             </h3>
             <p
@@ -2799,12 +2805,12 @@
                 spellcheck="false"
                 autocomplete="off"
                 placeholder="webalizer/bin/english.*ssl_log\.bkup"
-                data-i18n-placeholder="processes.pattern_placeholder"
+                data-i18n-placeholder="core-process-list.pattern_placeholder"
               />
               <button
                 type="submit"
                 id="patternPreview"
-                data-i18n="processes.show_matches"
+                data-i18n="core-process-list.show_matches"
               >
                 Show matches
               </button>

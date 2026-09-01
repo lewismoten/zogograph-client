@@ -33,6 +33,12 @@ window.ZogographProcessListCard = {
         'core-process-list.pid': 'PID',
         'core-process-list.command': 'Command',
         'core-process-list.stop': 'Stop',
+        'core-process-list.by': 'By',
+        'core-process-list.group_by_name': 'Group by name',
+        'core-process-list.stop_title': 'Stop by command line',
+        'core-process-list.show_matches': 'Show matches',
+        'core-process-list.pattern_placeholder':
+          'webalizer/bin/english.*ssl_log\\.bkup',
       }),
       es: Object.freeze({
         'core-process-list.title': 'Qué está usando la máquina',
@@ -51,6 +57,12 @@ window.ZogographProcessListCard = {
         'core-process-list.pid': 'PID',
         'core-process-list.command': 'Comando',
         'core-process-list.stop': 'Detener',
+        'core-process-list.by': 'Por',
+        'core-process-list.group_by_name': 'Agrupar por nombre',
+        'core-process-list.stop_title': 'Detener por línea de comandos',
+        'core-process-list.show_matches': 'Mostrar coincidencias',
+        'core-process-list.pattern_placeholder':
+          'webalizer/bin/english.*ssl_log\\.bkup',
       }),
       hi: Object.freeze({
         'core-process-list.title': 'मशीन का उपयोग क्या कर रहा है',
@@ -69,6 +81,12 @@ window.ZogographProcessListCard = {
         'core-process-list.pid': 'PID',
         'core-process-list.command': 'कमांड',
         'core-process-list.stop': 'रोकें',
+        'core-process-list.by': 'के अनुसार',
+        'core-process-list.group_by_name': 'नाम के अनुसार समूहित करें',
+        'core-process-list.stop_title': 'कमांड लाइन से रोकें',
+        'core-process-list.show_matches': 'मिलान दिखाएँ',
+        'core-process-list.pattern_placeholder':
+          'webalizer/bin/english.*ssl_log\\.bkup',
       }),
       ar: Object.freeze({
         'core-process-list.title': 'ما الذي يستخدم الجهاز',
@@ -87,6 +105,12 @@ window.ZogographProcessListCard = {
         'core-process-list.pid': 'PID',
         'core-process-list.command': 'الأمر',
         'core-process-list.stop': 'إيقاف',
+        'core-process-list.by': 'حسب',
+        'core-process-list.group_by_name': 'تجميع حسب الاسم',
+        'core-process-list.stop_title': 'الإيقاف بسطر الأوامر',
+        'core-process-list.show_matches': 'إظهار المطابقات',
+        'core-process-list.pattern_placeholder':
+          'webalizer/bin/english.*ssl_log\\.bkup',
       }),
       zh: Object.freeze({
         'core-process-list.title': '什么在使用这台机器',
@@ -105,6 +129,12 @@ window.ZogographProcessListCard = {
         'core-process-list.pid': 'PID',
         'core-process-list.command': '命令',
         'core-process-list.stop': '停止',
+        'core-process-list.by': '按',
+        'core-process-list.group_by_name': '按名称分组',
+        'core-process-list.stop_title': '按命令行停止',
+        'core-process-list.show_matches': '显示匹配项',
+        'core-process-list.pattern_placeholder':
+          'webalizer/bin/english.*ssl_log\\.bkup',
       }),
     }),
   }),

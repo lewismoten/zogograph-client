@@ -854,8 +854,6 @@
   "help.command_references": "आधिकारिक कमांड संदर्भ",
   "help.terminal_commands": "संबंधित टर्मिनल कमांड",
   "capabilities.queued_confirmation": "कतार में है। होस्ट कलेक्टर अपने अगले रन में {{program}} की पुष्टि करेगा।",
-  "domain.watch": "इस डोमेन की निगरानी करें",
-  "domain.now_watching": "अब {{domain}} की निगरानी हो रही है।",
   "terminal.running_in": "इसमें चल रहा है ",
   "terminal.return_home": "शीर्ष पर वापस जाएँ",
   "terminal.return_home_title": "{{home}} पर लौटें",

@@ -33,6 +33,8 @@ window.ZogographWhoisShellCard = {
         'core-whois-shell.registry_facts': 'What the registry says',
         'core-whois-shell.lock_meanings': 'What those locks mean',
         'core-whois-shell.registry_wording': 'As the registry writes it',
+        'core-whois-shell.watch': 'Watch this domain',
+        'core-whois-shell.now_watching': 'Now watching {{domain}}.',
       }),
       es: Object.freeze({
         'core-whois-shell.title': 'Buscar un nombre',
@@ -63,6 +65,8 @@ window.ZogographWhoisShellCard = {
         'core-whois-shell.registry_facts': 'Lo que dice el registro',
         'core-whois-shell.lock_meanings': 'Qué significan esos bloqueos',
         'core-whois-shell.registry_wording': 'Como lo escribe el registro',
+        'core-whois-shell.watch': 'Vigilar este dominio',
+        'core-whois-shell.now_watching': 'Ahora se vigila {{domain}}.',
       }),
       hi: Object.freeze({
         'core-whois-shell.title': 'नाम खोजें',
@@ -92,6 +96,8 @@ window.ZogographWhoisShellCard = {
         'core-whois-shell.registry_facts': 'रजिस्ट्री क्या कहती है',
         'core-whois-shell.lock_meanings': 'इन लॉक का अर्थ',
         'core-whois-shell.registry_wording': 'जैसा रजिस्ट्री लिखती है',
+        'core-whois-shell.watch': 'इस डोमेन की निगरानी करें',
+        'core-whois-shell.now_watching': 'अब {{domain}} की निगरानी हो रही है।',
       }),
       ar: Object.freeze({
         'core-whois-shell.title': 'ابحث عن اسم',
@@ -121,6 +127,8 @@ window.ZogographWhoisShellCard = {
         'core-whois-shell.registry_facts': 'ما يقوله السجل',
         'core-whois-shell.lock_meanings': 'ما تعنيه هذه الأقفال',
         'core-whois-shell.registry_wording': 'كما يكتبه السجل',
+        'core-whois-shell.watch': 'راقب هذا النطاق',
+        'core-whois-shell.now_watching': 'تجري الآن مراقبة {{domain}}.',
       }),
       zh: Object.freeze({
         'core-whois-shell.title': '查询一个名称',
@@ -148,6 +156,8 @@ window.ZogographWhoisShellCard = {
         'core-whois-shell.registry_facts': '注册机构的答复',
         'core-whois-shell.lock_meanings': '这些锁定的含义',
         'core-whois-shell.registry_wording': '注册机构的原文',
+        'core-whois-shell.watch': '监控此域名',
+        'core-whois-shell.now_watching': '现已监控 {{domain}}。',
       }),
     }),
   }),

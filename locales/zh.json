@@ -852,8 +852,6 @@
   "help.command_references": "官方命令参考",
   "help.terminal_commands": "相关终端命令",
   "capabilities.queued_confirmation": "已排队。主机采集器将在下次运行时确认 {{program}}。",
-  "domain.watch": "监控此域名",
-  "domain.now_watching": "现已监控 {{domain}}。",
   "terminal.running_in": "正在运行于 ",
   "terminal.return_home": "返回顶部",
   "terminal.return_home_title": "返回 {{home}}",

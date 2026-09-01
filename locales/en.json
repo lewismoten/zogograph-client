@@ -833,8 +833,6 @@
   "help.command_references": "Official command references",
   "help.terminal_commands": "Related terminal commands",
   "capabilities.queued_confirmation": "Queued. The host collector will confirm {{program}} on its next run.",
-  "domain.watch": "Watch this domain",
-  "domain.now_watching": "Now watching {{domain}}.",
   "terminal.running_in": "Running in ",
   "terminal.return_home": "back to the top",
   "terminal.return_home_title": "Return to {{home}}",

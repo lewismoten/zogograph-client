@@ -852,8 +852,6 @@
   "help.command_references": "مراجع الأوامر الرسمية",
   "help.terminal_commands": "أوامر طرفية ذات صلة",
   "capabilities.queued_confirmation": "وُضع في الطابور. سيؤكد جامع المضيف {{program}} في تشغيله التالي.",
-  "domain.watch": "راقب هذا النطاق",
-  "domain.now_watching": "تجري الآن مراقبة {{domain}}.",
   "terminal.running_in": "يعمل في ",
   "terminal.return_home": "العودة إلى الأعلى",
   "terminal.return_home_title": "العودة إلى {{home}}",

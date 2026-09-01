@@ -35021,11 +35021,7 @@ async function refreshWhois(name = '') {
       const actions = document.createElement('div');
       actions.className = 'inspect-actions';
       const watch = document.createElement('button');
-      watch.textContent = ZogographI18n.t(
-        'domain.watch',
-        {},
-        'Watch this domain',
-      );
+      watch.textContent = whoisText('watch');
       watch.addEventListener('click', async () => {
         try {
           await post('domain-save', {
@@ -35033,14 +35029,7 @@ async function refreshWhois(name = '') {
             warn_days: 45,
             interval_seconds: 604800,
           });
-          notice(
-            ZogographI18n.t(
-              'domain.now_watching',
-              { domain: data.name },
-              'Now watching {{domain}}.',
-            ),
-            true,
-          );
+          notice(whoisText('now_watching', { domain: data.name }), true);
           showView('domains');
         } catch (error) {
           notice(String(error.message || error));

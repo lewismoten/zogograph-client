@@ -26647,9 +26647,19 @@ function drawSchedule(data) {
             ),
             render: (row) =>
               row.ok
-                ? ZogographI18n.t('schedule.run_ok', {}, 'ok')
+                ? renderCoreCardPackage(
+                    window.ZogographScheduleUpdateRunsCard,
+                    'core-schedule-update-runs',
+                    { key: 'ok' },
+                    { i18n: ZogographI18n },
+                  )
                 : row.error ||
-                  ZogographI18n.t('schedule.run_failed', {}, 'failed'),
+                  renderCoreCardPackage(
+                    window.ZogographScheduleUpdateRunsCard,
+                    'core-schedule-update-runs',
+                    { key: 'failed' },
+                    { i18n: ZogographI18n },
+                  ),
           },
         ],
         null,

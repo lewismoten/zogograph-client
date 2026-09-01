@@ -34152,14 +34152,20 @@ function renderDomains(data) {
         render: (row) => row.name,
       },
       {
-        label: ZogographI18n.t('domain.expires', {}, 'Expires'),
+        label: ZogographDomainQueueCard.text('expires', {
+          i18n: ZogographI18n,
+        }),
         render: (row) => {
           if (!row.expires_at) {
             const span = document.createElement('span');
             span.className = 'muted';
             span.textContent = row.last_error
-              ? ZogographI18n.t('domain.lookup_failed', {}, 'Lookup failed')
-              : ZogographI18n.t('domain.not_read', {}, 'Not read');
+              ? ZogographDomainQueueCard.text('lookup_failed', {
+                  i18n: ZogographI18n,
+                })
+              : ZogographDomainQueueCard.text('not_read', {
+                  i18n: ZogographI18n,
+                });
             span.title = row.last_error || data.notes.unknown;
             return span;
           }
@@ -34169,7 +34175,7 @@ function renderDomains(data) {
         },
       },
       {
-        label: ZogographI18n.t('domain.left', {}, 'Left'),
+        label: ZogographDomainQueueCard.text('left', { i18n: ZogographI18n }),
         className: 'size',
         render: (row) => {
           if (row.seconds_left === null) return '\u2014';
@@ -34196,11 +34202,13 @@ function renderDomains(data) {
         },
       },
       {
-        label: ZogographI18n.t('domain.registrar', {}, 'Registrar'),
+        label: ZogographDomainQueueCard.text('registrar', {
+          i18n: ZogographI18n,
+        }),
         render: (row) => row.registrar || '\u2014',
       },
       {
-        label: ZogographI18n.t('domain.lock', {}, 'Lock'),
+        label: ZogographDomainQueueCard.text('lock', { i18n: ZogographI18n }),
         render: (row) => {
           const span = document.createElement('span');
           const meanings = (row.status_plain || []).map((entry) => entry.plain);
@@ -34516,7 +34524,7 @@ async function refreshWhois(name = '') {
     if (p.expires_at) {
       const days = Math.floor((p.expires_at - Date.now() / 1000) / 86400);
       facts.push([
-        ZogographI18n.t('domain.expires', {}, 'Expires'),
+        ZogographDomainQueueCard.text('expires', { i18n: ZogographI18n }),
         ZogographI18n.t(
           days < 0
             ? 'time.duration_ago_with_date'
@@ -34532,7 +34540,7 @@ async function refreshWhois(name = '') {
       ]);
     } else {
       facts.push([
-        ZogographI18n.t('domain.expires', {}, 'Expires'),
+        ZogographDomainQueueCard.text('expires', { i18n: ZogographI18n }),
         whoisText('no_recognized_date'),
       ]);
     }
@@ -34552,7 +34560,7 @@ async function refreshWhois(name = '') {
     }
     if (p.registrar)
       facts.push([
-        ZogographI18n.t('domain.registrar', {}, 'Registrar'),
+        ZogographDomainQueueCard.text('registrar', { i18n: ZogographI18n }),
         p.registrar,
       ]);
     if (p.status) {

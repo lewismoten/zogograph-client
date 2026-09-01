@@ -17,6 +17,12 @@ window.ZogographDomainQueueCard = {
         'core-domain-queue.waiting':
           '{{due, number}} domains are due, with {{perRun, number}} looked up per run — registries rate-limit anyone who asks faster, and a blocked address reports every domain as unknown. The oldest waits least.',
         'core-domain-queue.empty': 'No domains are being watched.',
+        'core-domain-queue.expires': 'Expires',
+        'core-domain-queue.lookup_failed': 'Lookup failed',
+        'core-domain-queue.not_read': 'Not read',
+        'core-domain-queue.left': 'Left',
+        'core-domain-queue.registrar': 'Registrar',
+        'core-domain-queue.lock': 'Lock',
       }),
       es: Object.freeze({
         'core-domain-queue.title': 'Nombres de dominio',
@@ -32,6 +38,12 @@ window.ZogographDomainQueueCard = {
         'core-domain-queue.waiting':
           'Hay {{due, number}} dominios pendientes y se consulta {{perRun, number}} en cada ejecución: los registros limitan las consultas rápidas y una dirección bloqueada informa de todos los dominios como desconocidos. Los más antiguos esperan menos.',
         'core-domain-queue.empty': 'No se está vigilando ningún dominio.',
+        'core-domain-queue.expires': 'Caduca',
+        'core-domain-queue.lookup_failed': 'Falló la consulta',
+        'core-domain-queue.not_read': 'No leído',
+        'core-domain-queue.left': 'Restante',
+        'core-domain-queue.registrar': 'Registrador',
+        'core-domain-queue.lock': 'Bloqueo',
       }),
       hi: Object.freeze({
         'core-domain-queue.title': 'डोमेन नाम',
@@ -46,6 +58,12 @@ window.ZogographDomainQueueCard = {
         'core-domain-queue.waiting':
           '{{due, number}} डोमेन देय हैं और हर रन में {{perRun, number}} देखे जाते हैं — रजिस्ट्रियाँ तेज़ी से पूछने वालों को सीमित करती हैं और ब्लॉक किया गया पता हर डोमेन को अज्ञात बताता है। सबसे पुराने को सबसे कम इंतज़ार है।',
         'core-domain-queue.empty': 'कोई डोमेन नहीं देखा जा रहा है।',
+        'core-domain-queue.expires': 'समाप्ति',
+        'core-domain-queue.lookup_failed': 'लुकअप विफल',
+        'core-domain-queue.not_read': 'पढ़ा नहीं गया',
+        'core-domain-queue.left': 'शेष',
+        'core-domain-queue.registrar': 'रजिस्ट्रार',
+        'core-domain-queue.lock': 'लॉक',
       }),
       ar: Object.freeze({
         'core-domain-queue.title': 'أسماء النطاقات',
@@ -60,6 +78,12 @@ window.ZogographDomainQueueCard = {
         'core-domain-queue.waiting':
           'هناك {{due, number}} نطاقات مستحقة، ويُبحث عن {{perRun, number}} في كل تشغيل — تقيد السجلات من يسأل بسرعة أكبر، والعنوان المحظور يبلغ عن كل نطاق بأنه غير معروف. الأقدم ينتظر أقل.',
         'core-domain-queue.empty': 'لا توجد نطاقات قيد المراقبة.',
+        'core-domain-queue.expires': 'ينتهي',
+        'core-domain-queue.lookup_failed': 'فشل البحث',
+        'core-domain-queue.not_read': 'لم يُقرأ',
+        'core-domain-queue.left': 'المتبقي',
+        'core-domain-queue.registrar': 'المسجّل',
+        'core-domain-queue.lock': 'القفل',
       }),
       zh: Object.freeze({
         'core-domain-queue.title': '域名',
@@ -73,6 +97,12 @@ window.ZogographDomainQueueCard = {
         'core-domain-queue.waiting':
           '有 {{due, number}} 个域名待处理，每次运行查询 {{perRun, number}} 个——注册机构会限制查询过快的请求，而被阻止的地址会将每个域名报告为未知。最早的等待时间最短。',
         'core-domain-queue.empty': '尚未监测任何域名。',
+        'core-domain-queue.expires': '到期',
+        'core-domain-queue.lookup_failed': '查询失败',
+        'core-domain-queue.not_read': '未读取',
+        'core-domain-queue.left': '剩余',
+        'core-domain-queue.registrar': '注册商',
+        'core-domain-queue.lock': '锁定',
       }),
     }),
   }),

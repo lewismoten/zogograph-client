@@ -23406,13 +23406,7 @@ async function previewPattern() {
   }
 
   if (!data.available) {
-    holder.textContent =
-      data.reason ||
-      ZogographI18n.t(
-        'process.unavailable',
-        {},
-        'Cannot read the process list here.',
-      );
+    holder.textContent = data.reason || processMetricsText('unavailable');
     return;
   }
 

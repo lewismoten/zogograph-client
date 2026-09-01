@@ -158,7 +158,6 @@
   "process.cpu_cores": "{{cores}} 个核心中的 {{share}}",
   "process.cpu_cores_worth": "相当于 {{share}} 个核心",
   "process.cpu_help": "ps 按单个核心衡量每个进程，因此任何多线程进程都可能超过 100%。概览中的 CPU 数值是整台机器的占比，是不同的度量方式。",
-  "process.unavailable": "无法在此读取进程列表。",
   "process.no_matches": "{{scanned}} 个运行中的进程没有任何匹配项。",
   "process.matches_summary": "{{scanned}} 个运行中的进程中有 {{matched}} 个匹配。",
   "process.matches_all_protected": "{{scanned}} 个运行中的进程中有 {{matched}} 个匹配；全部受保护。",

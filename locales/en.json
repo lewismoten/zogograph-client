@@ -158,7 +158,6 @@
   "process.cpu_cores": "{{share}} of {{cores}} cores",
   "process.cpu_cores_worth": "{{share}} cores' worth",
   "process.cpu_help": "ps measures each process against one core, so anything threaded can pass 100%. The CPU figure on the overview is a share of the whole machine and is a different measurement.",
-  "process.unavailable": "Cannot read the process list here.",
   "process.no_matches": "Nothing among the {{scanned}} running processes matches that.",
   "process.matches_summary": "Matches {{matched}} of the {{scanned}} running processes.",
   "process.matches_all_protected": "Matches {{matched}} of the {{scanned}} running processes; all are protected.",

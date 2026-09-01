@@ -3641,7 +3641,6 @@ i18nExpect(
             $english['process.cpu_cores'],
             $english['process.cpu_cores_worth'],
             $english['process.cpu_help'],
-            $english['process.unavailable'],
             $english['process.no_matches'],
             $english['process.matches_summary'],
             $english['process.matches_all_protected'],

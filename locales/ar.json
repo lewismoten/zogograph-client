@@ -158,7 +158,6 @@
   "process.cpu_cores": "{{share}} من {{cores}} أنوية",
   "process.cpu_cores_worth": "ما يعادل {{share}} أنوية",
   "process.cpu_help": "يقيس ps كل عملية مقابل نواة واحدة، لذا يمكن لأي شيء متعدد الخيوط أن يتجاوز 100٪. رقم CPU في النظرة العامة هو حصة من الجهاز كله وهو قياس مختلف.",
-  "process.unavailable": "تعذر قراءة قائمة العمليات هنا.",
   "process.no_matches": "لا شيء بين عمليات التشغيل {{scanned}} يطابق ذلك.",
   "process.matches_summary": "تطابق {{matched}} من عمليات التشغيل {{scanned}}.",
   "process.matches_all_protected": "تطابق {{matched}} من عمليات التشغيل {{scanned}}؛ كلها محمية.",

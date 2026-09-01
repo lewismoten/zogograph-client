@@ -1302,7 +1302,6 @@
   "host.walk_disk": "افحص القرص",
   "host.walk_disk_again": "افحص القرص مرة أخرى",
   "host.walk_requested": "تم الطلب. سيفحص جامع المضيف القرص في تشغيله التالي.",
-  "host.collector_loading": "تجري قراءة جامع المضيف…",
   "host.sees_kernel": "النواة {{kernel}}",
   "host.sees_device_readable": "عدادات الأجهزة قابلة للقراءة",
   "host.sees_device_unreadable": "عدادات الأجهزة غير قابلة للقراءة",

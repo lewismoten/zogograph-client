@@ -1302,7 +1302,6 @@
   "host.walk_disk": "遍历磁盘",
   "host.walk_disk_again": "再次遍历磁盘",
   "host.walk_requested": "已请求。主机采集器将在下次运行时遍历磁盘。",
-  "host.collector_loading": "正在读取主机采集器…",
   "host.sees_kernel": "内核 {{kernel}}",
   "host.sees_device_readable": "设备计数器可读",
   "host.sees_device_unreadable": "设备计数器不可读",

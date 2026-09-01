@@ -1304,7 +1304,6 @@
   "host.walk_disk": "डिस्क वॉक करें",
   "host.walk_disk_again": "डिस्क फिर से वॉक करें",
   "host.walk_requested": "अनुरोध किया गया। होस्ट कलेक्टर अपने अगले रन में डिस्क वॉक करेगा।",
-  "host.collector_loading": "होस्ट कलेक्टर पढ़ा जा रहा है…",
   "host.sees_kernel": "कर्नेल {{kernel}}",
   "host.sees_device_readable": "डिवाइस काउंटर पढ़ने योग्य",
   "host.sees_device_unreadable": "डिवाइस काउंटर पढ़ने योग्य नहीं",

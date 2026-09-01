@@ -23747,15 +23747,7 @@ async function refreshHost() {
   for (const id of bodies) {
     const el = $(id);
     if (el && !el.childElementCount)
-      el.replaceChildren(
-        spinner(
-          ZogographI18n.t(
-            'host.collector_loading',
-            {},
-            'Reading the host collector\u2026',
-          ),
-        ),
-      );
+      el.replaceChildren(spinner(hostCollectorRuntimeText('loading')));
   }
 
   if (!state.signedIn) {

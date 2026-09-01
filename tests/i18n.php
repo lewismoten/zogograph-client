@@ -4383,7 +4383,10 @@ $translatedNavigation = [
     'navigation.audit',
     'navigation.descriptions',
 ];
-$translatedSecurityMessages = ['host.collector_loading'];
+$translatedSecurityMessages = [];
+$translatedHostRuntimePackageSecurityMessages = [
+    'core-host-collector-runtime.loading',
+];
 $translatedDiagnosisPackageSecurityMessages = [
     'core-diagnosis-results.sign_in',
     'core-diagnosis-results.reading_everything',
@@ -4588,6 +4591,13 @@ foreach (['en-US', 'en-GB', 'es', 'hi', 'zh', 'ar'] as $locale) {
             array_diff($translatedSecurityMessages, array_keys($catalog)) ===
                 [],
             "locale catalog $locale lacks translated security-sensitive dashboard text",
+        );
+        i18nExpect(
+            array_diff(
+                $translatedHostRuntimePackageSecurityMessages,
+                array_keys($coreCardLocaleKeys[$locale] ?? []),
+            ) === [],
+            "host runtime package $locale falls back to English for security-sensitive text",
         );
         i18nExpect(
             array_diff(

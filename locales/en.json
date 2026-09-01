@@ -1320,7 +1320,6 @@
   "host.walk_disk": "Walk the disk",
   "host.walk_disk_again": "Walk the disk again",
   "host.walk_requested": "Requested. The host collector will walk the disk on its next run.",
-  "host.collector_loading": "Reading the host collector…",
   "host.sees_kernel": "Kernel {{kernel}}",
   "host.sees_device_readable": "device counters readable",
   "host.sees_device_unreadable": "device counters unreadable",

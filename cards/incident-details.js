@@ -36,6 +36,8 @@ window.ZogographIncidentDetailsCard = {
         'core-incident-details.disk': 'Disk',
         'core-incident-details.used': 'Used',
         'core-incident-details.free': 'Free',
+        'core-incident-details.what_could_not_be_seen':
+          'What could not be seen',
       }),
       es: Object.freeze({
         'core-incident-details.alerts_fired_together':
@@ -68,6 +70,7 @@ window.ZogographIncidentDetailsCard = {
         'core-incident-details.disk': 'Disco',
         'core-incident-details.used': 'Usado',
         'core-incident-details.free': 'Libre',
+        'core-incident-details.what_could_not_be_seen': 'Lo que no se pudo ver',
       }),
       hi: Object.freeze({
         'core-incident-details.alerts_fired_together':
@@ -100,6 +103,7 @@ window.ZogographIncidentDetailsCard = {
         'core-incident-details.disk': 'डिस्क',
         'core-incident-details.used': 'प्रयुक्त',
         'core-incident-details.free': 'मुक्त',
+        'core-incident-details.what_could_not_be_seen': 'क्या नहीं देखा जा सका',
       }),
       ar: Object.freeze({
         'core-incident-details.alerts_fired_together':
@@ -131,6 +135,7 @@ window.ZogographIncidentDetailsCard = {
         'core-incident-details.disk': 'القرص',
         'core-incident-details.used': 'المستخدم',
         'core-incident-details.free': 'الحر',
+        'core-incident-details.what_could_not_be_seen': 'ما الذي تعذر رؤيته',
       }),
       zh: Object.freeze({
         'core-incident-details.alerts_fired_together':
@@ -162,6 +167,7 @@ window.ZogographIncidentDetailsCard = {
         'core-incident-details.disk': '磁盘',
         'core-incident-details.used': '已用',
         'core-incident-details.free': '空闲',
+        'core-incident-details.what_could_not_be_seen': '无法看到的内容',
       }),
     }),
   }),

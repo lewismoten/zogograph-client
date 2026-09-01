@@ -28755,11 +28755,7 @@ async function showIncident(id) {
      */
     body.appendChild(
       section(
-        ZogographI18n.t(
-          'incident.what_could_not_be_seen',
-          {},
-          'What could not be seen',
-        ),
+        incidentText('what_could_not_be_seen'),
         listOf(missing.map(([, why]) => why)),
       ),
     );

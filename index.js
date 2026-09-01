@@ -20720,7 +20720,12 @@ function openDisplayPreferences() {
   const voice = document.createElement('select');
   voice.append(
     new Option(
-      ZogographI18n.t('display.voice_browser_default', {}, 'Browser default'),
+      renderCoreCardPackage(
+        ZogographDisplayVoiceControlsCard,
+        'core-display-voice-controls',
+        { key: 'voice_browser_default' },
+        { i18n: ZogographI18n },
+      ),
       '',
       false,
       current.voice === '',
@@ -20756,14 +20761,20 @@ function openDisplayPreferences() {
   const test = document.createElement('button');
   test.type = 'button';
   test.className = 'link';
-  test.textContent = ZogographI18n.t('display.test_voice', {}, 'Test voice');
+  test.textContent = renderCoreCardPackage(
+    ZogographDisplayVoiceControlsCard,
+    'core-display-voice-controls',
+    { key: 'test_voice' },
+    { i18n: ZogographI18n },
+  );
   test.addEventListener('click', () => {
     const utterance = configureUtterance(
       new SpeechSynthesisUtterance(
-        ZogographI18n.t(
-          'display.voice_ready',
-          {},
-          'Zogograph voice settings are ready.',
+        renderCoreCardPackage(
+          ZogographDisplayVoiceControlsCard,
+          'core-display-voice-controls',
+          { key: 'voice_ready' },
+          { i18n: ZogographI18n },
         ),
       ),
     );

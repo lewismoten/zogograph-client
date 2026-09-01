@@ -21,6 +21,8 @@ window.ZogographUrlMonitorStatusCard = {
         'core-url-monitor-status.never': 'never',
         'core-url-monitor-status.overdue_cron':
           "Due before now. The account's cron may not be running.",
+        'core-url-monitor-status.collector_interval_limit':
+          'The account’s cron runs about every {{interval}}, so a check set to run more often than that will run at that rate instead.',
       }),
       es: Object.freeze({
         'core-url-monitor-status.switched_off': 'Desactivado.',
@@ -38,6 +40,8 @@ window.ZogographUrlMonitorStatusCard = {
         'core-url-monitor-status.never': 'nunca',
         'core-url-monitor-status.overdue_cron':
           'Venció antes de ahora. Puede que el cron de la cuenta no esté funcionando.',
+        'core-url-monitor-status.collector_interval_limit':
+          'El cron de la cuenta se ejecuta aproximadamente cada {{interval}}, por lo que una comprobación configurada para ejecutarse con más frecuencia se ejecutará a ese ritmo.',
       }),
       hi: Object.freeze({
         'core-url-monitor-status.switched_off': 'बंद है।',
@@ -55,6 +59,8 @@ window.ZogographUrlMonitorStatusCard = {
         'core-url-monitor-status.never': 'कभी नहीं',
         'core-url-monitor-status.overdue_cron':
           'यह अब से पहले देय था। खाते का cron शायद नहीं चल रहा है।',
+        'core-url-monitor-status.collector_interval_limit':
+          'खाते का क्रॉन लगभग हर {{interval}} पर चलता है, इसलिए इससे अधिक बार चलने के लिए सेट की गई जांच उसी दर पर चलेगी।',
       }),
       ar: Object.freeze({
         'core-url-monitor-status.switched_off': 'موقوف.',
@@ -72,6 +78,8 @@ window.ZogographUrlMonitorStatusCard = {
         'core-url-monitor-status.never': 'أبدًا',
         'core-url-monitor-status.overdue_cron':
           'كان موعده قبل الآن. قد لا يكون cron الخاص بالحساب يعمل.',
+        'core-url-monitor-status.collector_interval_limit':
+          'يعمل cron الخاص بالحساب كل {{interval}} تقريبًا، لذا فإن الفحص المضبوط للتشغيل بوتيرة أعلى سيعمل بهذه الوتيرة بدلًا من ذلك.',
       }),
       zh: Object.freeze({
         'core-url-monitor-status.switched_off': '已关闭。',
@@ -89,6 +97,8 @@ window.ZogographUrlMonitorStatusCard = {
         'core-url-monitor-status.never': '从未',
         'core-url-monitor-status.overdue_cron':
           '已逾期。该帐户的 cron 可能未运行。',
+        'core-url-monitor-status.collector_interval_limit':
+          '账户的 cron 大约每 {{interval}} 运行一次，因此设置为更频繁运行的检查将改为按该频率运行。',
       }),
     }),
   }),

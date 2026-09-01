@@ -38,7 +38,6 @@
   "url.extracted_value": "提取的值",
   "url.nothing_extracted": "尚未提取任何内容",
   "url.value_note": "由 {{rule}} 规则从响应中获取。此检查可捕获返回 200 但内容错误的页面，这是此处其他检查无法发现的情况。",
-  "url.collector_interval_limit": "账户的 cron 大约每 {{interval}} 运行一次，因此设置为更频繁运行的检查将改为按该频率运行。",
   "url.status_label": "状态",
   "url.no_answer": "没有响应",
   "url.took": "耗时",

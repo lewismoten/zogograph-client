@@ -38,7 +38,6 @@
   "url.extracted_value": "valor extraído",
   "url.nothing_extracted": "Aún no se ha extraído nada",
   "url.value_note": "Se obtuvo de la respuesta mediante la regla {{rule}}. Esta es la comprobación que detecta una página que devuelve 200 con contenido incorrecto, algo que nada más aquí puede ver.",
-  "url.collector_interval_limit": "El cron de la cuenta se ejecuta aproximadamente cada {{interval}}, por lo que una comprobación configurada para ejecutarse con más frecuencia se ejecutará a ese ritmo.",
   "url.status_label": "Estado",
   "url.no_answer": "sin respuesta",
   "url.took": "Tardó",

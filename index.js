@@ -31362,11 +31362,9 @@ function renderUrls(data) {
      */
     body.appendChild(
       note(
-        ZogographI18n.t(
-          'url.collector_interval_limit',
-          { interval: humanDuration(data.collector_interval) },
-          'The account’s cron runs about every {{interval}}, so a check set to run more often than that will run at that rate instead.',
-        ),
+        urlStatusText('collector_interval_limit', {
+          interval: humanDuration(data.collector_interval),
+        }),
       ),
     );
   }

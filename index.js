@@ -27646,10 +27646,10 @@ function showAlertVerdict(row) {
       ? ZogographAlertsShellCard.text('held_back_title', {
           i18n: ZogographI18n,
         })
-      : ZogographI18n.t(
-          'alert.verdict_dialog_title',
+      : ZogographAlertsShellCard.text(
+          'verdict_dialog_title',
+          { i18n: ZogographI18n },
           { assistant: chatState.who.name },
-          'What {{assistant}} said',
         ),
     nodes,
     ZogographI18n.t(

@@ -15,6 +15,14 @@ window.ZogographUptimeEventsCard = {
         'core-uptime-events.for': 'For',
         'core-uptime-events.meaning': 'What it means',
         'core-uptime-events.reading_gap': 'Reading gap',
+        'core-uptime-events.restart_explanation':
+          'Boot time moved, so the machine did restart. It came back at {{booted}}; it went down at some point after the last reading, so this is an upper bound rather than a measurement.',
+        'core-uptime-events.gap_collector_not_running':
+          'Boot time was unchanged either side, so the machine ran straight through this — it was up, and the collector was not running.',
+        'core-uptime-events.gap_before_tracking':
+          'These readings predate boot-time recording, so whether the machine restarted here cannot be told. Not an outage — just a stretch that cannot be classified. Gaps from now on will say which.',
+        'core-uptime-events.gap_unknown':
+          'No boot time either side to compare, so whether the machine stayed up through this cannot be told from these readings.',
       }),
       es: Object.freeze({
         'core-uptime-events.empty':
@@ -26,6 +34,14 @@ window.ZogographUptimeEventsCard = {
         'core-uptime-events.for': 'Durante',
         'core-uptime-events.meaning': 'Qué significa',
         'core-uptime-events.reading_gap': 'Hueco de lecturas',
+        'core-uptime-events.restart_explanation':
+          'La hora de arranque cambió, así que la máquina sí se reinició. Volvió a las {{booted}}; se apagó en algún momento después de la última lectura, así que es un límite superior y no una medición.',
+        'core-uptime-events.gap_collector_not_running':
+          'La hora de arranque no cambió a ambos lados, así que la máquina siguió funcionando: estaba activa, pero el recopilador no se ejecutaba.',
+        'core-uptime-events.gap_before_tracking':
+          'Estas lecturas son anteriores al registro de hora de arranque, por lo que no se puede saber si la máquina se reinició aquí. No es una interrupción; es un tramo que no se puede clasificar.',
+        'core-uptime-events.gap_unknown':
+          'No hay hora de arranque a ninguno de los lados para comparar, por lo que estas lecturas no permiten saber si la máquina permaneció activa.',
       }),
       hi: Object.freeze({
         'core-uptime-events.empty':
@@ -37,6 +53,14 @@ window.ZogographUptimeEventsCard = {
         'core-uptime-events.for': 'अवधि',
         'core-uptime-events.meaning': 'इसका अर्थ',
         'core-uptime-events.reading_gap': 'रीडिंग अंतराल',
+        'core-uptime-events.restart_explanation':
+          'बूट समय बदला, इसलिए मशीन फिर शुरू हुई। यह {{booted}} पर वापस आई; आखिरी रीडिंग के बाद किसी समय बंद हुई, इसलिए यह ऊपरी सीमा है, माप नहीं।',
+        'core-uptime-events.gap_collector_not_running':
+          'दोनों ओर बूट समय अपरिवर्तित था, इसलिए मशीन चलती रही — वह चालू थी, पर कलेक्टर नहीं चल रहा था।',
+        'core-uptime-events.gap_before_tracking':
+          'ये रीडिंग बूट-समय रिकॉर्डिंग से पहले की हैं, इसलिए यहां पुनरारंभ हुआ या नहीं कहा नहीं जा सकता। यह आउटेज नहीं, वर्गीकृत न हो सकने वाला अंतराल है।',
+        'core-uptime-events.gap_unknown':
+          'तुलना के लिए दोनों ओर बूट समय नहीं है, इसलिए इन रीडिंग से नहीं बताया जा सकता कि मशीन चालू रही या नहीं।',
       }),
       ar: Object.freeze({
         'core-uptime-events.empty':
@@ -48,6 +72,14 @@ window.ZogographUptimeEventsCard = {
         'core-uptime-events.for': 'لمدة',
         'core-uptime-events.meaning': 'ما معناه',
         'core-uptime-events.reading_gap': 'فجوة في القراءات',
+        'core-uptime-events.restart_explanation':
+          'تغيّر وقت الإقلاع، لذا أعيد تشغيل الجهاز بالفعل. عاد في {{booted}}؛ وتوقف في وقت ما بعد آخر قراءة، لذا فهذا حد أعلى لا قياس.',
+        'core-uptime-events.gap_collector_not_running':
+          'لم يتغير وقت الإقلاع على الجانبين، لذا استمر الجهاز في العمل — كان يعمل لكن الجامع لم يكن يعمل.',
+        'core-uptime-events.gap_before_tracking':
+          'هذه القراءات تسبق تسجيل وقت الإقلاع، لذلك لا يمكن معرفة ما إذا كان الجهاز قد أعيد تشغيله هنا. ليست انقطاعًا بل فترة لا يمكن تصنيفها.',
+        'core-uptime-events.gap_unknown':
+          'لا يوجد وقت إقلاع على أي من الجانبين للمقارنة، لذلك لا يمكن لهذه القراءات تحديد ما إذا ظل الجهاز يعمل.',
       }),
       zh: Object.freeze({
         'core-uptime-events.empty':
@@ -59,6 +91,14 @@ window.ZogographUptimeEventsCard = {
         'core-uptime-events.for': '持续',
         'core-uptime-events.meaning': '含义',
         'core-uptime-events.reading_gap': '读数缺口',
+        'core-uptime-events.restart_explanation':
+          '启动时间发生变化，因此机器确实重启了。它在 {{booted}} 恢复；在最后一次读数之后的某个时刻停机，因此这是上限而不是精确测量值。',
+        'core-uptime-events.gap_collector_not_running':
+          '两侧的启动时间均未变化，因此机器一直在运行；它处于启动状态，但采集器没有运行。',
+        'core-uptime-events.gap_before_tracking':
+          '这些读数早于启动时间记录，因此无法判断机器是否在此处重启。这不是停机，而是一段无法分类的间隔。',
+        'core-uptime-events.gap_unknown':
+          '两侧都没有启动时间可供比较，因此这些读数无法判断机器是否一直运行。',
       }),
     }),
   }),

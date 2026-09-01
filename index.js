@@ -19398,6 +19398,15 @@ function terminalEditorFindText(key, values = {}) {
   );
 }
 
+function terminalEditorDetailsText(key, values = {}) {
+  return renderCoreCardPackage(
+    ZogographTerminalEditorDetailsCard,
+    'core-terminal-editor-details',
+    { key, values },
+    { i18n: ZogographI18n },
+  );
+}
+
 async function openTerminalEditor(path) {
   const data = await api('terminal-editor', { path });
   const editable = Boolean(data.writable && state.access?.write);
@@ -19541,12 +19550,8 @@ async function openTerminalEditor(path) {
   const editorKeys = document.createElement('p');
   editorKeys.className = 'muted small editor-shortcuts';
   editorKeys.textContent = editable
-    ? ZogographI18n.t(
-        'editor.shortcuts_editable',
-        {},
-        'Find: Ctrl/Cmd+F · Replace: Ctrl/Cmd+H · Undo: Ctrl/Cmd+Z · Redo: Ctrl/Cmd+Shift+Z · Review: Ctrl/Cmd+Shift+D',
-      )
-    : ZogographI18n.t('editor.shortcuts_read_only', {}, 'Find: Ctrl/Cmd+F');
+    ? terminalEditorDetailsText('shortcuts_editable')
+    : terminalEditorDetailsText('shortcuts_read_only');
   text.addEventListener('keydown', (event) => {
     if (!(event.ctrlKey || event.metaKey)) return;
     if (event.key.toLowerCase() === 'f') {
@@ -19561,34 +19566,27 @@ async function openTerminalEditor(path) {
   const note_ = document.createElement('p');
   note_.className = 'muted small';
   note_.textContent = editable
-    ? ZogographI18n.t(
-        'editor.writable_note',
-        { size: humanBytes(data.bytes) },
-        '{{size}} · text files up to 1 MB · saves preserve line endings, make a private recovery copy, and refuse to overwrite newer changes.',
-      )
-    : ZogographI18n.t(
-        'editor.read_only_note',
-        { size: humanBytes(data.bytes) },
-        '{{size}} · read-only: this account cannot save this file.',
-      );
+    ? terminalEditorDetailsText('writable_note', {
+        size: humanBytes(data.bytes),
+      })
+    : terminalEditorDetailsText('read_only_note', {
+        size: humanBytes(data.bytes),
+      });
   const endings =
     { lf: 'LF', crlf: 'CRLF', cr: 'CR' }[data.line_ending] ||
-    ZogographI18n.t('editor.unknown', {}, 'unknown');
+    terminalEditorDetailsText('unknown');
   const metadata = factGrid([
+    [terminalEditorDetailsText('encoding'), data.encoding || 'UTF-8'],
+    [terminalEditorDetailsText('line_endings'), endings],
     [
-      ZogographI18n.t('editor.encoding', {}, 'Encoding'),
-      data.encoding || 'UTF-8',
-    ],
-    [ZogographI18n.t('editor.line_endings', {}, 'Line endings'), endings],
-    [
-      ZogographI18n.t('editor.modified', {}, 'Modified'),
+      terminalEditorDetailsText('modified'),
       data.modified
         ? humanTime(data.modified)
-        : ZogographI18n.t('editor.unknown', {}, 'unknown'),
+        : terminalEditorDetailsText('unknown'),
     ],
     [
-      ZogographI18n.t('editor.permissions', {}, 'Permissions'),
-      data.mode || ZogographI18n.t('editor.unknown', {}, 'unknown'),
+      terminalEditorDetailsText('permissions'),
+      data.mode || terminalEditorDetailsText('unknown'),
     ],
   ]);
   const parts = [location, metadata, note_, searchTools, editorKeys];

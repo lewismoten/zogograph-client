@@ -377,6 +377,9 @@ $terminalCommandDetailsCard = i18nCardSource(
 $terminalEditorRecoveryCard = i18nCardSource(
     file_get_contents($root . '/cards/terminal-editor-recovery.js'),
 );
+$terminalEditorDetailsCard = i18nCardSource(
+    file_get_contents($root . '/cards/terminal-editor-details.js'),
+);
 $terminalShellCard = i18nCardSource(
     file_get_contents($root . '/cards/terminal-shell.js'),
 );
@@ -3778,9 +3781,16 @@ i18nExpect(
             ),
             'core-terminal-editor-find.replace_all',
         ) &&
-        str_contains($script, 'editor.shortcuts_editable') &&
-        str_contains($script, 'editor.writable_note') &&
-        str_contains($script, 'editor.permissions'),
+        $terminalEditorDetailsCard !== false &&
+        str_contains(
+            $script,
+            "terminalEditorDetailsText('shortcuts_editable'",
+        ) &&
+        str_contains($script, "terminalEditorDetailsText('permissions'") &&
+        str_contains(
+            $terminalEditorDetailsCard,
+            'core-terminal-editor-details.writable_note',
+        ),
     'terminal editor metadata and accessibility text are not package-localized',
 );
 i18nExpect(

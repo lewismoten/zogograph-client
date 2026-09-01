@@ -26429,10 +26429,11 @@ function drawSchedule(data) {
   stageRow.className = 'settings-row';
   const stageLabel = document.createElement('div');
   stageLabel.className = 'settings-label';
-  stageLabel.textContent = ZogographI18n.t(
-    'schedule.update_stages',
-    {},
-    'Update stages',
+  stageLabel.textContent = renderCoreCardPackage(
+    window.ZogographScheduleUpdateStagesCard,
+    'core-schedule-update-stages',
+    { key: 'stages' },
+    { i18n: ZogographI18n },
   );
   stageRow.appendChild(stageLabel);
   const stages = document.createElement('div');
@@ -26440,11 +26441,17 @@ function drawSchedule(data) {
   const none = document.createElement('button');
   none.type = 'button';
   none.className = 'link';
-  none.textContent = ZogographI18n.t('schedule.update_none', {}, 'None');
-  none.title = ZogographI18n.t(
-    'schedule.update_none_help',
-    {},
-    'Turn off every automatic update stage',
+  none.textContent = renderCoreCardPackage(
+    window.ZogographScheduleUpdateStagesCard,
+    'core-schedule-update-stages',
+    { key: 'none' },
+    { i18n: ZogographI18n },
+  );
+  none.title = renderCoreCardPackage(
+    window.ZogographScheduleUpdateStagesCard,
+    'core-schedule-update-stages',
+    { key: 'none_help' },
+    { i18n: ZogographI18n },
   );
   none.addEventListener('click', () => {
     for (const input of stages.querySelectorAll('input')) input.checked = false;
@@ -26452,10 +26459,30 @@ function drawSchedule(data) {
   });
   stages.appendChild(none);
   const stageLabels = {
-    detect: ZogographI18n.t('schedule.update_detect', {}, 'Detect'),
-    notify: ZogographI18n.t('schedule.update_notify', {}, 'Notify'),
-    download: ZogographI18n.t('schedule.update_download', {}, 'Download'),
-    'auto-update': ZogographI18n.t('schedule.update_auto', {}, 'Auto-Update'),
+    detect: renderCoreCardPackage(
+      window.ZogographScheduleUpdateStagesCard,
+      'core-schedule-update-stages',
+      { key: 'detect' },
+      { i18n: ZogographI18n },
+    ),
+    notify: renderCoreCardPackage(
+      window.ZogographScheduleUpdateStagesCard,
+      'core-schedule-update-stages',
+      { key: 'notify' },
+      { i18n: ZogographI18n },
+    ),
+    download: renderCoreCardPackage(
+      window.ZogographScheduleUpdateStagesCard,
+      'core-schedule-update-stages',
+      { key: 'download' },
+      { i18n: ZogographI18n },
+    ),
+    'auto-update': renderCoreCardPackage(
+      window.ZogographScheduleUpdateStagesCard,
+      'core-schedule-update-stages',
+      { key: 'auto' },
+      { i18n: ZogographI18n },
+    ),
   };
   for (const [value, label] of Object.entries(stageLabels)) {
     const choice = document.createElement('label');

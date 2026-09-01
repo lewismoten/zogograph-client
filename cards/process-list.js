@@ -51,6 +51,26 @@ window.ZogographProcessListCard = {
         'core-process-list.stop_group_failed': '{{count}} failed',
         'core-process-list.stop_stopped': 'Stopped.',
         'core-process-list.stop_signalled': 'Signalled.',
+        'core-process-list.stop_force': 'Force',
+        'core-process-list.stop_ask': 'Ask',
+        'core-process-list.stop_force_many_help':
+          'SIGKILL — all {{count}} are killed outright, with no chance to finish writing anything',
+        'core-process-list.stop_force_one_help':
+          'SIGKILL — it is killed outright, with no chance to finish writing anything',
+        'core-process-list.stop_ask_many_help':
+          'SIGTERM — each is asked to exit and can tidy up first',
+        'core-process-list.stop_ask_one_help':
+          'SIGTERM — it is asked to exit and can tidy up first',
+        'core-process-list.stop_killing': 'Killing…',
+        'core-process-list.stop_asking': 'Asking…',
+        'core-process-list.stop_force_waiting':
+          '{{name}} is still in the process list after SIGKILL. That normally means it is stuck in the kernel — waiting on a disk or a network mount — where no signal can reach it until whatever it is waiting for returns.',
+        'core-process-list.stop_ask_waiting':
+          '{{name}} was asked to stop and has not. It is entitled to ignore SIGTERM; Force sends a signal it cannot ignore.',
+        'core-process-list.stop_force_confirm':
+          'Force {{what}} to stop?\n\nSIGKILL cannot be caught or ignored. Anything part-way through being written stays part-way written.',
+        'core-process-list.stop_ask_confirm':
+          'Ask {{what}} to stop?\n\nSIGTERM lets it close its files and exit cleanly. It can also ignore this.',
       }),
       es: Object.freeze({
         'core-process-list.title': 'Qué está usando la máquina',
@@ -86,6 +106,26 @@ window.ZogographProcessListCard = {
         'core-process-list.stop_group_failed': '{{count}} fallaron',
         'core-process-list.stop_stopped': 'Detenido.',
         'core-process-list.stop_signalled': 'Señal enviada.',
+        'core-process-list.stop_force': 'Forzar',
+        'core-process-list.stop_ask': 'Pedir',
+        'core-process-list.stop_force_many_help':
+          'SIGKILL: los {{count}} se eliminan de inmediato, sin oportunidad de terminar de escribir nada',
+        'core-process-list.stop_force_one_help':
+          'SIGKILL: se elimina de inmediato, sin oportunidad de terminar de escribir nada',
+        'core-process-list.stop_ask_many_help':
+          'SIGTERM: se les pide salir y pueden ordenar todo antes',
+        'core-process-list.stop_ask_one_help':
+          'SIGTERM: se le pide salir y puede ordenar todo antes',
+        'core-process-list.stop_killing': 'Eliminando…',
+        'core-process-list.stop_asking': 'Pidiendo…',
+        'core-process-list.stop_force_waiting':
+          '{{name}} sigue en la lista de procesos después de SIGKILL. Normalmente significa que está atascado en el kernel, esperando un disco o un montaje de red, donde ninguna señal puede alcanzarlo hasta que regrese aquello que espera.',
+        'core-process-list.stop_ask_waiting':
+          'Se pidió a {{name}} que se detuviera y no lo ha hecho. Tiene derecho a ignorar SIGTERM; Forzar envía una señal que no puede ignorar.',
+        'core-process-list.stop_force_confirm':
+          '¿Forzar la detención de {{what}}?\n\nSIGKILL no se puede capturar ni ignorar. Todo lo que se esté escribiendo queda a medio escribir.',
+        'core-process-list.stop_ask_confirm':
+          '¿Pedir a {{what}} que se detenga?\n\nSIGTERM le permite cerrar sus archivos y salir limpiamente. También puede ignorarlo.',
       }),
       hi: Object.freeze({
         'core-process-list.title': 'मशीन का उपयोग क्या कर रहा है',
@@ -121,6 +161,26 @@ window.ZogographProcessListCard = {
         'core-process-list.stop_group_failed': '{{count}} विफल हुए',
         'core-process-list.stop_stopped': 'रोक दिया गया।',
         'core-process-list.stop_signalled': 'सिग्नल भेजा गया।',
+        'core-process-list.stop_force': 'बलपूर्वक',
+        'core-process-list.stop_ask': 'कहें',
+        'core-process-list.stop_force_many_help':
+          'SIGKILL — सभी {{count}} को तुरंत समाप्त कर दिया जाता है, लिखना पूरा करने का कोई अवसर नहीं',
+        'core-process-list.stop_force_one_help':
+          'SIGKILL — इसे तुरंत समाप्त कर दिया जाता है, लिखना पूरा करने का कोई अवसर नहीं',
+        'core-process-list.stop_ask_many_help':
+          'SIGTERM — हर एक को बाहर निकलने के लिए कहा जाता है और पहले साफ़ कर सकता है',
+        'core-process-list.stop_ask_one_help':
+          'SIGTERM — इसे बाहर निकलने के लिए कहा जाता है और पहले साफ़ कर सकता है',
+        'core-process-list.stop_killing': 'समाप्त किया जा रहा है…',
+        'core-process-list.stop_asking': 'कहा जा रहा है…',
+        'core-process-list.stop_force_waiting':
+          'SIGKILL के बाद भी {{name}} प्रक्रिया सूची में है। इसका सामान्य अर्थ है कि वह कर्नेल में अटका है — डिस्क या नेटवर्क माउंट की प्रतीक्षा कर रहा है — जहाँ कोई सिग्नल तब तक नहीं पहुँच सकता जब तक वह चीज़ वापस न आ जाए जिसकी वह प्रतीक्षा कर रहा है।',
+        'core-process-list.stop_ask_waiting':
+          '{{name}} को रुकने के लिए कहा गया था और वह नहीं रुका। उसे SIGTERM को अनदेखा करने का अधिकार है; बलपूर्वक ऐसा सिग्नल भेजता है जिसे वह अनदेखा नहीं कर सकता।',
+        'core-process-list.stop_force_confirm':
+          'क्या {{what}} को बलपूर्वक रोकें?\n\nSIGKILL पकड़ा या अनदेखा नहीं किया जा सकता। जो भी लिखने के बीच में है वह बीच में ही रह जाएगा।',
+        'core-process-list.stop_ask_confirm':
+          'क्या {{what}} को रुकने के लिए कहें?\n\nSIGTERM उसे फ़ाइलें बंद कर साफ़ रूप से बाहर निकलने देता है। वह इसे अनदेखा भी कर सकता है।',
       }),
       ar: Object.freeze({
         'core-process-list.title': 'ما الذي يستخدم الجهاز',
@@ -156,6 +216,26 @@ window.ZogographProcessListCard = {
         'core-process-list.stop_group_failed': 'فشل {{count}}',
         'core-process-list.stop_stopped': 'توقفت.',
         'core-process-list.stop_signalled': 'أُرسلت الإشارة.',
+        'core-process-list.stop_force': 'إجبار',
+        'core-process-list.stop_ask': 'طلب',
+        'core-process-list.stop_force_many_help':
+          'SIGKILL — تُقتل {{count}} كلها فورًا، بلا فرصة لإكمال كتابة أي شيء',
+        'core-process-list.stop_force_one_help':
+          'SIGKILL — تُقتل فورًا، بلا فرصة لإكمال كتابة أي شيء',
+        'core-process-list.stop_ask_many_help':
+          'SIGTERM — يُطلب من كل منها الخروج ويمكنها ترتيب الأمور أولًا',
+        'core-process-list.stop_ask_one_help':
+          'SIGTERM — يُطلب منها الخروج ويمكنها ترتيب الأمور أولًا',
+        'core-process-list.stop_killing': 'جارٍ الإنهاء…',
+        'core-process-list.stop_asking': 'جارٍ الطلب…',
+        'core-process-list.stop_force_waiting':
+          'لا تزال {{name}} في قائمة العمليات بعد SIGKILL. يعني ذلك عادة أنها عالقة في النواة، تنتظر قرصًا أو تحميل شبكة، حيث لا تصل أي إشارة إليها حتى يعود ما تنتظره.',
+        'core-process-list.stop_ask_waiting':
+          'طُلب من {{name}} التوقف ولم يتوقف. يحق له تجاهل SIGTERM؛ يرسل إجبار إشارة لا يمكنه تجاهلها.',
+        'core-process-list.stop_force_confirm':
+          'هل تريد إجبار {{what}} على التوقف؟\n\nلا يمكن التقاط SIGKILL أو تجاهله. يبقى أي شيء في منتصف الكتابة مكتوبًا جزئيًا.',
+        'core-process-list.stop_ask_confirm':
+          'هل تطلب من {{what}} التوقف؟\n\nيتيح SIGTERM له إغلاق ملفاته والخروج بشكل سليم. ويمكنه أيضًا تجاهله.',
       }),
       zh: Object.freeze({
         'core-process-list.title': '什么在使用这台机器',
@@ -191,6 +271,26 @@ window.ZogographProcessListCard = {
         'core-process-list.stop_group_failed': '{{count}} 个失败',
         'core-process-list.stop_stopped': '已停止。',
         'core-process-list.stop_signalled': '已发送信号。',
+        'core-process-list.stop_force': '强制',
+        'core-process-list.stop_ask': '请求',
+        'core-process-list.stop_force_many_help':
+          'SIGKILL — 会立即终止全部 {{count}} 个，无法完成任何正在写入的内容',
+        'core-process-list.stop_force_one_help':
+          'SIGKILL — 会立即终止它，无法完成任何正在写入的内容',
+        'core-process-list.stop_ask_many_help':
+          'SIGTERM — 会请求每个进程退出，并可先完成清理',
+        'core-process-list.stop_ask_one_help':
+          'SIGTERM — 会请求它退出，并可先完成清理',
+        'core-process-list.stop_killing': '正在终止…',
+        'core-process-list.stop_asking': '正在请求…',
+        'core-process-list.stop_force_waiting':
+          'SIGKILL 后，{{name}} 仍在进程列表中。这通常表示它卡在内核中，正在等待磁盘或网络挂载；在其等待的内容恢复前，任何信号都无法触及它。',
+        'core-process-list.stop_ask_waiting':
+          '已请求 {{name}} 停止，但它尚未停止。它有权忽略 SIGTERM；强制会发送它无法忽略的信号。',
+        'core-process-list.stop_force_confirm':
+          '要强制 {{what}} 停止吗？\n\nSIGKILL 无法被捕获或忽略。任何正在写入的内容都会停留在未完成状态。',
+        'core-process-list.stop_ask_confirm':
+          '要请求 {{what}} 停止吗？\n\nSIGTERM 允许它关闭文件并正常退出。它也可以忽略此请求。',
       }),
     }),
   }),

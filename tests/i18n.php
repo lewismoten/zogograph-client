@@ -3624,18 +3624,6 @@ i18nExpect(
             $english['process.trend_summary'],
             $english['process.trend_empty_help'],
             $english['process.trend_empty'],
-            $english['process.stop_force'],
-            $english['process.stop_ask'],
-            $english['process.stop_force_one_help'],
-            $english['process.stop_force_many_help'],
-            $english['process.stop_ask_one_help'],
-            $english['process.stop_ask_many_help'],
-            $english['process.stop_killing'],
-            $english['process.stop_asking'],
-            $english['process.stop_force_waiting'],
-            $english['process.stop_ask_waiting'],
-            $english['process.stop_force_confirm'],
-            $english['process.stop_ask_confirm'],
             $english['process.rank_largest'],
             $english['process.rank_second_largest'],
             $english['process.cpu_cores'],
@@ -4080,8 +4068,15 @@ i18nExpect(
 );
 i18nExpect(
     $script !== false &&
-        str_contains($script, 'process.stop_force_many_help') &&
-        str_contains($script, 'process.stop_force_confirm') &&
+        $processListCard !== false &&
+        str_contains(
+            $processListCard,
+            '"core-process-list.stop_force_many_help":',
+        ) &&
+        str_contains(
+            $processListCard,
+            '"core-process-list.stop_force_confirm":',
+        ) &&
         str_contains(
             $script,
             "ZogographProcessListCard.text(\n        'stop_group_failed'",

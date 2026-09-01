@@ -22974,10 +22974,9 @@ function stopButtons(row, grouped) {
   for (const force of [false, true]) {
     const button = document.createElement('button');
     button.className = force ? 'danger small' : 'small';
-    button.textContent = ZogographI18n.t(
-      force ? 'process.stop_force' : 'process.stop_ask',
-      {},
-      force ? 'Force' : 'Ask',
+    button.textContent = ZogographProcessListCard.text(
+      force ? 'stop_force' : 'stop_ask',
+      { i18n: ZogographI18n },
     );
 
     /*
@@ -22996,22 +22995,16 @@ function stopButtons(row, grouped) {
       continue;
     }
 
-    button.title = ZogographI18n.t(
+    button.title = ZogographProcessListCard.text(
       force
         ? many
-          ? 'process.stop_force_many_help'
-          : 'process.stop_force_one_help'
+          ? 'stop_force_many_help'
+          : 'stop_force_one_help'
         : many
-          ? 'process.stop_ask_many_help'
-          : 'process.stop_ask_one_help',
+          ? 'stop_ask_many_help'
+          : 'stop_ask_one_help',
+      { i18n: ZogographI18n },
       { count: humanCount(row.procs) },
-      force
-        ? many
-          ? `SIGKILL — all ${humanCount(row.procs)} are killed outright, with no chance to finish writing anything`
-          : 'SIGKILL — it is killed outright, with no chance to finish writing anything'
-        : many
-          ? 'SIGTERM — each is asked to exit and can tidy up first'
-          : 'SIGTERM — it is asked to exit and can tidy up first',
     );
 
     button.addEventListener('click', async () => {
@@ -23029,10 +23022,9 @@ function stopButtons(row, grouped) {
       const was = button.textContent;
       button.disabled = true;
       button.classList.add('working');
-      button.textContent = ZogographI18n.t(
-        force ? 'process.stop_killing' : 'process.stop_asking',
-        {},
-        force ? 'Killing…' : 'Asking…',
+      button.textContent = ZogographProcessListCard.text(
+        force ? 'stop_killing' : 'stop_asking',
+        { i18n: ZogographI18n },
       );
 
       try {
@@ -23058,12 +23050,10 @@ function stopButtons(row, grouped) {
 
         if (gone === false) {
           notice(
-            ZogographI18n.t(
-              force ? 'process.stop_force_waiting' : 'process.stop_ask_waiting',
+            ZogographProcessListCard.text(
+              force ? 'stop_force_waiting' : 'stop_ask_waiting',
+              { i18n: ZogographI18n },
               { name: row.name },
-              force
-                ? `${row.name} is still in the process list after SIGKILL. That normally means it is stuck in the kernel — waiting on a disk or a network mount — where no signal can reach it until whatever it is waiting for returns.`
-                : `${row.name} was asked to stop and has not. It is entitled to ignore SIGTERM; Force sends a signal it cannot ignore.`,
             ),
           );
         }
@@ -23158,12 +23148,10 @@ async function confirmStop(row, grouped, force) {
       );
 
   return confirmDialog(
-    ZogographI18n.t(
-      force ? 'process.stop_force_confirm' : 'process.stop_ask_confirm',
+    ZogographProcessListCard.text(
+      force ? 'stop_force_confirm' : 'stop_ask_confirm',
+      { i18n: ZogographI18n },
       { what },
-      force
-        ? `Force ${what} to stop?\n\nSIGKILL cannot be caught or ignored. Anything part-way through being written stays part-way written.`
-        : `Ask ${what} to stop?\n\nSIGTERM lets it close its files and exit cleanly. It can also ignore this.`,
     ),
   );
 }

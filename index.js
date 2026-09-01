@@ -27746,7 +27746,9 @@ function showAlertMuteReason(row) {
           }),
         ],
         [
-          ZogographI18n.t('alerts.until', {}, 'Until'),
+          ZogographAlertsShellCard.text('until', {
+            i18n: ZogographI18n,
+          }),
           row.notification_muted_until
             ? whenLabel(row.notification_muted_until)
             : ZogographAlertsShellCard.text('unknown', {
@@ -28165,45 +28167,47 @@ function showAlertMutes() {
   const mutes = alertState.mutes || [];
   if (!mutes.length) {
     showListDialog(
-      ZogographI18n.t('alerts.active_mutes', {}, 'Active alert mutes'),
+      ZogographAlertsShellCard.text('active_mutes', {
+        i18n: ZogographI18n,
+      }),
       [
         note(
-          ZogographI18n.t(
-            'alerts.no_active_mutes',
-            {},
-            'No alert rules are temporarily muted.',
-          ),
+          ZogographAlertsShellCard.text('no_active_mutes', {
+            i18n: ZogographI18n,
+          }),
         ),
       ],
-      ZogographI18n.t(
-        'alerts.active_mutes_help',
-        {},
-        'A mute requires a reason and expires automatically. Error and Critical alerts always bypass it.',
-      ),
+      ZogographAlertsShellCard.text('active_mutes_help', {
+        i18n: ZogographI18n,
+      }),
     );
     return;
   }
   const holder = document.createElement('div');
   holder.id = 'alertMuteList';
   showListDialog(
-    ZogographI18n.t('alerts.active_mutes', {}, 'Active alert mutes'),
+    ZogographAlertsShellCard.text('active_mutes', {
+      i18n: ZogographI18n,
+    }),
     [holder],
-    ZogographI18n.t(
-      'alerts.active_mutes_detail',
-      {},
-      'Muted Information and Warning events remain visible with their delivery reason. Error and Critical alerts always bypass a mute.',
-    ),
+    ZogographAlertsShellCard.text('active_mutes_detail', {
+      i18n: ZogographI18n,
+    }),
   );
   renderTable(
     'alertMuteList',
     mutes,
     [
       {
-        label: ZogographI18n.t('alerts.rule', {}, 'Rule'),
+        label: ZogographAlertsShellCard.text('rule', {
+          i18n: ZogographI18n,
+        }),
         render: (row) => row.rule,
       },
       {
-        label: ZogographI18n.t('alerts.until', {}, 'Until'),
+        label: ZogographAlertsShellCard.text('until', {
+          i18n: ZogographI18n,
+        }),
         render: (row) => whenSpan(row.expires_at),
       },
       {

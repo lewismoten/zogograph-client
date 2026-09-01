@@ -66,6 +66,15 @@ window.ZogographAlertsShellCard = {
         'core-alerts-shell.end_mute': 'End mute',
         'core-alerts-shell.end_mute_confirm': 'End the mute for {{rule}}?',
         'core-alerts-shell.mute_ended': 'The mute for {{rule}} ended.',
+        'core-alerts-shell.active_mutes': 'Active mutes',
+        'core-alerts-shell.no_active_mutes':
+          'No alert rules are temporarily muted.',
+        'core-alerts-shell.active_mutes_help':
+          'A mute requires a reason and expires automatically. Error and Critical alerts always bypass it.',
+        'core-alerts-shell.active_mutes_detail':
+          'Muted Information and Warning events remain visible with their delivery reason. Error and Critical alerts always bypass a mute.',
+        'core-alerts-shell.rule': 'Rule',
+        'core-alerts-shell.until': 'Until',
       }),
       es: Object.freeze({
         'core-alerts-shell.timeline_title': 'Cuándo se activaron las alertas',
@@ -131,6 +140,15 @@ window.ZogographAlertsShellCard = {
         'core-alerts-shell.end_mute_confirm':
           '¿Terminar el silencio de {{rule}}?',
         'core-alerts-shell.mute_ended': 'Terminó el silencio de {{rule}}.',
+        'core-alerts-shell.active_mutes': 'Silencios activos',
+        'core-alerts-shell.no_active_mutes':
+          'No hay reglas de alerta silenciadas temporalmente.',
+        'core-alerts-shell.active_mutes_help':
+          'Un silencio requiere un motivo y caduca automáticamente. Las alertas de Error y Crítica siempre lo omiten.',
+        'core-alerts-shell.active_mutes_detail':
+          'Los eventos de Información y Advertencia silenciados siguen visibles con su motivo de entrega. Error y Crítica siempre omiten un silencio.',
+        'core-alerts-shell.rule': 'Regla',
+        'core-alerts-shell.until': 'Hasta',
       }),
       hi: Object.freeze({
         'core-alerts-shell.timeline_title': 'अलर्ट कब चालू हुए',
@@ -194,6 +212,15 @@ window.ZogographAlertsShellCard = {
         'core-alerts-shell.end_mute': 'म्यूट समाप्त करें',
         'core-alerts-shell.end_mute_confirm': '{{rule}} का म्यूट समाप्त करें?',
         'core-alerts-shell.mute_ended': '{{rule}} का म्यूट समाप्त हुआ।',
+        'core-alerts-shell.active_mutes': 'सक्रिय म्यूट',
+        'core-alerts-shell.no_active_mutes':
+          'कोई चेतावनी नियम अस्थायी रूप से म्यूट नहीं है।',
+        'core-alerts-shell.active_mutes_help':
+          'म्यूट के लिए कारण चाहिए और यह अपने आप समाप्त होता है। त्रुटि और गंभीर चेतावनियाँ इसे हमेशा बायपास करती हैं।',
+        'core-alerts-shell.active_mutes_detail':
+          'म्यूट की गई सूचना और चेतावनी घटनाएँ उनके डिलीवरी कारण के साथ दिखती रहती हैं। त्रुटि और गंभीर हमेशा म्यूट को बायपास करते हैं।',
+        'core-alerts-shell.rule': 'नियम',
+        'core-alerts-shell.until': 'तक',
       }),
       ar: Object.freeze({
         'core-alerts-shell.timeline_title': 'متى أُطلقت التنبيهات',
@@ -255,6 +282,15 @@ window.ZogographAlertsShellCard = {
         'core-alerts-shell.end_mute': 'إنهاء الكتم',
         'core-alerts-shell.end_mute_confirm': 'إنهاء كتم {{rule}}؟',
         'core-alerts-shell.mute_ended': 'انتهى كتم {{rule}}.',
+        'core-alerts-shell.active_mutes': 'الكتمات النشطة',
+        'core-alerts-shell.no_active_mutes':
+          'لا توجد قواعد تنبيه مكتومة مؤقتًا.',
+        'core-alerts-shell.active_mutes_help':
+          'يتطلب الكتم سببًا وينتهي تلقائيًا. يتجاوز الخطأ والحرج الكتم دائمًا.',
+        'core-alerts-shell.active_mutes_detail':
+          'تبقى أحداث المعلومات والتحذير المكتومة مرئية مع سبب التسليم. يتجاوز الخطأ والحرج الكتم دائمًا.',
+        'core-alerts-shell.rule': 'القاعدة',
+        'core-alerts-shell.until': 'حتى',
       }),
       zh: Object.freeze({
         'core-alerts-shell.timeline_title': '警报何时触发',
@@ -315,6 +351,14 @@ window.ZogographAlertsShellCard = {
         'core-alerts-shell.end_mute': '结束静音',
         'core-alerts-shell.end_mute_confirm': '结束 {{rule}} 的静音吗？',
         'core-alerts-shell.mute_ended': '{{rule}} 的静音已结束。',
+        'core-alerts-shell.active_mutes': '当前静音',
+        'core-alerts-shell.no_active_mutes': '没有暂时静音的警报规则。',
+        'core-alerts-shell.active_mutes_help':
+          '静音需要原因并会自动到期。错误和严重警报始终会绕过它。',
+        'core-alerts-shell.active_mutes_detail':
+          '静音的信息和警告事件仍会显示其投递原因。错误和严重警报始终会绕过静音。',
+        'core-alerts-shell.rule': '规则',
+        'core-alerts-shell.until': '截止',
       }),
     }),
   }),

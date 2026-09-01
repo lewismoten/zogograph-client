@@ -18082,30 +18082,18 @@ function renderSessionLog() {
 /** One place that talks to the clipboard, so one place says when it cannot. */
 async function copyText(text) {
   if (!text || !text.trim()) {
-    notice(
-      ZogographI18n.t('terminal.copy_empty', {}, 'There is nothing to copy.'),
-    );
+    notice(actionCommonText('copy_empty'));
     return;
   }
 
   try {
     await navigator.clipboard.writeText(text);
     notice(
-      ZogographI18n.t(
-        'terminal.copy_done',
-        { amount: humanBytes(text.length) },
-        'Copied {{amount}}.',
-      ),
+      actionCommonText('copy_done', { amount: humanBytes(text.length) }),
       true,
     );
   } catch {
-    notice(
-      ZogographI18n.t(
-        'terminal.copy_refused',
-        {},
-        'This browser would not let the page write to the clipboard.',
-      ),
-    );
+    notice(actionCommonText('copy_refused'));
   }
 }
 

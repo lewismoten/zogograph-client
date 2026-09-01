@@ -26,6 +26,10 @@ window.ZogographActionCommonCard = {
         'core-action-common.clear': 'Clear',
         'core-action-common.continue': 'Continue',
         'core-action-common.details': 'Details',
+        'core-action-common.copy_empty': 'There is nothing to copy.',
+        'core-action-common.copy_done': 'Copied {{amount}}.',
+        'core-action-common.copy_refused':
+          'This browser would not let the page write to the clipboard.',
       }),
       es: Object.freeze({
         'core-action-common.view': 'Ver',
@@ -48,6 +52,10 @@ window.ZogographActionCommonCard = {
         'core-action-common.clear': 'Limpiar',
         'core-action-common.continue': 'Continuar',
         'core-action-common.details': 'Detalles',
+        'core-action-common.copy_empty': 'No hay nada que copiar.',
+        'core-action-common.copy_done': 'Se copiaron {{amount}}.',
+        'core-action-common.copy_refused':
+          'Este navegador no permitió que la página escribiera en el portapapeles.',
       }),
       hi: Object.freeze({
         'core-action-common.view': 'देखें',
@@ -70,6 +78,10 @@ window.ZogographActionCommonCard = {
         'core-action-common.clear': 'साफ़ करें',
         'core-action-common.continue': 'जारी रखें',
         'core-action-common.details': 'विवरण',
+        'core-action-common.copy_empty': 'कॉपी करने के लिए कुछ नहीं है।',
+        'core-action-common.copy_done': '{{amount}} कॉपी किया गया।',
+        'core-action-common.copy_refused':
+          'इस ब्राउज़र ने पृष्ठ को क्लिपबोर्ड में लिखने नहीं दिया।',
       }),
       ar: Object.freeze({
         'core-action-common.view': 'عرض',
@@ -92,6 +104,10 @@ window.ZogographActionCommonCard = {
         'core-action-common.clear': 'مسح',
         'core-action-common.continue': 'متابعة',
         'core-action-common.details': 'التفاصيل',
+        'core-action-common.copy_empty': 'لا يوجد شيء لنسخه.',
+        'core-action-common.copy_done': 'تم نسخ {{amount}}.',
+        'core-action-common.copy_refused':
+          'لم يسمح هذا المتصفح للصفحة بالكتابة إلى الحافظة.',
       }),
       zh: Object.freeze({
         'core-action-common.view': '查看',
@@ -114,6 +130,9 @@ window.ZogographActionCommonCard = {
         'core-action-common.clear': '清除',
         'core-action-common.continue': '继续',
         'core-action-common.details': '详情',
+        'core-action-common.copy_empty': '没有可复制的内容。',
+        'core-action-common.copy_done': '已复制 {{amount}}。',
+        'core-action-common.copy_refused': '此浏览器不允许页面写入剪贴板。',
       }),
     }),
   }),

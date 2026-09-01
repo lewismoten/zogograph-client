@@ -967,7 +967,6 @@
   "email.how_loud": "مدى الإلحاح والتكرار",
   "email.what_to_send": "ما الذي يرسل ومتى",
   "common.loading": "جارٍ التحميل…",
-  "alerts.mute_explainer": "كتم “{{rule}}”؟ تظل تنبيهات المعلومات والتحذير المطابقة مسجلة لكنها لا تُرسل. يتجاوز الخطأ والحرج هذا الكتم دائمًا.",
   "alerts.unread_count": "{{count, number}} تنبيهات غير مقروءة",
   "alerts.see_all": "عرض الكل",
   "alerts.hide_until_new": "أخفه حتى يطلق شيء جديد",

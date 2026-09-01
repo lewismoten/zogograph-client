@@ -28110,10 +28110,10 @@ function openAlertMute(row) {
     }),
     [
       note(
-        ZogographI18n.t(
-          'alerts.mute_explainer',
+        ZogographAlertsShellCard.text(
+          'mute_explainer',
           { rule: row.rule },
-          'Mute “{{rule}}”? Matching Information and Warning alerts stay recorded but are not sent. Error and Critical always bypass this mute.',
+          { i18n: ZogographI18n },
         ),
       ),
       fieldRow(

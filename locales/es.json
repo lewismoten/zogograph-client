@@ -971,7 +971,6 @@
   "email.how_loud": "Con qué intensidad y frecuencia",
   "email.what_to_send": "Qué enviar y cuándo",
   "common.loading": "Cargando…",
-  "alerts.mute_explainer": "¿Silenciar “{{rule}}”? Las alertas de Información y Advertencia coincidentes se siguen registrando pero no se envían. Error y Crítica siempre omiten este silencio.",
   "alerts.unread_count": "{{count, number}} alertas sin leer",
   "alerts.see_all": "Ver todas",
   "alerts.hide_until_new": "Ocultar hasta que se active algo nuevo",

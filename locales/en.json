@@ -964,7 +964,6 @@
   "email.how_loud": "How loud, and how often",
   "email.what_to_send": "What to send about, and when",
   "common.loading": "Loading…",
-  "alerts.mute_explainer": "Mute “{{rule}}”? Matching Information and Warning alerts stay recorded but are not sent. Error and Critical always bypass this mute.",
   "alerts.unread_count": "{{count, number}} unread alert(s)",
   "alerts.see_all": "See all",
   "alerts.hide_until_new": "Hide this until something new fires",

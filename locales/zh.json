@@ -967,7 +967,6 @@
   "email.how_loud": "提醒强度和频率",
   "email.what_to_send": "发送什么及何时发送",
   "common.loading": "正在加载…",
-  "alerts.mute_explainer": "静音“{{rule}}”？匹配的信息和警告警报仍会被记录，但不会发送。错误和严重警报始终会绕过此静音。",
   "alerts.unread_count": "{{count, number}} 条未读警报",
   "alerts.see_all": "查看全部",
   "alerts.hide_until_new": "隐藏直到有新警报触发",

@@ -969,7 +969,6 @@
   "email.how_loud": "कितनी चेतावनी और कितनी बार",
   "email.what_to_send": "क्या और कब भेजें",
   "common.loading": "लोड हो रहा है…",
-  "alerts.mute_explainer": "“{{rule}}” को म्यूट करें? मिलती हुई सूचना और चेतावनी रिकॉर्ड रहेंगी लेकिन भेजी नहीं जाएँगी। त्रुटि और गंभीर हमेशा इस म्यूट को बायपास करते हैं।",
   "alerts.unread_count": "{{count, number}} अपठित चेतावनियाँ",
   "alerts.see_all": "सभी देखें",
   "alerts.hide_until_new": "कुछ नया आने तक छिपाएँ",

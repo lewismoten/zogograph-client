@@ -30126,7 +30126,7 @@ function renderInspect(data) {
       data.kind === 'dir' ? factsText('directory') : data.kind,
     ],
     [
-      ZogographI18n.t('storage.size', {}, 'Size'),
+      factsText('size'),
       data.kind === 'dir'
         ? `${humanBytes(data.contents.bytes)}${data.contents.complete ? '' : factsText('or_more')}`
         : humanBytes(f.size_bytes),

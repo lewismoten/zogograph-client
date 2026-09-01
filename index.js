@@ -18810,7 +18810,12 @@ function renderTerminal(data) {
     holder.id = 'terminalHistory';
     parts.push(
       section(
-        ZogographI18n.t('terminal.earlier_commands', {}, 'Earlier commands'),
+        renderCoreCardPackage(
+          ZogographTerminalHistoryCard,
+          'core-terminal-history',
+          { key: 'earlier_commands' },
+          { i18n: ZogographI18n },
+        ),
         holder,
       ),
     );

@@ -19,6 +19,7 @@ window.ZogographScheduleUpdateStagesCard = {
         'core-schedule-update-stages.save': 'Save update policy',
         'core-schedule-update-stages.saved':
           'Saved the update policy. The root collector will apply it on its next run.',
+        'core-schedule-update-stages.system_updates': 'System updates',
       }),
       es: Object.freeze({
         'core-schedule-update-stages.stages': 'Fases de actualización',
@@ -34,6 +35,8 @@ window.ZogographScheduleUpdateStagesCard = {
         'core-schedule-update-stages.save': 'Guardar política de actualización',
         'core-schedule-update-stages.saved':
           'Se guardó la política de actualización. El recopilador root la aplicará en su próxima ejecución.',
+        'core-schedule-update-stages.system_updates':
+          'Actualizaciones del sistema',
       }),
       hi: Object.freeze({
         'core-schedule-update-stages.stages': 'अपडेट चरण',
@@ -49,6 +52,7 @@ window.ZogographScheduleUpdateStagesCard = {
         'core-schedule-update-stages.save': 'अपडेट नीति सहेजें',
         'core-schedule-update-stages.saved':
           'अपडेट नीति सहेजी गई। root कलेक्टर इसे अपने अगले रन पर लागू करेगा।',
+        'core-schedule-update-stages.system_updates': 'सिस्टम अपडेट',
       }),
       ar: Object.freeze({
         'core-schedule-update-stages.stages': 'مراحل التحديث',
@@ -64,6 +68,7 @@ window.ZogographScheduleUpdateStagesCard = {
         'core-schedule-update-stages.save': 'حفظ سياسة التحديث',
         'core-schedule-update-stages.saved':
           'حُفظت سياسة التحديث. سيطبقها جامع root في تشغيله التالي.',
+        'core-schedule-update-stages.system_updates': 'تحديثات النظام',
       }),
       zh: Object.freeze({
         'core-schedule-update-stages.stages': '更新阶段',
@@ -78,6 +83,7 @@ window.ZogographScheduleUpdateStagesCard = {
         'core-schedule-update-stages.save': '保存更新策略',
         'core-schedule-update-stages.saved':
           '更新策略已保存。root 收集器会在下次运行时应用它。',
+        'core-schedule-update-stages.system_updates': '系统更新',
       }),
     }),
   }),

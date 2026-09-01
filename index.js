@@ -26670,7 +26670,12 @@ function drawSchedule(data) {
   }
   holder.appendChild(
     section(
-      ZogographI18n.t('schedule.system_updates', {}, 'System updates'),
+      renderCoreCardPackage(
+        window.ZogographScheduleUpdateStagesCard,
+        'core-schedule-update-stages',
+        { key: 'system_updates' },
+        { i18n: ZogographI18n },
+      ),
       updateBox,
     ),
   );

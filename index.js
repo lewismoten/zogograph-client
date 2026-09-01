@@ -28616,11 +28616,7 @@ async function showIncident(id) {
   if (procs && procs.available) {
     body.appendChild(
       section(
-        ZogographI18n.t(
-          'incident.top_processes_running',
-          { count: procs.count },
-          'Top processes, of {{count, number}} running',
-        ),
+        incidentText('top_processes_running', { count: procs.count }),
         processTables(procs),
       ),
     );

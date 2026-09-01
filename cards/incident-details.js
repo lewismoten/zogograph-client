@@ -24,6 +24,8 @@ window.ZogographIncidentDetailsCard = {
         'core-incident-details.reading_own_io': 'Reading own I/O',
         'core-incident-details.writing_own_io': 'Writing own I/O',
         'core-incident-details.top_processes': 'Top processes',
+        'core-incident-details.top_processes_running':
+          'Top processes, of {{count, number}} running',
         'core-incident-details.not_available': 'Not available.',
         'core-incident-details.how_started': 'How they were started',
         'core-incident-details.memory_by_service':
@@ -68,6 +70,8 @@ window.ZogographIncidentDetailsCard = {
         'core-incident-details.reading_own_io': 'Lectura de E/S propia',
         'core-incident-details.writing_own_io': 'Escritura de E/S propia',
         'core-incident-details.top_processes': 'Procesos principales',
+        'core-incident-details.top_processes_running':
+          'Procesos principales, {{count, number}} en ejecución',
         'core-incident-details.not_available': 'No disponible.',
         'core-incident-details.how_started': 'Cómo se iniciaron',
         'core-incident-details.memory_by_service':
@@ -112,6 +116,8 @@ window.ZogographIncidentDetailsCard = {
         'core-incident-details.reading_own_io': 'अपना I/O पढ़ना',
         'core-incident-details.writing_own_io': 'अपना I/O लिखना',
         'core-incident-details.top_processes': 'शीर्ष प्रक्रियाएँ',
+        'core-incident-details.top_processes_running':
+          'शीर्ष प्रक्रियाएँ, {{count, number}} चल रही हैं',
         'core-incident-details.not_available': 'उपलब्ध नहीं है।',
         'core-incident-details.how_started': 'वे कैसे शुरू हुए',
         'core-incident-details.memory_by_service':
@@ -154,6 +160,8 @@ window.ZogographIncidentDetailsCard = {
         'core-incident-details.reading_own_io': 'قراءة إدخال/إخراج الحساب',
         'core-incident-details.writing_own_io': 'كتابة إدخال/إخراج الحساب',
         'core-incident-details.top_processes': 'أهم العمليات',
+        'core-incident-details.top_processes_running':
+          'أهم العمليات، {{count, number}} منها تعمل',
         'core-incident-details.not_available': 'غير متاح.',
         'core-incident-details.how_started': 'كيف بدأت',
         'core-incident-details.memory_by_service':
@@ -196,6 +204,8 @@ window.ZogographIncidentDetailsCard = {
         'core-incident-details.reading_own_io': '读取自身 I/O',
         'core-incident-details.writing_own_io': '写入自身 I/O',
         'core-incident-details.top_processes': '热门进程',
+        'core-incident-details.top_processes_running':
+          '热门进程，共 {{count, number}} 个正在运行',
         'core-incident-details.not_available': '不可用。',
         'core-incident-details.how_started': '它们是如何启动的',
         'core-incident-details.memory_by_service':

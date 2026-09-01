@@ -34815,19 +34815,20 @@ function renderLabels(data) {
  */
 const dnsState = { params: {}, at: null };
 
+function dnsLookupText(key, values = {}) {
+  return renderCoreCardPackage(
+    ZogographDnsLookupCard,
+    'core-dns-lookup',
+    { key, values },
+    { i18n: ZogographI18n },
+  );
+}
+
 async function refreshDns(params = {}) {
   dnsState.params = params;
   const body = $('dnsBody');
   if (!state.signedIn) {
-    body.replaceChildren(
-      note(
-        ZogographI18n.t(
-          'dns.sign_in_lookup',
-          {},
-          'Sign in to run name lookups.',
-        ),
-      ),
-    );
+    body.replaceChildren(note(dnsLookupText('sign_in_lookup')));
     return;
   }
 
@@ -34839,15 +34840,7 @@ async function refreshDns(params = {}) {
    * be here for - is the slowest possible answer. Silence for six seconds reads
    * as a broken page rather than as a server not replying.
    */
-  body.replaceChildren(
-    spinner(
-      ZogographI18n.t(
-        'dns.query_wait',
-        {},
-        'Asking… a server that does not reply takes three seconds to give up on, so this can take a few.',
-      ),
-    ),
-  );
+  body.replaceChildren(spinner(dnsLookupText('query_wait')));
 
   let data;
   try {
@@ -34876,9 +34869,7 @@ async function refreshDns(params = {}) {
         const option = document.createElement('option');
         option.value = type;
         option.textContent =
-          type === 'ALL'
-            ? ZogographI18n.t('dns.every_type', {}, 'Every type')
-            : type;
+          type === 'ALL' ? dnsLookupText('every_type') : type;
         option.title = data.notes?.[type] || '';
         picker.appendChild(option);
       }
@@ -34906,34 +34897,23 @@ async function refreshDns(params = {}) {
    * point is whether name service is working *now*.
    */
   const asked = params.name
-    ? ZogographI18n.t(
-        params.server ? 'dns.asked_for_server' : 'dns.asked_for',
-        { name: params.name, type: params.type || 'A', server: params.server },
-        params.server
-          ? 'Asked for {{name}} {{type}} at {{server}}'
-          : 'Asked for {{name}} {{type}}',
-      )
-    : ZogographI18n.t('dns.default_checks', {}, 'The default checks');
+    ? dnsLookupText(params.server ? 'asked_for_server' : 'asked_for', {
+        name: params.name,
+        type: params.type || 'A',
+        server: params.server,
+      })
+    : dnsLookupText('default_checks');
   wrap.appendChild(
     note(
-      ZogographI18n.t(
-        'dns.query_freshness',
-        { asked, at: humanTime(dnsState.at) },
-        '{{asked}}, run {{at}}. These do not refresh on their own — each one sends a real query, and a page that repeated them every few seconds would be adding to the traffic it is measuring.',
-      ),
+      dnsLookupText('query_freshness', {
+        asked,
+        at: humanTime(dnsState.at),
+      }),
     ),
   );
 
   if (data.serves_dns) {
-    wrap.appendChild(
-      note(
-        ZogographI18n.t(
-          'dns.machine_nameserver',
-          {},
-          'This machine is listening on port 53, so it is a nameserver. Its own traffic will dwarf everything else here — see What is on the wire.',
-        ),
-      ),
-    );
+    wrap.appendChild(note(dnsLookupText('machine_nameserver')));
   }
 
   for (const row of data.rows) {
@@ -34951,9 +34931,7 @@ async function refreshDns(params = {}) {
         : row.status === 'no reply'
           ? 'band-crit'
           : 'band-warn');
-    verdict.textContent = row.ok
-      ? ZogographI18n.t('dns.answered', {}, 'Answered')
-      : row.status;
+    verdict.textContent = row.ok ? dnsLookupText('answered') : row.status;
     head.appendChild(verdict);
 
     const asked = document.createElement('strong');
@@ -34963,11 +34941,9 @@ async function refreshDns(params = {}) {
     if (row.server) {
       const at = document.createElement('span');
       at.className = 'muted small';
-      at.textContent = ZogographI18n.t(
-        'dns.asked_server',
-        { server: row.server },
-        'Asked {{server}}',
-      );
+      at.textContent = dnsLookupText('asked_server', {
+        server: row.server,
+      });
       head.appendChild(at);
     }
 
@@ -35034,11 +35010,9 @@ function renderDnsAnswer(answer) {
 
   const ttl = document.createElement('span');
   ttl.className = 'muted small';
-  ttl.textContent = ZogographI18n.t(
-    'dns.ttl_value',
-    { duration: humanDuration(answer.ttl) },
-    'TTL {{duration}}',
-  );
+  ttl.textContent = dnsLookupText('ttl_value', {
+    duration: humanDuration(answer.ttl),
+  });
   if (Number(answer.ttl) > 0 && Number(answer.ttl) <= 300) {
     ttl.className = 'band-warn small';
     ttl.title = ZogographDnsRecordGroupCard.text('short_ttl_help', {
@@ -41188,11 +41162,7 @@ $('dnsSweep').addEventListener('click', async () => {
     notice(String(error.message || error));
   } finally {
     button.disabled = false;
-    button.textContent = ZogographI18n.t(
-      'dns.look_up_all',
-      {},
-      'Look it all up',
-    );
+    button.textContent = dnsLookupText('look_up_all');
   }
 });
 

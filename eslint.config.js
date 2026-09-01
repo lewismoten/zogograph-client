@@ -104,6 +104,7 @@ export default [
         ZogographDnsChangesCard: 'readonly',
         ZogographDnsRecordGroupCard: 'readonly',
         ZogographDnsInventoryCard: 'readonly',
+        ZogographDnsLookupCard: 'readonly',
         ZogographReportRowCard: 'readonly',
         ZogographDatabaseSnapshotsCard: 'readonly',
         ZogographDatabaseStorageCard: 'readonly',

@@ -34,6 +34,12 @@ window.ZogographUrlMonitorEditorCard = {
         'core-url-monitor-editor.enabled': 'Run it',
         'core-url-monitor-editor.save': 'Save it',
         'core-url-monitor-editor.add': 'Add it',
+        'core-url-monitor-editor.saved': 'Saved.',
+        'core-url-monitor-editor.saved_answered':
+          'Saved, and it answered {{status}} in {{ms}} ms.',
+        'core-url-monitor-editor.saved_failed':
+          'Saved, but the first check failed: {{detail}}.',
+        'core-url-monitor-editor.status': 'status {{status}}',
       }),
       es: Object.freeze({
         'core-url-monitor-editor.editing': 'Editando {{label}}',
@@ -64,6 +70,12 @@ window.ZogographUrlMonitorEditorCard = {
         'core-url-monitor-editor.enabled': 'Ejecutarlo',
         'core-url-monitor-editor.save': 'Guardarlo',
         'core-url-monitor-editor.add': 'Añadirlo',
+        'core-url-monitor-editor.saved': 'Guardado.',
+        'core-url-monitor-editor.saved_answered':
+          'Guardado; respondió {{status}} en {{ms}} ms.',
+        'core-url-monitor-editor.saved_failed':
+          'Guardado, pero falló la primera comprobación: {{detail}}.',
+        'core-url-monitor-editor.status': 'estado {{status}}',
       }),
       hi: Object.freeze({
         'core-url-monitor-editor.editing': '{{label}} संपादित किया जा रहा है',
@@ -94,6 +106,12 @@ window.ZogographUrlMonitorEditorCard = {
         'core-url-monitor-editor.enabled': 'इसे चलाएँ',
         'core-url-monitor-editor.save': 'इसे सहेजें',
         'core-url-monitor-editor.add': 'इसे जोड़ें',
+        'core-url-monitor-editor.saved': 'सहेजा गया।',
+        'core-url-monitor-editor.saved_answered':
+          'सहेजा गया; इसने {{ms}} ms में {{status}} उत्तर दिया।',
+        'core-url-monitor-editor.saved_failed':
+          'सहेजा गया, लेकिन पहली जाँच विफल रही: {{detail}}.',
+        'core-url-monitor-editor.status': 'स्थिति {{status}}',
       }),
       ar: Object.freeze({
         'core-url-monitor-editor.editing': 'تحرير {{label}}',
@@ -124,6 +142,12 @@ window.ZogographUrlMonitorEditorCard = {
         'core-url-monitor-editor.enabled': 'شغّله',
         'core-url-monitor-editor.save': 'احفظه',
         'core-url-monitor-editor.add': 'أضفه',
+        'core-url-monitor-editor.saved': 'تم الحفظ.',
+        'core-url-monitor-editor.saved_answered':
+          'حُفظ، وأجاب بـ {{status}} خلال {{ms}} مللي ثانية.',
+        'core-url-monitor-editor.saved_failed':
+          'حُفظ، لكن الفحص الأول أخفق: {{detail}}.',
+        'core-url-monitor-editor.status': 'الحالة {{status}}',
       }),
       zh: Object.freeze({
         'core-url-monitor-editor.editing': '正在编辑 {{label}}',
@@ -152,6 +176,12 @@ window.ZogographUrlMonitorEditorCard = {
         'core-url-monitor-editor.enabled': '运行它',
         'core-url-monitor-editor.save': '保存它',
         'core-url-monitor-editor.add': '添加它',
+        'core-url-monitor-editor.saved': '已保存。',
+        'core-url-monitor-editor.saved_answered':
+          '已保存，并在 {{ms}} 毫秒内返回 {{status}}。',
+        'core-url-monitor-editor.saved_failed':
+          '已保存，但首次检查失败：{{detail}}。',
+        'core-url-monitor-editor.status': '状态 {{status}}',
       }),
     }),
   }),

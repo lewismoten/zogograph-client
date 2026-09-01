@@ -32494,25 +32494,20 @@ function openUrlForm(row = null) {
       notice(
         first
           ? first.ok
-            ? ZogographI18n.t(
-                'url.saved_answered',
-                { status: first.status, ms: first.ms },
-                'Saved, and it answered {{status}} in {{ms}} ms.',
-              )
-            : ZogographI18n.t(
-                'url.saved_failed',
+            ? urlEditorText('saved_answered', {
+                status: first.status,
+                ms: first.ms,
+              })
+            : urlEditorText(
+                'saved_failed',
                 {
                   detail:
                     first.error ||
-                    ZogographI18n.t(
-                      'url.status',
-                      { status: first.status },
-                      'status {{status}}',
-                    ),
+                    urlEditorText('status', { status: first.status }),
                 },
                 'Saved, but the first check failed: {{detail}}.',
               )
-          : ZogographI18n.t('url.saved', {}, 'Saved.'),
+          : urlEditorText('saved'),
         !first || first.ok,
       );
 

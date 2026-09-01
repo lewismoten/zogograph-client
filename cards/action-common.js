@@ -30,6 +30,9 @@ window.ZogographActionCommonCard = {
         'core-action-common.copy_done': 'Copied {{amount}}.',
         'core-action-common.copy_refused':
           'This browser would not let the page write to the clipboard.',
+        'core-action-common.check_now': 'Check now',
+        'core-action-common.rewriting': 'Rewriting…',
+        'core-action-common.rolling_up': 'Rolling up…',
       }),
       es: Object.freeze({
         'core-action-common.view': 'Ver',
@@ -56,6 +59,9 @@ window.ZogographActionCommonCard = {
         'core-action-common.copy_done': 'Se copiaron {{amount}}.',
         'core-action-common.copy_refused':
           'Este navegador no permitió que la página escribiera en el portapapeles.',
+        'core-action-common.check_now': 'Comprobar ahora',
+        'core-action-common.rewriting': 'Reescribiendo…',
+        'core-action-common.rolling_up': 'Agrupando…',
       }),
       hi: Object.freeze({
         'core-action-common.view': 'देखें',
@@ -82,6 +88,9 @@ window.ZogographActionCommonCard = {
         'core-action-common.copy_done': '{{amount}} कॉपी किया गया।',
         'core-action-common.copy_refused':
           'इस ब्राउज़र ने पृष्ठ को क्लिपबोर्ड में लिखने नहीं दिया।',
+        'core-action-common.check_now': 'अभी जाँचें',
+        'core-action-common.rewriting': 'पुनर्लेखन हो रहा है…',
+        'core-action-common.rolling_up': 'समेटा जा रहा है…',
       }),
       ar: Object.freeze({
         'core-action-common.view': 'عرض',
@@ -108,6 +117,9 @@ window.ZogographActionCommonCard = {
         'core-action-common.copy_done': 'تم نسخ {{amount}}.',
         'core-action-common.copy_refused':
           'لم يسمح هذا المتصفح للصفحة بالكتابة إلى الحافظة.',
+        'core-action-common.check_now': 'تحقق الآن',
+        'core-action-common.rewriting': 'جارٍ إعادة الكتابة…',
+        'core-action-common.rolling_up': 'جارٍ التلخيص…',
       }),
       zh: Object.freeze({
         'core-action-common.view': '查看',
@@ -133,6 +145,9 @@ window.ZogographActionCommonCard = {
         'core-action-common.copy_empty': '没有可复制的内容。',
         'core-action-common.copy_done': '已复制 {{amount}}。',
         'core-action-common.copy_refused': '此浏览器不允许页面写入剪贴板。',
+        'core-action-common.check_now': '立即检查',
+        'core-action-common.rewriting': '正在重写…',
+        'core-action-common.rolling_up': '正在汇总…',
       }),
     }),
   }),

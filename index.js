@@ -33878,7 +33878,7 @@ function missingCommandNote(missing, where) {
       note,
       paste,
       showCapabilities: () => showView('capabilities'),
-      checkNow: ZogographI18n.t('action.check_now', {}, 'Check now'),
+      checkNow: actionCommonText('check_now'),
       i18n: ZogographI18n,
     },
   );
@@ -40715,7 +40715,7 @@ $('changedCheck').addEventListener('click', async () => {
     notice(String(error.message || error));
   } finally {
     button.disabled = false;
-    button.textContent = ZogographI18n.t('action.check_now', {}, 'Check now');
+    button.textContent = actionCommonText('check_now');
   }
 });
 $('noteDialogClose').addEventListener('click', () => {
@@ -40795,7 +40795,7 @@ $('aiCompact').addEventListener('click', async () => {
 
   const button = $('aiCompact');
   button.disabled = true;
-  button.textContent = ZogographI18n.t('action.rewriting', {}, 'Rewriting…');
+  button.textContent = actionCommonText('rewriting');
 
   try {
     const result = await post('ai-compact');
@@ -40831,7 +40831,7 @@ $('storeCompact').addEventListener('click', async () => {
 
   const button = $('storeCompact');
   button.disabled = true;
-  button.textContent = ZogographI18n.t('action.rewriting', {}, 'Rewriting…');
+  button.textContent = actionCommonText('rewriting');
 
   try {
     const result = await post('store-compact');
@@ -40909,7 +40909,7 @@ $('storeExport').addEventListener('click', async () => {
 $('storeRollup').addEventListener('click', async () => {
   const button = $('storeRollup');
   button.disabled = true;
-  button.textContent = ZogographI18n.t('action.rolling_up', {}, 'Rolling up…');
+  button.textContent = actionCommonText('rolling_up');
 
   try {
     const result = await post('store-rollup');
@@ -41022,7 +41022,7 @@ $('capCheck').addEventListener('click', async () => {
     notice(String(error.message || error));
   } finally {
     button.disabled = false;
-    button.textContent = ZogographI18n.t('action.check_now', {}, 'Check now');
+    button.textContent = actionCommonText('check_now');
   }
 });
 

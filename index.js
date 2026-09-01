@@ -2718,14 +2718,17 @@ function renderAccountDatabaseStorageLabels() {
     {},
     helpers,
   );
-  const title = document.querySelector(
-    '[data-i18n="core-account-database-storage.title"]',
-  );
-  title.textContent = ZogographI18n.markSource(
-    title,
-    'core-account-database-storage.title',
-    ZogographAccountDatabaseStorageCard.text('title', helpers),
-  );
+  document
+    .querySelectorAll('[data-i18n^="core-account-database-storage."]')
+    .forEach((element) => {
+      const key = element.dataset.i18n;
+      const suffix = key.replace('core-account-database-storage.', '');
+      element.textContent = ZogographI18n.markSource(
+        element,
+        key,
+        ZogographAccountDatabaseStorageCard.text(suffix, helpers),
+      );
+    });
 }
 
 document.addEventListener(

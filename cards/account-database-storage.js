@@ -27,6 +27,12 @@ window.ZogographAccountDatabaseStorageCard = {
         'core-account-database-storage.total': 'Total',
         'core-account-database-storage.index_note':
           'Indexes are counted against the table they belong to. On a busy table an index can be close to half the total, and listing them separately makes every table look cheaper than it is.',
+        'core-account-database-storage.safe_export': 'Download safe export',
+        'core-account-database-storage.integrity_check':
+          'Run full integrity check',
+        'core-account-database-storage.rollup_now': 'Roll up old readings now',
+        'core-account-database-storage.help':
+          'A monitor that fills the disk it is watching has failed in the most embarrassing way available to it. This is what this account’s database holds, what each part of it costs, and — the part that is usually missing — what the file will settle at if nobody touches the settings again. A table set to keep 400 days that has been collecting for thirty is at under a tenth of its eventual size, and nothing else here says so.',
       }),
       es: Object.freeze({
         'core-account-database-storage.title': 'Base de datos de esta cuenta',
@@ -40,6 +46,14 @@ window.ZogographAccountDatabaseStorageCard = {
         'core-account-database-storage.total': 'Total',
         'core-account-database-storage.index_note':
           'Los índices se cuentan con la tabla a la que pertenecen. Listarlos por separado hace que cada tabla parezca menor de lo que es.',
+        'core-account-database-storage.safe_export':
+          'Descargar exportación segura',
+        'core-account-database-storage.integrity_check':
+          'Ejecutar comprobación de integridad completa',
+        'core-account-database-storage.rollup_now':
+          'Consolidar lecturas antiguas ahora',
+        'core-account-database-storage.help':
+          'Un monitor que llena el disco que vigila ha fallado de la forma más embarazosa posible. Esto muestra qué contiene la base de datos de esta cuenta, qué cuesta cada parte y —lo que suele faltar— en qué tamaño se estabilizará el archivo si nadie vuelve a tocar la configuración. Una tabla configurada para conservar 400 días que lleva treinta recopilando está por debajo de una décima parte de su tamaño final, y nada más aquí lo indica.',
       }),
       hi: Object.freeze({
         'core-account-database-storage.title': 'इस खाते का डेटाबेस',
@@ -52,6 +66,14 @@ window.ZogographAccountDatabaseStorageCard = {
         'core-account-database-storage.total': 'कुल',
         'core-account-database-storage.index_note':
           'इंडेक्स उनकी तालिका के साथ गिने जाते हैं। उन्हें अलग सूचीबद्ध करने पर तालिका वास्तव में जितनी है उससे छोटी लगती है।',
+        'core-account-database-storage.safe_export':
+          'सुरक्षित निर्यात डाउनलोड करें',
+        'core-account-database-storage.integrity_check':
+          'पूर्ण इंटीग्रिटी जाँच चलाएँ',
+        'core-account-database-storage.rollup_now':
+          'पुरानी रीडिंग अभी रोल-अप करें',
+        'core-account-database-storage.help':
+          'जो मॉनिटर जिस डिस्क को देख रहा है उसे भर दे, वह सबसे शर्मनाक तरीके से विफल हुआ है। यह बताता है इस खाते के डेटाबेस में क्या है, हर भाग की लागत और—जो प्रायः नहीं बताया जाता—सेटिंग फिर न छूने पर फ़ाइल किस आकार पर ठहरेगी। 400 दिन रखने वाली और तीस दिन से संग्रह कर रही तालिका अपने अंतिम आकार के दसवें हिस्से से भी कम है, और यहाँ कुछ और यह नहीं कहता।',
       }),
       ar: Object.freeze({
         'core-account-database-storage.title': 'قاعدة بيانات هذا الحساب',
@@ -65,6 +87,13 @@ window.ZogographAccountDatabaseStorageCard = {
         'core-account-database-storage.total': 'الإجمالي',
         'core-account-database-storage.index_note':
           'تُحسب الفهارس مع الجدول الذي تنتمي إليه. إدراجها منفصلة يجعل كل جدول يبدو أصغر من حقيقته.',
+        'core-account-database-storage.safe_export': 'نزّل تصديرًا آمنًا',
+        'core-account-database-storage.integrity_check':
+          'شغّل فحص سلامة كاملًا',
+        'core-account-database-storage.rollup_now':
+          'جمّع القراءات القديمة الآن',
+        'core-account-database-storage.help':
+          'المراقب الذي يملأ القرص الذي يراقبه قد فشل بأكثر الطرق إحراجًا المتاحة له. هذا ما تحتفظ به قاعدة بيانات هذا الحساب، وما تكلفه كل قطعة منها، والجزء الذي يغيب غالبًا — إلى أي حجم يستقر الملف إن لم يلمس أحد الإعدادات ثانية. جدول مضبوط للاحتفاظ بـ400 يوم وقد جمع لمدة ثلاثين لا يبلغ عُشر حجمه النهائي، ولا يقول شيء آخر هنا ذلك.',
       }),
       zh: Object.freeze({
         'core-account-database-storage.title': '此帐户的数据库',
@@ -77,6 +106,11 @@ window.ZogographAccountDatabaseStorageCard = {
         'core-account-database-storage.total': '总计',
         'core-account-database-storage.index_note':
           '索引计入其所属的表。将索引单列会使每个表看起来比实际更小。',
+        'core-account-database-storage.safe_export': '下载安全导出',
+        'core-account-database-storage.integrity_check': '运行完整完整性检查',
+        'core-account-database-storage.rollup_now': '立即汇总旧读数',
+        'core-account-database-storage.help':
+          '一个填满自己正在监视的磁盘的监控器，是以最尴尬的方式失败了。这里显示此账户数据库保存的内容、每个部分的成本，以及通常缺少的部分——如果以后无人再碰设置，文件会稳定在什么大小。一个设置为保留 400 天、已收集 30 天的表还不到最终大小的十分之一，这里没有其他地方会说明这一点。',
       }),
     }),
   }),

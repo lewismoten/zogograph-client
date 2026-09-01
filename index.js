@@ -30045,9 +30045,7 @@ async function inspect(path) {
 
   $('inspectTitle').textContent = actionCommonText('details');
   $('inspectPath').textContent = path;
-  $('inspectBody').replaceChildren(
-    note(ZogographI18n.t('common.looking', {}, 'Looking…')),
-  );
+  $('inspectBody').replaceChildren(note(actionCommonText('looking')));
 
   let data;
   try {

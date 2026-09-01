@@ -32415,12 +32415,7 @@ function openUrlForm(row = null) {
   const enabled = document.createElement('input');
   enabled.type = 'checkbox';
   enabled.checked = row ? Boolean(row.enabled) : true;
-  field(
-    'urlEnabled',
-    ZogographI18n.t('url.enabled', {}, 'Run it'),
-    enabled,
-    '',
-  );
+  field('urlEnabled', urlEditorText('enabled'), enabled, '');
 
   form.replaceChildren(...parts);
 

@@ -26368,13 +26368,9 @@ function drawSchedule(data) {
     runsHolder.id = 'scheduleRuns';
     holder.appendChild(
       section(
-        ZogographI18n.t('schedule.recent_runs', {}, 'Recent collector runs'),
+        scheduleRecentRunsText('recent_runs'),
         runsHolder,
-        ZogographI18n.t(
-          'schedule.recent_runs_help',
-          {},
-          'Normal and requested work share this ledger, so a new task can be compared with the work already scheduled.',
-        ),
+        scheduleRecentRunsText('recent_runs_help'),
       ),
     );
     renderTable(
@@ -26382,30 +26378,29 @@ function drawSchedule(data) {
       runs,
       [
         {
-          label: ZogographI18n.t('schedule.run_started', {}, 'Started'),
+          label: scheduleRecentRunsText('started'),
           render: (row) => whenSpan(row.started_at),
         },
         {
-          label: ZogographI18n.t('schedule.run_collector', {}, 'Collector'),
+          label: scheduleRecentRunsText('collector'),
           render: (row) => row.collector,
         },
         {
-          label: ZogographI18n.t('schedule.run_work', {}, 'Work'),
+          label: scheduleRecentRunsText('work'),
           className: 'cmd',
           render: (row) => row.jobs,
         },
         {
-          label: ZogographI18n.t('schedule.run_took', {}, 'Took'),
+          label: scheduleRecentRunsText('took'),
           className: 'size',
           render: (row) => humanDuration(Number(row.seconds)),
         },
         {
-          label: ZogographI18n.t('schedule.run_result', {}, 'Result'),
+          label: scheduleRecentRunsText('result'),
           render: (row) =>
             row.ok
-              ? ZogographI18n.t('schedule.run_ok', {}, 'ok')
-              : row.error ||
-                ZogographI18n.t('schedule.run_failed', {}, 'failed'),
+              ? scheduleRecentRunsText('ok')
+              : row.error || scheduleRecentRunsText('failed'),
         },
       ],
       null,
@@ -31361,6 +31356,14 @@ const urlEditorText = (key, values = {}) =>
   renderCoreCardPackage(
     window.ZogographUrlMonitorEditorCard,
     'core-url-monitor-editor',
+    { key, values },
+    { i18n: ZogographI18n },
+  );
+
+const scheduleRecentRunsText = (key, values = {}) =>
+  renderCoreCardPackage(
+    window.ZogographScheduleRecentRunsCard,
+    'core-schedule-recent-runs',
     { key, values },
     { i18n: ZogographI18n },
   );

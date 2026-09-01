@@ -12,6 +12,8 @@ window.ZogographHostCollectorRuntimeCard = {
         'core-host-collector-runtime.open_setup': 'Open Host setup',
         'core-host-collector-runtime.add_root_cron':
           "As root — SSH in or use WHM's Terminal — add this to root's crontab with crontab -e:",
+        'core-host-collector-runtime.run_once':
+          'Then run it once by hand to see what it finds: {{command}}',
       }),
       es: Object.freeze({
         'core-host-collector-runtime.loading':
@@ -23,6 +25,8 @@ window.ZogographHostCollectorRuntimeCard = {
           'Abrir configuración del host',
         'core-host-collector-runtime.add_root_cron':
           'Como root — conéctese por SSH o use la Terminal de WHM — añada esto al crontab de root con crontab -e:',
+        'core-host-collector-runtime.run_once':
+          'Después ejecútelo una vez a mano para ver lo que encuentra: {{command}}',
       }),
       hi: Object.freeze({
         'core-host-collector-runtime.loading': 'होस्ट कलेक्टर पढ़ा जा रहा है…',
@@ -33,6 +37,8 @@ window.ZogographHostCollectorRuntimeCard = {
         'core-host-collector-runtime.open_setup': 'होस्ट सेटअप खोलें',
         'core-host-collector-runtime.add_root_cron':
           'root के रूप में — SSH से साइन इन करें या WHM का Terminal इस्तेमाल करें — इसे crontab -e से root के crontab में जोड़ें:',
+        'core-host-collector-runtime.run_once':
+          'फिर यह क्या ढूँढता है, देखने के लिए इसे एक बार हाथ से चलाएँ: {{command}}',
       }),
       ar: Object.freeze({
         'core-host-collector-runtime.loading': 'تجري قراءة جامع المضيف…',
@@ -42,6 +48,8 @@ window.ZogographHostCollectorRuntimeCard = {
         'core-host-collector-runtime.open_setup': 'افتح إعداد المضيف',
         'core-host-collector-runtime.add_root_cron':
           'بصفة root — سجّل الدخول عبر SSH أو استخدم Terminal في WHM — أضف هذا إلى crontab الخاص بـ root باستخدام crontab -e:',
+        'core-host-collector-runtime.run_once':
+          'ثم شغّله يدويًا مرة واحدة لترى ما يجده: {{command}}',
       }),
       zh: Object.freeze({
         'core-host-collector-runtime.loading': '正在读取主机采集器…',
@@ -51,6 +59,8 @@ window.ZogographHostCollectorRuntimeCard = {
         'core-host-collector-runtime.open_setup': '打开主机设置',
         'core-host-collector-runtime.add_root_cron':
           '以 root 身份通过 SSH 登录或使用 WHM 的终端，将此项用 crontab -e 加入 root 的 crontab：',
+        'core-host-collector-runtime.run_once':
+          '然后手动运行一次，查看它会发现什么：{{command}}',
       }),
     }),
   }),

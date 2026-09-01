@@ -23832,11 +23832,9 @@ async function refreshHost() {
       holder.appendChild(
         Object.assign(document.createElement('p'), {
           className: 'muted small',
-          textContent: ZogographI18n.t(
-            'host.run_collector_once',
-            { command: data.command },
-            'Then run it once by hand to see what it finds: {{command}}',
-          ),
+          textContent: hostCollectorRuntimeText('run_once', {
+            command: data.command,
+          }),
         }),
       );
     }

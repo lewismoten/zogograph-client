@@ -90,6 +90,10 @@ window.ZogographProcessListCard = {
         'core-process-list.force': 'Force',
         'core-process-list.ask_stop': 'Ask {{count}} processes to stop',
         'core-process-list.force_stop': 'Force {{count}} processes to stop',
+        'core-process-list.ask_confirmation':
+          '{{action}} {{count}} processes to stop?\n\nPattern: {{pattern}}\n\nSIGTERM lets each one close its files and exit cleanly.',
+        'core-process-list.force_confirmation':
+          '{{action}} {{count}} processes to stop?\n\nPattern: {{pattern}}\n\nSIGKILL cannot be caught or ignored. Anything part-way through being written stays part-way written.',
         'core-process-list.stopped_count': '{{count}} stopped',
         'core-process-list.still_running_count': '{{count}} still running',
         'core-process-list.protected_count': '{{count}} protected',
@@ -169,6 +173,10 @@ window.ZogographProcessListCard = {
         'core-process-list.ask_stop': 'Pedir detener {{count}} procesos',
         'core-process-list.force_stop':
           'Forzar la detención de {{count}} procesos',
+        'core-process-list.ask_confirmation':
+          '¿{{action}} detener {{count}} procesos?\n\nPatrón: {{pattern}}\n\nSIGTERM permite a cada uno cerrar sus archivos y salir limpiamente.',
+        'core-process-list.force_confirmation':
+          '¿{{action}} detener {{count}} procesos?\n\nPatrón: {{pattern}}\n\nSIGKILL no se puede capturar ni ignorar. Lo que se esté escribiendo a medias permanecerá a medias.',
         'core-process-list.stopped_count': '{{count}} detenidos',
         'core-process-list.still_running_count':
           '{{count}} siguen ejecutándose',
@@ -250,6 +258,10 @@ window.ZogographProcessListCard = {
           '{{count}} प्रक्रियाओं को रुकने का अनुरोध करें',
         'core-process-list.force_stop':
           '{{count}} प्रक्रियाओं को बलपूर्वक रोकें',
+        'core-process-list.ask_confirmation':
+          '{{count}} प्रक्रियाओं को रुकने का {{action}}?\n\nपैटर्न: {{pattern}}\n\nSIGTERM प्रत्येक को अपनी फ़ाइलें बंद करके साफ़ रूप से निकलने देता है।',
+        'core-process-list.force_confirmation':
+          '{{count}} प्रक्रियाओं को {{action}}?\n\nपैटर्न: {{pattern}}\n\nSIGKILL को पकड़ा या अनदेखा नहीं किया जा सकता। जो भी आधा लिखा जा रहा है, आधा ही रहेगा।',
         'core-process-list.stopped_count': '{{count}} रोकी गईं',
         'core-process-list.still_running_count': '{{count}} अभी भी चल रही हैं',
         'core-process-list.protected_count': '{{count}} सुरक्षित हैं',
@@ -328,6 +340,10 @@ window.ZogographProcessListCard = {
         'core-process-list.force': 'افرض الإيقاف',
         'core-process-list.ask_stop': 'اطلب من {{count}} عمليات أن تتوقف',
         'core-process-list.force_stop': 'افرض إيقاف {{count}} عمليات',
+        'core-process-list.ask_confirmation':
+          'هل {{action}} من {{count}} عمليات أن تتوقف؟\n\nالنمط: {{pattern}}\n\nيسمح SIGTERM لكل منها بإغلاق ملفاتها والخروج بصورة سليمة.',
+        'core-process-list.force_confirmation':
+          'هل {{action}} {{count}} عمليات؟\n\nالنمط: {{pattern}}\n\nلا يمكن التقاط SIGKILL أو تجاهله. أي شيء يُكتب جزئيًا سيبقى مكتوبًا جزئيًا.',
         'core-process-list.stopped_count': 'توقفت {{count}}',
         'core-process-list.still_running_count': 'ما زالت {{count}} تعمل',
         'core-process-list.protected_count': '{{count}} محمية',
@@ -406,6 +422,10 @@ window.ZogographProcessListCard = {
         'core-process-list.force': '强制',
         'core-process-list.ask_stop': '请求 {{count}} 个进程停止',
         'core-process-list.force_stop': '强制 {{count}} 个进程停止',
+        'core-process-list.ask_confirmation':
+          '{{action}} {{count}} 个进程停止？\n\n模式：{{pattern}}\n\nSIGTERM 让每个进程关闭文件并干净退出。',
+        'core-process-list.force_confirmation':
+          '强制停止 {{count}} 个进程？\n\n模式：{{pattern}}\n\nSIGKILL 无法被捕获或忽略。任何正在部分写入的内容都将保持部分写入状态。',
         'core-process-list.stopped_count': '已停止 {{count}} 个',
         'core-process-list.still_running_count': '仍在运行 {{count}} 个',
         'core-process-list.protected_count': '受保护 {{count}} 个',

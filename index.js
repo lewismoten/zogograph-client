@@ -23499,16 +23499,14 @@ async function previewPattern() {
       });
       if (
         !(await confirmDialog(
-          ZogographI18n.t(
-            force ? 'process.force_confirmation' : 'process.ask_confirmation',
+          ZogographProcessListCard.text(
+            force ? 'force_confirmation' : 'ask_confirmation',
+            { i18n: ZogographI18n },
             {
               action: verb,
               count: humanCount(eligible.length),
               pattern,
             },
-            force
-              ? '{{action}} {{count}} processes to stop?\n\nPattern: {{pattern}}\n\nSIGKILL cannot be caught or ignored. Anything part-way through being written stays part-way written.'
-              : '{{action}} {{count}} processes to stop?\n\nPattern: {{pattern}}\n\nSIGTERM lets each one close its files and exit cleanly.',
           ),
         ))
       )

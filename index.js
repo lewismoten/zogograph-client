@@ -41532,8 +41532,8 @@ $('busyExpand').addEventListener('click', () => {
   // what is on screen cannot drift apart.
   for (const d of all) d.open = opening;
   $('busyExpand').textContent = opening
-    ? ZogographI18n.t('action.close_all', {}, 'Close all')
-    : ZogographI18n.t('action.open_all', {}, 'Open all');
+    ? actionCommonText('close_all')
+    : actionCommonText('open_all');
 });
 
 for (const id of ['pieShowCategories', 'typeGrowthMode']) {

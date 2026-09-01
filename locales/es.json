@@ -7,7 +7,6 @@
   "common.refresh_failed": "No se pudo actualizar",
   "common.ready": "Listo",
   "common.sign_in_to_see": "Inicie sesión para ver esto.",
-  "setup.instructions_sign_in": "Inicie sesión para ver las instrucciones de configuración.",
   "action.open": "Abrir",
   "action.request_capture": "Solicitar una captura",
   "action.put_in_command_box": "Ponerlo en la caja de comandos",

@@ -6,6 +6,8 @@ window.ZogographHostSetupStatusCard = {
     helpers: ['i18n'],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-host-setup-status.instructions_sign_in':
+          'Sign in to see the setup instructions.',
         'core-host-setup-status.database_readable':
           "Working. The collector's database is at {{database}} and this account can read it.",
         'core-host-setup-status.database_unreadable':
@@ -23,6 +25,8 @@ window.ZogographHostSetupStatusCard = {
           'If you do not have a host account',
       }),
       es: Object.freeze({
+        'core-host-setup-status.instructions_sign_in':
+          'Inicie sesión para ver las instrucciones de configuración.',
         'core-host-setup-status.database_readable':
           'Funciona. La base de datos del recopilador está en {{database}} y esta cuenta puede leerla.',
         'core-host-setup-status.database_unreadable':
@@ -41,6 +45,8 @@ window.ZogographHostSetupStatusCard = {
           'Si no tienes una cuenta de host',
       }),
       hi: Object.freeze({
+        'core-host-setup-status.instructions_sign_in':
+          'सेटअप निर्देश देखने के लिए साइन इन करें।',
         'core-host-setup-status.database_readable':
           'काम कर रहा है। कलेक्टर का डेटाबेस {{database}} पर है और यह खाता इसे पढ़ सकता है।',
         'core-host-setup-status.database_unreadable':
@@ -58,6 +64,8 @@ window.ZogographHostSetupStatusCard = {
           'यदि आपके पास होस्ट खाता नहीं है',
       }),
       ar: Object.freeze({
+        'core-host-setup-status.instructions_sign_in':
+          'سجّل الدخول لرؤية تعليمات الإعداد.',
         'core-host-setup-status.database_readable':
           'يعمل. قاعدة بيانات الجامع في {{database}} ويمكن لهذا الحساب قراءتها.',
         'core-host-setup-status.database_unreadable':
@@ -74,6 +82,7 @@ window.ZogographHostSetupStatusCard = {
         'core-host-setup-status.no_host_account': 'إذا لم يكن لديك حساب مضيف',
       }),
       zh: Object.freeze({
+        'core-host-setup-status.instructions_sign_in': '登录后可查看设置说明。',
         'core-host-setup-status.database_readable':
           '正在工作。采集器的数据库位于 {{database}}，此账户可以读取它。',
         'core-host-setup-status.database_unreadable':

@@ -255,6 +255,7 @@ export default [
         ZogographAiPastConversationActionsCard: 'readonly',
         ZogographAiSettingsPageHeadingCard: 'readonly',
         ZogographAiIdentityPageShellCard: 'readonly',
+        ZogographAiDataNavigationCard: 'readonly',
         ZogographAiModelPagesShellCard: 'readonly',
         ZogographAiLimitsImagesShellCard: 'readonly',
         ZogographAiTryBillingShellCard: 'readonly',

@@ -11961,10 +11961,11 @@ function renderChatIdentity() {
    */
   if (VIEWS['sys-ai']) VIEWS['sys-ai'].label = who.name;
   if (VIEWS['sys-ai-data'])
-    VIEWS['sys-ai-data'].label = ZogographI18n.t(
-      'ai.data_page',
-      {},
-      'Assistant data',
+    VIEWS['sys-ai-data'].label = renderCoreCardPackage(
+      ZogographAiDataNavigationCard,
+      'core-ai-data-navigation',
+      { key: 'label' },
+      { i18n: ZogographI18n },
     );
 
   const box = $('chatText');

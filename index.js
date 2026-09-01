@@ -35913,6 +35913,15 @@ function databaseFacts(data) {
  * failure this replaces is a panel that says "no host readings" and leaves the
  * reader to work out which of five things is missing.
  */
+function hostSetupStatusText(key, values = {}) {
+  return renderCoreCardPackage(
+    ZogographHostSetupStatusCard,
+    'core-host-setup-status',
+    { key, values },
+    { i18n: ZogographI18n },
+  );
+}
+
 // Retained for package setup panels that may request the host-schedule helper.
 // eslint-disable-next-line no-unused-vars
 async function refreshHostSchedule() {
@@ -35945,22 +35954,12 @@ async function refreshHostSchedule() {
   const state_ = document.createElement('p');
   state_.className = data.database_readable ? 'ok' : 'muted';
   state_.textContent = data.database_readable
-    ? ZogographI18n.t(
-        'host_setup.database_readable',
-        { database: data.database },
-        "Working. The collector's database is at {{database}} and this account can read it.",
-      )
+    ? hostSetupStatusText('database_readable', { database: data.database })
     : data.database_exists
-      ? ZogographI18n.t(
-          'host_setup.database_unreadable',
-          { database: data.database },
-          'The database exists at {{database}} but this account cannot read it — which is the ownership step below.',
-        )
-      : ZogographI18n.t(
-          'host_setup.collector_never_run',
-          {},
-          'The collector has never run. Nothing on this site that describes the whole machine will have anything in it until it does.',
-        );
+      ? hostSetupStatusText('database_unreadable', {
+          database: data.database,
+        })
+      : hostSetupStatusText('collector_never_run');
   parts.push(state_);
 
   const list = document.createElement('ol');
@@ -35980,24 +35979,11 @@ async function refreshHostSchedule() {
 
     list.appendChild(li);
   }
-  parts.push(
-    section(
-      ZogographI18n.t(
-        'host_setup.what_has_to_happen',
-        {},
-        'What has to happen',
-      ),
-      list,
-    ),
-  );
+  parts.push(section(hostSetupStatusText('what_has_to_happen'), list));
 
   parts.push(
     section(
-      ZogographI18n.t(
-        'host_setup.line_to_paste_as_root',
-        {},
-        'The line to paste, as root',
-      ),
+      hostSetupStatusText('line_to_paste_as_root'),
       paste(data.cron_line),
     ),
   );
@@ -36010,47 +35996,20 @@ async function refreshHostSchedule() {
    * the account-side run does and does not collect lets them decide.
    */
   const without = document.createDocumentFragment();
-  without.appendChild(
-    note(
-      ZogographI18n.t(
-        'host_setup.no_root_help',
-        {},
-        'No root? The collector runs as an ordinary account too. It collects less, and here is exactly what less means.',
-      ),
-    ),
-  );
+  without.appendChild(note(hostSetupStatusText('no_root_help')));
 
   const compare = document.createElement('div');
   compare.className = 'compare';
   compare.appendChild(
-    compareColumn(
-      ZogographI18n.t('host_setup.only_as_root', {}, 'Only as root'),
-      data.as_root,
-    ),
+    compareColumn(hostSetupStatusText('only_as_root'), data.as_root),
   );
   compare.appendChild(
-    compareColumn(
-      ZogographI18n.t(
-        'host_setup.also_as_account',
-        {},
-        'Also as your own account',
-      ),
-      data.as_account,
-    ),
+    compareColumn(hostSetupStatusText('also_as_account'), data.as_account),
   );
   without.appendChild(compare);
 
   without.appendChild(paste(data.account_cron_line));
-  parts.push(
-    section(
-      ZogographI18n.t(
-        'host_setup.no_host_account',
-        {},
-        'If you do not have a host account',
-      ),
-      without,
-    ),
-  );
+  parts.push(section(hostSetupStatusText('no_host_account'), without));
 
   body.replaceChildren(...parts);
 }

@@ -27561,15 +27561,21 @@ async function showAlertEmail(row) {
       mail.covered,
       [
         {
-          label: ZogographI18n.t('alert.when', {}, 'When'),
+          label: ZogographAlertsShellCard.text('when', {
+            i18n: ZogographI18n,
+          }),
           render: (one) => whenSpan(one.raised_at),
         },
         {
-          label: ZogographI18n.t('alert.severity', {}, 'Severity'),
+          label: ZogographAlertsShellCard.text('severity', {
+            i18n: ZogographI18n,
+          }),
           render: (one) => one.severity,
         },
         {
-          label: ZogographI18n.t('alert.what', {}, 'What'),
+          label: ZogographAlertsShellCard.text('what', {
+            i18n: ZogographI18n,
+          }),
           className: 'name',
           render: (one) => one.subject,
         },

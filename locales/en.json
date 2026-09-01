@@ -1171,7 +1171,6 @@
   "action.close": "Close",
   "storage.path": "Path",
   "storage.size": "Size",
-  "storage.link": "Link",
   "storage.file": "file",
   "storage.category": "Category",
   "tree.sign_in": "Sign in to explore the disk.",

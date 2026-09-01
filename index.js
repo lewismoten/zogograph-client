@@ -23072,7 +23072,12 @@ async function sweepLinks(pattern, confirmed = false) {
       failed.slice(0, 100),
       [
         {
-          label: ZogographI18n.t('storage.link', {}, 'Link'),
+          label: renderCoreCardPackage(
+            ZogographSymlinkSweepTableLabelsCard,
+            'core-symlink-sweep-table-labels',
+            { label: 'link' },
+            { i18n: ZogographI18n },
+          ),
           className: 'name',
           render: (row) => dimmedPath(row.path, root),
         },
@@ -23099,7 +23104,12 @@ async function sweepLinks(pattern, confirmed = false) {
       result.deleted.slice(0, 200),
       [
         {
-          label: ZogographI18n.t('storage.link', {}, 'Link'),
+          label: renderCoreCardPackage(
+            ZogographSymlinkSweepTableLabelsCard,
+            'core-symlink-sweep-table-labels',
+            { label: 'link' },
+            { i18n: ZogographI18n },
+          ),
           className: 'name',
           render: (row) => dimmedPath(row.path, root),
         },

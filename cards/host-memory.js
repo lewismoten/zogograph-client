@@ -47,6 +47,15 @@ window.ZogographHostMemoryCard = {
           'not represented by the categories above',
         'core-host-memory.in_use': 'Memory in use',
         'core-host-memory.other_kernel': 'Other kernel/system memory',
+        'core-host-memory.swap_verdict_clear': 'Nothing is swapped.',
+        'core-host-memory.swap_verdict_pressure':
+          'Swap is climbing ({{swap}}) while available memory falls ({{available}}). Those two together are real pressure rather than leftover cold pages — the machine is paying for memory with disk. This is the one worth acting on.',
+        'core-host-memory.swap_verdict_filling':
+          'Swap is growing ({{swap}}), but available memory is holding steady. That is the kernel moving cold pages out of the way, not the machine running short.',
+        'core-host-memory.swap_verdict_cold':
+          'Old or cold pages left over from an earlier squeeze. Linux does not pull pages back out of swap just because RAM frees up, so this figure stays where it is until something touches them — a high-water mark, not a measure of now. No current shortage: watch for swap rising while available memory falls, which is a different thing entirely.',
+        'core-host-memory.swap_verdict_waiting':
+          'Not enough readings yet to say whether this is left over or still growing — that needs about half an hour of history.',
       }),
       es: Object.freeze({
         'core-host-memory.title': 'Dónde se fue la memoria',
@@ -83,6 +92,15 @@ window.ZogographHostMemoryCard = {
           'no representada por las categorías anteriores',
         'core-host-memory.in_use': 'Memoria en uso',
         'core-host-memory.other_kernel': 'Otra memoria de kernel/sistema',
+        'core-host-memory.swap_verdict_clear': 'No se está usando intercambio.',
+        'core-host-memory.swap_verdict_pressure':
+          'El intercambio sube ({{swap}}) mientras baja la memoria disponible ({{available}}). Juntos son presión real, no páginas frías restantes: la máquina está pagando memoria con disco.',
+        'core-host-memory.swap_verdict_filling':
+          'El intercambio crece ({{swap}}), pero la memoria disponible se mantiene estable. El kernel mueve páginas frías, no falta memoria.',
+        'core-host-memory.swap_verdict_cold':
+          'Quedan páginas antiguas o frías de una presión anterior. Linux no las devuelve del intercambio solo porque se libere RAM; es una marca de máximo, no una medida actual.',
+        'core-host-memory.swap_verdict_waiting':
+          'Aún no hay lecturas suficientes para saber si esto quedó atrás o sigue creciendo; hace falta aproximadamente media hora de historial.',
       }),
       hi: Object.freeze({
         'core-host-memory.title': 'मेमोरी कहाँ गई',
@@ -118,6 +136,15 @@ window.ZogographHostMemoryCard = {
           'ऊपर की श्रेणियों में प्रदर्शित नहीं',
         'core-host-memory.in_use': 'उपयोग में मेमोरी',
         'core-host-memory.other_kernel': 'अन्य कर्नेल/सिस्टम मेमोरी',
+        'core-host-memory.swap_verdict_clear': 'कोई स्वैप उपयोग में नहीं है।',
+        'core-host-memory.swap_verdict_pressure':
+          'स्वैप बढ़ रहा है ({{swap}}) जबकि उपलब्ध मेमोरी गिर रही है ({{available}})। साथ में यह वास्तविक दबाव है, बची हुई ठंडी पेज नहीं।',
+        'core-host-memory.swap_verdict_filling':
+          'स्वैप बढ़ रहा है ({{swap}}), पर उपलब्ध मेमोरी स्थिर है। कर्नेल ठंडे पेज हटा रहा है, मशीन में कमी नहीं है।',
+        'core-host-memory.swap_verdict_cold':
+          'पुराने दबाव से बचे पुराने या ठंडे पेज। RAM खाली होने पर Linux उन्हें स्वैप से वापस नहीं खींचता; यह वर्तमान माप नहीं, उच्चतम निशान है।',
+        'core-host-memory.swap_verdict_waiting':
+          'यह जानने के लिए पर्याप्त रीडिंग नहीं हैं कि यह बचा हुआ है या बढ़ रहा है; लगभग आधे घंटे का इतिहास चाहिए।',
       }),
       ar: Object.freeze({
         'core-host-memory.title': 'أين ذهبت الذاكرة',
@@ -151,6 +178,15 @@ window.ZogographHostMemoryCard = {
         'core-host-memory.other_kernel_help': 'غير ممثلة بالفئات أعلاه',
         'core-host-memory.in_use': 'الذاكرة المستخدمة',
         'core-host-memory.other_kernel': 'ذاكرة نواة/نظام أخرى',
+        'core-host-memory.swap_verdict_clear': 'لا توجد صفحات مبدلة.',
+        'core-host-memory.swap_verdict_pressure':
+          'التبديل يتصاعد ({{swap}}) بينما تنخفض الذاكرة المتاحة ({{available}}). معاً هذا ضغط حقيقي لا صفحات باردة باقية.',
+        'core-host-memory.swap_verdict_filling':
+          'التبديل ينمو ({{swap}})، لكن الذاكرة المتاحة ثابتة. تنقل النواة الصفحات الباردة، وليس هناك نقص في الذاكرة.',
+        'core-host-memory.swap_verdict_cold':
+          'صفحات قديمة أو باردة بقيت من ضغط سابق. لا يسحب Linux الصفحات من التبديل لمجرد تحرر RAM؛ هذه علامة ذروة لا قياس للحاضر.',
+        'core-host-memory.swap_verdict_waiting':
+          'لا توجد قراءات كافية بعد لمعرفة إن كان هذا باقياً أو ما زال ينمو؛ يلزم نحو نصف ساعة من التاريخ.',
       }),
       zh: Object.freeze({
         'core-host-memory.title': '内存去了哪里',
@@ -184,13 +220,22 @@ window.ZogographHostMemoryCard = {
         'core-host-memory.other_kernel_help': '未包含在上述类别中',
         'core-host-memory.in_use': '已用内存',
         'core-host-memory.other_kernel': '其他内核/系统内存',
+        'core-host-memory.swap_verdict_clear': '没有正在交换的内容。',
+        'core-host-memory.swap_verdict_pressure':
+          '交换空间正在增加（{{swap}}），而可用内存正在减少（{{available}}）。两者同时出现是实际压力，而非残留的冷页。',
+        'core-host-memory.swap_verdict_filling':
+          '交换空间正在增加（{{swap}}），但可用内存保持稳定。这是内核移开冷页，而不是机器内存不足。',
+        'core-host-memory.swap_verdict_cold':
+          '先前内存紧张遗留的旧页或冷页。Linux 不会仅因 RAM 释放就将页面移回；这是高水位标记，而非当前测量。',
+        'core-host-memory.swap_verdict_waiting':
+          '读数还不足以判断这是遗留状态还是仍在增长；需要大约半小时的历史记录。',
       }),
     }),
   }),
-  text(key, helpers) {
+  text(key, helpers, values = {}) {
     return helpers.i18n.t(
       `core-host-memory.${key}`,
-      {},
+      values,
       this.manifest.catalogs.en[`core-host-memory.${key}`],
     );
   },

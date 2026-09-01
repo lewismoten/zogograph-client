@@ -40,6 +40,18 @@ window.ZogographNetworkRdnsCard = {
           '78.174.88.104, 2001:db8::1 — or paste a whole column',
         'core-network-rdns.no_name': 'no name',
         'core-network-rdns.nothing_waiting': 'Nothing was waiting.',
+        'core-network-rdns.own_label_tip':
+          'A name you gave this, under Settings → Your own names.',
+        'core-network-rdns.name_tip':
+          'What the internet says this address is called — a PTR record, which its owner controls and can set to anything.',
+        'core-network-rdns.waiting_tip':
+          'Waiting to be looked up. One is resolved per collector run.',
+        'core-network-rdns.none_tip':
+          'Looked up: this address has no PTR record, so it has no name to show. That is a real answer, not a failure.',
+        'core-network-rdns.ask': 'name?',
+        'core-network-rdns.ask_tip': 'Queue a reverse lookup for this address',
+        'core-network-rdns.queued_tip':
+          'Queued. One is resolved per collector run.',
       }),
       es: Object.freeze({
         'core-network-rdns.title': 'Cómo llama Internet a una dirección',
@@ -66,6 +78,19 @@ window.ZogographNetworkRdnsCard = {
           '78.174.88.104, 2001:db8::1 — o pegue una columna completa',
         'core-network-rdns.no_name': 'sin nombre',
         'core-network-rdns.nothing_waiting': 'No había nada en espera.',
+        'core-network-rdns.own_label_tip':
+          'Un nombre que le dio, en Configuración → Sus propios nombres.',
+        'core-network-rdns.name_tip':
+          'El nombre que Internet dice que tiene esta dirección: un registro PTR, cuyo propietario controla y puede configurar como quiera.',
+        'core-network-rdns.waiting_tip':
+          'Esperando consulta. Se resuelve una por ejecución del recopilador.',
+        'core-network-rdns.none_tip':
+          'Consultada: esta dirección no tiene registro PTR, así que no hay nombre que mostrar. Es una respuesta real, no un fallo.',
+        'core-network-rdns.ask': '¿nombre?',
+        'core-network-rdns.ask_tip':
+          'Poner en cola una búsqueda inversa para esta dirección',
+        'core-network-rdns.queued_tip':
+          'En cola. Se resuelve una por ejecución del recopilador.',
       }),
       hi: Object.freeze({
         'core-network-rdns.title': 'इंटरनेट किसी पते को क्या कहता है',
@@ -91,6 +116,19 @@ window.ZogographNetworkRdnsCard = {
           '78.174.88.104, 2001:db8::1 — या पूरा स्तंभ चिपकाएँ',
         'core-network-rdns.no_name': 'कोई नाम नहीं',
         'core-network-rdns.nothing_waiting': 'कोई भी प्रतीक्षा में नहीं था।',
+        'core-network-rdns.own_label_tip':
+          'आपके द्वारा दिया गया नाम, सेटिंग्स → आपके अपने नाम में।',
+        'core-network-rdns.name_tip':
+          'इंटरनेट के अनुसार इस पते का नाम — PTR रिकॉर्ड, जिसे उसका मालिक नियंत्रित करता है और कुछ भी सेट कर सकता है।',
+        'core-network-rdns.waiting_tip':
+          'देखे जाने की प्रतीक्षा है। हर कलेक्टर रन में एक हल किया जाता है।',
+        'core-network-rdns.none_tip':
+          'देख लिया गया: इस पते का कोई PTR रिकॉर्ड नहीं है, इसलिए दिखाने के लिए नाम नहीं है। यह असली उत्तर है, विफलता नहीं।',
+        'core-network-rdns.ask': 'नाम?',
+        'core-network-rdns.ask_tip':
+          'इस पते के लिए रिवर्स लुकअप कतार में लगाएँ',
+        'core-network-rdns.queued_tip':
+          'कतार में है। हर कलेक्टर रन में एक हल किया जाता है।',
       }),
       ar: Object.freeze({
         'core-network-rdns.title': 'ما الذي يسميه الإنترنت عنوانًا',
@@ -116,6 +154,19 @@ window.ZogographNetworkRdnsCard = {
           '78.174.88.104، 2001:db8::1 — أو الصق عمودًا كاملًا',
         'core-network-rdns.no_name': 'بلا اسم',
         'core-network-rdns.nothing_waiting': 'لم يكن هناك شيء قيد الانتظار.',
+        'core-network-rdns.own_label_tip':
+          'اسم منحته أنت لهذا، ضمن الإعدادات ← أسماؤك الخاصة.',
+        'core-network-rdns.name_tip':
+          'ما يقوله الإنترنت إن هذا العنوان يسمى به — سجل PTR يتحكم فيه مالكه ويمكنه ضبطه على أي شيء.',
+        'core-network-rdns.waiting_tip':
+          'بانتظار البحث. تُحل واحدة في كل تشغيل للجامع.',
+        'core-network-rdns.none_tip':
+          'تم البحث: ليس لهذا العنوان سجل PTR، لذا لا يوجد اسم لعرضه. هذه إجابة حقيقية وليست فشلاً.',
+        'core-network-rdns.ask': 'اسم؟',
+        'core-network-rdns.ask_tip':
+          'أضف بحثًا عكسيًا لهذا العنوان إلى الطابور',
+        'core-network-rdns.queued_tip':
+          'أُضيف إلى الطابور. تُحل واحدة في كل تشغيل للجامع.',
       }),
       zh: Object.freeze({
         'core-network-rdns.title': '互联网如何称呼一个地址',
@@ -141,6 +192,16 @@ window.ZogographNetworkRdnsCard = {
           '78.174.88.104, 2001:db8::1 — 或粘贴整列',
         'core-network-rdns.no_name': '无名称',
         'core-network-rdns.nothing_waiting': '没有等待中的项目。',
+        'core-network-rdns.own_label_tip':
+          '您为此项指定的名称，位于“设置 → 您自己的名称”。',
+        'core-network-rdns.name_tip':
+          '互联网称此地址的名称——PTR 记录，其所有者可以控制并设置为任意内容。',
+        'core-network-rdns.waiting_tip': '等待查询。每次采集器运行解析一个。',
+        'core-network-rdns.none_tip':
+          '已查询：此地址没有 PTR 记录，因此没有可显示的名称。这是有效答案，不是失败。',
+        'core-network-rdns.ask': '名称？',
+        'core-network-rdns.ask_tip': '为此地址排队反向查询',
+        'core-network-rdns.queued_tip': '已排队。每次采集器运行解析一个。',
       }),
     }),
   }),

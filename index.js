@@ -13398,6 +13398,8 @@ function renderRdns(data) {
 // name rather than through a direct core call.
 // eslint-disable-next-line no-unused-vars
 function withAddressName(address) {
+  const rdnsText = (key, values = {}) =>
+    ZogographNetworkRdnsCard.text(key, values, { i18n: ZogographI18n });
   const name = state.rdnsNames?.[address];
   const mine = state.labelNames?.[address];
 
@@ -13408,11 +13410,7 @@ function withAddressName(address) {
     const yours = document.createElement('span');
     yours.className = 'own-name';
     yours.textContent = ` (${mine})`;
-    yours.title = ZogographI18n.t(
-      'network.own_label_tip',
-      {},
-      'A name you gave this, under Settings → Your own names.',
-    );
+    yours.title = rdnsText('own_label_tip');
     span.appendChild(yours);
   }
 
@@ -13420,11 +13418,7 @@ function withAddressName(address) {
     const theirs = document.createElement('span');
     theirs.className = 'muted small';
     theirs.textContent = ` ${name}`;
-    theirs.title = ZogographI18n.t(
-      'network.rdns_name_tip',
-      {},
-      'What the internet says this address is called — a PTR record, which its owner controls and can set to anything.',
-    );
+    theirs.title = rdnsText('name_tip');
     span.appendChild(theirs);
   }
 
@@ -30991,6 +30985,8 @@ function renderCaptureRequest(data) {
  * passes the row and one that does not passes nothing.
  */
 function labelled(value, label, row = null) {
+  const rdnsText = (key, values = {}) =>
+    ZogographNetworkRdnsCard.text(key, values, { i18n: ZogographI18n });
   const span = document.createElement('span');
   span.textContent = String(value);
 
@@ -30998,7 +30994,7 @@ function labelled(value, label, row = null) {
     const tag = document.createElement('span');
     tag.className = 'own-label';
     tag.textContent = ` ${label}`;
-    tag.title = ZogographI18n.t('network.own_label_tip');
+    tag.title = rdnsText('own_label_tip');
     span.appendChild(tag);
   }
 
@@ -31006,13 +31002,13 @@ function labelled(value, label, row = null) {
     const tag = document.createElement('span');
     tag.className = 'rdns-name muted small';
     tag.textContent = ` ${row.rdns_name}`;
-    tag.title = ZogographI18n.t('network.rdns_name_tip');
+    tag.title = rdnsText('name_tip');
     span.appendChild(tag);
   } else if (row?.rdns_asked) {
     const tag = document.createElement('span');
     tag.className = 'muted small';
     tag.textContent = ' \u2026';
-    tag.title = ZogographI18n.t('network.rdns_waiting_tip');
+    tag.title = rdnsText('waiting_tip');
     span.appendChild(tag);
   } else if (row?.rdns_none) {
     /*
@@ -31025,7 +31021,7 @@ function labelled(value, label, row = null) {
     const tag = document.createElement('span');
     tag.className = 'muted small';
     tag.textContent = ' \u2014';
-    tag.title = ZogographI18n.t('network.rdns_none_tip');
+    tag.title = rdnsText('none_tip');
     span.appendChild(tag);
   } else if (row && row.address && row.private === false) {
     /*
@@ -31037,8 +31033,8 @@ function labelled(value, label, row = null) {
      */
     const ask = document.createElement('button');
     ask.className = 'link tiny';
-    ask.textContent = ZogographI18n.t('network.rdns_ask');
-    ask.title = ZogographI18n.t('network.rdns_ask_tip');
+    ask.textContent = rdnsText('ask');
+    ask.title = rdnsText('ask_tip');
     ask.addEventListener('click', async (event) => {
       event.stopPropagation();
       ask.disabled = true;
@@ -31048,7 +31044,7 @@ function labelled(value, label, row = null) {
           Object.assign(document.createElement('span'), {
             className: 'muted small',
             textContent: ' \u2026',
-            title: ZogographI18n.t('network.rdns_queued_tip'),
+            title: rdnsText('queued_tip'),
           }),
         );
       } catch (error) {

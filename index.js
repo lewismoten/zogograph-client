@@ -23523,34 +23523,34 @@ async function previewPattern() {
           force: force ? '1' : '0',
         });
         const parts = [
-          ZogographI18n.t(
-            'process.stopped_count',
+          ZogographProcessListCard.text(
+            'stopped_count',
+            { i18n: ZogographI18n },
             { count: humanCount(result.stopped) },
-            '{{count}} stopped',
           ),
         ];
         if (result.remaining)
           parts.push(
-            ZogographI18n.t(
-              'process.still_running_count',
+            ZogographProcessListCard.text(
+              'still_running_count',
+              { i18n: ZogographI18n },
               { count: humanCount(result.remaining) },
-              '{{count}} still running',
             ),
           );
         if (result.refused)
           parts.push(
-            ZogographI18n.t(
-              'process.protected_count',
+            ZogographProcessListCard.text(
+              'protected_count',
+              { i18n: ZogographI18n },
               { count: humanCount(result.refused) },
-              '{{count}} protected',
             ),
           );
         if (result.failed)
           parts.push(
-            ZogographI18n.t(
-              'process.failed_count',
+            ZogographProcessListCard.text(
+              'failed_count',
+              { i18n: ZogographI18n },
               { count: humanCount(result.failed) },
-              '{{count}} failed',
             ),
           );
         notice(parts.join(', ') + '.', true);

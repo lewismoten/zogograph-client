@@ -3920,9 +3920,13 @@ i18nExpect(
 );
 i18nExpect(
     $script !== false &&
-        str_contains($script, 'process.ask_stop') &&
-        str_contains($script, 'process.force_confirmation') &&
-        str_contains($script, 'process.still_running_count'),
+        $processListCard !== false &&
+        str_contains($processListCard, '"core-process-list.ask":') &&
+        str_contains($processListCard, '"core-process-list.force":') &&
+        str_contains(
+            $processListCard,
+            '"core-process-list.still_running_count":',
+        ),
     'process-stop controls retain direct user-visible text',
 );
 i18nExpect(

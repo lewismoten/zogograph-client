@@ -36606,25 +36606,20 @@ function renderEmail(data) {
 
   form.appendChild(
     fieldRow(
-      ZogographI18n.t('email.send_from', {}, 'Send from'),
+      ZogographEmailShellCard.text('send_from', { i18n: ZogographI18n }),
       (() => {
         const input = document.createElement('input');
         input.type = 'email';
         input.id = 'emailFrom';
         input.value = data.from;
-        input.placeholder = ZogographI18n.t(
-          'email.send_from_placeholder',
-          {},
-          'monitor@example.com',
+        input.placeholder = ZogographEmailShellCard.text(
+          'send_from_placeholder',
+          { i18n: ZogographI18n },
         );
         input.size = 34;
         return input;
       })(),
-      ZogographI18n.t(
-        'email.send_from_help',
-        {},
-        'Optional. Some hosts reject mail with no From header; others rewrite it whatever you put here.',
-      ),
+      ZogographEmailShellCard.text('send_from_help', { i18n: ZogographI18n }),
     ),
   );
 

@@ -7,6 +7,10 @@ window.ZogographEmailShellCard = {
     catalogs: Object.freeze({
       en: Object.freeze({
         'core-email-shell.title': 'Email alerts',
+        'core-email-shell.send_from': 'Send from',
+        'core-email-shell.send_from_placeholder': 'monitor@example.com',
+        'core-email-shell.send_from_help':
+          'Optional. Some hosts reject mail with no From header; others rewrite it whatever you put here.',
         'core-email-shell.send_to': 'Send to',
         'core-email-shell.send_to_placeholder':
           'you@example.com; oncall@example.com',
@@ -32,6 +36,10 @@ window.ZogographEmailShellCard = {
       }),
       es: Object.freeze({
         'core-email-shell.title': 'Alertas por correo',
+        'core-email-shell.send_from': 'Enviar desde',
+        'core-email-shell.send_from_placeholder': 'monitor@ejemplo.com',
+        'core-email-shell.send_from_help':
+          'Opcional. Algunos alojamientos rechazan correo sin cabecera From; otros la reescriben sin importar lo que ponga aquí.',
         'core-email-shell.send_to': 'Enviar a',
         'core-email-shell.send_to_placeholder':
           'usted@ejemplo.com; guardia@ejemplo.com',
@@ -57,6 +65,10 @@ window.ZogographEmailShellCard = {
       }),
       hi: Object.freeze({
         'core-email-shell.title': 'ईमेल अलर्ट',
+        'core-email-shell.send_from': 'से भेजें',
+        'core-email-shell.send_from_placeholder': 'monitor@example.com',
+        'core-email-shell.send_from_help':
+          'वैकल्पिक। कुछ होस्ट From हेडर के बिना मेल अस्वीकार करते हैं; दूसरे आप यहाँ जो भी डालें उसे फिर से लिखते हैं।',
         'core-email-shell.send_to': 'को भेजें',
         'core-email-shell.send_to_placeholder':
           'you@example.com; oncall@example.com',
@@ -82,6 +94,10 @@ window.ZogographEmailShellCard = {
       }),
       ar: Object.freeze({
         'core-email-shell.title': 'تنبيهات البريد',
+        'core-email-shell.send_from': 'أرسل من',
+        'core-email-shell.send_from_placeholder': 'monitor@example.com',
+        'core-email-shell.send_from_help':
+          'اختياري. ترفض بعض المضيفات البريد بلا ترويسة From؛ وتعاد كتابة الترويسة في مضيفات أخرى مهما وضعت هنا.',
         'core-email-shell.send_to': 'أرسل إلى',
         'core-email-shell.send_to_placeholder':
           'you@example.com; oncall@example.com',
@@ -107,6 +123,10 @@ window.ZogographEmailShellCard = {
       }),
       zh: Object.freeze({
         'core-email-shell.title': '电子邮件警报',
+        'core-email-shell.send_from': '发件人',
+        'core-email-shell.send_from_placeholder': 'monitor@example.com',
+        'core-email-shell.send_from_help':
+          '可选。有些主机会拒绝没有 From 标头的邮件；另一些则会重写您在此填写的任何内容。',
         'core-email-shell.send_to': '发送给',
         'core-email-shell.send_to_placeholder':
           'you@example.com; oncall@example.com',

@@ -28561,24 +28561,24 @@ async function showIncident(id) {
   if (vitals) {
     body.appendChild(
       section(
-        ZogographI18n.t('incident.at_that_moment', {}, 'At that moment'),
+        incidentText('at_that_moment'),
         factGrid([
           [
-            ZogographI18n.t('incident.load', {}, 'Load'),
+            incidentText('load'),
             vitals.load['1'] === null
-              ? ZogographI18n.t('incident.not_reported', {}, 'not reported')
+              ? incidentText('not_reported')
               : `${vitals.load['1'].toFixed(2)}${vitals.load.cores ? ` on ${count(vitals.load.cores, 'core')}` : ''}`,
           ],
           [
-            ZogographI18n.t('incident.load_per_core', {}, 'Load per core'),
+            incidentText('load_per_core'),
             vitals.load.per_core === null
               ? '—'
               : vitals.load.per_core.toFixed(2),
           ],
           [
-            ZogographI18n.t('incident.cpu', {}, 'CPU'),
+            incidentText('cpu'),
             vitals.cpu_percent === null
-              ? ZogographI18n.t('incident.not_reported', {}, 'not reported')
+              ? incidentText('not_reported')
               : `${vitals.cpu_percent.toFixed(1)}%`,
           ],
           [

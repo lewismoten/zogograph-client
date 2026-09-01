@@ -804,8 +804,6 @@
   "domain.stop_watching_title": "أوقف مراقبة هذا النطاق",
   "domain.stop_watching_confirm": "أوقف مراقبة {{name}}؟",
   "domain.stop_watching": "أوقف المراقبة",
-  "state.on": "مفعّل",
-  "state.off": "معطّل",
   "table.means": "يعني",
   "duration.value": "{{value, unit}}",
   "time.range_to": "إلى",

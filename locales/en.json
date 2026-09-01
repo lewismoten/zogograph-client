@@ -785,8 +785,6 @@
   "domain.stop_watching_title": "Stop watching this domain",
   "domain.stop_watching_confirm": "Stop watching {{name}}?",
   "domain.stop_watching": "Stop watching",
-  "state.on": "On",
-  "state.off": "Off",
   "table.means": "Means",
   "duration.value": "{{value, unit}}",
   "time.range_to": "to",

@@ -808,8 +808,6 @@
   "domain.stop_watching_title": "Dejar de vigilar este dominio",
   "domain.stop_watching_confirm": "¿Dejar de vigilar {{name}}?",
   "domain.stop_watching": "Dejar de vigilar",
-  "state.on": "Activada",
-  "state.off": "Desactivada",
   "table.means": "Significado",
   "duration.value": "{{value, unit}}",
   "time.range_to": "a",

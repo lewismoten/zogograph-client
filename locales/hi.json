@@ -806,8 +806,6 @@
   "domain.stop_watching_title": "इस डोमेन को देखना बंद करें",
   "domain.stop_watching_confirm": "{{name}} को देखना बंद करें?",
   "domain.stop_watching": "देखना बंद करें",
-  "state.on": "चालू",
-  "state.off": "बंद",
   "table.means": "अर्थ",
   "duration.value": "{{value, unit}}",
   "time.range_to": "से",

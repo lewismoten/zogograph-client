@@ -804,8 +804,6 @@
   "domain.stop_watching_title": "停止监测此域名",
   "domain.stop_watching_confirm": "停止监测 {{name}}？",
   "domain.stop_watching": "停止监测",
-  "state.on": "开启",
-  "state.off": "关闭",
   "table.means": "含义",
   "duration.value": "{{value, unit}}",
   "time.range_to": "至",

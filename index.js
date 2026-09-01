@@ -34960,9 +34960,7 @@ async function refreshWhois(name = '') {
     if (p.auto_renew !== null && p.auto_renew !== undefined) {
       facts.push([
         whoisText('auto_renew'),
-        p.auto_renew
-          ? ZogographI18n.t('state.on', {}, 'On')
-          : ZogographI18n.t('state.off', {}, 'Off'),
+        p.auto_renew ? whoisText('on') : whoisText('off'),
       ]);
     }
 

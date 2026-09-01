@@ -1423,8 +1423,18 @@ function buildGauge(dial) {
   state.textContent = band
     ? gaugeBandWord(band)
     : dial.plain != null
-      ? ZogographI18n.t('gauge.no_ceiling', {}, 'no ceiling to measure against')
-      : ZogographI18n.t('gauge.not_measured', {}, 'not measured');
+      ? renderCoreCardPackage(
+          ZogographGaugeStatusCard,
+          'core-gauge-status',
+          { key: 'no_ceiling' },
+          { i18n: ZogographI18n },
+        )
+      : renderCoreCardPackage(
+          ZogographGaugeStatusCard,
+          'core-gauge-status',
+          { key: 'not_measured' },
+          { i18n: ZogographI18n },
+        );
   box.appendChild(state);
 
   /*
@@ -1455,10 +1465,11 @@ function buildGauge(dial) {
     detail.className = 'gauge-sub muted';
     detail.textContent =
       dial.overlayLabel ||
-      ZogographI18n.t(
-        'gauge.monitoring',
-        { value: dial.overlay },
-        'Monitoring: {{value}}',
+      renderCoreCardPackage(
+        ZogographGaugeStatusCard,
+        'core-gauge-status',
+        { key: 'monitoring', values: { value: dial.overlay } },
+        { i18n: ZogographI18n },
       );
     box.appendChild(detail);
   }

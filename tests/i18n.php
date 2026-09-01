@@ -3564,11 +3564,6 @@ i18nExpect(
             $english['regex.group_absence_help'],
             $english['ai.data_page'],
             $english['pending.waiting_on_root'],
-            $english['pending.schedule_unknown'],
-            $english['pending.collector_overdue'],
-            $english['pending.expected_in'],
-            $english['pending.due_now'],
-            $english['pending.past_due'],
             $english['process.ask'],
             $english['process.force'],
             $english['process.ask_stop'],
@@ -3819,7 +3814,10 @@ i18nExpect(
     $script !== false &&
         $pendingWorkCard !== false &&
         str_contains($pendingWorkCard, '"core-pending-work.waiting"') &&
-        str_contains($script, 'pending.collector_overdue') &&
+        str_contains(
+            (string) file_get_contents($root . '/cards/pending-status.js'),
+            'core-pending-status.collector_overdue',
+        ) &&
         str_contains(
             (string) file_get_contents($root . '/cards/navigation-badge.js'),
             'core-navigation-badge.pending_ready',

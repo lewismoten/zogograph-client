@@ -30822,94 +30822,12 @@ function relatedViews(view) {
 }
 
 function tickPending() {
-  const now = Date.now() / 1000;
-  let animate = false;
-
-  for (const item of document.querySelectorAll('.pending-item')) {
-    const row = pendingState.rows.find((r) => r.task === item.dataset.task);
-    if (!row) continue;
-
-    const when = item.querySelector('.pending-when');
-    const fill = item.querySelector('.pending-fill');
-
-    /*
-     * The wait runs from when it was asked to the next expected collection.
-     *
-     * Not from "now plus the interval": a request made four minutes into a
-     * five-minute cycle is answered in one, and a bar that restarted at zero
-     * on every render would never reach the end.
-     */
-    if (!hostClock.lastAt || !hostClock.interval) {
-      when.textContent = ZogographI18n.t(
-        'pending.schedule_unknown',
-        {},
-        "The collector's schedule is not known yet, so there is no countdown to give.",
-      );
-      fill.style.width = '0%';
-      continue;
-    }
-
-    /*
-     * A countdown only makes sense if the collector is actually running.
-     *
-     * Walking the schedule forward from the last reading gives a slot a couple
-     * of minutes away even when that reading was nine hours ago - an arithmetic
-     * answer to a question about a job that has stopped. The ring already knows
-     * the collector is overdue; the bar must not contradict it with an invented
-     * deadline.
-     */
-    const overdue = now - hostClock.lastAt - hostClock.interval;
-    if (overdue > hostClock.interval) {
-      fill.classList.add('late');
-      fill.style.width = '100%';
-      when.textContent = ZogographI18n.t(
-        'pending.collector_overdue',
-        {
-          age: humanDuration(now - hostClock.lastAt),
-          interval: humanDuration(hostClock.interval),
-        },
-        'The collector last ran {{age}} ago and runs every {{interval}} — this will not arrive until it runs again.',
-      );
-      animate = true;
-      continue;
-    }
-
-    let due = hostClock.lastAt + hostClock.interval;
-    while (due < row.requested_at) due += hostClock.interval;
-
-    const total = Math.max(1, due - row.requested_at);
-    const left = due - now;
-
-    if (left > 0) {
-      animate = true;
-      fill.classList.remove('late');
-      fill.style.width = `${Math.max(0, Math.min(100, (1 - left / total) * 100))}%`;
-      when.textContent = ZogographI18n.t(
-        'pending.expected_in',
-        { duration: humanDuration(left) },
-        'Expected in {{duration}}',
-      );
-    } else {
-      /*
-       * Past due: stop pretending to be a progress bar.
-       *
-       * A full bar sitting there implies work in progress. What is actually
-       * true is that the moment passed and nothing arrived, which is a
-       * different thing and is the one worth acting on.
-       */
-      fill.classList.add('late');
-      fill.style.width = '100%';
-      when.textContent =
-        -left < hostClock.interval
-          ? ZogographI18n.t('pending.due_now', {}, 'Due now')
-          : ZogographI18n.t(
-              'pending.past_due',
-              { duration: humanDuration(-left) },
-              '{{duration}} past due — the collector may not be running',
-            );
-      animate = true;
-    }
-  }
+  const animate = renderCoreCardPackage(
+    ZogographPendingStatusCard,
+    'core-pending-status',
+    { rows: pendingState.rows, clock: hostClock, now: Date.now() / 1000 },
+    { humanDuration, i18n: ZogographI18n },
+  );
 
   if (animate) {
     pendingState.raf = requestAnimationFrame(() =>

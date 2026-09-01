@@ -38005,6 +38005,15 @@ function renderJetBackup(jet) {
   });
 }
 
+function backupProtectionText(key, values = {}) {
+  return renderCoreCardPackage(
+    ZogographBackupProtectionStatusCard,
+    'core-backup-protection-status',
+    { key, values },
+    { i18n: ZogographI18n },
+  );
+}
+
 async function refreshBackups() {
   const holder = $('backupBody');
   if (!holder) return;
@@ -38295,7 +38304,7 @@ async function refreshBackups() {
                   { size: humanBytes(c.bytes) },
                   'at least {{size}}',
                 )
-              : ZogographI18n.t('backup.not_measured', {}, 'not measured'),
+              : backupProtectionText('not_measured'),
           c.measured
             ? humanCount(c.files)
             : c.files > 0
@@ -38335,7 +38344,7 @@ async function refreshBackups() {
           backupShellText('path'),
           backupShellText('size'),
           backupShellText('files'),
-          ZogographI18n.t('backup.matched', {}, 'Matched'),
+          backupProtectionText('matched'),
         ],
         data.other.map((r) => [
           r.path,
@@ -38379,8 +38388,8 @@ function backupActionList(data) {
   const wrap = document.createDocumentFragment();
 
   const reachByLevel = {
-    here: ZogographI18n.t('backup.reach_here', {}, 'you can do this here'),
-    root: ZogographI18n.t('backup.reach_root', {}, 'needs root or WHM'),
+    here: backupProtectionText('reach_here'),
+    root: backupProtectionText('reach_root'),
     provider: ZogographI18n.t(
       'backup.reach_provider',
       {},
@@ -38389,9 +38398,9 @@ function backupActionList(data) {
   };
 
   const labelByLevel = {
-    safe: ZogographI18n.t('backup.safe', {}, 'Safe'),
-    review: ZogographI18n.t('backup.review', {}, 'Review'),
-    dangerous: ZogographI18n.t('backup.dangerous', {}, 'Dangerous'),
+    safe: backupProtectionText('safe'),
+    review: backupProtectionText('review'),
+    dangerous: backupProtectionText('dangerous'),
   };
 
   const headingByLevel = {

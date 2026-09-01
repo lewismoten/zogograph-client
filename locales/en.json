@@ -153,8 +153,6 @@
   "process.stop_ask_waiting": "{{name}} was asked to stop and has not. It is entitled to ignore SIGTERM; Force sends a signal it cannot ignore.",
   "process.stop_force_confirm": "Force {{what}} to stop?\n\nSIGKILL cannot be caught or ignored. Anything part-way through being written stays part-way written.",
   "process.stop_ask_confirm": "Ask {{what}} to stop?\n\nSIGTERM lets it close its files and exit cleanly. It can also ignore this.",
-  "process.stop_stopped": "Stopped.",
-  "process.stop_signalled": "Signalled.",
   "process.rank_largest": "The largest in this column.",
   "process.rank_second_largest": "The second largest in this column.",
   "process.cpu_cores": "{{share}} of {{cores}} cores",

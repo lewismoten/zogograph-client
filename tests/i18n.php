@@ -3636,8 +3636,6 @@ i18nExpect(
             $english['process.stop_ask_waiting'],
             $english['process.stop_force_confirm'],
             $english['process.stop_ask_confirm'],
-            $english['process.stop_stopped'],
-            $english['process.stop_signalled'],
             $english['process.rank_largest'],
             $english['process.rank_second_largest'],
             $english['process.cpu_cores'],

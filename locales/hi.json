@@ -153,8 +153,6 @@
   "process.stop_ask_waiting": "{{name}} को रुकने के लिए कहा गया था और वह नहीं रुका। उसे SIGTERM को अनदेखा करने का अधिकार है; बलपूर्वक ऐसा सिग्नल भेजता है जिसे वह अनदेखा नहीं कर सकता।",
   "process.stop_force_confirm": "क्या {{what}} को बलपूर्वक रोकें?\n\nSIGKILL पकड़ा या अनदेखा नहीं किया जा सकता। जो भी लिखने के बीच में है वह बीच में ही रह जाएगा।",
   "process.stop_ask_confirm": "क्या {{what}} को रुकने के लिए कहें?\n\nSIGTERM उसे फ़ाइलें बंद कर साफ़ रूप से बाहर निकलने देता है। वह इसे अनदेखा भी कर सकता है।",
-  "process.stop_stopped": "रोक दिया गया।",
-  "process.stop_signalled": "सिग्नल भेजा गया।",
   "process.rank_largest": "इस कॉलम में सबसे बड़ा।",
   "process.rank_second_largest": "इस कॉलम में दूसरा सबसे बड़ा।",
   "process.cpu_cores": "{{cores}} कोर में से {{share}}",

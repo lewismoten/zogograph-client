@@ -153,8 +153,6 @@
   "process.stop_ask_waiting": "طُلب من {{name}} التوقف ولم يتوقف. يحق له تجاهل SIGTERM؛ يرسل إجبار إشارة لا يمكنه تجاهلها.",
   "process.stop_force_confirm": "هل تريد إجبار {{what}} على التوقف؟\n\nلا يمكن التقاط SIGKILL أو تجاهله. يبقى أي شيء في منتصف الكتابة مكتوبًا جزئيًا.",
   "process.stop_ask_confirm": "هل تطلب من {{what}} التوقف؟\n\nيتيح SIGTERM له إغلاق ملفاته والخروج بشكل سليم. ويمكنه أيضًا تجاهله.",
-  "process.stop_stopped": "توقفت.",
-  "process.stop_signalled": "أُرسلت الإشارة.",
   "process.rank_largest": "الأكبر في هذا العمود.",
   "process.rank_second_largest": "ثاني أكبر قيمة في هذا العمود.",
   "process.cpu_cores": "{{share}} من {{cores}} أنوية",

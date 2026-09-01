@@ -153,8 +153,6 @@
   "process.stop_ask_waiting": "Se pidió a {{name}} que se detuviera y no lo ha hecho. Tiene derecho a ignorar SIGTERM; Forzar envía una señal que no puede ignorar.",
   "process.stop_force_confirm": "¿Forzar la detención de {{what}}?\n\nSIGKILL no se puede capturar ni ignorar. Todo lo que se esté escribiendo queda a medio escribir.",
   "process.stop_ask_confirm": "¿Pedir a {{what}} que se detenga?\n\nSIGTERM le permite cerrar sus archivos y salir limpiamente. También puede ignorarlo.",
-  "process.stop_stopped": "Detenido.",
-  "process.stop_signalled": "Señal enviada.",
   "process.rank_largest": "El mayor de esta columna.",
   "process.rank_second_largest": "El segundo mayor de esta columna.",
   "process.cpu_cores": "{{share}} de {{cores}} núcleos",

@@ -153,8 +153,6 @@
   "process.stop_ask_waiting": "已请求 {{name}} 停止，但它尚未停止。它有权忽略 SIGTERM；强制会发送它无法忽略的信号。",
   "process.stop_force_confirm": "要强制 {{what}} 停止吗？\n\nSIGKILL 无法被捕获或忽略。任何正在写入的内容都会停留在未完成状态。",
   "process.stop_ask_confirm": "要请求 {{what}} 停止吗？\n\nSIGTERM 允许它关闭文件并正常退出。它也可以忽略此请求。",
-  "process.stop_stopped": "已停止。",
-  "process.stop_signalled": "已发送信号。",
   "process.rank_largest": "此列中最大。",
   "process.rank_second_largest": "此列中第二大。",
   "process.cpu_cores": "{{cores}} 个核心中的 {{share}}",

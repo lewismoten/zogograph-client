@@ -26439,11 +26439,7 @@ function drawSchedule(data) {
    */
   const previewLabel = document.createElement('p');
   previewLabel.className = 'muted small';
-  previewLabel.textContent = ZogographI18n.t(
-    'schedule.preview_written',
-    {},
-    'This will be written:',
-  );
+  previewLabel.textContent = schedulePreviewText('preview_written');
   const preview = document.createElement('pre');
   preview.id = 'schedPreview';
   holder.append(previewLabel, preview);
@@ -26456,22 +26452,14 @@ function drawSchedule(data) {
   // The form can add one job while removing the other. Its action is therefore
   // an intentional replacement of Zogograph's managed block, never merely
   // “add” or “remove” based on what happened to be installed before editing.
-  save.textContent = ZogographI18n.t(
-    'schedule.apply_changes',
-    {},
-    'Apply schedule changes',
-  );
+  save.textContent = schedulePreviewText('apply_changes');
   save.addEventListener('click', () => saveSchedule(false));
   buttons.appendChild(save);
 
   if (data.lines.length) {
     const remove = document.createElement('button');
     remove.className = 'danger';
-    remove.textContent = ZogographI18n.t(
-      'schedule.remove_crontab',
-      {},
-      'Remove from the crontab',
-    );
+    remove.textContent = schedulePreviewText('remove_crontab');
     remove.addEventListener('click', () => saveSchedule(true));
     buttons.appendChild(remove);
   }
@@ -26537,16 +26525,21 @@ function updateSchedulePreview() {
 
   $('schedPreview').textContent = lines.length
     ? lines.join('\n')
-    : ZogographI18n.t(
-        'schedule.preview_none',
-        {},
-        "Nothing — saving will remove this dashboard's lines from the crontab.",
-      );
+    : schedulePreviewText('preview_none');
 
   $('schedNote').textContent = scheduleNote(limit);
   $('schedTimes').textContent = lines.length
     ? describeTimes(jobs, data, minute, hour)
     : '';
+}
+
+function schedulePreviewText(key, values = {}) {
+  return renderCoreCardPackage(
+    ZogographSchedulePreviewCard,
+    'core-schedule-preview',
+    { key, values },
+    { i18n: ZogographI18n },
+  );
 }
 
 /**
@@ -26573,31 +26566,15 @@ function scheduleNote(limit) {
   if (limit.minute.used && limit.hour.used) {
     // Any value is accepted: a repeating schedule always includes the time it
     // was asked to start from, whatever the step.
-    return ZogographI18n.t(
-      'schedule.note_offsets_used',
-      {},
-      'The minute and hour are when it first runs; a repeating schedule then carries on from there at its own interval.',
-    );
+    return schedulePreviewText('note_offsets_used');
   }
 
   if (!limit.minute.used && !limit.hour.used) {
-    return ZogographI18n.t(
-      'schedule.note_offsets_unused',
-      {},
-      'The selected schedules do not use the minute or hour fields.',
-    );
+    return schedulePreviewText('note_offsets_unused');
   }
   return limit.minute.used
-    ? ZogographI18n.t(
-        'schedule.note_hour_unused',
-        {},
-        'The selected schedules do not use the hour field.',
-      )
-    : ZogographI18n.t(
-        'schedule.note_minute_unused',
-        {},
-        'The selected schedules do not use the minute field.',
-      );
+    ? schedulePreviewText('note_hour_unused')
+    : schedulePreviewText('note_minute_unused');
 }
 
 /* ------------------------------------------------------- when cron fires -- */
@@ -26942,16 +26919,8 @@ async function saveSchedule(remove) {
     });
     notice(
       result.lines.length
-        ? ZogographI18n.t(
-            'schedule.updated',
-            { count: result.lines.length },
-            'Crontab updated with {{count, number}} line(s).',
-          )
-        : ZogographI18n.t(
-            'schedule.removed_from_crontab',
-            {},
-            'Removed from the crontab.',
-          ),
+        ? schedulePreviewText('updated', { count: result.lines.length })
+        : schedulePreviewText('removed_from_crontab'),
       true,
     );
     // The edits are committed, so the panel may follow the installed state again.

@@ -36625,29 +36625,24 @@ function renderEmail(data) {
 
   form.appendChild(
     fieldRow(
-      ZogographI18n.t(
-        'email.dashboard_address',
-        {},
-        "This dashboard's address",
-      ),
+      ZogographEmailShellCard.text('dashboard_address', {
+        i18n: ZogographI18n,
+      }),
       (() => {
         const input = document.createElement('input');
         input.type = 'text';
         input.id = 'emailSite';
         input.value = data.site_url || '';
-        input.placeholder = ZogographI18n.t(
-          'email.dashboard_address_placeholder',
-          {},
-          'https://stats.example.com',
+        input.placeholder = ZogographEmailShellCard.text(
+          'dashboard_address_placeholder',
+          { i18n: ZogographI18n },
         );
         input.size = 44;
         return input;
       })(),
-      ZogographI18n.t(
-        'email.dashboard_address_help',
-        {},
-        'So the messages can link to the page that answers the question. The cron that sends them has no request to work this out from, so it has to be written down — otherwise a message says what is wrong and leaves you to find the page at two in the morning.',
-      ),
+      ZogographEmailShellCard.text('dashboard_address_help', {
+        i18n: ZogographI18n,
+      }),
     ),
   );
 

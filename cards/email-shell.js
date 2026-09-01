@@ -7,6 +7,11 @@ window.ZogographEmailShellCard = {
     catalogs: Object.freeze({
       en: Object.freeze({
         'core-email-shell.title': 'Email alerts',
+        'core-email-shell.dashboard_address': "This dashboard's address",
+        'core-email-shell.dashboard_address_placeholder':
+          'https://stats.example.com',
+        'core-email-shell.dashboard_address_help':
+          'So the messages can link to the page that answers the question. The cron that sends them has no request to work this out from, so it has to be written down — otherwise a message says what is wrong and leaves you to find the page at two in the morning.',
         'core-email-shell.send_from': 'Send from',
         'core-email-shell.send_from_placeholder': 'monitor@example.com',
         'core-email-shell.send_from_help':
@@ -36,6 +41,11 @@ window.ZogographEmailShellCard = {
       }),
       es: Object.freeze({
         'core-email-shell.title': 'Alertas por correo',
+        'core-email-shell.dashboard_address': 'Dirección de este panel',
+        'core-email-shell.dashboard_address_placeholder':
+          'https://stats.ejemplo.com',
+        'core-email-shell.dashboard_address_help':
+          'Así los mensajes pueden enlazar a la página que responde la pregunta. El cron que los envía no puede deducirla, por lo que debe anotarse; de otro modo un aviso dice qué está mal y le deja buscar la página a las dos de la madrugada.',
         'core-email-shell.send_from': 'Enviar desde',
         'core-email-shell.send_from_placeholder': 'monitor@ejemplo.com',
         'core-email-shell.send_from_help':
@@ -65,6 +75,11 @@ window.ZogographEmailShellCard = {
       }),
       hi: Object.freeze({
         'core-email-shell.title': 'ईमेल अलर्ट',
+        'core-email-shell.dashboard_address': 'इस डैशबोर्ड का पता',
+        'core-email-shell.dashboard_address_placeholder':
+          'https://stats.example.com',
+        'core-email-shell.dashboard_address_help':
+          'ताकि संदेश उस पृष्ठ से जुड़ सकें जो प्रश्न का उत्तर देता है। उन्हें भेजने वाले क्रॉन के पास इसे निकालने का अनुरोध नहीं है, इसलिए इसे लिखना पड़ता है; अन्यथा संदेश बताता है कि क्या गलत है और आपको रात दो बजे पृष्ठ ढूँढने देता है।',
         'core-email-shell.send_from': 'से भेजें',
         'core-email-shell.send_from_placeholder': 'monitor@example.com',
         'core-email-shell.send_from_help':
@@ -94,6 +109,11 @@ window.ZogographEmailShellCard = {
       }),
       ar: Object.freeze({
         'core-email-shell.title': 'تنبيهات البريد',
+        'core-email-shell.dashboard_address': 'عنوان هذه اللوحة',
+        'core-email-shell.dashboard_address_placeholder':
+          'https://stats.example.com',
+        'core-email-shell.dashboard_address_help':
+          'كي ترتبط الرسائل بالصفحة التي تجيب عن السؤال. لا يملك cron الذي يرسلها طلبًا ليستنتج ذلك منه، لذا يجب تدوينه؛ وإلا قالت الرسالة ما الخطأ وتركتك تبحث عن الصفحة في الثانية صباحًا.',
         'core-email-shell.send_from': 'أرسل من',
         'core-email-shell.send_from_placeholder': 'monitor@example.com',
         'core-email-shell.send_from_help':
@@ -123,6 +143,11 @@ window.ZogographEmailShellCard = {
       }),
       zh: Object.freeze({
         'core-email-shell.title': '电子邮件警报',
+        'core-email-shell.dashboard_address': '此仪表板的地址',
+        'core-email-shell.dashboard_address_placeholder':
+          'https://stats.example.com',
+        'core-email-shell.dashboard_address_help':
+          '让邮件能够链接到回答问题的页面。发送邮件的 cron 无法据此推断地址，因此必须写下来；否则邮件只会说明问题，却让您在凌晨两点寻找页面。',
         'core-email-shell.send_from': '发件人',
         'core-email-shell.send_from_placeholder': 'monitor@example.com',
         'core-email-shell.send_from_help':

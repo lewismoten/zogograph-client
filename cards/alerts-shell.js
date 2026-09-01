@@ -90,6 +90,10 @@ window.ZogographAlertsShellCard = {
           'The rule called this {{severity}}. {{assistant}} concluded it did not warrant sending.',
         'core-alerts-shell.marketplace_guidance':
           'Enabled marketplace guidance is advisory only. It does not change alert rules or delivery.',
+        'core-alerts-shell.delete_selected': 'Delete {{count, number}}',
+        'core-alerts-shell.delete_title': 'Delete alert',
+        'core-alerts-shell.delete_many': 'Delete alerts',
+        'core-alerts-shell.why_fired': 'Why did this fire?',
       }),
       es: Object.freeze({
         'core-alerts-shell.timeline_title': 'Cuándo se activaron las alertas',
@@ -179,6 +183,10 @@ window.ZogographAlertsShellCard = {
           'La regla llamó a esto {{severity}}. {{assistant}} concluyó que no justificaba enviarlo.',
         'core-alerts-shell.marketplace_guidance':
           'La guía del mercado habilitada es solo informativa. No cambia las reglas ni el envío de alertas.',
+        'core-alerts-shell.delete_selected': 'Eliminar {{count, number}}',
+        'core-alerts-shell.delete_title': 'Eliminar alerta',
+        'core-alerts-shell.delete_many': 'Eliminar alertas',
+        'core-alerts-shell.why_fired': '¿Por qué se activó esto?',
       }),
       hi: Object.freeze({
         'core-alerts-shell.timeline_title': 'अलर्ट कब चालू हुए',
@@ -266,6 +274,10 @@ window.ZogographAlertsShellCard = {
           'नियम ने इसे {{severity}} कहा। {{assistant}} ने निष्कर्ष निकाला कि इसे भेजना उचित नहीं था।',
         'core-alerts-shell.marketplace_guidance':
           'सक्षम मार्केटप्लेस मार्गदर्शन केवल सलाह है। यह चेतावनी नियम या डिलीवरी नहीं बदलता।',
+        'core-alerts-shell.delete_selected': '{{count, number}} हटाएँ',
+        'core-alerts-shell.delete_title': 'चेतावनी हटाएँ',
+        'core-alerts-shell.delete_many': 'अलर्ट हटाएँ',
+        'core-alerts-shell.why_fired': 'यह क्यों हुआ?',
       }),
       ar: Object.freeze({
         'core-alerts-shell.timeline_title': 'متى أُطلقت التنبيهات',
@@ -351,6 +363,10 @@ window.ZogographAlertsShellCard = {
           'سمّت القاعدة هذا {{severity}}. وخلص {{assistant}} إلى أنه لا يستحق الإرسال.',
         'core-alerts-shell.marketplace_guidance':
           'إرشاد السوق المفعّل استشاري فقط. لا يغير قواعد التنبيه أو إرساله.',
+        'core-alerts-shell.delete_selected': 'احذف {{count, number}}',
+        'core-alerts-shell.delete_title': 'حذف التنبيه',
+        'core-alerts-shell.delete_many': 'حذف التنبيهات',
+        'core-alerts-shell.why_fired': 'لماذا اشتعل هذا التنبيه؟',
       }),
       zh: Object.freeze({
         'core-alerts-shell.timeline_title': '警报何时触发',
@@ -434,6 +450,10 @@ window.ZogographAlertsShellCard = {
           '规则将此项标为 {{severity}}。{{assistant}} 认为无需发送。',
         'core-alerts-shell.marketplace_guidance':
           '已启用的市场指导仅供参考。它不会更改警报规则或投递。',
+        'core-alerts-shell.delete_selected': '删除 {{count, number}} 条',
+        'core-alerts-shell.delete_title': '删除警报',
+        'core-alerts-shell.delete_many': '删除警报',
+        'core-alerts-shell.why_fired': '为何触发此警报？',
       }),
     }),
   }),

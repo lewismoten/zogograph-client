@@ -27450,10 +27450,10 @@ function syncAlertTools() {
         i18n: ZogographI18n,
       });
   $('alertDeleteSome').textContent = chosen
-    ? ZogographI18n.t(
-        'alerts.delete_selected',
+    ? ZogographAlertsShellCard.text(
+        'delete_selected',
         { count: chosen },
-        'Delete {{count, number}}',
+        { i18n: ZogographI18n },
       )
     : ZogographAlertsShellCard.text('delete', { i18n: ZogographI18n });
 }
@@ -28065,7 +28065,9 @@ function alertRowActions(row) {
           {},
           'Delete this alert? The history goes with it.',
         ),
-        ZogographI18n.t('alerts.delete_title', {}, 'Delete alert'),
+        ZogographAlertsShellCard.text('delete_title', {
+          i18n: ZogographI18n,
+        }),
       )
     ) {
       alertAction('delete', [row.id]);
@@ -28548,11 +28550,9 @@ function alertWhat(row, detailed = state.signedIn) {
   if (row.incident_id && state.signedIn) {
     const button = document.createElement('button');
     button.className = 'link why';
-    button.textContent = ZogographI18n.t(
-      'alerts.why_fired',
-      {},
-      'Why did this fire?',
-    );
+    button.textContent = ZogographAlertsShellCard.text('why_fired', {
+      i18n: ZogographI18n,
+    });
     button.addEventListener('click', () => showIncident(row.incident_id));
     cell.appendChild(button);
   }
@@ -42044,7 +42044,9 @@ $('alertDeleteSome').addEventListener('click', async () => {
         { alerts: count(ids.length, 'alert') },
         'Delete {{alerts}}? The history goes with them.',
       ),
-      ZogographI18n.t('alerts.delete_many', {}, 'Delete alerts'),
+      ZogographAlertsShellCard.text('delete_many', {
+        i18n: ZogographI18n,
+      }),
     ))
   )
     return;

@@ -21671,11 +21671,10 @@ async function runAiTry(tool) {
       return;
     }
 
-    said.textContent = ZogographI18n.t(
-      'core-ai-tool-try.server_timing',
-      { ms: result.ms, size: humanBytes(result.bytes) },
-      '{{ms}} ms, {{size}} back',
-    );
+    said.textContent = aiToolTryText('server_timing', {
+      ms: result.ms,
+      size: humanBytes(result.bytes),
+    });
 
     const parts = [];
 
@@ -21684,38 +21683,14 @@ async function runAiTry(tool) {
       picture.className = 'try-picture';
       picture.src = result.picture.url;
       picture.alt =
-        result.picture.prompt ||
-        ZogographI18n.t(
-          'core-ai-tool-try.generated_picture_alt',
-          {},
-          'A generated picture',
-        );
+        result.picture.prompt || aiToolTryText('generated_picture_alt');
       picture.loading = 'lazy';
-      parts.push(
-        section(
-          ZogographI18n.t(
-            'core-ai-tool-try.generated_picture',
-            {},
-            'Generated picture',
-          ),
-          picture,
-        ),
-      );
+      parts.push(section(aiToolTryText('generated_picture'), picture));
       parts.push(
         note(
-          ZogographI18n.t(
-            'core-ai-tool-try.picture_note',
-            {
-              style:
-                result.picture.style ||
-                ZogographI18n.t(
-                  'core-ai-tool-try.not_reported',
-                  {},
-                  'not reported',
-                ),
-            },
-            'Style: {{style}}. This is the image the tool just made.',
-          ),
+          aiToolTryText('picture_note', {
+            style: result.picture.style || aiToolTryText('not_reported'),
+          }),
         ),
       );
     }
@@ -21737,28 +21712,20 @@ async function runAiTry(tool) {
      */
     parts.push(
       section(
-        ZogographI18n.t('core-ai-tool-try.arguments', {}, 'What it was given'),
+        aiToolTryText('arguments'),
         jsonBlock(JSON.stringify(result.arguments, null, 2)),
       ),
     );
     parts.push(
       section(
-        ZogographI18n.t('core-ai-tool-try.result', {}, 'What came back'),
+        aiToolTryText('result'),
         jsonBlock(JSON.stringify(result.result, null, 2)),
       ),
     );
 
     if (result.note) parts.push(note(result.note));
 
-    parts.push(
-      note(
-        ZogographI18n.t(
-          'core-ai-tool-try.result_help',
-          {},
-          'This is exactly what the model would receive, in the same shape. If an answer looked wrong, this is what it was based on. The line numbers are drawn rather than written, so copying this gives you the JSON and nothing else.',
-        ),
-      ),
-    );
+    parts.push(note(aiToolTryText('result_help')));
 
     showTryResult(parts);
   } catch (error) {

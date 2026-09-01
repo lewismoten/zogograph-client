@@ -3912,8 +3912,8 @@ i18nExpect(
     $script !== false &&
         str_contains($script, "aiToolTryText('browser_shown'") &&
         str_contains($script, "aiToolTryText('browser_timing'") &&
-        str_contains($script, 'core-ai-tool-try.server_timing') &&
-        str_contains($script, 'core-ai-tool-try.result_help'),
+        str_contains($script, "aiToolTryText('server_timing'") &&
+        str_contains($script, "aiToolTryText('result_help'"),
     'AI tool test panel retains direct user-visible text',
 );
 i18nExpect(

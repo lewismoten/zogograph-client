@@ -19155,10 +19155,11 @@ function suggestionList(suggestions) {
     if (one.expect) {
       const expect = document.createElement('div');
       expect.className = 'muted small';
-      expect.textContent = ZogographI18n.t(
-        'terminal.suggestion_expectation',
-        { expectation: one.expect },
-        'What to look for: {{expectation}}',
+      expect.textContent = renderCoreCardPackage(
+        ZogographTerminalCommandDetailsCard,
+        'core-terminal-command-details',
+        { key: 'suggestion_expectation', values: { expectation: one.expect } },
+        { i18n: ZogographI18n },
       );
       card.appendChild(expect);
     }
@@ -19201,10 +19202,11 @@ function suggestionList(suggestions) {
         }, 1400);
       } catch {
         notice(
-          ZogographI18n.t(
-            'terminal.copy_manually',
-            {},
-            'Select the command and copy it — this browser would not.',
+          renderCoreCardPackage(
+            ZogographTerminalCommandDetailsCard,
+            'core-terminal-command-details',
+            { key: 'copy_manually' },
+            { i18n: ZogographI18n },
           ),
         );
       }
@@ -19214,10 +19216,11 @@ function suggestionList(suggestions) {
     if (one.reading) {
       const link = externalLink(one.reading);
       link.className = 'link small';
-      link.textContent = ZogographI18n.t(
-        'terminal.command_reading',
-        {},
-        'What this command does',
+      link.textContent = renderCoreCardPackage(
+        ZogographTerminalCommandDetailsCard,
+        'core-terminal-command-details',
+        { key: 'command_reading' },
+        { i18n: ZogographI18n },
       );
       actions.appendChild(link);
     }

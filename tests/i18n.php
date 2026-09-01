@@ -371,6 +371,9 @@ $hostIoProcessesCard = i18nCardSource(
 $terminalActionsCard = i18nCardSource(
     file_get_contents($root . '/cards/terminal-actions.js'),
 );
+$terminalCommandDetailsCard = i18nCardSource(
+    file_get_contents($root . '/cards/terminal-command-details.js'),
+);
 $terminalShellCard = i18nCardSource(
     file_get_contents($root . '/cards/terminal-shell.js'),
 );
@@ -3724,7 +3727,11 @@ foreach (array_unique($dynamicDashboardKeys[1] ?? []) as $key) {
 }
 i18nExpect(
     $script !== false &&
-        str_contains($script, 'terminal.suggestion_expectation') &&
+        $terminalCommandDetailsCard !== false &&
+        str_contains(
+            $terminalCommandDetailsCard,
+            'core-terminal-command-details.suggestion_expectation',
+        ) &&
         str_contains($script, 'terminal.syntax_preview_title') &&
         $terminalActionsCard !== false &&
         str_contains(

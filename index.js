@@ -18664,7 +18664,7 @@ function renderTerminal(data) {
   const breakIt = document.createElement('button');
   breakIt.type = 'button';
   breakIt.className = 'link danger';
-  breakIt.textContent = ZogographI18n.t('action.stop', {}, 'Stop it');
+  breakIt.textContent = actionCommonText('stop');
   breakIt.addEventListener('click', () => stopTerminal());
   running.appendChild(breakIt);
 
@@ -18692,7 +18692,7 @@ function renderTerminal(data) {
 
   const go = document.createElement('button');
   go.type = 'submit';
-  go.textContent = ZogographI18n.t('action.run', {}, 'Run it');
+  go.textContent = actionCommonText('run');
   form.appendChild(go);
 
   form.addEventListener('submit', (event) => {
@@ -18938,7 +18938,7 @@ function renderTerminal(data) {
             if (row.bytes > 0 || row.running) {
               const open = document.createElement('button');
               open.className = 'link';
-              open.textContent = ZogographI18n.t('action.show', {}, 'Show it');
+              open.textContent = actionCommonText('show');
               open.addEventListener('click', () => watchTerminal(row.id, true));
               wrap.appendChild(open);
             }
@@ -18954,7 +18954,7 @@ function renderTerminal(data) {
             if (row.running) {
               const kill = document.createElement('button');
               kill.className = 'link danger';
-              kill.textContent = ZogographI18n.t('action.stop', {}, 'Stop it');
+              kill.textContent = actionCommonText('stop');
               kill.addEventListener('click', async () => {
                 try {
                   const result = await post('terminal-stop', { id: row.id });
@@ -34732,7 +34732,7 @@ function renderDomains(data) {
 
           const remove = document.createElement('button');
           remove.className = 'link danger';
-          remove.textContent = ZogographI18n.t('action.stop', {}, 'Stop it');
+          remove.textContent = actionCommonText('stop');
           remove.title = ZogographI18n.t(
             'domain.stop_watching_title',
             {},

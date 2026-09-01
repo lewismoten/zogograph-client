@@ -21,6 +21,8 @@ window.ZogographNetworkCaptureHistoryCard = {
           'Every capture that has been taken. One report answers ‘what is happening now’; two an hour apart answer ‘is this getting worse’, which is usually the real question. Rates are shown rather than totals, because two samples of different lengths cannot be compared any other way.',
         'core-network-capture-history.empty':
           'No captures have been taken yet. Ask for one on What is on the wire.',
+        'core-network-capture-history.captures_empty':
+          'No captures have been taken yet. Ask for one on What is on the wire.',
         'core-network-capture-history.taken': 'Taken',
         'core-network-capture-history.interface': 'Interface',
         'core-network-capture-history.filter': 'Filter',
@@ -38,6 +40,8 @@ window.ZogographNetworkCaptureHistoryCard = {
         'core-network-capture-history.help':
           'Todas las capturas realizadas. Un informe responde «qué ocurre ahora»; dos separados por una hora responden «¿está empeorando?», que suele ser la verdadera pregunta. Se muestran tasas en vez de totales porque dos muestras de distinta duración no se pueden comparar de otro modo.',
         'core-network-capture-history.empty':
+          'Aún no se han tomado capturas. Solicite una en Qué hay en el cable.',
+        'core-network-capture-history.captures_empty':
           'Aún no se han tomado capturas. Solicite una en Qué hay en el cable.',
         'core-network-capture-history.taken': 'Tomada',
         'core-network-capture-history.interface': 'Interfaz',
@@ -57,6 +61,8 @@ window.ZogographNetworkCaptureHistoryCard = {
           'ली गई हर कैप्चर। एक रिपोर्ट ‘अभी क्या हो रहा है’ का उत्तर देती है; घंटे भर के अंतर वाली दो रिपोर्टें ‘क्या यह बदतर हो रहा है’ का उत्तर देती हैं, जो आमतौर पर असली सवाल है। कुल के बजाय दरें दिखाई जाती हैं क्योंकि अलग अवधि के दो नमूनों की तुलना और किसी तरह नहीं की जा सकती।',
         'core-network-capture-history.empty':
           'अभी तक कोई कैप्चर नहीं लिया गया है। वायर पर क्या है में एक के लिए कहें।',
+        'core-network-capture-history.captures_empty':
+          'अभी तक कोई कैप्चर नहीं लिया गया है। वायर पर क्या है में एक के लिए कहें।',
         'core-network-capture-history.taken': 'लिया गया',
         'core-network-capture-history.interface': 'इंटरफ़ेस',
         'core-network-capture-history.filter': 'फ़िल्टर',
@@ -75,6 +81,8 @@ window.ZogographNetworkCaptureHistoryCard = {
           'كل عملية التقاط أُجريت. يجيب تقرير واحد عن «ما الذي يحدث الآن»؛ ويجيب تقريران يفصل بينهما ساعة عن «هل يزداد الأمر سوءًا؟»، وهذا هو السؤال الحقيقي غالبًا. تُعرض المعدلات بدل الإجماليات لأن عينتين بمدتين مختلفتين لا يمكن مقارنتهما بأي طريقة أخرى.',
         'core-network-capture-history.empty':
           'لم تؤخذ لقطات بعد. اطلب واحدة من قسم ما الموجود على الشبكة.',
+        'core-network-capture-history.captures_empty':
+          'لم تؤخذ لقطات بعد. اطلب واحدة من قسم ما الموجود على الشبكة.',
         'core-network-capture-history.taken': 'أُخذت',
         'core-network-capture-history.interface': 'الواجهة',
         'core-network-capture-history.filter': 'المرشح',
@@ -92,6 +100,8 @@ window.ZogographNetworkCaptureHistoryCard = {
         'core-network-capture-history.help':
           '已进行的每一次捕获。一份报告回答“现在发生了什么”；相隔一小时的两份报告回答“情况是否在恶化”，这通常才是真正的问题。显示的是速率而非总量，因为不同持续时间的两个样本无法以其他方式比较。',
         'core-network-capture-history.empty':
+          '尚未进行抓取。请在“线路上有什么”中请求一次抓取。',
+        'core-network-capture-history.captures_empty':
           '尚未进行抓取。请在“线路上有什么”中请求一次抓取。',
         'core-network-capture-history.taken': '采集时间',
         'core-network-capture-history.interface': '接口',

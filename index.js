@@ -31131,7 +31131,13 @@ async function refreshCaptures() {
   }
 
   if (!data.rows.length) {
-    body.replaceChildren(note(ZogographI18n.t('network.captures_empty')));
+    body.replaceChildren(
+      note(
+        ZogographNetworkCaptureHistoryCard.text('captures_empty', {
+          i18n: ZogographI18n,
+        }),
+      ),
+    );
     return;
   }
 

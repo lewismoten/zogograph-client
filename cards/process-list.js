@@ -86,6 +86,8 @@ window.ZogographProcessListCard = {
         'core-process-list.table_command': 'Command',
         'core-process-list.all_matches_protected':
           'Every match is protected, so there is nothing here to stop.',
+        'core-process-list.ask': 'Ask',
+        'core-process-list.force': 'Force',
       }),
       es: Object.freeze({
         'core-process-list.title': 'Qué está usando la máquina',
@@ -156,6 +158,8 @@ window.ZogographProcessListCard = {
         'core-process-list.table_command': 'Comando',
         'core-process-list.all_matches_protected':
           'Todas las coincidencias están protegidas, por lo que no hay nada que detener.',
+        'core-process-list.ask': 'Pedir',
+        'core-process-list.force': 'Forzar',
       }),
       hi: Object.freeze({
         'core-process-list.title': 'मशीन का उपयोग क्या कर रहा है',
@@ -226,6 +230,8 @@ window.ZogographProcessListCard = {
         'core-process-list.table_command': 'कमांड',
         'core-process-list.all_matches_protected':
           'हर मेल सुरक्षित है, इसलिए यहाँ रोकने के लिए कुछ नहीं है।',
+        'core-process-list.ask': 'अनुरोध करें',
+        'core-process-list.force': 'बलपूर्वक रोकें',
       }),
       ar: Object.freeze({
         'core-process-list.title': 'ما الذي يستخدم الجهاز',
@@ -296,6 +302,8 @@ window.ZogographProcessListCard = {
         'core-process-list.table_command': 'الأمر',
         'core-process-list.all_matches_protected':
           'كل المطابقات محمية، لذلك لا شيء هنا لإيقافه.',
+        'core-process-list.ask': 'اطلب',
+        'core-process-list.force': 'افرض الإيقاف',
       }),
       zh: Object.freeze({
         'core-process-list.title': '什么在使用这台机器',
@@ -366,6 +374,8 @@ window.ZogographProcessListCard = {
         'core-process-list.table_command': '命令',
         'core-process-list.all_matches_protected':
           '每个匹配项都受保护，因此这里没有可停止的内容。',
+        'core-process-list.ask': '请求',
+        'core-process-list.force': '强制',
       }),
     }),
   }),

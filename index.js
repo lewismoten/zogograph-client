@@ -23496,11 +23496,9 @@ async function previewPattern() {
     );
 
     button.addEventListener('click', async () => {
-      const verb = ZogographI18n.t(
-        force ? 'process.force' : 'process.ask',
-        {},
-        force ? 'Force' : 'Ask',
-      );
+      const verb = ZogographProcessListCard.text(force ? 'force' : 'ask', {
+        i18n: ZogographI18n,
+      });
       if (
         !(await confirmDialog(
           ZogographI18n.t(

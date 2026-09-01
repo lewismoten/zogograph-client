@@ -36558,7 +36558,7 @@ function renderEmail(data) {
 
   form.appendChild(
     fieldRow(
-      ZogographI18n.t('email.enabled', {}, 'Send alerts by email'),
+      ZogographEmailShellCard.text('enabled', { i18n: ZogographI18n }),
       (() => {
         const box = document.createElement('input');
         box.type = 'checkbox';
@@ -36566,11 +36566,7 @@ function renderEmail(data) {
         box.checked = data.enabled;
         return box;
       })(),
-      ZogographI18n.t(
-        'email.enabled_help',
-        {},
-        'Nothing is sent while this is off, however bad things get.',
-      ),
+      ZogographEmailShellCard.text('enabled_help', { i18n: ZogographI18n }),
     ),
   );
 

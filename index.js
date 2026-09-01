@@ -21553,6 +21553,10 @@ function tryFields(tool) {
   );
 }
 
+function aiToolTryText(key, values = {}) {
+  return ZogographAiToolTryCard.text(key, { i18n: ZogographI18n }, values);
+}
+
 /**
  * Puts a result on the page and remembers it.
  *
@@ -21619,53 +21623,25 @@ async function runAiTry(tool) {
       const { result, shown } = await tryBrowserTool(tool, args);
       const parts = [];
 
-      if (shown)
-        parts.push(
-          section(
-            ZogographI18n.t(
-              'core-ai-tool-try.browser_shown',
-              {},
-              'What you would have seen',
-            ),
-            shown,
-          ),
-        );
+      if (shown) parts.push(section(aiToolTryText('browser_shown'), shown));
 
       parts.push(
         section(
-          ZogographI18n.t(
-            'core-ai-tool-try.arguments',
-            {},
-            'What it was given',
-          ),
+          aiToolTryText('arguments'),
           jsonBlock(JSON.stringify(args, null, 2)),
         ),
       );
       parts.push(
         section(
-          ZogographI18n.t(
-            'core-ai-tool-try.browser_result',
-            {},
-            'What the model gets back',
-          ),
+          aiToolTryText('browser_result'),
           jsonBlock(JSON.stringify(result, null, 2)),
         ),
       );
-      parts.push(
-        note(
-          ZogographI18n.t(
-            'core-ai-tool-try.browser_help',
-            {},
-            'This ran in this window, which is where it runs in a conversation too. The only difference is that the result is shown here instead of being handed back to the model.',
-          ),
-        ),
-      );
+      parts.push(note(aiToolTryText('browser_help')));
 
-      said.textContent = ZogographI18n.t(
-        'core-ai-tool-try.browser_timing',
-        { ms: Math.round(performance.now() - began) },
-        '{{ms}} ms, in this window',
-      );
+      said.textContent = aiToolTryText('browser_timing', {
+        ms: Math.round(performance.now() - began),
+      });
       showTryResult(parts);
     } catch (error) {
       said.textContent = '';
@@ -21686,11 +21662,10 @@ async function runAiTry(tool) {
       said.textContent = '';
       showTryResult([
         note(
-          ZogographI18n.t(
-            'core-ai-tool-try.refused',
-            { reason: result.refused, note: result.note },
-            'Refused before it ran: {{reason}}\n\n{{note}}',
-          ),
+          aiToolTryText('refused', {
+            reason: result.refused,
+            note: result.note,
+          }),
         ),
       ]);
       return;

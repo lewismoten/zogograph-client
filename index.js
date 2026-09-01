@@ -19445,43 +19445,27 @@ async function openTerminalEditor(path) {
   const findNext = () => {
     const needle = find.value;
     if (!needle) {
-      searchStatus.textContent = ZogographI18n.t(
-        'editor.enter_find',
-        {},
-        'Enter text to find.',
-      );
+      searchStatus.textContent = terminalEditorFindText('enter_find');
       return false;
     }
     let at = text.value.indexOf(needle, text.selectionEnd);
     const wrapped = at < 0;
     if (wrapped) at = text.value.indexOf(needle);
     if (at < 0) {
-      searchStatus.textContent = ZogographI18n.t(
-        'editor.no_matches',
-        {},
-        'No matches.',
-      );
+      searchStatus.textContent = terminalEditorFindText('no_matches');
       return false;
     }
     text.focus();
     text.setSelectionRange(at, at + needle.length);
     searchStatus.textContent = wrapped
-      ? ZogographI18n.t(
-          'editor.wrapped_first',
-          {},
-          'Wrapped to the first match.',
-        )
-      : ZogographI18n.t('editor.match_selected', {}, 'Match selected.');
+      ? terminalEditorFindText('wrapped_first')
+      : terminalEditorFindText('match_selected');
     return true;
   };
   const replaceNext = () => {
     if (!editable) return;
     if (!find.value) {
-      searchStatus.textContent = ZogographI18n.t(
-        'editor.enter_find',
-        {},
-        'Enter text to find.',
-      );
+      searchStatus.textContent = terminalEditorFindText('enter_find');
       return;
     }
     if (
@@ -19495,21 +19479,13 @@ async function openTerminalEditor(path) {
       text.selectionEnd,
       'select',
     );
-    searchStatus.textContent = ZogographI18n.t(
-      'editor.one_match_replaced',
-      {},
-      'One match replaced.',
-    );
+    searchStatus.textContent = terminalEditorFindText('one_match_replaced');
   };
   const replaceAll = () => {
     if (!editable) return;
     const needle = find.value;
     if (!needle) {
-      searchStatus.textContent = ZogographI18n.t(
-        'editor.enter_find',
-        {},
-        'Enter text to find.',
-      );
+      searchStatus.textContent = terminalEditorFindText('enter_find');
       return;
     }
     let count = 0;
@@ -19521,18 +19497,10 @@ async function openTerminalEditor(path) {
     }
     searchStatus.textContent =
       count === 0
-        ? ZogographI18n.t('editor.no_matches', {}, 'No matches.')
+        ? terminalEditorFindText('no_matches')
         : count === 1
-          ? ZogographI18n.t(
-              'editor.one_match_replaced',
-              {},
-              'One match replaced.',
-            )
-          : ZogographI18n.t(
-              'editor.matches_replaced',
-              { count },
-              '{{count}} matches replaced.',
-            );
+          ? terminalEditorFindText('one_match_replaced')
+          : terminalEditorFindText('matches_replaced', { count });
   };
   const findButton = document.createElement('button');
   findButton.type = 'button';

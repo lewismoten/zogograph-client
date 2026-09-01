@@ -384,6 +384,9 @@ $hostDaemonsCard = i18nCardSource(
     file_get_contents($root . '/cards/host-daemons.js'),
 );
 $uptimeCard = i18nCardSource(file_get_contents($root . '/cards/uptime.js'));
+$uptimeTracksCard = i18nCardSource(
+    file_get_contents($root . '/cards/uptime-tracks.js'),
+);
 $onboardingCard = i18nCardSource(
     file_get_contents($root . '/cards/onboarding.js'),
 );
@@ -2537,6 +2540,26 @@ i18nExpect(
             'renderCoreCardPackage(ZogographUptimeCard, "core-uptime",',
         ),
     'uptime dashboard card is not isolated behind its core card-module boundary',
+);
+i18nExpect(
+    $page !== false &&
+        str_contains($page, 'src="cards/uptime-tracks.js"') &&
+        $uptimeTracksCard !== false &&
+        str_contains($uptimeTracksCard, 'id: "core-uptime-tracks"') &&
+        str_contains($uptimeTracksCard, 'locales: ["core-uptime-tracks."]') &&
+        str_contains($uptimeTracksCard, '"core-uptime-tracks.readings"') &&
+        is_array($english) &&
+        !isset(
+            $english['uptime.track_unreadable'],
+            $english['uptime.track_readings'],
+            $english['uptime.track_summary'],
+        ) &&
+        $script !== false &&
+        str_contains(
+            $script,
+            'renderCoreCardPackage(ZogographUptimeTracksCard, "core-uptime-tracks",',
+        ),
+    'uptime collector tracks are not isolated behind their core card-module boundary',
 );
 i18nExpect(
     $page !== false &&

@@ -327,6 +327,7 @@ export default [
         ZogographTypePieCard: 'readonly',
         ZogographUptimeCard: 'readonly',
         ZogographUptimeEventsCard: 'readonly',
+        ZogographUptimeTracksCard: 'readonly',
         ZogographViewGuideCard: 'readonly',
       },
     },

@@ -41530,12 +41530,10 @@ $('navSearch')?.addEventListener('input', syncNavigationSearch);
 $('actionClear')?.addEventListener('click', async () => {
   if (
     !(await confirmDialog(
-      ZogographI18n.t(
-        'audit.clear_confirm',
-        {},
-        'Clear every earlier audit entry?\n\nThis action stays as the first new audit entry.',
-      ),
-      ZogographI18n.t('audit.clear', {}, 'Clear audit'),
+      ZogographAuditShellCard.text('clear_confirm', {
+        i18n: ZogographI18n,
+      }),
+      ZogographAuditShellCard.text('clear', { i18n: ZogographI18n }),
     ))
   )
     return;
@@ -41546,10 +41544,10 @@ $('actionClear')?.addEventListener('click', async () => {
     actionState.result = '';
     await refreshActionLog();
     notice(
-      ZogographI18n.t(
-        'audit.clear_result',
+      ZogographAuditShellCard.text(
+        'clear_result',
         { entries: count(result.removed, 'earlier audit entry') },
-        'Cleared {{entries}}. The reset is recorded.',
+        { i18n: ZogographI18n },
       ),
       true,
     );

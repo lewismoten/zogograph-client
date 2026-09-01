@@ -23189,10 +23189,9 @@ function describeStop(result, row, many) {
   if (!many) {
     return (
       result.note ||
-      ZogographI18n.t(
-        result.stopped ? 'process.stop_stopped' : 'process.stop_signalled',
-        {},
-        result.stopped ? 'Stopped.' : 'Signalled.',
+      ZogographProcessListCard.text(
+        result.stopped ? 'stop_stopped' : 'stop_signalled',
+        { i18n: ZogographI18n },
       )
     );
   }

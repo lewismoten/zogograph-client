@@ -49,6 +49,8 @@ window.ZogographProcessListCard = {
         'core-process-list.stop_group_remaining': '{{count}} still running',
         'core-process-list.stop_group_refused': '{{count}} refused',
         'core-process-list.stop_group_failed': '{{count}} failed',
+        'core-process-list.stop_stopped': 'Stopped.',
+        'core-process-list.stop_signalled': 'Signalled.',
       }),
       es: Object.freeze({
         'core-process-list.title': 'Qué está usando la máquina',
@@ -82,6 +84,8 @@ window.ZogographProcessListCard = {
         'core-process-list.stop_group_remaining': '{{count}} aún en ejecución',
         'core-process-list.stop_group_refused': '{{count}} rechazaron',
         'core-process-list.stop_group_failed': '{{count}} fallaron',
+        'core-process-list.stop_stopped': 'Detenido.',
+        'core-process-list.stop_signalled': 'Señal enviada.',
       }),
       hi: Object.freeze({
         'core-process-list.title': 'मशीन का उपयोग क्या कर रहा है',
@@ -115,6 +119,8 @@ window.ZogographProcessListCard = {
         'core-process-list.stop_group_remaining': '{{count}} अभी भी चल रहे हैं',
         'core-process-list.stop_group_refused': '{{count}} ने मना किया',
         'core-process-list.stop_group_failed': '{{count}} विफल हुए',
+        'core-process-list.stop_stopped': 'रोक दिया गया।',
+        'core-process-list.stop_signalled': 'सिग्नल भेजा गया।',
       }),
       ar: Object.freeze({
         'core-process-list.title': 'ما الذي يستخدم الجهاز',
@@ -148,6 +154,8 @@ window.ZogographProcessListCard = {
           'لا يزال {{count}} قيد التشغيل',
         'core-process-list.stop_group_refused': 'رفض {{count}}',
         'core-process-list.stop_group_failed': 'فشل {{count}}',
+        'core-process-list.stop_stopped': 'توقفت.',
+        'core-process-list.stop_signalled': 'أُرسلت الإشارة.',
       }),
       zh: Object.freeze({
         'core-process-list.title': '什么在使用这台机器',
@@ -181,6 +189,8 @@ window.ZogographProcessListCard = {
         'core-process-list.stop_group_remaining': '{{count}} 个仍在运行',
         'core-process-list.stop_group_refused': '{{count}} 个拒绝',
         'core-process-list.stop_group_failed': '{{count}} 个失败',
+        'core-process-list.stop_stopped': '已停止。',
+        'core-process-list.stop_signalled': '已发送信号。',
       }),
     }),
   }),

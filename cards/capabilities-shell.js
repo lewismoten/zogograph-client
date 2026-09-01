@@ -12,6 +12,7 @@ window.ZogographCapabilitiesShellCard = {
         'core-capabilities-shell.filter_gap': 'Not available here',
         'core-capabilities-shell.filter_all': 'Everything',
         'core-capabilities-shell.ask_host': 'Ask the host',
+        'core-capabilities-shell.check_now': 'Check now',
         'core-capabilities-shell.help':
           'What this account can actually run, and what the machine has that it cannot reach. Those are the same question on ordinary hosting and different ones here — see below.',
         'core-capabilities-shell.checked':
@@ -20,6 +21,8 @@ window.ZogographCapabilitiesShellCard = {
           '{{total, number}} programs checked in {{seconds, number}} seconds; {{changes, number}} changed since last time.',
         'core-capabilities-shell.host_requested':
           'Requested. The host collector will check on its next run.',
+        'core-capabilities-shell.queued_confirmation':
+          'Queued. The host collector will confirm {{program}} on its next run.',
       }),
       es: Object.freeze({
         'core-capabilities-shell.title': 'Capacidades',
@@ -28,6 +31,7 @@ window.ZogographCapabilitiesShellCard = {
         'core-capabilities-shell.filter_gap': 'No disponibles aquí',
         'core-capabilities-shell.filter_all': 'Todo',
         'core-capabilities-shell.ask_host': 'Preguntar al host',
+        'core-capabilities-shell.check_now': 'Comprobar ahora',
         'core-capabilities-shell.help':
           'Lo que esta cuenta puede ejecutar realmente y lo que la máquina tiene pero no puede alcanzar. En un alojamiento normal ambas son la misma pregunta; aquí son distintas. Véase abajo.',
         'core-capabilities-shell.checked':
@@ -36,6 +40,8 @@ window.ZogographCapabilitiesShellCard = {
           'Se comprobaron {{total, number}} programas en {{seconds, number}} segundos; {{changes, number}} cambiaron desde la última vez.',
         'core-capabilities-shell.host_requested':
           'Solicitud enviada. El recopilador del host lo comprobará en su próxima ejecución.',
+        'core-capabilities-shell.queued_confirmation':
+          'En cola. El recopilador del host confirmará {{program}} en su próxima ejecución.',
       }),
       hi: Object.freeze({
         'core-capabilities-shell.title': 'क्षमताएँ',
@@ -44,6 +50,7 @@ window.ZogographCapabilitiesShellCard = {
         'core-capabilities-shell.filter_gap': 'यहाँ उपलब्ध नहीं',
         'core-capabilities-shell.filter_all': 'सब कुछ',
         'core-capabilities-shell.ask_host': 'होस्ट से पूछें',
+        'core-capabilities-shell.check_now': 'अभी जाँचें',
         'core-capabilities-shell.help':
           'यह खाता वास्तव में क्या चला सकता है और मशीन में ऐसा क्या है जिस तक यह पहुँच नहीं सकता। सामान्य होस्टिंग पर ये एक ही प्रश्न हैं, यहाँ अलग—नीचे देखें।',
         'core-capabilities-shell.checked':
@@ -52,6 +59,8 @@ window.ZogographCapabilitiesShellCard = {
           '{{total, number}} प्रोग्राम की जाँच {{seconds, number}} सेकंड में हुई; पिछली बार से {{changes, number}} बदले हैं।',
         'core-capabilities-shell.host_requested':
           'अनुरोध भेज दिया गया है। होस्ट कलेक्टर अपने अगले रन में जाँच करेगा।',
+        'core-capabilities-shell.queued_confirmation':
+          'कतार में है। होस्ट कलेक्टर अपने अगले रन में {{program}} की पुष्टि करेगा।',
       }),
       ar: Object.freeze({
         'core-capabilities-shell.title': 'القدرات',
@@ -60,6 +69,7 @@ window.ZogographCapabilitiesShellCard = {
         'core-capabilities-shell.filter_gap': 'غير متاح هنا',
         'core-capabilities-shell.filter_all': 'كل شيء',
         'core-capabilities-shell.ask_host': 'اسأل المضيف',
+        'core-capabilities-shell.check_now': 'تحقق الآن',
         'core-capabilities-shell.help':
           'ما يمكن لهذا الحساب تشغيله فعلًا، وما لدى الآلة مما لا يستطيع الوصول إليه. هذان السؤالان واحد في الاستضافة العادية ومختلفان هنا — انظر أدناه.',
         'core-capabilities-shell.checked':
@@ -68,6 +78,8 @@ window.ZogographCapabilitiesShellCard = {
           'فُحص {{total, number}} برنامجًا خلال {{seconds, number}} ثانية؛ تغيّر {{changes, number}} منذ المرة الماضية.',
         'core-capabilities-shell.host_requested':
           'أُرسل الطلب. سيتحقق جامع بيانات المضيف في تشغيله التالي.',
+        'core-capabilities-shell.queued_confirmation':
+          'وُضع في الطابور. سيؤكد جامع المضيف {{program}} في تشغيله التالي.',
       }),
       zh: Object.freeze({
         'core-capabilities-shell.title': '功能能力',
@@ -76,6 +88,7 @@ window.ZogographCapabilitiesShellCard = {
         'core-capabilities-shell.filter_gap': '此处不可用',
         'core-capabilities-shell.filter_all': '全部',
         'core-capabilities-shell.ask_host': '询问主机',
+        'core-capabilities-shell.check_now': '立即检查',
         'core-capabilities-shell.help':
           '此账户实际上能运行什么，以及机器具备但它无法访问什么。在普通主机上这是同一个问题，在这里则是两个问题——请看下方。',
         'core-capabilities-shell.checked':
@@ -84,6 +97,8 @@ window.ZogographCapabilitiesShellCard = {
           '已在 {{seconds, number}} 秒内检查 {{total, number}} 个程序；自上次以来有 {{changes, number}} 个变化。',
         'core-capabilities-shell.host_requested':
           '已请求。主机采集器将在下次运行时检查。',
+        'core-capabilities-shell.queued_confirmation':
+          '已排队。主机采集器将在下次运行时确认 {{program}}。',
       }),
     }),
   }),

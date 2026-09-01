@@ -37629,11 +37629,9 @@ function showExposeDialog(row) {
               program: capability.name,
             });
             notice(
-              ZogographI18n.t(
-                'capabilities.queued_confirmation',
-                { program: capability.name },
-                'Queued. The host collector will confirm {{program}} on its next run.',
-              ),
+              capabilitiesShellText('queued_confirmation', {
+                program: capability.name,
+              }),
             );
             await refreshCapabilities();
           } catch (error) {

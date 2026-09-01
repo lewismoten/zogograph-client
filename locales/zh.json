@@ -1370,7 +1370,6 @@
   "terminal.stop": "停止它",
   "terminal.sessions_topic": "主题",
   "ai.reclaim_space": "回收空闲空间",
-  "storage.recommended_settings": "使用推荐设置",
   "storage.check_symlinks": "检查符号链接",
   "storage.show_matches": "显示匹配项",
   "action.undo": "撤销",

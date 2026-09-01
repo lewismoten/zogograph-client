@@ -2121,14 +2121,17 @@ function renderStorageRetentionLabels() {
     {},
     helpers,
   );
-  const title = document.querySelector(
-    '[data-i18n="core-storage-retention.title"]',
-  );
-  title.textContent = ZogographI18n.markSource(
-    title,
-    'core-storage-retention.title',
-    ZogographStorageRetentionCard.text('title', helpers),
-  );
+  document
+    .querySelectorAll('[data-i18n^="core-storage-retention."]')
+    .forEach((element) => {
+      const key = element.dataset.i18n;
+      const suffix = key.replace('core-storage-retention.', '');
+      element.textContent = ZogographI18n.markSource(
+        element,
+        key,
+        ZogographStorageRetentionCard.text(suffix, helpers),
+      );
+    });
   ZogographI18n.applyRich(
     document.querySelector('[data-i18n-rich="core-storage-retention.help"]'),
   );

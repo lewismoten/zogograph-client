@@ -1388,7 +1388,6 @@
   "terminal.stop": "Stop it",
   "terminal.sessions_topic": "Topic",
   "ai.reclaim_space": "Reclaim empty space",
-  "storage.recommended_settings": "Use the recommended settings",
   "storage.check_symlinks": "Check the symlinks",
   "storage.show_matches": "Show me what matches",
   "action.undo": "Undo",

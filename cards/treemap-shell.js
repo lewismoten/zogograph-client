@@ -16,6 +16,9 @@ window.ZogographTreemapShellCard = {
         'core-treemap-shell.only': 'Only',
         'core-treemap-shell.every_type': 'every type',
         'core-treemap-shell.up': 'Up one level',
+        'core-treemap-shell.sign_in': 'Sign in to explore the disk.',
+        'core-treemap-shell.measuring': 'Measuring…',
+        'core-treemap-shell.measuring_directory': 'Measuring this directory…',
         'core-treemap-shell.help':
           'Area is size. A directory full of small files is invisible in a list of the biggest paths and obvious here, because forty thousand session files add up to a large rectangle even though not one of them is large. Click a rectangle for its details, double-click a directory to go into it, hover for a quick summary. Filtering to one type shrinks every directory to just the files of that kind inside it, which is how you find where the audio is.',
       }),
@@ -30,6 +33,9 @@ window.ZogographTreemapShellCard = {
         'core-treemap-shell.only': 'Solo',
         'core-treemap-shell.every_type': 'todos los tipos',
         'core-treemap-shell.up': 'Subir un nivel',
+        'core-treemap-shell.sign_in': 'Inicie sesión para explorar el disco.',
+        'core-treemap-shell.measuring': 'Midiendo…',
+        'core-treemap-shell.measuring_directory': 'Midiendo este directorio…',
         'core-treemap-shell.help':
           'El área representa el tamaño. Un directorio lleno de archivos pequeños es invisible en una lista de las rutas más grandes y aquí resulta evidente: cuarenta mil archivos de sesión forman un rectángulo grande aunque ninguno lo sea. Haga clic en un rectángulo para ver detalles, doble clic en un directorio para abrirlo y pase el cursor para un resumen. Al filtrar por un tipo, cada directorio se reduce a los archivos de ese tipo.',
       }),
@@ -44,6 +50,10 @@ window.ZogographTreemapShellCard = {
         'core-treemap-shell.only': 'केवल',
         'core-treemap-shell.every_type': 'हर प्रकार',
         'core-treemap-shell.up': 'एक स्तर ऊपर',
+        'core-treemap-shell.sign_in': 'डिस्क देखने के लिए साइन इन करें।',
+        'core-treemap-shell.measuring': 'मापा जा रहा है…',
+        'core-treemap-shell.measuring_directory':
+          'इस डायरेक्टरी को मापा जा रहा है…',
         'core-treemap-shell.help':
           'क्षेत्र आकार दिखाता है। छोटे फ़ाइलों से भरी डायरेक्टरी सबसे बड़े पथों की सूची में नहीं दिखती, पर यहाँ स्पष्ट होती है। विवरण के लिए आयत पर क्लिक करें, खोलने के लिए डायरेक्टरी पर डबल-क्लिक करें और सारांश के लिए होवर करें।',
       }),
@@ -58,6 +68,9 @@ window.ZogographTreemapShellCard = {
         'core-treemap-shell.only': 'فقط',
         'core-treemap-shell.every_type': 'كل الأنواع',
         'core-treemap-shell.up': 'اصعد مستوى',
+        'core-treemap-shell.sign_in': 'سجّل الدخول لاستكشاف القرص.',
+        'core-treemap-shell.measuring': 'جارٍ القياس…',
+        'core-treemap-shell.measuring_directory': 'جارٍ قياس هذا المجلد…',
         'core-treemap-shell.help':
           'تمثل المساحة الحجم. قد لا يظهر مجلد مليء بملفات صغيرة في قائمة أكبر المسارات، لكنه يكون واضحًا هنا. انقر المستطيل للتفاصيل، وانقر المجلد مرتين للدخول إليه، ومرر المؤشر للملخص. تصفية نوع واحد تُبقي ملفات ذلك النوع فقط.',
       }),
@@ -72,6 +85,9 @@ window.ZogographTreemapShellCard = {
         'core-treemap-shell.only': '仅',
         'core-treemap-shell.every_type': '所有类型',
         'core-treemap-shell.up': '向上一层',
+        'core-treemap-shell.sign_in': '请登录以浏览磁盘。',
+        'core-treemap-shell.measuring': '正在测量…',
+        'core-treemap-shell.measuring_directory': '正在测量此目录…',
         'core-treemap-shell.help':
           '面积表示大小。装满小文件的目录在最大路径列表中并不显眼，但在这里会很明显。单击矩形查看详情，双击目录进入，悬停可看摘要。按类型筛选时，每个目录只保留该类型的文件。',
       }),

@@ -29083,30 +29083,24 @@ async function refreshTreemap(path = treeState.path) {
     treeState.level = null;
     treeState.boxes = [];
     drawTreemap();
-    $('treeNote').textContent = ZogographI18n.t(
-      'tree.sign_in',
-      {},
-      'Sign in to explore the disk.',
-    );
+    $('treeNote').textContent = ZogographTreemapShellCard.text('sign_in', {
+      i18n: ZogographI18n,
+    });
     $('treeCrumbs').replaceChildren();
     return;
   }
 
-  $('treeNote').textContent = ZogographI18n.t(
-    'tree.measuring',
-    {},
-    'Measuring…',
-  );
+  $('treeNote').textContent = ZogographTreemapShellCard.text('measuring', {
+    i18n: ZogographI18n,
+  });
   if (!treeState.level) {
     // The first walk of a large directory is the slow one, and an empty canvas
     // with no explanation is where people conclude it is broken.
     $('treeNote').replaceChildren(
       spinner(
-        ZogographI18n.t(
-          'tree.measuring_directory',
-          {},
-          'Measuring this directory…',
-        ),
+        ZogographTreemapShellCard.text('measuring_directory', {
+          i18n: ZogographI18n,
+        }),
       ),
     );
   }

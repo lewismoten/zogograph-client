@@ -18661,11 +18661,9 @@ function renderTerminal(data) {
   box.id = 'terminalInput';
   box.rows = 2;
   box.spellcheck = false;
-  box.placeholder = ZogographI18n.t(
-    'terminal.command_placeholder',
-    {},
-    'df -h; echo; ls -la ~/public_html | head',
-  );
+  box.placeholder = ZogographTerminalShellCard.text('command_placeholder', {
+    i18n: ZogographI18n,
+  });
   form.appendChild(box);
 
   const go = document.createElement('button');

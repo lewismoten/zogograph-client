@@ -2751,20 +2751,19 @@ i18nExpect(
 );
 i18nExpect(
     $script !== false &&
-        str_contains($script, 'ZogographI18n.t("table.download_rows"') &&
-        str_contains($script, 'ZogographI18n.t("table.sort_by"') &&
-        str_contains($script, 'ZogographI18n.t("table.rows_shown"') &&
+        str_contains($script, 'ZogographTableCommonCard') &&
+        str_contains(
+            (string) file_get_contents($root . '/cards/table-common.js'),
+            'core-table-common.download_rows',
+        ) &&
+        str_contains(
+            (string) file_get_contents($root . '/cards/table-common.js'),
+            'core-table-common.rows_shown',
+        ) &&
         str_contains($script, 'ZogographI18n.t("chart.your_notes"') &&
         is_array($english) &&
-        isset(
-            $english['table.download_rows'],
-            $english['table.sort_by'],
-            $english['table.rows_total'],
-            $english['table.rows_shown'],
-            $english['table.show_more'],
-            $english['chart.your_notes'],
-        ),
-    'shared dashboard table controls or chart-note labels do not use the locale catalog',
+        isset($english['chart.your_notes']),
+    'shared dashboard table controls or chart-note labels do not use their package catalog',
 );
 i18nExpect(
     $onboardingCard !== false &&

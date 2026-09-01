@@ -6104,6 +6104,13 @@ function patchTable(target, rows, columns, key, rowClass) {
 }
 
 function renderTable(target, rows, columns, onRowClick, rowClass, key) {
+  const tableText = (textKey, values = {}) =>
+    renderCoreCardPackage(
+      ZogographTableCommonCard,
+      'core-table-common',
+      { key: textKey, values },
+      { i18n: ZogographI18n },
+    );
   const el = $(target);
   if (!rows || !rows.length) {
     if (TABLE_DREW.get(target) !== 'empty') {
@@ -6111,11 +6118,7 @@ function renderTable(target, rows, columns, onRowClick, rowClass, key) {
       el.replaceChildren(
         Object.assign(document.createElement('p'), {
           className: 'muted',
-          textContent: ZogographI18n.t(
-            'table.nothing_to_show',
-            {},
-            'Nothing to show.',
-          ),
+          textContent: tableText('nothing_to_show'),
         }),
       );
     }
@@ -6166,11 +6169,10 @@ function renderTable(target, rows, columns, onRowClick, rowClass, key) {
     const button = document.createElement('button');
     button.className = 'link';
     button.textContent = format.toUpperCase();
-    button.title = ZogographI18n.t(
-      'table.download_rows',
-      { count: rows.length, format: format.toUpperCase() },
-      'Download {{count, number}} rows as {{format}}',
-    );
+    button.title = tableText('download_rows', {
+      count: rows.length,
+      format: format.toUpperCase(),
+    });
     button.addEventListener('click', () =>
       exportRows(target, rows, columns, format),
     );
@@ -6185,11 +6187,7 @@ function renderTable(target, rows, columns, onRowClick, rowClass, key) {
       const button = document.createElement('button');
       button.className = 'link table-sort';
       button.textContent = col.label + (col.sortMark || '');
-      button.title = ZogographI18n.t(
-        'table.sort_by',
-        { label: col.label },
-        'Sort by {{label}}',
-      );
+      button.title = tableText('sort_by', { label: col.label });
       button.addEventListener('click', col.onSort);
       th.appendChild(button);
     } else th.textContent = col.label;
@@ -6233,23 +6231,13 @@ function renderTable(target, rows, columns, onRowClick, rowClass, key) {
 
     counter.textContent =
       shown >= rows.length
-        ? ZogographI18n.t(
-            'table.rows_total',
-            { count: rows.length },
-            '{{count, number}} rows',
-          )
-        : ZogographI18n.t(
-            'table.rows_shown',
-            { shown, total: rows.length },
-            'Showing {{shown, number}} of {{total, number}} rows',
-          );
+        ? tableText('rows_total', { count: rows.length })
+        : tableText('rows_shown', { shown, total: rows.length });
 
     more.hidden = shown >= rows.length;
-    more.textContent = ZogographI18n.t(
-      'table.show_more',
-      { count: Math.min(TABLE_PAGE, rows.length - shown) },
-      'Show {{count, number}} more',
-    );
+    more.textContent = tableText('show_more', {
+      count: Math.min(TABLE_PAGE, rows.length - shown),
+    });
   };
 
   /*

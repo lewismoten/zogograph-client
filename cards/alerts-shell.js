@@ -7,6 +7,9 @@ window.ZogographAlertsShellCard = {
     catalogs: Object.freeze({
       en: Object.freeze({
         'core-alerts-shell.timeline_title': 'When alerts fired',
+        'core-alerts-shell.delete_confirm':
+          'Delete this alert? The history goes with it.',
+        'core-alerts-shell.dismiss': 'Dismiss',
         'core-alerts-shell.telegram_test_sent':
           'Test Telegram sent to {{recipient}}.',
         'core-alerts-shell.telegram_test_failed':
@@ -107,6 +110,9 @@ window.ZogographAlertsShellCard = {
       }),
       es: Object.freeze({
         'core-alerts-shell.timeline_title': 'Cuándo se activaron las alertas',
+        'core-alerts-shell.delete_confirm':
+          '¿Eliminar esta alerta? Su historial se eliminará con ella.',
+        'core-alerts-shell.dismiss': 'Descartar',
         'core-alerts-shell.telegram_test_sent':
           'Se envió un Telegram de prueba a {{recipient}}.',
         'core-alerts-shell.telegram_test_failed':
@@ -210,6 +216,9 @@ window.ZogographAlertsShellCard = {
       }),
       hi: Object.freeze({
         'core-alerts-shell.timeline_title': 'अलर्ट कब चालू हुए',
+        'core-alerts-shell.delete_confirm':
+          'इस चेतावनी को हटाएँ? इसका इतिहास भी हट जाएगा।',
+        'core-alerts-shell.dismiss': 'खारिज करें',
         'core-alerts-shell.telegram_test_sent':
           '{{recipient}} को परीक्षण Telegram भेज दिया गया है।',
         'core-alerts-shell.telegram_test_failed':
@@ -311,6 +320,8 @@ window.ZogographAlertsShellCard = {
       }),
       ar: Object.freeze({
         'core-alerts-shell.timeline_title': 'متى أُطلقت التنبيهات',
+        'core-alerts-shell.delete_confirm': 'حذف هذا التنبيه؟ سيُحذف سجله معه.',
+        'core-alerts-shell.dismiss': 'تجاهل',
         'core-alerts-shell.telegram_test_sent':
           'أُرسل Telegram تجريبي إلى {{recipient}}.',
         'core-alerts-shell.telegram_test_failed':
@@ -410,6 +421,9 @@ window.ZogographAlertsShellCard = {
       }),
       zh: Object.freeze({
         'core-alerts-shell.timeline_title': '警报何时触发',
+        'core-alerts-shell.delete_confirm':
+          '删除此警报吗？其历史记录也将一并删除。',
+        'core-alerts-shell.dismiss': '关闭',
         'core-alerts-shell.telegram_test_sent':
           '测试 Telegram 已发送至 {{recipient}}。',
         'core-alerts-shell.telegram_test_failed': '无法发送 Telegram 测试。',

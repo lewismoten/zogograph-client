@@ -27944,11 +27944,9 @@ function alertRowActions(row) {
   remove.addEventListener('click', async () => {
     if (
       await confirmDialog(
-        ZogographI18n.t(
-          'alerts.delete_confirm',
-          {},
-          'Delete this alert? The history goes with it.',
-        ),
+        ZogographAlertsShellCard.text('delete_confirm', {
+          i18n: ZogographI18n,
+        }),
         ZogographAlertsShellCard.text('delete_title', {
           i18n: ZogographI18n,
         }),
@@ -30855,7 +30853,7 @@ function toast(text, view = '') {
   close.className = 'toast-close';
   close.setAttribute(
     'aria-label',
-    ZogographI18n.t('alerts.dismiss', {}, 'Dismiss'),
+    ZogographAlertsShellCard.text('dismiss', { i18n: ZogographI18n }),
   );
   close.textContent = '\u00d7';
   close.addEventListener('click', () => box.remove());
@@ -41582,10 +41580,10 @@ $('alertDeleteSome').addEventListener('click', async () => {
   // Deleting is the one thing here that cannot be undone from the interface.
   if (
     !(await confirmDialog(
-      ZogographI18n.t(
-        'alerts.delete_confirm',
+      ZogographAlertsShellCard.text(
+        'delete_confirm',
         { alerts: count(ids.length, 'alert') },
-        'Delete {{alerts}}? The history goes with them.',
+        { i18n: ZogographI18n },
       ),
       ZogographAlertsShellCard.text('delete_many', {
         i18n: ZogographI18n,

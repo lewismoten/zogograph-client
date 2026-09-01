@@ -374,6 +374,9 @@ $terminalActionsCard = i18nCardSource(
 $terminalCommandDetailsCard = i18nCardSource(
     file_get_contents($root . '/cards/terminal-command-details.js'),
 );
+$terminalEditorRecoveryCard = i18nCardSource(
+    file_get_contents($root . '/cards/terminal-editor-recovery.js'),
+);
 $terminalShellCard = i18nCardSource(
     file_get_contents($root . '/cards/terminal-shell.js'),
 );
@@ -3732,7 +3735,11 @@ i18nExpect(
             $terminalCommandDetailsCard,
             'core-terminal-command-details.suggestion_expectation',
         ) &&
-        str_contains($script, 'terminal.syntax_preview_title') &&
+        $terminalEditorRecoveryCard !== false &&
+        str_contains(
+            $terminalEditorRecoveryCard,
+            'core-terminal-editor-recovery.syntax_preview_title',
+        ) &&
         $terminalActionsCard !== false &&
         str_contains(
             $terminalActionsCard,
@@ -3742,9 +3749,19 @@ i18nExpect(
 );
 i18nExpect(
     $script !== false &&
-        str_contains($script, 'terminal.recovery_restore_selected') &&
-        str_contains($script, 'terminal.recovery_restored') &&
-        str_contains($script, 'terminal.syntax_preview_dialog_title'),
+        $terminalEditorRecoveryCard !== false &&
+        str_contains(
+            $terminalEditorRecoveryCard,
+            'core-terminal-editor-recovery.recovery_restore_selected',
+        ) &&
+        str_contains(
+            $terminalEditorRecoveryCard,
+            'core-terminal-editor-recovery.recovery_restored',
+        ) &&
+        str_contains(
+            $terminalEditorRecoveryCard,
+            'core-terminal-editor-recovery.syntax_preview_dialog_title',
+        ),
     'terminal editor recovery and preview dialog are not localized',
 );
 i18nExpect(

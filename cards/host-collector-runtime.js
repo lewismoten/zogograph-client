@@ -7,24 +7,34 @@ window.ZogographHostCollectorRuntimeCard = {
       en: Object.freeze({
         'core-host-collector-runtime.loading': 'Reading the host collector…',
         'core-host-collector-runtime.no_readings': 'No host readings.',
+        'core-host-collector-runtime.request_queued':
+          "Asked. It runs on the host collector's next pass.",
       }),
       es: Object.freeze({
         'core-host-collector-runtime.loading':
           'Leyendo el recopilador del host…',
         'core-host-collector-runtime.no_readings': 'No hay lecturas del host.',
+        'core-host-collector-runtime.request_queued':
+          'Solicitado. Se ejecutará en la siguiente pasada del recopilador del host.',
       }),
       hi: Object.freeze({
         'core-host-collector-runtime.loading': 'होस्ट कलेक्टर पढ़ा जा रहा है…',
         'core-host-collector-runtime.no_readings':
           'होस्ट की कोई रीडिंग नहीं है।',
+        'core-host-collector-runtime.request_queued':
+          'अनुरोध किया गया। यह होस्ट कलेक्टर के अगले रन में चलेगा।',
       }),
       ar: Object.freeze({
         'core-host-collector-runtime.loading': 'تجري قراءة جامع المضيف…',
         'core-host-collector-runtime.no_readings': 'لا توجد قراءات للمضيف.',
+        'core-host-collector-runtime.request_queued':
+          'طُلِب. سيعمل في الدورة التالية لجامع المضيف.',
       }),
       zh: Object.freeze({
         'core-host-collector-runtime.loading': '正在读取主机采集器…',
         'core-host-collector-runtime.no_readings': '没有主机读数。',
+        'core-host-collector-runtime.request_queued':
+          '已请求。它将在主机采集器的下一次运行中执行。',
       }),
     }),
   }),

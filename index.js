@@ -10800,14 +10800,7 @@ function scanTable(rows, data) {
            */
           const [action, argument] = String(scan.task).split(':');
           await post(action, argument ? { task: argument } : {});
-          notice(
-            ZogographI18n.t(
-              'host.request_queued',
-              {},
-              "Asked. It runs on the host collector's next pass.",
-            ),
-            true,
-          );
+          notice(hostCollectorRuntimeText('request_queued'), true);
           await refreshScanSchedule(scan.side);
         } catch (error) {
           notice(String(error.message || error));

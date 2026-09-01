@@ -27621,8 +27621,9 @@ function showAlertVerdict(row) {
 
   const when = document.createElement('p');
   when.className = 'muted small';
-  when.textContent = ZogographI18n.t(
-    'alert.verdict_timing',
+  when.textContent = ZogographAlertsShellCard.text(
+    'verdict_timing',
+    { i18n: ZogographI18n },
     {
       severity: row.severity,
       raised: whenLabel(row.raised_at),
@@ -27637,7 +27638,6 @@ function showAlertVerdict(row) {
           )
         : '',
     },
-    'The rule called this {{severity}} and raised it {{raised}}. {{assistant}}',
   );
   nodes.push(when);
 

@@ -2794,14 +2794,17 @@ function renderSymlinkShellLabels() {
     {},
     helpers,
   );
-  const title = document.querySelector(
-    '[data-i18n="core-symlink-shell.title"]',
-  );
-  title.textContent = ZogographI18n.markSource(
-    title,
-    'core-symlink-shell.title',
-    ZogographSymlinkShellCard.text('title', helpers),
-  );
+  document
+    .querySelectorAll('[data-i18n^="core-symlink-shell."]')
+    .forEach((element) => {
+      const key = element.dataset.i18n;
+      const suffix = key.replace('core-symlink-shell.', '');
+      element.textContent = ZogographI18n.markSource(
+        element,
+        key,
+        ZogographSymlinkShellCard.text(suffix, helpers),
+      );
+    });
   ZogographI18n.applyRich(
     document.querySelector('[data-i18n-rich="core-symlink-shell.help"]'),
   );
@@ -2817,13 +2820,24 @@ function renderSymlinkSweepShellLabels() {
     {},
     helpers,
   );
-  const title = document.querySelector(
-    '[data-i18n="core-symlink-sweep-shell.title"]',
+  document
+    .querySelectorAll('[data-i18n^="core-symlink-sweep-shell."]')
+    .forEach((element) => {
+      const key = element.dataset.i18n;
+      const suffix = key.replace('core-symlink-sweep-shell.', '');
+      element.textContent = ZogographI18n.markSource(
+        element,
+        key,
+        ZogographSymlinkSweepShellCard.text(suffix, helpers),
+      );
+    });
+  const placeholder = document.querySelector(
+    '[data-i18n-placeholder="core-symlink-sweep-shell.placeholder"]',
   );
-  title.textContent = ZogographI18n.markSource(
-    title,
-    'core-symlink-sweep-shell.title',
-    ZogographSymlinkSweepShellCard.text('title', helpers),
+  placeholder.placeholder = ZogographI18n.markSource(
+    placeholder,
+    'core-symlink-sweep-shell.placeholder',
+    ZogographSymlinkSweepShellCard.text('placeholder', helpers),
   );
   ZogographI18n.applyRich(
     document.querySelector('[data-i18n-rich="core-symlink-sweep-shell.help"]'),

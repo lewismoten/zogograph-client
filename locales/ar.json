@@ -318,7 +318,6 @@
   "action.close_all": "إغلاق الكل",
   "auth.sessions_ended": "تم إنهاء كل الجلسات المسجل دخولها.",
   "auth.recovery_codes_ready": "ثمانية رموز استرداد جديدة لمرة واحدة جاهزة للحفظ.",
-  "network.label_saved": "تم الحفظ. سيظهر حيثما يظهر ذلك العنوان أو المنفذ.",
   "ai.limit_raised": "رُفع لهذه المحادثة. تابع.",
   "ai.context_added": "أُضيف. سيقرأ ذلك في دوره التالي.",
   "terminal.suggestion_expectation": "ما الذي تبحث عنه: {{expectation}}",

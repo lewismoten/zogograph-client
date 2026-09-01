@@ -41023,11 +41023,7 @@ $('labelForm').addEventListener('submit', async (event) => {
     renderLabels(result);
     if (networkState.data) await refreshNetwork();
     notice(
-      ZogographI18n.t(
-        'network.label_saved',
-        {},
-        'Saved. It will show wherever that address or port appears.',
-      ),
+      ZogographLabelsTableCard.text('saved', { i18n: ZogographI18n }),
       true,
     );
   } catch (error) {

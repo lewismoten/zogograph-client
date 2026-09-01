@@ -320,7 +320,6 @@
   "action.close_all": "Cerrar todo",
   "auth.sessions_ended": "Se han cerrado todas las sesiones iniciadas.",
   "auth.recovery_codes_ready": "Ocho códigos nuevos de recuperación de un solo uso están listos para guardar.",
-  "network.label_saved": "Guardado. Se mostrará donde aparezcan esa dirección o ese puerto.",
   "ai.limit_raised": "Aumentado para esta conversación. Continúe.",
   "ai.context_added": "Añadido. Lo leerá en su siguiente turno.",
   "terminal.suggestion_expectation": "Qué buscar: {{expectation}}",

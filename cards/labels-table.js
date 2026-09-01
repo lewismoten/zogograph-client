@@ -14,6 +14,8 @@ window.ZogographLabelsTableCard = {
         'core-labels-table.shown_as': 'Shown as',
         'core-labels-table.note': 'Note',
         'core-labels-table.remove': 'Remove',
+        'core-labels-table.saved':
+          'Saved. It will show wherever that address or port appears.',
       }),
       es: Object.freeze({
         'core-labels-table.kind': 'Tipo',
@@ -24,6 +26,8 @@ window.ZogographLabelsTableCard = {
         'core-labels-table.shown_as': 'Mostrado como',
         'core-labels-table.note': 'Nota',
         'core-labels-table.remove': 'Eliminar',
+        'core-labels-table.saved':
+          'Guardado. Se mostrará donde aparezcan esa dirección o ese puerto.',
       }),
       hi: Object.freeze({
         'core-labels-table.kind': 'प्रकार',
@@ -34,6 +38,8 @@ window.ZogographLabelsTableCard = {
         'core-labels-table.shown_as': 'इस रूप में दिखाया गया',
         'core-labels-table.note': 'नोट',
         'core-labels-table.remove': 'हटाएँ',
+        'core-labels-table.saved':
+          'सहेजा गया। यह वहाँ दिखेगा जहाँ वह पता या पोर्ट दिखाई देता है।',
       }),
       ar: Object.freeze({
         'core-labels-table.kind': 'النوع',
@@ -44,6 +50,8 @@ window.ZogographLabelsTableCard = {
         'core-labels-table.shown_as': 'يُعرض كـ',
         'core-labels-table.note': 'ملاحظة',
         'core-labels-table.remove': 'إزالة',
+        'core-labels-table.saved':
+          'تم الحفظ. سيظهر حيثما يظهر ذلك العنوان أو المنفذ.',
       }),
       zh: Object.freeze({
         'core-labels-table.kind': '类型',
@@ -54,19 +62,21 @@ window.ZogographLabelsTableCard = {
         'core-labels-table.shown_as': '显示为',
         'core-labels-table.note': '备注',
         'core-labels-table.remove': '移除',
+        'core-labels-table.saved':
+          '已保存。它会在该地址或端口出现的任何位置显示。',
       }),
     }),
   }),
 
+  text(key, helpers) {
+    const id = `core-labels-table.${key}`;
+    return helpers.i18n.t(id, {}, this.manifest.catalogs.en[id]);
+  },
+
   render(data, helpers) {
     const { target, renderTable, remove, i18n } = helpers;
     if (!target || !data.rows.length) return;
-    const t = (key) =>
-      i18n.t(
-        `core-labels-table.${key}`,
-        {},
-        this.manifest.catalogs.en[`core-labels-table.${key}`],
-      );
+    const t = (key) => this.text(key, { i18n });
     const holder = document.createElement('div');
     holder.id = 'labelsTable';
     target.replaceChildren(holder);

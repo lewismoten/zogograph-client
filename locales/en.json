@@ -317,7 +317,6 @@
   "action.close_all": "Close all",
   "auth.sessions_ended": "Every signed-in session has been ended.",
   "auth.recovery_codes_ready": "Eight new one-time recovery codes are ready to save.",
-  "network.label_saved": "Saved. It will show wherever that address or port appears.",
   "ai.limit_raised": "Raised, for this conversation. Carry on.",
   "ai.context_added": "Added. It will read that on its next turn.",
   "terminal.suggestion_expectation": "What to look for: {{expectation}}",

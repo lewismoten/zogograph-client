@@ -32090,7 +32090,7 @@ function showRegexTester(patternInput, groupInput) {
   tools.className = 'inspect-actions';
 
   const run = document.createElement('button');
-  run.textContent = ZogographI18n.t('action.test_it', {}, 'Test it');
+  run.textContent = regexFetchText('test_it');
   tools.appendChild(run);
 
   const grab = document.createElement('button');
@@ -32111,9 +32111,7 @@ function showRegexTester(patternInput, groupInput) {
   run.addEventListener('click', async (event) => {
     event.preventDefault();
     run.disabled = true;
-    out.replaceChildren(
-      spinner(ZogographI18n.t('action.testing', {}, 'Testing…')),
-    );
+    out.replaceChildren(spinner(regexFetchText('testing')));
 
     regexState.pattern = pattern.value;
     regexState.text = sample.value;
@@ -32142,7 +32140,7 @@ function showRegexTester(patternInput, groupInput) {
     }
 
     grab.disabled = true;
-    grab.textContent = ZogographI18n.t('action.fetching', {}, 'Fetching…');
+    grab.textContent = regexFetchText('fetching');
     try {
       const got = await api('fetch', { url, method: 'GET', follow: '1' });
       if (!got.ok) throw new Error(got.error || 'nothing came back');

@@ -5,6 +5,9 @@ window.ZogographRegexFetchCard = {
     helpers: ['i18n'],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-regex-fetch.test_it': 'Test it',
+        'core-regex-fetch.testing': 'Testing…',
+        'core-regex-fetch.fetching': 'Fetching…',
         'core-regex-fetch.use_page': 'Fetch the page and use that',
         'core-regex-fetch.use_page_help':
           'Ask for the URL in the form above and paste its body in here',
@@ -12,6 +15,9 @@ window.ZogographRegexFetchCard = {
         'core-regex-fetch.fetched': 'Fetched {{bytes}} from {{url}}.',
       }),
       es: Object.freeze({
+        'core-regex-fetch.test_it': 'Probarlo',
+        'core-regex-fetch.testing': 'Probando…',
+        'core-regex-fetch.fetching': 'Obteniendo…',
         'core-regex-fetch.use_page': 'Obtener la página y usarla',
         'core-regex-fetch.use_page_help':
           'Indique la URL en el formulario de arriba y pegue aquí su contenido',
@@ -20,6 +26,9 @@ window.ZogographRegexFetchCard = {
         'core-regex-fetch.fetched': 'Se obtuvieron {{bytes}} de {{url}}.',
       }),
       hi: Object.freeze({
+        'core-regex-fetch.test_it': 'इसे जाँचें',
+        'core-regex-fetch.testing': 'जाँच हो रही है…',
+        'core-regex-fetch.fetching': 'लाया जा रहा है…',
         'core-regex-fetch.use_page': 'पेज लाएँ और उसका उपयोग करें',
         'core-regex-fetch.use_page_help':
           'ऊपर दिए गए फ़ॉर्म में URL लिखें और उसका मुख्य भाग यहाँ चिपकाएँ',
@@ -27,6 +36,9 @@ window.ZogographRegexFetchCard = {
         'core-regex-fetch.fetched': '{{url}} से {{bytes}} लाए गए।',
       }),
       ar: Object.freeze({
+        'core-regex-fetch.test_it': 'اختبره',
+        'core-regex-fetch.testing': 'جارٍ الاختبار…',
+        'core-regex-fetch.fetching': 'جارٍ الجلب…',
         'core-regex-fetch.use_page': 'اجلب الصفحة واستخدمها',
         'core-regex-fetch.use_page_help':
           'أدخل عنوان URL في النموذج أعلاه والصق متن الصفحة هنا',
@@ -34,6 +46,9 @@ window.ZogographRegexFetchCard = {
         'core-regex-fetch.fetched': 'جُلب {{bytes}} من {{url}}.',
       }),
       zh: Object.freeze({
+        'core-regex-fetch.test_it': '测试',
+        'core-regex-fetch.testing': '正在测试…',
+        'core-regex-fetch.fetching': '正在获取…',
         'core-regex-fetch.use_page': '获取并使用该页面',
         'core-regex-fetch.use_page_help':
           '在上方表单中填写 URL，然后将其正文粘贴到这里',

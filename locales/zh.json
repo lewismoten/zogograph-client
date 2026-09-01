@@ -769,8 +769,6 @@
   "schedule.custom.weekday": "星期 (0–7)",
   "schedule.saved_preview": "已保存的预览",
   "schedule.installed": "当前已安装",
-  "support.provider_message": "给您的托管服务提供商的消息",
-  "support.provider_message_help": "说明了已测量的内容，并且只请求安全的操作。它特意不会要求任何人删除备份目录中的任何内容。",
   "dns.sign_in_records": "登录以查看 DNS 记录。",
   "dns.no_domains_watched": "尚未监测任何域名。请在“域名”中添加一个，然后返回——仅对您表示关心的域名提供区域扫描，而不是任意名称，因为这会对他人的名称服务器进行数十次查询。",
   "dns.dig_unavailable": "此账户无法使用 dig，因此无法在这里查询区域。在 Red Hat 上它位于 bind-utils；在 Debian 上位于 dnsutils。",

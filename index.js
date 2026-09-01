@@ -38381,11 +38381,7 @@ function backupActionList(data) {
   // The message for whoever does have root.
   const ask = document.createElement('p');
   const button = document.createElement('button');
-  button.textContent = ZogographI18n.t(
-    'support.provider_message',
-    {},
-    'Message for your hosting provider',
-  );
+  button.textContent = backupProviderMessageText('title');
   button.addEventListener('click', () => showProviderMessage(data.message));
   ask.appendChild(button);
   wrap.appendChild(ask);
@@ -38393,17 +38389,20 @@ function backupActionList(data) {
   return wrap;
 }
 
+function backupProviderMessageText(key) {
+  const helpers = { i18n: ZogographI18n };
+  renderCoreCardPackage(
+    ZogographBackupProviderMessageCard,
+    'core-backup-provider-message',
+    {},
+    helpers,
+  );
+  return ZogographBackupProviderMessageCard.text(key, helpers);
+}
+
 function showProviderMessage(message) {
-  $('listDialogTitle').textContent = ZogographI18n.t(
-    'support.provider_message',
-    {},
-    'Message for your hosting provider',
-  );
-  $('listDialogNote').textContent = ZogographI18n.t(
-    'support.provider_message_help',
-    {},
-    'Explains what was measured and requests only safe actions. It deliberately does not ask anyone to delete anything in the backup directory.',
-  );
+  $('listDialogTitle').textContent = backupProviderMessageText('title');
+  $('listDialogNote').textContent = backupProviderMessageText('help');
 
   const body = $('listDialogBody');
   body.className = '';

@@ -773,8 +773,6 @@
   "schedule.custom.weekday": "Día de la semana (0–7)",
   "schedule.saved_preview": "Vista previa guardada",
   "schedule.installed": "Instalado actualmente",
-  "support.provider_message": "Mensaje para su proveedor de alojamiento",
-  "support.provider_message_help": "Explica qué se midió y solicita únicamente acciones seguras. Deliberadamente no pide a nadie que elimine nada del directorio de copias de seguridad.",
   "dns.sign_in_records": "Inicie sesión para ver los registros DNS.",
   "dns.no_domains_watched": "Todavía no se vigila ningún dominio. Añada uno en Nombres de dominio y vuelva después: se ofrece un barrido de zona para los dominios que ha indicado que le importan, no para cualquier nombre, porque supone unas docenas de consultas al servidor de nombres de otra persona.",
   "dns.dig_unavailable": "dig no está disponible para esta cuenta, por lo que aquí no se pueden consultar zonas. En Red Hat está en bind-utils; en Debian, en dnsutils.",

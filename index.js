@@ -19694,11 +19694,7 @@ async function openTerminalEditor(path) {
     const syntaxButton = document.createElement('button');
     syntaxButton.type = 'button';
     syntaxButton.className = 'link';
-    syntaxButton.textContent = ZogographI18n.t(
-      'action.syntax_preview',
-      {},
-      'Syntax preview',
-    );
+    syntaxButton.textContent = terminalEditorRecoveryText('syntax_preview');
     syntaxButton.title = terminalEditorRecoveryText('syntax_preview_title', {
       syntax: syntax.toUpperCase(),
     });

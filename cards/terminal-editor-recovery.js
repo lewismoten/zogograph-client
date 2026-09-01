@@ -8,6 +8,7 @@ window.ZogographTerminalEditorRecoveryCard = {
       en: Object.freeze({
         'core-terminal-editor-recovery.recovery_restore_selected':
           'Restore selected recovery copy',
+        'core-terminal-editor-recovery.syntax_preview': 'Syntax preview',
         'core-terminal-editor-recovery.recovery_restore_title':
           'Restore this recovery copy?',
         'core-terminal-editor-recovery.recovery_restore_consequence':
@@ -28,6 +29,8 @@ window.ZogographTerminalEditorRecoveryCard = {
       es: Object.freeze({
         'core-terminal-editor-recovery.recovery_restore_selected':
           'Restaurar la copia de recuperación seleccionada',
+        'core-terminal-editor-recovery.syntax_preview':
+          'Vista previa de sintaxis',
         'core-terminal-editor-recovery.recovery_restore_title':
           '¿Restaurar esta copia de recuperación?',
         'core-terminal-editor-recovery.recovery_restore_consequence':
@@ -49,6 +52,7 @@ window.ZogographTerminalEditorRecoveryCard = {
       hi: Object.freeze({
         'core-terminal-editor-recovery.recovery_restore_selected':
           'चुनी हुई पुनर्प्राप्ति कॉपी बहाल करें',
+        'core-terminal-editor-recovery.syntax_preview': 'सिंटैक्स पूर्वावलोकन',
         'core-terminal-editor-recovery.recovery_restore_title':
           'इस पुनर्प्राप्ति कॉपी को बहाल करें?',
         'core-terminal-editor-recovery.recovery_restore_consequence':
@@ -70,6 +74,7 @@ window.ZogographTerminalEditorRecoveryCard = {
       ar: Object.freeze({
         'core-terminal-editor-recovery.recovery_restore_selected':
           'استعد نسخة الاسترداد المختارة',
+        'core-terminal-editor-recovery.syntax_preview': 'معاينة الصياغة',
         'core-terminal-editor-recovery.recovery_restore_title':
           'هل تستعيد نسخة الاسترداد هذه؟',
         'core-terminal-editor-recovery.recovery_restore_consequence':
@@ -90,6 +95,7 @@ window.ZogographTerminalEditorRecoveryCard = {
       zh: Object.freeze({
         'core-terminal-editor-recovery.recovery_restore_selected':
           '恢复选定的恢复副本',
+        'core-terminal-editor-recovery.syntax_preview': '语法预览',
         'core-terminal-editor-recovery.recovery_restore_title':
           '恢复此恢复副本？',
         'core-terminal-editor-recovery.recovery_restore_consequence':

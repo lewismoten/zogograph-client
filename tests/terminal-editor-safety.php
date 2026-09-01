@@ -58,7 +58,10 @@ editorExpect(
         str_contains($editorUi, "text.addEventListener('scroll'") &&
         str_contains($editorUi, 'terminalEditorDiff') &&
         str_contains($editorUi, 'terminalEditorSyntaxPreview') &&
-        str_contains($editorUi, 'Syntax preview') &&
+        str_contains(
+            $editorUi,
+            "terminalEditorRecoveryText('syntax_preview'",
+        ) &&
         str_contains($editorUi, 'Discard unsaved editor changes?') &&
         str_contains(
             $editorUi,

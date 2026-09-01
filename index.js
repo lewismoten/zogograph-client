@@ -10899,7 +10899,7 @@ function renderThrottles(data) {
  * silently revert it.
  */
 // Retained for package-provided scan controls that use the core save path.
-function collectorSaveStatusText() {
+function collectorSaveStatusText(key = 'saved') {
   const helpers = { i18n: ZogographI18n };
   renderCoreCardPackage(
     ZogographCollectorSaveStatusCard,
@@ -10907,7 +10907,7 @@ function collectorSaveStatusText() {
     {},
     helpers,
   );
-  return ZogographCollectorSaveStatusCard.text('saved', helpers);
+  return ZogographCollectorSaveStatusCard.text(key, helpers);
 }
 
 // eslint-disable-next-line no-unused-vars

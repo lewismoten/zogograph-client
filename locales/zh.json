@@ -1397,8 +1397,6 @@
   "database.data": "数据",
   "database.total": "总计",
   "database.indexes_note": "索引计入其所属的表。对于繁忙的表，一个索引的大小可能接近总大小的一半；单独列出它们会让每个表看起来比实际更小。",
-  "reports.latest": "{{assistant}} 的最新摘要",
-  "reports.all": "全部",
   "terminal.stop": "停止它",
   "terminal.sessions_topic": "主题",
   "ai.reclaim_space": "回收空闲空间",

@@ -1399,8 +1399,6 @@
   "database.data": "डेटा",
   "database.total": "कुल",
   "database.indexes_note": "इंडेक्स को उस तालिका में गिना जाता है जिससे वे जुड़े हैं। व्यस्त तालिका में इंडेक्स कुल का लगभग आधा हो सकता है; उन्हें अलग सूचीबद्ध करने से हर तालिका वास्तविकता से सस्ती लगती है।",
-  "reports.latest": "{{assistant}} का नवीनतम सारांश",
-  "reports.all": "सभी",
   "terminal.stop": "इसे रोकें",
   "terminal.sessions_topic": "विषय",
   "ai.reclaim_space": "खाली जगह वापस लें",

@@ -1397,8 +1397,6 @@
   "database.data": "البيانات",
   "database.total": "الإجمالي",
   "database.indexes_note": "تُحتسب الفهارس ضمن الجدول الذي تنتمي إليه. في جدول مشغول قد يقترب الفهرس من نصف الإجمالي، وسردها منفصلة يجعل كل جدول يبدو أقل تكلفة مما هو عليه.",
-  "reports.latest": "أحدث ملخص لـ {{assistant}}",
-  "reports.all": "كلها",
   "terminal.stop": "أوقفه",
   "terminal.sessions_topic": "الموضوع",
   "ai.reclaim_space": "استعد المساحة الفارغة",

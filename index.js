@@ -26594,16 +26594,26 @@ function drawSchedule(data) {
         updates.runs,
         [
           {
-            label: ZogographI18n.t('schedule.run_started', {}, 'Started'),
+            label: renderCoreCardPackage(
+              window.ZogographScheduleUpdateRunsCard,
+              'core-schedule-update-runs',
+              { key: 'started' },
+              { i18n: ZogographI18n },
+            ),
             render: (row) => whenSpan(row.started_at),
           },
           {
-            label: ZogographI18n.t('schedule.update_stage', {}, 'Stage'),
+            label: renderCoreCardPackage(
+              window.ZogographScheduleUpdateRunsCard,
+              'core-schedule-update-runs',
+              { key: 'stage' },
+              { i18n: ZogographI18n },
+            ),
             render: (row) => stageLabels[row.stage] || row.stage,
           },
           {
             label: ZogographI18n.t(
-              'schedule.update_manager_label',
+              'core-schedule-update-runs.manager',
               {},
               'Manager',
             ),
@@ -26611,7 +26621,7 @@ function drawSchedule(data) {
           },
           {
             label: ZogographI18n.t(
-              'schedule.update_available',
+              'core-schedule-update-runs.available',
               {},
               'Available',
             ),
@@ -26619,12 +26629,22 @@ function drawSchedule(data) {
             render: (row) => (row.updates == null ? '—' : row.updates),
           },
           {
-            label: ZogographI18n.t('schedule.run_took', {}, 'Took'),
+            label: renderCoreCardPackage(
+              window.ZogographScheduleUpdateRunsCard,
+              'core-schedule-update-runs',
+              { key: 'took' },
+              { i18n: ZogographI18n },
+            ),
             className: 'size',
             render: (row) => humanDuration(Number(row.seconds)),
           },
           {
-            label: ZogographI18n.t('schedule.run_result', {}, 'Result'),
+            label: renderCoreCardPackage(
+              window.ZogographScheduleUpdateRunsCard,
+              'core-schedule-update-runs',
+              { key: 'result' },
+              { i18n: ZogographI18n },
+            ),
             render: (row) =>
               row.ok
                 ? ZogographI18n.t('schedule.run_ok', {}, 'ok')

@@ -110,6 +110,7 @@ export default [
         ZogographUrlMonitorEditorCard: 'readonly',
         ZogographScheduleRecentRunsCard: 'readonly',
         ZogographScheduleUpdateStagesCard: 'readonly',
+        ZogographScheduleUpdateRunsCard: 'readonly',
         ZogographMarkdownCopyControlsCard: 'readonly',
         ZogographPageHelpCard: 'readonly',
         ZogographCollectorSaveStatusCard: 'readonly',

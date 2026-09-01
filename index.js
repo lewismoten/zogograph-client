@@ -26670,33 +26670,58 @@ function drawSchedule(data) {
   form.append(
     picker(
       'schedVitals',
-      ZogographI18n.t('schedule.job.vitals', {}, 'Vitals collection'),
+      renderCoreCardPackage(
+        window.ZogographScheduleJobControlsCard,
+        'core-schedule-job-controls',
+        { key: 'vitals' },
+        { i18n: ZogographI18n },
+      ),
       data.presets.vitals,
       guessPick(data.lines, '--vitals', data.presets.vitals),
     ),
     picker(
       'schedScan',
-      ZogographI18n.t('schedule.job.scan', {}, 'Directory scan'),
+      renderCoreCardPackage(
+        window.ZogographScheduleJobControlsCard,
+        'core-schedule-job-controls',
+        { key: 'scan' },
+        { i18n: ZogographI18n },
+      ),
       data.presets.scan,
       guessPick(data.lines, '--scan', data.presets.scan),
     ),
     numberField(
       'schedMinute',
-      ZogographI18n.t('schedule.at_minute', {}, 'At minute'),
+      renderCoreCardPackage(
+        window.ZogographScheduleJobControlsCard,
+        'core-schedule-job-controls',
+        { key: 'minute' },
+        { i18n: ZogographI18n },
+      ),
       0,
       59,
       7,
     ),
     numberField(
       'schedHour',
-      ZogographI18n.t('schedule.at_hour', {}, 'At hour'),
+      renderCoreCardPackage(
+        window.ZogographScheduleJobControlsCard,
+        'core-schedule-job-controls',
+        { key: 'hour' },
+        { i18n: ZogographI18n },
+      ),
       0,
       23,
       2,
     ),
     picker(
       'schedPhp',
-      ZogographI18n.t('schedule.php_binary', {}, 'PHP command-line binary'),
+      renderCoreCardPackage(
+        window.ZogographScheduleJobControlsCard,
+        'core-schedule-job-controls',
+        { key: 'php' },
+        { i18n: ZogographI18n },
+      ),
       Object.fromEntries(data.binaries.map((b) => [b, { label: b }])),
       data.binaries[0],
     ),

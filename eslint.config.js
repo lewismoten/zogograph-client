@@ -111,6 +111,7 @@ export default [
         ZogographScheduleRecentRunsCard: 'readonly',
         ZogographScheduleUpdateStagesCard: 'readonly',
         ZogographScheduleUpdateRunsCard: 'readonly',
+        ZogographScheduleJobControlsCard: 'readonly',
         ZogographMarkdownCopyControlsCard: 'readonly',
         ZogographPageHelpCard: 'readonly',
         ZogographCollectorSaveStatusCard: 'readonly',

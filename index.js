@@ -33644,18 +33644,19 @@ function missingCommandNote(missing, where) {
 
 const dnsRecordState = { data: null, domain: null };
 
+function dnsInventoryText(key, values = {}) {
+  return renderCoreCardPackage(
+    ZogographDnsInventoryCard,
+    'core-dns-inventory',
+    { key, values },
+    { i18n: ZogographI18n },
+  );
+}
+
 async function refreshDnsRecords() {
   const body = $('dnsRecordsBody');
   if (!state.signedIn) {
-    body.replaceChildren(
-      note(
-        ZogographI18n.t(
-          'dns.sign_in_records',
-          {},
-          'Sign in to see DNS records.',
-        ),
-      ),
-    );
+    body.replaceChildren(note(dnsInventoryText('sign_in_records')));
     return;
   }
 
@@ -33693,30 +33694,14 @@ function renderDnsRecords(data) {
   const parts = [];
 
   if (!data.domains.length) {
-    parts.push(
-      note(
-        ZogographI18n.t(
-          'dns.no_domains_watched',
-          {},
-          "No domains are being watched yet. Add one on Domain names, then come back — a zone sweep is offered for domains you have said you care about rather than for any name, because it is a few dozen lookups against somebody's nameserver.",
-        ),
-      ),
-    );
+    parts.push(note(dnsInventoryText('no_domains_watched')));
     body.replaceChildren(...parts);
     renderDnsChanges(data);
     return;
   }
 
   if (!data.have_dig) {
-    parts.push(
-      note(
-        ZogographI18n.t(
-          'dns.dig_unavailable',
-          {},
-          'dig is not available to this account, so zones cannot be looked up here. On Red Hat it is in bind-utils; on Debian, dnsutils.',
-        ),
-      ),
-    );
+    parts.push(note(dnsInventoryText('dig_unavailable')));
   }
 
   const inventory = data.inventory;
@@ -33724,16 +33709,8 @@ function renderDnsRecords(data) {
     parts.push(
       note(
         data.have_dig
-          ? ZogographI18n.t(
-              'dns.no_records_sweep',
-              {},
-              'Nothing recorded for this domain yet. Press “Look it all up”.',
-            )
-          : ZogographI18n.t(
-              'dns.no_records',
-              {},
-              'Nothing recorded for this domain.',
-            ),
+          ? dnsInventoryText('no_records_sweep')
+          : dnsInventoryText('no_records'),
       ),
     );
     body.replaceChildren(...parts);
@@ -33745,20 +33722,15 @@ function renderDnsRecords(data) {
   parts.push(
     note(
       data.last_swept
-        ? ZogographI18n.t(
-            'dns.inventory_summary_last',
-            {
-              records: live.length,
-              names: inventory.names.length,
-              last: ago(data.last_swept),
-            },
-            '{{records, number}} records across {{names, number}} names, last looked up {{last}}.',
-          )
-        : ZogographI18n.t(
-            'dns.inventory_summary',
-            { records: live.length, names: inventory.names.length },
-            '{{records, number}} records across {{names, number}} names.',
-          ),
+        ? dnsInventoryText('inventory_summary_last', {
+            records: live.length,
+            names: inventory.names.length,
+            last: ago(data.last_swept),
+          })
+        : dnsInventoryText('inventory_summary', {
+            records: live.length,
+            names: inventory.names.length,
+          }),
     ),
   );
 
@@ -33805,16 +33777,13 @@ function renderDnsRecords(data) {
 }
 
 const GROUP_TITLES = {
-  addresses: () =>
-    ZogographI18n.t('dns.group.addresses', {}, 'Where the names point'),
-  mail: () => ZogographI18n.t('dns.group.mail', {}, 'Mail'),
-  delegation: () =>
-    ZogographI18n.t('dns.group.delegation', {}, 'Who is in charge of the zone'),
-  certificates: () =>
-    ZogographI18n.t('dns.group.certificates', {}, 'Who may issue certificates'),
-  proof: () => ZogographI18n.t('dns.group.proof', {}, 'Proof of ownership'),
-  text: () => ZogographI18n.t('dns.group.text', {}, 'Other text records'),
-  other: () => ZogographI18n.t('dns.group.other', {}, 'Everything else'),
+  addresses: () => dnsInventoryText('group_addresses'),
+  mail: () => dnsInventoryText('group_mail'),
+  delegation: () => dnsInventoryText('group_delegation'),
+  certificates: () => dnsInventoryText('group_certificates'),
+  proof: () => dnsInventoryText('group_proof'),
+  text: () => dnsInventoryText('group_text'),
+  other: () => dnsInventoryText('group_other'),
 };
 
 function renderDnsGroup(id, rows) {

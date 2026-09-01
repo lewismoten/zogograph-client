@@ -103,6 +103,7 @@ export default [
         ZogographEmailShellCard: 'readonly',
         ZogographDnsChangesCard: 'readonly',
         ZogographDnsRecordGroupCard: 'readonly',
+        ZogographDnsInventoryCard: 'readonly',
         ZogographReportRowCard: 'readonly',
         ZogographDatabaseSnapshotsCard: 'readonly',
         ZogographDatabaseStorageCard: 'readonly',

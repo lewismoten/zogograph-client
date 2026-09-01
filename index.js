@@ -24802,23 +24802,21 @@ async function refreshHostIoChart() {
   const to = Math.floor(Date.now() / 1000);
   const data = await api('host-io', { from: to - state.range, to });
   const rows = data.rows ?? [];
+  const hostIoText = (key, values = {}) =>
+    ZogographHostIoShellCard.text(key, { i18n: ZogographI18n }, values);
 
   drawLineChart(
     $('hostIoChart'),
     rows,
     [
-      { key: 'read_rate', label: ZogographI18n.t('host.io_read', {}, 'Read') },
+      { key: 'read_rate', label: hostIoText('read') },
       {
         key: 'write_rate',
-        label: ZogographI18n.t('host.io_written', {}, 'Written'),
+        label: hostIoText('written'),
       },
       {
         key: 'util_percent',
-        label: ZogographI18n.t(
-          'host.io_busiest_device',
-          {},
-          'Busiest device % (right)',
-        ),
+        label: hostIoText('busiest_device'),
         axis: 'right',
       },
     ],
@@ -24832,23 +24830,10 @@ async function refreshHostIoChart() {
       zeroBased: true,
       empty:
         data.available === false
-          ? data.reason ||
-            ZogographI18n.t(
-              'host.io_collector_missing',
-              {},
-              'The host collector is not installed.',
-            )
+          ? data.reason || hostIoText('collector_missing')
           : Number(data.sample_count ?? 0) < 2
-            ? ZogographI18n.t(
-                'host.io_needs_two_readings',
-                {},
-                'Needs two host readings before a rate can be worked out.',
-              )
-            : ZogographI18n.t(
-                'host.io_no_counters',
-                {},
-                'No device counters recorded for this range.',
-              ),
+            ? hostIoText('needs_two_readings')
+            : hostIoText('no_counters'),
     },
   );
 
@@ -24877,30 +24862,17 @@ async function refreshHostIoChart() {
   const parts = [];
   if (peak.row) {
     parts.push(
-      ZogographI18n.t(
-        'host.io_busiest_moment',
-        {
-          rate: `${humanBytes(peak.total)}/s`,
-          at: humanTime(peak.row.taken_at),
-          saturation:
-            peak.row.util_percent == null ? '' : peak.row.util_percent,
-        },
-        peak.row.util_percent != null
-          ? 'Busiest moment: {{rate}} at {{at}} — the busiest device was {{saturation}}% saturated.'
-          : 'Busiest moment: {{rate}} at {{at}}.',
-      ),
+      hostIoText('busiest_moment', {
+        rate: `${humanBytes(peak.total)}/s`,
+        at: humanTime(peak.row.taken_at),
+        saturation: peak.row.util_percent == null ? '' : peak.row.util_percent,
+      }),
     );
   }
   if (gaps) {
     // Said out loud: a gap here is a reboot, and a chart that silently drew
     // through one would invent traffic across an interval that did not happen.
-    parts.push(
-      ZogographI18n.t(
-        'host.io_counter_restarts',
-        { readings: gaps },
-        '{{readings, number}} readings could not be turned into a rate, because the counters restarted — that is a reboot.',
-      ),
-    );
+    parts.push(hostIoText('counter_restarts', { readings: gaps }));
   }
   note.textContent = parts.join(' ');
 }

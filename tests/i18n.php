@@ -3563,7 +3563,6 @@ i18nExpect(
             $english['regex.took'],
             $english['regex.group_absence_help'],
             $english['ai.data_page'],
-            $english['pending.waiting_on_root'],
             $english['process.ask'],
             $english['process.force'],
             $english['process.ask_stop'],

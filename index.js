@@ -10558,11 +10558,7 @@ function renderScans(data) {
       );
       const link = document.createElement('a');
       link.href = './setup.php?section=host';
-      link.textContent = ZogographI18n.t(
-        'host.open_setup',
-        {},
-        'Open Host setup',
-      );
+      link.textContent = hostCollectorRuntimeText('open_setup');
       warning.appendChild(link);
       parts.push(warning);
     }

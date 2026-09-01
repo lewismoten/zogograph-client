@@ -111,6 +111,8 @@ window.ZogographAlertsShellCard = {
         'core-alerts-shell.mark_all_read': 'Mark all read',
         'core-alerts-shell.toolbar_mark_read': 'Mark read',
         'core-alerts-shell.toolbar_mark_unread': 'Mark unread',
+        'core-alerts-shell.rule_advice':
+          'What would let the rule decide this itself',
         'core-alerts-shell.mute_explainer':
           'Mute “{{rule}}”? Matching Information and Warning alerts stay recorded but are not sent. Error and Critical always bypass this mute.',
       }),
@@ -223,6 +225,8 @@ window.ZogographAlertsShellCard = {
         'core-alerts-shell.mark_all_read': 'Marcar todas como leídas',
         'core-alerts-shell.toolbar_mark_read': 'Marcar como leída',
         'core-alerts-shell.toolbar_mark_unread': 'Marcar como no leída',
+        'core-alerts-shell.rule_advice':
+          'Qué permitiría que la regla decidiera esto por sí sola',
         'core-alerts-shell.mute_explainer':
           '¿Silenciar “{{rule}}”? Las alertas de Información y Advertencia coincidentes se siguen registrando pero no se envían. Error y Crítica siempre omiten este silencio.',
       }),
@@ -333,6 +337,7 @@ window.ZogographAlertsShellCard = {
         'core-alerts-shell.mark_all_read': 'सभी को पढ़ा चिह्नित करें',
         'core-alerts-shell.toolbar_mark_read': 'पढ़ा चिह्नित करें',
         'core-alerts-shell.toolbar_mark_unread': 'अपठित चिह्नित करें',
+        'core-alerts-shell.rule_advice': 'क्या नियम को यह स्वयं तय करने देगा',
         'core-alerts-shell.mute_explainer':
           '“{{rule}}” को म्यूट करें? मिलती हुई सूचना और चेतावनी रिकॉर्ड रहेंगी लेकिन भेजी नहीं जाएँगी। त्रुटि और गंभीर हमेशा इस म्यूट को बायपास करते हैं।',
       }),
@@ -440,6 +445,8 @@ window.ZogographAlertsShellCard = {
         'core-alerts-shell.mark_all_read': 'علّم الكل كمقروء',
         'core-alerts-shell.toolbar_mark_read': 'علّم كمقروء',
         'core-alerts-shell.toolbar_mark_unread': 'علّم كغير مقروء',
+        'core-alerts-shell.rule_advice':
+          'ما الذي يتيح للقاعدة أن تقرر هذا بنفسها',
         'core-alerts-shell.mute_explainer':
           'كتم “{{rule}}”؟ تظل تنبيهات المعلومات والتحذير المطابقة مسجلة لكنها لا تُرسل. يتجاوز الخطأ والحرج هذا الكتم دائمًا.',
       }),
@@ -545,6 +552,7 @@ window.ZogographAlertsShellCard = {
         'core-alerts-shell.mark_all_read': '全部标为已读',
         'core-alerts-shell.toolbar_mark_read': '标为已读',
         'core-alerts-shell.toolbar_mark_unread': '标为未读',
+        'core-alerts-shell.rule_advice': '如何让规则自行判断此项',
         'core-alerts-shell.mute_explainer':
           '静音“{{rule}}”？匹配的信息和警告警报仍会被记录，但不会发送。错误和严重警报始终会绕过此静音。',
       }),

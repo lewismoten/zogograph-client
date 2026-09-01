@@ -27609,11 +27609,9 @@ function showAlertVerdict(row) {
     const better = document.createElement('div');
     better.className = 'day-entry';
     const title = document.createElement('strong');
-    title.textContent = ZogographI18n.t(
-      'alert.rule_advice',
-      {},
-      'What would let the rule decide this itself',
-    );
+    title.textContent = ZogographAlertsShellCard.text('rule_advice', {
+      i18n: ZogographI18n,
+    });
     better.appendChild(title);
     const text = document.createElement('div');
     text.appendChild(renderMarkdown(row.ai_advice));

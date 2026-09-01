@@ -11,6 +11,8 @@ window.ZogographTerminalShellCard = {
         'core-terminal-shell.browse_watched': 'Browse watched files',
         'core-terminal-shell.command_placeholder':
           'df -h; echo; ls -la ~/public_html | head',
+        'core-terminal-shell.suggested_commands':
+          '{{assistant}} suggested {{count, number}} commands',
         'core-terminal-shell.help':
           'This runs what you type, as the user the web server runs as, and shows the output. Be clear-eyed about what that means: anybody who has the dashboard password has this, so it stays off until somebody switches it on here, and every command is written to the action log before it runs. Each command is its own process; the directory it runs in carries over between them and is shown above the box, so {{cd}} works and you can see where you are. What does not carry over is anything else a shell remembers — variables, functions, background jobs — because there is no shell sitting between requests to remember them.',
         'core-terminal-shell.interactive_help':
@@ -22,6 +24,8 @@ window.ZogographTerminalShellCard = {
         'core-terminal-shell.browse_watched': 'Explorar archivos vigilados',
         'core-terminal-shell.command_placeholder':
           'df -h; echo; ls -la ~/public_html | head',
+        'core-terminal-shell.suggested_commands':
+          '{{assistant}} sugirió {{count, number}} comandos',
         'core-terminal-shell.help':
           'Esto ejecuta lo que escribe como el usuario con el que se ejecuta el servidor web y muestra la salida. Sea consciente de lo que significa: cualquiera que tenga la contraseña del panel tiene esto, por lo que permanece apagado hasta que alguien lo active aquí, y cada comando se escribe en el registro de acciones antes de ejecutarse. Cada comando es su propio proceso; el directorio donde se ejecuta se conserva entre ellos y se muestra encima del cuadro, así que {{cd}} funciona y puede ver dónde está. Lo que no se conserva es cualquier otra cosa que recuerde una shell —variables, funciones, trabajos en segundo plano— porque no hay una shell entre solicitudes que lo recuerde.',
         'core-terminal-shell.interactive_help':
@@ -35,6 +39,8 @@ window.ZogographTerminalShellCard = {
           'देखी जा रही फ़ाइलें ब्राउज़ करें',
         'core-terminal-shell.command_placeholder':
           'df -h; echo; ls -la ~/public_html | head',
+        'core-terminal-shell.suggested_commands':
+          '{{assistant}} ने {{count, number}} कमांड सुझाए',
         'core-terminal-shell.help':
           'यह आपके टाइप किए को उस उपयोगकर्ता के रूप में चलाता है जिसके रूप में वेब सर्वर चलता है और आउटपुट दिखाता है। इसका अर्थ स्पष्ट रखें: जिसके पास डैशबोर्ड पासवर्ड है उसके पास यह है, इसलिए कोई इसे यहाँ चालू करे तब तक यह बंद रहता है और हर कमांड चलने से पहले एक्शन लॉग में लिखा जाता है। हर कमांड अपनी प्रक्रिया है; जिस डायरेक्टरी में वह चलता है वह उनके बीच बनी रहती है और बॉक्स के ऊपर दिखती है, इसलिए {{cd}} काम करता है और आप देख सकते हैं कहाँ हैं। शेल को याद रहने वाली बाकी चीज़ें—वेरिएबल, फंक्शन, बैकग्राउंड जॉब—नहीं रहतीं, क्योंकि अनुरोधों के बीच याद रखने के लिए कोई शेल नहीं है।',
         'core-terminal-shell.interactive_help':
@@ -46,6 +52,8 @@ window.ZogographTerminalShellCard = {
         'core-terminal-shell.browse_watched': 'تصفح الملفات المراقبة',
         'core-terminal-shell.command_placeholder':
           'df -h; echo; ls -la ~/public_html | head',
+        'core-terminal-shell.suggested_commands':
+          'اقترح {{assistant}} {{count, number}} من الأوامر',
         'core-terminal-shell.help':
           'يشغّل هذا ما تكتبه كمستخدم خادم الويب ويعرض المخرجات. كن واضحًا بشأن معنى ذلك: أي شخص لديه كلمة مرور لوحة المعلومات لديه هذا، لذا يبقى معطلاً حتى يشغله أحد هنا، ويُكتب كل أمر في سجل الإجراءات قبل تشغيله. كل أمر عمليته الخاصة؛ يبقى الدليل الذي يعمل فيه بينها ويظهر فوق المربع، لذا يعمل {{cd}} ويمكنك رؤية مكانك. ما لا يبقى هو أي شيء آخر تتذكره shell — المتغيرات والدوال والوظائف الخلفية — لأنه لا توجد shell بين الطلبات لتتذكرها.',
         'core-terminal-shell.interactive_help':
@@ -57,6 +65,8 @@ window.ZogographTerminalShellCard = {
         'core-terminal-shell.browse_watched': '浏览受监视的文件',
         'core-terminal-shell.command_placeholder':
           'df -h; echo; ls -la ~/public_html | head',
+        'core-terminal-shell.suggested_commands':
+          '{{assistant}} 建议了 {{count, number}} 条命令',
         'core-terminal-shell.help':
           '这里会以 Web 服务器运行所用的用户身份执行您输入的内容，并显示输出。请清楚其含义：任何拥有仪表板密码的人都拥有此功能，所以在有人在此启用前它保持关闭，每条命令都会在运行前写入操作日志。每条命令都是独立进程；它运行的目录会在命令之间保持，并显示在输入框上方，因此 {{cd}} 可以使用，您也能看到当前位置。不会保留的是 shell 记住的其他内容——变量、函数、后台作业——因为请求之间没有一个 shell 来记住它们。',
         'core-terminal-shell.interactive_help':
@@ -64,10 +74,10 @@ window.ZogographTerminalShellCard = {
       }),
     }),
   }),
-  text(key, helpers) {
+  text(key, helpers, values = {}) {
     return helpers.i18n.t(
       `core-terminal-shell.${key}`,
-      {},
+      values,
       this.manifest.catalogs.en[`core-terminal-shell.${key}`],
     );
   },

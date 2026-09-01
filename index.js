@@ -18600,10 +18600,10 @@ function renderTerminal(data) {
   if (data.suggestions.length) {
     parts.push(
       section(
-        ZogographI18n.t(
-          'terminal.suggested_commands',
+        ZogographTerminalShellCard.text(
+          'suggested_commands',
+          { i18n: ZogographI18n },
           { assistant: data.who.name, count: data.suggestions.length },
-          '{{assistant}} suggested {{count, number}} commands',
         ),
         suggestionList(data.suggestions),
       ),

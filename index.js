@@ -24950,6 +24950,15 @@ function renderHostDisks(rows, sample, sampleCount) {
  * 1.8 GiB" might be a leak or might have been true since it was installed;
  * "1.2 GiB last week, 1.5 GiB yesterday, 1.8 GiB now" carries its own diagnosis.
  */
+function hostServicesTableText(key, values = {}) {
+  return renderCoreCardPackage(
+    ZogographHostServicesTableCard,
+    'core-host-services-table',
+    { key, values },
+    { i18n: ZogographI18n },
+  );
+}
+
 function renderServices(rows, series, charted, metrics, metric) {
   // Remembered so a redraw - a poll, a range change - does not snap the chart
   // back to memory while somebody is reading the write rates.
@@ -24960,11 +24969,7 @@ function renderServices(rows, series, charted, metrics, metric) {
     $('hostServices').replaceChildren(
       Object.assign(document.createElement('p'), {
         className: 'muted',
-        textContent: ZogographI18n.t(
-          'host.services_no_history',
-          {},
-          'No service history yet — this needs a few readings to build up.',
-        ),
+        textContent: hostServicesTableText('no_history'),
       }),
     );
     $('hostServiceChart').hidden = true;
@@ -24991,67 +24996,63 @@ function renderServices(rows, series, charted, metrics, metric) {
 
   renderTable('hostServices', rows, [
     {
-      label: ZogographI18n.t('host.service', {}, 'Service'),
+      label: hostServicesTableText('service'),
       render: (r) => r.name,
     },
     {
-      label: ZogographI18n.t('host.processes', {}, 'Processes'),
+      label: hostServicesTableText('processes'),
       className: 'size',
       render: (r) => r.procs,
     },
     {
-      label: ZogographI18n.t('host.now', {}, 'Now'),
+      label: hostServicesTableText('now'),
       className: 'size',
       render: (r) => humanBytes(r.pss_bytes),
     },
     {
-      label: ZogographI18n.t('host.hours_24_ago', {}, '24h ago'),
+      label: hostServicesTableText('hours_24_ago'),
       className: 'size',
       render: (r) => (r.day_ago == null ? '—' : humanBytes(r.day_ago)),
     },
     {
-      label: ZogographI18n.t('host.change_24h', {}, 'Change 24h'),
+      label: hostServicesTableText('change_24h'),
       className: 'size',
       render: (r) => change(r.change_day),
     },
     {
-      label: ZogographI18n.t('host.days_7_ago', {}, '7d ago'),
+      label: hostServicesTableText('days_7_ago'),
       className: 'size',
       render: (r) => (r.week_ago == null ? '—' : humanBytes(r.week_ago)),
     },
     {
-      label: ZogographI18n.t('host.change_7d', {}, 'Change 7d'),
+      label: hostServicesTableText('change_7d'),
       className: 'size',
       render: (r) => change(r.change_week),
     },
     {
-      label: ZogographI18n.t('host.swapped', {}, 'Swapped'),
+      label: hostServicesTableText('swapped'),
       className: 'size',
       render: (r) => humanBytes(r.swap_bytes),
     },
     {
-      label: ZogographI18n.t('host.io_reading', {}, 'Reading'),
+      label: hostServicesTableText('io_reading'),
       className: 'size',
       render: (r) =>
         r.read_rate == null
           ? '—'
-          : ZogographI18n.t(
-              'host.io_rate_per_second',
-              { amount: humanBytes(r.read_rate) },
-              '{{amount}}/s',
-            ),
+          : hostServicesTableText('io_rate_per_second', {
+              amount: humanBytes(r.read_rate),
+            }),
     },
     {
-      label: ZogographI18n.t('host.io_writing', {}, 'Writing'),
+      label: hostServicesTableText('io_writing'),
       className: 'size',
       render: (r) =>
         r.write_rate == null
           ? '—'
-          : ZogographI18n.t(
-              'host.io_rate_per_second',
-              { amount: humanBytes(r.write_rate) },
-              '{{amount}}/s',
-            ),
+          : hostServicesTableText('io_rate_per_second', {
+              amount: humanBytes(r.write_rate),
+            }),
     },
   ]);
 
@@ -25123,11 +25124,7 @@ function drawServiceChart(series, charted, metric) {
     {
       axis,
       zeroBased: true,
-      empty: ZogographI18n.t(
-        'host.services_chart_empty',
-        {},
-        'Not enough service history to draw yet',
-      ),
+      empty: hostServicesTableText('chart_empty'),
     },
   );
 
@@ -25135,11 +25132,7 @@ function drawServiceChart(series, charted, metric) {
     metric === 'read' || metric === 'write'
       ? // Worth saying, because the stored column is cumulative and somebody
         // reading the database directly will see a number that only ever climbs.
-        ZogographI18n.t(
-          'host.services_counter_rate_help',
-          {},
-          'Counters differentiated into a rate; a gap means the service restarted.',
-        )
+        hostServicesTableText('counter_rate_help')
       : '';
 }
 

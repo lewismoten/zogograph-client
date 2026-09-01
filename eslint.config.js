@@ -146,6 +146,7 @@ export default [
         ZogographHostUnitsShellCard: 'readonly',
         ZogographHostMemoryProcessesCard: 'readonly',
         ZogographHostServiceChart: 'readonly',
+        ZogographHostServicesTableCard: 'readonly',
         ZogographHostDisksCard: 'readonly',
         ZogographHostDiskShellCard: 'readonly',
         ZogographHostDiskGapCard: 'readonly',

@@ -27243,29 +27243,19 @@ function numberField(id, label, min, max, value) {
 }
 
 async function saveSchedule(remove) {
+  const confirmationText = (key, values = {}) =>
+    renderCoreCardPackage(
+      window.ZogographScheduleConfirmationCard,
+      'core-schedule-confirmation',
+      { key, values },
+      { i18n: ZogographI18n },
+    );
   const preview = remove ? '' : ($('schedPreview')?.textContent ?? '');
   const what = remove
-    ? ZogographI18n.t(
-        'schedule.confirm_remove',
-        {},
-        "Remove this dashboard's lines from your crontab?",
-      )
-    : ZogographI18n.t(
-        'schedule.confirm_write',
-        { preview },
-        'Write this into your crontab?\n\n{{preview}}',
-      );
-  const detail = ZogographI18n.t(
-    'schedule.confirm_unchanged',
-    {},
-    'Nothing else in it is changed.',
-  );
-  if (
-    !(await confirmDialog(
-      `${what}\n\n${detail}`,
-      ZogographI18n.t('schedule.confirm_title', {}, 'Apply crontab change'),
-    ))
-  )
+    ? confirmationText('remove')
+    : confirmationText('write', { preview });
+  const detail = confirmationText('unchanged');
+  if (!(await confirmDialog(`${what}\n\n${detail}`, confirmationText('title'))))
     return;
 
   try {

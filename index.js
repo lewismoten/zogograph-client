@@ -26066,10 +26066,11 @@ function drawSchedule(data) {
   updateBox.className = 'settings';
   updateBox.appendChild(
     note(
-      ZogographI18n.t(
-        'schedule.updates_policy_help',
-        {},
-        'This is a root-only host-collector policy. The dashboard records your choices and shows the result; it never runs a package command itself.',
+      renderCoreCardPackage(
+        ZogographScheduleAvailabilityCard,
+        'core-schedule-availability',
+        { key: 'updates_policy_help' },
+        { i18n: ZogographI18n },
       ),
     ),
   );
@@ -26166,19 +26167,23 @@ function drawSchedule(data) {
         { i18n: ZogographI18n },
       ),
       interval,
-      ZogographI18n.t(
-        'schedule.update_manager',
+      renderCoreCardPackage(
+        ZogographScheduleAvailabilityCard,
+        'core-schedule-availability',
         {
-          manager:
-            updates.manager ||
-            renderCoreCardPackage(
-              window.ZogographScheduleUpdateStagesCard,
-              'core-schedule-update-stages',
-              { key: 'not_detected' },
-              { i18n: ZogographI18n },
-            ),
+          key: 'update_manager',
+          values: {
+            manager:
+              updates.manager ||
+              renderCoreCardPackage(
+                window.ZogographScheduleUpdateStagesCard,
+                'core-schedule-update-stages',
+                { key: 'not_detected' },
+                { i18n: ZogographI18n },
+              ),
+          },
         },
-        'Host package manager: {{manager}}. Download and Auto-Update always detect first.',
+        { i18n: ZogographI18n },
       ),
     ),
   );

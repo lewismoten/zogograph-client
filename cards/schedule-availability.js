@@ -13,6 +13,10 @@ window.ZogographScheduleAvailabilityCard = {
           '{{job}}: {{profile}}, next at {{next}}',
         'core-schedule-availability.update_policy_readonly':
           'You can view this policy but need write access to change it.',
+        'core-schedule-availability.updates_policy_help':
+          'This is a root-only host-collector policy. The dashboard records your choices and shows the result; it never runs a package command itself.',
+        'core-schedule-availability.update_manager':
+          'Host package manager: {{manager}}. Download and Auto-Update always detect first.',
       }),
       es: Object.freeze({
         'core-schedule-availability.crontab_unreadable':
@@ -23,6 +27,10 @@ window.ZogographScheduleAvailabilityCard = {
           '{{job}}: {{profile}}, próxima vez a las {{next}}',
         'core-schedule-availability.update_policy_readonly':
           'Puede ver esta política, pero necesita acceso de escritura para cambiarla.',
+        'core-schedule-availability.updates_policy_help':
+          'Esta es una política del recopilador del host que solo puede ejecutar root. El panel registra sus elecciones y muestra el resultado; nunca ejecuta por sí mismo un comando de paquetes.',
+        'core-schedule-availability.update_manager':
+          'Gestor de paquetes del host: {{manager}}. Descargar y Actualización automática siempre detectan primero.',
       }),
       hi: Object.freeze({
         'core-schedule-availability.crontab_unreadable':
@@ -33,6 +41,10 @@ window.ZogographScheduleAvailabilityCard = {
           '{{job}}: {{profile}}, अगला {{next}} पर',
         'core-schedule-availability.update_policy_readonly':
           'आप इस नीति को देख सकते हैं, लेकिन इसे बदलने के लिए लिखने की अनुमति चाहिए।',
+        'core-schedule-availability.updates_policy_help':
+          'यह केवल root के लिए होस्ट-कलेक्टर नीति है। डैशबोर्ड आपके विकल्प दर्ज करता और परिणाम दिखाता है; यह स्वयं पैकेज कमांड कभी नहीं चलाता।',
+        'core-schedule-availability.update_manager':
+          'होस्ट पैकेज प्रबंधक: {{manager}}। डाउनलोड और स्वचालित अपडेट हमेशा पहले पता लगाते हैं।',
       }),
       ar: Object.freeze({
         'core-schedule-availability.crontab_unreadable':
@@ -43,6 +55,10 @@ window.ZogographScheduleAvailabilityCard = {
           '{{job}}: ‏{{profile}}، التشغيل التالي عند {{next}}',
         'core-schedule-availability.update_policy_readonly':
           'يمكنك عرض هذه السياسة، لكنك تحتاج إلى صلاحية كتابة لتغييرها.',
+        'core-schedule-availability.updates_policy_help':
+          'هذه سياسة لجامع المضيف تعمل بصلاحية root فقط. تسجل اللوحة اختياراتك وتعرض النتيجة؛ ولا تنفذ أمر حزم بنفسها أبدًا.',
+        'core-schedule-availability.update_manager':
+          'مدير حزم المضيف: {{manager}}. يبدأ التنزيل والتحديث التلقائي بالكشف دائمًا.',
       }),
       zh: Object.freeze({
         'core-schedule-availability.crontab_unreadable':
@@ -53,6 +69,10 @@ window.ZogographScheduleAvailabilityCard = {
           '{{job}}：{{profile}}，下次为 {{next}}',
         'core-schedule-availability.update_policy_readonly':
           '您可以查看此策略，但需要写入权限才能更改它。',
+        'core-schedule-availability.updates_policy_help':
+          '这是仅供 root 使用的主机收集器策略。仪表板会记录您的选择并显示结果；它本身绝不会运行软件包命令。',
+        'core-schedule-availability.update_manager':
+          '主机软件包管理器：{{manager}}。下载和自动更新始终先进行检测。',
       }),
     }),
   }),

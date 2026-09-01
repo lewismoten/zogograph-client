@@ -19172,10 +19172,11 @@ function suggestionList(suggestions) {
      */
     const fill = document.createElement('button');
     fill.className = 'link';
-    fill.textContent = ZogographI18n.t(
-      'action.put_in_command_box',
-      {},
-      'Put it in the command box',
+    fill.textContent = renderCoreCardPackage(
+      ZogographTerminalCommandDetailsCard,
+      'core-terminal-command-details',
+      { key: 'put_in_command_box' },
+      { i18n: ZogographI18n },
     );
     fill.addEventListener('click', () => {
       const box = $('terminalInput');

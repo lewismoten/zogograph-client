@@ -18876,7 +18876,9 @@ function renderTerminal(data) {
           render: (row) =>
             row.bytes > 0
               ? humanBytes(row.bytes)
-              : ZogographI18n.t('terminal.nothing', {}, 'nothing'),
+              : ZogographTerminalBufferCard.text('nothing', {
+                  i18n: ZogographI18n,
+                }),
         },
         {
           label: ZogographI18n.t('terminal.took', {}, 'Took'),

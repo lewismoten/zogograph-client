@@ -6,27 +6,37 @@ window.ZogographTerminalBufferCard = {
     helpers: ['target', 'count', 'terminalEntry', 'i18n'],
     catalogs: Object.freeze({
       en: Object.freeze({
+        'core-terminal-buffer.nothing': 'nothing',
         'core-terminal-buffer.folded':
           '{{count}} not drawn. They are still in this session — open it under Sessions to read them.',
       }),
       es: Object.freeze({
+        'core-terminal-buffer.nothing': 'nada',
         'core-terminal-buffer.folded':
           '{{count}} no se muestran. Siguen en esta sesión; ábrala en Sesiones para leerlos.',
       }),
       hi: Object.freeze({
+        'core-terminal-buffer.nothing': 'कुछ नहीं',
         'core-terminal-buffer.folded':
           '{{count}} नहीं दिखाए गए हैं। वे इसी सत्र में हैं — उन्हें पढ़ने के लिए Sessions में खोलें।',
       }),
       ar: Object.freeze({
+        'core-terminal-buffer.nothing': 'لا شيء',
         'core-terminal-buffer.folded':
           'لم يُعرض {{count}}. ما زالت في هذه الجلسة — افتحها ضمن الجلسات لقراءتها.',
       }),
       zh: Object.freeze({
+        'core-terminal-buffer.nothing': '无',
         'core-terminal-buffer.folded':
           '未显示 {{count}}。它们仍在此会话中，请在“会话”中打开阅读。',
       }),
     }),
   }),
+
+  text(key, { i18n }) {
+    const id = `core-terminal-buffer.${key}`;
+    return i18n.t(id, {}, this.manifest.catalogs.en[id]);
+  },
 
   render(input, helpers) {
     const { target, count, terminalEntry, i18n } = helpers;

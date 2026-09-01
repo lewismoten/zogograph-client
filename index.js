@@ -25955,10 +25955,11 @@ function drawSchedule(data) {
   if (!data.available) {
     holder.textContent =
       data.reason ||
-      ZogographI18n.t(
-        'schedule.crontab_unreadable',
-        {},
-        'The crontab cannot be read here.',
+      renderCoreCardPackage(
+        ZogographScheduleAvailabilityCard,
+        'core-schedule-availability',
+        { key: 'crontab_unreadable' },
+        { i18n: ZogographI18n },
       );
     $('scheduleBody').replaceChildren(holder);
     return;

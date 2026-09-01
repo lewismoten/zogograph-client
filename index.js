@@ -9819,18 +9819,19 @@ function drawAssistantVisual(canvas, args) {
       .slice(0, 12)
       .map((row) => ({
         label: String(
-          row.label || ZogographI18n.t('chart.visual_item', {}, 'item'),
+          row.label ||
+            ZogographChatAssistantVisualCard.text('item', {
+              i18n: ZogographI18n,
+            }),
         ).slice(0, 40),
         value: Number(row.value),
       }))
       .filter((row) => Number.isFinite(row.value) && row.value >= 0);
     if (!slices.length)
       throw new Error(
-        ZogographI18n.t(
-          'chart.visual_pie_data_error',
-          {},
-          'Pie data needs numeric slices.',
-        ),
+        ZogographChatAssistantVisualCard.text('pie_data_error', {
+          i18n: ZogographI18n,
+        }),
       );
     drawPieChart(canvas, slices, { axis: plainAxis });
     return;
@@ -9840,11 +9841,9 @@ function drawAssistantVisual(canvas, args) {
       max = Number(data.max);
     if (!Number.isFinite(value) || !Number.isFinite(max) || max <= 0)
       throw new Error(
-        ZogographI18n.t(
-          'chart.visual_gauge_data_error',
-          {},
-          'Gauge data needs a value and a positive maximum.',
-        ),
+        ZogographChatAssistantVisualCard.text('gauge_data_error', {
+          i18n: ZogographI18n,
+        }),
       );
     drawGauge(
       canvas,
@@ -9866,7 +9865,9 @@ function drawAssistantVisual(canvas, args) {
       label: String(
         row.label ||
           row.key ||
-          ZogographI18n.t('chart.visual_series', {}, 'series'),
+          ZogographChatAssistantVisualCard.text('series', {
+            i18n: ZogographI18n,
+          }),
       ),
     }))
     .filter((row) => row.key);
@@ -9875,11 +9876,9 @@ function drawAssistantVisual(canvas, args) {
     .map((row, i) => ({ ...row, at: Number(row.at) || i }));
   if (!series.length || !rows.length)
     throw new Error(
-      ZogographI18n.t(
-        'chart.visual_line_data_error',
-        {},
-        'Line data needs series and points.',
-      ),
+      ZogographChatAssistantVisualCard.text('line_data_error', {
+        i18n: ZogographI18n,
+      }),
     );
   drawLineChart(canvas, rows, series, {
     xKey: 'at',

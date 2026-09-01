@@ -85,6 +85,11 @@ window.ZogographAlertsShellCard = {
           '{{count, number}} alert(s), one bar per {{period}}',
         'core-alerts-shell.timeline_held_back':
           ' — {{count, number}} held back by {{assistant}}, still counted here',
+        'core-alerts-shell.assistant_says': '{{assistant}} says',
+        'core-alerts-shell.ignored_help':
+          'The rule called this {{severity}}. {{assistant}} concluded it did not warrant sending.',
+        'core-alerts-shell.marketplace_guidance':
+          'Enabled marketplace guidance is advisory only. It does not change alert rules or delivery.',
       }),
       es: Object.freeze({
         'core-alerts-shell.timeline_title': 'Cuándo se activaron las alertas',
@@ -169,6 +174,11 @@ window.ZogographAlertsShellCard = {
           '{{count, number}} alertas, una barra por {{period}}',
         'core-alerts-shell.timeline_held_back':
           ' — {{count, number}} retenidas por {{assistant}}, aún contadas aquí',
+        'core-alerts-shell.assistant_says': '{{assistant}} dice',
+        'core-alerts-shell.ignored_help':
+          'La regla llamó a esto {{severity}}. {{assistant}} concluyó que no justificaba enviarlo.',
+        'core-alerts-shell.marketplace_guidance':
+          'La guía del mercado habilitada es solo informativa. No cambia las reglas ni el envío de alertas.',
       }),
       hi: Object.freeze({
         'core-alerts-shell.timeline_title': 'अलर्ट कब चालू हुए',
@@ -251,6 +261,11 @@ window.ZogographAlertsShellCard = {
           '{{count, number}} चेतावनियाँ, प्रति {{period}} एक बार',
         'core-alerts-shell.timeline_held_back':
           ' — {{assistant}} ने {{count, number}} रोकीं, फिर भी यहाँ गिनी गईं',
+        'core-alerts-shell.assistant_says': '{{assistant}} कहता है',
+        'core-alerts-shell.ignored_help':
+          'नियम ने इसे {{severity}} कहा। {{assistant}} ने निष्कर्ष निकाला कि इसे भेजना उचित नहीं था।',
+        'core-alerts-shell.marketplace_guidance':
+          'सक्षम मार्केटप्लेस मार्गदर्शन केवल सलाह है। यह चेतावनी नियम या डिलीवरी नहीं बदलता।',
       }),
       ar: Object.freeze({
         'core-alerts-shell.timeline_title': 'متى أُطلقت التنبيهات',
@@ -331,6 +346,11 @@ window.ZogographAlertsShellCard = {
           '{{count, number}} تنبيه، شريط لكل {{period}}',
         'core-alerts-shell.timeline_held_back':
           ' — حجب {{assistant}} {{count, number}} ولا تزال محسوبة هنا',
+        'core-alerts-shell.assistant_says': '{{assistant}} يقول',
+        'core-alerts-shell.ignored_help':
+          'سمّت القاعدة هذا {{severity}}. وخلص {{assistant}} إلى أنه لا يستحق الإرسال.',
+        'core-alerts-shell.marketplace_guidance':
+          'إرشاد السوق المفعّل استشاري فقط. لا يغير قواعد التنبيه أو إرساله.',
       }),
       zh: Object.freeze({
         'core-alerts-shell.timeline_title': '警报何时触发',
@@ -409,6 +429,11 @@ window.ZogographAlertsShellCard = {
           '{{count, number}} 条警报，每 {{period}} 一根柱',
         'core-alerts-shell.timeline_held_back':
           ' — {{assistant}} 拦截了 {{count, number}} 条，仍计入此处',
+        'core-alerts-shell.assistant_says': '{{assistant}} 说',
+        'core-alerts-shell.ignored_help':
+          '规则将此项标为 {{severity}}。{{assistant}} 认为无需发送。',
+        'core-alerts-shell.marketplace_guidance':
+          '已启用的市场指导仅供参考。它不会更改警报规则或投递。',
       }),
     }),
   }),

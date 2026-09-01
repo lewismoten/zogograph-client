@@ -27487,11 +27487,9 @@ async function refreshAlerts() {
     data.marketplace_recommendations?.length
   ) {
     const label = note(
-      ZogographI18n.t(
-        'alerts.marketplace_guidance',
-        {},
-        'Enabled marketplace guidance is advisory only. It does not change alert rules or delivery.',
-      ),
+      ZogographAlertsShellCard.text('marketplace_guidance', {
+        i18n: ZogographI18n,
+      }),
     );
     const list = document.createElement('ul');
     list.className = 'muted small';
@@ -27552,10 +27550,10 @@ async function refreshAlerts() {
    */
   if (state.signedIn && rows.some((row) => row.ai_summary)) {
     columns.push({
-      label: ZogographI18n.t(
-        'alerts.assistant_says',
+      label: ZogographAlertsShellCard.text(
+        'assistant_says',
         { assistant: chatState.who.name },
-        '{{assistant}} says',
+        { i18n: ZogographI18n },
       ),
       className: 'cmd',
       render: alertOpinion,
@@ -27619,10 +27617,10 @@ function alertSeverity(row) {
         ZogographAlertsShellCard.text('ignored', { i18n: ZogographI18n }),
       ),
     );
-    span.title = ZogographI18n.t(
-      'alerts.ignored_help',
+    span.title = ZogographAlertsShellCard.text(
+      'ignored_help',
       { severity: row.severity, assistant: chatState.who.name },
-      'The rule called this {{severity}}. {{assistant}} concluded it did not warrant sending.',
+      { i18n: ZogographI18n },
     );
     return span;
   }

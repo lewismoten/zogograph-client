@@ -23390,37 +23390,37 @@ async function previewPattern() {
   const summary = document.createElement('p');
   summary.className = data.matched.length ? 'small' : 'muted small';
   summary.textContent = !data.matched.length
-    ? ZogographI18n.t(
-        'process.no_matches',
+    ? ZogographProcessListCard.text(
+        'no_matches',
+        { i18n: ZogographI18n },
         { scanned: humanCount(data.scanned) },
-        'Nothing among the {{scanned}} running processes matches that.',
       )
     : !blocked.length
-      ? ZogographI18n.t(
-          'process.matches_summary',
+      ? ZogographProcessListCard.text(
+          'matches_summary',
+          { i18n: ZogographI18n },
           {
             matched: humanCount(data.matched.length),
             scanned: humanCount(data.scanned),
           },
-          'Matches {{matched}} of the {{scanned}} running processes.',
         )
       : blocked.length === data.matched.length
-        ? ZogographI18n.t(
-            'process.matches_all_protected',
+        ? ZogographProcessListCard.text(
+            'matches_all_protected',
+            { i18n: ZogographI18n },
             {
               matched: humanCount(data.matched.length),
               scanned: humanCount(data.scanned),
             },
-            'Matches {{matched}} of the {{scanned}} running processes; all are protected.',
           )
-        : ZogographI18n.t(
-            'process.matches_some_protected',
+        : ZogographProcessListCard.text(
+            'matches_some_protected',
+            { i18n: ZogographI18n },
             {
               matched: humanCount(data.matched.length),
               scanned: humanCount(data.scanned),
               blocked: humanCount(blocked.length),
             },
-            'Matches {{matched}} of the {{scanned}} running processes; {{blocked}} are protected.',
           );
   holder.appendChild(summary);
 
@@ -23428,15 +23428,17 @@ async function previewPattern() {
 
   const table = document.createElement('table');
   const head = table.createTHead().insertRow();
-  for (const [key, fallback, size] of [
-    ['process.table_pid', 'PID', true],
-    ['process.table_user', 'User', false],
-    ['process.table_running_for', 'Running for', true],
-    ['process.table_cpu', 'CPU', true],
-    ['process.table_command', 'Command', false],
+  for (const [key, size] of [
+    ['table_pid', true],
+    ['table_user', false],
+    ['table_running_for', true],
+    ['table_cpu', true],
+    ['table_command', false],
   ]) {
     const th = document.createElement('th');
-    th.textContent = ZogographI18n.t(key, {}, fallback);
+    th.textContent = ZogographProcessListCard.text(key, {
+      i18n: ZogographI18n,
+    });
     if (size) th.className = 'size';
     head.appendChild(th);
   }
@@ -23471,11 +23473,9 @@ async function previewPattern() {
     holder.appendChild(
       Object.assign(document.createElement('p'), {
         className: 'muted small',
-        textContent: ZogographI18n.t(
-          'process.all_matches_protected',
-          {},
-          'Every match is protected, so there is nothing here to stop.',
-        ),
+        textContent: ZogographProcessListCard.text('all_matches_protected', {
+          i18n: ZogographI18n,
+        }),
       }),
     );
     return;

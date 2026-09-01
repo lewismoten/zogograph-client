@@ -71,6 +71,21 @@ window.ZogographProcessListCard = {
           'Force {{what}} to stop?\n\nSIGKILL cannot be caught or ignored. Anything part-way through being written stays part-way written.',
         'core-process-list.stop_ask_confirm':
           'Ask {{what}} to stop?\n\nSIGTERM lets it close its files and exit cleanly. It can also ignore this.',
+        'core-process-list.no_matches':
+          'Nothing among the {{scanned}} running processes matches that.',
+        'core-process-list.matches_summary':
+          'Matches {{matched}} of the {{scanned}} running processes.',
+        'core-process-list.matches_all_protected':
+          'Matches {{matched}} of the {{scanned}} running processes; all are protected.',
+        'core-process-list.matches_some_protected':
+          'Matches {{matched}} of the {{scanned}} running processes; {{blocked}} are protected.',
+        'core-process-list.table_pid': 'PID',
+        'core-process-list.table_user': 'User',
+        'core-process-list.table_running_for': 'Running for',
+        'core-process-list.table_cpu': 'CPU',
+        'core-process-list.table_command': 'Command',
+        'core-process-list.all_matches_protected':
+          'Every match is protected, so there is nothing here to stop.',
       }),
       es: Object.freeze({
         'core-process-list.title': 'Qué está usando la máquina',
@@ -126,6 +141,21 @@ window.ZogographProcessListCard = {
           '¿Forzar la detención de {{what}}?\n\nSIGKILL no se puede capturar ni ignorar. Todo lo que se esté escribiendo queda a medio escribir.',
         'core-process-list.stop_ask_confirm':
           '¿Pedir a {{what}} que se detenga?\n\nSIGTERM le permite cerrar sus archivos y salir limpiamente. También puede ignorarlo.',
+        'core-process-list.no_matches':
+          'Nada entre los {{scanned}} procesos en ejecución coincide con eso.',
+        'core-process-list.matches_summary':
+          'Coinciden {{matched}} de los {{scanned}} procesos en ejecución.',
+        'core-process-list.matches_all_protected':
+          'Coinciden {{matched}} de los {{scanned}} procesos en ejecución; todos están protegidos.',
+        'core-process-list.matches_some_protected':
+          'Coinciden {{matched}} de los {{scanned}} procesos en ejecución; {{blocked}} están protegidos.',
+        'core-process-list.table_pid': 'PID',
+        'core-process-list.table_user': 'Usuario',
+        'core-process-list.table_running_for': 'En ejecución desde',
+        'core-process-list.table_cpu': 'CPU',
+        'core-process-list.table_command': 'Comando',
+        'core-process-list.all_matches_protected':
+          'Todas las coincidencias están protegidas, por lo que no hay nada que detener.',
       }),
       hi: Object.freeze({
         'core-process-list.title': 'मशीन का उपयोग क्या कर रहा है',
@@ -181,6 +211,21 @@ window.ZogographProcessListCard = {
           'क्या {{what}} को बलपूर्वक रोकें?\n\nSIGKILL पकड़ा या अनदेखा नहीं किया जा सकता। जो भी लिखने के बीच में है वह बीच में ही रह जाएगा।',
         'core-process-list.stop_ask_confirm':
           'क्या {{what}} को रुकने के लिए कहें?\n\nSIGTERM उसे फ़ाइलें बंद कर साफ़ रूप से बाहर निकलने देता है। वह इसे अनदेखा भी कर सकता है।',
+        'core-process-list.no_matches':
+          '{{scanned}} चल रही प्रक्रियाओं में कुछ भी उससे मेल नहीं खाता।',
+        'core-process-list.matches_summary':
+          '{{scanned}} चल रही प्रक्रियाओं में से {{matched}} मेल खाती हैं।',
+        'core-process-list.matches_all_protected':
+          '{{scanned}} चल रही प्रक्रियाओं में से {{matched}} मेल खाती हैं; सभी सुरक्षित हैं।',
+        'core-process-list.matches_some_protected':
+          '{{scanned}} चल रही प्रक्रियाओं में से {{matched}} मेल खाती हैं; {{blocked}} सुरक्षित हैं।',
+        'core-process-list.table_pid': 'PID',
+        'core-process-list.table_user': 'उपयोगकर्ता',
+        'core-process-list.table_running_for': 'से चल रहा है',
+        'core-process-list.table_cpu': 'CPU',
+        'core-process-list.table_command': 'कमांड',
+        'core-process-list.all_matches_protected':
+          'हर मेल सुरक्षित है, इसलिए यहाँ रोकने के लिए कुछ नहीं है।',
       }),
       ar: Object.freeze({
         'core-process-list.title': 'ما الذي يستخدم الجهاز',
@@ -236,6 +281,21 @@ window.ZogographProcessListCard = {
           'هل تريد إجبار {{what}} على التوقف؟\n\nلا يمكن التقاط SIGKILL أو تجاهله. يبقى أي شيء في منتصف الكتابة مكتوبًا جزئيًا.',
         'core-process-list.stop_ask_confirm':
           'هل تطلب من {{what}} التوقف؟\n\nيتيح SIGTERM له إغلاق ملفاته والخروج بشكل سليم. ويمكنه أيضًا تجاهله.',
+        'core-process-list.no_matches':
+          'لا شيء بين عمليات التشغيل {{scanned}} يطابق ذلك.',
+        'core-process-list.matches_summary':
+          'تطابق {{matched}} من عمليات التشغيل {{scanned}}.',
+        'core-process-list.matches_all_protected':
+          'تطابق {{matched}} من عمليات التشغيل {{scanned}}؛ كلها محمية.',
+        'core-process-list.matches_some_protected':
+          'تطابق {{matched}} من عمليات التشغيل {{scanned}}؛ {{blocked}} منها محمية.',
+        'core-process-list.table_pid': 'PID',
+        'core-process-list.table_user': 'المستخدم',
+        'core-process-list.table_running_for': 'يعمل منذ',
+        'core-process-list.table_cpu': 'CPU',
+        'core-process-list.table_command': 'الأمر',
+        'core-process-list.all_matches_protected':
+          'كل المطابقات محمية، لذلك لا شيء هنا لإيقافه.',
       }),
       zh: Object.freeze({
         'core-process-list.title': '什么在使用这台机器',
@@ -291,6 +351,21 @@ window.ZogographProcessListCard = {
           '要强制 {{what}} 停止吗？\n\nSIGKILL 无法被捕获或忽略。任何正在写入的内容都会停留在未完成状态。',
         'core-process-list.stop_ask_confirm':
           '要请求 {{what}} 停止吗？\n\nSIGTERM 允许它关闭文件并正常退出。它也可以忽略此请求。',
+        'core-process-list.no_matches':
+          '{{scanned}} 个运行中的进程没有任何匹配项。',
+        'core-process-list.matches_summary':
+          '{{scanned}} 个运行中的进程中有 {{matched}} 个匹配。',
+        'core-process-list.matches_all_protected':
+          '{{scanned}} 个运行中的进程中有 {{matched}} 个匹配；全部受保护。',
+        'core-process-list.matches_some_protected':
+          '{{scanned}} 个运行中的进程中有 {{matched}} 个匹配；{{blocked}} 个受保护。',
+        'core-process-list.table_pid': 'PID',
+        'core-process-list.table_user': '用户',
+        'core-process-list.table_running_for': '已运行',
+        'core-process-list.table_cpu': 'CPU',
+        'core-process-list.table_command': '命令',
+        'core-process-list.all_matches_protected':
+          '每个匹配项都受保护，因此这里没有可停止的内容。',
       }),
     }),
   }),

@@ -3609,11 +3609,6 @@ i18nExpect(
             $english['alert.verdict_reviewed_at'],
             $english['alert.verdict_dialog_title'],
             $english['alert.verdict_dialog_help'],
-            $english['process.table_pid'],
-            $english['process.table_user'],
-            $english['process.table_running_for'],
-            $english['process.table_cpu'],
-            $english['process.table_command'],
             $english['process.table_process'],
             $english['process.table_how_many'],
             $english['process.table_memory'],
@@ -3629,11 +3624,6 @@ i18nExpect(
             $english['process.cpu_cores'],
             $english['process.cpu_cores_worth'],
             $english['process.cpu_help'],
-            $english['process.no_matches'],
-            $english['process.matches_summary'],
-            $english['process.matches_all_protected'],
-            $english['process.matches_some_protected'],
-            $english['process.all_matches_protected'],
         ),
     'English fallback catalog is incomplete',
 );
@@ -4052,9 +4042,13 @@ i18nExpect(
 );
 i18nExpect(
     $script !== false &&
-        str_contains($script, 'process.table_pid') &&
-        str_contains($script, 'process.table_running_for') &&
-        str_contains($script, 'process.table_command'),
+        $processListCard !== false &&
+        str_contains($processListCard, '"core-process-list.table_pid":') &&
+        str_contains(
+            $processListCard,
+            '"core-process-list.table_running_for":',
+        ) &&
+        str_contains($processListCard, '"core-process-list.table_command":'),
     'process preview table retains direct user-visible text',
 );
 i18nExpect(
@@ -4152,8 +4146,15 @@ i18nExpect(
     $script !== false &&
         $processMetricsCard !== false &&
         str_contains($script, "processMetricsText('unavailable'") &&
-        str_contains($script, 'process.matches_all_protected') &&
-        str_contains($script, 'process.all_matches_protected'),
+        $processListCard !== false &&
+        str_contains(
+            $processListCard,
+            '"core-process-list.matches_all_protected":',
+        ) &&
+        str_contains(
+            $processListCard,
+            '"core-process-list.all_matches_protected":',
+        ),
     'process preview status retains direct user-visible text',
 );
 i18nExpect(

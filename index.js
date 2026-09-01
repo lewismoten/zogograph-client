@@ -32328,14 +32328,9 @@ function openUrlForm(row = null) {
   follow.checked = row ? Boolean(Number(row.follow_redirects)) : true;
   field(
     'urlFollow',
-    ZogographI18n.t('url.follow_redirects', {}, 'Follow redirects'),
+    urlEditorText('follow_redirects'),
     follow,
-    ZogographI18n.t(
-      'url.follow_redirects_help',
-      {},
-      'Each redirect is checked as a new destination. A redirect into an unapproved private ' +
-        'host is refused rather than followed.',
-    ),
+    urlEditorText('follow_redirects_help'),
   );
 
   const etag = document.createElement('input');
@@ -32343,14 +32338,9 @@ function openUrlForm(row = null) {
   etag.checked = row ? Boolean(Number(row.send_etag)) : false;
   field(
     'urlEtag',
-    ZogographI18n.t('url.ask_if_changed', {}, 'Ask if it changed'),
+    urlEditorText('ask_if_changed'),
     etag,
-    ZogographI18n.t(
-      'url.ask_if_changed_help',
-      {},
-      'Sends the last ETag, so an unchanged page answers 304 with no body. A 304 counts as ' +
-        'healthy and skips the content check, because there is no body to check.',
-    ),
+    urlEditorText('ask_if_changed_help'),
   );
 
   const expect = document.createElement('input');

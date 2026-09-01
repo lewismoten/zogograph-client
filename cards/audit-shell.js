@@ -14,6 +14,9 @@ window.ZogographAuditShellCard = {
           'Clear every earlier audit entry?\n\nThis action stays as the first new audit entry.',
         'core-audit-shell.clear_result':
           'Cleared {{entries}}. The reset is recorded.',
+        'core-audit-shell.what': 'What',
+        'core-audit-shell.who': 'Who',
+        'core-audit-shell.result': 'Result',
       }),
       es: Object.freeze({
         'core-audit-shell.title': 'Todo lo que ha hecho este monitor',
@@ -24,6 +27,9 @@ window.ZogographAuditShellCard = {
           '¿Borrar todas las entradas de auditoría anteriores?\n\nEsta acción queda como la primera entrada de auditoría nueva.',
         'core-audit-shell.clear_result':
           'Se borraron {{entries}}. El restablecimiento quedó registrado.',
+        'core-audit-shell.what': 'Qué',
+        'core-audit-shell.who': 'Quién',
+        'core-audit-shell.result': 'Resultado',
       }),
       hi: Object.freeze({
         'core-audit-shell.title': 'इस मॉनिटर ने जो कुछ किया',
@@ -34,6 +40,9 @@ window.ZogographAuditShellCard = {
           'पहले की हर ऑडिट प्रविष्टि साफ़ करें?\n\nयह कार्रवाई पहली नई ऑडिट प्रविष्टि के रूप में रहेगी।',
         'core-audit-shell.clear_result':
           '{{entries}} साफ़ की गईं। रीसेट दर्ज किया गया है।',
+        'core-audit-shell.what': 'क्या',
+        'core-audit-shell.who': 'कौन',
+        'core-audit-shell.result': 'परिणाम',
       }),
       ar: Object.freeze({
         'core-audit-shell.title': 'كل ما فعله هذا المراقب',
@@ -44,6 +53,9 @@ window.ZogographAuditShellCard = {
           'مسح كل إدخالات التدقيق السابقة؟\n\nيبقى هذا الإجراء أول إدخال تدقيق جديد.',
         'core-audit-shell.clear_result':
           'تم مسح {{entries}}. سُجلت إعادة الضبط.',
+        'core-audit-shell.what': 'ماذا',
+        'core-audit-shell.who': 'من',
+        'core-audit-shell.result': 'النتيجة',
       }),
       zh: Object.freeze({
         'core-audit-shell.title': '此监控器完成的所有操作',
@@ -53,6 +65,9 @@ window.ZogographAuditShellCard = {
         'core-audit-shell.clear_confirm':
           '清除所有早期审计条目？\n\n此操作会保留为第一条新审计条目。',
         'core-audit-shell.clear_result': '已清除 {{entries}}。已记录此次重置。',
+        'core-audit-shell.what': '内容',
+        'core-audit-shell.who': '谁',
+        'core-audit-shell.result': '结果',
       }),
     }),
   }),

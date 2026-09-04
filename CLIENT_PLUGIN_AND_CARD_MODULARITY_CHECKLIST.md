@@ -185,6 +185,9 @@ optional-locale pattern for the next cohesive migration.
 uptime tracks and events cards receive owner-scoped generated mounts instead of
 depending on `#uptimeTracks` or `#uptimeBody` in static HTML. Expand this small,
 reviewed surface instead of duplicating DOM boilerplate in package cards.
+CPU time now uses the same generated `core-cpu` mount and clears it before each
+render, removing the former `#cpuTimeCards` dependency and preventing repeated
+small cards on refresh.
 
 - [ ] Define generic primitives: `Card`, `CardHeader`, `CardBody`, `CardFooter`,
   `CardNotice`, `CardEmpty`, `CardError`, `CardLoading`, `CardActions`,

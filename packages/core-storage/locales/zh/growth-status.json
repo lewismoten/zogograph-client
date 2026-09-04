@@ -1,0 +1,5 @@
+{
+  "core-storage-growth-status.none": "自上次扫描以来没有可测量的变化。",
+  "core-storage-growth-status.grew": "自上次扫描以来增长了 {{bytes}}；这正在占用空间。",
+  "core-storage-growth-status.shrank": "自上次扫描以来缩小了 {{bytes}}；这释放了空间。"
+}

@@ -1,0 +1,5 @@
+{
+  "core-storage-growth-status.none": "पिछले स्कैन के बाद कोई मापने योग्य बदलाव नहीं है।",
+  "core-storage-growth-status.grew": "पिछले स्कैन के बाद {{bytes}} बढ़ा; यह जगह ले रहा है।",
+  "core-storage-growth-status.shrank": "पिछले स्कैन के बाद {{bytes}} घटा; इससे जगह वापस मिली।"
+}

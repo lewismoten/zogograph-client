@@ -225,7 +225,6 @@ export default [
         ZogographStorageOffenderStatusHelpCard: 'readonly',
         ZogographStorageOffenderColumnsCard: 'readonly',
         ZogographStorageOffenderSizeCard: 'readonly',
-        ZogographStorageGrowthStatusCard: 'readonly',
         ZogographChangeHistoryChartCard: 'readonly',
         ZogographCollectorDialCard: 'readonly',
         ZogographSymlinkFilterCard: 'readonly',

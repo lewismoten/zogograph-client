@@ -1,0 +1,5 @@
+{
+  "core-storage-growth-status.none": "لا يوجد تغيير قابل للقياس منذ الفحص السابق.",
+  "core-storage-growth-status.grew": "زاد بمقدار {{bytes}} منذ الفحص السابق؛ وهذا يستهلك مساحة.",
+  "core-storage-growth-status.shrank": "انكمش بمقدار {{bytes}} منذ الفحص السابق؛ وهذا أعاد مساحة."
+}

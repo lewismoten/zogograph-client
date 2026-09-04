@@ -1,0 +1,5 @@
+{
+  "core-storage-growth-status.none": "No hay cambios medibles desde el análisis anterior.",
+  "core-storage-growth-status.grew": "Creció {{bytes}} desde el análisis anterior; está ocupando espacio.",
+  "core-storage-growth-status.shrank": "Se redujo {{bytes}} desde el análisis anterior; devolvió espacio."
+}

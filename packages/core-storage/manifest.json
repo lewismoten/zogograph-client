@@ -2,12 +2,32 @@
   "id": "core-storage",
   "kind": "built-in-ui",
   "version": "0.1.0",
-  "cards": ["core-storage-measuring", "core-storage-scan-status"],
+  "cards": [
+    "core-storage-measuring",
+    "core-storage-scan-status",
+    "core-storage-growth-status"
+  ],
   "default_locale": "en",
   "locale_packs": {
-    "es": ["locales/es/measuring.json", "locales/es/scan-status.json"],
-    "hi": ["locales/hi/measuring.json", "locales/hi/scan-status.json"],
-    "ar": ["locales/ar/measuring.json", "locales/ar/scan-status.json"],
-    "zh": ["locales/zh/measuring.json", "locales/zh/scan-status.json"]
+    "es": [
+      "locales/es/measuring.json",
+      "locales/es/scan-status.json",
+      "locales/es/growth-status.json"
+    ],
+    "hi": [
+      "locales/hi/measuring.json",
+      "locales/hi/scan-status.json",
+      "locales/hi/growth-status.json"
+    ],
+    "ar": [
+      "locales/ar/measuring.json",
+      "locales/ar/scan-status.json",
+      "locales/ar/growth-status.json"
+    ],
+    "zh": [
+      "locales/zh/measuring.json",
+      "locales/zh/scan-status.json",
+      "locales/zh/growth-status.json"
+    ]
   }
 }

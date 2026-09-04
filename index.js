@@ -7248,7 +7248,7 @@ const storageOffenderStatusHelpText = (key) =>
 function growthCell(growth) {
   const growthText = (key, values = {}) =>
     renderCoreCardPackage(
-      ZogographStorageGrowthStatusCard,
+      Zogograph.cards.get('core-storage-growth-status'),
       'core-storage-growth-status',
       { key, values },
       { i18n: ZogographI18n },

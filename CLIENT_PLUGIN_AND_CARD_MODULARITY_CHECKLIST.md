@@ -220,6 +220,8 @@ small cards on refresh.
 `window.i18n` now aliases the existing localization API and registered cards
 are included in core-catalog discovery. The product-specific alias remains
 during the staged migration.
+Package-owned card source is now guarded against `ZogographI18n`; it receives
+the concise `i18n` helper explicitly through its card contract.
 
 The uptime package is the first locale-pack pilot: its cards keep only English
 inline, while Spanish, Hindi, Arabic, and Chinese live in package-owned JSON

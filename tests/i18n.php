@@ -899,8 +899,9 @@ foreach ($cardFiles as $cardFile) {
                 (string) $card,
             ) &&
                 str_contains((string) $card, 'Zogograph.cards.register(') &&
-                str_contains((string) $card, 'localeFiles: Object.freeze({'),
-            "package-owned card $relative must register without a feature-specific browser global",
+                str_contains((string) $card, 'localeFiles: Object.freeze({') &&
+                !str_contains((string) $card, 'ZogographI18n'),
+            "package-owned card $relative must register without feature-specific globals or the legacy localization global",
         );
     }
 }

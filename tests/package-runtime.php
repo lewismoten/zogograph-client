@@ -271,7 +271,9 @@ try {
                 'summary' => 'A core-rendered package status page.',
                 'title_key' => 'test-runtime.page.title',
                 'summary_key' => 'test-runtime.page.summary',
-                'parent' => 'storage',
+                'parent' => 'test-runtime-overview',
+                'parent_title' => 'Test runtime overview',
+                'parent_title_key' => 'test-runtime.section.title',
                 'keywords' => ['package', 'status'],
             ],
         ],
@@ -317,6 +319,7 @@ try {
                 'test-runtime.page.title' => 'Estado del paquete',
                 'test-runtime.page.summary' =>
                     'Una página del paquete renderizada por el núcleo.',
+                'test-runtime.section.title' => 'Resumen de prueba',
                 'test-runtime.card.title' => 'Datos del paquete',
                 'test-runtime.card.state' => 'Estado de tiempo de ejecución',
                 'test-runtime.card.ready' => 'Listo',
@@ -769,9 +772,13 @@ try {
         (packageRuntimeDashboardPages($pdo)[0]['route'] ?? '') ===
             'package-test-runtime-status' &&
             (packageRuntimeDashboardPages($pdo)[0]['parent'] ?? null) ===
-                'storage' &&
+                'test-runtime-overview' &&
             (packageRuntimeDashboardPages($pdo)[0]['title_key'] ?? null) ===
-                'test-runtime.page.title',
+                'test-runtime.page.title' &&
+            (packageRuntimeDashboardPages($pdo)[0]['parent_title'] ?? null) ===
+                'Test runtime overview' &&
+            (packageRuntimeDashboardPages($pdo)[0]['parent_title_key'] ?? null) ===
+                'test-runtime.section.title',
         'enabled package dashboard page was not available through the core shell bridge',
     );
     runtimeExpect(

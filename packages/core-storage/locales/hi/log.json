@@ -1,0 +1,21 @@
+{
+  "core-storage-log.last_line": "अंतिम पंक्ति",
+  "core-storage-log.empty": "खाली",
+  "core-storage-log.line_number": "पंक्ति {{number, number}}: {{line}}",
+  "core-storage-log.title": "लॉग",
+  "core-storage-log.matches_one": "1 मिलान मिला",
+  "core-storage-log.matches_many": "{{count, number}} मिलान मिले",
+  "core-storage-log.lines_one": "1 पंक्ति",
+  "core-storage-log.lines_many": "{{count, number}} पंक्तियाँ",
+  "core-storage-log.page_back": "अंत से पृष्ठ {{page, number}} पीछे",
+  "core-storage-log.file_size": "फ़ाइल {{size}} की है",
+  "core-storage-log.read_of_file": "इसमें से {{scanned}} पढ़ा गया",
+  "core-storage-log.search_truncated": "खोज फ़ाइल की शुरुआत तक पहुँचने से पहले रुक गई — खोज सीमित करें या फ़ाइल सीधे देखें",
+  "core-storage-log.beginning": "यह फ़ाइल की शुरुआत है",
+  "core-storage-log.no_matching_lines": "यहाँ कोई मिलती हुई पंक्ति नहीं है।",
+  "core-storage-log.search": "खोजें",
+  "core-storage-log.lines": "पंक्तियाँ",
+  "core-storage-log.newer": "नया",
+  "core-storage-log.older": "पुराना",
+  "core-storage-log.search_placeholder": "खोजने के लिए पाठ"
+}

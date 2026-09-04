@@ -1,0 +1,21 @@
+{
+  "core-storage-log.last_line": "最后一行",
+  "core-storage-log.empty": "空",
+  "core-storage-log.line_number": "第 {{number, number}} 行：{{line}}",
+  "core-storage-log.title": "日志",
+  "core-storage-log.matches_one": "找到 1 个匹配项",
+  "core-storage-log.matches_many": "找到 {{count, number}} 个匹配项",
+  "core-storage-log.lines_one": "1 行",
+  "core-storage-log.lines_many": "{{count, number}} 行",
+  "core-storage-log.page_back": "距文件末尾第 {{page, number}} 页",
+  "core-storage-log.file_size": "文件大小为 {{size}}",
+  "core-storage-log.read_of_file": "已读取其中 {{scanned}}",
+  "core-storage-log.search_truncated": "搜索在到达文件开头前停止——请缩小搜索范围或直接查看文件",
+  "core-storage-log.beginning": "这是文件开头",
+  "core-storage-log.no_matching_lines": "这里没有匹配的行。",
+  "core-storage-log.search": "搜索",
+  "core-storage-log.lines": "行数",
+  "core-storage-log.newer": "较新",
+  "core-storage-log.older": "较旧",
+  "core-storage-log.search_placeholder": "要查找的文本"
+}

@@ -1,0 +1,21 @@
+{
+  "core-storage-log.last_line": "آخر سطر",
+  "core-storage-log.empty": "فارغ",
+  "core-storage-log.line_number": "السطر {{number, number}}: {{line}}",
+  "core-storage-log.title": "السجل التشغيلي",
+  "core-storage-log.matches_one": "وُجد تطابق واحد",
+  "core-storage-log.matches_many": "وُجدت {{count, number}} تطابقات",
+  "core-storage-log.lines_one": "سطر واحد",
+  "core-storage-log.lines_many": "{{count, number}} سطور",
+  "core-storage-log.page_back": "الصفحة {{page, number}} من النهاية",
+  "core-storage-log.file_size": "حجم الملف {{size}}",
+  "core-storage-log.read_of_file": "تمت قراءة {{scanned}} منه",
+  "core-storage-log.search_truncated": "توقف البحث قبل بداية الملف — ضيّق البحث أو اعرض الملف مباشرةً",
+  "core-storage-log.beginning": "هذه بداية الملف",
+  "core-storage-log.no_matching_lines": "لا توجد أسطر مطابقة هنا.",
+  "core-storage-log.search": "بحث",
+  "core-storage-log.lines": "الأسطر",
+  "core-storage-log.newer": "الأحدث",
+  "core-storage-log.older": "الأقدم",
+  "core-storage-log.search_placeholder": "النص المطلوب العثور عليه"
+}

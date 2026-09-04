@@ -1,0 +1,21 @@
+{
+  "core-storage-log.last_line": "Última línea",
+  "core-storage-log.empty": "Vacía",
+  "core-storage-log.line_number": "Línea {{number, number}}: {{line}}",
+  "core-storage-log.title": "Registro",
+  "core-storage-log.matches_one": "Se encontró 1 coincidencia",
+  "core-storage-log.matches_many": "Se encontraron {{count, number}} coincidencias",
+  "core-storage-log.lines_one": "1 línea",
+  "core-storage-log.lines_many": "{{count, number}} líneas",
+  "core-storage-log.page_back": "página {{page, number}} desde el final",
+  "core-storage-log.file_size": "el archivo ocupa {{size}}",
+  "core-storage-log.read_of_file": "se leyeron {{scanned}}",
+  "core-storage-log.search_truncated": "la búsqueda se detuvo antes del inicio del archivo; limite la búsqueda o consulte el archivo directamente",
+  "core-storage-log.beginning": "este es el inicio del archivo",
+  "core-storage-log.no_matching_lines": "No hay líneas coincidentes aquí.",
+  "core-storage-log.search": "Buscar",
+  "core-storage-log.lines": "Líneas",
+  "core-storage-log.newer": "Más reciente",
+  "core-storage-log.older": "Más antiguo",
+  "core-storage-log.search_placeholder": "texto que buscar"
+}

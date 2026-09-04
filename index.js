@@ -7283,7 +7283,7 @@ const lastLines = new Map();
 
 const storageLogText = (key, values = {}) =>
   renderCoreCardPackage(
-    ZogographStorageLogCard,
+    Zogograph.cards.get('core-storage-log'),
     'core-storage-log',
     { key, values },
     { i18n: ZogographI18n },

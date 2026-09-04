@@ -1,0 +1,6 @@
+{
+  "core-storage-operations.preparing_export": "جارٍ إعداد تصدير قاعدة البيانات الآمن…",
+  "core-storage-operations.rollup_result": "دُمجت {{removed, number}} قراءة في {{compacted, number}}.",
+  "core-storage-operations.rollup_protected": "أُبقيت {{count, number}} بتفاصيل كاملة لأنها بجانب تنبيه.",
+  "core-storage-operations.rollup_space": "تبقى المساحة التي كانت تستخدمها داخل الملف إلى أن تستعيدها."
+}

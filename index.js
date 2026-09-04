@@ -7389,13 +7389,15 @@ const storageDeleteResultText = (key, values = {}) =>
 const storageOperationsText = (key, values = {}) => {
   const helpers = { i18n: ZogographI18n };
   renderCoreCardPackage(
-    ZogographStorageOperationsCard,
+    Zogograph.cards.get('core-storage-operations'),
     'core-storage-operations',
     {},
     helpers,
     { catalogOnly: true },
   );
-  return ZogographStorageOperationsCard.text(key, values, helpers);
+  return Zogograph.cards
+    .get('core-storage-operations')
+    .text(key, values, helpers);
 };
 
 function offenderPicker(row) {

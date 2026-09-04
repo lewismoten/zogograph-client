@@ -1,0 +1,6 @@
+{
+  "core-storage-operations.preparing_export": "सुरक्षित डेटाबेस निर्यात तैयार किया जा रहा है…",
+  "core-storage-operations.rollup_result": "{{removed, number}} रीडिंग को {{compacted, number}} में समेट दिया गया।",
+  "core-storage-operations.rollup_protected": "{{count, number}} को पूर्ण विवरण में रखा गया क्योंकि वे किसी चेतावनी के पास हैं।",
+  "core-storage-operations.rollup_space": "उनके उपयोग का स्थान फ़ाइल में तब तक रहेगा जब तक आप उसे वापस नहीं लेते।"
+}

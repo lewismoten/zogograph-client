@@ -1,0 +1,6 @@
+{
+  "core-storage-operations.preparing_export": "Preparando la exportación segura de la base de datos…",
+  "core-storage-operations.rollup_result": "{{removed, number}} lecturas se agruparon en {{compacted, number}}.",
+  "core-storage-operations.rollup_protected": "{{count, number}} se mantienen con detalle completo porque están junto a una alerta.",
+  "core-storage-operations.rollup_space": "El espacio que usaban permanece dentro del archivo hasta que lo recupere."
+}

@@ -1,0 +1,6 @@
+{
+  "core-storage-operations.preparing_export": "正在准备安全的数据库导出…",
+  "core-storage-operations.rollup_result": "{{removed, number}} 条读数已汇总为 {{compacted, number}} 条。",
+  "core-storage-operations.rollup_protected": "有 {{count, number}} 条读数因紧邻警报而保留完整详情。",
+  "core-storage-operations.rollup_space": "它们所占用的空间会保留在文件中，直到您将其回收。"
+}

@@ -71,6 +71,53 @@ data-only and its documented isolated execution runtime is still future work.
 - [ ] Keep a compatibility adapter only long enough to migrate existing cards;
   prevent new `window.Zogograph*Card` references with ESLint and a source audit.
 
+## 2a. Replace the flat `cards/` directory with package-owned source trees
+
+- [ ] Stop adding feature files directly to the flat `cards/` directory. Its
+  hundreds of files are hard to browse and conceal which files form one
+  feature.
+- [ ] Establish a source layout that mirrors ownership, for example:
+
+  ```text
+  packages/
+    core-cpu/
+      manifest.js
+      cards/time.js
+      cards/queue.js
+      locales/en.json
+      tests/
+    core-ai/
+      manifest.js
+      cards/identity-settings.js
+    vendor-jetbackup/
+      manifest.js
+      cards/status.js
+    example-package/
+  plugins/
+    sqlcipher-encrypted-sqlite/
+  ```
+
+  `packages/` holds built-in and example UI packages; `plugins/` remains the
+  signed executable-package source area. Do not mix a bundled UI module with
+  an installable executable package merely because both are modular.
+- [ ] Give every built-in package one manifest/registration entry point and
+  colocate its cards, catalogs, tests, fixtures, styles, schema, and package
+  README beneath that directory. Shared primitives remain in one small
+  `ui/`/`card-kit/` package rather than being copied into each feature.
+- [ ] Generate the browser load/registration manifest from package entries so
+  `index.html` no longer contains an ever-growing list of individual card
+  scripts. Preserve deterministic dependency order and fail visibly for an
+  omitted or duplicate package ID.
+- [ ] Move files by cohesive feature (CPU, AI, storage, networking, terminal,
+  backup, etc.), retaining package IDs and a compatibility mapping for stable
+  asset references. Do not attempt one giant rename or mix it with behavioral
+  changes.
+- [ ] Add import/ownership checks: a package may depend only on documented
+  shared APIs and declared package dependencies; no cross-package relative
+  imports, hidden global access, or duplicate catalogs.
+- [ ] Provide an index/catalogue page for developers listing packages, owners,
+  cards, routes, settings, catalogs, dependencies, and enablement state.
+
 ## 3. Make navigation package-owned and area-aware
 
 - [ ] Model navigation as a tree of declarative nodes, not direct `VIEWS`
@@ -240,4 +287,3 @@ data-only and its documented isolated execution runtime is still future work.
   controls and formatted rates/durations.
 - [ ] Package validation, authorization, integrity, compatibility, and
   disable/recovery tests pass before any marketplace-facing rollout.
-

@@ -24,8 +24,8 @@ jobs:
         username: ${{ secrets.REGISTRY_USER }}
         password: ${{ secrets.REGISTRY_TOKEN }}
     # Container setup and dependency restoration count toward this ceiling.
-    # Keep the job within the project-wide two-minute maximum.
-    timeout-minutes: 2
+    # A cold npm cache can exceed one minute before tests begin.
+    timeout-minutes: 5
     strategy:
       fail-fast: false
       max-parallel: 5
@@ -46,7 +46,7 @@ jobs:
 
       - name: Install Node dependencies
         shell: bash
-        run: timeout 1m npm ci
+        run: timeout 3m npm ci --no-audit --no-fund --prefer-offline
 
       - name: Test PHP ${{ matrix.php }} compatibility
         shell: bash
@@ -61,7 +61,8 @@ jobs:
       credentials:
         username: ${{ secrets.REGISTRY_USER }}
         password: ${{ secrets.REGISTRY_TOKEN }}
-    timeout-minutes: 2
+    # A cold npm cache can exceed one minute before the build begins.
+    timeout-minutes: 5
 
     env:
       BROWSER_REFRESH_REQUIRED: ${{ vars.BROWSER_REFRESH_REQUIRED }}
@@ -79,7 +80,7 @@ jobs:
 
       - name: Install Node dependencies
         shell: bash
-        run: timeout 1m npm ci
+        run: timeout 3m npm ci --no-audit --no-fund --prefer-offline
 
       - name: Build
         shell: bash

@@ -10,3 +10,4 @@ calculated. `scan-status` owns the scan button and completion-state labels.
 `purge` owns the guarded retention-clear dialog vocabulary.
 `offender-status` owns the status vocabulary used in storage offender tables.
 `offender-size` owns their size and hard-link explanations.
+`offender-columns` owns their stable column and type labels.

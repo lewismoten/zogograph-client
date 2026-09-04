@@ -7215,7 +7215,7 @@ const storageOffenderStatusText = (key) =>
 
 const storageOffenderColumnText = (key) =>
   renderCoreCardPackage(
-    ZogographStorageOffenderColumnsCard,
+    Zogograph.cards.get('core-storage-offender-columns'),
     'core-storage-offender-columns',
     { key },
     { i18n: ZogographI18n },

@@ -1,0 +1,8 @@
+{
+  "core-storage-offender-columns.path": "पथ",
+  "core-storage-offender-columns.kind": "प्रकार",
+  "core-storage-offender-columns.directory": "डायरेक्टरी",
+  "core-storage-offender-columns.file": "फ़ाइल",
+  "core-storage-offender-columns.category": "श्रेणी",
+  "core-storage-offender-columns.files": "फ़ाइलें"
+}

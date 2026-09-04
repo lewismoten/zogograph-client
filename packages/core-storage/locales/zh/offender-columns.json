@@ -1,0 +1,8 @@
+{
+  "core-storage-offender-columns.path": "路径",
+  "core-storage-offender-columns.kind": "类型",
+  "core-storage-offender-columns.directory": "目录",
+  "core-storage-offender-columns.file": "文件",
+  "core-storage-offender-columns.category": "类别",
+  "core-storage-offender-columns.files": "文件"
+}

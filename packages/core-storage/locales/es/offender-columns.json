@@ -1,0 +1,8 @@
+{
+  "core-storage-offender-columns.path": "Ruta",
+  "core-storage-offender-columns.kind": "Tipo",
+  "core-storage-offender-columns.directory": "directorio",
+  "core-storage-offender-columns.file": "archivo",
+  "core-storage-offender-columns.category": "Categoría",
+  "core-storage-offender-columns.files": "Archivos"
+}

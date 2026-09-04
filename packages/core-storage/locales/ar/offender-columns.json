@@ -1,0 +1,8 @@
+{
+  "core-storage-offender-columns.path": "المسار",
+  "core-storage-offender-columns.kind": "النوع",
+  "core-storage-offender-columns.directory": "مجلد",
+  "core-storage-offender-columns.file": "ملف",
+  "core-storage-offender-columns.category": "الفئة",
+  "core-storage-offender-columns.files": "الملفات"
+}

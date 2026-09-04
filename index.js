@@ -8625,7 +8625,7 @@ document.addEventListener('zogograph-i18n-load', renderChatComposer);
 
 function renderLiveToggle() {
   const label = renderCoreCardPackage(
-    ZogographLiveToggleCard,
+    Zogograph.cards.get('core-live-toggle'),
     'core-live-toggle',
     {},
     { i18n: ZogographI18n },

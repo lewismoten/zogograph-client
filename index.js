@@ -1718,26 +1718,45 @@ function renderLimits(limits, bodyId = 'limitsBody', whenId = 'limitsWhen') {
 
 /* Core card packages receive only the helpers they explicitly declare. This is
  * the internal contract mirrored by the data-only signed package renderer. */
+const CORE_CARD_PACKAGE_ISSUES = new Set();
+
+function reportCoreCardPackageIssue(id, issue) {
+  const detail = `Core card package ${id} is invalid: ${issue}.`;
+  const key = `${id}:${issue}`;
+  if (CORE_CARD_PACKAGE_ISSUES.has(key)) return;
+  CORE_CARD_PACKAGE_ISSUES.add(key);
+  console.error(detail);
+  reportClientProblem(detail);
+}
+
 function renderCoreCardPackage(cardPackage, id, input, helpers, options = {}) {
   const manifest = cardPackage?.manifest;
   // Locale refreshes need the package catalog, not a synthetic render with
   // placeholder DOM helpers. Skipping render avoids mutating live card state.
   const catalogOnly = options?.catalogOnly === true;
-  if (
-    !manifest ||
-    manifest.id !== id ||
-    typeof cardPackage.render !== 'function' ||
-    !Array.isArray(manifest.locales) ||
-    manifest.locales.length === 0 ||
-    !manifest.locales.every(
-      (prefix) => typeof prefix === 'string' && /^[a-z][\w-]*\.$/i.test(prefix),
-    ) ||
-    !Array.isArray(manifest.helpers) ||
-    !manifest.helpers.every((name) => typeof name === 'string') ||
-    (!catalogOnly && !manifest.helpers.every((name) => name in helpers))
-  ) {
-    console.error(`Core card package ${id} has an invalid manifest.`);
-    reportClientProblem(`Core card package ${id} has an invalid manifest.`);
+  const issue = !manifest
+    ? 'missing manifest'
+    : manifest.id !== id
+      ? `manifest ID is ${String(manifest.id)}`
+      : typeof cardPackage.render !== 'function'
+        ? 'missing render function'
+        : !Array.isArray(manifest.locales) || manifest.locales.length === 0
+          ? 'missing locale namespace'
+          : !manifest.locales.every(
+                (prefix) =>
+                  typeof prefix === 'string' && /^[a-z][\w-]*\.$/i.test(prefix),
+              )
+            ? 'invalid locale namespace'
+            : !Array.isArray(manifest.helpers)
+              ? 'missing helper declaration'
+              : !manifest.helpers.every((name) => typeof name === 'string')
+                ? 'invalid helper declaration'
+                : !catalogOnly &&
+                    !manifest.helpers.every((name) => name in helpers)
+                  ? `missing helper: ${manifest.helpers.find((name) => !(name in helpers))}`
+                  : '';
+  if (issue) {
+    reportCoreCardPackageIssue(id, issue);
     return;
   }
   if (manifest.catalogs !== undefined) {
@@ -1748,20 +1767,12 @@ function renderCoreCardPackage(cardPackage, id, input, helpers, options = {}) {
       !helpers.i18n ||
       typeof helpers.i18n.registerCatalog !== 'function'
     ) {
-      console.error(`Core card package ${id} has invalid locale catalogs.`);
-      reportClientProblem(
-        `Core card package ${id} has invalid locale catalogs.`,
-      );
+      reportCoreCardPackageIssue(id, 'invalid locale catalogs');
       return;
     }
     for (const [locale, catalog] of Object.entries(manifest.catalogs)) {
       if (!helpers.i18n.registerCatalog(locale, catalog, false, id)) {
-        console.error(
-          `Core card package ${id} has an invalid ${locale} locale catalog.`,
-        );
-        reportClientProblem(
-          `Core card package ${id} has an invalid ${locale} locale catalog.`,
-        );
+        reportCoreCardPackageIssue(id, `invalid ${locale} locale catalog`);
         return;
       }
     }

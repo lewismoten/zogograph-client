@@ -2347,6 +2347,17 @@ i18nExpect(
 );
 i18nExpect(
     $script !== false &&
+        str_contains($script, 'const CORE_CARD_PACKAGE_ISSUES = new Set();') &&
+        str_contains(
+            $script,
+            'function reportCoreCardPackageIssue(id, issue)',
+        ) &&
+        str_contains($script, 'missing helper: ${manifest.helpers.find') &&
+        str_contains($script, 'if (CORE_CARD_PACKAGE_ISSUES.has(key)) return;'),
+    'core card manifest failures are not diagnosed and deduplicated',
+);
+i18nExpect(
+    $script !== false &&
         preg_match(
             '/function renderCpuTime\(data\) \{.*?const holder = \$\(\'cpuTimeCards\'\);.*?holder\.replaceChildren\(\);.*?ZogographCpuTimeCard/s',
             $script,

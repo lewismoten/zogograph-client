@@ -2156,10 +2156,20 @@ i18nExpect(
     $page !== false &&
         str_contains($page, 'src="ui/card-registry.js"') &&
         strpos($page, 'src="ui/card-registry.js"') <
+            strpos($page, 'src="ui/card-kit.js"') &&
+        strpos($page, 'src="ui/card-kit.js"') <
             strpos($page, 'src="cards/overview-vitals.js"') &&
         $script !== false &&
         str_contains($script, "Zogograph.cards.get('core-uptime-events')"),
     'core card registry is not loaded before registered cards are used',
+);
+i18nExpect(
+    $uptimeEventsCard !== false &&
+        str_contains($uptimeEventsCard, '"ui"') &&
+        str_contains($uptimeEventsCard, 'ui.empty(') &&
+        $script !== false &&
+        str_contains($script, 'ui: Zogograph.ui'),
+    'uptime event empty state does not use the shared card UI kit',
 );
 i18nExpect(
     $registry !== false &&

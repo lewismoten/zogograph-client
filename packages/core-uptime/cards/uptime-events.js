@@ -3,7 +3,7 @@ const UptimeEventsCard = {
   manifest: Object.freeze({
     id: 'core-uptime-events',
     locales: ['core-uptime-events.'],
-    helpers: ['target', 'renderTable', 'whenSpan', 'humanDuration', 'i18n'],
+    helpers: ['target', 'renderTable', 'whenSpan', 'humanDuration', 'ui', 'i18n'],
     catalogs: Object.freeze({
       en: Object.freeze({
         'core-uptime-events.empty':
@@ -112,18 +112,17 @@ const UptimeEventsCard = {
     );
   },
   render(bands, helpers) {
-    const { target, renderTable, whenSpan, humanDuration, i18n } = helpers;
+    const { target, renderTable, whenSpan, humanDuration, ui, i18n } = helpers;
     if (!target) return;
     if (!bands.length) {
       target.replaceChildren(
-        Object.assign(document.createElement('p'), {
-          className: 'muted',
-          textContent: i18n.t(
+        ui.empty(
+          i18n.t(
             'core-uptime-events.empty',
             {},
             'Every reading in this window is present and the machine never restarted. Nothing to explain.',
           ),
-        }),
+        ),
       );
       return;
     }
@@ -161,4 +160,3 @@ const UptimeEventsCard = {
   },
 };
 Zogograph.cards.register(UptimeEventsCard);
-

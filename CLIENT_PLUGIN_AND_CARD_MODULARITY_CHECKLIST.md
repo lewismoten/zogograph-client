@@ -176,6 +176,10 @@ feature-specific browser globals.
 
 ## 5. Create a small shared card UI kit (DRY)
 
+`ui/card-kit.js` now provides the first shared primitive, `ui.empty()`, and
+the uptime-events card uses it for its empty state. Expand this small, reviewed
+surface instead of duplicating DOM boilerplate in package cards.
+
 - [ ] Define generic primitives: `Card`, `CardHeader`, `CardBody`, `CardFooter`,
   `CardNotice`, `CardEmpty`, `CardError`, `CardLoading`, `CardActions`,
   `CardTable`, `CardFacts`, `CardChart`, `CardFilters`, and `CardHelp`.

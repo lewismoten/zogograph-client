@@ -25562,6 +25562,7 @@ function renderUptime() {
       renderTable,
       whenSpan,
       humanDuration,
+      ui: Zogograph.ui,
       i18n: window.i18n,
     },
   );

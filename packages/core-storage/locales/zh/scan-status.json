@@ -1,0 +1,6 @@
+{
+  "core-storage-scan-status.title": "上次扫描",
+  "core-storage-scan-status.now": "立即扫描",
+  "core-storage-scan-status.running": "正在扫描…（{{elapsed}}）",
+  "core-storage-scan-status.finished": "扫描已完成。"
+}

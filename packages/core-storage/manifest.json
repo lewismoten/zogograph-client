@@ -2,12 +2,12 @@
   "id": "core-storage",
   "kind": "built-in-ui",
   "version": "0.1.0",
-  "cards": ["core-storage-measuring"],
+  "cards": ["core-storage-measuring", "core-storage-scan-status"],
   "default_locale": "en",
   "locale_packs": {
-    "es": ["locales/es/measuring.json"],
-    "hi": ["locales/hi/measuring.json"],
-    "ar": ["locales/ar/measuring.json"],
-    "zh": ["locales/zh/measuring.json"]
+    "es": ["locales/es/measuring.json", "locales/es/scan-status.json"],
+    "hi": ["locales/hi/measuring.json", "locales/hi/scan-status.json"],
+    "ar": ["locales/ar/measuring.json", "locales/ar/scan-status.json"],
+    "zh": ["locales/zh/measuring.json", "locales/zh/scan-status.json"]
   }
 }

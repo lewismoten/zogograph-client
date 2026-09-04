@@ -1983,7 +1983,7 @@ document.addEventListener('zogograph-i18n-load', renderLoadNetworkChartLabels);
 function renderStorageScanLabels() {
   const helpers = { i18n: ZogographI18n };
   renderCoreCardPackage(
-    ZogographStorageScanStatusCard,
+    Zogograph.cards.get('core-storage-scan-status'),
     'core-storage-scan-status',
     { state: 'now' },
     helpers,
@@ -1994,7 +1994,7 @@ function renderStorageScanLabels() {
   title.textContent = ZogographI18n.markSource(
     title,
     'core-storage-scan-status.title',
-    ZogographStorageScanStatusCard.text('title', helpers),
+    Zogograph.cards.get('core-storage-scan-status').text('title', helpers),
   );
 }
 
@@ -6336,7 +6336,7 @@ function syncScanButton(overview) {
   const running = overview.scan_running;
   button.disabled = Boolean(running);
   button.textContent = renderCoreCardPackage(
-    ZogographStorageScanStatusCard,
+    Zogograph.cards.get('core-storage-scan-status'),
     'core-storage-scan-status',
     running
       ? {
@@ -6497,7 +6497,7 @@ async function refreshShared() {
   if (wasScanning && !state.scanRunning) {
     notice(
       renderCoreCardPackage(
-        ZogographStorageScanStatusCard,
+        Zogograph.cards.get('core-storage-scan-status'),
         'core-storage-scan-status',
         { state: 'finished' },
         { i18n: ZogographI18n },

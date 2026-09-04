@@ -1,0 +1,6 @@
+{
+  "core-storage-scan-status.title": "El último análisis",
+  "core-storage-scan-status.now": "Analizar ahora",
+  "core-storage-scan-status.running": "Analizando… ({{elapsed}})",
+  "core-storage-scan-status.finished": "Análisis terminado."
+}

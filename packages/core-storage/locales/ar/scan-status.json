@@ -1,0 +1,6 @@
+{
+  "core-storage-scan-status.title": "آخر فحص",
+  "core-storage-scan-status.now": "افحص الآن",
+  "core-storage-scan-status.running": "جارٍ الفحص… ({{elapsed}})",
+  "core-storage-scan-status.finished": "اكتمل الفحص."
+}

@@ -3352,11 +3352,15 @@ i18nExpect(
 );
 i18nExpect(
     str_contains(
-        (string) file_get_contents($root . '/cards/storage-scan-status.js'),
+        (string) file_get_contents(
+            $root . '/packages/core-storage/cards/scan-status.js',
+        ),
         'core-storage-scan-status.running',
     ) &&
         str_contains(
-            (string) file_get_contents($root . '/cards/storage-scan-status.js'),
+            (string) file_get_contents(
+                $root . '/packages/core-storage/cards/scan-status.js',
+            ),
             'core-storage-scan-status.finished',
         ),
     'Storage scan status does not use the locale catalog',

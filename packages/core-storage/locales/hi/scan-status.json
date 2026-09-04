@@ -1,0 +1,6 @@
+{
+  "core-storage-scan-status.title": "पिछला स्कैन",
+  "core-storage-scan-status.now": "अभी स्कैन करें",
+  "core-storage-scan-status.running": "स्कैन हो रहा है… ({{elapsed}})",
+  "core-storage-scan-status.finished": "स्कैन पूरा हुआ।"
+}

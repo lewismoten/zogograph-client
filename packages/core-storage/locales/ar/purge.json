@@ -1,0 +1,11 @@
+{
+  "core-storage-purge.button_title": "احذف {{label}} الأقدم من عمر محدد",
+  "core-storage-purge.title": "امسح السجلات القديمة",
+  "core-storage-purge.age_in_days": "العمر بالأيام",
+  "core-storage-purge.invalid_days": "هذه ليست عددًا من الأيام.",
+  "core-storage-purge.zero_help": "0 يحذف كل {{label}}.{{protected}}",
+  "core-storage-purge.protected_help": " تُحتفظ دائمًا بالقراءات القريبة من تنبيه.",
+  "core-storage-purge.confirm": "هل تريد حذف كل {{label}}؟\n\n{{why}}\n\nلا يمكن التراجع عن ذلك.",
+  "core-storage-purge.removed": "أُزيل {{count}} من {{label}}.{{protected}}",
+  "core-storage-purge.protected": " احتُفظ بـ {{count}} لأنها بجانب تنبيه."
+}

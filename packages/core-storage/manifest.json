@@ -6,7 +6,8 @@
     "core-storage-measuring",
     "core-storage-scan-status",
     "core-storage-growth-status",
-    "core-storage-operations"
+    "core-storage-operations",
+    "core-storage-purge"
   ],
   "default_locale": "en",
   "locale_packs": {
@@ -14,25 +15,29 @@
       "locales/es/measuring.json",
       "locales/es/scan-status.json",
       "locales/es/growth-status.json",
-      "locales/es/operations.json"
+      "locales/es/operations.json",
+      "locales/es/purge.json"
     ],
     "hi": [
       "locales/hi/measuring.json",
       "locales/hi/scan-status.json",
       "locales/hi/growth-status.json",
-      "locales/hi/operations.json"
+      "locales/hi/operations.json",
+      "locales/hi/purge.json"
     ],
     "ar": [
       "locales/ar/measuring.json",
       "locales/ar/scan-status.json",
       "locales/ar/growth-status.json",
-      "locales/ar/operations.json"
+      "locales/ar/operations.json",
+      "locales/ar/purge.json"
     ],
     "zh": [
       "locales/zh/measuring.json",
       "locales/zh/scan-status.json",
       "locales/zh/growth-status.json",
-      "locales/zh/operations.json"
+      "locales/zh/operations.json",
+      "locales/zh/purge.json"
     ]
   }
 }

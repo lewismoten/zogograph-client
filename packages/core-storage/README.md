@@ -7,3 +7,4 @@ with each card; optional locale packs load only when their language is active.
 calculated. `scan-status` owns the scan button and completion-state labels.
 `growth-status` supplies the accessible descriptions for file-size movement.
 `operations` owns account-database export and retention-rollup status copy.
+`purge` owns the guarded retention-clear dialog vocabulary.

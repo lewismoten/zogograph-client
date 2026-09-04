@@ -1,0 +1,11 @@
+{
+  "core-storage-purge.button_title": "Eliminar {{label}} anterior a una edad determinada",
+  "core-storage-purge.title": "Borrar registros antiguos",
+  "core-storage-purge.age_in_days": "Antigüedad en días",
+  "core-storage-purge.invalid_days": "No es una cantidad de días.",
+  "core-storage-purge.zero_help": "0 elimina todos los {{label}}.{{protected}}",
+  "core-storage-purge.protected_help": " Las lecturas cercanas a una alerta siempre se conservan.",
+  "core-storage-purge.confirm": "¿Eliminar todos los {{label}}?\n\n{{why}}\n\nEsto no se puede deshacer.",
+  "core-storage-purge.removed": "Se eliminaron {{count}} de {{label}}.{{protected}}",
+  "core-storage-purge.protected": " Se conservaron {{count}} porque están junto a una alerta."
+}

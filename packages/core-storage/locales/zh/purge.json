@@ -1,0 +1,11 @@
+{
+  "core-storage-purge.button_title": "删除早于指定期限的 {{label}}",
+  "core-storage-purge.title": "清除旧记录",
+  "core-storage-purge.age_in_days": "天数",
+  "core-storage-purge.invalid_days": "这不是有效的天数。",
+  "core-storage-purge.zero_help": "0 会删除所有 {{label}}。{{protected}}",
+  "core-storage-purge.protected_help": " 警报附近的读数始终会保留。",
+  "core-storage-purge.confirm": "删除所有 {{label}}？\n\n{{why}}\n\n此操作无法撤销。",
+  "core-storage-purge.removed": "已从 {{label}} 中删除 {{count}} 项。{{protected}}",
+  "core-storage-purge.protected": " 已保留 {{count}} 项，因为它们位于警报附近。"
+}

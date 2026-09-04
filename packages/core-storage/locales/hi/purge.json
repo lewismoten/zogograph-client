@@ -1,0 +1,11 @@
+{
+  "core-storage-purge.button_title": "दिए गए समय से पुराने {{label}} हटाएँ",
+  "core-storage-purge.title": "पुराने रिकॉर्ड साफ़ करें",
+  "core-storage-purge.age_in_days": "दिनों में आयु",
+  "core-storage-purge.invalid_days": "यह दिनों की संख्या नहीं है।",
+  "core-storage-purge.zero_help": "0 सभी {{label}} हटाता है।{{protected}}",
+  "core-storage-purge.protected_help": " अलर्ट के पास की रीडिंग हमेशा रखी जाती हैं।",
+  "core-storage-purge.confirm": "हर {{label}} हटाएँ?\n\n{{why}}\n\nइसे पूर्ववत नहीं किया जा सकता।",
+  "core-storage-purge.removed": "{{label}} से {{count}} हटाए गए।{{protected}}",
+  "core-storage-purge.protected": " {{count}} रखे गए क्योंकि वे अलर्ट के पास हैं।"
+}

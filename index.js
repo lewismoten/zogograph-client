@@ -17973,7 +17973,7 @@ function renderRetention(data) {
 function purgeButton(entry) {
   const purgeText = (key, values = {}) =>
     renderCoreCardPackage(
-      ZogographStoragePurgeCard,
+      Zogograph.cards.get('core-storage-purge'),
       'core-storage-purge',
       { key, values },
       { i18n: ZogographI18n },

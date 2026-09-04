@@ -7372,7 +7372,7 @@ const offenderPicked = new Set();
 
 const storageBulkDeleteText = (key, values = {}) =>
   renderCoreCardPackage(
-    ZogographStorageBulkDeleteCard,
+    Zogograph.cards.get('core-storage-bulk-delete'),
     'core-storage-bulk-delete',
     { key, values },
     { i18n: ZogographI18n },

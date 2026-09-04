@@ -1,0 +1,12 @@
+{
+  "core-storage-bulk-delete.select_row": "Seleccionar {{name}}",
+  "core-storage-bulk-delete.delete_selected": "Eliminar selección",
+  "core-storage-bulk-delete.delete_selected_count": "Eliminar {{count, number}} elementos seleccionados",
+  "core-storage-bulk-delete.delete_permanently": "¿Eliminar {{count, number}} permanentemente?",
+  "core-storage-bulk-delete.delete_more": "…y {{count, number}} más",
+  "core-storage-bulk-delete.delete_size": "Ocupan {{bytes}}",
+  "core-storage-bulk-delete.delete_recursive": "y se vaciarán {{count, number}} de forma recursiva",
+  "core-storage-bulk-delete.cannot_undo": "Esta acción no se puede deshacer.",
+  "core-storage-bulk-delete.removed": "Se eliminaron {{count, number}}, liberando {{bytes}}.",
+  "core-storage-bulk-delete.remove_failed": "No se pudieron eliminar {{count, number}}: {{detail}}"
+}

@@ -213,7 +213,6 @@ export default [
         ZogographStorageHistoryCard: 'readonly',
         ZogographStorageRetentionCard: 'readonly',
         ZogographStorageLogCard: 'readonly',
-        ZogographStorageBulkDeleteCard: 'readonly',
         ZogographStorageInspectorActionsCard: 'readonly',
         ZogographStorageInspectorPreviewCard: 'readonly',
         ZogographStorageInspectorBreakdownCard: 'readonly',

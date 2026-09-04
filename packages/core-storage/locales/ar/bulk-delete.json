@@ -1,0 +1,12 @@
+{
+  "core-storage-bulk-delete.select_row": "حدد {{name}}",
+  "core-storage-bulk-delete.delete_selected": "احذف المحدد",
+  "core-storage-bulk-delete.delete_selected_count": "احذف {{count, number}} المحدد",
+  "core-storage-bulk-delete.delete_permanently": "حذف {{count, number}} نهائيًا؟",
+  "core-storage-bulk-delete.delete_more": "…و{{count, number}} أخرى",
+  "core-storage-bulk-delete.delete_size": "حجم ذلك {{bytes}}",
+  "core-storage-bulk-delete.delete_recursive": "وسيُفرغ {{count, number}} بشكل متكرر",
+  "core-storage-bulk-delete.cannot_undo": "لا يمكن التراجع عن ذلك.",
+  "core-storage-bulk-delete.removed": "أُزيل {{count, number}}، مع تحرير {{bytes}}.",
+  "core-storage-bulk-delete.remove_failed": "تعذر إزالة {{count, number}}: {{detail}}"
+}

@@ -1,0 +1,12 @@
+{
+  "core-storage-bulk-delete.select_row": "选择 {{name}}",
+  "core-storage-bulk-delete.delete_selected": "删除所选项",
+  "core-storage-bulk-delete.delete_selected_count": "删除所选 {{count, number}} 项",
+  "core-storage-bulk-delete.delete_permanently": "要永久删除 {{count, number}} 吗？",
+  "core-storage-bulk-delete.delete_more": "…以及另外 {{count, number}} 项",
+  "core-storage-bulk-delete.delete_size": "共 {{bytes}}",
+  "core-storage-bulk-delete.delete_recursive": "并将递归清空 {{count, number}} 项",
+  "core-storage-bulk-delete.cannot_undo": "此操作无法撤销。",
+  "core-storage-bulk-delete.removed": "已删除 {{count, number}} 项，释放 {{bytes}}。",
+  "core-storage-bulk-delete.remove_failed": "无法删除 {{count, number}} 项：{{detail}}"
+}

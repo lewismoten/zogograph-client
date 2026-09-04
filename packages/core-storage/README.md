@@ -13,3 +13,4 @@ calculated. `scan-status` owns the scan button and completion-state labels.
 `offender-columns` owns their stable column and type labels.
 `offender-status-help` explains changed, absent, and dashboard-deleted paths.
 `delete-results` owns confirmation and result text for individual deletion.
+`bulk-delete` owns the equivalent selected-row controls and result notices.

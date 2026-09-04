@@ -1,0 +1,12 @@
+{
+  "core-storage-bulk-delete.select_row": "{{name}} चुनें",
+  "core-storage-bulk-delete.delete_selected": "चयनित हटाएँ",
+  "core-storage-bulk-delete.delete_selected_count": "चुने गए {{count, number}} हटाएँ",
+  "core-storage-bulk-delete.delete_permanently": "क्या {{count, number}} को स्थायी रूप से हटाना है?",
+  "core-storage-bulk-delete.delete_more": "…और {{count, number}}",
+  "core-storage-bulk-delete.delete_size": "यह {{bytes}} है",
+  "core-storage-bulk-delete.delete_recursive": "और {{count, number}} को पुनरावर्ती रूप से खाली किया जाएगा",
+  "core-storage-bulk-delete.cannot_undo": "इसे पूर्ववत नहीं किया जा सकता।",
+  "core-storage-bulk-delete.removed": "{{count, number}} हटाए गए, {{bytes}} खाली हुए।",
+  "core-storage-bulk-delete.remove_failed": "{{count, number}} हटाए नहीं जा सके: {{detail}}"
+}

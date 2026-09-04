@@ -199,6 +199,9 @@ render, removing the former `#cpuTimeCards` dependency and preventing repeated
 small cards on refresh.
 The shared gauge-status card now lives in `packages/core-ui/`, so generic UI
 copy no longer needs a feature global or a flat-card source file.
+`core-ui` is the explicit exception to card-ID owner prefixes: it owns generic
+product primitives such as `core-gauge-status`, while their source and locale
+paths remain package-scoped. Feature packages remain owner-prefixed.
 
 - [ ] Define generic primitives: `Card`, `CardHeader`, `CardBody`, `CardFooter`,
   `CardNotice`, `CardEmpty`, `CardError`, `CardLoading`, `CardActions`,

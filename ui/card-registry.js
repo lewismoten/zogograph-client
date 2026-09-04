@@ -13,7 +13,12 @@
       /^core-[a-z][a-z0-9-]*$/.test(id) &&
       typeof owner === 'string' &&
       /^core-[a-z][a-z0-9-]*$/.test(owner) &&
-      (id === owner || id.startsWith(`${owner}-`)) &&
+      // Shared UI primitives intentionally keep product-wide IDs such as
+      // `core-gauge-status`; their package still owns their source and locale
+      // files. Every feature package remains namespace-bound to its owner.
+      (id === owner ||
+        id.startsWith(`${owner}-`) ||
+        (owner === 'core-ui' && id.startsWith('core-'))) &&
       Array.isArray(manifest.locales) &&
       manifest.locales.length > 0 &&
       manifest.locales.every((locale) => locale === prefix) &&

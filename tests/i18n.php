@@ -2411,7 +2411,9 @@ i18nExpect(
         $uptimeEventsCard !== false &&
         str_contains($uptimeEventsCard, 'owner: "core-uptime"') &&
         $registry !== false &&
-        str_contains($registry, 'id === owner || id.startsWith(`${owner}-`)') &&
+        str_contains($registry, 'id === owner ||') &&
+        str_contains($registry, 'id.startsWith(`${owner}-`)') &&
+        str_contains($registry, "owner === 'core-ui' && id.startsWith('core-')") &&
         str_contains($registry, 'const localeFiles = manifest?.localeFiles;'),
     'uptime cards do not declare and enforce their built-in package ownership',
 );

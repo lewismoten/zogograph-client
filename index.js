@@ -1048,13 +1048,15 @@ async function refreshCpu() {
       i18n: ZogographI18n,
     },
   );
+  const cpuFindingsCard = Zogograph.cards.get('core-cpu-findings');
   renderCoreCardPackage(
-    ZogographCpuFindingsCard,
+    cpuFindingsCard,
     'core-cpu-findings',
     data.findings ?? [],
     {
       target: $('cpuFindings'),
       findingRow,
+      ui: Zogograph.ui,
       i18n: ZogographI18n,
     },
   );
@@ -3614,22 +3616,19 @@ function renderCpuProcessesTitle() {
 document.addEventListener('zogograph-i18n-load', renderCpuProcessesTitle);
 
 function renderCpuFindingsTitle() {
+  const cpuFindingsCard = Zogograph.cards.get('core-cpu-findings');
   const helpers = {
     target: null,
     findingRow: () => null,
+    ui: Zogograph.ui,
     i18n: ZogographI18n,
   };
-  renderCoreCardPackage(
-    ZogographCpuFindingsCard,
-    'core-cpu-findings',
-    [],
-    helpers,
-  );
+  renderCoreCardPackage(cpuFindingsCard, 'core-cpu-findings', [], helpers);
   const title = document.querySelector('[data-i18n="core-cpu-findings.title"]');
   title.textContent = ZogographI18n.markSource(
     title,
     'core-cpu-findings.title',
-    ZogographCpuFindingsCard.text('title', helpers),
+    cpuFindingsCard.text('title', helpers),
   );
   ZogographI18n.applyRich(
     document.querySelector('[data-i18n-rich="core-cpu-findings.help"]'),

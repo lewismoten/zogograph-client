@@ -23,7 +23,6 @@ export default [
         ZogographAlertRecheckStatusCard: 'readonly',
         ZogographActionSummaryCard: 'readonly',
         ZogographCpuCoresCard: 'readonly',
-        ZogographCpuFindingsCard: 'readonly',
         ZogographCpuGaugesCard: 'readonly',
         ZogographCpuLimitsCard: 'readonly',
         ZogographCpuProcessesCard: 'readonly',

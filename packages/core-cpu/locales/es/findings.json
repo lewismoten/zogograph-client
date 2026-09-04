@@ -1,0 +1,5 @@
+{
+  "core-cpu-findings.title": "Qué es cierto ahora mismo",
+  "core-cpu-findings.help": "Cada línea de abajo es una medición tomada de esta máquina, con un enlace a la página de la que procede. Nada aquí deduce una causa que no puede ver, y «no se encontró nada» se dice así, en lugar de dar un certificado de buena salud.",
+  "core-cpu-findings.nothing_to_report": "Nada que informar."
+}

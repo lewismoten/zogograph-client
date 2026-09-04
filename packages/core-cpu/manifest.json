@@ -1,0 +1,13 @@
+{
+  "id": "core-cpu",
+  "kind": "built-in-ui",
+  "version": "0.1.0",
+  "cards": ["core-cpu-findings"],
+  "default_locale": "en",
+  "locale_packs": {
+    "es": ["locales/es/findings.json"],
+    "hi": ["locales/hi/findings.json"],
+    "ar": ["locales/ar/findings.json"],
+    "zh": ["locales/zh/findings.json"]
+  }
+}

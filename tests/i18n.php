@@ -420,7 +420,7 @@ $actionSummaryCard = i18nCardSource(
     file_get_contents($root . '/cards/action-summary.js'),
 );
 $cpuFindingsCard = i18nCardSource(
-    file_get_contents($root . '/cards/cpu-findings.js'),
+    file_get_contents($root . '/packages/core-cpu/cards/findings.js'),
 );
 $cpuCoresCard = i18nCardSource(
     file_get_contents($root . '/cards/cpu-cores.js'),
@@ -2598,18 +2598,22 @@ i18nExpect(
 );
 i18nExpect(
     $page !== false &&
-        str_contains($page, 'src="cards/cpu-findings.js"') &&
+        str_contains($page, 'src="packages/core-cpu/cards/findings.js"') &&
         $cpuFindingsCard !== false &&
-        str_contains($cpuFindingsCard, 'window.ZogographCpuFindingsCard') &&
+        str_contains(
+            $cpuFindingsCard,
+            'Zogograph.cards.register(CpuFindingsCard)',
+        ) &&
         str_contains($cpuFindingsCard, 'id: "core-cpu-findings"') &&
+        str_contains($cpuFindingsCard, 'owner: "core-cpu"') &&
         str_contains($cpuFindingsCard, 'locales: ["core-cpu-findings."]') &&
         str_contains(
             $cpuFindingsCard,
-            'helpers: ["target", "findingRow", "i18n"]',
+            'helpers: ["target", "findingRow", "ui", "i18n"]',
         ) &&
         str_contains(
             $script,
-            'renderCoreCardPackage(ZogographCpuFindingsCard, "core-cpu-findings", data.findings ?? [],',
+            "renderCoreCardPackage(\n    cpuFindingsCard,\n    'core-cpu-findings',\n    data.findings ?? [],",
         ),
     'CPU findings are not isolated behind their core card-module boundary',
 );

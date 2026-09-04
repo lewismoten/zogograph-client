@@ -111,7 +111,11 @@ releaseExpect(
         ) &&
         str_contains(
             $workflow,
-            'run: bash .forgejo/scripts/zogograph-run-snapshot.sh databases',
+            'bash .forgejo/scripts/zogograph-run-snapshot.sh databases',
+        ) &&
+        str_contains(
+            $workflow,
+            'Database snapshot failed; deployment continues without a fresh database rollback snapshot.',
         ) &&
         is_string($snapshotRunner) &&
         str_contains(

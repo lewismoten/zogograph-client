@@ -276,7 +276,11 @@ jobs:
 
       - name: Snapshot live SQLite databases
         shell: bash
-        run: bash .forgejo/scripts/zogograph-run-snapshot.sh databases
+        run: |
+          set -euo pipefail
+          if ! bash .forgejo/scripts/zogograph-run-snapshot.sh databases; then
+            echo '::warning::Database snapshot failed; deployment continues without a fresh database rollback snapshot.'
+          fi
 
   deploy:
     name: Deploy to ${{ matrix.deploy_url }}

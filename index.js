@@ -1167,8 +1167,14 @@ function collectorInstructions(holder, data) {
 function renderCpuTime(data) {
   const now = data.now;
   const states = data.states ?? {};
-  const holder = $('cpuTimeCards');
-  if (holder) holder.replaceChildren();
+  const cardsSlot = $('cpuTimePanel')?.querySelector(
+    '[data-card-mount="cards"]',
+  );
+  const holder = Zogograph.ui.mount(cardsSlot, 'core-cpu', 'core-cpu-time');
+  if (holder) {
+    holder.classList.add('cards');
+    holder.replaceChildren();
+  }
   const cpuTime = renderCoreCardPackage(
     ZogographCpuTimeCard,
     'core-cpu-time',
@@ -1180,7 +1186,7 @@ function renderCpuTime(data) {
     },
     {
       setCard: (label, value, sub, level = '') =>
-        setHostCard(label, value, sub, level, '', 'cpuTimeCards'),
+        setHostCard(label, value, sub, level, '', holder),
       note: $('cpuTimeNote'),
       tableTarget: $('cpuStateTable'),
       renderTable,
@@ -24999,6 +25005,8 @@ function setHostCard(
   valueClass = '',
   holder = 'hostCards',
 ) {
+  const target = holder instanceof Element ? holder : $(holder);
+  if (!target) return;
   const card = document.createElement('div');
   card.className = `card ${level}`.trim();
   const l = document.createElement('div');
@@ -25011,7 +25019,7 @@ function setHostCard(
   s.className = 'sub muted';
   s.textContent = sub;
   card.append(l, v, s);
-  $(holder).appendChild(card);
+  target.appendChild(card);
 }
 
 function num(value) {

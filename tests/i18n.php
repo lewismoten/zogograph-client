@@ -2367,10 +2367,21 @@ i18nExpect(
 i18nExpect(
     $script !== false &&
         preg_match(
-            '/function renderCpuTime\(data\) \{.*?const holder = \$\(\'cpuTimeCards\'\);.*?holder\.replaceChildren\(\);.*?ZogographCpuTimeCard/s',
+            '/function renderCpuTime\(data\) \{.*?Zogograph\.ui\.mount\(cardsSlot, \'core-cpu\', \'core-cpu-time\'\).*?holder\.replaceChildren\(\);.*?ZogographCpuTimeCard/s',
             $script,
         ) === 1,
-    'CPU time cards are appended without clearing their owned container',
+    'CPU time cards do not use and clear their generated package mount',
+);
+i18nExpect(
+    $page !== false &&
+        !str_contains($page, 'id="cpuTimeCards"') &&
+        str_contains($page, 'data-card-mount="cards"') &&
+        $script !== false &&
+        str_contains(
+            $script,
+            'const target = holder instanceof Element ? holder : $(holder);',
+        ),
+    'CPU time cards still depend on a feature-specific static container',
 );
 i18nExpect(
     $page !== false &&

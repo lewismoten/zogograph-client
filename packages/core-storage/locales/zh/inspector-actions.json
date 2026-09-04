@@ -1,0 +1,5 @@
+{
+  "core-storage-inspector-actions.delete_directory": "删除此目录及其中的所有内容",
+  "core-storage-inspector-actions.delete_file": "删除此文件",
+  "core-storage-inspector-actions.what_you_can_do": "你可以对它做什么"
+}

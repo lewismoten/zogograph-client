@@ -30348,7 +30348,7 @@ function findingRow(f) {
 function inspectActions(data) {
   const text = (key) =>
     renderCoreCardPackage(
-      ZogographStorageInspectorActionsCard,
+      Zogograph.cards.get('core-storage-inspector-actions'),
       'core-storage-inspector-actions',
       { key },
       { i18n: ZogographI18n },

@@ -14,7 +14,8 @@
     "core-storage-offender-status-help",
     "core-storage-delete-results",
     "core-storage-bulk-delete",
-    "core-storage-log"
+    "core-storage-log",
+    "core-storage-inspector-actions"
   ],
   "default_locale": "en",
   "locale_packs": {
@@ -30,7 +31,8 @@
       "locales/es/offender-status-help.json",
       "locales/es/delete-results.json",
       "locales/es/bulk-delete.json",
-      "locales/es/log.json"
+      "locales/es/log.json",
+      "locales/es/inspector-actions.json"
     ],
     "hi": [
       "locales/hi/measuring.json",
@@ -44,7 +46,8 @@
       "locales/hi/offender-status-help.json",
       "locales/hi/delete-results.json",
       "locales/hi/bulk-delete.json",
-      "locales/hi/log.json"
+      "locales/hi/log.json",
+      "locales/hi/inspector-actions.json"
     ],
     "ar": [
       "locales/ar/measuring.json",
@@ -58,7 +61,8 @@
       "locales/ar/offender-status-help.json",
       "locales/ar/delete-results.json",
       "locales/ar/bulk-delete.json",
-      "locales/ar/log.json"
+      "locales/ar/log.json",
+      "locales/ar/inspector-actions.json"
     ],
     "zh": [
       "locales/zh/measuring.json",
@@ -72,7 +76,8 @@
       "locales/zh/offender-status-help.json",
       "locales/zh/delete-results.json",
       "locales/zh/bulk-delete.json",
-      "locales/zh/log.json"
+      "locales/zh/log.json",
+      "locales/zh/inspector-actions.json"
     ]
   }
 }

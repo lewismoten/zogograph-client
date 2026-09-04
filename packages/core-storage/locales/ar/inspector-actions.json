@@ -1,0 +1,5 @@
+{
+  "core-storage-inspector-actions.delete_directory": "احذف هذا الدليل وكل ما فيه",
+  "core-storage-inspector-actions.delete_file": "احذف هذا الملف",
+  "core-storage-inspector-actions.what_you_can_do": "ما يمكنك فعله به"
+}

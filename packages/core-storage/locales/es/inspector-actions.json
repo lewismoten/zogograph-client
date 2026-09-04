@@ -1,0 +1,5 @@
+{
+  "core-storage-inspector-actions.delete_directory": "Eliminar este directorio y todo lo que contiene",
+  "core-storage-inspector-actions.delete_file": "Eliminar este archivo",
+  "core-storage-inspector-actions.what_you_can_do": "Lo que puedes hacer con ello"
+}

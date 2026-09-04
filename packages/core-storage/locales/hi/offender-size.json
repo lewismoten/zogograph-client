@@ -1,0 +1,5 @@
+{
+  "core-storage-offender-size.last_seen": "अंतिम बार दिखने पर आकार",
+  "core-storage-offender-size.link_count": " · {{count, number}} लिंक",
+  "core-storage-offender-size.link_count_help": "इस फ़ाइल के {{count, number}} नाम हैं। अंतिम नाम हटने तक एक को हटाने से कुछ नहीं खाली होता।"
+}

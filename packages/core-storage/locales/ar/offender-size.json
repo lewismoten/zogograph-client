@@ -1,0 +1,5 @@
+{
+  "core-storage-offender-size.last_seen": "الحجم عند آخر ظهور",
+  "core-storage-offender-size.link_count": " · {{count, number}} روابط",
+  "core-storage-offender-size.link_count_help": "لهذا الملف {{count, number}} أسماء. لا يحرر حذف واحد مساحة حتى يزول الأخير."
+}

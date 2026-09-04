@@ -1,0 +1,5 @@
+{
+  "core-storage-offender-size.last_seen": "上次看到时的大小",
+  "core-storage-offender-size.link_count": " · {{count, number}} 个链接",
+  "core-storage-offender-size.link_count_help": "此文件有 {{count, number}} 个名称。删除一个不会释放空间，直到最后一个也被删除。"
+}

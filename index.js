@@ -7223,7 +7223,7 @@ const storageOffenderColumnText = (key) =>
 
 const storageOffenderSizeText = (key, values = {}) =>
   renderCoreCardPackage(
-    ZogographStorageOffenderSizeCard,
+    Zogograph.cards.get('core-storage-offender-size'),
     'core-storage-offender-size',
     { key, values },
     { i18n: ZogographI18n },

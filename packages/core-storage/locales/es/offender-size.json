@@ -1,0 +1,5 @@
+{
+  "core-storage-offender-size.last_seen": "Tamaño al verse por última vez",
+  "core-storage-offender-size.link_count": " · {{count, number}} enlaces",
+  "core-storage-offender-size.link_count_help": "Este archivo tiene {{count, number}} nombres. Quitar uno no libera nada hasta que se quite el último."
+}

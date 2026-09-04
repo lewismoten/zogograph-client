@@ -1,0 +1,13 @@
+{
+  "id": "core-storage",
+  "kind": "built-in-ui",
+  "version": "0.1.0",
+  "cards": ["core-storage-measuring"],
+  "default_locale": "en",
+  "locale_packs": {
+    "es": ["locales/es/measuring.json"],
+    "hi": ["locales/hi/measuring.json"],
+    "ar": ["locales/ar/measuring.json"],
+    "zh": ["locales/zh/measuring.json"]
+  }
+}

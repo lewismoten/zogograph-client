@@ -17501,7 +17501,7 @@ async function refreshStore() {
       body.replaceChildren(
         spinner(
           renderCoreCardPackage(
-            ZogographStorageMeasuringCard,
+            Zogograph.cards.get('core-storage-measuring'),
             'core-storage-measuring',
             null,
             { i18n: ZogographI18n },
@@ -21847,7 +21847,7 @@ async function refreshAiStore() {
     body.replaceChildren(
       spinner(
         renderCoreCardPackage(
-          ZogographStorageMeasuringCard,
+          Zogograph.cards.get('core-storage-measuring'),
           'core-storage-measuring',
           null,
           { i18n: ZogographI18n },

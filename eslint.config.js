@@ -215,7 +215,6 @@ export default [
         ZogographStorageScanStatusCard: 'readonly',
         ZogographStorageRetentionCard: 'readonly',
         ZogographStoragePurgeCard: 'readonly',
-        ZogographStorageMeasuringCard: 'readonly',
         ZogographStorageLogCard: 'readonly',
         ZogographStorageBulkDeleteCard: 'readonly',
         ZogographStorageDeleteResultsCard: 'readonly',

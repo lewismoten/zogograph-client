@@ -308,18 +308,20 @@ download-on-select, not yet an installed-pack UI or signature/provenance model.
 
 ## 9. Resolve the observed regressions and preserve them as tests
 
-- [x] Fix the uptime-event contract mismatch: its caller uses
-  `ZogographUptimeEventsCard.text(...)`, so the card now provides that method
-  for both text-only and text-with-values calls. The future registry must still
-  make text/formatting capability explicit for every public card API.
+- [x] Fix the uptime-event contract mismatch: its registry caller resolves
+  `core-uptime-events` and uses its explicit `text(...)` method for both
+  text-only and text-with-values calls. The card now renders into a generic
+  package mount; the registry must still make text/formatting capability
+  explicit for every public card API.
 - [x] Fix the `core-ai-identity-settings` manifest mismatch. The unused,
   nonexistent `aiPortraitAlt` helper was removed from the identity card's
   manifest and nested helper forwarding; its portrait card already owns the
   localized alt text. Regression checks cover the rendered helper contract.
-- [x] Fix CPU card accumulation. “Where the time goes” now clears its owned
-  holder before rendering state cards, matching “Waiting to run.” Regression
-  coverage asserts that clearing happens before the CPU-time card renders; the
-  future shared lifecycle should replace owned containers atomically.
+- [x] Fix CPU card accumulation. “Where the time goes” now clears its generated
+  `core-cpu` mount before rendering state cards, matching “Waiting to run.”
+  Regression coverage asserts that clearing happens before the CPU-time card
+  renders; the future shared lifecycle should replace owned containers
+  atomically.
 - [ ] Treat the `VM… reportAllChanges/startTime` trace as unassigned until it
   reproduces in a clean browser profile with extensions disabled. `VM` source
   and `installHook.js` can be injected by browser tooling; record browser,

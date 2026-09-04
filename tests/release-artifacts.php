@@ -32,6 +32,9 @@ foreach (
 }
 $workflow = file_get_contents($root . '/.forgejo/workflows/deploy.yml');
 $restoreWorkflow = file_get_contents($root . '/.forgejo/workflows/restore.yml');
+$snapshotRunner = file_get_contents(
+    $root . '/.forgejo/scripts/zogograph-run-snapshot.sh',
+);
 releaseExpect(
     is_string($workflow) &&
         str_contains($workflow, 'Create build manifest') &&
@@ -97,20 +100,30 @@ releaseExpect(
         ) &&
         str_contains(
             $workflow,
+            'snapshot_site:',
+        ) &&
+        str_contains($workflow, 'snapshot_databases:') &&
+        str_contains($workflow, 'needs: [build, snapshot_databases]') &&
+        str_contains(
+            $workflow,
+            'run: bash .forgejo/scripts/zogograph-run-snapshot.sh site',
+        ) &&
+        str_contains(
+            $workflow,
+            'run: bash .forgejo/scripts/zogograph-run-snapshot.sh databases',
+        ) &&
+        is_string($snapshotRunner) &&
+        str_contains(
+            $snapshotRunner,
             'remote_script=".zogograph-snapshot-${GITHUB_RUN_ID}-${DEPLOY_TARGET}.sh"',
         ) &&
-        str_contains($workflow, 'Prepare remote snapshot directory') &&
-        str_contains($workflow, 'Upload snapshot helper') &&
-        str_contains($workflow, 'Initialize live-site snapshot') &&
-        str_contains($workflow, 'Select live-site snapshot baseline') &&
-        str_contains($workflow, 'Copy live application files to snapshot') &&
-        str_contains($workflow, 'Snapshot AI SQLite database') &&
-        str_contains($workflow, 'Snapshot host SQLite database') &&
-        str_contains($workflow, 'Snapshot setup SQLite database') &&
-        str_contains($workflow, 'Snapshot stats SQLite database') &&
-        str_contains($workflow, 'Snapshot additional SQLite databases') &&
-        str_contains($workflow, 'Verify and finalize live-site snapshot') &&
-        str_contains($workflow, 'Discard incomplete live-site snapshot') &&
+        str_contains($snapshotRunner, 'site|databases') &&
+        str_contains($snapshotRunner, 'snapshot_phase 1m prepare') &&
+        str_contains($snapshotRunner, 'snapshot_phase 1m baseline') &&
+        str_contains($snapshotRunner, 'snapshot_phase 1m site') &&
+        str_contains($snapshotRunner, 'snapshot_phase 2m database data/host.db') &&
+        str_contains($snapshotRunner, 'snapshot_phase 1m finalize') &&
+        str_contains($snapshotRunner, ' discard; rm -f') &&
         str_contains(
             $restoreWorkflow,
             'remote_script=".zogograph-restore-${GITHUB_RUN_ID}-${DEPLOY_TARGET}.sh"',

@@ -146,6 +146,145 @@ jobs:
           path: zogograph-release/
           retention-days: 1
 
+  snapshot_site:
+    name: Snapshot ${{ matrix.environment }} application files
+    runs-on: zogograph-ci
+    needs: build
+    container:
+      image: git.lewismoten.com/zogograph/runner-image:php-8.5
+      credentials:
+        username: ${{ secrets.REGISTRY_USER }}
+        password: ${{ secrets.REGISTRY_TOKEN }}
+    timeout-minutes: 2
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        include:
+          - environment: test
+            deploy_path: ${{ vars.TEST_PATH }}
+            deploy_url: ${{ vars.TEST_URL }}
+
+          - environment: client
+            deploy_path: ${{ vars.DEPLOY_PATH }}
+            deploy_url: ${{ vars.DEPLOY_URL }}
+
+    env:
+      DEPLOY_HOST: ${{ vars.DEPLOY_HOST }}
+      DEPLOY_PORT: ${{ vars.DEPLOY_PORT }}
+      DEPLOY_USER: ${{ vars.DEPLOY_USER }}
+      DEPLOY_PATH: ${{ matrix.deploy_path }}
+      DEPLOY_TARGET: ${{ matrix.environment }}
+      DEPLOY_KNOWN_HOSTS: ${{ vars.DEPLOY_KNOWN_HOSTS }}
+      SNAPSHOT_PATH: ${{ format('{0}/{1}', vars.SNAPSHOT_PATH, matrix.environment) }}
+      DEPLOY_SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
+
+    steps:
+      - name: Checkout snapshot scripts
+        uses: actions/checkout@v4
+
+      - name: Validate snapshot settings
+        shell: bash
+        run: |
+          set -euo pipefail
+          for setting in DEPLOY_HOST DEPLOY_USER DEPLOY_PATH DEPLOY_KNOWN_HOSTS SNAPSHOT_PATH DEPLOY_SSH_PRIVATE_KEY; do
+            test -n "${!setting}" || { echo "Missing required deployment setting: $setting"; exit 1; }
+          done
+          for setting in DEPLOY_PATH SNAPSHOT_PATH; do
+            case "${!setting}" in /*) ;; *) echo "$setting must be an absolute path." >&2; exit 1;; esac
+            case "${!setting}" in *[!A-Za-z0-9._/-]*) echo "$setting contains an unsafe character." >&2; exit 1;; esac
+          done
+
+      - name: Resolve repository snapshot directory
+        shell: bash
+        run: |
+          set -euo pipefail
+          snapshot_repository="${GITHUB_REPOSITORY##*/}"
+          case "$snapshot_repository" in ''|*[!A-Za-z0-9._-]*) echo 'Repository name is unsafe for the snapshot path.' >&2; exit 1;; esac
+          printf 'SNAPSHOT_DIRECTORY=%s/%s\n' "${SNAPSHOT_PATH%/}" "$snapshot_repository" >> "$GITHUB_ENV"
+
+      - name: Install SSH key
+        shell: bash
+        run: |
+          set -euo pipefail
+          install -d -m 700 "$HOME/.ssh"
+          printf '%s\n' "$DEPLOY_SSH_PRIVATE_KEY" > "$HOME/.ssh/zogograph_deploy_key"
+          printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
+          chmod 600 "$HOME/.ssh/zogograph_deploy_key" "$HOME/.ssh/known_hosts"
+
+      - name: Snapshot live application files
+        shell: bash
+        run: bash .forgejo/scripts/zogograph-run-snapshot.sh site
+
+  snapshot_databases:
+    name: Snapshot ${{ matrix.environment }} databases
+    runs-on: zogograph-ci
+    needs: snapshot_site
+    container:
+      image: git.lewismoten.com/zogograph/runner-image:php-8.5
+      credentials:
+        username: ${{ secrets.REGISTRY_USER }}
+        password: ${{ secrets.REGISTRY_TOKEN }}
+    # The host database has a dedicated two-minute online backup step.
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        include:
+          - environment: test
+            deploy_path: ${{ vars.TEST_PATH }}
+
+          - environment: client
+            deploy_path: ${{ vars.DEPLOY_PATH }}
+
+    env:
+      DEPLOY_HOST: ${{ vars.DEPLOY_HOST }}
+      DEPLOY_PORT: ${{ vars.DEPLOY_PORT }}
+      DEPLOY_USER: ${{ vars.DEPLOY_USER }}
+      DEPLOY_PATH: ${{ matrix.deploy_path }}
+      DEPLOY_TARGET: ${{ matrix.environment }}
+      DEPLOY_KNOWN_HOSTS: ${{ vars.DEPLOY_KNOWN_HOSTS }}
+      SNAPSHOT_PATH: ${{ format('{0}/{1}', vars.SNAPSHOT_PATH, matrix.environment) }}
+      DEPLOY_SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
+
+    steps:
+      - name: Checkout snapshot scripts
+        uses: actions/checkout@v4
+
+      - name: Validate snapshot settings
+        shell: bash
+        run: |
+          set -euo pipefail
+          for setting in DEPLOY_HOST DEPLOY_USER DEPLOY_PATH DEPLOY_KNOWN_HOSTS SNAPSHOT_PATH DEPLOY_SSH_PRIVATE_KEY; do
+            test -n "${!setting}" || { echo "Missing required deployment setting: $setting"; exit 1; }
+          done
+          for setting in DEPLOY_PATH SNAPSHOT_PATH; do
+            case "${!setting}" in /*) ;; *) echo "$setting must be an absolute path." >&2; exit 1;; esac
+            case "${!setting}" in *[!A-Za-z0-9._/-]*) echo "$setting contains an unsafe character." >&2; exit 1;; esac
+          done
+
+      - name: Resolve repository snapshot directory
+        shell: bash
+        run: |
+          set -euo pipefail
+          snapshot_repository="${GITHUB_REPOSITORY##*/}"
+          case "$snapshot_repository" in ''|*[!A-Za-z0-9._-]*) echo 'Repository name is unsafe for the snapshot path.' >&2; exit 1;; esac
+          printf 'SNAPSHOT_DIRECTORY=%s/%s\n' "${SNAPSHOT_PATH%/}" "$snapshot_repository" >> "$GITHUB_ENV"
+
+      - name: Install SSH key
+        shell: bash
+        run: |
+          set -euo pipefail
+          install -d -m 700 "$HOME/.ssh"
+          printf '%s\n' "$DEPLOY_SSH_PRIVATE_KEY" > "$HOME/.ssh/zogograph_deploy_key"
+          printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
+          chmod 600 "$HOME/.ssh/zogograph_deploy_key" "$HOME/.ssh/known_hosts"
+
+      - name: Snapshot live SQLite databases
+        shell: bash
+        run: bash .forgejo/scripts/zogograph-run-snapshot.sh databases
+
   deploy:
     name: Deploy to ${{ matrix.deploy_url }}
     runs-on: zogograph-ci
@@ -156,7 +295,7 @@ jobs:
         password: ${{ secrets.REGISTRY_TOKEN }}
     # Prevent a stalled network operation from monopolizing a runner.
     timeout-minutes: 2
-    needs: build
+    needs: [build, snapshot_databases]
     strategy:
       fail-fast: false
       max-parallel: 2
@@ -232,138 +371,6 @@ jobs:
           set -euo pipefail
           command -v rsync >/dev/null || { timeout 1m apt-get update; timeout 1m apt-get install -y rsync; }
 
-      - name: Prepare remote snapshot directory
-        id: snapshot
-        shell: bash
-        run: |
-          set -euo pipefail
-          snapshot_id="${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT:-1}"
-          printf 'id=%s\n' "$snapshot_id" >> "$GITHUB_OUTPUT"
-          timeout 1m ssh -i "$HOME/.ssh/zogograph_deploy_key" -p "${DEPLOY_PORT:-22}" \
-            -o BatchMode=yes -o IdentitiesOnly=yes -o ConnectTimeout=15 \
-            "${DEPLOY_USER}@${DEPLOY_HOST}" "mkdir -p '$SNAPSHOT_DIRECTORY'"
-
-      - name: Upload snapshot helper
-        shell: bash
-        run: |
-          set -euo pipefail
-          remote_script=".zogograph-snapshot-${GITHUB_RUN_ID}-${DEPLOY_TARGET}.sh"
-          timeout 1m rsync -az \
-            -e "ssh -i $HOME/.ssh/zogograph_deploy_key -p ${DEPLOY_PORT:-22} -o BatchMode=yes -o IdentitiesOnly=yes" \
-            .forgejo/scripts/zogograph-snapshot.sh \
-            "${DEPLOY_USER}@${DEPLOY_HOST}:${remote_script}"
-
-      - name: Initialize live-site snapshot
-        shell: bash
-        run: |
-          set -euo pipefail
-          snapshot_id="${{ steps.snapshot.outputs.id }}"
-          remote_script=".zogograph-snapshot-${GITHUB_RUN_ID}-${DEPLOY_TARGET}.sh"
-          timeout 1m ssh -i "$HOME/.ssh/zogograph_deploy_key" -p "${DEPLOY_PORT:-22}" \
-            -o BatchMode=yes -o IdentitiesOnly=yes -o ConnectTimeout=15 \
-            "${DEPLOY_USER}@${DEPLOY_HOST}" \
-            "bash '$remote_script' '$DEPLOY_PATH' '$SNAPSHOT_DIRECTORY' '$snapshot_id' prepare"
-
-      - name: Select live-site snapshot baseline
-        shell: bash
-        run: |
-          set -euo pipefail
-          snapshot_id="${{ steps.snapshot.outputs.id }}"
-          remote_script=".zogograph-snapshot-${GITHUB_RUN_ID}-${DEPLOY_TARGET}.sh"
-          timeout 1m ssh -i "$HOME/.ssh/zogograph_deploy_key" -p "${DEPLOY_PORT:-22}" \
-            -o BatchMode=yes -o IdentitiesOnly=yes -o ConnectTimeout=15 \
-            "${DEPLOY_USER}@${DEPLOY_HOST}" \
-            "bash '$remote_script' '$DEPLOY_PATH' '$SNAPSHOT_DIRECTORY' '$snapshot_id' baseline"
-
-      - name: Copy live application files to snapshot
-        shell: bash
-        run: |
-          set -euo pipefail
-          snapshot_id="${{ steps.snapshot.outputs.id }}"
-          remote_script=".zogograph-snapshot-${GITHUB_RUN_ID}-${DEPLOY_TARGET}.sh"
-          timeout 1m ssh -i "$HOME/.ssh/zogograph_deploy_key" -p "${DEPLOY_PORT:-22}" \
-            -o BatchMode=yes -o IdentitiesOnly=yes -o ConnectTimeout=15 \
-            "${DEPLOY_USER}@${DEPLOY_HOST}" \
-            "bash '$remote_script' '$DEPLOY_PATH' '$SNAPSHOT_DIRECTORY' '$snapshot_id' site"
-
-      - name: Snapshot AI SQLite database
-        shell: bash
-        run: |
-          set -euo pipefail
-          snapshot_id="${{ steps.snapshot.outputs.id }}"
-          remote_script=".zogograph-snapshot-${GITHUB_RUN_ID}-${DEPLOY_TARGET}.sh"
-          timeout 1m ssh -i "$HOME/.ssh/zogograph_deploy_key" -p "${DEPLOY_PORT:-22}" \
-            -o BatchMode=yes -o IdentitiesOnly=yes -o ConnectTimeout=15 \
-            "${DEPLOY_USER}@${DEPLOY_HOST}" \
-            "bash '$remote_script' '$DEPLOY_PATH' '$SNAPSHOT_DIRECTORY' '$snapshot_id' database data/ai.db"
-
-      - name: Snapshot host SQLite database
-        shell: bash
-        run: |
-          set -euo pipefail
-          snapshot_id="${{ steps.snapshot.outputs.id }}"
-          remote_script=".zogograph-snapshot-${GITHUB_RUN_ID}-${DEPLOY_TARGET}.sh"
-          timeout 1m ssh -i "$HOME/.ssh/zogograph_deploy_key" -p "${DEPLOY_PORT:-22}" \
-            -o BatchMode=yes -o IdentitiesOnly=yes -o ConnectTimeout=15 \
-            "${DEPLOY_USER}@${DEPLOY_HOST}" \
-            "bash '$remote_script' '$DEPLOY_PATH' '$SNAPSHOT_DIRECTORY' '$snapshot_id' database data/host.db"
-
-      - name: Snapshot setup SQLite database
-        shell: bash
-        run: |
-          set -euo pipefail
-          snapshot_id="${{ steps.snapshot.outputs.id }}"
-          remote_script=".zogograph-snapshot-${GITHUB_RUN_ID}-${DEPLOY_TARGET}.sh"
-          timeout 1m ssh -i "$HOME/.ssh/zogograph_deploy_key" -p "${DEPLOY_PORT:-22}" \
-            -o BatchMode=yes -o IdentitiesOnly=yes -o ConnectTimeout=15 \
-            "${DEPLOY_USER}@${DEPLOY_HOST}" \
-            "bash '$remote_script' '$DEPLOY_PATH' '$SNAPSHOT_DIRECTORY' '$snapshot_id' database data/setup.db"
-
-      - name: Snapshot stats SQLite database
-        shell: bash
-        run: |
-          set -euo pipefail
-          snapshot_id="${{ steps.snapshot.outputs.id }}"
-          remote_script=".zogograph-snapshot-${GITHUB_RUN_ID}-${DEPLOY_TARGET}.sh"
-          timeout 1m ssh -i "$HOME/.ssh/zogograph_deploy_key" -p "${DEPLOY_PORT:-22}" \
-            -o BatchMode=yes -o IdentitiesOnly=yes -o ConnectTimeout=15 \
-            "${DEPLOY_USER}@${DEPLOY_HOST}" \
-            "bash '$remote_script' '$DEPLOY_PATH' '$SNAPSHOT_DIRECTORY' '$snapshot_id' database data/stats.db"
-
-      - name: Snapshot additional SQLite databases
-        shell: bash
-        run: |
-          set -euo pipefail
-          snapshot_id="${{ steps.snapshot.outputs.id }}"
-          remote_script=".zogograph-snapshot-${GITHUB_RUN_ID}-${DEPLOY_TARGET}.sh"
-          timeout 1m ssh -i "$HOME/.ssh/zogograph_deploy_key" -p "${DEPLOY_PORT:-22}" \
-            -o BatchMode=yes -o IdentitiesOnly=yes -o ConnectTimeout=15 \
-            "${DEPLOY_USER}@${DEPLOY_HOST}" \
-            "bash '$remote_script' '$DEPLOY_PATH' '$SNAPSHOT_DIRECTORY' '$snapshot_id' databases"
-
-      - name: Verify and finalize live-site snapshot
-        shell: bash
-        run: |
-          set -euo pipefail
-          snapshot_id="${{ steps.snapshot.outputs.id }}"
-          remote_script=".zogograph-snapshot-${GITHUB_RUN_ID}-${DEPLOY_TARGET}.sh"
-          timeout 1m ssh -i "$HOME/.ssh/zogograph_deploy_key" -p "${DEPLOY_PORT:-22}" \
-            -o BatchMode=yes -o IdentitiesOnly=yes -o ConnectTimeout=15 \
-            "${DEPLOY_USER}@${DEPLOY_HOST}" \
-            "bash '$remote_script' '$DEPLOY_PATH' '$SNAPSHOT_DIRECTORY' '$snapshot_id' finalize && rm -f '$remote_script'"
-
-      - name: Discard incomplete live-site snapshot
-        if: ${{ failure() }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          snapshot_id="${{ steps.snapshot.outputs.id }}"
-          remote_script=".zogograph-snapshot-${GITHUB_RUN_ID}-${DEPLOY_TARGET}.sh"
-          timeout 1m ssh -i "$HOME/.ssh/zogograph_deploy_key" -p "${DEPLOY_PORT:-22}" \
-            -o BatchMode=yes -o IdentitiesOnly=yes -o ConnectTimeout=15 \
-            "${DEPLOY_USER}@${DEPLOY_HOST}" \
-            "bash '$remote_script' '$DEPLOY_PATH' '$SNAPSHOT_DIRECTORY' '$snapshot_id' discard; rm -f '$remote_script'"
-
       - name: Upload application files
         shell: bash
         run: |
@@ -404,4 +411,4 @@ jobs:
             "bash '$remote_script' '$SNAPSHOT_DIRECTORY' '${SNAPSHOT_RETENTION:-3}' && rm -f '$remote_script'"
 
       - name: Report snapshot
-        run: 'echo "Pre-deploy snapshot: ${{ steps.snapshot.outputs.id }}"'
+        run: 'echo "Pre-deploy snapshot: ${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT:-1}"'

@@ -144,7 +144,7 @@ echo 'Snapshot phase complete: application files copied'
 fi
 
 backup_database() {
-  local database=$1 relative destination temporary status
+  local database=$1 relative destination temporary status budget=50
   relative=${database#"$site"/}
   destination="$stage/databases/$relative"
   test ! -e "$destination" || {
@@ -154,8 +154,13 @@ backup_database() {
   mkdir -p "$(dirname "$destination")"
   temporary="$destination.partial"
   rm -f -- "$temporary"
-  echo "Snapshot database starting: $relative (online backup; 5s lock wait, 50s work budget)"
-  if timeout --foreground --verbose 50s sqlite3 "$database" \
+  if [ "$relative" = 'data/host.db' ]; then
+    # The deployment workflow gives this live operational database two minutes.
+    # Return before its SSH wrapper expires so the failure remains diagnostic.
+    budget=110
+  fi
+  echo "Snapshot database starting: $relative (online backup; 5s lock wait, ${budget}s work budget)"
+  if timeout --foreground --verbose "${budget}s" sqlite3 "$database" \
     '.timeout 5000' ".backup $(sqlite_argument "$temporary")"; then
     mv -- "$temporary" "$destination"
   else

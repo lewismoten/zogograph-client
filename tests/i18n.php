@@ -910,6 +910,24 @@ i18nExpect(
     'core card package catalogs are not namespace-registered before their first render',
 );
 i18nExpect(
+    $script !== false &&
+        str_contains($script, 'const catalogOnly = options?.catalogOnly === true;') &&
+        str_contains($script, 'if (catalogOnly) return;') &&
+        preg_match(
+            '/function renderDnsChangesTitle\(\).*?\{ catalogOnly: true \}/s',
+            $script,
+        ) === 1 &&
+        preg_match(
+            '/function renderTerminalSessionsTitle\(\).*?\{ catalogOnly: true \}/s',
+            $script,
+        ) === 1 &&
+        preg_match(
+            '/function renderProcessTrendLabels\(\).*?\{ catalogOnly: true \}/s',
+            $script,
+        ) === 1,
+    'locale refreshes can run card renderers with placeholder DOM helpers',
+);
+i18nExpect(
     $page !== false &&
         str_contains($page, 'src="cards/update-banner.js"') &&
         $updateBannerCard !== false &&

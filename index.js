@@ -1711,8 +1711,11 @@ function renderLimits(limits, bodyId = 'limitsBody', whenId = 'limitsWhen') {
 
 /* Core card packages receive only the helpers they explicitly declare. This is
  * the internal contract mirrored by the data-only signed package renderer. */
-function renderCoreCardPackage(cardPackage, id, input, helpers) {
+function renderCoreCardPackage(cardPackage, id, input, helpers, options = {}) {
   const manifest = cardPackage?.manifest;
+  // Locale refreshes need the package catalog, not a synthetic render with
+  // placeholder DOM helpers. Skipping render avoids mutating live card state.
+  const catalogOnly = options?.catalogOnly === true;
   if (
     !manifest ||
     manifest.id !== id ||
@@ -1723,9 +1726,8 @@ function renderCoreCardPackage(cardPackage, id, input, helpers) {
       (prefix) => typeof prefix === 'string' && /^[a-z][\w-]*\.$/i.test(prefix),
     ) ||
     !Array.isArray(manifest.helpers) ||
-    !manifest.helpers.every(
-      (name) => typeof name === 'string' && name in helpers,
-    )
+    !manifest.helpers.every((name) => typeof name === 'string') ||
+    (!catalogOnly && !manifest.helpers.every((name) => name in helpers))
   ) {
     console.error(`Core card package ${id} has an invalid manifest.`);
     reportClientProblem(`Core card package ${id} has an invalid manifest.`);
@@ -1757,6 +1759,7 @@ function renderCoreCardPackage(cardPackage, id, input, helpers) {
       }
     }
   }
+  if (catalogOnly) return;
   return cardPackage.render(input, helpers);
 }
 
@@ -3229,6 +3232,7 @@ function renderDnsChangesTitle() {
     'core-dns-changes',
     { changes: [] },
     helpers,
+    { catalogOnly: true },
   );
   const title = document.querySelector('[data-i18n="core-dns-changes.title"]');
   title.textContent = ZogographI18n.markSource(
@@ -3298,6 +3302,7 @@ function renderDomainQueueTitle() {
     'core-domain-queue',
     { queue: null, rows: [] },
     helpers,
+    { catalogOnly: true },
   );
   const title = document.querySelector('[data-i18n="core-domain-queue.title"]');
   title.textContent = ZogographI18n.markSource(
@@ -3353,6 +3358,7 @@ function renderUrlChecksShellLabels() {
     'core-urls-empty',
     { rows: [] },
     helpers,
+    { catalogOnly: true },
   );
   document
     .querySelectorAll('[data-i18n^="core-urls-empty."]')
@@ -3386,6 +3392,7 @@ function renderCalendarUpcomingTitle() {
     'core-calendar-upcoming',
     {},
     helpers,
+    { catalogOnly: true },
   );
   document
     .querySelectorAll('[data-i18n^="core-calendar-upcoming."]')
@@ -3451,6 +3458,7 @@ function renderLogRepeatsShellLabels() {
     'core-log-repeats',
     {},
     helpers,
+    { catalogOnly: true },
   );
   document
     .querySelectorAll('[data-i18n^="core-log-repeats."]')
@@ -3473,6 +3481,7 @@ function renderLogStreamShellLabels() {
     'core-log-stream-summary',
     { files: [], rows: [] },
     helpers,
+    { catalogOnly: true },
   );
   document
     .querySelectorAll('[data-i18n^="core-log-stream-summary."]')
@@ -3764,20 +3773,17 @@ function renderTerminalSessionsTitle() {
   const title = document.querySelector(
     '[data-i18n="core-terminal-sessions.title"]',
   );
-  const label = renderCoreCardPackage(
+  renderCoreCardPackage(
     ZogographTerminalSessionsCard,
     'core-terminal-sessions',
-    {
-      kind: 'name',
-      key: 'title',
-      fallback: 'Terminal sessions',
-    },
+    null,
     helpers,
+    { catalogOnly: true },
   );
   title.textContent = ZogographI18n.markSource(
     title,
     'core-terminal-sessions.title',
-    label,
+    ZogographTerminalSessionsCard.text('title', helpers),
   );
   for (const key of ['grouping_help', 'topic_help']) {
     const help = document.querySelector(
@@ -4219,6 +4225,7 @@ function renderLabelsTitle() {
     'core-labels-empty',
     { rows: [] },
     helpers,
+    { catalogOnly: true },
   );
   const title = document.querySelector('[data-i18n="core-labels-empty.title"]');
   title.textContent = ZogographI18n.markSource(
@@ -4236,6 +4243,7 @@ function renderNotesTitle() {
     'core-notes-empty',
     { rows: [] },
     helpers,
+    { catalogOnly: true },
   );
   const title = document.querySelector('[data-i18n="core-notes-empty.title"]');
   title.textContent = ZogographI18n.markSource(
@@ -4295,6 +4303,7 @@ function renderHostWalkControlLabels() {
     'core-host-walk-control',
     null,
     helpers,
+    { catalogOnly: true },
   );
   const title = document.querySelector(
     '[data-i18n="core-host-walk-control.title"]',
@@ -4318,6 +4327,7 @@ function renderFetchPreviewLabels() {
     'core-fetch-preview',
     null,
     helpers,
+    { catalogOnly: true },
   );
   const title = document.querySelector(
     '[data-i18n="core-fetch-preview.request_title"]',
@@ -6783,6 +6793,7 @@ function renderOtherExtensionsLabels() {
     'core-other-extensions',
     [],
     helpers,
+    { catalogOnly: true },
   );
   for (const key of ['title', 'help']) {
     ZogographI18n.applyRich(
@@ -7359,6 +7370,7 @@ const storageOperationsText = (key, values = {}) => {
     'core-storage-operations',
     {},
     helpers,
+    { catalogOnly: true },
   );
   return ZogographStorageOperationsCard.text(key, values, helpers);
 };
@@ -8746,6 +8758,7 @@ function renderProcessTrendLabels() {
     'core-process-trend',
     {},
     helpers,
+    { catalogOnly: true },
   );
   for (const key of ['title', 'initial_help']) {
     const element = document.querySelector(

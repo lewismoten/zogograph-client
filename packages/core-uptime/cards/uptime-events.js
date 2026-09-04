@@ -161,3 +161,4 @@ const UptimeEventsCard = {
   },
 };
 Zogograph.cards.register(UptimeEventsCard);
+

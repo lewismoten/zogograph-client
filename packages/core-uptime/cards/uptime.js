@@ -191,3 +191,4 @@ window.ZogographUptimeCard = {
       : t('no_readings_window', {}, 'No readings in this window.');
   },
 };
+

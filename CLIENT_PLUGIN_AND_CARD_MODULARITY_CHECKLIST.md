@@ -77,6 +77,11 @@ remain migration work; do not add new card globals.
 
 ## 2a. Replace the flat `cards/` directory with package-owned source trees
 
+The uptime summary, tracks, and events cards now live in
+`packages/core-uptime/cards/`; dashboard discovery tests cover both legacy and
+package-owned card paths. The package retains its stable card IDs while its
+remaining globals are migrated.
+
 - [ ] Stop adding feature files directly to the flat `cards/` directory. Its
   hundreds of files are hard to browse and conceal which files form one
   feature.

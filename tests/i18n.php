@@ -10,7 +10,10 @@ function i18nCardSource(string|false $source): string|false
 {
     return $source === false ? false : str_replace("'", '"', $source);
 }
-$cardFiles = glob(dirname(__DIR__) . '/cards/*.js') ?: [];
+$cardFiles = array_merge(
+    glob(dirname(__DIR__) . '/cards/*.js') ?: [],
+    glob(dirname(__DIR__) . '/packages/*/cards/*.js') ?: [],
+);
 $coreCardEnglish = [];
 $coreCardLocaleKeys = array_fill_keys(['en', 'es', 'hi', 'ar', 'zh'], []);
 foreach ($cardFiles as $cardFile) {
@@ -147,14 +150,15 @@ $page = file_get_contents($root . '/index.html');
 $script = file_get_contents($root . '/index.js');
 foreach ($cardFiles as $cardFile) {
     $cardName = basename($cardFile);
+    $cardPath = substr($cardFile, strlen($root) + 1);
     i18nExpect(
-        $page !== false && str_contains($page, 'src="cards/' . $cardName . '"'),
-        $cardName . ' is not registered by index.html',
+        $page !== false && str_contains($page, 'src="' . $cardPath . '"'),
+        $cardPath . ' is not registered by index.html',
     );
     i18nExpect(
         $page !== false &&
-            substr_count($page, 'src="cards/' . $cardName . '"') === 1,
-        $cardName . ' must be registered exactly once by index.html',
+            substr_count($page, 'src="' . $cardPath . '"') === 1,
+        $cardPath . ' must be registered exactly once by index.html',
     );
 }
 preg_match_all(
@@ -360,7 +364,7 @@ $cpuCoresCard = i18nCardSource(
 );
 $cpuTimeCard = i18nCardSource(file_get_contents($root . '/cards/cpu-time.js'));
 $uptimeEventsCard = i18nCardSource(
-    file_get_contents($root . '/cards/uptime-events.js'),
+    file_get_contents($root . '/packages/core-uptime/cards/uptime-events.js'),
 );
 $aiIdentitySettingsCard = i18nCardSource(
     file_get_contents($root . '/cards/ai-identity-settings.js'),
@@ -410,9 +414,11 @@ $hostFilesCard = i18nCardSource(
 $hostDaemonsCard = i18nCardSource(
     file_get_contents($root . '/cards/host-daemons.js'),
 );
-$uptimeCard = i18nCardSource(file_get_contents($root . '/cards/uptime.js'));
+$uptimeCard = i18nCardSource(
+    file_get_contents($root . '/packages/core-uptime/cards/uptime.js'),
+);
 $uptimeTracksCard = i18nCardSource(
-    file_get_contents($root . '/cards/uptime-tracks.js'),
+    file_get_contents($root . '/packages/core-uptime/cards/uptime-tracks.js'),
 );
 $onboardingCard = i18nCardSource(
     file_get_contents($root . '/cards/onboarding.js'),
@@ -772,13 +778,18 @@ foreach ($pluginManifests as $manifestFile) {
         }
     }
 }
-foreach (glob($root . '/cards/*.js') ?: [] as $cardFile) {
+/** @var list<string> $cardFiles */
+$cardFiles = array_merge(
+    glob($root . '/cards/*.js') ?: [],
+    glob($root . '/packages/*/cards/*.js') ?: [],
+);
+foreach ($cardFiles as $cardFile) {
     $card = file_get_contents($cardFile);
-    $name = basename($cardFile);
+    $relative = substr($cardFile, strlen($root) + 1);
     i18nExpect(
         $card !== false &&
-            str_contains((string) $page, 'src="cards/' . $name . '"'),
-        "core card package $name is not loaded by the dashboard",
+            str_contains((string) $page, 'src="' . $relative . '"'),
+        "core card package $relative is not loaded by the dashboard",
     );
     i18nExpect(
         preg_match(
@@ -790,7 +801,7 @@ foreach (glob($root . '/cards/*.js') ?: [] as $cardFile) {
                 $card,
             ) === 1 &&
             str_contains($card, 'catalogs: Object.freeze({'),
-        "core card package $name lacks an ID, localization namespace, helper contract, or package catalog",
+        "core card package $relative lacks an ID, localization namespace, helper contract, or package catalog",
     );
     preg_match(
         '/manifest:\\s*Object\\.freeze\\(\\{\\s*id:\\s*[\\\'\"](core-[a-z0-9-]+)[\\\'\"]/s',
@@ -804,7 +815,7 @@ foreach (glob($root . '/cards/*.js') ?: [] as $cardFile) {
                 '/\\b' . $locale . ':\\s*Object\\.freeze\\(/',
                 (string) $card,
             ) === 1,
-            "core card package $name lacks its $locale locale catalog",
+            "core card package $relative lacks its $locale locale catalog",
         );
         i18nExpect(
             $package !== '' &&
@@ -812,7 +823,7 @@ foreach (glob($root . '/cards/*.js') ?: [] as $cardFile) {
                     '/[\\\'\"]' . preg_quote($package, '/') . '\\./',
                     (string) $card,
                 ) === 1,
-            "core card package $name does not own namespaced locale keys",
+            "core card package $relative does not own namespaced locale keys",
         );
     }
 }
@@ -2616,7 +2627,7 @@ i18nExpect(
 );
 i18nExpect(
     $page !== false &&
-        str_contains($page, 'src="cards/uptime.js"') &&
+        str_contains($page, 'src="packages/core-uptime/cards/uptime.js"') &&
         $uptimeCard !== false &&
         str_contains($uptimeCard, 'id: "core-uptime"') &&
         str_contains($uptimeCard, 'locales: ["core-uptime."]') &&
@@ -2639,7 +2650,7 @@ i18nExpect(
 );
 i18nExpect(
     $page !== false &&
-        str_contains($page, 'src="cards/uptime-tracks.js"') &&
+        str_contains($page, 'src="packages/core-uptime/cards/uptime-tracks.js"') &&
         $uptimeTracksCard !== false &&
         str_contains($uptimeTracksCard, 'id: "core-uptime-tracks"') &&
         str_contains($uptimeTracksCard, 'locales: ["core-uptime-tracks."]') &&

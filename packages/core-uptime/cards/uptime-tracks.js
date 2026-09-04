@@ -129,3 +129,4 @@ window.ZogographUptimeTracksCard = {
     target.replaceChildren(...rows);
   },
 };
+

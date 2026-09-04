@@ -147,6 +147,10 @@ foreach ($cardFiles as $cardFile) {
 $root = dirname(__DIR__);
 $runtime = file_get_contents($root . '/i18n.js');
 $registry = file_get_contents($root . '/ui/card-registry.js');
+$uptimePackageManifest = json_decode(
+    (string) file_get_contents($root . '/packages/core-uptime/manifest.json'),
+    true,
+);
 $page = file_get_contents($root . '/index.html');
 $script = file_get_contents($root . '/index.js');
 foreach ($cardFiles as $cardFile) {
@@ -2178,6 +2182,26 @@ i18nExpect(
         str_contains($registry, 'manifest.helpers.indexOf(helper) === index') &&
         str_contains($registry, "throw new TypeError('Core card registration is invalid.')"),
     'core card registry does not validate the package manifest boundary',
+);
+i18nExpect(
+    is_array($uptimePackageManifest) &&
+        ($uptimePackageManifest['id'] ?? null) === 'core-uptime' &&
+        ($uptimePackageManifest['kind'] ?? null) === 'built-in-ui' &&
+        ($uptimePackageManifest['default_locale'] ?? null) === 'en' &&
+        ($uptimePackageManifest['cards'] ?? null) === [
+            'core-uptime',
+            'core-uptime-tracks',
+            'core-uptime-events',
+        ] &&
+        $uptimeCard !== false &&
+        str_contains($uptimeCard, 'owner: "core-uptime"') &&
+        $uptimeTracksCard !== false &&
+        str_contains($uptimeTracksCard, 'owner: "core-uptime"') &&
+        $uptimeEventsCard !== false &&
+        str_contains($uptimeEventsCard, 'owner: "core-uptime"') &&
+        $registry !== false &&
+        str_contains($registry, 'id === owner || id.startsWith(`${owner}-`)'),
+    'uptime cards do not declare and enforce their built-in package ownership',
 );
 i18nExpect(
     $aiIdentitySettingsCard !== false &&

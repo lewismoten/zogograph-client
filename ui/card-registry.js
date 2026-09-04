@@ -5,10 +5,14 @@
 
   function validManifest(manifest) {
     const id = manifest?.id;
+    const owner = manifest?.owner;
     const prefix = `${id}.`;
     return (
       typeof id === 'string' &&
       /^core-[a-z][a-z0-9-]*$/.test(id) &&
+      typeof owner === 'string' &&
+      /^core-[a-z][a-z0-9-]*$/.test(owner) &&
+      (id === owner || id.startsWith(`${owner}-`)) &&
       Array.isArray(manifest.locales) &&
       manifest.locales.length > 0 &&
       manifest.locales.every((locale) => locale === prefix) &&

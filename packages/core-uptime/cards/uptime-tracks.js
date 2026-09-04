@@ -3,6 +3,7 @@ const UptimeTracksCard = {
   manifest: Object.freeze({
     id: 'core-uptime-tracks',
     locales: ['core-uptime-tracks.'],
+    owner: 'core-uptime',
     helpers: ['target', 'humanSpan', 'i18n'],
     catalogs: Object.freeze({
       en: Object.freeze({

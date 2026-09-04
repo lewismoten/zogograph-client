@@ -3,6 +3,7 @@ const UptimeCard = {
   manifest: Object.freeze({
     id: 'core-uptime',
     locales: ['core-uptime.'],
+    owner: 'core-uptime',
     helpers: [
       'setCard',
       'summary',

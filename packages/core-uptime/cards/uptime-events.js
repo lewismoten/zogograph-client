@@ -3,6 +3,7 @@ const UptimeEventsCard = {
   manifest: Object.freeze({
     id: 'core-uptime-events',
     locales: ['core-uptime-events.'],
+    owner: 'core-uptime',
     helpers: ['target', 'renderTable', 'whenSpan', 'humanDuration', 'ui', 'i18n'],
     catalogs: Object.freeze({
       en: Object.freeze({

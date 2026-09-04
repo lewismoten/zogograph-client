@@ -83,6 +83,8 @@ The uptime summary, tracks, and events cards now live in
 `packages/core-uptime/cards/`; dashboard discovery tests cover both legacy and
 package-owned card paths. The package retains stable card IDs and has no
 feature-specific browser globals.
+Its `manifest.json` inventories the cards and English default; each card
+declares the same owner, which the registry verifies against its ID.
 
 - [ ] Stop adding feature files directly to the flat `cards/` directory. Its
   hundreds of files are hard to browse and conceal which files form one

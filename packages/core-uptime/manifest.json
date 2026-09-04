@@ -1,0 +1,11 @@
+{
+  "id": "core-uptime",
+  "kind": "built-in-ui",
+  "version": "0.1.0",
+  "cards": [
+    "core-uptime",
+    "core-uptime-tracks",
+    "core-uptime-events"
+  ],
+  "default_locale": "en"
+}

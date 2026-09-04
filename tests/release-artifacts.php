@@ -64,9 +64,10 @@ releaseExpect(
     'release workflow no longer creates and verifies the public build metadata required for update notices',
 );
 releaseExpect(
-    is_string($workflow) &&
+        is_string($workflow) &&
         str_contains($workflow, 'release=zogograph-release') &&
-        str_contains($workflow, 'path: zogograph-release/') &&
+        str_contains($workflow, 'Assemble deployment release') &&
+        !str_contains($workflow, 'download-artifact@v3') &&
         str_contains($workflow, "--exclude='node_modules/'") &&
         str_contains($workflow, 'test -s zogograph-release/build.json'),
     'release workflow no longer stages a visible, verified deployment artifact',

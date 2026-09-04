@@ -139,13 +139,6 @@ jobs:
           test -s zogograph-release/build.json
           test -n "$(find zogograph-release -type f -print -quit)"
 
-      - name: Upload deployment build artifact
-        uses: https://code.forgejo.org/actions/upload-artifact@v3
-        with:
-          name: deployment-build
-          path: zogograph-release/
-          retention-days: 1
-
   snapshot_site:
     name: Snapshot ${{ matrix.environment }} application files
     runs-on: zogograph-ci
@@ -319,19 +312,14 @@ jobs:
       DEPLOY_KNOWN_HOSTS: ${{ vars.DEPLOY_KNOWN_HOSTS }}
       SNAPSHOT_PATH: ${{ format('{0}/{1}', vars.SNAPSHOT_PATH, matrix.environment) }}
       SNAPSHOT_RETENTION: ${{ vars.SNAPSHOT_RETENTION }}
+      BROWSER_REFRESH_REQUIRED: ${{ vars.BROWSER_REFRESH_REQUIRED }}
       DEPLOY_SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
 
     steps:
-      # Deployment scripts are checked out separately from the application
-      # artifact so this job never rebuilds the release.
-      - name: Checkout deployment scripts
+      # Assemble the same source-only release from the triggering commit. This
+      # avoids a Docker-in-Docker artifact extraction that can stall at cleanup.
+      - name: Checkout deployment source
         uses: actions/checkout@v4
-
-      - name: Download deployment build
-        uses: https://code.forgejo.org/actions/download-artifact@v3
-        with:
-          name: deployment-build
-          path: zogograph-release/
 
       - name: Validate deployment settings
         shell: bash
@@ -370,6 +358,51 @@ jobs:
         run: |
           set -euo pipefail
           command -v rsync >/dev/null || { timeout 1m apt-get update; timeout 1m apt-get install -y rsync; }
+
+      - name: Assemble deployment release
+        shell: bash
+        run: |
+          set -euo pipefail
+          release=zogograph-release
+          mkdir -p "$release"
+          timeout 1m rsync -a --delete \
+            --exclude='.git/' \
+            --exclude='zogograph-release/' \
+            --exclude='node_modules/' \
+            --exclude='dist/' \
+            --exclude='data/***' \
+            --exclude='lib/config.php' \
+            --exclude='tests/' \
+            --exclude='deploy/' \
+            --exclude='*.md' \
+            ./ "$release/"
+
+      - name: Create deployment build manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          release=zogograph-release
+          created_at="$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+          version="$(git describe --tags --always)"
+          package_version="$(node -e 'process.stdout.write(require("./package.json").version)')"
+          test -n "$package_version"
+          case "${BROWSER_REFRESH_REQUIRED:-}" in ''|false) browser_refresh_required=false;; true) browser_refresh_required=true;; *) echo 'BROWSER_REFRESH_REQUIRED must be true or false.' >&2; exit 1;; esac
+          cat > "$release/build.json" <<EOF
+          {
+            "commit": "${GITHUB_SHA}",
+            "ref": "${GITHUB_REF_NAME}",
+            "runId": "${GITHUB_RUN_ID}",
+            "runNumber": "${GITHUB_RUN_NUMBER}",
+            "createdAt": "${created_at}",
+            "version": "${version}",
+            "packageVersion": "${package_version}",
+            "repo": "${GITHUB_REPOSITORY}",
+            "application": "Zogograph",
+            "part": "client",
+            "browserRefreshRequired": ${browser_refresh_required}
+          }
+          EOF
+          test -s "$release/build.json"
 
       - name: Upload application files
         shell: bash

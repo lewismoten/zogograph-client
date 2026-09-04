@@ -2882,18 +2882,10 @@ function renderSymlinkSweepShellLabels() {
 document.addEventListener('zogograph-i18n-load', renderSymlinkSweepShellLabels);
 
 function renderJetBackupLabels() {
-  const helpers = {
-    // This localization-only render reaches JetBackup's empty state. Supply a
-    // node even though its returned fragment is discarded, so the card keeps
-    // its normal rendering contract.
-    note: () => document.createDocumentFragment(),
-    section: () => null,
-    simpleTable: () => null,
-    humanTime: () => '',
-    humanBytes: () => '',
-    i18n: ZogographI18n,
-  };
-  renderCoreCardPackage(ZogographJetBackupCard, 'core-jetbackup', {}, helpers);
+  const helpers = { i18n: ZogographI18n };
+  renderCoreCardPackage(ZogographJetBackupCard, 'core-jetbackup', {}, helpers, {
+    catalogOnly: true,
+  });
   const title = document.querySelector('[data-i18n="core-jetbackup.title"]');
   title.textContent = ZogographI18n.markSource(
     title,

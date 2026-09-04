@@ -2359,6 +2359,14 @@ i18nExpect(
 i18nExpect(
     $script !== false &&
         preg_match(
+            '/function renderJetBackupLabels\(\) \{.*?catalogOnly:\s*true/s',
+            $script,
+        ) === 1,
+    'JetBackup localization refresh still attempts a synthetic DOM render',
+);
+i18nExpect(
+    $script !== false &&
+        preg_match(
             '/function renderCpuTime\(data\) \{.*?const holder = \$\(\'cpuTimeCards\'\);.*?holder\.replaceChildren\(\);.*?ZogographCpuTimeCard/s',
             $script,
         ) === 1,

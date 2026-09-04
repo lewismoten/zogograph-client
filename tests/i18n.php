@@ -795,6 +795,59 @@ foreach ($toolLocaleDirectories as $directory) {
         );
     }
 }
+$builtInPackageManifests = glob($root . '/packages/*/manifest.json') ?: [];
+foreach ($builtInPackageManifests as $manifestFile) {
+    $manifest = json_decode((string) file_get_contents($manifestFile), true);
+    $packageRoot = dirname($manifestFile);
+    $packageId = is_array($manifest) ? $manifest['id'] ?? null : null;
+    $declaredCards = is_array($manifest) ? $manifest['cards'] ?? null : null;
+    $packageCards = glob($packageRoot . '/cards/*.js') ?: [];
+    sort($packageCards);
+    $registeredCards = [];
+    $localeFiles = [];
+    foreach ($packageCards as $packageCard) {
+        $source = (string) file_get_contents($packageCard);
+        preg_match(
+            '/manifest:\\s*Object\\.freeze\\(\\{\\s*id:\\s*[\\\'\"](core-[a-z0-9-]+)[\\\'\"]/s',
+            $source,
+            $matches,
+        );
+        $registeredCards[] = $matches[1] ?? '';
+        preg_match_all(
+            '/[\\\'\"](packages\\/[^\\\'\"]+\\/locales\\/[a-z]{2,3}(?:-[A-Z]{2})?\\/[a-z0-9-]+\\.json)[\\\'\"]/',
+            $source,
+            $matches,
+        );
+        foreach ($matches[1] as $localeFile) {
+            $localeFiles[] = $localeFile;
+        }
+    }
+    $manifestLocaleFiles = [];
+    foreach (
+        is_array($manifest['locale_packs'] ?? null)
+            ? $manifest['locale_packs']
+            : []
+        as $files
+    ) {
+        foreach (is_array($files) ? $files : [] as $file) {
+            $manifestLocaleFiles[] =
+                'packages/' . basename($packageRoot) . '/' . $file;
+        }
+    }
+    sort($localeFiles);
+    sort($manifestLocaleFiles);
+    $registeredCardSet = $registeredCards;
+    $declaredCardSet = is_array($declaredCards) ? $declaredCards : [];
+    sort($registeredCardSet);
+    sort($declaredCardSet);
+    i18nExpect(
+        is_array($manifest) &&
+            $packageId === basename($packageRoot) &&
+            $declaredCardSet === $registeredCardSet &&
+            $localeFiles === $manifestLocaleFiles,
+        "built-in package $packageRoot does not accurately inventory its registered cards and locale files",
+    );
+}
 i18nExpect(
     isset(
         json_decode(

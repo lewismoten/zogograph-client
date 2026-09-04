@@ -89,6 +89,9 @@ declares the same owner, which the registry verifies against its ID.
 CPU findings, the CPU shell, busy chart, and account CPU chart are also now in
 `packages/core-cpu/cards/`, establishing the same owner, registry, and
 optional-locale pattern for the next cohesive migration.
+The localization test now verifies every built-in package manifest against its
+registered card IDs and declared optional locale files, so a package cannot
+silently drift from its own inventory.
 
 - [ ] Stop adding feature files directly to the flat `cards/` directory. Its
   hundreds of files are hard to browse and conceal which files form one

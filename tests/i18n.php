@@ -371,6 +371,9 @@ $capabilityChangeNoteCard = i18nCardSource(
 $jetBackupCard = i18nCardSource(
     file_get_contents($root . '/cards/jetbackup.js'),
 );
+$storageRetentionCard = i18nCardSource(
+    file_get_contents($root . '/cards/storage-retention.js'),
+);
 $cagefsExplainerCard = i18nCardSource(
     file_get_contents($root . '/cards/cagefs-explainer.js'),
 );
@@ -2164,6 +2167,22 @@ i18nExpect(
         is_array($english) &&
         !isset($english['storage.other_empty_before'], $english['chart.other']),
     'storage other-extensions card does not own its locale catalog',
+);
+i18nExpect(
+    $storageRetentionCard !== false &&
+        str_contains($storageRetentionCard, '"core-storage-retention.what"') &&
+        str_contains($storageRetentionCard, '"core-storage-retention.holding_now"') &&
+        str_contains($storageRetentionCard, '"core-storage-retention.covers"') &&
+        str_contains($storageRetentionCard, '"core-storage-retention.keep_for"') &&
+        str_contains($storageRetentionCard, '"core-storage-retention.recommended"') &&
+        str_contains($storageRetentionCard, '"core-storage-retention.settles_at"') &&
+        str_contains($storageRetentionCard, '"core-storage-retention.days_value"') &&
+        str_contains($storageRetentionCard, '"core-storage-retention.yearly_growth"') &&
+        preg_match('/es:\s*Object\.freeze\(\{.*?yearly_growth[^\n]*\/yr/s', $storageRetentionCard) !== 1 &&
+        preg_match('/hi:\s*Object\.freeze\(\{.*?yearly_growth[^\n]*\/yr/s', $storageRetentionCard) !== 1 &&
+        preg_match('/ar:\s*Object\.freeze\(\{.*?yearly_growth[^\n]*\/yr/s', $storageRetentionCard) !== 1 &&
+        preg_match('/zh:\s*Object\.freeze\(\{.*?yearly_growth[^\n]*\/yr/s', $storageRetentionCard) !== 1,
+    'retention table labels, durations, or yearly rate are not localized',
 );
 i18nExpect(
     $page !== false &&

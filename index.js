@@ -968,7 +968,9 @@ function cpuCoresText(key, values = {}) {
 }
 
 function cpuShellText(key, values = {}) {
-  return ZogographCpuShellCard.text(key, values, { i18n: ZogographI18n });
+  return Zogograph.cards
+    .get('core-cpu-shell')
+    .text(key, values, { i18n: ZogographI18n });
 }
 
 async function refreshCpu() {
@@ -3667,8 +3669,9 @@ function renderCpuBusyChartTitle() {
 document.addEventListener('zogograph-i18n-load', renderCpuBusyChartTitle);
 
 function renderCpuShellLabels() {
+  const cpuShellCard = Zogograph.cards.get('core-cpu-shell');
   const helpers = { i18n: ZogographI18n };
-  renderCoreCardPackage(ZogographCpuShellCard, 'core-cpu-shell', {}, helpers);
+  renderCoreCardPackage(cpuShellCard, 'core-cpu-shell', {}, helpers);
   ZogographI18n.applyRich(
     document.querySelector('[data-i18n-rich="core-cpu-shell.help"]'),
   );

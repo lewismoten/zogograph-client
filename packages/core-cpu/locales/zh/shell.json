@@ -1,0 +1,9 @@
+{
+  "core-cpu-shell.help": "处理器的工作强度，以及此账户可使用多少。CageFS 内账户自身的百分比是其配额的百分比，而不是整台机器的百分比；因此账户被限制而服务器空闲，是碰到限制的正常表现，并不矛盾。",
+  "core-cpu-shell.reading_collector": "正在读取主机收集器…",
+  "core-cpu-shell.no_host_readings": "没有主机读数。",
+  "core-cpu-shell.no_breakdown": "此范围内尚无处理器明细——收集器从添加这些页面的版本起才记录它",
+  "core-cpu-shell.only_one_reading": "目前只有一个读数——百分比需要两个",
+  "core-cpu-shell.add_root_cron": "请以 root 身份通过 SSH 或 WHM Terminal 将以下内容用 crontab -e 添加到 root 的 crontab：",
+  "core-cpu-shell.run_root_once": "然后手动运行一次，查看它发现了什么：{{command}}"
+}

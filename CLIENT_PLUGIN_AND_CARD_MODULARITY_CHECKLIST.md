@@ -85,8 +85,9 @@ package-owned card paths. The package retains stable card IDs and has no
 feature-specific browser globals.
 Its `manifest.json` inventories the cards and English default; each card
 declares the same owner, which the registry verifies against its ID.
-CPU findings is also now in `packages/core-cpu/cards/`, establishing the same
-owner, registry, and optional-locale pattern for the next cohesive migration.
+CPU findings and the CPU shell are also now in `packages/core-cpu/cards/`,
+establishing the same owner, registry, and optional-locale pattern for the
+next cohesive migration.
 
 - [ ] Stop adding feature files directly to the flat `cards/` directory. Its
   hundreds of files are hard to browse and conceal which files form one

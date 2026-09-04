@@ -27,7 +27,6 @@ export default [
         ZogographCpuLimitsCard: 'readonly',
         ZogographCpuProcessesCard: 'readonly',
         ZogographCpuQueueCard: 'readonly',
-        ZogographCpuShellCard: 'readonly',
         ZogographCpuTimeCard: 'readonly',
         ZogographBusyMomentsCard: 'readonly',
         ZogographBootHistoryCard: 'readonly',

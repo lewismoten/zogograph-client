@@ -1,0 +1,9 @@
+{
+  "core-cpu-shell.help": "Cuánto trabaja el procesador y qué parte puede usar esta cuenta. Dentro de CageFS, el porcentaje propio de la cuenta corresponde a su asignación, no a la máquina; por eso una cuenta limitada y un servidor inactivo son la forma normal de alcanzar un límite, no una contradicción.",
+  "core-cpu-shell.reading_collector": "Leyendo el recolector del host…",
+  "core-cpu-shell.no_host_readings": "No hay lecturas del host.",
+  "core-cpu-shell.no_breakdown": "Aún no hay desglose del procesador en este intervalo; el recolector lo registra desde la versión que añadió estas páginas",
+  "core-cpu-shell.only_one_reading": "Solo hay una lectura: un porcentaje necesita dos",
+  "core-cpu-shell.add_root_cron": "Como root — conéctese por SSH o use la Terminal de WHM — añada esto al crontab de root con crontab -e:",
+  "core-cpu-shell.run_root_once": "Después ejecútelo una vez a mano para ver qué encuentra: {{command}}"
+}

@@ -1,0 +1,11 @@
+{
+  "core-cpu-chart.title": "المعالج والذاكرة",
+  "core-cpu-chart.help": "حصة مما يستطيع هذا الحساب استخدامه منذ القراءة السابقة.",
+  "core-cpu-chart.ready": "مخطط المعالج",
+  "core-cpu-chart.cpu_percent": "المعالج %",
+  "core-cpu-chart.memory_used_right": "الذاكرة المستخدمة (يمين)",
+  "core-cpu-chart.memory_percent": "الذاكرة %",
+  "core-cpu-chart.host_allows_above": " راجع ما يسمح به المضيف أعلاه.",
+  "core-cpu-chart.cpu_note_absolute": "حصة مما يمكن لهذا الحساب استخدامه منذ القراءة السابقة. الذاكرة هي البايتات المستهلكة على اليمين من {{total}} المتاحة لهذا الحساب.{{hostNote}}",
+  "core-cpu-chart.cpu_note_relative": "حصة مما يمكن لهذا الحساب استخدامه منذ القراءة السابقة.{{hostNote}}"
+}

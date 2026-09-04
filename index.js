@@ -1878,6 +1878,7 @@ function renderRoomChartLabels() {
 document.addEventListener('zogograph-i18n-load', renderRoomChartLabels);
 
 function renderCpuChartLabels() {
+  const cpuChartCard = Zogograph.cards.get('core-cpu-chart');
   const helpers = {
     canvas: null,
     noteTarget: null,
@@ -1891,7 +1892,7 @@ function renderCpuChartLabels() {
     humanBytes: () => '',
     i18n: ZogographI18n,
   };
-  renderCoreCardPackage(ZogographCpuChart, 'core-cpu-chart', [], helpers);
+  renderCoreCardPackage(cpuChartCard, 'core-cpu-chart', [], helpers);
   document
     .querySelectorAll('[data-i18n^="core-cpu-chart."]')
     .forEach((node) => {
@@ -1900,7 +1901,7 @@ function renderCpuChartLabels() {
       node.textContent = ZogographI18n.markSource(
         node,
         `core-cpu-chart.${key}`,
-        ZogographCpuChart.text(key, helpers),
+        cpuChartCard.text(key, helpers),
       );
     });
   for (const key of ['help', 'lve_help']) {
@@ -6943,19 +6944,24 @@ function bucketDeltas(rows, seconds) {
  * a way for the three to disagree.
  */
 function renderCpuChart(rows) {
-  return renderCoreCardPackage(ZogographCpuChart, 'core-cpu-chart', rows, {
-    canvas: $('cpuChart'),
-    noteTarget: $('cpuNote'),
-    units: state.units,
-    uptime: state.uptime,
-    limitsAvailable: state.limits?.available,
-    drawLineChart,
-    outageBands,
-    percentAxis,
-    bytesAxis,
-    humanBytes,
-    i18n: ZogographI18n,
-  });
+  return renderCoreCardPackage(
+    Zogograph.cards.get('core-cpu-chart'),
+    'core-cpu-chart',
+    rows,
+    {
+      canvas: $('cpuChart'),
+      noteTarget: $('cpuNote'),
+      units: state.units,
+      uptime: state.uptime,
+      limitsAvailable: state.limits?.available,
+      drawLineChart,
+      outageBands,
+      percentAxis,
+      bytesAxis,
+      humanBytes,
+      i18n: ZogographI18n,
+    },
+  );
 }
 
 /**

@@ -145,7 +145,6 @@ export default [
         ZogographUpdateBannerCard: 'readonly',
         ZogographRoomChart: 'readonly',
         ZogographIoChart: 'readonly',
-        ZogographCpuChart: 'readonly',
         ZogographLoadNetworkCharts: 'readonly',
         ZogographEmptyCategoriesCard: 'readonly',
         ZogographHostMemoryCard: 'readonly',

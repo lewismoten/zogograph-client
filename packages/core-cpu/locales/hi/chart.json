@@ -1,0 +1,11 @@
+{
+  "core-cpu-chart.title": "CPU और मेमोरी",
+  "core-cpu-chart.help": "पिछली रीडिंग से इस खाते के उपयोग योग्य हिस्से का भाग।",
+  "core-cpu-chart.ready": "CPU चार्ट",
+  "core-cpu-chart.cpu_percent": "CPU %",
+  "core-cpu-chart.memory_used_right": "उपयोग की गई मेमोरी (दायाँ)",
+  "core-cpu-chart.memory_percent": "मेमोरी %",
+  "core-cpu-chart.host_allows_above": " ऊपर देखें कि होस्ट क्या अनुमति देता है।",
+  "core-cpu-chart.cpu_note_absolute": "पिछली रीडिंग के बाद से यह खाता जितना उपयोग कर सकता है उसका हिस्सा। दाईं ओर की मेमोरी इस खाते के लिए उपलब्ध {{total}} में से उपयोग किए गए बाइट हैं।{{hostNote}}",
+  "core-cpu-chart.cpu_note_relative": "पिछली रीडिंग के बाद से यह खाता जितना उपयोग कर सकता है उसका हिस्सा।{{hostNote}}"
+}

@@ -1,0 +1,11 @@
+{
+  "core-cpu-chart.title": "CPU y memoria",
+  "core-cpu-chart.help": "Parte de lo que esta cuenta puede usar desde la lectura anterior.",
+  "core-cpu-chart.ready": "Gráfico de CPU",
+  "core-cpu-chart.cpu_percent": "CPU %",
+  "core-cpu-chart.memory_used_right": "Memoria usada (derecha)",
+  "core-cpu-chart.memory_percent": "Memoria %",
+  "core-cpu-chart.host_allows_above": " Consulte arriba lo que permite el host.",
+  "core-cpu-chart.cpu_note_absolute": "Parte de lo que esta cuenta puede usar desde la lectura anterior. La memoria son bytes consumidos a la derecha, de {{total}} disponibles para esta cuenta.{{hostNote}}",
+  "core-cpu-chart.cpu_note_relative": "Parte de lo que esta cuenta puede usar desde la lectura anterior.{{hostNote}}"
+}

@@ -1,0 +1,11 @@
+{
+  "core-cpu-chart.title": "CPU 和内存",
+  "core-cpu-chart.help": "自上次读数以来此账户可使用份额的占比。",
+  "core-cpu-chart.ready": "CPU 图表",
+  "core-cpu-chart.cpu_percent": "CPU %",
+  "core-cpu-chart.memory_used_right": "已用内存（右轴）",
+  "core-cpu-chart.memory_percent": "内存 %",
+  "core-cpu-chart.host_allows_above": " 请参阅上方主机允许的用量。",
+  "core-cpu-chart.cpu_note_absolute": "自上次读数以来，此帐户可用份额。右轴内存为此帐户可用 {{total}} 中已消耗的字节数。{{hostNote}}",
+  "core-cpu-chart.cpu_note_relative": "自上次读数以来，此帐户可用份额。{{hostNote}}"
+}

@@ -85,7 +85,7 @@ package-owned card paths. The package retains stable card IDs and has no
 feature-specific browser globals.
 Its `manifest.json` inventories the cards and English default; each card
 declares the same owner, which the registry verifies against its ID.
-CPU findings, the CPU shell, and the busy chart are also now in
+CPU findings, the CPU shell, busy chart, and account CPU chart are also now in
 `packages/core-cpu/cards/`, establishing the same owner, registry, and
 optional-locale pattern for the next cohesive migration.
 

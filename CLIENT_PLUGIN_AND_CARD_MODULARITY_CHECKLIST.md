@@ -214,6 +214,12 @@ surface instead of duplicating DOM boilerplate in package cards.
 are included in core-catalog discovery. The product-specific alias remains
 during the staged migration.
 
+The uptime package is the first locale-pack pilot: its cards keep only English
+inline, while Spanish, Hindi, Arabic, and Chinese live in package-owned JSON
+files and are fetched only after that language is selected. Paths are validated
+against the card owner and catalogs are namespace-checked before use. This is
+download-on-select, not yet an installed-pack UI or signature/provenance model.
+
 - [ ] Publish `window.i18n` as the short global localization service; it owns
   catalog registration, `t`, rich-token rendering, date/number/list formatting,
   plural/select rules, and source attribution. New code uses a local `i18n`

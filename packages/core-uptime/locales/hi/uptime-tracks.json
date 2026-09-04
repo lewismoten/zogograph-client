@@ -1,0 +1,11 @@
+{
+  "core-uptime-tracks.unreadable": "इस खाते से इसका डेटाबेस नहीं पढ़ा जा सकता, इसलिए यह चल रहा है या नहीं इसके बारे में कुछ नहीं कहा जा सकता",
+  "core-uptime-tracks.nothing_recorded": "इस विंडो में कुछ भी दर्ज नहीं है",
+  "core-uptime-tracks.readings": "{{count, number}} रीडिंग",
+  "core-uptime-tracks.every": "लगभग हर {{duration}}",
+  "core-uptime-tracks.last": "आखिरी {{duration}} पहले",
+  "core-uptime-tracks.last_late": "आखिरी {{duration}} पहले — सामान्य से देर से",
+  "core-uptime-tracks.gaps": "इस विंडो में {{count, number}} अंतर",
+  "core-uptime-tracks.requests_answered": "{{count, number}} अनुरोधों का उत्तर दिया गया",
+  "core-uptime-tracks.summary": " — {{values}}।"
+}

@@ -1,0 +1,11 @@
+{
+  "core-uptime-tracks.unreadable": "此账户无法读取其数据库，因此无法判断它是否正在运行",
+  "core-uptime-tracks.nothing_recorded": "此窗口中没有记录内容",
+  "core-uptime-tracks.readings": "{{count, number}} 次读数",
+  "core-uptime-tracks.every": "大约每 {{duration}} 一次",
+  "core-uptime-tracks.last": "上一次在 {{duration}} 前",
+  "core-uptime-tracks.last_late": "上一次在 {{duration}} 前——比平时晚",
+  "core-uptime-tracks.gaps": "此窗口中有 {{count, number}} 个间隔",
+  "core-uptime-tracks.requests_answered": "已响应 {{count, number}} 个请求",
+  "core-uptime-tracks.summary": " — {{values}}。"
+}

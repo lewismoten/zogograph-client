@@ -7,6 +7,7 @@
     const id = manifest?.id;
     const owner = manifest?.owner;
     const prefix = `${id}.`;
+    const localeFiles = manifest?.localeFiles;
     return (
       typeof id === 'string' &&
       /^core-[a-z][a-z0-9-]*$/.test(id) &&
@@ -19,11 +20,23 @@
       Array.isArray(manifest.helpers) &&
       manifest.helpers.every(
         (helper, index) =>
-          typeof helper === 'string' && manifest.helpers.indexOf(helper) === index,
+          typeof helper === 'string' &&
+          manifest.helpers.indexOf(helper) === index,
       ) &&
       manifest.catalogs &&
       !Array.isArray(manifest.catalogs) &&
-      typeof manifest.catalogs === 'object'
+      typeof manifest.catalogs === 'object' &&
+      (localeFiles === undefined ||
+        (!Array.isArray(localeFiles) &&
+          typeof localeFiles === 'object' &&
+          Object.entries(localeFiles).every(
+            ([locale, path]) =>
+              /^[a-z]{2,3}(?:-[A-Z]{2})?$/.test(locale) &&
+              typeof path === 'string' &&
+              new RegExp(
+                `^packages/${owner}/locales/${locale}/[a-z0-9-]+\\.json$`,
+              ).test(path),
+          )))
     );
   }
 

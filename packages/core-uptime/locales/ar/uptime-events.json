@@ -1,0 +1,14 @@
+{
+  "core-uptime-events.empty": "كل قراءة في هذه النافذة موجودة ولم يُعد تشغيل الجهاز. لا شيء لتفسيره.",
+  "core-uptime-events.restarted": "أُعيد تشغيله",
+  "core-uptime-events.what": "ما",
+  "core-uptime-events.from": "من",
+  "core-uptime-events.until": "حتى",
+  "core-uptime-events.for": "لمدة",
+  "core-uptime-events.meaning": "ما معناه",
+  "core-uptime-events.reading_gap": "فجوة في القراءات",
+  "core-uptime-events.restart_explanation": "تغيّر وقت الإقلاع، لذا أعيد تشغيل الجهاز بالفعل. عاد في {{booted}}؛ وتوقف في وقت ما بعد آخر قراءة، لذا فهذا حد أعلى لا قياس.",
+  "core-uptime-events.gap_collector_not_running": "لم يتغير وقت الإقلاع على الجانبين، لذا استمر الجهاز في العمل — كان يعمل لكن الجامع لم يكن يعمل.",
+  "core-uptime-events.gap_before_tracking": "هذه القراءات تسبق تسجيل وقت الإقلاع، لذلك لا يمكن معرفة ما إذا كان الجهاز قد أعيد تشغيله هنا. ليست انقطاعًا بل فترة لا يمكن تصنيفها.",
+  "core-uptime-events.gap_unknown": "لا يوجد وقت إقلاع على أي من الجانبين للمقارنة، لذلك لا يمكن لهذه القراءات تحديد ما إذا ظل الجهاز يعمل."
+}

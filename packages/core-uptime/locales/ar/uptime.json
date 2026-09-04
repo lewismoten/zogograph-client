@@ -1,0 +1,15 @@
+{
+  "core-uptime.title": "مدة التشغيل والانقطاعات",
+  "core-uptime.gaps_help": "الفجوة في القراءات ليست هي إيقاف الآلة، وتفرق المخططات بينهما — {{restart_shading}} حيث تغير وقت الإقلاع، فهي أعادت التشغيل فعلًا؛ و{{gap_shading}} حيث لم يتغير وقت الإقلاع على الجانبين ولم يكن الجامع يعمل ببساطة. تحسب مدة التشغيل النوع الأول فقط؛ فلا ينبغي أن تبدو مهمة cron المتوقفة كخادم يستمر في السقوط.",
+  "core-uptime.restart_help": "يعلّم {{restart_line}} كل إعادة تشغيل يعرفها المضيف من {{last}}. لا يلزم أن تترك هذه فجوة أصلًا — فإعادة تشغيل يستأنف بعدها الجامع خلال دقيقة لا شيء فيها للتظليل — وتشمل عمليات إعادة التشغيل من قبل تسجيل أوقات الإقلاع، التي لا تستطيع القراءات وحدها إظهارها.",
+  "core-uptime.no_boot_time": "لم يُسجل وقت إقلاع بعد",
+  "core-uptime.since": "منذ {{time}}",
+  "core-uptime.measured_window_up": "كان يعمل خلال {{percent}}% من النافذة المقاسة",
+  "core-uptime.window_recorded": "سُجل فعلياً {{percent}}% منها",
+  "core-uptime.no_downtime": "لم يُكتشف وقت توقف",
+  "core-uptime.restarts_window": "{{count, number}} عمليات إعادة تشغيل في هذه النافذة",
+  "core-uptime.down_at_most": "متوقف لمدة {{duration}} على الأكثر",
+  "core-uptime.not_recorded": "{{duration}} غير مسجلة",
+  "core-uptime.no_readings_window": "لا توجد قراءات في هذه النافذة.",
+  "core-uptime.machine": "الجهاز"
+}

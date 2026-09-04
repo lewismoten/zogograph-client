@@ -10,6 +10,7 @@ function i18nCardSource(string|false $source): string|false
 {
     return $source === false ? false : str_replace("'", '"', $source);
 }
+$root = dirname(__DIR__);
 $cardFiles = array_merge(
     glob(dirname(__DIR__) . '/cards/*.js') ?: [],
     glob(dirname(__DIR__) . '/packages/*/cards/*.js') ?: [],
@@ -18,8 +19,12 @@ $coreCardEnglish = [];
 $coreCardLocaleKeys = array_fill_keys(['en', 'es', 'hi', 'ar', 'zh'], []);
 foreach ($cardFiles as $cardFile) {
     $cardSource = file_get_contents($cardFile);
+    $isPackageCard = str_contains($cardFile, '/packages/');
     $cardCatalogKeys = [];
-    foreach (array_keys($coreCardLocaleKeys) as $locale) {
+    foreach (
+        $isPackageCard ? ['en'] : array_keys($coreCardLocaleKeys)
+        as $locale
+    ) {
         if (
             preg_match(
                 '/\\b' .
@@ -36,7 +41,11 @@ foreach ($cardFiles as $cardFile) {
                 $localeCatalog,
             )
         ) {
-            preg_match_all("/'([^']+)'\\s*:/", $localeCatalog[1], $localeKeys);
+            preg_match_all(
+                '/[\'\"]([^\'\"]+)[\'\"]\\s*:/',
+                $localeCatalog[1],
+                $localeKeys,
+            );
             $cardCatalogKeys[$locale] = $localeKeys[1] ?? [];
             foreach ($localeKeys[1] ?? [] as $localeKey) {
                 $coreCardLocaleKeys[$locale][$localeKey] = true;
@@ -45,17 +54,64 @@ foreach ($cardFiles as $cardFile) {
     }
     if (
         preg_match(
-            '/en:\\s*Object\\.freeze\\(\\{(.*?)\\}\\),\\s*es:/s',
+            '/en:\\s*Object\\.freeze\\(\\{(.*?)\\}\\),\\s*(?:es:|localeFiles:)/s',
             (string) $cardSource,
             $englishCatalog,
         )
     ) {
-        preg_match_all("/'([^']+)'\\s*:/", $englishCatalog[1], $englishKeys);
+        preg_match_all(
+            '/[\'\"]([^\'\"]+)[\'\"]\\s*:/',
+            $englishCatalog[1],
+            $englishKeys,
+        );
         foreach ($englishKeys[1] ?? [] as $englishKey) {
             $coreCardEnglish[$englishKey] = true;
         }
     }
     preg_match("/id:\\s*'([^']+)'/", (string) $cardSource, $cardId);
+    if ($isPackageCard && isset($cardId[1])) {
+        preg_match("/owner:\\s*'([^']+)'/", (string) $cardSource, $ownerMatch);
+        $owner = $ownerMatch[1] ?? '';
+        preg_match_all(
+            '/\\b(es|hi|ar|zh):\\s*[\'\"]([^\'\"]+\\.json)[\'\"]/',
+            (string) $cardSource,
+            $localeFiles,
+            PREG_SET_ORDER,
+        );
+        $localePaths = [];
+        foreach ($localeFiles as $localeFile) {
+            $localePaths[$localeFile[1]] = $localeFile[2];
+        }
+        foreach (['es', 'hi', 'ar', 'zh'] as $locale) {
+            $path = $localePaths[$locale] ?? '';
+            i18nExpect(
+                preg_match(
+                    '#^packages/' .
+                        preg_quote($owner, '#') .
+                        '/locales/' .
+                        $locale .
+                        '/[a-z0-9-]+\\.json$#',
+                    $path,
+                ) === 1,
+                basename($cardFile) .
+                    " must declare an optional $locale locale pack",
+            );
+            $catalog = is_file($root . '/' . $path)
+                ? json_decode(
+                    (string) file_get_contents($root . '/' . $path),
+                    true,
+                )
+                : null;
+            i18nExpect(
+                is_array($catalog),
+                basename($cardFile) . " has an invalid $locale locale pack",
+            );
+            $cardCatalogKeys[$locale] = array_keys($catalog ?: []);
+            foreach ($cardCatalogKeys[$locale] as $localeKey) {
+                $coreCardLocaleKeys[$locale][$localeKey] = true;
+            }
+        }
+    }
     if (
         isset($cardId[1]) &&
         ($cardCatalogKeys['en'] ?? []) === [] &&
@@ -76,12 +132,14 @@ foreach ($cardFiles as $cardFile) {
             str_contains($cardSource, 'render(') &&
             str_contains($cardSource, "'i18n'") &&
             str_contains($cardSource, 'en: Object.freeze({') &&
-            str_contains($cardSource, 'es: Object.freeze({') &&
-            str_contains($cardSource, 'hi: Object.freeze({') &&
-            str_contains($cardSource, 'ar: Object.freeze({') &&
-            str_contains($cardSource, 'zh: Object.freeze({'),
+            ($isPackageCard
+                ? str_contains($cardSource, 'localeFiles: Object.freeze({')
+                : str_contains($cardSource, 'es: Object.freeze({') &&
+                    str_contains($cardSource, 'hi: Object.freeze({') &&
+                    str_contains($cardSource, 'ar: Object.freeze({') &&
+                    str_contains($cardSource, 'zh: Object.freeze({')),
         basename($cardFile) .
-            ' must provide a render function and catalogs for every supported core locale',
+            ' must provide a render function and its required locale catalogs',
     );
     i18nExpect(
         isset($cardId[1]) && str_contains($cardSource, "'" . $cardId[1] . '.'),
@@ -89,7 +147,8 @@ foreach ($cardFiles as $cardFile) {
     );
     i18nExpect(
         isset($cardId[1]) &&
-            substr_count($cardSource, "'" . $cardId[1] . '.') >= 6,
+            ($isPackageCard ||
+                substr_count($cardSource, "'" . $cardId[1] . '.') >= 6),
         basename($cardFile) .
             ' must include package-owned copy in every locale catalog',
     );
@@ -144,7 +203,6 @@ foreach ($cardFiles as $cardFile) {
         );
     }
 }
-$root = dirname(__DIR__);
 $runtime = file_get_contents($root . '/i18n.js');
 $registry = file_get_contents($root . '/ui/card-registry.js');
 $uptimePackageManifest = json_decode(
@@ -161,8 +219,7 @@ foreach ($cardFiles as $cardFile) {
         $cardPath . ' is not registered by index.html',
     );
     i18nExpect(
-        $page !== false &&
-            substr_count($page, 'src="' . $cardPath . '"') === 1,
+        $page !== false && substr_count($page, 'src="' . $cardPath . '"') === 1,
         $cardPath . ' must be registered exactly once by index.html',
     );
 }
@@ -814,7 +871,10 @@ foreach ($cardFiles as $cardFile) {
         $manifest,
     );
     $package = $manifest[1] ?? '';
-    foreach (['en', 'es', 'hi', 'ar', 'zh'] as $locale) {
+    $inlineLocales = str_contains($cardFile, '/packages/')
+        ? ['en']
+        : ['en', 'es', 'hi', 'ar', 'zh'];
+    foreach ($inlineLocales as $locale) {
         i18nExpect(
             preg_match(
                 '/\\b' . $locale . ':\\s*Object\\.freeze\\(/',
@@ -833,8 +893,12 @@ foreach ($cardFiles as $cardFile) {
     }
     if (str_contains($cardFile, '/packages/')) {
         i18nExpect(
-            !preg_match('/window\.Zogograph[A-Za-z0-9_]+Card\s*=/', (string) $card) &&
-                str_contains((string) $card, 'Zogograph.cards.register('),
+            !preg_match(
+                '/window\.Zogograph[A-Za-z0-9_]+Card\s*=/',
+                (string) $card,
+            ) &&
+                str_contains((string) $card, 'Zogograph.cards.register(') &&
+                str_contains((string) $card, 'localeFiles: Object.freeze({'),
             "package-owned card $relative must register without a feature-specific browser global",
         );
     }
@@ -928,6 +992,16 @@ i18nExpect(
         str_contains($runtime, 'window.i18n = i18nApi;') &&
         str_contains($runtime, 'window.ZogographI18n = i18nApi;') &&
         str_contains($runtime, 'window.Zogograph?.cards?.all?.() || []') &&
+        str_contains(
+            $runtime,
+            'async function i18nLoadCoreCardLocaleFiles(locale)',
+        ) &&
+        str_contains($runtime, 'await i18nLoadCoreCardLocaleFiles(locale);') &&
+        str_contains(
+            $runtime,
+            'function i18nMatchesEnglishCatalog(catalog, englishCatalog)',
+        ) &&
+        str_contains($runtime, 'packages/${owner}/locales/${locale}/') &&
         $script !== false &&
         str_contains($script, "Zogograph.cards.get('core-uptime-events')") &&
         str_contains($script, 'i18n: window.i18n'),
@@ -950,7 +1024,10 @@ i18nExpect(
 );
 i18nExpect(
     $script !== false &&
-        str_contains($script, 'const catalogOnly = options?.catalogOnly === true;') &&
+        str_contains(
+            $script,
+            'const catalogOnly = options?.catalogOnly === true;',
+        ) &&
         str_contains($script, 'if (catalogOnly) return;') &&
         preg_match(
             '/function renderDnsChangesTitle\(\).*?\{ catalogOnly: true \}/s',
@@ -2147,12 +2224,21 @@ i18nExpect(
 );
 i18nExpect(
     $uptimeEventsCard !== false &&
-        str_contains($uptimeEventsCard, 'text(key, valuesOrHelpers = {}, maybeHelpers = null)') &&
+        str_contains(
+            $uptimeEventsCard,
+            'text(key, valuesOrHelpers = {}, maybeHelpers = null)',
+        ) &&
         str_contains($uptimeEventsCard, '`core-uptime-events.${key}`') &&
         $script !== false &&
-        str_contains($uptimeEventsCard, 'Zogograph.cards.register(UptimeEventsCard)') &&
+        str_contains(
+            $uptimeEventsCard,
+            'Zogograph.cards.register(UptimeEventsCard)',
+        ) &&
         str_contains($script, "uptimeEventsCard.text('restarted'") &&
-        str_contains($script, "uptimeEventsCard.text(\n        'restart_explanation'") &&
+        str_contains(
+            $script,
+            "uptimeEventsCard.text(\n        'restart_explanation'",
+        ) &&
         str_contains($script, "Zogograph.cards.get('core-uptime-events')"),
     'uptime event card text API does not match its callers',
 );
@@ -2180,7 +2266,10 @@ i18nExpect(
         str_contains($registry, 'function validManifest(manifest)') &&
         str_contains($registry, 'manifest.locales.every') &&
         str_contains($registry, 'manifest.helpers.indexOf(helper) === index') &&
-        str_contains($registry, "throw new TypeError('Core card registration is invalid.')"),
+        str_contains(
+            $registry,
+            "throw new TypeError('Core card registration is invalid.')",
+        ),
     'core card registry does not validate the package manifest boundary',
 );
 i18nExpect(
@@ -2188,6 +2277,12 @@ i18nExpect(
         ($uptimePackageManifest['id'] ?? null) === 'core-uptime' &&
         ($uptimePackageManifest['kind'] ?? null) === 'built-in-ui' &&
         ($uptimePackageManifest['default_locale'] ?? null) === 'en' &&
+        array_keys($uptimePackageManifest['locale_packs'] ?? []) === [
+            'es',
+            'hi',
+            'ar',
+            'zh',
+        ] &&
         ($uptimePackageManifest['cards'] ?? null) === [
             'core-uptime',
             'core-uptime-tracks',
@@ -2200,7 +2295,8 @@ i18nExpect(
         $uptimeEventsCard !== false &&
         str_contains($uptimeEventsCard, 'owner: "core-uptime"') &&
         $registry !== false &&
-        str_contains($registry, 'id === owner || id.startsWith(`${owner}-`)'),
+        str_contains($registry, 'id === owner || id.startsWith(`${owner}-`)') &&
+        str_contains($registry, 'const localeFiles = manifest?.localeFiles;'),
     'uptime cards do not declare and enforce their built-in package ownership',
 );
 i18nExpect(
@@ -2208,8 +2304,14 @@ i18nExpect(
         !str_contains($aiIdentitySettingsCard, "'aiPortraitAlt'") &&
         !str_contains($aiIdentitySettingsCard, 'aiPortraitAlt,') &&
         $script !== false &&
-        str_contains($script, "ZogographAiIdentitySettingsCard,\n    'core-ai-identity-settings'") &&
-        !str_contains($script, "notice,\n      aiPortraitAlt,\n      i18n: ZogographI18n,"),
+        str_contains(
+            $script,
+            "ZogographAiIdentitySettingsCard,\n    'core-ai-identity-settings'",
+        ) &&
+        !str_contains(
+            $script,
+            "notice,\n      aiPortraitAlt,\n      i18n: ZogographI18n,",
+        ),
     'AI identity settings manifest and caller disagree about portrait helpers',
 );
 i18nExpect(
@@ -2692,15 +2794,15 @@ i18nExpect(
         str_contains($uptimeCard, '"summary"') &&
         str_contains($uptimeCard, '"trimPercent"') &&
         $script !== false &&
-        str_contains(
-            $script,
-            "Zogograph.cards.get('core-uptime')",
-        ),
+        str_contains($script, "Zogograph.cards.get('core-uptime')"),
     'uptime dashboard card is not isolated behind its core card-module boundary',
 );
 i18nExpect(
     $page !== false &&
-        str_contains($page, 'src="packages/core-uptime/cards/uptime-tracks.js"') &&
+        str_contains(
+            $page,
+            'src="packages/core-uptime/cards/uptime-tracks.js"',
+        ) &&
         $uptimeTracksCard !== false &&
         str_contains($uptimeTracksCard, 'id: "core-uptime-tracks"') &&
         str_contains($uptimeTracksCard, 'locales: ["core-uptime-tracks."]') &&
@@ -2712,10 +2814,7 @@ i18nExpect(
             $english['uptime.track_summary'],
         ) &&
         $script !== false &&
-        str_contains(
-            $script,
-            "Zogograph.cards.get('core-uptime-tracks')",
-        ),
+        str_contains($script, "Zogograph.cards.get('core-uptime-tracks')"),
     'uptime collector tracks are not isolated behind their core card-module boundary',
 );
 i18nExpect(

@@ -1,0 +1,14 @@
+{
+  "core-uptime-events.empty": "इस अवधि की हर रीडिंग मौजूद है और मशीन कभी रीस्टार्ट नहीं हुई। समझाने के लिए कुछ नहीं।",
+  "core-uptime-events.restarted": "रीस्टार्ट हुआ",
+  "core-uptime-events.what": "क्या",
+  "core-uptime-events.from": "से",
+  "core-uptime-events.until": "तक",
+  "core-uptime-events.for": "अवधि",
+  "core-uptime-events.meaning": "इसका अर्थ",
+  "core-uptime-events.reading_gap": "रीडिंग अंतराल",
+  "core-uptime-events.restart_explanation": "बूट समय बदला, इसलिए मशीन फिर शुरू हुई। यह {{booted}} पर वापस आई; आखिरी रीडिंग के बाद किसी समय बंद हुई, इसलिए यह ऊपरी सीमा है, माप नहीं।",
+  "core-uptime-events.gap_collector_not_running": "दोनों ओर बूट समय अपरिवर्तित था, इसलिए मशीन चलती रही — वह चालू थी, पर कलेक्टर नहीं चल रहा था।",
+  "core-uptime-events.gap_before_tracking": "ये रीडिंग बूट-समय रिकॉर्डिंग से पहले की हैं, इसलिए यहां पुनरारंभ हुआ या नहीं कहा नहीं जा सकता। यह आउटेज नहीं, वर्गीकृत न हो सकने वाला अंतराल है।",
+  "core-uptime-events.gap_unknown": "तुलना के लिए दोनों ओर बूट समय नहीं है, इसलिए इन रीडिंग से नहीं बताया जा सकता कि मशीन चालू रही या नहीं।"
+}

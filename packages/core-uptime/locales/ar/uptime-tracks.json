@@ -1,0 +1,11 @@
+{
+  "core-uptime-tracks.unreadable": "لا يستطيع هذا الحساب قراءة قاعدة بياناته، لذا لا يمكن قول شيء عن كونه يعمل",
+  "core-uptime-tracks.nothing_recorded": "لا شيء مسجل في هذه النافذة",
+  "core-uptime-tracks.readings": "{{count, number}} قراءات",
+  "core-uptime-tracks.every": "كل {{duration}} تقريبًا",
+  "core-uptime-tracks.last": "آخر واحدة منذ {{duration}}",
+  "core-uptime-tracks.last_late": "آخر واحدة منذ {{duration}} — متأخرة عن المعتاد",
+  "core-uptime-tracks.gaps": "{{count, number}} فجوات في هذه النافذة",
+  "core-uptime-tracks.requests_answered": "{{count, number}} طلبات أُجيب عنها",
+  "core-uptime-tracks.summary": " — {{values}}."
+}

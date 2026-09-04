@@ -1,0 +1,15 @@
+{
+  "core-uptime.title": "Tiempo de actividad e interrupciones",
+  "core-uptime.gaps_help": "Un hueco en las lecturas no significa que la máquina estuviera apagada, y los gráficos los distinguen: {{restart_shading}} donde cambió la hora de arranque, por lo que realmente se reinició, y {{gap_shading}} donde la hora de arranque no cambió a ambos lados y el recolector sencillamente no estaba funcionando. El tiempo de actividad cuenta solo el primer tipo; un trabajo cron que se detiene no debe parecer un servidor que sigue cayéndose.",
+  "core-uptime.restart_help": "Una {{restart_line}} marca cada reinicio que el host conoce mediante {{last}}. No tienen por qué dejar un hueco: un reinicio tras el que el recolector se reanuda en menos de un minuto no deja nada que sombrear. También incluye reinicios anteriores a que se registraran horas de arranque, que las lecturas por sí solas no pueden mostrar.",
+  "core-uptime.no_boot_time": "aún no se registró la hora de arranque",
+  "core-uptime.since": "desde {{time}}",
+  "core-uptime.measured_window_up": "Activo el {{percent}}% de la ventana medida",
+  "core-uptime.window_recorded": "se registró realmente el {{percent}}%",
+  "core-uptime.no_downtime": "no se detectó tiempo de inactividad",
+  "core-uptime.restarts_window": "{{count, number}} reinicios en esta ventana",
+  "core-uptime.down_at_most": "caído como máximo {{duration}}",
+  "core-uptime.not_recorded": "{{duration}} sin registrar",
+  "core-uptime.no_readings_window": "No hay lecturas en esta ventana.",
+  "core-uptime.machine": "La máquina"
+}

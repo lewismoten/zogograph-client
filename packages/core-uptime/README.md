@@ -8,3 +8,8 @@ registry migration proceeds.
 `manifest.json` is the package-owned inventory. Every card declares
 `owner: "core-uptime"`; the card registry rejects a card whose ID does not
 belong to that owner.
+
+Each card carries only its English catalog. `locales/<language>/` holds
+optional language packs, fetched when that language is selected; an unavailable
+pack falls back to English card copy. The package manifest inventories these
+files for future separate package-install controls.

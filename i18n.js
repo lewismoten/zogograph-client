@@ -198,6 +198,10 @@ async function i18nLoad(locale = i18nRequestedLocale()) {
     return r.ok ? r.json() : {};
   };
   i18n.fallback = await get(I18N_BASE);
+  // Built-in cards keep English beside the renderer. A translated catalog is
+  // fetched only when its language is selected, so a card does not make every
+  // browser download every language it supports.
+  await i18nLoadCoreCardLocaleFiles(locale);
   const localized = locale === I18N_BASE ? {} : await get(locale);
   const catalog = { ...i18n.fallback, ...localized };
   // Package catalogs are translation extensions, not authority to rewrite the
@@ -249,6 +253,65 @@ async function i18nLoad(locale = i18nRequestedLocale()) {
   const highlight = document.querySelector('#languageHighlight');
   if (highlight) highlight.checked = i18n.highlight;
   document.dispatchEvent(new Event('zogograph-i18n-load'));
+}
+
+const i18nCoreCardLocaleFilesLoaded = new Set();
+
+function i18nMatchesEnglishCatalog(catalog, englishCatalog) {
+  if (
+    !catalog ||
+    Array.isArray(catalog) ||
+    typeof catalog !== 'object' ||
+    !englishCatalog ||
+    Array.isArray(englishCatalog) ||
+    typeof englishCatalog !== 'object'
+  )
+    return false;
+  const expected = Object.keys(englishCatalog).sort();
+  const received = Object.keys(catalog).sort();
+  return (
+    expected.length === received.length &&
+    expected.every((key, index) => key === received[index])
+  );
+}
+
+async function i18nLoadCoreCardLocaleFiles(locale) {
+  if (locale === I18N_BASE) return;
+  const cards = window.Zogograph?.cards?.all?.() || [];
+  await Promise.all(
+    cards.map(async (card) => {
+      const manifest = card?.manifest;
+      const path = manifest?.localeFiles?.[locale];
+      const owner = manifest?.owner;
+      const id = manifest?.id;
+      const expectedPath =
+        typeof owner === 'string'
+          ? new RegExp(
+              `^packages/${owner}/locales/${locale}/[a-z0-9-]+\\.json$`,
+            )
+          : null;
+      if (
+        typeof id !== 'string' ||
+        typeof path !== 'string' ||
+        !expectedPath?.test(path)
+      )
+        return;
+      const cacheKey = `${id}:${locale}:${path}`;
+      if (i18nCoreCardLocaleFilesLoaded.has(cacheKey)) return;
+      try {
+        const response = await fetch(`./${path}`, { cache: 'no-store' });
+        if (!response.ok) return;
+        const catalog = await response.json();
+        if (
+          i18nMatchesEnglishCatalog(catalog, manifest.catalogs?.en) &&
+          i18nRegisterCatalog(locale, catalog, false, id)
+        )
+          i18nCoreCardLocaleFilesLoaded.add(cacheKey);
+      } catch {
+        // An optional pack cannot make the English card unusable.
+      }
+    }),
+  );
 }
 
 function i18nRegisterCatalog(locale, catalog, reload = true, packageId = '') {

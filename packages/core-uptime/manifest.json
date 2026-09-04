@@ -2,10 +2,28 @@
   "id": "core-uptime",
   "kind": "built-in-ui",
   "version": "0.1.0",
-  "cards": [
-    "core-uptime",
-    "core-uptime-tracks",
-    "core-uptime-events"
-  ],
-  "default_locale": "en"
+  "cards": ["core-uptime", "core-uptime-tracks", "core-uptime-events"],
+  "default_locale": "en",
+  "locale_packs": {
+    "es": [
+      "locales/es/uptime.json",
+      "locales/es/uptime-tracks.json",
+      "locales/es/uptime-events.json"
+    ],
+    "hi": [
+      "locales/hi/uptime.json",
+      "locales/hi/uptime-tracks.json",
+      "locales/hi/uptime-events.json"
+    ],
+    "ar": [
+      "locales/ar/uptime.json",
+      "locales/ar/uptime-tracks.json",
+      "locales/ar/uptime-events.json"
+    ],
+    "zh": [
+      "locales/zh/uptime.json",
+      "locales/zh/uptime-tracks.json",
+      "locales/zh/uptime-events.json"
+    ]
+  }
 }

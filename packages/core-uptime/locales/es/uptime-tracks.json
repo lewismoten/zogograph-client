@@ -1,0 +1,11 @@
+{
+  "core-uptime-tracks.unreadable": "esta cuenta no puede leer su base de datos, por lo que no se puede saber si está en ejecución",
+  "core-uptime-tracks.nothing_recorded": "no hay nada registrado en esta ventana",
+  "core-uptime-tracks.readings": "{{count, number}} lecturas",
+  "core-uptime-tracks.every": "aproximadamente cada {{duration}}",
+  "core-uptime-tracks.last": "la última hace {{duration}}",
+  "core-uptime-tracks.last_late": "la última hace {{duration}} — más tarde de lo habitual",
+  "core-uptime-tracks.gaps": "{{count, number}} brechas en esta ventana",
+  "core-uptime-tracks.requests_answered": "{{count, number}} solicitudes respondidas",
+  "core-uptime-tracks.summary": " — {{values}}."
+}

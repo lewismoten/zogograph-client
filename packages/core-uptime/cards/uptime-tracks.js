@@ -21,63 +21,12 @@ const UptimeTracksCard = {
           '{{count, number}} requests answered',
         'core-uptime-tracks.summary': ' — {{values}}.',
       }),
-      es: Object.freeze({
-        'core-uptime-tracks.unreadable':
-          'esta cuenta no puede leer su base de datos, por lo que no se puede saber si está en ejecución',
-        'core-uptime-tracks.nothing_recorded':
-          'no hay nada registrado en esta ventana',
-        'core-uptime-tracks.readings': '{{count, number}} lecturas',
-        'core-uptime-tracks.every': 'aproximadamente cada {{duration}}',
-        'core-uptime-tracks.last': 'la última hace {{duration}}',
-        'core-uptime-tracks.last_late':
-          'la última hace {{duration}} — más tarde de lo habitual',
-        'core-uptime-tracks.gaps': '{{count, number}} brechas en esta ventana',
-        'core-uptime-tracks.requests_answered':
-          '{{count, number}} solicitudes respondidas',
-        'core-uptime-tracks.summary': ' — {{values}}.',
-      }),
-      hi: Object.freeze({
-        'core-uptime-tracks.unreadable':
-          'इस खाते से इसका डेटाबेस नहीं पढ़ा जा सकता, इसलिए यह चल रहा है या नहीं इसके बारे में कुछ नहीं कहा जा सकता',
-        'core-uptime-tracks.nothing_recorded':
-          'इस विंडो में कुछ भी दर्ज नहीं है',
-        'core-uptime-tracks.readings': '{{count, number}} रीडिंग',
-        'core-uptime-tracks.every': 'लगभग हर {{duration}}',
-        'core-uptime-tracks.last': 'आखिरी {{duration}} पहले',
-        'core-uptime-tracks.last_late':
-          'आखिरी {{duration}} पहले — सामान्य से देर से',
-        'core-uptime-tracks.gaps': 'इस विंडो में {{count, number}} अंतर',
-        'core-uptime-tracks.requests_answered':
-          '{{count, number}} अनुरोधों का उत्तर दिया गया',
-        'core-uptime-tracks.summary': ' — {{values}}।',
-      }),
-      ar: Object.freeze({
-        'core-uptime-tracks.unreadable':
-          'لا يستطيع هذا الحساب قراءة قاعدة بياناته، لذا لا يمكن قول شيء عن كونه يعمل',
-        'core-uptime-tracks.nothing_recorded': 'لا شيء مسجل في هذه النافذة',
-        'core-uptime-tracks.readings': '{{count, number}} قراءات',
-        'core-uptime-tracks.every': 'كل {{duration}} تقريبًا',
-        'core-uptime-tracks.last': 'آخر واحدة منذ {{duration}}',
-        'core-uptime-tracks.last_late':
-          'آخر واحدة منذ {{duration}} — متأخرة عن المعتاد',
-        'core-uptime-tracks.gaps': '{{count, number}} فجوات في هذه النافذة',
-        'core-uptime-tracks.requests_answered':
-          '{{count, number}} طلبات أُجيب عنها',
-        'core-uptime-tracks.summary': ' — {{values}}.',
-      }),
-      zh: Object.freeze({
-        'core-uptime-tracks.unreadable':
-          '此账户无法读取其数据库，因此无法判断它是否正在运行',
-        'core-uptime-tracks.nothing_recorded': '此窗口中没有记录内容',
-        'core-uptime-tracks.readings': '{{count, number}} 次读数',
-        'core-uptime-tracks.every': '大约每 {{duration}} 一次',
-        'core-uptime-tracks.last': '上一次在 {{duration}} 前',
-        'core-uptime-tracks.last_late': '上一次在 {{duration}} 前——比平时晚',
-        'core-uptime-tracks.gaps': '此窗口中有 {{count, number}} 个间隔',
-        'core-uptime-tracks.requests_answered':
-          '已响应 {{count, number}} 个请求',
-        'core-uptime-tracks.summary': ' — {{values}}。',
-      }),
+    }),
+    localeFiles: Object.freeze({
+      es: 'packages/core-uptime/locales/es/uptime-tracks.json',
+      hi: 'packages/core-uptime/locales/hi/uptime-tracks.json',
+      ar: 'packages/core-uptime/locales/ar/uptime-tracks.json',
+      zh: 'packages/core-uptime/locales/zh/uptime-tracks.json',
     }),
   }),
 

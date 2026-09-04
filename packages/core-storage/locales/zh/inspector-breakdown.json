@@ -1,0 +1,18 @@
+{
+  "core-storage-inspector-breakdown.inspector_title": "哪些内容占用了空间",
+  "core-storage-inspector-breakdown.empty": "没有可显示的内容",
+  "core-storage-inspector-breakdown.title": "它由什么构成",
+  "core-storage-inspector-breakdown.category_trash": "回收站",
+  "core-storage-inspector-breakdown.category_logs": "日志",
+  "core-storage-inspector-breakdown.category_temp": "临时文件",
+  "core-storage-inspector-breakdown.kind_files": "文件",
+  "core-storage-inspector-breakdown.kind_directories": "目录",
+  "core-storage-inspector-breakdown.sort_size": "最大",
+  "core-storage-inspector-breakdown.sort_growth": "自上次扫描后增长最多",
+  "core-storage-inspector-breakdown.sort_hour": "过去一小时增长最多",
+  "core-storage-inspector-breakdown.sort_today": "今天增长最多",
+  "core-storage-inspector-breakdown.sort_week": "7 天内增长最多",
+  "core-storage-inspector-breakdown.sort_new": "新出现",
+  "core-storage-inspector-breakdown.sort_deleted": "自上次扫描后消失",
+  "core-storage-inspector-breakdown.masked_names": "登录前名称会被隐藏。大小和增长数据是真实的。"
+}

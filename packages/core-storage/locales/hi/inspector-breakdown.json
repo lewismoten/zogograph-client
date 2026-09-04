@@ -1,0 +1,18 @@
+{
+  "core-storage-inspector-breakdown.inspector_title": "कौन जगह ले रहा है",
+  "core-storage-inspector-breakdown.empty": "दिखाने के लिए कुछ नहीं",
+  "core-storage-inspector-breakdown.title": "यह किससे बना है",
+  "core-storage-inspector-breakdown.category_trash": "कचरा",
+  "core-storage-inspector-breakdown.category_logs": "लॉग",
+  "core-storage-inspector-breakdown.category_temp": "अस्थायी",
+  "core-storage-inspector-breakdown.kind_files": "फ़ाइलें",
+  "core-storage-inspector-breakdown.kind_directories": "डायरेक्टरी",
+  "core-storage-inspector-breakdown.sort_size": "सबसे बड़े",
+  "core-storage-inspector-breakdown.sort_growth": "पिछले स्कैन के बाद सबसे अधिक बढ़े",
+  "core-storage-inspector-breakdown.sort_hour": "पिछले घंटे में सबसे अधिक बढ़े",
+  "core-storage-inspector-breakdown.sort_today": "आज सबसे अधिक बढ़े",
+  "core-storage-inspector-breakdown.sort_week": "7 दिनों में सबसे अधिक बढ़े",
+  "core-storage-inspector-breakdown.sort_new": "नए दिखाई दिए",
+  "core-storage-inspector-breakdown.sort_deleted": "पिछले स्कैन के बाद गायब",
+  "core-storage-inspector-breakdown.masked_names": "साइन इन करने तक नाम छिपे रहते हैं। आकार और वृद्धि वास्तविक हैं।"
+}

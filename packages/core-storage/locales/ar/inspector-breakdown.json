@@ -1,0 +1,18 @@
+{
+  "core-storage-inspector-breakdown.inspector_title": "ما الذي يستهلك المساحة",
+  "core-storage-inspector-breakdown.empty": "لا شيء لعرضه",
+  "core-storage-inspector-breakdown.title": "ممّ يتكون",
+  "core-storage-inspector-breakdown.category_trash": "سلة المهملات",
+  "core-storage-inspector-breakdown.category_logs": "السجلات",
+  "core-storage-inspector-breakdown.category_temp": "ملفات مؤقتة",
+  "core-storage-inspector-breakdown.kind_files": "ملفات",
+  "core-storage-inspector-breakdown.kind_directories": "مجلدات",
+  "core-storage-inspector-breakdown.sort_size": "الأكبر",
+  "core-storage-inspector-breakdown.sort_growth": "نما أكثر منذ آخر فحص",
+  "core-storage-inspector-breakdown.sort_hour": "نما أكثر في الساعة الماضية",
+  "core-storage-inspector-breakdown.sort_today": "نما أكثر اليوم",
+  "core-storage-inspector-breakdown.sort_week": "نما أكثر خلال 7 أيام",
+  "core-storage-inspector-breakdown.sort_new": "ظهر حديثًا",
+  "core-storage-inspector-breakdown.sort_deleted": "اختفى منذ آخر فحص",
+  "core-storage-inspector-breakdown.masked_names": "تُخفى الأسماء حتى تسجّل الدخول. الأحجام والنمو حقيقيان."
+}

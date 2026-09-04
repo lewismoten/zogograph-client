@@ -2144,7 +2144,7 @@ document.addEventListener('zogograph-i18n-load', renderHostLogLabels);
 function renderStorageInspectorLabels() {
   const helpers = { i18n: ZogographI18n };
   renderCoreCardPackage(
-    ZogographStorageInspectorBreakdownCard,
+    Zogograph.cards.get('core-storage-inspector-breakdown'),
     'core-storage-inspector-breakdown',
     { key: 'empty' },
     helpers,
@@ -2159,7 +2159,9 @@ function renderStorageInspectorLabels() {
       element.textContent = ZogographI18n.markSource(
         element,
         `core-storage-inspector-breakdown.${key}`,
-        ZogographStorageInspectorBreakdownCard.render({ key }, helpers),
+        Zogograph.cards
+          .get('core-storage-inspector-breakdown')
+          .render({ key }, helpers),
       );
     });
 }
@@ -30115,7 +30117,7 @@ function inspectDirectory(data) {
     out.push(
       section(
         renderCoreCardPackage(
-          ZogographStorageInspectorBreakdownCard,
+          Zogograph.cards.get('core-storage-inspector-breakdown'),
           'core-storage-inspector-breakdown',
           { key: 'title' },
           { i18n: ZogographI18n },
@@ -30144,7 +30146,7 @@ function inspectPie(title, slices, note_) {
   requestAnimationFrame(() =>
     drawPieChart(canvas, slices, {
       empty: renderCoreCardPackage(
-        ZogographStorageInspectorBreakdownCard,
+        Zogograph.cards.get('core-storage-inspector-breakdown'),
         'core-storage-inspector-breakdown',
         {},
         { i18n: ZogographI18n },

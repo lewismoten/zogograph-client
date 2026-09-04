@@ -18,3 +18,4 @@ calculated. `scan-status` owns the scan button and completion-state labels.
 `inspector-actions` owns the inspected-path action panel vocabulary.
 `inspector-preview` owns image-preview state and dimension labels.
 `history` renders the per-path size and file-count chart.
+`inspector-breakdown` owns inspection breakdown and sort labels.

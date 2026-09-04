@@ -1,0 +1,18 @@
+{
+  "core-storage-inspector-breakdown.inspector_title": "Qué está ocupando el espacio",
+  "core-storage-inspector-breakdown.empty": "Nada que mostrar",
+  "core-storage-inspector-breakdown.title": "De qué está hecho",
+  "core-storage-inspector-breakdown.category_trash": "Papelera",
+  "core-storage-inspector-breakdown.category_logs": "Registros",
+  "core-storage-inspector-breakdown.category_temp": "Temporales",
+  "core-storage-inspector-breakdown.kind_files": "Archivos",
+  "core-storage-inspector-breakdown.kind_directories": "Directorios",
+  "core-storage-inspector-breakdown.sort_size": "Más grandes",
+  "core-storage-inspector-breakdown.sort_growth": "Crecieron más desde el último análisis",
+  "core-storage-inspector-breakdown.sort_hour": "Crecieron más en la última hora",
+  "core-storage-inspector-breakdown.sort_today": "Crecieron más hoy",
+  "core-storage-inspector-breakdown.sort_week": "Crecieron más en 7 días",
+  "core-storage-inspector-breakdown.sort_new": "Aparecieron recientemente",
+  "core-storage-inspector-breakdown.sort_deleted": "Desaparecieron desde el último análisis",
+  "core-storage-inspector-breakdown.masked_names": "Los nombres se ocultan hasta que inicie sesión. Los tamaños y el crecimiento son reales."
+}

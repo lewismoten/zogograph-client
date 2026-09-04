@@ -154,8 +154,9 @@ jobs:
       credentials:
         username: ${{ secrets.REGISTRY_USER }}
         password: ${{ secrets.REGISTRY_TOKEN }}
-    # Prevent a stalled network operation from monopolizing a runner.
-    timeout-minutes: 2
+    # A normal artifact transfer is seconds, but allow recovery headroom for a
+    # temporarily busy Docker-in-Docker runner without exceeding its outer cap.
+    timeout-minutes: 3
     needs: build
     strategy:
       fail-fast: false

@@ -25506,15 +25506,16 @@ function renderUptime() {
   renderTrackSummary(data.tracks || [], to);
   drawUptimeChart(from, to);
 
+  const uptimeEventsCard = Zogograph.cards.get('core-uptime-events');
   const bands = [
     ...(a.outages || []).map((o) => ({
-      kind: ZogographUptimeEventsCard.text('restarted', {
+      kind: uptimeEventsCard.text('restarted', {
         i18n: ZogographI18n,
       }),
       from: o.from,
       to: o.to,
       seconds: o.seconds_at_most,
-      note: ZogographUptimeEventsCard.text(
+      note: uptimeEventsCard.text(
         'restart_explanation',
         { booted: humanTime(o.booted_at) },
         { i18n: ZogographI18n },
@@ -25530,13 +25531,13 @@ function renderUptime() {
      * rather than in the label.
      */
     ...(a.gaps || []).map((g) => ({
-      kind: ZogographUptimeEventsCard.text('reading_gap', {
+      kind: uptimeEventsCard.text('reading_gap', {
         i18n: ZogographI18n,
       }),
       from: g.from,
       to: g.to,
       seconds: g.seconds,
-      note: ZogographUptimeEventsCard.text(
+      note: uptimeEventsCard.text(
         g.kind === 'not_recorded'
           ? 'gap_collector_not_running'
           : g.kind === 'before_tracking'
@@ -25549,7 +25550,7 @@ function renderUptime() {
   ].sort((x, y) => y.from - x.from);
 
   renderCoreCardPackage(
-    ZogographUptimeEventsCard,
+    uptimeEventsCard,
     'core-uptime-events',
     bands,
     {

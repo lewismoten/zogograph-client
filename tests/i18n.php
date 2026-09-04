@@ -2117,9 +2117,20 @@ i18nExpect(
         str_contains($uptimeEventsCard, 'text(key, valuesOrHelpers = {}, maybeHelpers = null)') &&
         str_contains($uptimeEventsCard, '`core-uptime-events.${key}`') &&
         $script !== false &&
-        str_contains($script, "ZogographUptimeEventsCard.text('restarted'") &&
-        str_contains($script, "ZogographUptimeEventsCard.text(\n        'restart_explanation'"),
+        str_contains($uptimeEventsCard, 'Zogograph.cards.register(UptimeEventsCard)') &&
+        str_contains($script, "uptimeEventsCard.text('restarted'") &&
+        str_contains($script, "uptimeEventsCard.text(\n        'restart_explanation'") &&
+        str_contains($script, "Zogograph.cards.get('core-uptime-events')"),
     'uptime event card text API does not match its callers',
+);
+i18nExpect(
+    $page !== false &&
+        str_contains($page, 'src="ui/card-registry.js"') &&
+        strpos($page, 'src="ui/card-registry.js"') <
+            strpos($page, 'src="cards/overview-vitals.js"') &&
+        $script !== false &&
+        str_contains($script, "Zogograph.cards.get('core-uptime-events')"),
+    'core card registry is not loaded before registered cards are used',
 );
 i18nExpect(
     $aiIdentitySettingsCard !== false &&

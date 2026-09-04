@@ -1,5 +1,5 @@
 /* Core card package: the shell supplies row formatting and the event data. */
-window.ZogographUptimeEventsCard = {
+const UptimeEventsCard = {
   manifest: Object.freeze({
     id: 'core-uptime-events',
     locales: ['core-uptime-events.'],
@@ -160,3 +160,4 @@ window.ZogographUptimeEventsCard = {
     ]);
   },
 };
+Zogograph.cards.register(UptimeEventsCard);

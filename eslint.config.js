@@ -16,6 +16,7 @@ export default [
       sourceType: 'module',
       globals: {
         ...globals.browser,
+        Zogograph: 'readonly',
         ZogographI18n: 'readonly',
         ZogographAuditShellCard: 'readonly',
         ZogographAlertsShellCard: 'readonly',
@@ -385,7 +386,6 @@ export default [
         ZogographTypeGrowthCard: 'readonly',
         ZogographTypePieCard: 'readonly',
         ZogographUptimeCard: 'readonly',
-        ZogographUptimeEventsCard: 'readonly',
         ZogographUptimeTracksCard: 'readonly',
         ZogographViewGuideCard: 'readonly',
       },

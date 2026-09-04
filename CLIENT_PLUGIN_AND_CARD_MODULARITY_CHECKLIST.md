@@ -51,6 +51,10 @@ data-only and its documented isolated execution runtime is still future work.
 
 ## 2. Replace card globals with a registration boundary
 
+The registry bootstrap and the uptime-events migration are in place as the
+compatibility path. The remaining global cards and their ESLint declarations
+remain migration work; do not add new card globals.
+
 - [ ] Define `window.Zogograph` as the only product namespace exposed to
   bundled scripts; expose `Zogograph.cards.register(definition)` and
   `Zogograph.cards.get(id)`. Remove direct `window.ZogographFooCard = …`

@@ -65,7 +65,7 @@ const UptimeEventsCard = {
       return;
     }
     const restarted = i18n.t('core-uptime-events.restarted', {}, 'Restarted');
-    renderTable(target.id, bands, [
+    renderTable(target, bands, [
       {
         label: i18n.t('core-uptime-events.what', {}, 'What'),
         render: (row) => {

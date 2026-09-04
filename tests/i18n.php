@@ -2282,6 +2282,10 @@ i18nExpect(
         $script !== false &&
         str_contains(
             $script,
+            'const el = target instanceof Element ? target : $(target);',
+        ) &&
+        str_contains(
+            $script,
             "Zogograph.ui.mount(tracksSlot, 'core-uptime', 'core-uptime-tracks')",
         ) &&
         str_contains($script, "'core-uptime-events'") &&

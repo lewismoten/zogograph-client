@@ -5995,7 +5995,11 @@ function downloadFile(name, text, type) {
 function exportRows(target, rows, columns, format) {
   const headers = columns.map((c) => c.label).filter(Boolean);
   const stamp = new Date().toISOString().slice(0, 19).replace(/[:T]/g, '-');
-  const name = `zogograph-${target}-${stamp}.${format}`;
+  const targetName =
+    typeof target === 'string'
+      ? target
+      : target?.dataset?.card || target?.dataset?.package || 'table';
+  const name = `zogograph-${targetName}-${stamp}.${format}`;
 
   if (format === 'json') {
     const out = rows.map((row) => {
@@ -6068,7 +6072,8 @@ function patchTable(target, rows, columns, key, rowClass) {
   const previous = TABLE_STATE.get(target);
   if (!previous || !previous.keys || !key) return false;
 
-  const el = $(target);
+  const el = target instanceof Element ? target : $(target);
+  if (!el) return false;
   const body = el.querySelector('tbody');
   if (!body) return false;
 
@@ -6133,7 +6138,8 @@ function renderTable(target, rows, columns, onRowClick, rowClass, key) {
       { key: textKey, values },
       { i18n: ZogographI18n },
     );
-  const el = $(target);
+  const el = target instanceof Element ? target : $(target);
+  if (!el) return false;
   if (!rows || !rows.length) {
     if (TABLE_DREW.get(target) !== 'empty') {
       TABLE_DREW.set(target, 'empty');

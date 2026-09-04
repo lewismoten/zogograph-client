@@ -12,5 +12,22 @@
     return node;
   }
 
-  product.ui = Object.freeze({ empty });
+  function mount(container, packageId, cardId) {
+    if (!(container instanceof Element)) return null;
+    const existing = Array.from(container.children).find(
+      (node) =>
+        node instanceof HTMLElement &&
+        node.dataset.package === packageId &&
+        node.dataset.card === cardId,
+    );
+    if (existing) return existing;
+    const node = document.createElement('div');
+    node.className = 'card-mount';
+    node.dataset.package = packageId;
+    node.dataset.card = cardId;
+    container.appendChild(node);
+    return node;
+  }
+
+  product.ui = Object.freeze({ empty, mount });
 })();

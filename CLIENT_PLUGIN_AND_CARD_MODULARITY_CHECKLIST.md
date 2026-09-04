@@ -178,9 +178,10 @@ declares the same owner, which the registry verifies against its ID.
 
 ## 5. Create a small shared card UI kit (DRY)
 
-`ui/card-kit.js` now provides the first shared primitive, `ui.empty()`, and
-the uptime-events card uses it for its empty state. Expand this small, reviewed
-surface instead of duplicating DOM boilerplate in package cards.
+`ui/card-kit.js` now provides `ui.empty()` and idempotent `ui.mount()`. The
+uptime tracks and events cards receive owner-scoped generated mounts instead of
+depending on `#uptimeTracks` or `#uptimeBody` in static HTML. Expand this small,
+reviewed surface instead of duplicating DOM boilerplate in package cards.
 
 - [ ] Define generic primitives: `Card`, `CardHeader`, `CardBody`, `CardFooter`,
   `CardNotice`, `CardEmpty`, `CardError`, `CardLoading`, `CardActions`,

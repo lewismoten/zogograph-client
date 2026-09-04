@@ -3750,12 +3750,7 @@ function renderUptimeTitle() {
     trimPercent: () => '',
     i18n: ZogographI18n,
   };
-  renderCoreCardPackage(
-    uptimeCard,
-    'core-uptime',
-    { upFor: null },
-    helpers,
-  );
+  renderCoreCardPackage(uptimeCard, 'core-uptime', { upFor: null }, helpers);
   const title = document.querySelector('[data-i18n="core-uptime.title"]');
   title.textContent = ZogographI18n.markSource(
     title,
@@ -25167,13 +25162,13 @@ async function refreshUptime() {
  * similar at the right-hand end of a week-long chart and mean entirely
  * different things.
  */
-function renderTrackSummary(tracks, to) {
+function renderTrackSummary(tracks, to, target) {
   const uptimeTracksCard = Zogograph.cards.get('core-uptime-tracks');
   renderCoreCardPackage(
     uptimeTracksCard,
     'core-uptime-tracks',
     { tracks, to },
-    { target: $('uptimeTracks'), humanSpan, i18n: ZogographI18n },
+    { target, humanSpan, i18n: ZogographI18n },
   );
 }
 
@@ -25507,7 +25502,13 @@ function renderUptime() {
   const panel = $('uptimePanel');
   panel.hidden = false;
 
-  renderTrackSummary(data.tracks || [], to);
+  const tracksSlot = panel.querySelector('[data-card-mount="before-chart"]');
+  const eventsSlot = panel.querySelector('[data-card-mount="after-chart"]');
+  renderTrackSummary(
+    data.tracks || [],
+    to,
+    Zogograph.ui.mount(tracksSlot, 'core-uptime', 'core-uptime-tracks'),
+  );
   drawUptimeChart(from, to);
 
   const uptimeEventsCard = Zogograph.cards.get('core-uptime-events');
@@ -25553,19 +25554,14 @@ function renderUptime() {
     })),
   ].sort((x, y) => y.from - x.from);
 
-  renderCoreCardPackage(
-    uptimeEventsCard,
-    'core-uptime-events',
-    bands,
-    {
-      target: $('uptimeBody'),
-      renderTable,
-      whenSpan,
-      humanDuration,
-      ui: Zogograph.ui,
-      i18n: window.i18n,
-    },
-  );
+  renderCoreCardPackage(uptimeEventsCard, 'core-uptime-events', bands, {
+    target: Zogograph.ui.mount(eventsSlot, 'core-uptime', 'core-uptime-events'),
+    renderTable,
+    whenSpan,
+    humanDuration,
+    ui: Zogograph.ui,
+    i18n: window.i18n,
+  });
 
   renderBootHistory(data.history);
 }

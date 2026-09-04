@@ -205,6 +205,7 @@ foreach ($cardFiles as $cardFile) {
 }
 $runtime = file_get_contents($root . '/i18n.js');
 $registry = file_get_contents($root . '/ui/card-registry.js');
+$cardKit = file_get_contents($root . '/ui/card-kit.js');
 $uptimePackageManifest = json_decode(
     (string) file_get_contents($root . '/packages/core-uptime/manifest.json'),
     true,
@@ -2260,6 +2261,28 @@ i18nExpect(
         $script !== false &&
         str_contains($script, 'ui: Zogograph.ui'),
     'uptime event empty state does not use the shared card UI kit',
+);
+i18nExpect(
+    $cardKit !== false &&
+        str_contains(
+            $cardKit,
+            'function mount(container, packageId, cardId)',
+        ) &&
+        str_contains($cardKit, 'node.dataset.package = packageId') &&
+        str_contains($cardKit, 'node.dataset.card = cardId') &&
+        $page !== false &&
+        !str_contains($page, 'id="uptimeTracks"') &&
+        !str_contains($page, 'id="uptimeBody"') &&
+        str_contains($page, 'data-card-mount="before-chart"') &&
+        str_contains($page, 'data-card-mount="after-chart"') &&
+        $script !== false &&
+        str_contains(
+            $script,
+            "Zogograph.ui.mount(tracksSlot, 'core-uptime', 'core-uptime-tracks')",
+        ) &&
+        str_contains($script, "'core-uptime-events'") &&
+        str_contains($script, 'Zogograph.ui.mount('),
+    'uptime cards still depend on feature-specific static card containers',
 );
 i18nExpect(
     $registry !== false &&

@@ -1,0 +1,10 @@
+{
+  "core-storage-offender-status-help.gone": "它已不在磁盘上，也不是由此仪表板删除；其他内容移除了它：日志轮换、cron 任务或人员。",
+  "core-storage-offender-status-help.new": "此前从未记录过此路径。",
+  "core-storage-offender-status-help.back_in_list": "重新出现在列表中",
+  "core-storage-offender-status-help.back_in_list_detail": "以前记录过，上次扫描时缺失，现在又回来了：它增长到足以被记录。",
+  "core-storage-offender-status-help.still": "仍在磁盘上——不再属于最大的项目",
+  "core-storage-offender-status-help.still_detail": "文件没有消失。其他内容增长并使其不再出现在此次扫描记录的路径中。",
+  "core-storage-offender-status-help.deleted_here": "已于 {{at}} 在此删除",
+  "core-storage-offender-status-help.deleted_here_detail": "根据操作日志，此仪表板已将其删除。"
+}

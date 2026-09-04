@@ -10,7 +10,8 @@
     "core-storage-purge",
     "core-storage-offender-status",
     "core-storage-offender-size",
-    "core-storage-offender-columns"
+    "core-storage-offender-columns",
+    "core-storage-offender-status-help"
   ],
   "default_locale": "en",
   "locale_packs": {
@@ -22,7 +23,8 @@
       "locales/es/purge.json",
       "locales/es/offender-status.json",
       "locales/es/offender-size.json",
-      "locales/es/offender-columns.json"
+      "locales/es/offender-columns.json",
+      "locales/es/offender-status-help.json"
     ],
     "hi": [
       "locales/hi/measuring.json",
@@ -32,7 +34,8 @@
       "locales/hi/purge.json",
       "locales/hi/offender-status.json",
       "locales/hi/offender-size.json",
-      "locales/hi/offender-columns.json"
+      "locales/hi/offender-columns.json",
+      "locales/hi/offender-status-help.json"
     ],
     "ar": [
       "locales/ar/measuring.json",
@@ -42,7 +45,8 @@
       "locales/ar/purge.json",
       "locales/ar/offender-status.json",
       "locales/ar/offender-size.json",
-      "locales/ar/offender-columns.json"
+      "locales/ar/offender-columns.json",
+      "locales/ar/offender-status-help.json"
     ],
     "zh": [
       "locales/zh/measuring.json",
@@ -52,7 +56,8 @@
       "locales/zh/purge.json",
       "locales/zh/offender-status.json",
       "locales/zh/offender-size.json",
-      "locales/zh/offender-columns.json"
+      "locales/zh/offender-columns.json",
+      "locales/zh/offender-status-help.json"
     ]
   }
 }

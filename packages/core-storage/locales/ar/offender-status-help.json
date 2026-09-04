@@ -1,0 +1,10 @@
+{
+  "core-storage-offender-status-help.gone": "لم يعد على القرص ولم تحذفه لوحة المعلومات هذه؛ أزاله شيء آخر: تدوير سجل أو مهمة cron أو شخص.",
+  "core-storage-offender-status-help.new": "لم يُسجل هذا المسار من قبل.",
+  "core-storage-offender-status-help.back_in_list": "عاد إلى القائمة",
+  "core-storage-offender-status-help.back_in_list_detail": "سُجل سابقًا وغاب عن الفحص السابق وعاد الآن: نما بما يكفي ليسجل بدلًا من أن يكون قد أُنشئ.",
+  "core-storage-offender-status-help.still": "ما زال على القرص — لم يعد من الأكبر",
+  "core-storage-offender-status-help.still_detail": "لم يذهب الملف إلى مكان. نما شيء آخر فتراجع عن المسارات التي يسجلها هذا الفحص.",
+  "core-storage-offender-status-help.deleted_here": "حُذف هنا {{at}}",
+  "core-storage-offender-status-help.deleted_here_detail": "حُذف عبر لوحة المعلومات هذه وفق سجل الإجراءات."
+}

@@ -7231,7 +7231,7 @@ const storageOffenderSizeText = (key, values = {}) =>
 
 const storageOffenderStatusHelpText = (key) =>
   renderCoreCardPackage(
-    ZogographStorageOffenderStatusHelpCard,
+    Zogograph.cards.get('core-storage-offender-status-help'),
     'core-storage-offender-status-help',
     { key },
     { i18n: ZogographI18n },

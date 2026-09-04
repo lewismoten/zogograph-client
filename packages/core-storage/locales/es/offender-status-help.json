@@ -1,0 +1,10 @@
+{
+  "core-storage-offender-status-help.gone": "Ya no está en disco y este panel no lo eliminó; lo quitó otra cosa: rotación de registros, una tarea cron o una persona.",
+  "core-storage-offender-status-help.new": "Esta ruta nunca se había registrado.",
+  "core-storage-offender-status-help.back_in_list": "De vuelta en la lista",
+  "core-storage-offender-status-help.back_in_list_detail": "Se registró antes, faltó en el análisis anterior y volvió ahora: creció lo suficiente para registrarse.",
+  "core-storage-offender-status-help.still": "Sigue en disco; ya no está entre los mayores",
+  "core-storage-offender-status-help.still_detail": "El archivo no se ha ido. Algo más creció y lo sacó de las rutas que registra este análisis.",
+  "core-storage-offender-status-help.deleted_here": "Eliminado aquí {{at}}",
+  "core-storage-offender-status-help.deleted_here_detail": "Eliminado desde este panel, según el registro de acciones."
+}

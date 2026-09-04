@@ -11,3 +11,4 @@ calculated. `scan-status` owns the scan button and completion-state labels.
 `offender-status` owns the status vocabulary used in storage offender tables.
 `offender-size` owns their size and hard-link explanations.
 `offender-columns` owns their stable column and type labels.
+`offender-status-help` explains changed, absent, and dashboard-deleted paths.

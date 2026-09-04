@@ -8,3 +8,4 @@ calculated. `scan-status` owns the scan button and completion-state labels.
 `growth-status` supplies the accessible descriptions for file-size movement.
 `operations` owns account-database export and retention-rollup status copy.
 `purge` owns the guarded retention-clear dialog vocabulary.
+`offender-status` owns the status vocabulary used in storage offender tables.

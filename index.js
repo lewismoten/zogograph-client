@@ -7207,7 +7207,7 @@ async function refreshOffenders() {
 
 const storageOffenderStatusText = (key) =>
   renderCoreCardPackage(
-    ZogographStorageOffenderStatusCard,
+    Zogograph.cards.get('core-storage-offender-status'),
     'core-storage-offender-status',
     { key },
     { i18n: ZogographI18n },

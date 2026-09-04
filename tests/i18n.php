@@ -2359,9 +2359,13 @@ i18nExpect(
 );
 i18nExpect(
     $script !== false &&
-        str_contains($script, 'function addPackageDashboardSection(page, route)') &&
+        str_contains(
+            $script,
+            'function addPackageDashboardSection(page, route)',
+        ) &&
         str_contains($script, 'page.parent_title_key') &&
         str_contains($script, 'packageSection: true') &&
+        str_contains($script, 'view.dataset.packageSectionTitleKey') &&
         str_contains($script, 'function renderPackageDashboardSection(route)'),
     'package dashboard pages cannot create a package-owned navigation section',
 );

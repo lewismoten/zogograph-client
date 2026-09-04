@@ -14892,6 +14892,7 @@ function addPackageDashboardSection(page, route) {
     parent: 'sys-packages',
     packagePage: true,
     packageSection: true,
+    packageTitleKey: page.parent_title_key || '',
     refresh: () => renderPackageDashboardSection(route),
   };
   const link = document.createElement('a');
@@ -14918,6 +14919,8 @@ function addPackageDashboardSection(page, route) {
   view.dataset.view = route;
   view.dataset.packageDashboardPage = '1';
   view.dataset.packageSectionTitle = title;
+  if (page.parent_title_key)
+    view.dataset.packageSectionTitleKey = page.parent_title_key;
   $('main')?.appendChild(view);
 }
 
@@ -14927,7 +14930,13 @@ function renderPackageDashboardSection(route) {
   const panel = document.createElement('section');
   panel.className = 'panel';
   const title = document.createElement('h2');
-  title.textContent = VIEWS[route]?.label || route;
+  title.textContent = view.dataset.packageSectionTitleKey
+    ? ZogographI18n.t(
+        view.dataset.packageSectionTitleKey,
+        {},
+        view.dataset.packageSectionTitle || route,
+      )
+    : VIEWS[route]?.label || route;
   panel.appendChild(title);
   const children = Object.entries(VIEWS).filter(
     ([, entry]) => entry.parent === route && entry.packagePage,

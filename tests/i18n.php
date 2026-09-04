@@ -2359,6 +2359,14 @@ i18nExpect(
 );
 i18nExpect(
     $script !== false &&
+        str_contains($script, 'function addPackageDashboardSection(page, route)') &&
+        str_contains($script, 'page.parent_title_key') &&
+        str_contains($script, 'packageSection: true') &&
+        str_contains($script, 'function renderPackageDashboardSection(route)'),
+    'package dashboard pages cannot create a package-owned navigation section',
+);
+i18nExpect(
+    $script !== false &&
         preg_match(
             '/function renderJetBackupLabels\(\) \{.*?catalogOnly:\s*true/s',
             $script,

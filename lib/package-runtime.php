@@ -273,6 +273,7 @@ function packageRuntimeOwnLocaleKeys(
     foreach ($dashboardPages as $page) {
         $keys[] = $page['title_key'] ?? null;
         $keys[] = $page['summary_key'] ?? null;
+        $keys[] = $page['parent_title_key'] ?? null;
     }
     foreach ($dashboardCards as $card) {
         $keys[] = $card['title_key'] ?? null;
@@ -314,11 +315,17 @@ function packageRuntimeDashboardPageDeclarations(array $pages): array
         $parent = isset($page['parent'])
             ? trim((string) $page['parent'])
             : null;
+        $parentTitle = isset($page['parent_title'])
+            ? trim((string) $page['parent_title'])
+            : null;
         $titleKey = isset($page['title_key'])
             ? trim((string) $page['title_key'])
             : null;
         $summaryKey = isset($page['summary_key'])
             ? trim((string) $page['summary_key'])
+            : null;
+        $parentTitleKey = isset($page['parent_title_key'])
+            ? trim((string) $page['parent_title_key'])
             : null;
         $keywords = array_values(
             array_unique(
@@ -337,10 +344,17 @@ function packageRuntimeDashboardPageDeclarations(array $pages): array
             mb_strlen($summary) > 500 ||
             ($parent !== null &&
                 !preg_match('/^[a-z][a-z0-9_-]{1,62}$/', $parent)) ||
+            ($parentTitle !== null &&
+                ($parent === null ||
+                    $parentTitle === '' ||
+                    mb_strlen($parentTitle) > 80)) ||
             ($titleKey !== null &&
                 !preg_match('/^[a-z][\w.-]{0,119}$/i', $titleKey)) ||
             ($summaryKey !== null &&
                 !preg_match('/^[a-z][\w.-]{0,119}$/i', $summaryKey)) ||
+            ($parentTitleKey !== null &&
+                ($parent === null ||
+                    !preg_match('/^[a-z][\w.-]{0,119}$/i', $parentTitleKey))) ||
             count($keywords) !== count((array) ($page['keywords'] ?? [])) ||
             isset($out[$id])
         ) {
@@ -354,6 +368,8 @@ function packageRuntimeDashboardPageDeclarations(array $pages): array
             'summary' => $summary,
             'keywords' => $keywords,
             'parent' => $parent,
+            'parent_title' => $parentTitle,
+            'parent_title_key' => $parentTitleKey,
             'title_key' => $titleKey,
             'summary_key' => $summaryKey,
         ];

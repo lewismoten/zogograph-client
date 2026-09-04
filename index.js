@@ -14806,6 +14806,9 @@ async function loadPackageDashboardPages() {
       (page) => page && /^[a-z][a-z0-9-]{3,190}$/.test(page.route),
     );
     const available = new Set(pages.map((page) => page.route));
+    for (const page of pages)
+      if (typeof page.parent === 'string' && !VIEWS[page.parent])
+        available.add(`package-${page.package_id}-${page.parent}`);
     removeUnavailablePackageDashboardPages(available);
     for (const page of pages) addPackageDashboardPage(page);
     const route = readRoute().view;
@@ -14822,10 +14825,18 @@ async function loadPackageDashboardPages() {
 function addPackageDashboardPage(page) {
   if (!page || VIEWS[page.route] || !/^[a-z][a-z0-9-]{3,190}$/.test(page.route))
     return;
+  const packageParent =
+    typeof page.parent === 'string'
+      ? `package-${page.package_id}-${page.parent}`
+      : '';
+  if (packageParent && !VIEWS[page.parent] && !VIEWS[packageParent])
+    addPackageDashboardSection(page, packageParent);
   const parent =
     typeof page.parent === 'string' && VIEWS[page.parent]
       ? page.parent
-      : 'sys-packages';
+      : VIEWS[packageParent]
+        ? packageParent
+        : 'sys-packages';
   const title = page.title_key
     ? ZogographI18n.t(page.title_key, {}, page.title)
     : page.title;
@@ -14865,6 +14876,69 @@ function addPackageDashboardPage(page) {
   if (page.title_key) view.dataset.packagePageTitleKey = page.title_key;
   if (page.summary_key) view.dataset.packagePageSummaryKey = page.summary_key;
   $('main')?.appendChild(view);
+}
+
+function addPackageDashboardSection(page, route) {
+  const title = page.parent_title_key
+    ? ZogographI18n.t(
+        page.parent_title_key,
+        {},
+        page.parent_title || page.parent,
+      )
+    : page.parent_title || page.parent;
+  VIEWS[route] = {
+    manual: true,
+    label: title,
+    parent: 'sys-packages',
+    packagePage: true,
+    packageSection: true,
+    refresh: () => renderPackageDashboardSection(route),
+  };
+  const link = document.createElement('a');
+  link.className = 'nav-item nav-sub';
+  link.href = `#/${route}`;
+  link.dataset.nav = route;
+  link.dataset.parent = 'sys-packages';
+  link.dataset.packageDashboardPage = '1';
+  link.dataset.pluginKeywords = (page.keywords || []).join(' ');
+  const icon = document.createElement('span');
+  icon.className = 'nav-icon';
+  icon.setAttribute('aria-hidden', 'true');
+  icon.textContent = '›';
+  const label = document.createElement('span');
+  label.className = 'nav-label';
+  if (page.parent_title_key) label.dataset.i18n = page.parent_title_key;
+  label.textContent = title;
+  link.append(icon, label);
+  bindNavLink(link);
+  document.querySelector('.sidebar .nav-foot')?.before(link);
+  const view = document.createElement('section');
+  view.className = 'view';
+  view.hidden = true;
+  view.dataset.view = route;
+  view.dataset.packageDashboardPage = '1';
+  view.dataset.packageSectionTitle = title;
+  $('main')?.appendChild(view);
+}
+
+function renderPackageDashboardSection(route) {
+  const view = document.querySelector(`[data-view="${route}"]`);
+  if (!view) return;
+  const panel = document.createElement('section');
+  panel.className = 'panel';
+  const title = document.createElement('h2');
+  title.textContent = VIEWS[route]?.label || route;
+  panel.appendChild(title);
+  const children = Object.entries(VIEWS).filter(
+    ([, entry]) => entry.parent === route && entry.packagePage,
+  );
+  for (const [childRoute, child] of children) {
+    const link = document.createElement('a');
+    link.href = `#/${childRoute}`;
+    link.textContent = child.label;
+    panel.appendChild(link);
+  }
+  view.replaceChildren(panel);
 }
 
 function renderPackageDashboardPage(route) {

@@ -143,6 +143,11 @@ optional-locale pattern for the next cohesive migration.
 - [ ] Define the two initial areas: `dashboard` (the signed-in front end) and
   `setup`. A package selects an area; it may declare a new top-level section
   within that area, so it is not limited to pre-existing core sections.
+
+  The dashboard bridge now creates a package-owned section for an enabled
+  package page whose `parent` is not a core route. The page may supply
+  `parent_title` and `parent_title_key`; its child route is placed beneath that
+  generated section rather than silently falling back to Package runtime.
 - [ ] Namespace package-created section, page, and route IDs. A package may
   parent a page under one of its own new sections or an explicitly public core
   insertion point; it may not silently replace or reparent another package's

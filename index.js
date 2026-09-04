@@ -2862,7 +2862,10 @@ document.addEventListener('zogograph-i18n-load', renderSymlinkSweepShellLabels);
 
 function renderJetBackupLabels() {
   const helpers = {
-    note: () => null,
+    // This localization-only render reaches JetBackup's empty state. Supply a
+    // node even though its returned fragment is discarded, so the card keeps
+    // its normal rendering contract.
+    note: () => document.createDocumentFragment(),
     section: () => null,
     simpleTable: () => null,
     humanTime: () => '',

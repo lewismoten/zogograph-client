@@ -1,0 +1,9 @@
+{
+  "example-status.page.title": "Estado de ejemplo",
+  "example-status.page.summary": "Una página de paquete renderizada por el núcleo.",
+  "example-status.section.title": "Herramientas de ejemplo",
+  "example-status.card.title": "Datos de ejemplo",
+  "example-status.card.state": "Estado",
+  "example-status.card.ready": "Listo",
+  "example-status.setup.title": "Configuración de ejemplo"
+}

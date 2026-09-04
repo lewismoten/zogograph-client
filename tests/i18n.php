@@ -210,6 +210,18 @@ $uptimePackageManifest = json_decode(
     (string) file_get_contents($root . '/packages/core-uptime/manifest.json'),
     true,
 );
+$examplePackageManifest = json_decode(
+    (string) file_get_contents($root . '/packages/example-package/manifest.example.json'),
+    true,
+);
+$examplePackageEnglish = json_decode(
+    (string) file_get_contents($root . '/packages/example-package/locales/en.json'),
+    true,
+);
+$examplePackageSpanish = json_decode(
+    (string) file_get_contents($root . '/packages/example-package/locales/es.json'),
+    true,
+);
 $page = file_get_contents($root . '/index.html');
 $script = file_get_contents($root . '/index.js');
 foreach ($cardFiles as $cardFile) {
@@ -2330,6 +2342,20 @@ i18nExpect(
         str_contains($registry, 'id === owner || id.startsWith(`${owner}-`)') &&
         str_contains($registry, 'const localeFiles = manifest?.localeFiles;'),
     'uptime cards do not declare and enforce their built-in package ownership',
+);
+i18nExpect(
+    is_array($examplePackageManifest) &&
+        ($examplePackageManifest['id'] ?? null) === 'example-status' &&
+        ($examplePackageManifest['dashboard_pages'][0]['parent'] ?? null) ===
+            'example-status-overview' &&
+        ($examplePackageManifest['dashboard_pages'][0]['parent_title_key'] ?? null) ===
+            'example-status.section.title' &&
+        ($examplePackageManifest['dashboard_cards'][0]['renderer'] ?? null) ===
+            'overview-facts' &&
+        is_array($examplePackageEnglish) &&
+        is_array($examplePackageSpanish) &&
+        array_keys($examplePackageEnglish) === array_keys($examplePackageSpanish),
+    'package authoring example lacks a namespaced section, declarative card, or locale parity',
 );
 i18nExpect(
     $aiIdentitySettingsCard !== false &&

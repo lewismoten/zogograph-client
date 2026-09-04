@@ -1,0 +1,57 @@
+{
+  "id": "example-status",
+  "version": "0.1.0",
+  "publisher": "example-publisher",
+  "capabilities": [],
+  "dependencies": [],
+  "runtime": {
+    "minimum_api": "1.0",
+    "entrypoint": "src/Provider.php",
+    "provider_class": "ExampleStatus\\Provider",
+    "operations": ["capability"]
+  },
+  "settings_schema": "settings.schema.json",
+  "locales": {
+    "es": "locales/es.json"
+  },
+  "dashboard_pages": [
+    {
+      "id": "status",
+      "title": "Example status",
+      "summary": "A core-rendered package page.",
+      "title_key": "example-status.page.title",
+      "summary_key": "example-status.page.summary",
+      "parent": "example-status-overview",
+      "parent_title": "Example tools",
+      "parent_title_key": "example-status.section.title",
+      "keywords": ["example", "status"]
+    }
+  ],
+  "dashboard_cards": [
+    {
+      "id": "facts",
+      "renderer": "overview-facts",
+      "title": "Example facts",
+      "title_key": "example-status.card.title",
+      "facts": [
+        {
+          "label": "State",
+          "value": "Ready",
+          "label_key": "example-status.card.state",
+          "value_key": "example-status.card.ready"
+        }
+      ]
+    }
+  ],
+  "setup_panels": [
+    {
+      "id": "example-status-settings",
+      "title": "Example settings",
+      "title_key": "example-status.setup.title",
+      "keywords": ["example"]
+    }
+  ],
+  "data": { "migrations": [] },
+  "integrity": { "files": {} },
+  "signature": { "key_id": "replace-on-sign", "value": "replace-on-sign" }
+}

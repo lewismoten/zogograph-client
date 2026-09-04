@@ -1,0 +1,9 @@
+{
+  "example-status.page.title": "Example status",
+  "example-status.page.summary": "A core-rendered package page.",
+  "example-status.section.title": "Example tools",
+  "example-status.card.title": "Example facts",
+  "example-status.card.state": "State",
+  "example-status.card.ready": "Ready",
+  "example-status.setup.title": "Example settings"
+}

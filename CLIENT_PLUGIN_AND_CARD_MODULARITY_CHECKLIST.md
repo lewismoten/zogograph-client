@@ -298,6 +298,11 @@ download-on-select, not yet an installed-pack UI or signature/provenance model.
 
 ## 8. Publish a plugin authoring example and contract tests
 
+`packages/example-package/` now provides an inert signed-package template with
+a package-created dashboard section, declarative facts card, Setup panel,
+settings schema, English fallback, and optional Spanish catalog. It deliberately
+contains no executable browser payload.
+
 - [ ] Ship one minimal example that adds a new `dashboard` section and a child
   page, and one that adds a child to a public core insertion point. Include all
   catalogs, navigation metadata, a declarative card, settings, disabled state,

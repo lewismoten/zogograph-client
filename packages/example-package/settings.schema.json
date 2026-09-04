@@ -1,0 +1,7 @@
+{
+  "type": "object",
+  "properties": {
+    "enabled_message": { "type": "string", "maxLength": 120 }
+  },
+  "additionalProperties": false
+}

@@ -2644,7 +2644,7 @@ i18nExpect(
         $script !== false &&
         str_contains(
             $script,
-            'renderCoreCardPackage(ZogographUptimeCard, "core-uptime",',
+            "Zogograph.cards.get('core-uptime')",
         ),
     'uptime dashboard card is not isolated behind its core card-module boundary',
 );
@@ -2664,7 +2664,7 @@ i18nExpect(
         $script !== false &&
         str_contains(
             $script,
-            'renderCoreCardPackage(ZogographUptimeTracksCard, "core-uptime-tracks",',
+            "Zogograph.cards.get('core-uptime-tracks')",
         ),
     'uptime collector tracks are not isolated behind their core card-module boundary',
 );

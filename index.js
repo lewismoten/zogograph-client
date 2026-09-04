@@ -3741,6 +3741,7 @@ function renderCpuGaugesTitle() {
 document.addEventListener('zogograph-i18n-load', renderCpuGaugesTitle);
 
 function renderUptimeTitle() {
+  const uptimeCard = Zogograph.cards.get('core-uptime');
   const helpers = {
     setCard: () => null,
     summary: null,
@@ -3750,7 +3751,7 @@ function renderUptimeTitle() {
     i18n: ZogographI18n,
   };
   renderCoreCardPackage(
-    ZogographUptimeCard,
+    uptimeCard,
     'core-uptime',
     { upFor: null },
     helpers,
@@ -3759,7 +3760,7 @@ function renderUptimeTitle() {
   title.textContent = ZogographI18n.markSource(
     title,
     'core-uptime.title',
-    ZogographUptimeCard.text('title', helpers),
+    uptimeCard.text('title', helpers),
   );
   for (const key of ['gaps_help', 'restart_help']) {
     ZogographI18n.applyRich(
@@ -25167,8 +25168,9 @@ async function refreshUptime() {
  * different things.
  */
 function renderTrackSummary(tracks, to) {
+  const uptimeTracksCard = Zogograph.cards.get('core-uptime-tracks');
   renderCoreCardPackage(
-    ZogographUptimeTracksCard,
+    uptimeTracksCard,
     'core-uptime-tracks',
     { tracks, to },
     { target: $('uptimeTracks'), humanSpan, i18n: ZogographI18n },
@@ -25178,6 +25180,7 @@ function renderTrackSummary(tracks, to) {
 function drawUptimeChart(from, to) {
   const canvas = $('uptimeChart');
   if (!canvas) return;
+  const uptimeCard = Zogograph.cards.get('core-uptime');
 
   /*
    * The replay reads the window from state, it does not close over it.
@@ -25213,7 +25216,7 @@ function drawUptimeChart(from, to) {
   const rows = [
     {
       key: 'machine',
-      label: ZogographUptimeCard.text('machine', { i18n: ZogographI18n }),
+      label: uptimeCard.text('machine', { i18n: ZogographI18n }),
       height: 34,
     },
     ...tracks.map((track) => ({
@@ -25484,9 +25487,10 @@ function renderUptime() {
     state.uptimeWindow?.to || state.frozenAt || Math.floor(Date.now() / 1000);
   const from = state.uptimeWindow?.from || to - state.range;
   const a = data.analysis || {};
+  const uptimeCard = Zogograph.cards.get('core-uptime');
 
   renderCoreCardPackage(
-    ZogographUptimeCard,
+    uptimeCard,
     'core-uptime',
     { upFor: data.up_for, bootAt: data.boot_at, analysis: data.analysis || {} },
     {

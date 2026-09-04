@@ -51,9 +51,9 @@ data-only and its documented isolated execution runtime is still future work.
 
 ## 2. Replace card globals with a registration boundary
 
-The registry bootstrap and the uptime-events migration are in place as the
-compatibility path. The remaining global cards and their ESLint declarations
-remain migration work; do not add new card globals.
+The registry bootstrap and the complete uptime-card package migration are in
+place as the compatibility path. The remaining global cards and their ESLint
+declarations remain migration work; do not add new card globals.
 
 - [ ] Define `window.Zogograph` as the only product namespace exposed to
   bundled scripts; expose `Zogograph.cards.register(definition)` and
@@ -79,8 +79,8 @@ remain migration work; do not add new card globals.
 
 The uptime summary, tracks, and events cards now live in
 `packages/core-uptime/cards/`; dashboard discovery tests cover both legacy and
-package-owned card paths. The package retains its stable card IDs while its
-remaining globals are migrated.
+package-owned card paths. The package retains stable card IDs and has no
+feature-specific browser globals.
 
 - [ ] Stop adding feature files directly to the flat `cards/` directory. Its
   hundreds of files are hard to browse and conceal which files form one

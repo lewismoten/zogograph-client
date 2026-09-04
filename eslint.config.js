@@ -385,8 +385,6 @@ export default [
         ZogographScanFactCards: 'readonly',
         ZogographTypeGrowthCard: 'readonly',
         ZogographTypePieCard: 'readonly',
-        ZogographUptimeCard: 'readonly',
-        ZogographUptimeTracksCard: 'readonly',
         ZogographViewGuideCard: 'readonly',
       },
     },

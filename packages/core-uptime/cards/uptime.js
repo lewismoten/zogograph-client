@@ -1,5 +1,5 @@
 /* Core card package: the compact uptime reading that appears on the dashboard. */
-window.ZogographUptimeCard = {
+const UptimeCard = {
   manifest: Object.freeze({
     id: 'core-uptime',
     locales: ['core-uptime.'],
@@ -191,4 +191,4 @@ window.ZogographUptimeCard = {
       : t('no_readings_window', {}, 'No readings in this window.');
   },
 };
-
+Zogograph.cards.register(UptimeCard);

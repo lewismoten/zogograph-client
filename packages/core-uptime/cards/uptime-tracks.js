@@ -1,5 +1,5 @@
 /* Core card package: collector cadence and coverage summaries. */
-window.ZogographUptimeTracksCard = {
+const UptimeTracksCard = {
   manifest: Object.freeze({
     id: 'core-uptime-tracks',
     locales: ['core-uptime-tracks.'],
@@ -129,4 +129,4 @@ window.ZogographUptimeTracksCard = {
     target.replaceChildren(...rows);
   },
 };
-
+Zogograph.cards.register(UptimeTracksCard);

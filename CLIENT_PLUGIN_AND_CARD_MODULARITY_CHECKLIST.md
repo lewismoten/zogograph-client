@@ -92,6 +92,10 @@ optional-locale pattern for the next cohesive migration.
 The localization test now verifies every built-in package manifest against its
 registered card IDs and declared optional locale files, so a package cannot
 silently drift from its own inventory.
+The storage package now owns its loading, scan, deletion, offender-table, log,
+history, and inspector action/preview/breakdown cards; only the larger
+inspector-facts and retention cards remain in the legacy directory for their
+own focused migrations.
 
 - [ ] Stop adding feature files directly to the flat `cards/` directory. Its
   hundreds of files are hard to browse and conceal which files form one

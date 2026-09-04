@@ -194,6 +194,8 @@ reviewed surface instead of duplicating DOM boilerplate in package cards.
 CPU time now uses the same generated `core-cpu` mount and clears it before each
 render, removing the former `#cpuTimeCards` dependency and preventing repeated
 small cards on refresh.
+The shared gauge-status card now lives in `packages/core-ui/`, so generic UI
+copy no longer needs a feature global or a flat-card source file.
 
 - [ ] Define generic primitives: `Card`, `CardHeader`, `CardBody`, `CardFooter`,
   `CardNotice`, `CardEmpty`, `CardError`, `CardLoading`, `CardActions`,

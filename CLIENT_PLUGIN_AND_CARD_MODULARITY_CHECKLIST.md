@@ -177,6 +177,14 @@ data-only and its documented isolated execution runtime is still future work.
 - [ ] Keep the card container generic: no feature-specific IDs or CSS selector
   dependence. Use owner-scoped `data-package` and `data-card` attributes only
   for diagnostics and styling hooks.
+- [ ] Reduce `index.html` to the application shell and generic area/view mount
+  points. A package or card declaration supplies its own generic container,
+  header/body/actions, data binding, and renderer through the card kit; it does
+  not require a pre-existing `#cpuTimeCards`, `#uptimeBody`, or other
+  feature-specific element in static HTML.
+- [ ] Let the shell create card mounts from the resolved navigation/layout
+  declaration, then pass the mount and approved primitives to the registered
+  card. Declarative packages use the same mount with a reviewed renderer.
 - [ ] Standardize safe rendering: text by default, controlled rich-text tokens
   where necessary, no package HTML injection, and a single escaping/sanitizing
   path.
@@ -191,9 +199,24 @@ data-only and its documented isolated execution runtime is still future work.
   from card context or `window.i18n`, not `ZogographI18n`.
 - [ ] Migrate `ZogographI18n` through a temporary alias, then remove it and add
   a lint/source check that prohibits new references.
-- [ ] Require each package manifest to declare catalogs for every supported
-  locale and use only its own `package-id.*` keys. Catalog registration must be
-  independent of card rendering.
+- [ ] Make English the only locale shipped in a card/package's default install.
+  Move optional translations out of card code into signed, versioned locale-pack
+  archives, so a feature’s behavior remains readable without hundreds of lines
+  of unrelated translations.
+- [ ] Define locale packs as independently installable contributions: a pack
+  declares its target package IDs and/or allowed key namespaces, locale,
+  compatible package versions, publisher/signature, and complete key set. This
+  permits a third party to publish a translation for one plugin or an approved
+  set of keys without shipping executable code.
+- [ ] Download/install only the active locale plus English fallback. On a
+  language change, resolve compatible installed packs, verify signatures and
+  key ownership, stage the catalog atomically, and retain the prior locale if
+  loading or validation fails. Make installed packs, provenance, updates, and
+  removal visible in Package runtime/Setup.
+- [ ] Reject a locale pack that overwrites core/package keys it does not own,
+  contains an incompatible/partial catalog without an explicit fallback rule,
+  or conflicts with another enabled pack at equal precedence. Catalog
+  registration remains independent of card rendering.
 - [ ] Audit every visible string, including headings, table headers, labels,
   placeholders, empty/error/loading states, confirmation dialogs, tooltips,
   ARIA labels, navigation/search text, toast text, and browser document titles.

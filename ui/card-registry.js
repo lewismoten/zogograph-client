@@ -3,11 +3,30 @@
 (() => {
   const entries = new Map();
 
+  function validManifest(manifest) {
+    const id = manifest?.id;
+    const prefix = `${id}.`;
+    return (
+      typeof id === 'string' &&
+      /^core-[a-z][a-z0-9-]*$/.test(id) &&
+      Array.isArray(manifest.locales) &&
+      manifest.locales.length > 0 &&
+      manifest.locales.every((locale) => locale === prefix) &&
+      Array.isArray(manifest.helpers) &&
+      manifest.helpers.every(
+        (helper, index) =>
+          typeof helper === 'string' && manifest.helpers.indexOf(helper) === index,
+      ) &&
+      manifest.catalogs &&
+      !Array.isArray(manifest.catalogs) &&
+      typeof manifest.catalogs === 'object'
+    );
+  }
+
   function register(card) {
     const id = card?.manifest?.id;
     if (
-      typeof id !== 'string' ||
-      !/^core-[a-z][a-z0-9-]*$/.test(id) ||
+      !validManifest(card?.manifest) ||
       typeof card.render !== 'function' ||
       entries.has(id)
     ) {

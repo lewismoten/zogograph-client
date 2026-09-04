@@ -146,6 +146,7 @@ foreach ($cardFiles as $cardFile) {
 }
 $root = dirname(__DIR__);
 $runtime = file_get_contents($root . '/i18n.js');
+$registry = file_get_contents($root . '/ui/card-registry.js');
 $page = file_get_contents($root . '/index.html');
 $script = file_get_contents($root . '/index.js');
 foreach ($cardFiles as $cardFile) {
@@ -824,6 +825,13 @@ foreach ($cardFiles as $cardFile) {
                     (string) $card,
                 ) === 1,
             "core card package $relative does not own namespaced locale keys",
+        );
+    }
+    if (str_contains($cardFile, '/packages/')) {
+        i18nExpect(
+            !preg_match('/window\.Zogograph[A-Za-z0-9_]+Card\s*=/', (string) $card) &&
+                str_contains((string) $card, 'Zogograph.cards.register('),
+            "package-owned card $relative must register without a feature-specific browser global",
         );
     }
 }
@@ -2152,6 +2160,14 @@ i18nExpect(
         $script !== false &&
         str_contains($script, "Zogograph.cards.get('core-uptime-events')"),
     'core card registry is not loaded before registered cards are used',
+);
+i18nExpect(
+    $registry !== false &&
+        str_contains($registry, 'function validManifest(manifest)') &&
+        str_contains($registry, 'manifest.locales.every') &&
+        str_contains($registry, 'manifest.helpers.indexOf(helper) === index') &&
+        str_contains($registry, "throw new TypeError('Core card registration is invalid.')"),
+    'core card registry does not validate the package manifest boundary',
 );
 i18nExpect(
     $aiIdentitySettingsCard !== false &&

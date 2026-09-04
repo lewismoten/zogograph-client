@@ -54,6 +54,8 @@ data-only and its documented isolated execution runtime is still future work.
 The registry bootstrap and the complete uptime-card package migration are in
 place as the compatibility path. The remaining global cards and their ESLint
 declarations remain migration work; do not add new card globals.
+Registration now rejects malformed IDs, locale namespaces, duplicate helper
+declarations, missing catalogs, duplicate IDs, and cards without a renderer.
 
 - [ ] Define `window.Zogograph` as the only product namespace exposed to
   bundled scripts; expose `Zogograph.cards.register(definition)` and

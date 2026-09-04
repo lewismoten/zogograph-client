@@ -25510,7 +25510,7 @@ function renderUptime() {
   const bands = [
     ...(a.outages || []).map((o) => ({
       kind: uptimeEventsCard.text('restarted', {
-        i18n: ZogographI18n,
+        i18n: window.i18n,
       }),
       from: o.from,
       to: o.to,
@@ -25518,7 +25518,7 @@ function renderUptime() {
       note: uptimeEventsCard.text(
         'restart_explanation',
         { booted: humanTime(o.booted_at) },
-        { i18n: ZogographI18n },
+        { i18n: window.i18n },
       ),
     })),
     /*
@@ -25532,7 +25532,7 @@ function renderUptime() {
      */
     ...(a.gaps || []).map((g) => ({
       kind: uptimeEventsCard.text('reading_gap', {
-        i18n: ZogographI18n,
+        i18n: window.i18n,
       }),
       from: g.from,
       to: g.to,
@@ -25544,7 +25544,7 @@ function renderUptime() {
             ? 'gap_before_tracking'
             : 'gap_unknown',
         {},
-        { i18n: ZogographI18n },
+        { i18n: window.i18n },
       ),
     })),
   ].sort((x, y) => y.from - x.from);
@@ -25558,7 +25558,7 @@ function renderUptime() {
       renderTable,
       whenSpan,
       humanDuration,
-      i18n: ZogographI18n,
+      i18n: window.i18n,
     },
   );
 

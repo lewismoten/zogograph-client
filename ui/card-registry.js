@@ -21,6 +21,7 @@
     register,
     get: (id) => entries.get(id),
     has: (id) => entries.has(id),
+    all: () => Array.from(entries.values()),
   });
   const product = window.Zogograph || {};
   if (product.cards) throw new TypeError('Core card registry already exists.');

@@ -902,6 +902,16 @@ i18nExpect(
 );
 i18nExpect(
     $runtime !== false &&
+        str_contains($runtime, 'window.i18n = i18nApi;') &&
+        str_contains($runtime, 'window.ZogographI18n = i18nApi;') &&
+        str_contains($runtime, 'window.Zogograph?.cards?.all?.() || []') &&
+        $script !== false &&
+        str_contains($script, "Zogograph.cards.get('core-uptime-events')") &&
+        str_contains($script, 'i18n: window.i18n'),
+    'registered cards are not catalogued through the short localization service',
+);
+i18nExpect(
+    $runtime !== false &&
         str_contains(
             $runtime,
             'if (!reload && (locale === I18N_BASE || locale === i18n.locale))',

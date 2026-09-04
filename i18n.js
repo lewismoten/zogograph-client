@@ -329,24 +329,31 @@ function i18nClearPackageCatalogs() {
 }
 
 function i18nRegisterCoreCatalogs() {
-  for (const globalName of Object.getOwnPropertyNames(window)) {
-    if (!globalName.startsWith('Zogograph')) continue;
-    const cardPackage = window[globalName];
+  const seen = new Set();
+  const packages = [
+    ...Object.getOwnPropertyNames(window)
+      .filter((globalName) => globalName.startsWith('Zogograph'))
+      .map((globalName) => window[globalName]),
+    ...(window.Zogograph?.cards?.all?.() || []),
+  ];
+  for (const cardPackage of packages) {
     const manifest = cardPackage?.manifest;
     if (
       !manifest ||
       typeof manifest.id !== 'string' ||
       !manifest.id.startsWith('core-') ||
       !manifest.catalogs ||
-      typeof manifest.catalogs !== 'object'
+      typeof manifest.catalogs !== 'object' ||
+      seen.has(manifest.id)
     )
       continue;
+    seen.add(manifest.id);
     for (const [locale, catalog] of Object.entries(manifest.catalogs))
       i18nRegisterCatalog(locale, catalog, false, manifest.id);
   }
 }
 
-window.ZogographI18n = {
+const i18nApi = {
   t,
   markSource: i18nMarkSource,
   applyRich: i18nApplyRichNode,
@@ -365,6 +372,10 @@ window.ZogographI18n = {
     await i18nLoad(i18n.locale);
   },
 };
+// Keep the former product-specific name while callers migrate to the concise
+// public service name. Both names intentionally point to the same API.
+window.i18n = i18nApi;
+window.ZogographI18n = i18nApi;
 document.addEventListener('DOMContentLoaded', () => {
   // Static shell nodes translate during the first locale load. Register the
   // core cards that own such nodes before that pass, rather than keeping a

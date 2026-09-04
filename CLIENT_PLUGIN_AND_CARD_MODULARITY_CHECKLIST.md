@@ -197,6 +197,10 @@ remain migration work; do not add new card globals.
 
 ## 6. Simplify localization and complete the audit
 
+`window.i18n` now aliases the existing localization API and registered cards
+are included in core-catalog discovery. The product-specific alias remains
+during the staged migration.
+
 - [ ] Publish `window.i18n` as the short global localization service; it owns
   catalog registration, `t`, rich-token rendering, date/number/list formatting,
   plural/select rules, and source attribution. New code uses a local `i18n`

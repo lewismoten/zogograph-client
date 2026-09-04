@@ -1,0 +1,10 @@
+{
+  "core-storage-delete-results.delete_directory_confirm": "¿Eliminar {{path}} y todo lo que contiene? Son {{size}} en {{files}} archivos y no se puede deshacer.",
+  "core-storage-delete-results.delete_file_confirm": "¿Eliminar {{path}}? Son {{size}} y no se puede deshacer.",
+  "core-storage-delete-results.deleted": "eliminado",
+  "core-storage-delete-results.deleted_row_help": "Se eliminó {{at}}. Aún aparece porque lo encontró el último análisis; el siguiente lo quitará.",
+  "core-storage-delete-results.deleted_not_freed": "Se eliminó, pero no se liberó espacio: {{links}} aún apuntan a esos {{size}}.",
+  "core-storage-delete-results.removed_directory": "Se eliminaron {{size}} en {{files}}.",
+  "core-storage-delete-results.removed_directory_with_skipped": "Se eliminaron {{size}} en {{files}}. No se pudieron eliminar {{skipped}}.",
+  "core-storage-delete-results.removed_file": "Se eliminaron {{size}}."
+}

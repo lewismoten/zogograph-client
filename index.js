@@ -7380,7 +7380,7 @@ const storageBulkDeleteText = (key, values = {}) =>
 
 const storageDeleteResultText = (key, values = {}) =>
   renderCoreCardPackage(
-    ZogographStorageDeleteResultsCard,
+    Zogograph.cards.get('core-storage-delete-results'),
     'core-storage-delete-results',
     { key, values },
     { i18n: ZogographI18n },

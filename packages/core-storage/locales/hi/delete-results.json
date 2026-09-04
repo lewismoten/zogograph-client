@@ -1,0 +1,10 @@
+{
+  "core-storage-delete-results.delete_directory_confirm": "{{path}} और इसके अंदर सब कुछ हटाएँ? यह {{files}} फ़ाइलों में {{size}} है और इसे पूर्ववत नहीं किया जा सकता।",
+  "core-storage-delete-results.delete_file_confirm": "{{path}} हटाएँ? यह {{size}} है और इसे पूर्ववत नहीं किया जा सकता।",
+  "core-storage-delete-results.deleted": "हटाई गई",
+  "core-storage-delete-results.deleted_row_help": "{{at}} को हटाई गई। यह अभी भी सूची में है क्योंकि पिछले स्कैन में मिली थी; अगला स्कैन इसे हटा देगा।",
+  "core-storage-delete-results.deleted_not_freed": "हटा दिया गया, लेकिन कोई जगह खाली नहीं हुई: {{links}} अभी भी उन {{size}} की ओर इशारा करते हैं।",
+  "core-storage-delete-results.removed_directory": "{{files}} में {{size}} हटाया गया।",
+  "core-storage-delete-results.removed_directory_with_skipped": "{{files}} में {{size}} हटाया गया। {{skipped}} हटाया नहीं जा सका।",
+  "core-storage-delete-results.removed_file": "{{size}} हटाया गया।"
+}

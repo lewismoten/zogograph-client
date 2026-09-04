@@ -1,0 +1,10 @@
+{
+  "core-storage-delete-results.delete_directory_confirm": "删除 {{path}} 及其中的所有内容？它包含 {{files}} 个文件，共 {{size}}，且无法撤销。",
+  "core-storage-delete-results.delete_file_confirm": "删除 {{path}}？大小为 {{size}}，且无法撤销。",
+  "core-storage-delete-results.deleted": "已删除",
+  "core-storage-delete-results.deleted_row_help": "已于 {{at}} 删除。它仍在列表中，因为上次扫描找到了它；下次扫描会将其移除。",
+  "core-storage-delete-results.deleted_not_freed": "已删除，但未释放空间：{{links}} 仍指向这 {{size}}。",
+  "core-storage-delete-results.removed_directory": "已删除 {{files}} 个文件中的 {{size}}。",
+  "core-storage-delete-results.removed_directory_with_skipped": "已删除 {{files}} 个文件中的 {{size}}。无法删除 {{skipped}}。",
+  "core-storage-delete-results.removed_file": "已删除 {{size}}。"
+}

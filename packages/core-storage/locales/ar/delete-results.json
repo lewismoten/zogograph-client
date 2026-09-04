@@ -1,0 +1,10 @@
+{
+  "core-storage-delete-results.delete_directory_confirm": "هل تريد حذف {{path}} وكل ما بداخله؟ حجمه {{size}} في {{files}} من الملفات، ولا يمكن التراجع عن ذلك.",
+  "core-storage-delete-results.delete_file_confirm": "هل تريد حذف {{path}}؟ حجمه {{size}}، ولا يمكن التراجع عن ذلك.",
+  "core-storage-delete-results.deleted": "محذوف",
+  "core-storage-delete-results.deleted_row_help": "حُذف {{at}}. ما زال مُدرجًا لأن آخر فحص وجده؛ وسيزيله الفحص التالي.",
+  "core-storage-delete-results.deleted_not_freed": "حُذف، لكن لم تُفرغ مساحة: ما زال {{links}} يشير إلى {{size}}.",
+  "core-storage-delete-results.removed_directory": "أُزيل {{size}} في {{files}}.",
+  "core-storage-delete-results.removed_directory_with_skipped": "أُزيل {{size}} في {{files}}. تعذر إزالة {{skipped}}.",
+  "core-storage-delete-results.removed_file": "أُزيل {{size}}."
+}

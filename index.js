@@ -30166,7 +30166,7 @@ function inspectPie(title, slices, note_) {
 function inspectImage(data) {
   const text = (key, values = {}) =>
     renderCoreCardPackage(
-      ZogographStorageInspectorPreviewCard,
+      Zogograph.cards.get('core-storage-inspector-preview'),
       'core-storage-inspector-preview',
       { key, values },
       { i18n: ZogographI18n },

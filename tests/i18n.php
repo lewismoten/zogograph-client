@@ -3146,7 +3146,7 @@ i18nExpect(
         str_contains($script, "notesRecordsText('capture_image_alt'") &&
         str_contains(
             (string) file_get_contents(
-                $root . '/cards/storage-inspector-preview.js',
+                $root . '/packages/core-storage/cards/inspector-preview.js',
             ),
             'core-storage-inspector-preview.unavailable',
         ) &&

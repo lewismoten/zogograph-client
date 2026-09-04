@@ -1,0 +1,6 @@
+{
+  "core-storage-inspector-preview.title": "Vista previa",
+  "core-storage-inspector-preview.unavailable": "No se pudo cargar la vista previa.",
+  "core-storage-inspector-preview.dimensions": "{{format}}, {{width, number}}×{{height, number}} píxeles; se enviaron {{size}} completos y se escalaron aquí.",
+  "core-storage-inspector-preview.size": "{{format}}, {{size}}."
+}

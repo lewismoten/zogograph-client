@@ -16,3 +16,4 @@ calculated. `scan-status` owns the scan button and completion-state labels.
 `bulk-delete` owns the equivalent selected-row controls and result notices.
 `log` owns viewer navigation, search, and line-metadata labels.
 `inspector-actions` owns the inspected-path action panel vocabulary.
+`inspector-preview` owns image-preview state and dimension labels.

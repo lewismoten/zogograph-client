@@ -1,0 +1,6 @@
+{
+  "core-storage-inspector-preview.title": "预览",
+  "core-storage-inspector-preview.unavailable": "无法加载预览。",
+  "core-storage-inspector-preview.dimensions": "{{format}}，{{width, number}}×{{height, number}} 像素，完整发送 {{size}} 并在此缩放。",
+  "core-storage-inspector-preview.size": "{{format}}，{{size}}。"
+}

@@ -1,0 +1,6 @@
+{
+  "core-storage-inspector-preview.title": "पूर्वावलोकन",
+  "core-storage-inspector-preview.unavailable": "पूर्वावलोकन लोड नहीं हो सका।",
+  "core-storage-inspector-preview.dimensions": "{{format}}, {{width, number}}×{{height, number}} पिक्सेल, {{size}} पूरा भेजा गया और यहाँ स्केल किया गया।",
+  "core-storage-inspector-preview.size": "{{format}}, {{size}}।"
+}

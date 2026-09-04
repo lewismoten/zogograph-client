@@ -1,0 +1,6 @@
+{
+  "core-storage-inspector-preview.title": "معاينة",
+  "core-storage-inspector-preview.unavailable": "تعذر تحميل المعاينة.",
+  "core-storage-inspector-preview.dimensions": "{{format}}، {{width, number}}×{{height, number}} بكسل، أُرسل {{size}} كاملًا وحُجّم هنا.",
+  "core-storage-inspector-preview.size": "{{format}}، {{size}}."
+}

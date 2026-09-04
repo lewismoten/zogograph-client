@@ -1,0 +1,12 @@
+{
+  "core-cpu-busy-chart.title": "الانشغال وما كان مشغولًا به",
+  "core-cpu-busy-chart.help": "يُقسّم خط الانشغال الإجمالي إلى الحالات التي تكوّنه. تظهر أيضًا شجرة المراقب وعبء العمل الباقي: وهما معًا يفسران الإجمالي، فيما تستمر التنبيهات في استخدام إجمالي معالج المضيف. النسب هي مجموع كل الأنوية، لذا 100% تعني أن الآلة كلها مشغولة لا نواة واحدة.",
+  "core-cpu-busy-chart.empty": "لا توجد قراءات للمعالج.",
+  "core-cpu-busy-chart.busy": "مشغول",
+  "core-cpu-busy-chart.monitoring_tree": "شجرة المراقبة",
+  "core-cpu-busy-chart.workload_excluding_monitor": "عبء العمل (دون المراقب)",
+  "core-cpu-busy-chart.userland": "مساحة المستخدم",
+  "core-cpu-busy-chart.kernel": "النواة",
+  "core-cpu-busy-chart.waiting_for_storage": "ينتظر التخزين",
+  "core-cpu-busy-chart.stolen_by_host": "استولى عليه المضيف"
+}

@@ -1062,8 +1062,9 @@ async function refreshCpu() {
       i18n: ZogographI18n,
     },
   );
+  const cpuBusyChartCard = Zogograph.cards.get('core-cpu-busy-chart');
   renderCoreCardPackage(
-    ZogographCpuBusyChartCard,
+    cpuBusyChartCard,
     'core-cpu-busy-chart',
     { series: data.series ?? [] },
     {
@@ -3640,6 +3641,7 @@ function renderCpuFindingsTitle() {
 document.addEventListener('zogograph-i18n-load', renderCpuFindingsTitle);
 
 function renderCpuBusyChartTitle() {
+  const cpuBusyChartCard = Zogograph.cards.get('core-cpu-busy-chart');
   const helpers = {
     chart: null,
     drawLineChart: () => null,
@@ -3648,7 +3650,7 @@ function renderCpuBusyChartTitle() {
     i18n: ZogographI18n,
   };
   renderCoreCardPackage(
-    ZogographCpuBusyChartCard,
+    cpuBusyChartCard,
     'core-cpu-busy-chart',
     { series: [] },
     helpers,
@@ -3659,7 +3661,7 @@ function renderCpuBusyChartTitle() {
   title.textContent = ZogographI18n.markSource(
     title,
     'core-cpu-busy-chart.title',
-    ZogographCpuBusyChartCard.text('title', helpers),
+    cpuBusyChartCard.text('title', helpers),
   );
   ZogographI18n.applyRich(
     document.querySelector('[data-i18n-rich="core-cpu-busy-chart.help"]'),

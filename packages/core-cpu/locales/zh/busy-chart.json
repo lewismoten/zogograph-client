@@ -1,0 +1,12 @@
+{
+  "core-cpu-busy-chart.title": "忙碌程度及其原因",
+  "core-cpu-busy-chart.help": "总忙碌线按构成它的状态拆分。还会显示监控树和其余工作负载：它们共同解释总量，而警报仍使用主机 CPU 总量。百分比是所有核心相加的结果，因此 100% 表示整台机器被占用，而不是一个核心。",
+  "core-cpu-busy-chart.empty": "没有 CPU 读数。",
+  "core-cpu-busy-chart.busy": "繁忙",
+  "core-cpu-busy-chart.monitoring_tree": "监控树",
+  "core-cpu-busy-chart.workload_excluding_monitor": "工作负载（不含监控）",
+  "core-cpu-busy-chart.userland": "用户空间",
+  "core-cpu-busy-chart.kernel": "内核",
+  "core-cpu-busy-chart.waiting_for_storage": "正在等待存储",
+  "core-cpu-busy-chart.stolen_by_host": "被主机占用"
+}

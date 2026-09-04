@@ -2,12 +2,28 @@
   "id": "core-cpu",
   "kind": "built-in-ui",
   "version": "0.1.0",
-  "cards": ["core-cpu-findings", "core-cpu-shell"],
+  "cards": ["core-cpu-findings", "core-cpu-shell", "core-cpu-busy-chart"],
   "default_locale": "en",
   "locale_packs": {
-    "es": ["locales/es/findings.json", "locales/es/shell.json"],
-    "hi": ["locales/hi/findings.json", "locales/hi/shell.json"],
-    "ar": ["locales/ar/findings.json", "locales/ar/shell.json"],
-    "zh": ["locales/zh/findings.json", "locales/zh/shell.json"]
+    "es": [
+      "locales/es/findings.json",
+      "locales/es/shell.json",
+      "locales/es/busy-chart.json"
+    ],
+    "hi": [
+      "locales/hi/findings.json",
+      "locales/hi/shell.json",
+      "locales/hi/busy-chart.json"
+    ],
+    "ar": [
+      "locales/ar/findings.json",
+      "locales/ar/shell.json",
+      "locales/ar/busy-chart.json"
+    ],
+    "zh": [
+      "locales/zh/findings.json",
+      "locales/zh/shell.json",
+      "locales/zh/busy-chart.json"
+    ]
   }
 }

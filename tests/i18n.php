@@ -433,7 +433,7 @@ $aiIdentitySettingsCard = i18nCardSource(
     file_get_contents($root . '/cards/ai-identity-settings.js'),
 );
 $cpuBusyChartCard = i18nCardSource(
-    file_get_contents($root . '/cards/cpu-busy-chart.js'),
+    file_get_contents($root . '/packages/core-cpu/cards/busy-chart.js'),
 );
 $hostMemoryCard = i18nCardSource(
     file_get_contents($root . '/cards/host-memory.js'),
@@ -1473,16 +1473,20 @@ i18nExpect(
 );
 i18nExpect(
     $page !== false &&
-        str_contains($page, 'src="cards/cpu-busy-chart.js"') &&
+        str_contains($page, 'src="packages/core-cpu/cards/busy-chart.js"') &&
         $cpuBusyChartCard !== false &&
-        str_contains($cpuBusyChartCard, 'window.ZogographCpuBusyChartCard') &&
+        str_contains(
+            $cpuBusyChartCard,
+            'Zogograph.cards.register(CpuBusyChartCard)',
+        ) &&
         str_contains($cpuBusyChartCard, 'id: "core-cpu-busy-chart"') &&
+        str_contains($cpuBusyChartCard, 'owner: "core-cpu"') &&
         str_contains($cpuBusyChartCard, 'locales: ["core-cpu-busy-chart."]') &&
         str_contains($cpuBusyChartCard, '"core-cpu-busy-chart.empty"') &&
         $script !== false &&
         str_contains(
             $script,
-            'renderCoreCardPackage(ZogographCpuBusyChartCard, "core-cpu-busy-chart",',
+            "renderCoreCardPackage(\n    cpuBusyChartCard,\n    'core-cpu-busy-chart',",
         ) &&
         !str_contains($script, 'if (window.ZogographCpuBusyChartCard)'),
     'CPU busy chart is not isolated behind its core card-module boundary',

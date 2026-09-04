@@ -1,0 +1,12 @@
+{
+  "core-cpu-busy-chart.title": "व्यस्तता और उसका कारण",
+  "core-cpu-busy-chart.help": "कुल व्यस्त रेखा को बनाने वाली अवस्थाओं में बाँटा गया है। मॉनिटर ट्री और बचा हुआ कार्यभार भी दिखता है: वे मिलकर कुल को समझाते हैं, जबकि अलर्ट कुल होस्ट CPU का उपयोग करते रहते हैं। प्रतिशत सभी कोरों का जोड़ा है, इसलिए 100% का अर्थ पूरी मशीन व्यस्त है, एक कोर नहीं।",
+  "core-cpu-busy-chart.empty": "कोई CPU रीडिंग नहीं है।",
+  "core-cpu-busy-chart.busy": "व्यस्त",
+  "core-cpu-busy-chart.monitoring_tree": "निगरानी ट्री",
+  "core-cpu-busy-chart.workload_excluding_monitor": "कार्यभार (मॉनिटर को छोड़कर)",
+  "core-cpu-busy-chart.userland": "यूज़र स्पेस",
+  "core-cpu-busy-chart.kernel": "कर्नेल",
+  "core-cpu-busy-chart.waiting_for_storage": "स्टोरेज की प्रतीक्षा",
+  "core-cpu-busy-chart.stolen_by_host": "होस्ट द्वारा लिया गया"
+}

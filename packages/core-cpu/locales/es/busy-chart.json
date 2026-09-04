@@ -1,0 +1,12 @@
+{
+  "core-cpu-busy-chart.title": "Ocupación y en qué estuvo ocupada",
+  "core-cpu-busy-chart.help": "La línea total de ocupación se divide en los estados que la componen. También se muestran el árbol del monitor y la carga de trabajo restante: juntos explican el total, mientras que las alertas siguen usando la CPU total del host. Los porcentajes suman todos los núcleos, por lo que 100% significa que toda la máquina está ocupada, no un solo núcleo.",
+  "core-cpu-busy-chart.empty": "No hay lecturas de CPU.",
+  "core-cpu-busy-chart.busy": "Ocupado",
+  "core-cpu-busy-chart.monitoring_tree": "Árbol de supervisión",
+  "core-cpu-busy-chart.workload_excluding_monitor": "Carga de trabajo (sin monitor)",
+  "core-cpu-busy-chart.userland": "Espacio de usuario",
+  "core-cpu-busy-chart.kernel": "Kernel",
+  "core-cpu-busy-chart.waiting_for_storage": "Esperando almacenamiento",
+  "core-cpu-busy-chart.stolen_by_host": "Robado por el host"
+}

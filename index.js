@@ -1433,13 +1433,13 @@ function buildGauge(dial) {
     ? gaugeBandWord(band)
     : dial.plain != null
       ? renderCoreCardPackage(
-          ZogographGaugeStatusCard,
+          Zogograph.cards.get('core-gauge-status'),
           'core-gauge-status',
           { key: 'no_ceiling' },
           { i18n: ZogographI18n },
         )
       : renderCoreCardPackage(
-          ZogographGaugeStatusCard,
+          Zogograph.cards.get('core-gauge-status'),
           'core-gauge-status',
           { key: 'not_measured' },
           { i18n: ZogographI18n },
@@ -1475,7 +1475,7 @@ function buildGauge(dial) {
     detail.textContent =
       dial.overlayLabel ||
       renderCoreCardPackage(
-        ZogographGaugeStatusCard,
+        Zogograph.cards.get('core-gauge-status'),
         'core-gauge-status',
         { key: 'monitoring', values: { value: dial.overlay } },
         { i18n: ZogographI18n },

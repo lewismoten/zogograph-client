@@ -1,0 +1,5 @@
+{
+  "core-gauge-status.no_ceiling": "لا يوجد حد للمقارنة",
+  "core-gauge-status.not_measured": "لم يُقَس بعد",
+  "core-gauge-status.monitoring": "المراقبة: {{value}}"
+}

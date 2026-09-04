@@ -1,0 +1,5 @@
+{
+  "core-gauge-status.no_ceiling": "没有可供比较的上限",
+  "core-gauge-status.not_measured": "尚未测量",
+  "core-gauge-status.monitoring": "监控：{{value}}"
+}

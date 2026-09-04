@@ -1,0 +1,13 @@
+{
+  "id": "core-ui",
+  "kind": "built-in-ui",
+  "version": "0.1.0",
+  "cards": ["core-gauge-status"],
+  "default_locale": "en",
+  "locale_packs": {
+    "es": ["locales/es/gauge-status.json"],
+    "hi": ["locales/hi/gauge-status.json"],
+    "ar": ["locales/ar/gauge-status.json"],
+    "zh": ["locales/zh/gauge-status.json"]
+  }
+}

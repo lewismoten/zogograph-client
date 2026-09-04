@@ -193,7 +193,6 @@ export default [
         ZogographDisplayVoiceControlsCard: 'readonly',
         ZogographDisplayPreferencesDialogCard: 'readonly',
         ZogographDisplayPreferencesFieldsCard: 'readonly',
-        ZogographGaugeStatusCard: 'readonly',
         ZogographTimeFormattingCard: 'readonly',
         ZogographCommonStatusCard: 'readonly',
         ZogographTerminalAccessCard: 'readonly',

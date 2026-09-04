@@ -1,0 +1,5 @@
+{
+  "core-gauge-status.no_ceiling": "sin límite con el que comparar",
+  "core-gauge-status.not_measured": "sin medir",
+  "core-gauge-status.monitoring": "Supervisión: {{value}}"
+}

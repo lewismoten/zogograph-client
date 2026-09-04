@@ -1,0 +1,5 @@
+{
+  "core-gauge-status.no_ceiling": "मापने के लिए कोई सीमा नहीं",
+  "core-gauge-status.not_measured": "अभी नहीं मापा गया",
+  "core-gauge-status.monitoring": "निगरानी: {{value}}"
+}

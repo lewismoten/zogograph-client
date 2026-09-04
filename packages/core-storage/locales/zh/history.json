@@ -1,0 +1,13 @@
+{
+  "core-storage-history.size": "大小",
+  "core-storage-history.files": "文件（右侧）",
+  "core-storage-history.one_scan": "此路径目前只出现在一次扫描中",
+  "core-storage-history.no_history": "没有历史记录",
+  "core-storage-history.title": "随时间变化的大小",
+  "core-storage-history.recorded_once": "已记录，但目前仅记录过一次——还没有可绘制的变化。",
+  "core-storage-history.not_recorded": "此路径不属于扫描之间保留的路径。每次只记录最大的文件和目录，以及每个类别中最大的项；其他所有内容都会测量但不存储。",
+  "core-storage-history.unchanged": "在 {{scans}} 次扫描中未变化。",
+  "core-storage-history.changed": "{{direction}} {{amount}}，共 {{scans}} 次扫描，从 {{first}} 到 {{last}}。",
+  "core-storage-history.grew": "增加了",
+  "core-storage-history.shrank": "减少了"
+}

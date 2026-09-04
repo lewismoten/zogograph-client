@@ -1,0 +1,13 @@
+{
+  "core-storage-history.size": "الحجم",
+  "core-storage-history.files": "الملفات (يمين)",
+  "core-storage-history.one_scan": "ظهر هذا المسار في فحص واحد فقط حتى الآن",
+  "core-storage-history.no_history": "لا سجل",
+  "core-storage-history.title": "الحجم بمرور الوقت",
+  "core-storage-history.recorded_once": "سُجلت، لكن مرة واحدة فقط حتى الآن — لا تغيير لرسمه بعد.",
+  "core-storage-history.not_recorded": "هذا المسار ليس من المسارات المحفوظة بين الفحوصات. لا يُسجل في كل مرة إلا أكبر الملفات والأدلة، وأكبر عنصر من كل فئة؛ أما كل شيء آخر فيُقاس ولا يُخزن.",
+  "core-storage-history.unchanged": "لم يتغير عبر {{scans}}.",
+  "core-storage-history.changed": "{{direction}} بمقدار {{amount}} عبر {{scans}}، من {{first}} إلى {{last}}.",
+  "core-storage-history.grew": "زاد",
+  "core-storage-history.shrank": "انكمش"
+}

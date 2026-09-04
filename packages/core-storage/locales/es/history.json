@@ -1,0 +1,13 @@
+{
+  "core-storage-history.size": "Tamaño",
+  "core-storage-history.files": "Archivos (derecha)",
+  "core-storage-history.one_scan": "Esta ruta solo se ha visto en un análisis hasta ahora",
+  "core-storage-history.no_history": "Sin historial",
+  "core-storage-history.title": "Tamaño a lo largo del tiempo",
+  "core-storage-history.recorded_once": "Se registró, pero solo una vez hasta ahora; todavía no hay cambios que dibujar.",
+  "core-storage-history.not_recorded": "Esta ruta no es una de las que se conservan entre análisis. Cada vez solo se registran los archivos y directorios más grandes, y el mayor de cada categoría; todo lo demás se mide y no se almacena.",
+  "core-storage-history.unchanged": "Sin cambios en {{scans}}.",
+  "core-storage-history.changed": "{{direction}} {{amount}} en {{scans}}, de {{first}} a {{last}}.",
+  "core-storage-history.grew": "Creció",
+  "core-storage-history.shrank": "Se redujo"
+}

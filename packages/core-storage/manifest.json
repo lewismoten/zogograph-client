@@ -16,7 +16,8 @@
     "core-storage-bulk-delete",
     "core-storage-log",
     "core-storage-inspector-actions",
-    "core-storage-inspector-preview"
+    "core-storage-inspector-preview",
+    "core-storage-history"
   ],
   "default_locale": "en",
   "locale_packs": {
@@ -34,7 +35,8 @@
       "locales/es/bulk-delete.json",
       "locales/es/log.json",
       "locales/es/inspector-actions.json",
-      "locales/es/inspector-preview.json"
+      "locales/es/inspector-preview.json",
+      "locales/es/history.json"
     ],
     "hi": [
       "locales/hi/measuring.json",
@@ -50,7 +52,8 @@
       "locales/hi/bulk-delete.json",
       "locales/hi/log.json",
       "locales/hi/inspector-actions.json",
-      "locales/hi/inspector-preview.json"
+      "locales/hi/inspector-preview.json",
+      "locales/hi/history.json"
     ],
     "ar": [
       "locales/ar/measuring.json",
@@ -66,7 +69,8 @@
       "locales/ar/bulk-delete.json",
       "locales/ar/log.json",
       "locales/ar/inspector-actions.json",
-      "locales/ar/inspector-preview.json"
+      "locales/ar/inspector-preview.json",
+      "locales/ar/history.json"
     ],
     "zh": [
       "locales/zh/measuring.json",
@@ -82,7 +86,8 @@
       "locales/zh/bulk-delete.json",
       "locales/zh/log.json",
       "locales/zh/inspector-actions.json",
-      "locales/zh/inspector-preview.json"
+      "locales/zh/inspector-preview.json",
+      "locales/zh/history.json"
     ]
   }
 }

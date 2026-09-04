@@ -1,0 +1,13 @@
+{
+  "core-storage-history.size": "आकार",
+  "core-storage-history.files": "फ़ाइलें (दायाँ)",
+  "core-storage-history.one_scan": "यह पथ अब तक केवल एक स्कैन में दिखा है",
+  "core-storage-history.no_history": "कोई इतिहास नहीं",
+  "core-storage-history.title": "समय के साथ आकार",
+  "core-storage-history.recorded_once": "रिकॉर्ड किया गया, लेकिन अभी तक केवल एक बार — खींचने के लिए अभी कोई बदलाव नहीं है।",
+  "core-storage-history.not_recorded": "यह पथ स्कैन के बीच रखे जाने वाले पथों में से नहीं है। हर बार केवल सबसे बड़ी फ़ाइलें और निर्देशिकाएँ, और हर श्रेणी की सबसे बड़ी वस्तु रिकॉर्ड की जाती है; बाकी सब मापा जाता है और संग्रहीत नहीं होता।",
+  "core-storage-history.unchanged": "{{scans}} में कोई बदलाव नहीं।",
+  "core-storage-history.changed": "{{direction}} {{amount}}, {{scans}} में, {{first}} से {{last}} तक।",
+  "core-storage-history.grew": "बढ़ा",
+  "core-storage-history.shrank": "घटा"
+}

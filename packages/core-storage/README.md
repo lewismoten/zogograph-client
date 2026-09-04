@@ -17,3 +17,4 @@ calculated. `scan-status` owns the scan button and completion-state labels.
 `log` owns viewer navigation, search, and line-metadata labels.
 `inspector-actions` owns the inspected-path action panel vocabulary.
 `inspector-preview` owns image-preview state and dimension labels.
+`history` renders the per-path size and file-count chart.

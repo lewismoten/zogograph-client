@@ -210,7 +210,6 @@ export default [
         ZogographTreemapShellCard: 'readonly',
         ZogographTreemapNoteCard: 'readonly',
         ZogographTreemapCrumbsCard: 'readonly',
-        ZogographStorageHistoryCard: 'readonly',
         ZogographStorageRetentionCard: 'readonly',
         ZogographStorageInspectorBreakdownCard: 'readonly',
         ZogographStorageInspectorFactsCard: 'readonly',

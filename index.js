@@ -7702,7 +7702,7 @@ async function showHistory(pathId, quiet = false) {
   });
 
   renderCoreCardPackage(
-    ZogographStorageHistoryCard,
+    Zogograph.cards.get('core-storage-history'),
     'core-storage-history',
     data,
     {
@@ -30202,7 +30202,7 @@ function inspectImage(data) {
 function inspectHistory(data) {
   const text = (key, values = {}) =>
     renderCoreCardPackage(
-      ZogographStorageHistoryCard,
+      Zogograph.cards.get('core-storage-history'),
       'core-storage-history',
       { key, values },
       { i18n: ZogographI18n },
@@ -30247,7 +30247,7 @@ function inspectHistory(data) {
       axis: bytesAxis,
       zeroBased: true,
       empty: renderCoreCardPackage(
-        ZogographStorageHistoryCard,
+        Zogograph.cards.get('core-storage-history'),
         'core-storage-history',
         { key: 'no_history' },
         { i18n: ZogographI18n },

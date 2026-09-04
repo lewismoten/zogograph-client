@@ -144,7 +144,7 @@ echo 'Snapshot phase complete: application files copied'
 fi
 
 backup_database() {
-  local database=$1 relative destination
+  local database=$1 relative destination temporary status
   relative=${database#"$site"/}
   destination="$stage/databases/$relative"
   test ! -e "$destination" || {
@@ -152,8 +152,17 @@ backup_database() {
     return 0
   }
   mkdir -p "$(dirname "$destination")"
-  echo "Snapshot database starting: $relative"
-  sqlite3 "$database" ".backup $(sqlite_argument "$destination")"
+  temporary="$destination.partial"
+  rm -f -- "$temporary"
+  echo "Snapshot database starting: $relative (online backup; 5s lock wait, 50s work budget)"
+  if timeout --foreground --verbose 50s sqlite3 "$database" \
+    '.timeout 5000' ".backup $(sqlite_argument "$temporary")"; then
+    mv -- "$temporary" "$destination"
+  else
+    status=$?
+    rm -f -- "$temporary"
+    fail "SQLite online backup failed for $relative (exit $status)"
+  fi
   echo "Snapshot database complete: $relative"
 }
 

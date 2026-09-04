@@ -15,7 +15,6 @@ window.ZogographAiIdentitySettingsCard = {
       'post',
       'renderAiSettings',
       'notice',
-      'aiPortraitAlt',
       'i18n',
     ],
     catalogs: Object.freeze({
@@ -55,7 +54,6 @@ window.ZogographAiIdentitySettingsCard = {
       post,
       renderAiSettings,
       notice,
-      aiPortraitAlt,
       i18n,
     } = helpers;
     const who = data.who;
@@ -91,7 +89,6 @@ window.ZogographAiIdentitySettingsCard = {
             post,
             renderAiSettings,
             notice,
-            aiPortraitAlt,
             i18n,
           },
         ),

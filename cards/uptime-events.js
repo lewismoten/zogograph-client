@@ -102,6 +102,15 @@ window.ZogographUptimeEventsCard = {
       }),
     }),
   }),
+  text(key, valuesOrHelpers = {}, maybeHelpers = null) {
+    const helpers = maybeHelpers || valuesOrHelpers;
+    const values = maybeHelpers ? valuesOrHelpers : {};
+    return helpers.i18n.t(
+      `core-uptime-events.${key}`,
+      values,
+      this.manifest.catalogs.en[`core-uptime-events.${key}`],
+    );
+  },
   render(bands, helpers) {
     const { target, renderTable, whenSpan, humanDuration, i18n } = helpers;
     if (!target) return;

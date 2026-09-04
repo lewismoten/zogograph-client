@@ -272,21 +272,18 @@ data-only and its documented isolated execution runtime is still future work.
 
 ## 9. Resolve the observed regressions and preserve them as tests
 
-- [ ] Fix the uptime-event contract mismatch: its caller uses
-  `ZogographUptimeEventsCard.text(...)`, but the card has no `text` method.
-  The registry contract must make text/formatting capability explicit and test
-  every public card API before a page invokes it.
-- [ ] Fix the `core-ai-identity-settings` manifest mismatch. Its renderer is
-  passed `aiPortraitAlt`, but that helper is absent from the manifest helper
-  list, so normal helper-contract validation rejects the card. Add a test that
-  compares every destructured renderer helper to its declared manifest helpers
-  and every helper supplied by its caller.
-- [ ] Fix CPU card accumulation. “Where the time goes” appends its state cards
-  on every refresh while “Waiting to run” already clears its holder first;
-  this produces repeated cards such as “Stolen by the host” and “Waiting for
-  storage.” Require the shared card lifecycle to replace a card's owned
-  container atomically, rather than append into an ambient holder, and add a
-  repeated-refresh fixture asserting one of each expected CPU card.
+- [x] Fix the uptime-event contract mismatch: its caller uses
+  `ZogographUptimeEventsCard.text(...)`, so the card now provides that method
+  for both text-only and text-with-values calls. The future registry must still
+  make text/formatting capability explicit for every public card API.
+- [x] Fix the `core-ai-identity-settings` manifest mismatch. The unused,
+  nonexistent `aiPortraitAlt` helper was removed from the identity card's
+  manifest and nested helper forwarding; its portrait card already owns the
+  localized alt text. Regression checks cover the rendered helper contract.
+- [x] Fix CPU card accumulation. “Where the time goes” now clears its owned
+  holder before rendering state cards, matching “Waiting to run.” Regression
+  coverage asserts that clearing happens before the CPU-time card renders; the
+  future shared lifecycle should replace owned containers atomically.
 - [ ] Treat the `VM… reportAllChanges/startTime` trace as unassigned until it
   reproduces in a clean browser profile with extensions disabled. `VM` source
   and `installHook.js` can be injected by browser tooling; record browser,

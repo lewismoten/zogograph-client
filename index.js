@@ -1162,6 +1162,8 @@ function collectorInstructions(holder, data) {
 function renderCpuTime(data) {
   const now = data.now;
   const states = data.states ?? {};
+  const holder = $('cpuTimeCards');
+  if (holder) holder.replaceChildren();
   const cpuTime = renderCoreCardPackage(
     ZogographCpuTimeCard,
     'core-cpu-time',

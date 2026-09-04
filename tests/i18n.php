@@ -359,6 +359,12 @@ $cpuCoresCard = i18nCardSource(
     file_get_contents($root . '/cards/cpu-cores.js'),
 );
 $cpuTimeCard = i18nCardSource(file_get_contents($root . '/cards/cpu-time.js'));
+$uptimeEventsCard = i18nCardSource(
+    file_get_contents($root . '/cards/uptime-events.js'),
+);
+$aiIdentitySettingsCard = i18nCardSource(
+    file_get_contents($root . '/cards/ai-identity-settings.js'),
+);
 $cpuBusyChartCard = i18nCardSource(
     file_get_contents($root . '/cards/cpu-busy-chart.js'),
 );
@@ -2105,6 +2111,32 @@ i18nExpect(
         is_array($english) &&
         !isset($english['cpu.average_over_range']),
     'CPU time card does not own its locale catalog',
+);
+i18nExpect(
+    $uptimeEventsCard !== false &&
+        str_contains($uptimeEventsCard, 'text(key, valuesOrHelpers = {}, maybeHelpers = null)') &&
+        str_contains($uptimeEventsCard, '`core-uptime-events.${key}`') &&
+        $script !== false &&
+        str_contains($script, "ZogographUptimeEventsCard.text('restarted'") &&
+        str_contains($script, "ZogographUptimeEventsCard.text(\n        'restart_explanation'"),
+    'uptime event card text API does not match its callers',
+);
+i18nExpect(
+    $aiIdentitySettingsCard !== false &&
+        !str_contains($aiIdentitySettingsCard, "'aiPortraitAlt'") &&
+        !str_contains($aiIdentitySettingsCard, 'aiPortraitAlt,') &&
+        $script !== false &&
+        str_contains($script, "ZogographAiIdentitySettingsCard,\n    'core-ai-identity-settings'") &&
+        !str_contains($script, "notice,\n      aiPortraitAlt,\n      i18n: ZogographI18n,"),
+    'AI identity settings manifest and caller disagree about portrait helpers',
+);
+i18nExpect(
+    $script !== false &&
+        preg_match(
+            '/function renderCpuTime\(data\) \{.*?const holder = \$\(\'cpuTimeCards\'\);.*?holder\.replaceChildren\(\);.*?ZogographCpuTimeCard/s',
+            $script,
+        ) === 1,
+    'CPU time cards are appended without clearing their owned container',
 );
 i18nExpect(
     $page !== false &&

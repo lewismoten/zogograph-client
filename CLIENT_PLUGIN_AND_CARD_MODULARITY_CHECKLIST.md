@@ -20,9 +20,10 @@ data-only and its documented isolated execution runtime is still future work.
 - The current signed runtime accepts named dashboard pages and an allowlisted
   `overview-facts` card renderer. It does not run a package-supplied renderer,
   query, HTML, CSS, or JavaScript.
-- Package pages currently attach only to an existing `VIEWS` parent; an unknown
-  parent falls back to the Packages page. That does not satisfy package-owned
-  sections.
+- Package pages can now create a dashboard section when their `parent` is not
+  a core route, using signed `parent_title` / `parent_title_key` metadata. The
+  broader declarative navigation tree, deterministic ordering, and equivalent
+  Setup-area section contract remain unfinished.
 - The client already has server-authoritative visibility for selected core
   routes. That is a useful pattern, but a disabled feature must also stop
   background work, data requests, event listeners, and navigation exposure.

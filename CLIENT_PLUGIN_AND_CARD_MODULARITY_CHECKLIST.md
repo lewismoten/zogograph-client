@@ -97,9 +97,11 @@ history, and inspector action/preview/breakdown/facts cards, plus retention.
 All of its migrated cards keep English inline and load the four optional locale
 files only when that language is selected.
 
-`packages/core-backup/` now owns its provider-message and account-summary
-cards under the same manifest, registry, and optional-locale contract. Move
-the remaining backup cards into that package as the next cohesive increment.
+`packages/core-backup/` now owns its shell, provider message, account summary,
+protection status, growth status, action guidance, and content-detail cards
+under the same manifest, registry, and optional-locale contract. JetBackup is
+intentionally separate as a provider-specific integration rather than a
+generic backup-package card.
 
 - [ ] Stop adding feature files directly to the flat `cards/` directory. Its
       hundreds of files are hard to browse and conceal which files form one

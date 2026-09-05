@@ -360,6 +360,10 @@ contains no executable browser payload.
       Regression coverage asserts that clearing happens before the CPU-time card
       renders; the future shared lifecycle should replace owned containers
       atomically.
+- [x] Guard JetBackup rendering against invalid shared UI helper output. Its
+      package card now appends only DOM nodes, logs a clear helper-contract
+      failure, and retains the normal empty-state fallback instead of raising
+      the native `appendChild` type error.
 - [ ] Treat the `VM… reportAllChanges/startTime` trace as unassigned until it
       reproduces in a clean browser profile with extensions disabled. `VM` source
       and `installHook.js` can be injected by browser tooling; record browser,

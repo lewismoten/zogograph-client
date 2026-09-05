@@ -21,5 +21,6 @@
   "core-storage-retention.total_settles": "إذا تُرك كما هو، تستقر قاعدة البيانات قرب {{amount}}.",
   "core-storage-retention.total_grows": "إذا تُرك كما هو، تستقر قاعدة البيانات قرب {{amount}} مع نحو {{growth}} سنويًا من الأشياء المضبوطة للاحتفاظ بها إلى الأبد.",
   "core-storage-retention.shared_table_help": "تشترك هذه الطبقات في جدول واحد، لذا فأحجامها أجزاء منه وليست ملفات منفصلة.",
-  "core-storage-retention.yearly_growth": "+{{amount}}/سنة"
+  "core-storage-retention.rate_per_year": "سنويًا",
+  "core-storage-retention.yearly_growth": "+{{amount}} {{period}}"
 }

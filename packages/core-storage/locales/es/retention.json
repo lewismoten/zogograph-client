@@ -21,5 +21,6 @@
   "core-storage-retention.total_settles": "Si se deja como está, la base de datos se estabiliza cerca de {{amount}}.",
   "core-storage-retention.total_grows": "Si se deja como está, la base de datos se estabiliza cerca de {{amount}}, más unos {{growth}} al año por los elementos configurados para conservarse para siempre.",
   "core-storage-retention.shared_table_help": "Estos niveles comparten una tabla, por lo que sus tamaños son partes de ella y no archivos separados.",
-  "core-storage-retention.yearly_growth": "+{{amount}}/año"
+  "core-storage-retention.rate_per_year": "al año",
+  "core-storage-retention.yearly_growth": "+{{amount}} {{period}}"
 }

@@ -21,5 +21,6 @@
   "core-storage-retention.total_settles": "जैसा है वैसा छोड़ने पर डेटाबेस लगभग {{amount}} पर स्थिर होता है।",
   "core-storage-retention.total_grows": "जैसा है वैसा छोड़ने पर डेटाबेस लगभग {{amount}} पर स्थिर होता है, साथ ही हमेशा के लिए रखी चीज़ों से साल में लगभग {{growth}} और बढ़ता है।",
   "core-storage-retention.shared_table_help": "ये स्तर एक ही तालिका साझा करते हैं, इसलिए इनके आकार अलग फ़ाइलों के बजाय उसी के भाग हैं।",
-  "core-storage-retention.yearly_growth": "+{{amount}}/वर्ष"
+  "core-storage-retention.rate_per_year": "प्रति वर्ष",
+  "core-storage-retention.yearly_growth": "+{{amount}} {{period}}"
 }

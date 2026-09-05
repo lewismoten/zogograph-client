@@ -17938,6 +17938,7 @@ function renderRetention(data) {
     } else if (entry.per_year) {
       settles.textContent = retentionText('yearly_growth', {
         amount: humanBytes(entry.per_year),
+        period: retentionText('rate_per_year'),
       });
       settles.title = retentionText('forever_growth');
     } else {

@@ -40,7 +40,8 @@ const StorageRetentionCard = {
           'Left as it is, the database settles near {{amount}} plus about {{growth}} a year from the things set to be kept for ever.',
         'core-storage-retention.shared_table_help':
           'These tiers share one table, so their sizes are parts of it rather than separate files.',
-        'core-storage-retention.yearly_growth': '+{{amount}}/yr',
+        'core-storage-retention.rate_per_year': 'per year',
+        'core-storage-retention.yearly_growth': '+{{amount}} {{period}}',
       }),
     }),
     localeFiles: Object.freeze({

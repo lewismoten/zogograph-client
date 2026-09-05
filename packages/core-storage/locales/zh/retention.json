@@ -21,5 +21,6 @@
   "core-storage-retention.total_settles": "保持现状，数据库将稳定在约 {{amount}}。",
   "core-storage-retention.total_grows": "保持现状，数据库将稳定在约 {{amount}}，再加上永久保留内容每年约 {{growth}} 的增长。",
   "core-storage-retention.shared_table_help": "这些层级共用一张表，因此它们的大小是其中的部分，而不是单独的文件。",
-  "core-storage-retention.yearly_growth": "+{{amount}}/年"
+  "core-storage-retention.rate_per_year": "每年",
+  "core-storage-retention.yearly_growth": "+{{amount}} {{period}}"
 }

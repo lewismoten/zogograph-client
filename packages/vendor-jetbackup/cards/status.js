@@ -4,6 +4,7 @@ const JetBackupCard = {
     id: 'core-jetbackup',
     locales: ['core-jetbackup.'],
     owner: 'core-jetbackup',
+    packageId: 'vendor-jetbackup',
     helpers: [
       'note',
       'section',

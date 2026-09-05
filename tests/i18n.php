@@ -71,7 +71,12 @@ foreach ($cardFiles as $cardFile) {
     preg_match("/id:\\s*'([^']+)'/", (string) $cardSource, $cardId);
     if ($isPackageCard && isset($cardId[1])) {
         preg_match("/owner:\\s*'([^']+)'/", (string) $cardSource, $ownerMatch);
-        $owner = $ownerMatch[1] ?? '';
+        preg_match(
+            "/packageId:\\s*'([^']+)'/",
+            (string) $cardSource,
+            $packageMatch,
+        );
+        $owner = $packageMatch[1] ?? ($ownerMatch[1] ?? '');
         preg_match_all(
             '/\\b(es|hi|ar|zh):\\s*[\'\"]([^\'\"]+\\.json)[\'\"]/',
             (string) $cardSource,
@@ -1083,7 +1088,7 @@ i18nExpect(
             $runtime,
             'function i18nMatchesEnglishCatalog(catalog, englishCatalog)',
         ) &&
-        str_contains($runtime, 'packages/${owner}/locales/${locale}/') &&
+        str_contains($runtime, 'packages/${packageId}/locales/${locale}/') &&
         $script !== false &&
         str_contains($script, "Zogograph.cards.get('core-uptime-events')") &&
         str_contains($script, 'i18n: window.i18n'),

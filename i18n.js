@@ -283,11 +283,12 @@ async function i18nLoadCoreCardLocaleFiles(locale) {
       const manifest = card?.manifest;
       const path = manifest?.localeFiles?.[locale];
       const owner = manifest?.owner;
+      const packageId = manifest?.packageId ?? owner;
       const id = manifest?.id;
       const expectedPath =
-        typeof owner === 'string'
+        typeof packageId === 'string'
           ? new RegExp(
-              `^packages/${owner}/locales/${locale}/[a-z0-9-]+\\.json$`,
+              `^packages/${packageId}/locales/${locale}/[a-z0-9-]+\\.json$`,
             )
           : null;
       if (

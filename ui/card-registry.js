@@ -6,6 +6,7 @@
   function validManifest(manifest) {
     const id = manifest?.id;
     const owner = manifest?.owner;
+    const packageId = manifest?.packageId ?? owner;
     const prefix = `${id}.`;
     const localeFiles = manifest?.localeFiles;
     return (
@@ -13,6 +14,8 @@
       /^core-[a-z][a-z0-9-]*$/.test(id) &&
       typeof owner === 'string' &&
       /^core-[a-z][a-z0-9-]*$/.test(owner) &&
+      typeof packageId === 'string' &&
+      /^(?:core|vendor)-[a-z][a-z0-9-]*$/.test(packageId) &&
       // Shared UI primitives intentionally keep product-wide IDs such as
       // `core-gauge-status`; their package still owns their source and locale
       // files. Every feature package remains namespace-bound to its owner.
@@ -39,7 +42,7 @@
               /^[a-z]{2,3}(?:-[A-Z]{2})?$/.test(locale) &&
               typeof path === 'string' &&
               new RegExp(
-                `^packages/${owner}/locales/${locale}/[a-z0-9-]+\\.json$`,
+                `^packages/${packageId}/locales/${locale}/[a-z0-9-]+\\.json$`,
               ).test(path),
           )))
     );

@@ -29864,7 +29864,7 @@ async function inspect(path) {
 function renderInspect(data) {
   const factsText = (key) =>
     renderCoreCardPackage(
-      ZogographStorageInspectorFactsCard,
+      Zogograph.cards.get('core-storage-inspector-facts'),
       'core-storage-inspector-facts',
       { key },
       { i18n: ZogographI18n },
@@ -29997,7 +29997,7 @@ function renderInspect(data) {
 function modeInWords(mode, isDir) {
   const text = (key, values = {}) =>
     renderCoreCardPackage(
-      ZogographStorageInspectorFactsCard,
+      Zogograph.cards.get('core-storage-inspector-facts'),
       'core-storage-inspector-facts',
       { key, values },
       { i18n: ZogographI18n },
@@ -30029,7 +30029,7 @@ function modeInWords(mode, isDir) {
 function inspectDirectory(data) {
   const text = (key, values = {}) =>
     renderCoreCardPackage(
-      ZogographStorageInspectorFactsCard,
+      Zogograph.cards.get('core-storage-inspector-facts'),
       'core-storage-inspector-facts',
       { key, values },
       { i18n: ZogographI18n },
@@ -30066,7 +30066,7 @@ function inspectDirectory(data) {
   out.push(
     section(
       renderCoreCardPackage(
-        ZogographStorageInspectorFactsCard,
+        Zogograph.cards.get('core-storage-inspector-facts'),
         'core-storage-inspector-facts',
         { key: 'what_is_in_it' },
         { i18n: ZogographI18n },

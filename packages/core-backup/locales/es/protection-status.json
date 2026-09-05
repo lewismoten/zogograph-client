@@ -1,0 +1,9 @@
+{
+  "core-backup-protection-status.not_measured": "sin medir",
+  "core-backup-protection-status.matched": "Coincidente",
+  "core-backup-protection-status.reach_here": "puede hacerlo aquí",
+  "core-backup-protection-status.reach_root": "requiere root o WHM",
+  "core-backup-protection-status.safe": "Seguro",
+  "core-backup-protection-status.review": "Revisar",
+  "core-backup-protection-status.dangerous": "Peligroso"
+}

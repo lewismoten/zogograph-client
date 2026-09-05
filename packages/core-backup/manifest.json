@@ -5,29 +5,34 @@
   "cards": [
     "core-backup-provider-message",
     "core-backup-account-summary",
-    "core-backup-growth-status"
+    "core-backup-growth-status",
+    "core-backup-protection-status"
   ],
   "default_locale": "en",
   "locale_packs": {
     "es": [
       "locales/es/provider-message.json",
       "locales/es/account-summary.json",
-      "locales/es/growth-status.json"
+      "locales/es/growth-status.json",
+      "locales/es/protection-status.json"
     ],
     "hi": [
       "locales/hi/provider-message.json",
       "locales/hi/account-summary.json",
-      "locales/hi/growth-status.json"
+      "locales/hi/growth-status.json",
+      "locales/hi/protection-status.json"
     ],
     "ar": [
       "locales/ar/provider-message.json",
       "locales/ar/account-summary.json",
-      "locales/ar/growth-status.json"
+      "locales/ar/growth-status.json",
+      "locales/ar/protection-status.json"
     ],
     "zh": [
       "locales/zh/provider-message.json",
       "locales/zh/account-summary.json",
-      "locales/zh/growth-status.json"
+      "locales/zh/growth-status.json",
+      "locales/zh/protection-status.json"
     ]
   }
 }

@@ -1,0 +1,9 @@
+{
+  "core-backup-protection-status.not_measured": "मापा नहीं गया",
+  "core-backup-protection-status.matched": "मेल खाता है",
+  "core-backup-protection-status.reach_here": "आप इसे यहीं कर सकते हैं",
+  "core-backup-protection-status.reach_root": "root या WHM आवश्यक है",
+  "core-backup-protection-status.safe": "सुरक्षित",
+  "core-backup-protection-status.review": "समीक्षा",
+  "core-backup-protection-status.dangerous": "खतरनाक"
+}

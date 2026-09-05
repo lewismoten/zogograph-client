@@ -1,0 +1,9 @@
+{
+  "core-backup-protection-status.not_measured": "لم يُقَس",
+  "core-backup-protection-status.matched": "متطابق",
+  "core-backup-protection-status.reach_here": "يمكنك فعل هذا هنا",
+  "core-backup-protection-status.reach_root": "يتطلب root أو WHM",
+  "core-backup-protection-status.safe": "آمن",
+  "core-backup-protection-status.review": "مراجعة",
+  "core-backup-protection-status.dangerous": "خطير"
+}

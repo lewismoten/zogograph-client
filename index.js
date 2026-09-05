@@ -37580,7 +37580,7 @@ function renderJetBackup(jet) {
 
 function backupProtectionText(key, values = {}) {
   return renderCoreCardPackage(
-    ZogographBackupProtectionStatusCard,
+    Zogograph.cards.get('core-backup-protection-status'),
     'core-backup-protection-status',
     { key, values },
     { i18n: ZogographI18n },

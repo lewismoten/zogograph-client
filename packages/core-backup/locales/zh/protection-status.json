@@ -1,0 +1,9 @@
+{
+  "core-backup-protection-status.not_measured": "未测量",
+  "core-backup-protection-status.matched": "匹配",
+  "core-backup-protection-status.reach_here": "您可以在此处执行",
+  "core-backup-protection-status.reach_root": "需要 root 或 WHM",
+  "core-backup-protection-status.safe": "安全",
+  "core-backup-protection-status.review": "审查",
+  "core-backup-protection-status.dangerous": "危险"
+}

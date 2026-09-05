@@ -1,0 +1,11 @@
+{
+  "core-backup-account-summary.account": "الحساب",
+  "core-backup-account-summary.live_data": "البيانات الحية",
+  "core-backup-account-summary.backups": "النسخ الاحتياطية",
+  "core-backup-account-summary.ratio": "النسبة",
+  "core-backup-account-summary.copies": "النسخ",
+  "core-backup-account-summary.oldest": "الأقدم",
+  "core-backup-account-summary.newest": "الأحدث",
+  "core-backup-account-summary.not_attributed": "غير منسوب",
+  "core-backup-account-summary.by_account": "حسب الحساب"
+}

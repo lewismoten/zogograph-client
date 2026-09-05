@@ -37774,7 +37774,7 @@ async function refreshBackups() {
             'newest',
           ].map((key) =>
             renderCoreCardPackage(
-              window.ZogographBackupAccountSummaryCard,
+              Zogograph.cards.get('core-backup-account-summary'),
               'core-backup-account-summary',
               { key },
               { i18n: ZogographI18n },
@@ -37786,7 +37786,7 @@ async function refreshBackups() {
           // as a missing value rather than as the deliberate refusal it is.
           row.unattributed
             ? renderCoreCardPackage(
-                window.ZogographBackupAccountSummaryCard,
+                Zogograph.cards.get('core-backup-account-summary'),
                 'core-backup-account-summary',
                 { key: 'not_attributed' },
                 { i18n: ZogographI18n },
@@ -37814,7 +37814,7 @@ async function refreshBackups() {
     body.appendChild(
       section(
         renderCoreCardPackage(
-          window.ZogographBackupAccountSummaryCard,
+          Zogograph.cards.get('core-backup-account-summary'),
           'core-backup-account-summary',
           { key: 'by_account' },
           { i18n: ZogographI18n },

@@ -1,0 +1,11 @@
+{
+  "core-backup-account-summary.account": "账户",
+  "core-backup-account-summary.live_data": "实时数据",
+  "core-backup-account-summary.backups": "备份",
+  "core-backup-account-summary.ratio": "比率",
+  "core-backup-account-summary.copies": "副本",
+  "core-backup-account-summary.oldest": "最早",
+  "core-backup-account-summary.newest": "最新",
+  "core-backup-account-summary.not_attributed": "未归属",
+  "core-backup-account-summary.by_account": "按账户"
+}

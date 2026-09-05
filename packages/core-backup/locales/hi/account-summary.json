@@ -1,0 +1,11 @@
+{
+  "core-backup-account-summary.account": "खाता",
+  "core-backup-account-summary.live_data": "लाइव डेटा",
+  "core-backup-account-summary.backups": "बैकअप",
+  "core-backup-account-summary.ratio": "अनुपात",
+  "core-backup-account-summary.copies": "प्रतियां",
+  "core-backup-account-summary.oldest": "सबसे पुराना",
+  "core-backup-account-summary.newest": "सबसे नया",
+  "core-backup-account-summary.not_attributed": "असंबद्ध",
+  "core-backup-account-summary.by_account": "खाते के अनुसार"
+}

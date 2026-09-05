@@ -1,0 +1,11 @@
+{
+  "core-backup-account-summary.account": "Cuenta",
+  "core-backup-account-summary.live_data": "Datos activos",
+  "core-backup-account-summary.backups": "Copias de seguridad",
+  "core-backup-account-summary.ratio": "Relación",
+  "core-backup-account-summary.copies": "Copias",
+  "core-backup-account-summary.oldest": "Más antiguo",
+  "core-backup-account-summary.newest": "Más reciente",
+  "core-backup-account-summary.not_attributed": "sin atribuir",
+  "core-backup-account-summary.by_account": "Por cuenta"
+}

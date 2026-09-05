@@ -2,12 +2,24 @@
   "id": "core-backup",
   "kind": "built-in-ui",
   "version": "0.1.0",
-  "cards": ["core-backup-provider-message"],
+  "cards": ["core-backup-provider-message", "core-backup-account-summary"],
   "default_locale": "en",
   "locale_packs": {
-    "es": ["locales/es/provider-message.json"],
-    "hi": ["locales/hi/provider-message.json"],
-    "ar": ["locales/ar/provider-message.json"],
-    "zh": ["locales/zh/provider-message.json"]
+    "es": [
+      "locales/es/provider-message.json",
+      "locales/es/account-summary.json"
+    ],
+    "hi": [
+      "locales/hi/provider-message.json",
+      "locales/hi/account-summary.json"
+    ],
+    "ar": [
+      "locales/ar/provider-message.json",
+      "locales/ar/account-summary.json"
+    ],
+    "zh": [
+      "locales/zh/provider-message.json",
+      "locales/zh/account-summary.json"
+    ]
   }
 }

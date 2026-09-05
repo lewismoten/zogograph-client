@@ -37629,7 +37629,7 @@ function backupContentDetailsText(key, values = {}) {
 
 function actionCommonText(key, values = {}) {
   return renderCoreCardPackage(
-    ZogographActionCommonCard,
+    Zogograph.cards.get('core-action-common'),
     'core-action-common',
     { key, values },
     { i18n: ZogographI18n },

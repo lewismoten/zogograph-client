@@ -7,7 +7,8 @@
     "core-live-toggle",
     "core-navigation-badge",
     "core-chart-common",
-    "core-table-common"
+    "core-table-common",
+    "core-action-common"
   ],
   "default_locale": "en",
   "locale_packs": {
@@ -16,28 +17,32 @@
       "locales/es/live-toggle.json",
       "locales/es/navigation-badge.json",
       "locales/es/chart-common.json",
-      "locales/es/table-common.json"
+      "locales/es/table-common.json",
+      "locales/es/action-common.json"
     ],
     "hi": [
       "locales/hi/gauge-status.json",
       "locales/hi/live-toggle.json",
       "locales/hi/navigation-badge.json",
       "locales/hi/chart-common.json",
-      "locales/hi/table-common.json"
+      "locales/hi/table-common.json",
+      "locales/hi/action-common.json"
     ],
     "ar": [
       "locales/ar/gauge-status.json",
       "locales/ar/live-toggle.json",
       "locales/ar/navigation-badge.json",
       "locales/ar/chart-common.json",
-      "locales/ar/table-common.json"
+      "locales/ar/table-common.json",
+      "locales/ar/action-common.json"
     ],
     "zh": [
       "locales/zh/gauge-status.json",
       "locales/zh/live-toggle.json",
       "locales/zh/navigation-badge.json",
       "locales/zh/chart-common.json",
-      "locales/zh/table-common.json"
+      "locales/zh/table-common.json",
+      "locales/zh/action-common.json"
     ]
   }
 }

@@ -3230,14 +3230,18 @@ i18nExpect(
 );
 i18nExpect(
     $script !== false &&
-        str_contains($script, 'ZogographTableCommonCard') &&
+        str_contains($script, "Zogograph.cards.get('core-table-common')") &&
         str_contains($script, "Zogograph.cards.get('core-chart-common')") &&
         str_contains(
-            (string) file_get_contents($root . '/cards/table-common.js'),
+            (string) file_get_contents(
+                $root . '/packages/core-ui/cards/table-common.js',
+            ),
             'core-table-common.download_rows',
         ) &&
         str_contains(
-            (string) file_get_contents($root . '/cards/table-common.js'),
+            (string) file_get_contents(
+                $root . '/packages/core-ui/cards/table-common.js',
+            ),
             'core-table-common.rows_shown',
         ) &&
         str_contains(

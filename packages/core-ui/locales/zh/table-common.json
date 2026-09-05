@@ -1,0 +1,16 @@
+{
+  "core-table-common.nothing_to_show": "没有可显示的内容。",
+  "core-table-common.download_rows": "将 {{count, number}} 行下载为 {{format}}",
+  "core-table-common.sort_by": "按 {{label}} 排序",
+  "core-table-common.rows_total": "{{count, number}} 行",
+  "core-table-common.rows_shown": "显示 {{total, number}} 行中的 {{shown, number}} 行",
+  "core-table-common.show_more": "再显示 {{count, number}} 行",
+  "core-table-common.size": "大小",
+  "core-table-common.change": "变化",
+  "core-table-common.name": "名称",
+  "core-table-common.value": "值",
+  "core-table-common.header": "标头",
+  "core-table-common.says": "内容",
+  "core-table-common.domain": "域名",
+  "core-table-common.means": "含义"
+}

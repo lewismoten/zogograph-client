@@ -1,0 +1,16 @@
+{
+  "core-table-common.nothing_to_show": "No hay nada que mostrar.",
+  "core-table-common.download_rows": "Descargar {{count, number}} filas como {{format}}",
+  "core-table-common.sort_by": "Ordenar por {{label}}",
+  "core-table-common.rows_total": "{{count, number}} filas",
+  "core-table-common.rows_shown": "Se muestran {{shown, number}} de {{total, number}} filas",
+  "core-table-common.show_more": "Mostrar {{count, number}} más",
+  "core-table-common.size": "Tamaño",
+  "core-table-common.change": "Cambio",
+  "core-table-common.name": "Nombre",
+  "core-table-common.value": "Valor",
+  "core-table-common.header": "Cabecera",
+  "core-table-common.says": "Dice",
+  "core-table-common.domain": "Dominio",
+  "core-table-common.means": "Significado"
+}

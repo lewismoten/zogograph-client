@@ -1,0 +1,16 @@
+{
+  "core-table-common.nothing_to_show": "दिखाने के लिए कुछ नहीं है।",
+  "core-table-common.download_rows": "{{count, number}} पंक्तियाँ {{format}} के रूप में डाउनलोड करें",
+  "core-table-common.sort_by": "{{label}} के अनुसार क्रमित करें",
+  "core-table-common.rows_total": "{{count, number}} पंक्तियाँ",
+  "core-table-common.rows_shown": "{{total, number}} में से {{shown, number}} पंक्तियाँ दिखाई जा रही हैं",
+  "core-table-common.show_more": "{{count, number}} और दिखाएँ",
+  "core-table-common.size": "आकार",
+  "core-table-common.change": "बदलाव",
+  "core-table-common.name": "नाम",
+  "core-table-common.value": "मान",
+  "core-table-common.header": "हेडर",
+  "core-table-common.says": "कहता है",
+  "core-table-common.domain": "डोमेन",
+  "core-table-common.means": "अर्थ"
+}

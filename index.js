@@ -6151,7 +6151,7 @@ function patchTable(target, rows, columns, key, rowClass) {
 function renderTable(target, rows, columns, onRowClick, rowClass, key) {
   const tableText = (textKey, values = {}) =>
     renderCoreCardPackage(
-      ZogographTableCommonCard,
+      Zogograph.cards.get('core-table-common'),
       'core-table-common',
       { key: textKey, values },
       { i18n: ZogographI18n },
@@ -37638,7 +37638,7 @@ function actionCommonText(key, values = {}) {
 
 function tableCommonText(key, values = {}) {
   return renderCoreCardPackage(
-    ZogographTableCommonCard,
+    Zogograph.cards.get('core-table-common'),
     'core-table-common',
     { key, values },
     { i18n: ZogographI18n },

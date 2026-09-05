@@ -1,0 +1,16 @@
+{
+  "core-table-common.nothing_to_show": "لا يوجد ما يمكن عرضه.",
+  "core-table-common.download_rows": "نزّل {{count, number}} صفًا بصيغة {{format}}",
+  "core-table-common.sort_by": "فرز حسب {{label}}",
+  "core-table-common.rows_total": "{{count, number}} صفًا",
+  "core-table-common.rows_shown": "يتم عرض {{shown, number}} من {{total, number}} صفًا",
+  "core-table-common.show_more": "اعرض {{count, number}} إضافية",
+  "core-table-common.size": "الحجم",
+  "core-table-common.change": "التغيير",
+  "core-table-common.name": "الاسم",
+  "core-table-common.value": "القيمة",
+  "core-table-common.header": "الترويسة",
+  "core-table-common.says": "يقول",
+  "core-table-common.domain": "النطاق",
+  "core-table-common.means": "يعني"
+}

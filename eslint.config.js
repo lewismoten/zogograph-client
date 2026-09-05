@@ -128,7 +128,6 @@ export default [
         ZogographPageHelpCard: 'readonly',
         ZogographCollectorSaveStatusCard: 'readonly',
         ZogographActionCommonCard: 'readonly',
-        ZogographTableCommonCard: 'readonly',
         ZogographChartCompactionNoteCard: 'readonly',
         ZogographPendingWorkCard: 'readonly',
         ZogographPendingStatusCard: 'readonly',

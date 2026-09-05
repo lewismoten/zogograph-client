@@ -3231,7 +3231,7 @@ i18nExpect(
 i18nExpect(
     $script !== false &&
         str_contains($script, 'ZogographTableCommonCard') &&
-        str_contains($script, 'ZogographChartCommonCard') &&
+        str_contains($script, "Zogograph.cards.get('core-chart-common')") &&
         str_contains(
             (string) file_get_contents($root . '/cards/table-common.js'),
             'core-table-common.download_rows',
@@ -3241,7 +3241,9 @@ i18nExpect(
             'core-table-common.rows_shown',
         ) &&
         str_contains(
-            (string) file_get_contents($root . '/cards/chart-common.js'),
+            (string) file_get_contents(
+                $root . '/packages/core-ui/cards/chart-common.js',
+            ),
             'core-chart-common.nothing_collected_range',
         ) &&
         str_contains($script, "ZogographNotesShellCard.text('chart_legend'") &&

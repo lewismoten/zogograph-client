@@ -1,0 +1,6 @@
+{
+  "core-chart-common.nothing_collected_range": "Aún no se recopilaron datos para este intervalo",
+  "core-chart-common.nothing_to_show_yet": "Aún no hay nada que mostrar",
+  "core-chart-common.everything_else": "todo lo demás",
+  "core-chart-common.everything_else_count": "Todo lo demás ({{count, number}} servicios)"
+}

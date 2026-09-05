@@ -1,0 +1,6 @@
+{
+  "core-chart-common.nothing_collected_range": "此时间范围尚未收集到数据",
+  "core-chart-common.nothing_to_show_yet": "目前没有可显示的内容",
+  "core-chart-common.everything_else": "其余所有内容",
+  "core-chart-common.everything_else_count": "其余内容（{{count, number}} 个服务）"
+}

@@ -5070,7 +5070,7 @@ function drawTimeAxis(ctx, ticks, pad, plotW, h, cssH) {
 function drawLineChart(canvas, rows, series, options = {}) {
   const chartText = (key, values = {}) =>
     renderCoreCardPackage(
-      ZogographChartCommonCard,
+      Zogograph.cards.get('core-chart-common'),
       'core-chart-common',
       { key, values },
       { i18n: ZogographI18n },
@@ -5650,7 +5650,7 @@ function inkOn(hex) {
 function drawPieChart(canvas, slices, options = {}) {
   const chartText = (key, values = {}) =>
     renderCoreCardPackage(
-      ZogographChartCommonCard,
+      Zogograph.cards.get('core-chart-common'),
       'core-chart-common',
       { key, values },
       { i18n: ZogographI18n },
@@ -5950,13 +5950,13 @@ function memorySlices(services, measuredTotal, options = {}) {
       label:
         hidden > 0
           ? renderCoreCardPackage(
-              ZogographChartCommonCard,
+              Zogograph.cards.get('core-chart-common'),
               'core-chart-common',
               { key: 'everything_else_count', values: { count: hidden } },
               { i18n: ZogographI18n },
             )
           : renderCoreCardPackage(
-              ZogographChartCommonCard,
+              Zogograph.cards.get('core-chart-common'),
               'core-chart-common',
               { key: 'everything_else' },
               { i18n: ZogographI18n },

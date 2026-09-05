@@ -1,0 +1,6 @@
+{
+  "core-chart-common.nothing_collected_range": "इस अवधि के लिए अभी तक कोई डेटा एकत्र नहीं किया गया है",
+  "core-chart-common.nothing_to_show_yet": "अभी दिखाने के लिए कुछ नहीं है",
+  "core-chart-common.everything_else": "बाकी सब",
+  "core-chart-common.everything_else_count": "बाकी सब ({{count, number}} सेवाएँ)"
+}

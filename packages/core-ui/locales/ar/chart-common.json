@@ -1,0 +1,6 @@
+{
+  "core-chart-common.nothing_collected_range": "لم تُجمع بيانات لهذا النطاق الزمني بعد",
+  "core-chart-common.nothing_to_show_yet": "لا يوجد شيء لعرضه بعد",
+  "core-chart-common.everything_else": "كل ما عدا ذلك",
+  "core-chart-common.everything_else_count": "كل ما عدا ذلك ({{count, number}} خدمات)"
+}

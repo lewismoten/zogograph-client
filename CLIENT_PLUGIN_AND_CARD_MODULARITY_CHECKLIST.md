@@ -138,7 +138,9 @@ generic backup-package card.
 - [ ] Generate the browser load/registration manifest from package entries so
       `index.html` no longer contains an ever-growing list of individual card
       scripts. Preserve deterministic dependency order and fail visibly for an
-      omitted or duplicate package ID.
+      omitted or duplicate package ID. The loader must run in both the source/dev
+      tree and the copied `dist` tree, and complete card registration before the
+      application entry script runs.
 - [ ] Move files by cohesive feature (CPU, AI, storage, networking, terminal,
       backup, etc.), retaining package IDs and a compatibility mapping for stable
       asset references. Do not attempt one giant rename or mix it with behavioral

@@ -1,0 +1,12 @@
+{
+  "core-backup-growth-status.nothing_recorded": "कुछ भी रिकॉर्ड नहीं किया गया।",
+  "core-backup-growth-status.this_filesystem": "यह फ़ाइल सिस्टम",
+  "core-backup-growth-status.used_space_on": "{{filesystem}} पर उपयोग किए गए स्थान का {{percent}}%",
+  "core-backup-growth-status.share_unknown": "डिस्क में हिस्सा अज्ञात है — कोई फ़ाइल सिस्टम रीडिंग रिकॉर्ड नहीं हुई।",
+  "core-backup-growth-status.walk_incomplete": "डिस्क स्कैन का समय समाप्त हो गया, इसलिए यह कुल न्यूनतम सीमा है।",
+  "core-backup-growth-status.directories_not_opened": "बैकअप रूट के अंतर्गत {{count}} डायरेक्टरी कभी नहीं खोली गईं।",
+  "core-backup-growth-status.day_ago": "24 घंटे पहले",
+  "core-backup-growth-status.week_ago": "7 दिन पहले",
+  "core-backup-growth-status.grew_over": "{{duration}} में {{bytes}}",
+  "core-backup-growth-status.growth": "वृद्धि"
+}

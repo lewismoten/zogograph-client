@@ -1,0 +1,12 @@
+{
+  "core-backup-growth-status.nothing_recorded": "No hay nada registrado.",
+  "core-backup-growth-status.this_filesystem": "este sistema de archivos",
+  "core-backup-growth-status.used_space_on": "{{percent}} % del espacio usado en {{filesystem}}",
+  "core-backup-growth-status.share_unknown": "Se desconoce la proporción del disco: no se registró ninguna lectura del sistema de archivos.",
+  "core-backup-growth-status.walk_incomplete": "El recorrido del disco se quedó sin tiempo, por lo que este total es un límite inferior.",
+  "core-backup-growth-status.directories_not_opened": "Nunca se abrieron {{count}} directorios bajo las raíces de las copias de seguridad.",
+  "core-backup-growth-status.day_ago": "hace 24 horas",
+  "core-backup-growth-status.week_ago": "hace 7 días",
+  "core-backup-growth-status.grew_over": "{{bytes}} durante {{duration}}",
+  "core-backup-growth-status.growth": "Crecimiento"
+}

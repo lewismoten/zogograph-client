@@ -37589,7 +37589,7 @@ function backupProtectionText(key, values = {}) {
 
 function backupGrowthText(key, values = {}) {
   return renderCoreCardPackage(
-    ZogographBackupGrowthStatusCard,
+    Zogograph.cards.get('core-backup-growth-status'),
     'core-backup-growth-status',
     { key, values },
     { i18n: ZogographI18n },

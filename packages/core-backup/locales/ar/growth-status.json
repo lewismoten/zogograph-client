@@ -1,0 +1,12 @@
+{
+  "core-backup-growth-status.nothing_recorded": "لا توجد بيانات مسجلة.",
+  "core-backup-growth-status.this_filesystem": "نظام الملفات هذا",
+  "core-backup-growth-status.used_space_on": "{{percent}}٪ من المساحة المستخدمة على {{filesystem}}",
+  "core-backup-growth-status.share_unknown": "حصة القرص غير معروفة — لم تُسجل قراءة لنظام الملفات.",
+  "core-backup-growth-status.walk_incomplete": "انتهى وقت فحص القرص، لذا فإن هذا الإجمالي حد أدنى.",
+  "core-backup-growth-status.directories_not_opened": "لم تُفتح {{count}} أدلة ضمن جذور النسخ الاحتياطية.",
+  "core-backup-growth-status.day_ago": "قبل 24 ساعة",
+  "core-backup-growth-status.week_ago": "قبل 7 أيام",
+  "core-backup-growth-status.grew_over": "{{bytes}} خلال {{duration}}",
+  "core-backup-growth-status.growth": "النمو"
+}

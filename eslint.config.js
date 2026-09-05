@@ -130,7 +130,6 @@ export default [
         ZogographPageHelpCard: 'readonly',
         ZogographCollectorSaveStatusCard: 'readonly',
         ZogographBackupProtectionStatusCard: 'readonly',
-        ZogographBackupGrowthStatusCard: 'readonly',
         ZogographBackupActionGuidanceCard: 'readonly',
         ZogographBackupContentDetailsCard: 'readonly',
         ZogographActionCommonCard: 'readonly',

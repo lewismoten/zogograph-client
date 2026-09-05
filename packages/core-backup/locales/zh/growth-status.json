@@ -1,0 +1,12 @@
+{
+  "core-backup-growth-status.nothing_recorded": "没有已记录的数据。",
+  "core-backup-growth-status.this_filesystem": "此文件系统",
+  "core-backup-growth-status.used_space_on": "{{filesystem}} 上已用空间的 {{percent}}%",
+  "core-backup-growth-status.share_unknown": "磁盘占比未知——未记录文件系统读数。",
+  "core-backup-growth-status.walk_incomplete": "磁盘扫描已超时，因此此总计是下限。",
+  "core-backup-growth-status.directories_not_opened": "备份根目录下有 {{count}} 个目录从未打开。",
+  "core-backup-growth-status.day_ago": "24 小时前",
+  "core-backup-growth-status.week_ago": "7 天前",
+  "core-backup-growth-status.grew_over": "{{duration}} 内 {{bytes}}",
+  "core-backup-growth-status.growth": "增长"
+}

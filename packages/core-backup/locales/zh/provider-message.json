@@ -1,0 +1,4 @@
+{
+  "core-backup-provider-message.title": "给您的托管服务提供商的消息",
+  "core-backup-provider-message.help": "说明了已测量的内容，并且只请求安全的操作。它特意不会要求任何人删除备份目录中的任何内容。"
+}

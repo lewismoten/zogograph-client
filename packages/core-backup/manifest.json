@@ -1,0 +1,13 @@
+{
+  "id": "core-backup",
+  "kind": "built-in-ui",
+  "version": "0.1.0",
+  "cards": ["core-backup-provider-message"],
+  "default_locale": "en",
+  "locale_packs": {
+    "es": ["locales/es/provider-message.json"],
+    "hi": ["locales/hi/provider-message.json"],
+    "ar": ["locales/ar/provider-message.json"],
+    "zh": ["locales/zh/provider-message.json"]
+  }
+}

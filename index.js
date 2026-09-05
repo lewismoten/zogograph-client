@@ -38025,12 +38025,12 @@ function backupActionList(data) {
 function backupProviderMessageText(key) {
   const helpers = { i18n: ZogographI18n };
   renderCoreCardPackage(
-    ZogographBackupProviderMessageCard,
+    Zogograph.cards.get('core-backup-provider-message'),
     'core-backup-provider-message',
     {},
     helpers,
   );
-  return ZogographBackupProviderMessageCard.text(key, helpers);
+  return Zogograph.cards.get('core-backup-provider-message').text(key, helpers);
 }
 
 function showProviderMessage(message) {

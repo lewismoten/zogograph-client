@@ -1,0 +1,4 @@
+{
+  "core-backup-provider-message.title": "Mensaje para su proveedor de alojamiento",
+  "core-backup-provider-message.help": "Explica qué se midió y solicita únicamente acciones seguras. Deliberadamente no pide a nadie que elimine nada del directorio de copias de seguridad."
+}

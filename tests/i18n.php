@@ -20,6 +20,12 @@ $coreCardLocaleKeys = array_fill_keys(['en', 'es', 'hi', 'ar', 'zh'], []);
 foreach ($cardFiles as $cardFile) {
     $cardSource = file_get_contents($cardFile);
     $isPackageCard = str_contains($cardFile, '/packages/');
+    if ($isPackageCard) {
+        i18nExpect(
+            !preg_match('/window\\.Zogograph[A-Za-z0-9]+Card\\s*=/', (string) $cardSource),
+            basename($cardFile) . ' reintroduces a feature-specific card global',
+        );
+    }
     $cardCatalogKeys = [];
     foreach (
         $isPackageCard ? ['en'] : array_keys($coreCardLocaleKeys)

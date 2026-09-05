@@ -143,6 +143,13 @@ generic backup-package card.
       backup, etc.), retaining package IDs and a compatibility mapping for stable
       asset references. Do not attempt one giant rename or mix it with behavioral
       changes.
+
+  The JetBackup migration exercises this rule: its stable legacy card namespace
+  remains `core-jetbackup`, while its package ID is `vendor-jetbackup`. Cards
+  may declare `packageId` when a reviewed compatibility mapping is necessary;
+  registry and locale-path validation use that package ID, while the card ID,
+  owner, and catalog namespace remain immutable.
+
 - [ ] Add import/ownership checks: a package may depend only on documented
       shared APIs and declared package dependencies; no cross-package relative
       imports, hidden global access, or duplicate catalogs.

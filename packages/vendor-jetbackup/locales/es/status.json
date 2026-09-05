@@ -1,0 +1,15 @@
+{
+  "core-jetbackup.title": "JetBackup",
+  "core-jetbackup.help": "La información que el sistema de copias de seguridad ofrece sobre sus propias copias es el único lugar donde se encuentra la cuenta y la fecha tras un directorio llamado files0000000005. Requiere la herramienta de línea de comandos JetBackup y normalmente ejecutarse como root.",
+  "core-jetbackup.account": "Cuenta",
+  "core-jetbackup.when": "Cuándo",
+  "core-jetbackup.type": "Tipo",
+  "core-jetbackup.destination": "Destino",
+  "core-jetbackup.destinations": "Destinos",
+  "core-jetbackup.name": "Nombre",
+  "core-jetbackup.size": "Tamaño",
+  "core-jetbackup.path": "Ruta",
+  "core-jetbackup.not_reported": "sin informar",
+  "core-jetbackup.known": "{{count}} copias de seguridad conocidas por JetBackup",
+  "core-jetbackup.empty": "JetBackup respondió, pero no enumeró copias de seguridad ni destinos."
+}

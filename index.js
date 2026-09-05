@@ -2892,14 +2892,20 @@ document.addEventListener('zogograph-i18n-load', renderSymlinkSweepShellLabels);
 
 function renderJetBackupLabels() {
   const helpers = { i18n: ZogographI18n };
-  renderCoreCardPackage(ZogographJetBackupCard, 'core-jetbackup', {}, helpers, {
-    catalogOnly: true,
-  });
+  renderCoreCardPackage(
+    Zogograph.cards.get('core-jetbackup'),
+    'core-jetbackup',
+    {},
+    helpers,
+    {
+      catalogOnly: true,
+    },
+  );
   const title = document.querySelector('[data-i18n="core-jetbackup.title"]');
   title.textContent = ZogographI18n.markSource(
     title,
     'core-jetbackup.title',
-    ZogographJetBackupCard.text('title', helpers),
+    Zogograph.cards.get('core-jetbackup').text('title', helpers),
   );
 }
 
@@ -37568,14 +37574,19 @@ function showChangesIn(bar) {
  * it is still current. Only JetBackup knows that, and only when it can be run.
  */
 function renderJetBackup(jet) {
-  return renderCoreCardPackage(ZogographJetBackupCard, 'core-jetbackup', jet, {
-    note,
-    section,
-    simpleTable,
-    humanTime,
-    humanBytes,
-    i18n: ZogographI18n,
-  });
+  return renderCoreCardPackage(
+    Zogograph.cards.get('core-jetbackup'),
+    'core-jetbackup',
+    jet,
+    {
+      note,
+      section,
+      simpleTable,
+      humanTime,
+      humanBytes,
+      i18n: ZogographI18n,
+    },
+  );
 }
 
 function backupProtectionText(key, values = {}) {

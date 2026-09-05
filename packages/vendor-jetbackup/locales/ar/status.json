@@ -1,0 +1,15 @@
+{
+  "core-jetbackup.title": "JetBackup",
+  "core-jetbackup.help": "ما يقوله نظام النسخ الاحتياطي عن نسخه هو المكان الوحيد لمعرفة الحساب والتاريخ خلف مجلد اسمه files0000000005. يتطلب أداة سطر أوامر JetBackup، وعادةً التشغيل بصفة root.",
+  "core-jetbackup.account": "الحساب",
+  "core-jetbackup.when": "متى",
+  "core-jetbackup.type": "النوع",
+  "core-jetbackup.destination": "الوجهة",
+  "core-jetbackup.destinations": "الوجهات",
+  "core-jetbackup.name": "الاسم",
+  "core-jetbackup.size": "الحجم",
+  "core-jetbackup.path": "المسار",
+  "core-jetbackup.not_reported": "غير مُبلّغ عنه",
+  "core-jetbackup.known": "يعرف JetBackup {{count}} نسخة احتياطية",
+  "core-jetbackup.empty": "أجاب JetBackup، لكنه لم يسرد أي نسخ احتياطية أو وجهات."
+}

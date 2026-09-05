@@ -375,7 +375,7 @@ $capabilityChangeNoteCard = i18nCardSource(
     file_get_contents($root . '/cards/capability-change-note.js'),
 );
 $jetBackupCard = i18nCardSource(
-    file_get_contents($root . '/cards/jetbackup.js'),
+    file_get_contents($root . '/packages/vendor-jetbackup/cards/status.js'),
 );
 $storageRetentionCard = i18nCardSource(
     file_get_contents($root . '/packages/core-storage/cards/retention.js'),
@@ -1855,13 +1855,19 @@ i18nExpect(
 i18nExpect(
     $page !== false &&
         $script !== false &&
-        str_contains($page, 'src="cards/jetbackup.js"') &&
-        str_contains($jetBackupCard, 'window.ZogographJetBackupCard') &&
+        str_contains(
+            $page,
+            'src="packages/vendor-jetbackup/cards/status.js"',
+        ) &&
+        str_contains(
+            $jetBackupCard,
+            'Zogograph.cards.register(JetBackupCard)',
+        ) &&
         str_contains($jetBackupCard, 'id: "core-jetbackup"') &&
         str_contains($jetBackupCard, 'locales: ["core-jetbackup."]') &&
         str_contains($jetBackupCard, 'catalogs: Object.freeze({') &&
         str_contains($jetBackupCard, '"core-jetbackup.known"') &&
-        str_contains($script, 'ZogographJetBackupCard,'),
+        str_contains($script, "Zogograph.cards.get('core-jetbackup'),"),
     'JetBackup is not isolated behind its core card-module boundary',
 );
 i18nExpect(

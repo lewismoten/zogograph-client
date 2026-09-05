@@ -68,7 +68,6 @@ export default [
         ZogographRegexDialogCard: 'readonly',
         ZogographRegexResultsCard: 'readonly',
         ZogographCapabilityChangeNoteCard: 'readonly',
-        ZogographJetBackupCard: 'readonly',
         ZogographCagefsExplainerCard: 'readonly',
         ZogographCagefsShellCard: 'readonly',
         ZogographWhoisTermsCard: 'readonly',

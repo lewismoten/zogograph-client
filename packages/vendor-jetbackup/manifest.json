@@ -1,0 +1,13 @@
+{
+  "id": "vendor-jetbackup",
+  "kind": "built-in-ui",
+  "version": "0.1.0",
+  "cards": ["core-jetbackup"],
+  "default_locale": "en",
+  "locale_packs": {
+    "es": ["locales/es/status.json"],
+    "hi": ["locales/hi/status.json"],
+    "ar": ["locales/ar/status.json"],
+    "zh": ["locales/zh/status.json"]
+  }
+}

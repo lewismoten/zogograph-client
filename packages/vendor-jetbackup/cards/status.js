@@ -48,8 +48,12 @@ const JetBackupCard = {
   },
   render(jet, helpers) {
     const out = document.createDocumentFragment();
+    const append = (node) => {
+      if (node instanceof Node) out.appendChild(node);
+      else console.error('JetBackup card helper did not return a DOM node.');
+    };
     if (jet.backups?.length) {
-      out.appendChild(
+      append(
         helpers.section(
           helpers.i18n.t(
             'core-jetbackup.known',
@@ -83,7 +87,7 @@ const JetBackupCard = {
       );
     }
     if (jet.destinations?.length) {
-      out.appendChild(
+      append(
         helpers.section(
           helpers.i18n.t('core-jetbackup.destinations', {}, 'Destinations'),
           helpers.simpleTable(
@@ -103,7 +107,7 @@ const JetBackupCard = {
       );
     }
     if (!out.childElementCount) {
-      out.appendChild(
+      append(
         helpers.note(
           helpers.i18n.t(
             'core-jetbackup.empty',

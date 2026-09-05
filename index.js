@@ -6563,7 +6563,7 @@ async function refreshBadges() {
       const badge = document.querySelector('[data-badge="alerts"]');
       if (badge && silenced) {
         badge.title = renderCoreCardPackage(
-          ZogographNavigationBadgeCard,
+          Zogograph.cards.get('core-navigation-badge'),
           'core-navigation-badge',
           {
             kind: 'alerts',
@@ -6594,7 +6594,7 @@ async function refreshBadges() {
     const problems = await api('problems', { limit: 1 });
     const total = Number(problems.total || 0);
     const badgeInfo = renderCoreCardPackage(
-      ZogographNavigationBadgeCard,
+      Zogograph.cards.get('core-navigation-badge'),
       'core-navigation-badge',
       {
         kind: 'problems',
@@ -30664,10 +30664,12 @@ function noticeHostArrival() {
 
   for (const row of settled) {
     toast(
-      ZogographNavigationBadgeCard.render(
-        { kind: 'pending_ready', label: row.label },
-        { i18n: ZogographI18n },
-      ),
+      Zogograph.cards
+        .get('core-navigation-badge')
+        .render(
+          { kind: 'pending_ready', label: row.label },
+          { i18n: ZogographI18n },
+        ),
       row.view,
     );
 
@@ -30695,17 +30697,15 @@ function markUnseen(view, unseen) {
 
   if (unseen) {
     badge.hidden = false;
-    badge.textContent = ZogographNavigationBadgeCard.render(
-      { kind: 'pending_new' },
-      { i18n: ZogographI18n },
-    );
+    badge.textContent = Zogograph.cards
+      .get('core-navigation-badge')
+      .render({ kind: 'pending_new' }, { i18n: ZogographI18n });
     badge.className = 'nav-badge badge-new';
   } else if (
     badge.textContent ===
-    ZogographNavigationBadgeCard.render(
-      { kind: 'pending_new' },
-      { i18n: ZogographI18n },
-    )
+    Zogograph.cards
+      .get('core-navigation-badge')
+      .render({ kind: 'pending_new' }, { i18n: ZogographI18n })
   ) {
     badge.hidden = true;
     badge.textContent = '';

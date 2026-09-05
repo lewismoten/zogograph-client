@@ -1,0 +1,16 @@
+{
+  "core-navigation-badge.alerts": "{{unread, number}} alertas sin leer; {{silenced, number}} {{verb}} retenidas por {{assistant}}.",
+  "core-navigation-badge.was": "fue",
+  "core-navigation-badge.were": "fueron",
+  "core-navigation-badge.problem_title": "{{count, number}} tipo(s) de problema en el registro{{worst}}{{details}}",
+  "core-navigation-badge.problem_worst": ", siendo el peor {{meaning}}",
+  "core-navigation-badge.problem_details": ".\n{{details}}",
+  "core-navigation-badge.problem_end": ".",
+  "core-navigation-badge.critical": "un fallo completo",
+  "core-navigation-badge.error": "un error",
+  "core-navigation-badge.warning": "una advertencia",
+  "core-navigation-badge.notice": "un aviso",
+  "core-navigation-badge.info": "una nota",
+  "core-navigation-badge.pending_ready": "{{label}} está listo.",
+  "core-navigation-badge.pending_new": "nuevo"
+}

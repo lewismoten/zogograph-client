@@ -1,0 +1,16 @@
+{
+  "core-navigation-badge.alerts": "{{unread, number}} 条未读警报，其中 {{silenced, number}} 条被 {{assistant}} 暂缓。",
+  "core-navigation-badge.was": "被",
+  "core-navigation-badge.were": "被",
+  "core-navigation-badge.problem_title": "日志中有 {{count, number}} 类问题{{worst}}{{details}}",
+  "core-navigation-badge.problem_worst": "，其中最严重的是{{meaning}}",
+  "core-navigation-badge.problem_details": "。\n{{details}}",
+  "core-navigation-badge.problem_end": "。",
+  "core-navigation-badge.critical": "完全失败",
+  "core-navigation-badge.error": "错误",
+  "core-navigation-badge.warning": "警告",
+  "core-navigation-badge.notice": "通知",
+  "core-navigation-badge.info": "提示",
+  "core-navigation-badge.pending_ready": "{{label}} 已就绪。",
+  "core-navigation-badge.pending_new": "新"
+}

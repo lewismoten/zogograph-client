@@ -2,12 +2,28 @@
   "id": "core-ui",
   "kind": "built-in-ui",
   "version": "0.1.0",
-  "cards": ["core-gauge-status", "core-live-toggle"],
+  "cards": ["core-gauge-status", "core-live-toggle", "core-navigation-badge"],
   "default_locale": "en",
   "locale_packs": {
-    "es": ["locales/es/gauge-status.json", "locales/es/live-toggle.json"],
-    "hi": ["locales/hi/gauge-status.json", "locales/hi/live-toggle.json"],
-    "ar": ["locales/ar/gauge-status.json", "locales/ar/live-toggle.json"],
-    "zh": ["locales/zh/gauge-status.json", "locales/zh/live-toggle.json"]
+    "es": [
+      "locales/es/gauge-status.json",
+      "locales/es/live-toggle.json",
+      "locales/es/navigation-badge.json"
+    ],
+    "hi": [
+      "locales/hi/gauge-status.json",
+      "locales/hi/live-toggle.json",
+      "locales/hi/navigation-badge.json"
+    ],
+    "ar": [
+      "locales/ar/gauge-status.json",
+      "locales/ar/live-toggle.json",
+      "locales/ar/navigation-badge.json"
+    ],
+    "zh": [
+      "locales/zh/gauge-status.json",
+      "locales/zh/live-toggle.json",
+      "locales/zh/navigation-badge.json"
+    ]
   }
 }

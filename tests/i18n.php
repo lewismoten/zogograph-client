@@ -4349,7 +4349,9 @@ i18nExpect(
             'core-pending-status.collector_overdue',
         ) &&
         str_contains(
-            (string) file_get_contents($root . '/cards/navigation-badge.js'),
+            (string) file_get_contents(
+                $root . '/packages/core-ui/cards/navigation-badge.js',
+            ),
             'core-navigation-badge.pending_ready',
         ),
     'host request status retains a core-owned pending-work label',

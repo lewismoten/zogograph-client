@@ -1,0 +1,16 @@
+{
+  "core-navigation-badge.alerts": "{{unread, number}} अपठित चेतावनियाँ, जिनमें से {{silenced, number}} को {{assistant}} ने रोक रखा {{verb}}।",
+  "core-navigation-badge.was": "है",
+  "core-navigation-badge.were": "हैं",
+  "core-navigation-badge.problem_title": "लॉग में {{count, number}} प्रकार की समस्या{{worst}}{{details}}",
+  "core-navigation-badge.problem_worst": ", जिनमें सबसे गंभीर {{meaning}} है",
+  "core-navigation-badge.problem_details": ".\n{{details}}",
+  "core-navigation-badge.problem_end": ".",
+  "core-navigation-badge.critical": "पूर्ण विफलता",
+  "core-navigation-badge.error": "एक त्रुटि",
+  "core-navigation-badge.warning": "एक चेतावनी",
+  "core-navigation-badge.notice": "एक सूचना",
+  "core-navigation-badge.info": "एक टिप्पणी",
+  "core-navigation-badge.pending_ready": "{{label}} तैयार है।",
+  "core-navigation-badge.pending_new": "नया"
+}

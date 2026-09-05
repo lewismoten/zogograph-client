@@ -1,0 +1,16 @@
+{
+  "core-navigation-badge.alerts": "{{unread, number}} تنبيهًا غير مقروء؛ احتجز {{assistant}} {{silenced, number}} منها.",
+  "core-navigation-badge.was": "كان",
+  "core-navigation-badge.were": "كانت",
+  "core-navigation-badge.problem_title": "{{count, number}} نوعًا من المشكلات في السجل{{worst}}{{details}}",
+  "core-navigation-badge.problem_worst": "، وأسوأها {{meaning}}",
+  "core-navigation-badge.problem_details": ".\n{{details}}",
+  "core-navigation-badge.problem_end": ".",
+  "core-navigation-badge.critical": "فشلًا تامًا",
+  "core-navigation-badge.error": "خطأ",
+  "core-navigation-badge.warning": "تحذير",
+  "core-navigation-badge.notice": "إشعار",
+  "core-navigation-badge.info": "ملاحظة",
+  "core-navigation-badge.pending_ready": "{{label}} جاهز.",
+  "core-navigation-badge.pending_new": "جديد"
+}

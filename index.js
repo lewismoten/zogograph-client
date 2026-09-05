@@ -2908,7 +2908,7 @@ document.addEventListener('zogograph-i18n-load', renderJetBackupLabels);
 function renderBackupShellLabels() {
   const helpers = { i18n: ZogographI18n };
   renderCoreCardPackage(
-    ZogographBackupShellCard,
+    Zogograph.cards.get('core-backup-shell'),
     'core-backup-shell',
     {},
     helpers,
@@ -2920,7 +2920,7 @@ function renderBackupShellLabels() {
       node.textContent = ZogographI18n.markSource(
         node,
         `core-backup-shell.${key}`,
-        ZogographBackupShellCard.text(key, helpers),
+        Zogograph.cards.get('core-backup-shell').text(key, helpers),
       );
     });
 }
@@ -37660,12 +37660,12 @@ async function refreshBackups() {
   const backupShellText = (key) => {
     const helpers = { i18n: ZogographI18n };
     renderCoreCardPackage(
-      ZogographBackupShellCard,
+      Zogograph.cards.get('core-backup-shell'),
       'core-backup-shell',
       {},
       helpers,
     );
-    return ZogographBackupShellCard.text(key, helpers);
+    return Zogograph.cards.get('core-backup-shell').text(key, helpers);
   };
 
   for (const id of targets) {

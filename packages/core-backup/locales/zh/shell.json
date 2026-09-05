@@ -1,0 +1,11 @@
+{
+  "core-backup-shell.storage_title": "备份存储",
+  "core-backup-shell.storage_help": "备份通常是服务器上最大的内容，也是最后才被查看的内容，因为它们不在 /home 中。此处回答四个问题：占用多少空间、属于谁、有多旧，以及可以安全采取什么操作。",
+  "core-backup-shell.actions_title": "可以如何处理",
+  "core-backup-shell.actions_help": "此处按操作的安全程度排序，而非按可释放的空间排序。标记为破坏性的操作会删除某项内容的唯一副本。",
+  "core-backup-shell.other_title": "其他可能的备份",
+  "core-backup-shell.other_help": "看起来像备份、但没有任何管理程序处理的目录：升级前创建的 tar.gz、带日期的网站副本或数据库转储。没有任何机制轮换它们，因此它们常是磁盘上最老的大型内容。可能是关键词：每项都只是根据名称和形状做出的猜测，操作前值得检查。",
+  "core-backup-shell.path": "路径",
+  "core-backup-shell.size": "大小",
+  "core-backup-shell.files": "文件"
+}

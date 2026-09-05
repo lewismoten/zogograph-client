@@ -8,7 +8,8 @@
     "core-backup-growth-status",
     "core-backup-protection-status",
     "core-backup-action-guidance",
-    "core-backup-content-details"
+    "core-backup-content-details",
+    "core-backup-shell"
   ],
   "default_locale": "en",
   "locale_packs": {
@@ -18,7 +19,8 @@
       "locales/es/growth-status.json",
       "locales/es/protection-status.json",
       "locales/es/action-guidance.json",
-      "locales/es/content-details.json"
+      "locales/es/content-details.json",
+      "locales/es/shell.json"
     ],
     "hi": [
       "locales/hi/provider-message.json",
@@ -26,7 +28,8 @@
       "locales/hi/growth-status.json",
       "locales/hi/protection-status.json",
       "locales/hi/action-guidance.json",
-      "locales/hi/content-details.json"
+      "locales/hi/content-details.json",
+      "locales/hi/shell.json"
     ],
     "ar": [
       "locales/ar/provider-message.json",
@@ -34,7 +37,8 @@
       "locales/ar/growth-status.json",
       "locales/ar/protection-status.json",
       "locales/ar/action-guidance.json",
-      "locales/ar/content-details.json"
+      "locales/ar/content-details.json",
+      "locales/ar/shell.json"
     ],
     "zh": [
       "locales/zh/provider-message.json",
@@ -42,7 +46,8 @@
       "locales/zh/growth-status.json",
       "locales/zh/protection-status.json",
       "locales/zh/action-guidance.json",
-      "locales/zh/content-details.json"
+      "locales/zh/content-details.json",
+      "locales/zh/shell.json"
     ]
   }
 }

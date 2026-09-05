@@ -2171,7 +2171,7 @@ document.addEventListener('zogograph-i18n-load', renderStorageInspectorLabels);
 function renderStorageRetentionLabels() {
   const helpers = { i18n: ZogographI18n };
   renderCoreCardPackage(
-    ZogographStorageRetentionCard,
+    Zogograph.cards.get('core-storage-retention'),
     'core-storage-retention',
     {},
     helpers,
@@ -2184,7 +2184,7 @@ function renderStorageRetentionLabels() {
       element.textContent = ZogographI18n.markSource(
         element,
         key,
-        ZogographStorageRetentionCard.text(suffix, helpers),
+        Zogograph.cards.get('core-storage-retention').text(suffix, helpers),
       );
     });
   ZogographI18n.applyRich(
@@ -17820,7 +17820,7 @@ function renderRetention(data) {
   const parts = [];
   const retentionText = (key, values = {}) =>
     renderCoreCardPackage(
-      ZogographStorageRetentionCard,
+      Zogograph.cards.get('core-storage-retention'),
       'core-storage-retention',
       { key, values },
       { i18n: ZogographI18n },

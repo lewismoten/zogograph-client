@@ -211,15 +211,21 @@ $uptimePackageManifest = json_decode(
     true,
 );
 $examplePackageManifest = json_decode(
-    (string) file_get_contents($root . '/packages/example-package/manifest.example.json'),
+    (string) file_get_contents(
+        $root . '/packages/example-package/manifest.example.json',
+    ),
     true,
 );
 $examplePackageEnglish = json_decode(
-    (string) file_get_contents($root . '/packages/example-package/locales/en.json'),
+    (string) file_get_contents(
+        $root . '/packages/example-package/locales/en.json',
+    ),
     true,
 );
 $examplePackageSpanish = json_decode(
-    (string) file_get_contents($root . '/packages/example-package/locales/es.json'),
+    (string) file_get_contents(
+        $root . '/packages/example-package/locales/es.json',
+    ),
     true,
 );
 $page = file_get_contents($root . '/index.html');
@@ -372,7 +378,13 @@ $jetBackupCard = i18nCardSource(
     file_get_contents($root . '/cards/jetbackup.js'),
 );
 $storageRetentionCard = i18nCardSource(
-    file_get_contents($root . '/cards/storage-retention.js'),
+    file_get_contents($root . '/packages/core-storage/cards/retention.js'),
+);
+$storageRetentionLocalePacks = array_map(
+    static fn(string $locale): string => (string) file_get_contents(
+        $root . '/packages/core-storage/locales/' . $locale . '/retention.json',
+    ),
+    ['es', 'hi', 'ar', 'zh'],
 );
 $cagefsExplainerCard = i18nCardSource(
     file_get_contents($root . '/cards/cagefs-explainer.js'),
@@ -2224,17 +2236,35 @@ i18nExpect(
 i18nExpect(
     $storageRetentionCard !== false &&
         str_contains($storageRetentionCard, '"core-storage-retention.what"') &&
-        str_contains($storageRetentionCard, '"core-storage-retention.holding_now"') &&
-        str_contains($storageRetentionCard, '"core-storage-retention.covers"') &&
-        str_contains($storageRetentionCard, '"core-storage-retention.keep_for"') &&
-        str_contains($storageRetentionCard, '"core-storage-retention.recommended"') &&
-        str_contains($storageRetentionCard, '"core-storage-retention.settles_at"') &&
-        str_contains($storageRetentionCard, '"core-storage-retention.days_value"') &&
-        str_contains($storageRetentionCard, '"core-storage-retention.yearly_growth"') &&
-        preg_match('/es:\s*Object\.freeze\(\{.*?yearly_growth[^\n]*\/yr/s', $storageRetentionCard) !== 1 &&
-        preg_match('/hi:\s*Object\.freeze\(\{.*?yearly_growth[^\n]*\/yr/s', $storageRetentionCard) !== 1 &&
-        preg_match('/ar:\s*Object\.freeze\(\{.*?yearly_growth[^\n]*\/yr/s', $storageRetentionCard) !== 1 &&
-        preg_match('/zh:\s*Object\.freeze\(\{.*?yearly_growth[^\n]*\/yr/s', $storageRetentionCard) !== 1,
+        str_contains(
+            $storageRetentionCard,
+            '"core-storage-retention.holding_now"',
+        ) &&
+        str_contains(
+            $storageRetentionCard,
+            '"core-storage-retention.covers"',
+        ) &&
+        str_contains(
+            $storageRetentionCard,
+            '"core-storage-retention.keep_for"',
+        ) &&
+        str_contains(
+            $storageRetentionCard,
+            '"core-storage-retention.recommended"',
+        ) &&
+        str_contains(
+            $storageRetentionCard,
+            '"core-storage-retention.settles_at"',
+        ) &&
+        str_contains(
+            $storageRetentionCard,
+            '"core-storage-retention.days_value"',
+        ) &&
+        str_contains(
+            $storageRetentionCard,
+            '"core-storage-retention.yearly_growth"',
+        ) &&
+        !str_contains(implode("\n", $storageRetentionLocalePacks), '/yr'),
     'retention table labels, durations, or yearly rate are not localized',
 );
 i18nExpect(
@@ -2413,7 +2443,10 @@ i18nExpect(
         $registry !== false &&
         str_contains($registry, 'id === owner ||') &&
         str_contains($registry, 'id.startsWith(`${owner}-`)') &&
-        str_contains($registry, "owner === 'core-ui' && id.startsWith('core-')") &&
+        str_contains(
+            $registry,
+            "owner === 'core-ui' && id.startsWith('core-')",
+        ) &&
         str_contains($registry, 'const localeFiles = manifest?.localeFiles;'),
     'uptime cards do not declare and enforce their built-in package ownership',
 );
@@ -2422,13 +2455,15 @@ i18nExpect(
         ($examplePackageManifest['id'] ?? null) === 'example-status' &&
         ($examplePackageManifest['dashboard_pages'][0]['parent'] ?? null) ===
             'example-status-overview' &&
-        ($examplePackageManifest['dashboard_pages'][0]['parent_title_key'] ?? null) ===
+        ($examplePackageManifest['dashboard_pages'][0]['parent_title_key'] ??
+            null) ===
             'example-status.section.title' &&
         ($examplePackageManifest['dashboard_cards'][0]['renderer'] ?? null) ===
             'overview-facts' &&
         is_array($examplePackageEnglish) &&
         is_array($examplePackageSpanish) &&
-        array_keys($examplePackageEnglish) === array_keys($examplePackageSpanish),
+        array_keys($examplePackageEnglish) ===
+            array_keys($examplePackageSpanish),
     'package authoring example lacks a namespaced section, declarative card, or locale parity',
 );
 i18nExpect(

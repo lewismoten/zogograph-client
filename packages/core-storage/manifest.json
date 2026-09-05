@@ -18,7 +18,8 @@
     "core-storage-inspector-actions",
     "core-storage-inspector-preview",
     "core-storage-history",
-    "core-storage-inspector-breakdown"
+    "core-storage-inspector-breakdown",
+    "core-storage-retention"
   ],
   "default_locale": "en",
   "locale_packs": {
@@ -38,7 +39,8 @@
       "locales/es/inspector-actions.json",
       "locales/es/inspector-preview.json",
       "locales/es/history.json",
-      "locales/es/inspector-breakdown.json"
+      "locales/es/inspector-breakdown.json",
+      "locales/es/retention.json"
     ],
     "hi": [
       "locales/hi/measuring.json",
@@ -56,7 +58,8 @@
       "locales/hi/inspector-actions.json",
       "locales/hi/inspector-preview.json",
       "locales/hi/history.json",
-      "locales/hi/inspector-breakdown.json"
+      "locales/hi/inspector-breakdown.json",
+      "locales/hi/retention.json"
     ],
     "ar": [
       "locales/ar/measuring.json",
@@ -74,7 +77,8 @@
       "locales/ar/inspector-actions.json",
       "locales/ar/inspector-preview.json",
       "locales/ar/history.json",
-      "locales/ar/inspector-breakdown.json"
+      "locales/ar/inspector-breakdown.json",
+      "locales/ar/retention.json"
     ],
     "zh": [
       "locales/zh/measuring.json",
@@ -92,7 +96,8 @@
       "locales/zh/inspector-actions.json",
       "locales/zh/inspector-preview.json",
       "locales/zh/history.json",
-      "locales/zh/inspector-breakdown.json"
+      "locales/zh/inspector-breakdown.json",
+      "locales/zh/retention.json"
     ]
   }
 }

@@ -1,0 +1,7 @@
+{
+  "core-backup-action-guidance.no_suggestions": "इस रीडिंग से सुझाव देने के लिए कुछ नहीं है।",
+  "core-backup-action-guidance.reach_provider": "अपने होस्टिंग प्रदाता से पूछें",
+  "core-backup-action-guidance.safe_actions": "सुरक्षित — वह जगह वापस करता है जिसे बैकअप प्रणाली पहले ही हटाने योग्य मानती है",
+  "core-backup-action-guidance.review_actions": "समीक्षा योग्य — यह निर्णय है, नियमित काम नहीं",
+  "core-backup-action-guidance.dangerous_actions": "खतरनाक — इसे नाम से पहचानने के लिए सूचीबद्ध किया गया है, अनुशंसित नहीं"
+}

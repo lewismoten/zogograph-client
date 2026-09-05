@@ -1,0 +1,7 @@
+{
+  "core-backup-action-guidance.no_suggestions": "No hay nada que sugerir a partir de esta lectura.",
+  "core-backup-action-guidance.reach_provider": "pregunte a su proveedor de alojamiento",
+  "core-backup-action-guidance.safe_actions": "Seguro: recupera espacio que el sistema de copias de seguridad ya considera desechable",
+  "core-backup-action-guidance.review_actions": "Conviene revisarlo: es una decisión, no una tarea rutinaria",
+  "core-backup-action-guidance.dangerous_actions": "Peligroso: se muestra para poder nombrarlo, no como recomendación"
+}

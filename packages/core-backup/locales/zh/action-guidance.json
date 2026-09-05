@@ -1,0 +1,7 @@
+{
+  "core-backup-action-guidance.no_suggestions": "此读数没有可提供的建议。",
+  "core-backup-action-guidance.reach_provider": "请联系您的托管服务商",
+  "core-backup-action-guidance.safe_actions": "安全——可释放备份系统已认为可以丢弃的空间",
+  "core-backup-action-guidance.review_actions": "值得审查——这是一个决定，不是一项例行任务",
+  "core-backup-action-guidance.dangerous_actions": "危险——列出它是为了能明确提及，而非建议执行"
+}

@@ -37598,7 +37598,7 @@ function backupGrowthText(key, values = {}) {
 
 function backupActionGuidanceText(key, values = {}) {
   return renderCoreCardPackage(
-    ZogographBackupActionGuidanceCard,
+    Zogograph.cards.get('core-backup-action-guidance'),
     'core-backup-action-guidance',
     { key, values },
     { i18n: ZogographI18n },

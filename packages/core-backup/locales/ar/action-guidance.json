@@ -1,0 +1,7 @@
+{
+  "core-backup-action-guidance.no_suggestions": "لا يوجد ما يُقترح من هذه القراءة.",
+  "core-backup-action-guidance.reach_provider": "اسأل موفر الاستضافة",
+  "core-backup-action-guidance.safe_actions": "آمن — يستعيد مساحة يعتبرها نظام النسخ الاحتياطي قابلة للتخلص منها بالفعل",
+  "core-backup-action-guidance.review_actions": "يستحق المراجعة — قرار وليس مهمة روتينية",
+  "core-backup-action-guidance.dangerous_actions": "خطير — مُدرج لتسميته لا للتوصية به"
+}

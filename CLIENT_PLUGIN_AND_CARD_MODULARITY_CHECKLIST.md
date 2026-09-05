@@ -216,8 +216,9 @@ reviewed surface instead of duplicating DOM boilerplate in package cards.
 CPU time now uses the same generated `core-cpu` mount and clears it before each
 render, removing the former `#cpuTimeCards` dependency and preventing repeated
 small cards on refresh.
-The shared gauge-status card now lives in `packages/core-ui/`, so generic UI
-copy no longer needs a feature global or a flat-card source file.
+The shared gauge-status, navigation-badge, action-common, chart-common, and
+table-common cards now live in `packages/core-ui/`, so generic UI copy no
+longer needs feature globals or flat-card source files.
 `core-ui` is the explicit exception to card-ID owner prefixes: it owns generic
 product primitives such as `core-gauge-status`, while their source and locale
 paths remain package-scoped. Feature packages remain owner-prefixed.

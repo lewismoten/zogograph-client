@@ -29,5 +29,11 @@
     return node;
   }
 
-  product.ui = Object.freeze({ empty, mount });
+  function append(container, node) {
+    if (!(container instanceof Node) || !(node instanceof Node)) return false;
+    container.appendChild(node);
+    return true;
+  }
+
+  product.ui = Object.freeze({ append, empty, mount });
 })();

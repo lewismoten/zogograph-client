@@ -37585,6 +37585,7 @@ function renderJetBackup(jet) {
       humanTime,
       humanBytes,
       i18n: ZogographI18n,
+      ui: Zogograph.ui,
     },
   );
 }

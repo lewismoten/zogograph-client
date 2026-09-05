@@ -12,6 +12,7 @@ const JetBackupCard = {
       'humanTime',
       'humanBytes',
       'i18n',
+      'ui',
     ],
     catalogs: Object.freeze({
       en: Object.freeze({
@@ -49,8 +50,8 @@ const JetBackupCard = {
   render(jet, helpers) {
     const out = document.createDocumentFragment();
     const append = (node) => {
-      if (node instanceof Node) out.appendChild(node);
-      else console.error('JetBackup card helper did not return a DOM node.');
+      if (helpers.ui.append(out, node)) return;
+      console.error('JetBackup card helper did not return a DOM node.');
     };
     if (jet.backups?.length) {
       append(

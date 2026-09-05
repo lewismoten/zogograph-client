@@ -22,8 +22,12 @@ foreach ($cardFiles as $cardFile) {
     $isPackageCard = str_contains($cardFile, '/packages/');
     if ($isPackageCard) {
         i18nExpect(
-            !preg_match('/window\\.Zogograph[A-Za-z0-9]+Card\\s*=/', (string) $cardSource),
-            basename($cardFile) . ' reintroduces a feature-specific card global',
+            !preg_match(
+                '/window\\.Zogograph[A-Za-z0-9]+Card\\s*=/',
+                (string) $cardSource,
+            ),
+            basename($cardFile) .
+                ' reintroduces a feature-specific card global',
         );
     }
     $cardCatalogKeys = [];
@@ -2406,6 +2410,8 @@ i18nExpect(
         ) &&
         str_contains($cardKit, 'node.dataset.package = packageId') &&
         str_contains($cardKit, 'node.dataset.card = cardId') &&
+        str_contains($cardKit, 'function append(container, node)') &&
+        str_contains($cardKit, 'container.appendChild(node)') &&
         $page !== false &&
         !str_contains($page, 'id="uptimeTracks"') &&
         !str_contains($page, 'id="uptimeBody"') &&

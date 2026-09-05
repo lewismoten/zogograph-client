@@ -1,0 +1,9 @@
+{
+  "core-backup-content-details.reading_last_walk": "جارٍ قراءة آخر فحص…",
+  "core-backup-content-details.unattributed_help": "تعذّر ربط بعض هذه البيانات بحساب. لم يحمل أي شيء تحت جذر النسخ الاحتياطية اسمًا يطابق دليلاً في ‎/home، ولم تكن سجلات JetBackup نفسها قابلة للقراءة؛ لذا يُبلّغ عنه كغير منسوب بدل إسناده إلى الحساب الوحيد على الجهاز، لأن ذلك سيكون تخمينًا.",
+  "core-backup-content-details.inferred_accounts_help": "حسابات استُنتجت من أسماء الأدلة تحت جذر النسخ الاحتياطية — لم تكن بيانات JetBackup الوصفية قابلة للقراءة، لذا فهي تخمين معقول وليست سجلاته.",
+  "core-backup-content-details.unmeasured_entries_help": "تعذّر قياس {{count}} من الإدخالات هنا قبل انتهاء وقت الفحص. وهي مدرجة بلا حجم بدل حذفها. زد host.walk_seconds وشغّله مجددًا للحصول على رقم كامل.",
+  "core-backup-content-details.at_least": "على الأقل {{size}}",
+  "core-backup-content-details.inside_path": "داخل {{path}}",
+  "core-backup-content-details.other_help": "مجلدات تبدو كنسخ احتياطية لكن لا يديرها شيء: ملف tar.gz أُنشئ قبل ترقية أو نسخة مؤرخة من موقع أو تفريغ قاعدة بيانات. لا شيء يدوّرها، لذا غالبًا ما تكون أقدم الأشياء الكبيرة على القرص. كلمة محتملة مهمة: كل منها تخمين من الاسم والشكل ويستحق المراجعة قبل الإجراء."
+}

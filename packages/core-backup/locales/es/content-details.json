@@ -1,0 +1,9 @@
+{
+  "core-backup-content-details.reading_last_walk": "Leyendo el último recorrido…",
+  "core-backup-content-details.unattributed_help": "Parte de esto no se pudo vincular a una cuenta. Nada bajo la raíz de las copias de seguridad tenía un nombre que coincidiera con un directorio en /home, y los propios registros de JetBackup no se podían leer; por eso se informa como sin atribuir, en vez de asignarlo a la única cuenta de la máquina, lo cual sería una suposición.",
+  "core-backup-content-details.inferred_accounts_help": "Cuentas inferidas de los nombres de directorios bajo la raíz de las copias de seguridad: los metadatos de JetBackup no se podían leer, por lo que son una suposición razonable y no sus registros.",
+  "core-backup-content-details.unmeasured_entries_help": "No se pudieron medir {{count}} entradas aquí antes de que se agotara el tiempo del recorrido. Se muestran sin tamaño en vez de omitirse. Aumente host.walk_seconds y ejecútelo de nuevo para obtener una cifra completa.",
+  "core-backup-content-details.at_least": "al menos {{size}}",
+  "core-backup-content-details.inside_path": "Dentro de {{path}}",
+  "core-backup-content-details.other_help": "Directorios que parecen copias de seguridad pero que no gestiona nada: un tar.gz creado antes de una actualización, una copia fechada de un sitio o un volcado de base de datos. No se rotan, por lo que suelen ser lo más antiguo y grande del disco. Probable es la palabra clave: cada uno es una conjetura basada en su nombre y forma, y conviene revisarlo antes de actuar."
+}

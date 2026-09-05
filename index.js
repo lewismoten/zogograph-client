@@ -37607,7 +37607,7 @@ function backupActionGuidanceText(key, values = {}) {
 
 function backupContentDetailsText(key, values = {}) {
   return renderCoreCardPackage(
-    ZogographBackupContentDetailsCard,
+    Zogograph.cards.get('core-backup-content-details'),
     'core-backup-content-details',
     { key, values },
     { i18n: ZogographI18n },

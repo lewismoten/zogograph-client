@@ -1,0 +1,9 @@
+{
+  "core-backup-content-details.reading_last_walk": "正在读取上一次扫描…",
+  "core-backup-content-details.unattributed_help": "其中一部分无法关联到某个账户。备份根目录下没有名称与 /home 中目录相匹配的内容，JetBackup 自己的记录也无法读取；因此它被报告为未归属，而不是归给机器上的唯一账户，因为那会是猜测。",
+  "core-backup-content-details.inferred_accounts_help": "根据备份根目录下的目录名称推断账户——JetBackup 自己的元数据无法读取，因此这些是合理的推断，而不是它的记录。",
+  "core-backup-content-details.unmeasured_entries_help": "扫描超时前，此处有 {{count}} 个条目无法测量。它们以无大小的形式列出，而非被省略。请提高 host.walk_seconds 并再次运行以获取完整数值。",
+  "core-backup-content-details.at_least": "至少 {{size}}",
+  "core-backup-content-details.inside_path": "{{path}} 内",
+  "core-backup-content-details.other_help": "看起来像备份、但没有任何管理程序处理的目录：升级前创建的 tar.gz、带日期的网站副本或数据库转储。没有任何机制轮换它们，因此它们常是磁盘上最老的大型内容。可能是关键词：每项都只是根据名称和形状做出的猜测，操作前值得检查。"
+}

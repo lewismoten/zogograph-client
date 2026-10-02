@@ -1,5 +1,7 @@
 # Isolated package runtime design
 
+> [Project README](../README.md) · [Documentation](README.md) · [Notes](../notes/README.md)
+
 Executable packages are an optional upgrade. Zogograph never loads a package
 entry point in the dashboard, cron, setup, or API PHP process. A signed package
 is only a reviewed registry record until an operator deploys a separate runtime
@@ -140,7 +142,7 @@ envelope/unwrap execution authority. Packages that require that capability
 cannot be enabled, opened for private storage, or used to make live encryption
 or remote-custody recovery claims.
 
-[`PROVIDER_RPC_PLAN.md`](PROVIDER_RPC_PLAN.md) records the signed operation
+[`Provider RPC plan`](../notes/PROVIDER_RPC_PLAN.md) records the signed operation
 set, data boundary, deployment decision, and safe rollout order for the next
 implementation step. The container template keeps standard input open for a
 single bounded JSON request; feed only the core-generated request through that

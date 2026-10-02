@@ -1,5 +1,7 @@
 # Zogograph completion plan
 
+> [Project README](../README.md) · [Documentation](../docs/README.md) · [Notes](README.md)
+
 This is the working implementation plan for the Zogograph product-completion
 directive. It is deliberately a living delivery record, not a statement that
 the product is complete.
@@ -42,7 +44,8 @@ the product is complete.
       core has opt-in local sealed-copy primitives and setup choices, but the
       executable package runtime, restore/retention workflow, fleet custody, and
       live encrypted SQLite support remain incomplete. See
-      `ENCRYPTION_AND_FLEET_PLAN.md` and `ENCRYPTION_REVIEW.md`.
+      [encryption and fleet plan](ENCRYPTION_AND_FLEET_PLAN.md) and
+      [encryption review](ENCRYPTION_REVIEW.md).
 - [ ] Complete browser editor safety/recovery workflow.
 - [ ] Authentication recovery, MFA, OIDC verification, commercial entitlement,
       hosted-service boundary, and release/update workflow verification.
@@ -198,7 +201,7 @@ New and rotated remote delivery credentials are short-lived pairing
 credentials: they expire after 24 hours unless the first valid signed delivery
 activates them. Existing peer credentials remain compatible.
 
-`SECURITY.md` now documents private vulnerability reporting, safe evidence
+[Security policy](../docs/SECURITY.md) now documents private vulnerability reporting, safe evidence
 handling, and containment expectations. The self-hosted contact is configurable
 as `security.contact` rather than inventing a public address.
 
@@ -319,7 +322,7 @@ honors the same disposition while the unread badge continues to count evidence.
 
 Release artifacts now include a dependency-free CycloneDX SBOM and third-party
 inventory, with a machine-checkable test. Commercial source-visible license
-text remains deliberately blocked on legal-owner approval; `LICENSE-STATUS.md`
+text remains deliberately blocked on legal-owner approval; [license status](../docs/LICENSE-STATUS.md)
 records the exact decision required rather than falsely claiming a license.
 
 New audit records now retain a structured authenticated actor alongside their

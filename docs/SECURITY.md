@@ -1,5 +1,7 @@
 # Security policy
 
+> [Project README](../README.md) · [Documentation](README.md) · [Notes](../notes/README.md)
+
 ## Reporting a vulnerability
 
 Do not open a public issue for a suspected vulnerability, exposed credential,
@@ -23,4 +25,4 @@ provider keys when they may have been exposed.
 
 Security-sensitive changes should have server-side authorization, CSRF or
 request authentication as appropriate, audit evidence without secrets, and a
-repeatable local check under `tests/`. See `README.md` for the current checks.
+repeatable local check under `tests/`. See the [project README](../README.md) for the current checks.

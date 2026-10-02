@@ -1,5 +1,7 @@
 # Remote custody artifact contract
 
+> [Project README](../README.md) · [Documentation](README.md) · [Notes](../notes/README.md)
+
 This contract defines the next implementation step after enrolled-client
 readiness. It preserves Zogograph’s low-cost local recovery path while allowing
 an optional remote custody provider to add a separate recovery envelope.

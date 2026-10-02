@@ -1,5 +1,7 @@
 # Encryption and fleet custody plan
 
+> [Project README](../README.md) · [Documentation](../docs/README.md) · [Notes](README.md)
+
 ## Status
 
 This is a product and implementation plan. The client can create opt-in,
@@ -14,7 +16,7 @@ For the deployment, branding, customer-choice, and launch-policy decisions
 that sit above this implementation plan, see
 [`../DIRECTION.md`](../DIRECTION.md).
 The additive local-plus-remote envelope format and release gate are specified
-in [CUSTODY_ARTIFACT_CONTRACT.md](CUSTODY_ARTIFACT_CONTRACT.md).
+in the [remote custody artifact contract](../docs/CUSTODY_ARTIFACT_CONTRACT.md).
 
 ## Goal and threat boundary
 
@@ -263,7 +265,7 @@ dependency of local encryption.
    declare live database encryption until WAL, backup, migration, crash
    recovery, and performance guards pass.
 7. Add optional provider and storage packages only after the stable interfaces
-   are tested. See `ENCRYPTION_REVIEW.md` for the defaults and later decisions.
+   are tested. See the [encryption review](ENCRYPTION_REVIEW.md) for the defaults and later decisions.
 
 Every stage needs tests proving that a ciphertext-only copy cannot be read with
 no key, that tampering is detected, that keys never appear in logs/exported

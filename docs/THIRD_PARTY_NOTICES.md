@@ -1,5 +1,7 @@
 # Third-party notices
 
+> [Project README](../README.md) · [Documentation](README.md) · [Notes](../notes/README.md)
+
 HostScope currently ships without Composer, npm, or vendored runtime
 dependencies. Its dashboard uses browser platform APIs and its server uses PHP
 and SQLite supplied by the deployment host.

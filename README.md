@@ -1,5 +1,9 @@
 # Zogograph
 
+![Zogograph dashboard social preview](docs/social-preview.jpg)
+
+[Documentation](docs/README.md) · [Project notes](notes/README.md) · [Changelog](CHANGELOG.md)
+
 A PHP collector and static dashboard for Zogograph: server observation,
 monitoring, diagnostics, and operations. It watches a home directory and tells
 you before it fills up.
@@ -16,7 +20,7 @@ is `https://demo.zogograph.com/`. Copy `.env.example` only for deployment
 settings—runtime configuration remains in the protected setup process.
 
 For a disposable deployed environment, use
-[`INTEGRATION_VALIDATION.md`](INTEGRATION_VALIDATION.md) to verify replacement
+[`Integration validation`](docs/INTEGRATION_VALIDATION.md) to verify replacement
 build notices, OIDC, TOTP recovery codes, and each supported transfer method.
 
 ## Files
@@ -39,10 +43,11 @@ build notices, OIDC, TOTP recovery codes, and each supported transfer method.
 ## Release artifacts
 
 `SBOM.cdx.json` is the committed CycloneDX inventory for this dependency-free
-source release, and `THIRD_PARTY_NOTICES.md` records the corresponding
-dependency and attribution status. `SECURITY.md` explains private vulnerability
-reporting. See `LICENSE-STATUS.md` for the required legal review before a
-commercial distribution license is claimed.
+source release, and [third-party notices](docs/THIRD_PARTY_NOTICES.md) record
+the corresponding dependency and attribution status. The
+[security policy](docs/SECURITY.md) explains private vulnerability reporting.
+See [license status](docs/LICENSE-STATUS.md) for the required legal review
+before a commercial distribution license is claimed.
 
 ## What it records
 
@@ -1798,7 +1803,7 @@ the right status code.
 
 ## Security
 
-See [SECURITY.md](SECURITY.md) for the vulnerability-reporting procedure. Set
+See the [security policy](docs/SECURITY.md) for the vulnerability-reporting procedure. Set
 `security.contact` in `lib/config.php` to the installation owner's private
 security inbox or ticket destination; it is intentionally not exposed to
 signed-out visitors.

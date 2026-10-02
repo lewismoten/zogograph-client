@@ -47,7 +47,7 @@ try {
     $storeRestore = file_get_contents(
         __DIR__ . '/../scripts/restore-store.php',
     );
-    $setupGuide = file_get_contents(__DIR__ . '/../SETUP.md');
+    $setupGuide = file_get_contents(__DIR__ . '/../docs/SETUP.md');
     $setupPage = file_get_contents(__DIR__ . '/../setup.php');
     encryptionExpect(
         $api !== false &&

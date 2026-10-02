@@ -1,5 +1,7 @@
 # API wire contract
 
+> [Project README](../README.md) · [Documentation](README.md) · [Notes](../notes/README.md)
+
 `api.php` is a same-origin JSON API. Its current contract version is **1.0**,
 sent in `X-HostScope-API-Version`. Additive fields are compatible; changing a
 field's meaning, unit, or type requires a new major version and a client

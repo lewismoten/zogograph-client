@@ -1,5 +1,7 @@
 # Setup extensibility contract
 
+> [Project README](../README.md) · [Documentation](README.md) · [Notes](../notes/README.md)
+
 `setup.php` is the administrator configuration surface, not a dashboard view.
 Core and marketplace features may contribute panels only through the Setup
 panel registry. Today a panel declares a validated id, title, kind, search

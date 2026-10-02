@@ -1,5 +1,7 @@
 # Encryption decisions adopted now
 
+> [Project README](../README.md) · [Documentation](../docs/README.md) · [Notes](README.md)
+
 This is the short, decision-oriented companion to the implementation plan and
 the later-review checklist. It records the recommended direction for the first
 customer deployments; it is not a claim that every future package is active.
@@ -46,7 +48,7 @@ imply that its proposed protection is active. A deployment-attested sandbox may
 run only signed no-secret probes—such as SQLCipher's disposable preflight or
 custody's credential-free endpoint identity check—and records bounded evidence.
 The sandboxed worker and staged RPC operations are specified in
-[PROVIDER_RPC_PLAN.md](PROVIDER_RPC_PLAN.md).
+[Provider RPC plan](PROVIDER_RPC_PLAN.md).
 
 The Package runtime page also performs a core-owned platform check. It reports
 missing PHP extensions, an unavailable SQLCipher PDO driver, or the absent
@@ -94,6 +96,6 @@ public domain. Record the responsible operator, exact package/image version,
 recovery-drill result, and next review date in administration settings.
 
 For detailed rationale and release gates, see
-[ENCRYPTION_REVIEW.md](ENCRYPTION_REVIEW.md) and
-[ENCRYPTION_AND_FLEET_PLAN.md](ENCRYPTION_AND_FLEET_PLAN.md), plus the
-[PROVIDER_RPC_PLAN.md](PROVIDER_RPC_PLAN.md) invocation contract.
+[Encryption review](ENCRYPTION_REVIEW.md) and the
+[encryption and fleet plan](ENCRYPTION_AND_FLEET_PLAN.md), plus the
+[provider RPC plan](PROVIDER_RPC_PLAN.md) invocation contract.

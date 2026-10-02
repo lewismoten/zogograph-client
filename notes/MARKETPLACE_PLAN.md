@@ -1,5 +1,7 @@
 # Zogograph marketplace plan
 
+> [Project README](../README.md) · [Documentation](../docs/README.md) · [Notes](README.md)
+
 ## Scope
 
 Zogograph’s marketplace is a catalog of optional, locally installed extension

@@ -1,5 +1,7 @@
 # Client plugin and card modularity checklist
 
+> [Project README](../README.md) · [Documentation](../docs/README.md) · [Notes](README.md)
+
 ## Outcome
 
 Make dashboard and Setup features modular without treating bundled code as a

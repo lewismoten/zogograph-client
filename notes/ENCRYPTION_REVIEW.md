@@ -1,11 +1,13 @@
 # Encryption decisions to review later
 
+> [Project README](../README.md) · [Documentation](../docs/README.md) · [Notes](README.md)
+
 This is the operator/product-owner checklist for encryption. It separates
 decisions that Zogograph can safely default from decisions that must remain
 changeable in the website and database-backed settings.
 
 The adopted first-release choices and exact future change locations are kept
-in [ENCRYPTION_DECISIONS.md](ENCRYPTION_DECISIONS.md).
+in the [encryption decisions](ENCRYPTION_DECISIONS.md).
 
 ## Current safe defaults
 

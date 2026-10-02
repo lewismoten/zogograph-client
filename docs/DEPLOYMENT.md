@@ -1,5 +1,7 @@
 # Continuous deployment
 
+> [Project README](../README.md) · [Documentation](README.md) · [Notes](../notes/README.md)
+
 The Forgejo workflows in `.forgejo/workflows/` deploy this application with
 `rsync`, without replacing the live configuration or SQLite stores. They are
 safe for the existing installation after the following Forgejo settings exist.

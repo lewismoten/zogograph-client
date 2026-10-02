@@ -73,7 +73,7 @@ JavaScript, CSS, route handlers, or a renderer through this field.
 These packages are intentionally unavailable until the isolated runtime can
 enforce their capabilities, settings/secret boundaries, and audit trail.
 The deployment and JSON-RPC boundary for that runtime is specified in
-[`ISOLATED_RUNTIME.md`](../ISOLATED_RUNTIME.md). It deliberately requires a
+[`Isolated runtime design`](../docs/ISOLATED_RUNTIME.md). It deliberately requires a
 real OS/container sandbox; PHP-only restrictions are not considered execution
 isolation.
 

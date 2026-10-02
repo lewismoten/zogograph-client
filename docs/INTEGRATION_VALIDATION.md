@@ -1,5 +1,7 @@
 # Deployed validation checklist
 
+> [Project README](../README.md) · [Documentation](README.md) · [Notes](../notes/README.md)
+
 Run this only against a disposable HTTPS deployment with independent test
 accounts and transfer credentials. Do not place production passwords, private
 keys, recovery codes, or customer databases in a release tree or test log.

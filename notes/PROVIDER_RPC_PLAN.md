@@ -1,5 +1,7 @@
 # Isolated provider RPC plan
 
+> [Project README](../README.md) · [Documentation](../docs/README.md) · [Notes](README.md)
+
 This is the next implementation boundary after the sandboxed, no-secret
 `capability` probe. It is intentionally separate from package installation and
 capability grants. A signed package is not allowed to choose an RPC operation

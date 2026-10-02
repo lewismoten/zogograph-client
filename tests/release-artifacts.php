@@ -22,7 +22,7 @@ releaseExpect(
     'SBOM does not describe the dependency-free HostScope release',
 );
 foreach (
-    ['THIRD_PARTY_NOTICES.md', 'LICENSE-STATUS.md', 'SECURITY.md']
+    ['docs/THIRD_PARTY_NOTICES.md', 'docs/LICENSE-STATUS.md', 'docs/SECURITY.md']
     as $file
 ) {
     releaseExpect(

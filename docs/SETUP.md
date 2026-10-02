@@ -1,5 +1,7 @@
 # Set up Zogograph
 
+> [Project README](../README.md) · [Documentation](README.md) · [Notes](../notes/README.md)
+
 Zogograph is a dependency-free PHP site. You need a PHP-capable web host, a
 scheduled-task facility, and access to the account whose home directory you
 want to monitor. No Composer, Node.js, or external database server is needed.
@@ -161,7 +163,7 @@ instead of presenting an invented "load excluding monitoring" number.
   sensitive configuration state.
 
 For operational behavior, alerts, upgrades, and recovery, see the detailed
-reference in [README.md](README.md).
+reference in the [project README](../README.md).
 
 ## Optional: encrypted database copies
 
@@ -193,9 +195,9 @@ protection. Keep encryption off if the owner cannot retain and test a recovery
 key; encryption without a usable recovery path can permanently lose data.
 
 For the product-owner reasons behind these defaults and the settings that must
-remain database-configurable, see [ENCRYPTION_DECISIONS.md](ENCRYPTION_DECISIONS.md).
+remain database-configurable, see the [encryption decisions](../notes/ENCRYPTION_DECISIONS.md).
 For the decisions to record before enabling advanced packages, see
-[ENCRYPTION_REVIEW.md](ENCRYPTION_REVIEW.md).
+[Encryption review notes](../notes/ENCRYPTION_REVIEW.md).
 
 Create a 256-bit local key outside the document root, then keep an offline
 recovery copy. The setup page has **Create a local encryption key** for this
@@ -312,7 +314,7 @@ host/VM volume protection: Zogograph cannot verify a host encryption claim.
 
 The key is never kept in Zogograph configuration or its databases. A lost key
 cannot be recovered from a sealed copy. See
-[ENCRYPTION_AND_FLEET_PLAN.md](ENCRYPTION_AND_FLEET_PLAN.md) for the current
+[Encryption and fleet plan](../notes/ENCRYPTION_AND_FLEET_PLAN.md) for the current
 scope, limitations, rotation design, and planned self-managed fleet custody.
 
 Optional remote custody is off by default. The separate key-custody service

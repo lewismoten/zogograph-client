@@ -17,12 +17,27 @@ releaseExpect(
     'SBOM is not valid CycloneDX 1.5 metadata',
 );
 releaseExpect(
-    ($bom['metadata']['component']['name'] ?? '') === 'HostScope' &&
+    ($bom['metadata']['component']['name'] ?? '') === 'Zogograph' &&
         ($bom['components'] ?? null) === [],
-    'SBOM does not describe the dependency-free HostScope release',
+    'SBOM does not describe the dependency-free Zogograph release',
+);
+releaseExpect(
+    is_file($root . '/LICENSE') &&
+        str_contains(
+            (string) file_get_contents($root . '/LICENSE'),
+            'FSL-1.1-Apache-2.0',
+        ) &&
+        ($bom['metadata']['component']['licenses'][0]['license']['id'] ??
+            null) ===
+            'FSL-1.1-Apache-2.0',
+    'release license metadata is incomplete',
 );
 foreach (
-    ['docs/THIRD_PARTY_NOTICES.md', 'docs/LICENSE-STATUS.md', 'docs/SECURITY.md']
+    [
+        'docs/THIRD_PARTY_NOTICES.md',
+        'docs/LICENSE-STATUS.md',
+        'docs/SECURITY.md',
+    ]
     as $file
 ) {
     releaseExpect(
@@ -64,7 +79,7 @@ releaseExpect(
     'release workflow no longer creates and verifies the public build metadata required for update notices',
 );
 releaseExpect(
-        is_string($workflow) &&
+    is_string($workflow) &&
         str_contains($workflow, 'release=zogograph-release') &&
         str_contains($workflow, 'Assemble deployment release') &&
         !str_contains($workflow, 'download-artifact@v3') &&
@@ -99,10 +114,7 @@ releaseExpect(
             $restoreWorkflow,
             'DEPLOY_PATH: ${{ matrix.deploy_path }}',
         ) &&
-        str_contains(
-            $workflow,
-            'snapshot_site:',
-        ) &&
+        str_contains($workflow, 'snapshot_site:') &&
         str_contains($workflow, 'snapshot_databases:') &&
         str_contains($workflow, 'needs: [build, snapshot_databases]') &&
         str_contains(
@@ -126,7 +138,10 @@ releaseExpect(
         str_contains($snapshotRunner, 'snapshot_phase 1m prepare') &&
         str_contains($snapshotRunner, 'snapshot_phase 1m baseline') &&
         str_contains($snapshotRunner, 'snapshot_phase 1m site') &&
-        str_contains($snapshotRunner, 'snapshot_phase 2m database data/host.db') &&
+        str_contains(
+            $snapshotRunner,
+            'snapshot_phase 2m database data/host.db',
+        ) &&
         str_contains($snapshotRunner, 'snapshot_phase 1m finalize') &&
         str_contains($snapshotRunner, ' discard; rm -f') &&
         str_contains(

@@ -107,7 +107,8 @@ require_once __DIR__ . '/lib/configure.php';
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store');
 header('X-Content-Type-Options: nosniff');
-header('X-HostScope-API-Version: 1.0');
+header('X-Zogograph-API-Version: 1.0');
+header('X-HostScope-API-Version: 1.0'); // Legacy client compatibility.
 
 startSession($config);
 

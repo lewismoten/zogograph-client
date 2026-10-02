@@ -10,7 +10,7 @@
     "type": "git",
     "url": "https://git.lewismoten.com/zogograph/client.git"
   },
-  "license": "UNLICENSED",
+  "license": "FSL-1.1-Apache-2.0",
   "author": "Lewis Moten",
   "type": "module",
   "main": "index.js",

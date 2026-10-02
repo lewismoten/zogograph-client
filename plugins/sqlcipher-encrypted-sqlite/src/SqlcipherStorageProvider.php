@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace HostScope\Plugin\SqlcipherEncryptedSqlite;
+namespace Zogograph\Plugin\SqlcipherEncryptedSqlite;
 
 /** SQLCipher adapter. The isolated runtime decides whether it may invoke this
  * class; this class itself never falls back to ordinary SQLite. */
@@ -35,7 +35,7 @@ final class SqlcipherStorageProvider
                 'id' => 'sqlcipher-encrypted-sqlite',
                 'state' => 'unavailable',
                 'reason' =>
-                    'The active PDO SQLite driver is not SQLCipher-capable. HostScope will not use plaintext SQLite as a substitute.',
+                    'The active PDO SQLite driver is not SQLCipher-capable. Zogograph will not use plaintext SQLite as a substitute.',
             ];
         }
         return [
@@ -50,7 +50,7 @@ final class SqlcipherStorageProvider
     public function activate(): never
     {
         throw new \RuntimeException(
-            'The isolated HostScope package runtime is not installed. SQLCipher activation remains unavailable.',
+            'The isolated Zogograph package runtime is not installed. SQLCipher activation remains unavailable.',
         );
     }
 

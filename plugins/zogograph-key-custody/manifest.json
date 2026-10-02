@@ -1,10 +1,10 @@
 {
   "id": "zogograph-key-custody",
   "version": "0.1.1",
-  "name": "HostScope remote key custody",
-  "publisher": "HostScope",
-  "summary": "Optional client for the HostScope key-custody service using signed enrolled-client authentication and registered-envelope authorization.",
-  "license": "Proprietary preview",
+  "name": "Zogograph remote key custody",
+  "publisher": "Zogograph",
+  "summary": "Optional client for the Zogograph key-custody service using signed enrolled-client authentication and registered-envelope authorization.",
+  "license": "FSL-1.1-Apache-2.0",
   "capabilities": [
     "key_provider",
     "network_client",
@@ -13,7 +13,7 @@
   "runtime": {
     "kind": "zogograph-isolated-php-package",
     "entrypoint": "src/KeyCustodyProvider.php",
-    "provider_class": "HostScope\\Plugin\\KeyCustody\\KeyCustodyProvider",
+    "provider_class": "Zogograph\\Plugin\\KeyCustody\\KeyCustodyProvider",
     "operations": [
       "capability",
       "custody_endpoint_probe",
@@ -43,15 +43,15 @@
   "integrity": {
     "algorithm": "sha256",
     "files": {
-      "README.md": "d423ab75d3a925840b77a36d36490044d4cd44700e23a8f1d85ebf40b5ab45cd",
+      "README.md": "aefb7724c2678d1feed0cc3fd78ed722814c1b58c556b65730649c7abab31240",
       "locales/ar.json": "b08d151ad903b7206b1a2103ca6ce3fad2eb72a59e7e431262471216bb3a9b22",
       "locales/en.json": "bf88d8f10b538f990cd283293d17bec9337233390f37eb78c45da35f04cac4e3",
       "locales/es.json": "245c83acddd70474d2ca7bf48803f89ced0e0ed690cff255e624052c6c97b024",
       "locales/hi.json": "ab8bc9f278c9ecda634ac6988068cdbc1386c2f9909b08df3867506a689f5847",
       "locales/zh.json": "11b250b9295d68548ce7650c1023dd453a378a52c0d576d5c9dc67238131a0e1",
-      "settings.schema.json": "24826d3bd3ae7437affe957ec4d851302f7f1c9ce32221557207834265d6760c",
-      "src/KeyCustodyProvider.php": "7b94a547b5bc8ba99828ef683fcd19a24383a36e4bc6f7f75920bfbd7dafe347",
-      "src/KeyCustodyHttpClient.php": "bfd7e7af78816ddc13508baca3aeffdcc5a4dea20fff4c3702d37171019c2195"
+      "settings.schema.json": "25b49f23bfd36aa4bd5234b151f1e9493b5293bdf02dd4df089e012330e9f49a",
+      "src/KeyCustodyProvider.php": "c1d16b84d5bebd352e77ca9fda8afa61bee838091f19eea1184c1af18a42b75f",
+      "src/KeyCustodyHttpClient.php": "eb7495722b60ac65be6460068b87790d35e7e97367de32dc5822b16da6a14e83"
     }
   },
   "state": "design-preview"

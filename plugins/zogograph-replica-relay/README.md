@@ -1,7 +1,7 @@
-# HostScope ciphertext replica relay package
+# Zogograph ciphertext replica relay package
 
 This optional package sends only already-sealed artifact ciphertext to the
-separate HostScope replica relay. It is disabled by default and is not a
+separate Zogograph replica relay. It is disabled by default and is not a
 requirement for local sealed copies, local recovery keys, or key custody.
 
 Settings require an HTTPS relay base URL, the opaque tenant identifier, and

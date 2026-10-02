@@ -1,4 +1,4 @@
-# HostScope remote key-custody package
+# Zogograph remote key-custody package
 
 This optional package connects a client deployment to the commercial
 key-custody API. It is disabled by default and is not a requirement for local
@@ -21,7 +21,7 @@ a request.
 
 For `service_base_url`, use either the service root such as
 `https://custody.example/services/key-custody` or the copied API root ending in
-`/v1`. HostScope normalizes either form to the versioned API exactly once. Do
+`/v1`. Zogograph normalizes either form to the versioned API exactly once. Do
 not add endpoint names such as `/health`, credentials, query text, or fragments.
 
 Save the endpoint, tenant identifier, and zero-second cache preference first,
@@ -32,7 +32,7 @@ create package-scoped secret references for the enrolled-client bearer and
 signing key. A successful probe is not enrollment, a package activation, or a
 proof that a live database can be recovered.
 
-HostScope requires a successful endpoint result less than 24 hours old before
+Zogograph requires a successful endpoint result less than 24 hours old before
 it accepts either enrollment reference. Save only opaque `secret_ref:` values;
 the raw bearer and private signing key never belong in normal package settings.
 Changing the service URL or TLS pin clears that endpoint evidence and requires
@@ -42,7 +42,7 @@ The next staged operation is an explicitly approved, short-lived
 `custody_enrollment_check`. It sends the enrolled-client pair only to signed
 `GET /v1/client/subscription` request handling and returns whether a future
 envelope write is allowed. It cannot create a key or envelope, request an
-unwrap, or receive a HostScope database path. Core will expose it only after a
+unwrap, or receive a Zogograph database path. Core will expose it only after a
 deployment has configured a reviewed network-restricted sandbox launcher and
 the administrator has granted both `key_provider` and `network_client`.
 

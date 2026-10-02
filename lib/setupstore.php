@@ -334,8 +334,14 @@ function saveConfiguredSettings(
 }
 
 /** Derive a distinct key so configuration encryption cannot be confused with a sealed artifact. */
-function setupStoreConfigKey(string $path, string $webRoot): string
-{
+const SETUP_STORE_CONFIG_CONTEXT = 'Zogograph setup configuration v2';
+const LEGACY_SETUP_STORE_CONFIG_CONTEXT = 'HostScope setup configuration v1';
+
+function setupStoreConfigKey(
+    string $path,
+    string $webRoot,
+    string $context = SETUP_STORE_CONFIG_CONTEXT,
+): string {
     if (!encryptionAvailable()) {
         throw new RuntimeException(
             'OpenSSL AES-256-GCM support is required to encrypt setup settings',
@@ -345,7 +351,7 @@ function setupStoreConfigKey(string $path, string $webRoot): string
         'sha256',
         encryptionReadLocalKey($path, $webRoot),
         32,
-        'HostScope setup configuration v1',
+        $context,
     );
     if (!is_string($key) || strlen($key) !== 32) {
         throw new RuntimeException(
@@ -369,7 +375,7 @@ function setupStoreSealConfig(
         OPENSSL_RAW_DATA,
         $nonce,
         $tag,
-        'HostScope setup configuration v1',
+        SETUP_STORE_CONFIG_CONTEXT,
         16,
     );
     if (!is_string($ciphertext) || !is_string($tag)) {
@@ -377,7 +383,7 @@ function setupStoreSealConfig(
     }
     return json_encode(
         [
-            'v' => 1,
+            'v' => 2,
             'n' => base64_encode($nonce),
             'c' => base64_encode($ciphertext),
             't' => base64_encode($tag),
@@ -390,7 +396,11 @@ function setupStoreSealConfig(
 function setupStoreOpenConfig(string $envelope, string $path): array
 {
     $data = json_decode($envelope, true, 16, JSON_THROW_ON_ERROR);
-    if (!is_array($data) || ($data['v'] ?? null) !== 1 || trim($path) === '') {
+    if (
+        !is_array($data) ||
+        !in_array($data['v'] ?? null, [1, 2], true) ||
+        trim($path) === ''
+    ) {
         throw new RuntimeException('encrypted setup settings are unavailable');
     }
     $nonce = base64_decode((string) ($data['n'] ?? ''), true);
@@ -409,11 +419,19 @@ function setupStoreOpenConfig(string $envelope, string $path): array
     $plain = openssl_decrypt(
         $ciphertext,
         'aes-256-gcm',
-        setupStoreConfigKey($path, dirname(__DIR__)),
+        setupStoreConfigKey(
+            $path,
+            dirname(__DIR__),
+            $data['v'] === 1
+                ? LEGACY_SETUP_STORE_CONFIG_CONTEXT
+                : SETUP_STORE_CONFIG_CONTEXT,
+        ),
         OPENSSL_RAW_DATA,
         $nonce,
         $tag,
-        'HostScope setup configuration v1',
+        $data['v'] === 1
+            ? LEGACY_SETUP_STORE_CONFIG_CONTEXT
+            : SETUP_STORE_CONFIG_CONTEXT,
     );
     $decoded = is_string($plain)
         ? json_decode($plain, true, 128, JSON_THROW_ON_ERROR)

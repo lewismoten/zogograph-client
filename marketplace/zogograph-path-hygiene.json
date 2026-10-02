@@ -2,9 +2,9 @@
   "id": "zogograph-path-hygiene",
   "version": "1.0.1",
   "name": "Path-name hygiene",
-  "publisher": "HostScope",
+  "publisher": "Zogograph",
   "summary": "During an existing account disk walk, records path names that can confuse scripts, terminals, or copy and paste. It is advisory and never sends notifications.",
-  "license": "Proprietary",
+  "license": "FSL-1.1-Apache-2.0",
   "capabilities": ["path_hygiene"],
   "view_contributions": [
     {

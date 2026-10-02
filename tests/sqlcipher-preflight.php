@@ -3,7 +3,7 @@ declare(strict_types=1);
 require_once __DIR__ .
     '/../plugins/sqlcipher-encrypted-sqlite/src/SqlcipherStorageProvider.php';
 
-use HostScope\Plugin\SqlcipherEncryptedSqlite\SqlcipherStorageProvider;
+use Zogograph\Plugin\SqlcipherEncryptedSqlite\SqlcipherStorageProvider;
 
 function sqlcipherPreflightExpect(bool $condition, string $message): void
 {

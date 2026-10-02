@@ -2265,7 +2265,7 @@ function packageRuntimeSecretKey(array $config): string
         'sha256',
         $master,
         32,
-        'HostScope package secret vault v1',
+        'Zogograph package secret vault v1',
     );
     if (!is_string($key) || strlen($key) !== 32) {
         throw new RuntimeException('could not derive the package secret key');

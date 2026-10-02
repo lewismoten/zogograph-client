@@ -707,7 +707,7 @@ function urlWatchCurlOnce(
         CURLOPT_PROTOCOLS => CURLPROTO_HTTP | CURLPROTO_HTTPS,
         CURLOPT_REDIR_PROTOCOLS => CURLPROTO_HTTP | CURLPROTO_HTTPS,
         CURLOPT_RESOLVE => $endpoint['resolve'],
-        CURLOPT_USERAGENT => 'HostScope/1.0 (+uptime check)',
+        CURLOPT_USERAGENT => 'Zogograph/1.0 (+uptime check)',
         CURLOPT_ENCODING => '',
         CURLOPT_HEADER => true,
         CURLOPT_SSL_VERIFYPEER => true,

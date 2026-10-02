@@ -1,4 +1,4 @@
-# HostScope
+# Zogograph
 #
 # The dashboard is deliberately readable without logging in: anyone who can
 # reach it sees sizes and trends, but every path is masked until they sign in.
@@ -111,6 +111,6 @@ DirectoryIndex index.html
 # are unmasked and whether the delete actions are offered.
 #
 # AuthType Basic
-# AuthName "HostScope"
+# AuthName "Zogograph"
 # AuthUserFile /home/USER/.stats-htpasswd
 # Require valid-user

@@ -23,7 +23,7 @@ dedicated container or operating-system service account. Mount only:
 
 Zogograph includes `scripts/package-runtime-worker.php` as the initial runner
 component. It refuses to start unless its launcher sets
-the legacy `HOSTSCOPE_PACKAGE_SANDBOX=1` compatibility marker, accepts one
+the `ZOGOGRAPH_PACKAGE_SANDBOX=1` attestation marker, accepts one
 bounded request, and does not
 receive configuration, core database handles, or package private-data paths.
 The normal probe operations receive no secrets. The marker is an operator

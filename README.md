@@ -2,7 +2,7 @@
 
 ![Zogograph dashboard social preview](docs/social-preview.jpg)
 
-[Documentation](docs/README.md) · [Project notes](notes/README.md) · [Changelog](CHANGELOG.md)
+[Documentation](docs/README.md) · [Project notes](notes/README.md) · [License](LICENSE) · [Changelog](CHANGELOG.md)
 
 A PHP collector and static dashboard for Zogograph: server observation,
 monitoring, diagnostics, and operations. It watches a home directory and tells
@@ -46,8 +46,11 @@ build notices, OIDC, TOTP recovery codes, and each supported transfer method.
 source release, and [third-party notices](docs/THIRD_PARTY_NOTICES.md) record
 the corresponding dependency and attribution status. The
 [security policy](docs/SECURITY.md) explains private vulnerability reporting.
-See [license status](docs/LICENSE-STATUS.md) for the required legal review
-before a commercial distribution license is claimed.
+Zogograph is source-available under
+[FSL-1.1-Apache-2.0](LICENSE): internal self-hosting and modification are
+permitted, while competing commercial products and services are not. Each
+released version becomes available under Apache-2.0 two years after release.
+See [license information](docs/LICENSE-STATUS.md) for a plain-language summary.
 
 ## What it records
 

@@ -10,7 +10,10 @@ if (PHP_SAPI !== 'cli') {
     http_response_code(403);
     exit("CLI-only worker.\n");
 }
-if (getenv('HOSTSCOPE_PACKAGE_SANDBOX') !== '1') {
+if (
+    getenv('ZOGOGRAPH_PACKAGE_SANDBOX') !== '1' &&
+    getenv('HOSTSCOPE_PACKAGE_SANDBOX') !== '1'
+) {
     fwrite(STDERR, "Refusing to run outside an attested package sandbox.\n");
     exit(77);
 }

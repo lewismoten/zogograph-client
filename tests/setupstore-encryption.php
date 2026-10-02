@@ -57,6 +57,44 @@ try {
             'sensitive-hash',
         'encrypted configuration could not be loaded',
     );
+    $newEnvelope = json_decode((string) $sealed, true, 16, JSON_THROW_ON_ERROR);
+    setupVaultExpect(
+        ($newEnvelope['v'] ?? null) === 2,
+        'new encrypted configuration did not use the Zogograph envelope version',
+    );
+    $legacyNonce = random_bytes(12);
+    $legacyPlain = json_encode(['legacy' => true], JSON_THROW_ON_ERROR);
+    $legacyCiphertext = openssl_encrypt(
+        $legacyPlain,
+        'aes-256-gcm',
+        setupStoreConfigKey(
+            $key,
+            $root . '/web',
+            LEGACY_SETUP_STORE_CONFIG_CONTEXT,
+        ),
+        OPENSSL_RAW_DATA,
+        $legacyNonce,
+        $legacyTag,
+        LEGACY_SETUP_STORE_CONFIG_CONTEXT,
+        16,
+    );
+    setupVaultExpect(
+        is_string($legacyCiphertext) &&
+            is_string($legacyTag) &&
+            setupStoreOpenConfig(
+                json_encode(
+                    [
+                        'v' => 1,
+                        'n' => base64_encode($legacyNonce),
+                        'c' => base64_encode($legacyCiphertext),
+                        't' => base64_encode($legacyTag),
+                    ],
+                    JSON_THROW_ON_ERROR,
+                ),
+                $key,
+            ) === ['legacy' => true],
+        'legacy encrypted configuration could not be opened',
+    );
     $protection = setupStoreConfigurationProtection($configFile);
     setupVaultExpect(
         $protection['state'] === 'ok' &&

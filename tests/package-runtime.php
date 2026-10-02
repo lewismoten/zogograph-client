@@ -380,7 +380,7 @@ try {
             [0 => ['pipe', 'r'], 1 => ['pipe', 'w'], 2 => ['pipe', 'w']],
             $pipes,
             null,
-            ['HOSTSCOPE_PACKAGE_SANDBOX' => '1'],
+            ['ZOGOGRAPH_PACKAGE_SANDBOX' => '1'],
         );
         runtimeExpect(
             is_resource($worker),
@@ -420,7 +420,7 @@ try {
             [0 => ['pipe', 'r'], 1 => ['pipe', 'w'], 2 => ['pipe', 'w']],
             $pipes,
             null,
-            ['HOSTSCOPE_PACKAGE_SANDBOX' => '1'],
+            ['ZOGOGRAPH_PACKAGE_SANDBOX' => '1'],
         );
         runtimeExpect(
             is_resource($unknown),
@@ -463,7 +463,7 @@ try {
             [0 => ['pipe', 'r'], 1 => ['pipe', 'w'], 2 => ['pipe', 'w']],
             $pipes,
             null,
-            ['HOSTSCOPE_PACKAGE_SANDBOX' => '1'],
+            ['ZOGOGRAPH_PACKAGE_SANDBOX' => '1'],
         );
         runtimeExpect(
             is_resource($sqlcipher),
@@ -653,7 +653,7 @@ try {
         $launcher = $root . '/probe-launcher.sh';
         file_put_contents(
             $launcher,
-            "#!/bin/sh\nHOSTSCOPE_PACKAGE_SANDBOX=1 exec " .
+            "#!/bin/sh\nZOGOGRAPH_PACKAGE_SANDBOX=1 exec " .
                 escapeshellarg(PHP_BINARY) .
                 ' ' .
                 escapeshellarg(
@@ -777,7 +777,8 @@ try {
                 'test-runtime.page.title' &&
             (packageRuntimeDashboardPages($pdo)[0]['parent_title'] ?? null) ===
                 'Test runtime overview' &&
-            (packageRuntimeDashboardPages($pdo)[0]['parent_title_key'] ?? null) ===
+            (packageRuntimeDashboardPages($pdo)[0]['parent_title_key'] ??
+                null) ===
                 'test-runtime.section.title',
         'enabled package dashboard page was not available through the core shell bridge',
     );

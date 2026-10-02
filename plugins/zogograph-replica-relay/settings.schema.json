@@ -1,5 +1,5 @@
 {
-  "title": "HostScope ciphertext replica relay",
+  "title": "Zogograph ciphertext replica relay",
   "type": "object",
   "additionalProperties": false,
   "required": [

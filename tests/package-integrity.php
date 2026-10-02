@@ -29,7 +29,7 @@ $manifest = [
     'name' => 'Test package',
 ];
 try {
-    $sqlcipher = new \HostScope\Plugin\SqlcipherEncryptedSqlite\SqlcipherStorageProvider();
+    $sqlcipher = new \Zogograph\Plugin\SqlcipherEncryptedSqlite\SqlcipherStorageProvider();
     $sqlcipherCapability = $sqlcipher->capability();
     packageExpect(
         $sqlcipherCapability['id'] === 'sqlcipher-encrypted-sqlite',
@@ -66,7 +66,7 @@ try {
             str_contains($sqlcipherSource, 'PRAGMA cipher_integrity_check'),
         'SQLCipher provider does not prove the opened database and supplied key',
     );
-    $custodyMetadata = \HostScope\Plugin\KeyCustody\KeyCustodyHttpClient::requestMetadata();
+    $custodyMetadata = \Zogograph\Plugin\KeyCustody\KeyCustodyHttpClient::requestMetadata();
     packageExpect(
         ctype_digit($custodyMetadata['timestamp']) &&
             preg_match('/^[A-Za-z0-9_-]{16,}$/', $custodyMetadata['nonce']) ===
@@ -75,7 +75,7 @@ try {
     );
     $custodyPair = sodium_crypto_sign_keypair();
     $custodySecret = sodium_crypto_sign_secretkey($custodyPair);
-    $custodyPayload = \HostScope\Plugin\KeyCustody\KeyCustodyHttpClient::requestPayload(
+    $custodyPayload = \Zogograph\Plugin\KeyCustody\KeyCustodyHttpClient::requestPayload(
         'POST',
         '/v1/keys/example/envelopes',
         $custodyMetadata['timestamp'],
@@ -96,7 +96,7 @@ try {
     );
     $wrappingPair = sodium_crypto_box_keypair();
     $artifactDataKey = random_bytes(32);
-    $sealedArtifactKey = \HostScope\Plugin\KeyCustody\KeyCustodyHttpClient::sealDataKey(
+    $sealedArtifactKey = \Zogograph\Plugin\KeyCustody\KeyCustodyHttpClient::sealDataKey(
         $artifactDataKey,
         sodium_crypto_box_publickey($wrappingPair),
     );
@@ -111,7 +111,7 @@ try {
         'custody adapter public-key envelope does not open with the matching custody keypair',
     );
     try {
-        new \HostScope\Plugin\KeyCustody\KeyCustodyHttpClient(
+        new \Zogograph\Plugin\KeyCustody\KeyCustodyHttpClient(
             'https://user@example.test',
             'test-token',
             base64_encode($custodySecret),
@@ -127,7 +127,7 @@ try {
         );
     }
     try {
-        new \HostScope\Plugin\KeyCustody\KeyCustodyHttpClient(
+        new \Zogograph\Plugin\KeyCustody\KeyCustodyHttpClient(
             'https://example.test',
             'tok_' . str_repeat('a', 20) . ".bad\r\nvalue",
             base64_encode($custodySecret),
@@ -143,7 +143,7 @@ try {
         );
     }
     try {
-        new \HostScope\Plugin\KeyCustody\KeyCustodyHttpClient(
+        new \Zogograph\Plugin\KeyCustody\KeyCustodyHttpClient(
             'https://example.test',
             'tok_' . str_repeat('a', 20) . '.good',
             base64_encode($custodySecret),
@@ -160,7 +160,7 @@ try {
         );
     }
     try {
-        \HostScope\Plugin\KeyCustody\KeyCustodyHttpClient::healthEndpoint(
+        \Zogograph\Plugin\KeyCustody\KeyCustodyHttpClient::healthEndpoint(
             'http://example.test',
         );
         throw new RuntimeException(
@@ -174,7 +174,7 @@ try {
         );
     }
     $custodyApiUrl = new ReflectionMethod(
-        \HostScope\Plugin\KeyCustody\KeyCustodyHttpClient::class,
+        \Zogograph\Plugin\KeyCustody\KeyCustodyHttpClient::class,
         'apiUrl',
     );
     packageExpect(
@@ -209,11 +209,11 @@ try {
             str_contains($custodySource, 'KeyCustodyRetryException') &&
             str_contains($custodySource, 'retry_after_seconds') &&
             method_exists(
-                \HostScope\Plugin\KeyCustody\KeyCustodyHttpClient::class,
+                \Zogograph\Plugin\KeyCustody\KeyCustodyHttpClient::class,
                 'health',
             ) &&
             method_exists(
-                \HostScope\Plugin\KeyCustody\KeyCustodyHttpClient::class,
+                \Zogograph\Plugin\KeyCustody\KeyCustodyHttpClient::class,
                 'healthEndpoint',
             ),
         'custody client does not enforce its secure transport defaults',
@@ -265,15 +265,15 @@ try {
                 'custody_unwrap_artifact',
             ] &&
             method_exists(
-                \HostScope\Plugin\KeyCustody\KeyCustodyProvider::class,
+                \Zogograph\Plugin\KeyCustody\KeyCustodyProvider::class,
                 'preflight',
             ) &&
             method_exists(
-                \HostScope\Plugin\KeyCustody\KeyCustodyProvider::class,
+                \Zogograph\Plugin\KeyCustody\KeyCustodyProvider::class,
                 'storeEnvelope',
             ) &&
             method_exists(
-                \HostScope\Plugin\KeyCustody\KeyCustodyProvider::class,
+                \Zogograph\Plugin\KeyCustody\KeyCustodyProvider::class,
                 'unwrapArtifact',
             ) &&
             packageVerifyIntegrity($custodyManifest, $custodyDirectory)['ok'],
@@ -339,7 +339,7 @@ try {
     $relayPair = sodium_crypto_sign_keypair();
     $relaySecret = sodium_crypto_sign_secretkey($relayPair);
     try {
-        new \HostScope\Plugin\ReplicaRelay\ReplicaRelayHttpClient(
+        new \Zogograph\Plugin\ReplicaRelay\ReplicaRelayHttpClient(
             'https://user@example.test',
             'test-token',
             base64_encode($relaySecret),
@@ -355,7 +355,7 @@ try {
         );
     }
     try {
-        new \HostScope\Plugin\ReplicaRelay\ReplicaRelayHttpClient(
+        new \Zogograph\Plugin\ReplicaRelay\ReplicaRelayHttpClient(
             'https://example.test',
             'tok_' . str_repeat('a', 20) . ".bad\r\nvalue",
             base64_encode($relaySecret),
@@ -371,7 +371,7 @@ try {
         );
     }
     try {
-        new \HostScope\Plugin\ReplicaRelay\ReplicaRelayHttpClient(
+        new \Zogograph\Plugin\ReplicaRelay\ReplicaRelayHttpClient(
             'https://example.test',
             'tok_' . str_repeat('a', 20) . '.good',
             base64_encode($relaySecret),
@@ -386,7 +386,7 @@ try {
         );
     }
     try {
-        \HostScope\Plugin\ReplicaRelay\ReplicaRelayHttpClient::healthEndpoint(
+        \Zogograph\Plugin\ReplicaRelay\ReplicaRelayHttpClient::healthEndpoint(
             'http://example.test',
         );
         throw new RuntimeException(
@@ -411,11 +411,11 @@ try {
             str_contains($relaySource, 'CURLOPT_PINNEDPUBLICKEY') &&
             str_contains($relaySource, "'/v1/health'") &&
             method_exists(
-                \HostScope\Plugin\ReplicaRelay\ReplicaRelayHttpClient::class,
+                \Zogograph\Plugin\ReplicaRelay\ReplicaRelayHttpClient::class,
                 'health',
             ) &&
             method_exists(
-                \HostScope\Plugin\ReplicaRelay\ReplicaRelayHttpClient::class,
+                \Zogograph\Plugin\ReplicaRelay\ReplicaRelayHttpClient::class,
                 'healthEndpoint',
             ),
         'relay client does not stream ciphertext with secure transport defaults',

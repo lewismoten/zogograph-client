@@ -7,12 +7,13 @@
     "timestamp": "2026-08-26T00:00:00Z",
     "component": {
       "type": "application",
-      "name": "HostScope",
+      "name": "Zogograph",
       "version": "unreleased",
-      "description": "Self-hosted PHP and SQLite server diagnostics platform"
+      "description": "Self-hosted PHP and SQLite server diagnostics platform",
+      "licenses": [{ "license": { "id": "FSL-1.1-Apache-2.0" } }]
     },
     "tools": [
-      { "vendor": "HostScope", "name": "repository inventory", "version": "1" }
+      { "vendor": "Zogograph", "name": "repository inventory", "version": "1" }
     ]
   },
   "components": [],

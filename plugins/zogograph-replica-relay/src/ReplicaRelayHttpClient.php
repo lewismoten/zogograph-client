@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace HostScope\Plugin\ReplicaRelay;
+namespace Zogograph\Plugin\ReplicaRelay;
 
 /** Signed ciphertext-only transport. It cannot send a key or plaintext store. */
 final class ReplicaRelayHttpClient
@@ -181,9 +181,9 @@ final class ReplicaRelayHttpClient
                     CURLOPT_SSL_VERIFYHOST => 2,
                     CURLOPT_HTTPHEADER => [
                         'Authorization: Bearer ' . $this->clientToken,
-                        'X-HostScope-Timestamp: ' . $timestamp,
-                        'X-HostScope-Nonce: ' . $nonce,
-                        'X-HostScope-Signature: ' . $signature,
+                        'X-Zogograph-Timestamp: ' . $timestamp,
+                        'X-Zogograph-Nonce: ' . $nonce,
+                        'X-Zogograph-Signature: ' . $signature,
                     ],
                 ]),
             );
@@ -263,10 +263,10 @@ final class ReplicaRelayHttpClient
                     CURLOPT_HTTPHEADER => [
                         'Authorization: Bearer ' . $this->clientToken,
                         'Content-Type: application/octet-stream',
-                        'X-HostScope-Ciphertext-SHA256: ' . $digest,
-                        'X-HostScope-Timestamp: ' . $timestamp,
-                        'X-HostScope-Nonce: ' . $nonce,
-                        'X-HostScope-Signature: ' . $signature,
+                        'X-Zogograph-Ciphertext-SHA256: ' . $digest,
+                        'X-Zogograph-Timestamp: ' . $timestamp,
+                        'X-Zogograph-Nonce: ' . $nonce,
+                        'X-Zogograph-Signature: ' . $signature,
                     ],
                 ]),
             );

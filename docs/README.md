@@ -20,5 +20,5 @@ Use the project README for the product overview, local development, and operatio
 ## Policies and release information
 
 - [Security policy](SECURITY.md)
-- [License status](LICENSE-STATUS.md)
+- [License information](LICENSE-STATUS.md)
 - [Third-party notices](THIRD_PARTY_NOTICES.md)

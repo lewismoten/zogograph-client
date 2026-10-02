@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace HostScope\Plugin\KeyCustody;
+namespace Zogograph\Plugin\KeyCustody;
 
 final class KeyCustodyProvider
 {
@@ -12,7 +12,7 @@ final class KeyCustodyProvider
             'id' => 'zogograph-key-custody',
             'state' => 'unavailable',
             'reason' =>
-                'The isolated HostScope package runtime is not installed.',
+                'The isolated Zogograph package runtime is not installed.',
         ];
     }
 
@@ -109,7 +109,7 @@ final class KeyCustodyProvider
             'id' => 'zogograph-key-custody',
             'state' => 'envelope-stored',
             'reason' =>
-                'The custody service accepted one sealed data-key envelope. The data key and envelope were not returned to HostScope core.',
+                'The custody service accepted one sealed data-key envelope. The data key and envelope were not returned to Zogograph core.',
             'envelope_sha256' => hash('sha256', $envelope),
         ];
     }

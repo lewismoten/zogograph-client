@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace HostScope\Plugin\ReplicaRelay;
+namespace Zogograph\Plugin\ReplicaRelay;
 
 final class ReplicaRelayProvider
 {
@@ -12,7 +12,7 @@ final class ReplicaRelayProvider
             'id' => 'zogograph-replica-relay',
             'state' => 'unavailable',
             'reason' =>
-                'The isolated HostScope package runtime is not installed.',
+                'The isolated Zogograph package runtime is not installed.',
         ];
     }
 

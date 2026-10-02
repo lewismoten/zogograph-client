@@ -735,6 +735,24 @@ try {
         hash_file('sha256', $source) === hash_file('sha256', $opened),
         'opened copy differs from source',
     );
+    $legacySealed = $root . '/legacy.sealed';
+    $legacyOpened = $root . '/legacy-opened.db';
+    copy($sealed, $legacySealed);
+    $legacyHandle = fopen($legacySealed, 'r+b');
+    encryptionExpect(
+        $legacyHandle !== false &&
+            fwrite($legacyHandle, LEGACY_ENCRYPTION_MAGIC) ===
+                strlen(LEGACY_ENCRYPTION_MAGIC),
+        'legacy sealed artifact fixture could not be created',
+    );
+    if (is_resource($legacyHandle)) {
+        fclose($legacyHandle);
+    }
+    encryptionOpenFile($legacySealed, $legacyOpened, $key);
+    encryptionExpect(
+        hash_file('sha256', $source) === hash_file('sha256', $legacyOpened),
+        'legacy sealed artifact could not be recovered',
+    );
     encryptionExpect(
         (fileperms($opened) & 0077) === 0,
         'decrypted recovery output permissions are too broad',

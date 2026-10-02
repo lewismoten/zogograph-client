@@ -16,7 +16,7 @@ services:
     stdin_open: true
     tty: false
     environment:
-      HOSTSCOPE_PACKAGE_SANDBOX: '1'
+      ZOGOGRAPH_PACKAGE_SANDBOX: '1'
     tmpfs:
       - /tmp:rw,noexec,nosuid,nodev,size=16m
     volumes:

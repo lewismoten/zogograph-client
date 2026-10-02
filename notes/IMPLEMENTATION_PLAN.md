@@ -321,9 +321,9 @@ mute expires rather than deletes its operator record. The overview banner now
 honors the same disposition while the unread badge continues to count evidence.
 
 Release artifacts now include a dependency-free CycloneDX SBOM and third-party
-inventory, with a machine-checkable test. Commercial source-visible license
-text remains deliberately blocked on legal-owner approval; [license status](../docs/LICENSE-STATUS.md)
-records the exact decision required rather than falsely claiming a license.
+inventory, with a machine-checkable test. The public client is now released
+under [FSL-1.1-Apache-2.0](../LICENSE); [license information](../docs/LICENSE-STATUS.md)
+records its scope and future Apache-2.0 grant.
 
 New audit records now retain a structured authenticated actor alongside their
 source address; collector-created records identify the collector. Historical

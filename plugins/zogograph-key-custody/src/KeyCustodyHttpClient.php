@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace HostScope\Plugin\KeyCustody;
+namespace Zogograph\Plugin\KeyCustody;
 
 final class KeyCustodyRetryException extends \RuntimeException
 {
@@ -357,9 +357,9 @@ final class KeyCustodyHttpClient
                 CURLOPT_SSL_VERIFYHOST => 2,
                 CURLOPT_HTTPHEADER => [
                     'Authorization: Bearer ' . $this->clientToken,
-                    'X-HostScope-Timestamp: ' . $metadata['timestamp'],
-                    'X-HostScope-Nonce: ' . $metadata['nonce'],
-                    'X-HostScope-Signature: ' . $signature,
+                    'X-Zogograph-Timestamp: ' . $metadata['timestamp'],
+                    'X-Zogograph-Nonce: ' . $metadata['nonce'],
+                    'X-Zogograph-Signature: ' . $signature,
                 ],
             ];
             if ($this->tlsSpkiPin !== null) {

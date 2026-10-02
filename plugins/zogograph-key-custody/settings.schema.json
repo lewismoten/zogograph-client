@@ -1,5 +1,5 @@
 {
-  "title": "HostScope remote key custody",
+  "title": "Zogograph remote key custody",
   "type": "object",
   "additionalProperties": false,
   "required": [

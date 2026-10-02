@@ -59,10 +59,18 @@ try {
         $pdo,
         $config,
         [
-            'peer' => $_SERVER['HTTP_X_HOSTSCOPE_PEER'] ?? '',
-            'timestamp' => $_SERVER['HTTP_X_HOSTSCOPE_TIMESTAMP'] ?? '',
-            'nonce' => $_SERVER['HTTP_X_HOSTSCOPE_NONCE'] ?? '',
-            'signature' => $_SERVER['HTTP_X_HOSTSCOPE_SIGNATURE'] ?? '',
+            'peer' =>
+                $_SERVER['HTTP_X_ZOGOGRAPH_PEER'] ??
+                ($_SERVER['HTTP_X_HOSTSCOPE_PEER'] ?? ''),
+            'timestamp' =>
+                $_SERVER['HTTP_X_ZOGOGRAPH_TIMESTAMP'] ??
+                ($_SERVER['HTTP_X_HOSTSCOPE_TIMESTAMP'] ?? ''),
+            'nonce' =>
+                $_SERVER['HTTP_X_ZOGOGRAPH_NONCE'] ??
+                ($_SERVER['HTTP_X_HOSTSCOPE_NONCE'] ?? ''),
+            'signature' =>
+                $_SERVER['HTTP_X_ZOGOGRAPH_SIGNATURE'] ??
+                ($_SERVER['HTTP_X_HOSTSCOPE_SIGNATURE'] ?? ''),
             'encoding' => $_SERVER['HTTP_CONTENT_ENCODING'] ?? '',
         ],
         $body,

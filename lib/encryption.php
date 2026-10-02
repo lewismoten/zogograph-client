@@ -9,7 +9,8 @@ declare(strict_types=1);
  * is the portable building block for encrypted exports and fleet replicas.
  */
 
-const ENCRYPTION_MAGIC = "HOSTSCOPE-SEAL-1\n";
+const ENCRYPTION_MAGIC = "ZOGOGRAPH-SEAL-2\n";
+const LEGACY_ENCRYPTION_MAGIC = "HOSTSCOPE-SEAL-1\n";
 const ENCRYPTION_CHUNK_BYTES = 1048576;
 
 function encryptionAvailable(): bool
@@ -21,6 +22,13 @@ function encryptionAvailable(): bool
             true,
         ) &&
         openssl_cipher_iv_length('aes-256-gcm') === 12;
+}
+
+/** Accept the retired marker only when opening an existing sealed artifact. */
+function encryptionReadMagic($stream): bool
+{
+    $magic = encryptionReadExact($stream, strlen(ENCRYPTION_MAGIC));
+    return $magic === ENCRYPTION_MAGIC || $magic === LEGACY_ENCRYPTION_MAGIC;
 }
 
 /** Creates a 256-bit local KEK outside the web root. */
@@ -1803,10 +1811,7 @@ function encryptionOpenFile(
         throw new RuntimeException('could not open the sealed-artifact files');
     }
     try {
-        if (
-            encryptionReadExact($in, strlen(ENCRYPTION_MAGIC)) !==
-            ENCRYPTION_MAGIC
-        ) {
+        if (!encryptionReadMagic($in)) {
             throw new RuntimeException(
                 'the artifact is not a Zogograph sealed copy',
             );
@@ -1907,10 +1912,7 @@ function encryptionReadArtifactDataKey(
         throw new RuntimeException('could not open the sealed artifact');
     }
     try {
-        if (
-            encryptionReadExact($in, strlen(ENCRYPTION_MAGIC)) !==
-            ENCRYPTION_MAGIC
-        ) {
+        if (!encryptionReadMagic($in)) {
             throw new RuntimeException(
                 'the artifact is not a Zogograph sealed copy',
             );
@@ -1984,10 +1986,7 @@ function encryptionOpenFileWithDataKey(
         );
     }
     try {
-        if (
-            encryptionReadExact($in, strlen(ENCRYPTION_MAGIC)) !==
-            ENCRYPTION_MAGIC
-        ) {
+        if (!encryptionReadMagic($in)) {
             throw new RuntimeException(
                 'the artifact is not a Zogograph sealed copy',
             );

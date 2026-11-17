@@ -148,6 +148,48 @@ if (!($config['host']['enabled'] ?? true)) {
     exit(1);
 }
 
+/*
+ * One writer at a time, even though the schema only ever expected one.
+ *
+ * WAL mode lets readers run beside a writer without blocking, which is why
+ * ordinary dashboard traffic never collides with this. What it does not cover
+ * is two copies of *this* script: a run that outlasts its own cron interval -
+ * a slow disk walk, a package manager update, a host that is simply busy -
+ * and the next tick starts a second one before the first exits. Two root
+ * writers against one file is a real write-write collision, not a WAL
+ * reader/writer non-event, and it is the thing that actually produces
+ * "database is locked" here.
+ *
+ * A flock held for the process's lifetime is the standard fix and is chosen
+ * over a PID file on purpose: a PID file believes whatever it last wrote, so
+ * a run that is killed without cleaning up leaves a lock nothing will ever
+ * clear. flock releases the instant the holding process exits for any reason,
+ * including a crash or `kill -9`, because the kernel owns the lock rather
+ * than the file's contents.
+ *
+ * Skipping a tick rather than queuing: a --collect that waited behind a slow
+ * --disk walk would write its reading late and under whatever load caused the
+ * walk to run long in the first place, which is exactly the wrong moment to
+ * get a wrong number. A reading skipped once a conflict actually happens is
+ * honest; a reading taken late and mislabeled as now is not.
+ */
+$lockFile = dirname(hostDatabasePath($config)) . '/host-cron.lock';
+$lockHandle = @fopen($lockFile, 'c');
+if ($lockHandle === false) {
+    fwrite(STDERR, "Unable to open $lockFile for the run lock.\n");
+    exit(1);
+}
+if (!flock($lockHandle, LOCK_EX | LOCK_NB)) {
+    // Not an error: the previous run is still going, and this tick yields to it.
+    $say('Skipped: a previous host-cron.php run is still in progress.');
+    exit(0);
+}
+@chmod($lockFile, 0600);
+register_shutdown_function(static function () use ($lockHandle): void {
+    flock($lockHandle, LOCK_UN);
+    fclose($lockHandle);
+});
+
 try {
     $pdo = hostDb($config, true);
     $runPdo = $pdo;
@@ -167,7 +209,39 @@ try {
      */
     $collectFailure = null;
 
-    if ($doCollect) {
+    /*
+     * A per-minute crontab line runs this five times for every reading the
+     * schema was designed to keep.
+     *
+     * hostCronLine() above generates "every five minutes" and says why - a
+     * full reading walks every process, every slab cache and every service
+     * unit, which is not free on a busy box and does not change meaningfully
+     * inside a minute. A crontab edited to run it more often than that (by
+     * hand, by a templated WHM task, by copying a line from somewhere that
+     * used to want faster vitals) quietly multiplies both the write rate
+     * against host.db - more chances for this run to overlap the next one -
+     * and its steady-state size, since every one of those tables keeps rows
+     * for a number of *days*, not a number of samples.
+     *
+     * Gated here rather than only documented, because a crontab is easy to
+     * get wrong and hard to audit from inside the product that suffers for
+     * it. `--force` exists for the person running this by hand who wants a
+     * reading right now and does not care that one was taken forty seconds
+     * ago.
+     */
+    $collectIntervalSeconds = (int)($config['host']['collect_interval_seconds'] ?? 300);
+    $lastSampleAt = (int)($pdo->query('SELECT COALESCE(MAX(taken_at), 0) FROM host_samples')->fetchColumn());
+    $dueForCollect = $want('--force') || (time() - $lastSampleAt) >= $collectIntervalSeconds;
+
+    if ($doCollect && !$dueForCollect) {
+        $say(sprintf(
+            'Skipped collection: last reading was %ds ago, interval is %ds. Use --force to override.',
+            time() - $lastSampleAt,
+            $collectIntervalSeconds
+        ));
+    }
+
+    if ($doCollect && $dueForCollect) {
         try {
             $result = hostTakeReading($config, $pdo, 'cron');
             // Ownership is re-applied every run, not only at creation: WAL and

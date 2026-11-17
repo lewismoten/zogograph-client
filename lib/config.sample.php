@@ -1165,6 +1165,20 @@ return [
         'keep_days' => 14,
 
         /*
+         * How often `--collect` actually takes a reading, in seconds.
+         *
+         * hostCronLine() recommends a crontab entry of "every five minutes"
+         * because a full reading walks every process, slab cache and
+         * service unit, which isn't free and doesn't change meaningfully
+         * inside a minute. This gate enforces that regardless of what
+         * schedule ends up installed - a crontab edited to run more often
+         * only multiplies write-write collision risk and every days-based
+         * retention table's steady-state size. `--force` bypasses it for a
+         * manual run.
+         */
+        'collect_interval_seconds' => 300,
+
+        /*
          * The disk walk, run by `php host-cron.php --disk`.
          *
          * Its own command and its own schedule, because it takes tens of

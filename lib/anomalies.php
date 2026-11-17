@@ -1227,7 +1227,19 @@ function hostAnomalies(PDO $host, array $rules): array
 
     $series = [];
     $current = [];
-    foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
+    /*
+     * Streamed, not fetchAll()'d.
+     *
+     * At the service baseline's default of seven days this can be tens of
+     * thousands of rows, and the loop below only ever needs one of them at a
+     * time to build $series and $current - materialising the whole result
+     * into a second PHP array first means holding both copies in memory at
+     * once for no reason. Iterating the statement directly keeps SQLite
+     * handing rows over one at a time, which is the entire difference: same
+     * query, same result, a fraction of the peak memory on an install old
+     * enough to have a week of this table.
+     */
+    foreach ($stmt as $row) {
         $name = (string) $row['name'];
 
         if ((int) $row['taken_at'] === $latest) {

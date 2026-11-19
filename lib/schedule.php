@@ -374,7 +374,10 @@ function cronJobs(): array
 {
     return [
         'vitals' => ['--vitals', '--alerts', '--quiet'],
-        'scan' => ['--scan', '--alerts', '--prune', '--quiet'],
+        // Retention moved to prune.php, which has its own lock and its own
+        // schedule - see that file. Carrying --prune here again would put
+        // the same unbounded sweep back on the every-minute vitals line.
+        'scan' => ['--scan', '--alerts', '--quiet'],
     ];
 }
 
@@ -651,13 +654,47 @@ function cronEditorBuildJobLines(
     return $lines;
 }
 
+/**
+ * Flags recognized as installed even though cronJobs() no longer lists them.
+ *
+ * --prune moved off the scan line into prune.php's own schedule (see that
+ * file). An install upgraded to this codebase still has the old line in its
+ * crontab until the dashboard rewrites it, and the dashboard can only offer
+ * to replace a line it first recognizes as the job it replaces - so the old
+ * flag has to keep matching here even though cronJobs() has dropped it.
+ */
+function cronLegacyFlags(): array
+{
+    return [
+        'scan' => ['--prune'],
+    ];
+}
+
+/** Strips $job's recognized legacy flags out of a crontab line's tail. */
+function cronStripLegacyFlags(string $job, string $line): string
+{
+    foreach (cronLegacyFlags()[$job] ?? [] as $flag) {
+        $line = trim((string) preg_replace(
+            '/\s+' . preg_quote($flag, '/') . '(?=\s|$)/',
+            '',
+            $line,
+        ));
+    }
+    return $line;
+}
+
 /** @return array<string, ?string> Extracts current managed lines by fixed job flags. */
 function cronEditorInstalledJobLines(array $lines): array
 {
     $out = array_fill_keys(array_keys(cronJobs()), null);
     foreach (cronJobs() as $job => $flags) {
+        $suffix = implode(' ', $flags);
         foreach ($lines as $line) {
-            if (str_ends_with(trim((string) $line), implode(' ', $flags))) {
+            $trimmed = trim((string) $line);
+            if (
+                str_ends_with($trimmed, $suffix) ||
+                str_ends_with(cronStripLegacyFlags($job, $trimmed), $suffix)
+            ) {
                 $out[$job] = (string) $line;
             }
         }
@@ -684,7 +721,8 @@ function cronEditorApplyJob(
     $kept = array_values(
         array_filter(
             managedBlock($current['raw']),
-            static fn(string $old): bool => !str_ends_with(trim($old), $suffix),
+            static fn(string $old): bool => !str_ends_with(trim($old), $suffix) &&
+                !str_ends_with(cronStripLegacyFlags($job, trim($old)), $suffix),
         ),
     );
     if ($line !== null) {

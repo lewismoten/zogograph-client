@@ -122,8 +122,11 @@ Use absolute paths, and replace both placeholders with your own paths:
 # Cheap system and account readings, plus alert evaluation.
 * * * * * /absolute/path/to/php /absolute/path/to/zogograph/cron.php --vitals --alerts --quiet
 
-# Full storage scan and retention cleanup.
-7 * * * * /absolute/path/to/php /absolute/path/to/zogograph/cron.php --scan --alerts --prune --quiet
+# Full storage scan, then alerts again now the numbers have moved.
+7 * * * * /absolute/path/to/php /absolute/path/to/zogograph/cron.php --scan --alerts --quiet
+
+# Retention, on its own line and its own lock - see prune.php's header.
+7 * * * * /absolute/path/to/php /absolute/path/to/zogograph/prune.php --quiet
 ```
 
 `--quiet` keeps successful cron runs silent and reports failures through cron's

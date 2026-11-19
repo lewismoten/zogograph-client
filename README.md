@@ -196,7 +196,11 @@ By hand it is two lines, because the two jobs run on different clocks:
 * * * * * /usr/local/bin/php ~/public_html/stats.example.com/cron.php --vitals --alerts --quiet
 
 # A full scan every hour, then alerts again now the per-path numbers have moved.
-7 * * * * /usr/local/bin/php ~/public_html/stats.example.com/cron.php --scan --alerts --prune --quiet
+7 * * * * /usr/local/bin/php ~/public_html/stats.example.com/cron.php --scan --alerts --quiet
+
+# Retention, on its own line and its own lock - see prune.php's header for why
+# this is not a --prune flag on the line above any more.
+7 * * * * /usr/local/bin/php ~/public_html/stats.example.com/prune.php --quiet
 ```
 
 `--quiet` says nothing unless something goes wrong, so cron only mails you about
@@ -204,7 +208,7 @@ real failures. Run `which php` to find the CLI binary; it is often not the one
 the web server uses.
 
 Vitals every minute is roughly half a megabyte of database a week before
-pruning. `--prune` keeps the last two weeks at full resolution, thins everything
+pruning. `prune.php` keeps the last two weeks at full resolution, thins everything
 older to one reading an hour, and drops anything past about a year.
 
 There is a third line, and it belongs to **root** rather than to your account:
@@ -244,7 +248,7 @@ without knowing any syntax.
 Every 4 hours from 4:07am gives:
 
 ```cron
-7 0,4,8,12,16,20 * * * '/path/php' '/path/cron.php' --scan --alerts --prune --quiet
+7 0,4,8,12,16,20 * * * '/path/php' '/path/cron.php' --scan --alerts --quiet
 ```
 
 Intervals available: vitals every 1, 2, 5, 10, 15 or 30 minutes, or hourly;
@@ -379,7 +383,7 @@ pinned the CPU at four in the morning; in the morning there is an answer.
 
 It only records while the machine is busy. A row per process per minute would be
 a table growing faster than anything it could warn you about, and the three
-minutes the CPU was pinned is small and is the only part anybody reads. `--prune`
+minutes the CPU was pinned is small and is the only part anybody reads. `prune.php`
 drops old rows with everything else.
 
 Signed-in only, like the log viewer, and for the same reason: a command line is

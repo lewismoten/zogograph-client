@@ -108,7 +108,7 @@ if (in_array('--help', $jobs, true) || in_array('-h', $jobs, true)) {
       php cron.php --rdns       resolve one waiting address (also part of --vitals)
       php cron.php --domains    look up domain expiry for any that are due
       php cron.php --alerts     evaluate the rules, email if anything tripped
-      php cron.php --prune      thin readings older than the retention window
+      php cron.php --prune      (moved to prune.php - see that file)
       php cron.php --seal       create opted-in encrypted SQLite copies
       php cron.php --verify-sealed  re-authenticate retained encrypted copies
       php cron.php --recovery-drill  record a non-destructive selected-store recovery proof
@@ -386,7 +386,7 @@ try {
     }
 
     if ($wants('--prune')) {
-        $say('prune   ' . prune($config, $pdo));
+        $say('prune   moved to prune.php - run that instead (nothing ran here).');
     }
 
     if ($wants('--vitals')) {
@@ -549,90 +549,10 @@ function sendReportEmail(
     return (bool) $sent;
 }
 
-/**
- * Drops readings that are too old to be interesting.
- *
- * Vitals once a minute is half a million rows a year. SQLite does not care, but
- * a chart does, and so does the phone loading it. The recent past is kept at
- * full resolution; the older past is thinned to one reading an hour rather than
- * deleted, because "when did this start" is a question about months ago.
+/*
+ * The retention sweep used to live here, run inline inside an unbounded
+ * transaction with no lock against the every-minute --vitals tick. It is now
+ * prune.php, on its own schedule, with its own lock and its own batching -
+ * see that file for why.
  */
-function prune(array $config, PDO $pdo): string
-{
-    $rules = retentionRules($config);
-    $now = time();
-
-    $pdo->beginTransaction();
-
-    /*
-     * Readings are compacted rather than thinned.
-     *
-     * The old rule kept the first reading of each hour and dropped the other
-     * fifty-nine, so a spike at twenty past survived one time in sixty - and a
-     * spike is most of the reason to keep a year of history at all. See
-     * lib/retention.php: a compacted row now carries the worst moment in its
-     * bucket rather than an arbitrary one.
-     */
-    $vitals = compactVitals($pdo, $rules, $now);
-
-    $ancient = fn(string $key): ?int => (int) $rules[$key] > 0
-        ? $now - (int) $rules[$key] * 86400
-        : null;
-
-    $scanCount = 0;
-    if (($cut = $ancient('scan_days')) !== null) {
-        // Scans cascade to their totals and their path sizes.
-        $scans = $pdo->prepare('DELETE FROM scans WHERE started_at < ?');
-        $scans->execute([$cut]);
-        $scanCount = $scans->rowCount();
-    }
-
-    $processCount = 0;
-    if (($cut = $ancient('process_days')) !== null) {
-        $processes = $pdo->prepare(
-            'DELETE FROM process_samples WHERE taken_at < ?',
-        );
-        $processes->execute([$cut]);
-        $processCount = $processes->rowCount();
-    }
-
-    /*
-     * Incidents are kept for ever by default, and separately from everything
-     * else, because they are the evidence. One per alerting evaluation rather
-     * than one per reading, so even a bad year is a few hundred rows.
-     */
-    $incidentCount =
-        (int) $rules['incident_days'] > 0
-            ? pruneIncidents($pdo, (int) $rules['incident_days'])
-            : 0;
-
-    // A path nothing refers to any more is history nobody can ask about.
-    $paths = $pdo->exec(
-        'DELETE FROM paths
-         WHERE id NOT IN (SELECT path_id FROM path_sizes)
-           AND id NOT IN (SELECT path_id FROM alerts WHERE path_id IS NOT NULL)',
-    );
-
-    $pdo->commit();
-
-    // After the commit, never during: SQLite will not VACUUM inside a
-    // transaction, and it needs room for a second copy while it runs.
-    $reclaimed = reclaimSpace($pdo);
-
-    return sprintf(
-        'compacted %d buckets (5m %d, 1h %d, 1d %d) removing %d readings; ' .
-            'kept %d around alerts; dropped %d scans, %d paths, %d process rows, %d incidents; %s',
-        $vitals['compacted'],
-        $vitals['tiers']['five_minute'] ?? 0,
-        $vitals['tiers']['hourly'] ?? 0,
-        $vitals['tiers']['daily'] ?? 0,
-        $vitals['removed'],
-        protectedReadings($pdo, max(0, (int) $rules['protect_hours']) * 3600),
-        $scanCount,
-        (int) $paths,
-        $processCount,
-        $incidentCount,
-        $reclaimed,
-    );
-}
 
